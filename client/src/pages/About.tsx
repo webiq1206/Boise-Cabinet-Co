@@ -232,11 +232,11 @@ export default function About() {
             <p className="text-lg text-muted-foreground">
               Join hundreds of satisfied customers across the Treasure Valley. Get your free quote today.
             </p>
-            <Link href="/contact">
-              <Button size="lg" className="text-base" data-testid="button-get-quote">
+            <Button size="lg" asChild data-testid="button-get-quote">
+              <Link href="/contact">
                 Get Your Free Quote
-              </Button>
-            </Link>
+              </Link>
+            </Button>
           </div>
         </div>
       </section>

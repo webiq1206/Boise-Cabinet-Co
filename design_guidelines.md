@@ -1,14 +1,14 @@
-# Lawn Care Kuna Website Design Guidelines
+# Lawn Care Kuna Premium Design Guidelines
 
 ## Design Approach
 
-**Reference-Based Approach** inspired by professional home service providers (HomeAdvisor, Angi, local service leaders) combined with clean utility patterns for ease of navigation across 50+ service pages.
+**Reference-Based Approach** inspired by luxury landscaping firms (Yardzen, KLC Landscaping) and high-end home service providers. Editorial sophistication meets functional service navigation.
 
 **Core Principles:**
-- Trust-first design with prominent contact information
-- Service clarity over visual flourish
-- Quick access to quotes and contact
-- Professional credibility without team photos
+- Premium positioning through restrained elegance
+- Editorial layouts with generous whitespace
+- Cinematic photography with dark overlays
+- Trust through understated professionalism
 - Effortless navigation through extensive service catalog
 
 ---
@@ -16,181 +16,187 @@
 ## Typography System
 
 **Font Stack:** Google Fonts
-- **Primary:** Inter (headings, navigation, CTAs)
-- **Secondary:** Inter (body text, service descriptions)
+- **Primary (Headings):** Playfair Display - elegant serif conveying sophistication
+- **Secondary (Body/UI):** Inter - clean, professional sans-serif
 
 **Hierarchy:**
-- H1: text-4xl md:text-5xl lg:text-6xl, font-bold
-- H2: text-3xl md:text-4xl, font-bold
-- H3: text-2xl md:text-3xl, font-semibold
-- H4: text-xl md:text-2xl, font-semibold
-- Body Large: text-lg, font-normal
-- Body: text-base, font-normal
-- Small: text-sm, font-normal
+- H1: text-5xl md:text-6xl lg:text-7xl, font-serif
+- H2: text-4xl md:text-5xl, font-serif
+- H3: text-2xl md:text-3xl, font-serif, font-medium
+- H4: text-xl md:text-2xl, font-sans, font-semibold
+- Body Large: text-lg, font-sans, leading-relaxed
+- Body: text-base, font-sans, leading-relaxed
+- Small: text-sm, font-sans
 
 ---
 
 ## Layout System
 
-**Spacing Primitives:** Use Tailwind units 2, 4, 8, 12, 16, 20, 24, 32
-- Component padding: p-4 to p-8
-- Section spacing: py-16 md:py-24 lg:py-32
-- Container max-width: max-w-7xl
-- Content max-width: max-w-4xl
-- Grid gaps: gap-6 md:gap-8 lg:gap-12
+**Spacing Primitives:** Tailwind units 4, 8, 12, 16, 24, 32, 40, 48
+- Generous section spacing: py-24 md:py-32 lg:py-48
+- Component padding: p-8 to p-12
+- Container: max-w-7xl with px-8 md:px-12
+- Content: max-w-4xl for text-heavy sections
+- Grid gaps: gap-8 md:gap-12 lg:gap-16
 
 ---
 
 ## Component Library
 
 ### Navigation
-- **Desktop:** Full horizontal navigation with mega-dropdown for services (organized by category: Lawn Care, Landscaping, Christmas Lights, Commercial)
-- **Sticky header** with phone number and "Get Free Quote" CTA always visible
-- **Mobile:** Hamburger menu with expandable service categories
-- Phone: (208) 352-2011 - click-to-call enabled
-- CTA Button: "Get Free Quote" - prominent, high contrast
+- **Desktop:** Minimal header with refined mega-dropdown, subtle divider lines between categories
+- Sticky header with elegant underline separator
+- **Mobile:** Full-screen overlay menu with generous spacing
+- Phone: (208) 352-2011 displayed with subtle sophistication
+- CTA: "Request Consultation" in understated styling
 
 ### Hero Section (Homepage)
-- **Full-width hero** with background image (lawn transformation, professional crew at work)
-- Height: 70vh on desktop, 60vh on tablet, 50vh on mobile
-- **Centered content overlay** with semi-transparent backdrop blur
-- H1: "Most Trusted Lawn Care Services In Kuna"
-- Subheading highlighting key value props
-- Dual CTAs: Primary "Get Free Quote", Secondary "Call (208) 352-2011"
-- Service area badges below CTAs (Kuna • Boise • Meridian • Nampa • Caldwell • Eagle)
+- **Cinematic full-width hero**: 85vh on desktop, 70vh mobile
+- Dark overlay (bg-black/60) over monochrome/desaturated photography
+- Centered content with maximum breathing room
+- Refined backdrop blur on text container
+- H1 with generous letter-spacing
+- Single refined CTA below headline
+- Subtle service area badges with delicate borders
 
 ### Service Cards
-- **Grid Layout:** 3 columns on desktop (grid-cols-1 md:grid-cols-2 lg:grid-cols-3)
-- Card structure: Icon/image at top, service name (H3), brief description, "Learn More" link
-- Hover state: Subtle elevation (shadow-lg on hover)
-- Consistent card height with flexbox
+- **Masonry-inspired grid:** 2 columns desktop, single column mobile
+- Elegant border treatment (border with subtle shadow)
+- Monochrome service imagery with hover opacity shift
+- Icon integration using outline Heroicons
+- Ample internal padding (p-8 to p-12)
+- "Explore Service" link in understated typography
 
-### Trust Indicators Section
-- **4-column grid** on desktop (grid-cols-2 lg:grid-cols-4)
-- Icons: Since 2017, Licensed & Insured, Free Quotes, Local Experts
-- Icon + Heading + Description format
-- Icons from Heroicons (outline style)
+### Trust Indicators
+- **3-column layout** with generous spacing
+- Refined iconography with delicate line weights
+- Understated presentation focusing on substance
+- Minimal visual treatment, maximum readability
 
 ### Service Detail Pages
-- **Breadcrumb navigation** at top
-- Hero section with service-specific image (h-64 md:h-96)
-- Two-column layout: Service description (66% width) + Quote form sidebar (33% width) on desktop
-- Service benefits list with checkmark icons
-- "Related Services" section at bottom (3-column grid)
-- Geo-targeted content sections for each service area
+- **Editorial two-column layout:** 60% content, 40% sidebar with quote form
+- Large leading paragraph in Body Large typography
+- Service benefits presented as elegant list with subtle checkmarks
+- Monochrome before/after comparison sliders
+- Related services in refined 2-column grid
+- Breadcrumbs with minimal styling
 
 ### Quote Form Component
-- **Sticky sidebar** on service pages (stays visible on scroll)
-- Fields: Name, Email, Phone, Service Type (dropdown), Property Size, Message
-- Large, high-contrast submit button
-- Trust badge: "Free, No-Obligation Quote"
-- Form validation with inline error messages
+- **Elevated sidebar design** with subtle border and soft shadow
+- Generous field spacing (space-y-6)
+- Refined input styling with delicate borders
+- Large, elegant submit button with subtle hover state
+- Trust statement in refined small typography
 
 ### Commercial Services Section
-- **Dedicated layout** emphasizing scale and professionalism
-- Client type tabs: HOA, Property Management, Municipal, Commercial
-- Service grid with expandable details
-- Portfolio gallery (if images available) in masonry layout
-- "Request Commercial Quote" CTA
+- **Premium presentation** emphasizing scale and expertise
+- Segmented by client type with refined tab navigation
+- Portfolio presented in editorial masonry layout
+- Cinematic project photography
+- "Schedule Consultation" CTA
 
 ### Footer
-- **4-column layout** on desktop, stacked on mobile
-  - Column 1: Logo, tagline, contact info
-  - Column 2: Quick Links (Services, About, Contact, Service Areas)
-  - Column 3: Service Categories (with 3-4 top services each)
-  - Column 4: Service Areas list
-- Legal disclaimer: "Lawn Care Kuna reserves the right to subcontract services as needed to ensure quality service delivery."
-- Copyright and business info
+- **Editorial 4-column layout** with generous vertical spacing
+- Refined typography hierarchy
+- Delicate divider lines between sections
+- Legal disclaimer in subtle small text
+- Minimal visual treatment, maximum clarity
 
 ---
 
 ## Images Strategy
 
-### Required Images
-1. **Homepage Hero:** Professional crew working on pristine lawn, wide-angle shot showing transformation
-2. **Lawn Care Landing:** Before/after lawn comparison or mowing action shot
-3. **Landscaping Landing:** Completed hardscape project (patio, retaining wall, or water feature)
-4. **Christmas Lights Landing:** Beautifully lit home at twilight/night
-5. **Commercial Services:** Large property (HOA common area, office building)
-6. **Service Detail Pages:** Service-specific action shots or completed work
+### Photography Treatment
+- **Monochrome or heavily desaturated** color palette
+- Professional, editorial quality only
+- Cinematic compositions with dramatic lighting
+- Dark overlays (bg-black/50 to bg-black/60) on all hero images
 
-### Image Treatment
-- All hero images: Subtle overlay (bg-black/40) for text readability
-- Service cards: 16:9 aspect ratio
-- Before/after sections: Side-by-side comparison sliders
-- Use placeholder comments for custom imagery: `<!-- IMAGE: Professional lawn mowing crew, bright sunny day, Kuna Idaho home -->`
+### Required Images
+1. **Homepage Hero:** Wide-angle estate lawn at golden hour, cinematic depth
+2. **Lawn Care Landing:** Professional crew on pristine property, desaturated treatment
+3. **Landscaping Landing:** Elegant hardscape with sophisticated plantings, twilight
+4. **Christmas Lights Landing:** Upscale home illuminated at night, refined aesthetic
+5. **Commercial Landing:** Premium office complex or HOA property, aerial perspective
+6. **Service Pages:** Editorial-style service photography, monochrome treatment
+
+### Implementation
+- Hero images: Full-width, 85vh homepage, 70vh service pages
+- Service cards: 4:3 aspect ratio with elegant borders
+- Before/after: Side-by-side sliders with refined controls
+- All images: `<!-- IMAGE: [Description with cinematic, upscale direction] -->`
 
 ---
 
-## Page-Specific Layouts
+## Page Layouts
 
-### Homepage Sections (in order)
-1. Hero with dual CTAs
-2. Core Services Overview (3x2 grid, 6 main services)
-3. Trust Indicators (4-column)
-4. Service Areas Map/List
-5. Why Choose Us (2-column: benefits list + image)
-6. Latest Projects/Transformations (3-column gallery)
-7. Testimonials (if available) (2-column cards)
-8. Final CTA section with quote form
-9. Footer
+### Homepage Sections
+1. Cinematic hero with dark overlay, single CTA
+2. Introduction paragraph (centered, max-w-3xl, editorial spacing)
+3. Core services masonry grid (2-column)
+4. Trust indicators (3-column, refined presentation)
+5. Service areas (elegant map integration or refined list)
+6. Portfolio showcase (4-image masonry grid, monochrome)
+7. Testimonial editorial cards (2-column, generous quotes)
+8. Final consultation CTA with cinematic background image
+9. Refined footer
 
 ### Service Landing Pages
-1. Service-specific hero (h-96)
-2. Service overview paragraph
-3. Service categories grid (for Lawn Care: Mowing, Aeration, Fertilization, etc.)
-4. Benefits section
-5. Service process (numbered steps)
-6. Pricing guidance (if applicable)
-7. Related services
-8. CTA section
+1. Cinematic hero (70vh) with service-specific monochrome imagery
+2. Editorial introduction (centered, generous line-height)
+3. Service categories in refined 2-column grid
+4. Benefits section with elegant checkmark list
+5. Process timeline with sophisticated stepped layout
+6. Portfolio examples (masonry grid)
+7. Related services (2-column refined cards)
+8. Consultation CTA section
 
-### Individual Service Detail Pages
-1. Breadcrumb navigation
-2. Service hero with sidebar quote form
-3. Detailed service description
-4. Benefits/Features list
-5. Service process steps
-6. FAQ section (3-4 questions)
-7. Geo-targeted sections (appears on location-specific pages)
-8. Related services grid
-9. CTA section
-
----
-
-## Navigation Mega Menu Structure
-
-**Services Dropdown (organized in 4 columns):**
-- Column 1: Lawn Care (top 8 services)
-- Column 2: Landscaping (top 8 services)
-- Column 3: Christmas Lights + Specialty
-- Column 4: Commercial Services (HOA, Property Mgmt, Municipal)
-
-**Bottom of mega menu:** "View All Services" link
+### Service Detail Pages
+1. Minimal breadcrumb navigation
+2. Two-column editorial layout (content + sidebar form)
+3. Large opening paragraph
+4. Detailed service description with elegant typography
+5. Benefits list with refined styling
+6. FAQ accordion with subtle animations
+7. Related services grid
+8. Consultation CTA
 
 ---
 
-## Call-to-Action Strategy
+## Navigation Structure
 
-**Primary CTA:** "Get Free Quote" - appears in header, hero, service pages, footer
-**Secondary CTA:** Phone number - always visible in header
-**Tertiary CTAs:** Service-specific "Learn More" links
+**Services Mega Menu (4 columns with refined dividers):**
+- Lawn Care Services (8 top offerings)
+- Landscaping Services (8 top offerings)
+- Specialty Services (Christmas Lights + seasonal)
+- Commercial Solutions (HOA, Property Management, Municipal)
 
-**CTA Button Styling:**
-- Large touch targets: px-8 py-4
-- Bold, clear text: font-semibold text-lg
-- Rounded corners: rounded-lg
-- Buttons over images: backdrop-blur-sm with semi-transparent background
+Footer link: "View Complete Services" in refined typography
+
+---
+
+## CTA Strategy
+
+**Primary:** "Request Consultation" - elegant, understated
+**Secondary:** Phone number with refined presentation
+**Tertiary:** "Learn More" links in subtle styling
+
+**Button Treatment:**
+- Refined proportions: px-8 py-4
+- Delicate borders with soft shadows
+- Over images: backdrop-blur-md with semi-transparent background
+- No heavy rounding: rounded-md
+- Sophisticated hover states (subtle opacity/shadow shifts)
 
 ---
 
 ## Accessibility & UX
 
-- Maintain WCAG 2.1 AA contrast ratios throughout
-- Focus states visible on all interactive elements (ring-2 ring-offset-2)
-- Mobile-first responsive design
-- Click-to-call phone links on mobile
-- Fast-loading images (lazy loading after fold)
-- Clear visual hierarchy on service pages with 50+ individual pages
-- Breadcrumb navigation on all interior pages
-- Skip-to-content link for screen readers
+- WCAG 2.1 AA compliance with refined color treatments
+- Generous focus states (ring-2 with elegant offset)
+- Mobile-optimized with maintained sophistication
+- Click-to-call functionality
+- Optimized image loading with maintained quality
+- Clear hierarchy across 50+ service pages
+- Breadcrumb navigation with minimal styling
+- Restrained animations (subtle fades, no bounces)

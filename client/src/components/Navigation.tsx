@@ -46,82 +46,84 @@ export function Navigation() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <nav className="container flex h-16 items-center justify-between px-4">
-        <Link href="/" className="flex items-center space-x-2">
-          <span className="text-xl md:text-2xl font-bold text-primary">
+    <header className="sticky top-0 z-50 w-full border-b bg-background/98 backdrop-blur supports-[backdrop-filter]:bg-background/95">
+      <nav className="container flex h-20 items-center justify-between px-8 md:px-12">
+        <Link href="/" className="flex items-center">
+          <span className="text-2xl font-serif text-primary font-medium tracking-tight">
             Lawn Care Kuna
           </span>
         </Link>
 
         {/* Desktop Navigation */}
-        <div className="hidden lg:flex items-center space-x-6">
+        <div className="hidden lg:flex items-center gap-8">
           <NavigationMenu>
-            <NavigationMenuList>
+            <NavigationMenuList className="gap-2">
               <NavigationMenuItem>
                 <Link href="/">
-                  <NavigationMenuLink
-                    className={`px-4 py-2 text-sm font-medium transition-colors hover:text-primary ${
-                      location === "/" ? "text-primary" : "text-foreground"
+                  <span
+                    className={`px-4 py-2 text-sm font-medium transition-colors cursor-pointer ${
+                      location === "/" ? "text-primary" : "text-foreground/80 hover:text-foreground"
                     }`}
                     data-testid="nav-home"
                   >
                     Home
-                  </NavigationMenuLink>
+                  </span>
                 </Link>
               </NavigationMenuItem>
 
               <NavigationMenuItem>
-                <NavigationMenuTrigger data-testid="nav-services">Services</NavigationMenuTrigger>
+                <NavigationMenuTrigger className="text-foreground/80 hover:text-foreground" data-testid="nav-services">
+                  Services
+                </NavigationMenuTrigger>
                 <NavigationMenuContent>
-                  <div className="grid w-[800px] gap-3 p-6 md:grid-cols-3">
-                    <div>
-                      <h3 className="mb-2 text-sm font-semibold text-foreground">Lawn Care</h3>
-                      <ul className="space-y-1">
+                  <div className="grid w-[800px] gap-6 p-8 md:grid-cols-3">
+                    <div className="space-y-4">
+                      <h3 className="text-sm font-semibold text-foreground tracking-wide uppercase mb-3">Lawn Care</h3>
+                      <ul className="space-y-1.5">
                         {lawnCareServices.map((service) => (
                           <li key={service.href}>
                             <Link href={service.href}>
-                              <a className="block select-none space-y-1 rounded-md p-2 leading-none no-underline outline-none transition-colors hover-elevate text-sm" data-testid={`link-${service.name.toLowerCase().replace(/\s+/g, '-')}`}>
+                              <span className="block select-none rounded-md px-3 py-2 text-sm leading-none transition-colors hover-elevate cursor-pointer" data-testid={`link-${service.name.toLowerCase().replace(/\s+/g, '-')}`}>
                                 {service.name}
-                              </a>
+                              </span>
                             </Link>
                           </li>
                         ))}
                       </ul>
                     </div>
-                    <div>
-                      <h3 className="mb-2 text-sm font-semibold text-foreground">Landscaping</h3>
-                      <ul className="space-y-1">
+                    <div className="space-y-4">
+                      <h3 className="text-sm font-semibold text-foreground tracking-wide uppercase mb-3">Landscaping</h3>
+                      <ul className="space-y-1.5">
                         {landscapingServices.map((service) => (
                           <li key={service.href}>
                             <Link href={service.href}>
-                              <a className="block select-none space-y-1 rounded-md p-2 leading-none no-underline outline-none transition-colors hover-elevate text-sm" data-testid={`link-${service.name.toLowerCase().replace(/\s+/g, '-')}`}>
+                              <span className="block select-none rounded-md px-3 py-2 text-sm leading-none transition-colors hover-elevate cursor-pointer" data-testid={`link-${service.name.toLowerCase().replace(/\s+/g, '-')}`}>
                                 {service.name}
-                              </a>
+                              </span>
                             </Link>
                           </li>
                         ))}
                       </ul>
                     </div>
-                    <div>
-                      <h3 className="mb-2 text-sm font-semibold text-foreground">Specialty</h3>
-                      <ul className="space-y-1">
+                    <div className="space-y-4">
+                      <h3 className="text-sm font-semibold text-foreground tracking-wide uppercase mb-3">Specialty</h3>
+                      <ul className="space-y-1.5 mb-6">
                         <li>
                           <Link href="/services/christmas-lights">
-                            <a className="block select-none space-y-1 rounded-md p-2 leading-none no-underline outline-none transition-colors hover-elevate text-sm" data-testid="link-christmas-lights">
+                            <span className="block select-none rounded-md px-3 py-2 text-sm leading-none transition-colors hover-elevate cursor-pointer" data-testid="link-christmas-lights">
                               Christmas Lights
-                            </a>
+                            </span>
                           </Link>
                         </li>
                       </ul>
-                      <h3 className="mb-2 mt-4 text-sm font-semibold text-foreground">Commercial</h3>
-                      <ul className="space-y-1">
+                      <h3 className="text-sm font-semibold text-foreground tracking-wide uppercase mb-3">Commercial</h3>
+                      <ul className="space-y-1.5">
                         {commercialServices.map((service) => (
                           <li key={service.href}>
                             <Link href={service.href}>
-                              <a className="block select-none space-y-1 rounded-md p-2 leading-none no-underline outline-none transition-colors hover-elevate text-sm" data-testid={`link-${service.name.toLowerCase().replace(/\s+/g, '-')}`}>
+                              <span className="block select-none rounded-md px-3 py-2 text-sm leading-none transition-colors hover-elevate cursor-pointer" data-testid={`link-${service.name.toLowerCase().replace(/\s+/g, '-')}`}>
                                 {service.name}
-                              </a>
+                              </span>
                             </Link>
                           </li>
                         ))}
@@ -133,115 +135,127 @@ export function Navigation() {
 
               <NavigationMenuItem>
                 <Link href="/about">
-                  <NavigationMenuLink
-                    className={`px-4 py-2 text-sm font-medium transition-colors hover:text-primary ${
-                      location === "/about" ? "text-primary" : "text-foreground"
+                  <span
+                    className={`px-4 py-2 text-sm font-medium transition-colors cursor-pointer ${
+                      location === "/about" ? "text-primary" : "text-foreground/80 hover:text-foreground"
                     }`}
                     data-testid="nav-about"
                   >
                     About
-                  </NavigationMenuLink>
+                  </span>
                 </Link>
               </NavigationMenuItem>
 
               <NavigationMenuItem>
                 <Link href="/contact">
-                  <NavigationMenuLink
-                    className={`px-4 py-2 text-sm font-medium transition-colors hover:text-primary ${
-                      location === "/contact" ? "text-primary" : "text-foreground"
+                  <span
+                    className={`px-4 py-2 text-sm font-medium transition-colors cursor-pointer ${
+                      location === "/contact" ? "text-primary" : "text-foreground/80 hover:text-foreground"
                     }`}
                     data-testid="nav-contact"
                   >
                     Contact
-                  </NavigationMenuLink>
+                  </span>
                 </Link>
               </NavigationMenuItem>
             </NavigationMenuList>
           </NavigationMenu>
 
-          <a href="tel:2083522011" className="flex items-center gap-2">
-            <Button variant="outline" size="sm" data-testid="button-call-desktop">
-              <Phone className="h-4 w-4" />
-              <span className="hidden xl:inline">(208) 352-2011</span>
+          <div className="flex items-center gap-3 border-l pl-8">
+            <Button variant="ghost" size="sm" asChild data-testid="button-call-desktop">
+              <a href="tel:2083522011" className="flex items-center gap-2">
+                <Phone className="h-4 w-4 mr-1.5" />
+                <span className="hidden xl:inline">(208) 352-2011</span>
+              </a>
             </Button>
-          </a>
 
-          <Link href="/contact">
-            <Button size="sm" data-testid="button-quote-desktop">Get Free Quote</Button>
-          </Link>
+            <Button size="sm" asChild data-testid="button-quote-desktop">
+              <Link href="/contact">
+                Free Consultation
+              </Link>
+            </Button>
+          </div>
         </div>
 
         {/* Mobile Navigation */}
         <div className="flex lg:hidden items-center gap-2">
-          <a href="tel:2083522011">
-            <Button variant="outline" size="icon" data-testid="button-call-mobile">
+          <Button variant="ghost" size="icon" asChild data-testid="button-call-mobile">
+            <a href="tel:2083522011">
               <Phone className="h-4 w-4" />
-            </Button>
-          </a>
+            </a>
+          </Button>
           <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
             <SheetTrigger asChild>
-              <Button variant="outline" size="icon" data-testid="button-menu-mobile">
+              <Button variant="ghost" size="icon" data-testid="button-menu-mobile">
                 <Menu className="h-5 w-5" />
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="w-[300px] sm:w-[400px]">
-              <div className="flex flex-col gap-4 mt-8">
-                <Link href="/" onClick={() => setMobileOpen(false)}>
-                  <Button variant="ghost" className="w-full justify-start" data-testid="link-home-mobile">
+            <SheetContent side="right" className="w-[320px] sm:w-[400px]">
+              <div className="flex flex-col gap-6 mt-8">
+                <Button variant="ghost" asChild data-testid="link-home-mobile">
+                  <Link href="/" onClick={() => setMobileOpen(false)}>
                     Home
-                  </Button>
-                </Link>
+                  </Link>
+                </Button>
                 
-                <div className="space-y-2">
-                  <h3 className="font-semibold text-sm px-4 text-muted-foreground">Lawn Care Services</h3>
-                  {lawnCareServices.map((service) => (
-                    <Link key={service.href} href={service.href} onClick={() => setMobileOpen(false)}>
-                      <Button variant="ghost" className="w-full justify-start pl-8" size="sm">
-                        {service.name}
+                <div className="space-y-3">
+                  <h3 className="font-semibold text-xs px-4 text-muted-foreground tracking-wide uppercase">Lawn Care Services</h3>
+                  <div className="space-y-1">
+                    {lawnCareServices.map((service) => (
+                      <Button key={service.href} variant="ghost" size="sm" asChild>
+                        <Link href={service.href} onClick={() => setMobileOpen(false)}>
+                          {service.name}
+                        </Link>
                       </Button>
-                    </Link>
-                  ))}
+                    ))}
+                  </div>
                 </div>
 
-                <div className="space-y-2">
-                  <h3 className="font-semibold text-sm px-4 text-muted-foreground">Landscaping</h3>
-                  {landscapingServices.map((service) => (
-                    <Link key={service.href} href={service.href} onClick={() => setMobileOpen(false)}>
-                      <Button variant="ghost" className="w-full justify-start pl-8" size="sm">
-                        {service.name}
+                <div className="space-y-3">
+                  <h3 className="font-semibold text-xs px-4 text-muted-foreground tracking-wide uppercase">Landscaping</h3>
+                  <div className="space-y-1">
+                    {landscapingServices.map((service) => (
+                      <Button key={service.href} variant="ghost" size="sm" asChild>
+                        <Link href={service.href} onClick={() => setMobileOpen(false)}>
+                          {service.name}
+                        </Link>
                       </Button>
-                    </Link>
-                  ))}
+                    ))}
+                  </div>
                 </div>
 
-                <div className="space-y-2">
-                  <h3 className="font-semibold text-sm px-4 text-muted-foreground">Commercial Services</h3>
-                  {commercialServices.map((service) => (
-                    <Link key={service.href} href={service.href} onClick={() => setMobileOpen(false)}>
-                      <Button variant="ghost" className="w-full justify-start pl-8" size="sm">
-                        {service.name}
+                <div className="space-y-3">
+                  <h3 className="font-semibold text-xs px-4 text-muted-foreground tracking-wide uppercase">Commercial Services</h3>
+                  <div className="space-y-1">
+                    {commercialServices.map((service) => (
+                      <Button key={service.href} variant="ghost" size="sm" asChild>
+                        <Link href={service.href} onClick={() => setMobileOpen(false)}>
+                          {service.name}
+                        </Link>
                       </Button>
-                    </Link>
-                  ))}
+                    ))}
+                  </div>
                 </div>
 
-                <Link href="/about" onClick={() => setMobileOpen(false)}>
-                  <Button variant="ghost" className="w-full justify-start" data-testid="link-about-mobile">
-                    About
+                <div className="border-t pt-6 space-y-2">
+                  <Button variant="ghost" asChild data-testid="link-about-mobile">
+                    <Link href="/about" onClick={() => setMobileOpen(false)}>
+                      About
+                    </Link>
                   </Button>
-                </Link>
 
-                <Link href="/contact" onClick={() => setMobileOpen(false)}>
-                  <Button variant="ghost" className="w-full justify-start" data-testid="link-contact-mobile">
-                    Contact
+                  <Button variant="ghost" asChild data-testid="link-contact-mobile">
+                    <Link href="/contact" onClick={() => setMobileOpen(false)}>
+                      Contact
+                    </Link>
                   </Button>
-                </Link>
 
-                <Link href="/contact" onClick={() => setMobileOpen(false)}>
-                  <Button className="w-full mt-4" data-testid="button-quote-mobile">
-                    Get Free Quote
+                  <Button asChild data-testid="button-quote-mobile">
+                    <Link href="/contact" onClick={() => setMobileOpen(false)}>
+                      Free Consultation
+                    </Link>
                   </Button>
-                </Link>
+                </div>
               </div>
             </SheetContent>
           </Sheet>

@@ -140,9 +140,9 @@ export default function PatioInstallation() {
                   </p>
                   <div className="flex flex-wrap gap-2">
                     {['Kuna', 'Boise', 'Meridian', 'Nampa', 'Caldwell', 'Eagle'].map((city) => (
-                      <Link key={city} href={`/services/patio-installation/${city.toLowerCase()}`}>
-                        <Button variant="outline" size="sm">{city}</Button>
-                      </Link>
+                      <Button key={city} variant="outline" size="sm" asChild>
+                        <Link href={`/services/patio-installation/${city.toLowerCase()}`}>{city}</Link>
+                      </Button>
                     ))}
                   </div>
                 </div>
@@ -185,12 +185,16 @@ export default function PatioInstallation() {
                       </ul>
                     </div>
                     <div className="pt-4 border-t space-y-3">
-                      <a href="tel:2083522011" className="block">
-                        <Button className="w-full" size="lg">Call (208) 352-2011</Button>
-                      </a>
-                      <a href="#quote" className="block">
-                        <Button variant="outline" className="w-full" size="lg">Get Free Quote</Button>
-                      </a>
+                      <Button size="lg" asChild>
+                        <a href="tel:2083522011" className="block">
+                          Call (208) 352-2011
+                        </a>
+                      </Button>
+                      <Button variant="outline" size="lg" asChild>
+                        <a href="#quote" className="block">
+                          Get Free Quote
+                        </a>
+                      </Button>
                     </div>
                   </CardContent>
                 </Card>

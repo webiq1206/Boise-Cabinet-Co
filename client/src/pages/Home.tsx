@@ -15,31 +15,33 @@ import {
   DollarSign,
   Users,
   Sprout,
+  ArrowRight,
 } from "lucide-react";
 import { ServiceAreaMap } from "@/components/ServiceAreaMap";
 import { BeforeAfterGallery } from "@/components/BeforeAfterGallery";
 import { Testimonials } from "@/components/Testimonials";
+import heroImage from "@assets/stock_images/wide_angle_estate_la_6bc0e847.jpg";
 
 const services = [
   {
     icon: Leaf,
     title: "Lawn Care",
-    description: "Professional lawn mowing, aeration, fertilization, and weed control services.",
-    features: ["Weekly/Bi-weekly Mowing", "Fertilization Programs", "Weed Control", "Seasonal Cleanup"],
+    description: "Meticulous lawn maintenance services designed to elevate your property's natural beauty.",
+    features: ["Weekly & Bi-weekly Service", "Precision Fertilization", "Comprehensive Weed Control", "Seasonal Preparation"],
     href: "/services/lawn-care",
   },
   {
     icon: Sprout,
     title: "Landscaping",
-    description: "Complete landscaping services from patios to ponds, retaining walls to lighting.",
-    features: ["Patio Installation", "Retaining Walls", "Water Features", "Landscape Lighting"],
+    description: "Sophisticated outdoor living spaces crafted with exceptional attention to detail.",
+    features: ["Custom Patio Design", "Structural Retaining Walls", "Water Feature Installation", "Architectural Lighting"],
     href: "/services/landscaping",
   },
   {
     icon: Lightbulb,
     title: "Christmas Lights",
-    description: "Professional holiday lighting installation, maintenance, and removal.",
-    features: ["Custom Design", "Professional Installation", "Seasonal Maintenance", "Complete Removal"],
+    description: "Elegant holiday lighting installations that transform your property into a winter showcase.",
+    features: ["Bespoke Design Consultation", "Professional Installation", "Seasonal Maintenance", "Complete Removal Service"],
     href: "/services/christmas-lights",
   },
 ];
@@ -48,13 +50,13 @@ const commercialServices = [
   {
     icon: Building2,
     title: "HOA Services",
-    description: "Complete HOA common area maintenance and landscape management.",
+    description: "Comprehensive common area management for planned communities.",
     href: "/commercial/hoa-services",
   },
   {
     icon: Users,
     title: "Property Management",
-    description: "Multi-unit property maintenance and apartment complex landscaping.",
+    description: "Multi-unit property solutions for professional property managers.",
     href: "/commercial/property-management",
   },
 ];
@@ -62,23 +64,23 @@ const commercialServices = [
 const trustIndicators = [
   {
     icon: Award,
-    title: "Since 2017",
-    description: "Over 7 years serving Treasure Valley homeowners and businesses",
+    title: "Established 2017",
+    description: "Seven years of excellence serving Idaho's Treasure Valley",
   },
   {
     icon: Shield,
-    title: "Licensed & Insured",
-    description: "Fully insured with general liability and workers compensation",
+    title: "Fully Licensed & Insured",
+    description: "Comprehensive liability and workers compensation coverage",
   },
   {
     icon: DollarSign,
-    title: "Free Quotes",
-    description: "No-obligation quotes with transparent, honest pricing",
+    title: "Transparent Pricing",
+    description: "Complimentary consultations with straightforward estimates",
   },
   {
     icon: Clock,
-    title: "Reliable Service",
-    description: "Consistent, professional service you can count on year-round",
+    title: "Dependable Service",
+    description: "Consistent, professional care throughout every season",
   },
 ];
 
@@ -94,61 +96,65 @@ const serviceAreas = [
 export default function Home() {
   return (
     <div className="flex flex-col">
-      {/* Hero Section */}
-      <section className="relative bg-primary text-primary-foreground">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary to-primary/80" />
-        <div className="relative container px-4 py-24 md:py-32 lg:py-40">
-          <div className="max-w-3xl mx-auto text-center space-y-6">
-            <Badge variant="secondary" className="mb-4">
-              Serving Idahoans Since 2017
+      {/* Cinematic Hero Section */}
+      <section className="relative h-[70vh] md:h-[85vh] flex items-center justify-center overflow-hidden">
+        <div 
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: `url(${heroImage})` }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/70" />
+        
+        <div className="relative z-10 container px-8 md:px-12">
+          <div className="max-w-4xl mx-auto text-center space-y-8">
+            <Badge variant="outline" className="border-white/20 bg-white/5 text-white backdrop-blur-md px-4 py-1.5">
+              Serving Idaho Since 2017
             </Badge>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
-              Most Trusted Lawn Care Services In Kuna
+            <h1 className="text-white tracking-tight leading-[1.1]">
+              Treasure Valley's Premier
+              <br />
+              Lawn Care Specialists
             </h1>
-            <p className="text-lg md:text-xl text-primary-foreground/90 max-w-2xl mx-auto">
-              Professional lawn care, landscaping, and Christmas light installation for residential and commercial properties across the Treasure Valley.
+            <p className="text-xl md:text-2xl text-white/90 max-w-2xl mx-auto leading-relaxed font-light">
+              Exceptional lawn care, landscaping, and seasonal lighting for discerning homeowners and property managers
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-              <Link href="/contact">
-                <Button size="lg" variant="secondary" className="text-base" data-testid="button-hero-quote">
-                  Get Free Quote
-                </Button>
-              </Link>
-              <a href="tel:2083522011">
-                <Button size="lg" variant="outline" className="text-base border-primary-foreground/20 hover:bg-primary-foreground/10" data-testid="button-hero-call">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-8">
+              <Button size="lg" variant="default" asChild data-testid="button-hero-quote">
+                <Link href="/contact">
+                  Request Consultation
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Link>
+              </Button>
+              <Button size="lg" variant="outline" asChild data-testid="button-hero-call">
+                <a href="tel:2083522011">
                   <Phone className="mr-2 h-5 w-5" />
                   (208) 352-2011
-                </Button>
-              </a>
+                </a>
+              </Button>
             </div>
-            <div className="flex flex-wrap justify-center gap-2 pt-4 text-sm">
-              {serviceAreas.map((area) => (
-                <span key={area.name} className="text-primary-foreground/80">
+            <div className="flex flex-wrap justify-center gap-3 pt-6 text-sm text-white/70 font-light">
+              {serviceAreas.map((area, index) => (
+                <span key={area.name}>
                   {area.name}
+                  {index < serviceAreas.length - 1 && <span className="ml-3 text-white/40">·</span>}
                 </span>
-              )).reduce((prev, curr, i) => 
-                i === 0 ? [curr] : [...prev, <span key={`sep-${i}`} className="text-primary-foreground/60">•</span>, curr], 
-                [] as React.ReactNode[]
-              )}
+              ))}
             </div>
           </div>
         </div>
       </section>
 
-      {/* Trust Indicators */}
-      <section className="py-12 bg-muted/30 border-b">
-        <div className="container px-4">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      {/* Trust Indicators - Refined */}
+      <section className="py-16 md:py-20 border-b">
+        <div className="container px-8 md:px-12">
+          <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
             {trustIndicators.map((indicator, index) => (
-              <div key={index} className="flex items-start gap-3">
-                <div className="flex-shrink-0">
-                  <div className="w-10 h-10 rounded-md bg-primary/10 flex items-center justify-center">
-                    <indicator.icon className="h-5 w-5 text-primary" />
-                  </div>
+              <div key={index} className="text-center space-y-3">
+                <div className="inline-flex items-center justify-center w-14 h-14 rounded-md border border-border bg-card">
+                  <indicator.icon className="h-6 w-6 text-primary" strokeWidth={1.5} />
                 </div>
-                <div className="flex-1 min-w-0">
-                  <h3 className="font-semibold text-sm">{indicator.title}</h3>
-                  <p className="text-xs text-muted-foreground mt-1">{indicator.description}</p>
+                <div>
+                  <h3 className="font-semibold text-base mb-1">{indicator.title}</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{indicator.description}</p>
                 </div>
               </div>
             ))}
@@ -156,203 +162,152 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Main Services */}
-      <section className="py-16 md:py-24">
-        <div className="container px-4">
-          <div className="text-center max-w-3xl mx-auto mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Our Services</h2>
-            <p className="text-lg text-muted-foreground">
-              Comprehensive lawn care and landscaping solutions for homes and businesses throughout the Treasure Valley.
+      {/* Editorial Introduction */}
+      <section className="py-24 md:py-32 lg:py-40">
+        <div className="container px-8 md:px-12">
+          <div className="max-w-3xl mx-auto text-center space-y-6">
+            <h2 className="tracking-tight">
+              Elevating Idaho Properties Since 2017
+            </h2>
+            <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
+              At Lawn Care Kuna, we understand that exceptional outdoor spaces require more than routine maintenance. 
+              Our comprehensive approach combines horticultural expertise with meticulous attention to detail, 
+              delivering results that enhance your property's value and aesthetic appeal.
             </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {services.map((service, index) => (
-              <Card key={index} className="hover-elevate transition-all duration-200" data-testid={`card-service-${service.title.toLowerCase().replace(/\s+/g, '-')}`}>
-                <CardHeader>
-                  <div className="w-12 h-12 rounded-md bg-primary/10 flex items-center justify-center mb-4" data-testid={`icon-service-${service.title.toLowerCase().replace(/\s+/g, '-')}`}>
-                    <service.icon className="h-6 w-6 text-primary" />
-                  </div>
-                  <CardTitle className="text-xl" data-testid={`title-service-${service.title.toLowerCase().replace(/\s+/g, '-')}`}>{service.title}</CardTitle>
-                  <CardDescription data-testid={`desc-service-${service.title.toLowerCase().replace(/\s+/g, '-')}`}>{service.description}</CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <ul className="space-y-2">
-                    {service.features.map((feature, i) => (
-                      <li key={i} className="flex items-center gap-2 text-sm" data-testid={`feature-${service.title.toLowerCase().replace(/\s+/g, '-')}-${i}`}>
-                        <CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0" />
-                        <span>{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  <Link href={service.href}>
-                    <Button variant="outline" className="w-full" data-testid={`button-learn-${service.title.toLowerCase().replace(/\s+/g, '-')}`}>
-                      Learn More
-                    </Button>
-                  </Link>
-                </CardContent>
-              </Card>
-            ))}
           </div>
         </div>
       </section>
 
-      {/* Commercial Services Callout */}
-      <section className="py-16 bg-accent">
-        <div className="container px-4">
+      {/* Main Services - 2-Column Grid */}
+      <section className="py-24 md:py-32 bg-muted/30">
+        <div className="container px-8 md:px-12">
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <h2 className="tracking-tight mb-4">Our Services</h2>
+            <p className="text-lg text-muted-foreground leading-relaxed">
+              Comprehensive solutions tailored to your property's unique requirements
+            </p>
+          </div>
+
+          <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+            {services.slice(0, 2).map((service, index) => (
+              <Card key={index} className="hover-elevate transition-all duration-300 border-card-border" data-testid={`card-service-${service.title.toLowerCase().replace(/\s+/g, '-')}`}>
+                <CardHeader className="p-8 space-y-4">
+                  <div className="inline-flex items-center justify-center w-12 h-12 rounded-md border border-border bg-background" data-testid={`icon-service-${service.title.toLowerCase().replace(/\s+/g, '-')}`}>
+                    <service.icon className="h-6 w-6 text-primary" strokeWidth={1.5} />
+                  </div>
+                  <div className="space-y-2">
+                    <CardTitle className="text-2xl font-serif" data-testid={`title-service-${service.title.toLowerCase().replace(/\s+/g, '-')}`}>{service.title}</CardTitle>
+                    <CardDescription className="text-base leading-relaxed" data-testid={`desc-service-${service.title.toLowerCase().replace(/\s+/g, '-')}`}>{service.description}</CardDescription>
+                  </div>
+                </CardHeader>
+                <CardContent className="px-8 pb-8 space-y-6">
+                  <ul className="space-y-3">
+                    {service.features.map((feature, i) => (
+                      <li key={i} className="flex items-start gap-3 text-sm" data-testid={`feature-${service.title.toLowerCase().replace(/\s+/g, '-')}-${i}`}>
+                        <CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" strokeWidth={2} />
+                        <span className="leading-relaxed">{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <Button variant="outline" asChild data-testid={`button-learn-${service.title.toLowerCase().replace(/\s+/g, '-')}`}>
+                    <Link href={service.href}>
+                      Explore Service
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </Link>
+                  </Button>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+
+          {/* Third service - Christmas Lights */}
+          <div className="max-w-2xl mx-auto">
+            <Card className="hover-elevate transition-all duration-300 border-card-border" data-testid="card-service-christmas-lights">
+              <CardHeader className="p-8 space-y-4">
+                <div className="inline-flex items-center justify-center w-12 h-12 rounded-md border border-border bg-background" data-testid="icon-service-christmas-lights">
+                  <Lightbulb className="h-6 w-6 text-primary" strokeWidth={1.5} />
+                </div>
+                <div className="space-y-2">
+                  <CardTitle className="text-2xl font-serif" data-testid="title-service-christmas-lights">Christmas Lights</CardTitle>
+                  <CardDescription className="text-base leading-relaxed" data-testid="desc-service-christmas-lights">{services[2].description}</CardDescription>
+                </div>
+              </CardHeader>
+              <CardContent className="px-8 pb-8 space-y-6">
+                <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {services[2].features.map((feature, i) => (
+                    <li key={i} className="flex items-start gap-3 text-sm" data-testid={`feature-christmas-lights-${i}`}>
+                      <CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" strokeWidth={2} />
+                      <span className="leading-relaxed">{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+                <Button variant="outline" asChild data-testid="button-learn-christmas-lights">
+                  <Link href={services[2].href}>
+                    Explore Service
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Link>
+                </Button>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Commercial Services - Refined */}
+      <section className="py-24 md:py-32">
+        <div className="container px-8 md:px-12">
           <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-8">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">Commercial & HOA Services</h2>
-              <p className="text-lg text-muted-foreground">
-                Professional landscaping for businesses, HOAs, property managers, and municipal contracts
+            <div className="text-center mb-12">
+              <h2 className="tracking-tight mb-4">Commercial & HOA Solutions</h2>
+              <p className="text-lg text-muted-foreground leading-relaxed">
+                Professional landscape management for businesses, homeowner associations, and property managers
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
               {commercialServices.map((service, index) => (
-                <Card key={index} className="hover-elevate transition-all duration-200">
-                  <CardHeader>
-                    <div className="w-12 h-12 rounded-md bg-primary/10 flex items-center justify-center mb-4">
-                      <service.icon className="h-6 w-6 text-primary" />
+                <Card key={index} className="hover-elevate transition-all duration-300 border-card-border">
+                  <CardHeader className="p-8 space-y-4">
+                    <div className="inline-flex items-center justify-center w-12 h-12 rounded-md border border-border bg-background">
+                      <service.icon className="h-6 w-6 text-primary" strokeWidth={1.5} />
                     </div>
-                    <CardTitle className="text-xl">{service.title}</CardTitle>
-                    <CardDescription>{service.description}</CardDescription>
+                    <div className="space-y-2">
+                      <CardTitle className="text-2xl font-serif">{service.title}</CardTitle>
+                      <CardDescription className="text-base leading-relaxed">{service.description}</CardDescription>
+                    </div>
                   </CardHeader>
-                  <CardContent>
-                    <Link href={service.href}>
-                      <Button variant="outline" className="w-full">
+                  <CardContent className="px-8 pb-8">
+                    <Button variant="outline" asChild>
+                      <Link href={service.href}>
                         View Services
-                      </Button>
-                    </Link>
+                        <ArrowRight className="ml-2 h-4 w-4" />
+                      </Link>
+                    </Button>
                   </CardContent>
                 </Card>
               ))}
             </div>
 
             <div className="text-center">
-              <Link href="/commercial/commercial-services">
-                <Button size="lg" data-testid="button-commercial">
+              <Button size="lg" asChild data-testid="button-commercial">
+                <Link href="/commercial/commercial-services">
                   View All Commercial Services
-                </Button>
-              </Link>
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Link>
+              </Button>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Service Areas */}
-      <section className="py-16 md:py-24">
-        <div className="container px-4">
-          <div className="text-center max-w-3xl mx-auto mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Serving the Treasure Valley</h2>
-            <p className="text-lg text-muted-foreground">
-              Professional lawn care and landscaping services throughout Southwest Idaho
-            </p>
-          </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 max-w-5xl mx-auto">
-            {serviceAreas.map((area) => (
-              <Link key={area.name} href={area.href}>
-                <Card className="hover-elevate transition-all duration-200 cursor-pointer">
-                  <CardContent className="p-6 text-center">
-                    <h3 className="font-semibold text-lg">{area.name}</h3>
-                    <p className="text-xs text-muted-foreground mt-1">Idaho</p>
-                  </CardContent>
-                </Card>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Why Choose Us */}
-      <section className="py-16 md:py-24 bg-muted/30">
-        <div className="container px-4">
-          <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">Why Choose Lawn Care Kuna?</h2>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-              <div className="space-y-4">
-                <div className="flex items-start gap-3">
-                  <CheckCircle2 className="h-6 w-6 text-primary flex-shrink-0 mt-1" />
-                  <div>
-                    <h3 className="font-semibold text-lg mb-1">Local Expertise</h3>
-                    <p className="text-muted-foreground">
-                      We understand Idaho's unique climate, soil conditions, and seasonal requirements for optimal lawn and landscape health.
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <CheckCircle2 className="h-6 w-6 text-primary flex-shrink-0 mt-1" />
-                  <div>
-                    <h3 className="font-semibold text-lg mb-1">Honest & Fair</h3>
-                    <p className="text-muted-foreground">
-                      We value ourselves in staying honest and fair towards our customers. No hidden charges or gotchas.
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <CheckCircle2 className="h-6 w-6 text-primary flex-shrink-0 mt-1" />
-                  <div>
-                    <h3 className="font-semibold text-lg mb-1">Quality Guaranteed</h3>
-                    <p className="text-muted-foreground">
-                      Highest level of customer service and expertise with relentlessly consistent lawn care services.
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div className="space-y-4">
-                <div className="flex items-start gap-3">
-                  <CheckCircle2 className="h-6 w-6 text-primary flex-shrink-0 mt-1" />
-                  <div>
-                    <h3 className="font-semibold text-lg mb-1">Affordable Pricing</h3>
-                    <p className="text-muted-foreground">
-                      Competitive rates with transparent pricing. We offer free quotes with no obligations.
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <CheckCircle2 className="h-6 w-6 text-primary flex-shrink-0 mt-1" />
-                  <div>
-                    <h3 className="font-semibold text-lg mb-1">Fully Insured</h3>
-                    <p className="text-muted-foreground">
-                      General liability and workers compensation coverage for your complete peace of mind.
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <CheckCircle2 className="h-6 w-6 text-primary flex-shrink-0 mt-1" />
-                  <div>
-                    <h3 className="font-semibold text-lg mb-1">Proven Track Record</h3>
-                    <p className="text-muted-foreground">
-                      Serving Idahoans since 2017 with hundreds of satisfied customers across the Treasure Valley.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="text-center">
-              <Link href="/about">
-                <Button variant="outline" size="lg" data-testid="button-about">
-                  Learn More About Us
-                </Button>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Before/After Gallery */}
-      <section className="py-16 md:py-24 bg-muted/30">
-        <div className="container px-4">
+      {/* Before/After Gallery - Refined */}
+      <section className="py-24 md:py-32 bg-muted/30">
+        <div className="container px-8 md:px-12">
           <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">See Our Work</h2>
-              <p className="text-lg text-muted-foreground">
-                Real transformations from our lawn care and landscaping projects
+            <div className="text-center mb-16">
+              <h2 className="tracking-tight mb-4">Recent Projects</h2>
+              <p className="text-lg text-muted-foreground leading-relaxed">
+                Exceptional transformations across the Treasure Valley
               </p>
             </div>
             <BeforeAfterGallery limit={3} />
@@ -360,14 +315,14 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section className="py-16 md:py-24">
-        <div className="container px-4">
+      {/* Testimonials - Refined */}
+      <section className="py-24 md:py-32">
+        <div className="container px-8 md:px-12">
           <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">What Our Customers Say</h2>
-              <p className="text-lg text-muted-foreground">
-                Trusted by hundreds of homeowners across the Treasure Valley
+            <div className="text-center mb-16">
+              <h2 className="tracking-tight mb-4">Client Testimonials</h2>
+              <p className="text-lg text-muted-foreground leading-relaxed">
+                Trusted by discerning homeowners throughout Idaho
               </p>
             </div>
             <Testimonials limit={3} />
@@ -375,14 +330,80 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Why Choose Us - Editorial Grid */}
+      <section className="py-24 md:py-32 bg-muted/30">
+        <div className="container px-8 md:px-12">
+          <div className="max-w-5xl mx-auto">
+            <div className="text-center mb-16">
+              <h2 className="tracking-tight mb-4">Why Choose Lawn Care Kuna</h2>
+              <p className="text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto">
+                Our commitment to excellence sets us apart in every aspect of service delivery
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 mb-12">
+              <div className="space-y-6">
+                <div className="space-y-3">
+                  <h3 className="text-xl font-serif">Local Expertise</h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    Comprehensive understanding of Idaho's unique climate, soil composition, and seasonal requirements ensures optimal results for your landscape.
+                  </p>
+                </div>
+                <div className="space-y-3">
+                  <h3 className="text-xl font-serif">Transparent Practices</h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    Straightforward communication and honest pricing without hidden fees or unexpected charges.
+                  </p>
+                </div>
+                <div className="space-y-3">
+                  <h3 className="text-xl font-serif">Quality Assurance</h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    Meticulous attention to detail and consistent service delivery backed by comprehensive quality standards.
+                  </p>
+                </div>
+              </div>
+              <div className="space-y-6">
+                <div className="space-y-3">
+                  <h3 className="text-xl font-serif">Competitive Rates</h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    Professional service at fair market rates with complimentary consultations and transparent estimates.
+                  </p>
+                </div>
+                <div className="space-y-3">
+                  <h3 className="text-xl font-serif">Fully Insured</h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    Comprehensive liability and workers compensation coverage provides complete peace of mind.
+                  </p>
+                </div>
+                <div className="space-y-3">
+                  <h3 className="text-xl font-serif">Proven Excellence</h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    Seven years of consistent service excellence with hundreds of satisfied clients across the Treasure Valley.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="text-center">
+              <Button variant="outline" size="lg" asChild data-testid="button-about">
+                <Link href="/about">
+                  Learn More About Us
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Link>
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Service Area Map */}
-      <section className="py-16 md:py-24 bg-muted/30">
-        <div className="container px-4">
+      <section className="py-24 md:py-32">
+        <div className="container px-8 md:px-12">
           <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">Serving the Greater Treasure Valley</h2>
-              <p className="text-lg text-muted-foreground">
-                Professional lawn care, landscaping, and Christmas light installation across 6 cities
+            <div className="text-center mb-16">
+              <h2 className="tracking-tight mb-4">Service Coverage</h2>
+              <p className="text-lg text-muted-foreground leading-relaxed">
+                Professional landscape services throughout Southwest Idaho
               </p>
             </div>
             <ServiceAreaMap />
@@ -390,28 +411,35 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Final CTA */}
-      <section className="py-16 md:py-24 bg-primary text-primary-foreground">
-        <div className="container px-4">
-          <div className="max-w-3xl mx-auto text-center space-y-6">
-            <h2 className="text-3xl md:text-4xl font-bold">
-              Ready to Transform Your Property?
+      {/* Final CTA - Refined Cinematic */}
+      <section className="relative py-24 md:py-32 overflow-hidden">
+        <div 
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: `url(${heroImage})` }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/75 via-black/70 to-black/75" />
+        
+        <div className="relative z-10 container px-8 md:px-12">
+          <div className="max-w-3xl mx-auto text-center space-y-8">
+            <h2 className="text-white tracking-tight">
+              Ready to Elevate Your Property?
             </h2>
-            <p className="text-lg text-primary-foreground/90">
-              Get your free, no-obligation quote today. We'll respond within 24 hours.
+            <p className="text-xl text-white/90 leading-relaxed font-light">
+              Schedule your complimentary consultation today. We respond to all inquiries within 24 hours.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-              <Link href="/contact">
-                <Button size="lg" variant="secondary" className="text-base" data-testid="button-cta-quote">
-                  Get Free Quote
-                </Button>
-              </Link>
-              <a href="tel:2083522011">
-                <Button size="lg" variant="outline" className="text-base border-primary-foreground/20 hover:bg-primary-foreground/10" data-testid="button-cta-call">
+              <Button size="lg" variant="default" asChild data-testid="button-cta-quote">
+                <Link href="/contact">
+                  Request Consultation
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Link>
+              </Button>
+              <Button size="lg" variant="outline" asChild data-testid="button-cta-call">
+                <a href="tel:2083522011">
                   <Phone className="mr-2 h-5 w-5" />
                   (208) 352-2011
-                </Button>
-              </a>
+                </a>
+              </Button>
             </div>
           </div>
         </div>

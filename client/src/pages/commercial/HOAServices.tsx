@@ -21,7 +21,7 @@ export default function HOAServices() {
                 <Button size="lg" variant="secondary">Request Commercial Quote</Button>
               </a>
               <a href="tel:2083522011">
-                <Button size="lg" variant="outline" className="border-primary-foreground/20 hover:bg-primary-foreground/10">
+                <Button size="lg" variant="outline">
                   Call (208) 352-2011
                 </Button>
               </a>
@@ -260,9 +260,9 @@ export default function HOAServices() {
             </p>
             <div className="flex flex-wrap justify-center gap-3">
               {['Kuna', 'Boise', 'Meridian', 'Nampa', 'Caldwell', 'Eagle'].map((city) => (
-                <Link key={city} href={`/commercial/hoa-services/${city.toLowerCase()}`}>
-                  <Button variant="outline">{city} HOA Services</Button>
-                </Link>
+                <Button key={city} variant="outline" asChild>
+                  <Link href={`/commercial/hoa-services/${city.toLowerCase()}`}>{city} HOA Services</Link>
+                </Button>
               ))}
             </div>
           </div>

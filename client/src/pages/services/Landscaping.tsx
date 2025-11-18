@@ -107,14 +107,16 @@ export default function Landscaping() {
               Complete landscaping solutions from design to installation across the Treasure Valley
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-              <a href="#quote">
-                <Button size="lg" variant="secondary">Get Free Quote</Button>
-              </a>
-              <a href="tel:2083522011">
-                <Button size="lg" variant="outline" className="border-primary-foreground/20 hover:bg-primary-foreground/10">
+              <Button size="lg" variant="secondary" asChild>
+                <a href="#quote">
+                  Get Free Quote
+                </a>
+              </Button>
+              <Button size="lg" variant="outline" asChild>
+                <a href="tel:2083522011">
                   Call (208) 352-2011
-                </Button>
-              </a>
+                </a>
+              </Button>
             </div>
           </div>
         </div>

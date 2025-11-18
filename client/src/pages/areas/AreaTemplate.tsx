@@ -61,11 +61,11 @@ export default function AreaTemplate({ cityName, citySlug }: AreaTemplateProps) 
                         </li>
                       ))}
                     </ul>
-                    <Link href={service.href}>
-                      <Button variant="outline" className="w-full" data-testid={`button-learn-${index}`}>
+                    <Button variant="outline" asChild data-testid={`button-learn-${index}`}>
+                      <Link href={service.href}>
                         Learn More
-                      </Button>
-                    </Link>
+                      </Link>
+                    </Button>
                   </CardContent>
                 </Card>
               ))}
@@ -96,9 +96,9 @@ export default function AreaTemplate({ cityName, citySlug }: AreaTemplateProps) 
                 {['Kuna', 'Boise', 'Meridian', 'Nampa', 'Caldwell', 'Eagle']
                   .filter(city => city !== cityName)
                   .map((city) => (
-                    <Link key={city} href={`/areas/${city.toLowerCase()}`}>
-                      <Button variant="outline" size="sm" data-testid={`button-city-${city.toLowerCase()}`}>{city}</Button>
-                    </Link>
+                    <Button key={city} variant="outline" size="sm" asChild data-testid={`button-city-${city.toLowerCase()}`}>
+                      <Link href={`/areas/${city.toLowerCase()}`}>{city}</Link>
+                    </Button>
                   ))}
               </div>
             </div>

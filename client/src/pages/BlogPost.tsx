@@ -54,7 +54,7 @@ export default function BlogPost() {
           <div className="container px-4">
             <div className="max-w-3xl mx-auto">
               {/* Back button */}
-              <Button variant="ghost" asChild className="mb-8" data-testid="button-back">
+              <Button variant="ghost" asChild data-testid="button-back">
                 <a href="/blog">
                   <ArrowLeft className="mr-2 h-4 w-4" />
                   Back to Blog

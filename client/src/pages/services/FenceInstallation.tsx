@@ -84,9 +84,9 @@ export default function FenceInstallation() {
                   <h2 className="text-2xl font-bold mb-4" data-testid="heading-areas">Service Areas</h2>
                   <div className="flex flex-wrap gap-2">
                     {['Kuna', 'Boise', 'Meridian', 'Nampa', 'Caldwell', 'Eagle'].map((city) => (
-                      <Link key={city} href={`/services/fence-installation/${city.toLowerCase()}`}>
-                        <Button variant="outline" size="sm" data-testid={`button-city-${city.toLowerCase()}`}>{city}</Button>
-                      </Link>
+                      <Button key={city} variant="outline" size="sm" asChild data-testid={`button-city-${city.toLowerCase()}`}>
+                        <Link href={`/services/fence-installation/${city.toLowerCase()}`}>{city}</Link>
+                      </Button>
                     ))}
                   </div>
                 </div>
@@ -115,12 +115,16 @@ export default function FenceInstallation() {
                       </ul>
                     </div>
                     <div className="pt-4 border-t space-y-3">
-                      <a href="tel:2083522011" className="block">
-                        <Button className="w-full" size="lg" data-testid="button-call-sidebar">Call (208) 352-2011</Button>
-                      </a>
-                      <a href="#quote" className="block">
-                        <Button variant="outline" className="w-full" size="lg" data-testid="button-quote-sidebar">Get Free Quote</Button>
-                      </a>
+                      <Button size="lg" asChild data-testid="button-call-sidebar">
+                        <a href="tel:2083522011" className="block">
+                          Call (208) 352-2011
+                        </a>
+                      </Button>
+                      <Button variant="outline" size="lg" asChild data-testid="button-quote-sidebar">
+                        <a href="#quote" className="block">
+                          Get Free Quote
+                        </a>
+                      </Button>
                     </div>
                   </CardContent>
                 </Card>

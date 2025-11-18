@@ -71,7 +71,7 @@ export default function LawnCare() {
                 <Button size="lg" variant="secondary">Get Free Quote</Button>
               </a>
               <a href="tel:2083522011">
-                <Button size="lg" variant="outline" className="border-primary-foreground/20 hover:bg-primary-foreground/10">
+                <Button size="lg" variant="outline">
                   Call (208) 352-2011
                 </Button>
               </a>
@@ -102,11 +102,11 @@ export default function LawnCare() {
                     <CardDescription className="text-sm">{service.description}</CardDescription>
                   </CardHeader>
                   <CardContent>
-                    <Link href={service.href}>
-                      <Button variant="outline" size="sm" className="w-full">
+                    <Button variant="outline" size="sm" asChild>
+                      <Link href={service.href}>
                         Learn More
-                      </Button>
-                    </Link>
+                      </Link>
+                    </Button>
                   </CardContent>
                 </Card>
               ))}

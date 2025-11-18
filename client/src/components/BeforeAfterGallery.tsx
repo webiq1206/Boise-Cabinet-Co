@@ -20,12 +20,12 @@ export function BeforeAfterGallery({ serviceType, limit }: BeforeAfterGalleryPro
 
   if (isLoading) {
     return (
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {[1, 2, 3].map((i) => (
-          <Card key={i} className="overflow-hidden">
+          <Card key={i} className="overflow-hidden border-card-border">
             <div className="aspect-[4/3] bg-muted animate-pulse" />
-            <CardContent className="p-4">
-              <div className="h-4 bg-muted rounded animate-pulse mb-2" />
+            <CardContent className="p-6">
+              <div className="h-4 bg-muted rounded animate-pulse mb-3" />
               <div className="h-3 bg-muted rounded animate-pulse w-2/3" />
             </CardContent>
           </Card>
@@ -41,9 +41,9 @@ export function BeforeAfterGallery({ serviceType, limit }: BeforeAfterGalleryPro
   const displayPhotos = limit ? photos.slice(0, limit) : photos;
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       {/* Main viewer */}
-      <Card className="overflow-hidden" data-testid="card-gallery-main">
+      <Card className="overflow-hidden border-card-border" data-testid="card-gallery-main">
         <div className="relative aspect-[16/9] bg-muted overflow-hidden">
           {/* After image */}
           <img
@@ -67,7 +67,7 @@ export function BeforeAfterGallery({ serviceType, limit }: BeforeAfterGalleryPro
           </div>
           {/* Slider handle */}
           <div
-            className="absolute top-0 bottom-0 w-1 bg-white cursor-ew-resize z-10"
+            className="absolute top-0 bottom-0 w-1 bg-white/90 backdrop-blur-sm cursor-ew-resize z-10 shadow-xl"
             style={{ left: `${sliderPosition}%` }}
             onMouseDown={(e) => {
               const startX = e.clientX;
@@ -93,26 +93,26 @@ export function BeforeAfterGallery({ serviceType, limit }: BeforeAfterGalleryPro
             }}
             data-testid="slider-handle"
           >
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-white rounded-full shadow-lg flex items-center justify-center">
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow-2xl flex items-center justify-center border border-border">
               <div className="flex gap-0.5">
-                <ChevronLeft className="h-4 w-4 text-foreground" />
-                <ChevronRight className="h-4 w-4 text-foreground" />
+                <ChevronLeft className="h-4 w-4 text-foreground" strokeWidth={2} />
+                <ChevronRight className="h-4 w-4 text-foreground" strokeWidth={2} />
               </div>
             </div>
           </div>
           {/* Before/After labels */}
-          <div className="absolute top-4 left-4 bg-black/70 text-white px-3 py-1 rounded text-sm font-medium" data-testid="label-before">
+          <div className="absolute top-6 left-6 bg-black/75 text-white px-4 py-2 rounded-md text-sm font-medium backdrop-blur-sm" data-testid="label-before">
             Before
           </div>
-          <div className="absolute top-4 right-4 bg-black/70 text-white px-3 py-1 rounded text-sm font-medium" data-testid="label-after">
+          <div className="absolute top-6 right-6 bg-black/75 text-white px-4 py-2 rounded-md text-sm font-medium backdrop-blur-sm" data-testid="label-after">
             After
           </div>
         </div>
-        <CardContent className="p-6">
-          <h3 className="font-semibold text-lg mb-2" data-testid="text-title">
+        <CardContent className="p-8">
+          <h3 className="text-xl font-serif mb-3" data-testid="text-title">
             {displayPhotos[selectedPhoto].title}
           </h3>
-          <p className="text-muted-foreground text-sm" data-testid="text-description">
+          <p className="text-muted-foreground leading-relaxed" data-testid="text-description">
             {displayPhotos[selectedPhoto].description}
           </p>
         </CardContent>
@@ -128,10 +128,10 @@ export function BeforeAfterGallery({ serviceType, limit }: BeforeAfterGalleryPro
                 setSelectedPhoto(index);
                 setSliderPosition(50);
               }}
-              className={`relative aspect-[4/3] rounded-md overflow-hidden transition-all ${
+              className={`relative aspect-[4/3] rounded-md overflow-hidden transition-all border ${
                 index === selectedPhoto 
-                  ? 'ring-2 ring-primary' 
-                  : 'opacity-70 hover:opacity-100'
+                  ? 'ring-2 ring-primary border-primary' 
+                  : 'border-card-border opacity-60 hover:opacity-100 hover:border-border'
               }`}
               data-testid={`thumb-${index}`}
             >
