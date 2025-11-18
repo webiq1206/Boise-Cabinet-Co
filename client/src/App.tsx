@@ -3,16 +3,109 @@ import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { Navigation } from "@/components/Navigation";
+import { Footer } from "@/components/Footer";
+
+// Pages
+import Home from "@/pages/Home";
+import About from "@/pages/About";
+import Contact from "@/pages/Contact";
 import NotFound from "@/pages/not-found";
+
+// Service Landing Pages
+import LawnCare from "@/pages/services/LawnCare";
+import Landscaping from "@/pages/services/Landscaping";
+import ChristmasLights from "@/pages/services/ChristmasLights";
+
+// Individual Service Pages
+import LawnMowing from "@/pages/services/LawnMowing";
+import PatioInstallation from "@/pages/services/PatioInstallation";
+import PondInstallation from "@/pages/services/PondInstallation";
+import FenceInstallation from "@/pages/services/FenceInstallation";
+
+// Commercial Pages
+import HOAServices from "@/pages/commercial/HOAServices";
 
 function Router() {
   return (
-    <Switch>
-      {/* Add pages below */}
-      {/* <Route path="/" component={Home}/> */}
-      {/* Fallback to 404 */}
-      <Route component={NotFound} />
-    </Switch>
+    <div className="flex flex-col min-h-screen">
+      <Navigation />
+      <main className="flex-1">
+        <Switch>
+          {/* Core Pages */}
+          <Route path="/" component={Home} />
+          <Route path="/about" component={About} />
+          <Route path="/contact" component={Contact} />
+
+          {/* Service Landing Pages */}
+          <Route path="/services/lawn-care" component={LawnCare} />
+          <Route path="/services/landscaping" component={Landscaping} />
+          <Route path="/services/christmas-lights" component={ChristmasLights} />
+
+          {/* Individual Service Pages - Lawn Care */}
+          <Route path="/services/lawn-mowing" component={LawnMowing} />
+          <Route path="/services/lawn-maintenance" component={LawnMowing} />
+          <Route path="/services/aeration" component={LawnMowing} />
+          <Route path="/services/fertilization" component={LawnMowing} />
+          <Route path="/services/weed-control" component={LawnMowing} />
+          <Route path="/services/hedge-trimming" component={LawnMowing} />
+          <Route path="/services/seasonal-cleanup" component={LawnMowing} />
+          <Route path="/services/sprinkler-blowout" component={LawnMowing} />
+          <Route path="/services/dethatching" component={LawnMowing} />
+          <Route path="/services/irrigation-repair" component={LawnMowing} />
+
+          {/* Individual Service Pages - Landscaping */}
+          <Route path="/services/patio-installation" component={PatioInstallation} />
+          <Route path="/services/paver-patio" component={PatioInstallation} />
+          <Route path="/services/sod-installation" component={PatioInstallation} />
+          <Route path="/services/retaining-walls" component={PatioInstallation} />
+          <Route path="/services/retaining-wall-construction" component={PatioInstallation} />
+          <Route path="/services/pond-installation" component={PondInstallation} />
+          <Route path="/services/koi-pond" component={PondInstallation} />
+          <Route path="/services/fountain-installation" component={PondInstallation} />
+          <Route path="/services/waterfall-installation" component={PondInstallation} />
+          <Route path="/services/fence-installation" component={FenceInstallation} />
+          <Route path="/services/wood-fence" component={FenceInstallation} />
+          <Route path="/services/vinyl-fence" component={FenceInstallation} />
+          <Route path="/services/fire-pit-installation" component={PatioInstallation} />
+          <Route path="/services/outdoor-fireplace" component={PatioInstallation} />
+          <Route path="/services/landscape-lighting" component={PatioInstallation} />
+          <Route path="/services/pathway-lighting" component={PatioInstallation} />
+          <Route path="/services/sprinkler-system-installation" component={PatioInstallation} />
+          <Route path="/services/irrigation-installation" component={PatioInstallation} />
+          <Route path="/services/drip-irrigation" component={PatioInstallation} />
+          <Route path="/services/smart-irrigation" component={PatioInstallation} />
+          <Route path="/services/irrigation-maintenance" component={PatioInstallation} />
+
+          {/* Geo-targeted examples (using same components with different URLs) */}
+          <Route path="/services/lawn-mowing/:city" component={LawnMowing} />
+          <Route path="/services/patio-installation/:city" component={PatioInstallation} />
+          <Route path="/services/pond-installation/:city" component={PondInstallation} />
+          <Route path="/services/fence-installation/:city" component={FenceInstallation} />
+          <Route path="/services/christmas-lights/:city" component={ChristmasLights} />
+
+          {/* Commercial Pages */}
+          <Route path="/commercial/hoa-services" component={HOAServices} />
+          <Route path="/commercial/hoa-services/:city" component={HOAServices} />
+          <Route path="/commercial/property-management" component={HOAServices} />
+          <Route path="/commercial/municipal-services" component={HOAServices} />
+          <Route path="/commercial/commercial-lawn-care" component={HOAServices} />
+          <Route path="/commercial/commercial-services" component={HOAServices} />
+
+          {/* Service Areas */}
+          <Route path="/areas/kuna" component={Home} />
+          <Route path="/areas/boise" component={Home} />
+          <Route path="/areas/meridian" component={Home} />
+          <Route path="/areas/nampa" component={Home} />
+          <Route path="/areas/caldwell" component={Home} />
+          <Route path="/areas/eagle" component={Home} />
+
+          {/* 404 */}
+          <Route component={NotFound} />
+        </Switch>
+      </main>
+      <Footer />
+    </div>
   );
 }
 
