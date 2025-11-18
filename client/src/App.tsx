@@ -25,6 +25,16 @@ import FenceInstallation from "@/pages/services/FenceInstallation";
 
 // Commercial Pages
 import HOAServices from "@/pages/commercial/HOAServices";
+import PropertyManagement from "@/pages/commercial/PropertyManagement";
+import MunicipalServices from "@/pages/commercial/MunicipalServices";
+
+// Area Pages
+import Kuna from "@/pages/areas/Kuna";
+import Boise from "@/pages/areas/Boise";
+import Meridian from "@/pages/areas/Meridian";
+import Nampa from "@/pages/areas/Nampa";
+import Caldwell from "@/pages/areas/Caldwell";
+import Eagle from "@/pages/areas/Eagle";
 
 function Router() {
   return (
@@ -87,18 +97,18 @@ function Router() {
           {/* Commercial Pages */}
           <Route path="/commercial/hoa-services" component={HOAServices} />
           <Route path="/commercial/hoa-services/:city" component={HOAServices} />
-          <Route path="/commercial/property-management" component={HOAServices} />
-          <Route path="/commercial/municipal-services" component={HOAServices} />
+          <Route path="/commercial/property-management" component={PropertyManagement} />
+          <Route path="/commercial/municipal-services" component={MunicipalServices} />
           <Route path="/commercial/commercial-lawn-care" component={HOAServices} />
           <Route path="/commercial/commercial-services" component={HOAServices} />
 
           {/* Service Areas */}
-          <Route path="/areas/kuna" component={Home} />
-          <Route path="/areas/boise" component={Home} />
-          <Route path="/areas/meridian" component={Home} />
-          <Route path="/areas/nampa" component={Home} />
-          <Route path="/areas/caldwell" component={Home} />
-          <Route path="/areas/eagle" component={Home} />
+          <Route path="/areas/kuna" component={Kuna} />
+          <Route path="/areas/boise" component={Boise} />
+          <Route path="/areas/meridian" component={Meridian} />
+          <Route path="/areas/nampa" component={Nampa} />
+          <Route path="/areas/caldwell" component={Caldwell} />
+          <Route path="/areas/eagle" component={Eagle} />
 
           {/* 404 */}
           <Route component={NotFound} />
