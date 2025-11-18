@@ -36,6 +36,11 @@ import Nampa from "@/pages/areas/Nampa";
 import Caldwell from "@/pages/areas/Caldwell";
 import Eagle from "@/pages/areas/Eagle";
 
+// Additional Pages
+import Pricing from "@/pages/Pricing";
+import Blog from "@/pages/Blog";
+import BlogPost from "@/pages/BlogPost";
+
 function Router() {
   return (
     <div className="flex flex-col min-h-screen">
@@ -109,6 +114,11 @@ function Router() {
           <Route path="/areas/nampa" component={Nampa} />
           <Route path="/areas/caldwell" component={Caldwell} />
           <Route path="/areas/eagle" component={Eagle} />
+
+          {/* Additional Pages */}
+          <Route path="/pricing" component={Pricing} />
+          <Route path="/blog" component={Blog} />
+          <Route path="/blog/:slug" component={BlogPost} />
 
           {/* 404 */}
           <Route component={NotFound} />

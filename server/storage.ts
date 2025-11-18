@@ -1,4 +1,4 @@
-import { type Quote, type InsertQuote, type GalleryPhoto, type InsertGalleryPhoto, type Testimonial, type InsertTestimonial } from "@shared/schema";
+import { type Quote, type InsertQuote, type GalleryPhoto, type InsertGalleryPhoto, type Testimonial, type InsertTestimonial, type BlogPost, type InsertBlogPost } from "@shared/schema";
 import { randomUUID } from "crypto";
 
 export interface IStorage {
@@ -13,17 +13,23 @@ export interface IStorage {
   createTestimonial(testimonial: InsertTestimonial): Promise<Testimonial>;
   getAllTestimonials(): Promise<Testimonial[]>;
   getTestimonialsByService(serviceType: string): Promise<Testimonial[]>;
+  
+  createBlogPost(post: InsertBlogPost): Promise<BlogPost>;
+  getAllBlogPosts(): Promise<BlogPost[]>;
+  getBlogPostBySlug(slug: string): Promise<BlogPost | undefined>;
 }
 
 export class MemStorage implements IStorage {
   private quotes: Map<string, Quote>;
   private galleryPhotos: Map<string, GalleryPhoto>;
   private testimonials: Map<string, Testimonial>;
+  private blogPosts: Map<string, BlogPost>;
 
   constructor() {
     this.quotes = new Map();
     this.galleryPhotos = new Map();
     this.testimonials = new Map();
+    this.blogPosts = new Map();
     this.seedData();
   }
 
@@ -105,6 +111,48 @@ export class MemStorage implements IStorage {
     ];
 
     sampleTestimonials.forEach(testimonial => this.testimonials.set(testimonial.id, testimonial));
+
+    // Seed blog posts
+    const sampleBlogPosts: BlogPost[] = [
+      {
+        id: randomUUID(),
+        slug: "idaho-spring-lawn-care-guide",
+        title: "Complete Spring Lawn Care Guide for Idaho Homeowners",
+        excerpt: "Learn essential spring lawn care tips for the Treasure Valley climate. From fertilization to weed control, get your lawn ready for summer.",
+        content: `Spring is the perfect time to revitalize your Idaho lawn after the harsh winter months. With our unique Treasure Valley climate, timing is everything when it comes to lawn care.\n\nStart with a thorough spring cleanup. Remove any remaining leaves, branches, and debris that accumulated over winter. This allows your grass to breathe and receive adequate sunlight.\n\nFertilization should begin when soil temperatures consistently reach 55-60°F, typically in late March or early April in the Kuna area. Choose a slow-release nitrogen fertilizer for best results.\n\nCore aeration is crucial in our clay-heavy Idaho soils. This process creates small holes in your lawn, allowing water, nutrients, and oxygen to penetrate the root zone more effectively.\n\nWeed control is essential in spring. Apply pre-emergent herbicides before soil temperatures reach 55°F to prevent crabgrass and other annual weeds from germinating.\n\nDon't forget irrigation! Check your sprinkler system for winter damage and adjust sprinkler heads for optimal coverage. In spring, lawns typically need 1-1.5 inches of water per week.`,
+        author: "Lawn Care Kuna Team",
+        category: "Seasonal Guides",
+        tags: ["Spring", "Fertilization", "Aeration", "Idaho"],
+        publishedAt: new Date("2024-03-15"),
+        createdAt: new Date(),
+      },
+      {
+        id: randomUUID(),
+        slug: "treasure-valley-lawn-watering-guide",
+        title: "Proper Lawn Watering for Treasure Valley's Hot Summers",
+        excerpt: "Master the art of lawn irrigation in Idaho's dry climate. Learn when, how much, and how often to water for a healthy, drought-resistant lawn.",
+        content: `Idaho summers can be challenging for lawns, with temperatures often exceeding 95°F and minimal rainfall. Proper watering techniques are essential for maintaining a healthy, green lawn.\n\nWater deeply and infrequently. Lawns need about 1-1.5 inches of water per week, including rainfall. It's better to water 2-3 times per week deeply than to water daily with shallow applications.\n\nTiming matters. Water early in the morning between 4 AM and 9 AM. This reduces evaporation and allows grass blades to dry before evening, preventing fungal diseases.\n\nAdjust for weather conditions. During the hottest weeks of July and August in Kuna and Boise, you may need to increase watering frequency. Watch for signs of drought stress like wilting or a bluish-gray tint.\n\nUse the tuna can test. Place empty tuna cans around your lawn while watering. When they contain 1 inch of water, you've watered enough. This helps you gauge how long to run your sprinklers.\n\nConsider your soil type. Our clay-heavy soils hold water longer but drain slowly. Sandy soils drain quickly and may need more frequent watering.`,
+        author: "Lawn Care Kuna Team",
+        category: "Lawn Maintenance",
+        tags: ["Watering", "Summer", "Irrigation", "Treasure Valley"],
+        publishedAt: new Date("2024-06-20"),
+        createdAt: new Date(),
+      },
+      {
+        id: randomUUID(),
+        slug: "fall-lawn-winterization-idaho",
+        title: "Fall Lawn Winterization: Preparing Your Idaho Lawn for Winter",
+        excerpt: "Essential fall lawn care tasks to ensure your Treasure Valley lawn survives winter and thrives next spring. Don't skip these critical steps!",
+        content: `As temperatures drop in Kuna, Meridian, and surrounding areas, it's time to prepare your lawn for Idaho's cold winter months.\n\nFall fertilization is the most important feeding of the year. Apply a winterizer fertilizer in late October or early November. This helps grass roots grow strong and store nutrients for winter dormancy.\n\nContinue mowing until grass stops growing, typically in late October. For the final mow, lower your blade slightly to 2-2.5 inches to reduce the risk of snow mold.\n\nAerate in early fall while soil is still warm. This is your last chance before winter to improve soil compaction and allow nutrients to reach the root zone.\n\nOverseed thin areas in early September. The warm soil and cooler air temperatures create ideal conditions for grass seed germination in the Treasure Valley.\n\nRake leaves promptly. Heavy leaf cover can smother grass and create disease problems. Consider mulching leaves with your mower instead of bagging them.\n\nPrepare your irrigation system. Schedule a professional sprinkler blowout before the first hard freeze, usually by mid-October in Idaho.`,
+        author: "Lawn Care Kuna Team",
+        category: "Seasonal Guides",
+        tags: ["Fall", "Winterization", "Idaho", "Lawn Preparation"],
+        publishedAt: new Date("2024-09-10"),
+        createdAt: new Date(),
+      },
+    ];
+
+    sampleBlogPosts.forEach(post => this.blogPosts.set(post.id, post));
   }
 
   // Quote methods
@@ -171,6 +219,38 @@ export class MemStorage implements IStorage {
   async getTestimonialsByService(serviceType: string): Promise<Testimonial[]> {
     return Array.from(this.testimonials.values()).filter(
       t => t.serviceType === serviceType
+    );
+  }
+
+  // Blog post methods
+  async createBlogPost(insertPost: InsertBlogPost): Promise<BlogPost> {
+    // Check for slug uniqueness
+    const existing = Array.from(this.blogPosts.values()).find(
+      post => post.slug === insertPost.slug
+    );
+    if (existing) {
+      throw new Error(`Blog post with slug "${insertPost.slug}" already exists`);
+    }
+
+    const id = randomUUID();
+    const post: BlogPost = {
+      ...insertPost,
+      id,
+      createdAt: new Date(),
+    };
+    this.blogPosts.set(id, post);
+    return post;
+  }
+
+  async getAllBlogPosts(): Promise<BlogPost[]> {
+    return Array.from(this.blogPosts.values()).sort(
+      (a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
+    );
+  }
+
+  async getBlogPostBySlug(slug: string): Promise<BlogPost | undefined> {
+    return Array.from(this.blogPosts.values()).find(
+      post => post.slug === slug
     );
   }
 }
