@@ -65,6 +65,34 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Gallery photo endpoints
+  app.get("/api/gallery", async (req, res) => {
+    try {
+      const { serviceType } = req.query;
+      const photos = serviceType 
+        ? await storage.getGalleryPhotosByService(serviceType as string)
+        : await storage.getAllGalleryPhotos();
+      res.json(photos);
+    } catch (error) {
+      console.error("Error fetching gallery photos:", error);
+      res.status(500).json({ success: false, message: "Failed to fetch gallery photos" });
+    }
+  });
+
+  // Testimonial endpoints
+  app.get("/api/testimonials", async (req, res) => {
+    try {
+      const { serviceType } = req.query;
+      const testimonials = serviceType
+        ? await storage.getTestimonialsByService(serviceType as string)
+        : await storage.getAllTestimonials();
+      res.json(testimonials);
+    } catch (error) {
+      console.error("Error fetching testimonials:", error);
+      res.status(500).json({ success: false, message: "Failed to fetch testimonials" });
+    }
+  });
+
   const httpServer = createServer(app);
   return httpServer;
 }

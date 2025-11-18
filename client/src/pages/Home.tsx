@@ -17,6 +17,8 @@ import {
   Sprout,
 } from "lucide-react";
 import { ServiceAreaMap } from "@/components/ServiceAreaMap";
+import { BeforeAfterGallery } from "@/components/BeforeAfterGallery";
+import { Testimonials } from "@/components/Testimonials";
 
 const services = [
   {
@@ -343,8 +345,38 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Service Area Map */}
+      {/* Before/After Gallery */}
+      <section className="py-16 md:py-24 bg-muted/30">
+        <div className="container px-4">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">See Our Work</h2>
+              <p className="text-lg text-muted-foreground">
+                Real transformations from our lawn care and landscaping projects
+              </p>
+            </div>
+            <BeforeAfterGallery limit={3} />
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials */}
       <section className="py-16 md:py-24">
+        <div className="container px-4">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">What Our Customers Say</h2>
+              <p className="text-lg text-muted-foreground">
+                Trusted by hundreds of homeowners across the Treasure Valley
+              </p>
+            </div>
+            <Testimonials limit={3} />
+          </div>
+        </div>
+      </section>
+
+      {/* Service Area Map */}
+      <section className="py-16 md:py-24 bg-muted/30">
         <div className="container px-4">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-12">

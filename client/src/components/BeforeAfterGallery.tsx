@@ -1,0 +1,149 @@
+import { useQuery } from "@tanstack/react-query";
+import { Card, CardContent } from "@/components/ui/card";
+import { type GalleryPhoto } from "@shared/schema";
+import { useState } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+
+interface BeforeAfterGalleryProps {
+  serviceType?: string;
+  limit?: number;
+}
+
+export function BeforeAfterGallery({ serviceType, limit }: BeforeAfterGalleryProps) {
+  const { data: photos, isLoading } = useQuery<GalleryPhoto[]>({
+    queryKey: serviceType ? ['/api/gallery', serviceType] : ['/api/gallery'],
+    enabled: true,
+  });
+
+  const [selectedPhoto, setSelectedPhoto] = useState(0);
+  const [sliderPosition, setSliderPosition] = useState(50);
+
+  if (isLoading) {
+    return (
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {[1, 2, 3].map((i) => (
+          <Card key={i} className="overflow-hidden">
+            <div className="aspect-[4/3] bg-muted animate-pulse" />
+            <CardContent className="p-4">
+              <div className="h-4 bg-muted rounded animate-pulse mb-2" />
+              <div className="h-3 bg-muted rounded animate-pulse w-2/3" />
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+    );
+  }
+
+  if (!photos || photos.length === 0) {
+    return null;
+  }
+
+  const displayPhotos = limit ? photos.slice(0, limit) : photos;
+
+  return (
+    <div className="space-y-6">
+      {/* Main viewer */}
+      <Card className="overflow-hidden" data-testid="card-gallery-main">
+        <div className="relative aspect-[16/9] bg-muted overflow-hidden">
+          {/* After image */}
+          <img
+            src={displayPhotos[selectedPhoto].afterImageUrl}
+            alt={`After - ${displayPhotos[selectedPhoto].title}`}
+            className="absolute inset-0 w-full h-full object-cover"
+            data-testid="img-after"
+          />
+          {/* Before image with slider */}
+          <div
+            className="absolute inset-0 overflow-hidden"
+            style={{ width: `${sliderPosition}%` }}
+          >
+            <img
+              src={displayPhotos[selectedPhoto].beforeImageUrl}
+              alt={`Before - ${displayPhotos[selectedPhoto].title}`}
+              className="absolute inset-0 w-full h-full object-cover"
+              style={{ width: `${100 / (sliderPosition / 100)}%` }}
+              data-testid="img-before"
+            />
+          </div>
+          {/* Slider handle */}
+          <div
+            className="absolute top-0 bottom-0 w-1 bg-white cursor-ew-resize z-10"
+            style={{ left: `${sliderPosition}%` }}
+            onMouseDown={(e) => {
+              const startX = e.clientX;
+              const startPosition = sliderPosition;
+              
+              const handleMouseMove = (moveEvent: MouseEvent) => {
+                const rect = e.currentTarget.parentElement?.getBoundingClientRect();
+                if (rect) {
+                  const deltaX = moveEvent.clientX - startX;
+                  const deltaPercent = (deltaX / rect.width) * 100;
+                  const newPosition = Math.max(0, Math.min(100, startPosition + deltaPercent));
+                  setSliderPosition(newPosition);
+                }
+              };
+              
+              const handleMouseUp = () => {
+                document.removeEventListener('mousemove', handleMouseMove);
+                document.removeEventListener('mouseup', handleMouseUp);
+              };
+              
+              document.addEventListener('mousemove', handleMouseMove);
+              document.addEventListener('mouseup', handleMouseUp);
+            }}
+            data-testid="slider-handle"
+          >
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-white rounded-full shadow-lg flex items-center justify-center">
+              <div className="flex gap-0.5">
+                <ChevronLeft className="h-4 w-4 text-foreground" />
+                <ChevronRight className="h-4 w-4 text-foreground" />
+              </div>
+            </div>
+          </div>
+          {/* Before/After labels */}
+          <div className="absolute top-4 left-4 bg-black/70 text-white px-3 py-1 rounded text-sm font-medium" data-testid="label-before">
+            Before
+          </div>
+          <div className="absolute top-4 right-4 bg-black/70 text-white px-3 py-1 rounded text-sm font-medium" data-testid="label-after">
+            After
+          </div>
+        </div>
+        <CardContent className="p-6">
+          <h3 className="font-semibold text-lg mb-2" data-testid="text-title">
+            {displayPhotos[selectedPhoto].title}
+          </h3>
+          <p className="text-muted-foreground text-sm" data-testid="text-description">
+            {displayPhotos[selectedPhoto].description}
+          </p>
+        </CardContent>
+      </Card>
+
+      {/* Thumbnails */}
+      {displayPhotos.length > 1 && (
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {displayPhotos.map((photo, index) => (
+            <button
+              key={photo.id}
+              onClick={() => {
+                setSelectedPhoto(index);
+                setSliderPosition(50);
+              }}
+              className={`relative aspect-[4/3] rounded-md overflow-hidden transition-all ${
+                index === selectedPhoto 
+                  ? 'ring-2 ring-primary' 
+                  : 'opacity-70 hover:opacity-100'
+              }`}
+              data-testid={`thumb-${index}`}
+            >
+              <img
+                src={photo.afterImageUrl}
+                alt={photo.title}
+                className="w-full h-full object-cover"
+              />
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
