@@ -16,6 +16,7 @@ import {
   Users,
   Sprout,
 } from "lucide-react";
+import { ServiceAreaMap } from "@/components/ServiceAreaMap";
 
 const services = [
   {
@@ -338,6 +339,21 @@ export default function Home() {
                 </Button>
               </Link>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Service Area Map */}
+      <section className="py-16 md:py-24">
+        <div className="container px-4">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">Serving the Greater Treasure Valley</h2>
+              <p className="text-lg text-muted-foreground">
+                Professional lawn care, landscaping, and Christmas light installation across 6 cities
+              </p>
+            </div>
+            <ServiceAreaMap />
           </div>
         </div>
       </section>
