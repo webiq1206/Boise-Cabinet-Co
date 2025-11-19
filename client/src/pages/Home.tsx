@@ -150,20 +150,30 @@ export default function Home() {
       </section>
 
       {/* Trust Indicators */}
-      <section className="py-16 border-b">
+      <section className="py-16 md:py-20 bg-muted">
         <div className="container px-4 md:px-8">
-          <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {trustIndicators.map((indicator, index) => (
-              <Card key={index} className="text-center" data-testid={`card-trust-${index}`}>
-                <CardContent className="pt-6 pb-6 space-y-3">
-                  <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-primary/10">
-                    <indicator.icon className="h-6 w-6 text-primary" />
-                  </div>
-                  <h3 className="font-semibold text-base">{indicator.title}</h3>
-                  <p className="text-sm text-muted-foreground">{indicator.description}</p>
-                </CardContent>
-              </Card>
-            ))}
+          <div className="max-w-4xl mx-auto space-y-12">
+            <div className="text-center space-y-4">
+              <h2 className="text-2xl md:text-3xl font-bold tracking-tight">
+                Why Kuna trusts us with their lawns
+              </h2>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                Professional lawn care backed by experience, licensing, and a commitment to your satisfaction
+              </p>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {trustIndicators.map((indicator, index) => (
+                <Card key={index} className="text-center" data-testid={`card-trust-${index}`}>
+                  <CardContent className="pt-6 pb-6 space-y-3">
+                    <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-primary/10">
+                      <indicator.icon className="h-6 w-6 text-primary" />
+                    </div>
+                    <h3 className="font-semibold text-base">{indicator.title}</h3>
+                    <p className="text-sm text-muted-foreground">{indicator.description}</p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
           </div>
         </div>
       </section>
