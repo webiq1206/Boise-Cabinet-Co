@@ -304,7 +304,7 @@ export default function Home() {
                 Exceptional transformations across the Treasure Valley
               </p>
             </div>
-            <BeforeAfterGallery limit={3} />
+            <BeforeAfterGallery limit={4} />
           </div>
         </div>
       </section>
