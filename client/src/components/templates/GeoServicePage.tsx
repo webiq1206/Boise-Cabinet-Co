@@ -3,7 +3,7 @@ import { Link } from "wouter";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Check, Phone, MapPin, ArrowRight, Leaf, Sprout, Heart, Shield, Target, Zap } from "lucide-react";
-import { QuoteForm } from "@/components/QuoteForm";
+import { QuoteWizard } from "@/components/QuoteWizard";
 import { FactsSection } from "@/components/FactsSection";
 import type { ServiceData, CityData } from "@shared/contentData";
 
@@ -383,7 +383,7 @@ export function GeoServicePage({ service, city }: GeoServicePageProps) {
                   <CardDescription>Fill out the form below for instant pricing in {city.name}</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <QuoteForm preselectedService={service.slug} />
+                  <QuoteWizard preselectedService={service.slug} preselectedCity={city.name} />
                 </CardContent>
               </Card>
             </div>

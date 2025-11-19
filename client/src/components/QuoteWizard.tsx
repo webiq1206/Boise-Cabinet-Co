@@ -95,7 +95,13 @@ const ADDON_SERVICES = [
   { id: "sod-installation", name: "Sod Installation" },
 ];
 
-export function QuoteWizard({ onClose }: { onClose?: () => void }) {
+interface QuoteWizardProps {
+  onClose?: () => void;
+  preselectedService?: string;
+  preselectedCity?: string;
+}
+
+export function QuoteWizard({ onClose, preselectedService, preselectedCity }: QuoteWizardProps) {
   const [step, setStep] = useState(1);
   const [mapOpen, setMapOpen] = useState(false);
   const [quoteData, setQuoteData] = useState<QuoteData | null>(null);
@@ -106,7 +112,7 @@ export function QuoteWizard({ onClose }: { onClose?: () => void }) {
   const form1 = useForm<Step1Data>({
     resolver: zodResolver(step1Schema),
     defaultValues: {
-      city: "Kuna",
+      city: preselectedCity || "Kuna",
       address: "",
       propertySize: undefined,
       propertyType: undefined,
@@ -117,7 +123,7 @@ export function QuoteWizard({ onClose }: { onClose?: () => void }) {
   const form2 = useForm<Step2Data>({
     resolver: zodResolver(step2Schema),
     defaultValues: {
-      serviceType: "",
+      serviceType: preselectedService || "",
       frequency: undefined,
       selectedServices: [],
     },
