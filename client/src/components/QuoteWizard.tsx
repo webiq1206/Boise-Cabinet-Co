@@ -14,6 +14,15 @@ import { useToast } from "@/hooks/use-toast";
 import { useMutation } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
 
+// Utility to safely coerce values to numbers
+function coerceNumber(value: unknown, options: { min?: number; fallback?: number } = {}): number {
+  const { min, fallback = 0 } = options;
+  const num = typeof value === 'number' ? value : parseFloat(String(value));
+  if (isNaN(num)) return fallback;
+  if (min !== undefined && num < min) return fallback;
+  return num;
+}
+
 // Step 1: Address & Property
 const step1Schema = z.object({
   address: z.string().min(5, "Please enter your full address"),
@@ -215,33 +224,45 @@ export function QuoteWizard({ onClose }: { onClose?: () => void }) {
   };
 
   const handleStep3Submit = async (data: Step3Data) => {
-    // Prepare data for submission - only include fields that match insertQuoteSchema
+    // Build submission payload with explicit field mapping and numeric coercion
     const fullData = {
       // Customer info
-      name: data.name,
-      email: data.email,
-      phone: data.phone,
+      name: (data.name || '').trim(),
+      email: (data.email || '').trim(),
+      phone: (data.phone || '').trim(),
+      
       // Property details
-      address: formData.address,
+      address: (formData.address || '').trim(),
       city: formData.city!,
       propertyType: formData.propertyType!,
-      propertySize: String(formData.propertySize), // Convert to string as schema expects
+      propertySize: coerceNumber(formData.propertySize, { min: 0, fallback: 0 }),
+      
       // Service details
       serviceType: formData.serviceType!,
       frequency: formData.frequency,
       selectedServices: formData.selectedServices || [],
-      // AI analysis and pricing (stored in JSONB/decimal fields)
-      aiAnalysis: quoteData?.aiAnalysis,
-      complexityScore: String(quoteData?.complexityScore || 1.0),
-      baseCost: String(quoteData?.baseCost || 0),
-      adjustedCost: String(quoteData?.adjustedCost || 0),
-      finalQuote: String(quoteData?.finalQuote || 0),
-      lineItems: quoteData?.lineItems,
+      
+      // AI analysis and pricing - with proper type coercion
+      aiAnalysis: quoteData?.aiAnalysis || null,
+      complexityScore: coerceNumber(quoteData?.complexityScore, { min: 1.0, fallback: 1.2 }),
+      baseCost: coerceNumber(quoteData?.baseCost, { min: 0, fallback: 0 }),
+      adjustedCost: coerceNumber(quoteData?.adjustedCost, { min: 0, fallback: 0 }),
+      finalQuote: coerceNumber(quoteData?.finalQuote, { min: 0, fallback: 0 }),
+      
+      // Line items with numeric coercion
+      lineItems: quoteData?.lineItems?.map(item => ({
+        service: item.service,
+        description: item.description,
+        basePrice: coerceNumber(item.basePrice, { fallback: 0 }),
+        adjustedPrice: coerceNumber(item.adjustedPrice ?? item.basePrice, { fallback: 0 }),
+      })) || [],
+      
       // Scheduling
       scheduledDate: data.preferredDate ? new Date(data.preferredDate).toISOString() : undefined,
-      status: "pending",
+      status: "pending" as const,
       message: `Quote request for ${formData.serviceType} - Generated via AI wizard`,
     };
+    
     submitQuoteMutation.mutate(fullData);
   };
 

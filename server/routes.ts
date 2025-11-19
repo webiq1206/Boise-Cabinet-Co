@@ -36,62 +36,79 @@ export async function registerRoutes(app: Express): Promise<Server> {
         // AI failed - use deterministic fallback pricing
         console.error("AI pricing failed, using fallback:", aiError);
         
-        const { getInstantEstimate, SERVICE_RATES } = await import("./services/pricing");
+        const { SERVICE_RATES, PROPERTY_MULTIPLIERS, FREQUENCY_DISCOUNTS, PROFIT_MARGIN } = await import("./services/pricing");
         
-        // Calculate pricing using getInstantEstimate which already includes margins
-        const estimate = getInstantEstimate(
-          validatedData.propertySize,
-          validatedData.serviceType,
-          validatedData.propertyType,
-          validatedData.frequency || "one-time"
-        );
+        // Helper to calculate base cost per service with correct unit handling
+        const calculateServiceBase = (serviceId: string, propertySize: number) => {
+          const service = SERVICE_RATES[serviceId as keyof typeof SERVICE_RATES];
+          if (!service) return 0;
+          
+          if (service.unit === "project") {
+            // Project-based: use baseRate directly
+            return service.baseRate;
+          } else if (service.unit === "linear_ft") {
+            // Estimate perimeter: sqrt(sqft) * 4 * 0.6 for typical property shape
+            const estimatedPerimeter = Math.sqrt(propertySize) * 4 * 0.6;
+            return estimatedPerimeter * service.baseRate;
+          } else {
+            // Square footage: standard calculation
+            return propertySize * service.baseRate;
+          }
+        };
         
-        // Use average of estimate range as final quote (already includes 45% margin)
-        const mainServiceQuote = (estimate.min + estimate.max) / 2;
-        const mainServiceBase = mainServiceQuote / 1.45; // Reverse engineer base cost
+        // Calculate main service
+        let baseCost = calculateServiceBase(validatedData.serviceType, validatedData.propertySize);
+        const mainService = SERVICE_RATES[validatedData.serviceType as keyof typeof SERVICE_RATES];
         
-        // Build line items
         const lineItems = [
           {
             service: validatedData.serviceType,
-            description: SERVICE_RATES[validatedData.serviceType as keyof typeof SERVICE_RATES]?.name || validatedData.serviceType,
-            basePrice: mainServiceBase,
-            adjustedPrice: mainServiceBase,
+            description: mainService?.name || validatedData.serviceType,
+            basePrice: baseCost,
+            adjustedPrice: baseCost,
           }
         ];
         
-        let totalQuote = mainServiceQuote;
-        let totalBase = mainServiceBase;
-        
-        // Add selected addon services (each with proper margins)
+        // Add selected addon services
         if (validatedData.selectedServices && validatedData.selectedServices.length > 0) {
           for (const serviceId of validatedData.selectedServices) {
-            const addonEstimate = getInstantEstimate(
-              validatedData.propertySize,
-              serviceId,
-              validatedData.propertyType,
-              validatedData.frequency || "one-time"
-            );
-            const addonQuote = (addonEstimate.min + addonEstimate.max) / 2;
-            const addonBase = addonQuote / 1.45;
-            
-            totalQuote += addonQuote;
-            totalBase += addonBase;
+            const serviceBase = calculateServiceBase(serviceId, validatedData.propertySize);
+            baseCost += serviceBase;
             
             lineItems.push({
               service: serviceId,
               description: SERVICE_RATES[serviceId as keyof typeof SERVICE_RATES]?.name || serviceId,
-              basePrice: addonBase,
-              adjustedPrice: addonBase,
+              basePrice: serviceBase,
+              adjustedPrice: serviceBase,
             });
           }
         }
         
+        // Apply property type multiplier
+        const propertyMultiplier = PROPERTY_MULTIPLIERS[validatedData.propertyType as keyof typeof PROPERTY_MULTIPLIERS] || 1.0;
+        baseCost *= propertyMultiplier;
+        
+        // Apply complexity (use 1.2 as standard)
+        const complexityScore = 1.2;
+        const adjustedCost = baseCost * complexityScore;
+        
+        // Update line items with multipliers
+        lineItems.forEach(item => {
+          item.adjustedPrice = item.basePrice * propertyMultiplier * complexityScore;
+        });
+        
+        // Apply frequency discount
+        const discount = FREQUENCY_DISCOUNTS[validatedData.frequency as keyof typeof FREQUENCY_DISCOUNTS] || 0;
+        const afterDiscount = adjustedCost * (1 - discount);
+        
+        // Add profit margin (45%)
+        const finalQuote = afterDiscount * (1 + PROFIT_MARGIN);
+        
         // Return fallback quote with proper margins
         res.json({
-          baseCost: Math.round(totalBase * 100) / 100,
-          adjustedCost: Math.round(totalBase * 100) / 100,
-          finalQuote: Math.round(totalQuote * 100) / 100,
+          baseCost: Math.round(baseCost * 100) / 100,
+          adjustedCost: Math.round(adjustedCost * 100) / 100,
+          finalQuote: Math.round(finalQuote * 100) / 100,
           lineItems: lineItems.map(item => ({
             ...item,
             basePrice: Math.round(item.basePrice * 100) / 100,
@@ -108,10 +125,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
           },
           complexityScore: 1.2,
           breakdown: {
-            laborCost: Math.round(totalBase * 0.35 * 100) / 100,
-            materialsCost: Math.round(totalBase * 0.15 * 100) / 100,
-            overhead: Math.round(totalBase * 0.20 * 100) / 100,
-            profit: Math.round((totalQuote - totalBase) * 100) / 100,
+            laborCost: Math.round(afterDiscount * 0.35 * 100) / 100,
+            materialsCost: Math.round(afterDiscount * 0.15 * 100) / 100,
+            overhead: Math.round(afterDiscount * 0.20 * 100) / 100,
+            profit: Math.round((finalQuote - afterDiscount) * 100) / 100,
           },
           success: true,
           aiFallback: true,
