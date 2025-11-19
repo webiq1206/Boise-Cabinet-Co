@@ -10,6 +10,15 @@ Preferred communication style: Simple, everyday language.
 
 ## Recent Changes
 
+### 2025-01-19: Typography & Navigation Fixes
+- **Montserrat Font Migration**: Updated all headings (h1-h6) to use Montserrat font family with weight 400, replacing Playfair Display
+- **Font Import**: Added Google Fonts import for Montserrat weight 400 in client/index.html
+- **CSS Override**: Applied !important flags to heading font-family and font-weight to ensure Montserrat weight 400 overrides all Tailwind utility classes
+- **Navigation Bug Fixes**: Eliminated all nested anchor tag warnings by refactoring Link components
+  - Navigation.tsx: Changed "Free Consultation" buttons from Button+Link nesting to standalone Button with onClick navigation
+  - Service pages (Landscaping, PatioInstallation, LawnMowing, PondInstallation): Replaced Link > <a> patterns with Link > <span> for related services and category links
+- **Testing**: Verified all navigation works correctly without console warnings in both desktop and mobile viewports
+
 ### 2025-01-19: Site-Wide AI Quote Integration
 - **Inline AI Quotes Across All Pages**: Integrated AI-powered instant quotes into all QuoteForm instances (city pages, service pages, contact page) for maximum conversion with zero navigation friction
 - **Progressive Disclosure**: AI quotes display inline as users fill forms - show instant pricing while entering property details (service type, property type, size, city) with no submission required
@@ -27,7 +36,7 @@ Preferred communication style: Simple, everyday language.
 
 **Framework & Routing**: React 18 with TypeScript, using Wouter for client-side routing.
 **Component Library**: shadcn/ui (Radix UI primitives) with custom Tailwind CSS for styling.
-**Design System**: Features Playfair Display (headings) and Inter (body) typography. The color scheme aligns with the actual Lawn Care Kuna brand: Primary Forest Green (#2D6B3F), Light Mint backgrounds (#E5F5EC), and pure white. It uses a mobile-first responsive design with editorial spacing.
+**Design System**: Features Montserrat weight 400 (headings) and Inter (body) typography. The color scheme aligns with the actual Lawn Care Kuna brand: Primary Forest Green (#2D6B3F), Light Mint backgrounds (#E5F5EC), and pure white. It uses a mobile-first responsive design with editorial spacing.
 **State Management**: TanStack Query for server state, React Hook Form with Zod for form handling and validation, and React hooks for local component state.
 **Key Features**:
 - **AI-Powered Instant Quoting System**: A 4-step wizard at `/get-quote` includes property details, service selection, AI-generated pricing (with AI analysis of property complexity and deterministic fallbacks), and booking. Pricing is based on industry standards, property type, and service frequency, targeting 40-50% profit margins.
