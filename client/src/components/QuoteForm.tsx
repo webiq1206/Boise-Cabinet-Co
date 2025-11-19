@@ -162,16 +162,18 @@ export function QuoteForm({ className, compact = false, preselectedService, pres
   const watchedServiceType = form.watch("serviceType");
   const watchedPropertySize = form.watch("propertySize");
   const watchedPropertyType = form.watch("propertyType");
+  const watchedCity = form.watch("city");
   
   // Debounce the watched values to prevent excessive API calls
   const debouncedServiceType = useDebounce(watchedServiceType, 1500);
   const debouncedPropertySize = useDebounce(watchedPropertySize, 1500);
   const debouncedPropertyType = useDebounce(watchedPropertyType, 1500);
+  const debouncedCity = useDebounce(watchedCity, 1500);
   
   // AI quote calculation mutation
   const aiQuoteMutation = useMutation({
-    mutationFn: async (params: { serviceType: string; propertyType: string; sqft: number }) => {
-      const cacheKey = getQuoteCacheKey(params);
+    mutationFn: async (params: { serviceType: string; propertyType: string; sqft: number; city: string }) => {
+      const cacheKey = getQuoteCacheKey({ serviceType: params.serviceType, propertyType: params.propertyType, sqft: params.sqft });
       
       // Check cache first
       const cached = aiQuoteCache.get(cacheKey);
@@ -179,22 +181,38 @@ export function QuoteForm({ className, compact = false, preselectedService, pres
         return cached;
       }
       
-      // Call AI quote calculation API
+      // Call AI quote calculation API with required address and city fields
       const response = await apiRequest("POST", "/api/quotes/calculate", {
+        address: `Property in ${params.city}`, // Generic address since we don't collect full address in QuoteForm
+        city: params.city,
         serviceType: params.serviceType,
         propertyType: params.propertyType,
         propertySize: params.sqft,
-        services: [{ type: params.serviceType, sqft: params.sqft }],
         frequency: "one-time"
       });
       
-      // Cache the result
-      aiQuoteCache.set(cacheKey, response);
+      // Parse JSON from response
+      const data = await response.json();
       
-      return response;
+      // Cache the parsed result
+      aiQuoteCache.set(cacheKey, data);
+      
+      return data;
     },
     onSuccess: (data) => {
-      setAiQuote(data);
+      console.log("[AI Quote] Received API response:", data);
+      
+      // Map API response to expected AiQuoteResult structure
+      const mappedQuote: AiQuoteResult = {
+        total: data.finalQuote || 0,
+        complexity: data.complexityScore || 1.0,
+        lineItems: data.lineItems || [],
+        aiAnalysis: data.aiAnalysis,
+        fallbackUsed: data.aiAnalysis?.reasoning?.includes("unavailable") || false
+      };
+      
+      console.log("[AI Quote] Mapped quote:", mappedQuote);
+      setAiQuote(mappedQuote);
       setEstimate(null); // Clear basic estimate when AI quote loads
     },
     onError: (error) => {
@@ -222,8 +240,8 @@ export function QuoteForm({ className, compact = false, preselectedService, pres
       return;
     }
     
-    // Only proceed with AI quote if all required fields are present
-    if (debouncedServiceType && debouncedPropertyType && debouncedPropertySize) {
+    // Only proceed with AI quote if all required fields are present (including city for AI analysis)
+    if (debouncedServiceType && debouncedPropertyType && debouncedPropertySize && debouncedCity) {
       const sqft = normalizePropertySize(debouncedPropertySize);
       
       if (sqft && sqft >= 500) {
@@ -231,7 +249,8 @@ export function QuoteForm({ className, compact = false, preselectedService, pres
         aiQuoteMutation.mutate({
           serviceType: debouncedServiceType,
           propertyType: debouncedPropertyType,
-          sqft
+          sqft,
+          city: debouncedCity
         });
       } else {
         // Invalid size - clear quotes
@@ -243,7 +262,7 @@ export function QuoteForm({ className, compact = false, preselectedService, pres
       setAiQuote(null);
       setEstimate(null);
     }
-  }, [debouncedServiceType, debouncedPropertySize, debouncedPropertyType, useAiQuotes]);
+  }, [debouncedServiceType, debouncedPropertySize, debouncedPropertyType, debouncedCity, useAiQuotes]);
 
   const submitQuoteMutation = useMutation({
     mutationFn: async (data: InsertQuote) => {

@@ -69,13 +69,14 @@ export function useDebounce<T>(value: T, delay: number): T {
 /**
  * Cache key generator for AI quotes
  * Creates consistent cache keys based on quote parameters
+ * Version 2: Updated to match new API response structure
  */
 export function getQuoteCacheKey(params: {
   serviceType: string;
   propertyType: string;
   sqft: number;
 }): string {
-  return `ai-quote:${params.serviceType}:${params.propertyType}:${params.sqft}`;
+  return `ai-quote-v2:${params.serviceType}:${params.propertyType}:${params.sqft}`;
 }
 
 /**

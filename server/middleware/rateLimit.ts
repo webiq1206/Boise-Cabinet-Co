@@ -70,11 +70,13 @@ class RateLimiter {
    */
   private cleanup(): void {
     const now = Date.now();
-    for (const [key, record] of this.requests.entries()) {
+    const keysToDelete: string[] = [];
+    this.requests.forEach((record, key) => {
       if (now > record.resetAt) {
-        this.requests.delete(key);
+        keysToDelete.push(key);
       }
-    }
+    });
+    keysToDelete.forEach(key => this.requests.delete(key));
   }
 }
 

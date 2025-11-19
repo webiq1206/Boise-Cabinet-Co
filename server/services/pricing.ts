@@ -29,7 +29,7 @@ export const SERVICE_RATES = {
 };
 
 // Property type multipliers
-const PROPERTY_MULTIPLIERS = {
+export const PROPERTY_MULTIPLIERS = {
   residential: 1.0,
   commercial: 1.3,
   hoa: 1.2,
@@ -37,7 +37,7 @@ const PROPERTY_MULTIPLIERS = {
 };
 
 // Frequency discounts (for recurring services)
-const FREQUENCY_DISCOUNTS = {
+export const FREQUENCY_DISCOUNTS = {
   "one-time": 0,
   weekly: 0.15,      // 15% discount
   "bi-weekly": 0.10,  // 10% discount
@@ -45,7 +45,7 @@ const FREQUENCY_DISCOUNTS = {
 };
 
 // Profit margin (40-50% markup on costs)
-const PROFIT_MARGIN = 0.45; // 45% markup
+export const PROFIT_MARGIN = 0.45; // 45% markup
 
 interface PropertyDetails {
   address: string;
