@@ -173,10 +173,12 @@ export function Navigation() {
               </a>
             </Button>
 
-            <Button size="sm" asChild data-testid="button-quote-desktop">
-              <Link href="/contact">
-                Free Consultation
-              </Link>
+            <Button 
+              size="sm" 
+              onClick={() => window.location.href = "/contact"}
+              data-testid="button-quote-desktop"
+            >
+              Free Consultation
             </Button>
           </div>
         </div>
@@ -259,10 +261,15 @@ export function Navigation() {
                     </div>
                   </Link>
 
-                  <Button className="w-full mt-4" asChild data-testid="button-quote-mobile">
-                    <Link href="/contact" onClick={() => setMobileOpen(false)}>
-                      Free Consultation
-                    </Link>
+                  <Button 
+                    className="w-full mt-4" 
+                    onClick={() => {
+                      window.location.href = "/contact";
+                      setMobileOpen(false);
+                    }}
+                    data-testid="button-quote-mobile"
+                  >
+                    Free Consultation
                   </Button>
                 </div>
               </nav>

@@ -205,30 +205,30 @@ export default function PatioInstallation() {
                     <ul className="space-y-2">
                       <li>
                         <Link href="/services/retaining-walls">
-                          <a className="text-sm text-muted-foreground hover:text-primary">
+                          <span className="text-sm text-muted-foreground hover:text-primary cursor-pointer">
                             Retaining Walls →
-                          </a>
+                          </span>
                         </Link>
                       </li>
                       <li>
                         <Link href="/services/fire-pit-installation">
-                          <a className="text-sm text-muted-foreground hover:text-primary">
+                          <span className="text-sm text-muted-foreground hover:text-primary cursor-pointer">
                             Fire Pit Installation →
-                          </a>
+                          </span>
                         </Link>
                       </li>
                       <li>
                         <Link href="/services/landscape-lighting">
-                          <a className="text-sm text-muted-foreground hover:text-primary">
+                          <span className="text-sm text-muted-foreground hover:text-primary cursor-pointer">
                             Landscape Lighting →
-                          </a>
+                          </span>
                         </Link>
                       </li>
                       <li>
                         <Link href="/services/fence-installation">
-                          <a className="text-sm text-muted-foreground hover:text-primary">
+                          <span className="text-sm text-muted-foreground hover:text-primary cursor-pointer">
                             Fence Installation →
-                          </a>
+                          </span>
                         </Link>
                       </li>
                     </ul>

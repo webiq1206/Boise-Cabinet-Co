@@ -153,9 +153,9 @@ export default function Landscaping() {
                       {category.services.map((service) => (
                         <li key={service.href}>
                           <Link href={service.href}>
-                            <a className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                            <span className="text-sm text-muted-foreground hover:text-primary transition-colors cursor-pointer">
                               {service.name}
-                            </a>
+                            </span>
                           </Link>
                         </li>
                       ))}

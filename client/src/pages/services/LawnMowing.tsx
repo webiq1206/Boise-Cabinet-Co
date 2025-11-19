@@ -191,30 +191,30 @@ export default function LawnMowing() {
                     <ul className="space-y-2">
                       <li>
                         <Link href="/services/fertilization">
-                          <a className="text-sm text-muted-foreground hover:text-primary">
+                          <span className="text-sm text-muted-foreground hover:text-primary cursor-pointer">
                             Fertilization Programs →
-                          </a>
+                          </span>
                         </Link>
                       </li>
                       <li>
                         <Link href="/services/weed-control">
-                          <a className="text-sm text-muted-foreground hover:text-primary">
+                          <span className="text-sm text-muted-foreground hover:text-primary cursor-pointer">
                             Weed Control →
-                          </a>
+                          </span>
                         </Link>
                       </li>
                       <li>
                         <Link href="/services/aeration">
-                          <a className="text-sm text-muted-foreground hover:text-primary">
+                          <span className="text-sm text-muted-foreground hover:text-primary cursor-pointer">
                             Aeration & Overseeding →
-                          </a>
+                          </span>
                         </Link>
                       </li>
                       <li>
                         <Link href="/services/hedge-trimming">
-                          <a className="text-sm text-muted-foreground hover:text-primary">
+                          <span className="text-sm text-muted-foreground hover:text-primary cursor-pointer">
                             Hedge Trimming →
-                          </a>
+                          </span>
                         </Link>
                       </li>
                     </ul>

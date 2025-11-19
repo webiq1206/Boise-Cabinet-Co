@@ -70,6 +70,7 @@
   /* Typography */
   --font-sans: Inter, system-ui, -apple-system, sans-serif;
   --font-serif: 'Playfair Display', Georgia, serif;
+  --font-headings: 'Montserrat', system-ui, -apple-system, sans-serif;
   --font-mono: 'Menlo', 'Monaco', monospace;
   
   --radius: .5rem;
@@ -223,9 +224,10 @@
     @apply font-sans antialiased bg-background text-foreground;
   }
   
-  /* Refined heading styles with serif font */
-  h1, h2, h3 {
-    @apply font-serif;
+  /* Montserrat headings with weight 400 */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-headings) !important;
+    font-weight: 400 !important;
   }
   
   h1 {
@@ -237,11 +239,19 @@
   }
   
   h3 {
-    @apply text-2xl md:text-3xl font-medium;
+    @apply text-2xl md:text-3xl;
   }
   
   h4 {
-    @apply text-xl md:text-2xl font-semibold;
+    @apply text-xl md:text-2xl;
+  }
+  
+  h5 {
+    @apply text-lg md:text-xl;
+  }
+  
+  h6 {
+    @apply text-base md:text-lg;
   }
   
   p {

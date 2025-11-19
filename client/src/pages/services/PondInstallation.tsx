@@ -160,23 +160,23 @@ export default function PondInstallation() {
                     <ul className="space-y-2">
                       <li data-testid="link-patio">
                         <Link href="/services/patio-installation">
-                          <a className="text-sm text-muted-foreground hover:text-primary">
+                          <span className="text-sm text-muted-foreground hover:text-primary cursor-pointer">
                             Patio Installation →
-                          </a>
+                          </span>
                         </Link>
                       </li>
                       <li data-testid="link-lighting">
                         <Link href="/services/landscape-lighting">
-                          <a className="text-sm text-muted-foreground hover:text-primary">
+                          <span className="text-sm text-muted-foreground hover:text-primary cursor-pointer">
                             Landscape Lighting →
-                          </a>
+                          </span>
                         </Link>
                       </li>
                       <li data-testid="link-firepit">
                         <Link href="/services/fire-pit-installation">
-                          <a className="text-sm text-muted-foreground hover:text-primary">
+                          <span className="text-sm text-muted-foreground hover:text-primary cursor-pointer">
                             Fire Pit Installation →
-                          </a>
+                          </span>
                         </Link>
                       </li>
                     </ul>
