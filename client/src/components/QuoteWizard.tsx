@@ -116,7 +116,14 @@ export function QuoteWizard({ onClose }: { onClose?: () => void }) {
     mutationFn: async (data: Step1Data & Step2Data) => {
       return apiRequest("POST", "/api/quotes/calculate", data);
     },
-    onSuccess: (data: QuoteData) => {
+    onSuccess: (data: any) => {
+      if (data.aiFallback) {
+        toast({
+          title: "Quote Generated (Fallback Mode)",
+          description: "Using standard pricing. AI analysis temporarily unavailable.",
+          variant: "default",
+        });
+      }
       setQuoteData(data);
       setStep(3);
       toast({
@@ -124,10 +131,16 @@ export function QuoteWizard({ onClose }: { onClose?: () => void }) {
         description: `Your personalized quote is ready: $${data.finalQuote.toLocaleString()}`,
       });
     },
-    onError: () => {
+    onError: (error: any) => {
+      console.error("Quote calculation error:", error);
+      const errorMsg = error?.message || "Failed to generate quote. Please try again.";
+      const errors = error?.errors || [];
+      
       toast({
-        title: "Error",
-        description: "Failed to generate quote. Please try again.",
+        title: "Error Generating Quote",
+        description: errors.length > 0 
+          ? `${errors.map((e: any) => e.message).join(', ')}`
+          : errorMsg,
         variant: "destructive",
       });
     },
@@ -145,24 +158,89 @@ export function QuoteWizard({ onClose }: { onClose?: () => void }) {
         description: "We'll contact you shortly to confirm your service.",
       });
     },
+    onError: (error: any) => {
+      console.error("Quote submission error:", error);
+      const errorMsg = error?.message || "Failed to submit quote request.";
+      const errors = error?.errors || [];
+      
+      // Show detailed error message
+      toast({
+        title: "Submission Failed",
+        description: errors.length > 0
+          ? `Please fix: ${errors.map((e: any) => `${e.field}: ${e.message}`).join(', ')}`
+          : errorMsg,
+        variant: "destructive",
+      });
+      
+      // Set form errors if available
+      if (errors.length > 0) {
+        errors.forEach((err: any) => {
+          const field = err.field;
+          if (field in form3.control._fields) {
+            form3.setError(field as any, {
+              type: "server",
+              message: err.message,
+            });
+          }
+        });
+      }
+    },
   });
 
   const handleStep1Submit = async (data: Step1Data) => {
-    setFormData({ ...formData, ...data });
+    // Preserve complete Step 1 data
+    const completeStep1 = {
+      address: data.address,
+      city: data.city,
+      propertySize: data.propertySize,
+      propertyType: data.propertyType,
+    };
+    setFormData({ ...formData, ...completeStep1 });
     setStep(2);
   };
 
   const handleStep2Submit = async (data: Step2Data) => {
-    const combined = { ...formData, ...data } as Step1Data & Step2Data;
-    setFormData(combined);
+    // Merge Step 1 and Step 2 data - formData should already have all Step 1 fields from handleStep1Submit
+    const combined = { 
+      // Step 1 data (must be present from previous step)
+      address: formData.address!,
+      city: formData.city!,
+      propertySize: formData.propertySize!,
+      propertyType: formData.propertyType!,
+      // Step 2 data
+      ...data 
+    };
+    setFormData({ ...formData, ...combined });
     getQuoteMutation.mutate(combined);
   };
 
   const handleStep3Submit = async (data: Step3Data) => {
+    // Prepare data for submission - only include fields that match insertQuoteSchema
     const fullData = {
-      ...formData,
-      ...data,
-      ...quoteData,
+      // Customer info
+      name: data.name,
+      email: data.email,
+      phone: data.phone,
+      // Property details
+      address: formData.address,
+      city: formData.city!,
+      propertyType: formData.propertyType!,
+      propertySize: String(formData.propertySize), // Convert to string as schema expects
+      // Service details
+      serviceType: formData.serviceType!,
+      frequency: formData.frequency,
+      selectedServices: formData.selectedServices || [],
+      // AI analysis and pricing (stored in JSONB/decimal fields)
+      aiAnalysis: quoteData?.aiAnalysis,
+      complexityScore: String(quoteData?.complexityScore || 1.0),
+      baseCost: String(quoteData?.baseCost || 0),
+      adjustedCost: String(quoteData?.adjustedCost || 0),
+      finalQuote: String(quoteData?.finalQuote || 0),
+      lineItems: quoteData?.lineItems,
+      // Scheduling
+      scheduledDate: data.preferredDate ? new Date(data.preferredDate).toISOString() : undefined,
+      status: "pending",
+      message: `Quote request for ${formData.serviceType} - Generated via AI wizard`,
     };
     submitQuoteMutation.mutate(fullData);
   };

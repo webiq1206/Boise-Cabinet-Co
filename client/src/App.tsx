@@ -42,6 +42,7 @@ import Eagle from "@/pages/areas/Eagle";
 import Pricing from "@/pages/Pricing";
 import Blog from "@/pages/Blog";
 import BlogPost from "@/pages/BlogPost";
+import GetQuote from "@/pages/GetQuote";
 
 function Router() {
   return (
@@ -120,6 +121,7 @@ function Router() {
 
           {/* Additional Pages */}
           <Route path="/pricing" component={Pricing} />
+          <Route path="/get-quote" component={GetQuote} />
           <Route path="/blog" component={Blog} />
           <Route path="/blog/:slug" component={BlogPost} />
 

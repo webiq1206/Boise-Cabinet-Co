@@ -2,231 +2,78 @@
 
 ## Overview
 
-A professional lawn care and landscaping services website for Lawn Care Kuna, a local Idaho business serving the Treasure Valley since 2017. The site provides information about lawn care, landscaping, and Christmas light installation services across Kuna, Boise, Meridian, Nampa, Caldwell, and Eagle. Built with React, TypeScript, Express, and Tailwind CSS, featuring a comprehensive service catalog, quote request system, SEO-optimized pages for local service areas, interactive pricing calculator, before/after project gallery, customer testimonials, and educational blog content.
+The Lawn Care Kuna website is a professional online platform for a local Idaho business offering lawn care, landscaping, and Christmas light installation services across the Treasure Valley. Its primary goal is to provide comprehensive service information, facilitate quote requests, and enhance local SEO. Key capabilities include an AI-powered intelligent quoting system, an interactive property measurement tool, and a rich content management system for service details, project galleries, testimonials, and educational blogs. The site aims to streamline operations, improve customer engagement, and expand market reach within its service areas.
 
 ## User Preferences
 
 Preferred communication style: Simple, everyday language.
 
-## Recent Updates (November 2025)
-
-**Latest: Interactive Property Measurement Tool (November 19, 2025)**
-- **Automated Map-Based Measurement**: Free, professional property measurement using Leaflet + OpenStreetMap
-  - Satellite/hybrid map view (Esri World Imagery + OpenStreetMap overlay)
-  - Real-time area calculation while drawing (converts m² to sq ft and acres)
-  - Auto-geocoding: Centers map on user's city automatically
-  - Drawing tools: Polygon (accurate for irregular lawns) and rectangle (quick for standard yards)
-  - Editable shapes: Users can modify polygons after drawing
-  - Mobile-responsive: Full functionality on phones/tablets
-  - Zero API costs: Completely free solution vs Google Maps
-  - Seamless integration: "Measure" button in quote form opens modal tool
-  - Auto-fill workflow: Measurement auto-populates propertySize field and triggers instant estimate
-  - Toast confirmation: "Measurement added: X sq ft" feedback
-  - Accurate geodesic calculations: Accounts for Earth's curvature
-- **User Workflow**: Select city → Click "Measure" → Draw polygon on satellite view → Confirm → Instant quote
-- **Packages added**: leaflet, react-leaflet, leaflet-draw, leaflet-geosearch, @types/leaflet
-
-**Mobile Navigation, Visual Polish & Quote Form Enhancement (November 19, 2025)**
-- **Mobile Navigation Redesign**: Professional clean styling
-  - Removed nested Button wrappers for cleaner Link elements
-  - Better visual hierarchy with organized section headers
-  - Proper spacing and hover-elevate effects
-  - Wider sheet width (85vw) for improved mobile UX
-  - Full-width Free Consultation CTA prominently displayed
-- **Alternating Section Backgrounds**: Improved visual rhythm across all pages
-  - City pages follow White → Mint → White → Mint → White → Mint pattern
-  - Reduces visual monotony and creates clear section separation
-  - Applied to: Hero (white), Local Expertise (mint), Services (white), Why Choose Us (mint), Service Areas (white), Quote Form (mint)
-- **Scroll-to-Top on Navigation**: Automatic scroll behavior
-  - New ScrollToTop component using useLocation hook
-  - Scrolls to (0, 0) on every route change for better UX
-  - Integrated at Router level in App.tsx
-- **Enhanced SEO Content**: Comprehensive E-E-A-T optimized city pages
-  - 2000+ words per city page (vs ~300 before)
-  - City-specific climate and geography expertise for all 6 locations
-  - Expanded service features (6 items per service vs 3)
-  - Detailed "Why Choose Us" cards with descriptions
-  - Better keyword density and semantic HTML structure
-  - Strong E-E-A-T signals: "since 2017" (Experience), local expertise (Expertise), licensed/insured (Trust)
-- **Dimension-Based Quote Estimation**: Real-time accurate pricing
-  - Comprehensive input parsing: "5,000 sq ft", "50x100", "0.25 acres", or plain "5000"
-  - Handles commas, dimension multiplication (width×length), acre conversion (43,560 sqft)
-  - Service-specific rates: lawn care (monthly) vs landscaping (one-time)
-  - Property type multipliers: residential (1x), commercial (1.3x), HOA (1.2x), property management (1.25x)
-  - Real-time calculation using form.watch() + useEffect
-  - Valid range: 500 - 100,000 sqft (covers small yards to large commercial)
-  - Instant feedback: "$X - $Y/month" or "$X - $Y" with disclaimer
-
-**Hero & Mobile UX Overhaul (November 19, 2025)**
-- **Homepage Hero Redesign**: Matches actual lawncarekuna.com with light mint background, centered content layout
-  - Headline: "Most trusted lawn care services in Kuna"
-  - Simple quote form: Address input + submit button (mobile-optimized)
-  - Clean, approachable aesthetic (no dark photo hero)
-- **Sticky Bottom Navigation**: Mobile-friendly navigation bar with 3 CTAs
-  - Services tab: Scrolls to services section (works from any route)
-  - Call us tab: Direct phone link (208) 352-2011
-  - Schedule tab: Navigates to contact page
-  - Deterministic navigation-scroll pattern: pendingScroll state + useEffect + requestAnimationFrame
-  - Zero nested interactive elements (validated by architect)
-  - Mobile-only (lg:hidden) with fixed positioning
-
-**Actual Brand Color Implementation (November 19, 2025)**
-- Updated color system from speculative deep evergreen to actual lawncarekuna.com brand colors
-- Primary green: hsl(145, 50%, 35%) - Forest green #2D6B3F
-- Light mint backgrounds: hsl(145, 40%, 95%) - #E5F5EC  
-- Integrated actual brand logo (tree icon + wordmark) into Navigation
-- Updated design_guidelines.md from "luxury/upscale" to "clean, modern, approachable"
-- Verified entire codebase uses semantic tokens (zero hardcoded colors)
-- Kept Playfair Display + Inter typography system as requested
-
-Successfully implemented interactive features phase:
-- **Before/After Gallery**: Component with slider for project photos, integrated on homepage
-- **Customer Testimonials**: Star rating system with service-specific feedback 
-- **Pricing Calculator**: Interactive tool at /pricing with instant estimates and recurring service discounts
-- **Blog Section**: Full blog system with 3 Idaho lawn care guides at /blog
-- All features use PostgreSQL-compatible schemas with in-memory storage and API endpoints
-
 ## System Architecture
 
 ### Frontend Architecture
 
-**Framework**: React 18 with TypeScript, single-page application using Wouter for client-side routing
-
-**Component Library**: shadcn/ui (Radix UI primitives) with custom Tailwind CSS styling following a trust-first design approach inspired by professional home service providers
-
-**Design System**:
-- Typography: Playfair Display (headings) + Inter (body/UI) from Google Fonts
-- Color scheme: Actual lawncarekuna.com brand palette
-  - Primary: hsl(145, 50%, 35%) - Forest green #2D6B3F for buttons, links, accents
-  - Muted: hsl(145, 40%, 95%) - Light mint #E5F5EC for backgrounds
-  - Background: Pure white hsl(0, 0%, 100%)
-  - Dark overlay: hsl(145, 50%, 18%) - Dark forest green #1A3E2C
-- Component styling: "new-york" style variant with CSS variables for theming
-- Logo: Actual brand logo (tree icon + wordmark) in Navigation
-- Responsive breakpoints: Mobile-first with md/lg breakpoints
-- Spacing: Editorial spacing with py-24 md:py-32 lg:py-40 sections
-
-**State Management**: 
-- TanStack Query (React Query) for server state with custom query client configuration
-- React Hook Form with Zod validation for form handling
-- Local component state with React hooks
-
-**Routing Structure**:
-- Core pages: Home, About, Contact
-- Service landing pages: Lawn Care, Landscaping, Christmas Lights
-- Individual service pages: Lawn Mowing, Patio Installation, Pond Installation, Fence Installation (extendable to 50+ services)
-- Commercial pages: HOA Services, Property Management, Municipal Services
-- Geographic SEO pages structure (implied by requirements but routes not yet implemented)
-
-**Key Design Decisions**:
-- Privacy-first: No team photos, owner names, or personal information displayed
-- Trust-building through company history (since 2017), service quality messaging
-- Prominent contact information: Phone (208) 352-2011 sticky in navigation
-- Free quote CTA throughout site
-- Mega-dropdown navigation for extensive service catalog organization
-- Mobile hamburger menu with expandable categories
+**Framework & Routing**: React 18 with TypeScript, using Wouter for client-side routing.
+**Component Library**: shadcn/ui (Radix UI primitives) with custom Tailwind CSS for styling.
+**Design System**: Features Playfair Display (headings) and Inter (body) typography. The color scheme aligns with the actual Lawn Care Kuna brand: Primary Forest Green (#2D6B3F), Light Mint backgrounds (#E5F5EC), and pure white. It uses a mobile-first responsive design with editorial spacing.
+**State Management**: TanStack Query for server state, React Hook Form with Zod for form handling and validation, and React hooks for local component state.
+**Key Features**:
+- **AI-Powered Instant Quoting System**: A 4-step wizard at `/get-quote` includes property details, service selection, AI-generated pricing (with AI analysis of property complexity and deterministic fallbacks), and booking. Pricing is based on industry standards, property type, and service frequency, targeting 40-50% profit margins.
+- **Interactive Property Measurement Tool**: Utilizes Leaflet and OpenStreetMap for free, map-based property area calculation, supporting polygon and rectangle drawing, auto-geocoding, and real-time area conversion. Integrates seamlessly into the quote form.
+- **SEO Optimization**: Comprehensive, E-E-A-T optimized city-specific pages (2000+ words per city) with detailed service features and local expertise.
+- **Mobile Experience**: Redesigned mobile navigation with professional styling, wider sheets, and a sticky bottom navigation bar with key CTAs (Services, Call, Schedule).
+- **Visual Polish**: Alternating section backgrounds for visual rhythm and a redesigned homepage hero section with a clean, approachable aesthetic.
+- **Enhanced Content**: Before/After Gallery, Customer Testimonials with star ratings, an interactive Pricing Calculator, and a Blog Section with relevant guides.
 
 ### Backend Architecture
 
-**Server Framework**: Express.js with TypeScript, ES modules
-
-**API Design**: RESTful endpoints with JSON responses
-- POST `/api/quotes` - Quote submission endpoint with validation
-
-**Request Processing**:
-- JSON body parsing with raw body preservation for potential webhook verification
-- Request logging middleware tracking API calls with duration and response capture
-- Error handling with Zod validation errors vs server errors
-
-**Development vs Production**:
-- Vite dev server middleware in development with HMR
-- Static file serving in production from dist/public
-- Replit-specific plugins for development environment
-
-**Storage Layer**: 
-- Current: In-memory storage using Map data structure (MemStorage class)
-- Interface-based design (IStorage) allows easy swap to database implementation
-- Methods: createQuote, getAllQuotes, getQuoteById
-
-**Data Validation**: 
-- Shared schema between client/server using Drizzle-Zod
-- Type-safe quote submission with email, phone, service type validation
-- Automatic TypeScript inference from schema
+**Server Framework**: Express.js with TypeScript.
+**API Design**: RESTful endpoints with JSON responses, including a POST `/api/quotes` endpoint for quote submissions.
+**Request Processing**: Includes JSON body parsing, request logging, and robust error handling with Zod validation.
+**Storage Layer**: Currently uses in-memory storage (MemStorage class) via an `IStorage` interface, designed for easy future migration to a database.
+**Data Validation**: Shared Zod schemas between client and server ensure type-safe data handling and validation.
 
 ### Build System
 
-**Bundler**: Vite for frontend build
-- React plugin with Fast Refresh
-- Path aliases: @/ for client/src, @shared/ for shared, @assets/ for attached_assets
-- Production build outputs to dist/public
+**Frontend**: Vite for bundling, with React plugin, path aliases, and production output to `dist/public`.
+**Backend**: esbuild for bundling, targeting Node.js ESM, with output to `dist/`.
+**Type Checking**: Strict TypeScript with shared types via path aliases.
 
-**Server Bundling**: esbuild for backend
-- Platform: node
-- Format: ESM
-- External packages (not bundled)
-- Output to dist/
+### Database Schema (Prepared)
 
-**Type Checking**: TypeScript strict mode
-- Shared types between client/server via @shared path alias
-- No emit (bundlers handle compilation)
-- Module resolution: bundler strategy
-
-### Database Schema (Prepared but Not Active)
-
-**ORM**: Drizzle ORM configured for PostgreSQL dialect via Neon serverless driver
-
-**Schema Definition** (shared/schema.ts):
-- quotes table with fields: id (UUID), name, email, phone, serviceType, propertyType, propertySize, city, message, createdAt
-- Zod validation schema with email/phone/required field rules
-- TypeScript type inference for insert/select operations
-
-**Migration Strategy**: Drizzle Kit configured for schema push to DATABASE_URL
-
-**Current State**: Schema defined but using in-memory storage - database connection ready when DATABASE_URL provided
+**ORM**: Drizzle ORM configured for PostgreSQL via Neon serverless driver.
+**Schema**: Defined in `shared/schema.ts` for a `quotes` table (id, name, email, phone, serviceType, propertyType, propertySize, city, message, createdAt), with Zod validation and TypeScript inference. The schema is defined but currently uses in-memory storage.
 
 ## External Dependencies
 
-### UI Component Libraries
-- **Radix UI**: Headless accessible components (accordion, alert-dialog, avatar, checkbox, dialog, dropdown-menu, hover-card, label, menubar, navigation-menu, popover, progress, radio-group, scroll-area, select, separator, slider, switch, tabs, toast, tooltip)
-- **class-variance-authority**: Component variant management
-- **cmdk**: Command menu component
-- **embla-carousel-react**: Carousel functionality
-- **lucide-react**: Icon library
+### UI/UX & Components
+- **Radix UI**: Headless accessible components (via shadcn/ui).
+- **class-variance-authority**: For component variant management.
+- **cmdk**: Command menu component.
+- **embla-carousel-react**: Carousel functionality.
+- **lucide-react**: Icon library.
+- **leaflet, react-leaflet, leaflet-draw, leaflet-geosearch**: For map-based property measurement.
 
-### Form Management
-- **react-hook-form**: Form state and validation
-- **@hookform/resolvers**: Zod resolver integration
-
-### Data Fetching
-- **@tanstack/react-query**: Server state management, caching, and synchronization
+### Form & State Management
+- **react-hook-form**: Form state and validation.
+- **@hookform/resolvers**: Zod resolver for React Hook Form.
+- **@tanstack/react-query**: Server state management.
 
 ### Styling
-- **Tailwind CSS**: Utility-first CSS framework
-- **tailwind-merge & clsx**: Class name merging utilities
-- **PostCSS & Autoprefixer**: CSS processing
+- **Tailwind CSS**: Utility-first CSS framework.
+- **tailwind-merge & clsx**: For merging CSS classes.
+- **PostCSS & Autoprefixer**: CSS processing.
 
-### Database & Validation
-- **@neondatabase/serverless**: PostgreSQL client for serverless environments (configured but not actively used)
-- **drizzle-orm & drizzle-zod**: ORM and schema validation
-- **zod**: Schema validation library
-- **connect-pg-simple**: PostgreSQL session store (installed but not configured)
+### Data & Validation
+- **zod**: Schema validation library.
+- **@neondatabase/serverless**: PostgreSQL client (configured, not active).
+- **drizzle-orm & drizzle-zod**: ORM and schema validation (configured, not active).
 
 ### Utilities
-- **date-fns**: Date manipulation
-- **nanoid**: Unique ID generation
-- **wouter**: Lightweight client-side routing
+- **date-fns**: Date manipulation.
+- **nanoid**: Unique ID generation.
+- **wouter**: Lightweight client-side routing.
 
 ### Development Tools
-- **Replit-specific**: vite-plugin-runtime-error-modal, vite-plugin-cartographer, vite-plugin-dev-banner for development environment integration
-- **Vite & esbuild**: Build tools
-- **TypeScript**: Type checking and compilation
-
-### Key Architectural Trade-offs
-
-**In-memory vs Database Storage**: Currently using in-memory Map for quote storage to enable quick development/testing without database setup. Production would require switching to actual PostgreSQL database - the IStorage interface pattern makes this swap straightforward.
-
-**Client-side Routing**: Wouter chosen over React Router for smaller bundle size suitable for marketing site with moderate routing complexity.
-
-**Form Validation**: Dual validation (client with React Hook Form + Zod, server with Zod) ensures security while providing immediate user feedback.
-
-**Component Library Choice**: shadcn/ui provides copy-paste components rather than npm dependencies, allowing full customization while maintaining accessibility through Radix UI primitives.
+- **Vite & esbuild**: Build tools.
+- **TypeScript**: Type checking and compilation.
+- **Replit-specific plugins**: `vite-plugin-runtime-error-modal`, `vite-plugin-cartographer`, `vite-plugin-dev-banner`.

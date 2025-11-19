@@ -55,7 +55,27 @@ export const insertQuoteSchema = createInsertSchema(quotes).omit({
   city: z.string().min(1, "Please select your city"),
 });
 
+// Schema for quote submissions from the wizard (includes AI-generated fields)
+export const quoteSubmissionSchema = insertQuoteSchema.extend({
+  // Make AI-generated fields optional with proper types
+  aiAnalysis: z.any().optional(),
+  complexityScore: z.union([z.string(), z.number()]).optional(),
+  baseCost: z.union([z.string(), z.number()]).optional(),
+  adjustedCost: z.union([z.string(), z.number()]).optional(),
+  finalQuote: z.union([z.string(), z.number()]).optional(),
+  lineItems: z.any().optional(),
+  status: z.string().optional(),
+  scheduledDate: z.union([z.string(), z.date()]).optional(),
+  frequency: z.string().optional(),
+  selectedServices: z.array(z.string()).optional(),
+  address: z.string().optional(),
+  message: z.string().optional(),
+  // Allow propertySize as string or number (will be normalized)
+  propertySize: z.union([z.string(), z.number()]).optional(),
+});
+
 export type InsertQuote = z.infer<typeof insertQuoteSchema>;
+export type QuoteSubmission = z.infer<typeof quoteSubmissionSchema>;
 export type Quote = typeof quotes.$inferSelect;
 
 // Gallery Photos Schema
