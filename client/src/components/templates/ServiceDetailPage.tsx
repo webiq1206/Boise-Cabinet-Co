@@ -25,43 +25,60 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
       </Helmet>
 
       {/* Hero Section */}
-      <section className="bg-muted py-16 md:py-24">
-        <div className="container px-6 md:px-12">
-          <div className="max-w-md mx-auto text-center space-y-6">
-            <p className="text-primary font-medium text-sm tracking-wide">
-              {service.category === 'lawn-care' ? 'Lawn Care Services' : 
-               service.category === 'christmas-lights' ? 'Christmas Light Services' : 
-               'Landscaping Services'}
-            </p>
-            <h1 className="text-foreground tracking-tight leading-tight" data-testid="heading-hero">
-              Most trusted {service.name.toLowerCase()} services in Idaho
-            </h1>
-            <p className="text-primary text-base md:text-lg font-medium" data-testid="text-hero-description">
-              {service.shortDescription}
-            </p>
-            
-            {/* Simple Quote Form */}
-            <div className="mt-8 space-y-4">
-              <Button size="lg" className="w-full" asChild data-testid="button-hero-schedule">
-                <Link href="/get-quote">
-                  SCHEDULE NOW AND SAVE
-                </Link>
-              </Button>
-              
-              <div className="relative">
-                <input
-                  type="text"
-                  placeholder="Start typing an address..."
-                  className="w-full px-4 py-3 border-b-2 border-border bg-transparent text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
-                  data-testid="input-hero-address"
-                />
+      <section className="relative bg-secondary/40 py-16 md:py-24 lg:py-32 overflow-hidden">
+        {/* Decorative Background Elements */}
+        <div className="absolute inset-0 opacity-20 pointer-events-none">
+          <div className="absolute top-10 left-10 w-32 h-32 text-primary/30">
+            <svg viewBox="0 0 100 100" fill="currentColor">
+              <path d="M50 10 L30 40 Q50 35 70 40 Z" />
+            </svg>
+          </div>
+          <div className="absolute bottom-20 right-10 w-48 h-48 text-primary/20">
+            <svg viewBox="0 0 100 100" fill="currentColor">
+              <path d="M20 50 L10 20 Q50 40 90 20 L80 50 Q50 30 20 50 Z" />
+            </svg>
+          </div>
+        </div>
+
+        <div className="container px-6 md:px-12 relative z-10">
+          <div className="max-w-7xl mx-auto">
+            <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+              {/* Left: Heading Content */}
+              <div className="space-y-6">
+                <p className="text-primary font-medium text-sm tracking-wide uppercase">
+                  Lawn Care Kuna
+                </p>
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground tracking-tight leading-tight" data-testid="heading-hero">
+                  Most trusted {service.name.toLowerCase()} services in Idaho
+                </h1>
+                <p className="text-primary text-lg md:text-xl font-medium" data-testid="text-hero-description">
+                  {service.shortDescription}
+                </p>
               </div>
-              
-              <Button size="lg" variant="default" className="w-full" asChild data-testid="button-hero-submit">
-                <Link href="/get-quote">
-                  Submit
-                </Link>
-              </Button>
+
+              {/* Right: CTA Card */}
+              <div className="lg:ml-auto lg:max-w-md w-full">
+                <Card className="shadow-xl bg-white">
+                  <CardContent className="p-6 md:p-8 space-y-4">
+                    <h3 className="text-xl font-semibold text-center mb-2">Get Your Free Quote</h3>
+                    <p className="text-sm text-muted-foreground text-center mb-6">Professional service. No obligation.</p>
+                    <Button size="lg" className="w-full" asChild data-testid="button-hero-schedule">
+                      <Link href="/get-quote">
+                        SCHEDULE NOW AND SAVE
+                      </Link>
+                    </Button>
+                    <Button size="lg" variant="outline" className="w-full" asChild data-testid="button-hero-call">
+                      <a href="tel:2083522011">
+                        <Phone className="h-5 w-5 mr-2" />
+                        Call (208) 352-2011
+                      </a>
+                    </Button>
+                    <p className="text-xs text-center text-muted-foreground mt-4">
+                      Fast response • Licensed & Insured • Since 2017
+                    </p>
+                  </CardContent>
+                </Card>
+              </div>
             </div>
           </div>
         </div>
@@ -190,7 +207,7 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
                   </p>
                   <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
                     {['Kuna', 'Boise', 'Meridian', 'Nampa', 'Caldwell', 'Eagle'].map(city => (
-                      <Link key={city} href={`/services/${service.slug}/${city.toLowerCase()}`}>
+                      <Link key={city} href={`/services/${service.slug}/${city.toLowerCase()}`} data-testid={`link-service-area-${city.toLowerCase()}`}>
                         <Card className="hover-elevate cursor-pointer">
                           <CardContent className="p-6">
                             <span className="text-primary font-medium text-lg">
@@ -209,7 +226,7 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
                     <h2 className="text-3xl md:text-4xl font-bold mb-6">Related Services</h2>
                     <div className="grid sm:grid-cols-2 gap-4">
                       {service.relatedServices.map(slug => (
-                        <Link key={slug} href={`/services/${slug}`}>
+                        <Link key={slug} href={`/services/${slug}`} data-testid={`link-related-service-${slug}`}>
                           <Card className="hover-elevate cursor-pointer">
                             <CardContent className="p-6">
                               <span className="text-primary font-medium text-lg">
@@ -232,13 +249,13 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
                     <h3 className="text-2xl font-bold mb-2">Get Started Today</h3>
                     <p className="mb-6 opacity-90">Free, no-obligation quote for your property</p>
                     <div className="space-y-4">
-                      <Button size="lg" className="w-full bg-white text-primary hover:bg-white/90" asChild>
+                      <Button size="lg" className="w-full bg-white text-primary" asChild data-testid="button-sidebar-call">
                         <a href="tel:2083522011">
                           <Phone className="h-5 w-5 mr-2" />
                           Call (208) 352-2011
                         </a>
                       </Button>
-                      <Button size="lg" variant="outline" className="w-full border-white text-white hover:bg-white/10" asChild>
+                      <Button size="lg" variant="outline" className="w-full border-white text-white" asChild data-testid="button-sidebar-quote">
                         <Link href="/get-quote">Get Free Quote</Link>
                       </Button>
                     </div>
@@ -299,10 +316,10 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
               Join hundreds of satisfied Idaho homeowners who trust Lawn Care Kuna for professional {service.name.toLowerCase()} services.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="bg-white text-primary hover:bg-white/90" asChild>
+              <Button size="lg" className="bg-white text-primary" asChild data-testid="button-midcta-quote">
                 <Link href="/get-quote">Get Free Quote</Link>
               </Button>
-              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10" asChild>
+              <Button size="lg" variant="outline" className="border-white text-white" asChild data-testid="button-midcta-call">
                 <a href="tel:2083522011">Call (208) 352-2011</a>
               </Button>
             </div>
@@ -329,13 +346,13 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
       <div className="fixed bottom-0 left-0 right-0 z-50 lg:hidden bg-white border-t shadow-lg">
         <div className="container px-4 py-3">
           <div className="flex gap-2">
-            <Button size="lg" variant="outline" className="flex-1" asChild>
+            <Button size="lg" variant="outline" className="flex-1" asChild data-testid="button-mobile-sticky-call">
               <a href="tel:2083522011">
                 <Phone className="h-5 w-5" />
                 <span className="ml-2">Call</span>
               </a>
             </Button>
-            <Button size="lg" className="flex-1" asChild>
+            <Button size="lg" className="flex-1" asChild data-testid="button-mobile-sticky-quote">
               <Link href="/get-quote">Get Quote</Link>
             </Button>
           </div>
