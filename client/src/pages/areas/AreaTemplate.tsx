@@ -28,23 +28,23 @@ export default function AreaTemplate({ cityName, citySlug }: AreaTemplateProps) 
   return (
     <div className="flex flex-col">
       {/* Hero Section - White */}
-      <section className="py-16 md:py-20">
+      <section className="py-12 md:py-16 lg:py-20">
         <div className="container px-4 md:px-8">
-          <div className="max-w-4xl mx-auto text-center space-y-6">
-            <div className="flex items-center justify-center gap-2 mb-4">
-              <MapPin className="h-8 w-8 text-primary" />
+          <div className="max-w-4xl mx-auto text-center space-y-4 md:space-y-6">
+            <div className="flex items-center justify-center gap-2 mb-2 md:mb-4">
+              <MapPin className="h-6 w-6 md:h-8 md:w-8 text-primary" />
             </div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif tracking-tight" data-testid="heading-main">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif tracking-tight" data-testid="heading-main">
               Professional Lawn Care & Landscaping in {cityName}, Idaho
             </h1>
-            <p className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-3xl mx-auto" data-testid="text-subtitle">
+            <p className="text-base md:text-lg lg:text-xl text-muted-foreground leading-relaxed max-w-3xl mx-auto" data-testid="text-subtitle">
               Trusted by {cityName} homeowners and businesses since 2017. Expert lawn maintenance, custom landscaping design, and professional Christmas light installation throughout the Treasure Valley.
             </p>
-            <div className="flex flex-wrap items-center justify-center gap-3 pt-4">
-              <Button size="lg" asChild data-testid="button-quote">
+            <div className="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-3 pt-2 md:pt-4">
+              <Button size="lg" asChild data-testid="button-quote" className="w-full sm:w-auto">
                 <Link href="#quote">Get Free Quote</Link>
               </Button>
-              <Button size="lg" variant="outline" asChild data-testid="button-pricing">
+              <Button size="lg" variant="outline" asChild data-testid="button-pricing" className="w-full sm:w-auto">
                 <Link href="/pricing">View Pricing</Link>
               </Button>
             </div>

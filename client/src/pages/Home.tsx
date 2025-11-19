@@ -107,23 +107,23 @@ export default function Home() {
   return (
     <div className="flex flex-col pb-20">
       {/* Hero Section - Clean & Minimal */}
-      <section className="relative bg-muted py-20 md:py-32 overflow-hidden">
+      <section className="relative bg-muted py-12 md:py-20 lg:py-32 overflow-hidden">
         <div className="container px-4 md:px-8">
           <div className="max-w-4xl mx-auto">
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="grid lg:grid-cols-2 gap-8 md:gap-12 items-center">
               {/* Left: Heading */}
-              <div className="space-y-6">
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-tight">
+              <div className="space-y-4 md:space-y-6">
+                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-tight">
                   Most trusted lawn care services in Kuna
                 </h1>
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <Button size="lg" asChild data-testid="button-hero-schedule">
+                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+                  <Button size="lg" asChild data-testid="button-hero-schedule" className="w-full sm:w-auto">
                     <Link href="/get-quote">
                       Get Free Quote
-                      <ArrowRight className="ml-2 h-5 w-5" />
+                      <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
                     </Link>
                   </Button>
-                  <Button size="lg" variant="outline" asChild data-testid="button-hero-pricing">
+                  <Button size="lg" variant="outline" asChild data-testid="button-hero-pricing" className="w-full sm:w-auto">
                     <Link href="/pricing">
                       View Pricing
                     </Link>
@@ -149,26 +149,26 @@ export default function Home() {
       </section>
 
       {/* Trust Indicators */}
-      <section className="py-16 md:py-20 bg-muted">
+      <section className="py-12 md:py-16 lg:py-20 bg-muted">
         <div className="container px-4 md:px-8">
-          <div className="max-w-4xl mx-auto space-y-12">
-            <div className="text-center space-y-4">
-              <h2 className="text-2xl md:text-3xl font-bold tracking-tight">
+          <div className="max-w-4xl mx-auto space-y-8 md:space-y-12">
+            <div className="text-center space-y-3 md:space-y-4">
+              <h2 className="text-2xl sm:text-2xl md:text-3xl font-bold tracking-tight">
                 Why Kuna trusts us with their lawns
               </h2>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">
                 Professional lawn care backed by experience, licensing, and a commitment to your satisfaction
               </p>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
               {trustIndicators.map((indicator, index) => (
                 <Card key={index} className="text-center" data-testid={`card-trust-${index}`}>
-                  <CardContent className="pt-6 pb-6 space-y-3">
-                    <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-primary/10">
-                      <indicator.icon className="h-6 w-6 text-primary" />
+                  <CardContent className="pt-5 pb-5 md:pt-6 md:pb-6 space-y-2 md:space-y-3 px-4 md:px-6">
+                    <div className="inline-flex items-center justify-center w-10 h-10 md:w-12 md:h-12 rounded-full bg-primary/10">
+                      <indicator.icon className="h-5 w-5 md:h-6 md:w-6 text-primary" />
                     </div>
-                    <h3 className="font-semibold text-base">{indicator.title}</h3>
-                    <p className="text-sm text-muted-foreground">{indicator.description}</p>
+                    <h3 className="font-semibold text-sm md:text-base">{indicator.title}</h3>
+                    <p className="text-xs md:text-sm text-muted-foreground leading-snug">{indicator.description}</p>
                   </CardContent>
                 </Card>
               ))}
@@ -178,21 +178,21 @@ export default function Home() {
       </section>
 
       {/* The Best Local Lawn Care Section */}
-      <section className="py-16 md:py-24">
+      <section className="py-12 md:py-16 lg:py-24">
         <div className="container px-4 md:px-8">
-          <div className="max-w-6xl mx-auto space-y-12">
-            <div className="text-center max-w-3xl mx-auto space-y-4">
-              <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
+          <div className="max-w-6xl mx-auto space-y-8 md:space-y-12">
+            <div className="text-center max-w-3xl mx-auto space-y-3 md:space-y-4">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">
                 The best local lawn care in Kuna
               </h2>
-              <p className="text-lg text-muted-foreground leading-relaxed">
+              <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
                 At Lawn Care Kuna, we're dedicated to providing exceptional lawn care and landscaping services 
                 that transform your outdoor space into something beautiful. Our experienced team understands 
                 Idaho's unique climate and soil conditions, ensuring your lawn thrives year-round.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-8">
               {services.map((service, index) => (
                 <Card key={index} className="hover-elevate" data-testid={`card-service-${service.title.toLowerCase().replace(/\s+/g, '-')}`}>
                   <CardHeader className="space-y-4">

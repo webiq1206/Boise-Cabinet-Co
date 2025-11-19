@@ -49,26 +49,26 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
       </Helmet>
 
       {/* Hero Section */}
-      <section className="relative bg-muted py-20 md:py-32 overflow-hidden">
+      <section className="relative bg-muted py-12 md:py-20 lg:py-32 overflow-hidden">
         <div className="container px-4 md:px-8">
           <div className="max-w-4xl mx-auto">
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="grid lg:grid-cols-2 gap-8 md:gap-12 items-center">
               {/* Left: Heading */}
-              <div className="space-y-6">
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-tight" data-testid="heading-hero">
+              <div className="space-y-4 md:space-y-6">
+                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-tight" data-testid="heading-hero">
                   {service.name} services
                 </h1>
-                <p className="text-lg text-muted-foreground" data-testid="text-hero-description">
+                <p className="text-base md:text-lg text-muted-foreground" data-testid="text-hero-description">
                   {service.shortDescription}
                 </p>
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <Button size="lg" asChild data-testid="button-hero-schedule">
+                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+                  <Button size="lg" asChild data-testid="button-hero-schedule" className="w-full sm:w-auto">
                     <Link href="/get-quote">
                       Get Free Quote
-                      <ArrowRight className="ml-2 h-5 w-5" />
+                      <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
                     </Link>
                   </Button>
-                  <Button size="lg" variant="outline" asChild data-testid="button-hero-pricing">
+                  <Button size="lg" variant="outline" asChild data-testid="button-hero-pricing" className="w-full sm:w-auto">
                     <Link href="/pricing">
                       View Pricing
                     </Link>
@@ -94,26 +94,26 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
       </section>
 
       {/* Dark Green Service Description Card */}
-      <section className="py-16 md:py-24">
+      <section className="py-12 md:py-16 lg:py-24">
         <div className="container px-4 md:px-8">
           <div className="max-w-6xl mx-auto">
             <Card className="bg-primary text-primary-foreground border-primary">
-              <CardContent className="p-8 md:p-12 space-y-6">
-                <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
+              <CardContent className="p-6 md:p-8 lg:p-12 space-y-4 md:space-y-6">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">
                   {service.name} services
                 </h2>
-                <p className="text-primary-foreground/90 text-lg leading-relaxed">
+                <p className="text-primary-foreground/90 text-base md:text-lg leading-relaxed">
                   {service.longDescription}
                 </p>
-                <p className="text-primary-foreground/90 text-lg leading-relaxed">
+                <p className="text-primary-foreground/90 text-base md:text-lg leading-relaxed">
                   We provide professional {service.name.toLowerCase()} services throughout Idaho's Treasure Valley, 
                   including Kuna, Boise, Meridian, Nampa, Caldwell, and Eagle. Our experienced team delivers 
                   exceptional results tailored to Idaho's unique climate and soil conditions.
                 </p>
-                <Button size="lg" variant="secondary" asChild data-testid="button-service-cta">
+                <Button size="lg" variant="secondary" asChild data-testid="button-service-cta" className="w-full sm:w-auto">
                   <Link href="/get-quote">
                     Request Service
-                    <ArrowRight className="ml-2 h-5 w-5" />
+                    <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
                   </Link>
                 </Button>
               </CardContent>
@@ -123,14 +123,14 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
       </section>
 
       {/* Service Details Section */}
-      <section className="py-16 md:py-24">
+      <section className="py-12 md:py-16 lg:py-24">
         <div className="container px-4 md:px-8">
-          <div className="max-w-6xl mx-auto space-y-12">
-            <div className="text-center space-y-4">
-              <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
+          <div className="max-w-6xl mx-auto space-y-8 md:space-y-12">
+            <div className="text-center space-y-3 md:space-y-4">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">
                 {service.name} services
               </h2>
-              <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+              <p className="text-base md:text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
                 At Lawn Care Kuna, we've been providing expert {service.name.toLowerCase()} services throughout the Treasure Valley since 2017. 
                 Our professional approach ensures outstanding results for your property.
               </p>
