@@ -20,7 +20,7 @@ import {
 import { ServiceAreaMap } from "@/components/ServiceAreaMap";
 import { BeforeAfterGallery } from "@/components/BeforeAfterGallery";
 import { Testimonials } from "@/components/Testimonials";
-import { QuoteForm } from "@/components/QuoteForm";
+import { QuoteWizard } from "@/components/QuoteWizard";
 
 const services = [
   {
@@ -558,7 +558,7 @@ export default function Home() {
                   <CardDescription>Fill out the form below for instant pricing</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <QuoteForm />
+                  <QuoteWizard />
                 </CardContent>
               </Card>
             </div>

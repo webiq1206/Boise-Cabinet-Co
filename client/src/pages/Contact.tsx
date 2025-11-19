@@ -1,4 +1,4 @@
-import { QuoteForm } from "@/components/QuoteForm";
+import { QuoteWizard } from "@/components/QuoteWizard";
 import { Card, CardContent } from "@/components/ui/card";
 import { Phone, Mail, MapPin, Clock } from "lucide-react";
 
@@ -106,7 +106,7 @@ export default function Contact() {
 
               {/* Quote Form */}
               <div className="lg:col-span-2">
-                <QuoteForm />
+                <QuoteWizard />
               </div>
             </div>
           </div>
