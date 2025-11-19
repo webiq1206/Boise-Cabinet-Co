@@ -8,6 +8,38 @@ The Lawn Care Kuna website is a professional online platform for a local Idaho b
 
 Preferred communication style: Simple, everyday language.
 
+## Recent Changes
+
+### 2025-11-19: Homepage Trust Indicators Visual Flow Fix
+- **Problem**: Trust indicator cards felt "off" and didn't flow well from hero section
+- **Root Cause**: Abrupt color jump from bg-muted hero to white trust cards, no transitional headline, layout shift from 2-column to 4-column grid
+- **Solution Implemented**:
+  - Added transitional headline: "Why Kuna trusts us with their lawns"
+  - Added supporting copy explaining value proposition  
+  - Applied bg-muted background to trust section for visual continuity
+  - Removed bottom border for cleaner flow
+  - Used same max-w-4xl container as hero for consistency
+  - Added proper vertical spacing (space-y-12)
+- **Result**: Smooth, cohesive visual flow from hero into trust indicators
+- **Architect Approved**: PASS rating - sections read as single continuous narrative
+- **E2E Verified**: Consistent container width, all trust cards render correctly, no visual jolts
+
+### 2025-11-19: Service & City Page Template Redesign (MAJOR)
+- **Complete Template Overhaul**: Redesigned both ServiceDetailPage and GeoServicePage templates to match clean, modern reference design
+- **Simplified Layout**: Removed complex sticky sidebar in favor of clean single-column flow with alternating backgrounds
+- **Hero Section Redesign**: Minimal design with heading on left, decorative leaf elements on right (desktop), two CTA buttons
+- **Dark Green Service Card**: Full-width primary-colored card with service description and "Request Service" CTA
+- **Alternating Backgrounds**: Visual rhythm with white, bg-muted, and bg-muted/30 sections throughout page
+- **Two-Column Quote Form**: Benefits list on left, quote form card on right for better conversion
+- **Values Section**: 4-card grid showing Quality First, Integrity, Customer Focus, Excellence
+- **Mobile Sticky Bottom CTA**: Fixed bottom bar with Call/Quote buttons for mobile conversion
+- **Critical Bug Fix**: Removed hardcoded "and trimming" suffix from all headings (9 instances across both templates)
+  - Service-only pages now show: "{Service.name} services" (e.g., "Aeration services")
+  - City-specific pages now show: "{Service.name} in {City}" (e.g., "Fertilization in Caldwell")
+- **Architect Approved**: PASS rating for production readiness after copy correction
+- **E2E Verified**: All service and city pages tested - correct service names display, all CTAs functional
+- **Pages Affected**: All 189 service/geo pages (24 services × 6 cities + 24 service-only pages)
+
 ## System Architecture
 
 ### Frontend Architecture
