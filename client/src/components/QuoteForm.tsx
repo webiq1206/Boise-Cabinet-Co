@@ -26,15 +26,36 @@ import {
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { CheckCircle2, AlertCircle, Loader2, DollarSign, Info, Map } from "lucide-react";
+import { CheckCircle2, AlertCircle, Loader2, DollarSign, Info, Map, Sparkles } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { MapMeasureTool } from "@/components/MapMeasureTool";
+import { normalizePropertySize, useDebounce, getQuoteCacheKey, aiQuoteCache } from "@/lib/quoteUtils";
+import { config } from "@/lib/config";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface QuoteFormProps {
   className?: string;
   compact?: boolean;
   preselectedService?: string;
   preselectedCity?: string;
+  enableAi?: boolean; // Override global AI flag
+}
+
+interface AiQuoteResult {
+  total: number;
+  complexity: number;
+  lineItems: Array<{
+    service: string;
+    basePrice: number;
+    finalPrice: number;
+  }>;
+  aiAnalysis?: {
+    terrainDifficulty: string;
+    obstacles: string;
+    grassCondition: string;
+    accessibility: string;
+  };
+  fallbackUsed?: boolean;
 }
 
 // Pricing estimation logic based on property size and service type
@@ -113,11 +134,15 @@ function calculateEstimate(propertySize: string, serviceType: string, propertyTy
   };
 }
 
-export function QuoteForm({ className, compact = false, preselectedService, preselectedCity }: QuoteFormProps) {
+export function QuoteForm({ className, compact = false, preselectedService, preselectedCity, enableAi }: QuoteFormProps) {
   const { toast } = useToast();
   const [submitted, setSubmitted] = useState(false);
   const [estimate, setEstimate] = useState<{ low: number; high: number; isMonthly: boolean } | null>(null);
+  const [aiQuote, setAiQuote] = useState<AiQuoteResult | null>(null);
   const [isMapOpen, setIsMapOpen] = useState(false);
+  
+  // Determine if AI quotes should be enabled (global config or prop override)
+  const useAiQuotes = enableAi !== undefined ? enableAi : config.enableAiQuotes;
 
   const form = useForm<InsertQuote>({
     resolver: zodResolver(insertQuoteSchema),
@@ -133,19 +158,92 @@ export function QuoteForm({ className, compact = false, preselectedService, pres
     },
   });
 
-  // Watch form values to calculate estimate
+  // Watch form values
   const watchedServiceType = form.watch("serviceType");
   const watchedPropertySize = form.watch("propertySize");
   const watchedPropertyType = form.watch("propertyType");
-
+  
+  // Debounce the watched values to prevent excessive API calls
+  const debouncedServiceType = useDebounce(watchedServiceType, 1500);
+  const debouncedPropertySize = useDebounce(watchedPropertySize, 1500);
+  const debouncedPropertyType = useDebounce(watchedPropertyType, 1500);
+  
+  // AI quote calculation mutation
+  const aiQuoteMutation = useMutation({
+    mutationFn: async (params: { serviceType: string; propertyType: string; sqft: number }) => {
+      const cacheKey = getQuoteCacheKey(params);
+      
+      // Check cache first
+      const cached = aiQuoteCache.get(cacheKey);
+      if (cached) {
+        return cached;
+      }
+      
+      // Call AI quote calculation API
+      const response = await apiRequest("POST", "/api/quotes/calculate", {
+        serviceType: params.serviceType,
+        propertyType: params.propertyType,
+        propertySize: params.sqft,
+        services: [{ type: params.serviceType, sqft: params.sqft }],
+        frequency: "one-time"
+      });
+      
+      // Cache the result
+      aiQuoteCache.set(cacheKey, response);
+      
+      return response;
+    },
+    onSuccess: (data) => {
+      setAiQuote(data);
+      setEstimate(null); // Clear basic estimate when AI quote loads
+    },
+    onError: (error) => {
+      console.error("AI quote calculation failed:", error);
+      // Fall back to basic estimation on error
+      if (debouncedServiceType && debouncedPropertySize && debouncedPropertyType) {
+        const fallbackEstimate = calculateEstimate(debouncedPropertySize, debouncedServiceType, debouncedPropertyType);
+        setEstimate(fallbackEstimate);
+      }
+    },
+  });
+  
+  // Trigger AI quote calculation when inputs change (debounced)
   useEffect(() => {
-    if (watchedServiceType && watchedPropertySize && watchedPropertyType) {
-      const newEstimate = calculateEstimate(watchedPropertySize, watchedServiceType, watchedPropertyType);
-      setEstimate(newEstimate);
+    if (!useAiQuotes) {
+      // Fall back to basic estimation if AI is disabled
+      if (debouncedServiceType && debouncedPropertySize && debouncedPropertyType) {
+        const newEstimate = calculateEstimate(debouncedPropertySize, debouncedServiceType, debouncedPropertyType);
+        setEstimate(newEstimate);
+        setAiQuote(null);
+      } else {
+        setEstimate(null);
+        setAiQuote(null);
+      }
+      return;
+    }
+    
+    // Only proceed with AI quote if all required fields are present
+    if (debouncedServiceType && debouncedPropertyType && debouncedPropertySize) {
+      const sqft = normalizePropertySize(debouncedPropertySize);
+      
+      if (sqft && sqft >= 500) {
+        // Valid input - trigger AI quote calculation
+        aiQuoteMutation.mutate({
+          serviceType: debouncedServiceType,
+          propertyType: debouncedPropertyType,
+          sqft
+        });
+      } else {
+        // Invalid size - clear quotes
+        setAiQuote(null);
+        setEstimate(null);
+      }
     } else {
+      // Missing required fields - clear quotes
+      setAiQuote(null);
       setEstimate(null);
     }
-  }, [watchedServiceType, watchedPropertySize, watchedPropertyType]);
+  }, [debouncedServiceType, debouncedPropertySize, debouncedPropertyType, useAiQuotes]);
 
   const submitQuoteMutation = useMutation({
     mutationFn: async (data: InsertQuote) => {
@@ -422,9 +520,91 @@ export function QuoteForm({ className, compact = false, preselectedService, pres
               />
             )}
 
-            {/* Instant Estimate Display */}
-            {estimate && (
-              <Alert className="bg-primary/5 border-primary/20">
+            {/* AI Quote Display */}
+            {aiQuoteMutation.isPending && (
+              <Alert className="bg-primary/5 border-primary/20" data-testid="alert-calculating">
+                <Loader2 className="h-5 w-5 text-primary animate-spin" />
+                <AlertDescription>
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2">
+                      <Sparkles className="h-4 w-4 text-primary" />
+                      <p className="font-semibold text-foreground">Analyzing your property...</p>
+                    </div>
+                    <Skeleton className="h-4 w-3/4" />
+                    <Skeleton className="h-4 w-1/2" />
+                  </div>
+                </AlertDescription>
+              </Alert>
+            )}
+            
+            {aiQuote && !aiQuoteMutation.isPending && (
+              <Alert className="bg-primary/5 border-primary/20" data-testid="alert-ai-quote">
+                <DollarSign className="h-5 w-5 text-primary" />
+                <AlertDescription>
+                  <div className="space-y-3">
+                    <div className="flex items-start justify-between gap-2">
+                      <div>
+                        <div className="flex items-center gap-2 mb-1">
+                          <p className="font-semibold text-foreground">Instant AI Quote</p>
+                          {aiQuote.fallbackUsed ? (
+                            <Badge variant="outline" className="text-xs">
+                              Estimated
+                            </Badge>
+                          ) : (
+                            <Badge variant="default" className="text-xs bg-primary/10 text-primary border-primary/20">
+                              <Sparkles className="h-3 w-3 mr-1" />
+                              AI-Powered
+                            </Badge>
+                          )}
+                        </div>
+                        <p className="text-2xl font-bold text-primary" data-testid="text-ai-quote-total">
+                          ${aiQuote.total.toLocaleString()}
+                        </p>
+                      </div>
+                      {aiQuote.complexity && !aiQuote.fallbackUsed && (
+                        <div className="text-right">
+                          <p className="text-xs text-muted-foreground">Complexity</p>
+                          <p className="text-sm font-semibold">{aiQuote.complexity.toFixed(1)}x</p>
+                        </div>
+                      )}
+                    </div>
+                    
+                    {aiQuote.aiAnalysis && !aiQuote.fallbackUsed && (
+                      <div className="space-y-1 pt-2 border-t border-primary/10">
+                        <p className="text-xs font-medium text-muted-foreground">AI Property Analysis:</p>
+                        <div className="grid grid-cols-2 gap-1 text-xs">
+                          <div className="flex items-start gap-1">
+                            <span className="text-muted-foreground">Terrain:</span>
+                            <span className="text-foreground font-medium">{aiQuote.aiAnalysis.terrainDifficulty}</span>
+                          </div>
+                          <div className="flex items-start gap-1">
+                            <span className="text-muted-foreground">Access:</span>
+                            <span className="text-foreground font-medium">{aiQuote.aiAnalysis.accessibility}</span>
+                          </div>
+                          {aiQuote.aiAnalysis.obstacles && (
+                            <div className="flex items-start gap-1 col-span-2">
+                              <span className="text-muted-foreground">Obstacles:</span>
+                              <span className="text-foreground font-medium">{aiQuote.aiAnalysis.obstacles}</span>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    )}
+                    
+                    <p className="text-xs text-muted-foreground flex items-start gap-1 pt-2 border-t border-primary/10">
+                      <Info className="h-3 w-3 mt-0.5 flex-shrink-0" />
+                      {aiQuote.fallbackUsed 
+                        ? "This is a preliminary estimate. Final pricing will be provided after property assessment."
+                        : "AI-analyzed pricing based on your property characteristics. Lock in this quote by submitting the form."}
+                    </p>
+                  </div>
+                </AlertDescription>
+              </Alert>
+            )}
+            
+            {/* Fallback Basic Estimate (when AI disabled or unavailable) */}
+            {estimate && !aiQuote && !aiQuoteMutation.isPending && (
+              <Alert className="bg-primary/5 border-primary/20" data-testid="alert-basic-estimate">
                 <DollarSign className="h-5 w-5 text-primary" />
                 <AlertDescription>
                   <div className="space-y-1">
