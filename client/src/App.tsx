@@ -25,6 +25,20 @@ import PatioInstallation from "@/pages/services/PatioInstallation";
 import PondInstallation from "@/pages/services/PondInstallation";
 import FenceInstallation from "@/pages/services/FenceInstallation";
 
+// Generated Service Pages (using templates)
+import AerationPage from "@/pages/services/generated/AerationPage";
+import FertilizationPage from "@/pages/services/generated/FertilizationPage";
+import WeedControlPage from "@/pages/services/generated/WeedControlPage";
+import SodInstallationPage from "@/pages/services/generated/SodInstallationPage";
+
+// Kuna Service Pages
+import LawnMowingKuna from "@/pages/services/kuna/LawnMowingKuna";
+import AerationKuna from "@/pages/services/kuna/AerationKuna";
+import FertilizationKuna from "@/pages/services/kuna/FertilizationKuna";
+import WeedControlKuna from "@/pages/services/kuna/WeedControlKuna";
+import SodInstallationKuna from "@/pages/services/kuna/SodInstallationKuna";
+import PatioInstallationKuna from "@/pages/services/kuna/PatioInstallationKuna";
+
 // Commercial Pages
 import HOAServices from "@/pages/commercial/HOAServices";
 import PropertyManagement from "@/pages/commercial/PropertyManagement";
@@ -64,9 +78,9 @@ function Router() {
           {/* Individual Service Pages - Lawn Care */}
           <Route path="/services/lawn-mowing" component={LawnMowing} />
           <Route path="/services/lawn-maintenance" component={LawnMowing} />
-          <Route path="/services/aeration" component={LawnMowing} />
-          <Route path="/services/fertilization" component={LawnMowing} />
-          <Route path="/services/weed-control" component={LawnMowing} />
+          <Route path="/services/aeration" component={AerationPage} />
+          <Route path="/services/fertilization" component={FertilizationPage} />
+          <Route path="/services/weed-control" component={WeedControlPage} />
           <Route path="/services/hedge-trimming" component={LawnMowing} />
           <Route path="/services/seasonal-cleanup" component={LawnMowing} />
           <Route path="/services/sprinkler-blowout" component={LawnMowing} />
@@ -76,7 +90,7 @@ function Router() {
           {/* Individual Service Pages - Landscaping */}
           <Route path="/services/patio-installation" component={PatioInstallation} />
           <Route path="/services/paver-patio" component={PatioInstallation} />
-          <Route path="/services/sod-installation" component={PatioInstallation} />
+          <Route path="/services/sod-installation" component={SodInstallationPage} />
           <Route path="/services/retaining-walls" component={PatioInstallation} />
           <Route path="/services/retaining-wall-construction" component={PatioInstallation} />
           <Route path="/services/pond-installation" component={PondInstallation} />
@@ -96,6 +110,14 @@ function Router() {
           <Route path="/services/smart-irrigation" component={PatioInstallation} />
           <Route path="/services/irrigation-maintenance" component={PatioInstallation} />
 
+          {/* Kuna-specific service pages */}
+          <Route path="/services/lawn-mowing/kuna" component={LawnMowingKuna} />
+          <Route path="/services/aeration/kuna" component={AerationKuna} />
+          <Route path="/services/fertilization/kuna" component={FertilizationKuna} />
+          <Route path="/services/weed-control/kuna" component={WeedControlKuna} />
+          <Route path="/services/sod-installation/kuna" component={SodInstallationKuna} />
+          <Route path="/services/patio-installation/kuna" component={PatioInstallationKuna} />
+          
           {/* Geo-targeted examples (using same components with different URLs) */}
           <Route path="/services/lawn-mowing/:city" component={LawnMowing} />
           <Route path="/services/patio-installation/:city" component={PatioInstallation} />
