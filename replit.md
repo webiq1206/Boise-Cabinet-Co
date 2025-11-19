@@ -10,6 +10,20 @@ Preferred communication style: Simple, everyday language.
 
 ## Recent Changes
 
+### 2025-11-19: Commercial Rebrand (Property Management → Commercial)
+- **Goal**: Rebrand "Property Management" page to focus on commercial lawn care & landscaping services
+- **Changes Implemented**:
+  - Renamed `PropertyManagement.tsx` to `Commercial.tsx` with updated component name
+  - Rewrote all page content to target businesses (offices, retail centers, medical facilities, etc.)
+  - Updated route from `/commercial/property-management` to `/commercial`
+  - Changed navigation menu item from "Property Management" to "Commercial"
+  - Removed "property-management" as property type option from QuoteForm and QuoteWizard
+  - Property types now: Residential, Commercial, HOA (3 options total)
+- **New Content Focus**: Commercial lawn maintenance, landscape design, seasonal color programs, irrigation management, snow & ice management, grounds cleanup
+- **Industries Served**: Office buildings, retail centers, restaurants, medical facilities, industrial parks, hotels, apartments, HOAs, schools
+- **Architect Approved**: PASS - Content clearly targets business/enterprise needs, routing consistent, forms updated correctly
+- **E2E Verified**: Navigation works, page displays correctly, quote form has correct property types, submission succeeds
+
 ### 2025-11-19: Homepage Trust Indicators Visual Flow Fix
 - **Problem**: Trust indicator cards felt "off" and didn't flow well from hero section
 - **Root Cause**: Abrupt color jump from bg-muted hero to white trust cards, no transitional headline, layout shift from 2-column to 4-column grid
