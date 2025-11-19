@@ -350,7 +350,8 @@ export function QuoteForm({ className, compact = false, preselectedService, pres
                       <FormControl>
                         <Input 
                           placeholder="e.g., 5,000 sq ft or 50x100 or 0.25 acres" 
-                          {...field} 
+                          {...field}
+                          value={field.value || ""}
                           data-testid="input-property-size" 
                         />
                       </FormControl>
@@ -411,6 +412,7 @@ export function QuoteForm({ className, compact = false, preselectedService, pres
                         className="resize-none"
                         rows={4}
                         {...field}
+                        value={field.value || ""}
                         data-testid="textarea-message"
                       />
                     </FormControl>
