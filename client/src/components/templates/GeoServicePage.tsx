@@ -37,7 +37,7 @@ const coreValues = [
 
 export function GeoServicePage({ service, city }: GeoServicePageProps) {
   const metaTitle = `${service.name} in ${city.name}, Idaho | Lawn Care Kuna`;
-  const metaDescription = `Professional ${service.name.toLowerCase()} in ${city.name}, ID. ${service.shortDescription}. Serving ${city.name} since 2017. Free quotes. Call (208) 352-2011 today!`;
+  const metaDescription = `Professional ${service.name.toLowerCase()} in ${city.name}, ID. ${service.shortDescription}. Serving ${city.name} since 2017. Get your free instant quote online today!`;
 
   return (
     <div className="pb-20">

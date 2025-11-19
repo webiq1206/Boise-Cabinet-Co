@@ -36,7 +36,7 @@ const coreValues = [
 
 export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
   const metaTitle = `${service.name} in Idaho | Lawn Care Kuna`;
-  const metaDescription = `${service.shortDescription}. Professional ${service.name.toLowerCase()} services in Kuna, Boise, Meridian, Nampa, Caldwell, and Eagle. Free quotes. Call (208) 352-2011.`;
+  const metaDescription = `${service.shortDescription}. Professional ${service.name.toLowerCase()} services in Kuna, Boise, Meridian, Nampa, Caldwell, and Eagle. Get your free instant quote online.`;
 
   return (
     <div className="pb-20">
