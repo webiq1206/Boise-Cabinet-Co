@@ -4,6 +4,8 @@ import { storage } from "./storage";
 import { quoteSubmissionSchema, type InsertQuote } from "@shared/schema";
 import { calculateIntelligentQuote } from "./services/pricing";
 import { z } from "zod";
+import { quoteCacheMiddleware } from "./middleware/quoteCache";
+import { quoteCalculationRateLimit } from "./middleware/rateLimit";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Validation schema for quote calculation
@@ -19,8 +21,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
     selectedServices: z.array(z.string()).optional(),
   });
 
-  // Calculate intelligent quote with AI
-  app.post("/api/quotes/calculate", async (req, res) => {
+  // Calculate intelligent quote with AI (with caching and rate limiting)
+  app.post("/api/quotes/calculate", quoteCalculationRateLimit, quoteCacheMiddleware, async (req, res) => {
     try {
       // Validate request
       const validatedData = calculateQuoteSchema.parse(req.body);
