@@ -26,8 +26,9 @@ import {
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { CheckCircle2, AlertCircle, Loader2, DollarSign, Info } from "lucide-react";
+import { CheckCircle2, AlertCircle, Loader2, DollarSign, Info, Map } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { MapMeasureTool } from "@/components/MapMeasureTool";
 
 interface QuoteFormProps {
   className?: string;
@@ -116,6 +117,7 @@ export function QuoteForm({ className, compact = false, preselectedService, pres
   const { toast } = useToast();
   const [submitted, setSubmitted] = useState(false);
   const [estimate, setEstimate] = useState<{ low: number; high: number; isMonthly: boolean } | null>(null);
+  const [isMapOpen, setIsMapOpen] = useState(false);
 
   const form = useForm<InsertQuote>({
     resolver: zodResolver(insertQuoteSchema),
@@ -169,6 +171,15 @@ export function QuoteForm({ className, compact = false, preselectedService, pres
 
   const onSubmit = async (data: InsertQuote) => {
     submitQuoteMutation.mutate(data);
+  };
+
+  const handleMeasurementComplete = (sqft: number) => {
+    form.setValue("propertySize", `${sqft.toLocaleString()} sq ft`);
+    setIsMapOpen(false);
+    toast({
+      title: "Measurement Complete!",
+      description: `Property size set to ${sqft.toLocaleString()} sq ft`,
+    });
   };
 
   if (submitted) {
@@ -335,14 +346,26 @@ export function QuoteForm({ className, compact = false, preselectedService, pres
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Property Size</FormLabel>
-                    <FormControl>
-                      <Input 
-                        placeholder="e.g., 5,000 sq ft or 50x100 or 0.25 acres" 
-                        {...field} 
-                        data-testid="input-property-size" 
-                      />
-                    </FormControl>
-                    <FormDescription>Enter dimensions, square footage, or acreage</FormDescription>
+                    <div className="flex gap-2">
+                      <FormControl>
+                        <Input 
+                          placeholder="e.g., 5,000 sq ft or 50x100 or 0.25 acres" 
+                          {...field} 
+                          data-testid="input-property-size" 
+                        />
+                      </FormControl>
+                      <Button
+                        type="button"
+                        variant="outline"
+                        onClick={() => setIsMapOpen(true)}
+                        className="flex-shrink-0"
+                        data-testid="button-measure-map"
+                      >
+                        <Map className="h-4 w-4 mr-2" />
+                        Measure
+                      </Button>
+                    </div>
+                    <FormDescription>Enter manually or use our map tool to measure</FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -449,6 +472,14 @@ export function QuoteForm({ className, compact = false, preselectedService, pres
           </form>
         </Form>
       </CardContent>
+
+      {/* Map Measurement Tool */}
+      <MapMeasureTool
+        isOpen={isMapOpen}
+        onClose={() => setIsMapOpen(false)}
+        onMeasurementComplete={handleMeasurementComplete}
+        initialAddress={`${form.watch("city") || "Kuna"}, Idaho`}
+      />
     </Card>
   );
 }
