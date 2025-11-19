@@ -29,7 +29,7 @@ const step1Schema = z.object({
   address: z.string().optional(),
   city: z.string().min(1, "Please select your city"),
   propertySize: z.number().optional(),
-  propertyType: z.enum(["residential", "commercial", "hoa"]).optional(),
+  propertyType: z.enum(["residential", "commercial", "hoa", "property-management"]).optional(),
 });
 
 // Step 2: Services (only require service type)
@@ -137,7 +137,8 @@ export function QuoteWizard({ onClose, preselectedService, preselectedCity }: Qu
   // Get instant quote mutation
   const getQuoteMutation = useMutation({
     mutationFn: async (data: Step1Data & Step2Data) => {
-      return apiRequest("POST", "/api/quotes/calculate", data);
+      const res = await apiRequest("POST", "/api/quotes/calculate", data);
+      return await res.json();
     },
     onSuccess: (data: any) => {
       if (data.aiFallback) {
@@ -149,10 +150,13 @@ export function QuoteWizard({ onClose, preselectedService, preselectedCity }: Qu
       }
       setQuoteData(data);
       setStep(3);
-      toast({
-        title: "Quote Generated!",
-        description: `Your personalized quote is ready: $${data.finalQuote.toLocaleString()}`,
-      });
+      // Show success toast even for $0 quotes (check for null/undefined, not truthiness)
+      if (data.finalQuote != null) {
+        toast({
+          title: "Quote Generated!",
+          description: `Your personalized quote is ready: $${data.finalQuote.toLocaleString()}`,
+        });
+      }
     },
     onError: (error: any) => {
       console.error("Quote calculation error:", error);
@@ -172,7 +176,8 @@ export function QuoteWizard({ onClose, preselectedService, preselectedCity }: Qu
   // Final submission mutation
   const submitQuoteMutation = useMutation({
     mutationFn: async (data: any) => {
-      return apiRequest("POST", "/api/quotes", data);
+      const res = await apiRequest("POST", "/api/quotes", data);
+      return await res.json();
     },
     onSuccess: () => {
       setStep(4);
@@ -550,19 +555,39 @@ export function QuoteWizard({ onClose, preselectedService, preselectedCity }: Qu
         </Card>
       )}
 
-      {/* Step 3: Quote & Contact */}
-      {step === 3 && quoteData && (
+      {/* Step 3: Contact Form (with or without quote) */}
+      {step === 3 && (
         <div className="space-y-6">
-          {/* Quote Display */}
-          <Card className="border-primary">
-            <CardHeader className="bg-primary/5">
-              <CardTitle className="text-2xl">Your Personalized Quote</CardTitle>
-              <CardDescription>AI-analyzed pricing based on your property</CardDescription>
-            </CardHeader>
-            <CardContent className="pt-6 space-y-4">
+          {/* Quote Display - Only if we have quote data */}
+          {quoteData && (
+            <Card className="border-primary">
+              <CardHeader className="bg-primary/5">
+                <CardTitle className="text-2xl">Your Personalized Quote</CardTitle>
+                <CardDescription>AI-analyzed pricing based on your property</CardDescription>
+              </CardHeader>
+              <CardContent className="pt-6 space-y-4">
+              {/* Show assumptions if defaults were used */}
+              {(!formData.propertySize || !formData.propertyType || !formData.frequency) && (
+                <div className="bg-muted/50 p-3 rounded-md text-sm space-y-1">
+                  <p className="font-semibold text-muted-foreground">Quote based on these assumptions:</p>
+                  {!formData.propertySize && (
+                    <p className="text-muted-foreground">• Property size: ~5,000 sq ft (average)</p>
+                  )}
+                  {!formData.propertyType && (
+                    <p className="text-muted-foreground">• Property type: Residential</p>
+                  )}
+                  {!formData.frequency && (
+                    <p className="text-muted-foreground">• Service frequency: One-time</p>
+                  )}
+                  <p className="text-xs text-muted-foreground mt-2 italic">
+                    Final pricing will be adjusted after our team assesses your specific property.
+                  </p>
+                </div>
+              )}
+
               <div className="text-center py-4">
                 <div className="text-5xl font-bold text-primary" data-testid="text-final-quote">
-                  ${quoteData.finalQuote.toLocaleString()}
+                  ${(quoteData.finalQuote ?? 0).toLocaleString()}
                 </div>
                 <p className="text-muted-foreground mt-2">
                   {formData.frequency === "one-time" ? "One-time service" : `Per ${formData.frequency} service`}
@@ -572,10 +597,10 @@ export function QuoteWizard({ onClose, preselectedService, preselectedCity }: Qu
               {/* Line Items */}
               <div className="space-y-2 border-t pt-4">
                 <h4 className="font-semibold text-sm">Included Services:</h4>
-                {quoteData.lineItems.map((item, idx) => (
+                {(quoteData.lineItems || []).map((item, idx) => (
                   <div key={idx} className="flex justify-between text-sm">
                     <span>{item.description}</span>
-                    <span className="font-medium">${item.adjustedPrice.toLocaleString()}</span>
+                    <span className="font-medium">${(item.adjustedPrice ?? 0).toLocaleString()}</span>
                   </div>
                 ))}
               </div>
@@ -594,10 +619,11 @@ export function QuoteWizard({ onClose, preselectedService, preselectedCity }: Qu
                   </div>
                 </div>
               )}
-            </CardContent>
-          </Card>
+              </CardContent>
+            </Card>
+          )}
 
-          {/* Contact Form */}
+          {/* Contact Form - Always show on step 3 */}
           <Card>
             <CardHeader>
               <CardTitle>Confirm & Schedule</CardTitle>

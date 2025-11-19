@@ -8,14 +8,12 @@ import { quoteCacheMiddleware } from "./middleware/quoteCache";
 import { quoteCalculationRateLimit } from "./middleware/rateLimit";
 
 export async function registerRoutes(app: Express): Promise<Server> {
-  // Validation schema for quote calculation
+  // Validation schema for quote calculation (flexible - only require essential fields)
   const calculateQuoteSchema = z.object({
-    address: z.string().min(5, "Address must be at least 5 characters"),
+    address: z.string().optional(),
     city: z.string().min(1, "City is required"),
-    propertySize: z.coerce.number().positive("Property size must be a positive number"),
-    propertyType: z.enum(["residential", "commercial", "hoa", "property-management"], {
-      errorMap: () => ({ message: "Invalid property type" })
-    }),
+    propertySize: z.coerce.number().positive("Property size must be a positive number").optional(),
+    propertyType: z.enum(["residential", "commercial", "hoa", "property-management"]).optional(),
     serviceType: z.string().min(1, "Service type is required"),
     frequency: z.enum(["one-time", "weekly", "bi-weekly", "monthly"]).optional(),
     selectedServices: z.array(z.string()).optional(),
@@ -26,10 +24,21 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       // Validate request
       const validatedData = calculateQuoteSchema.parse(req.body);
+      
+      // Provide defaults for optional fields
+      const dataWithDefaults = {
+        address: validatedData.address || `${validatedData.city}, Idaho`,
+        city: validatedData.city,
+        propertySize: validatedData.propertySize || 5000, // Default to median property size
+        propertyType: validatedData.propertyType || "residential",
+        serviceType: validatedData.serviceType,
+        frequency: validatedData.frequency || "one-time",
+        selectedServices: validatedData.selectedServices || [],
+      };
 
       try {
         // Try AI-powered pricing
-        const quoteResult = await calculateIntelligentQuote(validatedData);
+        const quoteResult = await calculateIntelligentQuote(dataWithDefaults);
         res.json({
           ...quoteResult,
           success: true,
@@ -59,22 +68,22 @@ export async function registerRoutes(app: Express): Promise<Server> {
         };
         
         // Calculate main service
-        let baseCost = calculateServiceBase(validatedData.serviceType, validatedData.propertySize);
-        const mainService = SERVICE_RATES[validatedData.serviceType as keyof typeof SERVICE_RATES];
+        let baseCost = calculateServiceBase(dataWithDefaults.serviceType, dataWithDefaults.propertySize);
+        const mainService = SERVICE_RATES[dataWithDefaults.serviceType as keyof typeof SERVICE_RATES];
         
         const lineItems = [
           {
-            service: validatedData.serviceType,
-            description: mainService?.name || validatedData.serviceType,
+            service: dataWithDefaults.serviceType,
+            description: mainService?.name || dataWithDefaults.serviceType,
             basePrice: baseCost,
             adjustedPrice: baseCost,
           }
         ];
         
         // Add selected addon services
-        if (validatedData.selectedServices && validatedData.selectedServices.length > 0) {
-          for (const serviceId of validatedData.selectedServices) {
-            const serviceBase = calculateServiceBase(serviceId, validatedData.propertySize);
+        if (dataWithDefaults.selectedServices && dataWithDefaults.selectedServices.length > 0) {
+          for (const serviceId of dataWithDefaults.selectedServices) {
+            const serviceBase = calculateServiceBase(serviceId, dataWithDefaults.propertySize);
             baseCost += serviceBase;
             
             lineItems.push({
@@ -87,7 +96,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         }
         
         // Apply property type multiplier
-        const propertyMultiplier = PROPERTY_MULTIPLIERS[validatedData.propertyType as keyof typeof PROPERTY_MULTIPLIERS] || 1.0;
+        const propertyMultiplier = PROPERTY_MULTIPLIERS[dataWithDefaults.propertyType as keyof typeof PROPERTY_MULTIPLIERS] || 1.0;
         baseCost *= propertyMultiplier;
         
         // Apply complexity (use 1.2 as standard)
@@ -100,7 +109,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         });
         
         // Apply frequency discount
-        const discount = FREQUENCY_DISCOUNTS[validatedData.frequency as keyof typeof FREQUENCY_DISCOUNTS] || 0;
+        const discount = FREQUENCY_DISCOUNTS[dataWithDefaults.frequency as keyof typeof FREQUENCY_DISCOUNTS] || 0;
         const afterDiscount = adjustedCost * (1 - discount);
         
         // Add profit margin (45%)
