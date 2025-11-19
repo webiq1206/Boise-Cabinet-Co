@@ -10,7 +10,23 @@ Preferred communication style: Simple, everyday language.
 
 ## Recent Updates (November 2025)
 
-**Latest: Mobile Navigation, Visual Polish & Quote Form Enhancement (November 19, 2025)**
+**Latest: Interactive Property Measurement Tool (November 19, 2025)**
+- **Automated Map-Based Measurement**: Free, professional property measurement using Leaflet + OpenStreetMap
+  - Satellite/hybrid map view (Esri World Imagery + OpenStreetMap overlay)
+  - Real-time area calculation while drawing (converts m² to sq ft and acres)
+  - Auto-geocoding: Centers map on user's city automatically
+  - Drawing tools: Polygon (accurate for irregular lawns) and rectangle (quick for standard yards)
+  - Editable shapes: Users can modify polygons after drawing
+  - Mobile-responsive: Full functionality on phones/tablets
+  - Zero API costs: Completely free solution vs Google Maps
+  - Seamless integration: "Measure" button in quote form opens modal tool
+  - Auto-fill workflow: Measurement auto-populates propertySize field and triggers instant estimate
+  - Toast confirmation: "Measurement added: X sq ft" feedback
+  - Accurate geodesic calculations: Accounts for Earth's curvature
+- **User Workflow**: Select city → Click "Measure" → Draw polygon on satellite view → Confirm → Instant quote
+- **Packages added**: leaflet, react-leaflet, leaflet-draw, leaflet-geosearch, @types/leaflet
+
+**Mobile Navigation, Visual Polish & Quote Form Enhancement (November 19, 2025)**
 - **Mobile Navigation Redesign**: Professional clean styling
   - Removed nested Button wrappers for cleaner Link elements
   - Better visual hierarchy with organized section headers
