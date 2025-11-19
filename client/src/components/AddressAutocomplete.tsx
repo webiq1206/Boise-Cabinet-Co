@@ -46,7 +46,8 @@ export function AddressAutocomplete({
 
   // Fetch address suggestions
   const fetchSuggestions = async (query: string) => {
-    if (!query || query.length < 3) {
+    const trimmedQuery = (query || '').trim();
+    if (!trimmedQuery || trimmedQuery.length < 3) {
       setSuggestions([]);
       return;
     }
@@ -54,7 +55,7 @@ export function AddressAutocomplete({
     setIsLoading(true);
     try {
       // Include city in search for better results
-      const searchQuery = city ? `${query}, ${city}, Idaho` : query;
+      const searchQuery = city ? `${trimmedQuery}, ${city}, Idaho` : trimmedQuery;
       const results = await provider.current.search({ query: searchQuery });
       
       const formattedResults = results.slice(0, 5).map((result: any) => ({
@@ -96,25 +97,40 @@ export function AddressAutocomplete({
   const calculatePropertySize = async (result: AddressResult): Promise<number | null> => {
     try {
       if (!result.bounds) {
+        console.log("No bounds available for property size calculation");
         return null;
       }
 
-      const { south, west, north, east } = result.bounds;
+      const bounds = result.bounds;
+      
+      // OpenStreetMap bounds can have different formats, check for valid numbers
+      const south = typeof bounds[0] === 'number' ? bounds[0] : bounds.south;
+      const west = typeof bounds[1] === 'number' ? bounds[1] : bounds.west;
+      const north = typeof bounds[2] === 'number' ? bounds[2] : bounds.north;
+      const east = typeof bounds[3] === 'number' ? bounds[3] : bounds.east;
+      
+      // Validate bounds data
+      if (!isValidNumber(south) || !isValidNumber(west) || !isValidNumber(north) || !isValidNumber(east)) {
+        console.log("Invalid bounds data:", { south, west, north, east });
+        return null;
+      }
       
       // Create a temporary map to calculate area
       const tempDiv = document.createElement('div');
       tempDiv.style.display = 'none';
+      tempDiv.style.width = '100px';
+      tempDiv.style.height = '100px';
       document.body.appendChild(tempDiv);
       
       const tempMap = L.map(tempDiv).setView([result.y, result.x], 18);
       
       // Create a rectangle from bounds
-      const bounds = L.latLngBounds([
+      const leafletBounds = L.latLngBounds([
         [south, west],
         [north, east]
       ]);
       
-      const rectangle = L.rectangle(bounds);
+      const rectangle = L.rectangle(leafletBounds);
       const latLngs = rectangle.getLatLngs()[0] as L.LatLng[];
       
       // Calculate area in square meters using Leaflet's geodesic calculation
@@ -127,11 +143,22 @@ export function AddressAutocomplete({
       tempMap.remove();
       document.body.removeChild(tempDiv);
       
-      return areaSqFt;
+      // Return reasonable values only (typical residential lots are 4000-20000 sq ft)
+      if (areaSqFt > 100 && areaSqFt < 500000) {
+        return areaSqFt;
+      }
+      
+      console.log("Calculated area outside reasonable range:", areaSqFt);
+      return null;
     } catch (error) {
       console.error("Error calculating property size:", error);
       return null;
     }
+  };
+  
+  // Helper function to validate numbers
+  const isValidNumber = (val: any): boolean => {
+    return typeof val === 'number' && !isNaN(val) && isFinite(val);
   };
 
   // Handle address selection
@@ -187,7 +214,7 @@ export function AddressAutocomplete({
       >
         <Command>
           <CommandList>
-            {suggestions.length === 0 && !isLoading && value.length >= 3 && (
+            {suggestions.length === 0 && !isLoading && (value || '').length >= 3 && (
               <CommandEmpty>No addresses found. Try a different search.</CommandEmpty>
             )}
             {suggestions.length > 0 && (
