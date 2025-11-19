@@ -123,12 +123,12 @@ export default function Commercial() {
                       </ul>
                     </div>
                     <div className="pt-4 border-t space-y-3">
-                      <a href="tel:2083522011" className="block">
-                        <Button className="w-full" size="lg" data-testid="button-call-sidebar">Call (208) 352-2011</Button>
-                      </a>
                       <a href="#quote" className="block">
-                        <Button className="w-full" variant="outline" size="lg" data-testid="button-quote-sidebar">Get Commercial Quote</Button>
+                        <Button className="w-full" size="lg" data-testid="button-quote-sidebar">Get Commercial Quote</Button>
                       </a>
+                      <Link href="/pricing" className="block">
+                        <Button className="w-full" variant="outline" size="lg" data-testid="button-pricing-sidebar">View Pricing</Button>
+                      </Link>
                     </div>
                   </CardContent>
                 </Card>

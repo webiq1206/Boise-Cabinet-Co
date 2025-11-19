@@ -94,12 +94,12 @@ export default function MunicipalServices() {
                       </ul>
                     </div>
                     <div className="pt-4 border-t space-y-3">
-                      <a href="tel:2083522011" className="block">
-                        <Button size="lg" data-testid="button-call-sidebar">Call (208) 352-2011</Button>
-                      </a>
                       <a href="#quote" className="block">
-                        <Button variant="outline" size="lg" data-testid="button-quote-sidebar">Request Bid Information</Button>
+                        <Button size="lg" data-testid="button-quote-sidebar">Request Bid Information</Button>
                       </a>
+                      <Link href="/pricing" className="block">
+                        <Button variant="outline" size="lg" data-testid="button-pricing-sidebar">View Pricing</Button>
+                      </Link>
                     </div>
                   </CardContent>
                 </Card>

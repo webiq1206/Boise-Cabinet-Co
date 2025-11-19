@@ -20,11 +20,11 @@ export default function HOAServices() {
               <a href="#quote">
                 <Button size="lg" variant="secondary">Request Commercial Quote</Button>
               </a>
-              <a href="tel:2083522011">
+              <Link href="/pricing">
                 <Button size="lg" variant="outline">
-                  Call (208) 352-2011
+                  View Pricing
                 </Button>
-              </a>
+              </Link>
             </div>
           </div>
         </div>

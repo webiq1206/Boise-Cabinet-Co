@@ -123,11 +123,10 @@ export default function Home() {
                       <ArrowRight className="ml-2 h-5 w-5" />
                     </Link>
                   </Button>
-                  <Button size="lg" variant="outline" asChild data-testid="button-hero-call">
-                    <a href="tel:2083522011">
-                      <Phone className="mr-2 h-5 w-5" />
-                      (208) 352-2011
-                    </a>
+                  <Button size="lg" variant="outline" asChild data-testid="button-hero-pricing">
+                    <Link href="/pricing">
+                      View Pricing
+                    </Link>
                   </Button>
                 </div>
               </div>
@@ -244,11 +243,10 @@ export default function Home() {
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
               </Button>
-              <Button size="lg" variant="outline" className="bg-transparent border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary" asChild data-testid="button-cta-call">
-                <a href="tel:2083522011">
-                  <Phone className="mr-2 h-5 w-5" />
-                  (208) 352-2011
-                </a>
+              <Button size="lg" variant="outline" className="bg-transparent border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary" asChild data-testid="button-cta-services">
+                <Link href="#services">
+                  View All Services
+                </Link>
               </Button>
             </div>
           </div>
@@ -671,12 +669,11 @@ export default function Home() {
                 variant="outline" 
                 className="bg-transparent border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary" 
                 asChild 
-                data-testid="button-final-cta-call"
+                data-testid="button-final-cta-contact"
               >
-                <a href="tel:2083522011">
-                  <Phone className="mr-2 h-5 w-5" />
-                  (208) 352-2011
-                </a>
+                <Link href="/contact">
+                  Contact Us
+                </Link>
               </Button>
             </div>
           </div>

@@ -360,12 +360,11 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
                 variant="outline" 
                 className="bg-transparent border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary" 
                 asChild 
-                data-testid="button-service-areas-call"
+                data-testid="button-service-areas-quote"
               >
-                <a href="tel:2083522011">
-                  <Phone className="mr-2 h-5 w-5" />
-                  (208) 352-2011
-                </a>
+                <Link href="/get-quote">
+                  Get Free Quote
+                </Link>
               </Button>
             </div>
           </div>

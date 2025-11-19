@@ -10,7 +10,7 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
-import { Menu, Phone } from "lucide-react";
+import { Menu, FileText } from "lucide-react";
 import logoUrl from "@assets/Lawn Care Kuna Logo_1763512021933.png";
 
 const lawnCareServices = [
@@ -166,29 +166,33 @@ export function Navigation() {
           </NavigationMenu>
 
           <div className="flex items-center gap-3 border-l pl-8">
-            <Button variant="ghost" size="sm" asChild data-testid="button-call-desktop">
-              <a href="tel:2083522011" className="flex items-center gap-2">
-                <Phone className="h-4 w-4 mr-1.5" />
-                <span className="hidden xl:inline">(208) 352-2011</span>
-              </a>
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              asChild 
+              data-testid="button-pricing-desktop"
+            >
+              <Link href="/pricing">
+                View Pricing
+              </Link>
             </Button>
 
             <Button 
               size="sm" 
-              onClick={() => window.location.href = "/contact"}
+              onClick={() => window.location.href = "/get-quote"}
               data-testid="button-quote-desktop"
             >
-              Free Consultation
+              Get Free Quote
             </Button>
           </div>
         </div>
 
         {/* Mobile Navigation */}
         <div className="flex lg:hidden items-center gap-2">
-          <Button variant="ghost" size="icon" asChild data-testid="button-call-mobile">
-            <a href="tel:2083522011">
-              <Phone className="h-4 w-4" />
-            </a>
+          <Button variant="ghost" size="icon" asChild data-testid="button-quote-mobile">
+            <Link href="/get-quote">
+              <FileText className="h-4 w-4" />
+            </Link>
           </Button>
           <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
             <SheetTrigger asChild>

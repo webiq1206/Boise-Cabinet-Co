@@ -2,6 +2,7 @@ import { PricingCalculator } from "@/components/PricingCalculator";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Check } from "lucide-react";
+import { Link } from "wouter";
 
 const servicePricing = [
   {
@@ -144,12 +145,12 @@ export default function Pricing() {
               </p>
               <div className="flex flex-wrap gap-4 justify-center">
                 <Button size="lg" variant="secondary" asChild data-testid="button-get-quote">
-                  <a href="/contact">Get Free Quote</a>
+                  <a href="/get-quote">Get Free Quote</a>
                 </Button>
-                <Button size="lg" variant="outline" asChild data-testid="button-call">
-                  <a href="tel:2083522011" className="bg-transparent border-primary-foreground text-primary-foreground hover:bg-primary-foreground/10">
-                    Call (208) 352-2011
-                  </a>
+                <Button size="lg" variant="outline" asChild data-testid="button-services">
+                  <Link href="/services/lawn-care" className="bg-transparent border-primary-foreground text-primary-foreground hover:bg-primary-foreground/10">
+                    View All Services
+                  </Link>
                 </Button>
               </div>
             </div>
