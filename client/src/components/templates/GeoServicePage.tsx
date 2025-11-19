@@ -57,7 +57,7 @@ export function GeoServicePage({ service, city }: GeoServicePageProps) {
               {/* Left: Heading */}
               <div className="space-y-6">
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-tight" data-testid="heading-hero">
-                  {service.name} and trimming in {city.name}
+                  {service.name} in {city.name}
                 </h1>
                 <p className="text-lg text-muted-foreground">
                   Professional {service.name.toLowerCase()} services in {city.name}, Idaho. Serving the Treasure Valley since 2017.
@@ -102,7 +102,7 @@ export function GeoServicePage({ service, city }: GeoServicePageProps) {
             <Card className="bg-primary text-primary-foreground border-primary">
               <CardContent className="p-8 md:p-12 space-y-6">
                 <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
-                  {service.name} and trimming services
+                  {service.name} services
                 </h2>
                 <p className="text-primary-foreground/90 text-lg leading-relaxed">
                   {service.longDescription}
@@ -130,7 +130,7 @@ export function GeoServicePage({ service, city }: GeoServicePageProps) {
           <div className="max-w-6xl mx-auto space-y-12">
             <div className="text-center space-y-4">
               <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
-                {service.name} and trimming in {city.name}
+                {service.name} in {city.name}
               </h2>
               <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
                 At Lawn Care Kuna, we've been providing expert {service.name.toLowerCase()} services to {city.name} residents since 2017. 
@@ -171,7 +171,7 @@ export function GeoServicePage({ service, city }: GeoServicePageProps) {
           <div className="max-w-6xl mx-auto space-y-8">
             <div className="text-center space-y-4">
               <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
-                {city.name} {service.name.toLowerCase()} and trimming
+                {city.name} {service.name.toLowerCase()}
               </h2>
               <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
                 We understand {city.name}'s unique needs and deliver customized solutions for your property.
@@ -345,7 +345,7 @@ export function GeoServicePage({ service, city }: GeoServicePageProps) {
               {/* Left: Content */}
               <div className="space-y-6">
                 <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
-                  You've got a lot on your plate. Save your future {city.name} lawn {service.name.toLowerCase()} and trimming to us
+                  You've got a lot on your plate. Save your future {city.name} {service.name.toLowerCase()} to us
                 </h2>
                 <p className="text-lg text-muted-foreground leading-relaxed">
                   Let us handle your {service.name.toLowerCase()} so you can focus on what matters most. 

@@ -56,7 +56,7 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
               {/* Left: Heading */}
               <div className="space-y-6">
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-tight" data-testid="heading-hero">
-                  {service.name} and trimming services
+                  {service.name} services
                 </h1>
                 <p className="text-lg text-muted-foreground" data-testid="text-hero-description">
                   {service.shortDescription}
@@ -101,7 +101,7 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
             <Card className="bg-primary text-primary-foreground border-primary">
               <CardContent className="p-8 md:p-12 space-y-6">
                 <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
-                  {service.name} and trimming services
+                  {service.name} services
                 </h2>
                 <p className="text-primary-foreground/90 text-lg leading-relaxed">
                   {service.longDescription}
@@ -129,7 +129,7 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
           <div className="max-w-6xl mx-auto space-y-12">
             <div className="text-center space-y-4">
               <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
-                {service.name} and trimming services
+                {service.name} services
               </h2>
               <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
                 At Lawn Care Kuna, we've been providing expert {service.name.toLowerCase()} services throughout the Treasure Valley since 2017. 
@@ -293,7 +293,7 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
               {/* Left: Content */}
               <div className="space-y-6">
                 <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
-                  You've got a lot on your plate. Save your future lawn {service.name.toLowerCase()} and trimming to us
+                  You've got a lot on your plate. Save your future {service.name.toLowerCase()} to us
                 </h2>
                 <p className="text-lg text-muted-foreground leading-relaxed">
                   Let us handle your {service.name.toLowerCase()} so you can focus on what matters most. 
