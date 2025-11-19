@@ -10,6 +10,15 @@ Preferred communication style: Simple, everyday language.
 
 ## Recent Updates (November 2025)
 
+**Latest: Actual Brand Color Implementation (November 19, 2025)**
+- Updated color system from speculative deep evergreen to actual lawncarekuna.com brand colors
+- Primary green: hsl(145, 50%, 35%) - Forest green #2D6B3F
+- Light mint backgrounds: hsl(145, 40%, 95%) - #E5F5EC  
+- Integrated actual brand logo (tree icon + wordmark) into Navigation
+- Updated design_guidelines.md from "luxury/upscale" to "clean, modern, approachable"
+- Verified entire codebase uses semantic tokens (zero hardcoded colors)
+- Kept Playfair Display + Inter typography system as requested
+
 Successfully implemented interactive features phase:
 - **Before/After Gallery**: Component with slider for project photos, integrated on homepage
 - **Customer Testimonials**: Star rating system with service-specific feedback 
@@ -26,11 +35,16 @@ Successfully implemented interactive features phase:
 **Component Library**: shadcn/ui (Radix UI primitives) with custom Tailwind CSS styling following a trust-first design approach inspired by professional home service providers
 
 **Design System**:
-- Typography: Inter font family for all text (Google Fonts)
-- Color scheme: Green primary theme (142° hue, 65% saturation, 35% lightness) representing lawn care
+- Typography: Playfair Display (headings) + Inter (body/UI) from Google Fonts
+- Color scheme: Actual lawncarekuna.com brand palette
+  - Primary: hsl(145, 50%, 35%) - Forest green #2D6B3F for buttons, links, accents
+  - Muted: hsl(145, 40%, 95%) - Light mint #E5F5EC for backgrounds
+  - Background: Pure white hsl(0, 0%, 100%)
+  - Dark overlay: hsl(145, 50%, 18%) - Dark forest green #1A3E2C
 - Component styling: "new-york" style variant with CSS variables for theming
+- Logo: Actual brand logo (tree icon + wordmark) in Navigation
 - Responsive breakpoints: Mobile-first with md/lg breakpoints
-- Spacing: Tailwind utility scale (2, 4, 8, 12, 16, 20, 24, 32)
+- Spacing: Editorial spacing with py-24 md:py-32 lg:py-40 sections
 
 **State Management**: 
 - TanStack Query (React Query) for server state with custom query client configuration
