@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Grid3X3, Phone, Calendar } from "lucide-react";
+import { Grid3X3, FileText, Calendar } from "lucide-react";
 import { useLocation, Link } from "wouter";
 
 export function StickyBottomNav() {
@@ -44,14 +44,14 @@ export function StickyBottomNav() {
             <span className="text-xs font-medium">Services</span>
           </button>
           
-          <a 
-            href="tel:2083522011" 
-            className="flex flex-col items-center justify-center gap-1 hover-elevate active-elevate-2 transition-colors"
-            data-testid="nav-bottom-call"
+          <Link 
+            href="/get-quote" 
+            className="flex flex-col items-center justify-center gap-1 w-full h-full hover-elevate active-elevate-2 transition-colors"
+            data-testid="nav-bottom-quote"
           >
-            <Phone className="h-5 w-5" />
-            <span className="text-xs font-medium">Call us</span>
-          </a>
+            <FileText className="h-5 w-5" />
+            <span className="text-xs font-medium">Get Quote</span>
+          </Link>
           
           <Link 
             href="/contact"
