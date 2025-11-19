@@ -121,7 +121,6 @@ function calculateEstimate(propertySize: string, serviceType: string, propertyTy
     'residential': 1,
     'commercial': 1.3,
     'hoa': 1.2,
-    'property-management': 1.25,
   };
 
   const multiplier = typeMultipliers[propertyType as keyof typeof typeMultipliers] || 1;
@@ -449,7 +448,6 @@ export function QuoteForm({ className, compact = false, preselectedService, pres
                         <SelectItem value="residential">Residential</SelectItem>
                         <SelectItem value="commercial">Commercial</SelectItem>
                         <SelectItem value="hoa">HOA</SelectItem>
-                        <SelectItem value="property-management">Property Management</SelectItem>
                       </SelectContent>
                     </Select>
                     <FormMessage />

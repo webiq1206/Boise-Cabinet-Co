@@ -28,7 +28,7 @@ const step1Schema = z.object({
   address: z.string().min(5, "Please enter your full address"),
   city: z.string().min(1, "Please select your city"),
   propertySize: z.number().min(500, "Property must be at least 500 sq ft"),
-  propertyType: z.enum(["residential", "commercial", "hoa", "property-management"]),
+  propertyType: z.enum(["residential", "commercial", "hoa"]),
 });
 
 // Step 2: Services
@@ -376,7 +376,6 @@ export function QuoteWizard({ onClose }: { onClose?: () => void }) {
                       { value: "residential", label: "Residential Home" },
                       { value: "commercial", label: "Commercial Property" },
                       { value: "hoa", label: "HOA/Community" },
-                      { value: "property-management", label: "Property Management" },
                     ].map((type) => (
                       <div key={type.value} className="flex items-center space-x-2">
                         <RadioGroupItem value={type.value} id={type.value} data-testid={`radio-${type.value}`} />
