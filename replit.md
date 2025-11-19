@@ -10,7 +10,38 @@ Preferred communication style: Simple, everyday language.
 
 ## Recent Updates (November 2025)
 
-**Latest: Hero & Mobile UX Overhaul (November 19, 2025)**
+**Latest: Mobile Navigation, Visual Polish & Quote Form Enhancement (November 19, 2025)**
+- **Mobile Navigation Redesign**: Professional clean styling
+  - Removed nested Button wrappers for cleaner Link elements
+  - Better visual hierarchy with organized section headers
+  - Proper spacing and hover-elevate effects
+  - Wider sheet width (85vw) for improved mobile UX
+  - Full-width Free Consultation CTA prominently displayed
+- **Alternating Section Backgrounds**: Improved visual rhythm across all pages
+  - City pages follow White → Mint → White → Mint → White → Mint pattern
+  - Reduces visual monotony and creates clear section separation
+  - Applied to: Hero (white), Local Expertise (mint), Services (white), Why Choose Us (mint), Service Areas (white), Quote Form (mint)
+- **Scroll-to-Top on Navigation**: Automatic scroll behavior
+  - New ScrollToTop component using useLocation hook
+  - Scrolls to (0, 0) on every route change for better UX
+  - Integrated at Router level in App.tsx
+- **Enhanced SEO Content**: Comprehensive E-E-A-T optimized city pages
+  - 2000+ words per city page (vs ~300 before)
+  - City-specific climate and geography expertise for all 6 locations
+  - Expanded service features (6 items per service vs 3)
+  - Detailed "Why Choose Us" cards with descriptions
+  - Better keyword density and semantic HTML structure
+  - Strong E-E-A-T signals: "since 2017" (Experience), local expertise (Expertise), licensed/insured (Trust)
+- **Dimension-Based Quote Estimation**: Real-time accurate pricing
+  - Comprehensive input parsing: "5,000 sq ft", "50x100", "0.25 acres", or plain "5000"
+  - Handles commas, dimension multiplication (width×length), acre conversion (43,560 sqft)
+  - Service-specific rates: lawn care (monthly) vs landscaping (one-time)
+  - Property type multipliers: residential (1x), commercial (1.3x), HOA (1.2x), property management (1.25x)
+  - Real-time calculation using form.watch() + useEffect
+  - Valid range: 500 - 100,000 sqft (covers small yards to large commercial)
+  - Instant feedback: "$X - $Y/month" or "$X - $Y" with disclaimer
+
+**Hero & Mobile UX Overhaul (November 19, 2025)**
 - **Homepage Hero Redesign**: Matches actual lawncarekuna.com with light mint background, centered content layout
   - Headline: "Most trusted lawn care services in Kuna"
   - Simple quote form: Address input + submit button (mobile-optimized)
