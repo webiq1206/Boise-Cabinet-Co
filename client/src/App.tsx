@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
+import { StickyBottomNav } from "@/components/StickyBottomNav";
 
 // Pages
 import Home from "@/pages/Home";
@@ -125,6 +126,7 @@ function Router() {
         </Switch>
       </main>
       <Footer />
+      <StickyBottomNav />
     </div>
   );
 }

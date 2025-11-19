@@ -95,49 +95,43 @@ const serviceAreas = [
 
 export default function Home() {
   return (
-    <div className="flex flex-col">
-      {/* Cinematic Hero Section */}
-      <section className="relative h-[70vh] md:h-[85vh] flex items-center justify-center overflow-hidden">
-        <div 
-          className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: `url(${heroImage})` }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/70" />
-        
-        <div className="relative z-10 container px-8 md:px-12">
-          <div className="max-w-4xl mx-auto text-center space-y-8">
-            <Badge variant="outline" className="border-white/20 bg-white/5 text-white backdrop-blur-md px-4 py-1.5">
-              Serving Idaho Since 2017
-            </Badge>
-            <h1 className="text-white tracking-tight leading-[1.1]">
-              Treasure Valley's Premier
-              <br />
-              Lawn Care Specialists
-            </h1>
-            <p className="text-xl md:text-2xl text-white/90 max-w-2xl mx-auto leading-relaxed font-light">
-              Exceptional lawn care, landscaping, and seasonal lighting for discerning homeowners and property managers
+    <div className="flex flex-col pb-20">
+      {/* Hero Section - Light Mint Background */}
+      <section className="bg-muted py-16 md:py-24">
+        <div className="container px-6 md:px-12">
+          <div className="max-w-md mx-auto text-center space-y-6">
+            <p className="text-primary font-medium text-sm tracking-wide">
+              Lawn Care Kuna
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-8">
-              <Button size="lg" variant="default" asChild data-testid="button-hero-quote">
+            <h1 className="text-foreground tracking-tight leading-tight">
+              Most trusted lawn care services in Kuna
+            </h1>
+            <p className="text-primary text-base md:text-lg font-medium">
+              Professional Lawn Care Services in Kuna
+            </p>
+            
+            {/* Simple Quote Form */}
+            <div className="mt-8 space-y-4">
+              <Button size="lg" className="w-full" asChild data-testid="button-hero-schedule">
                 <Link href="/contact">
-                  Request Consultation
-                  <ArrowRight className="ml-2 h-5 w-5" />
+                  SCHEDULE NOW AND SAVE
                 </Link>
               </Button>
-              <Button size="lg" variant="outline" asChild data-testid="button-hero-call">
-                <a href="tel:2083522011">
-                  <Phone className="mr-2 h-5 w-5" />
-                  (208) 352-2011
-                </a>
+              
+              <div className="relative">
+                <input
+                  type="text"
+                  placeholder="Start typing an address..."
+                  className="w-full px-4 py-3 border-b-2 border-border bg-transparent text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
+                  data-testid="input-hero-address"
+                />
+              </div>
+              
+              <Button size="lg" variant="default" className="w-full" asChild data-testid="button-hero-submit">
+                <Link href="/contact">
+                  Submit
+                </Link>
               </Button>
-            </div>
-            <div className="flex flex-wrap justify-center gap-3 pt-6 text-sm text-white/70 font-light">
-              {serviceAreas.map((area, index) => (
-                <span key={area.name}>
-                  {area.name}
-                  {index < serviceAreas.length - 1 && <span className="ml-3 text-white/40">·</span>}
-                </span>
-              ))}
             </div>
           </div>
         </div>
@@ -179,7 +173,7 @@ export default function Home() {
       </section>
 
       {/* Main Services - 2-Column Grid */}
-      <section className="py-24 md:py-32 bg-muted/30">
+      <section id="services" className="py-24 md:py-32 bg-muted/30">
         <div className="container px-8 md:px-12">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="tracking-tight mb-4">Our Services</h2>
