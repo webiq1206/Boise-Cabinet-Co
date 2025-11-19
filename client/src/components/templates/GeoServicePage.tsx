@@ -127,7 +127,7 @@ export function GeoServicePage({ service, city }: GeoServicePageProps) {
                 <div data-testid="section-benefits">
                   <h2 className="text-3xl font-bold mb-6">Benefits of Our {service.name} in {city.name}</h2>
                   <div className="grid sm:grid-cols-2 gap-4">
-                    {service.benefits.slice(0, 6).map((benefit, index) => (
+                    {service.benefits.map((benefit, index) => (
                       <div key={index} className="flex items-start gap-2" data-testid={`benefit-${index}`}>
                         <Check className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
                         <span>{benefit}</span>
@@ -140,7 +140,7 @@ export function GeoServicePage({ service, city }: GeoServicePageProps) {
                 <div data-testid="section-process">
                   <h2 className="text-3xl font-bold mb-6">How We Deliver {service.name} in {city.name}</h2>
                   <div className="space-y-3">
-                    {service.process.slice(0, 5).map((step) => (
+                    {service.process.map((step) => (
                       <Card key={step.step} data-testid={`process-step-${step.step}`}>
                         <CardContent className="p-5">
                           <div className="flex gap-3">

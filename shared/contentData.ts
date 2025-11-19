@@ -1332,6 +1332,156 @@ export const PRIORITY_SERVICES: ServiceData[] = [
     relatedServices: ['tree-removal', 'sod-installation', 'landscape-design', 'lawn-renovation'],
     pricingGuidance: 'Stump grinding: $3-8 per inch diameter. Typical range: $150-400 per stump. Volume discounts for multiple stumps. Deep grinding (12-18 inches): premium pricing.',
     seasonality: 'Year-round service. Spring and fall most popular for combining with landscape projects. Frozen ground can complicate winter grinding.'
+  },
+  {
+    slug: 'fall-cleanup',
+    name: 'Fall Cleanup',
+    category: 'lawn-care',
+    shortDescription: 'Comprehensive fall lawn and landscape cleanup service to prepare your property for winter',
+    longDescription: 'Fall cleanup is essential preparation for Idaho winters and sets the stage for a healthy lawn next spring. Our thorough fall cleanup service includes leaf removal, final mowing, gutter cleaning, bed cleanup, and winterization tasks. We remove all fallen leaves before they smother your grass, cut lawns to optimal winter height, clean out flower beds, and prepare your landscape for dormancy. This prevents snow mold, reduces spring cleanup work, and ensures your property looks neat through winter.',
+    benefits: [
+      'Removes leaves before they damage grass',
+      'Prevents snow mold and lawn disease',
+      'Prepares property for winter weather',
+      'Reduces spring cleanup workload significantly',
+      'Protects plants and landscaping investments',
+      'Cleans gutters preventing ice dam damage',
+      'Final mowing at optimal winter height',
+      'Complete property ready for first snow'
+    ],
+    process: [
+      { step: 1, title: 'Initial Assessment', description: 'We walk the property to assess leaf coverage, gutter condition, bed cleanup needs, and special requirements for your landscape.' },
+      { step: 2, title: 'Leaf Removal', description: 'All leaves are removed from lawn, beds, patios, and hardscaping using blowers and rakes. Heavy leaf areas get multiple passes for complete removal.' },
+      { step: 3, title: 'Final Mowing', description: 'Lawn is mowed to 2-2.5 inches - the ideal height for winter. This prevents snow mold while protecting grass crowns from extreme cold.' },
+      { step: 4, title: 'Bed Cleanup', description: 'Perennial beds are cut back, annuals removed, and beds cleaned of debris. Mulch is refreshed if needed. Plants are prepared for dormancy.' },
+      { step: 5, title: 'Gutter Cleaning', description: 'Gutters and downspouts are cleared of leaves and debris. This prevents ice dams and water damage during winter freeze-thaw cycles.' },
+      { step: 6, title: 'Final Details & Haul Away', description: 'All debris is hauled away. Property is blown clean. Hardscaping is edged and cleaned. Your property is winter-ready and looks great.' }
+    ],
+    faqs: [
+      {
+        question: 'When should I schedule fall cleanup in Idaho?',
+        answer: 'Late October through mid-November is ideal - after most leaves have fallen but before first major snow. Waiting too long risks working in frozen conditions. We typically do 2-3 cleanup visits in fall as leaves continue dropping.'
+      },
+      {
+        question: 'How much does fall cleanup cost?',
+        answer: 'Typical residential properties: $200-500 depending on property size, leaf volume, and services included. Larger properties or heavy leaf coverage: $500-1,000+. Gutter cleaning adds $150-300. We provide free estimates.'
+      },
+      {
+        question: 'Do I need multiple fall cleanups?',
+        answer: 'Many properties benefit from 2-3 visits as trees drop leaves over several weeks. Early cleanup handles first wave of leaves, final cleanup gets the stragglers. We can schedule multiple visits or do one thorough late-season cleanup.'
+      },
+      {
+        question: 'What do you do with all the leaves?',
+        answer: 'We haul away all leaves and debris as part of standard service. Leaves are composted or disposed of properly. If you have a compost area, we can leave some shredded leaves there for you to use as compost.'
+      },
+      {
+        question: 'Should I combine fall cleanup with other services?',
+        answer: 'Great idea! Fall cleanup pairs perfectly with fall aeration/overseeding, winterization of irrigation systems, and final fertilizer applications. Bundling services often saves money and ensures complete fall preparation.'
+      }
+    ],
+    relatedServices: ['spring-cleanup', 'leaf-removal', 'gutter-cleaning', 'aeration'],
+    pricingGuidance: 'Fall cleanup: $200-500 typical residential. Larger properties: $500-1,000+. Gutter cleaning: +$150-300. Multiple visits: Package pricing available.',
+    seasonality: 'Late October through mid-November. Peak demand in early November. Book early as schedules fill quickly before first snow.'
+  },
+  {
+    slug: 'spring-cleanup',
+    name: 'Spring Cleanup',
+    category: 'lawn-care',
+    shortDescription: 'Complete spring lawn and landscape cleanup to revitalize your property after winter',
+    longDescription: 'Spring cleanup awakens your landscape after Idaho winters and prepares it for the growing season. Our comprehensive service includes removing winter debris, raking dead grass and leaves, edging beds, cutting back ornamental grasses, cleaning hardscaping, and first mowing of the season. We remove all the winter damage - broken branches, accumulated debris, salt residue - and get your property looking fresh and ready for spring growth. This service is the foundation for a beautiful lawn and landscape all season long.',
+    benefits: [
+      'Removes winter debris and damage',
+      'Allows sun and air to reach new grass growth',
+      'Prevents disease from winter-killed vegetation',
+      'Reveals landscape issues needing attention',
+      'Cleans and refreshes entire property',
+      'Prepares lawn for fertilization and treatments',
+      'First mowing sets healthy growth pattern',
+      'Property looks fresh and welcoming'
+    ],
+    process: [
+      { step: 1, title: 'Property Assessment', description: 'We evaluate winter damage, debris accumulation, and landscape needs. Note any issues requiring attention (broken plants, drainage problems, etc.).' },
+      { step: 2, title: 'Debris Removal', description: 'All winter debris is removed: fallen branches, accumulated leaves, trash, and dead vegetation. Heavy raking removes matted grass and thatch.' },
+      { step: 3, title: 'Bed Cleanup & Edging', description: 'Perennial beds are cleaned, edges redefined, and winter-killed annuals removed. Beds are prepared for mulch installation if desired.' },
+      { step: 4, title: 'Ornamental Grass Cutting', description: 'Ornamental grasses are cut back to 4-6 inches to allow fresh spring growth. Old growth is removed and hauled away.' },
+      { step: 5, title: 'First Mowing & Trimming', description: 'Lawn receives first mowing of season at appropriate height for grass type. Edges are trimmed and property is detailed for crisp appearance.' },
+      { step: 6, title: 'Final Cleanup & Recommendations', description: 'All debris hauled away. Property is blown clean. We provide recommendations for spring services: aeration, fertilization, irrigation startup.' }
+    ],
+    faqs: [
+      {
+        question: 'When should I schedule spring cleanup in Idaho?',
+        answer: 'Late March through April is ideal - once snow melts and ground thaws but before aggressive spring growth. Timing varies by elevation and weather. We typically start lowland areas (Boise, Kuna) in late March, higher elevations in mid-April.'
+      },
+      {
+        question: 'How much does spring cleanup cost?',
+        answer: 'Typical residential properties: $250-600 depending on property size and winter damage. Larger properties or heavy debris: $600-1,200+. Price includes complete cleanup and haul-away. Free estimates provided.'
+      },
+      {
+        question: 'What if I have winter damage to plants or trees?',
+        answer: 'We\'ll identify damaged plants during cleanup and provide recommendations. Minor pruning is included. Significant tree damage or removal would be quoted separately. Early identification prevents problems spreading.'
+      },
+      {
+        question: 'Should I do spring cleanup before or after aeration?',
+        answer: 'Spring cleanup first! It removes debris so aeration equipment can work effectively. Ideal sequence: spring cleanup, then aeration/overseeding, then fertilization. We can bundle these services for convenience.'
+      },
+      {
+        question: 'Do you restart irrigation systems during spring cleanup?',
+        answer: 'Irrigation startup is separate service requiring specialized equipment and expertise. However, spring cleanup and irrigation startup are often scheduled same week for convenience. We offer package pricing for both.'
+      }
+    ],
+    relatedServices: ['fall-cleanup', 'aeration', 'fertilization', 'mulch-installation'],
+    pricingGuidance: 'Spring cleanup: $250-600 typical residential. Larger properties: $600-1,200+. Package pricing available with aeration, fertilization, mulch services.',
+    seasonality: 'Late March through April. Peak demand in early April. Book in February-March for best scheduling. Essential service to start season right.'
+  },
+  {
+    slug: 'sprinkler-repair',
+    name: 'Sprinkler Repair',
+    category: 'landscaping-irrigation',
+    shortDescription: 'Fast, professional sprinkler and irrigation system repair to fix leaks, broken heads, and system malfunctions',
+    longDescription: 'Sprinkler problems waste water, create muddy messes, and leave brown spots in your lawn. Our expert sprinkler repair service quickly diagnoses and fixes all irrigation issues: broken sprinkler heads, leaking valves, damaged pipes, controller problems, and zone failures. We stock common parts on our trucks for same-visit repairs in most cases. Whether you have a single broken head or complex system issues, we provide fast, reliable repairs that restore proper watering and prevent water waste.',
+    benefits: [
+      'Stops water waste from leaks and breaks',
+      'Eliminates muddy areas and erosion',
+      'Restores even coverage preventing brown spots',
+      'Expert diagnosis finds hidden problems',
+      'Most repairs completed same visit',
+      'Quality parts ensure long-lasting repairs',
+      'Prevents higher water bills',
+      'Licensed and experienced irrigation techs'
+    ],
+    process: [
+      { step: 1, title: 'Problem Assessment', description: 'We inspect system to diagnose issues: run zones to observe coverage, check for leaks, test controller, and identify all problem areas.' },
+      { step: 2, title: 'Repair Estimate', description: 'For complex repairs, we provide estimate before proceeding. Simple repairs (broken heads, minor leaks) are typically done immediately at standard service rates.' },
+      { step: 3, title: 'Parts & Materials', description: 'We carry common parts on trucks (heads, nozzles, valves, pipe fittings). For unusual parts, we can usually get them same-day or next-day.' },
+      { step: 4, title: 'Repair Work', description: 'Broken sprinkler heads replaced, leaking valves repaired or replaced, damaged pipes fixed, controller issues resolved. Work is done efficiently with minimal landscape disruption.' },
+      { step: 5, title: 'System Testing', description: 'All repaired zones are tested to ensure proper operation, correct coverage, and no new leaks. Adjustments made as needed.' },
+      { step: 6, title: 'Cleanup & Documentation', description: 'Work area is cleaned and restored. We document repairs made and provide recommendations for any additional issues discovered.' }
+    ],
+    faqs: [
+      {
+        question: 'How much does sprinkler repair cost?',
+        answer: 'Service call: $75-125. Simple repairs (broken head replacement): $75-150 total. Valve replacement: $150-300. Pipe repairs: $150-400 depending on location and extent. Complex controller replacement: $300-800. We provide estimates for larger repairs.'
+      },
+      {
+        question: 'Can you repair my broken sprinkler head same day?',
+        answer: 'Usually yes! We stock common sprinkler heads, nozzles, and parts. Most head replacements and simple repairs are completed during initial service visit. Complex repairs may require parts ordering.'
+      },
+      {
+        question: 'My sprinkler zone won\'t turn on - what\'s wrong?',
+        answer: 'Common causes: faulty valve solenoid, broken valve wiring, controller malfunction, or valve stuck closed. Our techs systematically diagnose the issue - often it\'s a simple fix like replacing a $15 solenoid.'
+      },
+      {
+        question: 'Do you repair all brands of sprinkler systems?',
+        answer: 'Yes! We work on all major brands: Rain Bird, Hunter, Toro, Orbit, and others. Our techs are trained on all common residential and commercial irrigation systems in Idaho.'
+      },
+      {
+        question: 'Should I repair my old system or replace it?',
+        answer: 'Depends on system age and condition. Individual repairs usually make sense. If system is 20+ years old with multiple failures, replacement may be more cost-effective long-term. We provide honest recommendations based on your situation.'
+      }
+    ],
+    relatedServices: ['irrigation-repair', 'sprinkler-system-installation', 'irrigation-maintenance', 'sprinkler-blowout'],
+    pricingGuidance: 'Service call: $75-125. Head replacement: $75-150. Valve work: $150-300. Pipe repairs: $150-400. Controller: $300-800. Volume/membership discounts available.',
+    seasonality: 'Peak demand: April-August (growing season). Emergency repairs year-round. Broken pipes often discovered during spring startup or after freeze damage.'
   }
 ];
 
