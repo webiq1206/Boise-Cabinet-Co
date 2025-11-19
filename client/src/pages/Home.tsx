@@ -20,7 +20,7 @@ import {
 import { ServiceAreaMap } from "@/components/ServiceAreaMap";
 import { BeforeAfterGallery } from "@/components/BeforeAfterGallery";
 import { Testimonials } from "@/components/Testimonials";
-import { QuoteWizard } from "@/components/QuoteWizard";
+import { HeroQuoteSection } from "@/components/HeroQuoteSection";
 
 const services = [
   {
@@ -106,36 +106,13 @@ const popularServices = [
 export default function Home() {
   return (
     <div className="flex flex-col pb-20">
-      {/* Hero Section - Professional with Image */}
-      <section className="relative min-h-[500px] md:min-h-[600px] lg:min-h-[700px] flex items-center overflow-hidden">
-        {/* Background Image with Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/90 to-primary/70 z-0"></div>
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1558904541-efa843a96f01?w=1920')] bg-cover bg-center opacity-30 z-0"></div>
-        
-        <div className="container relative z-10 px-4 md:px-8 py-16 md:py-20">
-          <div className="max-w-4xl mx-auto text-center text-primary-foreground">
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif font-bold tracking-tight leading-tight mb-6">
-              Most trusted lawn care services in Kuna
-            </h1>
-            <p className="text-lg sm:text-xl md:text-2xl mb-8 text-primary-foreground/90 max-w-2xl mx-auto">
-              Professional lawn maintenance, landscaping, and seasonal services for Idaho's Treasure Valley since 2017
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Button size="lg" asChild data-testid="button-hero-schedule" className="w-full sm:w-auto min-w-[200px] bg-white text-primary hover:bg-white/90">
-                <Link href="/get-quote">
-                  Get Free Quote
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Link>
-              </Button>
-              <Button size="lg" variant="outline" asChild data-testid="button-hero-pricing" className="w-full sm:w-auto min-w-[200px] border-2 border-white text-white hover:bg-white/10">
-                <Link href="/pricing">
-                  View Pricing
-                </Link>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Hero Section with Integrated Quote Feature */}
+      <HeroQuoteSection 
+        label="Lawn Care Kuna"
+        heading="Most trusted lawn care services in Kuna"
+        subheading="Professional Lawn Care Services in Kuna"
+        defaultCity="Kuna"
+      />
 
       {/* Trust Indicators */}
       <section className="py-12 md:py-16 lg:py-20 bg-muted">
@@ -494,60 +471,6 @@ export default function Home() {
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
               </Button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Quote Form Section */}
-      <section className="py-16 md:py-24 bg-muted">
-        <div className="container px-4 md:px-8">
-          <div className="max-w-6xl mx-auto">
-            <div className="grid lg:grid-cols-2 gap-12 items-start">
-              {/* Left: Content */}
-              <div className="space-y-6 lg:sticky lg:top-24">
-                <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
-                  You've got a lot on your plate. Save your future Kuna time
-                </h2>
-                <p className="text-lg text-muted-foreground leading-relaxed">
-                  Let us handle your lawn care so you can focus on what matters most. 
-                  Fill out the form to get started with a free consultation and quote.
-                </p>
-                <div className="space-y-4">
-                  <div className="flex items-start gap-3">
-                    <CheckCircle2 className="h-6 w-6 text-primary flex-shrink-0 mt-0.5" />
-                    <div>
-                      <h3 className="font-semibold mb-1">Free Consultation</h3>
-                      <p className="text-muted-foreground">No obligation property assessment</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <CheckCircle2 className="h-6 w-6 text-primary flex-shrink-0 mt-0.5" />
-                    <div>
-                      <h3 className="font-semibold mb-1">Instant Quote</h3>
-                      <p className="text-muted-foreground">Get pricing immediately online</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <CheckCircle2 className="h-6 w-6 text-primary flex-shrink-0 mt-0.5" />
-                    <div>
-                      <h3 className="font-semibold mb-1">Quick Response</h3>
-                      <p className="text-muted-foreground">We respond within 24 hours</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Right: Quote Form */}
-              <Card>
-                <CardHeader>
-                  <CardTitle>Get Your Free Quote</CardTitle>
-                  <CardDescription>Fill out the form below for instant pricing</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <QuoteWizard />
-                </CardContent>
-              </Card>
             </div>
           </div>
         </div>

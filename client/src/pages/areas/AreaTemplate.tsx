@@ -1,7 +1,7 @@
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { QuoteForm } from "@/components/QuoteForm";
+import { HeroQuoteSection } from "@/components/HeroQuoteSection";
 import { CheckCircle2, MapPin, Leaf, Sprout, Lightbulb } from "lucide-react";
 
 interface AreaTemplateProps {
@@ -27,34 +27,13 @@ export default function AreaTemplate({ cityName, citySlug }: AreaTemplateProps) 
 
   return (
     <div className="flex flex-col">
-      {/* Hero Section - Professional with Image */}
-      <section className="relative min-h-[450px] md:min-h-[550px] flex items-center overflow-hidden">
-        {/* Background with Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/90 to-primary/70 z-0"></div>
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1558904541-efa843a96f01?w=1920')] bg-cover bg-center opacity-30 z-0"></div>
-        
-        <div className="container relative z-10 px-4 md:px-8 py-16 md:py-20">
-          <div className="max-w-4xl mx-auto text-center text-primary-foreground">
-            <div className="flex items-center justify-center gap-2 mb-4">
-              <MapPin className="h-7 w-7 md:h-8 md:w-8" />
-            </div>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif font-bold tracking-tight leading-tight mb-4 md:mb-6" data-testid="heading-main">
-              Professional Lawn Care & Landscaping in {cityName}, Idaho
-            </h1>
-            <p className="text-base sm:text-lg md:text-xl mb-6 md:mb-8 text-primary-foreground/90 max-w-2xl mx-auto leading-relaxed" data-testid="text-subtitle">
-              Trusted by {cityName} homeowners and businesses since 2017. Expert lawn maintenance, custom landscaping design, and professional Christmas light installation throughout the Treasure Valley.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
-              <Button size="lg" asChild data-testid="button-quote" className="w-full sm:w-auto min-w-[180px] bg-white text-primary hover:bg-white/90">
-                <Link href="#quote">Get Free Quote</Link>
-              </Button>
-              <Button size="lg" variant="outline" asChild data-testid="button-pricing" className="w-full sm:w-auto min-w-[180px] border-2 border-white text-white hover:bg-white/10">
-                <Link href="/pricing">View Pricing</Link>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Hero Section with Integrated Quote Feature */}
+      <HeroQuoteSection 
+        label={`${cityName} Lawn Care`}
+        heading={`Professional Lawn Care & Landscaping in ${cityName}, Idaho`}
+        subheading={`Trusted by ${cityName} homeowners and businesses since 2017`}
+        defaultCity={cityName}
+      />
 
       {/* Local Expertise Section - Mint */}
       <section className="py-16 md:py-20 bg-muted">

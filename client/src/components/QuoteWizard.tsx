@@ -99,9 +99,19 @@ interface QuoteWizardProps {
   onClose?: () => void;
   preselectedService?: string;
   preselectedCity?: string;
+  defaultService?: string;
+  defaultCity?: string;
+  defaultAddress?: string;
 }
 
-export function QuoteWizard({ onClose, preselectedService, preselectedCity }: QuoteWizardProps) {
+export function QuoteWizard({ 
+  onClose, 
+  preselectedService, 
+  preselectedCity,
+  defaultService,
+  defaultCity,
+  defaultAddress 
+}: QuoteWizardProps) {
   const [step, setStep] = useState(1);
   const [mapOpen, setMapOpen] = useState(false);
   const [quoteData, setQuoteData] = useState<QuoteData | null>(null);
@@ -112,8 +122,8 @@ export function QuoteWizard({ onClose, preselectedService, preselectedCity }: Qu
   const form1 = useForm<Step1Data>({
     resolver: zodResolver(step1Schema),
     defaultValues: {
-      city: preselectedCity || "Kuna",
-      address: "",
+      city: defaultCity || preselectedCity || "Kuna",
+      address: defaultAddress || "",
       propertySize: undefined,
       propertyType: undefined,
     },
@@ -123,7 +133,7 @@ export function QuoteWizard({ onClose, preselectedService, preselectedCity }: Qu
   const form2 = useForm<Step2Data>({
     resolver: zodResolver(step2Schema),
     defaultValues: {
-      serviceType: formData.serviceType || preselectedService || "",
+      serviceType: formData.serviceType || defaultService || preselectedService || "",
       frequency: formData.frequency || undefined,
       selectedServices: formData.selectedServices || [],
     },
