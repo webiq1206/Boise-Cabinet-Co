@@ -25,7 +25,7 @@ import DynamicServiceRoute from "@/components/DynamicServiceRoute";
 
 // Commercial Pages
 import HOAServices from "@/pages/commercial/HOAServices";
-import PropertyManagement from "@/pages/commercial/PropertyManagement";
+import Commercial from "@/pages/commercial/Commercial";
 import MunicipalServices from "@/pages/commercial/MunicipalServices";
 
 // Area Pages
@@ -67,7 +67,7 @@ function Router() {
           {/* Commercial Pages */}
           <Route path="/commercial/hoa-services" component={HOAServices} />
           <Route path="/commercial/hoa-services/:city" component={HOAServices} />
-          <Route path="/commercial/property-management" component={PropertyManagement} />
+          <Route path="/commercial" component={Commercial} />
           <Route path="/commercial/municipal-services" component={MunicipalServices} />
           <Route path="/commercial/commercial-lawn-care" component={HOAServices} />
           <Route path="/commercial/commercial-services" component={HOAServices} />

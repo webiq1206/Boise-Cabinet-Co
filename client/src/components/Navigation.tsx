@@ -37,7 +37,7 @@ const landscapingServices = [
 
 const commercialServices = [
   { name: "HOA Services", href: "/commercial/hoa-services" },
-  { name: "Property Management", href: "/commercial/property-management" },
+  { name: "Commercial", href: "/commercial" },
   { name: "Municipal Services", href: "/commercial/municipal-services" },
   { name: "Commercial Lawn Care", href: "/commercial/commercial-lawn-care" },
 ];
