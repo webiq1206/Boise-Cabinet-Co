@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
@@ -12,6 +12,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
+  FormDescription,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -25,7 +26,7 @@ import {
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { CheckCircle2, AlertCircle, Loader2 } from "lucide-react";
+import { CheckCircle2, AlertCircle, Loader2, DollarSign, Info } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 interface QuoteFormProps {
@@ -35,9 +36,86 @@ interface QuoteFormProps {
   preselectedCity?: string;
 }
 
+// Pricing estimation logic based on property size and service type
+function calculateEstimate(propertySize: string, serviceType: string, propertyType: string) {
+  if (!propertySize) return null;
+  
+  let sqft = 0;
+  
+  // Remove commas and normalize input
+  const normalized = propertySize.toLowerCase().replace(/,/g, '');
+  
+  // Handle dimension format: "50x100" or "50 x 100"
+  const dimensionMatch = normalized.match(/(\d+\.?\d*)\s*[x×]\s*(\d+\.?\d*)/);
+  if (dimensionMatch) {
+    const length = parseFloat(dimensionMatch[1]);
+    const width = parseFloat(dimensionMatch[2]);
+    sqft = Math.round(length * width);
+  } else if (normalized.includes('acre')) {
+    // Handle acres: "0.5 acres" or "1/2 acre"
+    const acreMatch = normalized.match(/(\d+\.?\d*|\d+\/\d+)/);
+    if (acreMatch) {
+      let acres = 0;
+      if (acreMatch[1].includes('/')) {
+        const [num, den] = acreMatch[1].split('/').map(Number);
+        acres = num / den;
+      } else {
+        acres = parseFloat(acreMatch[1]);
+      }
+      sqft = Math.round(acres * 43560); // 1 acre = 43,560 sq ft
+    }
+  } else {
+    // Handle plain numbers: "5000" or "5000 sq ft"
+    const numberMatch = normalized.match(/(\d+\.?\d*)/);
+    if (numberMatch) {
+      sqft = Math.round(parseFloat(numberMatch[1]));
+    }
+  }
+  
+  // Validate reasonable size range
+  if (sqft < 500 || sqft > 100000) return null;
+
+  // Base rates per service type (monthly for lawn care, one-time for landscaping)
+  const serviceRates = {
+    'lawn-mowing': 0.02,
+    'lawn-maintenance': 0.025,
+    'aeration': 0.015,
+    'fertilization': 0.018,
+    'weed-control': 0.012,
+    'landscaping': 0.5,
+    'patio': 15,
+    'retaining-walls': 25,
+    'pond': 50,
+    'fence': 20,
+    'irrigation': 0.8,
+    'christmas-lights': 1.2,
+  };
+
+  const rate = serviceRates[serviceType as keyof typeof serviceRates] || 0.02;
+  let baseEstimate = sqft * rate;
+
+  // Property type multipliers
+  const typeMultipliers = {
+    'residential': 1,
+    'commercial': 1.3,
+    'hoa': 1.2,
+    'property-management': 1.25,
+  };
+
+  const multiplier = typeMultipliers[propertyType as keyof typeof typeMultipliers] || 1;
+  baseEstimate *= multiplier;
+
+  return {
+    low: Math.round(baseEstimate * 0.8),
+    high: Math.round(baseEstimate * 1.2),
+    isMonthly: ['lawn-mowing', 'lawn-maintenance', 'aeration', 'fertilization', 'weed-control'].includes(serviceType),
+  };
+}
+
 export function QuoteForm({ className, compact = false, preselectedService, preselectedCity }: QuoteFormProps) {
   const { toast } = useToast();
   const [submitted, setSubmitted] = useState(false);
+  const [estimate, setEstimate] = useState<{ low: number; high: number; isMonthly: boolean } | null>(null);
 
   const form = useForm<InsertQuote>({
     resolver: zodResolver(insertQuoteSchema),
@@ -52,6 +130,20 @@ export function QuoteForm({ className, compact = false, preselectedService, pres
       message: "",
     },
   });
+
+  // Watch form values to calculate estimate
+  const watchedServiceType = form.watch("serviceType");
+  const watchedPropertySize = form.watch("propertySize");
+  const watchedPropertyType = form.watch("propertyType");
+
+  useEffect(() => {
+    if (watchedServiceType && watchedPropertySize && watchedPropertyType) {
+      const newEstimate = calculateEstimate(watchedPropertySize, watchedServiceType, watchedPropertyType);
+      setEstimate(newEstimate);
+    } else {
+      setEstimate(null);
+    }
+  }, [watchedServiceType, watchedPropertySize, watchedPropertyType]);
 
   const submitQuoteMutation = useMutation({
     mutationFn: async (data: InsertQuote) => {
@@ -242,10 +334,15 @@ export function QuoteForm({ className, compact = false, preselectedService, pres
                 name="propertySize"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Property Size (Optional)</FormLabel>
+                    <FormLabel>Property Size</FormLabel>
                     <FormControl>
-                      <Input placeholder="e.g., 5000 sq ft" {...field} data-testid="input-property-size" />
+                      <Input 
+                        placeholder="e.g., 5,000 sq ft or 50x100 or 0.25 acres" 
+                        {...field} 
+                        data-testid="input-property-size" 
+                      />
                     </FormControl>
+                    <FormDescription>Enter dimensions, square footage, or acreage</FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -298,6 +395,26 @@ export function QuoteForm({ className, compact = false, preselectedService, pres
                   </FormItem>
                 )}
               />
+            )}
+
+            {/* Instant Estimate Display */}
+            {estimate && (
+              <Alert className="bg-primary/5 border-primary/20">
+                <DollarSign className="h-5 w-5 text-primary" />
+                <AlertDescription>
+                  <div className="space-y-1">
+                    <p className="font-semibold text-foreground">Estimated Range:</p>
+                    <p className="text-lg font-bold text-primary">
+                      ${estimate.low.toLocaleString()} - ${estimate.high.toLocaleString()}
+                      {estimate.isMonthly && <span className="text-sm font-normal text-muted-foreground">/month</span>}
+                    </p>
+                    <p className="text-xs text-muted-foreground flex items-start gap-1 mt-2">
+                      <Info className="h-3 w-3 mt-0.5 flex-shrink-0" />
+                      This is a preliminary estimate. Final pricing will be provided after property assessment.
+                    </p>
+                  </div>
+                </AlertDescription>
+              </Alert>
             )}
 
             {submitQuoteMutation.isError && (

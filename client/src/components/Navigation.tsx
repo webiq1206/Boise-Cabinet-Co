@@ -194,73 +194,78 @@ export function Navigation() {
                 <Menu className="h-5 w-5" />
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="w-[320px] sm:w-[400px]">
-              <div className="flex flex-col gap-6 mt-8">
-                <Button variant="ghost" asChild data-testid="link-home-mobile">
-                  <Link href="/" onClick={() => setMobileOpen(false)}>
+            <SheetContent side="right" className="w-[85vw] sm:w-[400px] overflow-y-auto">
+              <nav className="flex flex-col gap-1 mt-8">
+                {/* Home */}
+                <Link href="/" onClick={() => setMobileOpen(false)}>
+                  <div className="px-4 py-3 text-base font-medium rounded-md hover-elevate active-elevate-2 transition-colors" data-testid="link-home-mobile">
                     Home
-                  </Link>
-                </Button>
+                  </div>
+                </Link>
                 
-                <div className="space-y-3">
-                  <h3 className="font-semibold text-xs px-4 text-muted-foreground tracking-wide uppercase">Lawn Care Services</h3>
-                  <div className="space-y-1">
+                {/* Lawn Care Services */}
+                <div className="mt-4">
+                  <h3 className="px-4 py-2 text-sm font-semibold text-foreground tracking-wide uppercase">Lawn Care Services</h3>
+                  <div className="mt-1 space-y-0.5">
                     {lawnCareServices.map((service) => (
-                      <Button key={service.href} variant="ghost" size="sm" asChild>
-                        <Link href={service.href} onClick={() => setMobileOpen(false)}>
+                      <Link key={service.href} href={service.href} onClick={() => setMobileOpen(false)}>
+                        <div className="px-6 py-2.5 text-sm rounded-md hover-elevate active-elevate-2 transition-colors">
                           {service.name}
-                        </Link>
-                      </Button>
+                        </div>
+                      </Link>
                     ))}
                   </div>
                 </div>
 
-                <div className="space-y-3">
-                  <h3 className="font-semibold text-xs px-4 text-muted-foreground tracking-wide uppercase">Landscaping</h3>
-                  <div className="space-y-1">
+                {/* Landscaping */}
+                <div className="mt-4">
+                  <h3 className="px-4 py-2 text-sm font-semibold text-foreground tracking-wide uppercase">Landscaping</h3>
+                  <div className="mt-1 space-y-0.5">
                     {landscapingServices.map((service) => (
-                      <Button key={service.href} variant="ghost" size="sm" asChild>
-                        <Link href={service.href} onClick={() => setMobileOpen(false)}>
+                      <Link key={service.href} href={service.href} onClick={() => setMobileOpen(false)}>
+                        <div className="px-6 py-2.5 text-sm rounded-md hover-elevate active-elevate-2 transition-colors">
                           {service.name}
-                        </Link>
-                      </Button>
+                        </div>
+                      </Link>
                     ))}
                   </div>
                 </div>
 
-                <div className="space-y-3">
-                  <h3 className="font-semibold text-xs px-4 text-muted-foreground tracking-wide uppercase">Commercial Services</h3>
-                  <div className="space-y-1">
+                {/* Commercial Services */}
+                <div className="mt-4">
+                  <h3 className="px-4 py-2 text-sm font-semibold text-foreground tracking-wide uppercase">Commercial Services</h3>
+                  <div className="mt-1 space-y-0.5">
                     {commercialServices.map((service) => (
-                      <Button key={service.href} variant="ghost" size="sm" asChild>
-                        <Link href={service.href} onClick={() => setMobileOpen(false)}>
+                      <Link key={service.href} href={service.href} onClick={() => setMobileOpen(false)}>
+                        <div className="px-6 py-2.5 text-sm rounded-md hover-elevate active-elevate-2 transition-colors">
                           {service.name}
-                        </Link>
-                      </Button>
+                        </div>
+                      </Link>
                     ))}
                   </div>
                 </div>
 
-                <div className="border-t pt-6 space-y-2">
-                  <Button variant="ghost" asChild data-testid="link-about-mobile">
-                    <Link href="/about" onClick={() => setMobileOpen(false)}>
+                {/* Main Pages */}
+                <div className="mt-6 pt-6 border-t space-y-0.5">
+                  <Link href="/about" onClick={() => setMobileOpen(false)}>
+                    <div className="px-4 py-3 text-base font-medium rounded-md hover-elevate active-elevate-2 transition-colors" data-testid="link-about-mobile">
                       About
-                    </Link>
-                  </Button>
+                    </div>
+                  </Link>
 
-                  <Button variant="ghost" asChild data-testid="link-contact-mobile">
-                    <Link href="/contact" onClick={() => setMobileOpen(false)}>
+                  <Link href="/contact" onClick={() => setMobileOpen(false)}>
+                    <div className="px-4 py-3 text-base font-medium rounded-md hover-elevate active-elevate-2 transition-colors" data-testid="link-contact-mobile">
                       Contact
-                    </Link>
-                  </Button>
+                    </div>
+                  </Link>
 
-                  <Button asChild data-testid="button-quote-mobile">
+                  <Button className="w-full mt-4" asChild data-testid="button-quote-mobile">
                     <Link href="/contact" onClick={() => setMobileOpen(false)}>
                       Free Consultation
                     </Link>
                   </Button>
                 </div>
-              </div>
+              </nav>
             </SheetContent>
           </Sheet>
         </div>
