@@ -49,45 +49,31 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
       </Helmet>
 
       {/* Hero Section */}
-      <section className="relative bg-muted py-12 md:py-20 lg:py-32 overflow-hidden">
-        <div className="container px-4 md:px-8">
-          <div className="max-w-4xl mx-auto">
-            <div className="grid lg:grid-cols-2 gap-8 md:gap-12 items-center">
-              {/* Left: Heading */}
-              <div className="space-y-4 md:space-y-6">
-                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-tight" data-testid="heading-hero">
-                  {service.name} services
-                </h1>
-                <p className="text-base md:text-lg text-muted-foreground" data-testid="text-hero-description">
-                  {service.shortDescription}
-                </p>
-                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-                  <Button size="lg" asChild data-testid="button-hero-schedule" className="w-full sm:w-auto">
-                    <Link href="/get-quote">
-                      Get Free Quote
-                      <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
-                    </Link>
-                  </Button>
-                  <Button size="lg" variant="outline" asChild data-testid="button-hero-pricing" className="w-full sm:w-auto">
-                    <Link href="/pricing">
-                      View Pricing
-                    </Link>
-                  </Button>
-                </div>
-              </div>
-              
-              {/* Right: Decorative Elements */}
-              <div className="relative h-64 lg:h-full hidden lg:block">
-                <div className="absolute top-0 right-0 w-32 h-32 text-primary/20">
-                  <Leaf className="w-full h-full" strokeWidth={1} />
-                </div>
-                <div className="absolute bottom-10 right-20 w-24 h-24 text-primary/10">
-                  <Leaf className="w-full h-full" strokeWidth={1} />
-                </div>
-                <div className="absolute top-20 right-32 w-20 h-20 text-primary/15">
-                  <Sprout className="w-full h-full" strokeWidth={1} />
-                </div>
-              </div>
+      <section className="relative min-h-[450px] md:min-h-[550px] flex items-center overflow-hidden">
+        {/* Background with Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/90 to-primary/70 z-0"></div>
+        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1558904541-efa843a96f01?w=1920')] bg-cover bg-center opacity-30 z-0"></div>
+        
+        <div className="container relative z-10 px-4 md:px-8 py-16 md:py-20">
+          <div className="max-w-4xl mx-auto text-center text-primary-foreground">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif font-bold tracking-tight leading-tight mb-4 md:mb-6" data-testid="heading-hero">
+              {service.name} services
+            </h1>
+            <p className="text-base sm:text-lg md:text-xl mb-6 md:mb-8 text-primary-foreground/90 max-w-2xl mx-auto" data-testid="text-hero-description">
+              {service.shortDescription}
+            </p>
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
+              <Button size="lg" asChild data-testid="button-hero-schedule" className="w-full sm:w-auto min-w-[180px] bg-white text-primary hover:bg-white/90">
+                <Link href="/get-quote">
+                  Get Free Quote
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Link>
+              </Button>
+              <Button size="lg" variant="outline" asChild data-testid="button-hero-pricing" className="w-full sm:w-auto min-w-[180px] border-2 border-white text-white hover:bg-white/10">
+                <Link href="/pricing">
+                  View Pricing
+                </Link>
+              </Button>
             </div>
           </div>
         </div>
