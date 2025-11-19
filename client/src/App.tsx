@@ -31,6 +31,20 @@ import AerationPage from "@/pages/services/generated/AerationPage";
 import FertilizationPage from "@/pages/services/generated/FertilizationPage";
 import WeedControlPage from "@/pages/services/generated/WeedControlPage";
 import SodInstallationPage from "@/pages/services/generated/SodInstallationPage";
+import HedgeTrimmingPage from "@/pages/services/generated/HedgeTrimmingPage";
+import SeasonalCleanupPage from "@/pages/services/generated/SeasonalCleanupPage";
+import SprinklerBlowoutPage from "@/pages/services/generated/SprinklerBlowoutPage";
+import DethatchingPage from "@/pages/services/generated/DethatchingPage";
+import OverseedingPage from "@/pages/services/generated/OverseedingPage";
+import MulchInstallationPage from "@/pages/services/generated/MulchInstallationPage";
+import RetainingWallsPage from "@/pages/services/generated/RetainingWallsPage";
+import FirePitInstallationPage from "@/pages/services/generated/FirePitInstallationPage";
+import LandscapeLightingPage from "@/pages/services/generated/LandscapeLightingPage";
+import SprinklerSystemInstallationPage from "@/pages/services/generated/SprinklerSystemInstallationPage";
+import IrrigationRepairPage from "@/pages/services/generated/IrrigationRepairPage";
+import IrrigationMaintenancePage from "@/pages/services/generated/IrrigationMaintenancePage";
+import TreeTrimmingPage from "@/pages/services/generated/TreeTrimmingPage";
+import LawnEdgingPage from "@/pages/services/generated/LawnEdgingPage";
 
 // Kuna Service Pages
 import LawnMowingKuna from "@/pages/services/kuna/LawnMowingKuna";
@@ -39,6 +53,20 @@ import FertilizationKuna from "@/pages/services/kuna/FertilizationKuna";
 import WeedControlKuna from "@/pages/services/kuna/WeedControlKuna";
 import SodInstallationKuna from "@/pages/services/kuna/SodInstallationKuna";
 import PatioInstallationKuna from "@/pages/services/kuna/PatioInstallationKuna";
+import HedgeTrimmingKuna from "@/pages/services/kuna/HedgeTrimmingKuna";
+import SeasonalCleanupKuna from "@/pages/services/kuna/SeasonalCleanupKuna";
+import SprinklerBlowoutKuna from "@/pages/services/kuna/SprinklerBlowoutKuna";
+import DethatchingKuna from "@/pages/services/kuna/DethatchingKuna";
+import OverseedingKuna from "@/pages/services/kuna/OverseedingKuna";
+import MulchInstallationKuna from "@/pages/services/kuna/MulchInstallationKuna";
+import RetainingWallsKuna from "@/pages/services/kuna/RetainingWallsKuna";
+import FirePitInstallationKuna from "@/pages/services/kuna/FirePitInstallationKuna";
+import LandscapeLightingKuna from "@/pages/services/kuna/LandscapeLightingKuna";
+import SprinklerSystemInstallationKuna from "@/pages/services/kuna/SprinklerSystemInstallationKuna";
+import IrrigationRepairKuna from "@/pages/services/kuna/IrrigationRepairKuna";
+import IrrigationMaintenanceKuna from "@/pages/services/kuna/IrrigationMaintenanceKuna";
+import TreeTrimmingKuna from "@/pages/services/kuna/TreeTrimmingKuna";
+import LawnEdgingKuna from "@/pages/services/kuna/LawnEdgingKuna";
 
 // Commercial Pages
 import HOAServices from "@/pages/commercial/HOAServices";
@@ -82,18 +110,20 @@ function Router() {
           <Route path="/services/aeration" component={AerationPage} />
           <Route path="/services/fertilization" component={FertilizationPage} />
           <Route path="/services/weed-control" component={WeedControlPage} />
-          <Route path="/services/hedge-trimming" component={LawnMowing} />
-          <Route path="/services/seasonal-cleanup" component={LawnMowing} />
-          <Route path="/services/sprinkler-blowout" component={LawnMowing} />
-          <Route path="/services/dethatching" component={LawnMowing} />
-          <Route path="/services/irrigation-repair" component={LawnMowing} />
+          <Route path="/services/hedge-trimming" component={HedgeTrimmingPage} />
+          <Route path="/services/seasonal-cleanup" component={SeasonalCleanupPage} />
+          <Route path="/services/sprinkler-blowout" component={SprinklerBlowoutPage} />
+          <Route path="/services/dethatching" component={DethatchingPage} />
+          <Route path="/services/overseeding" component={OverseedingPage} />
+          <Route path="/services/lawn-edging" component={LawnEdgingPage} />
 
           {/* Individual Service Pages - Landscaping */}
           <Route path="/services/patio-installation" component={PatioInstallation} />
           <Route path="/services/paver-patio" component={PatioInstallation} />
           <Route path="/services/sod-installation" component={SodInstallationPage} />
-          <Route path="/services/retaining-walls" component={PatioInstallation} />
-          <Route path="/services/retaining-wall-construction" component={PatioInstallation} />
+          <Route path="/services/mulch-installation" component={MulchInstallationPage} />
+          <Route path="/services/retaining-walls" component={RetainingWallsPage} />
+          <Route path="/services/retaining-wall-construction" component={RetainingWallsPage} />
           <Route path="/services/pond-installation" component={PondInstallation} />
           <Route path="/services/koi-pond" component={PondInstallation} />
           <Route path="/services/fountain-installation" component={PondInstallation} />
@@ -101,15 +131,18 @@ function Router() {
           <Route path="/services/fence-installation" component={FenceInstallation} />
           <Route path="/services/wood-fence" component={FenceInstallation} />
           <Route path="/services/vinyl-fence" component={FenceInstallation} />
-          <Route path="/services/fire-pit-installation" component={PatioInstallation} />
-          <Route path="/services/outdoor-fireplace" component={PatioInstallation} />
-          <Route path="/services/landscape-lighting" component={PatioInstallation} />
-          <Route path="/services/pathway-lighting" component={PatioInstallation} />
-          <Route path="/services/sprinkler-system-installation" component={PatioInstallation} />
-          <Route path="/services/irrigation-installation" component={PatioInstallation} />
-          <Route path="/services/drip-irrigation" component={PatioInstallation} />
-          <Route path="/services/smart-irrigation" component={PatioInstallation} />
-          <Route path="/services/irrigation-maintenance" component={PatioInstallation} />
+          <Route path="/services/fire-pit-installation" component={FirePitInstallationPage} />
+          <Route path="/services/outdoor-fireplace" component={FirePitInstallationPage} />
+          <Route path="/services/landscape-lighting" component={LandscapeLightingPage} />
+          <Route path="/services/pathway-lighting" component={LandscapeLightingPage} />
+          <Route path="/services/tree-trimming" component={TreeTrimmingPage} />
+          <Route path="/services/tree-pruning" component={TreeTrimmingPage} />
+          <Route path="/services/sprinkler-system-installation" component={SprinklerSystemInstallationPage} />
+          <Route path="/services/irrigation-installation" component={SprinklerSystemInstallationPage} />
+          <Route path="/services/irrigation-repair" component={IrrigationRepairPage} />
+          <Route path="/services/drip-irrigation" component={SprinklerSystemInstallationPage} />
+          <Route path="/services/smart-irrigation" component={SprinklerSystemInstallationPage} />
+          <Route path="/services/irrigation-maintenance" component={IrrigationMaintenancePage} />
 
           {/* Kuna-specific service pages */}
           <Route path="/services/lawn-mowing/kuna" component={LawnMowingKuna} />
@@ -118,6 +151,20 @@ function Router() {
           <Route path="/services/weed-control/kuna" component={WeedControlKuna} />
           <Route path="/services/sod-installation/kuna" component={SodInstallationKuna} />
           <Route path="/services/patio-installation/kuna" component={PatioInstallationKuna} />
+          <Route path="/services/hedge-trimming/kuna" component={HedgeTrimmingKuna} />
+          <Route path="/services/seasonal-cleanup/kuna" component={SeasonalCleanupKuna} />
+          <Route path="/services/sprinkler-blowout/kuna" component={SprinklerBlowoutKuna} />
+          <Route path="/services/dethatching/kuna" component={DethatchingKuna} />
+          <Route path="/services/overseeding/kuna" component={OverseedingKuna} />
+          <Route path="/services/mulch-installation/kuna" component={MulchInstallationKuna} />
+          <Route path="/services/retaining-walls/kuna" component={RetainingWallsKuna} />
+          <Route path="/services/fire-pit-installation/kuna" component={FirePitInstallationKuna} />
+          <Route path="/services/landscape-lighting/kuna" component={LandscapeLightingKuna} />
+          <Route path="/services/sprinkler-system-installation/kuna" component={SprinklerSystemInstallationKuna} />
+          <Route path="/services/irrigation-repair/kuna" component={IrrigationRepairKuna} />
+          <Route path="/services/irrigation-maintenance/kuna" component={IrrigationMaintenanceKuna} />
+          <Route path="/services/tree-trimming/kuna" component={TreeTrimmingKuna} />
+          <Route path="/services/lawn-edging/kuna" component={LawnEdgingKuna} />
           
           {/* Geo-targeted examples (using same components with different URLs) */}
           <Route path="/services/lawn-mowing/:city" component={LawnMowing} />
