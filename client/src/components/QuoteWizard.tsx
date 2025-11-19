@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -119,13 +119,13 @@ export function QuoteWizard({ onClose, preselectedService, preselectedCity }: Qu
     },
   });
 
-  // Step 2 form
+  // Step 2 form - preserve existing selections when navigating back
   const form2 = useForm<Step2Data>({
     resolver: zodResolver(step2Schema),
     defaultValues: {
-      serviceType: preselectedService || "",
-      frequency: undefined,
-      selectedServices: [],
+      serviceType: formData.serviceType || preselectedService || "",
+      frequency: formData.frequency || undefined,
+      selectedServices: formData.selectedServices || [],
     },
   });
 
@@ -133,6 +133,17 @@ export function QuoteWizard({ onClose, preselectedService, preselectedCity }: Qu
   const form3 = useForm<Step3Data>({
     resolver: zodResolver(step3Schema),
   });
+
+  // Reset form2 values when navigating back to preserve selections
+  useEffect(() => {
+    if (step === 2 && formData.serviceType) {
+      form2.reset({
+        serviceType: formData.serviceType,
+        frequency: formData.frequency,
+        selectedServices: formData.selectedServices || [],
+      });
+    }
+  }, [step]);
 
   // Get instant quote mutation
   const getQuoteMutation = useMutation({
@@ -241,13 +252,15 @@ export function QuoteWizard({ onClose, preselectedService, preselectedCity }: Qu
       missingInfo.push("property type");
     }
     
-    // Merge Step 1 and Step 2 data
+    // Merge Step 1 and Step 2 data with explicit field mapping
     const combined = { 
       address: formData.address || '',
       city: formData.city!,
       propertySize: formData.propertySize || 0,
       propertyType: formData.propertyType || 'residential',
-      ...data 
+      serviceType: data.serviceType,
+      frequency: data.frequency,
+      selectedServices: data.selectedServices || [],
     };
     setFormData({ ...formData, ...combined });
     
