@@ -5,6 +5,15 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { OpenStreetMapProvider } from "leaflet-geosearch";
 import { Loader2, MapPin } from "lucide-react";
 import * as L from "leaflet";
+import "leaflet-draw";
+import { useToast } from "@/hooks/use-toast";
+
+// Type extensions for leaflet-draw GeometryUtil
+declare module "leaflet" {
+  namespace GeometryUtil {
+    function geodesicArea(latlngs: L.LatLng[]): number;
+  }
+}
 
 interface AddressResult {
   label: string;
@@ -43,6 +52,7 @@ export function AddressAutocomplete({
   const [selectedAddress, setSelectedAddress] = useState<AddressResult | null>(null);
   const debounceRef = useRef<NodeJS.Timeout>();
   const provider = useRef(new OpenStreetMapProvider());
+  const { toast } = useToast();
 
   // Fetch address suggestions
   const fetchSuggestions = async (query: string) => {
@@ -95,6 +105,9 @@ export function AddressAutocomplete({
 
   // Calculate property size from bounds
   const calculatePropertySize = async (result: AddressResult): Promise<number | null> => {
+    let tempDiv: HTMLDivElement | null = null;
+    let tempMap: L.Map | null = null;
+    
     try {
       if (!result.bounds) {
         console.log("No bounds available for property size calculation");
@@ -116,13 +129,13 @@ export function AddressAutocomplete({
       }
       
       // Create a temporary map to calculate area
-      const tempDiv = document.createElement('div');
+      tempDiv = document.createElement('div');
       tempDiv.style.display = 'none';
       tempDiv.style.width = '100px';
       tempDiv.style.height = '100px';
       document.body.appendChild(tempDiv);
       
-      const tempMap = L.map(tempDiv).setView([result.y, result.x], 18);
+      tempMap = L.map(tempDiv).setView([result.y, result.x], 18);
       
       // Create a rectangle from bounds
       const leafletBounds = L.latLngBounds([
@@ -139,10 +152,6 @@ export function AddressAutocomplete({
       // Convert to square feet (1 sq meter = 10.764 sq ft)
       const areaSqFt = Math.round(areaMeters * 10.764);
       
-      // Cleanup
-      tempMap.remove();
-      document.body.removeChild(tempDiv);
-      
       // Return reasonable values only (typical residential lots are 4000-20000 sq ft)
       if (areaSqFt > 100 && areaSqFt < 500000) {
         return areaSqFt;
@@ -153,6 +162,22 @@ export function AddressAutocomplete({
     } catch (error) {
       console.error("Error calculating property size:", error);
       return null;
+    } finally {
+      // Always cleanup temp DOM elements and map
+      if (tempMap) {
+        try {
+          tempMap.remove();
+        } catch (e) {
+          console.error("Error removing temp map:", e);
+        }
+      }
+      if (tempDiv && tempDiv.parentNode) {
+        try {
+          document.body.removeChild(tempDiv);
+        } catch (e) {
+          console.error("Error removing temp div:", e);
+        }
+      }
     }
   };
   
@@ -179,6 +204,17 @@ export function AddressAutocomplete({
       const size = await calculatePropertySize(result);
       if (size) {
         onPropertySizeCalculated(size);
+        toast({
+          title: "Property Size Calculated",
+          description: `Estimated property size: ${size.toLocaleString()} sq ft`,
+        });
+      } else {
+        // Show helpful message when auto-calculation fails
+        toast({
+          title: "Manual Entry Required",
+          description: "Unable to auto-calculate property size. Please enter manually or use the Adjust button to measure.",
+          variant: "default",
+        });
       }
     }
   };
