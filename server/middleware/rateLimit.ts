@@ -81,18 +81,36 @@ class RateLimiter {
 }
 
 // Create rate limiter instances for different endpoints
-const quoteCalculationLimiter = new RateLimiter(20, 60000); // 20 requests per minute
+const perIpQuoteLimiter = new RateLimiter(5, 60000); // 5 requests per minute per IP
+const globalQuoteLimiter = new RateLimiter(20, 60000); // 20 requests per minute globally
 
 /**
  * Rate limiting middleware for quote calculations
- * Prevents abuse of AI-powered quote endpoint
+ * Prevents abuse of AI-powered quote endpoint with two-tier limits:
+ * - 5 requests per minute per IP
+ * - 20 requests per minute globally across all IPs
  */
 export function quoteCalculationRateLimit(req: Request, res: Response, next: NextFunction) {
   // Use IP address as identifier (in production, could use user ID if authenticated)
   const identifier = req.ip || req.socket.remoteAddress || "unknown";
   
-  if (!quoteCalculationLimiter.isAllowed(identifier)) {
-    const resetTime = quoteCalculationLimiter.getResetTime(identifier);
+  // Check global rate limit first
+  if (!globalQuoteLimiter.isAllowed("global")) {
+    const resetTime = globalQuoteLimiter.getResetTime("global");
+    const resetInSeconds = Math.ceil((resetTime - Date.now()) / 1000);
+    
+    console.warn(`[Rate Limit] Global quote calculation limit exceeded`);
+    
+    return res.status(429).json({
+      error: "Too many requests",
+      message: `Service temporarily unavailable due to high demand. Please try again in ${resetInSeconds} seconds.`,
+      retryAfter: resetInSeconds,
+    });
+  }
+  
+  // Check per-IP rate limit
+  if (!perIpQuoteLimiter.isAllowed(identifier)) {
+    const resetTime = perIpQuoteLimiter.getResetTime(identifier);
     const resetInSeconds = Math.ceil((resetTime - Date.now()) / 1000);
     
     console.warn(`[Rate Limit] IP ${identifier} exceeded quote calculation limit`);
@@ -104,10 +122,10 @@ export function quoteCalculationRateLimit(req: Request, res: Response, next: Nex
     });
   }
 
-  // Add rate limit info to response headers
-  res.setHeader("X-RateLimit-Limit", "20");
-  res.setHeader("X-RateLimit-Remaining", quoteCalculationLimiter.getRemaining(identifier).toString());
-  res.setHeader("X-RateLimit-Reset", quoteCalculationLimiter.getResetTime(identifier).toString());
+  // Add rate limit info to response headers (per-IP limits)
+  res.setHeader("X-RateLimit-Limit", "5");
+  res.setHeader("X-RateLimit-Remaining", perIpQuoteLimiter.getRemaining(identifier).toString());
+  res.setHeader("X-RateLimit-Reset", perIpQuoteLimiter.getResetTime(identifier).toString());
 
   next();
 }
