@@ -8,6 +8,19 @@ The Lawn Care Kuna website is a professional online platform for a local Idaho b
 
 Preferred communication style: Simple, everyday language.
 
+## Recent Changes
+
+### 2025-01-19: Site-Wide AI Quote Integration
+- **Inline AI Quotes Across All Pages**: Integrated AI-powered instant quotes into all QuoteForm instances (city pages, service pages, contact page) for maximum conversion with zero navigation friction
+- **Progressive Disclosure**: AI quotes display inline as users fill forms - show instant pricing while entering property details (service type, property type, size, city) with no submission required
+- **Debounced Calculation**: 1.5-second debounce on AI quote API calls to reduce redundant requests as users type
+- **Client-Side Caching**: LRU cache (10-minute TTL, v2 keyed with `ai-quote-v2:` prefix) reduces API costs by caching identical quote parameters
+- **Backend Safeguards**: Quote caching middleware and rate limiting (5 requests/min per IP, 20/min global) to control OpenAI spend
+- **Feature Flag**: Global AI quote toggle (`VITE_ENABLE_AI_QUOTES`) with graceful fallback to basic estimation
+- **Critical Bug Fix**: Fixed API response parsing - apiRequest returns Response object requiring `.json()` call before caching
+- **Cache Versioning**: Added `ai-quote-v2` prefix to bust old cached structures after response format changes
+- **User Flow**: Quote displays BEFORE form submission (inline during filling) to reduce friction and maximize conversions
+
 ## System Architecture
 
 ### Frontend Architecture
