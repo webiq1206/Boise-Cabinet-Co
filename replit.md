@@ -10,6 +10,25 @@ Preferred communication style: Simple, everyday language.
 
 ## Recent Changes
 
+### 2025-11-19: QuoteWizard Complete Rollout & Critical Bug Fixes
+- **Goal**: Unify all quote forms site-wide using QuoteWizard with flexible validation
+- **Changes Implemented**:
+  - **Site-Wide Rollout**: Replaced QuoteForm with QuoteWizard in all pages (Home, Contact, Commercial, HOA, Municipal, ServiceDetailPage, GeoServicePage)
+  - **Affects 500+ Pages**: All service and geo-targeted pages now use unified quote experience
+  - **Fixed Critical JSON Parsing Bug**: All mutations now properly call `.json()` on Response objects (was root cause of $0 quote display)
+  - **Flexible Validation**: Made address, propertySize, and propertyType optional with sensible defaults (5000 sqft, residential, city-based address)
+  - **Backend Alignment**: Updated validation schema to accept optional fields with defaults
+  - **Null Safety**: All rendering uses `??` instead of `||` for proper 0 handling, success toast uses `!= null` check
+  - **Transparency**: Quote card displays assumptions notice when defaults are used
+  - **Add-On Services Fix**: Explicitly map selectedServices in Step 2 combined object
+  - **Backward Navigation Fix**: Implement proper state preservation using:
+    - useEffect with correct dependencies (step + specific formData fields)
+    - Functional state updates `setFormData(prev => ({ ...prev, ...data }))`
+    - Array cloning `[...(data.selectedServices || [])]` to ensure dependency tracking works
+- **User Experience**: Users can get quotes with minimal information, graceful fallback to contact form, transparent messaging
+- **Architect Approved**: PASS rating - production ready with all critical fixes
+- **E2E Verified**: Quote generation works, add-ons persist, backward navigation preserves selections
+
 ### 2025-11-19: Commercial Rebrand (Property Management → Commercial)
 - **Goal**: Rebrand "Property Management" page to focus on commercial lawn care & landscaping services
 - **Changes Implemented**:
