@@ -10,6 +10,33 @@ Preferred communication style: Simple, everyday language.
 
 ## Recent Changes
 
+### 2025-11-19: Complete Mobile Optimization & Professional Hero Redesign (MAJOR)
+- **Goal**: Make all pages look "amazing" on mobile with professional hero sections, proper spacing, and no horizontal scrolling
+- **Hero Section Redesign** (500+ pages):
+  - **Professional Background Images**: Added Unsplash lawn imagery to all hero sections
+  - **Dark Gradient Overlay**: Applied primary/90 to primary/70 gradient for text readability
+  - **Typography**: White text with Playfair Display serif font for brand consistency
+  - **High-Contrast CTAs**: White primary button (bg-white text-primary) + white outline secondary for maximum visibility on dark overlay
+  - **Responsive Heights**: min-h-[450px] sm:min-h-[500px] md:min-h-[600px] lg:min-h-[700px]
+  - **Mobile-First Buttons**: Full-width on mobile (w-full sm:w-auto) with proper min-widths
+  - **Affected Pages**: Home + ServiceDetailPage (24 pages) + GeoServicePage (144 pages) + AreaTemplate (6 pages)
+- **Horizontal Scroll Fix**:
+  - Added `overflow-x: hidden` to html/body to prevent mobile horizontal scrolling
+  - Added `box-sizing: border-box` to all elements for proper sizing
+  - Removed max-width constraint to preserve desktop full-bleed layouts
+  - Fixed grid gaps throughout (gap-3 sm:gap-4 instead of gap-4 md:gap-8 lg:gap-12)
+- **Mobile Spacing Optimization**:
+  - Reduced section padding: py-12 md:py-16 lg:py-24 (from py-16 md:py-24)
+  - Optimized grid gaps: gap-3 sm:gap-4 (from gap-4)
+  - Better card padding: pt-5 pb-5 md:pt-6 md:pb-6
+  - Improved space-y values: space-y-4 md:space-y-6
+- **Mobile Typography**:
+  - Trust indicators: text-sm md:text-base for headings, text-xs md:text-sm for descriptions
+  - Icon sizing: h-5 w-5 md:h-6 md:w-6
+  - Responsive text scaling throughout site
+- **Architect Approved**: PASS - All critical issues resolved (CTA contrast, serif typography, desktop layouts preserved)
+- **E2E Verified**: No horizontal overflow on mobile, professional hero sections display correctly, all CTAs functional
+
 ### 2025-11-19: QuoteWizard Complete Rollout & Critical Bug Fixes
 - **Goal**: Unify all quote forms site-wide using QuoteWizard with flexible validation
 - **Changes Implemented**:

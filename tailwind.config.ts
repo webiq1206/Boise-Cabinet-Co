@@ -88,9 +88,9 @@ export default {
         },
       },
       fontFamily: {
-        sans: ["var(--font-sans)"],
-        serif: ["var(--font-serif)"],
-        mono: ["var(--font-mono)"],
+        sans: ["Montserrat", "system-ui", "-apple-system", "sans-serif"],
+        serif: ["Playfair Display", "Georgia", "serif"],
+        mono: ["Menlo", "Monaco", "monospace"],
       },
       keyframes: {
         "accordion-down": {
