@@ -23,12 +23,6 @@ import ChristmasLights from "@/pages/services/ChristmasLights";
 // Dynamic Service Route (handles all service pages automatically)
 import DynamicServiceRoute from "@/components/DynamicServiceRoute";
 
-// Legacy manual service pages (will be migrated to dynamic routing)
-import LawnMowing from "@/pages/services/LawnMowing";
-import PatioInstallation from "@/pages/services/PatioInstallation";
-import PondInstallation from "@/pages/services/PondInstallation";
-import FenceInstallation from "@/pages/services/FenceInstallation";
-
 // Commercial Pages
 import HOAServices from "@/pages/commercial/HOAServices";
 import PropertyManagement from "@/pages/commercial/PropertyManagement";
@@ -65,22 +59,9 @@ function Router() {
           <Route path="/services/landscaping" component={Landscaping} />
           <Route path="/services/christmas-lights" component={ChristmasLights} />
 
-          {/* Legacy Manual Service Pages (keeping for backward compatibility) */}
-          <Route path="/services/lawn-mowing" component={LawnMowing} />
-          <Route path="/services/lawn-maintenance" component={LawnMowing} />
-          <Route path="/services/patio-installation" component={PatioInstallation} />
-          <Route path="/services/paver-patio" component={PatioInstallation} />
-          <Route path="/services/pond-installation" component={PondInstallation} />
-          <Route path="/services/koi-pond" component={PondInstallation} />
-          <Route path="/services/fountain-installation" component={PondInstallation} />
-          <Route path="/services/waterfall-installation" component={PondInstallation} />
-          <Route path="/services/fence-installation" component={FenceInstallation} />
-          <Route path="/services/wood-fence" component={FenceInstallation} />
-          <Route path="/services/vinyl-fence" component={FenceInstallation} />
-
           {/* Dynamic Service Routes - Handles ALL services in contentData.ts automatically */}
           {/* Pattern: /services/:serviceSlug/:citySlug? */}
-          {/* Examples: /services/aeration, /services/aeration/kuna */}
+          {/* Examples: /services/aeration, /services/aeration/kuna, /services/lawn-mowing */}
           <Route path="/services/:serviceSlug/:citySlug?" component={DynamicServiceRoute} />
 
           {/* Commercial Pages */}
