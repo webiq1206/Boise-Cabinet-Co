@@ -10,6 +10,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Loader2, MapPin, CheckCircle2, Calendar, DollarSign } from "lucide-react";
 import { MapMeasureTool } from "@/components/MapMeasureTool";
+import { AddressAutocomplete } from "@/components/AddressAutocomplete";
 import { useToast } from "@/hooks/use-toast";
 import { useMutation } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
@@ -54,6 +55,7 @@ interface QuoteData {
   baseCost: number;
   adjustedCost: number;
   finalQuote: number;
+  complexityScore?: number;
   aiAnalysis: any;
   lineItems: Array<{
     service: string;
@@ -315,10 +317,15 @@ export function QuoteWizard({ onClose }: { onClose?: () => void }) {
             <form onSubmit={form1.handleSubmit(handleStep1Submit)} className="space-y-6">
               <div>
                 <Label htmlFor="address">Street Address</Label>
-                <Input
+                <AddressAutocomplete
                   id="address"
+                  value={form1.watch("address")}
+                  onChange={(value) => form1.setValue("address", value)}
+                  city={form1.watch("city")}
+                  onPropertySizeCalculated={(sqft) => {
+                    form1.setValue("propertySize", sqft);
+                  }}
                   placeholder="123 Main St"
-                  {...form1.register("address")}
                   data-testid="input-address"
                 />
                 {form1.formState.errors.address && (
@@ -357,9 +364,12 @@ export function QuoteWizard({ onClose }: { onClose?: () => void }) {
                     data-testid="button-measure-wizard"
                   >
                     <MapPin className="w-4 h-4 mr-2" />
-                    Measure
+                    Adjust
                   </Button>
                 </div>
+                <p className="text-xs text-muted-foreground mt-1">
+                  Size is auto-calculated when you select an address. Click "Adjust" to manually measure.
+                </p>
                 {form1.formState.errors.propertySize && (
                   <p className="text-sm text-destructive mt-1">{form1.formState.errors.propertySize.message}</p>
                 )}
