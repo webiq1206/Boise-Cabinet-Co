@@ -25,21 +25,42 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
       </Helmet>
 
       {/* Hero Section */}
-      <section className="bg-primary text-primary-foreground py-16">
-        <div className="container px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4" data-testid="heading-hero">
-              {service.name} in Idaho
+      <section className="bg-muted py-16 md:py-24">
+        <div className="container px-6 md:px-12">
+          <div className="max-w-md mx-auto text-center space-y-6">
+            <p className="text-primary font-medium text-sm tracking-wide">
+              {service.category === 'lawn-care' ? 'Lawn Care Services' : 
+               service.category === 'christmas-lights' ? 'Christmas Light Services' : 
+               'Landscaping Services'}
+            </p>
+            <h1 className="text-foreground tracking-tight leading-tight" data-testid="heading-hero">
+              Most trusted {service.name.toLowerCase()} services in Idaho
             </h1>
-            <p className="text-xl mb-8 opacity-90" data-testid="text-hero-description">
+            <p className="text-primary text-base md:text-lg font-medium" data-testid="text-hero-description">
               {service.shortDescription}
             </p>
-            <div className="flex flex-wrap gap-4 justify-center">
-              <Button size="lg" variant="secondary" asChild data-testid="button-quote-hero">
-                <a href="#quote">Get Free Quote</a>
+            
+            {/* Simple Quote Form */}
+            <div className="mt-8 space-y-4">
+              <Button size="lg" className="w-full" asChild data-testid="button-hero-schedule">
+                <Link href="/get-quote">
+                  SCHEDULE NOW AND SAVE
+                </Link>
               </Button>
-              <Button size="lg" variant="outline" asChild data-testid="button-call-hero">
-                <a href="tel:2083522011">Call (208) 352-2011</a>
+              
+              <div className="relative">
+                <input
+                  type="text"
+                  placeholder="Start typing an address..."
+                  className="w-full px-4 py-3 border-b-2 border-border bg-transparent text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
+                  data-testid="input-hero-address"
+                />
+              </div>
+              
+              <Button size="lg" variant="default" className="w-full" asChild data-testid="button-hero-submit">
+                <Link href="/get-quote">
+                  Submit
+                </Link>
               </Button>
             </div>
           </div>
