@@ -67,13 +67,14 @@ export function BeforeAfterGallery({ serviceType, limit }: BeforeAfterGalleryPro
           </div>
           {/* Slider handle */}
           <div
-            className="absolute top-0 bottom-0 w-1 bg-white/90 backdrop-blur-sm cursor-ew-resize z-10 shadow-xl"
+            className="absolute top-0 bottom-0 w-1 bg-white/90 backdrop-blur-sm cursor-ew-resize touch-none z-10 shadow-xl"
             style={{ left: `${sliderPosition}%` }}
-            onMouseDown={(e) => {
+            onPointerDown={(e) => {
+              e.currentTarget.setPointerCapture(e.pointerId);
               const startX = e.clientX;
               const startPosition = sliderPosition;
               
-              const handleMouseMove = (moveEvent: MouseEvent) => {
+              const handlePointerMove = (moveEvent: PointerEvent) => {
                 const rect = e.currentTarget.parentElement?.getBoundingClientRect();
                 if (rect) {
                   const deltaX = moveEvent.clientX - startX;
@@ -83,13 +84,14 @@ export function BeforeAfterGallery({ serviceType, limit }: BeforeAfterGalleryPro
                 }
               };
               
-              const handleMouseUp = () => {
-                document.removeEventListener('mousemove', handleMouseMove);
-                document.removeEventListener('mouseup', handleMouseUp);
+              const handlePointerUp = (upEvent: PointerEvent) => {
+                e.currentTarget.releasePointerCapture(upEvent.pointerId);
+                document.removeEventListener('pointermove', handlePointerMove);
+                document.removeEventListener('pointerup', handlePointerUp);
               };
               
-              document.addEventListener('mousemove', handleMouseMove);
-              document.addEventListener('mouseup', handleMouseUp);
+              document.addEventListener('pointermove', handlePointerMove);
+              document.addEventListener('pointerup', handlePointerUp);
             }}
             data-testid="slider-handle"
           >

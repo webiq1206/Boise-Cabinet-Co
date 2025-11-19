@@ -71,7 +71,7 @@ export class MemStorage implements IStorage {
         serviceType: "lawn-care",
         city: "nampa",
         beforeImageUrl: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800",
-        afterImageUrl: "https://images.unsplash.com/photo-1599629954294-1494c8c5bf06?w=800",
+        afterImageUrl: "https://images.unsplash.com/photo-1560114928-40f1f1eb26a0?w=800",
         title: "Spring Cleanup & Revival",
         description: "Complete spring cleanup with debris removal and fertilization to revitalize lawn after Idaho winter in Nampa",
         createdAt: new Date(),
