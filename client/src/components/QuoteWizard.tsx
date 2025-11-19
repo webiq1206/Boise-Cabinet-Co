@@ -24,27 +24,30 @@ function coerceNumber(value: unknown, options: { min?: number; fallback?: number
   return num;
 }
 
-// Step 1: Address & Property
+// Step 1: Address & Property (flexible - only require basic info)
 const step1Schema = z.object({
-  address: z.string().min(5, "Please enter your full address"),
+  address: z.string().optional(),
   city: z.string().min(1, "Please select your city"),
-  propertySize: z.number().min(500, "Property must be at least 500 sq ft"),
-  propertyType: z.enum(["residential", "commercial", "hoa"]),
+  propertySize: z.number().optional(),
+  propertyType: z.enum(["residential", "commercial", "hoa"]).optional(),
 });
 
-// Step 2: Services
+// Step 2: Services (only require service type)
 const step2Schema = z.object({
-  serviceType: z.string().min(1, "Please select a primary service"),
-  frequency: z.enum(["one-time", "weekly", "bi-weekly", "monthly"]),
+  serviceType: z.string().min(1, "Please select a service"),
+  frequency: z.enum(["one-time", "weekly", "bi-weekly", "monthly"]).optional(),
   selectedServices: z.array(z.string()).optional(),
 });
 
-// Step 3: Contact Info
+// Step 3: Contact Info (require at least name and one contact method)
 const step3Schema = z.object({
-  name: z.string().min(2, "Please enter your full name"),
-  email: z.string().email("Please enter a valid email"),
-  phone: z.string().min(10, "Please enter a valid phone number"),
+  name: z.string().min(2, "Please enter your name"),
+  email: z.string().email("Please enter a valid email").or(z.string().length(0)),
+  phone: z.string().optional(),
   preferredDate: z.string().optional(),
+}).refine((data) => data.email.length > 0 || (data.phone && data.phone.length >= 10), {
+  message: "Please provide either email or phone number",
+  path: ["email"],
 });
 
 type Step1Data = z.infer<typeof step1Schema>;
@@ -104,7 +107,9 @@ export function QuoteWizard({ onClose }: { onClose?: () => void }) {
     resolver: zodResolver(step1Schema),
     defaultValues: {
       city: "Kuna",
-      propertyType: "residential",
+      address: "",
+      propertySize: undefined,
+      propertyType: undefined,
     },
   });
 
@@ -112,7 +117,8 @@ export function QuoteWizard({ onClose }: { onClose?: () => void }) {
   const form2 = useForm<Step2Data>({
     resolver: zodResolver(step2Schema),
     defaultValues: {
-      frequency: "bi-weekly",
+      serviceType: "",
+      frequency: undefined,
       selectedServices: [],
     },
   });
@@ -211,17 +217,41 @@ export function QuoteWizard({ onClose }: { onClose?: () => void }) {
   };
 
   const handleStep2Submit = async (data: Step2Data) => {
-    // Merge Step 1 and Step 2 data - formData should already have all Step 1 fields from handleStep1Submit
+    // Check if we have enough information for an accurate quote
+    const missingInfo: string[] = [];
+    
+    if (!formData.propertySize) {
+      missingInfo.push("property size");
+    }
+    if (!data.frequency) {
+      missingInfo.push("service frequency");
+    }
+    if (!formData.propertyType) {
+      missingInfo.push("property type");
+    }
+    
+    // Merge Step 1 and Step 2 data
     const combined = { 
-      // Step 1 data (must be present from previous step)
-      address: formData.address!,
+      address: formData.address || '',
       city: formData.city!,
-      propertySize: formData.propertySize!,
-      propertyType: formData.propertyType!,
-      // Step 2 data
+      propertySize: formData.propertySize || 0,
+      propertyType: formData.propertyType || 'residential',
       ...data 
     };
     setFormData({ ...formData, ...combined });
+    
+    // If we're missing critical info, show a helpful message and go to contact step
+    if (missingInfo.length > 0) {
+      toast({
+        title: "Need More Information",
+        description: `To provide an accurate quote, we need: ${missingInfo.join(', ')}. Please fill in your contact details and we'll get back to you with a personalized quote.`,
+        variant: "default",
+      });
+      setStep(3);
+      return;
+    }
+    
+    // We have enough info - generate instant quote
     getQuoteMutation.mutate(combined);
   };
 
@@ -235,21 +265,21 @@ export function QuoteWizard({ onClose }: { onClose?: () => void }) {
       
       // Property details
       address: (formData.address || '').trim(),
-      city: formData.city!,
-      propertyType: formData.propertyType!,
+      city: formData.city || 'Kuna',
+      propertyType: formData.propertyType || 'residential',
       propertySize: coerceNumber(formData.propertySize, { min: 0, fallback: 0 }),
       
       // Service details
-      serviceType: formData.serviceType!,
-      frequency: formData.frequency,
+      serviceType: formData.serviceType || '',
+      frequency: formData.frequency || 'one-time',
       selectedServices: formData.selectedServices || [],
       
-      // AI analysis and pricing - with proper type coercion
+      // AI analysis and pricing - with proper type coercion (may be null if quote wasn't generated)
       aiAnalysis: quoteData?.aiAnalysis || null,
-      complexityScore: coerceNumber(quoteData?.complexityScore, { min: 1.0, fallback: 1.2 }),
-      baseCost: coerceNumber(quoteData?.baseCost, { min: 0, fallback: 0 }),
-      adjustedCost: coerceNumber(quoteData?.adjustedCost, { min: 0, fallback: 0 }),
-      finalQuote: coerceNumber(quoteData?.finalQuote, { min: 0, fallback: 0 }),
+      complexityScore: quoteData ? coerceNumber(quoteData.complexityScore, { min: 1.0, fallback: 1.2 }) : 1.2,
+      baseCost: quoteData ? coerceNumber(quoteData.baseCost, { min: 0, fallback: 0 }) : 0,
+      adjustedCost: quoteData ? coerceNumber(quoteData.adjustedCost, { min: 0, fallback: 0 }) : 0,
+      finalQuote: quoteData ? coerceNumber(quoteData.finalQuote, { min: 0, fallback: 0 }) : 0,
       
       // Line items with numeric coercion
       lineItems: quoteData?.lineItems?.map(item => ({
@@ -262,7 +292,9 @@ export function QuoteWizard({ onClose }: { onClose?: () => void }) {
       // Scheduling
       scheduledDate: data.preferredDate ? new Date(data.preferredDate).toISOString() : undefined,
       status: "pending" as const,
-      message: `Quote request for ${formData.serviceType} - Generated via AI wizard`,
+      message: quoteData 
+        ? `Quote request for ${formData.serviceType} - Generated via AI wizard` 
+        : `Contact request for ${formData.serviceType || 'lawn care services'} - Awaiting property details for accurate quote`,
     };
     
     submitQuoteMutation.mutate(fullData);
@@ -316,7 +348,7 @@ export function QuoteWizard({ onClose }: { onClose?: () => void }) {
           <CardContent>
             <form onSubmit={form1.handleSubmit(handleStep1Submit)} className="space-y-6">
               <div>
-                <Label htmlFor="address">Street Address</Label>
+                <Label htmlFor="address">Street Address <span className="text-muted-foreground text-sm font-normal">(Optional)</span></Label>
                 <AddressAutocomplete
                   id="address"
                   value={form1.watch("address")}
@@ -348,7 +380,7 @@ export function QuoteWizard({ onClose }: { onClose?: () => void }) {
               </div>
 
               <div>
-                <Label htmlFor="propertySize">Property Size (sq ft)</Label>
+                <Label htmlFor="propertySize">Property Size (sq ft) <span className="text-muted-foreground text-sm font-normal">(Optional for quote)</span></Label>
                 <div className="flex gap-2">
                   <Input
                     id="propertySize"
@@ -368,7 +400,7 @@ export function QuoteWizard({ onClose }: { onClose?: () => void }) {
                   </Button>
                 </div>
                 <p className="text-xs text-muted-foreground mt-1">
-                  Size is auto-calculated when you select an address. Click "Adjust" to manually measure.
+                  For instant quote, enter property size. Otherwise, we'll contact you for details.
                 </p>
                 {form1.formState.errors.propertySize && (
                   <p className="text-sm text-destructive mt-1">{form1.formState.errors.propertySize.message}</p>
@@ -376,7 +408,7 @@ export function QuoteWizard({ onClose }: { onClose?: () => void }) {
               </div>
 
               <div>
-                <Label>Property Type</Label>
+                <Label>Property Type <span className="text-muted-foreground text-sm font-normal">(Optional for quote)</span></Label>
                 <RadioGroup
                   value={form1.watch("propertyType")}
                   onValueChange={(value) => form1.setValue("propertyType", value as any)}
@@ -437,7 +469,7 @@ export function QuoteWizard({ onClose }: { onClose?: () => void }) {
               </div>
 
               <div>
-                <Label>Service Frequency</Label>
+                <Label>Service Frequency <span className="text-muted-foreground text-sm font-normal">(Optional for quote)</span></Label>
                 <RadioGroup
                   value={form2.watch("frequency")}
                   onValueChange={(value) => form2.setValue("frequency", value as any)}
@@ -461,6 +493,9 @@ export function QuoteWizard({ onClose }: { onClose?: () => void }) {
                     ))}
                   </div>
                 </RadioGroup>
+                <p className="text-xs text-muted-foreground mt-2">
+                  Select frequency for instant quote. We can discuss options if you're not sure.
+                </p>
               </div>
 
               <div>
