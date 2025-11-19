@@ -140,10 +140,10 @@ export function QuoteWizard({ onClose, preselectedService, preselectedCity }: Qu
       form2.reset({
         serviceType: formData.serviceType,
         frequency: formData.frequency,
-        selectedServices: formData.selectedServices || [],
+        selectedServices: [...(formData.selectedServices || [])],
       });
     }
-  }, [step]);
+  }, [step, formData.serviceType, formData.frequency, formData.selectedServices]);
 
   // Get instant quote mutation
   const getQuoteMutation = useMutation({
@@ -234,7 +234,7 @@ export function QuoteWizard({ onClose, preselectedService, preselectedCity }: Qu
       propertySize: data.propertySize,
       propertyType: data.propertyType,
     };
-    setFormData({ ...formData, ...completeStep1 });
+    setFormData(prev => ({ ...prev, ...completeStep1 }));
     setStep(2);
   };
 
@@ -253,6 +253,7 @@ export function QuoteWizard({ onClose, preselectedService, preselectedCity }: Qu
     }
     
     // Merge Step 1 and Step 2 data with explicit field mapping
+    // Clone selectedServices array to ensure dependency tracking works
     const combined = { 
       address: formData.address || '',
       city: formData.city!,
@@ -260,9 +261,9 @@ export function QuoteWizard({ onClose, preselectedService, preselectedCity }: Qu
       propertyType: formData.propertyType || 'residential',
       serviceType: data.serviceType,
       frequency: data.frequency,
-      selectedServices: data.selectedServices || [],
+      selectedServices: [...(data.selectedServices || [])],
     };
-    setFormData({ ...formData, ...combined });
+    setFormData(prev => ({ ...prev, ...combined }));
     
     // If we're missing critical info, show a helpful message and go to contact step
     if (missingInfo.length > 0) {
