@@ -10,7 +10,20 @@ Preferred communication style: Simple, everyday language.
 
 ## Recent Updates (November 2025)
 
-**Latest: Actual Brand Color Implementation (November 19, 2025)**
+**Latest: Hero & Mobile UX Overhaul (November 19, 2025)**
+- **Homepage Hero Redesign**: Matches actual lawncarekuna.com with light mint background, centered content layout
+  - Headline: "Most trusted lawn care services in Kuna"
+  - Simple quote form: Address input + submit button (mobile-optimized)
+  - Clean, approachable aesthetic (no dark photo hero)
+- **Sticky Bottom Navigation**: Mobile-friendly navigation bar with 3 CTAs
+  - Services tab: Scrolls to services section (works from any route)
+  - Call us tab: Direct phone link (208) 352-2011
+  - Schedule tab: Navigates to contact page
+  - Deterministic navigation-scroll pattern: pendingScroll state + useEffect + requestAnimationFrame
+  - Zero nested interactive elements (validated by architect)
+  - Mobile-only (lg:hidden) with fixed positioning
+
+**Actual Brand Color Implementation (November 19, 2025)**
 - Updated color system from speculative deep evergreen to actual lawncarekuna.com brand colors
 - Primary green: hsl(145, 50%, 35%) - Forest green #2D6B3F
 - Light mint backgrounds: hsl(145, 40%, 95%) - #E5F5EC  
