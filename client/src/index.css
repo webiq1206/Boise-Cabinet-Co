@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* LIGHT MODE - Upscale Evergreen Palette */
+/* LIGHT MODE - Lawn Care Kuna Brand Palette */
 :root {
   --button-outline: rgba(0,0,0, .08);
   --badge-outline: rgba(0,0,0, .04);
@@ -10,62 +10,62 @@
   --elevate-1: rgba(0,0,0, .02);
   --elevate-2: rgba(0,0,0, .06);
   
-  /* Warm limestone neutrals */
-  --background: 35 15% 98%;
-  --foreground: 30 8% 12%;
-  --border: 30 8% 88%;
-  --card: 35 12% 96%;
-  --card-foreground: 30 8% 12%;
-  --card-border: 30 8% 91%;
+  /* Clean white and neutral backgrounds */
+  --background: 0 0% 100%;
+  --foreground: 0 0% 8%;
+  --border: 0 0% 88%;
+  --card: 0 0% 100%;
+  --card-foreground: 0 0% 8%;
+  --card-border: 0 0% 91%;
   
-  /* Sidebar refined neutrals */
-  --sidebar: 35 10% 94%;
-  --sidebar-foreground: 30 8% 12%;
-  --sidebar-border: 30 8% 87%;
-  --sidebar-primary: 151 27% 24%;
-  --sidebar-primary-foreground: 151 27% 98%;
-  --sidebar-accent: 35 10% 88%;
-  --sidebar-accent-foreground: 30 8% 12%;
-  --sidebar-ring: 151 27% 24%;
+  /* Sidebar light mint accents */
+  --sidebar: 145 40% 96%;
+  --sidebar-foreground: 0 0% 8%;
+  --sidebar-border: 145 20% 85%;
+  --sidebar-primary: 145 50% 35%;
+  --sidebar-primary-foreground: 0 0% 100%;
+  --sidebar-accent: 145 40% 92%;
+  --sidebar-accent-foreground: 0 0% 8%;
+  --sidebar-ring: 145 50% 35%;
   
-  /* Popover subtle elevation */
-  --popover: 35 12% 95%;
-  --popover-foreground: 30 8% 12%;
-  --popover-border: 30 8% 89%;
+  /* Popover clean white */
+  --popover: 0 0% 100%;
+  --popover-foreground: 0 0% 8%;
+  --popover-border: 0 0% 88%;
   
-  /* Deep evergreen primary */
-  --primary: 151 27% 24%;
-  --primary-foreground: 151 27% 98%;
+  /* Forest green primary (actual brand color) */
+  --primary: 145 50% 35%;
+  --primary-foreground: 0 0% 100%;
   
-  /* Refined secondary tones */
-  --secondary: 30 8% 89%;
-  --secondary-foreground: 30 8% 12%;
+  /* Light mint secondary */
+  --secondary: 145 40% 93%;
+  --secondary-foreground: 0 0% 8%;
   
-  /* Muted backgrounds */
-  --muted: 35 8% 91%;
-  --muted-foreground: 30 8% 40%;
+  /* Muted light mint backgrounds */
+  --muted: 145 40% 95%;
+  --muted-foreground: 0 0% 40%;
   
-  /* Subtle accent */
-  --accent: 35 8% 90%;
-  --accent-foreground: 30 8% 12%;
+  /* Subtle mint accent */
+  --accent: 145 40% 94%;
+  --accent-foreground: 0 0% 8%;
   
-  /* Muted brass accent (for select highlights) */
-  --brass: 42 28% 48%;
-  --brass-foreground: 42 28% 98%;
+  /* Dark forest green accent (for overlays/cards) */
+  --brass: 145 50% 18%;
+  --brass-foreground: 0 0% 100%;
   
   /* Destructive unchanged */
   --destructive: 0 72% 42%;
   --destructive-foreground: 0 72% 98%;
   
-  --input: 30 8% 78%;
-  --ring: 151 27% 24%;
+  --input: 0 0% 85%;
+  --ring: 145 50% 35%;
   
-  /* Charts with refined palette */
-  --chart-1: 151 27% 24%;
-  --chart-2: 42 28% 48%;
-  --chart-3: 210 30% 35%;
-  --chart-4: 28 35% 55%;
-  --chart-5: 280 25% 45%;
+  /* Charts with green-based palette */
+  --chart-1: 145 50% 35%;
+  --chart-2: 145 40% 55%;
+  --chart-3: 145 30% 25%;
+  --chart-4: 165 35% 45%;
+  --chart-5: 125 35% 40%;
   
   /* Typography */
   --font-sans: Inter, system-ui, -apple-system, sans-serif;
@@ -113,7 +113,7 @@
   --brass-border: hsl(from hsl(var(--brass)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
 }
 
-/* DARK MODE - Refined Deep Tones */
+/* DARK MODE - Lawn Care Kuna Dark Theme */
 .dark {
   --button-outline: rgba(255,255,255, .08);
   --badge-outline: rgba(255,255,255, .04);
@@ -121,62 +121,62 @@
   --elevate-1: rgba(255,255,255, .03);
   --elevate-2: rgba(255,255,255, .07);
   
-  /* Deep backgrounds with warm undertones */
-  --background: 30 10% 8%;
-  --foreground: 35 10% 96%;
-  --border: 30 8% 18%;
-  --card: 30 10% 10%;
-  --card-foreground: 35 10% 96%;
-  --card-border: 30 8% 13%;
+  /* Deep backgrounds */
+  --background: 145 15% 8%;
+  --foreground: 0 0% 96%;
+  --border: 145 10% 18%;
+  --card: 145 15% 10%;
+  --card-foreground: 0 0% 96%;
+  --card-border: 145 10% 15%;
   
-  /* Sidebar deep tones */
-  --sidebar: 30 10% 11%;
-  --sidebar-foreground: 35 10% 96%;
-  --sidebar-border: 30 8% 16%;
-  --sidebar-primary: 151 25% 42%;
-  --sidebar-primary-foreground: 151 25% 98%;
-  --sidebar-accent: 30 8% 16%;
-  --sidebar-accent-foreground: 35 10% 96%;
-  --sidebar-ring: 151 25% 42%;
+  /* Sidebar deep forest tones */
+  --sidebar: 145 15% 11%;
+  --sidebar-foreground: 0 0% 96%;
+  --sidebar-border: 145 10% 16%;
+  --sidebar-primary: 145 45% 45%;
+  --sidebar-primary-foreground: 0 0% 100%;
+  --sidebar-accent: 145 10% 16%;
+  --sidebar-accent-foreground: 0 0% 96%;
+  --sidebar-ring: 145 45% 45%;
   
   /* Popover */
-  --popover: 30 10% 13%;
-  --popover-foreground: 35 10% 96%;
-  --popover-border: 30 8% 18%;
+  --popover: 145 15% 13%;
+  --popover-foreground: 0 0% 96%;
+  --popover-border: 145 10% 18%;
   
-  /* Evergreen primary adjusted for dark */
-  --primary: 151 25% 42%;
-  --primary-foreground: 151 25% 98%;
+  /* Lighter green for dark mode visibility */
+  --primary: 145 45% 45%;
+  --primary-foreground: 0 0% 100%;
   
-  /* Refined secondary */
-  --secondary: 30 8% 18%;
-  --secondary-foreground: 35 10% 96%;
+  /* Dark mint secondary */
+  --secondary: 145 10% 18%;
+  --secondary-foreground: 0 0% 96%;
   
-  /* Muted tones */
-  --muted: 30 8% 16%;
-  --muted-foreground: 35 8% 68%;
+  /* Muted dark tones */
+  --muted: 145 10% 16%;
+  --muted-foreground: 0 0% 68%;
   
-  /* Subtle accent */
-  --accent: 30 8% 16%;
-  --accent-foreground: 35 10% 96%;
+  /* Subtle dark accent */
+  --accent: 145 10% 16%;
+  --accent-foreground: 0 0% 96%;
   
-  /* Brass accent for dark mode */
-  --brass: 42 32% 55%;
-  --brass-foreground: 42 32% 12%;
+  /* Very dark forest green for overlays */
+  --brass: 145 50% 25%;
+  --brass-foreground: 0 0% 100%;
   
   /* Destructive */
   --destructive: 0 68% 48%;
   --destructive-foreground: 0 68% 98%;
   
-  --input: 30 8% 28%;
-  --ring: 151 25% 42%;
+  --input: 145 10% 28%;
+  --ring: 145 45% 45%;
   
-  /* Charts */
-  --chart-1: 151 25% 60%;
-  --chart-2: 42 32% 60%;
-  --chart-3: 210 35% 60%;
-  --chart-4: 28 40% 65%;
-  --chart-5: 280 30% 65%;
+  /* Charts for dark mode */
+  --chart-1: 145 45% 50%;
+  --chart-2: 145 35% 60%;
+  --chart-3: 145 25% 40%;
+  --chart-4: 165 35% 55%;
+  --chart-5: 125 35% 50%;
   
   /* Softer dark mode shadows */
   --shadow-2xs: 0px 2px 0px 0px hsl(0 0% 0% / 0.25);
