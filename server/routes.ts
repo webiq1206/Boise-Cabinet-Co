@@ -2,8 +2,42 @@ import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { insertQuoteSchema } from "@shared/schema";
+import { calculateIntelligentQuote } from "./services/pricing";
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Calculate intelligent quote with AI
+  app.post("/api/quotes/calculate", async (req, res) => {
+    try {
+      const { address, city, propertySize, propertyType, serviceType, frequency, selectedServices } = req.body;
+      
+      if (!address || !city || !propertySize || !serviceType) {
+        res.status(400).json({
+          success: false,
+          message: "Missing required fields",
+        });
+        return;
+      }
+
+      const quoteResult = await calculateIntelligentQuote({
+        address,
+        city,
+        propertySize: Number(propertySize),
+        propertyType,
+        serviceType,
+        frequency,
+        selectedServices,
+      });
+
+      res.json(quoteResult);
+    } catch (error) {
+      console.error("Quote calculation error:", error);
+      res.status(500).json({
+        success: false,
+        message: "Failed to calculate quote",
+      });
+    }
+  });
+
   // Quote submission endpoint
   app.post("/api/quotes", async (req, res) => {
     try {

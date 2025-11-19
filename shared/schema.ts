@@ -1,18 +1,43 @@
 import { sql } from "drizzle-orm";
-import { pgTable, text, varchar, timestamp } from "drizzle-orm/pg-core";
+import { pgTable, text, varchar, timestamp, jsonb, decimal, boolean } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
-// Quote submission schema
+// Detailed quote requests with AI analysis
 export const quotes = pgTable("quotes", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  // Customer info
   name: text("name").notNull(),
   email: text("email").notNull(),
   phone: text("phone").notNull(),
-  serviceType: text("service_type").notNull(),
-  propertyType: text("property_type").notNull(),
-  propertySize: text("property_size"),
+  
+  // Property details
+  address: text("address"),
   city: text("city").notNull(),
+  propertyType: text("property_type").notNull(),
+  propertySize: decimal("property_size", { precision: 10, scale: 2 }), // sq ft
+  
+  // Service details
+  serviceType: text("service_type").notNull(),
+  frequency: text("frequency"), // one-time, weekly, bi-weekly, monthly
+  selectedServices: text("selected_services").array(), // array of service IDs
+  
+  // AI Analysis
+  aiAnalysis: jsonb("ai_analysis"), // terrain, obstacles, complexity assessment
+  complexityScore: decimal("complexity_score", { precision: 3, scale: 2 }), // 1.0-2.0 multiplier
+  
+  // Pricing
+  baseCost: decimal("base_cost", { precision: 10, scale: 2 }),
+  adjustedCost: decimal("adjusted_cost", { precision: 10, scale: 2 }), // after complexity
+  finalQuote: decimal("final_quote", { precision: 10, scale: 2 }), // with margin
+  lineItems: jsonb("line_items"), // detailed breakdown
+  
+  // Status
+  status: text("status").default("pending"), // pending, accepted, declined, completed
+  acceptedAt: timestamp("accepted_at"),
+  scheduledDate: timestamp("scheduled_date"),
+  
+  // Additional
   message: text("message"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
@@ -20,6 +45,7 @@ export const quotes = pgTable("quotes", {
 export const insertQuoteSchema = createInsertSchema(quotes).omit({
   id: true,
   createdAt: true,
+  acceptedAt: true,
 }).extend({
   email: z.string().email("Please enter a valid email address"),
   phone: z.string().min(10, "Please enter a valid phone number"),
