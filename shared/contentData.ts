@@ -14,6 +14,7 @@ export interface ServiceData {
   pricingGuidance?: string;
   seasonality?: string;
   materialOptions?: string[];
+  facts?: Array<{label: string; value: string}>;
 }
 
 export interface CityData {
@@ -28,6 +29,7 @@ export interface CityData {
     soil: string;
     commonNeeds: string[];
   };
+  facts?: Array<{label: string; value: string}>;
 }
 
 // Cities we serve
@@ -43,7 +45,17 @@ export const CITIES: CityData[] = [
       climate: 'Semi-arid with cold winters and hot, dry summers. USDA Zone 6a.',
       soil: 'Predominantly clay soil requiring amendments for optimal lawn and plant growth.',
       commonNeeds: ['Clay soil management', 'Drought-resistant landscaping', 'Irrigation system maintenance', 'Winter freeze protection']
-    }
+    },
+    facts: [
+      { label: 'Average lawn size', value: '5,000 sq. ft.' },
+      { label: 'Recommended watering', value: '1-2 in. / wk' },
+      { label: 'Recommended grass height', value: '2.5-3 in.' },
+      { label: 'When to fertilize', value: 'spring / fall' },
+      { label: 'When to aerate', value: 'fall' },
+      { label: 'When to overseed', value: 'fall' },
+      { label: 'When to blow out sprinklers', value: 'Oct / Nov' },
+      { label: 'Growing season', value: 'April - October' }
+    ]
   },
   {
     slug: 'boise',
@@ -56,7 +68,17 @@ export const CITIES: CityData[] = [
       climate: 'Four distinct seasons with hot summers (90-100°F) and cold winters (freezing). USDA Zone 6b-7a.',
       soil: 'Varied - clay-based in most areas, some areas with better drainage.',
       commonNeeds: ['HOA-compliant landscaping', 'Water-wise irrigation', 'Seasonal maintenance', 'Commercial property upkeep']
-    }
+    },
+    facts: [
+      { label: 'Average lawn size', value: '6,000 sq. ft.' },
+      { label: 'Recommended watering', value: '1-2 in. / wk' },
+      { label: 'Recommended grass height', value: '2.5-3 in.' },
+      { label: 'When to fertilize', value: 'spring / fall' },
+      { label: 'When to aerate', value: 'fall' },
+      { label: 'When to overseed', value: 'fall' },
+      { label: 'When to blow out sprinklers', value: 'Oct / Nov' },
+      { label: 'Growing season', value: 'April - October' }
+    ]
   },
   {
     slug: 'meridian',
@@ -69,7 +91,17 @@ export const CITIES: CityData[] = [
       climate: 'Similar to Boise - hot, dry summers and cold winters. USDA Zone 6b.',
       soil: 'Clay soil prevalent, requiring proper drainage solutions.',
       commonNeeds: ['New construction landscaping', 'Subdivision lawn care', 'HOA maintenance', 'Modern landscape design']
-    }
+    },
+    facts: [
+      { label: 'Average lawn size', value: '5,500 sq. ft.' },
+      { label: 'Recommended watering', value: '1-2 in. / wk' },
+      { label: 'Recommended grass height', value: '2.5-3 in.' },
+      { label: 'When to fertilize', value: 'spring / fall' },
+      { label: 'When to aerate', value: 'fall' },
+      { label: 'When to overseed', value: 'fall' },
+      { label: 'When to blow out sprinklers', value: 'Oct / Nov' },
+      { label: 'Growing season', value: 'April - October' }
+    ]
   },
   {
     slug: 'nampa',
@@ -82,7 +114,17 @@ export const CITIES: CityData[] = [
       climate: 'Hot summers and cold winters. USDA Zone 6a-6b.',
       soil: 'Heavy clay soil common, benefits from organic amendments.',
       commonNeeds: ['Affordable lawn maintenance', 'Clay soil solutions', 'Sprinkler repair', 'Yard cleanup services']
-    }
+    },
+    facts: [
+      { label: 'Average lawn size', value: '4,800 sq. ft.' },
+      { label: 'Recommended watering', value: '1-2 in. / wk' },
+      { label: 'Recommended grass height', value: '2.5-3 in.' },
+      { label: 'When to fertilize', value: 'spring / fall' },
+      { label: 'When to aerate', value: 'fall' },
+      { label: 'When to overseed', value: 'fall' },
+      { label: 'When to blow out sprinklers', value: 'Oct / Nov' },
+      { label: 'Growing season', value: 'April - October' }
+    ]
   },
   {
     slug: 'caldwell',
@@ -95,7 +137,17 @@ export const CITIES: CityData[] = [
       climate: 'Semi-arid climate with temperature extremes. USDA Zone 6a.',
       soil: 'Clay-heavy soil requiring proper preparation.',
       commonNeeds: ['Basic lawn care', 'Irrigation winterization', 'Tree and shrub trimming', 'Spring cleanup']
-    }
+    },
+    facts: [
+      { label: 'Average lawn size', value: '4,500 sq. ft.' },
+      { label: 'Recommended watering', value: '1-2 in. / wk' },
+      { label: 'Recommended grass height', value: '2.5-3 in.' },
+      { label: 'When to fertilize', value: 'spring / fall' },
+      { label: 'When to aerate', value: 'fall' },
+      { label: 'When to overseed', value: 'fall' },
+      { label: 'When to blow out sprinklers', value: 'Oct / Nov' },
+      { label: 'Growing season', value: 'April - October' }
+    ]
   },
   {
     slug: 'eagle',
@@ -108,7 +160,17 @@ export const CITIES: CityData[] = [
       climate: 'Similar to Boise with slightly warmer winters near foothills. USDA Zone 6b-7a.',
       soil: 'Variable - some areas rocky, others clay-based.',
       commonNeeds: ['High-end landscaping', 'Premium lawn care', 'Outdoor living spaces', 'Estate property maintenance']
-    }
+    },
+    facts: [
+      { label: 'Average lawn size', value: '7,000 sq. ft.' },
+      { label: 'Recommended watering', value: '1-2 in. / wk' },
+      { label: 'Recommended grass height', value: '2.5-3 in.' },
+      { label: 'When to fertilize', value: 'spring / fall' },
+      { label: 'When to aerate', value: 'fall' },
+      { label: 'When to overseed', value: 'fall' },
+      { label: 'When to blow out sprinklers', value: 'Oct / Nov' },
+      { label: 'Growing season', value: 'April - October' }
+    ]
   }
 ];
 
@@ -167,7 +229,17 @@ export const PRIORITY_SERVICES: ServiceData[] = [
     ],
     relatedServices: ['lawn-maintenance', 'hedge-trimming', 'fertilization', 'weed-control', 'seasonal-cleanup'],
     pricingGuidance: 'Lawn mowing typically ranges from $35-65 for residential properties depending on lot size. Commercial properties are quoted based on square footage and frequency. All quotes are free with no obligation.',
-    seasonality: 'April through October in Idaho (growing season). Service frequency varies by season.'
+    seasonality: 'April through October in Idaho (growing season). Service frequency varies by season.',
+    facts: [
+      { label: 'Average mowing price', value: '$50' },
+      { label: 'Ideal mowing frequency', value: 'weekly (May-July)' },
+      { label: 'Service season', value: 'April - October' },
+      { label: 'Optimal grass height', value: '2.5-3 in.' },
+      { label: 'Typical service time', value: '20-45 min' },
+      { label: 'Equipment used', value: 'commercial grade' },
+      { label: 'Cleanup included', value: 'always' },
+      { label: 'Edging & trimming', value: 'every visit' }
+    ]
   },
   {
     slug: 'aeration',

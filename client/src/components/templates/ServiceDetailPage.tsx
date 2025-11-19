@@ -4,6 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Check, Phone, MapPin, Clock, Award } from "lucide-react";
 import { QuoteForm } from "@/components/QuoteForm";
+import { FactsSection } from "@/components/FactsSection";
 import type { ServiceData } from "@shared/contentData";
 
 interface ServiceDetailPageProps {
@@ -126,6 +127,14 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
                   <h2 className="text-3xl md:text-4xl font-bold mb-6">Professional {service.name} Services</h2>
                   <p className="text-lg leading-relaxed text-foreground/90">{service.longDescription}</p>
                 </div>
+
+                {/* Facts Section */}
+                {service.facts && service.facts.length > 0 && (
+                  <FactsSection
+                    title={`Idaho ${service.category.includes('lawn') ? 'lawn care' : service.name.toLowerCase()} facts`}
+                    facts={service.facts}
+                  />
+                )}
 
                 {/* Benefits */}
                 <div data-testid="section-benefits" className="bg-secondary/40 -mx-6 px-6 py-12 md:-mx-0 md:px-12 md:py-16 md:rounded-lg">

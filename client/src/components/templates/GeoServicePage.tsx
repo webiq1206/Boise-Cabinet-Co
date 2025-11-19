@@ -4,6 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Check, Phone, MapPin, Clock, Award, Home } from "lucide-react";
 import { QuoteForm } from "@/components/QuoteForm";
+import { FactsSection } from "@/components/FactsSection";
 import type { ServiceData, CityData } from "@shared/contentData";
 
 interface GeoServicePageProps {
@@ -157,6 +158,14 @@ export function GeoServicePage({ service, city }: GeoServicePageProps) {
                     We understand the unique challenges of maintaining {service.category.includes('lawn') ? 'lawns' : 'landscapes'} in {city.name}, including {city.localFactors.soil.toLowerCase()} and {city.localFactors.climate.toLowerCase()}.
                   </p>
                 </div>
+
+                {/* Facts Section */}
+                {(city.facts || service.facts) && (
+                  <FactsSection
+                    title={`${city.name} ${service.category.includes('lawn') ? 'lawn care' : service.name.toLowerCase()} facts`}
+                    facts={city.facts || service.facts || []}
+                  />
+                )}
 
                 {/* Local Expertise */}
                 <div data-testid="section-local-expertise" className="bg-secondary/40 -mx-6 px-6 py-12 md:-mx-0 md:px-12 md:py-16 md:rounded-lg">
