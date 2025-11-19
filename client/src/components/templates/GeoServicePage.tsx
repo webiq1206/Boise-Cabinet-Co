@@ -1,8 +1,8 @@
 import { Helmet } from "react-helmet-async";
 import { Link } from "wouter";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Check, Phone, MapPin, Clock, Award, Home } from "lucide-react";
+import { Check, Phone, MapPin, ArrowRight, Leaf, Sprout, Heart, Shield, Target, Zap } from "lucide-react";
 import { QuoteForm } from "@/components/QuoteForm";
 import { FactsSection } from "@/components/FactsSection";
 import type { ServiceData, CityData } from "@shared/contentData";
@@ -12,12 +12,35 @@ interface GeoServicePageProps {
   city: CityData;
 }
 
+const coreValues = [
+  {
+    icon: Heart,
+    title: "Quality First",
+    description: "We never compromise on quality. Every job is done right the first time with attention to detail.",
+  },
+  {
+    icon: Shield,
+    title: "Integrity",
+    description: "Honest pricing, transparent communication, and ethical business practices you can trust.",
+  },
+  {
+    icon: Target,
+    title: "Customer Focus",
+    description: "Your satisfaction is our priority. We listen, deliver, and exceed expectations.",
+  },
+  {
+    icon: Zap,
+    title: "Excellence",
+    description: "Continuous improvement and dedication to being the best in lawn care services.",
+  },
+];
+
 export function GeoServicePage({ service, city }: GeoServicePageProps) {
   const metaTitle = `${service.name} in ${city.name}, Idaho | Lawn Care Kuna`;
   const metaDescription = `Professional ${service.name.toLowerCase()} in ${city.name}, ID. ${service.shortDescription}. Serving ${city.name} since 2017. Free quotes. Call (208) 352-2011 today!`;
 
   return (
-    <div>
+    <div className="pb-20">
       <Helmet>
         <title>{metaTitle}</title>
         <meta name="description" content={metaDescription} />
@@ -26,389 +49,481 @@ export function GeoServicePage({ service, city }: GeoServicePageProps) {
         <meta property="og:type" content="website" />
       </Helmet>
 
-      {/* Breadcrumb */}
-      <section className="py-4 bg-muted/30">
-        <div className="container px-4">
-          <div className="flex items-center gap-2 text-sm text-muted-foreground">
-            <Link href="/" className="hover-elevate cursor-pointer" data-testid="link-breadcrumb-home">
-              Home
-            </Link>
-            <span>/</span>
-            <Link href="/services" className="hover-elevate cursor-pointer" data-testid="link-breadcrumb-services">
-              Services
-            </Link>
-            <span>/</span>
-            <Link href={`/services/${service.slug}`} className="hover-elevate cursor-pointer" data-testid="link-breadcrumb-service">
-              {service.name}
-            </Link>
-            <span>/</span>
-            <span className="text-foreground">{city.name}</span>
-          </div>
-        </div>
-      </section>
-
       {/* Hero Section */}
-      <section className="relative bg-secondary/40 py-16 md:py-24 lg:py-32 overflow-hidden">
-        {/* Decorative Background Elements */}
-        <div className="absolute inset-0 opacity-20 pointer-events-none">
-          <div className="absolute top-10 left-10 w-32 h-32 text-primary/30">
-            <svg viewBox="0 0 100 100" fill="currentColor">
-              <path d="M50 10 L30 40 Q50 35 70 40 Z" />
-            </svg>
-          </div>
-          <div className="absolute bottom-20 right-10 w-48 h-48 text-primary/20">
-            <svg viewBox="0 0 100 100" fill="currentColor">
-              <path d="M20 50 L10 20 Q50 40 90 20 L80 50 Q50 30 20 50 Z" />
-            </svg>
-          </div>
-        </div>
-
-        <div className="container px-6 md:px-12 relative z-10">
-          <div className="max-w-7xl mx-auto">
-            <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-              {/* Left: Heading Content */}
+      <section className="relative bg-muted py-20 md:py-32 overflow-hidden">
+        <div className="container px-4 md:px-8">
+          <div className="max-w-4xl mx-auto">
+            <div className="grid lg:grid-cols-2 gap-12 items-center">
+              {/* Left: Heading */}
               <div className="space-y-6">
-                <p className="text-primary font-medium text-sm tracking-wide uppercase">
-                  Lawn Care Kuna
-                </p>
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground tracking-tight leading-tight" data-testid="heading-hero">
-                  Most trusted {service.name.toLowerCase()} services in {city.name}
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-tight" data-testid="heading-hero">
+                  {service.name} and trimming in {city.name}
                 </h1>
-                <p className="text-primary text-lg md:text-xl font-medium">
-                  Professional {service.name} Services in {city.name}
+                <p className="text-lg text-muted-foreground">
+                  Professional {service.name.toLowerCase()} services in {city.name}, Idaho. Serving the Treasure Valley since 2017.
                 </p>
-                {city.population && (
-                  <p className="text-muted-foreground text-base">
-                    Serving {city.population} residents in {city.name} and surrounding areas
-                  </p>
-                )}
-              </div>
-
-              {/* Right: CTA Card */}
-              <div className="lg:ml-auto lg:max-w-md w-full">
-                <Card className="shadow-xl bg-white">
-                  <CardContent className="p-6 md:p-8 space-y-4">
-                    <h3 className="text-xl font-semibold text-center mb-2">Get Your Free Quote</h3>
-                    <p className="text-sm text-muted-foreground text-center mb-6">Professional service in {city.name}. No obligation.</p>
-                    <Button size="lg" className="w-full" asChild data-testid="button-hero-schedule">
-                      <Link href="/get-quote">
-                        SCHEDULE NOW AND SAVE
-                      </Link>
-                    </Button>
-                    <Button size="lg" variant="outline" className="w-full" asChild data-testid="button-hero-call">
-                      <a href="tel:2083522011">
-                        <Phone className="h-5 w-5 mr-2" />
-                        Call (208) 352-2011
-                      </a>
-                    </Button>
-                    <p className="text-xs text-center text-muted-foreground mt-4">
-                      Fast response • Licensed & Insured • Serving {city.name} since 2017
-                    </p>
-                  </CardContent>
-                </Card>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Trust Bar */}
-      <section className="py-8 border-b bg-secondary/30">
-        <div className="container px-6 md:px-12">
-          <div className="max-w-7xl mx-auto">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-              <div>
-                <Clock className="h-6 w-6 text-primary mx-auto mb-2" />
-                <div className="font-semibold text-sm">Since 2017</div>
-                <div className="text-xs text-muted-foreground">in {city.name}</div>
-              </div>
-              <div>
-                <Award className="h-6 w-6 text-primary mx-auto mb-2" />
-                <div className="font-semibold text-sm">Fully Insured</div>
-                <div className="text-xs text-muted-foreground">Licensed</div>
-              </div>
-              <div>
-                <MapPin className="h-6 w-6 text-primary mx-auto mb-2" />
-                <div className="font-semibold text-sm">Local to {city.name}</div>
-                <div className="text-xs text-muted-foreground">ID Experts</div>
-              </div>
-              <div>
-                <Phone className="h-6 w-6 text-primary mx-auto mb-2" />
-                <div className="font-semibold text-sm">Free Quotes</div>
-                <div className="text-xs text-muted-foreground">No Obligation</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Main Content */}
-      <section className="py-24 md:py-32">
-        <div className="container px-6 md:px-12">
-          <div className="max-w-7xl mx-auto">
-            <div className="grid lg:grid-cols-3 gap-12">
-              {/* Main Content Column */}
-              <div className="lg:col-span-2 space-y-16">
-                {/* Introduction */}
-                <div data-testid="section-intro">
-                  <h2 className="text-3xl md:text-4xl font-bold mb-6">{service.name} Services in {city.name}</h2>
-                  <p className="text-lg leading-relaxed text-foreground/90 mb-6">{service.longDescription}</p>
-                  <p className="text-lg leading-relaxed">
-                    At Lawn Care Kuna, we've been providing expert {service.name.toLowerCase()} services to {city.name} residents since 2017. 
-                    We understand the unique challenges of maintaining {service.category.includes('lawn') ? 'lawns' : 'landscapes'} in {city.name}, including {city.localFactors.soil.toLowerCase()} and {city.localFactors.climate.toLowerCase()}.
-                  </p>
-                </div>
-
-                {/* Facts Section */}
-                {(city.facts || service.facts) && (
-                  <FactsSection
-                    title={`${city.name} ${service.category.includes('lawn') ? 'lawn care' : service.name.toLowerCase()} facts`}
-                    facts={city.facts || service.facts || []}
-                  />
-                )}
-
-                {/* Local Expertise */}
-                <div data-testid="section-local-expertise" className="bg-secondary/40 -mx-6 px-6 py-12 md:-mx-0 md:px-12 md:py-16 md:rounded-lg">
-                  <h2 className="text-3xl md:text-4xl font-bold mb-8">Why {city.name} Chooses Lawn Care Kuna</h2>
-                  <div className="space-y-6">
-                    <div>
-                      <h3 className="text-xl font-semibold mb-3">Local Expertise for {city.name}</h3>
-                      <p className="text-muted-foreground leading-relaxed mb-4">
-                        We specialize in {service.name.toLowerCase()} solutions tailored for {city.name}'s specific conditions:
-                      </p>
-                      <ul className="space-y-3">
-                        {city.localFactors.commonNeeds.map((need, index) => (
-                          <li key={index} className="flex items-start gap-3">
-                            <Check className="h-6 w-6 text-primary flex-shrink-0 mt-0.5" />
-                            <span className="text-base leading-relaxed">{need}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                    {city.neighborhoods && city.neighborhoods.length > 0 && (
-                      <div>
-                        <h3 className="text-xl font-semibold mb-3">We Serve All {city.name} Neighborhoods</h3>
-                        <p className="text-muted-foreground">
-                          Including {city.neighborhoods.slice(0, 4).join(', ')}{city.neighborhoods.length > 4 ? ', and more' : ''}
-                        </p>
-                      </div>
-                    )}
-                  </div>
-                </div>
-
-                {/* Benefits */}
-                <div data-testid="section-benefits">
-                  <h2 className="text-3xl md:text-4xl font-bold mb-8">Benefits of Our {service.name} in {city.name}</h2>
-                  <div className="grid sm:grid-cols-2 gap-6">
-                    {service.benefits.map((benefit, index) => (
-                      <div key={index} className="flex items-start gap-3" data-testid={`benefit-${index}`}>
-                        <Check className="h-6 w-6 text-primary flex-shrink-0 mt-0.5" />
-                        <span className="text-base leading-relaxed">{benefit}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Process */}
-                <div data-testid="section-process" className="bg-secondary/40 -mx-6 px-6 py-12 md:-mx-0 md:px-12 md:py-16 md:rounded-lg">
-                  <h2 className="text-3xl md:text-4xl font-bold mb-8">How We Deliver {service.name} in {city.name}</h2>
-                  <div className="space-y-6">
-                    {service.process.map((step) => (
-                      <Card key={step.step} data-testid={`process-step-${step.step}`} className="hover-elevate">
-                        <CardContent className="p-8">
-                          <div className="flex gap-6">
-                            <div className="flex-shrink-0 w-14 h-14 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-xl">
-                              {step.step}
-                            </div>
-                            <div className="flex-1">
-                              <h3 className="text-xl font-semibold mb-3">{step.title}</h3>
-                              <p className="text-muted-foreground leading-relaxed">{step.description}</p>
-                            </div>
-                          </div>
-                        </CardContent>
-                      </Card>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Pricing */}
-                {service.pricingGuidance && (
-                  <div data-testid="section-pricing">
-                    <h2 className="text-3xl md:text-4xl font-bold mb-6">{service.name} Cost in {city.name}</h2>
-                    <p className="text-lg leading-relaxed mb-8">{service.pricingGuidance}</p>
-                    <div className="grid sm:grid-cols-3 gap-4">
-                      <div className="flex items-start gap-3">
-                        <Check className="h-6 w-6 text-primary flex-shrink-0 mt-0.5" />
-                        <span className="font-medium">Free {city.name} quotes</span>
-                      </div>
-                      <div className="flex items-start gap-3">
-                        <Check className="h-6 w-6 text-primary flex-shrink-0 mt-0.5" />
-                        <span className="font-medium">No hidden fees</span>
-                      </div>
-                      <div className="flex items-start gap-3">
-                        <Check className="h-6 w-6 text-primary flex-shrink-0 mt-0.5" />
-                        <span className="font-medium">Since 2017</span>
-                      </div>
-                    </div>
-                  </div>
-                )}
-
-                {/* FAQs - Top 5 */}
-                <div data-testid="section-faqs">
-                  <h2 className="text-3xl md:text-4xl font-bold mb-8">{service.name} FAQs for {city.name} Residents</h2>
-                  <div className="space-y-6">
-                    {service.faqs.slice(0, 5).map((faq, index) => (
-                      <Card key={index} data-testid={`faq-${index}`} className="hover-elevate">
-                        <CardContent className="p-8">
-                          <h3 className="font-semibold mb-3 text-xl">{faq.question}</h3>
-                          <p className="text-muted-foreground leading-relaxed text-base">{faq.answer}</p>
-                        </CardContent>
-                      </Card>
-                    ))}
-                  </div>
-                  <div className="mt-8 text-center">
-                    <Link href={`/services/${service.slug}`} data-testid="link-view-all-faqs">
-                      <Card className="hover-elevate cursor-pointer inline-block">
-                        <CardContent className="p-6">
-                          <span className="text-primary font-medium text-lg">
-                            View all {service.name} FAQs →
-                          </span>
-                        </CardContent>
-                      </Card>
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <Button size="lg" asChild data-testid="button-hero-schedule">
+                    <Link href="/get-quote">
+                      Get Free Quote
+                      <ArrowRight className="ml-2 h-5 w-5" />
                     </Link>
-                  </div>
-                </div>
-
-                {/* Nearby Cities */}
-                <div data-testid="section-nearby-cities" className="bg-secondary/40 -mx-6 px-6 py-12 md:-mx-0 md:px-12 md:py-16 md:rounded-lg">
-                  <h2 className="text-3xl md:text-4xl font-bold mb-6">We Also Serve Nearby Cities</h2>
-                  <p className="text-lg mb-8 leading-relaxed">
-                    Looking for {service.name.toLowerCase()} in other Treasure Valley cities? We serve:
-                  </p>
-                  <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
-                    {['Kuna', 'Boise', 'Meridian', 'Nampa', 'Caldwell', 'Eagle']
-                      .filter(c => c !== city.name)
-                      .map(nearbyCity => (
-                        <Link key={nearbyCity} href={`/services/${service.slug}/${nearbyCity.toLowerCase()}`} data-testid={`link-nearby-city-${nearbyCity.toLowerCase()}`}>
-                          <Card className="hover-elevate cursor-pointer">
-                            <CardContent className="p-6">
-                              <span className="text-primary font-medium text-lg">
-                                {service.name} in {nearbyCity} →
-                              </span>
-                            </CardContent>
-                          </Card>
-                        </Link>
-                      ))}
-                  </div>
+                  </Button>
+                  <Button size="lg" variant="outline" asChild data-testid="button-hero-call">
+                    <a href="tel:2083522011">
+                      <Phone className="mr-2 h-5 w-5" />
+                      (208) 352-2011
+                    </a>
+                  </Button>
                 </div>
               </div>
-
-              {/* Sticky Sidebar */}
-              <div className="lg:sticky lg:top-24 lg:self-start space-y-6">
-                {/* Quote Form Card */}
-                <Card data-testid="card-contact" className="bg-primary text-primary-foreground">
-                  <CardContent className="p-8">
-                    <h3 className="text-2xl font-bold mb-2">Serving {city.name}</h3>
-                    <p className="mb-6 opacity-90">Get your free, no-obligation quote today</p>
-                    <div className="space-y-4">
-                      <Button size="lg" className="w-full bg-white text-primary" asChild data-testid="button-sidebar-call">
-                        <a href="tel:2083522011">
-                          <Phone className="h-5 w-5 mr-2" />
-                          Call (208) 352-2011
-                        </a>
-                      </Button>
-                      <Button size="lg" variant="outline" className="w-full border-white text-white" asChild data-testid="button-sidebar-quote">
-                        <Link href="/get-quote">Get Free Quote</Link>
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
-
-                {/* Service Area Info */}
-                <Card data-testid="card-service-area">
-                  <CardContent className="p-8">
-                    <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
-                      <MapPin className="h-6 w-6 text-primary" />
-                      Service Area
-                    </h3>
-                    <div className="space-y-3">
-                      <p className="font-semibold text-lg">{city.name}, Idaho</p>
-                      {city.zipCodes && (
-                        <p className="text-sm text-muted-foreground">ZIP Codes: {city.zipCodes.join(', ')}</p>
-                      )}
-                      {city.isPrimary && (
-                        <p className="text-primary font-semibold">★ Primary Service Area</p>
-                      )}
-                    </div>
-                  </CardContent>
-                </Card>
-
-                {/* Why Choose Us */}
-                <Card data-testid="card-why-choose-us">
-                  <CardContent className="p-8">
-                    <h3 className="text-xl font-bold mb-6">Why Choose Us</h3>
-                    <ul className="space-y-6">
-                      <li className="flex items-start gap-3">
-                        <Clock className="h-6 w-6 text-primary flex-shrink-0 mt-0.5" />
-                        <div>
-                          <div className="font-semibold mb-1">Since 2017</div>
-                          <div className="text-sm text-muted-foreground">7+ years in {city.name}</div>
-                        </div>
-                      </li>
-                      <li className="flex items-start gap-3">
-                        <Award className="h-6 w-6 text-primary flex-shrink-0 mt-0.5" />
-                        <div>
-                          <div className="font-semibold mb-1">Fully Insured</div>
-                          <div className="text-sm text-muted-foreground">Licensed & professional</div>
-                        </div>
-                      </li>
-                      <li className="flex items-start gap-3">
-                        <Home className="h-6 w-6 text-primary flex-shrink-0 mt-0.5" />
-                        <div>
-                          <div className="font-semibold mb-1">Local Experts</div>
-                          <div className="text-sm text-muted-foreground">{city.name} specialists</div>
-                        </div>
-                      </li>
-                    </ul>
-                  </CardContent>
-                </Card>
+              
+              {/* Right: Decorative Elements */}
+              <div className="relative h-64 lg:h-full hidden lg:block">
+                <div className="absolute top-0 right-0 w-32 h-32 text-primary/20">
+                  <Leaf className="w-full h-full" strokeWidth={1} />
+                </div>
+                <div className="absolute bottom-10 right-20 w-24 h-24 text-primary/10">
+                  <Leaf className="w-full h-full" strokeWidth={1} />
+                </div>
+                <div className="absolute top-20 right-32 w-20 h-20 text-primary/15">
+                  <Sprout className="w-full h-full" strokeWidth={1} />
+                </div>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Mid-Content CTA */}
-      <section className="py-20 bg-primary text-primary-foreground">
-        <div className="container px-6 md:px-12">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl md:text-5xl font-bold mb-6">Ready for Professional {service.name} in {city.name}?</h2>
-            <p className="text-xl mb-10 opacity-90">
-              Join your {city.name} neighbors who trust Lawn Care Kuna for expert {service.name.toLowerCase()} services.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="bg-white text-primary" asChild data-testid="button-midcta-quote">
-                <Link href="/get-quote">Get Free Quote</Link>
-              </Button>
-              <Button size="lg" variant="outline" className="border-white text-white" asChild data-testid="button-midcta-call">
-                <a href="tel:2083522011">Call (208) 352-2011</a>
-              </Button>
-            </div>
+      {/* Dark Green Service Description Card */}
+      <section className="py-16 md:py-24">
+        <div className="container px-4 md:px-8">
+          <div className="max-w-6xl mx-auto">
+            <Card className="bg-primary text-primary-foreground border-primary">
+              <CardContent className="p-8 md:p-12 space-y-6">
+                <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
+                  {service.name} and trimming services
+                </h2>
+                <p className="text-primary-foreground/90 text-lg leading-relaxed">
+                  {service.longDescription}
+                </p>
+                <p className="text-primary-foreground/90 text-lg leading-relaxed">
+                  We understand the unique challenges of maintaining {service.category.includes('lawn') ? 'lawns' : 'landscapes'} in {city.name}, 
+                  including {city.localFactors.soil.toLowerCase()} and {city.localFactors.climate.toLowerCase()}. 
+                  Our professional team delivers exceptional results tailored to {city.name}'s specific needs.
+                </p>
+                <Button size="lg" variant="secondary" asChild data-testid="button-service-cta">
+                  <Link href="/get-quote">
+                    Request Service
+                    <ArrowRight className="ml-2 h-5 w-5" />
+                  </Link>
+                </Button>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </section>
 
-      {/* Quote Form */}
-      <section id="quote" className="py-24 md:py-32 bg-secondary/30">
-        <div className="container px-6 md:px-12">
-          <div className="max-w-2xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-5xl font-bold mb-6">Get Your Free {service.name} Quote in {city.name}</h2>
-              <p className="text-xl text-muted-foreground">
-                Fill out the form below for a customized quote. No obligation, no hidden fees.
+      {/* Service Details Section */}
+      <section className="py-16 md:py-24">
+        <div className="container px-4 md:px-8">
+          <div className="max-w-6xl mx-auto space-y-12">
+            <div className="text-center space-y-4">
+              <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
+                {service.name} and trimming in {city.name}
+              </h2>
+              <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+                At Lawn Care Kuna, we've been providing expert {service.name.toLowerCase()} services to {city.name} residents since 2017. 
+                Our professional approach ensures your lawn looks its best year-round.
               </p>
             </div>
-            <QuoteForm preselectedService={service.slug} />
+
+            {/* Facts Section */}
+            {(city.facts || service.facts) && (
+              <FactsSection
+                title={`${city.name} ${service.category.includes('lawn') ? 'lawn care' : service.name.toLowerCase()} facts`}
+                facts={city.facts || service.facts || []}
+              />
+            )}
+
+            <div className="prose prose-lg max-w-none text-muted-foreground">
+              <p>
+                We specialize in {service.name.toLowerCase()} solutions tailored for {city.name}'s specific conditions. 
+                Our experienced team knows exactly what your lawn needs to thrive in Idaho's climate.
+              </p>
+            </div>
+
+            <div className="text-center">
+              <Button size="lg" asChild data-testid="button-service-details">
+                <Link href="/get-quote">
+                  Schedule Service
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Link>
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Local Expertise Section */}
+      <section className="py-16 md:py-24 bg-muted">
+        <div className="container px-4 md:px-8">
+          <div className="max-w-6xl mx-auto space-y-8">
+            <div className="text-center space-y-4">
+              <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
+                {city.name} {service.name.toLowerCase()} and trimming
+              </h2>
+              <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+                We understand {city.name}'s unique needs and deliver customized solutions for your property.
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-8">
+              <div className="space-y-4">
+                <h3 className="text-2xl font-bold">Local Expertise for {city.name}</h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  We specialize in {service.name.toLowerCase()} solutions tailored for {city.name}'s specific conditions:
+                </p>
+                <ul className="space-y-3">
+                  {city.localFactors.commonNeeds.map((need, index) => (
+                    <li key={index} className="flex items-start gap-3">
+                      <Check className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+                      <span>{need}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="space-y-4">
+                <h3 className="text-2xl font-bold">Why Choose Us</h3>
+                <ul className="space-y-4">
+                  <li className="flex items-start gap-3">
+                    <Check className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+                    <div>
+                      <div className="font-semibold">Since 2017</div>
+                      <div className="text-sm text-muted-foreground">7+ years serving {city.name}</div>
+                    </div>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <Check className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+                    <div>
+                      <div className="font-semibold">Fully Licensed & Insured</div>
+                      <div className="text-sm text-muted-foreground">Professional & reliable service</div>
+                    </div>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <Check className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+                    <div>
+                      <div className="font-semibold">Local Experts</div>
+                      <div className="text-sm text-muted-foreground">{city.name} specialists</div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="text-center pt-4">
+              <Button size="lg" asChild data-testid="button-local-expertise">
+                <Link href="/about">
+                  Learn More About Us
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Link>
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Our Services Section */}
+      <section className="py-16 md:py-24">
+        <div className="container px-4 md:px-8">
+          <div className="max-w-6xl mx-auto space-y-8">
+            <div className="text-center space-y-4">
+              <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
+                Our {service.name.toLowerCase()} {city.name} services
+              </h2>
+              <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+                Comprehensive {service.name.toLowerCase()} services designed to keep your {city.name} property looking its best.
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-8">
+              <div className="space-y-6">
+                <h3 className="text-2xl font-bold">What We Do</h3>
+                <div className="space-y-4">
+                  {service.process.slice(0, 3).map((step) => (
+                    <div key={step.step} className="flex gap-4">
+                      <div className="flex-shrink-0 w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold">
+                        {step.step}
+                      </div>
+                      <div>
+                        <h4 className="font-semibold mb-1">{step.title}</h4>
+                        <p className="text-sm text-muted-foreground">{step.description}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="space-y-6">
+                <h3 className="text-2xl font-bold">Benefits</h3>
+                <ul className="space-y-3">
+                  {service.benefits.slice(0, 6).map((benefit, index) => (
+                    <li key={index} className="flex items-start gap-3">
+                      <Check className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+                      <span>{benefit}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            <div className="text-center pt-4">
+              <Button size="lg" asChild data-testid="button-our-services">
+                <Link href={`/services/${service.slug}`}>
+                  View All {service.name} Services
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Link>
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Pricing Section */}
+      <section className="py-16 md:py-24 bg-muted/30">
+        <div className="container px-4 md:px-8">
+          <div className="max-w-4xl mx-auto space-y-8">
+            <div className="text-center space-y-4">
+              <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
+                Lawn care feels in {city.name} ID
+              </h2>
+              <p className="text-lg text-muted-foreground">
+                {service.pricingGuidance || `Transparent pricing for ${service.name.toLowerCase()} services in ${city.name}`}
+              </p>
+            </div>
+
+            <Card>
+              <CardContent className="p-0">
+                <div className="divide-y">
+                  {service.process.map((step, index) => (
+                    <div 
+                      key={index} 
+                      className="flex items-center justify-between p-4 hover-elevate"
+                      data-testid={`pricing-item-${index}`}
+                    >
+                      <span className="font-medium">{step.title}</span>
+                      <span className="text-muted-foreground text-sm">{step.description.substring(0, 50)}...</span>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+
+            <p className="text-center text-sm text-muted-foreground">
+              Prices vary based on property size and specific requirements. 
+              Contact us for a free, detailed quote.
+            </p>
+
+            <div className="text-center">
+              <Button size="lg" asChild data-testid="button-pricing-quote">
+                <Link href="/get-quote">
+                  Get Your Custom Quote
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Link>
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Quote Form Section */}
+      <section className="py-16 md:py-24 bg-muted">
+        <div className="container px-4 md:px-8">
+          <div className="max-w-6xl mx-auto">
+            <div className="grid lg:grid-cols-2 gap-12 items-start">
+              {/* Left: Content */}
+              <div className="space-y-6">
+                <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
+                  You've got a lot on your plate. Save your future {city.name} lawn {service.name.toLowerCase()} and trimming to us
+                </h2>
+                <p className="text-lg text-muted-foreground leading-relaxed">
+                  Let us handle your {service.name.toLowerCase()} so you can focus on what matters most. 
+                  Fill out the form to get started with a free consultation and quote.
+                </p>
+                <div className="space-y-4">
+                  <div className="flex items-start gap-3">
+                    <Check className="h-6 w-6 text-primary flex-shrink-0 mt-0.5" />
+                    <div>
+                      <h3 className="font-semibold mb-1">Free Consultation</h3>
+                      <p className="text-muted-foreground">No obligation property assessment in {city.name}</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <Check className="h-6 w-6 text-primary flex-shrink-0 mt-0.5" />
+                    <div>
+                      <h3 className="font-semibold mb-1">Instant Quote</h3>
+                      <p className="text-muted-foreground">Get pricing immediately online</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <Check className="h-6 w-6 text-primary flex-shrink-0 mt-0.5" />
+                    <div>
+                      <h3 className="font-semibold mb-1">Quick Response</h3>
+                      <p className="text-muted-foreground">We respond within 24 hours</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Right: Quote Form */}
+              <Card>
+                <CardHeader>
+                  <CardTitle>Get Your Free Quote</CardTitle>
+                  <CardDescription>Fill out the form below for instant pricing in {city.name}</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <QuoteForm preselectedService={service.slug} />
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Additional Services Section */}
+      <section className="py-16 md:py-24 bg-primary text-primary-foreground">
+        <div className="container px-4 md:px-8">
+          <div className="max-w-4xl mx-auto text-center space-y-8">
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
+              Looking for additional lawn care services in {city.name}?
+            </h2>
+            <p className="text-xl text-primary-foreground/90 leading-relaxed">
+              We offer a full range of lawn care and landscaping services to keep your {city.name} property beautiful year-round.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
+              <Button size="lg" variant="secondary" asChild data-testid="button-additional-services">
+                <Link href="/services/lawn-care">
+                  View All Services
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Link>
+              </Button>
+              <Button 
+                size="lg" 
+                variant="outline" 
+                className="bg-transparent border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary" 
+                asChild 
+                data-testid="button-additional-call"
+              >
+                <a href="tel:2083522011">
+                  <Phone className="mr-2 h-5 w-5" />
+                  (208) 352-2011
+                </a>
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Values Section */}
+      <section className="py-16 md:py-24 bg-muted/30">
+        <div className="container px-4 md:px-8">
+          <div className="max-w-6xl mx-auto space-y-12">
+            <div className="text-center space-y-4">
+              <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
+                Lawn Care {city.name} Values
+              </h2>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                The principles that guide everything we do in {city.name}
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-8">
+              {coreValues.map((value, index) => (
+                <Card key={index} className="hover-elevate" data-testid={`card-value-${index}`}>
+                  <CardContent className="p-8 space-y-4">
+                    <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-primary text-primary-foreground">
+                      <value.icon className="h-7 w-7" />
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-bold mb-2">{value.title}</h3>
+                      <p className="text-muted-foreground leading-relaxed">{value.description}</p>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQs */}
+      <section className="py-16 md:py-24">
+        <div className="container px-4 md:px-8">
+          <div className="max-w-4xl mx-auto space-y-8">
+            <div className="text-center space-y-4">
+              <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
+                Frequently Asked Questions
+              </h2>
+              <p className="text-lg text-muted-foreground">
+                Common questions about {service.name.toLowerCase()} in {city.name}
+              </p>
+            </div>
+
+            <div className="space-y-6">
+              {service.faqs.slice(0, 5).map((faq, index) => (
+                <Card key={index} data-testid={`faq-${index}`}>
+                  <CardContent className="p-8">
+                    <h3 className="font-semibold mb-3 text-lg">{faq.question}</h3>
+                    <p className="text-muted-foreground leading-relaxed">{faq.answer}</p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+
+            {service.faqs.length > 5 && (
+              <div className="text-center">
+                <Button variant="outline" asChild data-testid="link-view-all-faqs">
+                  <Link href={`/services/${service.slug}`}>
+                    View All {service.name} FAQs
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Link>
+                </Button>
+              </div>
+            )}
+          </div>
+        </div>
+      </section>
+
+      {/* Nearby Cities */}
+      <section className="py-16 md:py-24 bg-muted">
+        <div className="container px-4 md:px-8">
+          <div className="max-w-6xl mx-auto space-y-8">
+            <div className="text-center space-y-4">
+              <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
+                We Also Serve Nearby Cities
+              </h2>
+              <p className="text-lg text-muted-foreground">
+                Professional {service.name.toLowerCase()} services across the Treasure Valley
+              </p>
+            </div>
+
+            <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
+              {['Kuna', 'Boise', 'Meridian', 'Nampa', 'Caldwell', 'Eagle']
+                .filter(c => c !== city.name)
+                .map(nearbyCity => (
+                  <Link key={nearbyCity} href={`/services/${service.slug}/${nearbyCity.toLowerCase()}`} data-testid={`link-nearby-city-${nearbyCity.toLowerCase()}`}>
+                    <Card className="hover-elevate cursor-pointer">
+                      <CardContent className="p-6 text-center">
+                        <MapPin className="h-6 w-6 text-primary mx-auto mb-2" />
+                        <span className="font-medium">
+                          {service.name} in {nearbyCity}
+                        </span>
+                      </CardContent>
+                    </Card>
+                  </Link>
+                ))}
+            </div>
           </div>
         </div>
       </section>
