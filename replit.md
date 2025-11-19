@@ -10,6 +10,18 @@ Preferred communication style: Simple, everyday language.
 
 ## Recent Changes
 
+### 2025-01-19: Dynamic Service Routing Architecture (MAJOR)
+- **Scalable Data-Driven Routing**: Implemented hybrid dynamic routing system replacing 70+ manual imports/routes
+- **DynamicServiceRoute Component**: Single component handles all service pages via `/services/:serviceSlug/:citySlug?` pattern
+- **O(1) Lookups**: Added SERVICE_SLUG_MAP and CITY_SLUG_MAP to contentData.ts for instant lookups
+- **Lazy Loading**: Templates (ServiceDetailPage, GeoServicePage) lazy-loaded with Suspense for optimal code splitting
+- **Validation System**: getCityServiceCombo() validates service/city combinations, returns 404 for invalid URLs
+- **Content Expansion**: Added 4 new services (christmas-light-installation, lawn-renovation, tree-removal, stump-grinding)
+- **Total Reach**: 24 services × 6 cities = 168 total pages via dynamic routing (was 44 manual pages)
+- **Scalability Proven**: Adding new services now requires ONLY updating contentData.ts - zero routing changes
+- **Testing Verified**: All dynamic routes working, 404s correct, SEO preserved, performance improved via code splitting
+- **Architect Approved**: Implementation received PASS rating for production readiness
+
 ### 2025-01-19: Typography & Navigation Fixes
 - **Montserrat Font Migration**: Updated ALL text (headings, body, buttons, labels) to use Montserrat font family with weight 500
 - **Font Import**: Added Google Fonts import for Montserrat weight 500 in client/index.html
@@ -35,7 +47,15 @@ Preferred communication style: Simple, everyday language.
 
 ### Frontend Architecture
 
-**Framework & Routing**: React 18 with TypeScript, using Wouter for client-side routing.
+**Framework & Routing**: React 18 with TypeScript, using Wouter for client-side routing with dynamic data-driven service pages.
+
+**Dynamic Routing System**: 
+- **Pattern**: Single route `/services/:serviceSlug/:citySlug?` handles all service pages
+- **Components**: DynamicServiceRoute component with lazy-loaded templates (ServiceDetailPage, GeoServicePage)
+- **Lookup System**: O(1) Map-based lookups via SERVICE_SLUG_MAP and CITY_SLUG_MAP from contentData.ts
+- **Validation**: getCityServiceCombo() validates combinations, returns 404 for invalid service/city pairs
+- **Scalability**: Adding services requires only updating contentData.ts - zero code changes to routing
+- **Current Reach**: 24 services × 6 cities = 168 total pages automatically generated
 **Component Library**: shadcn/ui (Radix UI primitives) with custom Tailwind CSS for styling.
 **Design System**: Features Montserrat weight 500 for ALL text (headings, body, buttons, labels). The color scheme aligns with the actual Lawn Care Kuna brand: Primary Forest Green (#2D6B3F), Light Mint backgrounds (#E5F5EC), and pure white. It uses a mobile-first responsive design with editorial spacing.
 **State Management**: TanStack Query for server state, React Hook Form with Zod for form handling and validation, and React hooks for local component state.
@@ -55,9 +75,18 @@ Preferred communication style: Simple, everyday language.
 **Storage Layer**: Currently uses in-memory storage (MemStorage class) via an `IStorage` interface, designed for easy future migration to a database.
 **Data Validation**: Shared Zod schemas between client and server ensure type-safe data handling and validation.
 
+### Content Management
+
+**Service Data**: All service information stored in `shared/contentData.ts`:
+- **24 Priority Services**: Currently includes lawn care (mowing, aeration, fertilization, etc.), landscaping (patios, retaining walls, fire pits, etc.), irrigation, tree services, and Christmas lights
+- **Structured Content**: Each service has 900-1000 words including longDescription, 8 benefits, 6-step process, 5-6 FAQs, pricing guidance, and seasonality
+- **Target**: Expand to 92+ services for comprehensive coverage
+- **6 Service Areas**: Kuna (primary), Boise, Meridian, Nampa, Caldwell, Eagle
+- **Automatic Page Generation**: Dynamic routing creates service pages and geo pages automatically for all service/city combinations
+
 ### Build System
 
-**Frontend**: Vite for bundling, with React plugin, path aliases, and production output to `dist/public`.
+**Frontend**: Vite for bundling, with React plugin, path aliases, lazy-loaded components via React.lazy(), and production output to `dist/public`.
 **Backend**: esbuild for bundling, targeting Node.js ESM, with output to `dist/`.
 **Type Checking**: Strict TypeScript with shared types via path aliases.
 

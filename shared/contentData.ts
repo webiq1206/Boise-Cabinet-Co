@@ -1132,17 +1132,251 @@ export const PRIORITY_SERVICES: ServiceData[] = [
     relatedServices: ['mulch-installation', 'bed-preparation', 'landscape-design', 'seasonal-cleanup'],
     pricingGuidance: 'Lawn edging installation: $2-18 per linear foot depending on material. Average front yard: $300-1,200. Free quotes with material recommendations based on budget.',
     seasonality: 'Installed April through October when ground is workable. Spring (April-May) is most popular for combination with mulch installation. Fall installation also common.'
+  },
+  {
+    slug: 'christmas-light-installation',
+    name: 'Christmas Light Installation',
+    category: 'christmas-lights',
+    shortDescription: 'Professional Christmas light installation and removal service for homes and businesses',
+    longDescription: 'Transform your property into a winter wonderland with our professional Christmas light installation service. We handle everything from design through takedown, so you can enjoy the holidays without the hassle, danger, and frustration of DIY installation. Our experienced crews safely install premium LED lights on rooflines, trees, walkways, and landscape features. We provide all equipment, lights, and extension cords, and return after the holidays to carefully remove and store everything.',
+    benefits: [
+      'Professional design creates stunning displays',
+      'Eliminates ladder danger and roof safety risks',
+      'Premium commercial-grade LED lights provided',
+      'Installation and removal both included',
+      'Saves 8-12 hours of your holiday time',
+      'Lights tested before installation',
+      'Storm damage repair included',
+      'Optional storage service available'
+    ],
+    process: [
+      { step: 1, title: 'Design Consultation', description: 'We discuss your vision and budget. We assess your home to create a custom design that highlights your property\'s best features.' },
+      { step: 2, title: 'Lighting Plan & Quote', description: 'We provide a detailed plan showing light placement and colors. Free quote includes installation, removal, and all materials.' },
+      { step: 3, title: 'Professional Installation', description: 'Our insured crews safely install lights using commercial clips that don\'t damage siding. All lights are tested before installation.' },
+      { step: 4, title: 'Mid-Season Service', description: 'We monitor your display and provide complimentary mid-season service if needed (repair damage, replace bulbs, fix timers).' },
+      { step: 5, title: 'Post-Holiday Removal', description: 'After the holidays, we carefully remove all lights and clips. Your property is left clean and damage-free.' },
+      { step: 6, title: 'Storage & Next Season', description: 'Lights are professionally stored for next year (storage fee applies) or returned to you in organized bins.' }
+    ],
+    faqs: [
+      {
+        question: 'When should I schedule Christmas light installation?',
+        answer: 'We install Thanksgiving week through mid-December. Book in October for best availability - prime weeks book up fast!'
+      },
+      {
+        question: 'How much does professional Christmas light installation cost?',
+        answer: 'Typical homes: $400-1,200. Larger homes or elaborate designs: $1,200-3,500+. Cost includes equipment, lights, installation, mid-season service, and removal.'
+      },
+      {
+        question: 'Do I need to provide the lights?',
+        answer: 'No! We provide all lights, extension cords, clips, and equipment. We use commercial-grade LED lights that last 50,000+ hours.'
+      },
+      {
+        question: 'What if lights go out during the season?',
+        answer: 'We include complimentary mid-season service. If bulbs burn out or Idaho winds cause damage, just call and we\'ll fix it at no charge.'
+      },
+      {
+        question: 'Do you take the lights down after Christmas?',
+        answer: 'Yes! Removal is included. We typically remove lights in January. Everything is carefully removed and your property is left clean.'
+      }
+    ],
+    relatedServices: ['landscape-lighting', 'outdoor-lighting', 'holiday-decor'],
+    pricingGuidance: 'Residential: $400-1,200 typical. Larger homes: $1,200-3,500+. Includes installation, lights, removal, mid-season service. Storage: +$75-150/year.',
+    seasonality: 'Installation: November-December (book in October). Removal: January. High demand - early booking essential.'
+  },
+  {
+    slug: 'lawn-renovation',
+    name: 'Lawn Renovation',
+    category: 'lawn-care',
+    shortDescription: 'Complete lawn renovation service to transform tired, thin lawns into thick, healthy turf',
+    longDescription: 'If your lawn is more weeds than grass, full lawn renovation is the answer. Our comprehensive renovation service completely rebuilds your lawn without the expense of sod replacement. The process includes aggressive dethatching, core aeration, premium overseeding, starter fertilizer, and compost top-dressing. This intensive treatment gives you a lawn that looks like new sod at a fraction of the cost. Within 6-8 weeks, you\'ll have a thick, lush lawn that\'s the envy of the neighborhood.',
+    benefits: [
+      'Transforms weed-infested lawns into thick turf',
+      'Much less expensive than sod replacement',
+      'Introduces disease-resistant grass varieties',
+      'Improves soil quality for long-term health',
+      'Results in thicker, greener lawn',
+      'Reduces future weed pressure dramatically',
+      'Minimal disruption compared to replacement',
+      'Long-term solution vs. temporary fixes'
+    ],
+    process: [
+      { step: 1, title: 'Lawn Assessment & Plan', description: 'We evaluate lawn condition, soil quality, grass types, and problem areas. Custom plan addresses your specific issues.' },
+      { step: 2, title: 'Aggressive Dethatching', description: 'Heavy power raking removes thatch, dead grass, and much of the existing poor-quality turf. Creates perfect seedbed.' },
+      { step: 3, title: 'Core Aeration', description: 'Multiple aeration passes relieve severe compaction. Soil cores provide perfect pockets for seed germination.' },
+      { step: 4, title: 'Premium Overseeding', description: 'High-quality grass seed (selected for Idaho climate) is broadcast at heavy rate (8-10 lbs per 1000 sq ft).' },
+      { step: 5, title: 'Soil Amendment & Fertilizer', description: 'Compost top-dressing improves soil structure. Starter fertilizer promotes rapid root development.' },
+      { step: 6, title: 'Watering Plan & Follow-Up', description: 'Detailed watering schedule provided. We check back at 2-3 weeks to assess germination and address concerns.' }
+    ],
+    faqs: [
+      {
+        question: 'How is lawn renovation different from overseeding?',
+        answer: 'Renovation is much more aggressive. We remove much of the old grass through dethatching, heavily aerate, seed at triple the normal rate, and amend soil. It\'s a complete transformation vs. simple improvement.'
+      },
+      {
+        question: 'When should I renovate my lawn in Idaho?',
+        answer: 'Fall (late August through mid-September) is ideal. Warm soil, cooler air, and fall moisture create perfect germination conditions. Spring works but competes with weeds.'
+      },
+      {
+        question: 'How long until my lawn looks good?',
+        answer: 'Visible germination: 7-14 days. Noticeable improvement: 3-4 weeks. Thick lawn: 6-8 weeks. Full maturity: Following spring. Results are dramatic - like getting a new lawn for half the cost of sod.'
+      },
+      {
+        question: 'Can I walk on the lawn during recovery?',
+        answer: 'Minimize traffic for first 3-4 weeks. Light foot traffic okay after 2 weeks. Avoid heavy use until grass reaches 3 inches (typically 4-6 weeks).'
+      },
+      {
+        question: 'How much does renovation cost compared to new sod?',
+        answer: 'Renovation: $0.40-0.75 per sq ft. New sod: $1.00-2.00 per sq ft. For 5,000 sq ft: Renovation = $2,000-3,750. Sod = $5,000-10,000. You save 50-70%.'
+      }
+    ],
+    relatedServices: ['aeration', 'overseeding', 'dethatching', 'sod-installation'],
+    pricingGuidance: 'Lawn renovation: $0.40-0.75 per sq ft. Typical 5,000 sq ft lawn: $2,000-3,750 all-in. Much less than sod replacement.',
+    seasonality: 'Best: Late August to mid-September. Spring: April-May. Peak demand in fall - book by July for September service.'
+  },
+  {
+    slug: 'tree-removal',
+    name: 'Tree Removal',
+    category: 'landscaping-specialty',
+    shortDescription: 'Professional tree removal service for dead, dying, hazardous, or unwanted trees',
+    longDescription: 'Professional tree removal is essential when trees become hazardous, diseased, or interfere with structures. Our certified arborists and experienced crews safely remove trees of any size using specialized equipment and industry-standard techniques. We handle everything from small ornamental trees to massive pines and cottonwoods. Complete cleanup and stump grinding available. Licensed, insured, and equipped to handle even the most challenging removals near buildings, power lines, and tight spaces.',
+    benefits: [
+      'Eliminates hazardous or dead trees safely',
+      'Licensed and fully insured crews',
+      'Specialized equipment for safe removal',
+      'Complete cleanup and haul-away included',
+      'Stump grinding available',
+      'Protects structures and utility lines',
+      'Fast emergency storm damage response',
+      'Free estimates with no obligation'
+    ],
+    process: [
+      { step: 1, title: 'Tree Assessment', description: 'Our arborist evaluates tree condition, hazards, and removal challenges. We assess proximity to structures, power lines, and plan safest removal approach.' },
+      { step: 2, title: 'Removal Plan & Quote', description: 'We create detailed removal plan including equipment needs, crew size, and timeline. Free written estimate provided with no pressure.' },
+      { step: 3, title: 'Site Preparation', description: 'Area is cleared and access routes established. Nearby plants and structures are protected. Safety perimeter is established.' },
+      { step: 4, title: 'Tree Removal', description: 'Using ropes, harnesses, cranes, or bucket trucks as needed, tree is systematically dismantled from top down. Each piece is carefully lowered and removed.' },
+      { step: 5, title: 'Cleanup & Disposal', description: 'All branches, trunk sections, and debris are removed from property. Wood can be cut into firewood if desired. Site is left clean.' },
+      { step: 6, title: 'Stump Grinding (Optional)', description: 'If requested, stump is ground 6-12 inches below grade and wood chips removed or spread. Area is ready for replanting or sod.' }
+    ],
+    faqs: [
+      {
+        question: 'How much does tree removal cost?',
+        answer: 'Small trees (under 30 ft): $300-800. Medium trees (30-60 ft): $800-2,000. Large trees (60+ ft): $2,000-5,000+. Factors: tree size, location difficulty, access, proximity to structures. We provide free estimates.'
+      },
+      {
+        question: 'Do I need a permit to remove a tree?',
+        answer: 'Most residential properties in Idaho don\'t require permits for tree removal on private property. However, some HOAs have restrictions and some cities have protected tree ordinances. We can advise on local requirements.'
+      },
+      {
+        question: 'Can you remove a tree next to my house?',
+        answer: 'Yes! We specialize in difficult removals near structures. Using ropes, rigging, and piece-by-piece dismantling, we can safely remove trees even in tight spaces without damaging your home.'
+      },
+      {
+        question: 'What happens to the wood after removal?',
+        answer: 'Standard service includes hauling everything away. However, if you want firewood, we can cut trunk into 16-inch rounds and stack them for you. Some woods make excellent firewood.'
+      },
+      {
+        question: 'Do you offer emergency tree removal?',
+        answer: 'Yes! We provide 24/7 emergency service for storm-damaged or fallen trees. We respond quickly to remove hazards and secure your property. Call anytime for emergency service.'
+      }
+    ],
+    relatedServices: ['stump-grinding', 'tree-trimming', 'storm-damage-cleanup', 'emergency-tree-service'],
+    pricingGuidance: 'Tree removal: $300-5,000+ depending on size and difficulty. Average: $1,200-1,800. Stump grinding: +$150-400. Emergency service: Premium rates apply.',
+    seasonality: 'Year-round service. High demand after storms. Winter removal common (less landscaping damage). Book ahead for non-emergency work.'
+  },
+  {
+    slug: 'stump-grinding',
+    name: 'Stump Grinding & Removal',
+    category: 'landscaping-specialty',
+    shortDescription: 'Complete stump grinding and removal service to eliminate unsightly stumps from your landscape',
+    longDescription: 'Stump grinding completely removes tree stumps by grinding them 6-12 inches below ground level, eliminating trip hazards and freeing up space for landscaping. Our professional stump grinders handle stumps of any size, from small shrubs to massive trees. Wood chips are removed or can be left as mulch. The ground area becomes ready for sod, planting, or hardscaping. Much faster and less disruptive than traditional stump removal.',
+    benefits: [
+      'Eliminates unsightly stumps completely',
+      'Removes trip hazards and safety concerns',
+      'Frees space for lawns or new plantings',
+      'Prevents regrowth and suckers',
+      'Much less expensive than excavation',
+      'Minimal landscape disruption',
+      'Wood chips removed or recycled as mulch',
+      'Same-day service often available'
+    ],
+    process: [
+      { step: 1, title: 'Stump Assessment', description: 'We measure stump diameter and assess access. Identify underground utilities and plan grinding approach to avoid damage.' },
+      { step: 2, title: 'Site Preparation', description: 'Clear area around stump of rocks, metal, and debris that could damage grinder. Mark underground lines if present nearby.' },
+      { step: 3, title: 'Stump Grinding', description: 'Using commercial stump grinder, we grind stump 6-12 inches below grade. Roots in immediate area are also ground to prevent regrowth.' },
+      { step: 4, title: 'Wood Chip Removal', description: 'Wood chips are raked up and removed (or spread in beds if desired as mulch). Grinding crater is backfilled with remaining chips and topsoil.' },
+      { step: 5, title: 'Site Cleanup', description: 'Area is raked smooth and cleaned. Ready for immediate sod installation, seeding, or landscaping.' },
+      { step: 6, title: 'Final Check', description: 'We ensure stump is completely below grade and area is level. Provide care instructions if replanting in the area.' }
+    ],
+    faqs: [
+      {
+        question: 'How much does stump grinding cost?',
+        answer: 'Pricing is typically $3-8 per inch of stump diameter. Small stumps (12-20 inches): $150-250. Medium stumps (20-36 inches): $250-400. Large stumps (36+ inches): $400-800+. Multiple stumps often get discounted rates.'
+      },
+      {
+        question: 'How deep do you grind stumps?',
+        answer: 'Standard grinding is 6-12 inches below grade - deep enough to plant grass or install sod over. If you plan to build or install hardscaping, we can grind deeper (12-18 inches) for additional fee.'
+      },
+      {
+        question: 'What do you do with the wood chips?',
+        answer: 'We remove them as part of standard service. However, if you have flower beds, we can spread the chips there as free mulch. They make excellent mulch after composting for a few months.'
+      },
+      {
+        question: 'Can you grind stumps near fences or buildings?',
+        answer: 'Yes! Our grinders can work within inches of fences, foundations, and other obstacles. We have different sized grinders to access tight spaces and challenging locations.'
+      },
+      {
+        question: 'Will grinding damage my lawn?',
+        answer: 'We minimize lawn damage by using proper access routes and protecting turf with plywood when needed. Small grinders cause minimal disruption. Any minor damage is easily repaired when we fill and grade the area.'
+      }
+    ],
+    relatedServices: ['tree-removal', 'sod-installation', 'landscape-design', 'lawn-renovation'],
+    pricingGuidance: 'Stump grinding: $3-8 per inch diameter. Typical range: $150-400 per stump. Volume discounts for multiple stumps. Deep grinding (12-18 inches): premium pricing.',
+    seasonality: 'Year-round service. Spring and fall most popular for combining with landscape projects. Frozen ground can complicate winter grinding.'
   }
 ];
 
+// Export all services and cities for dynamic routing
+export const ALL_SERVICES = PRIORITY_SERVICES;
+export const ALL_CITIES = CITIES;
+
+// Create lookup maps for O(1) access
+export const SERVICE_SLUG_MAP = new Map(
+  PRIORITY_SERVICES.map(service => [service.slug, service])
+);
+
+export const CITY_SLUG_MAP = new Map(
+  CITIES.map(city => [city.slug, city])
+);
+
 // Helper function to get service by slug
 export function getServiceBySlug(slug: string): ServiceData | undefined {
-  return PRIORITY_SERVICES.find(s => s.slug === slug);
+  return SERVICE_SLUG_MAP.get(slug);
 }
 
 // Helper function to get city by slug
 export function getCityBySlug(slug: string): CityData | undefined {
-  return CITIES.find(c => c.slug === slug);
+  return CITY_SLUG_MAP.get(slug);
+}
+
+// Helper to get primary city slug (for canonical URLs)
+export function getPrimaryCitySlug(): string {
+  return 'kuna';
+}
+
+// Helper to validate service/city combination
+export function getCityServiceCombo(serviceSlug: string, citySlug?: string): {
+  service?: ServiceData;
+  city?: CityData;
+  isValid: boolean;
+} {
+  const service = getServiceBySlug(serviceSlug);
+  const city = citySlug ? getCityBySlug(citySlug) : undefined;
+  
+  return {
+    service,
+    city,
+    isValid: !!service && (!citySlug || !!city)
+  };
 }
 
 // This will be expanded to include ALL 92+ services
