@@ -45,6 +45,13 @@ export function MapMeasureTool({ isOpen, onClose, onMeasurementComplete, initial
   const [measuredArea, setMeasuredArea] = useState<number | null>(null);
   const [error, setError] = useState<string | null>(null);
 
+  // Sync search address with initialAddress when dialog opens
+  useEffect(() => {
+    if (isOpen && initialAddress) {
+      setSearchAddress(initialAddress);
+    }
+  }, [isOpen, initialAddress]);
+
   useEffect(() => {
     if (!isOpen || !mapRef.current || mapInstanceRef.current) return;
 
@@ -158,29 +165,40 @@ export function MapMeasureTool({ isOpen, onClose, onMeasurementComplete, initial
       const provider = new OpenStreetMapProvider();
       const results = await provider.search({ query: address });
 
-      if (results.length > 0) {
-        const { y, x, bounds } = results[0];
+      if (results.length > 0 && mapInstanceRef.current) {
+        const result = results[0];
+        const { y: lat, x: lng, bounds } = result;
         
-        if (bounds && mapInstanceRef.current) {
-          // Fit to bounds if available
+        // Clear any existing markers
+        mapInstanceRef.current.eachLayer((layer: any) => {
+          if (layer instanceof L.Marker) {
+            mapInstanceRef.current?.removeLayer(layer);
+          }
+        });
+
+        if (bounds) {
+          // bounds is an object: { xmin, ymin, xmax, ymax }
+          const { xmin, ymin, xmax, ymax } = bounds;
           mapInstanceRef.current.fitBounds([
-            [bounds[0][0], bounds[0][1]],
-            [bounds[1][0], bounds[1][1]],
+            [ymin, xmin], // southwest corner
+            [ymax, xmax], // northeast corner
           ]);
-        } else if (mapInstanceRef.current) {
-          // Otherwise just center
-          mapInstanceRef.current.setView([y, x], 18);
+        } else {
+          // Otherwise just center on the point
+          mapInstanceRef.current.setView([lat, lng], 18);
         }
 
-        // Add marker
-        L.marker([y, x], {
+        // Add marker at location
+        L.marker([lat, lng], {
           icon: L.divIcon({
             className: 'custom-marker',
-            html: '<div style="background-color: #2D6B3F; width: 24px; height: 24px; border-radius: 50%; border: 3px solid white;"></div>',
+            html: '<div style="background-color: #2D6B3F; width: 24px; height: 24px; border-radius: 50%; border: 3px solid white; box-shadow: 0 2px 4px rgba(0,0,0,0.2);"></div>',
             iconSize: [24, 24],
             iconAnchor: [12, 12],
           })
         }).addTo(mapInstanceRef.current);
+        
+        setError(null);
       } else {
         setError("Address not found. Try adjusting the map manually.");
       }
