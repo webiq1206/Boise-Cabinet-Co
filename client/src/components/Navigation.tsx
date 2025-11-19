@@ -11,6 +11,7 @@ import {
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
 import { Menu, Phone } from "lucide-react";
+import logoUrl from "@assets/Lawn Care Kuna Logo_1763512021933.png";
 
 const lawnCareServices = [
   { name: "Lawn Mowing", href: "/services/lawn-mowing" },
@@ -49,9 +50,12 @@ export function Navigation() {
     <header className="sticky top-0 z-50 w-full border-b bg-background/98 backdrop-blur supports-[backdrop-filter]:bg-background/95">
       <nav className="container flex h-20 items-center justify-between px-8 md:px-12">
         <Link href="/" className="flex items-center">
-          <span className="text-2xl font-serif text-primary font-medium tracking-tight">
-            Lawn Care Kuna
-          </span>
+          <img 
+            src={logoUrl} 
+            alt="Lawn Care Kuna" 
+            className="h-10 w-auto"
+            data-testid="logo-image"
+          />
         </Link>
 
         {/* Desktop Navigation */}
