@@ -68,11 +68,10 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
                       <ArrowRight className="ml-2 h-5 w-5" />
                     </Link>
                   </Button>
-                  <Button size="lg" variant="outline" asChild data-testid="button-hero-call">
-                    <a href="tel:2083522011">
-                      <Phone className="mr-2 h-5 w-5" />
-                      (208) 352-2011
-                    </a>
+                  <Button size="lg" variant="outline" asChild data-testid="button-hero-pricing">
+                    <Link href="/pricing">
+                      View Pricing
+                    </Link>
                   </Button>
                 </div>
               </div>
@@ -466,17 +465,12 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
       {/* Mobile Sticky Bottom CTA */}
       <div className="fixed bottom-0 left-0 right-0 z-50 lg:hidden bg-white border-t shadow-lg">
         <div className="container px-4 py-3">
-          <div className="flex gap-2">
-            <Button size="lg" variant="outline" className="flex-1" asChild data-testid="button-mobile-sticky-call">
-              <a href="tel:2083522011">
-                <Phone className="h-5 w-5" />
-                <span className="ml-2">Call</span>
-              </a>
-            </Button>
-            <Button size="lg" className="flex-1" asChild data-testid="button-mobile-sticky-quote">
-              <Link href="/get-quote">Get Quote</Link>
-            </Button>
-          </div>
+          <Button size="lg" className="w-full" asChild data-testid="button-mobile-sticky-quote">
+            <Link href="/get-quote">
+              Get Free Quote
+              <ArrowRight className="ml-2 h-5 w-5" />
+            </Link>
+          </Button>
         </div>
       </div>
     </div>
