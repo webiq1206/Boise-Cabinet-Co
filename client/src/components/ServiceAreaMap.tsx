@@ -2,13 +2,30 @@ import { Link } from "wouter";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { MapPin } from "lucide-react";
 
+interface City {
+  name: string;
+  slug: string;
+  x: number;
+  y: number;
+  size: 'large' | 'medium' | 'small';
+}
+
+const cities: City[] = [
+  { name: 'Eagle', slug: 'eagle', x: 280, y: 110, size: 'medium' },
+  { name: 'Boise', slug: 'boise', x: 260, y: 145, size: 'large' },
+  { name: 'Meridian', slug: 'meridian', x: 310, y: 155, size: 'large' },
+  { name: 'Kuna', slug: 'kuna', x: 290, y: 195, size: 'medium' },
+  { name: 'Nampa', slug: 'nampa', x: 210, y: 180, size: 'medium' },
+  { name: 'Caldwell', slug: 'caldwell', x: 160, y: 165, size: 'small' },
+];
+
 const serviceAreas = [
-  { name: "Kuna", slug: "kuna", color: "fill-primary hover:fill-primary/80" },
-  { name: "Boise", slug: "boise", color: "fill-primary hover:fill-primary/80" },
-  { name: "Meridian", slug: "meridian", color: "fill-primary hover:fill-primary/80" },
-  { name: "Nampa", slug: "nampa", color: "fill-primary hover:fill-primary/80" },
-  { name: "Caldwell", slug: "caldwell", color: "fill-primary hover:fill-primary/80" },
-  { name: "Eagle", slug: "eagle", color: "fill-primary hover:fill-primary/80" },
+  { name: "Kuna", slug: "kuna" },
+  { name: "Boise", slug: "boise" },
+  { name: "Meridian", slug: "meridian" },
+  { name: "Nampa", slug: "nampa" },
+  { name: "Caldwell", slug: "caldwell" },
+  { name: "Eagle", slug: "eagle" },
 ];
 
 export function ServiceAreaMap() {
@@ -25,117 +42,60 @@ export function ServiceAreaMap() {
       </CardHeader>
       <CardContent>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {/* Visual Map Representation */}
-          <div className="relative bg-muted/30 rounded-md p-8" data-testid="map-visual">
+          {/* Interactive Idaho Map */}
+          <div className="relative bg-muted/30 rounded-md p-6" data-testid="map-visual">
             <svg viewBox="0 0 400 300" className="w-full h-auto">
-              {/* Simple grid layout representing the Treasure Valley */}
-              {/* Eagle (top right) */}
-              <Link href="/areas/eagle">
-                <g className="cursor-pointer">
-                  <rect
-                    x="250"
-                    y="20"
-                    width="120"
-                    height="80"
-                    className="fill-primary/20 hover:fill-primary/40 transition-colors"
-                    rx="4"
-                    data-testid="map-zone-eagle"
-                  />
-                  <text x="310" y="65" textAnchor="middle" className="fill-foreground text-sm font-medium pointer-events-none">
-                    Eagle
-                  </text>
-                </g>
-              </Link>
+              {/* Idaho outline (simplified, focused on Treasure Valley) */}
+              <path
+                d="M 80 80 Q 90 70 110 75 L 150 80 Q 180 78 210 85 L 260 90 Q 300 88 330 95 L 360 110 Q 375 130 370 155 L 360 190 Q 355 215 340 235 L 320 250 Q 290 265 260 270 L 210 275 Q 180 273 150 265 L 120 250 Q 95 235 90 210 L 80 175 Q 75 140 80 110 Z"
+                fill="hsl(var(--muted))"
+                stroke="hsl(var(--border))"
+                strokeWidth="2"
+                className="transition-colors"
+              />
 
-              {/* Boise (center-left) */}
-              <Link href="/areas/boise">
-                <g className="cursor-pointer">
-                  <rect
-                    x="100"
-                    y="80"
-                    width="140"
-                    height="100"
-                    className="fill-primary/30 hover:fill-primary/50 transition-colors"
-                    rx="4"
-                    data-testid="map-zone-boise"
-                  />
-                  <text x="170" y="135" textAnchor="middle" className="fill-foreground text-base font-bold pointer-events-none">
-                    Boise
-                  </text>
-                </g>
-              </Link>
-
-              {/* Meridian (center-right) */}
-              <Link href="/areas/meridian">
-                <g className="cursor-pointer">
-                  <rect
-                    x="250"
-                    y="110"
-                    width="120"
-                    height="90"
-                    className="fill-primary/20 hover:fill-primary/40 transition-colors"
-                    rx="4"
-                    data-testid="map-zone-meridian"
-                  />
-                  <text x="310" y="160" textAnchor="middle" className="fill-foreground text-sm font-medium pointer-events-none">
-                    Meridian
-                  </text>
-                </g>
-              </Link>
-
-              {/* Kuna (bottom center) */}
-              <Link href="/areas/kuna">
-                <g className="cursor-pointer">
-                  <rect
-                    x="180"
-                    y="190"
-                    width="140"
-                    height="80"
-                    className="fill-primary/40 hover:fill-primary/60 transition-colors"
-                    rx="4"
-                    data-testid="map-zone-kuna"
-                  />
-                  <text x="250" y="235" textAnchor="middle" className="fill-foreground text-base font-bold pointer-events-none">
-                    Kuna
-                  </text>
-                </g>
-              </Link>
-
-              {/* Nampa (bottom left) */}
-              <Link href="/areas/nampa">
-                <g className="cursor-pointer">
-                  <rect
-                    x="20"
-                    y="190"
-                    width="140"
-                    height="80"
-                    className="fill-primary/20 hover:fill-primary/40 transition-colors"
-                    rx="4"
-                    data-testid="map-zone-nampa"
-                  />
-                  <text x="90" y="235" textAnchor="middle" className="fill-foreground text-sm font-medium pointer-events-none">
-                    Nampa
-                  </text>
-                </g>
-              </Link>
-
-              {/* Caldwell (far left) */}
-              <Link href="/areas/caldwell">
-                <g className="cursor-pointer">
-                  <rect
-                    x="20"
-                    y="100"
-                    width="70"
-                    height="70"
-                    className="fill-primary/15 hover:fill-primary/35 transition-colors"
-                    rx="4"
-                    data-testid="map-zone-caldwell"
-                  />
-                  <text x="55" y="140" textAnchor="middle" className="fill-foreground text-xs font-medium pointer-events-none">
-                    Caldwell
-                  </text>
-                </g>
-              </Link>
+              {/* City markers */}
+              {cities.map((city) => {
+                const radius = city.size === 'large' ? 35 : city.size === 'medium' ? 28 : 22;
+                
+                return (
+                  <Link key={city.slug} href={`/areas/${city.slug}`}>
+                    <g className="cursor-pointer group" data-testid={`map-city-${city.slug}`}>
+                      {/* Glow effect on hover */}
+                      <circle
+                        cx={city.x}
+                        cy={city.y}
+                        r={radius + 5}
+                        fill="hsl(var(--primary) / 0)"
+                        className="transition-all duration-300 group-hover:fill-[hsl(var(--primary)/0.1)]"
+                      />
+                      
+                      {/* City region circle */}
+                      <circle
+                        cx={city.x}
+                        cy={city.y}
+                        r={radius}
+                        fill="hsl(var(--primary) / 0.15)"
+                        stroke="hsl(var(--primary))"
+                        strokeWidth="2"
+                        className="transition-all duration-300 group-hover:fill-[hsl(var(--primary)/0.25)] group-hover:stroke-[hsl(var(--primary)/0.8)] group-active:fill-[hsl(var(--primary)/0.35)]"
+                      />
+                      
+                      {/* City label */}
+                      <text
+                        x={city.x}
+                        y={city.y}
+                        textAnchor="middle"
+                        dominantBaseline="middle"
+                        className="fill-foreground font-medium pointer-events-none select-none transition-all duration-300 group-hover:fill-primary"
+                        style={{ fontSize: city.size === 'large' ? '13px' : city.size === 'medium' ? '11px' : '9px' }}
+                      >
+                        {city.name}
+                      </text>
+                    </g>
+                  </Link>
+                );
+              })}
             </svg>
             <p className="text-xs text-center text-muted-foreground mt-4" data-testid="text-map-hint">
               Click on any city to view services in that area
