@@ -27,12 +27,11 @@ export default function FenceInstallation() {
             alt="Professional fence installation services with beautiful lawn in Kuna and Boise Idaho"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/60"></div>
         </div>
         <div className="container px-4 relative z-10">
           <div className="max-w-3xl mx-auto text-center space-y-4">
-            <h1 className="text-4xl md:text-5xl font-bold text-white" data-testid="heading-main">Fence Installation in Kuna & Boise</h1>
-            <p className="text-lg text-white/90" data-testid="text-subtitle">
+            <h1 className="text-4xl md:text-5xl font-bold text-foreground" data-testid="heading-main">Fence Installation in Kuna & Boise</h1>
+            <p className="text-lg text-muted-foreground" data-testid="text-subtitle">
               Professional wood, vinyl, and chain link fence installation across the Treasure Valley
             </p>
           </div>

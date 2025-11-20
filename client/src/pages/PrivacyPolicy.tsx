@@ -26,15 +26,14 @@ export default function PrivacyPolicy() {
             alt="Privacy Policy for Lawn Care Kuna professional services"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/60"></div>
         </div>
         <div className="container px-4 relative z-10">
           <div className="max-w-3xl mx-auto text-center space-y-4">
-            <h1 className="text-4xl md:text-5xl font-bold text-white" data-testid="heading-privacy-policy">Privacy Policy</h1>
-            <p className="text-lg text-white/90">
+            <h1 className="text-4xl md:text-5xl font-bold text-foreground" data-testid="heading-privacy-policy">Privacy Policy</h1>
+            <p className="text-lg text-muted-foreground">
               Your privacy is important to us. Learn how we collect, use, and protect your information.
             </p>
-            <p className="text-sm text-white/80" data-testid="text-last-updated">
+            <p className="text-sm text-muted-foreground" data-testid="text-last-updated">
               Last Updated: {lastUpdated}
             </p>
           </div>

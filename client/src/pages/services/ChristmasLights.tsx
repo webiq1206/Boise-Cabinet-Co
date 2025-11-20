@@ -16,12 +16,11 @@ export default function ChristmasLights() {
             alt="Professional Christmas light installation services in Idaho with festive holiday decorations"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/60"></div>
         </div>
         <div className="container px-4 relative z-10">
           <div className="max-w-3xl mx-auto text-center space-y-4">
-            <h1 className="text-4xl md:text-5xl font-bold text-white">Christmas Light Installation</h1>
-            <p className="text-lg text-white/90">
+            <h1 className="text-4xl md:text-5xl font-bold text-foreground">Christmas Light Installation</h1>
+            <p className="text-lg text-muted-foreground">
               Professional holiday lighting design, installation, and maintenance for homes and businesses
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
@@ -29,7 +28,7 @@ export default function ChristmasLights() {
                 <Button size="lg" variant="secondary">Get Free Quote</Button>
               </a>
               <a href="tel:2083522011">
-                <Button size="lg" variant="outline" className="bg-white/10 backdrop-blur-sm border-white/20 text-white hover:bg-white/20">
+                <Button size="lg" variant="outline">
                   Call (208) 352-2011
                 </Button>
               </a>
