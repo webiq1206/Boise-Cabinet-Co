@@ -46,70 +46,77 @@ export function HeroQuoteSection({
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/60"></div>
         </div>
 
-        <div className="container mx-auto px-4 max-w-4xl relative z-10">
-          {/* Label */}
-          <p className="text-white text-sm sm:text-base font-medium text-center mb-4">
-            {label}
-          </p>
+        <div className="container mx-auto px-4 max-w-6xl relative z-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
+            {/* Left Column - Heading Content */}
+            <div className="text-center md:text-left space-y-4">
+              {/* Label */}
+              <p className="text-white text-sm sm:text-base font-medium">
+                {label}
+              </p>
 
-          {/* Main Heading */}
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-center text-white leading-tight mb-4">
-            {heading}
-          </h1>
+              {/* Main Heading */}
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight">
+                {heading}
+              </h1>
 
-          {/* Subheading */}
-          <p className="text-base sm:text-lg md:text-xl text-center text-white/90 mb-8 sm:mb-10 md:mb-12">
-            {subheading}
-          </p>
-
-          {/* Quote Card */}
-          <Card className="bg-white p-6 sm:p-8 shadow-lg max-w-md mx-auto">
-            {/* Schedule CTA Button */}
-            <Button
-              onClick={handleGetStarted}
-              className="w-full mb-6 text-base font-medium"
-              size="lg"
-              data-testid="button-schedule-now"
-            >
-              SCHEDULE NOW AND SAVE
-            </Button>
-
-            {/* Address Input */}
-            <div className="mb-6">
-              <Input
-                type="text"
-                placeholder="Start typing an address..."
-                value={address}
-                onChange={(e) => setAddress(e.target.value)}
-                onFocus={handleGetStarted}
-                className="w-full text-base"
-                data-testid="input-hero-address"
-              />
-            </div>
-
-            {/* Submit Button */}
-            <Button
-              onClick={handleGetStarted}
-              className="w-full mb-6 text-base font-medium"
-              size="lg"
-              data-testid="button-hero-submit"
-            >
-              Submit
-            </Button>
-
-            {/* Progress Indicator */}
-            <div className="space-y-2">
-              <div className="flex gap-2">
-                <div className="h-2 flex-1 bg-primary rounded-full"></div>
-                <div className="h-2 flex-1 bg-muted rounded-full"></div>
-                <div className="h-2 flex-1 bg-muted rounded-full"></div>
-                <div className="h-2 flex-1 bg-muted rounded-full"></div>
-              </div>
-              <p className="text-xs text-center text-muted-foreground">
-                Step 1 of 4
+              {/* Subheading */}
+              <p className="text-base sm:text-lg md:text-xl text-white/90">
+                {subheading}
               </p>
             </div>
-          </Card>
+
+            {/* Right Column - Quote Card */}
+            <div>
+              <Card className="bg-white p-6 sm:p-8 shadow-lg">
+                {/* Schedule CTA Button */}
+                <Button
+                  onClick={handleGetStarted}
+                  className="w-full mb-6 text-base font-medium"
+                  size="lg"
+                  data-testid="button-schedule-now"
+                >
+                  SCHEDULE NOW AND SAVE
+                </Button>
+
+                {/* Address Input */}
+                <div className="mb-6">
+                  <Input
+                    type="text"
+                    placeholder="Start typing an address..."
+                    value={address}
+                    onChange={(e) => setAddress(e.target.value)}
+                    onFocus={handleGetStarted}
+                    className="w-full text-base"
+                    data-testid="input-hero-address"
+                  />
+                </div>
+
+                {/* Submit Button */}
+                <Button
+                  onClick={handleGetStarted}
+                  className="w-full mb-6 text-base font-medium"
+                  size="lg"
+                  data-testid="button-hero-submit"
+                >
+                  Submit
+                </Button>
+
+                {/* Progress Indicator */}
+                <div className="space-y-2">
+                  <div className="flex gap-2">
+                    <div className="h-2 flex-1 bg-primary rounded-full"></div>
+                    <div className="h-2 flex-1 bg-muted rounded-full"></div>
+                    <div className="h-2 flex-1 bg-muted rounded-full"></div>
+                    <div className="h-2 flex-1 bg-muted rounded-full"></div>
+                  </div>
+                  <p className="text-xs text-center text-muted-foreground">
+                    Step 1 of 4
+                  </p>
+                </div>
+              </Card>
+            </div>
+          </div>
         </div>
       </section>
 
