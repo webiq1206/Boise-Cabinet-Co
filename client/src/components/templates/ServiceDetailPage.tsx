@@ -6,6 +6,8 @@ import { Check, Phone, MapPin, ArrowRight, Leaf, Sprout, Heart, Shield, Target, 
 import { HeroQuoteSection } from "@/components/HeroQuoteSection";
 import { FactsSection } from "@/components/FactsSection";
 import type { ServiceData } from "@shared/contentData";
+import { generateSEOMetadata } from "@/lib/seo";
+import { generateServiceSchema, generateBreadcrumbSchema, generateFAQSchema } from "@/lib/schema";
 
 interface ServiceDetailPageProps {
   service: ServiceData;
@@ -35,17 +37,59 @@ const coreValues = [
 ];
 
 export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
-  const metaTitle = `${service.name} in Idaho | Lawn Care Kuna`;
-  const metaDescription = `${service.shortDescription}. Professional ${service.name.toLowerCase()} services in Kuna, Boise, Meridian, Nampa, Caldwell, and Eagle. Get your free instant quote online.`;
+  // Generate comprehensive SEO metadata
+  const seoMetadata = generateSEOMetadata({
+    serviceName: service.name,
+    serviceSlug: service.slug,
+  });
+
+  // Generate JSON-LD schemas
+  const serviceSchema = generateServiceSchema(service.name, service.longDescription);
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: 'Home', url: '/' },
+    { name: 'Services', url: '/services/lawn-care' },
+    { name: service.name, url: `/services/${service.slug}` },
+  ]);
+  const faqSchema = service.faqs && service.faqs.length > 0 
+    ? generateFAQSchema(service.faqs) 
+    : null;
 
   return (
     <div className="pb-20">
       <Helmet>
-        <title>{metaTitle}</title>
-        <meta name="description" content={metaDescription} />
-        <meta property="og:title" content={metaTitle} />
-        <meta property="og:description" content={metaDescription} />
+        {/* Primary Meta Tags */}
+        <title>{seoMetadata.title}</title>
+        <meta name="description" content={seoMetadata.description} />
+        <meta name="keywords" content={seoMetadata.keywords.join(', ')} />
+        <link rel="canonical" href={seoMetadata.canonical} />
+
+        {/* Open Graph Tags */}
+        <meta property="og:title" content={seoMetadata.ogTitle} />
+        <meta property="og:description" content={seoMetadata.ogDescription} />
         <meta property="og:type" content="website" />
+        <meta property="og:url" content={seoMetadata.canonical} />
+        <meta property="og:image" content={seoMetadata.ogImage} />
+        <meta property="og:site_name" content="Lawn Care Kuna" />
+        <meta property="og:locale" content="en_US" />
+
+        {/* Twitter Card Tags */}
+        <meta name="twitter:card" content={seoMetadata.twitterCard} />
+        <meta name="twitter:title" content={seoMetadata.ogTitle} />
+        <meta name="twitter:description" content={seoMetadata.ogDescription} />
+        <meta name="twitter:image" content={seoMetadata.ogImage} />
+
+        {/* JSON-LD Structured Data */}
+        <script type="application/ld+json">
+          {JSON.stringify(serviceSchema)}
+        </script>
+        <script type="application/ld+json">
+          {JSON.stringify(breadcrumbSchema)}
+        </script>
+        {faqSchema && (
+          <script type="application/ld+json">
+            {JSON.stringify(faqSchema)}
+          </script>
+        )}
       </Helmet>
 
       {/* Hero Section with Integrated Quote Feature */}

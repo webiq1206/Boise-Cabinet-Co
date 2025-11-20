@@ -6,6 +6,13 @@ import { Check, Phone, MapPin, ArrowRight, Leaf, Sprout, Heart, Shield, Target, 
 import { HeroQuoteSection } from "@/components/HeroQuoteSection";
 import { FactsSection } from "@/components/FactsSection";
 import type { ServiceData, CityData } from "@shared/contentData";
+import { generateSEOMetadata, CITY_SEO_DATA } from "@/lib/seo";
+import { 
+  generateServiceSchema, 
+  generateLocalBusinessSchema, 
+  generateBreadcrumbSchema, 
+  generateFAQSchema 
+} from "@/lib/schema";
 
 interface GeoServicePageProps {
   service: ServiceData;
@@ -36,17 +43,73 @@ const coreValues = [
 ];
 
 export function GeoServicePage({ service, city }: GeoServicePageProps) {
-  const metaTitle = `${service.name} in ${city.name}, Idaho | Lawn Care Kuna`;
-  const metaDescription = `Professional ${service.name.toLowerCase()} in ${city.name}, ID. ${service.shortDescription}. Serving ${city.name} since 2017. Get your free instant quote online today!`;
+  // Generate comprehensive SEO metadata
+  const seoMetadata = generateSEOMetadata({
+    serviceName: service.name,
+    serviceSlug: service.slug,
+    city: city.name,
+  });
+
+  // Get city coordinates for geo tags
+  const cityData = CITY_SEO_DATA[city.name as keyof typeof CITY_SEO_DATA];
+  const coordinates = cityData?.coordinates;
+
+  // Generate JSON-LD schemas
+  const localBusinessSchema = generateLocalBusinessSchema(city.name);
+  const serviceSchema = generateServiceSchema(service.name, service.longDescription, city.name);
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: 'Home', url: '/' },
+    { name: 'Services', url: '/services/lawn-care' },
+    { name: service.name, url: `/services/${service.slug}` },
+    { name: city.name, url: `/services/${service.slug}/${city.slug}` },
+  ]);
+  const faqSchema = generateFAQSchema(service.faqs);
 
   return (
     <div className="pb-20">
       <Helmet>
-        <title>{metaTitle}</title>
-        <meta name="description" content={metaDescription} />
-        <meta property="og:title" content={metaTitle} />
-        <meta property="og:description" content={metaDescription} />
+        <title>{seoMetadata.title}</title>
+        <meta name="description" content={seoMetadata.description} />
+        <meta name="keywords" content={seoMetadata.keywords.join(', ')} />
+        <link rel="canonical" href={seoMetadata.canonical} />
+        
+        {/* Open Graph tags */}
+        <meta property="og:title" content={seoMetadata.ogTitle} />
+        <meta property="og:description" content={seoMetadata.ogDescription} />
         <meta property="og:type" content="website" />
+        <meta property="og:url" content={seoMetadata.canonical} />
+        <meta property="og:image" content={seoMetadata.ogImage} />
+        <meta property="og:site_name" content="Lawn Care Kuna" />
+        <meta property="og:locale" content="en_US" />
+        
+        {/* Twitter Card tags */}
+        <meta name="twitter:card" content={seoMetadata.twitterCard} />
+        <meta name="twitter:title" content={seoMetadata.ogTitle} />
+        <meta name="twitter:description" content={seoMetadata.ogDescription} />
+        <meta name="twitter:image" content={seoMetadata.ogImage} />
+        
+        {/* Geo tags if coordinates available */}
+        {coordinates && (
+          <>
+            <meta name="geo.position" content={`${coordinates.lat};${coordinates.lng}`} />
+            <meta name="geo.placename" content={`${city.name}, Idaho`} />
+            <meta name="geo.region" content="US-ID" />
+          </>
+        )}
+
+        {/* JSON-LD schemas */}
+        <script type="application/ld+json">
+          {JSON.stringify(localBusinessSchema)}
+        </script>
+        <script type="application/ld+json">
+          {JSON.stringify(serviceSchema)}
+        </script>
+        <script type="application/ld+json">
+          {JSON.stringify(breadcrumbSchema)}
+        </script>
+        <script type="application/ld+json">
+          {JSON.stringify(faqSchema)}
+        </script>
       </Helmet>
 
       {/* Hero Section with Integrated Quote Feature */}

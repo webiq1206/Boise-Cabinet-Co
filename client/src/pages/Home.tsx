@@ -1,4 +1,5 @@
 import { Link } from "wouter";
+import { Helmet } from "react-helmet-async";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import {
@@ -21,6 +22,8 @@ import { ServiceAreaMap } from "@/components/ServiceAreaMap";
 import { BeforeAfterGallery } from "@/components/BeforeAfterGallery";
 import { Testimonials } from "@/components/Testimonials";
 import { HeroQuoteSection } from "@/components/HeroQuoteSection";
+import { generateSEOMetadata, BUSINESS_INFO } from "@/lib/seo";
+import { generateLocalBusinessSchema, generateOrganizationSchema, generateBreadcrumbSchema } from "@/lib/schema";
 
 const services = [
   {
@@ -104,15 +107,65 @@ const popularServices = [
 ];
 
 export default function Home() {
+  const seoData = generateSEOMetadata({ 
+    serviceName: "Lawn Care", 
+    serviceSlug: "home", 
+    isHomePage: true 
+  });
+
+  const localBusinessSchema = generateLocalBusinessSchema();
+  const organizationSchema = generateOrganizationSchema();
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: "Home", url: "/" }
+  ]);
+
   return (
-    <div className="flex flex-col pb-20">
-      {/* Hero Section with Integrated Quote Feature */}
-      <HeroQuoteSection 
-        label="Lawn Care Kuna"
-        heading="Most trusted lawn care services in Kuna"
-        subheading="Professional Lawn Care Services in Kuna"
-        defaultCity="Kuna"
-      />
+    <>
+      <Helmet>
+        <title>{seoData.title}</title>
+        <meta name="description" content={seoData.description} />
+        <meta name="keywords" content={seoData.keywords.join(', ')} />
+        <link rel="canonical" href={seoData.canonical} />
+        
+        {/* Open Graph Tags */}
+        <meta property="og:title" content={seoData.ogTitle} />
+        <meta property="og:description" content={seoData.ogDescription} />
+        <meta property="og:image" content={seoData.ogImage} />
+        <meta property="og:url" content={seoData.canonical} />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content={BUSINESS_INFO.name} />
+        <meta property="og:locale" content="en_US" />
+        
+        {/* Twitter Card Tags */}
+        <meta name="twitter:card" content={seoData.twitterCard} />
+        <meta name="twitter:title" content={seoData.ogTitle} />
+        <meta name="twitter:description" content={seoData.ogDescription} />
+        <meta name="twitter:image" content={seoData.ogImage} />
+        
+        {/* JSON-LD Structured Data - LocalBusiness */}
+        <script type="application/ld+json">
+          {JSON.stringify(localBusinessSchema)}
+        </script>
+        
+        {/* JSON-LD Structured Data - Organization */}
+        <script type="application/ld+json">
+          {JSON.stringify(organizationSchema)}
+        </script>
+        
+        {/* JSON-LD Structured Data - BreadcrumbList */}
+        <script type="application/ld+json">
+          {JSON.stringify(breadcrumbSchema)}
+        </script>
+      </Helmet>
+
+      <div className="flex flex-col pb-20">
+        {/* Hero Section with Integrated Quote Feature */}
+        <HeroQuoteSection 
+          label="Lawn Care Kuna"
+          heading="Most trusted lawn care services in Kuna"
+          subheading="Professional Lawn Care Services in Kuna"
+          defaultCity="Kuna"
+        />
 
       {/* Trust Indicators */}
       <section className="py-12 md:py-16 lg:py-20 bg-muted">
@@ -592,5 +645,6 @@ export default function Home() {
         </div>
       </section>
     </div>
+    </>
   );
 }
