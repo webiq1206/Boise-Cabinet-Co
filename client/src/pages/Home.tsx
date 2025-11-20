@@ -23,6 +23,7 @@ import { Testimonials } from "@/components/Testimonials";
 import { HeroQuoteSection } from "@/components/HeroQuoteSection";
 import { generateSEOMetadata, BUSINESS_INFO } from "@/lib/seo";
 import { generateLocalBusinessSchema, generateOrganizationSchema, generateBreadcrumbSchema } from "@/lib/schema";
+import heroBackground from "@assets/Lawn Care Kuna Background Image_1763675543303.png";
 
 const services = [
   {
@@ -157,43 +158,58 @@ export default function Home() {
       </Helmet>
 
       <div className="flex flex-col pb-20">
-        {/* Hero Section with Integrated Quote Feature */}
-        <HeroQuoteSection 
-          label="Lawn Care Kuna"
-          heading="Most trusted lawn care services in Kuna"
-          subheading="Professional Lawn Care Services in Kuna"
-          defaultCity="Kuna"
-          backgroundAlt="Professional lawn care services with lush green lawn in Kuna Idaho"
-        />
+        {/* Combined Hero and Trust Section with Seamless Background */}
+        <div className="relative overflow-hidden">
+          {/* Shared Background Image */}
+          <div className="absolute inset-0 z-0">
+            <img 
+              src={heroBackground} 
+              alt="Professional lawn care background with decorative leaves"
+              className="w-full h-full object-cover"
+            />
+          </div>
 
-      {/* Trust Indicators */}
-      <section className="py-12 md:py-16 lg:py-20 bg-muted">
-        <div className="container px-4 md:px-8">
-          <div className="max-w-4xl mx-auto space-y-8 md:space-y-12">
-            <div className="text-center space-y-3 md:space-y-4">
-              <h2 className="text-2xl sm:text-2xl md:text-3xl font-bold tracking-tight">
-                Why Kuna trusts us with their lawns
-              </h2>
-              <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">
-                Professional lawn care backed by experience, licensing, and a commitment to your satisfaction
-              </p>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-              {trustIndicators.map((indicator, index) => (
-                <Card key={index} className="text-center" data-testid={`card-trust-${index}`}>
-                  <CardContent className="pt-5 pb-5 md:pt-6 md:pb-6 space-y-2 md:space-y-3 px-4 md:px-6">
-                    <div className="inline-flex items-center justify-center w-10 h-10 md:w-12 md:h-12 rounded-full bg-primary/10">
-                      <indicator.icon className="h-5 w-5 md:h-6 md:w-6 text-primary" />
-                    </div>
-                    <h3 className="font-semibold text-sm md:text-base">{indicator.title}</h3>
-                    <p className="text-xs md:text-sm text-muted-foreground leading-snug">{indicator.description}</p>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
+          {/* Content Container */}
+          <div className="relative z-10">
+            {/* Hero Section with Integrated Quote Feature */}
+            <HeroQuoteSection 
+              label="Lawn Care Kuna"
+              heading="Most trusted lawn care services in Kuna"
+              subheading="Professional Lawn Care Services in Kuna"
+              defaultCity="Kuna"
+              backgroundAlt="Professional lawn care services with lush green lawn in Kuna Idaho"
+            />
+
+            {/* Trust Indicators */}
+            <section className="py-12 md:py-16 lg:py-20">
+              <div className="container px-4 md:px-8">
+                <div className="max-w-4xl mx-auto space-y-8 md:space-y-12">
+                  <div className="text-center space-y-3 md:space-y-4">
+                    <h2 className="text-2xl sm:text-2xl md:text-3xl font-bold tracking-tight">
+                      Why Kuna trusts us with their lawns
+                    </h2>
+                    <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">
+                      Professional lawn care backed by experience, licensing, and a commitment to your satisfaction
+                    </p>
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+                    {trustIndicators.map((indicator, index) => (
+                      <Card key={index} className="text-center bg-white/95 backdrop-blur-sm" data-testid={`card-trust-${index}`}>
+                        <CardContent className="pt-5 pb-5 md:pt-6 md:pb-6 space-y-2 md:space-y-3 px-4 md:px-6">
+                          <div className="inline-flex items-center justify-center w-10 h-10 md:w-12 md:h-12 rounded-full bg-primary/10">
+                            <indicator.icon className="h-5 w-5 md:h-6 md:w-6 text-primary" />
+                          </div>
+                          <h3 className="font-semibold text-sm md:text-base">{indicator.title}</h3>
+                          <p className="text-xs md:text-sm text-muted-foreground leading-snug">{indicator.description}</p>
+                        </CardContent>
+                      </Card>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </section>
           </div>
         </div>
-      </section>
 
       {/* The Best Local Lawn Care Section */}
       <section className="py-12 md:py-16 lg:py-24">

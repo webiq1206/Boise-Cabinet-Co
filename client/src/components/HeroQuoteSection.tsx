@@ -5,7 +5,6 @@ import { ArrowRight } from "lucide-react";
 import { useState } from "react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { QuoteWizard } from "./QuoteWizard";
-import heroBackground from "@assets/Untitled design_1763639882299.png";
 
 interface HeroQuoteSectionProps {
   label: string;
@@ -34,17 +33,8 @@ export function HeroQuoteSection({
 
   return (
     <>
-      <section className="relative py-12 sm:py-16 md:py-20 lg:py-24 overflow-hidden">
-        {/* Background Image - Light Mint with Decorative Elements */}
-        <div className="absolute inset-0 z-0">
-          <img 
-            src={heroBackground} 
-            alt={backgroundAlt}
-            className="w-full h-full object-cover"
-          />
-        </div>
-
-        <div className="container mx-auto px-4 max-w-6xl relative z-10">
+      <section className="py-12 sm:py-16 md:py-20 lg:py-24">
+        <div className="container mx-auto px-4 max-w-6xl">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
             {/* Left Column - Heading Content */}
             <div className="text-center md:text-left space-y-4">
