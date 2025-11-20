@@ -110,6 +110,7 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
         heading={`${service.name} services`}
         subheading={service.shortDescription}
         defaultService={service.slug}
+        backgroundAlt={`Professional ${service.name.toLowerCase()} services with healthy green lawn in Idaho`}
       />
 
       {/* Dark Green Service Description Card */}

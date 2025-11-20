@@ -5,6 +5,7 @@ import { ArrowRight } from "lucide-react";
 import { useState } from "react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { QuoteWizard } from "./QuoteWizard";
+import heroBackground from "@assets/Untitled design_1763639882299.png";
 
 interface HeroQuoteSectionProps {
   label: string;
@@ -12,6 +13,7 @@ interface HeroQuoteSectionProps {
   subheading: string;
   defaultService?: string;
   defaultCity?: string;
+  backgroundAlt?: string;
 }
 
 export function HeroQuoteSection({
@@ -20,6 +22,7 @@ export function HeroQuoteSection({
   subheading,
   defaultService,
   defaultCity,
+  backgroundAlt = "Professional lawn care services in Kuna Idaho",
 }: HeroQuoteSectionProps) {
   const [address, setAddress] = useState("");
   const [showFullWizard, setShowFullWizard] = useState(false);
@@ -31,20 +34,31 @@ export function HeroQuoteSection({
 
   return (
     <>
-      <section className="bg-muted py-12 sm:py-16 md:py-20 lg:py-24">
-        <div className="container mx-auto px-4 max-w-4xl">
+      <section className="relative py-12 sm:py-16 md:py-20 lg:py-24 overflow-hidden">
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0">
+          <img 
+            src={heroBackground} 
+            alt={backgroundAlt}
+            className="w-full h-full object-cover"
+          />
+          {/* Dark overlay for text readability */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/60"></div>
+        </div>
+
+        <div className="container mx-auto px-4 max-w-4xl relative z-10">
           {/* Label */}
-          <p className="text-primary text-sm sm:text-base font-medium text-center mb-4">
+          <p className="text-white text-sm sm:text-base font-medium text-center mb-4">
             {label}
           </p>
 
           {/* Main Heading */}
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-center text-foreground leading-tight mb-4">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-center text-white leading-tight mb-4">
             {heading}
           </h1>
 
           {/* Subheading */}
-          <p className="text-base sm:text-lg md:text-xl text-center text-muted-foreground mb-8 sm:mb-10 md:mb-12">
+          <p className="text-base sm:text-lg md:text-xl text-center text-white/90 mb-8 sm:mb-10 md:mb-12">
             {subheading}
           </p>
 

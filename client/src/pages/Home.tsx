@@ -163,6 +163,7 @@ export default function Home() {
           heading="Most trusted lawn care services in Kuna"
           subheading="Professional Lawn Care Services in Kuna"
           defaultCity="Kuna"
+          backgroundAlt="Professional lawn care services with lush green lawn in Kuna Idaho"
         />
 
       {/* Trust Indicators */}
