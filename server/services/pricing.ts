@@ -341,53 +341,68 @@ export async function calculateMultiServiceQuote(
   // Calculate price for each service based on its specific measurements
   for (const serviceId of selectedServices) {
     const config = SERVICE_PRICING_CONFIG[serviceId as keyof typeof SERVICE_PRICING_CONFIG];
-    if (!config) continue;
+    if (!config) {
+      console.warn(`No pricing config found for service: ${serviceId}`);
+      continue;
+    }
 
+    // Get service-specific measurements from serviceData
     const measurements = serviceData[serviceId] || {};
     let basePrice = 0;
     let description = config.name;
 
+    // Helper to get valid number or default
+    const getNumber = (value: any, defaultVal: number): number => {
+      if (typeof value === 'number' && Number.isFinite(value) && value > 0) {
+        return value;
+      }
+      return defaultVal;
+    };
+
     // Calculate base price based on measurement unit
     switch (config.unit) {
       case "sqft":
-        const sqft = measurements.propertySize || 5000; // Default
+        // Property size from this service's measurements
+        const sqft = getNumber(measurements.propertySize, 5000);
         basePrice = sqft * config.rate;
         description += ` (${sqft.toLocaleString()} sq ft)`;
         break;
 
       case "linear_ft":
-        const linearFt = measurements.linearFeet || 100; // Default
+        // Linear feet from this service's measurements
+        const linearFt = getNumber(measurements.linearFeet, 100);
         basePrice = linearFt * config.rate;
         description += ` (${linearFt} linear feet)`;
         break;
 
       case "per_zone":
-        const zones = measurements.zones || 6; // Default
+        // Number of zones from this service's measurements
+        const zones = getNumber(measurements.zones, 6);
         basePrice = zones * config.rate;
         description += ` (${zones} zones)`;
         break;
 
       case "per_tree":
-        const trees = measurements.treeCount || 1;
+        const trees = getNumber(measurements.treeCount, 1);
         const sizeMultiplier = getSizeMultiplier(measurements.treeSize);
         basePrice = trees * config.rate * sizeMultiplier;
         description += ` (${trees} tree${trees > 1 ? 's' : ''})`;
         break;
 
       case "per_fixture":
-        const fixtures = measurements.quantity || 10;
+        const fixtures = getNumber(measurements.quantity, 10);
         basePrice = fixtures * config.rate;
         description += ` (${fixtures} fixtures)`;
         break;
 
       case "per_stump":
-        const stumps = measurements.quantity || 1;
+        const stumps = getNumber(measurements.quantity, 1);
         basePrice = stumps * config.rate;
         description += ` (${stumps} stump${stumps > 1 ? 's' : ''})`;
         break;
 
       case "per_sqft":
-        // For patio/hardscape - parse dimensions
+        // For patio/hardscape - parse dimensions from this service's measurements
         const dims = parseDimensions(measurements.dimensions);
         basePrice = dims * config.rate;
         description += ` (${dims} sq ft)`;
@@ -402,6 +417,7 @@ export async function calculateMultiServiceQuote(
         break;
 
       default:
+        console.warn(`Unknown unit type for service ${serviceId}: ${config.unit}`);
         basePrice = config.rate;
     }
 

@@ -94,10 +94,14 @@ export function ServiceFieldsRenderer({
                         placeholder={field.placeholder}
                         value={fieldValue}
                         onChange={(e) => {
-                          const value = field.type === "number" 
-                            ? e.target.value === "" ? "" : parseFloat(e.target.value) || ""
-                            : e.target.value;
-                          onChange(config.serviceId, field.name, value);
+                          if (field.type === "number") {
+                            // For number fields, parse to actual number (not string)
+                            const parsed = parseFloat(e.target.value);
+                            const value = Number.isFinite(parsed) ? parsed : undefined;
+                            onChange(config.serviceId, field.name, value);
+                          } else {
+                            onChange(config.serviceId, field.name, e.target.value);
+                          }
                         }}
                       />
                     )}

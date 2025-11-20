@@ -195,17 +195,21 @@ export function QuoteWizard({
     const step1Data = form1.getValues();
     const step2Data = form2.getValues();
 
-    // Extract property size from serviceData if available
-    let extractedPropertySize = 5000; // Default
+    // Extract property size from serviceData if available (using Number.isFinite guard)
+    let extractedPropertySize: number | undefined = undefined;
     for (const serviceId of step2Data.selectedServices) {
       const serviceInfo = serviceData[serviceId];
-      if (serviceInfo?.propertySize) {
-        extractedPropertySize = serviceInfo.propertySize;
+      const size = serviceInfo?.propertySize;
+      
+      // Only use if it's a valid finite number
+      if (typeof size === 'number' && Number.isFinite(size) && size > 0) {
+        extractedPropertySize = size;
         break;
       }
     }
 
-    const fullData = {
+    // Build payload - only include propertySize if we have a valid number
+    const fullData: any = {
       // Customer info
       name: data.name,
       email: data.email,
@@ -215,7 +219,6 @@ export function QuoteWizard({
       address: step1Data.address || "",
       city: step1Data.city,
       propertyType: step1Data.propertyType || "residential",
-      propertySize: extractedPropertySize, // Extract from serviceData
       
       // Service details
       serviceType: step2Data.selectedServices[0], // Primary service
@@ -228,6 +231,11 @@ export function QuoteWizard({
       message: data.message || `Multi-service quote request for: ${step2Data.selectedServices.join(", ")}`,
       status: "pending",
     };
+
+    // Only add propertySize if we extracted a valid number
+    if (extractedPropertySize !== undefined) {
+      fullData.propertySize = extractedPropertySize;
+    }
 
     // Generate quote first
     await getQuoteMutation.mutateAsync(fullData);
