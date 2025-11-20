@@ -68,13 +68,30 @@ export function AddressAutocomplete({
       const searchQuery = city ? `${trimmedQuery}, ${city}, Idaho` : trimmedQuery;
       const results = await provider.current.search({ query: searchQuery });
       
-      const formattedResults = results.slice(0, 5).map((result: any) => ({
-        label: result.label,
-        raw: result.raw,
-        x: result.x,
-        y: result.y,
-        bounds: result.bounds,
-      }));
+      const formattedResults = results.slice(0, 5).map((result: any) => {
+        // Extract bounds from raw.boundingbox if available
+        // Nominatim returns boundingbox as [south, north, west, east] (strings)
+        let bounds = result.bounds;
+        if (!bounds && result.raw?.boundingbox) {
+          const bbox = result.raw.boundingbox;
+          if (Array.isArray(bbox) && bbox.length === 4) {
+            bounds = {
+              south: parseFloat(bbox[0]),
+              north: parseFloat(bbox[1]),
+              west: parseFloat(bbox[2]),
+              east: parseFloat(bbox[3]),
+            };
+          }
+        }
+        
+        return {
+          label: result.label,
+          raw: result.raw,
+          x: result.x,
+          y: result.y,
+          bounds: bounds,
+        };
+      });
       
       setSuggestions(formattedResults);
       setOpen(formattedResults.length > 0);
@@ -110,17 +127,31 @@ export function AddressAutocomplete({
     
     try {
       if (!result.bounds) {
-        console.log("No bounds available for property size calculation");
+        console.log("No bounds available for property size calculation", result);
         return null;
       }
 
       const bounds = result.bounds;
       
-      // OpenStreetMap bounds can have different formats, check for valid numbers
-      const south = typeof bounds[0] === 'number' ? bounds[0] : bounds.south;
-      const west = typeof bounds[1] === 'number' ? bounds[1] : bounds.west;
-      const north = typeof bounds[2] === 'number' ? bounds[2] : bounds.north;
-      const east = typeof bounds[3] === 'number' ? bounds[3] : bounds.east;
+      // Extract bounds coordinates - handle both object and array formats
+      let south: number, north: number, west: number, east: number;
+      
+      if (typeof bounds === 'object' && !Array.isArray(bounds)) {
+        // Object format: { south, north, west, east }
+        south = bounds.south;
+        north = bounds.north;
+        west = bounds.west;
+        east = bounds.east;
+      } else if (Array.isArray(bounds) && bounds.length === 4) {
+        // Array format: [south, west, north, east]
+        south = typeof bounds[0] === 'number' ? bounds[0] : parseFloat(bounds[0]);
+        west = typeof bounds[1] === 'number' ? bounds[1] : parseFloat(bounds[1]);
+        north = typeof bounds[2] === 'number' ? bounds[2] : parseFloat(bounds[2]);
+        east = typeof bounds[3] === 'number' ? bounds[3] : parseFloat(bounds[3]);
+      } else {
+        console.log("Unrecognized bounds format:", bounds);
+        return null;
+      }
       
       // Validate bounds data
       if (!isValidNumber(south) || !isValidNumber(west) || !isValidNumber(north) || !isValidNumber(east)) {
@@ -220,10 +251,10 @@ export function AddressAutocomplete({
           description: `Estimated property size: ${size.toLocaleString()} sq ft`,
         });
       } else {
-        // Show helpful message when auto-calculation fails
+        // Always show toast when property size cannot be calculated
         toast({
           title: "Manual Entry Required",
-          description: "Unable to auto-calculate property size. Please enter manually or use the Adjust button to measure.",
+          description: "Unable to auto-calculate property size. Please enter manually or use the Measure button to draw your property.",
           variant: "default",
         });
       }
