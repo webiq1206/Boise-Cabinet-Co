@@ -21,6 +21,7 @@ export const quotes = pgTable("quotes", {
   serviceType: text("service_type").notNull(),
   frequency: text("frequency"), // one-time, weekly, bi-weekly, monthly
   selectedServices: text("selected_services").array(), // array of service IDs
+  serviceData: jsonb("service_data"), // service-specific measurements {serviceId: {linearFeet: 200, zones: 6, etc.}}
   
   // AI Analysis
   aiAnalysis: jsonb("ai_analysis"), // terrain, obstacles, complexity assessment
@@ -64,6 +65,7 @@ export const quoteSubmissionSchema = insertQuoteSchema.extend({
   adjustedCost: z.union([z.string(), z.number()]).optional(),
   finalQuote: z.union([z.string(), z.number()]).optional(),
   lineItems: z.any().optional(),
+  serviceData: z.any().optional(), // service-specific measurements
   status: z.string().optional(),
   scheduledDate: z.union([z.string(), z.date()]).optional(),
   frequency: z.string().optional(),
