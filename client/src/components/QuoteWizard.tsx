@@ -83,6 +83,7 @@ export function QuoteWizard({
   const [mapOpen, setMapOpen] = useState(false);
   const [quoteData, setQuoteData] = useState<QuoteData | null>(null);
   const [serviceData, setServiceData] = useState<Record<string, Record<string, any>>>({});
+  const [calculatedPropertySize, setCalculatedPropertySize] = useState<number | null>(null);
   const { toast } = useToast();
 
   // Step forms
@@ -173,6 +174,27 @@ export function QuoteWizard({
 
   // Step handlers
   const handleStep1Submit = (data: Step1Data) => {
+    // Auto-populate property size for all services if calculated from address
+    if (calculatedPropertySize) {
+      const updatedServiceData: Record<string, Record<string, any>> = { ...serviceData };
+      
+      // Find services that need property size and auto-populate
+      selectedServices.forEach(serviceId => {
+        const config = SERVICE_FIELD_CONFIGS[serviceId];
+        if (config?.fields?.some(f => f.name === 'propertySize')) {
+          if (!updatedServiceData[serviceId]) {
+            updatedServiceData[serviceId] = {};
+          }
+          // Only set if not already manually set
+          if (!updatedServiceData[serviceId].propertySize) {
+            updatedServiceData[serviceId].propertySize = calculatedPropertySize;
+          }
+        }
+      });
+      
+      setServiceData(updatedServiceData);
+    }
+    
     setStep(2);
   };
 
@@ -338,6 +360,9 @@ export function QuoteWizard({
                   city={form1.watch("city")}
                   placeholder="123 Main St"
                   data-testid="input-address"
+                  onPropertySizeCalculated={(sqft) => {
+                    setCalculatedPropertySize(sqft);
+                  }}
                 />
               </div>
 
