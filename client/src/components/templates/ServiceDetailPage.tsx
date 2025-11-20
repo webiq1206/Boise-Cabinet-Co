@@ -115,31 +115,59 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
         backgroundImage={getServiceBackground(service.slug)}
       />
 
-      {/* Dark Green Service Description Card */}
+      {/* Service Introduction - Dark Green Header */}
+      <section className="py-12 md:py-16 lg:py-24 bg-primary">
+        <div className="container px-4 md:px-8">
+          <div className="max-w-4xl mx-auto text-center space-y-4 md:space-y-6">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl text-primary-foreground tracking-tight">
+              Professional {service.name} in Idaho's Treasure Valley
+            </h2>
+            <p className="text-primary-foreground/90 text-base md:text-lg leading-relaxed max-w-3xl mx-auto">
+              {service.shortDescription}
+            </p>
+            <Button size="lg" variant="secondary" asChild data-testid="button-service-cta" className="mt-4">
+              <Link href="/get-quote">
+                Get Free Quote
+                <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
+              </Link>
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* Detailed Service Description - Light Background */}
       <section className="py-12 md:py-16 lg:py-24">
         <div className="container px-4 md:px-8">
           <div className="max-w-6xl mx-auto">
-            <Card className="bg-primary text-primary-foreground border-primary">
-              <CardContent className="p-6 md:p-8 lg:p-12 space-y-4 md:space-y-6">
-                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">
-                  {service.name} services
-                </h2>
-                <p className="text-primary-foreground/90 text-base md:text-lg leading-relaxed">
-                  {service.longDescription}
-                </p>
-                <p className="text-primary-foreground/90 text-base md:text-lg leading-relaxed">
+            <div className="prose prose-lg max-w-none text-muted-foreground">
+              <h3 className="text-xl md:text-2xl font-semibold text-foreground mb-4">
+                Why Choose Our {service.name} Services?
+              </h3>
+              <div className="space-y-4 text-base md:text-lg leading-relaxed">
+                {service.longDescription.split('. ').reduce((acc: string[][], sentence: string, idx: number, arr: string[]) => {
+                  const chunkSize = Math.ceil(arr.length / 3);
+                  const chunkIndex = Math.floor(idx / chunkSize);
+                  if (!acc[chunkIndex]) acc[chunkIndex] = [];
+                  acc[chunkIndex].push(sentence);
+                  return acc;
+                }, []).map((chunk: string[], idx: number) => (
+                  <p key={idx}>
+                    {chunk.join('. ')}{chunk[chunk.length - 1].endsWith('.') ? '' : '.'}
+                  </p>
+                ))}
+              </div>
+              
+              <div className="mt-8 p-6 bg-muted rounded-lg border">
+                <h4 className="text-lg md:text-xl font-semibold text-foreground mb-3">
+                  Service Coverage Area
+                </h4>
+                <p className="text-base md:text-lg">
                   We provide professional {service.name.toLowerCase()} services throughout Idaho's Treasure Valley, 
                   including Kuna, Boise, Meridian, Nampa, Caldwell, and Eagle. Our experienced team delivers 
                   exceptional results tailored to Idaho's unique climate and soil conditions.
                 </p>
-                <Button size="lg" variant="secondary" asChild data-testid="button-service-cta" className="w-full sm:w-auto">
-                  <Link href="/get-quote">
-                    Request Service
-                    <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
-                  </Link>
-                </Button>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
           </div>
         </div>
       </section>
