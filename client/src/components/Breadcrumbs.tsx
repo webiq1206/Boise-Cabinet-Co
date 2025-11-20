@@ -1,0 +1,48 @@
+import { Link } from "wouter";
+import { ChevronRight } from "lucide-react";
+
+interface BreadcrumbItem {
+  name: string;
+  href?: string;
+}
+
+interface BreadcrumbsProps {
+  items: BreadcrumbItem[];
+}
+
+export function Breadcrumbs({ items }: BreadcrumbsProps) {
+  return (
+    <nav aria-label="Breadcrumb" className="py-3 md:py-4" data-testid="nav-breadcrumbs">
+      <ol className="flex flex-wrap items-center gap-1.5 md:gap-2 text-sm text-muted-foreground">
+        {items.map((item, index) => {
+          const isLast = index === items.length - 1;
+          
+          return (
+            <li key={index} className="flex items-center gap-1.5 md:gap-2">
+              {item.href && !isLast ? (
+                <Link 
+                  href={item.href}
+                  className="hover:text-foreground transition-colors hover:underline"
+                  data-testid={`breadcrumb-link-${index}`}
+                >
+                  {item.name}
+                </Link>
+              ) : (
+                <span 
+                  className={isLast ? "text-foreground font-medium" : ""}
+                  data-testid={`breadcrumb-text-${index}`}
+                >
+                  {item.name}
+                </span>
+              )}
+              
+              {!isLast && (
+                <ChevronRight className="h-3.5 w-3.5 flex-shrink-0" />
+              )}
+            </li>
+          );
+        })}
+      </ol>
+    </nav>
+  );
+}
