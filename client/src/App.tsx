@@ -41,6 +41,8 @@ import Pricing from "@/pages/Pricing";
 import Blog from "@/pages/Blog";
 import BlogPost from "@/pages/BlogPost";
 import GetQuote from "@/pages/GetQuote";
+import PrivacyPolicy from "@/pages/PrivacyPolicy";
+import TermsOfService from "@/pages/TermsOfService";
 
 function Router() {
   return (
@@ -85,6 +87,8 @@ function Router() {
           <Route path="/get-quote" component={GetQuote} />
           <Route path="/blog" component={Blog} />
           <Route path="/blog/:slug" component={BlogPost} />
+          <Route path="/privacy-policy" component={PrivacyPolicy} />
+          <Route path="/terms-of-service" component={TermsOfService} />
 
           {/* 404 */}
           <Route component={NotFound} />

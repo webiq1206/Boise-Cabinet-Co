@@ -60,7 +60,6 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
         {/* Primary Meta Tags */}
         <title>{seoMetadata.title}</title>
         <meta name="description" content={seoMetadata.description} />
-        <meta name="keywords" content={seoMetadata.keywords.join(', ')} />
         <link rel="canonical" href={seoMetadata.canonical} />
 
         {/* Open Graph Tags */}

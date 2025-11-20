@@ -1,22 +1,11 @@
 import { Link } from "wouter";
 import { Phone, Mail, MapPin } from "lucide-react";
-import { Helmet } from "react-helmet-async";
-import { generateLocalBusinessSchema } from "@/lib/schema";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
-  
-  // Generate LocalBusiness schema for NAP (Name, Address, Phone) markup
-  const localBusinessSchema = generateLocalBusinessSchema();
 
   return (
-    <>
-      <Helmet>
-        <script type="application/ld+json">
-          {JSON.stringify(localBusinessSchema)}
-        </script>
-      </Helmet>
-      <footer className="bg-muted border-t">
+    <footer className="bg-muted border-t">
       <div className="container px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Company Info */}
@@ -68,6 +57,16 @@ export function Footer() {
               <li>
                 <Link href="/services/landscaping" className="text-muted-foreground hover:text-primary transition-colors">
                   Landscaping Services
+                </Link>
+              </li>
+              <li>
+                <Link href="/privacy-policy" className="text-muted-foreground hover:text-primary transition-colors" data-testid="link-privacy-policy-footer">
+                  Privacy Policy
+                </Link>
+              </li>
+              <li>
+                <Link href="/terms-of-service" className="text-muted-foreground hover:text-primary transition-colors" data-testid="link-terms-of-service-footer">
+                  Terms of Service
                 </Link>
               </li>
             </ul>
@@ -165,6 +164,5 @@ export function Footer() {
         </div>
       </div>
     </footer>
-    </>
   );
 }

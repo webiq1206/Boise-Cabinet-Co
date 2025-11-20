@@ -106,6 +106,23 @@ export function generateKeywords(params: ServiceSEOParams): string[] {
 }
 
 /**
+ * Get base URL based on environment
+ * Production: https://lawncarekuna.com
+ * Development: http://localhost:5000
+ */
+function getBaseUrl(): string {
+  // Check if we're in browser environment
+  if (typeof window !== 'undefined') {
+    // Use current origin in development, production domain in production
+    if (window.location.hostname === 'localhost' || window.location.hostname.includes('replit')) {
+      return window.location.origin;
+    }
+  }
+  // Default to production URL for SSR/build time
+  return 'https://lawncarekuna.com';
+}
+
+/**
  * Generate complete SEO metadata object for a page
  */
 export function generateSEOMetadata(params: ServiceSEOParams): SEOMetaData {
@@ -113,8 +130,8 @@ export function generateSEOMetadata(params: ServiceSEOParams): SEOMetaData {
   const description = generateMetaDescription(params);
   const keywords = generateKeywords(params);
   
-  // Canonical URL
-  const baseUrl = 'https://lawncarekuna.com';
+  // Environment-aware canonical URL
+  const baseUrl = getBaseUrl();
   let canonical = baseUrl;
   
   if (!params.isHomePage) {

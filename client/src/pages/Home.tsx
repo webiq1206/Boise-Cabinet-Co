@@ -124,7 +124,6 @@ export default function Home() {
       <Helmet>
         <title>{seoData.title}</title>
         <meta name="description" content={seoData.description} />
-        <meta name="keywords" content={seoData.keywords.join(', ')} />
         <link rel="canonical" href={seoData.canonical} />
         
         {/* Open Graph Tags */}
