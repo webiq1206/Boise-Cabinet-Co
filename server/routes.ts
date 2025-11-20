@@ -3,6 +3,7 @@ import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { quoteSubmissionSchema, type InsertQuote } from "@shared/schema";
 import { calculateIntelligentQuote } from "./services/pricing";
+import { sendQuoteNotification } from "./email";
 import { z } from "zod";
 import { quoteCacheMiddleware } from "./middleware/quoteCache";
 import { quoteCalculationRateLimit } from "./middleware/rateLimit";
@@ -255,7 +256,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Store quote
       const quote = await storage.createQuote(quoteData);
       
-      // Log quote submission (in production, this would send email)
+      // Log quote submission
       console.log("New AI-generated quote submission:", {
         id: quote.id,
         name: quote.name,
@@ -265,6 +266,25 @@ export async function registerRoutes(app: Express): Promise<Server> {
         city: quote.city,
         finalQuote: quote.finalQuote,
         createdAt: quote.createdAt,
+      });
+      
+      // Send email notification (async - don't block response)
+      sendQuoteNotification({
+        customerName: quote.name,
+        customerEmail: quote.email,
+        customerPhone: quote.phone || undefined,
+        address: quote.address || '',
+        city: quote.city,
+        propertySize: quote.propertySize ? parseFloat(quote.propertySize) : undefined,
+        propertyType: quote.propertyType,
+        serviceType: quote.serviceType,
+        frequency: quote.frequency || undefined,
+        selectedServices: quote.selectedServices || undefined,
+        finalQuote: quote.finalQuote ? parseFloat(quote.finalQuote) : undefined,
+        preferredDate: quote.scheduledDate ? quote.scheduledDate.toISOString().split('T')[0] : undefined,
+      }).catch(err => {
+        console.error('Failed to send quote notification email:', err);
+        // Don't fail the request if email fails
       });
       
       res.json({
