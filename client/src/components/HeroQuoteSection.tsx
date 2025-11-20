@@ -19,6 +19,9 @@ export function HeroQuoteSection({
   backgroundAlt = "Professional lawn care services in Kuna Idaho",
   backgroundImage,
 }: HeroQuoteSectionProps) {
+  // Normalize city to lowercase for QuoteForm compatibility
+  const normalizedCity = defaultCity?.toLowerCase();
+
   const heroContent = (
     <section className="py-12 sm:py-16 md:py-20 lg:py-24">
       <div className="container mx-auto px-4 max-w-6xl">
@@ -30,8 +33,8 @@ export function HeroQuoteSection({
               {label}
             </p>
 
-            {/* Main Heading - Dark Text with Montserrat */}
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif font-bold text-foreground leading-tight tracking-tight">
+            {/* Main Heading - Dark Text with Montserrat weight 400 */}
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-foreground leading-tight tracking-tight">
               {heading}
             </h1>
 
@@ -45,7 +48,7 @@ export function HeroQuoteSection({
           <div>
             <QuoteForm 
               preselectedService={defaultService}
-              preselectedCity={defaultCity}
+              preselectedCity={normalizedCity}
               enableAi={true}
             />
           </div>
