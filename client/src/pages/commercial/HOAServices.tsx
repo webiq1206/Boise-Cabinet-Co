@@ -3,17 +3,26 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { QuoteWizard } from "@/components/QuoteWizard";
 import { Building2, CheckCircle2, FileCheck, Users, Calendar, Shield } from "lucide-react";
+import heroBackground from "@assets/Untitled design_1763639882299.png";
 
 export default function HOAServices() {
   return (
     <div className="flex flex-col">
       {/* Hero */}
-      <section className="bg-primary text-primary-foreground py-16 md:py-24">
-        <div className="container px-4">
+      <section className="relative py-16 md:py-24 overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          <img 
+            src={heroBackground} 
+            alt="Professional HOA landscaping and grounds maintenance services in Idaho"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/60"></div>
+        </div>
+        <div className="container px-4 relative z-10">
           <div className="max-w-3xl mx-auto text-center space-y-4">
-            <Building2 className="h-16 w-16 mx-auto mb-4" />
-            <h1 className="text-4xl md:text-5xl font-bold">HOA Landscaping Services</h1>
-            <p className="text-lg text-primary-foreground/90">
+            <Building2 className="h-16 w-16 mx-auto mb-4 text-white" />
+            <h1 className="text-4xl md:text-5xl font-bold text-white">HOA Landscaping Services</h1>
+            <p className="text-lg text-white/90">
               Professional landscape maintenance and management for homeowners associations across the Treasure Valley
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
@@ -21,7 +30,7 @@ export default function HOAServices() {
                 <Button size="lg" variant="secondary">Request Commercial Quote</Button>
               </a>
               <Link href="/pricing">
-                <Button size="lg" variant="outline">
+                <Button size="lg" variant="outline" className="bg-white/10 backdrop-blur-sm border-white/20 text-white hover:bg-white/20">
                   View Pricing
                 </Button>
               </Link>

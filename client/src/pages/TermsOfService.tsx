@@ -1,6 +1,7 @@
 import { Helmet } from "react-helmet-async";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { FileCheck, Calendar, DollarSign, Shield, AlertTriangle, Wrench, Users, Scale, RefreshCw, Phone } from "lucide-react";
+import heroBackground from "@assets/Untitled design_1763639882299.png";
 
 export default function TermsOfService() {
   const lastUpdated = "November 20, 2025";
@@ -18,14 +19,22 @@ export default function TermsOfService() {
       </Helmet>
 
       {/* Hero */}
-      <section className="bg-primary text-primary-foreground py-16">
-        <div className="container px-4">
+      <section className="relative py-16 overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          <img 
+            src={heroBackground} 
+            alt="Terms of Service for Lawn Care Kuna professional lawn care services"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/60"></div>
+        </div>
+        <div className="container px-4 relative z-10">
           <div className="max-w-3xl mx-auto text-center space-y-4">
-            <h1 className="text-4xl md:text-5xl font-bold" data-testid="heading-terms-of-service">Terms of Service</h1>
-            <p className="text-lg text-primary-foreground/90">
+            <h1 className="text-4xl md:text-5xl font-bold text-white" data-testid="heading-terms-of-service">Terms of Service</h1>
+            <p className="text-lg text-white/90">
               Clear, fair terms for our lawn care and landscaping services
             </p>
-            <p className="text-sm text-primary-foreground/80" data-testid="text-last-updated">
+            <p className="text-sm text-white/80" data-testid="text-last-updated">
               Last Updated: {lastUpdated}
             </p>
           </div>
