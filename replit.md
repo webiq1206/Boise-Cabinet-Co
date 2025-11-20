@@ -56,6 +56,14 @@ Preferred communication style: Simple, everyday language.
   - **Visual Hierarchy**: Proper H2/H3/H4 structure with subheadings to break up content and improve scannability
   - **SEO Preservation**: All original content preserved - text is reorganized, not removed, maintaining 2000+ word count for SEO
   - **Improved Mobile Experience**: Better text chunking and spacing makes content easier to consume on smaller screens
+- **SEO-Optimized Headings & Interactive FAQs (PRODUCTION READY)**: Fixed nonsensical headings and redesigned FAQ sections for better UX:
+  - **Corrected Headings**: Replaced awkward headings like "Lawn care feels in Kuna ID" with SEO-optimized versions like "[Service] Pricing in [City], Idaho"
+  - **Professional Values Section**: Changed "Lawn Care [City] Values" to "Our Commitment to [City] Customers" for clearer messaging
+  - **Interactive FAQ Accordions**: Replaced static Card-based FAQs with collapsible Accordion components for better engagement
+  - **SEO-Friendly FAQ Headings**: "[Service] Questions in [City]" and "[Service] Questions & Answers" with location keywords
+  - **Improved UX**: FAQs collapsed by default reduce visual clutter; click to expand individual questions
+  - **Professional Design**: Rounded borders, hover effects, proper spacing, and left-aligned questions with bold typography
+  - **SEO Schema Preserved**: All FAQ JSON-LD structured data maintained for search engine optimization
 - **Unified Quote Form Design (PRODUCTION READY)**: All quote forms across the site now use the same QuoteForm component for consistent user experience:
   - **HeroQuoteSection**: Updated to embed full QuoteForm component (replacing previous simple card design)
   - **City Preselection**: Automatic lowercase normalization converts title-case city names (e.g., "Kuna") to Select-compatible values ("kuna") for proper city preselection on geo-targeted pages
