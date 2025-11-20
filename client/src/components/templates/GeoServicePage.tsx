@@ -133,6 +133,7 @@ export function GeoServicePage({ service, city }: GeoServicePageProps) {
         subheading={`Professional ${service.name.toLowerCase()} services in ${city.name}, Idaho`}
         defaultService={service.slug}
         defaultCity={city.name}
+        backgroundAlt={`Professional ${service.name.toLowerCase()} services with beautiful lawn in ${city.name} Idaho`}
       />
 
       {/* Dark Green Service Description Card */}
