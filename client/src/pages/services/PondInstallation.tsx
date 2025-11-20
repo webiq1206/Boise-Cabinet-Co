@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { QuoteForm } from "@/components/QuoteForm";
 import { CheckCircle2, Droplets, Shield, Award } from "lucide-react";
+import heroBackground from "@assets/Untitled design_1763639882299.png";
 
 export default function PondInstallation() {
   return (
@@ -19,11 +20,19 @@ export default function PondInstallation() {
         </div>
       </div>
 
-      <section className="bg-primary text-primary-foreground py-16">
-        <div className="container px-4">
+      <section className="relative py-16 overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          <img 
+            src={heroBackground} 
+            alt="Professional pond and water feature installation with beautiful lawn in Kuna and Boise Idaho"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/60"></div>
+        </div>
+        <div className="container px-4 relative z-10">
           <div className="max-w-3xl mx-auto text-center space-y-4">
-            <h1 className="text-4xl md:text-5xl font-bold" data-testid="heading-main">Pond Installation in Kuna & Boise</h1>
-            <p className="text-lg text-primary-foreground/90" data-testid="text-subtitle">
+            <h1 className="text-4xl md:text-5xl font-bold text-white" data-testid="heading-main">Pond Installation in Kuna & Boise</h1>
+            <p className="text-lg text-white/90" data-testid="text-subtitle">
               Professional pond, fountain, and water feature installation across the Treasure Valley
             </p>
           </div>
