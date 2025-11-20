@@ -1,5 +1,6 @@
 import { Link } from "wouter";
 import { Phone, Mail, MapPin } from "lucide-react";
+import logoUrl from "@assets/Lawn-Care-Kuna-Replit-11-20-2025_03_01_PM_1763676084102.png";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -10,7 +11,12 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Company Info */}
           <div>
-            <h3 className="font-bold text-lg mb-4 text-primary">Lawn Care Kuna</h3>
+            <img 
+              src={logoUrl} 
+              alt="Lawn Care Kuna" 
+              className="h-8 w-auto mb-4"
+              data-testid="logo-footer"
+            />
             <p className="text-sm text-muted-foreground mb-4">
               Most Trusted Lawn Care Services in Kuna, Idaho
             </p>
