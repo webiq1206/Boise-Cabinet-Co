@@ -386,7 +386,7 @@ export function QuoteWizard({
                 <Label htmlFor="address">Street Address <span className="text-muted-foreground text-sm font-normal">(Optional)</span></Label>
                 <AddressAutocomplete
                   id="address"
-                  value={form1.watch("address")}
+                  value={form1.watch("address") || ""}
                   onChange={(value) => form1.setValue("address", value)}
                   city={form1.watch("city")}
                   onPropertySizeCalculated={(sqft) => {

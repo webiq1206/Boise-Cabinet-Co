@@ -101,11 +101,12 @@ export function HeroQuoteSection({
 
       {/* Full Quote Wizard Dialog */}
       <Dialog open={showFullWizard} onOpenChange={setShowFullWizard}>
-        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+        <DialogContent className="max-w-2xl">
           <QuoteWizard
             defaultService={defaultService}
             defaultCity={defaultCity}
             defaultAddress={address}
+            onClose={() => setShowFullWizard(false)}
           />
         </DialogContent>
       </Dialog>
