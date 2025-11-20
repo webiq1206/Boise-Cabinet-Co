@@ -79,7 +79,7 @@ html, body {
   /* Typography */
   --font-sans: 'Montserrat', system-ui, -apple-system, sans-serif;
   --font-serif: 'Playfair Display', Georgia, serif;
-  --font-headings: 'Montserrat', system-ui, -apple-system, sans-serif;
+  --font-headings: 'Playfair Display', Georgia, serif;
   --font-mono: 'Menlo', 'Monaco', monospace;
   
   --radius: .5rem;

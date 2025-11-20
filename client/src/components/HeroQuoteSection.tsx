@@ -35,15 +35,13 @@ export function HeroQuoteSection({
   return (
     <>
       <section className="relative py-12 sm:py-16 md:py-20 lg:py-24 overflow-hidden">
-        {/* Background Image */}
+        {/* Background Image - Light Mint with Decorative Elements */}
         <div className="absolute inset-0 z-0">
           <img 
             src={heroBackground} 
             alt={backgroundAlt}
             className="w-full h-full object-cover"
           />
-          {/* Dark overlay for text readability */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/60"></div>
         </div>
 
         <div className="container mx-auto px-4 max-w-6xl relative z-10">
@@ -51,17 +49,17 @@ export function HeroQuoteSection({
             {/* Left Column - Heading Content */}
             <div className="text-center md:text-left space-y-4">
               {/* Label */}
-              <p className="text-white text-sm sm:text-base font-medium">
+              <p className="text-primary text-sm sm:text-base font-medium">
                 {label}
               </p>
 
-              {/* Main Heading */}
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight">
+              {/* Main Heading - Dark Text with Playfair Display */}
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif font-bold text-foreground leading-tight tracking-tight">
                 {heading}
               </h1>
 
-              {/* Subheading */}
-              <p className="text-base sm:text-lg md:text-xl text-white/90">
+              {/* Subheading - Green Text */}
+              <p className="text-base sm:text-lg md:text-xl text-primary">
                 {subheading}
               </p>
             </div>
