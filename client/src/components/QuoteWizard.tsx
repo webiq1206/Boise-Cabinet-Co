@@ -195,6 +195,16 @@ export function QuoteWizard({
     const step1Data = form1.getValues();
     const step2Data = form2.getValues();
 
+    // Extract property size from serviceData if available
+    let extractedPropertySize = 5000; // Default
+    for (const serviceId of step2Data.selectedServices) {
+      const serviceInfo = serviceData[serviceId];
+      if (serviceInfo?.propertySize) {
+        extractedPropertySize = serviceInfo.propertySize;
+        break;
+      }
+    }
+
     const fullData = {
       // Customer info
       name: data.name,
@@ -205,7 +215,7 @@ export function QuoteWizard({
       address: step1Data.address || "",
       city: step1Data.city,
       propertyType: step1Data.propertyType || "residential",
-      propertySize: 0, // Will be calculated from serviceData if needed
+      propertySize: extractedPropertySize, // Extract from serviceData
       
       // Service details
       serviceType: step2Data.selectedServices[0], // Primary service
