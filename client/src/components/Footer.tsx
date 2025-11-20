@@ -1,11 +1,22 @@
 import { Link } from "wouter";
 import { Phone, Mail, MapPin } from "lucide-react";
+import { Helmet } from "react-helmet-async";
+import { generateLocalBusinessSchema } from "@/lib/schema";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
+  
+  // Generate LocalBusiness schema for NAP (Name, Address, Phone) markup
+  const localBusinessSchema = generateLocalBusinessSchema();
 
   return (
-    <footer className="bg-muted border-t">
+    <>
+      <Helmet>
+        <script type="application/ld+json">
+          {JSON.stringify(localBusinessSchema)}
+        </script>
+      </Helmet>
+      <footer className="bg-muted border-t">
       <div className="container px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Company Info */}
@@ -154,5 +165,6 @@ export function Footer() {
         </div>
       </div>
     </footer>
+    </>
   );
 }

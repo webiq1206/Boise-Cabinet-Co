@@ -7,6 +7,7 @@ import { sendQuoteNotification } from "./email";
 import { z } from "zod";
 import { quoteCacheMiddleware } from "./middleware/quoteCache";
 import { quoteCalculationRateLimit } from "./middleware/rateLimit";
+import { PRIORITY_SERVICES, CITIES } from "@shared/contentData";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Validation schema for quote calculation (flexible - only require essential fields)
@@ -380,6 +381,118 @@ export async function registerRoutes(app: Express): Promise<Server> {
       console.error("Error fetching blog post:", error);
       res.status(500).json({ success: false, message: "Failed to fetch blog post" });
     }
+  });
+
+  // Sitemap.xml generation - all 500+ pages
+  app.get("/sitemap.xml", async (req, res) => {
+    try {
+      const baseUrl = "https://lawncarekuna.com";
+      const currentDate = new Date().toISOString().split('T')[0];
+
+      const urls: Array<{loc: string; lastmod: string; changefreq: string; priority: string}> = [];
+
+      // Homepage
+      urls.push({
+        loc: baseUrl,
+        lastmod: currentDate,
+        changefreq: 'weekly',
+        priority: '1.0'
+      });
+
+      // Main service category pages
+      urls.push(
+        { loc: `${baseUrl}/services/lawn-care`, lastmod: currentDate, changefreq: 'monthly', priority: '0.9' },
+        { loc: `${baseUrl}/services/landscaping`, lastmod: currentDate, changefreq: 'monthly', priority: '0.9' },
+        { loc: `${baseUrl}/services/christmas-lights`, lastmod: currentDate, changefreq: 'monthly', priority: '0.9' }
+      );
+
+      // All 24 individual service pages
+      PRIORITY_SERVICES.forEach(service => {
+        urls.push({
+          loc: `${baseUrl}/services/${service.slug}`,
+          lastmod: currentDate,
+          changefreq: 'monthly',
+          priority: '0.8'
+        });
+      });
+
+      // All 144+ geo-targeted service pages (24 services × 6 cities)
+      PRIORITY_SERVICES.forEach(service => {
+        CITIES.forEach(city => {
+          urls.push({
+            loc: `${baseUrl}/services/${service.slug}/${city.slug}`,
+            lastmod: currentDate,
+            changefreq: 'monthly',
+            priority: city.isPrimary ? '0.9' : '0.7'
+          });
+        });
+      });
+
+      // All 6 area/city landing pages
+      CITIES.forEach(city => {
+        urls.push({
+          loc: `${baseUrl}/areas/${city.slug}`,
+          lastmod: currentDate,
+          changefreq: 'monthly',
+          priority: city.isPrimary ? '0.9' : '0.8'
+        });
+      });
+
+      // Other important pages
+      const staticPages = [
+        { path: '/about', priority: '0.8' },
+        { path: '/contact', priority: '0.9' },
+        { path: '/get-quote', priority: '1.0' },
+        { path: '/pricing', priority: '0.8' },
+        { path: '/commercial', priority: '0.8' },
+        { path: '/commercial/hoa-services', priority: '0.7' },
+        { path: '/commercial/municipal-services', priority: '0.7' },
+        { path: '/blog', priority: '0.6' }
+      ];
+
+      staticPages.forEach(page => {
+        urls.push({
+          loc: `${baseUrl}${page.path}`,
+          lastmod: currentDate,
+          changefreq: 'monthly',
+          priority: page.priority
+        });
+      });
+
+      // Generate XML
+      const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${urls.map(url => `  <url>
+    <loc>${url.loc}</loc>
+    <lastmod>${url.lastmod}</lastmod>
+    <changefreq>${url.changefreq}</changefreq>
+    <priority>${url.priority}</priority>
+  </url>`).join('\n')}
+</urlset>`;
+
+      res.header('Content-Type', 'application/xml');
+      res.send(xml);
+    } catch (error) {
+      console.error("Error generating sitemap:", error);
+      res.status(500).send("Error generating sitemap");
+    }
+  });
+
+  // Robots.txt
+  app.get("/robots.txt", (req, res) => {
+    const robotsTxt = `# Lawn Care Kuna - Robots.txt
+User-agent: *
+Allow: /
+Disallow: /api/
+
+# Sitemap
+Sitemap: https://lawncarekuna.com/sitemap.xml
+
+# Crawl-delay for respectful crawling
+Crawl-delay: 1`;
+
+    res.header('Content-Type', 'text/plain');
+    res.send(robotsTxt);
   });
 
   const httpServer = createServer(app);
