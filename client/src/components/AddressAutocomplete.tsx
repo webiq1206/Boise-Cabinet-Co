@@ -189,7 +189,18 @@ export function AddressAutocomplete({
   // Handle address selection
   const handleSelectAddress = async (result: AddressResult) => {
     const addressParts = result.label.split(',');
-    const streetAddress = addressParts[0]?.trim() || result.label;
+    // Take first 2-3 parts to get street address (e.g., "123, West Kuna Road, Kuna" -> "123 West Kuna Road")
+    // or "123 Main St, Kuna" -> "123 Main St"
+    let streetAddress = '';
+    if (addressParts.length >= 3) {
+      // Format: "123, Street Name, City" -> "123 Street Name"
+      streetAddress = addressParts.slice(0, 2).map(p => p.trim()).join(' ');
+    } else if (addressParts.length === 2) {
+      // Format: "123 Street Name, City" -> "123 Street Name"
+      streetAddress = addressParts[0]?.trim() || result.label;
+    } else {
+      streetAddress = result.label;
+    }
     
     onChange(streetAddress);
     setSelectedAddress(result);
