@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button";
 import { Check, Phone, MapPin, ArrowRight, Leaf, Sprout, Heart, Shield, Target, Zap } from "lucide-react";
 import { HeroQuoteSection } from "@/components/HeroQuoteSection";
 import { FactsSection } from "@/components/FactsSection";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { RelatedServices } from "@/components/RelatedServices";
 import type { ServiceData } from "@shared/contentData";
 import { generateSEOMetadata } from "@/lib/seo";
 import { generateServiceSchema, generateBreadcrumbSchema, generateFAQSchema } from "@/lib/schema";
@@ -90,6 +92,17 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
           </script>
         )}
       </Helmet>
+
+      {/* Breadcrumbs */}
+      <div className="container px-4 md:px-8">
+        <Breadcrumbs 
+          items={[
+            { name: 'Home', href: '/' },
+            { name: 'Services', href: '/services/lawn-care' },
+            { name: service.name },
+          ]}
+        />
+      </div>
 
       {/* Hero Section with Integrated Quote Feature */}
       <HeroQuoteSection 
@@ -381,6 +394,9 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
           </div>
         </div>
       </section>
+
+      {/* Related Services */}
+      <RelatedServices currentServiceSlug={service.slug} limit={4} />
 
       {/* City Links Section */}
       <section className="py-16 md:py-24 bg-muted">

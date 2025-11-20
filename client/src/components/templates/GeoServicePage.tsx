@@ -5,6 +5,9 @@ import { Button } from "@/components/ui/button";
 import { Check, Phone, MapPin, ArrowRight, Leaf, Sprout, Heart, Shield, Target, Zap } from "lucide-react";
 import { HeroQuoteSection } from "@/components/HeroQuoteSection";
 import { FactsSection } from "@/components/FactsSection";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { RelatedServices } from "@/components/RelatedServices";
+import { CityCrosslinks } from "@/components/CityCrosslinks";
 import type { ServiceData, CityData } from "@shared/contentData";
 import { generateSEOMetadata, CITY_SEO_DATA } from "@/lib/seo";
 import { 
@@ -110,6 +113,18 @@ export function GeoServicePage({ service, city }: GeoServicePageProps) {
           {JSON.stringify(faqSchema)}
         </script>
       </Helmet>
+
+      {/* Breadcrumbs */}
+      <div className="container px-4 md:px-8">
+        <Breadcrumbs 
+          items={[
+            { name: 'Home', href: '/' },
+            { name: 'Services', href: '/services/lawn-care' },
+            { name: service.name, href: `/services/${service.slug}` },
+            { name: city.name },
+          ]}
+        />
+      </div>
 
       {/* Hero Section with Integrated Quote Feature */}
       <HeroQuoteSection 
@@ -465,38 +480,15 @@ export function GeoServicePage({ service, city }: GeoServicePageProps) {
         </div>
       </section>
 
-      {/* Nearby Cities */}
-      <section className="py-16 md:py-24 bg-muted">
-        <div className="container px-4 md:px-8">
-          <div className="max-w-6xl mx-auto space-y-8">
-            <div className="text-center space-y-4">
-              <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
-                We Also Serve Nearby Cities
-              </h2>
-              <p className="text-lg text-muted-foreground">
-                Professional {service.name.toLowerCase()} services across the Treasure Valley
-              </p>
-            </div>
+      {/* Related Services */}
+      <RelatedServices currentServiceSlug={service.slug} city={city.name} limit={4} />
 
-            <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
-              {['Kuna', 'Boise', 'Meridian', 'Nampa', 'Caldwell', 'Eagle']
-                .filter(c => c !== city.name)
-                .map(nearbyCity => (
-                  <Link key={nearbyCity} href={`/services/${service.slug}/${nearbyCity.toLowerCase()}`} data-testid={`link-nearby-city-${nearbyCity.toLowerCase()}`}>
-                    <Card className="hover-elevate cursor-pointer">
-                      <CardContent className="p-6 text-center">
-                        <MapPin className="h-6 w-6 text-primary mx-auto mb-2" />
-                        <span className="font-medium">
-                          {service.name} in {nearbyCity}
-                        </span>
-                      </CardContent>
-                    </Card>
-                  </Link>
-                ))}
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* City Crosslinks - Same Service in Other Cities */}
+      <CityCrosslinks 
+        currentCity={city.name}
+        serviceSlug={service.slug}
+        serviceName={service.name}
+      />
 
       {/* Mobile Sticky Bottom CTA */}
       <div className="fixed bottom-0 left-0 right-0 z-50 lg:hidden bg-white border-t shadow-lg">
