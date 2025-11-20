@@ -5,8 +5,6 @@ import { PRIORITY_SERVICES, CITIES } from "@shared/contentData";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
-  
-  const topServices = PRIORITY_SERVICES.slice(0, 10);
 
   return (
     <footer className="bg-muted border-t">
@@ -85,7 +83,7 @@ export function Footer() {
           <div>
             <h3 className="font-semibold text-sm mb-4">Our Services</h3>
             <ul className="space-y-2 text-sm">
-              {topServices.map((service) => (
+              {PRIORITY_SERVICES.map((service) => (
                 <li key={service.slug}>
                   <Link href={`/services/${service.slug}`} className="text-muted-foreground hover:text-primary transition-colors">
                     {service.name}
