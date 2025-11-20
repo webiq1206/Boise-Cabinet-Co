@@ -2,6 +2,7 @@ import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { HeroQuoteSection } from "@/components/HeroQuoteSection";
+import { QuoteForm } from "@/components/QuoteForm";
 import { CheckCircle2, MapPin, Leaf, Sprout, Lightbulb } from "lucide-react";
 
 interface AreaTemplateProps {

@@ -25,7 +25,10 @@ Preferred communication style: Simple, everyday language.
   - Backend reads measurements from serviceData[serviceId] for each service independently
   - Comprehensive validation and error handling with console warnings for debugging
   - End-to-end tested with mixed service types (lawn + lights + irrigation) and regression tested for non-property-size services
-- **Interactive Property Measurement Tool**: Utilizes Leaflet and OpenStreetMap for map-based property area calculation, supporting polygon/rectangle drawing, auto-geocoding, and real-time area conversion, integrated into the quote form.
+- **Interactive Property Measurement Tool (ENHANCED)**: Dual-mode measurement system utilizing Leaflet and OpenStreetMap integrated into the quote form:
+  - **Area Mode** (default): Polygon/rectangle drawing for property size calculations with real-time sq ft conversion to acres. Used for lawn care, landscaping, and similar services.
+  - **Linear Mode**: Polyline drawing for measuring fence lines, roof perimeters, driveway edges, and other linear features with real-time feet conversion to miles. Used for fence installation, Christmas lights, and similar services.
+  - Features: Auto-geocoding, satellite imagery, street overlay, edit/delete tools, and context-aware UI that adapts based on measurement type.
 - **SEO Optimization**: E-E-A-T optimized, city-specific pages (2000+ words) with detailed service features and local expertise, and site-wide internal linking for improved SEO, crawlability, and user engagement.
 - **Hero Background Images (PRODUCTION READY)**: Consistent hero section design across all pages featuring a light mint illustrated background image (`attached_assets/Untitled design_1763639882299.png`) with decorative leaf elements. Each page includes unique, SEO-optimized alt tags dynamically generated from service/city data. Implemented across:
   - Home page (HeroQuoteSection component)
