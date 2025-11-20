@@ -29,6 +29,7 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { CheckCircle2, AlertCircle, Loader2, DollarSign, Info, Map, Sparkles } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { MapMeasureTool } from "@/components/MapMeasureTool";
+import { AddressAutocomplete } from "@/components/AddressAutocomplete";
 import { normalizePropertySize, useDebounce, getQuoteCacheKey, aiQuoteCache } from "@/lib/quoteUtils";
 import { config } from "@/lib/config";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -149,6 +150,7 @@ export function QuoteForm({ className, compact = false, preselectedService, pres
       name: "",
       email: "",
       phone: "",
+      address: "",
       serviceType: preselectedService || "",
       propertyType: "",
       propertySize: "",
@@ -361,6 +363,32 @@ export function QuoteForm({ className, compact = false, preselectedService, pres
                   <FormControl>
                     <Input placeholder="John Smith" {...field} data-testid="input-name" />
                   </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="address"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Property Address</FormLabel>
+                  <FormControl>
+                    <AddressAutocomplete
+                      value={field.value || ""}
+                      onChange={field.onChange}
+                      city={form.watch("city") || "Kuna"}
+                      placeholder="123 Main St"
+                      onPropertySizeCalculated={(sqft) => {
+                        form.setValue("propertySize", sqft.toString());
+                      }}
+                      data-testid="input-address"
+                    />
+                  </FormControl>
+                  <FormDescription>
+                    Start typing your address for suggestions
+                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
