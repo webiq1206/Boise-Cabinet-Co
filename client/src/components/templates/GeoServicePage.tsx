@@ -2,6 +2,7 @@ import { Helmet } from "react-helmet-async";
 import { Link } from "wouter";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Check, Phone, MapPin, ArrowRight, Leaf, Sprout, Heart, Shield, Target, Zap } from "lucide-react";
 import { HeroQuoteSection } from "@/components/HeroQuoteSection";
 import { FactsSection } from "@/components/FactsSection";
@@ -369,7 +370,7 @@ export function GeoServicePage({ service, city }: GeoServicePageProps) {
           <div className="max-w-4xl mx-auto space-y-8">
             <div className="text-center space-y-4">
               <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
-                Lawn care feels in {city.name} ID
+                {service.name} Pricing in {city.name}, Idaho
               </h2>
               <p className="text-lg text-muted-foreground">
                 {service.pricingGuidance || `Transparent pricing for ${service.name.toLowerCase()} services in ${city.name}`}
@@ -449,10 +450,10 @@ export function GeoServicePage({ service, city }: GeoServicePageProps) {
           <div className="max-w-6xl mx-auto space-y-12">
             <div className="text-center space-y-4">
               <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
-                Lawn Care {city.name} Values
+                Our Commitment to {city.name} Customers
               </h2>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                The principles that guide everything we do in {city.name}
+                The values and principles that guide our lawn care services in {city.name}
               </p>
             </div>
 
@@ -481,27 +482,34 @@ export function GeoServicePage({ service, city }: GeoServicePageProps) {
           <div className="max-w-4xl mx-auto space-y-8">
             <div className="text-center space-y-4">
               <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
-                Frequently Asked Questions
+                {service.name} Questions in {city.name}
               </h2>
               <p className="text-lg text-muted-foreground">
-                Common questions about {service.name.toLowerCase()} in {city.name}
+                Get answers to common questions about {service.name.toLowerCase()} services in {city.name}, Idaho
               </p>
             </div>
 
-            <div className="space-y-6">
+            <Accordion type="single" collapsible className="w-full space-y-4">
               {service.faqs.slice(0, 5).map((faq, index) => (
-                <Card key={index} data-testid={`faq-${index}`}>
-                  <CardContent className="p-8">
-                    <h3 className="font-semibold mb-3 text-lg">{faq.question}</h3>
-                    <p className="text-muted-foreground leading-relaxed">{faq.answer}</p>
-                  </CardContent>
-                </Card>
+                <AccordionItem 
+                  key={index} 
+                  value={`faq-${index}`} 
+                  className="border rounded-lg px-6 hover-elevate"
+                  data-testid={`faq-${index}`}
+                >
+                  <AccordionTrigger className="text-left hover:no-underline py-6">
+                    <span className="font-semibold text-base md:text-lg pr-4">{faq.question}</span>
+                  </AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground leading-relaxed pb-6 pt-2">
+                    {faq.answer}
+                  </AccordionContent>
+                </AccordionItem>
               ))}
-            </div>
+            </Accordion>
 
             {service.faqs.length > 5 && (
-              <div className="text-center">
-                <Button variant="outline" asChild data-testid="link-view-all-faqs">
+              <div className="text-center pt-4">
+                <Button variant="outline" size="lg" asChild data-testid="link-view-all-faqs">
                   <Link href={`/services/${service.slug}`}>
                     View All {service.name} FAQs
                     <ArrowRight className="ml-2 h-4 w-4" />
