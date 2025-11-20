@@ -240,15 +240,10 @@ html, body {
     font-weight: 500 !important;
   }
   
-  /* H1-H3 use Playfair Display (serif), H4-H6 use Montserrat (sans-serif) */
-  h1, h2, h3 {
-    font-family: var(--font-serif) !important;
-    font-weight: 500 !important;
-  }
-  
-  h4, h5, h6 {
+  /* All headings use Montserrat weight 400 */
+  h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-headings) !important;
-    font-weight: 500 !important;
+    font-weight: 400 !important;
   }
   
   h1 {
