@@ -62,8 +62,23 @@ export function MapMeasureTool({
     }
   }, [isOpen, initialAddress]);
 
+  // Reset measurements when dialog opens or measurement type changes
   useEffect(() => {
-    if (!isOpen || !mapRef.current || mapInstanceRef.current) return;
+    if (isOpen) {
+      setMeasuredArea(null);
+      setMeasuredLinear(null);
+      setError(null);
+    }
+  }, [isOpen, measurementType]);
+
+  useEffect(() => {
+    if (!isOpen || !mapRef.current) return;
+    
+    // Clean up existing map if it exists
+    if (mapInstanceRef.current) {
+      mapInstanceRef.current.remove();
+      mapInstanceRef.current = null;
+    }
 
     // Small delay to ensure dialog content is fully rendered
     const timer = setTimeout(() => {
@@ -204,7 +219,7 @@ export function MapMeasureTool({
         mapInstanceRef.current = null;
       }
     };
-  }, [isOpen]);
+  }, [isOpen, measurementType]);
 
   const searchForAddress = async (address: string) => {
     if (!address || !mapInstanceRef.current) return;
