@@ -10,6 +10,7 @@ import { RelatedServices } from "@/components/RelatedServices";
 import type { ServiceData } from "@shared/contentData";
 import { generateSEOMetadata } from "@/lib/seo";
 import { generateServiceSchema, generateBreadcrumbSchema, generateFAQSchema } from "@/lib/schema";
+import { getServiceBackground } from "@shared/serviceBackgrounds";
 
 interface ServiceDetailPageProps {
   service: ServiceData;
@@ -111,6 +112,7 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
         subheading={service.shortDescription}
         defaultService={service.slug}
         backgroundAlt={`Professional ${service.name.toLowerCase()} services with healthy green lawn in Idaho`}
+        backgroundImage={getServiceBackground(service.slug)}
       />
 
       {/* Dark Green Service Description Card */}

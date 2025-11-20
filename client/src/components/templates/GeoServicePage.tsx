@@ -16,6 +16,7 @@ import {
   generateBreadcrumbSchema, 
   generateFAQSchema 
 } from "@/lib/schema";
+import { getServiceBackground } from "@shared/serviceBackgrounds";
 
 interface GeoServicePageProps {
   service: ServiceData;
@@ -134,6 +135,7 @@ export function GeoServicePage({ service, city }: GeoServicePageProps) {
         defaultService={service.slug}
         defaultCity={city.name}
         backgroundAlt={`Professional ${service.name.toLowerCase()} services with beautiful lawn in ${city.name} Idaho`}
+        backgroundImage={getServiceBackground(service.slug)}
       />
 
       {/* Dark Green Service Description Card */}

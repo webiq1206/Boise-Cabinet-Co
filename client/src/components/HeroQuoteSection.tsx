@@ -13,6 +13,7 @@ interface HeroQuoteSectionProps {
   defaultService?: string;
   defaultCity?: string;
   backgroundAlt?: string;
+  backgroundImage?: string; // Optional custom background image
 }
 
 export function HeroQuoteSection({
