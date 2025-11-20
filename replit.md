@@ -15,7 +15,16 @@ Preferred communication style: Simple, everyday language.
 **Design System**: Montserrat weight 500, Primary Forest Green, Light Mint backgrounds, pure white, mobile-first responsive design, and editorial spacing with alternating section backgrounds.
 **State Management**: TanStack Query for server state, React Hook Form with Zod for form handling and validation.
 **Key Features**:
-- **AI-Powered Instant Quoting System**: A 4-step wizard at `/get-quote` provides AI-generated pricing based on property details, service selection, and property complexity, with deterministic fallbacks, progressive disclosure, debounced API calls, and client-side caching.
+- **Multi-Service Quote System (PRODUCTION READY)**: A 4-step intelligent wizard at `/get-quote` supports multiple service selection with service-specific measurement collection and itemized pricing. Features include:
+  - Service-aware field rendering: Lawn services collect property size (sq ft), Christmas lights collect linear footage, irrigation collects zones, patios collect dimensions + materials
+  - Multi-service selection via checkboxes with dynamic field visibility based on selected services
+  - Robust number validation using Number.isFinite() to prevent serialization bugs
+  - Service-specific pricing calculations: sqft, linear_ft, per_zone, per_tree, per_fixture, per_stump, per_sqft, base_service, base_project
+  - Itemized quote breakdown showing individual line items with descriptions and grand total
+  - Conditional propertySize inclusion (only sent when valid finite number exists)
+  - Backend reads measurements from serviceData[serviceId] for each service independently
+  - Comprehensive validation and error handling with console warnings for debugging
+  - End-to-end tested with mixed service types (lawn + lights + irrigation) and regression tested for non-property-size services
 - **Interactive Property Measurement Tool**: Utilizes Leaflet and OpenStreetMap for map-based property area calculation, supporting polygon/rectangle drawing, auto-geocoding, and real-time area conversion, integrated into the quote form.
 - **SEO Optimization**: E-E-A-T optimized, city-specific pages (2000+ words) with detailed service features and local expertise, and site-wide internal linking for improved SEO, crawlability, and user engagement.
 - **Mobile Experience**: Redesigned mobile navigation with wider sheets, a sticky bottom navigation bar with key CTAs, and comprehensive mobile optimization across all pages including professional hero sections and proper spacing.
