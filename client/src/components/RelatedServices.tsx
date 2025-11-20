@@ -62,10 +62,11 @@ const serviceRelationships: Record<string, string[]> = {
   "stump-grinding": ["tree-removal", "sod-installation", "mulch-installation", "lawn-renovation"],
   
   // Irrigation
-  "sprinkler-system-installation": ["irrigation-repair", "irrigation-maintenance", "sod-installation", "fertilization"],
+  "sprinkler-system-installation": ["sprinkler-repair", "irrigation-maintenance", "sod-installation", "fertilization"],
+  "sprinkler-repair": ["irrigation-maintenance", "sprinkler-blowout", "sprinkler-system-installation", "lawn-mowing"],
   "irrigation-repair": ["irrigation-maintenance", "sprinkler-blowout", "sprinkler-system-installation", "lawn-mowing"],
-  "irrigation-maintenance": ["irrigation-repair", "sprinkler-blowout", "sprinkler-system-installation", "fertilization"],
-  "sprinkler-blowout": ["irrigation-maintenance", "irrigation-repair", "fall-cleanup", "seasonal-cleanup"],
+  "irrigation-maintenance": ["sprinkler-repair", "irrigation-repair", "sprinkler-blowout", "fertilization"],
+  "sprinkler-blowout": ["irrigation-maintenance", "sprinkler-repair", "fall-cleanup", "seasonal-cleanup"],
   
   // Seasonal
   "spring-cleanup": ["lawn-mowing", "fertilization", "aeration", "mulch-installation"],
@@ -73,12 +74,7 @@ const serviceRelationships: Record<string, string[]> = {
   "seasonal-cleanup": ["lawn-mowing", "hedge-trimming", "mulch-installation", "tree-trimming"],
   
   // Christmas lights
-  "christmas-lights": ["christmas-light-installation", "landscape-lighting", "hedge-trimming", "seasonal-cleanup"],
-  "christmas-light-installation": ["christmas-lights", "landscape-lighting", "seasonal-cleanup", "hedge-trimming"],
-  
-  // Category pages
-  "lawn-care": ["lawn-mowing", "fertilization", "aeration", "weed-control"],
-  "landscaping": ["patio-installation", "retaining-walls", "sod-installation", "landscape-lighting"],
+  "christmas-light-installation": ["landscape-lighting", "hedge-trimming", "seasonal-cleanup", "lawn-edging"],
 };
 
 export function RelatedServices({ currentServiceSlug, city, limit = 4 }: RelatedServicesProps) {
