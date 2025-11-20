@@ -79,7 +79,7 @@ html, body {
   /* Typography */
   --font-sans: 'Montserrat', system-ui, -apple-system, sans-serif;
   --font-serif: 'Playfair Display', Georgia, serif;
-  --font-headings: 'Playfair Display', Georgia, serif;
+  --font-headings: 'Montserrat', system-ui, -apple-system, sans-serif;
   --font-mono: 'Menlo', 'Monaco', monospace;
   
   --radius: .5rem;
@@ -240,7 +240,13 @@ html, body {
     font-weight: 500 !important;
   }
   
-  h1, h2, h3, h4, h5, h6 {
+  /* H1-H3 use Playfair Display (serif), H4-H6 use Montserrat (sans-serif) */
+  h1, h2, h3 {
+    font-family: var(--font-serif) !important;
+    font-weight: 500 !important;
+  }
+  
+  h4, h5, h6 {
     font-family: var(--font-headings) !important;
     font-weight: 500 !important;
   }
