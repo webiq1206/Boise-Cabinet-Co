@@ -8,43 +8,35 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Loader2, MapPin, CheckCircle2, Calendar, DollarSign } from "lucide-react";
+import { Loader2, MapPin, CheckCircle2, Calendar, DollarSign, Package } from "lucide-react";
 import { MapMeasureTool } from "@/components/MapMeasureTool";
 import { AddressAutocomplete } from "@/components/AddressAutocomplete";
+import { ServiceFieldsRenderer, validateServiceData } from "@/components/ServiceFieldsRenderer";
 import { useToast } from "@/hooks/use-toast";
 import { useMutation } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
+import { SERVICE_FIELD_CONFIGS, requiresPropertySize } from "@shared/serviceFieldConfig";
+import { PRIORITY_SERVICES, CITIES } from "@shared/contentData";
 
-// Utility to safely coerce values to numbers
-function coerceNumber(value: unknown, options: { min?: number; fallback?: number } = {}): number {
-  const { min, fallback = 0 } = options;
-  const num = typeof value === 'number' ? value : parseFloat(String(value));
-  if (isNaN(num)) return fallback;
-  if (min !== undefined && num < min) return fallback;
-  return num;
-}
-
-// Step 1: Address & Property (flexible - only require basic info)
+// Step 1: Basic Property Info
 const step1Schema = z.object({
   address: z.string().optional(),
   city: z.string().min(1, "Please select your city"),
-  propertySize: z.number().optional(),
-  propertyType: z.enum(["residential", "commercial", "hoa", "property-management"]).optional(),
+  propertyType: z.enum(["residential", "commercial", "hoa"]).optional(),
 });
 
-// Step 2: Services (only require service type)
+// Step 2: Service Selection
 const step2Schema = z.object({
-  serviceType: z.string().min(1, "Please select a service"),
-  frequency: z.enum(["one-time", "weekly", "bi-weekly", "monthly"]).optional(),
-  selectedServices: z.array(z.string()).optional(),
+  selectedServices: z.array(z.string()).min(1, "Please select at least one service"),
 });
 
-// Step 3: Contact Info (require at least name and one contact method)
+// Step 3: Contact Info
 const step3Schema = z.object({
   name: z.string().min(2, "Please enter your name"),
   email: z.string().email("Please enter a valid email").or(z.string().length(0)),
   phone: z.string().optional(),
   preferredDate: z.string().optional(),
+  message: z.string().optional(),
 }).refine((data) => data.email.length > 0 || (data.phone && data.phone.length >= 10), {
   message: "Please provide either email or phone number",
   path: ["email"],
@@ -54,46 +46,21 @@ type Step1Data = z.infer<typeof step1Schema>;
 type Step2Data = z.infer<typeof step2Schema>;
 type Step3Data = z.infer<typeof step3Schema>;
 
-interface QuoteData {
-  baseCost: number;
-  adjustedCost: number;
-  finalQuote: number;
-  complexityScore?: number;
-  aiAnalysis: any;
-  lineItems: Array<{
-    service: string;
-    description: string;
-    basePrice: number;
-    adjustedPrice: number;
-  }>;
-  breakdown: {
-    laborCost: number;
-    materialsCost: number;
-    overhead: number;
-    profit: number;
-  };
+interface QuoteLineItem {
+  serviceId: string;
+  serviceName: string;
+  basePrice: number;
+  adjustedPrice: number;
+  description: string;
 }
 
-const CITIES = ["Kuna", "Boise", "Meridian", "Nampa", "Caldwell", "Eagle"];
-
-const SERVICES = [
-  { id: "lawn-mowing", name: "Lawn Mowing & Edging", description: "Regular cutting and trimming" },
-  { id: "lawn-maintenance", name: "Full Lawn Maintenance", description: "Complete care package" },
-  { id: "aeration", name: "Core Aeration", description: "Improve soil and grass health" },
-  { id: "fertilization", name: "Fertilization", description: "Seasonal nutrient application" },
-  { id: "weed-control", name: "Weed Control", description: "Pre and post-emergent treatment" },
-  { id: "seasonal-cleanup", name: "Seasonal Cleanup", description: "Spring/fall yard cleanup" },
-  { id: "patio", name: "Patio Installation", description: "Custom patio design & build" },
-  { id: "fence", name: "Fence Installation", description: "Wood, vinyl, or chain link" },
-  { id: "christmas-lights", name: "Christmas Lights", description: "Holiday lighting installation" },
-];
-
-const ADDON_SERVICES = [
-  { id: "hedge-trimming", name: "Hedge Trimming" },
-  { id: "dethatching", name: "Dethatching" },
-  { id: "sprinkler-blowout", name: "Sprinkler Winterization" },
-  { id: "sod-installation", name: "Sod Installation" },
-];
+interface QuoteData {
+  lineItems: QuoteLineItem[];
+  subtotal: number;
+  tax?: number;
+  total: number;
+  aiAnalysis?: any;
+}
 
 interface QuoteWizardProps {
   onClose?: () => void;
@@ -115,80 +82,68 @@ export function QuoteWizard({
   const [step, setStep] = useState(1);
   const [mapOpen, setMapOpen] = useState(false);
   const [quoteData, setQuoteData] = useState<QuoteData | null>(null);
-  const [formData, setFormData] = useState<Partial<Step1Data & Step2Data & Step3Data>>({});
+  const [serviceData, setServiceData] = useState<Record<string, Record<string, any>>>({});
   const { toast } = useToast();
 
-  // Step 1 form
+  // Step forms
   const form1 = useForm<Step1Data>({
     resolver: zodResolver(step1Schema),
     defaultValues: {
       city: defaultCity || preselectedCity || "Kuna",
       address: defaultAddress || "",
-      propertySize: undefined,
-      propertyType: undefined,
+      propertyType: "residential",
     },
   });
 
-  // Step 2 form - preserve existing selections when navigating back
   const form2 = useForm<Step2Data>({
     resolver: zodResolver(step2Schema),
     defaultValues: {
-      serviceType: formData.serviceType || defaultService || preselectedService || "",
-      frequency: formData.frequency || undefined,
-      selectedServices: formData.selectedServices || [],
+      selectedServices: preselectedService || defaultService ? [preselectedService || defaultService!] : [],
     },
   });
 
-  // Step 3 form
   const form3 = useForm<Step3Data>({
     resolver: zodResolver(step3Schema),
+    defaultValues: {
+      name: "",
+      email: "",
+      phone: "",
+      preferredDate: "",
+      message: "",
+    },
   });
 
-  // Reset form2 values when navigating back to preserve selections
-  useEffect(() => {
-    if (step === 2 && formData.serviceType) {
-      form2.reset({
-        serviceType: formData.serviceType,
-        frequency: formData.frequency,
-        selectedServices: [...(formData.selectedServices || [])],
-      });
-    }
-  }, [step, formData.serviceType, formData.frequency, formData.selectedServices]);
+  // Watch selected services to show/hide map tool
+  const selectedServices = form2.watch("selectedServices") || [];
+  const needsPropertySize = requiresPropertySize(selectedServices);
 
-  // Get instant quote mutation
+  // Auto-select preselected service on mount
+  useEffect(() => {
+    if (preselectedService || defaultService) {
+      const serviceToSelect = preselectedService || defaultService!;
+      form2.setValue("selectedServices", [serviceToSelect]);
+    }
+  }, [preselectedService, defaultService]);
+
+  // Quote generation mutation
   const getQuoteMutation = useMutation({
-    mutationFn: async (data: Step1Data & Step2Data) => {
+    mutationFn: async (data: any) => {
       const res = await apiRequest("POST", "/api/quotes/calculate", data);
       return await res.json();
     },
-    onSuccess: (data: any) => {
-      if (data.aiFallback) {
-        toast({
-          title: "Quote Generated (Fallback Mode)",
-          description: "Using standard pricing. AI analysis temporarily unavailable.",
-          variant: "default",
-        });
-      }
+    onSuccess: (data) => {
       setQuoteData(data);
-      setStep(3);
-      // Show success toast even for $0 quotes (check for null/undefined, not truthiness)
-      if (data.finalQuote != null) {
-        toast({
-          title: "Quote Generated!",
-          description: `Your personalized quote is ready: $${data.finalQuote.toLocaleString()}`,
-        });
-      }
+      setStep(4);
+      toast({
+        title: "Quote Generated!",
+        description: `Your itemized quote is ready: $${data.total?.toLocaleString() || '0'}`,
+      });
     },
     onError: (error: any) => {
       console.error("Quote calculation error:", error);
-      const errorMsg = error?.message || "Failed to generate quote. Please try again.";
-      const errors = error?.errors || [];
-      
       toast({
         title: "Error Generating Quote",
-        description: errors.length > 0 
-          ? `${errors.map((e: any) => e.message).join(', ')}`
-          : errorMsg,
+        description: error?.message || "Failed to generate quote. Please try again.",
         variant: "destructive",
       });
     },
@@ -201,7 +156,6 @@ export function QuoteWizard({
       return await res.json();
     },
     onSuccess: () => {
-      setStep(4);
       toast({
         title: "Quote Request Submitted!",
         description: "We'll contact you shortly to confirm your service.",
@@ -209,134 +163,99 @@ export function QuoteWizard({
     },
     onError: (error: any) => {
       console.error("Quote submission error:", error);
-      const errorMsg = error?.message || "Failed to submit quote request.";
-      const errors = error?.errors || [];
-      
-      // Show detailed error message
       toast({
         title: "Submission Failed",
-        description: errors.length > 0
-          ? `Please fix: ${errors.map((e: any) => `${e.field}: ${e.message}`).join(', ')}`
-          : errorMsg,
+        description: error?.message || "Failed to submit quote request.",
         variant: "destructive",
       });
-      
-      // Set form errors if available
-      if (errors.length > 0) {
-        errors.forEach((err: any) => {
-          const field = err.field;
-          if (field in form3.control._fields) {
-            form3.setError(field as any, {
-              type: "server",
-              message: err.message,
-            });
-          }
-        });
-      }
     },
   });
 
-  const handleStep1Submit = async (data: Step1Data) => {
-    // Preserve complete Step 1 data
-    const completeStep1 = {
-      address: data.address,
-      city: data.city,
-      propertySize: data.propertySize,
-      propertyType: data.propertyType,
-    };
-    setFormData(prev => ({ ...prev, ...completeStep1 }));
+  // Step handlers
+  const handleStep1Submit = (data: Step1Data) => {
     setStep(2);
   };
 
-  const handleStep2Submit = async (data: Step2Data) => {
-    // Check if we have enough information for an accurate quote
-    const missingInfo: string[] = [];
-    
-    if (!formData.propertySize) {
-      missingInfo.push("property size");
-    }
-    if (!data.frequency) {
-      missingInfo.push("service frequency");
-    }
-    if (!formData.propertyType) {
-      missingInfo.push("property type");
-    }
-    
-    // Merge Step 1 and Step 2 data with explicit field mapping
-    // Clone selectedServices array to ensure dependency tracking works
-    const combined = { 
-      address: formData.address || '',
-      city: formData.city!,
-      propertySize: formData.propertySize || 0,
-      propertyType: formData.propertyType || 'residential',
-      serviceType: data.serviceType,
-      frequency: data.frequency,
-      selectedServices: [...(data.selectedServices || [])],
-    };
-    setFormData(prev => ({ ...prev, ...combined }));
-    
-    // If we're missing critical info, show a helpful message and go to contact step
-    if (missingInfo.length > 0) {
+  const handleStep2Submit = (data: Step2Data) => {
+    // Validate service-specific data
+    const validation = validateServiceData(data.selectedServices, serviceData);
+    if (!validation.valid) {
       toast({
-        title: "Need More Information",
-        description: `To provide an accurate quote, we need: ${missingInfo.join(', ')}. Please fill in your contact details and we'll get back to you with a personalized quote.`,
-        variant: "default",
+        title: "Missing Information",
+        description: validation.errors[0],
+        variant: "destructive",
       });
-      setStep(3);
       return;
     }
-    
-    // We have enough info - generate instant quote
-    getQuoteMutation.mutate(combined);
+    setStep(3);
   };
 
   const handleStep3Submit = async (data: Step3Data) => {
-    // Build submission payload with explicit field mapping and numeric coercion
+    // Build submission payload
+    const step1Data = form1.getValues();
+    const step2Data = form2.getValues();
+
     const fullData = {
       // Customer info
-      name: (data.name || '').trim(),
-      email: (data.email || '').trim(),
-      phone: (data.phone || '').trim(),
+      name: data.name,
+      email: data.email,
+      phone: data.phone || "",
       
       // Property details
-      address: (formData.address || '').trim(),
-      city: formData.city || 'Kuna',
-      propertyType: formData.propertyType || 'residential',
-      propertySize: coerceNumber(formData.propertySize, { min: 0, fallback: 0 }),
+      address: step1Data.address || "",
+      city: step1Data.city,
+      propertyType: step1Data.propertyType || "residential",
+      propertySize: 0, // Will be calculated from serviceData if needed
       
       // Service details
-      serviceType: formData.serviceType || '',
-      frequency: formData.frequency || 'one-time',
-      selectedServices: formData.selectedServices || [],
-      
-      // AI analysis and pricing - with proper type coercion (may be null if quote wasn't generated)
-      aiAnalysis: quoteData?.aiAnalysis || null,
-      complexityScore: quoteData ? coerceNumber(quoteData.complexityScore, { min: 1.0, fallback: 1.2 }) : 1.2,
-      baseCost: quoteData ? coerceNumber(quoteData.baseCost, { min: 0, fallback: 0 }) : 0,
-      adjustedCost: quoteData ? coerceNumber(quoteData.adjustedCost, { min: 0, fallback: 0 }) : 0,
-      finalQuote: quoteData ? coerceNumber(quoteData.finalQuote, { min: 0, fallback: 0 }) : 0,
-      
-      // Line items with numeric coercion
-      lineItems: quoteData?.lineItems?.map(item => ({
-        service: item.service,
-        description: item.description,
-        basePrice: coerceNumber(item.basePrice, { fallback: 0 }),
-        adjustedPrice: coerceNumber(item.adjustedPrice ?? item.basePrice, { fallback: 0 }),
-      })) || [],
+      serviceType: step2Data.selectedServices[0], // Primary service
+      selectedServices: step2Data.selectedServices,
+      serviceData: serviceData,
+      frequency: "one-time", // Can be made dynamic later
       
       // Scheduling
       scheduledDate: data.preferredDate ? new Date(data.preferredDate).toISOString() : undefined,
-      status: "pending" as const,
-      message: quoteData 
-        ? `Quote request for ${formData.serviceType} - Generated via AI wizard` 
-        : `Contact request for ${formData.serviceType || 'lawn care services'} - Awaiting property details for accurate quote`,
+      message: data.message || `Multi-service quote request for: ${step2Data.selectedServices.join(", ")}`,
+      status: "pending",
     };
+
+    // Generate quote first
+    await getQuoteMutation.mutateAsync(fullData);
     
-    submitQuoteMutation.mutate(fullData);
+    // Then submit with quote data
+    const submissionData = {
+      ...fullData,
+      aiAnalysis: quoteData?.aiAnalysis,
+      baseCost: quoteData?.subtotal || 0,
+      adjustedCost: quoteData?.subtotal || 0,
+      finalQuote: quoteData?.total || 0,
+      lineItems: quoteData?.lineItems || [],
+    };
+
+    submitQuoteMutation.mutate(submissionData);
+  };
+
+  const handleServiceDataChange = (serviceId: string, fieldName: string, value: any) => {
+    setServiceData(prev => ({
+      ...prev,
+      [serviceId]: {
+        ...(prev[serviceId] || {}),
+        [fieldName]: value,
+      },
+    }));
   };
 
   const handleMeasurementComplete = (sqft: number) => {
-    form1.setValue("propertySize", sqft);
+    // Store property size in the first lawn service's data
+    const lawnService = selectedServices.find(id => {
+      const config = SERVICE_FIELD_CONFIGS.find(c => c.serviceId === id);
+      return config?.requiresPropertySize;
+    });
+
+    if (lawnService) {
+      handleServiceDataChange(lawnService, "propertySize", sqft);
+    }
+
     setMapOpen(false);
     toast({
       title: "Measurement Added",
@@ -344,27 +263,35 @@ export function QuoteWizard({
     });
   };
 
+  const toggleService = (serviceId: string) => {
+    const current = form2.getValues("selectedServices") || [];
+    const updated = current.includes(serviceId)
+      ? current.filter(id => id !== serviceId)
+      : [...current, serviceId];
+    form2.setValue("selectedServices", updated);
+  };
+
   return (
     <div className="max-w-4xl mx-auto p-4">
       {/* Progress Steps */}
       <div className="mb-8">
-        <div className="flex items-center justify-center gap-4">
+        <div className="flex items-center justify-center gap-2 sm:gap-4">
           {[1, 2, 3].map((s) => (
-            <div key={s} className="flex items-center gap-2">
+            <div key={s} className="flex items-center gap-1 sm:gap-2">
               <div
-                className={`w-10 h-10 rounded-full flex items-center justify-center font-semibold ${
+                className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center font-semibold text-sm sm:text-base ${
                   s < step ? "bg-primary text-primary-foreground" : 
                   s === step ? "bg-primary text-primary-foreground" : 
                   "bg-muted text-muted-foreground"
                 }`}
                 data-testid={`step-indicator-${s}`}
               >
-                {s < step ? <CheckCircle2 className="w-5 h-5" /> : s}
+                {s < step ? <CheckCircle2 className="w-4 h-4 sm:w-5 sm:h-5" /> : s}
               </div>
-              <span className={`text-sm font-medium ${s <= step ? "text-foreground" : "text-muted-foreground"}`}>
+              <span className={`text-xs sm:text-sm font-medium hidden sm:inline ${s <= step ? "text-foreground" : "text-muted-foreground"}`}>
                 {s === 1 ? "Property" : s === 2 ? "Services" : "Contact"}
               </span>
-              {s < 3 && <div className="w-12 h-0.5 bg-muted" />}
+              {s < 3 && <div className="w-8 sm:w-12 h-0.5 bg-muted" />}
             </div>
           ))}
         </div>
@@ -378,26 +305,22 @@ export function QuoteWizard({
               <MapPin className="w-5 h-5 text-primary" />
               Property Details
             </CardTitle>
-            <CardDescription>Tell us about your property to get started</CardDescription>
+            <CardDescription>Tell us about your property</CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={form1.handleSubmit(handleStep1Submit)} className="space-y-6">
               <div>
-                <Label htmlFor="address">Street Address <span className="text-muted-foreground text-sm font-normal">(Optional)</span></Label>
+                <Label htmlFor="address">
+                  Street Address <span className="text-muted-foreground text-sm font-normal">(Optional)</span>
+                </Label>
                 <AddressAutocomplete
                   id="address"
                   value={form1.watch("address") || ""}
                   onChange={(value) => form1.setValue("address", value)}
                   city={form1.watch("city")}
-                  onPropertySizeCalculated={(sqft) => {
-                    form1.setValue("propertySize", sqft);
-                  }}
                   placeholder="123 Main St"
                   data-testid="input-address"
                 />
-                {form1.formState.errors.address && (
-                  <p className="text-sm text-destructive mt-1">{form1.formState.errors.address.message}</p>
-                )}
               </div>
 
               <div>
@@ -409,61 +332,43 @@ export function QuoteWizard({
                   data-testid="select-city"
                 >
                   {CITIES.map((city) => (
-                    <option key={city} value={city}>{city}</option>
+                    <option key={city.slug} value={city.name}>{city.name}</option>
                   ))}
                 </select>
               </div>
 
               <div>
-                <Label htmlFor="propertySize">Property Size (sq ft) <span className="text-muted-foreground text-sm font-normal">(Optional for quote)</span></Label>
-                <div className="flex gap-2">
-                  <Input
-                    id="propertySize"
-                    type="number"
-                    placeholder="e.g., 5000"
-                    {...form1.register("propertySize", { valueAsNumber: true })}
-                    data-testid="input-property-size"
-                  />
-                  <Button
-                    type="button"
-                    variant="outline"
-                    onClick={() => setMapOpen(true)}
-                    data-testid="button-measure-wizard"
-                  >
-                    <MapPin className="w-4 h-4 mr-2" />
-                    Adjust
-                  </Button>
-                </div>
-                <p className="text-xs text-muted-foreground mt-1">
-                  For instant quote, enter property size. Otherwise, we'll contact you for details.
-                </p>
-                {form1.formState.errors.propertySize && (
-                  <p className="text-sm text-destructive mt-1">{form1.formState.errors.propertySize.message}</p>
-                )}
-              </div>
-
-              <div>
-                <Label>Property Type <span className="text-muted-foreground text-sm font-normal">(Optional for quote)</span></Label>
+                <Label htmlFor="propertyType">Property Type <span className="text-muted-foreground text-sm font-normal">(Optional)</span></Label>
                 <RadioGroup
-                  value={form1.watch("propertyType")}
-                  onValueChange={(value) => form1.setValue("propertyType", value as any)}
+                  value={form1.watch("propertyType") || "residential"}
+                  onValueChange={(value: any) => form1.setValue("propertyType", value)}
+                  className="grid grid-cols-3 gap-4"
                 >
-                  <div className="grid grid-cols-2 gap-4">
-                    {[
-                      { value: "residential", label: "Residential Home" },
-                      { value: "commercial", label: "Commercial Property" },
-                      { value: "hoa", label: "HOA/Community" },
-                    ].map((type) => (
-                      <div key={type.value} className="flex items-center space-x-2">
-                        <RadioGroupItem value={type.value} id={type.value} data-testid={`radio-${type.value}`} />
-                        <Label htmlFor={type.value} className="cursor-pointer">{type.label}</Label>
-                      </div>
-                    ))}
-                  </div>
+                  <Label
+                    htmlFor="residential"
+                    className="flex items-center gap-2 rounded-md border border-input p-4 cursor-pointer hover-elevate"
+                  >
+                    <RadioGroupItem value="residential" id="residential" data-testid="radio-residential" />
+                    <span>Residential</span>
+                  </Label>
+                  <Label
+                    htmlFor="commercial"
+                    className="flex items-center gap-2 rounded-md border border-input p-4 cursor-pointer hover-elevate"
+                  >
+                    <RadioGroupItem value="commercial" id="commercial" data-testid="radio-commercial" />
+                    <span>Commercial</span>
+                  </Label>
+                  <Label
+                    htmlFor="hoa"
+                    className="flex items-center gap-2 rounded-md border border-input p-4 cursor-pointer hover-elevate"
+                  >
+                    <RadioGroupItem value="hoa" id="hoa" data-testid="radio-hoa" />
+                    <span>HOA</span>
+                  </Label>
                 </RadioGroup>
               </div>
 
-              <Button type="submit" className="w-full" data-testid="button-next-step-1">
+              <Button type="submit" className="w-full" size="lg" data-testid="button-continue-step1">
                 Continue to Services
               </Button>
             </form>
@@ -475,102 +380,209 @@ export function QuoteWizard({
       {step === 2 && (
         <Card>
           <CardHeader>
-            <CardTitle>Select Services</CardTitle>
-            <CardDescription>Choose your primary service and any add-ons</CardDescription>
+            <CardTitle className="flex items-center gap-2">
+              <Package className="w-5 h-5 text-primary" />
+              Select Services
+            </CardTitle>
+            <CardDescription>Choose one or more services (select multiple to get an itemized quote)</CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={form2.handleSubmit(handleStep2Submit)} className="space-y-6">
-              <div>
-                <Label>Primary Service</Label>
-                <RadioGroup
-                  value={form2.watch("serviceType")}
-                  onValueChange={(value) => form2.setValue("serviceType", value)}
-                >
-                  <div className="space-y-3">
-                    {SERVICES.map((service) => (
-                      <div key={service.id} className="flex items-start space-x-3 p-3 rounded-lg border hover-elevate">
-                        <RadioGroupItem value={service.id} id={service.id} data-testid={`radio-service-${service.id}`} />
-                        <div className="flex-1">
-                          <Label htmlFor={service.id} className="cursor-pointer font-semibold">{service.name}</Label>
-                          <p className="text-sm text-muted-foreground">{service.description}</p>
-                        </div>
+              {/* Service Categories */}
+              <div className="space-y-6">
+                {/* Group services by category */}
+                {[
+                  { category: "lawn", title: "Lawn Care Services" },
+                  { category: "hardscape", title: "Hardscape & Patio" },
+                  { category: "irrigation", title: "Irrigation & Sprinklers" },
+                  { category: "lighting", title: "Lighting Services" },
+                  { category: "trees", title: "Tree Services" },
+                  { category: "seasonal", title: "Seasonal Services" },
+                ].map(({ category, title }) => {
+                  const categoryServices = SERVICE_FIELD_CONFIGS.filter(c => c.category === category);
+                  if (categoryServices.length === 0) return null;
+
+                  return (
+                    <div key={category} className="space-y-3">
+                      <h3 className="font-medium text-sm text-muted-foreground uppercase tracking-wide">{title}</h3>
+                      <div className="grid gap-3 sm:grid-cols-2">
+                        {categoryServices.map((service) => {
+                          const isSelected = selectedServices.includes(service.serviceId);
+                          return (
+                            <Label
+                              key={service.serviceId}
+                              htmlFor={`service-${service.serviceId}`}
+                              className={`flex items-start gap-3 rounded-md border p-4 cursor-pointer hover-elevate ${
+                                isSelected ? "border-primary bg-primary/5" : "border-input"
+                              }`}
+                            >
+                              <Checkbox
+                                id={`service-${service.serviceId}`}
+                                checked={isSelected}
+                                onCheckedChange={() => toggleService(service.serviceId)}
+                                data-testid={`checkbox-service-${service.serviceId}`}
+                              />
+                              <div className="flex-1">
+                                <div className="font-medium">{service.serviceName}</div>
+                              </div>
+                            </Label>
+                          );
+                        })}
                       </div>
-                    ))}
-                  </div>
-                </RadioGroup>
-                {form2.formState.errors.serviceType && (
-                  <p className="text-sm text-destructive mt-1">{form2.formState.errors.serviceType.message}</p>
+                    </div>
+                  );
+                })}
+              </div>
+
+              {/* Map Tool for Property Size (if needed) */}
+              {needsPropertySize && (
+                <div className="space-y-2">
+                  <Button
+                    type="button"
+                    variant="outline"
+                    className="w-full"
+                    onClick={() => setMapOpen(true)}
+                    data-testid="button-open-map"
+                  >
+                    <MapPin className="w-4 h-4 mr-2" />
+                    Measure Property on Map
+                  </Button>
+                  <p className="text-sm text-muted-foreground text-center">
+                    Some selected services require property measurements
+                  </p>
+                </div>
+              )}
+
+              {/* Service-Specific Fields */}
+              {selectedServices.length > 0 && (
+                <ServiceFieldsRenderer
+                  selectedServices={selectedServices}
+                  serviceData={serviceData}
+                  onChange={handleServiceDataChange}
+                />
+              )}
+
+              {form2.formState.errors.selectedServices && (
+                <p className="text-sm text-destructive">{form2.formState.errors.selectedServices.message}</p>
+              )}
+
+              <div className="flex gap-3">
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => setStep(1)}
+                  className="flex-1"
+                  data-testid="button-back-step2"
+                >
+                  Back
+                </Button>
+                <Button
+                  type="submit"
+                  className="flex-1"
+                  disabled={selectedServices.length === 0}
+                  data-testid="button-continue-step2"
+                >
+                  Continue to Contact
+                </Button>
+              </div>
+            </form>
+          </CardContent>
+        </Card>
+      )}
+
+      {/* Step 3: Contact Info */}
+      {step === 3 && (
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Calendar className="w-5 h-5 text-primary" />
+              Contact Information
+            </CardTitle>
+            <CardDescription>How can we reach you?</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <form onSubmit={form3.handleSubmit(handleStep3Submit)} className="space-y-6">
+              <div>
+                <Label htmlFor="name">Full Name</Label>
+                <Input
+                  id="name"
+                  {...form3.register("name")}
+                  placeholder="John Doe"
+                  data-testid="input-name"
+                />
+                {form3.formState.errors.name && (
+                  <p className="text-sm text-destructive mt-1">{form3.formState.errors.name.message}</p>
                 )}
               </div>
 
               <div>
-                <Label>Service Frequency <span className="text-muted-foreground text-sm font-normal">(Optional for quote)</span></Label>
-                <RadioGroup
-                  value={form2.watch("frequency")}
-                  onValueChange={(value) => form2.setValue("frequency", value as any)}
-                >
-                  <div className="grid grid-cols-2 gap-4">
-                    {[
-                      { value: "one-time", label: "One-Time Service", discount: "" },
-                      { value: "weekly", label: "Weekly", discount: "Save 15%" },
-                      { value: "bi-weekly", label: "Bi-Weekly", discount: "Save 10%" },
-                      { value: "monthly", label: "Monthly", discount: "Save 5%" },
-                    ].map((freq) => (
-                      <div key={freq.value} className="flex items-center justify-between p-3 rounded-lg border">
-                        <div className="flex items-center space-x-2">
-                          <RadioGroupItem value={freq.value} id={freq.value} data-testid={`radio-freq-${freq.value}`} />
-                          <Label htmlFor={freq.value} className="cursor-pointer">{freq.label}</Label>
-                        </div>
-                        {freq.discount && (
-                          <span className="text-xs font-semibold text-primary">{freq.discount}</span>
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                </RadioGroup>
-                <p className="text-xs text-muted-foreground mt-2">
-                  Select frequency for instant quote. We can discuss options if you're not sure.
-                </p>
+                <Label htmlFor="email">Email</Label>
+                <Input
+                  id="email"
+                  type="email"
+                  {...form3.register("email")}
+                  placeholder="john@example.com"
+                  data-testid="input-email"
+                />
+                {form3.formState.errors.email && (
+                  <p className="text-sm text-destructive mt-1">{form3.formState.errors.email.message}</p>
+                )}
               </div>
 
               <div>
-                <Label>Add-On Services (Optional)</Label>
-                <div className="grid grid-cols-2 gap-3">
-                  {ADDON_SERVICES.map((addon) => (
-                    <div key={addon.id} className="flex items-center space-x-2">
-                      <Checkbox
-                        id={addon.id}
-                        checked={(form2.watch("selectedServices") || []).includes(addon.id)}
-                        onCheckedChange={(checked) => {
-                          const current = form2.watch("selectedServices") || [];
-                          form2.setValue(
-                            "selectedServices",
-                            checked ? [...current, addon.id] : current.filter((s) => s !== addon.id)
-                          );
-                        }}
-                        data-testid={`checkbox-addon-${addon.id}`}
-                      />
-                      <Label htmlFor={addon.id} className="cursor-pointer text-sm">{addon.name}</Label>
-                    </div>
-                  ))}
-                </div>
+                <Label htmlFor="phone">Phone <span className="text-muted-foreground text-sm font-normal">(Optional)</span></Label>
+                <Input
+                  id="phone"
+                  type="tel"
+                  {...form3.register("phone")}
+                  placeholder="(208) 555-1234"
+                  data-testid="input-phone"
+                />
+              </div>
+
+              <div>
+                <Label htmlFor="preferredDate">Preferred Start Date <span className="text-muted-foreground text-sm font-normal">(Optional)</span></Label>
+                <Input
+                  id="preferredDate"
+                  type="date"
+                  {...form3.register("preferredDate")}
+                  data-testid="input-preferred-date"
+                />
+              </div>
+
+              <div>
+                <Label htmlFor="message">Additional Notes <span className="text-muted-foreground text-sm font-normal">(Optional)</span></Label>
+                <Input
+                  id="message"
+                  {...form3.register("message")}
+                  placeholder="Any special requests or details..."
+                  data-testid="input-message"
+                />
               </div>
 
               <div className="flex gap-3">
-                <Button type="button" variant="outline" onClick={() => setStep(1)} className="flex-1">
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => setStep(2)}
+                  className="flex-1"
+                  data-testid="button-back-step3"
+                >
                   Back
                 </Button>
-                <Button type="submit" className="flex-1" disabled={getQuoteMutation.isPending} data-testid="button-get-quote">
-                  {getQuoteMutation.isPending ? (
+                <Button
+                  type="submit"
+                  className="flex-1"
+                  disabled={getQuoteMutation.isPending || submitQuoteMutation.isPending}
+                  data-testid="button-submit-quote"
+                >
+                  {getQuoteMutation.isPending || submitQuoteMutation.isPending ? (
                     <>
                       <Loader2 className="w-4 h-4 mr-2 animate-spin" />
                       Generating Quote...
                     </>
                   ) : (
-                    <>
-                      <DollarSign className="w-4 h-4 mr-2" />
-                      Get Instant Quote
-                    </>
+                    "Get My Quote"
                   )}
                 </Button>
               </div>
@@ -579,173 +591,53 @@ export function QuoteWizard({
         </Card>
       )}
 
-      {/* Step 3: Contact Form (with or without quote) */}
-      {step === 3 && (
-        <div className="space-y-6">
-          {/* Quote Display - Only if we have quote data */}
-          {quoteData && (
-            <Card className="border-primary">
-              <CardHeader className="bg-primary/5">
-                <CardTitle className="text-2xl">Your Personalized Quote</CardTitle>
-                <CardDescription>AI-analyzed pricing based on your property</CardDescription>
-              </CardHeader>
-              <CardContent className="pt-6 space-y-4">
-              {/* Show assumptions if defaults were used */}
-              {(!formData.propertySize || !formData.propertyType || !formData.frequency) && (
-                <div className="bg-muted/50 p-3 rounded-md text-sm space-y-1">
-                  <p className="font-semibold text-muted-foreground">Quote based on these assumptions:</p>
-                  {!formData.propertySize && (
-                    <p className="text-muted-foreground">• Property size: ~5,000 sq ft (average)</p>
-                  )}
-                  {!formData.propertyType && (
-                    <p className="text-muted-foreground">• Property type: Residential</p>
-                  )}
-                  {!formData.frequency && (
-                    <p className="text-muted-foreground">• Service frequency: One-time</p>
-                  )}
-                  <p className="text-xs text-muted-foreground mt-2 italic">
-                    Final pricing will be adjusted after our team assesses your specific property.
-                  </p>
-                </div>
-              )}
-
-              <div className="text-center py-4">
-                <div className="text-5xl font-bold text-primary" data-testid="text-final-quote">
-                  ${(quoteData.finalQuote ?? 0).toLocaleString()}
-                </div>
-                <p className="text-muted-foreground mt-2">
-                  {formData.frequency === "one-time" ? "One-time service" : `Per ${formData.frequency} service`}
-                </p>
-              </div>
-
-              {/* Line Items */}
-              <div className="space-y-2 border-t pt-4">
-                <h4 className="font-semibold text-sm">Included Services:</h4>
-                {(quoteData.lineItems || []).map((item, idx) => (
-                  <div key={idx} className="flex justify-between text-sm">
-                    <span>{item.description}</span>
-                    <span className="font-medium">${(item.adjustedPrice ?? 0).toLocaleString()}</span>
+      {/* Step 4: Quote Results */}
+      {step === 4 && quoteData && (
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <DollarSign className="w-5 h-5 text-primary" />
+              Your Itemized Quote
+            </CardTitle>
+            <CardDescription>Here's your personalized pricing breakdown</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            {/* Line Items */}
+            <div className="space-y-3">
+              {quoteData.lineItems.map((item, index) => (
+                <div
+                  key={index}
+                  className="flex justify-between items-start p-4 rounded-md border border-border"
+                  data-testid={`quote-line-item-${index}`}
+                >
+                  <div className="flex-1">
+                    <div className="font-medium">{item.serviceName}</div>
+                    <div className="text-sm text-muted-foreground">{item.description}</div>
                   </div>
-                ))}
-              </div>
-
-              {/* AI Analysis */}
-              {quoteData.aiAnalysis && (
-                <div className="border-t pt-4 space-y-2">
-                  <h4 className="font-semibold text-sm">Property Analysis:</h4>
-                  <div className="text-sm space-y-1 text-muted-foreground">
-                    <p>• Terrain: {quoteData.aiAnalysis.terrainDifficulty}</p>
-                    <p>• Accessibility: {quoteData.aiAnalysis.accessibility}</p>
-                    <p>• Complexity Score: {quoteData.aiAnalysis.complexityScore}x</p>
-                    {quoteData.aiAnalysis.obstacles?.length > 0 && (
-                      <p>• Considerations: {quoteData.aiAnalysis.obstacles.join(", ")}</p>
-                    )}
+                  <div className="text-right">
+                    <div className="font-semibold text-lg">${item.adjustedPrice.toLocaleString()}</div>
                   </div>
                 </div>
-              )}
-              </CardContent>
-            </Card>
-          )}
-
-          {/* Contact Form - Always show on step 3 */}
-          <Card>
-            <CardHeader>
-              <CardTitle>Confirm & Schedule</CardTitle>
-              <CardDescription>Enter your contact details to finalize your quote</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <form onSubmit={form3.handleSubmit(handleStep3Submit)} className="space-y-4">
-                <div>
-                  <Label htmlFor="name">Full Name</Label>
-                  <Input
-                    id="name"
-                    placeholder="John Doe"
-                    {...form3.register("name")}
-                    data-testid="input-name"
-                  />
-                  {form3.formState.errors.name && (
-                    <p className="text-sm text-destructive mt-1">{form3.formState.errors.name.message}</p>
-                  )}
-                </div>
-
-                <div>
-                  <Label htmlFor="email">Email</Label>
-                  <Input
-                    id="email"
-                    type="email"
-                    placeholder="john@example.com"
-                    {...form3.register("email")}
-                    data-testid="input-email"
-                  />
-                  {form3.formState.errors.email && (
-                    <p className="text-sm text-destructive mt-1">{form3.formState.errors.email.message}</p>
-                  )}
-                </div>
-
-                <div>
-                  <Label htmlFor="phone">Phone Number</Label>
-                  <Input
-                    id="phone"
-                    type="tel"
-                    placeholder="(208) 555-1234"
-                    {...form3.register("phone")}
-                    data-testid="input-phone"
-                  />
-                  {form3.formState.errors.phone && (
-                    <p className="text-sm text-destructive mt-1">{form3.formState.errors.phone.message}</p>
-                  )}
-                </div>
-
-                <div>
-                  <Label htmlFor="preferredDate">Preferred Start Date (Optional)</Label>
-                  <Input
-                    id="preferredDate"
-                    type="date"
-                    {...form3.register("preferredDate")}
-                    data-testid="input-preferred-date"
-                  />
-                </div>
-
-                <div className="flex gap-3">
-                  <Button type="button" variant="outline" onClick={() => setStep(2)} className="flex-1">
-                    Back
-                  </Button>
-                  <Button type="submit" className="flex-1" disabled={submitQuoteMutation.isPending} data-testid="button-confirm-quote">
-                    {submitQuoteMutation.isPending ? (
-                      <>
-                        <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                        Submitting...
-                      </>
-                    ) : (
-                      <>
-                        <Calendar className="w-4 h-4 mr-2" />
-                        Confirm & Book
-                      </>
-                    )}
-                  </Button>
-                </div>
-              </form>
-            </CardContent>
-          </Card>
-        </div>
-      )}
-
-      {/* Step 4: Success */}
-      {step === 4 && (
-        <Card className="border-primary">
-          <CardContent className="pt-12 pb-12 text-center space-y-4">
-            <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto">
-              <CheckCircle2 className="w-8 h-8 text-primary" />
+              ))}
             </div>
-            <h2 className="text-2xl font-bold">Quote Request Confirmed!</h2>
-            <p className="text-muted-foreground max-w-md mx-auto">
-              Thank you for choosing Lawn Care Kuna. We'll contact you within 24 hours to confirm your service and schedule.
-            </p>
-            <div className="pt-4">
-              <Button onClick={onClose} data-testid="button-close-wizard">
+
+            {/* Total */}
+            <div className="border-t border-border pt-4">
+              <div className="flex justify-between items-center text-xl font-bold">
+                <span>Total</span>
+                <span className="text-primary" data-testid="text-quote-total">${quoteData.total.toLocaleString()}</span>
+              </div>
+            </div>
+
+            <div className="text-center text-sm text-muted-foreground">
+              We'll contact you shortly to confirm your service and schedule
+            </div>
+
+            {onClose && (
+              <Button onClick={onClose} className="w-full" size="lg" data-testid="button-close-quote">
                 Close
               </Button>
-            </div>
+            )}
           </CardContent>
         </Card>
       )}
@@ -755,7 +647,7 @@ export function QuoteWizard({
         isOpen={mapOpen}
         onClose={() => setMapOpen(false)}
         onMeasurementComplete={handleMeasurementComplete}
-        initialAddress={`${formData.address || ""}, ${formData.city || "Kuna"}, Idaho`}
+        initialAddress={form1.watch("address") || ""}
       />
     </div>
   );
