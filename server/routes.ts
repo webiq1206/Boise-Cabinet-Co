@@ -19,6 +19,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     serviceType: z.string().min(1, "Service type is required"),
     frequency: z.enum(["one-time", "weekly", "bi-weekly", "monthly"]).optional(),
     selectedServices: z.array(z.string()).optional(),
+    serviceData: z.any().optional(), // Service-specific measurements
   });
 
   // Calculate intelligent quote with AI (with caching and rate limiting)
@@ -27,7 +28,26 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Validate request
       const validatedData = calculateQuoteSchema.parse(req.body);
       
-      // Provide defaults for optional fields
+      // Check if this is a multi-service quote with service-specific data
+      if (validatedData.serviceData && validatedData.selectedServices && validatedData.selectedServices.length > 0) {
+        // Use new multi-service pricing
+        const { calculateMultiServiceQuote } = await import("./services/pricing");
+        const quoteResult = await calculateMultiServiceQuote({
+          selectedServices: validatedData.selectedServices,
+          serviceData: validatedData.serviceData,
+          propertyType: validatedData.propertyType || "residential",
+          city: validatedData.city,
+          address: validatedData.address,
+        });
+        
+        res.json({
+          ...quoteResult,
+          success: true,
+        });
+        return;
+      }
+      
+      // Provide defaults for optional fields (legacy single-service path)
       const dataWithDefaults = {
         address: validatedData.address || `${validatedData.city}, Idaho`,
         city: validatedData.city,

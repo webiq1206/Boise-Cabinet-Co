@@ -250,6 +250,218 @@ export async function calculateIntelligentQuote(
 }
 
 /**
+ * Enhanced service rates with measurement-based pricing
+ */
+const SERVICE_PRICING_CONFIG = {
+  // Lawn services (property size based)
+  "lawn-mowing": { rate: 0.012, unit: "sqft", name: "Lawn Mowing & Edging" },
+  "aeration": { rate: 0.018, unit: "sqft", name: "Core Aeration" },
+  "fertilization": { rate: 0.014, unit: "sqft", name: "Fertilization Treatment" },
+  "weed-control": { rate: 0.013, unit: "sqft", name: "Weed Control" },
+  "overseeding": { rate: 0.016, unit: "sqft", name: "Overseeding" },
+  "dethatching": { rate: 0.017, unit: "sqft", name: "Dethatching" },
+  "sod-installation": { rate: 1.20, unit: "sqft", name: "Sod Installation" },
+  "lawn-renovation": { rate: 0.025, unit: "sqft", name: "Lawn Renovation" },
+  "lawn-edging": { rate: 1.50, unit: "linear_ft", name: "Lawn Edging" },
+  
+  // Christmas lights & landscape lighting (linear feet)
+  "christmas-light-installation": { rate: 3.50, unit: "linear_ft", name: "Christmas Light Installation" },
+  "landscape-lighting": { rate: 75.00, unit: "per_fixture", name: "Landscape Lighting" },
+  
+  // Irrigation (zone-based or property size)
+  "sprinkler-blowout": { rate: 45.00, unit: "per_zone", name: "Sprinkler Winterization" },
+  "sprinkler-repair": { rate: 85.00, unit: "base_service", name: "Sprinkler Repair" },
+  "sprinkler-system-installation": { rate: 0.50, unit: "sqft", name: "Sprinkler System Installation" },
+  "irrigation-repair": { rate: 85.00, unit: "base_service", name: "Irrigation Repair" },
+  "irrigation-maintenance": { rate: 50.00, unit: "per_zone", name: "Irrigation Maintenance" },
+  
+  // Hardscape (dimensions-based or project)
+  "patio-installation": { rate: 35.00, unit: "per_sqft", name: "Patio Installation" },
+  "retaining-walls": { rate: 40.00, unit: "linear_ft", name: "Retaining Wall Installation" },
+  "fire-pit-installation": { rate: 1500.00, unit: "base_project", name: "Fire Pit Installation" },
+  
+  // Tree services (per tree)
+  "tree-removal": { rate: 500.00, unit: "per_tree", name: "Tree Removal" },
+  "tree-trimming": { rate: 250.00, unit: "per_tree", name: "Tree Trimming & Pruning" },
+  "stump-grinding": { rate: 150.00, unit: "per_stump", name: "Stump Grinding" },
+  
+  // Hedge & seasonal (linear feet or property size)
+  "hedge-trimming": { rate: 2.00, unit: "linear_ft", name: "Hedge & Shrub Trimming" },
+  "spring-cleanup": { rate: 0.016, unit: "sqft", name: "Spring Cleanup" },
+  "fall-cleanup": { rate: 0.016, unit: "sqft", name: "Fall Cleanup" },
+  "seasonal-cleanup": { rate: 0.016, unit: "sqft", name: "Seasonal Cleanup" },
+  "mulch-installation": { rate: 0.45, unit: "sqft", name: "Mulch Installation" },
+};
+
+interface ServiceSpecificData {
+  [serviceId: string]: {
+    propertySize?: number;
+    linearFeet?: number;
+    zones?: number;
+    dimensions?: string;
+    material?: string;
+    treeCount?: number;
+    treeSize?: string;
+    quantity?: number;
+    height?: number;
+    [key: string]: any;
+  };
+}
+
+interface MultiServiceQuoteData {
+  selectedServices: string[];
+  serviceData: ServiceSpecificData;
+  propertyType?: string;
+  city?: string;
+  address?: string;
+}
+
+/**
+ * Calculate itemized quote for multiple services with service-specific measurements
+ */
+export async function calculateMultiServiceQuote(
+  data: MultiServiceQuoteData
+): Promise<{
+  lineItems: QuoteLineItem[];
+  subtotal: number;
+  total: number;
+  aiAnalysis?: AIAnalysis;
+}> {
+  const {
+    selectedServices,
+    serviceData,
+    propertyType = "residential",
+    city = "Kuna",
+    address = ""
+  } = data;
+
+  const lineItems: QuoteLineItem[] = [];
+  let subtotal = 0;
+
+  // Calculate price for each service based on its specific measurements
+  for (const serviceId of selectedServices) {
+    const config = SERVICE_PRICING_CONFIG[serviceId as keyof typeof SERVICE_PRICING_CONFIG];
+    if (!config) continue;
+
+    const measurements = serviceData[serviceId] || {};
+    let basePrice = 0;
+    let description = config.name;
+
+    // Calculate base price based on measurement unit
+    switch (config.unit) {
+      case "sqft":
+        const sqft = measurements.propertySize || 5000; // Default
+        basePrice = sqft * config.rate;
+        description += ` (${sqft.toLocaleString()} sq ft)`;
+        break;
+
+      case "linear_ft":
+        const linearFt = measurements.linearFeet || 100; // Default
+        basePrice = linearFt * config.rate;
+        description += ` (${linearFt} linear feet)`;
+        break;
+
+      case "per_zone":
+        const zones = measurements.zones || 6; // Default
+        basePrice = zones * config.rate;
+        description += ` (${zones} zones)`;
+        break;
+
+      case "per_tree":
+        const trees = measurements.treeCount || 1;
+        const sizeMultiplier = getSizeMultiplier(measurements.treeSize);
+        basePrice = trees * config.rate * sizeMultiplier;
+        description += ` (${trees} tree${trees > 1 ? 's' : ''})`;
+        break;
+
+      case "per_fixture":
+        const fixtures = measurements.quantity || 10;
+        basePrice = fixtures * config.rate;
+        description += ` (${fixtures} fixtures)`;
+        break;
+
+      case "per_stump":
+        const stumps = measurements.quantity || 1;
+        basePrice = stumps * config.rate;
+        description += ` (${stumps} stump${stumps > 1 ? 's' : ''})`;
+        break;
+
+      case "per_sqft":
+        // For patio/hardscape - parse dimensions
+        const dims = parseDimensions(measurements.dimensions);
+        basePrice = dims * config.rate;
+        description += ` (${dims} sq ft)`;
+        break;
+
+      case "base_service":
+        basePrice = config.rate;
+        break;
+
+      case "base_project":
+        basePrice = config.rate;
+        break;
+
+      default:
+        basePrice = config.rate;
+    }
+
+    // Apply property type multiplier
+    const propertyMultiplier = PROPERTY_MULTIPLIERS[propertyType as keyof typeof PROPERTY_MULTIPLIERS] || 1.0;
+    const adjustedPrice = basePrice * propertyMultiplier;
+
+    lineItems.push({
+      serviceId,
+      serviceName: config.name,
+      basePrice: Math.round(basePrice * 100) / 100,
+      adjustedPrice: Math.round(adjustedPrice * 100) / 100,
+      description,
+    });
+
+    subtotal += adjustedPrice;
+  }
+
+  // Add profit margin to get final total
+  const total = subtotal * (1 + PROFIT_MARGIN);
+
+  return {
+    lineItems,
+    subtotal: Math.round(subtotal * 100) / 100,
+    total: Math.round(total * 100) / 100,
+  };
+}
+
+// Helper functions
+function getSizeMultiplier(size?: string): number {
+  if (!size) return 1.0;
+  if (size.includes("Small")) return 0.7;
+  if (size.includes("Medium")) return 1.0;
+  if (size.includes("Large")) return 1.5;
+  if (size.includes("Very Large")) return 2.0;
+  return 1.0;
+}
+
+function parseDimensions(dims?: string): number {
+  if (!dims) return 300; // Default patio size
+  
+  // Try to parse "20x15" or "300" format
+  const match = dims.match(/(\d+)\s*[xX×]\s*(\d+)/);
+  if (match) {
+    return parseInt(match[1]) * parseInt(match[2]);
+  }
+  
+  const num = parseInt(dims);
+  return isNaN(num) ? 300 : num;
+}
+
+interface QuoteLineItem {
+  serviceId: string;
+  serviceName: string;
+  basePrice: number;
+  adjustedPrice: number;
+  description: string;
+}
+
+/**
  * Get instant price estimate (simpler, faster)
  */
 export function getInstantEstimate(
