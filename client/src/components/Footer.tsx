@@ -1,9 +1,12 @@
 import { Link } from "wouter";
 import { Phone, Mail, MapPin } from "lucide-react";
 import logoUrl from "@assets/Lawn-Care-Kuna-Replit-11-20-2025_03_01_PM_1763676084102.png";
+import { PRIORITY_SERVICES, CITIES } from "@shared/contentData";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
+  
+  const topServices = PRIORITY_SERVICES.slice(0, 10);
 
   return (
     <footer className="bg-muted border-t">
@@ -82,31 +85,13 @@ export function Footer() {
           <div>
             <h3 className="font-semibold text-sm mb-4">Our Services</h3>
             <ul className="space-y-2 text-sm">
-              <li>
-                <Link href="/services/lawn-mowing" className="text-muted-foreground hover:text-primary transition-colors">
-                  Lawn Mowing
-                </Link>
-              </li>
-              <li>
-                <Link href="/services/aeration" className="text-muted-foreground hover:text-primary transition-colors">
-                  Lawn Aeration
-                </Link>
-              </li>
-              <li>
-                <Link href="/services/patio-installation" className="text-muted-foreground hover:text-primary transition-colors">
-                  Patio Installation
-                </Link>
-              </li>
-              <li>
-                <Link href="/services/pond-installation" className="text-muted-foreground hover:text-primary transition-colors">
-                  Pond Installation
-                </Link>
-              </li>
-              <li>
-                <Link href="/services/christmas-lights" className="text-muted-foreground hover:text-primary transition-colors">
-                  Christmas Lights
-                </Link>
-              </li>
+              {topServices.map((service) => (
+                <li key={service.slug}>
+                  <Link href={`/services/${service.slug}`} className="text-muted-foreground hover:text-primary transition-colors">
+                    {service.name}
+                  </Link>
+                </li>
+              ))}
               <li>
                 <Link href="/commercial/hoa-services" className="text-muted-foreground hover:text-primary transition-colors">
                   HOA Services
@@ -119,36 +104,13 @@ export function Footer() {
           <div>
             <h3 className="font-semibold text-sm mb-4">Service Areas</h3>
             <ul className="space-y-2 text-sm">
-              <li>
-                <Link href="/areas/kuna" className="text-muted-foreground hover:text-primary transition-colors">
-                  Kuna, Idaho
-                </Link>
-              </li>
-              <li>
-                <Link href="/areas/boise" className="text-muted-foreground hover:text-primary transition-colors">
-                  Boise, Idaho
-                </Link>
-              </li>
-              <li>
-                <Link href="/areas/meridian" className="text-muted-foreground hover:text-primary transition-colors">
-                  Meridian, Idaho
-                </Link>
-              </li>
-              <li>
-                <Link href="/areas/nampa" className="text-muted-foreground hover:text-primary transition-colors">
-                  Nampa, Idaho
-                </Link>
-              </li>
-              <li>
-                <Link href="/areas/caldwell" className="text-muted-foreground hover:text-primary transition-colors">
-                  Caldwell, Idaho
-                </Link>
-              </li>
-              <li>
-                <Link href="/areas/eagle" className="text-muted-foreground hover:text-primary transition-colors">
-                  Eagle, Idaho
-                </Link>
-              </li>
+              {CITIES.map((city) => (
+                <li key={city.slug}>
+                  <Link href={`/areas/${city.slug}`} className="text-muted-foreground hover:text-primary transition-colors">
+                    {city.name}, Idaho
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
         </div>

@@ -12,34 +12,24 @@ import {
 } from "@/components/ui/navigation-menu";
 import { Menu, FileText } from "lucide-react";
 import logoUrl from "@assets/Lawn Care Kuna Logo_1763512021933.png";
+import { PRIORITY_SERVICES } from "@shared/contentData";
 
-const lawnCareServices = [
-  { name: "Lawn Mowing", href: "/services/lawn-mowing" },
-  { name: "Lawn Maintenance", href: "/services/lawn-maintenance" },
-  { name: "Aeration", href: "/services/aeration" },
-  { name: "Fertilization", href: "/services/fertilization" },
-  { name: "Weed Control", href: "/services/weed-control" },
-  { name: "Hedge Trimming", href: "/services/hedge-trimming" },
-  { name: "Seasonal Cleanup", href: "/services/seasonal-cleanup" },
-  { name: "Sprinkler Blowout", href: "/services/sprinkler-blowout" },
-];
+const lawnCareServices = PRIORITY_SERVICES
+  .filter(s => s.category === 'lawn-care')
+  .map(s => ({ name: s.name, href: `/services/${s.slug}` }));
 
-const landscapingServices = [
-  { name: "Sod Installation", href: "/services/sod-installation" },
-  { name: "Patio Installation", href: "/services/patio-installation" },
-  { name: "Retaining Walls", href: "/services/retaining-walls" },
-  { name: "Pond Installation", href: "/services/pond-installation" },
-  { name: "Fence Installation", href: "/services/fence-installation" },
-  { name: "Landscape Lighting", href: "/services/landscape-lighting" },
-  { name: "Irrigation Systems", href: "/services/irrigation-installation" },
-  { name: "View All Landscaping", href: "/services/landscaping" },
-];
+const landscapingServices = PRIORITY_SERVICES
+  .filter(s => s.category.startsWith('landscaping-'))
+  .map(s => ({ name: s.name, href: `/services/${s.slug}` }));
+
+const christmasLightsServices = PRIORITY_SERVICES
+  .filter(s => s.category === 'christmas-lights')
+  .map(s => ({ name: s.name, href: `/services/${s.slug}` }));
 
 const commercialServices = [
   { name: "HOA Services", href: "/commercial/hoa-services" },
-  { name: "Commercial", href: "/commercial" },
+  { name: "Commercial Services", href: "/commercial" },
   { name: "Municipal Services", href: "/commercial/municipal-services" },
-  { name: "Commercial Lawn Care", href: "/commercial/commercial-lawn-care" },
 ];
 
 export function Navigation() {
@@ -110,16 +100,22 @@ export function Navigation() {
                       </ul>
                     </div>
                     <div className="space-y-4">
-                      <h3 className="text-sm font-semibold text-foreground tracking-wide uppercase mb-3">Specialty</h3>
-                      <ul className="space-y-1.5 mb-6">
-                        <li>
-                          <Link href="/services/christmas-lights">
-                            <span className="block select-none rounded-md px-3 py-2 text-sm leading-none transition-colors hover-elevate cursor-pointer" data-testid="link-christmas-lights">
-                              Christmas Lights
-                            </span>
-                          </Link>
-                        </li>
-                      </ul>
+                      {christmasLightsServices.length > 0 && (
+                        <>
+                          <h3 className="text-sm font-semibold text-foreground tracking-wide uppercase mb-3">Seasonal</h3>
+                          <ul className="space-y-1.5 mb-6">
+                            {christmasLightsServices.map((service) => (
+                              <li key={service.href}>
+                                <Link href={service.href}>
+                                  <span className="block select-none rounded-md px-3 py-2 text-sm leading-none transition-colors hover-elevate cursor-pointer" data-testid={`link-${service.name.toLowerCase().replace(/\s+/g, '-')}`}>
+                                    {service.name}
+                                  </span>
+                                </Link>
+                              </li>
+                            ))}
+                          </ul>
+                        </>
+                      )}
                       <h3 className="text-sm font-semibold text-foreground tracking-wide uppercase mb-3">Commercial</h3>
                       <ul className="space-y-1.5">
                         {commercialServices.map((service) => (
@@ -236,6 +232,22 @@ export function Navigation() {
                     ))}
                   </div>
                 </div>
+
+                {/* Seasonal Services */}
+                {christmasLightsServices.length > 0 && (
+                  <div className="mt-4">
+                    <h3 className="px-4 py-2 text-sm font-semibold text-foreground tracking-wide uppercase">Seasonal</h3>
+                    <div className="mt-1 space-y-0.5">
+                      {christmasLightsServices.map((service) => (
+                        <Link key={service.href} href={service.href} onClick={() => setMobileOpen(false)}>
+                          <div className="px-6 py-2.5 text-sm rounded-md hover-elevate active-elevate-2 transition-colors">
+                            {service.name}
+                          </div>
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                )}
 
                 {/* Commercial Services */}
                 <div className="mt-4">
