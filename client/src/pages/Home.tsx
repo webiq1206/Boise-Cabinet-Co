@@ -19,7 +19,6 @@ import {
   Zap,
 } from "lucide-react";
 import { ServiceAreaMap } from "@/components/ServiceAreaMap";
-import { BeforeAfterGallery } from "@/components/BeforeAfterGallery";
 import { Testimonials } from "@/components/Testimonials";
 import { HeroQuoteSection } from "@/components/HeroQuoteSection";
 import { generateSEOMetadata, BUSINESS_INFO } from "@/lib/seo";
@@ -524,23 +523,6 @@ export default function Home() {
                 </Link>
               </Button>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Before/After Gallery */}
-      <section className="py-16 md:py-24">
-        <div className="container px-4 md:px-8">
-          <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-12 space-y-4">
-              <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
-                Recent Projects
-              </h2>
-              <p className="text-lg text-muted-foreground">
-                See the transformation we've delivered for homeowners across the Treasure Valley
-              </p>
-            </div>
-            <BeforeAfterGallery limit={4} />
           </div>
         </div>
       </section>
