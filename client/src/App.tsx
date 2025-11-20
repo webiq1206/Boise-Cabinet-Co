@@ -19,6 +19,9 @@ import NotFound from "@/pages/not-found";
 import LawnCare from "@/pages/services/LawnCare";
 import Landscaping from "@/pages/services/Landscaping";
 import ChristmasLights from "@/pages/services/ChristmasLights";
+import FenceInstallation from "@/pages/services/FenceInstallation";
+import PondInstallation from "@/pages/services/PondInstallation";
+import IrrigationInstallation from "@/pages/services/IrrigationInstallation";
 
 // Dynamic Service Route (handles all service pages automatically)
 import DynamicServiceRoute from "@/components/DynamicServiceRoute";
@@ -60,6 +63,9 @@ function Router() {
           <Route path="/services/lawn-care" component={LawnCare} />
           <Route path="/services/landscaping" component={Landscaping} />
           <Route path="/services/christmas-lights" component={ChristmasLights} />
+          <Route path="/services/fence-installation" component={FenceInstallation} />
+          <Route path="/services/pond-installation" component={PondInstallation} />
+          <Route path="/services/irrigation-installation" component={IrrigationInstallation} />
 
           {/* Dynamic Service Routes - Handles ALL services in contentData.ts automatically */}
           {/* Pattern: /services/:serviceSlug/:citySlug? */}
