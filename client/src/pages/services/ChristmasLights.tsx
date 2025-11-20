@@ -3,9 +3,11 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { QuoteForm } from "@/components/QuoteForm";
 import { CheckCircle2, Lightbulb, Home, Trees, Sparkles, Clock, Shield } from "lucide-react";
-import heroBackground from "@assets/Untitled design_1763639882299.png";
+import { getServiceBackground } from "@shared/serviceBackgrounds";
 
 export default function ChristmasLights() {
+  const heroBackground = getServiceBackground("christmas-lights");
+  
   return (
     <div className="flex flex-col">
       {/* Hero */}
