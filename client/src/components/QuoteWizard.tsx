@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Loader2, MapPin, CheckCircle2, Calendar, DollarSign, Package } from "lucide-react";
 import { MapMeasureTool } from "@/components/MapMeasureTool";
 import { AddressAutocomplete } from "@/components/AddressAutocomplete";
@@ -542,9 +543,8 @@ export function QuoteWizard({
           </CardHeader>
           <CardContent>
             <form onSubmit={form2.handleSubmit(handleStep2Submit)} className="space-y-6">
-              {/* Service Categories */}
-              <div className="space-y-6">
-                {/* Group services by category */}
+              {/* Service Categories with Accordions */}
+              <Accordion type="multiple" className="w-full" defaultValue={["lawn", "hardscape", "irrigation", "lighting", "trees", "seasonal"]}>
                 {[
                   { category: "lawn", title: "Lawn Care Services" },
                   { category: "hardscape", title: "Hardscape & Patio" },
@@ -557,36 +557,40 @@ export function QuoteWizard({
                   if (categoryServices.length === 0) return null;
 
                   return (
-                    <div key={category} className="space-y-3">
-                      <h3 className="font-medium text-sm text-muted-foreground uppercase tracking-wide">{title}</h3>
-                      <div className="grid gap-3 sm:grid-cols-2">
-                        {categoryServices.map((service) => {
-                          const isSelected = selectedServices.includes(service.serviceId);
-                          return (
-                            <Label
-                              key={service.serviceId}
-                              htmlFor={`service-${service.serviceId}`}
-                              className={`flex items-start gap-3 rounded-md border p-4 cursor-pointer hover-elevate ${
-                                isSelected ? "border-primary bg-primary/5" : "border-input"
-                              }`}
-                            >
-                              <Checkbox
-                                id={`service-${service.serviceId}`}
-                                checked={isSelected}
-                                onCheckedChange={() => toggleService(service.serviceId)}
-                                data-testid={`checkbox-service-${service.serviceId}`}
-                              />
-                              <div className="flex-1">
-                                <div className="font-medium">{service.serviceName}</div>
-                              </div>
-                            </Label>
-                          );
-                        })}
-                      </div>
-                    </div>
+                    <AccordionItem key={category} value={category} data-testid={`accordion-${category}`}>
+                      <AccordionTrigger className="text-sm font-medium uppercase tracking-wide hover:no-underline">
+                        {title}
+                      </AccordionTrigger>
+                      <AccordionContent>
+                        <div className="grid gap-3 sm:grid-cols-2 pt-2">
+                          {categoryServices.map((service) => {
+                            const isSelected = selectedServices.includes(service.serviceId);
+                            return (
+                              <Label
+                                key={service.serviceId}
+                                htmlFor={`service-${service.serviceId}`}
+                                className={`flex items-start gap-3 rounded-md border p-4 cursor-pointer hover-elevate ${
+                                  isSelected ? "border-primary bg-primary/5" : "border-input"
+                                }`}
+                              >
+                                <Checkbox
+                                  id={`service-${service.serviceId}`}
+                                  checked={isSelected}
+                                  onCheckedChange={() => toggleService(service.serviceId)}
+                                  data-testid={`checkbox-service-${service.serviceId}`}
+                                />
+                                <div className="flex-1">
+                                  <div className="font-medium">{service.serviceName}</div>
+                                </div>
+                              </Label>
+                            );
+                          })}
+                        </div>
+                      </AccordionContent>
+                    </AccordionItem>
                   );
                 })}
-              </div>
+              </Accordion>
 
               {/* Map Tool for Measurements (service-aware) */}
               {getMeasurementType() && (
