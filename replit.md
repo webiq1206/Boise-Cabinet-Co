@@ -13,7 +13,7 @@ Preferred communication style: Simple, everyday language.
 - **Component Library**: shadcn/ui (Radix UI primitives) with custom Tailwind CSS.
 - **Visuals**: Service-specific hero backgrounds with intelligent fallback, consistent typography hierarchy, redesigned mobile navigation with sticky bottom bar.
 - **Content Layout**: Clean, modern look with simplified layouts, alternating backgrounds, two-column quote forms, and scannable content sections with proper heading hierarchy.
-- **Interactive Elements**: Interactive FAQ accordions and an interactive property measurement tool.
+- **Interactive Elements**: Interactive FAQ accordions, an interactive property measurement tool, and a site-wide search function with autocomplete.
 
 ### Technical Implementations
 - **Frontend Framework**: React 18 with TypeScript.
@@ -25,6 +25,7 @@ Preferred communication style: Simple, everyday language.
 - **Dynamic Content**: Navigation and footer automatically display all services and service areas fetched from `contentData.ts`. Service directory page dynamically pulls from PRIORITY_SERVICES.
 - **Unified Quote Form Design**: All quote forms site-wide use `QuoteWizard`, a 4-step multi-service wizard with city and service preselection, comprehensive field validation, and integrated AI quoting. QuoteForm has been fully deprecated in favor of the unified QuoteWizard experience.
 - **Mobile Navigation**: Sticky bottom navigation on mobile with Services button linking to comprehensive service directory, Get Quote, and Schedule buttons for quick access.
+- **Site-Wide Search**: Real-time autocomplete search in header (desktop and mobile) that searches all services, service areas, and main pages. Shows up to 8 results with icons, descriptions, and type labels. Keyboard accessible with Escape to close and click-outside dismissal.
 
 ### System Design Choices
 - **Backend Framework**: Express.js with TypeScript.
