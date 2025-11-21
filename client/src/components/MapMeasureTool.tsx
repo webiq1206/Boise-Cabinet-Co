@@ -56,6 +56,7 @@ export function MapMeasureTool({
   const [measuredArea, setMeasuredArea] = useState<number | null>(null);
   const [measuredLinear, setMeasuredLinear] = useState<number | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [mapReady, setMapReady] = useState(false);
   
   // When 'both' mode is enabled, allow user to toggle between area and linear
   const supportsBothModes = measurementType === 'both';
@@ -91,6 +92,7 @@ export function MapMeasureTool({
       setError(null);
       setMeasuredArea(null);
       setMeasuredLinear(null);
+      setMapReady(false);
     }
   }, [isOpen]);
 
@@ -282,6 +284,9 @@ export function MapMeasureTool({
       });
 
       mapInstanceRef.current = map;
+      
+      // Mark map as ready
+      setMapReady(true);
 
       // Auto-search initial address if provided
       if (initialAddress) {
@@ -663,7 +668,7 @@ export function MapMeasureTool({
             </div>
             <Button 
               type="submit" 
-              disabled={isSearching}
+              disabled={isSearching || !mapReady}
               data-testid="button-search-address"
             >
               {isSearching ? (
