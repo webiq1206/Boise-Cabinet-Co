@@ -1,4 +1,4 @@
-import { type Quote, type InsertQuote, type GalleryPhoto, type InsertGalleryPhoto, type Testimonial, type InsertTestimonial, type BlogPost, type InsertBlogPost } from "@shared/schema";
+import { type Quote, type InsertQuote, type GalleryPhoto, type InsertGalleryPhoto, type Testimonial, type InsertTestimonial, type BlogPost, type InsertBlogPost, type User, type InsertUser, type Lead, type InsertLead, type LeadPurchase, type InsertLeadPurchase, type Notification, type InsertNotification } from "@shared/schema";
 import { randomUUID } from "crypto";
 
 export interface IStorage {
@@ -17,6 +17,33 @@ export interface IStorage {
   createBlogPost(post: InsertBlogPost): Promise<BlogPost>;
   getAllBlogPosts(): Promise<BlogPost[]>;
   getBlogPostBySlug(slug: string): Promise<BlogPost | undefined>;
+  
+  // User/Auth methods
+  createUser(user: InsertUser): Promise<User>;
+  getUserByEmail(email: string): Promise<User | undefined>;
+  getUserById(id: string): Promise<User | undefined>;
+  updateUser(id: string, data: Partial<User>): Promise<User | undefined>;
+  getAllSubcontractors(): Promise<User[]>;
+  
+  // Lead methods
+  createLead(lead: InsertLead): Promise<Lead>;
+  getAllLeads(): Promise<Lead[]>;
+  getLeadById(id: string): Promise<Lead | undefined>;
+  getLeadsByStatus(status: string): Promise<Lead[]>;
+  getLeadsForSubcontractor(filters?: { city?: string; serviceType?: string; maxPrice?: number }): Promise<Lead[]>;
+  updateLead(id: string, data: Partial<Lead>): Promise<Lead | undefined>;
+  updateLeadPrices(): Promise<void>;
+  
+  // Lead Purchase methods
+  createLeadPurchase(purchase: InsertLeadPurchase): Promise<LeadPurchase>;
+  getLeadPurchasesByUser(userId: string): Promise<LeadPurchase[]>;
+  getLeadPurchaseByLead(leadId: string): Promise<LeadPurchase | undefined>;
+  
+  // Notification methods
+  createNotification(notification: InsertNotification): Promise<Notification>;
+  getNotificationsByUser(userId: string): Promise<Notification[]>;
+  markNotificationRead(id: string): Promise<void>;
+  markNotificationEmailSent(id: string): Promise<void>;
 }
 
 export class MemStorage implements IStorage {
@@ -24,12 +51,20 @@ export class MemStorage implements IStorage {
   private galleryPhotos: Map<string, GalleryPhoto>;
   private testimonials: Map<string, Testimonial>;
   private blogPosts: Map<string, BlogPost>;
+  private users: Map<string, User>;
+  private leads: Map<string, Lead>;
+  private leadPurchases: Map<string, LeadPurchase>;
+  private notifications: Map<string, Notification>;
 
   constructor() {
     this.quotes = new Map();
     this.galleryPhotos = new Map();
     this.testimonials = new Map();
     this.blogPosts = new Map();
+    this.users = new Map();
+    this.leads = new Map();
+    this.leadPurchases = new Map();
+    this.notifications = new Map();
     this.seedData();
   }
 
@@ -190,8 +225,10 @@ export class MemStorage implements IStorage {
     const id = randomUUID();
     const quote: Quote = {
       ...insertQuote,
+      address: insertQuote.address ?? null,
       propertySize: insertQuote.propertySize ?? null,
       message: insertQuote.message ?? null,
+      acceptedAt: null,
       id,
       createdAt: new Date(),
     };
@@ -282,6 +319,235 @@ export class MemStorage implements IStorage {
     return Array.from(this.blogPosts.values()).find(
       post => post.slug === slug
     );
+  }
+
+  // User methods
+  async createUser(insertUser: InsertUser): Promise<User> {
+    const existing = Array.from(this.users.values()).find(u => u.email === insertUser.email);
+    if (existing) {
+      throw new Error(`User with email "${insertUser.email}" already exists`);
+    }
+
+    const id = randomUUID();
+    const user: User = {
+      ...insertUser,
+      phone: insertUser.phone ?? null,
+      company: insertUser.company ?? null,
+      licenseNumber: insertUser.licenseNumber ?? null,
+      insuranceExpiry: insertUser.insuranceExpiry ?? null,
+      agreementAccepted: insertUser.agreementAccepted ?? false,
+      agreementAcceptedAt: null,
+      stripeCustomerId: insertUser.stripeCustomerId ?? null,
+      isActive: insertUser.isActive ?? true,
+      emailVerified: insertUser.emailVerified ?? false,
+      id,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
+    this.users.set(id, user);
+    return user;
+  }
+
+  async getUserByEmail(email: string): Promise<User | undefined> {
+    return Array.from(this.users.values()).find(u => u.email === email);
+  }
+
+  async getUserById(id: string): Promise<User | undefined> {
+    return this.users.get(id);
+  }
+
+  async updateUser(id: string, data: Partial<User>): Promise<User | undefined> {
+    const user = this.users.get(id);
+    if (!user) return undefined;
+
+    const updated: User = {
+      ...user,
+      ...data,
+      updatedAt: new Date(),
+    };
+    this.users.set(id, updated);
+    return updated;
+  }
+
+  async getAllSubcontractors(): Promise<User[]> {
+    return Array.from(this.users.values()).filter(u => u.role === "subcontractor" && u.isActive);
+  }
+
+  // Lead methods
+  async createLead(insertLead: InsertLead): Promise<Lead> {
+    const id = randomUUID();
+    const lead: Lead = {
+      ...insertLead,
+      quoteId: insertLead.quoteId ?? null,
+      address: insertLead.address ?? null,
+      selectedServices: insertLead.selectedServices ?? null,
+      frequency: insertLead.frequency ?? null,
+      finalQuote: insertLead.finalQuote ?? null,
+      lineItems: insertLead.lineItems ?? null,
+      serviceData: insertLead.serviceData ?? null,
+      message: insertLead.message ?? null,
+      status: insertLead.status ?? "pending_admin",
+      adminDeclined: insertLead.adminDeclined ?? false,
+      lastPriceUpdate: new Date(),
+      adminReviewedBy: insertLead.adminReviewedBy ?? null,
+      adminReviewedAt: null,
+      purchasedBy: insertLead.purchasedBy ?? null,
+      purchasedAt: null,
+      purchasePrice: insertLead.purchasePrice ?? null,
+      stripePaymentIntentId: insertLead.stripePaymentIntentId ?? null,
+      id,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
+    this.leads.set(id, lead);
+    return lead;
+  }
+
+  async getAllLeads(): Promise<Lead[]> {
+    return Array.from(this.leads.values()).sort(
+      (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+    );
+  }
+
+  async getLeadById(id: string): Promise<Lead | undefined> {
+    return this.leads.get(id);
+  }
+
+  async getLeadsByStatus(status: string): Promise<Lead[]> {
+    return Array.from(this.leads.values())
+      .filter(lead => lead.status === status)
+      .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+  }
+
+  async getLeadsForSubcontractor(filters?: { city?: string; serviceType?: string; maxPrice?: number }): Promise<Lead[]> {
+    let leads = Array.from(this.leads.values()).filter(lead => lead.status === "available");
+
+    if (filters?.city) {
+      leads = leads.filter(lead => lead.city.toLowerCase() === filters.city!.toLowerCase());
+    }
+
+    if (filters?.serviceType) {
+      leads = leads.filter(lead => 
+        lead.serviceType.toLowerCase().includes(filters.serviceType!.toLowerCase()) ||
+        lead.selectedServices?.some(s => s.toLowerCase().includes(filters.serviceType!.toLowerCase()))
+      );
+    }
+
+    if (filters?.maxPrice) {
+      leads = leads.filter(lead => {
+        const price = parseFloat(lead.currentLeadPrice as string);
+        return !isNaN(price) && price <= filters.maxPrice!;
+      });
+    }
+
+    return leads.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+  }
+
+  async updateLead(id: string, data: Partial<Lead>): Promise<Lead | undefined> {
+    const lead = this.leads.get(id);
+    if (!lead) return undefined;
+
+    const updated: Lead = {
+      ...lead,
+      ...data,
+      updatedAt: new Date(),
+    };
+    this.leads.set(id, updated);
+    return updated;
+  }
+
+  async updateLeadPrices(): Promise<void> {
+    const now = new Date();
+    const oneDayMs = 24 * 60 * 60 * 1000;
+
+    for (const lead of Array.from(this.leads.values())) {
+      if (lead.status === "available" && lead.lastPriceUpdate) {
+        const hoursSinceUpdate = (now.getTime() - new Date(lead.lastPriceUpdate).getTime()) / (1000 * 60 * 60);
+        
+        if (hoursSinceUpdate >= 24) {
+          const currentPrice = parseFloat(lead.currentLeadPrice as string);
+          const reductionRate = parseFloat(lead.priceReductionRate as string) / 100;
+          const newPrice = currentPrice * (1 - reductionRate);
+          
+          const minPrice = parseFloat(lead.baseLeadPrice as string) * 0.5;
+          const finalPrice = Math.max(newPrice, minPrice);
+
+          await this.updateLead(lead.id, {
+            currentLeadPrice: finalPrice.toFixed(2),
+            lastPriceUpdate: now,
+          });
+        }
+      }
+    }
+  }
+
+  // Lead Purchase methods
+  async createLeadPurchase(insertPurchase: InsertLeadPurchase): Promise<LeadPurchase> {
+    const id = randomUUID();
+    const purchase: LeadPurchase = {
+      ...insertPurchase,
+      stripeChargeId: insertPurchase.stripeChargeId ?? null,
+      refunded: insertPurchase.refunded ?? false,
+      refundReason: insertPurchase.refundReason ?? null,
+      refundedAt: null,
+      id,
+      createdAt: new Date(),
+    };
+    this.leadPurchases.set(id, purchase);
+    return purchase;
+  }
+
+  async getLeadPurchasesByUser(userId: string): Promise<LeadPurchase[]> {
+    return Array.from(this.leadPurchases.values())
+      .filter(p => p.userId === userId)
+      .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+  }
+
+  async getLeadPurchaseByLead(leadId: string): Promise<LeadPurchase | undefined> {
+    return Array.from(this.leadPurchases.values()).find(p => p.leadId === leadId);
+  }
+
+  // Notification methods
+  async createNotification(insertNotification: InsertNotification): Promise<Notification> {
+    const id = randomUUID();
+    const notification: Notification = {
+      ...insertNotification,
+      leadId: insertNotification.leadId ?? null,
+      read: insertNotification.read ?? false,
+      emailSent: insertNotification.emailSent ?? false,
+      emailSentAt: null,
+      id,
+      createdAt: new Date(),
+    };
+    this.notifications.set(id, notification);
+    return notification;
+  }
+
+  async getNotificationsByUser(userId: string): Promise<Notification[]> {
+    return Array.from(this.notifications.values())
+      .filter(n => n.userId === userId)
+      .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+  }
+
+  async markNotificationRead(id: string): Promise<void> {
+    const notification = this.notifications.get(id);
+    if (notification) {
+      this.notifications.set(id, {
+        ...notification,
+        read: true,
+      });
+    }
+  }
+
+  async markNotificationEmailSent(id: string): Promise<void> {
+    const notification = this.notifications.get(id);
+    if (notification) {
+      this.notifications.set(id, {
+        ...notification,
+        emailSent: true,
+        emailSentAt: new Date(),
+      });
+    }
   }
 }
 

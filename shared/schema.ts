@@ -140,3 +140,149 @@ export const insertBlogPostSchema = createInsertSchema(blogPosts).omit({
 
 export type BlogPost = typeof blogPosts.$inferSelect;
 export type InsertBlogPost = z.infer<typeof insertBlogPostSchema>;
+
+// Users/Subcontractors Schema
+export const users = pgTable("users", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  email: text("email").notNull().unique(),
+  passwordHash: text("password_hash").notNull(),
+  name: text("name").notNull(),
+  phone: text("phone"),
+  role: text("role").notNull().default("subcontractor"), // admin or subcontractor
+  company: text("company"),
+  licenseNumber: text("license_number"),
+  insuranceExpiry: timestamp("insurance_expiry"),
+  
+  // Agreement acceptance
+  agreementAccepted: boolean("agreement_accepted").default(false),
+  agreementAcceptedAt: timestamp("agreement_accepted_at"),
+  
+  // Stripe
+  stripeCustomerId: text("stripe_customer_id"),
+  
+  // Status
+  isActive: boolean("is_active").default(true),
+  emailVerified: boolean("email_verified").default(false),
+  
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
+export const insertUserSchema = createInsertSchema(users).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+  agreementAcceptedAt: true,
+}).extend({
+  email: z.string().email("Please enter a valid email address"),
+  passwordHash: z.string().min(8, "Password must be at least 8 characters"),
+  name: z.string().min(2, "Please enter your full name"),
+  role: z.enum(["admin", "subcontractor"]).default("subcontractor"),
+});
+
+export type User = typeof users.$inferSelect;
+export type InsertUser = z.infer<typeof insertUserSchema>;
+
+// Leads Schema (extends quotes)
+export const leads = pgTable("leads", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  
+  // Link to original quote
+  quoteId: varchar("quote_id").references(() => quotes.id),
+  
+  // Lead details (copied from quote for denormalization)
+  name: text("name").notNull(),
+  email: text("email").notNull(),
+  phone: text("phone").notNull(),
+  address: text("address"),
+  city: text("city").notNull(),
+  propertyType: text("property_type").notNull(),
+  serviceType: text("service_type").notNull(),
+  selectedServices: text("selected_services").array(),
+  frequency: text("frequency"), // one-time or recurring
+  finalQuote: decimal("final_quote", { precision: 10, scale: 2 }),
+  lineItems: jsonb("line_items"),
+  serviceData: jsonb("service_data"),
+  message: text("message"),
+  
+  // Lead pricing
+  baseLeadPrice: decimal("base_lead_price", { precision: 10, scale: 2 }).notNull(),
+  currentLeadPrice: decimal("current_lead_price", { precision: 10, scale: 2 }).notNull(),
+  priceReductionRate: decimal("price_reduction_rate", { precision: 5, scale: 2 }).default("1.50"), // 1.5% daily
+  lastPriceUpdate: timestamp("last_price_update").defaultNow(),
+  
+  // Lead status
+  status: text("status").notNull().default("pending_admin"), // pending_admin, available, purchased, declined_admin
+  adminReviewedBy: varchar("admin_reviewed_by").references(() => users.id),
+  adminReviewedAt: timestamp("admin_reviewed_at"),
+  adminDeclined: boolean("admin_declined").default(false),
+  
+  // Purchase tracking
+  purchasedBy: varchar("purchased_by").references(() => users.id),
+  purchasedAt: timestamp("purchased_at"),
+  purchasePrice: decimal("purchase_price", { precision: 10, scale: 2 }),
+  stripePaymentIntentId: text("stripe_payment_intent_id"),
+  
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
+export const insertLeadSchema = createInsertSchema(leads).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+  lastPriceUpdate: true,
+});
+
+export type Lead = typeof leads.$inferSelect;
+export type InsertLead = z.infer<typeof insertLeadSchema>;
+
+// Lead Purchases Schema (transaction history)
+export const leadPurchases = pgTable("lead_purchases", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  leadId: varchar("lead_id").notNull().references(() => leads.id),
+  userId: varchar("user_id").notNull().references(() => users.id),
+  purchasePrice: decimal("purchase_price", { precision: 10, scale: 2 }).notNull(),
+  stripePaymentIntentId: text("stripe_payment_intent_id").notNull(),
+  stripeChargeId: text("stripe_charge_id"),
+  
+  // Refund tracking (for no-refund policy enforcement)
+  refunded: boolean("refunded").default(false),
+  refundReason: text("refund_reason"),
+  refundedAt: timestamp("refunded_at"),
+  
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+export const insertLeadPurchaseSchema = createInsertSchema(leadPurchases).omit({
+  id: true,
+  createdAt: true,
+});
+
+export type LeadPurchase = typeof leadPurchases.$inferSelect;
+export type InsertLeadPurchase = z.infer<typeof insertLeadPurchaseSchema>;
+
+// Notifications Schema
+export const notifications = pgTable("notifications", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  userId: varchar("user_id").notNull().references(() => users.id),
+  type: text("type").notNull(), // new_lead, lead_purchased, lead_price_drop, admin_new_quote
+  title: text("title").notNull(),
+  message: text("message").notNull(),
+  leadId: varchar("lead_id").references(() => leads.id),
+  
+  // Status
+  read: boolean("read").default(false),
+  emailSent: boolean("email_sent").default(false),
+  emailSentAt: timestamp("email_sent_at"),
+  
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+export const insertNotificationSchema = createInsertSchema(notifications).omit({
+  id: true,
+  createdAt: true,
+});
+
+export type Notification = typeof notifications.$inferSelect;
+export type InsertNotification = z.infer<typeof insertNotificationSchema>;
