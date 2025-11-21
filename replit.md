@@ -19,7 +19,7 @@ Preferred communication style: Simple, everyday language.
 - **Frontend Framework**: React 18 with TypeScript.
 - **Routing**: Wouter for client-side routing, using a dynamic `/services/:serviceSlug/:citySlug?` route for efficient scaling.
 - **State Management**: TanStack Query for server state, React Hook Form with Zod for forms.
-- **Multi-Service Quote System**: A 4-step intelligent wizard at `/get-quote` supporting multiple service selections, service-aware field rendering (e.g., square footage for lawn, linear footage for lights), itemized pricing, and robust validation.
+- **Multi-Service Quote System**: A 4-step intelligent wizard (QuoteWizard) at `/get-quote`, `/contact`, and commercial pages supporting multiple service selections, service-aware field rendering (e.g., square footage for lawn, linear footage for lights), itemized pricing, and robust validation. Responsive mobile design with single-column Property Type layout to prevent text overflow on mobile devices.
 - **Interactive Property Measurement Tool**: Dual-mode (Area and Linear) measurement using Leaflet and OpenStreetMap, with auto-geocoding, satellite imagery, and editing tools.
 - **SEO Optimization**: E-E-A-T optimized, city-specific pages (2000+ words), site-wide internal linking, and SEO-optimized headings and FAQs.
 - **Dynamic Content**: Navigation and footer automatically display all services and service areas fetched from `contentData.ts`.
