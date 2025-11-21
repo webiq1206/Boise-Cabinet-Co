@@ -364,21 +364,42 @@ export function QuoteWizard({
                     setCalculatedPropertySize(sqft);
                   }}
                   onAddressSelect={(result) => {
-                    // Extract city from Nominatim result
-                    const address = result.raw?.address;
-                    if (address) {
-                      // Nominatim returns city/town/village depending on the location
-                      const extractedCity = address.city || address.town || address.village;
-                      
-                      if (extractedCity) {
-                        // Map to one of our supported cities
-                        const normalizedCity = extractedCity.toLowerCase();
-                        const cityMatch = CITIES.find(c => c.name.toLowerCase() === normalizedCity);
-                        
+                    // Extract city from Nominatim result and auto-populate the city dropdown
+                    let extractedCity: string | undefined;
+                    
+                    // 1. Try from result.raw.address (Nominatim format)
+                    if (result.raw?.address) {
+                      extractedCity = result.raw.address.city || result.raw.address.town || result.raw.address.village;
+                    }
+                    
+                    // 2. Try from result.raw directly (some providers)
+                    if (!extractedCity && result.raw) {
+                      extractedCity = result.raw.city || result.raw.town || result.raw.village;
+                    }
+                    
+                    // 3. Try parsing from the label (fallback)
+                    if (!extractedCity && result.label) {
+                      // Label format: "2283, East Kuna Road, Kuna, Ada County, Idaho..."
+                      const parts = result.label.split(',').map(p => p.trim());
+                      // City is usually the 3rd part (after street number, street name)
+                      if (parts.length >= 3) {
+                        const possibleCity = parts[2];
+                        // Check if it matches one of our cities
+                        const cityMatch = CITIES.find(c => c.name.toLowerCase() === possibleCity.toLowerCase());
                         if (cityMatch) {
-                          // Set the city in the form
-                          form1.setValue("city", cityMatch.name);
+                          extractedCity = possibleCity;
                         }
+                      }
+                    }
+                    
+                    if (extractedCity) {
+                      // Map to one of our supported cities
+                      const normalizedCity = extractedCity.toLowerCase();
+                      const cityMatch = CITIES.find(c => c.name.toLowerCase() === normalizedCity);
+                      
+                      if (cityMatch) {
+                        // Set the city in the form
+                        form1.setValue("city", cityMatch.name);
                       }
                     }
                   }}
