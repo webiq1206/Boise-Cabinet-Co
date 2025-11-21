@@ -290,7 +290,7 @@ export default function Home() {
       {/* Lawn Care Services in Kuna */}
       <section className="py-16 md:py-24">
         <div className="container px-4 md:px-8">
-          <div className="max-w-6xl mx-auto space-y-8">
+          <div className="max-w-6xl mx-auto space-y-12">
             <div className="text-center max-w-3xl mx-auto space-y-4">
               <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
                 Lawn care services in Kuna
@@ -302,18 +302,47 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="prose prose-lg max-w-none text-muted-foreground">
-              <p>
-                Our lawn care services include professional mowing, edging, fertilization, weed control, 
-                aeration, and seasonal cleanup. We use commercial-grade equipment and proven techniques 
-                to ensure your lawn stays healthy, green, and beautiful throughout the growing season.
-              </p>
-              <p>
-                Beyond basic lawn maintenance, we specialize in landscaping projects including patio 
-                installation, retaining walls, water features, and outdoor lighting. Our design team 
-                works closely with you to create outdoor spaces that enhance your property's value 
-                and provide years of enjoyment.
-              </p>
+            {/* Two-Column Service Grid - Desktop Only */}
+            <div className="grid lg:grid-cols-2 gap-8" data-testid="service-grid">
+              {/* Lawn Care Services */}
+              <div className="space-y-6" data-testid="lawn-care-column">
+                <h3 className="text-2xl font-bold text-primary" data-testid="heading-lawn-care">Lawn Care Services</h3>
+                <ul className="space-y-4" data-testid="list-lawn-care">
+                  {[
+                    "Professional mowing and edging",
+                    "Fertilization programs",
+                    "Weed control",
+                    "Aeration and overseeding",
+                    "Seasonal cleanup",
+                    "Commercial-grade equipment"
+                  ].map((item, i) => (
+                    <li key={i} className="flex items-start gap-3" data-testid={`lawn-care-item-${i}`}>
+                      <CheckCircle2 className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" data-testid={`lawn-care-icon-${i}`} />
+                      <span className="text-base text-muted-foreground">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Landscaping Services */}
+              <div className="space-y-6" data-testid="landscaping-column">
+                <h3 className="text-2xl font-bold text-primary" data-testid="heading-landscaping">Landscaping Services</h3>
+                <ul className="space-y-4" data-testid="list-landscaping">
+                  {[
+                    "Patio installation",
+                    "Retaining walls",
+                    "Water features",
+                    "Outdoor lighting",
+                    "Custom design services",
+                    "Property value enhancement"
+                  ].map((item, i) => (
+                    <li key={i} className="flex items-start gap-3" data-testid={`landscaping-item-${i}`}>
+                      <CheckCircle2 className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" data-testid={`landscaping-icon-${i}`} />
+                      <span className="text-base text-muted-foreground">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
 
             <div className="text-center">
