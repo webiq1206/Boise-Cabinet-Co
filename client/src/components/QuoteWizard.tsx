@@ -484,6 +484,7 @@ export function QuoteWizard({
                   id="city"
                   className="w-full rounded-md border border-input bg-background px-3 py-2"
                   {...form1.register("city")}
+                  defaultValue={form1.getValues("city")}
                   data-testid="select-city"
                 >
                   {CITIES.map((city) => (

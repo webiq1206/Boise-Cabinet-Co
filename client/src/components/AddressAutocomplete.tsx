@@ -64,9 +64,13 @@ export function AddressAutocomplete({
 
     setIsLoading(true);
     try {
-      // Include city in search for better results
-      const searchQuery = city ? `${trimmedQuery}, ${city}, Idaho` : trimmedQuery;
+      // Include city in search for better results, but handle empty city gracefully
+      const cityPart = (city && city.trim()) ? `${city}, Idaho` : 'Idaho';
+      const searchQuery = `${trimmedQuery}, ${cityPart}`;
+      console.log('[AddressAutocomplete] Searching for:', searchQuery);
+      
       const results = await provider.current.search({ query: searchQuery });
+      console.log('[AddressAutocomplete] Found results:', results.length);
       
       const formattedResults = results.slice(0, 5).map((result: any) => {
         // Extract bounds from raw.boundingbox if available
@@ -96,7 +100,7 @@ export function AddressAutocomplete({
       setSuggestions(formattedResults);
       setOpen(formattedResults.length > 0);
     } catch (error) {
-      console.error("Error fetching address suggestions:", error);
+      console.error("[AddressAutocomplete] Error fetching address suggestions:", error);
       setSuggestions([]);
     } finally {
       setIsLoading(false);
