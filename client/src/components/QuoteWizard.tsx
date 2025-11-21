@@ -286,21 +286,57 @@ export function QuoteWizard({
   };
 
   const handleMeasurementComplete = (sqft: number) => {
-    // Store property size in the first lawn service's data
-    const lawnService = selectedServices.find(id => {
+    // Store property size in ALL lawn services that require it
+    const servicesNeedingArea = selectedServices.filter(id => {
       const config = SERVICE_FIELD_CONFIGS.find(c => c.serviceId === id);
       return config?.requiresPropertySize;
     });
 
-    if (lawnService) {
-      handleServiceDataChange(lawnService, "propertySize", sqft);
-    }
+    servicesNeedingArea.forEach(serviceId => {
+      handleServiceDataChange(serviceId, "propertySize", sqft);
+    });
 
     setMapOpen(false);
     toast({
       title: "Measurement Added",
-      description: `Property size set to ${sqft.toLocaleString()} sq ft`,
+      description: `Property size set to ${sqft.toLocaleString()} sq ft for ${servicesNeedingArea.length} service(s)`,
     });
+  };
+
+  const handleLinearMeasurementComplete = (feet: number) => {
+    // Store linear feet in ALL services that have a linearFeet field (e.g., Christmas lights, fencing)
+    const servicesNeedingLinear = selectedServices.filter(id => {
+      const config = SERVICE_FIELD_CONFIGS.find(c => c.serviceId === id);
+      return config?.fields.some(f => f.name === "linearFeet");
+    });
+
+    servicesNeedingLinear.forEach(serviceId => {
+      handleServiceDataChange(serviceId, "linearFeet", feet);
+    });
+
+    setMapOpen(false);
+    toast({
+      title: "Measurement Added",
+      description: `Linear distance set to ${feet.toLocaleString()} feet for ${servicesNeedingLinear.length} service(s)`,
+    });
+  };
+
+  // Determine measurement type based on selected services
+  const getMeasurementType = (): 'area' | 'linear' | 'both' | null => {
+    const hasAreaService = selectedServices.some(id => {
+      const config = SERVICE_FIELD_CONFIGS.find(c => c.serviceId === id);
+      return config?.requiresPropertySize;
+    });
+
+    const hasLinearService = selectedServices.some(id => {
+      const config = SERVICE_FIELD_CONFIGS.find(c => c.serviceId === id);
+      return config?.fields.some(f => f.name === "linearFeet");
+    });
+
+    if (hasAreaService && hasLinearService) return 'both';
+    if (hasAreaService) return 'area';
+    if (hasLinearService) return 'linear';
+    return null;
   };
 
   const toggleService = (serviceId: string) => {
@@ -552,8 +588,8 @@ export function QuoteWizard({
                 })}
               </div>
 
-              {/* Map Tool for Property Size (if needed) */}
-              {needsPropertySize && (
+              {/* Map Tool for Measurements (service-aware) */}
+              {getMeasurementType() && (
                 <div className="space-y-2">
                   <Button
                     type="button"
@@ -563,10 +599,20 @@ export function QuoteWizard({
                     data-testid="button-open-map"
                   >
                     <MapPin className="w-4 h-4 mr-2" />
-                    Measure Property on Map
+                    {getMeasurementType() === 'linear' 
+                      ? 'Measure Roof Lines / Linear Feet on Map'
+                      : getMeasurementType() === 'both'
+                      ? 'Measure Property & Linear Features on Map'
+                      : 'Measure Lawn Area on Map'
+                    }
                   </Button>
                   <p className="text-sm text-muted-foreground text-center">
-                    Some selected services require property measurements
+                    {getMeasurementType() === 'linear' 
+                      ? 'Trace roof lines, fence lines, or other linear features'
+                      : getMeasurementType() === 'both'
+                      ? 'Measure lawn areas and linear features for accurate quotes'
+                      : 'Draw around your lawn area to get an accurate measurement'
+                    }
                   </p>
                 </div>
               )}
@@ -765,7 +811,9 @@ export function QuoteWizard({
         isOpen={mapOpen}
         onClose={() => setMapOpen(false)}
         onMeasurementComplete={handleMeasurementComplete}
+        onLinearMeasurementComplete={handleLinearMeasurementComplete}
         initialAddress={form1.watch("address") || ""}
+        measurementType={getMeasurementType() === 'linear' ? 'linear' : 'area'}
       />
     </div>
   );

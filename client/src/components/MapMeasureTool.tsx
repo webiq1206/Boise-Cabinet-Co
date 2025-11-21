@@ -301,8 +301,8 @@ export function MapMeasureTool({
           </DialogTitle>
           <DialogDescription>
             {measurementType === 'area' 
-              ? 'Draw around your lawn area to get an accurate measurement'
-              : 'Draw a line along the fence, roof, or area you need to measure'
+              ? 'Draw around all grass areas that need to be mowed, fertilized, or treated'
+              : 'Trace along roof lines, fence lines, or bushes where lights will be installed'
             }
           </DialogDescription>
         </DialogHeader>
@@ -344,9 +344,9 @@ export function MapMeasureTool({
             <Info className="h-4 w-4 text-primary" />
             <AlertDescription className="text-sm">
               {measurementType === 'area' ? (
-                <><strong>How to measure:</strong> Use the polygon or rectangle tool from the left sidebar to draw around your lawn area. Click to place points, double-click to finish.</>
+                <><strong>How to measure:</strong> Use the polygon tool (preferred) or rectangle tool from the left sidebar to draw around your grass areas. Click to place corner points, double-click to finish. You can draw one complex shape to cover all lawn areas.</>
               ) : (
-                <><strong>How to measure:</strong> Use the line tool from the left sidebar to trace along fence lines, roof edges, or any linear feature. Click to place points, double-click to finish.</>
+                <><strong>How to measure:</strong> Use the line tool from the left sidebar to trace along roof lines, fence perimeters, or bushes. Click to place points along the path, double-click to finish. Trace all sections continuously for total linear feet.</>
               )}
             </AlertDescription>
           </Alert>
