@@ -385,7 +385,7 @@ export function QuoteWizard({
                 <RadioGroup
                   value={form1.watch("propertyType") || "residential"}
                   onValueChange={(value: any) => form1.setValue("propertyType", value)}
-                  className="grid grid-cols-3 gap-4"
+                  className="grid grid-cols-1 sm:grid-cols-3 gap-4"
                 >
                   <Label
                     htmlFor="residential"

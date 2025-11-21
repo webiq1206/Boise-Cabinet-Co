@@ -1,7 +1,7 @@
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { QuoteForm } from "@/components/QuoteForm";
+import { QuoteWizard } from "@/components/QuoteWizard";
 import { Building2, CheckCircle2, Shield, Clock } from "lucide-react";
 
 export default function Commercial() {
@@ -147,7 +147,7 @@ export default function Commercial() {
                 Tell us about your commercial property and we'll provide a customized quote for your landscaping needs.
               </p>
             </div>
-            <QuoteForm enableAi={true} />
+            <QuoteWizard />
           </div>
         </div>
       </section>

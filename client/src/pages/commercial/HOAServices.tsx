@@ -1,7 +1,7 @@
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { QuoteForm } from "@/components/QuoteForm";
+import { QuoteWizard } from "@/components/QuoteWizard";
 import { Building2, CheckCircle2, FileCheck, Users, Calendar, Shield } from "lucide-react";
 import heroBackground from "@assets/Untitled design_1763639882299.png";
 
@@ -287,7 +287,7 @@ export default function HOAServices() {
                 Tell us about your HOA's landscape needs and we'll provide a detailed proposal
               </p>
             </div>
-            <QuoteForm enableAi={true} />
+            <QuoteWizard />
           </div>
         </div>
       </section>

@@ -1,6 +1,9 @@
-import { QuoteForm } from "@/components/QuoteForm";
+import { QuoteWizard } from "@/components/QuoteWizard";
+import { useLocation } from "wouter";
 
 export default function GetQuote() {
+  const [_, setLocation] = useLocation();
+
   return (
     <div className="min-h-screen py-12 px-4">
       <div className="container max-w-5xl mx-auto">
@@ -14,9 +17,7 @@ export default function GetQuote() {
           </p>
         </div>
 
-        <div className="max-w-2xl mx-auto">
-          <QuoteForm enableAi={true} />
-        </div>
+        <QuoteWizard onClose={() => setLocation("/")} />
       </div>
     </div>
   );
