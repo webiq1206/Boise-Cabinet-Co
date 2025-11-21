@@ -13,6 +13,7 @@ import {
 import { Menu, FileText } from "lucide-react";
 import logoUrl from "@assets/Lawn Care Kuna Logo_1763512021933.png";
 import { PRIORITY_SERVICES } from "@shared/contentData";
+import { SearchBar } from "@/components/SearchBar";
 
 const lawnCareServices = PRIORITY_SERVICES
   .filter(s => s.category === 'lawn-care')
@@ -38,8 +39,8 @@ export function Navigation() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/98 backdrop-blur supports-[backdrop-filter]:bg-background/95">
-      <nav className="container flex h-20 items-center justify-between px-8 md:px-12">
-        <Link href="/" className="flex items-center">
+      <nav className="container flex h-20 items-center justify-between gap-4 px-8 md:px-12">
+        <Link href="/" className="flex items-center flex-shrink-0">
           <img 
             src={logoUrl} 
             alt="Lawn Care Kuna" 
@@ -47,6 +48,11 @@ export function Navigation() {
             data-testid="logo-image"
           />
         </Link>
+
+        {/* Desktop Search */}
+        <div className="hidden lg:flex flex-1 max-w-md">
+          <SearchBar />
+        </div>
 
         {/* Desktop Navigation */}
         <div className="hidden lg:flex items-center gap-8">
@@ -198,6 +204,11 @@ export function Navigation() {
             </SheetTrigger>
             <SheetContent side="right" className="w-[85vw] sm:w-[400px] overflow-y-auto">
               <nav className="flex flex-col gap-1 mt-8">
+                {/* Mobile Search */}
+                <div className="mb-6 px-2">
+                  <SearchBar onClose={() => setMobileOpen(false)} />
+                </div>
+
                 {/* Home */}
                 <Link href="/" onClick={() => setMobileOpen(false)}>
                   <div className="px-4 py-3 text-base font-medium rounded-md hover-elevate active-elevate-2 transition-colors" data-testid="link-home-mobile">
