@@ -1,4 +1,4 @@
-import { QuoteWizard } from "@/components/QuoteWizard";
+import { QuoteForm } from "@/components/QuoteForm";
 import { Card, CardContent } from "@/components/ui/card";
 import { Phone, Mail, MapPin, Clock } from "lucide-react";
 import heroBackground from "@assets/Untitled design_1763639882299.png";
@@ -114,7 +114,7 @@ export default function Contact() {
 
               {/* Quote Form */}
               <div className="lg:col-span-2">
-                <QuoteWizard />
+                <QuoteForm enableAi={true} />
               </div>
             </div>
           </div>
