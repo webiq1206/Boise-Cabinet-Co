@@ -364,43 +364,78 @@ export function QuoteWizard({
                     setCalculatedPropertySize(sqft);
                   }}
                   onAddressSelect={(result) => {
+                    // Helper function to normalize city names
+                    const normalizeCity = (cityName: string): string => {
+                      return cityName
+                        .trim()
+                        .toLowerCase()
+                        .replace(/\s+(city|town|village)$/i, '') // Remove common suffixes
+                        .trim();
+                    };
+
+                    // Helper function to find matching city in CITIES array
+                    // useExact: if true, only exact matches are allowed (prevents street name false positives)
+                    const findMatchingCity = (cityName: string, useExact: boolean = false) => {
+                      const normalized = normalizeCity(cityName);
+                      return CITIES.find(c => {
+                        const cityNormalized = normalizeCity(c.name);
+                        if (useExact) {
+                          // Exact match only (for fallback label parsing)
+                          return cityNormalized === normalized;
+                        } else {
+                          // Flexible matching for structured address fields
+                          return cityNormalized === normalized || 
+                                 normalized.includes(cityNormalized) ||
+                                 cityNormalized.includes(normalized);
+                        }
+                      });
+                    };
+                    
                     // Extract city from Nominatim result and auto-populate the city dropdown
                     let extractedCity: string | undefined;
+                    let cityMatch: typeof CITIES[0] | undefined;
                     
                     // 1. Try from result.raw.address (Nominatim format)
                     if (result.raw?.address) {
-                      extractedCity = result.raw.address.city || result.raw.address.town || result.raw.address.village;
-                    }
-                    
-                    // 2. Try from result.raw directly (some providers)
-                    if (!extractedCity && result.raw) {
-                      extractedCity = result.raw.city || result.raw.town || result.raw.village;
-                    }
-                    
-                    // 3. Try parsing from the label (fallback)
-                    if (!extractedCity && result.label) {
-                      // Label format: "2283, East Kuna Road, Kuna, Ada County, Idaho..."
-                      const parts = result.label.split(',').map(p => p.trim());
-                      // City is usually the 3rd part (after street number, street name)
-                      if (parts.length >= 3) {
-                        const possibleCity = parts[2];
-                        // Check if it matches one of our cities
-                        const cityMatch = CITIES.find(c => c.name.toLowerCase() === possibleCity.toLowerCase());
+                      const rawCity = result.raw.address.city || result.raw.address.town || result.raw.address.village;
+                      if (rawCity) {
+                        cityMatch = findMatchingCity(rawCity);
                         if (cityMatch) {
-                          extractedCity = possibleCity;
+                          extractedCity = rawCity;
                         }
                       }
                     }
                     
-                    if (extractedCity) {
-                      // Map to one of our supported cities
-                      const normalizedCity = extractedCity.toLowerCase();
-                      const cityMatch = CITIES.find(c => c.name.toLowerCase() === normalizedCity);
-                      
-                      if (cityMatch) {
-                        // Set the city in the form
-                        form1.setValue("city", cityMatch.name);
+                    // 2. Try from result.raw directly (some providers)
+                    if (!cityMatch && result.raw) {
+                      const rawCity = result.raw.city || result.raw.town || result.raw.village;
+                      if (rawCity) {
+                        cityMatch = findMatchingCity(rawCity);
+                        if (cityMatch) {
+                          extractedCity = rawCity;
+                        }
                       }
+                    }
+                    
+                    // 3. Try parsing from the label - scan all tokens (fallback)
+                    if (!cityMatch && result.label) {
+                      // Label format: "2283, East Kuna Road, Kuna, Ada County, Idaho..."
+                      const parts = result.label.split(',').map(p => p.trim());
+                      // Scan through all parts to find a matching city
+                      // Use exact matching to avoid false positives (e.g., "West Meridian Road" shouldn't match "Meridian")
+                      for (const part of parts) {
+                        const match = findMatchingCity(part, true); // true = exact match only
+                        if (match) {
+                          cityMatch = match;
+                          extractedCity = part;
+                          break;
+                        }
+                      }
+                    }
+                    
+                    if (cityMatch) {
+                      // Set the city in the form using the canonical city name
+                      form1.setValue("city", cityMatch.name);
                     }
                   }}
                 />
