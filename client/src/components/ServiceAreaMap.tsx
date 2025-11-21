@@ -11,14 +11,14 @@ interface City {
 }
 
 const cities: City[] = [
-  { name: 'Eagle', slug: 'eagle', x: 280, y: 110, size: 'medium' },
-  { name: 'Star', slug: 'star', x: 220, y: 120, size: 'small' },
-  { name: 'Boise', slug: 'boise', x: 260, y: 145, size: 'large' },
-  { name: 'Meridian', slug: 'meridian', x: 310, y: 155, size: 'large' },
-  { name: 'Middleton', slug: 'middleton', x: 190, y: 140, size: 'small' },
-  { name: 'Kuna', slug: 'kuna', x: 290, y: 195, size: 'medium' },
-  { name: 'Nampa', slug: 'nampa', x: 210, y: 180, size: 'medium' },
-  { name: 'Caldwell', slug: 'caldwell', x: 160, y: 165, size: 'small' },
+  { name: 'Caldwell', slug: 'caldwell', x: 130, y: 145, size: 'small' },
+  { name: 'Middleton', slug: 'middleton', x: 180, y: 115, size: 'small' },
+  { name: 'Star', slug: 'star', x: 230, y: 100, size: 'small' },
+  { name: 'Eagle', slug: 'eagle', x: 310, y: 105, size: 'medium' },
+  { name: 'Boise', slug: 'boise', x: 340, y: 140, size: 'large' },
+  { name: 'Nampa', slug: 'nampa', x: 220, y: 180, size: 'medium' },
+  { name: 'Meridian', slug: 'meridian', x: 280, y: 155, size: 'large' },
+  { name: 'Kuna', slug: 'kuna', x: 300, y: 210, size: 'medium' },
 ];
 
 const serviceAreas = [
