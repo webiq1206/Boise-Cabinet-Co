@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -17,105 +18,157 @@ export function ServiceFieldsRenderer({
   serviceData,
   onChange,
 }: ServiceFieldsRendererProps) {
-  if (selectedServices.length === 0) {
-    return null;
-  }
+  const [activeServiceId, setActiveServiceId] = useState<string | null>(null);
 
   // Get configs for all selected services
   const serviceConfigs = selectedServices
     .map(id => getServiceFieldConfig(id))
     .filter((config): config is ServiceFieldConfig => config !== undefined);
 
+  // Initialize or realign activeServiceId when selected services change
+  useEffect(() => {
+    if (serviceConfigs.length === 0) {
+      setActiveServiceId(null);
+      return;
+    }
+
+    // If no active service or active service is no longer in the list, set to first service
+    const isActiveServiceStillSelected = serviceConfigs.some(c => c.serviceId === activeServiceId);
+    if (!activeServiceId || !isActiveServiceStillSelected) {
+      setActiveServiceId(serviceConfigs[0].serviceId);
+    }
+  }, [selectedServices, activeServiceId]);
+
+  if (selectedServices.length === 0) {
+    return null;
+  }
+
   if (serviceConfigs.length === 0) {
     return null;
   }
 
+  // Check if a service's fields are complete
+  const isServiceComplete = (serviceId: string): boolean => {
+    const config = getServiceFieldConfig(serviceId);
+    if (!config) return false;
+    const data = serviceData[serviceId] || {};
+    return config.fields
+      .filter(f => f.required)
+      .every(f => {
+        const value = data[f.name];
+        return value !== undefined && value !== null && value !== "";
+      });
+  };
+
+  const activeConfig = serviceConfigs.find(c => c.serviceId === activeServiceId);
+
   return (
-    <div className="space-y-8">
+    <div className="space-y-4">
       <Alert>
         <Info className="h-4 w-4" />
         <AlertDescription>
-          Please provide service-specific details below. These help us generate an accurate quote.
+          Provide details for each service. Switch between services using the tabs below.
         </AlertDescription>
       </Alert>
 
-      {serviceConfigs.map((config) => {
-        const currentData = serviceData[config.serviceId] || {};
+      {/* Service Tabs */}
+      <div className="flex flex-wrap gap-2 border-b pb-2">
+        {serviceConfigs.map((config) => {
+          const isActive = config.serviceId === activeServiceId;
+          const isComplete = isServiceComplete(config.serviceId);
+          
+          return (
+            <button
+              key={config.serviceId}
+              onClick={() => setActiveServiceId(config.serviceId)}
+              className={`px-4 py-2 rounded-t-md text-sm font-medium transition-colors ${
+                isActive 
+                  ? 'bg-primary text-primary-foreground' 
+                  : 'bg-muted text-muted-foreground hover-elevate'
+              }`}
+              data-testid={`tab-service-${config.serviceId}`}
+            >
+              {config.serviceName}
+              {isComplete && <span className="ml-2">✓</span>}
+            </button>
+          );
+        })}
+      </div>
 
-        return (
-          <div key={config.serviceId} className="space-y-4 rounded-lg border border-border p-4">
-            <h3 className="font-medium text-lg">{config.serviceName}</h3>
-            
-            <div className="grid gap-4 sm:grid-cols-2">
-              {config.fields.map((field) => {
-                const fieldValue = currentData[field.name] || "";
+      {/* Active Service Fields */}
+      {activeConfig && (
+        <div className="space-y-4 p-4 rounded-lg border border-border">
+          <h3 className="font-medium text-lg">{activeConfig.serviceName}</h3>
+          
+          <div className="grid gap-4 sm:grid-cols-2">
+            {activeConfig.fields.map((field) => {
+              const currentData = serviceData[activeConfig.serviceId] || {};
+              const fieldValue = currentData[field.name] || "";
 
-                return (
-                  <div key={field.name} className="space-y-2">
-                    <Label htmlFor={`${config.serviceId}-${field.name}`}>
-                      {field.label}
-                      {field.required && <span className="text-destructive ml-1">*</span>}
-                      {field.unit && <span className="text-muted-foreground text-sm ml-1">({field.unit})</span>}
-                    </Label>
+              return (
+                <div key={field.name} className="space-y-2">
+                  <Label htmlFor={`${activeConfig.serviceId}-${field.name}`}>
+                    {field.label}
+                    {field.required && <span className="text-destructive ml-1">*</span>}
+                    {field.unit && <span className="text-muted-foreground text-sm ml-1">({field.unit})</span>}
+                  </Label>
 
-                    {field.type === "select" ? (
-                      <Select
-                        value={fieldValue}
-                        onValueChange={(value) => onChange(config.serviceId, field.name, value)}
+                  {field.type === "select" ? (
+                    <Select
+                      value={fieldValue}
+                      onValueChange={(value) => onChange(activeConfig.serviceId, field.name, value)}
+                    >
+                      <SelectTrigger
+                        id={`${activeConfig.serviceId}-${field.name}`}
+                        data-testid={`select-${activeConfig.serviceId}-${field.name}`}
                       >
-                        <SelectTrigger
-                          id={`${config.serviceId}-${field.name}`}
-                          data-testid={`select-${config.serviceId}-${field.name}`}
-                        >
-                          <SelectValue placeholder={`Select ${field.label.toLowerCase()}`} />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {field.options?.map((option) => (
-                            <SelectItem key={option} value={option}>
-                              {option}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    ) : field.type === "textarea" ? (
-                      <Textarea
-                        id={`${config.serviceId}-${field.name}`}
-                        data-testid={`textarea-${config.serviceId}-${field.name}`}
-                        placeholder={field.placeholder}
-                        value={fieldValue}
-                        onChange={(e) => onChange(config.serviceId, field.name, e.target.value)}
-                        rows={3}
-                      />
-                    ) : (
-                      <Input
-                        id={`${config.serviceId}-${field.name}`}
-                        data-testid={`input-${config.serviceId}-${field.name}`}
-                        type={field.type}
-                        placeholder={field.placeholder}
-                        value={fieldValue}
-                        onChange={(e) => {
-                          if (field.type === "number") {
-                            // For number fields, parse to actual number (not string)
-                            const parsed = parseFloat(e.target.value);
-                            const value = Number.isFinite(parsed) ? parsed : undefined;
-                            onChange(config.serviceId, field.name, value);
-                          } else {
-                            onChange(config.serviceId, field.name, e.target.value);
-                          }
-                        }}
-                      />
-                    )}
+                        <SelectValue placeholder={`Select ${field.label.toLowerCase()}`} />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {field.options?.map((option) => (
+                          <SelectItem key={option} value={option}>
+                            {option}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  ) : field.type === "textarea" ? (
+                    <Textarea
+                      id={`${activeConfig.serviceId}-${field.name}`}
+                      data-testid={`textarea-${activeConfig.serviceId}-${field.name}`}
+                      placeholder={field.placeholder}
+                      value={fieldValue}
+                      onChange={(e) => onChange(activeConfig.serviceId, field.name, e.target.value)}
+                      rows={3}
+                    />
+                  ) : (
+                    <Input
+                      id={`${activeConfig.serviceId}-${field.name}`}
+                      data-testid={`input-${activeConfig.serviceId}-${field.name}`}
+                      type={field.type}
+                      placeholder={field.placeholder}
+                      value={fieldValue}
+                      onChange={(e) => {
+                        if (field.type === "number") {
+                          const parsed = parseFloat(e.target.value);
+                          const value = Number.isFinite(parsed) ? parsed : undefined;
+                          onChange(activeConfig.serviceId, field.name, value);
+                        } else {
+                          onChange(activeConfig.serviceId, field.name, e.target.value);
+                        }
+                      }}
+                    />
+                  )}
 
-                    {field.helpText && (
-                      <p className="text-sm text-muted-foreground">{field.helpText}</p>
-                    )}
-                  </div>
-                );
-              })}
-            </div>
+                  {field.helpText && (
+                    <p className="text-sm text-muted-foreground">{field.helpText}</p>
+                  )}
+                </div>
+              );
+            })}
           </div>
-        );
-      })}
+        </div>
+      )}
     </div>
   );
 }
