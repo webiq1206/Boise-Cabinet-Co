@@ -81,18 +81,18 @@ export function Footer() {
 
           {/* Services */}
           <div>
-            <h3 className="font-semibold text-sm mb-4">Our Services</h3>
+            <h3 className="font-semibold text-sm mb-4">Popular Services</h3>
             <ul className="space-y-2 text-sm">
-              {PRIORITY_SERVICES.map((service) => (
+              {PRIORITY_SERVICES.slice(0, 8).map((service) => (
                 <li key={service.slug}>
                   <Link href={`/services/${service.slug}`} className="text-muted-foreground hover:text-primary transition-colors">
                     {service.name}
                   </Link>
                 </li>
               ))}
-              <li>
-                <Link href="/commercial/hoa-services" className="text-muted-foreground hover:text-primary transition-colors">
-                  HOA Services
+              <li className="pt-2">
+                <Link href="/services" className="text-primary hover:text-primary/80 font-medium transition-colors">
+                  View All Services →
                 </Link>
               </li>
             </ul>
