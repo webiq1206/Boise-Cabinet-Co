@@ -133,7 +133,7 @@ export function AddressAutocomplete({
 
       const bounds = result.bounds;
       
-      // Extract bounds coordinates - handle both object and array formats
+      // Extract bounds coordinates - handle object, array, and 2D array formats
       let south: number, north: number, west: number, east: number;
       
       if (typeof bounds === 'object' && !Array.isArray(bounds)) {
@@ -142,6 +142,23 @@ export function AddressAutocomplete({
         north = bounds.north;
         west = bounds.west;
         east = bounds.east;
+      } else if (Array.isArray(bounds) && bounds.length === 2 && Array.isArray(bounds[0]) && Array.isArray(bounds[1])) {
+        // 2D array format: [[lat1, lng1], [lat2, lng2]] or [[south, west], [north, east]]
+        // This format is common from geocoding APIs like OpenStreetMap
+        const point1 = bounds[0];
+        const point2 = bounds[1];
+        
+        const lat1 = typeof point1[0] === 'number' ? point1[0] : parseFloat(point1[0]);
+        const lng1 = typeof point1[1] === 'number' ? point1[1] : parseFloat(point1[1]);
+        const lat2 = typeof point2[0] === 'number' ? point2[0] : parseFloat(point2[0]);
+        const lng2 = typeof point2[1] === 'number' ? point2[1] : parseFloat(point2[1]);
+        
+        // Determine which is south/north (lower latitude is south)
+        south = Math.min(lat1, lat2);
+        north = Math.max(lat1, lat2);
+        // Determine which is west/east (lower longitude is west)
+        west = Math.min(lng1, lng2);
+        east = Math.max(lng1, lng2);
       } else if (Array.isArray(bounds) && bounds.length === 4) {
         // Array format: [south, west, north, east]
         south = typeof bounds[0] === 'number' ? bounds[0] : parseFloat(bounds[0]);
