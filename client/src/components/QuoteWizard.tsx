@@ -365,7 +365,7 @@ export function QuoteWizard({
                 {s < step ? <CheckCircle2 className="w-4 h-4 sm:w-5 sm:h-5" /> : s}
               </div>
               <span className={`text-xs sm:text-sm font-medium hidden sm:inline ${s <= step ? "text-foreground" : "text-muted-foreground"}`}>
-                {s === 1 ? "Property" : s === 2 ? "Services" : "Contact"}
+                {s === 1 ? "Property" : s === 2 ? "Services" : "Quote"}
               </span>
               {s < 3 && <div className="w-8 sm:w-12 h-0.5 bg-muted" />}
             </div>
@@ -646,7 +646,7 @@ export function QuoteWizard({
                   disabled={selectedServices.length === 0}
                   data-testid="button-continue-step2"
                 >
-                  Continue to Contact
+                  Continue to Quote
                 </Button>
               </div>
             </form>
@@ -660,7 +660,7 @@ export function QuoteWizard({
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Calendar className="w-5 h-5 text-primary" />
-              Contact Information
+              Quote Information
             </CardTitle>
             <CardDescription>How can we reach you?</CardDescription>
           </CardHeader>
