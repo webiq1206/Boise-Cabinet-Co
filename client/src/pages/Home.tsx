@@ -517,7 +517,7 @@ export default function Home() {
             <div className="text-center pt-4">
               <Button size="lg" asChild data-testid="button-approach-contact">
                 <Link href="/contact">
-                  Schedule Your Consultation
+                  Get Free Estimate
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
               </Button>
