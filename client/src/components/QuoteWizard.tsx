@@ -180,8 +180,8 @@ export function QuoteWizard({
       
       // Find services that need property size and auto-populate
       selectedServices.forEach(serviceId => {
-        const config = SERVICE_FIELD_CONFIGS[serviceId];
-        if (config?.fields?.some(f => f.name === 'propertySize')) {
+        const config = SERVICE_FIELD_CONFIGS[serviceId as keyof typeof SERVICE_FIELD_CONFIGS];
+        if (config?.fields?.some((f: any) => f.name === 'propertySize')) {
           if (!updatedServiceData[serviceId]) {
             updatedServiceData[serviceId] = {};
           }
