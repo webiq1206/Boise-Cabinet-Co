@@ -363,6 +363,25 @@ export function QuoteWizard({
                   onPropertySizeCalculated={(sqft) => {
                     setCalculatedPropertySize(sqft);
                   }}
+                  onAddressSelect={(result) => {
+                    // Extract city from Nominatim result
+                    const address = result.raw?.address;
+                    if (address) {
+                      // Nominatim returns city/town/village depending on the location
+                      const extractedCity = address.city || address.town || address.village;
+                      
+                      if (extractedCity) {
+                        // Map to one of our supported cities
+                        const normalizedCity = extractedCity.toLowerCase();
+                        const cityMatch = CITIES.find(c => c.name.toLowerCase() === normalizedCity);
+                        
+                        if (cityMatch) {
+                          // Set the city in the form
+                          form1.setValue("city", cityMatch.name);
+                        }
+                      }
+                    }
+                  }}
                 />
               </div>
 
