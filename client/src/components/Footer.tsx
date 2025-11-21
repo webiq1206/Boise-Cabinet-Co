@@ -1,6 +1,6 @@
 import { Link } from "wouter";
 import { Phone, Mail, MapPin } from "lucide-react";
-import logoUrl from "@assets/Lawn-Care-Kuna-Replit-11-20-2025_03_01_PM_1763676084102.png";
+import logoUrl from "@assets/Lawn Care Kuna Logo_1763734387982.png";
 import { PRIORITY_SERVICES, CITIES } from "@shared/contentData";
 
 export function Footer() {
