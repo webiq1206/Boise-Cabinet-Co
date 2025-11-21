@@ -44,6 +44,7 @@ import Pricing from "@/pages/Pricing";
 import Blog from "@/pages/Blog";
 import BlogPost from "@/pages/BlogPost";
 import GetQuote from "@/pages/GetQuote";
+import Services from "@/pages/Services";
 import PrivacyPolicy from "@/pages/PrivacyPolicy";
 import TermsOfService from "@/pages/TermsOfService";
 
@@ -58,6 +59,7 @@ function Router() {
           <Route path="/" component={Home} />
           <Route path="/about" component={About} />
           <Route path="/contact" component={Contact} />
+          <Route path="/services" component={Services} />
 
           {/* Service Landing Pages */}
           <Route path="/services/lawn-care" component={LawnCare} />
