@@ -23,7 +23,7 @@ Preferred communication style: Simple, everyday language.
 - **Interactive Property Measurement Tool**: Dual-mode (Area and Linear) measurement using Leaflet and OpenStreetMap, with auto-geocoding, satellite imagery, and editing tools.
 - **SEO Optimization**: E-E-A-T optimized, city-specific pages (2000+ words), site-wide internal linking, and SEO-optimized headings and FAQs.
 - **Dynamic Content**: Navigation and footer automatically display all services and service areas fetched from `contentData.ts`.
-- **Unified Quote Form Design**: All quote forms use a consistent `QuoteForm` component with city and service preselection, displaying comprehensive fields and integrated AI quoting.
+- **Unified Quote Form Design**: All quote forms site-wide use `QuoteWizard`, a 4-step multi-service wizard with city and service preselection, comprehensive field validation, and integrated AI quoting. QuoteForm has been fully deprecated in favor of the unified QuoteWizard experience.
 
 ### System Design Choices
 - **Backend Framework**: Express.js with TypeScript.
