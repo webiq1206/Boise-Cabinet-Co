@@ -1,7 +1,7 @@
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { QuoteForm } from "@/components/QuoteForm";
+import { QuoteWizard } from "@/components/QuoteWizard";
 import { CheckCircle2, Hammer, Shield, Award, DollarSign } from "lucide-react";
 
 export default function PatioInstallation() {
@@ -249,7 +249,7 @@ export default function PatioInstallation() {
                 Tell us about your patio project
               </p>
             </div>
-            <QuoteForm preselectedService="patio" />
+            <QuoteWizard preselectedService="patio" />
           </div>
         </div>
       </section>

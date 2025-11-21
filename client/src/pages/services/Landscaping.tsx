@@ -1,7 +1,7 @@
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { QuoteForm } from "@/components/QuoteForm";
+import { QuoteWizard } from "@/components/QuoteWizard";
 import { Hammer, Fence, Droplets, Flame, Lightbulb, Mountain, TreeDeciduous } from "lucide-react";
 import heroBackground from "@assets/Untitled design_1763639882299.png";
 
@@ -227,7 +227,7 @@ export default function Landscaping() {
                 Tell us about your landscaping project and we'll provide a detailed estimate
               </p>
             </div>
-            <QuoteForm preselectedService="landscaping" />
+            <QuoteWizard preselectedService="landscaping" />
           </div>
         </div>
       </section>

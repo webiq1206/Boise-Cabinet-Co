@@ -1,4 +1,4 @@
-import { QuoteForm } from "./QuoteForm";
+import { QuoteWizard } from "./QuoteWizard";
 
 interface HeroQuoteSectionProps {
   label: string;
@@ -19,7 +19,7 @@ export function HeroQuoteSection({
   backgroundAlt = "Professional lawn care services in Kuna Idaho",
   backgroundImage,
 }: HeroQuoteSectionProps) {
-  // Normalize city to lowercase for QuoteForm compatibility
+  // Normalize city to lowercase for QuoteWizard compatibility (Select uses lowercase values)
   const normalizedCity = defaultCity?.toLowerCase();
 
   const heroContent = (
@@ -44,12 +44,13 @@ export function HeroQuoteSection({
             </p>
           </div>
 
-          {/* Right Column - Quote Form */}
+          {/* Right Column - Quote Wizard */}
           <div>
-            <QuoteForm 
+            <QuoteWizard 
               preselectedService={defaultService}
               preselectedCity={normalizedCity}
-              enableAi={true}
+              defaultService={defaultService}
+              defaultCity={normalizedCity}
             />
           </div>
         </div>

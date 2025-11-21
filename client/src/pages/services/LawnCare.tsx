@@ -1,7 +1,7 @@
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { QuoteForm } from "@/components/QuoteForm";
+import { QuoteWizard } from "@/components/QuoteWizard";
 import { CheckCircle2, Scissors, Sprout, Droplets, Shield, Leaf, Sun } from "lucide-react";
 
 const services = [
@@ -190,7 +190,7 @@ export default function LawnCare() {
                 Tell us about your property and we'll provide a customized quote
               </p>
             </div>
-            <QuoteForm preselectedService="lawn-maintenance" />
+            <QuoteWizard preselectedService="lawn-maintenance" />
           </div>
         </div>
       </section>

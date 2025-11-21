@@ -1,7 +1,7 @@
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { QuoteForm } from "@/components/QuoteForm";
+import { QuoteWizard } from "@/components/QuoteWizard";
 import { CheckCircle2, Droplets, Shield, Award } from "lucide-react";
 import heroBackground from "@assets/Untitled design_1763639882299.png";
 
@@ -175,7 +175,7 @@ export default function IrrigationInstallation() {
                   </CardContent>
                 </Card>
 
-                <QuoteForm className="sticky top-[440px]" />
+                <QuoteWizard className="sticky top-[440px]" />
               </div>
             </div>
           </div>

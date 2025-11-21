@@ -2,7 +2,7 @@ import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { HeroQuoteSection } from "@/components/HeroQuoteSection";
-import { QuoteForm } from "@/components/QuoteForm";
+import { QuoteWizard } from "@/components/QuoteWizard";
 import { CheckCircle2, MapPin, Leaf, Sprout, Lightbulb } from "lucide-react";
 
 interface AreaTemplateProps {
@@ -182,7 +182,7 @@ export default function AreaTemplate({ cityName, citySlug }: AreaTemplateProps) 
                 Tell us about your property and we'll provide a detailed, customized estimate for your lawn care or landscaping project. No obligation, completely free.
               </p>
             </div>
-            <QuoteForm preselectedCity={citySlug} />
+            <QuoteWizard preselectedCity={citySlug} defaultCity={citySlug} />
           </div>
         </div>
       </section>

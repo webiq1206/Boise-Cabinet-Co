@@ -1,7 +1,7 @@
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { QuoteForm } from "@/components/QuoteForm";
+import { QuoteWizard } from "@/components/QuoteWizard";
 import { CheckCircle2, Fence, Shield } from "lucide-react";
 import heroBackground from "@assets/Untitled design_1763639882299.png";
 
@@ -148,7 +148,7 @@ export default function FenceInstallation() {
             <div className="text-center mb-8">
               <h2 className="text-3xl font-bold mb-4" data-testid="heading-quote">Get Your Free Fence Quote</h2>
             </div>
-            <QuoteForm preselectedService="fence" />
+            <QuoteWizard preselectedService="fence" />
           </div>
         </div>
       </section>

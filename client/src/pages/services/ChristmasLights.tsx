@@ -1,7 +1,7 @@
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { QuoteForm } from "@/components/QuoteForm";
+import { QuoteWizard } from "@/components/QuoteWizard";
 import { CheckCircle2, Lightbulb, Home, Trees, Sparkles, Clock, Shield } from "lucide-react";
 import { getServiceBackground } from "@shared/serviceBackgrounds";
 
@@ -303,7 +303,7 @@ export default function ChristmasLights() {
                 Book early for the holiday season! Available October through January
               </p>
             </div>
-            <QuoteForm preselectedService="christmas-lights" />
+            <QuoteWizard preselectedService="christmas-lights" />
           </div>
         </div>
       </section>
