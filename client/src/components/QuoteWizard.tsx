@@ -545,7 +545,7 @@ export function QuoteWizard({
           <CardContent>
             <form onSubmit={form2.handleSubmit(handleStep2Submit)} className="space-y-6">
               {/* Service Categories with Accordions */}
-              <Accordion type="multiple" className="w-full" defaultValue={["lawn", "hardscape", "irrigation", "lighting", "trees", "seasonal"]}>
+              <Accordion type="multiple" className="w-full">
                 {[
                   { category: "lawn", title: "Lawn Care Services" },
                   { category: "hardscape", title: "Hardscape & Patio" },
