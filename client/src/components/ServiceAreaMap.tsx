@@ -12,8 +12,10 @@ interface City {
 
 const cities: City[] = [
   { name: 'Eagle', slug: 'eagle', x: 280, y: 110, size: 'medium' },
+  { name: 'Star', slug: 'star', x: 220, y: 120, size: 'small' },
   { name: 'Boise', slug: 'boise', x: 260, y: 145, size: 'large' },
   { name: 'Meridian', slug: 'meridian', x: 310, y: 155, size: 'large' },
+  { name: 'Middleton', slug: 'middleton', x: 190, y: 140, size: 'small' },
   { name: 'Kuna', slug: 'kuna', x: 290, y: 195, size: 'medium' },
   { name: 'Nampa', slug: 'nampa', x: 210, y: 180, size: 'medium' },
   { name: 'Caldwell', slug: 'caldwell', x: 160, y: 165, size: 'small' },
@@ -26,6 +28,8 @@ const serviceAreas = [
   { name: "Nampa", slug: "nampa" },
   { name: "Caldwell", slug: "caldwell" },
   { name: "Eagle", slug: "eagle" },
+  { name: "Star", slug: "star" },
+  { name: "Middleton", slug: "middleton" },
 ];
 
 export function ServiceAreaMap() {
