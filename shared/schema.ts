@@ -1,5 +1,5 @@
 import { sql } from "drizzle-orm";
-import { pgTable, text, varchar, timestamp, jsonb, decimal, boolean } from "drizzle-orm/pg-core";
+import { pgTable, text, varchar, timestamp, jsonb, decimal, boolean, index } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
@@ -141,12 +141,28 @@ export const insertBlogPostSchema = createInsertSchema(blogPosts).omit({
 export type BlogPost = typeof blogPosts.$inferSelect;
 export type InsertBlogPost = z.infer<typeof insertBlogPostSchema>;
 
-// Users/Subcontractors Schema
+// Session storage table (required for Replit Auth)
+export const sessions = pgTable(
+  "sessions",
+  {
+    sid: varchar("sid").primaryKey(),
+    sess: jsonb("sess").notNull(),
+    expire: timestamp("expire").notNull(),
+  },
+  (table) => ({
+    expireIdx: index("IDX_session_expire").on(table.expire),
+  })
+);
+
+// Users table (extends Replit Auth with lead distribution fields)
 export const users = pgTable("users", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  email: text("email").notNull().unique(),
-  passwordHash: text("password_hash").notNull(),
-  name: text("name").notNull(),
+  email: varchar("email").unique(),
+  firstName: varchar("first_name"),
+  lastName: varchar("last_name"),
+  profileImageUrl: varchar("profile_image_url"),
+  
+  // Lead distribution specific fields
   phone: text("phone"),
   role: text("role").notNull().default("subcontractor"), // admin or subcontractor
   company: text("company"),
@@ -162,26 +178,18 @@ export const users = pgTable("users", {
   
   // Status
   isActive: boolean("is_active").default(true),
-  emailVerified: boolean("email_verified").default(false),
   
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
 
-export const insertUserSchema = createInsertSchema(users).omit({
-  id: true,
+export const upsertUserSchema = createInsertSchema(users).omit({
   createdAt: true,
   updatedAt: true,
-  agreementAcceptedAt: true,
-}).extend({
-  email: z.string().email("Please enter a valid email address"),
-  passwordHash: z.string().min(8, "Password must be at least 8 characters"),
-  name: z.string().min(2, "Please enter your full name"),
-  role: z.enum(["admin", "subcontractor"]).default("subcontractor"),
 });
 
+export type UpsertUser = z.infer<typeof upsertUserSchema>;
 export type User = typeof users.$inferSelect;
-export type InsertUser = z.infer<typeof insertUserSchema>;
 
 // Leads Schema (extends quotes)
 export const leads = pgTable("leads", {
@@ -225,7 +233,13 @@ export const leads = pgTable("leads", {
   
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
-});
+}, (table) => ({
+  statusIdx: index("leads_status_idx").on(table.status),
+  cityIdx: index("leads_city_idx").on(table.city),
+  serviceTypeIdx: index("leads_service_type_idx").on(table.serviceType),
+  statusCityIdx: index("leads_status_city_idx").on(table.status, table.city),
+  priceIdx: index("leads_current_price_idx").on(table.currentLeadPrice),
+}));
 
 export const insertLeadSchema = createInsertSchema(leads).omit({
   id: true,
@@ -240,7 +254,7 @@ export type InsertLead = z.infer<typeof insertLeadSchema>;
 // Lead Purchases Schema (transaction history)
 export const leadPurchases = pgTable("lead_purchases", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  leadId: varchar("lead_id").notNull().references(() => leads.id),
+  leadId: varchar("lead_id").notNull().unique().references(() => leads.id), // UNIQUE: one purchase per lead
   userId: varchar("user_id").notNull().references(() => users.id),
   purchasePrice: decimal("purchase_price", { precision: 10, scale: 2 }).notNull(),
   stripePaymentIntentId: text("stripe_payment_intent_id").notNull(),
@@ -252,7 +266,9 @@ export const leadPurchases = pgTable("lead_purchases", {
   refundedAt: timestamp("refunded_at"),
   
   createdAt: timestamp("created_at").defaultNow().notNull(),
-});
+}, (table) => ({
+  userIdIdx: index("lead_purchases_user_id_idx").on(table.userId),
+}));
 
 export const insertLeadPurchaseSchema = createInsertSchema(leadPurchases).omit({
   id: true,
@@ -277,7 +293,10 @@ export const notifications = pgTable("notifications", {
   emailSentAt: timestamp("email_sent_at"),
   
   createdAt: timestamp("created_at").defaultNow().notNull(),
-});
+}, (table) => ({
+  userIdIdx: index("notifications_user_id_idx").on(table.userId),
+  userIdReadIdx: index("notifications_user_id_read_idx").on(table.userId, table.read),
+}));
 
 export const insertNotificationSchema = createInsertSchema(notifications).omit({
   id: true,

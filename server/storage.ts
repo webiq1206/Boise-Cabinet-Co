@@ -1,4 +1,4 @@
-import { type Quote, type InsertQuote, type GalleryPhoto, type InsertGalleryPhoto, type Testimonial, type InsertTestimonial, type BlogPost, type InsertBlogPost, type User, type InsertUser, type Lead, type InsertLead, type LeadPurchase, type InsertLeadPurchase, type Notification, type InsertNotification } from "@shared/schema";
+import { type Quote, type InsertQuote, type GalleryPhoto, type InsertGalleryPhoto, type Testimonial, type InsertTestimonial, type BlogPost, type InsertBlogPost, type User, type UpsertUser, type Lead, type InsertLead, type LeadPurchase, type InsertLeadPurchase, type Notification, type InsertNotification } from "@shared/schema";
 import { randomUUID } from "crypto";
 
 export interface IStorage {
@@ -18,10 +18,10 @@ export interface IStorage {
   getAllBlogPosts(): Promise<BlogPost[]>;
   getBlogPostBySlug(slug: string): Promise<BlogPost | undefined>;
   
-  // User/Auth methods
-  createUser(user: InsertUser): Promise<User>;
+  // User/Auth methods (Replit Auth compatible)
+  getUser(id: string): Promise<User | undefined>;
+  upsertUser(user: UpsertUser): Promise<User>;
   getUserByEmail(email: string): Promise<User | undefined>;
-  getUserById(id: string): Promise<User | undefined>;
   updateUser(id: string, data: Partial<User>): Promise<User | undefined>;
   getAllSubcontractors(): Promise<User[]>;
   
@@ -321,39 +321,40 @@ export class MemStorage implements IStorage {
     );
   }
 
-  // User methods
-  async createUser(insertUser: InsertUser): Promise<User> {
-    const existing = Array.from(this.users.values()).find(u => u.email === insertUser.email);
-    if (existing) {
-      throw new Error(`User with email "${insertUser.email}" already exists`);
-    }
+  // User methods (Replit Auth compatible)
+  async getUser(id: string): Promise<User | undefined> {
+    return this.users.get(id);
+  }
 
-    const id = randomUUID();
+  async upsertUser(userData: UpsertUser): Promise<User> {
+    const id = userData.id || randomUUID();
+    const existing = this.users.get(id);
+    
     const user: User = {
-      ...insertUser,
-      phone: insertUser.phone ?? null,
-      company: insertUser.company ?? null,
-      licenseNumber: insertUser.licenseNumber ?? null,
-      insuranceExpiry: insertUser.insuranceExpiry ?? null,
-      agreementAccepted: insertUser.agreementAccepted ?? false,
-      agreementAcceptedAt: null,
-      stripeCustomerId: insertUser.stripeCustomerId ?? null,
-      isActive: insertUser.isActive ?? true,
-      emailVerified: insertUser.emailVerified ?? false,
       id,
-      createdAt: new Date(),
+      email: userData.email ?? null,
+      firstName: userData.firstName ?? null,
+      lastName: userData.lastName ?? null,
+      profileImageUrl: userData.profileImageUrl ?? null,
+      phone: userData.phone ?? null,
+      role: userData.role ?? "subcontractor",
+      company: userData.company ?? null,
+      licenseNumber: userData.licenseNumber ?? null,
+      insuranceExpiry: userData.insuranceExpiry ?? null,
+      agreementAccepted: userData.agreementAccepted ?? false,
+      agreementAcceptedAt: userData.agreementAcceptedAt ?? null,
+      stripeCustomerId: userData.stripeCustomerId ?? null,
+      isActive: userData.isActive ?? true,
+      createdAt: existing?.createdAt || new Date(),
       updatedAt: new Date(),
     };
+    
     this.users.set(id, user);
     return user;
   }
 
   async getUserByEmail(email: string): Promise<User | undefined> {
     return Array.from(this.users.values()).find(u => u.email === email);
-  }
-
-  async getUserById(id: string): Promise<User | undefined> {
-    return this.users.get(id);
   }
 
   async updateUser(id: string, data: Partial<User>): Promise<User | undefined> {
