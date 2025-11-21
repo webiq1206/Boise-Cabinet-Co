@@ -17,13 +17,14 @@ Preferred communication style: Simple, everyday language.
 
 ### Technical Implementations
 - **Frontend Framework**: React 18 with TypeScript.
-- **Routing**: Wouter for client-side routing, using a dynamic `/services/:serviceSlug/:citySlug?` route for efficient scaling.
+- **Routing**: Wouter for client-side routing, using a dynamic `/services/:serviceSlug/:citySlug?` route for efficient scaling. Dedicated `/services` page serves as comprehensive service directory.
 - **State Management**: TanStack Query for server state, React Hook Form with Zod for forms.
 - **Multi-Service Quote System**: A 4-step intelligent wizard (QuoteWizard) at `/get-quote`, `/contact`, and commercial pages supporting multiple service selections, service-aware field rendering (e.g., square footage for lawn, linear footage for lights), itemized pricing, and robust validation. Responsive mobile design with single-column Property Type layout to prevent text overflow on mobile devices.
 - **Interactive Property Measurement Tool**: Dual-mode (Area and Linear) measurement using Leaflet and OpenStreetMap, with auto-geocoding, satellite imagery, and editing tools.
-- **SEO Optimization**: E-E-A-T optimized, city-specific pages (2000+ words), site-wide internal linking, and SEO-optimized headings and FAQs.
-- **Dynamic Content**: Navigation and footer automatically display all services and service areas fetched from `contentData.ts`.
+- **SEO Optimization**: E-E-A-T optimized, city-specific pages (2000+ words), site-wide internal linking, and SEO-optimized headings and FAQs. Comprehensive `/services` directory page optimized for service discovery.
+- **Dynamic Content**: Navigation and footer automatically display all services and service areas fetched from `contentData.ts`. Service directory page dynamically pulls from PRIORITY_SERVICES.
 - **Unified Quote Form Design**: All quote forms site-wide use `QuoteWizard`, a 4-step multi-service wizard with city and service preselection, comprehensive field validation, and integrated AI quoting. QuoteForm has been fully deprecated in favor of the unified QuoteWizard experience.
+- **Mobile Navigation**: Sticky bottom navigation on mobile with Services button linking to comprehensive service directory, Get Quote, and Schedule buttons for quick access.
 
 ### System Design Choices
 - **Backend Framework**: Express.js with TypeScript.
