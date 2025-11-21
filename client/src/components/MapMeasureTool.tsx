@@ -3,6 +3,7 @@ import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "leaflet-draw/dist/leaflet.draw.css";
 import "leaflet-draw";
+import "leaflet-geometryutil";
 import { OpenStreetMapProvider } from "leaflet-geosearch";
 
 // Type extensions for leaflet-draw
@@ -27,6 +28,7 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } f
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Loader2, MapPin, Ruler, Info } from "lucide-react";
 
 interface MapMeasureToolProps {
@@ -35,7 +37,7 @@ interface MapMeasureToolProps {
   onMeasurementComplete?: (sqft: number) => void;
   onLinearMeasurementComplete?: (feet: number) => void;
   initialAddress?: string;
-  measurementType?: 'area' | 'linear'; // 'area' for property size, 'linear' for fence/roof lines
+  measurementType?: 'area' | 'linear' | 'both'; // Support for collecting both measurements
 }
 
 export function MapMeasureTool({ 
@@ -54,6 +56,12 @@ export function MapMeasureTool({
   const [measuredArea, setMeasuredArea] = useState<number | null>(null);
   const [measuredLinear, setMeasuredLinear] = useState<number | null>(null);
   const [error, setError] = useState<string | null>(null);
+  
+  // When 'both' mode is enabled, allow user to toggle between area and linear
+  const supportsBothModes = measurementType === 'both';
+  const [activeMode, setActiveMode] = useState<'area' | 'linear'>(
+    measurementType === 'linear' ? 'linear' : 'area'
+  );
 
   // Sync search address with initialAddress when dialog opens
   useEffect(() => {
@@ -62,14 +70,24 @@ export function MapMeasureTool({
     }
   }, [isOpen, initialAddress]);
 
-  // Reset measurements when dialog opens or measurement type changes
+  // Reset current mode's measurement when switching modes
   useEffect(() => {
-    if (isOpen) {
-      setMeasuredArea(null);
-      setMeasuredLinear(null);
+    if (isOpen && supportsBothModes) {
+      // When switching modes, clear the drawn items to avoid confusion
+      if (drawnItemsRef.current) {
+        drawnItemsRef.current.clearLayers();
+      }
       setError(null);
     }
-  }, [isOpen, measurementType]);
+  }, [activeMode, isOpen, supportsBothModes]);
+
+  // Reset measurements when dialog opens
+  useEffect(() => {
+    if (isOpen) {
+      setError(null);
+      // Don't clear measurements when reopening - preserve previous measurements
+    }
+  }, [isOpen]);
 
   useEffect(() => {
     if (!isOpen || !mapRef.current) return;
@@ -84,7 +102,7 @@ export function MapMeasureTool({
     const timer = setTimeout(() => {
       if (!mapRef.current) return;
 
-      // Initialize map
+      // Initialize map (activeMode affects drawing tools configuration)
       const map = L.map(mapRef.current, {
         center: [43.4890, -116.5594], // Default to Kuna, ID
         zoom: 18,
@@ -109,10 +127,10 @@ export function MapMeasureTool({
       map.addLayer(drawnItems);
       drawnItemsRef.current = drawnItems;
 
-      // Drawing control - configure based on measurement type
+      // Drawing control - configure based on active measurement mode
       const drawControl = new L.Control.Draw({
         draw: {
-          polygon: measurementType === 'area' ? {
+          polygon: activeMode === 'area' ? {
             shapeOptions: {
               color: '#2D6B3F',
               fillColor: '#2D6B3F',
@@ -122,7 +140,7 @@ export function MapMeasureTool({
             showArea: true,
             metric: false,
           } : false,
-          polyline: measurementType === 'linear' ? {
+          polyline: activeMode === 'linear' ? {
             shapeOptions: {
               color: '#2D6B3F',
               weight: 3,
@@ -130,7 +148,7 @@ export function MapMeasureTool({
             showLength: true,
             metric: false,
           } : false,
-          rectangle: measurementType === 'area' ? {
+          rectangle: activeMode === 'area' ? {
             shapeOptions: {
               color: '#2D6B3F',
               fillColor: '#2D6B3F',
@@ -157,12 +175,11 @@ export function MapMeasureTool({
         drawnItems.clearLayers();
         drawnItems.addLayer(layer);
 
-        if (measurementType === 'area') {
+        if (activeMode === 'area') {
           // Calculate area for polygons/rectangles
           const area = L.GeometryUtil.geodesicArea((layer as any).getLatLngs()[0]);
           const sqft = Math.round(area * 10.7639); // m² to sqft
           setMeasuredArea(sqft);
-          setMeasuredLinear(null);
         } else {
           // Calculate linear distance for polylines
           const latlngs = (layer as any).getLatLngs();
@@ -172,7 +189,6 @@ export function MapMeasureTool({
           }
           const feet = Math.round(totalDistance * 3.28084); // meters to feet
           setMeasuredLinear(feet);
-          setMeasuredArea(null);
         }
         setError(null);
       });
@@ -180,11 +196,10 @@ export function MapMeasureTool({
       // Handle editing
       map.on(L.Draw.Event.EDITED, () => {
         drawnItems.eachLayer((layer: any) => {
-          if (measurementType === 'area') {
+          if (activeMode === 'area') {
             const area = L.GeometryUtil.geodesicArea(layer.getLatLngs()[0]);
             const sqft = Math.round(area * 10.7639);
             setMeasuredArea(sqft);
-            setMeasuredLinear(null);
           } else {
             const latlngs = layer.getLatLngs();
             let totalDistance = 0;
@@ -193,15 +208,17 @@ export function MapMeasureTool({
             }
             const feet = Math.round(totalDistance * 3.28084);
             setMeasuredLinear(feet);
-            setMeasuredArea(null);
           }
         });
       });
 
-      // Handle deletion
+      // Handle deletion - only clear current mode's measurement
       map.on(L.Draw.Event.DELETED, () => {
-        setMeasuredArea(null);
-        setMeasuredLinear(null);
+        if (activeMode === 'area') {
+          setMeasuredArea(null);
+        } else {
+          setMeasuredLinear(null);
+        }
       });
 
       mapInstanceRef.current = map;
@@ -219,7 +236,7 @@ export function MapMeasureTool({
         mapInstanceRef.current = null;
       }
     };
-  }, [isOpen, measurementType]);
+  }, [isOpen, activeMode]); // Re-initialize map when mode changes
 
   const searchForAddress = async (address: string) => {
     if (!address || !mapInstanceRef.current) return;
@@ -282,10 +299,10 @@ export function MapMeasureTool({
   };
 
   const handleUseMeasurement = () => {
-    if (measurementType === 'area' && measuredArea && onMeasurementComplete) {
+    if (activeMode === 'area' && measuredArea && onMeasurementComplete) {
       onMeasurementComplete(measuredArea);
       onClose();
-    } else if (measurementType === 'linear' && measuredLinear && onLinearMeasurementComplete) {
+    } else if (activeMode === 'linear' && measuredLinear && onLinearMeasurementComplete) {
       onLinearMeasurementComplete(measuredLinear);
       onClose();
     }
@@ -297,10 +314,10 @@ export function MapMeasureTool({
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <Ruler className="h-5 w-5 text-primary" />
-            {measurementType === 'area' ? 'Measure Your Property' : 'Measure Linear Distance'}
+            {activeMode === 'area' ? 'Measure Your Property' : 'Measure Linear Distance'}
           </DialogTitle>
           <DialogDescription>
-            {measurementType === 'area' 
+            {activeMode === 'area' 
               ? 'Draw around all grass areas that need to be mowed, fertilized, or treated'
               : 'Trace along roof lines, fence lines, or bushes where lights will be installed'
             }
@@ -308,6 +325,20 @@ export function MapMeasureTool({
         </DialogHeader>
 
         <div className="space-y-4">
+          {/* Mode Toggle (when both modes supported) */}
+          {supportsBothModes && (
+            <Tabs value={activeMode} onValueChange={(v) => setActiveMode(v as 'area' | 'linear')}>
+              <TabsList className="grid w-full grid-cols-2">
+                <TabsTrigger value="area" data-testid="tab-mode-area">
+                  Lawn Area (sq ft)
+                </TabsTrigger>
+                <TabsTrigger value="linear" data-testid="tab-mode-linear">
+                  Roof Lines (linear ft)
+                </TabsTrigger>
+              </TabsList>
+            </Tabs>
+          )}
+
           {/* Address Search */}
           <form onSubmit={handleSearch} className="flex gap-2">
             <div className="flex-1">
@@ -343,7 +374,7 @@ export function MapMeasureTool({
           <Alert className="bg-primary/5 border-primary/20">
             <Info className="h-4 w-4 text-primary" />
             <AlertDescription className="text-sm">
-              {measurementType === 'area' ? (
+              {activeMode === 'area' ? (
                 <><strong>How to measure:</strong> Use the polygon tool (preferred) or rectangle tool from the left sidebar to draw around your grass areas. Click to place corner points, double-click to finish. You can draw one complex shape to cover all lawn areas.</>
               ) : (
                 <><strong>How to measure:</strong> Use the line tool from the left sidebar to trace along roof lines, fence perimeters, or bushes. Click to place points along the path, double-click to finish. Trace all sections continuously for total linear feet.</>
@@ -360,7 +391,7 @@ export function MapMeasureTool({
           />
 
           {/* Measurement Display */}
-          {measuredArea && measurementType === 'area' && (
+          {measuredArea && activeMode === 'area' && (
             <Alert className="bg-primary/10 border-primary">
               <Ruler className="h-5 w-5 text-primary" />
               <AlertDescription>
@@ -377,7 +408,7 @@ export function MapMeasureTool({
             </Alert>
           )}
 
-          {measuredLinear && measurementType === 'linear' && (
+          {measuredLinear && activeMode === 'linear' && (
             <Alert className="bg-primary/10 border-primary">
               <Ruler className="h-5 w-5 text-primary" />
               <AlertDescription>

@@ -813,7 +813,7 @@ export function QuoteWizard({
         onMeasurementComplete={handleMeasurementComplete}
         onLinearMeasurementComplete={handleLinearMeasurementComplete}
         initialAddress={form1.watch("address") || ""}
-        measurementType={getMeasurementType() === 'linear' ? 'linear' : 'area'}
+        measurementType={getMeasurementType() || 'area'}
       />
     </div>
   );
