@@ -593,7 +593,7 @@ export function QuoteWizard({
                 <div className="space-y-2">
                   <Button
                     type="button"
-                    variant="outline"
+                    variant="default"
                     className="w-full"
                     onClick={() => setMapOpen(true)}
                     data-testid="button-open-map"
