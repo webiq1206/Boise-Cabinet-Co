@@ -281,14 +281,30 @@ export function MapMeasureTool({
   }, [isOpen, measurementType, supportsBothModes]); // Re-initialize only when dialog opens or measurement type changes
 
   const searchForAddress = async (address: string) => {
-    if (!address || !mapInstanceRef.current) return;
+    console.log('[MapMeasureTool] searchForAddress called with:', address);
+    console.log('[MapMeasureTool] mapInstanceRef.current exists:', !!mapInstanceRef.current);
+    
+    if (!address) {
+      console.log('[MapMeasureTool] No address provided');
+      setError("Please enter an address");
+      return;
+    }
+    
+    if (!mapInstanceRef.current) {
+      console.log('[MapMeasureTool] Map not initialized yet');
+      setError("Map not ready. Please wait a moment and try again.");
+      return;
+    }
 
     setIsSearching(true);
     setError(null);
 
     try {
+      console.log('[MapMeasureTool] Creating OpenStreetMapProvider...');
       const provider = new OpenStreetMapProvider();
+      console.log('[MapMeasureTool] Searching for address...');
       const results = await provider.search({ query: address });
+      console.log('[MapMeasureTool] Search results:', results);
 
       if (results.length > 0 && mapInstanceRef.current) {
         const result = results[0];
@@ -324,6 +340,9 @@ export function MapMeasureTool({
         }).addTo(mapInstanceRef.current);
         
         setError(null);
+        
+        // Auto-calculate property boundaries to reduce friction
+        await autoCalculatePropertyBoundaries(lat, lng);
       } else {
         setError("Address not found. Try adjusting the map manually.");
       }
@@ -334,9 +353,133 @@ export function MapMeasureTool({
       setIsSearching(false);
     }
   };
+  
+  // Auto-calculate property boundaries using OpenStreetMap building/property data
+  const autoCalculatePropertyBoundaries = async (lat: number, lng: number) => {
+    if (!mapInstanceRef.current || !drawnItemsRef.current) return;
+    
+    try {
+      console.log('[MapMeasureTool] Auto-calculating property boundaries...');
+      
+      // Query OpenStreetMap Overpass API for building footprints near this location
+      const radius = 30; // Search within 30 meters
+      const overpassQuery = `
+        [out:json][timeout:5];
+        (
+          way["building"](around:${radius},${lat},${lng});
+        );
+        out geom;
+      `;
+      
+      const overpassUrl = 'https://overpass-api.de/api/interpreter';
+      const response = await fetch(overpassUrl, {
+        method: 'POST',
+        body: overpassQuery,
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+      });
+      
+      if (!response.ok) {
+        console.log('[MapMeasureTool] Overpass API request failed');
+        return;
+      }
+      
+      const data = await response.json();
+      console.log('[MapMeasureTool] Overpass API results:', data);
+      
+      if (data.elements && data.elements.length > 0) {
+        // Find the closest building to the search point
+        let closestBuilding = null;
+        let minDistance = Infinity;
+        
+        for (const element of data.elements) {
+          if (element.geometry && element.geometry.length > 0) {
+            // Calculate centroid
+            const lats = element.geometry.map((g: any) => g.lat);
+            const lngs = element.geometry.map((g: any) => g.lon);
+            const centLat = lats.reduce((a: number, b: number) => a + b, 0) / lats.length;
+            const centLng = lngs.reduce((a: number, b: number) => a + b, 0) / lngs.length;
+            
+            const distance = Math.sqrt(Math.pow(lat - centLat, 2) + Math.pow(lng - centLng, 2));
+            if (distance < minDistance) {
+              minDistance = distance;
+              closestBuilding = element;
+            }
+          }
+        }
+        
+        if (closestBuilding && closestBuilding.geometry) {
+          console.log('[MapMeasureTool] Found building, auto-drawing polygon...');
+          
+          // Convert OSM geometry to Leaflet LatLng array
+          const latlngs = closestBuilding.geometry.map((node: any) => [node.lat, node.lon] as [number, number]);
+          
+          // Create polygon and add to drawnItems
+          const polygon = L.polygon(latlngs, {
+            color: '#2D6B3F',
+            weight: 2,
+            fillColor: '#2D6B3F',
+            fillOpacity: 0.2,
+          });
+          
+          drawnItemsRef.current.addLayer(polygon);
+          
+          // Calculate area and update measurement
+          const area = L.GeometryUtil.geodesicArea(latlngs.map(ll => L.latLng(ll[0], ll[1])));
+          const sqft = Math.round(area * 10.7639);
+          setMeasuredArea(sqft);
+          
+          console.log('[MapMeasureTool] Auto-calculated area:', sqft, 'sq ft');
+          setError(`Auto-calculated property: ${sqft.toLocaleString()} sq ft. You can edit this by using the drawing tools.`);
+        }
+      } else {
+        console.log('[MapMeasureTool] No building data found, creating default estimate...');
+        
+        // No building data found - create a default rectangular lot estimate
+        // Typical lot in Kuna, ID is about 0.25 acres (10,890 sq ft)
+        // Approximate as 90ft x 121ft lot
+        const lotWidthMeters = 27.4; // 90 feet
+        const lotDepthMeters = 36.9; // 121 feet
+        
+        // Create rectangle centered on the search point
+        const bounds = L.latLngBounds(
+          [lat - lotDepthMeters / 111320, lng - lotWidthMeters / (111320 * Math.cos(lat * Math.PI / 180))],
+          [lat + lotDepthMeters / 111320, lng + lotWidthMeters / (111320 * Math.cos(lat * Math.PI / 180))]
+        );
+        
+        const rectangle = L.rectangle(bounds, {
+          color: '#2D6B3F',
+          weight: 2,
+          fillColor: '#2D6B3F',
+          fillOpacity: 0.2,
+        });
+        
+        drawnItemsRef.current.addLayer(rectangle);
+        
+        // Calculate area
+        const latlngs = [
+          [bounds.getSouth(), bounds.getWest()],
+          [bounds.getSouth(), bounds.getEast()],
+          [bounds.getNorth(), bounds.getEast()],
+          [bounds.getNorth(), bounds.getWest()],
+        ].map(ll => L.latLng(ll[0], ll[1]));
+        
+        const area = L.GeometryUtil.geodesicArea(latlngs);
+        const sqft = Math.round(area * 10.7639);
+        setMeasuredArea(sqft);
+        
+        console.log('[MapMeasureTool] Created default estimate:', sqft, 'sq ft');
+        setError(`Estimated property: ${sqft.toLocaleString()} sq ft (typical lot size). Please adjust using the drawing tools to match your actual property.`);
+      }
+    } catch (err) {
+      console.error('[MapMeasureTool] Auto-calculation error:', err);
+      // Silently fail - user can still draw manually
+    }
+  };
 
   const handleSearch = (e: React.FormEvent) => {
+    console.log('[MapMeasureTool] handleSearch called');
     e.preventDefault();
+    console.log('[MapMeasureTool] Calling searchForAddress with:', searchAddress);
     searchForAddress(searchAddress);
   };
 
