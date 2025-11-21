@@ -58,7 +58,7 @@ export default function AreaTemplate({ cityName, citySlug }: AreaTemplateProps) 
       {/* Services Section - White */}
       <section className="py-16 md:py-20">
         <div className="container px-4 md:px-8">
-          <div className="max-w-6xl mx-auto space-y-12">
+          <div className="max-w-5xl mx-auto space-y-12">
             <div className="text-center max-w-3xl mx-auto">
               <h2 className="text-3xl md:text-4xl font-serif tracking-tight mb-6" data-testid="heading-services">
                 Complete Lawn & Landscape Services in {cityName}
