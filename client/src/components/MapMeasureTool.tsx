@@ -63,6 +63,13 @@ export function MapMeasureTool({
     measurementType === 'linear' ? 'linear' : 'area'
   );
 
+  // Sync activeMode when measurementType prop changes
+  useEffect(() => {
+    if (isOpen) {
+      setActiveMode(measurementType === 'linear' ? 'linear' : 'area');
+    }
+  }, [measurementType, isOpen]);
+
   // Sync search address with initialAddress when dialog opens
   useEffect(() => {
     if (isOpen && initialAddress) {
@@ -299,12 +306,24 @@ export function MapMeasureTool({
   };
 
   const handleUseMeasurement = () => {
-    if (activeMode === 'area' && measuredArea && onMeasurementComplete) {
-      onMeasurementComplete(measuredArea);
-      onClose();
-    } else if (activeMode === 'linear' && measuredLinear && onLinearMeasurementComplete) {
-      onLinearMeasurementComplete(measuredLinear);
-      onClose();
+    if (activeMode === 'area') {
+      if (!measuredArea) {
+        setError("Please draw an area on the map first before applying.");
+        return;
+      }
+      if (onMeasurementComplete) {
+        onMeasurementComplete(measuredArea);
+        onClose();
+      }
+    } else if (activeMode === 'linear') {
+      if (!measuredLinear) {
+        setError("Please draw a line on the map first before applying.");
+        return;
+      }
+      if (onLinearMeasurementComplete) {
+        onLinearMeasurementComplete(measuredLinear);
+        onClose();
+      }
     }
   };
 
@@ -420,6 +439,30 @@ export function MapMeasureTool({
                   <p className="text-xs text-muted-foreground">
                     ({(measuredLinear / 5280).toFixed(2)} miles)
                   </p>
+                </div>
+              </AlertDescription>
+            </Alert>
+          )}
+
+          {/* Dual-Mode Summary */}
+          {supportsBothModes && (measuredArea || measuredLinear) && (
+            <Alert>
+              <Info className="h-4 w-4" />
+              <AlertDescription>
+                <p className="text-sm font-medium mb-2">Measurements Captured:</p>
+                <div className="grid grid-cols-2 gap-4 text-sm">
+                  <div>
+                    <p className="text-muted-foreground">Lawn Area:</p>
+                    <p className="font-semibold" data-testid="text-summary-area">
+                      {measuredArea ? `${measuredArea.toLocaleString()} sq ft` : 'Not measured'}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-muted-foreground">Linear Distance:</p>
+                    <p className="font-semibold" data-testid="text-summary-linear">
+                      {measuredLinear ? `${measuredLinear.toLocaleString()} ft` : 'Not measured'}
+                    </p>
+                  </div>
                 </div>
               </AlertDescription>
             </Alert>
