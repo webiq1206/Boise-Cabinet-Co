@@ -38,6 +38,8 @@ import Meridian from "@/pages/areas/Meridian";
 import Nampa from "@/pages/areas/Nampa";
 import Caldwell from "@/pages/areas/Caldwell";
 import Eagle from "@/pages/areas/Eagle";
+import Star from "@/pages/areas/Star";
+import Middleton from "@/pages/areas/Middleton";
 
 // Additional Pages
 import Pricing from "@/pages/Pricing";
@@ -89,6 +91,8 @@ function Router() {
           <Route path="/areas/nampa" component={Nampa} />
           <Route path="/areas/caldwell" component={Caldwell} />
           <Route path="/areas/eagle" component={Eagle} />
+          <Route path="/areas/star" component={Star} />
+          <Route path="/areas/middleton" component={Middleton} />
 
           {/* Additional Pages */}
           <Route path="/pricing" component={Pricing} />

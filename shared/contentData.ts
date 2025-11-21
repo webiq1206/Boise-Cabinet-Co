@@ -192,6 +192,58 @@ export const CITIES: CityData[] = [
       { label: 'When to blow out sprinklers', value: 'Oct / Nov' },
       { label: 'Growing season', value: 'April - October' }
     ]
+  },
+  {
+    slug: 'star',
+    name: 'Star',
+    isPrimary: false,
+    population: '12,000+',
+    zipCodes: ['83669'],
+    neighborhoods: ['Star Meadows', 'Riverside Village', 'Willow Creek', 'Pearl District'],
+    extendedDescription: 'Star, Idaho is a rapidly growing small city in Ada County with over 12,000 residents, located along State Highway 44 between Eagle and Middleton. Known for its rural character and strong sense of community, Star offers residents a peaceful small-town lifestyle with convenient access to Boise metro area amenities just 20 minutes east. The city has experienced significant growth in recent years as families seeking larger lots and a more rural atmosphere discover Star\'s appeal. The community features a mix of established horse properties, newer residential subdivisions, and agricultural land transitioning to housing developments. Star\'s climate in USDA Zone 6b presents typical Treasure Valley challenges with hot, dry summers often reaching 95-100°F and cold winters with occasional heavy snow. Clay soil is prevalent throughout Star, particularly in newer developments where construction activity has compacted the ground, requiring annual core aeration and soil amendment programs for healthy lawn establishment. Many Star properties feature larger lot sizes averaging 8,000-10,000 square feet of lawn or more, with some rural properties on acreage requiring comprehensive landscape management including pasture mowing, fence line trimming, and extensive irrigation maintenance. The city\'s growing popularity among families and professionals who value space, privacy, and small-town community creates strong demand for reliable lawn care services that understand both traditional residential maintenance and rural property needs.',
+    landmarks: ['Star Town Hall', 'Star Community Park', 'Riverside Park', 'Highway 44 Corridor', 'Star Elementary School', 'Pearl Street District'],
+    serviceConsiderations: 'Star\'s larger lot sizes (8,000-10,000+ sq. ft. common) require efficient equipment and proper scheduling. Many properties have extensive lawns plus additional acreage needing pasture mowing or fence line trimming. Clay soil prevalent - annual fall aeration essential for lawn health. New construction areas require intensive establishment care during first 2-3 years. Rural properties may have well water systems affecting irrigation scheduling and water quality. Horse properties need careful mowing to avoid manure spreading and fence line awareness. Gravel driveways common - requires careful debris management during mowing and blowing. Many properties have mature trees and windbreaks needing specialized trimming. Fall cleanup critical for leaf removal from cottonwoods and other deciduous trees. Growing community appreciates reliable, professional service as an alternative to DIY maintenance.',
+    localFactors: {
+      climate: 'Hot, dry summers and cold winters typical of Treasure Valley. USDA Zone 6b.',
+      soil: 'Clay soil dominant, requiring regular aeration and amendments.',
+      commonNeeds: ['Large lot maintenance', 'Rural property care', 'Pasture mowing', 'Irrigation management']
+    },
+    facts: [
+      { label: 'Average lawn size', value: '8,500 sq. ft.' },
+      { label: 'Recommended watering', value: '1-2 in. / wk' },
+      { label: 'Recommended grass height', value: '2.5-3 in.' },
+      { label: 'When to fertilize', value: 'spring / fall' },
+      { label: 'When to aerate', value: 'fall' },
+      { label: 'When to overseed', value: 'fall' },
+      { label: 'When to blow out sprinklers', value: 'Oct / Nov' },
+      { label: 'Growing season', value: 'April - October' }
+    ]
+  },
+  {
+    slug: 'middleton',
+    name: 'Middleton',
+    isPrimary: false,
+    population: '10,000+',
+    zipCodes: ['83644'],
+    neighborhoods: ['Heights', 'Middleton Mill', 'Ustick Corridor', 'Purple Sage'],
+    extendedDescription: 'Middleton, Idaho is a charming small city in Canyon County with over 10,000 residents, strategically located between Caldwell and Star along Highway 44. This growing community offers an appealing blend of rural character, modern amenities, and affordable housing options that attract young families and professionals seeking small-town living with easy commute access to Boise, Nampa, and Caldwell. Middleton has evolved from its agricultural roots while maintaining the friendly, close-knit community atmosphere that long-time residents cherish. The city features a mix of older established neighborhoods with mature landscaping, newer subdivisions with contemporary home designs, and transitional areas where farmland is gradually converting to residential development. Middleton\'s semi-arid climate in USDA Zone 6a brings hot summers with temperatures frequently exceeding 95°F and cold winters with frost and occasional snow, creating demanding conditions for lawn maintenance throughout the year. Heavy clay soil is common across Middleton, particularly in areas near the Boise River corridor and in new construction zones where soil compaction from building equipment creates challenges for establishing healthy lawns. Property sizes in Middleton tend toward the generous side, with many homes featuring 6,000-8,000 square feet of lawn plus additional landscape beds, mature trees, and established shrubs requiring comprehensive care programs. Middleton residents value honest, reliable service at fair prices, making consistency, quality, and transparent communication essential for building lasting customer relationships.',
+    landmarks: ['Middleton Place Park', 'Kleiner Park', 'Boise River Wildlife Management Area', 'Middleton Mill', 'Highway 44 Business District', 'Middleton Schools Complex'],
+    serviceConsiderations: 'Middleton\'s clay soil requires annual fall core aeration and possible spring aeration for severely compacted lawns. Larger average lot sizes mean efficient mowing equipment essential for profitability. Mix of older homes with mature landscapes and newer construction requiring different service approaches. Boise River proximity in some areas creates higher humidity and fungus pressure - may need preventive fungicide for susceptible lawns. Many properties have established trees requiring regular trimming and cleanup services. Growing number of new subdivisions need sod establishment care and young landscape maintenance. Budget-conscious market values reliable service and fair pricing over premium add-ons. Spring and fall cleanup services important for leaf and debris removal. Irrigation systems range from modern to outdated - repair services often needed. Small-town atmosphere means word-of-mouth referrals critical - customer satisfaction paramount.',
+    localFactors: {
+      climate: 'Semi-arid with hot summers and cold winters. USDA Zone 6a.',
+      soil: 'Heavy clay soil requiring amendments and regular aeration.',
+      commonNeeds: ['Residential lawn care', 'Clay soil management', 'Tree and shrub maintenance', 'Seasonal cleanup']
+    },
+    facts: [
+      { label: 'Average lawn size', value: '6,500 sq. ft.' },
+      { label: 'Recommended watering', value: '1-2 in. / wk' },
+      { label: 'Recommended grass height', value: '2.5-3 in.' },
+      { label: 'When to fertilize', value: 'spring / fall' },
+      { label: 'When to aerate', value: 'fall' },
+      { label: 'When to overseed', value: 'fall' },
+      { label: 'When to blow out sprinklers', value: 'Oct / Nov' },
+      { label: 'Growing season', value: 'April - October' }
+    ]
   }
 ];
 

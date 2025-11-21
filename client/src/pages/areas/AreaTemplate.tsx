@@ -24,6 +24,8 @@ export default function AreaTemplate({ cityName, citySlug }: AreaTemplateProps) 
     nampa: "Nampa's unique position in the Treasure Valley creates specific lawn care challenges. Our team has been helping Nampa homeowners maintain beautiful outdoor spaces since 2017, with expertise in the local soil conditions and climate.",
     caldwell: "Caldwell homeowners deserve lawn care services that understand the area's agricultural heritage and unique growing conditions. We've been proudly serving Caldwell since 2017, bringing professional expertise to every property we maintain.",
     eagle: "Eagle's premium properties require exceptional lawn care and landscaping services. Since 2017, we've been delivering the high-quality results that Eagle homeowners expect, with attention to detail that matches your community's standards.",
+    star: "Star's growing community deserves lawn care services that understand both rural properties and suburban neighborhoods. Since 2017, we've been helping Star homeowners manage larger lots and unique property challenges with reliable, professional service that respects the area's small-town character.",
+    middleton: "Middleton homeowners value honest, reliable lawn care at fair prices. Since 2017, we've been serving Middleton's diverse neighborhoods, from established properties near the Boise River to newer developments, with consistent quality and transparent communication.",
   };
 
   return (
