@@ -185,19 +185,25 @@ export function MapMeasureTool({
         let linearTotal = 0;
         
         drawnItems.eachLayer((layer: any) => {
+          const layerType = layer.measurementType; // Check if tagged by auto-calculation
+          
           // Use instanceof to reliably detect layer type
           if (layer instanceof L.Polygon || layer instanceof L.Rectangle) {
-            // Polygon or rectangle - calculate area
-            const latlngs = layer.getLatLngs();
-            // Polygons may have nested arrays (with holes) or flat arrays
-            const coords = Array.isArray(latlngs[0]) ? latlngs[0] : latlngs;
-            const area = L.GeometryUtil.geodesicArea(coords);
-            areaTotal += area;
+            // Only count area if it's an area layer (or untagged user-drawn polygon)
+            if (!layerType || layerType === 'area') {
+              const latlngs = layer.getLatLngs();
+              // Polygons may have nested arrays (with holes) or flat arrays
+              const coords = Array.isArray(latlngs[0]) ? latlngs[0] : latlngs;
+              const area = L.GeometryUtil.geodesicArea(coords);
+              areaTotal += area;
+            }
           } else if (layer instanceof L.Polyline && !(layer instanceof L.Polygon)) {
-            // Polyline only (not polygon, since polygon extends polyline) - calculate linear distance
-            const latlngs = layer.getLatLngs();
-            for (let i = 0; i < latlngs.length - 1; i++) {
-              linearTotal += latlngs[i].distanceTo(latlngs[i + 1]);
+            // Polyline - only count linear (these are always for rooflines)
+            if (!layerType || layerType === 'linear') {
+              const latlngs = layer.getLatLngs();
+              for (let i = 0; i < latlngs.length - 1; i++) {
+                linearTotal += latlngs[i].distanceTo(latlngs[i + 1]);
+              }
             }
           }
         });
@@ -214,19 +220,25 @@ export function MapMeasureTool({
         let linearTotal = 0;
         
         drawnItems.eachLayer((layer: any) => {
+          const layerType = layer.measurementType; // Check if tagged by auto-calculation
+          
           // Use instanceof to reliably detect layer type
           if (layer instanceof L.Polygon || layer instanceof L.Rectangle) {
-            // Polygon or rectangle - calculate area
-            const latlngs = layer.getLatLngs();
-            // Polygons may have nested arrays (with holes) or flat arrays
-            const coords = Array.isArray(latlngs[0]) ? latlngs[0] : latlngs;
-            const area = L.GeometryUtil.geodesicArea(coords);
-            areaTotal += area;
+            // Only count area if it's an area layer (or untagged user-drawn polygon)
+            if (!layerType || layerType === 'area') {
+              const latlngs = layer.getLatLngs();
+              // Polygons may have nested arrays (with holes) or flat arrays
+              const coords = Array.isArray(latlngs[0]) ? latlngs[0] : latlngs;
+              const area = L.GeometryUtil.geodesicArea(coords);
+              areaTotal += area;
+            }
           } else if (layer instanceof L.Polyline && !(layer instanceof L.Polygon)) {
-            // Polyline only (not polygon, since polygon extends polyline) - calculate linear distance
-            const latlngs = layer.getLatLngs();
-            for (let i = 0; i < latlngs.length - 1; i++) {
-              linearTotal += latlngs[i].distanceTo(latlngs[i + 1]);
+            // Polyline - only count linear (these are always for rooflines)
+            if (!layerType || layerType === 'linear') {
+              const latlngs = layer.getLatLngs();
+              for (let i = 0; i < latlngs.length - 1; i++) {
+                linearTotal += latlngs[i].distanceTo(latlngs[i + 1]);
+              }
             }
           }
         });
@@ -242,19 +254,25 @@ export function MapMeasureTool({
         let linearTotal = 0;
         
         drawnItems.eachLayer((layer: any) => {
+          const layerType = layer.measurementType; // Check if tagged by auto-calculation
+          
           // Use instanceof to reliably detect layer type
           if (layer instanceof L.Polygon || layer instanceof L.Rectangle) {
-            // Polygon or rectangle - calculate area
-            const latlngs = layer.getLatLngs();
-            // Polygons may have nested arrays (with holes) or flat arrays
-            const coords = Array.isArray(latlngs[0]) ? latlngs[0] : latlngs;
-            const area = L.GeometryUtil.geodesicArea(coords);
-            areaTotal += area;
+            // Only count area if it's an area layer (or untagged user-drawn polygon)
+            if (!layerType || layerType === 'area') {
+              const latlngs = layer.getLatLngs();
+              // Polygons may have nested arrays (with holes) or flat arrays
+              const coords = Array.isArray(latlngs[0]) ? latlngs[0] : latlngs;
+              const area = L.GeometryUtil.geodesicArea(coords);
+              areaTotal += area;
+            }
           } else if (layer instanceof L.Polyline && !(layer instanceof L.Polygon)) {
-            // Polyline only (not polygon, since polygon extends polyline) - calculate linear distance
-            const latlngs = layer.getLatLngs();
-            for (let i = 0; i < latlngs.length - 1; i++) {
-              linearTotal += latlngs[i].distanceTo(latlngs[i + 1]);
+            // Polyline - only count linear (these are always for rooflines)
+            if (!layerType || layerType === 'linear') {
+              const latlngs = layer.getLatLngs();
+              for (let i = 0; i < latlngs.length - 1; i++) {
+                linearTotal += latlngs[i].distanceTo(latlngs[i + 1]);
+              }
             }
           }
         });
@@ -361,6 +379,11 @@ export function MapMeasureTool({
     try {
       console.log('[MapMeasureTool] Auto-calculating property boundaries...');
       
+      // Clear any existing auto-calculated layers to prevent accumulation
+      drawnItemsRef.current.clearLayers();
+      setMeasuredArea(null);
+      setMeasuredLinear(null);
+      
       // Query OpenStreetMap Overpass API for building footprints near this location
       const radius = 30; // Search within 30 meters
       const overpassQuery = `
@@ -374,64 +397,96 @@ export function MapMeasureTool({
       const overpassUrl = 'https://overpass-api.de/api/interpreter';
       const response = await fetch(overpassUrl, {
         method: 'POST',
-        body: overpassQuery,
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+        body: new URLSearchParams({ data: overpassQuery }),
       });
       
-      if (!response.ok) {
-        console.log('[MapMeasureTool] Overpass API request failed');
-        return;
-      }
+      let buildingFound = false;
       
-      const data = await response.json();
-      console.log('[MapMeasureTool] Overpass API results:', data);
-      
-      if (data.elements && data.elements.length > 0) {
-        // Find the closest building to the search point
-        let closestBuilding = null;
-        let minDistance = Infinity;
+      if (response.ok) {
+        const data = await response.json();
+        console.log('[MapMeasureTool] Overpass API results:', data);
         
-        for (const element of data.elements) {
-          if (element.geometry && element.geometry.length > 0) {
-            // Calculate centroid
-            const lats = element.geometry.map((g: any) => g.lat);
-            const lngs = element.geometry.map((g: any) => g.lon);
-            const centLat = lats.reduce((a: number, b: number) => a + b, 0) / lats.length;
-            const centLng = lngs.reduce((a: number, b: number) => a + b, 0) / lngs.length;
-            
-            const distance = Math.sqrt(Math.pow(lat - centLat, 2) + Math.pow(lng - centLng, 2));
-            if (distance < minDistance) {
-              minDistance = distance;
-              closestBuilding = element;
+        if (data.elements && data.elements.length > 0) {
+          // Find the closest building to the search point
+          let closestBuilding = null;
+          let minDistance = Infinity;
+          
+          for (const element of data.elements) {
+            if (element.geometry && element.geometry.length > 0) {
+              // Calculate centroid
+              const lats = element.geometry.map((g: any) => g.lat);
+              const lngs = element.geometry.map((g: any) => g.lon);
+              const centLat = lats.reduce((a: number, b: number) => a + b, 0) / lats.length;
+              const centLng = lngs.reduce((a: number, b: number) => a + b, 0) / lngs.length;
+              
+              const distance = Math.sqrt(Math.pow(lat - centLat, 2) + Math.pow(lng - centLng, 2));
+              if (distance < minDistance) {
+                minDistance = distance;
+                closestBuilding = element;
+              }
             }
           }
+          
+          if (closestBuilding && closestBuilding.geometry) {
+            console.log('[MapMeasureTool] Found building, auto-drawing polygon...');
+            
+            // Convert OSM geometry to Leaflet LatLng array
+            const latlngs = closestBuilding.geometry.map((node: any) => [node.lat, node.lon] as [number, number]);
+            
+            // Create polygon for lawn area (always needed)
+            const polygon = L.polygon(latlngs, {
+              color: '#2D6B3F',
+              weight: 2,
+              fillColor: '#2D6B3F',
+              fillOpacity: 0.2,
+            });
+            (polygon as any).measurementType = 'area'; // Tag for aggregation logic
+            drawnItemsRef.current.addLayer(polygon);
+            
+            // Calculate area
+            const latlngObjects = latlngs.map(ll => L.latLng(ll[0], ll[1]));
+            const area = L.GeometryUtil.geodesicArea(latlngObjects);
+            const sqft = Math.round(area * 10.7639);
+            setMeasuredArea(sqft);
+            
+            // For dual-mode or linear-only, also create a separate roofline polyline
+            let linearFeet = 0;
+            if (supportsBothModes || measurementType === 'linear') {
+              const rooflinePolyline = L.polyline(latlngs, {
+                color: '#E85D04',
+                weight: 3,
+                dashArray: '10, 5',
+              });
+              (rooflinePolyline as any).measurementType = 'linear'; // Tag for aggregation logic
+              drawnItemsRef.current.addLayer(rooflinePolyline);
+              
+              // Calculate perimeter
+              let perimeterMeters = 0;
+              for (let i = 0; i < latlngs.length; i++) {
+                const current = L.latLng(latlngs[i][0], latlngs[i][1]);
+                const next = L.latLng(latlngs[(i + 1) % latlngs.length][0], latlngs[(i + 1) % latlngs.length][1]);
+                perimeterMeters += current.distanceTo(next);
+              }
+              linearFeet = Math.round(perimeterMeters * 3.28084);
+              setMeasuredLinear(linearFeet);
+            }
+            
+            console.log('[MapMeasureTool] Auto-calculated area:', sqft, 'sq ft, perimeter:', linearFeet, 'linear ft');
+            
+            if (supportsBothModes) {
+              setError(`Auto-calculated property: ${sqft.toLocaleString()} sq ft lawn area and ${linearFeet.toLocaleString()} linear ft roofline perimeter. You can edit using the drawing tools.`);
+            } else if (measurementType === 'linear') {
+              setError(`Auto-calculated roofline: ${linearFeet.toLocaleString()} linear ft. You can edit using the drawing tools.`);
+            } else {
+              setError(`Auto-calculated property: ${sqft.toLocaleString()} sq ft. You can edit using the drawing tools.`);
+            }
+            buildingFound = true;
+          }
         }
-        
-        if (closestBuilding && closestBuilding.geometry) {
-          console.log('[MapMeasureTool] Found building, auto-drawing polygon...');
-          
-          // Convert OSM geometry to Leaflet LatLng array
-          const latlngs = closestBuilding.geometry.map((node: any) => [node.lat, node.lon] as [number, number]);
-          
-          // Create polygon and add to drawnItems
-          const polygon = L.polygon(latlngs, {
-            color: '#2D6B3F',
-            weight: 2,
-            fillColor: '#2D6B3F',
-            fillOpacity: 0.2,
-          });
-          
-          drawnItemsRef.current.addLayer(polygon);
-          
-          // Calculate area and update measurement
-          const area = L.GeometryUtil.geodesicArea(latlngs.map(ll => L.latLng(ll[0], ll[1])));
-          const sqft = Math.round(area * 10.7639);
-          setMeasuredArea(sqft);
-          
-          console.log('[MapMeasureTool] Auto-calculated area:', sqft, 'sq ft');
-          setError(`Auto-calculated property: ${sqft.toLocaleString()} sq ft. You can edit this by using the drawing tools.`);
-        }
-      } else {
+      }
+      
+      // Create fallback estimate if no building found or API failed
+      if (!buildingFound) {
         console.log('[MapMeasureTool] No building data found, creating default estimate...');
         
         // No building data found - create a default rectangular lot estimate
@@ -452,7 +507,7 @@ export function MapMeasureTool({
           fillColor: '#2D6B3F',
           fillOpacity: 0.2,
         });
-        
+        (rectangle as any).measurementType = 'area'; // Tag for aggregation logic
         drawnItemsRef.current.addLayer(rectangle);
         
         // Calculate area
@@ -467,8 +522,43 @@ export function MapMeasureTool({
         const sqft = Math.round(area * 10.7639);
         setMeasuredArea(sqft);
         
-        console.log('[MapMeasureTool] Created default estimate:', sqft, 'sq ft');
-        setError(`Estimated property: ${sqft.toLocaleString()} sq ft (typical lot size). Please adjust using the drawing tools to match your actual property.`);
+        // For dual-mode or linear-only, create separate roofline polyline
+        let linearFeet = 0;
+        if (supportsBothModes || measurementType === 'linear') {
+          const rooflinePolyline = L.polyline([
+            [bounds.getSouth(), bounds.getWest()],
+            [bounds.getSouth(), bounds.getEast()],
+            [bounds.getNorth(), bounds.getEast()],
+            [bounds.getNorth(), bounds.getWest()],
+            [bounds.getSouth(), bounds.getWest()],  // Close the loop
+          ], {
+            color: '#E85D04',
+            weight: 3,
+            dashArray: '10, 5',
+          });
+          (rooflinePolyline as any).measurementType = 'linear'; // Tag for aggregation logic
+          drawnItemsRef.current.addLayer(rooflinePolyline);
+          
+          // Calculate perimeter
+          let perimeterMeters = 0;
+          for (let i = 0; i < latlngs.length; i++) {
+            const current = latlngs[i];
+            const next = latlngs[(i + 1) % latlngs.length];
+            perimeterMeters += current.distanceTo(next);
+          }
+          linearFeet = Math.round(perimeterMeters * 3.28084);
+          setMeasuredLinear(linearFeet);
+        }
+        
+        console.log('[MapMeasureTool] Created default estimate:', sqft, 'sq ft,', linearFeet, 'linear ft');
+        
+        if (supportsBothModes) {
+          setError(`Estimated property: ${sqft.toLocaleString()} sq ft lawn area and ${linearFeet.toLocaleString()} linear ft roofline (typical lot size). Please adjust using the drawing tools to match your actual property.`);
+        } else if (measurementType === 'linear') {
+          setError(`Estimated roofline: ${linearFeet.toLocaleString()} linear ft (typical lot perimeter). Please adjust using the drawing tools to match your actual property.`);
+        } else {
+          setError(`Estimated property: ${sqft.toLocaleString()} sq ft (typical lot size). Please adjust using the drawing tools to match your actual property.`);
+        }
       }
     } catch (err) {
       console.error('[MapMeasureTool] Auto-calculation error:', err);
