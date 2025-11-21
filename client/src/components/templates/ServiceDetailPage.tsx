@@ -307,11 +307,18 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
                   {service.process.map((step, index) => (
                     <div 
                       key={index} 
-                      className="flex items-center justify-between p-4 hover-elevate"
+                      className="p-6 hover-elevate"
                       data-testid={`pricing-item-${index}`}
                     >
-                      <span className="font-medium">{step.title}</span>
-                      <span className="text-muted-foreground text-sm">{step.description.substring(0, 50)}...</span>
+                      <div className="flex items-start gap-4">
+                        <div className="flex-shrink-0 w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-sm">
+                          {step.step}
+                        </div>
+                        <div className="flex-1">
+                          <h4 className="font-semibold mb-2">{step.title}</h4>
+                          <p className="text-muted-foreground text-sm leading-relaxed">{step.description}</p>
+                        </div>
+                      </div>
                     </div>
                   ))}
                 </div>
