@@ -154,8 +154,36 @@ export function QuoteWizard({
   // Final submission mutation
   const submitQuoteMutation = useMutation({
     mutationFn: async (data: any) => {
-      const res = await apiRequest("POST", "/api/quotes", data);
-      return await res.json();
+      // First, save the quote
+      const quoteRes = await apiRequest("POST", "/api/quotes", data);
+      const quoteResult = await quoteRes.json();
+      
+      // Then, create a lead from the quote
+      try {
+        const leadData = {
+          quoteId: quoteResult.id,
+          name: data.name,
+          email: data.email,
+          phone: data.phone || "",
+          address: data.address,
+          city: data.city,
+          propertyType: data.propertyType || "residential",
+          serviceType: data.serviceType,
+          selectedServices: data.selectedServices,
+          frequency: data.frequency,
+          finalQuote: data.quote?.toString() || quoteData?.total?.toString(),
+          lineItems: data.lineItems,
+          serviceData: data.serviceData,
+          message: data.message,
+        };
+        
+        await apiRequest("POST", "/api/leads", leadData);
+      } catch (leadError) {
+        console.error("Failed to create lead:", leadError);
+        // Don't fail the whole submission if lead creation fails
+      }
+      
+      return quoteResult;
     },
     onSuccess: () => {
       toast({

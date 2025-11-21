@@ -1,7 +1,33 @@
 # Lawn Care Kuna Website
 
 ## Overview
-The Lawn Care Kuna website is a professional online platform for a local Idaho business offering lawn care, landscaping, and Christmas light installation services. Its primary goal is to provide comprehensive service information, facilitate quote requests, and enhance local SEO. Key capabilities include an AI-powered intelligent quoting system, an interactive property measurement tool, and a rich content management system for service details, project galleries, testimonials, and educational blogs. The site aims to streamline operations, improve customer engagement, and expand market reach within its service areas.
+The Lawn Care Kuna website is a professional online platform for a local Idaho business offering lawn care, landscaping, and Christmas light installation services. Its primary goal is to provide comprehensive service information, facilitate quote requests, and enhance local SEO. Key capabilities include an AI-powered intelligent quoting system, an interactive property measurement tool, a complete lead distribution platform, and a rich content management system for service details, project galleries, testimonials, and educational blogs. The site aims to streamline operations, improve customer engagement, and expand market reach within its service areas.
+
+## Lead Distribution System
+A complete B2B lead marketplace where quote requests automatically become purchasable leads for admin review and subcontractor purchase.
+
+### Key Features
+- **Admin Dashboard** (`/admin/dashboard`): Review incoming leads, accept (take ownership), or decline (make available to subcontractors)
+- **Subcontractor Portal** (`/subcontractor/portal`): Browse, filter, and purchase available leads with filtering by city, service type, and price
+- **Automated Lead Pricing**: 10% of quote value for one-time services, one service visit cost for recurring services, with 1-2% daily price reductions
+- **Legal Agreement Flow**: Mandatory agreement acceptance before lead purchases (no-refund policy enforcement)
+- **Lead Lifecycle**: Quote Submission → Admin Review (48hr first right of refusal) → Available to Subcontractors → Purchase
+- **Notification System**: In-app notifications for new leads, price drops, and purchases (email integration pending)
+- **Payment Processing**: Stripe integration for secure lead purchases (payment intent flow ready)
+
+### Technical Implementation
+- **Backend**: RESTful API endpoints in `server/routes.ts` (create, list, accept, decline, purchase leads)
+- **Pricing Logic**: `server/services/leadPricing.ts` - automated daily price reduction algorithm
+- **Storage**: In-memory MemStorage with full CRUD for leads, purchases, notifications
+- **Frontend**: Admin dashboard and subcontractor portal with real-time filtering and purchase flows
+- **Integration**: QuoteWizard automatically creates leads from submitted quotes
+
+### TODO for Production
+- Replace hardcoded `userId` with Replit Auth session data
+- Add server-side role-based authorization guards
+- Implement email notifications via Gmail integration
+- Connect Stripe payment intent creation (currently mocked)
+- Add lead purchase history and analytics dashboards
 
 ## User Preferences
 Preferred communication style: Simple, everyday language.

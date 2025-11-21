@@ -49,6 +49,8 @@ import GetQuote from "@/pages/GetQuote";
 import Services from "@/pages/Services";
 import PrivacyPolicy from "@/pages/PrivacyPolicy";
 import TermsOfService from "@/pages/TermsOfService";
+import AdminDashboard from "@/pages/AdminDashboard";
+import SubcontractorPortal from "@/pages/SubcontractorPortal";
 
 function Router() {
   return (
@@ -101,6 +103,10 @@ function Router() {
           <Route path="/blog/:slug" component={BlogPost} />
           <Route path="/privacy-policy" component={PrivacyPolicy} />
           <Route path="/terms-of-service" component={TermsOfService} />
+
+          {/* Lead Distribution System */}
+          <Route path="/admin/dashboard" component={AdminDashboard} />
+          <Route path="/subcontractor/portal" component={SubcontractorPortal} />
 
           {/* 404 */}
           <Route component={NotFound} />
