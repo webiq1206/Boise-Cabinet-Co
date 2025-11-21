@@ -403,6 +403,297 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // ============================================
+  // LEAD MANAGEMENT API ROUTES
+  // ============================================
+
+  // Create a new lead from a quote submission
+  app.post("/api/leads", async (req, res) => {
+    try {
+      const { insertLeadSchema } = await import("@shared/schema");
+      const leadData = insertLeadSchema.parse(req.body);
+      
+      // Calculate lead pricing based on quote type
+      const { calculateLeadPrice } = await import("./services/leadPricing");
+      const { basePrice, currentPrice } = calculateLeadPrice({
+        finalQuote: leadData.finalQuote ? parseFloat(leadData.finalQuote) : 0,
+        frequency: leadData.frequency || "one-time",
+        serviceType: leadData.serviceType,
+      });
+      
+      // Create the lead
+      const lead = await storage.createLead({
+        ...leadData,
+        baseLeadPrice: basePrice.toFixed(2),
+        currentLeadPrice: currentPrice.toFixed(2),
+        status: "pending_admin",
+      });
+      
+      // Notify admin of new lead
+      const admins = await storage.getAllAdmins();
+      for (const admin of admins) {
+        await storage.createNotification({
+          userId: admin.id,
+          type: "admin_new_quote",
+          title: "New Lead Available",
+          message: `New ${leadData.serviceType} lead in ${leadData.city}: ${leadData.name}`,
+          leadId: lead.id,
+        });
+      }
+      
+      res.json(lead);
+    } catch (error) {
+      console.error("Error creating lead:", error);
+      res.status(400).json({ error: error instanceof Error ? error.message : "Failed to create lead" });
+    }
+  });
+
+  // Get all leads (with filters)
+  app.get("/api/leads", async (req, res) => {
+    try {
+      const { status, city, serviceType, availableOnly } = req.query;
+      
+      let leads = await storage.getAllLeads();
+      
+      // Apply filters
+      if (status && typeof status === "string") {
+        leads = leads.filter(l => l.status === status);
+      }
+      if (city && typeof city === "string") {
+        leads = leads.filter(l => l.city === city);
+      }
+      if (serviceType && typeof serviceType === "string") {
+        leads = leads.filter(l => l.serviceType === serviceType);
+      }
+      if (availableOnly === "true") {
+        leads = leads.filter(l => l.status === "available");
+      }
+      
+      res.json(leads);
+    } catch (error) {
+      console.error("Error fetching leads:", error);
+      res.status(500).json({ error: "Failed to fetch leads" });
+    }
+  });
+
+  // Get single lead by ID
+  app.get("/api/leads/:id", async (req, res) => {
+    try {
+      const lead = await storage.getLeadById(req.params.id);
+      if (!lead) {
+        return res.status(404).json({ error: "Lead not found" });
+      }
+      res.json(lead);
+    } catch (error) {
+      console.error("Error fetching lead:", error);
+      res.status(500).json({ error: "Failed to fetch lead" });
+    }
+  });
+
+  // Admin accepts a lead (takes ownership)
+  app.post("/api/leads/:id/accept", async (req, res) => {
+    try {
+      const { userId } = req.body;
+      if (!userId) {
+        return res.status(400).json({ error: "User ID is required" });
+      }
+      
+      // Verify user is admin
+      const user = await storage.getUser(userId);
+      if (!user || user.role !== "admin") {
+        return res.status(403).json({ error: "Only admins can accept leads" });
+      }
+      
+      const lead = await storage.acceptLead(req.params.id, userId);
+      if (!lead) {
+        return res.status(404).json({ error: "Lead not found" });
+      }
+      
+      res.json(lead);
+    } catch (error) {
+      console.error("Error accepting lead:", error);
+      res.status(400).json({ error: error instanceof Error ? error.message : "Failed to accept lead" });
+    }
+  });
+
+  // Admin declines a lead (makes available to subcontractors)
+  app.post("/api/leads/:id/decline", async (req, res) => {
+    try {
+      const { userId } = req.body;
+      if (!userId) {
+        return res.status(400).json({ error: "User ID is required" });
+      }
+      
+      // Verify user is admin
+      const user = await storage.getUser(userId);
+      if (!user || user.role !== "admin") {
+        return res.status(403).json({ error: "Only admins can decline leads" });
+      }
+      
+      const lead = await storage.declineLead(req.params.id, userId);
+      if (!lead) {
+        return res.status(404).json({ error: "Lead not found" });
+      }
+      
+      // Notify all subcontractors
+      const subcontractors = await storage.getAllSubcontractors();
+      for (const sub of subcontractors) {
+        await storage.createNotification({
+          userId: sub.id,
+          type: "new_lead",
+          title: "New Lead Available",
+          message: `${lead.serviceType} lead in ${lead.city} - $${lead.currentLeadPrice}`,
+          leadId: lead.id,
+        });
+      }
+      
+      res.json(lead);
+    } catch (error) {
+      console.error("Error declining lead:", error);
+      res.status(400).json({ error: error instanceof Error ? error.message : "Failed to decline lead" });
+    }
+  });
+
+  // Subcontractor purchases a lead
+  app.post("/api/leads/:id/purchase", async (req, res) => {
+    try {
+      const { userId, paymentIntentId } = req.body;
+      if (!userId || !paymentIntentId) {
+        return res.status(400).json({ error: "User ID and payment intent are required" });
+      }
+      
+      // Verify user is subcontractor
+      const user = await storage.getUser(userId);
+      if (!user || user.role !== "subcontractor") {
+        return res.status(403).json({ error: "Only subcontractors can purchase leads" });
+      }
+      
+      // Verify agreement accepted
+      if (!user.agreementAccepted) {
+        return res.status(403).json({ error: "Legal agreement must be accepted first" });
+      }
+      
+      const lead = await storage.getLeadById(req.params.id);
+      if (!lead) {
+        return res.status(404).json({ error: "Lead not found" });
+      }
+      
+      if (lead.status !== "available") {
+        return res.status(400).json({ error: "Lead is not available for purchase" });
+      }
+      
+      // Check if lead already purchased
+      const existingPurchase = await storage.getLeadPurchaseByLeadId(lead.id);
+      if (existingPurchase) {
+        return res.status(400).json({ error: "Lead already purchased" });
+      }
+      
+      // Process purchase
+      const purchase = await storage.createLeadPurchase({
+        leadId: lead.id,
+        userId: user.id,
+        purchasePrice: lead.currentLeadPrice,
+        stripePaymentIntentId: paymentIntentId,
+      });
+      
+      // Update lead status
+      await storage.updateLead(lead.id, {
+        status: "purchased",
+        purchasedBy: userId,
+        purchasedAt: new Date(),
+        purchasePrice: lead.currentLeadPrice,
+        stripePaymentIntentId: paymentIntentId,
+      });
+      
+      // Notify admin
+      const admins = await storage.getAllAdmins();
+      for (const admin of admins) {
+        await storage.createNotification({
+          userId: admin.id,
+          type: "lead_purchased",
+          title: "Lead Purchased",
+          message: `${user.company || user.firstName} purchased ${lead.serviceType} lead for $${lead.currentLeadPrice}`,
+          leadId: lead.id,
+        });
+      }
+      
+      res.json({ success: true, purchase, lead });
+    } catch (error) {
+      console.error("Error purchasing lead:", error);
+      res.status(400).json({ error: error instanceof Error ? error.message : "Failed to purchase lead" });
+    }
+  });
+
+  // Get user notifications
+  app.get("/api/notifications", async (req, res) => {
+    try {
+      const { userId } = req.query;
+      if (!userId || typeof userId !== "string") {
+        return res.status(400).json({ error: "User ID is required" });
+      }
+      
+      const notifications = await storage.getNotificationsByUserId(userId);
+      res.json(notifications);
+    } catch (error) {
+      console.error("Error fetching notifications:", error);
+      res.status(500).json({ error: "Failed to fetch notifications" });
+    }
+  });
+
+  // Mark notification as read
+  app.post("/api/notifications/:id/mark-read", async (req, res) => {
+    try {
+      const notification = await storage.markNotificationAsRead(req.params.id);
+      if (!notification) {
+        return res.status(404).json({ error: "Notification not found" });
+      }
+      res.json(notification);
+    } catch (error) {
+      console.error("Error marking notification as read:", error);
+      res.status(500).json({ error: "Failed to mark notification as read" });
+    }
+  });
+
+  // Accept legal agreement
+  app.post("/api/user/accept-agreement", async (req, res) => {
+    try {
+      const { userId } = req.body;
+      if (!userId) {
+        return res.status(400).json({ error: "User ID is required" });
+      }
+      
+      const user = await storage.updateUser(userId, {
+        agreementAccepted: true,
+        agreementAcceptedAt: new Date(),
+      });
+      
+      if (!user) {
+        return res.status(404).json({ error: "User not found" });
+      }
+      
+      res.json(user);
+    } catch (error) {
+      console.error("Error accepting agreement:", error);
+      res.status(500).json({ error: "Failed to accept agreement" });
+    }
+  });
+
+  // Update lead prices (should run daily via cron)
+  app.post("/api/leads/update-prices", async (req, res) => {
+    try {
+      const { updateLeadPrices } = await import("./services/leadPricing");
+      const updatedLeads = await updateLeadPrices();
+      res.json({ success: true, updated: updatedLeads.length });
+    } catch (error) {
+      console.error("Error updating lead prices:", error);
+      res.status(500).json({ error: "Failed to update lead prices" });
+    }
+  });
+
+  // ============================================
+  // END LEAD MANAGEMENT API ROUTES
+  // ============================================
+
   // Sitemap.xml generation - all 500+ pages
   app.get("/sitemap.xml", async (req, res) => {
     try {

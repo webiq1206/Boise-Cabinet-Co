@@ -24,6 +24,7 @@ export interface IStorage {
   getUserByEmail(email: string): Promise<User | undefined>;
   updateUser(id: string, data: Partial<User>): Promise<User | undefined>;
   getAllSubcontractors(): Promise<User[]>;
+  getAllAdmins(): Promise<User[]>;
   
   // Lead methods
   createLead(lead: InsertLead): Promise<Lead>;
@@ -33,6 +34,8 @@ export interface IStorage {
   getLeadsForSubcontractor(filters?: { city?: string; serviceType?: string; maxPrice?: number }): Promise<Lead[]>;
   updateLead(id: string, data: Partial<Lead>): Promise<Lead | undefined>;
   updateLeadPrices(): Promise<void>;
+  acceptLead(leadId: string, adminUserId: string): Promise<Lead | undefined>;
+  declineLead(leadId: string, adminUserId: string): Promise<Lead | undefined>;
   
   // Lead Purchase methods
   createLeadPurchase(purchase: InsertLeadPurchase): Promise<LeadPurchase>;
@@ -42,8 +45,13 @@ export interface IStorage {
   // Notification methods
   createNotification(notification: InsertNotification): Promise<Notification>;
   getNotificationsByUser(userId: string): Promise<Notification[]>;
+  getNotificationsByUserId(userId: string): Promise<Notification[]>; // Alias for consistency
   markNotificationRead(id: string): Promise<void>;
+  markNotificationAsRead(id: string): Promise<Notification | undefined>; // Returns the notification
   markNotificationEmailSent(id: string): Promise<void>;
+  
+  // Lead Purchase methods (aliases for API consistency)
+  getLeadPurchaseByLeadId(leadId: string): Promise<LeadPurchase | undefined>;
 }
 
 export class MemStorage implements IStorage {
@@ -375,6 +383,10 @@ export class MemStorage implements IStorage {
     return Array.from(this.users.values()).filter(u => u.role === "subcontractor" && u.isActive);
   }
 
+  async getAllAdmins(): Promise<User[]> {
+    return Array.from(this.users.values()).filter(u => u.role === "admin" && u.isActive);
+  }
+
   // Lead methods
   async createLead(insertLead: InsertLead): Promise<Lead> {
     const id = randomUUID();
@@ -484,6 +496,32 @@ export class MemStorage implements IStorage {
     }
   }
 
+  async acceptLead(leadId: string, adminUserId: string): Promise<Lead | undefined> {
+    const lead = this.leads.get(leadId);
+    if (!lead || lead.status !== "pending_admin") return undefined;
+
+    return await this.updateLead(leadId, {
+      status: "purchased",
+      adminReviewedBy: adminUserId,
+      adminReviewedAt: new Date(),
+      purchasedBy: adminUserId,
+      purchasedAt: new Date(),
+      adminDeclined: false,
+    });
+  }
+
+  async declineLead(leadId: string, adminUserId: string): Promise<Lead | undefined> {
+    const lead = this.leads.get(leadId);
+    if (!lead || lead.status !== "pending_admin") return undefined;
+
+    return await this.updateLead(leadId, {
+      status: "available",
+      adminReviewedBy: adminUserId,
+      adminReviewedAt: new Date(),
+      adminDeclined: true,
+    });
+  }
+
   // Lead Purchase methods
   async createLeadPurchase(insertPurchase: InsertLeadPurchase): Promise<LeadPurchase> {
     const id = randomUUID();
@@ -551,6 +589,20 @@ export class MemStorage implements IStorage {
         emailSentAt: new Date(),
       });
     }
+  }
+
+  // Alias methods for API consistency
+  async getLeadPurchaseByLeadId(leadId: string): Promise<LeadPurchase | undefined> {
+    return this.getLeadPurchaseByLead(leadId);
+  }
+
+  async getNotificationsByUserId(userId: string): Promise<Notification[]> {
+    return this.getNotificationsByUser(userId);
+  }
+
+  async markNotificationAsRead(id: string): Promise<Notification | undefined> {
+    await this.markNotificationRead(id);
+    return this.notifications.get(id);
   }
 }
 
