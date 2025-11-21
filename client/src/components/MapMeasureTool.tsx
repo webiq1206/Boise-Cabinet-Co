@@ -62,6 +62,7 @@ export function MapMeasureTool({
   const [activeMode, setActiveMode] = useState<'area' | 'linear'>(
     measurementType === 'linear' ? 'linear' : 'area'
   );
+  
 
   // Sync activeMode when measurementType prop changes
   useEffect(() => {
@@ -77,13 +78,9 @@ export function MapMeasureTool({
     }
   }, [isOpen, initialAddress]);
 
-  // Reset current mode's measurement when switching modes
+  // Clear errors when switching modes
   useEffect(() => {
     if (isOpen && supportsBothModes) {
-      // When switching modes, clear the drawn items to avoid confusion
-      if (drawnItemsRef.current) {
-        drawnItemsRef.current.clearLayers();
-      }
       setError(null);
     }
   }, [activeMode, isOpen, supportsBothModes]);
@@ -92,7 +89,8 @@ export function MapMeasureTool({
   useEffect(() => {
     if (isOpen) {
       setError(null);
-      // Don't clear measurements when reopening - preserve previous measurements
+      setMeasuredArea(null);
+      setMeasuredLinear(null);
     }
   }, [isOpen]);
 
@@ -135,9 +133,10 @@ export function MapMeasureTool({
       drawnItemsRef.current = drawnItems;
 
       // Drawing control - configure based on active measurement mode
+      // In dual mode, enable all tools; otherwise enable mode-specific tools
       const drawControl = new L.Control.Draw({
         draw: {
-          polygon: activeMode === 'area' ? {
+          polygon: (supportsBothModes || measurementType === 'area') ? {
             shapeOptions: {
               color: '#2D6B3F',
               fillColor: '#2D6B3F',
@@ -147,7 +146,7 @@ export function MapMeasureTool({
             showArea: true,
             metric: false,
           } : false,
-          polyline: activeMode === 'linear' ? {
+          polyline: (supportsBothModes || measurementType === 'linear') ? {
             shapeOptions: {
               color: '#2D6B3F',
               weight: 3,
@@ -155,7 +154,7 @@ export function MapMeasureTool({
             showLength: true,
             metric: false,
           } : false,
-          rectangle: activeMode === 'area' ? {
+          rectangle: (supportsBothModes || measurementType === 'area') ? {
             shapeOptions: {
               color: '#2D6B3F',
               fillColor: '#2D6B3F',
@@ -176,56 +175,92 @@ export function MapMeasureTool({
 
       map.addControl(drawControl);
 
-      // Handle drawing completion
+      // Handle drawing completion - aggregate all layers
       map.on(L.Draw.Event.CREATED, (event: any) => {
         const layer = event.layer;
-        drawnItems.clearLayers();
         drawnItems.addLayer(layer);
 
-        if (activeMode === 'area') {
-          // Calculate area for polygons/rectangles
-          const area = L.GeometryUtil.geodesicArea((layer as any).getLatLngs()[0]);
-          const sqft = Math.round(area * 10.7639); // m² to sqft
-          setMeasuredArea(sqft);
-        } else {
-          // Calculate linear distance for polylines
-          const latlngs = (layer as any).getLatLngs();
-          let totalDistance = 0;
-          for (let i = 0; i < latlngs.length - 1; i++) {
-            totalDistance += latlngs[i].distanceTo(latlngs[i + 1]);
+        // Recalculate all measurements from all layers
+        let areaTotal = 0;
+        let linearTotal = 0;
+        
+        drawnItems.eachLayer((layer: any) => {
+          // Use instanceof to reliably detect layer type
+          if (layer instanceof L.Polygon || layer instanceof L.Rectangle) {
+            // Polygon or rectangle - calculate area
+            const latlngs = layer.getLatLngs();
+            // Polygons may have nested arrays (with holes) or flat arrays
+            const coords = Array.isArray(latlngs[0]) ? latlngs[0] : latlngs;
+            const area = L.GeometryUtil.geodesicArea(coords);
+            areaTotal += area;
+          } else if (layer instanceof L.Polyline && !(layer instanceof L.Polygon)) {
+            // Polyline only (not polygon, since polygon extends polyline) - calculate linear distance
+            const latlngs = layer.getLatLngs();
+            for (let i = 0; i < latlngs.length - 1; i++) {
+              linearTotal += latlngs[i].distanceTo(latlngs[i + 1]);
+            }
           }
-          const feet = Math.round(totalDistance * 3.28084); // meters to feet
-          setMeasuredLinear(feet);
-        }
+        });
+        
+        // Always set measurements (null if 0) to reflect current map state
+        setMeasuredArea(areaTotal > 0 ? Math.round(areaTotal * 10.7639) : null);
+        setMeasuredLinear(linearTotal > 0 ? Math.round(linearTotal * 3.28084) : null);
         setError(null);
       });
 
-      // Handle editing
+      // Handle editing - recalculate all measurements
       map.on(L.Draw.Event.EDITED, () => {
+        let areaTotal = 0;
+        let linearTotal = 0;
+        
         drawnItems.eachLayer((layer: any) => {
-          if (activeMode === 'area') {
-            const area = L.GeometryUtil.geodesicArea(layer.getLatLngs()[0]);
-            const sqft = Math.round(area * 10.7639);
-            setMeasuredArea(sqft);
-          } else {
+          // Use instanceof to reliably detect layer type
+          if (layer instanceof L.Polygon || layer instanceof L.Rectangle) {
+            // Polygon or rectangle - calculate area
             const latlngs = layer.getLatLngs();
-            let totalDistance = 0;
+            // Polygons may have nested arrays (with holes) or flat arrays
+            const coords = Array.isArray(latlngs[0]) ? latlngs[0] : latlngs;
+            const area = L.GeometryUtil.geodesicArea(coords);
+            areaTotal += area;
+          } else if (layer instanceof L.Polyline && !(layer instanceof L.Polygon)) {
+            // Polyline only (not polygon, since polygon extends polyline) - calculate linear distance
+            const latlngs = layer.getLatLngs();
             for (let i = 0; i < latlngs.length - 1; i++) {
-              totalDistance += latlngs[i].distanceTo(latlngs[i + 1]);
+              linearTotal += latlngs[i].distanceTo(latlngs[i + 1]);
             }
-            const feet = Math.round(totalDistance * 3.28084);
-            setMeasuredLinear(feet);
           }
         });
+        
+        // Always set measurements (null if 0) to reflect current map state
+        setMeasuredArea(areaTotal > 0 ? Math.round(areaTotal * 10.7639) : null);
+        setMeasuredLinear(linearTotal > 0 ? Math.round(linearTotal * 3.28084) : null);
       });
 
-      // Handle deletion - only clear current mode's measurement
+      // Handle deletion - recalculate remaining measurements
       map.on(L.Draw.Event.DELETED, () => {
-        if (activeMode === 'area') {
-          setMeasuredArea(null);
-        } else {
-          setMeasuredLinear(null);
-        }
+        let areaTotal = 0;
+        let linearTotal = 0;
+        
+        drawnItems.eachLayer((layer: any) => {
+          // Use instanceof to reliably detect layer type
+          if (layer instanceof L.Polygon || layer instanceof L.Rectangle) {
+            // Polygon or rectangle - calculate area
+            const latlngs = layer.getLatLngs();
+            // Polygons may have nested arrays (with holes) or flat arrays
+            const coords = Array.isArray(latlngs[0]) ? latlngs[0] : latlngs;
+            const area = L.GeometryUtil.geodesicArea(coords);
+            areaTotal += area;
+          } else if (layer instanceof L.Polyline && !(layer instanceof L.Polygon)) {
+            // Polyline only (not polygon, since polygon extends polyline) - calculate linear distance
+            const latlngs = layer.getLatLngs();
+            for (let i = 0; i < latlngs.length - 1; i++) {
+              linearTotal += latlngs[i].distanceTo(latlngs[i + 1]);
+            }
+          }
+        });
+        
+        setMeasuredArea(areaTotal > 0 ? Math.round(areaTotal * 10.7639) : null);
+        setMeasuredLinear(linearTotal > 0 ? Math.round(linearTotal * 3.28084) : null);
       });
 
       mapInstanceRef.current = map;
@@ -243,7 +278,7 @@ export function MapMeasureTool({
         mapInstanceRef.current = null;
       }
     };
-  }, [isOpen, activeMode]); // Re-initialize map when mode changes
+  }, [isOpen, measurementType, supportsBothModes]); // Re-initialize only when dialog opens or measurement type changes
 
   const searchForAddress = async (address: string) => {
     if (!address || !mapInstanceRef.current) return;
@@ -306,23 +341,48 @@ export function MapMeasureTool({
   };
 
   const handleUseMeasurement = () => {
-    if (activeMode === 'area') {
-      if (!measuredArea) {
-        setError("Please draw an area on the map first before applying.");
+    // In dual-mode, require both measurements before applying
+    if (supportsBothModes) {
+      if (!measuredArea && !measuredLinear) {
+        setError("Please measure both lawn area and linear distance before applying.");
         return;
       }
+      if (!measuredArea) {
+        setError("Please measure the lawn area before applying. Switch to the 'Lawn Area' tab to draw.");
+        return;
+      }
+      if (!measuredLinear) {
+        setError("Please measure linear distance before applying. Switch to the 'Roof Lines' tab to draw.");
+        return;
+      }
+      // Apply both measurements
       if (onMeasurementComplete) {
         onMeasurementComplete(measuredArea);
-        onClose();
-      }
-    } else if (activeMode === 'linear') {
-      if (!measuredLinear) {
-        setError("Please draw a line on the map first before applying.");
-        return;
       }
       if (onLinearMeasurementComplete) {
         onLinearMeasurementComplete(measuredLinear);
-        onClose();
+      }
+      onClose();
+    } else {
+      // Single-mode: apply current mode's measurement
+      if (activeMode === 'area') {
+        if (!measuredArea) {
+          setError("Please draw an area on the map first before applying.");
+          return;
+        }
+        if (onMeasurementComplete) {
+          onMeasurementComplete(measuredArea);
+          onClose();
+        }
+      } else if (activeMode === 'linear') {
+        if (!measuredLinear) {
+          setError("Please draw a line on the map first before applying.");
+          return;
+        }
+        if (onLinearMeasurementComplete) {
+          onLinearMeasurementComplete(measuredLinear);
+          onClose();
+        }
       }
     }
   };
@@ -482,7 +542,7 @@ export function MapMeasureTool({
               disabled={!measuredArea && !measuredLinear}
               data-testid="button-use-measurement"
             >
-              Use This Measurement
+              {supportsBothModes ? 'Apply Both Measurements' : 'Use This Measurement'}
             </Button>
           </div>
         </div>
