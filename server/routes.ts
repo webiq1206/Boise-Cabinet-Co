@@ -8,6 +8,7 @@ import { z } from "zod";
 import { quoteCacheMiddleware } from "./middleware/quoteCache";
 import { quoteCalculationRateLimit } from "./middleware/rateLimit";
 import { PRIORITY_SERVICES, CITIES } from "@shared/contentData";
+import { sendNewLeadNotification, sendLeadPurchasedNotification, sendLeadPurchaseConfirmation } from "./services/emailNotifications";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Validation schema for quote calculation (flexible - only require essential fields)
@@ -441,6 +442,23 @@ export async function registerRoutes(app: Express): Promise<Server> {
         });
       }
       
+      // Send email notification to admin
+      try {
+        await sendNewLeadNotification({
+          id: lead.id,
+          name: leadData.name,
+          email: leadData.email,
+          phone: leadData.phone || "",
+          city: leadData.city,
+          serviceType: leadData.serviceType,
+          finalQuote: lead.finalQuote || "0",
+          address: leadData.address || undefined,
+        });
+      } catch (emailError) {
+        console.error("Failed to send email notification:", emailError);
+        // Don't fail the request if email fails
+      }
+      
       res.json(lead);
     } catch (error) {
       console.error("Error creating lead:", error);
@@ -615,6 +633,46 @@ export async function registerRoutes(app: Express): Promise<Server> {
           message: `${user.company || user.firstName} purchased ${lead.serviceType} lead for $${lead.currentLeadPrice}`,
           leadId: lead.id,
         });
+      }
+      
+      // Send email notifications
+      try {
+        // Notify admin about purchase
+        await sendLeadPurchasedNotification(
+          {
+            id: lead.id,
+            name: lead.name,
+            email: lead.email,
+            phone: lead.phone || "",
+            city: lead.city,
+            serviceType: lead.serviceType,
+            finalQuote: lead.finalQuote || "0",
+            address: lead.address || undefined,
+          },
+          {
+            name: user.company || user.firstName || "Unknown",
+            email: user.email || "no-email@provided.com",
+          }
+        );
+        
+        // Send confirmation to purchaser (only if they have an email)
+        if (user.email) {
+          await sendLeadPurchaseConfirmation(user.email, {
+            id: lead.id,
+            name: lead.name,
+            email: lead.email,
+            phone: lead.phone || "",
+            city: lead.city,
+            serviceType: lead.serviceType,
+            finalQuote: lead.finalQuote || "0",
+            address: lead.address || undefined,
+          });
+        } else {
+          console.log(`Skipping purchaser confirmation email - user ${user.id} has no email address`);
+        }
+      } catch (emailError) {
+        console.error("Failed to send email notifications:", emailError);
+        // Don't fail the request if email fails
       }
       
       res.json({ success: true, purchase, lead });
