@@ -1,53 +1,4 @@
-import { google } from 'googleapis';
-
-let connectionSettings: any;
-
-async function getAccessToken() {
-  if (connectionSettings && connectionSettings.settings.expires_at && new Date(connectionSettings.settings.expires_at).getTime() > Date.now()) {
-    return connectionSettings.settings.access_token;
-  }
-  
-  const hostname = process.env.REPLIT_CONNECTORS_HOSTNAME
-  const xReplitToken = process.env.REPL_IDENTITY 
-    ? 'repl ' + process.env.REPL_IDENTITY 
-    : process.env.WEB_REPL_RENEWAL 
-    ? 'depl ' + process.env.WEB_REPL_RENEWAL 
-    : null;
-
-  if (!xReplitToken) {
-    throw new Error('X_REPLIT_TOKEN not found for repl/depl');
-  }
-
-  connectionSettings = await fetch(
-    'https://' + hostname + '/api/v2/connection?include_secrets=true&connector_names=google-mail',
-    {
-      headers: {
-        'Accept': 'application/json',
-        'X_REPLIT_TOKEN': xReplitToken
-      }
-    }
-  ).then(res => res.json()).then(data => data.items?.[0]);
-
-  const accessToken = connectionSettings?.settings?.access_token || connectionSettings.settings?.oauth?.credentials?.access_token;
-
-  if (!connectionSettings || !accessToken) {
-    throw new Error('Gmail not connected');
-  }
-  return accessToken;
-}
-
-// WARNING: Never cache this client.
-// Access tokens expire, so a new client must be created each time.
-async function getGmailClient() {
-  const accessToken = await getAccessToken();
-
-  const oauth2Client = new google.auth.OAuth2();
-  oauth2Client.setCredentials({
-    access_token: accessToken
-  });
-
-  return google.gmail({ version: 'v1', auth: oauth2Client });
-}
+import { getUncachableResendClient } from './resend';
 
 interface QuoteEmailData {
   customerName: string;
@@ -62,26 +13,6 @@ interface QuoteEmailData {
   selectedServices?: string[];
   finalQuote?: number;
   preferredDate?: string;
-}
-
-function createEmailMessage(to: string, from: string, subject: string, htmlBody: string, replyTo?: string): string {
-  const messageParts = [
-    `From: ${from}`,
-    `To: ${to}`,
-    `Subject: ${subject}`,
-    'MIME-Version: 1.0',
-    'Content-Type: text/html; charset=utf-8',
-  ];
-
-  if (replyTo) {
-    messageParts.push(`Reply-To: ${replyTo}`);
-  }
-
-  messageParts.push('');
-  messageParts.push(htmlBody);
-
-  const message = messageParts.join('\r\n');
-  return Buffer.from(message).toString('base64').replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
 }
 
 export async function sendQuoteNotification(data: QuoteEmailData) {
@@ -101,7 +32,7 @@ export async function sendQuoteNotification(data: QuoteEmailData) {
   } = data;
 
   try {
-    const gmail = await getGmailClient();
+    const { client: resend, fromEmail } = await getUncachableResendClient();
 
     // Email to business owner
     const ownerEmailHtml = `
@@ -169,42 +100,28 @@ export async function sendQuoteNotification(data: QuoteEmailData) {
     `;
 
     // Send email to business owner
-    const ownerMessage = createEmailMessage(
-      'hello@lawncarekuna.com',
-      'Lawn Care Kuna <hello@lawncarekuna.com>',
-      `New Quote Request - ${customerName} (${city})`,
-      ownerEmailHtml,
-      customerEmail
-    );
-
-    await gmail.users.messages.send({
-      userId: 'me',
-      requestBody: {
-        raw: ownerMessage,
-      },
+    await resend.emails.send({
+      from: `Lawn Care Kuna <${fromEmail}>`,
+      to: fromEmail,
+      subject: `New Quote Request - ${customerName} (${city})`,
+      html: ownerEmailHtml,
+      replyTo: customerEmail
     });
 
     // Send confirmation email to customer
     if (customerEmail) {
-      const customerMessage = createEmailMessage(
-        customerEmail,
-        'Lawn Care Kuna <hello@lawncarekuna.com>',
-        'Your Lawn Care Quote Request - Lawn Care Kuna',
-        customerEmailHtml
-      );
-
-      await gmail.users.messages.send({
-        userId: 'me',
-        requestBody: {
-          raw: customerMessage,
-        },
+      await resend.emails.send({
+        from: `Lawn Care Kuna <${fromEmail}>`,
+        to: customerEmail,
+        subject: 'Your Lawn Care Quote Request - Lawn Care Kuna',
+        html: customerEmailHtml
       });
     }
 
-    console.log('Quote notification emails sent successfully via Gmail API');
+    console.log('Quote notification emails sent successfully via Resend');
     return { success: true, message: 'Emails sent successfully' };
   } catch (error) {
-    console.error('Error sending email via Gmail API:', error);
+    console.error('Error sending email via Resend:', error);
     return { success: false, message: 'Failed to send email', error };
   }
 }

@@ -1,66 +1,4 @@
-import { google } from 'googleapis';
-
-let connectionSettings: any;
-
-async function getAccessToken() {
-  if (connectionSettings && connectionSettings.settings.expires_at && new Date(connectionSettings.settings.expires_at).getTime() > Date.now()) {
-    return connectionSettings.settings.access_token;
-  }
-  
-  const hostname = process.env.REPLIT_CONNECTORS_HOSTNAME;
-  const xReplitToken = process.env.REPL_IDENTITY 
-    ? 'repl ' + process.env.REPL_IDENTITY 
-    : process.env.WEB_REPL_RENEWAL 
-    ? 'depl ' + process.env.WEB_REPL_RENEWAL 
-    : null;
-
-  if (!xReplitToken) {
-    throw new Error('X_REPLIT_TOKEN not found for repl/depl');
-  }
-
-  connectionSettings = await fetch(
-    'https://' + hostname + '/api/v2/connection?include_secrets=true&connector_names=google-mail',
-    {
-      headers: {
-        'Accept': 'application/json',
-        'X_REPLIT_TOKEN': xReplitToken
-      }
-    }
-  ).then(res => res.json()).then(data => data.items?.[0]);
-
-  const accessToken = connectionSettings?.settings?.access_token || connectionSettings.settings?.oauth?.credentials?.access_token;
-
-  if (!connectionSettings || !accessToken) {
-    throw new Error('Gmail not connected');
-  }
-  return accessToken;
-}
-
-async function getUncachableGmailClient() {
-  const accessToken = await getAccessToken();
-
-  const oauth2Client = new google.auth.OAuth2();
-  oauth2Client.setCredentials({
-    access_token: accessToken
-  });
-
-  return google.gmail({ version: 'v1', auth: oauth2Client });
-}
-
-function createMimeMessage(to: string, subject: string, htmlBody: string, from?: string): string {
-  const fromEmail = from || 'noreply@lawncarekuna.com';
-  const message = [
-    `From: ${fromEmail}`,
-    `To: ${to}`,
-    `Subject: ${subject}`,
-    'MIME-Version: 1.0',
-    'Content-Type: text/html; charset=utf-8',
-    '',
-    htmlBody
-  ].join('\r\n');
-
-  return Buffer.from(message).toString('base64').replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
-}
+import { getUncachableResendClient } from '../resend';
 
 export async function sendEmail(to: string, subject: string, htmlBody: string): Promise<void> {
   // Validate recipient email
@@ -69,14 +7,13 @@ export async function sendEmail(to: string, subject: string, htmlBody: string): 
   }
   
   try {
-    const gmail = await getUncachableGmailClient();
-    const encodedMessage = createMimeMessage(to, subject, htmlBody);
+    const { client: resend, fromEmail } = await getUncachableResendClient();
 
-    await gmail.users.messages.send({
-      userId: 'me',
-      requestBody: {
-        raw: encodedMessage,
-      },
+    await resend.emails.send({
+      from: `Lawn Care Kuna <${fromEmail}>`,
+      to,
+      subject,
+      html: htmlBody
     });
 
     console.log(`Email sent successfully to ${to}: ${subject}`);
@@ -96,7 +33,7 @@ export async function sendNewLeadNotification(leadData: {
   finalQuote: string;
   address?: string;
 }): Promise<void> {
-  const adminEmail = process.env.ADMIN_EMAIL || 'admin@lawncarekuna.com';
+  const { fromEmail } = await getUncachableResendClient();
   
   const subject = `New Lead: ${leadData.name} - ${leadData.city} - $${leadData.finalQuote}`;
   
@@ -167,7 +104,7 @@ export async function sendNewLeadNotification(leadData: {
     </html>
   `;
 
-  await sendEmail(adminEmail, subject, htmlBody);
+  await sendEmail(fromEmail, subject, htmlBody);
 }
 
 export async function sendLeadPurchasedNotification(leadData: {
@@ -183,7 +120,7 @@ export async function sendLeadPurchasedNotification(leadData: {
   name: string;
   email: string;
 }): Promise<void> {
-  const adminEmail = process.env.ADMIN_EMAIL || 'admin@lawncarekuna.com';
+  const { fromEmail } = await getUncachableResendClient();
   
   const subject = `Lead Purchased: ${leadData.name} - ${leadData.city}`;
   
@@ -254,7 +191,7 @@ export async function sendLeadPurchasedNotification(leadData: {
     </html>
   `;
 
-  await sendEmail(adminEmail, subject, htmlBody);
+  await sendEmail(fromEmail, subject, htmlBody);
 }
 
 export async function sendLeadPurchaseConfirmation(purchaserEmail: string, leadData: {

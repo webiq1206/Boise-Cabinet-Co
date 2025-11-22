@@ -25,7 +25,7 @@ A complete B2B lead marketplace where quote requests automatically become purcha
 
 ### Status: System Complete ✅
 All lead distribution features are fully implemented and tested:
-- ✅ Email notifications (Gmail integration with HTML templates)
+- ✅ Email notifications (Resend integration with HTML templates from hello@lawncarekuna.com)
 - ✅ Lead creation from quotes with auto-pricing calculation
 - ✅ Admin dashboard with accept/decline functionality
 - ✅ Subcontractor portal with filtering and purchase flow
