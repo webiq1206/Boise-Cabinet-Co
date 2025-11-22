@@ -9,7 +9,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { Loader2, MapPin, CheckCircle2, Calendar, DollarSign, Package } from "lucide-react";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Loader2, MapPin, CheckCircle2, Calendar, DollarSign, Package, Info } from "lucide-react";
 import { MapMeasureTool } from "@/components/MapMeasureTool";
 import { AddressAutocomplete } from "@/components/AddressAutocomplete";
 import { ServiceFieldsRenderer, validateServiceData } from "@/components/ServiceFieldsRenderer";
@@ -841,6 +842,16 @@ export function QuoteWizard({
                 <span className="text-primary" data-testid="text-quote-total">${quoteData.total.toLocaleString()}</span>
               </div>
             </div>
+
+            {/* Disclaimer */}
+            <Alert className="bg-muted/50 border-border">
+              <Info className="h-4 w-4" />
+              <AlertDescription className="text-sm">
+                This estimate is based on typical property conditions and industry-standard service requirements. 
+                The final price may vary depending on site-specific factors including terrain complexity, accessibility, 
+                property condition, and any additional work required. We'll provide a confirmed quote after our initial assessment.
+              </AlertDescription>
+            </Alert>
 
             <div className="text-center text-sm text-muted-foreground">
               We'll contact you shortly to confirm your service and schedule

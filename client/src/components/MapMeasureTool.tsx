@@ -627,7 +627,7 @@ export function MapMeasureTool({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-4xl max-h-[90vh] overflow-hidden">
+      <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <Ruler className="h-5 w-5 text-primary" />
@@ -641,7 +641,7 @@ export function MapMeasureTool({
           </DialogDescription>
         </DialogHeader>
 
-        <div className="space-y-4">
+        <div className="space-y-4 pb-4">
           {/* Mode Toggle (when both modes supported) */}
           {supportsBothModes && (
             <Tabs value={activeMode} onValueChange={(v) => setActiveMode(v as 'area' | 'linear')}>
@@ -702,8 +702,8 @@ export function MapMeasureTool({
           {/* Map Container */}
           <div 
             ref={mapRef} 
-            className="w-full h-[400px] rounded-lg border overflow-hidden"
-            style={{ zIndex: 1 }}
+            className="w-full h-[400px] sm:h-[500px] rounded-lg border overflow-hidden"
+            style={{ minHeight: '400px', zIndex: 1 }}
             data-testid="div-map-container"
           />
 
