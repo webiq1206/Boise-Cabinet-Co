@@ -240,10 +240,10 @@ html, body {
     font-weight: 500 !important;
   }
   
-  /* All headings use Montserrat weight 400 */
+  /* All headings use Montserrat weight 500 */
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-headings) !important;
-    font-weight: 400 !important;
+    font-weight: 500 !important;
   }
   
   h1 {

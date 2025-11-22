@@ -49,7 +49,7 @@ Preferred communication style: Simple, everyday language.
 ## System Architecture
 
 ### UI/UX Decisions
-- **Design System**: Mobile-first responsive design, Montserrat font (weight 400 for headings, 500 for body), Primary Forest Green, Light Mint backgrounds, pure white.
+- **Design System**: Mobile-first responsive design, Montserrat font (weight 500 for all text including headings), Primary Forest Green, Light Mint backgrounds, pure white.
 - **Component Library**: shadcn/ui (Radix UI primitives) with custom Tailwind CSS.
 - **Visuals**: Service-specific hero backgrounds with intelligent fallback, consistent typography hierarchy, redesigned mobile navigation with sticky bottom bar.
 - **Content Layout**: Clean, modern look with simplified layouts, alternating backgrounds, two-column quote forms, and scannable content sections with proper heading hierarchy.
