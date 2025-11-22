@@ -1,0 +1,18 @@
+# Lawn Care Kuna - Robots.txt
+# Professional lawn care, landscaping, and Christmas light installation serving Kuna, Boise, Meridian, Nampa, Caldwell, Eagle, Star, and Middleton, Idaho
+
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /admin/*
+Disallow: /subcontractor/
+Disallow: /subcontractor/*
+Disallow: /get-quote
+Disallow: /api/
+
+# Allow indexing of all public service and location pages
+Allow: /services/
+Allow: /services/*
+
+# Sitemap location
+Sitemap: https://lawncarekuna.com/sitemap.xml
