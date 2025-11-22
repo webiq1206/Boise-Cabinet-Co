@@ -15,6 +15,45 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Setup Replit Auth
   await setupAuth(app);
 
+  // DEV ONLY: Test authentication bypass for E2E testing
+  if (process.env.NODE_ENV === "development") {
+    app.post("/api/auth/test-login", async (req, res) => {
+      try {
+        const { userId } = req.body;
+        const user = await storage.getUser(userId);
+        
+        if (!user) {
+          return res.status(404).json({ error: "User not found" });
+        }
+        
+        // Create a test session
+        (req as any).session.passport = {
+          user: {
+            claims: {
+              sub: user.id,
+              email: user.email,
+              first_name: user.firstName,
+              last_name: user.lastName,
+            }
+          }
+        };
+        
+        await new Promise((resolve, reject) => {
+          (req as any).session.save((err: any) => {
+            if (err) reject(err);
+            else resolve(undefined);
+          });
+        });
+        
+        console.log(`[TEST AUTH] Logged in user ${user.id} (${user.role})`);
+        res.json({ success: true, user });
+      } catch (error) {
+        console.error("Error in test login:", error);
+        res.status(500).json({ error: "Failed to login" });
+      }
+    });
+  }
+
   // Auth routes
   app.get('/api/auth/user', isAuthenticated, async (req: any, res) => {
     try {
