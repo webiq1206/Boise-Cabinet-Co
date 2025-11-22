@@ -10,26 +10,26 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 import { Checkbox } from "@/components/ui/checkbox";
 import { DollarSign, MapPin, Phone, Mail, Building, ShoppingCart, AlertCircle, CheckCircle2, Clock, Filter } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useAuth } from "@/hooks/useAuth";
 import type { Lead } from "@shared/schema";
 import { CITIES } from "@shared/contentData";
 
 export default function SubcontractorPortal() {
   const { toast } = useToast();
+  const { user, isAuthenticated, isLoading: authLoading } = useAuth();
   const [filters, setFilters] = useState({
     city: "all",
     serviceType: "",
     maxPrice: "",
   });
   const [selectedLead, setSelectedLead] = useState<Lead | null>(null);
-  const [agreementAccepted, setAgreementAccepted] = useState(false);
+  const [agreementAccepted, setAgreementAccepted] = useState(user?.agreementAccepted || false);
   const [showAgreementModal, setShowAgreementModal] = useState(false);
   const [showPurchaseModal, setShowPurchaseModal] = useState(false);
-
-  // TODO: Get real userId from Replit Auth context
-  const currentUserId = "sub-temp-id";
   
   const { data: leads = [], isLoading } = useQuery<Lead[]>({
-    queryKey: [`/api/leads?availableOnly=true&userId=${currentUserId}`],
+    queryKey: ["/api/leads?availableOnly=true"],
+    enabled: isAuthenticated,
   });
 
   const purchaseLeadMutation = useMutation({
@@ -38,7 +38,6 @@ export default function SubcontractorPortal() {
       const mockPaymentIntentId = `pi_mock_${Date.now()}`;
       
       const res = await apiRequest("POST", `/api/leads/${leadId}/purchase`, {
-        userId: currentUserId,
         paymentIntentId: mockPaymentIntentId,
       });
       return await res.json();
@@ -70,9 +69,7 @@ export default function SubcontractorPortal() {
 
   const handleAcceptAgreement = async () => {
     try {
-      const res = await apiRequest("POST", "/api/user/accept-agreement", {
-        userId: "sub-temp-id", // TODO: Get from auth context
-      });
+      const res = await apiRequest("POST", "/api/user/accept-agreement", {});
       await res.json();
       setAgreementAccepted(true);
       setShowAgreementModal(false);

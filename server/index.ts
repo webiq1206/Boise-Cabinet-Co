@@ -77,5 +77,10 @@ app.use((req, res, next) => {
     reusePort: true,
   }, () => {
     log(`serving on port ${port}`);
+    
+    // Start automated daily lead price reduction cron job
+    const { scheduleDailyPriceReduction } = require("./cron");
+    scheduleDailyPriceReduction();
+    log("Cron job: Daily lead price reduction scheduled");
   });
 })();
