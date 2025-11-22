@@ -3,6 +3,15 @@ import { Resend } from 'resend';
 let connectionSettings: any;
 
 async function getCredentials() {
+  // First, check if RESEND_API_KEY is provided as an environment variable/secret
+  if (process.env.RESEND_API_KEY) {
+    return {
+      apiKey: process.env.RESEND_API_KEY,
+      fromEmail: 'hello@lawncarekuna.com'
+    };
+  }
+
+  // Fall back to Replit connector if no secret is provided
   const hostname = process.env.REPLIT_CONNECTORS_HOSTNAME;
   const xReplitToken = process.env.REPL_IDENTITY 
     ? 'repl ' + process.env.REPL_IDENTITY 
@@ -25,7 +34,7 @@ async function getCredentials() {
   ).then(res => res.json()).then(data => data.items?.[0]);
 
   if (!connectionSettings || (!connectionSettings.settings.api_key)) {
-    throw new Error('Resend not connected');
+    throw new Error('Resend not connected. Please add RESEND_API_KEY to your secrets or connect the Resend integration.');
   }
   return {
     apiKey: connectionSettings.settings.api_key, 
