@@ -246,6 +246,10 @@ export const insertLeadSchema = createInsertSchema(leads).omit({
   createdAt: true,
   updatedAt: true,
   lastPriceUpdate: true,
+}).extend({
+  // Make pricing fields optional since backend calculates them
+  baseLeadPrice: z.string().optional(),
+  currentLeadPrice: z.string().optional(),
 });
 
 export type Lead = typeof leads.$inferSelect;

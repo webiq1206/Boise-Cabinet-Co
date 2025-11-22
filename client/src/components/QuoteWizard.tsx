@@ -159,6 +159,7 @@ export function QuoteWizard({
       const quoteResult = await quoteRes.json();
       
       // Then, create a lead from the quote
+      // Note: The backend will automatically calculate pricing via POST /api/leads route
       try {
         const leadData = {
           quoteId: quoteResult.id,
@@ -168,13 +169,13 @@ export function QuoteWizard({
           address: data.address,
           city: data.city,
           propertyType: data.propertyType || "residential",
-          serviceType: data.serviceType,
-          selectedServices: data.selectedServices,
-          frequency: data.frequency,
-          finalQuote: data.quote?.toString() || quoteData?.total?.toString(),
-          lineItems: data.lineItems,
-          serviceData: data.serviceData,
-          message: data.message,
+          serviceType: data.serviceType || (data.selectedServices && data.selectedServices[0]) || "lawn-care",
+          selectedServices: data.selectedServices || [],
+          frequency: data.frequency || "one-time",
+          finalQuote: data.quote?.toString() || quoteData?.total?.toString() || "0",
+          lineItems: data.lineItems || [],
+          serviceData: data.serviceData || {},
+          message: data.message || "",
         };
         
         await apiRequest("POST", "/api/leads", leadData);
