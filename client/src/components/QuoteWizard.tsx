@@ -740,7 +740,7 @@ export function QuoteWizard({
               </div>
 
               <div>
-                <Label htmlFor="phone">Phone <span className="text-muted-foreground text-sm font-normal">(Optional)</span></Label>
+                <Label htmlFor="phone">Phone</Label>
                 <Input
                   id="phone"
                   type="tel"
@@ -748,6 +748,9 @@ export function QuoteWizard({
                   placeholder="(208) 352-2011"
                   data-testid="input-phone"
                 />
+                {form3.formState.errors.phone && (
+                  <p className="text-sm text-destructive mt-1">{form3.formState.errors.phone.message}</p>
+                )}
               </div>
 
               <div>
