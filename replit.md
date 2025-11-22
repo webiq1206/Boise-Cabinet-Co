@@ -1,7 +1,7 @@
 # Lawn Care Kuna Website
 
 ## Overview
-The Lawn Care Kuna website is a professional online platform for a local Idaho business offering lawn care, landscaping, and Christmas light installation services. Its primary goal is to provide comprehensive service information, facilitate quote requests, and enhance local SEO. Key capabilities include an AI-powered intelligent quoting system, an interactive property measurement tool, a complete lead distribution platform, and a rich content management system for service details, project galleries, testimonials, and educational blogs. The site aims to streamline operations, improve customer engagement, and expand market reach within its service areas.
+The Lawn Care Kuna website is a professional online platform for a local Idaho business offering lawn care, landscaping, and Christmas light installation services. Its primary goal is to provide comprehensive service information, facilitate quote requests, and enhance local SEO. Key capabilities include an AI-powered intelligent quoting system, an interactive property measurement tool, a complete lead distribution platform, and a rich content management system for service details, project galleries, testimonials, and educational blogs. The site powers 500+ SEO-optimized location pages (8 cities × 60+ service combinations) with unique, city-specific metadata designed to rank #1 in local search results for each service area.
 
 ## User Preferences
 Preferred communication style: Simple, everyday language.
@@ -22,6 +22,10 @@ Preferred communication style: Simple, everyday language.
 - **Multi-Service Quote System**: A 4-step intelligent wizard (QuoteWizard) supporting multiple service selections, service-aware field rendering, itemized pricing, and robust validation.
 - **Interactive Property Measurement Tool**: Dual-mode (Area and Linear) measurement using Leaflet and OpenStreetMap with auto-calculation, satellite imagery, and manual drawing tools. Queries OpenStreetMap Overpass API for building footprints.
 - **SEO Optimization**: E-E-A-T optimized, city-specific pages (2000+ words), site-wide internal linking, SEO-optimized headings and FAQs. Includes `robots.txt`, `sitemap.xml`, and `llms.txt`.
+  - **City-Specific Metadata**: Every service-in-city page uses unique titles (e.g., "Lawn Mowing in Meridian | Lawn Care Meridian Idaho") and descriptions (e.g., "Meridian's top-rated lawn mowing service...") for maximum local SEO.
+  - **URL-Safe Canonicals**: Canonical URLs use city slugs (`/services/lawn-mowing/meridian`) for proper indexing.
+  - **Smart Title Generation**: Prevents keyword duplication (e.g., "Idaho Idaho") while staying under 60 characters.
+  - **Crawler-Friendly Defaults**: Base index.html includes default meta tags for non-JavaScript crawlers, overridden by React Helmet on each page.
 - **Dynamic Content**: Navigation and footer automatically display all services and service areas fetched from `contentData.ts`.
 - **Mobile Navigation**: Sticky bottom navigation with quick access to services, quotes, and scheduling.
 - **Site-Wide Search**: Real-time autocomplete search in header for services, areas, and main pages.
