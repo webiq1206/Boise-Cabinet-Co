@@ -226,6 +226,48 @@ export class MemStorage implements IStorage {
     ];
 
     sampleBlogPosts.forEach(post => this.blogPosts.set(post.id, post));
+    
+    // Seed test users for development (hardcoded IDs match frontend)
+    const testUsers: User[] = [
+      {
+        id: "admin-temp-id",
+        email: "admin@lawncarekuna.com",
+        firstName: "Admin",
+        lastName: "User",
+        phone: null,
+        role: "admin",
+        company: null,
+        licenseNumber: null,
+        insuranceExpiry: null,
+        profileImageUrl: null,
+        agreementAccepted: false,
+        agreementAcceptedAt: null,
+        stripeCustomerId: null,
+        isActive: true,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        id: "sub-temp-id",
+        email: "contractor@example.com",
+        firstName: "Test",
+        lastName: "Subcontractor",
+        phone: null,
+        role: "subcontractor",
+        company: null,
+        licenseNumber: null,
+        insuranceExpiry: null,
+        profileImageUrl: null,
+        agreementAccepted: true,
+        agreementAcceptedAt: new Date(),
+        stripeCustomerId: null,
+        isActive: true,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+    ];
+    
+    testUsers.forEach(user => this.users.set(user.id, user));
   }
 
   // Quote methods
@@ -501,11 +543,9 @@ export class MemStorage implements IStorage {
     if (!lead || lead.status !== "pending_admin") return undefined;
 
     return await this.updateLead(leadId, {
-      status: "purchased",
+      status: "accepted",
       adminReviewedBy: adminUserId,
       adminReviewedAt: new Date(),
-      purchasedBy: adminUserId,
-      purchasedAt: new Date(),
       adminDeclined: false,
     });
   }

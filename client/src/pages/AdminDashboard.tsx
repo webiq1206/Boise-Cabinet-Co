@@ -12,9 +12,12 @@ import { useState } from "react";
 export default function AdminDashboard() {
   const { toast } = useToast();
   const [activeTab, setActiveTab] = useState("pending");
+  
+  // TODO: Get real userId from Replit Auth context
+  const currentUserId = "admin-temp-id";
 
   const { data: leads = [], isLoading } = useQuery<Lead[]>({
-    queryKey: ["/api/leads"],
+    queryKey: [`/api/leads?userId=${currentUserId}`],
   });
 
   const acceptLeadMutation = useMutation({
@@ -64,7 +67,7 @@ export default function AdminDashboard() {
   });
 
   const pendingLeads = leads.filter(l => l.status === "pending_admin");
-  const acceptedLeads = leads.filter(l => l.status === "purchased" && l.purchasedBy?.startsWith("admin"));
+  const acceptedLeads = leads.filter(l => l.status === "accepted");
   const declinedLeads = leads.filter(l => l.status === "available");
   const allPurchasedLeads = leads.filter(l => l.status === "purchased");
 

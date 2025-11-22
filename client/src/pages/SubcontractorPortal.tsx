@@ -29,7 +29,7 @@ export default function SubcontractorPortal() {
   const currentUserId = "sub-temp-id";
   
   const { data: leads = [], isLoading } = useQuery<Lead[]>({
-    queryKey: ["/api/leads", { availableOnly: "true", userId: currentUserId }],
+    queryKey: [`/api/leads?availableOnly=true&userId=${currentUserId}`],
   });
 
   const purchaseLeadMutation = useMutation({
