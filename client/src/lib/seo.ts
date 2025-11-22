@@ -35,12 +35,13 @@ export function generatePageTitle(params: ServiceSEOParams): string {
   }
   
   if (city) {
-    // Geo-targeted title: "Service in City | Lawn Care Kuna"
-    const title = `${serviceName} in ${city} | Lawn Care Kuna Idaho`;
-    return title.length > 60 ? `${serviceName} ${city} | Lawn Care Kuna` : title;
+    // Geo-targeted title: "Service in City | Lawn Care City"
+    const brandName = `Lawn Care ${city}`;
+    const title = `${serviceName} in ${city} | ${brandName} Idaho`;
+    return title.length > 60 ? `${serviceName} ${city} | ${brandName}` : title;
   }
   
-  // Service-only title
+  // Service-only title (defaults to Kuna as home base)
   const title = `Professional ${serviceName} Services | Lawn Care Kuna Idaho`;
   return title.length > 60 ? `${serviceName} Services | Lawn Care Kuna` : title;
 }
@@ -57,11 +58,12 @@ export function generateMetaDescription(params: ServiceSEOParams): string {
   }
   
   if (city) {
-    // Geo-targeted description
-    return `Expert ${serviceName.toLowerCase()} in ${city}, Idaho. Licensed professionals, guaranteed results, competitive pricing. Free quotes. Serving ${city} & Treasure Valley. Call today!`;
+    // Geo-targeted description - use city name for branding
+    const cityPossessive = city.endsWith('s') ? `${city}'` : `${city}'s`;
+    return `${cityPossessive} top-rated ${serviceName.toLowerCase()} service. Licensed professionals, guaranteed results, competitive pricing. Free quotes. Serving ${city} & Treasure Valley. Call today!`;
   }
   
-  // Service-only description
+  // Service-only description (defaults to Kuna as home base)
   return `Professional ${serviceName.toLowerCase()} services in Kuna & Treasure Valley, Idaho. Licensed, insured, satisfaction guaranteed. Get your free quote today. Serving residential & commercial properties.`;
 }
 
