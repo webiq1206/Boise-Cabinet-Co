@@ -627,7 +627,7 @@ export function MapMeasureTool({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+      <DialogContent className="max-w-4xl w-[95vw] max-h-[95vh] flex flex-col">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <Ruler className="h-5 w-5 text-primary" />
@@ -641,7 +641,7 @@ export function MapMeasureTool({
           </DialogDescription>
         </DialogHeader>
 
-        <div className="space-y-4 pb-4">
+        <div className="space-y-4 pb-4 flex-1 overflow-y-auto">
           {/* Mode Toggle (when both modes supported) */}
           {supportsBothModes && (
             <Tabs value={activeMode} onValueChange={(v) => setActiveMode(v as 'area' | 'linear')}>
