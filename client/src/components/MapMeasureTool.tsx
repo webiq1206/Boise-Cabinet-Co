@@ -187,24 +187,32 @@ export function MapMeasureTool({
         let linearTotal = 0;
         
         drawnItems.eachLayer((layer: any) => {
-          const layerType = layer.measurementType; // Check if tagged by auto-calculation
+          const layerType = layer.measurementType;
           
-          // Use instanceof to reliably detect layer type
           if (layer instanceof L.Polygon || layer instanceof L.Rectangle) {
-            // Only count area if it's an area layer (or untagged user-drawn polygon)
             if (!layerType || layerType === 'area') {
-              const latlngs = layer.getLatLngs();
-              // Polygons may have nested arrays (with holes) or flat arrays
-              const coords = Array.isArray(latlngs[0]) ? latlngs[0] : latlngs;
-              const area = L.GeometryUtil.geodesicArea(coords);
-              areaTotal += area;
+              try {
+                const latlngs = layer.getLatLngs() as L.LatLng[] | L.LatLng[][];
+                const coords = Array.isArray(latlngs[0]) ? (latlngs[0] as L.LatLng[]) : (latlngs as L.LatLng[]);
+                const area = L.GeometryUtil.geodesicArea(coords as L.LatLng[]);
+                areaTotal += area;
+              } catch (e) {
+                console.warn("Error calculating area:", e);
+              }
             }
           } else if (layer instanceof L.Polyline && !(layer instanceof L.Polygon)) {
-            // Polyline - only count linear (these are always for rooflines)
             if (!layerType || layerType === 'linear') {
-              const latlngs = layer.getLatLngs();
-              for (let i = 0; i < latlngs.length - 1; i++) {
-                linearTotal += latlngs[i].distanceTo(latlngs[i + 1]);
+              try {
+                const latlngs = layer.getLatLngs() as L.LatLng[];
+                for (let i = 0; i < latlngs.length - 1; i++) {
+                  const p1 = latlngs[i];
+                  const p2 = latlngs[i + 1];
+                  if (p1 && p2 && typeof (p1 as any).distanceTo === 'function') {
+                    linearTotal += (p1 as any).distanceTo(p2);
+                  }
+                }
+              } catch (e) {
+                console.warn("Error calculating distance:", e);
               }
             }
           }
@@ -222,24 +230,32 @@ export function MapMeasureTool({
         let linearTotal = 0;
         
         drawnItems.eachLayer((layer: any) => {
-          const layerType = layer.measurementType; // Check if tagged by auto-calculation
+          const layerType = layer.measurementType;
           
-          // Use instanceof to reliably detect layer type
           if (layer instanceof L.Polygon || layer instanceof L.Rectangle) {
-            // Only count area if it's an area layer (or untagged user-drawn polygon)
             if (!layerType || layerType === 'area') {
-              const latlngs = layer.getLatLngs();
-              // Polygons may have nested arrays (with holes) or flat arrays
-              const coords = Array.isArray(latlngs[0]) ? latlngs[0] : latlngs;
-              const area = L.GeometryUtil.geodesicArea(coords);
-              areaTotal += area;
+              try {
+                const latlngs = layer.getLatLngs() as L.LatLng[] | L.LatLng[][];
+                const coords = Array.isArray(latlngs[0]) ? (latlngs[0] as L.LatLng[]) : (latlngs as L.LatLng[]);
+                const area = L.GeometryUtil.geodesicArea(coords as L.LatLng[]);
+                areaTotal += area;
+              } catch (e) {
+                console.warn("Error calculating area:", e);
+              }
             }
           } else if (layer instanceof L.Polyline && !(layer instanceof L.Polygon)) {
-            // Polyline - only count linear (these are always for rooflines)
             if (!layerType || layerType === 'linear') {
-              const latlngs = layer.getLatLngs();
-              for (let i = 0; i < latlngs.length - 1; i++) {
-                linearTotal += latlngs[i].distanceTo(latlngs[i + 1]);
+              try {
+                const latlngs = layer.getLatLngs() as L.LatLng[];
+                for (let i = 0; i < latlngs.length - 1; i++) {
+                  const p1 = latlngs[i];
+                  const p2 = latlngs[i + 1];
+                  if (p1 && p2 && typeof (p1 as any).distanceTo === 'function') {
+                    linearTotal += (p1 as any).distanceTo(p2);
+                  }
+                }
+              } catch (e) {
+                console.warn("Error calculating distance:", e);
               }
             }
           }
@@ -256,24 +272,32 @@ export function MapMeasureTool({
         let linearTotal = 0;
         
         drawnItems.eachLayer((layer: any) => {
-          const layerType = layer.measurementType; // Check if tagged by auto-calculation
+          const layerType = layer.measurementType;
           
-          // Use instanceof to reliably detect layer type
           if (layer instanceof L.Polygon || layer instanceof L.Rectangle) {
-            // Only count area if it's an area layer (or untagged user-drawn polygon)
             if (!layerType || layerType === 'area') {
-              const latlngs = layer.getLatLngs();
-              // Polygons may have nested arrays (with holes) or flat arrays
-              const coords = Array.isArray(latlngs[0]) ? latlngs[0] : latlngs;
-              const area = L.GeometryUtil.geodesicArea(coords);
-              areaTotal += area;
+              try {
+                const latlngs = layer.getLatLngs() as L.LatLng[] | L.LatLng[][];
+                const coords = Array.isArray(latlngs[0]) ? (latlngs[0] as L.LatLng[]) : (latlngs as L.LatLng[]);
+                const area = L.GeometryUtil.geodesicArea(coords as L.LatLng[]);
+                areaTotal += area;
+              } catch (e) {
+                console.warn("Error calculating area:", e);
+              }
             }
           } else if (layer instanceof L.Polyline && !(layer instanceof L.Polygon)) {
-            // Polyline - only count linear (these are always for rooflines)
             if (!layerType || layerType === 'linear') {
-              const latlngs = layer.getLatLngs();
-              for (let i = 0; i < latlngs.length - 1; i++) {
-                linearTotal += latlngs[i].distanceTo(latlngs[i + 1]);
+              try {
+                const latlngs = layer.getLatLngs() as L.LatLng[];
+                for (let i = 0; i < latlngs.length - 1; i++) {
+                  const p1 = latlngs[i];
+                  const p2 = latlngs[i + 1];
+                  if (p1 && p2 && typeof (p1 as any).distanceTo === 'function') {
+                    linearTotal += (p1 as any).distanceTo(p2);
+                  }
+                }
+              } catch (e) {
+                console.warn("Error calculating distance:", e);
               }
             }
           }
