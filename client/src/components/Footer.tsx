@@ -31,7 +31,11 @@ export function Footer() {
                 <span>hello@lawncarekuna.com</span>
               </a>
               <div className="flex items-start gap-2 text-sm text-muted-foreground">
-                <MapPin className="h-4 w-4 mt-0.5" />
+                <MapPin className="h-4 w-4 mt-0.5 flex-shrink-0" />
+                <span>2283 N Coopers Hawk Ave, Kuna, ID 83634</span>
+              </div>
+              <div className="flex items-start gap-2 text-sm text-muted-foreground">
+                <MapPin className="h-4 w-4 mt-0.5 flex-shrink-0" />
                 <span>Serving Kuna, Boise, Meridian, Nampa, Caldwell & Eagle</span>
               </div>
             </div>

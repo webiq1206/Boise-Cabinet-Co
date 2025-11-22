@@ -221,10 +221,10 @@ export const CITY_SEO_DATA = {
 export const BUSINESS_INFO = {
   name: 'Lawn Care Kuna',
   legalName: 'Lawn Care Kuna LLC',
-  phone: '(208) 555-LAWN',
+  phone: '(208) 352-2011',
   email: 'hello@lawncarekuna.com',
   address: {
-    street: '123 Main Street',
+    street: '2283 N Coopers Hawk Ave',
     city: 'Kuna',
     state: 'Idaho',
     zip: '83634',
