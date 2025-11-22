@@ -127,6 +127,11 @@ export function QuoteWizard({
     }
   }, [preselectedService, defaultService]);
 
+  // Scroll to top when step changes
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [step]);
+
   // Quote generation mutation
   const getQuoteMutation = useMutation({
     mutationFn: async (data: any) => {
