@@ -15,6 +15,128 @@ interface QuoteEmailData {
   preferredDate?: string;
 }
 
+const emailStyles = `
+  body { 
+    margin: 0; 
+    padding: 0; 
+    font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; 
+    background-color: #f5f5f5;
+    line-height: 1.6;
+  }
+  .email-wrapper { 
+    max-width: 600px; 
+    margin: 0 auto; 
+    background-color: #ffffff;
+  }
+  .header { 
+    background: linear-gradient(135deg, #166534 0%, #15803d 100%); 
+    color: #ffffff; 
+    padding: 40px 30px; 
+    text-align: center;
+  }
+  .header h1 {
+    margin: 0;
+    font-size: 28px;
+    font-weight: 600;
+    letter-spacing: -0.5px;
+  }
+  .header p {
+    margin: 8px 0 0 0;
+    font-size: 14px;
+    opacity: 0.95;
+  }
+  .content { 
+    padding: 40px 30px;
+    background-color: #ffffff;
+  }
+  .greeting {
+    font-size: 18px;
+    color: #1f2937;
+    margin: 0 0 20px 0;
+  }
+  .section {
+    margin: 30px 0;
+  }
+  .section-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #166534;
+    margin: 0 0 15px 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .info-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 15px 0;
+  }
+  .info-table td {
+    padding: 12px 0;
+    border-bottom: 1px solid #e5e7eb;
+  }
+  .info-table .label {
+    font-weight: 600;
+    color: #4b5563;
+    width: 40%;
+  }
+  .info-table .value {
+    color: #1f2937;
+  }
+  .highlight-box {
+    background: linear-gradient(to right, #f0f9f4 0%, #f0fdf4 100%);
+    border-left: 4px solid #166534;
+    padding: 20px;
+    margin: 25px 0;
+    border-radius: 4px;
+  }
+  .highlight-box p {
+    margin: 0;
+    color: #1f2937;
+  }
+  .cta-button {
+    display: inline-block;
+    background: linear-gradient(135deg, #166534 0%, #15803d 100%);
+    color: #ffffff !important;
+    padding: 14px 32px;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 600;
+    margin: 20px 0;
+    text-align: center;
+  }
+  .footer {
+    background-color: #f9fafb;
+    padding: 30px;
+    text-align: center;
+    border-top: 1px solid #e5e7eb;
+  }
+  .footer-brand {
+    font-size: 18px;
+    font-weight: 600;
+    color: #166534;
+    margin: 0 0 8px 0;
+  }
+  .footer-tagline {
+    font-size: 13px;
+    color: #6b7280;
+    margin: 0 0 15px 0;
+  }
+  .footer-contact {
+    font-size: 13px;
+    color: #4b5563;
+    margin: 5px 0;
+  }
+  .footer-contact a {
+    color: #166534;
+    text-decoration: none;
+  }
+  .divider {
+    height: 1px;
+    background-color: #e5e7eb;
+    margin: 25px 0;
+  }
+`;
+
 export async function sendQuoteNotification(data: QuoteEmailData) {
   const {
     customerName,
@@ -36,74 +158,209 @@ export async function sendQuoteNotification(data: QuoteEmailData) {
 
     // Email to business owner
     const ownerEmailHtml = `
-      <h2>New Quote Request from Lawn Care Kuna Website</h2>
-      
-      <h3>Customer Information</h3>
-      <ul>
-        <li><strong>Name:</strong> ${customerName}</li>
-        <li><strong>Email:</strong> ${customerEmail}</li>
-        ${customerPhone ? `<li><strong>Phone:</strong> ${customerPhone}</li>` : ''}
-        ${preferredDate ? `<li><strong>Preferred Date:</strong> ${preferredDate}</li>` : ''}
-      </ul>
+      <!DOCTYPE html>
+      <html lang="en">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>${emailStyles}</style>
+      </head>
+      <body>
+        <div class="email-wrapper">
+          <div class="header">
+            <h1>🌱 New Quote Request</h1>
+            <p>Lawn Care Kuna Website</p>
+          </div>
+          
+          <div class="content">
+            <p class="greeting">A new customer has requested a quote from your website.</p>
+            
+            <div class="section">
+              <h2 class="section-title">Customer Information</h2>
+              <table class="info-table">
+                <tr>
+                  <td class="label">Name:</td>
+                  <td class="value">${customerName}</td>
+                </tr>
+                <tr>
+                  <td class="label">Email:</td>
+                  <td class="value"><a href="mailto:${customerEmail}" style="color: #166534; text-decoration: none;">${customerEmail}</a></td>
+                </tr>
+                ${customerPhone ? `
+                <tr>
+                  <td class="label">Phone:</td>
+                  <td class="value"><a href="tel:${customerPhone}" style="color: #166534; text-decoration: none;">${customerPhone}</a></td>
+                </tr>
+                ` : ''}
+                ${preferredDate ? `
+                <tr>
+                  <td class="label">Preferred Date:</td>
+                  <td class="value">${preferredDate}</td>
+                </tr>
+                ` : ''}
+              </table>
+            </div>
 
-      <h3>Property Details</h3>
-      <ul>
-        <li><strong>Address:</strong> ${address || 'Not provided'}</li>
-        <li><strong>City:</strong> ${city}</li>
-        ${propertySize ? `<li><strong>Property Size:</strong> ${propertySize.toLocaleString()} sq ft</li>` : ''}
-        ${propertyType ? `<li><strong>Property Type:</strong> ${propertyType}</li>` : ''}
-      </ul>
+            <div class="divider"></div>
 
-      <h3>Service Details</h3>
-      <ul>
-        <li><strong>Primary Service:</strong> ${serviceType}</li>
-        ${frequency ? `<li><strong>Frequency:</strong> ${frequency}</li>` : ''}
-        ${selectedServices && selectedServices.length > 0 ? `<li><strong>Add-ons:</strong> ${selectedServices.join(', ')}</li>` : ''}
-        ${finalQuote ? `<li><strong>AI Quote:</strong> $${finalQuote.toLocaleString()}</li>` : ''}
-      </ul>
+            <div class="section">
+              <h2 class="section-title">Property Details</h2>
+              <table class="info-table">
+                <tr>
+                  <td class="label">City:</td>
+                  <td class="value">${city}</td>
+                </tr>
+                ${address ? `
+                <tr>
+                  <td class="label">Address:</td>
+                  <td class="value">${address}</td>
+                </tr>
+                ` : ''}
+                ${propertySize ? `
+                <tr>
+                  <td class="label">Property Size:</td>
+                  <td class="value">${propertySize.toLocaleString()} sq ft</td>
+                </tr>
+                ` : ''}
+                ${propertyType ? `
+                <tr>
+                  <td class="label">Property Type:</td>
+                  <td class="value">${propertyType}</td>
+                </tr>
+                ` : ''}
+              </table>
+            </div>
 
-      <p style="margin-top: 20px; padding: 15px; background: #f0f9f4; border-left: 4px solid #10b981;">
-        <strong>Action Required:</strong> Please follow up with this customer within 24 hours.
-      </p>
+            <div class="divider"></div>
+
+            <div class="section">
+              <h2 class="section-title">Service Details</h2>
+              <table class="info-table">
+                <tr>
+                  <td class="label">Primary Service:</td>
+                  <td class="value">${serviceType}</td>
+                </tr>
+                ${frequency ? `
+                <tr>
+                  <td class="label">Frequency:</td>
+                  <td class="value">${frequency}</td>
+                </tr>
+                ` : ''}
+                ${selectedServices && selectedServices.length > 0 ? `
+                <tr>
+                  <td class="label">Additional Services:</td>
+                  <td class="value">${selectedServices.join(', ')}</td>
+                </tr>
+                ` : ''}
+                ${finalQuote ? `
+                <tr>
+                  <td class="label">AI-Generated Quote:</td>
+                  <td class="value" style="font-size: 20px; font-weight: 600; color: #166534;">$${finalQuote.toLocaleString()}</td>
+                </tr>
+                ` : ''}
+              </table>
+            </div>
+
+            <div class="highlight-box">
+              <p><strong>⏰ Action Required:</strong> Please follow up with this customer within 24 hours to provide a detailed quote and schedule their service.</p>
+            </div>
+          </div>
+
+          <div class="footer">
+            <p class="footer-brand">Lawn Care Kuna</p>
+            <p class="footer-tagline">Kuna, Idaho's Most Trusted Lawn Care & Landscaping Service</p>
+            <p class="footer-contact">📧 <a href="mailto:${fromEmail}">${fromEmail}</a></p>
+            <p class="footer-contact">🌐 <a href="https://lawncarekuna.com">www.lawncarekuna.com</a></p>
+          </div>
+        </div>
+      </body>
+      </html>
     `;
 
     // Email to customer
     const customerEmailHtml = `
-      <h2>Thank you for your quote request!</h2>
-      
-      <p>Hi ${customerName},</p>
-      
-      <p>Thank you for requesting a quote from Lawn Care Kuna. We've received your request and will get back to you within 24 hours with a detailed proposal.</p>
-      
-      <h3>Your Request Details</h3>
-      <ul>
-        <li><strong>Service:</strong> ${serviceType}</li>
-        <li><strong>Location:</strong> ${city}${address ? `, ${address}` : ''}</li>
-        ${finalQuote ? `<li><strong>Estimated Quote:</strong> $${finalQuote.toLocaleString()}</li>` : ''}
-      </ul>
+      <!DOCTYPE html>
+      <html lang="en">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>${emailStyles}</style>
+      </head>
+      <body>
+        <div class="email-wrapper">
+          <div class="header">
+            <h1>🌱 Thank You for Your Request</h1>
+            <p>We're excited to help transform your outdoor space!</p>
+          </div>
+          
+          <div class="content">
+            <p class="greeting">Hi ${customerName},</p>
+            
+            <p style="color: #4b5563; margin: 0 0 20px 0;">Thank you for choosing Lawn Care Kuna for your ${serviceType.toLowerCase()} needs. We've received your quote request and our team is reviewing the details.</p>
 
-      ${finalQuote ? `
-        <p style="margin-top: 20px; padding: 15px; background: #f0f9f4; border-left: 4px solid #10b981;">
-          <strong>Note:</strong> This is an AI-generated estimate. Final pricing will be confirmed after we assess your property.
-        </p>
-      ` : ''}
+            <div class="highlight-box">
+              <p><strong>✅ What happens next?</strong></p>
+              <p style="margin: 10px 0 0 0;">Our team will contact you within 24 hours with a detailed quote tailored to your property's specific needs. We'll answer any questions and help you schedule your service at a time that works best for you.</p>
+            </div>
 
-      <p style="margin-top: 20px;">
-        <strong>Questions?</strong> Reply to this email or call us at (208) 555-LAWN
-      </p>
+            <div class="section">
+              <h2 class="section-title">Your Request Summary</h2>
+              <table class="info-table">
+                <tr>
+                  <td class="label">Service:</td>
+                  <td class="value">${serviceType}</td>
+                </tr>
+                <tr>
+                  <td class="label">Location:</td>
+                  <td class="value">${city}${address ? `, ${address}` : ''}</td>
+                </tr>
+                ${frequency ? `
+                <tr>
+                  <td class="label">Frequency:</td>
+                  <td class="value">${frequency}</td>
+                </tr>
+                ` : ''}
+                ${finalQuote ? `
+                <tr>
+                  <td class="label">Estimated Investment:</td>
+                  <td class="value" style="font-size: 20px; font-weight: 600; color: #166534;">$${finalQuote.toLocaleString()}</td>
+                </tr>
+                ` : ''}
+              </table>
+            </div>
 
-      <p>
-        Best regards,<br>
-        <strong>Lawn Care Kuna Team</strong><br>
-        Kuna, Idaho's Most Trusted Lawn Care Service
-      </p>
+            ${finalQuote ? `
+              <div style="background: #fffbeb; border-left: 4px solid #f59e0b; padding: 20px; margin: 25px 0; border-radius: 4px;">
+                <p style="margin: 0;"><strong>💡 About Your Estimate:</strong> This is an AI-generated estimate based on typical projects. Your final quote will be customized after we assess your property's unique characteristics and your specific preferences.</p>
+              </div>
+            ` : ''}
+
+            <div class="divider"></div>
+
+            <div style="text-align: center; margin: 30px 0;">
+              <p style="color: #4b5563; margin: 0 0 10px 0;"><strong>Have questions?</strong></p>
+              <p style="color: #6b7280; font-size: 14px; margin: 0;">You can reply to this email or give us a call anytime.</p>
+            </div>
+          </div>
+
+          <div class="footer">
+            <p class="footer-brand">Lawn Care Kuna</p>
+            <p class="footer-tagline">Kuna, Idaho's Most Trusted Lawn Care & Landscaping Service</p>
+            <p class="footer-contact">📧 <a href="mailto:${fromEmail}">${fromEmail}</a></p>
+            <p class="footer-contact">📞 (208) 555-LAWN</p>
+            <p class="footer-contact">🌐 <a href="https://lawncarekuna.com">www.lawncarekuna.com</a></p>
+            <p style="font-size: 12px; color: #9ca3af; margin: 15px 0 0 0;">Serving Kuna, Boise, Meridian, Nampa, Caldwell, Eagle, Star & Middleton</p>
+          </div>
+        </div>
+      </body>
+      </html>
     `;
 
     // Send email to business owner
     await resend.emails.send({
       from: `Lawn Care Kuna <${fromEmail}>`,
       to: fromEmail,
-      subject: `New Quote Request - ${customerName} (${city})`,
+      subject: `🌱 New Quote Request - ${customerName} (${city})`,
       html: ownerEmailHtml,
       replyTo: customerEmail
     });
@@ -113,7 +370,7 @@ export async function sendQuoteNotification(data: QuoteEmailData) {
       await resend.emails.send({
         from: `Lawn Care Kuna <${fromEmail}>`,
         to: customerEmail,
-        subject: 'Your Lawn Care Quote Request - Lawn Care Kuna',
+        subject: `Your Quote Request Received - Lawn Care Kuna`,
         html: customerEmailHtml
       });
     }
