@@ -25,8 +25,11 @@ export default function SubcontractorPortal() {
   const [showAgreementModal, setShowAgreementModal] = useState(false);
   const [showPurchaseModal, setShowPurchaseModal] = useState(false);
 
+  // TODO: Get real userId from Replit Auth context
+  const currentUserId = "sub-temp-id";
+  
   const { data: leads = [], isLoading } = useQuery<Lead[]>({
-    queryKey: ["/api/leads", { availableOnly: "true" }],
+    queryKey: ["/api/leads", { availableOnly: "true", userId: currentUserId }],
   });
 
   const purchaseLeadMutation = useMutation({
@@ -35,18 +38,25 @@ export default function SubcontractorPortal() {
       const mockPaymentIntentId = `pi_mock_${Date.now()}`;
       
       const res = await apiRequest("POST", `/api/leads/${leadId}/purchase`, {
-        userId: "sub-temp-id", // TODO: Get from auth context
+        userId: currentUserId,
         paymentIntentId: mockPaymentIntentId,
       });
       return await res.json();
     },
-    onSuccess: () => {
+    onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ["/api/leads"] });
-      setShowPurchaseModal(false);
-      setSelectedLead(null);
+      
+      // Show purchased lead with revealed contact info
+      if (data.lead) {
+        setSelectedLead(data.lead);
+      } else {
+        setShowPurchaseModal(false);
+        setSelectedLead(null);
+      }
+      
       toast({
         title: "Lead Purchased!",
-        description: "You now have access to the full customer details.",
+        description: "Contact information is now revealed below.",
       });
     },
     onError: (error: Error) => {
@@ -288,7 +298,9 @@ export default function SubcontractorPortal() {
                       <MapPin className="h-4 w-4 text-muted-foreground flex-shrink-0" />
                       <div>
                         <p className="font-medium">Location</p>
-                        <p className="text-muted-foreground">{lead.address || `${lead.city}, Idaho`}</p>
+                        <p className="text-muted-foreground">
+                          {lead.address ? lead.address : `${lead.city.charAt(0).toUpperCase() + lead.city.slice(1)}, Idaho`}
+                        </p>
                       </div>
                     </div>
                     <div className="flex items-center gap-2">
@@ -307,12 +319,14 @@ export default function SubcontractorPortal() {
                     </div>
                   )}
 
-                  <div className="flex items-center gap-2 text-xs text-muted-foreground bg-muted/50 p-3 rounded-md">
-                    <AlertCircle className="h-4 w-4 flex-shrink-0" />
-                    <span>
-                      Full contact details (phone, email) available after purchase. Prices reduce daily if not purchased.
-                    </span>
-                  </div>
+                  {lead.name === "***" && (
+                    <div className="flex items-center gap-2 text-xs text-muted-foreground bg-muted/50 p-3 rounded-md">
+                      <AlertCircle className="h-4 w-4 flex-shrink-0" />
+                      <span>
+                        🔒 Customer name, email, phone, and exact address hidden until purchase. Prices reduce 1-2% daily.
+                      </span>
+                    </div>
+                  )}
 
                   <Button
                     onClick={() => handlePurchaseLead(lead)}
@@ -397,69 +411,166 @@ export default function SubcontractorPortal() {
 
       {/* Purchase Confirmation Modal */}
       <Dialog open={showPurchaseModal} onOpenChange={setShowPurchaseModal}>
-        <DialogContent data-testid="modal-purchase-confirmation">
+        <DialogContent data-testid="modal-purchase-confirmation" className="max-w-2xl">
           <DialogHeader>
-            <DialogTitle>Confirm Purchase</DialogTitle>
+            <DialogTitle>
+              {selectedLead?.name !== "***" ? "Lead Purchased - Contact Information" : "Confirm Purchase"}
+            </DialogTitle>
             <DialogDescription>
-              You're about to purchase this lead for {selectedLead && formatCurrency(selectedLead.currentLeadPrice)}
+              {selectedLead?.name !== "***" 
+                ? "You now have full access to the customer's contact details"
+                : `You're about to purchase this lead for ${selectedLead && formatCurrency(selectedLead.currentLeadPrice)}`
+              }
             </DialogDescription>
           </DialogHeader>
           {selectedLead && (
             <div className="space-y-4 py-4">
-              <div className="space-y-2">
-                <p className="text-sm">
-                  <span className="font-medium">Service:</span> {selectedLead.serviceType.replace(/-/g, " ")}
-                </p>
-                <p className="text-sm">
-                  <span className="font-medium">Location:</span> {selectedLead.city}
-                </p>
-                <p className="text-sm">
-                  <span className="font-medium">Quote Value:</span> {formatCurrency(selectedLead.finalQuote)}
-                </p>
-                <p className="text-sm">
-                  <span className="font-medium">Lead Price:</span> {formatCurrency(selectedLead.currentLeadPrice)}
-                </p>
-              </div>
-              <div className="bg-muted p-4 rounded-md space-y-2">
-                <div className="flex items-start gap-2">
-                  <CheckCircle2 className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
-                  <div className="text-sm">
-                    <p className="font-medium">After purchase, you'll get:</p>
-                    <ul className="list-disc list-inside mt-1 space-y-1">
-                      <li>Customer's full name and contact details</li>
-                      <li>Phone number and email address</li>
-                      <li>Complete property address</li>
-                      <li>Customer's message and project details</li>
-                    </ul>
+              {selectedLead.name !== "***" ? (
+                // Post-purchase: Show revealed contact info
+                <>
+                  <div className="bg-green-50 dark:bg-green-900/10 border border-green-200 dark:border-green-800 p-4 rounded-md">
+                    <div className="flex items-start gap-2">
+                      <CheckCircle2 className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
+                      <p className="text-sm text-green-800 dark:text-green-200 font-medium">
+                        Purchase successful! Contact the customer to schedule the service.
+                      </p>
+                    </div>
                   </div>
-                </div>
-              </div>
-              <div className="bg-yellow-50 dark:bg-yellow-900/10 border border-yellow-200 dark:border-yellow-800 p-4 rounded-md">
-                <div className="flex items-start gap-2">
-                  <AlertCircle className="h-5 w-5 text-yellow-600 flex-shrink-0 mt-0.5" />
-                  <p className="text-sm text-yellow-800 dark:text-yellow-200">
-                    <strong>Reminder:</strong> All lead purchases are final and non-refundable. Please review the details carefully before confirming.
-                  </p>
-                </div>
-              </div>
+                  
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <div className="flex items-center gap-2">
+                        <Mail className="h-4 w-4 text-muted-foreground" />
+                        <div>
+                          <p className="text-xs text-muted-foreground">Customer Name</p>
+                          <p className="font-medium" data-testid="text-customer-name">{selectedLead.name}</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="space-y-2">
+                      <div className="flex items-center gap-2">
+                        <Phone className="h-4 w-4 text-muted-foreground" />
+                        <div>
+                          <p className="text-xs text-muted-foreground">Phone</p>
+                          <p className="font-medium" data-testid="text-customer-phone">
+                            <a href={`tel:${selectedLead.phone}`} className="text-primary hover:underline">
+                              {selectedLead.phone}
+                            </a>
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="space-y-2">
+                      <div className="flex items-center gap-2">
+                        <Mail className="h-4 w-4 text-muted-foreground" />
+                        <div>
+                          <p className="text-xs text-muted-foreground">Email</p>
+                          <p className="font-medium" data-testid="text-customer-email">
+                            <a href={`mailto:${selectedLead.email}`} className="text-primary hover:underline">
+                              {selectedLead.email}
+                            </a>
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="space-y-2">
+                      <div className="flex items-center gap-2">
+                        <MapPin className="h-4 w-4 text-muted-foreground" />
+                        <div>
+                          <p className="text-xs text-muted-foreground">Property Address</p>
+                          <p className="font-medium" data-testid="text-customer-address">
+                            {selectedLead.address || `${selectedLead.city}, Idaho`}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="border-t pt-4">
+                    <p className="text-sm font-medium mb-2">Service Details</p>
+                    <div className="space-y-1 text-sm">
+                      <p><span className="text-muted-foreground">Service:</span> {selectedLead.serviceType.replace(/-/g, " ")}</p>
+                      <p><span className="text-muted-foreground">Quote Value:</span> {formatCurrency(selectedLead.finalQuote)}</p>
+                      <p><span className="text-muted-foreground">Frequency:</span> {selectedLead.frequency || "One-time"}</p>
+                      {selectedLead.message && (
+                        <p><span className="text-muted-foreground">Customer Notes:</span> {selectedLead.message}</p>
+                      )}
+                    </div>
+                  </div>
+                </>
+              ) : (
+                // Pre-purchase: Show confirmation details
+                <>
+                  <div className="space-y-2">
+                    <p className="text-sm">
+                      <span className="font-medium">Service:</span> {selectedLead.serviceType.replace(/-/g, " ")}
+                    </p>
+                    <p className="text-sm">
+                      <span className="font-medium">Location:</span> {selectedLead.city}
+                    </p>
+                    <p className="text-sm">
+                      <span className="font-medium">Quote Value:</span> {formatCurrency(selectedLead.finalQuote)}
+                    </p>
+                    <p className="text-sm">
+                      <span className="font-medium">Lead Price:</span> {formatCurrency(selectedLead.currentLeadPrice)}
+                    </p>
+                  </div>
+                  <div className="bg-muted p-4 rounded-md space-y-2">
+                    <div className="flex items-start gap-2">
+                      <CheckCircle2 className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
+                      <div className="text-sm">
+                        <p className="font-medium">After purchase, you'll get:</p>
+                        <ul className="list-disc list-inside mt-1 space-y-1">
+                          <li>Customer's full name and contact details</li>
+                          <li>Phone number and email address</li>
+                          <li>Complete property address</li>
+                          <li>Customer's message and project details</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="bg-yellow-50 dark:bg-yellow-900/10 border border-yellow-200 dark:border-yellow-800 p-4 rounded-md">
+                    <div className="flex items-start gap-2">
+                      <AlertCircle className="h-5 w-5 text-yellow-600 flex-shrink-0 mt-0.5" />
+                      <p className="text-sm text-yellow-800 dark:text-yellow-200">
+                        <strong>Reminder:</strong> All lead purchases are final and non-refundable. Please review the details carefully before confirming.
+                      </p>
+                    </div>
+                  </div>
+                </>
+              )}
             </div>
           )}
           <DialogFooter>
-            <Button
-              variant="outline"
-              onClick={() => setShowPurchaseModal(false)}
-              disabled={purchaseLeadMutation.isPending}
-              data-testid="button-cancel-purchase"
-            >
-              Cancel
-            </Button>
-            <Button
-              onClick={() => selectedLead && purchaseLeadMutation.mutate(selectedLead.id)}
-              disabled={purchaseLeadMutation.isPending}
-              data-testid="button-confirm-purchase"
-            >
-              {purchaseLeadMutation.isPending ? "Processing..." : `Confirm Purchase - ${selectedLead && formatCurrency(selectedLead.currentLeadPrice)}`}
-            </Button>
+            {selectedLead?.name !== "***" ? (
+              <Button
+                onClick={() => {
+                  setShowPurchaseModal(false);
+                  setSelectedLead(null);
+                }}
+                data-testid="button-close-purchase"
+              >
+                Close
+              </Button>
+            ) : (
+              <>
+                <Button
+                  variant="outline"
+                  onClick={() => setShowPurchaseModal(false)}
+                  disabled={purchaseLeadMutation.isPending}
+                  data-testid="button-cancel-purchase"
+                >
+                  Cancel
+                </Button>
+                <Button
+                  onClick={() => selectedLead && purchaseLeadMutation.mutate(selectedLead.id)}
+                  disabled={purchaseLeadMutation.isPending}
+                  data-testid="button-confirm-purchase"
+                >
+                  {purchaseLeadMutation.isPending ? "Processing..." : `Confirm Purchase - ${selectedLead && formatCurrency(selectedLead.currentLeadPrice)}`}
+                </Button>
+              </>
+            )}
           </DialogFooter>
         </DialogContent>
       </Dialog>

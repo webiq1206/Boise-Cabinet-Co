@@ -469,7 +469,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Get all leads (with filters)
   app.get("/api/leads", async (req, res) => {
     try {
-      const { status, city, serviceType, availableOnly } = req.query;
+      const { status, city, serviceType, availableOnly, userId } = req.query;
+      
+      // Verify user if userId provided (for role-based access)
+      let requestingUser = null;
+      if (userId && typeof userId === "string") {
+        requestingUser = await storage.getUser(userId);
+      }
       
       let leads = await storage.getAllLeads();
       
@@ -487,7 +493,30 @@ export async function registerRoutes(app: Express): Promise<Server> {
         leads = leads.filter(l => l.status === "available");
       }
       
-      res.json(leads);
+      // Privacy protection: mask contact info for unpurchased leads
+      const maskedLeads = leads.map(lead => {
+        // Determine if contact info should be revealed based on authenticated user
+        const isAdmin = requestingUser?.role === "admin";
+        const isPurchaser = lead.status === "purchased" && lead.purchasedBy === userId && requestingUser;
+        const isAcceptedByAdmin = lead.status === "accepted" && isAdmin;
+        
+        const shouldRevealContactInfo = isPurchaser || isAcceptedByAdmin;
+        
+        if (shouldRevealContactInfo) {
+          return lead; // Return full lead data
+        }
+        
+        // For all other cases, mask sensitive contact information
+        return {
+          ...lead,
+          name: "***", // Masked
+          email: "***", // Masked
+          phone: "***", // Masked
+          address: undefined, // Hide exact address
+        };
+      });
+      
+      res.json(maskedLeads);
     } catch (error) {
       console.error("Error fetching leads:", error);
       res.status(500).json({ error: "Failed to fetch leads" });
@@ -497,10 +526,35 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Get single lead by ID
   app.get("/api/leads/:id", async (req, res) => {
     try {
+      const { userId } = req.query;
       const lead = await storage.getLeadById(req.params.id);
       if (!lead) {
         return res.status(404).json({ error: "Lead not found" });
       }
+      
+      // Verify user if userId provided (for role-based access)
+      let requestingUser = null;
+      if (userId && typeof userId === "string") {
+        requestingUser = await storage.getUser(userId);
+      }
+      
+      // Privacy protection: mask contact info unless user has proper access
+      const isAdmin = requestingUser?.role === "admin";
+      const isPurchaser = lead.status === "purchased" && lead.purchasedBy === userId && requestingUser;
+      const isAcceptedByAdmin = lead.status === "accepted" && isAdmin;
+      
+      const shouldRevealContactInfo = isPurchaser || isAcceptedByAdmin;
+      
+      if (!shouldRevealContactInfo) {
+        return res.json({
+          ...lead,
+          name: "***",
+          email: "***",
+          phone: "***",
+          address: undefined,
+        });
+      }
+      
       res.json(lead);
     } catch (error) {
       console.error("Error fetching lead:", error);
