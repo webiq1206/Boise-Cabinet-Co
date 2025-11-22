@@ -9,7 +9,7 @@ A complete B2B lead marketplace where quote requests automatically become purcha
 ### Key Features
 - **Admin Dashboard** (`/admin/dashboard`): Review incoming leads, accept (take ownership), or decline (make available to subcontractors)
 - **Subcontractor Portal** (`/subcontractor/portal`): Browse, filter, and purchase available leads with filtering by city, service type, and price
-- **Privacy Protection System**: Customer contact info (name, email, phone, address) masked with "***" until purchase or admin acceptance. Backend validates user roles and ownership before revealing sensitive data
+- **Privacy Protection System**: Customer contact info (name, email, phone, exact street address) masked with "***" until purchase or admin acceptance. General location (city) remains visible to help subcontractors identify leads in their service area. Backend validates user roles and ownership before revealing sensitive data
 - **Automated Lead Pricing**: 10% of quote value for one-time services, one service visit cost for recurring services, with 1-2% daily price reductions
 - **Legal Agreement Flow**: Mandatory agreement acceptance before lead purchases (no-refund policy enforcement)
 - **Lead Lifecycle**: Quote Submission → Admin Review (48hr first right of refusal) → Available to Subcontractors → Purchase

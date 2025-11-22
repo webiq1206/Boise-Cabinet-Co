@@ -299,7 +299,7 @@ export default function SubcontractorPortal() {
                       <div>
                         <p className="font-medium">Location</p>
                         <p className="text-muted-foreground">
-                          {lead.address ? lead.address : `${lead.city.charAt(0).toUpperCase() + lead.city.slice(1)}, Idaho`}
+                          {lead.address && lead.address !== "***" ? lead.address : `${lead.city.charAt(0).toUpperCase() + lead.city.slice(1)}, Idaho`}
                         </p>
                       </div>
                     </div>
@@ -323,7 +323,7 @@ export default function SubcontractorPortal() {
                     <div className="flex items-center gap-2 text-xs text-muted-foreground bg-muted/50 p-3 rounded-md">
                       <AlertCircle className="h-4 w-4 flex-shrink-0" />
                       <span>
-                        🔒 Customer name, email, phone, and exact address hidden until purchase. Prices reduce 1-2% daily.
+                        🔒 Customer contact info (name, email, phone, exact address) hidden until purchase. General location visible. Prices reduce 1-2% daily.
                       </span>
                     </div>
                   )}
@@ -479,7 +479,7 @@ export default function SubcontractorPortal() {
                         <div>
                           <p className="text-xs text-muted-foreground">Property Address</p>
                           <p className="font-medium" data-testid="text-customer-address">
-                            {selectedLead.address || `${selectedLead.city}, Idaho`}
+                            {selectedLead.address && selectedLead.address !== "***" ? selectedLead.address : `${selectedLead.city}, Idaho`}
                           </p>
                         </div>
                       </div>

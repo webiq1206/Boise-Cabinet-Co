@@ -129,12 +129,12 @@ export default function AdminDashboard() {
             <Phone className="h-4 w-4 text-muted-foreground" />
             <span data-testid={`text-phone-${lead.id}`}>{lead.phone}</span>
           </div>
-          {lead.address && (
-            <div className="flex items-center gap-2">
-              <MapPin className="h-4 w-4 text-muted-foreground" />
-              <span data-testid={`text-address-${lead.id}`}>{lead.address}</span>
-            </div>
-          )}
+          <div className="flex items-center gap-2">
+            <MapPin className="h-4 w-4 text-muted-foreground" />
+            <span data-testid={`text-address-${lead.id}`}>
+              {lead.address && lead.address !== "***" ? lead.address : `${lead.city.charAt(0).toUpperCase() + lead.city.slice(1)}, Idaho`}
+            </span>
+          </div>
           <div className="flex items-center gap-2">
             <Building className="h-4 w-4 text-muted-foreground" />
             <span>{lead.propertyType.replace(/-/g, " ")}</span>

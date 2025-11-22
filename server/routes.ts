@@ -507,12 +507,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
         }
         
         // For all other cases, mask sensitive contact information
+        // Keep city visible (general location) but hide exact street address
         return {
           ...lead,
           name: "***", // Masked
           email: "***", // Masked
           phone: "***", // Masked
-          address: undefined, // Hide exact address
+          address: "***", // Hide exact address (city remains visible)
         };
       });
       
@@ -546,12 +547,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const shouldRevealContactInfo = isPurchaser || isAcceptedByAdmin;
       
       if (!shouldRevealContactInfo) {
+        // Keep city visible (general location) but hide exact street address
         return res.json({
           ...lead,
           name: "***",
           email: "***",
           phone: "***",
-          address: undefined,
+          address: "***",
         });
       }
       
