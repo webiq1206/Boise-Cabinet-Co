@@ -128,6 +128,7 @@ export function SearchBar({ onClose }: { onClose?: () => void }) {
                   onClick={() => handleResultClick(result.href)}
                   className="w-full px-4 py-3 flex items-start gap-3 hover-elevate active-elevate-2 transition-colors text-left"
                   data-testid={`search-result-${index}`}
+                  aria-label={`Navigate to ${result.title}`}
                 >
                   <Icon className="h-5 w-5 text-muted-foreground mt-0.5 flex-shrink-0" />
                   <div className="flex-1 min-w-0">

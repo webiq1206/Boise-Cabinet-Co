@@ -166,6 +166,8 @@ export default function Home() {
               src={heroBackground} 
               alt="Professional lawn care background with decorative leaves"
               className="w-full h-full object-cover"
+              loading="eager"
+              fetchPriority="high"
             />
           </div>
 
