@@ -191,14 +191,14 @@ export function Navigation() {
 
         {/* Mobile Navigation */}
         <div className="flex lg:hidden items-center gap-2">
-          <Button variant="ghost" size="icon" asChild data-testid="button-quote-mobile">
+          <Button variant="ghost" size="icon" asChild data-testid="button-quote-mobile" aria-label="Get free quote">
             <Link href="/get-quote">
               <FileText className="h-4 w-4" />
             </Link>
           </Button>
           <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" data-testid="button-menu-mobile">
+              <Button variant="ghost" size="icon" data-testid="button-menu-mobile" aria-label="Open navigation menu">
                 <Menu className="h-5 w-5" />
               </Button>
             </SheetTrigger>
