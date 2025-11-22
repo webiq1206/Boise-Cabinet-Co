@@ -6,25 +6,23 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { CheckCircle2, XCircle, Clock, DollarSign, MapPin, Phone, Mail, Building } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useAuth } from "@/hooks/useAuth";
 import type { Lead } from "@shared/schema";
 import { useState } from "react";
 
 export default function AdminDashboard() {
   const { toast } = useToast();
   const [activeTab, setActiveTab] = useState("pending");
-  
-  // TODO: Get real userId from Replit Auth context
-  const currentUserId = "admin-temp-id";
+  const { isAuthenticated, isLoading: authLoading } = useAuth();
 
   const { data: leads = [], isLoading } = useQuery<Lead[]>({
-    queryKey: [`/api/leads?userId=${currentUserId}`],
+    queryKey: ["/api/leads"],
+    enabled: isAuthenticated,
   });
 
   const acceptLeadMutation = useMutation({
     mutationFn: async (leadId: string) => {
-      const res = await apiRequest("POST", `/api/leads/${leadId}/accept`, {
-        userId: "admin-temp-id", // TODO: Get from auth context
-      });
+      const res = await apiRequest("POST", `/api/leads/${leadId}/accept`, {});
       return await res.json();
     },
     onSuccess: () => {
@@ -45,9 +43,7 @@ export default function AdminDashboard() {
 
   const declineLeadMutation = useMutation({
     mutationFn: async (leadId: string) => {
-      const res = await apiRequest("POST", `/api/leads/${leadId}/decline`, {
-        userId: "admin-temp-id", // TODO: Get from auth context
-      });
+      const res = await apiRequest("POST", `/api/leads/${leadId}/decline`, {});
       return await res.json();
     },
     onSuccess: () => {

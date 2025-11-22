@@ -9,8 +9,23 @@ import { quoteCacheMiddleware } from "./middleware/quoteCache";
 import { quoteCalculationRateLimit } from "./middleware/rateLimit";
 import { PRIORITY_SERVICES, CITIES } from "@shared/contentData";
 import { sendNewLeadNotification, sendLeadPurchasedNotification, sendLeadPurchaseConfirmation } from "./services/emailNotifications";
+import { setupAuth, isAuthenticated, requireRole } from "./replitAuth";
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Setup Replit Auth
+  await setupAuth(app);
+
+  // Auth routes
+  app.get('/api/auth/user', isAuthenticated, async (req: any, res) => {
+    try {
+      const userId = req.user.claims.sub;
+      const user = await storage.getUser(userId);
+      res.json(user);
+    } catch (error) {
+      console.error("Error fetching user:", error);
+      res.status(500).json({ message: "Failed to fetch user" });
+    }
+  });
   // Validation schema for quote calculation (flexible - only require essential fields)
   const calculateQuoteSchema = z.object({
     address: z.string().optional(),
@@ -466,15 +481,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Get all leads (with filters)
-  app.get("/api/leads", async (req, res) => {
+  // Get all leads (with filters) - requires authentication
+  app.get("/api/leads", isAuthenticated, async (req: any, res) => {
     try {
-      const { status, city, serviceType, availableOnly, userId } = req.query;
+      const { status, city, serviceType, availableOnly } = req.query;
+      const userId = req.user.claims.sub;
       
-      // Verify user if userId provided (for role-based access)
-      let requestingUser = null;
-      if (userId && typeof userId === "string") {
-        requestingUser = await storage.getUser(userId);
+      // Get requesting user
+      const requestingUser = await storage.getUser(userId);
+      if (!requestingUser) {
+        return res.status(401).json({ error: "User not found" });
       }
       
       let leads = await storage.getAllLeads();
@@ -497,7 +513,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const maskedLeads = leads.map(lead => {
         // Determine if contact info should be revealed based on authenticated user
         const isAdmin = requestingUser?.role === "admin";
-        const isPurchaser = lead.status === "purchased" && lead.purchasedBy === userId && requestingUser;
+        const isPurchaser = lead.status === "purchased" && lead.purchasedBy === userId;
         const isAcceptedByAdmin = lead.status === "accepted" && isAdmin;
         
         const shouldRevealContactInfo = isPurchaser || isAcceptedByAdmin;
@@ -524,24 +540,24 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Get single lead by ID
-  app.get("/api/leads/:id", async (req, res) => {
+  // Get single lead by ID - requires authentication
+  app.get("/api/leads/:id", isAuthenticated, async (req: any, res) => {
     try {
-      const { userId } = req.query;
+      const userId = req.user.claims.sub;
       const lead = await storage.getLeadById(req.params.id);
       if (!lead) {
         return res.status(404).json({ error: "Lead not found" });
       }
       
-      // Verify user if userId provided (for role-based access)
-      let requestingUser = null;
-      if (userId && typeof userId === "string") {
-        requestingUser = await storage.getUser(userId);
+      // Get requesting user
+      const requestingUser = await storage.getUser(userId);
+      if (!requestingUser) {
+        return res.status(401).json({ error: "User not found" });
       }
       
       // Privacy protection: mask contact info unless user has proper access
-      const isAdmin = requestingUser?.role === "admin";
-      const isPurchaser = lead.status === "purchased" && lead.purchasedBy === userId && requestingUser;
+      const isAdmin = requestingUser.role === "admin";
+      const isPurchaser = lead.status === "purchased" && lead.purchasedBy === userId;
       const isAcceptedByAdmin = lead.status === "accepted" && isAdmin;
       
       const shouldRevealContactInfo = isPurchaser || isAcceptedByAdmin;
@@ -564,19 +580,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Admin accepts a lead (takes ownership)
-  app.post("/api/leads/:id/accept", async (req, res) => {
+  // Admin accepts a lead (takes ownership) - requires admin role
+  app.post("/api/leads/:id/accept", isAuthenticated, requireRole(["admin"]), async (req: any, res) => {
     try {
-      const { userId } = req.body;
-      if (!userId) {
-        return res.status(400).json({ error: "User ID is required" });
-      }
-      
-      // Verify user is admin
-      const user = await storage.getUser(userId);
-      if (!user || user.role !== "admin") {
-        return res.status(403).json({ error: "Only admins can accept leads" });
-      }
+      const userId = req.user.claims.sub;
       
       const lead = await storage.acceptLead(req.params.id, userId);
       if (!lead) {
@@ -590,19 +597,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Admin declines a lead (makes available to subcontractors)
-  app.post("/api/leads/:id/decline", async (req, res) => {
+  // Admin declines a lead (makes available to subcontractors) - requires admin role
+  app.post("/api/leads/:id/decline", isAuthenticated, requireRole(["admin"]), async (req: any, res) => {
     try {
-      const { userId } = req.body;
-      if (!userId) {
-        return res.status(400).json({ error: "User ID is required" });
-      }
-      
-      // Verify user is admin
-      const user = await storage.getUser(userId);
-      if (!user || user.role !== "admin") {
-        return res.status(403).json({ error: "Only admins can decline leads" });
-      }
+      const userId = req.user.claims.sub;
       
       const lead = await storage.declineLead(req.params.id, userId);
       if (!lead) {
@@ -628,18 +626,19 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Subcontractor purchases a lead
-  app.post("/api/leads/:id/purchase", async (req, res) => {
+  // Subcontractor purchases a lead - requires subcontractor role
+  app.post("/api/leads/:id/purchase", isAuthenticated, requireRole(["subcontractor"]), async (req: any, res) => {
     try {
-      const { userId, paymentIntentId } = req.body;
-      if (!userId || !paymentIntentId) {
-        return res.status(400).json({ error: "User ID and payment intent are required" });
+      const userId = req.user.claims.sub;
+      const { paymentIntentId } = req.body;
+      if (!paymentIntentId) {
+        return res.status(400).json({ error: "Payment intent is required" });
       }
       
-      // Verify user is subcontractor
+      // Get authenticated user
       const user = await storage.getUser(userId);
-      if (!user || user.role !== "subcontractor") {
-        return res.status(403).json({ error: "Only subcontractors can purchase leads" });
+      if (!user) {
+        return res.status(401).json({ error: "User not found" });
       }
       
       // Verify agreement accepted
@@ -738,13 +737,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Get user notifications
-  app.get("/api/notifications", async (req, res) => {
+  // Get user notifications - requires authentication
+  app.get("/api/notifications", isAuthenticated, async (req: any, res) => {
     try {
-      const { userId } = req.query;
-      if (!userId || typeof userId !== "string") {
-        return res.status(400).json({ error: "User ID is required" });
-      }
+      const userId = req.user.claims.sub;
       
       const notifications = await storage.getNotificationsByUserId(userId);
       res.json(notifications);
@@ -754,8 +750,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Mark notification as read
-  app.post("/api/notifications/:id/mark-read", async (req, res) => {
+  // Mark notification as read - requires authentication
+  app.post("/api/notifications/:id/mark-read", isAuthenticated, async (req, res) => {
     try {
       const notification = await storage.markNotificationAsRead(req.params.id);
       if (!notification) {
@@ -768,13 +764,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Accept legal agreement
-  app.post("/api/user/accept-agreement", async (req, res) => {
+  // Accept legal agreement - requires authentication
+  app.post("/api/user/accept-agreement", isAuthenticated, async (req: any, res) => {
     try {
-      const { userId } = req.body;
-      if (!userId) {
-        return res.status(400).json({ error: "User ID is required" });
-      }
+      const userId = req.user.claims.sub;
       
       const user = await storage.updateUser(userId, {
         agreementAccepted: true,
