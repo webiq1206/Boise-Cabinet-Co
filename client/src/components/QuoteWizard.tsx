@@ -34,13 +34,10 @@ const step2Schema = z.object({
 // Step 3: Contact Info
 const step3Schema = z.object({
   name: z.string().min(2, "Please enter your name"),
-  email: z.string().email("Please enter a valid email").or(z.string().length(0)),
-  phone: z.string().optional(),
+  email: z.string().email("Please enter a valid email"),
+  phone: z.string().min(10, "Please enter a valid phone number"),
   preferredDate: z.string().optional(),
   message: z.string().optional(),
-}).refine((data) => data.email.length > 0 || (data.phone && data.phone.length >= 10), {
-  message: "Please provide either email or phone number",
-  path: ["email"],
 });
 
 type Step1Data = z.infer<typeof step1Schema>;
