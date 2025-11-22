@@ -31,7 +31,7 @@ export function generatePageTitle(params: ServiceSEOParams): string {
   const { serviceName, city, isHomePage } = params;
   
   if (isHomePage) {
-    return "Lawn Care Kuna | Professional Lawn & Landscaping Services Idaho";
+    return "Lawn Care Kuna | Professional Lawn & Landscaping";
   }
   
   if (city) {
@@ -53,7 +53,7 @@ export function generateMetaDescription(params: ServiceSEOParams): string {
   const { serviceName, city } = params;
   
   if (params.isHomePage) {
-    return "Kuna's #1 rated lawn care & landscaping company. Professional mowing, fertilization, aeration & more. Licensed & insured. Free quotes. Serving Treasure Valley since 2010.";
+    return "Kuna's #1 lawn care & landscaping. Professional mowing, fertilization, aeration & more. Licensed & insured. Free quotes since 2010.";
   }
   
   if (city) {
