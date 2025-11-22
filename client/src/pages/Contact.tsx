@@ -1,6 +1,7 @@
 import { QuoteWizard } from "@/components/QuoteWizard";
 import { Card, CardContent } from "@/components/ui/card";
-import { Phone, Mail, MapPin, Clock } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Phone, Mail, MapPin, Clock, Star } from "lucide-react";
 import heroBackground from "@assets/Untitled design_1763639882299.png";
 
 export default function Contact() {
@@ -120,6 +121,63 @@ export default function Contact() {
               <div className="lg:col-span-2">
                 <QuoteWizard />
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Google Maps Location */}
+      <section className="py-16">
+        <div className="container px-4">
+          <div className="max-w-4xl mx-auto text-center space-y-6">
+            <h2 className="text-3xl font-bold">Visit Us</h2>
+            <p className="text-muted-foreground">
+              Located in Kuna, Idaho. Serving the entire Treasure Valley area.
+            </p>
+            <div className="rounded-lg overflow-hidden shadow-lg">
+              <iframe
+                src="https://www.google.com/maps?q=2283+N+Coopers+Hawk+Ave,+Kuna,+ID+83634&output=embed"
+                width="100%"
+                height="450"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Lawn Care Kuna Location - 2283 N Coopers Hawk Ave, Kuna, ID 83634"
+                data-testid="map-location"
+              />
+            </div>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
+              <Button
+                asChild
+                variant="default"
+                size="lg"
+                data-testid="button-get-directions"
+              >
+                <a
+                  href="https://www.google.com/maps/dir/?api=1&destination=2283+N+Coopers+Hawk+Ave,+Kuna,+ID+83634"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <MapPin className="h-5 w-5 mr-2" />
+                  Get Directions
+                </a>
+              </Button>
+              <Button
+                asChild
+                variant="outline"
+                size="lg"
+                data-testid="button-leave-review"
+              >
+                <a
+                  href="https://share.google/qS8UCGzYV6EcS3iUP"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Star className="h-5 w-5 mr-2" />
+                  Leave a Google Review
+                </a>
+              </Button>
             </div>
           </div>
         </div>

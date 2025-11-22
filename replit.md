@@ -83,13 +83,23 @@ All critical SEO issues from HOTH audit addressed:
    - LinkedIn: https://www.linkedin.com/company/lawncarekuna
    - Twitter/X: Not applicable (no account)
    - YouTube: Not applicable (no channel)
-   - All social links included in Footer and schema.org markup
+   - All social links included in Footer with interactive icons
+   - Social profiles added to schema.org markup
+
+7. **Google Business Profile Integration** ✅
+   - Google Maps Profile: https://share.google/qS8UCGzYV6EcS3iUP
+   - Embedded Google Maps on Contact page showing physical location
+   - "Get Directions" button with Google Maps API integration
+   - "Leave a Review" CTA buttons on Contact page and Footer
+   - Google Business Profile URL added to schema.org sameAs array
+   - Social media icons in Footer (Facebook, Instagram, LinkedIn, Google Review)
 
 ### Technical SEO Infrastructure
 - **Performance**: Hero images use `loading="eager"` and `fetchpriority="high"` for LCP optimization
 - **Fonts**: Google Fonts use media="print" onload trick for deferred loading
 - **Accessibility**: Comprehensive aria-labels across all interactive elements
 - **Contact Details**: Real business address now visible on Contact page and Footer (was previously placeholder)
+- **Local SEO**: Google Maps embed, Google Business Profile links, and review CTAs for local ranking signals
 
 ## SEO & Migration Infrastructure
 Complete 301 redirect system implemented for site migration from old lawncarekuna.com structure.

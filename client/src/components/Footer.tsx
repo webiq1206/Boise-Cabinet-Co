@@ -1,5 +1,7 @@
 import { Link } from "wouter";
-import { Phone, Mail, MapPin } from "lucide-react";
+import { Phone, Mail, MapPin, Star } from "lucide-react";
+import { SiFacebook, SiInstagram, SiLinkedin } from "react-icons/si";
+import { Button } from "@/components/ui/button";
 import logoUrl from "@assets/Lawn Care Kuna Logo_1763734387982.png";
 import { PRIORITY_SERVICES, CITIES } from "@shared/contentData";
 
@@ -37,6 +39,74 @@ export function Footer() {
               <div className="flex items-start gap-2 text-sm text-muted-foreground">
                 <MapPin className="h-4 w-4 mt-0.5 flex-shrink-0" />
                 <span>Serving Kuna, Boise, Meridian, Nampa, Caldwell & Eagle</span>
+              </div>
+            </div>
+            
+            {/* Social Media & Reviews */}
+            <div className="mt-4 pt-4 border-t border-border/40">
+              <p className="text-xs text-muted-foreground mb-3">Connect With Us</p>
+              <div className="flex gap-2">
+                <Button
+                  asChild
+                  size="icon"
+                  variant="ghost"
+                  aria-label="Visit our Facebook page"
+                  data-testid="link-facebook-footer"
+                >
+                  <a
+                    href="https://www.facebook.com/lawncarekuna"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <SiFacebook className="h-4 w-4" />
+                  </a>
+                </Button>
+                <Button
+                  asChild
+                  size="icon"
+                  variant="ghost"
+                  aria-label="Visit our Instagram profile"
+                  data-testid="link-instagram-footer"
+                >
+                  <a
+                    href="https://www.instagram.com/lawncarekuna"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <SiInstagram className="h-4 w-4" />
+                  </a>
+                </Button>
+                <Button
+                  asChild
+                  size="icon"
+                  variant="ghost"
+                  aria-label="Visit our LinkedIn company page"
+                  data-testid="link-linkedin-footer"
+                >
+                  <a
+                    href="https://www.linkedin.com/company/lawncarekuna"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <SiLinkedin className="h-4 w-4" />
+                  </a>
+                </Button>
+                <Button
+                  asChild
+                  size="icon"
+                  variant="default"
+                  aria-label="Leave us a Google review"
+                  data-testid="link-google-review-footer"
+                  title="Leave us a Google Review"
+                >
+                  <a
+                    href="https://share.google/qS8UCGzYV6EcS3iUP"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Star className="h-4 w-4" />
+                  </a>
+                </Button>
               </div>
             </div>
           </div>
