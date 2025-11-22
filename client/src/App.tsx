@@ -8,6 +8,9 @@ import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 import { StickyBottomNav } from "@/components/StickyBottomNav";
 import { ScrollToTop } from "@/components/ScrollToTop";
+import { useEffect } from "react";
+import { initGA } from "./lib/analytics";
+import { useAnalytics } from "./hooks/use-analytics";
 
 // Pages
 import Home from "@/pages/Home";
@@ -55,6 +58,8 @@ import PurchaseHistory from "@/pages/PurchaseHistory";
 import AnalyticsDashboard from "@/pages/AnalyticsDashboard";
 
 function Router() {
+  useAnalytics();
+  
   return (
     <div className="flex flex-col min-h-screen">
       <ScrollToTop />
@@ -123,6 +128,14 @@ function Router() {
 }
 
 function App() {
+  useEffect(() => {
+    if (!import.meta.env.VITE_GA_MEASUREMENT_ID) {
+      console.warn('Missing required Google Analytics key: VITE_GA_MEASUREMENT_ID');
+    } else {
+      initGA();
+    }
+  }, []);
+
   return (
     <QueryClientProvider client={queryClient}>
       <HelmetProvider>
