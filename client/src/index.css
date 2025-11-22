@@ -2,6 +2,47 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Make Leaflet zoom controls more visible and user-friendly */
+.leaflet-control-zoom {
+  border: 2px solid hsl(var(--primary)) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2) !important;
+  border-radius: 8px !important;
+  overflow: hidden;
+}
+
+.leaflet-control-zoom a {
+  width: 36px !important;
+  height: 36px !important;
+  line-height: 36px !important;
+  font-size: 22px !important;
+  font-weight: bold !important;
+  background-color: white !important;
+  color: hsl(var(--primary)) !important;
+  border: none !important;
+}
+
+.leaflet-control-zoom a:hover {
+  background-color: hsl(var(--primary)) !important;
+  color: white !important;
+}
+
+/* Make drawing controls more visible */
+.leaflet-draw-toolbar {
+  border: 2px solid hsl(var(--primary)) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2) !important;
+  border-radius: 8px !important;
+  overflow: hidden;
+}
+
+.leaflet-draw-toolbar a {
+  background-color: white !important;
+  border: none !important;
+}
+
+.leaflet-draw-toolbar a:hover {
+  background-color: hsl(var(--primary) / 0.1) !important;
+}
+
 /* Prevent horizontal scroll on mobile */
 html, body {
   overflow-x: hidden;

@@ -122,6 +122,12 @@ export function MapMeasureTool({
             center: [43.4890, -116.5594], // Default to Kuna, ID
             zoom: 18,
             zoomControl: true,
+            scrollWheelZoom: true, // Enable mouse wheel zoom
+            doubleClickZoom: true, // Enable double-click zoom
+            touchZoom: true, // Enable touch zoom on mobile
+            zoomAnimation: true,
+            minZoom: 10,
+            maxZoom: 22,
           });
 
           // Add satellite/hybrid layer
@@ -686,16 +692,16 @@ export function MapMeasureTool({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-4xl w-[95vw] h-[95vh] p-0 flex flex-col">
-        <DialogHeader className="px-6 pt-6 pb-2">
-          <DialogTitle className="flex items-center gap-2">
-            <Ruler className="h-5 w-5 text-primary" />
-            {activeMode === 'area' ? 'Measure Your Property' : 'Measure Linear Distance'}
+      <DialogContent className="max-w-6xl w-[98vw] h-[98vh] p-0 flex flex-col">
+        <DialogHeader className="px-6 pt-6 pb-4 border-b bg-muted/30">
+          <DialogTitle className="flex items-center gap-2 text-xl">
+            <Ruler className="h-6 w-6 text-primary" />
+            {activeMode === 'area' ? 'Measure Your Lawn Area' : 'Measure Linear Distance'}
           </DialogTitle>
-          <DialogDescription>
+          <DialogDescription className="text-base">
             {activeMode === 'area' 
-              ? 'Draw around all grass areas that need to be mowed, fertilized, or treated'
-              : 'Trace along roof lines, fence lines, or bushes where lights will be installed'
+              ? 'Use the map tools below to outline your grass areas. We\'ll calculate the square footage for you.'
+              : 'Use the map tools below to trace your rooflines or fence lines. We\'ll calculate the total linear feet for you.'
             }
           </DialogDescription>
         </DialogHeader>
@@ -746,23 +752,48 @@ export function MapMeasureTool({
             </Alert>
           )}
 
-          {/* Instructions */}
-          <Alert className="bg-primary/5 border-primary/20">
-            <Info className="h-4 w-4 text-primary" />
-            <AlertDescription className="text-sm">
-              {activeMode === 'area' ? (
-                <><strong>How to measure:</strong> Use the polygon tool (preferred) or rectangle tool from the left sidebar to draw around your grass areas. Click to place corner points, double-click to finish. You can draw one complex shape to cover all lawn areas.</>
-              ) : (
-                <><strong>How to measure:</strong> Use the line tool from the left sidebar to trace along roof lines, fence perimeters, or bushes. Click to place points along the path, double-click to finish. Trace all sections continuously for total linear feet.</>
-              )}
-            </AlertDescription>
-          </Alert>
+          {/* Step-by-Step Instructions */}
+          <div className="bg-gradient-to-br from-primary/10 to-primary/5 border-2 border-primary/30 rounded-lg p-4 space-y-3">
+            <div className="flex items-center gap-2">
+              <Info className="h-5 w-5 text-primary flex-shrink-0" />
+              <h3 className="font-semibold text-foreground text-base">Quick Start Guide</h3>
+            </div>
+            <div className="space-y-2 text-sm">
+              <div className="flex gap-3">
+                <span className="flex-shrink-0 w-6 h-6 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-xs font-bold">1</span>
+                <p className="pt-0.5">
+                  <strong>Find your property:</strong> Enter your address above and click "Find" - or use your <strong>mouse wheel to zoom in/out</strong> and drag to pan
+                </p>
+              </div>
+              <div className="flex gap-3">
+                <span className="flex-shrink-0 w-6 h-6 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-xs font-bold">2</span>
+                <p className="pt-0.5">
+                  {activeMode === 'area' ? (
+                    <><strong>Click the polygon tool</strong> on the left toolbar (box with corners), then <strong>click each corner</strong> of your lawn area and <strong>double-click</strong> to finish</>
+                  ) : (
+                    <><strong>Click the line tool</strong> on the left toolbar (diagonal line), then <strong>click along</strong> your roofline/fence and <strong>double-click</strong> to finish</>
+                  )}
+                </p>
+              </div>
+              <div className="flex gap-3">
+                <span className="flex-shrink-0 w-6 h-6 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-xs font-bold">3</span>
+                <p className="pt-0.5">
+                  <strong>Review your measurement</strong> below and click "Use This Measurement" when satisfied
+                </p>
+              </div>
+            </div>
+            <div className="pt-2 border-t border-primary/20">
+              <p className="text-xs text-muted-foreground">
+                <strong>Pro tip:</strong> You can draw multiple shapes - they'll be added together. Use the edit/delete tools (pencil & trash icons) to adjust.
+              </p>
+            </div>
+          </div>
 
           {/* Map Container */}
           <div 
             ref={mapRef} 
-            className="w-full h-[450px] rounded-lg border"
-            style={{ minHeight: '450px' }}
+            className="w-full h-[500px] rounded-lg border-2 border-primary/20 shadow-lg"
+            style={{ minHeight: '500px' }}
             data-testid="div-map-container"
           />
 
