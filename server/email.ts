@@ -347,7 +347,8 @@ export async function sendQuoteNotification(data: QuoteEmailData) {
             <p class="footer-brand">Lawn Care Kuna</p>
             <p class="footer-tagline">Kuna, Idaho's Most Trusted Lawn Care & Landscaping Service</p>
             <p class="footer-contact">📧 <a href="mailto:${fromEmail}">${fromEmail}</a></p>
-            <p class="footer-contact">📞 (208) 555-LAWN</p>
+            <p class="footer-contact">📞 (208) 352-2011</p>
+            <p class="footer-contact">📍 2283 N Coopers Hawk Ave, Kuna, ID 83634</p>
             <p class="footer-contact">🌐 <a href="https://lawncarekuna.com">www.lawncarekuna.com</a></p>
             <p style="font-size: 12px; color: #9ca3af; margin: 15px 0 0 0;">Serving Kuna, Boise, Meridian, Nampa, Caldwell, Eagle, Star & Middleton</p>
           </div>

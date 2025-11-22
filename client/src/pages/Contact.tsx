@@ -84,9 +84,13 @@ export default function Contact() {
                         <MapPin className="h-5 w-5 text-primary" />
                       </div>
                       <div>
-                        <h3 className="font-semibold mb-1">Service Areas</h3>
+                        <h3 className="font-semibold mb-1">Address</h3>
                         <p className="text-sm text-muted-foreground">
-                          Kuna, Boise, Meridian, Nampa, Caldwell, Eagle, and surrounding areas
+                          2283 N Coopers Hawk Ave<br />
+                          Kuna, ID 83634
+                        </p>
+                        <p className="text-xs text-muted-foreground mt-2">
+                          Serving Kuna, Boise, Meridian, Nampa, Caldwell, Eagle & surrounding areas
                         </p>
                       </div>
                     </div>

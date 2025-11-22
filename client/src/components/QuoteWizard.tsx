@@ -733,7 +733,7 @@ export function QuoteWizard({
                   id="phone"
                   type="tel"
                   {...form3.register("phone")}
-                  placeholder="(208) 555-1234"
+                  placeholder="(208) 352-2011"
                   data-testid="input-phone"
                 />
               </div>

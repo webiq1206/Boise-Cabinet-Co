@@ -416,7 +416,7 @@ export function QuoteForm({ className, compact = false, preselectedService, pres
                   <FormItem>
                     <FormLabel>Phone</FormLabel>
                     <FormControl>
-                      <Input type="tel" placeholder="(208) 555-1234" {...field} data-testid="input-phone" />
+                      <Input type="tel" placeholder="(208) 352-2011" {...field} data-testid="input-phone" />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
