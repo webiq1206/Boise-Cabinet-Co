@@ -51,6 +51,8 @@ import PrivacyPolicy from "@/pages/PrivacyPolicy";
 import TermsOfService from "@/pages/TermsOfService";
 import AdminDashboard from "@/pages/AdminDashboard";
 import SubcontractorPortal from "@/pages/SubcontractorPortal";
+import PurchaseHistory from "@/pages/PurchaseHistory";
+import AnalyticsDashboard from "@/pages/AnalyticsDashboard";
 
 function Router() {
   return (
@@ -106,7 +108,9 @@ function Router() {
 
           {/* Lead Distribution System */}
           <Route path="/admin/dashboard" component={AdminDashboard} />
+          <Route path="/admin/analytics" component={AnalyticsDashboard} />
           <Route path="/subcontractor/portal" component={SubcontractorPortal} />
+          <Route path="/subcontractor/purchases" component={PurchaseHistory} />
 
           {/* 404 */}
           <Route component={NotFound} />

@@ -737,6 +737,28 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Get user's purchase history with full lead details - requires authentication
+  app.get("/api/leads/purchases", isAuthenticated, async (req: any, res) => {
+    try {
+      const userId = req.user.claims.sub;
+      
+      const purchases = await storage.getLeadPurchasesByUser(userId);
+      
+      // Fetch full lead details for each purchase
+      const purchasesWithLeads = await Promise.all(
+        purchases.map(async (purchase) => {
+          const lead = await storage.getLeadById(purchase.leadId);
+          return { purchase, lead };
+        })
+      );
+      
+      res.json(purchasesWithLeads);
+    } catch (error) {
+      console.error("Error fetching purchase history:", error);
+      res.status(500).json({ error: "Failed to fetch purchase history" });
+    }
+  });
+
   // Get user notifications - requires authentication
   app.get("/api/notifications", isAuthenticated, async (req: any, res) => {
     try {

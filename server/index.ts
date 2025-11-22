@@ -75,11 +75,11 @@ app.use((req, res, next) => {
     port,
     host: "0.0.0.0",
     reusePort: true,
-  }, () => {
+  }, async () => {
     log(`serving on port ${port}`);
     
     // Start automated daily lead price reduction cron job
-    const { scheduleDailyPriceReduction } = require("./cron");
+    const { scheduleDailyPriceReduction } = await import("./cron.js");
     scheduleDailyPriceReduction();
     log("Cron job: Daily lead price reduction scheduled");
   });

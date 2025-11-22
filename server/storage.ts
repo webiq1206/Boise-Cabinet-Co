@@ -279,6 +279,7 @@ export class MemStorage implements IStorage {
       propertySize: insertQuote.propertySize ?? null,
       frequency: insertQuote.frequency ?? null,
       message: insertQuote.message ?? null,
+      selectedServices: insertQuote.selectedServices ?? null,
       acceptedAt: null,
       id,
       createdAt: new Date(),
@@ -432,6 +433,11 @@ export class MemStorage implements IStorage {
   // Lead methods
   async createLead(insertLead: InsertLead): Promise<Lead> {
     const id = randomUUID();
+    
+    // Ensure baseLeadPrice and currentLeadPrice are set
+    const baseLeadPrice = insertLead.baseLeadPrice || "0";
+    const currentLeadPrice = insertLead.currentLeadPrice || baseLeadPrice;
+    
     const lead: Lead = {
       ...insertLead,
       quoteId: insertLead.quoteId ?? null,
@@ -442,6 +448,8 @@ export class MemStorage implements IStorage {
       lineItems: insertLead.lineItems ?? null,
       serviceData: insertLead.serviceData ?? null,
       message: insertLead.message ?? null,
+      baseLeadPrice,
+      currentLeadPrice,
       status: insertLead.status ?? "pending_admin",
       priceReductionRate: insertLead.priceReductionRate ?? "1.50",
       adminDeclined: insertLead.adminDeclined ?? false,
