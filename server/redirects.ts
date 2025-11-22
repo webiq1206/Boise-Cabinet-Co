@@ -26,6 +26,8 @@ const validRoutePatterns = [
   '/robots.txt',
   '/sitemap.xml',
   '/llms.txt',
+  '/favicon.png',
+  '/favicon.ico',
   '/assets/',
   '/src/',
   '/@',  // Vite HMR
