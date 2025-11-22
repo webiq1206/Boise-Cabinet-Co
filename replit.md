@@ -46,6 +46,32 @@ All features complete and ready for deployment:
 ## User Preferences
 Preferred communication style: Simple, everyday language.
 
+## SEO & Migration Infrastructure
+Complete 301 redirect system implemented for site migration from old lawncarekuna.com structure.
+
+### Redirect System
+**Old URL Structure:**
+- Service pages: `/service-name/` (e.g., `/lawn-mowing/`, `/christmas-light-installation/`)
+- City pages: `/city-name/` (e.g., `/kuna/`, `/boise/`)
+- Service+City: `/city-name/service-name-location-1city-name/`
+- Quote page: `/service-quote/`
+
+**New URL Structure:**
+- Service pages: `/services/:serviceSlug` (e.g., `/services/lawn-mowing`)
+- City pages: `/areas/:citySlug` (e.g., `/areas/kuna`)
+- Service+City: `/services/:serviceSlug/:citySlug` (e.g., `/services/lawn-mowing/kuna`)
+- Quote page: `/get-quote`
+
+**Implementation:**
+- `server/legacyRedirects.ts`: Specific URL mappings for 170+ old URLs
+  - Service name mappings (handles variations like `lawn-mowing-2`, `sprinkler-blowouts-3`)
+  - City mappings (garden-city → homepage since no longer serviced)
+  - City+Service pattern matching (`/city/service-location-1city-name/` → `/services/:service/:city`)
+  - Direct path mappings (`/service-quote` → `/get-quote`)
+- `server/redirects.ts`: Catch-all for unmatched URLs (old WordPress assets, .html files)
+- All redirects use proper 301 status for SEO link equity preservation
+- Middleware order: Specific redirects → Catch-all → Vite/React
+
 ## System Architecture
 
 ### UI/UX Decisions
