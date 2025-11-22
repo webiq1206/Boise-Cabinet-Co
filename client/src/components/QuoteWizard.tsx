@@ -308,13 +308,23 @@ export function QuoteWizard({
   };
 
   const handleServiceDataChange = (serviceId: string, fieldName: string, value: any) => {
-    setServiceData(prev => ({
-      ...prev,
-      [serviceId]: {
-        ...(prev[serviceId] || {}),
-        [fieldName]: value,
-      },
-    }));
+    // Find all services that have the same field name
+    const servicesWithSameField = selectedServices.filter(id => {
+      const config = SERVICE_FIELD_CONFIGS.find(c => c.serviceId === id);
+      return config?.fields.some(f => f.name === fieldName);
+    });
+
+    // Update the field for all services that have it
+    setServiceData(prev => {
+      const updated = { ...prev };
+      servicesWithSameField.forEach(id => {
+        updated[id] = {
+          ...(updated[id] || {}),
+          [fieldName]: value,
+        };
+      });
+      return updated;
+    });
   };
 
   const handleMeasurementComplete = (sqft: number) => {
