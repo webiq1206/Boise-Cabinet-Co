@@ -217,7 +217,7 @@ export async function calculateIntelligentQuote(
   
   // Update line items with adjusted prices
   lineItems.forEach(item => {
-    item.adjustedPrice = item.basePrice * propertyMultiplier * aiAnalysis.complexityScore;
+    item.adjustedPrice = Math.ceil(item.basePrice * propertyMultiplier * aiAnalysis.complexityScore);
   });
 
   // Step 5: Apply frequency discount
@@ -234,17 +234,17 @@ export async function calculateIntelligentQuote(
   const profit = finalQuote - afterDiscount;
 
   return {
-    baseCost: Math.round(baseCost * 100) / 100,
-    adjustedCost: Math.round(adjustedCost * 100) / 100,
-    finalQuote: Math.round(finalQuote * 100) / 100,
+    baseCost: Math.ceil(baseCost),
+    adjustedCost: Math.ceil(adjustedCost),
+    finalQuote: Math.ceil(finalQuote),
     lineItems,
     aiAnalysis,
     complexityScore: aiAnalysis.complexityScore,
     breakdown: {
-      laborCost: Math.round(laborCost * 100) / 100,
-      materialsCost: Math.round(materialsCost * 100) / 100,
-      overhead: Math.round(overhead * 100) / 100,
-      profit: Math.round(profit * 100) / 100,
+      laborCost: Math.ceil(laborCost),
+      materialsCost: Math.ceil(materialsCost),
+      overhead: Math.ceil(overhead),
+      profit: Math.ceil(profit),
     },
   };
 }
@@ -428,8 +428,8 @@ export async function calculateMultiServiceQuote(
     lineItems.push({
       serviceId,
       serviceName: config.name,
-      basePrice: Math.round(basePrice * 100) / 100,
-      adjustedPrice: Math.round(adjustedPrice * 100) / 100,
+      basePrice: Math.ceil(basePrice),
+      adjustedPrice: Math.ceil(adjustedPrice),
       description,
     });
 
@@ -441,8 +441,8 @@ export async function calculateMultiServiceQuote(
 
   return {
     lineItems,
-    subtotal: Math.round(subtotal * 100) / 100,
-    total: Math.round(total * 100) / 100,
+    subtotal: Math.ceil(subtotal),
+    total: Math.ceil(total),
   };
 }
 
@@ -503,7 +503,7 @@ export function getInstantEstimate(
   const maxPrice = basePrice * propertyMultiplier * maxComplexity * (1 - discount) * (1 + PROFIT_MARGIN);
 
   return {
-    min: Math.round(minPrice),
-    max: Math.round(maxPrice),
+    min: Math.ceil(minPrice),
+    max: Math.ceil(maxPrice),
   };
 }
