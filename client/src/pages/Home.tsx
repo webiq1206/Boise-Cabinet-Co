@@ -268,7 +268,7 @@ export default function Home() {
             <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
               Ready to transform your lawn?
             </h2>
-            <p className="text-lg text-primary-foreground/90 leading-relaxed">
+            <p className="text-lg text-primary-foreground leading-relaxed">
               Get a free consultation and quote today. We'll assess your property and provide 
               a transparent estimate with no obligation.
             </p>
@@ -370,7 +370,7 @@ export default function Home() {
                   <h3 className="text-2xl md:text-3xl font-bold tracking-tight">
                     Full service lawn care in Kuna
                   </h3>
-                  <p className="text-primary-foreground/90 leading-relaxed">
+                  <p className="text-primary-foreground leading-relaxed">
                     We handle everything your lawn needs to thrive. Our comprehensive approach includes:
                   </p>
                   <ul className="space-y-3">
@@ -648,7 +648,7 @@ export default function Home() {
             <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
               Ready to get started?
             </h2>
-            <p className="text-xl text-primary-foreground/90 leading-relaxed">
+            <p className="text-xl text-primary-foreground leading-relaxed">
               Schedule your free consultation today and discover why we're Kuna's most trusted lawn care company.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">

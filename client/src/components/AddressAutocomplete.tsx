@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Input } from "@/components/ui/input";
 import { Command, CommandEmpty, CommandGroup, CommandItem, CommandList } from "@/components/ui/command";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Popover, PopoverContent, PopoverAnchor } from "@/components/ui/popover";
 import { OpenStreetMapProvider } from "leaflet-geosearch";
 import { Loader2, MapPin } from "lucide-react";
 import * as L from "leaflet";
@@ -284,7 +284,7 @@ export function AddressAutocomplete({
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger asChild>
+      <PopoverAnchor asChild>
         <div className="relative">
           <Input
             id={id}
@@ -300,12 +300,12 @@ export function AddressAutocomplete({
             data-testid={dataTestId}
           />
           {isLoading && (
-            <div className="absolute right-3 top-1/2 -translate-y-1/2">
+            <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none">
               <Loader2 className="h-4 w-4 animate-spin text-muted-foreground" />
             </div>
           )}
         </div>
-      </PopoverTrigger>
+      </PopoverAnchor>
       <PopoverContent 
         className="w-[400px] p-0" 
         align="start"
