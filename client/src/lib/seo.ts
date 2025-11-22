@@ -19,6 +19,7 @@ interface ServiceSEOParams {
   serviceName: string;
   serviceSlug: string;
   city?: string;
+  citySlug?: string;
   isHomePage?: boolean;
 }
 
@@ -37,7 +38,11 @@ export function generatePageTitle(params: ServiceSEOParams): string {
   if (city) {
     // Geo-targeted title: "Service in City | Lawn Care City"
     const brandName = `Lawn Care ${city}`;
-    const title = `${serviceName} in ${city} | ${brandName} Idaho`;
+    // Only add "Idaho" if title is short enough and doesn't already contain it
+    const hasIdaho = serviceName.toLowerCase().includes('idaho') || city.toLowerCase().includes('idaho');
+    const title = hasIdaho 
+      ? `${serviceName} in ${city} | ${brandName}`
+      : `${serviceName} in ${city} | ${brandName} Idaho`;
     return title.length > 60 ? `${serviceName} ${city} | ${brandName}` : title;
   }
   
@@ -137,8 +142,9 @@ export function generateSEOMetadata(params: ServiceSEOParams): SEOMetaData {
   let canonical = baseUrl;
   
   if (!params.isHomePage) {
-    if (params.city) {
-      canonical = `${baseUrl}/services/${params.serviceSlug}/${params.city.toLowerCase()}`;
+    if (params.citySlug) {
+      // Use city slug for URL-safe canonical (handles multi-word cities)
+      canonical = `${baseUrl}/services/${params.serviceSlug}/${params.citySlug}`;
     } else {
       canonical = `${baseUrl}/services/${params.serviceSlug}`;
     }

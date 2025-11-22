@@ -53,6 +53,7 @@ export function GeoServicePage({ service, city }: GeoServicePageProps) {
     serviceName: service.name,
     serviceSlug: service.slug,
     city: city.name,
+    citySlug: city.slug,
   });
 
   // Get city coordinates for geo tags
