@@ -60,6 +60,10 @@ app.use((req, res, next) => {
   // Serve static files from public directory (robots.txt, sitemap.xml, llms.txt, etc.)
   app.use(express.static("public"));
 
+  // 301 redirect old/invalid URLs to homepage (SEO-friendly migration)
+  const { legacyUrlRedirect } = await import("./redirects.js");
+  app.use(legacyUrlRedirect);
+
   // importantly only setup vite in development and after
   // setting up all the other routes so the catch-all route
   // doesn't interfere with the other routes
