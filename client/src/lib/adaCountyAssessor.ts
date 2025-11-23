@@ -44,6 +44,35 @@ const CITY_MAPPINGS: Record<string, string> = {
   'HIDDENSPRINGS': 'HIDDEN SPRINGS',
 };
 
+// Common address abbreviations used in assessor databases
+const DIRECTIONAL_ABBREV: Record<string, string> = {
+  'NORTH': 'N',
+  'SOUTH': 'S',
+  'EAST': 'E',
+  'WEST': 'W',
+  'NORTHEAST': 'NE',
+  'NORTHWEST': 'NW',
+  'SOUTHEAST': 'SE',
+  'SOUTHWEST': 'SW',
+};
+
+const STREET_TYPE_ABBREV: Record<string, string> = {
+  'AVENUE': 'AVE',
+  'STREET': 'ST',
+  'ROAD': 'RD',
+  'DRIVE': 'DR',
+  'LANE': 'LN',
+  'COURT': 'CT',
+  'CIRCLE': 'CIR',
+  'BOULEVARD': 'BLVD',
+  'PLACE': 'PL',
+  'WAY': 'WAY',
+  'TRAIL': 'TRL',
+  'PARKWAY': 'PKWY',
+  'TERRACE': 'TER',
+  'HIGHWAY': 'HWY',
+};
+
 /**
  * Calculate Levenshtein distance between two strings
  * Used for fuzzy city name matching
@@ -111,6 +140,43 @@ function normalizeCity(city: string): string | null {
   }
   
   return bestMatch;
+}
+
+/**
+ * Normalize street address to match assessor database format
+ * Converts full directional words and street types to standard abbreviations
+ * Examples:
+ *   "123 NORTH MAIN STREET" -> "123 N MAIN ST"
+ *   "456 SOUTH COOPERS HAWK AVENUE" -> "456 S COOPERS HAWK AVE"
+ */
+function normalizeStreetAddress(address: string): string {
+  if (!address) return '';
+  
+  let normalized = address.trim().toUpperCase();
+  
+  // Replace directional words with abbreviations (NORTH -> N, SOUTH -> S, etc.)
+  // Match whole words only using word boundaries
+  for (const [full, abbrev] of Object.entries(DIRECTIONAL_ABBREV)) {
+    // Replace at beginning of address after house number
+    const beginPattern = new RegExp(`^(\\d+\\s+)${full}\\s+`, 'g');
+    normalized = normalized.replace(beginPattern, `$1${abbrev} `);
+    
+    // Replace at end before street type
+    const endPattern = new RegExp(`\\s+${full}\\s+`, 'g');
+    normalized = normalized.replace(endPattern, ` ${abbrev} `);
+  }
+  
+  // Replace street type words with abbreviations (AVENUE -> AVE, STREET -> ST, etc.)
+  // These typically appear at the end of the street address
+  for (const [full, abbrev] of Object.entries(STREET_TYPE_ABBREV)) {
+    const pattern = new RegExp(`\\s+${full}(?:\\s|$)`, 'g');
+    normalized = normalized.replace(pattern, ` ${abbrev} `);
+  }
+  
+  // Clean up multiple spaces
+  normalized = normalized.replace(/\s+/g, ' ').trim();
+  
+  return normalized;
 }
 
 /**
@@ -202,6 +268,9 @@ export async function searchAdaCountyProperties(
     // This ensures clean street address for database queries
     streetAddress = streetAddress.replace(/\s+\d{5}(-\d{4})?$/g, '').trim();
     
+    // Normalize street address to match database format (NORTH -> N, AVENUE -> AVE, etc.)
+    streetAddress = normalizeStreetAddress(streetAddress);
+    
     // Normalize city name (handle misspellings)
     let normalizedCity = normalizeCity(cityFromInput);
     
@@ -210,7 +279,7 @@ export async function searchAdaCountyProperties(
       normalizedCity = normalizeCity(cityContext);
     }
     
-    console.log('[AdaCountyAssessor] Parsed:', { streetAddress, cityFromInput, normalizedCity, cityContext });
+    console.log('[AdaCountyAssessor] Parsed & normalized:', { streetAddress, cityFromInput, normalizedCity, cityContext });
     
     // Build query: exact match on street address, require city match
     let query = `ADDCONCAT='${streetAddress.replace(/'/g, "''")}'`;
