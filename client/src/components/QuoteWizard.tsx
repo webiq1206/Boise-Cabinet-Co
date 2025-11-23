@@ -649,24 +649,53 @@ export function QuoteWizard({
                         <div className="grid gap-3 sm:grid-cols-2 pt-2">
                           {categoryServices.map((service) => {
                             const isSelected = selectedServices.includes(service.serviceId);
+                            const serviceContent = PRIORITY_SERVICES.find((s) => s.slug === service.serviceId);
+                            const hasPricing = serviceContent?.pricingGuidance;
+                            
                             return (
-                              <Label
+                              <div
                                 key={service.serviceId}
-                                htmlFor={`service-${service.serviceId}`}
-                                className={`flex items-start gap-3 rounded-md border p-4 cursor-pointer hover-elevate ${
+                                className={`rounded-md border ${
                                   isSelected ? "border-primary bg-primary/5" : "border-input"
                                 }`}
                               >
-                                <Checkbox
-                                  id={`service-${service.serviceId}`}
-                                  checked={isSelected}
-                                  onCheckedChange={() => toggleService(service.serviceId)}
-                                  data-testid={`checkbox-service-${service.serviceId}`}
-                                />
-                                <div className="flex-1">
-                                  <div className="font-medium">{service.serviceName}</div>
-                                </div>
-                              </Label>
+                                <Label
+                                  htmlFor={`service-${service.serviceId}`}
+                                  className="flex items-start gap-3 p-4 cursor-pointer hover-elevate"
+                                >
+                                  <Checkbox
+                                    id={`service-${service.serviceId}`}
+                                    checked={isSelected}
+                                    onCheckedChange={() => toggleService(service.serviceId)}
+                                    data-testid={`checkbox-service-${service.serviceId}`}
+                                  />
+                                  <div className="flex-1">
+                                    <div className="font-medium">{service.serviceName}</div>
+                                  </div>
+                                </Label>
+                                
+                                {hasPricing && (
+                                  <div className="px-4 pb-3">
+                                    <Collapsible>
+                                      <CollapsibleTrigger 
+                                        className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground transition-colors"
+                                        data-testid={`pricing-toggle-${service.serviceId}`}
+                                        asChild
+                                      >
+                                        <button type="button" className="flex items-center gap-1">
+                                          <ChevronDown className="w-3 h-3" />
+                                          <span>Typical Pricing</span>
+                                        </button>
+                                      </CollapsibleTrigger>
+                                      <CollapsibleContent className="mt-2">
+                                        <p className="text-xs text-muted-foreground leading-relaxed">
+                                          {serviceContent.pricingGuidance}
+                                        </p>
+                                      </CollapsibleContent>
+                                    </Collapsible>
+                                  </div>
+                                )}
+                              </div>
                             );
                           })}
                         </div>

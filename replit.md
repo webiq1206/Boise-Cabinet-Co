@@ -7,10 +7,14 @@ The Lawn Care Kuna website is a professional online platform for a local Idaho b
 Preferred communication style: Simple, everyday language.
 
 ## Recent Changes
-**November 23, 2025 - Quote UX, Transparency & Legal Protection**
+**November 23, 2025 - Popup-Free Quote Flow & Per-Service Pricing Guidance**
+- **Completely popup-free quote experience**:
+  - Disabled ALL toast notifications (success AND error) during quote flow
+  - Replaced with inline error alerts at top of form (red banner with descriptive message)
+  - Users can now complete quotes without any disruptive popups
 - Enhanced quote wizard user experience:
   - Fixed scroll behavior: Pages load at top, only scroll to form when clicking "Next"
-  - Disabled all success popups during quote flow (only error toasts remain)
+  - **Per-service pricing dropdowns**: Each service in Step 2 now shows a "Typical Pricing" collapsible dropdown (collapsed by default) with pricing guidance directly from contentData
   - Collapsible calculation explanations: "How is this calculated?" dropdowns under each line item (collapsed by default)
 - Added comprehensive legal protection and transparency:
   - "Estimated Total" label with professional disclaimer
