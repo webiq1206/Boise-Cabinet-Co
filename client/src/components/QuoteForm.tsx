@@ -28,7 +28,7 @@ import { Badge } from "@/components/ui/badge";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { CheckCircle2, AlertCircle, Loader2, DollarSign, Info, Map, Sparkles } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { MapMeasureTool } from "@/components/MapMeasureTool";
+import { IntelligentPropertyCalculator } from "@/components/IntelligentPropertyCalculator";
 import { AddressAutocomplete } from "@/components/AddressAutocomplete";
 import { normalizePropertySize, useDebounce, getQuoteCacheKey, aiQuoteCache } from "@/lib/quoteUtils";
 import { config } from "@/lib/config";
@@ -700,8 +700,8 @@ export function QuoteForm({ className, compact = false, preselectedService, pres
         </Form>
       </CardContent>
 
-      {/* Map Measurement Tool */}
-      <MapMeasureTool
+      {/* Intelligent Property Calculator */}
+      <IntelligentPropertyCalculator
         isOpen={isMapOpen}
         onClose={() => setIsMapOpen(false)}
         onMeasurementComplete={handleMeasurementComplete}

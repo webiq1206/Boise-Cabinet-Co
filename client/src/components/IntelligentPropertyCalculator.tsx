@@ -1,0 +1,285 @@
+import { useState } from "react";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Loader2, MapPin, Home, CheckCircle2, Edit3 } from "lucide-react";
+import { searchAdaCountyProperty, PropertyData } from "@/lib/adaCountyAssessor";
+
+interface IntelligentPropertyCalculatorProps {
+  isOpen: boolean;
+  onClose: () => void;
+  onMeasurementComplete?: (sqft: number) => void;
+  onLinearMeasurementComplete?: (feet: number) => void;
+  initialAddress?: string;
+  measurementType?: 'area' | 'linear' | 'both';
+}
+
+export function IntelligentPropertyCalculator({
+  isOpen,
+  onClose,
+  onMeasurementComplete,
+  onLinearMeasurementComplete,
+  initialAddress,
+  measurementType = 'area',
+}: IntelligentPropertyCalculatorProps) {
+  const [address, setAddress] = useState(initialAddress || "");
+  const [isSearching, setIsSearching] = useState(false);
+  const [propertyData, setPropertyData] = useState<PropertyData | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [isManualMode, setIsManualMode] = useState(false);
+  
+  // Manual adjustment values
+  const [manualLawnSqFt, setManualLawnSqFt] = useState<string>("");
+  const [manualRoofLineFt, setManualRoofLineFt] = useState<string>("");
+
+  const handleSearch = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!address.trim()) {
+      setError("Please enter an address");
+      return;
+    }
+
+    setIsSearching(true);
+    setError(null);
+    setPropertyData(null);
+
+    try {
+      const data = await searchAdaCountyProperty(address);
+      
+      if (data) {
+        setPropertyData(data);
+        setManualLawnSqFt(data.estimatedLawnSqFt?.toString() || "");
+        setManualRoofLineFt(data.estimatedRoofLineFt?.toString() || "");
+        setError(null);
+      } else {
+        setError("Property not found in Ada County. Please enter a valid address in Ada County, Idaho.");
+      }
+    } catch (err) {
+      console.error('[IntelligentPropertyCalculator] Search error:', err);
+      setError("Unable to fetch property data. Please try again or enter measurements manually.");
+    } finally {
+      setIsSearching(false);
+    }
+  };
+
+  const handleApply = () => {
+    const lawnSqFt = parseInt(manualLawnSqFt) || propertyData?.estimatedLawnSqFt || 0;
+    const roofLineFt = parseInt(manualRoofLineFt) || propertyData?.estimatedRoofLineFt || 0;
+
+    if (measurementType === 'both') {
+      if (lawnSqFt === 0 || roofLineFt === 0) {
+        setError("Please provide both lawn area and roof line measurements.");
+        return;
+      }
+      if (onMeasurementComplete) onMeasurementComplete(lawnSqFt);
+      if (onLinearMeasurementComplete) onLinearMeasurementComplete(roofLineFt);
+    } else if (measurementType === 'area') {
+      if (lawnSqFt === 0) {
+        setError("Please provide lawn area measurement.");
+        return;
+      }
+      if (onMeasurementComplete) onMeasurementComplete(lawnSqFt);
+    } else if (measurementType === 'linear') {
+      if (roofLineFt === 0) {
+        setError("Please provide roof line measurement.");
+        return;
+      }
+      if (onLinearMeasurementComplete) onLinearMeasurementComplete(roofLineFt);
+    }
+
+    onClose();
+  };
+
+  const needsLawnArea = measurementType === 'area' || measurementType === 'both';
+  const needsRoofLine = measurementType === 'linear' || measurementType === 'both';
+
+  return (
+    <Dialog open={isOpen} onOpenChange={onClose}>
+      <DialogContent className="max-w-2xl max-h-[90vh] flex flex-col">
+        <DialogHeader>
+          <DialogTitle>Intelligent Property Calculator</DialogTitle>
+          <DialogDescription>
+            Enter your Ada County address and we'll automatically calculate your property measurements using official assessor data.
+          </DialogDescription>
+        </DialogHeader>
+
+        <div className="flex-1 flex flex-col space-y-6 px-6 pb-6 overflow-y-auto">
+          {/* Address Search */}
+          <form onSubmit={handleSearch} className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="property-address">Property Address</Label>
+              <div className="flex gap-2">
+                <Input
+                  id="property-address"
+                  placeholder="e.g., 1234 Main St, Kuna, ID"
+                  value={address}
+                  onChange={(e) => setAddress(e.target.value)}
+                  disabled={isSearching}
+                  data-testid="input-property-address"
+                  className="flex-1"
+                />
+                <Button
+                  type="submit"
+                  disabled={isSearching}
+                  data-testid="button-search-property"
+                >
+                  {isSearching ? (
+                    <>
+                      <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                      Searching...
+                    </>
+                  ) : (
+                    <>
+                      <MapPin className="w-4 h-4 mr-2" />
+                      Find Property
+                    </>
+                  )}
+                </Button>
+              </div>
+            </div>
+          </form>
+
+          {/* Error Message */}
+          {error && (
+            <Alert variant="destructive" data-testid="alert-error">
+              <AlertDescription>{error}</AlertDescription>
+            </Alert>
+          )}
+
+          {/* Property Results */}
+          {propertyData && (
+            <div className="space-y-6">
+              {/* Property Info */}
+              <div className="bg-muted/50 rounded-lg p-4 space-y-2">
+                <div className="flex items-start gap-3">
+                  <Home className="w-5 h-5 text-primary mt-0.5" />
+                  <div className="flex-1">
+                    <p className="font-medium text-sm" data-testid="text-property-address">
+                      {propertyData.address}
+                    </p>
+                    <p className="text-sm text-muted-foreground" data-testid="text-property-city">
+                      {propertyData.city}, Idaho
+                    </p>
+                    <p className="text-xs text-muted-foreground mt-1" data-testid="text-property-parcel">
+                      Parcel: {propertyData.parcel}
+                    </p>
+                  </div>
+                  <CheckCircle2 className="w-5 h-5 text-green-600" />
+                </div>
+              </div>
+
+              {/* Auto-Calculated Measurements */}
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <h4 className="font-medium text-sm">Calculated Measurements</h4>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => setIsManualMode(!isManualMode)}
+                    data-testid="button-toggle-manual-mode"
+                  >
+                    <Edit3 className="w-4 h-4 mr-2" />
+                    {isManualMode ? "Use Auto Values" : "Adjust Manually"}
+                  </Button>
+                </div>
+
+                <Alert data-testid="alert-calculation-info">
+                  <AlertDescription className="text-sm">
+                    <strong>How we calculated this:</strong>
+                    <ul className="mt-2 space-y-1 text-xs">
+                      {propertyData.lotSizeSqFt && (
+                        <li>• Estimated lot size: {propertyData.lotSizeSqFt.toLocaleString()} sq ft</li>
+                      )}
+                      {propertyData.buildingSqFt && (
+                        <li>• Estimated building: {propertyData.buildingSqFt.toLocaleString()} sq ft</li>
+                      )}
+                      <li>
+                        • Based on typical {propertyData.city} property characteristics
+                      </li>
+                    </ul>
+                  </AlertDescription>
+                </Alert>
+
+                {/* Lawn Area */}
+                {needsLawnArea && (
+                  <div className="space-y-2">
+                    <Label htmlFor="lawn-area">Lawn Area (Square Feet)</Label>
+                    {isManualMode ? (
+                      <Input
+                        id="lawn-area"
+                        type="number"
+                        value={manualLawnSqFt}
+                        onChange={(e) => setManualLawnSqFt(e.target.value)}
+                        placeholder="Enter lawn sq ft"
+                        data-testid="input-manual-lawn-area"
+                      />
+                    ) : (
+                      <div className="bg-primary/10 border border-primary/20 rounded-md p-3 flex items-center justify-between">
+                        <span className="text-2xl font-bold text-primary" data-testid="text-auto-lawn-area">
+                          {propertyData.estimatedLawnSqFt?.toLocaleString() || "N/A"}
+                        </span>
+                        <span className="text-sm text-muted-foreground">sq ft</span>
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {/* Roof Line */}
+                {needsRoofLine && (
+                  <div className="space-y-2">
+                    <Label htmlFor="roof-line">Roof Line / Perimeter (Linear Feet)</Label>
+                    {isManualMode ? (
+                      <Input
+                        id="roof-line"
+                        type="number"
+                        value={manualRoofLineFt}
+                        onChange={(e) => setManualRoofLineFt(e.target.value)}
+                        placeholder="Enter linear feet"
+                        data-testid="input-manual-roof-line"
+                      />
+                    ) : (
+                      <div className="bg-primary/10 border border-primary/20 rounded-md p-3 flex items-center justify-between">
+                        <span className="text-2xl font-bold text-primary" data-testid="text-auto-roof-line">
+                          {propertyData.estimatedRoofLineFt?.toLocaleString() || "N/A"}
+                        </span>
+                        <span className="text-sm text-muted-foreground">linear ft</span>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* No Results State */}
+          {!isSearching && !propertyData && !error && (
+            <div className="flex flex-col items-center justify-center py-12 text-center">
+              <MapPin className="w-16 h-16 text-muted-foreground/30 mb-4" />
+              <p className="text-sm text-muted-foreground">
+                Enter your Ada County address above to get started
+              </p>
+            </div>
+          )}
+        </div>
+
+        {/* Actions */}
+        <div className="flex justify-end gap-3 px-6 pb-6 pt-2 border-t">
+          <Button variant="outline" onClick={onClose} data-testid="button-cancel">
+            Cancel
+          </Button>
+          {propertyData && (
+            <Button
+              onClick={handleApply}
+              data-testid="button-apply-measurements"
+            >
+              <CheckCircle2 className="w-4 h-4 mr-2" />
+              Use These Measurements
+            </Button>
+          )}
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
+}

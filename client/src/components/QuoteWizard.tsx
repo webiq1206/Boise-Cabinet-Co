@@ -11,7 +11,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Loader2, MapPin, CheckCircle2, Calendar, DollarSign, Package, Info } from "lucide-react";
-import { MapMeasureTool } from "@/components/MapMeasureTool";
+import { IntelligentPropertyCalculator } from "@/components/IntelligentPropertyCalculator";
 import { AddressAutocomplete } from "@/components/AddressAutocomplete";
 import { ServiceFieldsRenderer, validateServiceData } from "@/components/ServiceFieldsRenderer";
 import { useToast } from "@/hooks/use-toast";
@@ -866,8 +866,8 @@ export function QuoteWizard({
         </Card>
       )}
 
-      {/* Map Measurement Tool */}
-      <MapMeasureTool
+      {/* Intelligent Property Calculator */}
+      <IntelligentPropertyCalculator
         isOpen={mapOpen}
         onClose={() => setMapOpen(false)}
         onMeasurementComplete={handleMeasurementComplete}
