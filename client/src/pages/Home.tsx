@@ -176,9 +176,9 @@ export default function Home() {
           <div className="relative z-10">
             {/* Hero Section with Integrated Quote Feature */}
             <HeroQuoteSection 
-              label="Lawn Care Near Me"
-              heading="Looking for lawn care near me in Kuna?"
-              subheading="Top-Rated Local Lawn Care & Landscaping Services"
+              label="Kuna Lawn Care"
+              heading="Professional Lawn Care in Kuna"
+              subheading="Top-Rated Local Lawn & Landscaping Services Since 2017"
               defaultCity="Kuna"
               backgroundAlt="Professional lawn care services with lush green lawn in Kuna Idaho"
             />

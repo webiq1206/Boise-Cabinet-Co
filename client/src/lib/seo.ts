@@ -57,52 +57,52 @@ function truncateServiceName(serviceName: string, maxLength: number): string {
 
 /**
  * Generate SEO-optimized page title
- * Format: "Primary Keyword - Secondary Keyword | Lawn Care Kuna"
+ * Format: "City Service | Lawn Care Kuna" - Natural, city-first approach
  * Max 60 characters for optimal Google display
- * Optimized for "near me" searches - ensures phrase appears in all titles
+ * Prioritizes target keywords (city + service) over "near me" phrases
  * GUARANTEED ≤60 chars through intelligent truncation
  */
 export function generatePageTitle(params: ServiceSEOParams): string {
   const { serviceName, city, isHomePage } = params;
   
   if (isHomePage) {
-    return "Lawn Care Near Me Kuna | Professional Landscaping";
+    return "Lawn Care Kuna | Professional Landscaping Services";
   }
   
   if (city) {
-    // Geo-targeted title with "near me" for local search
-    // Format: "Service Near Me City | Lawn Care City"
-    const shortTitle = `${serviceName} Near Me ${city}`;
-    const brandSuffix = `Lawn Care ${city}`;
-    const fullTitle = `${shortTitle} | ${brandSuffix}`;
+    // City-first format prioritizes target keywords: "Boise Lawn Mowing"
+    // Format: "City Service | Lawn Care Kuna"
+    const primaryKeyword = `${city} ${serviceName}`;
+    const brandSuffix = `Lawn Care Kuna`;
+    const fullTitle = `${primaryKeyword} | ${brandSuffix}`;
     
-    // If too long, use ultra-compact format that still includes "near me"
+    // If too long, use compact city-first format
     if (fullTitle.length > 60) {
-      // Ultra-compact: "Service ${city} | Near Me"
-      const compactTitle = `${serviceName} ${city} | Near Me`;
+      // Compact: "City Service | Lawn Care"
+      const compactTitle = `${primaryKeyword} | Lawn Care`;
       if (compactTitle.length > 60) {
-        // Emergency: "{TruncatedService} Near Me {City}" - ALWAYS includes "Near Me"
-        const maxServiceLength = 60 - ` Near Me ${city}`.length;
+        // Emergency: Truncate service name while keeping city
+        const maxServiceLength = 60 - `${city} `.length - ` | Lawn Care`.length;
         const truncatedService = truncateServiceName(serviceName, maxServiceLength);
-        return `${truncatedService} Near Me ${city}`;
+        return `${city} ${truncatedService} | Lawn Care`;
       }
       return compactTitle;
     }
     return fullTitle;
   }
   
-  // Service-only title (defaults to Kuna as home base) - always includes "near me"
-  const shortTitle = `${serviceName} Near Me`;
-  const fullTitle = `${shortTitle} | Lawn Care Kuna`;
+  // Service-only title (defaults to Kuna as home base)
+  // Format: "Service | Lawn Care Kuna"
+  const fullTitle = `${serviceName} | Lawn Care Kuna`;
   
-  // Fallback for very long service names - keep "near me" even in compact form
+  // Fallback for very long service names
   if (fullTitle.length > 60) {
-    const compactTitle = `${shortTitle} Kuna`;
+    const compactTitle = `${serviceName} | Lawn Care`;
     if (compactTitle.length > 60) {
-      // Truncate service name if still too long
-      const maxServiceLength = 60 - ' Near Me Kuna'.length;
+      // Truncate service name intelligently
+      const maxServiceLength = 60 - ' | Lawn Care'.length;
       const truncatedService = truncateServiceName(serviceName, maxServiceLength);
-      return `${truncatedService} Near Me Kuna`;
+      return `${truncatedService} | Lawn Care`;
     }
     return compactTitle;
   }
@@ -113,22 +113,22 @@ export function generatePageTitle(params: ServiceSEOParams): string {
 /**
  * Generate SEO-optimized meta description
  * 150-160 characters with compelling CTA and keywords
- * Optimized for "near me" searches
+ * Includes subtle "near me" mention for search intent while sounding natural
  */
 export function generateMetaDescription(params: ServiceSEOParams): string {
   const { serviceName, city } = params;
   
   if (params.isHomePage) {
-    return "Looking for lawn care near me in Kuna? Top-rated local lawn & landscaping services. Licensed & insured. Free quotes. Serving Treasure Valley since 2010.";
+    return "Professional lawn care & landscaping in Kuna, Idaho. Licensed, insured, top-rated. When you search for lawn care near me, choose local experts. Free quotes since 2010.";
   }
   
   if (city) {
-    // Geo-targeted description optimized for "near me" searches
-    return `Looking for ${serviceName.toLowerCase()} near me in ${city}? Top-rated local service. Licensed pros, guaranteed results. Free quotes. Serving ${city} & Treasure Valley. Call now!`;
+    // Natural city-focused description with one subtle "near me" mention
+    return `Professional ${serviceName.toLowerCase()} in ${city}, Idaho. Top-rated local pros serving ${city} & Treasure Valley. When you need ${serviceName.toLowerCase()} near me, we deliver. Licensed, insured. Free quotes!`;
   }
   
-  // Service-only description optimized for "near me" searches
-  return `Need ${serviceName.toLowerCase()} near me in Kuna? Professional local service. Licensed, insured, satisfaction guaranteed. Free quotes. Serving residential & commercial. Call today!`;
+  // Service-focused description with natural "near me" integration
+  return `Professional ${serviceName.toLowerCase()} in Kuna & Treasure Valley. Licensed, insured, satisfaction guaranteed. Your local ${serviceName.toLowerCase()} experts near me. Free quotes for residential & commercial!`;
 }
 
 /**
