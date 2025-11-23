@@ -288,6 +288,7 @@ const SERVICE_PRICING_CONFIG = {
   "patio-installation": { rate: 35.00, unit: "per_sqft", name: "Patio Installation" },
   "retaining-walls": { rate: 40.00, unit: "linear_ft", name: "Retaining Wall Installation" },
   "fire-pit-installation": { rate: 1500.00, unit: "base_project", name: "Fire Pit Installation" },
+  "fence": { rate: 25.00, unit: "linear_ft", name: "Fence Installation" },
   
   // Tree services (per tree)
   "tree-removal": { rate: 500.00, unit: "per_tree", name: "Tree Removal" },
@@ -391,7 +392,7 @@ export async function calculateMultiServiceQuote(
           calculationExplanation = `Hedge trimming is estimated as 40% of your lot perimeter. This assumes hedges along the front of the property plus one side, which is typical for most residential properties.`;
         } else if (serviceId === 'christmas-light-installation') {
           calculationExplanation = `Christmas light installation is calculated using your roofline with overhang (roofline + 25% for eaves and overhangs). This ensures adequate coverage for a professional holiday display.`;
-        } else if (serviceId === 'fence-installation') {
+        } else if (serviceId === 'fence') {
           calculationExplanation = `Fence installation is calculated using your full lot perimeter. This measurement comes from property records and represents the boundary of your property.`;
         } else if (serviceId === 'lawn-edging') {
           calculationExplanation = `Lawn edging is calculated using your lawn perimeter (approximately 75% of lot perimeter). This accounts for buildings, driveways, and hardscaping that reduce the edgeable lawn area.`;
