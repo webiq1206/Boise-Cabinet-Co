@@ -153,8 +153,11 @@ export async function sendQuoteNotification(data: QuoteEmailData) {
     preferredDate,
   } = data;
 
+  console.log('[EMAIL] Starting quote notification for:', { customerName, customerEmail, city, serviceType });
+
   try {
     const { client: resend, fromEmail } = await getUncachableResendClient();
+    console.log('[EMAIL] Got Resend client, from email:', fromEmail);
 
     // Email to business owner
     const ownerEmailHtml = `
@@ -358,28 +361,36 @@ export async function sendQuoteNotification(data: QuoteEmailData) {
     `;
 
     // Send email to business owner
-    await resend.emails.send({
+    console.log('[EMAIL] Sending admin notification to:', fromEmail);
+    const adminResult = await resend.emails.send({
       from: `Lawn Care Kuna <${fromEmail}>`,
       to: fromEmail,
       subject: `🌱 New Quote Request - ${customerName} (${city})`,
       html: ownerEmailHtml,
       replyTo: customerEmail
     });
+    console.log('[EMAIL] Admin email sent, result:', adminResult);
 
     // Send confirmation email to customer
     if (customerEmail) {
-      await resend.emails.send({
+      console.log('[EMAIL] Sending customer confirmation to:', customerEmail);
+      const customerResult = await resend.emails.send({
         from: `Lawn Care Kuna <${fromEmail}>`,
         to: customerEmail,
         subject: `Your Quote Request Received - Lawn Care Kuna`,
         html: customerEmailHtml
       });
+      console.log('[EMAIL] Customer email sent, result:', customerResult);
     }
 
-    console.log('Quote notification emails sent successfully via Resend');
+    console.log('[EMAIL] ✅ Quote notification emails sent successfully via Resend');
     return { success: true, message: 'Emails sent successfully' };
   } catch (error) {
-    console.error('Error sending email via Resend:', error);
+    console.error('[EMAIL] ❌ Error sending email via Resend:', error);
+    if (error instanceof Error) {
+      console.error('[EMAIL] Error message:', error.message);
+      console.error('[EMAIL] Error stack:', error.stack);
+    }
     return { success: false, message: 'Failed to send email', error };
   }
 }
