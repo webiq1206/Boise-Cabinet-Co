@@ -168,7 +168,7 @@ export default function Home() {
               alt="Professional lawn care background with decorative leaves"
               className="w-full h-full object-cover"
               loading="eager"
-              fetchPriority="high"
+              fetchpriority="high"
             />
           </div>
 
