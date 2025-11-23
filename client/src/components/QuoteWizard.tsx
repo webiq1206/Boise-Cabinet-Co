@@ -650,10 +650,10 @@ export function QuoteWizard({
                   >
                     <MapPin className="w-4 h-4 mr-2" />
                     {getMeasurementType() === 'linear' 
-                      ? 'Measure Linear Features on Map'
+                      ? 'Measure Linear Features'
                       : getMeasurementType() === 'both'
-                      ? 'Calculate Property Size & Measure Linear Features'
-                      : 'Calculate Property Size Automatically'
+                      ? 'Calculate Property Size'
+                      : 'Calculate Property Size'
                     }
                   </Button>
                   <p className="text-sm text-muted-foreground text-center">
