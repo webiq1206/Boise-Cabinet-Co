@@ -706,6 +706,7 @@ export function QuoteForm({ className, compact = false, preselectedService, pres
         onClose={() => setIsMapOpen(false)}
         onMeasurementComplete={handleMeasurementComplete}
         initialAddress={`${form.watch("city") || "Kuna"}, Idaho`}
+        cityContext={form.watch("city") || "Kuna"}
       />
     </Card>
   );

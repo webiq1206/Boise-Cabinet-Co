@@ -874,6 +874,7 @@ export function QuoteWizard({
         onLinearMeasurementComplete={handleLinearMeasurementComplete}
         initialAddress={form1.watch("address") || ""}
         measurementType={getMeasurementType() || 'area'}
+        cityContext={form1.watch("city") || ""}
       />
     </div>
   );

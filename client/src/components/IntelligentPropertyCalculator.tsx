@@ -4,8 +4,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { Loader2, MapPin, Home, CheckCircle2, Edit3 } from "lucide-react";
-import { searchAdaCountyProperty, PropertyData } from "@/lib/adaCountyAssessor";
+import { Loader2, MapPin, Home, CheckCircle2, Edit3, AlertCircle } from "lucide-react";
+import { searchAdaCountyProperties, PropertyData } from "@/lib/adaCountyAssessor";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
 interface IntelligentPropertyCalculatorProps {
   isOpen: boolean;
@@ -14,6 +15,7 @@ interface IntelligentPropertyCalculatorProps {
   onLinearMeasurementComplete?: (feet: number) => void;
   initialAddress?: string;
   measurementType?: 'area' | 'linear' | 'both';
+  cityContext?: string; // City from wizard (e.g., "Kuna")
 }
 
 export function IntelligentPropertyCalculator({
@@ -23,11 +25,15 @@ export function IntelligentPropertyCalculator({
   onLinearMeasurementComplete,
   initialAddress,
   measurementType = 'area',
+  cityContext,
 }: IntelligentPropertyCalculatorProps) {
   const [address, setAddress] = useState(initialAddress || "");
   const [isSearching, setIsSearching] = useState(false);
+  const [multipleProperties, setMultipleProperties] = useState<PropertyData[]>([]);
+  const [selectedPropertyIndex, setSelectedPropertyIndex] = useState<number>(0);
   const [propertyData, setPropertyData] = useState<PropertyData | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [suggestion, setSuggestion] = useState<string | null>(null);
   const [isManualMode, setIsManualMode] = useState(false);
   
   // Manual adjustment values
@@ -38,30 +44,77 @@ export function IntelligentPropertyCalculator({
     e.preventDefault();
     if (!address.trim()) {
       setError("Please enter an address");
+      setSuggestion(null);
       return;
     }
 
     setIsSearching(true);
     setError(null);
+    setSuggestion(null);
     setPropertyData(null);
+    setMultipleProperties([]);
 
     try {
-      const data = await searchAdaCountyProperty(address);
+      const result = await searchAdaCountyProperties(address, cityContext);
       
-      if (data) {
-        setPropertyData(data);
-        setManualLawnSqFt(data.estimatedLawnSqFt?.toString() || "");
-        setManualRoofLineFt(data.estimatedRoofLineFt?.toString() || "");
+      if (result.success && result.properties.length > 0) {
+        if (result.properties.length === 1) {
+          // Single match - auto-select
+          const data = result.properties[0];
+          setPropertyData(data);
+          setManualLawnSqFt(data.estimatedLawnSqFt?.toString() || "");
+          setManualRoofLineFt(data.estimatedRoofLineFt?.toString() || "");
+        } else {
+          // Multiple matches - show selection UI
+          setMultipleProperties(result.properties);
+          setSelectedPropertyIndex(0);
+        }
         setError(null);
+        setSuggestion(null);
       } else {
-        setError("Property not found in Ada County. Please enter a valid address in Ada County, Idaho.");
+        setError(result.error || "Property not found in Ada County.");
+        setSuggestion(result.suggestion || null);
       }
     } catch (err) {
       console.error('[IntelligentPropertyCalculator] Search error:', err);
-      setError("Unable to fetch property data. Please try again or enter measurements manually.");
+      setError("Unable to fetch property data. Please try again.");
+      setSuggestion("Check your internet connection or try entering measurements manually.");
     } finally {
       setIsSearching(false);
     }
+  };
+
+  const handlePropertySelection = (index: number) => {
+    setSelectedPropertyIndex(index);
+  };
+
+  const handleConfirmSelection = () => {
+    if (multipleProperties.length > 0) {
+      const selected = multipleProperties[selectedPropertyIndex];
+      setPropertyData(selected);
+      setManualLawnSqFt(selected.estimatedLawnSqFt?.toString() || "");
+      setManualRoofLineFt(selected.estimatedRoofLineFt?.toString() || "");
+      setMultipleProperties([]);
+      // Clear error and suggestion states after successful selection
+      setError(null);
+      setSuggestion(null);
+    }
+  };
+
+  const resetState = () => {
+    // Reset all state to initial values when dialog closes
+    setError(null);
+    setSuggestion(null);
+    setMultipleProperties([]);
+    setPropertyData(null);
+    setIsManualMode(false);
+    setManualLawnSqFt("");
+    setManualRoofLineFt("");
+  };
+
+  const handleClose = () => {
+    resetState();
+    onClose();
   };
 
   const handleApply = () => {
@@ -89,14 +142,14 @@ export function IntelligentPropertyCalculator({
       if (onLinearMeasurementComplete) onLinearMeasurementComplete(roofLineFt);
     }
 
-    onClose();
+    handleClose();
   };
 
   const needsLawnArea = measurementType === 'area' || measurementType === 'both';
   const needsRoofLine = measurementType === 'linear' || measurementType === 'both';
 
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
+    <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
       <DialogContent className="max-w-2xl max-h-[90vh] flex flex-col">
         <DialogHeader>
           <DialogTitle>Intelligent Property Calculator</DialogTitle>
@@ -141,11 +194,73 @@ export function IntelligentPropertyCalculator({
             </div>
           </form>
 
-          {/* Error Message */}
+          {/* Error Message with Suggestion */}
           {error && (
             <Alert variant="destructive" data-testid="alert-error">
-              <AlertDescription>{error}</AlertDescription>
+              <AlertCircle className="h-4 w-4" />
+              <AlertDescription>
+                <p className="font-medium">{error}</p>
+                {suggestion && (
+                  <p className="text-sm mt-2 opacity-90">{suggestion}</p>
+                )}
+              </AlertDescription>
             </Alert>
+          )}
+
+          {/* Multiple Property Selection */}
+          {multipleProperties.length > 0 && (
+            <div className="space-y-4">
+              <Alert data-testid="alert-multiple-matches">
+                <AlertDescription>
+                  <p className="font-medium mb-3">
+                    We found {multipleProperties.length} properties matching your address. Please select the correct one:
+                  </p>
+                </AlertDescription>
+              </Alert>
+
+              <RadioGroup 
+                value={selectedPropertyIndex.toString()} 
+                onValueChange={(value) => handlePropertySelection(parseInt(value))}
+              >
+                <div className="space-y-2">
+                  {multipleProperties.map((property, index) => (
+                    <div
+                      key={property.parcel}
+                      className="flex items-center space-x-3 border rounded-lg p-3 hover-elevate"
+                      data-testid={`radio-property-${index}`}
+                    >
+                      <RadioGroupItem value={index.toString()} id={`property-${index}`} />
+                      <Label
+                        htmlFor={`property-${index}`}
+                        className="flex-1 cursor-pointer"
+                        data-testid={`label-property-${index}`}
+                      >
+                        <div className="flex flex-col gap-1">
+                          <span className="font-medium">{property.address}</span>
+                          <span className="text-sm text-muted-foreground">
+                            {property.city}, Idaho • Parcel: {property.parcel}
+                          </span>
+                          {property.estimatedLawnSqFt && (
+                            <span className="text-xs text-muted-foreground">
+                              Est. Lawn: {property.estimatedLawnSqFt.toLocaleString()} sq ft
+                            </span>
+                          )}
+                        </div>
+                      </Label>
+                    </div>
+                  ))}
+                </div>
+              </RadioGroup>
+
+              <Button
+                onClick={handleConfirmSelection}
+                className="w-full"
+                data-testid="button-confirm-selection"
+              >
+                <CheckCircle2 className="w-4 h-4 mr-2" />
+                Use Selected Property
+              </Button>
+            </div>
           )}
 
           {/* Property Results */}
@@ -266,7 +381,7 @@ export function IntelligentPropertyCalculator({
 
         {/* Actions */}
         <div className="flex justify-end gap-3 px-6 pb-6 pt-2 border-t">
-          <Button variant="outline" onClick={onClose} data-testid="button-cancel">
+          <Button variant="outline" onClick={handleClose} data-testid="button-cancel">
             Cancel
           </Button>
           {propertyData && (
