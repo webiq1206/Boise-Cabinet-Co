@@ -1,5 +1,11 @@
 import { getUncachableResendClient } from './resend';
 
+interface LineItem {
+  service: string;
+  description: string;
+  price: number;
+}
+
 interface QuoteEmailData {
   customerName: string;
   customerEmail: string;
@@ -13,6 +19,8 @@ interface QuoteEmailData {
   selectedServices?: string[];
   finalQuote?: number;
   preferredDate?: string;
+  lineItems?: LineItem[];
+  serviceData?: any;
 }
 
 const emailStyles = `
@@ -34,6 +42,13 @@ const emailStyles = `
     padding: 40px 30px; 
     text-align: center;
   }
+  .logo-container {
+    margin-bottom: 20px;
+  }
+  .logo {
+    max-width: 300px;
+    height: auto;
+  }
   .header h1 {
     margin: 0;
     font-size: 28px;
@@ -44,6 +59,40 @@ const emailStyles = `
     margin: 8px 0 0 0;
     font-size: 14px;
     opacity: 0.95;
+  }
+  .line-items {
+    background-color: #f9fafb;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px 0;
+  }
+  .line-item {
+    padding: 12px 0;
+    border-bottom: 1px solid #e5e7eb;
+  }
+  .line-item:last-child {
+    border-bottom: none;
+  }
+  .line-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4px;
+  }
+  .line-item-service {
+    font-weight: 600;
+    color: #166534;
+    font-size: 15px;
+  }
+  .line-item-price {
+    font-weight: 600;
+    color: #1f2937;
+    font-size: 15px;
+  }
+  .line-item-description {
+    color: #6b7280;
+    font-size: 13px;
+    margin: 4px 0 0 0;
   }
   .content { 
     padding: 40px 30px;
@@ -162,6 +211,24 @@ export async function sendQuoteNotification(data: QuoteEmailData) {
     const { client: resend, fromEmail } = await getUncachableResendClient();
     console.log('[EMAIL] Got Resend client, from email:', fromEmail);
 
+    // Generate line items HTML
+    const lineItemsHtml = data.lineItems && data.lineItems.length > 0 ? `
+      <div class="section">
+        <h2 class="section-title">Detailed Quote Breakdown</h2>
+        <div class="line-items">
+          ${data.lineItems.map(item => `
+            <div class="line-item">
+              <div class="line-item-header">
+                <span class="line-item-service">${item.service}</span>
+                <span class="line-item-price">$${item.price.toLocaleString()}</span>
+              </div>
+              <p class="line-item-description">${item.description}</p>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    ` : '';
+
     // Email to business owner
     const ownerEmailHtml = `
       <!DOCTYPE html>
@@ -174,8 +241,11 @@ export async function sendQuoteNotification(data: QuoteEmailData) {
       <body>
         <div class="email-wrapper">
           <div class="header">
-            <h1>🌱 New Quote Request</h1>
-            <p>Lawn Care Kuna Website</p>
+            <div class="logo-container">
+              <img src="https://lawncarekuna.com/attached_assets/lawn-care-kuna-logo.png" alt="Lawn Care Kuna" class="logo">
+            </div>
+            <h1>New Quote Request</h1>
+            <p>AI-Powered Quote System</p>
           </div>
           
           <div class="content">
@@ -258,14 +328,23 @@ export async function sendQuoteNotification(data: QuoteEmailData) {
                   <td class="value">${selectedServices.join(', ')}</td>
                 </tr>
                 ` : ''}
-                ${finalQuote ? `
-                <tr>
-                  <td class="label">AI-Generated Quote:</td>
-                  <td class="value" style="font-size: 20px; font-weight: 600; color: #166534;">$${finalQuote.toLocaleString()}</td>
-                </tr>
-                ` : ''}
               </table>
             </div>
+
+            ${lineItemsHtml}
+
+            ${finalQuote ? `
+            <div class="divider"></div>
+            <div class="section">
+              <h2 class="section-title">Total Estimated Quote</h2>
+              <table class="info-table">
+                <tr>
+                  <td class="label">AI-Generated Quote:</td>
+                  <td class="value" style="font-size: 24px; font-weight: 700; color: #166534;">$${finalQuote.toLocaleString()}</td>
+                </tr>
+              </table>
+            </div>
+            ` : ''}
 
             <div class="highlight-box">
               <p><strong>⏰ Action Required:</strong> Please follow up with this customer within 24 hours to provide a detailed quote and schedule their service.</p>
@@ -295,7 +374,10 @@ export async function sendQuoteNotification(data: QuoteEmailData) {
       <body>
         <div class="email-wrapper">
           <div class="header">
-            <h1>🌱 Thank You for Your Request</h1>
+            <div class="logo-container">
+              <img src="https://lawncarekuna.com/attached_assets/lawn-care-kuna-logo.png" alt="Lawn Care Kuna" class="logo">
+            </div>
+            <h1>Thank You for Your Request</h1>
             <p>We're excited to help transform your outdoor space!</p>
           </div>
           
@@ -326,19 +408,25 @@ export async function sendQuoteNotification(data: QuoteEmailData) {
                   <td class="value">${frequency}</td>
                 </tr>
                 ` : ''}
-                ${finalQuote ? `
-                <tr>
-                  <td class="label">Estimated Investment:</td>
-                  <td class="value" style="font-size: 20px; font-weight: 600; color: #166534;">$${finalQuote.toLocaleString()}</td>
-                </tr>
-                ` : ''}
               </table>
             </div>
 
+            ${lineItemsHtml}
+
             ${finalQuote ? `
-              <div style="background: #fffbeb; border-left: 4px solid #f59e0b; padding: 20px; margin: 25px 0; border-radius: 4px;">
-                <p style="margin: 0;"><strong>💡 About Your Estimate:</strong> This is an AI-generated estimate based on typical projects. Your final quote will be customized after we assess your property's unique characteristics and your specific preferences.</p>
-              </div>
+            <div class="divider"></div>
+            <div class="section">
+              <h2 class="section-title">Total Estimated Investment</h2>
+              <table class="info-table">
+                <tr>
+                  <td class="label">Estimated Total:</td>
+                  <td class="value" style="font-size: 24px; font-weight: 700; color: #166534;">$${finalQuote.toLocaleString()}</td>
+                </tr>
+              </table>
+            </div>
+            <div style="background: #fffbeb; border-left: 4px solid #f59e0b; padding: 20px; margin: 25px 0; border-radius: 4px;">
+              <p style="margin: 0;"><strong>💡 About Your Estimate:</strong> This is an AI-generated estimate based on typical projects. Your final quote will be customized after we assess your property's unique characteristics and your specific preferences.</p>
+            </div>
             ` : ''}
 
             <div class="divider"></div>

@@ -191,8 +191,11 @@ export async function sendNewLeadNotification(leadData: {
     <body>
       <div class="email-wrapper">
         <div class="header">
-          <h1>🎯 New Lead Received</h1>
-          <p>Lawn Care Kuna Lead Distribution System</p>
+          <div style="margin-bottom: 20px;">
+            <img src="https://lawncarekuna.com/attached_assets/lawn-care-kuna-logo.png" alt="Lawn Care Kuna" style="max-width: 300px; height: auto;">
+          </div>
+          <h1>New Lead Available</h1>
+          <p>Lead Distribution Platform</p>
         </div>
         
         <div class="content">
@@ -241,7 +244,7 @@ export async function sendNewLeadNotification(leadData: {
           </div>
 
           <div style="text-align: center; margin: 30px 0;">
-            <a href="${process.env.REPLIT_DEV_DOMAIN || 'http://localhost:5000'}/admin/dashboard" class="cta-button">Review Lead in Dashboard →</a>
+            <a href="https://lawncarekuna.com/admin/dashboard" class="cta-button">Review Lead in Dashboard →</a>
           </div>
         </div>
 
@@ -287,7 +290,10 @@ export async function sendLeadPurchasedNotification(leadData: {
     <body>
       <div class="email-wrapper">
         <div class="header" style="background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);">
-          <h1>💰 Lead Purchased</h1>
+          <div style="margin-bottom: 20px;">
+            <img src="https://lawncarekuna.com/attached_assets/lawn-care-kuna-logo.png" alt="Lawn Care Kuna" style="max-width: 300px; height: auto;">
+          </div>
+          <h1>Lead Purchased</h1>
           <p>Transaction Notification</p>
         </div>
         
@@ -390,7 +396,10 @@ export async function sendLeadPurchaseConfirmation(purchaserEmail: string, leadD
     <body>
       <div class="email-wrapper">
         <div class="header">
-          <h1>✅ Purchase Confirmed</h1>
+          <div style="margin-bottom: 20px;">
+            <img src="https://lawncarekuna.com/attached_assets/lawn-care-kuna-logo.png" alt="Lawn Care Kuna" style="max-width: 300px; height: auto;">
+          </div>
+          <h1>Purchase Confirmed</h1>
           <p>Your lead is ready to contact</p>
         </div>
         
