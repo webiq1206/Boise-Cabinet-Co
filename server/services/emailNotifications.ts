@@ -178,7 +178,11 @@ export async function sendNewLeadNotification(leadData: {
 }): Promise<void> {
   const { fromEmail } = await getUncachableResendClient();
   
-  const subject = `🎯 New Lead Available - ${leadData.name} (${leadData.city}) - $${leadData.finalQuote}`;
+  // Parse and format finalQuote to ensure it's never $0 unless truly zero
+  const quoteValue = leadData.finalQuote ? parseFloat(leadData.finalQuote) : 0;
+  const formattedQuote = quoteValue > 0 ? quoteValue.toLocaleString() : '0';
+  
+  const subject = `New Lead Available - ${leadData.name} (${leadData.city}) - $${formattedQuote}`;
   
   const htmlBody = `
     <!DOCTYPE html>
@@ -202,7 +206,7 @@ export async function sendNewLeadNotification(leadData: {
           <p class="greeting">A new high-quality lead is now available in your dashboard.</p>
           
           <div class="highlight-box">
-            <p><strong>⏰ 48-Hour Priority Window</strong></p>
+            <p><strong>48-Hour Priority Window</strong></p>
             <p style="margin: 10px 0 0 0;">You have first right of refusal for the next 48 hours. After that, this lead will become available to your network of subcontractors.</p>
           </div>
 
@@ -238,7 +242,7 @@ export async function sendNewLeadNotification(leadData: {
               </tr>
               <tr>
                 <td class="label">Estimated Value:</td>
-                <td class="value" style="font-size: 20px; font-weight: 600; color: #166534;">$${leadData.finalQuote}</td>
+                <td class="value" style="font-size: 20px; font-weight: 600; color: #166534;">$${formattedQuote}</td>
               </tr>
             </table>
           </div>
@@ -251,8 +255,8 @@ export async function sendNewLeadNotification(leadData: {
         <div class="footer">
           <p class="footer-brand">Lawn Care Kuna</p>
           <p class="footer-tagline">Lead Distribution Platform</p>
-          <p class="footer-contact">📧 <a href="mailto:${fromEmail}">${fromEmail}</a></p>
-          <p class="footer-contact">🌐 <a href="https://lawncarekuna.com">www.lawncarekuna.com</a></p>
+          <p class="footer-contact">Email: <a href="mailto:${fromEmail}">${fromEmail}</a></p>
+          <p class="footer-contact">Web: <a href="https://lawncarekuna.com">www.lawncarekuna.com</a></p>
         </div>
       </div>
     </body>
@@ -277,7 +281,7 @@ export async function sendLeadPurchasedNotification(leadData: {
 }): Promise<void> {
   const { fromEmail } = await getUncachableResendClient();
   
-  const subject = `💰 Lead Purchased - ${leadData.name} (${leadData.city})`;
+  const subject = `Lead Purchased - ${leadData.name} (${leadData.city})`;
   
   const htmlBody = `
     <!DOCTYPE html>
@@ -354,7 +358,7 @@ export async function sendLeadPurchasedNotification(leadData: {
           </div>
 
           <div class="highlight-box">
-            <p><strong>✅ Transaction Complete</strong></p>
+            <p><strong>Transaction Complete</strong></p>
             <p style="margin: 10px 0 0 0;">The lead has been transferred to the subcontractor. They now have full access to customer contact information and are responsible for following up.</p>
           </div>
         </div>
@@ -362,8 +366,8 @@ export async function sendLeadPurchasedNotification(leadData: {
         <div class="footer">
           <p class="footer-brand">Lawn Care Kuna</p>
           <p class="footer-tagline">Lead Distribution Platform</p>
-          <p class="footer-contact">📧 <a href="mailto:${fromEmail}">${fromEmail}</a></p>
-          <p class="footer-contact">🌐 <a href="https://lawncarekuna.com">www.lawncarekuna.com</a></p>
+          <p class="footer-contact">Email: <a href="mailto:${fromEmail}">${fromEmail}</a></p>
+          <p class="footer-contact">Web: <a href="https://lawncarekuna.com">www.lawncarekuna.com</a></p>
         </div>
       </div>
     </body>
@@ -383,7 +387,7 @@ export async function sendLeadPurchaseConfirmation(purchaserEmail: string, leadD
   finalQuote: string;
   address?: string;
 }): Promise<void> {
-  const subject = `✅ Lead Purchase Confirmed - ${leadData.name}`;
+  const subject = `Lead Purchase Confirmed - ${leadData.name}`;
   
   const htmlBody = `
     <!DOCTYPE html>

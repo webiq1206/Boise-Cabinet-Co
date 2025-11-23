@@ -347,15 +347,15 @@ export async function sendQuoteNotification(data: QuoteEmailData) {
             ` : ''}
 
             <div class="highlight-box">
-              <p><strong>⏰ Action Required:</strong> Please follow up with this customer within 24 hours to provide a detailed quote and schedule their service.</p>
+              <p><strong>Action Required:</strong> Please follow up with this customer within 24 hours to provide a detailed quote and schedule their service.</p>
             </div>
           </div>
 
           <div class="footer">
             <p class="footer-brand">Lawn Care Kuna</p>
             <p class="footer-tagline">Kuna, Idaho's Most Trusted Lawn Care & Landscaping Service</p>
-            <p class="footer-contact">📧 <a href="mailto:${fromEmail}">${fromEmail}</a></p>
-            <p class="footer-contact">🌐 <a href="https://lawncarekuna.com">www.lawncarekuna.com</a></p>
+            <p class="footer-contact">Email: <a href="mailto:${fromEmail}">${fromEmail}</a></p>
+            <p class="footer-contact">Web: <a href="https://lawncarekuna.com">www.lawncarekuna.com</a></p>
           </div>
         </div>
       </body>
@@ -387,7 +387,7 @@ export async function sendQuoteNotification(data: QuoteEmailData) {
             <p style="color: #4b5563; margin: 0 0 20px 0;">Thank you for choosing Lawn Care Kuna for your ${serviceType.toLowerCase()} needs. We've received your quote request and our team is reviewing the details.</p>
 
             <div class="highlight-box">
-              <p><strong>✅ What happens next?</strong></p>
+              <p><strong>What happens next?</strong></p>
               <p style="margin: 10px 0 0 0;">Our team will contact you within 24 hours with a detailed quote tailored to your property's specific needs. We'll answer any questions and help you schedule your service at a time that works best for you.</p>
             </div>
 
@@ -425,7 +425,7 @@ export async function sendQuoteNotification(data: QuoteEmailData) {
               </table>
             </div>
             <div style="background: #fffbeb; border-left: 4px solid #f59e0b; padding: 20px; margin: 25px 0; border-radius: 4px;">
-              <p style="margin: 0;"><strong>💡 About Your Estimate:</strong> This is an AI-generated estimate based on typical projects. Your final quote will be customized after we assess your property's unique characteristics and your specific preferences.</p>
+              <p style="margin: 0;"><strong>About Your Estimate:</strong> This is an AI-generated estimate based on typical projects. Your final quote will be customized after we assess your property's unique characteristics and your specific preferences.</p>
             </div>
             ` : ''}
 
@@ -440,10 +440,10 @@ export async function sendQuoteNotification(data: QuoteEmailData) {
           <div class="footer">
             <p class="footer-brand">Lawn Care Kuna</p>
             <p class="footer-tagline">Kuna, Idaho's Most Trusted Lawn Care & Landscaping Service</p>
-            <p class="footer-contact">📧 <a href="mailto:${fromEmail}">${fromEmail}</a></p>
-            <p class="footer-contact">📞 (208) 352-2011</p>
-            <p class="footer-contact">📍 2283 N Coopers Hawk Ave, Kuna, ID 83634</p>
-            <p class="footer-contact">🌐 <a href="https://lawncarekuna.com">www.lawncarekuna.com</a></p>
+            <p class="footer-contact">Email: <a href="mailto:${fromEmail}">${fromEmail}</a></p>
+            <p class="footer-contact">Phone: (208) 352-2011</p>
+            <p class="footer-contact">Address: 2283 N Coopers Hawk Ave, Kuna, ID 83634</p>
+            <p class="footer-contact">Web: <a href="https://lawncarekuna.com">www.lawncarekuna.com</a></p>
             <p style="font-size: 12px; color: #9ca3af; margin: 15px 0 0 0;">Serving Kuna, Boise, Meridian, Nampa, Caldwell, Eagle, Star & Middleton</p>
           </div>
         </div>
@@ -456,7 +456,7 @@ export async function sendQuoteNotification(data: QuoteEmailData) {
     const adminResult = await resend.emails.send({
       from: `Lawn Care Kuna <${fromEmail}>`,
       to: fromEmail,
-      subject: `🌱 New Quote Request - ${customerName} (${city})`,
+      subject: `New Quote Request - ${customerName} (${city})`,
       html: ownerEmailHtml,
       replyTo: customerEmail
     });
