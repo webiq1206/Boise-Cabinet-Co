@@ -5,7 +5,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Loader2, MapPin, Home, CheckCircle2, Edit3, AlertCircle } from "lucide-react";
-import { searchAdaCountyProperties, PropertyData } from "@/lib/adaCountyAssessor";
+import { queryAssessor, getCountyFromCity } from "@/lib/assessors";
+import type { PropertyData } from "@/lib/adaCountyAssessor";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
 interface IntelligentPropertyCalculatorProps {
@@ -62,7 +63,17 @@ export function IntelligentPropertyCalculator({
     setMultipleProperties([]);
 
     try {
-      const result = await searchAdaCountyProperties(address, cityContext);
+      // Determine county from city context or address
+      const county = getCountyFromCity(cityContext);
+      console.log('[IntelligentPropertyCalculator] Using county:', county, 'from cityContext:', cityContext);
+      
+      // Query assessor with multi-county fallback
+      const result = await queryAssessor({
+        county,
+        address,
+        cityContext,
+        enableFallback: true,
+      });
       
       if (result.success && result.properties.length > 0) {
         if (result.properties.length === 1) {
@@ -79,7 +90,7 @@ export function IntelligentPropertyCalculator({
         setError(null);
         setSuggestion(null);
       } else {
-        setError(result.error || "Property not found in Ada County.");
+        setError(result.error || "Property not found.");
         setSuggestion(result.suggestion || null);
       }
     } catch (err) {
@@ -161,7 +172,7 @@ export function IntelligentPropertyCalculator({
         <DialogHeader>
           <DialogTitle>Intelligent Property Calculator</DialogTitle>
           <DialogDescription>
-            Enter your Ada County address and we'll automatically calculate your property measurements using official assessor data.
+            Enter your Ada or Canyon County address and we'll automatically calculate your property measurements using official assessor data.
           </DialogDescription>
         </DialogHeader>
 
@@ -380,7 +391,10 @@ export function IntelligentPropertyCalculator({
             <div className="flex flex-col items-center justify-center py-12 text-center">
               <MapPin className="w-16 h-16 text-muted-foreground/30 mb-4" />
               <p className="text-sm text-muted-foreground">
-                Enter your Ada County address above to get started
+                Enter your address above to get started
+              </p>
+              <p className="text-xs text-muted-foreground mt-1">
+                Supports Ada and Canyon County properties
               </p>
             </div>
           )}
