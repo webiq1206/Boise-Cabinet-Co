@@ -1,4 +1,5 @@
 import { getUncachableResendClient } from '../resend';
+import { formatQuoteForDisplay } from '../../shared/utils';
 
 const emailStyles = `
   body { 
@@ -178,11 +179,11 @@ export async function sendNewLeadNotification(leadData: {
 }): Promise<void> {
   const { fromEmail } = await getUncachableResendClient();
   
-  // Parse and format finalQuote to ensure it's never $0 unless truly zero
-  const quoteValue = leadData.finalQuote ? parseFloat(leadData.finalQuote) : 0;
-  const formattedQuote = quoteValue > 0 ? quoteValue.toLocaleString() : '0';
+  // Format finalQuote with proper rounding and defensive check for missing values
+  const formattedQuote = formatQuoteForDisplay(leadData.finalQuote, true); // show "Pending" if invalid
+  const quoteForSubject = formattedQuote === 'Pending' ? 'Quote Pending' : `$${formattedQuote}`;
   
-  const subject = `New Lead Available - ${leadData.name} (${leadData.city}) - $${formattedQuote}`;
+  const subject = `New Lead Available - ${leadData.name} (${leadData.city}) - ${quoteForSubject}`;
   
   const htmlBody = `
     <!DOCTYPE html>
@@ -242,7 +243,7 @@ export async function sendNewLeadNotification(leadData: {
               </tr>
               <tr>
                 <td class="label">Estimated Value:</td>
-                <td class="value" style="font-size: 20px; font-weight: 600; color: #166534;">$${formattedQuote}</td>
+                <td class="value" style="font-size: 20px; font-weight: 600; color: #166534;">${formattedQuote === 'Pending' ? formattedQuote : `$${formattedQuote}`}</td>
               </tr>
             </table>
           </div>
