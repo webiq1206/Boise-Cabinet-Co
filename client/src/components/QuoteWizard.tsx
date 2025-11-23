@@ -11,7 +11,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { Loader2, MapPin, CheckCircle2, Calendar, DollarSign, Package, Info, ChevronDown } from "lucide-react";
+import { Loader2, MapPin, CheckCircle2, Calendar, DollarSign, Package, Info, ChevronDown, AlertCircle } from "lucide-react";
 import { IntelligentPropertyCalculator } from "@/components/IntelligentPropertyCalculator";
 import { AddressAutocomplete } from "@/components/AddressAutocomplete";
 import { ServiceFieldsRenderer, validateServiceData } from "@/components/ServiceFieldsRenderer";
@@ -85,6 +85,7 @@ export function QuoteWizard({
   const [quoteData, setQuoteData] = useState<QuoteData | null>(null);
   const [serviceData, setServiceData] = useState<Record<string, Record<string, any>>>({});
   const [calculatedPropertySize, setCalculatedPropertySize] = useState<number | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const formRef = useRef<HTMLDivElement>(null);
   const isInitialMount = useRef(true);
   const { toast } = useToast();
@@ -152,6 +153,7 @@ export function QuoteWizard({
     onSuccess: (data) => {
       setQuoteData(data);
       setStep(4);
+      setErrorMessage(null);
       // Popup disabled per user request - quote results are already visible on page
       // toast({
       //   title: "Quote Generated!",
@@ -160,11 +162,13 @@ export function QuoteWizard({
     },
     onError: (error: any) => {
       console.error("Quote calculation error:", error);
-      toast({
-        title: "Error Generating Quote",
-        description: error?.message || "Failed to generate quote. Please try again.",
-        variant: "destructive",
-      });
+      setErrorMessage(error?.message || "Failed to generate quote. Please try again.");
+      // Popup disabled per user request - error will be shown inline on the form
+      // toast({
+      //   title: "Error Generating Quote",
+      //   description: error?.message || "Failed to generate quote. Please try again.",
+      //   variant: "destructive",
+      // });
     },
   });
 
@@ -204,6 +208,7 @@ export function QuoteWizard({
       return quoteResult;
     },
     onSuccess: () => {
+      setErrorMessage(null);
       // Popup disabled per user request - quote submission is already visible on page
       // toast({
       //   title: "Quote Request Submitted!",
@@ -212,11 +217,13 @@ export function QuoteWizard({
     },
     onError: (error: any) => {
       console.error("Quote submission error:", error);
-      toast({
-        title: "Submission Failed",
-        description: error?.message || "Failed to submit quote request.",
-        variant: "destructive",
-      });
+      setErrorMessage(error?.message || "Failed to submit quote request. Please try again.");
+      // Popup disabled per user request - error will be shown inline on the form
+      // toast({
+      //   title: "Submission Failed",
+      //   description: error?.message || "Failed to submit quote request.",
+      //   variant: "destructive",
+      // });
     },
   });
 
@@ -250,13 +257,17 @@ export function QuoteWizard({
     // Validate service-specific data
     const validation = validateServiceData(data.selectedServices, serviceData);
     if (!validation.valid) {
-      toast({
-        title: "Missing Information",
-        description: validation.errors[0],
-        variant: "destructive",
-      });
+      setErrorMessage(validation.errors[0]);
+      // Popup disabled per user request - validation errors shown inline in the form
+      // toast({
+      //   title: "Missing Information",
+      //   description: validation.errors[0],
+      //   variant: "destructive",
+      // });
+      console.warn("Validation failed:", validation.errors[0]);
       return;
     }
+    setErrorMessage(null);
     setStep(3);
   };
 
@@ -414,6 +425,14 @@ export function QuoteWizard({
 
   return (
     <div ref={formRef} className="max-w-4xl mx-auto p-4">
+      {/* Inline Error Display */}
+      {errorMessage && (
+        <Alert variant="destructive" className="mb-6" data-testid="inline-error-message">
+          <AlertCircle className="h-4 w-4" />
+          <AlertDescription>{errorMessage}</AlertDescription>
+        </Alert>
+      )}
+
       {/* Progress Steps */}
       <div className="mb-8">
         <div className="flex items-center justify-center gap-2 sm:gap-4">
