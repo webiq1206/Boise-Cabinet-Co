@@ -179,6 +179,12 @@ export function QuoteWizard({
       const quoteRes = await apiRequest("POST", "/api/quotes", data);
       const quoteResult = await quoteRes.json();
       
+      // Wait 4 seconds before creating lead to avoid Resend rate limit
+      // Quote emails: T=0s (admin), T=2s (customer)
+      // Lead email: T=4s (admin lead notification)
+      // This ensures 2+ seconds between each email
+      await new Promise(resolve => setTimeout(resolve, 4000));
+      
       // Then, create a lead from the quote
       // Note: The backend will automatically calculate pricing via POST /api/leads route
       try {

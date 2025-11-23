@@ -29,7 +29,10 @@ Preferred communication style: Simple, everyday language.
   - Fence installation: Shows "lot perimeter"
   - Lawn edging: Shows "lawn perimeter (75% of lot perimeter)"
 - All pricing continues to round UP to nearest $5
-- Email system ready (admin + customer notifications via Resend)
+- Email system with rate limit protection:
+  - 2-second delay between admin and customer quote emails
+  - 4-second delay before sending lead notification
+  - Prevents Resend "Too many requests" errors (max 2 requests/second)
 
 ## System Architecture
 

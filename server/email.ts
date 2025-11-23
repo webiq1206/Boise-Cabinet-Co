@@ -137,6 +137,9 @@ const emailStyles = `
   }
 `;
 
+// Helper function to delay execution (avoids Resend rate limits)
+const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+
 export async function sendQuoteNotification(data: QuoteEmailData) {
   const {
     customerName,
@@ -370,6 +373,9 @@ export async function sendQuoteNotification(data: QuoteEmailData) {
       replyTo: customerEmail
     });
     console.log('[EMAIL] Admin email sent, result:', adminResult);
+
+    // Wait 2 seconds to avoid Resend rate limit (max 2 requests per second)
+    await delay(2000);
 
     // Send confirmation email to customer
     if (customerEmail) {
