@@ -52,8 +52,8 @@ export function IntelligentPropertyCalculator({
     }
   }, [initialAddress]);
 
-  const handleSearch = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSearch = async (e?: React.FormEvent | React.MouseEvent) => {
+    e?.preventDefault();
     console.log('[IntelligentPropertyCalculator] handleSearch called with address:', address);
     
     if (!address.trim()) {
@@ -196,7 +196,8 @@ export function IntelligentPropertyCalculator({
                   className="flex-1"
                 />
                 <Button
-                  type="submit"
+                  type="button"
+                  onClick={handleSearch}
                   disabled={isSearching}
                   data-testid="button-search-property"
                 >
