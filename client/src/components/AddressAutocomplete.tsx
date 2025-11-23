@@ -256,6 +256,7 @@ export function AddressAutocomplete({
     
     onChange(streetAddress);
     setSelectedAddress(result);
+    setSuggestions([]);
     setOpen(false);
     
     if (onAddressSelect) {
