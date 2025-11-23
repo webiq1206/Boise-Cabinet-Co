@@ -638,7 +638,7 @@ export function QuoteWizard({
                 })}
               </Accordion>
 
-              {/* Map Tool for Measurements (service-aware) */}
+              {/* Intelligent Property Calculator (service-aware) */}
               {getMeasurementType() && (
                 <div className="space-y-2">
                   <Button
@@ -646,22 +646,22 @@ export function QuoteWizard({
                     variant="default"
                     className="w-full"
                     onClick={() => setMapOpen(true)}
-                    data-testid="button-open-map"
+                    data-testid="button-open-calculator"
                   >
                     <MapPin className="w-4 h-4 mr-2" />
                     {getMeasurementType() === 'linear' 
-                      ? 'Measure Roof Lines / Linear Feet on Map'
+                      ? 'Measure Linear Features on Map'
                       : getMeasurementType() === 'both'
-                      ? 'Measure Property & Linear Features on Map'
-                      : 'Measure Lawn Area on Map'
+                      ? 'Calculate Property Size & Measure Linear Features'
+                      : 'Calculate Property Size Automatically'
                     }
                   </Button>
                   <p className="text-sm text-muted-foreground text-center">
                     {getMeasurementType() === 'linear' 
                       ? 'Trace roof lines, fence lines, or other linear features'
                       : getMeasurementType() === 'both'
-                      ? 'Measure lawn areas and linear features for accurate quotes'
-                      : 'Draw around your lawn area to get an accurate measurement'
+                      ? 'Auto-calculate lawn area from address and measure linear features'
+                      : 'Enter your address to get automatic property measurements'
                     }
                   </p>
                 </div>
