@@ -24,57 +24,117 @@ interface ServiceSEOParams {
 }
 
 /**
+ * Intelligently truncate service name while keeping key words
+ * Works on whole words to avoid breaking legitimate terms
+ */
+function truncateServiceName(serviceName: string, maxLength: number): string {
+  if (serviceName.length <= maxLength) return serviceName;
+  
+  // Split into words
+  const words = serviceName.split(' ');
+  
+  // Remove low-value filler words first (whole word removal only)
+  const fillerWords = ['&', 'and', 'or', 'the', 'of', 'for', 'with', 'in', 'a', 'an'];
+  let importantWords = words.filter(word => !fillerWords.includes(word.toLowerCase()));
+  
+  // Rebuild and check length
+  let shortened = importantWords.join(' ');
+  if (shortened.length <= maxLength) return shortened;
+  
+  // If still too long, remove words from end until it fits
+  while (importantWords.length > 1 && shortened.length > maxLength) {
+    importantWords.pop();
+    shortened = importantWords.join(' ');
+  }
+  
+  // If single word is too long, truncate it cleanly
+  if (shortened.length > maxLength) {
+    return shortened.substring(0, maxLength);
+  }
+  
+  return shortened;
+}
+
+/**
  * Generate SEO-optimized page title
  * Format: "Primary Keyword - Secondary Keyword | Lawn Care Kuna"
  * Max 60 characters for optimal Google display
+ * Optimized for "near me" searches - ensures phrase appears in all titles
+ * GUARANTEED ≤60 chars through intelligent truncation
  */
 export function generatePageTitle(params: ServiceSEOParams): string {
   const { serviceName, city, isHomePage } = params;
   
   if (isHomePage) {
-    return "Lawn Care Kuna | Professional Lawn & Landscaping";
+    return "Lawn Care Near Me Kuna | Professional Landscaping";
   }
   
   if (city) {
-    // Geo-targeted title: "Service in City | Lawn Care City"
-    const brandName = `Lawn Care ${city}`;
-    // Only add "Idaho" if title is short enough and doesn't already contain it
-    const hasIdaho = serviceName.toLowerCase().includes('idaho') || city.toLowerCase().includes('idaho');
-    const title = hasIdaho 
-      ? `${serviceName} in ${city} | ${brandName}`
-      : `${serviceName} in ${city} | ${brandName} Idaho`;
-    return title.length > 60 ? `${serviceName} ${city} | ${brandName}` : title;
+    // Geo-targeted title with "near me" for local search
+    // Format: "Service Near Me City | Lawn Care City"
+    const shortTitle = `${serviceName} Near Me ${city}`;
+    const brandSuffix = `Lawn Care ${city}`;
+    const fullTitle = `${shortTitle} | ${brandSuffix}`;
+    
+    // If too long, use ultra-compact format that still includes "near me"
+    if (fullTitle.length > 60) {
+      // Ultra-compact: "Service ${city} | Near Me"
+      const compactTitle = `${serviceName} ${city} | Near Me`;
+      if (compactTitle.length > 60) {
+        // Emergency: "{TruncatedService} Near Me {City}" - ALWAYS includes "Near Me"
+        const maxServiceLength = 60 - ` Near Me ${city}`.length;
+        const truncatedService = truncateServiceName(serviceName, maxServiceLength);
+        return `${truncatedService} Near Me ${city}`;
+      }
+      return compactTitle;
+    }
+    return fullTitle;
   }
   
-  // Service-only title (defaults to Kuna as home base)
-  const title = `Professional ${serviceName} Services | Lawn Care Kuna Idaho`;
-  return title.length > 60 ? `${serviceName} Services | Lawn Care Kuna` : title;
+  // Service-only title (defaults to Kuna as home base) - always includes "near me"
+  const shortTitle = `${serviceName} Near Me`;
+  const fullTitle = `${shortTitle} | Lawn Care Kuna`;
+  
+  // Fallback for very long service names - keep "near me" even in compact form
+  if (fullTitle.length > 60) {
+    const compactTitle = `${shortTitle} Kuna`;
+    if (compactTitle.length > 60) {
+      // Truncate service name if still too long
+      const maxServiceLength = 60 - ' Near Me Kuna'.length;
+      const truncatedService = truncateServiceName(serviceName, maxServiceLength);
+      return `${truncatedService} Near Me Kuna`;
+    }
+    return compactTitle;
+  }
+  
+  return fullTitle;
 }
 
 /**
  * Generate SEO-optimized meta description
  * 150-160 characters with compelling CTA and keywords
+ * Optimized for "near me" searches
  */
 export function generateMetaDescription(params: ServiceSEOParams): string {
   const { serviceName, city } = params;
   
   if (params.isHomePage) {
-    return "Kuna's #1 lawn care & landscaping. Professional mowing, fertilization, aeration & more. Licensed & insured. Free quotes since 2010.";
+    return "Looking for lawn care near me in Kuna? Top-rated local lawn & landscaping services. Licensed & insured. Free quotes. Serving Treasure Valley since 2010.";
   }
   
   if (city) {
-    // Geo-targeted description - use city name for branding
-    const cityPossessive = city.endsWith('s') ? `${city}'` : `${city}'s`;
-    return `${cityPossessive} top-rated ${serviceName.toLowerCase()} service. Licensed professionals, guaranteed results, competitive pricing. Free quotes. Serving ${city} & Treasure Valley. Call today!`;
+    // Geo-targeted description optimized for "near me" searches
+    return `Looking for ${serviceName.toLowerCase()} near me in ${city}? Top-rated local service. Licensed pros, guaranteed results. Free quotes. Serving ${city} & Treasure Valley. Call now!`;
   }
   
-  // Service-only description (defaults to Kuna as home base)
-  return `Professional ${serviceName.toLowerCase()} services in Kuna & Treasure Valley, Idaho. Licensed, insured, satisfaction guaranteed. Get your free quote today. Serving residential & commercial properties.`;
+  // Service-only description optimized for "near me" searches
+  return `Need ${serviceName.toLowerCase()} near me in Kuna? Professional local service. Licensed, insured, satisfaction guaranteed. Free quotes. Serving residential & commercial. Call today!`;
 }
 
 /**
  * Generate keyword array for meta keywords tag
  * Mix of primary, secondary, and LSI keywords
+ * Optimized for "near me" local searches
  */
 export function generateKeywords(params: ServiceSEOParams): string[] {
   const { serviceName, city, serviceSlug } = params;
@@ -86,27 +146,36 @@ export function generateKeywords(params: ServiceSEOParams): string[] {
     `landscaping`,
     `Kuna Idaho`,
     `Treasure Valley`,
+    `lawn care near me`,
+    `landscaping near me`,
+    `local lawn care`,
+    `lawn service near me`,
   ];
   
   if (city) {
     return [
       `${serviceName.toLowerCase()} ${city}`,
       `${serviceName.toLowerCase()} ${city} Idaho`,
+      `${serviceName.toLowerCase()} near me ${city}`,
       `${city} lawn care`,
       `${city} landscaping`,
+      `lawn care near me ${city}`,
+      `local ${serviceName.toLowerCase()} ${city}`,
+      `${city} lawn service`,
       ...baseKeywords,
       `professional ${serviceName.toLowerCase()}`,
       `best ${serviceName.toLowerCase()} ${city}`,
+      `${serviceName.toLowerCase()} near me`,
     ];
   }
   
-  // Service-specific LSI keywords
+  // Service-specific LSI keywords with "near me" variations
   const lsiKeywords: Record<string, string[]> = {
-    'lawn-mowing': ['grass cutting', 'lawn maintenance', 'yard mowing', 'lawn trimming'],
-    'fertilization': ['lawn fertilizer', 'grass fertilization', 'nutrient application', 'soil treatment'],
-    'aeration': ['core aeration', 'lawn aeration', 'soil aeration', 'lawn health'],
-    'weed-control': ['weed removal', 'weed prevention', 'herbicide application', 'weed treatment'],
-    'seasonal-cleanup': ['yard cleanup', 'leaf removal', 'spring cleanup', 'fall cleanup'],
+    'lawn-mowing': ['grass cutting', 'lawn maintenance', 'yard mowing', 'lawn trimming', 'lawn mowing near me', 'grass cutting near me', 'mowing service near me'],
+    'fertilization': ['lawn fertilizer', 'grass fertilization', 'nutrient application', 'soil treatment', 'fertilization near me', 'lawn fertilizer near me'],
+    'aeration': ['core aeration', 'lawn aeration', 'soil aeration', 'lawn health', 'aeration near me', 'core aeration near me'],
+    'weed-control': ['weed removal', 'weed prevention', 'herbicide application', 'weed treatment', 'weed control near me', 'weed removal near me'],
+    'seasonal-cleanup': ['yard cleanup', 'leaf removal', 'spring cleanup', 'fall cleanup', 'yard cleanup near me', 'leaf removal near me'],
   };
   
   return [...baseKeywords, ...(lsiKeywords[serviceSlug] || [])];

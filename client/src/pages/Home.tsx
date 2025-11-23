@@ -21,6 +21,7 @@ import {
 import { ServiceAreaMap } from "@/components/ServiceAreaMap";
 import { Testimonials } from "@/components/Testimonials";
 import { HeroQuoteSection } from "@/components/HeroQuoteSection";
+import { NearMeFAQ } from "@/components/NearMeFAQ";
 import { generateSEOMetadata, BUSINESS_INFO } from "@/lib/seo";
 import { generateLocalBusinessSchema, generateOrganizationSchema, generateBreadcrumbSchema } from "@/lib/schema";
 import heroBackground from "@assets/Lawn Care Kuna Background Image_1763675543303.png";
@@ -167,7 +168,7 @@ export default function Home() {
               alt="Professional lawn care background with decorative leaves"
               className="w-full h-full object-cover"
               loading="eager"
-              fetchpriority="high"
+              fetchPriority="high"
             />
           </div>
 
@@ -175,9 +176,9 @@ export default function Home() {
           <div className="relative z-10">
             {/* Hero Section with Integrated Quote Feature */}
             <HeroQuoteSection 
-              label="Lawn Care Kuna"
-              heading="Most trusted lawn care services in Kuna"
-              subheading="Professional Lawn Care Services in Kuna"
+              label="Lawn Care Near Me"
+              heading="Looking for lawn care near me in Kuna?"
+              subheading="Top-Rated Local Lawn Care & Landscaping Services"
               defaultCity="Kuna"
               backgroundAlt="Professional lawn care services with lush green lawn in Kuna Idaho"
             />
@@ -637,6 +638,15 @@ export default function Home() {
               </p>
             </div>
             <ServiceAreaMap />
+          </div>
+        </div>
+      </section>
+
+      {/* Near Me FAQ Section */}
+      <section className="py-16 md:py-24">
+        <div className="container px-4 md:px-8">
+          <div className="max-w-4xl mx-auto">
+            <NearMeFAQ city="Kuna" serviceName="lawn care" />
           </div>
         </div>
       </section>
