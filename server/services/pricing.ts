@@ -6,6 +6,14 @@ const openai = new OpenAI({
   baseURL: process.env.AI_INTEGRATIONS_OPENAI_BASE_URL!,
 });
 
+/**
+ * Round price UP to nearest $5 or $0
+ * Examples: $147 → $150, $143 → $145, $152 → $155, $198 → $200
+ */
+function roundToNearestFive(price: number): number {
+  return Math.ceil(price / 5) * 5;
+}
+
 // Service pricing rates (base costs for subcontractors + overhead)
 // Updated 2025-11-23: Adjusted rates to match Idaho market research
 export const SERVICE_RATES = {
@@ -218,7 +226,7 @@ export async function calculateIntelligentQuote(
   
   // Update line items with adjusted prices
   lineItems.forEach(item => {
-    item.adjustedPrice = Math.ceil(item.basePrice * propertyMultiplier * aiAnalysis.complexityScore);
+    item.adjustedPrice = roundToNearestFive(item.basePrice * propertyMultiplier * aiAnalysis.complexityScore);
   });
 
   // Step 5: Apply frequency discount
@@ -235,17 +243,17 @@ export async function calculateIntelligentQuote(
   const profit = finalQuote - afterDiscount;
 
   return {
-    baseCost: Math.ceil(baseCost),
-    adjustedCost: Math.ceil(adjustedCost),
-    finalQuote: Math.ceil(finalQuote),
+    baseCost: roundToNearestFive(baseCost),
+    adjustedCost: roundToNearestFive(adjustedCost),
+    finalQuote: roundToNearestFive(finalQuote),
     lineItems,
     aiAnalysis,
     complexityScore: aiAnalysis.complexityScore,
     breakdown: {
-      laborCost: Math.ceil(laborCost),
-      materialsCost: Math.ceil(materialsCost),
-      overhead: Math.ceil(overhead),
-      profit: Math.ceil(profit),
+      laborCost: roundToNearestFive(laborCost),
+      materialsCost: roundToNearestFive(materialsCost),
+      overhead: roundToNearestFive(overhead),
+      profit: roundToNearestFive(profit),
     },
   };
 }
@@ -429,8 +437,8 @@ export async function calculateMultiServiceQuote(
     lineItems.push({
       serviceId,
       serviceName: config.name,
-      basePrice: Math.ceil(basePrice),
-      adjustedPrice: Math.ceil(adjustedPrice),
+      basePrice: roundToNearestFive(basePrice),
+      adjustedPrice: roundToNearestFive(adjustedPrice),
       description,
     });
 
@@ -442,8 +450,8 @@ export async function calculateMultiServiceQuote(
 
   return {
     lineItems,
-    subtotal: Math.ceil(subtotal),
-    total: Math.ceil(total),
+    subtotal: roundToNearestFive(subtotal),
+    total: roundToNearestFive(total),
   };
 }
 
@@ -504,7 +512,7 @@ export function getInstantEstimate(
   const maxPrice = basePrice * propertyMultiplier * maxComplexity * (1 - discount) * (1 + PROFIT_MARGIN);
 
   return {
-    min: Math.ceil(minPrice),
-    max: Math.ceil(maxPrice),
+    min: roundToNearestFive(minPrice),
+    max: roundToNearestFive(maxPrice),
   };
 }

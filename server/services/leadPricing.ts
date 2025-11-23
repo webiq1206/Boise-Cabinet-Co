@@ -1,6 +1,14 @@
 import { storage } from "../storage";
 import type { Lead } from "@shared/schema";
 
+/**
+ * Round price UP to nearest $5 or $0
+ * Examples: $147 → $150, $143 → $145, $152 → $155, $198 → $200
+ */
+function roundToNearestFive(price: number): number {
+  return Math.ceil(price / 5) * 5;
+}
+
 // Calculate lead price based on quote details
 export function calculateLeadPrice(params: {
   finalQuote: number;
@@ -34,12 +42,13 @@ export function calculateLeadPrice(params: {
     basePrice = recurringPrices[serviceType] || 60; // Default to $60
   }
 
-  // Ensure minimum price of $10
+  // Ensure minimum price of $10, round to nearest $5
   basePrice = Math.max(10, basePrice);
+  basePrice = roundToNearestFive(basePrice);
 
   return {
-    basePrice: Math.round(basePrice * 100) / 100,
-    currentPrice: Math.round(basePrice * 100) / 100,
+    basePrice,
+    currentPrice: basePrice,
   };
 }
 
@@ -69,6 +78,9 @@ export async function updateLeadPrices(): Promise<Lead[]> {
     // Set minimum price (20% of base price)
     const minimumPrice = basePrice * 0.20;
     newPrice = Math.max(minimumPrice, newPrice);
+    
+    // Round to nearest $5
+    newPrice = roundToNearestFive(newPrice);
 
     // Only update if price changed
     if (Math.abs(newPrice - currentPrice) > 0.01) {
