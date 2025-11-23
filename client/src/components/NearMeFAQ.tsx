@@ -41,7 +41,7 @@ export function NearMeFAQ({ city = "Kuna", serviceName = "lawn care" }: NearMeFA
   ];
 
   return (
-    <Card className="bg-gradient-to-br from-primary/5 to-primary/10 border-primary/20">
+    <Card className="bg-gradient-to-br from-primary/5 to-primary/10 border-primary/20" data-testid="near-me-faq">
       <CardHeader>
         <div className="flex items-center gap-2">
           <HelpCircle className="h-6 w-6 text-primary" />
@@ -52,13 +52,13 @@ export function NearMeFAQ({ city = "Kuna", serviceName = "lawn care" }: NearMeFA
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <Accordion type="single" collapsible className="w-full">
+        <Accordion type="single" collapsible className="w-full" data-testid="near-me-faq-accordion">
           {faqs.map((faq, index) => (
             <AccordionItem key={index} value={`item-${index}`} data-testid={`faq-item-${index}`}>
-              <AccordionTrigger className="text-left font-semibold hover:text-primary">
+              <AccordionTrigger className="text-left font-semibold hover:text-primary" data-testid={`faq-trigger-${index}`}>
                 {faq.question}
               </AccordionTrigger>
-              <AccordionContent className="text-muted-foreground leading-relaxed">
+              <AccordionContent className="text-muted-foreground leading-relaxed" data-testid={`faq-content-${index}`}>
                 {faq.answer}
               </AccordionContent>
             </AccordionItem>
