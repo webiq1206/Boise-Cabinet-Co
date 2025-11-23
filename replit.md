@@ -23,15 +23,19 @@ Preferred communication style: Simple, everyday language.
 - **Performance Optimization**: Route-level code splitting dramatically reduces initial JS bundle from ~6-7MB to <1MB for faster mobile performance. All 25+ routes lazy-loaded on demand.
 - **Multi-Service Quote System**: A 4-step intelligent wizard (QuoteWizard) supporting multiple service selections, service-aware field rendering, itemized pricing, and robust validation.
 - **Intelligent Property Calculator**: Production-ready automated property measurement system that replaces manual map drawing. Queries Ada County Assessor parcel database API via schoolsitelocator.com MapServer Layer 131 (ADDCONCAT, CITY, PARCEL fields). Key features:
+  - **Address Normalization**: Automatically converts user-friendly addresses to database format (NORTH→N, AVENUE→AVE, etc.) ensuring reliable matches regardless of how users type addresses
+  - **Multi-County Support**: Intelligent routing between Ada County (Kuna, Boise, Meridian, Eagle, Star) and Canyon County (Nampa, Caldwell, Middleton) with automatic fallback
   - **Fuzzy City Matching**: Levenshtein distance algorithm (≤2 edits) handles misspellings like "MERIDAN"→"MERIDIAN"
   - **Robust Address Parsing**: Supports 3 formats (comma-separated, space-separated, street-only with wizard context)
   - **Smart LIKE Fallback**: When exact match fails, strips trailing city/ZIP tokens before partial matching
   - **Multiple Property Selection**: RadioGroup UI when addresses are ambiguous
   - **Enhanced Error Messages**: Specific errors with actionable user suggestions
   - **City Context Integration**: Uses wizard-selected city as fallback for street-only inputs
+  - **Auto-Population**: Address field automatically fills with user's prior input from quote wizard
   - **Clean State Management**: Dialog backdrop preserves user data, Cancel button resets state
   - **Intelligent Estimation**: Auto-calculates lawn area based on city-specific property characteristics (lot sizes, building footprints)
   - **Manual Adjustment**: Users can override automated measurements
+  - **Graceful Degradation**: Canyon County displays helpful error messages (no public API available) suggesting manual entry
 - **SEO Optimization**: E-E-A-T optimized, city-specific pages (2000+ words), site-wide internal linking, SEO-optimized headings and FAQs. Includes `robots.txt`, `sitemap.xml`, and `llms.txt`.
   - **City-Specific Metadata**: Every service-in-city page uses unique titles (e.g., "Lawn Mowing in Meridian | Lawn Care Meridian Idaho") and descriptions (e.g., "Meridian's top-rated lawn mowing service...") for maximum local SEO.
   - **URL-Safe Canonicals**: Canonical URLs use city slugs (`/services/lawn-mowing/meridian`) for proper indexing.
