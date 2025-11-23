@@ -6,6 +6,27 @@ The Lawn Care Kuna website is a professional online platform for a local Idaho b
 ## User Preferences
 Preferred communication style: Simple, everyday language.
 
+## Recent Changes
+**November 23, 2025 - Quote UX, Transparency & Legal Protection**
+- Enhanced quote wizard user experience:
+  - Fixed scroll behavior: Pages load at top, only scroll to form when clicking "Next"
+  - Disabled all success popups during quote flow (only error toasts remain)
+  - Collapsible calculation explanations: "How is this calculated?" dropdowns under each line item (collapsed by default)
+- Added comprehensive legal protection and transparency:
+  - "Estimated Total" label with professional disclaimer
+  - 30-day quote validity period
+  - "Not a contract" disclaimer
+  - Detailed "What's Included" section (labor, trimming, disposal, materials)
+  - "Potential Additional Costs" section (overgrowth, terrain, utilities, weather)
+  - Clear next steps (24-hour contact, free site assessment)
+- Calculation transparency:
+  - Hedge trimming: Shows "estimated as 40% of lot perimeter"
+  - Christmas lights: Shows "roofline with overhang"
+  - Fence installation: Shows "lot perimeter"
+  - Lawn edging: Shows "lawn perimeter (75% of lot perimeter)"
+- All pricing continues to round UP to nearest $5
+- Email system ready (admin + customer notifications via Resend)
+
 ## System Architecture
 
 ### UI/UX Decisions
