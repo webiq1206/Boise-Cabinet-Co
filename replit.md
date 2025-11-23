@@ -7,6 +7,34 @@ The Lawn Care Kuna website is a professional online platform for a local Idaho b
 Preferred communication style: Simple, everyday language.
 
 ## Recent Changes
+**November 23, 2025 - Comprehensive Customer Email Enhancements**
+- **Complete estimate information display**:
+  - All customer and admin quote emails now include 100% of quote details
+  - Icon (lawn-care-kuna-icon.png) + Logo (lawn-care-kuna-logo.png) displayed side-by-side in header
+  - "Your Request Summary" section: primary service, additional services (deduplicated), location, property size/type, frequency, preferred date, contact phone
+  - "Property Measurements & Details" section: ALL service-specific measurements with proper units (sq ft, linear feet, zones, etc.)
+  - "Detailed Quote Breakdown" section: ALL line items with service names, descriptions, and rounded prices
+  - "Total Estimated Investment": Always visible with actual amount OR "Pending Property Assessment" fallback
+- **Advanced data normalization (server/email.ts)**:
+  - Created `flattenServiceDataWithUnits()` to properly handle nested serviceData structure
+  - Automatically looks up field labels and units from SERVICE_FIELD_CONFIGS
+  - Numeric values formatted with commas and appropriate units
+  - Empty/null values automatically filtered to prevent blank rows
+  - Measurements grouped by service for clarity
+- **Service deduplication**:
+  - Created `deduplicateServices()` with SERVICE_NAME_TO_SLUG mapping
+  - Converts human-readable serviceType to slug before comparison
+  - Prevents primary service from appearing twice (once as primary, once in additional services)
+- **Robust edge case handling**:
+  - Property size/type use explicit null/undefined checks (not truthiness) to prevent blank rows with 0 or empty values
+  - Service sections only render when measurements exist (no empty headings)
+  - Line items display ALL selected services regardless of serviceData availability
+  - Graceful fallback messaging when finalQuote is pending/undefined
+- **Admin email parity**:
+  - Admin notifications now include identical comprehensive details as customer emails
+  - Complete quote dataset preserved for business records
+  - Fulfills requirement: "absolutely all information from the estimate"
+
 **November 23, 2025 - Professional Email Templates with Brand Assets & Quote Normalization**
 - **Complete email template overhaul**:
   - Replaced all generic branding with actual Lawn Care Kuna logo (lawn-care-kuna-logo.png)
