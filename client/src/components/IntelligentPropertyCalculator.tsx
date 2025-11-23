@@ -54,6 +54,8 @@ export function IntelligentPropertyCalculator({
 
   const handleSearch = async (e: React.FormEvent) => {
     e.preventDefault();
+    console.log('[IntelligentPropertyCalculator] handleSearch called with address:', address);
+    
     if (!address.trim()) {
       setError("Please enter an address");
       setSuggestion(null);
