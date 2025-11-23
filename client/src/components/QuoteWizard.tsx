@@ -9,8 +9,9 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { Loader2, MapPin, CheckCircle2, Calendar, DollarSign, Package, Info } from "lucide-react";
+import { Loader2, MapPin, CheckCircle2, Calendar, DollarSign, Package, Info, ChevronDown } from "lucide-react";
 import { IntelligentPropertyCalculator } from "@/components/IntelligentPropertyCalculator";
 import { AddressAutocomplete } from "@/components/AddressAutocomplete";
 import { ServiceFieldsRenderer, validateServiceData } from "@/components/ServiceFieldsRenderer";
@@ -51,6 +52,7 @@ interface QuoteLineItem {
   basePrice: number;
   adjustedPrice: number;
   description: string;
+  calculationExplanation?: string;
 }
 
 interface QuoteData {
@@ -84,6 +86,7 @@ export function QuoteWizard({
   const [serviceData, setServiceData] = useState<Record<string, Record<string, any>>>({});
   const [calculatedPropertySize, setCalculatedPropertySize] = useState<number | null>(null);
   const formRef = useRef<HTMLDivElement>(null);
+  const isInitialMount = useRef(true);
   const { toast } = useToast();
 
   // Step forms
@@ -126,8 +129,15 @@ export function QuoteWizard({
     }
   }, [preselectedService, defaultService]);
 
-  // Scroll to top of form when step changes
+  // Scroll to top of form when step changes (but not on initial page load)
   useEffect(() => {
+    if (isInitialMount.current) {
+      // Skip scroll on initial mount
+      isInitialMount.current = false;
+      return;
+    }
+    
+    // Only scroll when user navigates between steps
     if (formRef.current) {
       formRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
@@ -142,10 +152,11 @@ export function QuoteWizard({
     onSuccess: (data) => {
       setQuoteData(data);
       setStep(4);
-      toast({
-        title: "Quote Generated!",
-        description: `Your itemized quote is ready: $${data.total?.toLocaleString() || '0'}`,
-      });
+      // Popup disabled per user request - quote results are already visible on page
+      // toast({
+      //   title: "Quote Generated!",
+      //   description: `Your itemized quote is ready: $${data.total?.toLocaleString() || '0'}`,
+      // });
     },
     onError: (error: any) => {
       console.error("Quote calculation error:", error);
@@ -368,10 +379,11 @@ export function QuoteWizard({
     });
 
     setMapOpen(false);
-    toast({
-      title: "Measurements Applied",
-      description: "Property measurements have been calculated and applied to your services.",
-    });
+    // Popup disabled per user request - measurements are applied silently
+    // toast({
+    //   title: "Measurements Applied",
+    //   description: "Property measurements have been calculated and applied to your services.",
+    // });
   };
 
   // Determine measurement type based on selected services
@@ -831,16 +843,33 @@ export function QuoteWizard({
               {quoteData.lineItems.map((item, index) => (
                 <div
                   key={index}
-                  className="flex justify-between items-start p-4 rounded-md border border-border"
+                  className="p-4 rounded-md border border-border"
                   data-testid={`quote-line-item-${index}`}
                 >
-                  <div className="flex-1">
-                    <div className="font-medium">{item.serviceName}</div>
-                    <div className="text-sm text-muted-foreground">{item.description}</div>
+                  <div className="flex justify-between items-start">
+                    <div className="flex-1">
+                      <div className="font-medium">{item.serviceName}</div>
+                      <div className="text-sm text-muted-foreground">{item.description}</div>
+                    </div>
+                    <div className="text-right">
+                      <div className="font-semibold text-lg">${item.adjustedPrice.toLocaleString()}</div>
+                    </div>
                   </div>
-                  <div className="text-right">
-                    <div className="font-semibold text-lg">${item.adjustedPrice.toLocaleString()}</div>
-                  </div>
+                  
+                  {/* Collapsible Calculation Explanation */}
+                  {item.calculationExplanation && (
+                    <Collapsible className="mt-3">
+                      <CollapsibleTrigger className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid={`calculation-toggle-${index}`}>
+                        <ChevronDown className="h-4 w-4 transition-transform data-[state=open]:rotate-180" />
+                        <span>How is this calculated?</span>
+                      </CollapsibleTrigger>
+                      <CollapsibleContent className="mt-2 pl-6">
+                        <div className="text-sm text-muted-foreground bg-muted/30 p-3 rounded-md border border-border/50">
+                          {item.calculationExplanation}
+                        </div>
+                      </CollapsibleContent>
+                    </Collapsible>
+                  )}
                 </div>
               ))}
             </div>
@@ -880,18 +909,56 @@ export function QuoteWizard({
               </div>
             )}
 
-            {/* Disclaimer */}
-            <Alert className="bg-muted/50 border-border">
-              <Info className="h-4 w-4" />
-              <AlertDescription className="text-sm">
-                This estimate is based on typical property conditions and industry-standard service requirements. 
-                The final price may vary depending on site-specific factors including terrain complexity, accessibility, 
-                property condition, and any additional work required. We'll provide a confirmed quote after our initial assessment.
-              </AlertDescription>
-            </Alert>
+            {/* Quote Validity & Important Terms */}
+            <div className="space-y-4 border-t border-border pt-4">
+              <h3 className="text-sm font-semibold">Important Information</h3>
+              
+              <Alert className="bg-muted/50 border-border">
+                <Info className="h-4 w-4" />
+                <AlertDescription className="text-sm space-y-2">
+                  <p className="font-medium">Quote Validity & Terms:</p>
+                  <ul className="list-disc list-inside space-y-1 text-xs">
+                    <li><strong>Quote Valid:</strong> This estimate is valid for 30 days from today</li>
+                    <li><strong>Not a Contract:</strong> This quote is an estimate only and does not constitute a binding agreement until confirmed in writing</li>
+                    <li><strong>Final Pricing:</strong> Actual pricing will be confirmed after our site assessment based on specific property conditions</li>
+                    <li><strong>Site Assessment:</strong> We'll visit your property to verify measurements and identify any site-specific factors</li>
+                  </ul>
+                </AlertDescription>
+              </Alert>
 
-            <div className="text-center text-sm text-muted-foreground">
-              We'll contact you shortly to confirm your service and schedule
+              <Alert className="bg-muted/50 border-border">
+                <Info className="h-4 w-4" />
+                <AlertDescription className="text-sm space-y-2">
+                  <p className="font-medium">What's Included:</p>
+                  <ul className="list-disc list-inside space-y-1 text-xs">
+                    <li>All labor and equipment for the selected services</li>
+                    <li>Lawn mowing services include trimming, blowing, and clipping removal</li>
+                    <li>Debris removal and disposal (where applicable)</li>
+                    <li>Professional-grade materials and supplies</li>
+                  </ul>
+                </AlertDescription>
+              </Alert>
+
+              <Alert className="bg-muted/50 border-border">
+                <Info className="h-4 w-4" />
+                <AlertDescription className="text-sm space-y-2">
+                  <p className="font-medium">Potential Additional Costs:</p>
+                  <ul className="list-disc list-inside space-y-1 text-xs">
+                    <li>Excessive overgrowth or neglected properties may require additional labor</li>
+                    <li>Difficult terrain, steep slopes, or limited accessibility</li>
+                    <li>Tree/stump removal for trees larger than estimated</li>
+                    <li>Damage to underground utilities (sprinkler lines, etc.) not marked prior to service</li>
+                    <li>Weather delays or seasonal conditions requiring specialized equipment</li>
+                  </ul>
+                </AlertDescription>
+              </Alert>
+            </div>
+
+            <div className="text-center space-y-2">
+              <p className="text-sm font-medium">Next Steps:</p>
+              <p className="text-sm text-muted-foreground">
+                We'll contact you within 24 hours to schedule a free site assessment and finalize your quote
+              </p>
             </div>
 
             {onClose && (

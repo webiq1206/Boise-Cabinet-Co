@@ -368,6 +368,9 @@ export async function calculateMultiServiceQuote(
       return defaultVal;
     };
 
+    // Track calculation explanation separately
+    let calculationExplanation: string | undefined;
+
     // Calculate base price based on measurement unit
     switch (config.unit) {
       case "sqft":
@@ -381,18 +384,17 @@ export async function calculateMultiServiceQuote(
         // Linear feet from this service's measurements
         const linearFt = getNumber(measurements.linearFeet, 100);
         basePrice = linearFt * config.rate;
+        description += ` (${linearFt} linear feet)`;
         
-        // Add service-specific calculation context
+        // Add service-specific calculation context as separate explanation
         if (serviceId === 'hedge-trimming') {
-          description += ` (${linearFt} linear feet, estimated as 40% of lot perimeter)`;
+          calculationExplanation = `Hedge trimming is estimated as 40% of your lot perimeter. This assumes hedges along the front of the property plus one side, which is typical for most residential properties.`;
         } else if (serviceId === 'christmas-light-installation') {
-          description += ` (${linearFt} linear feet, roofline with overhang)`;
+          calculationExplanation = `Christmas light installation is calculated using your roofline with overhang (roofline + 25% for eaves and overhangs). This ensures adequate coverage for a professional holiday display.`;
         } else if (serviceId === 'fence-installation') {
-          description += ` (${linearFt} linear feet, lot perimeter)`;
+          calculationExplanation = `Fence installation is calculated using your full lot perimeter. This measurement comes from property records and represents the boundary of your property.`;
         } else if (serviceId === 'lawn-edging') {
-          description += ` (${linearFt} linear feet, lawn perimeter)`;
-        } else {
-          description += ` (${linearFt} linear feet)`;
+          calculationExplanation = `Lawn edging is calculated using your lawn perimeter (approximately 75% of lot perimeter). This accounts for buildings, driveways, and hardscaping that reduce the edgeable lawn area.`;
         }
         break;
 
@@ -452,6 +454,7 @@ export async function calculateMultiServiceQuote(
       basePrice: roundToNearestFive(basePrice),
       adjustedPrice: roundToNearestFive(adjustedPrice),
       description,
+      calculationExplanation,
     });
 
     subtotal += adjustedPrice;
@@ -496,6 +499,7 @@ interface QuoteLineItem {
   basePrice: number;
   adjustedPrice: number;
   description: string;
+  calculationExplanation?: string;
 }
 
 /**
