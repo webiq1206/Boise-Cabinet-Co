@@ -11,7 +11,7 @@ import {
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
 import { Menu, FileText } from "lucide-react";
-import logoUrl from "@assets/Lawn Care Kuna Logo_1763512021933.png";
+import logoUrl from "@assets/Lawn Care Kuna Logo_1763734387982.png";
 import { PRIORITY_SERVICES } from "@shared/contentData";
 import { SearchBar } from "@/components/SearchBar";
 

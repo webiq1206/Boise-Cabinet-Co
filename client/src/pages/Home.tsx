@@ -180,6 +180,7 @@ export default function Home() {
               width="1920"
               height="1080"
               loading="eager"
+              fetchPriority="high"
             />
           </div>
 
