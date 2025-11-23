@@ -199,6 +199,26 @@ function getBaseUrl(): string {
 }
 
 /**
+ * Generate SEO-optimized alt tag for logo/icon featured image
+ * Creates page-specific alt text that includes relevant keywords
+ */
+export function generateLogoAltTag(params: ServiceSEOParams): string {
+  const { serviceName, city, isHomePage } = params;
+  
+  if (isHomePage) {
+    return "Lawn Care Kuna logo - Professional lawn care and landscaping services in Kuna Idaho";
+  }
+  
+  if (city) {
+    // City-specific alt tag with service context
+    return `Lawn Care Kuna logo - ${serviceName} services in ${city} Idaho - Licensed lawn care professionals`;
+  }
+  
+  // Service-specific alt tag
+  return `Lawn Care Kuna logo - Professional ${serviceName.toLowerCase()} services in Treasure Valley Idaho`;
+}
+
+/**
  * Generate complete SEO metadata object for a page
  */
 export function generateSEOMetadata(params: ServiceSEOParams): SEOMetaData {

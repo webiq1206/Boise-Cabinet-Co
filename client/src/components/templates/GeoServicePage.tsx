@@ -10,7 +10,7 @@ import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { RelatedServices } from "@/components/RelatedServices";
 import { CityCrosslinks } from "@/components/CityCrosslinks";
 import type { ServiceData, CityData } from "@shared/contentData";
-import { generateSEOMetadata, CITY_SEO_DATA } from "@/lib/seo";
+import { generateSEOMetadata, generateLogoAltTag, CITY_SEO_DATA } from "@/lib/seo";
 import { 
   generateServiceSchema, 
   generateLocalBusinessSchema, 
@@ -48,13 +48,17 @@ const coreValues = [
 ];
 
 export function GeoServicePage({ service, city }: GeoServicePageProps) {
-  // Generate comprehensive SEO metadata
-  const seoMetadata = generateSEOMetadata({
+  // SEO parameters for metadata generation
+  const seoParams = {
     serviceName: service.name,
     serviceSlug: service.slug,
     city: city.name,
     citySlug: city.slug,
-  });
+  };
+  
+  // Generate comprehensive SEO metadata
+  const seoMetadata = generateSEOMetadata(seoParams);
+  const logoAlt = generateLogoAltTag(seoParams);
 
   // Get city coordinates for geo tags
   const cityData = CITY_SEO_DATA[city.name as keyof typeof CITY_SEO_DATA];
@@ -84,6 +88,9 @@ export function GeoServicePage({ service, city }: GeoServicePageProps) {
         <meta property="og:type" content="website" />
         <meta property="og:url" content={seoMetadata.canonical} />
         <meta property="og:image" content={seoMetadata.ogImage} />
+        <meta property="og:image:alt" content={logoAlt} />
+        <meta property="og:image:width" content="512" />
+        <meta property="og:image:height" content="512" />
         <meta property="og:site_name" content="Lawn Care Kuna" />
         <meta property="og:locale" content="en_US" />
         
@@ -92,6 +99,7 @@ export function GeoServicePage({ service, city }: GeoServicePageProps) {
         <meta name="twitter:title" content={seoMetadata.ogTitle} />
         <meta name="twitter:description" content={seoMetadata.ogDescription} />
         <meta name="twitter:image" content={seoMetadata.ogImage} />
+        <meta name="twitter:image:alt" content={logoAlt} />
         
         {/* Geo tags if coordinates available */}
         {coordinates && (

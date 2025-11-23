@@ -22,7 +22,7 @@ import { ServiceAreaMap } from "@/components/ServiceAreaMap";
 import { Testimonials } from "@/components/Testimonials";
 import { HeroQuoteSection } from "@/components/HeroQuoteSection";
 import { NearMeFAQ } from "@/components/NearMeFAQ";
-import { generateSEOMetadata, BUSINESS_INFO } from "@/lib/seo";
+import { generateSEOMetadata, generateLogoAltTag, BUSINESS_INFO } from "@/lib/seo";
 import { generateLocalBusinessSchema, generateOrganizationSchema, generateBreadcrumbSchema } from "@/lib/schema";
 import heroBackground from "@assets/Lawn Care Kuna Background Image_1763675543303.png";
 
@@ -108,11 +108,14 @@ const popularServices = [
 ];
 
 export default function Home() {
-  const seoData = generateSEOMetadata({ 
+  const seoParams = { 
     serviceName: "Lawn Care", 
     serviceSlug: "home", 
     isHomePage: true 
-  });
+  };
+  
+  const seoData = generateSEOMetadata(seoParams);
+  const logoAlt = generateLogoAltTag(seoParams);
 
   const localBusinessSchema = generateLocalBusinessSchema();
   const organizationSchema = generateOrganizationSchema();
@@ -131,6 +134,9 @@ export default function Home() {
         <meta property="og:title" content={seoData.ogTitle} />
         <meta property="og:description" content={seoData.ogDescription} />
         <meta property="og:image" content={seoData.ogImage} />
+        <meta property="og:image:alt" content={logoAlt} />
+        <meta property="og:image:width" content="512" />
+        <meta property="og:image:height" content="512" />
         <meta property="og:url" content={seoData.canonical} />
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content={BUSINESS_INFO.name} />
@@ -141,6 +147,7 @@ export default function Home() {
         <meta name="twitter:title" content={seoData.ogTitle} />
         <meta name="twitter:description" content={seoData.ogDescription} />
         <meta name="twitter:image" content={seoData.ogImage} />
+        <meta name="twitter:image:alt" content={logoAlt} />
         
         {/* JSON-LD Structured Data - LocalBusiness */}
         <script type="application/ld+json">
@@ -168,7 +175,6 @@ export default function Home() {
               alt="Professional lawn care background with decorative leaves"
               className="w-full h-full object-cover"
               loading="eager"
-              fetchpriority="high"
             />
           </div>
 
