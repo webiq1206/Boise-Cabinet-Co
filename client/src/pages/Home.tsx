@@ -1,3 +1,4 @@
+import { lazy, Suspense } from "react";
 import { Link } from "wouter";
 import { Helmet } from "react-helmet-async";
 import { Button } from "@/components/ui/button";
@@ -18,13 +19,15 @@ import {
   Users,
   Zap,
 } from "lucide-react";
-import { ServiceAreaMap } from "@/components/ServiceAreaMap";
-import { Testimonials } from "@/components/Testimonials";
 import { HeroQuoteSection } from "@/components/HeroQuoteSection";
 import { NearMeFAQ } from "@/components/NearMeFAQ";
 import { generateSEOMetadata, generateLogoAltTag, BUSINESS_INFO } from "@/lib/seo";
 import { generateLocalBusinessSchema, generateOrganizationSchema, generateBreadcrumbSchema } from "@/lib/schema";
 import heroBackground from "@assets/Lawn Care Kuna Background Image_1763675543303.png";
+
+// Lazy load heavy components for better initial page load
+const ServiceAreaMap = lazy(() => import("@/components/ServiceAreaMap").then(mod => ({ default: mod.ServiceAreaMap })));
+const Testimonials = lazy(() => import("@/components/Testimonials").then(mod => ({ default: mod.Testimonials })));
 
 const services = [
   {
@@ -174,6 +177,8 @@ export default function Home() {
               src={heroBackground} 
               alt="Professional lawn care background with decorative leaves"
               className="w-full h-full object-cover"
+              width="1920"
+              height="1080"
               loading="eager"
             />
           </div>
@@ -626,7 +631,9 @@ export default function Home() {
                 Trusted by homeowners across Kuna and the Treasure Valley
               </p>
             </div>
-            <Testimonials limit={3} />
+            <Suspense fallback={<div className="h-64 flex items-center justify-center"><div className="animate-pulse text-muted-foreground">Loading testimonials...</div></div>}>
+              <Testimonials limit={3} />
+            </Suspense>
           </div>
         </div>
       </section>
@@ -643,7 +650,9 @@ export default function Home() {
                 Professional lawn care services across Southwest Idaho
               </p>
             </div>
-            <ServiceAreaMap />
+            <Suspense fallback={<div className="h-96 flex items-center justify-center"><div className="animate-pulse text-muted-foreground">Loading map...</div></div>}>
+              <ServiceAreaMap />
+            </Suspense>
           </div>
         </div>
       </section>

@@ -68,8 +68,9 @@ export function HeroQuoteSection({
               src={backgroundImage} 
               alt={backgroundAlt}
               className="w-full h-full object-cover"
+              width="1920"
+              height="1080"
               loading="eager"
-              fetchpriority="high"
             />
           </div>
 

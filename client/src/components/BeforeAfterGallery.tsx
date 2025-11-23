@@ -50,6 +50,9 @@ export function BeforeAfterGallery({ serviceType, limit }: BeforeAfterGalleryPro
             src={displayPhotos[selectedPhoto].afterImageUrl}
             alt={`After - ${displayPhotos[selectedPhoto].title}`}
             className="absolute inset-0 w-full h-full object-cover"
+            width="800"
+            height="450"
+            loading="lazy"
             data-testid="img-after"
           />
           {/* Before image with slider */}
@@ -61,6 +64,9 @@ export function BeforeAfterGallery({ serviceType, limit }: BeforeAfterGalleryPro
               src={displayPhotos[selectedPhoto].beforeImageUrl}
               alt={`Before - ${displayPhotos[selectedPhoto].title}`}
               className="absolute inset-0 w-full h-full object-cover"
+              width="800"
+              height="450"
+              loading="lazy"
               style={{ width: `${100 / (sliderPosition / 100)}%` }}
               data-testid="img-before"
             />
@@ -141,6 +147,9 @@ export function BeforeAfterGallery({ serviceType, limit }: BeforeAfterGalleryPro
                 src={photo.afterImageUrl}
                 alt={photo.title}
                 className="w-full h-full object-cover"
+                width="300"
+                height="225"
+                loading="lazy"
               />
             </button>
           ))}

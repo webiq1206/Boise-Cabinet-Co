@@ -14,8 +14,11 @@ export function Footer() {
           <div>
             <img 
               src={logoUrl} 
-              alt="Lawn Care Kuna" 
+              alt="Lawn Care Kuna - Professional Lawn Care and Landscaping Services in Kuna Idaho" 
               className="h-8 w-auto mb-4"
+              width="160"
+              height="32"
+              loading="lazy"
               data-testid="logo-footer"
             />
             <p className="text-sm text-muted-foreground mb-4">

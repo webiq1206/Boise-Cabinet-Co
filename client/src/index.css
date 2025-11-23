@@ -314,6 +314,26 @@ html, body {
   p {
     @apply leading-relaxed;
   }
+  
+  /* Visible focus states for accessibility - WCAG 2.1 compliance */
+  *:focus-visible {
+    outline: 2px solid hsl(var(--ring));
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+  
+  /* Ensure buttons and interactive elements have clear focus */
+  button:focus-visible,
+  a:focus-visible,
+  input:focus-visible,
+  textarea:focus-visible,
+  select:focus-visible,
+  [role="button"]:focus-visible,
+  [role="link"]:focus-visible,
+  [tabindex]:focus-visible {
+    outline: 2px solid hsl(var(--ring));
+    outline-offset: 2px;
+  }
 }
 
 /**

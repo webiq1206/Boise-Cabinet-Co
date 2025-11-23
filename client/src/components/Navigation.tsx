@@ -43,8 +43,11 @@ export function Navigation() {
         <Link href="/" className="flex items-center flex-shrink-0">
           <img 
             src={logoUrl} 
-            alt="Lawn Care Kuna" 
+            alt="Lawn Care Kuna - Professional Lawn Care and Landscaping Services in Kuna Idaho" 
             className="h-10 w-auto"
+            width="200"
+            height="40"
+            loading="eager"
             data-testid="logo-image"
           />
         </Link>
