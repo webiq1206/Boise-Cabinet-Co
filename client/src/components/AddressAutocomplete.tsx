@@ -51,6 +51,7 @@ export function AddressAutocomplete({
   const [isLoading, setIsLoading] = useState(false);
   const [selectedAddress, setSelectedAddress] = useState<AddressResult | null>(null);
   const debounceRef = useRef<NodeJS.Timeout>();
+  const justSelectedRef = useRef(false);
   const provider = useRef(new OpenStreetMapProvider());
   const { toast } = useToast();
 
@@ -109,6 +110,12 @@ export function AddressAutocomplete({
 
   // Debounced search
   useEffect(() => {
+    // Skip search if we just selected an address
+    if (justSelectedRef.current) {
+      justSelectedRef.current = false;
+      return;
+    }
+
     if (debounceRef.current) {
       clearTimeout(debounceRef.current);
     }
@@ -254,6 +261,9 @@ export function AddressAutocomplete({
       streetAddress = result.label;
     }
     
+    // Set flag to prevent re-searching after selection
+    justSelectedRef.current = true;
+    
     onChange(streetAddress);
     setSelectedAddress(result);
     setSuggestions([]);
@@ -290,7 +300,11 @@ export function AddressAutocomplete({
           <Input
             id={id}
             value={value}
-            onChange={(e) => onChange(e.target.value)}
+            onChange={(e) => {
+              // Reset flag when user manually types
+              justSelectedRef.current = false;
+              onChange(e.target.value);
+            }}
             onFocus={() => {
               if (suggestions.length > 0) {
                 setOpen(true);
