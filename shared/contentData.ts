@@ -263,10 +263,11 @@ export const PRIORITY_SERVICES: ServiceData[] = [
     slug: 'lawn-mowing',
     name: 'Lawn Mowing',
     category: 'lawn-care',
-    shortDescription: 'Professional weekly and bi-weekly lawn mowing services for residential and commercial properties',
-    longDescription: 'Keep your lawn looking its best with our professional mowing services designed specifically for Idaho\'s unique climate and growing conditions. We provide reliable, consistent lawn cutting and turf maintenance on weekly or bi-weekly schedules throughout the growing season, from April through October. Our experienced crews use commercial-grade equipment including zero-turn mowers, professional trimmers, and commercial blowers to deliver a precise, even cut that promotes healthy grass growth and creates that beautiful striped appearance homeowners love. Understanding Idaho\'s semi-arid climate and clay soil conditions, we adjust our mowing height seasonally to help your lawn withstand the hot, dry summers typical of the Treasure Valley. We maintain grass at 3 to 3.5 inches during peak summer heat, which promotes deeper root development, shades out weed seeds, and reduces water requirements. This proper mowing height is critical for Kentucky bluegrass and fescue varieties common in Kuna, Boise, Meridian, and surrounding areas. Every service includes precision edging along all sidewalks, driveways, flower beds, and fence lines to create crisp, clean borders that dramatically enhance your property\'s curb appeal. Our crews string-trim around obstacles, trees, and tight spaces that mowers can\'t reach, ensuring complete coverage. After mowing and trimming, we blow off all hard surfaces including sidewalks, driveways, patios, and porches, leaving your property looking immaculate and ready to enjoy. We practice grasscycling by mulching clippings back into the lawn, which returns valuable nutrients to the soil, improves moisture retention, and reduces the need for additional fertilization. This sustainable approach is better for your lawn and the environment. Our mowing service includes pre-mow inspection to identify any hazards, consistent mowing patterns that create professional striping, and a final quality check before leaving your property.',
+    shortDescription: 'Professional weekly and bi-weekly lawn mowing services with trimming, blowing, and clipping removal included',
+    longDescription: 'Keep your lawn looking its best with our professional mowing services designed specifically for Idaho\'s unique climate and growing conditions. We provide reliable, consistent lawn cutting and turf maintenance on weekly or bi-weekly schedules throughout the growing season, from April through October. Our experienced crews use commercial-grade equipment including zero-turn mowers, professional trimmers, and commercial blowers to deliver a precise, even cut that promotes healthy grass growth and creates that beautiful striped appearance homeowners love. Every mowing service includes complete trimming around obstacles, professional blowing of all hard surfaces, and clipping removal—there are no hidden fees or surprise charges. Understanding Idaho\'s semi-arid climate and clay soil conditions, we adjust our mowing height seasonally to help your lawn withstand the hot, dry summers typical of the Treasure Valley. We maintain grass at 3 to 3.5 inches during peak summer heat, which promotes deeper root development, shades out weed seeds, and reduces water requirements. This proper mowing height is critical for Kentucky bluegrass and fescue varieties common in Kuna, Boise, Meridian, and surrounding areas. Every service includes precision edging along all sidewalks, driveways, flower beds, and fence lines to create crisp, clean borders that dramatically enhance your property\'s curb appeal. Our crews string-trim around obstacles, trees, and tight spaces that mowers can\'t reach, ensuring complete coverage. After mowing and trimming, we blow off all hard surfaces including sidewalks, driveways, patios, and porches, leaving your property looking immaculate and ready to enjoy. We practice grasscycling by mulching clippings back into the lawn, which returns valuable nutrients to the soil, improves moisture retention, and reduces the need for additional fertilization. This sustainable approach is better for your lawn and the environment. Our mowing service includes pre-mow inspection to identify any hazards, consistent mowing patterns that create professional striping, and a final quality check before leaving your property.',
     benefits: [
       'Consistent, professional cut every time with visible striping',
+      'Trimming, blowing, and clipping removal included—no hidden fees',
       'Promotes healthy, thick lawn growth and deeper roots',
       'Prevents weed invasion through regular maintenance',
       'Saves you 2-3 hours every week for family time',
@@ -274,7 +275,7 @@ export const PRIORITY_SERVICES: ServiceData[] = [
       'Fully insured and experienced crews',
       'Flexible scheduling - weekly or bi-weekly service',
       'Competitive pricing with no hidden fees',
-      'All-inclusive service: mowing, edging, trimming, cleanup',
+      'All-inclusive service: mowing, edging, trimming, blowing, cleanup',
       'Seasonal height adjustments for optimal lawn health',
       'Protects your lawn from heat stress during Idaho summers',
       'Professional appearance boosts curb appeal and property value'
@@ -298,7 +299,7 @@ export const PRIORITY_SERVICES: ServiceData[] = [
       },
       {
         question: 'Do you bag the clippings or leave them?',
-        answer: 'We recommend mulching clippings back into the lawn (grasscycling). This returns nutrients to the soil, reduces watering needs, and is better for your lawn. If you prefer bagging, we can accommodate that for an additional fee.'
+        answer: 'We recommend mulching clippings back into the lawn (grasscycling). This returns nutrients to the soil, reduces watering needs, and is better for your lawn. If you prefer bagging, we can accommodate that, and clipping removal and disposal are always included in our service—no additional fees.'
       },
       {
         question: 'What if it rains on my scheduled day?',
@@ -834,7 +835,7 @@ export const PRIORITY_SERVICES: ServiceData[] = [
       { step: 2, title: 'Trimming Plan Development', description: 'Based on plant species and your preferences, we determine appropriate trim heights and shapes. Different plants require different timing and techniques.' },
       { step: 3, title: 'Precise Trimming & Shaping', description: 'Using professional hedge trimmers and hand shears, we carefully trim each plant to the appropriate height and shape, following natural growth patterns.' },
       { step: 4, title: 'Selective Pruning', description: 'We remove dead, diseased, or crossing branches, opening the plant canopy for better air circulation and light penetration.' },
-      { step: 5, title: 'Cleanup & Debris Removal', description: 'All clippings and debris are removed from your property. We blow off surrounding hardscapes to leave everything looking pristine.' },
+      { step: 5, title: 'Cleanup & Debris Removal', description: 'All clippings and debris are removed and disposed of—disposal always included. We blow off surrounding hardscapes to leave everything looking pristine.' },
       { step: 6, title: 'Care Recommendations', description: 'We provide guidance on watering and timing for the next trimming service based on growth rate and plant type.' }
     ],
     faqs: [
@@ -1295,7 +1296,7 @@ export const PRIORITY_SERVICES: ServiceData[] = [
       { step: 3, title: 'Mulch Delivery', description: 'Fresh mulch is delivered to your property and staged conveniently. We use bulk mulch (not bagged) for better value and quality.' },
       { step: 4, title: 'Professional Application', description: 'Mulch is spread evenly at proper depth (2-4 inches) throughout all beds. We keep mulch away from plant stems and tree trunks to prevent rot and disease.' },
       { step: 5, title: 'Final Detailing', description: 'Beds are hand-raked smooth, edges are cleaned, and any mulch on hardscapes is blown away. The result is a perfect, uniform appearance.' },
-      { step: 6, title: 'Cleanup & Disposal', description: 'All debris and excess material is removed from your property, leaving a clean, beautiful landscape ready to enjoy.' }
+      { step: 6, title: 'Cleanup & Disposal', description: 'All debris and excess material is removed and disposed of—disposal included with no additional fees. Your property is left clean and beautiful, ready to enjoy.' }
     ],
     faqs: [
       {
@@ -1914,7 +1915,7 @@ export const PRIORITY_SERVICES: ServiceData[] = [
       { step: 2, title: 'Pruning Plan Development', description: 'We create a pruning strategy appropriate for tree species, age, and condition. Plan includes which branches to remove and proper pruning points to promote healthy regrowth.' },
       { step: 3, title: 'Safe Tree Access', description: 'Our climbers safely access the tree using ropes and harnesses (bucket trucks for accessible trees). All safety protocols and equipment are OSHA-compliant.' },
       { step: 4, title: 'Precision Pruning', description: 'Branches are pruned using proper three-cut technique to prevent bark tearing. Cuts are made at branch collar for optimal healing. We never top trees or leave ugly stubs.' },
-      { step: 5, title: 'Branch Removal & Cleanup', description: 'All cut branches are removed from your property. Large wood can be cut into firewood rounds if desired. Smaller branches are chipped or hauled away.' },
+      { step: 5, title: 'Branch Removal & Cleanup', description: 'All cut branches are removed and disposed of—disposal always included. Large wood can be cut into firewood rounds if desired. Smaller branches are chipped or hauled away.' },
       { step: 6, title: 'Final Inspection & Care Advice', description: 'Final walk-through ensures all work meets standards. We provide guidance on tree care, watering, and timing for next service.' }
     ],
     faqs: [
@@ -2467,7 +2468,7 @@ export const PRIORITY_SERVICES: ServiceData[] = [
       { step: 3, title: 'Final Mowing', description: 'Lawn is mowed to 2-2.5 inches - the ideal height for winter. This prevents snow mold while protecting grass crowns from extreme cold.' },
       { step: 4, title: 'Bed Cleanup', description: 'Perennial beds are cut back, annuals removed, and beds cleaned of debris. Mulch is refreshed if needed. Plants are prepared for dormancy.' },
       { step: 5, title: 'Gutter Cleaning', description: 'Gutters and downspouts are cleared of leaves and debris. This prevents ice dams and water damage during winter freeze-thaw cycles.' },
-      { step: 6, title: 'Final Details & Haul Away', description: 'All debris is hauled away. Property is blown clean. Hardscaping is edged and cleaned. Your property is winter-ready and looks great.' }
+      { step: 6, title: 'Final Details & Disposal', description: 'All debris is hauled away and disposed of—disposal included with no additional fees. Property is blown clean. Hardscaping is edged and cleaned. Your property is winter-ready and looks great.' }
     ],
     faqs: [
       {
@@ -2484,7 +2485,7 @@ export const PRIORITY_SERVICES: ServiceData[] = [
       },
       {
         question: 'What do you do with all the leaves after removal?',
-        answer: 'We haul away all leaves and debris as part of standard service - leaves are composted at approved facilities or properly disposed of per local regulations. We remove typical 5,000 sq ft property generates 3-8 cubic yards of leaves. If you have compost area or want leaves for garden mulch, we can leave shredded/chopped leaves in designated spot at no charge.'
+        answer: 'We haul away and dispose of all leaves and debris as part of our standard service—disposal is always included with no additional fees. Leaves are composted at approved facilities or properly disposed of per local regulations. A typical 5,000 sq ft property generates 3-8 cubic yards of leaves. If you have a compost area or want leaves for garden mulch, we can leave shredded/chopped leaves in a designated spot at no charge.'
       },
       {
         question: 'Should I combine fall cleanup with other fall services?',
@@ -2559,7 +2560,7 @@ export const PRIORITY_SERVICES: ServiceData[] = [
       { step: 3, title: 'Bed Cleanup & Edging', description: 'Perennial beds are cleaned, edges redefined, and winter-killed annuals removed. Beds are prepared for mulch installation if desired.' },
       { step: 4, title: 'Ornamental Grass Cutting', description: 'Ornamental grasses are cut back to 4-6 inches to allow fresh spring growth. Old growth is removed and hauled away.' },
       { step: 5, title: 'First Mowing & Trimming', description: 'Lawn receives first mowing of season at appropriate height for grass type. Edges are trimmed and property is detailed for crisp appearance.' },
-      { step: 6, title: 'Final Cleanup & Recommendations', description: 'All debris hauled away. Property is blown clean. We provide recommendations for spring services: aeration, fertilization, irrigation startup.' }
+      { step: 6, title: 'Final Cleanup & Recommendations', description: 'All debris is hauled away and disposed of—disposal included. Property is blown clean. We provide recommendations for spring services: aeration, fertilization, irrigation startup.' }
     ],
     faqs: [
       {
