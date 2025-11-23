@@ -20,6 +20,7 @@ export interface ServiceData {
 export interface CityData {
   slug: string;
   name: string;
+  county: 'ada' | 'canyon'; // County for assessor routing
   isPrimary: boolean; // Kuna is primary
   population?: string;
   zipCodes?: string[];

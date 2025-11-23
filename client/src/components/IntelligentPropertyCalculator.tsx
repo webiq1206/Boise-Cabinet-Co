@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -39,6 +39,13 @@ export function IntelligentPropertyCalculator({
   // Manual adjustment values
   const [manualLawnSqFt, setManualLawnSqFt] = useState<string>("");
   const [manualRoofLineFt, setManualRoofLineFt] = useState<string>("");
+
+  // Sync address when initial address changes (auto-populate from wizard)
+  useEffect(() => {
+    if (initialAddress && initialAddress !== address) {
+      setAddress(initialAddress);
+    }
+  }, [initialAddress]);
 
   const handleSearch = async (e: React.FormEvent) => {
     e.preventDefault();
