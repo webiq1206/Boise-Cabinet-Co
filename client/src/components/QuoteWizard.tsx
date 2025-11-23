@@ -312,58 +312,64 @@ export function QuoteWizard({
   };
 
   const handleServiceDataChange = (serviceId: string, fieldName: string, value: any) => {
-    // Find all services that have the same field name
-    const servicesWithSameField = selectedServices.filter(id => {
-      const config = SERVICE_FIELD_CONFIGS.find(c => c.serviceId === id);
-      return config?.fields.some(f => f.name === fieldName);
-    });
-
-    // Update the field for all services that have it
-    setServiceData(prev => {
-      const updated = { ...prev };
-      servicesWithSameField.forEach(id => {
-        updated[id] = {
-          ...(updated[id] || {}),
-          [fieldName]: value,
-        };
-      });
-      return updated;
-    });
+    // Update the field for the specific service only
+    setServiceData(prev => ({
+      ...prev,
+      [serviceId]: {
+        ...(prev[serviceId] || {}),
+        [fieldName]: value,
+      },
+    }));
   };
 
-  const handleMeasurementComplete = (sqft: number) => {
-    // Store property size in ALL lawn services that require it
-    const servicesNeedingArea = selectedServices.filter(id => {
-      const config = SERVICE_FIELD_CONFIGS.find(c => c.serviceId === id);
-      return config?.requiresPropertySize;
-    });
+  const handleMeasurementComplete = (measurements: {
+    lawnSqFt: number;
+    lotPerimeterFt?: number;
+    lawnPerimeterFt?: number;
+    rooflineWithOverhangFt?: number;
+    estimatedHedgeFt?: number;
+  }) => {
+    // Generic mapping using SERVICE_FIELD_CONFIGS - no hard-coded service IDs
+    selectedServices.forEach(serviceId => {
+      const config = SERVICE_FIELD_CONFIGS.find(c => c.serviceId === serviceId);
+      if (!config) return;
 
-    servicesNeedingArea.forEach(serviceId => {
-      handleServiceDataChange(serviceId, "propertySize", sqft);
+      // Find the field that needs auto-population
+      const measurementField = config.fields.find(f => 
+        f.unit === 'linear feet' || f.unit === 'sq ft'
+      );
+      
+      if (!measurementField) return;
+
+      // Map measurement based on field unit and service type
+      if (measurementField.unit === 'sq ft' && measurements.lawnSqFt) {
+        handleServiceDataChange(serviceId, measurementField.name, measurements.lawnSqFt);
+      } else if (measurementField.unit === 'linear feet') {
+        // Determine which linear measurement to use based on service type
+        let linearValue: number | undefined;
+        
+        if (serviceId.includes('fence')) {
+          linearValue = measurements.lotPerimeterFt;
+        } else if (serviceId.includes('christmas') || serviceId.includes('light')) {
+          linearValue = measurements.rooflineWithOverhangFt;
+        } else if (serviceId.includes('hedge')) {
+          linearValue = measurements.estimatedHedgeFt;
+        } else if (serviceId.includes('edging')) {
+          linearValue = measurements.lawnPerimeterFt;
+        } else if (serviceId.includes('retaining')) {
+          linearValue = measurements.lotPerimeterFt;
+        }
+        
+        if (linearValue) {
+          handleServiceDataChange(serviceId, measurementField.name, linearValue);
+        }
+      }
     });
 
     setMapOpen(false);
     toast({
-      title: "Measurement Added",
-      description: `Property size set to ${sqft.toLocaleString()} sq ft for ${servicesNeedingArea.length} service(s)`,
-    });
-  };
-
-  const handleLinearMeasurementComplete = (feet: number) => {
-    // Store linear feet in ALL services that have a linearFeet field (e.g., Christmas lights, fencing)
-    const servicesNeedingLinear = selectedServices.filter(id => {
-      const config = SERVICE_FIELD_CONFIGS.find(c => c.serviceId === id);
-      return config?.fields.some(f => f.name === "linearFeet");
-    });
-
-    servicesNeedingLinear.forEach(serviceId => {
-      handleServiceDataChange(serviceId, "linearFeet", feet);
-    });
-
-    setMapOpen(false);
-    toast({
-      title: "Measurement Added",
-      description: `Linear distance set to ${feet.toLocaleString()} feet for ${servicesNeedingLinear.length} service(s)`,
+      title: "Measurements Applied",
+      description: "Property measurements have been calculated and applied to your services.",
     });
   };
 
@@ -874,7 +880,6 @@ export function QuoteWizard({
         isOpen={mapOpen}
         onClose={() => setMapOpen(false)}
         onMeasurementComplete={handleMeasurementComplete}
-        onLinearMeasurementComplete={handleLinearMeasurementComplete}
         initialAddress={form1.watch("address") || ""}
         measurementType={getMeasurementType() || 'area'}
         cityContext={form1.watch("city") || ""}

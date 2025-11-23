@@ -193,3 +193,101 @@ export async function searchCanyonCountyProperty(
   const result = await searchCanyonCountyProperties(address, cityContext);
   return result.success && result.properties.length > 0 ? result.properties[0] : null;
 }
+
+/**
+ * Intelligent estimation of property measurements
+ * Uses property characteristics, location, and typical patterns
+ * Same logic as Ada County for consistency
+ */
+export function estimatePropertyMeasurements(address: string, city: string): {
+  lotSizeSqFt: number;
+  buildingSqFt: number;
+  estimatedLawnSqFt: number;
+  estimatedRoofLineFt: number;
+  lotPerimeterFt: number;
+  lawnPerimeterFt: number;
+  rooflineWithOverhangFt: number;
+  estimatedHedgeFt: number;
+} {
+  // Default assumptions for typical Treasure Valley properties
+  let lotSizeSqFt = 7500; // Default ~0.17 acre lot
+  let buildingSqFt = 1800; // Default home size
+  
+  // Adjust based on city/area characteristics
+  if (city.toUpperCase().includes('NAMPA')) {
+    // Nampa has a mix of older and newer developments
+    lotSizeSqFt = 7000;
+    buildingSqFt = 1800;
+  } else if (city.toUpperCase().includes('CALDWELL')) {
+    // Caldwell tends to have slightly larger lots
+    lotSizeSqFt = 8000;
+    buildingSqFt = 1850;
+  } else if (city.toUpperCase().includes('MIDDLETON')) {
+    // Middleton has more rural/larger lots
+    lotSizeSqFt = 10000;
+    buildingSqFt = 1950;
+  }
+  
+  // Detect property type from address
+  if (address.match(/\b(CT|COURT|CIR|CIRCLE|LOOP|PL|PLACE)\b/i)) {
+    // Cul-de-sac or court addresses often have slightly larger lots
+    lotSizeSqFt *= 1.15;
+  }
+  
+  if (address.match(/\b(RANCH|FARM|COUNTRY|RURAL)\b/i)) {
+    // Rural properties are typically much larger
+    lotSizeSqFt *= 2.5;
+    buildingSqFt *= 1.3;
+  }
+  
+  if (address.match(/\b(TOWNHOME|CONDO|UNIT)\b/i)) {
+    // Townhomes/condos have smaller lots
+    lotSizeSqFt *= 0.4;
+    buildingSqFt *= 0.7;
+  }
+  
+  // Calculate lawn area (lot minus building, garage, and hardscape)
+  // Typical garage: 400-500 sq ft
+  // Typical driveway/walkways: 500-800 sq ft
+  // Typical deck/patio: 200-300 sq ft
+  const garageSqFt = 450;
+  const hardscapeSqFt = 650;
+  const deckPatioSqFt = 250;
+  
+  const estimatedLawnSqFt = Math.max(
+    1000, // Minimum 1000 sq ft lawn
+    lotSizeSqFt - buildingSqFt - garageSqFt - hardscapeSqFt - deckPatioSqFt
+  );
+  
+  // Estimate roof line (building perimeter)
+  // Assume roughly square building: perimeter = 4 * sqrt(area)
+  const estimatedRoofLineFt = Math.round(4 * Math.sqrt(buildingSqFt));
+  
+  // Lot Perimeter Calculation
+  // Assume roughly rectangular lot: perimeter ≈ 4 * sqrt(lotSize)
+  // Apply rectangular correction factor (most lots are 1.5:1 to 2:1 ratio)
+  const lotPerimeterFt = Math.round(4 * Math.sqrt(lotSizeSqFt) * 1.1);
+  
+  // Lawn Perimeter Calculation
+  // Lawn perimeter is typically 70-80% of lot perimeter (buildings, hardscape reduce it)
+  const lawnPerimeterFt = Math.round(lotPerimeterFt * 0.75);
+  
+  // Roofline with Overhang
+  // Add 25% for eaves, overhangs, and roof complexity for Christmas lights
+  const rooflineWithOverhangFt = Math.round(estimatedRoofLineFt * 1.25);
+  
+  // Hedge Footage
+  // Estimate hedges on front + one side (typically 40% of lot perimeter)
+  const estimatedHedgeFt = Math.round(lotPerimeterFt * 0.40);
+  
+  return {
+    lotSizeSqFt: Math.round(lotSizeSqFt),
+    buildingSqFt: Math.round(buildingSqFt),
+    estimatedLawnSqFt: Math.round(estimatedLawnSqFt),
+    estimatedRoofLineFt,
+    lotPerimeterFt,
+    lawnPerimeterFt,
+    rooflineWithOverhangFt,
+    estimatedHedgeFt,
+  };
+}

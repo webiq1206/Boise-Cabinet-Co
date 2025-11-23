@@ -12,8 +12,13 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 interface IntelligentPropertyCalculatorProps {
   isOpen: boolean;
   onClose: () => void;
-  onMeasurementComplete?: (sqft: number) => void;
-  onLinearMeasurementComplete?: (feet: number) => void;
+  onMeasurementComplete?: (measurements: {
+    lawnSqFt: number;
+    lotPerimeterFt?: number;
+    lawnPerimeterFt?: number;
+    rooflineWithOverhangFt?: number;
+    estimatedHedgeFt?: number;
+  }) => void;
   initialAddress?: string;
   measurementType?: 'area' | 'linear' | 'both';
   cityContext?: string; // City from wizard (e.g., "Kuna")
@@ -23,7 +28,6 @@ export function IntelligentPropertyCalculator({
   isOpen,
   onClose,
   onMeasurementComplete,
-  onLinearMeasurementComplete,
   initialAddress,
   measurementType = 'area',
   cityContext,
@@ -138,26 +142,24 @@ export function IntelligentPropertyCalculator({
   const handleApply = () => {
     const lawnSqFt = parseInt(manualLawnSqFt) || propertyData?.estimatedLawnSqFt || 0;
     const roofLineFt = parseInt(manualRoofLineFt) || propertyData?.estimatedRoofLineFt || 0;
-
-    if (measurementType === 'both') {
-      if (lawnSqFt === 0 || roofLineFt === 0) {
-        setError("Please provide both lawn area and roof line measurements.");
-        return;
-      }
-      if (onMeasurementComplete) onMeasurementComplete(lawnSqFt);
-      if (onLinearMeasurementComplete) onLinearMeasurementComplete(roofLineFt);
-    } else if (measurementType === 'area') {
+    
+    // Validate based on measurement type
+    if (measurementType === 'both' || measurementType === 'area') {
       if (lawnSqFt === 0) {
         setError("Please provide lawn area measurement.");
         return;
       }
-      if (onMeasurementComplete) onMeasurementComplete(lawnSqFt);
-    } else if (measurementType === 'linear') {
-      if (roofLineFt === 0) {
-        setError("Please provide roof line measurement.");
-        return;
-      }
-      if (onLinearMeasurementComplete) onLinearMeasurementComplete(roofLineFt);
+    }
+
+    // Pass all measurements to callback - including manual overrides
+    if (onMeasurementComplete) {
+      onMeasurementComplete({
+        lawnSqFt: lawnSqFt,
+        lotPerimeterFt: propertyData?.lotPerimeterFt,
+        lawnPerimeterFt: propertyData?.lawnPerimeterFt,
+        rooflineWithOverhangFt: roofLineFt || propertyData?.rooflineWithOverhangFt, // Use manual override!
+        estimatedHedgeFt: propertyData?.estimatedHedgeFt,
+      });
     }
 
     handleClose();

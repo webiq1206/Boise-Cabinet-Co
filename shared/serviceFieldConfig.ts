@@ -204,6 +204,39 @@ export const SERVICE_FIELD_CONFIGS: ServiceFieldConfig[] = [
     ]
   },
   {
+    serviceId: "fence",
+    serviceName: "Fence Installation",
+    category: "hardscape",
+    requiresPropertySize: false,
+    fields: [
+      {
+        name: "linearFeet",
+        label: "Fence Length",
+        placeholder: "e.g., 150",
+        type: "number",
+        required: true,
+        unit: "linear feet",
+        helpText: "Total linear feet of fencing needed"
+      },
+      {
+        name: "height",
+        label: "Fence Height",
+        placeholder: "e.g., 6",
+        type: "number",
+        required: false,
+        unit: "feet",
+        helpText: "Desired fence height"
+      },
+      {
+        name: "material",
+        label: "Fence Material",
+        type: "select",
+        required: false,
+        options: ["Wood", "Vinyl", "Chain Link", "Composite", "Wrought Iron", "Not Sure"]
+      }
+    ]
+  },
+  {
     serviceId: "fire-pit-installation",
     serviceName: "Fire Pit Installation",
     category: "hardscape",

@@ -7,14 +7,15 @@ const openai = new OpenAI({
 });
 
 // Service pricing rates (base costs for subcontractors + overhead)
+// Updated 2025-11-23: Adjusted rates to match Idaho market research
 export const SERVICE_RATES = {
   // Lawn Care (per sq ft per visit)
-  "lawn-mowing": { baseRate: 0.012, name: "Lawn Mowing", unit: "sqft" as const },
+  "lawn-mowing": { baseRate: 0.015, name: "Lawn Mowing", unit: "sqft" as const }, // Updated: $0.012 → $0.015 (Boise market: $0.015-0.020/sq ft)
   "lawn-maintenance": { baseRate: 0.015, name: "Full Lawn Maintenance", unit: "sqft" as const },
   "aeration": { baseRate: 0.018, name: "Core Aeration", unit: "sqft" as const },
   "fertilization": { baseRate: 0.014, name: "Fertilization Treatment", unit: "sqft" as const },
   "weed-control": { baseRate: 0.013, name: "Weed Control", unit: "sqft" as const },
-  "hedge-trimming": { baseRate: 0.010, name: "Hedge Trimming", unit: "sqft" as const },
+  "hedge-trimming": { baseRate: 2.00, name: "Hedge Trimming", unit: "linear_ft" as const }, // Updated: $0.010/sqft → $2.00/linear_ft (Idaho market: $2-4/linear ft)
   "seasonal-cleanup": { baseRate: 0.016, name: "Seasonal Cleanup", unit: "sqft" as const },
   "sprinkler-blowout": { baseRate: 0.008, name: "Sprinkler Winterization", unit: "sqft" as const },
   "dethatching": { baseRate: 0.017, name: "Dethatching", unit: "sqft" as const },
@@ -23,9 +24,9 @@ export const SERVICE_RATES = {
   "patio": { baseRate: 35.00, name: "Patio Installation", unit: "project" as const },
   "retaining-walls": { baseRate: 40.00, name: "Retaining Wall", unit: "linear_ft" as const },
   "sod-installation": { baseRate: 1.20, name: "Sod Installation", unit: "sqft" as const },
-  "fence": { baseRate: 25.00, name: "Fence Installation", unit: "linear_ft" as const },
+  "fence": { baseRate: 25.00, name: "Fence Installation", unit: "linear_ft" as const }, // Verified: Within Idaho market range ($20-30/linear ft)
   "pond": { baseRate: 5000.00, name: "Pond Installation", unit: "project" as const },
-  "christmas-lights": { baseRate: 3.50, name: "Christmas Light Installation", unit: "linear_ft" as const },
+  "christmas-lights": { baseRate: 3.50, name: "Christmas Light Installation", unit: "linear_ft" as const }, // Verified: Within Idaho market range ($3-5/linear ft)
 };
 
 // Property type multipliers

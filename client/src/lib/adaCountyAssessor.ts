@@ -17,6 +17,10 @@ export interface PropertyData {
   deckPatioPoolSqFt?: number;
   estimatedLawnSqFt?: number;
   estimatedRoofLineFt?: number;
+  lotPerimeterFt?: number;
+  lawnPerimeterFt?: number;
+  rooflineWithOverhangFt?: number;
+  estimatedHedgeFt?: number;
 }
 
 export interface PropertySearchResult {
@@ -402,6 +406,10 @@ function estimatePropertyMeasurements(address: string, city: string): {
   buildingSqFt: number;
   estimatedLawnSqFt: number;
   estimatedRoofLineFt: number;
+  lotPerimeterFt: number;
+  lawnPerimeterFt: number;
+  rooflineWithOverhangFt: number;
+  estimatedHedgeFt: number;
 } {
   // Default assumptions for typical Treasure Valley properties
   let lotSizeSqFt = 7500; // Default ~0.17 acre lot
@@ -465,10 +473,31 @@ function estimatePropertyMeasurements(address: string, city: string): {
   // Assume roughly square building: perimeter = 4 * sqrt(area)
   const estimatedRoofLineFt = Math.round(4 * Math.sqrt(buildingSqFt));
   
+  // Lot Perimeter Calculation
+  // Assume roughly rectangular lot: perimeter ≈ 4 * sqrt(lotSize)
+  // Apply rectangular correction factor (most lots are 1.5:1 to 2:1 ratio)
+  const lotPerimeterFt = Math.round(4 * Math.sqrt(lotSizeSqFt) * 1.1);
+  
+  // Lawn Perimeter Calculation
+  // Lawn perimeter is typically 70-80% of lot perimeter (buildings, hardscape reduce it)
+  const lawnPerimeterFt = Math.round(lotPerimeterFt * 0.75);
+  
+  // Roofline with Overhang
+  // Add 25% for eaves, overhangs, and roof complexity for Christmas lights
+  const rooflineWithOverhangFt = Math.round(estimatedRoofLineFt * 1.25);
+  
+  // Hedge Footage
+  // Estimate hedges on front + one side (typically 40% of lot perimeter)
+  const estimatedHedgeFt = Math.round(lotPerimeterFt * 0.40);
+  
   return {
     lotSizeSqFt: Math.round(lotSizeSqFt),
     buildingSqFt: Math.round(buildingSqFt),
     estimatedLawnSqFt: Math.round(estimatedLawnSqFt),
     estimatedRoofLineFt,
+    lotPerimeterFt,
+    lawnPerimeterFt,
+    rooflineWithOverhangFt,
+    estimatedHedgeFt,
   };
 }
