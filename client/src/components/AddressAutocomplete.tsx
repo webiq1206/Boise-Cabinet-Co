@@ -278,17 +278,6 @@ export function AddressAutocomplete({
       const size = await calculatePropertySize(result);
       if (size) {
         onPropertySizeCalculated(size);
-        toast({
-          title: "Property Size Calculated",
-          description: `Estimated property size: ${size.toLocaleString()} sq ft`,
-        });
-      } else {
-        // Always show toast when property size cannot be calculated
-        toast({
-          title: "Manual Entry Required",
-          description: "Unable to auto-calculate property size. Please enter manually or use the Measure button to draw your property.",
-          variant: "default",
-        });
       }
     }
   };
