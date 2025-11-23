@@ -119,7 +119,7 @@ export function generateMetaDescription(params: ServiceSEOParams): string {
   const { serviceName, city } = params;
   
   if (params.isHomePage) {
-    return "Professional lawn care & landscaping in Kuna, Idaho. Licensed, insured, top-rated. When you search for lawn care near me, choose local experts. Free quotes since 2010.";
+    return "Professional lawn care and landscaping services in Kuna, Boise, Meridian, and Treasure Valley Idaho. Licensed, insured, top-rated since 2017. Free quotes today!";
   }
   
   if (city) {

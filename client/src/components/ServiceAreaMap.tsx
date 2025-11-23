@@ -1,4 +1,4 @@
-import { Link } from "wouter";
+import { useLocation, Link } from "wouter";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { MapPin } from "lucide-react";
 
@@ -33,6 +33,19 @@ const serviceAreas = [
 ];
 
 export function ServiceAreaMap() {
+  const [, setLocation] = useLocation();
+  
+  const handleCityClick = (slug: string) => {
+    setLocation(`/areas/${slug}`);
+  };
+
+  const handleCityKeyDown = (e: React.KeyboardEvent, slug: string) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      setLocation(`/areas/${slug}`);
+    }
+  };
+
   return (
     <Card data-testid="card-service-area-map">
       <CardHeader>
@@ -48,7 +61,7 @@ export function ServiceAreaMap() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* Interactive Idaho Map */}
           <div className="relative bg-muted/30 rounded-md p-6" data-testid="map-visual">
-            <svg viewBox="0 0 400 300" className="w-full h-auto">
+            <svg viewBox="0 0 400 300" className="w-full h-auto" role="img" aria-label="Interactive map of Treasure Valley service area showing cities we serve">
               {/* Idaho outline (simplified, focused on Treasure Valley) */}
               <path
                 d="M 80 80 Q 90 70 110 75 L 150 80 Q 180 78 210 85 L 260 90 Q 300 88 330 95 L 360 110 Q 375 130 370 155 L 360 190 Q 355 215 340 235 L 320 250 Q 290 265 260 270 L 210 275 Q 180 273 150 265 L 120 250 Q 95 235 90 210 L 80 175 Q 75 140 80 110 Z"
@@ -56,6 +69,7 @@ export function ServiceAreaMap() {
                 stroke="hsl(var(--border))"
                 strokeWidth="2"
                 className="transition-colors"
+                aria-hidden="true"
               />
 
               {/* City markers */}
@@ -63,41 +77,59 @@ export function ServiceAreaMap() {
                 const radius = city.size === 'large' ? 35 : city.size === 'medium' ? 28 : 22;
                 
                 return (
-                  <Link key={city.slug} href={`/areas/${city.slug}`}>
-                    <g className="cursor-pointer group" data-testid={`map-city-${city.slug}`}>
-                      {/* Glow effect on hover */}
-                      <circle
-                        cx={city.x}
-                        cy={city.y}
-                        r={radius + 5}
-                        fill="hsl(var(--primary) / 0)"
-                        className="transition-all duration-300 group-hover:fill-[hsl(var(--primary)/0.1)]"
-                      />
-                      
-                      {/* City region circle */}
-                      <circle
-                        cx={city.x}
-                        cy={city.y}
-                        r={radius}
-                        fill="hsl(var(--primary) / 0.15)"
-                        stroke="hsl(var(--primary))"
-                        strokeWidth="2"
-                        className="transition-all duration-300 group-hover:fill-[hsl(var(--primary)/0.25)] group-hover:stroke-[hsl(var(--primary)/0.8)] group-active:fill-[hsl(var(--primary)/0.35)]"
-                      />
-                      
-                      {/* City label */}
-                      <text
-                        x={city.x}
-                        y={city.y}
-                        textAnchor="middle"
-                        dominantBaseline="middle"
-                        className="fill-foreground font-medium pointer-events-none select-none transition-all duration-300 group-hover:fill-primary"
-                        style={{ fontSize: city.size === 'large' ? '13px' : city.size === 'medium' ? '11px' : '9px' }}
-                      >
-                        {city.name}
-                      </text>
-                    </g>
-                  </Link>
+                  <g 
+                    key={city.slug}
+                    className="cursor-pointer group focus-visible:outline-none" 
+                    tabIndex={0} 
+                    role="button" 
+                    aria-label={`View ${city.name} lawn care services`}
+                    onClick={() => handleCityClick(city.slug)}
+                    onKeyDown={(e) => handleCityKeyDown(e, city.slug)}
+                    data-testid={`map-city-${city.slug}`}
+                  >
+                    {/* Focus ring */}
+                    <circle
+                      cx={city.x}
+                      cy={city.y}
+                      r={radius + 8}
+                      fill="none"
+                      stroke="hsl(var(--primary))"
+                      strokeWidth="0"
+                      className="transition-all duration-300 group-focus-visible:stroke-[3]"
+                    />
+                    
+                    {/* Glow effect on hover/focus */}
+                    <circle
+                      cx={city.x}
+                      cy={city.y}
+                      r={radius + 5}
+                      fill="hsl(var(--primary) / 0)"
+                      className="transition-all duration-300 group-hover:fill-[hsl(var(--primary)/0.1)] group-focus-visible:fill-[hsl(var(--primary)/0.1)]"
+                    />
+                    
+                    {/* City region circle */}
+                    <circle
+                      cx={city.x}
+                      cy={city.y}
+                      r={radius}
+                      fill="hsl(var(--primary) / 0.15)"
+                      stroke="hsl(var(--primary))"
+                      strokeWidth="2"
+                      className="transition-all duration-300 group-hover:fill-[hsl(var(--primary)/0.25)] group-hover:stroke-[hsl(var(--primary)/0.8)] group-active:fill-[hsl(var(--primary)/0.35)] group-focus-visible:fill-[hsl(var(--primary)/0.25)] group-focus-visible:stroke-[hsl(var(--primary)/0.8)]"
+                    />
+                    
+                    {/* City label */}
+                    <text
+                      x={city.x}
+                      y={city.y}
+                      textAnchor="middle"
+                      dominantBaseline="middle"
+                      className="fill-foreground font-medium pointer-events-none select-none transition-all duration-300 group-hover:fill-primary group-focus-visible:fill-primary"
+                      style={{ fontSize: city.size === 'large' ? '13px' : city.size === 'medium' ? '11px' : '9px' }}
+                    >
+                      {city.name}
+                    </text>
+                  </g>
                 );
               })}
             </svg>
