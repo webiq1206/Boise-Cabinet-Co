@@ -63,3 +63,55 @@ export function formatQuoteForDisplay(
   
   return rounded.toLocaleString();
 }
+
+/**
+ * Email-friendly LineItem interface
+ */
+export interface EmailLineItem {
+  service: string;
+  description: string;
+  price: number;
+}
+
+/**
+ * Normalizes line items for email templates
+ * Transforms from internal format to email-friendly format with proper service names and rounded prices
+ * 
+ * @param lineItems - Raw line items from pricing calculation
+ * @param serviceRatesMap - Map of service IDs to service names (from SERVICE_RATES)
+ * @param servicesDataMap - Map of service slugs to service data (from PRIORITY_SERVICES)
+ * @returns Normalized line items ready for email templates
+ */
+export function normalizeLineItemsForEmail(
+  lineItems: any[],
+  serviceRatesMap: Record<string, string>,
+  servicesDataMap: Record<string, { name: string; shortDescription: string }>
+): EmailLineItem[] {
+  if (!lineItems || !Array.isArray(lineItems)) {
+    return [];
+  }
+
+  return lineItems.map((item) => {
+    const serviceId = item.service || item.serviceId;
+    
+    // Get service name from SERVICE_RATES map
+    const serviceName = serviceRatesMap[serviceId] || serviceId;
+    
+    // Get service description from PRIORITY_SERVICES map
+    const serviceData = servicesDataMap[serviceId];
+    const description = serviceData?.shortDescription || item.description || '';
+    
+    // Round the price up to nearest $5
+    const price = roundUpToNearest5(
+      typeof item.adjustedPrice === 'number' 
+        ? item.adjustedPrice 
+        : parseFloat(item.adjustedPrice || item.price || 0)
+    );
+
+    return {
+      service: serviceName,
+      description: description,
+      price: price
+    };
+  });
+}

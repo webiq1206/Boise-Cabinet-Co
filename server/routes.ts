@@ -2,7 +2,7 @@ import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { quoteSubmissionSchema, type InsertQuote } from "@shared/schema";
-import { calculateIntelligentQuote } from "./services/pricing";
+import { calculateIntelligentQuote, SERVICE_RATES } from "./services/pricing";
 import { sendQuoteNotification } from "./email";
 import { z } from "zod";
 import { quoteCacheMiddleware } from "./middleware/quoteCache";
@@ -10,6 +10,25 @@ import { quoteCalculationRateLimit } from "./middleware/rateLimit";
 import { PRIORITY_SERVICES, CITIES } from "@shared/contentData";
 import { sendNewLeadNotification, sendLeadPurchasedNotification, sendLeadPurchaseConfirmation } from "./services/emailNotifications";
 import { setupAuth, isAuthenticated, requireRole } from "./replitAuth";
+import { parseAndRoundQuote, normalizeLineItemsForEmail } from "@shared/utils";
+
+// Create service name and description maps for email normalization
+const SERVICE_NAME_MAP: Record<string, string> = Object.entries(SERVICE_RATES).reduce(
+  (acc, [id, data]) => {
+    acc[id] = data.name;
+    return acc;
+  },
+  {} as Record<string, string>
+);
+
+const SERVICE_DATA_MAP: Record<string, { name: string; shortDescription: string }> = 
+  PRIORITY_SERVICES.reduce((acc, service) => {
+    acc[service.slug] = {
+      name: service.name,
+      shortDescription: service.shortDescription
+    };
+    return acc;
+  }, {} as Record<string, { name: string; shortDescription: string }>);
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Setup Replit Auth
@@ -312,13 +331,22 @@ export async function registerRoutes(app: Express): Promise<Server> {
           : null,
         finalQuote: validatedData.finalQuote
           ? (() => {
-              const num = typeof validatedData.finalQuote === 'number'
-                ? validatedData.finalQuote
-                : parseFloat(String(validatedData.finalQuote));
-              return isNaN(num) ? null : String(num);
+              // Parse and round quote using shared utility (rounds UP to nearest $5)
+              const rounded = parseAndRoundQuote(validatedData.finalQuote);
+              return rounded > 0 ? String(rounded) : null;
             })()
           : null,
-        lineItems: validatedData.lineItems || null,
+        lineItems: validatedData.lineItems && Array.isArray(validatedData.lineItems)
+          ? (() => {
+              // Normalize line items for email-friendly format with proper service names
+              const normalized = normalizeLineItemsForEmail(
+                validatedData.lineItems,
+                SERVICE_NAME_MAP,
+                SERVICE_DATA_MAP
+              );
+              return normalized.length > 0 ? normalized : null;
+            })()
+          : null,
         
         // Status and scheduling
         status: validatedData.status || "pending",

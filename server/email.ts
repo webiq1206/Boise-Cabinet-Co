@@ -1,4 +1,5 @@
 import { getUncachableResendClient } from './resend';
+import { formatQuoteForDisplay } from '../shared/utils';
 
 interface LineItem {
   service: string;
@@ -340,7 +341,7 @@ export async function sendQuoteNotification(data: QuoteEmailData) {
               <table class="info-table">
                 <tr>
                   <td class="label">AI-Generated Quote:</td>
-                  <td class="value" style="font-size: 24px; font-weight: 700; color: #166534;">$${finalQuote.toLocaleString()}</td>
+                  <td class="value" style="font-size: 24px; font-weight: 700; color: #166534;">$${formatQuoteForDisplay(finalQuote)}</td>
                 </tr>
               </table>
             </div>
@@ -420,7 +421,7 @@ export async function sendQuoteNotification(data: QuoteEmailData) {
               <table class="info-table">
                 <tr>
                   <td class="label">Estimated Total:</td>
-                  <td class="value" style="font-size: 24px; font-weight: 700; color: #166534;">$${finalQuote.toLocaleString()}</td>
+                  <td class="value" style="font-size: 24px; font-weight: 700; color: #166534;">$${formatQuoteForDisplay(finalQuote)}</td>
                 </tr>
               </table>
             </div>

@@ -353,7 +353,7 @@ export async function sendLeadPurchasedNotification(leadData: {
               </tr>
               <tr>
                 <td class="label">Quote Value:</td>
-                <td class="value" style="font-size: 20px; font-weight: 600; color: #166534;">$${leadData.finalQuote}</td>
+                <td class="value" style="font-size: 20px; font-weight: 600; color: #166534;">$${formatQuoteForDisplay(leadData.finalQuote, true)}</td>
               </tr>
             </table>
           </div>
@@ -445,7 +445,7 @@ export async function sendLeadPurchaseConfirmation(purchaserEmail: string, leadD
               </tr>
               <tr>
                 <td class="label">Estimated Project Value:</td>
-                <td class="value" style="font-size: 20px; font-weight: 600; color: #166534;">$${leadData.finalQuote}</td>
+                <td class="value" style="font-size: 20px; font-weight: 600; color: #166534;">$${formatQuoteForDisplay(leadData.finalQuote, true)}</td>
               </tr>
             </table>
           </div>
