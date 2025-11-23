@@ -7,6 +7,36 @@ The Lawn Care Kuna website is a professional online platform for a local Idaho b
 Preferred communication style: Simple, everyday language.
 
 ## Recent Changes
+**November 23, 2025 - Professional Email Templates with Brand Assets & Quote Normalization**
+- **Complete email template overhaul**:
+  - Replaced all generic branding with actual Lawn Care Kuna logo (lawn-care-kuna-logo.png)
+  - Updated all URLs to production site (https://lawncarekuna.com) instead of development domains
+  - Removed ALL emoji characters from subjects and body content for brand compliance
+  - Added complete contact information (phone, address, email, website) to all email footers
+- **Quote value normalization (shared/utils.ts)**:
+  - Created helper functions to enforce ALL estimates round UP to nearest $5 (roundUpToNearest5, parseAndRoundQuote, formatQuoteForDisplay)
+  - All quote totals now stored and displayed as properly rounded numeric values (no strings, no NaN)
+  - Defensive "Pending" display instead of $0 when quote values are unavailable in lead notifications
+- **Line item transformation for email display**:
+  - Built normalizeLineItemsForEmail helper to convert technical format ({serviceId, basePrice, multiplier}) to customer-friendly format ({service, description, price})
+  - Service names fetched from SERVICE_RATES (e.g., "lawn-mowing" → "Lawn Mowing")
+  - Service descriptions pulled from PRIORITY_SERVICES contentData for consistency
+  - All line item prices round UP to nearest $5
+  - Line items persisted in normalized format for accurate email breakdowns
+- **Server-side quote normalization (server/routes.ts)**:
+  - POST /api/quotes route now normalizes finalQuote using parseAndRoundQuote before persistence
+  - Line items transformed to email-friendly format before storage
+  - Ensures all stored quote data is clean, rounded, and ready for email display
+- **Consistent email formatting across ALL senders**:
+  - Customer quote emails (sendQuoteNotification): Use formatQuoteForDisplay for proper rounding
+  - Admin quote emails: Use formatQuoteForDisplay for consistent formatting
+  - Lead notifications (sendNewLeadNotification): Use formatQuoteForDisplay with "Pending" fallback
+  - Lead purchase emails (sendLeadPurchaseNotification, sendLeadPurchaseConfirmation): Use formatQuoteForDisplay
+- Email system with rate limit protection:
+  - 2-second delay between admin and customer quote emails
+  - 4-second delay before sending lead notification
+  - Prevents Resend "Too many requests" errors (max 2 requests/second)
+
 **November 23, 2025 - Popup-Free Quote Flow & Per-Service Pricing Guidance**
 - **Completely popup-free quote experience**:
   - Disabled ALL toast notifications (success AND error) during quote flow
@@ -29,10 +59,6 @@ Preferred communication style: Simple, everyday language.
   - Fence installation: Shows "lot perimeter"
   - Lawn edging: Shows "lawn perimeter (75% of lot perimeter)"
 - All pricing continues to round UP to nearest $5
-- Email system with rate limit protection:
-  - 2-second delay between admin and customer quote emails
-  - 4-second delay before sending lead notification
-  - Prevents Resend "Too many requests" errors (max 2 requests/second)
 
 ## System Architecture
 
