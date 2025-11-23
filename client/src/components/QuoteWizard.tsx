@@ -193,10 +193,11 @@ export function QuoteWizard({
       return quoteResult;
     },
     onSuccess: () => {
-      toast({
-        title: "Quote Request Submitted!",
-        description: "We'll contact you shortly to confirm your service.",
-      });
+      // Popup disabled per user request - quote submission is already visible on page
+      // toast({
+      //   title: "Quote Request Submitted!",
+      //   description: "We'll contact you shortly to confirm your service.",
+      // });
     },
     onError: (error: any) => {
       console.error("Quote submission error:", error);
@@ -844,12 +845,15 @@ export function QuoteWizard({
               ))}
             </div>
 
-            {/* Total */}
-            <div className="border-t border-border pt-4">
+            {/* Estimated Total */}
+            <div className="border-t border-border pt-4 space-y-2">
               <div className="flex justify-between items-center text-xl font-bold">
-                <span>Total</span>
+                <span>Estimated Total</span>
                 <span className="text-primary" data-testid="text-quote-total">${quoteData.total.toLocaleString()}</span>
               </div>
+              <p className="text-xs text-muted-foreground italic">
+                * This is an estimated price based on typical property conditions. Final pricing will be confirmed after site assessment.
+              </p>
             </div>
 
             {/* Pricing Guidance for Selected Services */}
