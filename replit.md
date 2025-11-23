@@ -33,7 +33,9 @@ Preferred communication style: Simple, everyday language.
   - **City Context Integration**: Uses wizard-selected city as fallback for street-only inputs
   - **Auto-Population**: Address field automatically fills with user's prior input from quote wizard
   - **Clean State Management**: Dialog backdrop preserves user data, Cancel button resets state
-  - **Intelligent Estimation**: Auto-calculates lawn area based on city-specific property characteristics (lot sizes, building footprints)
+  - **Comprehensive Linear Measurements**: Calculates 4 distinct linear footage metrics (lot perimeter, lawn perimeter, roofline with overhang, estimated hedge length) for accurate pricing of fence, edging, Christmas lights, and hedge trimming services
+  - **Service-Specific Auto-Population**: Intelligent measurement mapping ensures each service receives the correct linear footage (fence→lot perimeter, Christmas lights→roofline, hedge trimming→hedge estimate, edging→lawn perimeter)
+  - **Intelligent Estimation**: Auto-calculates lawn area and linear features based on city-specific property characteristics (lot sizes, building footprints)
   - **Manual Adjustment**: Users can override automated measurements
   - **Graceful Degradation**: Canyon County displays helpful error messages (no public API available) suggesting manual entry
 - **SEO Optimization**: E-E-A-T optimized, city-specific pages (2000+ words), site-wide internal linking, SEO-optimized headings and FAQs. Includes `robots.txt`, `sitemap.xml`, and `llms.txt`.
