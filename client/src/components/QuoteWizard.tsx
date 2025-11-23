@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -83,6 +83,7 @@ export function QuoteWizard({
   const [quoteData, setQuoteData] = useState<QuoteData | null>(null);
   const [serviceData, setServiceData] = useState<Record<string, Record<string, any>>>({});
   const [calculatedPropertySize, setCalculatedPropertySize] = useState<number | null>(null);
+  const formRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
 
   // Step forms
@@ -125,9 +126,11 @@ export function QuoteWizard({
     }
   }, [preselectedService, defaultService]);
 
-  // Scroll to top when step changes
+  // Scroll to top of form when step changes
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (formRef.current) {
+      formRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   }, [step]);
 
   // Quote generation mutation
@@ -391,7 +394,7 @@ export function QuoteWizard({
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-4">
+    <div ref={formRef} className="max-w-4xl mx-auto p-4">
       {/* Progress Steps */}
       <div className="mb-8">
         <div className="flex items-center justify-center gap-2 sm:gap-4">
