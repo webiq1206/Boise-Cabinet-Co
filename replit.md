@@ -22,7 +22,7 @@ Preferred communication style: Simple, everyday language.
 - **State Management**: TanStack Query for server state, React Hook Form with Zod for forms.
 - **Performance Optimization**: Route-level code splitting dramatically reduces initial JS bundle from ~6-7MB to <1MB for faster mobile performance. All 25+ routes lazy-loaded on demand.
 - **Multi-Service Quote System**: A 4-step intelligent wizard (QuoteWizard) supporting multiple service selections, service-aware field rendering, itemized pricing, and robust validation.
-- **Interactive Property Measurement Tool**: Dual-mode (Area and Linear) measurement using Leaflet and OpenStreetMap with auto-calculation, satellite imagery, and manual drawing tools. Queries OpenStreetMap Overpass API for building footprints.
+- **Intelligent Property Calculator**: Automated property measurement system that replaces manual map drawing. Queries Ada County Assessor parcel database API, intelligently estimates lawn area based on city-specific property characteristics (lot sizes, building footprints), and auto-calculates measurements. Supports multiple address formats (with/without commas, street-only) and includes manual adjustment mode.
 - **SEO Optimization**: E-E-A-T optimized, city-specific pages (2000+ words), site-wide internal linking, SEO-optimized headings and FAQs. Includes `robots.txt`, `sitemap.xml`, and `llms.txt`.
   - **City-Specific Metadata**: Every service-in-city page uses unique titles (e.g., "Lawn Mowing in Meridian | Lawn Care Meridian Idaho") and descriptions (e.g., "Meridian's top-rated lawn mowing service...") for maximum local SEO.
   - **URL-Safe Canonicals**: Canonical URLs use city slugs (`/services/lawn-mowing/meridian`) for proper indexing.
@@ -50,7 +50,6 @@ Preferred communication style: Simple, everyday language.
 - **class-variance-authority**: For component variant management.
 - **embla-carousel-react**: Carousel functionality.
 - **lucide-react**: Icon library.
-- **leaflet, react-leaflet, leaflet-draw, leaflet-geosearch**: For map-based property measurement.
 
 ### Form & State Management
 - **react-hook-form**: Form state and validation.

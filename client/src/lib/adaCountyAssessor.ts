@@ -30,12 +30,50 @@ export async function searchAdaCountyProperty(address: string): Promise<Property
     const addressUpper = address.trim().toUpperCase();
     
     // Extract street address and city from input
-    // Format: "1234 Main St, Kuna, ID" or "1234 Main St"
-    const parts = addressUpper.split(',').map(p => p.trim());
-    const streetAddress = parts[0];
-    const cityFromInput = parts.length > 1 ? parts[1] : '';
+    // Supports formats:
+    // - "1234 Main St, Kuna, ID"
+    // - "1234 Main St Kuna ID" (no commas)
+    // - "1234 Main St"
     
-    console.log('[AdaCountyAssessor] Searching for:', { streetAddress, cityFromInput });
+    let streetAddress = '';
+    let cityFromInput = '';
+    
+    // Known Ada County cities for detection
+    const ADA_CITIES = ['KUNA', 'MERIDIAN', 'BOISE', 'EAGLE', 'STAR', 'GARDEN CITY', 'HIDDEN SPRINGS'];
+    
+    if (addressUpper.includes(',')) {
+      // Comma-separated format: "1234 Main St, Kuna, ID"
+      const parts = addressUpper.split(',').map(p => p.trim());
+      streetAddress = parts[0];
+      cityFromInput = parts.length > 1 ? parts[1] : '';
+    } else {
+      // No commas - detect city by matching known cities
+      // "1234 Main St Kuna ID" or "1234 Main St KUNA"
+      let foundCity = '';
+      for (const city of ADA_CITIES) {
+        if (addressUpper.includes(` ${city}`)) {
+          foundCity = city;
+          break;
+        }
+      }
+      
+      if (foundCity) {
+        // Extract street address (everything before city name)
+        const cityIndex = addressUpper.indexOf(` ${foundCity}`);
+        streetAddress = addressUpper.substring(0, cityIndex).trim();
+        cityFromInput = foundCity;
+      } else {
+        // No city detected - use entire input as street address
+        streetAddress = addressUpper;
+      }
+    }
+    
+    // Remove state suffix from city if present (e.g., "KUNA ID" -> "KUNA")
+    if (cityFromInput) {
+      cityFromInput = cityFromInput.replace(/\s+(ID|IDAHO|,.*)/g, '').trim();
+    }
+    
+    console.log('[AdaCountyAssessor] Parsed:', { streetAddress, cityFromInput });
     
     // Build query: exact match on street address, optionally filter by city
     let query = `ADDCONCAT='${streetAddress.replace(/'/g, "''")}'`;
@@ -51,13 +89,24 @@ export async function searchAdaCountyProperty(address: string): Promise<Property
     
     console.log('[AdaCountyAssessor] Exact match results:', data.features?.length || 0);
     
-    // If no exact match, try partial match on street address only
+    // If no exact match, try partial match on street address
     if (!data.features || data.features.length === 0) {
       const partialQuery = `ADDCONCAT LIKE '%${streetAddress.replace(/'/g, "''")}%'`;
       console.log('[AdaCountyAssessor] Trying partial query:', partialQuery);
-      response = await fetch(`${ADA_COUNTY_PARCEL_API}?where=${encodeURIComponent(partialQuery)}&outFields=PARCEL,ADDCONCAT,CITY&resultRecordCount=5&f=json`);
+      response = await fetch(`${ADA_COUNTY_PARCEL_API}?where=${encodeURIComponent(partialQuery)}&outFields=PARCEL,ADDCONCAT,CITY&resultRecordCount=10&f=json`);
       data = await response.json();
       console.log('[AdaCountyAssessor] Partial match results:', data.features?.length || 0);
+      
+      // If we have a city specified, filter results to that city only
+      if (data.features && data.features.length > 0 && cityFromInput) {
+        const cityFiltered = data.features.filter((f: any) => 
+          f.attributes.CITY && f.attributes.CITY.toUpperCase() === cityFromInput
+        );
+        console.log('[AdaCountyAssessor] City-filtered results:', cityFiltered.length);
+        if (cityFiltered.length > 0) {
+          data.features = cityFiltered;
+        }
+      }
     }
     
     if (!data.features || data.features.length === 0) {
@@ -67,7 +116,7 @@ export async function searchAdaCountyProperty(address: string): Promise<Property
     
     // Use first matching property
     const property = data.features[0].attributes;
-    console.log('[AdaCountyAssessor] Found property:', property);
+    console.log('[AdaCountyAssessor] Selected property:', property);
     
     // For now, the API returns basic info. We'll estimate measurements intelligently
     const propertyData: PropertyData = {
