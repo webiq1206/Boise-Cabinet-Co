@@ -41,6 +41,7 @@ export const CITIES: CityData[] = [
   {
     slug: 'kuna',
     name: 'Kuna',
+    county: 'ada',
     isPrimary: true,
     population: '25,000+',
     zipCodes: ['83634'],
@@ -67,6 +68,7 @@ export const CITIES: CityData[] = [
   {
     slug: 'boise',
     name: 'Boise',
+    county: 'ada',
     isPrimary: false,
     population: '230,000+',
     zipCodes: ['83702', '83703', '83704', '83705', '83706', '83709', '83712', '83713', '83714', '83716'],
@@ -93,6 +95,7 @@ export const CITIES: CityData[] = [
   {
     slug: 'meridian',
     name: 'Meridian',
+    county: 'ada',
     isPrimary: false,
     population: '130,000+',
     zipCodes: ['83642', '83646'],
@@ -119,6 +122,7 @@ export const CITIES: CityData[] = [
   {
     slug: 'nampa',
     name: 'Nampa',
+    county: 'canyon',
     isPrimary: false,
     population: '100,000+',
     zipCodes: ['83651', '83686', '83687'],
@@ -145,6 +149,7 @@ export const CITIES: CityData[] = [
   {
     slug: 'caldwell',
     name: 'Caldwell',
+    county: 'canyon',
     isPrimary: false,
     population: '60,000+',
     zipCodes: ['83605', '83607'],
@@ -171,6 +176,7 @@ export const CITIES: CityData[] = [
   {
     slug: 'eagle',
     name: 'Eagle',
+    county: 'ada',
     isPrimary: false,
     population: '35,000+',
     zipCodes: ['83616', '83646'],
@@ -197,6 +203,7 @@ export const CITIES: CityData[] = [
   {
     slug: 'star',
     name: 'Star',
+    county: 'ada',
     isPrimary: false,
     population: '12,000+',
     zipCodes: ['83669'],
@@ -223,6 +230,7 @@ export const CITIES: CityData[] = [
   {
     slug: 'middleton',
     name: 'Middleton',
+    county: 'canyon',
     isPrimary: false,
     population: '10,000+',
     zipCodes: ['83644'],
