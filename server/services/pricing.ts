@@ -381,7 +381,19 @@ export async function calculateMultiServiceQuote(
         // Linear feet from this service's measurements
         const linearFt = getNumber(measurements.linearFeet, 100);
         basePrice = linearFt * config.rate;
-        description += ` (${linearFt} linear feet)`;
+        
+        // Add service-specific calculation context
+        if (serviceId === 'hedge-trimming') {
+          description += ` (${linearFt} linear feet, estimated as 40% of lot perimeter)`;
+        } else if (serviceId === 'christmas-light-installation') {
+          description += ` (${linearFt} linear feet, roofline with overhang)`;
+        } else if (serviceId === 'fence-installation') {
+          description += ` (${linearFt} linear feet, lot perimeter)`;
+        } else if (serviceId === 'lawn-edging') {
+          description += ` (${linearFt} linear feet, lawn perimeter)`;
+        } else {
+          description += ` (${linearFt} linear feet)`;
+        }
         break;
 
       case "per_zone":
