@@ -852,6 +852,30 @@ export function QuoteWizard({
               </div>
             </div>
 
+            {/* Pricing Guidance for Selected Services */}
+            {selectedServices.length > 0 && (
+              <div className="space-y-3">
+                <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">
+                  Typical Pricing for Your Services
+                </h3>
+                {selectedServices.map((serviceId) => {
+                  const service = PRIORITY_SERVICES.find(s => s.slug === serviceId);
+                  if (!service?.pricingGuidance) return null;
+                  
+                  return (
+                    <div
+                      key={serviceId}
+                      className="p-4 rounded-md bg-muted/30 border border-border/50"
+                      data-testid={`pricing-guidance-${serviceId}`}
+                    >
+                      <div className="font-medium text-sm mb-1">{service.name}</div>
+                      <div className="text-sm text-muted-foreground">{service.pricingGuidance}</div>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+
             {/* Disclaimer */}
             <Alert className="bg-muted/50 border-border">
               <Info className="h-4 w-4" />
