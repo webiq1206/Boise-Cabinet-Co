@@ -23,7 +23,8 @@ import { HeroQuoteSection } from "@/components/HeroQuoteSection";
 import { NearMeFAQ } from "@/components/NearMeFAQ";
 import { generateSEOMetadata, generateLogoAltTag, BUSINESS_INFO } from "@/lib/seo";
 import { generateLocalBusinessSchema, generateOrganizationSchema, generateBreadcrumbSchema } from "@/lib/schema";
-import heroBackground from "@assets/Lawn Care Kuna Background Image_1763675543303.png";
+import heroBackgroundPng from "@assets/Lawn Care Kuna Background Image_1763675543303.png";
+import heroBackgroundWebp from "@assets/Lawn Care Kuna Background Image_1763675543303.webp";
 
 // Lazy load heavy components for better initial page load
 const ServiceAreaMap = lazy(() => import("@/components/ServiceAreaMap").then(mod => ({ default: mod.ServiceAreaMap })));
@@ -173,15 +174,18 @@ export default function Home() {
         <div className="relative overflow-hidden">
           {/* Shared Background Image */}
           <div className="absolute inset-0 z-0">
-            <img 
-              src={heroBackground} 
-              alt="Professional lawn care background with decorative leaves"
-              className="w-full h-full object-cover"
-              width="1920"
-              height="1080"
-              loading="eager"
-              fetchPriority="high"
-            />
+            <picture>
+              <source srcSet={heroBackgroundWebp} type="image/webp" />
+              <img 
+                src={heroBackgroundPng} 
+                alt="Professional lawn care background with decorative leaves"
+                className="w-full h-full object-cover"
+                width="1920"
+                height="900"
+                loading="eager"
+                fetchPriority="high"
+              />
+            </picture>
           </div>
 
           {/* Content Container */}

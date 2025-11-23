@@ -11,7 +11,8 @@ import {
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
 import { Menu, FileText } from "lucide-react";
-import logoUrl from "@assets/Lawn Care Kuna Logo_1763734387982.png";
+import logoUrlPng from "@assets/Lawn Care Kuna Logo_1763734387982.png";
+import logoUrlWebp from "@assets/Lawn Care Kuna Logo_400x100.webp";
 import { PRIORITY_SERVICES } from "@shared/contentData";
 import { SearchBar } from "@/components/SearchBar";
 
@@ -41,15 +42,18 @@ export function Navigation() {
     <header className="sticky top-0 z-50 w-full border-b bg-background/98 backdrop-blur supports-[backdrop-filter]:bg-background/95">
       <nav className="container flex h-20 items-center justify-between gap-4 px-8 md:px-12">
         <Link href="/" className="flex items-center flex-shrink-0">
-          <img 
-            src={logoUrl} 
-            alt="Lawn Care Kuna - Professional Lawn Care and Landscaping Services in Kuna Idaho" 
-            className="h-10 w-auto"
-            width="200"
-            height="40"
-            loading="eager"
-            data-testid="logo-image"
-          />
+          <picture>
+            <source srcSet={logoUrlWebp} type="image/webp" />
+            <img 
+              src={logoUrlPng} 
+              alt="Lawn Care Kuna - Professional Lawn Care and Landscaping Services in Kuna Idaho" 
+              className="h-10 w-auto"
+              width="200"
+              height="40"
+              loading="eager"
+              data-testid="logo-image"
+            />
+          </picture>
         </Link>
 
         {/* Desktop Search */}
