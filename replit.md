@@ -22,7 +22,16 @@ Preferred communication style: Simple, everyday language.
 - **State Management**: TanStack Query for server state, React Hook Form with Zod for forms.
 - **Performance Optimization**: Route-level code splitting dramatically reduces initial JS bundle from ~6-7MB to <1MB for faster mobile performance. All 25+ routes lazy-loaded on demand.
 - **Multi-Service Quote System**: A 4-step intelligent wizard (QuoteWizard) supporting multiple service selections, service-aware field rendering, itemized pricing, and robust validation.
-- **Intelligent Property Calculator**: Automated property measurement system that replaces manual map drawing. Queries Ada County Assessor parcel database API, intelligently estimates lawn area based on city-specific property characteristics (lot sizes, building footprints), and auto-calculates measurements. Supports multiple address formats (with/without commas, street-only) and includes manual adjustment mode.
+- **Intelligent Property Calculator**: Production-ready automated property measurement system that replaces manual map drawing. Queries Ada County Assessor parcel database API via schoolsitelocator.com MapServer Layer 131 (ADDCONCAT, CITY, PARCEL fields). Key features:
+  - **Fuzzy City Matching**: Levenshtein distance algorithm (≤2 edits) handles misspellings like "MERIDAN"→"MERIDIAN"
+  - **Robust Address Parsing**: Supports 3 formats (comma-separated, space-separated, street-only with wizard context)
+  - **Smart LIKE Fallback**: When exact match fails, strips trailing city/ZIP tokens before partial matching
+  - **Multiple Property Selection**: RadioGroup UI when addresses are ambiguous
+  - **Enhanced Error Messages**: Specific errors with actionable user suggestions
+  - **City Context Integration**: Uses wizard-selected city as fallback for street-only inputs
+  - **Clean State Management**: Dialog backdrop preserves user data, Cancel button resets state
+  - **Intelligent Estimation**: Auto-calculates lawn area based on city-specific property characteristics (lot sizes, building footprints)
+  - **Manual Adjustment**: Users can override automated measurements
 - **SEO Optimization**: E-E-A-T optimized, city-specific pages (2000+ words), site-wide internal linking, SEO-optimized headings and FAQs. Includes `robots.txt`, `sitemap.xml`, and `llms.txt`.
   - **City-Specific Metadata**: Every service-in-city page uses unique titles (e.g., "Lawn Mowing in Meridian | Lawn Care Meridian Idaho") and descriptions (e.g., "Meridian's top-rated lawn mowing service...") for maximum local SEO.
   - **URL-Safe Canonicals**: Canonical URLs use city slugs (`/services/lawn-mowing/meridian`) for proper indexing.
