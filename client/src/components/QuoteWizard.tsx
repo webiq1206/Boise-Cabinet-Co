@@ -19,7 +19,7 @@ import { useToast } from "@/hooks/use-toast";
 import { useMutation } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
 import { SERVICE_FIELD_CONFIGS, requiresPropertySize } from "@shared/serviceFieldConfig";
-import { PRIORITY_SERVICES, CITIES } from "@shared/contentData";
+import { SERVICE_PRICING_GUIDANCE_MAP, CITIES } from "@shared/contentData";
 
 // Step 1: Basic Property Info
 const step1Schema = z.object({
@@ -655,8 +655,8 @@ export function QuoteWizard({
                         <div className="grid gap-3 sm:grid-cols-2 pt-2">
                           {categoryServices.map((service) => {
                             const isSelected = selectedServices.includes(service.serviceId);
-                            const serviceContent = PRIORITY_SERVICES.find((s) => s.slug === service.serviceId);
-                            const hasPricing = serviceContent?.pricingGuidance;
+                            const pricingData = SERVICE_PRICING_GUIDANCE_MAP.get(service.serviceId);
+                            const hasPricing = !!pricingData;
                             
                             return (
                               <div
@@ -695,7 +695,7 @@ export function QuoteWizard({
                                       </CollapsibleTrigger>
                                       <CollapsibleContent className="mt-2">
                                         <p className="text-xs text-muted-foreground leading-relaxed">
-                                          {serviceContent.pricingGuidance}
+                                          {pricingData.pricingGuidance}
                                         </p>
                                       </CollapsibleContent>
                                     </Collapsible>
@@ -946,8 +946,8 @@ export function QuoteWizard({
                   Typical Pricing for Your Services
                 </h3>
                 {selectedServices.map((serviceId) => {
-                  const service = PRIORITY_SERVICES.find(s => s.slug === serviceId);
-                  if (!service?.pricingGuidance) return null;
+                  const pricingData = SERVICE_PRICING_GUIDANCE_MAP.get(serviceId);
+                  if (!pricingData) return null;
                   
                   return (
                     <div
@@ -955,8 +955,8 @@ export function QuoteWizard({
                       className="p-4 rounded-md bg-muted/30 border border-border/50"
                       data-testid={`pricing-guidance-${serviceId}`}
                     >
-                      <div className="font-medium text-sm mb-1">{service.name}</div>
-                      <div className="text-sm text-muted-foreground">{service.pricingGuidance}</div>
+                      <div className="font-medium text-sm mb-1">{pricingData.name}</div>
+                      <div className="text-sm text-muted-foreground">{pricingData.pricingGuidance}</div>
                     </div>
                   );
                 })}

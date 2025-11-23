@@ -2691,6 +2691,13 @@ export const CITY_SLUG_MAP = new Map(
   CITIES.map(city => [city.slug, city])
 );
 
+// Service pricing guidance lookup map - includes ALL services with pricingGuidance defined
+export const SERVICE_PRICING_GUIDANCE_MAP = new Map(
+  PRIORITY_SERVICES
+    .filter(service => service.pricingGuidance)
+    .map(service => [service.slug, { name: service.name, pricingGuidance: service.pricingGuidance! }])
+);
+
 // Helper function to get service by slug
 export function getServiceBySlug(slug: string): ServiceData | undefined {
   return SERVICE_SLUG_MAP.get(slug);
