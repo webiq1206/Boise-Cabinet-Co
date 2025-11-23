@@ -1,5 +1,7 @@
 import { getUncachableResendClient } from './resend';
 import { formatQuoteForDisplay } from '../shared/utils';
+import { SERVICE_FIELD_CONFIGS } from '../shared/serviceFieldConfig';
+import { SERVICE_RATES } from './services/pricing';
 
 interface LineItem {
   service: string;
@@ -45,6 +47,14 @@ const emailStyles = `
   }
   .logo-container {
     margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+  }
+  .icon {
+    width: 60px;
+    height: 60px;
   }
   .logo {
     max-width: 300px;
@@ -190,6 +200,86 @@ const emailStyles = `
 // Helper function to delay execution (avoids Resend rate limits)
 const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
+// Create mapping from service name to slug
+const SERVICE_NAME_TO_SLUG: Record<string, string> = Object.entries(SERVICE_RATES).reduce(
+  (acc, [slug, data]) => {
+    acc[data.name] = slug;
+    return acc;
+  },
+  {} as Record<string, string>
+);
+
+/**
+ * Flattens nested serviceData structure and adds proper unit formatting
+ * Input: { "lawn-mowing": { "propertySize": 5000 }, "aeration": { "propertySize": 3000 } }
+ * Output: Array of { label, value, serviceId, serviceName } objects with proper units
+ */
+function flattenServiceDataWithUnits(serviceData: Record<string, Record<string, any>>): Array<{
+  label: string;
+  value: string;
+  serviceId: string;
+  serviceName: string;
+}> {
+  const flattened: Array<{ label: string; value: string; serviceId: string; serviceName: string }> = [];
+  
+  // Iterate over each service in serviceData
+  Object.entries(serviceData).forEach(([serviceId, measurements]) => {
+    // Skip if measurements is not an object or is empty
+    if (!measurements || typeof measurements !== 'object') return;
+    
+    // Find the service config to get field metadata
+    const serviceConfig = SERVICE_FIELD_CONFIGS.find(c => c.serviceId === serviceId);
+    const serviceName = serviceConfig?.serviceName || serviceId;
+    
+    // Iterate over each measurement field for this service
+    Object.entries(measurements).forEach(([fieldName, fieldValue]) => {
+      // Skip empty/null/undefined values
+      if (fieldValue === null || fieldValue === undefined || fieldValue === '') return;
+      
+      // Find the field config to get label and unit
+      const fieldConfig = serviceConfig?.fields.find(f => f.name === fieldName);
+      const label = fieldConfig?.label || fieldName.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
+      const unit = fieldConfig?.unit || '';
+      
+      // Format the value with unit
+      let formattedValue: string;
+      if (typeof fieldValue === 'number') {
+        // Numeric values: add commas and unit
+        formattedValue = unit 
+          ? `${fieldValue.toLocaleString()} ${unit}`
+          : fieldValue.toLocaleString();
+      } else {
+        // Text values: just convert to string
+        formattedValue = String(fieldValue);
+      }
+      
+      flattened.push({
+        label,
+        value: formattedValue,
+        serviceId,
+        serviceName,
+      });
+    });
+  });
+  
+  return flattened;
+}
+
+/**
+ * De-duplicates selectedServices array by removing the primary serviceType if present
+ * Handles both slug and human-readable name formats by converting to slugs for comparison
+ */
+function deduplicateServices(serviceType: string, selectedServices?: string[]): string[] {
+  if (!selectedServices || selectedServices.length === 0) return [];
+  
+  // Convert serviceType to slug if it's a human-readable name
+  // serviceType might be "Lawn Mowing" or "lawn-mowing", selectedServices are always slugs
+  const serviceTypeSlug = SERVICE_NAME_TO_SLUG[serviceType] || serviceType;
+  
+  // Filter out the primary service from the selected services list
+  return selectedServices.filter(s => s !== serviceTypeSlug);
+}
+
 export async function sendQuoteNotification(data: QuoteEmailData) {
   const {
     customerName,
@@ -230,6 +320,55 @@ export async function sendQuoteNotification(data: QuoteEmailData) {
       </div>
     ` : '';
 
+    // De-duplicate selectedServices (remove primary service if it appears in the list)
+    const deduplicatedServices = deduplicateServices(serviceType, selectedServices);
+
+    // Generate comprehensive property details HTML from serviceData (properly flattened)
+    const propertyDetailsHtml = data.serviceData ? (() => {
+      const serviceData = typeof data.serviceData === 'string' ? JSON.parse(data.serviceData) : data.serviceData;
+      
+      // Use the helper function to flatten and format serviceData with proper units
+      const flattenedData = flattenServiceDataWithUnits(serviceData);
+      
+      if (flattenedData.length === 0) return '';
+      
+      // Group measurements by service for better organization
+      const groupedByService: Record<string, Array<{ label: string; value: string }>> = {};
+      flattenedData.forEach(item => {
+        if (!groupedByService[item.serviceName]) {
+          groupedByService[item.serviceName] = [];
+        }
+        groupedByService[item.serviceName].push({
+          label: item.label,
+          value: item.value,
+        });
+      });
+      
+      // Build HTML with measurements grouped by service (only render services with measurements)
+      const sections = Object.entries(groupedByService)
+        .filter(([serviceName, measurements]) => measurements.length > 0)
+        .map(([serviceName, measurements]) => `
+          <div style="margin-bottom: 20px;">
+            <h3 style="color: #166534; font-size: 14px; font-weight: 600; margin: 0 0 10px 0; text-transform: uppercase; letter-spacing: 0.5px;">${serviceName}</h3>
+            <table class="info-table">
+              ${measurements.map(m => `
+                <tr>
+                  <td class="label">${m.label}:</td>
+                  <td class="value">${m.value}</td>
+                </tr>
+              `).join('')}
+            </table>
+          </div>
+        `).join('');
+      
+      return `
+        <div class="section">
+          <h2 class="section-title">Property Measurements & Details</h2>
+          ${sections}
+        </div>
+      `;
+    })() : '';
+
     // Email to business owner
     const ownerEmailHtml = `
       <!DOCTYPE html>
@@ -243,6 +382,7 @@ export async function sendQuoteNotification(data: QuoteEmailData) {
         <div class="email-wrapper">
           <div class="header">
             <div class="logo-container">
+              <img src="https://lawncarekuna.com/attached_assets/lawn-care-kuna-icon.png" alt="Lawn Care Kuna Icon" class="icon">
               <img src="https://lawncarekuna.com/attached_assets/lawn-care-kuna-logo.png" alt="Lawn Care Kuna" class="logo">
             </div>
             <h1>New Quote Request</h1>
@@ -293,13 +433,13 @@ export async function sendQuoteNotification(data: QuoteEmailData) {
                   <td class="value">${address}</td>
                 </tr>
                 ` : ''}
-                ${propertySize ? `
+                ${propertySize !== null && propertySize !== undefined ? `
                 <tr>
                   <td class="label">Property Size:</td>
                   <td class="value">${propertySize.toLocaleString()} sq ft</td>
                 </tr>
                 ` : ''}
-                ${propertyType ? `
+                ${propertyType !== null && propertyType !== undefined && propertyType !== '' ? `
                 <tr>
                   <td class="label">Property Type:</td>
                   <td class="value">${propertyType}</td>
@@ -323,27 +463,34 @@ export async function sendQuoteNotification(data: QuoteEmailData) {
                   <td class="value">${frequency}</td>
                 </tr>
                 ` : ''}
-                ${selectedServices && selectedServices.length > 0 ? `
+                ${deduplicatedServices.length > 0 ? `
                 <tr>
                   <td class="label">Additional Services:</td>
-                  <td class="value">${selectedServices.join(', ')}</td>
+                  <td class="value">${deduplicatedServices.join(', ')}</td>
                 </tr>
                 ` : ''}
               </table>
             </div>
 
+            ${propertyDetailsHtml}
+
             ${lineItemsHtml}
 
-            ${finalQuote ? `
             <div class="divider"></div>
             <div class="section">
               <h2 class="section-title">Total Estimated Quote</h2>
               <table class="info-table">
                 <tr>
-                  <td class="label">AI-Generated Quote:</td>
-                  <td class="value" style="font-size: 24px; font-weight: 700; color: #166534;">$${formatQuoteForDisplay(finalQuote)}</td>
+                  <td class="label">${finalQuote ? 'AI-Generated Quote:' : 'Quote Status:'}</td>
+                  <td class="value" style="font-size: 24px; font-weight: 700; color: #166534;">
+                    ${finalQuote ? `$${formatQuoteForDisplay(finalQuote)}` : 'Pending Property Assessment'}
+                  </td>
                 </tr>
               </table>
+            </div>
+            ${!finalQuote ? `
+            <div style="background: #fffbeb; border-left: 4px solid #f59e0b; padding: 20px; margin: 25px 0; border-radius: 4px;">
+              <p style="margin: 0;"><strong>Note:</strong> The AI quote system requires property measurements to generate an accurate estimate. Please conduct a site visit to assess the property and provide a detailed quote.</p>
             </div>
             ` : ''}
 
@@ -376,6 +523,7 @@ export async function sendQuoteNotification(data: QuoteEmailData) {
         <div class="email-wrapper">
           <div class="header">
             <div class="logo-container">
+              <img src="https://lawncarekuna.com/attached_assets/lawn-care-kuna-icon.png" alt="Lawn Care Kuna Icon" class="icon">
               <img src="https://lawncarekuna.com/attached_assets/lawn-care-kuna-logo.png" alt="Lawn Care Kuna" class="logo">
             </div>
             <h1>Thank You for Your Request</h1>
@@ -396,39 +544,74 @@ export async function sendQuoteNotification(data: QuoteEmailData) {
               <h2 class="section-title">Your Request Summary</h2>
               <table class="info-table">
                 <tr>
-                  <td class="label">Service:</td>
+                  <td class="label">Primary Service:</td>
                   <td class="value">${serviceType}</td>
                 </tr>
+                ${deduplicatedServices.length > 0 ? `
+                <tr>
+                  <td class="label">Additional Services:</td>
+                  <td class="value">${deduplicatedServices.join(', ')}</td>
+                </tr>
+                ` : ''}
                 <tr>
                   <td class="label">Location:</td>
                   <td class="value">${city}${address ? `, ${address}` : ''}</td>
                 </tr>
+                ${propertySize !== null && propertySize !== undefined ? `
+                <tr>
+                  <td class="label">Property Size:</td>
+                  <td class="value">${propertySize.toLocaleString()} sq ft</td>
+                </tr>
+                ` : ''}
+                ${propertyType !== null && propertyType !== undefined && propertyType !== '' ? `
+                <tr>
+                  <td class="label">Property Type:</td>
+                  <td class="value">${propertyType}</td>
+                </tr>
+                ` : ''}
                 ${frequency ? `
                 <tr>
-                  <td class="label">Frequency:</td>
+                  <td class="label">Service Frequency:</td>
                   <td class="value">${frequency}</td>
+                </tr>
+                ` : ''}
+                ${preferredDate ? `
+                <tr>
+                  <td class="label">Preferred Start Date:</td>
+                  <td class="value">${preferredDate}</td>
+                </tr>
+                ` : ''}
+                ${customerPhone ? `
+                <tr>
+                  <td class="label">Contact Phone:</td>
+                  <td class="value">${customerPhone}</td>
                 </tr>
                 ` : ''}
               </table>
             </div>
 
+            ${propertyDetailsHtml}
+
             ${lineItemsHtml}
 
-            ${finalQuote ? `
             <div class="divider"></div>
             <div class="section">
               <h2 class="section-title">Total Estimated Investment</h2>
               <table class="info-table">
                 <tr>
-                  <td class="label">Estimated Total:</td>
-                  <td class="value" style="font-size: 24px; font-weight: 700; color: #166534;">$${formatQuoteForDisplay(finalQuote)}</td>
+                  <td class="label">${finalQuote ? 'Estimated Total:' : 'Quote Status:'}</td>
+                  <td class="value" style="font-size: 24px; font-weight: 700; color: #166534;">
+                    ${finalQuote ? `$${formatQuoteForDisplay(finalQuote)}` : 'Pending Property Assessment'}
+                  </td>
                 </tr>
               </table>
             </div>
             <div style="background: #fffbeb; border-left: 4px solid #f59e0b; padding: 20px; margin: 25px 0; border-radius: 4px;">
-              <p style="margin: 0;"><strong>About Your Estimate:</strong> This is an AI-generated estimate based on typical projects. Your final quote will be customized after we assess your property's unique characteristics and your specific preferences.</p>
+              <p style="margin: 0;"><strong>About Your Estimate:</strong> ${finalQuote 
+                ? 'This is an AI-generated estimate based on typical projects. Your final quote will be customized after we assess your property\'s unique characteristics and your specific preferences.'
+                : 'Your personalized quote will be provided after our team completes a property assessment. We\'ll contact you within 24 hours with detailed pricing based on your property\'s unique characteristics and your specific preferences.'
+              }</p>
             </div>
-            ` : ''}
 
             <div class="divider"></div>
 
