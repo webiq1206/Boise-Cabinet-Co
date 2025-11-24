@@ -8,6 +8,22 @@ Preferred communication style: Simple, everyday language.
 
 ## Recent Changes
 
+### November 24, 2025 - User-Facing Terminology Update
+**Terminology Standardization**: Replaced all user-facing references from "city/cities" to "location/locations" throughout the website for consistent, professional language that better reflects the service area concept.
+
+**Changes Applied** (9 files total):
+- **Quote Forms** (QuoteForm.tsx, QuoteWizard.tsx): Form labels, placeholders, and validation messages updated to "Location"
+- **Service Area Map** (ServiceAreaMap.tsx): Heading "Locations We Serve", ARIA labels, and help text updated
+- **About Page** (About.tsx): Statistics section now displays "Locations in Service Area"
+- **Service Pages** (ServiceDetailPage.tsx, CityCrosslinks.tsx): Descriptions and crosslink headings updated to use "location/locations"
+- **Area Template** (AreaTemplate.tsx): Description text updated from "across the city" to "across the area"
+- **Assessor Libraries** (adaCountyAssessor.ts, canyonCountyAssessor.ts): Error messages and user guidance updated
+
+**Technical Notes**:
+- Internal code variable names (city, cityContext, etc.) preserved for backward compatibility
+- Code comments remain unchanged as internal documentation
+- All changes architect-reviewed and E2E tested
+
 ### November 24, 2025 - Services Mega Menu Redesign
 **Navigation Enhancement**: Transformed the Services dropdown navigation from a plain text-based menu into a beautiful, modern mega menu with enhanced visual hierarchy and interactive elements.
 
