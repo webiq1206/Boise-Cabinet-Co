@@ -39,7 +39,7 @@ export function Footer() {
               </div>
               <div className="flex items-start gap-2 text-sm text-muted-foreground">
                 <MapPin className="h-4 w-4 mt-0.5 flex-shrink-0" />
-                <span>Serving Kuna, Boise, Meridian, Nampa, Caldwell & Eagle</span>
+                <span>Serving Kuna, Boise, Meridian, Eagle, Star & Middleton</span>
               </div>
             </div>
           </div>
@@ -71,6 +71,11 @@ export function Footer() {
               <li>
                 <Link href="/services/landscaping" className="text-muted-foreground hover:text-primary transition-colors">
                   Landscaping Services
+                </Link>
+              </li>
+              <li>
+                <Link href="/blog" className="text-muted-foreground hover:text-primary transition-colors" data-testid="link-blog-footer">
+                  Lawn Care Blog
                 </Link>
               </li>
               <li>

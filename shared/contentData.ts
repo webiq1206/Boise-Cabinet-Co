@@ -120,60 +120,6 @@ export const CITIES: CityData[] = [
     ]
   },
   {
-    slug: 'nampa',
-    name: 'Nampa',
-    county: 'canyon',
-    isPrimary: false,
-    population: '100,000+',
-    zipCodes: ['83651', '83686', '83687'],
-    neighborhoods: ['Centennial', 'South Nampa', 'West Nampa', 'Deer Flat'],
-    extendedDescription: 'Nampa, Canyon County\'s largest city with over 100,000 residents, is a diverse community that balances its agricultural heritage with modern suburban development. Located just west of Meridian along I-84, Nampa offers more affordable housing options than neighboring cities while maintaining access to all Treasure Valley amenities. The city features a mix of established neighborhoods with mature landscaping and newer subdivisions requiring modern lawn care solutions. Nampa\'s climate in USDA Zones 6a-6b presents similar challenges to other Treasure Valley cities - hot, dry summers and cold winters - but with slightly more temperature extremes due to its position further from the moderating influence of the Boise foothills. Heavy clay soil is common throughout Nampa, particularly in areas near Lake Lowell and Deer Flat National Wildlife Refuge, where poor drainage can create standing water issues after irrigation or heavy rain. Many Nampa homeowners seek affordable, reliable lawn care services that deliver professional results without premium pricing, making value and consistency critical service differentiators. The city\'s diverse property types range from small starter homes requiring basic lawn maintenance to larger estate properties around Centennial Golf Course needing comprehensive landscape management including mature tree care, extensive bed maintenance, and specialized irrigation services.',
-    landmarks: ['Lake Lowell', 'Lakeview Park', 'Deer Flat National Wildlife Refuge', 'Nampa Civic Center', 'Warhawk Air Museum', 'Centennial Golf Course', 'Nampa Recreation Center'],
-    serviceConsiderations: 'Nampa\'s heavy clay soil and drainage challenges require fall core aeration and possible drainage solutions for low-lying areas. Lake Lowell proximity means higher humidity and fungus pressure requiring preventive fungicide applications for some lawns. Older neighborhoods around downtown have mature trees creating shade and root competition for turf - requires shade-tolerant grass varieties and reduced fertilization. Budget-conscious market demands competitive pricing and reliable service. Many sprinkler systems are older and require regular repairs. Spring and fall cleanup services popular for removing cottonwood seeds from Lake Lowell area trees. Commercial properties along Nampa-Caldwell Boulevard need professional appearance for customer attraction.',
-    localFactors: {
-      climate: 'Hot summers and cold winters. USDA Zone 6a-6b.',
-      soil: 'Heavy clay soil common, benefits from organic amendments.',
-      commonNeeds: ['Affordable lawn maintenance', 'Clay soil solutions', 'Sprinkler repair', 'Yard cleanup services']
-    },
-    facts: [
-      { label: 'Average lawn size', value: '4,800 sq. ft.' },
-      { label: 'Recommended watering', value: '1-2 in. / wk' },
-      { label: 'Recommended grass height', value: '2.5-3 in.' },
-      { label: 'When to fertilize', value: 'spring / fall' },
-      { label: 'When to aerate', value: 'fall' },
-      { label: 'When to overseed', value: 'fall' },
-      { label: 'When to blow out sprinklers', value: 'Oct / Nov' },
-      { label: 'Growing season', value: 'April - October' }
-    ]
-  },
-  {
-    slug: 'caldwell',
-    name: 'Caldwell',
-    county: 'canyon',
-    isPrimary: false,
-    population: '60,000+',
-    zipCodes: ['83605', '83607'],
-    neighborhoods: ['Ustick', 'Farmway', 'Purple Sage'],
-    extendedDescription: 'Caldwell, the county seat of Canyon County with over 60,000 residents, is a historic community that embraces both its agricultural roots and growing suburban character. Home to The College of Idaho and the Indian Creek Plaza shopping district, Caldwell offers small-town charm with convenient access to Boise metro amenities just 25 miles east via I-84. The city\'s semi-arid climate in USDA Zone 6a creates temperature extremes with scorching summer days often exceeding 100°F and winter nights that can plunge below zero, testing lawn resilience throughout the year. Clay-heavy soil dominates Caldwell\'s landscape, requiring proper preparation before sod installation or seeding and annual core aeration to prevent severe compaction that restricts root growth. Many properties feature established fruit trees - a reminder of Caldwell\'s agricultural heritage - that need specialized pruning and care alongside traditional lawn maintenance. The city\'s mix of older homes around downtown and newer developments like Purple Sage and Farmway creates diverse service needs from basic lawn mowing and trimming to comprehensive landscape renovation projects. Caldwell homeowners value straightforward, honest lawn care service at fair prices without unnecessary upsells, making transparent communication and reliable quality essential for building lasting customer relationships in this tight-knit community.',
-    landmarks: ['College of Idaho', 'Caldwell Indian Creek Plaza', 'Canyon County Historical Museum', 'Caldwell Night Rodeo', 'Memorial Park', 'Caldwell Fine Arts Center'],
-    serviceConsiderations: 'Caldwell\'s temperature extremes stress lawns - summer heat dormancy common for water-stressed grass. Clay soil requires annual fall aeration and organic soil amendments for optimal results. Many properties have mature fruit trees requiring specialized pruning knowledge and timing. Older neighborhoods may have outdated irrigation systems needing upgrades for water efficiency. Spring cleanup critical for removing winter debris and preparing for growing season. Straightforward pricing and honest recommendations build trust in this value-conscious market. Commercial properties around Indian Creek Plaza need consistent maintenance for customer appeal. Weed control challenging in compacted clay - pre-emergent applications in spring essential.',
-    localFactors: {
-      climate: 'Semi-arid climate with temperature extremes. USDA Zone 6a.',
-      soil: 'Clay-heavy soil requiring proper preparation.',
-      commonNeeds: ['Basic lawn care', 'Irrigation winterization', 'Tree and shrub trimming', 'Spring cleanup']
-    },
-    facts: [
-      { label: 'Average lawn size', value: '4,500 sq. ft.' },
-      { label: 'Recommended watering', value: '1-2 in. / wk' },
-      { label: 'Recommended grass height', value: '2.5-3 in.' },
-      { label: 'When to fertilize', value: 'spring / fall' },
-      { label: 'When to aerate', value: 'fall' },
-      { label: 'When to overseed', value: 'fall' },
-      { label: 'When to blow out sprinklers', value: 'Oct / Nov' },
-      { label: 'Growing season', value: 'April - October' }
-    ]
-  },
-  {
     slug: 'eagle',
     name: 'Eagle',
     county: 'ada',

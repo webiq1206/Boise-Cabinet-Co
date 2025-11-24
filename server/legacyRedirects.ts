@@ -45,16 +45,16 @@ const serviceNameMappings: Record<string, string> = {
   'christmas-lights-installation': 'christmas-light-installation',
 };
 
-// Map old city slugs (note: garden-city doesn't exist in new site)
+// Map old city slugs (note: cities no longer serviced redirect to homepage)
 const citySlugMappings: Record<string, string | null> = {
   'kuna': 'kuna',
   'boise': 'boise',
   'meridian': 'meridian',
-  'nampa': 'nampa',
-  'caldwell': 'caldwell',
   'eagle': 'eagle',
   'star': 'star',
   'middleton': 'middleton',
+  'nampa': null, // Redirect to homepage - city no longer serviced
+  'caldwell': null, // Redirect to homepage - city no longer serviced
   'garden-city': null, // Redirect to homepage - city no longer serviced
 };
 

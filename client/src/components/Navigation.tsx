@@ -160,6 +160,19 @@ export function Navigation() {
               </NavigationMenuItem>
 
               <NavigationMenuItem>
+                <Link href="/blog">
+                  <span
+                    className={`px-4 py-2 text-sm font-medium transition-colors cursor-pointer ${
+                      location.startsWith("/blog") ? "text-primary" : "text-foreground/80 hover:text-foreground"
+                    }`}
+                    data-testid="nav-blog"
+                  >
+                    Blog
+                  </span>
+                </Link>
+              </NavigationMenuItem>
+
+              <NavigationMenuItem>
                 <Link href="/contact">
                   <span
                     className={`px-4 py-2 text-sm font-medium transition-colors cursor-pointer ${
@@ -286,6 +299,12 @@ export function Navigation() {
                   <Link href="/about" onClick={() => setMobileOpen(false)}>
                     <div className="px-4 py-3 text-base font-medium rounded-md hover-elevate active-elevate-2 transition-colors" data-testid="link-about-mobile">
                       About
+                    </div>
+                  </Link>
+
+                  <Link href="/blog" onClick={() => setMobileOpen(false)}>
+                    <div className="px-4 py-3 text-base font-medium rounded-md hover-elevate active-elevate-2 transition-colors" data-testid="link-blog-mobile">
+                      Blog
                     </div>
                   </Link>
 

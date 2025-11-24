@@ -45,8 +45,6 @@ const MunicipalServices = lazy(() => import("@/pages/commercial/MunicipalService
 const Kuna = lazy(() => import("@/pages/areas/Kuna"));
 const Boise = lazy(() => import("@/pages/areas/Boise"));
 const Meridian = lazy(() => import("@/pages/areas/Meridian"));
-const Nampa = lazy(() => import("@/pages/areas/Nampa"));
-const Caldwell = lazy(() => import("@/pages/areas/Caldwell"));
 const Eagle = lazy(() => import("@/pages/areas/Eagle"));
 const Star = lazy(() => import("@/pages/areas/Star"));
 const Middleton = lazy(() => import("@/pages/areas/Middleton"));
@@ -105,8 +103,6 @@ function Router() {
             <Route path="/areas/kuna" component={Kuna} />
             <Route path="/areas/boise" component={Boise} />
             <Route path="/areas/meridian" component={Meridian} />
-            <Route path="/areas/nampa" component={Nampa} />
-            <Route path="/areas/caldwell" component={Caldwell} />
             <Route path="/areas/eagle" component={Eagle} />
             <Route path="/areas/star" component={Star} />
             <Route path="/areas/middleton" component={Middleton} />
