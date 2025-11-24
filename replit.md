@@ -25,6 +25,14 @@ Preferred communication style: Simple, everyday language.
 - **Intelligent Property Calculator**: Production-ready automated property measurement system querying Ada County Assessor parcel database API via schoolsitelocator.com MapServer. Features include address normalization, multi-county support, fuzzy city matching, robust address parsing, multiple property selection, enhanced error messages, city context integration, auto-population, clean state management, comprehensive linear measurements, service-specific auto-population, intelligent estimation, and manual adjustment.
 - **SEO Optimization**: E-E-A-T optimized, city-specific pages (2000+ words), site-wide internal linking, SEO-optimized headings and FAQs. Includes `robots.txt`, `sitemap.xml`, and `llms.txt`. Features city-specific metadata, URL-safe canonicals, smart title generation, and crawler-friendly defaults.
 - **Dynamic Content**: Navigation and footer automatically display all services and service areas from `contentData.ts`.
+- **Mega Menu Navigation**: Organized into 4 balanced service columns using MENU_GROUPS configuration:
+  1. **Lawn Care**: 8 services including mowing, aeration, fertilization, weed control
+  2. **Landscaping**: 6 services including patio installation, retaining walls, hedge trimming
+  3. **Seasonal & Specialty**: 7 services including spring/fall cleanup, snow removal, Christmas lights, tree services
+  4. **Irrigation & Lighting**: 6 services including sprinkler systems, irrigation repair/maintenance, landscape lighting
+  - Desktop: 4-column grid mega menu (900px wide) with category icons
+  - Mobile: Same grouping structure with collapsible categories
+  - Icons: Scissors (Lawn Care), TreeDeciduous (Landscaping), Snowflake (Seasonal), Droplets (Irrigation)
 - **Mobile Navigation**: Sticky bottom navigation with quick access to services, quotes, and scheduling.
 - **Site-Wide Search**: Real-time autocomplete search in header for services, areas, and main pages.
 - **Lead Distribution System**: A B2B lead marketplace with admin dashboard, subcontractor portal, privacy protection, automated lead pricing, legal agreement flow, and in-app notifications. Integrates with Stripe for payments.
