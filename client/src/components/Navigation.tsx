@@ -10,23 +10,83 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
-import { Menu, FileText, Scissors, TreeDeciduous, Sparkles, Building2, ArrowRight } from "lucide-react";
+import { Menu, FileText, Scissors, TreeDeciduous, Sparkles, Droplets, Building2, ArrowRight, Snowflake } from "lucide-react";
 import logoUrlPng from "@assets/Lawn Care Kuna Logo_1763734387982.png";
 import logoUrlWebp from "@assets/Lawn Care Kuna Logo_400x100.webp";
 import { PRIORITY_SERVICES } from "@shared/contentData";
 import { SearchBar } from "@/components/SearchBar";
 
-const lawnCareServices = PRIORITY_SERVICES
-  .filter(s => s.category === 'lawn-care')
-  .map(s => ({ name: s.name, href: `/services/${s.slug}` }));
+// Menu grouping configuration - organizes all services into logical categories
+interface MenuGroup {
+  title: string;
+  icon: typeof Scissors;
+  serviceSlugs: string[];
+}
 
-const landscapingServices = PRIORITY_SERVICES
-  .filter(s => s.category.startsWith('landscaping-'))
-  .map(s => ({ name: s.name, href: `/services/${s.slug}` }));
+const MENU_GROUPS: MenuGroup[] = [
+  {
+    title: "Lawn Care",
+    icon: Scissors,
+    serviceSlugs: [
+      'lawn-mowing',
+      'aeration',
+      'fertilization',
+      'weed-control',
+      'dethatching',
+      'overseeding',
+      'lawn-edging',
+      'lawn-renovation',
+    ]
+  },
+  {
+    title: "Landscaping",
+    icon: TreeDeciduous,
+    serviceSlugs: [
+      'patio-installation',
+      'retaining-walls',
+      'fire-pit-installation',
+      'hedge-trimming',
+      'mulch-installation',
+      'sod-installation',
+    ]
+  },
+  {
+    title: "Seasonal & Specialty",
+    icon: Snowflake,
+    serviceSlugs: [
+      'spring-cleanup',
+      'fall-cleanup',
+      'snow-removal',
+      'christmas-light-installation',
+      'tree-trimming',
+      'tree-removal',
+      'stump-grinding',
+    ]
+  },
+  {
+    title: "Irrigation & Lighting",
+    icon: Droplets,
+    serviceSlugs: [
+      'sprinkler-system-installation',
+      'sprinkler-repair',
+      'irrigation-repair',
+      'irrigation-maintenance',
+      'sprinkler-blowout',
+      'landscape-lighting',
+    ]
+  },
+];
 
-const christmasLightsServices = PRIORITY_SERVICES
-  .filter(s => s.category === 'christmas-lights')
-  .map(s => ({ name: s.name, href: `/services/${s.slug}` }));
+// Build menu items from PRIORITY_SERVICES using the slug-based grouping
+const menuGroups = MENU_GROUPS.map(group => ({
+  ...group,
+  services: group.serviceSlugs
+    .map(slug => {
+      const service = PRIORITY_SERVICES.find(s => s.slug === slug);
+      return service ? { name: service.name, href: `/services/${service.slug}` } : null;
+    })
+    .filter((s): s is { name: string; href: string } => s !== null)
+}));
 
 const commercialServices = [
   { name: "HOA Services", href: "/commercial/hoa-services" },
@@ -85,61 +145,17 @@ export function Navigation() {
                 <NavigationMenuContent>
                   <div className="w-[900px] p-6">
                     <div className="grid gap-4 md:grid-cols-4">
-                      {/* Lawn Care Column */}
-                      <div className="bg-muted/30 rounded-lg p-5 space-y-3 border border-border/50">
-                        <div className="flex items-center gap-2 mb-3">
-                          <div className="p-2 rounded-md bg-primary/10">
-                            <Scissors className="h-4 w-4 text-primary" />
-                          </div>
-                          <h3 className="text-sm font-bold text-foreground">Lawn Care</h3>
-                        </div>
-                        <ul className="space-y-1">
-                          {lawnCareServices.map((service) => (
-                            <li key={service.href}>
-                              <Link href={service.href}>
-                                <span className="group flex items-center gap-2 select-none rounded-md px-3 py-2 text-sm leading-tight transition-colors hover-elevate cursor-pointer" data-testid={`link-${service.name.toLowerCase().replace(/\s+/g, '-')}`}>
-                                  <ArrowRight className="h-3 w-3 text-muted-foreground group-hover:text-primary transition-colors opacity-0 group-hover:opacity-100" />
-                                  <span className="group-hover:text-primary transition-colors">{service.name}</span>
-                                </span>
-                              </Link>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-
-                      {/* Landscaping Column */}
-                      <div className="bg-muted/30 rounded-lg p-5 space-y-3 border border-border/50">
-                        <div className="flex items-center gap-2 mb-3">
-                          <div className="p-2 rounded-md bg-primary/10">
-                            <TreeDeciduous className="h-4 w-4 text-primary" />
-                          </div>
-                          <h3 className="text-sm font-bold text-foreground">Landscaping</h3>
-                        </div>
-                        <ul className="space-y-1">
-                          {landscapingServices.map((service) => (
-                            <li key={service.href}>
-                              <Link href={service.href}>
-                                <span className="group flex items-center gap-2 select-none rounded-md px-3 py-2 text-sm leading-tight transition-colors hover-elevate cursor-pointer" data-testid={`link-${service.name.toLowerCase().replace(/\s+/g, '-')}`}>
-                                  <ArrowRight className="h-3 w-3 text-muted-foreground group-hover:text-primary transition-colors opacity-0 group-hover:opacity-100" />
-                                  <span className="group-hover:text-primary transition-colors">{service.name}</span>
-                                </span>
-                              </Link>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-
-                      {/* Seasonal Column */}
-                      {christmasLightsServices.length > 0 && (
-                        <div className="bg-muted/30 rounded-lg p-5 space-y-3 border border-border/50">
+                      {/* Service Columns */}
+                      {menuGroups.map((group) => (
+                        <div key={group.title} className="bg-muted/30 rounded-lg p-5 space-y-3 border border-border/50">
                           <div className="flex items-center gap-2 mb-3">
                             <div className="p-2 rounded-md bg-primary/10">
-                              <Sparkles className="h-4 w-4 text-primary" />
+                              <group.icon className="h-4 w-4 text-primary" />
                             </div>
-                            <h3 className="text-sm font-bold text-foreground">Seasonal</h3>
+                            <h3 className="text-sm font-bold text-foreground">{group.title}</h3>
                           </div>
                           <ul className="space-y-1">
-                            {christmasLightsServices.map((service) => (
+                            {group.services.map((service) => (
                               <li key={service.href}>
                                 <Link href={service.href}>
                                   <span className="group flex items-center gap-2 select-none rounded-md px-3 py-2 text-sm leading-tight transition-colors hover-elevate cursor-pointer" data-testid={`link-${service.name.toLowerCase().replace(/\s+/g, '-')}`}>
@@ -151,29 +167,7 @@ export function Navigation() {
                             ))}
                           </ul>
                         </div>
-                      )}
-
-                      {/* Commercial Column */}
-                      <div className="bg-muted/30 rounded-lg p-5 space-y-3 border border-border/50">
-                        <div className="flex items-center gap-2 mb-3">
-                          <div className="p-2 rounded-md bg-primary/10">
-                            <Building2 className="h-4 w-4 text-primary" />
-                          </div>
-                          <h3 className="text-sm font-bold text-foreground">Commercial</h3>
-                        </div>
-                        <ul className="space-y-1">
-                          {commercialServices.map((service) => (
-                            <li key={service.href}>
-                              <Link href={service.href}>
-                                <span className="group flex items-center gap-2 select-none rounded-md px-3 py-2 text-sm leading-tight transition-colors hover-elevate cursor-pointer" data-testid={`link-${service.name.toLowerCase().replace(/\s+/g, '-')}`}>
-                                  <ArrowRight className="h-3 w-3 text-muted-foreground group-hover:text-primary transition-colors opacity-0 group-hover:opacity-100" />
-                                  <span className="group-hover:text-primary transition-colors">{service.name}</span>
-                                </span>
-                              </Link>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
+                      ))}
                     </div>
 
                     {/* View All Services CTA */}
@@ -279,40 +273,12 @@ export function Navigation() {
                   </div>
                 </Link>
                 
-                {/* Lawn Care Services */}
-                <div className="mt-4">
-                  <h3 className="px-4 py-2 text-sm font-semibold text-foreground tracking-wide uppercase">Lawn Care Services</h3>
-                  <div className="mt-1 space-y-0.5">
-                    {lawnCareServices.map((service) => (
-                      <Link key={service.href} href={service.href} onClick={() => setMobileOpen(false)}>
-                        <div className="px-6 py-2.5 text-sm rounded-md hover-elevate active-elevate-2 transition-colors">
-                          {service.name}
-                        </div>
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Landscaping */}
-                <div className="mt-4">
-                  <h3 className="px-4 py-2 text-sm font-semibold text-foreground tracking-wide uppercase">Landscaping</h3>
-                  <div className="mt-1 space-y-0.5">
-                    {landscapingServices.map((service) => (
-                      <Link key={service.href} href={service.href} onClick={() => setMobileOpen(false)}>
-                        <div className="px-6 py-2.5 text-sm rounded-md hover-elevate active-elevate-2 transition-colors">
-                          {service.name}
-                        </div>
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Seasonal Services */}
-                {christmasLightsServices.length > 0 && (
-                  <div className="mt-4">
-                    <h3 className="px-4 py-2 text-sm font-semibold text-foreground tracking-wide uppercase">Seasonal</h3>
+                {/* All Service Groups */}
+                {menuGroups.map((group) => (
+                  <div key={group.title} className="mt-4">
+                    <h3 className="px-4 py-2 text-sm font-semibold text-foreground tracking-wide uppercase">{group.title}</h3>
                     <div className="mt-1 space-y-0.5">
-                      {christmasLightsServices.map((service) => (
+                      {group.services.map((service) => (
                         <Link key={service.href} href={service.href} onClick={() => setMobileOpen(false)}>
                           <div className="px-6 py-2.5 text-sm rounded-md hover-elevate active-elevate-2 transition-colors">
                             {service.name}
@@ -321,11 +287,11 @@ export function Navigation() {
                       ))}
                     </div>
                   </div>
-                )}
+                ))}
 
                 {/* Commercial Services */}
                 <div className="mt-4">
-                  <h3 className="px-4 py-2 text-sm font-semibold text-foreground tracking-wide uppercase">Commercial Services</h3>
+                  <h3 className="px-4 py-2 text-sm font-semibold text-foreground tracking-wide uppercase">Commercial</h3>
                   <div className="mt-1 space-y-0.5">
                     {commercialServices.map((service) => (
                       <Link key={service.href} href={service.href} onClick={() => setMobileOpen(false)}>
