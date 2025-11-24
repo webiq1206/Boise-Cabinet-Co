@@ -183,7 +183,7 @@ export default function Home() {
                 width="1920"
                 height="900"
                 loading="eager"
-                fetchPriority="high"
+                {...({ fetchpriority: "high" } as React.ImgHTMLAttributes<HTMLImageElement>)}
               />
             </picture>
           </div>
