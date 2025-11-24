@@ -5,6 +5,12 @@ import { Calendar, ArrowLeft, Tag, Clock, User } from "lucide-react";
 import { format } from "date-fns";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 export default function BlogPost() {
   const params = useParams<{ slug: string }>();
@@ -159,6 +165,38 @@ export default function BlogPost() {
                     data-testid="content-post"
                     dangerouslySetInnerHTML={{ __html: post.content }}
                   />
+
+                  {/* FAQs Section */}
+                  {post.faqs && post.faqs.length > 0 && (
+                    <div className="mt-16" data-testid="section-faqs">
+                      <h2 className="text-3xl font-bold mb-6 pb-3 border-b border-border/50">
+                        Frequently Asked Questions
+                      </h2>
+                      <Accordion type="single" collapsible className="space-y-4">
+                        {post.faqs.map((faq, index) => (
+                          <AccordionItem 
+                            key={index} 
+                            value={`faq-${index}`}
+                            className="border rounded-lg px-6 bg-muted/30"
+                            data-testid={`faq-item-${index}`}
+                          >
+                            <AccordionTrigger 
+                              className="text-left font-semibold hover:no-underline py-5"
+                              data-testid={`faq-question-${index}`}
+                            >
+                              {faq.question}
+                            </AccordionTrigger>
+                            <AccordionContent 
+                              className="text-muted-foreground pb-5"
+                              data-testid={`faq-answer-${index}`}
+                            >
+                              {faq.answer}
+                            </AccordionContent>
+                          </AccordionItem>
+                        ))}
+                      </Accordion>
+                    </div>
+                  )}
 
                   {/* Bottom CTA */}
                   <div className="mt-16 pt-8 border-t">
