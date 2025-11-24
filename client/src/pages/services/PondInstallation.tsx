@@ -109,7 +109,7 @@ export default function PondInstallation() {
                     Professional pond installation available in:
                   </p>
                   <div className="flex flex-wrap gap-2">
-                    {['Kuna', 'Boise', 'Meridian', 'Nampa', 'Caldwell', 'Eagle'].map((city) => (
+                    {['Kuna', 'Boise', 'Meridian', 'Eagle', 'Star', 'Middleton'].map((city) => (
                       <Button key={city} variant="outline" size="sm" asChild data-testid={`button-city-${city.toLowerCase()}`}>
                         <Link href={`/services/pond-installation/${city.toLowerCase()}`}>{city}</Link>
                       </Button>

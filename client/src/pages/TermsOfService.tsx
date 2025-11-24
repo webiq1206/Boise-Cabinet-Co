@@ -355,7 +355,7 @@ export default function TermsOfService() {
                   <p><strong>Lawn Care Kuna</strong></p>
                   <p><strong>Phone:</strong> <a href="tel:2083522011" className="text-primary hover:underline" data-testid="link-terms-phone">(208) 352-2011</a></p>
                   <p><strong>Email:</strong> <a href="mailto:hello@lawncarekuna.com" className="text-primary hover:underline" data-testid="link-terms-email">hello@lawncarekuna.com</a></p>
-                  <p><strong>Service Areas:</strong> Kuna, Boise, Meridian, Nampa, Caldwell, Eagle, and surrounding Treasure Valley communities</p>
+                  <p><strong>Service Areas:</strong> Kuna, Boise, Meridian, Eagle, Star, Middleton, and surrounding Treasure Valley communities</p>
                 </div>
               </CardContent>
             </Card>

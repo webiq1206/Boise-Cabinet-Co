@@ -264,10 +264,10 @@ export default function HOAServices() {
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-3xl font-bold mb-6">HOA Services Across the Treasure Valley</h2>
             <p className="text-lg text-muted-foreground mb-8">
-              We serve homeowners associations in Kuna, Boise, Meridian, Nampa, Caldwell, Eagle, and surrounding communities
+              We serve homeowners associations in Kuna, Boise, Meridian, Eagle, Star, Middleton, and surrounding communities
             </p>
             <div className="flex flex-wrap justify-center gap-3">
-              {['Kuna', 'Boise', 'Meridian', 'Nampa', 'Caldwell', 'Eagle'].map((city) => (
+              {['Kuna', 'Boise', 'Meridian', 'Eagle', 'Star', 'Middleton'].map((city) => (
                 <Button key={city} variant="outline" asChild>
                   <Link href={`/commercial/hoa-services/${city.toLowerCase()}`}>{city} HOA Services</Link>
                 </Button>

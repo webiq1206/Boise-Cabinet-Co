@@ -139,7 +139,7 @@ export default function PatioInstallation() {
                     Professional patio installation available in:
                   </p>
                   <div className="flex flex-wrap gap-2">
-                    {['Kuna', 'Boise', 'Meridian', 'Nampa', 'Caldwell', 'Eagle'].map((city) => (
+                    {['Kuna', 'Boise', 'Meridian', 'Eagle', 'Star', 'Middleton'].map((city) => (
                       <Button key={city} variant="outline" size="sm" asChild>
                         <Link href={`/services/patio-installation/${city.toLowerCase()}`}>{city}</Link>
                       </Button>

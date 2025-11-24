@@ -74,7 +74,7 @@ interface QuoteData {
   };
 }
 
-const CITIES = ["Kuna", "Boise", "Meridian", "Nampa", "Caldwell", "Eagle"];
+const CITIES = ["Kuna", "Boise", "Meridian", "Eagle", "Star", "Middleton"];
 
 const SERVICES = [
   { id: "lawn-mowing", name: "Lawn Mowing & Edging", description: "Regular cutting and trimming" },

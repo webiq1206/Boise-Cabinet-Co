@@ -280,10 +280,10 @@ export default function ChristmasLights() {
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-3xl font-bold mb-6">Serving the Treasure Valley</h2>
             <p className="text-lg text-muted-foreground mb-8">
-              Professional Christmas light installation available in Kuna, Boise, Meridian, Nampa, Caldwell, Eagle, and surrounding areas
+              Professional Christmas light installation available in Kuna, Boise, Meridian, Eagle, Star, Middleton, and surrounding areas
             </p>
             <div className="flex flex-wrap justify-center gap-4">
-              {['Kuna', 'Boise', 'Meridian', 'Nampa', 'Caldwell', 'Eagle'].map((city) => (
+              {['Kuna', 'Boise', 'Meridian', 'Eagle', 'Star', 'Middleton'].map((city) => (
                 <Button key={city} variant="outline" asChild>
                   <Link href={`/services/christmas-lights/${city.toLowerCase()}`}>{city}</Link>
                 </Button>

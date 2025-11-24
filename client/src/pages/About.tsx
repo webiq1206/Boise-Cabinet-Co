@@ -74,7 +74,7 @@ export default function About() {
                 We understand Idaho's unique climate challenges - from scorching summer heat to freezing winter temperatures. Our team has the local expertise to ensure your lawn and landscape thrives year-round in our high-desert climate.
               </p>
               <p className="text-lg text-muted-foreground">
-                Today, we proudly serve residential and commercial properties across Kuna, Boise, Meridian, Nampa, Caldwell, and Eagle, maintaining our commitment to honest service, quality workmanship, and customer satisfaction.
+                Today, we proudly serve residential and commercial properties across Kuna, Boise, Meridian, Eagle, Star, and Middleton, maintaining our commitment to honest service, quality workmanship, and customer satisfaction.
               </p>
             </div>
           </div>
@@ -438,7 +438,7 @@ export default function About() {
                     <div>
                       <h3 className="font-semibold text-lg mb-2">Serving Treasure Valley Since 2017</h3>
                       <p className="text-muted-foreground">
-                        Proud to serve our local community for over 7 years. We've built lasting relationships with homeowners and businesses across Kuna, Boise, Meridian, Nampa, Caldwell, and Eagle.
+                        Proud to serve our local community for over 7 years. We've built lasting relationships with homeowners and businesses across Kuna, Boise, Meridian, Eagle, Star, and Middleton.
                       </p>
                     </div>
                   </div>

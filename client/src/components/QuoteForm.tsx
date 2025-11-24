@@ -532,9 +532,9 @@ export function QuoteForm({ className, compact = false, preselectedService, pres
                       <SelectItem value="kuna">Kuna</SelectItem>
                       <SelectItem value="boise">Boise</SelectItem>
                       <SelectItem value="meridian">Meridian</SelectItem>
-                      <SelectItem value="nampa">Nampa</SelectItem>
-                      <SelectItem value="caldwell">Caldwell</SelectItem>
                       <SelectItem value="eagle">Eagle</SelectItem>
+                      <SelectItem value="star">Star</SelectItem>
+                      <SelectItem value="middleton">Middleton</SelectItem>
                     </SelectContent>
                   </Select>
                   <FormMessage />

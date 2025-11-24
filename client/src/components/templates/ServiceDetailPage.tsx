@@ -164,7 +164,7 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
                 </h4>
                 <p className="text-base md:text-lg">
                   We provide professional {service.name.toLowerCase()} services throughout Idaho's Treasure Valley, 
-                  including Kuna, Boise, Meridian, Nampa, Caldwell, and Eagle. Our experienced team delivers 
+                  including Kuna, Boise, Meridian, Eagle, Star, and Middleton. Our experienced team delivers 
                   exceptional results tailored to Idaho's unique climate and soil conditions.
                 </p>
               </div>
@@ -350,7 +350,7 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
               Looking for additional lawn care services in Idaho?
             </h2>
             <p className="text-xl text-primary-foreground/90 leading-relaxed">
-              We serve homeowners throughout the Treasure Valley including Kuna, Boise, Meridian, Nampa, Caldwell, and Eagle.
+              We serve homeowners throughout the Treasure Valley including Kuna, Boise, Meridian, Eagle, Star, and Middleton.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
               <Button size="lg" variant="secondary" asChild data-testid="button-service-areas">
@@ -458,7 +458,7 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
             </div>
 
             <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
-              {['Kuna', 'Boise', 'Meridian', 'Nampa', 'Caldwell', 'Eagle'].map(city => (
+              {['Kuna', 'Boise', 'Meridian', 'Eagle', 'Star', 'Middleton'].map(city => (
                 <Link key={city} href={`/services/${service.slug}/${city.toLowerCase()}`} data-testid={`link-service-area-${city.toLowerCase()}`}>
                   <Card className="hover-elevate cursor-pointer">
                     <CardContent className="p-6 text-center">

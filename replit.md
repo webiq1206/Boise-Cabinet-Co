@@ -6,6 +6,23 @@ The Lawn Care Kuna website is a professional online platform for a local Idaho b
 ## User Preferences
 Preferred communication style: Simple, everyday language.
 
+## Recent Changes
+
+### November 24, 2025 - Service Area Finalization
+**Service Area Update**: Completed comprehensive removal of Nampa and Caldwell from all user-facing content across the website. The service area is now strictly limited to **6 cities only**: Kuna, Boise, Meridian, Eagle, Star, and Middleton.
+
+**Files Updated** (18 total):
+- ServiceAreaMap.tsx - Updated cities array
+- AreaTemplate.tsx - Updated city list in template
+- ServiceDetailPage.tsx - Removed from service area sections
+- QuoteForm.tsx & QuoteWizard - Updated city dropdown options
+- NearMeFAQ.tsx - Updated FAQ text
+- All service pages (ChristmasLights, LawnMowing, FenceInstallation, IrrigationInstallation, PatioInstallation, PondInstallation)
+- About.tsx, Contact.tsx, Services.tsx, TermsOfService.tsx
+- HOAServices.tsx - Commercial page update
+
+**Note**: Canyon County Assessor API integration code (lib/assessors/) intentionally preserved as Middleton is located in Canyon County and requires this API access for property measurement features.
+
 ## System Architecture
 
 ### UI/UX Decisions

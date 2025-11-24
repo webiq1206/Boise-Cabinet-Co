@@ -124,7 +124,7 @@ export default function LawnMowing() {
                     We provide professional lawn mowing services throughout the Treasure Valley:
                   </p>
                   <div className="flex flex-wrap gap-2">
-                    {['Kuna', 'Boise', 'Meridian', 'Nampa', 'Caldwell', 'Eagle'].map((city) => (
+                    {['Kuna', 'Boise', 'Meridian', 'Eagle', 'Star', 'Middleton'].map((city) => (
                       <Button key={city} variant="outline" size="sm" asChild>
                         <Link href={`/services/lawn-mowing/${city.toLowerCase()}`}>{city}</Link>
                       </Button>

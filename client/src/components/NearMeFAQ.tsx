@@ -28,7 +28,7 @@ export function NearMeFAQ({ city = "Kuna", serviceName = "lawn care" }: NearMeFA
     },
     {
       question: `What areas do you serve in the Treasure Valley?`,
-      answer: `We proudly serve ${city}, Boise, Meridian, Nampa, Caldwell, Eagle, Star, and Middleton - covering the entire Treasure Valley within a 25-mile radius. As your local ${serviceName} experts, we're committed to serving all these communities with licensed, insured professionals.`,
+      answer: `We proudly serve ${city}, Boise, Meridian, Eagle, Star, and Middleton - covering the entire Treasure Valley within a 25-mile radius. As your local ${serviceName} experts, we're committed to serving all these communities with licensed, insured professionals.`,
     },
     {
       question: `Why choose Lawn Care Kuna for ${serviceName}?`,

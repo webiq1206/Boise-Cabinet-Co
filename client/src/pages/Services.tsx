@@ -106,7 +106,7 @@ export default function Services() {
               Complete Lawn Care & Landscaping Solutions
             </h1>
             <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
-              From routine lawn maintenance to complete landscape transformations, we provide professional services throughout Idaho's Treasure Valley. Serving Kuna, Boise, Meridian, Nampa, Caldwell, and Eagle with reliable, high-quality results.
+              From routine lawn maintenance to complete landscape transformations, we provide professional services throughout Idaho's Treasure Valley. Serving Kuna, Boise, Meridian, Eagle, Star, and Middleton with reliable, high-quality results.
             </p>
             <div className="flex flex-wrap gap-4 justify-center pt-4">
               <Button size="lg" asChild data-testid="button-get-quote">
@@ -242,7 +242,7 @@ export default function Services() {
               We proudly provide professional lawn care and landscaping services to homeowners and businesses throughout the greater Boise area.
             </p>
             <div className="flex flex-wrap gap-3 justify-center text-sm">
-              {['Kuna', 'Boise', 'Meridian', 'Nampa', 'Caldwell', 'Eagle'].map((city) => (
+              {['Kuna', 'Boise', 'Meridian', 'Eagle', 'Star', 'Middleton'].map((city) => (
                 <Link key={city} href={`/areas/${city.toLowerCase()}`}>
                   <div className="px-4 py-2 bg-card border rounded-md hover-elevate cursor-pointer" data-testid={`city-link-${city.toLowerCase()}`}>
                     {city}

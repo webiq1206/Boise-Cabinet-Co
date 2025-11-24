@@ -91,7 +91,7 @@ export default function Contact() {
                           Kuna, ID 83634
                         </p>
                         <p className="text-xs text-muted-foreground mt-2">
-                          Serving Kuna, Boise, Meridian, Nampa, Caldwell, Eagle & surrounding areas
+                          Serving Kuna, Boise, Meridian, Eagle, Star, Middleton & surrounding areas
                         </p>
                       </div>
                     </div>

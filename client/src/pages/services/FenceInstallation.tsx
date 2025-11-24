@@ -91,7 +91,7 @@ export default function FenceInstallation() {
                 <div className="bg-muted/50 p-6 rounded-md">
                   <h2 className="text-2xl font-bold mb-4" data-testid="heading-areas">Service Areas</h2>
                   <div className="flex flex-wrap gap-2">
-                    {['Kuna', 'Boise', 'Meridian', 'Nampa', 'Caldwell', 'Eagle'].map((city) => (
+                    {['Kuna', 'Boise', 'Meridian', 'Eagle', 'Star', 'Middleton'].map((city) => (
                       <Button key={city} variant="outline" size="sm" asChild data-testid={`button-city-${city.toLowerCase()}`}>
                         <Link href={`/services/fence-installation/${city.toLowerCase()}`}>{city}</Link>
                       </Button>
