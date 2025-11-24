@@ -1,7 +1,7 @@
 import { PricingCalculator } from "@/components/PricingCalculator";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Check } from "lucide-react";
+import { Check, ArrowRight } from "lucide-react";
 import { Link } from "wouter";
 
 // Map service display names to their URL slugs
@@ -118,10 +118,13 @@ export default function Pricing() {
                               {slug ? (
                                 <Link 
                                   href={`/services/${slug}`}
-                                  className="font-medium hover:text-primary hover:underline transition-colors"
+                                  className="font-medium text-primary hover:underline transition-colors cursor-pointer group"
                                   data-testid={serviceNameTestId}
                                 >
-                                  {service.name}
+                                  <span className="flex items-center gap-1">
+                                    {service.name}
+                                    <ArrowRight className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+                                  </span>
                                 </Link>
                               ) : (
                                 <div className="font-medium">{service.name}</div>
