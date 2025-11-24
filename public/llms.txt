@@ -104,7 +104,7 @@ Note: We do NOT service Nampa or Caldwell. Our six service cities are: Kuna, Boi
 - **Stripe Integration**: Secure payment processing for lead purchases
 
 ### Content & SEO Features
-- **Blog System**: 23 comprehensive articles covering Idaho lawn care, landscaping, seasonal tips
+- **Blog System**: 40 comprehensive articles covering Idaho lawn care, landscaping, seasonal tips
 - **Bidirectional Internal Linking**: Service pages link to relevant blog posts; blog posts link to service pages
 - **500+ SEO Pages**: 28 services × 6 cities + blog + main pages = comprehensive local SEO coverage
 - **City-Specific Metadata**: Unique title tags, meta descriptions, and H1s for each service-city combination
@@ -112,7 +112,7 @@ Note: We do NOT service Nampa or Caldwell. Our six service cities are: Kuna, Boi
 - **FAQ Schema**: Structured data for enhanced search results
 - **Site-Wide Search**: Real-time autocomplete search for services, areas, and content
 
-## Blog Content Topics (23 Articles)
+## Blog Content Topics (40 Articles)
 
 ### Seasonal Lawn Care Guides
 - Spring Lawn Prep Checklist for Treasure Valley Yards
