@@ -9,7 +9,8 @@ export type ServiceFieldType =
   | "quantity"
   | "height"
   | "systemAge"
-  | "installationAreas";
+  | "installationAreas"
+  | "lightingType";
 
 export interface ServiceField {
   name: ServiceFieldType;
@@ -266,6 +267,14 @@ export const SERVICE_FIELD_CONFIGS: ServiceFieldConfig[] = [
     category: "lighting",
     requiresPropertySize: false,
     fields: [
+      {
+        name: "lightingType",
+        label: "Lighting Type",
+        type: "select",
+        required: true,
+        options: ["Traditional Seasonal", "Permanent Lighting"],
+        helpText: "Traditional lights are installed seasonally. Permanent lights stay year-round and are fully controllable via app"
+      },
       {
         name: "linearFeet",
         label: "Linear Feet",
