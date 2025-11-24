@@ -2024,21 +2024,26 @@ export const PRIORITY_SERVICES: ServiceData[] = [
     slug: 'christmas-light-installation',
     name: 'Christmas Light Installation',
     category: 'christmas-lights',
-    shortDescription: 'Professional Christmas light installation and removal service for homes and businesses',
-    longDescription: 'Transform your Idaho home into a spectacular winter wonderland with our professional Christmas light installation service, designed specifically for the Treasure Valley\'s unique winter conditions. We eliminate the hassle, danger, and frustration of DIY holiday decorating by handling everything from initial design consultation through post-season takedown and storage. Our experienced, insured crews safely install premium commercial-grade LED lights on rooflines, peaks, eaves, trees, shrubs, walkways, columns, and landscape features using professional-grade clips and mounting systems that never damage your siding, gutters, or trim. Unlike cheap big-box store lights that burn out after one season, we provide energy-efficient LED lights rated for 50,000+ hours that stay bright and vibrant throughout Idaho\'s cold winters, wind storms, and occasional heavy snow. Each installation is custom-designed to highlight your home\'s architectural features and create the stunning display you envision - from classic white elegance to colorful traditional displays to modern animated lighting. We handle all electrical connections, timer programming, and testing to ensure everything works perfectly from day one. Throughout the holiday season, we monitor weather conditions and provide complimentary mid-season service if Idaho winds damage connections or if any bulbs need replacement. You simply flip the switch and enjoy the magic. After the holidays, we carefully remove every light, clip, and extension cord, pack everything in organized storage tubs, and either return them to you or store them professionally for next season. Our storage service protects your investment and eliminates the frustration of tangled lights and missing components. With service throughout Kuna, Boise, Meridian, Nampa, Caldwell, and Eagle, we\'ve been creating stunning holiday displays since 2010. This full-service approach saves you 8-12 hours of dangerous ladder work and allows you to focus on what really matters during the holidays - spending time with family and friends while your home becomes the showcase of the neighborhood.',
+    shortDescription: 'Professional Christmas light installation and removal service for homes and businesses, including permanent app-controlled lighting',
+    longDescription: 'Transform your Idaho home into a spectacular winter wonderland with our professional Christmas light installation service, now offering both traditional seasonal lights and cutting-edge permanent lighting systems. Choose traditional seasonal installation designed for the Treasure Valley\'s unique winter conditions, or upgrade to permanent lighting that stays on your home year-round and gives you complete control through a smartphone app. We eliminate the hassle, danger, and frustration of DIY holiday decorating by handling everything from initial design consultation through post-season takedown and storage. Our experienced, insured crews safely install premium commercial-grade LED lights on rooflines, peaks, eaves, trees, shrubs, walkways, columns, and landscape features using professional-grade clips and mounting systems that never damage your siding, gutters, or trim. Unlike cheap big-box store lights that burn out after one season, we provide energy-efficient LED lights rated for 50,000+ hours that stay bright and vibrant throughout Idaho\'s cold winters, wind storms, and occasional heavy snow. Each installation is custom-designed to highlight your home\'s architectural features and create the stunning display you envision - from classic white elegance to colorful traditional displays to modern animated lighting. We handle all electrical connections, timer programming, and testing to ensure everything works perfectly from day one. Throughout the holiday season, we monitor weather conditions and provide complimentary mid-season service if Idaho winds damage connections or if any bulbs need replacement. You simply flip the switch and enjoy the magic. After the holidays, we carefully remove every light, clip, and extension cord, pack everything in organized storage tubs, and either return them to you or store them professionally for next season. Our storage service protects your investment and eliminates the frustration of tangled lights and missing components. With service throughout Kuna, Boise, Meridian, Nampa, Caldwell, and Eagle, we\'ve been creating stunning holiday displays since 2010. This full-service approach saves you 8-12 hours of dangerous ladder work and allows you to focus on what really matters during the holidays - spending time with family and friends while your home becomes the showcase of the neighborhood.',
     benefits: [
       'Professional custom design creates stunning neighborhood showcase displays',
       'Eliminates dangerous ladder work and roof safety risks completely',
       'Premium commercial-grade LED lights provided - last 50,000+ hours',
-      'Installation and post-season removal both included in one price',
+      'PERMANENT LIGHTING: Full smartphone app control with millions of color combinations',
+      'PERMANENT LIGHTING: Celebrate every holiday year-round - Christmas, July 4th, Halloween, game days',
+      'PERMANENT LIGHTING: Zero annual maintenance - installed once, controlled forever via app',
+      'PERMANENT LIGHTING: Discreet year-round mounting - barely visible when not illuminated',
+      'TRADITIONAL LIGHTING: Installation and post-season removal included in one price',
+      'TRADITIONAL LIGHTING: Professional storage service option available',
       'Saves 8-12 hours of your valuable holiday time annually',
       'All lights tested before installation ensures perfect operation',
-      'Complimentary mid-season storm damage repair service included',
-      'Optional professional storage service protects investment',
+      'Complimentary mid-season storm damage repair (traditional) or comprehensive warranty (permanent)',
       'Energy-efficient LEDs reduce electricity costs by 80-90%',
-      'No damage to siding, gutters, or trim - professional clips only',
+      'No damage to siding, gutters, or trim - professional mounting systems only',
       'Withstands Idaho winter weather - wind, snow, and cold rated',
-      'Fully insured crews provide peace of mind and quality guarantee'
+      'Fully insured crews provide peace of mind and quality guarantee',
+      'Instant color changes from your phone - no ladder required ever again'
     ],
     process: [
       { step: 1, title: 'Design Consultation', description: 'We discuss your vision and budget. We assess your home to create a custom design that highlights your property\'s best features.' },
@@ -2096,10 +2101,34 @@ export const PRIORITY_SERVICES: ServiceData[] = [
       {
         question: 'What happens if it snows before/during installation?',
         answer: 'We install in snow and cold - it\'s Idaho! Our crews work safely in winter conditions. Heavy snow may delay installation 1-2 days for safety, but we push through typical Idaho winter weather. Most installations happen before significant snow. If weather is severe, we reschedule to the next available day.'
+      },
+      {
+        question: 'What is permanent lighting and how does it work?',
+        answer: 'Permanent lighting is a revolutionary year-round lighting system installed once on your roofline. LED track lights remain discreetly mounted 365 days a year. Using a smartphone app, you control everything: colors (millions of combinations), patterns, brightness, schedules, and animations. Change from red/green for Christmas to red/white/blue for July 4th to orange for Halloween - all instantly from your phone without ever touching a ladder.'
+      },
+      {
+        question: 'How much does permanent lighting cost compared to traditional seasonal lights?',
+        answer: 'Permanent lighting typically costs $12-18 per linear foot installed (one-time cost). A typical home (200 linear feet) runs $2,400-3,600. Traditional seasonal lighting costs $3.50-5 per foot annually. Permanent lighting pays for itself in 3-4 years by eliminating annual installation/removal costs. Plus you gain unlimited use for every holiday and event year-round.'
+      },
+      {
+        question: 'Can you really see permanent lights when they\'re not turned on?',
+        answer: 'The track system is designed to be extremely discreet - typically mounted along the roofline, it\'s barely noticeable when not illuminated. The low-profile design blends with your home\'s architecture. Most homeowners and neighbors don\'t even notice they\'re there until you turn them on. It\'s nothing like having visible Christmas lights up year-round.'
+      },
+      {
+        question: 'What can I control with the permanent lighting app?',
+        answer: 'Complete control: Choose from millions of colors and color combinations. Create custom patterns and animations. Set schedules (automatic on/off times). Adjust brightness levels. Save favorite scenes for holidays. Create dynamic effects like chasing, fading, twinkling. Control individual sections separately. Access pre-programmed holiday themes. All controlled from your smartphone or tablet - iOS and Android compatible.'
+      },
+      {
+        question: 'Does permanent lighting require maintenance or replacement?',
+        answer: 'Minimal maintenance required. LED lights are rated for 50,000+ hours (decades of typical use). The system is fully weatherproof and designed to withstand Idaho\'s harshest winters. We provide a comprehensive warranty covering components and installation. No annual takedown/reinstallation means no wear and tear from handling. No storage needed. No tangled wires. Set it and forget it - except when you want to show off your team colors!'
+      },
+      {
+        question: 'Can permanent lighting handle Idaho winter weather and snow?',
+        answer: 'Absolutely! Permanent lighting systems are specifically engineered for extreme weather conditions including heavy snow, ice, high winds, and temperature extremes (-40°F to 140°F). The sealed LED track system is completely waterproof and designed to perform flawlessly in Idaho winters. In fact, because the system is permanently mounted with professional weatherproof connections, it\'s MORE reliable than traditional lights that can fail from seasonal handling and weather exposure.'
       }
     ],
     relatedServices: ['landscape-lighting', 'outdoor-lighting', 'holiday-decor'],
-    pricingGuidance: 'Residential: $400-1,200 typical. Larger homes: $1,200-3,500+. Includes installation, lights, removal, mid-season service. Storage: +$75-150/year.',
+    pricingGuidance: 'TRADITIONAL: $3.50-5/ft annually (typical homes $400-1,200). Includes installation, lights, removal, mid-season service. Storage: +$75-150/year. PERMANENT: $12-18/ft one-time (typical homes $2,400-3,600). Year-round control via app, comprehensive warranty, zero annual costs.',
     seasonality: 'Installation: November-December (book in October). Removal: January. High demand - early booking essential.',
     facts: [
       { label: 'Typical home cost', value: '$400-1,200' },

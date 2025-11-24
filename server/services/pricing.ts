@@ -384,14 +384,28 @@ export async function calculateMultiServiceQuote(
       case "linear_ft":
         // Linear feet from this service's measurements
         const linearFt = getNumber(measurements.linearFeet, 100);
-        basePrice = linearFt * config.rate;
-        description += ` (${linearFt} linear feet)`;
+        
+        // Apply special pricing for permanent lighting vs traditional
+        let rateToUse = config.rate;
+        if (serviceId === 'christmas-light-installation' && measurements.lightingType === 'Permanent Lighting') {
+          rateToUse = 15.00; // Permanent lighting rate ($12-18 range, using $15 average)
+          basePrice = linearFt * rateToUse;
+          description += ` - Permanent Lighting (${linearFt} linear feet)`;
+        } else if (serviceId === 'christmas-light-installation') {
+          basePrice = linearFt * rateToUse;
+          description += ` - Traditional Seasonal (${linearFt} linear feet)`;
+        } else {
+          basePrice = linearFt * rateToUse;
+          description += ` (${linearFt} linear feet)`;
+        }
         
         // Add service-specific calculation context as separate explanation
         if (serviceId === 'hedge-trimming') {
           calculationExplanation = `Hedge trimming is estimated as 40% of your lot perimeter. This assumes hedges along the front of the property plus one side, which is typical for most residential properties.`;
+        } else if (serviceId === 'christmas-light-installation' && measurements.lightingType === 'Permanent Lighting') {
+          calculationExplanation = `Permanent lighting is a one-time installation with year-round app control. Track lights remain discreetly mounted on your roofline 365 days a year. Control millions of colors, patterns, and schedules from your smartphone for every holiday and event.`;
         } else if (serviceId === 'christmas-light-installation') {
-          calculationExplanation = `Christmas light installation is calculated using your roofline with overhang (roofline + 25% for eaves and overhangs). This ensures adequate coverage for a professional holiday display.`;
+          calculationExplanation = `Traditional seasonal Christmas light installation is calculated using your roofline with overhang (roofline + 25% for eaves and overhangs). This ensures adequate coverage for a professional holiday display. Includes installation, mid-season service, and post-holiday removal.`;
         } else if (serviceId === 'fence') {
           calculationExplanation = `Fence installation is calculated using your full lot perimeter. This measurement comes from property records and represents the boundary of your property.`;
         } else if (serviceId === 'lawn-edging') {
