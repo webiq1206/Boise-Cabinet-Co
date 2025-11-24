@@ -386,8 +386,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
         selectedServices: quote.selectedServices || undefined,
         finalQuote: quote.finalQuote ? parseFloat(quote.finalQuote) : undefined,
         preferredDate: quote.scheduledDate ? quote.scheduledDate.toISOString().split('T')[0] : undefined,
-        lineItems: quote.lineItems as any,
-        serviceData: quote.serviceData as any,
+        lineItems: quote.lineItems ? JSON.parse(quote.lineItems as string) : undefined,
+        serviceData: quote.serviceData ? JSON.parse(quote.serviceData as string) : undefined,
       }).catch(err => {
         console.error('Failed to send quote notification email:', err);
         // Don't fail the request if email fails
