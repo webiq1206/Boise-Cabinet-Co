@@ -6984,12 +6984,12 @@ export const BLOG_POSTS: BlogPostData[] = [
       <p>This dynamic adjustment is impossible with traditional timer-based controllers that blindly follow fixed schedules regardless of actual conditions. Many Treasure Valley homeowners have experienced their sprinklers running during rainstorms—a perfect example of the waste smart controllers eliminate.</p>
 
       <h3>Soil Moisture Monitoring</h3>
-      <p>Advanced smart controllers integrate with soil moisture sensors installed at various depths in different irrigation zones. These sensors measure actual soil moisture levels and report to the controller, which waters only when moisture drops below optimal thresholds. For lawns receiving <a href="/services/lawn-mowing">regular mowing maintenance</a>, this ensures turf gets water exactly when needed, not on arbitrary schedules.</p>
+      <p>Advanced smart controllers integrate with soil moisture sensors installed at various depths in different irrigation zones. These sensors measure actual soil moisture levels and report to the controller, which waters only when moisture drops below optimal thresholds. This ensures turf gets water exactly when needed, not on arbitrary schedules.</p>
 
       <p>This is particularly valuable in Treasure Valley's heavy clay soil, which holds water longer than sandy soils but drains poorly when saturated. Moisture sensors prevent overwatering that leads to shallow root systems, fungal diseases, and water waste—common problems with fixed-schedule irrigation.</p>
 
       <h3>Zone-Specific Programming</h3>
-      <p>Smart controllers allow detailed programming for each irrigation zone based on its unique characteristics. Areas with <a href="/services/lawn-aeration">recently aerated lawns</a> may need different watering than established turf. Zones with newly installed <a href="/services/sod-installation">sod</a> require more frequent, shorter cycles than mature lawns. Landscape beds with <a href="/services/mulch-installation">fresh mulch</a> need less water than unmulched areas. Slopes require shorter, multiple cycles to prevent runoff.</p>
+      <p>Smart controllers allow detailed programming for each irrigation zone based on its unique characteristics. Recently treated lawns may need different watering than established turf. Landscape beds with <a href="/services/mulch-installation">fresh mulch</a> need less water than unmulched areas. Slopes require shorter, multiple cycles to prevent runoff.</p>
 
       <p>You can program each zone with information about:</p>
       <ul>
@@ -7223,12 +7223,12 @@ export const BLOG_POSTS: BlogPostData[] = [
       <h3>Best Seasons for Tree Removal in Idaho</h3>
       <p>While emergency situations require immediate tree removal regardless of season, non-urgent removals benefit from strategic timing. In the Treasure Valley, late fall through early spring (November through March) is often ideal for tree removal. Deciduous trees have dropped their leaves, making the tree lighter and work easier. Frozen ground provides firm footing and protects surrounding lawn areas from heavy equipment damage.</p>
 
-      <p>Winter tree removal also minimizes impact on your landscape. There's no concern about damaging actively growing <a href="/services/lawn-mowing">turf areas</a> or flower beds, and the dormant season means less disruption to bird nesting and wildlife. Additionally, tree service companies often have greater availability and more flexible scheduling during winter months, potentially resulting in faster service or better pricing.</p>
+      <p>Winter tree removal also minimizes impact on your landscape. There's no concern about damaging actively growing turf areas or flower beds, and the dormant season means less disruption to bird nesting and wildlife. Additionally, tree service companies often have greater availability and more flexible scheduling during winter months, potentially resulting in faster service or better pricing.</p>
 
       <h3>Summer and Spring Considerations</h3>
       <p>Summer tree removal in Idaho's heat requires extra caution and can be more physically demanding for crews. However, it's necessary for trees that become hazardous during growing season or those blocking views you want to enjoy during outdoor season. Properties preparing for landscape projects—like installing <a href="/services/sprinkler-system-installation">new irrigation systems</a> or creating <a href="/services/patio-installation">outdoor living spaces</a>—often need spring or early summer tree removal to accommodate construction schedules.</p>
 
-      <p>Spring removal allows you to immediately replant or start landscape improvements, giving new plantings or <a href="/services/sod-installation">fresh sod</a> the entire growing season to establish. This is particularly valuable if you're planning major landscape renovations that need completion before Idaho's short summer season.</p>
+      <p>Spring removal allows you to immediately replant or start landscape improvements, giving new plantings the entire growing season to establish. This is particularly valuable if you're planning major landscape renovations that need completion before Idaho's short summer season.</p>
 
       <h2>After Tree Removal: Next Steps</h2>
       <p>Once the tree and stump are gone, you have opportunities to improve your landscape:</p>
@@ -7257,7 +7257,7 @@ export const BLOG_POSTS: BlogPostData[] = [
       </ul>
 
       <h3>Site Restoration After Removal</h3>
-      <p>The area where a tree stood often needs restoration work. Stump grinding creates a depression that requires filling with quality topsoil. The surrounding area may need <a href="/services/lawn-aeration">aeration</a> if compacted by equipment. If extending lawn into the cleared area, plan for proper soil preparation, grading, and either sod or seed installation for best results. Many Treasure Valley homeowners combine tree removal with broader landscape renovation projects, creating cohesive outdoor spaces that better match their lifestyle needs.</p>
+      <p>The area where a tree stood often needs restoration work. Stump grinding creates a depression that requires filling with quality topsoil. The surrounding area may need aeration if compacted by equipment. If extending lawn into the cleared area, plan for proper soil preparation, grading, and either sod or seed installation for best results. Many Treasure Valley homeowners combine tree removal with broader landscape renovation projects, creating cohesive outdoor spaces that better match their lifestyle needs.</p>
 
       <h2>Choosing a Professional Tree Service</h2>
       <p>Select tree removal companies carefully—this is not a job for unlicensed handymen or "guys with a chainsaw." Look for:</p>
@@ -7613,55 +7613,11 @@ export const BLOG_POSTS: BlogPostData[] = [
 
       <h2>Cost Comparison: Sod vs Overseeding in the Treasure Valley</h2>
 
-      <h3>Sod Installation Costs</h3>
+      <p>Professional sod installation in Idaho typically costs $0.65-$1.30 per square foot ($3,250-$6,500 for a typical 5,000 sq ft lawn), while professional overseeding costs $0.26-$0.68 per square foot ($1,300-$3,400 for the same area). This represents a 60-75% cost savings with overseeding.</p>
 
-      <p>Professional sod installation in Idaho typically costs:</p>
+      <p>DIY installation reduces costs further: sod materials run $2,250-$4,500 for 5,000 square feet, while overseeding materials cost $650-$1,650. However, sod requires moving 10,000+ pounds of material, making professional installation worthwhile for most homeowners.</p>
 
-      <ul>
-        <li><strong>Materials (sod):</strong> $0.30-$0.60 per square foot depending on grass variety and quality</li>
-        <li><strong>Soil preparation:</strong> $0.15-$0.30 per square foot (grading, amendments, debris removal)</li>
-        <li><strong>Installation labor:</strong> $0.20-$0.40 per square foot</li>
-        <li><strong>Total professional installation:</strong> $0.65-$1.30 per square foot</li>
-      </ul>
-
-      <p>For a typical 5,000 square foot Treasure Valley lawn:</p>
-      <ul>
-        <li>DIY sod installation: $2,250-$4,500 (materials only, you provide labor)</li>
-        <li>Professional sod installation: $3,250-$6,500 (materials and installation)</li>
-      </ul>
-
-      <p>These prices include premium Kentucky bluegrass sod, basic soil preparation, and professional installation. Additional costs include soil amendments for severely compacted clay soil, extensive grading for drainage issues, or removal of existing failed lawns.</p>
-
-      <h3>Overseeding Costs</h3>
-
-      <p>Professional overseeding in Idaho typically costs:</p>
-
-      <ul>
-        <li><strong>Seed materials:</strong> $0.10-$0.25 per square foot (quality varies significantly)</li>
-        <li><strong>Soil preparation:</strong> $0.08-$0.20 per square foot (aeration, dethatching, amendments)</li>
-        <li><strong>Application labor:</strong> $0.05-$0.15 per square foot</li>
-        <li><strong>Starter fertilizer:</strong> $0.03-$0.08 per square foot</li>
-        <li><strong>Total professional overseeding:</strong> $0.26-$0.68 per square foot</li>
-      </ul>
-
-      <p>For a typical 5,000 square foot Treasure Valley lawn:</p>
-      <ul>
-        <li>DIY overseeding: $650-$1,650 (materials only)</li>
-        <li>Professional overseeding: $1,300-$3,400 (materials and service)</li>
-      </ul>
-
-      <p>Overseeding costs vary with preparation intensity. Light overseeding to thicken existing lawns costs less than complete <a href="/services/lawn-renovation">lawn renovation</a> requiring aggressive <a href="/services/dethatching">dethatching</a>, <a href="/services/aeration">core aeration</a>, and bare soil preparation.</p>
-
-      <h3>Long-Term Cost Considerations</h3>
-
-      <p>Beyond initial installation, consider establishment costs:</p>
-
-      <ul>
-        <li><strong>Water bills:</strong> Both methods require intensive initial watering. Sod needs 2-3 weeks of frequent watering; overseeding needs 4-6 weeks. Expect $100-$250 additional water costs during establishment.</li>
-        <li><strong>Fertilization:</strong> Both need starter fertilization and regular feeding after establishment. Annual <a href="/services/fertilization">fertilization programs</a> cost $400-$800 for 5,000 square foot lawns.</li>
-        <li><strong>Ongoing maintenance:</strong> Regular <a href="/services/lawn-mowing">mowing service</a> keeps newly established lawns healthy, preventing stress from overgrown conditions during critical early months.</li>
-        <li><strong>Failure and repair:</strong> Failed sod sections can be replaced individually at $2-$4 per square foot. Failed overseeding typically requires reseeding entire areas at similar cost to initial seeding.</li>
-      </ul>
+      <p>Both methods require similar establishment costs including intensive initial watering ($100-$250 additional water bills), starter fertilization, and ongoing <a href="/services/fertilization">fertilization programs</a> ($400-$800 annually). For comprehensive soil preparation, <a href="/services/dethatching">dethatching</a> and <a href="/services/aeration">core aeration</a> improve results for both methods.</p>
 
       <h2>When to Choose Sod Installation</h2>
 
@@ -7703,63 +7659,17 @@ export const BLOG_POSTS: BlogPostData[] = [
 
       <h2>Best Timing for Each Method in Idaho</h2>
 
-      <h3>Sod Installation Windows</h3>
+      <p><strong>Sod Installation:</strong> Sod installs successfully from late April through mid-October. Early fall (late August to late September) is optimal—warm soil promotes rapid rooting while cooling temperatures reduce heat stress. Spring installation (late April to early June) works well but faces rapid transition to summer heat. Summer installation (June to mid-August) is possible but demanding, requiring intensive watering 3-4 times daily.</p>
 
-      <p>Sod installs successfully in Treasure Valley from late April through mid-October, with optimal periods being:</p>
+      <p><strong>Overseeding:</strong> Fall (late August to mid-September) is the ONLY recommended window for Idaho lawns. Soil stays warm (60-75°F) for germination while cooling air temperatures reduce heat stress on seedlings. Spring seeding faces weed competition, rapid summer heat transition, and high failure rates—wait for fall instead.</p>
 
-      <ul>
-        <li><strong>Spring (Late April to early June):</strong> Cooler temperatures ease establishment stress, spring moisture helps root growth, and full growing season ahead allows maturation. However, rapid transition to summer heat can stress newly installed sod.</li>
-        <li><strong>Early Fall (Late August to late September):</strong> This is the absolute best time for sod installation in Idaho. Warm soil promotes rapid rooting, cooling air temperatures reduce heat stress, fall moisture supports establishment, and full year ahead allows deep root development before next summer's heat.</li>
-        <li><strong>Summer (June to mid-August):</strong> Possible but challenging. Hot weather demands intensive watering (3-4 times daily initially), heat stress risks failure, and water costs increase substantially. Only recommended when necessary despite challenges.</li>
-      </ul>
+      <h2>Keys to Successful Establishment</h2>
 
-      <h3>Overseeding Timing</h3>
+      <p><strong>For Sod:</strong> Install within 24 hours of delivery, water 2-3 times daily for 2 weeks, avoid traffic for 2-3 weeks, and amend clay soil with 2-3 inches of compost. Proper soil preparation and immediate intensive watering determine success.</p>
 
-      <p>Overseeding success in the Treasure Valley depends almost entirely on fall timing:</p>
+      <p><strong>For Overseeding:</strong> Core aerate compacted soil, use premium seed at 8-10 lbs per 1,000 sq ft, keep seed moist daily for 3-4 weeks, apply starter <a href="/services/fertilization">fertilizer</a>, and avoid traffic for 4-6 weeks. Quality seed and consistent moisture are critical.</p>
 
-      <ul>
-        <li><strong>Fall (Late August to mid-September):</strong> This is the ONLY recommended overseeding window for Idaho lawns. Soil remains warm (60-75°F) for rapid germination, air temperatures cool reducing heat stress on seedlings, fall rains supplement irrigation, and full winter/spring growing season ahead allows deep rooting before summer heat.</li>
-        <li><strong>Spring (April to early May):</strong> Possible but problematic. Spring seeding faces weed competition (you cannot use pre-emergent), rapid transition to summer heat stresses immature grass, and irrigation demands increase just as new grass establishes. Spring seeding succeeds occasionally but failures are common. We recommend fall seeding instead.</li>
-      </ul>
-
-      <h2>Success Factors for Each Method</h2>
-
-      <h3>Sod Installation Success Requirements</h3>
-
-      <p>Maximize sod establishment success with these practices:</p>
-
-      <ul>
-        <li><strong>Proper soil preparation:</strong> Grade for drainage, amend clay soil with 2-3 inches of compost, eliminate low spots that pool water, and create smooth surface for tight sod contact.</li>
-        <li><strong>Immediate installation:</strong> Install sod within 24 hours of delivery. Stacked sod generates heat and dies quickly in Idaho's summer temperatures.</li>
-        <li><strong>Intensive initial watering:</strong> Water immediately after installation, then 2-3 times daily for first 2 weeks. Soil under sod should remain consistently moist but not saturated.</li>
-        <li><strong>Gradual watering reduction:</strong> After 2 weeks, reduce frequency to daily, then every other day by week 3-4. Transition to normal irrigation schedule by week 5-6.</li>
-        <li><strong>Avoid traffic:</strong> Stay off new sod for 2-3 weeks while roots establish. Foot traffic on unrooted sod creates divots and shifts pieces.</li>
-        <li><strong>First mowing:</strong> Mow when grass reaches 3.5-4 inches (typically 10-14 days after installation). Use sharp mower blade to avoid pulling partially rooted sod.</li>
-      </ul>
-
-      <h3>Overseeding Success Requirements</h3>
-
-      <p>Maximize overseeding establishment with these practices:</p>
-
-      <ul>
-        <li><strong>Aggressive soil preparation:</strong> Core aerate to break clay compaction, dethatch if thatch exceeds 0.5 inches, and create good seed-to-soil contact through roughening smooth surfaces.</li>
-        <li><strong>Quality seed selection:</strong> Use certified, premium-grade grass seed appropriate for Idaho conditions. Cheap "contractor-grade" seed has poor germination rates and weed contamination.</li>
-        <li><strong>Proper application rates:</strong> Apply 8-10 pounds per 1,000 square feet for complete renovation, 4-5 pounds for thickening existing lawns. Under-seeding creates thin results.</li>
-        <li><strong>Consistent moisture:</strong> Keep seed consistently moist (not saturated) for 3-4 weeks. This typically means daily watering, twice daily during hot weather. Seed that dries out dies.</li>
-        <li><strong>Starter fertilization:</strong> Apply starter fertilizer (high phosphorus) at seeding to promote root development. Follow with regular <a href="/services/fertilization">fertilization program</a> after establishment.</li>
-        <li><strong>Traffic avoidance:</strong> Keep off newly seeded areas for 4-6 weeks. Foot traffic disrupts germination and damages tender seedlings.</li>
-        <li><strong>Delayed mowing:</strong> Wait until grass reaches 3.5-4 inches before first mowing (typically 4-5 weeks after seeding). Use sharp blade and remove only top third of height.</li>
-      </ul>
-
-      <h2>Professional vs DIY for Both Methods</h2>
-
-      <h3>Sod Installation</h3>
-
-      <p>DIY sod installation saves $0.20-$0.40 per square foot ($1,000-$2,000 on typical 5,000 sq ft lawn) but requires significant physical labor moving 10,000+ pounds of sod. Most homeowners find professional installation worthwhile for efficiency, proper soil preparation, and warranty coverage.</p>
-
-      <h3>Overseeding</h3>
-
-      <p>DIY overseeding is more realistic for average homeowners. Spreading seed requires far less physical demand than sod installation. However, professional overseeding ensures proper soil preparation (especially core aeration in compacted clay), correct seed selection for Idaho conditions, optimal application rates, and appropriate timing for maximum success.</p>
+      <p>Professional installation benefits both methods through expert soil preparation, proper timing, quality materials, and warranty coverage. DIY sod requires moving 10,000+ pounds of material while DIY overseeding is more manageable but demands correct seed selection and application rates for Idaho conditions.</p>
 
       <h2>Making Your Decision: Sod vs Overseeding</h2>
 
