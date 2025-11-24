@@ -11,12 +11,10 @@ interface City {
 }
 
 const cities: City[] = [
-  { name: 'Caldwell', slug: 'caldwell', x: 130, y: 145, size: 'small' },
   { name: 'Middleton', slug: 'middleton', x: 180, y: 115, size: 'small' },
   { name: 'Star', slug: 'star', x: 230, y: 100, size: 'small' },
   { name: 'Eagle', slug: 'eagle', x: 310, y: 105, size: 'medium' },
   { name: 'Boise', slug: 'boise', x: 340, y: 140, size: 'large' },
-  { name: 'Nampa', slug: 'nampa', x: 220, y: 180, size: 'medium' },
   { name: 'Meridian', slug: 'meridian', x: 280, y: 155, size: 'large' },
   { name: 'Kuna', slug: 'kuna', x: 300, y: 210, size: 'medium' },
 ];
@@ -25,8 +23,6 @@ const serviceAreas = [
   { name: "Kuna", slug: "kuna" },
   { name: "Boise", slug: "boise" },
   { name: "Meridian", slug: "meridian" },
-  { name: "Nampa", slug: "nampa" },
-  { name: "Caldwell", slug: "caldwell" },
   { name: "Eagle", slug: "eagle" },
   { name: "Star", slug: "star" },
   { name: "Middleton", slug: "middleton" },
