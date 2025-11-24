@@ -189,8 +189,8 @@ export default function BlogPost() {
                 </div>
 
                 {/* Sidebar */}
-                <aside className="hidden lg:block lg:w-[280px] lg:flex-shrink-0">
-                  <div className="lg:sticky lg:top-24 space-y-6">
+                <aside className="hidden lg:block lg:w-[280px] lg:flex-shrink-0 lg:sticky lg:top-24">
+                  <div className="space-y-6">
                     {/* Author Info */}
                     <Card>
                       <div className="p-6">
