@@ -2602,6 +2602,82 @@ export const PRIORITY_SERVICES: ServiceData[] = [
     ]
   },
   {
+    slug: 'snow-removal',
+    name: 'Snow Removal',
+    category: 'lawn-care',
+    shortDescription: 'Professional residential and commercial snow removal services for driveways, walkways, and parking areas',
+    longDescription: 'Idaho winters bring unpredictable snowfall ranging from light dustings to heavy storms that can dump 6-12 inches overnight, creating hazardous conditions and access problems for Treasure Valley homes and businesses. Our professional snow removal service keeps your property safe, accessible, and liability-free throughout winter months. We provide prompt, reliable snow clearing for driveways, walkways, sidewalks, parking lots, and commercial areas using commercial-grade equipment including snowplows, snow blowers, and professional shoveling crews. Service begins when snowfall reaches your specified trigger depth (typically 2-3 inches) and continues until all designated areas are completely cleared to bare pavement or concrete. Understanding Idaho\'s unique winter patterns - sudden temperature swings, multiple freeze-thaw cycles, occasional ice storms, and lake-effect snow from lucky peak reservoir - we provide responsive service timed to keep your property accessible when you need it most. Residential service focuses on getting you safely to work and preventing slip-and-fall liability on your property: driveways cleared curb-to-curb allowing full vehicle access, walkways and entryways cleared providing safe foot traffic routes, sidewalks cleared meeting city ordinances (many Idaho cities require sidewalk clearing within 24 hours of snowfall), and steps cleared with anti-slip treatment preventing dangerous ice buildup. Commercial service emphasizes business continuity and customer safety: parking lots cleared and stacked allowing maximum parking capacity, loading zones and delivery areas maintained for uninterrupted business operations, building entrances and walkways cleared before business hours, ADA-compliant accessible paths maintained meeting federal requirements, and ice management with professional de-icing products preventing liability claims. We use calcium chloride and magnesium chloride ice-melting products that work effectively in Idaho\'s cold temperatures (down to -25°F), won\'t damage concrete or vegetation, and provide longer-lasting ice prevention than rock salt. Snow is pushed or stacked in designated areas that won\'t block traffic flow, create visibility hazards, or damage landscaping when it melts. Our service includes monitoring weather forecasts and proactive communication: we alert you when snow is predicted, confirm service will occur based on snowfall amounts, and notify you when clearing is complete. Priority service options ensure you\'re cleared first during heavy snow events - critical for medical professionals, emergency services, and businesses that must open regardless of weather. Multi-event season contracts provide best value and guaranteed service all winter: per-push pricing ranges $75-150 for residential driveways, $200-800 for commercial lots depending on size. Seasonal contracts (unlimited service November-March) range $400-800 residential, $1,500-5,000+ commercial with pricing based on square footage, access difficulty, and priority level. Service throughout Kuna, Boise, Meridian, Eagle, Star, and Middleton with response within 2-6 hours of snowfall trigger depending on service tier.',
+    benefits: [
+      'Maintains safe vehicle and foot access throughout winter storms',
+      'Prevents slip-and-fall liability on your property',
+      'Meets city sidewalk clearing ordinances and requirements',
+      'Allows normal business operations regardless of snowfall',
+      'Professional equipment clears snow faster than DIY methods',
+      'Eliminates physical strain and injury risk of manual shoveling',
+      'Proactive weather monitoring ensures timely service',
+      'Commercial-grade de-icing prevents dangerous ice buildup',
+      'Season contracts guarantee service priority all winter',
+      'Protects landscaping and hardscaping from snow damage',
+      '24/7 storm response available for emergency situations',
+      'Reduces property insurance liability during winter months'
+    ],
+    process: [
+      { step: 1, title: 'Service Setup & Planning', description: 'Initial site visit to map property, identify clearing priorities, designate snow stack areas, note obstacles and sensitive landscaping, establish trigger depth, and determine access points.' },
+      { step: 2, title: 'Weather Monitoring', description: 'We track weather forecasts throughout winter season and monitor active storms. When snowfall reaches your trigger depth, service is automatically dispatched.' },
+      { step: 3, title: 'Snow Clearing Operations', description: 'Plowing or snow blowing clears designated areas to bare pavement. Residential: driveways, walkways, entries. Commercial: parking lots, loading zones, walkways, ADA paths.' },
+      { step: 4, title: 'Hand Detail Work', description: 'Crew members shovel areas equipment cannot reach: tight corners, around obstacles, steps, narrow walkways, building entries, and sensitive areas near landscaping.' },
+      { step: 5, title: 'Ice Treatment', description: 'Professional ice-melt application on walkways, steps, and high-traffic areas prevents dangerous ice formation. Products are concrete-safe and vegetation-friendly.' },
+      { step: 6, title: 'Service Completion Notice', description: 'Digital notification confirms service completion with before/after photos. Invoice documentation for each service event (per-push) or monthly billing (season contract).' }
+    ],
+    faqs: [
+      {
+        question: 'How much does snow removal cost in the Treasure Valley?',
+        answer: 'Per-push residential: $75-150 per snowfall event depending on driveway size and complexity. Seasonal residential contracts (unlimited service Nov-March): $400-800. Commercial per-push: $200-800+ depending on lot size. Commercial seasonal contracts: $1,500-5,000+ based on square footage, access, and priority level. Per-push pricing works well for Idaho\'s variable winter (some years only 5-8 events, others 15-20). Seasonal contracts provide budget certainty and priority service.'
+      },
+      {
+        question: 'What is the trigger depth for snow removal service?',
+        answer: 'Standard trigger is 2-3 inches of snowfall. This balances service frequency with cost-effectiveness - below 2 inches typically melts quickly in Idaho sun, above 3 inches creates access and safety problems. You can customize trigger: lower (1-2 inches) for medical professionals or high-traffic businesses, higher (4-6 inches) for budget-conscious properties with less traffic. Many clients use 2-inch trigger for walkways/entries, 4-inch for driveways to optimize cost while maintaining safety.'
+      },
+      {
+        question: 'Do you provide 24/7 snow removal for overnight storms?',
+        answer: 'Yes! Idaho snow often falls overnight or early morning. Our crews work 24/7 during active storms. Priority service clients (medical facilities, emergency services, 24-hour businesses) are cleared first, typically 4am-6am for business opening. Standard service follows, typically completed by 9am. We communicate service windows when storms are predicted so you know when to expect clearing.'
+      },
+      {
+        question: 'Will snow removal damage my driveway, landscaping, or sprinkler system?',
+        answer: 'Professional service minimizes damage risk through proper technique and equipment. We mark sensitive areas (sprinkler heads, invisible fence, landscaping edges) before winter season. Plows have adjustable shoes that ride 1/2 inch above pavement preventing surface gouging. Snow is pushed to designated stack areas away from plants and structures. Our de-icing products won\'t damage concrete or vegetation unlike rock salt. Spring inspection identifies any winter damage needing repair.'
+      },
+      {
+        question: 'What is better - per-push pricing or seasonal snow removal contract?',
+        answer: 'Depends on risk tolerance and winter severity. Per-push: you only pay for actual service events. Works well in light winter years (5-8 events = $400-800 total). Risk: heavy winter (15-20 events = $1,200-2,400 total). Seasonal contract: fixed price regardless of events ($400-800 residential). Provides budget certainty, guaranteed priority service, and best value in heavy snow years. Most commercial clients choose seasonal contracts for reliability and budgeting. Residential splits about 50/50.'
+      },
+      {
+        question: 'How quickly do you respond after snowfall starts?',
+        answer: 'Response time depends on service tier. Priority service (medical, emergency, business): 2-4 hour response, clearing typically 4am-6am. Standard service: 4-6 hour response, clearing 6am-10am. Economy service: 6-12 hour response, clearing by end of day. During major storms (6+ inches), all clients typically cleared within 12-24 hours with priority clients first. We communicate expected service windows via text/email when storms approach.'
+      },
+      {
+        question: 'Do you also provide commercial parking lot snow removal?',
+        answer: 'Yes! Commercial snow removal is major part of our winter business. We service: retail parking lots, office complexes, HOA common areas, apartment complexes, medical facilities, churches, and municipal properties. Commercial service includes lot clearing, stacking to maximize parking, loading zone access, ADA-compliant walkways, building entry clearing, and professional de-icing. We work around your business hours - overnight for retail, early morning for offices. Multi-property management companies receive preferred pricing.'
+      },
+      {
+        question: 'What cities do you provide snow removal service in?',
+        answer: 'We provide snow removal throughout the Treasure Valley: Kuna, Boise, Meridian, Eagle, Star, and Middleton. Service radius extends roughly 20 miles from Kuna. Properties outside service area may be serviced on case-by-case basis with travel surcharge. Eagle and North Boise foothills receive more snow than valley floor - pricing reflects additional service frequency. Contact us for property-specific quote regardless of location.'
+      }
+    ],
+    relatedServices: ['spring-cleanup', 'fall-cleanup'],
+    pricingGuidance: 'Per-push residential: $75-150 per event. Seasonal contracts: $400-800 residential, $1,500-5,000+ commercial. Custom quotes based on size and access.',
+    seasonality: 'November through March. Peak demand December-February during major snow events. Book seasonal contracts in October-November for best rates.',
+    facts: [
+      { label: 'Per-push residential', value: '$75-150' },
+      { label: 'Seasonal residential', value: '$400-800' },
+      { label: 'Commercial per-push', value: '$200-800+' },
+      { label: 'Standard trigger', value: '2-3 inches' },
+      { label: 'Priority response', value: '2-4 hours' },
+      { label: 'Standard response', value: '4-6 hours' },
+      { label: 'Service season', value: 'Nov-March' },
+      { label: 'Average events/year', value: '8-15' }
+    ]
+  },
+  {
     slug: 'sprinkler-repair',
     name: 'Sprinkler Repair',
     category: 'landscaping-irrigation',
