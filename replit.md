@@ -8,6 +8,26 @@ Preferred communication style: Simple, everyday language.
 
 ## Recent Changes
 
+### November 24, 2025 - Services Mega Menu Redesign
+**Navigation Enhancement**: Transformed the Services dropdown navigation from a plain text-based menu into a beautiful, modern mega menu with enhanced visual hierarchy and interactive elements.
+
+**Key Improvements**:
+- **4-Column Card Layout**: Each service category now displayed in a visually distinct card with background, border, and rounded corners
+- **Category Icons**: Added lucide-react icons to each category for better visual recognition:
+  - Scissors icon for Lawn Care
+  - TreeDeciduous icon for Landscaping
+  - Sparkles icon for Seasonal services
+  - Building2 icon for Commercial services
+- **Enhanced Hover Effects**: Service links now show animated arrow icons and color transitions on hover
+- **Visual Hierarchy**: Icon badges with primary color backgrounds, bold category headings, and better spacing
+- **"View All Services" CTA**: Added prominent call-to-action button at bottom linking to full services page
+- **Testing Instrumentation**: All interactive elements include proper data-testid attributes for testing
+
+**Files Updated**:
+- Navigation.tsx - Complete mega menu redesign with 4-column card layout and icon system
+
+**Testing**: E2E test confirmed all mega menu functionality including hover effects, navigation to service pages, and "View All Services" CTA works correctly.
+
 ### November 24, 2025 - Service Area Finalization
 **Service Area Update**: Completed comprehensive removal of Nampa and Caldwell from all user-facing content across the website. The service area is now strictly limited to **6 cities only**: Kuna, Boise, Meridian, Eagle, Star, and Middleton.
 
