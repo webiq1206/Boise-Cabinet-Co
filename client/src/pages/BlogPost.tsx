@@ -181,13 +181,13 @@ export default function BlogPost() {
                             data-testid={`faq-item-${index}`}
                           >
                             <AccordionTrigger 
-                              className="text-left font-semibold hover:no-underline py-5"
+                              className="text-left text-base font-semibold hover:no-underline py-5"
                               data-testid={`faq-question-${index}`}
                             >
                               {faq.question}
                             </AccordionTrigger>
                             <AccordionContent 
-                              className="text-muted-foreground pb-5"
+                              className="text-muted-foreground text-sm pb-5"
                               data-testid={`faq-answer-${index}`}
                             >
                               {faq.answer}
