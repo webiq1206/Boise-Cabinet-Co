@@ -118,9 +118,9 @@ export default function BlogPost() {
         <article className="py-12 md:py-16">
           <div className="container px-4">
             <div className="max-w-4xl mx-auto">
-              <div className="grid lg:grid-cols-[1fr_280px] gap-12">
+              <div className="lg:flex lg:gap-12">
                 {/* Article Content */}
-                <div>
+                <div className="lg:flex-1 lg:min-w-0">
                   {/* Key Takeaways Box */}
                   <Card className="mb-12 bg-primary/5 border-primary/20">
                     <div className="p-6 md:p-8">
@@ -189,8 +189,8 @@ export default function BlogPost() {
                 </div>
 
                 {/* Sidebar */}
-                <aside className="hidden lg:block">
-                  <div className="sticky top-24 space-y-6 max-h-[calc(100vh-7rem)] overflow-y-auto">
+                <aside className="hidden lg:block lg:w-[280px] lg:flex-shrink-0">
+                  <div className="lg:sticky lg:top-24 space-y-6">
                     {/* Author Info */}
                     <Card>
                       <div className="p-6">
