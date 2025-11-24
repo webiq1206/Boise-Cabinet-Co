@@ -23,7 +23,7 @@ export const BLOG_POSTS: BlogPostData[] = [
     metaDescription: "Get your Idaho lawn ready for spring with our complete checklist. Expert tips for Treasure Valley homeowners on aeration, fertilization, and more.",
     excerpt: "Get your Idaho lawn ready for spring with our complete checklist. Expert tips for Treasure Valley homeowners on aeration, fertilization, and more.",
     author: "Lawn Care Kuna Team",
-    category: "Seasonal Lawn Care",
+    category: "Seasonal Guides",
     tags: ["spring lawn care", "treasure valley", "lawn preparation", "seasonal maintenance"],
     publishedAt: "2024-03-01T08:00:00.000Z",
     content: `
@@ -241,7 +241,7 @@ export const BLOG_POSTS: BlogPostData[] = [
     metaDescription: "Prepare your Idaho lawn for winter with our expert guide. Learn about fall aeration, winterization, and essential tasks for Treasure Valley homeowners.",
     excerpt: "Prepare your Idaho lawn for winter with our expert guide. Learn about fall aeration, winterization, and essential tasks for Treasure Valley homeowners.",
     author: "Lawn Care Kuna Team",
-    category: "Seasonal Lawn Care",
+    category: "Seasonal Guides",
     tags: ["winter preparation", "fall lawn care", "winterization", "idaho lawns"],
     publishedAt: "2024-09-15T08:00:00.000Z",
     content: `
@@ -479,7 +479,7 @@ export const BLOG_POSTS: BlogPostData[] = [
     metaDescription: "Identify and eliminate common Idaho lawn weeds like crabgrass, dandelions, and bindweed. Expert weed control solutions for Treasure Valley homeowners.",
     excerpt: "Identify and eliminate common Idaho lawn weeds like crabgrass, dandelions, and bindweed. Expert weed control solutions for Treasure Valley homeowners.",
     author: "Lawn Care Kuna Team",
-    category: "Fertilization & Weed Control",
+    category: "Lawn Maintenance",
     tags: ["weed control", "idaho weeds", "lawn care", "crabgrass", "dandelions"],
     publishedAt: "2024-05-01T08:00:00.000Z",
     content: `
@@ -727,7 +727,7 @@ export const BLOG_POSTS: BlogPostData[] = [
     metaDescription: "Keep your Idaho lawn healthy through hot, dry summers. Professional watering, mowing, and care strategies for Treasure Valley homeowners.",
     excerpt: "Keep your Idaho lawn healthy through hot, dry summers. Professional watering, mowing, and care strategies for Treasure Valley homeowners.",
     author: "Lawn Care Kuna Team",
-    category: "Seasonal Lawn Care",
+    category: "Seasonal Guides",
     tags: ["summer lawn care", "drought stress", "watering", "heat protection"],
     publishedAt: "2024-06-15T08:00:00.000Z",
     content: `
@@ -938,7 +938,7 @@ export const BLOG_POSTS: BlogPostData[] = [
     metaDescription: "Discover why fall aeration and overseeding are critical for Idaho lawns. Expert tips for Treasure Valley homeowners on extending lawn life.",
     excerpt: "Discover why fall aeration and overseeding are critical for Idaho lawns. Expert tips for Treasure Valley homeowners on extending lawn life.",
     author: "Lawn Care Kuna Team",
-    category: "Aeration & Overseeding",
+    category: "Lawn Maintenance",
     tags: ["fall aeration", "overseeding", "core aeration", "lawn renovation"],
     publishedAt: "2024-09-01T08:00:00.000Z",
     content: `
@@ -1139,7 +1139,7 @@ export const BLOG_POSTS: BlogPostData[] = [
     metaDescription: "Prepare your Idaho lawn for snow season with expert winterization tips. Essential tasks before the first snowfall for Treasure Valley properties.",
     excerpt: "Prepare your Idaho lawn for snow season with expert winterization tips. Essential tasks before the first snowfall for Treasure Valley properties.",
     author: "Lawn Care Kuna Team",
-    category: "Seasonal Lawn Care",
+    category: "Seasonal Guides",
     tags: ["winter preparation", "snow season", "winterization", "lawn protection"],
     publishedAt: "2024-10-15T08:00:00.000Z",
     content: `
@@ -1388,7 +1388,7 @@ export const BLOG_POSTS: BlogPostData[] = [
     metaDescription: "Expert guide to reviving heat-damaged lawns in the Treasure Valley. Learn recovery strategies for drought stress, brown patches, and summer damage.",
     excerpt: "Expert guide to reviving heat-damaged lawns in the Treasure Valley. Learn recovery strategies for drought stress, brown patches, and summer damage.",
     author: "Lawn Care Kuna Team",
-    category: "Lawn Problems & Diagnostics",
+    category: "Lawn Maintenance",
     tags: ["heat damage", "lawn recovery", "drought stress", "summer lawn care"],
     publishedAt: "2024-07-20T08:00:00.000Z",
     content: `
@@ -1591,7 +1591,7 @@ export const BLOG_POSTS: BlogPostData[] = [
     metaDescription: "Compare spring and fall cleanup for Idaho properties. Learn which seasonal cleanup delivers the biggest impact for Treasure Valley lawns and landscapes.",
     excerpt: "Compare spring and fall cleanup for Idaho properties. Learn which seasonal cleanup delivers the biggest impact for Treasure Valley lawns and landscapes.",
     author: "Lawn Care Kuna Team",
-    category: "Cleanups & Seasonal Prep",
+    category: "Seasonal Guides",
     tags: ["spring cleanup", "fall cleanup", "seasonal maintenance", "lawn care"],
     publishedAt: "2024-04-10T08:00:00.000Z",
     content: `
@@ -1728,7 +1728,7 @@ export const BLOG_POSTS: BlogPostData[] = [
     metaDescription: "Learn the ideal mowing schedule for Idaho lawns throughout the season. Expert guidance on mowing frequency, height, and timing for Treasure Valley properties.",
     excerpt: "Learn the ideal mowing schedule for Idaho lawns throughout the season. Expert guidance on mowing frequency, height, and timing for Treasure Valley properties.",
     author: "Lawn Care Kuna Team",
-    category: "General Lawn Maintenance Tips",
+    category: "Lawn Maintenance",
     tags: ["lawn mowing", "mowing frequency", "lawn maintenance", "idaho lawn care"],
     publishedAt: "2024-05-15T08:00:00.000Z",
     content: `
@@ -1865,7 +1865,7 @@ export const BLOG_POSTS: BlogPostData[] = [
     metaDescription: "Learn which grass seed varieties thrive in Idaho's climate and soil. Expert guidance on selecting the right grass for Treasure Valley lawns.",
     excerpt: "Learn which grass seed varieties thrive in Idaho's climate and soil. Expert guidance on selecting the right grass for Treasure Valley lawns.",
     author: "Lawn Care Kuna Team",
-    category: "Treasure Valley Homeowner Guides",
+    category: "Seasonal Guides",
     tags: ["grass seed", "lawn renovation", "idaho lawns", "overseeding"],
     publishedAt: "2024-08-25T08:00:00.000Z",
     content: `
@@ -2091,7 +2091,7 @@ export const BLOG_POSTS: BlogPostData[] = [
     metaDescription: "Discover how consistent lawn maintenance prevents costly problems and protects your Idaho lawn investment. Expert insights for Treasure Valley homeowners.",
     excerpt: "Discover how consistent lawn maintenance prevents costly problems and protects your Idaho lawn investment. Expert insights for Treasure Valley homeowners.",
     author: "Lawn Care Kuna Team",
-    category: "General Lawn Maintenance Tips",
+    category: "Lawn Maintenance",
     tags: ["lawn maintenance", "preventive care", "lawn health", "cost savings"],
     publishedAt: "2024-06-05T08:00:00.000Z",
     content: `
@@ -2241,7 +2241,7 @@ export const BLOG_POSTS: BlogPostData[] = [
     metaDescription: "Understand lawn fertilization and weed control in plain language. Expert guidance for Treasure Valley homeowners on feeding grass and controlling weeds.",
     excerpt: "Understand lawn fertilization and weed control in plain language. Expert guidance for Treasure Valley homeowners on feeding grass and controlling weeds.",
     author: "Lawn Care Kuna Team",
-    category: "Fertilization & Weed Control",
+    category: "Lawn Maintenance",
     tags: ["fertilization", "weed control", "lawn nutrition", "herbicides"],
     publishedAt: "2024-05-25T08:00:00.000Z",
     content: `
@@ -2463,7 +2463,7 @@ export const BLOG_POSTS: BlogPostData[] = [
     metaDescription: "Compare core aeration and liquid aeration for Idaho lawns. Learn which method works best in Treasure Valley's heavy clay soil and when to use each technique.",
     excerpt: "Core aeration or liquid aeration? Discover which method works best for Idaho's heavy clay soil and how each approach benefits your Treasure Valley lawn.",
     author: "Lawn Care Kuna Team",
-    category: "Lawn Care Techniques",
+    category: "Lawn Maintenance",
     tags: ["aeration", "core aeration", "liquid aeration", "soil health", "lawn maintenance"],
     publishedAt: "2024-04-15T08:00:00.000Z",
     content: `
@@ -2737,7 +2737,7 @@ export const BLOG_POSTS: BlogPostData[] = [
     metaDescription: "Essential guide to sprinkler winterization, blowouts, and repairs for Idaho's climate. Learn when to winterize, common repair needs, and costs for Treasure Valley.",
     excerpt: "Protect your irrigation investment with proper winterization and timely repairs. Complete guide to sprinkler blowouts and common repairs for Idaho homeowners.",
     author: "Lawn Care Kuna Team",
-    category: "Irrigation & Water Management",
+    category: "Lawn Maintenance",
     tags: ["sprinkler blowout", "irrigation repair", "winterization", "sprinkler maintenance"],
     publishedAt: "2024-10-01T08:00:00.000Z",
     content: `
@@ -3029,7 +3029,7 @@ export const BLOG_POSTS: BlogPostData[] = [
     metaDescription: "Learn when to dethatch vs aerate your Idaho lawn. Expert guidance on identifying thatch buildup, understanding when each treatment helps, and optimal timing for Treasure Valley.",
     excerpt: "Confused about dethatching and aeration? Discover when each treatment benefits your Idaho lawn and how to determine which your property needs.",
     author: "Lawn Care Kuna Team",
-    category: "Lawn Care Techniques",
+    category: "Lawn Maintenance",
     tags: ["dethatching", "aeration", "thatch management", "lawn health", "soil compaction"],
     publishedAt: "2024-05-20T08:00:00.000Z",
     content: `
@@ -3335,7 +3335,7 @@ export const BLOG_POSTS: BlogPostData[] = [
     metaDescription: "Complete guide to maintaining healthy shrubs and hedges in Idaho's climate. Learn seasonal care, pruning schedules, and maintenance tips for Treasure Valley properties.",
     excerpt: "Discover how to maintain beautiful, healthy shrubs and hedges year-round in Idaho's challenging climate with our comprehensive seasonal care guide.",
     author: "Lawn Care Kuna Team",
-    category: "Landscape Maintenance",
+    category: "Landscaping Tips",
     tags: ["shrub care", "hedge trimming", "landscape maintenance", "seasonal care", "pruning"],
     publishedAt: "2024-06-10T08:00:00.000Z",
     content: `
@@ -3658,7 +3658,7 @@ export const BLOG_POSTS: BlogPostData[] = [
     metaDescription: "Essential guide to commercial lawn care for Treasure Valley businesses. Learn what professional services include, costs, scheduling, and how commercial differs from residential.",
     excerpt: "Discover what commercial lawn care services include for Treasure Valley businesses, from HOAs to office complexes, and how to choose the right professional provider.",
     author: "Lawn Care Kuna Team",
-    category: "Commercial Services",
+    category: "Lawn Maintenance",
     tags: ["commercial lawn care", "business landscaping", "property management", "commercial services"],
     publishedAt: "2024-07-15T08:00:00.000Z",
     content: `
@@ -4042,7 +4042,7 @@ export const BLOG_POSTS: BlogPostData[] = [
     metaDescription: "Discover why timely leaf removal is critical for Idaho lawns. Learn about damage from leaf accumulation, proper removal techniques, and timing for Treasure Valley properties.",
     excerpt: "Leaf removal isn't just about appearance - it's essential for lawn health. Discover why timely removal matters and how to protect your Idaho lawn from leaf damage.",
     author: "Lawn Care Kuna Team",
-    category: "Seasonal Lawn Care",
+    category: "Seasonal Guides",
     tags: ["leaf removal", "fall cleanup", "lawn health", "seasonal maintenance"],
     publishedAt: "2024-10-15T08:00:00.000Z",
     content: `
@@ -4321,7 +4321,7 @@ export const BLOG_POSTS: BlogPostData[] = [
     metaDescription: "Learn when and how to prepare your Idaho landscape for holiday decorating. Expert timing tips for Christmas lights, winter curb appeal, and seasonal displays.",
     excerpt: "Proper timing transforms holiday landscape preparation from stressful to seamless. Learn when to prep your Idaho property for beautiful seasonal displays.",
     author: "Lawn Care Kuna Team",
-    category: "Seasonal Landscaping",
+    category: "Landscaping Tips",
     tags: ["holiday landscaping", "christmas lights", "seasonal prep", "winter decorating"],
     publishedAt: "2024-10-20T08:00:00.000Z",
     content: `
@@ -4632,7 +4632,7 @@ export const BLOG_POSTS: BlogPostData[] = [
     metaDescription: "Essential snow removal tips for Treasure Valley properties. Learn techniques, equipment needs, and when to hire professionals for safe, effective snow clearing.",
     excerpt: "Master snow removal with our complete guide covering equipment, techniques, safety, and professional service options for Idaho winters.",
     author: "Lawn Care Kuna Team",
-    category: "Winter Maintenance",
+    category: "Seasonal Guides",
     tags: ["snow removal", "winter maintenance", "property care", "idaho winters"],
     publishedAt: "2024-11-05T08:00:00.000Z",
     content: `
@@ -4930,7 +4930,7 @@ export const BLOG_POSTS: BlogPostData[] = [
     metaDescription: "Discover why brown patches appear in Treasure Valley lawns and learn effective solutions. Expert diagnosis and repair strategies for Idaho homeowners.",
     excerpt: "Brown patches ruin otherwise healthy lawns. Learn to identify causes from disease to drought and implement targeted solutions for Idaho conditions.",
     author: "Lawn Care Kuna Team",
-    category: "Lawn Problems & Solutions",
+    category: "Lawn Maintenance",
     tags: ["brown patches", "lawn disease", "lawn repair", "troubleshooting"],
     publishedAt: "2024-05-15T08:00:00.000Z",
     content: `
@@ -5295,7 +5295,7 @@ export const BLOG_POSTS: BlogPostData[] = [
     metaDescription: "Learn to identify and treat white grub damage in Treasure Valley lawns. Complete guide to grub control timing, products, and prevention for Idaho homeowners.",
     excerpt: "White grubs destroy grass roots causing brown patches that peel like carpet. Master identification, treatment timing, and prevention for Idaho lawns.",
     author: "Lawn Care Kuna Team",
-    category: "Lawn Problems & Solutions",
+    category: "Lawn Maintenance",
     tags: ["grub damage", "grub control", "lawn pests", "pest management"],
     publishedAt: "2024-06-20T08:00:00.000Z",
     content: `
@@ -5655,7 +5655,7 @@ export const BLOG_POSTS: BlogPostData[] = [
     metaDescription: "Master weed control in Treasure Valley lawns. Expert strategies for preventing and eliminating crabgrass, dandelions, and perennial weeds in Idaho.",
     excerpt: "Persistent weeds take over lawns without proper control. Learn effective prevention and treatment strategies for Idaho's most troublesome weeds.",
     author: "Lawn Care Kuna Team",
-    category: "Lawn Problems & Solutions",
+    category: "Lawn Maintenance",
     tags: ["weed control", "crabgrass", "dandelions", "lawn weeds"],
     publishedAt: "2024-04-10T08:00:00.000Z",
     content: `
