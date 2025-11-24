@@ -10,7 +10,7 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
-import { Menu, FileText } from "lucide-react";
+import { Menu, FileText, Scissors, TreeDeciduous, Sparkles, Building2, ArrowRight } from "lucide-react";
 import logoUrlPng from "@assets/Lawn Care Kuna Logo_1763734387982.png";
 import logoUrlWebp from "@assets/Lawn Care Kuna Logo_400x100.webp";
 import { PRIORITY_SERVICES } from "@shared/contentData";
@@ -83,64 +83,107 @@ export function Navigation() {
                   Services
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
-                  <div className="grid w-[800px] gap-6 p-8 md:grid-cols-3">
-                    <div className="space-y-4">
-                      <h3 className="text-sm font-semibold text-foreground tracking-wide uppercase mb-3">Lawn Care</h3>
-                      <ul className="space-y-1.5">
-                        {lawnCareServices.map((service) => (
-                          <li key={service.href}>
-                            <Link href={service.href}>
-                              <span className="block select-none rounded-md px-3 py-2 text-sm leading-none transition-colors hover-elevate cursor-pointer" data-testid={`link-${service.name.toLowerCase().replace(/\s+/g, '-')}`}>
-                                {service.name}
-                              </span>
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                    <div className="space-y-4">
-                      <h3 className="text-sm font-semibold text-foreground tracking-wide uppercase mb-3">Landscaping</h3>
-                      <ul className="space-y-1.5">
-                        {landscapingServices.map((service) => (
-                          <li key={service.href}>
-                            <Link href={service.href}>
-                              <span className="block select-none rounded-md px-3 py-2 text-sm leading-none transition-colors hover-elevate cursor-pointer" data-testid={`link-${service.name.toLowerCase().replace(/\s+/g, '-')}`}>
-                                {service.name}
-                              </span>
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                    <div className="space-y-4">
+                  <div className="w-[900px] p-6">
+                    <div className="grid gap-4 md:grid-cols-4">
+                      {/* Lawn Care Column */}
+                      <div className="bg-muted/30 rounded-lg p-5 space-y-3 border border-border/50">
+                        <div className="flex items-center gap-2 mb-3">
+                          <div className="p-2 rounded-md bg-primary/10">
+                            <Scissors className="h-4 w-4 text-primary" />
+                          </div>
+                          <h3 className="text-sm font-bold text-foreground">Lawn Care</h3>
+                        </div>
+                        <ul className="space-y-1">
+                          {lawnCareServices.map((service) => (
+                            <li key={service.href}>
+                              <Link href={service.href}>
+                                <span className="group flex items-center gap-2 select-none rounded-md px-3 py-2 text-sm leading-tight transition-colors hover-elevate cursor-pointer" data-testid={`link-${service.name.toLowerCase().replace(/\s+/g, '-')}`}>
+                                  <ArrowRight className="h-3 w-3 text-muted-foreground group-hover:text-primary transition-colors opacity-0 group-hover:opacity-100" />
+                                  <span className="group-hover:text-primary transition-colors">{service.name}</span>
+                                </span>
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+
+                      {/* Landscaping Column */}
+                      <div className="bg-muted/30 rounded-lg p-5 space-y-3 border border-border/50">
+                        <div className="flex items-center gap-2 mb-3">
+                          <div className="p-2 rounded-md bg-primary/10">
+                            <TreeDeciduous className="h-4 w-4 text-primary" />
+                          </div>
+                          <h3 className="text-sm font-bold text-foreground">Landscaping</h3>
+                        </div>
+                        <ul className="space-y-1">
+                          {landscapingServices.map((service) => (
+                            <li key={service.href}>
+                              <Link href={service.href}>
+                                <span className="group flex items-center gap-2 select-none rounded-md px-3 py-2 text-sm leading-tight transition-colors hover-elevate cursor-pointer" data-testid={`link-${service.name.toLowerCase().replace(/\s+/g, '-')}`}>
+                                  <ArrowRight className="h-3 w-3 text-muted-foreground group-hover:text-primary transition-colors opacity-0 group-hover:opacity-100" />
+                                  <span className="group-hover:text-primary transition-colors">{service.name}</span>
+                                </span>
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+
+                      {/* Seasonal Column */}
                       {christmasLightsServices.length > 0 && (
-                        <>
-                          <h3 className="text-sm font-semibold text-foreground tracking-wide uppercase mb-3">Seasonal</h3>
-                          <ul className="space-y-1.5 mb-6">
+                        <div className="bg-muted/30 rounded-lg p-5 space-y-3 border border-border/50">
+                          <div className="flex items-center gap-2 mb-3">
+                            <div className="p-2 rounded-md bg-primary/10">
+                              <Sparkles className="h-4 w-4 text-primary" />
+                            </div>
+                            <h3 className="text-sm font-bold text-foreground">Seasonal</h3>
+                          </div>
+                          <ul className="space-y-1">
                             {christmasLightsServices.map((service) => (
                               <li key={service.href}>
                                 <Link href={service.href}>
-                                  <span className="block select-none rounded-md px-3 py-2 text-sm leading-none transition-colors hover-elevate cursor-pointer" data-testid={`link-${service.name.toLowerCase().replace(/\s+/g, '-')}`}>
-                                    {service.name}
+                                  <span className="group flex items-center gap-2 select-none rounded-md px-3 py-2 text-sm leading-tight transition-colors hover-elevate cursor-pointer" data-testid={`link-${service.name.toLowerCase().replace(/\s+/g, '-')}`}>
+                                    <ArrowRight className="h-3 w-3 text-muted-foreground group-hover:text-primary transition-colors opacity-0 group-hover:opacity-100" />
+                                    <span className="group-hover:text-primary transition-colors">{service.name}</span>
                                   </span>
                                 </Link>
                               </li>
                             ))}
                           </ul>
-                        </>
+                        </div>
                       )}
-                      <h3 className="text-sm font-semibold text-foreground tracking-wide uppercase mb-3">Commercial</h3>
-                      <ul className="space-y-1.5">
-                        {commercialServices.map((service) => (
-                          <li key={service.href}>
-                            <Link href={service.href}>
-                              <span className="block select-none rounded-md px-3 py-2 text-sm leading-none transition-colors hover-elevate cursor-pointer" data-testid={`link-${service.name.toLowerCase().replace(/\s+/g, '-')}`}>
-                                {service.name}
-                              </span>
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
+
+                      {/* Commercial Column */}
+                      <div className="bg-muted/30 rounded-lg p-5 space-y-3 border border-border/50">
+                        <div className="flex items-center gap-2 mb-3">
+                          <div className="p-2 rounded-md bg-primary/10">
+                            <Building2 className="h-4 w-4 text-primary" />
+                          </div>
+                          <h3 className="text-sm font-bold text-foreground">Commercial</h3>
+                        </div>
+                        <ul className="space-y-1">
+                          {commercialServices.map((service) => (
+                            <li key={service.href}>
+                              <Link href={service.href}>
+                                <span className="group flex items-center gap-2 select-none rounded-md px-3 py-2 text-sm leading-tight transition-colors hover-elevate cursor-pointer" data-testid={`link-${service.name.toLowerCase().replace(/\s+/g, '-')}`}>
+                                  <ArrowRight className="h-3 w-3 text-muted-foreground group-hover:text-primary transition-colors opacity-0 group-hover:opacity-100" />
+                                  <span className="group-hover:text-primary transition-colors">{service.name}</span>
+                                </span>
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+
+                    {/* View All Services CTA */}
+                    <div className="mt-4 pt-4 border-t">
+                      <Link href="/services">
+                        <div className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-md bg-primary/5 hover-elevate active-elevate-2 transition-all cursor-pointer group" data-testid="link-view-all-services">
+                          <span className="text-sm font-medium text-primary">View All Services</span>
+                          <ArrowRight className="h-4 w-4 text-primary group-hover:translate-x-1 transition-transform" />
+                        </div>
+                      </Link>
                     </div>
                   </div>
                 </NavigationMenuContent>
