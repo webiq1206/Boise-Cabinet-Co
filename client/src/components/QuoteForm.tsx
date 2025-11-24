@@ -38,7 +38,7 @@ interface QuoteFormProps {
   className?: string;
   compact?: boolean;
   preselectedService?: string;
-  preselectedCity?: string;
+  preselectedCity?: string; // For backward compatibility, still accepts city
   enableAi?: boolean; // Override global AI flag
 }
 
@@ -521,11 +521,11 @@ export function QuoteForm({ className, compact = false, preselectedService, pres
               name="city"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>City</FormLabel>
+                  <FormLabel>Location</FormLabel>
                   <Select onValueChange={field.onChange} defaultValue={field.value}>
                     <FormControl>
                       <SelectTrigger data-testid="select-city">
-                        <SelectValue placeholder="Select your city" />
+                        <SelectValue placeholder="Select your location" />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>

@@ -24,7 +24,7 @@ import { SERVICE_PRICING_GUIDANCE_MAP, CITIES } from "@shared/contentData";
 // Step 1: Basic Property Info
 const step1Schema = z.object({
   address: z.string().optional(),
-  city: z.string().min(1, "Please select your city"),
+  city: z.string().min(1, "Please select your location"),
   propertyType: z.enum(["residential", "commercial", "hoa"]).optional(),
 });
 
@@ -568,7 +568,7 @@ export function QuoteWizard({
               </div>
 
               <div>
-                <Label htmlFor="city">City</Label>
+                <Label htmlFor="city">Location</Label>
                 <select
                   id="city"
                   className="w-full rounded-md border border-input bg-background px-3 py-2"

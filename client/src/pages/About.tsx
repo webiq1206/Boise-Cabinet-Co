@@ -524,7 +524,7 @@ export default function About() {
                   <MapPin className="h-8 w-8 text-primary" />
                 </div>
                 <div className="text-3xl md:text-4xl font-bold text-primary mb-2">6</div>
-                <p className="text-sm text-muted-foreground font-medium">Cities in Service Area</p>
+                <p className="text-sm text-muted-foreground font-medium">Locations in Service Area</p>
               </div>
 
               <div className="text-center">

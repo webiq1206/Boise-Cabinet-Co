@@ -328,13 +328,13 @@ export async function searchAdaCountyProperties(
         console.log('[AdaCountyAssessor] City-filtered results:', cityFiltered.length);
         
         if (cityFiltered.length === 0 && data.features.length > 0) {
-          // We found properties but none in the specified city
+          // We found properties but none in the specified location
           const foundCities = Array.from(new Set(data.features.map((f: any) => f.attributes.CITY)));
           return {
             success: false,
             properties: [],
             error: 'No properties found',
-            suggestion: `Address found in ${foundCities.join(', ')}, but not in ${normalizedCity}. Please check the city name.`
+            suggestion: `Address found in ${foundCities.join(', ')}, but not in ${normalizedCity}. Please check the location name.`
           };
         }
         
@@ -349,8 +349,8 @@ export async function searchAdaCountyProperties(
         properties: [],
         error: 'No properties found',
         suggestion: normalizedCity 
-          ? `Try removing the city name and entering just the street address, or check for typos.`
-          : `Please include the city name (e.g., "123 Main St, Kuna, ID") or select the city in the form above.`
+          ? `Try removing the location name and entering just the street address, or check for typos.`
+          : `Please include the location name (e.g., "123 Main St, Kuna, ID") or select the location in the form above.`
       };
     }
     

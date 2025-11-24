@@ -26,7 +26,7 @@ export function CityCrosslinks({ currentCity, serviceSlug, serviceName }: CityCr
         <div className="max-w-6xl mx-auto space-y-6 md:space-y-8">
           <div className="text-center space-y-2 md:space-y-3">
             <h2 className="text-2xl md:text-3xl font-bold tracking-tight">
-              {serviceName} in Other Treasure Valley Cities
+              {serviceName} in Other Treasure Valley Locations
             </h2>
             <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">
               We also provide professional {serviceName.toLowerCase()} services in these nearby areas

@@ -57,7 +57,7 @@ export function ServiceAreaMap() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* Interactive Idaho Map */}
           <div className="relative bg-muted/30 rounded-md p-6" data-testid="map-visual">
-            <svg viewBox="0 0 400 300" className="w-full h-auto" role="img" aria-label="Interactive map of Treasure Valley service area showing cities we serve">
+            <svg viewBox="0 0 400 300" className="w-full h-auto" role="img" aria-label="Interactive map of Treasure Valley service area showing locations we serve">
               {/* Idaho outline (simplified, focused on Treasure Valley) */}
               <path
                 d="M 80 80 Q 90 70 110 75 L 150 80 Q 180 78 210 85 L 260 90 Q 300 88 330 95 L 360 110 Q 375 130 370 155 L 360 190 Q 355 215 340 235 L 320 250 Q 290 265 260 270 L 210 275 Q 180 273 150 265 L 120 250 Q 95 235 90 210 L 80 175 Q 75 140 80 110 Z"
@@ -130,13 +130,13 @@ export function ServiceAreaMap() {
               })}
             </svg>
             <p className="text-xs text-center text-muted-foreground mt-4" data-testid="text-map-hint">
-              Click on any city to view services in that area
+              Click on any location to view services in that area
             </p>
           </div>
 
           {/* City List */}
           <div className="space-y-3">
-            <h3 className="font-semibold mb-4" data-testid="heading-cities">Cities We Serve</h3>
+            <h3 className="font-semibold mb-4" data-testid="heading-cities">Locations We Serve</h3>
             {serviceAreas.map((area) => (
               <Link key={area.slug} href={`/areas/${area.slug}`}>
                 <div
