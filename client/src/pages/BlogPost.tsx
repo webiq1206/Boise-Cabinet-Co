@@ -87,13 +87,11 @@ export default function BlogPost() {
               </div>
 
               {/* Content */}
-              <div className="prose prose-lg max-w-none dark:prose-invert" data-testid="content-post">
-                {post.content.split('\n').map((paragraph, i) => (
-                  <p key={i} className="mb-4 leading-relaxed">
-                    {paragraph}
-                  </p>
-                ))}
-              </div>
+              <div 
+                className="prose prose-lg max-w-none dark:prose-invert" 
+                data-testid="content-post"
+                dangerouslySetInnerHTML={{ __html: post.content }}
+              />
 
               {/* CTA */}
               <div className="mt-12 pt-8 border-t">
