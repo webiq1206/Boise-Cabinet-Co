@@ -55,7 +55,7 @@ export function NearMeFAQ({ city = "Kuna", serviceName = "lawn care" }: NearMeFA
         <Accordion type="single" collapsible className="w-full" data-testid="near-me-faq-accordion">
           {faqs.map((faq, index) => (
             <AccordionItem key={index} value={`item-${index}`} data-testid={`faq-item-${index}`}>
-              <AccordionTrigger className="text-left font-semibold hover:text-primary" data-testid={`faq-trigger-${index}`}>
+              <AccordionTrigger className="text-left text-base font-semibold hover:text-primary" data-testid={`faq-trigger-${index}`}>
                 {faq.question}
               </AccordionTrigger>
               <AccordionContent className="text-muted-foreground leading-relaxed" data-testid={`faq-content-${index}`}>
