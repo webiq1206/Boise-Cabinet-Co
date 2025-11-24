@@ -158,7 +158,7 @@ export default function AreaTemplate({ cityName, citySlug }: AreaTemplateProps) 
               In addition to {cityName}, we proudly serve homeowners and businesses throughout the Treasure Valley, providing consistent, professional lawn care and landscaping services across all major communities.
             </p>
             <div className="flex flex-wrap justify-center gap-3">
-              {['Kuna', 'Boise', 'Meridian', 'Nampa', 'Caldwell', 'Eagle']
+              {['Kuna', 'Boise', 'Meridian', 'Eagle', 'Star', 'Middleton']
                 .filter(city => city !== cityName)
                 .map((city) => (
                   <Button key={city} variant="outline" asChild data-testid={`button-city-${city.toLowerCase()}`}>
