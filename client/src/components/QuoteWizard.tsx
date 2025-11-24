@@ -413,7 +413,7 @@ export function QuoteWizard({
     form2.setValue("selectedServices", updated);
   };
 
-  const stepLabels = ["Property", "Services", "View Quote", "Submit"];
+  const stepLabels = ["Property", "Services", "Quote", "Submit"];
 
   return (
     <div ref={formRef} className="max-w-4xl mx-auto p-4">
