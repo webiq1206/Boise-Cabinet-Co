@@ -190,7 +190,7 @@ export default function BlogPost() {
 
                 {/* Sidebar */}
                 <aside className="hidden lg:block">
-                  <div className="sticky top-24 space-y-6">
+                  <div className="sticky top-24 space-y-6 max-h-[calc(100vh-7rem)] overflow-y-auto">
                     {/* Author Info */}
                     <Card>
                       <div className="p-6">
