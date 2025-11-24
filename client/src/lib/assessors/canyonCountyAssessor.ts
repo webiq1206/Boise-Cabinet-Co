@@ -177,7 +177,7 @@ export async function searchCanyonCountyProperties(
       error: 'Property not found in Canyon County.',
       suggestion: normalizedCity 
         ? `${normalizedCity} may not be in Canyon County. Canyon County includes: Nampa, Caldwell, and Middleton.`
-        : 'Canyon County includes: Nampa, Caldwell, and Middleton. Please include the city name in your address.'
+        : 'Canyon County includes: Nampa, Caldwell, and Middleton. Please include the location name in your address.'
     };
   }
 }

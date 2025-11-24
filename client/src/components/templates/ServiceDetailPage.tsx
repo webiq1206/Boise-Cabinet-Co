@@ -453,7 +453,7 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
                 We Serve the Entire Treasure Valley
               </h2>
               <p className="text-lg text-muted-foreground">
-                Professional {service.name.toLowerCase()} services in your city
+                Professional {service.name.toLowerCase()} services in your location
               </p>
             </div>
 
