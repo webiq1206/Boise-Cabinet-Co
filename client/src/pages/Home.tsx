@@ -100,6 +100,18 @@ const coreValues = [
   },
 ];
 
+// Map service display names to their URL slugs
+const serviceSlugMap: Record<string, string> = {
+  "Lawn Mowing": "lawn-mowing",
+  "Lawn Aeration": "aeration",
+  "Fertilization": "fertilization",
+  "Weed Control": "weed-control",
+  "Spring Cleanup": "spring-cleanup",
+  "Fall Cleanup": "fall-cleanup",
+  "Patio Installation": "patio-installation",
+  "Retaining Walls": "retaining-walls",
+};
+
 const popularServices = [
   { name: "Lawn Mowing", price: "Starting at $50" },
   { name: "Lawn Aeration", price: "Starting at $85" },
@@ -561,16 +573,31 @@ export default function Home() {
             <Card>
               <CardContent className="p-0">
                 <div className="divide-y">
-                  {popularServices.map((service, index) => (
-                    <div 
-                      key={index} 
-                      className="flex items-center justify-between p-4 hover-elevate"
-                      data-testid={`pricing-item-${index}`}
-                    >
-                      <span className="font-medium">{service.name}</span>
-                      <span className="text-muted-foreground">{service.price}</span>
-                    </div>
-                  ))}
+                  {popularServices.map((service, index) => {
+                    const slug = serviceSlugMap[service.name];
+                    const serviceTestId = `link-service-${service.name.toLowerCase().replace(/\s+/g, '-')}`;
+                    
+                    return (
+                      <div 
+                        key={index} 
+                        className="flex items-center justify-between p-4 hover-elevate"
+                        data-testid={`pricing-item-${index}`}
+                      >
+                        {slug ? (
+                          <Link 
+                            href={`/services/${slug}`}
+                            className="font-medium hover:text-primary hover:underline transition-colors"
+                            data-testid={serviceTestId}
+                          >
+                            {service.name}
+                          </Link>
+                        ) : (
+                          <span className="font-medium">{service.name}</span>
+                        )}
+                        <span className="text-muted-foreground">{service.price}</span>
+                      </div>
+                    );
+                  })}
                 </div>
               </CardContent>
             </Card>

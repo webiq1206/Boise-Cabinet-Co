@@ -4,6 +4,22 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Check } from "lucide-react";
 import { Link } from "wouter";
 
+// Map service display names to their URL slugs
+const serviceSlugMap: Record<string, string> = {
+  "Lawn Mowing": "lawn-mowing",
+  "Core Aeration": "aeration",
+  "Fertilization": "fertilization",
+  "Weed Control": "weed-control",
+  "Patio Installation": "patio-installation",
+  "Retaining Walls": "retaining-walls",
+  "Fence Installation": "fence",
+  "Irrigation Systems": "sprinkler-system-installation",
+  "Spring Cleanup": "spring-cleanup",
+  "Fall Cleanup": "fall-cleanup",
+  "Christmas Lights": "christmas-light-installation",
+  // "Snow Removal" intentionally omitted - no dedicated service page
+};
+
 const servicePricing = [
   {
     category: "Lawn Care Services",
@@ -92,17 +108,32 @@ export default function Pricing() {
                       <CardDescription>Professional quality, competitive rates</CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-4">
-                      {category.services.map((service) => (
-                        <div key={service.name} className="border-b pb-3 last:border-0 last:pb-0">
-                          <div className="flex justify-between items-start mb-1">
-                            <div className="font-medium">{service.name}</div>
-                            <div className="text-sm font-semibold text-primary whitespace-nowrap ml-2">
-                              {service.price}
+                      {category.services.map((service) => {
+                        const slug = serviceSlugMap[service.name];
+                        const serviceNameTestId = `link-service-${service.name.toLowerCase().replace(/\s+/g, '-')}`;
+                        
+                        return (
+                          <div key={service.name} className="border-b pb-3 last:border-0 last:pb-0">
+                            <div className="flex justify-between items-start mb-1">
+                              {slug ? (
+                                <Link 
+                                  href={`/services/${slug}`}
+                                  className="font-medium hover:text-primary hover:underline transition-colors"
+                                  data-testid={serviceNameTestId}
+                                >
+                                  {service.name}
+                                </Link>
+                              ) : (
+                                <div className="font-medium">{service.name}</div>
+                              )}
+                              <div className="text-sm font-semibold text-primary whitespace-nowrap ml-2">
+                                {service.price}
+                              </div>
                             </div>
+                            <div className="text-sm text-muted-foreground">{service.description}</div>
                           </div>
-                          <div className="text-sm text-muted-foreground">{service.description}</div>
-                        </div>
-                      ))}
+                        );
+                      })}
                     </CardContent>
                   </Card>
                 ))}
