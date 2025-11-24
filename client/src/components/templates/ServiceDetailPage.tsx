@@ -8,6 +8,7 @@ import { HeroQuoteSection } from "@/components/HeroQuoteSection";
 import { FactsSection } from "@/components/FactsSection";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { RelatedServices } from "@/components/RelatedServices";
+import { RelatedBlogPosts } from "@/components/RelatedBlogPosts";
 import type { ServiceData } from "@shared/contentData";
 import { generateSEOMetadata } from "@/lib/seo";
 import { generateServiceSchema, generateBreadcrumbSchema, generateFAQSchema } from "@/lib/schema";
@@ -443,6 +444,25 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
 
       {/* Related Services */}
       <RelatedServices currentServiceSlug={service.slug} limit={4} />
+
+      {/* Related Blog Posts */}
+      <section className="py-16 md:py-24 bg-muted/30">
+        <div className="container px-4 md:px-8">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-8">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">
+                Helpful Resources & Guides
+              </h2>
+              <p className="text-lg text-muted-foreground">
+                Expert advice and tips for {service.name.toLowerCase()} in Idaho
+              </p>
+            </div>
+            <div className="max-w-2xl mx-auto">
+              <RelatedBlogPosts serviceSlug={service.slug} limit={4} />
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* City Links Section */}
       <section className="py-16 md:py-24 bg-muted">

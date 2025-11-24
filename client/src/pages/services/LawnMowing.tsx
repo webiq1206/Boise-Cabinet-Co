@@ -2,6 +2,7 @@ import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { QuoteWizard } from "@/components/QuoteWizard";
+import { RelatedBlogPosts } from "@/components/RelatedBlogPosts";
 import { CheckCircle2, Calendar, DollarSign, Shield, Clock } from "lucide-react";
 
 export default function LawnMowing() {
@@ -220,6 +221,8 @@ export default function LawnMowing() {
                     </ul>
                   </CardContent>
                 </Card>
+
+                <RelatedBlogPosts serviceSlug="lawn-mowing" />
               </div>
             </div>
           </div>
