@@ -8,6 +8,29 @@ Preferred communication style: Simple, everyday language.
 
 ## Recent Changes
 
+### November 24, 2025 - Clickable Service Links for Better Navigation & SEO
+**UX & SEO Enhancement**: Made service names clickable in all pricing sections across the website, improving user navigation and internal linking structure for better SEO performance.
+
+**Implementation Details**:
+- **Homepage**: Popular Services section now has clickable links to service detail pages
+  - Services: Lawn Mowing, Lawn Aeration, Fertilization, Weed Control, Spring Cleanup, Fall Cleanup, Patio Installation, Retaining Walls
+- **Pricing Page**: All service names in pricing tables are now clickable links
+  - Categories: Lawn Care Services, Landscaping Services, Seasonal Services
+  - Services without dedicated pages (e.g., Snow Removal) remain as plain text
+- **Visual Enhancement**: Added hover effects (primary color, underline) for better user feedback
+- **Testing**: Proper test IDs added for all service links
+
+**Benefits**:
+- Improved UX: Users can click directly from pricing sections to learn more about services
+- Better SEO: Increased internal linking helps search engines discover and index service pages
+- Consistent navigation: Service names are clickable across the entire site
+
+**Files Modified**:
+- client/src/pages/Pricing.tsx - Added serviceSlugMap and clickable service links
+- client/src/pages/Home.tsx - Added serviceSlugMap and clickable service links
+
+**Testing**: E2E test verified correct navigation from both Homepage and Pricing page to all service detail pages, with proper URL routing and page headings.
+
 ### November 24, 2025 - Permanent Lighting Option for Christmas Lights
 **Feature Enhancement**: Added permanent lighting as a new option within the Christmas Light Installation service, allowing customers to choose between traditional seasonal lighting and year-round app-controlled permanent lighting systems.
 
