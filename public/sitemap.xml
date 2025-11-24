@@ -7,7 +7,7 @@
   <!-- Homepage -->
   <url>
     <loc>https://lawncarekuna.com/</loc>
-    <lastmod>2025-11-22</lastmod>
+    <lastmod>2025-11-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
@@ -15,447 +15,322 @@
   <!-- Main Pages -->
   <url>
     <loc>https://lawncarekuna.com/about</loc>
-    <lastmod>2025-11-22</lastmod>
+    <lastmod>2025-11-24</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.9</priority>
   </url>
 
   <url>
     <loc>https://lawncarekuna.com/contact</loc>
-    <lastmod>2025-11-22</lastmod>
+    <lastmod>2025-11-24</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://lawncarekuna.com/pricing</loc>
+    <lastmod>2025-11-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
   </url>
 
   <url>
     <loc>https://lawncarekuna.com/services</loc>
-    <lastmod>2025-11-22</lastmod>
+    <lastmod>2025-11-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
 
-  <!-- Service Pages -->
   <url>
-    <loc>https://lawncarekuna.com/services/lawn-mowing</loc>
-    <lastmod>2025-11-22</lastmod>
+    <loc>https://lawncarekuna.com/blog</loc>
+    <lastmod>2025-11-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://lawncarekuna.com/gallery</loc>
+    <lastmod>2025-11-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://lawncarekuna.com/testimonials</loc>
+    <lastmod>2025-11-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://lawncarekuna.com/get-quote</loc>
+    <lastmod>2025-11-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Service Category Pages -->
+  <url>
+    <loc>https://lawncarekuna.com/services/lawn-care</loc>
+    <lastmod>2025-11-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
 
   <url>
-    <loc>https://lawncarekuna.com/services/aeration</loc>
-    <lastmod>2025-11-22</lastmod>
+    <loc>https://lawncarekuna.com/services/landscaping</loc>
+    <lastmod>2025-11-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
 
   <url>
-    <loc>https://lawncarekuna.com/services/fertilization</loc>
-    <lastmod>2025-11-22</lastmod>
+    <loc>https://lawncarekuna.com/services/christmas-lights</loc>
+    <lastmod>2025-11-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
 
   <url>
-    <loc>https://lawncarekuna.com/services/weed-control</loc>
-    <lastmod>2025-11-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <url>
-    <loc>https://lawncarekuna.com/services/sod-installation</loc>
-    <lastmod>2025-11-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <url>
-    <loc>https://lawncarekuna.com/services/patio-installation</loc>
-    <lastmod>2025-11-22</lastmod>
+    <loc>https://lawncarekuna.com/commercial</loc>
+    <lastmod>2025-11-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://lawncarekuna.com/services/hedge-trimming</loc>
-    <lastmod>2025-11-22</lastmod>
+    <loc>https://lawncarekuna.com/commercial/hoa-services</loc>
+    <lastmod>2025-11-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
-  <url>
-    <loc>https://lawncarekuna.com/services/seasonal-cleanup</loc>
-    <lastmod>2025-11-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
+  <!-- Individual Service Pages (27 services) -->
+  <url><loc>https://lawncarekuna.com/services/lawn-mowing</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://lawncarekuna.com/services/aeration</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://lawncarekuna.com/services/fertilization</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://lawncarekuna.com/services/weed-control</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://lawncarekuna.com/services/sod-installation</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://lawncarekuna.com/services/dethatching</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://lawncarekuna.com/services/overseeding</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://lawncarekuna.com/services/lawn-edging</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://lawncarekuna.com/services/lawn-renovation</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://lawncarekuna.com/services/hedge-trimming</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://lawncarekuna.com/services/seasonal-cleanup</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://lawncarekuna.com/services/spring-cleanup</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://lawncarekuna.com/services/fall-cleanup</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://lawncarekuna.com/services/sprinkler-blowout</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://lawncarekuna.com/services/patio-installation</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://lawncarekuna.com/services/retaining-walls</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://lawncarekuna.com/services/fence</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://lawncarekuna.com/services/fire-pit-installation</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://lawncarekuna.com/services/landscape-lighting</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://lawncarekuna.com/services/sprinkler-system-installation</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://lawncarekuna.com/services/irrigation-repair</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://lawncarekuna.com/services/irrigation-maintenance</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://lawncarekuna.com/services/tree-trimming</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://lawncarekuna.com/services/tree-removal</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://lawncarekuna.com/services/stump-grinding</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://lawncarekuna.com/services/mulch-installation</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://lawncarekuna.com/services/christmas-light-installation</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
 
-  <url>
-    <loc>https://lawncarekuna.com/services/sprinkler-blowout</loc>
-    <lastmod>2025-11-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
+  <!-- Blog Posts (23 articles) -->
+  <url><loc>https://lawncarekuna.com/blog/spring-lawn-prep-checklist-treasure-valley</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://lawncarekuna.com/blog/winter-lawn-prep-southwest-idaho</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/blog/top-weeds-idaho-lawns-elimination</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/blog/protect-grass-hot-dry-idaho-summers</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/blog/fall-aeration-overseeding-extends-lawn-life</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/blog/snow-season-lawn-care-before-first-storm</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/blog/recover-lawn-after-heat-wave-idaho</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/blog/spring-cleanup-vs-fall-cleanup-comparison</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/blog/mowing-frequency-treasure-valley-guide</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/blog/choosing-grass-seed-idaho-soil-weather</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/blog/consistent-lawn-maintenance-long-term-protection</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/blog/fertilization-weed-control-explained-simply</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/blog/core-aeration-vs-liquid-aeration-idaho</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/blog/sprinkler-blowouts-and-repairs-idaho</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/blog/when-to-dethatch-vs-aerate-idaho</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/blog/keeping-shrubs-and-hedges-healthy-year-round</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/blog/commercial-lawn-care-treasure-valley-businesses</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/blog/why-leaf-removal-matters</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/blog/seasonal-holiday-landscape-prep-timing</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/blog/snow-removal-basics-homeowners-businesses</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/blog/lawn-brown-patches-how-to-fix</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/blog/grub-damage-idaho-lawns</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/blog/control-crabgrass-dandelions-persistent-weeds</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
 
-  <url>
-    <loc>https://lawncarekuna.com/services/dethatching</loc>
-    <lastmod>2025-11-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
+  <!-- City + Service Combination Pages - Kuna (27 services × priority 0.9) -->
+  <url><loc>https://lawncarekuna.com/services/lawn-mowing/kuna</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://lawncarekuna.com/services/aeration/kuna</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://lawncarekuna.com/services/fertilization/kuna</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://lawncarekuna.com/services/weed-control/kuna</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://lawncarekuna.com/services/sod-installation/kuna</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://lawncarekuna.com/services/dethatching/kuna</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://lawncarekuna.com/services/overseeding/kuna</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://lawncarekuna.com/services/lawn-edging/kuna</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://lawncarekuna.com/services/lawn-renovation/kuna</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://lawncarekuna.com/services/hedge-trimming/kuna</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://lawncarekuna.com/services/seasonal-cleanup/kuna</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://lawncarekuna.com/services/spring-cleanup/kuna</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://lawncarekuna.com/services/fall-cleanup/kuna</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://lawncarekuna.com/services/sprinkler-blowout/kuna</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://lawncarekuna.com/services/patio-installation/kuna</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://lawncarekuna.com/services/retaining-walls/kuna</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://lawncarekuna.com/services/fence/kuna</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://lawncarekuna.com/services/fire-pit-installation/kuna</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://lawncarekuna.com/services/landscape-lighting/kuna</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://lawncarekuna.com/services/sprinkler-system-installation/kuna</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://lawncarekuna.com/services/irrigation-repair/kuna</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://lawncarekuna.com/services/irrigation-maintenance/kuna</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://lawncarekuna.com/services/tree-trimming/kuna</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://lawncarekuna.com/services/tree-removal/kuna</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://lawncarekuna.com/services/stump-grinding/kuna</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://lawncarekuna.com/services/mulch-installation/kuna</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://lawncarekuna.com/services/christmas-light-installation/kuna</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
 
-  <url>
-    <loc>https://lawncarekuna.com/services/overseeding</loc>
-    <lastmod>2025-11-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
+  <!-- Boise (27 services × priority 0.8) -->
+  <url><loc>https://lawncarekuna.com/services/lawn-mowing/boise</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://lawncarekuna.com/services/aeration/boise</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://lawncarekuna.com/services/fertilization/boise</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://lawncarekuna.com/services/weed-control/boise</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://lawncarekuna.com/services/sod-installation/boise</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://lawncarekuna.com/services/dethatching/boise</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://lawncarekuna.com/services/overseeding/boise</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://lawncarekuna.com/services/lawn-edging/boise</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://lawncarekuna.com/services/lawn-renovation/boise</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://lawncarekuna.com/services/hedge-trimming/boise</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://lawncarekuna.com/services/seasonal-cleanup/boise</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://lawncarekuna.com/services/spring-cleanup/boise</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://lawncarekuna.com/services/fall-cleanup/boise</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://lawncarekuna.com/services/sprinkler-blowout/boise</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://lawncarekuna.com/services/patio-installation/boise</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://lawncarekuna.com/services/retaining-walls/boise</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://lawncarekuna.com/services/fence/boise</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://lawncarekuna.com/services/fire-pit-installation/boise</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://lawncarekuna.com/services/landscape-lighting/boise</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://lawncarekuna.com/services/sprinkler-system-installation/boise</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://lawncarekuna.com/services/irrigation-repair/boise</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://lawncarekuna.com/services/irrigation-maintenance/boise</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://lawncarekuna.com/services/tree-trimming/boise</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://lawncarekuna.com/services/tree-removal/boise</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://lawncarekuna.com/services/stump-grinding/boise</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://lawncarekuna.com/services/mulch-installation/boise</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://lawncarekuna.com/services/christmas-light-installation/boise</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
 
-  <url>
-    <loc>https://lawncarekuna.com/services/mulch-installation</loc>
-    <lastmod>2025-11-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
+  <!-- Meridian (27 services × priority 0.8) -->
+  <url><loc>https://lawncarekuna.com/services/lawn-mowing/meridian</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://lawncarekuna.com/services/aeration/meridian</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://lawncarekuna.com/services/fertilization/meridian</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://lawncarekuna.com/services/weed-control/meridian</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://lawncarekuna.com/services/sod-installation/meridian</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://lawncarekuna.com/services/dethatching/meridian</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://lawncarekuna.com/services/overseeding/meridian</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://lawncarekuna.com/services/lawn-edging/meridian</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://lawncarekuna.com/services/lawn-renovation/meridian</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://lawncarekuna.com/services/hedge-trimming/meridian</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://lawncarekuna.com/services/seasonal-cleanup/meridian</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://lawncarekuna.com/services/spring-cleanup/meridian</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://lawncarekuna.com/services/fall-cleanup/meridian</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://lawncarekuna.com/services/sprinkler-blowout/meridian</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://lawncarekuna.com/services/patio-installation/meridian</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://lawncarekuna.com/services/retaining-walls/meridian</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://lawncarekuna.com/services/fence/meridian</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://lawncarekuna.com/services/fire-pit-installation/meridian</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://lawncarekuna.com/services/landscape-lighting/meridian</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://lawncarekuna.com/services/sprinkler-system-installation/meridian</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://lawncarekuna.com/services/irrigation-repair/meridian</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://lawncarekuna.com/services/irrigation-maintenance/meridian</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://lawncarekuna.com/services/tree-trimming/meridian</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://lawncarekuna.com/services/tree-removal/meridian</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://lawncarekuna.com/services/stump-grinding/meridian</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://lawncarekuna.com/services/mulch-installation/meridian</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://lawncarekuna.com/services/christmas-light-installation/meridian</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
 
-  <url>
-    <loc>https://lawncarekuna.com/services/retaining-walls</loc>
-    <lastmod>2025-11-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
+  <!-- Eagle (27 services × priority 0.7) -->
+  <url><loc>https://lawncarekuna.com/services/lawn-mowing/eagle</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/services/aeration/eagle</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/services/fertilization/eagle</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/services/weed-control/eagle</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/services/sod-installation/eagle</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/services/dethatching/eagle</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/services/overseeding/eagle</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/services/lawn-edging/eagle</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/services/lawn-renovation/eagle</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/services/hedge-trimming/eagle</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/services/seasonal-cleanup/eagle</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/services/spring-cleanup/eagle</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/services/fall-cleanup/eagle</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/services/sprinkler-blowout/eagle</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/services/patio-installation/eagle</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/services/retaining-walls/eagle</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/services/fence/eagle</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/services/fire-pit-installation/eagle</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/services/landscape-lighting/eagle</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/services/sprinkler-system-installation/eagle</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/services/irrigation-repair/eagle</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/services/irrigation-maintenance/eagle</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/services/tree-trimming/eagle</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/services/tree-removal/eagle</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/services/stump-grinding/eagle</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/services/mulch-installation/eagle</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/services/christmas-light-installation/eagle</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
 
-  <url>
-    <loc>https://lawncarekuna.com/services/fire-pit-installation</loc>
-    <lastmod>2025-11-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
+  <!-- Star (27 services × priority 0.7) -->
+  <url><loc>https://lawncarekuna.com/services/lawn-mowing/star</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/services/aeration/star</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/services/fertilization/star</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/services/weed-control/star</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/services/sod-installation/star</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/services/dethatching/star</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/services/overseeding/star</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/services/lawn-edging/star</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/services/lawn-renovation/star</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/services/hedge-trimming/star</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/services/seasonal-cleanup/star</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/services/spring-cleanup/star</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/services/fall-cleanup/star</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/services/sprinkler-blowout/star</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/services/patio-installation/star</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/services/retaining-walls/star</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/services/fence/star</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/services/fire-pit-installation/star</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/services/landscape-lighting/star</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/services/sprinkler-system-installation/star</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/services/irrigation-repair/star</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/services/irrigation-maintenance/star</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/services/tree-trimming/star</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/services/tree-removal/star</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/services/stump-grinding/star</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/services/mulch-installation/star</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/services/christmas-light-installation/star</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
 
-  <url>
-    <loc>https://lawncarekuna.com/services/landscape-lighting</loc>
-    <lastmod>2025-11-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://lawncarekuna.com/services/sprinkler-system-installation</loc>
-    <lastmod>2025-11-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://lawncarekuna.com/services/irrigation-repair</loc>
-    <lastmod>2025-11-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://lawncarekuna.com/services/irrigation-maintenance</loc>
-    <lastmod>2025-11-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://lawncarekuna.com/services/tree-trimming</loc>
-    <lastmod>2025-11-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://lawncarekuna.com/services/lawn-edging</loc>
-    <lastmod>2025-11-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://lawncarekuna.com/services/christmas-light-installation</loc>
-    <lastmod>2025-11-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <url>
-    <loc>https://lawncarekuna.com/services/lawn-renovation</loc>
-    <lastmod>2025-11-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://lawncarekuna.com/services/tree-removal</loc>
-    <lastmod>2025-11-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://lawncarekuna.com/services/stump-grinding</loc>
-    <lastmod>2025-11-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://lawncarekuna.com/services/fall-cleanup</loc>
-    <lastmod>2025-11-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://lawncarekuna.com/services/spring-cleanup</loc>
-    <lastmod>2025-11-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://lawncarekuna.com/services/sprinkler-repair</loc>
-    <lastmod>2025-11-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <!-- City + Service Combination Pages (216 total) -->
-  
-  <!-- Kuna Service Pages -->
-  <url><loc>https://lawncarekuna.com/services/lawn-mowing/kuna</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://lawncarekuna.com/services/aeration/kuna</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://lawncarekuna.com/services/fertilization/kuna</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://lawncarekuna.com/services/weed-control/kuna</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://lawncarekuna.com/services/sod-installation/kuna</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://lawncarekuna.com/services/patio-installation/kuna</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://lawncarekuna.com/services/hedge-trimming/kuna</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://lawncarekuna.com/services/seasonal-cleanup/kuna</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://lawncarekuna.com/services/sprinkler-blowout/kuna</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://lawncarekuna.com/services/dethatching/kuna</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://lawncarekuna.com/services/overseeding/kuna</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://lawncarekuna.com/services/mulch-installation/kuna</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://lawncarekuna.com/services/retaining-walls/kuna</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://lawncarekuna.com/services/fire-pit-installation/kuna</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://lawncarekuna.com/services/landscape-lighting/kuna</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://lawncarekuna.com/services/sprinkler-system-installation/kuna</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://lawncarekuna.com/services/irrigation-repair/kuna</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://lawncarekuna.com/services/irrigation-maintenance/kuna</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://lawncarekuna.com/services/tree-trimming/kuna</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://lawncarekuna.com/services/lawn-edging/kuna</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://lawncarekuna.com/services/christmas-light-installation/kuna</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://lawncarekuna.com/services/lawn-renovation/kuna</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://lawncarekuna.com/services/tree-removal/kuna</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://lawncarekuna.com/services/stump-grinding/kuna</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://lawncarekuna.com/services/fall-cleanup/kuna</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://lawncarekuna.com/services/spring-cleanup/kuna</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://lawncarekuna.com/services/sprinkler-repair/kuna</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-
-  <!-- Boise Service Pages -->
-  <url><loc>https://lawncarekuna.com/services/lawn-mowing/boise</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://lawncarekuna.com/services/aeration/boise</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://lawncarekuna.com/services/fertilization/boise</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://lawncarekuna.com/services/weed-control/boise</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://lawncarekuna.com/services/sod-installation/boise</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://lawncarekuna.com/services/patio-installation/boise</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://lawncarekuna.com/services/hedge-trimming/boise</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://lawncarekuna.com/services/seasonal-cleanup/boise</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://lawncarekuna.com/services/sprinkler-blowout/boise</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://lawncarekuna.com/services/dethatching/boise</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://lawncarekuna.com/services/overseeding/boise</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://lawncarekuna.com/services/mulch-installation/boise</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://lawncarekuna.com/services/retaining-walls/boise</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://lawncarekuna.com/services/fire-pit-installation/boise</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://lawncarekuna.com/services/landscape-lighting/boise</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://lawncarekuna.com/services/sprinkler-system-installation/boise</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://lawncarekuna.com/services/irrigation-repair/boise</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://lawncarekuna.com/services/irrigation-maintenance/boise</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://lawncarekuna.com/services/tree-trimming/boise</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://lawncarekuna.com/services/lawn-edging/boise</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://lawncarekuna.com/services/christmas-light-installation/boise</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://lawncarekuna.com/services/lawn-renovation/boise</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://lawncarekuna.com/services/tree-removal/boise</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://lawncarekuna.com/services/stump-grinding/boise</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://lawncarekuna.com/services/fall-cleanup/boise</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://lawncarekuna.com/services/spring-cleanup/boise</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://lawncarekuna.com/services/sprinkler-repair/boise</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-
-  <!-- Meridian Service Pages -->
-  <url><loc>https://lawncarekuna.com/services/lawn-mowing/meridian</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://lawncarekuna.com/services/aeration/meridian</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://lawncarekuna.com/services/fertilization/meridian</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://lawncarekuna.com/services/weed-control/meridian</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://lawncarekuna.com/services/sod-installation/meridian</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://lawncarekuna.com/services/patio-installation/meridian</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://lawncarekuna.com/services/hedge-trimming/meridian</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://lawncarekuna.com/services/seasonal-cleanup/meridian</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://lawncarekuna.com/services/sprinkler-blowout/meridian</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://lawncarekuna.com/services/dethatching/meridian</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://lawncarekuna.com/services/overseeding/meridian</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://lawncarekuna.com/services/mulch-installation/meridian</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://lawncarekuna.com/services/retaining-walls/meridian</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://lawncarekuna.com/services/fire-pit-installation/meridian</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://lawncarekuna.com/services/landscape-lighting/meridian</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://lawncarekuna.com/services/sprinkler-system-installation/meridian</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://lawncarekuna.com/services/irrigation-repair/meridian</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://lawncarekuna.com/services/irrigation-maintenance/meridian</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://lawncarekuna.com/services/tree-trimming/meridian</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://lawncarekuna.com/services/lawn-edging/meridian</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://lawncarekuna.com/services/christmas-light-installation/meridian</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://lawncarekuna.com/services/lawn-renovation/meridian</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://lawncarekuna.com/services/tree-removal/meridian</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://lawncarekuna.com/services/stump-grinding/meridian</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://lawncarekuna.com/services/fall-cleanup/meridian</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://lawncarekuna.com/services/spring-cleanup/meridian</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://lawncarekuna.com/services/sprinkler-repair/meridian</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-
-  <!-- Nampa Service Pages -->
-  <url><loc>https://lawncarekuna.com/services/lawn-mowing/nampa</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://lawncarekuna.com/services/aeration/nampa</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://lawncarekuna.com/services/fertilization/nampa</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://lawncarekuna.com/services/weed-control/nampa</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://lawncarekuna.com/services/sod-installation/nampa</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://lawncarekuna.com/services/patio-installation/nampa</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://lawncarekuna.com/services/hedge-trimming/nampa</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://lawncarekuna.com/services/seasonal-cleanup/nampa</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://lawncarekuna.com/services/sprinkler-blowout/nampa</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://lawncarekuna.com/services/dethatching/nampa</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://lawncarekuna.com/services/overseeding/nampa</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://lawncarekuna.com/services/mulch-installation/nampa</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://lawncarekuna.com/services/retaining-walls/nampa</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://lawncarekuna.com/services/fire-pit-installation/nampa</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://lawncarekuna.com/services/landscape-lighting/nampa</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://lawncarekuna.com/services/sprinkler-system-installation/nampa</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://lawncarekuna.com/services/irrigation-repair/nampa</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://lawncarekuna.com/services/irrigation-maintenance/nampa</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://lawncarekuna.com/services/tree-trimming/nampa</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://lawncarekuna.com/services/lawn-edging/nampa</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://lawncarekuna.com/services/christmas-light-installation/nampa</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://lawncarekuna.com/services/lawn-renovation/nampa</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://lawncarekuna.com/services/tree-removal/nampa</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://lawncarekuna.com/services/stump-grinding/nampa</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://lawncarekuna.com/services/fall-cleanup/nampa</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://lawncarekuna.com/services/spring-cleanup/nampa</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://lawncarekuna.com/services/sprinkler-repair/nampa</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-
-  <!-- Caldwell Service Pages -->
-  <url><loc>https://lawncarekuna.com/services/lawn-mowing/caldwell</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://lawncarekuna.com/services/aeration/caldwell</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://lawncarekuna.com/services/fertilization/caldwell</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://lawncarekuna.com/services/weed-control/caldwell</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://lawncarekuna.com/services/sod-installation/caldwell</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://lawncarekuna.com/services/patio-installation/caldwell</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://lawncarekuna.com/services/hedge-trimming/caldwell</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://lawncarekuna.com/services/seasonal-cleanup/caldwell</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://lawncarekuna.com/services/sprinkler-blowout/caldwell</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://lawncarekuna.com/services/dethatching/caldwell</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://lawncarekuna.com/services/overseeding/caldwell</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://lawncarekuna.com/services/mulch-installation/caldwell</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://lawncarekuna.com/services/retaining-walls/caldwell</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://lawncarekuna.com/services/fire-pit-installation/caldwell</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://lawncarekuna.com/services/landscape-lighting/caldwell</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://lawncarekuna.com/services/sprinkler-system-installation/caldwell</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://lawncarekuna.com/services/irrigation-repair/caldwell</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://lawncarekuna.com/services/irrigation-maintenance/caldwell</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://lawncarekuna.com/services/tree-trimming/caldwell</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://lawncarekuna.com/services/lawn-edging/caldwell</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://lawncarekuna.com/services/christmas-light-installation/caldwell</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://lawncarekuna.com/services/lawn-renovation/caldwell</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://lawncarekuna.com/services/tree-removal/caldwell</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://lawncarekuna.com/services/stump-grinding/caldwell</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://lawncarekuna.com/services/fall-cleanup/caldwell</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://lawncarekuna.com/services/spring-cleanup/caldwell</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://lawncarekuna.com/services/sprinkler-repair/caldwell</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-
-  <!-- Eagle Service Pages -->
-  <url><loc>https://lawncarekuna.com/services/lawn-mowing/eagle</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://lawncarekuna.com/services/aeration/eagle</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://lawncarekuna.com/services/fertilization/eagle</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://lawncarekuna.com/services/weed-control/eagle</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://lawncarekuna.com/services/sod-installation/eagle</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://lawncarekuna.com/services/patio-installation/eagle</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://lawncarekuna.com/services/hedge-trimming/eagle</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://lawncarekuna.com/services/seasonal-cleanup/eagle</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://lawncarekuna.com/services/sprinkler-blowout/eagle</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://lawncarekuna.com/services/dethatching/eagle</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://lawncarekuna.com/services/overseeding/eagle</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://lawncarekuna.com/services/mulch-installation/eagle</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://lawncarekuna.com/services/retaining-walls/eagle</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://lawncarekuna.com/services/fire-pit-installation/eagle</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://lawncarekuna.com/services/landscape-lighting/eagle</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://lawncarekuna.com/services/sprinkler-system-installation/eagle</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://lawncarekuna.com/services/irrigation-repair/eagle</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://lawncarekuna.com/services/irrigation-maintenance/eagle</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://lawncarekuna.com/services/tree-trimming/eagle</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://lawncarekuna.com/services/lawn-edging/eagle</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://lawncarekuna.com/services/christmas-light-installation/eagle</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://lawncarekuna.com/services/lawn-renovation/eagle</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://lawncarekuna.com/services/tree-removal/eagle</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://lawncarekuna.com/services/stump-grinding/eagle</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://lawncarekuna.com/services/fall-cleanup/eagle</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://lawncarekuna.com/services/spring-cleanup/eagle</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://lawncarekuna.com/services/sprinkler-repair/eagle</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-
-  <!-- Star Service Pages -->
-  <url><loc>https://lawncarekuna.com/services/lawn-mowing/star</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://lawncarekuna.com/services/aeration/star</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://lawncarekuna.com/services/fertilization/star</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://lawncarekuna.com/services/weed-control/star</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://lawncarekuna.com/services/sod-installation/star</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://lawncarekuna.com/services/patio-installation/star</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://lawncarekuna.com/services/hedge-trimming/star</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://lawncarekuna.com/services/seasonal-cleanup/star</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://lawncarekuna.com/services/sprinkler-blowout/star</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://lawncarekuna.com/services/dethatching/star</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://lawncarekuna.com/services/overseeding/star</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://lawncarekuna.com/services/mulch-installation/star</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://lawncarekuna.com/services/retaining-walls/star</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://lawncarekuna.com/services/fire-pit-installation/star</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://lawncarekuna.com/services/landscape-lighting/star</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://lawncarekuna.com/services/sprinkler-system-installation/star</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://lawncarekuna.com/services/irrigation-repair/star</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://lawncarekuna.com/services/irrigation-maintenance/star</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://lawncarekuna.com/services/tree-trimming/star</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://lawncarekuna.com/services/lawn-edging/star</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://lawncarekuna.com/services/christmas-light-installation/star</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://lawncarekuna.com/services/lawn-renovation/star</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://lawncarekuna.com/services/tree-removal/star</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://lawncarekuna.com/services/stump-grinding/star</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://lawncarekuna.com/services/fall-cleanup/star</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://lawncarekuna.com/services/spring-cleanup/star</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://lawncarekuna.com/services/sprinkler-repair/star</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
-
-  <!-- Middleton Service Pages -->
-  <url><loc>https://lawncarekuna.com/services/lawn-mowing/middleton</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://lawncarekuna.com/services/aeration/middleton</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://lawncarekuna.com/services/fertilization/middleton</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://lawncarekuna.com/services/weed-control/middleton</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://lawncarekuna.com/services/sod-installation/middleton</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://lawncarekuna.com/services/patio-installation/middleton</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://lawncarekuna.com/services/hedge-trimming/middleton</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://lawncarekuna.com/services/seasonal-cleanup/middleton</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://lawncarekuna.com/services/sprinkler-blowout/middleton</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://lawncarekuna.com/services/dethatching/middleton</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://lawncarekuna.com/services/overseeding/middleton</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://lawncarekuna.com/services/mulch-installation/middleton</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://lawncarekuna.com/services/retaining-walls/middleton</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://lawncarekuna.com/services/fire-pit-installation/middleton</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://lawncarekuna.com/services/landscape-lighting/middleton</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://lawncarekuna.com/services/sprinkler-system-installation/middleton</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://lawncarekuna.com/services/irrigation-repair/middleton</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://lawncarekuna.com/services/irrigation-maintenance/middleton</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://lawncarekuna.com/services/tree-trimming/middleton</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://lawncarekuna.com/services/lawn-edging/middleton</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://lawncarekuna.com/services/christmas-light-installation/middleton</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://lawncarekuna.com/services/lawn-renovation/middleton</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://lawncarekuna.com/services/tree-removal/middleton</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://lawncarekuna.com/services/stump-grinding/middleton</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://lawncarekuna.com/services/fall-cleanup/middleton</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://lawncarekuna.com/services/spring-cleanup/middleton</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://lawncarekuna.com/services/sprinkler-repair/middleton</loc><lastmod>2025-11-22</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <!-- Middleton (27 services × priority 0.7) -->
+  <url><loc>https://lawncarekuna.com/services/lawn-mowing/middleton</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/services/aeration/middleton</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/services/fertilization/middleton</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/services/weed-control/middleton</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/services/sod-installation/middleton</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/services/dethatching/middleton</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/services/overseeding/middleton</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/services/lawn-edging/middleton</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/services/lawn-renovation/middleton</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/services/hedge-trimming/middleton</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/services/seasonal-cleanup/middleton</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/services/spring-cleanup/middleton</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/services/fall-cleanup/middleton</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/services/sprinkler-blowout/middleton</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/services/patio-installation/middleton</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/services/retaining-walls/middleton</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/services/fence/middleton</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/services/fire-pit-installation/middleton</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/services/landscape-lighting/middleton</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/services/sprinkler-system-installation/middleton</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/services/irrigation-repair/middleton</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/services/irrigation-maintenance/middleton</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/services/tree-trimming/middleton</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/services/tree-removal/middleton</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/services/stump-grinding/middleton</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/services/mulch-installation/middleton</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lawncarekuna.com/services/christmas-light-installation/middleton</loc><lastmod>2025-11-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
 
 </urlset>
