@@ -17,7 +17,7 @@ const serviceSlugMap: Record<string, string> = {
   "Spring Cleanup": "spring-cleanup",
   "Fall Cleanup": "fall-cleanup",
   "Christmas Lights": "christmas-light-installation",
-  // "Snow Removal" intentionally omitted - no dedicated service page
+  "Snow Removal": "snow-removal",
 };
 
 const servicePricing = [
