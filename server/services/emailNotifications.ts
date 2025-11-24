@@ -197,7 +197,7 @@ export async function sendNewLeadNotification(leadData: {
       <div class="email-wrapper">
         <div class="header">
           <div style="margin-bottom: 20px;">
-            <img src="https://lawncarekuna.com/attached_assets/lawn-care-kuna-logo.png" alt="Lawn Care Kuna" style="max-width: 300px; height: auto;">
+            <img src="https://lawncarekuna.com/email/lawn-care-kuna-logo.png" alt="Lawn Care Kuna" width="300" style="display:block; max-width:300px; height:auto;">
           </div>
           <h1>New Lead Available</h1>
           <p>Lead Distribution Platform</p>
@@ -296,7 +296,7 @@ export async function sendLeadPurchasedNotification(leadData: {
       <div class="email-wrapper">
         <div class="header" style="background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);">
           <div style="margin-bottom: 20px;">
-            <img src="https://lawncarekuna.com/attached_assets/lawn-care-kuna-logo.png" alt="Lawn Care Kuna" style="max-width: 300px; height: auto;">
+            <img src="https://lawncarekuna.com/email/lawn-care-kuna-logo.png" alt="Lawn Care Kuna" width="300" style="display:block; max-width:300px; height:auto;">
           </div>
           <h1>Lead Purchased</h1>
           <p>Transaction Notification</p>
@@ -402,7 +402,7 @@ export async function sendLeadPurchaseConfirmation(purchaserEmail: string, leadD
       <div class="email-wrapper">
         <div class="header">
           <div style="margin-bottom: 20px;">
-            <img src="https://lawncarekuna.com/attached_assets/lawn-care-kuna-logo.png" alt="Lawn Care Kuna" style="max-width: 300px; height: auto;">
+            <img src="https://lawncarekuna.com/email/lawn-care-kuna-logo.png" alt="Lawn Care Kuna" width="300" style="display:block; max-width:300px; height:auto;">
           </div>
           <h1>Purchase Confirmed</h1>
           <p>Your lead is ready to contact</p>

@@ -382,8 +382,8 @@ export async function sendQuoteNotification(data: QuoteEmailData) {
         <div class="email-wrapper">
           <div class="header">
             <div class="logo-container">
-              <img src="https://lawncarekuna.com/attached_assets/lawn-care-kuna-icon.png" alt="Lawn Care Kuna Icon" class="icon">
-              <img src="https://lawncarekuna.com/attached_assets/lawn-care-kuna-logo.png" alt="Lawn Care Kuna" class="logo">
+              <img src="https://lawncarekuna.com/email/lawn-care-kuna-icon.png" alt="Lawn Care Kuna Icon" class="icon" width="60" height="60" style="display:block;">
+              <img src="https://lawncarekuna.com/email/lawn-care-kuna-logo.png" alt="Lawn Care Kuna" class="logo" width="300" style="display:block; max-width:300px; height:auto;">
             </div>
             <h1>New Quote Request</h1>
             <p>AI-Powered Quote System</p>
@@ -523,8 +523,8 @@ export async function sendQuoteNotification(data: QuoteEmailData) {
         <div class="email-wrapper">
           <div class="header">
             <div class="logo-container">
-              <img src="https://lawncarekuna.com/attached_assets/lawn-care-kuna-icon.png" alt="Lawn Care Kuna Icon" class="icon">
-              <img src="https://lawncarekuna.com/attached_assets/lawn-care-kuna-logo.png" alt="Lawn Care Kuna" class="logo">
+              <img src="https://lawncarekuna.com/email/lawn-care-kuna-icon.png" alt="Lawn Care Kuna Icon" class="icon" width="60" height="60" style="display:block;">
+              <img src="https://lawncarekuna.com/email/lawn-care-kuna-logo.png" alt="Lawn Care Kuna" class="logo" width="300" style="display:block; max-width:300px; height:auto;">
             </div>
             <h1>Thank You for Your Request</h1>
             <p>We're excited to help transform your outdoor space!</p>
