@@ -8,6 +8,30 @@ Preferred communication style: Simple, everyday language.
 
 ## Recent Changes
 
+### November 24, 2025 - Permanent Lighting Option for Christmas Lights
+**Feature Enhancement**: Added permanent lighting as a new option within the Christmas Light Installation service, allowing customers to choose between traditional seasonal lighting and year-round app-controlled permanent lighting systems.
+
+**Implementation Details**:
+- **New Field**: Added "Lighting Type" dropdown as the first required field in Christmas light quote forms
+  - Options: "Traditional Seasonal" and "Permanent Lighting"
+  - Includes helpful text explaining the difference between options
+- **Differential Pricing**:
+  - Traditional Seasonal: $3.50/linear foot (annual installation/removal service)
+  - Permanent Lighting: $15.00/linear foot (one-time installation, 4.3x premium)
+  - Example: 200 linear feet = $1,015 traditional vs $4,350 permanent
+- **Content Enhancements**:
+  - Updated service descriptions to highlight both options
+  - Added 6 permanent lighting benefits (app control, year-round use, color customization, weather-resistant, ROI, smart home integration)
+  - Added 6 dedicated FAQs covering cost comparison, visibility, features, maintenance, and weather resistance
+  - Updated pricing guidance to show both traditional and permanent pricing ranges
+
+**Files Modified**:
+- shared/serviceFieldConfig.ts - Added lightingType field to ServiceFieldType
+- shared/contentData.ts - Enhanced Christmas lights content and FAQs
+- server/services/pricing.ts - Implemented differential pricing logic and descriptions
+
+**Testing**: E2E test verified correct pricing calculation, line item descriptions, and quote totals for both lighting types. Permanent lighting correctly shows higher pricing and includes rate in description.
+
 ### November 24, 2025 - User-Facing Terminology Update
 **Terminology Standardization**: Replaced all user-facing references from "city/cities" to "location/locations" throughout the website for consistent, professional language that better reflects the service area concept.
 
