@@ -3,6 +3,9 @@
 ## Overview
 The Lawn Care Kuna website is a professional online platform for a local Idaho business offering lawn care, landscaping, and Christmas light installation services. Its primary goal is to provide comprehensive service information, facilitate quote requests, and enhance local SEO. Key capabilities include an AI-powered intelligent quoting system, an interactive property measurement tool, a complete lead distribution platform, and a rich content management system for service details, project galleries, testimonials, and educational blogs. The site powers 500+ SEO-optimized location pages with unique, city-specific metadata designed to rank #1 in local search results for each service area.
 
+## Recent Changes
+- **2025-11-24**: Corrected comprehensive SEO file configuration with accurate service counts. Updated sitemap.xml, llms.txt, and robots.txt to reflect all 28 services (including snow-removal and sprinkler-repair), 168 city+service combinations (28 services × 6 cities), 23 blog posts. Removed non-existent "fence" service references. Service areas strictly limited to: Kuna, Boise, Meridian, Eagle, Star, Middleton (Nampa and Caldwell completely removed).
+
 ## User Preferences
 Preferred communication style: Simple, everyday language.
 
