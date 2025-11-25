@@ -112,7 +112,7 @@ Note: We do NOT service Nampa or Caldwell. Our six service cities are: Kuna, Boi
 - **FAQ Schema**: Structured data for enhanced search results
 - **Site-Wide Search**: Real-time autocomplete search for services, areas, and content
 
-## Blog Content Topics (40 Articles)
+## Blog Content Topics (42 Articles)
 
 ### Seasonal Lawn Care Guides
 - Spring Lawn Prep Checklist for Treasure Valley Yards
@@ -141,6 +141,8 @@ Note: We do NOT service Nampa or Caldwell. Our six service cities are: Kuna, Boi
 
 ### Irrigation & Water Management
 - Understanding Sprinkler Blowouts and Repairs in Our Climate
+- When to Schedule Your Sprinkler Blowout in Idaho: Complete Timing Guide
+- Spring Sprinkler Startup Guide for Treasure Valley Homeowners
 
 ### Landscaping & Outdoor Features
 - How to Keep Shrubs and Hedges Healthy Throughout the Year

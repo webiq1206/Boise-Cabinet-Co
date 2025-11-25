@@ -9937,5 +9937,549 @@ export const BLOG_POSTS: BlogPostData[] = [
         answer: "PERMANENT LED SYSTEMS: Install spring through fall (April-October) avoiding winter weather. Installation takes 1-2 days for typical home. System remains year-round so timing flexible—avoid holiday rush by installing off-season. Many homeowners install spring/summer, program for first use at Halloween or Thanksgiving. TRADITIONAL SEASONAL LIGHTS: Professional installation typically mid-November through early December. Book services 4-6 weeks in advance—professional installers fill schedules quickly for Thanksgiving-Christmas window. Installation timing considerations: WEATHER: Idaho temperatures drop late November—earlier installation avoids ice/snow on roofs. HOLIDAYS: Many want lights installed by Thanksgiving (late November). AVAILABILITY: Professional services busiest Thanksgiving week through mid-December. REMOVAL: Traditional lights typically removed early-mid January. BEST PRACTICE: Contact professional installers in October to secure preferred installation dates for November. Early booking ensures desired timeframe and avoids premium pricing during peak demand. For permanent systems, spring installation allows full summer to learn system and program for fall/winter holidays."
       }
     ]
+  },
+
+  // Blog Post 41: Sprinkler Blowout Timing Guide
+  {
+    slug: "when-to-schedule-sprinkler-blowout-idaho",
+    title: "When to Schedule Your Sprinkler Blowout in Idaho: The Complete Timing Guide",
+    seoTitle: "When to Schedule Sprinkler Blowout in Idaho | Best Timing Guide 2025",
+    metaDescription: "Learn exactly when to schedule your sprinkler blowout in Kuna, Boise, and Meridian. Complete Idaho timing guide with weather triggers, scheduling tips, and cost information.",
+    excerpt: "Timing your sprinkler blowout correctly protects your irrigation investment from Idaho's harsh winters. Learn the exact dates, weather triggers, and scheduling strategies for Treasure Valley homeowners.",
+    author: "Lawn Care Kuna Team",
+    category: "Irrigation",
+    tags: ["sprinkler blowout", "irrigation winterization", "fall lawn care", "sprinkler maintenance", "Idaho winter prep"],
+    publishedAt: "2025-11-25T08:00:00.000Z",
+    content: `
+      <h2>Why Sprinkler Blowout Timing Matters in Idaho</h2>
+      <p>In the Treasure Valley, scheduling your sprinkler blowout at exactly the right time can mean the difference between a fully protected irrigation system and thousands of dollars in freeze damage repairs. Idaho's unpredictable fall weather makes timing critical. Blow out too early and you waste the last weeks of your lawn's growing season. Wait too long and a sudden hard freeze can destroy pipes, valves, and sprinkler heads overnight.</p>
+
+      <p>Every year, we see homeowners in Kuna, Boise, Meridian, Eagle, Star, and Middleton learn this lesson the hard way. A single night of temperatures below 28°F with water in your lines can crack PVC pipes underground, shatter valve diaphragms, and break dozens of sprinkler heads. The repair costs often exceed $500-$2,000 compared to a simple <a href="/services/sprinkler-blowout">sprinkler blowout service</a> costing just $60-$100.</p>
+
+      <h2>The Ideal Sprinkler Blowout Window for Treasure Valley</h2>
+
+      <h3>General Timing Guidelines</h3>
+      <p>For most Treasure Valley homeowners, the optimal sprinkler blowout window falls between October 15 and November 10. This timing balances two competing priorities: getting maximum use from your irrigation system during the fall lawn care season, and ensuring complete winterization before hard freezes become common.</p>
+
+      <p>Here's what the data tells us about Idaho's freeze patterns:</p>
+      <ul>
+        <li><strong>First light frost (32°F):</strong> Typically late September to early October in low-lying areas</li>
+        <li><strong>First hard freeze (28°F or below):</strong> Usually mid-October to early November</li>
+        <li><strong>Sustained freezing temperatures:</strong> Generally mid-November onward</li>
+        <li><strong>Average first freeze date:</strong> October 10-15 for most of Ada County</li>
+        <li><strong>Safe cutoff for winterization:</strong> No later than November 15</li>
+      </ul>
+
+      <p>These dates vary year to year, so monitoring actual weather forecasts matters more than following calendar dates alone.</p>
+
+      <h3>City-Specific Timing Considerations</h3>
+      <p>Microclimates across the Treasure Valley affect when freezing temperatures arrive:</p>
+
+      <p><strong>Kuna:</strong> Slightly colder due to elevation and distance from urban heat island. Schedule blowouts by late October for safety. The open agricultural land around Kuna allows cold air to settle, often creating frost pockets that freeze earlier than urban areas.</p>
+
+      <p><strong>Boise:</strong> The city's urban heat island provides slight temperature protection. Properties in the Boise Bench and North End may have an extra week compared to outlying areas. However, the Boise River corridor can experience cold air drainage, so homes near the river should winterize earlier.</p>
+
+      <p><strong>Meridian:</strong> Central location means average timing applies. Most Meridian homeowners do well scheduling between October 20 and November 5. Newer subdivisions with less tree cover may experience frost earlier than established neighborhoods.</p>
+
+      <p><strong>Eagle:</strong> Foothills elevation means earlier cold temperatures. Eagle properties should plan for blowouts by mid-October, especially at higher elevations near the foothills where cold air pools overnight.</p>
+
+      <p><strong>Star and Middleton:</strong> These western communities often experience the earliest frosts in Ada County. Schedule blowouts by October 15-20 to be safe, as agricultural areas and lower elevations trap cold air.</p>
+
+      <h2>Weather Triggers: When to Call for Immediate Blowout</h2>
+
+      <p>Beyond calendar dates, certain weather patterns should trigger immediate action regardless of when you planned to winterize:</p>
+
+      <h3>Urgent Weather Triggers</h3>
+      <ul>
+        <li><strong>Forecast shows 28°F or below:</strong> Schedule blowout within 24-48 hours</li>
+        <li><strong>Extended cold snap predicted:</strong> Multiple nights below 32°F warrant immediate action</li>
+        <li><strong>Snow forecast:</strong> If measurable snow is coming, ground temperatures will plummet</li>
+        <li><strong>Arctic air mass approaching:</strong> These can bring sudden temperature drops of 30-40°F</li>
+        <li><strong>End of irrigation season:</strong> When you no longer need to water, there's no reason to wait</li>
+      </ul>
+
+      <p>If you notice any of these conditions, contact us immediately for emergency <a href="/services/sprinkler-blowout">winterization service</a>. We prioritize customers facing imminent freeze risks.</p>
+
+      <h3>Signs You've Already Waited Too Long</h3>
+      <p>If you experience any of these situations, you may already have freeze damage:</p>
+      <ul>
+        <li>Multiple nights below 28°F before blowout</li>
+        <li>Visible ice in sprinkler heads or valve boxes</li>
+        <li>System won't pressurize properly when tested</li>
+        <li>Unusual sounds or water seeping from ground</li>
+        <li>Cracked backflow preventer housing</li>
+      </ul>
+
+      <p>In these cases, you'll still need a blowout to prevent further damage, plus <a href="/services/sprinkler-repair">sprinkler repair</a> assessment in spring to identify and fix damaged components.</p>
+
+      <h2>How to Schedule Your Blowout at the Right Time</h2>
+
+      <h3>Book 2-4 Weeks in Advance</h3>
+      <p>Professional sprinkler blowout services fill up quickly in October. The busiest period runs from October 15 through November 5, when most Treasure Valley homeowners realize they need to winterize. To get your preferred date:</p>
+
+      <ul>
+        <li>Contact service providers in late September or early October</li>
+        <li>Avoid the Halloween to Election Day rush when schedules are tightest</li>
+        <li>Be flexible with specific times if not with dates</li>
+        <li>Consider annual service contracts that guarantee priority scheduling</li>
+      </ul>
+
+      <h3>Coordinate with Fall Lawn Care</h3>
+      <p>Your sprinkler blowout fits into a larger fall lawn care schedule. Here's the ideal sequence for Treasure Valley properties:</p>
+
+      <ol>
+        <li><strong>Early September:</strong> Final fertilization application before winter dormancy</li>
+        <li><strong>Mid-September to early October:</strong> <a href="/services/aeration">Core aeration</a> and <a href="/services/overseeding">overseeding</a> while soil is warm</li>
+        <li><strong>October:</strong> <a href="/services/fall-cleanup">Fall cleanup</a> including leaf removal and bed preparation</li>
+        <li><strong>Late October to early November:</strong> Sprinkler blowout and winterization</li>
+        <li><strong>November:</strong> Final mowing and winter preparation complete</li>
+      </ol>
+
+      <p>This sequence ensures your lawn receives adequate irrigation during aeration recovery (usually 2-3 weeks of watering) before shutting down the system.</p>
+
+      <h2>What Happens During a Professional Blowout</h2>
+
+      <h3>The Professional Process</h3>
+      <p>Understanding the blowout process helps you appreciate why professional service matters:</p>
+
+      <ol>
+        <li><strong>System shutdown:</strong> Turn off controller and main water supply to irrigation</li>
+        <li><strong>Backflow preventer service:</strong> Drain and protect the backflow prevention device</li>
+        <li><strong>Air compressor connection:</strong> Connect commercial-grade compressor (80-100 PSI capacity)</li>
+        <li><strong>Zone-by-zone clearing:</strong> Run compressed air through each zone until no water exits</li>
+        <li><strong>Complete evacuation:</strong> Verify all water removed from lines, valves, and heads</li>
+        <li><strong>Controller winterization:</strong> Turn off or set to rain mode to prevent accidental activation</li>
+        <li><strong>Documentation:</strong> Note any issues found for spring repair</li>
+      </ol>
+
+      <p>Professional service ensures proper pressure levels (too much damages components, too little leaves water behind) and complete zone coverage. Our <a href="/services/irrigation-maintenance">irrigation maintenance team</a> performs hundreds of blowouts each fall with zero equipment damage.</p>
+
+      <h3>DIY vs. Professional Blowout</h3>
+      <p>While some homeowners attempt DIY blowouts, professional service offers significant advantages:</p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Factor</th>
+            <th>DIY Blowout</th>
+            <th>Professional Service</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Equipment Cost</td>
+            <td>$300-$600 for adequate compressor (rental $50-$75)</td>
+            <td>Included in service fee</td>
+          </tr>
+          <tr>
+            <td>Expertise</td>
+            <td>Risk of over-pressurization damage or incomplete drainage</td>
+            <td>Trained technicians with proper technique</td>
+          </tr>
+          <tr>
+            <td>Time Required</td>
+            <td>1-2 hours including setup</td>
+            <td>30-45 minutes professional visit</td>
+          </tr>
+          <tr>
+            <td>Issue Detection</td>
+            <td>May miss developing problems</td>
+            <td>Technicians identify issues before they worsen</td>
+          </tr>
+          <tr>
+            <td>Total Cost</td>
+            <td>$50-$75 rental + your time</td>
+            <td>$60-$100 complete service</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>Given the minimal cost difference and significant risk reduction, most homeowners find professional service the better value.</p>
+
+      <h2>What Happens If You Skip the Blowout</h2>
+
+      <h3>Freeze Damage Consequences</h3>
+      <p>Homeowners who skip winterization or wait too long face serious consequences:</p>
+
+      <ul>
+        <li><strong>Cracked PVC pipes:</strong> Underground line repairs cost $200-$800+ depending on location and depth</li>
+        <li><strong>Broken valves:</strong> Each valve replacement runs $75-$200 including labor</li>
+        <li><strong>Shattered sprinkler heads:</strong> Replacement costs $5-$50 per head plus installation</li>
+        <li><strong>Damaged backflow preventer:</strong> Replacement costs $300-$1,500 for the device alone</li>
+        <li><strong>Controller damage:</strong> Water in wiring can short circuit controllers ($100-$500+)</li>
+        <li><strong>Complete system replacement:</strong> Severe damage may require $3,000-$10,000+ system rebuild</li>
+      </ul>
+
+      <p>We've seen properties in Kuna and Meridian require complete system replacement after single freeze events. One winter without winterization can destroy decades of irrigation investment.</p>
+
+      <h3>Hidden Damage You Won't Find Until Spring</h3>
+      <p>Some freeze damage doesn't reveal itself immediately:</p>
+      <ul>
+        <li>Hairline cracks in pipes that leak slowly underground</li>
+        <li>Weakened valve diaphragms that fail mid-season</li>
+        <li>Partially cracked heads that break under pressure</li>
+        <li>Compromised fittings that leak at joints</li>
+        <li>Controller damage from moisture infiltration</li>
+      </ul>
+
+      <p>Spring <a href="/services/sprinkler-repair">sprinkler startup and repair</a> often reveals damage from the previous winter that went undetected.</p>
+
+      <h2>Sprinkler Blowout Costs in Treasure Valley</h2>
+
+      <h3>Typical Pricing</h3>
+      <p>Professional sprinkler blowout services in Kuna, Boise, Meridian, and surrounding areas typically cost:</p>
+
+      <ul>
+        <li><strong>Standard residential (4-8 zones):</strong> $60-$85</li>
+        <li><strong>Larger systems (9-12 zones):</strong> $85-$100</li>
+        <li><strong>Complex systems (13+ zones):</strong> $100-$150</li>
+        <li><strong>Emergency/last-minute service:</strong> Add $25-$50 premium</li>
+        <li><strong>Combined with other fall services:</strong> Often discounted $10-$20</li>
+      </ul>
+
+      <h3>Value of Bundled Services</h3>
+      <p>Many homeowners combine sprinkler blowouts with other fall services for convenience and savings:</p>
+      <ul>
+        <li>Blowout + <a href="/services/fall-cleanup">fall cleanup</a>: One visit handles multiple tasks</li>
+        <li>Blowout + final <a href="/services/fertilization">fertilization</a>: Complete fall lawn prep</li>
+        <li>Annual maintenance contracts: Guaranteed scheduling and discounted rates</li>
+      </ul>
+
+      <h2>Preparing Your Property for Blowout Service</h2>
+
+      <h3>Before the Technician Arrives</h3>
+      <p>Help ensure efficient service by:</p>
+      <ul>
+        <li>Locating your backflow preventer and main irrigation shutoff</li>
+        <li>Clearing access to valve boxes and controller</li>
+        <li>Noting any zones with known issues</li>
+        <li>Having pets secured away from work areas</li>
+        <li>Ensuring vehicles don't block driveway access</li>
+      </ul>
+
+      <h3>After the Blowout</h3>
+      <p>Once winterization is complete:</p>
+      <ul>
+        <li>Leave controller in "off" or "rain" mode all winter</li>
+        <li>Don't attempt to run system even during warm spells</li>
+        <li>Protect exposed backflow preventer with insulation wrap if needed</li>
+        <li>Note any issues the technician identified for spring repair</li>
+        <li>Schedule spring startup for late March or early April</li>
+      </ul>
+
+      <h2>Schedule Your Blowout Today</h2>
+
+      <p>Don't wait until the first hard freeze warning to think about winterization. Our <a href="/services/sprinkler-blowout">professional sprinkler blowout service</a> protects your irrigation investment with proper technique and timing.</p>
+
+      <p>Serving Kuna, Boise, Meridian, Eagle, Star, and Middleton, we provide fast, professional winterization at competitive prices. <a href="/get-quote">Request a quote</a> or <a href="/contact">contact us</a> to schedule your sprinkler blowout before the freeze arrives. Your irrigation system will thank you come spring.</p>
+    `,
+    faqs: [
+      {
+        question: "When is the best time to schedule a sprinkler blowout in Idaho?",
+        answer: "The optimal sprinkler blowout window for Treasure Valley homeowners is October 15 through November 10. This timing allows maximum use of your irrigation system during fall while ensuring complete winterization before hard freezes become common. Specific timing depends on your location: Kuna, Star, and Middleton should schedule by late October due to colder microclimates, while Boise and Meridian homeowners may have until early November. Eagle foothills properties should winterize by mid-October. Always monitor weather forecasts and schedule immediately if temperatures below 28°F are predicted."
+      },
+      {
+        question: "What temperature will damage sprinkler systems in Idaho?",
+        answer: "Sustained temperatures of 28°F or below cause freeze damage to irrigation systems. At this temperature, water in pipes, valves, and sprinkler heads expands as it freezes, cracking PVC pipes, breaking valve diaphragms, and shattering plastic sprinkler heads. Light frosts (32°F) typically don't cause immediate damage, but multiple freeze-thaw cycles weaken components. The most dangerous scenario is a sudden hard freeze (25°F or below) before winterization, which can cause catastrophic damage throughout the entire system. Don't wait for freezing temperatures to schedule your blowout—once water freezes in lines, damage has already occurred."
+      },
+      {
+        question: "How much does a sprinkler blowout cost in Kuna and Boise?",
+        answer: "Professional sprinkler blowout services in Kuna, Boise, Meridian, Eagle, Star, and Middleton typically cost $60-$100 depending on system size. Standard residential systems with 4-8 zones run $60-$85, larger systems with 9-12 zones cost $85-$100, and complex systems with 13+ zones range from $100-$150. Emergency or last-minute service during freeze warnings may add $25-$50 premium. Many companies offer discounts when combining blowout with other fall services like cleanup or fertilization. This $60-$100 investment protects irrigation systems worth $3,000-$10,000+, making it one of the most cost-effective fall maintenance services available."
+      },
+      {
+        question: "Can I do my own sprinkler blowout or should I hire a professional?",
+        answer: "While DIY sprinkler blowouts are possible, professional service is recommended for most homeowners. DIY requires renting a commercial air compressor ($50-$75) with adequate capacity (4-6 CFM at 80+ PSI), plus knowledge of proper technique to avoid over-pressurizing and damaging components. Many consumer-grade compressors lack sufficient volume to completely evacuate water. Professional technicians complete the job in 30-45 minutes with proper equipment, identify developing issues, and ensure complete water removal. Given that professional service costs only $60-$100 (close to rental costs plus your time), most homeowners find professional winterization the better value, especially considering the risk of incomplete drainage causing freeze damage."
+      },
+      {
+        question: "What happens if I don't winterize my sprinkler system in Idaho?",
+        answer: "Skipping sprinkler winterization in Idaho almost guarantees expensive freeze damage. Water left in lines expands when it freezes, causing: cracked PVC pipes ($200-$800+ per repair), broken valves ($75-$200 each), shattered sprinkler heads ($5-$50 each plus labor), damaged backflow preventers ($300-$1,500 replacement), and in severe cases, complete system failure requiring $3,000-$10,000+ replacement. Some damage remains hidden until spring startup, including hairline pipe cracks, weakened valve diaphragms, and compromised fittings. A single hard freeze can destroy an entire irrigation system, making the $60-$100 blowout service the most important fall investment for your landscape."
+      },
+      {
+        question: "How do I schedule a sprinkler blowout before they're all booked?",
+        answer: "To secure your preferred blowout date, contact service providers 2-4 weeks in advance. The busiest scheduling period runs October 15 through November 5, when most Treasure Valley homeowners realize they need winterization. Best practices: call in late September or early October to book, avoid the Halloween-to-Election Day rush when schedules are tightest, be flexible with specific appointment times, and consider annual service contracts that guarantee priority scheduling. Many companies offer early-bird discounts for September bookings. If you wait until freeze warnings are issued, expect longer wait times and possible emergency service premiums."
+      }
+    ]
+  },
+
+  // Blog Post 42: Spring Sprinkler Startup Guide
+  {
+    slug: "spring-sprinkler-startup-guide-treasure-valley",
+    title: "Spring Sprinkler Startup Guide for Treasure Valley Homeowners",
+    seoTitle: "Spring Sprinkler Startup Guide for Idaho | Complete Activation Checklist",
+    metaDescription: "Complete guide to spring sprinkler startup in Kuna, Boise, and Meridian. Learn when to activate, step-by-step process, common problems, and professional service costs.",
+    excerpt: "Get your irrigation system ready for Idaho's dry summer with our complete spring sprinkler startup guide. Learn the right timing, activation steps, and what problems to watch for.",
+    author: "Lawn Care Kuna Team",
+    category: "Irrigation",
+    tags: ["sprinkler startup", "irrigation activation", "spring lawn care", "sprinkler maintenance", "Idaho irrigation"],
+    publishedAt: "2025-11-25T09:00:00.000Z",
+    content: `
+      <h2>Why Proper Spring Startup Matters</h2>
+      <p>After a long Idaho winter, your sprinkler system has been dormant for five to six months. Proper spring startup isn't just about turning the water back on—it's about systematically activating your irrigation system to identify any problems, prevent damage, and ensure efficient operation throughout the dry summer months ahead.</p>
+
+      <p>Rushing through startup or skipping important steps can cause water hammer damage, miss freeze damage from winter, waste water through undetected leaks, and leave your lawn under-watered during critical spring growth periods. Taking time for proper activation protects your irrigation investment and sets your lawn up for summer success.</p>
+
+      <p>For homeowners in Kuna, Boise, Meridian, Eagle, Star, and Middleton, spring startup marks the beginning of irrigation season that will sustain your landscape through our characteristically dry summers when we receive less than one inch of rainfall monthly.</p>
+
+      <h2>When to Start Your Sprinkler System in Idaho</h2>
+
+      <h3>Timing Guidelines for Treasure Valley</h3>
+      <p>The ideal sprinkler startup window for most Treasure Valley properties falls between late March and mid-April. Several factors determine the right timing for your specific situation:</p>
+
+      <ul>
+        <li><strong>Frost risk:</strong> Wait until consistent overnight temperatures stay above 32°F</li>
+        <li><strong>Ground temperature:</strong> Soil should be thawed at least 4-6 inches deep</li>
+        <li><strong>Grass growth:</strong> When lawn begins active growth, irrigation becomes necessary</li>
+        <li><strong>Weather patterns:</strong> Extended warm, dry forecasts indicate startup time</li>
+        <li><strong>Last frost date:</strong> Average last frost in Treasure Valley is early to mid-May</li>
+      </ul>
+
+      <h3>City-Specific Recommendations</h3>
+      <p>Microclimates across the valley affect optimal startup timing:</p>
+
+      <p><strong>Boise:</strong> Urban heat island effect allows earlier startup, typically late March to early April for most neighborhoods. The Boise Bench and North End warm fastest, while river corridor properties should wait slightly longer due to cold air drainage.</p>
+
+      <p><strong>Meridian:</strong> Central location means average timing applies. Most Meridian homeowners can safely start systems in early to mid-April. Watch for late cold snaps that occasionally hit in April.</p>
+
+      <p><strong>Kuna:</strong> Agricultural surroundings and slightly higher elevation mean colder spring nights. Wait until mid-April for safest startup, monitoring forecasts for late frost warnings.</p>
+
+      <p><strong>Eagle:</strong> Foothill properties experience later last frosts. Higher elevation areas should wait until late April, while valley floor properties can start mid-April.</p>
+
+      <p><strong>Star and Middleton:</strong> Western valley locations often have later frosts than Boise. Plan for mid to late April startup, especially in low-lying agricultural areas where cold air pools.</p>
+
+      <h2>Pre-Startup Preparation Checklist</h2>
+
+      <h3>Before Turning On the Water</h3>
+      <p>Complete these steps before activating your system:</p>
+
+      <ol>
+        <li><strong>Inspect the backflow preventer:</strong> Check for visible cracks, damage, or freeze damage from winter. Ensure test cocks are closed and the device appears intact.</li>
+        <li><strong>Check the controller:</strong> Verify power, replace backup battery if needed, and ensure programming wasn't lost during winter. Reset date and time.</li>
+        <li><strong>Walk the property:</strong> Look for obvious damage—sunken areas that might indicate broken lines, disturbed sprinkler heads, or visible leaks at valve boxes.</li>
+        <li><strong>Clear sprinkler heads:</strong> Remove debris, leaves, or soil that accumulated over winter from around visible heads.</li>
+        <li><strong>Locate the main shutoff:</strong> Identify your irrigation shutoff valve and ensure it's accessible and operable.</li>
+      </ol>
+
+      <h3>Gather Necessary Supplies</h3>
+      <p>Have these items ready for startup:</p>
+      <ul>
+        <li>Replacement sprinkler heads (keep a few common sizes on hand)</li>
+        <li>Teflon tape for threaded connections</li>
+        <li>Screwdriver for head adjustments</li>
+        <li>Controller manual or programming guide</li>
+        <li>Notepad to record any issues found</li>
+      </ul>
+
+      <h2>Step-by-Step Spring Startup Process</h2>
+
+      <h3>Step 1: Open the Main Water Supply Slowly</h3>
+      <p>This is the most critical step for preventing water hammer damage:</p>
+      <ul>
+        <li>Locate the main irrigation shutoff valve (usually near the water meter or where water enters the house)</li>
+        <li>Open the valve very slowly—take at least 30-60 seconds to fully open</li>
+        <li>Listen for any unusual sounds indicating leaks or water hammer</li>
+        <li>If you hear hammering or banging, close the valve and open even more slowly</li>
+        <li>Allow system to pressurize gradually before moving to next step</li>
+      </ul>
+
+      <p>Rushing this step causes water hammer, which creates pressure spikes that can crack pipes, damage valves, and break fittings throughout your system.</p>
+
+      <h3>Step 2: Open Backflow Preventer Valves</h3>
+      <p>Your backflow prevention device needs proper activation:</p>
+      <ul>
+        <li>Close any test cocks that may have been left open for winter</li>
+        <li>Open the two shutoff valves on the backflow preventer slowly</li>
+        <li>The downstream valve should be opened first, then the upstream valve</li>
+        <li>Check for any leaks around the device</li>
+        <li>Verify no water is spraying from relief ports (indicates internal damage)</li>
+      </ul>
+
+      <h3>Step 3: Test Each Zone Individually</h3>
+      <p>Run through every irrigation zone systematically:</p>
+      <ul>
+        <li>Start with zone 1 and run for 3-5 minutes</li>
+        <li>Walk the zone and observe every sprinkler head</li>
+        <li>Note any heads that don't pop up, spray incorrectly, or leak</li>
+        <li>Watch for water bubbling up from ground (indicates line break)</li>
+        <li>Check valve box for leaks at zone valve</li>
+        <li>Repeat for each zone in your system</li>
+      </ul>
+
+      <p>Document all issues found—this list guides your <a href="/services/sprinkler-repair">sprinkler repair</a> priorities.</p>
+
+      <h3>Step 4: Check Sprinkler Head Performance</h3>
+      <p>While zones are running, evaluate individual heads:</p>
+      <ul>
+        <li><strong>Pop-up height:</strong> Heads should rise fully above grass level</li>
+        <li><strong>Spray pattern:</strong> Water should reach intended coverage area without gaps</li>
+        <li><strong>Arc adjustment:</strong> Rotors should rotate through correct arc</li>
+        <li><strong>Nozzle condition:</strong> Look for clogged or damaged nozzles creating poor patterns</li>
+        <li><strong>Alignment:</strong> Heads should be vertical, not tilted</li>
+        <li><strong>Precipitation:</strong> Similar heads should output similar water volumes</li>
+      </ul>
+
+      <h3>Step 5: Program Your Controller</h3>
+      <p>Set up proper watering schedules for spring conditions:</p>
+      <ul>
+        <li>Verify date, time, and day of week are correct</li>
+        <li>Program appropriate start times (early morning 4-7 AM is best)</li>
+        <li>Set run times for each zone based on head types and coverage</li>
+        <li>Establish watering days (typically 2-3 days per week in spring)</li>
+        <li>Consider seasonal adjustment feature if available</li>
+        <li>Enable rain sensor if your system has one</li>
+      </ul>
+
+      <p>Spring watering needs are typically 30-50% less than summer requirements. Start conservative and increase as temperatures rise. Our <a href="/services/irrigation-maintenance">irrigation maintenance service</a> includes controller programming optimization.</p>
+
+      <h2>Common Spring Startup Problems</h2>
+
+      <h3>Freeze Damage From Winter</h3>
+      <p>Even with proper fall winterization, freeze damage can occur:</p>
+      <ul>
+        <li><strong>Cracked pipes:</strong> Water bubbling from ground, wet spots in lawn</li>
+        <li><strong>Broken heads:</strong> Heads that won't pop up or spray erratically</li>
+        <li><strong>Damaged valves:</strong> Zones that won't turn on or won't shut off</li>
+        <li><strong>Backflow preventer damage:</strong> Leaking or failed device</li>
+      </ul>
+
+      <p>If winterization was skipped or incomplete, spring startup often reveals extensive damage requiring professional <a href="/services/sprinkler-repair">sprinkler system repair</a>.</p>
+
+      <h3>Clogged Heads and Nozzles</h3>
+      <p>Debris accumulation during winter is common:</p>
+      <ul>
+        <li>Dirt and sand in nozzles creating poor spray patterns</li>
+        <li>Grass and debris blocking pop-up mechanisms</li>
+        <li>Mineral deposits from hard water (common in Treasure Valley)</li>
+        <li>Insect nests in unused heads</li>
+      </ul>
+
+      <p>Most clogs can be cleared by removing the nozzle and flushing, or replacing inexpensive nozzle components.</p>
+
+      <h3>Pressure Problems</h3>
+      <p>Incorrect water pressure causes system inefficiency:</p>
+      <ul>
+        <li><strong>Low pressure:</strong> Heads don't pop up fully, reduced coverage, dry spots</li>
+        <li><strong>High pressure:</strong> Misting instead of droplets, excessive wear, water waste</li>
+        <li><strong>Pressure variation:</strong> Some zones work well while others struggle</li>
+      </ul>
+
+      <p>Pressure issues may indicate main line problems, stuck valves, or municipal water pressure changes over winter.</p>
+
+      <h3>Controller and Electrical Issues</h3>
+      <p>Electrical problems are common after winter:</p>
+      <ul>
+        <li>Dead backup battery causing lost programming</li>
+        <li>Tripped breaker or blown fuse</li>
+        <li>Corroded wire connections at controller or valves</li>
+        <li>Lightning damage to controller (more common than you'd think)</li>
+        <li>Solenoid failures preventing zones from activating</li>
+      </ul>
+
+      <h2>Spring Irrigation Scheduling for Idaho</h2>
+
+      <h3>Early Spring (March-April)</h3>
+      <p>Lawns need minimal irrigation during cool spring weather:</p>
+      <ul>
+        <li>Water 1-2 times per week if no rain</li>
+        <li>Run zones for 50-60% of summer duration</li>
+        <li>Water only when lawn shows signs of needing moisture</li>
+        <li>Skip watering during rainy periods</li>
+      </ul>
+
+      <h3>Late Spring (May-June)</h3>
+      <p>Increase watering as temperatures rise:</p>
+      <ul>
+        <li>Transition to 2-3 times per week</li>
+        <li>Gradually increase run times toward summer levels</li>
+        <li>Begin early morning watering schedule (4-7 AM)</li>
+        <li>Monitor for dry spots needing head adjustment</li>
+      </ul>
+
+      <p>The goal is applying 1-1.5 inches of water per week including rainfall. Our heavy clay soil holds moisture well but needs deep, infrequent watering rather than frequent shallow irrigation.</p>
+
+      <h2>When to Call a Professional</h2>
+
+      <h3>DIY vs. Professional Startup</h3>
+      <p>Many homeowners can handle basic spring startup, but professional service makes sense when:</p>
+      <ul>
+        <li>You're unsure about proper procedures</li>
+        <li>Winterization was incomplete or skipped</li>
+        <li>System is complex with many zones</li>
+        <li>You notice multiple problems during startup</li>
+        <li>Backflow preventer needs testing (required annually in some areas)</li>
+        <li>Controller programming is confusing</li>
+        <li>You want comprehensive system evaluation</li>
+      </ul>
+
+      <h3>Professional Startup Services</h3>
+      <p>Our <a href="/services/irrigation-maintenance">professional irrigation startup</a> includes:</p>
+      <ul>
+        <li>Slow, proper system pressurization</li>
+        <li>Backflow preventer inspection and testing</li>
+        <li>Zone-by-zone operation and inspection</li>
+        <li>Head adjustment and minor repairs</li>
+        <li>Controller programming and optimization</li>
+        <li>Written report of any issues found</li>
+        <li>Recommendations for repairs or upgrades</li>
+      </ul>
+
+      <p>Professional startup typically costs $75-$150 depending on system size and complexity, providing peace of mind and catching problems before they cause lawn damage or water waste.</p>
+
+      <h2>Maintaining Your System Through the Season</h2>
+
+      <h3>Monthly Inspection Tasks</h3>
+      <p>Keep your irrigation system performing optimally:</p>
+      <ul>
+        <li>Run each zone manually and observe head performance</li>
+        <li>Check for new leaks, especially around valve boxes</li>
+        <li>Adjust heads that have been knocked out of alignment</li>
+        <li>Clear any debris from around heads</li>
+        <li>Verify controller is maintaining correct programming</li>
+        <li>Adjust seasonal watering percentages as temperatures change</li>
+      </ul>
+
+      <h3>Summer Watering Best Practices</h3>
+      <p>Maximize efficiency during peak irrigation season:</p>
+      <ul>
+        <li>Water early morning (4-7 AM) to minimize evaporation</li>
+        <li>Apply water in cycles to prevent runoff on clay soil</li>
+        <li>Increase run times rather than frequency for deeper watering</li>
+        <li>Adjust for rainfall—skip cycles when significant rain occurs</li>
+        <li>Watch for dry spots indicating coverage problems</li>
+      </ul>
+
+      <p>Proper summer irrigation keeps your lawn healthy while conserving water. Combined with regular <a href="/services/lawn-mowing">professional mowing</a> and <a href="/services/fertilization">fertilization</a>, your lawn will thrive through Idaho's challenging summers.</p>
+
+      <h2>Schedule Your Spring Startup</h2>
+
+      <p>Don't wait until your lawn is stressed to activate your irrigation system. Our team provides professional spring startup services throughout Kuna, Boise, Meridian, Eagle, Star, and Middleton.</p>
+
+      <p><a href="/get-quote">Request a quote</a> for spring irrigation startup, or <a href="/contact">contact us</a> to schedule service. We'll ensure your system is ready for the dry months ahead, catching any winter damage before it affects your lawn's health.</p>
+    `,
+    faqs: [
+      {
+        question: "When should I turn on my sprinkler system in Idaho?",
+        answer: "The ideal sprinkler startup window for Treasure Valley homeowners is late March through mid-April, depending on your specific location and weather conditions. Wait until consistent overnight temperatures stay above 32°F and the ground has thawed 4-6 inches deep. Boise properties can often start in late March, Meridian in early April, and Kuna/Eagle/Star/Middleton areas should wait until mid-April due to colder microclimates. Always check extended forecasts before startup—a late frost after activation can damage pressurized systems. When your lawn begins active spring growth and dry weather arrives, it's time to activate irrigation."
+      },
+      {
+        question: "How do I start my sprinkler system after winter?",
+        answer: "Proper spring sprinkler startup follows these steps: 1) Inspect backflow preventer for visible damage before turning on water. 2) Open main water supply valve VERY SLOWLY over 30-60 seconds to prevent water hammer damage. 3) Open backflow preventer valves slowly. 4) Run each zone individually for 3-5 minutes while walking the property. 5) Check every sprinkler head for proper pop-up, spray pattern, and coverage. 6) Note any issues for repair. 7) Program controller with appropriate spring watering schedule (typically 2-3 days per week). 8) Adjust heads as needed for coverage. The most critical step is opening the main valve slowly—rushing causes pressure spikes that damage pipes and fittings."
+      },
+      {
+        question: "How much does professional sprinkler startup cost in Boise?",
+        answer: "Professional spring sprinkler startup services in Boise, Kuna, Meridian, Eagle, Star, and Middleton typically cost $75-$150 depending on system size and complexity. This includes slow system pressurization, backflow preventer inspection, zone-by-zone testing, head adjustment, controller programming, and a written report of any issues found. Many companies offer package deals combining startup with spring lawn services like aeration or fertilization. Professional startup provides peace of mind, catches winter damage early, and ensures proper system operation for the season ahead. The cost is worthwhile for complex systems or homeowners unsure about proper procedures."
+      },
+      {
+        question: "What problems should I look for during spring sprinkler startup?",
+        answer: "Common spring startup problems include: FREEZE DAMAGE - cracked pipes (water bubbling from ground), broken heads (won't pop up or spray erratically), damaged valves (zones won't turn on/off), failed backflow preventer (leaking or spraying from relief port). CLOGS - dirt and mineral deposits blocking nozzles, debris in pop-up mechanisms, insect nests in unused heads. PRESSURE ISSUES - heads not popping up fully (low pressure), misting instead of droplets (high pressure), inconsistent zone performance. ELECTRICAL PROBLEMS - lost programming from dead backup battery, tripped breakers, corroded wire connections, failed solenoids. Document all issues found during startup for repair prioritization."
+      },
+      {
+        question: "How often should I water my lawn in spring in Idaho?",
+        answer: "Spring watering needs in Idaho are significantly less than summer: EARLY SPRING (March-April): Water 1-2 times per week if no rain, using 50-60% of summer run times. Cool temperatures and occasional rain reduce irrigation needs. LATE SPRING (May-June): Increase to 2-3 times per week as temperatures rise. Gradually extend run times toward summer levels. The goal is applying 1-1.5 inches of water per week including rainfall. Idaho's clay soil holds moisture well, so water deeply but infrequently rather than shallow daily watering. Always water early morning (4-7 AM) to minimize evaporation and disease risk."
+      },
+      {
+        question: "Should I test my backflow preventer in spring?",
+        answer: "Yes, backflow preventer testing is important and may be legally required in your area. Many Idaho municipalities require annual backflow testing by a certified technician to protect the public water supply from contamination. During spring startup, at minimum visually inspect your backflow preventer for: cracks or damage from freezing, water leaking from the device body, water spraying from relief ports (indicates internal failure), proper valve operation. If you notice any issues, contact a certified backflow tester or irrigation professional for evaluation. Testing typically costs $50-$100 and provides documentation if required by your water district. Our irrigation services include backflow inspection and can recommend certified testers if formal testing is needed."
+      }
+    ]
   }
 ];
