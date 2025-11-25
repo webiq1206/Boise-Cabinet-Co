@@ -1,7 +1,7 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { quoteSubmissionSchema, type InsertQuote } from "@shared/schema";
+import { quoteSubmissionSchema, type InsertQuote, type InsertLead } from "@shared/schema";
 import { calculateIntelligentQuote, SERVICE_RATES } from "./services/pricing";
 import { sendQuoteNotification } from "./email";
 import { z } from "zod";
@@ -360,6 +360,85 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Store quote
       const quote = await storage.createQuote(quoteData);
       
+      // Create corresponding lead for admin dashboard
+      // Calculate lead price as 10% of final quote (or minimum $10)
+      const finalQuoteNum = quote.finalQuote ? parseFloat(quote.finalQuote) : 0;
+      const baseLeadPrice = Math.max(10, finalQuoteNum * 0.10).toFixed(2);
+      
+      // Safely normalize selectedServices - must always be string[] for Lead schema
+      let parsedSelectedServices: string[] = [];
+      
+      if (quote.selectedServices === null || quote.selectedServices === undefined) {
+        // Explicitly handle null/undefined - default to empty array
+        parsedSelectedServices = [];
+      } else if (Array.isArray(quote.selectedServices)) {
+        // Already an array - use directly
+        parsedSelectedServices = quote.selectedServices;
+      } else if (typeof quote.selectedServices === 'string') {
+        // String - attempt to parse as JSON
+        try {
+          const parsed = JSON.parse(quote.selectedServices);
+          parsedSelectedServices = Array.isArray(parsed) ? parsed : [];
+        } catch (error) {
+          console.error('Failed to parse selectedServices, defaulting to empty array:', error);
+          parsedSelectedServices = [];
+        }
+      } else {
+        // Any other type - default to empty array
+        console.warn('Unexpected selectedServices type, defaulting to empty array:', typeof quote.selectedServices);
+        parsedSelectedServices = [];
+      }
+      
+      let parsedLineItems: any = null;
+      if (quote.lineItems) {
+        if (typeof quote.lineItems === 'string') {
+          try {
+            parsedLineItems = JSON.parse(quote.lineItems);
+          } catch (error) {
+            console.error('Failed to parse lineItems, defaulting to null:', error);
+            parsedLineItems = null;
+          }
+        } else {
+          parsedLineItems = quote.lineItems;
+        }
+      }
+      
+      let parsedServiceData: any = null;
+      if (quote.serviceData) {
+        if (typeof quote.serviceData === 'string') {
+          try {
+            parsedServiceData = JSON.parse(quote.serviceData);
+          } catch (error) {
+            console.error('Failed to parse serviceData, defaulting to null:', error);
+            parsedServiceData = null;
+          }
+        } else {
+          parsedServiceData = quote.serviceData;
+        }
+      }
+      
+      const leadData: InsertLead = {
+        quoteId: quote.id,
+        name: quote.name,
+        email: quote.email,
+        phone: quote.phone,
+        address: quote.address || null,
+        city: quote.city,
+        propertyType: quote.propertyType,
+        serviceType: quote.serviceType,
+        selectedServices: parsedSelectedServices,
+        frequency: quote.frequency,
+        finalQuote: quote.finalQuote,
+        lineItems: parsedLineItems as any,
+        serviceData: parsedServiceData as any,
+        message: quote.message,
+        baseLeadPrice,
+        currentLeadPrice: baseLeadPrice,
+        status: "pending_admin",
+      };
+      
+      await storage.createLead(leadData);
+      
       // Log quote submission
       console.log("New AI-generated quote submission:", {
         id: quote.id,
@@ -369,6 +448,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         serviceType: quote.serviceType,
         city: quote.city,
         finalQuote: quote.finalQuote,
+        leadPrice: baseLeadPrice,
         createdAt: quote.createdAt,
       });
       
