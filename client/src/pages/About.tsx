@@ -3,16 +3,18 @@ import { Helmet } from "react-helmet-async";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { CheckCircle2, Shield, Heart, Award, Users, Wrench, FileCheck, GraduationCap, TrendingUp, MapPin, Leaf, Handshake, BarChart3 } from "lucide-react";
-import { generateSEOMetadata } from "@/lib/seo";
+import { generateSEOMetadata, generateLogoAltTag } from "@/lib/seo";
 import { generateOrganizationSchema, generateLocalBusinessSchema } from "@/lib/schema";
 import heroBackground from "@assets/Untitled design_1763639882299.png";
 
 export default function About() {
-  const seoData = generateSEOMetadata({
+  const seoParams = {
     serviceName: "About Us",
     serviceSlug: "about",
     isHomePage: false,
-  });
+  };
+  const seoData = generateSEOMetadata(seoParams);
+  const logoAlt = generateLogoAltTag(seoParams);
 
   const organizationSchema = generateOrganizationSchema();
   const localBusinessSchema = generateLocalBusinessSchema();
@@ -27,6 +29,7 @@ export default function About() {
         <meta property="og:title" content={seoData.ogTitle} />
         <meta property="og:description" content={seoData.ogDescription} />
         <meta property="og:image" content={seoData.ogImage} />
+        <meta property="og:image:alt" content={logoAlt} />
         <meta property="og:url" content={seoData.canonical} />
         <meta property="og:type" content="website" />
         
@@ -34,6 +37,7 @@ export default function About() {
         <meta name="twitter:title" content={seoData.ogTitle} />
         <meta name="twitter:description" content={seoData.ogDescription} />
         <meta name="twitter:image" content={seoData.ogImage} />
+        <meta name="twitter:image:alt" content={logoAlt} />
         
         <script type="application/ld+json">
           {JSON.stringify(organizationSchema)}

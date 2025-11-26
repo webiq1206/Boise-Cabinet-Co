@@ -10,7 +10,7 @@ import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { RelatedServices } from "@/components/RelatedServices";
 import { RelatedBlogPosts } from "@/components/RelatedBlogPosts";
 import type { ServiceData } from "@shared/contentData";
-import { generateSEOMetadata } from "@/lib/seo";
+import { generateSEOMetadata, generateLogoAltTag } from "@/lib/seo";
 import { generateServiceSchema, generateBreadcrumbSchema, generateFAQSchema } from "@/lib/schema";
 import { getServiceBackground } from "@shared/serviceBackgrounds";
 
@@ -43,10 +43,12 @@ const coreValues = [
 
 export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
   // Generate comprehensive SEO metadata
-  const seoMetadata = generateSEOMetadata({
+  const seoParams = {
     serviceName: service.name,
     serviceSlug: service.slug,
-  });
+  };
+  const seoMetadata = generateSEOMetadata(seoParams);
+  const logoAlt = generateLogoAltTag(seoParams);
 
   // Generate JSON-LD schemas
   const serviceSchema = generateServiceSchema(service.name, service.longDescription);
@@ -73,6 +75,7 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
         <meta property="og:type" content="website" />
         <meta property="og:url" content={seoMetadata.canonical} />
         <meta property="og:image" content={seoMetadata.ogImage} />
+        <meta property="og:image:alt" content={logoAlt} />
         <meta property="og:site_name" content="Lawn Care Kuna" />
         <meta property="og:locale" content="en_US" />
 
@@ -81,6 +84,7 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
         <meta name="twitter:title" content={seoMetadata.ogTitle} />
         <meta name="twitter:description" content={seoMetadata.ogDescription} />
         <meta name="twitter:image" content={seoMetadata.ogImage} />
+        <meta name="twitter:image:alt" content={logoAlt} />
 
         {/* JSON-LD Structured Data */}
         <script type="application/ld+json">

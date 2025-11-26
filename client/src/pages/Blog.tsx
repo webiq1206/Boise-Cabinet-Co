@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+import { Helmet } from "react-helmet-async";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -6,8 +7,10 @@ import { type BlogPost } from "@shared/schema";
 import { Calendar, Tag, BookOpen } from "lucide-react";
 import { format } from "date-fns";
 import { useMemo } from "react";
+import { generateLogoAltTag } from "@/lib/seo";
 
 export default function Blog() {
+  const logoAlt = generateLogoAltTag({ serviceName: "Lawn Care Blog", serviceSlug: "blog", isHomePage: false });
   const { data: posts, isLoading } = useQuery<BlogPost[]>({
     queryKey: ['/api/blog'],
     enabled: true,
@@ -62,6 +65,25 @@ export default function Blog() {
 
   return (
       <div className="min-h-screen">
+        <Helmet>
+          <title>Lawn Care Blog | Expert Tips for Idaho Lawns | Lawn Care Kuna</title>
+          <meta name="description" content="Expert lawn care tips, seasonal guides, and landscaping advice for Idaho homeowners. Learn about lawn maintenance, irrigation, fertilization, and more from Lawn Care Kuna." />
+          <link rel="canonical" href="https://lawncarekuna.com/blog" />
+          
+          <meta property="og:title" content="Lawn Care Blog | Expert Tips for Idaho Lawns" />
+          <meta property="og:description" content="Expert lawn care tips, seasonal guides, and landscaping advice for Idaho homeowners." />
+          <meta property="og:image" content="https://lawncarekuna.com/favicon.png" />
+          <meta property="og:image:alt" content={logoAlt} />
+          <meta property="og:url" content="https://lawncarekuna.com/blog" />
+          <meta property="og:type" content="website" />
+          
+          <meta name="twitter:card" content="summary" />
+          <meta name="twitter:title" content="Lawn Care Blog | Expert Tips for Idaho Lawns" />
+          <meta name="twitter:description" content="Expert lawn care tips, seasonal guides, and landscaping advice for Idaho homeowners." />
+          <meta name="twitter:image" content="https://lawncarekuna.com/favicon.png" />
+          <meta name="twitter:image:alt" content={logoAlt} />
+        </Helmet>
+        
         {/* Hero */}
         <section className="py-16 md:py-24 bg-gradient-to-br from-primary/10 via-background to-background">
           <div className="container px-4">

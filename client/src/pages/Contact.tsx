@@ -1,12 +1,41 @@
+import { Helmet } from "react-helmet-async";
 import { QuoteWizard } from "@/components/QuoteWizard";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Phone, Mail, MapPin, Clock, Star } from "lucide-react";
+import { generateSEOMetadata, generateLogoAltTag } from "@/lib/seo";
 import heroBackground from "@assets/Untitled design_1763639882299.png";
 
 export default function Contact() {
+  const seoParams = {
+    serviceName: "Contact Us",
+    serviceSlug: "contact",
+    isHomePage: false,
+  };
+  const seoData = generateSEOMetadata(seoParams);
+  const logoAlt = generateLogoAltTag(seoParams);
+
   return (
     <div className="flex flex-col">
+      <Helmet>
+        <title>{seoData.title}</title>
+        <meta name="description" content="Contact Lawn Care Kuna for free lawn care quotes in Kuna, Boise, Meridian, Eagle, Star & Middleton Idaho. Call (208) 352-2011 or request a quote online." />
+        <link rel="canonical" href="https://lawncarekuna.com/contact" />
+        
+        <meta property="og:title" content={seoData.ogTitle} />
+        <meta property="og:description" content="Contact Lawn Care Kuna for free lawn care quotes. Call (208) 352-2011 or request a quote online." />
+        <meta property="og:image" content={seoData.ogImage} />
+        <meta property="og:image:alt" content={logoAlt} />
+        <meta property="og:url" content="https://lawncarekuna.com/contact" />
+        <meta property="og:type" content="website" />
+        
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:title" content={seoData.ogTitle} />
+        <meta name="twitter:description" content="Contact Lawn Care Kuna for free lawn care quotes. Call (208) 352-2011 or request a quote online." />
+        <meta name="twitter:image" content={seoData.ogImage} />
+        <meta name="twitter:image:alt" content={logoAlt} />
+      </Helmet>
+      
       {/* Hero */}
       <section className="relative py-16 overflow-hidden">
         <div className="absolute inset-0 z-0">
