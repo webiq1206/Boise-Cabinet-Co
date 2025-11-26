@@ -86,6 +86,7 @@ export function QuoteWizard({
   const [serviceData, setServiceData] = useState<Record<string, Record<string, any>>>({});
   const [calculatedPropertySize, setCalculatedPropertySize] = useState<number | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [hasAutoCalculated, setHasAutoCalculated] = useState(false);
   const formRef = useRef<HTMLDivElement>(null);
   const isInitialMount = useRef(true);
   const { toast } = useToast();
@@ -129,6 +130,32 @@ export function QuoteWizard({
       form2.setValue("selectedServices", [serviceToSelect]);
     }
   }, [preselectedService, defaultService]);
+
+  // Automatic property calculation when user reaches Step 2
+  useEffect(() => {
+    const address = form1.getValues("address");
+    const measurementType = getMeasurementType();
+    
+    // Auto-open calculator if:
+    // 1. User is on Step 2
+    // 2. They have an address from Step 1
+    // 3. They need measurements for selected services
+    // 4. Haven't already auto-calculated
+    if (
+      step === 2 && 
+      address && 
+      address.trim().length > 0 && 
+      measurementType && 
+      !hasAutoCalculated
+    ) {
+      // Small delay for smooth UX
+      const timer = setTimeout(() => {
+        setMapOpen(true);
+      }, 300);
+      
+      return () => clearTimeout(timer);
+    }
+  }, [step, selectedServices.length, hasAutoCalculated]);
 
   // Scroll to top of form when step changes (but not on initial page load)
   useEffect(() => {
@@ -256,6 +283,9 @@ export function QuoteWizard({
       setServiceData(updatedServiceData);
     }
     
+    // Reset auto-calculation flag when moving forward from Step 1
+    // This allows recalculation if user goes back and changes address
+    setHasAutoCalculated(false);
     setStep(2);
   };
 
@@ -395,6 +425,8 @@ export function QuoteWizard({
       }
     });
 
+    // Mark as auto-calculated only after successful measurement completion
+    setHasAutoCalculated(true);
     setMapOpen(false);
     // Popup disabled per user request - measurements are applied silently
     // toast({
@@ -716,13 +748,15 @@ export function QuoteWizard({
                 <div className="space-y-2">
                   <Button
                     type="button"
-                    variant="default"
+                    variant="outline"
                     className="w-full"
                     onClick={() => setMapOpen(true)}
                     data-testid="button-open-calculator"
                   >
                     <MapPin className="w-4 h-4 mr-2" />
-                    {getMeasurementType() === 'linear' 
+                    {hasAutoCalculated 
+                      ? 'Adjust Property Measurements'
+                      : getMeasurementType() === 'linear' 
                       ? 'Measure Linear Features'
                       : getMeasurementType() === 'both'
                       ? 'Calculate Property Size'
@@ -730,11 +764,13 @@ export function QuoteWizard({
                     }
                   </Button>
                   <p className="text-sm text-muted-foreground text-center">
-                    {getMeasurementType() === 'linear' 
+                    {hasAutoCalculated
+                      ? 'Review or modify your automatically calculated measurements'
+                      : getMeasurementType() === 'linear' 
                       ? 'Trace roof lines, fence lines, or other linear features'
                       : getMeasurementType() === 'both'
                       ? 'Auto-calculate lawn area from address and measure linear features'
-                      : 'Enter your address to get automatic property measurements'
+                      : 'Property measurements will be calculated automatically from your address'
                     }
                   </p>
                 </div>
