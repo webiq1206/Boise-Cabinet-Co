@@ -13,6 +13,8 @@ Note: We do NOT service Nampa or Caldwell. Our six service cities are: Kuna, Boi
 
 ## Complete Service Catalog (28 Total Services)
 
+Note: This is the definitive list. PRIORITY_SERVICES array contains exactly 28 services.
+
 ### Lawn Care Services
 1. **Lawn Mowing** - Weekly and bi-weekly professional mowing with edging, trimming, and cleanup ($35-65/visit)
 2. **Lawn Aeration** - Core aeration to combat Idaho's heavy clay soil ($75-150 per property)
@@ -104,15 +106,19 @@ Note: We do NOT service Nampa or Caldwell. Our six service cities are: Kuna, Boi
 - **Stripe Integration**: Secure payment processing for lead purchases
 
 ### Content & SEO Features
-- **Blog System**: 40 comprehensive articles covering Idaho lawn care, landscaping, seasonal tips
-- **Bidirectional Internal Linking**: Service pages link to relevant blog posts; blog posts link to service pages
-- **500+ SEO Pages**: 28 services × 6 cities + blog + main pages = comprehensive local SEO coverage
+- **Blog System**: 42 comprehensive articles (1500-2000 words each) covering Idaho lawn care, landscaping, seasonal tips, irrigation, and expert guides
+- **Bidirectional Internal Linking**: Service pages link to relevant blog posts; blog posts link to service pages (6-10 service links per post)
+- **256 Total SEO Pages**: 28 services + 168 geo-pages (28×6 cities) + 42 blog posts + 6 city pages + 11 core pages
 - **City-Specific Metadata**: Unique title tags, meta descriptions, and H1s for each service-city combination
 - **E-E-A-T Optimization**: Experience, Expertise, Authoritativeness, Trustworthiness signals throughout
-- **FAQ Schema**: Structured data for enhanced search results
+- **FAQ Schema**: Structured data for enhanced search results (5-6 FAQs per blog post, service pages)
 - **Site-Wide Search**: Real-time autocomplete search for services, areas, and content
+- **Sitemap.xml**: 256 URLs with proper priority/changefreq settings for optimal crawling
+- **Robots.txt**: Configured to allow all public pages, block admin/API routes
 
-## Blog Content Topics (42 Articles)
+## Blog Content Topics (42 Comprehensive SEO-Optimized Articles)
+
+All blog posts are 1500-2000 words with 6-10 internal service links and 5-6 detailed FAQs.
 
 ### Seasonal Lawn Care Guides
 - Spring Lawn Prep Checklist for Treasure Valley Yards

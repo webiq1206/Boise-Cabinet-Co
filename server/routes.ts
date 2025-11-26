@@ -972,7 +972,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // END LEAD MANAGEMENT API ROUTES
   // ============================================
 
-  // Sitemap.xml generation - all 500+ pages
+  // Sitemap.xml generation - all 256 pages (28 services × 6 cities + 42 blog posts + core pages)
   app.get("/sitemap.xml", async (req, res) => {
     try {
       const baseUrl = "https://lawncarekuna.com";
@@ -995,7 +995,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         { loc: `${baseUrl}/services/christmas-lights`, lastmod: currentDate, changefreq: 'monthly', priority: '0.9' }
       );
 
-      // All 24 individual service pages
+      // All 28 individual service pages
       PRIORITY_SERVICES.forEach(service => {
         urls.push({
           loc: `${baseUrl}/services/${service.slug}`,
@@ -1005,7 +1005,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         });
       });
 
-      // All 144+ geo-targeted service pages (24 services × 6 cities)
+      // All 168 geo-targeted service pages (28 services × 6 cities)
       PRIORITY_SERVICES.forEach(service => {
         CITIES.forEach(city => {
           urls.push({
@@ -1045,6 +1045,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
           lastmod: currentDate,
           changefreq: 'monthly',
           priority: page.priority
+        });
+      });
+
+      // All 42 blog posts
+      const { BLOG_POSTS } = await import("@shared/blogContent");
+      BLOG_POSTS.forEach(post => {
+        urls.push({
+          loc: `${baseUrl}/blog/${post.slug}`,
+          lastmod: currentDate,
+          changefreq: 'monthly',
+          priority: '0.6'
         });
       });
 
