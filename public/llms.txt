@@ -108,7 +108,7 @@ Note: This is the definitive list. PRIORITY_SERVICES array contains exactly 28 s
 ### Content & SEO Features
 - **Blog System**: 42 comprehensive articles (1500-2000 words each) covering Idaho lawn care, landscaping, seasonal tips, irrigation, and expert guides
 - **Bidirectional Internal Linking**: Service pages link to relevant blog posts; blog posts link to service pages (6-10 service links per post)
-- **256 Total SEO Pages**: 28 services + 168 geo-pages (28×6 cities) + 42 blog posts + 6 city pages + 11 core pages
+- **256 Total SEO Pages**: 28 services + 168 geo-pages (28×6 cities) + 42 blog posts + 6 city pages + 12 core pages (homepage + 3 categories + 8 static)
 - **City-Specific Metadata**: Unique title tags, meta descriptions, and H1s for each service-city combination
 - **E-E-A-T Optimization**: Experience, Expertise, Authoritativeness, Trustworthiness signals throughout
 - **FAQ Schema**: Structured data for enhanced search results (5-6 FAQs per blog post, service pages)
