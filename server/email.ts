@@ -50,11 +50,6 @@ const emailStyles = `
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 15px;
-  }
-  .icon {
-    width: 60px;
-    height: 60px;
   }
   .logo {
     max-width: 300px;
@@ -382,7 +377,6 @@ export async function sendQuoteNotification(data: QuoteEmailData) {
         <div class="email-wrapper">
           <div class="header">
             <div class="logo-container">
-              <img src="https://lawncarekuna.com/email/lawn-care-kuna-icon.png" alt="Lawn Care Kuna Icon" class="icon" width="60" height="60" style="display:block;">
               <img src="https://lawncarekuna.com/email/lawn-care-kuna-logo.png" alt="Lawn Care Kuna" class="logo" width="300" style="display:block; max-width:300px; height:auto;">
             </div>
             <h1>New Quote Request</h1>
@@ -523,7 +517,6 @@ export async function sendQuoteNotification(data: QuoteEmailData) {
         <div class="email-wrapper">
           <div class="header">
             <div class="logo-container">
-              <img src="https://lawncarekuna.com/email/lawn-care-kuna-icon.png" alt="Lawn Care Kuna Icon" class="icon" width="60" height="60" style="display:block;">
               <img src="https://lawncarekuna.com/email/lawn-care-kuna-logo.png" alt="Lawn Care Kuna" class="logo" width="300" style="display:block; max-width:300px; height:auto;">
             </div>
             <h1>Thank You for Your Request</h1>
