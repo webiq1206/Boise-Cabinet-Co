@@ -699,7 +699,7 @@ export class DBStorage implements IStorage {
   }
 
   private async seedGalleryPhotos(): Promise<void> {
-    const sampleGalleryPhotos: InsertGalleryPhoto[] = [
+    const sampleGalleryPhotos = [
       {
         serviceType: "lawn-care",
         city: "kuna",
@@ -707,6 +707,7 @@ export class DBStorage implements IStorage {
         afterImageUrl: "https://images.unsplash.com/photo-1558904541-efa843a96f01?w=800",
         title: "Overgrown Lawn Transformation",
         description: "Complete lawn restoration with mowing, edging, and fertilization in Kuna",
+        createdAt: new Date(),
       },
       {
         serviceType: "lawn-care",
@@ -715,6 +716,7 @@ export class DBStorage implements IStorage {
         afterImageUrl: "https://images.unsplash.com/photo-1541167760496-1628856ab772?w=800",
         title: "Lawn Aeration & Overseeding",
         description: "Transformed a patchy, thin lawn into thick, healthy turf through professional aeration and overseeding in Boise",
+        createdAt: new Date(),
       },
       {
         serviceType: "lawn-care",
@@ -723,6 +725,7 @@ export class DBStorage implements IStorage {
         afterImageUrl: "https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?w=800",
         title: "Professional Lawn Edging",
         description: "Crisp, clean edges along sidewalks and driveways with professional edging service in Meridian",
+        createdAt: new Date(),
       },
       {
         serviceType: "lawn-care",
@@ -731,6 +734,7 @@ export class DBStorage implements IStorage {
         afterImageUrl: "https://images.unsplash.com/photo-1560114928-40f1f1eb26a0?w=800",
         title: "Spring Cleanup & Revival",
         description: "Complete spring cleanup with debris removal and fertilization to revitalize lawn after Idaho winter in Nampa",
+        createdAt: new Date(),
       },
       {
         serviceType: "landscaping",
@@ -739,6 +743,7 @@ export class DBStorage implements IStorage {
         afterImageUrl: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800",
         title: "Backyard Patio Installation",
         description: "Custom paver patio with retaining wall in Boise",
+        createdAt: new Date(),
       },
       {
         serviceType: "christmas-lights",
@@ -747,6 +752,7 @@ export class DBStorage implements IStorage {
         afterImageUrl: "https://images.unsplash.com/photo-1513885535751-8b9238bd345a?w=800",
         title: "Holiday Light Installation",
         description: "Professional Christmas light installation in Meridian",
+        createdAt: new Date(),
       },
     ];
 
@@ -756,13 +762,14 @@ export class DBStorage implements IStorage {
   }
 
   private async seedTestimonials(): Promise<void> {
-    const sampleTestimonials: InsertTestimonial[] = [
+    const sampleTestimonials = [
       {
         customerName: "Sarah M.",
         serviceType: "lawn-care",
         city: "kuna",
         rating: "5",
         testimonial: "Lawn Care Kuna has been taking care of our yard for 2 years now. Always on time, professional, and our lawn has never looked better!",
+        createdAt: new Date(),
       },
       {
         customerName: "Mike R.",
@@ -770,6 +777,7 @@ export class DBStorage implements IStorage {
         city: "boise",
         rating: "5",
         testimonial: "They installed a beautiful patio in our backyard. The crew was professional and the work quality exceeded our expectations.",
+        createdAt: new Date(),
       },
       {
         customerName: "Jennifer K.",
@@ -777,6 +785,7 @@ export class DBStorage implements IStorage {
         city: "meridian",
         rating: "5",
         testimonial: "Best Christmas light installation service in the valley! They made our home look amazing for the holidays.",
+        createdAt: new Date(),
       },
       {
         customerName: "David L.",
@@ -784,6 +793,7 @@ export class DBStorage implements IStorage {
         city: "nampa",
         rating: "5",
         testimonial: "Reliable, affordable, and great results. We've recommended them to all our neighbors!",
+        createdAt: new Date(),
       },
     ];
 
@@ -806,6 +816,7 @@ export class DBStorage implements IStorage {
         tags: post.tags,
         faqs: post.faqs ?? [],
         publishedAt: new Date(post.publishedAt),
+        createdAt: new Date(),
       });
     }
   }
@@ -827,6 +838,8 @@ export class DBStorage implements IStorage {
         agreementAcceptedAt: null,
         stripeCustomerId: null,
         isActive: true,
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
       {
         id: "sub-temp-id",
@@ -843,6 +856,8 @@ export class DBStorage implements IStorage {
         agreementAcceptedAt: new Date(),
         stripeCustomerId: null,
         isActive: true,
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
     ];
 
@@ -1142,7 +1157,7 @@ export class DBStorage implements IStorage {
     if (!lead || lead.status !== "pending_admin") return undefined;
 
     return await this.updateLead(leadId, {
-      status: "accepted",
+      status: "available",
       adminReviewedBy: adminUserId,
       adminReviewedAt: new Date(),
       adminDeclined: false,
