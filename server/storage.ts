@@ -1,6 +1,8 @@
-import { type Quote, type InsertQuote, type GalleryPhoto, type InsertGalleryPhoto, type Testimonial, type InsertTestimonial, type BlogPost, type InsertBlogPost, type User, type UpsertUser, type Lead, type InsertLead, type LeadPurchase, type InsertLeadPurchase, type Notification, type InsertNotification } from "@shared/schema";
+import { type Quote, type InsertQuote, type GalleryPhoto, type InsertGalleryPhoto, type Testimonial, type InsertTestimonial, type BlogPost, type InsertBlogPost, type User, type UpsertUser, type Lead, type InsertLead, type LeadPurchase, type InsertLeadPurchase, type Notification, type InsertNotification, quotes, galleryPhotos, testimonials, blogPosts, users, leads, leadPurchases, notifications } from "@shared/schema";
 import { randomUUID } from "crypto";
 import { BLOG_POSTS } from "@shared/blogContent";
+import { db } from "./db";
+import { eq, and, or, desc, lte } from "drizzle-orm";
 
 export interface IStorage {
   createQuote(quote: InsertQuote): Promise<Quote>;
@@ -252,14 +254,28 @@ export class MemStorage implements IStorage {
   async createQuote(insertQuote: InsertQuote): Promise<Quote> {
     const id = randomUUID();
     const quote: Quote = {
-      ...insertQuote,
-      address: insertQuote.address ?? null,
-      propertySize: insertQuote.propertySize ?? null,
-      frequency: insertQuote.frequency ?? null,
-      message: insertQuote.message ?? null,
-      selectedServices: insertQuote.selectedServices ?? null,
-      acceptedAt: null,
       id,
+      name: insertQuote.name,
+      email: insertQuote.email,
+      phone: insertQuote.phone,
+      address: insertQuote.address ?? null,
+      city: insertQuote.city,
+      propertyType: insertQuote.propertyType,
+      propertySize: insertQuote.propertySize ?? null,
+      serviceType: insertQuote.serviceType,
+      frequency: insertQuote.frequency ?? null,
+      selectedServices: insertQuote.selectedServices ?? null,
+      serviceData: insertQuote.serviceData ?? null,
+      aiAnalysis: insertQuote.aiAnalysis ?? null,
+      complexityScore: insertQuote.complexityScore ?? null,
+      baseCost: insertQuote.baseCost ?? null,
+      adjustedCost: insertQuote.adjustedCost ?? null,
+      finalQuote: insertQuote.finalQuote ?? null,
+      lineItems: insertQuote.lineItems ?? null,
+      status: insertQuote.status ?? "pending",
+      acceptedAt: null,
+      scheduledDate: insertQuote.scheduledDate ?? null,
+      message: insertQuote.message ?? null,
       createdAt: new Date(),
     };
     this.quotes.set(id, quote);
@@ -330,9 +346,20 @@ export class MemStorage implements IStorage {
     }
 
     const id = randomUUID();
+    const faqsData = (insertPost.faqs ?? []) as Array<{ question: string; answer: string }>;
     const post: BlogPost = {
-      ...insertPost,
       id,
+      slug: insertPost.slug,
+      title: insertPost.title,
+      seoTitle: insertPost.seoTitle ?? null,
+      metaDescription: insertPost.metaDescription ?? null,
+      excerpt: insertPost.excerpt,
+      content: insertPost.content,
+      author: insertPost.author,
+      category: insertPost.category,
+      tags: insertPost.tags,
+      faqs: faqsData,
+      publishedAt: insertPost.publishedAt,
       createdAt: new Date(),
     };
     this.blogPosts.set(id, post);
@@ -632,4 +659,573 @@ export class MemStorage implements IStorage {
   }
 }
 
-export const storage = new MemStorage();
+// DBStorage class - Implements IStorage using PostgreSQL with Drizzle ORM
+export class DBStorage implements IStorage {
+  private seedPromise: Promise<void> | null = null;
+
+  constructor() {
+    // Start seeding in background
+    this.seedPromise = this.seedDataIfEmpty();
+  }
+
+  private async seedDataIfEmpty(): Promise<void> {
+    try {
+      // Check if gallery photos table is empty
+      const existingPhotos = await db.select().from(galleryPhotos).limit(1);
+      if (existingPhotos.length === 0) {
+        await this.seedGalleryPhotos();
+      }
+
+      // Check if testimonials table is empty
+      const existingTestimonials = await db.select().from(testimonials).limit(1);
+      if (existingTestimonials.length === 0) {
+        await this.seedTestimonials();
+      }
+
+      // Check if blog posts table is empty
+      const existingBlogPosts = await db.select().from(blogPosts).limit(1);
+      if (existingBlogPosts.length === 0) {
+        await this.seedBlogPosts();
+      }
+
+      // Check if users table is empty (seed test users)
+      const existingUsers = await db.select().from(users).limit(1);
+      if (existingUsers.length === 0) {
+        await this.seedTestUsers();
+      }
+    } catch (error) {
+      console.error("Error seeding data:", error);
+    }
+  }
+
+  private async seedGalleryPhotos(): Promise<void> {
+    const sampleGalleryPhotos: InsertGalleryPhoto[] = [
+      {
+        serviceType: "lawn-care",
+        city: "kuna",
+        beforeImageUrl: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800",
+        afterImageUrl: "https://images.unsplash.com/photo-1558904541-efa843a96f01?w=800",
+        title: "Overgrown Lawn Transformation",
+        description: "Complete lawn restoration with mowing, edging, and fertilization in Kuna",
+      },
+      {
+        serviceType: "lawn-care",
+        city: "boise",
+        beforeImageUrl: "https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=800",
+        afterImageUrl: "https://images.unsplash.com/photo-1541167760496-1628856ab772?w=800",
+        title: "Lawn Aeration & Overseeding",
+        description: "Transformed a patchy, thin lawn into thick, healthy turf through professional aeration and overseeding in Boise",
+      },
+      {
+        serviceType: "lawn-care",
+        city: "meridian",
+        beforeImageUrl: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=800",
+        afterImageUrl: "https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?w=800",
+        title: "Professional Lawn Edging",
+        description: "Crisp, clean edges along sidewalks and driveways with professional edging service in Meridian",
+      },
+      {
+        serviceType: "lawn-care",
+        city: "nampa",
+        beforeImageUrl: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800",
+        afterImageUrl: "https://images.unsplash.com/photo-1560114928-40f1f1eb26a0?w=800",
+        title: "Spring Cleanup & Revival",
+        description: "Complete spring cleanup with debris removal and fertilization to revitalize lawn after Idaho winter in Nampa",
+      },
+      {
+        serviceType: "landscaping",
+        city: "boise",
+        beforeImageUrl: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=800",
+        afterImageUrl: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800",
+        title: "Backyard Patio Installation",
+        description: "Custom paver patio with retaining wall in Boise",
+      },
+      {
+        serviceType: "christmas-lights",
+        city: "meridian",
+        beforeImageUrl: "https://images.unsplash.com/photo-1449844908441-8829872d2607?w=800",
+        afterImageUrl: "https://images.unsplash.com/photo-1513885535751-8b9238bd345a?w=800",
+        title: "Holiday Light Installation",
+        description: "Professional Christmas light installation in Meridian",
+      },
+    ];
+
+    for (const photo of sampleGalleryPhotos) {
+      await db.insert(galleryPhotos).values(photo);
+    }
+  }
+
+  private async seedTestimonials(): Promise<void> {
+    const sampleTestimonials: InsertTestimonial[] = [
+      {
+        customerName: "Sarah M.",
+        serviceType: "lawn-care",
+        city: "kuna",
+        rating: "5",
+        testimonial: "Lawn Care Kuna has been taking care of our yard for 2 years now. Always on time, professional, and our lawn has never looked better!",
+      },
+      {
+        customerName: "Mike R.",
+        serviceType: "landscaping",
+        city: "boise",
+        rating: "5",
+        testimonial: "They installed a beautiful patio in our backyard. The crew was professional and the work quality exceeded our expectations.",
+      },
+      {
+        customerName: "Jennifer K.",
+        serviceType: "christmas-lights",
+        city: "meridian",
+        rating: "5",
+        testimonial: "Best Christmas light installation service in the valley! They made our home look amazing for the holidays.",
+      },
+      {
+        customerName: "David L.",
+        serviceType: "lawn-care",
+        city: "nampa",
+        rating: "5",
+        testimonial: "Reliable, affordable, and great results. We've recommended them to all our neighbors!",
+      },
+    ];
+
+    for (const testimonial of sampleTestimonials) {
+      await db.insert(testimonials).values(testimonial);
+    }
+  }
+
+  private async seedBlogPosts(): Promise<void> {
+    for (const post of BLOG_POSTS) {
+      await db.insert(blogPosts).values({
+        slug: post.slug,
+        title: post.title,
+        seoTitle: post.seoTitle ?? null,
+        metaDescription: post.metaDescription ?? null,
+        excerpt: post.excerpt,
+        content: post.content,
+        author: post.author,
+        category: post.category,
+        tags: post.tags,
+        faqs: post.faqs ?? [],
+        publishedAt: new Date(post.publishedAt),
+      });
+    }
+  }
+
+  private async seedTestUsers(): Promise<void> {
+    const testUsers = [
+      {
+        id: "admin-temp-id",
+        email: "admin@lawncarekuna.com",
+        firstName: "Admin",
+        lastName: "User",
+        phone: null,
+        role: "admin",
+        company: null,
+        licenseNumber: null,
+        insuranceExpiry: null,
+        profileImageUrl: null,
+        agreementAccepted: false,
+        agreementAcceptedAt: null,
+        stripeCustomerId: null,
+        isActive: true,
+      },
+      {
+        id: "sub-temp-id",
+        email: "contractor@example.com",
+        firstName: "Test",
+        lastName: "Subcontractor",
+        phone: null,
+        role: "subcontractor",
+        company: null,
+        licenseNumber: null,
+        insuranceExpiry: null,
+        profileImageUrl: null,
+        agreementAccepted: true,
+        agreementAcceptedAt: new Date(),
+        stripeCustomerId: null,
+        isActive: true,
+      },
+    ];
+
+    for (const user of testUsers) {
+      await db.insert(users).values(user);
+    }
+  }
+
+  // Quote methods
+  async createQuote(insertQuote: InsertQuote): Promise<Quote> {
+    const result = await db.insert(quotes).values({
+      name: insertQuote.name,
+      email: insertQuote.email,
+      phone: insertQuote.phone,
+      address: insertQuote.address ?? null,
+      city: insertQuote.city,
+      propertyType: insertQuote.propertyType,
+      propertySize: insertQuote.propertySize ?? null,
+      serviceType: insertQuote.serviceType,
+      frequency: insertQuote.frequency ?? null,
+      selectedServices: insertQuote.selectedServices ?? null,
+      serviceData: insertQuote.serviceData ?? null,
+      aiAnalysis: insertQuote.aiAnalysis ?? null,
+      complexityScore: insertQuote.complexityScore ?? null,
+      baseCost: insertQuote.baseCost ?? null,
+      adjustedCost: insertQuote.adjustedCost ?? null,
+      finalQuote: insertQuote.finalQuote ?? null,
+      lineItems: insertQuote.lineItems ?? null,
+      status: insertQuote.status ?? "pending",
+      scheduledDate: insertQuote.scheduledDate ?? null,
+      message: insertQuote.message ?? null,
+    }).returning();
+    return result[0];
+  }
+
+  async getAllQuotes(): Promise<Quote[]> {
+    return await db.select().from(quotes).orderBy(desc(quotes.createdAt));
+  }
+
+  async getQuoteById(id: string): Promise<Quote | undefined> {
+    const result = await db.select().from(quotes).where(eq(quotes.id, id));
+    return result[0];
+  }
+
+  // Gallery photo methods
+  async createGalleryPhoto(insertPhoto: InsertGalleryPhoto): Promise<GalleryPhoto> {
+    const result = await db.insert(galleryPhotos).values({
+      serviceType: insertPhoto.serviceType,
+      city: insertPhoto.city,
+      beforeImageUrl: insertPhoto.beforeImageUrl,
+      afterImageUrl: insertPhoto.afterImageUrl,
+      title: insertPhoto.title,
+      description: insertPhoto.description ?? null,
+    }).returning();
+    return result[0];
+  }
+
+  async getAllGalleryPhotos(): Promise<GalleryPhoto[]> {
+    return await db.select().from(galleryPhotos);
+  }
+
+  async getGalleryPhotosByService(serviceType: string): Promise<GalleryPhoto[]> {
+    return await db.select().from(galleryPhotos).where(eq(galleryPhotos.serviceType, serviceType));
+  }
+
+  // Testimonial methods
+  async createTestimonial(insertTestimonial: InsertTestimonial): Promise<Testimonial> {
+    const result = await db.insert(testimonials).values({
+      customerName: insertTestimonial.customerName,
+      serviceType: insertTestimonial.serviceType,
+      city: insertTestimonial.city,
+      rating: insertTestimonial.rating,
+      testimonial: insertTestimonial.testimonial,
+    }).returning();
+    return result[0];
+  }
+
+  async getAllTestimonials(): Promise<Testimonial[]> {
+    return await db.select().from(testimonials);
+  }
+
+  async getTestimonialsByService(serviceType: string): Promise<Testimonial[]> {
+    return await db.select().from(testimonials).where(eq(testimonials.serviceType, serviceType));
+  }
+
+  // Blog post methods
+  async createBlogPost(insertPost: InsertBlogPost): Promise<BlogPost> {
+    const faqsData = (insertPost.faqs ?? []) as Array<{ question: string; answer: string }>;
+    const result = await db.insert(blogPosts).values({
+      slug: insertPost.slug,
+      title: insertPost.title,
+      seoTitle: insertPost.seoTitle ?? null,
+      metaDescription: insertPost.metaDescription ?? null,
+      excerpt: insertPost.excerpt,
+      content: insertPost.content,
+      author: insertPost.author,
+      category: insertPost.category,
+      tags: insertPost.tags,
+      faqs: faqsData,
+      publishedAt: insertPost.publishedAt,
+    }).returning();
+    return result[0];
+  }
+
+  async getAllBlogPosts(): Promise<BlogPost[]> {
+    return await db.select().from(blogPosts).orderBy(desc(blogPosts.publishedAt));
+  }
+
+  async getBlogPostBySlug(slug: string): Promise<BlogPost | undefined> {
+    const result = await db.select().from(blogPosts).where(eq(blogPosts.slug, slug));
+    return result[0];
+  }
+
+  // User methods
+  async getUser(id: string): Promise<User | undefined> {
+    const result = await db.select().from(users).where(eq(users.id, id));
+    return result[0];
+  }
+
+  async upsertUser(userData: UpsertUser): Promise<User> {
+    const id = userData.id || randomUUID();
+    const existing = await this.getUser(id);
+
+    if (existing) {
+      // Update existing user
+      const result = await db.update(users).set({
+        email: userData.email ?? existing.email,
+        firstName: userData.firstName ?? existing.firstName,
+        lastName: userData.lastName ?? existing.lastName,
+        profileImageUrl: userData.profileImageUrl ?? existing.profileImageUrl,
+        phone: userData.phone ?? existing.phone,
+        role: userData.role ?? existing.role,
+        company: userData.company ?? existing.company,
+        licenseNumber: userData.licenseNumber ?? existing.licenseNumber,
+        insuranceExpiry: userData.insuranceExpiry ?? existing.insuranceExpiry,
+        agreementAccepted: userData.agreementAccepted ?? existing.agreementAccepted,
+        agreementAcceptedAt: userData.agreementAcceptedAt ?? existing.agreementAcceptedAt,
+        stripeCustomerId: userData.stripeCustomerId ?? existing.stripeCustomerId,
+        isActive: userData.isActive ?? existing.isActive,
+        updatedAt: new Date(),
+      }).where(eq(users.id, id)).returning();
+      return result[0];
+    } else {
+      // Insert new user
+      const result = await db.insert(users).values({
+        id,
+        email: userData.email ?? null,
+        firstName: userData.firstName ?? null,
+        lastName: userData.lastName ?? null,
+        profileImageUrl: userData.profileImageUrl ?? null,
+        phone: userData.phone ?? null,
+        role: userData.role ?? "subcontractor",
+        company: userData.company ?? null,
+        licenseNumber: userData.licenseNumber ?? null,
+        insuranceExpiry: userData.insuranceExpiry ?? null,
+        agreementAccepted: userData.agreementAccepted ?? false,
+        agreementAcceptedAt: userData.agreementAcceptedAt ?? null,
+        stripeCustomerId: userData.stripeCustomerId ?? null,
+        isActive: userData.isActive ?? true,
+      }).returning();
+      return result[0];
+    }
+  }
+
+  async getUserByEmail(email: string): Promise<User | undefined> {
+    const result = await db.select().from(users).where(eq(users.email, email));
+    return result[0];
+  }
+
+  async updateUser(id: string, data: Partial<User>): Promise<User | undefined> {
+    const result = await db.update(users).set({
+      ...data,
+      updatedAt: new Date(),
+    }).where(eq(users.id, id)).returning();
+    return result[0];
+  }
+
+  async getAllSubcontractors(): Promise<User[]> {
+    return await db.select().from(users).where(
+      and(eq(users.role, "subcontractor"), eq(users.isActive, true))
+    );
+  }
+
+  async getAllAdmins(): Promise<User[]> {
+    return await db.select().from(users).where(
+      and(eq(users.role, "admin"), eq(users.isActive, true))
+    );
+  }
+
+  // Lead methods
+  async createLead(insertLead: InsertLead): Promise<Lead> {
+    const baseLeadPrice = insertLead.baseLeadPrice || "0";
+    const currentLeadPrice = insertLead.currentLeadPrice || baseLeadPrice;
+
+    const result = await db.insert(leads).values({
+      quoteId: insertLead.quoteId ?? null,
+      name: insertLead.name,
+      email: insertLead.email,
+      phone: insertLead.phone,
+      address: insertLead.address ?? null,
+      city: insertLead.city,
+      propertyType: insertLead.propertyType,
+      serviceType: insertLead.serviceType,
+      selectedServices: insertLead.selectedServices ?? null,
+      frequency: insertLead.frequency ?? null,
+      finalQuote: insertLead.finalQuote ?? null,
+      lineItems: insertLead.lineItems ?? null,
+      serviceData: insertLead.serviceData ?? null,
+      message: insertLead.message ?? null,
+      baseLeadPrice,
+      currentLeadPrice,
+      priceReductionRate: insertLead.priceReductionRate ?? "1.50",
+      status: insertLead.status ?? "pending_admin",
+      adminReviewedBy: insertLead.adminReviewedBy ?? null,
+      adminDeclined: insertLead.adminDeclined ?? false,
+      purchasedBy: insertLead.purchasedBy ?? null,
+      purchasePrice: insertLead.purchasePrice ?? null,
+      stripePaymentIntentId: insertLead.stripePaymentIntentId ?? null,
+    }).returning();
+    return result[0];
+  }
+
+  async getAllLeads(): Promise<Lead[]> {
+    return await db.select().from(leads).orderBy(desc(leads.createdAt));
+  }
+
+  async getLeadById(id: string): Promise<Lead | undefined> {
+    const result = await db.select().from(leads).where(eq(leads.id, id));
+    return result[0];
+  }
+
+  async getLeadsByStatus(status: string): Promise<Lead[]> {
+    return await db.select().from(leads).where(eq(leads.status, status)).orderBy(desc(leads.createdAt));
+  }
+
+  async getLeadsForSubcontractor(filters?: { city?: string; serviceType?: string; maxPrice?: number }): Promise<Lead[]> {
+    let result = await db.select().from(leads).where(eq(leads.status, "available")).orderBy(desc(leads.createdAt));
+
+    // Apply filters in JS (more complex SQL filters could be done with drizzle-orm builders)
+    if (filters?.city) {
+      result = result.filter(lead => lead.city.toLowerCase() === filters.city!.toLowerCase());
+    }
+
+    if (filters?.serviceType) {
+      result = result.filter(lead => 
+        lead.serviceType.toLowerCase().includes(filters.serviceType!.toLowerCase()) ||
+        lead.selectedServices?.some(s => s.toLowerCase().includes(filters.serviceType!.toLowerCase()))
+      );
+    }
+
+    if (filters?.maxPrice) {
+      result = result.filter(lead => {
+        const price = parseFloat(lead.currentLeadPrice as string);
+        return !isNaN(price) && price <= filters.maxPrice!;
+      });
+    }
+
+    return result;
+  }
+
+  async updateLead(id: string, data: Partial<Lead>): Promise<Lead | undefined> {
+    const result = await db.update(leads).set({
+      ...data,
+      updatedAt: new Date(),
+    }).where(eq(leads.id, id)).returning();
+    return result[0];
+  }
+
+  async updateLeadPrices(): Promise<void> {
+    const now = new Date();
+    const availableLeads = await db.select().from(leads).where(eq(leads.status, "available"));
+
+    for (const lead of availableLeads) {
+      if (lead.lastPriceUpdate) {
+        const hoursSinceUpdate = (now.getTime() - new Date(lead.lastPriceUpdate).getTime()) / (1000 * 60 * 60);
+        
+        if (hoursSinceUpdate >= 24) {
+          const currentPrice = parseFloat(lead.currentLeadPrice as string);
+          const reductionRate = parseFloat(lead.priceReductionRate as string) / 100;
+          const newPrice = currentPrice * (1 - reductionRate);
+          
+          const minPrice = parseFloat(lead.baseLeadPrice as string) * 0.5;
+          const finalPrice = Math.max(newPrice, minPrice);
+
+          await db.update(leads).set({
+            currentLeadPrice: finalPrice.toFixed(2),
+            lastPriceUpdate: now,
+            updatedAt: now,
+          }).where(eq(leads.id, lead.id));
+        }
+      }
+    }
+  }
+
+  async acceptLead(leadId: string, adminUserId: string): Promise<Lead | undefined> {
+    const lead = await this.getLeadById(leadId);
+    if (!lead || lead.status !== "pending_admin") return undefined;
+
+    return await this.updateLead(leadId, {
+      status: "accepted",
+      adminReviewedBy: adminUserId,
+      adminReviewedAt: new Date(),
+      adminDeclined: false,
+    });
+  }
+
+  async declineLead(leadId: string, adminUserId: string): Promise<Lead | undefined> {
+    const lead = await this.getLeadById(leadId);
+    if (!lead || lead.status !== "pending_admin") return undefined;
+
+    return await this.updateLead(leadId, {
+      status: "available",
+      adminReviewedBy: adminUserId,
+      adminReviewedAt: new Date(),
+      adminDeclined: true,
+    });
+  }
+
+  // Lead Purchase methods
+  async createLeadPurchase(insertPurchase: InsertLeadPurchase): Promise<LeadPurchase> {
+    const result = await db.insert(leadPurchases).values({
+      leadId: insertPurchase.leadId,
+      userId: insertPurchase.userId,
+      purchasePrice: insertPurchase.purchasePrice,
+      stripePaymentIntentId: insertPurchase.stripePaymentIntentId,
+      stripeChargeId: insertPurchase.stripeChargeId ?? null,
+      refunded: insertPurchase.refunded ?? false,
+      refundReason: insertPurchase.refundReason ?? null,
+    }).returning();
+    return result[0];
+  }
+
+  async getLeadPurchasesByUser(userId: string): Promise<LeadPurchase[]> {
+    return await db.select().from(leadPurchases).where(eq(leadPurchases.userId, userId)).orderBy(desc(leadPurchases.createdAt));
+  }
+
+  async getLeadPurchaseByLead(leadId: string): Promise<LeadPurchase | undefined> {
+    const result = await db.select().from(leadPurchases).where(eq(leadPurchases.leadId, leadId));
+    return result[0];
+  }
+
+  async getLeadPurchaseByLeadId(leadId: string): Promise<LeadPurchase | undefined> {
+    return this.getLeadPurchaseByLead(leadId);
+  }
+
+  // Notification methods
+  async createNotification(insertNotification: InsertNotification): Promise<Notification> {
+    const result = await db.insert(notifications).values({
+      userId: insertNotification.userId,
+      type: insertNotification.type,
+      title: insertNotification.title,
+      message: insertNotification.message,
+      leadId: insertNotification.leadId ?? null,
+      read: insertNotification.read ?? false,
+      emailSent: insertNotification.emailSent ?? false,
+    }).returning();
+    return result[0];
+  }
+
+  async getNotificationsByUser(userId: string): Promise<Notification[]> {
+    return await db.select().from(notifications).where(eq(notifications.userId, userId)).orderBy(desc(notifications.createdAt));
+  }
+
+  async getNotificationsByUserId(userId: string): Promise<Notification[]> {
+    return this.getNotificationsByUser(userId);
+  }
+
+  async markNotificationRead(id: string): Promise<void> {
+    await db.update(notifications).set({ read: true }).where(eq(notifications.id, id));
+  }
+
+  async markNotificationAsRead(id: string): Promise<Notification | undefined> {
+    const result = await db.update(notifications).set({ read: true }).where(eq(notifications.id, id)).returning();
+    return result[0];
+  }
+
+  async markNotificationEmailSent(id: string): Promise<void> {
+    await db.update(notifications).set({
+      emailSent: true,
+      emailSentAt: new Date(),
+    }).where(eq(notifications.id, id));
+  }
+}
+
+// Export DBStorage instance for persistent database storage
+export const storage: IStorage = new DBStorage();
