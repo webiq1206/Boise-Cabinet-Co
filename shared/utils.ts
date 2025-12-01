@@ -65,22 +65,26 @@ export function formatQuoteForDisplay(
 }
 
 /**
- * Email-friendly LineItem interface
+ * Email-friendly LineItem interface with detailed cost breakdown
  */
 export interface EmailLineItem {
   service: string;
+  serviceId: string;
   description: string;
   price: number;
+  basePrice: number;
+  calculationExplanation?: string;
 }
 
 /**
  * Normalizes line items for email templates
  * Transforms from internal format to email-friendly format with proper service names and rounded prices
+ * Preserves detailed description (with measurements) and calculation explanations
  * 
  * @param lineItems - Raw line items from pricing calculation
  * @param serviceRatesMap - Map of service IDs to service names (from SERVICE_RATES)
  * @param servicesDataMap - Map of service slugs to service data (from PRIORITY_SERVICES)
- * @returns Normalized line items ready for email templates
+ * @returns Normalized line items ready for email templates with detailed cost breakdown
  */
 export function normalizeLineItemsForEmail(
   lineItems: any[],
@@ -95,11 +99,12 @@ export function normalizeLineItemsForEmail(
     const serviceId = item.service || item.serviceId;
     
     // Get service name from SERVICE_RATES map
-    const serviceName = serviceRatesMap[serviceId] || serviceId;
+    const serviceName = serviceRatesMap[serviceId] || item.serviceName || serviceId;
     
-    // Get service description from PRIORITY_SERVICES map
+    // Use the detailed description from the line item (includes measurements like "Lawn Mowing (5,000 sq ft)")
+    // Fall back to service data description if no detailed description available
     const serviceData = servicesDataMap[serviceId];
-    const description = serviceData?.shortDescription || item.description || '';
+    const description = item.description || serviceData?.shortDescription || '';
     
     // Round the price up to nearest $5
     const price = roundUpToNearest5(
@@ -107,11 +112,21 @@ export function normalizeLineItemsForEmail(
         ? item.adjustedPrice 
         : parseFloat(item.adjustedPrice || item.price || 0)
     );
+    
+    // Preserve base price for rate calculation display
+    const basePrice = roundUpToNearest5(
+      typeof item.basePrice === 'number'
+        ? item.basePrice
+        : parseFloat(item.basePrice || 0)
+    );
 
     return {
       service: serviceName,
+      serviceId: serviceId,
       description: description,
-      price: price
+      price: price,
+      basePrice: basePrice,
+      calculationExplanation: item.calculationExplanation,
     };
   });
 }

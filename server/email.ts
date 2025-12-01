@@ -1,12 +1,37 @@
 import { getUncachableResendClient } from './resend';
 import { formatQuoteForDisplay } from '../shared/utils';
 import { SERVICE_FIELD_CONFIGS } from '../shared/serviceFieldConfig';
-import { SERVICE_RATES } from './services/pricing';
+import { SERVICE_RATES, SERVICE_PRICING_CONFIG } from './services/pricing';
 
 interface LineItem {
   service: string;
+  serviceId: string;
   description: string;
   price: number;
+  basePrice: number;
+  calculationExplanation?: string;
+}
+
+function formatRateDisplay(serviceId: string): string {
+  const config = SERVICE_PRICING_CONFIG[serviceId as keyof typeof SERVICE_PRICING_CONFIG];
+  if (!config) return '';
+  
+  const unitLabels: Record<string, string> = {
+    'sqft': 'sq ft',
+    'linear_ft': 'linear ft',
+    'per_zone': 'zone',
+    'per_tree': 'tree',
+    'per_fixture': 'fixture',
+    'per_stump': 'stump',
+    'per_sqft': 'sq ft',
+    'base_service': 'base',
+    'base_project': 'project',
+  };
+  
+  const unitLabel = unitLabels[config.unit] || config.unit;
+  const rateStr = config.rate < 1 ? `$${config.rate}` : `$${config.rate.toFixed(2)}`;
+  
+  return `${rateStr}/${unitLabel}`;
 }
 
 interface QuoteEmailData {
@@ -297,20 +322,24 @@ export async function sendQuoteNotification(data: QuoteEmailData) {
     const { client: resend, fromEmail } = await getUncachableResendClient();
     console.log('[EMAIL] Got Resend client, from email:', fromEmail);
 
-    // Generate line items HTML
+    // Generate line items HTML with detailed cost breakdown
     const lineItemsHtml = data.lineItems && data.lineItems.length > 0 ? `
       <div class="section">
         <h2 class="section-title">Detailed Quote Breakdown</h2>
         <div class="line-items">
-          ${data.lineItems.map(item => `
+          ${data.lineItems.map(item => {
+            const rateDisplay = formatRateDisplay(item.serviceId);
+            return `
             <div class="line-item">
               <div class="line-item-header">
                 <span class="line-item-service">${item.service}</span>
                 <span class="line-item-price">$${item.price.toLocaleString()}</span>
               </div>
               <p class="line-item-description">${item.description}</p>
+              ${rateDisplay ? `<p style="color: #6b7280; font-size: 12px; margin: 4px 0 0 0;">Rate: ${rateDisplay}</p>` : ''}
+              ${item.calculationExplanation ? `<p style="color: #9ca3af; font-size: 11px; font-style: italic; margin: 6px 0 0 0; padding-left: 12px; border-left: 2px solid #e5e7eb;">${item.calculationExplanation}</p>` : ''}
             </div>
-          `).join('')}
+          `}).join('')}
         </div>
       </div>
     ` : '';

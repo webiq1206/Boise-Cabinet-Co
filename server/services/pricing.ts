@@ -260,8 +260,9 @@ export async function calculateIntelligentQuote(
 
 /**
  * Enhanced service rates with measurement-based pricing
+ * Exported for use in email templates to display rate per unit
  */
-const SERVICE_PRICING_CONFIG = {
+export const SERVICE_PRICING_CONFIG = {
   // Lawn services (property size based)
   "lawn-mowing": { rate: 0.012, unit: "sqft", name: "Lawn Mowing & Edging" },
   "aeration": { rate: 0.018, unit: "sqft", name: "Core Aeration" },

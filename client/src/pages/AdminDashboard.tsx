@@ -4,11 +4,170 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { CheckCircle2, XCircle, Clock, DollarSign, MapPin, Phone, Mail, Building } from "lucide-react";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { CheckCircle2, XCircle, Clock, DollarSign, MapPin, Phone, Mail, Building, ChevronDown, Receipt } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/hooks/useAuth";
 import type { Lead } from "@shared/schema";
 import { useState } from "react";
+
+interface LineItem {
+  serviceId?: string;
+  service?: string;
+  serviceName?: string;
+  description?: string;
+  price?: number;
+  basePrice?: number;
+  adjustedPrice?: number;
+  calculationExplanation?: string;
+}
+
+interface ServiceDataEntry {
+  propertySize?: number;
+  linearFeet?: number;
+  zones?: number;
+  treeCount?: number;
+  quantity?: number;
+  [key: string]: any;
+}
+
+function formatMeasurement(serviceId: string, data: ServiceDataEntry | undefined): string {
+  if (!data) return '';
+  
+  const parts: string[] = [];
+  
+  if (data.propertySize) {
+    parts.push(`${data.propertySize.toLocaleString()} sq ft`);
+  }
+  if (data.linearFeet) {
+    parts.push(`${data.linearFeet.toLocaleString()} linear ft`);
+  }
+  if (data.zones) {
+    parts.push(`${data.zones} zone${data.zones > 1 ? 's' : ''}`);
+  }
+  if (data.treeCount) {
+    parts.push(`${data.treeCount} tree${data.treeCount > 1 ? 's' : ''}`);
+  }
+  if (data.quantity) {
+    parts.push(`${data.quantity} unit${data.quantity > 1 ? 's' : ''}`);
+  }
+  
+  return parts.join(', ');
+}
+
+function QuoteBreakdownSection({ lead }: { lead: Lead }) {
+  const [isOpen, setIsOpen] = useState(false);
+  
+  const lineItems = (lead.lineItems as LineItem[] | null) || [];
+  const serviceData = (lead.serviceData as Record<string, ServiceDataEntry> | null) || {};
+  const hasBreakdown = lineItems.length > 0 || Object.keys(serviceData).length > 0;
+  
+  if (!hasBreakdown && !lead.finalQuote) {
+    return null;
+  }
+  
+  const formatPrice = (price: number | undefined) => {
+    if (price === undefined || price === null) return '$0';
+    return `$${price.toLocaleString()}`;
+  };
+  
+  return (
+    <Collapsible open={isOpen} onOpenChange={setIsOpen}>
+      <div className="border-t pt-4">
+        <CollapsibleTrigger asChild>
+          <Button
+            variant="ghost"
+            size="sm"
+            className="w-full justify-between p-0 h-auto font-medium text-sm hover:bg-transparent"
+            data-testid={`button-toggle-breakdown-${lead.id}`}
+          >
+            <span className="flex items-center gap-2">
+              <Receipt className="h-4 w-4 text-muted-foreground" />
+              Quote Breakdown
+            </span>
+            <ChevronDown className={`h-4 w-4 text-muted-foreground transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+          </Button>
+        </CollapsibleTrigger>
+        
+        <CollapsibleContent className="pt-3" data-testid={`section-breakdown-${lead.id}`}>
+          {lineItems.length > 0 ? (
+            <div className="space-y-3">
+              {lineItems.map((item, index) => {
+                const serviceId = item.serviceId || item.service || '';
+                const serviceName = item.serviceName || item.service || 'Service';
+                const price = item.price || item.adjustedPrice || 0;
+                const measurement = serviceData[serviceId] ? formatMeasurement(serviceId, serviceData[serviceId]) : '';
+                
+                return (
+                  <div 
+                    key={index} 
+                    className="bg-muted/50 rounded-md p-3"
+                    data-testid={`lineitem-${lead.id}-${index}`}
+                  >
+                    <div className="flex justify-between items-start gap-2 mb-1">
+                      <span className="font-medium text-sm" data-testid={`text-service-name-${lead.id}-${index}`}>
+                        {serviceName}
+                      </span>
+                      <span className="font-semibold text-sm text-primary" data-testid={`text-service-price-${lead.id}-${index}`}>
+                        {formatPrice(price)}
+                      </span>
+                    </div>
+                    {item.description && (
+                      <p className="text-xs text-muted-foreground" data-testid={`text-service-desc-${lead.id}-${index}`}>
+                        {item.description}
+                      </p>
+                    )}
+                    {measurement && (
+                      <p className="text-xs text-muted-foreground mt-1" data-testid={`text-service-measurement-${lead.id}-${index}`}>
+                        Measurement: {measurement}
+                      </p>
+                    )}
+                    {item.calculationExplanation && (
+                      <p className="text-xs text-muted-foreground/70 italic mt-2 pl-2 border-l-2 border-muted" data-testid={`text-service-explanation-${lead.id}-${index}`}>
+                        {item.calculationExplanation}
+                      </p>
+                    )}
+                  </div>
+                );
+              })}
+              
+              {lead.finalQuote && (
+                <div className="flex justify-between items-center pt-2 border-t">
+                  <span className="font-semibold text-sm">Total Quote</span>
+                  <span className="font-bold text-lg text-primary" data-testid={`text-total-quote-${lead.id}`}>
+                    ${parseFloat(lead.finalQuote).toLocaleString()}
+                  </span>
+                </div>
+              )}
+            </div>
+          ) : (
+            <div className="space-y-2">
+              {Object.keys(serviceData).length > 0 && (
+                <div className="space-y-2">
+                  <p className="text-sm font-medium">Service Measurements:</p>
+                  {Object.entries(serviceData).map(([svcId, data]) => (
+                    <div key={svcId} className="bg-muted/50 rounded-md p-2 text-sm">
+                      <span className="font-medium">{svcId.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}</span>
+                      <span className="text-muted-foreground ml-2">{formatMeasurement(svcId, data)}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+              {lead.finalQuote && (
+                <div className="flex justify-between items-center pt-2 border-t">
+                  <span className="font-semibold text-sm">Total Quote</span>
+                  <span className="font-bold text-lg text-primary" data-testid={`text-total-quote-${lead.id}`}>
+                    ${parseFloat(lead.finalQuote).toLocaleString()}
+                  </span>
+                </div>
+              )}
+            </div>
+          )}
+        </CollapsibleContent>
+      </div>
+    </Collapsible>
+  );
+}
 
 export default function AdminDashboard() {
   const { toast } = useToast();
@@ -143,6 +302,8 @@ export default function AdminDashboard() {
             <p className="text-sm" data-testid={`text-message-${lead.id}`}>{lead.message}</p>
           </div>
         )}
+
+        <QuoteBreakdownSection lead={lead} />
 
         {showActions && (
           <div className="flex gap-2 pt-4 border-t">
