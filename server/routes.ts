@@ -453,6 +453,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
       });
       
       // Send email notification (async - don't block response)
+      // Normalize line items for email templates
+      const rawLineItems = quote.lineItems ? JSON.parse(quote.lineItems as string) : [];
+      const normalizedLineItems = normalizeLineItemsForEmail(rawLineItems, SERVICE_NAME_MAP, SERVICE_DATA_MAP);
+      
       sendQuoteNotification({
         customerName: quote.name,
         customerEmail: quote.email,
@@ -466,7 +470,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         selectedServices: quote.selectedServices || undefined,
         finalQuote: quote.finalQuote ? parseFloat(quote.finalQuote) : undefined,
         preferredDate: quote.scheduledDate ? quote.scheduledDate.toISOString().split('T')[0] : undefined,
-        lineItems: quote.lineItems ? JSON.parse(quote.lineItems as string) : undefined,
+        lineItems: normalizedLineItems,
         serviceData: quote.serviceData ? JSON.parse(quote.serviceData as string) : undefined,
       }).catch(err => {
         console.error('Failed to send quote notification email:', err);
