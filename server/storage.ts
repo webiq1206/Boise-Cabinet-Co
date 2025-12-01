@@ -682,11 +682,8 @@ export class DBStorage implements IStorage {
         await this.seedTestimonials();
       }
 
-      // Check if blog posts table is empty
-      const existingBlogPosts = await db.select().from(blogPosts).limit(1);
-      if (existingBlogPosts.length === 0) {
-        await this.seedBlogPosts();
-      }
+      // Sync blog posts from blogContent.ts (adds any new posts that don't exist)
+      await this.syncBlogPosts();
 
       // Check if users table is empty (seed test users)
       const existingUsers = await db.select().from(users).limit(1);
@@ -799,6 +796,38 @@ export class DBStorage implements IStorage {
 
     for (const testimonial of sampleTestimonials) {
       await db.insert(testimonials).values(testimonial);
+    }
+  }
+
+  private async syncBlogPosts(): Promise<void> {
+    // Get existing slugs from database
+    const existingPosts = await db.select({ slug: blogPosts.slug }).from(blogPosts);
+    const existingSlugs = new Set(existingPosts.map(p => p.slug));
+    
+    // Add any new posts that don't exist in the database
+    let addedCount = 0;
+    for (const post of BLOG_POSTS) {
+      if (!existingSlugs.has(post.slug)) {
+        await db.insert(blogPosts).values({
+          slug: post.slug,
+          title: post.title,
+          seoTitle: post.seoTitle ?? null,
+          metaDescription: post.metaDescription ?? null,
+          excerpt: post.excerpt,
+          content: post.content,
+          author: post.author,
+          category: post.category,
+          tags: post.tags,
+          faqs: post.faqs ?? [],
+          publishedAt: new Date(post.publishedAt),
+          createdAt: new Date(),
+        });
+        addedCount++;
+      }
+    }
+    
+    if (addedCount > 0) {
+      console.log(`[Blog Sync] Added ${addedCount} new blog posts to database (total: ${BLOG_POSTS.length})`);
     }
   }
 
