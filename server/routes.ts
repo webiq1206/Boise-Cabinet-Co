@@ -976,7 +976,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // END LEAD MANAGEMENT API ROUTES
   // ============================================
 
-  // Sitemap.xml generation - all 256 pages (28 services × 6 cities + 42 blog posts + core pages)
+  // Sitemap.xml generation - all 306 pages (28 services × 6 cities + 92 blog posts + core pages)
   app.get("/sitemap.xml", async (req, res) => {
     try {
       const baseUrl = "https://lawncarekuna.com";
@@ -1052,7 +1052,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         });
       });
 
-      // All 42 blog posts
+      // All 92 blog posts
       const { BLOG_POSTS } = await import("@shared/blogContent");
       BLOG_POSTS.forEach(post => {
         urls.push({

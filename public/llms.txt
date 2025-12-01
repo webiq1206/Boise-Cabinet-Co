@@ -106,58 +106,127 @@ Note: This is the definitive list. PRIORITY_SERVICES array contains exactly 28 s
 - **Stripe Integration**: Secure payment processing for lead purchases
 
 ### Content & SEO Features
-- **Blog System**: 42 comprehensive articles (1500-2000 words each) covering Idaho lawn care, landscaping, seasonal tips, irrigation, and expert guides
+- **Blog System**: 92 comprehensive articles (1500-2000 words each) covering Idaho lawn care, landscaping, seasonal tips, irrigation, expert guides, property-specific solutions, and homeowner resources
 - **Bidirectional Internal Linking**: Service pages link to relevant blog posts; blog posts link to service pages (6-10 service links per post)
-- **256 Total SEO Pages**: 28 services + 168 geo-pages (28×6 cities) + 42 blog posts + 6 city pages + 12 core pages (homepage + 3 categories + 8 static)
+- **306 Total SEO Pages**: 28 services + 168 geo-pages (28×6 cities) + 92 blog posts + 6 city pages + 12 core pages (homepage + 3 categories + 8 static)
 - **City-Specific Metadata**: Unique title tags, meta descriptions, and H1s for each service-city combination
 - **E-E-A-T Optimization**: Experience, Expertise, Authoritativeness, Trustworthiness signals throughout
 - **FAQ Schema**: Structured data for enhanced search results (5-6 FAQs per blog post, service pages)
 - **Site-Wide Search**: Real-time autocomplete search for services, areas, and content
-- **Sitemap.xml**: 256 URLs with proper priority/changefreq settings for optimal crawling
+- **Sitemap.xml**: 306 URLs with proper priority/changefreq settings for optimal crawling
 - **Robots.txt**: Configured to allow all public pages, block admin/API routes
 
-## Blog Content Topics (42 Comprehensive SEO-Optimized Articles)
+## Blog Content Topics (92 Comprehensive SEO-Optimized Articles)
 
 All blog posts are 1500-2000 words with 6-10 internal service links and 5-6 detailed FAQs.
 
-### Seasonal Lawn Care Guides
+### Seasonal Lawn Care Guides (12 Articles)
 - Spring Lawn Prep Checklist for Treasure Valley Yards
 - How to Get Your Lawn Ready for Winter in Southwest Idaho
 - Snow Season Lawn Care: What Homeowners Should Do Before the First Storm
 - Spring Cleanup vs. Fall Cleanup: What Makes the Biggest Difference
+- Complete Fall Lawn Care Timeline for Treasure Valley Properties
+- Spring Frost Protection for Idaho Lawns and Gardens
+- Summer Lawn Survival Guide for Hot Idaho Months
+- Winter Lawn Dormancy Care in Treasure Valley
+- Year-Round Lawn Care Calendar for Boise Metro Properties
+- Seasonal Lawn Transition Strategies for Idaho's Climate
+- Early Spring Lawn Assessment Checklist for Idaho Homeowners
+- Late Fall Lawn Winterization Complete Guide
 
-### Lawn Health & Maintenance
+### Lawn Health & Maintenance (16 Articles)
 - How to Protect Your Grass During Hot Dry Idaho Summers
 - Fall Aeration and Overseeding: Why It Extends the Life of Your Lawn
 - How to Recover Your Lawn After a Heat Wave
 - Why Your Lawn Has Brown Patches and How to Fix Them
 - How Often You Should Mow in the Treasure Valley and Why It Matters
 - Why Consistent Lawn Maintenance Protects Your Lawn Long Term
+- Mowing Height Strategies for Idaho's Different Seasons
+- Lawn Striping Techniques for Professional-Looking Kuna Lawns
+- Thatch Management Strategies for Treasure Valley Lawns
+- Professional Lawn Edge Design Ideas for Boise Area Homes
+- DIY vs Professional Lawn Aeration: Cost-Benefit Analysis
+- Snow Mold Damage Repair for Boise Lawns: Spring Recovery Guide
+- Pet Damage Lawn Repair: Complete Recovery Plan
+- Repairing High-Traffic Lawn Areas in Idaho Homes
+- Lawn Recovery After Extended Vacation Periods
+- Rental Property Lawn Care: A Landlord's Guide
 
-### Weed & Pest Control
+### Weed & Pest Control (6 Articles)
 - Top Weeds That Take Over Idaho Lawns and How to Eliminate Them
 - How to Control Crabgrass, Dandelions and Other Persistent Weeds
 - How to Spot and Treat Grub Damage in Idaho Lawns
+- Organic Pest Control Methods for Idaho Lawns
+- Pre-Emergent Application Timing for Treasure Valley
+- Integrated Weed Management for Clay Soil Properties
 
-### Technical Lawn Care Topics
+### Technical Lawn Care Topics (8 Articles)
 - Choosing the Right Grass Seed for Idaho Soil and Weather
 - Fertilization and Weed Control Explained in Simple Terms
 - Core Aeration vs. Liquid Aeration: What Idaho Homeowners Should Know
 - When You Should Dethatch and When You Should Aerate
+- Soil Testing Guide for Treasure Valley Homeowners
+- Understanding Soil pH and Clay Soil Amendments
+- Lawn Renovation Project Planning for Idaho Properties
+- Sod vs Seed: Making the Right Choice for Your Idaho Lawn
 
-### Irrigation & Water Management
+### Irrigation & Water Management (12 Articles)
 - Understanding Sprinkler Blowouts and Repairs in Our Climate
 - When to Schedule Your Sprinkler Blowout in Idaho: Complete Timing Guide
 - Spring Sprinkler Startup Guide for Treasure Valley Homeowners
+- Smart Irrigation Controllers for Idaho Water Conservation
+- Drip Irrigation vs Sprinkler Systems: Idaho Comparison
+- Irrigation Zone Optimization for Clay Soil Properties
+- Water-Saving Lawn Care Practices for Semi-Arid Climates
+- Sprinkler Head Types and Placement for Idaho Lawns
+- Irrigation Repair Troubleshooting for Common Idaho Issues
+- Low-Pressure Irrigation Solutions for Elevated Properties
+- Rain Sensor Integration for Treasure Valley Irrigation
+- Fixing Irrigation Coverage Issues on Corner Lot Properties
 
-### Landscaping & Outdoor Features
+### Landscaping Design & Ideas (14 Articles)
 - How to Keep Shrubs and Hedges Healthy Throughout the Year
 - Why Leaf Removal Matters More Than People Think
 - Seasonal Holiday Landscape Prep and Why Timing Matters
+- Modern Patio Design Ideas for Meridian Backyards
+- Fire Pit Installation and Outdoor Living Spaces
+- Native Plant Landscaping for Idaho Water Conservation
+- Rock Garden Design for Treasure Valley Climate
+- Retaining Wall Materials and Design Options
+- Landscape Lighting Techniques for Evening Ambiance
+- Drought-Tolerant Landscaping for Semi-Arid Properties
+- Balancing Lawn and Garden Spaces in Idaho Yards
+- Growing Lawn Under Cottonwood Trees: Shade Solutions
+- Slope Stabilization and Lawn Care for Foothill Properties
+- HOA-Approved Lawn Alternatives for Idaho Communities
 
-### Commercial & Business Services
+### Homeowner Guides & Resources (12 Articles)
 - Commercial Lawn Care in the Treasure Valley: What Businesses Should Expect
 - Snow Removal Basics for Homeowners and Small Businesses
+- HOA Landscape Compliance: Meeting Requirements While Creating Beauty
+- Annual Lawn Care Budget Planner for Idaho Homeowners
+- How to Read and Compare Lawn Care Proposals
+- Financing Your Idaho Landscape Renovation: Options
+- Hiring Commercial Snow Removal: Complete Business Checklist
+- Managing Lawn Care for Remote or Vacation Properties
+- Preparing Your Idaho Yard for Outdoor Events
+- Sustainable Lawn Equipment for Idaho Homeowners
+- New Construction Lawn Establishment Guide
+- Low-Water Acreage Lawn Care for Rural Properties
+
+### Property-Specific Solutions (12 Articles)
+- Lawn Care Strategies for Boise River Floodplain Properties
+- Corner Lot Landscaping and Irrigation Challenges
+- New Home Lawn Installation Best Practices
+- Older Home Lawn Renovation Strategies
+- Small Yard Maximization for Urban Idaho Properties
+- Large Acreage Lawn Maintenance Efficiency
+- Steep Slope Lawn Care and Erosion Prevention
+- Shaded Lawn Solutions for Tree-Heavy Properties
+- Full Sun Lawn Care for Open Idaho Properties
+- Multi-Level Yard Landscaping and Maintenance
+- Pool Area Lawn and Landscape Considerations
+- Front Yard vs Backyard Lawn Care Differences
 
 ## Contact Information
 - **Phone**: (208) 352-2011 (Monday-Saturday, 7 AM - 7 PM)
@@ -273,4 +342,4 @@ This file provides comprehensive context about Lawn Care Kuna's services, expert
 
 **Idaho-Specific Context**: All recommendations should account for Treasure Valley's heavy clay soil, semi-arid climate (10-12" annual rainfall), extreme temperature swings, and specific grass varieties (Kentucky bluegrass, tall fescue). Core aeration in fall is essential, not optional, due to severe clay compaction.
 
-Last Updated: November 24, 2025
+Last Updated: December 1, 2025
