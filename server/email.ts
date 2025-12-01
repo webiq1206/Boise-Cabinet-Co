@@ -300,6 +300,45 @@ function deduplicateServices(serviceType: string, selectedServices?: string[]): 
   return selectedServices.filter(s => s !== serviceTypeSlug);
 }
 
+/**
+ * Generate line items HTML for emails
+ * @param lineItems - Array of line items
+ * @param showMeasurements - If true, shows detailed measurements, rates, and explanations (for admin)
+ *                          If false, shows only service names and prices (for customers)
+ */
+function generateLineItemsHtml(lineItems: LineItem[] | undefined, showMeasurements: boolean): string {
+  if (!lineItems || lineItems.length === 0) return '';
+  
+  const title = showMeasurements ? 'Detailed Quote Breakdown' : 'Your Quote Summary';
+  
+  return `
+    <div class="section">
+      <h2 class="section-title">${title}</h2>
+      <div class="line-items">
+        ${lineItems.map(item => {
+          // For customers, strip measurements from description (remove parenthetical content)
+          const displayDescription = showMeasurements 
+            ? item.description 
+            : item.service; // Just show service name for customers
+          
+          const rateDisplay = showMeasurements ? formatRateDisplay(item.serviceId) : '';
+          
+          return `
+          <div class="line-item">
+            <div class="line-item-header">
+              <span class="line-item-service">${item.service}</span>
+              <span class="line-item-price">$${item.price.toLocaleString()}</span>
+            </div>
+            ${showMeasurements ? `<p class="line-item-description">${displayDescription}</p>` : ''}
+            ${rateDisplay ? `<p style="color: #6b7280; font-size: 12px; margin: 4px 0 0 0;">Rate: ${rateDisplay}</p>` : ''}
+            ${showMeasurements && item.calculationExplanation ? `<p style="color: #9ca3af; font-size: 11px; font-style: italic; margin: 6px 0 0 0; padding-left: 12px; border-left: 2px solid #e5e7eb;">${item.calculationExplanation}</p>` : ''}
+          </div>
+        `}).join('')}
+      </div>
+    </div>
+  `;
+}
+
 export async function sendQuoteNotification(data: QuoteEmailData) {
   const {
     customerName,
@@ -322,27 +361,9 @@ export async function sendQuoteNotification(data: QuoteEmailData) {
     const { client: resend, fromEmail } = await getUncachableResendClient();
     console.log('[EMAIL] Got Resend client, from email:', fromEmail);
 
-    // Generate line items HTML with detailed cost breakdown
-    const lineItemsHtml = data.lineItems && data.lineItems.length > 0 ? `
-      <div class="section">
-        <h2 class="section-title">Detailed Quote Breakdown</h2>
-        <div class="line-items">
-          ${data.lineItems.map(item => {
-            const rateDisplay = formatRateDisplay(item.serviceId);
-            return `
-            <div class="line-item">
-              <div class="line-item-header">
-                <span class="line-item-service">${item.service}</span>
-                <span class="line-item-price">$${item.price.toLocaleString()}</span>
-              </div>
-              <p class="line-item-description">${item.description}</p>
-              ${rateDisplay ? `<p style="color: #6b7280; font-size: 12px; margin: 4px 0 0 0;">Rate: ${rateDisplay}</p>` : ''}
-              ${item.calculationExplanation ? `<p style="color: #9ca3af; font-size: 11px; font-style: italic; margin: 6px 0 0 0; padding-left: 12px; border-left: 2px solid #e5e7eb;">${item.calculationExplanation}</p>` : ''}
-            </div>
-          `}).join('')}
-        </div>
-      </div>
-    ` : '';
+    // Generate line items HTML - detailed for admin, simple for customer
+    const adminLineItemsHtml = generateLineItemsHtml(data.lineItems, true);
+    const customerLineItemsHtml = generateLineItemsHtml(data.lineItems, false);
 
     // De-duplicate selectedServices (remove primary service if it appears in the list)
     const deduplicatedServices = deduplicateServices(serviceType, selectedServices);
@@ -497,7 +518,7 @@ export async function sendQuoteNotification(data: QuoteEmailData) {
 
             ${propertyDetailsHtml}
 
-            ${lineItemsHtml}
+            ${adminLineItemsHtml}
 
             <div class="divider"></div>
             <div class="section">
@@ -612,9 +633,7 @@ export async function sendQuoteNotification(data: QuoteEmailData) {
               </table>
             </div>
 
-            ${propertyDetailsHtml}
-
-            ${lineItemsHtml}
+            ${customerLineItemsHtml}
 
             <div class="divider"></div>
             <div class="section">
