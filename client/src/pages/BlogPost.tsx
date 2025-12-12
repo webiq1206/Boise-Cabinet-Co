@@ -226,8 +226,8 @@ export default function BlogPost() {
                   </div>
                 </div>
 
-                {/* Sidebar */}
-                <aside className="hidden lg:block lg:w-[280px] lg:flex-shrink-0 lg:sticky lg:top-24">
+                {/* Sidebar - sticky on desktop */}
+                <aside className="hidden lg:block lg:w-[280px] lg:flex-shrink-0 lg:sticky lg:top-24 lg:self-start lg:max-h-[calc(100vh-8rem)] lg:overflow-y-auto">
                   <div className="space-y-6">
                     {/* Author Info */}
                     <Card>
