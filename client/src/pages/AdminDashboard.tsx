@@ -5,11 +5,24 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
-import { CheckCircle2, XCircle, Clock, DollarSign, MapPin, Phone, Mail, Building, ChevronDown, Receipt } from "lucide-react";
+import { CheckCircle2, XCircle, Clock, DollarSign, MapPin, Phone, Mail, Building, ChevronDown, Receipt, AlertTriangle, Server } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/hooks/useAuth";
 import type { Lead } from "@shared/schema";
-import { useState } from "react";
+import { useState, useMemo } from "react";
+
+// Detect if we're running on the production domain
+function useEnvironment() {
+  return useMemo(() => {
+    const hostname = window.location.hostname;
+    const isProduction = hostname === 'lawncarekuna.com' || hostname === 'www.lawncarekuna.com';
+    return {
+      isProduction,
+      environmentLabel: isProduction ? 'Production' : 'Development',
+      hostname
+    };
+  }, []);
+}
 
 interface LineItem {
   serviceId?: string;
@@ -173,6 +186,7 @@ export default function AdminDashboard() {
   const { toast } = useToast();
   const [activeTab, setActiveTab] = useState("pending");
   const { isAuthenticated, isLoading: authLoading } = useAuth();
+  const environment = useEnvironment();
 
   const { data: leads = [], isLoading } = useQuery<Lead[]>({
     queryKey: ["/api/leads"],
@@ -342,8 +356,39 @@ export default function AdminDashboard() {
 
   return (
     <div className="container py-8" data-testid="page-admin-dashboard">
+      {/* Environment Indicator */}
+      {!environment.isProduction && (
+        <div className="mb-4 p-3 bg-amber-100 dark:bg-amber-900/30 border border-amber-300 dark:border-amber-700 rounded-md flex items-center gap-3" data-testid="banner-dev-environment">
+          <AlertTriangle className="h-5 w-5 text-amber-600 dark:text-amber-400 flex-shrink-0" />
+          <div className="flex-1">
+            <p className="font-medium text-amber-800 dark:text-amber-200">Development Environment</p>
+            <p className="text-sm text-amber-700 dark:text-amber-300">
+              You're viewing the development database. For production leads, visit{" "}
+              <a 
+                href="https://lawncarekuna.com/admin" 
+                className="underline font-medium hover:no-underline"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                lawncarekuna.com/admin
+              </a>
+            </p>
+          </div>
+        </div>
+      )}
+      
       <div className="mb-8">
-        <h1 className="text-4xl font-bold mb-2">Admin Dashboard</h1>
+        <div className="flex items-center gap-3 mb-2">
+          <h1 className="text-4xl font-bold">Admin Dashboard</h1>
+          <Badge 
+            variant={environment.isProduction ? "default" : "outline"}
+            className={environment.isProduction ? "bg-green-600 hover:bg-green-600" : "border-amber-500 text-amber-700 dark:text-amber-400"}
+            data-testid="badge-environment"
+          >
+            <Server className="h-3 w-3 mr-1" />
+            {environment.environmentLabel}
+          </Badge>
+        </div>
         <p className="text-muted-foreground">Manage incoming leads and quote requests</p>
       </div>
 
