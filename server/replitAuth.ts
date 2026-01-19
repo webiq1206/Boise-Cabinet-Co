@@ -135,9 +135,45 @@ export async function setupAuth(app: Express) {
   app.get("/api/callback", (req, res, next) => {
     ensureStrategy(req.hostname);
     passport.authenticate(`replitauth:${req.hostname}`, {
-      successReturnToOrRedirect: "/",
+      // Route users based on their role after login.
+      // Subcontractors should land in their portal and not on the marketing site.
+      successReturnToOrRedirect: "/api/post-login",
       failureRedirect: "/api/login",
     })(req, res, next);
+  });
+
+  // Post-login router: choose destination based on role.
+  // This runs after the session is established by `/api/callback`.
+  app.get("/api/post-login", isAuthenticated, async (req, res) => {
+    try {
+      const user = req.user as any;
+      const userId = user?.claims?.sub;
+      if (!userId) return res.redirect("/");
+
+      const dbUser = await storage.getUser(userId);
+
+      // If something set a returnTo (e.g. an auth gate), honor it for non-subcontractors.
+      const returnToRaw = (req as any).session?.returnTo;
+      if ((req as any).session?.returnTo) {
+        delete (req as any).session.returnTo;
+      }
+      const safeReturnTo =
+        typeof returnToRaw === "string" && returnToRaw.startsWith("/")
+          ? returnToRaw
+          : null;
+
+      if (dbUser?.role === "subcontractor") {
+        return res.redirect("/subcontractor/portal");
+      }
+      if (dbUser?.role === "admin") {
+        return res.redirect(safeReturnTo ?? "/admin/dashboard");
+      }
+
+      return res.redirect(safeReturnTo ?? "/");
+    } catch (error) {
+      console.error("[auth] post-login redirect failed:", error);
+      return res.redirect("/");
+    }
   });
 
   app.get("/api/logout", (req, res) => {

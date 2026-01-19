@@ -11,14 +11,23 @@ interface ServiceFieldsRendererProps {
   selectedServices: string[];
   serviceData: Record<string, Record<string, any>>;
   onChange: (serviceId: string, fieldName: string, value: any) => void;
+  activeServiceId?: string | null;
+  onActiveServiceIdChange?: (serviceId: string | null) => void;
 }
 
 export function ServiceFieldsRenderer({
   selectedServices,
   serviceData,
   onChange,
+  activeServiceId: controlledActiveServiceId,
+  onActiveServiceIdChange,
 }: ServiceFieldsRendererProps) {
-  const [activeServiceId, setActiveServiceId] = useState<string | null>(null);
+  const [internalActiveServiceId, setInternalActiveServiceId] = useState<string | null>(null);
+  const activeServiceId = controlledActiveServiceId ?? internalActiveServiceId;
+  const setActiveServiceId = (serviceId: string | null) => {
+    if (onActiveServiceIdChange) onActiveServiceIdChange(serviceId);
+    else setInternalActiveServiceId(serviceId);
+  };
 
   // Get configs for all selected services
   const serviceConfigs = selectedServices
@@ -61,13 +70,15 @@ export function ServiceFieldsRenderer({
   };
 
   const activeConfig = serviceConfigs.find(c => c.serviceId === activeServiceId);
+  const activeDisplayFields =
+    activeConfig?.fields?.filter((f) => !(f.measurementGroup && f.measurementGroup.startsWith("shared"))) || [];
 
   return (
     <div className="space-y-4">
       <Alert>
         <Info className="h-4 w-4" />
         <AlertDescription>
-          Provide details for each service. Switch between services using the tabs below.
+          Provide any remaining details for your selected services. Measurements are collected once and applied automatically.
         </AlertDescription>
       </Alert>
 
@@ -100,8 +111,13 @@ export function ServiceFieldsRenderer({
         <div className="space-y-4 p-4 rounded-lg border border-border">
           <h3 className="font-medium text-lg">{activeConfig.serviceName}</h3>
           
-          <div className="grid gap-4 sm:grid-cols-2">
-            {activeConfig.fields.map((field) => {
+          {activeDisplayFields.length === 0 ? (
+            <p className="text-sm text-muted-foreground">
+              No additional details needed for this service.
+            </p>
+          ) : (
+            <div className="grid gap-4 sm:grid-cols-2">
+              {activeDisplayFields.map((field) => {
               const currentData = serviceData[activeConfig.serviceId] || {};
               const fieldValue = currentData[field.name] || "";
 
@@ -165,8 +181,9 @@ export function ServiceFieldsRenderer({
                   )}
                 </div>
               );
-            })}
-          </div>
+              })}
+            </div>
+          )}
         </div>
       )}
     </div>

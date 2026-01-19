@@ -12,6 +12,22 @@ export type ServiceFieldType =
   | "installationAreas"
   | "lightingType";
 
+/**
+ * Measurement groups allow the UI to collect certain measurements once (per type),
+ * then apply them to relevant services automatically.
+ *
+ * NOTE: "shared" means shared across services that use the *same* measurement type,
+ * not shared across all linear services (roofline vs fence length are different).
+ */
+export type MeasurementGroup =
+  | "sharedLawnArea" // sq ft (general lawn/property area)
+  | "sharedRooflineFt" // linear feet (roofline/overhangs for lighting)
+  | "sharedLotPerimeterFt" // linear feet (used for fence length entry in UI)
+  | "sharedLawnPerimeterFt" // linear feet (edging)
+  | "sharedHedgeFt" // linear feet (hedges/shrubs)
+  | "perServiceProjectArea" // sq ft but not shareable (mulch/sod install areas, etc.)
+  | "perService"; // everything else
+
 export interface ServiceField {
   name: ServiceFieldType;
   label: string;
@@ -21,6 +37,12 @@ export interface ServiceField {
   options?: string[];
   unit?: string;
   helpText?: string;
+  /**
+   * How this field should be collected in the quote flow.
+   * - shared*: collected once in a shared measurements panel (when possible)
+   * - perService*: collected within the service details UI
+   */
+  measurementGroup?: MeasurementGroup;
 }
 
 export interface ServiceFieldConfig {
@@ -45,7 +67,8 @@ export const SERVICE_FIELD_CONFIGS: ServiceFieldConfig[] = [
         type: "number",
         required: true,
         unit: "sq ft",
-        helpText: "Total lawn area to be mowed"
+        helpText: "Total lawn area to be mowed",
+        measurementGroup: "sharedLawnArea",
       }
     ]
   },
@@ -61,7 +84,8 @@ export const SERVICE_FIELD_CONFIGS: ServiceFieldConfig[] = [
         placeholder: "e.g., 5000",
         type: "number",
         required: true,
-        unit: "sq ft"
+        unit: "sq ft",
+        measurementGroup: "sharedLawnArea",
       }
     ]
   },
@@ -77,7 +101,8 @@ export const SERVICE_FIELD_CONFIGS: ServiceFieldConfig[] = [
         placeholder: "e.g., 5000",
         type: "number",
         required: true,
-        unit: "sq ft"
+        unit: "sq ft",
+        measurementGroup: "sharedLawnArea",
       }
     ]
   },
@@ -93,7 +118,8 @@ export const SERVICE_FIELD_CONFIGS: ServiceFieldConfig[] = [
         placeholder: "e.g., 5000",
         type: "number",
         required: true,
-        unit: "sq ft"
+        unit: "sq ft",
+        measurementGroup: "sharedLawnArea",
       }
     ]
   },
@@ -109,7 +135,8 @@ export const SERVICE_FIELD_CONFIGS: ServiceFieldConfig[] = [
         placeholder: "e.g., 5000",
         type: "number",
         required: true,
-        unit: "sq ft"
+        unit: "sq ft",
+        measurementGroup: "sharedLawnArea",
       }
     ]
   },
@@ -125,7 +152,8 @@ export const SERVICE_FIELD_CONFIGS: ServiceFieldConfig[] = [
         placeholder: "e.g., 5000",
         type: "number",
         required: true,
-        unit: "sq ft"
+        unit: "sq ft",
+        measurementGroup: "sharedLawnArea",
       }
     ]
   },
@@ -142,7 +170,8 @@ export const SERVICE_FIELD_CONFIGS: ServiceFieldConfig[] = [
         type: "number",
         required: true,
         unit: "sq ft",
-        helpText: "Area where sod will be installed"
+        helpText: "Area where sod will be installed",
+        measurementGroup: "perServiceProjectArea",
       }
     ]
   },
@@ -184,7 +213,8 @@ export const SERVICE_FIELD_CONFIGS: ServiceFieldConfig[] = [
         type: "number",
         required: true,
         unit: "linear feet",
-        helpText: "Approximate length of retaining wall needed"
+        helpText: "Approximate length of retaining wall needed",
+        measurementGroup: "perService",
       },
       {
         name: "height",
@@ -193,7 +223,8 @@ export const SERVICE_FIELD_CONFIGS: ServiceFieldConfig[] = [
         type: "number",
         required: true,
         unit: "feet",
-        helpText: "Approximate height of wall"
+        helpText: "Approximate height of wall",
+        measurementGroup: "perService",
       },
       {
         name: "material",
@@ -217,7 +248,8 @@ export const SERVICE_FIELD_CONFIGS: ServiceFieldConfig[] = [
         type: "number",
         required: true,
         unit: "linear feet",
-        helpText: "Total linear feet of fencing needed"
+        helpText: "Total linear feet of fencing needed",
+        measurementGroup: "sharedLotPerimeterFt",
       },
       {
         name: "height",
@@ -226,7 +258,8 @@ export const SERVICE_FIELD_CONFIGS: ServiceFieldConfig[] = [
         type: "number",
         required: false,
         unit: "feet",
-        helpText: "Desired fence height"
+        helpText: "Desired fence height",
+        measurementGroup: "perService",
       },
       {
         name: "material",
@@ -273,7 +306,8 @@ export const SERVICE_FIELD_CONFIGS: ServiceFieldConfig[] = [
         type: "select",
         required: true,
         options: ["Traditional Seasonal", "Permanent Lighting"],
-        helpText: "Traditional lights are installed seasonally. Permanent lights stay year-round and are fully controllable via app"
+        helpText: "Traditional lights are installed seasonally. Permanent lights stay year-round and are fully controllable via app",
+        measurementGroup: "perService",
       },
       {
         name: "linearFeet",
@@ -282,7 +316,8 @@ export const SERVICE_FIELD_CONFIGS: ServiceFieldConfig[] = [
         type: "number",
         required: true,
         unit: "linear feet",
-        helpText: "Total linear feet of roofline, trees, or other areas to be lit"
+        helpText: "Total linear feet of roofline, trees, or other areas to be lit",
+        measurementGroup: "sharedRooflineFt",
       },
       {
         name: "installationAreas",
@@ -290,7 +325,8 @@ export const SERVICE_FIELD_CONFIGS: ServiceFieldConfig[] = [
         type: "textarea",
         required: false,
         placeholder: "e.g., Roofline (150 ft), 3 trees, bushes along walkway",
-        helpText: "Describe where lights will be installed"
+        helpText: "Describe where lights will be installed",
+        measurementGroup: "perService",
       }
     ]
   },
@@ -332,7 +368,8 @@ export const SERVICE_FIELD_CONFIGS: ServiceFieldConfig[] = [
         type: "number",
         required: true,
         unit: "zones",
-        helpText: "How many irrigation zones does your system have?"
+        helpText: "How many irrigation zones does your system have?",
+        measurementGroup: "perService",
       }
     ]
   },
@@ -372,7 +409,8 @@ export const SERVICE_FIELD_CONFIGS: ServiceFieldConfig[] = [
         type: "number",
         required: true,
         unit: "sq ft",
-        helpText: "Total lawn/landscape area needing irrigation"
+        helpText: "Total lawn/landscape area needing irrigation",
+        measurementGroup: "sharedLawnArea",
       },
       {
         name: "zones",
@@ -381,7 +419,8 @@ export const SERVICE_FIELD_CONFIGS: ServiceFieldConfig[] = [
         type: "number",
         required: false,
         unit: "zones",
-        helpText: "Leave blank if unsure - we'll determine during consultation"
+        helpText: "Leave blank if unsure - we'll determine during consultation",
+        measurementGroup: "perService",
       }
     ]
   },
@@ -429,7 +468,8 @@ export const SERVICE_FIELD_CONFIGS: ServiceFieldConfig[] = [
         placeholder: "e.g., 2",
         type: "number",
         required: true,
-        unit: "trees"
+        unit: "trees",
+        measurementGroup: "perService",
       },
       {
         name: "treeSize",
@@ -452,7 +492,8 @@ export const SERVICE_FIELD_CONFIGS: ServiceFieldConfig[] = [
         placeholder: "e.g., 3",
         type: "number",
         required: true,
-        unit: "trees"
+        unit: "trees",
+        measurementGroup: "perService",
       },
       {
         name: "treeSize",
@@ -475,7 +516,8 @@ export const SERVICE_FIELD_CONFIGS: ServiceFieldConfig[] = [
         placeholder: "e.g., 2",
         type: "number",
         required: true,
-        unit: "stumps"
+        unit: "stumps",
+        measurementGroup: "perService",
       },
       {
         name: "dimensions",
@@ -483,7 +525,8 @@ export const SERVICE_FIELD_CONFIGS: ServiceFieldConfig[] = [
         placeholder: "e.g., 24 inches",
         type: "text",
         required: false,
-        helpText: "Approximate diameter of largest stump"
+        helpText: "Approximate diameter of largest stump",
+        measurementGroup: "perService",
       }
     ]
   },
@@ -500,7 +543,8 @@ export const SERVICE_FIELD_CONFIGS: ServiceFieldConfig[] = [
         type: "number",
         required: false,
         unit: "linear feet",
-        helpText: "Approximate length of hedges/shrubs"
+        helpText: "Approximate length of hedges/shrubs",
+        measurementGroup: "sharedHedgeFt",
       },
       {
         name: "quantity",
@@ -508,7 +552,8 @@ export const SERVICE_FIELD_CONFIGS: ServiceFieldConfig[] = [
         placeholder: "e.g., 12",
         type: "number",
         required: false,
-        unit: "shrubs"
+        unit: "shrubs",
+        measurementGroup: "perService",
       },
       {
         name: "height",
@@ -516,7 +561,8 @@ export const SERVICE_FIELD_CONFIGS: ServiceFieldConfig[] = [
         placeholder: "e.g., 6",
         type: "number",
         required: false,
-        unit: "feet"
+        unit: "feet",
+        measurementGroup: "perService",
       }
     ]
   },
@@ -533,7 +579,8 @@ export const SERVICE_FIELD_CONFIGS: ServiceFieldConfig[] = [
         type: "number",
         required: true,
         unit: "sq ft",
-        helpText: "Total property area needing cleanup"
+        helpText: "Total property area needing cleanup",
+        measurementGroup: "sharedLawnArea",
       }
     ]
   },
@@ -550,7 +597,8 @@ export const SERVICE_FIELD_CONFIGS: ServiceFieldConfig[] = [
         type: "number",
         required: true,
         unit: "sq ft",
-        helpText: "Total property area needing cleanup"
+        helpText: "Total property area needing cleanup",
+        measurementGroup: "sharedLawnArea",
       }
     ]
   },
@@ -566,7 +614,8 @@ export const SERVICE_FIELD_CONFIGS: ServiceFieldConfig[] = [
         placeholder: "e.g., 8000",
         type: "number",
         required: true,
-        unit: "sq ft"
+        unit: "sq ft",
+        measurementGroup: "sharedLawnArea",
       }
     ]
   },
@@ -583,7 +632,8 @@ export const SERVICE_FIELD_CONFIGS: ServiceFieldConfig[] = [
         type: "number",
         required: true,
         unit: "sq ft",
-        helpText: "Area to be mulched"
+        helpText: "Area to be mulched",
+        measurementGroup: "perServiceProjectArea",
       },
       {
         name: "material",
@@ -607,7 +657,8 @@ export const SERVICE_FIELD_CONFIGS: ServiceFieldConfig[] = [
         type: "number",
         required: true,
         unit: "linear feet",
-        helpText: "Perimeter of lawn areas needing edging"
+        helpText: "Perimeter of lawn areas needing edging",
+        measurementGroup: "sharedLawnPerimeterFt",
       }
     ]
   },
@@ -624,7 +675,8 @@ export const SERVICE_FIELD_CONFIGS: ServiceFieldConfig[] = [
         type: "number",
         required: true,
         unit: "sq ft",
-        helpText: "Total lawn area to be renovated"
+        helpText: "Total lawn area to be renovated",
+        measurementGroup: "sharedLawnArea",
       }
     ]
   }

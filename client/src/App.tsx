@@ -1,4 +1,4 @@
-import { Switch, Route } from "wouter";
+import { Switch, Route, useLocation } from "wouter";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
@@ -11,6 +11,7 @@ import { ScrollToTop } from "@/components/ScrollToTop";
 import { useEffect, lazy, Suspense } from "react";
 import { initGA } from "./lib/analytics";
 import { useAnalytics } from "./hooks/use-analytics";
+import { useAuth } from "./hooks/useAuth";
 
 // Loading fallback component
 const PageLoader = () => (
@@ -63,12 +64,37 @@ const PurchaseHistory = lazy(() => import("@/pages/PurchaseHistory"));
 const AnalyticsDashboard = lazy(() => import("@/pages/AnalyticsDashboard"));
 const QuoteStatus = lazy(() => import("@/pages/QuoteStatus"));
 
+function SubcontractorRouteEnforcer() {
+  const { user, isAuthenticated, isLoading } = useAuth();
+  const [location, setLocation] = useLocation();
+
+  useEffect(() => {
+    if (isLoading || !isAuthenticated) return;
+    if (user?.role !== "subcontractor") return;
+
+    const isSubcontractorArea =
+      location === "/subcontractor" || location.startsWith("/subcontractor/");
+
+    if (!isSubcontractorArea) {
+      setLocation("/subcontractor/portal");
+      return;
+    }
+
+    if (location === "/subcontractor" || location === "/subcontractor/") {
+      setLocation("/subcontractor/portal");
+    }
+  }, [isLoading, isAuthenticated, user?.role, location, setLocation]);
+
+  return null;
+}
+
 function Router() {
   useAnalytics();
   
   return (
     <div className="flex flex-col min-h-screen">
       <ScrollToTop />
+      <SubcontractorRouteEnforcer />
       <Navigation />
       <main className="flex-1">
         <Suspense fallback={<PageLoader />}>

@@ -11,6 +11,7 @@ import { PRIORITY_SERVICES, CITIES } from "@shared/contentData";
 import { sendNewLeadNotification, sendLeadPurchasedNotification, sendLeadPurchaseConfirmation } from "./services/emailNotifications";
 import { setupAuth, isAuthenticated, requireRole } from "./replitAuth";
 import { parseAndRoundQuote, normalizeLineItemsForEmail, calculateQuoteRange } from "@shared/utils";
+import { getClosestBuildingFootprint } from "./services/overpass";
 import Stripe from "stripe";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
@@ -168,6 +169,36 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // ============================================
+  // GEO / MAP HELPERS (public)
+  // ============================================
+  const overpassBuildingsSchema = z.object({
+    lat: z.coerce.number(),
+    lng: z.coerce.number(),
+    radius: z.coerce.number().optional(),
+  });
+
+  // Proxy Overpass building footprint lookup (server-side to avoid browser CORS/rate limits)
+  app.post("/api/geodata/overpass/buildings", async (req, res) => {
+    try {
+      const { lat, lng, radius } = overpassBuildingsSchema.parse(req.body);
+      const footprint = await getClosestBuildingFootprint({ lat, lng, radius });
+      res.json({
+        success: true,
+        found: Array.isArray(footprint) && footprint.length > 0,
+        latlngs: footprint,
+      });
+    } catch (error) {
+      console.error("Overpass proxy error:", error);
+      res.status(200).json({
+        success: false,
+        found: false,
+        latlngs: null,
+        message: error instanceof Error ? error.message : "Overpass lookup failed",
+      });
+    }
+  });
+
   // Validation schema for quote calculation (flexible - only require essential fields)
   const calculateQuoteSchema = z.object({
     address: z.string().optional(),
@@ -196,6 +227,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           propertyType: validatedData.propertyType || "residential",
           city: validatedData.city,
           address: validatedData.address,
+          propertySize: validatedData.propertySize,
           frequency: validatedData.frequency || "one-time",
         });
         
@@ -1589,7 +1621,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // END LEAD MANAGEMENT API ROUTES
   // ============================================
 
-  // Sitemap.xml generation - all 306 pages (28 services × 6 cities + 92 blog posts + core pages)
+  // Sitemap.xml generation - public, indexable pages
   app.get("/sitemap.xml", async (req, res) => {
     try {
       const baseUrl = "https://lawncarekuna.com";
@@ -1648,12 +1680,21 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const staticPages = [
         { path: '/about', priority: '0.8' },
         { path: '/contact', priority: '0.9' },
+        { path: '/services', priority: '0.9' },
         { path: '/get-quote', priority: '1.0' },
         { path: '/pricing', priority: '0.8' },
         { path: '/commercial', priority: '0.8' },
         { path: '/commercial/hoa-services', priority: '0.7' },
         { path: '/commercial/municipal-services', priority: '0.7' },
-        { path: '/blog', priority: '0.6' }
+        { path: '/blog', priority: '0.6' },
+        { path: '/privacy-policy', priority: '0.3' },
+        { path: '/terms-of-service', priority: '0.3' },
+        // Service landing pages (manually curated / marketing pages)
+        { path: '/services/fence-installation', priority: '0.6' },
+        { path: '/services/pond-installation', priority: '0.6' },
+        { path: '/services/irrigation-installation', priority: '0.6' },
+        // LLM discovery file
+        { path: '/llms.txt', priority: '0.2' },
       ];
 
       staticPages.forEach(page => {
@@ -1701,12 +1742,13 @@ ${urls.map(url => `  <url>
 User-agent: *
 Allow: /
 Disallow: /api/
+Disallow: /admin/
+Disallow: /subcontractor/
+Disallow: /quote-status/
 
 # Sitemap
 Sitemap: https://lawncarekuna.com/sitemap.xml
-
-# Crawl-delay for respectful crawling
-Crawl-delay: 1`;
+`;
 
     res.header('Content-Type', 'text/plain');
     res.send(robotsTxt);

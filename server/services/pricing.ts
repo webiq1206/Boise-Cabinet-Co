@@ -444,6 +444,7 @@ interface MultiServiceQuoteData {
   propertyType?: string;
   city?: string;
   address?: string;
+  propertySize?: number; // optional fallback sqft (shared measurement)
   frequency?: string;
 }
 
@@ -476,6 +477,7 @@ export async function calculateMultiServiceQuote(
     propertyType = "residential",
     city = "Kuna",
     address = "",
+    propertySize: fallbackPropertySize,
     frequency = "one-time",
   } = data;
 
@@ -490,7 +492,11 @@ export async function calculateMultiServiceQuote(
     const sqftCandidates = selectedServices
       .map((id) => serviceData?.[id]?.propertySize)
       .filter((v): v is number => typeof v === "number" && Number.isFinite(v) && v > 0);
-    return sqftCandidates.length > 0 ? Math.max(...sqftCandidates) : 5000;
+    if (sqftCandidates.length > 0) return Math.max(...sqftCandidates);
+    if (typeof fallbackPropertySize === "number" && Number.isFinite(fallbackPropertySize) && fallbackPropertySize > 0) {
+      return fallbackPropertySize;
+    }
+    return 5000;
   })();
 
   const aiAnalysis = await analyzePropertyComplexity(
@@ -533,7 +539,12 @@ export async function calculateMultiServiceQuote(
     switch (config.unit) {
       case "sqft":
         // Property size from this service's measurements
-        const sqft = getNumber(measurements.propertySize, 5000);
+        const sqft = getNumber(
+          measurements.propertySize,
+          typeof fallbackPropertySize === "number" && Number.isFinite(fallbackPropertySize) && fallbackPropertySize > 0
+            ? fallbackPropertySize
+            : 5000
+        );
         if (serviceId === "lawn-mowing") {
           basePrice = MOWING_TRIP_CHARGE + sqft * MOWING_RATE_PER_SQFT;
           description += ` (${sqft.toLocaleString()} sq ft @ $${MOWING_RATE_PER_SQFT}/sq ft + $${MOWING_TRIP_CHARGE} trip)`;

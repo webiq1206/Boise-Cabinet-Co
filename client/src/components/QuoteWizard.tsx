@@ -15,10 +15,9 @@ import { Loader2, MapPin, CheckCircle2, Calendar, DollarSign, Package, Info, Che
 import { IntelligentPropertyCalculator } from "@/components/IntelligentPropertyCalculator";
 import { AddressAutocomplete } from "@/components/AddressAutocomplete";
 import { ServiceFieldsRenderer, validateServiceData } from "@/components/ServiceFieldsRenderer";
-import { useToast } from "@/hooks/use-toast";
 import { useMutation } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
-import { SERVICE_FIELD_CONFIGS, requiresPropertySize } from "@shared/serviceFieldConfig";
+import { SERVICE_FIELD_CONFIGS, type MeasurementGroup } from "@shared/serviceFieldConfig";
 import { SERVICE_PRICING_GUIDANCE_MAP, CITIES } from "@shared/contentData";
 import { formatCurrencyRangeWhole } from "@/lib/utils";
 import { calculateQuoteRange } from "@shared/utils";
@@ -68,6 +67,14 @@ interface QuoteData {
   finalQuoteMax?: number;
 }
 
+type SharedMeasurements = Partial<{
+  lawnAreaSqFt: number;
+  rooflineFt: number;
+  lotPerimeterFt: number;
+  lawnPerimeterFt: number;
+  hedgeFt: number;
+}>;
+
 interface QuoteWizardProps {
   onClose?: () => void;
   preselectedService?: string;
@@ -93,11 +100,14 @@ export function QuoteWizard({
   const [submittedQuoteId, setSubmittedQuoteId] = useState<string | null>(null);
   const [serviceData, setServiceData] = useState<Record<string, Record<string, any>>>({});
   const [calculatedPropertySize, setCalculatedPropertySize] = useState<number | null>(null);
+  const [sharedMeasurements, setSharedMeasurements] = useState<SharedMeasurements>({});
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [hasAutoCalculated, setHasAutoCalculated] = useState(false);
+  const [activeServiceDetailsId, setActiveServiceDetailsId] = useState<string | null>(null);
   const formRef = useRef<HTMLDivElement>(null);
+  const measurementsPanelRef = useRef<HTMLDivElement>(null);
+  const serviceFieldsRef = useRef<HTMLDivElement>(null);
   const isInitialMount = useRef(true);
-  const { toast } = useToast();
 
   // Step forms
   const form1 = useForm<Step1Data>({
@@ -130,7 +140,112 @@ export function QuoteWizard({
 
   // Watch selected services to show/hide map tool
   const selectedServices = form2.watch("selectedServices") || [];
-  const needsPropertySize = requiresPropertySize(selectedServices);
+  
+  const getRequiredMeasurementGroups = (serviceIds: string[]): Set<MeasurementGroup> => {
+    const groups = new Set<MeasurementGroup>();
+    for (const serviceId of serviceIds) {
+      const cfg = SERVICE_FIELD_CONFIGS.find((c) => c.serviceId === serviceId);
+      if (!cfg) continue;
+      for (const field of cfg.fields) {
+        if (field.measurementGroup && field.measurementGroup.startsWith("shared")) {
+          groups.add(field.measurementGroup);
+        }
+      }
+    }
+    return groups;
+  };
+
+  const requiredMeasurementGroups = getRequiredMeasurementGroups(selectedServices);
+
+  const isMeasurementGroupRequired = (group: MeasurementGroup): boolean => {
+    for (const serviceId of selectedServices) {
+      const cfg = SERVICE_FIELD_CONFIGS.find((c) => c.serviceId === serviceId);
+      if (!cfg) continue;
+      if (cfg.fields.some((f) => f.measurementGroup === group && f.required)) return true;
+    }
+    return false;
+  };
+
+  const getSharedMeasurementValue = (group: MeasurementGroup): number | undefined => {
+    switch (group) {
+      case "sharedLawnArea":
+        return sharedMeasurements.lawnAreaSqFt;
+      case "sharedRooflineFt":
+        return sharedMeasurements.rooflineFt;
+      case "sharedLotPerimeterFt":
+        return sharedMeasurements.lotPerimeterFt;
+      case "sharedLawnPerimeterFt":
+        return sharedMeasurements.lawnPerimeterFt;
+      case "sharedHedgeFt":
+        return sharedMeasurements.hedgeFt;
+      default:
+        return undefined;
+    }
+  };
+
+  const getMeasurementGroupUi = (
+    group: MeasurementGroup
+  ): { label: string; unit: string; placeholder: string } | null => {
+    switch (group) {
+      case "sharedLawnArea":
+        return { label: "Lawn Area", unit: "sq ft", placeholder: "e.g., 5000" };
+      case "sharedRooflineFt":
+        return { label: "Roofline Length", unit: "ft", placeholder: "e.g., 200" };
+      case "sharedLotPerimeterFt":
+        return { label: "Fence Length", unit: "ft", placeholder: "e.g., 150" };
+      case "sharedLawnPerimeterFt":
+        return { label: "Lawn Perimeter", unit: "ft", placeholder: "e.g., 200" };
+      case "sharedHedgeFt":
+        return { label: "Hedge Length", unit: "ft", placeholder: "e.g., 100" };
+      default:
+        return null;
+    }
+  };
+
+  // Keep shared measurements in sync with any auto-calculated property size from Step 1
+  useEffect(() => {
+    if (typeof calculatedPropertySize === "number" && Number.isFinite(calculatedPropertySize) && calculatedPropertySize > 0) {
+      setSharedMeasurements((prev) => ({
+        ...prev,
+        lawnAreaSqFt: calculatedPropertySize,
+      }));
+    }
+  }, [calculatedPropertySize]);
+
+  // Auto-populate per-service measurements from shared measurements
+  useEffect(() => {
+    if (selectedServices.length === 0) return;
+
+    setServiceData((prev) => {
+      let changed = false;
+      let next: Record<string, Record<string, any>> | null = null;
+
+      for (const serviceId of selectedServices) {
+        const cfg = SERVICE_FIELD_CONFIGS.find((c) => c.serviceId === serviceId);
+        if (!cfg) continue;
+
+        for (const field of cfg.fields) {
+          const group = field.measurementGroup;
+          if (!group || !group.startsWith("shared")) continue;
+
+          const value = getSharedMeasurementValue(group);
+          if (typeof value !== "number" || !Number.isFinite(value) || value <= 0) continue;
+
+          const currentService = prev[serviceId] || {};
+          if (currentService[field.name] === value) continue;
+
+          if (!next) next = { ...prev };
+          next[serviceId] = {
+            ...(next[serviceId] || {}),
+            [field.name]: value,
+          };
+          changed = true;
+        }
+      }
+
+      return changed && next ? next : prev;
+    });
+  }, [selectedServices, sharedMeasurements]);
 
   // Auto-select preselected service on mount
   useEffect(() => {
@@ -164,7 +279,7 @@ export function QuoteWizard({
       
       return () => clearTimeout(timer);
     }
-  }, [step, selectedServices.length, hasAutoCalculated]);
+  }, [step, requiredMeasurementGroups.size, hasAutoCalculated]);
 
   // Scroll to top of form when step changes (but not on initial page load)
   useEffect(() => {
@@ -239,28 +354,7 @@ export function QuoteWizard({
   });
 
   // Step handlers
-  const handleStep1Submit = (data: Step1Data) => {
-    // Auto-populate property size for all services if calculated from address
-    if (calculatedPropertySize) {
-      const updatedServiceData: Record<string, Record<string, any>> = { ...serviceData };
-      
-      // Find services that need property size and auto-populate
-      selectedServices.forEach(serviceId => {
-        const config = SERVICE_FIELD_CONFIGS.find(c => c.serviceId === serviceId);
-        if (config?.fields?.some((f: any) => f.name === 'propertySize')) {
-          if (!updatedServiceData[serviceId]) {
-            updatedServiceData[serviceId] = {};
-          }
-          // Only set if not already manually set
-          if (!updatedServiceData[serviceId].propertySize) {
-            updatedServiceData[serviceId].propertySize = calculatedPropertySize;
-          }
-        }
-      });
-      
-      setServiceData(updatedServiceData);
-    }
-    
+  const handleStep1Submit = (_data: Step1Data) => {
     // Reset auto-calculation flag when moving forward from Step 1
     // This allows recalculation if user goes back and changes address
     setHasAutoCalculated(false);
@@ -272,6 +366,7 @@ export function QuoteWizard({
     const validation = validateServiceData(data.selectedServices, serviceData);
     if (!validation.valid) {
       setErrorMessage(validation.errors[0]);
+      scrollToFirstMissingStep2();
       // Popup disabled per user request - validation errors shown inline in the form
       // toast({
       //   title: "Missing Information",
@@ -369,41 +464,27 @@ export function QuoteWizard({
     rooflineWithOverhangFt?: number;
     estimatedHedgeFt?: number;
   }) => {
-    // Generic mapping using SERVICE_FIELD_CONFIGS - no hard-coded service IDs
-    selectedServices.forEach(serviceId => {
-      const config = SERVICE_FIELD_CONFIGS.find(c => c.serviceId === serviceId);
-      if (!config) return;
+    // Update shared measurements (applied to selected services via the effect above)
+    setSharedMeasurements((prev) => {
+      const next: SharedMeasurements = { ...prev };
 
-      // Find the field that needs auto-population
-      const measurementField = config.fields.find(f => 
-        f.unit === 'linear feet' || f.unit === 'sq ft'
-      );
-      
-      if (!measurementField) return;
-
-      // Map measurement based on field unit and service type
-      if (measurementField.unit === 'sq ft' && measurements.lawnSqFt) {
-        handleServiceDataChange(serviceId, measurementField.name, measurements.lawnSqFt);
-      } else if (measurementField.unit === 'linear feet') {
-        // Determine which linear measurement to use based on service type
-        let linearValue: number | undefined;
-        
-        if (serviceId.includes('fence')) {
-          linearValue = measurements.lotPerimeterFt;
-        } else if (serviceId.includes('christmas') || serviceId.includes('light')) {
-          linearValue = measurements.rooflineWithOverhangFt;
-        } else if (serviceId.includes('hedge')) {
-          linearValue = measurements.estimatedHedgeFt;
-        } else if (serviceId.includes('edging')) {
-          linearValue = measurements.lawnPerimeterFt;
-        } else if (serviceId.includes('retaining')) {
-          linearValue = measurements.lotPerimeterFt;
-        }
-        
-        if (linearValue) {
-          handleServiceDataChange(serviceId, measurementField.name, linearValue);
-        }
+      if (typeof measurements.lawnSqFt === "number" && Number.isFinite(measurements.lawnSqFt) && measurements.lawnSqFt > 0) {
+        next.lawnAreaSqFt = measurements.lawnSqFt;
       }
+      if (typeof measurements.lotPerimeterFt === "number" && Number.isFinite(measurements.lotPerimeterFt) && measurements.lotPerimeterFt > 0) {
+        next.lotPerimeterFt = measurements.lotPerimeterFt;
+      }
+      if (typeof measurements.lawnPerimeterFt === "number" && Number.isFinite(measurements.lawnPerimeterFt) && measurements.lawnPerimeterFt > 0) {
+        next.lawnPerimeterFt = measurements.lawnPerimeterFt;
+      }
+      if (typeof measurements.rooflineWithOverhangFt === "number" && Number.isFinite(measurements.rooflineWithOverhangFt) && measurements.rooflineWithOverhangFt > 0) {
+        next.rooflineFt = measurements.rooflineWithOverhangFt;
+      }
+      if (typeof measurements.estimatedHedgeFt === "number" && Number.isFinite(measurements.estimatedHedgeFt) && measurements.estimatedHedgeFt > 0) {
+        next.hedgeFt = measurements.estimatedHedgeFt;
+      }
+
+      return next;
     });
 
     // Mark as auto-calculated only after successful measurement completion
@@ -418,19 +499,16 @@ export function QuoteWizard({
 
   // Determine measurement type based on selected services
   const getMeasurementType = (): 'area' | 'linear' | 'both' | null => {
-    const hasAreaService = selectedServices.some(id => {
-      const config = SERVICE_FIELD_CONFIGS.find(c => c.serviceId === id);
-      return config?.requiresPropertySize;
-    });
+    const needsArea = requiredMeasurementGroups.has("sharedLawnArea");
+    const needsLinear =
+      requiredMeasurementGroups.has("sharedRooflineFt") ||
+      requiredMeasurementGroups.has("sharedLotPerimeterFt") ||
+      requiredMeasurementGroups.has("sharedLawnPerimeterFt") ||
+      requiredMeasurementGroups.has("sharedHedgeFt");
 
-    const hasLinearService = selectedServices.some(id => {
-      const config = SERVICE_FIELD_CONFIGS.find(c => c.serviceId === id);
-      return config?.fields.some(f => f.name === "linearFeet");
-    });
-
-    if (hasAreaService && hasLinearService) return 'both';
-    if (hasAreaService) return 'area';
-    if (hasLinearService) return 'linear';
+    if (needsArea && needsLinear) return "both";
+    if (needsArea) return "area";
+    if (needsLinear) return "linear";
     return null;
   };
 
@@ -440,6 +518,86 @@ export function QuoteWizard({
       ? current.filter(id => id !== serviceId)
       : [...current, serviceId];
     form2.setValue("selectedServices", updated);
+  };
+
+  const orderedMeasurementGroups = ([
+    "sharedLawnArea",
+    "sharedRooflineFt",
+    "sharedLotPerimeterFt",
+    "sharedLawnPerimeterFt",
+    "sharedHedgeFt",
+  ] as MeasurementGroup[]).filter((g) => requiredMeasurementGroups.has(g));
+
+  const showMeasurementsPanel = orderedMeasurementGroups.length > 0;
+
+  const missingRequiredMeasurementGroups = orderedMeasurementGroups.filter((group) => {
+    if (!isMeasurementGroupRequired(group)) return false;
+    const v = getSharedMeasurementValue(group);
+    return !(typeof v === "number" && Number.isFinite(v) && v > 0);
+  });
+
+  const getMissingPerServiceRequiredField = (): { serviceId: string; fieldName: string; fieldLabel: string } | null => {
+    for (const serviceId of selectedServices) {
+      const cfg = SERVICE_FIELD_CONFIGS.find((c) => c.serviceId === serviceId);
+      if (!cfg) continue;
+      const data = serviceData[serviceId] || {};
+      for (const field of cfg.fields) {
+        if (!field.required) continue;
+        if (field.measurementGroup && field.measurementGroup.startsWith("shared")) continue;
+        const value = data[field.name];
+        if (value === undefined || value === null || value === "") {
+          return { serviceId, fieldName: field.name, fieldLabel: field.label };
+        }
+      }
+    }
+    return null;
+  };
+
+  const firstMissingServiceField = getMissingPerServiceRequiredField();
+
+  const step2BlockingReason = (() => {
+    if (selectedServices.length === 0) return "Select at least one service to continue.";
+    if (missingRequiredMeasurementGroups.length > 0) {
+      const ui = getMeasurementGroupUi(missingRequiredMeasurementGroups[0]);
+      return ui ? `Enter ${ui.label.toLowerCase()} to continue.` : "Enter required measurements to continue.";
+    }
+    if (firstMissingServiceField) {
+      const cfg = SERVICE_FIELD_CONFIGS.find((c) => c.serviceId === firstMissingServiceField.serviceId);
+      const serviceName = cfg?.serviceName || firstMissingServiceField.serviceId;
+      return `Add ${firstMissingServiceField.fieldLabel.toLowerCase()} for ${serviceName} to continue.`;
+    }
+    return null;
+  })();
+
+  const canContinueStep2 = step2BlockingReason === null;
+
+  const scrollToFirstMissingStep2 = () => {
+    if (selectedServices.length === 0) {
+      formRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+      return;
+    }
+
+    if (missingRequiredMeasurementGroups.length > 0) {
+      const group = missingRequiredMeasurementGroups[0];
+      measurementsPanelRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+      window.setTimeout(() => {
+        const el = document.getElementById(`measurement-${group}`) as HTMLInputElement | null;
+        el?.focus();
+      }, 50);
+      return;
+    }
+
+    if (firstMissingServiceField) {
+      setActiveServiceDetailsId(firstMissingServiceField.serviceId);
+      serviceFieldsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+      window.setTimeout(() => {
+        const el = document.getElementById(`${firstMissingServiceField.serviceId}-${firstMissingServiceField.fieldName}`) as
+          | HTMLInputElement
+          | HTMLTextAreaElement
+          | null;
+        el?.focus();
+      }, 100);
+    }
   };
 
   return (
@@ -468,7 +626,7 @@ export function QuoteWizard({
                 {s < step ? <CheckCircle2 className="w-4 h-4 sm:w-5 sm:h-5" /> : s}
               </div>
               <span className={`text-xs sm:text-sm font-medium hidden sm:inline ${s <= step ? "text-foreground" : "text-muted-foreground"}`}>
-                {s === 1 ? "Property" : s === 2 ? "Services" : "Quote"}
+                {s === 1 ? "Property" : s === 2 ? "Services" : "Contact"}
               </span>
               {s < 3 && <div className="w-8 sm:w-12 h-0.5 bg-muted" />}
             </div>
@@ -751,46 +909,107 @@ export function QuoteWizard({
                 })}
               </Accordion>
 
-              {/* Intelligent Property Calculator (service-aware) */}
-              {getMeasurementType() && (
-                <div className="space-y-2">
-                  <Button
-                    type="button"
-                    variant="outline"
-                    className="w-full"
-                    onClick={() => setMapOpen(true)}
-                    data-testid="button-open-calculator"
-                  >
-                    <MapPin className="w-4 h-4 mr-2" />
-                    {hasAutoCalculated 
-                      ? 'Adjust Property Measurements'
-                      : getMeasurementType() === 'linear' 
-                      ? 'Measure Linear Features'
-                      : getMeasurementType() === 'both'
-                      ? 'Calculate Property Size'
-                      : 'Calculate Property Size'
-                    }
-                  </Button>
-                  <p className="text-sm text-muted-foreground text-center">
-                    {hasAutoCalculated
-                      ? 'Review or modify your automatically calculated measurements'
-                      : getMeasurementType() === 'linear' 
-                      ? 'Trace roof lines, fence lines, or other linear features'
-                      : getMeasurementType() === 'both'
-                      ? 'Auto-calculate lawn area from address and measure linear features'
-                      : 'Property measurements will be calculated automatically from your address'
-                    }
+              {/* Shared Measurements (collected once per measurement type) */}
+              {showMeasurementsPanel && (
+                <div
+                  ref={measurementsPanelRef}
+                  className="rounded-lg border border-border p-4 space-y-4"
+                  data-testid="panel-shared-measurements"
+                >
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                    <div className="space-y-1">
+                      <div className="font-medium">Measurements</div>
+                      <p className="text-sm text-muted-foreground">
+                        Enter these once and we’ll apply them to the services you selected.
+                      </p>
+                    </div>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={() => setMapOpen(true)}
+                      data-testid="button-open-calculator"
+                    >
+                      <MapPin className="w-4 h-4 mr-2" />
+                      {hasAutoCalculated ? "Adjust Measurements" : "Measure on Map"}
+                    </Button>
+                  </div>
+
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    {orderedMeasurementGroups.map((group) => {
+                      const required = isMeasurementGroupRequired(group);
+
+                      const config = (() => {
+                        const ui = getMeasurementGroupUi(group);
+                        if (!ui) return null;
+                        return {
+                          ...ui,
+                          value: getSharedMeasurementValue(group),
+                          onChange: (v: number | undefined) => {
+                            switch (group) {
+                              case "sharedLawnArea":
+                                setSharedMeasurements((prev) => ({ ...prev, lawnAreaSqFt: v }));
+                                return;
+                              case "sharedRooflineFt":
+                                setSharedMeasurements((prev) => ({ ...prev, rooflineFt: v }));
+                                return;
+                              case "sharedLotPerimeterFt":
+                                setSharedMeasurements((prev) => ({ ...prev, lotPerimeterFt: v }));
+                                return;
+                              case "sharedLawnPerimeterFt":
+                                setSharedMeasurements((prev) => ({ ...prev, lawnPerimeterFt: v }));
+                                return;
+                              case "sharedHedgeFt":
+                                setSharedMeasurements((prev) => ({ ...prev, hedgeFt: v }));
+                                return;
+                            }
+                          },
+                        };
+                      })();
+
+                      if (!config) return null;
+
+                      return (
+                        <div key={group} className="space-y-2">
+                          <Label htmlFor={`measurement-${group}`}>
+                            {config.label}
+                            {required && <span className="text-destructive ml-1">*</span>}
+                            <span className="text-muted-foreground text-sm ml-1">({config.unit})</span>
+                          </Label>
+                          <Input
+                            id={`measurement-${group}`}
+                            type="number"
+                            inputMode="numeric"
+                            placeholder={config.placeholder}
+                            value={typeof config.value === "number" && Number.isFinite(config.value) ? config.value : ""}
+                            onChange={(e) => {
+                              const parsed = parseFloat(e.target.value);
+                              const v = Number.isFinite(parsed) && parsed > 0 ? parsed : undefined;
+                              config.onChange(v);
+                            }}
+                            data-testid={`input-measurement-${group}`}
+                          />
+                        </div>
+                      );
+                    })}
+                  </div>
+
+                  <p className="text-xs text-muted-foreground">
+                    Tip: if you’re not sure, use “Measure on Map” or leave optional measurements blank — we’ll verify at the site assessment.
                   </p>
                 </div>
               )}
 
               {/* Service-Specific Fields */}
               {selectedServices.length > 0 && (
-                <ServiceFieldsRenderer
-                  selectedServices={selectedServices}
-                  serviceData={serviceData}
-                  onChange={handleServiceDataChange}
-                />
+                <div ref={serviceFieldsRef}>
+                  <ServiceFieldsRenderer
+                    selectedServices={selectedServices}
+                    serviceData={serviceData}
+                    onChange={handleServiceDataChange}
+                    activeServiceId={activeServiceDetailsId}
+                    onActiveServiceIdChange={setActiveServiceDetailsId}
+                  />
+                </div>
               )}
 
               {form2.formState.errors.selectedServices && (
@@ -810,12 +1029,26 @@ export function QuoteWizard({
                 <Button
                   type="submit"
                   className="flex-1"
-                  disabled={selectedServices.length === 0}
+                  disabled={!canContinueStep2}
                   data-testid="button-continue-step2"
                 >
                   Continue to Quote
                 </Button>
               </div>
+
+              {!canContinueStep2 && step2BlockingReason && (
+                <div className="text-sm text-muted-foreground">
+                  <p>{step2BlockingReason}</p>
+                  <button
+                    type="button"
+                    className="underline underline-offset-4 mt-1"
+                    onClick={scrollToFirstMissingStep2}
+                    data-testid="button-scroll-to-missing-step2"
+                  >
+                    Show me what to do next
+                  </button>
+                </div>
+              )}
             </form>
           </CardContent>
         </Card>
@@ -827,12 +1060,40 @@ export function QuoteWizard({
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Calendar className="w-5 h-5 text-primary" />
-              Quote Information
+              Contact Details
             </CardTitle>
-            <CardDescription>How can we reach you?</CardDescription>
+            <CardDescription>Enter your info to generate your quote.</CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={form3.handleSubmit(handleStep3Submit)} className="space-y-6">
+              <div className="rounded-md border border-border bg-muted/20 p-4 space-y-2" data-testid="panel-review-summary">
+                <div className="text-sm font-medium">Quick review</div>
+                <div className="text-sm text-muted-foreground space-y-1">
+                  <div>
+                    <span className="font-medium text-foreground">Services:</span>{" "}
+                    {selectedServices.length > 0
+                      ? selectedServices
+                          .map((id) => SERVICE_FIELD_CONFIGS.find((c) => c.serviceId === id)?.serviceName || id)
+                          .join(", ")
+                      : "—"}
+                  </div>
+                  {showMeasurementsPanel && (
+                    <div>
+                      <span className="font-medium text-foreground">Measurements:</span>{" "}
+                      {orderedMeasurementGroups
+                        .map((g) => {
+                          const ui = getMeasurementGroupUi(g);
+                          const v = getSharedMeasurementValue(g);
+                          if (!ui || typeof v !== "number" || !Number.isFinite(v) || v <= 0) return null;
+                          return `${ui.label} ${Math.round(v).toLocaleString()} ${ui.unit}`;
+                        })
+                        .filter(Boolean)
+                        .join(" • ") || "—"}
+                    </div>
+                  )}
+                </div>
+              </div>
+
               <div>
                 <Label htmlFor="name">Full Name</Label>
                 <Input

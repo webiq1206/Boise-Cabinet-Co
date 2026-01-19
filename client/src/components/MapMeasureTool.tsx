@@ -5,6 +5,7 @@ import "leaflet-draw/dist/leaflet.draw.css";
 import "leaflet-draw";
 import "leaflet-geometryutil";
 import { OpenStreetMapProvider } from "leaflet-geosearch";
+import { apiRequest } from "@/lib/queryClient";
 
 // Type extensions for leaflet-draw
 declare module "leaflet" {
@@ -326,6 +327,22 @@ export function MapMeasureTool({
           // Mark map as ready
           setMapReady(true);
 
+          // Leaflet-in-dialog reliability: force size recalculation after open/animation
+          setTimeout(() => {
+            try {
+              map.invalidateSize();
+            } catch {
+              // ignore
+            }
+          }, 50);
+          setTimeout(() => {
+            try {
+              map.invalidateSize();
+            } catch {
+              // ignore
+            }
+          }, 250);
+
           // Auto-search initial address if provided
           if (initialAddress) {
             searchForAddress(initialAddress);
@@ -435,7 +452,7 @@ export function MapMeasureTool({
         setError(null);
         
         // Auto-calculate property boundaries to reduce friction
-        await autoCalculatePropertyBoundaries(lat, lng);
+        void autoCalculatePropertyBoundaries(lat, lng);
       } else {
         setError("Address not found. Try adjusting the map manually.");
       }
@@ -458,101 +475,72 @@ export function MapMeasureTool({
       setMeasuredArea(null);
       setMeasuredLinear(null);
       
-      // Query OpenStreetMap Overpass API for building footprints near this location
+      // Query Overpass server-side (proxy) for building footprints near this location
       const radius = 30; // Search within 30 meters
-      const overpassQuery = `
-        [out:json][timeout:5];
-        (
-          way["building"](around:${radius},${lat},${lng});
-        );
-        out geom;
-      `;
-      
-      const overpassUrl = 'https://overpass-api.de/api/interpreter';
-      const response = await fetch(overpassUrl, {
-        method: 'POST',
-        body: new URLSearchParams({ data: overpassQuery }),
-      });
-      
       let buildingFound = false;
-      
-      if (response.ok) {
-        const data = await response.json();
-        
-        if (data.elements && data.elements.length > 0) {
-          // Find the closest building to the search point
-          let closestBuilding = null;
-          let minDistance = Infinity;
-          
-          for (const element of data.elements) {
-            if (element.geometry && element.geometry.length > 0) {
-              // Calculate centroid
-              const lats = element.geometry.map((g: any) => g.lat);
-              const lngs = element.geometry.map((g: any) => g.lon);
-              const centLat = lats.reduce((a: number, b: number) => a + b, 0) / lats.length;
-              const centLng = lngs.reduce((a: number, b: number) => a + b, 0) / lngs.length;
-              
-              const distance = Math.sqrt(Math.pow(lat - centLat, 2) + Math.pow(lng - centLng, 2));
-              if (distance < minDistance) {
-                minDistance = distance;
-                closestBuilding = element;
-              }
-            }
-          }
-          
-          if (closestBuilding && closestBuilding.geometry) {
-            
-            // Convert OSM geometry to Leaflet LatLng array
-            const latlngs = closestBuilding.geometry.map((node: any) => [node.lat, node.lon] as [number, number]);
-            
-            // Create polygon for lawn area (always needed)
-            const polygon = L.polygon(latlngs, {
-              color: '#2D6B3F',
-              weight: 2,
-              fillColor: '#2D6B3F',
-              fillOpacity: 0.2,
+
+      try {
+        const res = await apiRequest("POST", "/api/geodata/overpass/buildings", { lat, lng, radius });
+        const data = await res.json();
+
+        if (data?.success && data?.found && Array.isArray(data?.latlngs) && data.latlngs.length > 0) {
+          // LatLng tuples from server: [lat, lng]
+          const latlngs = data.latlngs as [number, number][];
+
+          // Create polygon for lawn area (always needed)
+          const polygon = L.polygon(latlngs, {
+            color: '#2D6B3F',
+            weight: 2,
+            fillColor: '#2D6B3F',
+            fillOpacity: 0.2,
+          });
+          (polygon as any).measurementType = 'area'; // Tag for aggregation logic
+          drawnItemsRef.current.addLayer(polygon);
+
+          // Calculate area
+          const latlngObjects = latlngs.map((ll: [number, number]) => L.latLng(ll[0], ll[1]));
+          const area = L.GeometryUtil.geodesicArea(latlngObjects);
+          const sqft = Math.round(area * 10.7639);
+          setMeasuredArea(sqft);
+
+          // For dual-mode or linear-only, also create a separate roofline polyline
+          let linearFeet = 0;
+          if (supportsBothModes || measurementType === 'linear') {
+            const rooflinePolyline = L.polyline(latlngs, {
+              color: '#E85D04',
+              weight: 3,
+              dashArray: '10, 5',
             });
-            (polygon as any).measurementType = 'area'; // Tag for aggregation logic
-            drawnItemsRef.current.addLayer(polygon);
-            
-            // Calculate area
-            const latlngObjects = latlngs.map((ll: [number, number]) => L.latLng(ll[0], ll[1]));
-            const area = L.GeometryUtil.geodesicArea(latlngObjects);
-            const sqft = Math.round(area * 10.7639);
-            setMeasuredArea(sqft);
-            
-            // For dual-mode or linear-only, also create a separate roofline polyline
-            let linearFeet = 0;
-            if (supportsBothModes || measurementType === 'linear') {
-              const rooflinePolyline = L.polyline(latlngs, {
-                color: '#E85D04',
-                weight: 3,
-                dashArray: '10, 5',
-              });
-              (rooflinePolyline as any).measurementType = 'linear'; // Tag for aggregation logic
-              drawnItemsRef.current.addLayer(rooflinePolyline);
-              
-              // Calculate perimeter
-              let perimeterMeters = 0;
-              for (let i = 0; i < latlngs.length; i++) {
-                const current = L.latLng(latlngs[i][0], latlngs[i][1]);
-                const next = L.latLng(latlngs[(i + 1) % latlngs.length][0], latlngs[(i + 1) % latlngs.length][1]);
-                perimeterMeters += current.distanceTo(next);
-              }
-              linearFeet = Math.round(perimeterMeters * 3.28084);
-              setMeasuredLinear(linearFeet);
+            (rooflinePolyline as any).measurementType = 'linear'; // Tag for aggregation logic
+            drawnItemsRef.current.addLayer(rooflinePolyline);
+
+            // Calculate perimeter
+            let perimeterMeters = 0;
+            for (let i = 0; i < latlngs.length; i++) {
+              const current = L.latLng(latlngs[i][0], latlngs[i][1]);
+              const next = L.latLng(latlngs[(i + 1) % latlngs.length][0], latlngs[(i + 1) % latlngs.length][1]);
+              perimeterMeters += current.distanceTo(next);
             }
-            
-            if (supportsBothModes) {
-              setError(`Auto-calculated property: ${sqft.toLocaleString()} sq ft lawn area and ${linearFeet.toLocaleString()} linear ft roofline perimeter. You can edit using the drawing tools.`);
-            } else if (measurementType === 'linear') {
-              setError(`Auto-calculated roofline: ${linearFeet.toLocaleString()} linear ft. You can edit using the drawing tools.`);
-            } else {
-              setError(`Auto-calculated property: ${sqft.toLocaleString()} sq ft. You can edit using the drawing tools.`);
-            }
-            buildingFound = true;
+            linearFeet = Math.round(perimeterMeters * 3.28084);
+            setMeasuredLinear(linearFeet);
           }
+
+          if (supportsBothModes) {
+            setError(`Auto-calculated property: ${sqft.toLocaleString()} sq ft lawn area and ${linearFeet.toLocaleString()} linear ft roofline perimeter. You can edit using the drawing tools.`);
+          } else if (measurementType === 'linear') {
+            setError(`Auto-calculated roofline: ${linearFeet.toLocaleString()} linear ft. You can edit using the drawing tools.`);
+          } else {
+            setError(`Auto-calculated property: ${sqft.toLocaleString()} sq ft. You can edit using the drawing tools.`);
+          }
+
+          buildingFound = true;
+        } else {
+          // Do nothing here; fallback estimate below will kick in
+          console.log('[MapMeasureTool] No building footprint returned from proxy');
         }
+      } catch (err) {
+        console.warn('[MapMeasureTool] Overpass proxy failed:', err);
+        // Non-blocking: user can still draw manually; fallback estimate below will kick in
       }
       
       // Create fallback estimate if no building found or API failed
