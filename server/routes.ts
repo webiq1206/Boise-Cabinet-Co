@@ -11,6 +11,11 @@ import { PRIORITY_SERVICES, CITIES } from "@shared/contentData";
 import { sendNewLeadNotification, sendLeadPurchasedNotification, sendLeadPurchaseConfirmation } from "./services/emailNotifications";
 import { setupAuth, isAuthenticated, requireRole } from "./replitAuth";
 import { parseAndRoundQuote, normalizeLineItemsForEmail, calculateQuoteRange } from "@shared/utils";
+import Stripe from "stripe";
+
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+  apiVersion: "2025-12-15.clover",
+});
 
 // Create service name and description maps for email normalization
 const SERVICE_NAME_MAP: Record<string, string> = Object.entries(SERVICE_PRICING_CONFIG).reduce(
@@ -84,6 +89,85 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.status(500).json({ message: "Failed to fetch user" });
     }
   });
+
+  // Stripe: Create payment intent for lead purchase
+  app.post("/api/create-payment-intent", isAuthenticated, requireRole(["subcontractor"]), async (req: any, res) => {
+    try {
+      const { leadId } = req.body;
+      
+      if (!leadId) {
+        return res.status(400).json({ error: "Lead ID is required" });
+      }
+      
+      const lead = await storage.getLeadById(leadId);
+      if (!lead) {
+        return res.status(404).json({ error: "Lead not found" });
+      }
+      
+      if (lead.status !== "available") {
+        return res.status(400).json({ error: "Lead is no longer available" });
+      }
+      
+      // Get or create Stripe customer for this user
+      const userId = req.user.claims.sub;
+      const user = await storage.getUser(userId);
+      
+      if (!user) {
+        return res.status(401).json({ error: "User not found" });
+      }
+      
+      // Verify user has accepted agreement
+      if (!user.agreementAccepted) {
+        return res.status(403).json({ error: "You must accept the legal agreement before purchasing leads" });
+      }
+      
+      let stripeCustomerId = user.stripeCustomerId;
+      
+      // Create Stripe customer if not exists
+      if (!stripeCustomerId) {
+        const customer = await stripe.customers.create({
+          email: user.email || undefined,
+          name: user.company || `${user.firstName || ''} ${user.lastName || ''}`.trim() || undefined,
+          metadata: {
+            userId: user.id,
+          },
+        });
+        stripeCustomerId = customer.id;
+        
+        // Save customer ID to user
+        await storage.updateUser(user.id, { stripeCustomerId });
+      }
+      
+      // Create payment intent for the lead price (amount is in cents)
+      const amountInCents = Math.round(parseFloat(lead.currentLeadPrice || "10") * 100);
+      
+      const paymentIntent = await stripe.paymentIntents.create({
+        amount: amountInCents,
+        currency: "usd",
+        customer: stripeCustomerId,
+        metadata: {
+          leadId: lead.id,
+          userId: user.id,
+          serviceType: lead.serviceType || "",
+          city: lead.city || "",
+        },
+        description: `Lead purchase: ${lead.serviceType} in ${lead.city}`,
+        automatic_payment_methods: {
+          enabled: true,
+        },
+      });
+      
+      res.json({
+        clientSecret: paymentIntent.client_secret,
+        paymentIntentId: paymentIntent.id,
+        amount: amountInCents,
+      });
+    } catch (error) {
+      console.error("Error creating payment intent:", error);
+      res.status(500).json({ error: error instanceof Error ? error.message : "Failed to create payment intent" });
+    }
+  });
+
   // Validation schema for quote calculation (flexible - only require essential fields)
   const calculateQuoteSchema = z.object({
     address: z.string().optional(),

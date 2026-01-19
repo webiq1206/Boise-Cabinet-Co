@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Checkbox } from "@/components/ui/checkbox";
-import { DollarSign, MapPin, Phone, Mail, Building, ShoppingCart, AlertCircle, CheckCircle2, Clock, Filter, Search, ArrowUpDown, Eye, EyeOff, Star, Receipt, ChevronDown, Info, Lock, X } from "lucide-react";
+import { DollarSign, MapPin, Phone, Mail, Building, ShoppingCart, AlertCircle, CheckCircle2, Clock, Filter, Search, ArrowUpDown, Eye, EyeOff, Star, Receipt, ChevronDown, Info, Lock, X, Loader2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/hooks/useAuth";
 import type { Lead, User } from "@shared/schema";
@@ -22,6 +22,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useMemo } from "react";
 import { formatQuoteRangeWholeFromValue } from "@/lib/utils";
 import { calculateQuoteRange } from "@shared/utils";
+import StripePaymentForm from "@/components/StripePaymentForm";
 
 // Type definitions
 interface LineItem {
@@ -68,6 +69,9 @@ export default function SubcontractorPortal() {
   const [showPurchaseModal, setShowPurchaseModal] = useState(false);
   const [activeTab, setActiveTab] = useState<"available" | "watchlist">("available");
   const [welcomeCardDismissed, setWelcomeCardDismissed] = useState(false);
+  const [paymentClientSecret, setPaymentClientSecret] = useState<string | null>(null);
+  const [paymentAmount, setPaymentAmount] = useState<number>(0);
+  const [paymentStep, setPaymentStep] = useState<"confirm" | "payment" | "success">("confirm");
   
   const { data: leads = [], isLoading } = useQuery<Lead[]>({
     queryKey: ["/api/leads?availableOnly=true"],
@@ -140,22 +144,41 @@ export default function SubcontractorPortal() {
     },
   });
 
-  const purchaseLeadMutation = useMutation({
+  const createPaymentIntentMutation = useMutation({
     mutationFn: async (leadId: string) => {
-      // TODO: Integrate with Stripe to create payment intent
-      const mockPaymentIntentId = `pi_mock_${Date.now()}`;
-      
+      const res = await apiRequest("POST", "/api/create-payment-intent", { leadId });
+      return await res.json();
+    },
+    onSuccess: (data) => {
+      setPaymentClientSecret(data.clientSecret);
+      setPaymentAmount(data.amount);
+      setPaymentStep("payment");
+    },
+    onError: (error: Error) => {
+      toast({
+        title: "Payment Setup Failed",
+        description: error.message,
+        variant: "destructive",
+      });
+    },
+  });
+
+  const purchaseLeadMutation = useMutation({
+    mutationFn: async ({ leadId, paymentIntentId }: { leadId: string; paymentIntentId: string }) => {
       const res = await apiRequest("POST", `/api/leads/${leadId}/purchase`, {
-        paymentIntentId: mockPaymentIntentId,
+        paymentIntentId,
       });
       return await res.json();
     },
     onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ["/api/leads"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/leads?availableOnly=true"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/leads/purchases"] });
       
       // Show purchased lead with revealed contact info
       if (data.lead) {
         setSelectedLead(data.lead);
+        setPaymentStep("success");
       } else {
         setShowPurchaseModal(false);
         setSelectedLead(null);
@@ -200,7 +223,28 @@ export default function SubcontractorPortal() {
       return;
     }
     setSelectedLead(lead);
+    setPaymentClientSecret(null);
+    setPaymentAmount(0);
+    setPaymentStep("confirm");
     setShowPurchaseModal(true);
+  };
+
+  const handlePaymentSuccess = async (paymentIntentId: string) => {
+    if (selectedLead) {
+      purchaseLeadMutation.mutate({ leadId: selectedLead.id, paymentIntentId });
+    }
+  };
+
+  const handlePaymentCancel = () => {
+    setPaymentStep("confirm");
+    setPaymentClientSecret(null);
+  };
+
+  const handleClosePurchaseModal = () => {
+    setShowPurchaseModal(false);
+    setSelectedLead(null);
+    setPaymentClientSecret(null);
+    setPaymentStep("confirm");
   };
 
   // Filter and sort leads
@@ -1542,6 +1586,27 @@ export default function SubcontractorPortal() {
                     </div>
                   </div>
                 </>
+              ) : paymentStep === "payment" && paymentClientSecret ? (
+                // Payment step: Show Stripe payment form
+                <div className="space-y-4">
+                  <div className="bg-muted p-4 rounded-md">
+                    <p className="text-sm font-medium mb-2">Payment Details</p>
+                    <div className="space-y-1 text-sm">
+                      <p><span className="text-muted-foreground">Service:</span> {selectedLead.serviceType.replace(/-/g, " ")}</p>
+                      <p><span className="text-muted-foreground">Location:</span> {selectedLead.city}</p>
+                      <p className="text-lg font-bold text-primary">
+                        Total: {formatCurrency(selectedLead.currentLeadPrice)}
+                      </p>
+                    </div>
+                  </div>
+                  <StripePaymentForm
+                    clientSecret={paymentClientSecret}
+                    amount={paymentAmount}
+                    onSuccess={handlePaymentSuccess}
+                    onCancel={handlePaymentCancel}
+                    isProcessing={purchaseLeadMutation.isPending}
+                  />
+                </div>
               ) : (
                 // Pre-purchase: Show confirmation details
                 <>
@@ -1588,31 +1653,40 @@ export default function SubcontractorPortal() {
           )}
           <DialogFooter>
             {selectedLead?.name !== "***" ? (
+              // Post-purchase: Show close button
               <Button
-                onClick={() => {
-                  setShowPurchaseModal(false);
-                  setSelectedLead(null);
-                }}
+                onClick={handleClosePurchaseModal}
                 data-testid="button-close-purchase"
               >
                 Close
               </Button>
+            ) : paymentStep === "payment" ? (
+              // Payment step: Footer is handled by StripePaymentForm
+              null
             ) : (
+              // Confirmation step: Show proceed to payment button
               <>
                 <Button
                   variant="outline"
-                  onClick={() => setShowPurchaseModal(false)}
-                  disabled={purchaseLeadMutation.isPending}
+                  onClick={handleClosePurchaseModal}
+                  disabled={createPaymentIntentMutation.isPending}
                   data-testid="button-cancel-purchase"
                 >
                   Cancel
                 </Button>
                 <Button
-                  onClick={() => selectedLead && purchaseLeadMutation.mutate(selectedLead.id)}
-                  disabled={purchaseLeadMutation.isPending}
-                  data-testid="button-confirm-purchase"
+                  onClick={() => selectedLead && createPaymentIntentMutation.mutate(selectedLead.id)}
+                  disabled={createPaymentIntentMutation.isPending}
+                  data-testid="button-proceed-to-payment"
                 >
-                  {purchaseLeadMutation.isPending ? "Processing..." : `Confirm Purchase - ${selectedLead && formatCurrency(selectedLead.currentLeadPrice)}`}
+                  {createPaymentIntentMutation.isPending ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      Loading...
+                    </>
+                  ) : (
+                    `Proceed to Payment - ${selectedLead && formatCurrency(selectedLead.currentLeadPrice)}`
+                  )}
                 </Button>
               </>
             )}
