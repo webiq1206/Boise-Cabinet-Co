@@ -1493,10 +1493,21 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/user", isAuthenticated, async (req: any, res) => {
     try {
       const userId = req.user.claims.sub;
-      const user = await storage.getUser(userId);
+      const claims = req.user.claims;
       
+      let user = await storage.getUser(userId);
+      
+      // If user doesn't exist, create them from claims with "customer" role (safe default)
       if (!user) {
-        return res.status(404).json({ error: "User not found" });
+        console.log("User not found, creating user from claims:", userId);
+        user = await storage.upsertUser({
+          id: userId,
+          email: claims.email,
+          firstName: claims.first_name,
+          lastName: claims.last_name,
+          profileImageUrl: claims.profile_image_url,
+          role: "customer", // Safe default - admin can promote to subcontractor later
+        });
       }
       
       res.json(user);
@@ -1510,14 +1521,34 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.post("/api/user/accept-agreement", isAuthenticated, async (req: any, res) => {
     try {
       const userId = req.user.claims.sub;
+      const claims = req.user.claims;
       
-      const user = await storage.updateUser(userId, {
-        agreementAccepted: true,
-        agreementAcceptedAt: new Date(),
-      });
+      // First check if user exists
+      let user = await storage.getUser(userId);
       
       if (!user) {
-        return res.status(404).json({ error: "User not found" });
+        // User doesn't exist yet - create them first using upsertUser with safe "customer" role
+        console.log("User not found, creating user before accepting agreement:", userId);
+        user = await storage.upsertUser({
+          id: userId,
+          email: claims.email,
+          firstName: claims.first_name,
+          lastName: claims.last_name,
+          profileImageUrl: claims.profile_image_url,
+          role: "customer", // Safe default - admin can promote to subcontractor later
+          agreementAccepted: true,
+          agreementAcceptedAt: new Date(),
+        });
+      } else {
+        // User exists - update their agreement status
+        user = await storage.updateUser(userId, {
+          agreementAccepted: true,
+          agreementAcceptedAt: new Date(),
+        });
+      }
+      
+      if (!user) {
+        return res.status(500).json({ error: "Failed to update user agreement" });
       }
       
       res.json(user);
