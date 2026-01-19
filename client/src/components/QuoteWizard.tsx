@@ -14,6 +14,7 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Loader2, MapPin, CheckCircle2, Calendar, DollarSign, Package, Info, ChevronDown, AlertCircle } from "lucide-react";
 import { IntelligentPropertyCalculator } from "@/components/IntelligentPropertyCalculator";
 import { AddressAutocomplete } from "@/components/AddressAutocomplete";
+import { queryAssessor, getCountyFromCity } from "@/lib/assessors";
 import { ServiceFieldsRenderer, validateServiceData } from "@/components/ServiceFieldsRenderer";
 import { useMutation } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
@@ -104,6 +105,9 @@ export function QuoteWizard({
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [hasAutoCalculated, setHasAutoCalculated] = useState(false);
   const [activeServiceDetailsId, setActiveServiceDetailsId] = useState<string | null>(null);
+  const [isAutoLookingUp, setIsAutoLookingUp] = useState(false);
+  const [autoLookupStatus, setAutoLookupStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [autoLookupMessage, setAutoLookupMessage] = useState<string | null>(null);
   const formRef = useRef<HTMLDivElement>(null);
   const measurementsPanelRef = useRef<HTMLDivElement>(null);
   const serviceFieldsRef = useRef<HTMLDivElement>(null);
@@ -255,31 +259,8 @@ export function QuoteWizard({
     }
   }, [preselectedService, defaultService]);
 
-  // Automatic property calculation when user reaches Step 2
-  useEffect(() => {
-    const address = form1.getValues("address");
-    const measurementType = getMeasurementType();
-    
-    // Auto-open calculator if:
-    // 1. User is on Step 2
-    // 2. They have an address from Step 1
-    // 3. They need measurements for selected services
-    // 4. Haven't already auto-calculated
-    if (
-      step === 2 && 
-      address && 
-      address.trim().length > 0 && 
-      measurementType && 
-      !hasAutoCalculated
-    ) {
-      // Small delay for smooth UX
-      const timer = setTimeout(() => {
-        setMapOpen(true);
-      }, 300);
-      
-      return () => clearTimeout(timer);
-    }
-  }, [step, requiredMeasurementGroups.size, hasAutoCalculated]);
+  // NOTE: Auto-open modal removed - property lookup now happens automatically in Step 1
+  // when user selects an address from autocomplete
 
   // Scroll to top of form when step changes (but not on initial page load)
   useEffect(() => {
@@ -355,9 +336,9 @@ export function QuoteWizard({
 
   // Step handlers
   const handleStep1Submit = (_data: Step1Data) => {
-    // Reset auto-calculation flag when moving forward from Step 1
-    // This allows recalculation if user goes back and changes address
-    setHasAutoCalculated(false);
+    // NOTE: Do NOT reset hasAutoCalculated here - if the auto-lookup succeeded in Step 1,
+    // we want to preserve that flag so Step 2 knows measurements are already populated.
+    // Only reset when user goes BACK to Step 1 and changes the address.
     setStep(2);
   };
 
@@ -495,6 +476,78 @@ export function QuoteWizard({
     //   title: "Measurements Applied",
     //   description: "Property measurements have been calculated and applied to your services.",
     // });
+  };
+
+  // Auto-lookup property measurements when address is selected
+  const performAutoLookup = async (address: string, city: string) => {
+    if (!address || address.trim().length < 5) return;
+    
+    setIsAutoLookingUp(true);
+    setAutoLookupStatus('idle');
+    setAutoLookupMessage(null);
+    
+    try {
+      const county = getCountyFromCity(city);
+      const result = await queryAssessor({
+        county,
+        address: address.trim(),
+        cityContext: city,
+        enableFallback: true,
+      });
+      
+      if (result.success && result.properties.length > 0) {
+        // Use the first property match
+        const property = result.properties[0];
+        
+        // Build measurements object in the format handleMeasurementComplete expects
+        const measurements = {
+          lawnSqFt: property.estimatedLawnSqFt || 0,
+          lotPerimeterFt: property.lotPerimeterFt,
+          lawnPerimeterFt: property.lawnPerimeterFt,
+          rooflineWithOverhangFt: property.estimatedRoofLineFt,
+          estimatedHedgeFt: property.estimatedHedgeFt,
+        };
+        
+        // Only update if we got any measurements
+        const hasAnyMeasurement = measurements.lawnSqFt > 0 || 
+          (measurements.rooflineWithOverhangFt && measurements.rooflineWithOverhangFt > 0) ||
+          (measurements.lotPerimeterFt && measurements.lotPerimeterFt > 0);
+        
+        if (hasAnyMeasurement) {
+          // Use handleMeasurementComplete for consistent behavior
+          handleMeasurementComplete(measurements);
+          setAutoLookupStatus('success');
+          const sqft = measurements.lawnSqFt;
+          setAutoLookupMessage(sqft > 0 ? `Property found: ~${sqft.toLocaleString()} sq ft lawn area` : 'Property measurements found');
+        } else {
+          setAutoLookupStatus('error');
+          setAutoLookupMessage('Property found but no measurements available');
+        }
+      } else {
+        setAutoLookupStatus('error');
+        setAutoLookupMessage(result.error || 'Property not found in county records');
+      }
+    } catch (error) {
+      console.error('[QuoteWizard] Auto-lookup error:', error);
+      setAutoLookupStatus('error');
+      setAutoLookupMessage('Could not look up property automatically');
+    } finally {
+      setIsAutoLookingUp(false);
+    }
+  };
+  
+  // Handle address input changes - only reset on clear
+  const handleAddressChange = (value: string) => {
+    form1.setValue("address", value);
+    
+    // Only reset auto-lookup status if address is completely cleared
+    // This prevents losing successful lookups due to normal typing
+    if (!value || value.trim().length === 0) {
+      setAutoLookupStatus('idle');
+      setAutoLookupMessage(null);
+      setHasAutoCalculated(false);
+      setSharedMeasurements({});
+    }
   };
 
   // Determine measurement type based on selected services
@@ -653,7 +706,7 @@ export function QuoteWizard({
                 <AddressAutocomplete
                   id="address"
                   value={form1.watch("address") || ""}
-                  onChange={(value) => form1.setValue("address", value)}
+                  onChange={handleAddressChange}
                   city={form1.watch("city")}
                   placeholder="123 Main St"
                   data-testid="input-address"
@@ -730,12 +783,42 @@ export function QuoteWizard({
                       }
                     }
                     
+                    // Determine final city for lookup
+                    const finalCity = cityMatch?.name || form1.getValues("city") || "Kuna";
+                    
                     if (cityMatch) {
                       // Set the city in the form using the canonical city name
                       form1.setValue("city", cityMatch.name);
                     }
+                    
+                    // Auto-lookup property measurements from county assessor
+                    // Extract just the street address from the label (first part before city)
+                    const addressValue = form1.getValues("address");
+                    if (addressValue && addressValue.trim().length > 0) {
+                      performAutoLookup(addressValue, finalCity);
+                    }
                   }}
                 />
+                
+                {/* Auto-lookup status indicator */}
+                {isAutoLookingUp && (
+                  <div className="flex items-center gap-2 mt-2 text-sm text-muted-foreground">
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                    <span>Looking up property measurements...</span>
+                  </div>
+                )}
+                {!isAutoLookingUp && autoLookupStatus === 'success' && autoLookupMessage && (
+                  <div className="flex items-center gap-2 mt-2 text-sm text-primary">
+                    <CheckCircle2 className="h-4 w-4" />
+                    <span>{autoLookupMessage}</span>
+                  </div>
+                )}
+                {!isAutoLookingUp && autoLookupStatus === 'error' && autoLookupMessage && (
+                  <div className="flex items-center gap-2 mt-2 text-sm text-muted-foreground">
+                    <Info className="h-4 w-4" />
+                    <span>{autoLookupMessage} - You can enter measurements manually in the next step.</span>
+                  </div>
+                )}
               </div>
 
               <div>
