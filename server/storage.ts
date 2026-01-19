@@ -55,6 +55,7 @@ export interface IStorage {
   
   // Lead Purchase methods (aliases for API consistency)
   getLeadPurchaseByLeadId(leadId: string): Promise<LeadPurchase | undefined>;
+  getLeadPurchaseByPaymentIntentId(paymentIntentId: string): Promise<LeadPurchase | undefined>;
 }
 
 export class MemStorage implements IStorage {
@@ -661,6 +662,11 @@ export class MemStorage implements IStorage {
     return this.getLeadPurchaseByLead(leadId);
   }
 
+  async getLeadPurchaseByPaymentIntentId(paymentIntentId: string): Promise<LeadPurchase | undefined> {
+    const purchases = Array.from(this.leadPurchases.values());
+    return purchases.find(p => p.stripePaymentIntentId === paymentIntentId);
+  }
+
   async getNotificationsByUserId(userId: string): Promise<Notification[]> {
     return this.getNotificationsByUser(userId);
   }
@@ -1248,6 +1254,11 @@ export class DBStorage implements IStorage {
 
   async getLeadPurchaseByLeadId(leadId: string): Promise<LeadPurchase | undefined> {
     return this.getLeadPurchaseByLead(leadId);
+  }
+
+  async getLeadPurchaseByPaymentIntentId(paymentIntentId: string): Promise<LeadPurchase | undefined> {
+    const result = await db.select().from(leadPurchases).where(eq(leadPurchases.stripePaymentIntentId, paymentIntentId));
+    return result[0];
   }
 
   // Notification methods

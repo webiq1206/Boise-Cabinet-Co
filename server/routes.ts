@@ -1145,6 +1145,47 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(400).json({ error: "Lead already purchased" });
       }
       
+      // CRITICAL: Verify payment intent with Stripe before processing purchase
+      let paymentIntent;
+      try {
+        paymentIntent = await stripe.paymentIntents.retrieve(paymentIntentId);
+      } catch (stripeError) {
+        console.error("Failed to retrieve payment intent:", stripeError);
+        return res.status(400).json({ error: "Invalid payment intent" });
+      }
+      
+      // Verify payment succeeded
+      if (paymentIntent.status !== "succeeded") {
+        return res.status(400).json({ 
+          error: `Payment not completed. Status: ${paymentIntent.status}` 
+        });
+      }
+      
+      // Verify metadata matches the lead being purchased (prevent replay attacks)
+      if (paymentIntent.metadata.leadId !== lead.id) {
+        return res.status(400).json({ 
+          error: "Payment intent does not match this lead" 
+        });
+      }
+      
+      // Verify the user matches (prevent using someone else's payment)
+      if (paymentIntent.metadata.userId !== user.id) {
+        return res.status(400).json({ 
+          error: "Payment intent does not match your account" 
+        });
+      }
+      
+      // Check if this payment intent was already used for a purchase (idempotency)
+      const existingPurchaseWithIntent = await storage.getLeadPurchaseByPaymentIntentId(paymentIntentId);
+      if (existingPurchaseWithIntent) {
+        // If the same user already used this intent for the same lead, return success (idempotent)
+        if (existingPurchaseWithIntent.leadId === lead.id && existingPurchaseWithIntent.userId === user.id) {
+          const existingLead = await storage.getLeadById(lead.id);
+          return res.json({ success: true, purchase: existingPurchaseWithIntent, lead: existingLead });
+        }
+        return res.status(400).json({ error: "This payment has already been used" });
+      }
+      
       // Process purchase
       const purchase = await storage.createLeadPurchase({
         leadId: lead.id,
