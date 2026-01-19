@@ -1519,41 +1519,56 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   // Accept legal agreement - requires authentication
   app.post("/api/user/accept-agreement", isAuthenticated, async (req: any, res) => {
+    console.log("[accept-agreement] Endpoint called");
     try {
-      const userId = req.user.claims.sub;
-      const claims = req.user.claims;
+      const userId = req.user?.claims?.sub;
+      const claims = req.user?.claims;
+      
+      console.log("[accept-agreement] userId:", userId);
+      console.log("[accept-agreement] claims:", JSON.stringify(claims || {}, null, 2));
+      
+      if (!userId) {
+        console.error("[accept-agreement] No userId found in claims");
+        return res.status(401).json({ error: "User not authenticated properly" });
+      }
       
       // First check if user exists
       let user = await storage.getUser(userId);
+      console.log("[accept-agreement] Existing user found:", !!user);
       
       if (!user) {
         // User doesn't exist yet - create them first using upsertUser with safe "customer" role
-        console.log("User not found, creating user before accepting agreement:", userId);
+        console.log("[accept-agreement] Creating new user:", userId);
         user = await storage.upsertUser({
           id: userId,
-          email: claims.email,
-          firstName: claims.first_name,
-          lastName: claims.last_name,
-          profileImageUrl: claims.profile_image_url,
+          email: claims?.email || null,
+          firstName: claims?.first_name || null,
+          lastName: claims?.last_name || null,
+          profileImageUrl: claims?.profile_image_url || null,
           role: "customer", // Safe default - admin can promote to subcontractor later
           agreementAccepted: true,
           agreementAcceptedAt: new Date(),
         });
+        console.log("[accept-agreement] User created:", !!user);
       } else {
         // User exists - update their agreement status
+        console.log("[accept-agreement] Updating existing user:", userId);
         user = await storage.updateUser(userId, {
           agreementAccepted: true,
           agreementAcceptedAt: new Date(),
         });
+        console.log("[accept-agreement] User updated:", !!user);
       }
       
       if (!user) {
+        console.error("[accept-agreement] Failed to create/update user");
         return res.status(500).json({ error: "Failed to update user agreement" });
       }
       
+      console.log("[accept-agreement] Success, returning user");
       res.json(user);
     } catch (error) {
-      console.error("Error accepting agreement:", error);
+      console.error("[accept-agreement] Error:", error);
       res.status(500).json({ error: "Failed to accept agreement" });
     }
   });
