@@ -547,17 +547,6 @@ export function GeoServicePage({ service, city }: GeoServicePageProps) {
         serviceName={service.name}
       />
 
-      {/* Mobile Sticky Bottom CTA */}
-      <div className="fixed bottom-0 left-0 right-0 z-50 lg:hidden bg-white border-t shadow-lg">
-        <div className="container px-4 py-3">
-          <Button size="lg" className="w-full" asChild data-testid="button-mobile-sticky-quote">
-            <Link href="/get-quote">
-              Get Free Quote
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Link>
-          </Button>
-        </div>
-      </div>
     </div>
   );
 }
