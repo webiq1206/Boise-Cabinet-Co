@@ -88,6 +88,11 @@ export function Footer() {
                   Terms of Service
                 </Link>
               </li>
+              <li className="pt-2 border-t mt-2">
+                <a href="/api/login" className="text-muted-foreground hover:text-primary transition-colors" data-testid="link-subcontractor-login">
+                  Subcontractor Login
+                </a>
+              </li>
             </ul>
           </div>
 
