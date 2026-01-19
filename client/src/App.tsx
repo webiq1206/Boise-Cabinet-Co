@@ -61,6 +61,7 @@ const AdminDashboard = lazy(() => import("@/pages/AdminDashboard"));
 const SubcontractorPortal = lazy(() => import("@/pages/SubcontractorPortal"));
 const PurchaseHistory = lazy(() => import("@/pages/PurchaseHistory"));
 const AnalyticsDashboard = lazy(() => import("@/pages/AnalyticsDashboard"));
+const QuoteStatus = lazy(() => import("@/pages/QuoteStatus"));
 
 function Router() {
   useAnalytics();
@@ -110,6 +111,7 @@ function Router() {
             {/* Additional Pages */}
             <Route path="/pricing" component={Pricing} />
             <Route path="/get-quote" component={GetQuote} />
+            <Route path="/quote-status/:quoteId" component={QuoteStatus} />
             <Route path="/blog" component={Blog} />
             <Route path="/blog/:slug" component={BlogPost} />
             <Route path="/privacy-policy" component={PrivacyPolicy} />

@@ -3,6 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { useAuth } from "@/hooks/useAuth";
 import type { Lead } from "@shared/schema";
 import { TrendingUp, TrendingDown, DollarSign, Users, ShoppingCart, Clock, MapPin, Building } from "lucide-react";
+import { calculateQuoteRange } from "@shared/utils";
 
 export default function AnalyticsDashboard() {
   const { user, isAuthenticated } = useAuth();
@@ -24,7 +25,7 @@ export default function AnalyticsDashboard() {
   const acceptedLeads = leads.filter(l => l.status === "accepted");
 
   const totalLeadValue = leads.reduce((sum, lead) => {
-    return sum + parseFloat(lead.finalQuote || "0");
+    return sum + (lead.finalQuote ? calculateQuoteRange(lead.finalQuote, 0.15).point : 0);
   }, 0);
 
   const totalRevenue = purchasedLeads.reduce((sum, lead) => {

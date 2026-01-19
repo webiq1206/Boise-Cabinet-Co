@@ -9,6 +9,23 @@ function roundToNearestFive(price: number): number {
   return Math.ceil(price / 5) * 5;
 }
 
+/**
+ * Round price DOWN to nearest $5 or $0 (useful for discounts/price drops)
+ */
+function roundDownToNearestFive(price: number): number {
+  return Math.floor(price / 5) * 5;
+}
+
+function parsePrice(value: unknown, fallback = 0): number {
+  const n =
+    typeof value === "number"
+      ? value
+      : typeof value === "string"
+        ? parseFloat(value)
+        : NaN;
+  return Number.isFinite(n) ? n : fallback;
+}
+
 // Calculate lead price based on quote details
 export function calculateLeadPrice(params: {
   finalQuote: number;
@@ -17,30 +34,31 @@ export function calculateLeadPrice(params: {
 }): { basePrice: number; currentPrice: number } {
   const { finalQuote, frequency, serviceType } = params;
 
-  let basePrice: number;
+  // For recurring services, price the lead as "one service visit" (fixed schedule).
+  // This matches the subcontractor portal + legal agreement copy.
+  const RECURRING_LEAD_BASE_PRICES: Record<string, number> = {
+    "lawn-mowing": 45,
+    "lawn-care": 50,
+    "lawn-maintenance": 50,
+    "fertilization": 60,
+    "aeration": 75,
+    "weed-control": 55,
+    "tree-trimming": 85,
+    "hedge-trimming": 65,
+    "landscaping": 80,
+    "mulching": 70,
+    "mulch-installation": 70,
+    "seasonal-cleanup": 90,
+    "spring-cleanup": 90,
+    "fall-cleanup": 90,
+    "christmas-light-installation": 150,
+  };
 
-  if (frequency === "one-time") {
-    // One-time services: 10% of quote
-    basePrice = finalQuote * 0.10;
-  } else {
-    // Recurring services: cost of one service visit
-    // Estimate based on service type
-    const recurringPrices: Record<string, number> = {
-      "lawn-mowing": 45,
-      "lawn-care": 50,
-      "fertilization": 60,
-      "aeration": 75,
-      "weed-control": 55,
-      "tree-trimming": 85,
-      "hedge-trimming": 65,
-      "landscaping": 80,
-      "mulching": 70,
-      "seasonal-cleanup": 90,
-      "christmas-lights": 150,
-    };
-
-    basePrice = recurringPrices[serviceType] || 60; // Default to $60
-  }
+  // One-time projects: 10% of total quote (minimum $10), rounded up to the nearest $5
+  let basePrice: number =
+    frequency && frequency !== "one-time"
+      ? (RECURRING_LEAD_BASE_PRICES[serviceType] ?? 60)
+      : finalQuote * 0.10;
 
   // Ensure minimum price of $10, round to nearest $5
   basePrice = Math.max(10, basePrice);
@@ -60,9 +78,9 @@ export async function updateLeadPrices(): Promise<Lead[]> {
   for (const lead of leads) {
     if (lead.status !== "available") continue; // Only update available leads
 
-    const currentPrice = parseFloat(lead.currentLeadPrice);
-    const basePrice = parseFloat(lead.baseLeadPrice);
-    const reductionRate = parseFloat(lead.priceReductionRate || "1.50");
+    const currentPrice = parsePrice(lead.currentLeadPrice, 0);
+    const basePrice = parsePrice(lead.baseLeadPrice, 0);
+    if (currentPrice <= 0 || basePrice <= 0) continue;
 
     // Calculate days since last price update
     const lastUpdate = new Date(lead.lastPriceUpdate || lead.createdAt);
@@ -71,16 +89,18 @@ export async function updateLeadPrices(): Promise<Lead[]> {
 
     if (daysSinceUpdate < 1) continue; // Don't update if less than a day
 
-    // Calculate new price (reduce by 1-2% daily)
-    const reductionAmount = currentPrice * (reductionRate / 100);
-    let newPrice = currentPrice - reductionAmount;
+    // Daily decay: default 1.5%/day compounded.
+    // Floor: 20% of base price (matches UI + schema defaults).
+    const ratePercent = Math.max(0, parsePrice((lead as any).priceReductionRate, 1.5));
+    const dailyFactor = Math.max(0, Math.min(1, 1 - ratePercent / 100));
+    const floorPct = 0.2;
+    const rawPrice = currentPrice * Math.pow(dailyFactor, daysSinceUpdate);
+    const floorPrice = basePrice * floorPct;
 
-    // Set minimum price (20% of base price)
-    const minimumPrice = basePrice * 0.20;
-    newPrice = Math.max(minimumPrice, newPrice);
-    
-    // Round to nearest $5
-    newPrice = roundToNearestFive(newPrice);
+    // Round down for price drops, then enforce the rounded floor.
+    const floored = Math.max(rawPrice, floorPrice);
+    const minRoundedFloor = Math.max(5, roundToNearestFive(floorPrice));
+    const newPrice = Math.max(roundDownToNearestFive(floored), minRoundedFloor);
 
     // Only update if price changed
     if (Math.abs(newPrice - currentPrice) > 0.01) {
@@ -92,14 +112,29 @@ export async function updateLeadPrices(): Promise<Lead[]> {
       if (updated) {
         updatedLeads.push(updated);
 
-        // Notify subcontractors of price drop
+        // Notify subcontractors who are watching this lead
         const subcontractors = await storage.getAllSubcontractors();
         for (const sub of subcontractors) {
+          // watchedLeads may be JSONB array or stringified JSON depending on storage layer
+          let watched: string[] = [];
+          const rawWatched: any = (sub as any).watchedLeads;
+          if (Array.isArray(rawWatched)) watched = rawWatched;
+          else if (typeof rawWatched === "string") {
+            try {
+              const parsed = JSON.parse(rawWatched);
+              watched = Array.isArray(parsed) ? parsed : [];
+            } catch {
+              watched = [];
+            }
+          }
+
+          if (!watched.includes(lead.id)) continue;
+
           await storage.createNotification({
             userId: sub.id,
             type: "lead_price_drop",
             title: "Lead Price Reduced",
-            message: `${lead.serviceType} lead in ${lead.city} now $${newPrice.toFixed(2)} (was $${currentPrice.toFixed(2)})`,
+            message: `${lead.serviceType} lead in ${lead.city} is now $${newPrice.toFixed(2)} (was $${currentPrice.toFixed(2)})`,
             leadId: lead.id,
           });
         }

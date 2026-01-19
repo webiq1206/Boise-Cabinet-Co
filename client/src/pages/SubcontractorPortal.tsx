@@ -8,28 +8,136 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Checkbox } from "@/components/ui/checkbox";
-import { DollarSign, MapPin, Phone, Mail, Building, ShoppingCart, AlertCircle, CheckCircle2, Clock, Filter } from "lucide-react";
+import { DollarSign, MapPin, Phone, Mail, Building, ShoppingCart, AlertCircle, CheckCircle2, Clock, Filter, Search, ArrowUpDown, Eye, EyeOff, Star, Receipt, ChevronDown, Info, Lock, X } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/hooks/useAuth";
-import type { Lead } from "@shared/schema";
-import { CITIES } from "@shared/contentData";
+import type { Lead, User } from "@shared/schema";
+import { CITIES, PRIORITY_SERVICES } from "@shared/contentData";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Label } from "@/components/ui/label";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useMemo } from "react";
+import { formatQuoteRangeWholeFromValue } from "@/lib/utils";
+import { calculateQuoteRange } from "@shared/utils";
+
+// Type definitions
+interface LineItem {
+  serviceId?: string;
+  service?: string;
+  serviceName?: string;
+  description?: string;
+  price?: number;
+  basePrice?: number;
+  adjustedPrice?: number;
+  calculationExplanation?: string;
+}
+
+interface ServiceDataEntry {
+  propertySize?: number;
+  linearFeet?: number;
+  zones?: number;
+  treeCount?: number;
+  quantity?: number;
+  [key: string]: any;
+}
 
 export default function SubcontractorPortal() {
   const { toast } = useToast();
   const { user, isAuthenticated, isLoading: authLoading } = useAuth();
+  const [searchQuery, setSearchQuery] = useState("");
   const [filters, setFilters] = useState({
     city: "all",
-    serviceType: "",
+    serviceType: "all",
     maxPrice: "",
+    minPrice: "",
+    minQuote: "",
+    maxQuote: "",
+    propertyType: "all",
+    frequency: "all",
+    daysOld: "all",
   });
+  const [sortBy, setSortBy] = useState<"price" | "quote" | "date" | "age">("date");
+  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc");
+  const [showFilters, setShowFilters] = useState(false);
   const [selectedLead, setSelectedLead] = useState<Lead | null>(null);
   const [agreementAccepted, setAgreementAccepted] = useState(user?.agreementAccepted || false);
   const [showAgreementModal, setShowAgreementModal] = useState(false);
   const [showPurchaseModal, setShowPurchaseModal] = useState(false);
+  const [activeTab, setActiveTab] = useState<"available" | "watchlist">("available");
+  const [welcomeCardDismissed, setWelcomeCardDismissed] = useState(false);
   
   const { data: leads = [], isLoading } = useQuery<Lead[]>({
     queryKey: ["/api/leads?availableOnly=true"],
     enabled: isAuthenticated,
+  });
+
+  const { data: watchlistLeads = [], isLoading: watchlistLoading } = useQuery<Lead[]>({
+    queryKey: ["/api/leads/watchlist"],
+    enabled: isAuthenticated && activeTab === "watchlist",
+  });
+
+  const { data: userData } = useQuery<User>({
+    queryKey: ["/api/user"],
+    enabled: isAuthenticated,
+  });
+
+  const watchedLeadIds = useMemo(() => {
+    if (!userData?.watchedLeads) return [];
+    if (Array.isArray(userData.watchedLeads)) return userData.watchedLeads;
+    if (typeof userData.watchedLeads === 'string') {
+      try {
+        return JSON.parse(userData.watchedLeads);
+      } catch {
+        return [];
+      }
+    }
+    return [];
+  }, [userData?.watchedLeads]);
+
+  const watchLeadMutation = useMutation({
+    mutationFn: async (leadId: string) => {
+      const res = await apiRequest("POST", `/api/leads/${leadId}/watch`, {});
+      return await res.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/user"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/leads/watchlist"] });
+      toast({
+        title: "Lead Added to Watchlist",
+        description: "You'll be notified when the price drops.",
+      });
+    },
+    onError: (error: Error) => {
+      toast({
+        title: "Error",
+        description: error.message,
+        variant: "destructive",
+      });
+    },
+  });
+
+  const unwatchLeadMutation = useMutation({
+    mutationFn: async (leadId: string) => {
+      const res = await apiRequest("POST", `/api/leads/${leadId}/unwatch`, {});
+      return await res.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/user"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/leads/watchlist"] });
+      toast({
+        title: "Lead Removed from Watchlist",
+      });
+    },
+    onError: (error: Error) => {
+      toast({
+        title: "Error",
+        description: error.message,
+        variant: "destructive",
+      });
+    },
   });
 
   const purchaseLeadMutation = useMutation({
@@ -95,12 +203,201 @@ export default function SubcontractorPortal() {
     setShowPurchaseModal(true);
   };
 
-  const filteredLeads = leads.filter(lead => {
-    if (filters.city !== "all" && lead.city !== filters.city) return false;
-    if (filters.serviceType && !lead.serviceType.toLowerCase().includes(filters.serviceType.toLowerCase())) return false;
-    if (filters.maxPrice && parseFloat(lead.currentLeadPrice || "0") > parseFloat(filters.maxPrice)) return false;
-    return true;
+  // Filter and sort leads
+  const filteredLeads = useMemo(() => {
+    let filtered = [...leads].filter(l => l.status === "available");
+    
+    // Search filter
+    if (searchQuery) {
+      const query = searchQuery.toLowerCase();
+      filtered = filtered.filter(lead => 
+        lead.city?.toLowerCase().includes(query) ||
+        lead.serviceType?.toLowerCase().includes(query)
+      );
+    }
+    
+    // City filter
+    if (filters.city !== "all") {
+      filtered = filtered.filter(l => l.city.toLowerCase() === filters.city.toLowerCase());
+    }
+    
+    // Service type filter
+    if (filters.serviceType !== "all") {
+      filtered = filtered.filter(l => l.serviceType.toLowerCase().includes(filters.serviceType.toLowerCase()));
+    }
+    
+    // Price filters
+    if (filters.minPrice) {
+      const min = parseFloat(filters.minPrice);
+      if (!isNaN(min)) {
+        filtered = filtered.filter(l => parseFloat(l.currentLeadPrice || "0") >= min);
+      }
+    }
+    if (filters.maxPrice) {
+      const max = parseFloat(filters.maxPrice);
+      if (!isNaN(max)) {
+        filtered = filtered.filter(l => parseFloat(l.currentLeadPrice || "0") <= max);
+      }
+    }
+    
+    // Quote value filters
+    if (filters.minQuote) {
+      const min = parseFloat(filters.minQuote);
+      if (!isNaN(min)) {
+        filtered = filtered.filter(l => {
+          if (!l.finalQuote) return false;
+          const { max: quoteMax } = calculateQuoteRange(l.finalQuote, 0.15);
+          return quoteMax >= min;
+        });
+      }
+    }
+    if (filters.maxQuote) {
+      const max = parseFloat(filters.maxQuote);
+      if (!isNaN(max)) {
+        filtered = filtered.filter(l => {
+          if (!l.finalQuote) return false;
+          const { min: quoteMin } = calculateQuoteRange(l.finalQuote, 0.15);
+          return quoteMin <= max;
+        });
+      }
+    }
+    
+    // Property type filter
+    if (filters.propertyType !== "all") {
+      filtered = filtered.filter(l => l.propertyType === filters.propertyType);
+    }
+    
+    // Frequency filter
+    if (filters.frequency !== "all") {
+      filtered = filtered.filter(l => l.frequency === filters.frequency);
+    }
+    
+    // Days old filter
+    if (filters.daysOld !== "all") {
+      const now = new Date();
+      filtered = filtered.filter(l => {
+        const created = new Date(l.createdAt);
+        const days = Math.floor((now.getTime() - created.getTime()) / (1000 * 60 * 60 * 24));
+        
+        switch (filters.daysOld) {
+          case "today":
+            return days === 0;
+          case "1-3":
+            return days >= 1 && days <= 3;
+          case "4-7":
+            return days >= 4 && days <= 7;
+          case "7+":
+            return days > 7;
+          default:
+            return true;
+        }
+      });
+    }
+    
+    // Sorting
+    filtered.sort((a, b) => {
+      let comparison = 0;
+      
+      switch (sortBy) {
+        case "price":
+          comparison = parseFloat(a.currentLeadPrice || "0") - parseFloat(b.currentLeadPrice || "0");
+          break;
+        case "quote":
+          const pointA = a.finalQuote ? calculateQuoteRange(a.finalQuote, 0.15).point : 0;
+          const pointB = b.finalQuote ? calculateQuoteRange(b.finalQuote, 0.15).point : 0;
+          comparison = pointA - pointB;
+          break;
+        case "date":
+          comparison = new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
+          break;
+        case "age":
+          const ageA = new Date().getTime() - new Date(a.createdAt).getTime();
+          const ageB = new Date().getTime() - new Date(b.createdAt).getTime();
+          comparison = ageA - ageB;
+          break;
+      }
+      
+      return sortOrder === "asc" ? comparison : -comparison;
+    });
+    
+    return filtered;
+  }, [leads, searchQuery, filters, sortBy, sortOrder]);
+
+  // Check if first-time user
+  const { data: purchases = [] } = useQuery<any[]>({
+    queryKey: ["/api/leads/purchases"],
+    enabled: isAuthenticated,
   });
+  
+  const isFirstTimeUser = useMemo(() => {
+    return (!agreementAccepted && (!purchases || purchases.length === 0));
+  }, [agreementAccepted, purchases]);
+
+  // Helper function to format service measurements
+  const formatMeasurement = (serviceId: string, data: ServiceDataEntry | undefined): string => {
+    if (!data) return '';
+    
+    const parts: string[] = [];
+    
+    if (data.propertySize) {
+      parts.push(`${data.propertySize.toLocaleString()} sq ft`);
+    }
+    if (data.linearFeet) {
+      parts.push(`${data.linearFeet.toLocaleString()} linear ft`);
+    }
+    if (data.zones) {
+      parts.push(`${data.zones} zone${data.zones > 1 ? 's' : ''}`);
+    }
+    if (data.treeCount) {
+      parts.push(`${data.treeCount} tree${data.treeCount > 1 ? 's' : ''}`);
+    }
+    if (data.quantity) {
+      parts.push(`${data.quantity} unit${data.quantity > 1 ? 's' : ''}`);
+    }
+    
+    return parts.join(', ');
+  };
+
+  // Helper function to calculate discount
+  const calculateDiscount = (basePrice: string, currentPrice: string) => {
+    const base = parseFloat(basePrice || "0");
+    const current = parseFloat(currentPrice || "0");
+    if (base <= current) return { percentage: 0, amount: 0 };
+    const amount = base - current;
+    const percentage = (amount / base) * 100;
+    return { percentage, amount };
+  };
+
+  // Helper function to get pricing explanation
+  const getPricingExplanation = (frequency: string, serviceType: string, finalQuote: string) => {
+    if (frequency === "one-time") {
+      const quotePoint = calculateQuoteRange(finalQuote || "0", 0.15).point;
+      return `Based on 10% of project value ($${quotePoint.toFixed(0)})`;
+    } else {
+      // Show service-specific recurring price
+      const recurringPrices: Record<string, number> = {
+        "lawn-mowing": 45,
+        "lawn-care": 50,
+        "fertilization": 60,
+        "aeration": 75,
+        "weed-control": 55,
+        "tree-trimming": 85,
+        "hedge-trimming": 65,
+        "landscaping": 80,
+        "mulching": 70,
+        "seasonal-cleanup": 90,
+        "christmas-lights": 150,
+      };
+      const price = recurringPrices[serviceType] || 60;
+      return `Based on cost of one service visit ($${price})`;
+    }
+  };
+
+  // Get service name helper
+  const getServiceName = (serviceSlug: string): string => {
+    const service = PRIORITY_SERVICES.find(s => s.slug === serviceSlug);
+    return service ? service.name : serviceSlug.replace(/-/g, " ").replace(/\b\w/g, l => l.toUpperCase());
+  };
 
   const formatCurrency = (amount: string | null) => {
     if (!amount) return "$0.00";
@@ -124,65 +421,570 @@ export default function SubcontractorPortal() {
     return diffDays;
   };
 
+  // Quote Breakdown Section Component
+  const QuoteBreakdownSection = ({ lead }: { lead: Lead }) => {
+    const [isOpen, setIsOpen] = useState(false);
+    
+    const lineItems = (lead.lineItems as LineItem[] | null) || [];
+    const serviceData = (lead.serviceData as Record<string, ServiceDataEntry> | null) || {};
+    const hasBreakdown = lineItems.length > 0 || Object.keys(serviceData).length > 0;
+    
+    if (!hasBreakdown && !lead.finalQuote) {
+      return null;
+    }
+    
+    const formatPrice = (price: number | undefined) => {
+      if (price === undefined || price === null) return '$0';
+      return `$${price.toLocaleString()}`;
+    };
+    
+    return (
+      <Collapsible open={isOpen} onOpenChange={setIsOpen}>
+        <div className="border-t pt-4 mt-4">
+          <CollapsibleTrigger asChild>
+            <Button
+              variant="ghost"
+              size="sm"
+              className="w-full justify-between p-0 h-auto font-medium text-sm hover:bg-transparent"
+            >
+              <span className="flex items-center gap-2">
+                <Receipt className="h-4 w-4 text-muted-foreground" />
+                View Full Project Details
+              </span>
+              <ChevronDown className={`h-4 w-4 text-muted-foreground transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+            </Button>
+          </CollapsibleTrigger>
+          
+          <CollapsibleContent className="pt-3">
+            {lineItems.length > 0 ? (
+              <div className="space-y-3">
+                {lineItems.map((item, index) => {
+                  const serviceId = item.serviceId || item.service || '';
+                  const serviceName = item.serviceName || item.service || 'Service';
+                  const price = item.price || item.adjustedPrice || 0;
+                  const measurement = serviceData[serviceId] ? formatMeasurement(serviceId, serviceData[serviceId]) : '';
+                  
+                  return (
+                    <div 
+                      key={index} 
+                      className="bg-muted/50 rounded-md p-3"
+                    >
+                      <div className="flex justify-between items-start gap-2 mb-1">
+                        <span className="font-medium text-sm">
+                          {serviceName}
+                        </span>
+                        <span className="font-semibold text-sm text-primary">
+                          {formatPrice(price)}
+                        </span>
+                      </div>
+                      {item.description && (
+                        <p className="text-xs text-muted-foreground">
+                          {item.description}
+                        </p>
+                      )}
+                      {measurement && (
+                        <p className="text-xs text-muted-foreground mt-1">
+                          Measurement: {measurement}
+                        </p>
+                      )}
+                      {item.calculationExplanation && (
+                        <p className="text-xs text-muted-foreground/70 italic mt-2 pl-2 border-l-2 border-muted">
+                          {item.calculationExplanation}
+                        </p>
+                      )}
+                    </div>
+                  );
+                })}
+                
+                {lead.finalQuote && (
+                  <div className="flex justify-between items-center pt-2 border-t">
+                    <span className="font-semibold text-sm">Total Project Value</span>
+                    <span className="font-bold text-lg text-primary">
+                      {formatQuoteRangeWholeFromValue(lead.finalQuote, 0.15)}
+                    </span>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <div className="space-y-2">
+                {Object.keys(serviceData).length > 0 && (
+                  <div className="space-y-2">
+                    <p className="text-sm font-medium">Service Measurements:</p>
+                    {Object.entries(serviceData).map(([svcId, data]) => (
+                      <div key={svcId} className="bg-muted/50 rounded-md p-2 text-sm">
+                        <span className="font-medium">{getServiceName(svcId)}</span>
+                        <span className="text-muted-foreground ml-2">{formatMeasurement(svcId, data)}</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+                {lead.finalQuote && (
+                  <div className="flex justify-between items-center pt-2 border-t">
+                    <span className="font-semibold text-sm">Total Project Value</span>
+                    <span className="font-bold text-lg text-primary">
+                      {formatQuoteRangeWholeFromValue(lead.finalQuote, 0.15)}
+                    </span>
+                  </div>
+                )}
+              </div>
+            )}
+            {lead.selectedServices && Array.isArray(lead.selectedServices) && lead.selectedServices.length > 0 && (
+              <div className="mt-3 pt-3 border-t">
+                <p className="text-sm font-medium mb-2">Selected Services:</p>
+                <div className="flex flex-wrap gap-2">
+                  {lead.selectedServices.map((service, idx) => (
+                    <Badge key={idx} variant="secondary">
+                      {getServiceName(service)}
+                    </Badge>
+                  ))}
+                </div>
+              </div>
+            )}
+          </CollapsibleContent>
+        </div>
+      </Collapsible>
+    );
+  };
+
+  // Lead Pricing Section Component
+  const LeadPricingSection = ({ lead }: { lead: Lead }) => {
+    const [isOpen, setIsOpen] = useState(false);
+    // baseLeadPrice should always be set, but fallback to currentLeadPrice if missing
+    const basePrice = lead.baseLeadPrice || lead.currentLeadPrice || "0";
+    const currentPrice = lead.currentLeadPrice || "0";
+    // Only calculate discount if we have a valid base price that's different from current
+    const discount = basePrice && basePrice !== currentPrice ? calculateDiscount(basePrice, currentPrice) : { percentage: 0, amount: 0 };
+    const pricingExplanation = getPricingExplanation(lead.frequency || "one-time", lead.serviceType || "", lead.finalQuote || "0");
+    
+    return (
+      <Collapsible open={isOpen} onOpenChange={setIsOpen}>
+        <div className="border-t pt-4 mt-4">
+          <CollapsibleTrigger asChild>
+            <Button
+              variant="ghost"
+              size="sm"
+              className="w-full justify-between p-0 h-auto font-medium text-sm hover:bg-transparent"
+            >
+              <span className="flex items-center gap-2">
+                <Info className="h-4 w-4 text-muted-foreground" />
+                How is this priced?
+              </span>
+              <ChevronDown className={`h-4 w-4 text-muted-foreground transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+            </Button>
+          </CollapsibleTrigger>
+          
+          <CollapsibleContent className="pt-3 space-y-3">
+            <div className="bg-muted/50 rounded-md p-3 text-sm">
+              <p className="font-medium mb-2">Base Price Calculation:</p>
+              <p className="text-muted-foreground">{pricingExplanation}</p>
+              {lead.frequency === "one-time" && (
+                <p className="text-muted-foreground mt-1 text-xs">
+                  One-time projects: 10% of total project value
+                </p>
+              )}
+              {lead.frequency !== "one-time" && (
+                <p className="text-muted-foreground mt-1 text-xs">
+                  Recurring services: Fixed price per service type
+                </p>
+              )}
+            </div>
+            
+            {discount.percentage > 0 && (
+              <div className="bg-primary/10 rounded-md p-3 text-sm">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-muted-foreground line-through">
+                    Original: {formatCurrency(basePrice)}
+                  </span>
+                  <Badge variant="default" className="bg-green-600">
+                    Save {discount.percentage.toFixed(1)}%
+                  </Badge>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="font-medium">Current Price:</span>
+                  <span className="font-bold text-lg text-primary">
+                    {formatCurrency(currentPrice)}
+                  </span>
+                </div>
+                <p className="text-xs text-muted-foreground mt-1">
+                  You're saving {formatCurrency(discount.amount.toString())}
+                </p>
+              </div>
+            )}
+            
+            {discount.percentage === 0 && (
+              <div className="bg-muted/50 rounded-md p-3 text-sm">
+                <div className="flex items-center justify-between">
+                  <span className="font-medium">Current Price:</span>
+                  <span className="font-bold text-lg text-primary">
+                    {formatCurrency(currentPrice)}
+                  </span>
+                </div>
+              </div>
+            )}
+            
+            <div className="bg-blue-50 dark:bg-blue-950/20 rounded-md p-3 text-xs text-muted-foreground">
+              <p className="font-medium mb-1">Price Reduction Schedule:</p>
+              <ul className="list-disc list-inside space-y-1">
+                <li>Price reduces 1.5% daily until purchased</li>
+                <li>Minimum price: 20% of base price</li>
+                <li>Prices rounded to nearest $5</li>
+              </ul>
+            </div>
+          </CollapsibleContent>
+        </div>
+      </Collapsible>
+    );
+  };
+
+  // Welcome Card Component
+  const WelcomeCard = () => {
+    if (welcomeCardDismissed || !isFirstTimeUser) return null;
+    
+    return (
+      <Alert className="mb-6 border-primary/50 bg-primary/5">
+        <div className="flex items-start justify-between">
+          <div className="flex-1">
+            <AlertTitle className="flex items-center gap-2 mb-2">
+              <Info className="h-5 w-5" />
+              Welcome to the Contractor Portal
+            </AlertTitle>
+            <AlertDescription className="space-y-2">
+              <p className="font-medium">Simple 3-step process:</p>
+              <ol className="list-decimal list-inside space-y-1 ml-2">
+                <li>Browse available customers and project details</li>
+                <li>Review full project scope before you buy</li>
+                <li>Purchase to unlock customer contact information</li>
+              </ol>
+              <div className="mt-3 pt-3 border-t space-y-1 text-sm">
+                <p className="flex items-center gap-2">
+                  <Lock className="h-4 w-4" />
+                  <span>Customer contact info (name, phone, email, address) is hidden until purchase</span>
+                </p>
+                <p className="flex items-center gap-2">
+                  <Star className="h-4 w-4" />
+                  <span>Save customers to your watchlist to get notified when prices drop</span>
+                </p>
+                <p className="flex items-center gap-2">
+                  <AlertCircle className="h-4 w-4" />
+                  <span>All purchases are final - review project details carefully before buying</span>
+                </p>
+              </div>
+            </AlertDescription>
+          </div>
+          <Button
+            variant="ghost"
+            size="icon"
+            className="h-6 w-6 flex-shrink-0"
+            onClick={() => setWelcomeCardDismissed(true)}
+          >
+            <X className="h-4 w-4" />
+          </Button>
+        </div>
+      </Alert>
+    );
+  };
+
   return (
     <div className="container py-8" data-testid="page-subcontractor-portal">
       <div className="mb-8">
-        <h1 className="text-4xl font-bold mb-2">Available Leads</h1>
-        <p className="text-muted-foreground">Browse and purchase high-quality leads in your service area</p>
+        <h1 className="text-4xl font-bold mb-2">Available Customers</h1>
+        <p className="text-muted-foreground">Browse and purchase high-quality customer projects in your service area</p>
       </div>
 
-      {/* Filters */}
+      {/* Welcome Card */}
+      <WelcomeCard />
+
+      {/* Agreement Requirement Banner */}
+      {!agreementAccepted && (
+        <Alert className="mb-6 border-orange-500 bg-orange-50 dark:bg-orange-950/20">
+          <AlertCircle className="h-5 w-5 text-orange-600" />
+          <AlertTitle className="text-orange-800 dark:text-orange-200">Accept Agreement Required</AlertTitle>
+          <AlertDescription className="text-orange-700 dark:text-orange-300">
+            You must accept the Lead Purchase Agreement before you can purchase customers.{" "}
+            <Button
+              variant="ghost"
+              className="p-0 h-auto font-semibold text-orange-800 dark:text-orange-200 underline"
+              onClick={() => setShowAgreementModal(true)}
+            >
+              Review Agreement
+            </Button>
+          </AlertDescription>
+        </Alert>
+      )}
+
+      {/* Search and Filters */}
       <Card className="mb-6">
         <CardHeader>
-          <CardTitle className="text-lg flex items-center gap-2">
-            <Filter className="h-5 w-5" />
-            Filter Leads
-          </CardTitle>
+          <div className="flex items-center justify-between">
+            <CardTitle className="text-lg flex items-center gap-2">
+              <Search className="h-5 w-5" />
+              Search & Filter Customers
+            </CardTitle>
+            <div className="flex items-center gap-2">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setShowFilters(!showFilters)}
+              >
+                <Filter className="h-4 w-4 mr-1" />
+                {showFilters ? "Hide" : "Show"} Filters
+              </Button>
+            </div>
+          </div>
         </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div>
-              <label className="text-sm font-medium mb-2 block">City</label>
-              <Select value={filters.city} onValueChange={(value) => setFilters({ ...filters, city: value })}>
-                <SelectTrigger data-testid="select-city-filter">
-                  <SelectValue placeholder="All Cities" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All Cities</SelectItem>
-                  {CITIES.map(city => (
-                    <SelectItem key={city.slug} value={city.slug}>{city.name}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+        <CardContent className="space-y-4">
+          {/* Search Bar */}
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+            <Input
+              placeholder="Search by city or service type..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="pl-10"
+            />
+          </div>
+
+          {/* Quick Filters */}
+          <div className="flex flex-wrap gap-2">
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setFilters({ ...filters, maxPrice: "50" })}
+                  >
+                    Under $50
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Show customers priced under $50</p>
+                </TooltipContent>
+              </Tooltip>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => {
+                      const today = new Date();
+                      today.setHours(0, 0, 0, 0);
+                      setFilters({ ...filters, daysOld: "today" });
+                    }}
+                  >
+                    Today's Customers
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Show customers posted today</p>
+                </TooltipContent>
+              </Tooltip>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setFilters({ ...filters, minQuote: "500" })}
+                  >
+                    High Value ($500+)
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Show customers with project value $500 or more</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => {
+                setFilters({
+                  city: "all",
+                  serviceType: "all",
+                  maxPrice: "",
+                  minPrice: "",
+                  minQuote: "",
+                  maxQuote: "",
+                  propertyType: "all",
+                  frequency: "all",
+                  daysOld: "all",
+                });
+                setSearchQuery("");
+              }}
+            >
+              Clear All
+            </Button>
+          </div>
+
+          {/* Advanced Filters */}
+          {showFilters && (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 pt-4 border-t">
+              {/* City Filter */}
+              <div>
+                <label className="text-sm font-medium mb-2 block">City</label>
+                <Select value={filters.city} onValueChange={(value) => setFilters({ ...filters, city: value })}>
+                  <SelectTrigger data-testid="select-city-filter">
+                    <SelectValue placeholder="All Cities" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">All Cities</SelectItem>
+                    {CITIES.map(city => (
+                      <SelectItem key={city.slug} value={city.slug}>{city.name}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              {/* Service Type Filter */}
+              <div>
+                <label className="text-sm font-medium mb-2 block">Service Type</label>
+                <Select value={filters.serviceType} onValueChange={(value) => setFilters({ ...filters, serviceType: value })}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="All Services" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">All Services</SelectItem>
+                    {Array.from(new Set(leads.map(l => l.serviceType))).map(serviceType => (
+                      <SelectItem key={serviceType} value={serviceType}>
+                        {serviceType.replace(/-/g, " ").replace(/\b\w/g, l => l.toUpperCase())}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              {/* Property Type Filter */}
+              <div>
+                <label className="text-sm font-medium mb-2 block">Property Type</label>
+                <Select value={filters.propertyType} onValueChange={(value) => setFilters({ ...filters, propertyType: value })}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="All Types" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">All Types</SelectItem>
+                    <SelectItem value="residential">Residential</SelectItem>
+                    <SelectItem value="commercial">Commercial</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              {/* Frequency Filter */}
+              <div>
+                <label className="text-sm font-medium mb-2 block">Frequency</label>
+                <Select value={filters.frequency} onValueChange={(value) => setFilters({ ...filters, frequency: value })}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="All" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">All</SelectItem>
+                    <SelectItem value="one-time">One-Time</SelectItem>
+                    <SelectItem value="weekly">Weekly</SelectItem>
+                    <SelectItem value="bi-weekly">Bi-Weekly</SelectItem>
+                    <SelectItem value="monthly">Monthly</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              {/* Lead Price Range */}
+              <div>
+                <label className="text-sm font-medium mb-2 block">Lead Price Range</label>
+                <div className="flex gap-2">
+                  <Input
+                    type="number"
+                    placeholder="Min $"
+                    value={filters.minPrice}
+                    onChange={(e) => setFilters({ ...filters, minPrice: e.target.value })}
+                    className="flex-1"
+                  />
+                  <Input
+                    type="number"
+                    placeholder="Max $"
+                    value={filters.maxPrice}
+                    onChange={(e) => setFilters({ ...filters, maxPrice: e.target.value })}
+                    className="flex-1"
+                  />
+                </div>
+              </div>
+
+              {/* Quote Value Range */}
+              <div>
+                <label className="text-sm font-medium mb-2 block">Quote Value Range</label>
+                <div className="flex gap-2">
+                  <Input
+                    type="number"
+                    placeholder="Min $"
+                    value={filters.minQuote}
+                    onChange={(e) => setFilters({ ...filters, minQuote: e.target.value })}
+                    className="flex-1"
+                  />
+                  <Input
+                    type="number"
+                    placeholder="Max $"
+                    value={filters.maxQuote}
+                    onChange={(e) => setFilters({ ...filters, maxQuote: e.target.value })}
+                    className="flex-1"
+                  />
+                </div>
+              </div>
+
+              {/* Days Old Filter */}
+              <div>
+                <label className="text-sm font-medium mb-2 block">Lead Age</label>
+                <Select value={filters.daysOld} onValueChange={(value) => setFilters({ ...filters, daysOld: value })}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="All Ages" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">All Ages</SelectItem>
+                    <SelectItem value="today">Today</SelectItem>
+                    <SelectItem value="1-3">1-3 Days</SelectItem>
+                    <SelectItem value="4-7">4-7 Days</SelectItem>
+                    <SelectItem value="7+">7+ Days</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              {/* Sort By */}
+              <div>
+                <label className="text-sm font-medium mb-2 block">Sort By</label>
+                <div className="flex gap-2">
+                  <Select value={sortBy} onValueChange={(v) => setSortBy(v as typeof sortBy)}>
+                    <SelectTrigger className="flex-1">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="date">Date</SelectItem>
+                      <SelectItem value="price">Lead Price</SelectItem>
+                      <SelectItem value="quote">Quote Value</SelectItem>
+                      <SelectItem value="age">Age</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    onClick={() => setSortOrder(sortOrder === "asc" ? "desc" : "asc")}
+                    title={sortOrder === "asc" ? "Ascending" : "Descending"}
+                  >
+                    <ArrowUpDown className="h-4 w-4" />
+                  </Button>
+                </div>
+              </div>
             </div>
-            <div>
-              <label className="text-sm font-medium mb-2 block">Service Type</label>
-              <Input
-                placeholder="e.g., lawn-care, landscaping"
-                value={filters.serviceType}
-                onChange={(e) => setFilters({ ...filters, serviceType: e.target.value })}
-                data-testid="input-service-filter"
-              />
-            </div>
-            <div>
-              <label className="text-sm font-medium mb-2 block">Max Price</label>
-              <Input
-                type="number"
-                placeholder="e.g., 50"
-                value={filters.maxPrice}
-                onChange={(e) => setFilters({ ...filters, maxPrice: e.target.value })}
-                data-testid="input-price-filter"
-              />
-            </div>
+          )}
+
+          {/* Results Count */}
+          <div className="text-sm text-muted-foreground pt-2 border-t">
+            Showing {filteredLeads.length} of {leads.length} available customers
           </div>
         </CardContent>
       </Card>
 
-      {/* Stats */}
+      {/* Stats - Only show for available tab */}
+      {activeTab === "available" && (
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-muted-foreground">Available Leads</CardTitle>
+            <CardTitle className="text-sm font-medium text-muted-foreground">Available Customers</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-bold" data-testid="count-available">{filteredLeads.length}</div>
@@ -191,7 +993,7 @@ export default function SubcontractorPortal() {
         </Card>
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-muted-foreground">Avg Lead Price</CardTitle>
+            <CardTitle className="text-sm font-medium text-muted-foreground">Avg Customer Price</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-bold" data-testid="text-avg-price">
@@ -204,7 +1006,7 @@ export default function SubcontractorPortal() {
                   )
                 : "$0.00"}
             </div>
-            <p className="text-xs text-muted-foreground mt-1">Average cost per lead</p>
+            <p className="text-xs text-muted-foreground mt-1">Average cost per customer</p>
           </CardContent>
         </Card>
         <Card>
@@ -215,25 +1017,55 @@ export default function SubcontractorPortal() {
             <div className="text-3xl font-bold" data-testid="text-total-value">
               {formatCurrency(
                 filteredLeads
-                  .reduce((sum, l) => sum + parseFloat(l.finalQuote || "0"), 0)
+                  .reduce((sum, l) => sum + (l.finalQuote ? calculateQuoteRange(l.finalQuote, 0.15).point : 0), 0)
                   .toFixed(2)
               )}
             </div>
-            <p className="text-xs text-muted-foreground mt-1">Combined quote values</p>
+            <p className="text-xs text-muted-foreground mt-1">Combined project values</p>
           </CardContent>
         </Card>
       </div>
+      )}
+
+      {/* Tabs for Available and Watchlist */}
+      <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as "available" | "watchlist")} className="space-y-4">
+        <TabsList className="grid w-full grid-cols-2">
+          <TabsTrigger value="available">Available Customers</TabsTrigger>
+          <TabsTrigger value="watchlist">Watchlist</TabsTrigger>
+        </TabsList>
 
       {/* Lead Cards */}
-      <div className="space-y-4">
+      <TabsContent value="available" className="space-y-4">
         {isLoading ? (
           <Card>
-            <CardContent className="py-8 text-center">Loading available leads...</CardContent>
+            <CardContent className="py-8 text-center">Loading available customers...</CardContent>
           </Card>
         ) : filteredLeads.length === 0 ? (
           <Card>
             <CardContent className="py-8 text-center text-muted-foreground">
-              No leads match your filters. Try adjusting your search criteria.
+              <Search className="h-12 w-12 mx-auto mb-4 text-muted-foreground/50" />
+              <p className="text-lg font-medium mb-2">No customers match your filters</p>
+              <p className="text-sm mb-4">Try adjusting your search criteria or check back later for new customers.</p>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => {
+                  setFilters({
+                    city: "all",
+                    serviceType: "all",
+                    maxPrice: "",
+                    minPrice: "",
+                    minQuote: "",
+                    maxQuote: "",
+                    propertyType: "all",
+                    frequency: "all",
+                    daysOld: "all",
+                  });
+                  setSearchQuery("");
+                }}
+              >
+                Clear All Filters
+              </Button>
             </CardContent>
           </Card>
         ) : (
@@ -263,7 +1095,42 @@ export default function SubcontractorPortal() {
                         {lead.city.charAt(0).toUpperCase() + lead.city.slice(1)} • {lead.frequency || "One-time"} • Posted {daysOld === 0 ? "today" : `${daysOld} days ago`}
                       </CardDescription>
                     </div>
-                    <div className="text-right">
+                    <div className="text-right flex flex-col items-end gap-2">
+                      <div className="flex items-center gap-2">
+                        <TooltipProvider>
+                          {watchedLeadIds.includes(lead.id) ? (
+                            <Tooltip>
+                              <TooltipTrigger asChild>
+                                <Button
+                                  variant="ghost"
+                                  size="sm"
+                                  onClick={() => unwatchLeadMutation.mutate(lead.id)}
+                                >
+                                  <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                                </Button>
+                              </TooltipTrigger>
+                              <TooltipContent>
+                                <p>Remove from watchlist</p>
+                              </TooltipContent>
+                            </Tooltip>
+                          ) : (
+                            <Tooltip>
+                              <TooltipTrigger asChild>
+                                <Button
+                                  variant="ghost"
+                                  size="sm"
+                                  onClick={() => watchLeadMutation.mutate(lead.id)}
+                                >
+                                  <Eye className="h-4 w-4" />
+                                </Button>
+                              </TooltipTrigger>
+                              <TooltipContent>
+                                <p>Save to watchlist - get notified when price drops</p>
+                              </TooltipContent>
+                            </Tooltip>
+                          )}
+                        </TooltipProvider>
+                      </div>
                       <div className="text-2xl font-bold text-primary" data-testid={`text-price-${lead.id}`}>
                         {formatCurrency(lead.currentLeadPrice)}
                       </div>
@@ -280,8 +1147,10 @@ export default function SubcontractorPortal() {
                     <div className="flex items-center gap-2">
                       <DollarSign className="h-4 w-4 text-muted-foreground flex-shrink-0" />
                       <div>
-                        <p className="font-medium">Quote Value</p>
-                        <p className="text-muted-foreground">{formatCurrency(lead.finalQuote)}</p>
+                        <p className="font-medium">Project Value</p>
+                        <p className="text-muted-foreground">
+                          {lead.finalQuote ? formatQuoteRangeWholeFromValue(lead.finalQuote, 0.15) : "Pending"}
+                        </p>
                       </div>
                     </div>
                     <div className="flex items-center gap-2">
@@ -317,11 +1186,36 @@ export default function SubcontractorPortal() {
                   )}
 
                   {lead.name === "***" && (
-                    <div className="flex items-center gap-2 text-xs text-muted-foreground bg-muted/50 p-3 rounded-md">
-                      <AlertCircle className="h-4 w-4 flex-shrink-0" />
-                      <span>
-                        🔒 Customer contact info (name, email, phone, exact address) hidden until purchase. General location visible. Prices reduce 1-2% daily.
-                      </span>
+                    <div className="flex items-center gap-2 text-xs text-muted-foreground bg-muted/50 p-3 rounded-md border border-orange-200 dark:border-orange-800">
+                      <Lock className="h-4 w-4 flex-shrink-0 text-orange-600" />
+                      <div className="flex-1">
+                        <p className="font-medium mb-1">🔒 Contact Info Hidden</p>
+                        <p className="text-xs">
+                          Customer contact info (name, email, phone, exact address) is hidden until purchase. You can see the general location (city) and full project details above.
+                        </p>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Quote Breakdown Section */}
+                  {lead.name === "***" && <QuoteBreakdownSection lead={lead} />}
+
+                  {/* Lead Pricing Section */}
+                  {lead.name === "***" && <LeadPricingSection lead={lead} />}
+
+                  {/* What You'll Get Section */}
+                  {lead.name === "***" && (
+                    <div className="bg-primary/5 border border-primary/20 rounded-md p-3 text-sm">
+                      <p className="font-medium mb-2 flex items-center gap-2">
+                        <CheckCircle2 className="h-4 w-4 text-primary" />
+                        What You'll Get After Purchase:
+                      </p>
+                      <ul className="list-disc list-inside space-y-1 text-muted-foreground text-xs ml-1">
+                        <li>Full customer contact information (name, phone, email, address)</li>
+                        <li>All project details and scope (already visible above)</li>
+                        <li>Customer notes and special instructions</li>
+                        <li>Exclusive access - this customer is yours</li>
+                      </ul>
                     </div>
                   )}
 
@@ -332,44 +1226,194 @@ export default function SubcontractorPortal() {
                     data-testid={`button-purchase-${lead.id}`}
                   >
                     <ShoppingCart className="mr-2 h-4 w-4" />
-                    Purchase Lead - {formatCurrency(lead.currentLeadPrice)}
+                    Buy This Customer - {formatCurrency(lead.currentLeadPrice)}
                   </Button>
                 </CardContent>
               </Card>
             );
           })
         )}
-      </div>
+      </TabsContent>
+
+      {/* Watchlist Tab */}
+      <TabsContent value="watchlist" className="space-y-4">
+        {watchlistLoading ? (
+          <Card>
+            <CardContent className="py-8 text-center">Loading watchlist...</CardContent>
+          </Card>
+        ) : watchlistLeads.length === 0 ? (
+          <Card>
+            <CardContent className="py-8 text-center text-muted-foreground">
+              <Star className="h-12 w-12 mx-auto mb-4 text-muted-foreground/50" />
+              <p className="text-lg font-medium mb-2">Your watchlist is empty</p>
+              <p className="text-sm mb-2">Save customers to your watchlist to get notified when prices drop.</p>
+              <p className="text-xs text-muted-foreground/70">Click the eye icon on any customer card to add them to your watchlist.</p>
+            </CardContent>
+          </Card>
+        ) : (
+          watchlistLeads.map((lead) => {
+            const daysOld = calculateDaysOld(lead.createdAt);
+            const originalPrice = parseFloat(lead.baseLeadPrice || "0");
+            const currentPrice = parseFloat(lead.currentLeadPrice || "0");
+            const discount = originalPrice > 0 ? ((originalPrice - currentPrice) / originalPrice * 100) : 0;
+
+            return (
+              <Card key={lead.id} className="overflow-hidden hover-elevate border-yellow-200 dark:border-yellow-800">
+                <CardHeader className="pb-3">
+                  <div className="flex items-start justify-between gap-4 flex-wrap">
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2 flex-wrap mb-1">
+                        <CardTitle className="text-lg">
+                          {lead.serviceType.replace(/-/g, " ").replace(/\b\w/g, l => l.toUpperCase())}
+                        </CardTitle>
+                        <Badge variant="outline" className="border-yellow-400 text-yellow-700 dark:text-yellow-400">
+                          <Star className="h-3 w-3 mr-1 fill-yellow-400" />
+                          Watching
+                        </Badge>
+                        {discount > 0 && (
+                          <Badge variant="secondary" className="text-green-600">
+                            {discount.toFixed(0)}% OFF
+                          </Badge>
+                        )}
+                        {daysOld === 0 && <Badge variant="default">NEW</Badge>}
+                      </div>
+                      <CardDescription>
+                        {lead.city.charAt(0).toUpperCase() + lead.city.slice(1)} • {lead.frequency || "One-time"} • Posted {daysOld === 0 ? "today" : `${daysOld} days ago`}
+                      </CardDescription>
+                    </div>
+                    <div className="text-right flex flex-col items-end gap-2">
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => unwatchLeadMutation.mutate(lead.id)}
+                        title="Remove from watchlist"
+                        disabled={unwatchLeadMutation.isPending}
+                      >
+                        <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                      </Button>
+                      <div className="text-2xl font-bold text-primary">
+                        {formatCurrency(lead.currentLeadPrice)}
+                      </div>
+                      {discount > 0 && (
+                        <div className="text-sm text-muted-foreground line-through">
+                          {formatCurrency(lead.baseLeadPrice)}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+                    <div className="flex items-center gap-2">
+                      <DollarSign className="h-4 w-4 text-muted-foreground flex-shrink-0" />
+                      <div>
+                        <p className="font-medium">Project Value</p>
+                        <p className="text-muted-foreground">
+                          {lead.finalQuote ? formatQuoteRangeWholeFromValue(lead.finalQuote, 0.15) : "Pending"}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Building className="h-4 w-4 text-muted-foreground flex-shrink-0" />
+                      <div>
+                        <p className="font-medium">Property Type</p>
+                        <p className="text-muted-foreground capitalize">{lead.propertyType.replace(/-/g, " ")}</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <MapPin className="h-4 w-4 text-muted-foreground flex-shrink-0" />
+                      <div>
+                        <p className="font-medium">Location</p>
+                        <p className="text-muted-foreground">
+                          {lead.address && lead.address !== "***" ? lead.address : `${lead.city.charAt(0).toUpperCase() + lead.city.slice(1)}, Idaho`}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Clock className="h-4 w-4 text-muted-foreground flex-shrink-0" />
+                      <div>
+                        <p className="font-medium">Posted</p>
+                        <p className="text-muted-foreground">{formatDate(lead.createdAt)}</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Quote Breakdown Section */}
+                  {lead.name === "***" && <QuoteBreakdownSection lead={lead} />}
+
+                  {/* Lead Pricing Section */}
+                  {lead.name === "***" && <LeadPricingSection lead={lead} />}
+
+                  {/* What You'll Get Section */}
+                  {lead.name === "***" && (
+                    <div className="bg-primary/5 border border-primary/20 rounded-md p-3 text-sm">
+                      <p className="font-medium mb-2 flex items-center gap-2">
+                        <CheckCircle2 className="h-4 w-4 text-primary" />
+                        What You'll Get After Purchase:
+                      </p>
+                      <ul className="list-disc list-inside space-y-1 text-muted-foreground text-xs ml-1">
+                        <li>Full customer contact information (name, phone, email, address)</li>
+                        <li>All project details and scope (already visible above)</li>
+                        <li>Customer notes and special instructions</li>
+                        <li>Exclusive access - this customer is yours</li>
+                      </ul>
+                    </div>
+                  )}
+
+                  <Button
+                    onClick={() => handlePurchaseLead(lead)}
+                    disabled={purchaseLeadMutation.isPending}
+                    className="w-full"
+                    size="lg"
+                    data-testid={`button-purchase-watchlist-${lead.id}`}
+                  >
+                    <ShoppingCart className="mr-2 h-4 w-4" />
+                    Buy This Customer - {formatCurrency(lead.currentLeadPrice)}
+                  </Button>
+                </CardContent>
+              </Card>
+            );
+          })
+        )}
+      </TabsContent>
+      </Tabs>
 
       {/* Legal Agreement Modal */}
       <Dialog open={showAgreementModal} onOpenChange={setShowAgreementModal}>
         <DialogContent className="max-w-2xl" data-testid="modal-legal-agreement">
           <DialogHeader>
-            <DialogTitle>Legal Agreement Required</DialogTitle>
+            <DialogTitle>Customer Purchase Agreement</DialogTitle>
             <DialogDescription>
-              Before purchasing leads, you must accept our terms and conditions.
+              Before purchasing customers, you must accept our terms and conditions.
             </DialogDescription>
           </DialogHeader>
           <div className="max-h-96 overflow-y-auto border rounded-md p-4 space-y-4 text-sm">
-            <h3 className="font-semibold">Lead Purchase Agreement</h3>
+            <h3 className="font-semibold">Customer Purchase Agreement</h3>
             <p>
-              This Lead Purchase Agreement ("Agreement") is entered into between Lawn Care Kuna ("Company") and you ("Subcontractor").
+              This Customer Purchase Agreement ("Agreement") is entered into between Lawn Care Kuna ("Company") and you ("Subcontractor").
             </p>
+            <h4 className="font-semibold mt-4">Key Points:</h4>
+            <ul className="list-disc list-inside space-y-2 mt-2">
+              <li><strong>No Refunds:</strong> All purchases are final and non-refundable</li>
+              <li><strong>First-Come-First-Served:</strong> Customers are exclusive to the first purchaser</li>
+              <li><strong>Professional Conduct:</strong> You must maintain professional standards when contacting customers</li>
+              <li><strong>No Guarantees:</strong> We cannot guarantee that every customer will result in a closed deal</li>
+            </ul>
             <h4 className="font-semibold mt-4">1. No-Refund Policy</h4>
             <p>
-              All lead purchases are final and non-refundable. Once you purchase a lead, you have immediate access to the customer's contact information and project details. Due to the nature of this information, we cannot offer refunds under any circumstances.
+              All customer purchases are final and non-refundable. Once you purchase a customer, you have immediate access to their contact information and project details. Due to the nature of this information, we cannot offer refunds under any circumstances.
             </p>
-            <h4 className="font-semibold mt-4">2. Lead Quality</h4>
+            <h4 className="font-semibold mt-4">2. Customer Quality</h4>
             <p>
-              While we strive to provide high-quality leads, we cannot guarantee that every lead will result in a closed deal. Leads are sold on a first-come, first-served basis and are exclusive to the purchaser.
+              While we strive to provide high-quality customers, we cannot guarantee that every customer will result in a closed deal. Customers are sold on a first-come, first-served basis and are exclusive to the purchaser.
             </p>
             <h4 className="font-semibold mt-4">3. Pricing</h4>
             <p>
-              Lead prices are calculated at 10% of the quoted service cost for one-time services, or the cost of one service visit for recurring services. Prices automatically reduce by 1-2% daily until a minimum threshold is reached.
+              Customer prices are calculated at 10% of the quoted project value for one-time services, or the cost of one service visit for recurring services. Prices automatically reduce by 1.5% daily until a minimum threshold (20% of base price) is reached.
             </p>
             <h4 className="font-semibold mt-4">4. Usage Rights</h4>
             <p>
-              You may contact the customer for the specific service requested in the lead. You may not sell, transfer, or share the lead information with third parties.
+              You may contact the customer for the specific service requested. You may not sell, transfer, or share the customer information with third parties.
             </p>
             <h4 className="font-semibold mt-4">5. Professional Conduct</h4>
             <p>
@@ -487,7 +1531,10 @@ export default function SubcontractorPortal() {
                     <p className="text-sm font-medium mb-2">Service Details</p>
                     <div className="space-y-1 text-sm">
                       <p><span className="text-muted-foreground">Service:</span> {selectedLead.serviceType.replace(/-/g, " ")}</p>
-                      <p><span className="text-muted-foreground">Quote Value:</span> {formatCurrency(selectedLead.finalQuote)}</p>
+                      <p>
+                        <span className="text-muted-foreground">Quote Range:</span>{" "}
+                        {selectedLead.finalQuote ? formatQuoteRangeWholeFromValue(selectedLead.finalQuote, 0.15) : "Pending"}
+                      </p>
                       <p><span className="text-muted-foreground">Frequency:</span> {selectedLead.frequency || "One-time"}</p>
                       {selectedLead.message && (
                         <p><span className="text-muted-foreground">Customer Notes:</span> {selectedLead.message}</p>
@@ -506,7 +1553,8 @@ export default function SubcontractorPortal() {
                       <span className="font-medium">Location:</span> {selectedLead.city}
                     </p>
                     <p className="text-sm">
-                      <span className="font-medium">Quote Value:</span> {formatCurrency(selectedLead.finalQuote)}
+                      <span className="font-medium">Quote Range:</span>{" "}
+                      {selectedLead.finalQuote ? formatQuoteRangeWholeFromValue(selectedLead.finalQuote, 0.15) : "Pending"}
                     </p>
                     <p className="text-sm">
                       <span className="font-medium">Lead Price:</span> {formatCurrency(selectedLead.currentLeadPrice)}

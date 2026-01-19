@@ -239,9 +239,9 @@ export const SERVICE_RATES = {
 ```
 
 ### Margin Adjustments
-To change profit margin, edit `PROFIT_MARGIN` constant:
+To change gross margin, edit `GROSS_MARGIN` (price is computed as \(cost / (1 - margin)\)):
 ```typescript
-const PROFIT_MARGIN = 0.45; // 45% markup (40-50% profit)
+const GROSS_MARGIN = 0.45; // 45% gross margin
 ```
 
 ## Future Enhancements

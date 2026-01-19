@@ -95,5 +95,20 @@ app.use((req, res, next) => {
     const { scheduleDailyPriceReduction } = await import("./cron.js");
     scheduleDailyPriceReduction();
     log("Cron job: Daily lead price reduction scheduled");
+    
+    // Start automated auto-decline of pending leads (runs every hour)
+    const { scheduleAutoDecline } = await import("./cron.js");
+    scheduleAutoDecline();
+    log("Cron job: Auto-decline of pending leads scheduled (runs every hour)");
+    
+    // Start admin daily digest (runs daily at 9 AM)
+    const { scheduleAdminDailyDigest } = await import("./cron.js");
+    scheduleAdminDailyDigest();
+    log("Cron job: Admin daily digest scheduled (runs daily at 9 AM)");
+    
+    // Start admin reminders (runs every 6 hours)
+    const { scheduleAdminReminders } = await import("./cron.js");
+    scheduleAdminReminders();
+    log("Cron job: Admin reminders scheduled (runs every 6 hours)");
   });
 })();

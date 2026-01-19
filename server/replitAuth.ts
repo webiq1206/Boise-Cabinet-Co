@@ -19,21 +19,34 @@ const getOidcConfig = memoize(
 
 export function getSession() {
   const sessionTtl = 7 * 24 * 60 * 60 * 1000; // 1 week
+  const isProd = process.env.NODE_ENV === "production";
+  const secret =
+    process.env.SESSION_SECRET ?? (!isProd ? "dev-session-secret" : undefined);
+
+  if (!secret) {
+    throw new Error("SESSION_SECRET must be set in production.");
+  }
+
+  // Use Postgres-backed sessions when DB is configured; otherwise fall back to in-memory sessions (dev only).
   const pgStore = connectPg(session);
-  const sessionStore = new pgStore({
-    conString: process.env.DATABASE_URL,
-    createTableIfMissing: false,
-    ttl: sessionTtl,
-    tableName: "sessions",
-  });
+  const sessionStore = process.env.DATABASE_URL
+    ? new pgStore({
+        conString: process.env.DATABASE_URL,
+        createTableIfMissing: false,
+        ttl: sessionTtl,
+        tableName: "sessions",
+      })
+    : undefined;
+
   return session({
-    secret: process.env.SESSION_SECRET!,
-    store: sessionStore,
+    secret,
+    ...(sessionStore ? { store: sessionStore } : {}),
     resave: false,
     saveUninitialized: false,
     cookie: {
       httpOnly: true,
-      secure: true,
+      secure: isProd,
+      sameSite: isProd ? "none" : "lax",
       maxAge: sessionTtl,
     },
   });
@@ -64,6 +77,19 @@ export async function setupAuth(app: Express) {
   app.use(getSession());
   app.use(passport.initialize());
   app.use(passport.session());
+
+  passport.serializeUser((user: Express.User, cb) => cb(null, user));
+  passport.deserializeUser((user: Express.User, cb) => cb(null, user));
+
+  // If Replit OIDC is not configured, allow the app to run in local dev
+  // (paired with the `/api/auth/test-login` route).
+  if (!process.env.REPL_ID) {
+    if (process.env.NODE_ENV === "production") {
+      throw new Error("REPL_ID must be set in production.");
+    }
+    console.warn("[auth] REPL_ID not set; skipping OIDC auth setup (dev mode).");
+    return;
+  }
 
   const config = await getOidcConfig();
 
@@ -98,9 +124,6 @@ export async function setupAuth(app: Express) {
     }
   };
 
-  passport.serializeUser((user: Express.User, cb) => cb(null, user));
-  passport.deserializeUser((user: Express.User, cb) => cb(null, user));
-
   app.get("/api/login", (req, res, next) => {
     ensureStrategy(req.hostname);
     passport.authenticate(`replitauth:${req.hostname}`, {
@@ -131,6 +154,15 @@ export async function setupAuth(app: Express) {
 
 export const isAuthenticated: RequestHandler = async (req, res, next) => {
   const user = req.user as any;
+
+  // DEV: allow session-based auth created via `/api/auth/test-login`
+  if (process.env.NODE_ENV === "development") {
+    const devUserId =
+      user?.claims?.sub ?? (req as any).session?.passport?.user?.claims?.sub;
+    if (devUserId) {
+      return next();
+    }
+  }
 
   if (!req.isAuthenticated() || !user.expires_at) {
     return res.status(401).json({ message: "Unauthorized" });

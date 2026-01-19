@@ -20,17 +20,20 @@ import { useMutation } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
 import { SERVICE_FIELD_CONFIGS, requiresPropertySize } from "@shared/serviceFieldConfig";
 import { SERVICE_PRICING_GUIDANCE_MAP, CITIES } from "@shared/contentData";
+import { formatCurrencyRangeWhole } from "@/lib/utils";
+import { calculateQuoteRange } from "@shared/utils";
 
 // Step 1: Basic Property Info
 const step1Schema = z.object({
   address: z.string().optional(),
   city: z.string().min(1, "Please select your location"),
-  propertyType: z.enum(["residential", "commercial", "hoa"]).optional(),
+  propertyType: z.enum(["residential", "commercial", "hoa", "property-management"]).optional(),
 });
 
 // Step 2: Service Selection
 const step2Schema = z.object({
   selectedServices: z.array(z.string()).min(1, "Please select at least one service"),
+  frequency: z.enum(["one-time", "monthly", "bi-weekly", "weekly"]).optional(),
 });
 
 // Step 3: Contact Info
@@ -61,6 +64,8 @@ interface QuoteData {
   tax?: number;
   total: number;
   aiAnalysis?: any;
+  finalQuoteMin?: number;
+  finalQuoteMax?: number;
 }
 
 interface QuoteWizardProps {
@@ -70,6 +75,7 @@ interface QuoteWizardProps {
   defaultService?: string;
   defaultCity?: string;
   defaultAddress?: string;
+  className?: string;
 }
 
 export function QuoteWizard({ 
@@ -78,11 +84,13 @@ export function QuoteWizard({
   preselectedCity,
   defaultService,
   defaultCity,
-  defaultAddress 
+  defaultAddress,
+  className
 }: QuoteWizardProps) {
   const [step, setStep] = useState(1);
   const [mapOpen, setMapOpen] = useState(false);
   const [quoteData, setQuoteData] = useState<QuoteData | null>(null);
+  const [submittedQuoteId, setSubmittedQuoteId] = useState<string | null>(null);
   const [serviceData, setServiceData] = useState<Record<string, Record<string, any>>>({});
   const [calculatedPropertySize, setCalculatedPropertySize] = useState<number | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -105,6 +113,7 @@ export function QuoteWizard({
     resolver: zodResolver(step2Schema),
     defaultValues: {
       selectedServices: preselectedService || defaultService ? [preselectedService || defaultService!] : [],
+      frequency: "one-time",
     },
   });
 
@@ -202,46 +211,15 @@ export function QuoteWizard({
   // Final submission mutation
   const submitQuoteMutation = useMutation({
     mutationFn: async (data: any) => {
-      // First, save the quote
+      // Save the quote - the backend automatically creates a lead
       const quoteRes = await apiRequest("POST", "/api/quotes", data);
       const quoteResult = await quoteRes.json();
       
-      // Wait 4 seconds before creating lead to avoid Resend rate limit
-      // Quote emails: T=0s (admin), T=2s (customer)
-      // Lead email: T=4s (admin lead notification)
-      // This ensures 2+ seconds between each email
-      await new Promise(resolve => setTimeout(resolve, 4000));
-      
-      // Then, create a lead from the quote
-      // Note: The backend will automatically calculate pricing via POST /api/leads route
-      try {
-        const leadData = {
-          quoteId: quoteResult.id,
-          name: data.name,
-          email: data.email,
-          phone: data.phone || "",
-          address: data.address,
-          city: data.city,
-          propertyType: data.propertyType || "residential",
-          serviceType: data.serviceType || (data.selectedServices && data.selectedServices[0]) || "lawn-care",
-          selectedServices: data.selectedServices || [],
-          frequency: data.frequency || "one-time",
-          finalQuote: data.quote?.toString() || quoteData?.total?.toString() || "0",
-          lineItems: data.lineItems || [],
-          serviceData: data.serviceData || {},
-          message: data.message || "",
-        };
-        
-        await apiRequest("POST", "/api/leads", leadData);
-      } catch (leadError) {
-        console.error("Failed to create lead:", leadError);
-        // Don't fail the whole submission if lead creation fails
-      }
-      
       return quoteResult;
     },
-    onSuccess: () => {
+    onSuccess: (result: any) => {
       setErrorMessage(null);
+      setSubmittedQuoteId(result?.quoteId || null);
       // Popup disabled per user request - quote submission is already visible on page
       // toast({
       //   title: "Quote Request Submitted!",
@@ -311,6 +289,8 @@ export function QuoteWizard({
     // Build submission payload
     const step1Data = form1.getValues();
     const step2Data = form2.getValues();
+    const frequency = step2Data.frequency || "one-time";
+    setSubmittedQuoteId(null);
 
     // Extract property size from serviceData if available (using Number.isFinite guard)
     let extractedPropertySize: number | undefined = undefined;
@@ -341,7 +321,7 @@ export function QuoteWizard({
       serviceType: step2Data.selectedServices[0], // Primary service
       selectedServices: step2Data.selectedServices,
       serviceData: serviceData,
-      frequency: "one-time", // Can be made dynamic later
+      frequency,
       
       // Scheduling
       scheduledDate: data.preferredDate ? new Date(data.preferredDate).toISOString() : undefined,
@@ -354,17 +334,18 @@ export function QuoteWizard({
       fullData.propertySize = extractedPropertySize;
     }
 
-    // Generate quote first
-    await getQuoteMutation.mutateAsync(fullData);
-    
-    // Then submit with quote data
+    // Generate quote first (use returned value; do not rely on async React state)
+    const quote = await getQuoteMutation.mutateAsync(fullData);
+
+    // Then submit with quote data (always from the returned quote result)
     const submissionData = {
       ...fullData,
-      aiAnalysis: quoteData?.aiAnalysis,
-      baseCost: quoteData?.subtotal || 0,
-      adjustedCost: quoteData?.subtotal || 0,
-      finalQuote: quoteData?.total || 0,
-      lineItems: quoteData?.lineItems || [],
+      aiAnalysis: quote?.aiAnalysis,
+      complexityScore: quote?.complexityScore,
+      baseCost: quote?.baseCost ?? quote?.subtotal ?? 0,
+      adjustedCost: quote?.adjustedCost ?? quote?.subtotal ?? 0,
+      finalQuote: quote?.finalQuote ?? quote?.total ?? 0,
+      lineItems: quote?.lineItems || [],
     };
 
     submitQuoteMutation.mutate(submissionData);
@@ -462,7 +443,7 @@ export function QuoteWizard({
   };
 
   return (
-    <div ref={formRef} className="max-w-4xl mx-auto p-4">
+    <div ref={formRef} className={`max-w-4xl mx-auto p-4 ${className || ""}`}>
       {/* Inline Error Display */}
       {errorMessage && (
         <Alert variant="destructive" className="mb-6" data-testid="inline-error-message">
@@ -619,7 +600,7 @@ export function QuoteWizard({
                 <RadioGroup
                   value={form1.watch("propertyType") || "residential"}
                   onValueChange={(value: any) => form1.setValue("propertyType", value)}
-                  className="grid grid-cols-1 sm:grid-cols-3 gap-4"
+                  className="grid grid-cols-1 sm:grid-cols-2 gap-4"
                 >
                   <Label
                     htmlFor="residential"
@@ -641,6 +622,13 @@ export function QuoteWizard({
                   >
                     <RadioGroupItem value="hoa" id="hoa" data-testid="radio-hoa" />
                     <span>HOA</span>
+                  </Label>
+                  <Label
+                    htmlFor="property-management"
+                    className="flex items-center gap-2 rounded-md border border-input p-4 cursor-pointer hover-elevate"
+                  >
+                    <RadioGroupItem value="property-management" id="property-management" data-testid="radio-property-management" />
+                    <span>Property Management</span>
                   </Label>
                 </RadioGroup>
               </div>
@@ -665,6 +653,26 @@ export function QuoteWizard({
           </CardHeader>
           <CardContent>
             <form onSubmit={form2.handleSubmit(handleStep2Submit)} className="space-y-6">
+              {/* Frequency Selection (discounts apply to eligible recurring services) */}
+              <div className="space-y-2">
+                <Label htmlFor="frequency">Service Frequency</Label>
+                <select
+                  id="frequency"
+                  className="w-full rounded-md border border-input bg-background px-3 py-2"
+                  {...form2.register("frequency")}
+                  defaultValue={form2.getValues("frequency") || "one-time"}
+                  data-testid="select-frequency"
+                >
+                  <option value="one-time">One-time</option>
+                  <option value="monthly">Monthly (5% off eligible recurring services)</option>
+                  <option value="bi-weekly">Bi-weekly (10% off eligible recurring services)</option>
+                  <option value="weekly">Weekly (15% off eligible recurring services)</option>
+                </select>
+                <p className="text-xs text-muted-foreground">
+                  One-time projects remain one-time. Discounts apply only where recurring service makes sense.
+                </p>
+              </div>
+
               {/* Service Categories with Accordions */}
               <Accordion type="multiple" className="w-full">
                 {[
@@ -928,6 +936,31 @@ export function QuoteWizard({
             <CardDescription>Here's your personalized pricing breakdown</CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
+            {/* Submission Status / Tracking */}
+            {submitQuoteMutation.isPending && (
+              <Alert className="bg-muted/50 border-border" data-testid="alert-quote-submitting">
+                <Info className="h-4 w-4" />
+                <AlertDescription className="text-sm">
+                  Submitting your request…
+                </AlertDescription>
+              </Alert>
+            )}
+            {!submitQuoteMutation.isPending && submittedQuoteId && (
+              <Alert className="bg-muted/50 border-border" data-testid="alert-quote-submitted">
+                <Info className="h-4 w-4" />
+                <AlertDescription className="text-sm space-y-1">
+                  <p className="font-medium">Request submitted.</p>
+                  <p>
+                    Track status anytime at{" "}
+                    <a className="text-primary underline" href={`/quote-status/${submittedQuoteId}`}>
+                      /quote-status/{submittedQuoteId}
+                    </a>
+                    .
+                  </p>
+                </AlertDescription>
+              </Alert>
+            )}
+
             {/* Line Items */}
             <div className="space-y-3">
               {quoteData.lineItems.map((item, index) => (
@@ -967,8 +1000,14 @@ export function QuoteWizard({
             {/* Estimated Total */}
             <div className="border-t border-border pt-4 space-y-2">
               <div className="flex justify-between items-center text-xl font-bold">
-                <span>Estimated Total</span>
-                <span className="text-primary" data-testid="text-quote-total">${quoteData.total.toLocaleString()}</span>
+                <span>Estimated Range</span>
+                <span className="text-primary" data-testid="text-quote-total">
+                  {(() => {
+                    const min = typeof quoteData.finalQuoteMin === "number" ? quoteData.finalQuoteMin : calculateQuoteRange(quoteData.total, 0.15).min;
+                    const max = typeof quoteData.finalQuoteMax === "number" ? quoteData.finalQuoteMax : calculateQuoteRange(quoteData.total, 0.15).max;
+                    return formatCurrencyRangeWhole(min, max);
+                  })()}
+                </span>
               </div>
               <p className="text-xs text-muted-foreground italic">
                 * This is an estimated price based on typical property conditions. Final pricing will be confirmed after site assessment.

@@ -8,6 +8,7 @@ import { Loader2, MapPin, Home, CheckCircle2, Edit3, AlertCircle } from "lucide-
 import { queryAssessor, getCountyFromCity } from "@/lib/assessors";
 import type { PropertyData } from "@/lib/adaCountyAssessor";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { MapMeasureTool } from "@/components/MapMeasureTool";
 
 interface IntelligentPropertyCalculatorProps {
   isOpen: boolean;
@@ -40,6 +41,9 @@ export function IntelligentPropertyCalculator({
   const [error, setError] = useState<string | null>(null);
   const [suggestion, setSuggestion] = useState<string | null>(null);
   const [isManualMode, setIsManualMode] = useState(false);
+  const [mapMeasureOpen, setMapMeasureOpen] = useState(false);
+  const [mapAreaSqFt, setMapAreaSqFt] = useState<number | null>(null);
+  const [mapLinearFt, setMapLinearFt] = useState<number | null>(null);
   
   // Manual adjustment values
   const [manualLawnSqFt, setManualLawnSqFt] = useState<string>("");
@@ -134,6 +138,9 @@ export function IntelligentPropertyCalculator({
     setIsManualMode(false);
     setManualLawnSqFt("");
     setManualRoofLineFt("");
+    setMapMeasureOpen(false);
+    setMapAreaSqFt(null);
+    setMapLinearFt(null);
   };
 
   const handleClose = () => {
@@ -142,8 +149,16 @@ export function IntelligentPropertyCalculator({
   };
 
   const handleApply = () => {
-    const lawnSqFt = parseInt(manualLawnSqFt) || propertyData?.estimatedLawnSqFt || 0;
-    const roofLineFt = parseInt(manualRoofLineFt) || propertyData?.estimatedRoofLineFt || 0;
+    const lawnSqFt =
+      parseInt(manualLawnSqFt) ||
+      mapAreaSqFt ||
+      propertyData?.estimatedLawnSqFt ||
+      0;
+    const roofLineFt =
+      parseInt(manualRoofLineFt) ||
+      mapLinearFt ||
+      propertyData?.estimatedRoofLineFt ||
+      0;
     
     // Validate based on measurement type
     if (measurementType === 'both' || measurementType === 'area') {
@@ -176,7 +191,7 @@ export function IntelligentPropertyCalculator({
         <DialogHeader>
           <DialogTitle>Intelligent Property Calculator</DialogTitle>
           <DialogDescription>
-            Enter your Ada or Canyon County address and we'll automatically calculate your property measurements using official assessor data.
+            Enter your address and we'll estimate property measurements using county parcel lookup when available, plus intelligent calculations. You can always adjust manually for accuracy.
           </DialogDescription>
         </DialogHeader>
 
@@ -226,6 +241,16 @@ export function IntelligentPropertyCalculator({
                 {suggestion && (
                   <p className="text-sm mt-2 opacity-90">{suggestion}</p>
                 )}
+                <div className="mt-3">
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={() => setMapMeasureOpen(true)}
+                    data-testid="button-open-map-measurement"
+                  >
+                    Use Map Measurement Tool
+                  </Button>
+                </div>
               </AlertDescription>
             </Alert>
           )}
@@ -356,7 +381,7 @@ export function IntelligentPropertyCalculator({
                     ) : (
                       <div className="bg-primary/10 border border-primary/20 rounded-md p-3 flex items-center justify-between">
                         <span className="text-2xl font-bold text-primary" data-testid="text-auto-lawn-area">
-                          {propertyData.estimatedLawnSqFt?.toLocaleString() || "N/A"}
+                          {(mapAreaSqFt || propertyData.estimatedLawnSqFt)?.toLocaleString() || "N/A"}
                         </span>
                         <span className="text-sm text-muted-foreground">sq ft</span>
                       </div>
@@ -380,13 +405,28 @@ export function IntelligentPropertyCalculator({
                     ) : (
                       <div className="bg-primary/10 border border-primary/20 rounded-md p-3 flex items-center justify-between">
                         <span className="text-2xl font-bold text-primary" data-testid="text-auto-roof-line">
-                          {propertyData.estimatedRoofLineFt?.toLocaleString() || "N/A"}
+                          {(mapLinearFt || propertyData.estimatedRoofLineFt)?.toLocaleString() || "N/A"}
                         </span>
                         <span className="text-sm text-muted-foreground">linear ft</span>
                       </div>
                     )}
                   </div>
                 )}
+
+                <div className="pt-2">
+                  <Button
+                    type="button"
+                    variant="outline"
+                    className="w-full"
+                    onClick={() => setMapMeasureOpen(true)}
+                    data-testid="button-open-map-measurement-secondary"
+                  >
+                    Use Map Measurement Tool
+                  </Button>
+                  <p className="text-xs text-muted-foreground text-center mt-2">
+                    Draw your lawn area and/or roofline for the most accurate estimate.
+                  </p>
+                </div>
               </div>
             </div>
           )}
@@ -421,6 +461,21 @@ export function IntelligentPropertyCalculator({
           )}
         </div>
       </DialogContent>
+
+      <MapMeasureTool
+        isOpen={mapMeasureOpen}
+        onClose={() => setMapMeasureOpen(false)}
+        initialAddress={address}
+        measurementType={measurementType === "both" ? "both" : measurementType}
+        onMeasurementComplete={(sqft) => {
+          setMapAreaSqFt(sqft);
+          setManualLawnSqFt(String(sqft));
+        }}
+        onLinearMeasurementComplete={(feet) => {
+          setMapLinearFt(feet);
+          setManualRoofLineFt(String(feet));
+        }}
+      />
     </Dialog>
   );
 }

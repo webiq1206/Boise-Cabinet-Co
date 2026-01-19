@@ -5,6 +5,7 @@ import { useAuth } from "@/hooks/useAuth";
 import type { LeadPurchase, Lead } from "@shared/schema";
 import { Clock, DollarSign, MapPin, Phone, Mail, Building, ShoppingCart } from "lucide-react";
 import { useState } from "react";
+import { formatQuoteRangeWholeFromValue } from "@/lib/utils";
 
 export default function PurchaseHistory() {
   const { isAuthenticated } = useAuth();
@@ -193,8 +194,10 @@ export default function PurchaseHistory() {
                   <p className="text-sm font-medium mb-2">Service Details</p>
                   <div className="grid gap-1 text-sm">
                     <p>
-                      <span className="text-muted-foreground">Quote Value:</span>{" "}
-                      <span className="font-medium">{formatCurrency(lead.finalQuote)}</span>
+                      <span className="text-muted-foreground">Quote Range:</span>{" "}
+                      <span className="font-medium">
+                        {lead.finalQuote ? formatQuoteRangeWholeFromValue(lead.finalQuote, 0.15) : "Pending"}
+                      </span>
                     </p>
                     <p>
                       <span className="text-muted-foreground">Frequency:</span>{" "}

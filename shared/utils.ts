@@ -25,6 +25,17 @@ export function roundUpToNearest5(value: number): number {
 }
 
 /**
+ * Rounds a quote value DOWN to the nearest $5 or $0.
+ * Useful for the low-end of a displayed price range.
+ */
+export function roundDownToNearest5(value: number): number {
+  if (!value || value <= 0 || isNaN(value)) {
+    return 0;
+  }
+  return Math.floor(value / 5) * 5;
+}
+
+/**
  * Safely parses and formats a quote value, ensuring it meets rounding requirements
  * 
  * @param value - String or number to parse and format
@@ -42,6 +53,55 @@ export function parseAndRoundQuote(value: string | number | null | undefined): n
   }
   
   return roundUpToNearest5(numValue);
+}
+
+function parseQuoteNumber(value: string | number | null | undefined): number {
+  if (value === null || value === undefined || value === "") return 0;
+  const numValue = typeof value === "string" ? parseFloat(value) : value;
+  return Number.isFinite(numValue) && numValue > 0 ? numValue : 0;
+}
+
+/**
+ * Computes a displayed quote range around a point estimate.
+ *
+ * - `min` is rounded DOWN to nearest $5.
+ * - `max` is rounded UP to nearest $5.
+ */
+export function calculateQuoteRange(value: string | number | null | undefined, percent: number = 0.15): {
+  point: number;
+  min: number;
+  max: number;
+} {
+  const base = parseQuoteNumber(value);
+  const pct = Number.isFinite(percent) ? Math.min(0.5, Math.max(0, percent)) : 0.15;
+
+  if (base <= 0) {
+    return { point: 0, min: 0, max: 0 };
+  }
+
+  const point = roundUpToNearest5(base);
+  const rawMin = base * (1 - pct);
+  const rawMax = base * (1 + pct);
+  const min = roundDownToNearest5(rawMin);
+  const max = roundUpToNearest5(rawMax);
+
+  // Ensure ordering and a non-zero range.
+  if (max <= min) {
+    return { point, min: Math.max(0, min), max: Math.max(min + 5, max) };
+  }
+
+  return { point, min: Math.max(0, min), max: Math.max(0, max) };
+}
+
+export function formatQuoteRangeForDisplay(
+  value: string | number | null | undefined,
+  percent: number = 0.15,
+  showPending: boolean = false
+): string {
+  const { min, max } = calculateQuoteRange(value, percent);
+  if ((min === 0 || max === 0) && showPending) return "Pending";
+  if (min === 0 && max === 0) return "0";
+  return `${min.toLocaleString()} - ${max.toLocaleString()}`;
 }
 
 /**

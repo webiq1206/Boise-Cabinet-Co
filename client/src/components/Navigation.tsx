@@ -15,6 +15,7 @@ import logoUrlPng from "@assets/Lawn Care Kuna Logo_1763734387982.png";
 import logoUrlWebp from "@assets/Lawn Care Kuna Logo_400x100.webp";
 import { PRIORITY_SERVICES } from "@shared/contentData";
 import { SearchBar } from "@/components/SearchBar";
+import { NotificationsBell } from "@/components/NotificationsBell";
 
 // Menu grouping configuration - organizes all services into logical categories
 interface MenuGroup {
@@ -97,6 +98,7 @@ const commercialServices = [
 export function Navigation() {
   const [location] = useLocation();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const showAuthTools = location.startsWith("/admin") || location.startsWith("/subcontractor");
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/98 backdrop-blur supports-[backdrop-filter]:bg-background/95">
@@ -225,6 +227,7 @@ export function Navigation() {
           </NavigationMenu>
 
           <div className="flex items-center gap-3 border-l pl-8">
+            {showAuthTools && <NotificationsBell />}
             <Button 
               variant="ghost" 
               size="sm" 
@@ -248,6 +251,7 @@ export function Navigation() {
 
         {/* Mobile Navigation */}
         <div className="flex lg:hidden items-center gap-2">
+          {showAuthTools && <NotificationsBell />}
           <Button variant="ghost" size="icon" asChild data-testid="button-quote-mobile" aria-label="Get free quote">
             <Link href="/get-quote">
               <FileText className="h-4 w-4" />

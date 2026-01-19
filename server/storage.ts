@@ -223,6 +223,7 @@ export class MemStorage implements IStorage {
         agreementAccepted: false,
         agreementAcceptedAt: null,
         stripeCustomerId: null,
+        watchedLeads: [],
         isActive: true,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -241,6 +242,7 @@ export class MemStorage implements IStorage {
         agreementAccepted: true,
         agreementAcceptedAt: new Date(),
         stripeCustomerId: null,
+        watchedLeads: [],
         isActive: true,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -401,6 +403,7 @@ export class MemStorage implements IStorage {
       agreementAccepted: userData.agreementAccepted ?? false,
       agreementAcceptedAt: userData.agreementAcceptedAt ?? null,
       stripeCustomerId: userData.stripeCustomerId ?? null,
+      watchedLeads: (userData as any).watchedLeads ?? existing?.watchedLeads ?? [],
       isActive: userData.isActive ?? true,
       createdAt: existing?.createdAt || new Date(),
       updatedAt: new Date(),
@@ -453,6 +456,9 @@ export class MemStorage implements IStorage {
       lineItems: insertLead.lineItems ?? null,
       serviceData: insertLead.serviceData ?? null,
       message: insertLead.message ?? null,
+      notes: (insertLead as any).notes ?? null,
+      priority: (insertLead as any).priority ?? "normal",
+      tags: (insertLead as any).tags ?? [],
       baseLeadPrice,
       currentLeadPrice,
       status: insertLead.status ?? "pending_admin",
@@ -536,11 +542,15 @@ export class MemStorage implements IStorage {
         
         if (hoursSinceUpdate >= 24) {
           const currentPrice = parseFloat(lead.currentLeadPrice as string);
-          const reductionRate = parseFloat(lead.priceReductionRate as string) / 100;
-          const newPrice = currentPrice * (1 - reductionRate);
-          
-          const minPrice = parseFloat(lead.baseLeadPrice as string) * 0.5;
-          const finalPrice = Math.max(newPrice, minPrice);
+          const basePrice = parseFloat(lead.baseLeadPrice as string);
+          const ratePercent = Math.max(0, parseFloat((lead.priceReductionRate as any) || "1.50"));
+          const dailyFactor = Math.max(0, Math.min(1, 1 - ratePercent / 100));
+          const minPrice = basePrice * 0.2;
+          const daysSinceUpdate = Math.floor((now.getTime() - new Date(lead.lastPriceUpdate).getTime()) / oneDayMs);
+          const raw = currentPrice * Math.pow(dailyFactor, daysSinceUpdate);
+          const floored = Math.max(raw, minPrice);
+          const minRoundedFloor = Math.max(5, Math.ceil(minPrice / 5) * 5);
+          const finalPrice = Math.max(Math.floor(floored / 5) * 5, minRoundedFloor);
 
           await this.updateLead(lead.id, {
             currentLeadPrice: finalPrice.toFixed(2),
@@ -572,6 +582,8 @@ export class MemStorage implements IStorage {
       adminReviewedBy: adminUserId,
       adminReviewedAt: new Date(),
       adminDeclined: true,
+      // Start price decay clock when the lead becomes available
+      lastPriceUpdate: new Date(),
     });
   }
 
@@ -1165,11 +1177,15 @@ export class DBStorage implements IStorage {
         
         if (hoursSinceUpdate >= 24) {
           const currentPrice = parseFloat(lead.currentLeadPrice as string);
-          const reductionRate = parseFloat(lead.priceReductionRate as string) / 100;
-          const newPrice = currentPrice * (1 - reductionRate);
-          
-          const minPrice = parseFloat(lead.baseLeadPrice as string) * 0.5;
-          const finalPrice = Math.max(newPrice, minPrice);
+          const basePrice = parseFloat(lead.baseLeadPrice as string);
+          const ratePercent = Math.max(0, parseFloat((lead.priceReductionRate as any) || "1.50"));
+          const dailyFactor = Math.max(0, Math.min(1, 1 - ratePercent / 100));
+          const minPrice = basePrice * 0.2;
+          const daysSinceUpdate = Math.floor((now.getTime() - new Date(lead.lastPriceUpdate).getTime()) / (1000 * 60 * 60 * 24));
+          const raw = currentPrice * Math.pow(dailyFactor, daysSinceUpdate);
+          const floored = Math.max(raw, minPrice);
+          const minRoundedFloor = Math.max(5, Math.ceil(minPrice / 5) * 5);
+          const finalPrice = Math.max(Math.floor(floored / 5) * 5, minRoundedFloor);
 
           await db.update(leads).set({
             currentLeadPrice: finalPrice.toFixed(2),
@@ -1186,7 +1202,7 @@ export class DBStorage implements IStorage {
     if (!lead || lead.status !== "pending_admin") return undefined;
 
     return await this.updateLead(leadId, {
-      status: "available",
+      status: "accepted",
       adminReviewedBy: adminUserId,
       adminReviewedAt: new Date(),
       adminDeclined: false,
@@ -1202,6 +1218,8 @@ export class DBStorage implements IStorage {
       adminReviewedBy: adminUserId,
       adminReviewedAt: new Date(),
       adminDeclined: true,
+      // Start price decay clock when the lead becomes available
+      lastPriceUpdate: new Date(),
     });
   }
 
@@ -1271,5 +1289,5 @@ export class DBStorage implements IStorage {
   }
 }
 
-// Export DBStorage instance for persistent database storage
-export const storage: IStorage = new DBStorage();
+// Prefer database storage when configured; otherwise use in-memory storage (dev-only convenience).
+export const storage: IStorage = process.env.DATABASE_URL ? new DBStorage() : new MemStorage();

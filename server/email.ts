@@ -1,7 +1,7 @@
 import { getUncachableResendClient } from './resend';
-import { formatQuoteForDisplay } from '../shared/utils';
+import { formatQuoteForDisplay, calculateQuoteRange } from '../shared/utils';
 import { SERVICE_FIELD_CONFIGS } from '../shared/serviceFieldConfig';
-import { SERVICE_RATES, SERVICE_PRICING_CONFIG } from './services/pricing';
+import { SERVICE_PRICING_CONFIG } from './services/pricing';
 
 interface LineItem {
   service: string;
@@ -13,6 +13,14 @@ interface LineItem {
 }
 
 function formatRateDisplay(serviceId: string): string {
+  // Model-based display for tiered/minimum services
+  if (serviceId === 'sprinkler-blowout') {
+    return '$65 up to 6 zones + $5/extra zone';
+  }
+  if (serviceId === 'lawn-mowing') {
+    return '$35 trip + $0.003/sq ft';
+  }
+
   const config = SERVICE_PRICING_CONFIG[serviceId as keyof typeof SERVICE_PRICING_CONFIG];
   if (!config) return '';
   
@@ -35,6 +43,7 @@ function formatRateDisplay(serviceId: string): string {
 }
 
 interface QuoteEmailData {
+  quoteId: string;
   customerName: string;
   customerEmail: string;
   customerPhone?: string;
@@ -46,6 +55,8 @@ interface QuoteEmailData {
   frequency?: string;
   selectedServices?: string[];
   finalQuote?: number;
+  finalQuoteMin?: number;
+  finalQuoteMax?: number;
   preferredDate?: string;
   lineItems?: LineItem[];
   serviceData?: any;
@@ -221,9 +232,9 @@ const emailStyles = `
 const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
 // Create mapping from service name to slug
-const SERVICE_NAME_TO_SLUG: Record<string, string> = Object.entries(SERVICE_RATES).reduce(
-  (acc, [slug, data]) => {
-    acc[data.name] = slug;
+const SERVICE_NAME_TO_SLUG: Record<string, string> = SERVICE_FIELD_CONFIGS.reduce(
+  (acc, cfg) => {
+    acc[cfg.serviceName] = cfg.serviceId;
     return acc;
   },
   {} as Record<string, string>
@@ -341,6 +352,7 @@ function generateLineItemsHtml(lineItems: LineItem[] | undefined, showMeasuremen
 
 export async function sendQuoteNotification(data: QuoteEmailData) {
   const {
+    quoteId,
     customerName,
     customerEmail,
     customerPhone,
@@ -352,6 +364,8 @@ export async function sendQuoteNotification(data: QuoteEmailData) {
     frequency,
     selectedServices,
     finalQuote,
+    finalQuoteMin,
+    finalQuoteMax,
     preferredDate,
   } = data;
 
@@ -415,6 +429,17 @@ export async function sendQuoteNotification(data: QuoteEmailData) {
     })() : '';
 
     // Email to business owner
+    const quoteDisplay = (() => {
+      if (typeof finalQuoteMin === "number" && typeof finalQuoteMax === "number" && finalQuoteMin > 0 && finalQuoteMax > 0) {
+        return `$${finalQuoteMin.toLocaleString()} - $${finalQuoteMax.toLocaleString()}`;
+      }
+      if (typeof finalQuote === "number" && Number.isFinite(finalQuote) && finalQuote > 0) {
+        const { min, max } = calculateQuoteRange(finalQuote, 0.15);
+        return `$${min.toLocaleString()} - $${max.toLocaleString()}`;
+      }
+      return "Pending Property Assessment";
+    })();
+
     const ownerEmailHtml = `
       <!DOCTYPE html>
       <html lang="en">
@@ -525,9 +550,9 @@ export async function sendQuoteNotification(data: QuoteEmailData) {
               <h2 class="section-title">Total Estimated Quote</h2>
               <table class="info-table">
                 <tr>
-                  <td class="label">${finalQuote ? 'AI-Generated Quote:' : 'Quote Status:'}</td>
+                  <td class="label">${finalQuote ? 'Estimated Range:' : 'Quote Status:'}</td>
                   <td class="value" style="font-size: 24px; font-weight: 700; color: #166534;">
-                    ${finalQuote ? `$${formatQuoteForDisplay(finalQuote)}` : 'Pending Property Assessment'}
+                    ${quoteDisplay}
                   </td>
                 </tr>
               </table>
@@ -640,25 +665,35 @@ export async function sendQuoteNotification(data: QuoteEmailData) {
               <h2 class="section-title">Total Estimated Investment</h2>
               <table class="info-table">
                 <tr>
-                  <td class="label">${finalQuote ? 'Estimated Total:' : 'Quote Status:'}</td>
+                  <td class="label">${finalQuote ? 'Estimated Range:' : 'Quote Status:'}</td>
                   <td class="value" style="font-size: 24px; font-weight: 700; color: #166534;">
-                    ${finalQuote ? `$${formatQuoteForDisplay(finalQuote)}` : 'Pending Property Assessment'}
+                    ${quoteDisplay}
                   </td>
                 </tr>
               </table>
             </div>
             <div style="background: #fffbeb; border-left: 4px solid #f59e0b; padding: 20px; margin: 25px 0; border-radius: 4px;">
               <p style="margin: 0;"><strong>About Your Estimate:</strong> ${finalQuote 
-                ? 'This is an AI-generated estimate based on typical projects. Your final quote will be customized after we assess your property\'s unique characteristics and your specific preferences.'
+                ? 'This is an estimated price range. Your final quote will be customized after we assess your property\'s unique characteristics and the full scope of work.'
                 : 'Your personalized quote will be provided after our team completes a property assessment. We\'ll contact you within 24 hours with detailed pricing based on your property\'s unique characteristics and your specific preferences.'
               }</p>
             </div>
 
             <div class="divider"></div>
 
+            <div class="section">
+              <h2 class="section-title">Track Your Quote</h2>
+              <p style="color: #4b5563; margin: 0 0 15px 0;">You can check the status of your quote anytime using the link below:</p>
+              <div style="text-align: center; margin: 20px 0;">
+                <a href="https://lawncarekuna.com/quote-status/${quoteId}" class="cta-button">View Quote Status →</a>
+              </div>
+            </div>
+
+            <div class="divider"></div>
+
             <div style="text-align: center; margin: 30px 0;">
               <p style="color: #4b5563; margin: 0 0 10px 0;"><strong>Have questions?</strong></p>
-              <p style="color: #6b7280; font-size: 14px; margin: 0;">You can reply to this email or give us a call anytime.</p>
+              <p style="color: #6b7280; font-size: 14px; margin: 0;">You can reply to this email or call us at <a href="tel:+12083522011" style="color: #166534; text-decoration: none;">(208) 352-2011</a></p>
             </div>
           </div>
 
@@ -666,7 +701,7 @@ export async function sendQuoteNotification(data: QuoteEmailData) {
             <p class="footer-brand">Lawn Care Kuna</p>
             <p class="footer-tagline">Kuna, Idaho's Most Trusted Lawn Care & Landscaping Service</p>
             <p class="footer-contact">Email: <a href="mailto:${fromEmail}">${fromEmail}</a></p>
-            <p class="footer-contact">Phone: (208) 352-2011</p>
+            <p class="footer-contact">Phone: <a href="tel:+12083522011">(208) 352-2011</a></p>
             <p class="footer-contact">Address: 2283 N Coopers Hawk Ave, Kuna, ID 83634</p>
             <p class="footer-contact">Web: <a href="https://lawncarekuna.com">www.lawncarekuna.com</a></p>
             <p style="font-size: 12px; color: #9ca3af; margin: 15px 0 0 0;">Serving Kuna, Boise, Meridian, Nampa, Caldwell, Eagle, Star & Middleton</p>

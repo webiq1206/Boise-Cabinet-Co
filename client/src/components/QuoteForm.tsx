@@ -33,6 +33,8 @@ import { AddressAutocomplete } from "@/components/AddressAutocomplete";
 import { normalizePropertySize, useDebounce, getQuoteCacheKey, aiQuoteCache } from "@/lib/quoteUtils";
 import { config } from "@/lib/config";
 import { Skeleton } from "@/components/ui/skeleton";
+import { calculateQuoteRange } from "@shared/utils";
+import { formatCurrencyRangeWhole } from "@/lib/utils";
 
 interface QuoteFormProps {
   className?: string;
@@ -44,6 +46,8 @@ interface QuoteFormProps {
 
 interface AiQuoteResult {
   total: number;
+  min: number;
+  max: number;
   complexity: number;
   lineItems: Array<{
     service: string;
@@ -204,8 +208,16 @@ export function QuoteForm({ className, compact = false, preselectedService, pres
       console.log("[AI Quote] Received API response:", data);
       
       // Map API response to expected AiQuoteResult structure
+      const total = data.finalQuote || 0;
+      const rangeFromApi =
+        typeof data.finalQuoteMin === "number" && typeof data.finalQuoteMax === "number"
+          ? { min: data.finalQuoteMin, max: data.finalQuoteMax }
+          : calculateQuoteRange(total, 0.15);
+
       const mappedQuote: AiQuoteResult = {
-        total: data.finalQuote || 0,
+        total,
+        min: rangeFromApi.min,
+        max: rangeFromApi.max,
         complexity: data.complexityScore || 1.0,
         lineItems: data.lineItems || [],
         aiAnalysis: data.aiAnalysis,
@@ -291,7 +303,8 @@ export function QuoteForm({ className, compact = false, preselectedService, pres
     submitQuoteMutation.mutate(data);
   };
 
-  const handleMeasurementComplete = (sqft: number) => {
+  const handleMeasurementComplete = (measurements: { lawnSqFt: number }) => {
+    const sqft = measurements.lawnSqFt;
     form.setValue("propertySize", `${sqft.toLocaleString()} sq ft`);
     setIsMapOpen(false);
     toast({
@@ -603,7 +616,7 @@ export function QuoteForm({ className, compact = false, preselectedService, pres
                           )}
                         </div>
                         <p className="text-2xl font-bold text-primary" data-testid="text-ai-quote-total">
-                          ${aiQuote.total.toLocaleString()}
+                          {formatCurrencyRangeWhole(aiQuote.min, aiQuote.max)}
                         </p>
                       </div>
                       {aiQuote.complexity && !aiQuote.fallbackUsed && (

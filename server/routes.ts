@@ -1,8 +1,8 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { quoteSubmissionSchema, type InsertQuote, type InsertLead } from "@shared/schema";
-import { calculateIntelligentQuote, SERVICE_RATES } from "./services/pricing";
+import { quoteSubmissionSchema, type InsertQuote, type InsertLead, type Lead } from "@shared/schema";
+import { calculateIntelligentQuote, SERVICE_PRICING_CONFIG } from "./services/pricing";
 import { sendQuoteNotification } from "./email";
 import { z } from "zod";
 import { quoteCacheMiddleware } from "./middleware/quoteCache";
@@ -10,11 +10,11 @@ import { quoteCalculationRateLimit } from "./middleware/rateLimit";
 import { PRIORITY_SERVICES, CITIES } from "@shared/contentData";
 import { sendNewLeadNotification, sendLeadPurchasedNotification, sendLeadPurchaseConfirmation } from "./services/emailNotifications";
 import { setupAuth, isAuthenticated, requireRole } from "./replitAuth";
-import { parseAndRoundQuote, normalizeLineItemsForEmail } from "@shared/utils";
+import { parseAndRoundQuote, normalizeLineItemsForEmail, calculateQuoteRange } from "@shared/utils";
 
 // Create service name and description maps for email normalization
-const SERVICE_NAME_MAP: Record<string, string> = Object.entries(SERVICE_RATES).reduce(
-  (acc, [id, data]) => {
+const SERVICE_NAME_MAP: Record<string, string> = Object.entries(SERVICE_PRICING_CONFIG).reduce(
+  (acc, [id, data]: any) => {
     acc[id] = data.name;
     return acc;
   },
@@ -112,6 +112,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           propertyType: validatedData.propertyType || "residential",
           city: validatedData.city,
           address: validatedData.address,
+          frequency: validatedData.frequency || "one-time",
         });
         
         res.json({
@@ -143,29 +144,43 @@ export async function registerRoutes(app: Express): Promise<Server> {
         // AI failed - use deterministic fallback pricing
         console.error("AI pricing failed, using fallback:", aiError);
         
-        const { SERVICE_RATES, PROPERTY_MULTIPLIERS, FREQUENCY_DISCOUNTS, PROFIT_MARGIN } = await import("./services/pricing");
+        const { SERVICE_PRICING_CONFIG, PROPERTY_MULTIPLIERS, FREQUENCY_DISCOUNTS, GROSS_MARGIN } = await import("./services/pricing");
+
+        const roundUpToNearest5 = (value: number) => Math.ceil(value / 5) * 5;
         
         // Helper to calculate base cost per service with correct unit handling
         const calculateServiceBase = (serviceId: string, propertySize: number) => {
-          const service = SERVICE_RATES[serviceId as keyof typeof SERVICE_RATES];
-          if (!service) return 0;
-          
-          if (service.unit === "project") {
-            // Project-based: use baseRate directly
-            return service.baseRate;
-          } else if (service.unit === "linear_ft") {
-            // Estimate perimeter: sqrt(sqft) * 4 * 0.6 for typical property shape
-            const estimatedPerimeter = Math.sqrt(propertySize) * 4 * 0.6;
-            return estimatedPerimeter * service.baseRate;
-          } else {
-            // Square footage: standard calculation
-            return propertySize * service.baseRate;
+          const cfg: any = SERVICE_PRICING_CONFIG[serviceId as keyof typeof SERVICE_PRICING_CONFIG];
+          if (!cfg) return 0;
+
+          // Special models
+          if (serviceId === "lawn-mowing") {
+            return 35 + propertySize * 0.003;
           }
+          if (serviceId === "sprinkler-blowout") {
+            const zones = 6;
+            const extraZones = Math.max(0, zones - 6);
+            return 65 + extraZones * 5;
+          }
+
+          if (cfg.unit === "base_service" || cfg.unit === "base_project") return cfg.rate;
+          if (cfg.unit === "sqft") return propertySize * cfg.rate;
+          if (cfg.unit === "linear_ft") {
+            const estimatedPerimeter = Math.sqrt(propertySize) * 4 * 0.6;
+            return estimatedPerimeter * cfg.rate;
+          }
+          if (cfg.unit === "per_zone") return 6 * cfg.rate;
+          if (cfg.unit === "per_tree") return 1 * cfg.rate;
+          if (cfg.unit === "per_fixture") return 10 * cfg.rate;
+          if (cfg.unit === "per_stump") return 1 * cfg.rate;
+          if (cfg.unit === "per_sqft") return propertySize * cfg.rate;
+
+          return 0;
         };
         
         // Calculate main service
         let baseCost = calculateServiceBase(dataWithDefaults.serviceType, dataWithDefaults.propertySize);
-        const mainService = SERVICE_RATES[dataWithDefaults.serviceType as keyof typeof SERVICE_RATES];
+        const mainService: any = SERVICE_PRICING_CONFIG[dataWithDefaults.serviceType as keyof typeof SERVICE_PRICING_CONFIG];
         
         const lineItems = [
           {
@@ -184,7 +199,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
             
             lineItems.push({
               service: serviceId,
-              description: SERVICE_RATES[serviceId as keyof typeof SERVICE_RATES]?.name || serviceId,
+              description: SERVICE_PRICING_CONFIG[serviceId as keyof typeof SERVICE_PRICING_CONFIG]?.name || serviceId,
               basePrice: serviceBase,
               adjustedPrice: serviceBase,
             });
@@ -199,27 +214,33 @@ export async function registerRoutes(app: Express): Promise<Server> {
         const complexityScore = 1.2;
         const adjustedCost = baseCost * complexityScore;
         
-        // Update line items with multipliers
-        lineItems.forEach(item => {
-          item.adjustedPrice = item.basePrice * propertyMultiplier * complexityScore;
-        });
-        
         // Apply frequency discount
         const discount = FREQUENCY_DISCOUNTS[dataWithDefaults.frequency as keyof typeof FREQUENCY_DISCOUNTS] || 0;
         const afterDiscount = adjustedCost * (1 - discount);
-        
-        // Add profit margin (45%)
-        const finalQuote = afterDiscount * (1 + PROFIT_MARGIN);
+
+        // Compute final, customer-facing line item prices (gross margin + rounding)
+        lineItems.forEach(item => {
+          const lineCost = item.basePrice * propertyMultiplier * complexityScore * (1 - discount);
+          const linePrice = lineCost / (1 - GROSS_MARGIN);
+          item.adjustedPrice = roundUpToNearest5(linePrice);
+        });
+
+        // Ensure total matches itemized prices
+        const finalQuote = lineItems.reduce((sum, item) => sum + item.adjustedPrice, 0);
+        const rangePct = Math.max(0.1, Math.min(0.2, 0.1 + (complexityScore - 1) * 0.1));
+        const { min: finalQuoteMin, max: finalQuoteMax } = calculateQuoteRange(finalQuote, rangePct);
         
         // Return fallback quote with proper margins
         res.json({
-          baseCost: Math.round(baseCost * 100) / 100,
-          adjustedCost: Math.round(adjustedCost * 100) / 100,
-          finalQuote: Math.round(finalQuote * 100) / 100,
+          baseCost: roundUpToNearest5(baseCost),
+          adjustedCost: roundUpToNearest5(adjustedCost),
+          finalQuote,
+          finalQuoteMin,
+          finalQuoteMax,
           lineItems: lineItems.map(item => ({
             ...item,
-            basePrice: Math.round(item.basePrice * 100) / 100,
-            adjustedPrice: Math.round(item.adjustedPrice * 100) / 100,
+            basePrice: roundUpToNearest5(item.basePrice),
+            adjustedPrice: roundUpToNearest5(item.adjustedPrice),
           })),
           aiAnalysis: {
             terrainDifficulty: "flat",
@@ -232,10 +253,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
           },
           complexityScore: 1.2,
           breakdown: {
-            laborCost: Math.round(afterDiscount * 0.35 * 100) / 100,
-            materialsCost: Math.round(afterDiscount * 0.15 * 100) / 100,
-            overhead: Math.round(afterDiscount * 0.20 * 100) / 100,
-            profit: Math.round((finalQuote - afterDiscount) * 100) / 100,
+            laborCost: roundUpToNearest5(afterDiscount * 0.35),
+            materialsCost: roundUpToNearest5(afterDiscount * 0.15),
+            overhead: roundUpToNearest5(afterDiscount * 0.20),
+            profit: roundUpToNearest5(finalQuote - afterDiscount),
           },
           success: true,
           aiFallback: true,
@@ -300,6 +321,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         // Service details
         frequency: validatedData.frequency || null,
         selectedServices: validatedData.selectedServices || null,
+        serviceData: validatedData.serviceData || null,
         
         // AI analysis (stored as JSONB)
         aiAnalysis: validatedData.aiAnalysis || null,
@@ -361,9 +383,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const quote = await storage.createQuote(quoteData);
       
       // Create corresponding lead for admin dashboard
-      // Calculate lead price as 10% of final quote (or minimum $10)
+      // Calculate lead price using consistent pricing logic
+      const { calculateLeadPrice } = await import("./services/leadPricing");
       const finalQuoteNum = quote.finalQuote ? parseFloat(quote.finalQuote) : 0;
-      const baseLeadPrice = Math.max(10, finalQuoteNum * 0.10).toFixed(2);
+      const { basePrice, currentPrice } = calculateLeadPrice({
+        finalQuote: finalQuoteNum,
+        frequency: quote.frequency || "one-time",
+        serviceType: quote.serviceType,
+      });
+      const baseLeadPrice = basePrice.toFixed(2);
+      const currentLeadPrice = currentPrice.toFixed(2);
       
       // Safely normalize selectedServices - must always be string[] for Lead schema
       let parsedSelectedServices: string[] = [];
@@ -433,11 +462,27 @@ export async function registerRoutes(app: Express): Promise<Server> {
         serviceData: parsedServiceData as any,
         message: quote.message,
         baseLeadPrice,
-        currentLeadPrice: baseLeadPrice,
+        currentLeadPrice,
         status: "pending_admin",
       };
       
-      await storage.createLead(leadData);
+      const lead = await storage.createLead(leadData);
+      
+      // Create admin notifications (in-app)
+      try {
+        const admins = await storage.getAllAdmins();
+        for (const admin of admins) {
+          await storage.createNotification({
+            userId: admin.id,
+            type: "admin_new_quote",
+            title: "New Quote Submitted",
+            message: `New ${lead.serviceType} lead in ${lead.city}: ${lead.name}`,
+            leadId: lead.id,
+          });
+        }
+      } catch (notifyError) {
+        console.error("Failed to create admin notifications for new lead:", notifyError);
+      }
       
       // Log quote submission
       console.log("New AI-generated quote submission:", {
@@ -453,11 +498,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
       });
       
       // Send email notification (async - don't block response)
-      // Normalize line items for email templates
-      const rawLineItems = quote.lineItems ? JSON.parse(quote.lineItems as string) : [];
-      const normalizedLineItems = normalizeLineItemsForEmail(rawLineItems, SERVICE_NAME_MAP, SERVICE_DATA_MAP);
+      // Use stored (already-normalized) line items; avoid unsafe JSON.parse on JSONB
+      const normalizedLineItems = Array.isArray(parsedLineItems)
+        ? parsedLineItems
+        : normalizeLineItemsForEmail([], SERVICE_NAME_MAP, SERVICE_DATA_MAP);
       
       sendQuoteNotification({
+        quoteId: quote.id,
         customerName: quote.name,
         customerEmail: quote.email,
         customerPhone: quote.phone || undefined,
@@ -467,11 +514,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
         propertyType: quote.propertyType,
         serviceType: quote.serviceType,
         frequency: quote.frequency || undefined,
-        selectedServices: quote.selectedServices || undefined,
+        selectedServices: parsedSelectedServices,
         finalQuote: quote.finalQuote ? parseFloat(quote.finalQuote) : undefined,
         preferredDate: quote.scheduledDate ? quote.scheduledDate.toISOString().split('T')[0] : undefined,
         lineItems: normalizedLineItems,
-        serviceData: quote.serviceData ? JSON.parse(quote.serviceData as string) : undefined,
+        serviceData: parsedServiceData || undefined,
       }).catch(err => {
         console.error('Failed to send quote notification email:', err);
         // Don't fail the request if email fails
@@ -514,6 +561,69 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.status(500).json({
         success: false,
         message: "Failed to fetch quotes",
+      });
+    }
+  });
+
+  // Get quote status for customer tracking (maps internal status to customer-facing status)
+  app.get("/api/quotes/:id/status", async (req, res) => {
+    try {
+      const quote = await storage.getQuoteById(req.params.id);
+      if (!quote) {
+        return res.status(404).json({ error: "Quote not found" });
+      }
+
+      // Get associated lead if it exists
+      const allLeads = await storage.getAllLeads();
+      const lead = allLeads.find(l => l.quoteId === quote.id);
+
+      // Map internal status to customer-facing status
+      let customerStatus: 'received' | 'under_review' | 'contact_soon' | 'quote_ready' = 'received';
+      let statusMessage = "We've received your quote request and it's been added to our queue.";
+
+      if (lead) {
+        if (lead.status === 'pending_admin') {
+          customerStatus = 'under_review';
+          statusMessage = "Our team is currently reviewing your quote request and preparing a customized estimate for your property.";
+        } else if (lead.status === 'available') {
+          customerStatus = 'under_review';
+          statusMessage = "Your quote is being reviewed and will be made available to our network of qualified contractors.";
+        } else if (lead.status === 'accepted' || lead.status === 'purchased') {
+          customerStatus = 'contact_soon';
+          statusMessage = "Your quote is being finalized and we'll be reaching out to you shortly to discuss the details and answer any questions.";
+        }
+      } else if (quote.status === 'accepted') {
+        customerStatus = 'quote_ready';
+        statusMessage = "Your personalized quote is ready! We'll be contacting you soon to discuss the details and schedule your service.";
+      }
+
+      res.json({
+        quoteId: quote.id,
+        status: customerStatus,
+        message: statusMessage,
+        quote: {
+          name: quote.name,
+          serviceType: quote.serviceType,
+          city: quote.city,
+          finalQuote: quote.finalQuote,
+          ...(quote.finalQuote
+            ? (() => {
+                const { min, max } = calculateQuoteRange(quote.finalQuote, 0.15);
+                return { finalQuoteMin: String(min), finalQuoteMax: String(max) };
+              })()
+            : {}),
+          createdAt: quote.createdAt,
+        },
+        lead: lead ? {
+          status: lead.status,
+          createdAt: lead.createdAt,
+        } : null,
+      });
+    } catch (error) {
+      console.error("Error fetching quote status:", error);
+      res.status(500).json({
+        success: false,
+        message: "Failed to fetch quote status",
       });
     }
   });
@@ -667,9 +777,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
         // Determine if contact info should be revealed based on authenticated user
         const isAdmin = requestingUser?.role === "admin";
         const isPurchaser = lead.status === "purchased" && lead.purchasedBy === userId;
-        const isAcceptedByAdmin = lead.status === "accepted" && isAdmin;
         
-        const shouldRevealContactInfo = isPurchaser || isAcceptedByAdmin;
+        // Admins should ALWAYS see full contact info, regardless of lead status
+        const shouldRevealContactInfo = isAdmin || isPurchaser;
         
         if (shouldRevealContactInfo) {
           return lead; // Return full lead data
@@ -711,9 +821,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Privacy protection: mask contact info unless user has proper access
       const isAdmin = requestingUser.role === "admin";
       const isPurchaser = lead.status === "purchased" && lead.purchasedBy === userId;
-      const isAcceptedByAdmin = lead.status === "accepted" && isAdmin;
       
-      const shouldRevealContactInfo = isPurchaser || isAcceptedByAdmin;
+      // Admins should ALWAYS see full contact info, regardless of lead status
+      const shouldRevealContactInfo = isAdmin || isPurchaser;
       
       if (!shouldRevealContactInfo) {
         // Keep city visible (general location) but hide exact street address
@@ -733,6 +843,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Update lead - requires admin role
+  app.patch("/api/leads/:id", isAuthenticated, requireRole(["admin"]), async (req: any, res) => {
+    try {
+      const lead = await storage.updateLead(req.params.id, req.body);
+      if (!lead) {
+        return res.status(404).json({ error: "Lead not found" });
+      }
+      res.json(lead);
+    } catch (error) {
+      console.error("Error updating lead:", error);
+      res.status(500).json({ error: "Failed to update lead" });
+    }
+  });
+
   // Admin accepts a lead (takes ownership) - requires admin role
   app.post("/api/leads/:id/accept", isAuthenticated, requireRole(["admin"]), async (req: any, res) => {
     try {
@@ -741,6 +865,23 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const lead = await storage.acceptLead(req.params.id, userId);
       if (!lead) {
         return res.status(404).json({ error: "Lead not found" });
+      }
+      
+      // Send customer status update email
+      if (lead.quoteId) {
+        try {
+          const quote = await storage.getQuoteById(lead.quoteId);
+          if (quote) {
+            const { sendCustomerStatusUpdate } = await import("./services/emailNotifications");
+            await sendCustomerStatusUpdate(quote.email, quote.id, {
+              status: 'contact_soon',
+              message: "Your quote has been reviewed and we'll be contacting you shortly to discuss the details.",
+            });
+          }
+        } catch (emailError) {
+          console.error("Failed to send customer status update email:", emailError);
+          // Don't fail the request if email fails
+        }
       }
       
       res.json(lead);
@@ -772,10 +913,116 @@ export async function registerRoutes(app: Express): Promise<Server> {
         });
       }
       
+      // Send email notification to all subcontractors
+      try {
+        const { sendContractorNewLeadAvailable } = await import("./services/emailNotifications");
+        // Fire-and-forget to avoid request timeouts when many subcontractors exist
+        void (async () => {
+          for (const sub of subcontractors) {
+            if (sub.email) {
+              await sendContractorNewLeadAvailable(sub.email, {
+                id: lead.id,
+                name: lead.name,
+                email: lead.email,
+                phone: lead.phone || "",
+                city: lead.city,
+                serviceType: lead.serviceType,
+                finalQuote: lead.finalQuote || "0",
+                address: lead.address || undefined,
+                currentLeadPrice: lead.currentLeadPrice,
+              });
+              // Space out emails to avoid rate limits
+              await new Promise(resolve => setTimeout(resolve, 2000));
+            }
+          }
+        })().catch((emailErr) => {
+          console.error("Async contractor email notifications failed:", emailErr);
+        });
+      } catch (emailError) {
+        console.error("Failed to send contractor email notifications:", emailError);
+        // Don't fail the request if email fails
+      }
+      
+      // Send customer status update email
+      if (lead.quoteId) {
+        try {
+          const quote = await storage.getQuoteById(lead.quoteId);
+          if (quote) {
+            const { sendCustomerStatusUpdate } = await import("./services/emailNotifications");
+            await sendCustomerStatusUpdate(quote.email, quote.id, {
+              status: 'under_review',
+              message: "Your quote is being reviewed and will be made available to our network of qualified contractors.",
+            });
+          }
+        } catch (emailError) {
+          console.error("Failed to send customer status update email:", emailError);
+          // Don't fail the request if email fails
+        }
+      }
+      
       res.json(lead);
     } catch (error) {
       console.error("Error declining lead:", error);
       res.status(400).json({ error: error instanceof Error ? error.message : "Failed to decline lead" });
+    }
+  });
+
+  // Add note to lead - requires admin role
+  app.post("/api/leads/:id/notes", isAuthenticated, requireRole(["admin"]), async (req: any, res) => {
+    try {
+      const userId = req.user.claims.sub;
+      const { note } = req.body;
+      
+      if (!note || typeof note !== 'string' || note.trim().length === 0) {
+        return res.status(400).json({ error: "Note text is required" });
+      }
+      
+      const lead = await storage.getLeadById(req.params.id);
+      if (!lead) {
+        return res.status(404).json({ error: "Lead not found" });
+      }
+      
+      // Get user info for note
+      const user = await storage.getUser(userId);
+      const userName =
+        user
+          ? `${user.firstName || ""} ${user.lastName || ""}`.trim() || user.email || "Unknown"
+          : "Unknown";
+      
+      // Parse existing notes or create new array
+      let notes: Array<{text: string; addedBy: string; addedAt: string}> = [];
+      if (lead.notes) {
+        if (typeof lead.notes === 'string') {
+          try {
+            notes = JSON.parse(lead.notes);
+          } catch (e) {
+            notes = [];
+          }
+        } else if (Array.isArray(lead.notes)) {
+          notes = lead.notes as any;
+        }
+      }
+      
+      // Add new note
+      notes.push({
+        text: note.trim(),
+        addedBy: userName,
+        addedAt: new Date().toISOString(),
+      });
+      
+      // Update lead with new notes
+      const updated = await storage.updateLead(lead.id, {
+        notes: notes as any,
+      });
+      
+      if (!updated) {
+        return res.status(500).json({ error: "Failed to update lead" });
+      }
+      
+      res.json(updated);
+    } catch (error) {
+      console.error("Error adding note:", error);
+      res.status(400).json({ error: error instanceof Error ? error.message : "Failed to add note" });
     }
   });
 
@@ -823,13 +1070,30 @@ export async function registerRoutes(app: Express): Promise<Server> {
       });
       
       // Update lead status
-      await storage.updateLead(lead.id, {
+      const updatedLead = await storage.updateLead(lead.id, {
         status: "purchased",
         purchasedBy: userId,
         purchasedAt: new Date(),
         purchasePrice: lead.currentLeadPrice,
         stripePaymentIntentId: paymentIntentId,
       });
+      
+      // Send customer status update email
+      if (updatedLead && updatedLead.quoteId) {
+        try {
+          const quote = await storage.getQuoteById(updatedLead.quoteId);
+          if (quote) {
+            const { sendCustomerStatusUpdate } = await import("./services/emailNotifications");
+            await sendCustomerStatusUpdate(quote.email, quote.id, {
+              status: 'contact_soon',
+              message: "A qualified contractor has been assigned to your project and will be contacting you soon.",
+            });
+          }
+        } catch (emailError) {
+          console.error("Failed to send customer status update email:", emailError);
+          // Don't fail the request if email fails
+        }
+      }
       
       // Notify admin
       const admins = await storage.getAllAdmins();
@@ -883,7 +1147,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
         // Don't fail the request if email fails
       }
       
-      res.json({ success: true, purchase, lead });
+      // Return the updated lead (now purchased) so the UI can immediately reveal contact info.
+      res.json({ success: true, purchase, lead: updatedLead ?? lead });
     } catch (error) {
       console.error("Error purchasing lead:", error);
       res.status(400).json({ error: error instanceof Error ? error.message : "Failed to purchase lead" });
@@ -926,16 +1191,193 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Mark notification as read - requires authentication
-  app.post("/api/notifications/:id/mark-read", isAuthenticated, async (req, res) => {
+  app.post("/api/notifications/:id/mark-read", isAuthenticated, async (req: any, res) => {
     try {
-      const notification = await storage.markNotificationAsRead(req.params.id);
-      if (!notification) {
+      const userId = req.user.claims.sub;
+      const notificationId = req.params.id;
+
+      // Authorization: users may only mark their own notifications as read.
+      // Storage layer updates by ID only, so we enforce ownership here.
+      const notifications = await storage.getNotificationsByUserId(userId);
+      const ownsNotification = notifications.some((n) => n.id === notificationId);
+      if (!ownsNotification) {
         return res.status(404).json({ error: "Notification not found" });
       }
-      res.json(notification);
+
+      const updated = await storage.markNotificationAsRead(notificationId);
+      if (!updated) {
+        return res.status(404).json({ error: "Notification not found" });
+      }
+
+      res.json(updated);
     } catch (error) {
       console.error("Error marking notification as read:", error);
       res.status(500).json({ error: "Failed to mark notification as read" });
+    }
+  });
+
+  // Watch/unwatch a lead - requires subcontractor role
+  app.post("/api/leads/:id/watch", isAuthenticated, requireRole(["subcontractor"]), async (req: any, res) => {
+    try {
+      const userId = req.user.claims.sub;
+      const user = await storage.getUser(userId);
+      if (!user) {
+        return res.status(404).json({ error: "User not found" });
+      }
+
+      const lead = await storage.getLeadById(req.params.id);
+      if (!lead) {
+        return res.status(404).json({ error: "Lead not found" });
+      }
+
+      if (lead.status !== "available") {
+        return res.status(400).json({ error: "Only available leads can be watched" });
+      }
+
+      // Parse watched leads
+      let watchedLeads: string[] = [];
+      if (user.watchedLeads) {
+        if (Array.isArray(user.watchedLeads)) {
+          watchedLeads = user.watchedLeads;
+        } else if (typeof user.watchedLeads === 'string') {
+          try {
+            watchedLeads = JSON.parse(user.watchedLeads);
+          } catch {
+            watchedLeads = [];
+          }
+        }
+      }
+
+      // Add lead ID if not already watched
+      if (!watchedLeads.includes(lead.id)) {
+        watchedLeads.push(lead.id);
+        
+        // Update user
+        await storage.updateUser(userId, {
+          watchedLeads: watchedLeads as any,
+        });
+
+        res.json({ success: true, watched: true, leadId: lead.id });
+      } else {
+        res.json({ success: true, watched: true, leadId: lead.id, message: "Already watching this lead" });
+      }
+    } catch (error) {
+      console.error("Error watching lead:", error);
+      res.status(500).json({ error: "Failed to watch lead" });
+    }
+  });
+
+  app.post("/api/leads/:id/unwatch", isAuthenticated, requireRole(["subcontractor"]), async (req: any, res) => {
+    try {
+      const userId = req.user.claims.sub;
+      const user = await storage.getUser(userId);
+      if (!user) {
+        return res.status(404).json({ error: "User not found" });
+      }
+
+      // Parse watched leads
+      let watchedLeads: string[] = [];
+      if (user.watchedLeads) {
+        if (Array.isArray(user.watchedLeads)) {
+          watchedLeads = user.watchedLeads;
+        } else if (typeof user.watchedLeads === 'string') {
+          try {
+            watchedLeads = JSON.parse(user.watchedLeads);
+          } catch {
+            watchedLeads = [];
+          }
+        }
+      }
+
+      // Remove lead ID
+      watchedLeads = watchedLeads.filter(id => id !== req.params.id);
+      
+      // Update user
+      await storage.updateUser(userId, {
+        watchedLeads: watchedLeads as any,
+      });
+
+      res.json({ success: true, watched: false, leadId: req.params.id });
+    } catch (error) {
+      console.error("Error unwatching lead:", error);
+      res.status(500).json({ error: "Failed to unwatch lead" });
+    }
+  });
+
+  // Get user's watchlist - requires authentication
+  app.get("/api/leads/watchlist", isAuthenticated, requireRole(["subcontractor"]), async (req: any, res) => {
+    try {
+      const userId = req.user.claims.sub;
+      const user = await storage.getUser(userId);
+      if (!user) {
+        return res.status(404).json({ error: "User not found" });
+      }
+
+      // Parse watched leads
+      let watchedLeadIds: string[] = [];
+      if (user.watchedLeads) {
+        if (Array.isArray(user.watchedLeads)) {
+          watchedLeadIds = user.watchedLeads;
+        } else if (typeof user.watchedLeads === 'string') {
+          try {
+            watchedLeadIds = JSON.parse(user.watchedLeads);
+          } catch {
+            watchedLeadIds = [];
+          }
+        }
+      }
+
+      // Fetch all watched leads
+      const watchedLeads = await Promise.all(
+        watchedLeadIds.map(async (leadId) => {
+          const lead = await storage.getLeadById(leadId);
+          return lead;
+        })
+      );
+
+      // Filter out nulls and only return available leads
+      const availableWatchedLeads = watchedLeads.filter(lead => lead && lead.status === "available") as Lead[];
+
+      // Apply masking for subcontractors (contact info hidden until purchase)
+      // Note: This endpoint is subcontractor-only, so no admin check needed
+      const maskedWatchedLeads = availableWatchedLeads.map(lead => {
+        const isPurchaser = lead.status === "purchased" && lead.purchasedBy === userId;
+        
+        if (isPurchaser) {
+          return lead; // Return full lead data for purchased leads
+        }
+        
+        // Mask contact info for unpurchased leads
+        return {
+          ...lead,
+          name: "***",
+          email: "***",
+          phone: "***",
+          address: "***",
+        };
+      });
+
+      res.json(maskedWatchedLeads);
+    } catch (error) {
+      console.error("Error fetching watchlist:", error);
+      res.status(500).json({ error: "Failed to fetch watchlist" });
+    }
+  });
+
+  // Get current user - requires authentication
+  app.get("/api/user", isAuthenticated, async (req: any, res) => {
+    try {
+      const userId = req.user.claims.sub;
+      const user = await storage.getUser(userId);
+      
+      if (!user) {
+        return res.status(404).json({ error: "User not found" });
+      }
+      
+      res.json(user);
+    } catch (error) {
+      console.error("Error fetching user:", error);
+      res.status(500).json({ error: "Failed to fetch user" });
     }
   });
 
@@ -961,7 +1403,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Update lead prices (should run daily via cron)
-  app.post("/api/leads/update-prices", async (req, res) => {
+  app.post("/api/leads/update-prices", isAuthenticated, requireRole(["admin"]), async (req, res) => {
     try {
       const { updateLeadPrices } = await import("./services/leadPricing");
       const updatedLeads = await updateLeadPrices();

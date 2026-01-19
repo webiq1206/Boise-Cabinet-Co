@@ -179,6 +179,9 @@ export const users = pgTable("users", {
   // Stripe
   stripeCustomerId: text("stripe_customer_id"),
   
+  // Watchlist for contractors
+  watchedLeads: jsonb("watched_leads").$type<string[]>().default(sql`'[]'::jsonb`), // Array of lead IDs
+  
   // Status
   isActive: boolean("is_active").default(true),
   
@@ -215,6 +218,7 @@ export const leads = pgTable("leads", {
   lineItems: jsonb("line_items"),
   serviceData: jsonb("service_data"),
   message: text("message"),
+  notes: jsonb("notes"), // Array of {text: string, addedBy: string, addedAt: Date}[]
   
   // Lead pricing
   baseLeadPrice: decimal("base_lead_price", { precision: 10, scale: 2 }).notNull(),
@@ -227,6 +231,10 @@ export const leads = pgTable("leads", {
   adminReviewedBy: varchar("admin_reviewed_by").references(() => users.id),
   adminReviewedAt: timestamp("admin_reviewed_at"),
   adminDeclined: boolean("admin_declined").default(false),
+  
+  // Priority and tags
+  priority: text("priority").default("normal"), // low, normal, high, urgent
+  tags: jsonb("tags").$type<string[]>().default(sql`'[]'::jsonb`), // Array of tag strings
   
   // Purchase tracking
   purchasedBy: varchar("purchased_by").references(() => users.id),

@@ -1,10 +1,22 @@
 import OpenAI from "openai";
+import { calculateQuoteRange } from "@shared/utils";
 
-// Initialize OpenAI with Replit AI Integrations
-const openai = new OpenAI({
-  apiKey: process.env.AI_INTEGRATIONS_OPENAI_API_KEY!,
-  baseURL: process.env.AI_INTEGRATIONS_OPENAI_BASE_URL!,
-});
+let openaiClient: OpenAI | null = null;
+function getOpenAIClient(): OpenAI | null {
+  if (openaiClient) return openaiClient;
+
+  // Prefer Replit AI Integrations keys, fall back to standard OpenAI key if present
+  const apiKey = process.env.AI_INTEGRATIONS_OPENAI_API_KEY || process.env.OPENAI_API_KEY;
+  const baseURL = process.env.AI_INTEGRATIONS_OPENAI_BASE_URL;
+
+  if (!apiKey) return null;
+
+  openaiClient = new OpenAI({
+    apiKey,
+    ...(baseURL ? { baseURL } : {}),
+  });
+  return openaiClient;
+}
 
 /**
  * Round price UP to nearest $5 or $0
@@ -18,14 +30,15 @@ function roundToNearestFive(price: number): number {
 // Updated 2025-11-23: Adjusted rates to match Idaho market research
 export const SERVICE_RATES = {
   // Lawn Care (per sq ft per visit)
-  "lawn-mowing": { baseRate: 0.015, name: "Lawn Mowing", unit: "sqft" as const }, // Updated: $0.012 → $0.015 (Boise market: $0.015-0.020/sq ft)
+  // Note: single-service pricing uses SERVICE_PRICING_CONFIG + models below. These legacy rates remain for reference.
+  "lawn-mowing": { baseRate: 0.003, name: "Lawn Mowing", unit: "sqft" as const },
   "lawn-maintenance": { baseRate: 0.015, name: "Full Lawn Maintenance", unit: "sqft" as const },
   "aeration": { baseRate: 0.018, name: "Core Aeration", unit: "sqft" as const },
   "fertilization": { baseRate: 0.014, name: "Fertilization Treatment", unit: "sqft" as const },
   "weed-control": { baseRate: 0.013, name: "Weed Control", unit: "sqft" as const },
   "hedge-trimming": { baseRate: 2.00, name: "Hedge Trimming", unit: "linear_ft" as const }, // Updated: $0.010/sqft → $2.00/linear_ft (Idaho market: $2-4/linear ft)
   "seasonal-cleanup": { baseRate: 0.016, name: "Seasonal Cleanup", unit: "sqft" as const },
-  "sprinkler-blowout": { baseRate: 0.008, name: "Sprinkler Winterization", unit: "sqft" as const },
+  "sprinkler-blowout": { baseRate: 0.0, name: "Sprinkler Winterization", unit: "project" as const },
   "dethatching": { baseRate: 0.017, name: "Dethatching", unit: "sqft" as const },
   
   // Landscaping (per sq ft - one-time projects)
@@ -53,8 +66,24 @@ export const FREQUENCY_DISCOUNTS = {
   monthly: 0.05,      // 5% discount
 };
 
-// Profit margin (40-50% markup on costs)
-export const PROFIT_MARGIN = 0.45; // 45% markup
+// Gross margin (profit margin on revenue).
+// If cost is C and gross margin is M, then price = C / (1 - M).
+export const GROSS_MARGIN = 0.45;
+
+// Backward-compatible alias (treat as gross margin).
+export const PROFIT_MARGIN = GROSS_MARGIN;
+
+function applyGrossMargin(cost: number): number {
+  if (!Number.isFinite(cost) || cost <= 0) return 0;
+  return cost / (1 - GROSS_MARGIN);
+}
+
+// Boise/Treasure Valley pricing model parameters
+const MOWING_TRIP_CHARGE = 35;
+const MOWING_RATE_PER_SQFT = 0.003;
+const BLOWOUT_BASE_UP_TO_ZONES = 65;
+const BLOWOUT_INCLUDED_ZONES = 6;
+const BLOWOUT_PER_EXTRA_ZONE = 5;
 
 interface PropertyDetails {
   address: string;
@@ -87,6 +116,8 @@ interface QuoteResult {
   baseCost: number;
   adjustedCost: number;
   finalQuote: number;
+  finalQuoteMin: number;
+  finalQuoteMax: number;
   lineItems: LineItem[];
   aiAnalysis: AIAnalysis;
   complexityScore: number;
@@ -108,6 +139,20 @@ export async function analyzePropertyComplexity(
   serviceType: string
 ): Promise<AIAnalysis> {
   try {
+    const openai = getOpenAIClient();
+    if (!openai) {
+      // AI not configured - use deterministic fallback
+      return {
+        terrainDifficulty: "flat",
+        obstacles: ["standard residential features"],
+        grassCondition: "moderate",
+        accessibility: "easy",
+        estimatedTimeMultiplier: 1.2,
+        complexityScore: 1.2,
+        reasoning: "Using standard complexity estimate (AI not configured)",
+      };
+    }
+
     const prompt = `You are an expert lawn care and landscaping estimator. Analyze this property for service complexity:
 
 Address: ${address}, ${city}, Idaho
@@ -183,38 +228,103 @@ export async function calculateIntelligentQuote(
   const lineItems: LineItem[] = [];
   let baseCost = 0;
 
+  const calculateServiceBaseCost = (serviceId: string): { cost: number; description: string } => {
+    // Prefer unified pricing config
+    const cfg = SERVICE_PRICING_CONFIG[serviceId as keyof typeof SERVICE_PRICING_CONFIG] as any;
+    const name = cfg?.name || SERVICE_RATES[serviceId as keyof typeof SERVICE_RATES]?.name || serviceId;
+
+    // Default assumptions for single-service path
+    const sqft = propertySize;
+    const estimatedLinearFt = Math.round(Math.sqrt(Math.max(1, sqft)) * 4 * 0.6); // typical perimeter proxy
+    const defaultZones = 6;
+    const defaultTreeCount = 1;
+    const defaultFixtures = 10;
+
+    // Service-specific models
+    if (serviceId === "lawn-mowing") {
+      const cost = MOWING_TRIP_CHARGE + sqft * MOWING_RATE_PER_SQFT;
+      return {
+        cost,
+        description: `${name} (${sqft.toLocaleString()} sq ft @ $${MOWING_RATE_PER_SQFT}/sq ft + $${MOWING_TRIP_CHARGE} trip)`,
+      };
+    }
+    if (serviceId === "sprinkler-blowout") {
+      const extraZones = Math.max(0, defaultZones - BLOWOUT_INCLUDED_ZONES);
+      const cost = BLOWOUT_BASE_UP_TO_ZONES + extraZones * BLOWOUT_PER_EXTRA_ZONE;
+      return {
+        cost,
+        description: `${name} (${defaultZones} zones: $${BLOWOUT_BASE_UP_TO_ZONES} up to ${BLOWOUT_INCLUDED_ZONES} + $${BLOWOUT_PER_EXTRA_ZONE}/extra)`,
+      };
+    }
+
+    // Generic model based on unit
+    if (cfg) {
+      switch (cfg.unit) {
+        case "sqft": {
+          const cost = sqft * cfg.rate;
+          return { cost, description: `${name} (${sqft.toLocaleString()} sq ft)` };
+        }
+        case "linear_ft": {
+          const cost = estimatedLinearFt * cfg.rate;
+          return { cost, description: `${name} (${estimatedLinearFt} linear feet)` };
+        }
+        case "per_zone": {
+          const cost = defaultZones * (cfg.rate || 0);
+          return { cost, description: `${name} (${defaultZones} zones)` };
+        }
+        case "per_tree": {
+          const cost = defaultTreeCount * cfg.rate;
+          return { cost, description: `${name} (${defaultTreeCount} tree)` };
+        }
+        case "per_fixture": {
+          const cost = defaultFixtures * cfg.rate;
+          return { cost, description: `${name} (${defaultFixtures} fixtures)` };
+        }
+        case "base_service":
+        case "base_project": {
+          const cost = cfg.rate;
+          return { cost, description: name };
+        }
+        case "per_sqft": {
+          // If we only know propertySize, treat it as area for estimate
+          const cost = sqft * cfg.rate;
+          return { cost, description: `${name} (${sqft.toLocaleString()} sq ft)` };
+        }
+      }
+    }
+
+    // Fallback to legacy SERVICE_RATES
+    const legacy = SERVICE_RATES[serviceId as keyof typeof SERVICE_RATES];
+    if (legacy) {
+      const cost = legacy.unit === "project" ? legacy.baseRate : sqft * legacy.baseRate;
+      return { cost, description: legacy.name };
+    }
+
+    return { cost: 0, description: name };
+  };
+
   // Main service
-  const mainService = SERVICE_RATES[serviceType as keyof typeof SERVICE_RATES];
-  if (mainService) {
-    const serviceBase = mainService.unit === "project" 
-      ? mainService.baseRate 
-      : propertySize * mainService.baseRate;
-    
-    baseCost += serviceBase;
+  {
+    const { cost, description } = calculateServiceBaseCost(serviceType);
+    baseCost += cost;
     lineItems.push({
       service: serviceType,
-      description: mainService.name,
-      basePrice: serviceBase,
-      adjustedPrice: serviceBase,
+      description,
+      basePrice: cost,
+      adjustedPrice: cost,
     });
   }
 
   // Add-on services
   for (const service of selectedServices) {
-    const serviceRate = SERVICE_RATES[service as keyof typeof SERVICE_RATES];
-    if (serviceRate) {
-      const serviceBase = serviceRate.unit === "project"
-        ? serviceRate.baseRate
-        : propertySize * serviceRate.baseRate;
-      
-      baseCost += serviceBase;
-      lineItems.push({
-        service,
-        description: serviceRate.name,
-        basePrice: serviceBase,
-        adjustedPrice: serviceBase,
-      });
-    }
+    const { cost, description } = calculateServiceBaseCost(service);
+    baseCost += cost;
+    lineItems.push({
+      service,
+      description,
+      basePrice: cost,
+      adjustedPrice: cost,
+    });
   }
 
   // Step 3: Apply property type multiplier
@@ -223,18 +333,23 @@ export async function calculateIntelligentQuote(
 
   // Step 4: Apply complexity adjustments (AI-driven)
   const adjustedCost = baseCost * aiAnalysis.complexityScore;
-  
-  // Update line items with adjusted prices
-  lineItems.forEach(item => {
-    item.adjustedPrice = roundToNearestFive(item.basePrice * propertyMultiplier * aiAnalysis.complexityScore);
-  });
 
   // Step 5: Apply frequency discount
   const discount = FREQUENCY_DISCOUNTS[frequency as keyof typeof FREQUENCY_DISCOUNTS] || 0;
   const afterDiscount = adjustedCost * (1 - discount);
 
-  // Step 6: Add profit margin (40-50% markup)
-  const finalQuote = afterDiscount * (1 + PROFIT_MARGIN);
+  // Step 6: Apply gross margin and round line items consistently
+  lineItems.forEach((item) => {
+    const itemAfterProperty = item.basePrice * propertyMultiplier;
+    const itemAfterComplexity = itemAfterProperty * aiAnalysis.complexityScore;
+    const itemAfterDiscount = itemAfterComplexity * (1 - discount);
+    item.adjustedPrice = roundToNearestFive(applyGrossMargin(itemAfterDiscount));
+  });
+
+  // Ensure total matches itemized prices (sum of rounded line items)
+  const finalQuote = lineItems.reduce((sum, item) => sum + item.adjustedPrice, 0);
+  const rangePct = Math.max(0.1, Math.min(0.2, 0.1 + (aiAnalysis.complexityScore - 1) * 0.1));
+  const { min: finalQuoteMin, max: finalQuoteMax } = calculateQuoteRange(finalQuote, rangePct);
 
   // Step 7: Calculate breakdown
   const laborCost = afterDiscount * 0.35; // 35% labor
@@ -245,7 +360,9 @@ export async function calculateIntelligentQuote(
   return {
     baseCost: roundToNearestFive(baseCost),
     adjustedCost: roundToNearestFive(adjustedCost),
-    finalQuote: roundToNearestFive(finalQuote),
+    finalQuote,
+    finalQuoteMin,
+    finalQuoteMax,
     lineItems,
     aiAnalysis,
     complexityScore: aiAnalysis.complexityScore,
@@ -264,7 +381,8 @@ export async function calculateIntelligentQuote(
  */
 export const SERVICE_PRICING_CONFIG = {
   // Lawn services (property size based)
-  "lawn-mowing": { rate: 0.012, unit: "sqft", name: "Lawn Mowing & Edging" },
+  // Boise/Treasure Valley: minimum trip + variable sqft (implemented in pricing logic)
+  "lawn-mowing": { rate: 0.003, unit: "sqft", name: "Lawn Mowing & Edging" },
   "aeration": { rate: 0.018, unit: "sqft", name: "Core Aeration" },
   "fertilization": { rate: 0.014, unit: "sqft", name: "Fertilization Treatment" },
   "weed-control": { rate: 0.013, unit: "sqft", name: "Weed Control" },
@@ -279,7 +397,8 @@ export const SERVICE_PRICING_CONFIG = {
   "landscape-lighting": { rate: 75.00, unit: "per_fixture", name: "Landscape Lighting" },
   
   // Irrigation (zone-based or property size)
-  "sprinkler-blowout": { rate: 45.00, unit: "per_zone", name: "Sprinkler Winterization" },
+  // Boise/Treasure Valley: tiered pricing (implemented in pricing logic)
+  "sprinkler-blowout": { rate: 0, unit: "per_zone", name: "Sprinkler Winterization" },
   "sprinkler-repair": { rate: 85.00, unit: "base_service", name: "Sprinkler Repair" },
   "sprinkler-system-installation": { rate: 0.50, unit: "sqft", name: "Sprinkler System Installation" },
   "irrigation-repair": { rate: 85.00, unit: "base_service", name: "Irrigation Repair" },
@@ -325,6 +444,7 @@ interface MultiServiceQuoteData {
   propertyType?: string;
   city?: string;
   address?: string;
+  frequency?: string;
 }
 
 /**
@@ -334,20 +454,56 @@ export async function calculateMultiServiceQuote(
   data: MultiServiceQuoteData
 ): Promise<{
   lineItems: QuoteLineItem[];
+  baseCost: number;
+  adjustedCost: number;
   subtotal: number;
   total: number;
-  aiAnalysis?: AIAnalysis;
+  finalQuote: number;
+  finalQuoteMin: number;
+  finalQuoteMax: number;
+  aiAnalysis: AIAnalysis;
+  complexityScore: number;
+  breakdown: {
+    laborCost: number;
+    materialsCost: number;
+    overhead: number;
+    profit: number;
+  };
 }> {
   const {
     selectedServices,
     serviceData,
     propertyType = "residential",
     city = "Kuna",
-    address = ""
+    address = "",
+    frequency = "one-time",
   } = data;
 
   const lineItems: QuoteLineItem[] = [];
-  let subtotal = 0;
+  let baseCost = 0;      // after property multiplier (pre-complexity)
+  let adjustedCost = 0;  // after complexity (pre-discount)
+  let subtotal = 0;      // after discount (pre-gross-margin)
+  let total = 0;         // final customer price (sum of rounded line items)
+
+  // Derive a representative sqft for AI analysis (best-effort)
+  const representativeSqft = (() => {
+    const sqftCandidates = selectedServices
+      .map((id) => serviceData?.[id]?.propertySize)
+      .filter((v): v is number => typeof v === "number" && Number.isFinite(v) && v > 0);
+    return sqftCandidates.length > 0 ? Math.max(...sqftCandidates) : 5000;
+  })();
+
+  const aiAnalysis = await analyzePropertyComplexity(
+    address || `${city}, Idaho`,
+    city,
+    representativeSqft,
+    selectedServices.join(", ")
+  );
+
+  const propertyMultiplier =
+    PROPERTY_MULTIPLIERS[propertyType as keyof typeof PROPERTY_MULTIPLIERS] || 1.0;
+  const frequencyDiscount =
+    FREQUENCY_DISCOUNTS[frequency as keyof typeof FREQUENCY_DISCOUNTS] || 0;
 
   // Calculate price for each service based on its specific measurements
   for (const serviceId of selectedServices) {
@@ -378,8 +534,15 @@ export async function calculateMultiServiceQuote(
       case "sqft":
         // Property size from this service's measurements
         const sqft = getNumber(measurements.propertySize, 5000);
-        basePrice = sqft * config.rate;
-        description += ` (${sqft.toLocaleString()} sq ft)`;
+        if (serviceId === "lawn-mowing") {
+          basePrice = MOWING_TRIP_CHARGE + sqft * MOWING_RATE_PER_SQFT;
+          description += ` (${sqft.toLocaleString()} sq ft @ $${MOWING_RATE_PER_SQFT}/sq ft + $${MOWING_TRIP_CHARGE} trip)`;
+          calculationExplanation =
+            "Lawn mowing includes a base trip charge plus a variable rate based on lawn area. This keeps small lawns from being overpriced and scales fairly for larger properties.";
+        } else {
+          basePrice = sqft * config.rate;
+          description += ` (${sqft.toLocaleString()} sq ft)`;
+        }
         break;
 
       case "linear_ft":
@@ -416,8 +579,16 @@ export async function calculateMultiServiceQuote(
       case "per_zone":
         // Number of zones from this service's measurements
         const zones = getNumber(measurements.zones, 6);
-        basePrice = zones * config.rate;
-        description += ` (${zones} zones)`;
+        if (serviceId === "sprinkler-blowout") {
+          const extraZones = Math.max(0, zones - BLOWOUT_INCLUDED_ZONES);
+          basePrice = BLOWOUT_BASE_UP_TO_ZONES + extraZones * BLOWOUT_PER_EXTRA_ZONE;
+          description += ` (${zones} zones: $${BLOWOUT_BASE_UP_TO_ZONES} up to ${BLOWOUT_INCLUDED_ZONES} + $${BLOWOUT_PER_EXTRA_ZONE}/extra zone)`;
+          calculationExplanation =
+            "Sprinkler winterization pricing is tiered: a base fee covers most residential systems, with a small per-zone charge for larger systems.";
+        } else {
+          basePrice = zones * config.rate;
+          description += ` (${zones} zones)`;
+        }
         break;
 
       case "per_tree":
@@ -459,29 +630,54 @@ export async function calculateMultiServiceQuote(
         basePrice = config.rate;
     }
 
-    // Apply property type multiplier
-    const propertyMultiplier = PROPERTY_MULTIPLIERS[propertyType as keyof typeof PROPERTY_MULTIPLIERS] || 1.0;
-    const adjustedPrice = basePrice * propertyMultiplier;
+    // Apply discount only to services that are eligible to be recurring
+    const serviceDiscount = isRecurringEligible(serviceId) ? frequencyDiscount : 0;
+
+    const afterProperty = basePrice * propertyMultiplier;
+    const afterComplexity = afterProperty * aiAnalysis.complexityScore;
+    const afterDiscount = afterComplexity * (1 - serviceDiscount);
+    const finalLinePrice = roundToNearestFive(applyGrossMargin(afterDiscount));
 
     lineItems.push({
       serviceId,
       serviceName: config.name,
       basePrice: roundToNearestFive(basePrice),
-      adjustedPrice: roundToNearestFive(adjustedPrice),
+      adjustedPrice: finalLinePrice,
       description,
       calculationExplanation,
     });
 
-    subtotal += adjustedPrice;
+    baseCost += afterProperty;
+    adjustedCost += afterComplexity;
+    subtotal += afterDiscount;
+    total += finalLinePrice;
   }
 
-  // Add profit margin to get final total
-  const total = subtotal * (1 + PROFIT_MARGIN);
+  // Breakdown (based on discounted cost basis)
+  const laborCost = subtotal * 0.35;
+  const materialsCost = subtotal * 0.15;
+  const overhead = subtotal * 0.20;
+  const profit = total - subtotal;
+  const rangePct = Math.max(0.1, Math.min(0.2, 0.1 + (aiAnalysis.complexityScore - 1) * 0.1));
+  const { min: finalQuoteMin, max: finalQuoteMax } = calculateQuoteRange(total, rangePct);
 
   return {
     lineItems,
+    baseCost: roundToNearestFive(baseCost),
+    adjustedCost: roundToNearestFive(adjustedCost),
     subtotal: roundToNearestFive(subtotal),
-    total: roundToNearestFive(total),
+    total,
+    finalQuote: total,
+    finalQuoteMin,
+    finalQuoteMax,
+    aiAnalysis,
+    complexityScore: aiAnalysis.complexityScore,
+    breakdown: {
+      laborCost: roundToNearestFive(laborCost),
+      materialsCost: roundToNearestFive(materialsCost),
+      overhead: roundToNearestFive(overhead),
+      profit: roundToNearestFive(profit),
+    },
   };
 }
 
@@ -506,6 +702,18 @@ function parseDimensions(dims?: string): number {
   
   const num = parseInt(dims);
   return isNaN(num) ? 300 : num;
+}
+
+const RECURRING_ELIGIBLE_SERVICE_IDS = new Set<string>([
+  "lawn-mowing",
+  "lawn-maintenance",
+  "fertilization",
+  "weed-control",
+  "irrigation-maintenance",
+]);
+
+function isRecurringEligible(serviceId: string): boolean {
+  return RECURRING_ELIGIBLE_SERVICE_IDS.has(serviceId);
 }
 
 interface QuoteLineItem {
@@ -539,8 +747,10 @@ export function getInstantEstimate(
   const minComplexity = 1.0;
   const maxComplexity = 1.5;
 
-  const minPrice = basePrice * propertyMultiplier * minComplexity * (1 - discount) * (1 + PROFIT_MARGIN);
-  const maxPrice = basePrice * propertyMultiplier * maxComplexity * (1 - discount) * (1 + PROFIT_MARGIN);
+  const minCost = basePrice * propertyMultiplier * minComplexity * (1 - discount);
+  const maxCost = basePrice * propertyMultiplier * maxComplexity * (1 - discount);
+  const minPrice = applyGrossMargin(minCost);
+  const maxPrice = applyGrossMargin(maxCost);
 
   return {
     min: roundToNearestFive(minPrice),
