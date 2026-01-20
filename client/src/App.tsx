@@ -64,6 +64,7 @@ const PurchaseHistory = lazy(() => import("@/pages/PurchaseHistory"));
 const AnalyticsDashboard = lazy(() => import("@/pages/AnalyticsDashboard"));
 const QuoteStatus = lazy(() => import("@/pages/QuoteStatus"));
 const DevLogin = lazy(() => import("@/pages/DevLogin"));
+const AdminLogin = lazy(() => import("@/pages/AdminLogin"));
 
 function SubcontractorRouteEnforcer() {
   const { user, isAuthenticated, isLoading } = useAuth();
@@ -75,8 +76,11 @@ function SubcontractorRouteEnforcer() {
 
     const isSubcontractorArea =
       location === "/subcontractor" || location.startsWith("/subcontractor/");
+    
+    // Allow /admin route - it has its own access control and shows "not authorized" message
+    const isAdminRoute = location === "/admin" || location.startsWith("/admin/");
 
-    if (!isSubcontractorArea) {
+    if (!isSubcontractorArea && !isAdminRoute) {
       setLocation("/subcontractor/portal");
       return;
     }
@@ -144,7 +148,8 @@ function Router() {
             <Route path="/privacy-policy" component={PrivacyPolicy} />
             <Route path="/terms-of-service" component={TermsOfService} />
 
-            {/* Lead Distribution System */}
+            {/* Lead Distribution System - Admin */}
+            <Route path="/admin" component={AdminLogin} />
             <Route path="/admin/dashboard" component={AdminDashboard} />
             <Route path="/admin/analytics" component={AnalyticsDashboard} />
             <Route path="/subcontractor/portal" component={SubcontractorPortal} />

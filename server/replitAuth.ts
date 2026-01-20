@@ -125,6 +125,20 @@ export async function setupAuth(app: Express) {
   };
 
   app.get("/api/login", (req, res, next) => {
+    // Store returnTo if provided (used for admin login flow)
+    const returnTo = req.query.returnTo as string | undefined;
+    console.log("[auth] /api/login called with returnTo:", returnTo);
+    if (returnTo && typeof returnTo === "string" && returnTo.startsWith("/")) {
+      // Store in both session and cookie for reliability
+      (req.session as any).returnTo = returnTo;
+      // Set a cookie that persists across OAuth redirects
+      res.cookie("auth_returnTo", returnTo, { 
+        httpOnly: true, 
+        maxAge: 60000, // 1 minute
+        sameSite: "lax"
+      });
+    }
+    
     ensureStrategy(req.hostname);
     passport.authenticate(`replitauth:${req.hostname}`, {
       prompt: "login consent",
@@ -151,24 +165,44 @@ export async function setupAuth(app: Express) {
       if (!userId) return res.redirect("/");
 
       const dbUser = await storage.getUser(userId);
+      console.log("[auth] post-login for user:", userId, "role:", dbUser?.role);
 
-      // If something set a returnTo (e.g. an auth gate), honor it for non-subcontractors.
-      const returnToRaw = (req as any).session?.returnTo;
+      // Check both session and cookie for returnTo (cookie is more reliable across OAuth)
+      const returnToFromSession = (req as any).session?.returnTo;
+      const returnToFromCookie = req.cookies?.auth_returnTo;
+      const returnToRaw = returnToFromSession || returnToFromCookie;
+      console.log("[auth] post-login returnTo - session:", returnToFromSession, "cookie:", returnToFromCookie);
+      
+      // Clear returnTo from session
       if ((req as any).session?.returnTo) {
         delete (req as any).session.returnTo;
       }
+      // Clear the cookie
+      res.clearCookie("auth_returnTo");
+      
       const safeReturnTo =
         typeof returnToRaw === "string" && returnToRaw.startsWith("/")
           ? returnToRaw
           : null;
 
+      // Special handling for admin login flow:
+      // If user came from /admin but isn't an admin, redirect back to /admin
+      // where they'll see the "not authorized" message
+      if (safeReturnTo?.startsWith("/admin") && dbUser?.role !== "admin") {
+        console.log("[auth] Non-admin user tried admin login, redirecting to /admin");
+        return res.redirect("/admin");
+      }
+
       if (dbUser?.role === "subcontractor") {
+        console.log("[auth] Redirecting subcontractor to portal");
         return res.redirect("/subcontractor/portal");
       }
       if (dbUser?.role === "admin") {
+        console.log("[auth] Redirecting admin to dashboard");
         return res.redirect(safeReturnTo ?? "/admin/dashboard");
       }
 
+      console.log("[auth] Default redirect for role:", dbUser?.role);
       return res.redirect(safeReturnTo ?? "/");
     } catch (error) {
       console.error("[auth] post-login redirect failed:", error);
