@@ -22,6 +22,8 @@ import { SERVICE_FIELD_CONFIGS, type MeasurementGroup } from "@shared/serviceFie
 import { SERVICE_PRICING_GUIDANCE_MAP, CITIES } from "@shared/contentData";
 import { formatCurrencyRangeWhole } from "@/lib/utils";
 import { calculateQuoteRange } from "@shared/utils";
+import { StickyQuoteSummary } from "@/components/StickyQuoteSummary";
+import { calculateServicePriceRange, formatPriceRange, type ServiceMeasurements } from "@/lib/pricingUtils";
 
 // Step 1: Basic Property Info
 const step1Schema = z.object({
@@ -284,7 +286,7 @@ export function QuoteWizard({
     },
     onSuccess: (data) => {
       setQuoteData(data);
-      setStep(4);
+      // Stay on step 3 - show results inline instead of navigating to step 4
       setErrorMessage(null);
       // Popup disabled per user request - quote results are already visible on page
       // toast({
@@ -679,7 +681,7 @@ export function QuoteWizard({
                 {s < step ? <CheckCircle2 className="w-4 h-4 sm:w-5 sm:h-5" /> : s}
               </div>
               <span className={`text-xs sm:text-sm font-medium hidden sm:inline ${s <= step ? "text-foreground" : "text-muted-foreground"}`}>
-                {s === 1 ? "Property" : s === 2 ? "Services" : "Contact"}
+                {s === 1 ? "Property" : s === 2 ? "Services" : "Review & Quote"}
               </span>
               {s < 3 && <div className="w-8 sm:w-12 h-0.5 bg-muted" />}
             </div>
@@ -807,10 +809,35 @@ export function QuoteWizard({
                     <span>Looking up property measurements...</span>
                   </div>
                 )}
-                {!isAutoLookingUp && autoLookupStatus === 'success' && autoLookupMessage && (
-                  <div className="flex items-center gap-2 mt-2 text-sm text-primary">
-                    <CheckCircle2 className="h-4 w-4" />
-                    <span>{autoLookupMessage}</span>
+                {!isAutoLookingUp && autoLookupStatus === 'success' && (
+                  <div 
+                    className="mt-3 p-3 rounded-lg border border-primary/30 bg-primary/5"
+                    data-testid="property-confirmation"
+                  >
+                    <div className="flex items-center gap-2 text-sm text-primary font-medium">
+                      <CheckCircle2 className="h-4 w-4" />
+                      <span>Property Found</span>
+                    </div>
+                    <div className="mt-2 grid grid-cols-2 gap-2 text-sm">
+                      {sharedMeasurements.lawnAreaSqFt && sharedMeasurements.lawnAreaSqFt > 0 && (
+                        <div className="text-muted-foreground" data-testid="property-lawn-area">
+                          <span className="font-medium text-foreground">{sharedMeasurements.lawnAreaSqFt.toLocaleString()}</span> sq ft lawn
+                        </div>
+                      )}
+                      {sharedMeasurements.rooflineFt && sharedMeasurements.rooflineFt > 0 && (
+                        <div className="text-muted-foreground" data-testid="property-roofline">
+                          <span className="font-medium text-foreground">{sharedMeasurements.rooflineFt.toLocaleString()}</span> ft roofline
+                        </div>
+                      )}
+                      {sharedMeasurements.lotPerimeterFt && sharedMeasurements.lotPerimeterFt > 0 && (
+                        <div className="text-muted-foreground" data-testid="property-lot-perimeter">
+                          <span className="font-medium text-foreground">{sharedMeasurements.lotPerimeterFt.toLocaleString()}</span> ft lot perimeter
+                        </div>
+                      )}
+                    </div>
+                    <p className="text-xs text-muted-foreground mt-2">
+                      Measurements auto-detected from county records. You can adjust in the next step.
+                    </p>
                   </div>
                 )}
                 {!isAutoLookingUp && autoLookupStatus === 'error' && autoLookupMessage && (
@@ -884,6 +911,7 @@ export function QuoteWizard({
 
       {/* Step 2: Service Selection */}
       {step === 2 && (
+        <>
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
@@ -958,6 +986,28 @@ export function QuoteWizard({
                                   />
                                   <div className="flex-1">
                                     <div className="font-medium">{service.serviceName}</div>
+                                    {/* Per-service price range */}
+                                    {(() => {
+                                      const measurements: ServiceMeasurements = {
+                                        propertySize: sharedMeasurements.lawnAreaSqFt || 5000,
+                                        linearFeet: sharedMeasurements.rooflineFt || sharedMeasurements.lotPerimeterFt || 100,
+                                        zones: 6,
+                                      };
+                                      const priceRange = calculateServicePriceRange(
+                                        service.serviceId,
+                                        measurements,
+                                        form1.getValues("propertyType") || "residential",
+                                        form2.getValues("frequency") || "one-time"
+                                      );
+                                      if (priceRange) {
+                                        return (
+                                          <div className="text-xs text-muted-foreground mt-0.5" data-testid={`price-range-${service.serviceId}`}>
+                                            Est. {formatPriceRange(priceRange.min, priceRange.max)}
+                                          </div>
+                                        );
+                                      }
+                                      return null;
+                                    })()}
                                   </div>
                                 </Label>
                                 
@@ -1135,9 +1185,36 @@ export function QuoteWizard({
             </form>
           </CardContent>
         </Card>
+        
+        {/* Sticky Quote Summary for Step 2 */}
+        <StickyQuoteSummary
+          selectedServices={selectedServices}
+          serviceData={serviceData}
+          sharedMeasurements={{
+            propertySize: sharedMeasurements.lawnAreaSqFt,
+            linearFeet: sharedMeasurements.rooflineFt || sharedMeasurements.lotPerimeterFt,
+            zones: 6,
+          }}
+          propertyType={form1.getValues("propertyType") || "residential"}
+          frequency={form2.getValues("frequency") || "one-time"}
+          onContinue={() => {
+            if (canContinueStep2) {
+              form2.handleSubmit(handleStep2Submit)();
+            } else {
+              scrollToFirstMissingStep2();
+            }
+          }}
+          continueLabel="Continue to Review"
+          continueDisabled={!canContinueStep2}
+          showContinue={true}
+        />
+        
+        {/* Add padding at bottom to account for sticky summary */}
+        <div className="h-32" />
+        </>
       )}
 
-      {/* Step 3: Contact Info */}
+      {/* Step 3: Review & Get Quote (merged with old Step 4) */}
       {step === 3 && (
         <Card>
           <CardHeader>
@@ -1238,206 +1315,199 @@ export function QuoteWizard({
                 />
               </div>
 
-              <div className="flex gap-3">
-                <Button
-                  type="button"
-                  variant="outline"
-                  onClick={() => setStep(2)}
-                  className="flex-1"
-                  data-testid="button-back-step3"
-                >
-                  Back
-                </Button>
-                <Button
-                  type="submit"
-                  className="flex-1"
-                  disabled={getQuoteMutation.isPending || submitQuoteMutation.isPending}
-                  data-testid="button-submit-quote"
-                >
-                  {getQuoteMutation.isPending || submitQuoteMutation.isPending ? (
-                    <>
-                      <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                      Generating Quote...
-                    </>
-                  ) : (
-                    "Get My Quote"
-                  )}
-                </Button>
-              </div>
-            </form>
-          </CardContent>
-        </Card>
-      )}
-
-      {/* Step 4: Quote Results */}
-      {step === 4 && quoteData && (
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <DollarSign className="w-5 h-5 text-primary" />
-              Your Itemized Quote
-            </CardTitle>
-            <CardDescription>Here's your personalized pricing breakdown</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-6">
-            {/* Submission Status / Tracking */}
-            {submitQuoteMutation.isPending && (
-              <Alert className="bg-muted/50 border-border" data-testid="alert-quote-submitting">
-                <Info className="h-4 w-4" />
-                <AlertDescription className="text-sm">
-                  Submitting your request…
-                </AlertDescription>
-              </Alert>
-            )}
-            {!submitQuoteMutation.isPending && submittedQuoteId && (
-              <Alert className="bg-muted/50 border-border" data-testid="alert-quote-submitted">
-                <Info className="h-4 w-4" />
-                <AlertDescription className="text-sm space-y-1">
-                  <p className="font-medium">Request submitted.</p>
-                  <p>
-                    Track status anytime at{" "}
-                    <a className="text-primary underline" href={`/quote-status/${submittedQuoteId}`}>
-                      /quote-status/{submittedQuoteId}
-                    </a>
-                    .
-                  </p>
-                </AlertDescription>
-              </Alert>
-            )}
-
-            {/* Line Items */}
-            <div className="space-y-3">
-              {quoteData.lineItems.map((item, index) => (
-                <div
-                  key={index}
-                  className="p-4 rounded-md border border-border"
-                  data-testid={`quote-line-item-${index}`}
-                >
-                  <div className="flex justify-between items-start">
-                    <div className="flex-1">
-                      <div className="font-medium">{item.serviceName}</div>
-                      <div className="text-sm text-muted-foreground">{item.description}</div>
-                    </div>
-                    <div className="text-right">
-                      <div className="font-semibold text-lg">${item.adjustedPrice.toLocaleString()}</div>
-                    </div>
-                  </div>
-                  
-                  {/* Collapsible Calculation Explanation */}
-                  {item.calculationExplanation && (
-                    <Collapsible className="mt-3">
-                      <CollapsibleTrigger className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid={`calculation-toggle-${index}`}>
-                        <ChevronDown className="h-4 w-4 transition-transform data-[state=open]:rotate-180" />
-                        <span>How is this calculated?</span>
-                      </CollapsibleTrigger>
-                      <CollapsibleContent className="mt-2 pl-6">
-                        <div className="text-sm text-muted-foreground bg-muted/30 p-3 rounded-md border border-border/50">
-                          {item.calculationExplanation}
-                        </div>
-                      </CollapsibleContent>
-                    </Collapsible>
-                  )}
+              {!quoteData ? (
+                <div className="flex gap-3">
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={() => setStep(2)}
+                    className="flex-1"
+                    data-testid="button-back-step3"
+                  >
+                    Back
+                  </Button>
+                  <Button
+                    type="submit"
+                    className="flex-1"
+                    disabled={getQuoteMutation.isPending || submitQuoteMutation.isPending}
+                    data-testid="button-submit-quote"
+                  >
+                    {getQuoteMutation.isPending || submitQuoteMutation.isPending ? (
+                      <>
+                        <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                        Generating Quote...
+                      </>
+                    ) : (
+                      "Get My Quote"
+                    )}
+                  </Button>
                 </div>
-              ))}
-            </div>
+              ) : null}
+            </form>
 
-            {/* Estimated Total */}
-            <div className="border-t border-border pt-4 space-y-2">
-              <div className="flex justify-between items-center text-xl font-bold">
-                <span>Estimated Range</span>
-                <span className="text-primary" data-testid="text-quote-total">
-                  {(() => {
-                    const min = typeof quoteData.finalQuoteMin === "number" ? quoteData.finalQuoteMin : calculateQuoteRange(quoteData.total, 0.15).min;
-                    const max = typeof quoteData.finalQuoteMax === "number" ? quoteData.finalQuoteMax : calculateQuoteRange(quoteData.total, 0.15).max;
-                    return formatCurrencyRangeWhole(min, max);
-                  })()}
-                </span>
-              </div>
-              <p className="text-xs text-muted-foreground italic">
-                * This is an estimated price based on typical property conditions. Final pricing will be confirmed after site assessment.
-              </p>
-            </div>
+            {/* Quote Results - Shown inline after submission */}
+            {quoteData && (
+              <div className="space-y-6 pt-6 border-t border-border" data-testid="quote-results-inline">
+                {/* Success Header */}
+                <div className="flex items-center gap-3 text-primary">
+                  <CheckCircle2 className="w-6 h-6" />
+                  <div>
+                    <div className="font-semibold text-lg">Your Quote is Ready!</div>
+                    <div className="text-sm text-muted-foreground">Here's your personalized pricing breakdown</div>
+                  </div>
+                </div>
 
-            {/* Pricing Guidance for Selected Services */}
-            {selectedServices.length > 0 && (
-              <div className="space-y-3">
-                <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">
-                  Typical Pricing for Your Services
-                </h3>
-                {selectedServices.map((serviceId) => {
-                  const pricingData = SERVICE_PRICING_GUIDANCE_MAP.get(serviceId);
-                  if (!pricingData) return null;
-                  
-                  return (
+                {/* Submission Status / Tracking */}
+                {!submitQuoteMutation.isPending && submittedQuoteId && (
+                  <Alert className="bg-primary/5 border-primary/30" data-testid="alert-quote-submitted">
+                    <CheckCircle2 className="h-4 w-4 text-primary" />
+                    <AlertDescription className="text-sm space-y-1">
+                      <p className="font-medium">Request submitted successfully!</p>
+                      <p>
+                        Track status anytime at{" "}
+                        <a className="text-primary underline" href={`/quote-status/${submittedQuoteId}`}>
+                          /quote-status/{submittedQuoteId}
+                        </a>
+                      </p>
+                    </AlertDescription>
+                  </Alert>
+                )}
+
+                {/* Line Items */}
+                <div className="space-y-3">
+                  {quoteData.lineItems.map((item, index) => (
                     <div
-                      key={serviceId}
-                      className="p-4 rounded-md bg-muted/30 border border-border/50"
-                      data-testid={`pricing-guidance-${serviceId}`}
+                      key={index}
+                      className="p-4 rounded-md border border-border"
+                      data-testid={`quote-line-item-${index}`}
                     >
-                      <div className="font-medium text-sm mb-1">{pricingData.name}</div>
-                      <div className="text-sm text-muted-foreground">{pricingData.pricingGuidance}</div>
+                      <div className="flex justify-between items-start">
+                        <div className="flex-1">
+                          <div className="font-medium">{item.serviceName}</div>
+                          <div className="text-sm text-muted-foreground">{item.description}</div>
+                        </div>
+                        <div className="text-right">
+                          <div className="font-semibold text-lg">${item.adjustedPrice.toLocaleString()}</div>
+                        </div>
+                      </div>
+                      
+                      {/* Collapsible Calculation Explanation */}
+                      {item.calculationExplanation && (
+                        <Collapsible className="mt-3">
+                          <CollapsibleTrigger className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid={`calculation-toggle-${index}`}>
+                            <ChevronDown className="h-4 w-4 transition-transform data-[state=open]:rotate-180" />
+                            <span>How is this calculated?</span>
+                          </CollapsibleTrigger>
+                          <CollapsibleContent className="mt-2 pl-6">
+                            <div className="text-sm text-muted-foreground bg-muted/30 p-3 rounded-md border border-border/50">
+                              {item.calculationExplanation}
+                            </div>
+                          </CollapsibleContent>
+                        </Collapsible>
+                      )}
                     </div>
-                  );
-                })}
+                  ))}
+                </div>
+
+                {/* Estimated Total */}
+                <div className="border-t border-border pt-4 space-y-2">
+                  <div className="flex justify-between items-center text-xl font-bold">
+                    <span>Estimated Range</span>
+                    <span className="text-primary" data-testid="text-quote-total">
+                      {(() => {
+                        const min = typeof quoteData.finalQuoteMin === "number" ? quoteData.finalQuoteMin : calculateQuoteRange(quoteData.total, 0.15).min;
+                        const max = typeof quoteData.finalQuoteMax === "number" ? quoteData.finalQuoteMax : calculateQuoteRange(quoteData.total, 0.15).max;
+                        return formatCurrencyRangeWhole(min, max);
+                      })()}
+                    </span>
+                  </div>
+                  <p className="text-xs text-muted-foreground italic">
+                    * This is an estimated price based on typical property conditions. Final pricing will be confirmed after site assessment.
+                  </p>
+                </div>
+
+                {/* Pricing Guidance for Selected Services */}
+                {selectedServices.length > 0 && (
+                  <div className="space-y-3">
+                    <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">
+                      Typical Pricing for Your Services
+                    </h3>
+                    {selectedServices.map((serviceId) => {
+                      const pricingData = SERVICE_PRICING_GUIDANCE_MAP.get(serviceId);
+                      if (!pricingData) return null;
+                      
+                      return (
+                        <div
+                          key={serviceId}
+                          className="p-4 rounded-md bg-muted/30 border border-border/50"
+                          data-testid={`pricing-guidance-${serviceId}`}
+                        >
+                          <div className="font-medium text-sm mb-1">{pricingData.name}</div>
+                          <div className="text-sm text-muted-foreground">{pricingData.pricingGuidance}</div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
+
+                {/* Quote Validity & Important Terms */}
+                <div className="space-y-4 border-t border-border pt-4">
+                  <h3 className="text-sm font-semibold">Important Information</h3>
+                  
+                  <Alert className="bg-muted/50 border-border">
+                    <Info className="h-4 w-4" />
+                    <AlertDescription className="text-sm space-y-2">
+                      <p className="font-medium">Quote Validity & Terms:</p>
+                      <ul className="list-disc list-inside space-y-1 text-xs">
+                        <li><strong>Quote Valid:</strong> This estimate is valid for 30 days from today</li>
+                        <li><strong>Not a Contract:</strong> This quote is an estimate only and does not constitute a binding agreement until confirmed in writing</li>
+                        <li><strong>Final Pricing:</strong> Actual pricing will be confirmed after our site assessment based on specific property conditions</li>
+                        <li><strong>Site Assessment:</strong> We'll visit your property to verify measurements and identify any site-specific factors</li>
+                      </ul>
+                    </AlertDescription>
+                  </Alert>
+
+                  <Alert className="bg-muted/50 border-border">
+                    <Info className="h-4 w-4" />
+                    <AlertDescription className="text-sm space-y-2">
+                      <p className="font-medium">What's Included:</p>
+                      <ul className="list-disc list-inside space-y-1 text-xs">
+                        <li>All labor and equipment for the selected services</li>
+                        <li>Lawn mowing services include trimming, blowing, and clipping removal</li>
+                        <li>Debris removal and disposal (where applicable)</li>
+                        <li>Professional-grade materials and supplies</li>
+                      </ul>
+                    </AlertDescription>
+                  </Alert>
+
+                  <Alert className="bg-muted/50 border-border">
+                    <Info className="h-4 w-4" />
+                    <AlertDescription className="text-sm space-y-2">
+                      <p className="font-medium">Potential Additional Costs:</p>
+                      <ul className="list-disc list-inside space-y-1 text-xs">
+                        <li>Excessive overgrowth or neglected properties may require additional labor</li>
+                        <li>Difficult terrain, steep slopes, or limited accessibility</li>
+                        <li>Tree/stump removal for trees larger than estimated</li>
+                        <li>Damage to underground utilities (sprinkler lines, etc.) not marked prior to service</li>
+                        <li>Weather delays or seasonal conditions requiring specialized equipment</li>
+                      </ul>
+                    </AlertDescription>
+                  </Alert>
+                </div>
+
+                <div className="text-center space-y-2">
+                  <p className="text-sm font-medium">Next Steps:</p>
+                  <p className="text-sm text-muted-foreground">
+                    We'll contact you within 24 hours to schedule a free site assessment and finalize your quote
+                  </p>
+                </div>
+
+                {onClose && (
+                  <Button onClick={onClose} className="w-full" size="lg" data-testid="button-close-quote">
+                    Close
+                  </Button>
+                )}
               </div>
-            )}
-
-            {/* Quote Validity & Important Terms */}
-            <div className="space-y-4 border-t border-border pt-4">
-              <h3 className="text-sm font-semibold">Important Information</h3>
-              
-              <Alert className="bg-muted/50 border-border">
-                <Info className="h-4 w-4" />
-                <AlertDescription className="text-sm space-y-2">
-                  <p className="font-medium">Quote Validity & Terms:</p>
-                  <ul className="list-disc list-inside space-y-1 text-xs">
-                    <li><strong>Quote Valid:</strong> This estimate is valid for 30 days from today</li>
-                    <li><strong>Not a Contract:</strong> This quote is an estimate only and does not constitute a binding agreement until confirmed in writing</li>
-                    <li><strong>Final Pricing:</strong> Actual pricing will be confirmed after our site assessment based on specific property conditions</li>
-                    <li><strong>Site Assessment:</strong> We'll visit your property to verify measurements and identify any site-specific factors</li>
-                  </ul>
-                </AlertDescription>
-              </Alert>
-
-              <Alert className="bg-muted/50 border-border">
-                <Info className="h-4 w-4" />
-                <AlertDescription className="text-sm space-y-2">
-                  <p className="font-medium">What's Included:</p>
-                  <ul className="list-disc list-inside space-y-1 text-xs">
-                    <li>All labor and equipment for the selected services</li>
-                    <li>Lawn mowing services include trimming, blowing, and clipping removal</li>
-                    <li>Debris removal and disposal (where applicable)</li>
-                    <li>Professional-grade materials and supplies</li>
-                  </ul>
-                </AlertDescription>
-              </Alert>
-
-              <Alert className="bg-muted/50 border-border">
-                <Info className="h-4 w-4" />
-                <AlertDescription className="text-sm space-y-2">
-                  <p className="font-medium">Potential Additional Costs:</p>
-                  <ul className="list-disc list-inside space-y-1 text-xs">
-                    <li>Excessive overgrowth or neglected properties may require additional labor</li>
-                    <li>Difficult terrain, steep slopes, or limited accessibility</li>
-                    <li>Tree/stump removal for trees larger than estimated</li>
-                    <li>Damage to underground utilities (sprinkler lines, etc.) not marked prior to service</li>
-                    <li>Weather delays or seasonal conditions requiring specialized equipment</li>
-                  </ul>
-                </AlertDescription>
-              </Alert>
-            </div>
-
-            <div className="text-center space-y-2">
-              <p className="text-sm font-medium">Next Steps:</p>
-              <p className="text-sm text-muted-foreground">
-                We'll contact you within 24 hours to schedule a free site assessment and finalize your quote
-              </p>
-            </div>
-
-            {onClose && (
-              <Button onClick={onClose} className="w-full" size="lg" data-testid="button-close-quote">
-                Close
-              </Button>
             )}
           </CardContent>
         </Card>
