@@ -4,10 +4,21 @@ import { useAuth } from "@/hooks/useAuth";
 import type { Lead } from "@shared/schema";
 import { TrendingUp, TrendingDown, DollarSign, Users, ShoppingCart, Clock, MapPin, Building } from "lucide-react";
 import { calculateQuoteRange } from "@shared/utils";
+import { useEffect } from "react";
+import { useLocation } from "wouter";
 
 export default function AnalyticsDashboard() {
-  const { user, isAuthenticated } = useAuth();
+  const { user, isAuthenticated, isLoading: authLoading } = useAuth();
   const isAdmin = user?.role === "admin";
+  const [, setLocation] = useLocation();
+
+  // Route guard: require admin authentication for the analytics dashboard.
+  useEffect(() => {
+    if (authLoading) return;
+    if (!isAuthenticated || !isAdmin) {
+      setLocation("/admin");
+    }
+  }, [authLoading, isAuthenticated, isAdmin, setLocation]);
 
   const { data: leads = [], isLoading } = useQuery<Lead[]>({
     queryKey: ["/api/leads"],
@@ -53,14 +64,10 @@ export default function AnalyticsDashboard() {
     ? ((purchasedLeads.length / leads.length) * 100).toFixed(1)
     : "0.0";
 
-  if (!isAdmin) {
+  if (authLoading) {
     return (
       <div className="container py-8">
-        <Card>
-          <CardContent className="py-12 text-center">
-            <p className="text-muted-foreground">Analytics dashboard is only available for administrators.</p>
-          </CardContent>
-        </Card>
+        <div className="text-center">Loading analytics...</div>
       </div>
     );
   }

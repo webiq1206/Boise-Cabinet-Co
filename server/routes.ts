@@ -336,10 +336,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
         };
 
         if (!userId || typeof userId !== "string") {
+          // #region agent log (hypothesis A)
+          fetch('http://127.0.0.1:7248/ingest/3fb51d37-10e0-463b-8f19-2a8c4e34aae8',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'server/routes.ts:/api/auth/test-login',message:'test_login_missing_userId',data:{hasUserId:!!userId,userIdType:typeof userId,hasRole:!!role,hasEmail:!!email},timestamp:Date.now(),sessionId:'debug-session',runId:'baseline',hypothesisId:'A'})}).catch(()=>{});
+          // #endregion
           return res.status(400).json({ error: "userId is required" });
         }
 
         let user = await storage.getUser(userId);
+        const userExistedBefore = !!user;
         
         if (!user) {
           // Dev convenience: create the user if it doesn't exist yet.
@@ -359,6 +363,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
             role: inferredRole,
           } as any);
         }
+
+        // #region agent log (hypothesis A)
+        fetch('http://127.0.0.1:7248/ingest/3fb51d37-10e0-463b-8f19-2a8c4e34aae8',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'server/routes.ts:/api/auth/test-login',message:'test_login_success',data:{userId:user.id,role:user.role,userExistedBefore,hasEmail:!!user.email,requestedRole:role||null},timestamp:Date.now(),sessionId:'debug-session',runId:'baseline',hypothesisId:'A'})}).catch(()=>{});
+        // #endregion
         
         // Create a test session
         (req as any).session.passport = {
@@ -527,6 +535,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
           purchasedBy: subUser.id,
         });
 
+        // #region agent log (hypothesis B)
+        fetch('http://127.0.0.1:7248/ingest/3fb51d37-10e0-463b-8f19-2a8c4e34aae8',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'server/routes.ts:/api/dev/seed',message:'dev_seed_success',data:{pendingLeadId:pending.lead.id,availableLeadId:available.lead.id,purchasedLeadId:purchased.lead.id,subUserId:subUser.id},timestamp:Date.now(),sessionId:'debug-session',runId:'baseline',hypothesisId:'B'})}).catch(()=>{});
+        // #endregion
+
         res.json({
           success: true,
           seeded: {
@@ -547,7 +559,26 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const userId = getAuthUserId(req);
       if (!userId) return res.status(401).json({ message: "Unauthorized" });
-      const user = await storage.getUser(userId);
+      const claims =
+        req.user?.claims ??
+        (process.env.NODE_ENV === "development"
+          ? (req as any).session?.passport?.user?.claims
+          : undefined);
+
+      let user = await storage.getUser(userId);
+
+      // If the user row doesn't exist yet (first login), create it from claims.
+      // Role is intentionally not set here; storage defaults are applied (or an existing role is preserved).
+      if (!user) {
+        user = await storage.upsertUser({
+          id: userId,
+          email: claims?.email,
+          firstName: claims?.first_name,
+          lastName: claims?.last_name,
+          profileImageUrl: claims?.profile_image_url,
+        } as any);
+      }
+
       res.json(user);
     } catch (error) {
       console.error("Error fetching user:", error);
@@ -901,6 +932,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
         validatedData.selectedServices.length > 0 &&
         validatedData.serviceData &&
         typeof validatedData.serviceData === "object";
+
+      // #region agent log (hypothesis D)
+      fetch('http://127.0.0.1:7248/ingest/3fb51d37-10e0-463b-8f19-2a8c4e34aae8',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'server/routes.ts:/api/quotes',message:'quote_submit_pricing_inputs',data:{hasFinalQuote,shouldAutoCalculate,selectedServicesCount:Array.isArray(validatedData.selectedServices)?validatedData.selectedServices.length:0,hasServiceData:!!validatedData.serviceData,hasLineItems:Array.isArray((validatedData as any).lineItems),frequency:validatedData.frequency||null,serviceType:validatedData.serviceType,city:validatedData.city},timestamp:Date.now(),sessionId:'debug-session',runId:'baseline',hypothesisId:'D'})}).catch(()=>{});
+      // #endregion
 
       if (shouldAutoCalculate) {
         try {
@@ -1397,6 +1432,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
       
       let leads = await storage.getAllLeads();
+
+      // #region agent log (hypothesis C)
+      fetch('http://127.0.0.1:7248/ingest/3fb51d37-10e0-463b-8f19-2a8c4e34aae8',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'server/routes.ts:/api/leads',message:'leads_list_request',data:{role:requestingUser?.role,query:{status:typeof status==="string"?status:null,city:typeof city==="string"?city:null,serviceType:typeof serviceType==="string"?serviceType:null,availableOnly:availableOnly==="true"},totalLeadsBeforeFilter:leads.length},timestamp:Date.now(),sessionId:'debug-session',runId:'baseline',hypothesisId:'C'})}).catch(()=>{});
+      // #endregion
       
       // Apply filters
       if (status && typeof status === "string") {
@@ -1435,6 +1474,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
           address: "***", // Hide exact address (city remains visible)
         };
       });
+
+      // #region agent log (hypothesis C)
+      fetch('http://127.0.0.1:7248/ingest/3fb51d37-10e0-463b-8f19-2a8c4e34aae8',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'server/routes.ts:/api/leads',message:'leads_list_response',data:{returnedCount:maskedLeads.length,statusCounts:maskedLeads.reduce((acc:any,l:any)=>{const s=l.status||"unknown";acc[s]=(acc[s]||0)+1;return acc;},{}),role:requestingUser?.role},timestamp:Date.now(),sessionId:'debug-session',runId:'baseline',hypothesisId:'C'})}).catch(()=>{});
+      // #endregion
       
       res.json(maskedLeads);
     } catch (error) {

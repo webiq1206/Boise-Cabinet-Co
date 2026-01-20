@@ -5,6 +5,13 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Button } from "@/components/ui/button";
 import { DollarSign, Calculator } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import {
+  SERVICE_PRICING_CONFIG,
+  calculateServicePriceRange,
+  formatPriceRange,
+  type ServiceMeasurements,
+} from "@/lib/pricingUtils";
 
 /**
  * PricingCalculator - Client-side pricing estimation tool
@@ -15,20 +22,32 @@ import { DollarSign, Calculator } from "lucide-react";
  * customers a quick ballpark figure before requesting an official quote.
  */
 
-const services = [
-  { value: "lawn-mowing", label: "Lawn Mowing", basePrice: 35 },
-  { value: "aeration", label: "Core Aeration", basePrice: 75 },
-  { value: "fertilization", label: "Fertilization", basePrice: 65 },
-  { value: "edging", label: "Edging & Trimming", basePrice: 25 },
-  { value: "cleanup", label: "Yard Cleanup", basePrice: 85 },
+const services: { value: keyof typeof SERVICE_PRICING_CONFIG; label: string }[] = [
+  { value: "lawn-mowing", label: "Lawn Mowing & Edging" },
+  { value: "aeration", label: "Core Aeration" },
+  { value: "fertilization", label: "Fertilization" },
+  { value: "weed-control", label: "Weed Control" },
+  { value: "sprinkler-blowout", label: "Sprinkler Winterization" },
+  { value: "sprinkler-repair", label: "Sprinkler Repair" },
+  { value: "christmas-light-installation", label: "Christmas Lights" },
+  { value: "hedge-trimming", label: "Hedge Trimming" },
+  { value: "lawn-edging", label: "Lawn Edging" },
+  { value: "snow-removal", label: "Snow Removal" },
 ];
 
-const propertySizes = [
-  { value: "small", label: "Small (< 5,000 sq ft)", multiplier: 1 },
-  { value: "medium", label: "Medium (5,000 - 10,000 sq ft)", multiplier: 1.5 },
-  { value: "large", label: "Large (10,000 - 15,000 sq ft)", multiplier: 2 },
-  { value: "xlarge", label: "Extra Large (> 15,000 sq ft)", multiplier: 2.5 },
-];
+const defaultSqFtByTier: Record<string, number> = {
+  small: 4000,
+  medium: 7500,
+  large: 12000,
+  xlarge: 18000,
+};
+
+const propertySizeTiers = [
+  { value: "small", label: "Small (about 4,000 sq ft)" },
+  { value: "medium", label: "Medium (about 7,500 sq ft)" },
+  { value: "large", label: "Large (about 12,000 sq ft)" },
+  { value: "xlarge", label: "Extra Large (about 18,000 sq ft)" },
+] as const;
 
 const frequencies = [
   { value: "one-time", label: "One-Time Service", discount: 0 },
@@ -39,28 +58,56 @@ const frequencies = [
 
 export function PricingCalculator() {
   const [selectedService, setSelectedService] = useState<string>("");
-  const [propertySize, setPropertySize] = useState<string>("");
+  const [propertySizeTier, setPropertySizeTier] = useState<string>("medium");
   const [frequency, setFrequency] = useState<string>("one-time");
+  const [linearFeet, setLinearFeet] = useState<string>("100");
+  const [zones, setZones] = useState<string>("6");
+  const [count, setCount] = useState<string>("1");
+  const [fixtureCount, setFixtureCount] = useState<string>("10");
+  const [lightingType, setLightingType] = useState<string>("Traditional Seasonal");
   const [showEstimate, setShowEstimate] = useState(false);
 
-  const calculatePrice = () => {
-    const service = services.find(s => s.value === selectedService);
-    const size = propertySizes.find(s => s.value === propertySize);
-    const freq = frequencies.find(f => f.value === frequency);
+  const serviceId = selectedService as keyof typeof SERVICE_PRICING_CONFIG | "";
+  const config = serviceId ? SERVICE_PRICING_CONFIG[serviceId] : undefined;
 
-    if (!service || !size || !freq) return 0;
-
-    const basePrice = service.basePrice * size.multiplier;
-    const discountedPrice = basePrice * (1 - freq.discount);
-    return Math.round(discountedPrice);
+  const sqFt = defaultSqFtByTier[propertySizeTier] || 7500;
+  const asPositiveNumber = (v: string): number | undefined => {
+    const n = Number(v);
+    return Number.isFinite(n) && n > 0 ? n : undefined;
   };
 
-  const estimate = calculatePrice();
+  const measurements: ServiceMeasurements = (() => {
+    if (!config) return {};
+    switch (config.unit) {
+      case "sqft":
+      case "per_sqft":
+        return { propertySize: sqFt };
+      case "linear_ft":
+        return { linearFeet: asPositiveNumber(linearFeet) || 100, lightingType };
+      case "per_zone":
+        return { zones: asPositiveNumber(zones) || 6 };
+      case "per_tree":
+      case "per_stump":
+        return { treeCount: asPositiveNumber(count) || 1 };
+      case "per_fixture":
+        return { fixtureCount: asPositiveNumber(fixtureCount) || 10 };
+      case "base_service":
+      case "base_project":
+        return {};
+      default:
+        return {};
+    }
+  })();
+
+  const range = serviceId
+    ? calculateServicePriceRange(serviceId, measurements, "residential", frequency)
+    : null;
+
   const freq = frequencies.find(f => f.value === frequency);
   const discount = freq ? freq.discount * 100 : 0;
 
   const handleCalculate = () => {
-    if (selectedService && propertySize) {
+    if (selectedService) {
       setShowEstimate(true);
     }
   };
@@ -94,22 +141,101 @@ export function PricingCalculator() {
           </Select>
         </div>
 
-        {/* Property Size */}
-        <div className="space-y-2">
-          <Label htmlFor="property-size" data-testid="label-property-size">Property Size</Label>
-          <Select value={propertySize} onValueChange={setPropertySize}>
-            <SelectTrigger id="property-size" data-testid="select-property-size">
-              <SelectValue placeholder="Select property size" />
-            </SelectTrigger>
-            <SelectContent>
-              {propertySizes.map((size) => (
-                <SelectItem key={size.value} value={size.value}>
-                  {size.label}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
+        {/* Measurement inputs (simple, based on selected service) */}
+        {config?.unit === "sqft" || config?.unit === "per_sqft" ? (
+          <div className="space-y-2">
+            <Label htmlFor="property-size" data-testid="label-property-size">Approximate Lawn/Area Size</Label>
+            <Select value={propertySizeTier} onValueChange={setPropertySizeTier}>
+              <SelectTrigger id="property-size" data-testid="select-property-size">
+                <SelectValue placeholder="Select size" />
+              </SelectTrigger>
+              <SelectContent>
+                {propertySizeTiers.map((size) => (
+                  <SelectItem key={size.value} value={size.value}>
+                    {size.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <p className="text-xs text-muted-foreground">This is used to produce a ballpark estimate. Exact pricing depends on measurements and complexity.</p>
+          </div>
+        ) : null}
+
+        {config?.unit === "linear_ft" ? (
+          <div className="space-y-3">
+            {serviceId === "christmas-light-installation" && (
+              <div className="space-y-2">
+                <Label htmlFor="lighting-type">Lighting Type</Label>
+                <Select value={lightingType} onValueChange={setLightingType}>
+                  <SelectTrigger id="lighting-type" data-testid="select-lighting-type">
+                    <SelectValue placeholder="Select lighting type" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="Traditional Seasonal">Traditional Seasonal</SelectItem>
+                    <SelectItem value="Permanent Lighting">Permanent Lighting</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            )}
+            <div className="space-y-2">
+              <Label htmlFor="linear-feet">Linear Feet</Label>
+              <Input
+                id="linear-feet"
+                type="number"
+                inputMode="numeric"
+                value={linearFeet}
+                onChange={(e) => setLinearFeet(e.target.value)}
+                placeholder="e.g., 100"
+                data-testid="input-linear-feet"
+              />
+            </div>
+          </div>
+        ) : null}
+
+        {config?.unit === "per_zone" ? (
+          <div className="space-y-2">
+            <Label htmlFor="zones">Number of Zones</Label>
+            <Input
+              id="zones"
+              type="number"
+              inputMode="numeric"
+              value={zones}
+              onChange={(e) => setZones(e.target.value)}
+              placeholder="e.g., 6"
+              data-testid="input-zones"
+            />
+          </div>
+        ) : null}
+
+        {(config?.unit === "per_tree" || config?.unit === "per_stump") ? (
+          <div className="space-y-2">
+            <Label htmlFor="count">{config.unit === "per_tree" ? "Number of Trees" : "Number of Stumps"}</Label>
+            <Input
+              id="count"
+              type="number"
+              inputMode="numeric"
+              value={count}
+              onChange={(e) => setCount(e.target.value)}
+              placeholder="e.g., 1"
+              data-testid="input-count"
+            />
+          </div>
+        ) : null}
+
+        {config?.unit === "per_fixture" ? (
+          <div className="space-y-2">
+            <Label htmlFor="fixture-count">Number of Fixtures</Label>
+            <Input
+              id="fixture-count"
+              type="number"
+              inputMode="numeric"
+              value={fixtureCount}
+              onChange={(e) => setFixtureCount(e.target.value)}
+              placeholder="e.g., 10"
+              data-testid="input-fixture-count"
+            />
+          </div>
+        ) : null}
 
         {/* Service Frequency */}
         <div className="space-y-3">
@@ -135,7 +261,7 @@ export function PricingCalculator() {
         <Button 
           onClick={handleCalculate} 
           className="w-full"
-          disabled={!selectedService || !propertySize}
+          disabled={!selectedService}
           data-testid="button-calculate"
         >
           <DollarSign className="mr-2 h-4 w-4" />
@@ -143,12 +269,15 @@ export function PricingCalculator() {
         </Button>
 
         {/* Price Estimate */}
-        {showEstimate && estimate > 0 && (
+        {showEstimate && range && (
           <div className="mt-6 p-6 bg-primary/10 rounded-md border-2 border-primary" data-testid="result-estimate">
             <div className="text-center space-y-2">
-              <div className="text-sm font-medium text-muted-foreground">Estimated Price</div>
-              <div className="text-4xl font-bold text-primary" data-testid="text-price">
-                ${estimate}
+              <div className="text-sm font-medium text-muted-foreground">Estimated Range</div>
+              <div className="text-3xl md:text-4xl font-bold text-primary" data-testid="text-price-range">
+                {formatPriceRange(range.min, range.max)}
+              </div>
+              <div className="text-sm text-muted-foreground">
+                Typical estimate: <span className="font-medium text-foreground">${range.typical.toLocaleString()}</span>
               </div>
               <div className="text-sm text-muted-foreground">
                 per {frequency === "one-time" ? "service" : frequency.replace("-", " ")} visit
@@ -168,7 +297,7 @@ export function PricingCalculator() {
                 Ready to get started?
               </p>
               <Button asChild data-testid="button-get-quote">
-                <a href="/contact">Get Free Quote</a>
+                <a href="/get-quote">Get Free Quote</a>
               </Button>
             </div>
           </div>

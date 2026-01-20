@@ -26,7 +26,7 @@ function formatRateDisplay(serviceId: string): string {
     return '$65 up to 6 zones + $5/extra zone';
   }
   if (serviceId === 'lawn-mowing') {
-    return '$35 trip + $0.003/sq ft';
+    return '$0.003/sq ft';
   }
 
   const config = SERVICE_PRICING_CONFIG[serviceId as keyof typeof SERVICE_PRICING_CONFIG];

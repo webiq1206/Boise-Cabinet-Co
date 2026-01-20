@@ -12,6 +12,7 @@ import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/hooks/useAuth";
 import type { Lead } from "@shared/schema";
 import { useEffect, useMemo, useState } from "react";
+import { useLocation } from "wouter";
 import { PRIORITY_SERVICES, CITIES } from "@shared/contentData";
 import { AdminAnalyticsPanel } from "@/components/AdminAnalyticsPanel";
 import { Input } from "@/components/ui/input";
@@ -194,6 +195,7 @@ function QuoteBreakdownSection({ lead }: { lead: Lead }) {
 
 export default function AdminDashboard() {
   const { toast } = useToast();
+  const [, setLocation] = useLocation();
   const leadIdParam = useMemo(() => new URLSearchParams(window.location.search).get("leadId"), []);
   const [activeTab, setActiveTab] = useState<"pending" | "accepted" | "available" | "all">(() => {
     const tab = new URLSearchParams(window.location.search).get("tab");
@@ -202,6 +204,15 @@ export default function AdminDashboard() {
   });
   const { user, isAuthenticated, isLoading: authLoading } = useAuth();
   const environment = useEnvironment();
+  const isAdmin = user?.role === "admin";
+
+  // Route guard: require admin authentication for the admin dashboard.
+  useEffect(() => {
+    if (authLoading) return;
+    if (!isAuthenticated || !isAdmin) {
+      setLocation("/admin");
+    }
+  }, [authLoading, isAuthenticated, isAdmin, setLocation]);
   
   // Search and filter state
   const [searchQuery, setSearchQuery] = useState(() => new URLSearchParams(window.location.search).get("search") ?? "");
@@ -218,7 +229,7 @@ export default function AdminDashboard() {
 
   const { data: leads = [], isLoading } = useQuery<Lead[]>({
     queryKey: ["/api/leads"],
-    enabled: isAuthenticated,
+    enabled: isAuthenticated && isAdmin,
   });
 
   // Deep-link support: `/admin/dashboard?leadId=...` auto-selects the right tab and scrolls to the lead card.
@@ -917,7 +928,7 @@ export default function AdminDashboard() {
     );
   };
 
-  if (isLoading) {
+  if (authLoading || isLoading) {
     return (
       <div className="container py-8">
         <div className="text-center">Loading dashboard...</div>

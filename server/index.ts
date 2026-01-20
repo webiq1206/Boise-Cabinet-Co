@@ -48,6 +48,12 @@ app.use((req, res, next) => {
       }
 
       log(logLine);
+
+      if (res.statusCode >= 400) {
+        // #region agent log (hypothesis E)
+        fetch('http://127.0.0.1:7248/ingest/3fb51d37-10e0-463b-8f19-2a8c4e34aae8',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'server/index.ts:finish',message:'api_response_error',data:{method:req.method,path,statusCode:res.statusCode,durationMs:duration},timestamp:Date.now(),sessionId:'debug-session',runId:'baseline',hypothesisId:'E'})}).catch(()=>{});
+        // #endregion
+      }
     }
   });
 
@@ -61,8 +67,17 @@ app.use((req, res, next) => {
     const status = err.status || err.statusCode || 500;
     const message = err.message || "Internal Server Error";
 
-    res.status(status).json({ message });
-    throw err;
+    // Never throw here: throwing inside Express error middleware can crash the process,
+    // turning a recoverable request error into an outage.
+    const safeMessage = status >= 500 ? "Internal Server Error" : message;
+    console.error("[api] Unhandled error:", err);
+
+    // #region agent log (hypothesis E)
+    fetch('http://127.0.0.1:7248/ingest/3fb51d37-10e0-463b-8f19-2a8c4e34aae8',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'server/index.ts:error-middleware',message:'api_unhandled_error',data:{statusCode:status,safeMessage:String(safeMessage).slice(0,120),errName:err?.name,errCode:err?.code},timestamp:Date.now(),sessionId:'debug-session',runId:'baseline',hypothesisId:'E'})}).catch(()=>{});
+    // #endregion
+
+    if (res.headersSent) return;
+    res.status(status).json({ message: safeMessage });
   });
 
   // Serve static files from public directory (robots.txt, sitemap.xml, llms.txt, etc.)

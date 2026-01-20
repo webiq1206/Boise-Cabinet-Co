@@ -52,11 +52,13 @@ export function MapMeasureTool({
   const mapRef = useRef<HTMLDivElement>(null);
   const mapInstanceRef = useRef<L.Map | null>(null);
   const drawnItemsRef = useRef<L.FeatureGroup | null>(null);
+  const drawControlRef = useRef<L.Control.Draw | null>(null);
   const [searchAddress, setSearchAddress] = useState(initialAddress || "");
   const [isSearching, setIsSearching] = useState(false);
   const [measuredArea, setMeasuredArea] = useState<number | null>(null);
   const [measuredLinear, setMeasuredLinear] = useState<number | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [tileWarning, setTileWarning] = useState<string | null>(null);
   const [mapReady, setMapReady] = useState(false);
   
   // When 'both' mode is enabled, allow user to toggle between area and linear
@@ -64,6 +66,110 @@ export function MapMeasureTool({
   const [activeMode, setActiveMode] = useState<'area' | 'linear'>(
     measurementType === 'linear' ? 'linear' : 'area'
   );
+
+  // Avoid stale closures in Leaflet event handlers
+  const activeModeRef = useRef<'area' | 'linear'>(activeMode);
+  useEffect(() => {
+    activeModeRef.current = activeMode;
+  }, [activeMode]);
+
+  const recalculateMeasurements = (drawnItems: L.FeatureGroup) => {
+    let areaTotal = 0;
+    let linearTotal = 0;
+
+    drawnItems.eachLayer((layer: any) => {
+      const layerType = layer.measurementType as ('area' | 'linear' | undefined);
+
+      if (layer instanceof L.Polygon || layer instanceof L.Rectangle) {
+        if (!layerType || layerType === 'area') {
+          try {
+            const latlngs = layer.getLatLngs() as L.LatLng[] | L.LatLng[][];
+            const coords = Array.isArray(latlngs[0]) ? (latlngs[0] as L.LatLng[]) : (latlngs as L.LatLng[]);
+            const area = L.GeometryUtil.geodesicArea(coords as L.LatLng[]);
+            areaTotal += area;
+          } catch (e) {
+            console.warn("Error calculating area:", e);
+          }
+        }
+      } else if (layer instanceof L.Polyline && !(layer instanceof L.Polygon)) {
+        if (!layerType || layerType === 'linear') {
+          try {
+            const latlngs = layer.getLatLngs() as L.LatLng[];
+            for (let i = 0; i < latlngs.length - 1; i++) {
+              const p1 = latlngs[i];
+              const p2 = latlngs[i + 1];
+              if (p1 && p2 && typeof (p1 as any).distanceTo === 'function') {
+                linearTotal += (p1 as any).distanceTo(p2);
+              }
+            }
+          } catch (e) {
+            console.warn("Error calculating distance:", e);
+          }
+        }
+      }
+    });
+
+    setMeasuredArea(areaTotal > 0 ? Math.round(areaTotal * 10.7639) : null);
+    setMeasuredLinear(linearTotal > 0 ? Math.round(linearTotal * 3.28084) : null);
+  };
+
+  const updateDrawControlFor = (map: L.Map, drawnItems: L.FeatureGroup, mode: 'area' | 'linear') => {
+    if (drawControlRef.current) {
+      try {
+        map.removeControl(drawControlRef.current);
+      } catch {
+        // ignore
+      }
+      drawControlRef.current = null;
+    }
+
+    // In dual-mode, show only the relevant tool for the active tab to reduce confusion.
+    // In single-mode, show the tool for the selected measurementType.
+    const enableAreaTools = supportsBothModes ? (mode === 'area') : measurementType === 'area';
+    const enableLinearTools = supportsBothModes ? (mode === 'linear') : measurementType === 'linear';
+
+    const nextControl = new L.Control.Draw({
+      draw: {
+        polygon: enableAreaTools ? {
+          shapeOptions: {
+            color: '#2D6B3F',
+            fillColor: '#2D6B3F',
+            fillOpacity: 0.3,
+            weight: 2,
+          },
+          showArea: true,
+          metric: false,
+        } : false,
+        polyline: enableLinearTools ? {
+          shapeOptions: {
+            color: '#2D6B3F',
+            weight: 3,
+          },
+          showLength: true,
+          metric: false,
+        } : false,
+        rectangle: enableAreaTools ? {
+          shapeOptions: {
+            color: '#2D6B3F',
+            fillColor: '#2D6B3F',
+            fillOpacity: 0.3,
+          },
+          showArea: true,
+          metric: false,
+        } : false,
+        circle: false,
+        circlemarker: false,
+        marker: false,
+      },
+      edit: {
+        featureGroup: drawnItems,
+        remove: true,
+      },
+    });
+
+    map.addControl(nextControl);
+    drawControlRef.current = nextControl;
+  };
   
 
   // Sync activeMode when measurementType prop changes
@@ -91,6 +197,7 @@ export function MapMeasureTool({
   useEffect(() => {
     if (isOpen) {
       setError(null);
+      setTileWarning(null);
       setMeasuredArea(null);
       setMeasuredLinear(null);
       setMapReady(false);
@@ -131,195 +238,100 @@ export function MapMeasureTool({
             maxZoom: 22,
           });
 
-          // Add satellite/hybrid layer
-          L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-            attribution: 'Tiles &copy; Esri',
-            maxZoom: 20,
-          }).addTo(map);
-
-          // Add street overlay for reference
-          L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          /**
+           * Tile setup
+           *
+           * Some providers (including satellite imagery) can return a placeholder tile that says
+           * "Map data not yet available" at very high zoom levels for certain areas.
+           *
+           * Setting `maxNativeZoom` prevents Leaflet from requesting missing tiles and instead
+           * scales the highest-available tiles, which avoids that placeholder experience.
+           *
+           * We also provide a built-in basemap switcher so users can fall back to "Streets"
+           * if satellite imagery is unavailable.
+           */
+          const streets = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; OpenStreetMap contributors',
-            opacity: 0.3,
-            maxZoom: 20,
-          }).addTo(map);
+            maxZoom: 22,
+            maxNativeZoom: 19,
+          });
+
+          const satellite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+            attribution: 'Tiles &copy; Esri',
+            maxZoom: 22,
+            maxNativeZoom: 19,
+          });
+
+          const labels = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors',
+            opacity: 0.35,
+            maxZoom: 22,
+            maxNativeZoom: 19,
+          });
+
+          const satelliteHybrid = L.layerGroup([satellite, labels]);
+          satelliteHybrid.addTo(map);
+
+          // Basemap picker (top-right)
+          L.control.layers(
+            {
+              "Satellite + Labels": satelliteHybrid,
+              "Streets": streets,
+            },
+            undefined,
+            { position: "topright" }
+          ).addTo(map);
+
+          // If tiles fail to load (network/adblock/offline), suggest switching basemaps.
+          let tileErrorCount = 0;
+          const onTileError = () => {
+            tileErrorCount += 1;
+            if (tileErrorCount === 1) {
+              setTileWarning(
+                "Map tiles failed to load. If you see gray tiles, try switching to 'Streets' using the map layer control (top-right)."
+              );
+            }
+          };
+          satellite.on("tileerror", onTileError);
+          labels.on("tileerror", onTileError);
+          streets.on("tileerror", onTileError);
 
           // Initialize drawing layer
           const drawnItems = new L.FeatureGroup();
           map.addLayer(drawnItems);
           drawnItemsRef.current = drawnItems;
 
-          // Drawing control - configure based on active measurement mode
-          // In dual mode, enable all tools; otherwise enable mode-specific tools
-          const drawControl = new L.Control.Draw({
-            draw: {
-              polygon: (supportsBothModes || measurementType === 'area') ? {
-                shapeOptions: {
-                  color: '#2D6B3F',
-                  fillColor: '#2D6B3F',
-                  fillOpacity: 0.3,
-                  weight: 2,
-                },
-                showArea: true,
-                metric: false,
-              } : false,
-              polyline: (supportsBothModes || measurementType === 'linear') ? {
-                shapeOptions: {
-                  color: '#2D6B3F',
-                  weight: 3,
-                },
-                showLength: true,
-                metric: false,
-              } : false,
-              rectangle: (supportsBothModes || measurementType === 'area') ? {
-                shapeOptions: {
-                  color: '#2D6B3F',
-                  fillColor: '#2D6B3F',
-                  fillOpacity: 0.3,
-                },
-                showArea: true,
-                metric: false,
-              } : false,
-              circle: false,
-              circlemarker: false,
-              marker: false,
-            },
-            edit: {
-              featureGroup: drawnItems,
-              remove: true,
-            },
-          });
-
-          map.addControl(drawControl);
+          // Draw toolbar (kept in sync with active mode in dual-mode)
+          updateDrawControlFor(map, drawnItems, activeModeRef.current);
 
           // Handle drawing completion - aggregate all layers
           map.on(L.Draw.Event.CREATED, (event: any) => {
             const layer = event.layer;
+            const layerType = event.layerType as string | undefined;
+
+            // Tag layers so we can keep "area" and "linear" separated consistently.
+            if (layerType === 'polyline') {
+              (layer as any).measurementType = 'linear';
+            } else if (layerType === 'polygon' || layerType === 'rectangle') {
+              (layer as any).measurementType = 'area';
+            } else {
+              (layer as any).measurementType = activeModeRef.current;
+            }
+
             drawnItems.addLayer(layer);
 
-            // Recalculate all measurements from all layers
-            let areaTotal = 0;
-            let linearTotal = 0;
-            
-            drawnItems.eachLayer((layer: any) => {
-              const layerType = layer.measurementType;
-              
-              if (layer instanceof L.Polygon || layer instanceof L.Rectangle) {
-                if (!layerType || layerType === 'area') {
-                  try {
-                    const latlngs = layer.getLatLngs() as L.LatLng[] | L.LatLng[][];
-                    const coords = Array.isArray(latlngs[0]) ? (latlngs[0] as L.LatLng[]) : (latlngs as L.LatLng[]);
-                    const area = L.GeometryUtil.geodesicArea(coords as L.LatLng[]);
-                    areaTotal += area;
-                  } catch (e) {
-                    console.warn("Error calculating area:", e);
-                  }
-                }
-              } else if (layer instanceof L.Polyline && !(layer instanceof L.Polygon)) {
-                if (!layerType || layerType === 'linear') {
-                  try {
-                    const latlngs = layer.getLatLngs() as L.LatLng[];
-                    for (let i = 0; i < latlngs.length - 1; i++) {
-                      const p1 = latlngs[i];
-                      const p2 = latlngs[i + 1];
-                      if (p1 && p2 && typeof (p1 as any).distanceTo === 'function') {
-                        linearTotal += (p1 as any).distanceTo(p2);
-                      }
-                    }
-                  } catch (e) {
-                    console.warn("Error calculating distance:", e);
-                  }
-                }
-              }
-            });
-            
-            // Always set measurements (null if 0) to reflect current map state
-            setMeasuredArea(areaTotal > 0 ? Math.round(areaTotal * 10.7639) : null);
-            setMeasuredLinear(linearTotal > 0 ? Math.round(linearTotal * 3.28084) : null);
+            recalculateMeasurements(drawnItems);
             setError(null);
           });
 
           // Handle editing - recalculate all measurements
           map.on(L.Draw.Event.EDITED, () => {
-            let areaTotal = 0;
-            let linearTotal = 0;
-            
-            drawnItems.eachLayer((layer: any) => {
-              const layerType = layer.measurementType;
-              
-              if (layer instanceof L.Polygon || layer instanceof L.Rectangle) {
-                if (!layerType || layerType === 'area') {
-                  try {
-                    const latlngs = layer.getLatLngs() as L.LatLng[] | L.LatLng[][];
-                    const coords = Array.isArray(latlngs[0]) ? (latlngs[0] as L.LatLng[]) : (latlngs as L.LatLng[]);
-                    const area = L.GeometryUtil.geodesicArea(coords as L.LatLng[]);
-                    areaTotal += area;
-                  } catch (e) {
-                    console.warn("Error calculating area:", e);
-                  }
-                }
-              } else if (layer instanceof L.Polyline && !(layer instanceof L.Polygon)) {
-                if (!layerType || layerType === 'linear') {
-                  try {
-                    const latlngs = layer.getLatLngs() as L.LatLng[];
-                    for (let i = 0; i < latlngs.length - 1; i++) {
-                      const p1 = latlngs[i];
-                      const p2 = latlngs[i + 1];
-                      if (p1 && p2 && typeof (p1 as any).distanceTo === 'function') {
-                        linearTotal += (p1 as any).distanceTo(p2);
-                      }
-                    }
-                  } catch (e) {
-                    console.warn("Error calculating distance:", e);
-                  }
-                }
-              }
-            });
-            
-            // Always set measurements (null if 0) to reflect current map state
-            setMeasuredArea(areaTotal > 0 ? Math.round(areaTotal * 10.7639) : null);
-            setMeasuredLinear(linearTotal > 0 ? Math.round(linearTotal * 3.28084) : null);
+            recalculateMeasurements(drawnItems);
           });
 
           // Handle deletion - recalculate remaining measurements
           map.on(L.Draw.Event.DELETED, () => {
-            let areaTotal = 0;
-            let linearTotal = 0;
-            
-            drawnItems.eachLayer((layer: any) => {
-              const layerType = layer.measurementType;
-              
-              if (layer instanceof L.Polygon || layer instanceof L.Rectangle) {
-                if (!layerType || layerType === 'area') {
-                  try {
-                    const latlngs = layer.getLatLngs() as L.LatLng[] | L.LatLng[][];
-                    const coords = Array.isArray(latlngs[0]) ? (latlngs[0] as L.LatLng[]) : (latlngs as L.LatLng[]);
-                    const area = L.GeometryUtil.geodesicArea(coords as L.LatLng[]);
-                    areaTotal += area;
-                  } catch (e) {
-                    console.warn("Error calculating area:", e);
-                  }
-                }
-              } else if (layer instanceof L.Polyline && !(layer instanceof L.Polygon)) {
-                if (!layerType || layerType === 'linear') {
-                  try {
-                    const latlngs = layer.getLatLngs() as L.LatLng[];
-                    for (let i = 0; i < latlngs.length - 1; i++) {
-                      const p1 = latlngs[i];
-                      const p2 = latlngs[i + 1];
-                      if (p1 && p2 && typeof (p1 as any).distanceTo === 'function') {
-                        linearTotal += (p1 as any).distanceTo(p2);
-                      }
-                    }
-                  } catch (e) {
-                    console.warn("Error calculating distance:", e);
-                  }
-                }
-              }
-            });
-            
-            setMeasuredArea(areaTotal > 0 ? Math.round(areaTotal * 10.7639) : null);
-            setMeasuredLinear(linearTotal > 0 ? Math.round(linearTotal * 3.28084) : null);
+            recalculateMeasurements(drawnItems);
           });
 
           mapInstanceRef.current = map;
@@ -342,6 +354,21 @@ export function MapMeasureTool({
               // ignore
             }
           }, 250);
+
+          // Keep Leaflet sized correctly as the dialog/layout changes
+          let resizeObserver: ResizeObserver | null = null;
+          try {
+            resizeObserver = new ResizeObserver(() => {
+              try {
+                map.invalidateSize();
+              } catch {
+                // ignore
+              }
+            });
+            resizeObserver.observe(map.getContainer());
+          } catch {
+            // ResizeObserver not available — ignore
+          }
 
           // Auto-search initial address if provided
           if (initialAddress) {
@@ -368,12 +395,33 @@ export function MapMeasureTool({
       if (animationFrameId) {
         cancelAnimationFrame(animationFrameId);
       }
+      // Ensure draw toolbar doesn't duplicate on re-open
+      if (mapInstanceRef.current && drawControlRef.current) {
+        try {
+          mapInstanceRef.current.removeControl(drawControlRef.current);
+        } catch {
+          // ignore
+        }
+        drawControlRef.current = null;
+      }
       if (mapInstanceRef.current) {
         mapInstanceRef.current.remove();
         mapInstanceRef.current = null;
       }
     };
   }, [isOpen, measurementType, supportsBothModes]); // Re-initialize only when dialog opens or measurement type changes
+
+  // When in dual-mode, keep the drawing toolbar matched to the active tab.
+  useEffect(() => {
+    if (!isOpen) return;
+    if (!supportsBothModes) return;
+    const map = mapInstanceRef.current;
+    const drawnItems = drawnItemsRef.current;
+    if (!map || !drawnItems) return;
+    updateDrawControlFor(map, drawnItems, activeMode);
+    // updateDrawControlFor captures measurementType/supportsBothModes intentionally
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeMode, isOpen, supportsBothModes]);
 
   const searchForAddress = async (address: string) => {
     if (!address) {
@@ -737,6 +785,13 @@ export function MapMeasureTool({
             <Alert>
               <Info className="h-4 w-4" />
               <AlertDescription>{error}</AlertDescription>
+            </Alert>
+          )}
+
+          {tileWarning && (
+            <Alert>
+              <Info className="h-4 w-4" />
+              <AlertDescription>{tileWarning}</AlertDescription>
             </Alert>
           )}
 

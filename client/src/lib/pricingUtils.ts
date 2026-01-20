@@ -6,7 +6,7 @@
 // Service pricing configuration (matches server/services/pricing.ts)
 export const SERVICE_PRICING_CONFIG = {
   // Lawn services (sqft based)
-  "lawn-mowing": { rate: 0.003, unit: "sqft", name: "Lawn Mowing & Edging", tripCharge: 35 },
+  "lawn-mowing": { rate: 0.003, unit: "sqft", name: "Lawn Mowing & Edging" },
   "aeration": { rate: 0.018, unit: "sqft", name: "Core Aeration" },
   "fertilization": { rate: 0.014, unit: "sqft", name: "Fertilization Treatment" },
   "weed-control": { rate: 0.013, unit: "sqft", name: "Weed Control" },
@@ -130,12 +130,7 @@ export function calculateServicePriceRange(
   switch (config.unit) {
     case "sqft":
       measurementValue = measurements.propertySize || 5000;
-      if (serviceId === "lawn-mowing") {
-        const tripCharge = (config as any).tripCharge || 35;
-        baseCost = tripCharge + measurementValue * config.rate;
-      } else {
-        baseCost = measurementValue * config.rate;
-      }
+      baseCost = measurementValue * config.rate;
       break;
 
     case "linear_ft":

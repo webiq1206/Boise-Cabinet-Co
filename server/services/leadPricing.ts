@@ -54,14 +54,14 @@ export function calculateLeadPrice(params: {
     "christmas-light-installation": 150,
   };
 
-  // One-time projects: 10% of total quote (minimum $10), rounded up to the nearest $5
+  // One-time projects: 10% of total quote (minimum $15), rounded up to the nearest $5
   let basePrice: number =
     frequency && frequency !== "one-time"
       ? (RECURRING_LEAD_BASE_PRICES[serviceType] ?? 60)
       : finalQuote * 0.10;
 
-  // Ensure minimum price of $10, round to nearest $5
-  basePrice = Math.max(10, basePrice);
+  // Ensure minimum price of $15, round to nearest $5
+  basePrice = Math.max(15, basePrice);
   basePrice = roundToNearestFive(basePrice);
 
   return {

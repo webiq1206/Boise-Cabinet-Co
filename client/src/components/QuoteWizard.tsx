@@ -18,12 +18,45 @@ import { queryAssessor, getCountyFromCity } from "@/lib/assessors";
 import { ServiceFieldsRenderer, validateServiceData } from "@/components/ServiceFieldsRenderer";
 import { useMutation } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
-import { SERVICE_FIELD_CONFIGS, type MeasurementGroup } from "@shared/serviceFieldConfig";
+import { SERVICE_FIELD_CONFIGS, type MeasurementGroup, type ServiceFieldConfig } from "@shared/serviceFieldConfig";
 import { SERVICE_PRICING_GUIDANCE_MAP, CITIES } from "@shared/contentData";
 import { formatCurrencyRangeWhole } from "@/lib/utils";
 import { calculateQuoteRange } from "@shared/utils";
 import { StickyQuoteSummary } from "@/components/StickyQuoteSummary";
-import { calculateServicePriceRange, formatPriceRange, type ServiceMeasurements } from "@/lib/pricingUtils";
+import { calculateServicePriceRange, formatPriceRange, type ServiceMeasurements, type PriceRangeResult } from "@/lib/pricingUtils";
+
+const POPULAR_SERVICE_IDS: string[] = [
+  "lawn-mowing",
+  "aeration",
+  "fertilization",
+  "weed-control",
+  "overseeding",
+  "dethatching",
+  "sprinkler-blowout",
+  "sprinkler-repair",
+  "spring-cleanup",
+  "fall-cleanup",
+  "christmas-light-installation",
+];
+
+function parseDimensionsToSqFt(input: unknown): number | null {
+  if (typeof input !== "string") return null;
+  const raw = input.trim();
+  if (!raw) return null;
+
+  // Support: "20x15", "20 x 15", "20×15"
+  const match = raw.match(/(\d+(?:\.\d+)?)\s*[xX×]\s*(\d+(?:\.\d+)?)/);
+  if (match) {
+    const a = Number(match[1]);
+    const b = Number(match[2]);
+    const area = a * b;
+    return Number.isFinite(area) && area > 0 ? area : null;
+  }
+
+  // Support: "300"
+  const num = Number(raw.replace(/[^\d.]/g, ""));
+  return Number.isFinite(num) && num > 0 ? num : null;
+}
 
 // Step 1: Basic Property Info
 const step1Schema = z.object({
@@ -110,6 +143,8 @@ export function QuoteWizard({
   const [isAutoLookingUp, setIsAutoLookingUp] = useState(false);
   const [autoLookupStatus, setAutoLookupStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [autoLookupMessage, setAutoLookupMessage] = useState<string | null>(null);
+  const [serviceSearchQuery, setServiceSearchQuery] = useState("");
+  const [browseAllServices, setBrowseAllServices] = useState(false);
   const formRef = useRef<HTMLDivElement>(null);
   const measurementsPanelRef = useRef<HTMLDivElement>(null);
   const serviceFieldsRef = useRef<HTMLDivElement>(null);
@@ -655,6 +690,266 @@ export function QuoteWizard({
     }
   };
 
+  const normalizeSearch = (q: string) => q.trim().toLowerCase();
+  const serviceQuery = normalizeSearch(serviceSearchQuery);
+
+  const getServiceConfig = (serviceId: string): ServiceFieldConfig | undefined =>
+    SERVICE_FIELD_CONFIGS.find((c) => c.serviceId === serviceId);
+
+  const getServicePriceRange = (
+    serviceId: string
+  ): { range: PriceRangeResult | null; usingAssumptions: boolean; assumptionsLabel?: string } => {
+    const cfg = getServiceConfig(serviceId);
+    const data = (serviceData?.[serviceId] || {}) as Record<string, any>;
+
+    const getFinitePositive = (v: any): number | undefined => {
+      return typeof v === "number" && Number.isFinite(v) && v > 0 ? v : undefined;
+    };
+
+    let usingAssumptions = false;
+    const assumptions: string[] = [];
+
+    // propertySize source:
+    // - perServiceProjectArea: require service-specific value (sod/mulch areas)
+    // - sharedLawnArea: allow shared or fallback typical
+    const needsProjectArea =
+      cfg?.fields?.some((f) => f.name === "propertySize" && f.measurementGroup === "perServiceProjectArea") || false;
+
+    const sharedSqFt = getFinitePositive(sharedMeasurements.lawnAreaSqFt);
+    const serviceSqFt = getFinitePositive(data.propertySize);
+
+    if (needsProjectArea && !serviceSqFt) {
+      // Avoid showing a misleading estimate (would fall back to a full-property default).
+      return {
+        range: null,
+        usingAssumptions: true,
+        assumptionsLabel: "Enter the project area below to see an estimate.",
+      };
+    }
+
+    // linearFeet source depends on measurement group
+    const getSharedLinearFeetForService = (): number | undefined => {
+      const field = cfg?.fields?.find((f) => f.name === "linearFeet");
+      switch (field?.measurementGroup) {
+        case "sharedRooflineFt":
+          return getFinitePositive(sharedMeasurements.rooflineFt);
+        case "sharedLotPerimeterFt":
+          return getFinitePositive(sharedMeasurements.lotPerimeterFt);
+        case "sharedLawnPerimeterFt":
+          return getFinitePositive(sharedMeasurements.lawnPerimeterFt);
+        case "sharedHedgeFt":
+          return getFinitePositive(sharedMeasurements.hedgeFt);
+        default:
+          return undefined;
+      }
+    };
+
+    const sharedLinear = getSharedLinearFeetForService();
+    const serviceLinear = getFinitePositive(data.linearFeet);
+
+    // zones
+    const zones = getFinitePositive(data.zones);
+
+    // tree count and fixtures (note: some service forms use `quantity`)
+    const treeCount = getFinitePositive(data.treeCount) || getFinitePositive(data.quantity);
+    const fixtureCount = getFinitePositive(data.fixtureCount) || getFinitePositive(data.quantity);
+
+    // christmas lights: lighting type influences rate
+    const lightingType = typeof data.lightingType === "string" ? data.lightingType : undefined;
+
+    // patio/hardscape: convert dimensions string to sqft when possible
+    const dimsSqFt = parseDimensionsToSqFt(data.dimensions);
+
+    const measurements: ServiceMeasurements = {};
+
+    if (needsProjectArea) {
+      measurements.propertySize = serviceSqFt;
+    } else if (cfg?.fields?.some((f) => f.name === "propertySize")) {
+      if (serviceSqFt) {
+        measurements.propertySize = serviceSqFt;
+      } else if (sharedSqFt) {
+        measurements.propertySize = sharedSqFt;
+      } else {
+        measurements.propertySize = 5000;
+        usingAssumptions = true;
+        assumptions.push("5,000 sq ft");
+      }
+    }
+
+    if (cfg?.fields?.some((f) => f.name === "linearFeet")) {
+      if (serviceLinear) {
+        measurements.linearFeet = serviceLinear;
+      } else if (sharedLinear) {
+        measurements.linearFeet = sharedLinear;
+      } else {
+        measurements.linearFeet = 100;
+        usingAssumptions = true;
+        assumptions.push("100 ft");
+      }
+    }
+
+    if (cfg?.fields?.some((f) => f.name === "zones")) {
+      if (zones) {
+        measurements.zones = zones;
+      } else {
+        measurements.zones = 6;
+        usingAssumptions = true;
+        assumptions.push("6 zones");
+      }
+    }
+
+    if (cfg?.fields?.some((f) => f.name === "treeCount" || f.name === "quantity")) {
+      if (treeCount) {
+        measurements.treeCount = treeCount;
+      } else {
+        measurements.treeCount = 1;
+        usingAssumptions = true;
+        assumptions.push("1 item");
+      }
+    }
+
+    if (cfg?.fields?.some((f) => f.name === "quantity")) {
+      if (fixtureCount) {
+        measurements.fixtureCount = fixtureCount;
+      }
+    }
+
+    if (cfg?.fields?.some((f) => f.name === "lightingType")) {
+      if (lightingType) {
+        measurements.lightingType = lightingType;
+      } else {
+        // Default to traditional when not specified.
+        usingAssumptions = true;
+        assumptions.push("traditional lights");
+      }
+    }
+
+    if (cfg?.fields?.some((f) => f.name === "dimensions")) {
+      if (dimsSqFt) {
+        measurements.propertySize = dimsSqFt;
+      } else {
+        // Use a typical patio size if no dimensions given yet.
+        measurements.propertySize = measurements.propertySize ?? 300;
+        usingAssumptions = true;
+        assumptions.push("300 sq ft");
+      }
+    }
+
+    const propertyType = form1.getValues("propertyType") || "residential";
+    const frequency = form2.getValues("frequency") || "one-time";
+
+    const range = calculateServicePriceRange(serviceId, measurements, propertyType, frequency);
+
+    return {
+      range,
+      usingAssumptions,
+      assumptionsLabel: assumptions.length > 0 ? `Using typical inputs (${assumptions.join(", ")})` : undefined,
+    };
+  };
+
+  const renderServiceTile = (
+    service: ServiceFieldConfig,
+    variant: "selected" | "picker",
+    idNamespace: string
+  ) => {
+    const isSelected = selectedServices.includes(service.serviceId);
+    const pricingData = SERVICE_PRICING_GUIDANCE_MAP.get(service.serviceId);
+    const { range, usingAssumptions, assumptionsLabel } = getServicePriceRange(service.serviceId);
+    const checkboxId = `${idNamespace}-service-${service.serviceId}`;
+
+    return (
+      <div
+        key={service.serviceId}
+        className={`rounded-md border ${isSelected ? "border-primary bg-primary/5" : "border-input"}`}
+      >
+        <Label
+          htmlFor={checkboxId}
+          className="flex items-start gap-3 p-4 cursor-pointer hover-elevate"
+        >
+          <Checkbox
+            id={checkboxId}
+            checked={isSelected}
+            onCheckedChange={() => toggleService(service.serviceId)}
+            data-testid={`checkbox-service-${service.serviceId}`}
+          />
+          <div className="flex-1">
+            <div className="font-medium">{service.serviceName}</div>
+            {variant === "selected" && range && (
+              <div className="text-xs text-muted-foreground mt-1" data-testid={`selected-estimate-${service.serviceId}`}>
+                <div className="flex items-center justify-between gap-3">
+                  <span className="uppercase tracking-wide text-[10px] text-muted-foreground">
+                    Estimate
+                    {usingAssumptions ? " (ballpark)" : ""}
+                  </span>
+                  <span className="font-semibold text-primary">~${range.typical.toLocaleString()}</span>
+                </div>
+                <div className="mt-1 flex items-center justify-between gap-3">
+                  <span className="text-muted-foreground">Range</span>
+                  <span className="text-muted-foreground">{formatPriceRange(range.min, range.max)}</span>
+                </div>
+                {assumptionsLabel && (
+                  <div className="mt-1 text-[11px] text-muted-foreground italic">{assumptionsLabel}</div>
+                )}
+              </div>
+            )}
+            {variant === "selected" && !range && (
+              <div className="text-xs text-muted-foreground mt-1">
+                {assumptionsLabel || "Add measurements below to see an estimate."}
+              </div>
+            )}
+          </div>
+        </Label>
+
+        {variant === "selected" && (
+          <div className="px-4 pb-3">
+            {pricingData?.pricingGuidance ? (
+              <Collapsible>
+                <CollapsibleTrigger
+                  className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground transition-colors"
+                  data-testid={`pricing-toggle-${service.serviceId}`}
+                  asChild
+                >
+                  <button type="button" className="flex items-center gap-1">
+                    <ChevronDown className="w-3 h-3" />
+                    <span>Pricing notes</span>
+                  </button>
+                </CollapsibleTrigger>
+                <CollapsibleContent className="mt-2">
+                  <p className="text-xs text-muted-foreground leading-relaxed">{pricingData.pricingGuidance}</p>
+                </CollapsibleContent>
+              </Collapsible>
+            ) : (
+              <p className="text-xs text-muted-foreground leading-relaxed">
+                Enter measurements for a more accurate estimate. Final pricing is confirmed after site assessment.
+              </p>
+            )}
+          </div>
+        )}
+      </div>
+    );
+  };
+
+  const selectedServiceConfigs: ServiceFieldConfig[] = selectedServices
+    .map((id) => getServiceConfig(id))
+    .filter((v): v is ServiceFieldConfig => !!v);
+
+  const popularServiceConfigs: ServiceFieldConfig[] = POPULAR_SERVICE_IDS
+    .map((id) => getServiceConfig(id))
+    .filter((v): v is ServiceFieldConfig => !!v)
+    .filter((svc) => !selectedServices.includes(svc.serviceId));
+
+  const allMatchingServices: ServiceFieldConfig[] = serviceQuery
+    ? SERVICE_FIELD_CONFIGS.filter((svc) => svc.serviceName.toLowerCase().includes(serviceQuery))
+        .slice()
+        .sort((a, b) => a.serviceName.localeCompare(b.serviceName))
+    : [];
+
+  const usingTypicalAssumptionsForSticky =
+    orderedMeasurementGroups.some((g) => {
+      const v = getSharedMeasurementValue(g);
+      return !(typeof v === "number" && Number.isFinite(v) && v > 0);
+    }) || selectedServices.length === 0;
+
   return (
     <div ref={formRef} className={`max-w-4xl mx-auto p-4 ${className || ""}`}>
       {/* Inline Error Display */}
@@ -942,105 +1237,112 @@ export function QuoteWizard({
                 </p>
               </div>
 
-              {/* Service Categories with Accordions */}
-              <Accordion type="multiple" className="w-full">
-                {[
-                  { category: "lawn", title: "Lawn Care Services" },
-                  { category: "hardscape", title: "Hardscape & Patio" },
-                  { category: "irrigation", title: "Irrigation & Sprinklers" },
-                  { category: "lighting", title: "Lighting Services" },
-                  { category: "trees", title: "Tree Services" },
-                  { category: "seasonal", title: "Seasonal Services" },
-                ].map(({ category, title }) => {
-                  const categoryServices = SERVICE_FIELD_CONFIGS.filter(c => c.category === category);
-                  if (categoryServices.length === 0) return null;
+              {/* Service selection (progressive disclosure) */}
+              <div className="space-y-4" data-testid="service-selection-panel">
+                <div className="space-y-2">
+                  <Label htmlFor="service-search">Search services</Label>
+                  <Input
+                    id="service-search"
+                    value={serviceSearchQuery}
+                    onChange={(e) => {
+                      const next = e.target.value;
+                      setServiceSearchQuery(next);
+                      if (normalizeSearch(next).length > 0) setBrowseAllServices(true);
+                    }}
+                    placeholder="Search all services..."
+                    data-testid="input-service-search"
+                  />
+                  <p className="text-xs text-muted-foreground">
+                    Start with popular services, or search and browse the full catalog.
+                  </p>
+                </div>
 
-                  return (
-                    <AccordionItem key={category} value={category} data-testid={`accordion-${category}`}>
-                      <AccordionTrigger className="text-sm font-medium uppercase tracking-wide hover:no-underline">
-                        {title}
-                      </AccordionTrigger>
-                      <AccordionContent>
-                        <div className="grid gap-3 sm:grid-cols-2 pt-2">
-                          {categoryServices.map((service) => {
-                            const isSelected = selectedServices.includes(service.serviceId);
-                            const pricingData = SERVICE_PRICING_GUIDANCE_MAP.get(service.serviceId);
-                            const hasPricing = !!pricingData;
-                            
-                            return (
-                              <div
-                                key={service.serviceId}
-                                className={`rounded-md border ${
-                                  isSelected ? "border-primary bg-primary/5" : "border-input"
-                                }`}
-                              >
-                                <Label
-                                  htmlFor={`service-${service.serviceId}`}
-                                  className="flex items-start gap-3 p-4 cursor-pointer hover-elevate"
-                                >
-                                  <Checkbox
-                                    id={`service-${service.serviceId}`}
-                                    checked={isSelected}
-                                    onCheckedChange={() => toggleService(service.serviceId)}
-                                    data-testid={`checkbox-service-${service.serviceId}`}
-                                  />
-                                  <div className="flex-1">
-                                    <div className="font-medium">{service.serviceName}</div>
-                                    {/* Per-service price range */}
-                                    {(() => {
-                                      const measurements: ServiceMeasurements = {
-                                        propertySize: sharedMeasurements.lawnAreaSqFt || 5000,
-                                        linearFeet: sharedMeasurements.rooflineFt || sharedMeasurements.lotPerimeterFt || 100,
-                                        zones: 6,
-                                      };
-                                      const priceRange = calculateServicePriceRange(
-                                        service.serviceId,
-                                        measurements,
-                                        form1.getValues("propertyType") || "residential",
-                                        form2.getValues("frequency") || "one-time"
-                                      );
-                                      if (priceRange) {
-                                        return (
-                                          <div className="text-xs text-muted-foreground mt-0.5" data-testid={`price-range-${service.serviceId}`}>
-                                            Est. {formatPriceRange(priceRange.min, priceRange.max)}
-                                          </div>
-                                        );
-                                      }
-                                      return null;
-                                    })()}
-                                  </div>
-                                </Label>
-                                
-                                {hasPricing && (
-                                  <div className="px-4 pb-3">
-                                    <Collapsible>
-                                      <CollapsibleTrigger 
-                                        className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground transition-colors"
-                                        data-testid={`pricing-toggle-${service.serviceId}`}
-                                        asChild
-                                      >
-                                        <button type="button" className="flex items-center gap-1">
-                                          <ChevronDown className="w-3 h-3" />
-                                          <span>Typical Pricing</span>
-                                        </button>
-                                      </CollapsibleTrigger>
-                                      <CollapsibleContent className="mt-2">
-                                        <p className="text-xs text-muted-foreground leading-relaxed">
-                                          {pricingData.pricingGuidance}
-                                        </p>
-                                      </CollapsibleContent>
-                                    </Collapsible>
-                                  </div>
-                                )}
-                              </div>
-                            );
-                          })}
-                        </div>
-                      </AccordionContent>
-                    </AccordionItem>
-                  );
-                })}
-              </Accordion>
+                {/* Always show selected services so nothing “disappears” */}
+                {selectedServiceConfigs.length > 0 && (
+                  <div className="space-y-2" data-testid="section-selected-services">
+                    <div className="flex items-center justify-between">
+                      <div className="text-sm font-semibold">Selected services</div>
+                      <div className="text-xs text-muted-foreground">{selectedServiceConfigs.length} selected</div>
+                    </div>
+                    <div className="grid gap-3 sm:grid-cols-2">
+                      {selectedServiceConfigs.map((svc) => renderServiceTile(svc, "selected", "selected"))}
+                    </div>
+                  </div>
+                )}
+
+                {serviceQuery ? (
+                  <div className="space-y-2" data-testid="section-search-results">
+                    <div className="flex items-center justify-between">
+                      <div className="text-sm font-semibold">Search results</div>
+                      <div className="text-xs text-muted-foreground">{allMatchingServices.length} found</div>
+                    </div>
+                    <div className="grid gap-3 sm:grid-cols-2">
+                      {allMatchingServices.map((svc) => renderServiceTile(svc, "picker", "search"))}
+                    </div>
+                  </div>
+                ) : (
+                  <>
+                    <div className="space-y-2" data-testid="section-popular-services">
+                      <div className="flex items-center justify-between">
+                        <div className="text-sm font-semibold">Popular services</div>
+                        <div className="text-xs text-muted-foreground">Quick picks</div>
+                      </div>
+                      <div className="grid gap-3 sm:grid-cols-2">
+                        {popularServiceConfigs.map((svc) => renderServiceTile(svc, "picker", "popular"))}
+                      </div>
+                    </div>
+
+                    <div className="flex items-center justify-between gap-3">
+                      <Button
+                        type="button"
+                        variant="outline"
+                        onClick={() => setBrowseAllServices((v) => !v)}
+                        data-testid="button-toggle-browse-all"
+                      >
+                        {browseAllServices ? "Hide full catalog" : "Browse all services"}
+                      </Button>
+                      <span className="text-xs text-muted-foreground">
+                        {browseAllServices ? "Full list is open below." : "Open the full list to see everything."}
+                      </span>
+                    </div>
+
+                    {browseAllServices && (
+                      <Accordion type="multiple" className="w-full" data-testid="accordion-all-services">
+                        {[
+                          { category: "lawn", title: "Lawn Care Services" },
+                          { category: "hardscape", title: "Hardscape & Patio" },
+                          { category: "irrigation", title: "Irrigation & Sprinklers" },
+                          { category: "lighting", title: "Lighting Services" },
+                          { category: "trees", title: "Tree Services" },
+                          { category: "seasonal", title: "Seasonal Services" },
+                        ].map(({ category, title }) => {
+                          const categoryServices = SERVICE_FIELD_CONFIGS.filter((c) => c.category === category);
+                          if (categoryServices.length === 0) return null;
+
+                          return (
+                            <AccordionItem key={category} value={category} data-testid={`accordion-${category}`}>
+                              <AccordionTrigger className="text-sm font-medium uppercase tracking-wide hover:no-underline">
+                                {title}
+                              </AccordionTrigger>
+                              <AccordionContent>
+                                <div className="grid gap-3 sm:grid-cols-2 pt-2">
+                                  {categoryServices.map((svc) =>
+                                    renderServiceTile(
+                                      svc,
+                                      "picker",
+                                      `catalog-${category}`
+                                    )
+                                  )}
+                                </div>
+                              </AccordionContent>
+                            </AccordionItem>
+                          );
+                        })}
+                      </Accordion>
+                    )}
+                  </>
+                )}
+              </div>
 
               {/* Shared Measurements (collected once per measurement type) */}
               {showMeasurementsPanel && (
@@ -1197,6 +1499,7 @@ export function QuoteWizard({
           }}
           propertyType={form1.getValues("propertyType") || "residential"}
           frequency={form2.getValues("frequency") || "one-time"}
+          usingTypicalAssumptions={usingTypicalAssumptionsForSticky}
           onContinue={() => {
             if (canContinueStep2) {
               form2.handleSubmit(handleStep2Submit)();
@@ -1374,132 +1677,164 @@ export function QuoteWizard({
                 )}
 
                 {/* Line Items */}
-                <div className="space-y-3">
-                  {quoteData.lineItems.map((item, index) => (
-                    <div
-                      key={index}
-                      className="p-4 rounded-md border border-border"
-                      data-testid={`quote-line-item-${index}`}
-                    >
-                      <div className="flex justify-between items-start">
-                        <div className="flex-1">
-                          <div className="font-medium">{item.serviceName}</div>
-                          <div className="text-sm text-muted-foreground">{item.description}</div>
-                        </div>
-                        <div className="text-right">
-                          <div className="font-semibold text-lg">${item.adjustedPrice.toLocaleString()}</div>
-                        </div>
-                      </div>
-                      
-                      {/* Collapsible Calculation Explanation */}
-                      {item.calculationExplanation && (
-                        <Collapsible className="mt-3">
-                          <CollapsibleTrigger className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid={`calculation-toggle-${index}`}>
-                            <ChevronDown className="h-4 w-4 transition-transform data-[state=open]:rotate-180" />
-                            <span>How is this calculated?</span>
-                          </CollapsibleTrigger>
-                          <CollapsibleContent className="mt-2 pl-6">
-                            <div className="text-sm text-muted-foreground bg-muted/30 p-3 rounded-md border border-border/50">
-                              {item.calculationExplanation}
-                            </div>
-                          </CollapsibleContent>
-                        </Collapsible>
-                      )}
-                    </div>
-                  ))}
-                </div>
+                {/* (moved into accordion under the Estimated Total section to avoid a massive always-expanded block) */}
 
                 {/* Estimated Total */}
                 <div className="border-t border-border pt-4 space-y-2">
-                  <div className="flex justify-between items-center text-xl font-bold">
-                    <span>Estimated Range</span>
-                    <span className="text-primary" data-testid="text-quote-total">
-                      {(() => {
-                        const min = typeof quoteData.finalQuoteMin === "number" ? quoteData.finalQuoteMin : calculateQuoteRange(quoteData.total, 0.15).min;
-                        const max = typeof quoteData.finalQuoteMax === "number" ? quoteData.finalQuoteMax : calculateQuoteRange(quoteData.total, 0.15).max;
-                        return formatCurrencyRangeWhole(min, max);
-                      })()}
-                    </span>
-                  </div>
-                  <p className="text-xs text-muted-foreground italic">
-                    * This is an estimated price based on typical property conditions. Final pricing will be confirmed after site assessment.
-                  </p>
-                </div>
+                  {(() => {
+                    const total = typeof quoteData.total === "number" && Number.isFinite(quoteData.total) ? quoteData.total : 0;
+                    const computed = calculateQuoteRange(total, 0.15);
+                    const serverMin = typeof quoteData.finalQuoteMin === "number" && Number.isFinite(quoteData.finalQuoteMin) && quoteData.finalQuoteMin > 0
+                      ? quoteData.finalQuoteMin
+                      : 0;
+                    const serverMax = typeof quoteData.finalQuoteMax === "number" && Number.isFinite(quoteData.finalQuoteMax) && quoteData.finalQuoteMax > 0
+                      ? quoteData.finalQuoteMax
+                      : 0;
+                    const serverIsValid = serverMin > 0 && serverMax > 0 && serverMax >= serverMin && total >= serverMin && total <= serverMax;
+                    const min = serverIsValid ? serverMin : computed.min;
+                    const max = serverIsValid ? serverMax : computed.max;
+                    const safeMin = Math.min(min, total);
+                    const safeMax = Math.max(max, total, safeMin + 5);
 
-                {/* Pricing Guidance for Selected Services */}
-                {selectedServices.length > 0 && (
-                  <div className="space-y-3">
-                    <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">
-                      Typical Pricing for Your Services
-                    </h3>
-                    {selectedServices.map((serviceId) => {
-                      const pricingData = SERVICE_PRICING_GUIDANCE_MAP.get(serviceId);
-                      if (!pricingData) return null;
-                      
-                      return (
-                        <div
-                          key={serviceId}
-                          className="p-4 rounded-md bg-muted/30 border border-border/50"
-                          data-testid={`pricing-guidance-${serviceId}`}
-                        >
-                          <div className="font-medium text-sm mb-1">{pricingData.name}</div>
-                          <div className="text-sm text-muted-foreground">{pricingData.pricingGuidance}</div>
+                    return (
+                      <div className="space-y-3">
+                        {/* Compact summary */}
+                        <div className="grid gap-3 sm:grid-cols-2">
+                          <div className="rounded-md border border-border bg-muted/20 p-4">
+                            <div className="text-xs uppercase tracking-wide text-muted-foreground">Estimated total</div>
+                            <div className="mt-1 text-2xl font-bold text-primary">
+                              ${Math.round(total).toLocaleString()}
+                            </div>
+                            <div className="mt-1 text-xs text-muted-foreground">
+                              Rounded estimates (end in $0 or $5) for consistency.
+                            </div>
+                          </div>
+
+                          <div className="rounded-md border border-border bg-muted/20 p-4">
+                            <div className="text-xs uppercase tracking-wide text-muted-foreground">Typical range</div>
+                            <div className="mt-1 text-2xl font-bold text-primary" data-testid="text-quote-total">
+                              {formatCurrencyRangeWhole(safeMin, safeMax)}
+                            </div>
+                            <div className="mt-1 text-xs text-muted-foreground">
+                              Final pricing is confirmed after a quick site assessment.
+                            </div>
+                          </div>
                         </div>
-                      );
-                    })}
-                  </div>
-                )}
 
-                {/* Quote Validity & Important Terms */}
-                <div className="space-y-4 border-t border-border pt-4">
-                  <h3 className="text-sm font-semibold">Important Information</h3>
-                  
-                  <Alert className="bg-muted/50 border-border">
-                    <Info className="h-4 w-4" />
-                    <AlertDescription className="text-sm space-y-2">
-                      <p className="font-medium">Quote Validity & Terms:</p>
-                      <ul className="list-disc list-inside space-y-1 text-xs">
-                        <li><strong>Quote Valid:</strong> This estimate is valid for 30 days from today</li>
-                        <li><strong>Not a Contract:</strong> This quote is an estimate only and does not constitute a binding agreement until confirmed in writing</li>
-                        <li><strong>Final Pricing:</strong> Actual pricing will be confirmed after our site assessment based on specific property conditions</li>
-                        <li><strong>Site Assessment:</strong> We'll visit your property to verify measurements and identify any site-specific factors</li>
-                      </ul>
-                    </AlertDescription>
-                  </Alert>
+                        {/* Expandable details */}
+                        <Accordion type="single" collapsible className="w-full">
+                          <AccordionItem value="breakdown" data-testid="accordion-quote-breakdown">
+                            <AccordionTrigger className="text-sm font-medium">
+                              Line-item breakdown
+                            </AccordionTrigger>
+                            <AccordionContent>
+                              <div className="space-y-2">
+                                {quoteData.lineItems.map((item, index) => (
+                                  <div
+                                    key={index}
+                                    className="flex items-start justify-between gap-4 rounded-md border border-border p-3"
+                                    data-testid={`quote-line-item-compact-${index}`}
+                                  >
+                                    <div className="min-w-0">
+                                      <div className="font-medium">{item.serviceName}</div>
+                                      <div className="text-sm text-muted-foreground">{item.description}</div>
+                                      {item.calculationExplanation && (
+                                        <div className="mt-2 text-xs text-muted-foreground">
+                                          {item.calculationExplanation}
+                                        </div>
+                                      )}
+                                    </div>
+                                    <div className="shrink-0 text-right font-semibold">
+                                      ${item.adjustedPrice.toLocaleString()}
+                                    </div>
+                                  </div>
+                                ))}
+                              </div>
+                            </AccordionContent>
+                          </AccordionItem>
 
-                  <Alert className="bg-muted/50 border-border">
-                    <Info className="h-4 w-4" />
-                    <AlertDescription className="text-sm space-y-2">
-                      <p className="font-medium">What's Included:</p>
-                      <ul className="list-disc list-inside space-y-1 text-xs">
-                        <li>All labor and equipment for the selected services</li>
-                        <li>Lawn mowing services include trimming, blowing, and clipping removal</li>
-                        <li>Debris removal and disposal (where applicable)</li>
-                        <li>Professional-grade materials and supplies</li>
-                      </ul>
-                    </AlertDescription>
-                  </Alert>
+                          {selectedServices.length > 0 && (
+                            <AccordionItem value="typical-pricing" data-testid="accordion-typical-pricing">
+                              <AccordionTrigger className="text-sm font-medium">
+                                Typical pricing guidance
+                              </AccordionTrigger>
+                              <AccordionContent>
+                                <div className="space-y-3">
+                                  {selectedServices.map((serviceId) => {
+                                    const pricingData = SERVICE_PRICING_GUIDANCE_MAP.get(serviceId);
+                                    if (!pricingData) return null;
+                                    return (
+                                      <div
+                                        key={serviceId}
+                                        className="rounded-md bg-muted/30 border border-border/50 p-4"
+                                        data-testid={`pricing-guidance-${serviceId}`}
+                                      >
+                                        <div className="font-medium text-sm mb-1">{pricingData.name}</div>
+                                        <div className="text-sm text-muted-foreground">{pricingData.pricingGuidance}</div>
+                                      </div>
+                                    );
+                                  })}
+                                </div>
+                              </AccordionContent>
+                            </AccordionItem>
+                          )}
 
-                  <Alert className="bg-muted/50 border-border">
-                    <Info className="h-4 w-4" />
-                    <AlertDescription className="text-sm space-y-2">
-                      <p className="font-medium">Potential Additional Costs:</p>
-                      <ul className="list-disc list-inside space-y-1 text-xs">
-                        <li>Excessive overgrowth or neglected properties may require additional labor</li>
-                        <li>Difficult terrain, steep slopes, or limited accessibility</li>
-                        <li>Tree/stump removal for trees larger than estimated</li>
-                        <li>Damage to underground utilities (sprinkler lines, etc.) not marked prior to service</li>
-                        <li>Weather delays or seasonal conditions requiring specialized equipment</li>
-                      </ul>
-                    </AlertDescription>
-                  </Alert>
-                </div>
+                          <AccordionItem value="important-info" data-testid="accordion-important-info">
+                            <AccordionTrigger className="text-sm font-medium">
+                              Important information
+                            </AccordionTrigger>
+                            <AccordionContent>
+                              <div className="space-y-3">
+                                <Alert className="bg-muted/50 border-border">
+                                  <Info className="h-4 w-4" />
+                                  <AlertDescription className="text-sm space-y-2">
+                                    <p className="font-medium">Quote validity & terms</p>
+                                    <ul className="list-disc list-inside space-y-1 text-xs">
+                                      <li><strong>Quote valid:</strong> 30 days</li>
+                                      <li><strong>Not a contract:</strong> estimate only until confirmed in writing</li>
+                                      <li><strong>Final pricing:</strong> confirmed after site assessment</li>
+                                    </ul>
+                                  </AlertDescription>
+                                </Alert>
 
-                <div className="text-center space-y-2">
-                  <p className="text-sm font-medium">Next Steps:</p>
-                  <p className="text-sm text-muted-foreground">
-                    We'll contact you within 24 hours to schedule a free site assessment and finalize your quote
-                  </p>
+                                <Alert className="bg-muted/50 border-border">
+                                  <Info className="h-4 w-4" />
+                                  <AlertDescription className="text-sm space-y-2">
+                                    <p className="font-medium">What’s included</p>
+                                    <ul className="list-disc list-inside space-y-1 text-xs">
+                                      <li>Labor and equipment for selected services</li>
+                                      <li>Debris cleanup/disposal where applicable</li>
+                                      <li>Professional-grade materials and supplies</li>
+                                    </ul>
+                                  </AlertDescription>
+                                </Alert>
+
+                                <Alert className="bg-muted/50 border-border">
+                                  <Info className="h-4 w-4" />
+                                  <AlertDescription className="text-sm space-y-2">
+                                    <p className="font-medium">Potential variables</p>
+                                    <ul className="list-disc list-inside space-y-1 text-xs">
+                                      <li>Overgrowth or neglected conditions</li>
+                                      <li>Difficult terrain / limited access</li>
+                                      <li>Weather or seasonal constraints</li>
+                                      <li>Scope changes after on-site review</li>
+                                    </ul>
+                                  </AlertDescription>
+                                </Alert>
+                              </div>
+                            </AccordionContent>
+                          </AccordionItem>
+                        </Accordion>
+
+                        <div className="text-center space-y-2">
+                          <p className="text-sm font-medium">Next steps</p>
+                          <p className="text-sm text-muted-foreground">
+                            We’ll contact you within 24 hours to schedule a free site assessment and finalize your quote.
+                          </p>
+                        </div>
+                      </div>
+                    );
+                  })()}
                 </div>
 
                 {onClose && (

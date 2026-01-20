@@ -79,7 +79,6 @@ function applyGrossMargin(cost: number): number {
 }
 
 // Boise/Treasure Valley pricing model parameters
-const MOWING_TRIP_CHARGE = 35;
 const MOWING_RATE_PER_SQFT = 0.003;
 const BLOWOUT_BASE_UP_TO_ZONES = 65;
 const BLOWOUT_INCLUDED_ZONES = 6;
@@ -242,10 +241,10 @@ export async function calculateIntelligentQuote(
 
     // Service-specific models
     if (serviceId === "lawn-mowing") {
-      const cost = MOWING_TRIP_CHARGE + sqft * MOWING_RATE_PER_SQFT;
+      const cost = sqft * MOWING_RATE_PER_SQFT;
       return {
         cost,
-        description: `${name} (${sqft.toLocaleString()} sq ft @ $${MOWING_RATE_PER_SQFT}/sq ft + $${MOWING_TRIP_CHARGE} trip)`,
+        description: `${name} (${sqft.toLocaleString()} sq ft @ $${MOWING_RATE_PER_SQFT}/sq ft)`,
       };
     }
     if (serviceId === "sprinkler-blowout") {
@@ -381,7 +380,7 @@ export async function calculateIntelligentQuote(
  */
 export const SERVICE_PRICING_CONFIG = {
   // Lawn services (property size based)
-  // Boise/Treasure Valley: minimum trip + variable sqft (implemented in pricing logic)
+  // Boise/Treasure Valley: pricing is primarily driven by measurements (verified at site assessment)
   "lawn-mowing": { rate: 0.003, unit: "sqft", name: "Lawn Mowing & Edging" },
   "aeration": { rate: 0.018, unit: "sqft", name: "Core Aeration" },
   "fertilization": { rate: 0.014, unit: "sqft", name: "Fertilization Treatment" },
@@ -546,10 +545,10 @@ export async function calculateMultiServiceQuote(
             : 5000
         );
         if (serviceId === "lawn-mowing") {
-          basePrice = MOWING_TRIP_CHARGE + sqft * MOWING_RATE_PER_SQFT;
-          description += ` (${sqft.toLocaleString()} sq ft @ $${MOWING_RATE_PER_SQFT}/sq ft + $${MOWING_TRIP_CHARGE} trip)`;
+          basePrice = sqft * MOWING_RATE_PER_SQFT;
+          description += ` (${sqft.toLocaleString()} sq ft @ $${MOWING_RATE_PER_SQFT}/sq ft)`;
           calculationExplanation =
-            "Lawn mowing includes a base trip charge plus a variable rate based on lawn area. This keeps small lawns from being overpriced and scales fairly for larger properties.";
+            "Lawn mowing is estimated from your lawn area (sq ft) and adjusted for property type, access/complexity, and frequency. Final pricing is confirmed after a quick site assessment.";
         } else {
           basePrice = sqft * config.rate;
           description += ` (${sqft.toLocaleString()} sq ft)`;

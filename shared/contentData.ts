@@ -285,7 +285,7 @@ export const PRIORITY_SERVICES: ServiceData[] = [
       }
     ],
     relatedServices: ['lawn-maintenance', 'hedge-trimming', 'fertilization', 'weed-control', 'seasonal-cleanup'],
-    pricingGuidance: 'Lawn mowing typically ranges from $35-65 for residential properties depending on lot size. Commercial properties are quoted based on square footage and frequency. All quotes are free with no obligation.',
+    pricingGuidance: 'Lawn mowing estimates include a $35 trip charge plus area-based pricing. Many residential lawns estimate around $95-185 per visit (before any recurring discounts), depending on lawn size and complexity. Enter your lawn area for a tighter estimate; final pricing is confirmed after site assessment.',
     seasonality: 'April through October in Idaho (growing season). Service frequency varies by season.',
     facts: [
       { label: 'Average mowing price', value: '$50' },
@@ -377,7 +377,7 @@ export const PRIORITY_SERVICES: ServiceData[] = [
       }
     ],
     relatedServices: ['overseeding', 'fertilization', 'dethatching', 'lawn-mowing'],
-    pricingGuidance: 'Aeration typically costs $75-150 for residential properties depending on lawn size. Larger properties and commercial jobs are quoted individually. Discounts available when combined with overseeding.',
+    pricingGuidance: 'Core aeration is estimated per square foot. Typical residential estimates are about $0.035-$0.070 per sq ft (for example, ~5,000 sq ft often lands around $165-$330), depending on complexity. Enter your lawn area for a tighter estimate.',
     seasonality: 'Best performed in fall (September-October) or spring (April-May). Most popular service period is September.',
     facts: [
       { label: 'Average cost', value: '$100-125' },
@@ -468,7 +468,7 @@ export const PRIORITY_SERVICES: ServiceData[] = [
       }
     ],
     relatedServices: ['weed-control', 'aeration', 'lawn-mowing', 'seasonal-cleanup'],
-    pricingGuidance: 'Fertilization programs typically cost $40-80 per application for residential lawns. Season-long programs (4-5 applications) are available at discounted rates.',
+    pricingGuidance: 'Fertilization is estimated per square foot per application. Typical residential estimates are about $0.030-$0.055 per sq ft (for example, ~5,000 sq ft often lands around $130-$255), depending on complexity. Recurring discounts apply where eligible.',
     seasonality: 'Year-round program with applications in spring, summer, and fall. Most critical applications are April, September, and November.',
     facts: [
       { label: 'Avg cost per application', value: '$40-80' },
@@ -559,7 +559,7 @@ export const PRIORITY_SERVICES: ServiceData[] = [
       }
     ],
     relatedServices: ['fertilization', 'aeration', 'lawn-mowing', 'overseeding'],
-    pricingGuidance: 'Weed control applications typically cost $45-85 per treatment. Season-long programs with multiple applications are available at discounted rates.',
+    pricingGuidance: 'Weed control is estimated per square foot per treatment. Typical residential estimates are about $0.025-$0.050 per sq ft (for example, ~5,000 sq ft often lands around $120-$240), depending on complexity. Recurring discounts apply where eligible.',
     seasonality: 'Pre-emergent in early spring (March-April), post-emergent treatments spring and fall (April-May, September-October).',
     facts: [
       { label: 'Avg cost per treatment', value: '$45-85' },
@@ -651,7 +651,7 @@ export const PRIORITY_SERVICES: ServiceData[] = [
       }
     ],
     relatedServices: ['lawn-mowing', 'irrigation-installation', 'fertilization', 'aeration'],
-    pricingGuidance: 'Sod installation ranges from $1.50-3.00 per square foot including materials and labor. Minimum project size typically 500 sq ft. Free estimates provided.',
+    pricingGuidance: 'Sod installation is estimated per square foot (materials + labor). Typical estimates are about $2.20-$4.40 per sq ft, depending on complexity and access. Enter the installation area for a tighter estimate.',
     seasonality: 'Best installed April-May and September-October. Summer installation possible with intensive watering.',
     facts: [
       { label: 'Average cost', value: '$1.50-3.00/sq ft' },
@@ -743,7 +743,7 @@ export const PRIORITY_SERVICES: ServiceData[] = [
       }
     ],
     relatedServices: ['fire-pit-installation', 'outdoor-fireplace', 'pergola-installation', 'landscape-lighting'],
-    pricingGuidance: 'Paver patios: $15-30/sq ft installed. Stamped concrete: $12-20/sq ft. Natural stone: $20-40/sq ft. Minimum project typically $3,000. Free estimates provided.',
+    pricingGuidance: 'Patio installation is estimated per square foot installed. Typical estimates are about $65-$130 per sq ft, depending on complexity and materials. Enter approximate patio dimensions for a tighter estimate.',
     seasonality: 'Installed April through October. Best to book in late winter/early spring for summer completion.',
     facts: [
       { label: 'Paver patio cost', value: '$15-30/sq ft' },
@@ -835,7 +835,7 @@ export const PRIORITY_SERVICES: ServiceData[] = [
       }
     ],
     relatedServices: ['lawn-mowing', 'seasonal-cleanup', 'tree-trimming', 'mulch-installation'],
-    pricingGuidance: 'Hedge trimming starts at $75-150 for typical residential properties. Pricing depends on hedge size, density, and number of plants. Formal hedges requiring precise shaping may cost more. Free estimates provided.',
+    pricingGuidance: 'Hedge trimming is estimated per linear foot. Typical estimates are about $3.65-$7.30 per ft (for example, ~100 ft often lands around $365-$730), depending on complexity and density. Enter approximate hedge length for a tighter estimate.',
     seasonality: 'May through September for most plants. Some species benefit from dormant-season pruning (late winter).',
     facts: [
       { label: 'Typical cost', value: '$75-150' },
@@ -927,7 +927,7 @@ export const PRIORITY_SERVICES: ServiceData[] = [
       }
     ],
     relatedServices: ['mulch-installation', 'hedge-trimming', 'lawn-mowing', 'gutter-cleaning'],
-    pricingGuidance: 'Seasonal cleanup typically ranges from $200-600 depending on property size and debris volume. Larger properties or heavily wooded lots may cost more. Free estimates provided.',
+    pricingGuidance: 'Seasonal cleanup is estimated per square foot of area to clean. Typical estimates are about $0.030-$0.060 per sq ft (for example, ~8,000 sq ft often lands around $240-$480), depending on debris volume and complexity. Enter the area for a tighter estimate.',
     seasonality: 'Spring cleanup: March-April. Fall cleanup: October-November. Both are high-demand periods - book early.',
     facts: [
       { label: 'Typical cost', value: '$200-400' },
@@ -1019,7 +1019,7 @@ export const PRIORITY_SERVICES: ServiceData[] = [
       }
     ],
     relatedServices: ['irrigation-repair', 'spring-startup', 'sprinkler-system-installation', 'irrigation-maintenance'],
-    pricingGuidance: 'Sprinkler winterization typically costs $75-125 for residential systems. Pricing depends on system size (number of zones), accessibility, and system complexity. Commercial systems quoted individually.',
+    pricingGuidance: 'Sprinkler winterization is a base service that covers most residential systems, with small add-ons for larger zone counts. Typical estimates land around $120-$240 for many homes, depending on complexity. Additional zones can add roughly $10-$20 per zone to the estimate.',
     seasonality: 'October only - extremely high demand period. Book in September for guaranteed service before freeze.',
     facts: [
       { label: 'Typical cost', value: '$75-125' },
@@ -1111,7 +1111,7 @@ export const PRIORITY_SERVICES: ServiceData[] = [
       }
     ],
     relatedServices: ['aeration', 'overseeding', 'fertilization', 'lawn-mowing'],
-    pricingGuidance: 'Dethatching typically costs $100-200 for residential lawns depending on size and thatch severity. Often bundled with aeration and overseeding for maximum results at discounted pricing.',
+    pricingGuidance: 'Dethatching is estimated per square foot. Typical residential estimates are about $0.030-$0.060 per sq ft (for example, ~5,000 sq ft often lands around $155-$310), depending on thatch severity and complexity. Enter your lawn area for a tighter estimate.',
     seasonality: 'Best in early spring (April) or early fall (September). Peak demand is September when combined with overseeding.',
     facts: [
       { label: 'Typical cost', value: '$125-150' },
@@ -1203,7 +1203,7 @@ export const PRIORITY_SERVICES: ServiceData[] = [
       }
     ],
     relatedServices: ['aeration', 'dethatching', 'fertilization', 'lawn-renovation'],
-    pricingGuidance: 'Overseeding costs $150-300 for residential lawns including premium seed and starter fertilizer. Best results when combined with aeration ($75-150). Package deals available for fall aeration + overseed combo.',
+    pricingGuidance: 'Overseeding is estimated per square foot (includes seed + application). Typical residential estimates are about $0.030-$0.060 per sq ft (for example, ~5,000 sq ft often lands around $150-$295), depending on complexity. Enter your lawn area for a tighter estimate.',
     seasonality: 'Fall (late August-September) is prime season. Spring overseeding (April-May) also available. Summer overseeding not recommended.',
     facts: [
       { label: 'Typical cost', value: '$175-225' },
@@ -1271,7 +1271,7 @@ export const PRIORITY_SERVICES: ServiceData[] = [
       }
     ],
     relatedServices: ['seasonal-cleanup', 'landscape-design', 'bed-edging', 'weed-barrier-installation'],
-    pricingGuidance: 'Mulch installation: $75-150 per cubic yard installed including delivery, bed prep, and application. Typical residential properties run $300-800 total. Rock mulch costs more ($150-250/cubic yard installed). Free quotes provided.',
+    pricingGuidance: 'Mulch installation is estimated per square foot of bed area. Typical estimates are about $0.85-$1.65 per sq ft, depending on bed prep and access. Enter the mulch bed area for a tighter estimate.',
     seasonality: 'April through November. Peak demand is April-May (spring refresh) and September (fall prep). Book early for spring service.',
     facts: [
       { label: 'Cost per yard', value: '$75-150' },
@@ -1363,7 +1363,7 @@ export const PRIORITY_SERVICES: ServiceData[] = [
       }
     ],
     relatedServices: ['patio-installation', 'landscape-design', 'french-drain-installation', 'terraced-gardens'],
-    pricingGuidance: 'Retaining walls: $35-75 per square foot for concrete blocks, $75-150/sq ft for natural stone. A typical 3-foot-high, 20-foot-long wall runs $2,500-5,000. Taller walls cost more due to engineering requirements.',
+    pricingGuidance: 'Retaining walls are estimated primarily by linear feet. Typical estimates are about $75-$145 per linear ft, depending on complexity and height. Enter approximate wall length (and details) for a tighter estimate.',
     seasonality: 'April through October. Cannot pour concrete bases or work frozen ground in winter. Spring-summer is ideal for completion before fall.',
     facts: [
       { label: 'Block wall cost', value: '$35-75/sq ft' },
@@ -1455,7 +1455,7 @@ export const PRIORITY_SERVICES: ServiceData[] = [
       }
     ],
     relatedServices: ['patio-installation', 'outdoor-fireplace', 'landscape-lighting', 'seating-walls'],
-    pricingGuidance: 'Fire pits: $2,500-6,000 for basic wood-burning stone pits. Gas fire pits: $4,000-10,000+ including gas line. Elaborate custom designs with seating walls and patios: $10,000-25,000+. Free design consultations.',
+    pricingGuidance: 'Fire pits are estimated as a base project. Typical estimates land around $2,730-$5,455 depending on complexity, materials, and access. Final pricing is confirmed after site assessment.',
     seasonality: 'Installed April through October. High demand in spring for summer completion. Gas line work must be done before ground freezes.',
     facts: [
       { label: 'Wood-burning cost', value: '$2,500-6,000' },
@@ -1547,7 +1547,7 @@ export const PRIORITY_SERVICES: ServiceData[] = [
       }
     ],
     relatedServices: ['patio-installation', 'pathway-lighting', 'security-lighting', 'landscape-design'],
-    pricingGuidance: 'Professional landscape lighting: $150-400 per fixture installed. Typical systems: $2,500-7,500. Includes design, quality LED fixtures, installation, transformer, timer/controls. Free design consultations.',
+    pricingGuidance: 'Landscape lighting is estimated per fixture installed. Typical estimates are about $140-$275 per fixture (for example, ~10 fixtures often lands around $1,400-$2,750), depending on layout and complexity. Enter an approximate fixture count for a tighter estimate.',
     seasonality: 'Installed year-round. Spring and fall are most popular. Installation easier when ground is soft. Winter installations possible but may cost more.',
     facts: [
       { label: 'Cost per fixture', value: '$150-400' },
@@ -1639,7 +1639,7 @@ export const PRIORITY_SERVICES: ServiceData[] = [
       }
     ],
     relatedServices: ['irrigation-maintenance', 'sprinkler-blowout', 'smart-controller-upgrade', 'drip-irrigation'],
-    pricingGuidance: 'Sprinkler system installation: $2,500-7,000 for most residential properties depending on size and zones. Smart controller upgrades add $200-400. Free design consultations and accurate quotes.',
+    pricingGuidance: 'Sprinkler system installation is estimated per square foot of area to irrigate. Typical estimates are about $0.95-$1.85 per sq ft, depending on complexity and access. Enter the irrigated area (and zones if known) for a tighter estimate.',
     seasonality: 'Installed April through October. Spring installation (March-May) most popular for summer use. Fall installation possible if completed before freeze.',
     facts: [
       { label: 'Quarter-acre cost', value: '$2,500-5,000' },
@@ -1731,7 +1731,7 @@ export const PRIORITY_SERVICES: ServiceData[] = [
       }
     ],
     relatedServices: ['sprinkler-blowout', 'irrigation-maintenance', 'sprinkler-system-installation', 'smart-controller-upgrade'],
-    pricingGuidance: 'Service call: $75-125. Head replacement: $15-25 each. Valve repair: $150-300. Pipe repairs: $100-400 depending on location and length. Emergency service available.',
+    pricingGuidance: 'Sprinkler repair is estimated as a base service call. Typical estimates land around $155-$310 depending on complexity and access. Parts and additional repairs can change final pricing after on-site diagnosis.',
     seasonality: 'Repairs needed April through October (operating season). Highest demand May-July when problems are discovered. Emergency service available for major leaks.',
     facts: [
       { label: 'Service call', value: '$75-125' },
@@ -1823,7 +1823,7 @@ export const PRIORITY_SERVICES: ServiceData[] = [
       }
     ],
     relatedServices: ['sprinkler-blowout', 'irrigation-repair', 'smart-controller-upgrade', 'sprinkler-system-installation'],
-    pricingGuidance: 'Individual services: Spring startup $100-150, Mid-season checkup $75-125, Fall winterization $75-125. Annual maintenance plans: $300-500 covering all seasonal services.',
+    pricingGuidance: 'Irrigation maintenance is estimated per zone. Typical estimates are about $95-$185 per zone depending on complexity. Enter a zone count for a tighter estimate.',
     seasonality: 'Spring startup (March-April), Mid-season service (June-July), Fall winterization (October). Plan members get priority scheduling.',
     facts: [
       { label: 'Spring startup cost', value: '$100-150' },
@@ -1915,7 +1915,7 @@ export const PRIORITY_SERVICES: ServiceData[] = [
       }
     ],
     relatedServices: ['tree-removal', 'stump-grinding', 'hedge-trimming', 'storm-damage-cleanup'],
-    pricingGuidance: 'Tree trimming: $150-2000+ depending on size and scope. Average residential service: $400-700. Volume discounts for multiple trees. Emergency storm damage service available.',
+    pricingGuidance: 'Tree trimming is estimated per tree. Typical estimates land around $455-$910 per tree depending on complexity and access. Larger trees or challenging removals can increase final pricing after site assessment.',
     seasonality: 'Best: Late winter to early spring (February-April). Available year-round except during severe weather. High demand in spring and after summer storms.',
     facts: [
       { label: 'Small tree cost', value: '$150-400' },
@@ -2007,7 +2007,7 @@ export const PRIORITY_SERVICES: ServiceData[] = [
       }
     ],
     relatedServices: ['mulch-installation', 'bed-preparation', 'landscape-design', 'seasonal-cleanup'],
-    pricingGuidance: 'Lawn edging installation: $2-18 per linear foot depending on material. Average front yard: $300-1,200. Free quotes with material recommendations based on budget.',
+    pricingGuidance: 'Lawn edging is estimated per linear foot. Typical estimates are about $2.75-$5.45 per ft (for example, ~200 ft often lands around $550-$1,090), depending on complexity. Enter approximate edging length for a tighter estimate.',
     seasonality: 'Installed April through October when ground is workable. Spring (April-May) is most popular for combination with mulch installation. Fall installation also common.',
     facts: [
       { label: 'Steel edging cost', value: '$6-12/linear ft' },
@@ -2128,7 +2128,7 @@ export const PRIORITY_SERVICES: ServiceData[] = [
       }
     ],
     relatedServices: ['landscape-lighting', 'outdoor-lighting', 'holiday-decor'],
-    pricingGuidance: 'TRADITIONAL: $3.50-5/ft annually (typical homes $400-1,200). Includes installation, lights, removal, mid-season service. Storage: +$75-150/year. PERMANENT: $12-18/ft one-time (typical homes $2,400-3,600). Year-round control via app, comprehensive warranty, zero annual costs.',
+    pricingGuidance: 'Traditional seasonal lighting is estimated at about $6.40-$12.75 per linear ft (includes install and removal), depending on complexity. Permanent lighting installs estimate about $27.30-$54.55 per linear ft one-time, depending on complexity. Enter roofline length and lighting type for a tighter estimate.',
     seasonality: 'Installation: November-December (book in October). Removal: January. High demand - early booking essential.',
     facts: [
       { label: 'Typical home cost', value: '$400-1,200' },
@@ -2220,7 +2220,7 @@ export const PRIORITY_SERVICES: ServiceData[] = [
       }
     ],
     relatedServices: ['aeration', 'overseeding', 'dethatching', 'sod-installation'],
-    pricingGuidance: 'Lawn renovation: $0.40-0.75 per sq ft. Typical 5,000 sq ft lawn: $2,000-3,750 all-in. Much less than sod replacement.',
+    pricingGuidance: 'Lawn renovation is estimated per square foot. Typical estimates are about $0.05-$0.10 per sq ft (for example, ~5,000 sq ft often lands around $230-$455), depending on complexity. Enter your lawn area for a tighter estimate.',
     seasonality: 'Best: Late August to mid-September. Spring: April-May. Peak demand in fall - book by July for September service.',
     facts: [
       { label: 'Cost per sq ft', value: '$0.40-0.75' },
@@ -2312,7 +2312,7 @@ export const PRIORITY_SERVICES: ServiceData[] = [
       }
     ],
     relatedServices: ['stump-grinding', 'tree-trimming', 'storm-damage-cleanup', 'emergency-tree-service'],
-    pricingGuidance: 'Tree removal: $300-5,000+ depending on size and difficulty. Average: $1,200-1,800. Stump grinding: +$150-400. Emergency service: Premium rates apply.',
+    pricingGuidance: 'Tree removal is estimated per tree. Typical estimates land around $910-$1,820 per tree depending on complexity and access. Final pricing is confirmed after site assessment.',
     seasonality: 'Year-round service. High demand after storms. Winter removal common (less landscaping damage). Book ahead for non-emergency work.',
     facts: [
       { label: 'Small tree cost', value: '$300-800' },
@@ -2404,7 +2404,7 @@ export const PRIORITY_SERVICES: ServiceData[] = [
       }
     ],
     relatedServices: ['tree-removal', 'sod-installation', 'landscape-design', 'lawn-renovation'],
-    pricingGuidance: 'Stump grinding: $3-8 per inch diameter. Typical range: $150-400 per stump. Volume discounts for multiple stumps. Deep grinding (12-18 inches): premium pricing.',
+    pricingGuidance: 'Stump grinding is estimated per stump. Typical estimates land around $275-$545 per stump depending on complexity and access. Enter a stump count for a tighter estimate.',
     seasonality: 'Year-round service. Spring and fall most popular for combining with landscape projects. Frozen ground can complicate winter grinding.',
     facts: [
       { label: 'Cost per inch', value: '$3-8' },
@@ -2496,7 +2496,7 @@ export const PRIORITY_SERVICES: ServiceData[] = [
       }
     ],
     relatedServices: ['spring-cleanup', 'leaf-removal', 'gutter-cleaning', 'aeration'],
-    pricingGuidance: 'Fall cleanup: $200-500 typical residential. Larger properties: $500-1,000+. Gutter cleaning: +$150-300. Multiple visits: Package pricing available.',
+    pricingGuidance: 'Fall cleanup is estimated per square foot of area to clean. Typical estimates are about $0.030-$0.060 per sq ft (for example, ~8,000 sq ft often lands around $240-$480), depending on debris volume and complexity. Enter the area for a tighter estimate.',
     seasonality: 'Late October through mid-November. Peak demand in early November. Book early as schedules fill quickly before first snow.',
     facts: [
       { label: 'Typical cost', value: '$200-400' },
@@ -2588,7 +2588,7 @@ export const PRIORITY_SERVICES: ServiceData[] = [
       }
     ],
     relatedServices: ['fall-cleanup', 'aeration', 'fertilization', 'mulch-installation'],
-    pricingGuidance: 'Spring cleanup: $250-600 typical residential. Larger properties: $600-1,200+. Package pricing available with aeration, fertilization, mulch services.',
+    pricingGuidance: 'Spring cleanup is estimated per square foot of area to clean. Typical estimates are about $0.030-$0.060 per sq ft (for example, ~8,000 sq ft often lands around $240-$480), depending on debris volume and complexity. Enter the area for a tighter estimate.',
     seasonality: 'Late March through April. Peak demand in early April. Book in February-March for best scheduling. Essential service to start season right.',
     facts: [
       { label: 'Typical cost', value: '$250-450' },
@@ -2664,7 +2664,7 @@ export const PRIORITY_SERVICES: ServiceData[] = [
       }
     ],
     relatedServices: ['spring-cleanup', 'fall-cleanup'],
-    pricingGuidance: 'Per-push residential: $75-150 per event. Seasonal contracts: $400-800 residential, $1,500-5,000+ commercial. Custom quotes based on size and access.',
+    pricingGuidance: 'Snow removal is estimated as a base service per event. Typical estimates land around $140-$275 per visit depending on complexity and access. Final pricing is confirmed after site assessment.',
     seasonality: 'November through March. Peak demand December-February during major snow events. Book seasonal contracts in October-November for best rates.',
     facts: [
       { label: 'Per-push residential', value: '$75-150' },
@@ -2724,7 +2724,7 @@ export const PRIORITY_SERVICES: ServiceData[] = [
       }
     ],
     relatedServices: ['irrigation-repair', 'sprinkler-system-installation', 'irrigation-maintenance', 'sprinkler-blowout'],
-    pricingGuidance: 'Service call: $75-125. Head replacement: $75-150. Valve work: $150-300. Pipe repairs: $150-400. Controller: $300-800. Volume/membership discounts available.',
+    pricingGuidance: 'Irrigation repair is estimated as a base service call. Typical estimates land around $155-$310 depending on complexity and access. Parts and additional repairs can change final pricing after on-site diagnosis.',
     seasonality: 'Peak demand: April-August (growing season). Emergency repairs year-round. Broken pipes often discovered during spring startup or after freeze damage.'
   }
 ];

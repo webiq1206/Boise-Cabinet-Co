@@ -13,6 +13,7 @@ interface StickyQuoteSummaryProps {
   sharedMeasurements: ServiceMeasurements;
   propertyType?: string;
   frequency?: string;
+  usingTypicalAssumptions?: boolean;
   onContinue?: () => void;
   continueLabel?: string;
   continueDisabled?: boolean;
@@ -25,6 +26,7 @@ export function StickyQuoteSummary({
   sharedMeasurements,
   propertyType = "residential",
   frequency = "one-time",
+  usingTypicalAssumptions = false,
   onContinue,
   continueLabel = "Continue",
   continueDisabled = false,
@@ -101,6 +103,11 @@ export function StickyQuoteSummary({
                   {frequency === "one-time" ? "" : `/${frequency === "weekly" ? "week" : frequency === "bi-weekly" ? "2 weeks" : "month"}`}
                 </span>
               </div>
+              {usingTypicalAssumptions && hasValidPrice && (
+                <div className="mt-0.5 text-xs text-gray-500 dark:text-gray-400">
+                  Ballpark estimate (using typical measurements). Add measurements for a tighter range.
+                </div>
+              )}
             </div>
           </button>
 

@@ -18,7 +18,8 @@ const getOidcConfig = memoize(
 );
 
 export function getSession() {
-  const sessionTtl = 7 * 24 * 60 * 60 * 1000; // 1 week
+  const sessionTtlMs = 7 * 24 * 60 * 60 * 1000; // 1 week
+  const sessionTtlSeconds = 7 * 24 * 60 * 60;
   const isProd = process.env.NODE_ENV === "production";
   const secret =
     process.env.SESSION_SECRET ?? (!isProd ? "dev-session-secret" : undefined);
@@ -32,8 +33,11 @@ export function getSession() {
   const sessionStore = process.env.DATABASE_URL
     ? new pgStore({
         conString: process.env.DATABASE_URL,
-        createTableIfMissing: false,
-        ttl: sessionTtl,
+        // Avoid a hard failure if the `sessions` table hasn't been created yet.
+        // This is a common cause of 500s during login flows (session write/read).
+        createTableIfMissing: true,
+        // connect-pg-simple expects TTL in seconds (cookie maxAge remains in ms).
+        ttl: sessionTtlSeconds,
         tableName: "sessions",
       })
     : undefined;
@@ -47,7 +51,7 @@ export function getSession() {
       httpOnly: true,
       secure: isProd,
       sameSite: isProd ? "none" : "lax",
-      maxAge: sessionTtl,
+      maxAge: sessionTtlMs,
     },
   });
 }

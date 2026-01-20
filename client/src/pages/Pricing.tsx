@@ -24,28 +24,28 @@ const servicePricing = [
   {
     category: "Lawn Care Services",
     services: [
-      { name: "Lawn Mowing", price: "Starting at $35", description: "Regular cutting, edging, and cleanup" },
-      { name: "Core Aeration", price: "Starting at $75", description: "Improve soil health and grass growth" },
-      { name: "Fertilization", price: "Starting at $65", description: "Seasonal nutrient application" },
-      { name: "Weed Control", price: "Starting at $55", description: "Pre and post-emergent treatments" },
+      { name: "Lawn Mowing", description: "Regular cutting, edging, and cleanup" },
+      { name: "Core Aeration", description: "Improve soil health and grass growth" },
+      { name: "Fertilization", description: "Seasonal nutrient application" },
+      { name: "Weed Control", description: "Pre and post-emergent treatments" },
     ],
   },
   {
     category: "Landscaping Services",
     services: [
-      { name: "Patio Installation", price: "Custom Quote", description: "Pavers, concrete, or flagstone" },
-      { name: "Retaining Walls", price: "Custom Quote", description: "Functional and decorative walls" },
-      { name: "Fence Installation", price: "Custom Quote", description: "Wood, vinyl, or chain link" },
-      { name: "Irrigation Systems", price: "Custom Quote", description: "Sprinkler design and installation" },
+      { name: "Patio Installation", description: "Pavers, concrete, or flagstone" },
+      { name: "Retaining Walls", description: "Functional and decorative walls" },
+      { name: "Fence Installation", description: "Wood, vinyl, or chain link" },
+      { name: "Irrigation Systems", description: "Sprinkler design and installation" },
     ],
   },
   {
     category: "Seasonal Services",
     services: [
-      { name: "Spring Cleanup", price: "Starting at $85", description: "Remove winter debris" },
-      { name: "Fall Cleanup", price: "Starting at $85", description: "Leaf removal and winterization" },
-      { name: "Christmas Lights", price: "Custom Quote", description: "Professional installation and removal" },
-      { name: "Snow Removal", price: "Custom Quote", description: "Residential and commercial" },
+      { name: "Spring Cleanup", description: "Remove winter debris" },
+      { name: "Fall Cleanup", description: "Leaf removal and winterization" },
+      { name: "Christmas Lights", description: "Professional installation and removal" },
+      { name: "Snow Removal", description: "Residential and commercial" },
     ],
   },
 ];
@@ -77,7 +77,7 @@ export default function Pricing() {
         </section>
 
         {/* Pricing Calculator */}
-        <section className="py-16 md:py-24">
+        <section className="py-16 md:py-24" id="pricing-calculator">
           <div className="container px-4">
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-bold mb-4">Get an Instant Estimate</h2>
@@ -96,7 +96,7 @@ export default function Pricing() {
               <div className="text-center mb-12">
                 <h2 className="text-3xl md:text-4xl font-bold mb-4">Service Pricing Guide</h2>
                 <p className="text-lg text-muted-foreground">
-                  Starting prices for our most popular services
+                  Browse services and jump to the calculator for an instant estimate
                 </p>
               </div>
               
@@ -105,7 +105,7 @@ export default function Pricing() {
                   <Card key={category.category} data-testid={`card-${category.category.toLowerCase().replace(/\s+/g, '-')}`}>
                     <CardHeader>
                       <CardTitle>{category.category}</CardTitle>
-                      <CardDescription>Professional quality, competitive rates</CardDescription>
+                      <CardDescription>Pick a service, then get an instant estimate</CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-4">
                       {category.services.map((service) => {
@@ -129,9 +129,13 @@ export default function Pricing() {
                               ) : (
                                 <div className="font-medium">{service.name}</div>
                               )}
-                              <div className="text-sm font-semibold text-primary whitespace-nowrap ml-2">
-                                {service.price}
-                              </div>
+                              <a
+                                href="#pricing-calculator"
+                                className="text-sm font-semibold text-primary whitespace-nowrap ml-2 hover:underline"
+                                data-testid={`link-estimate-${service.name.toLowerCase().replace(/\s+/g, '-')}`}
+                              >
+                                Get estimate
+                              </a>
                             </div>
                             <div className="text-sm text-muted-foreground">{service.description}</div>
                           </div>
