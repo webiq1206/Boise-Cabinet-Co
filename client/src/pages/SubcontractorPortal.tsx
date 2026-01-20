@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { queryClient, apiRequest } from "../lib/queryClient";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -19,10 +19,10 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/component
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useMemo } from "react";
 import { formatQuoteRangeWholeFromValue } from "@/lib/utils";
 import { calculateQuoteRange } from "@shared/utils";
 import StripePaymentForm from "@/components/StripePaymentForm";
+import { Switch } from "@/components/ui/switch";
 
 // Type definitions
 interface LineItem {
@@ -64,7 +64,7 @@ export default function SubcontractorPortal() {
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc");
   const [showFilters, setShowFilters] = useState(false);
   const [selectedLead, setSelectedLead] = useState<Lead | null>(null);
-  const [agreementAccepted, setAgreementAccepted] = useState(user?.agreementAccepted || false);
+  const [agreementChecked, setAgreementChecked] = useState(false);
   const [showAgreementModal, setShowAgreementModal] = useState(false);
   const [showPurchaseModal, setShowPurchaseModal] = useState(false);
   const [activeTab, setActiveTab] = useState<"available" | "watchlist">("available");
@@ -72,6 +72,7 @@ export default function SubcontractorPortal() {
   const [paymentClientSecret, setPaymentClientSecret] = useState<string | null>(null);
   const [paymentAmount, setPaymentAmount] = useState<number>(0);
   const [paymentStep, setPaymentStep] = useState<"confirm" | "payment" | "success">("confirm");
+  const leadIdParam = useMemo(() => new URLSearchParams(window.location.search).get("leadId"), []);
   
   const { data: leads = [], isLoading } = useQuery<Lead[]>({
     queryKey: ["/api/leads?availableOnly=true"],
@@ -87,6 +88,54 @@ export default function SubcontractorPortal() {
     queryKey: ["/api/user"],
     enabled: isAuthenticated,
   });
+
+  const agreementAccepted = Boolean(userData?.agreementAccepted ?? user?.agreementAccepted);
+  const emailNotificationsEnabled = Boolean((userData as any)?.emailNotificationsEnabled ?? true);
+
+  const updateNotificationPrefsMutation = useMutation({
+    mutationFn: async (enabled: boolean) => {
+      const res = await apiRequest("PATCH", "/api/user/notification-preferences", {
+        emailNotificationsEnabled: enabled,
+      });
+      return await res.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/user"] });
+      toast({
+        title: "Preferences updated",
+        description: "Your notification settings have been saved.",
+      });
+    },
+    onError: (error: Error) => {
+      toast({
+        title: "Update failed",
+        description: error.message,
+        variant: "destructive",
+      });
+    },
+  });
+
+  // Deep-link support: `/subcontractor/portal?leadId=...` scrolls to the lead card.
+  useEffect(() => {
+    if (!leadIdParam) return;
+
+    // Email CTAs should land on Available customers.
+    if (activeTab !== "available") {
+      setActiveTab("available");
+      return;
+    }
+
+    requestAnimationFrame(() => {
+      const el = document.getElementById(`lead-${leadIdParam}`);
+      if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  }, [activeTab, leadIdParam, leads.length, watchlistLeads.length]);
+
+  // Keep checkbox state synced when the modal opens and/or server state changes.
+  useEffect(() => {
+    if (!showAgreementModal) return;
+    setAgreementChecked(agreementAccepted);
+  }, [showAgreementModal, agreementAccepted]);
 
   const watchedLeadIds = useMemo(() => {
     if (!userData?.watchedLeads) return [];
@@ -202,8 +251,10 @@ export default function SubcontractorPortal() {
     try {
       const res = await apiRequest("POST", "/api/user/accept-agreement", {});
       await res.json();
-      setAgreementAccepted(true);
+      setAgreementChecked(true);
       setShowAgreementModal(false);
+      queryClient.invalidateQueries({ queryKey: ["/api/user"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/auth/user"] });
       toast({
         title: "Agreement Accepted",
         description: "You can now purchase leads.",
@@ -735,6 +786,27 @@ export default function SubcontractorPortal() {
         <p className="text-muted-foreground">Browse and purchase high-quality customer projects in your service area</p>
       </div>
 
+      <Card className="mb-6">
+        <CardHeader className="pb-3">
+          <CardTitle className="text-lg">Notification Preferences</CardTitle>
+          <CardDescription>Control how you receive new lead notifications.</CardDescription>
+        </CardHeader>
+        <CardContent className="flex items-center justify-between gap-4">
+          <div>
+            <p className="font-medium">Email notifications</p>
+            <p className="text-sm text-muted-foreground">
+              Turn this off if you prefer not to receive emails for new available leads. In-app notifications will still appear.
+            </p>
+          </div>
+          <Switch
+            checked={emailNotificationsEnabled}
+            onCheckedChange={(checked) => updateNotificationPrefsMutation.mutate(Boolean(checked))}
+            disabled={updateNotificationPrefsMutation.isPending}
+            aria-label="Toggle email notifications"
+          />
+        </CardContent>
+      </Card>
+
       {/* Welcome Card */}
       <WelcomeCard />
 
@@ -1120,7 +1192,7 @@ export default function SubcontractorPortal() {
             const discount = originalPrice > 0 ? ((originalPrice - currentPrice) / originalPrice * 100) : 0;
 
             return (
-              <Card key={lead.id} className="overflow-hidden hover-elevate" data-testid={`card-lead-${lead.id}`}>
+              <Card id={`lead-${lead.id}`} key={lead.id} className="overflow-hidden hover-elevate" data-testid={`card-lead-${lead.id}`}>
                 <CardHeader className="pb-3">
                   <div className="flex items-start justify-between gap-4 flex-wrap">
                     <div className="flex-1 min-w-0">
@@ -1302,7 +1374,7 @@ export default function SubcontractorPortal() {
             const discount = originalPrice > 0 ? ((originalPrice - currentPrice) / originalPrice * 100) : 0;
 
             return (
-              <Card key={lead.id} className="overflow-hidden hover-elevate border-yellow-200 dark:border-yellow-800">
+              <Card id={`lead-${lead.id}`} key={lead.id} className="overflow-hidden hover-elevate border-yellow-200 dark:border-yellow-800">
                 <CardHeader className="pb-3">
                   <div className="flex items-start justify-between gap-4 flex-wrap">
                     <div className="flex-1 min-w-0">
@@ -1467,8 +1539,8 @@ export default function SubcontractorPortal() {
           <div className="flex items-start gap-2 py-4">
             <Checkbox
               id="agreement-checkbox"
-              checked={agreementAccepted}
-              onCheckedChange={(checked) => setAgreementAccepted(checked as boolean)}
+              checked={agreementChecked}
+              onCheckedChange={(checked) => setAgreementChecked(checked as boolean)}
               data-testid="checkbox-accept-agreement"
             />
             <label htmlFor="agreement-checkbox" className="text-sm leading-tight cursor-pointer">
@@ -1485,7 +1557,7 @@ export default function SubcontractorPortal() {
             </Button>
             <Button
               onClick={handleAcceptAgreement}
-              disabled={!agreementAccepted}
+              disabled={!agreementChecked}
               data-testid="button-accept-agreement"
             >
               Accept Agreement

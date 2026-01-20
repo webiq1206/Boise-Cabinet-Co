@@ -259,36 +259,43 @@ export async function runAutoDeclinePendingLeads() {
     
     let declinedCount = 0;
     
-    // Get first admin user for system-initiated declines (or use null if no admin exists)
+    // Prefer a real admin user for audit trails, but don't block auto-release if none exist.
     const admins = await storage.getAllAdmins();
     const systemAdminId = admins.length > 0 ? admins[0].id : null;
+
+    // Fetch once; reused for all released leads.
+    const subcontractors = await storage.getAllSubcontractors();
     
     for (const lead of pendingLeads) {
       const hoursSinceCreation = (now.getTime() - new Date(lead.createdAt).getTime()) / (1000 * 60 * 60);
       
       // Auto-decline if lead has been pending for 24+ hours
       if (hoursSinceCreation >= 24) {
-        if (!systemAdminId) {
-          console.warn(`[CRON] Cannot auto-decline lead ${lead.id} - no admin user found`);
-          continue;
-        }
-        
         try {
-          // Decline the lead
-          const declinedLead = await storage.declineLead(lead.id, systemAdminId);
+          // Decline/release the lead into the subcontractor marketplace.
+          // If we don't have an admin user, we still release it (adminReviewedBy stays null).
+          const declinedLead = systemAdminId
+            ? await storage.declineLead(lead.id, systemAdminId)
+            : await storage.updateLead(lead.id, {
+                status: "available",
+                adminReviewedBy: null,
+                adminReviewedAt: new Date(),
+                adminDeclined: true,
+                // Start price decay clock when the lead becomes available
+                lastPriceUpdate: new Date(),
+              });
           
           if (declinedLead) {
             declinedCount++;
             console.log(`[CRON] Auto-declined lead ${lead.id} (pending for ${hoursSinceCreation.toFixed(1)} hours)`);
             
             // Notify all subcontractors
-            const subcontractors = await storage.getAllSubcontractors();
             for (const sub of subcontractors) {
               await storage.createNotification({
                 userId: sub.id,
                 type: "new_lead",
                 title: "New Lead Available",
-                message: `${lead.serviceType} lead in ${lead.city} - $${lead.currentLeadPrice}`,
+                message: `${declinedLead.serviceType} lead in ${declinedLead.city} - $${declinedLead.currentLeadPrice}`,
                 leadId: lead.id,
               });
             }
@@ -333,7 +340,8 @@ export async function runAutoDeclinePendingLeads() {
             try {
               const { sendContractorNewLeadAvailable } = await import("./services/emailNotifications");
               for (const sub of subcontractors) {
-                if (sub.email) {
+                const emailEnabled = (sub as any).emailNotificationsEnabled ?? true;
+                if (sub.email && emailEnabled) {
                   await sendContractorNewLeadAvailable(sub.email, {
                     id: lead.id,
                     name: lead.name,
@@ -343,7 +351,13 @@ export async function runAutoDeclinePendingLeads() {
                     serviceType: lead.serviceType,
                     finalQuote: lead.finalQuote || "0",
                     address: lead.address || undefined,
-                    currentLeadPrice: lead.currentLeadPrice,
+                    currentLeadPrice: declinedLead.currentLeadPrice,
+                    propertyType: lead.propertyType,
+                    frequency: lead.frequency || undefined,
+                    selectedServices: (lead.selectedServices as any) ?? undefined,
+                    lineItems: (lead.lineItems as any) ?? undefined,
+                    serviceData: (lead.serviceData as any) ?? undefined,
+                    message: lead.message || undefined,
                   });
                   // Space out emails to avoid rate limits
                   await new Promise(resolve => setTimeout(resolve, 2000));

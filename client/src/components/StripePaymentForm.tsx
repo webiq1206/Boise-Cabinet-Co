@@ -10,7 +10,11 @@ import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Loader2, CreditCard, Lock, AlertCircle } from "lucide-react";
 
-const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
+const stripePublishableKey = import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY;
+const stripePromise =
+  stripePublishableKey && stripePublishableKey.trim().length > 0
+    ? loadStripe(stripePublishableKey)
+    : null;
 
 interface PaymentFormProps {
   onSuccess: (paymentIntentId: string) => void;
@@ -127,6 +131,29 @@ export default function StripePaymentForm({
   onCancel,
   isProcessing,
 }: StripePaymentFormProps) {
+  if (!stripePromise) {
+    return (
+      <div className="space-y-4">
+        <Alert variant="destructive">
+          <AlertCircle className="h-4 w-4" />
+          <AlertDescription>
+            Payments are not configured for this environment (missing `VITE_STRIPE_PUBLISHABLE_KEY`).
+          </AlertDescription>
+        </Alert>
+        <Button
+          type="button"
+          variant="outline"
+          onClick={onCancel}
+          disabled={isProcessing}
+          data-testid="button-cancel-payment"
+          className="w-full"
+        >
+          Close
+        </Button>
+      </div>
+    );
+  }
+
   const options = {
     clientSecret,
     appearance: {

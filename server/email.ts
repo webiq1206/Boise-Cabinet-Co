@@ -3,6 +3,14 @@ import { formatQuoteForDisplay, calculateQuoteRange } from '../shared/utils';
 import { SERVICE_FIELD_CONFIGS } from '../shared/serviceFieldConfig';
 import { SERVICE_PRICING_CONFIG } from './services/pricing';
 
+const SITE_BASE_URL = 'https://lawncarekuna.com';
+const EMAIL_ASSET_BASE_URL = `${SITE_BASE_URL}/email`;
+// NOTE: `lawn-care-kuna-logo.png` is the light-on-dark logo used in headers.
+// We do not currently have a separate dark-on-light full logo in-repo, so we use the icon
+// for light backgrounds (footer) as a branded fallback.
+const EMAIL_LOGO_LIGHT_URL = `${EMAIL_ASSET_BASE_URL}/lawn-care-kuna-logo.png`;
+const EMAIL_LOGO_DARK_URL = `${EMAIL_ASSET_BASE_URL}/lawn-care-kuna-icon.png`;
+
 interface LineItem {
   service: string;
   serviceId: string;
@@ -374,6 +382,10 @@ export async function sendQuoteNotification(data: QuoteEmailData) {
   try {
     const { client: resend, fromEmail } = await getUncachableResendClient();
     console.log('[EMAIL] Got Resend client, from email:', fromEmail);
+    if ((resend as any)?.__noop) {
+      console.log('[EMAIL] Skipping send (noop email client).');
+      return { success: true, message: 'Email skipped (noop client)' };
+    }
 
     // Generate line items HTML - detailed for admin, simple for customer
     const adminLineItemsHtml = generateLineItemsHtml(data.lineItems, true);
@@ -440,6 +452,9 @@ export async function sendQuoteNotification(data: QuoteEmailData) {
       return "Pending Property Assessment";
     })();
 
+    const adminDashboardUrl = `${SITE_BASE_URL}/admin/dashboard?tab=pending&search=${encodeURIComponent(customerEmail)}`;
+    const customerStatusUrl = `${SITE_BASE_URL}/quote-status/${quoteId}`;
+
     const ownerEmailHtml = `
       <!DOCTYPE html>
       <html lang="en">
@@ -452,7 +467,7 @@ export async function sendQuoteNotification(data: QuoteEmailData) {
         <div class="email-wrapper">
           <div class="header">
             <div class="logo-container">
-              <img src="https://lawncarekuna.com/email/lawn-care-kuna-logo.png" alt="Lawn Care Kuna" class="logo" width="300" style="display:block; max-width:300px; height:auto;">
+              <img src="${EMAIL_LOGO_LIGHT_URL}" alt="Lawn Care Kuna" class="logo" width="300" style="display:block; max-width:300px; height:auto;">
             </div>
             <h1>New Quote Request</h1>
             <p>AI-Powered Quote System</p>
@@ -566,9 +581,16 @@ export async function sendQuoteNotification(data: QuoteEmailData) {
             <div class="highlight-box">
               <p><strong>Action Required:</strong> Please follow up with this customer within 24 hours to provide a detailed quote and schedule their service.</p>
             </div>
+
+            <div style="text-align: center; margin: 30px 0;">
+              <a href="${adminDashboardUrl}" class="cta-button">Open Admin Dashboard →</a>
+            </div>
           </div>
 
           <div class="footer">
+            <div style="margin: 0 0 12px 0;">
+              <img src="${EMAIL_LOGO_DARK_URL}" alt="Lawn Care Kuna" width="44" style="display:block; margin:0 auto; max-width:44px; height:auto;">
+            </div>
             <p class="footer-brand">Lawn Care Kuna</p>
             <p class="footer-tagline">Kuna, Idaho's Most Trusted Lawn Care & Landscaping Service</p>
             <p class="footer-contact">Email: <a href="mailto:${fromEmail}">${fromEmail}</a></p>
@@ -592,7 +614,7 @@ export async function sendQuoteNotification(data: QuoteEmailData) {
         <div class="email-wrapper">
           <div class="header">
             <div class="logo-container">
-              <img src="https://lawncarekuna.com/email/lawn-care-kuna-logo.png" alt="Lawn Care Kuna" class="logo" width="300" style="display:block; max-width:300px; height:auto;">
+              <img src="${EMAIL_LOGO_LIGHT_URL}" alt="Lawn Care Kuna" class="logo" width="300" style="display:block; max-width:300px; height:auto;">
             </div>
             <h1>Thank You for Your Request</h1>
             <p>We're excited to help transform your outdoor space!</p>
@@ -685,7 +707,7 @@ export async function sendQuoteNotification(data: QuoteEmailData) {
               <h2 class="section-title">Track Your Quote</h2>
               <p style="color: #4b5563; margin: 0 0 15px 0;">You can check the status of your quote anytime using the link below:</p>
               <div style="text-align: center; margin: 20px 0;">
-                <a href="https://lawncarekuna.com/quote-status/${quoteId}" class="cta-button">View Quote Status →</a>
+                <a href="${customerStatusUrl}" class="cta-button">View Quote Status →</a>
               </div>
             </div>
 
@@ -698,6 +720,9 @@ export async function sendQuoteNotification(data: QuoteEmailData) {
           </div>
 
           <div class="footer">
+            <div style="margin: 0 0 12px 0;">
+              <img src="${EMAIL_LOGO_DARK_URL}" alt="Lawn Care Kuna" width="44" style="display:block; margin:0 auto; max-width:44px; height:auto;">
+            </div>
             <p class="footer-brand">Lawn Care Kuna</p>
             <p class="footer-tagline">Kuna, Idaho's Most Trusted Lawn Care & Landscaping Service</p>
             <p class="footer-contact">Email: <a href="mailto:${fromEmail}">${fromEmail}</a></p>

@@ -14,9 +14,26 @@ import { parseAndRoundQuote, normalizeLineItemsForEmail, calculateQuoteRange } f
 import { getClosestBuildingFootprint } from "./services/overpass";
 import Stripe from "stripe";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: "2025-12-15.clover",
-});
+const stripe =
+  process.env.STRIPE_SECRET_KEY && process.env.STRIPE_SECRET_KEY.trim().length > 0
+    ? new Stripe(process.env.STRIPE_SECRET_KEY, {
+        apiVersion: "2025-12-15.clover",
+      })
+    : null;
+
+function getAuthUserId(req: any): string | null {
+  // Normal path (OIDC)
+  const direct = req?.user?.claims?.sub;
+  if (direct) return direct;
+
+  // Dev path: sessions created by `/api/auth/test-login`
+  if (process.env.NODE_ENV === "development") {
+    const fromSession = (req as any)?.session?.passport?.user?.claims?.sub;
+    if (fromSession) return fromSession;
+  }
+
+  return null;
+}
 
 // Create service name and description maps for email normalization
 const SERVICE_NAME_MAP: Record<string, string> = Object.entries(SERVICE_PRICING_CONFIG).reduce(
@@ -40,15 +57,307 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Setup Replit Auth
   await setupAuth(app);
 
+  // ============================================
+  // ADMIN ANALYTICS (KPIs + charts)
+  // ============================================
+  const adminAnalyticsQuerySchema = z.object({
+    days: z.coerce.number().int().min(1).max(365).optional(),
+    start: z.string().optional(), // ISO or YYYY-MM-DD
+    end: z.string().optional(), // ISO or YYYY-MM-DD
+  });
+
+  function toDate(value: unknown): Date | null {
+    if (!value) return null;
+    if (value instanceof Date && !isNaN(value.getTime())) return value;
+    const d = new Date(String(value));
+    return isNaN(d.getTime()) ? null : d;
+  }
+
+  function startOfDay(d: Date): Date {
+    const copy = new Date(d);
+    copy.setHours(0, 0, 0, 0);
+    return copy;
+  }
+
+  function endOfDay(d: Date): Date {
+    const copy = new Date(d);
+    copy.setHours(23, 59, 59, 999);
+    return copy;
+  }
+
+  function dayKey(d: Date): string {
+    // YYYY-MM-DD (local-ish via toISOString; good enough for charting)
+    return d.toISOString().slice(0, 10);
+  }
+
+  function isInRange(d: Date | null, startMs: number, endMs: number): boolean {
+    if (!d) return false;
+    const t = d.getTime();
+    return t >= startMs && t <= endMs;
+  }
+
+  function safeNumber(value: unknown): number {
+    if (value === null || value === undefined) return 0;
+    const n = typeof value === "number" ? value : parseFloat(String(value));
+    return Number.isFinite(n) ? n : 0;
+  }
+
+  app.get(
+    "/api/admin/analytics",
+    isAuthenticated,
+    requireRole(["admin"]),
+    async (req: any, res) => {
+      try {
+        const parsed = adminAnalyticsQuerySchema.parse(req.query);
+        const now = new Date();
+
+        const endDate = endOfDay(toDate(parsed.end) ?? now);
+        const days = parsed.days ?? 30;
+        const startDate =
+          startOfDay(toDate(parsed.start) ?? new Date(endDate.getTime() - (days - 1) * 24 * 60 * 60 * 1000));
+
+        const startMs = startDate.getTime();
+        const endMs = endDate.getTime();
+
+        const [allLeads, allSubs] = await Promise.all([
+          storage.getAllLeads(),
+          storage.getAllSubcontractors(),
+        ]);
+
+        const allTime = {
+          totalLeads: allLeads.length,
+          pendingAdmin: allLeads.filter((l) => l.status === "pending_admin").length,
+          accepted: allLeads.filter((l) => l.status === "accepted").length,
+          available: allLeads.filter((l) => l.status === "available").length,
+          purchased: allLeads.filter((l) => l.status === "purchased").length,
+          totalRevenue: allLeads.reduce((sum, l) => sum + safeNumber(l.purchasePrice), 0),
+        };
+
+        const createdInRange = allLeads.filter((l) => isInRange(toDate(l.createdAt), startMs, endMs));
+        const reviewedInRange = allLeads.filter((l) => isInRange(toDate(l.adminReviewedAt), startMs, endMs));
+        const purchasedInRange = allLeads.filter((l) => isInRange(toDate(l.purchasedAt), startMs, endMs));
+
+        const revenueInRange = purchasedInRange.reduce((sum, l) => sum + safeNumber(l.purchasePrice), 0);
+        const avgPurchasePrice = purchasedInRange.length > 0 ? revenueInRange / purchasedInRange.length : 0;
+        const purchaseConversion =
+          createdInRange.length > 0 ? purchasedInRange.length / createdInRange.length : 0;
+
+        const reviewLagHours = createdInRange
+          .map((l) => {
+            const created = toDate(l.createdAt);
+            const reviewed = toDate(l.adminReviewedAt);
+            if (!created || !reviewed) return null;
+            return Math.max(0, (reviewed.getTime() - created.getTime()) / (1000 * 60 * 60));
+          })
+          .filter((n): n is number => typeof n === "number" && Number.isFinite(n));
+
+        const avgTimeToReviewHours =
+          reviewLagHours.length > 0
+            ? reviewLagHours.reduce((a, b) => a + b, 0) / reviewLagHours.length
+            : 0;
+
+        const purchaseLagHours = purchasedInRange
+          .map((l) => {
+            const created = toDate(l.createdAt);
+            const purchased = toDate(l.purchasedAt);
+            if (!created || !purchased) return null;
+            return Math.max(0, (purchased.getTime() - created.getTime()) / (1000 * 60 * 60));
+          })
+          .filter((n): n is number => typeof n === "number" && Number.isFinite(n));
+
+        const avgTimeToPurchaseHours =
+          purchaseLagHours.length > 0
+            ? purchaseLagHours.reduce((a, b) => a + b, 0) / purchaseLagHours.length
+            : 0;
+
+        const activeSubs = allSubs.length;
+        const subsAgreementAccepted = allSubs.filter((s) => !!s.agreementAccepted).length;
+
+        const availableLeadsNow = allLeads.filter((l) => l.status === "available");
+        const availableAvgAgeHours =
+          availableLeadsNow.length > 0
+            ? availableLeadsNow
+                .map((l) => {
+                  const created = toDate(l.createdAt);
+                  if (!created) return 0;
+                  return Math.max(0, (now.getTime() - created.getTime()) / (1000 * 60 * 60));
+                })
+                .reduce((a, b) => a + b, 0) / availableLeadsNow.length
+            : 0;
+
+        // Daily time series for charts
+        const seriesMap = new Map<
+          string,
+          { date: string; leadsCreated: number; leadsReviewed: number; leadsPurchased: number; revenue: number }
+        >();
+        for (
+          let d = startOfDay(startDate);
+          d.getTime() <= endOfDay(endDate).getTime();
+          d = new Date(d.getTime() + 24 * 60 * 60 * 1000)
+        ) {
+          const key = dayKey(d);
+          seriesMap.set(key, { date: key, leadsCreated: 0, leadsReviewed: 0, leadsPurchased: 0, revenue: 0 });
+        }
+
+        for (const l of allLeads) {
+          const created = toDate(l.createdAt);
+          if (created && isInRange(created, startMs, endMs)) {
+            const key = dayKey(created);
+            const row = seriesMap.get(key);
+            if (row) row.leadsCreated += 1;
+          }
+          const reviewed = toDate(l.adminReviewedAt);
+          if (reviewed && isInRange(reviewed, startMs, endMs)) {
+            const key = dayKey(reviewed);
+            const row = seriesMap.get(key);
+            if (row) row.leadsReviewed += 1;
+          }
+          const purchased = toDate(l.purchasedAt);
+          if (purchased && isInRange(purchased, startMs, endMs)) {
+            const key = dayKey(purchased);
+            const row = seriesMap.get(key);
+            if (row) {
+              row.leadsPurchased += 1;
+              row.revenue += safeNumber(l.purchasePrice);
+            }
+          }
+        }
+
+        const daily = Array.from(seriesMap.values()).sort((a, b) => a.date.localeCompare(b.date));
+
+        // Breakdown by service/city (using createdAt in range for volume; purchasedAt in range for revenue)
+        const byService = new Map<string, { serviceType: string; leadsCreated: number; purchases: number; revenue: number }>();
+        const byCity = new Map<string, { city: string; leadsCreated: number; purchases: number; revenue: number }>();
+
+        for (const l of createdInRange) {
+          const svc = l.serviceType || "unknown";
+          const city = l.city || "unknown";
+          byService.set(svc, { serviceType: svc, leadsCreated: (byService.get(svc)?.leadsCreated ?? 0) + 1, purchases: byService.get(svc)?.purchases ?? 0, revenue: byService.get(svc)?.revenue ?? 0 });
+          byCity.set(city, { city, leadsCreated: (byCity.get(city)?.leadsCreated ?? 0) + 1, purchases: byCity.get(city)?.purchases ?? 0, revenue: byCity.get(city)?.revenue ?? 0 });
+        }
+
+        for (const l of purchasedInRange) {
+          const svc = l.serviceType || "unknown";
+          const city = l.city || "unknown";
+          const rev = safeNumber(l.purchasePrice);
+          byService.set(svc, { serviceType: svc, leadsCreated: byService.get(svc)?.leadsCreated ?? 0, purchases: (byService.get(svc)?.purchases ?? 0) + 1, revenue: (byService.get(svc)?.revenue ?? 0) + rev });
+          byCity.set(city, { city, leadsCreated: byCity.get(city)?.leadsCreated ?? 0, purchases: (byCity.get(city)?.purchases ?? 0) + 1, revenue: (byCity.get(city)?.revenue ?? 0) + rev });
+        }
+
+        const byServiceArr = Array.from(byService.values())
+          .map((r) => ({
+            ...r,
+            conversion: r.leadsCreated > 0 ? r.purchases / r.leadsCreated : 0,
+            avgPurchasePrice: r.purchases > 0 ? r.revenue / r.purchases : 0,
+          }))
+          .sort((a, b) => b.leadsCreated - a.leadsCreated);
+
+        const byCityArr = Array.from(byCity.values())
+          .map((r) => ({
+            ...r,
+            conversion: r.leadsCreated > 0 ? r.purchases / r.leadsCreated : 0,
+            avgPurchasePrice: r.purchases > 0 ? r.revenue / r.purchases : 0,
+          }))
+          .sort((a, b) => b.leadsCreated - a.leadsCreated);
+
+        // Top buyers (subcontractors) based on purchases in range
+        const buyerAgg = new Map<string, { userId: string; purchases: number; revenue: number }>();
+        for (const l of purchasedInRange) {
+          const buyer = l.purchasedBy;
+          if (!buyer) continue;
+          const rev = safeNumber(l.purchasePrice);
+          buyerAgg.set(buyer, {
+            userId: buyer,
+            purchases: (buyerAgg.get(buyer)?.purchases ?? 0) + 1,
+            revenue: (buyerAgg.get(buyer)?.revenue ?? 0) + rev,
+          });
+        }
+
+        const buyerRows = Array.from(buyerAgg.values()).sort((a, b) => b.revenue - a.revenue).slice(0, 10);
+        const buyers = await Promise.all(
+          buyerRows.map(async (row) => {
+            const user = await storage.getUser(row.userId);
+            const displayName =
+              user?.company ||
+              `${user?.firstName || ""} ${user?.lastName || ""}`.trim() ||
+              user?.email ||
+              row.userId;
+            return {
+              ...row,
+              displayName,
+            };
+          })
+        );
+
+        res.json({
+          success: true,
+          range: {
+            start: startDate.toISOString(),
+            end: endDate.toISOString(),
+            days: Math.max(1, Math.round((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24)) + 1),
+          },
+          allTime,
+          kpis: {
+            leadsCreated: createdInRange.length,
+            leadsReviewed: reviewedInRange.length,
+            leadsPurchased: purchasedInRange.length,
+            revenue: revenueInRange,
+            avgPurchasePrice,
+            purchaseConversion,
+            avgTimeToReviewHours,
+            avgTimeToPurchaseHours,
+            availableNow: availableLeadsNow.length,
+            availableAvgAgeHours,
+            activeSubcontractors: activeSubs,
+            subcontractorsAgreementAccepted: subsAgreementAccepted,
+          },
+          charts: {
+            daily,
+            byService: byServiceArr,
+            byCity: byCityArr,
+            topBuyers: buyers,
+          },
+        });
+      } catch (error) {
+        console.error("Error generating admin analytics:", error);
+        res.status(500).json({ error: error instanceof Error ? error.message : "Failed to generate analytics" });
+      }
+    }
+  );
+
   // DEV ONLY: Test authentication bypass for E2E testing
   if (process.env.NODE_ENV === "development") {
     app.post("/api/auth/test-login", async (req, res) => {
       try {
-        const { userId } = req.body;
-        const user = await storage.getUser(userId);
+        const { userId, email, role } = req.body as {
+          userId?: string;
+          email?: string;
+          role?: string;
+        };
+
+        if (!userId || typeof userId !== "string") {
+          return res.status(400).json({ error: "userId is required" });
+        }
+
+        let user = await storage.getUser(userId);
         
         if (!user) {
-          return res.status(404).json({ error: "User not found" });
+          // Dev convenience: create the user if it doesn't exist yet.
+          const inferredRole =
+            role ||
+            (userId === "admin-temp-id"
+              ? "admin"
+              : userId === "sub-temp-id"
+                ? "subcontractor"
+                : "customer");
+
+          user = await storage.upsertUser({
+            id: userId,
+            email: email || (userId === "admin-temp-id" ? "admin@lawncarekuna.com" : "contractor@example.com"),
+            firstName: inferredRole === "admin" ? "Admin" : "Test",
+            lastName: inferredRole === "admin" ? "User" : "Subcontractor",
+            role: inferredRole,
+          } as any);
         }
         
         // Create a test session
@@ -77,12 +386,167 @@ export async function registerRoutes(app: Express): Promise<Server> {
         res.status(500).json({ error: "Failed to login" });
       }
     });
+
+    // DEV ONLY: Seed a small set of leads for deterministic QA
+    // Creates: 1 pending_admin lead, 1 available lead, 1 purchased lead (owned by sub-temp-id).
+    app.post("/api/dev/seed", isAuthenticated, requireRole(["admin"]), async (req: any, res) => {
+      try {
+        const { calculateLeadPrice } = await import("./services/leadPricing");
+
+        // Ensure the test subcontractor exists (purchase history needs it).
+        const subUserId = "sub-temp-id";
+        const subUser =
+          (await storage.getUser(subUserId)) ??
+          (await storage.upsertUser({
+            id: subUserId,
+            email: "contractor@example.com",
+            firstName: "Test",
+            lastName: "Subcontractor",
+            role: "subcontractor",
+            agreementAccepted: true,
+            agreementAcceptedAt: new Date(),
+          } as any));
+
+        const now = new Date();
+
+        const makeQuoteAndLead = async (opts: {
+          name: string;
+          email: string;
+          phone: string;
+          city: string;
+          propertyType: string;
+          serviceType: string;
+          frequency: string;
+          finalQuote: number;
+          status: "pending_admin" | "available" | "purchased" | "accepted";
+          purchasedBy?: string;
+        }) => {
+          const quote = await storage.createQuote({
+            name: opts.name,
+            email: opts.email,
+            phone: opts.phone,
+            city: opts.city,
+            propertyType: opts.propertyType,
+            serviceType: opts.serviceType,
+            frequency: opts.frequency,
+            finalQuote: String(opts.finalQuote),
+            address: `${opts.city}, Idaho`,
+            selectedServices: [opts.serviceType],
+            serviceData: { [opts.serviceType]: { propertySize: 5000, zones: 6, linearFeet: 200 } } as any,
+            lineItems: [
+              {
+                serviceId: opts.serviceType,
+                serviceName: opts.serviceType,
+                basePrice: 100,
+                adjustedPrice: opts.finalQuote,
+                description: opts.serviceType,
+              },
+            ] as any,
+            status: "pending",
+          } as any);
+
+          const { basePrice, currentPrice } = calculateLeadPrice({
+            finalQuote: opts.finalQuote,
+            frequency: opts.frequency,
+            serviceType: opts.serviceType,
+          });
+
+          const lead = await storage.createLead({
+            quoteId: quote.id,
+            name: quote.name,
+            email: quote.email,
+            phone: quote.phone,
+            address: quote.address ?? null,
+            city: quote.city,
+            propertyType: quote.propertyType,
+            serviceType: quote.serviceType,
+            selectedServices: (quote.selectedServices as any) ?? [],
+            frequency: quote.frequency,
+            finalQuote: quote.finalQuote,
+            lineItems: quote.lineItems as any,
+            serviceData: quote.serviceData as any,
+            message: quote.message,
+            baseLeadPrice: basePrice.toFixed(2),
+            currentLeadPrice: currentPrice.toFixed(2),
+            status: opts.status,
+            adminDeclined: opts.status === "available",
+            lastPriceUpdate: opts.status === "available" ? now : undefined,
+            purchasedBy: opts.purchasedBy as any,
+            purchasedAt: opts.status === "purchased" ? now : undefined,
+            purchasePrice: opts.status === "purchased" ? currentPrice.toFixed(2) : undefined,
+            stripePaymentIntentId: opts.status === "purchased" ? `pi_dev_seed_${quote.id}` : undefined,
+          } as any);
+
+          // If purchased, also create a purchase record for history.
+          if (opts.status === "purchased") {
+            await storage.createLeadPurchase({
+              leadId: lead.id,
+              userId: opts.purchasedBy || subUser.id,
+              purchasePrice: lead.currentLeadPrice,
+              stripePaymentIntentId: lead.stripePaymentIntentId || `pi_dev_seed_${lead.id}`,
+            } as any);
+          }
+
+          return { quote, lead };
+        };
+
+        const pending = await makeQuoteAndLead({
+          name: "Pending Lead",
+          email: "pending@example.com",
+          phone: "2085550100",
+          city: "Kuna",
+          propertyType: "residential",
+          serviceType: "lawn-mowing",
+          frequency: "one-time",
+          finalQuote: 1200,
+          status: "pending_admin",
+        });
+
+        const available = await makeQuoteAndLead({
+          name: "Available Lead",
+          email: "available@example.com",
+          phone: "2085550101",
+          city: "Meridian",
+          propertyType: "residential",
+          serviceType: "fertilization",
+          frequency: "one-time",
+          finalQuote: 800,
+          status: "available",
+        });
+
+        const purchased = await makeQuoteAndLead({
+          name: "Purchased Lead",
+          email: "purchased@example.com",
+          phone: "2085550102",
+          city: "Boise",
+          propertyType: "residential",
+          serviceType: "aeration",
+          frequency: "one-time",
+          finalQuote: 1500,
+          status: "purchased",
+          purchasedBy: subUser.id,
+        });
+
+        res.json({
+          success: true,
+          seeded: {
+            pendingLeadId: pending.lead.id,
+            availableLeadId: available.lead.id,
+            purchasedLeadId: purchased.lead.id,
+          },
+        });
+      } catch (error) {
+        console.error("[DEV SEED] Failed:", error);
+        res.status(500).json({ error: error instanceof Error ? error.message : "Failed to seed" });
+      }
+    });
   }
 
   // Auth routes
   app.get('/api/auth/user', isAuthenticated, async (req: any, res) => {
     try {
-      const userId = req.user.claims.sub;
+      const userId = getAuthUserId(req);
+      if (!userId) return res.status(401).json({ message: "Unauthorized" });
       const user = await storage.getUser(userId);
       res.json(user);
     } catch (error) {
@@ -94,6 +558,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Stripe: Create payment intent for lead purchase
   app.post("/api/create-payment-intent", isAuthenticated, requireRole(["subcontractor"]), async (req: any, res) => {
     try {
+      if (!stripe) {
+        return res.status(503).json({ error: "Payments are temporarily unavailable (Stripe not configured)" });
+      }
+
       const { leadId } = req.body;
       
       if (!leadId) {
@@ -110,7 +578,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
       
       // Get or create Stripe customer for this user
-      const userId = req.user.claims.sub;
+      const userId = getAuthUserId(req);
+      if (!userId) return res.status(401).json({ error: "User not authenticated properly" });
       const user = await storage.getUser(userId);
       
       if (!user) {
@@ -406,6 +875,63 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       // Validate using submission schema (includes AI fields)
       const validatedData = quoteSubmissionSchema.parse(req.body);
+
+      // If the client didn't provide pricing, compute it server-side from selected services + measurements.
+      // This keeps lead pricing consistent and prevents $0/null quotes from producing $10 leads.
+      let autoPricing: null | {
+        lineItems: any[];
+        baseCost: number;
+        adjustedCost: number;
+        finalQuote: number;
+        aiAnalysis: any;
+        complexityScore: number;
+      } = null;
+
+      const hasFinalQuote =
+        validatedData.finalQuote !== undefined &&
+        validatedData.finalQuote !== null &&
+        (() => {
+          const rounded = parseAndRoundQuote(validatedData.finalQuote as any);
+          return Number.isFinite(rounded) && rounded > 0;
+        })();
+
+      const shouldAutoCalculate =
+        !hasFinalQuote &&
+        Array.isArray(validatedData.selectedServices) &&
+        validatedData.selectedServices.length > 0 &&
+        validatedData.serviceData &&
+        typeof validatedData.serviceData === "object";
+
+      if (shouldAutoCalculate) {
+        try {
+          const { calculateMultiServiceQuote } = await import("./services/pricing");
+          const propertySizeNum = validatedData.propertySize
+            ? parseFloat(String(validatedData.propertySize))
+            : undefined;
+
+          const computed = await calculateMultiServiceQuote({
+            selectedServices: validatedData.selectedServices as any,
+            serviceData: validatedData.serviceData as any,
+            propertyType: validatedData.propertyType,
+            city: validatedData.city,
+            address: validatedData.address,
+            propertySize: Number.isFinite(propertySizeNum as any) ? (propertySizeNum as number) : undefined,
+            frequency: validatedData.frequency || "one-time",
+          });
+
+          autoPricing = {
+            lineItems: computed.lineItems,
+            baseCost: computed.baseCost,
+            adjustedCost: computed.adjustedCost,
+            finalQuote: computed.finalQuote,
+            aiAnalysis: computed.aiAnalysis,
+            complexityScore: computed.complexityScore,
+          };
+        } catch (autoErr) {
+          console.error("[quotes] Auto-calculate pricing failed; continuing without pricing:", autoErr);
+          autoPricing = null;
+        }
+      }
       
       // Sanitize and normalize data for storage
       const quoteData: InsertQuote = {
@@ -440,45 +966,42 @@ export async function registerRoutes(app: Express): Promise<Server> {
         serviceData: validatedData.serviceData || null,
         
         // AI analysis (stored as JSONB)
-        aiAnalysis: validatedData.aiAnalysis || null,
+        aiAnalysis: validatedData.aiAnalysis || autoPricing?.aiAnalysis || null,
         
         // Pricing (normalize to decimal strings with validation)
-        complexityScore: validatedData.complexityScore 
+        complexityScore: (validatedData.complexityScore ?? autoPricing?.complexityScore)
           ? (() => {
-              const num = typeof validatedData.complexityScore === 'number'
-                ? validatedData.complexityScore
-                : parseFloat(String(validatedData.complexityScore));
+              const raw = (validatedData.complexityScore ?? autoPricing?.complexityScore) as any;
+              const num = typeof raw === 'number' ? raw : parseFloat(String(raw));
               return isNaN(num) ? null : String(num);
             })()
           : null,
-        baseCost: validatedData.baseCost
+        baseCost: (validatedData.baseCost ?? autoPricing?.baseCost)
           ? (() => {
-              const num = typeof validatedData.baseCost === 'number'
-                ? validatedData.baseCost
-                : parseFloat(String(validatedData.baseCost));
+              const raw = (validatedData.baseCost ?? autoPricing?.baseCost) as any;
+              const num = typeof raw === 'number' ? raw : parseFloat(String(raw));
               return isNaN(num) ? null : String(num);
             })()
           : null,
-        adjustedCost: validatedData.adjustedCost
+        adjustedCost: (validatedData.adjustedCost ?? autoPricing?.adjustedCost)
           ? (() => {
-              const num = typeof validatedData.adjustedCost === 'number'
-                ? validatedData.adjustedCost
-                : parseFloat(String(validatedData.adjustedCost));
+              const raw = (validatedData.adjustedCost ?? autoPricing?.adjustedCost) as any;
+              const num = typeof raw === 'number' ? raw : parseFloat(String(raw));
               return isNaN(num) ? null : String(num);
             })()
           : null,
-        finalQuote: validatedData.finalQuote
+        finalQuote: (validatedData.finalQuote ?? autoPricing?.finalQuote)
           ? (() => {
               // Parse and round quote using shared utility (rounds UP to nearest $5)
-              const rounded = parseAndRoundQuote(validatedData.finalQuote);
+              const rounded = parseAndRoundQuote((validatedData.finalQuote ?? autoPricing?.finalQuote) as any);
               return rounded > 0 ? String(rounded) : null;
             })()
           : null,
-        lineItems: validatedData.lineItems && Array.isArray(validatedData.lineItems)
+        lineItems: (Array.isArray(validatedData.lineItems) ? validatedData.lineItems : Array.isArray(autoPricing?.lineItems) ? autoPricing!.lineItems : null)
           ? (() => {
               // Normalize line items for email-friendly format with proper service names
               const normalized = normalizeLineItemsForEmail(
-                validatedData.lineItems,
+                (Array.isArray(validatedData.lineItems) ? validatedData.lineItems : autoPricing!.lineItems) as any,
                 SERVICE_NAME_MAP,
                 SERVICE_DATA_MAP
               );
@@ -864,7 +1387,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/leads", isAuthenticated, async (req: any, res) => {
     try {
       const { status, city, serviceType, availableOnly } = req.query;
-      const userId = req.user.claims.sub;
+      const userId = getAuthUserId(req);
+      if (!userId) return res.status(401).json({ error: "Unauthorized" });
       
       // Get requesting user
       const requestingUser = await storage.getUser(userId);
@@ -920,9 +1444,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Get single lead by ID - requires authentication
-  app.get("/api/leads/:id", isAuthenticated, async (req: any, res) => {
+  app.get("/api/leads/:id", isAuthenticated, async (req: any, res, next) => {
     try {
-      const userId = req.user.claims.sub;
+      // IMPORTANT: Avoid shadowing static sub-routes like `/api/leads/watchlist` and `/api/leads/purchases`.
+      // This route is registered before them, so we explicitly fall through.
+      if (req.params.id === "watchlist" || req.params.id === "purchases") {
+        return next("route");
+      }
+
+      const userId = getAuthUserId(req);
+      if (!userId) return res.status(401).json({ error: "Unauthorized" });
       const lead = await storage.getLeadById(req.params.id);
       if (!lead) {
         return res.status(404).json({ error: "Lead not found" });
@@ -976,7 +1507,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Admin accepts a lead (takes ownership) - requires admin role
   app.post("/api/leads/:id/accept", isAuthenticated, requireRole(["admin"]), async (req: any, res) => {
     try {
-      const userId = req.user.claims.sub;
+      const userId = getAuthUserId(req);
+      if (!userId) return res.status(401).json({ error: "Unauthorized" });
       
       const lead = await storage.acceptLead(req.params.id, userId);
       if (!lead) {
@@ -1010,7 +1542,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Admin declines a lead (makes available to subcontractors) - requires admin role
   app.post("/api/leads/:id/decline", isAuthenticated, requireRole(["admin"]), async (req: any, res) => {
     try {
-      const userId = req.user.claims.sub;
+      const userId = getAuthUserId(req);
+      if (!userId) return res.status(401).json({ error: "Unauthorized" });
       
       const lead = await storage.declineLead(req.params.id, userId);
       if (!lead) {
@@ -1035,7 +1568,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
         // Fire-and-forget to avoid request timeouts when many subcontractors exist
         void (async () => {
           for (const sub of subcontractors) {
-            if (sub.email) {
+            const emailEnabled = (sub as any).emailNotificationsEnabled ?? true;
+            if (sub.email && emailEnabled) {
               await sendContractorNewLeadAvailable(sub.email, {
                 id: lead.id,
                 name: lead.name,
@@ -1046,6 +1580,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
                 finalQuote: lead.finalQuote || "0",
                 address: lead.address || undefined,
                 currentLeadPrice: lead.currentLeadPrice,
+                propertyType: lead.propertyType,
+                frequency: lead.frequency || undefined,
+                selectedServices: (lead.selectedServices as any) ?? undefined,
+                lineItems: (lead.lineItems as any) ?? undefined,
+                serviceData: (lead.serviceData as any) ?? undefined,
+                message: lead.message || undefined,
               });
               // Space out emails to avoid rate limits
               await new Promise(resolve => setTimeout(resolve, 2000));
@@ -1086,7 +1626,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Add note to lead - requires admin role
   app.post("/api/leads/:id/notes", isAuthenticated, requireRole(["admin"]), async (req: any, res) => {
     try {
-      const userId = req.user.claims.sub;
+      const userId = getAuthUserId(req);
+      if (!userId) return res.status(401).json({ error: "Unauthorized" });
       const { note } = req.body;
       
       if (!note || typeof note !== 'string' || note.trim().length === 0) {
@@ -1145,7 +1686,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Subcontractor purchases a lead - requires subcontractor role
   app.post("/api/leads/:id/purchase", isAuthenticated, requireRole(["subcontractor"]), async (req: any, res) => {
     try {
-      const userId = req.user.claims.sub;
+      if (!stripe) {
+        return res.status(503).json({ error: "Payments are temporarily unavailable (Stripe not configured)" });
+      }
+
+      const userId = getAuthUserId(req);
+      if (!userId) return res.status(401).json({ error: "Unauthorized" });
       const { paymentIntentId } = req.body;
       if (!paymentIntentId) {
         return res.status(400).json({ error: "Payment intent is required" });
@@ -1315,7 +1861,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Get user's purchase history with full lead details - requires authentication
   app.get("/api/leads/purchases", isAuthenticated, async (req: any, res) => {
     try {
-      const userId = req.user.claims.sub;
+      const userId = getAuthUserId(req);
+      if (!userId) return res.status(401).json({ error: "Unauthorized" });
       
       const purchases = await storage.getLeadPurchasesByUser(userId);
       
@@ -1337,7 +1884,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Get user notifications - requires authentication
   app.get("/api/notifications", isAuthenticated, async (req: any, res) => {
     try {
-      const userId = req.user.claims.sub;
+      const userId = getAuthUserId(req);
+      if (!userId) return res.status(401).json({ error: "Unauthorized" });
       
       const notifications = await storage.getNotificationsByUserId(userId);
       res.json(notifications);
@@ -1350,7 +1898,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Mark notification as read - requires authentication
   app.post("/api/notifications/:id/mark-read", isAuthenticated, async (req: any, res) => {
     try {
-      const userId = req.user.claims.sub;
+      const userId = getAuthUserId(req);
+      if (!userId) return res.status(401).json({ error: "Unauthorized" });
       const notificationId = req.params.id;
 
       // Authorization: users may only mark their own notifications as read.
@@ -1376,7 +1925,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Watch/unwatch a lead - requires subcontractor role
   app.post("/api/leads/:id/watch", isAuthenticated, requireRole(["subcontractor"]), async (req: any, res) => {
     try {
-      const userId = req.user.claims.sub;
+      const userId = getAuthUserId(req);
+      if (!userId) return res.status(401).json({ error: "Unauthorized" });
       const user = await storage.getUser(userId);
       if (!user) {
         return res.status(404).json({ error: "User not found" });
@@ -1426,7 +1976,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.post("/api/leads/:id/unwatch", isAuthenticated, requireRole(["subcontractor"]), async (req: any, res) => {
     try {
-      const userId = req.user.claims.sub;
+      const userId = getAuthUserId(req);
+      if (!userId) return res.status(401).json({ error: "Unauthorized" });
       const user = await storage.getUser(userId);
       if (!user) {
         return res.status(404).json({ error: "User not found" });
@@ -1464,7 +2015,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Get user's watchlist - requires authentication
   app.get("/api/leads/watchlist", isAuthenticated, requireRole(["subcontractor"]), async (req: any, res) => {
     try {
-      const userId = req.user.claims.sub;
+      const userId = getAuthUserId(req);
+      if (!userId) return res.status(401).json({ error: "Unauthorized" });
       const user = await storage.getUser(userId);
       if (!user) {
         return res.status(404).json({ error: "User not found" });
@@ -1524,8 +2076,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Get current user - requires authentication
   app.get("/api/user", isAuthenticated, async (req: any, res) => {
     try {
-      const userId = req.user.claims.sub;
-      const claims = req.user.claims;
+      const userId = getAuthUserId(req);
+      if (!userId) return res.status(401).json({ error: "Unauthorized" });
+      const claims = req.user?.claims ?? (process.env.NODE_ENV === "development" ? (req as any).session?.passport?.user?.claims : undefined);
       
       let user = await storage.getUser(userId);
       
@@ -1534,10 +2087,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
         console.log("User not found, creating user from claims:", userId);
         user = await storage.upsertUser({
           id: userId,
-          email: claims.email,
-          firstName: claims.first_name,
-          lastName: claims.last_name,
-          profileImageUrl: claims.profile_image_url,
+          email: claims?.email,
+          firstName: claims?.first_name,
+          lastName: claims?.last_name,
+          profileImageUrl: claims?.profile_image_url,
           role: "customer", // Safe default - admin can promote to subcontractor later
         });
       }
@@ -1549,15 +2102,38 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Update notification preferences (subcontractors can disable email notifications)
+  app.patch("/api/user/notification-preferences", isAuthenticated, async (req: any, res) => {
+    try {
+      const userId = getAuthUserId(req);
+      if (!userId) return res.status(401).json({ error: "Unauthorized" });
+
+      const schema = z.object({
+        emailNotificationsEnabled: z.boolean(),
+      });
+
+      const body = schema.parse(req.body);
+      const updated = await storage.updateUser(userId, {
+        emailNotificationsEnabled: body.emailNotificationsEnabled,
+      } as any);
+
+      if (!updated) return res.status(404).json({ error: "User not found" });
+      res.json(updated);
+    } catch (error) {
+      console.error("Error updating notification preferences:", error);
+      res.status(400).json({ error: error instanceof Error ? error.message : "Failed to update preferences" });
+    }
+  });
+
   // Accept legal agreement - requires authentication
   app.post("/api/user/accept-agreement", isAuthenticated, async (req: any, res) => {
-    console.log("[accept-agreement] Endpoint called");
     try {
-      const userId = req.user?.claims?.sub;
-      const claims = req.user?.claims;
+      const userId = getAuthUserId(req);
+      const claims = req.user?.claims ?? (process.env.NODE_ENV === "development" ? (req as any).session?.passport?.user?.claims : undefined);
       
-      console.log("[accept-agreement] userId:", userId);
-      console.log("[accept-agreement] claims:", JSON.stringify(claims || {}, null, 2));
+      if (process.env.NODE_ENV === "development") {
+        console.log("[accept-agreement] Endpoint called for userId:", userId);
+      }
       
       if (!userId) {
         console.error("[accept-agreement] No userId found in claims");
@@ -1566,11 +2142,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       // First check if user exists
       let user = await storage.getUser(userId);
-      console.log("[accept-agreement] Existing user found:", !!user);
+      if (process.env.NODE_ENV === "development") {
+        console.log("[accept-agreement] Existing user found:", !!user);
+      }
       
       if (!user) {
         // User doesn't exist yet - create them first using upsertUser with safe "customer" role
-        console.log("[accept-agreement] Creating new user:", userId);
+        if (process.env.NODE_ENV === "development") {
+          console.log("[accept-agreement] Creating new user:", userId);
+        }
         user = await storage.upsertUser({
           id: userId,
           email: claims?.email || null,
@@ -1581,15 +2161,21 @@ export async function registerRoutes(app: Express): Promise<Server> {
           agreementAccepted: true,
           agreementAcceptedAt: new Date(),
         });
-        console.log("[accept-agreement] User created:", !!user);
+        if (process.env.NODE_ENV === "development") {
+          console.log("[accept-agreement] User created:", !!user);
+        }
       } else {
         // User exists - update their agreement status
-        console.log("[accept-agreement] Updating existing user:", userId);
+        if (process.env.NODE_ENV === "development") {
+          console.log("[accept-agreement] Updating existing user:", userId);
+        }
         user = await storage.updateUser(userId, {
           agreementAccepted: true,
           agreementAcceptedAt: new Date(),
         });
-        console.log("[accept-agreement] User updated:", !!user);
+        if (process.env.NODE_ENV === "development") {
+          console.log("[accept-agreement] User updated:", !!user);
+        }
       }
       
       if (!user) {
@@ -1597,7 +2183,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(500).json({ error: "Failed to update user agreement" });
       }
       
-      console.log("[accept-agreement] Success, returning user");
       res.json(user);
     } catch (error) {
       console.error("[accept-agreement] Error:", error);

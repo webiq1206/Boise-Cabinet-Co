@@ -230,11 +230,15 @@ export const isAuthenticated: RequestHandler = async (req, res, next) => {
 export const requireRole = (allowedRoles: string[]): RequestHandler => {
   return async (req, res, next) => {
     const user = req.user as any;
-    if (!user?.claims?.sub) {
+    // Support dev sessions created via `/api/auth/test-login` (session may exist without `req.user` populated).
+    let userId: string | undefined = user?.claims?.sub;
+    if (process.env.NODE_ENV === "development" && !userId) {
+      userId = (req as any).session?.passport?.user?.claims?.sub;
+    }
+    if (!userId) {
       return res.status(401).json({ message: "Unauthorized" });
     }
 
-    const userId = user.claims.sub;
     const dbUser = await storage.getUser(userId);
     
     if (!dbUser) {

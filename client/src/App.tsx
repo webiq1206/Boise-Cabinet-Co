@@ -63,6 +63,7 @@ const SubcontractorPortal = lazy(() => import("@/pages/SubcontractorPortal"));
 const PurchaseHistory = lazy(() => import("@/pages/PurchaseHistory"));
 const AnalyticsDashboard = lazy(() => import("@/pages/AnalyticsDashboard"));
 const QuoteStatus = lazy(() => import("@/pages/QuoteStatus"));
+const DevLogin = lazy(() => import("@/pages/DevLogin"));
 
 function SubcontractorRouteEnforcer() {
   const { user, isAuthenticated, isLoading } = useAuth();
@@ -148,6 +149,7 @@ function Router() {
             <Route path="/admin/analytics" component={AnalyticsDashboard} />
             <Route path="/subcontractor/portal" component={SubcontractorPortal} />
             <Route path="/subcontractor/purchases" component={PurchaseHistory} />
+            {import.meta.env.DEV && <Route path="/__dev__/login" component={DevLogin} />}
 
             {/* 404 */}
             <Route component={NotFound} />

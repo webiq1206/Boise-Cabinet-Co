@@ -181,6 +181,10 @@ export const users = pgTable("users", {
   
   // Watchlist for contractors
   watchedLeads: jsonb("watched_leads").$type<string[]>().default(sql`'[]'::jsonb`), // Array of lead IDs
+
+  // Notification preferences
+  // Subcontractors can disable email notifications from the portal.
+  emailNotificationsEnabled: boolean("email_notifications_enabled").notNull().default(true),
   
   // Status
   isActive: boolean("is_active").default(true),

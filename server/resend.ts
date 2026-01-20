@@ -1,6 +1,7 @@
 import { Resend } from 'resend';
 
 let connectionSettings: any;
+let warnedNoEmailConfig = false;
 
 async function getCredentials() {
   // First, check if RESEND_API_KEY is provided as an environment variable/secret
@@ -46,9 +47,35 @@ async function getCredentials() {
 // Access tokens expire, so a new client must be created each time.
 // Always call this function again to get a fresh client.
 export async function getUncachableResendClient() {
-  const { apiKey, fromEmail } = await getCredentials();
-  return {
-    client: new Resend(apiKey),
-    fromEmail
-  };
+  try {
+    const { apiKey, fromEmail } = await getCredentials();
+    return {
+      client: new Resend(apiKey),
+      fromEmail
+    };
+  } catch (error) {
+    // In non-production, treat missing Resend/Replit connector credentials as a no-op so QA/dev isn't blocked.
+    // In production, still fail loudly so misconfiguration doesn't go unnoticed.
+    if (process.env.NODE_ENV !== "production") {
+      if (!warnedNoEmailConfig) {
+        warnedNoEmailConfig = true;
+        console.warn("[email] Resend not configured; outgoing emails will be skipped in this environment.");
+      }
+
+      const noopClient = {
+        __noop: true,
+        emails: {
+          // Mirror Resend API shape used across the codebase.
+          send: async () => ({ id: "noop", skipped: true }),
+        },
+      } as any;
+
+      return {
+        client: noopClient,
+        fromEmail: "hello@lawncarekuna.com",
+      };
+    }
+
+    throw error;
+  }
 }

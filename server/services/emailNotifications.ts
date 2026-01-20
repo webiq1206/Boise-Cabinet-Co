@@ -2,6 +2,127 @@ import { getUncachableResendClient } from '../resend';
 import { formatQuoteForDisplay, calculateQuoteRange } from '../../shared/utils';
 import { storage } from '../storage';
 
+const SITE_BASE_URL = 'https://lawncarekuna.com';
+const EMAIL_ASSET_BASE_URL = `${SITE_BASE_URL}/email`;
+// NOTE: `lawn-care-kuna-logo.png` is the light-on-dark logo used in headers.
+// We do not currently have a separate dark-on-light full logo in-repo, so we use the icon
+// for light backgrounds (footer) as a branded fallback.
+const EMAIL_LOGO_LIGHT_URL = `${EMAIL_ASSET_BASE_URL}/lawn-care-kuna-logo.png`;
+const EMAIL_LOGO_DARK_URL = `${EMAIL_ASSET_BASE_URL}/lawn-care-kuna-icon.png`;
+
+function adminLeadUrl(tab: 'pending' | 'accepted' | 'available' | 'all', leadId: string): string {
+  return `${SITE_BASE_URL}/admin/dashboard?tab=${encodeURIComponent(tab)}&leadId=${encodeURIComponent(leadId)}`;
+}
+
+function subcontractorLeadUrl(leadId: string): string {
+  return `${SITE_BASE_URL}/subcontractor/portal?leadId=${encodeURIComponent(leadId)}`;
+}
+
+function parseMaybeJson<T>(value: unknown): T | null {
+  if (value === null || value === undefined) return null;
+  if (typeof value === "string") {
+    try {
+      return JSON.parse(value) as T;
+    } catch {
+      return null;
+    }
+  }
+  return value as T;
+}
+
+function maskEmailBodyText(text: string): string {
+  // Conservative masking for user-provided notes that may contain PII.
+  // Avoid masking purely numeric values (measurements) aggressively; only mask obvious patterns.
+  const emailMasked = text.replace(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi, "***");
+  // Mask common US phone formats: (208) 555-1212, 208-555-1212, 2085551212, +1 208 555 1212
+  const phoneMasked = emailMasked.replace(
+    /(\+?1[\s.-]?)?(?:\(\s*\d{3}\s*\)|\d{3})[\s.-]?\d{3}[\s.-]?\d{4}/g,
+    "***"
+  );
+  return phoneMasked;
+}
+
+function renderLineItemsTable(lineItemsRaw: unknown): string {
+  const items = parseMaybeJson<any[]>(lineItemsRaw);
+  if (!items || !Array.isArray(items) || items.length === 0) return "";
+
+  const rows = items
+    .map((item) => {
+      const service = item?.serviceName || item?.service || item?.serviceId || "Service";
+      const priceVal =
+        typeof item?.adjustedPrice === "number"
+          ? item.adjustedPrice
+          : typeof item?.price === "number"
+            ? item.price
+            : typeof item?.adjustedPrice === "string"
+              ? parseFloat(item.adjustedPrice)
+              : typeof item?.price === "string"
+                ? parseFloat(item.price)
+                : NaN;
+      const price = Number.isFinite(priceVal) ? `$${Math.round(priceVal).toLocaleString()}` : "—";
+      const desc = item?.description ? String(item.description) : "";
+
+      return `
+        <tr>
+          <td class="label">${service}</td>
+          <td class="value" style="text-align:right; font-weight:600;">${price}</td>
+        </tr>
+        ${desc ? `
+        <tr>
+          <td colspan="2" class="value" style="color:#6b7280; font-size:12px; padding-top:0;">${desc}</td>
+        </tr>
+        ` : ""}
+      `;
+    })
+    .join("");
+
+  return `
+    <div class="section">
+      <h2 class="section-title">Pricing Details</h2>
+      <table class="info-table">
+        ${rows}
+      </table>
+    </div>
+  `;
+}
+
+function renderServiceDataTable(serviceDataRaw: unknown): string {
+  const serviceData = parseMaybeJson<Record<string, Record<string, any>>>(serviceDataRaw);
+  if (!serviceData || typeof serviceData !== "object") return "";
+
+  const entries: Array<{ label: string; value: string }> = [];
+  for (const [serviceId, measurements] of Object.entries(serviceData)) {
+    if (!measurements || typeof measurements !== "object") continue;
+    for (const [field, val] of Object.entries(measurements)) {
+      if (val === null || val === undefined || val === "") continue;
+      const prettyField = field.replace(/([A-Z])/g, " $1").replace(/^./, (s) => s.toUpperCase());
+      const label = `${serviceId.replace(/-/g, " ")} — ${prettyField}`;
+      const value = typeof val === "number" ? val.toLocaleString() : String(val);
+      entries.push({ label, value });
+    }
+  }
+
+  if (entries.length === 0) return "";
+
+  return `
+    <div class="section">
+      <h2 class="section-title">Measurements & Scope</h2>
+      <table class="info-table">
+        ${entries
+          .map(
+            (e) => `
+            <tr>
+              <td class="label">${e.label}:</td>
+              <td class="value">${e.value}</td>
+            </tr>
+          `
+          )
+          .join("")}
+      </table>
+    </div>
+  `;
+}
+
 const emailStyles = `
   body { 
     margin: 0; 
@@ -162,6 +283,10 @@ export async function sendEmail(to: string, subject: string, htmlBody: string): 
   
   try {
     const { client: resend, fromEmail } = await getUncachableResendClient();
+    if ((resend as any)?.__noop) {
+      console.log(`[email] Skipped (noop) → ${to}: ${subject}`);
+      return;
+    }
 
     await resend.emails.send({
       from: `Lawn Care Kuna <${fromEmail}>`,
@@ -188,6 +313,7 @@ export async function sendNewLeadNotification(leadData: {
   address?: string;
 }): Promise<void> {
   const { fromEmail } = await getUncachableResendClient();
+  const dashboardUrl = adminLeadUrl('pending', leadData.id);
   
   const leadValue = formatLeadValueRange(leadData.finalQuote);
   
@@ -205,7 +331,7 @@ export async function sendNewLeadNotification(leadData: {
       <div class="email-wrapper">
         <div class="header">
           <div style="margin-bottom: 20px;">
-            <img src="https://lawncarekuna.com/email/lawn-care-kuna-logo.png" alt="Lawn Care Kuna" width="300" style="display:block; max-width:300px; height:auto;">
+            <img src="${EMAIL_LOGO_LIGHT_URL}" alt="Lawn Care Kuna" width="300" style="display:block; max-width:300px; height:auto;">
           </div>
           <h1>New Lead Available</h1>
           <p>Lead Distribution Platform</p>
@@ -257,15 +383,18 @@ export async function sendNewLeadNotification(leadData: {
           </div>
 
           <div style="text-align: center; margin: 30px 0;">
-            <a href="https://lawncarekuna.com/admin/dashboard" class="cta-button">Review Lead in Dashboard →</a>
+            <a href="${dashboardUrl}" class="cta-button">Review Lead in Dashboard →</a>
           </div>
         </div>
 
         <div class="footer">
+          <div style="margin: 0 0 12px 0;">
+            <img src="${EMAIL_LOGO_DARK_URL}" alt="Lawn Care Kuna" width="44" style="display:block; margin:0 auto; max-width:44px; height:auto;">
+          </div>
           <p class="footer-brand">Lawn Care Kuna</p>
           <p class="footer-tagline">Lead Distribution Platform</p>
           <p class="footer-contact">Email: <a href="mailto:${fromEmail}">${fromEmail}</a></p>
-          <p class="footer-contact">Web: <a href="https://lawncarekuna.com">www.lawncarekuna.com</a></p>
+          <p class="footer-contact">Web: <a href="${SITE_BASE_URL}">www.lawncarekuna.com</a></p>
         </div>
       </div>
     </body>
@@ -298,6 +427,7 @@ export async function sendLeadPurchasedNotification(leadData: {
   email: string;
 }): Promise<void> {
   const { fromEmail } = await getUncachableResendClient();
+  const dashboardUrl = adminLeadUrl('all', leadData.id);
   
   const subject = `Lead Purchased - ${leadData.name} (${leadData.city})`;
   const leadValue = formatLeadValueRange(leadData.finalQuote);
@@ -314,7 +444,7 @@ export async function sendLeadPurchasedNotification(leadData: {
       <div class="email-wrapper">
         <div class="header" style="background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);">
           <div style="margin-bottom: 20px;">
-            <img src="https://lawncarekuna.com/email/lawn-care-kuna-logo.png" alt="Lawn Care Kuna" width="300" style="display:block; max-width:300px; height:auto;">
+            <img src="${EMAIL_LOGO_LIGHT_URL}" alt="Lawn Care Kuna" width="300" style="display:block; max-width:300px; height:auto;">
           </div>
           <h1>Lead Purchased</h1>
           <p>Transaction Notification</p>
@@ -380,13 +510,20 @@ export async function sendLeadPurchasedNotification(leadData: {
             <p><strong>Transaction Complete</strong></p>
             <p style="margin: 10px 0 0 0;">The lead has been transferred to the subcontractor. They now have full access to customer contact information and are responsible for following up.</p>
           </div>
+
+          <div style="text-align: center; margin: 30px 0;">
+            <a href="${dashboardUrl}" class="cta-button">View Lead Details →</a>
+          </div>
         </div>
 
         <div class="footer">
+          <div style="margin: 0 0 12px 0;">
+            <img src="${EMAIL_LOGO_DARK_URL}" alt="Lawn Care Kuna" width="44" style="display:block; margin:0 auto; max-width:44px; height:auto;">
+          </div>
           <p class="footer-brand">Lawn Care Kuna</p>
           <p class="footer-tagline">Lead Distribution Platform</p>
           <p class="footer-contact">Email: <a href="mailto:${fromEmail}">${fromEmail}</a></p>
-          <p class="footer-contact">Web: <a href="https://lawncarekuna.com">www.lawncarekuna.com</a></p>
+          <p class="footer-contact">Web: <a href="${SITE_BASE_URL}">www.lawncarekuna.com</a></p>
         </div>
       </div>
     </body>
@@ -416,6 +553,7 @@ export async function sendLeadPurchaseConfirmation(purchaserEmail: string, leadD
 }): Promise<void> {
   const subject = `Lead Purchase Confirmed - ${leadData.name}`;
   const leadValue = formatLeadValueRange(leadData.finalQuote);
+  const portalUrl = subcontractorLeadUrl(leadData.id);
   
   const htmlBody = `
     <!DOCTYPE html>
@@ -429,7 +567,7 @@ export async function sendLeadPurchaseConfirmation(purchaserEmail: string, leadD
       <div class="email-wrapper">
         <div class="header">
           <div style="margin-bottom: 20px;">
-            <img src="https://lawncarekuna.com/email/lawn-care-kuna-logo.png" alt="Lawn Care Kuna" width="300" style="display:block; max-width:300px; height:auto;">
+            <img src="${EMAIL_LOGO_LIGHT_URL}" alt="Lawn Care Kuna" width="300" style="display:block; max-width:300px; height:auto;">
           </div>
           <h1>Purchase Confirmed</h1>
           <p>Your lead is ready to contact</p>
@@ -491,9 +629,16 @@ export async function sendLeadPurchaseConfirmation(purchaserEmail: string, leadD
             <p><strong>⚠️ Important Purchase Terms:</strong></p>
             <p style="margin: 10px 0 0 0;">This lead purchase is non-refundable. Once purchased, you own exclusive access to this customer's contact information. Please reach out promptly to maximize your conversion opportunity.</p>
           </div>
+
+          <div style="text-align: center; margin: 30px 0;">
+            <a href="${portalUrl}" class="cta-button">Open Contractor Portal →</a>
+          </div>
         </div>
 
         <div class="footer">
+          <div style="margin: 0 0 12px 0;">
+            <img src="${EMAIL_LOGO_DARK_URL}" alt="Lawn Care Kuna" width="44" style="display:block; margin:0 auto; max-width:44px; height:auto;">
+          </div>
           <p class="footer-brand">Lawn Care Kuna</p>
           <p class="footer-tagline">Lead Distribution Platform</p>
           <p style="font-size: 12px; color: #6b7280; margin: 15px 0;">Questions about your purchase? Contact us anytime.</p>
@@ -518,6 +663,7 @@ export async function sendAdminAutoDeclineNotification(leadData: {
   hoursPending: number;
 }): Promise<void> {
   const { fromEmail } = await getUncachableResendClient();
+  const dashboardUrl = adminLeadUrl('available', leadData.id);
   
   const leadValue = formatLeadValueRange(leadData.finalQuote);
   const hoursText = leadData.hoursPending >= 24 ? `${Math.floor(leadData.hoursPending)} hours` : '24+ hours';
@@ -536,7 +682,7 @@ export async function sendAdminAutoDeclineNotification(leadData: {
       <div class="email-wrapper">
         <div class="header" style="background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);">
           <div style="margin-bottom: 20px;">
-            <img src="https://lawncarekuna.com/email/lawn-care-kuna-logo.png" alt="Lawn Care Kuna" width="300" style="display:block; max-width:300px; height:auto;">
+            <img src="${EMAIL_LOGO_LIGHT_URL}" alt="Lawn Care Kuna" width="300" style="display:block; max-width:300px; height:auto;">
           </div>
           <h1>Lead Auto-Declined</h1>
           <p>Automated System Notification</p>
@@ -597,15 +743,18 @@ export async function sendAdminAutoDeclineNotification(leadData: {
           </div>
 
           <div style="text-align: center; margin: 30px 0;">
-            <a href="https://lawncarekuna.com/admin/dashboard" class="cta-button">View Dashboard →</a>
+            <a href="${dashboardUrl}" class="cta-button">View Lead in Dashboard →</a>
           </div>
         </div>
 
         <div class="footer">
+          <div style="margin: 0 0 12px 0;">
+            <img src="${EMAIL_LOGO_DARK_URL}" alt="Lawn Care Kuna" width="44" style="display:block; margin:0 auto; max-width:44px; height:auto;">
+          </div>
           <p class="footer-brand">Lawn Care Kuna</p>
           <p class="footer-tagline">Lead Distribution Platform</p>
           <p class="footer-contact">Email: <a href="mailto:${fromEmail}">${fromEmail}</a></p>
-          <p class="footer-contact">Web: <a href="https://lawncarekuna.com">www.lawncarekuna.com</a></p>
+          <p class="footer-contact">Web: <a href="${SITE_BASE_URL}">www.lawncarekuna.com</a></p>
         </div>
       </div>
     </body>
@@ -636,7 +785,7 @@ export async function sendCustomerStatusUpdate(
   };
 
   const subject = subjectMap[update.status] || "Quote status update";
-  const statusUrl = `https://lawncarekuna.com/quote-status/${quoteId}`;
+  const statusUrl = `${SITE_BASE_URL}/quote-status/${quoteId}`;
 
   const htmlBody = `
     <!DOCTYPE html>
@@ -650,7 +799,7 @@ export async function sendCustomerStatusUpdate(
       <div class="email-wrapper">
         <div class="header">
           <div style="margin-bottom: 20px;">
-            <img src="https://lawncarekuna.com/email/lawn-care-kuna-logo.png" alt="Lawn Care Kuna" width="300" style="display:block; max-width:300px; height:auto;">
+            <img src="${EMAIL_LOGO_LIGHT_URL}" alt="Lawn Care Kuna" width="300" style="display:block; max-width:300px; height:auto;">
           </div>
           <h1>Quote Status Update</h1>
           <p>${subject}</p>
@@ -666,6 +815,9 @@ export async function sendCustomerStatusUpdate(
           </div>
         </div>
         <div class="footer">
+          <div style="margin: 0 0 12px 0;">
+            <img src="${EMAIL_LOGO_DARK_URL}" alt="Lawn Care Kuna" width="44" style="display:block; margin:0 auto; max-width:44px; height:auto;">
+          </div>
           <p class="footer-brand">Lawn Care Kuna</p>
           <p class="footer-tagline">Customer Updates</p>
         </div>
@@ -689,10 +841,20 @@ export async function sendContractorNewLeadAvailable(
     finalQuote: string;
     address?: string;
     currentLeadPrice: string;
+    propertyType?: string;
+    frequency?: string;
+    selectedServices?: string[];
+    lineItems?: any;
+    serviceData?: any;
+    message?: string;
   }
 ): Promise<void> {
   const subject = `New Lead Available - ${leadData.city} - $${formatQuoteForDisplay(leadData.currentLeadPrice, true)}`;
   const leadValue = formatLeadValueRange(leadData.finalQuote);
+  const portalUrl = subcontractorLeadUrl(leadData.id);
+  const lineItemsHtml = renderLineItemsTable(leadData.lineItems);
+  const serviceDataHtml = renderServiceDataTable(leadData.serviceData);
+  const safeMessage = leadData.message ? maskEmailBodyText(String(leadData.message)) : "";
 
   const htmlBody = `
     <!DOCTYPE html>
@@ -706,7 +868,7 @@ export async function sendContractorNewLeadAvailable(
       <div class="email-wrapper">
         <div class="header">
           <div style="margin-bottom: 20px;">
-            <img src="https://lawncarekuna.com/email/lawn-care-kuna-logo.png" alt="Lawn Care Kuna" width="300" style="display:block; max-width:300px; height:auto;">
+            <img src="${EMAIL_LOGO_LIGHT_URL}" alt="Lawn Care Kuna" width="300" style="display:block; max-width:300px; height:auto;">
           </div>
           <h1>New Lead Available</h1>
           <p>Subcontractor Marketplace</p>
@@ -719,15 +881,43 @@ export async function sendContractorNewLeadAvailable(
               <tr><td class="label">Lead ID:</td><td class="value">${leadData.id}</td></tr>
               <tr><td class="label">City:</td><td class="value">${leadData.city}</td></tr>
               <tr><td class="label">Service:</td><td class="value">${leadData.serviceType}</td></tr>
+              ${leadData.frequency ? `<tr><td class="label">Frequency:</td><td class="value">${leadData.frequency}</td></tr>` : ""}
+              ${leadData.propertyType ? `<tr><td class="label">Property Type:</td><td class="value">${leadData.propertyType}</td></tr>` : ""}
               <tr><td class="label">Lead Price:</td><td class="value" style="font-size: 20px; font-weight: 600; color: #166534;">$${formatQuoteForDisplay(leadData.currentLeadPrice, true)}</td></tr>
               <tr><td class="label">Estimated Value:</td><td class="value">${leadValue.display}</td></tr>
             </table>
           </div>
+
+          <div class="section">
+            <h2 class="section-title">Contact Info (Locked Until Purchase)</h2>
+            <table class="info-table">
+              <tr><td class="label">Customer Name:</td><td class="value">***</td></tr>
+              <tr><td class="label">Email:</td><td class="value">***</td></tr>
+              <tr><td class="label">Phone:</td><td class="value">***</td></tr>
+              <tr><td class="label">Exact Address:</td><td class="value">***</td></tr>
+            </table>
+          </div>
+
+          ${serviceDataHtml}
+          ${lineItemsHtml}
+
+          ${safeMessage ? `
+          <div class="section">
+            <h2 class="section-title">Customer Notes</h2>
+            <div class="highlight-box">
+              <p style="margin:0;">${safeMessage}</p>
+            </div>
+          </div>
+          ` : ""}
+
           <div style="text-align:center; margin: 30px 0;">
-            <a href="https://lawncarekuna.com/subcontractor/portal" class="cta-button">View Lead →</a>
+            <a href="${portalUrl}" class="cta-button">View Lead →</a>
           </div>
         </div>
         <div class="footer">
+          <div style="margin: 0 0 12px 0;">
+            <img src="${EMAIL_LOGO_DARK_URL}" alt="Lawn Care Kuna" width="44" style="display:block; margin:0 auto; max-width:44px; height:auto;">
+          </div>
           <p class="footer-brand">Lawn Care Kuna</p>
           <p class="footer-tagline">Lead Distribution Platform</p>
         </div>
@@ -751,6 +941,7 @@ export async function sendAdminDailyDigest(
   }
 ): Promise<void> {
   const subject = `Admin Digest - ${data.totalPending} pending leads`;
+  const dashboardUrl = `${SITE_BASE_URL}/admin/dashboard?tab=pending`;
   const htmlBody = `
     <!DOCTYPE html>
     <html lang="en">
@@ -763,7 +954,7 @@ export async function sendAdminDailyDigest(
       <div class="email-wrapper">
         <div class="header">
           <div style="margin-bottom: 20px;">
-            <img src="https://lawncarekuna.com/email/lawn-care-kuna-logo.png" alt="Lawn Care Kuna" width="300" style="display:block; max-width:300px; height:auto;">
+            <img src="${EMAIL_LOGO_LIGHT_URL}" alt="Lawn Care Kuna" width="300" style="display:block; max-width:300px; height:auto;">
           </div>
           <h1>Admin Daily Digest</h1>
           <p>Pending leads summary</p>
@@ -775,10 +966,13 @@ export async function sendAdminDailyDigest(
             <p><strong>48+ hours:</strong> ${data.leads48h}</p>
           </div>
           <div style="text-align:center; margin: 30px 0;">
-            <a href="https://lawncarekuna.com/admin/dashboard" class="cta-button">Open Dashboard →</a>
+            <a href="${dashboardUrl}" class="cta-button">Open Dashboard →</a>
           </div>
         </div>
         <div class="footer">
+          <div style="margin: 0 0 12px 0;">
+            <img src="${EMAIL_LOGO_DARK_URL}" alt="Lawn Care Kuna" width="44" style="display:block; margin:0 auto; max-width:44px; height:auto;">
+          </div>
           <p class="footer-brand">Lawn Care Kuna</p>
           <p class="footer-tagline">Admin Notifications</p>
         </div>
@@ -804,6 +998,7 @@ export async function sendAdminReminder(
   }
 ): Promise<void> {
   const subject = `Reminder - Lead pending ${Math.floor(leadData.hoursPending)} hours - ${leadData.city}`;
+  const dashboardUrl = adminLeadUrl('pending', leadData.id);
   const htmlBody = `
     <!DOCTYPE html>
     <html lang="en">
@@ -816,7 +1011,7 @@ export async function sendAdminReminder(
       <div class="email-wrapper">
         <div class="header">
           <div style="margin-bottom: 20px;">
-            <img src="https://lawncarekuna.com/email/lawn-care-kuna-logo.png" alt="Lawn Care Kuna" width="300" style="display:block; max-width:300px; height:auto;">
+            <img src="${EMAIL_LOGO_LIGHT_URL}" alt="Lawn Care Kuna" width="300" style="display:block; max-width:300px; height:auto;">
           </div>
           <h1>Lead Reminder</h1>
           <p>Pending admin review</p>
@@ -830,10 +1025,13 @@ export async function sendAdminReminder(
             <tr><td class="label">Pending:</td><td class="value">${Math.floor(leadData.hoursPending)} hours</td></tr>
           </table>
           <div style="text-align:center; margin: 30px 0;">
-            <a href="https://lawncarekuna.com/admin/dashboard" class="cta-button">Review Now →</a>
+            <a href="${dashboardUrl}" class="cta-button">Review Now →</a>
           </div>
         </div>
         <div class="footer">
+          <div style="margin: 0 0 12px 0;">
+            <img src="${EMAIL_LOGO_DARK_URL}" alt="Lawn Care Kuna" width="44" style="display:block; margin:0 auto; max-width:44px; height:auto;">
+          </div>
           <p class="footer-brand">Lawn Care Kuna</p>
           <p class="footer-tagline">Admin Notifications</p>
         </div>

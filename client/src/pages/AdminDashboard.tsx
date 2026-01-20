@@ -11,8 +11,9 @@ import { CheckCircle2, XCircle, Clock, DollarSign, MapPin, Phone, Mail, Building
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/hooks/useAuth";
 import type { Lead } from "@shared/schema";
-import { useState, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { PRIORITY_SERVICES, CITIES } from "@shared/contentData";
+import { AdminAnalyticsPanel } from "@/components/AdminAnalyticsPanel";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
@@ -193,12 +194,17 @@ function QuoteBreakdownSection({ lead }: { lead: Lead }) {
 
 export default function AdminDashboard() {
   const { toast } = useToast();
-  const [activeTab, setActiveTab] = useState("pending");
-  const { isAuthenticated, isLoading: authLoading } = useAuth();
+  const leadIdParam = useMemo(() => new URLSearchParams(window.location.search).get("leadId"), []);
+  const [activeTab, setActiveTab] = useState<"pending" | "accepted" | "available" | "all">(() => {
+    const tab = new URLSearchParams(window.location.search).get("tab");
+    if (tab === "pending" || tab === "accepted" || tab === "available" || tab === "all") return tab;
+    return "pending";
+  });
+  const { user, isAuthenticated, isLoading: authLoading } = useAuth();
   const environment = useEnvironment();
   
   // Search and filter state
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState(() => new URLSearchParams(window.location.search).get("search") ?? "");
   const [filterServiceType, setFilterServiceType] = useState<string>("all");
   const [filterCity, setFilterCity] = useState<string>("all");
   const [filterQuoteMin, setFilterQuoteMin] = useState<string>("");
@@ -214,19 +220,46 @@ export default function AdminDashboard() {
     queryKey: ["/api/leads"],
     enabled: isAuthenticated,
   });
+
+  // Deep-link support: `/admin/dashboard?leadId=...` auto-selects the right tab and scrolls to the lead card.
+  useEffect(() => {
+    if (!leadIdParam) return;
+    if (!leads || leads.length === 0) return;
+
+    const lead = leads.find(l => l.id === leadIdParam);
+    if (!lead) return;
+
+    // Ensure the lead isn't hidden by an URL-provided search value.
+    if (searchQuery) {
+      setSearchQuery("");
+      return;
+    }
+
+    const desiredTab: typeof activeTab =
+      lead.status === "pending_admin"
+        ? "pending"
+        : lead.status === "accepted"
+          ? "accepted"
+          : lead.status === "available"
+            ? "available"
+            : lead.status === "purchased"
+              ? "all"
+              : "pending";
+
+    if (activeTab !== desiredTab) {
+      setActiveTab(desiredTab);
+      return;
+    }
+
+    requestAnimationFrame(() => {
+      const el = document.getElementById(`lead-${leadIdParam}`);
+      if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  }, [activeTab, leadIdParam, leads, searchQuery]);
   
   // Filter and search leads
   const filteredLeads = useMemo(() => {
     let filtered = [...leads];
-    
-    // Tab filter
-    if (activeTab === "pending") {
-      filtered = filtered.filter(l => l.status === "pending_admin");
-    } else if (activeTab === "available") {
-      filtered = filtered.filter(l => l.status === "available");
-    } else if (activeTab === "purchased") {
-      filtered = filtered.filter(l => l.status === "purchased");
-    }
     
     // Search filter
     if (searchQuery) {
@@ -335,7 +368,7 @@ export default function AdminDashboard() {
     });
     
     return filtered;
-  }, [leads, activeTab, searchQuery, filterServiceType, filterCity, filterQuoteMin, filterQuoteMax, filterLeadAge, filterPriority, filterTags, sortBy, sortOrder]);
+  }, [leads, searchQuery, filterServiceType, filterCity, filterQuoteMin, filterQuoteMax, filterLeadAge, filterPriority, filterTags, sortBy, sortOrder]);
   
   const clearFilters = () => {
     setSearchQuery("");
@@ -452,6 +485,22 @@ export default function AdminDashboard() {
   const acceptedLeads = filteredLeads.filter(l => l.status === "accepted");
   const declinedLeads = filteredLeads.filter(l => l.status === "available");
   const allPurchasedLeads = filteredLeads.filter(l => l.status === "purchased");
+
+  // Leads to render for the active tab (tab selection should not affect counts)
+  const tabLeads = useMemo(() => {
+    switch (activeTab) {
+      case "pending":
+        return pendingLeads;
+      case "accepted":
+        return acceptedLeads;
+      case "available":
+        return declinedLeads;
+      case "all":
+        return allPurchasedLeads;
+      default:
+        return pendingLeads;
+    }
+  }, [activeTab, pendingLeads, acceptedLeads, declinedLeads, allPurchasedLeads]);
 
   const formatCurrency = (amount: string | null) => {
     if (!amount) return "$0.00";
@@ -596,7 +645,7 @@ export default function AdminDashboard() {
     };
 
     return (
-    <Card key={lead.id} className="overflow-hidden" data-testid={`card-lead-${lead.id}`}>
+    <Card id={`lead-${lead.id}`} key={lead.id} className="overflow-hidden" data-testid={`card-lead-${lead.id}`}>
       <CardHeader className="pb-3">
         <div className="flex items-start justify-between gap-4">
           <div className="flex-1">
@@ -914,6 +963,10 @@ export default function AdminDashboard() {
         <p className="text-muted-foreground">Manage incoming leads and quote requests</p>
       </div>
 
+      <div className="mb-8">
+        <AdminAnalyticsPanel user={user} />
+      </div>
+
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
         <Card>
           <CardHeader className="pb-2">
@@ -1148,14 +1201,14 @@ export default function AdminDashboard() {
 
           {/* Results Count */}
           <div className="text-sm text-muted-foreground pt-2 border-t">
-            Showing {filteredLeads.length} of {leads.length} leads
+            Showing {tabLeads.length} of {filteredLeads.length} leads
             {hasActiveFilters && " (filtered)"}
           </div>
         </CardContent>
       </Card>
 
       {/* Bulk Actions (for pending leads only) */}
-      {activeTab === "pending" && filteredLeads.length > 0 && (
+      {activeTab === "pending" && pendingLeads.length > 0 && (
         <Card className="mb-6">
           <CardHeader>
             <CardTitle>Bulk Actions</CardTitle>
@@ -1167,7 +1220,7 @@ export default function AdminDashboard() {
                 variant="outline"
                 size="sm"
                 onClick={() => {
-                  const selected = filteredLeads.filter(l => l.status === "pending_admin");
+                  const selected = pendingLeads;
                   if (selected.length > 0 && confirm(`Accept ${selected.length} lead(s)?`)) {
                     selected.forEach(lead => acceptLeadMutation.mutate(lead.id));
                   }
@@ -1175,13 +1228,13 @@ export default function AdminDashboard() {
                 disabled={acceptLeadMutation.isPending}
               >
                 <CheckCircle2 className="h-4 w-4 mr-1" />
-                Accept All Filtered ({filteredLeads.length})
+                Accept All Filtered ({pendingLeads.length})
               </Button>
               <Button
                 variant="outline"
                 size="sm"
                 onClick={() => {
-                  const selected = filteredLeads.filter(l => l.status === "pending_admin");
+                  const selected = pendingLeads;
                   if (selected.length > 0 && confirm(`Decline ${selected.length} lead(s)?`)) {
                     selected.forEach(lead => declineLeadMutation.mutate(lead.id));
                   }
@@ -1189,7 +1242,7 @@ export default function AdminDashboard() {
                 disabled={declineLeadMutation.isPending}
               >
                 <XCircle className="h-4 w-4 mr-1" />
-                Decline All Filtered ({filteredLeads.length})
+                Decline All Filtered ({pendingLeads.length})
               </Button>
               <Button
                 variant="outline"
@@ -1198,7 +1251,7 @@ export default function AdminDashboard() {
                   // Export to CSV
                   const csv = [
                     ["Name", "Email", "Phone", "City", "Service Type", "Quote Value", "Lead Price", "Status", "Created At"].join(","),
-                    ...filteredLeads.map(lead => [
+                    ...pendingLeads.map(lead => [
                       lead.name,
                       lead.email,
                       lead.phone,
@@ -1221,7 +1274,7 @@ export default function AdminDashboard() {
                   
                   toast({
                     title: "Export Complete",
-                    description: `Exported ${filteredLeads.length} leads to CSV`,
+                    description: `Exported ${pendingLeads.length} leads to CSV`,
                   });
                 }}
               >
@@ -1233,7 +1286,11 @@ export default function AdminDashboard() {
         </Card>
       )}
 
-      <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-4">
+      <Tabs
+        value={activeTab}
+        onValueChange={(value) => setActiveTab(value as any)}
+        className="space-y-4"
+      >
         <TabsList>
           <TabsTrigger value="pending" data-testid="tab-pending">
             Pending ({pendingLeads.length})
@@ -1250,50 +1307,50 @@ export default function AdminDashboard() {
         </TabsList>
 
         <TabsContent value="pending" className="space-y-4">
-          {filteredLeads.filter(l => l.status === "pending_admin").length === 0 ? (
+          {pendingLeads.length === 0 ? (
             <Card>
               <CardContent className="py-8 text-center text-muted-foreground">
                 {hasActiveFilters ? "No pending leads match your filters" : "No pending leads to review"}
               </CardContent>
             </Card>
           ) : (
-            filteredLeads.filter(l => l.status === "pending_admin").map(lead => <LeadCard key={lead.id} lead={lead} showActions />)
+            pendingLeads.map(lead => <LeadCard key={lead.id} lead={lead} showActions />)
           )}
         </TabsContent>
 
         <TabsContent value="accepted" className="space-y-4">
-          {filteredLeads.filter(l => l.status === "accepted").length === 0 ? (
+          {acceptedLeads.length === 0 ? (
             <Card>
               <CardContent className="py-8 text-center text-muted-foreground">
                 {hasActiveFilters ? "No accepted leads match your filters" : "You haven't accepted any leads yet"}
               </CardContent>
             </Card>
           ) : (
-            filteredLeads.filter(l => l.status === "accepted").map(lead => <LeadCard key={lead.id} lead={lead} />)
+            acceptedLeads.map(lead => <LeadCard key={lead.id} lead={lead} />)
           )}
         </TabsContent>
 
         <TabsContent value="available" className="space-y-4">
-          {filteredLeads.filter(l => l.status === "available").length === 0 ? (
+          {declinedLeads.length === 0 ? (
             <Card>
               <CardContent className="py-8 text-center text-muted-foreground">
                 {hasActiveFilters ? "No available leads match your filters" : "No leads available for subcontractors"}
               </CardContent>
             </Card>
           ) : (
-            filteredLeads.filter(l => l.status === "available").map(lead => <LeadCard key={lead.id} lead={lead} />)
+            declinedLeads.map(lead => <LeadCard key={lead.id} lead={lead} />)
           )}
         </TabsContent>
 
         <TabsContent value="all" className="space-y-4">
-          {filteredLeads.filter(l => l.status === "purchased").length === 0 ? (
+          {allPurchasedLeads.length === 0 ? (
             <Card>
               <CardContent className="py-8 text-center text-muted-foreground">
                 {hasActiveFilters ? "No purchased leads match your filters" : "No purchased leads yet"}
               </CardContent>
             </Card>
           ) : (
-            filteredLeads.filter(l => l.status === "purchased").map(lead => <LeadCard key={lead.id} lead={lead} />)
+            allPurchasedLeads.map(lead => <LeadCard key={lead.id} lead={lead} />)
           )}
         </TabsContent>
       </Tabs>

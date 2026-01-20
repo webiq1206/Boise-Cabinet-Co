@@ -282,8 +282,8 @@ export function SimpleQuoteWizard({
             propertySize: measurementBundle?.lawnAreaSqFt,
             linearFeet: measurementBundle?.rooflineWithOverhangFt,
             zones: measurementBundle?.estimatedZones,
-            perimeterFt: measurementBundle?.perimeterFt,
-            hedgeLengthFt: measurementBundle?.hedgeLengthFt,
+            perimeterFt: measurementBundle?.lotPerimeterFt,
+            hedgeLengthFt: measurementBundle?.estimatedHedgeFt,
           };
           return acc;
         }, {} as Record<string, any>),
@@ -300,7 +300,7 @@ export function SimpleQuoteWizard({
       return response.json();
     },
     onSuccess: async (response: any) => {
-      setQuoteId(response.id);
+      setQuoteId(response.quoteId || response.id || null);
       setFinalQuote(response);
       setIsSubmitted(true);
       toast({

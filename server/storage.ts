@@ -225,6 +225,7 @@ export class MemStorage implements IStorage {
         agreementAcceptedAt: null,
         stripeCustomerId: null,
         watchedLeads: [],
+        emailNotificationsEnabled: true,
         isActive: true,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -244,6 +245,7 @@ export class MemStorage implements IStorage {
         agreementAcceptedAt: new Date(),
         stripeCustomerId: null,
         watchedLeads: [],
+        emailNotificationsEnabled: true,
         isActive: true,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -405,6 +407,10 @@ export class MemStorage implements IStorage {
       agreementAcceptedAt: userData.agreementAcceptedAt ?? null,
       stripeCustomerId: userData.stripeCustomerId ?? null,
       watchedLeads: (userData as any).watchedLeads ?? existing?.watchedLeads ?? [],
+      emailNotificationsEnabled:
+        (userData as any).emailNotificationsEnabled ??
+        (existing as any)?.emailNotificationsEnabled ??
+        true,
       isActive: userData.isActive ?? true,
       createdAt: existing?.createdAt || new Date(),
       updatedAt: new Date(),
@@ -884,6 +890,7 @@ export class DBStorage implements IStorage {
         agreementAccepted: false,
         agreementAcceptedAt: null,
         stripeCustomerId: null,
+        emailNotificationsEnabled: true,
         isActive: true,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -902,6 +909,7 @@ export class DBStorage implements IStorage {
         agreementAccepted: true,
         agreementAcceptedAt: new Date(),
         stripeCustomerId: null,
+        emailNotificationsEnabled: true,
         isActive: true,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -1043,6 +1051,8 @@ export class DBStorage implements IStorage {
         agreementAccepted: userData.agreementAccepted ?? existing.agreementAccepted,
         agreementAcceptedAt: userData.agreementAcceptedAt ?? existing.agreementAcceptedAt,
         stripeCustomerId: userData.stripeCustomerId ?? existing.stripeCustomerId,
+        emailNotificationsEnabled:
+          (userData as any).emailNotificationsEnabled ?? (existing as any).emailNotificationsEnabled ?? true,
         isActive: userData.isActive ?? existing.isActive,
         updatedAt: new Date(),
       }).where(eq(users.id, id)).returning();
@@ -1063,6 +1073,7 @@ export class DBStorage implements IStorage {
         agreementAccepted: userData.agreementAccepted ?? false,
         agreementAcceptedAt: userData.agreementAcceptedAt ?? null,
         stripeCustomerId: userData.stripeCustomerId ?? null,
+        emailNotificationsEnabled: (userData as any).emailNotificationsEnabled ?? true,
         isActive: userData.isActive ?? true,
       }).returning();
       return result[0];
