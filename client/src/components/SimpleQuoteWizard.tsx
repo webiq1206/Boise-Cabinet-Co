@@ -166,6 +166,29 @@ export function SimpleQuoteWizard({
     return null;
   };
   
+  // Parse city from typed address string (fallback when no Nominatim data)
+  const parseCityFromAddressString = (addressStr: string): string | null => {
+    if (!addressStr) return null;
+    
+    const lowerAddr = addressStr.toLowerCase();
+    
+    // Check each supported city (case-insensitive)
+    for (const cityName of SUPPORTED_CITIES) {
+      const lowerCityName = cityName.toLowerCase();
+      // Match city as word boundary or after comma
+      const patterns = [
+        new RegExp(`\\b${lowerCityName}\\b`, 'i'),
+        new RegExp(`,\\s*${lowerCityName}`, 'i'),
+      ];
+      
+      if (patterns.some(p => p.test(lowerAddr))) {
+        return cityName.charAt(0).toUpperCase() + cityName.slice(1);
+      }
+    }
+    
+    return null;
+  };
+  
   // Property state
   const [address, setAddress] = useState(defaultAddress);
   const [city, setCity] = useState(initialCity);
@@ -199,16 +222,25 @@ export function SimpleQuoteWizard({
     setLookupError(null);
     setIsLookingUp(true);
     
-    // Extract city from the address data if available
+    // Extract city: prefer Nominatim data, fallback to parsing address string
+    let extractedCity: string | null = null;
+    
     if (rawAddressData) {
-      const extractedCity = extractCityFromAddress(rawAddressData);
-      if (extractedCity) {
-        setCity(extractedCity);
-      }
+      extractedCity = extractCityFromAddress(rawAddressData);
+    }
+    
+    // Fallback: parse city from the typed address string
+    if (!extractedCity) {
+      extractedCity = parseCityFromAddressString(selectedAddress);
+    }
+    
+    // Update city state if we found a valid city
+    if (extractedCity) {
+      setCity(extractedCity);
     }
     
     // Use extracted city or current city for lookup
-    const lookupCity = rawAddressData ? (extractCityFromAddress(rawAddressData) || city) : city;
+    const lookupCity = extractedCity || city;
     
     try {
       const county = getCountyFromCity(lookupCity);
@@ -472,9 +504,12 @@ export function SimpleQuoteWizard({
                       <div className="text-sm text-green-700 dark:text-green-300 mt-1">
                         {getMeasurementSummary(measurementBundle).join(" • ")}
                       </div>
-                      <div className="text-xs text-green-600 dark:text-green-400 mt-2 flex items-center gap-1">
+                      <div className="text-xs text-green-600 dark:text-green-400 mt-2 flex items-center gap-2">
                         <Badge variant="outline" className="text-xs py-0">
                           {getConfidenceLabel(measurementBundle.confidence).label}
+                        </Badge>
+                        <Badge variant="outline" className="text-xs py-0" data-testid="detected-city">
+                          {city}, Idaho
                         </Badge>
                       </div>
                     </div>
