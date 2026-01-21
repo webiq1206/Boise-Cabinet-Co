@@ -2055,6 +2055,109 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Decline/Pass on a lead - hides it from the subcontractor's view
+  app.post("/api/leads/:id/decline", isAuthenticated, requireRole(["subcontractor"]), async (req: any, res) => {
+    try {
+      const userId = getAuthUserId(req);
+      if (!userId) return res.status(401).json({ error: "Unauthorized" });
+      const user = await storage.getUser(userId);
+      if (!user) {
+        return res.status(404).json({ error: "User not found" });
+      }
+
+      const lead = await storage.getLeadById(req.params.id);
+      if (!lead) {
+        return res.status(404).json({ error: "Lead not found" });
+      }
+
+      // Parse declined leads
+      let declinedLeads: string[] = [];
+      if (user.declinedLeads) {
+        if (Array.isArray(user.declinedLeads)) {
+          declinedLeads = user.declinedLeads;
+        } else if (typeof user.declinedLeads === 'string') {
+          try {
+            declinedLeads = JSON.parse(user.declinedLeads);
+          } catch {
+            declinedLeads = [];
+          }
+        }
+      }
+
+      // Add lead ID if not already declined
+      if (!declinedLeads.includes(lead.id)) {
+        declinedLeads.push(lead.id);
+        
+        // Also remove from watchlist if it was watched
+        let watchedLeads: string[] = [];
+        if (user.watchedLeads) {
+          if (Array.isArray(user.watchedLeads)) {
+            watchedLeads = user.watchedLeads;
+          } else if (typeof user.watchedLeads === 'string') {
+            try {
+              watchedLeads = JSON.parse(user.watchedLeads);
+            } catch {
+              watchedLeads = [];
+            }
+          }
+        }
+        watchedLeads = watchedLeads.filter(id => id !== lead.id);
+        
+        // Update user
+        await storage.updateUser(userId, {
+          declinedLeads: declinedLeads as any,
+          watchedLeads: watchedLeads as any,
+        });
+
+        res.json({ success: true, declined: true, leadId: lead.id });
+      } else {
+        res.json({ success: true, declined: true, leadId: lead.id, message: "Already declined this lead" });
+      }
+    } catch (error) {
+      console.error("Error declining lead:", error);
+      res.status(500).json({ error: "Failed to decline lead" });
+    }
+  });
+
+  // Undecline a lead - restore it to the subcontractor's view
+  app.post("/api/leads/:id/undecline", isAuthenticated, requireRole(["subcontractor"]), async (req: any, res) => {
+    try {
+      const userId = getAuthUserId(req);
+      if (!userId) return res.status(401).json({ error: "Unauthorized" });
+      const user = await storage.getUser(userId);
+      if (!user) {
+        return res.status(404).json({ error: "User not found" });
+      }
+
+      // Parse declined leads
+      let declinedLeads: string[] = [];
+      if (user.declinedLeads) {
+        if (Array.isArray(user.declinedLeads)) {
+          declinedLeads = user.declinedLeads;
+        } else if (typeof user.declinedLeads === 'string') {
+          try {
+            declinedLeads = JSON.parse(user.declinedLeads);
+          } catch {
+            declinedLeads = [];
+          }
+        }
+      }
+
+      // Remove lead ID
+      declinedLeads = declinedLeads.filter(id => id !== req.params.id);
+      
+      // Update user
+      await storage.updateUser(userId, {
+        declinedLeads: declinedLeads as any,
+      });
+
+      res.json({ success: true, declined: false, leadId: req.params.id });
+    } catch (error) {
+      console.error("Error undeclining lead:", error);
+      res.status(500).json({ error: "Failed to undecline lead" });
+    }
+  });
+
   // Get user's watchlist - requires authentication
   app.get("/api/leads/watchlist", isAuthenticated, requireRole(["subcontractor"]), async (req: any, res) => {
     try {
