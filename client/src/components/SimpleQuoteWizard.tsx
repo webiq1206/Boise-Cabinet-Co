@@ -111,15 +111,27 @@ interface SimpleQuoteWizardProps {
   defaultCity?: string;
   defaultAddress?: string;
   preselectedService?: string;
+  preselectedCity?: string;
   className?: string;
+  onClose?: () => void;
 }
 
 export function SimpleQuoteWizard({
   defaultCity = "Kuna",
   defaultAddress = "",
   preselectedService,
+  preselectedCity,
   className,
+  onClose,
 }: SimpleQuoteWizardProps) {
+  // Normalize city name to title case (e.g., "kuna" -> "Kuna")
+  const normalizeCity = (city: string) => {
+    if (!city) return "Kuna";
+    return city.charAt(0).toUpperCase() + city.slice(1).toLowerCase();
+  };
+  
+  // Use preselectedCity if provided, otherwise fall back to defaultCity
+  const initialCity = normalizeCity(preselectedCity || defaultCity);
   // Phase state: 1 = Property, 2 = Services, 3 = Review
   const [phase, setPhase] = useState(1);
   
@@ -135,7 +147,7 @@ export function SimpleQuoteWizard({
   
   // Property state
   const [address, setAddress] = useState(defaultAddress);
-  const [city, setCity] = useState(defaultCity);
+  const [city, setCity] = useState(initialCity);
   const [propertyType, setPropertyType] = useState<"residential" | "commercial">("residential");
   const [measurementBundle, setMeasurementBundle] = useState<MeasurementBundle | null>(null);
   const [isLookingUp, setIsLookingUp] = useState(false);

@@ -1,4 +1,4 @@
-import { QuoteWizard } from "./QuoteWizard";
+import { SimpleQuoteWizard } from "./SimpleQuoteWizard";
 
 interface HeroQuoteSectionProps {
   label: string;
@@ -7,7 +7,7 @@ interface HeroQuoteSectionProps {
   defaultService?: string;
   defaultCity?: string;
   backgroundAlt?: string;
-  backgroundImage?: string; // Optional custom background image
+  backgroundImage?: string;
 }
 
 export function HeroQuoteSection({
@@ -19,9 +19,6 @@ export function HeroQuoteSection({
   backgroundAlt = "Professional lawn care services in Kuna Idaho",
   backgroundImage,
 }: HeroQuoteSectionProps) {
-  // Normalize city to lowercase for QuoteWizard compatibility (Select uses lowercase values)
-  const normalizedCity = defaultCity?.toLowerCase();
-
   const heroContent = (
     <section className="py-12 sm:py-16 md:py-20 lg:py-24">
       <div className="container mx-auto px-4 max-w-6xl">
@@ -46,11 +43,9 @@ export function HeroQuoteSection({
 
           {/* Right Column - Quote Wizard */}
           <div>
-            <QuoteWizard 
+            <SimpleQuoteWizard 
               preselectedService={defaultService}
-              preselectedCity={normalizedCity}
-              defaultService={defaultService}
-              defaultCity={normalizedCity}
+              preselectedCity={defaultCity}
             />
           </div>
         </div>

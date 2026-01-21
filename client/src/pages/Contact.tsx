@@ -1,5 +1,5 @@
 import { Helmet } from "react-helmet-async";
-import { QuoteWizard } from "@/components/QuoteWizard";
+import { SimpleQuoteWizard } from "@/components/SimpleQuoteWizard";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Phone, Mail, MapPin, Clock, Star } from "lucide-react";
@@ -148,7 +148,7 @@ export default function Contact() {
 
               {/* Quote Form */}
               <div className="lg:col-span-2">
-                <QuoteWizard />
+                <SimpleQuoteWizard />
               </div>
             </div>
           </div>

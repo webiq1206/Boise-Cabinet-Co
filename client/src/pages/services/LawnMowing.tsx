@@ -1,7 +1,7 @@
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { QuoteWizard } from "@/components/QuoteWizard";
+import { SimpleQuoteWizard } from "@/components/SimpleQuoteWizard";
 import { RelatedBlogPosts } from "@/components/RelatedBlogPosts";
 import { CheckCircle2, Calendar, DollarSign, Shield, Clock } from "lucide-react";
 
@@ -239,7 +239,7 @@ export default function LawnMowing() {
                 Get a customized quote for your property
               </p>
             </div>
-            <QuoteWizard preselectedService="lawn-mowing" />
+            <SimpleQuoteWizard preselectedService="lawn-mowing" />
           </div>
         </div>
       </section>

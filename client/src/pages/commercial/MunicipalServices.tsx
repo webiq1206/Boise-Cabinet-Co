@@ -1,7 +1,7 @@
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { QuoteWizard } from "@/components/QuoteWizard";
+import { SimpleQuoteWizard } from "@/components/SimpleQuoteWizard";
 import { Landmark, CheckCircle2, Shield, Award } from "lucide-react";
 import heroBackground from "@assets/Untitled design_1763639882299.png";
 
@@ -123,7 +123,7 @@ export default function MunicipalServices() {
             <div className="text-center mb-8">
               <h2 className="text-3xl font-bold mb-4" data-testid="heading-quote">Request Municipal Services Information</h2>
             </div>
-            <QuoteWizard />
+            <SimpleQuoteWizard />
           </div>
         </div>
       </section>

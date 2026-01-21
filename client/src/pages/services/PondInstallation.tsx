@@ -1,7 +1,7 @@
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { QuoteWizard } from "@/components/QuoteWizard";
+import { SimpleQuoteWizard } from "@/components/SimpleQuoteWizard";
 import { CheckCircle2, Droplets, Shield, Award } from "lucide-react";
 import heroBackground from "@assets/Untitled design_1763639882299.png";
 
@@ -205,7 +205,7 @@ export default function PondInstallation() {
                 Tell us about your water feature project
               </p>
             </div>
-            <QuoteWizard preselectedService="pond" />
+            <SimpleQuoteWizard preselectedService="pond" />
           </div>
         </div>
       </section>
