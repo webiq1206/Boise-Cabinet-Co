@@ -10,12 +10,13 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
-import { Menu, FileText, Scissors, TreeDeciduous, Sparkles, Droplets, Building2, ArrowRight, Snowflake } from "lucide-react";
+import { Menu, FileText, Scissors, TreeDeciduous, Sparkles, Droplets, Building2, ArrowRight, Snowflake, LogOut } from "lucide-react";
 import logoUrlPng from "@assets/Lawn Care Kuna Logo_1763734387982.png";
 import logoUrlWebp from "@assets/Lawn Care Kuna Logo_400x100.webp";
 import { PRIORITY_SERVICES } from "@shared/contentData";
 import { SearchBar } from "@/components/SearchBar";
 import { NotificationsBell } from "@/components/NotificationsBell";
+import { useAuth } from "@/hooks/useAuth";
 
 // Menu grouping configuration - organizes all services into logical categories
 interface MenuGroup {
@@ -98,8 +99,14 @@ const commercialServices = [
 export function Navigation() {
   const [location] = useLocation();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { isAuthenticated } = useAuth();
   const showAuthTools = location.startsWith("/admin") || location.startsWith("/subcontractor");
   const isSubcontractorPortal = location.startsWith("/subcontractor");
+  const isAdminPortal = location.startsWith("/admin");
+  
+  const handleLogout = () => {
+    window.location.href = "/api/logout";
+  };
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/98 backdrop-blur supports-[backdrop-filter]:bg-background/95">
@@ -128,8 +135,19 @@ export function Navigation() {
 
         {/* Desktop Navigation - hidden on subcontractor portal */}
         {isSubcontractorPortal ? (
-          <div className="hidden lg:flex items-center">
+          <div className="hidden lg:flex items-center gap-3">
             <NotificationsBell />
+            {isAuthenticated && (
+              <Button 
+                variant="ghost" 
+                size="sm"
+                onClick={handleLogout}
+                data-testid="button-logout-desktop"
+              >
+                <LogOut className="h-4 w-4 mr-2" />
+                Logout
+              </Button>
+            )}
           </div>
         ) : (
           <div className="hidden lg:flex items-center gap-8">
@@ -236,6 +254,17 @@ export function Navigation() {
 
             <div className="flex items-center gap-3 border-l pl-8">
               {showAuthTools && <NotificationsBell />}
+              {showAuthTools && isAuthenticated && (
+                <Button 
+                  variant="ghost" 
+                  size="sm"
+                  onClick={handleLogout}
+                  data-testid="button-logout-desktop"
+                >
+                  <LogOut className="h-4 w-4 mr-2" />
+                  Logout
+                </Button>
+              )}
               <Button 
                 variant="ghost" 
                 size="sm" 
@@ -260,12 +289,34 @@ export function Navigation() {
 
         {/* Mobile Navigation - simplified for subcontractor portal */}
         {isSubcontractorPortal ? (
-          <div className="flex lg:hidden items-center">
+          <div className="flex lg:hidden items-center gap-2">
             <NotificationsBell />
+            {isAuthenticated && (
+              <Button 
+                variant="ghost" 
+                size="icon"
+                onClick={handleLogout}
+                data-testid="button-logout-mobile"
+                aria-label="Logout"
+              >
+                <LogOut className="h-4 w-4" />
+              </Button>
+            )}
           </div>
         ) : (
           <div className="flex lg:hidden items-center gap-2">
             {showAuthTools && <NotificationsBell />}
+            {showAuthTools && isAuthenticated && (
+              <Button 
+                variant="ghost" 
+                size="icon"
+                onClick={handleLogout}
+                data-testid="button-logout-mobile"
+                aria-label="Logout"
+              >
+                <LogOut className="h-4 w-4" />
+              </Button>
+            )}
             <Button variant="ghost" size="icon" asChild data-testid="button-quote-mobile" aria-label="Get free quote">
               <Link href="/get-quote">
                 <FileText className="h-4 w-4" />
