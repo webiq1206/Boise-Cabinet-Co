@@ -65,6 +65,7 @@ export default function SubcontractorPortal() {
   const [showFilters, setShowFilters] = useState(false);
   const [selectedLead, setSelectedLead] = useState<Lead | null>(null);
   const [agreementChecked, setAgreementChecked] = useState(false);
+  const [signatureInput, setSignatureInput] = useState("");
   const [showAgreementModal, setShowAgreementModal] = useState(false);
   const [showPurchaseModal, setShowPurchaseModal] = useState(false);
   const [activeTab, setActiveTab] = useState<"available" | "watchlist">("available");
@@ -161,7 +162,10 @@ export default function SubcontractorPortal() {
 
   // Keep checkbox state synced when the modal opens and/or server state changes.
   useEffect(() => {
-    if (!showAgreementModal) return;
+    if (!showAgreementModal) {
+      setSignatureInput("");
+      return;
+    }
     setAgreementChecked(agreementAccepted);
   }, [showAgreementModal, agreementAccepted]);
 
@@ -375,9 +379,12 @@ export default function SubcontractorPortal() {
 
   const handleAcceptAgreement = async () => {
     try {
-      const res = await apiRequest("POST", "/api/user/accept-agreement", {});
+      const res = await apiRequest("POST", "/api/user/accept-agreement", {
+        signature: signatureInput.trim()
+      });
       await res.json();
       setAgreementChecked(true);
+      setSignatureInput("");
       setShowAgreementModal(false);
       queryClient.invalidateQueries({ queryKey: ["/api/user"] });
       queryClient.invalidateQueries({ queryKey: ["/api/auth/user"] });
@@ -1693,6 +1700,22 @@ export default function SubcontractorPortal() {
               I have read and agree to the Lead Purchase Agreement, including the no-refund policy.
             </label>
           </div>
+          <div className="space-y-2 py-4">
+            <Label htmlFor="signature-input">Type your full legal name as your electronic signature:</Label>
+            <Input
+              id="signature-input"
+              placeholder="Enter your full name"
+              value={signatureInput}
+              onChange={(e) => setSignatureInput(e.target.value)}
+              data-testid="input-signature"
+              className="font-signature text-lg"
+            />
+            {signatureInput && (
+              <p className="text-sm text-muted-foreground italic">
+                Signed as: <span className="font-medium">{signatureInput}</span>
+              </p>
+            )}
+          </div>
           <DialogFooter>
             <Button
               variant="outline"
@@ -1703,7 +1726,7 @@ export default function SubcontractorPortal() {
             </Button>
             <Button
               onClick={handleAcceptAgreement}
-              disabled={!agreementChecked}
+              disabled={!agreementChecked || !signatureInput.trim()}
               data-testid="button-accept-agreement"
             >
               Accept Agreement

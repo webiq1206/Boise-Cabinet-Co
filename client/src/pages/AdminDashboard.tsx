@@ -15,6 +15,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useLocation } from "wouter";
 import { PRIORITY_SERVICES, CITIES } from "@shared/contentData";
 import { AdminAnalyticsPanel } from "@/components/AdminAnalyticsPanel";
+import { AdminSubcontractorPanel } from "@/components/AdminSubcontractorPanel";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
@@ -197,9 +198,9 @@ export default function AdminDashboard() {
   const { toast } = useToast();
   const [, setLocation] = useLocation();
   const leadIdParam = useMemo(() => new URLSearchParams(window.location.search).get("leadId"), []);
-  const [activeTab, setActiveTab] = useState<"pending" | "accepted" | "available" | "all">(() => {
+  const [activeTab, setActiveTab] = useState<"pending" | "accepted" | "available" | "all" | "subcontractors">(() => {
     const tab = new URLSearchParams(window.location.search).get("tab");
-    if (tab === "pending" || tab === "accepted" || tab === "available" || tab === "all") return tab;
+    if (tab === "pending" || tab === "accepted" || tab === "available" || tab === "all" || tab === "subcontractors") return tab;
     return "pending";
   });
   const { user, isAuthenticated, isLoading: authLoading } = useAuth();
@@ -1315,6 +1316,9 @@ export default function AdminDashboard() {
           <TabsTrigger value="all" data-testid="tab-all">
             All Purchased ({allPurchasedLeads.length})
           </TabsTrigger>
+          <TabsTrigger value="subcontractors" data-testid="tab-subcontractors">
+            Subcontractors
+          </TabsTrigger>
         </TabsList>
 
         <TabsContent value="pending" className="space-y-4">
@@ -1363,6 +1367,10 @@ export default function AdminDashboard() {
           ) : (
             allPurchasedLeads.map(lead => <LeadCard key={lead.id} lead={lead} />)
           )}
+        </TabsContent>
+
+        <TabsContent value="subcontractors" className="space-y-4">
+          <AdminSubcontractorPanel />
         </TabsContent>
       </Tabs>
     </div>

@@ -2495,6 +2495,24 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const userId = getAuthUserId(req);
       const claims = req.user?.claims ?? (process.env.NODE_ENV === "development" ? (req as any).session?.passport?.user?.claims : undefined);
       
+      // Validate signature
+      const { signature } = req.body;
+      if (!signature || typeof signature !== 'string' || signature.trim().length === 0) {
+        return res.status(400).json({ error: "Signature is required" });
+      }
+      
+      // Capture IP address and user agent
+      const rawClientIp = req.headers['x-forwarded-for'] || req.headers['x-real-ip'] || req.socket?.remoteAddress || 'unknown';
+      const userAgent = req.headers['user-agent'] || 'unknown';
+      // Handle x-forwarded-for which can be array or comma-separated string
+      let ipAddress: string;
+      if (Array.isArray(rawClientIp)) {
+        ipAddress = rawClientIp[0];
+      } else {
+        // x-forwarded-for is often comma-separated: "client, proxy1, proxy2"
+        ipAddress = rawClientIp.split(',')[0].trim();
+      }
+      
       if (process.env.NODE_ENV === "development") {
         console.log("[accept-agreement] Endpoint called for userId:", userId);
       }
@@ -2524,6 +2542,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
           role: "customer", // Safe default - admin can promote to subcontractor later
           agreementAccepted: true,
           agreementAcceptedAt: new Date(),
+          agreementSignature: signature.trim(),
+          agreementSignatureIp: ipAddress,
+          agreementSignatureUserAgent: userAgent,
+          agreementVersion: "1.0",
         });
         if (process.env.NODE_ENV === "development") {
           console.log("[accept-agreement] User created:", !!user);
@@ -2536,6 +2558,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
         user = await storage.updateUser(userId, {
           agreementAccepted: true,
           agreementAcceptedAt: new Date(),
+          agreementSignature: signature.trim(),
+          agreementSignatureIp: ipAddress,
+          agreementSignatureUserAgent: userAgent,
+          agreementVersion: "1.0",
         });
         if (process.env.NODE_ENV === "development") {
           console.log("[accept-agreement] User updated:", !!user);
@@ -2551,6 +2577,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error) {
       console.error("[accept-agreement] Error:", error);
       res.status(500).json({ error: "Failed to accept agreement" });
+    }
+  });
+
+  // Get all subcontractors for admin management
+  app.get("/api/admin/subcontractors", isAuthenticated, requireRole(["admin"]), async (req: any, res) => {
+    try {
+      const subcontractors = await storage.getAllSubcontractors();
+      res.json(subcontractors);
+    } catch (error) {
+      console.error("Error fetching subcontractors:", error);
+      res.status(500).json({ error: "Failed to fetch subcontractors" });
     }
   });
 
