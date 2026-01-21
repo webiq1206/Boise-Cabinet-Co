@@ -30,7 +30,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useToast } from "@/hooks/use-toast";
 import { PRIORITY_SERVICES } from "@shared/contentData";
 
-// Service intent categories
+// Service intent categories with primary (auto-added) and upsell (suggested) services
 const SERVICE_INTENTS = [
   {
     id: "lawn-care",
@@ -38,7 +38,9 @@ const SERVICE_INTENTS = [
     icon: Leaf,
     description: "Mowing, aeration, fertilization",
     color: "bg-green-100 text-green-700 border-green-200",
-    recommendedServices: ["lawn-mowing", "aeration", "fertilization", "weed-control"],
+    primaryServices: ["lawn-mowing"],
+    upsellServices: ["aeration", "fertilization", "weed-control"],
+    upsellPrompt: "Boost your lawn's health",
   },
   {
     id: "cleanup",
@@ -46,7 +48,9 @@ const SERVICE_INTENTS = [
     icon: TreeDeciduous,
     description: "Spring or fall cleanup",
     color: "bg-amber-100 text-amber-700 border-amber-200",
-    recommendedServices: ["spring-cleanup", "fall-cleanup"],
+    primaryServices: ["spring-cleanup"],
+    upsellServices: ["fall-cleanup"],
+    upsellPrompt: "Complete seasonal care",
   },
   {
     id: "irrigation",
@@ -54,7 +58,9 @@ const SERVICE_INTENTS = [
     icon: Droplets,
     description: "Sprinkler repair & winterization",
     color: "bg-blue-100 text-blue-700 border-blue-200",
-    recommendedServices: ["sprinkler-blowout", "sprinkler-repair", "irrigation-maintenance"],
+    primaryServices: ["sprinkler-blowout"],
+    upsellServices: ["sprinkler-repair", "irrigation-maintenance"],
+    upsellPrompt: "Keep your system running smoothly",
   },
   {
     id: "lighting",
@@ -62,7 +68,9 @@ const SERVICE_INTENTS = [
     icon: Lightbulb,
     description: "Christmas lights & landscape lighting",
     color: "bg-yellow-100 text-yellow-700 border-yellow-200",
-    recommendedServices: ["christmas-light-installation", "landscape-lighting"],
+    primaryServices: ["christmas-light-installation"],
+    upsellServices: ["landscape-lighting"],
+    upsellPrompt: "Enhance your outdoor ambiance",
   },
   {
     id: "snow",
@@ -70,7 +78,9 @@ const SERVICE_INTENTS = [
     icon: Snowflake,
     description: "Driveway & walkway clearing",
     color: "bg-sky-100 text-sky-700 border-sky-200",
-    recommendedServices: ["snow-removal"],
+    primaryServices: ["snow-removal"],
+    upsellServices: [],
+    upsellPrompt: "",
   },
   {
     id: "landscaping",
@@ -78,7 +88,9 @@ const SERVICE_INTENTS = [
     icon: Sun,
     description: "Patios, hedges, trees & more",
     color: "bg-orange-100 text-orange-700 border-orange-200",
-    recommendedServices: ["hedge-trimming", "tree-trimming", "mulch-installation", "patio-installation"],
+    primaryServices: ["hedge-trimming"],
+    upsellServices: ["tree-trimming", "mulch-installation", "patio-installation"],
+    upsellPrompt: "Transform your outdoor space",
   },
 ];
 
@@ -272,17 +284,17 @@ export function SimpleQuoteWizard({
     }
   };
   
-  // Update selected services when intents change
+  // Update selected services when intents change - only add PRIMARY services
   useEffect(() => {
     if (selectedIntents.length === 0) return;
     
-    const recommendedServices: string[] = [];
+    const primaryServices: string[] = [];
     for (const intentId of selectedIntents) {
       const intent = SERVICE_INTENTS.find(i => i.id === intentId);
       if (intent) {
-        intent.recommendedServices.forEach(s => {
-          if (!recommendedServices.includes(s)) {
-            recommendedServices.push(s);
+        intent.primaryServices.forEach(s => {
+          if (!primaryServices.includes(s)) {
+            primaryServices.push(s);
           }
         });
       }
@@ -290,7 +302,7 @@ export function SimpleQuoteWizard({
     
     setSelectedServices(prev => {
       const combined = [...prev];
-      recommendedServices.forEach(s => {
+      primaryServices.forEach(s => {
         if (!combined.includes(s)) {
           combined.push(s);
         }
@@ -298,6 +310,29 @@ export function SimpleQuoteWizard({
       return combined;
     });
   }, [selectedIntents]);
+  
+  // Get available upsell services based on selected intents
+  const getAvailableUpsells = () => {
+    const upsells: { service: string; prompt: string; intentLabel: string }[] = [];
+    
+    for (const intentId of selectedIntents) {
+      const intent = SERVICE_INTENTS.find(i => i.id === intentId);
+      if (intent && intent.upsellServices.length > 0) {
+        intent.upsellServices.forEach(s => {
+          // Only show upsell if not already selected
+          if (!selectedServices.includes(s)) {
+            upsells.push({
+              service: s,
+              prompt: intent.upsellPrompt,
+              intentLabel: intent.label,
+            });
+          }
+        });
+      }
+    }
+    
+    return upsells;
+  };
   
   // Calculate price range
   const getMeasurementsForPricing = (): ServiceMeasurements => {
@@ -650,6 +685,36 @@ export function SimpleQuoteWizard({
                     );
                   })}
                 </div>
+                
+                {/* Upsell recommendations */}
+                {getAvailableUpsells().length > 0 && (
+                  <div className="mt-4 p-4 bg-primary/5 border border-primary/20 rounded-lg" data-testid="upsell-section">
+                    <div className="flex items-center gap-2 mb-3">
+                      <Sparkles className="w-4 h-4 text-primary" />
+                      <span className="text-sm font-medium text-primary">We also recommend</span>
+                    </div>
+                    <div className="space-y-2">
+                      {getAvailableUpsells().map(({ service, prompt }) => {
+                        const serviceData = ALL_SERVICES.find(s => s.id === service);
+                        if (!serviceData) return null;
+                        return (
+                          <button
+                            key={service}
+                            onClick={() => toggleService(service)}
+                            className="w-full flex items-center justify-between p-3 bg-background rounded-lg border border-muted hover:border-primary/50 transition-all group"
+                            data-testid={`upsell-${service}`}
+                          >
+                            <div className="flex items-center gap-2">
+                              <Plus className="w-4 h-4 text-muted-foreground group-hover:text-primary" />
+                              <span className="text-sm">{serviceData.name}</span>
+                            </div>
+                            <span className="text-xs text-muted-foreground">Add</span>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
                 
                 {/* Add more services */}
                 <Button
