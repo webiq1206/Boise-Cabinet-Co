@@ -109,6 +109,17 @@ const FREQUENCY_OPTIONS = [
   { value: "weekly", label: "Weekly", description: "15% discount" },
 ];
 
+// Default frequency by intent (intelligent defaults based on service nature)
+// Priority order: if multiple intents selected, use the first one with a recurring default
+const INTENT_DEFAULT_FREQUENCIES: Record<string, string> = {
+  "lawn-care": "bi-weekly",   // Lawn mowing is typically bi-weekly or weekly
+  "snow": "monthly",          // Snow removal is seasonal recurring
+  "cleanup": "one-time",      // Seasonal cleanups are one-time per season
+  "irrigation": "one-time",   // Repairs and maintenance are one-time
+  "lighting": "one-time",     // Installations are one-time
+  "landscaping": "one-time",  // Project-based work is one-time
+};
+
 // Contact form schema
 const contactSchema = z.object({
   name: z.string().min(2, "Please enter your name"),
@@ -215,6 +226,7 @@ export function SimpleQuoteWizard({
     preselectedService ? [preselectedService] : []
   );
   const [frequency, setFrequency] = useState("one-time");
+  const [frequencyManuallySet, setFrequencyManuallySet] = useState(false);
   const [showAllServices, setShowAllServices] = useState(false);
   
   // Submission state
@@ -284,7 +296,7 @@ export function SimpleQuoteWizard({
     }
   };
   
-  // Update selected services when intents change - only add PRIMARY services
+  // Update selected services and set intelligent frequency when intents change
   useEffect(() => {
     if (selectedIntents.length === 0) return;
     
@@ -309,7 +321,25 @@ export function SimpleQuoteWizard({
       });
       return combined;
     });
-  }, [selectedIntents]);
+    
+    // Set intelligent frequency default based on selected intents
+    // Only apply defaults if user hasn't manually changed the frequency
+    if (!frequencyManuallySet) {
+      // Priority: prefer recurring frequencies (lawn-care, snow) over one-time
+      const recurringIntents = selectedIntents.filter(
+        id => INTENT_DEFAULT_FREQUENCIES[id] !== "one-time"
+      );
+      
+      if (recurringIntents.length > 0) {
+        // Use the first recurring intent's default frequency
+        const primaryRecurring = recurringIntents[0];
+        setFrequency(INTENT_DEFAULT_FREQUENCIES[primaryRecurring] || "one-time");
+      } else if (selectedIntents.length > 0) {
+        // All intents are one-time services
+        setFrequency("one-time");
+      }
+    }
+  }, [selectedIntents, frequencyManuallySet]);
   
   // Get available upsell services based on selected intents
   const getAvailableUpsells = () => {
@@ -755,7 +785,10 @@ export function SimpleQuoteWizard({
                   {FREQUENCY_OPTIONS.map((option) => (
                     <button
                       key={option.value}
-                      onClick={() => setFrequency(option.value)}
+                      onClick={() => {
+                        setFrequency(option.value);
+                        setFrequencyManuallySet(true);
+                      }}
                       className={`p-3 rounded-lg border-2 text-left transition-all ${
                         frequency === option.value
                           ? "border-primary bg-primary/10"
@@ -967,6 +1000,8 @@ export function SimpleQuoteWizard({
                     setSelectedIntents([]);
                     setMeasurementBundle(null);
                     setAddress("");
+                    setFrequency("one-time");
+                    setFrequencyManuallySet(false);
                     contactForm.reset();
                   }}
                   data-testid="button-new-quote"
