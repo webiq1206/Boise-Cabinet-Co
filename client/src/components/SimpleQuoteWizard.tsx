@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -134,6 +134,16 @@ export function SimpleQuoteWizard({
   const initialCity = normalizeCity(preselectedCity || defaultCity);
   // Phase state: 1 = Property, 2 = Services, 3 = Review
   const [phase, setPhase] = useState(1);
+  
+  // Ref for scrolling to top of form on phase change
+  const formContainerRef = useRef<HTMLDivElement>(null);
+  
+  // Scroll to top of form when phase changes
+  useEffect(() => {
+    if (formContainerRef.current) {
+      formContainerRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, [phase]);
   
   // City options for selection
   const CITY_OPTIONS = [
@@ -347,7 +357,7 @@ export function SimpleQuoteWizard({
   const canProceedToPhase3 = selectedServices.length > 0;
   
   return (
-    <div className={`max-w-2xl mx-auto ${className}`}>
+    <div ref={formContainerRef} className={`max-w-2xl mx-auto ${className}`}>
       {/* Progress indicator */}
       <div className="flex items-center justify-center gap-2 mb-8">
         {[1, 2, 3].map((step) => (
