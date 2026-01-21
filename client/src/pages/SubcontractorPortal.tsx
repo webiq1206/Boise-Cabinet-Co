@@ -75,6 +75,33 @@ export default function SubcontractorPortal() {
   const [detailViewLead, setDetailViewLead] = useState<Lead | null>(null);
   const leadIdParam = useMemo(() => new URLSearchParams(window.location.search).get("leadId"), []);
   
+  // Bulk purchase state
+  const [selectedLeadIds, setSelectedLeadIds] = useState<Set<string>>(new Set());
+  const [showBulkPurchaseModal, setShowBulkPurchaseModal] = useState(false);
+  const [bulkPaymentClientSecret, setBulkPaymentClientSecret] = useState<string | null>(null);
+  const [bulkPaymentAmount, setBulkPaymentAmount] = useState<number>(0);
+  const [bulkPaymentStep, setBulkPaymentStep] = useState<"confirm" | "payment" | "success">("confirm");
+  
+  // Bulk selection functions
+  const toggleLeadSelection = (leadId: string) => {
+    setSelectedLeadIds(prev => {
+      const next = new Set(prev);
+      if (next.has(leadId)) {
+        next.delete(leadId);
+      } else {
+        next.add(leadId);
+      }
+      return next;
+    });
+  };
+  
+  const calculateBulkDiscount = (count: number): { discountPercent: number; label: string } => {
+    if (count > 20) return { discountPercent: 20, label: "20% Bulk Discount" };
+    if (count >= 6) return { discountPercent: 10, label: "10% Bulk Discount" };
+    if (count >= 2) return { discountPercent: 5, label: "5% Bulk Discount" };
+    return { discountPercent: 0, label: "" };
+  };
+  
   const { data: leads = [], isLoading } = useQuery<Lead[]>({
     queryKey: ["/api/leads?availableOnly=true"],
     enabled: isAuthenticated,
@@ -283,6 +310,69 @@ export default function SubcontractorPortal() {
     },
   });
 
+  // Bulk purchase mutations
+  const createBulkPaymentIntentMutation = useMutation({
+    mutationFn: async (leadIds: string[]) => {
+      const res = await apiRequest("POST", "/api/create-bulk-payment-intent", { leadIds });
+      return await res.json();
+    },
+    onSuccess: (data) => {
+      setBulkPaymentClientSecret(data.clientSecret);
+      setBulkPaymentAmount(data.amount);
+      setBulkPaymentStep("payment");
+    },
+    onError: (error: Error) => {
+      toast({ title: "Payment Setup Failed", description: error.message, variant: "destructive" });
+    },
+  });
+
+  const bulkPurchaseMutation = useMutation({
+    mutationFn: async ({ leadIds, paymentIntentId }: { leadIds: string[]; paymentIntentId: string }) => {
+      const res = await apiRequest("POST", "/api/leads/bulk-purchase", { leadIds, paymentIntentId });
+      return await res.json();
+    },
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: ["/api/leads"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/leads?availableOnly=true"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/leads/purchases"] });
+      const purchasedCount = data.purchasedCount || selectedLeadIds.size;
+      setSelectedLeadIds(new Set());
+      setBulkPaymentStep("success");
+      toast({ title: "Bulk Purchase Complete!", description: `Successfully purchased ${purchasedCount} leads.` });
+    },
+    onError: (error: Error) => {
+      toast({ title: "Bulk Purchase Failed", description: error.message, variant: "destructive" });
+    },
+  });
+
+  const handleBulkPurchase = () => {
+    if (!agreementAccepted) {
+      setShowAgreementModal(true);
+      return;
+    }
+    if (selectedLeadIds.size === 0) return;
+    setBulkPaymentClientSecret(null);
+    setBulkPaymentAmount(0);
+    setBulkPaymentStep("confirm");
+    setShowBulkPurchaseModal(true);
+  };
+
+  const handleBulkPaymentSuccess = async (paymentIntentId: string) => {
+    const leadIds = Array.from(selectedLeadIds);
+    bulkPurchaseMutation.mutate({ leadIds, paymentIntentId });
+  };
+
+  const handleBulkPaymentCancel = () => {
+    setBulkPaymentStep("confirm");
+    setBulkPaymentClientSecret(null);
+  };
+
+  const handleCloseBulkPurchaseModal = () => {
+    setShowBulkPurchaseModal(false);
+    setBulkPaymentClientSecret(null);
+    setBulkPaymentStep("confirm");
+  };
+
   const handleAcceptAgreement = async () => {
     try {
       const res = await apiRequest("POST", "/api/user/accept-agreement", {});
@@ -453,6 +543,18 @@ export default function SubcontractorPortal() {
     
     return filtered;
   }, [leads, searchQuery, filters, sortBy, sortOrder, declinedLeadIds]);
+
+  // Computed values for bulk selection
+  const selectedLeads = useMemo(() => {
+    return filteredLeads.filter(l => selectedLeadIds.has(l.id));
+  }, [filteredLeads, selectedLeadIds]);
+  
+  const bulkTotal = useMemo(() => {
+    const subtotal = selectedLeads.reduce((sum, l) => sum + parseFloat(l.currentLeadPrice || "0"), 0);
+    const { discountPercent } = calculateBulkDiscount(selectedLeads.length);
+    const discount = subtotal * (discountPercent / 100);
+    return { subtotal, discount, total: subtotal - discount, count: selectedLeads.length };
+  }, [selectedLeads]);
 
   // Check if first-time user
   const { data: purchases = [] } = useQuery<any[]>({
@@ -1252,6 +1354,12 @@ export default function SubcontractorPortal() {
                         </CardDescription>
                       </div>
                       <div className="flex items-center gap-1 flex-shrink-0">
+                        <Checkbox
+                          checked={selectedLeadIds.has(lead.id)}
+                          onCheckedChange={() => toggleLeadSelection(lead.id)}
+                          data-testid={`checkbox-select-${lead.id}`}
+                          className="mr-1"
+                        />
                         <TooltipProvider>
                           {watchedLeadIds.includes(lead.id) ? (
                             <Tooltip>
@@ -1915,6 +2023,178 @@ export default function SubcontractorPortal() {
               </div>
             </div>
           )}
+        </DialogContent>
+      </Dialog>
+
+      {/* Bulk Purchase Floating Bar */}
+      {selectedLeadIds.size > 0 && (
+        <div 
+          className="fixed bottom-4 left-1/2 transform -translate-x-1/2 z-50 bg-card border shadow-lg rounded-lg px-6 py-4 flex items-center gap-4 flex-wrap justify-center"
+          data-testid="bulk-purchase-bar"
+        >
+          <div className="flex items-center gap-2 text-sm">
+            <ShoppingCart className="h-4 w-4" />
+            <span className="font-medium">{bulkTotal.count} leads selected</span>
+          </div>
+          <div className="h-4 w-px bg-border hidden sm:block" />
+          <div className="flex items-center gap-3 text-sm">
+            <span className="text-muted-foreground">Subtotal: {formatCurrency(bulkTotal.subtotal.toFixed(2))}</span>
+            {bulkTotal.discount > 0 && (
+              <>
+                <Badge variant="secondary" className="text-green-600">
+                  {calculateBulkDiscount(bulkTotal.count).label}
+                </Badge>
+                <span className="text-green-600">-{formatCurrency(bulkTotal.discount.toFixed(2))}</span>
+              </>
+            )}
+            <span className="font-bold text-primary">Total: {formatCurrency(bulkTotal.total.toFixed(2))}</span>
+          </div>
+          <div className="h-4 w-px bg-border hidden sm:block" />
+          <div className="flex items-center gap-2">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setSelectedLeadIds(new Set())}
+              data-testid="button-clear-selection"
+            >
+              <X className="h-3 w-3 mr-1" />
+              Clear
+            </Button>
+            <Button
+              size="sm"
+              onClick={handleBulkPurchase}
+              data-testid="button-bulk-purchase"
+            >
+              <ShoppingCart className="h-3 w-3 mr-1" />
+              Purchase Selected
+            </Button>
+          </div>
+        </div>
+      )}
+
+      {/* Bulk Purchase Modal */}
+      <Dialog open={showBulkPurchaseModal} onOpenChange={setShowBulkPurchaseModal}>
+        <DialogContent data-testid="modal-bulk-purchase" className="max-w-2xl">
+          <DialogHeader>
+            <DialogTitle>
+              {bulkPaymentStep === "success" ? "Bulk Purchase Complete" : "Confirm Bulk Purchase"}
+            </DialogTitle>
+            <DialogDescription>
+              {bulkPaymentStep === "success" 
+                ? `You successfully purchased ${bulkTotal.count} leads.`
+                : `You're about to purchase ${selectedLeadIds.size} leads for ${formatCurrency(bulkTotal.total.toFixed(2))}`
+              }
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4 py-4">
+            {bulkPaymentStep === "success" ? (
+              <div className="bg-green-50 dark:bg-green-900/10 border border-green-200 dark:border-green-800 p-4 rounded-md">
+                <div className="flex items-start gap-2">
+                  <CheckCircle2 className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
+                  <div>
+                    <p className="text-sm text-green-800 dark:text-green-200 font-medium">
+                      Your leads have been purchased! Contact information is now available in your purchased leads list.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ) : bulkPaymentStep === "payment" && bulkPaymentClientSecret ? (
+              <div className="space-y-4">
+                <div className="bg-muted p-4 rounded-md">
+                  <p className="text-sm font-medium mb-2">Payment Details</p>
+                  <div className="space-y-1 text-sm">
+                    <p><span className="text-muted-foreground">Leads:</span> {selectedLeadIds.size}</p>
+                    <p><span className="text-muted-foreground">Subtotal:</span> {formatCurrency(bulkTotal.subtotal.toFixed(2))}</p>
+                    {bulkTotal.discount > 0 && (
+                      <p className="text-green-600"><span className="text-muted-foreground">Discount ({calculateBulkDiscount(bulkTotal.count).label}):</span> -{formatCurrency(bulkTotal.discount.toFixed(2))}</p>
+                    )}
+                    <p className="text-lg font-bold text-primary">
+                      Total: {formatCurrency(bulkTotal.total.toFixed(2))}
+                    </p>
+                  </div>
+                </div>
+                <StripePaymentForm
+                  clientSecret={bulkPaymentClientSecret}
+                  amount={bulkPaymentAmount}
+                  onSuccess={handleBulkPaymentSuccess}
+                  onCancel={handleBulkPaymentCancel}
+                  isProcessing={bulkPurchaseMutation.isPending}
+                />
+              </div>
+            ) : (
+              <>
+                <div className="bg-muted p-4 rounded-md">
+                  <p className="text-sm font-medium mb-3">Selected Leads ({selectedLeadIds.size})</p>
+                  <div className="max-h-48 overflow-y-auto space-y-2">
+                    {selectedLeads.map(lead => (
+                      <div key={lead.id} className="flex items-center justify-between text-sm py-1 border-b last:border-0">
+                        <span>{lead.serviceType.replace(/-/g, " ").replace(/\b\w/g, l => l.toUpperCase())} - {lead.city}</span>
+                        <span className="font-medium">{formatCurrency(lead.currentLeadPrice)}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                <div className="space-y-2 text-sm">
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Subtotal</span>
+                    <span>{formatCurrency(bulkTotal.subtotal.toFixed(2))}</span>
+                  </div>
+                  {bulkTotal.discount > 0 && (
+                    <div className="flex justify-between text-green-600">
+                      <span>Bulk Discount ({calculateBulkDiscount(bulkTotal.count).discountPercent}% off)</span>
+                      <span>-{formatCurrency(bulkTotal.discount.toFixed(2))}</span>
+                    </div>
+                  )}
+                  <div className="flex justify-between font-bold text-lg border-t pt-2">
+                    <span>Total</span>
+                    <span className="text-primary">{formatCurrency(bulkTotal.total.toFixed(2))}</span>
+                  </div>
+                </div>
+                <div className="bg-yellow-50 dark:bg-yellow-900/10 border border-yellow-200 dark:border-yellow-800 p-4 rounded-md">
+                  <div className="flex items-start gap-2">
+                    <AlertCircle className="h-5 w-5 text-yellow-600 flex-shrink-0 mt-0.5" />
+                    <p className="text-sm text-yellow-800 dark:text-yellow-200">
+                      <strong>Reminder:</strong> All lead purchases are final and non-refundable. Please review the details carefully before confirming.
+                    </p>
+                  </div>
+                </div>
+              </>
+            )}
+          </div>
+          <DialogFooter>
+            {bulkPaymentStep === "success" ? (
+              <Button onClick={handleCloseBulkPurchaseModal} data-testid="button-close-bulk-purchase">
+                Close
+              </Button>
+            ) : bulkPaymentStep === "payment" ? (
+              null
+            ) : (
+              <>
+                <Button
+                  variant="outline"
+                  onClick={handleCloseBulkPurchaseModal}
+                  disabled={createBulkPaymentIntentMutation.isPending}
+                  data-testid="button-cancel-bulk-purchase"
+                >
+                  Cancel
+                </Button>
+                <Button
+                  onClick={() => createBulkPaymentIntentMutation.mutate(Array.from(selectedLeadIds))}
+                  disabled={createBulkPaymentIntentMutation.isPending}
+                  data-testid="button-proceed-bulk-payment"
+                >
+                  {createBulkPaymentIntentMutation.isPending ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      Loading...
+                    </>
+                  ) : (
+                    `Proceed to Payment - ${formatCurrency(bulkTotal.total.toFixed(2))}`
+                  )}
+                </Button>
+              </>
+            )}
+          </DialogFooter>
         </DialogContent>
       </Dialog>
     </div>

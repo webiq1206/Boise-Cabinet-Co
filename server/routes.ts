@@ -669,6 +669,220 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Bulk discount calculation helper
+  function calculateBulkDiscount(count: number): number {
+    if (count > 20) return 0.20;  // 21+ leads: 20% discount
+    if (count >= 6) return 0.10;  // 6-20 leads: 10% discount
+    if (count >= 2) return 0.05;  // 2-5 leads: 5% discount
+    return 0;
+  }
+
+  // Bulk payment intent endpoint for purchasing multiple leads at once
+  app.post("/api/create-bulk-payment-intent", isAuthenticated, requireRole(["subcontractor"]), async (req: any, res) => {
+    try {
+      if (!stripe) {
+        return res.status(503).json({ error: "Payments are temporarily unavailable (Stripe not configured)" });
+      }
+      
+      const { leadIds } = req.body;
+      
+      if (!Array.isArray(leadIds) || leadIds.length === 0) {
+        return res.status(400).json({ error: "leadIds array is required and must not be empty" });
+      }
+      
+      if (leadIds.length > 50) {
+        return res.status(400).json({ error: "Maximum 50 leads per bulk purchase" });
+      }
+      
+      const userId = getAuthUserId(req);
+      if (!userId) return res.status(401).json({ error: "User not authenticated properly" });
+      const user = await storage.getUser(userId);
+      
+      if (!user) {
+        return res.status(401).json({ error: "User not found" });
+      }
+      
+      if (!user.agreementAccepted) {
+        return res.status(403).json({ error: "You must accept the legal agreement before purchasing leads" });
+      }
+      
+      // Fetch all leads and validate
+      const leads: Lead[] = [];
+      for (const leadId of leadIds) {
+        const lead = await storage.getLeadById(leadId);
+        if (!lead) {
+          return res.status(404).json({ error: `Lead ${leadId} not found` });
+        }
+        if (lead.status !== "available") {
+          return res.status(400).json({ error: `Lead ${leadId} is no longer available` });
+        }
+        leads.push(lead);
+      }
+      
+      // Calculate total with bulk discount
+      const subtotal = leads.reduce((sum, l) => sum + parseFloat(l.currentLeadPrice || "0"), 0);
+      const discountPercent = calculateBulkDiscount(leads.length);
+      const discountAmount = subtotal * discountPercent;
+      const total = subtotal - discountAmount;
+      
+      // Get or create Stripe customer
+      let stripeCustomerId = user.stripeCustomerId;
+      if (!stripeCustomerId) {
+        const customer = await stripe.customers.create({
+          email: user.email || undefined,
+          name: user.company || `${user.firstName || ''} ${user.lastName || ''}`.trim() || undefined,
+          metadata: { userId: user.id },
+        });
+        stripeCustomerId = customer.id;
+        await storage.updateUser(user.id, { stripeCustomerId });
+      }
+      
+      // Create payment intent for the discounted total (amount in cents)
+      const amountInCents = Math.round(total * 100);
+      
+      const paymentIntent = await stripe.paymentIntents.create({
+        amount: amountInCents,
+        currency: "usd",
+        customer: stripeCustomerId,
+        metadata: {
+          leadIds: JSON.stringify(leadIds),
+          userId: user.id,
+          bulkPurchase: "true",
+          leadsCount: String(leads.length),
+          discountPercent: String(Math.round(discountPercent * 100)),
+        },
+        description: `Bulk lead purchase: ${leads.length} leads`,
+        automatic_payment_methods: { enabled: true },
+      });
+      
+      res.json({
+        clientSecret: paymentIntent.client_secret,
+        paymentIntentId: paymentIntent.id,
+        amount: amountInCents,
+        subtotal,
+        discountPercent: discountPercent * 100,
+        discountAmount,
+        total,
+        leadsCount: leads.length,
+      });
+    } catch (error) {
+      console.error("Error creating bulk payment intent:", error);
+      res.status(500).json({ error: error instanceof Error ? error.message : "Failed to create bulk payment intent" });
+    }
+  });
+
+  // Bulk purchase endpoint - complete the purchase of multiple leads
+  app.post("/api/leads/bulk-purchase", isAuthenticated, requireRole(["subcontractor"]), async (req: any, res) => {
+    try {
+      if (!stripe) {
+        return res.status(503).json({ error: "Payments are temporarily unavailable" });
+      }
+      
+      const { leadIds, paymentIntentId } = req.body;
+      
+      if (!Array.isArray(leadIds) || leadIds.length === 0) {
+        return res.status(400).json({ error: "leadIds array is required" });
+      }
+      
+      if (!paymentIntentId) {
+        return res.status(400).json({ error: "paymentIntentId is required" });
+      }
+      
+      const userId = getAuthUserId(req);
+      if (!userId) return res.status(401).json({ error: "User not authenticated" });
+      
+      const user = await storage.getUser(userId);
+      if (!user) {
+        return res.status(401).json({ error: "User not found" });
+      }
+      
+      if (!user.agreementAccepted) {
+        return res.status(403).json({ error: "Agreement not accepted" });
+      }
+      
+      // Verify payment intent
+      const paymentIntent = await stripe.paymentIntents.retrieve(paymentIntentId);
+      if (paymentIntent.status !== "succeeded") {
+        return res.status(400).json({ error: "Payment not completed" });
+      }
+      
+      // Verify payment intent metadata matches
+      const storedLeadIds = JSON.parse(paymentIntent.metadata.leadIds || "[]");
+      if (JSON.stringify(storedLeadIds.sort()) !== JSON.stringify([...leadIds].sort())) {
+        return res.status(400).json({ error: "Lead IDs don't match payment intent" });
+      }
+      
+      // Process all leads atomically
+      const purchasedLeads: Lead[] = [];
+      const now = new Date();
+      const discountPercent = calculateBulkDiscount(leadIds.length);
+      
+      for (const leadId of leadIds) {
+        const lead = await storage.getLeadById(leadId);
+        if (!lead) {
+          return res.status(404).json({ error: `Lead ${leadId} not found` });
+        }
+        if (lead.status !== "available") {
+          return res.status(400).json({ error: `Lead ${leadId} is no longer available` });
+        }
+        
+        // Calculate discounted price for this lead
+        const originalPrice = parseFloat(lead.currentLeadPrice || "0");
+        const discountedPrice = originalPrice * (1 - discountPercent);
+        
+        // Update lead to purchased status
+        const updatedLead = await storage.updateLead(leadId, {
+          status: "purchased",
+          purchasedBy: userId,
+          purchasedAt: now,
+          purchasePrice: discountedPrice.toFixed(2),
+          stripePaymentIntentId: paymentIntentId,
+        });
+        
+        // Create purchase record
+        await storage.createLeadPurchase({
+          leadId: leadId,
+          userId: userId,
+          purchasePrice: discountedPrice.toFixed(2),
+          stripePaymentIntentId: paymentIntentId,
+        });
+        
+        if (updatedLead) {
+          purchasedLeads.push(updatedLead);
+        }
+        
+        // Send notifications (don't await - let them send in background)
+        const fullLead = await storage.getLeadById(leadId);
+        if (fullLead) {
+          sendLeadPurchasedNotification({
+            leadId: leadId,
+            serviceType: fullLead.serviceType,
+            city: fullLead.city,
+            purchasePrice: discountedPrice.toFixed(2),
+            buyerName: user.company || `${user.firstName || ''} ${user.lastName || ''}`.trim(),
+            buyerEmail: user.email || '',
+          }).catch(console.error);
+          
+          sendLeadPurchaseConfirmation({
+            buyerEmail: user.email || '',
+            buyerName: user.company || `${user.firstName || ''} ${user.lastName || ''}`.trim(),
+            lead: fullLead,
+            purchasePrice: discountedPrice.toFixed(2),
+          }).catch(console.error);
+        }
+      }
+      
+      res.json({
+        success: true,
+        purchasedCount: purchasedLeads.length,
+        leads: purchasedLeads,
+      });
+    } catch (error) {
+      console.error("Error in bulk purchase:", error);
+      res.status(500).json({ error: error instanceof Error ? error.message : "Bulk purchase failed" });
+    }
+  });
+
   // ============================================
   // GEO / MAP HELPERS (public)
   // ============================================
