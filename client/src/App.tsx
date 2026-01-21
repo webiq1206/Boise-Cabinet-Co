@@ -79,8 +79,11 @@ function SubcontractorRouteEnforcer() {
     
     // Allow /admin route - it has its own access control and shows "not authorized" message
     const isAdminRoute = location === "/admin" || location.startsWith("/admin/");
+    
+    // Allow /quote-status route - this is a public page for customers to track their quotes
+    const isQuoteStatusRoute = location.startsWith("/quote-status/");
 
-    if (!isSubcontractorArea && !isAdminRoute) {
+    if (!isSubcontractorArea && !isAdminRoute && !isQuoteStatusRoute) {
       setLocation("/subcontractor/portal");
       return;
     }

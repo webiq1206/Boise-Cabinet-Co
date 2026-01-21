@@ -23,6 +23,7 @@ const validRoutePatterns = [
   '/admin/',
   '/subcontractor/',
   '/api/',
+  '/quote-status/',
   
   // Static files
   '/robots.txt',
