@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Checkbox } from "@/components/ui/checkbox";
-import { DollarSign, MapPin, Phone, Mail, Building, ShoppingCart, AlertCircle, CheckCircle2, Clock, Filter, Search, ArrowUpDown, Eye, EyeOff, Star, Receipt, ChevronDown, Info, Lock, X, Loader2 } from "lucide-react";
+import { DollarSign, MapPin, Phone, Mail, Building, ShoppingCart, AlertCircle, CheckCircle2, Clock, Filter, Search, ArrowUpDown, Eye, EyeOff, Star, Receipt, ChevronDown, Info, Lock, X, Loader2, XCircle, Ruler } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/hooks/useAuth";
 import type { Lead, User } from "@shared/schema";
@@ -72,6 +72,7 @@ export default function SubcontractorPortal() {
   const [paymentClientSecret, setPaymentClientSecret] = useState<string | null>(null);
   const [paymentAmount, setPaymentAmount] = useState<number>(0);
   const [paymentStep, setPaymentStep] = useState<"confirm" | "payment" | "success">("confirm");
+  const [detailViewLead, setDetailViewLead] = useState<Lead | null>(null);
   const leadIdParam = useMemo(() => new URLSearchParams(window.location.search).get("leadId"), []);
   
   const { data: leads = [], isLoading } = useQuery<Lead[]>({
@@ -150,6 +151,19 @@ export default function SubcontractorPortal() {
     return [];
   }, [userData?.watchedLeads]);
 
+  const declinedLeadIds = useMemo(() => {
+    if (!userData?.declinedLeads) return [];
+    if (Array.isArray(userData.declinedLeads)) return userData.declinedLeads;
+    if (typeof userData.declinedLeads === 'string') {
+      try {
+        return JSON.parse(userData.declinedLeads);
+      } catch {
+        return [];
+      }
+    }
+    return [];
+  }, [userData?.declinedLeads]);
+
   const watchLeadMutation = useMutation({
     mutationFn: async (leadId: string) => {
       const res = await apiRequest("POST", `/api/leads/${leadId}/watch`, {});
@@ -182,6 +196,28 @@ export default function SubcontractorPortal() {
       queryClient.invalidateQueries({ queryKey: ["/api/leads/watchlist"] });
       toast({
         title: "Lead Removed from Watchlist",
+      });
+    },
+    onError: (error: Error) => {
+      toast({
+        title: "Error",
+        description: error.message,
+        variant: "destructive",
+      });
+    },
+  });
+
+  const declineLeadMutation = useMutation({
+    mutationFn: async (leadId: string) => {
+      const res = await apiRequest("POST", `/api/leads/${leadId}/decline`, {});
+      return await res.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/user"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/leads?availableOnly=true"] });
+      toast({
+        title: "Lead Passed",
+        description: "This lead won't appear in your available list anymore",
       });
     },
     onError: (error: Error) => {
@@ -300,7 +336,7 @@ export default function SubcontractorPortal() {
 
   // Filter and sort leads
   const filteredLeads = useMemo(() => {
-    let filtered = [...leads].filter(l => l.status === "available");
+    let filtered = [...leads].filter(l => l.status === "available").filter(l => !declinedLeadIds.includes(l.id));
     
     // Search filter
     if (searchQuery) {
@@ -416,7 +452,7 @@ export default function SubcontractorPortal() {
     });
     
     return filtered;
-  }, [leads, searchQuery, filters, sortBy, sortOrder]);
+  }, [leads, searchQuery, filters, sortBy, sortOrder, declinedLeadIds]);
 
   // Check if first-time user
   const { data: purchases = [] } = useQuery<any[]>({
@@ -1150,8 +1186,8 @@ export default function SubcontractorPortal() {
           <TabsTrigger value="watchlist">Watchlist</TabsTrigger>
         </TabsList>
 
-      {/* Lead Cards */}
-      <TabsContent value="available" className="space-y-4">
+      {/* Lead Cards - Responsive Grid */}
+      <TabsContent value="available">
         {isLoading ? (
           <Card>
             <CardContent className="py-8 text-center">Loading available customers...</CardContent>
@@ -1185,42 +1221,47 @@ export default function SubcontractorPortal() {
             </CardContent>
           </Card>
         ) : (
-          filteredLeads.map((lead) => {
-            const daysOld = calculateDaysOld(lead.createdAt);
-            const originalPrice = parseFloat(lead.baseLeadPrice || "0");
-            const currentPrice = parseFloat(lead.currentLeadPrice || "0");
-            const discount = originalPrice > 0 ? ((originalPrice - currentPrice) / originalPrice * 100) : 0;
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {filteredLeads.map((lead) => {
+              const daysOld = calculateDaysOld(lead.createdAt);
+              const originalPrice = parseFloat(lead.baseLeadPrice || "0");
+              const currentPrice = parseFloat(lead.currentLeadPrice || "0");
+              const discount = originalPrice > 0 ? ((originalPrice - currentPrice) / originalPrice * 100) : 0;
+              const serviceData = (lead.serviceData as Record<string, ServiceDataEntry> | null) || {};
+              const primaryServiceData = serviceData[lead.serviceType] || Object.values(serviceData)[0];
+              const measurementText = primaryServiceData ? formatMeasurement(lead.serviceType, primaryServiceData) : '';
 
-            return (
-              <Card id={`lead-${lead.id}`} key={lead.id} className="overflow-hidden hover-elevate" data-testid={`card-lead-${lead.id}`}>
-                <CardHeader className="pb-3">
-                  <div className="flex items-start justify-between gap-4 flex-wrap">
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-2 flex-wrap mb-1">
-                        <CardTitle className="text-lg">
-                          {lead.serviceType.replace(/-/g, " ").replace(/\b\w/g, l => l.toUpperCase())}
-                        </CardTitle>
-                        {discount > 0 && (
-                          <Badge variant="secondary" className="text-green-600">
-                            {discount.toFixed(0)}% OFF
-                          </Badge>
-                        )}
-                        {daysOld === 0 && <Badge variant="default">NEW</Badge>}
+              return (
+                <Card 
+                  id={`lead-${lead.id}`} 
+                  key={lead.id} 
+                  className="overflow-hidden hover-elevate flex flex-col h-[340px]" 
+                  data-testid={`card-lead-${lead.id}`}
+                >
+                  <CardHeader className="pb-2 space-y-1">
+                    <div className="flex items-start justify-between gap-2">
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-1.5 flex-wrap mb-0.5">
+                          <CardTitle className="text-base leading-tight">
+                            {lead.serviceType.replace(/-/g, " ").replace(/\b\w/g, l => l.toUpperCase())}
+                          </CardTitle>
+                          {daysOld === 0 && <Badge variant="default" className="text-xs px-1.5 py-0">NEW</Badge>}
+                        </div>
+                        <CardDescription className="text-xs">
+                          {lead.city.charAt(0).toUpperCase() + lead.city.slice(1)} • {lead.frequency || "One-time"}
+                        </CardDescription>
                       </div>
-                      <CardDescription>
-                        {lead.city.charAt(0).toUpperCase() + lead.city.slice(1)} • {lead.frequency || "One-time"} • Posted {daysOld === 0 ? "today" : `${daysOld} days ago`}
-                      </CardDescription>
-                    </div>
-                    <div className="text-right flex flex-col items-end gap-2">
-                      <div className="flex items-center gap-2">
+                      <div className="flex items-center gap-1 flex-shrink-0">
                         <TooltipProvider>
                           {watchedLeadIds.includes(lead.id) ? (
                             <Tooltip>
                               <TooltipTrigger asChild>
                                 <Button
                                   variant="ghost"
-                                  size="sm"
+                                  size="icon"
+                                  className="h-7 w-7"
                                   onClick={() => unwatchLeadMutation.mutate(lead.id)}
+                                  data-testid={`button-unwatch-${lead.id}`}
                                 >
                                   <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
                                 </Button>
@@ -1234,120 +1275,117 @@ export default function SubcontractorPortal() {
                               <TooltipTrigger asChild>
                                 <Button
                                   variant="ghost"
-                                  size="sm"
+                                  size="icon"
+                                  className="h-7 w-7"
                                   onClick={() => watchLeadMutation.mutate(lead.id)}
+                                  data-testid={`button-watch-${lead.id}`}
                                 >
                                   <Eye className="h-4 w-4" />
                                 </Button>
                               </TooltipTrigger>
                               <TooltipContent>
-                                <p>Save to watchlist - get notified when price drops</p>
+                                <p>Save to watchlist</p>
                               </TooltipContent>
                             </Tooltip>
                           )}
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <Button
+                                variant="ghost"
+                                size="icon"
+                                className="h-7 w-7 text-muted-foreground hover:text-destructive"
+                                onClick={() => declineLeadMutation.mutate(lead.id)}
+                                disabled={declineLeadMutation.isPending}
+                                data-testid={`button-pass-${lead.id}`}
+                              >
+                                <XCircle className="h-4 w-4" />
+                              </Button>
+                            </TooltipTrigger>
+                            <TooltipContent>
+                              <p>Pass on this lead</p>
+                            </TooltipContent>
+                          </Tooltip>
                         </TooltipProvider>
                       </div>
-                      <div className="text-2xl font-bold text-primary" data-testid={`text-price-${lead.id}`}>
-                        {formatCurrency(lead.currentLeadPrice)}
-                      </div>
-                      {discount > 0 && (
-                        <div className="text-sm text-muted-foreground line-through">
-                          {formatCurrency(lead.baseLeadPrice)}
-                        </div>
-                      )}
                     </div>
-                  </div>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
-                    <div className="flex items-center gap-2">
-                      <DollarSign className="h-4 w-4 text-muted-foreground flex-shrink-0" />
+                  </CardHeader>
+                  <CardContent className="flex-1 flex flex-col pt-0 pb-3 space-y-2">
+                    <div className="flex items-center justify-between gap-2 py-2 border-y">
                       <div>
-                        <p className="font-medium">Project Value</p>
-                        <p className="text-muted-foreground">
+                        <p className="text-xs text-muted-foreground">Project Value</p>
+                        <p className="font-semibold text-sm">
                           {lead.finalQuote ? formatQuoteRangeWholeFromValue(lead.finalQuote, 0.15) : "Pending"}
                         </p>
                       </div>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Building className="h-4 w-4 text-muted-foreground flex-shrink-0" />
-                      <div>
-                        <p className="font-medium">Property Type</p>
-                        <p className="text-muted-foreground capitalize">{lead.propertyType.replace(/-/g, " ")}</p>
+                      <div className="text-right">
+                        <p className="text-xs text-muted-foreground">Lead Price</p>
+                        <div className="flex items-center gap-1.5">
+                          {discount > 0 && (
+                            <span className="text-xs text-muted-foreground line-through">
+                              {formatCurrency(lead.baseLeadPrice)}
+                            </span>
+                          )}
+                          <span className="font-bold text-primary" data-testid={`text-price-${lead.id}`}>
+                            {formatCurrency(lead.currentLeadPrice)}
+                          </span>
+                          {discount > 0 && (
+                            <Badge variant="secondary" className="text-xs px-1 py-0 text-green-600">
+                              {discount.toFixed(0)}%
+                            </Badge>
+                          )}
+                        </div>
                       </div>
                     </div>
-                    <div className="flex items-center gap-2">
-                      <MapPin className="h-4 w-4 text-muted-foreground flex-shrink-0" />
-                      <div>
-                        <p className="font-medium">Location</p>
-                        <p className="text-muted-foreground">
-                          {lead.address && lead.address !== "***" ? lead.address : `${lead.city.charAt(0).toUpperCase() + lead.city.slice(1)}, Idaho`}
-                        </p>
+
+                    <div className="space-y-1.5 text-xs flex-1">
+                      <div className="flex items-center gap-1.5">
+                        <MapPin className="h-3.5 w-3.5 text-muted-foreground flex-shrink-0" />
+                        <span className="text-muted-foreground truncate">
+                          {lead.city.charAt(0).toUpperCase() + lead.city.slice(1)}, Idaho
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-1.5">
+                        <Building className="h-3.5 w-3.5 text-muted-foreground flex-shrink-0" />
+                        <span className="text-muted-foreground capitalize truncate">{lead.propertyType.replace(/-/g, " ")}</span>
+                      </div>
+                      {measurementText && (
+                        <div className="flex items-center gap-1.5">
+                          <Ruler className="h-3.5 w-3.5 text-muted-foreground flex-shrink-0" />
+                          <span className="text-muted-foreground truncate">{measurementText}</span>
+                        </div>
+                      )}
+                      <div className="flex items-center gap-1.5">
+                        <Clock className="h-3.5 w-3.5 text-muted-foreground flex-shrink-0" />
+                        <span className="text-muted-foreground">{daysOld === 0 ? "Today" : `${daysOld}d ago`}</span>
                       </div>
                     </div>
-                    <div className="flex items-center gap-2">
-                      <Clock className="h-4 w-4 text-muted-foreground flex-shrink-0" />
-                      <div>
-                        <p className="font-medium">Posted</p>
-                        <p className="text-muted-foreground">{formatDate(lead.createdAt)}</p>
-                      </div>
+
+                    <div className="space-y-1.5 pt-1 mt-auto">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="w-full text-xs"
+                        onClick={() => setDetailViewLead(lead)}
+                        data-testid={`button-details-${lead.id}`}
+                      >
+                        <Info className="mr-1.5 h-3.5 w-3.5" />
+                        View Details
+                      </Button>
+                      <Button
+                        onClick={() => handlePurchaseLead(lead)}
+                        className="w-full"
+                        size="sm"
+                        data-testid={`button-purchase-${lead.id}`}
+                      >
+                        <ShoppingCart className="mr-1.5 h-3.5 w-3.5" />
+                        Buy - {formatCurrency(lead.currentLeadPrice)}
+                      </Button>
                     </div>
-                  </div>
-
-                  {lead.message && (
-                    <div className="border-t pt-4">
-                      <p className="text-sm font-medium mb-1">Customer Notes:</p>
-                      <p className="text-sm text-muted-foreground line-clamp-2">{lead.message}</p>
-                    </div>
-                  )}
-
-                  {lead.name === "***" && (
-                    <div className="flex items-center gap-2 text-xs text-muted-foreground bg-muted/50 p-3 rounded-md border border-orange-200 dark:border-orange-800">
-                      <Lock className="h-4 w-4 flex-shrink-0 text-orange-600" />
-                      <div className="flex-1">
-                        <p className="font-medium mb-1">🔒 Contact Info Hidden</p>
-                        <p className="text-xs">
-                          Customer contact info (name, email, phone, exact address) is hidden until purchase. You can see the general location (city) and full project details above.
-                        </p>
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Quote Breakdown Section */}
-                  {lead.name === "***" && <QuoteBreakdownSection lead={lead} />}
-
-                  {/* Lead Pricing Section */}
-                  {lead.name === "***" && <LeadPricingSection lead={lead} />}
-
-                  {/* What You'll Get Section */}
-                  {lead.name === "***" && (
-                    <div className="bg-primary/5 border border-primary/20 rounded-md p-3 text-sm">
-                      <p className="font-medium mb-2 flex items-center gap-2">
-                        <CheckCircle2 className="h-4 w-4 text-primary" />
-                        What You'll Get After Purchase:
-                      </p>
-                      <ul className="list-disc list-inside space-y-1 text-muted-foreground text-xs ml-1">
-                        <li>Full customer contact information (name, phone, email, address)</li>
-                        <li>All project details and scope (already visible above)</li>
-                        <li>Customer notes and special instructions</li>
-                        <li>Exclusive access - this customer is yours</li>
-                      </ul>
-                    </div>
-                  )}
-
-                  <Button
-                    onClick={() => handlePurchaseLead(lead)}
-                    className="w-full"
-                    size="lg"
-                    data-testid={`button-purchase-${lead.id}`}
-                  >
-                    <ShoppingCart className="mr-2 h-4 w-4" />
-                    Buy This Customer - {formatCurrency(lead.currentLeadPrice)}
-                  </Button>
-                </CardContent>
-              </Card>
-            );
-          })
+                  </CardContent>
+                </Card>
+              );
+            })}
+          </div>
         )}
       </TabsContent>
 
@@ -1763,6 +1801,120 @@ export default function SubcontractorPortal() {
               </>
             )}
           </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* View Details Dialog */}
+      <Dialog open={!!detailViewLead} onOpenChange={(open) => !open && setDetailViewLead(null)}>
+        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto" data-testid="dialog-lead-details">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2 flex-wrap">
+              {detailViewLead?.serviceType.replace(/-/g, " ").replace(/\b\w/g, l => l.toUpperCase())}
+              {detailViewLead && calculateDaysOld(detailViewLead.createdAt) === 0 && (
+                <Badge variant="default">NEW</Badge>
+              )}
+            </DialogTitle>
+            <DialogDescription>
+              {detailViewLead?.city.charAt(0).toUpperCase()}{detailViewLead?.city.slice(1)} • {detailViewLead?.frequency || "One-time"} • Posted {detailViewLead && calculateDaysOld(detailViewLead.createdAt) === 0 ? "today" : `${detailViewLead && calculateDaysOld(detailViewLead.createdAt)} days ago`}
+            </DialogDescription>
+          </DialogHeader>
+          {detailViewLead && (
+            <div className="space-y-4">
+              <div className="grid grid-cols-2 gap-4 text-sm">
+                <div className="flex items-center gap-2">
+                  <DollarSign className="h-4 w-4 text-muted-foreground flex-shrink-0" />
+                  <div>
+                    <p className="font-medium">Project Value</p>
+                    <p className="text-muted-foreground">
+                      {detailViewLead.finalQuote ? formatQuoteRangeWholeFromValue(detailViewLead.finalQuote, 0.15) : "Pending"}
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Building className="h-4 w-4 text-muted-foreground flex-shrink-0" />
+                  <div>
+                    <p className="font-medium">Property Type</p>
+                    <p className="text-muted-foreground capitalize">{detailViewLead.propertyType.replace(/-/g, " ")}</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2">
+                  <MapPin className="h-4 w-4 text-muted-foreground flex-shrink-0" />
+                  <div>
+                    <p className="font-medium">Location</p>
+                    <p className="text-muted-foreground">
+                      {detailViewLead.city.charAt(0).toUpperCase() + detailViewLead.city.slice(1)}, Idaho
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Clock className="h-4 w-4 text-muted-foreground flex-shrink-0" />
+                  <div>
+                    <p className="font-medium">Posted</p>
+                    <p className="text-muted-foreground">{formatDate(detailViewLead.createdAt)}</p>
+                  </div>
+                </div>
+              </div>
+
+              {detailViewLead.message && (
+                <div className="border-t pt-4">
+                  <p className="text-sm font-medium mb-1">Customer Notes:</p>
+                  <p className="text-sm text-muted-foreground">{detailViewLead.message}</p>
+                </div>
+              )}
+
+              {detailViewLead.name === "***" && (
+                <div className="flex items-center gap-2 text-xs text-muted-foreground bg-muted/50 p-3 rounded-md border border-orange-200 dark:border-orange-800">
+                  <Lock className="h-4 w-4 flex-shrink-0 text-orange-600" />
+                  <div className="flex-1">
+                    <p className="font-medium mb-1">Contact Info Hidden</p>
+                    <p className="text-xs">
+                      Customer contact info (name, email, phone, exact address) is hidden until purchase.
+                    </p>
+                  </div>
+                </div>
+              )}
+
+              {/* Quote Breakdown Section */}
+              {detailViewLead.name === "***" && <QuoteBreakdownSection lead={detailViewLead} />}
+
+              {/* Lead Pricing Section */}
+              {detailViewLead.name === "***" && <LeadPricingSection lead={detailViewLead} />}
+
+              {/* What You'll Get Section */}
+              {detailViewLead.name === "***" && (
+                <div className="bg-primary/5 border border-primary/20 rounded-md p-3 text-sm">
+                  <p className="font-medium mb-2 flex items-center gap-2">
+                    <CheckCircle2 className="h-4 w-4 text-primary" />
+                    What You'll Get After Purchase:
+                  </p>
+                  <ul className="list-disc list-inside space-y-1 text-muted-foreground text-xs ml-1">
+                    <li>Full customer contact information (name, phone, email, address)</li>
+                    <li>All project details and scope (already visible above)</li>
+                    <li>Customer notes and special instructions</li>
+                    <li>Exclusive access - this customer is yours</li>
+                  </ul>
+                </div>
+              )}
+
+              <div className="flex items-center justify-between gap-4 pt-2 border-t">
+                <div>
+                  <p className="text-xs text-muted-foreground">Lead Price</p>
+                  <p className="text-xl font-bold text-primary">{formatCurrency(detailViewLead.currentLeadPrice)}</p>
+                </div>
+                <Button
+                  onClick={() => {
+                    setDetailViewLead(null);
+                    handlePurchaseLead(detailViewLead);
+                  }}
+                  size="lg"
+                  data-testid="button-purchase-from-details"
+                >
+                  <ShoppingCart className="mr-2 h-4 w-4" />
+                  Buy This Customer
+                </Button>
+              </div>
+            </div>
+          )}
         </DialogContent>
       </Dialog>
     </div>

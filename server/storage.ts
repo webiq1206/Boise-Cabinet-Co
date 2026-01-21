@@ -225,6 +225,7 @@ export class MemStorage implements IStorage {
         agreementAcceptedAt: null,
         stripeCustomerId: null,
         watchedLeads: [],
+        declinedLeads: [],
         emailNotificationsEnabled: true,
         isActive: true,
         createdAt: new Date(),
@@ -245,6 +246,7 @@ export class MemStorage implements IStorage {
         agreementAcceptedAt: new Date(),
         stripeCustomerId: null,
         watchedLeads: [],
+        declinedLeads: [],
         emailNotificationsEnabled: true,
         isActive: true,
         createdAt: new Date(),
@@ -407,6 +409,7 @@ export class MemStorage implements IStorage {
       agreementAcceptedAt: userData.agreementAcceptedAt ?? null,
       stripeCustomerId: userData.stripeCustomerId ?? null,
       watchedLeads: (userData as any).watchedLeads ?? existing?.watchedLeads ?? [],
+      declinedLeads: (userData as any).declinedLeads ?? existing?.declinedLeads ?? [],
       emailNotificationsEnabled:
         (userData as any).emailNotificationsEnabled ??
         (existing as any)?.emailNotificationsEnabled ??
