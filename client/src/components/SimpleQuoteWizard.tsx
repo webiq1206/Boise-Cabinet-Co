@@ -10,8 +10,9 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { 
   Loader2, MapPin, CheckCircle2, Home, Leaf, Snowflake, 
   Sun, Droplets, TreeDeciduous, Lightbulb, ChevronRight,
-  Edit2, AlertCircle, Sparkles, X, Plus, Check
+  Edit2, AlertCircle, X, Plus, Check, Star
 } from "lucide-react";
+import lawnCareKunaIcon from "@assets/Lawn_Care_Kuna_Icon_(1)_1769008057138.png";
 import { AddressAutocomplete } from "@/components/AddressAutocomplete";
 import { queryAssessor, getCountyFromCity } from "@/lib/assessors";
 import { 
@@ -503,7 +504,11 @@ export function SimpleQuoteWizard({
         <Card>
           <CardContent className="pt-6">
             <div className="text-center mb-6">
-              <Home className="w-12 h-12 text-primary mx-auto mb-3" />
+              <img 
+                  src={lawnCareKunaIcon} 
+                  alt="Lawn Care Kuna" 
+                  className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 mx-auto mb-3"
+                />
               <h2 className="text-2xl font-bold text-foreground">Where's your property?</h2>
               <p className="text-muted-foreground mt-1">
                 Enter your address and we'll automatically measure your property
@@ -640,7 +645,11 @@ export function SimpleQuoteWizard({
           <Card>
             <CardContent className="pt-6">
               <div className="text-center mb-6">
-                <Sparkles className="w-12 h-12 text-primary mx-auto mb-3" />
+                <img 
+                  src={lawnCareKunaIcon} 
+                  alt="Lawn Care Kuna" 
+                  className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 mx-auto mb-3"
+                />
                 <h2 className="text-2xl font-bold text-foreground">What do you need?</h2>
                 <p className="text-muted-foreground mt-1">
                   Select what you're looking for and we'll recommend the right services
@@ -720,7 +729,7 @@ export function SimpleQuoteWizard({
                 {getAvailableUpsells().length > 0 && (
                   <div className="mt-4 p-4 bg-primary/5 border border-primary/20 rounded-lg" data-testid="upsell-section">
                     <div className="flex items-center gap-2 mb-3">
-                      <Sparkles className="w-4 h-4 text-primary" />
+                      <Star className="w-4 h-4 text-primary" />
                       <span className="text-sm font-medium text-primary">We also recommend</span>
                     </div>
                     <div className="space-y-2">
@@ -954,7 +963,7 @@ export function SimpleQuoteWizard({
                         </>
                       ) : (
                         <>
-                          <Sparkles className="w-4 h-4 mr-2" />
+                          <Star className="w-4 h-4 mr-2" />
                           Get My Free Quote
                         </>
                       )}

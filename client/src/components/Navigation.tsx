@@ -258,40 +258,60 @@ export function Navigation() {
           </div>
         )}
 
-        {/* Mobile Navigation */}
-        <div className="flex lg:hidden items-center gap-2">
-          {showAuthTools && <NotificationsBell />}
-          <Button variant="ghost" size="icon" asChild data-testid="button-quote-mobile" aria-label="Get free quote">
-            <Link href="/get-quote">
-              <FileText className="h-4 w-4" />
-            </Link>
-          </Button>
-          <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
-            <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" data-testid="button-menu-mobile" aria-label="Open navigation menu">
-                <Menu className="h-5 w-5" />
-              </Button>
-            </SheetTrigger>
-            <SheetContent side="right" className="w-[85vw] sm:w-[400px] overflow-y-auto">
-              <nav className="flex flex-col gap-1 mt-8">
-                {/* Mobile Search */}
-                <div className="mb-6 px-2">
-                  <SearchBar onClose={() => setMobileOpen(false)} />
-                </div>
-
-                {/* Home */}
-                <Link href="/" onClick={() => setMobileOpen(false)}>
-                  <div className="px-4 py-3 text-base font-medium rounded-md hover-elevate active-elevate-2 transition-colors" data-testid="link-home-mobile">
-                    Home
+        {/* Mobile Navigation - simplified for subcontractor portal */}
+        {isSubcontractorPortal ? (
+          <div className="flex lg:hidden items-center">
+            <NotificationsBell />
+          </div>
+        ) : (
+          <div className="flex lg:hidden items-center gap-2">
+            {showAuthTools && <NotificationsBell />}
+            <Button variant="ghost" size="icon" asChild data-testid="button-quote-mobile" aria-label="Get free quote">
+              <Link href="/get-quote">
+                <FileText className="h-4 w-4" />
+              </Link>
+            </Button>
+            <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
+              <SheetTrigger asChild>
+                <Button variant="ghost" size="icon" data-testid="button-menu-mobile" aria-label="Open navigation menu">
+                  <Menu className="h-5 w-5" />
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="right" className="w-[85vw] sm:w-[400px] overflow-y-auto">
+                <nav className="flex flex-col gap-1 mt-8">
+                  {/* Mobile Search */}
+                  <div className="mb-6 px-2">
+                    <SearchBar onClose={() => setMobileOpen(false)} />
                   </div>
-                </Link>
-                
-                {/* All Service Groups */}
-                {menuGroups.map((group) => (
-                  <div key={group.title} className="mt-4">
-                    <h3 className="px-4 py-2 text-sm font-semibold text-foreground tracking-wide uppercase">{group.title}</h3>
+
+                  {/* Home */}
+                  <Link href="/" onClick={() => setMobileOpen(false)}>
+                    <div className="px-4 py-3 text-base font-medium rounded-md hover-elevate active-elevate-2 transition-colors" data-testid="link-home-mobile">
+                      Home
+                    </div>
+                  </Link>
+                  
+                  {/* All Service Groups */}
+                  {menuGroups.map((group) => (
+                    <div key={group.title} className="mt-4">
+                      <h3 className="px-4 py-2 text-sm font-semibold text-foreground tracking-wide uppercase">{group.title}</h3>
+                      <div className="mt-1 space-y-0.5">
+                        {group.services.map((service) => (
+                          <Link key={service.href} href={service.href} onClick={() => setMobileOpen(false)}>
+                            <div className="px-6 py-2.5 text-sm rounded-md hover-elevate active-elevate-2 transition-colors">
+                              {service.name}
+                            </div>
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+
+                  {/* Commercial Services */}
+                  <div className="mt-4">
+                    <h3 className="px-4 py-2 text-sm font-semibold text-foreground tracking-wide uppercase">Commercial</h3>
                     <div className="mt-1 space-y-0.5">
-                      {group.services.map((service) => (
+                      {commercialServices.map((service) => (
                         <Link key={service.href} href={service.href} onClick={() => setMobileOpen(false)}>
                           <div className="px-6 py-2.5 text-sm rounded-md hover-elevate active-elevate-2 transition-colors">
                             {service.name}
@@ -300,57 +320,43 @@ export function Navigation() {
                       ))}
                     </div>
                   </div>
-                ))}
 
-                {/* Commercial Services */}
-                <div className="mt-4">
-                  <h3 className="px-4 py-2 text-sm font-semibold text-foreground tracking-wide uppercase">Commercial</h3>
-                  <div className="mt-1 space-y-0.5">
-                    {commercialServices.map((service) => (
-                      <Link key={service.href} href={service.href} onClick={() => setMobileOpen(false)}>
-                        <div className="px-6 py-2.5 text-sm rounded-md hover-elevate active-elevate-2 transition-colors">
-                          {service.name}
-                        </div>
-                      </Link>
-                    ))}
+                  {/* Main Pages */}
+                  <div className="mt-6 pt-6 border-t space-y-0.5">
+                    <Link href="/about" onClick={() => setMobileOpen(false)}>
+                      <div className="px-4 py-3 text-base font-medium rounded-md hover-elevate active-elevate-2 transition-colors" data-testid="link-about-mobile">
+                        About
+                      </div>
+                    </Link>
+
+                    <Link href="/blog" onClick={() => setMobileOpen(false)}>
+                      <div className="px-4 py-3 text-base font-medium rounded-md hover-elevate active-elevate-2 transition-colors" data-testid="link-blog-mobile">
+                        Blog
+                      </div>
+                    </Link>
+
+                    <Link href="/contact" onClick={() => setMobileOpen(false)}>
+                      <div className="px-4 py-3 text-base font-medium rounded-md hover-elevate active-elevate-2 transition-colors" data-testid="link-contact-mobile">
+                        Contact
+                      </div>
+                    </Link>
+
+                    <Button 
+                      className="w-full mt-4" 
+                      onClick={() => {
+                        window.location.href = "/contact";
+                        setMobileOpen(false);
+                      }}
+                      data-testid="button-quote-mobile"
+                    >
+                      Get Free Estimate
+                    </Button>
                   </div>
-                </div>
-
-                {/* Main Pages */}
-                <div className="mt-6 pt-6 border-t space-y-0.5">
-                  <Link href="/about" onClick={() => setMobileOpen(false)}>
-                    <div className="px-4 py-3 text-base font-medium rounded-md hover-elevate active-elevate-2 transition-colors" data-testid="link-about-mobile">
-                      About
-                    </div>
-                  </Link>
-
-                  <Link href="/blog" onClick={() => setMobileOpen(false)}>
-                    <div className="px-4 py-3 text-base font-medium rounded-md hover-elevate active-elevate-2 transition-colors" data-testid="link-blog-mobile">
-                      Blog
-                    </div>
-                  </Link>
-
-                  <Link href="/contact" onClick={() => setMobileOpen(false)}>
-                    <div className="px-4 py-3 text-base font-medium rounded-md hover-elevate active-elevate-2 transition-colors" data-testid="link-contact-mobile">
-                      Contact
-                    </div>
-                  </Link>
-
-                  <Button 
-                    className="w-full mt-4" 
-                    onClick={() => {
-                      window.location.href = "/contact";
-                      setMobileOpen(false);
-                    }}
-                    data-testid="button-quote-mobile"
-                  >
-                    Get Free Estimate
-                  </Button>
-                </div>
-              </nav>
-            </SheetContent>
-          </Sheet>
-        </div>
+                </nav>
+              </SheetContent>
+            </Sheet>
+          </div>
+        )}
       </nav>
     </header>
   );
