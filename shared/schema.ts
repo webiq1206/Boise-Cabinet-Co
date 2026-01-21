@@ -172,9 +172,13 @@ export const users = pgTable("users", {
   licenseNumber: text("license_number"),
   insuranceExpiry: timestamp("insurance_expiry"),
   
-  // Agreement acceptance
+  // Agreement acceptance and e-signature
   agreementAccepted: boolean("agreement_accepted").default(false),
   agreementAcceptedAt: timestamp("agreement_accepted_at"),
+  agreementSignature: text("agreement_signature"), // Typed name as signature
+  agreementSignatureIp: text("agreement_signature_ip"), // IP address when signing
+  agreementSignatureUserAgent: text("agreement_signature_user_agent"), // Browser info
+  agreementVersion: text("agreement_version"), // Version of agreement signed
   
   // Stripe
   stripeCustomerId: text("stripe_customer_id"),
