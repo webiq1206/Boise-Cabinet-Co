@@ -145,15 +145,26 @@ export function SimpleQuoteWizard({
     }
   }, [phase]);
   
-  // City options for selection
-  const CITY_OPTIONS = [
-    { value: "Kuna", label: "Kuna" },
-    { value: "Boise", label: "Boise" },
-    { value: "Meridian", label: "Meridian" },
-    { value: "Eagle", label: "Eagle" },
-    { value: "Star", label: "Star" },
-    { value: "Middleton", label: "Middleton" },
-  ];
+  // Supported service area cities
+  const SUPPORTED_CITIES = ["kuna", "boise", "meridian", "eagle", "star", "middleton"];
+  
+  // Extract city from Nominatim address data
+  const extractCityFromAddress = (rawAddress: any): string | null => {
+    if (!rawAddress?.address) return null;
+    const addr = rawAddress.address;
+    // Nominatim returns city, town, village, hamlet, or municipality
+    const cityValue = addr.city || addr.town || addr.village || addr.hamlet || addr.municipality || addr.county;
+    if (!cityValue) return null;
+    
+    // Check if the city is in our service area
+    const normalizedCity = cityValue.toLowerCase().trim();
+    const matchedCity = SUPPORTED_CITIES.find(c => normalizedCity.includes(c));
+    if (matchedCity) {
+      // Return properly capitalized
+      return matchedCity.charAt(0).toUpperCase() + matchedCity.slice(1);
+    }
+    return null;
+  };
   
   // Property state
   const [address, setAddress] = useState(defaultAddress);
@@ -183,14 +194,25 @@ export function SimpleQuoteWizard({
   });
   
   // Auto-lookup property when address changes
-  const handleAddressSelect = async (selectedAddress: string) => {
+  const handleAddressSelect = async (selectedAddress: string, rawAddressData?: any) => {
     setAddress(selectedAddress);
     setLookupError(null);
     setIsLookingUp(true);
     
+    // Extract city from the address data if available
+    if (rawAddressData) {
+      const extractedCity = extractCityFromAddress(rawAddressData);
+      if (extractedCity) {
+        setCity(extractedCity);
+      }
+    }
+    
+    // Use extracted city or current city for lookup
+    const lookupCity = rawAddressData ? (extractCityFromAddress(rawAddressData) || city) : city;
+    
     try {
-      const county = getCountyFromCity(city);
-      const result = await queryAssessor({ county, address: selectedAddress, cityContext: city });
+      const county = getCountyFromCity(lookupCity);
+      const result = await queryAssessor({ county, address: selectedAddress, cityContext: lookupCity });
       
       if (result.success && result.properties.length > 0) {
         const property = result.properties[0];
@@ -200,7 +222,7 @@ export function SimpleQuoteWizard({
         setTimeout(() => setPhase(2), 500);
       } else {
         // Use default estimates
-        const bundle = createDefaultMeasurementBundle(selectedAddress, city);
+        const bundle = createDefaultMeasurementBundle(selectedAddress, lookupCity);
         setMeasurementBundle(bundle);
         setLookupError("Couldn't find exact property data. Using typical estimates.");
         // Auto-advance to phase 2 after default bundle created
@@ -208,7 +230,7 @@ export function SimpleQuoteWizard({
       }
     } catch (error) {
       console.error("Property lookup error:", error);
-      const bundle = createDefaultMeasurementBundle(selectedAddress, city);
+      const bundle = createDefaultMeasurementBundle(selectedAddress, lookupCity);
       setMeasurementBundle(bundle);
       setLookupError("Property lookup failed. Using typical estimates.");
       // Auto-advance to phase 2 even on error (we have fallback data)
@@ -391,34 +413,14 @@ export function SimpleQuoteWizard({
               </p>
             </div>
             
-            {/* City selector and Address input */}
+            {/* Address input - city is auto-detected from address */}
             <div className="space-y-4">
-              <div>
-                <label className="text-sm font-medium mb-1.5 block">Service Area</label>
-                <div className="flex flex-wrap gap-2">
-                  {CITY_OPTIONS.map((opt) => (
-                    <button
-                      key={opt.value}
-                      onClick={() => setCity(opt.value)}
-                      className={`px-3 py-1.5 text-sm rounded-full border transition-all ${
-                        city === opt.value
-                          ? "bg-primary text-primary-foreground border-primary"
-                          : "bg-background border-muted hover:border-primary/50"
-                      }`}
-                      data-testid={`city-${opt.value.toLowerCase()}`}
-                    >
-                      {opt.label}
-                    </button>
-                  ))}
-                </div>
-              </div>
-              
               <div>
                 <label className="text-sm font-medium mb-1.5 block">Property Address</label>
                 <AddressAutocomplete
                   value={address}
                   onChange={(val) => setAddress(val)}
-                  onAddressSelect={(result) => handleAddressSelect(result.label)}
+                  onAddressSelect={(result) => handleAddressSelect(result.label, result.raw)}
                   city={city}
                   placeholder="Start typing your address..."
                   className="w-full"
