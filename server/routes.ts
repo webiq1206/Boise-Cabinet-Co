@@ -1449,6 +1449,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
       if (availableOnly === "true") {
         leads = leads.filter(l => l.status === "available");
+        // Filter out leads older than 1 month (30 days)
+        const thirtyDaysAgo = new Date();
+        thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+        leads = leads.filter(l => new Date(l.createdAt) >= thirtyDaysAgo);
       }
       
       // Privacy protection: mask contact info for unpurchased leads
