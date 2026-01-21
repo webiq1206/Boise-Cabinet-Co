@@ -3,9 +3,8 @@ import { Link } from "wouter";
 
 export function StickyBottomNav() {
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-50 bg-background border-t border-border lg:hidden">
-      <div className="container px-0">
-        <div className="grid grid-cols-3 h-16">
+    <nav className="fixed bottom-0 left-0 right-0 z-50 bg-background border-t border-border lg:hidden pb-[env(safe-area-inset-bottom)]">
+      <div className="grid grid-cols-3 h-16">
           <Link 
             href="/services"
             className="flex flex-col items-center justify-center gap-1 w-full h-full hover-elevate active-elevate-2 transition-colors"
@@ -33,7 +32,6 @@ export function StickyBottomNav() {
             <span className="text-xs font-medium">Schedule</span>
           </Link>
         </div>
-      </div>
     </nav>
   );
 }
