@@ -156,9 +156,12 @@ export function calculateServicePriceRange(
     case "per_zone":
       measurementValue = measurements.zones || 6;
       const includedZones = config.includedZones || 5;
-      const billableZones = Math.max(includedZones, measurementValue);
-      lowCost = billableZones * config.lowRate;
-      highCost = billableZones * config.highRate;
+      const extraZones = Math.max(0, measurementValue - includedZones);
+      // Base fee for included zones plus per-extra-zone rate
+      const baseLow = includedZones * config.lowRate;
+      const baseHigh = includedZones * config.highRate;
+      lowCost = baseLow + (extraZones * config.lowRate);
+      highCost = baseHigh + (extraZones * config.highRate);
       break;
 
     case "per_tree":

@@ -257,8 +257,9 @@ export async function calculateIntelligentQuote(
         }
         case "per_zone": {
           const includedZones = cfg.includedZones || 5;
-          const billableZones = Math.max(includedZones, defaultZones);
-          cost = Math.max(minimum, billableZones * typicalRate);
+          const extraZones = Math.max(0, defaultZones - includedZones);
+          const baseCost = (includedZones * typicalRate) + (extraZones * typicalRate);
+          cost = Math.max(minimum, baseCost);
           return { cost, description: `${name} (${defaultZones} zones)` };
         }
         case "per_tree": {
@@ -605,8 +606,9 @@ export async function calculateMultiServiceQuote(
         // Number of zones from this service's measurements
         const zones = getNumber(measurements.zones, 6);
         const includedZones = cfg.includedZones || 5;
-        const billableZones = Math.max(includedZones, zones);
-        basePrice = billableZones * typicalRate;
+        const extraZones = Math.max(0, zones - includedZones);
+        // Base fee for included zones plus per-extra-zone rate (using typical rate)
+        basePrice = (includedZones * typicalRate) + (extraZones * typicalRate);
         description += ` (${zones} zones)`;
         if (serviceId === "sprinkler-blowout") {
           calculationExplanation =
