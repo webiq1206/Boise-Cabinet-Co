@@ -239,55 +239,61 @@ export async function calculateIntelligentQuote(
     const defaultTreeCount = 1;
     const defaultFixtures = 10;
 
-    // Service-specific models
-    if (serviceId === "lawn-mowing") {
-      const cost = sqft * MOWING_RATE_PER_SQFT;
-      return {
-        cost,
-        description: `${name} (${sqft.toLocaleString()} sq ft @ $${MOWING_RATE_PER_SQFT}/sq ft)`,
-      };
-    }
-    if (serviceId === "sprinkler-blowout") {
-      const extraZones = Math.max(0, defaultZones - BLOWOUT_INCLUDED_ZONES);
-      const cost = BLOWOUT_BASE_UP_TO_ZONES + extraZones * BLOWOUT_PER_EXTRA_ZONE;
-      return {
-        cost,
-        description: `${name} (${defaultZones} zones: $${BLOWOUT_BASE_UP_TO_ZONES} up to ${BLOWOUT_INCLUDED_ZONES} + $${BLOWOUT_PER_EXTRA_ZONE}/extra)`,
-      };
-    }
+    // Use typical rate (midpoint) for calculations
+    const typicalRate = cfg ? (cfg.lowRate + cfg.highRate) / 2 : 0;
+    const minimum = cfg?.minimum || 0;
 
     // Generic model based on unit
     if (cfg) {
+      let cost = 0;
       switch (cfg.unit) {
         case "sqft": {
-          const cost = sqft * cfg.rate;
+          cost = Math.max(minimum, sqft * typicalRate);
           return { cost, description: `${name} (${sqft.toLocaleString()} sq ft)` };
         }
         case "linear_ft": {
-          const cost = estimatedLinearFt * cfg.rate;
+          cost = Math.max(minimum, estimatedLinearFt * typicalRate);
           return { cost, description: `${name} (${estimatedLinearFt} linear feet)` };
         }
         case "per_zone": {
-          const cost = defaultZones * (cfg.rate || 0);
+          const includedZones = cfg.includedZones || 5;
+          const billableZones = Math.max(includedZones, defaultZones);
+          cost = Math.max(minimum, billableZones * typicalRate);
           return { cost, description: `${name} (${defaultZones} zones)` };
         }
         case "per_tree": {
-          const cost = defaultTreeCount * cfg.rate;
+          cost = Math.max(minimum, defaultTreeCount * typicalRate);
           return { cost, description: `${name} (${defaultTreeCount} tree)` };
         }
+        case "per_inch": {
+          const defaultDiameter = 12;
+          cost = Math.max(minimum, defaultDiameter * typicalRate);
+          return { cost, description: `${name} (${defaultDiameter}" diameter)` };
+        }
+        case "per_shrub": {
+          const defaultShrubs = 5;
+          cost = Math.max(minimum, defaultShrubs * typicalRate);
+          return { cost, description: `${name} (${defaultShrubs} shrubs)` };
+        }
         case "per_fixture": {
-          const cost = defaultFixtures * cfg.rate;
+          cost = Math.max(minimum, defaultFixtures * typicalRate);
           return { cost, description: `${name} (${defaultFixtures} fixtures)` };
+        }
+        case "per_cubic_yard": {
+          const defaultCubicYards = 3;
+          cost = Math.max(minimum, defaultCubicYards * typicalRate);
+          return { cost, description: `${name} (${defaultCubicYards} cubic yards)` };
         }
         case "base_service":
         case "base_project": {
-          const cost = cfg.rate;
+          cost = Math.max(minimum, typicalRate);
           return { cost, description: name };
         }
         case "per_sqft": {
-          // If we only know propertySize, treat it as area for estimate
-          const cost = sqft * cfg.rate;
-          return { cost, description: `${name} (${sqft.toLocaleString()} sq ft)` };
+          // For hardscape like patios, use smaller default area
+          const hardscapeArea = 100;
+          cost = Math.max(minimum, hardscapeArea * typicalRate);
+          return { cost, description: `${name} (${hardscapeArea} sq ft)` };
         }
       }
     }
@@ -377,49 +383,55 @@ export async function calculateIntelligentQuote(
 /**
  * Enhanced service rates with measurement-based pricing
  * Exported for use in email templates to display rate per unit
+ * Rates are from the official pricing calculator spreadsheet
+ * All rates use lowRate/highRate for price ranges, with minimum pricing
  */
 export const SERVICE_PRICING_CONFIG = {
-  // Lawn services (property size based)
-  // Boise/Treasure Valley: pricing is primarily driven by measurements (verified at site assessment)
-  "lawn-mowing": { rate: 0.003, unit: "sqft", name: "Lawn Mowing & Edging" },
-  "aeration": { rate: 0.018, unit: "sqft", name: "Core Aeration" },
-  "fertilization": { rate: 0.014, unit: "sqft", name: "Fertilization Treatment" },
-  "weed-control": { rate: 0.013, unit: "sqft", name: "Weed Control" },
-  "overseeding": { rate: 0.016, unit: "sqft", name: "Overseeding" },
-  "dethatching": { rate: 0.017, unit: "sqft", name: "Dethatching" },
-  "sod-installation": { rate: 1.20, unit: "sqft", name: "Sod Installation" },
-  "lawn-renovation": { rate: 0.025, unit: "sqft", name: "Lawn Renovation" },
-  "lawn-edging": { rate: 1.50, unit: "linear_ft", name: "Lawn Edging" },
+  // Lawn services (per 1,000 sq ft - divide by 1000 for per sq ft rate)
+  "lawn-mowing": { lowRate: 0.00625, highRate: 0.010, unit: "sqft", name: "Lawn Mowing & Edging", minimum: 35 },
+  "aeration": { lowRate: 0.0125, highRate: 0.018, unit: "sqft", name: "Core Aeration", minimum: 75 },
+  "fertilization": { lowRate: 0.005, highRate: 0.008, unit: "sqft", name: "Fertilization Treatment", minimum: 50 },
+  "weed-control": { lowRate: 0.00375, highRate: 0.006, unit: "sqft", name: "Weed Control", minimum: 50 },
+  "overseeding": { lowRate: 0.0125, highRate: 0.030, unit: "sqft", name: "Overseeding", minimum: 100 },
+  "dethatching": { lowRate: 0.0125, highRate: 0.020, unit: "sqft", name: "Dethatching", minimum: 100 },
+  "sod-installation": { lowRate: 1.25, highRate: 2.00, unit: "sqft", name: "Sod Installation", minimum: 500 },
+  "lawn-renovation": { lowRate: 0.0625, highRate: 0.100, unit: "sqft", name: "Lawn Renovation", minimum: 500 },
+  "lawn-edging": { lowRate: 0.625, highRate: 1.50, unit: "linear_ft", name: "Lawn Edging", minimum: 50 },
   
-  // Christmas lights & landscape lighting (linear feet)
-  "christmas-light-installation": { rate: 3.50, unit: "linear_ft", name: "Christmas Light Installation" },
-  "landscape-lighting": { rate: 75.00, unit: "per_fixture", name: "Landscape Lighting" },
+  // Christmas lights & landscape lighting
+  "christmas-light-installation": { lowRate: 3.125, highRate: 7.00, unit: "linear_ft", name: "Christmas Light Installation", minimum: 400, permanentLowRate: 12.00, permanentHighRate: 18.00 },
+  "landscape-lighting": { lowRate: 187.50, highRate: 350.00, unit: "per_fixture", name: "Landscape Lighting (Low Voltage)", minimum: 500 },
   
-  // Irrigation (zone-based or property size)
-  // Boise/Treasure Valley: tiered pricing (implemented in pricing logic)
-  "sprinkler-blowout": { rate: 0, unit: "per_zone", name: "Sprinkler Winterization" },
-  "sprinkler-repair": { rate: 85.00, unit: "base_service", name: "Sprinkler Repair" },
-  "sprinkler-system-installation": { rate: 0.50, unit: "sqft", name: "Sprinkler System Installation" },
-  "irrigation-repair": { rate: 85.00, unit: "base_service", name: "Irrigation Repair" },
-  "irrigation-maintenance": { rate: 50.00, unit: "per_zone", name: "Irrigation Maintenance" },
+  // Irrigation
+  "sprinkler-blowout": { lowRate: 12.50, highRate: 15.00, unit: "per_zone", name: "Sprinkler Winterization", minimum: 50, includedZones: 5 },
+  "sprinkler-repair": { lowRate: 85.00, highRate: 150.00, unit: "base_service", name: "Sprinkler Repair", minimum: 85 },
+  "sprinkler-system-installation": { lowRate: 0.50, highRate: 0.80, unit: "sqft", name: "Sprinkler System Installation", minimum: 2000 },
+  "irrigation-repair": { lowRate: 85.00, highRate: 150.00, unit: "base_service", name: "Irrigation Repair", minimum: 85 },
+  "irrigation-maintenance": { lowRate: 12.50, highRate: 15.00, unit: "per_zone", name: "Irrigation Maintenance", minimum: 65 },
   
-  // Hardscape (dimensions-based or project)
-  "patio-installation": { rate: 35.00, unit: "per_sqft", name: "Patio Installation" },
-  "retaining-walls": { rate: 40.00, unit: "linear_ft", name: "Retaining Wall Installation" },
-  "fire-pit-installation": { rate: 1500.00, unit: "base_project", name: "Fire Pit Installation" },
-  "fence": { rate: 25.00, unit: "linear_ft", name: "Fence Installation" },
+  // Hardscape
+  "patio-installation": { lowRate: 12.50, highRate: 24.00, unit: "per_sqft", name: "Patio Installation", minimum: 1500 },
+  "retaining-walls": { lowRate: 25.00, highRate: 50.00, unit: "per_sqft", name: "Retaining Wall Installation", minimum: 1000 },
+  "fire-pit-installation": { lowRate: 500.00, highRate: 2500.00, unit: "base_project", name: "Fire Pit Installation", minimum: 500 },
+  "fence": { lowRate: 25.00, highRate: 45.00, unit: "linear_ft", name: "Fence Installation", minimum: 1000 },
   
-  // Tree services (per tree)
-  "tree-removal": { rate: 500.00, unit: "per_tree", name: "Tree Removal" },
-  "tree-trimming": { rate: 250.00, unit: "per_tree", name: "Tree Trimming & Pruning" },
-  "stump-grinding": { rate: 150.00, unit: "per_stump", name: "Stump Grinding" },
+  // Tree services (medium tree size as default)
+  "tree-removal": { lowRate: 625.00, highRate: 1000.00, unit: "per_tree", name: "Tree Removal", minimum: 500 },
+  "tree-trimming": { lowRate: 250.00, highRate: 450.00, unit: "per_tree", name: "Tree Trimming & Pruning", minimum: 200 },
+  "stump-grinding": { lowRate: 3.75, highRate: 5.00, unit: "per_inch", name: "Stump Grinding", minimum: 100 },
   
-  // Hedge & seasonal (linear feet or property size)
-  "hedge-trimming": { rate: 2.00, unit: "linear_ft", name: "Hedge & Shrub Trimming" },
-  "spring-cleanup": { rate: 0.016, unit: "sqft", name: "Spring Cleanup" },
-  "fall-cleanup": { rate: 0.016, unit: "sqft", name: "Fall Cleanup" },
-  "seasonal-cleanup": { rate: 0.016, unit: "sqft", name: "Seasonal Cleanup" },
-  "mulch-installation": { rate: 0.45, unit: "sqft", name: "Mulch Installation" },
+  // Hedge & seasonal
+  "hedge-trimming": { lowRate: 6.25, highRate: 15.00, unit: "per_shrub", name: "Hedge & Shrub Trimming", minimum: 50 },
+  "spring-cleanup": { lowRate: 0.0125, highRate: 0.025, unit: "sqft", name: "Spring Cleanup", minimum: 150 },
+  "fall-cleanup": { lowRate: 0.01875, highRate: 0.030, unit: "sqft", name: "Fall Cleanup", minimum: 175 },
+  "seasonal-cleanup": { lowRate: 0.0125, highRate: 0.025, unit: "sqft", name: "Seasonal Cleanup", minimum: 150 },
+  "mulch-installation": { lowRate: 87.50, highRate: 110.00, unit: "per_cubic_yard", name: "Mulch Installation", minimum: 150 },
+  
+  // Snow removal
+  "snow-removal": { lowRate: 50.00, highRate: 90.00, unit: "base_service", name: "Snow Removal", minimum: 40 },
+  
+  // Gutter cleaning
+  "gutter-cleaning": { lowRate: 1.25, highRate: 2.00, unit: "linear_ft", name: "Gutter Cleaning", minimum: 75 },
 };
 
 interface ServiceSpecificData {
@@ -534,6 +546,11 @@ export async function calculateMultiServiceQuote(
     // Track calculation explanation separately
     let calculationExplanation: string | undefined;
 
+    // Use typical rate (midpoint between low and high) for server-side calculations
+    const cfg = config as any;
+    const typicalRate = (cfg.lowRate + cfg.highRate) / 2;
+    const minimum = cfg.minimum || 0;
+
     // Calculate base price based on measurement unit
     switch (config.unit) {
       case "sqft":
@@ -544,14 +561,11 @@ export async function calculateMultiServiceQuote(
             ? fallbackPropertySize
             : 5000
         );
+        basePrice = sqft * typicalRate;
+        description += ` (${sqft.toLocaleString()} sq ft)`;
         if (serviceId === "lawn-mowing") {
-          basePrice = sqft * MOWING_RATE_PER_SQFT;
-          description += ` (${sqft.toLocaleString()} sq ft @ $${MOWING_RATE_PER_SQFT}/sq ft)`;
           calculationExplanation =
             "Lawn mowing is estimated from your lawn area (sq ft) and adjusted for property type, access/complexity, and frequency. Final pricing is confirmed after a quick site assessment.";
-        } else {
-          basePrice = sqft * config.rate;
-          description += ` (${sqft.toLocaleString()} sq ft)`;
         }
         break;
 
@@ -562,17 +576,18 @@ export async function calculateMultiServiceQuote(
         // Apply special pricing for permanent lighting vs traditional Christmas lights
         if (serviceId === 'christmas-light-installation') {
           const isPermanent = measurements.lightingType === 'Permanent Lighting';
-          const rate = isPermanent ? 15.00 : config.rate; // Permanent: $15/ft, Traditional: $3.50/ft
+          const rate = isPermanent 
+            ? ((cfg.permanentLowRate + cfg.permanentHighRate) / 2) 
+            : typicalRate;
           basePrice = linearFt * rate;
           description += isPermanent 
-            ? ` - Permanent Lighting (${linearFt} linear feet @ $${rate}/ft)`
-            : ` - Traditional Seasonal (${linearFt} linear feet @ $${config.rate}/ft)`;
+            ? ` - Permanent Lighting (${linearFt} linear feet)`
+            : ` - Traditional Seasonal (${linearFt} linear feet)`;
           calculationExplanation = isPermanent
             ? `Permanent lighting is a one-time installation with year-round app control. Track lights remain discreetly mounted on your roofline 365 days a year. Control millions of colors, patterns, and schedules from your smartphone for every holiday and event.`
             : `Traditional seasonal Christmas light installation is calculated using your roofline with overhang (roofline + 25% for eaves and overhangs). This ensures adequate coverage for a professional holiday display. Includes installation, mid-season service, and post-holiday removal.`;
         } else {
-          // All other linear_ft services use standard config.rate
-          basePrice = linearFt * config.rate;
+          basePrice = linearFt * typicalRate;
           description += ` (${linearFt} linear feet)`;
           
           // Add service-specific calculation context
@@ -589,56 +604,66 @@ export async function calculateMultiServiceQuote(
       case "per_zone":
         // Number of zones from this service's measurements
         const zones = getNumber(measurements.zones, 6);
+        const includedZones = cfg.includedZones || 5;
+        const billableZones = Math.max(includedZones, zones);
+        basePrice = billableZones * typicalRate;
+        description += ` (${zones} zones)`;
         if (serviceId === "sprinkler-blowout") {
-          const extraZones = Math.max(0, zones - BLOWOUT_INCLUDED_ZONES);
-          basePrice = BLOWOUT_BASE_UP_TO_ZONES + extraZones * BLOWOUT_PER_EXTRA_ZONE;
-          description += ` (${zones} zones: $${BLOWOUT_BASE_UP_TO_ZONES} up to ${BLOWOUT_INCLUDED_ZONES} + $${BLOWOUT_PER_EXTRA_ZONE}/extra zone)`;
           calculationExplanation =
-            "Sprinkler winterization pricing is tiered: a base fee covers most residential systems, with a small per-zone charge for larger systems.";
-        } else {
-          basePrice = zones * config.rate;
-          description += ` (${zones} zones)`;
+            "Sprinkler winterization pricing is based on the number of irrigation zones in your system.";
         }
         break;
 
       case "per_tree":
         const trees = getNumber(measurements.treeCount, 1);
         const sizeMultiplier = getSizeMultiplier(measurements.treeSize);
-        basePrice = trees * config.rate * sizeMultiplier;
+        basePrice = trees * typicalRate * sizeMultiplier;
         description += ` (${trees} tree${trees > 1 ? 's' : ''})`;
+        break;
+
+      case "per_inch":
+        const stumpDiameter = getNumber(measurements.quantity || measurements.treeCount, 12);
+        basePrice = stumpDiameter * typicalRate;
+        description += ` (${stumpDiameter}" diameter)`;
+        break;
+
+      case "per_shrub":
+        const shrubs = getNumber(measurements.quantity || measurements.treeCount, 5);
+        basePrice = shrubs * typicalRate;
+        description += ` (${shrubs} shrub${shrubs > 1 ? 's' : ''})`;
         break;
 
       case "per_fixture":
         const fixtures = getNumber(measurements.quantity, 10);
-        basePrice = fixtures * config.rate;
+        basePrice = fixtures * typicalRate;
         description += ` (${fixtures} fixtures)`;
         break;
 
-      case "per_stump":
-        const stumps = getNumber(measurements.quantity, 1);
-        basePrice = stumps * config.rate;
-        description += ` (${stumps} stump${stumps > 1 ? 's' : ''})`;
+      case "per_cubic_yard":
+        const cubicYards = getNumber(measurements.quantity, 3);
+        basePrice = cubicYards * typicalRate;
+        description += ` (${cubicYards} cubic yards)`;
         break;
 
       case "per_sqft":
         // For patio/hardscape - parse dimensions from this service's measurements
         const dims = parseDimensions(measurements.dimensions);
-        basePrice = dims * config.rate;
+        basePrice = dims * typicalRate;
         description += ` (${dims} sq ft)`;
         break;
 
       case "base_service":
-        basePrice = config.rate;
-        break;
-
       case "base_project":
-        basePrice = config.rate;
+        basePrice = typicalRate;
         break;
 
       default:
         console.warn(`Unknown unit type for service ${serviceId}: ${config.unit}`);
-        basePrice = config.rate;
+        basePrice = typicalRate;
     }
+
+    // Enforce minimum pricing before any multipliers
+    basePrice = Math.max(basePrice, minimum);
 
     // Apply discount only to services that are eligible to be recurring
     const serviceDiscount = isRecurringEligible(serviceId) ? frequencyDiscount : 0;
