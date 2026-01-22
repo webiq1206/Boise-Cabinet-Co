@@ -1896,6 +1896,26 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Admin withdraws a lead globally - removes it from all subcontractors' view
+  app.post("/api/leads/:id/withdraw", isAuthenticated, requireRole(["admin"]), async (req: any, res) => {
+    try {
+      const lead = await storage.getLeadById(req.params.id);
+      if (!lead) {
+        return res.status(404).json({ error: "Lead not found" });
+      }
+      
+      // Update lead status to withdrawn
+      const updatedLead = await storage.updateLead(req.params.id, {
+        status: "withdrawn"
+      });
+      
+      res.json({ success: true, lead: updatedLead });
+    } catch (error) {
+      console.error("Error withdrawing lead:", error);
+      res.status(500).json({ error: "Failed to withdraw lead" });
+    }
+  });
+
   // Add note to lead - requires admin role
   app.post("/api/leads/:id/notes", isAuthenticated, requireRole(["admin"]), async (req: any, res) => {
     try {
@@ -2299,8 +2319,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Decline/Pass on a lead - hides it from the subcontractor's view
-  app.post("/api/leads/:id/decline", isAuthenticated, requireRole(["subcontractor"]), async (req: any, res) => {
+  // Pass on a lead - hides it from the subcontractor's personal view (other subcontractors can still see it)
+  app.post("/api/leads/:id/pass", isAuthenticated, requireRole(["subcontractor"]), async (req: any, res) => {
     try {
       const userId = getAuthUserId(req);
       if (!userId) return res.status(401).json({ error: "Unauthorized" });
@@ -2363,8 +2383,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Undecline a lead - restore it to the subcontractor's view
-  app.post("/api/leads/:id/undecline", isAuthenticated, requireRole(["subcontractor"]), async (req: any, res) => {
+  // Unpass a lead - restore it to the subcontractor's view
+  app.post("/api/leads/:id/unpass", isAuthenticated, requireRole(["subcontractor"]), async (req: any, res) => {
     try {
       const userId = getAuthUserId(req);
       if (!userId) return res.status(401).json({ error: "Unauthorized" });

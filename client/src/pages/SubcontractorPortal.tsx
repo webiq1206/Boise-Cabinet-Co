@@ -240,7 +240,7 @@ export default function SubcontractorPortal() {
 
   const declineLeadMutation = useMutation({
     mutationFn: async (leadId: string) => {
-      const res = await apiRequest("POST", `/api/leads/${leadId}/decline`, {});
+      const res = await apiRequest("POST", `/api/leads/${leadId}/pass`, {});
       return await res.json();
     },
     onSuccess: () => {
