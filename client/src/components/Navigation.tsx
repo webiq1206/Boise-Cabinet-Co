@@ -10,7 +10,7 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
-import { Menu, FileText, Scissors, TreeDeciduous, Sparkles, Droplets, Building2, ArrowRight, Snowflake, LogOut } from "lucide-react";
+import { Menu, FileText, Scissors, TreeDeciduous, Sparkles, Droplets, Building2, ArrowRight, Snowflake, LogOut, ChevronDown } from "lucide-react";
 import logoUrlPng from "@assets/Lawn Care Kuna Logo_1763734387982.png";
 import logoUrlWebp from "@assets/Lawn Care Kuna Logo_400x100.webp";
 import { PRIORITY_SERVICES } from "@shared/contentData";
@@ -99,6 +99,7 @@ const commercialServices = [
 export function Navigation() {
   const [location] = useLocation();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [expandedCategory, setExpandedCategory] = useState<string | null>(null);
   const { isAuthenticated } = useAuth();
   const showAuthTools = location.startsWith("/admin") || location.startsWith("/subcontractor");
   const isSubcontractorPortal = location.startsWith("/subcontractor");
@@ -106,6 +107,10 @@ export function Navigation() {
   
   const handleLogout = () => {
     window.location.href = "/api/logout";
+  };
+  
+  const toggleCategory = (category: string) => {
+    setExpandedCategory(expandedCategory === category ? null : category);
   };
 
   return (
@@ -342,12 +347,60 @@ export function Navigation() {
                     </div>
                   </Link>
                   
-                  {/* All Service Groups */}
+                  {/* All Service Groups - Collapsible */}
                   {menuGroups.map((group) => (
-                    <div key={group.title} className="mt-4">
-                      <h3 className="px-4 py-2 text-sm font-semibold text-foreground tracking-wide uppercase">{group.title}</h3>
-                      <div className="mt-1 space-y-0.5">
-                        {group.services.map((service) => (
+                    <div key={group.title} className="mt-2">
+                      <button
+                        onClick={() => toggleCategory(group.title)}
+                        className="w-full flex items-center justify-between px-4 py-3 text-sm font-semibold text-foreground tracking-wide uppercase hover-elevate active-elevate-2 rounded-md transition-colors"
+                        data-testid={`mobile-category-${group.title.toLowerCase().replace(/\s+/g, '-')}`}
+                      >
+                        <span>{group.title}</span>
+                        <ChevronDown 
+                          className={`h-4 w-4 transition-transform duration-200 ${
+                            expandedCategory === group.title ? 'rotate-180' : ''
+                          }`} 
+                        />
+                      </button>
+                      <div 
+                        className={`overflow-hidden transition-all duration-200 ${
+                          expandedCategory === group.title ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'
+                        }`}
+                      >
+                        <div className="mt-1 space-y-0.5 pb-2">
+                          {group.services.map((service) => (
+                            <Link key={service.href} href={service.href} onClick={() => setMobileOpen(false)}>
+                              <div className="px-6 py-2.5 text-sm rounded-md hover-elevate active-elevate-2 transition-colors">
+                                {service.name}
+                              </div>
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+
+                  {/* Commercial Services - Collapsible */}
+                  <div className="mt-2">
+                    <button
+                      onClick={() => toggleCategory('Commercial')}
+                      className="w-full flex items-center justify-between px-4 py-3 text-sm font-semibold text-foreground tracking-wide uppercase hover-elevate active-elevate-2 rounded-md transition-colors"
+                      data-testid="mobile-category-commercial"
+                    >
+                      <span>Commercial</span>
+                      <ChevronDown 
+                        className={`h-4 w-4 transition-transform duration-200 ${
+                          expandedCategory === 'Commercial' ? 'rotate-180' : ''
+                        }`} 
+                      />
+                    </button>
+                    <div 
+                      className={`overflow-hidden transition-all duration-200 ${
+                        expandedCategory === 'Commercial' ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'
+                      }`}
+                    >
+                      <div className="mt-1 space-y-0.5 pb-2">
+                        {commercialServices.map((service) => (
                           <Link key={service.href} href={service.href} onClick={() => setMobileOpen(false)}>
                             <div className="px-6 py-2.5 text-sm rounded-md hover-elevate active-elevate-2 transition-colors">
                               {service.name}
@@ -355,20 +408,6 @@ export function Navigation() {
                           </Link>
                         ))}
                       </div>
-                    </div>
-                  ))}
-
-                  {/* Commercial Services */}
-                  <div className="mt-4">
-                    <h3 className="px-4 py-2 text-sm font-semibold text-foreground tracking-wide uppercase">Commercial</h3>
-                    <div className="mt-1 space-y-0.5">
-                      {commercialServices.map((service) => (
-                        <Link key={service.href} href={service.href} onClick={() => setMobileOpen(false)}>
-                          <div className="px-6 py-2.5 text-sm rounded-md hover-elevate active-elevate-2 transition-colors">
-                            {service.name}
-                          </div>
-                        </Link>
-                      ))}
                     </div>
                   </div>
 
