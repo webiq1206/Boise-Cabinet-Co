@@ -46,3 +46,4 @@ integrations = ["javascript_mem_db:1.0.0", "javascript_openai_ai_integrations:1.
 
 [userenv.shared]
 VITE_GA_MEASUREMENT_ID = "G-1HD7RT8PKJ"
+ADMIN_EMAILS = "webiq.co@gmail.com"

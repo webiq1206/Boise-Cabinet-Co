@@ -395,6 +395,11 @@ export class MemStorage implements IStorage {
     const id = userData.id || randomUUID();
     const existing = this.users.get(id);
     
+    // Check if email is in admin list
+    const adminEmails = (process.env.ADMIN_EMAILS || "").split(",").map(e => e.trim().toLowerCase()).filter(Boolean);
+    const isAdminEmail = userData.email && adminEmails.includes(userData.email.toLowerCase());
+    const role = userData.role ?? (isAdminEmail ? "admin" : "subcontractor");
+    
     const user: User = {
       id,
       email: userData.email ?? null,
@@ -402,7 +407,7 @@ export class MemStorage implements IStorage {
       lastName: userData.lastName ?? null,
       profileImageUrl: userData.profileImageUrl ?? null,
       phone: userData.phone ?? null,
-      role: userData.role ?? "subcontractor",
+      role: existing?.role ?? role,
       company: userData.company ?? null,
       licenseNumber: userData.licenseNumber ?? null,
       insuranceExpiry: userData.insuranceExpiry ?? null,
@@ -1054,16 +1059,22 @@ export class DBStorage implements IStorage {
   async upsertUser(userData: UpsertUser): Promise<User> {
     const id = userData.id || randomUUID();
     const existing = await this.getUser(id);
+    
+    // Check if email is in admin list
+    const adminEmails = (process.env.ADMIN_EMAILS || "").split(",").map(e => e.trim().toLowerCase()).filter(Boolean);
+    const isAdminEmail = userData.email && adminEmails.includes(userData.email.toLowerCase());
+    const defaultRole = isAdminEmail ? "admin" : "subcontractor";
 
     if (existing) {
-      // Update existing user
+      // Update existing user - preserve existing role, or use admin if in admin list and no explicit role
+      const newRole = userData.role ?? existing.role ?? defaultRole;
       const result = await db.update(users).set({
         email: userData.email ?? existing.email,
         firstName: userData.firstName ?? existing.firstName,
         lastName: userData.lastName ?? existing.lastName,
         profileImageUrl: userData.profileImageUrl ?? existing.profileImageUrl,
         phone: userData.phone ?? existing.phone,
-        role: userData.role ?? existing.role,
+        role: newRole,
         company: userData.company ?? existing.company,
         licenseNumber: userData.licenseNumber ?? existing.licenseNumber,
         insuranceExpiry: userData.insuranceExpiry ?? existing.insuranceExpiry,
@@ -1089,7 +1100,7 @@ export class DBStorage implements IStorage {
         lastName: userData.lastName ?? null,
         profileImageUrl: userData.profileImageUrl ?? null,
         phone: userData.phone ?? null,
-        role: userData.role ?? "subcontractor",
+        role: userData.role ?? defaultRole,
         company: userData.company ?? null,
         licenseNumber: userData.licenseNumber ?? null,
         insuranceExpiry: userData.insuranceExpiry ?? null,
