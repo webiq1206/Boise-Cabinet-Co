@@ -327,7 +327,7 @@ export async function runAutoDeclinePendingLeads() {
                   const { sendCustomerStatusUpdate } = await import("./services/emailNotifications");
                   await sendCustomerStatusUpdate(quote.email, quote.id, {
                     status: 'under_review',
-                    message: "Your quote is being reviewed and will be made available to our network of qualified contractors.",
+                    message: "Your quote is being reviewed by our team. We'll be in touch soon with your customized estimate.",
                   });
                 }
               } catch (emailError) {

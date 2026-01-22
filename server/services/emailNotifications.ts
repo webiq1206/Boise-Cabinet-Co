@@ -342,7 +342,7 @@ export async function sendNewLeadNotification(leadData: {
           
           <div class="highlight-box">
             <p><strong>48-Hour Priority Window</strong></p>
-            <p style="margin: 10px 0 0 0;">You have first right of refusal for the next 48 hours. After that, this lead will become available to your network of subcontractors.</p>
+            <p style="margin: 10px 0 0 0;">You have first right of refusal for the next 48 hours. After that, this lead will become available to other team members.</p>
           </div>
 
           <div class="section">

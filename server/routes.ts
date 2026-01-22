@@ -1475,7 +1475,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           statusMessage = "Our team is currently reviewing your quote request and preparing a customized estimate for your property.";
         } else if (lead.status === 'available') {
           customerStatus = 'under_review';
-          statusMessage = "Your quote is being reviewed and will be made available to our network of qualified contractors.";
+          statusMessage = "Your quote is being reviewed by our team. We'll be in touch soon with your customized estimate.";
         } else if (lead.status === 'accepted' || lead.status === 'purchased') {
           customerStatus = 'contact_soon';
           statusMessage = "Your quote is being finalized and we'll be reaching out to you shortly to discuss the details and answer any questions.";
@@ -1868,7 +1868,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
             const { sendCustomerStatusUpdate } = await import("./services/emailNotifications");
             await sendCustomerStatusUpdate(quote.email, quote.id, {
               status: 'under_review',
-              message: "Your quote is being reviewed and will be made available to our network of qualified contractors.",
+              message: "Your quote is being reviewed by our team. We'll be in touch soon with your customized estimate.",
             });
           }
         } catch (emailError) {
@@ -2050,7 +2050,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
             const { sendCustomerStatusUpdate } = await import("./services/emailNotifications");
             await sendCustomerStatusUpdate(quote.email, quote.id, {
               status: 'contact_soon',
-              message: "A qualified contractor has been assigned to your project and will be contacting you soon.",
+              message: "Great news! A team member has been assigned to your project and will be contacting you soon.",
             });
           }
         } catch (emailError) {
