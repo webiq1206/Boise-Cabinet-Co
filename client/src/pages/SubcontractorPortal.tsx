@@ -925,11 +925,22 @@ export default function SubcontractorPortal() {
   };
 
   return (
-    <div className="container py-8" data-testid="page-subcontractor-portal">
-      <div className="mb-8">
-        <h1 className="text-4xl font-bold mb-2">Available Customers</h1>
-        <p className="text-muted-foreground">Browse and purchase high-quality customer projects in your service area</p>
-      </div>
+    <div data-testid="page-subcontractor-portal">
+      {/* Hero Section with Gradient */}
+      <section className="py-12 md:py-16 bg-gradient-to-br from-primary/10 via-background to-background">
+        <div className="container px-4">
+          <div className="max-w-3xl mx-auto text-center space-y-4">
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold">
+              Contractor Portal
+            </h1>
+            <p className="text-lg text-muted-foreground">
+              Browse and purchase high-quality customer projects in your service area
+            </p>
+          </div>
+        </div>
+      </section>
+      
+      <div className="container py-8">
 
       <Card className="mb-6">
         <CardHeader className="pb-3">
@@ -2220,6 +2231,7 @@ export default function SubcontractorPortal() {
           </DialogFooter>
         </DialogContent>
       </Dialog>
+      </div>
     </div>
   );
 }

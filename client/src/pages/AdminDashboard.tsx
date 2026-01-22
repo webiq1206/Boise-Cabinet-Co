@@ -938,7 +938,32 @@ export default function AdminDashboard() {
   }
 
   return (
-    <div className="container py-8" data-testid="page-admin-dashboard">
+    <div data-testid="page-admin-dashboard">
+      {/* Hero Section with Gradient */}
+      <section className="py-12 md:py-16 bg-gradient-to-br from-primary/10 via-background to-background">
+        <div className="container px-4">
+          <div className="max-w-3xl mx-auto text-center space-y-4">
+            <div className="flex items-center justify-center gap-3">
+              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold">
+                Admin Dashboard
+              </h1>
+              <Badge 
+                variant={environment.isProduction ? "default" : "outline"}
+                className={environment.isProduction ? "bg-green-600 hover:bg-green-600" : "border-amber-500 text-amber-700 dark:text-amber-400"}
+                data-testid="badge-environment"
+              >
+                <Server className="h-3 w-3 mr-1" />
+                {environment.environmentLabel}
+              </Badge>
+            </div>
+            <p className="text-lg text-muted-foreground">
+              Manage incoming leads and quote requests
+            </p>
+          </div>
+        </div>
+      </section>
+      
+      <div className="container py-8">
       {/* Environment Indicator */}
       {!environment.isProduction && (
         <div className="mb-4 p-3 bg-amber-100 dark:bg-amber-900/30 border border-amber-300 dark:border-amber-700 rounded-md flex items-center gap-3" data-testid="banner-dev-environment">
@@ -960,21 +985,6 @@ export default function AdminDashboard() {
         </div>
       )}
       
-      <div className="mb-8">
-        <div className="flex items-center gap-3 mb-2">
-          <h1 className="text-4xl font-bold">Admin Dashboard</h1>
-          <Badge 
-            variant={environment.isProduction ? "default" : "outline"}
-            className={environment.isProduction ? "bg-green-600 hover:bg-green-600" : "border-amber-500 text-amber-700 dark:text-amber-400"}
-            data-testid="badge-environment"
-          >
-            <Server className="h-3 w-3 mr-1" />
-            {environment.environmentLabel}
-          </Badge>
-        </div>
-        <p className="text-muted-foreground">Manage incoming leads and quote requests</p>
-      </div>
-
       <div className="mb-8">
         <AdminAnalyticsPanel user={user} />
       </div>
@@ -1373,6 +1383,7 @@ export default function AdminDashboard() {
           <AdminSubcontractorPanel />
         </TabsContent>
       </Tabs>
+      </div>
     </div>
   );
 }
