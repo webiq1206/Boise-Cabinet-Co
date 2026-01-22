@@ -2195,6 +2195,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Mark all notifications as read - requires authentication
+  app.post("/api/notifications/mark-all-read", isAuthenticated, async (req: any, res) => {
+    try {
+      const userId = getAuthUserId(req);
+      if (!userId) return res.status(401).json({ error: "Unauthorized" });
+
+      const count = await storage.markAllNotificationsAsRead(userId);
+      res.json({ success: true, count });
+    } catch (error) {
+      console.error("Error marking all notifications as read:", error);
+      res.status(500).json({ error: "Failed to mark all notifications as read" });
+    }
+  });
+
   // Watch/unwatch a lead - requires subcontractor role
   app.post("/api/leads/:id/watch", isAuthenticated, requireRole(["subcontractor"]), async (req: any, res) => {
     try {

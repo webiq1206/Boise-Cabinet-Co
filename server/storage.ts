@@ -52,6 +52,7 @@ export interface IStorage {
   markNotificationRead(id: string): Promise<void>;
   markNotificationAsRead(id: string): Promise<Notification | undefined>; // Returns the notification
   markNotificationEmailSent(id: string): Promise<void>;
+  markAllNotificationsAsRead(userId: string): Promise<number>; // Returns count of marked notifications
   
   // Lead Purchase methods (aliases for API consistency)
   getLeadPurchaseByLeadId(leadId: string): Promise<LeadPurchase | undefined>;
@@ -688,6 +689,17 @@ export class MemStorage implements IStorage {
     await this.markNotificationRead(id);
     return this.notifications.get(id);
   }
+
+  async markAllNotificationsAsRead(userId: string): Promise<number> {
+    let count = 0;
+    for (const notification of this.notifications.values()) {
+      if (notification.userId === userId && !notification.read) {
+        notification.read = true;
+        count++;
+      }
+    }
+    return count;
+  }
 }
 
 // DBStorage class - Implements IStorage using PostgreSQL with Drizzle ORM
@@ -1323,6 +1335,14 @@ export class DBStorage implements IStorage {
       emailSent: true,
       emailSentAt: new Date(),
     }).where(eq(notifications.id, id));
+  }
+
+  async markAllNotificationsAsRead(userId: string): Promise<number> {
+    const result = await db.update(notifications)
+      .set({ read: true })
+      .where(and(eq(notifications.userId, userId), eq(notifications.read, false)))
+      .returning();
+    return result.length;
   }
 }
 

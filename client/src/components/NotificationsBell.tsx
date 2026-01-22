@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { Bell, Check } from "lucide-react";
+import { Bell, Check, CheckCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { apiRequest, queryClient } from "@/lib/queryClient";
@@ -44,6 +44,16 @@ export function NotificationsBell() {
     },
   });
 
+  const markAllReadMutation = useMutation({
+    mutationFn: async () => {
+      const res = await apiRequest("POST", "/api/notifications/mark-all-read", {});
+      return await res.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/notifications"] });
+    },
+  });
+
   if (!isAuthenticated) return null;
 
   return (
@@ -64,10 +74,25 @@ export function NotificationsBell() {
       </PopoverTrigger>
 
       <PopoverContent align="end" className="w-96 p-0">
-        <div className="p-4 border-b flex items-center justify-between">
+        <div className="p-4 border-b flex items-center justify-between gap-2">
           <div className="font-semibold">Notifications</div>
-          <div className="text-xs text-muted-foreground">
-            {unreadCount > 0 ? `${unreadCount} unread` : "All caught up"}
+          <div className="flex items-center gap-2">
+            {unreadCount > 0 && (
+              <Button
+                variant="ghost"
+                size="sm"
+                className="text-xs"
+                onClick={() => markAllReadMutation.mutate()}
+                disabled={markAllReadMutation.isPending}
+                data-testid="button-mark-all-read"
+              >
+                <CheckCheck className="h-3.5 w-3.5 mr-1" />
+                Mark all read
+              </Button>
+            )}
+            <div className="text-xs text-muted-foreground">
+              {unreadCount > 0 ? `${unreadCount} unread` : "All caught up"}
+            </div>
           </div>
         </div>
 
