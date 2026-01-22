@@ -161,9 +161,14 @@ export function SimpleQuoteWizard({
   
   // Ref for scrolling to top of form on phase change
   const formContainerRef = useRef<HTMLDivElement>(null);
+  const isInitialMount = useRef(true);
   
-  // Scroll to top of form when phase changes
+  // Scroll to top of form when phase changes (but not on initial mount)
   useEffect(() => {
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+      return;
+    }
     if (formContainerRef.current) {
       formContainerRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
