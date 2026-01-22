@@ -57,96 +57,105 @@ function truncateServiceName(serviceName: string, maxLength: number): string {
 
 /**
  * Generate SEO-optimized page title
- * Format: "City Service | Lawn Care Kuna" - Natural, city-first approach
+ * Format: "[Service] in [City], ID | Lawn Care Kuna | Free Quotes"
  * Max 60 characters for optimal Google display
- * Prioritizes target keywords (city + service) over "near me" phrases
  * GUARANTEED ≤60 chars through intelligent truncation
  */
 export function generatePageTitle(params: ServiceSEOParams): string {
   const { serviceName, city, isHomePage } = params;
   
   if (isHomePage) {
-    return "Lawn Care Kuna | Professional Landscaping Services";
+    return "Lawn Care Kuna | Professional Landscaping | Free Quotes";
   }
   
   if (city && serviceName) {
-    // City-first format prioritizes target keywords: "Boise Lawn Mowing"
-    // Format: "City Service | Lawn Care Kuna"
-    const primaryKeyword = `${city} ${serviceName}`;
-    const brandSuffix = `Lawn Care Kuna`;
-    const fullTitle = `${primaryKeyword} | ${brandSuffix}`;
+    // Full formula: "[Service] in [City], ID | Lawn Care Kuna | Free Quotes"
+    const fullTitle = `${serviceName} in ${city}, ID | Lawn Care Kuna | Free Quotes`;
     
-    // If too long, use compact city-first format
-    if (fullTitle.length > 60) {
-      // Compact: "City Service | Lawn Care"
-      const compactTitle = `${primaryKeyword} | Lawn Care`;
-      if (compactTitle.length > 60) {
-        // Emergency: Truncate service name while keeping city
-        const maxServiceLength = 60 - `${city} `.length - ` | Lawn Care`.length;
-        const truncatedService = truncateServiceName(serviceName, maxServiceLength);
-        return `${city} ${truncatedService} | Lawn Care`;
-      }
-      return compactTitle;
+    if (fullTitle.length <= 60) {
+      return fullTitle;
     }
-    return fullTitle;
+    
+    // Level 2: Drop "Free Quotes"
+    const mediumTitle = `${serviceName} in ${city}, ID | Lawn Care Kuna`;
+    if (mediumTitle.length <= 60) {
+      return mediumTitle;
+    }
+    
+    // Level 3: Shorten brand
+    const shortTitle = `${serviceName} in ${city}, ID | Lawn Care`;
+    if (shortTitle.length <= 60) {
+      return shortTitle;
+    }
+    
+    // Level 4: Truncate service name
+    const maxServiceLength = 60 - ` in ${city}, ID | Lawn Care`.length;
+    const truncatedService = truncateServiceName(serviceName, maxServiceLength);
+    return `${truncatedService} in ${city}, ID | Lawn Care`;
   }
   
   if (city) {
     // City page without service
-    return `${city} Lawn Care & Landscaping | Lawn Care Kuna`;
+    const fullTitle = `Lawn Care in ${city}, ID | Lawn Care Kuna | Free Quotes`;
+    if (fullTitle.length <= 60) {
+      return fullTitle;
+    }
+    return `Lawn Care in ${city}, ID | Lawn Care Kuna`;
   }
   
   // Service-only title (defaults to Kuna as home base)
-  // Format: "Service | Lawn Care Kuna"
   if (!serviceName) {
-    return "Lawn Care Kuna | Professional Landscaping Services";
-  }
-  const fullTitle = `${serviceName} | Lawn Care Kuna`;
-  
-  // Fallback for very long service names
-  if (fullTitle.length > 60) {
-    const compactTitle = `${serviceName} | Lawn Care`;
-    if (compactTitle.length > 60) {
-      // Truncate service name intelligently
-      const maxServiceLength = 60 - ' | Lawn Care'.length;
-      const truncatedService = truncateServiceName(serviceName, maxServiceLength);
-      return `${truncatedService} | Lawn Care`;
-    }
-    return compactTitle;
+    return "Lawn Care Kuna | Professional Landscaping | Free Quotes";
   }
   
-  return fullTitle;
+  const fullTitle = `${serviceName} | Lawn Care Kuna | Free Quotes`;
+  if (fullTitle.length <= 60) {
+    return fullTitle;
+  }
+  
+  const mediumTitle = `${serviceName} | Lawn Care Kuna`;
+  if (mediumTitle.length <= 60) {
+    return mediumTitle;
+  }
+  
+  // Truncate service name intelligently
+  const maxServiceLength = 60 - ' | Lawn Care Kuna'.length;
+  const truncatedService = truncateServiceName(serviceName, maxServiceLength);
+  return `${truncatedService} | Lawn Care Kuna`;
 }
 
 /**
  * Generate SEO-optimized meta description
- * 150-160 characters with compelling CTA and keywords
- * Includes subtle "near me" mention for search intent while sounding natural
+ * 150-160 characters with phone number, CTA, and unique value prop
+ * Phone: 208-629-1195
  */
 export function generateMetaDescription(params: ServiceSEOParams): string {
   const { serviceName, city } = params;
+  const phone = "208-629-1195";
   
   if (params.isHomePage) {
-    return "Professional lawn care and landscaping services in Kuna, Boise, Meridian, and Treasure Valley Idaho. Licensed, insured, top-rated since 2017. Free quotes today!";
+    return `Professional lawn care & landscaping in Kuna, Boise, Meridian & Treasure Valley. Licensed, insured, top-rated. Call ${phone} for your free quote today!`;
   }
   
   if (city && serviceName) {
-    // Natural city-focused description with one subtle "near me" mention
-    return `Professional ${serviceName.toLowerCase()} in ${city}, Idaho. Top-rated local pros serving ${city} & Treasure Valley. When you need ${serviceName.toLowerCase()} near me, we deliver. Licensed, insured. Free quotes!`;
+    // Unique per city+service with phone and CTA
+    const serviceLC = serviceName.toLowerCase();
+    return `Expert ${serviceLC} in ${city}, ID. Licensed pros, satisfaction guaranteed. Call ${phone} for a free quote. Serving ${city} & Treasure Valley!`;
   }
   
   if (city) {
-    // City page without service - general lawn care description
-    return `Professional lawn care and landscaping in ${city}, Idaho. Top-rated local pros serving ${city} & Treasure Valley. Licensed, insured. Free quotes!`;
+    // City page without service
+    return `Professional lawn care & landscaping in ${city}, Idaho. Licensed, insured, locally owned. Call ${phone} for your free quote. Serving all of ${city}!`;
   }
   
   if (!serviceName) {
     // Fallback for pages without service or city
-    return `Professional lawn care and landscaping services in Kuna & Treasure Valley. Licensed, insured, satisfaction guaranteed. Free quotes for residential & commercial!`;
+    return `Professional lawn care & landscaping in Kuna & Treasure Valley. Licensed, insured. Call ${phone} for a free quote. Residential & commercial services!`;
   }
   
-  // Service-focused description with natural "near me" integration
-  return `Professional ${serviceName.toLowerCase()} in Kuna & Treasure Valley. Licensed, insured, satisfaction guaranteed. Your local ${serviceName.toLowerCase()} experts near me. Free quotes for residential & commercial!`;
+  // Service-only description with phone
+  const serviceLC = serviceName.toLowerCase();
+  return `Expert ${serviceLC} in Kuna & Treasure Valley Idaho. Licensed, insured, satisfaction guaranteed. Call ${phone} for your free quote today!`;
 }
 
 /**

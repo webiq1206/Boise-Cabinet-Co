@@ -81,13 +81,13 @@ export default function AreaTemplate({ cityName, citySlug }: AreaTemplateProps) 
   return (
     <div className="flex flex-col">
       <Helmet>
-        <title>{`Lawn Care & Landscaping in ${cityName}, Idaho | Lawn Care Kuna`}</title>
-        <meta name="description" content={`Professional lawn care, landscaping, and Christmas light installation services for ${cityName} properties. Local experts since 2017. Free quotes available.`} />
+        <title>{`Lawn Care in ${cityName}, ID | Lawn Care Kuna | Free Quotes`}</title>
+        <meta name="description" content={`Professional lawn care & landscaping in ${cityName}, Idaho. Licensed, insured, locally owned. Call 208-629-1195 for your free quote. Serving all of ${cityName}!`} />
         <link rel="canonical" href={`https://lawncarekuna.com/areas/${citySlug}`} />
         
         {/* Open Graph tags */}
-        <meta property="og:title" content={`Lawn Care & Landscaping in ${cityName}, Idaho`} />
-        <meta property="og:description" content={`Professional lawn care services for ${cityName} properties. Local expertise since 2017.`} />
+        <meta property="og:title" content={`Lawn Care in ${cityName}, ID | Lawn Care Kuna`} />
+        <meta property="og:description" content={`Professional lawn care & landscaping in ${cityName}, Idaho. Licensed, insured. Call 208-629-1195 for your free quote!`} />
         <meta property="og:type" content="website" />
         <meta property="og:url" content={`https://lawncarekuna.com/areas/${citySlug}`} />
         <meta property="og:image" content="https://lawncarekuna.com/images/lawn-care-kuna-logo.png" />
@@ -95,8 +95,8 @@ export default function AreaTemplate({ cityName, citySlug }: AreaTemplateProps) 
         
         {/* Twitter Card tags */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={`Lawn Care & Landscaping in ${cityName}, Idaho`} />
-        <meta name="twitter:description" content={`Professional lawn care services for ${cityName} properties. Local expertise since 2017.`} />
+        <meta name="twitter:title" content={`Lawn Care in ${cityName}, ID | Lawn Care Kuna`} />
+        <meta name="twitter:description" content={`Professional lawn care & landscaping in ${cityName}, Idaho. Licensed, insured. Call 208-629-1195 for your free quote!`} />
 
         {/* Geo tags for local SEO */}
         <meta name="geo.region" content="US-ID" />
@@ -211,9 +211,9 @@ export default function AreaTemplate({ cityName, citySlug }: AreaTemplateProps) 
       <section className="py-16 md:py-20 bg-muted">
         <div className="container px-4 md:px-8">
           <div className="max-w-5xl mx-auto">
-            <h3 className="text-3xl md:text-4xl font-serif tracking-tight mb-8 text-center" data-testid="heading-local">
+            <h2 className="text-3xl md:text-4xl font-serif tracking-tight mb-8 text-center" data-testid="heading-local">
               Why Local Homeowners Trust Us
-            </h3>
+            </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
               {[
                 { 
@@ -259,9 +259,9 @@ export default function AreaTemplate({ cityName, citySlug }: AreaTemplateProps) 
         <section className="py-16 md:py-20">
           <div className="container px-4 md:px-8">
             <div className="max-w-4xl mx-auto">
-              <h3 className="text-3xl md:text-4xl font-serif tracking-tight mb-6 text-center">
+              <h2 className="text-3xl md:text-4xl font-serif tracking-tight mb-6 text-center">
                 Communities We Serve
-              </h3>
+              </h2>
               <p className="text-lg text-muted-foreground text-center mb-8">
                 Our team regularly works in these neighborhoods and surrounding areas.
               </p>
@@ -285,9 +285,9 @@ export default function AreaTemplate({ cityName, citySlug }: AreaTemplateProps) 
       <section className="py-16 md:py-20 bg-muted">
         <div className="container px-4 md:px-8">
           <div className="max-w-4xl mx-auto text-center">
-            <h3 className="text-3xl md:text-4xl font-serif tracking-tight mb-6" data-testid="heading-coverage">
+            <h2 className="text-3xl md:text-4xl font-serif tracking-tight mb-6" data-testid="heading-coverage">
               Serving the Greater Treasure Valley
-            </h3>
+            </h2>
             <p className="text-lg text-muted-foreground leading-relaxed mb-8">
               We proudly serve homeowners and businesses throughout the region, providing consistent, professional lawn care and landscaping services.
             </p>
