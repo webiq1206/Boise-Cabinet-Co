@@ -75,6 +75,10 @@ export function GeoServicePage({ service, city }: GeoServicePageProps) {
   ]);
   const faqSchema = generateFAQSchema(service.faqs);
 
+  // Semantic variations for natural content
+  const propertyType = service.category.includes('lawn') ? 'lawn' : 'landscape';
+  const serviceCategory = service.category.includes('lawn') ? 'lawn care' : 'landscaping';
+
   return (
     <div className="pb-20">
       <Helmet>
@@ -100,17 +104,21 @@ export function GeoServicePage({ service, city }: GeoServicePageProps) {
         <meta name="twitter:description" content={seoMetadata.ogDescription} />
         <meta name="twitter:image" content={seoMetadata.ogImage} />
         <meta name="twitter:image:alt" content={logoAlt} />
-        
-        {/* Geo tags if coordinates available */}
+
+        {/* Geo tags for local SEO */}
+        <meta name="geo.region" content="US-ID" />
+        <meta name="geo.placename" content={city.name} />
         {coordinates && (
           <>
             <meta name="geo.position" content={`${coordinates.lat};${coordinates.lng}`} />
-            <meta name="geo.placename" content={`${city.name}, Idaho`} />
-            <meta name="geo.region" content="US-ID" />
+            <meta name="ICBM" content={`${coordinates.lat}, ${coordinates.lng}`} />
           </>
         )}
-
-        {/* JSON-LD schemas */}
+        
+        {/* Robots */}
+        <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+        
+        {/* JSON-LD Schemas */}
         <script type="application/ld+json">
           {JSON.stringify(localBusinessSchema)}
         </script>
@@ -124,41 +132,33 @@ export function GeoServicePage({ service, city }: GeoServicePageProps) {
           {JSON.stringify(faqSchema)}
         </script>
       </Helmet>
-
+      
       {/* Breadcrumbs */}
-      <div className="container px-4 md:px-8">
-        <Breadcrumbs 
-          items={[
-            { name: 'Home', href: '/' },
-            { name: 'Services', href: '/services/lawn-care' },
-            { name: service.name, href: `/services/${service.slug}` },
-            { name: city.name },
-          ]}
-        />
-      </div>
+      <Breadcrumbs items={[
+        { name: 'Home', href: '/' },
+        { name: 'Services', href: '/services' },
+        { name: service.name, href: `/services/${service.slug}` },
+        { name: city.name },
+      ]} />
 
-      {/* Hero Section with Integrated Quote Feature */}
-      <HeroQuoteSection 
-        label={`${service.name} Services`}
-        heading={`${service.name} in ${city.name}`}
-        subheading={`Professional ${service.name.toLowerCase()} services in ${city.name}, Idaho`}
-        defaultService={service.slug}
-        defaultCity={city.name}
-        backgroundAlt={`Professional ${service.name.toLowerCase()} services with beautiful lawn in ${city.name} Idaho`}
+      {/* Hero Section with Primary Keyword (1 of 2-3 strategic placements) */}
+      <HeroQuoteSection
+        label={`Treasure Valley ${serviceCategory}`}
+        heading={`Professional ${service.name} in ${city.name}, Idaho`}
+        subheading={`Trusted by local homeowners and businesses since 2017`}
         backgroundImage={getServiceBackground(service.slug)}
+        defaultCity={city.name}
       />
 
-      {/* Service Introduction - Dark Green Header */}
+      {/* City-Specific Introduction - Uses Unique extendedDescription */}
       <section className="py-12 md:py-16 lg:py-24 bg-primary">
         <div className="container px-4 md:px-8">
           <div className="max-w-4xl mx-auto text-center space-y-4 md:space-y-6">
             <h2 className="text-2xl sm:text-3xl md:text-4xl text-primary-foreground tracking-tight">
-              Professional {service.name} in {city.name}
+              Why Local Expertise Matters
             </h2>
             <p className="text-primary-foreground/90 text-base md:text-lg leading-relaxed max-w-3xl mx-auto">
-              We understand the unique challenges of maintaining {service.category.includes('lawn') ? 'lawns' : 'landscapes'} in {city.name}, 
-              including {city.localFactors.soil.toLowerCase()} and {city.localFactors.climate.toLowerCase()}. 
-              Our professional team delivers exceptional results tailored to {city.name}'s specific needs.
+              {city.extendedDescription ? city.extendedDescription.split('.').slice(0, 3).join('.') + '.' : 'We understand the unique conditions and requirements for properties in the Treasure Valley region.'}
             </p>
             <Button size="lg" variant="secondary" asChild data-testid="button-service-cta" className="mt-4">
               <Link href="/get-quote">
@@ -176,7 +176,7 @@ export function GeoServicePage({ service, city }: GeoServicePageProps) {
           <div className="max-w-6xl mx-auto">
             <div className="prose prose-lg max-w-none text-muted-foreground">
               <h3 className="text-xl md:text-2xl font-semibold text-foreground mb-4">
-                Expert {service.name} Services for {city.name} Properties
+                What Sets Our {service.name} Apart
               </h3>
               <div className="space-y-4 text-base md:text-lg leading-relaxed">
                 {service.longDescription.split('. ').reduce((acc: string[][], sentence: string, idx: number, arr: string[]) => {
@@ -192,14 +192,13 @@ export function GeoServicePage({ service, city }: GeoServicePageProps) {
                 ))}
               </div>
               
+              {/* City-Specific Service Considerations */}
               <div className="mt-8 p-6 bg-muted rounded-lg border">
                 <h4 className="text-lg md:text-xl font-semibold text-foreground mb-3">
-                  Local Expertise in {city.name}
+                  Local Property Considerations
                 </h4>
                 <p className="text-base md:text-lg">
-                  Our team specializes in {service.name.toLowerCase()} solutions designed specifically for {city.name}'s 
-                  unique conditions. We've been serving {city.name} residents since 2017, and we understand exactly 
-                  what your {service.category.includes('lawn') ? 'lawn' : 'landscape'} needs to thrive in Idaho's climate.
+                  {city.serviceConsiderations}
                 </p>
               </div>
             </div>
@@ -207,32 +206,30 @@ export function GeoServicePage({ service, city }: GeoServicePageProps) {
         </div>
       </section>
 
-      {/* Service Details Section */}
-      <section className="py-12 md:py-16 lg:py-24">
+      {/* Local Facts & Recommendations */}
+      <section className="py-12 md:py-16 lg:py-24 bg-muted/30">
         <div className="container px-4 md:px-8">
           <div className="max-w-6xl mx-auto space-y-8 md:space-y-12">
             <div className="text-center space-y-3 md:space-y-4">
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">
-                {service.name} in {city.name}
+                Local Property Care Guide
               </h2>
               <p className="text-base md:text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-                At Lawn Care Kuna, we've been providing expert {service.name.toLowerCase()} services to {city.name} residents since 2017. 
-                Our professional approach ensures your lawn looks its best year-round.
+                Key recommendations for maintaining a healthy {propertyType} in the Treasure Valley region.
               </p>
             </div>
 
             {/* Facts Section */}
             {(city.facts || service.facts) && (
               <FactsSection
-                title={`${city.name} ${service.category.includes('lawn') ? 'lawn care' : service.name.toLowerCase()} facts`}
+                title={`Local ${serviceCategory} recommendations`}
                 facts={city.facts || service.facts || []}
               />
             )}
 
-            <div className="prose prose-lg max-w-none text-muted-foreground">
+            <div className="prose prose-lg max-w-none text-muted-foreground text-center">
               <p>
-                We specialize in {service.name.toLowerCase()} solutions tailored for {city.name}'s specific conditions. 
-                Our experienced team knows exactly what your lawn needs to thrive in Idaho's climate.
+                These guidelines are based on {city.localFactors.climate.toLowerCase()} and {city.localFactors.soil.toLowerCase()}.
               </p>
             </div>
 
@@ -248,61 +245,53 @@ export function GeoServicePage({ service, city }: GeoServicePageProps) {
         </div>
       </section>
 
-      {/* Local Expertise Section */}
+      {/* Neighborhoods & Landmarks Served */}
       <section className="py-16 md:py-24 bg-muted">
         <div className="container px-4 md:px-8">
           <div className="max-w-6xl mx-auto space-y-8">
             <div className="text-center space-y-4">
               <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
-                {city.name} {service.name.toLowerCase()}
+                Neighborhoods We Serve
               </h2>
               <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-                We understand {city.name}'s unique needs and deliver customized solutions for your property.
+                From established neighborhoods to new developments, we understand the unique needs of each area.
               </p>
             </div>
 
             <div className="grid md:grid-cols-2 gap-8">
-              <div className="space-y-4">
-                <h3 className="text-2xl font-bold">Local Expertise for {city.name}</h3>
-                <p className="text-muted-foreground leading-relaxed">
-                  We specialize in {service.name.toLowerCase()} solutions tailored for {city.name}'s specific conditions:
-                </p>
-                <ul className="space-y-3">
-                  {city.localFactors.commonNeeds.map((need, index) => (
-                    <li key={index} className="flex items-start gap-3">
-                      <Check className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
-                      <span>{need}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              {city.neighborhoods && city.neighborhoods.length > 0 && (
+                <div className="space-y-4">
+                  <h3 className="text-2xl font-bold">Neighborhoods We Serve</h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    Our team regularly works in these local communities:
+                  </p>
+                  <ul className="space-y-3">
+                    {city.neighborhoods.map((neighborhood, index) => (
+                      <li key={index} className="flex items-start gap-3">
+                        <MapPin className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+                        <span>{neighborhood}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
 
-              <div className="space-y-4">
-                <h3 className="text-2xl font-bold">Why Choose Us</h3>
-                <ul className="space-y-4">
-                  <li className="flex items-start gap-3">
-                    <Check className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
-                    <div>
-                      <div className="font-semibold">Since 2017</div>
-                      <div className="text-sm text-muted-foreground">7+ years serving {city.name}</div>
-                    </div>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <Check className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
-                    <div>
-                      <div className="font-semibold">Fully Licensed & Insured</div>
-                      <div className="text-sm text-muted-foreground">Professional & reliable service</div>
-                    </div>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <Check className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
-                    <div>
-                      <div className="font-semibold">Local Experts</div>
-                      <div className="text-sm text-muted-foreground">{city.name} specialists</div>
-                    </div>
-                  </li>
-                </ul>
-              </div>
+              {city.landmarks && city.landmarks.length > 0 && (
+                <div className="space-y-4">
+                  <h3 className="text-2xl font-bold">Local Landmarks</h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    We're proud to serve properties near these well-known local landmarks:
+                  </p>
+                  <ul className="space-y-3">
+                    {city.landmarks.slice(0, 6).map((landmark, index) => (
+                      <li key={index} className="flex items-start gap-3">
+                        <Check className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+                        <span>{landmark}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
             </div>
 
             <div className="text-center pt-4">
@@ -317,24 +306,24 @@ export function GeoServicePage({ service, city }: GeoServicePageProps) {
         </div>
       </section>
 
-      {/* Our Services Section */}
+      {/* Service Process & Benefits */}
       <section className="py-16 md:py-24">
         <div className="container px-4 md:px-8">
           <div className="max-w-6xl mx-auto space-y-8">
             <div className="text-center space-y-4">
               <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
-                Our {service.name.toLowerCase()} {city.name} services
+                How We Deliver Results
               </h2>
               <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-                Comprehensive {service.name.toLowerCase()} services designed to keep your {city.name} property looking its best.
+                Our proven process ensures consistent, high-quality outcomes for every property.
               </p>
             </div>
 
             <div className="grid md:grid-cols-2 gap-8">
               <div className="space-y-6">
-                <h3 className="text-2xl font-bold">What We Do</h3>
+                <h3 className="text-2xl font-bold">Our Process</h3>
                 <div className="space-y-4">
-                  {service.process.slice(0, 3).map((step) => (
+                  {service.process.slice(0, 4).map((step) => (
                     <div key={step.step} className="flex gap-4">
                       <div className="flex-shrink-0 w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold">
                         {step.step}
@@ -349,7 +338,7 @@ export function GeoServicePage({ service, city }: GeoServicePageProps) {
               </div>
 
               <div className="space-y-6">
-                <h3 className="text-2xl font-bold">Benefits</h3>
+                <h3 className="text-2xl font-bold">Key Benefits</h3>
                 <ul className="space-y-3">
                   {service.benefits.slice(0, 6).map((benefit, index) => (
                     <li key={index} className="flex items-start gap-3">
@@ -364,7 +353,7 @@ export function GeoServicePage({ service, city }: GeoServicePageProps) {
             <div className="text-center pt-4">
               <Button size="lg" asChild data-testid="button-our-services">
                 <Link href={`/services/${service.slug}`}>
-                  View All {service.name} Services
+                  View Complete Service Details
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
               </Button>
@@ -373,16 +362,16 @@ export function GeoServicePage({ service, city }: GeoServicePageProps) {
         </div>
       </section>
 
-      {/* Pricing Section */}
+      {/* Transparent Pricing Section */}
       <section className="py-16 md:py-24 bg-muted/30">
         <div className="container px-4 md:px-8">
           <div className="max-w-4xl mx-auto space-y-8">
             <div className="text-center space-y-4">
               <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
-                {service.name} Pricing in {city.name}, Idaho
+                Transparent Pricing
               </h2>
               <p className="text-lg text-muted-foreground">
-                {service.pricingGuidance || `Transparent pricing for ${service.name.toLowerCase()} services in ${city.name}`}
+                {service.pricingGuidance || `Every quote includes a detailed breakdown with no hidden fees or surprise charges.`}
               </p>
             </div>
 
@@ -427,15 +416,15 @@ export function GeoServicePage({ service, city }: GeoServicePageProps) {
         </div>
       </section>
 
-      {/* Additional Services Section */}
+      {/* Additional Services CTA */}
       <section className="py-16 md:py-24 bg-primary text-primary-foreground">
         <div className="container px-4 md:px-8">
           <div className="max-w-4xl mx-auto text-center space-y-8">
             <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
-              Looking for additional lawn care services in {city.name}?
+              Complete Property Care Solutions
             </h2>
             <p className="text-xl text-primary-foreground/90 leading-relaxed">
-              We offer a full range of lawn care and landscaping services to keep your {city.name} property beautiful year-round.
+              Beyond {service.name.toLowerCase()}, we offer comprehensive lawn care and landscaping to keep your outdoor spaces beautiful year-round.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
               <Button size="lg" variant="secondary" asChild data-testid="button-additional-services">
@@ -466,10 +455,10 @@ export function GeoServicePage({ service, city }: GeoServicePageProps) {
           <div className="max-w-6xl mx-auto space-y-12">
             <div className="text-center space-y-4">
               <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
-                Our Commitment to {city.name} Customers
+                Our Commitment to You
               </h2>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                The values and principles that guide our lawn care services in {city.name}
+                The values and principles that guide everything we do
               </p>
             </div>
 
@@ -492,16 +481,16 @@ export function GeoServicePage({ service, city }: GeoServicePageProps) {
         </div>
       </section>
 
-      {/* FAQs */}
+      {/* FAQs - Secondary Keyword Placement (2 of 2-3) */}
       <section className="py-16 md:py-24">
         <div className="container px-4 md:px-8">
           <div className="max-w-4xl mx-auto space-y-8">
             <div className="text-center space-y-4">
               <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
-                {service.name} Questions in {city.name}
+                Frequently Asked Questions
               </h2>
               <p className="text-lg text-muted-foreground">
-                Get answers to common questions about {service.name.toLowerCase()} services in {city.name}, Idaho
+                Common questions about {service.name.toLowerCase()} for {city.name} properties
               </p>
             </div>
 
@@ -527,7 +516,7 @@ export function GeoServicePage({ service, city }: GeoServicePageProps) {
               <div className="text-center pt-4">
                 <Button variant="outline" size="lg" asChild data-testid="link-view-all-faqs">
                   <Link href={`/services/${service.slug}`}>
-                    View All {service.name} FAQs
+                    View All FAQs
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
                 </Button>
