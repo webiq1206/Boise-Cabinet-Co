@@ -69,7 +69,7 @@ export function generatePageTitle(params: ServiceSEOParams): string {
     return "Lawn Care Kuna | Professional Landscaping Services";
   }
   
-  if (city) {
+  if (city && serviceName) {
     // City-first format prioritizes target keywords: "Boise Lawn Mowing"
     // Format: "City Service | Lawn Care Kuna"
     const primaryKeyword = `${city} ${serviceName}`;
@@ -91,8 +91,16 @@ export function generatePageTitle(params: ServiceSEOParams): string {
     return fullTitle;
   }
   
+  if (city) {
+    // City page without service
+    return `${city} Lawn Care & Landscaping | Lawn Care Kuna`;
+  }
+  
   // Service-only title (defaults to Kuna as home base)
   // Format: "Service | Lawn Care Kuna"
+  if (!serviceName) {
+    return "Lawn Care Kuna | Professional Landscaping Services";
+  }
   const fullTitle = `${serviceName} | Lawn Care Kuna`;
   
   // Fallback for very long service names
@@ -122,9 +130,19 @@ export function generateMetaDescription(params: ServiceSEOParams): string {
     return "Professional lawn care and landscaping services in Kuna, Boise, Meridian, and Treasure Valley Idaho. Licensed, insured, top-rated since 2017. Free quotes today!";
   }
   
-  if (city) {
+  if (city && serviceName) {
     // Natural city-focused description with one subtle "near me" mention
     return `Professional ${serviceName.toLowerCase()} in ${city}, Idaho. Top-rated local pros serving ${city} & Treasure Valley. When you need ${serviceName.toLowerCase()} near me, we deliver. Licensed, insured. Free quotes!`;
+  }
+  
+  if (city) {
+    // City page without service - general lawn care description
+    return `Professional lawn care and landscaping in ${city}, Idaho. Top-rated local pros serving ${city} & Treasure Valley. Licensed, insured. Free quotes!`;
+  }
+  
+  if (!serviceName) {
+    // Fallback for pages without service or city
+    return `Professional lawn care and landscaping services in Kuna & Treasure Valley. Licensed, insured, satisfaction guaranteed. Free quotes for residential & commercial!`;
   }
   
   // Service-focused description with natural "near me" integration
@@ -139,9 +157,12 @@ export function generateMetaDescription(params: ServiceSEOParams): string {
 export function generateKeywords(params: ServiceSEOParams): string[] {
   const { serviceName, city, serviceSlug } = params;
   
+  // Fallback for pages without serviceName (like area pages)
+  const serviceNameLower = serviceName?.toLowerCase() || 'lawn care';
+  
   const baseKeywords = [
-    serviceName.toLowerCase(),
-    `${serviceName.toLowerCase()} services`,
+    serviceNameLower,
+    `${serviceNameLower} services`,
     `lawn care`,
     `landscaping`,
     `Kuna Idaho`,
@@ -154,18 +175,18 @@ export function generateKeywords(params: ServiceSEOParams): string[] {
   
   if (city) {
     return [
-      `${serviceName.toLowerCase()} ${city}`,
-      `${serviceName.toLowerCase()} ${city} Idaho`,
-      `${serviceName.toLowerCase()} near me ${city}`,
+      `${serviceNameLower} ${city}`,
+      `${serviceNameLower} ${city} Idaho`,
+      `${serviceNameLower} near me ${city}`,
       `${city} lawn care`,
       `${city} landscaping`,
       `lawn care near me ${city}`,
-      `local ${serviceName.toLowerCase()} ${city}`,
+      `local ${serviceNameLower} ${city}`,
       `${city} lawn service`,
       ...baseKeywords,
-      `professional ${serviceName.toLowerCase()}`,
-      `best ${serviceName.toLowerCase()} ${city}`,
-      `${serviceName.toLowerCase()} near me`,
+      `professional ${serviceNameLower}`,
+      `best ${serviceNameLower} ${city}`,
+      `${serviceNameLower} near me`,
     ];
   }
   
@@ -209,9 +230,19 @@ export function generateLogoAltTag(params: ServiceSEOParams): string {
     return "Lawn Care Kuna logo - Professional lawn care and landscaping services in Kuna Idaho";
   }
   
-  if (city) {
+  if (city && serviceName) {
     // City-specific alt tag with service context
     return `Lawn Care Kuna logo - ${serviceName} services in ${city} Idaho - Licensed lawn care professionals`;
+  }
+  
+  if (city) {
+    // City page alt tag without service
+    return `Lawn Care Kuna logo - Professional lawn care services in ${city} Idaho`;
+  }
+  
+  if (!serviceName) {
+    // Fallback for pages without service
+    return `Lawn Care Kuna logo - Professional lawn care and landscaping services in Treasure Valley Idaho`;
   }
   
   // Service-specific alt tag
