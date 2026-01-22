@@ -1355,7 +1355,7 @@ export default function SubcontractorPortal() {
                 <Card 
                   id={`lead-${lead.id}`} 
                   key={lead.id} 
-                  className="overflow-hidden hover-elevate flex flex-col h-[340px]" 
+                  className="overflow-hidden hover-elevate flex flex-col h-[340px] bg-gradient-to-br from-primary/5 via-background to-background" 
                   data-testid={`card-lead-${lead.id}`}
                 >
                   <CardHeader className="pb-2 space-y-1">
@@ -1538,7 +1538,7 @@ export default function SubcontractorPortal() {
             const discount = originalPrice > 0 ? ((originalPrice - currentPrice) / originalPrice * 100) : 0;
 
             return (
-              <Card id={`lead-${lead.id}`} key={lead.id} className="overflow-hidden hover-elevate border-yellow-200 dark:border-yellow-800">
+              <Card id={`lead-${lead.id}`} key={lead.id} className="overflow-hidden hover-elevate border-yellow-200 dark:border-yellow-800 bg-gradient-to-br from-primary/5 via-background to-background">
                 <CardHeader className="pb-3">
                   <div className="flex items-start justify-between gap-4 flex-wrap">
                     <div className="flex-1 min-w-0">
