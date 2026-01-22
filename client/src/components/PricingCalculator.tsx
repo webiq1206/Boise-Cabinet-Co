@@ -23,16 +23,40 @@ import {
  */
 
 const services: { value: keyof typeof SERVICE_PRICING_CONFIG; label: string }[] = [
+  // Lawn Care
   { value: "lawn-mowing", label: "Lawn Mowing & Edging" },
   { value: "aeration", label: "Core Aeration" },
   { value: "fertilization", label: "Fertilization" },
   { value: "weed-control", label: "Weed Control" },
+  { value: "overseeding", label: "Overseeding" },
+  { value: "dethatching", label: "Dethatching" },
+  { value: "lawn-edging", label: "Lawn Edging" },
+  { value: "lawn-renovation", label: "Lawn Renovation" },
+  // Landscaping & Installation
+  { value: "sod-installation", label: "Sod Installation" },
+  { value: "mulch-installation", label: "Mulch Installation" },
+  { value: "patio-installation", label: "Patio Installation" },
+  { value: "retaining-walls", label: "Retaining Walls" },
+  { value: "fire-pit-installation", label: "Fire Pit Installation" },
+  { value: "hedge-trimming", label: "Hedge & Shrub Trimming" },
+  // Irrigation
+  { value: "sprinkler-system-installation", label: "Sprinkler System Installation" },
   { value: "sprinkler-blowout", label: "Sprinkler Winterization" },
   { value: "sprinkler-repair", label: "Sprinkler Repair" },
-  { value: "christmas-light-installation", label: "Christmas Lights" },
-  { value: "hedge-trimming", label: "Hedge Trimming" },
-  { value: "lawn-edging", label: "Lawn Edging" },
+  { value: "irrigation-repair", label: "Irrigation Repair" },
+  { value: "irrigation-maintenance", label: "Irrigation Maintenance" },
+  // Tree Services
+  { value: "tree-trimming", label: "Tree Trimming & Pruning" },
+  { value: "tree-removal", label: "Tree Removal" },
+  { value: "stump-grinding", label: "Stump Grinding" },
+  // Seasonal
+  { value: "spring-cleanup", label: "Spring Cleanup" },
+  { value: "fall-cleanup", label: "Fall Cleanup" },
+  { value: "seasonal-cleanup", label: "Seasonal Cleanup" },
   { value: "snow-removal", label: "Snow Removal" },
+  // Lighting
+  { value: "christmas-light-installation", label: "Christmas Light Installation" },
+  { value: "landscape-lighting", label: "Landscape Lighting" },
 ];
 
 const defaultSqFtByTier: Record<string, number> = {
@@ -64,6 +88,9 @@ export function PricingCalculator() {
   const [zones, setZones] = useState<string>("6");
   const [count, setCount] = useState<string>("1");
   const [fixtureCount, setFixtureCount] = useState<string>("10");
+  const [shrubCount, setShrubCount] = useState<string>("5");
+  const [stumpDiameter, setStumpDiameter] = useState<string>("12");
+  const [cubicYards, setCubicYards] = useState<string>("3");
   const [lightingType, setLightingType] = useState<string>("Traditional Seasonal");
   const [showEstimate, setShowEstimate] = useState(false);
 
@@ -87,10 +114,15 @@ export function PricingCalculator() {
       case "per_zone":
         return { zones: asPositiveNumber(zones) || 6 };
       case "per_tree":
-      case "per_stump":
         return { treeCount: asPositiveNumber(count) || 1 };
+      case "per_inch":
+        return { treeCount: asPositiveNumber(stumpDiameter) || 12 };
+      case "per_shrub":
+        return { treeCount: asPositiveNumber(shrubCount) || 5 };
       case "per_fixture":
         return { fixtureCount: asPositiveNumber(fixtureCount) || 10 };
+      case "per_cubic_yard":
+        return { propertySize: (asPositiveNumber(cubicYards) || 3) * 100 };
       case "base_service":
       case "base_project":
         return {};
@@ -207,9 +239,9 @@ export function PricingCalculator() {
           </div>
         ) : null}
 
-        {(config?.unit === "per_tree" || config?.unit === "per_stump") ? (
+        {config?.unit === "per_tree" ? (
           <div className="space-y-2">
-            <Label htmlFor="count">{config.unit === "per_tree" ? "Number of Trees" : "Number of Stumps"}</Label>
+            <Label htmlFor="count">Number of Trees</Label>
             <Input
               id="count"
               type="number"
@@ -234,6 +266,52 @@ export function PricingCalculator() {
               placeholder="e.g., 10"
               data-testid="input-fixture-count"
             />
+          </div>
+        ) : null}
+
+        {config?.unit === "per_shrub" ? (
+          <div className="space-y-2">
+            <Label htmlFor="shrub-count">Number of Shrubs</Label>
+            <Input
+              id="shrub-count"
+              type="number"
+              inputMode="numeric"
+              value={shrubCount}
+              onChange={(e) => setShrubCount(e.target.value)}
+              placeholder="e.g., 5"
+              data-testid="input-shrub-count"
+            />
+          </div>
+        ) : null}
+
+        {config?.unit === "per_inch" ? (
+          <div className="space-y-2">
+            <Label htmlFor="stump-diameter">Stump Diameter (inches)</Label>
+            <Input
+              id="stump-diameter"
+              type="number"
+              inputMode="numeric"
+              value={stumpDiameter}
+              onChange={(e) => setStumpDiameter(e.target.value)}
+              placeholder="e.g., 12"
+              data-testid="input-stump-diameter"
+            />
+          </div>
+        ) : null}
+
+        {config?.unit === "per_cubic_yard" ? (
+          <div className="space-y-2">
+            <Label htmlFor="cubic-yards">Cubic Yards of Mulch</Label>
+            <Input
+              id="cubic-yards"
+              type="number"
+              inputMode="numeric"
+              value={cubicYards}
+              onChange={(e) => setCubicYards(e.target.value)}
+              placeholder="e.g., 3"
+              data-testid="input-cubic-yards"
+            />
+            <p className="text-xs text-muted-foreground">1 cubic yard covers approximately 100 sq ft at 3" depth</p>
           </div>
         ) : null}
 
