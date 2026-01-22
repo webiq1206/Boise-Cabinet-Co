@@ -2,6 +2,7 @@ import { lazy, Suspense } from 'react';
 import { useParams } from 'wouter';
 import { getCityServiceCombo } from '@shared/contentData';
 import NotFound from '@/pages/not-found';
+import { ErrorBoundary } from '@/components/ErrorBoundary';
 
 // Lazy-load templates for code splitting
 const ServiceDetailPage = lazy(() => 
@@ -43,12 +44,14 @@ export default function DynamicServiceRoute() {
   }
 
   return (
-    <Suspense fallback={<ServiceLoadingSkeleton />}>
-      {city ? (
-        <GeoServicePage service={service} city={city} />
-      ) : (
-        <ServiceDetailPage service={service} />
-      )}
-    </Suspense>
+    <ErrorBoundary>
+      <Suspense fallback={<ServiceLoadingSkeleton />}>
+        {city ? (
+          <GeoServicePage service={service} city={city} />
+        ) : (
+          <ServiceDetailPage service={service} />
+        )}
+      </Suspense>
+    </ErrorBoundary>
   );
 }

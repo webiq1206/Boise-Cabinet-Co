@@ -8,6 +8,7 @@ import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 import { StickyBottomNav } from "@/components/StickyBottomNav";
 import { ScrollToTop } from "@/components/ScrollToTop";
+import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { useEffect, lazy, Suspense } from "react";
 import { initGA } from "./lib/analytics";
 import { useAnalytics } from "./hooks/use-analytics";
@@ -187,8 +188,10 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <HelmetProvider>
         <TooltipProvider>
-          <Toaster />
-          <Router />
+          <ErrorBoundary>
+            <Toaster />
+            <Router />
+          </ErrorBoundary>
         </TooltipProvider>
       </HelmetProvider>
     </QueryClientProvider>

@@ -15,7 +15,8 @@ interface SchemaContext {
  * Generate LocalBusiness schema for homepage and location pages
  */
 export function generateLocalBusinessSchema(city?: string): SchemaContext {
-  const coordinates = city ? CITY_SEO_DATA[city as keyof typeof CITY_SEO_DATA]?.coordinates : CITY_SEO_DATA.Kuna.coordinates;
+  const cityData = city ? CITY_SEO_DATA[city as keyof typeof CITY_SEO_DATA] : null;
+  const coordinates = cityData?.coordinates || CITY_SEO_DATA.Kuna.coordinates;
   
   return {
     '@context': 'https://schema.org',

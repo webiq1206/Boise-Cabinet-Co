@@ -332,6 +332,24 @@ export const CITY_SEO_DATA = {
     climate: 'semi-arid with distinct four seasons',
     coordinates: { lat: 43.6954, lng: -116.3540 },
   },
+  Star: {
+    population: '12,701',
+    founded: '1907',
+    zipCodes: ['83669'],
+    neighborhoods: ['Star River Ranch', 'Hillsdale', 'Paramount', 'Star Crossing'],
+    landmarks: ['Boise River', 'Star Riverfront Park', 'Celebration Park'],
+    climate: 'semi-arid climate with hot summers and cool winters',
+    coordinates: { lat: 43.6921, lng: -116.4939 },
+  },
+  Middleton: {
+    population: '10,141',
+    founded: '1909',
+    zipCodes: ['83644'],
+    neighborhoods: ['Middleton Heights', 'Purple Sage', 'Puckett Estates', 'Windermere'],
+    landmarks: ['Boise River', 'Middleton City Park', 'Purple Sage Golf Course'],
+    climate: 'semi-arid high desert climate with warm summers and cool winters',
+    coordinates: { lat: 43.7068, lng: -116.6209 },
+  },
 };
 
 /**
