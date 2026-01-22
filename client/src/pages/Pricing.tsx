@@ -130,7 +130,7 @@ export default function Pricing() {
                                 <div className="font-medium">{service.name}</div>
                               )}
                               <a
-                                href="#pricing-calculator"
+                                href={slug ? `/pricing?service=${slug}#pricing-calculator` : "#pricing-calculator"}
                                 className="text-sm font-semibold text-primary whitespace-nowrap ml-2 hover:underline"
                                 data-testid={`link-estimate-${service.name.toLowerCase().replace(/\s+/g, '-')}`}
                               >

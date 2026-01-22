@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -93,6 +93,15 @@ export function PricingCalculator() {
   const [cubicYards, setCubicYards] = useState<string>("3");
   const [lightingType, setLightingType] = useState<string>("Traditional Seasonal");
   const [showEstimate, setShowEstimate] = useState(false);
+
+  // Check URL params for pre-selected service
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const serviceParam = params.get("service");
+    if (serviceParam && SERVICE_PRICING_CONFIG[serviceParam as keyof typeof SERVICE_PRICING_CONFIG]) {
+      setSelectedService(serviceParam);
+    }
+  }, []);
 
   const serviceId = selectedService as keyof typeof SERVICE_PRICING_CONFIG | "";
   const config = serviceId ? SERVICE_PRICING_CONFIG[serviceId] : undefined;
