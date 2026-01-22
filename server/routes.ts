@@ -854,20 +854,32 @@ export async function registerRoutes(app: Express): Promise<Server> {
         // Send notifications (don't await - let them send in background)
         const fullLead = await storage.getLeadById(leadId);
         if (fullLead) {
+          const buyerName = user.company || `${user.firstName || ''} ${user.lastName || ''}`.trim();
+          const buyerEmail = user.email || '';
+          
           sendLeadPurchasedNotification({
-            leadId: leadId,
-            serviceType: fullLead.serviceType,
+            id: leadId,
+            name: fullLead.name,
+            email: fullLead.email,
+            phone: fullLead.phone,
             city: fullLead.city,
-            purchasePrice: discountedPrice.toFixed(2),
-            buyerName: user.company || `${user.firstName || ''} ${user.lastName || ''}`.trim(),
-            buyerEmail: user.email || '',
+            serviceType: fullLead.serviceType,
+            finalQuote: fullLead.finalQuote || '',
+            address: fullLead.address || undefined,
+          }, {
+            name: buyerName,
+            email: buyerEmail,
           }).catch(console.error);
           
-          sendLeadPurchaseConfirmation({
-            buyerEmail: user.email || '',
-            buyerName: user.company || `${user.firstName || ''} ${user.lastName || ''}`.trim(),
-            lead: fullLead,
-            purchasePrice: discountedPrice.toFixed(2),
+          sendLeadPurchaseConfirmation(buyerEmail, {
+            id: leadId,
+            name: fullLead.name,
+            email: fullLead.email,
+            phone: fullLead.phone,
+            city: fullLead.city,
+            serviceType: fullLead.serviceType,
+            finalQuote: fullLead.finalQuote || '',
+            address: fullLead.address || undefined,
           }).catch(console.error);
         }
       }

@@ -14,6 +14,7 @@ const validRoutePatterns = [
   '/terms-of-service',
   '/admin',
   '/subcontractor',
+  '/commercial',
   
   // Route prefixes that are valid
   '/services/',
