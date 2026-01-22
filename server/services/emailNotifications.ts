@@ -611,8 +611,8 @@ export async function sendLeadPurchaseConfirmation(purchaserEmail: string, leadD
                 <td class="value">${leadData.serviceType}</td>
               </tr>
               <tr>
-                <td class="label">Estimated Project Value:</td>
-                <td class="value" style="font-size: 20px; font-weight: 600; color: #166534;">${leadValue.display}</td>
+                <td class="label">Quote Range:</td>
+                <td class="value" style="font-size: 20px; font-weight: 600; color: #1e40af;">${leadValue.display}</td>
               </tr>
             </table>
           </div>
@@ -886,7 +886,7 @@ export async function sendContractorNewLeadAvailable(
               ${leadData.frequency ? `<tr><td class="label">Frequency:</td><td class="value">${leadData.frequency}</td></tr>` : ""}
               ${leadData.propertyType ? `<tr><td class="label">Property Type:</td><td class="value">${leadData.propertyType}</td></tr>` : ""}
               <tr><td class="label">Lead Price:</td><td class="value" style="font-size: 20px; font-weight: 600; color: #166534;">$${formatQuoteForDisplay(leadData.currentLeadPrice, true)}</td></tr>
-              <tr><td class="label">Estimated Value:</td><td class="value">${leadValue.display}</td></tr>
+              <tr><td class="label">Quote Range:</td><td class="value" style="font-size: 18px; font-weight: 600; color: #1e40af;">${leadValue.display}</td></tr>
             </table>
           </div>
 
