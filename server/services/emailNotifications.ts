@@ -137,21 +137,23 @@ const emailStyles = `
     background-color: #ffffff;
   }
   .header { 
-    background: linear-gradient(135deg, #166534 0%, #15803d 100%); 
-    color: #ffffff; 
+    background: linear-gradient(135deg, #dcfce7 0%, #f0fdf4 50%, #ffffff 100%); 
+    color: #166534; 
     padding: 40px 30px; 
     text-align: center;
+    border-bottom: 1px solid #bbf7d0;
   }
   .header h1 {
     margin: 0;
     font-size: 28px;
     font-weight: 600;
     letter-spacing: -0.5px;
+    color: #166534;
   }
   .header p {
     margin: 8px 0 0 0;
     font-size: 14px;
-    opacity: 0.95;
+    color: #15803d;
   }
   .content { 
     padding: 40px 30px;
@@ -442,12 +444,12 @@ export async function sendLeadPurchasedNotification(leadData: {
     </head>
     <body>
       <div class="email-wrapper">
-        <div class="header" style="background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);">
+        <div class="header" style="background: linear-gradient(135deg, #dcfce7 0%, #f0fdf4 50%, #ffffff 100%); border-bottom: 1px solid #bbf7d0;">
           <div style="margin-bottom: 20px;">
             <img src="${EMAIL_LOGO_LIGHT_URL}" alt="Lawn Care Kuna" width="300" style="display:block; max-width:300px; height:auto;">
           </div>
-          <h1>Lead Purchased</h1>
-          <p>Transaction Notification</p>
+          <h1 style="color: #166534;">Lead Purchased</h1>
+          <p style="color: #15803d;">Transaction Notification</p>
         </div>
         
         <div class="content">
@@ -680,12 +682,12 @@ export async function sendAdminAutoDeclineNotification(leadData: {
     </head>
     <body>
       <div class="email-wrapper">
-        <div class="header" style="background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);">
+        <div class="header" style="background: linear-gradient(135deg, #dcfce7 0%, #f0fdf4 50%, #ffffff 100%); border-bottom: 1px solid #bbf7d0;">
           <div style="margin-bottom: 20px;">
             <img src="${EMAIL_LOGO_LIGHT_URL}" alt="Lawn Care Kuna" width="300" style="display:block; max-width:300px; height:auto;">
           </div>
-          <h1>Lead Auto-Declined</h1>
-          <p>Automated System Notification</p>
+          <h1 style="color: #166534;">Lead Auto-Declined</h1>
+          <p style="color: #15803d;">Automated System Notification</p>
         </div>
         
         <div class="content">
