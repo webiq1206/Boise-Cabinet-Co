@@ -1662,42 +1662,83 @@ export default function SubcontractorPortal() {
       <Dialog open={showAgreementModal} onOpenChange={setShowAgreementModal}>
         <DialogContent className="max-w-2xl" data-testid="modal-legal-agreement">
           <DialogHeader>
-            <DialogTitle>Customer Purchase Agreement</DialogTitle>
+            <DialogTitle>Lead Purchase Agreement</DialogTitle>
             <DialogDescription>
-              Before purchasing customers, you must accept our terms and conditions.
+              Before purchasing leads, you must accept our terms and conditions.
             </DialogDescription>
           </DialogHeader>
           <div className="max-h-96 overflow-y-auto border rounded-md p-4 space-y-4 text-sm">
-            <h3 className="font-semibold">Customer Purchase Agreement</h3>
-            <p>
-              This Customer Purchase Agreement ("Agreement") is entered into between Lawn Care Kuna ("Company") and you ("Subcontractor").
+            <h3 className="font-semibold text-base">Lead Purchase Agreement</h3>
+            <p className="text-muted-foreground">
+              This Lead Purchase Agreement ("Agreement") is a legally binding contract entered into between Lawn Care Kuna LLC ("Company," "we," or "us") and you ("Subcontractor," "Contractor," or "you"). By accepting this Agreement, you acknowledge that you have read, understood, and agree to be bound by all terms and conditions set forth herein.
             </p>
-            <h4 className="font-semibold mt-4">Key Points:</h4>
-            <ul className="list-disc list-inside space-y-2 mt-2">
-              <li><strong>No Refunds:</strong> All purchases are final and non-refundable</li>
-              <li><strong>First-Come-First-Served:</strong> Customers are exclusive to the first purchaser</li>
-              <li><strong>Professional Conduct:</strong> You must maintain professional standards when contacting customers</li>
-              <li><strong>No Guarantees:</strong> We cannot guarantee that every customer will result in a closed deal</li>
+            
+            <h4 className="font-semibold mt-4">Key Points Summary:</h4>
+            <ul className="list-disc list-inside space-y-2 mt-2 bg-muted/50 p-3 rounded-md">
+              <li><strong>No Refunds:</strong> All lead purchases are final and non-refundable under any circumstances</li>
+              <li><strong>Exclusive Access:</strong> Leads are sold on a first-come, first-served basis and are exclusive to the purchaser</li>
+              <li><strong>No Guarantees:</strong> We do not guarantee that any lead will result in a closed deal or revenue</li>
+              <li><strong>Professional Conduct:</strong> You must maintain professional standards when contacting leads</li>
+              <li><strong>Confidentiality:</strong> Lead information is confidential and may not be shared with third parties</li>
             </ul>
+            
             <h4 className="font-semibold mt-4">1. No-Refund Policy</h4>
             <p>
-              All customer purchases are final and non-refundable. Once you purchase a customer, you have immediate access to their contact information and project details. Due to the nature of this information, we cannot offer refunds under any circumstances.
+              ALL LEAD PURCHASES ARE FINAL AND NON-REFUNDABLE. Once you purchase a lead, you receive immediate access to the customer's contact information and project details. Due to the immediate delivery of this confidential information, we cannot and will not offer refunds, credits, or exchanges under any circumstances, including but not limited to: customer non-response, incorrect contact information, customer cancellation, project scope changes, or your inability to close the deal.
             </p>
-            <h4 className="font-semibold mt-4">2. Customer Quality</h4>
+            
+            <h4 className="font-semibold mt-4">2. Lead Quality and Disclaimer of Warranties</h4>
             <p>
-              While we strive to provide high-quality customers, we cannot guarantee that every customer will result in a closed deal. Customers are sold on a first-come, first-served basis and are exclusive to the purchaser.
+              While we strive to provide high-quality leads, THE COMPANY MAKES NO WARRANTIES, EXPRESS OR IMPLIED, REGARDING THE QUALITY, ACCURACY, OR CONVERSION RATE OF ANY LEAD. Leads are provided "as is" without any guarantee that the customer will respond, schedule service, or complete a transaction. You acknowledge that lead quality varies and that you assume all risk associated with lead purchases.
             </p>
-            <h4 className="font-semibold mt-4">3. Pricing</h4>
+            
+            <h4 className="font-semibold mt-4">3. Pricing Structure</h4>
             <p>
-              Customer prices are calculated at 10% of the quoted project value for one-time services, or the cost of one service visit for recurring services. Prices automatically reduce by 1.5% daily until a minimum threshold (20% of base price) is reached.
+              Lead prices are calculated at 10% of the quoted project value for one-time services, with a minimum price of $10. Prices may automatically reduce by 1.5% daily until reaching a minimum threshold of 20% of the base price. Pricing is subject to change at any time at the Company's sole discretion.
             </p>
-            <h4 className="font-semibold mt-4">4. Usage Rights</h4>
+            
+            <h4 className="font-semibold mt-4">4. Usage Rights and Restrictions</h4>
             <p>
-              You may contact the customer for the specific service requested. You may not sell, transfer, or share the customer information with third parties.
+              You are granted a limited, non-exclusive, non-transferable license to contact the customer solely for the specific service(s) requested. You may NOT: (a) sell, transfer, assign, or share lead information with any third party; (b) use lead information for purposes other than providing the requested services; (c) contact leads for unrelated services or marketing without their express consent; (d) store lead information beyond what is necessary to complete the service.
             </p>
-            <h4 className="font-semibold mt-4">5. Professional Conduct</h4>
+            
+            <h4 className="font-semibold mt-4">5. Professional Conduct and Brand Standards</h4>
             <p>
-              You agree to maintain professional standards when contacting customers and representing the Lawn Care Kuna network.
+              You agree to maintain the highest professional standards when contacting customers and representing the Lawn Care Kuna network. This includes: prompt response times (within 24-48 hours), professional communication, honest pricing, quality workmanship, and respectful customer interactions. Unprofessional conduct may result in suspension or termination of your account.
+            </p>
+            
+            <h4 className="font-semibold mt-4">6. Limitation of Liability</h4>
+            <p>
+              TO THE MAXIMUM EXTENT PERMITTED BY LAW, THE COMPANY SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, INCLUDING BUT NOT LIMITED TO LOSS OF PROFITS, REVENUE, OR BUSINESS OPPORTUNITIES, ARISING FROM YOUR USE OF THE LEAD DISTRIBUTION PLATFORM OR ANY LEADS PURCHASED. THE COMPANY'S TOTAL LIABILITY SHALL NOT EXCEED THE AMOUNT YOU PAID FOR THE SPECIFIC LEAD IN QUESTION.
+            </p>
+            
+            <h4 className="font-semibold mt-4">7. Indemnification</h4>
+            <p>
+              You agree to indemnify, defend, and hold harmless Lawn Care Kuna LLC, its officers, directors, employees, and agents from any claims, damages, losses, or expenses (including reasonable attorney's fees) arising from: (a) your use of lead information; (b) your interactions with customers; (c) any services you provide to customers; (d) your violation of this Agreement; or (e) your violation of any applicable laws or regulations.
+            </p>
+            
+            <h4 className="font-semibold mt-4">8. Confidentiality and Data Protection</h4>
+            <p>
+              All lead information is confidential and proprietary. You must protect lead data using reasonable security measures and comply with all applicable privacy laws. You may not disclose lead information to unauthorized parties and must delete lead data upon reasonable request from the Company or as required by law.
+            </p>
+            
+            <h4 className="font-semibold mt-4">9. Termination</h4>
+            <p>
+              The Company reserves the right to suspend or terminate your access to the Lead Distribution Platform at any time, with or without cause, and without prior notice. Upon termination, you must immediately cease using any lead information and delete all stored lead data. No refunds will be provided for any previously purchased leads upon termination.
+            </p>
+            
+            <h4 className="font-semibold mt-4">10. Governing Law and Dispute Resolution</h4>
+            <p>
+              This Agreement shall be governed by the laws of the State of Idaho, without regard to conflicts of law principles. Any disputes arising from this Agreement shall be resolved through binding arbitration in Ada County, Idaho, in accordance with the rules of the American Arbitration Association. You waive any right to participate in class action lawsuits against the Company.
+            </p>
+            
+            <h4 className="font-semibold mt-4">11. Entire Agreement and Modifications</h4>
+            <p>
+              This Agreement constitutes the entire agreement between you and the Company regarding lead purchases. The Company reserves the right to modify this Agreement at any time. Continued use of the platform after modifications constitutes acceptance of the updated terms.
+            </p>
+            
+            <p className="text-xs text-muted-foreground mt-4 pt-4 border-t">
+              Agreement Version 1.0 | Effective Date: January 1, 2026 | Lawn Care Kuna LLC, Kuna, Idaho
             </p>
           </div>
           <div className="flex items-start gap-2 py-4">
