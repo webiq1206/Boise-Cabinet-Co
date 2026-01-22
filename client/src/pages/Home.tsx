@@ -113,12 +113,12 @@ const serviceSlugMap: Record<string, string> = {
 };
 
 const popularServices = [
-  { name: "Lawn Mowing", price: "Starting at $50" },
-  { name: "Lawn Aeration", price: "Starting at $85" },
-  { name: "Fertilization", price: "Starting at $75" },
-  { name: "Weed Control", price: "Starting at $65" },
-  { name: "Spring Cleanup", price: "Starting at $120" },
-  { name: "Fall Cleanup", price: "Starting at $120" },
+  { name: "Lawn Mowing", price: "Starting at $35" },
+  { name: "Lawn Aeration", price: "Starting at $75" },
+  { name: "Fertilization", price: "Starting at $50" },
+  { name: "Weed Control", price: "Starting at $50" },
+  { name: "Spring Cleanup", price: "Starting at $150" },
+  { name: "Fall Cleanup", price: "Starting at $175" },
   { name: "Patio Installation", price: "Custom Quote" },
   { name: "Retaining Walls", price: "Custom Quote" },
 ];
