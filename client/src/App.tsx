@@ -98,6 +98,10 @@ function SubcontractorRouteEnforcer() {
 
 function Router() {
   useAnalytics();
+  const [location] = useLocation();
+  
+  // Hide sticky bottom nav on subcontractor and admin portals
+  const isPortalRoute = location.startsWith("/subcontractor") || location.startsWith("/admin");
   
   return (
     <div className="flex flex-col min-h-screen">
@@ -165,7 +169,7 @@ function Router() {
         </Suspense>
       </main>
       <Footer />
-      <StickyBottomNav />
+      {!isPortalRoute && <StickyBottomNav />}
     </div>
   );
 }
