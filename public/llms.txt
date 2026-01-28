@@ -93,23 +93,41 @@ Some notable endpoints used by the SPA (subject to change):
 - `GET /api/blog` and `GET /api/blog/:slug` (blog content API)
 - `POST /api/geodata/overpass/buildings` (Overpass proxy for footprints)
 
-## Static HTML Mirror (for crawlers and LLMs)
-All public content is also available as static HTML at `/html/**` for easier content extraction by search engines and AI systems.
+## How to Access Content (IMPORTANT FOR AI SYSTEMS)
 
-- **HTML Mirror Root**: https://lawncarekuna.com/html/
-- **Example pages**:
-  - `/html/index.html` (homepage)
-  - `/html/services/aeration.html` (service page)
-  - `/html/services/aeration/kuna.html` (geo-targeted page)
-  - `/html/blog/spring-lawn-prep-checklist-treasure-valley.html` (blog post)
-  - `/html/areas/kuna.html` (area page)
+This site is a JavaScript Single Page Application (SPA). If you cannot read page content, use one of these methods:
 
-**Important notes for LLMs and crawlers**:
-- Each HTML mirror page contains a `<link rel="canonical">` tag pointing to the **primary app URL** (without `/html/`).
-- **Always cite and reference the canonical URLs**, not the `/html/` paths.
-- The HTML mirror is for **content extraction only**; canonical URLs are the authoritative source.
-- HTML pages include Schema.org JSON-LD structured data for each page type.
-- Total: 309 static HTML pages covering all public content.
+### Method 1: Add ?_html=1 to any URL
+Append `?_html=1` to any page URL to get pre-rendered static HTML:
+- `https://lawncarekuna.com/services/landscape-lighting?_html=1`
+- `https://lawncarekuna.com/services/aeration/kuna?_html=1`
+- `https://lawncarekuna.com/blog/spring-lawn-prep-checklist-treasure-valley?_html=1`
+
+### Method 2: Use the /html/ mirror directly
+All content is mirrored at `/html/**`:
+- `https://lawncarekuna.com/html/services/landscape-lighting.html`
+- `https://lawncarekuna.com/html/services/aeration/kuna.html`
+- `https://lawncarekuna.com/html/blog/spring-lawn-prep-checklist-treasure-valley.html`
+
+### URL Mapping
+| Canonical URL | HTML Mirror URL |
+|---------------|-----------------|
+| `/` | `/html/index.html` |
+| `/about` | `/html/about.html` |
+| `/services/lawn-mowing` | `/html/services/lawn-mowing.html` |
+| `/services/aeration/kuna` | `/html/services/aeration/kuna.html` |
+| `/blog/post-slug` | `/html/blog/post-slug.html` |
+| `/areas/kuna` | `/html/areas/kuna.html` |
+
+### Citation Guidelines
+- **Always cite the canonical URLs** (without `/html/` or `?_html=1`)
+- Example: Cite `https://lawncarekuna.com/services/landscape-lighting` NOT the mirror URL
+- The canonical URL is in each page's `<link rel="canonical">` tag
+
+### Content Available
+- 309 static HTML pages covering all public content
+- Each page includes Schema.org JSON-LD structured data
+- Full semantic HTML with headings, lists, FAQs, and internal links
 
 ## Contact / business info (as presented on site)
 - Phone: (208) 352-2011
