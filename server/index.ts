@@ -89,6 +89,11 @@ app.use((req, res, next) => {
   app.use(specificLegacyRedirects); // Specific service/city mappings
   app.use(legacyUrlRedirect); // Catch-all for unmapped URLs
 
+  // Bot detection: Serve pre-rendered HTML to search engines and AI crawlers
+  // This must come BEFORE Vite/serveStatic so bots get HTML instead of JS shell
+  const { serveBotHtml } = await import("./middleware/botDetection.js");
+  app.use(serveBotHtml);
+
   // importantly only setup vite in development and after
   // setting up all the other routes so the catch-all route
   // doesn't interfere with the other routes
