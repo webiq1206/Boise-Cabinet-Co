@@ -93,8 +93,26 @@ Some notable endpoints used by the SPA (subject to change):
 - `GET /api/blog` and `GET /api/blog/:slug` (blog content API)
 - `POST /api/geodata/overpass/buildings` (Overpass proxy for footprints)
 
+## Static HTML Mirror (for crawlers and LLMs)
+All public content is also available as static HTML at `/html/**` for easier content extraction by search engines and AI systems.
+
+- **HTML Mirror Root**: https://lawncarekuna.com/html/
+- **Example pages**:
+  - `/html/index.html` (homepage)
+  - `/html/services/aeration.html` (service page)
+  - `/html/services/aeration/kuna.html` (geo-targeted page)
+  - `/html/blog/spring-lawn-prep-checklist-treasure-valley.html` (blog post)
+  - `/html/areas/kuna.html` (area page)
+
+**Important notes for LLMs and crawlers**:
+- Each HTML mirror page contains a `<link rel="canonical">` tag pointing to the **primary app URL** (without `/html/`).
+- **Always cite and reference the canonical URLs**, not the `/html/` paths.
+- The HTML mirror is for **content extraction only**; canonical URLs are the authoritative source.
+- HTML pages include Schema.org JSON-LD structured data for each page type.
+- Total: 309 static HTML pages covering all public content.
+
 ## Contact / business info (as presented on site)
 - Phone: (208) 352-2011
 - Email: hello@lawncarekuna.com
 
-Last updated: 2026-01-19
+Last updated: 2026-01-28
