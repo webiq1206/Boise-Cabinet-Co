@@ -34,6 +34,7 @@ import {
   TrendingUp
 } from "lucide-react";
 import { PRIORITY_SERVICES, CITIES } from "@/shared/contentData";
+import { splitIntoParagraphs } from "@/lib/textUtils";
 import { generateSEOMetadata, CITY_SEO_DATA, BUSINESS_INFO } from "@/lib/seo";
 import {
   generateServiceSchema,
@@ -374,7 +375,7 @@ export default function CityServicePage({
                   </h2>
                   <div className="prose prose-lg max-w-none text-muted-foreground space-y-4">
                     {service.longDescription ? (
-                      service.longDescription.split('\n\n').slice(0, 2).map((paragraph, idx) => (
+                      splitIntoParagraphs(service.longDescription, 3).slice(0, 3).map((paragraph, idx) => (
                         <p key={idx} className="leading-relaxed">
                           {paragraph}
                         </p>
@@ -383,7 +384,9 @@ export default function CityServicePage({
                       <p className="leading-relaxed">{service.shortDescription}</p>
                     )}
                     <p className="leading-relaxed">
-                      {city.name} properties face unique challenges due to {city.localFactors?.climate || "Idaho's semi-arid climate"} and {city.localFactors?.soil || "local soil conditions"}. 
+                      {city.name} properties face unique challenges due to {city.localFactors?.climate || "Idaho's semi-arid climate"} and {city.localFactors?.soil || "local soil conditions"}.
+                    </p>
+                    <p className="leading-relaxed">
                       Our team has extensive experience serving {city.name} homeowners and understands what it takes to achieve great results in this area.
                     </p>
                   </div>

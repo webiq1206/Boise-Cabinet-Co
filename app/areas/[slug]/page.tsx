@@ -31,6 +31,7 @@ import {
   Mountain
 } from "lucide-react";
 import { CITIES, PRIORITY_SERVICES } from "@/shared/contentData";
+import { splitIntoParagraphs } from "@/lib/textUtils";
 import { 
   generateLocalBusinessSchema, 
   generateBreadcrumbSchema,
@@ -253,12 +254,16 @@ export default function AreaPage({ params }: { params: { slug: string } }) {
                     Your Trusted Lawn Care Partner in {city.name}, Idaho
                   </h2>
                   <div className="prose prose-lg max-w-none text-muted-foreground space-y-4">
-                    <p className="leading-relaxed">
-                      {city.extendedDescription}
-                    </p>
-                    <p className="leading-relaxed">
-                      {city.serviceConsiderations}
-                    </p>
+                    {city.extendedDescription && splitIntoParagraphs(city.extendedDescription, 3).map((paragraph, idx) => (
+                      <p key={idx} className="leading-relaxed">
+                        {paragraph}
+                      </p>
+                    ))}
+                    {city.serviceConsiderations && splitIntoParagraphs(city.serviceConsiderations, 3).map((paragraph, idx) => (
+                      <p key={`sc-${idx}`} className="leading-relaxed">
+                        {paragraph}
+                      </p>
+                    ))}
                   </div>
                   
                   <div className="pt-4">

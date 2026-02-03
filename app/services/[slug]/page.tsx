@@ -32,6 +32,7 @@ import {
   TrendingUp
 } from "lucide-react";
 import { PRIORITY_SERVICES, CITIES } from "@/shared/contentData";
+import { splitIntoParagraphs } from "@/lib/textUtils";
 import { 
   generateServiceSchema, 
   generateBreadcrumbSchema, 
@@ -334,7 +335,7 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
                   </h2>
                   <div className="prose prose-lg max-w-none text-muted-foreground space-y-4">
                     {service.longDescription ? (
-                      service.longDescription.split('\n\n').slice(0, 3).map((paragraph, idx) => (
+                      splitIntoParagraphs(service.longDescription, 3).slice(0, 4).map((paragraph, idx) => (
                         <p key={idx} className="leading-relaxed">
                           {paragraph}
                         </p>
@@ -345,7 +346,10 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
                           {service.shortDescription}
                         </p>
                         <p className="leading-relaxed">
-                          At Lawn Care Kuna, we provide expert {service.name.toLowerCase()} services tailored to Idaho's unique climate and conditions. Our experienced team uses professional-grade equipment to deliver exceptional results every time. We serve residential homes, commercial properties, and HOA communities throughout Kuna, Boise, Meridian, Eagle, Star, and Middleton.
+                          At Lawn Care Kuna, we provide expert {service.name.toLowerCase()} services tailored to Idaho's unique climate and conditions. Our experienced team uses professional-grade equipment to deliver exceptional results every time.
+                        </p>
+                        <p className="leading-relaxed">
+                          We serve residential homes, commercial properties, and HOA communities throughout Kuna, Boise, Meridian, Eagle, Star, and Middleton.
                         </p>
                       </>
                     )}
