@@ -11,6 +11,7 @@ interface HeroQuoteSectionProps {
   defaultCity?: string;
   backgroundAlt?: string;
   backgroundImage?: string;
+  children?: React.ReactNode;
 }
 
 export function HeroQuoteSection({
@@ -21,6 +22,7 @@ export function HeroQuoteSection({
   defaultCity,
   backgroundAlt = "Professional lawn care services in Kuna Idaho",
   backgroundImage,
+  children,
 }: HeroQuoteSectionProps) {
   const heroContent = (
     <section className="py-12 sm:py-16 md:py-20 lg:py-24">
@@ -66,7 +68,7 @@ export function HeroQuoteSection({
               src={backgroundImage} 
               alt={backgroundAlt}
               fill
-              className="object-cover"
+              className="object-cover object-top"
               priority
             />
           </div>
@@ -74,10 +76,14 @@ export function HeroQuoteSection({
           {/* Content Container */}
           <div className="relative z-10">
             {heroContent}
+            {children}
           </div>
         </div>
       ) : (
-        heroContent
+        <>
+          {heroContent}
+          {children}
+        </>
       )}
     </>
   );

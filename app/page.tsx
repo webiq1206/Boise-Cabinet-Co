@@ -19,6 +19,7 @@ import {
 import { HeroQuoteSection } from "@/components/HeroQuoteSection";
 import { Testimonials } from "@/components/Testimonials";
 import { NearMeFAQ } from "@/components/NearMeFAQ";
+import { ServiceAreasSection } from "@/components/ServiceAreasSection";
 import { generateLocalBusinessSchema, generateOrganizationSchema, generateFAQSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
@@ -154,7 +155,7 @@ export default function HomePage() {
       />
       
       <div className="flex flex-col pb-20">
-      {/* Hero Section with Quote Wizard */}
+      {/* Hero Section with Quote Wizard - Background extends to trust indicators */}
       <HeroQuoteSection
         label="KUNA'S TRUSTED LAWN CARE"
         heading="Professional Lawn Care in Kuna"
@@ -162,36 +163,36 @@ export default function HomePage() {
         defaultCity="Kuna"
         backgroundImage="/images/hero-background.png"
         backgroundAlt="Professional lawn care hero background with decorative leaves and trees"
-      />
-
-      {/* Trust Indicators */}
-      <section className="py-12 md:py-16 lg:py-20">
-        <div className="container px-4 md:px-8">
-          <div className="max-w-4xl mx-auto space-y-8 md:space-y-12">
-            <div className="text-center space-y-3 md:space-y-4">
-              <h2 className="text-2xl sm:text-2xl md:text-3xl font-bold tracking-tight">
-                Why Kuna trusts us with their lawns
-              </h2>
-              <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">
-                Professional lawn care backed by experience, licensing, and a commitment to your satisfaction
-              </p>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-              {trustIndicators.map((indicator, index) => (
-                <Card key={index} className="text-center">
-                  <CardContent className="pt-5 pb-5 md:pt-6 md:pb-6 space-y-2 md:space-y-3 px-4 md:px-6">
-                    <div className="inline-flex items-center justify-center w-10 h-10 md:w-12 md:h-12 rounded-full bg-primary/10">
-                      <indicator.icon className="h-5 w-5 md:h-6 md:w-6 text-primary" />
-                    </div>
-                    <h3 className="font-semibold text-sm md:text-base">{indicator.title}</h3>
-                    <p className="text-xs md:text-sm text-muted-foreground leading-snug">{indicator.description}</p>
-                  </CardContent>
-                </Card>
-              ))}
+      >
+        {/* Trust Indicators - Inside hero background */}
+        <section className="py-12 md:py-16 lg:py-20" data-testid="section-trust-indicators">
+          <div className="container px-4 md:px-8">
+            <div className="max-w-4xl mx-auto space-y-8 md:space-y-12">
+              <div className="text-center space-y-3 md:space-y-4">
+                <h2 className="text-2xl sm:text-2xl md:text-3xl font-bold tracking-tight" data-testid="text-trust-heading">
+                  Why Kuna trusts us with their lawns
+                </h2>
+                <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto" data-testid="text-trust-subtitle">
+                  Professional lawn care backed by experience, licensing, and a commitment to your satisfaction
+                </p>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+                {trustIndicators.map((indicator, index) => (
+                  <Card key={index} className="text-center bg-card/95 backdrop-blur-sm" data-testid={`card-trust-indicator-${index}`}>
+                    <CardContent className="pt-5 pb-5 md:pt-6 md:pb-6 space-y-2 md:space-y-3 px-4 md:px-6">
+                      <div className="inline-flex items-center justify-center w-10 h-10 md:w-12 md:h-12 rounded-full bg-primary/10">
+                        <indicator.icon className="h-5 w-5 md:h-6 md:w-6 text-primary" />
+                      </div>
+                      <h3 className="font-semibold text-sm md:text-base" data-testid={`text-trust-title-${index}`}>{indicator.title}</h3>
+                      <p className="text-xs md:text-sm text-muted-foreground leading-snug">{indicator.description}</p>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </HeroQuoteSection>
 
       {/* Services Section */}
       <section className="py-12 md:py-16 lg:py-24">
@@ -554,6 +555,9 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* Service Areas Section */}
+      <ServiceAreasSection />
 
       {/* Testimonials */}
       <section className="py-16 md:py-24 bg-muted/30">
