@@ -210,7 +210,7 @@ export default function HomePage() {
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-8">
               {services.map((service, index) => (
-                <Card key={index} className="hover-elevate">
+                <Card key={index} className="hover-elevate bg-gradient-to-br from-[#dbf0de] to-white dark:from-primary/20 dark:to-background">
                   <CardHeader className="space-y-4">
                     <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-primary/10">
                       <service.icon className="h-6 w-6 text-primary" />
@@ -538,7 +538,7 @@ export default function HomePage() {
 
             <div className="grid md:grid-cols-2 gap-8">
               {coreValues.map((value, index) => (
-                <Card key={index} className="hover-elevate">
+                <Card key={index} className="hover-elevate bg-gradient-to-br from-[#dbf0de] to-white dark:from-primary/20 dark:to-background">
                   <CardContent className="p-8 space-y-4">
                     <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-primary text-primary-foreground">
                       <value.icon className="h-7 w-7" />
