@@ -402,7 +402,7 @@ export default function AreaPage({ params }: { params: { slug: string } }) {
                     <Link
                       key={service.slug}
                       href={`/services/${service.slug}`}
-                      className="text-sm px-3 py-1.5 rounded-full bg-card border hover-elevate transition-colors"
+                      className="text-sm px-3 py-1.5 rounded-full bg-card border hover-elevate"
                       data-testid={`link-service-${service.slug}`}
                     >
                       {service.name}
@@ -478,7 +478,7 @@ export default function AreaPage({ params }: { params: { slug: string } }) {
                   <Link
                     key={otherCity.slug}
                     href={`/areas/${otherCity.slug}`}
-                    className="flex items-center flex-wrap gap-2 px-4 py-2 rounded-md bg-card border hover-elevate transition-colors"
+                    className="flex items-center flex-wrap gap-2 px-4 py-2 rounded-md bg-card border hover-elevate"
                     data-testid={`link-area-${otherCity.slug}`}
                   >
                     <MapPin className="h-4 w-4 text-primary" aria-hidden="true" />
@@ -525,12 +525,7 @@ export default function AreaPage({ params }: { params: { slug: string } }) {
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </Link>
                 </Button>
-                <Button 
-                  size="lg" 
-                  variant="outline" 
-                  className="bg-transparent border-primary-foreground text-primary-foreground" 
-                  asChild
-                >
+                <Button size="lg" variant="secondary" asChild>
                   <a href="tel:2083522011" data-testid="link-cta-phone">
                     <Phone className="mr-2 h-5 w-5" />
                     (208) 352-2011
