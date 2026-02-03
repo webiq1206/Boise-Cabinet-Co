@@ -413,3 +413,13 @@ html, body {
     inset: -1px;
   }
 }
+
+/* Hide scrollbar for carousel/slider components */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}

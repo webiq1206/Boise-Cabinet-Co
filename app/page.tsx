@@ -490,18 +490,17 @@ export default function HomePage() {
               <CardContent className="p-0">
                 <div className="divide-y">
                   {popularServices.map((service, index) => (
-                    <div 
-                      key={index} 
-                      className="flex items-center justify-between p-4 hover-elevate"
+                    <Link
+                      key={index}
+                      href={`/services/${service.slug}`}
+                      className="flex items-center flex-wrap justify-between gap-4 p-4 hover-elevate transition-colors group"
+                      data-testid={`link-pricing-${service.slug}`}
                     >
-                      <Link 
-                        href={`/services/${service.slug}`}
-                        className="font-medium hover:text-primary hover:underline transition-colors"
-                      >
+                      <span className="font-medium group-hover:underline">
                         {service.name}
-                      </Link>
+                      </span>
                       <span className="text-muted-foreground">{service.price}</span>
-                    </div>
+                    </Link>
                   ))}
                 </div>
               </CardContent>
