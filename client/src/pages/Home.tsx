@@ -23,8 +23,7 @@ import { HeroQuoteSection } from "@/components/HeroQuoteSection";
 import { NearMeFAQ } from "@/components/NearMeFAQ";
 import { generateSEOMetadata, generateLogoAltTag, BUSINESS_INFO } from "@/lib/seo";
 import { generateLocalBusinessSchema, generateOrganizationSchema, generateBreadcrumbSchema } from "@/lib/schema";
-import heroBackgroundPng from "@assets/Lawn Care Kuna Background Image_1763675543303.png";
-import heroBackgroundWebp from "@assets/Lawn Care Kuna Background Image_1763675543303.webp";
+import heroBackgroundPng from "@assets/Lawn_Care_Kuna_Hero_Background_Image_1770127779405.png";
 
 // Lazy load heavy components for better initial page load
 const ServiceAreaMap = lazy(() => import("@/components/ServiceAreaMap").then(mod => ({ default: mod.ServiceAreaMap })));
@@ -186,18 +185,15 @@ export default function Home() {
         <div className="relative overflow-hidden">
           {/* Shared Background Image */}
           <div className="absolute inset-0 z-0">
-            <picture>
-              <source srcSet={heroBackgroundWebp} type="image/webp" />
-              <img 
-                src={heroBackgroundPng} 
-                alt="Professional lawn care background with decorative leaves"
-                className="w-full h-full object-cover"
-                width="1920"
-                height="900"
-                loading="eager"
-                {...({ fetchpriority: "high" } as React.ImgHTMLAttributes<HTMLImageElement>)}
-              />
-            </picture>
+            <img 
+              src={heroBackgroundPng} 
+              alt="Professional lawn care background with decorative leaves"
+              className="w-full h-full object-cover"
+              width="1920"
+              height="900"
+              loading="eager"
+              {...({ fetchpriority: "high" } as React.ImgHTMLAttributes<HTMLImageElement>)}
+            />
           </div>
 
           {/* Content Container */}
