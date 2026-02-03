@@ -109,7 +109,7 @@ const cityFAQs = (cityName: string, cityData: typeof CITIES[0]) => [
   },
   {
     question: `Do you serve my neighborhood in ${cityName}?`,
-    answer: `Yes! We serve all of ${cityName}, Idaho including ${cityData.neighborhoods?.join(", ")}, and surrounding areas. Our service area covers the entire ${cityName} zip code${cityData.zipCodes?.length > 1 ? 's' : ''} (${cityData.zipCodes?.join(", ")}). We provide the same high-quality service to residential homes, commercial properties, and HOA communities throughout ${cityName}.`
+    answer: `Yes! We serve all of ${cityName}, Idaho including ${cityData.neighborhoods?.join(", ")}, and surrounding areas. Our service area covers the entire ${cityName} zip code${(cityData.zipCodes?.length ?? 0) > 1 ? 's' : ''} (${cityData.zipCodes?.join(", ") ?? "local area"}). We provide the same high-quality service to residential homes, commercial properties, and HOA communities throughout ${cityName}.`
   },
   {
     question: `When should I winterize my sprinklers in ${cityName}?`,
