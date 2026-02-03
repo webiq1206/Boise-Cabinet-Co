@@ -160,6 +160,8 @@ export default function HomePage() {
         heading="Professional Lawn Care in Kuna"
         subheading="Top-Rated Local Lawn & Landscaping Services Since 2017"
         defaultCity="Kuna"
+        backgroundImage="/images/hero-background.png"
+        backgroundAlt="Professional lawn care hero background with decorative leaves and trees"
       />
 
       {/* Trust Indicators */}
