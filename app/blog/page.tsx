@@ -76,7 +76,7 @@ export default function BlogPage() {
           <div className="max-w-6xl mx-auto">
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {sortedPosts.map((post) => (
-                <Card key={post.slug} className="hover-elevate flex flex-col bg-gradient-to-br from-[#dbf0de] to-white dark:from-primary/20 dark:to-background">
+                <Card key={post.slug} className="hover-elevate flex flex-col bg-gradient-to-br from-primary/5 to-white dark:from-primary/10 dark:to-background">
                   <CardHeader>
                     <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
                       <Calendar className="h-4 w-4" />
