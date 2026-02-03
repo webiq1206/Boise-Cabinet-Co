@@ -1,0 +1,70 @@
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import { HelpCircle } from "lucide-react";
+
+interface NearMeFAQProps {
+  city?: string;
+  serviceName?: string;
+}
+
+export function NearMeFAQ({ city = "Kuna", serviceName = "lawn care" }: NearMeFAQProps) {
+  const faqs = [
+    {
+      question: `Where can I find local ${serviceName} in ${city}?`,
+      answer: `Lawn Care Kuna provides professional ${serviceName} services throughout ${city} and the entire Treasure Valley. We're locally based and serve all neighborhoods in ${city}, including surrounding areas. When you need reliable ${serviceName} close to home, call us at (208) 352-2011 for immediate service.`,
+    },
+    {
+      question: `How quickly can you provide ${serviceName} in my area?`,
+      answer: `As a local ${city}-based company, we can typically schedule ${serviceName} services within 24-48 hours for most areas in ${city} and the Treasure Valley. For urgent needs, we offer same-day service availability. Contact us today for fast, reliable service in your neighborhood.`,
+    },
+    {
+      question: `Do you offer free quotes for ${serviceName} in ${city}?`,
+      answer: `Yes! We provide completely free, no-obligation quotes for all ${serviceName} services in ${city} and surrounding areas. Use our online quote tool or call (208) 352-2011 to get an instant estimate for your property.`,
+    },
+    {
+      question: `What areas do you serve in the Treasure Valley?`,
+      answer: `We proudly serve ${city}, Boise, Meridian, Eagle, Star, and Middleton - covering the entire Treasure Valley within a 25-mile radius. As your local ${serviceName} experts, we're committed to serving all these communities with licensed, insured professionals.`,
+    },
+    {
+      question: `Why choose Lawn Care Kuna for ${serviceName}?`,
+      answer: `When you need trusted ${serviceName} in ${city}, choose a local company with proven results. We've been serving ${city} since 2017 with 4.9-star ratings, licensed professionals, and guaranteed satisfaction. Unlike national chains, we're your neighbors - we understand ${city}'s unique climate, soil conditions, and local needs.`,
+    },
+    {
+      question: `How much does ${serviceName} cost in ${city}?`,
+      answer: `${serviceName.charAt(0).toUpperCase() + serviceName.slice(1)} pricing in ${city} varies based on property size, current lawn condition, and service frequency. Most residential properties start at $50-$85. Get an exact quote for your specific location using our instant online quoting tool or by calling (208) 352-2011.`,
+    },
+  ];
+
+  return (
+    <Card className="bg-gradient-to-br from-primary/5 to-primary/10 border-primary/20">
+      <CardHeader>
+        <div className="flex items-center gap-2">
+          <HelpCircle className="h-6 w-6 text-primary" />
+          <CardTitle className="text-2xl">Frequently Asked Questions</CardTitle>
+        </div>
+        <CardDescription className="text-base">
+          Common questions about finding {serviceName} near you in {city}
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        <Accordion type="single" collapsible className="w-full">
+          {faqs.map((faq, index) => (
+            <AccordionItem key={index} value={`item-${index}`}>
+              <AccordionTrigger className="text-left text-base font-semibold hover:text-primary">
+                {faq.question}
+              </AccordionTrigger>
+              <AccordionContent className="text-muted-foreground leading-relaxed">
+                {faq.answer}
+              </AccordionContent>
+            </AccordionItem>
+          ))}
+        </Accordion>
+      </CardContent>
+    </Card>
+  );
+}

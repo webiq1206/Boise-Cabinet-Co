@@ -1,0 +1,637 @@
+"use client";
+
+import { useQuery } from "@tanstack/react-query";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { useToast } from "@/hooks/use-toast";
+import { useAuth } from "@/hooks/useAuth";
+import { NotificationsBell } from "@/components/NotificationsBell";
+import {
+  Leaf, MapPin, Clock, DollarSign, Building, Search, ArrowLeft, Mail, Phone, 
+  User, ChevronDown, Receipt, History, LogOut, ExternalLink, Copy, CheckCircle2
+} from "lucide-react";
+import { useEffect, useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
+
+interface LineItem {
+  serviceId?: string;
+  service?: string;
+  serviceName?: string;
+  description?: string;
+  price?: number;
+  basePrice?: number;
+  adjustedPrice?: number;
+  calculationExplanation?: string;
+}
+
+interface Lead {
+  id: string;
+  quoteId?: string | null;
+  name: string;
+  email: string;
+  phone?: string | null;
+  address?: string | null;
+  city: string;
+  propertyType: string;
+  serviceType: string;
+  selectedServices?: string[] | null;
+  frequency?: string | null;
+  finalQuote?: string | null;
+  lineItems?: LineItem[] | null;
+  message?: string | null;
+  baseLeadPrice?: string | null;
+  currentLeadPrice?: string | null;
+  purchasePrice?: string | null;
+  status: string;
+  createdAt: string;
+  purchasedBy?: string | null;
+  purchasedAt?: string | null;
+}
+
+const PRIORITY_SERVICES = [
+  { slug: "lawn-mowing", name: "Lawn Mowing" },
+  { slug: "lawn-care", name: "Lawn Care" },
+  { slug: "fertilization", name: "Fertilization" },
+  { slug: "aeration", name: "Aeration" },
+  { slug: "weed-control", name: "Weed Control" },
+  { slug: "tree-trimming", name: "Tree Trimming" },
+  { slug: "hedge-trimming", name: "Hedge Trimming" },
+  { slug: "landscaping", name: "Landscaping" },
+  { slug: "mulching", name: "Mulching" },
+  { slug: "seasonal-cleanup", name: "Seasonal Cleanup" },
+  { slug: "christmas-lights", name: "Christmas Lights" },
+  { slug: "irrigation-installation", name: "Irrigation Installation" },
+  { slug: "sprinkler-blowout", name: "Sprinkler Blowout" },
+  { slug: "fence-installation", name: "Fence Installation" },
+  { slug: "patio-installation", name: "Patio Installation" },
+  { slug: "pond-installation", name: "Pond Installation" },
+];
+
+function calculateQuoteRange(finalQuote: string | number, variance: number = 0.15) {
+  const point = typeof finalQuote === 'string' ? parseFloat(finalQuote) : finalQuote;
+  if (!point || isNaN(point)) return { min: 0, max: 0, point: 0 };
+  const min = Math.round(point * (1 - variance));
+  const max = Math.round(point * (1 + variance));
+  return { min, max, point };
+}
+
+function formatQuoteRangeWholeFromValue(value: string | number, variance: number = 0.15): string {
+  const { min, max } = calculateQuoteRange(value, variance);
+  if (min === 0 && max === 0) return "Pending";
+  return `$${min.toLocaleString()} - $${max.toLocaleString()}`;
+}
+
+function getServiceName(serviceSlug: string): string {
+  const service = PRIORITY_SERVICES.find(s => s.slug === serviceSlug);
+  return service ? service.name : serviceSlug.replace(/-/g, " ").replace(/\b\w/g, l => l.toUpperCase());
+}
+
+function QuoteBreakdownSection({ lead }: { lead: Lead }) {
+  const [isOpen, setIsOpen] = useState(false);
+  
+  const lineItems = lead.lineItems || [];
+  const hasBreakdown = lineItems.length > 0;
+  
+  if (!hasBreakdown && !lead.finalQuote) {
+    return null;
+  }
+  
+  const formatPrice = (price: number | undefined) => {
+    if (price === undefined || price === null) return '$0';
+    return `$${price.toLocaleString()}`;
+  };
+  
+  return (
+    <Collapsible open={isOpen} onOpenChange={setIsOpen}>
+      <div className="border-t pt-4 mt-4">
+        <CollapsibleTrigger asChild>
+          <Button
+            variant="ghost"
+            size="sm"
+            className="w-full justify-between p-0 h-auto font-medium text-sm hover:bg-transparent"
+          >
+            <span className="flex items-center gap-2">
+              <Receipt className="h-4 w-4 text-muted-foreground" />
+              Project Details
+            </span>
+            <ChevronDown className={`h-4 w-4 text-muted-foreground transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+          </Button>
+        </CollapsibleTrigger>
+        
+        <CollapsibleContent className="pt-3">
+          {lineItems.length > 0 ? (
+            <div className="space-y-3">
+              {lineItems.map((item, index) => {
+                const serviceName = item.serviceName || item.service || 'Service';
+                const price = item.price || item.adjustedPrice || 0;
+                
+                return (
+                  <div key={index} className="bg-muted/50 rounded-md p-3">
+                    <div className="flex justify-between items-start gap-2 mb-1">
+                      <span className="font-medium text-sm">{serviceName}</span>
+                      <span className="font-semibold text-sm text-primary">{formatPrice(price)}</span>
+                    </div>
+                    {item.description && (
+                      <p className="text-xs text-muted-foreground">{item.description}</p>
+                    )}
+                  </div>
+                );
+              })}
+              
+              {lead.finalQuote && (
+                <div className="flex justify-between items-center pt-2 border-t">
+                  <span className="font-semibold text-sm">Estimated Project Value</span>
+                  <span className="font-bold text-lg text-primary">
+                    {formatQuoteRangeWholeFromValue(lead.finalQuote, 0.15)}
+                  </span>
+                </div>
+              )}
+            </div>
+          ) : (
+            <div className="flex justify-between items-center">
+              <span className="font-semibold text-sm">Estimated Project Value</span>
+              <span className="font-bold text-lg text-primary">
+                {lead.finalQuote ? formatQuoteRangeWholeFromValue(lead.finalQuote, 0.15) : "Contact for quote"}
+              </span>
+            </div>
+          )}
+        </CollapsibleContent>
+      </div>
+    </Collapsible>
+  );
+}
+
+export default function PurchaseHistoryPage() {
+  const { toast } = useToast();
+  const router = useRouter();
+  
+  const { user, isAuthenticated, isLoading: authLoading, isSubcontractor } = useAuth();
+
+  // State
+  const [searchQuery, setSearchQuery] = useState("");
+  const [sortBy, setSortBy] = useState<"date" | "price">("date");
+  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc");
+  const [copiedId, setCopiedId] = useState<string | null>(null);
+
+  // Route guard
+  useEffect(() => {
+    if (authLoading) return;
+    if (!isAuthenticated) {
+      router.push("/subcontractor");
+      return;
+    }
+    if (!isSubcontractor) {
+      router.push("/admin/dashboard");
+      return;
+    }
+  }, [authLoading, isAuthenticated, isSubcontractor, router]);
+
+  // Fetch purchase history
+  const { data: purchases = [], isLoading: purchasesLoading } = useQuery<Lead[]>({
+    queryKey: ["/api/leads/purchases"],
+    queryFn: async () => {
+      const res = await fetch("/api/leads/purchases");
+      if (!res.ok) throw new Error("Failed to fetch purchases");
+      return res.json();
+    },
+    enabled: isAuthenticated && isSubcontractor,
+  });
+
+  // Filter and sort purchases
+  const filteredPurchases = useMemo(() => {
+    let filtered = [...purchases];
+    
+    if (searchQuery) {
+      const query = searchQuery.toLowerCase();
+      filtered = filtered.filter(lead => 
+        lead.name?.toLowerCase().includes(query) ||
+        lead.email?.toLowerCase().includes(query) ||
+        lead.phone?.toLowerCase().includes(query) ||
+        lead.city?.toLowerCase().includes(query) ||
+        lead.serviceType?.toLowerCase().includes(query)
+      );
+    }
+    
+    // Sort
+    filtered.sort((a, b) => {
+      let comparison = 0;
+      switch (sortBy) {
+        case "date":
+          comparison = new Date(a.purchasedAt || a.createdAt).getTime() - new Date(b.purchasedAt || b.createdAt).getTime();
+          break;
+        case "price":
+          comparison = parseFloat(a.purchasePrice || a.currentLeadPrice || "0") - parseFloat(b.purchasePrice || b.currentLeadPrice || "0");
+          break;
+      }
+      return sortOrder === "asc" ? comparison : -comparison;
+    });
+    
+    return filtered;
+  }, [purchases, searchQuery, sortBy, sortOrder]);
+
+  const totalSpent = useMemo(() => {
+    return purchases.reduce((sum, lead) => sum + parseFloat(lead.purchasePrice || lead.currentLeadPrice || "0"), 0);
+  }, [purchases]);
+
+  const formatCurrency = (amount: string | null | undefined) => {
+    if (!amount) return "$0.00";
+    return `$${parseFloat(amount).toFixed(2)}`;
+  };
+
+  const formatDate = (date: Date | string | null | undefined) => {
+    if (!date) return "N/A";
+    return new Date(date).toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    });
+  };
+
+  const formatDateTime = (date: Date | string | null | undefined) => {
+    if (!date) return "N/A";
+    return new Date(date).toLocaleString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+      hour: "numeric",
+      minute: "2-digit",
+      hour12: true,
+    });
+  };
+
+  const copyToClipboard = (text: string, leadId: string) => {
+    navigator.clipboard.writeText(text);
+    setCopiedId(leadId);
+    toast({ title: "Copied to clipboard" });
+    setTimeout(() => setCopiedId(null), 2000);
+  };
+
+  const handleLogout = () => {
+    window.location.href = "/api/logout";
+  };
+
+  const PurchasedLeadCard = ({ lead }: { lead: Lead }) => {
+    return (
+      <Card className="overflow-hidden" id={`lead-${lead.id}`}>
+        <CardHeader className="pb-3">
+          <div className="flex items-start justify-between gap-4">
+            <div>
+              <CardTitle className="text-lg flex items-center gap-2">
+                {getServiceName(lead.serviceType)}
+                <Badge variant="secondary" className="text-green-600 bg-green-100 dark:bg-green-900/30">
+                  <CheckCircle2 className="h-3 w-3 mr-1" />
+                  Purchased
+                </Badge>
+              </CardTitle>
+              <CardDescription className="mt-1 flex items-center gap-2">
+                <MapPin className="h-3 w-3" />
+                {lead.city} • {lead.propertyType.replace(/-/g, " ")}
+              </CardDescription>
+            </div>
+            <div className="text-right">
+              <p className="text-sm text-muted-foreground">Purchased</p>
+              <p className="font-medium">{formatDate(lead.purchasedAt)}</p>
+            </div>
+          </div>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          {/* Customer Contact Info - REVEALED */}
+          <div className="bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800 rounded-lg p-4">
+            <h4 className="font-semibold text-emerald-800 dark:text-emerald-300 mb-3 flex items-center gap-2">
+              <User className="h-4 w-4" />
+              Customer Contact Information
+            </h4>
+            <div className="space-y-3">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <User className="h-4 w-4 text-muted-foreground" />
+                  <span className="font-medium">{lead.name}</span>
+                </div>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => copyToClipboard(lead.name, `${lead.id}-name`)}
+                >
+                  {copiedId === `${lead.id}-name` ? (
+                    <CheckCircle2 className="h-4 w-4 text-green-600" />
+                  ) : (
+                    <Copy className="h-4 w-4" />
+                  )}
+                </Button>
+              </div>
+              
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <Mail className="h-4 w-4 text-muted-foreground" />
+                  <a href={`mailto:${lead.email}`} className="text-primary hover:underline">
+                    {lead.email}
+                  </a>
+                </div>
+                <div className="flex gap-1">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => copyToClipboard(lead.email, `${lead.id}-email`)}
+                  >
+                    {copiedId === `${lead.id}-email` ? (
+                      <CheckCircle2 className="h-4 w-4 text-green-600" />
+                    ) : (
+                      <Copy className="h-4 w-4" />
+                    )}
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    asChild
+                  >
+                    <a href={`mailto:${lead.email}`}>
+                      <ExternalLink className="h-4 w-4" />
+                    </a>
+                  </Button>
+                </div>
+              </div>
+              
+              {lead.phone && (
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <Phone className="h-4 w-4 text-muted-foreground" />
+                    <a href={`tel:${lead.phone}`} className="text-primary hover:underline">
+                      {lead.phone}
+                    </a>
+                  </div>
+                  <div className="flex gap-1">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => copyToClipboard(lead.phone || "", `${lead.id}-phone`)}
+                    >
+                      {copiedId === `${lead.id}-phone` ? (
+                        <CheckCircle2 className="h-4 w-4 text-green-600" />
+                      ) : (
+                        <Copy className="h-4 w-4" />
+                      )}
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      asChild
+                    >
+                      <a href={`tel:${lead.phone}`}>
+                        <ExternalLink className="h-4 w-4" />
+                      </a>
+                    </Button>
+                  </div>
+                </div>
+              )}
+              
+              {lead.address && (
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <MapPin className="h-4 w-4 text-muted-foreground" />
+                    <span>{lead.address}, {lead.city}</span>
+                  </div>
+                  <div className="flex gap-1">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => copyToClipboard(`${lead.address}, ${lead.city}`, `${lead.id}-address`)}
+                    >
+                      {copiedId === `${lead.id}-address` ? (
+                        <CheckCircle2 className="h-4 w-4 text-green-600" />
+                      ) : (
+                        <Copy className="h-4 w-4" />
+                      )}
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      asChild
+                    >
+                      <a 
+                        href={`https://maps.google.com/?q=${encodeURIComponent(`${lead.address}, ${lead.city}, ID`)}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <ExternalLink className="h-4 w-4" />
+                      </a>
+                    </Button>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Project Details */}
+          <div className="grid grid-cols-2 gap-4 text-sm">
+            <div className="flex items-center gap-2">
+              <DollarSign className="h-4 w-4 text-muted-foreground" />
+              <div>
+                <p className="font-medium">
+                  Project: {lead.finalQuote ? formatQuoteRangeWholeFromValue(lead.finalQuote, 0.15) : "Contact for quote"}
+                </p>
+                <p className="text-muted-foreground text-xs">Estimated value</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-2">
+              <Clock className="h-4 w-4 text-muted-foreground" />
+              <div>
+                <p className="font-medium">{lead.frequency || "One-time"}</p>
+                <p className="text-muted-foreground text-xs">Service frequency</p>
+              </div>
+            </div>
+          </div>
+
+          {lead.selectedServices && lead.selectedServices.length > 0 && (
+            <div className="border-t pt-4">
+              <p className="text-sm font-medium mb-2">Services Requested:</p>
+              <div className="flex flex-wrap gap-2">
+                {lead.selectedServices.map((serviceId, index) => (
+                  <Badge key={index} variant="outline" className="text-xs">
+                    {getServiceName(serviceId)}
+                  </Badge>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {lead.message && (
+            <div className="border-t pt-4">
+              <p className="text-sm font-medium mb-2">Customer Message:</p>
+              <p className="text-sm text-muted-foreground bg-muted/50 rounded-md p-3">{lead.message}</p>
+            </div>
+          )}
+
+          <QuoteBreakdownSection lead={lead} />
+
+          <div className="flex items-center justify-between pt-4 border-t">
+            <div>
+              <p className="text-sm text-muted-foreground">Lead Purchase Price</p>
+              <p className="text-xl font-bold text-primary">
+                {formatCurrency(lead.purchasePrice || lead.currentLeadPrice)}
+              </p>
+            </div>
+            <div className="text-right text-sm text-muted-foreground">
+              <p>Purchased: {formatDateTime(lead.purchasedAt)}</p>
+              <p>Lead created: {formatDate(lead.createdAt)}</p>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    );
+  };
+
+  if (authLoading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-b from-emerald-50/50 to-white dark:from-emerald-950/20 dark:to-background flex items-center justify-center">
+        <div className="flex flex-col items-center gap-4">
+          <Leaf className="w-12 h-12 text-emerald-600 animate-pulse" />
+          <p className="text-muted-foreground">Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-emerald-50/50 to-white dark:from-emerald-950/20 dark:to-background" data-testid="page-purchase-history">
+      {/* Header */}
+      <header className="border-b bg-card/80 backdrop-blur-sm sticky top-0 z-50">
+        <div className="container px-4 py-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <Button 
+                variant="ghost" 
+                size="icon" 
+                onClick={() => router.push("/subcontractor/portal")}
+              >
+                <ArrowLeft className="h-5 w-5" />
+              </Button>
+              <div className="w-10 h-10 rounded-full bg-emerald-600 flex items-center justify-center">
+                <Leaf className="w-5 h-5 text-white" />
+              </div>
+              <div>
+                <h1 className="text-xl font-bold text-emerald-800 dark:text-emerald-300">Purchase History</h1>
+                <p className="text-sm text-muted-foreground">
+                  View your purchased leads
+                </p>
+              </div>
+            </div>
+            <div className="flex items-center gap-2">
+              <NotificationsBell />
+              <Button variant="outline" onClick={() => router.push("/subcontractor/portal")}>
+                Browse Leads
+              </Button>
+              <Button variant="outline" onClick={handleLogout}>
+                <LogOut className="h-4 w-4 mr-2" />
+                Logout
+              </Button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <div className="container py-8 px-4">
+        {/* Stats */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+          <Card>
+            <CardHeader className="pb-2">
+              <CardTitle className="text-sm font-medium text-muted-foreground flex items-center gap-2">
+                <History className="h-4 w-4" /> Total Purchases
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-3xl font-bold">{purchases.length}</div>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader className="pb-2">
+              <CardTitle className="text-sm font-medium text-muted-foreground flex items-center gap-2">
+                <DollarSign className="h-4 w-4" /> Total Spent
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-3xl font-bold">${totalSpent.toFixed(2)}</div>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader className="pb-2">
+              <CardTitle className="text-sm font-medium text-muted-foreground flex items-center gap-2">
+                <Building className="h-4 w-4" /> Avg Lead Cost
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-3xl font-bold">
+                ${purchases.length > 0 ? (totalSpent / purchases.length).toFixed(2) : "0.00"}
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Search and Sort */}
+        <Card className="mb-6">
+          <CardContent className="py-4">
+            <div className="flex flex-col md:flex-row gap-4">
+              <div className="relative flex-1">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <Input
+                  placeholder="Search by name, email, phone, city..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="pl-10"
+                />
+              </div>
+              <div className="flex gap-2">
+                <Select value={sortBy} onValueChange={(v) => setSortBy(v as typeof sortBy)}>
+                  <SelectTrigger className="w-[140px]">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="date">By Date</SelectItem>
+                    <SelectItem value="price">By Price</SelectItem>
+                  </SelectContent>
+                </Select>
+                <Button
+                  variant="outline"
+                  onClick={() => setSortOrder(sortOrder === "asc" ? "desc" : "asc")}
+                >
+                  {sortOrder === "asc" ? "↑ Oldest" : "↓ Newest"}
+                </Button>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Purchase List */}
+        {purchasesLoading ? (
+          <div className="text-center py-8 text-muted-foreground">Loading purchase history...</div>
+        ) : filteredPurchases.length === 0 ? (
+          <Card>
+            <CardContent className="py-12 text-center">
+              <History className="h-12 w-12 mx-auto mb-4 text-muted-foreground/50" />
+              {searchQuery ? (
+                <>
+                  <p className="text-muted-foreground">No purchases match your search.</p>
+                  <Button variant="ghost" className="underline" onClick={() => setSearchQuery("")}>Clear search</Button>
+                </>
+              ) : (
+                <>
+                  <p className="text-muted-foreground mb-4">You haven&apos;t purchased any leads yet.</p>
+                  <Button onClick={() => router.push("/subcontractor/portal")}>
+                    Browse Available Leads
+                  </Button>
+                </>
+              )}
+            </CardContent>
+          </Card>
+        ) : (
+          <div className="space-y-4">
+            {filteredPurchases.map(lead => <PurchasedLeadCard key={lead.id} lead={lead} />)}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}

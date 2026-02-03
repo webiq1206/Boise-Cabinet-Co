@@ -1,0 +1,1381 @@
+"use client";
+
+import { Suspense, useEffect, useMemo, useState } from "react";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Switch } from "@/components/ui/switch";
+import { useToast } from "@/hooks/use-toast";
+import { useAuth, User } from "@/hooks/useAuth";
+import { NotificationsBell } from "@/components/NotificationsBell";
+import { StripePaymentForm, StripePaymentFormSkeleton, PaymentSuccess } from "@/components/StripePaymentForm";
+import {
+  Leaf, MapPin, Clock, DollarSign, Building, Search, Filter, X, ArrowUpDown, Eye, 
+  EyeOff, ShoppingCart, History, CheckCircle2, Info, AlertTriangle, ChevronDown, 
+  Receipt, Bookmark, BookmarkCheck, Bell, LogOut, Mail, Shield
+} from "lucide-react";
+import { useRouter, useSearchParams } from "next/navigation";
+
+interface LineItem {
+  serviceId?: string;
+  service?: string;
+  serviceName?: string;
+  description?: string;
+  price?: number;
+  basePrice?: number;
+  adjustedPrice?: number;
+  calculationExplanation?: string;
+}
+
+interface ServiceDataEntry {
+  propertySize?: number;
+  linearFeet?: number;
+  zones?: number;
+  treeCount?: number;
+  quantity?: number;
+  [key: string]: unknown;
+}
+
+interface Lead {
+  id: string;
+  quoteId?: string | null;
+  name: string;
+  email: string;
+  phone?: string | null;
+  address?: string | null;
+  city: string;
+  propertyType: string;
+  serviceType: string;
+  selectedServices?: string[] | null;
+  frequency?: string | null;
+  finalQuote?: string | null;
+  lineItems?: LineItem[] | null;
+  serviceData?: Record<string, ServiceDataEntry> | null;
+  message?: string | null;
+  baseLeadPrice?: string | null;
+  currentLeadPrice?: string | null;
+  status: string;
+  createdAt: string;
+  purchasedBy?: string | null;
+  purchasedAt?: string | null;
+}
+
+const PRIORITY_SERVICES = [
+  { slug: "lawn-mowing", name: "Lawn Mowing" },
+  { slug: "lawn-care", name: "Lawn Care" },
+  { slug: "fertilization", name: "Fertilization" },
+  { slug: "aeration", name: "Aeration" },
+  { slug: "weed-control", name: "Weed Control" },
+  { slug: "tree-trimming", name: "Tree Trimming" },
+  { slug: "hedge-trimming", name: "Hedge Trimming" },
+  { slug: "landscaping", name: "Landscaping" },
+  { slug: "mulching", name: "Mulching" },
+  { slug: "seasonal-cleanup", name: "Seasonal Cleanup" },
+  { slug: "christmas-lights", name: "Christmas Lights" },
+  { slug: "irrigation-installation", name: "Irrigation Installation" },
+  { slug: "sprinkler-blowout", name: "Sprinkler Blowout" },
+  { slug: "fence-installation", name: "Fence Installation" },
+  { slug: "patio-installation", name: "Patio Installation" },
+  { slug: "pond-installation", name: "Pond Installation" },
+];
+
+const AGREEMENT_VERSION = "1.0";
+
+function calculateQuoteRange(finalQuote: string | number, variance: number = 0.15) {
+  const point = typeof finalQuote === 'string' ? parseFloat(finalQuote) : finalQuote;
+  if (!point || isNaN(point)) return { min: 0, max: 0, point: 0 };
+  const min = Math.round(point * (1 - variance));
+  const max = Math.round(point * (1 + variance));
+  return { min, max, point };
+}
+
+function formatQuoteRangeWholeFromValue(value: string | number, variance: number = 0.15): string {
+  const { min, max } = calculateQuoteRange(value, variance);
+  if (min === 0 && max === 0) return "Pending";
+  return `$${min.toLocaleString()} - $${max.toLocaleString()}`;
+}
+
+function getServiceName(serviceSlug: string): string {
+  const service = PRIORITY_SERVICES.find(s => s.slug === serviceSlug);
+  return service ? service.name : serviceSlug.replace(/-/g, " ").replace(/\b\w/g, l => l.toUpperCase());
+}
+
+function QuoteBreakdownSection({ lead }: { lead: Lead }) {
+  const [isOpen, setIsOpen] = useState(false);
+  
+  const lineItems = lead.lineItems || [];
+  const hasBreakdown = lineItems.length > 0;
+  
+  if (!hasBreakdown && !lead.finalQuote) {
+    return null;
+  }
+  
+  const formatPrice = (price: number | undefined) => {
+    if (price === undefined || price === null) return '$0';
+    return `$${price.toLocaleString()}`;
+  };
+  
+  return (
+    <Collapsible open={isOpen} onOpenChange={setIsOpen}>
+      <div className="border-t pt-4 mt-4">
+        <CollapsibleTrigger asChild>
+          <Button
+            variant="ghost"
+            size="sm"
+            className="w-full justify-between p-0 h-auto font-medium text-sm hover:bg-transparent"
+          >
+            <span className="flex items-center gap-2">
+              <Receipt className="h-4 w-4 text-muted-foreground" />
+              Project Details
+            </span>
+            <ChevronDown className={`h-4 w-4 text-muted-foreground transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+          </Button>
+        </CollapsibleTrigger>
+        
+        <CollapsibleContent className="pt-3">
+          {lineItems.length > 0 ? (
+            <div className="space-y-3">
+              {lineItems.map((item, index) => {
+                const serviceName = item.serviceName || item.service || 'Service';
+                const price = item.price || item.adjustedPrice || 0;
+                
+                return (
+                  <div key={index} className="bg-muted/50 rounded-md p-3">
+                    <div className="flex justify-between items-start gap-2 mb-1">
+                      <span className="font-medium text-sm">{serviceName}</span>
+                      <span className="font-semibold text-sm text-primary">{formatPrice(price)}</span>
+                    </div>
+                    {item.description && (
+                      <p className="text-xs text-muted-foreground">{item.description}</p>
+                    )}
+                  </div>
+                );
+              })}
+              
+              {lead.finalQuote && (
+                <div className="flex justify-between items-center pt-2 border-t">
+                  <span className="font-semibold text-sm">Estimated Project Value</span>
+                  <span className="font-bold text-lg text-primary">
+                    {formatQuoteRangeWholeFromValue(lead.finalQuote, 0.15)}
+                  </span>
+                </div>
+              )}
+            </div>
+          ) : (
+            <div className="flex justify-between items-center">
+              <span className="font-semibold text-sm">Estimated Project Value</span>
+              <span className="font-bold text-lg text-primary">
+                {lead.finalQuote ? formatQuoteRangeWholeFromValue(lead.finalQuote, 0.15) : "Contact for quote"}
+              </span>
+            </div>
+          )}
+        </CollapsibleContent>
+      </div>
+    </Collapsible>
+  );
+}
+
+function LeadPricingSection({ lead, discount = 0 }: { lead: Lead; discount?: number }) {
+  const [isOpen, setIsOpen] = useState(false);
+  const currentPrice = parseFloat(lead.currentLeadPrice || "0");
+  const basePrice = parseFloat(lead.baseLeadPrice || "0");
+  const hasDiscount = currentPrice < basePrice;
+  const discountedPrice = discount > 0 ? currentPrice * (1 - discount / 100) : currentPrice;
+  
+  return (
+    <Collapsible open={isOpen} onOpenChange={setIsOpen}>
+      <div className="border-t pt-4 mt-4">
+        <CollapsibleTrigger asChild>
+          <Button
+            variant="ghost"
+            size="sm"
+            className="w-full justify-between p-0 h-auto font-medium text-sm hover:bg-transparent"
+          >
+            <span className="flex items-center gap-2">
+              <Info className="h-4 w-4 text-muted-foreground" />
+              Lead Pricing Explanation
+            </span>
+            <ChevronDown className={`h-4 w-4 text-muted-foreground transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+          </Button>
+        </CollapsibleTrigger>
+        
+        <CollapsibleContent className="pt-3 space-y-3">
+          <Alert>
+            <Info className="h-4 w-4" />
+            <AlertTitle>How Lead Pricing Works</AlertTitle>
+            <AlertDescription className="text-xs mt-2">
+              Lead prices are calculated as approximately 10% of the estimated project value. 
+              {hasDiscount && " This lead has been discounted because it's been available for a while."}{" "}
+              {discount > 0 && ` Your bulk discount of ${discount}% has been applied.`}
+            </AlertDescription>
+          </Alert>
+          
+          <div className="space-y-2 text-sm">
+            <div className="flex justify-between">
+              <span className="text-muted-foreground">Base lead price</span>
+              <span>${basePrice.toFixed(2)}</span>
+            </div>
+            {hasDiscount && (
+              <div className="flex justify-between text-green-600">
+                <span>Time-based discount</span>
+                <span>-${(basePrice - currentPrice).toFixed(2)}</span>
+              </div>
+            )}
+            <div className="flex justify-between font-medium">
+              <span>Current price</span>
+              <span>${currentPrice.toFixed(2)}</span>
+            </div>
+            {discount > 0 && (
+              <>
+                <div className="flex justify-between text-green-600">
+                  <span>Bulk discount ({discount}%)</span>
+                  <span>-${(currentPrice - discountedPrice).toFixed(2)}</span>
+                </div>
+                <div className="flex justify-between font-bold border-t pt-2">
+                  <span>Your price</span>
+                  <span className="text-primary">${discountedPrice.toFixed(2)}</span>
+                </div>
+              </>
+            )}
+          </div>
+        </CollapsibleContent>
+      </div>
+    </Collapsible>
+  );
+}
+
+function SubcontractorPortalContent() {
+  const { toast } = useToast();
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const leadIdParam = searchParams.get("leadId");
+  const queryClient = useQueryClient();
+  
+  const { user, isAuthenticated, isLoading: authLoading, isSubcontractor, refetch: refetchUser } = useAuth();
+
+  // State
+  const [activeTab, setActiveTab] = useState<"available" | "watchlist">("available");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filterCity, setFilterCity] = useState<string>("all");
+  const [filterServiceType, setFilterServiceType] = useState<string>("all");
+  const [filterPriceMax, setFilterPriceMax] = useState<string>("");
+  const [filterQuoteMin, setFilterQuoteMin] = useState<string>("");
+  const [filterPropertyType, setFilterPropertyType] = useState<string>("all");
+  const [filterFrequency, setFilterFrequency] = useState<string>("all");
+  const [filterAge, setFilterAge] = useState<string>("all");
+  const [sortBy, setSortBy] = useState<"date" | "price" | "quote">("date");
+  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc");
+  const [showFilters, setShowFilters] = useState(false);
+  
+  // Agreement state
+  const [showAgreement, setShowAgreement] = useState(false);
+  const [agreementSignature, setAgreementSignature] = useState("");
+  const [agreementAccepted, setAgreementAccepted] = useState(false);
+  
+  // Purchase state
+  const [selectedLeadIds, setSelectedLeadIds] = useState<string[]>([]);
+  const [purchaseDialogOpen, setPurchaseDialogOpen] = useState(false);
+  const [singlePurchaseLead, setSinglePurchaseLead] = useState<Lead | null>(null);
+  const [paymentClientSecret, setPaymentClientSecret] = useState<string | null>(null);
+  const [paymentAmount, setPaymentAmount] = useState(0);
+  const [paymentSuccess, setPaymentSuccess] = useState(false);
+  const [pendingPurchaseLeadIds, setPendingPurchaseLeadIds] = useState<string[]>([]);
+  
+  // Notification preferences
+  const [showNotificationPrefs, setShowNotificationPrefs] = useState(false);
+  const [notifyNewLeads, setNotifyNewLeads] = useState(true);
+  const [notifyPriceDrops, setNotifyPriceDrops] = useState(true);
+
+  // Route guard
+  useEffect(() => {
+    if (authLoading) return;
+    if (!isAuthenticated) {
+      router.push("/subcontractor");
+      return;
+    }
+    if (!isSubcontractor) {
+      router.push("/admin/dashboard");
+      return;
+    }
+    
+    // Check if user needs to accept agreement
+    if (user && !user.agreementAccepted) {
+      setShowAgreement(true);
+    }
+  }, [authLoading, isAuthenticated, isSubcontractor, router, user]);
+
+  // Fetch available leads
+  const { data: leads = [], isLoading: leadsLoading } = useQuery<Lead[]>({
+    queryKey: ["/api/leads", "available"],
+    queryFn: async () => {
+      const res = await fetch("/api/leads?status=available");
+      if (!res.ok) throw new Error("Failed to fetch leads");
+      return res.json();
+    },
+    enabled: isAuthenticated && isSubcontractor,
+  });
+
+  // Fetch watchlist
+  const { data: watchlist = [], isLoading: watchlistLoading } = useQuery<Lead[]>({
+    queryKey: ["/api/leads/watchlist"],
+    queryFn: async () => {
+      const res = await fetch("/api/leads/watchlist");
+      if (!res.ok) return [];
+      return res.json();
+    },
+    enabled: isAuthenticated && isSubcontractor,
+  });
+
+  const watchedLeadIds = useMemo(() => {
+    const ids = new Set<string>();
+    watchlist.forEach(l => ids.add(l.id));
+    if (user?.watchedLeads) {
+      user.watchedLeads.forEach((id: string) => ids.add(id));
+    }
+    return ids;
+  }, [watchlist, user?.watchedLeads]);
+
+  // Watch/unwatch mutations
+  const watchLeadMutation = useMutation({
+    mutationFn: async (leadId: string) => {
+      const res = await fetch(`/api/leads/${leadId}/watch`, { method: "POST" });
+      if (!res.ok) throw new Error("Failed to watch lead");
+      return res.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/leads/watchlist"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/auth/user"] });
+      toast({ title: "Lead Added to Watchlist", description: "You'll be notified of price changes." });
+    },
+    onError: (error: Error) => {
+      toast({ title: "Error", description: error.message, variant: "destructive" });
+    },
+  });
+
+  const unwatchLeadMutation = useMutation({
+    mutationFn: async (leadId: string) => {
+      const res = await fetch(`/api/leads/${leadId}/unwatch`, { method: "POST" });
+      if (!res.ok) throw new Error("Failed to unwatch lead");
+      return res.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/leads/watchlist"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/auth/user"] });
+      toast({ title: "Lead Removed from Watchlist" });
+    },
+    onError: (error: Error) => {
+      toast({ title: "Error", description: error.message, variant: "destructive" });
+    },
+  });
+
+  // Accept agreement mutation
+  const acceptAgreementMutation = useMutation({
+    mutationFn: async (signature: string) => {
+      const res = await fetch("/api/user/accept-agreement", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ 
+          signature,
+          version: AGREEMENT_VERSION,
+        }),
+      });
+      if (!res.ok) throw new Error("Failed to accept agreement");
+      return res.json();
+    },
+    onSuccess: () => {
+      refetchUser();
+      setShowAgreement(false);
+      toast({ title: "Agreement Accepted", description: "You can now purchase leads." });
+    },
+    onError: (error: Error) => {
+      toast({ title: "Error", description: error.message, variant: "destructive" });
+    },
+  });
+
+  // Create payment intent mutation
+  const createPaymentIntentMutation = useMutation({
+    mutationFn: async ({ leadId }: { leadId: string }) => {
+      const res = await fetch("/api/create-payment-intent", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ leadId }),
+      });
+      if (!res.ok) throw new Error("Failed to create payment intent");
+      return res.json();
+    },
+    onSuccess: (data) => {
+      setPaymentClientSecret(data.clientSecret);
+      setPaymentAmount(data.amount);
+    },
+    onError: (error: Error) => {
+      toast({ title: "Error", description: error.message, variant: "destructive" });
+    },
+  });
+
+  // Create bulk payment intent mutation
+  const createBulkPaymentIntentMutation = useMutation({
+    mutationFn: async (leadIds: string[]) => {
+      const res = await fetch("/api/create-bulk-payment-intent", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ leadIds }),
+      });
+      if (!res.ok) throw new Error("Failed to create payment intent");
+      return res.json();
+    },
+    onSuccess: (data) => {
+      setPaymentClientSecret(data.clientSecret);
+      setPaymentAmount(data.amount);
+    },
+    onError: (error: Error) => {
+      toast({ title: "Error", description: error.message, variant: "destructive" });
+    },
+  });
+
+  // Purchase lead mutation
+  const purchaseLeadMutation = useMutation({
+    mutationFn: async ({ leadId, paymentIntentId }: { leadId: string; paymentIntentId?: string }) => {
+      const res = await fetch(`/api/leads/${leadId}/purchase`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ paymentIntentId }),
+      });
+      if (!res.ok) throw new Error("Failed to purchase lead");
+      return res.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/leads"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/leads/watchlist"] });
+      setPaymentSuccess(true);
+    },
+    onError: (error: Error) => {
+      toast({ title: "Error", description: error.message, variant: "destructive" });
+    },
+  });
+
+  // Bulk purchase mutation
+  const bulkPurchaseMutation = useMutation({
+    mutationFn: async ({ leadIds, paymentIntentId }: { leadIds: string[]; paymentIntentId?: string }) => {
+      const res = await fetch("/api/leads/bulk-purchase", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ leadIds, paymentIntentId }),
+      });
+      if (!res.ok) throw new Error("Failed to purchase leads");
+      return res.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/leads"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/leads/watchlist"] });
+      setSelectedLeadIds([]);
+      setPaymentSuccess(true);
+    },
+    onError: (error: Error) => {
+      toast({ title: "Error", description: error.message, variant: "destructive" });
+    },
+  });
+
+  // Update notification preferences
+  const updateNotificationPrefsMutation = useMutation({
+    mutationFn: async (prefs: { notifyNewLeads: boolean; notifyPriceDrops: boolean }) => {
+      const res = await fetch("/api/user/notification-preferences", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(prefs),
+      });
+      if (!res.ok) throw new Error("Failed to update preferences");
+      return res.json();
+    },
+    onSuccess: () => {
+      toast({ title: "Preferences Updated" });
+      setShowNotificationPrefs(false);
+    },
+    onError: (error: Error) => {
+      toast({ title: "Error", description: error.message, variant: "destructive" });
+    },
+  });
+
+  // Filter leads
+  const filteredLeads = useMemo(() => {
+    let filtered = [...leads].filter(l => l.status === "available");
+    
+    if (searchQuery) {
+      const query = searchQuery.toLowerCase();
+      filtered = filtered.filter(lead => 
+        lead.city?.toLowerCase().includes(query) ||
+        lead.serviceType?.toLowerCase().includes(query) ||
+        lead.propertyType?.toLowerCase().includes(query)
+      );
+    }
+    
+    if (filterCity !== "all") {
+      filtered = filtered.filter(l => l.city.toLowerCase() === filterCity.toLowerCase());
+    }
+    
+    if (filterServiceType !== "all") {
+      filtered = filtered.filter(l => l.serviceType === filterServiceType);
+    }
+    
+    if (filterPriceMax) {
+      const max = parseFloat(filterPriceMax);
+      if (!isNaN(max)) {
+        filtered = filtered.filter(l => parseFloat(l.currentLeadPrice || "0") <= max);
+      }
+    }
+    
+    if (filterQuoteMin) {
+      const min = parseFloat(filterQuoteMin);
+      if (!isNaN(min)) {
+        filtered = filtered.filter(l => {
+          if (!l.finalQuote) return false;
+          const { min: quoteMin } = calculateQuoteRange(l.finalQuote, 0.15);
+          return quoteMin >= min;
+        });
+      }
+    }
+    
+    if (filterPropertyType !== "all") {
+      filtered = filtered.filter(l => l.propertyType === filterPropertyType);
+    }
+    
+    if (filterFrequency !== "all") {
+      filtered = filtered.filter(l => (l.frequency || "one-time") === filterFrequency);
+    }
+    
+    if (filterAge !== "all") {
+      const now = new Date();
+      filtered = filtered.filter(l => {
+        const created = new Date(l.createdAt);
+        const hours = (now.getTime() - created.getTime()) / (1000 * 60 * 60);
+        switch (filterAge) {
+          case "new": return hours < 24;
+          case "24h": return hours >= 24 && hours < 48;
+          case "48h+": return hours >= 48;
+          default: return true;
+        }
+      });
+    }
+    
+    // Sort
+    filtered.sort((a, b) => {
+      let comparison = 0;
+      switch (sortBy) {
+        case "date":
+          comparison = new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
+          break;
+        case "price":
+          comparison = parseFloat(a.currentLeadPrice || "0") - parseFloat(b.currentLeadPrice || "0");
+          break;
+        case "quote":
+          const pointA = a.finalQuote ? calculateQuoteRange(a.finalQuote, 0.15).point : 0;
+          const pointB = b.finalQuote ? calculateQuoteRange(b.finalQuote, 0.15).point : 0;
+          comparison = pointA - pointB;
+          break;
+      }
+      return sortOrder === "asc" ? comparison : -comparison;
+    });
+    
+    return filtered;
+  }, [leads, searchQuery, filterCity, filterServiceType, filterPriceMax, filterQuoteMin, filterPropertyType, filterFrequency, filterAge, sortBy, sortOrder]);
+
+  const clearFilters = () => {
+    setSearchQuery("");
+    setFilterCity("all");
+    setFilterServiceType("all");
+    setFilterPriceMax("");
+    setFilterQuoteMin("");
+    setFilterPropertyType("all");
+    setFilterFrequency("all");
+    setFilterAge("all");
+    setSortBy("date");
+    setSortOrder("desc");
+  };
+
+  const hasActiveFilters = searchQuery || filterCity !== "all" || filterServiceType !== "all" || 
+    filterPriceMax || filterQuoteMin || filterPropertyType !== "all" || filterFrequency !== "all" || 
+    filterAge !== "all" || sortBy !== "date" || sortOrder !== "desc";
+
+  // Calculate bulk discount
+  const getBulkDiscount = (count: number) => {
+    if (count >= 10) return 20;
+    if (count >= 5) return 10;
+    if (count >= 3) return 5;
+    return 0;
+  };
+
+  const selectedLeadsTotal = useMemo(() => {
+    const selectedLeads = leads.filter(l => selectedLeadIds.includes(l.id));
+    const subtotal = selectedLeads.reduce((sum, l) => sum + parseFloat(l.currentLeadPrice || "0"), 0);
+    const discount = getBulkDiscount(selectedLeads.length);
+    const discountAmount = subtotal * (discount / 100);
+    return { subtotal, discount, discountAmount, total: subtotal - discountAmount, count: selectedLeads.length };
+  }, [leads, selectedLeadIds]);
+
+  const toggleLeadSelection = (leadId: string) => {
+    setSelectedLeadIds(prev => 
+      prev.includes(leadId) ? prev.filter(id => id !== leadId) : [...prev, leadId]
+    );
+  };
+
+  const handleSinglePurchase = (lead: Lead) => {
+    if (!user?.agreementAccepted) {
+      setShowAgreement(true);
+      return;
+    }
+    setSinglePurchaseLead(lead);
+    setPendingPurchaseLeadIds([lead.id]);
+    setPaymentClientSecret(null);
+    setPaymentSuccess(false);
+    setPurchaseDialogOpen(true);
+    createPaymentIntentMutation.mutate({ leadId: lead.id });
+  };
+
+  const handleBulkPurchase = () => {
+    if (!user?.agreementAccepted) {
+      setShowAgreement(true);
+      return;
+    }
+    if (selectedLeadIds.length === 0) return;
+    setSinglePurchaseLead(null);
+    setPendingPurchaseLeadIds(selectedLeadIds);
+    setPaymentClientSecret(null);
+    setPaymentSuccess(false);
+    setPurchaseDialogOpen(true);
+    createBulkPaymentIntentMutation.mutate(selectedLeadIds);
+  };
+
+  const handlePaymentSuccess = () => {
+    if (singlePurchaseLead) {
+      purchaseLeadMutation.mutate({ leadId: singlePurchaseLead.id });
+    } else {
+      bulkPurchaseMutation.mutate({ leadIds: pendingPurchaseLeadIds });
+    }
+  };
+
+  const handlePaymentCancel = () => {
+    setPurchaseDialogOpen(false);
+    setPaymentClientSecret(null);
+    setSinglePurchaseLead(null);
+    setPendingPurchaseLeadIds([]);
+  };
+
+  const handlePaymentComplete = () => {
+    setPurchaseDialogOpen(false);
+    setPaymentClientSecret(null);
+    setPaymentSuccess(false);
+    setSinglePurchaseLead(null);
+    setPendingPurchaseLeadIds([]);
+    router.push("/subcontractor/purchases");
+  };
+
+  const handleAcceptAgreement = () => {
+    if (!agreementSignature.trim()) {
+      toast({ title: "Signature Required", description: "Please type your full name as your electronic signature.", variant: "destructive" });
+      return;
+    }
+    if (!agreementAccepted) {
+      toast({ title: "Agreement Required", description: "Please check the box to accept the agreement.", variant: "destructive" });
+      return;
+    }
+    acceptAgreementMutation.mutate(agreementSignature);
+  };
+
+  const formatCurrency = (amount: string | null | undefined) => {
+    if (!amount) return "$0.00";
+    return `$${parseFloat(amount).toFixed(2)}`;
+  };
+
+  const formatLeadAge = (date: Date | string | null) => {
+    if (!date) return "N/A";
+    const now = new Date();
+    const created = new Date(date);
+    const diffTime = Math.abs(now.getTime() - created.getTime());
+    const diffHours = Math.floor(diffTime / (1000 * 60 * 60));
+    const diffDays = Math.floor(diffHours / 24);
+    
+    if (diffHours < 1) return "Just now";
+    if (diffHours < 24) return `${diffHours}h ago`;
+    if (diffDays === 1) return "1 day ago";
+    return `${diffDays} days ago`;
+  };
+
+  const handleLogout = () => {
+    window.location.href = "/api/logout";
+  };
+
+  const LeadCard = ({ lead, isWatchlist = false }: { lead: Lead; isWatchlist?: boolean }) => {
+    const isWatched = watchedLeadIds.has(lead.id);
+    const isSelected = selectedLeadIds.includes(lead.id);
+    const discount = getBulkDiscount(selectedLeadIds.length);
+    const currentPrice = parseFloat(lead.currentLeadPrice || "0");
+    const basePrice = parseFloat(lead.baseLeadPrice || "0");
+    const hasTimeDiscount = currentPrice < basePrice;
+
+    return (
+      <Card className={`overflow-hidden transition-all ${isSelected ? 'ring-2 ring-primary' : ''}`} id={`lead-${lead.id}`}>
+        <CardHeader className="pb-3">
+          <div className="flex items-start justify-between gap-4">
+            <div className="flex items-start gap-3">
+              <Checkbox
+                checked={isSelected}
+                onCheckedChange={() => toggleLeadSelection(lead.id)}
+                className="mt-1"
+              />
+              <div>
+                <CardTitle className="text-lg flex items-center gap-2">
+                  {getServiceName(lead.serviceType)}
+                  {hasTimeDiscount && (
+                    <Badge variant="outline" className="text-green-600 border-green-600">
+                      Price Reduced
+                    </Badge>
+                  )}
+                </CardTitle>
+                <CardDescription className="mt-1 flex items-center gap-2">
+                  <MapPin className="h-3 w-3" />
+                  {lead.city} • {lead.propertyType.replace(/-/g, " ")}
+                </CardDescription>
+              </div>
+            </div>
+            <div className="flex items-center gap-2">
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => isWatched ? unwatchLeadMutation.mutate(lead.id) : watchLeadMutation.mutate(lead.id)}
+                title={isWatched ? "Remove from watchlist" : "Add to watchlist"}
+              >
+                {isWatched ? (
+                  <BookmarkCheck className="h-5 w-5 text-primary" />
+                ) : (
+                  <Bookmark className="h-5 w-5" />
+                )}
+              </Button>
+            </div>
+          </div>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="grid grid-cols-2 gap-4 text-sm">
+            <div className="flex items-center gap-2">
+              <DollarSign className="h-4 w-4 text-muted-foreground" />
+              <div>
+                <p className="font-medium">
+                  Project: {lead.finalQuote ? formatQuoteRangeWholeFromValue(lead.finalQuote, 0.15) : "Contact for quote"}
+                </p>
+                <p className="text-muted-foreground text-xs">Estimated value</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-2">
+              <Clock className="h-4 w-4 text-muted-foreground" />
+              <div>
+                <p className="font-medium">{formatLeadAge(lead.createdAt)}</p>
+                <p className="text-muted-foreground text-xs">{lead.frequency || "One-time"} service</p>
+              </div>
+            </div>
+          </div>
+
+          {lead.selectedServices && lead.selectedServices.length > 0 && (
+            <div className="border-t pt-4">
+              <p className="text-sm font-medium mb-2">Services Requested:</p>
+              <div className="flex flex-wrap gap-2">
+                {lead.selectedServices.map((serviceId, index) => (
+                  <Badge key={index} variant="outline" className="text-xs">
+                    {getServiceName(serviceId)}
+                  </Badge>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Contact info is masked */}
+          <div className="space-y-2 text-sm border-t pt-4">
+            <div className="flex items-center gap-2 text-muted-foreground">
+              <Eye className="h-4 w-4" />
+              <span className="italic">Contact info revealed after purchase</span>
+            </div>
+          </div>
+
+          <QuoteBreakdownSection lead={lead} />
+          <LeadPricingSection lead={lead} discount={isSelected ? discount : 0} />
+
+          <div className="flex items-center justify-between pt-4 border-t">
+            <div>
+              <p className="text-2xl font-bold text-primary">{formatCurrency(lead.currentLeadPrice)}</p>
+              {hasTimeDiscount && (
+                <p className="text-sm text-muted-foreground line-through">{formatCurrency(lead.baseLeadPrice)}</p>
+              )}
+            </div>
+            <Button onClick={() => handleSinglePurchase(lead)}>
+              <ShoppingCart className="mr-2 h-4 w-4" />
+              Purchase Lead
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+    );
+  };
+
+  if (authLoading || (!user && isAuthenticated)) {
+    return (
+      <div className="min-h-screen bg-gradient-to-b from-emerald-50/50 to-white dark:from-emerald-950/20 dark:to-background flex items-center justify-center">
+        <div className="flex flex-col items-center gap-4">
+          <Leaf className="w-12 h-12 text-emerald-600 animate-pulse" />
+          <p className="text-muted-foreground">Loading portal...</p>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-emerald-50/50 to-white dark:from-emerald-950/20 dark:to-background" data-testid="page-subcontractor-portal">
+      {/* Header */}
+      <header className="border-b bg-card/80 backdrop-blur-sm sticky top-0 z-50">
+        <div className="container px-4 py-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-full bg-emerald-600 flex items-center justify-center">
+                <Leaf className="w-5 h-5 text-white" />
+              </div>
+              <div>
+                <h1 className="text-xl font-bold text-emerald-800 dark:text-emerald-300">Subcontractor Portal</h1>
+                <p className="text-sm text-muted-foreground">
+                  Welcome, {user?.firstName || user?.email}
+                </p>
+              </div>
+            </div>
+            <div className="flex items-center gap-2">
+              <NotificationsBell />
+              <Button variant="ghost" size="icon" onClick={() => setShowNotificationPrefs(true)} title="Notification Settings">
+                <Bell className="h-5 w-5" />
+              </Button>
+              <Button variant="outline" onClick={() => router.push("/subcontractor/purchases")}>
+                <History className="h-4 w-4 mr-2" />
+                My Purchases
+              </Button>
+              <Button variant="outline" onClick={handleLogout}>
+                <LogOut className="h-4 w-4 mr-2" />
+                Logout
+              </Button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <div className="container py-8 px-4">
+        {/* Agreement Status */}
+        {user && !user.agreementAccepted && (
+          <Alert className="mb-6 border-amber-300 bg-amber-50 dark:bg-amber-950/30">
+            <AlertTriangle className="h-4 w-4 text-amber-600" />
+            <AlertTitle>Agreement Required</AlertTitle>
+            <AlertDescription>
+              You must accept the subcontractor agreement before purchasing leads.{" "}
+              <Button variant="ghost" className="p-0 h-auto underline" onClick={() => setShowAgreement(true)}>
+                Review and Accept Agreement
+              </Button>
+            </AlertDescription>
+          </Alert>
+        )}
+
+        {/* Stats */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+          <Card>
+            <CardHeader className="pb-2">
+              <CardTitle className="text-sm font-medium text-muted-foreground flex items-center gap-2">
+                <ShoppingCart className="h-4 w-4" /> Available Leads
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-3xl font-bold">{filteredLeads.length}</div>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader className="pb-2">
+              <CardTitle className="text-sm font-medium text-muted-foreground flex items-center gap-2">
+                <Bookmark className="h-4 w-4" /> Watchlist
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-3xl font-bold">{watchlist.length}</div>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader className="pb-2">
+              <CardTitle className="text-sm font-medium text-muted-foreground flex items-center gap-2">
+                <CheckCircle2 className="h-4 w-4" /> Selected for Purchase
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-3xl font-bold">{selectedLeadIds.length}</div>
+              {selectedLeadsTotal.discount > 0 && (
+                <p className="text-sm text-green-600">{selectedLeadsTotal.discount}% bulk discount!</p>
+              )}
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Bulk Purchase Bar */}
+        {selectedLeadIds.length > 0 && (
+          <Card className="mb-6 border-primary bg-primary/5">
+            <CardContent className="py-4">
+              <div className="flex items-center justify-between flex-wrap gap-4">
+                <div>
+                  <p className="font-medium">
+                    {selectedLeadsTotal.count} lead{selectedLeadsTotal.count !== 1 ? 's' : ''} selected
+                  </p>
+                  <div className="text-sm text-muted-foreground space-x-2">
+                    <span>Subtotal: ${selectedLeadsTotal.subtotal.toFixed(2)}</span>
+                    {selectedLeadsTotal.discount > 0 && (
+                      <>
+                        <span className="text-green-600">
+                          -{selectedLeadsTotal.discount}% (${selectedLeadsTotal.discountAmount.toFixed(2)})
+                        </span>
+                        <span className="font-medium">= ${selectedLeadsTotal.total.toFixed(2)}</span>
+                      </>
+                    )}
+                  </div>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    Buy 3+ for 5% off • 5+ for 10% off • 10+ for 20% off
+                  </p>
+                </div>
+                <div className="flex gap-2">
+                  <Button variant="outline" onClick={() => setSelectedLeadIds([])}>
+                    Clear Selection
+                  </Button>
+                  <Button onClick={handleBulkPurchase}>
+                    <ShoppingCart className="mr-2 h-4 w-4" />
+                    Purchase {selectedLeadsTotal.count} Lead{selectedLeadsTotal.count !== 1 ? 's' : ''}
+                  </Button>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        )}
+
+        {/* Search and Filters */}
+        <Card className="mb-6">
+          <CardHeader>
+            <div className="flex items-center justify-between">
+              <CardTitle className="flex items-center gap-2">
+                <Search className="h-5 w-5" />
+                Search & Filters
+              </CardTitle>
+              <div className="flex items-center gap-2">
+                {hasActiveFilters && (
+                  <Button variant="ghost" size="sm" onClick={clearFilters}>
+                    <X className="h-4 w-4 mr-1" />
+                    Clear Filters
+                  </Button>
+                )}
+                <Button variant="outline" size="sm" onClick={() => setShowFilters(!showFilters)}>
+                  <Filter className="h-4 w-4 mr-1" />
+                  {showFilters ? "Hide" : "Show"} Filters
+                </Button>
+              </div>
+            </div>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+              <Input
+                placeholder="Search by city, service type..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="pl-10"
+              />
+            </div>
+
+            {/* Quick Filters */}
+            <div className="flex flex-wrap gap-2">
+              <Button 
+                variant={filterAge === "new" ? "default" : "outline"} 
+                size="sm"
+                onClick={() => setFilterAge(filterAge === "new" ? "all" : "new")}
+              >
+                🔥 New Today
+              </Button>
+              <Button 
+                variant={filterFrequency === "recurring" ? "default" : "outline"} 
+                size="sm"
+                onClick={() => setFilterFrequency(filterFrequency === "recurring" ? "all" : "recurring")}
+              >
+                🔄 Recurring
+              </Button>
+              <Button 
+                variant={sortBy === "price" && sortOrder === "asc" ? "default" : "outline"} 
+                size="sm"
+                onClick={() => { setSortBy("price"); setSortOrder("asc"); }}
+              >
+                💰 Lowest Price
+              </Button>
+              <Button 
+                variant={sortBy === "quote" && sortOrder === "desc" ? "default" : "outline"} 
+                size="sm"
+                onClick={() => { setSortBy("quote"); setSortOrder("desc"); }}
+              >
+                📈 Highest Value
+              </Button>
+            </div>
+
+            {showFilters && (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 pt-4 border-t">
+                <div>
+                  <Label className="mb-2 block">City</Label>
+                  <Select value={filterCity} onValueChange={setFilterCity}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="All Cities" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">All Cities</SelectItem>
+                      {Array.from(new Set(leads.map(l => l.city))).sort().map(city => (
+                        <SelectItem key={city} value={city.toLowerCase()}>{city}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div>
+                  <Label className="mb-2 block">Service Type</Label>
+                  <Select value={filterServiceType} onValueChange={setFilterServiceType}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="All Services" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">All Services</SelectItem>
+                      {Array.from(new Set(leads.map(l => l.serviceType))).map(service => (
+                        <SelectItem key={service} value={service}>{getServiceName(service)}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div>
+                  <Label className="mb-2 block">Property Type</Label>
+                  <Select value={filterPropertyType} onValueChange={setFilterPropertyType}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="All Properties" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">All Properties</SelectItem>
+                      <SelectItem value="residential">Residential</SelectItem>
+                      <SelectItem value="commercial">Commercial</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div>
+                  <Label className="mb-2 block">Frequency</Label>
+                  <Select value={filterFrequency} onValueChange={setFilterFrequency}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="All Frequencies" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">All Frequencies</SelectItem>
+                      <SelectItem value="one-time">One-time</SelectItem>
+                      <SelectItem value="recurring">Recurring</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div>
+                  <Label className="mb-2 block">Lead Age</Label>
+                  <Select value={filterAge} onValueChange={setFilterAge}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="All Ages" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">All Ages</SelectItem>
+                      <SelectItem value="new">New (&lt;24h)</SelectItem>
+                      <SelectItem value="24h">24-48 Hours</SelectItem>
+                      <SelectItem value="48h+">48+ Hours</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div>
+                  <Label className="mb-2 block">Max Lead Price</Label>
+                  <Input
+                    type="number"
+                    placeholder="$ Max"
+                    value={filterPriceMax}
+                    onChange={(e) => setFilterPriceMax(e.target.value)}
+                  />
+                </div>
+
+                <div>
+                  <Label className="mb-2 block">Min Project Value</Label>
+                  <Input
+                    type="number"
+                    placeholder="$ Min"
+                    value={filterQuoteMin}
+                    onChange={(e) => setFilterQuoteMin(e.target.value)}
+                  />
+                </div>
+
+                <div>
+                  <Label className="mb-2 block">Sort By</Label>
+                  <div className="flex gap-2">
+                    <Select value={sortBy} onValueChange={(v) => setSortBy(v as typeof sortBy)}>
+                      <SelectTrigger className="flex-1">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="date">Date</SelectItem>
+                        <SelectItem value="price">Lead Price</SelectItem>
+                        <SelectItem value="quote">Project Value</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <Button
+                      variant="outline"
+                      size="icon"
+                      onClick={() => setSortOrder(sortOrder === "asc" ? "desc" : "asc")}
+                    >
+                      <ArrowUpDown className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            )}
+          </CardContent>
+        </Card>
+
+        {/* Tabs */}
+        <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as typeof activeTab)} className="space-y-4">
+          <TabsList>
+            <TabsTrigger value="available">
+              <ShoppingCart className="h-4 w-4 mr-2" />
+              Available ({filteredLeads.length})
+            </TabsTrigger>
+            <TabsTrigger value="watchlist">
+              <Bookmark className="h-4 w-4 mr-2" />
+              Watchlist ({watchlist.length})
+            </TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="available" className="space-y-4">
+            {leadsLoading ? (
+              <div className="text-center py-8 text-muted-foreground">Loading leads...</div>
+            ) : filteredLeads.length === 0 ? (
+              <Card>
+                <CardContent className="py-8 text-center text-muted-foreground">
+                  {hasActiveFilters ? "No leads match your filters" : "No leads available right now. Check back soon!"}
+                </CardContent>
+              </Card>
+            ) : (
+              <div className="grid gap-4 md:grid-cols-2">
+                {filteredLeads.map(lead => <LeadCard key={lead.id} lead={lead} />)}
+              </div>
+            )}
+          </TabsContent>
+
+          <TabsContent value="watchlist" className="space-y-4">
+            {watchlistLoading ? (
+              <div className="text-center py-8 text-muted-foreground">Loading watchlist...</div>
+            ) : watchlist.length === 0 ? (
+              <Card>
+                <CardContent className="py-8 text-center text-muted-foreground">
+                  <Bookmark className="h-12 w-12 mx-auto mb-4 text-muted-foreground/50" />
+                  <p>Your watchlist is empty.</p>
+                  <p className="text-sm">Click the bookmark icon on leads to add them here.</p>
+                </CardContent>
+              </Card>
+            ) : (
+              <div className="grid gap-4 md:grid-cols-2">
+                {watchlist.map(lead => <LeadCard key={lead.id} lead={lead} isWatchlist />)}
+              </div>
+            )}
+          </TabsContent>
+        </Tabs>
+      </div>
+
+      {/* Agreement Dialog */}
+      <Dialog open={showAgreement} onOpenChange={setShowAgreement}>
+        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <Shield className="h-5 w-5" />
+              Subcontractor Agreement
+            </DialogTitle>
+            <DialogDescription>
+              Please review and accept the subcontractor agreement to purchase leads.
+            </DialogDescription>
+          </DialogHeader>
+
+          <div className="space-y-4">
+            <div className="bg-muted/50 rounded-md p-4 max-h-64 overflow-y-auto text-sm space-y-3">
+              <h4 className="font-semibold">SUBCONTRACTOR LEAD PURCHASE AGREEMENT</h4>
+              <p>Version {AGREEMENT_VERSION}</p>
+              
+              <p>By accepting this agreement, you agree to the following terms:</p>
+              
+              <ol className="list-decimal pl-5 space-y-2">
+                <li>
+                  <strong>Lead Purchase:</strong> When you purchase a lead, you receive the contact information 
+                  and project details for that customer. The lead is exclusively yours for 30 days.
+                </li>
+                <li>
+                  <strong>No Refunds:</strong> Lead purchases are non-refundable. However, if contact information 
+                  is invalid, you may submit a claim for review within 48 hours of purchase.
+                </li>
+                <li>
+                  <strong>Professional Conduct:</strong> You agree to conduct yourself professionally when 
+                  contacting customers. You represent your own business, not Lawn Care Kuna.
+                </li>
+                <li>
+                  <strong>No Resale:</strong> You may not resell, share, or transfer leads to any third party.
+                </li>
+                <li>
+                  <strong>Insurance & Licensing:</strong> You warrant that you maintain appropriate business 
+                  insurance and any required licenses for lawn care services in Idaho.
+                </li>
+                <li>
+                  <strong>Privacy:</strong> Customer information is confidential. You agree not to use contact 
+                  information for any purpose other than providing the requested services.
+                </li>
+                <li>
+                  <strong>Pricing:</strong> Lead prices are based on estimated project value and may decrease 
+                  over time. Bulk discounts are available (5% for 3+, 10% for 5+, 20% for 10+ leads).
+                </li>
+              </ol>
+
+              <p className="pt-4">
+                This agreement is effective as of the date of acceptance and remains in effect until terminated 
+                by either party with 30 days written notice.
+              </p>
+            </div>
+
+            <div className="space-y-4">
+              <div className="flex items-start gap-3">
+                <Checkbox
+                  id="agreement"
+                  checked={agreementAccepted}
+                  onCheckedChange={(checked) => setAgreementAccepted(!!checked)}
+                />
+                <Label htmlFor="agreement" className="text-sm">
+                  I have read and agree to the Subcontractor Lead Purchase Agreement
+                </Label>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="signature">Electronic Signature (type your full name)</Label>
+                <Input
+                  id="signature"
+                  placeholder="Your full legal name"
+                  value={agreementSignature}
+                  onChange={(e) => setAgreementSignature(e.target.value)}
+                />
+              </div>
+            </div>
+          </div>
+
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setShowAgreement(false)}>
+              Cancel
+            </Button>
+            <Button 
+              onClick={handleAcceptAgreement} 
+              disabled={!agreementAccepted || !agreementSignature.trim() || acceptAgreementMutation.isPending}
+            >
+              {acceptAgreementMutation.isPending ? "Processing..." : "Accept Agreement"}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Purchase Dialog */}
+      <Dialog open={purchaseDialogOpen} onOpenChange={(open) => !open && handlePaymentCancel()}>
+        <DialogContent className="max-w-md">
+          {paymentSuccess ? (
+            <PaymentSuccess 
+              message={`You've successfully purchased ${pendingPurchaseLeadIds.length} lead${pendingPurchaseLeadIds.length !== 1 ? 's' : ''}! View your purchase history to see the contact information.`}
+              onContinue={handlePaymentComplete}
+            />
+          ) : paymentClientSecret ? (
+            <StripePaymentForm
+              clientSecret={paymentClientSecret}
+              amount={paymentAmount}
+              description={singlePurchaseLead 
+                ? `Lead: ${getServiceName(singlePurchaseLead.serviceType)} in ${singlePurchaseLead.city}`
+                : `${pendingPurchaseLeadIds.length} Leads (${selectedLeadsTotal.discount}% bulk discount)`
+              }
+              onSuccess={handlePaymentSuccess}
+              onCancel={handlePaymentCancel}
+            />
+          ) : (
+            <StripePaymentFormSkeleton />
+          )}
+        </DialogContent>
+      </Dialog>
+
+      {/* Notification Preferences Dialog */}
+      <Dialog open={showNotificationPrefs} onOpenChange={setShowNotificationPrefs}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <Bell className="h-5 w-5" />
+              Notification Preferences
+            </DialogTitle>
+            <DialogDescription>
+              Choose which email notifications you&apos;d like to receive
+            </DialogDescription>
+          </DialogHeader>
+
+          <div className="space-y-4">
+            <div className="flex items-center justify-between">
+              <div className="space-y-0.5">
+                <Label>New Leads</Label>
+                <p className="text-sm text-muted-foreground">
+                  Get notified when new leads match your service area
+                </p>
+              </div>
+              <Switch checked={notifyNewLeads} onCheckedChange={setNotifyNewLeads} />
+            </div>
+
+            <div className="flex items-center justify-between">
+              <div className="space-y-0.5">
+                <Label>Price Drops</Label>
+                <p className="text-sm text-muted-foreground">
+                  Get notified when leads on your watchlist drop in price
+                </p>
+              </div>
+              <Switch checked={notifyPriceDrops} onCheckedChange={setNotifyPriceDrops} />
+            </div>
+          </div>
+
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setShowNotificationPrefs(false)}>
+              Cancel
+            </Button>
+            <Button 
+              onClick={() => updateNotificationPrefsMutation.mutate({ notifyNewLeads, notifyPriceDrops })}
+              disabled={updateNotificationPrefsMutation.isPending}
+            >
+              Save Preferences
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+    </div>
+  );
+}
+
+export default function SubcontractorPortalPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-gradient-to-b from-background to-muted/30 flex items-center justify-center">
+        <div className="flex flex-col items-center gap-4">
+          <Leaf className="w-12 h-12 text-primary animate-pulse" />
+          <p className="text-muted-foreground">Loading portal...</p>
+        </div>
+      </div>
+    }>
+      <SubcontractorPortalContent />
+    </Suspense>
+  );
+}

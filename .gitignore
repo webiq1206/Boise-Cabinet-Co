@@ -1,6 +1,18 @@
+﻿# dependencies
 node_modules
-dist
-.DS_Store
-server/public
-vite.config.ts.*
-*.tar.gz
+
+# next.js
+.next
+out
+
+# caches
+.npm-cache
+.cache
+
+# env files
+.env
+.env.local
+.env.production
+
+# assets not meant for git
+attached_assets
