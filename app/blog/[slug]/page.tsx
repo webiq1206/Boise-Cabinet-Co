@@ -172,7 +172,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
                     href={`/blog/${relatedPost.slug}`}
                     className="group"
                   >
-                    <div className="p-6 rounded-lg border bg-card hover:border-primary transition-colors">
+                    <div className="p-6 rounded-lg border bg-gradient-to-br from-[#dbf0de] to-white dark:from-primary/20 dark:to-background hover-elevate transition-all">
                       <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
                         <Calendar className="h-4 w-4" />
                         <span>{formatDate(relatedPost.publishedAt)}</span>
