@@ -130,7 +130,7 @@ export default function Blog() {
                       {/* Posts in this category */}
                       <div className="grid gap-6 md:grid-cols-2">
                         {postsByCategory[category].map((post) => (
-                          <Card key={post.id} className="hover-elevate transition-all flex flex-col bg-gradient-to-br from-primary/5 via-background to-background" data-testid={`card-post-${post.slug}`}>
+                          <Card key={post.id} className="hover-elevate transition-all flex flex-col bg-gradient-to-br from-[#dbf0de] to-white dark:from-primary/20 dark:to-background" data-testid={`card-post-${post.slug}`}>
                             <CardHeader className="flex-1">
                               <div className="flex flex-wrap gap-2 mb-3">
                                 {post.tags.slice(0, 3).map((tag) => (
