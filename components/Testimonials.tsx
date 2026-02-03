@@ -3,7 +3,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { Card, CardContent } from "@/components/ui/card";
 import { Star } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 
 interface Testimonial {
   id: number;
@@ -21,7 +21,6 @@ interface TestimonialsProps {
 }
 
 export function Testimonials({ serviceType, limit = 24 }: TestimonialsProps) {
-  const scrollRef = useRef<HTMLDivElement>(null);
   const [isPaused, setIsPaused] = useState(false);
   
   const { data: testimonials, isLoading } = useQuery<Testimonial[]>({
@@ -35,32 +34,6 @@ export function Testimonials({ serviceType, limit = 24 }: TestimonialsProps) {
       return res.json();
     },
   });
-
-  useEffect(() => {
-    const scrollContainer = scrollRef.current;
-    if (!scrollContainer || isPaused || !testimonials || testimonials.length < 4) return;
-
-    const scrollSpeed = 0.5;
-    let animationId: number;
-    
-    const scroll = () => {
-      if (scrollContainer && !isPaused) {
-        scrollContainer.scrollLeft += scrollSpeed;
-        
-        const scrollWidth = scrollContainer.scrollWidth / 2;
-        if (scrollContainer.scrollLeft >= scrollWidth) {
-          scrollContainer.scrollLeft = 0;
-        }
-      }
-      animationId = requestAnimationFrame(scroll);
-    };
-    
-    animationId = requestAnimationFrame(scroll);
-    
-    return () => {
-      cancelAnimationFrame(animationId);
-    };
-  }, [isPaused, testimonials]);
 
   if (isLoading) {
     return (
@@ -86,6 +59,10 @@ export function Testimonials({ serviceType, limit = 24 }: TestimonialsProps) {
   }
 
   const duplicatedTestimonials = [...testimonials, ...testimonials];
+  const cardWidth = 340;
+  const gap = 24;
+  const totalWidth = testimonials.length * (cardWidth + gap);
+  const duration = testimonials.length * 5;
 
   return (
     <div 
@@ -94,14 +71,26 @@ export function Testimonials({ serviceType, limit = 24 }: TestimonialsProps) {
       onMouseLeave={() => setIsPaused(false)}
       data-testid="container-testimonials-carousel"
     >
+      <style jsx>{`
+        @keyframes scroll {
+          0% {
+            transform: translateX(0);
+          }
+          100% {
+            transform: translateX(-${totalWidth}px);
+          }
+        }
+        .scroll-animation {
+          animation: scroll ${duration}s linear infinite;
+        }
+        .scroll-animation.paused {
+          animation-play-state: paused;
+        }
+      `}</style>
+      
       <div 
-        ref={scrollRef}
-        className="flex gap-6 overflow-x-auto scrollbar-hide"
-        style={{ 
-          scrollBehavior: 'auto',
-          msOverflowStyle: 'none',
-          scrollbarWidth: 'none',
-        }}
+        className={`flex gap-6 scroll-animation ${isPaused ? 'paused' : ''}`}
+        style={{ width: `${totalWidth * 2}px` }}
         data-testid="list-testimonials"
       >
         {duplicatedTestimonials.map((testimonial, index) => (
