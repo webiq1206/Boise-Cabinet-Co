@@ -14,8 +14,11 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Loader2, CreditCard, AlertCircle, CheckCircle2 } from "lucide-react";
 
 // Load Stripe outside of component to avoid re-initialization
-const stripePromise = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
-  ? loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY)
+// Check both NEXT_PUBLIC_ (Next.js) and VITE_ (legacy) prefixes for compatibility
+const stripePublishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
+
+const stripePromise = stripePublishableKey
+  ? loadStripe(stripePublishableKey)
   : null;
 
 interface PaymentFormContentProps {
