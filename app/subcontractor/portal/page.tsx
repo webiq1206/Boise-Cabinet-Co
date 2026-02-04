@@ -407,9 +407,12 @@ function SubcontractorPortalContent() {
       const res = await fetch("/api/create-payment-intent", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ leadId }),
+        body: JSON.stringify({ leadId, userId: user?.id }),
       });
-      if (!res.ok) throw new Error("Failed to create payment intent");
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.error || "Failed to create payment intent");
+      }
       return res.json();
     },
     onSuccess: (data) => {
@@ -427,9 +430,12 @@ function SubcontractorPortalContent() {
       const res = await fetch("/api/create-bulk-payment-intent", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ leadIds }),
+        body: JSON.stringify({ leadIds, userId: user?.id }),
       });
-      if (!res.ok) throw new Error("Failed to create payment intent");
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.error || "Failed to create payment intent");
+      }
       return res.json();
     },
     onSuccess: (data) => {
