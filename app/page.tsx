@@ -17,9 +17,7 @@ import {
   Zap,
 } from "lucide-react";
 import { HeroQuoteSection } from "@/components/HeroQuoteSection";
-import { Testimonials } from "@/components/Testimonials";
-import { NearMeFAQ } from "@/components/NearMeFAQ";
-import { ServiceAreasSection } from "@/components/ServiceAreasSection";
+import { LazyTestimonials, LazyNearMeFAQ, LazyServiceAreasSection } from "@/components/LazyComponents";
 import { generateLocalBusinessSchema, generateOrganizationSchema, generateFAQSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
@@ -556,7 +554,7 @@ export default function HomePage() {
       </section>
 
       {/* Service Areas Section */}
-      <ServiceAreasSection />
+      <LazyServiceAreasSection />
 
       {/* Testimonials */}
       <section className="py-16 md:py-24 bg-muted/30">
@@ -570,7 +568,7 @@ export default function HomePage() {
                 Trusted by homeowners across Kuna and the Treasure Valley
               </p>
             </div>
-            <Testimonials limit={12} />
+            <LazyTestimonials limit={12} />
           </div>
         </div>
       </section>
@@ -579,7 +577,7 @@ export default function HomePage() {
       <section className="py-16 md:py-24">
         <div className="container px-4 md:px-8">
           <div className="max-w-4xl mx-auto">
-            <NearMeFAQ city="Kuna" serviceName="lawn care" />
+            <LazyNearMeFAQ city="Kuna" serviceName="lawn care" />
           </div>
         </div>
       </section>
