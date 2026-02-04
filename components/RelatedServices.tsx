@@ -127,7 +127,7 @@ export function RelatedServices({ currentServiceSlug, city, limit = 4 }: Related
                   <CardContent>
                     <Button variant="outline" size="sm" className="w-full" asChild>
                       <Link href={href}>
-                        Learn More
+                        Explore {service.name}
                         <ArrowRight className="ml-2 h-3 w-3" />
                       </Link>
                     </Button>

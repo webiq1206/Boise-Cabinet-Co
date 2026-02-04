@@ -70,6 +70,8 @@ export function HeroQuoteSection({
               fill
               className="object-cover object-top"
               priority
+              sizes="100vw"
+              quality={85}
             />
           </div>
 

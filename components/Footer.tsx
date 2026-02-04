@@ -107,7 +107,7 @@ export function Footer() {
                 </li>
               ))}
               <li className="pt-2">
-                <Link href="/services" className="text-primary hover:text-primary/80 font-medium transition-colors">
+                <Link href="/services" className="text-foreground hover:text-primary font-medium transition-colors">
                   View All Services →
                 </Link>
               </li>

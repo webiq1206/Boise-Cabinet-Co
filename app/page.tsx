@@ -161,7 +161,7 @@ export default function HomePage() {
         heading="Professional Lawn Care in Kuna"
         subheading="Top-Rated Local Lawn & Landscaping Services Since 2017"
         defaultCity="Kuna"
-        backgroundImage="/images/hero-background.png"
+        backgroundImage="/images/hero-background.webp"
         backgroundAlt="Professional lawn care hero background with decorative leaves and trees"
       >
         {/* Trust Indicators - Inside hero background */}
@@ -230,7 +230,7 @@ export default function HomePage() {
                     </ul>
                     <Button variant="outline" className="w-full" asChild>
                       <Link href={service.href}>
-                        Learn More
+                        Explore {service.title} Services
                         <ArrowRight className="ml-2 h-4 w-4" />
                       </Link>
                     </Button>
