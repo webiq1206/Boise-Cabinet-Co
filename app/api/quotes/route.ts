@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
+import { sendQuoteConfirmationEmail, sendAdminNotificationEmail } from "@/lib/resend";
 
 // Quote submission schema - supports both simple form and full wizard submissions
 const quoteSubmissionSchema = z.object({
@@ -46,19 +47,47 @@ export async function POST(request: Request) {
     // Normalize services array (support both formats)
     const services = validatedData.selectedServices || validatedData.services || [];
     
-    // In production, this would:
-    // 1. Save to database
-    // 2. Send email notification
-    // 3. Create lead record
+    // Generate a quote ID
+    const quoteId = `QT-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
     
-    // For now, log and return success
     console.log("Quote submission received:", {
+      quoteId,
       ...validatedData,
       services,
     });
     
-    // Generate a quote ID
-    const quoteId = `QT-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    // Send emails using Resend
+    try {
+      // Send confirmation email to customer
+      await sendQuoteConfirmationEmail({
+        to: validatedData.email,
+        customerName: validatedData.name,
+        quoteId,
+        address: validatedData.address,
+        city: validatedData.city,
+        services,
+        frequency: validatedData.frequency || 'one-time',
+      });
+      
+      // Send notification to admin
+      await sendAdminNotificationEmail({
+        customerName: validatedData.name,
+        customerEmail: validatedData.email,
+        customerPhone: validatedData.phone || 'Not provided',
+        quoteId,
+        address: validatedData.address,
+        city: validatedData.city,
+        services,
+        frequency: validatedData.frequency || 'one-time',
+        message: validatedData.message,
+        propertySize: validatedData.propertySize,
+      });
+      
+      console.log("Quote emails sent successfully");
+    } catch (emailError) {
+      console.error("Failed to send quote emails:", emailError);
+      // Don't fail the request if email fails - quote was still received
+    }
     
     return NextResponse.json({
       success: true,

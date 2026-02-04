@@ -776,9 +776,9 @@ export function SimpleQuoteWizard({
             <div className="sticky bottom-0 bg-background/95 backdrop-blur border-t p-4 -mx-4 px-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <div className="text-sm text-muted-foreground">Estimated Range</div>
-                  <div className="text-2xl font-bold text-primary" data-testid="price-range">
-                    {formatPriceRange(priceRange.min, priceRange.max)}
+                  <div className="text-sm text-muted-foreground">{selectedServices.length} service{selectedServices.length > 1 ? 's' : ''} selected</div>
+                  <div className="text-base font-medium text-foreground">
+                    {frequency !== "one-time" ? `${frequency} service` : "One-time service"}
                   </div>
                 </div>
                 <Button 
@@ -831,12 +831,12 @@ export function SimpleQuoteWizard({
                   </div>
                   
                   <div className="p-4 bg-primary/10 rounded-lg text-center">
-                    <div className="text-sm text-muted-foreground">Estimated Price Range</div>
-                    <div className="text-3xl font-bold text-primary">
-                      {formatPriceRange(priceRange.min, priceRange.max)}
+                    <div className="text-sm text-muted-foreground">Service Frequency</div>
+                    <div className="text-lg font-semibold text-primary">
+                      {frequency === "one-time" ? "One-Time Service" : frequency === "weekly" ? "Weekly Service" : frequency === "bi-weekly" ? "Every 2 Weeks" : "Monthly Service"}
                     </div>
                     <div className="text-xs text-muted-foreground mt-1">
-                      {frequency !== "one-time" ? `per visit (${frequency})` : "one-time service"}
+                      Price estimate will be provided after submission
                     </div>
                   </div>
                 </CardContent>
@@ -933,14 +933,32 @@ export function SimpleQuoteWizard({
                   </div>
                   <h2 className="text-2xl font-bold text-foreground">Quote Submitted!</h2>
                   <p className="text-muted-foreground mt-2">
-                    We've received your request and will contact you shortly with a detailed estimate.
+                    We've received your request and will contact you within 24 hours with a detailed estimate.
                   </p>
                 </div>
                 
                 <div className="p-4 bg-primary/10 rounded-lg text-center mb-6">
-                  <div className="text-sm text-muted-foreground">Your Estimated Range</div>
+                  <div className="text-sm text-muted-foreground">Estimated Price Range</div>
                   <div className="text-3xl font-bold text-primary">
                     {formatPriceRange(priceRange.min, priceRange.max)}
+                  </div>
+                  <div className="text-xs text-muted-foreground mt-1">
+                    {frequency !== "one-time" ? `per visit (${frequency})` : "one-time service"}
+                  </div>
+                </div>
+                
+                <div className="mb-4 p-3 bg-muted/50 rounded-lg">
+                  <div className="text-sm text-muted-foreground mb-2">Services Requested</div>
+                  <div className="space-y-1">
+                    {selectedServices.map((serviceId) => {
+                      const service = ALL_SERVICES.find(s => s.id === serviceId);
+                      return (
+                        <div key={serviceId} className="flex items-center gap-2 text-sm">
+                          <Check className="w-4 h-4 text-primary" />
+                          <span>{service?.name || serviceId}</span>
+                        </div>
+                      );
+                    })}
                   </div>
                 </div>
                 
