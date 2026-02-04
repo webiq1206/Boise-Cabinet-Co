@@ -3,8 +3,8 @@ import Stripe from 'stripe';
 import { db, isDbAvailable } from '@/lib/db';
 import { leads, users } from '@/shared/schema';
 import { eq } from 'drizzle-orm';
+import { getValidatedSession } from '@/lib/auth';
 
-// Initialize Stripe with the secret key
 const stripe = process.env.STRIPE_SECRET_KEY && process.env.STRIPE_SECRET_KEY.trim().length > 0
   ? new Stripe(process.env.STRIPE_SECRET_KEY)
   : null;
@@ -25,18 +25,18 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    const session = await getValidatedSession();
+    if (!session || !session.userId) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
     const body = await request.json();
-    const { leadId, userId } = body;
+    const { leadId } = body;
 
     if (!leadId) {
       return NextResponse.json({ error: 'Lead ID is required' }, { status: 400 });
     }
 
-    if (!userId) {
-      return NextResponse.json({ error: 'User ID is required' }, { status: 401 });
-    }
-
-    // Get lead from database
     const leadResults = await db.select().from(leads).where(eq(leads.id, leadId));
     const lead = leadResults[0];
     
@@ -48,8 +48,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Lead is no longer available' }, { status: 400 });
     }
 
-    // Get user from database
-    const userResults = await db.select().from(users).where(eq(users.id, userId));
+    const userResults = await db.select().from(users).where(eq(users.id, session.userId));
     const user = userResults[0];
     
     if (!user) {

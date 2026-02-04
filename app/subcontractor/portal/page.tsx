@@ -407,7 +407,7 @@ function SubcontractorPortalContent() {
       const res = await fetch("/api/create-payment-intent", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ leadId, userId: user?.id }),
+        body: JSON.stringify({ leadId }),
       });
       if (!res.ok) {
         const data = await res.json().catch(() => ({}));
@@ -430,7 +430,7 @@ function SubcontractorPortalContent() {
       const res = await fetch("/api/create-bulk-payment-intent", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ leadIds, userId: user?.id }),
+        body: JSON.stringify({ leadIds }),
       });
       if (!res.ok) {
         const data = await res.json().catch(() => ({}));

@@ -3,16 +3,16 @@ import Stripe from 'stripe';
 import { db, isDbAvailable } from '@/lib/db';
 import { leads, users } from '@/shared/schema';
 import { eq, inArray } from 'drizzle-orm';
+import { getValidatedSession } from '@/lib/auth';
 
-// Initialize Stripe with the secret key
 const stripe = process.env.STRIPE_SECRET_KEY && process.env.STRIPE_SECRET_KEY.trim().length > 0
   ? new Stripe(process.env.STRIPE_SECRET_KEY)
   : null;
 
 function calculateBulkDiscount(count: number): number {
-  if (count > 20) return 0.20;  // 21+ leads: 20% discount
-  if (count >= 6) return 0.10;  // 6-20 leads: 10% discount
-  if (count >= 2) return 0.05;  // 2-5 leads: 5% discount
+  if (count > 20) return 0.20;
+  if (count >= 6) return 0.10;
+  if (count >= 2) return 0.05;
   return 0;
 }
 
@@ -32,8 +32,13 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    const session = await getValidatedSession();
+    if (!session || !session.userId) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
     const body = await request.json();
-    const { leadIds, userId } = body;
+    const { leadIds } = body;
 
     if (!Array.isArray(leadIds) || leadIds.length === 0) {
       return NextResponse.json(
@@ -49,12 +54,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    if (!userId) {
-      return NextResponse.json({ error: 'User ID is required' }, { status: 401 });
-    }
-
-    // Get user from database
-    const userResults = await db.select().from(users).where(eq(users.id, userId));
+    const userResults = await db.select().from(users).where(eq(users.id, session.userId));
     const user = userResults[0];
     
     if (!user) {
