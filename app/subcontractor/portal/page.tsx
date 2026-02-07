@@ -21,7 +21,8 @@ import { StripePaymentForm, StripePaymentFormSkeleton, PaymentSuccess } from "@/
 import {
   Leaf, MapPin, Clock, DollarSign, Building, Search, Filter, X, ArrowUpDown, Eye, 
   EyeOff, ShoppingCart, History, CheckCircle2, Info, AlertTriangle, ChevronDown, 
-  Receipt, Bookmark, BookmarkCheck, Bell, LogOut, Mail, Shield
+  Receipt, Bookmark, BookmarkCheck, Bell, LogOut, Mail, Shield, Flame, RefreshCw,
+  TrendingUp
 } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 
@@ -1004,28 +1005,28 @@ function SubcontractorPortalContent() {
                 size="sm"
                 onClick={() => setFilterAge(filterAge === "new" ? "all" : "new")}
               >
-                🔥 New Today
+                <Flame className="w-4 h-4" /> New Today
               </Button>
               <Button 
                 variant={filterFrequency === "recurring" ? "default" : "outline"} 
                 size="sm"
                 onClick={() => setFilterFrequency(filterFrequency === "recurring" ? "all" : "recurring")}
               >
-                🔄 Recurring
+                <RefreshCw className="w-4 h-4" /> Recurring
               </Button>
               <Button 
                 variant={sortBy === "price" && sortOrder === "asc" ? "default" : "outline"} 
                 size="sm"
                 onClick={() => { setSortBy("price"); setSortOrder("asc"); }}
               >
-                💰 Lowest Price
+                <DollarSign className="w-4 h-4" /> Lowest Price
               </Button>
               <Button 
                 variant={sortBy === "quote" && sortOrder === "desc" ? "default" : "outline"} 
                 size="sm"
                 onClick={() => { setSortBy("quote"); setSortOrder("desc"); }}
               >
-                📈 Highest Value
+                <TrendingUp className="w-4 h-4" /> Highest Value
               </Button>
             </div>
 
