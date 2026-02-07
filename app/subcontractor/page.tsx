@@ -29,7 +29,7 @@ export default function SubcontractorPage() {
 
   const handleLogin = () => {
     // Redirect to login flow or show login modal
-    window.location.href = "/api/login?redirect=/subcontractor/portal";
+    window.location.href = "/api/login?returnTo=/subcontractor/portal";
   };
 
   if (isLoading) {

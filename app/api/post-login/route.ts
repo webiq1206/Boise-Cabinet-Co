@@ -1,12 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getSession, getUserFromDb } from "@/lib/auth";
+import { getSession, getUserFromDb, getExternalUrl } from "@/lib/auth";
 
 export async function GET(request: NextRequest) {
   try {
     const session = await getSession();
 
     if (!session.userId) {
-      return NextResponse.redirect(new URL("/", request.url));
+      return NextResponse.redirect(getExternalUrl(request, "/"));
     }
 
     const user = await getUserFromDb(session.userId);
@@ -20,20 +20,20 @@ export async function GET(request: NextRequest) {
         : null;
 
     if (safeReturnTo?.startsWith("/admin") && user?.role !== "admin") {
-      return NextResponse.redirect(new URL("/admin", request.url));
+      return NextResponse.redirect(getExternalUrl(request, "/admin"));
     }
 
     if (user?.role === "subcontractor") {
-      return NextResponse.redirect(new URL("/subcontractor/portal", request.url));
+      return NextResponse.redirect(getExternalUrl(request, "/subcontractor/portal"));
     }
 
     if (user?.role === "admin") {
-      return NextResponse.redirect(new URL(safeReturnTo || "/admin/dashboard", request.url));
+      return NextResponse.redirect(getExternalUrl(request, safeReturnTo || "/admin/dashboard"));
     }
 
-    return NextResponse.redirect(new URL(safeReturnTo || "/", request.url));
+    return NextResponse.redirect(getExternalUrl(request, safeReturnTo || "/"));
   } catch (error) {
     console.error("Post-login error:", error);
-    return NextResponse.redirect(new URL("/", request.url));
+    return NextResponse.redirect(getExternalUrl(request, "/"));
   }
 }

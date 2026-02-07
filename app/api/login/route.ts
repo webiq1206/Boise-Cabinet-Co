@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getSession, getOidcConfig, getRedirectUri } from "@/lib/auth";
+import { getSession, getOidcConfig, getExternalUrl } from "@/lib/auth";
 import * as client from "openid-client";
 
 export async function GET(request: NextRequest) {
@@ -20,8 +20,7 @@ export async function GET(request: NextRequest) {
     session.state = state;
     await session.save();
 
-    const hostname = request.headers.get("host") || request.nextUrl.host;
-    const redirectUri = getRedirectUri(hostname, request.url);
+    const redirectUri = getExternalUrl(request, "/api/callback");
 
     const authUrl = client.buildAuthorizationUrl(config, {
       redirect_uri: redirectUri,
@@ -35,6 +34,6 @@ export async function GET(request: NextRequest) {
     return NextResponse.redirect(authUrl.href);
   } catch (error) {
     console.error("Login error:", error);
-    return NextResponse.redirect(new URL("/", request.url));
+    return NextResponse.redirect(getExternalUrl(request, "/"));
   }
 }

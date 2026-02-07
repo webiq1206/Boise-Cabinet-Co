@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getSession, getOidcConfig, getRedirectUri, upsertUserFromClaims } from "@/lib/auth";
+import { getSession, getOidcConfig, getExternalUrl, upsertUserFromClaims } from "@/lib/auth";
 import * as client from "openid-client";
 
 export async function GET(request: NextRequest) {
@@ -7,20 +7,21 @@ export async function GET(request: NextRequest) {
     const session = await getSession();
     const config = await getOidcConfig();
 
-    const hostname = request.headers.get("host") || request.nextUrl.host;
-    const redirectUri = getRedirectUri(hostname, request.url);
+    const redirectUri = getExternalUrl(request, "/api/callback");
 
     if (!session.codeVerifier || !session.state) {
       console.error("Missing code verifier or state in session");
-      return NextResponse.redirect(new URL("/api/login", request.url));
+      return NextResponse.redirect(getExternalUrl(request, "/api/login"));
     }
 
-    const currentUrl = new URL(request.url);
+    const externalCallbackUrl = getExternalUrl(request, `/api/callback?${request.nextUrl.searchParams.toString()}`);
+    const currentUrl = new URL(externalCallbackUrl);
     
     const tokens = await client.authorizationCodeGrant(config, currentUrl, {
       pkceCodeVerifier: session.codeVerifier,
       expectedState: session.state,
-    });
+      idTokenExpected: true,
+    }, { redirect_uri: redirectUri });
 
     const claims = tokens.claims();
 
@@ -43,9 +44,9 @@ export async function GET(request: NextRequest) {
 
     await upsertUserFromClaims(session.claims);
 
-    return NextResponse.redirect(new URL("/api/post-login", request.url));
+    return NextResponse.redirect(getExternalUrl(request, "/api/post-login"));
   } catch (error) {
     console.error("Callback error:", error);
-    return NextResponse.redirect(new URL("/api/login", request.url));
+    return NextResponse.redirect(getExternalUrl(request, "/api/login"));
   }
 }

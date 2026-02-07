@@ -77,6 +77,26 @@ export async function getOidcConfig() {
   return oidcConfig;
 }
 
+function getExternalProtocol(request: { headers: { get(name: string): string | null } }) {
+  const forwardedProto = request.headers.get("x-forwarded-proto");
+  if (forwardedProto) return forwardedProto.split(",")[0].trim();
+  return process.env.NODE_ENV === "production" ? "https" : "http";
+}
+
+export function getExternalHostname(request: { headers: { get(name: string): string | null }, url?: string }) {
+  return request.headers.get("x-forwarded-host") || request.headers.get("host") || "localhost:5000";
+}
+
+export function getExternalBaseUrl(request: { headers: { get(name: string): string | null }, url?: string }) {
+  const protocol = getExternalProtocol(request);
+  const hostname = getExternalHostname(request);
+  return `${protocol}://${hostname}`;
+}
+
+export function getExternalUrl(request: { headers: { get(name: string): string | null }, url?: string }, path: string) {
+  return `${getExternalBaseUrl(request)}${path}`;
+}
+
 export function getRedirectUri(hostname: string, requestUrl?: string) {
   if (requestUrl) {
     const url = new URL(requestUrl);
