@@ -1,6 +1,6 @@
 import { getSession, getUserFromDb } from "@/lib/auth";
 import { db } from "@/lib/db";
-import { leads, users, notifications } from "@/shared/schema";
+import { leads, users, notifications, quotes } from "@/shared/schema";
 import { eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
 
@@ -41,10 +41,22 @@ export async function POST(request: Request, { params }: { params: { leadId: str
         message: `A new ${lead.serviceType} lead in ${lead.city} is now available.`,
         leadId: lead.id,
       });
+
+      if (sub.email) {
+        sendContractorNewLeadAvailable(sub.email, updated[0] as any).catch(() => {});
+      }
     }
 
-    sendContractorNewLeadAvailable(updated[0], subs).catch(() => {});
-    sendCustomerStatusUpdate(updated[0]).catch(() => {});
+    if (lead.quoteId) {
+      const quoteResult = await db.select().from(quotes).where(eq(quotes.id, lead.quoteId));
+      const quote = quoteResult[0];
+      if (quote) {
+        sendCustomerStatusUpdate(quote.email, quote.id, {
+          status: 'under_review',
+          message: "Your quote is being reviewed by our team. We'll be in touch soon with your customized estimate.",
+        }).catch(() => {});
+      }
+    }
   } catch (e) {}
 
   return NextResponse.json(updated[0]);

@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 import { db } from "@/lib/db";
-import { leads, users, leadPurchases } from "@/shared/schema";
+import { leads, users, leadPurchases, quotes } from "@/shared/schema";
 import { eq } from "drizzle-orm";
 import { getSession, getUserFromDb } from "@/lib/auth";
 
@@ -101,9 +101,47 @@ export async function POST(
 
     try {
       const { sendLeadPurchasedNotification, sendLeadPurchaseConfirmation, sendCustomerStatusUpdate } = await import("@/server/services/emailNotifications");
-      sendLeadPurchasedNotification(updatedLead as any, user as any).catch(() => {});
-      sendLeadPurchaseConfirmation(updatedLead as any, user as any).catch(() => {});
-      sendCustomerStatusUpdate(updatedLead as any).catch(() => {});
+      const buyerName = user.company || `${user.firstName || ''} ${user.lastName || ''}`.trim();
+      const buyerEmail = user.email || '';
+
+      sendLeadPurchasedNotification(
+        {
+          id: updatedLead.id,
+          name: updatedLead.name,
+          email: updatedLead.email,
+          phone: updatedLead.phone || "",
+          city: updatedLead.city,
+          serviceType: updatedLead.serviceType,
+          finalQuote: updatedLead.finalQuote || "0",
+          address: updatedLead.address || undefined,
+        },
+        { name: buyerName, email: buyerEmail }
+      ).catch(() => {});
+
+      sendLeadPurchaseConfirmation(
+        buyerEmail,
+        {
+          id: updatedLead.id,
+          name: updatedLead.name,
+          email: updatedLead.email,
+          phone: updatedLead.phone || "",
+          city: updatedLead.city,
+          serviceType: updatedLead.serviceType,
+          finalQuote: updatedLead.finalQuote || "0",
+          address: updatedLead.address || undefined,
+        }
+      ).catch(() => {});
+
+      if (updatedLead.quoteId) {
+        const quoteResult = await db.select().from(quotes).where(eq(quotes.id, updatedLead.quoteId));
+        const quote = quoteResult[0];
+        if (quote) {
+          sendCustomerStatusUpdate(quote.email, quote.id, {
+            status: 'contact_soon',
+            message: "Great news! A team member has been assigned to your project and will be contacting you soon.",
+          }).catch(() => {});
+        }
+      }
     } catch (e) {}
 
     return NextResponse.json({ success: true, purchase, lead: updatedLead });

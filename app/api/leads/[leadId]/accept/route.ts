@@ -1,6 +1,6 @@
 import { getSession, getUserFromDb } from "@/lib/auth";
 import { db } from "@/lib/db";
-import { leads } from "@/shared/schema";
+import { leads, quotes } from "@/shared/schema";
 import { eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
 
@@ -29,8 +29,17 @@ export async function POST(request: Request, { params }: { params: { leadId: str
   const updated = await db.select().from(leads).where(eq(leads.id, leadId));
 
   try {
-    const { sendCustomerStatusUpdate } = await import("@/server/services/emailNotifications");
-    sendCustomerStatusUpdate(updated[0]).catch(() => {});
+    if (lead.quoteId) {
+      const quoteResult = await db.select().from(quotes).where(eq(quotes.id, lead.quoteId));
+      const quote = quoteResult[0];
+      if (quote) {
+        const { sendCustomerStatusUpdate } = await import("@/server/services/emailNotifications");
+        sendCustomerStatusUpdate(quote.email, quote.id, {
+          status: 'contact_soon',
+          message: "Your quote has been reviewed and we'll be contacting you shortly to discuss the details.",
+        }).catch(() => {});
+      }
+    }
   } catch (e) {}
 
   return NextResponse.json(updated[0]);

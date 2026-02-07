@@ -1,3 +1,5 @@
+const path = require('path');
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
@@ -8,10 +10,16 @@ const nextConfig = {
       },
     ],
   },
-  // Preserve trailing slashes to match existing URLs
   trailingSlash: false,
-  // Enable standalone output for deployment
   output: 'standalone',
+  webpack: (config) => {
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      '@/shared': path.resolve(__dirname, 'shared'),
+      '@shared': path.resolve(__dirname, 'shared'),
+    };
+    return config;
+  },
 }
 
 module.exports = nextConfig

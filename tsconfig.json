@@ -24,7 +24,8 @@
       "@/components/*": ["./components/*"],
       "@/lib/*": ["./lib/*"],
       "@/hooks/*": ["./hooks/*"],
-      "@/shared/*": ["./shared/*"]
+      "@/shared/*": ["./shared/*"],
+      "@shared/*": ["./shared/*"]
     }
   },
   "include": [
@@ -42,12 +43,14 @@
     "shared/schema.ts",
     "shared/utils.ts",
     "shared/measurementBundle.ts",
+    "server/db.ts",
+    "server/storage.ts",
+    "server/services/**/*.ts",
     ".next/types/**/*.ts"
   ],
   "exclude": [
     "node_modules",
     "client",
-    "server",
     "e2e",
     "scripts",
     "*.config.ts",
