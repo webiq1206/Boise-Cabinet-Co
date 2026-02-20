@@ -20,8 +20,8 @@ const pricingCategories = [
     title: "Lawn Care",
     description: "Regular maintenance services",
     icon: Leaf,
-    iconBg: "bg-green-100",
-    iconColor: "text-green-600",
+    iconBg: "bg-primary/10",
+    iconColor: "text-primary",
     services: [
       { name: "Lawn Mowing", price: "$35", priceNote: "starting", note: "Based on lawn size", slug: "lawn-mowing" },
       { name: "Lawn Edging", price: "$15", priceNote: "starting", note: "Add-on to mowing", slug: "lawn-edging" },

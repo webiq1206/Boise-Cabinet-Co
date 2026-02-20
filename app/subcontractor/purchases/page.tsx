@@ -282,7 +282,7 @@ export default function PurchaseHistoryPage() {
             <div>
               <CardTitle className="text-lg flex items-center gap-2">
                 {getServiceName(lead.serviceType)}
-                <Badge variant="secondary" className="text-green-600 bg-green-100 dark:bg-green-900/30">
+                <Badge variant="secondary" className="text-primary bg-primary/10 dark:bg-primary/15">
                   <CheckCircle2 className="h-3 w-3 mr-1" />
                   Purchased
                 </Badge>
@@ -300,8 +300,8 @@ export default function PurchaseHistoryPage() {
         </CardHeader>
         <CardContent className="space-y-4">
           {/* Customer Contact Info - REVEALED */}
-          <div className="bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800 rounded-lg p-4">
-            <h4 className="font-semibold text-emerald-800 dark:text-emerald-300 mb-3 flex items-center gap-2">
+          <div className="bg-primary/5 dark:bg-primary/10 border border-primary/20 dark:border-primary/30 rounded-lg p-4">
+            <h4 className="font-semibold text-primary mb-3 flex items-center gap-2">
               <User className="h-4 w-4" />
               Customer Contact Information
             </h4>
@@ -317,7 +317,7 @@ export default function PurchaseHistoryPage() {
                   onClick={() => copyToClipboard(lead.name, `${lead.id}-name`)}
                 >
                   {copiedId === `${lead.id}-name` ? (
-                    <CheckCircle2 className="h-4 w-4 text-green-600" />
+                    <CheckCircle2 className="h-4 w-4 text-primary" />
                   ) : (
                     <Copy className="h-4 w-4" />
                   )}
@@ -338,7 +338,7 @@ export default function PurchaseHistoryPage() {
                     onClick={() => copyToClipboard(lead.email, `${lead.id}-email`)}
                   >
                     {copiedId === `${lead.id}-email` ? (
-                      <CheckCircle2 className="h-4 w-4 text-green-600" />
+                      <CheckCircle2 className="h-4 w-4 text-primary" />
                     ) : (
                       <Copy className="h-4 w-4" />
                     )}
@@ -370,7 +370,7 @@ export default function PurchaseHistoryPage() {
                       onClick={() => copyToClipboard(lead.phone || "", `${lead.id}-phone`)}
                     >
                       {copiedId === `${lead.id}-phone` ? (
-                        <CheckCircle2 className="h-4 w-4 text-green-600" />
+                        <CheckCircle2 className="h-4 w-4 text-primary" />
                       ) : (
                         <Copy className="h-4 w-4" />
                       )}
@@ -401,7 +401,7 @@ export default function PurchaseHistoryPage() {
                       onClick={() => copyToClipboard(`${lead.address}, ${lead.city}`, `${lead.id}-address`)}
                     >
                       {copiedId === `${lead.id}-address` ? (
-                        <CheckCircle2 className="h-4 w-4 text-green-600" />
+                        <CheckCircle2 className="h-4 w-4 text-primary" />
                       ) : (
                         <Copy className="h-4 w-4" />
                       )}
@@ -486,9 +486,9 @@ export default function PurchaseHistoryPage() {
 
   if (authLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-emerald-50/50 to-white dark:from-emerald-950/20 dark:to-background flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-b from-primary/5 to-white dark:from-primary/10 dark:to-background flex items-center justify-center">
         <div className="flex flex-col items-center gap-4">
-          <Leaf className="w-12 h-12 text-emerald-600 animate-pulse" />
+          <Leaf className="w-12 h-12 text-primary animate-pulse" />
           <p className="text-muted-foreground">Loading...</p>
         </div>
       </div>
@@ -496,7 +496,7 @@ export default function PurchaseHistoryPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-emerald-50/50 to-white dark:from-emerald-950/20 dark:to-background" data-testid="page-purchase-history">
+    <div className="min-h-screen bg-gradient-to-b from-primary/5 to-white dark:from-primary/10 dark:to-background" data-testid="page-purchase-history">
       {/* Header */}
       <header className="border-b bg-card/80 backdrop-blur-sm sticky top-0 z-50">
         <div className="container px-4 py-4">
@@ -509,11 +509,11 @@ export default function PurchaseHistoryPage() {
               >
                 <ArrowLeft className="h-5 w-5" />
               </Button>
-              <div className="w-10 h-10 rounded-full bg-emerald-600 flex items-center justify-center">
+              <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center">
                 <Leaf className="w-5 h-5 text-white" />
               </div>
               <div>
-                <h1 className="text-xl font-bold text-emerald-800 dark:text-emerald-300">Purchase History</h1>
+                <h1 className="text-xl font-bold text-primary">Purchase History</h1>
                 <p className="text-sm text-muted-foreground">
                   View your purchased leads
                 </p>

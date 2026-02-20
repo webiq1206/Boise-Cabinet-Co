@@ -835,7 +835,7 @@ export default function SubcontractorPortal() {
                   <span className="text-muted-foreground line-through">
                     Original: {formatCurrency(basePrice)}
                   </span>
-                  <Badge variant="default" className="bg-green-600">
+                  <Badge variant="default" className="bg-primary">
                     Save {discount.percentage.toFixed(1)}%
                   </Badge>
                 </div>
@@ -1455,7 +1455,7 @@ export default function SubcontractorPortal() {
                             {formatCurrency(lead.currentLeadPrice)}
                           </span>
                           {discount > 0 && (
-                            <Badge variant="secondary" className="text-xs px-1 py-0 text-green-600">
+                            <Badge variant="secondary" className="text-xs px-1 py-0 text-primary">
                               {discount.toFixed(0)}%
                             </Badge>
                           )}
@@ -1551,7 +1551,7 @@ export default function SubcontractorPortal() {
                           Watching
                         </Badge>
                         {discount > 0 && (
-                          <Badge variant="secondary" className="text-green-600">
+                          <Badge variant="secondary" className="text-primary">
                             {discount.toFixed(0)}% OFF
                           </Badge>
                         )}
@@ -1806,10 +1806,10 @@ export default function SubcontractorPortal() {
               {selectedLead.name !== "***" ? (
                 // Post-purchase: Show revealed contact info
                 <>
-                  <div className="bg-green-50 dark:bg-green-900/10 border border-green-200 dark:border-green-800 p-4 rounded-md">
+                  <div className="bg-primary/5 dark:bg-primary/10 border border-primary/20 dark:border-primary/30 p-4 rounded-md">
                     <div className="flex items-start gap-2">
-                      <CheckCircle2 className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
-                      <p className="text-sm text-green-800 dark:text-green-200 font-medium">
+                      <CheckCircle2 className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+                      <p className="text-sm text-primary dark:text-primary font-medium">
                         Purchase successful! Contact the customer to schedule the service.
                       </p>
                     </div>
@@ -1920,7 +1920,7 @@ export default function SubcontractorPortal() {
                   </div>
                   <div className="bg-muted p-4 rounded-md space-y-2">
                     <div className="flex items-start gap-2">
-                      <CheckCircle2 className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
+                      <CheckCircle2 className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
                       <div className="text-sm">
                         <p className="font-medium">After purchase, you'll get:</p>
                         <ul className="list-disc list-inside mt-1 space-y-1">
@@ -2116,10 +2116,10 @@ export default function SubcontractorPortal() {
             <span className="text-muted-foreground">Subtotal: {formatCurrency(bulkTotal.subtotal.toFixed(2))}</span>
             {bulkTotal.discount > 0 && (
               <>
-                <Badge variant="secondary" className="text-green-600">
+                <Badge variant="secondary" className="text-primary">
                   {calculateBulkDiscount(bulkTotal.count).label}
                 </Badge>
-                <span className="text-green-600">-{formatCurrency(bulkTotal.discount.toFixed(2))}</span>
+                <span className="text-primary">-{formatCurrency(bulkTotal.discount.toFixed(2))}</span>
               </>
             )}
             <span className="font-bold text-primary">Total: {formatCurrency(bulkTotal.total.toFixed(2))}</span>
@@ -2163,11 +2163,11 @@ export default function SubcontractorPortal() {
           </DialogHeader>
           <div className="space-y-4 py-4">
             {bulkPaymentStep === "success" ? (
-              <div className="bg-green-50 dark:bg-green-900/10 border border-green-200 dark:border-green-800 p-4 rounded-md">
+              <div className="bg-primary/5 dark:bg-primary/10 border border-primary/20 dark:border-primary/30 p-4 rounded-md">
                 <div className="flex items-start gap-2">
-                  <CheckCircle2 className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
+                  <CheckCircle2 className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
                   <div>
-                    <p className="text-sm text-green-800 dark:text-green-200 font-medium">
+                    <p className="text-sm text-primary dark:text-primary font-medium">
                       Your leads have been purchased! Contact information is now available in your purchased leads list.
                     </p>
                   </div>
@@ -2181,7 +2181,7 @@ export default function SubcontractorPortal() {
                     <p><span className="text-muted-foreground">Leads:</span> {selectedLeadIds.size}</p>
                     <p><span className="text-muted-foreground">Subtotal:</span> {formatCurrency(bulkTotal.subtotal.toFixed(2))}</p>
                     {bulkTotal.discount > 0 && (
-                      <p className="text-green-600"><span className="text-muted-foreground">Discount ({calculateBulkDiscount(bulkTotal.count).label}):</span> -{formatCurrency(bulkTotal.discount.toFixed(2))}</p>
+                      <p className="text-primary"><span className="text-muted-foreground">Discount ({calculateBulkDiscount(bulkTotal.count).label}):</span> -{formatCurrency(bulkTotal.discount.toFixed(2))}</p>
                     )}
                     <p className="text-lg font-bold text-primary">
                       Total: {formatCurrency(bulkTotal.total.toFixed(2))}
@@ -2215,7 +2215,7 @@ export default function SubcontractorPortal() {
                     <span>{formatCurrency(bulkTotal.subtotal.toFixed(2))}</span>
                   </div>
                   {bulkTotal.discount > 0 && (
-                    <div className="flex justify-between text-green-600">
+                    <div className="flex justify-between text-primary">
                       <span>Bulk Discount ({calculateBulkDiscount(bulkTotal.count).discountPercent}% off)</span>
                       <span>-{formatCurrency(bulkTotal.discount.toFixed(2))}</span>
                     </div>

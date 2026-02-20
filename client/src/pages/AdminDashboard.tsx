@@ -949,7 +949,7 @@ export default function AdminDashboard() {
               </h1>
               <Badge 
                 variant={environment.isProduction ? "default" : "outline"}
-                className={environment.isProduction ? "bg-green-600 hover:bg-green-600" : "border-amber-500 text-amber-700 dark:text-amber-400"}
+                className={environment.isProduction ? "bg-primary" : "border-amber-500 text-amber-700 dark:text-amber-400"}
                 data-testid="badge-environment"
               >
                 <Server className="h-3 w-3 mr-1" />

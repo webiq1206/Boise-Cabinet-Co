@@ -141,7 +141,7 @@ export function StickyQuoteSummary({
         {/* Frequency discount indicator */}
         {frequency !== "one-time" && (
           <div className="mt-1.5 flex items-center gap-1.5">
-            <span className="text-xs text-green-600 dark:text-green-400 font-medium">
+            <span className="text-xs text-primary font-medium">
               {frequency === "weekly" ? "15%" : frequency === "bi-weekly" ? "10%" : "5%"} recurring discount applied
             </span>
           </div>

@@ -34,9 +34,9 @@ export default function SubcontractorPage() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-emerald-50/50 to-white dark:from-emerald-950/20 dark:to-background flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-b from-primary/5 to-white dark:from-primary/10 dark:to-background flex items-center justify-center">
         <div className="flex flex-col items-center gap-4">
-          <Leaf className="w-12 h-12 text-emerald-600 animate-pulse" />
+          <Leaf className="w-12 h-12 text-primary animate-pulse" />
           <p className="text-muted-foreground">Loading...</p>
         </div>
       </div>
@@ -45,17 +45,17 @@ export default function SubcontractorPage() {
 
   // Show login page if not authenticated
   return (
-    <div className="min-h-screen bg-gradient-to-b from-emerald-50/50 to-white dark:from-emerald-950/20 dark:to-background" data-testid="page-subcontractor-login">
+    <div className="min-h-screen bg-gradient-to-b from-primary/5 to-white dark:from-primary/10 dark:to-background" data-testid="page-subcontractor-login">
       {/* Header */}
       <header className="border-b bg-card/80 backdrop-blur-sm">
         <div className="container px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-emerald-600 flex items-center justify-center">
-                <Leaf className="w-5 h-5 text-white" />
+              <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center">
+                <Leaf className="w-5 h-5 text-primary-foreground" />
               </div>
               <div>
-                <h1 className="text-xl font-bold text-emerald-800 dark:text-emerald-300">Lawn Care Kuna</h1>
+                <h1 className="text-xl font-bold text-primary dark:text-primary">Lawn Care Kuna</h1>
                 <p className="text-sm text-muted-foreground">Subcontractor Portal</p>
               </div>
             </div>
@@ -75,26 +75,26 @@ export default function SubcontractorPage() {
             </p>
             <div className="space-y-3">
               <div className="flex items-center gap-3">
-                <CheckCircle className="w-5 h-5 text-emerald-600" />
+                <CheckCircle className="w-5 h-5 text-primary" />
                 <span>Pre-qualified leads with verified contact information</span>
               </div>
               <div className="flex items-center gap-3">
-                <CheckCircle className="w-5 h-5 text-emerald-600" />
+                <CheckCircle className="w-5 h-5 text-primary" />
                 <span>Only pay for leads you purchase - no monthly fees</span>
               </div>
               <div className="flex items-center gap-3">
-                <CheckCircle className="w-5 h-5 text-emerald-600" />
+                <CheckCircle className="w-5 h-5 text-primary" />
                 <span>Bulk discounts: 5% off 3+ leads, 10% off 5+, 20% off 10+</span>
               </div>
               <div className="flex items-center gap-3">
-                <CheckCircle className="w-5 h-5 text-emerald-600" />
+                <CheckCircle className="w-5 h-5 text-primary" />
                 <span>Email notifications when new leads match your preferences</span>
               </div>
             </div>
             <Button 
               size="lg" 
               onClick={handleLogin}
-              className="bg-emerald-600 hover:bg-emerald-700"
+              className="bg-primary"
               data-testid="button-login"
             >
               Sign In to Portal
@@ -103,10 +103,10 @@ export default function SubcontractorPage() {
           </div>
 
           <div className="grid gap-4">
-            <Card className="border-emerald-200 dark:border-emerald-800">
+            <Card className="border-primary/20 dark:border-primary/30">
               <CardHeader>
-                <div className="w-12 h-12 rounded-lg bg-emerald-100 dark:bg-emerald-900/50 flex items-center justify-center mb-2">
-                  <Shield className="w-6 h-6 text-emerald-600" />
+                <div className="w-12 h-12 rounded-lg bg-primary/10 dark:bg-primary/20 flex items-center justify-center mb-2">
+                  <Shield className="w-6 h-6 text-primary" />
                 </div>
                 <CardTitle>Verified Leads</CardTitle>
                 <CardDescription>
@@ -115,10 +115,10 @@ export default function SubcontractorPage() {
               </CardHeader>
             </Card>
 
-            <Card className="border-emerald-200 dark:border-emerald-800">
+            <Card className="border-primary/20 dark:border-primary/30">
               <CardHeader>
-                <div className="w-12 h-12 rounded-lg bg-emerald-100 dark:bg-emerald-900/50 flex items-center justify-center mb-2">
-                  <Building2 className="w-6 h-6 text-emerald-600" />
+                <div className="w-12 h-12 rounded-lg bg-primary/10 dark:bg-primary/20 flex items-center justify-center mb-2">
+                  <Building2 className="w-6 h-6 text-primary" />
                 </div>
                 <CardTitle>Local Service Area</CardTitle>
                 <CardDescription>
@@ -131,33 +131,33 @@ export default function SubcontractorPage() {
       </section>
 
       {/* How It Works */}
-      <section className="bg-emerald-50/50 dark:bg-emerald-950/20 py-16">
+      <section className="bg-primary/5 dark:bg-primary/10 py-16">
         <div className="container px-4">
           <h3 className="text-2xl font-bold text-center mb-12">How It Works</h3>
           <div className="grid md:grid-cols-4 gap-8">
             <div className="text-center">
-              <div className="w-12 h-12 rounded-full bg-emerald-600 text-white font-bold flex items-center justify-center mx-auto mb-4">
+              <div className="w-12 h-12 rounded-full bg-primary text-primary-foreground font-bold flex items-center justify-center mx-auto mb-4">
                 1
               </div>
               <h4 className="font-semibold mb-2">Sign Up</h4>
               <p className="text-sm text-muted-foreground">Create your free account and accept the subcontractor agreement</p>
             </div>
             <div className="text-center">
-              <div className="w-12 h-12 rounded-full bg-emerald-600 text-white font-bold flex items-center justify-center mx-auto mb-4">
+              <div className="w-12 h-12 rounded-full bg-primary text-primary-foreground font-bold flex items-center justify-center mx-auto mb-4">
                 2
               </div>
               <h4 className="font-semibold mb-2">Browse Leads</h4>
               <p className="text-sm text-muted-foreground">View available leads with service details, location, and quote estimates</p>
             </div>
             <div className="text-center">
-              <div className="w-12 h-12 rounded-full bg-emerald-600 text-white font-bold flex items-center justify-center mx-auto mb-4">
+              <div className="w-12 h-12 rounded-full bg-primary text-primary-foreground font-bold flex items-center justify-center mx-auto mb-4">
                 3
               </div>
               <h4 className="font-semibold mb-2">Purchase Leads</h4>
               <p className="text-sm text-muted-foreground">Buy the leads you want. Contact info is revealed after purchase</p>
             </div>
             <div className="text-center">
-              <div className="w-12 h-12 rounded-full bg-emerald-600 text-white font-bold flex items-center justify-center mx-auto mb-4">
+              <div className="w-12 h-12 rounded-full bg-primary text-primary-foreground font-bold flex items-center justify-center mx-auto mb-4">
                 4
               </div>
               <h4 className="font-semibold mb-2">Win The Job</h4>
@@ -169,10 +169,10 @@ export default function SubcontractorPage() {
 
       {/* CTA Section */}
       <section className="container px-4 py-16">
-        <Card className="bg-emerald-600 border-0 text-white">
+        <Card className="bg-primary border-0 text-primary-foreground">
           <CardContent className="py-12 text-center">
             <h3 className="text-2xl font-bold mb-4">Ready to Grow Your Business?</h3>
-            <p className="text-emerald-100 mb-8 max-w-2xl mx-auto">
+            <p className="text-primary-foreground/80 mb-8 max-w-2xl mx-auto">
               Join our network today and start receiving high-quality lawn care leads. No monthly fees, no commitments - only pay for the leads you purchase.
             </p>
             <Button 
@@ -193,7 +193,7 @@ export default function SubcontractorPage() {
         <div className="container px-4">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <div className="flex items-center gap-2">
-              <Leaf className="w-5 h-5 text-emerald-600" />
+              <Leaf className="w-5 h-5 text-primary" />
               <span className="font-semibold">Lawn Care Kuna</span>
             </div>
             <p className="text-sm text-muted-foreground">

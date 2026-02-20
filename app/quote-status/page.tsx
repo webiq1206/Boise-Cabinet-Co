@@ -57,9 +57,9 @@ function QuoteStatusContent() {
       case "reviewed":
         return <Badge variant="default">Under Review</Badge>;
       case "approved":
-        return <Badge className="bg-green-600"><CheckCircle2 className="h-3 w-3 mr-1" /> Approved</Badge>;
+        return <Badge className="bg-primary"><CheckCircle2 className="h-3 w-3 mr-1" /> Approved</Badge>;
       case "completed":
-        return <Badge className="bg-green-600"><CheckCircle2 className="h-3 w-3 mr-1" /> Completed</Badge>;
+        return <Badge className="bg-primary"><CheckCircle2 className="h-3 w-3 mr-1" /> Completed</Badge>;
       default:
         return <Badge variant="outline">{status}</Badge>;
     }

@@ -132,8 +132,8 @@ export function MapMeasureTool({
       draw: {
         polygon: enableAreaTools ? {
           shapeOptions: {
-            color: '#2D6B3F',
-            fillColor: '#2D6B3F',
+            color: '#2D8652',
+            fillColor: '#2D8652',
             fillOpacity: 0.3,
             weight: 2,
           },
@@ -142,7 +142,7 @@ export function MapMeasureTool({
         } : false,
         polyline: enableLinearTools ? {
           shapeOptions: {
-            color: '#2D6B3F',
+            color: '#2D8652',
             weight: 3,
           },
           showLength: true,
@@ -150,8 +150,8 @@ export function MapMeasureTool({
         } : false,
         rectangle: enableAreaTools ? {
           shapeOptions: {
-            color: '#2D6B3F',
-            fillColor: '#2D6B3F',
+            color: '#2D8652',
+            fillColor: '#2D8652',
             fillOpacity: 0.3,
           },
           showArea: true,
@@ -491,7 +491,7 @@ export function MapMeasureTool({
         L.marker([lat, lng], {
           icon: L.divIcon({
             className: 'custom-marker',
-            html: '<div style="background-color: #2D6B3F; width: 24px; height: 24px; border-radius: 50%; border: 3px solid white; box-shadow: 0 2px 4px rgba(0,0,0,0.2);"></div>',
+            html: '<div style="background-color: #2D8652; width: 24px; height: 24px; border-radius: 50%; border: 3px solid white; box-shadow: 0 2px 4px rgba(0,0,0,0.2);"></div>',
             iconSize: [24, 24],
             iconAnchor: [12, 12],
           })
@@ -537,9 +537,9 @@ export function MapMeasureTool({
 
           // Create polygon for lawn area (always needed)
           const polygon = L.polygon(latlngs, {
-            color: '#2D6B3F',
+            color: '#2D8652',
             weight: 2,
-            fillColor: '#2D6B3F',
+            fillColor: '#2D8652',
             fillOpacity: 0.2,
           });
           (polygon as any).measurementType = 'area'; // Tag for aggregation logic
@@ -608,9 +608,9 @@ export function MapMeasureTool({
         );
         
         const rectangle = L.rectangle(bounds, {
-          color: '#2D6B3F',
+          color: '#2D8652',
           weight: 2,
-          fillColor: '#2D6B3F',
+          fillColor: '#2D8652',
           fillOpacity: 0.2,
         });
         (rectangle as any).measurementType = 'area'; // Tag for aggregation logic

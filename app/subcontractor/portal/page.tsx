@@ -226,7 +226,7 @@ function LeadPricingSection({ lead, discount = 0 }: { lead: Lead; discount?: num
               <span>${basePrice.toFixed(2)}</span>
             </div>
             {hasDiscount && (
-              <div className="flex justify-between text-green-600">
+              <div className="flex justify-between text-primary">
                 <span>Time-based discount</span>
                 <span>-${(basePrice - currentPrice).toFixed(2)}</span>
               </div>
@@ -237,7 +237,7 @@ function LeadPricingSection({ lead, discount = 0 }: { lead: Lead; discount?: num
             </div>
             {discount > 0 && (
               <>
-                <div className="flex justify-between text-green-600">
+                <div className="flex justify-between text-primary">
                   <span>Bulk discount ({discount}%)</span>
                   <span>-${(currentPrice - discountedPrice).toFixed(2)}</span>
                 </div>
@@ -741,7 +741,7 @@ function SubcontractorPortalContent() {
                 <CardTitle className="text-lg flex items-center gap-2">
                   {getServiceName(lead.serviceType)}
                   {hasTimeDiscount && (
-                    <Badge variant="outline" className="text-green-600 border-green-600">
+                    <Badge variant="outline" className="text-primary border-primary">
                       Price Reduced
                     </Badge>
                   )}
@@ -831,9 +831,9 @@ function SubcontractorPortalContent() {
 
   if (authLoading || (!user && isAuthenticated)) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-emerald-50/50 to-white dark:from-emerald-950/20 dark:to-background flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-b from-primary/5 to-white dark:from-primary/10 dark:to-background flex items-center justify-center">
         <div className="flex flex-col items-center gap-4">
-          <Leaf className="w-12 h-12 text-emerald-600 animate-pulse" />
+          <Leaf className="w-12 h-12 text-primary animate-pulse" />
           <p className="text-muted-foreground">Loading portal...</p>
         </div>
       </div>
@@ -841,17 +841,17 @@ function SubcontractorPortalContent() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-emerald-50/50 to-white dark:from-emerald-950/20 dark:to-background" data-testid="page-subcontractor-portal">
+    <div className="min-h-screen bg-gradient-to-b from-primary/5 to-white dark:from-primary/10 dark:to-background" data-testid="page-subcontractor-portal">
       {/* Header */}
       <header className="border-b bg-card/80 backdrop-blur-sm sticky top-0 z-50">
         <div className="container px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-emerald-600 flex items-center justify-center">
+              <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center">
                 <Leaf className="w-5 h-5 text-white" />
               </div>
               <div>
-                <h1 className="text-xl font-bold text-emerald-800 dark:text-emerald-300">Subcontractor Portal</h1>
+                <h1 className="text-xl font-bold text-primary">Subcontractor Portal</h1>
                 <p className="text-sm text-muted-foreground">
                   Welcome, {user?.firstName || user?.email}
                 </p>
@@ -921,7 +921,7 @@ function SubcontractorPortalContent() {
             <CardContent>
               <div className="text-3xl font-bold">{selectedLeadIds.length}</div>
               {selectedLeadsTotal.discount > 0 && (
-                <p className="text-sm text-green-600">{selectedLeadsTotal.discount}% bulk discount!</p>
+                <p className="text-sm text-primary">{selectedLeadsTotal.discount}% bulk discount!</p>
               )}
             </CardContent>
           </Card>
@@ -940,7 +940,7 @@ function SubcontractorPortalContent() {
                     <span>Subtotal: ${selectedLeadsTotal.subtotal.toFixed(2)}</span>
                     {selectedLeadsTotal.discount > 0 && (
                       <>
-                        <span className="text-green-600">
+                        <span className="text-primary">
                           -{selectedLeadsTotal.discount}% (${selectedLeadsTotal.discountAmount.toFixed(2)})
                         </span>
                         <span className="font-medium">= ${selectedLeadsTotal.total.toFixed(2)}</span>

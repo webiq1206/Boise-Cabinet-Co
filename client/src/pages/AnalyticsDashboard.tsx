@@ -205,7 +205,7 @@ export default function AnalyticsDashboard() {
                 <span className="text-sm font-medium">{purchasedLeads.length}</span>
                 <div className="w-24 bg-muted rounded-full h-2">
                   <div
-                    className="bg-green-500 h-2 rounded-full"
+                    className="bg-primary h-2 rounded-full"
                     style={{ width: `${(purchasedLeads.length / leads.length) * 100}%` }}
                   />
                 </div>

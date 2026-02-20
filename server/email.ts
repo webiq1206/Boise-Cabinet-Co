@@ -84,7 +84,7 @@ const emailStyles = `
     background-color: #ffffff;
   }
   .header { 
-    background: linear-gradient(135deg, #166534 0%, #15803d 100%); 
+    background: linear-gradient(135deg, #2D8652 0%, #3a9d63 100%); 
     color: #ffffff; 
     padding: 40px 30px; 
     text-align: center;
@@ -131,7 +131,7 @@ const emailStyles = `
   }
   .line-item-service {
     font-weight: 600;
-    color: #166534;
+    color: #2D8652;
     font-size: 15px;
   }
   .line-item-price {
@@ -159,7 +159,7 @@ const emailStyles = `
   .section-title {
     font-size: 16px;
     font-weight: 600;
-    color: #166534;
+    color: #2D8652;
     margin: 0 0 15px 0;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -183,7 +183,7 @@ const emailStyles = `
   }
   .highlight-box {
     background: linear-gradient(to right, #f0f9f4 0%, #f0fdf4 100%);
-    border-left: 4px solid #166534;
+    border-left: 4px solid #2D8652;
     padding: 20px;
     margin: 25px 0;
     border-radius: 4px;
@@ -194,7 +194,7 @@ const emailStyles = `
   }
   .cta-button {
     display: inline-block;
-    background: linear-gradient(135deg, #166534 0%, #15803d 100%);
+    background: linear-gradient(135deg, #2D8652 0%, #3a9d63 100%);
     color: #ffffff !important;
     padding: 14px 32px;
     text-decoration: none;
@@ -212,7 +212,7 @@ const emailStyles = `
   .footer-brand {
     font-size: 18px;
     font-weight: 600;
-    color: #166534;
+    color: #2D8652;
     margin: 0 0 8px 0;
   }
   .footer-tagline {
@@ -226,7 +226,7 @@ const emailStyles = `
     margin: 5px 0;
   }
   .footer-contact a {
-    color: #166534;
+    color: #2D8652;
     text-decoration: none;
   }
   .divider {
@@ -420,7 +420,7 @@ export async function sendQuoteNotification(data: QuoteEmailData) {
         .filter(([serviceName, measurements]) => measurements.length > 0)
         .map(([serviceName, measurements]) => `
           <div style="margin-bottom: 20px;">
-            <h3 style="color: #166534; font-size: 14px; font-weight: 600; margin: 0 0 10px 0; text-transform: uppercase; letter-spacing: 0.5px;">${serviceName}</h3>
+            <h3 style="color: #2D8652; font-size: 14px; font-weight: 600; margin: 0 0 10px 0; text-transform: uppercase; letter-spacing: 0.5px;">${serviceName}</h3>
             <table class="info-table">
               ${measurements.map(m => `
                 <tr>
@@ -485,12 +485,12 @@ export async function sendQuoteNotification(data: QuoteEmailData) {
                 </tr>
                 <tr>
                   <td class="label">Email:</td>
-                  <td class="value"><a href="mailto:${customerEmail}" style="color: #166534; text-decoration: none;">${customerEmail}</a></td>
+                  <td class="value"><a href="mailto:${customerEmail}" style="color: #2D8652; text-decoration: none;">${customerEmail}</a></td>
                 </tr>
                 ${customerPhone ? `
                 <tr>
                   <td class="label">Phone:</td>
-                  <td class="value"><a href="tel:${customerPhone}" style="color: #166534; text-decoration: none;">${customerPhone}</a></td>
+                  <td class="value"><a href="tel:${customerPhone}" style="color: #2D8652; text-decoration: none;">${customerPhone}</a></td>
                 </tr>
                 ` : ''}
                 ${preferredDate ? `
@@ -566,7 +566,7 @@ export async function sendQuoteNotification(data: QuoteEmailData) {
               <table class="info-table">
                 <tr>
                   <td class="label">${finalQuote ? 'Estimated Range:' : 'Quote Status:'}</td>
-                  <td class="value" style="font-size: 24px; font-weight: 700; color: #166534;">
+                  <td class="value" style="font-size: 24px; font-weight: 700; color: #2D8652;">
                     ${quoteDisplay}
                   </td>
                 </tr>
@@ -688,7 +688,7 @@ export async function sendQuoteNotification(data: QuoteEmailData) {
               <table class="info-table">
                 <tr>
                   <td class="label">${finalQuote ? 'Estimated Range:' : 'Quote Status:'}</td>
-                  <td class="value" style="font-size: 24px; font-weight: 700; color: #166534;">
+                  <td class="value" style="font-size: 24px; font-weight: 700; color: #2D8652;">
                     ${quoteDisplay}
                   </td>
                 </tr>
@@ -715,7 +715,7 @@ export async function sendQuoteNotification(data: QuoteEmailData) {
 
             <div style="text-align: center; margin: 30px 0;">
               <p style="color: #4b5563; margin: 0 0 10px 0;"><strong>Have questions?</strong></p>
-              <p style="color: #6b7280; font-size: 14px; margin: 0;">You can reply to this email or call us at <a href="tel:+12083522011" style="color: #166534; text-decoration: none;">(208) 352-2011</a></p>
+              <p style="color: #6b7280; font-size: 14px; margin: 0;">You can reply to this email or call us at <a href="tel:+12083522011" style="color: #2D8652; text-decoration: none;">(208) 352-2011</a></p>
             </div>
           </div>
 

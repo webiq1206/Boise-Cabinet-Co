@@ -107,7 +107,7 @@ export function AdminSubcontractorPanel() {
                     </TableCell>
                     <TableCell>
                       {sub.agreementAccepted ? (
-                        <Badge variant="default" className="bg-green-600" data-testid={`badge-agreement-signed-${sub.id}`}>
+                        <Badge variant="default" className="bg-primary" data-testid={`badge-agreement-signed-${sub.id}`}>
                           <CheckCircle2 className="h-3 w-3 mr-1" />
                           Signed
                         </Badge>
@@ -173,7 +173,7 @@ export function AdminSubcontractorPanel() {
                 <div className="space-y-2">
                   <div className="flex items-center gap-2">
                     {selectedSubcontractor.agreementAccepted ? (
-                      <Badge variant="default" className="bg-green-600" data-testid="badge-detail-agreement-signed">
+                      <Badge variant="default" className="bg-primary" data-testid="badge-detail-agreement-signed">
                         <CheckCircle2 className="h-3 w-3 mr-1" />
                         Agreement Signed
                       </Badge>

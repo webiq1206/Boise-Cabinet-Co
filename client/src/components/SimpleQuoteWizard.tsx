@@ -38,7 +38,7 @@ const SERVICE_INTENTS = [
     label: "Lawn Care",
     icon: Leaf,
     description: "Mowing, aeration, fertilization",
-    color: "bg-green-100 text-green-700 border-green-200",
+    color: "bg-primary/10 text-primary border-primary/20",
     primaryServices: ["lawn-mowing"],
     upsellServices: ["aeration", "fertilization", "weed-control"],
     upsellPrompt: "Boost your lawn's health",
@@ -567,19 +567,19 @@ export function SimpleQuoteWizard({
               {/* Property confirmation */}
               {measurementBundle && !isLookingUp && (
                 <div 
-                  className="p-4 bg-green-50 dark:bg-green-950/30 border border-green-200 dark:border-green-800 rounded-lg"
+                  className="p-4 bg-primary/5 dark:bg-primary/10 border border-primary/20 dark:border-primary/30 rounded-lg"
                   data-testid="property-confirmation"
                 >
                   <div className="flex items-start gap-3">
-                    <CheckCircle2 className="w-5 h-5 text-green-600 mt-0.5 shrink-0" />
+                    <CheckCircle2 className="w-5 h-5 text-primary mt-0.5 shrink-0" />
                     <div className="flex-1">
-                      <div className="font-medium text-green-800 dark:text-green-200">
+                      <div className="font-medium text-primary">
                         Property Found
                       </div>
-                      <div className="text-sm text-green-700 dark:text-green-300 mt-1">
+                      <div className="text-sm text-primary mt-1">
                         {getMeasurementSummary(measurementBundle).join(" • ")}
                       </div>
-                      <div className="text-xs text-green-600 dark:text-green-400 mt-2 flex items-center gap-2">
+                      <div className="text-xs text-primary mt-2 flex items-center gap-2">
                         <Badge variant="outline" className="text-xs py-0">
                           {getConfidenceLabel(measurementBundle.confidence).label}
                         </Badge>
@@ -591,7 +591,7 @@ export function SimpleQuoteWizard({
                     <Button
                       variant="ghost"
                       size="sm"
-                      className="text-green-700 hover:text-green-800"
+                      className="text-primary"
                       data-testid="button-adjust-measurements"
                     >
                       <Edit2 className="w-4 h-4 mr-1" />
@@ -982,8 +982,8 @@ export function SimpleQuoteWizard({
             <Card>
               <CardContent className="pt-6">
                 <div className="text-center mb-6">
-                  <div className="w-16 h-16 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <CheckCircle2 className="w-8 h-8 text-green-600" />
+                  <div className="w-16 h-16 bg-primary/10 dark:bg-primary/15 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <CheckCircle2 className="w-8 h-8 text-primary" />
                   </div>
                   <h2 className="text-2xl font-bold text-foreground">Quote Submitted!</h2>
                   <p className="text-muted-foreground mt-2">

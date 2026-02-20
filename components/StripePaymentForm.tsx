@@ -197,7 +197,7 @@ export function StripePaymentForm({
             appearance: {
               theme: "stripe",
               variables: {
-                colorPrimary: "#16a34a",
+                colorPrimary: "#2D8652",
                 borderRadius: "8px",
               },
             },
@@ -242,10 +242,10 @@ export function StripePaymentFormSkeleton() {
 // Success state component
 export function PaymentSuccess({ message, onContinue }: { message?: string; onContinue?: () => void }) {
   return (
-    <Card className="border-green-200 dark:border-green-800">
+    <Card className="border-primary/20 dark:border-primary/30">
       <CardContent className="py-8 text-center">
-        <div className="w-16 h-16 rounded-full bg-green-100 dark:bg-green-900/50 flex items-center justify-center mx-auto mb-4">
-          <CheckCircle2 className="h-8 w-8 text-green-600" />
+        <div className="w-16 h-16 rounded-full bg-primary/10 dark:bg-primary/20 flex items-center justify-center mx-auto mb-4">
+          <CheckCircle2 className="h-8 w-8 text-primary" />
         </div>
         <h3 className="text-xl font-semibold mb-2">Payment Successful!</h3>
         <p className="text-muted-foreground mb-6">

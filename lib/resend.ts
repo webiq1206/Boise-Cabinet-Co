@@ -74,7 +74,7 @@ export async function sendQuoteConfirmationEmail(data: {
     </head>
     <body style="margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; background-color: #f4f4f5;">
       <div style="max-width: 600px; margin: 0 auto; padding: 20px;">
-        <div style="background: linear-gradient(135deg, #166534 0%, #22c55e 50%, #ffffff 100%); padding: 30px; text-align: center; border-radius: 12px 12px 0 0;">
+        <div style="background: linear-gradient(135deg, #2D8652 0%, #3a9d63 50%, #ffffff 100%); padding: 30px; text-align: center; border-radius: 12px 12px 0 0;">
           <img src="https://lawncarekuna.com/images/lawn-care-kuna-logo.png" alt="Lawn Care Kuna" style="max-height: 60px; margin-bottom: 10px;">
           <h1 style="color: white; margin: 0; font-size: 24px;">Thank You for Your Quote Request!</h1>
         </div>
@@ -87,7 +87,7 @@ export async function sendQuoteConfirmationEmail(data: {
           </p>
           
           <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 20px; margin: 20px 0;">
-            <h3 style="margin: 0 0 15px 0; color: #166534;">Quote Details</h3>
+            <h3 style="margin: 0 0 15px 0; color: #2D8652;">Quote Details</h3>
             <p style="margin: 0 0 8px 0;"><strong>Reference:</strong> ${data.quoteId.slice(0, 8)}</p>
             <p style="margin: 0 0 8px 0;"><strong>Property:</strong> ${data.address}, ${data.city}, Idaho</p>
             <p style="margin: 0 0 8px 0;"><strong>Frequency:</strong> ${formatFrequency(data.frequency)}</p>
@@ -102,7 +102,7 @@ export async function sendQuoteConfirmationEmail(data: {
           </p>
           
           <div style="text-align: center; margin-top: 30px;">
-            <a href="https://lawncarekuna.com" style="display: inline-block; background: #166534; color: white; padding: 12px 24px; text-decoration: none; border-radius: 8px; font-weight: bold;">
+            <a href="https://lawncarekuna.com" style="display: inline-block; background: #2D8652; color: white; padding: 12px 24px; text-decoration: none; border-radius: 8px; font-weight: bold;">
               Visit Our Website
             </a>
           </div>
@@ -112,7 +112,7 @@ export async function sendQuoteConfirmationEmail(data: {
           <p style="font-size: 12px; color: #666; text-align: center;">
             Lawn Care Kuna<br>
             Kuna, Idaho | (208) 314-9867<br>
-            <a href="mailto:hello@lawncarekuna.com" style="color: #166534;">hello@lawncarekuna.com</a>
+            <a href="mailto:hello@lawncarekuna.com" style="color: #2D8652;">hello@lawncarekuna.com</a>
           </p>
         </div>
       </div>
@@ -163,7 +163,7 @@ export async function sendAdminNotificationEmail(data: {
     </head>
     <body style="margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; background-color: #f4f4f5;">
       <div style="max-width: 600px; margin: 0 auto; padding: 20px;">
-        <div style="background: linear-gradient(135deg, #166534 0%, #22c55e 50%, #ffffff 100%); padding: 30px; text-align: center; border-radius: 12px 12px 0 0;">
+        <div style="background: linear-gradient(135deg, #2D8652 0%, #3a9d63 50%, #ffffff 100%); padding: 30px; text-align: center; border-radius: 12px 12px 0 0;">
           <img src="https://lawncarekuna.com/images/lawn-care-kuna-logo.png" alt="Lawn Care Kuna" style="max-height: 60px; margin-bottom: 10px;">
           <h1 style="color: white; margin: 0; font-size: 24px;">New Quote Request!</h1>
         </div>
@@ -173,7 +173,7 @@ export async function sendAdminNotificationEmail(data: {
             <strong style="color: #92400e;">New lead received!</strong>
           </div>
           
-          <h3 style="margin: 0 0 15px 0; color: #166534;">Customer Information</h3>
+          <h3 style="margin: 0 0 15px 0; color: #2D8652;">Customer Information</h3>
           <table style="width: 100%; border-collapse: collapse;">
             <tr>
               <td style="padding: 8px 0; border-bottom: 1px solid #e5e5e5;"><strong>Name:</strong></td>
@@ -181,11 +181,11 @@ export async function sendAdminNotificationEmail(data: {
             </tr>
             <tr>
               <td style="padding: 8px 0; border-bottom: 1px solid #e5e5e5;"><strong>Email:</strong></td>
-              <td style="padding: 8px 0; border-bottom: 1px solid #e5e5e5;"><a href="mailto:${data.customerEmail}" style="color: #166534;">${data.customerEmail}</a></td>
+              <td style="padding: 8px 0; border-bottom: 1px solid #e5e5e5;"><a href="mailto:${data.customerEmail}" style="color: #2D8652;">${data.customerEmail}</a></td>
             </tr>
             <tr>
               <td style="padding: 8px 0; border-bottom: 1px solid #e5e5e5;"><strong>Phone:</strong></td>
-              <td style="padding: 8px 0; border-bottom: 1px solid #e5e5e5;"><a href="tel:${data.customerPhone}" style="color: #166534;">${data.customerPhone}</a></td>
+              <td style="padding: 8px 0; border-bottom: 1px solid #e5e5e5;"><a href="tel:${data.customerPhone}" style="color: #2D8652;">${data.customerPhone}</a></td>
             </tr>
             <tr>
               <td style="padding: 8px 0; border-bottom: 1px solid #e5e5e5;"><strong>Address:</strong></td>
@@ -199,7 +199,7 @@ export async function sendAdminNotificationEmail(data: {
             ` : ''}
           </table>
           
-          <h3 style="margin: 20px 0 15px 0; color: #166534;">Quote Details</h3>
+          <h3 style="margin: 20px 0 15px 0; color: #2D8652;">Quote Details</h3>
           <table style="width: 100%; border-collapse: collapse;">
             <tr>
               <td style="padding: 8px 0; border-bottom: 1px solid #e5e5e5;"><strong>Reference:</strong></td>
@@ -227,7 +227,7 @@ export async function sendAdminNotificationEmail(data: {
           ` : ''}
           
           <div style="text-align: center; margin-top: 30px;">
-            <a href="https://lawncarekuna.com/admin" style="display: inline-block; background: #166534; color: white; padding: 12px 24px; text-decoration: none; border-radius: 8px; font-weight: bold;">
+            <a href="https://lawncarekuna.com/admin" style="display: inline-block; background: #2D8652; color: white; padding: 12px 24px; text-decoration: none; border-radius: 8px; font-weight: bold;">
               View in Admin Dashboard
             </a>
           </div>

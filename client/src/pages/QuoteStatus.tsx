@@ -43,13 +43,13 @@ function formatDate(date: Date | string | null) {
 function getStatusIcon(status: QuoteStatusResponse['status']) {
   switch (status) {
     case 'received':
-      return <CheckCircle2 className="h-6 w-6 text-green-600" />;
+      return <CheckCircle2 className="h-6 w-6 text-primary" />;
     case 'under_review':
       return <Clock className="h-6 w-6 text-blue-600 animate-spin" />;
     case 'contact_soon':
       return <Mail className="h-6 w-6 text-purple-600" />;
     case 'quote_ready':
-      return <CheckCircle2 className="h-6 w-6 text-green-600" />;
+      return <CheckCircle2 className="h-6 w-6 text-primary" />;
   }
 }
 
@@ -91,7 +91,7 @@ export default function QuoteStatus() {
 
   if (!quoteId) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-green-50 to-white py-12 px-4">
+      <div className="min-h-screen bg-gradient-to-b from-primary/5 to-white py-12 px-4">
         <div className="max-w-2xl mx-auto">
           <Card>
             <CardHeader>
@@ -106,7 +106,7 @@ export default function QuoteStatus() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-green-50 to-white py-12 px-4">
+      <div className="min-h-screen bg-gradient-to-b from-primary/5 to-white py-12 px-4">
         <div className="max-w-2xl mx-auto">
           <Card>
             <CardContent className="flex items-center justify-center py-12">
@@ -120,7 +120,7 @@ export default function QuoteStatus() {
 
   if (error || !data) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-green-50 to-white py-12 px-4">
+      <div className="min-h-screen bg-gradient-to-b from-primary/5 to-white py-12 px-4">
         <div className="max-w-2xl mx-auto">
           <Card>
             <CardHeader>
@@ -139,7 +139,7 @@ export default function QuoteStatus() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-green-50 to-white py-12 px-4">
+    <div className="min-h-screen bg-gradient-to-b from-primary/5 to-white py-12 px-4">
       <div className="max-w-2xl mx-auto space-y-6">
         <Card>
           <CardHeader>
@@ -190,7 +190,7 @@ export default function QuoteStatus() {
                     <Calendar className="h-5 w-5 text-muted-foreground" />
                     <div>
                       <p className="text-sm text-muted-foreground">Estimated Value</p>
-                      <p className="font-medium text-lg text-green-600">
+                      <p className="font-medium text-lg text-primary">
                         {formatQuoteRangeWholeFromValue(data.quote.finalQuote, 0.15)}
                       </p>
                     </div>

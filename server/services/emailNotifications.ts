@@ -138,7 +138,7 @@ const emailStyles = `
   }
   .header { 
     background: linear-gradient(135deg, #dcfce7 0%, #f0fdf4 50%, #ffffff 100%); 
-    color: #166534; 
+    color: #2D8652; 
     padding: 40px 30px; 
     text-align: center;
     border-bottom: 1px solid #bbf7d0;
@@ -148,12 +148,12 @@ const emailStyles = `
     font-size: 28px;
     font-weight: 600;
     letter-spacing: -0.5px;
-    color: #166534;
+    color: #2D8652;
   }
   .header p {
     margin: 8px 0 0 0;
     font-size: 14px;
-    color: #15803d;
+    color: #3a9d63;
   }
   .content { 
     padding: 40px 30px;
@@ -170,7 +170,7 @@ const emailStyles = `
   .section-title {
     font-size: 16px;
     font-weight: 600;
-    color: #166534;
+    color: #2D8652;
     margin: 0 0 15px 0;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -194,7 +194,7 @@ const emailStyles = `
   }
   .highlight-box {
     background: linear-gradient(to right, #f0f9f4 0%, #f0fdf4 100%);
-    border-left: 4px solid #166534;
+    border-left: 4px solid #2D8652;
     padding: 20px;
     margin: 25px 0;
     border-radius: 4px;
@@ -216,7 +216,7 @@ const emailStyles = `
   }
   .cta-button {
     display: inline-block;
-    background: linear-gradient(135deg, #166534 0%, #15803d 100%);
+    background: linear-gradient(135deg, #2D8652 0%, #3a9d63 100%);
     color: #ffffff !important;
     padding: 14px 32px;
     text-decoration: none;
@@ -234,7 +234,7 @@ const emailStyles = `
   .footer-brand {
     font-size: 18px;
     font-weight: 600;
-    color: #166534;
+    color: #2D8652;
     margin: 0 0 8px 0;
   }
   .footer-tagline {
@@ -248,7 +248,7 @@ const emailStyles = `
     margin: 5px 0;
   }
   .footer-contact a {
-    color: #166534;
+    color: #2D8652;
     text-decoration: none;
   }
   .divider {
@@ -259,7 +259,7 @@ const emailStyles = `
   .badge {
     display: inline-block;
     background-color: #f0f9f4;
-    color: #166534;
+    color: #2D8652;
     padding: 6px 12px;
     border-radius: 4px;
     font-size: 13px;
@@ -357,11 +357,11 @@ export async function sendNewLeadNotification(leadData: {
               </tr>
               <tr>
                 <td class="label">Email:</td>
-                <td class="value"><a href="mailto:${leadData.email}" style="color: #166534; text-decoration: none;">${leadData.email}</a></td>
+                <td class="value"><a href="mailto:${leadData.email}" style="color: #2D8652; text-decoration: none;">${leadData.email}</a></td>
               </tr>
               <tr>
                 <td class="label">Phone:</td>
-                <td class="value"><a href="tel:${leadData.phone}" style="color: #166534; text-decoration: none;">${leadData.phone}</a></td>
+                <td class="value"><a href="tel:${leadData.phone}" style="color: #2D8652; text-decoration: none;">${leadData.phone}</a></td>
               </tr>
               <tr>
                 <td class="label">Service Area:</td>
@@ -379,7 +379,7 @@ export async function sendNewLeadNotification(leadData: {
               </tr>
               <tr>
                 <td class="label">Estimated Value:</td>
-                <td class="value" style="font-size: 20px; font-weight: 600; color: #166534;">${leadValue.display}</td>
+                <td class="value" style="font-size: 20px; font-weight: 600; color: #2D8652;">${leadValue.display}</td>
               </tr>
             </table>
           </div>
@@ -448,8 +448,8 @@ export async function sendLeadPurchasedNotification(leadData: {
           <div style="margin-bottom: 20px;">
             <img src="${EMAIL_LOGO_LIGHT_URL}" alt="Lawn Care Kuna" width="300" style="display:block; max-width:300px; height:auto;">
           </div>
-          <h1 style="color: #166534;">Lead Purchased</h1>
-          <p style="color: #15803d;">Transaction Notification</p>
+          <h1 style="color: #2D8652;">Lead Purchased</h1>
+          <p style="color: #3a9d63;">Transaction Notification</p>
         </div>
         
         <div class="content">
@@ -464,7 +464,7 @@ export async function sendLeadPurchasedNotification(leadData: {
               </tr>
               <tr>
                 <td class="label">Email:</td>
-                <td class="value"><a href="mailto:${purchaserData.email}" style="color: #166534; text-decoration: none;">${purchaserData.email}</a></td>
+                <td class="value"><a href="mailto:${purchaserData.email}" style="color: #2D8652; text-decoration: none;">${purchaserData.email}</a></td>
               </tr>
             </table>
           </div>
@@ -503,7 +503,7 @@ export async function sendLeadPurchasedNotification(leadData: {
               </tr>
               <tr>
                 <td class="label">Quote Value:</td>
-                <td class="value" style="font-size: 20px; font-weight: 600; color: #166534;">${leadValue.display}</td>
+                <td class="value" style="font-size: 20px; font-weight: 600; color: #2D8652;">${leadValue.display}</td>
               </tr>
             </table>
           </div>
@@ -590,11 +590,11 @@ export async function sendLeadPurchaseConfirmation(purchaserEmail: string, leadD
               </tr>
               <tr>
                 <td class="label">Email:</td>
-                <td class="value"><a href="mailto:${leadData.email}" style="color: #166534; text-decoration: none; font-weight: 600;">${leadData.email}</a></td>
+                <td class="value"><a href="mailto:${leadData.email}" style="color: #2D8652; text-decoration: none; font-weight: 600;">${leadData.email}</a></td>
               </tr>
               <tr>
                 <td class="label">Phone:</td>
-                <td class="value"><a href="tel:${leadData.phone}" style="color: #166534; text-decoration: none; font-weight: 600;">${leadData.phone}</a></td>
+                <td class="value"><a href="tel:${leadData.phone}" style="color: #2D8652; text-decoration: none; font-weight: 600;">${leadData.phone}</a></td>
               </tr>
               <tr>
                 <td class="label">Service Area:</td>
@@ -686,8 +686,8 @@ export async function sendAdminAutoDeclineNotification(leadData: {
           <div style="margin-bottom: 20px;">
             <img src="${EMAIL_LOGO_LIGHT_URL}" alt="Lawn Care Kuna" width="300" style="display:block; max-width:300px; height:auto;">
           </div>
-          <h1 style="color: #166534;">Lead Auto-Declined</h1>
-          <p style="color: #15803d;">Automated System Notification</p>
+          <h1 style="color: #2D8652;">Lead Auto-Declined</h1>
+          <p style="color: #3a9d63;">Automated System Notification</p>
         </div>
         
         <div class="content">
@@ -708,11 +708,11 @@ export async function sendAdminAutoDeclineNotification(leadData: {
               </tr>
               <tr>
                 <td class="label">Email:</td>
-                <td class="value"><a href="mailto:${leadData.email}" style="color: #166534; text-decoration: none;">${leadData.email}</a></td>
+                <td class="value"><a href="mailto:${leadData.email}" style="color: #2D8652; text-decoration: none;">${leadData.email}</a></td>
               </tr>
               <tr>
                 <td class="label">Phone:</td>
-                <td class="value"><a href="tel:${leadData.phone}" style="color: #166534; text-decoration: none;">${leadData.phone}</a></td>
+                <td class="value"><a href="tel:${leadData.phone}" style="color: #2D8652; text-decoration: none;">${leadData.phone}</a></td>
               </tr>
               <tr>
                 <td class="label">Service Area:</td>
@@ -730,7 +730,7 @@ export async function sendAdminAutoDeclineNotification(leadData: {
               </tr>
               <tr>
                 <td class="label">Estimated Value:</td>
-                <td class="value" style="font-size: 20px; font-weight: 600; color: #166534;">${leadValue.display}</td>
+                <td class="value" style="font-size: 20px; font-weight: 600; color: #2D8652;">${leadValue.display}</td>
               </tr>
               <tr>
                 <td class="label">Time Pending:</td>
@@ -885,7 +885,7 @@ export async function sendContractorNewLeadAvailable(
               <tr><td class="label">Service:</td><td class="value">${leadData.serviceType}</td></tr>
               ${leadData.frequency ? `<tr><td class="label">Frequency:</td><td class="value">${leadData.frequency}</td></tr>` : ""}
               ${leadData.propertyType ? `<tr><td class="label">Property Type:</td><td class="value">${leadData.propertyType}</td></tr>` : ""}
-              <tr><td class="label">Lead Price:</td><td class="value" style="font-size: 20px; font-weight: 600; color: #166534;">$${formatQuoteForDisplay(leadData.currentLeadPrice, true)}</td></tr>
+              <tr><td class="label">Lead Price:</td><td class="value" style="font-size: 20px; font-weight: 600; color: #2D8652;">$${formatQuoteForDisplay(leadData.currentLeadPrice, true)}</td></tr>
               <tr><td class="label">Quote Range:</td><td class="value" style="font-size: 18px; font-weight: 600; color: #1e40af;">${leadValue.display}</td></tr>
             </table>
           </div>

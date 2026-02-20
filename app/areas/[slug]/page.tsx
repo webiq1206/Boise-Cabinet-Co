@@ -146,7 +146,7 @@ export default function AreaPage({ params }: { params: { slug: string } }) {
       title: "Lawn Care",
       icon: Leaf,
       services: ["Lawn Mowing", "Fertilization", "Weed Control", "Aeration", "Overseeding"],
-      color: "bg-green-100 text-green-700"
+      color: "bg-primary/10 text-primary"
     },
     {
       title: "Seasonal",
