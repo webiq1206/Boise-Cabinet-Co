@@ -125,7 +125,36 @@ export async function upsertUserFromClaims(claims: SessionData["claims"]) {
   if (!db || !claims?.sub) return null;
 
   const existing = await getUserFromDb(claims.sub);
-  
+
+  if (claims.email) {
+    const [preSeededByEmail] = await db
+      .select()
+      .from(users)
+      .where(eq(users.email, claims.email))
+      .limit(1);
+
+    if (preSeededByEmail && preSeededByEmail.id !== claims.sub) {
+      console.log(`[AUTH] Found pre-seeded user by email ${claims.email} (role: ${preSeededByEmail.role}), merging into Replit ID ${claims.sub}`);
+
+      if (existing) {
+        await db.delete(users).where(eq(users.id, existing.id));
+        console.log(`[AUTH] Removed duplicate account ${existing.id} (role: ${existing.role})`);
+      }
+
+      await db
+        .update(users)
+        .set({
+          id: claims.sub,
+          firstName: claims.first_name || preSeededByEmail.firstName,
+          lastName: claims.last_name || preSeededByEmail.lastName,
+          profileImageUrl: claims.profile_image_url || preSeededByEmail.profileImageUrl,
+        })
+        .where(eq(users.id, preSeededByEmail.id));
+      console.log(`[AUTH] Merged pre-seeded ${preSeededByEmail.role} account into Replit ID ${claims.sub}`);
+      return getUserFromDb(claims.sub);
+    }
+  }
+
   if (existing) {
     await db
       .update(users)
@@ -137,28 +166,6 @@ export async function upsertUserFromClaims(claims: SessionData["claims"]) {
       })
       .where(eq(users.id, claims.sub));
     return getUserFromDb(claims.sub);
-  }
-
-  if (claims.email) {
-    const [existingByEmail] = await db
-      .select()
-      .from(users)
-      .where(eq(users.email, claims.email))
-      .limit(1);
-
-    if (existingByEmail) {
-      console.log(`[AUTH] Found pre-seeded user by email ${claims.email} (role: ${existingByEmail.role}), updating ID from ${existingByEmail.id} to ${claims.sub}`);
-      await db
-        .update(users)
-        .set({
-          id: claims.sub,
-          firstName: claims.first_name || existingByEmail.firstName,
-          lastName: claims.last_name || existingByEmail.lastName,
-          profileImageUrl: claims.profile_image_url || existingByEmail.profileImageUrl,
-        })
-        .where(eq(users.id, existingByEmail.id));
-      return getUserFromDb(claims.sub);
-    }
   }
 
   await db.insert(users).values({

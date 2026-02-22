@@ -14,12 +14,12 @@ export async function GET() {
       return NextResponse.json({ message: "Session expired" }, { status: 401 });
     }
 
-    let user = await getUserFromDb(session.userId);
-
-    if (!user && session.claims) {
-      user = await upsertUserFromClaims(session.claims);
+    if (session.claims) {
+      const user = await upsertUserFromClaims(session.claims);
+      if (user) return NextResponse.json(user);
     }
 
+    const user = await getUserFromDb(session.userId);
     if (!user) {
       return NextResponse.json({ message: "User not found" }, { status: 401 });
     }
