@@ -289,19 +289,23 @@ export default function HomePage() {
             <div className="grid lg:grid-cols-2 gap-8">
               {/* Lawn Care Services */}
               <div className="space-y-6">
-                <h3 className="text-2xl font-bold text-primary">Lawn Care Services</h3>
+                <Link href="/services/lawn-care" className="block">
+                  <h3 className="text-2xl font-bold text-primary hover:underline">Lawn Care Services</h3>
+                </Link>
                 <ul className="space-y-4">
                   {[
-                    "Professional mowing and edging",
-                    "Fertilization programs",
-                    "Weed control",
-                    "Aeration and overseeding",
-                    "Seasonal cleanup",
-                    "Commercial-grade equipment"
+                    { label: "Professional mowing and edging", href: "/services/lawn-mowing" },
+                    { label: "Fertilization programs", href: "/services/fertilization" },
+                    { label: "Weed control", href: "/services/weed-control" },
+                    { label: "Aeration and overseeding", href: "/services/aeration" },
+                    { label: "Seasonal cleanup", href: "/services/spring-cleanup" },
+                    { label: "Commercial-grade equipment", href: "/commercial" },
                   ].map((item, i) => (
                     <li key={i} className="flex items-start gap-3">
                       <CheckCircle2 className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
-                      <span className="text-base text-muted-foreground">{item}</span>
+                      <Link href={item.href} className="text-base text-muted-foreground hover:text-primary transition-colors" data-testid={`link-lawn-service-${i}`}>
+                        {item.label}
+                      </Link>
                     </li>
                   ))}
                 </ul>
@@ -309,19 +313,23 @@ export default function HomePage() {
 
               {/* Landscaping Services */}
               <div className="space-y-6">
-                <h3 className="text-2xl font-bold text-primary">Landscaping Services</h3>
+                <Link href="/services/landscaping" className="block">
+                  <h3 className="text-2xl font-bold text-primary hover:underline">Landscaping Services</h3>
+                </Link>
                 <ul className="space-y-4">
                   {[
-                    "Patio installation",
-                    "Retaining walls",
-                    "Water features",
-                    "Outdoor lighting",
-                    "Custom design services",
-                    "Property value enhancement"
+                    { label: "Patio installation", href: "/services/patio-installation" },
+                    { label: "Retaining walls", href: "/services/retaining-walls" },
+                    { label: "Water features", href: "/services/pond-installation" },
+                    { label: "Outdoor lighting", href: "/services/landscape-lighting" },
+                    { label: "Custom design services", href: "/services/landscaping" },
+                    { label: "Property value enhancement", href: "/services/sod-installation" },
                   ].map((item, i) => (
                     <li key={i} className="flex items-start gap-3">
                       <CheckCircle2 className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
-                      <span className="text-base text-muted-foreground">{item}</span>
+                      <Link href={item.href} className="text-base text-muted-foreground hover:text-primary transition-colors" data-testid={`link-landscaping-service-${i}`}>
+                        {item.label}
+                      </Link>
                     </li>
                   ))}
                 </ul>
@@ -356,16 +364,18 @@ export default function HomePage() {
                   </p>
                   <ul className="space-y-3">
                     {[
-                      "Weekly or bi-weekly mowing service",
-                      "Professional fertilization programs",
-                      "Effective weed and pest control",
-                      "Spring and fall cleanup services",
-                      "Aeration and overseeding",
-                      "Irrigation system maintenance",
+                      { label: "Weekly or bi-weekly mowing service", href: "/services/lawn-mowing" },
+                      { label: "Professional fertilization programs", href: "/services/fertilization" },
+                      { label: "Effective weed and pest control", href: "/services/weed-control" },
+                      { label: "Spring and fall cleanup services", href: "/services/spring-cleanup" },
+                      { label: "Aeration and overseeding", href: "/services/aeration" },
+                      { label: "Irrigation system maintenance", href: "/services/irrigation-maintenance" },
                     ].map((item, i) => (
                       <li key={i} className="flex items-start gap-3">
                         <CheckCircle2 className="h-5 w-5 flex-shrink-0 mt-0.5" />
-                        <span>{item}</span>
+                        <Link href={item.href} className="hover:underline transition-colors" data-testid={`link-fullservice-${i}`}>
+                          {item.label}
+                        </Link>
                       </li>
                     ))}
                   </ul>
