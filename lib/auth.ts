@@ -121,50 +121,40 @@ export async function getUserFromDb(userId: string) {
   return result[0] || null;
 }
 
+const ADMIN_EMAILS = [
+  "webiq.co@gmail.com",
+  "info@webiq.co",
+  "hello@lawncarekuna.com",
+  "brostjared@gmail.com",
+];
+
+function getDesignatedRole(email: string | undefined): "admin" | "subcontractor" {
+  if (email && ADMIN_EMAILS.includes(email.toLowerCase())) {
+    return "admin";
+  }
+  return "subcontractor";
+}
+
 export async function upsertUserFromClaims(claims: SessionData["claims"]) {
   if (!db || !claims?.sub) return null;
 
+  const designatedRole = getDesignatedRole(claims.email);
   const existing = await getUserFromDb(claims.sub);
 
-  if (claims.email) {
-    const [preSeededByEmail] = await db
-      .select()
-      .from(users)
-      .where(eq(users.email, claims.email))
-      .limit(1);
-
-    if (preSeededByEmail && preSeededByEmail.id !== claims.sub) {
-      console.log(`[AUTH] Found pre-seeded user by email ${claims.email} (role: ${preSeededByEmail.role}), merging into Replit ID ${claims.sub}`);
-
-      if (existing) {
-        await db.delete(users).where(eq(users.id, existing.id));
-        console.log(`[AUTH] Removed duplicate account ${existing.id} (role: ${existing.role})`);
-      }
-
-      await db
-        .update(users)
-        .set({
-          id: claims.sub,
-          firstName: claims.first_name || preSeededByEmail.firstName,
-          lastName: claims.last_name || preSeededByEmail.lastName,
-          profileImageUrl: claims.profile_image_url || preSeededByEmail.profileImageUrl,
-        })
-        .where(eq(users.id, preSeededByEmail.id));
-      console.log(`[AUTH] Merged pre-seeded ${preSeededByEmail.role} account into Replit ID ${claims.sub}`);
-      return getUserFromDb(claims.sub);
-    }
-  }
-
   if (existing) {
-    await db
-      .update(users)
-      .set({
-        email: claims.email || existing.email,
-        firstName: claims.first_name || existing.firstName,
-        lastName: claims.last_name || existing.lastName,
-        profileImageUrl: claims.profile_image_url || existing.profileImageUrl,
-      })
-      .where(eq(users.id, claims.sub));
+    const updateData: Record<string, any> = {
+      email: claims.email || existing.email,
+      firstName: claims.first_name || existing.firstName,
+      lastName: claims.last_name || existing.lastName,
+      profileImageUrl: claims.profile_image_url || existing.profileImageUrl,
+    };
+
+    if (existing.role !== designatedRole && designatedRole === "admin") {
+      updateData.role = "admin";
+      console.log(`[AUTH] Upgrading user ${claims.sub} (${claims.email}) from ${existing.role} to admin`);
+    }
+
+    await db.update(users).set(updateData).where(eq(users.id, claims.sub));
     return getUserFromDb(claims.sub);
   }
 
@@ -174,9 +164,10 @@ export async function upsertUserFromClaims(claims: SessionData["claims"]) {
     firstName: claims.first_name,
     lastName: claims.last_name,
     profileImageUrl: claims.profile_image_url,
-    role: "subcontractor",
+    role: designatedRole,
   });
 
+  console.log(`[AUTH] Created new user ${claims.sub} (${claims.email}) with role: ${designatedRole}`);
   return getUserFromDb(claims.sub);
 }
 
