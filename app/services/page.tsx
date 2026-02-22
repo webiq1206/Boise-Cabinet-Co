@@ -93,7 +93,7 @@ export default function ServicesPage() {
                       <CardContent>
                         <Button variant="outline" className="w-full" asChild>
                           <Link href={`/services/${service.slug}`}>
-                            Learn More
+                            Explore {service.name}
                             <ArrowRight className="ml-2 h-4 w-4" />
                           </Link>
                         </Button>
@@ -127,7 +127,7 @@ export default function ServicesPage() {
               <Button 
                 size="lg" 
                 variant="outline" 
-                className="bg-transparent border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary" 
+                className="bg-transparent border-primary-foreground text-primary-foreground" 
                 asChild
               >
                 <Link href="/contact">Contact Us</Link>

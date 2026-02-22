@@ -145,25 +145,46 @@ export default function AreaPage({ params }: { params: { slug: string } }) {
     {
       title: "Lawn Care",
       icon: Leaf,
-      services: ["Lawn Mowing", "Fertilization", "Weed Control", "Aeration", "Overseeding"],
+      services: [
+        { name: "Lawn Mowing", slug: "lawn-mowing" },
+        { name: "Fertilization", slug: "fertilization" },
+        { name: "Weed Control", slug: "weed-control" },
+        { name: "Aeration", slug: "aeration" },
+        { name: "Overseeding", slug: "overseeding" },
+      ],
       color: "bg-primary/10 text-primary"
     },
     {
       title: "Seasonal",
       icon: TreeDeciduous,
-      services: ["Spring Cleanup", "Fall Cleanup", "Christmas Lights", "Snow Removal"],
+      services: [
+        { name: "Spring Cleanup", slug: "spring-cleanup" },
+        { name: "Fall Cleanup", slug: "fall-cleanup" },
+        { name: "Christmas Lights", slug: "christmas-light-installation" },
+        { name: "Snow Removal", slug: "snow-removal" },
+      ],
       color: "bg-amber-100 text-amber-700"
     },
     {
       title: "Landscaping",
       icon: Sun,
-      services: ["Patio Installation", "Retaining Walls", "Mulching", "Hedge Trimming"],
+      services: [
+        { name: "Patio Installation", slug: "patio-installation" },
+        { name: "Retaining Walls", slug: "retaining-walls" },
+        { name: "Mulching", slug: "mulch-installation" },
+        { name: "Hedge Trimming", slug: "hedge-trimming" },
+      ],
       color: "bg-orange-100 text-orange-700"
     },
     {
       title: "Irrigation",
       icon: Droplets,
-      services: ["Sprinkler Repair", "System Installation", "Winterization", "Maintenance"],
+      services: [
+        { name: "Sprinkler Repair", slug: "sprinkler-repair" },
+        { name: "System Installation", slug: "sprinkler-system-installation" },
+        { name: "Winterization", slug: "sprinkler-blowout" },
+        { name: "Maintenance", slug: "irrigation-maintenance" },
+      ],
       color: "bg-blue-100 text-blue-700"
     },
   ];
@@ -396,11 +417,13 @@ export default function AreaPage({ params }: { params: { slug: string } }) {
                       <CardTitle className="text-base">{category.title}</CardTitle>
                     </CardHeader>
                     <CardContent className="pt-0">
-                      <ul className="space-y-1.5 text-sm text-muted-foreground">
+                      <ul className="space-y-1.5 text-sm">
                         {category.services.map((service, svcIndex) => (
                           <li key={svcIndex} className="flex items-center gap-2">
                             <CheckCircle2 className="h-3 w-3 text-primary flex-shrink-0" aria-hidden="true" />
-                            {service}
+                            <Link href={`/services/${service.slug}/${city.slug}`} className="text-muted-foreground hover:text-primary hover:underline">
+                              {service.name}
+                            </Link>
                           </li>
                         ))}
                       </ul>

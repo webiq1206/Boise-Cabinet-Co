@@ -271,7 +271,7 @@ export default function HOAServicesPage() {
             <div className="max-w-4xl mx-auto text-center">
               <h2 className="text-3xl font-bold mb-6">HOA Services Across the Treasure Valley</h2>
               <p className="text-lg text-muted-foreground mb-8">
-                We serve homeowners associations in Kuna, Boise, Meridian, Eagle, Star, Middleton, and surrounding communities
+                We serve homeowners associations in <Link href="/areas/kuna" className="text-primary hover:underline">Kuna</Link>, <Link href="/areas/boise" className="text-primary hover:underline">Boise</Link>, <Link href="/areas/meridian" className="text-primary hover:underline">Meridian</Link>, <Link href="/areas/eagle" className="text-primary hover:underline">Eagle</Link>, <Link href="/areas/star" className="text-primary hover:underline">Star</Link>, <Link href="/areas/middleton" className="text-primary hover:underline">Middleton</Link>, and surrounding communities
               </p>
               <div className="flex flex-wrap justify-center gap-3">
                 {["Kuna", "Boise", "Meridian", "Eagle", "Star", "Middleton"].map((city) => (

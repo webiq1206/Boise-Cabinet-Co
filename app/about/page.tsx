@@ -122,13 +122,13 @@ export default function AboutPage() {
             <div className="prose prose-lg max-w-none">
               <h2 className="text-3xl font-bold mb-6">Our Story</h2>
               <p className="text-lg text-muted-foreground mb-4">
-                Since 2017, Lawn Care Kuna has been providing professional lawn care and landscaping services to homeowners and businesses throughout the Treasure Valley. What started as a local lawn mowing service has grown into a comprehensive landscaping company offering everything from basic lawn maintenance to complex hardscaping projects.
+                Since 2017, Lawn Care Kuna has been providing professional lawn care and landscaping services to homeowners and businesses throughout the Treasure Valley. What started as a local <Link href="/services/lawn-mowing" className="text-primary hover:underline">lawn mowing service</Link> has grown into a comprehensive <Link href="/services" className="text-primary hover:underline">landscaping company</Link> offering everything from basic lawn maintenance to complex <Link href="/services/patio-installation" className="text-primary hover:underline">hardscaping projects</Link>.
               </p>
               <p className="text-lg text-muted-foreground mb-4">
-                We understand Idaho's unique climate challenges - from scorching summer heat to freezing winter temperatures. Our team has the local expertise to ensure your lawn and landscape thrives year-round in our high-desert climate.
+                We understand Idaho's unique climate challenges - from scorching summer heat to freezing winter temperatures. Our team has the local expertise to ensure your lawn and landscape thrives year-round in our high-desert climate, with services like <Link href="/services/fertilization" className="text-primary hover:underline">fertilization</Link>, <Link href="/services/aeration" className="text-primary hover:underline">aeration</Link>, and <Link href="/services/irrigation-maintenance" className="text-primary hover:underline">irrigation maintenance</Link>.
               </p>
               <p className="text-lg text-muted-foreground">
-                Today, we proudly serve residential and commercial properties across Kuna, Boise, Meridian, Eagle, Star, and Middleton, maintaining our commitment to honest service, quality workmanship, and customer satisfaction.
+                Today, we proudly serve residential and <Link href="/commercial" className="text-primary hover:underline">commercial properties</Link> across <Link href="/areas/kuna" className="text-primary hover:underline">Kuna</Link>, <Link href="/areas/boise" className="text-primary hover:underline">Boise</Link>, <Link href="/areas/meridian" className="text-primary hover:underline">Meridian</Link>, <Link href="/areas/eagle" className="text-primary hover:underline">Eagle</Link>, <Link href="/areas/star" className="text-primary hover:underline">Star</Link>, and <Link href="/areas/middleton" className="text-primary hover:underline">Middleton</Link>, maintaining our commitment to honest service, quality workmanship, and customer satisfaction.
               </p>
             </div>
           </div>

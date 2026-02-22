@@ -77,19 +77,21 @@ export default function CommercialPage() {
                     <h2 className="text-2xl font-bold mb-4">Commercial Services</h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       {[
-                        { title: "Commercial Lawn Maintenance", desc: "Weekly mowing, edging, trimming, and blowing for a pristine appearance" },
-                        { title: "Landscape Design & Installation", desc: "Custom designs that enhance your brand and property value" },
-                        { title: "Seasonal Color Programs", desc: "Year-round color with flowers, plants, and seasonal displays" },
-                        { title: "Irrigation System Management", desc: "Design, installation, maintenance, and water management" },
-                        { title: "Snow & Ice Management", desc: "Winter snow removal, plowing, and de-icing services" },
-                        { title: "Grounds Cleanup & Maintenance", desc: "Spring/fall cleanup, leaf removal, and debris management" },
+                        { title: "Commercial Lawn Maintenance", desc: "Weekly mowing, edging, trimming, and blowing for a pristine appearance", href: "/services/lawn-mowing" },
+                        { title: "Landscape Design & Installation", desc: "Custom designs that enhance your brand and property value", href: "/services/patio-installation" },
+                        { title: "Seasonal Color Programs", desc: "Year-round color with flowers, plants, and seasonal displays", href: "/services/spring-cleanup" },
+                        { title: "Irrigation System Management", desc: "Design, installation, maintenance, and water management", href: "/services/sprinkler-system-installation" },
+                        { title: "Snow & Ice Management", desc: "Winter snow removal, plowing, and de-icing services", href: "/services/snow-removal" },
+                        { title: "Grounds Cleanup & Maintenance", desc: "Spring/fall cleanup, leaf removal, and debris management", href: "/services/fall-cleanup" },
                       ].map((service, index) => (
-                        <Card key={index} className="hover-elevate">
-                          <CardContent className="p-6">
-                            <h3 className="font-semibold mb-2">{service.title}</h3>
-                            <p className="text-sm text-muted-foreground">{service.desc}</p>
-                          </CardContent>
-                        </Card>
+                        <Link key={index} href={service.href} data-testid={`link-commercial-service-${index}`}>
+                          <Card className="hover-elevate h-full">
+                            <CardContent className="p-6">
+                              <h3 className="font-semibold mb-2">{service.title}</h3>
+                              <p className="text-sm text-muted-foreground">{service.desc}</p>
+                            </CardContent>
+                          </Card>
+                        </Link>
                       ))}
                     </div>
                   </div>
@@ -117,19 +119,23 @@ export default function CommercialPage() {
                     <h2 className="text-2xl font-bold mb-4">Industries We Serve</h2>
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                       {[
-                        "Office Buildings",
-                        "Retail Centers",
-                        "Restaurants",
-                        "Medical Facilities",
-                        "Industrial Parks",
-                        "Hotels & Resorts",
-                        "Apartment Complexes",
-                        "HOA Communities",
-                        "Schools & Universities",
+                        { name: "Office Buildings", href: null },
+                        { name: "Retail Centers", href: null },
+                        { name: "Restaurants", href: null },
+                        { name: "Medical Facilities", href: null },
+                        { name: "Industrial Parks", href: null },
+                        { name: "Hotels & Resorts", href: null },
+                        { name: "Apartment Complexes", href: null },
+                        { name: "HOA Communities", href: "/commercial/hoa-services" },
+                        { name: "Schools & Universities", href: null },
                       ].map((industry, i) => (
                         <div key={i} className="flex items-center gap-2 text-sm">
                           <CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0" />
-                          <span>{industry}</span>
+                          {industry.href ? (
+                            <Link href={industry.href} className="text-primary hover:underline" data-testid={`link-industry-${industry.name.toLowerCase().replace(/\s+/g, '-')}`}>{industry.name}</Link>
+                          ) : (
+                            <span>{industry.name}</span>
+                          )}
                         </div>
                       ))}
                     </div>
