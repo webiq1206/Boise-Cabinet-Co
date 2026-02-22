@@ -139,6 +139,28 @@ export async function upsertUserFromClaims(claims: SessionData["claims"]) {
     return getUserFromDb(claims.sub);
   }
 
+  if (claims.email) {
+    const [existingByEmail] = await db
+      .select()
+      .from(users)
+      .where(eq(users.email, claims.email))
+      .limit(1);
+
+    if (existingByEmail) {
+      console.log(`[AUTH] Found pre-seeded user by email ${claims.email} (role: ${existingByEmail.role}), updating ID from ${existingByEmail.id} to ${claims.sub}`);
+      await db
+        .update(users)
+        .set({
+          id: claims.sub,
+          firstName: claims.first_name || existingByEmail.firstName,
+          lastName: claims.last_name || existingByEmail.lastName,
+          profileImageUrl: claims.profile_image_url || existingByEmail.profileImageUrl,
+        })
+        .where(eq(users.id, existingByEmail.id));
+      return getUserFromDb(claims.sub);
+    }
+  }
+
   await db.insert(users).values({
     id: claims.sub,
     email: claims.email,
