@@ -304,7 +304,7 @@ export default function CityServicePage({
             <li>/</li>
             <li><Link href={`/services/${service.slug}`} className="hover-elevate px-1 rounded" data-testid="link-breadcrumb-service">{service.name}</Link></li>
             <li>/</li>
-            <li className="text-foreground font-medium">{city.name}</li>
+            <li><Link href={`/areas/${city.slug}`} className="hover-elevate px-1 rounded" data-testid="link-breadcrumb-area">{city.name}</Link></li>
           </ol>
         </nav>
 

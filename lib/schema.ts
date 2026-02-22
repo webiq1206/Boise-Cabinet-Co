@@ -23,7 +23,7 @@ export function generateLocalBusinessSchema(city?: string): SchemaContext {
   
   return {
     '@context': 'https://schema.org',
-    '@type': 'LocalBusiness',
+    '@type': ['LocalBusiness', 'LawnService'],
     name: BUSINESS_INFO.name,
     legalName: BUSINESS_INFO.legalName,
     description: `Professional lawn care and landscaping services in ${city || 'Kuna'} and the Treasure Valley, Idaho. ${BUSINESS_INFO.yearlyServicesCompleted}+ happy customers annually.`,

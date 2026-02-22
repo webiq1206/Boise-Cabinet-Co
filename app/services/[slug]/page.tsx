@@ -530,7 +530,7 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
                           </p>
                           <Button variant="outline" size="sm" className="w-full" asChild>
                             <Link href={`/services/${relatedService.slug}`} data-testid={`link-related-${relatedService.slug}`}>
-                              Learn More
+                              Explore {relatedService.name} Services
                             </Link>
                           </Button>
                         </CardContent>

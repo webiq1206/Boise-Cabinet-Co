@@ -284,7 +284,7 @@ export const PRIORITY_SERVICES: ServiceData[] = [
         answer: 'Mowing season in Idaho typically runs April through October, depending on weather. We start when grass begins actively growing in spring (usually early-mid April) and continue until the last mow before dormancy (late October). Some mild years we mow into November. Spring and fall frequency is usually bi-weekly, while peak summer is weekly.'
       }
     ],
-    relatedServices: ['lawn-maintenance', 'hedge-trimming', 'fertilization', 'weed-control', 'seasonal-cleanup'],
+    relatedServices: ['aeration', 'fertilization', 'weed-control'],
     pricingGuidance: 'Lawn mowing estimates include a $35 trip charge plus area-based pricing. Many residential lawns estimate around $95-185 per visit (before any recurring discounts), depending on lawn size and complexity. Enter your lawn area for a tighter estimate; final pricing is confirmed after site assessment.',
     seasonality: 'April through October in Idaho (growing season). Service frequency varies by season.',
     facts: [
@@ -376,7 +376,7 @@ export const PRIORITY_SERVICES: ServiceData[] = [
         answer: 'You can walk on your lawn immediately after aeration - it won\'t damage anything. However, for best results, avoid heavy traffic for 1-2 weeks to allow the aeration holes to stay open and the lawn to recover. Light use is completely fine.'
       }
     ],
-    relatedServices: ['overseeding', 'fertilization', 'dethatching', 'lawn-mowing'],
+    relatedServices: ['dethatching', 'overseeding', 'fertilization'],
     pricingGuidance: 'Core aeration is estimated per square foot. Typical residential estimates are about $0.035-$0.070 per sq ft (for example, ~5,000 sq ft often lands around $165-$330), depending on complexity. Enter your lawn area for a tighter estimate.',
     seasonality: 'Best performed in fall (September-October) or spring (April-May). Most popular service period is September.',
     facts: [
@@ -467,7 +467,7 @@ export const PRIORITY_SERVICES: ServiceData[] = [
         answer: 'Fertilization helps existing grass thicken but won\'t fix bare spots - those need overseeding or sod repair. We often recommend combining fall fertilization with overseeding to thicken thin areas while feeding existing grass. This combination delivers dramatic improvement in lawn density.'
       }
     ],
-    relatedServices: ['weed-control', 'aeration', 'lawn-mowing', 'seasonal-cleanup'],
+    relatedServices: ['weed-control', 'aeration', 'overseeding'],
     pricingGuidance: 'Fertilization is estimated per square foot per application. Typical residential estimates are about $0.030-$0.055 per sq ft (for example, ~5,000 sq ft often lands around $130-$255), depending on complexity. Recurring discounts apply where eligible.',
     seasonality: 'Year-round program with applications in spring, summer, and fall. Most critical applications are April, September, and November.',
     facts: [
@@ -558,7 +558,7 @@ export const PRIORITY_SERVICES: ServiceData[] = [
         answer: 'Mow 1-2 days before application so weeds have maximum leaf surface to absorb herbicide. Don\'t mow for 2-3 days after treatment to allow complete absorption. Mowing too soon after treatment removes herbicide before it can work, reducing effectiveness significantly.'
       }
     ],
-    relatedServices: ['fertilization', 'aeration', 'lawn-mowing', 'overseeding'],
+    relatedServices: ['fertilization', 'lawn-mowing', 'aeration'],
     pricingGuidance: 'Weed control is estimated per square foot per treatment. Typical residential estimates are about $0.025-$0.050 per sq ft (for example, ~5,000 sq ft often lands around $120-$240), depending on complexity. Recurring discounts apply where eligible.',
     seasonality: 'Pre-emergent in early spring (March-April), post-emergent treatments spring and fall (April-May, September-October).',
     facts: [
@@ -650,7 +650,7 @@ export const PRIORITY_SERVICES: ServiceData[] = [
         answer: 'Yes, old grass and weeds must be removed and soil properly prepared. Simply laying sod over existing lawn causes poor root contact, uneven surface, and establishment failure. We handle complete removal, tilling, grading, and leveling as part of our installation service - proper preparation is not optional.'
       }
     ],
-    relatedServices: ['lawn-mowing', 'irrigation-installation', 'fertilization', 'aeration'],
+    relatedServices: ['lawn-renovation', 'overseeding', 'irrigation-maintenance'],
     pricingGuidance: 'Sod installation is estimated per square foot (materials + labor). Typical estimates are about $2.20-$4.40 per sq ft, depending on complexity and access. Enter the installation area for a tighter estimate.',
     seasonality: 'Best installed April-May and September-October. Summer installation possible with intensive watering.',
     facts: [
@@ -742,7 +742,7 @@ export const PRIORITY_SERVICES: ServiceData[] = [
         answer: 'Paver patios are very low-maintenance: sweep regularly, rinse occasionally with hose, resand joints every few years if needed, optional re-sealing every 3-5 years. Remove weeds if they appear (rare with polymeric sand). That\'s it! Far less maintenance than wood decks which require annual staining and regular board replacement.'
       }
     ],
-    relatedServices: ['fire-pit-installation', 'outdoor-fireplace', 'pergola-installation', 'landscape-lighting'],
+    relatedServices: ['retaining-walls', 'fire-pit-installation', 'landscape-lighting'],
     pricingGuidance: 'Patio installation is estimated per square foot installed. Typical estimates are about $65-$130 per sq ft, depending on complexity and materials. Enter approximate patio dimensions for a tighter estimate.',
     seasonality: 'Installed April through October. Best to book in late winter/early spring for summer completion.',
     facts: [
@@ -834,7 +834,7 @@ export const PRIORITY_SERVICES: ServiceData[] = [
         answer: 'Trimming typically refers to shearing hedges and formal shapes for size and appearance control. Pruning is more selective, removing specific branches to improve structure, health, flowering, and air circulation. We provide both services - formal hedge shearing and selective shrub pruning - customized to each plant\'s needs.'
       }
     ],
-    relatedServices: ['lawn-mowing', 'seasonal-cleanup', 'tree-trimming', 'mulch-installation'],
+    relatedServices: ['tree-trimming', 'lawn-edging', 'seasonal-cleanup'],
     pricingGuidance: 'Hedge trimming is estimated per linear foot. Typical estimates are about $3.65-$7.30 per ft (for example, ~100 ft often lands around $365-$730), depending on complexity and density. Enter approximate hedge length for a tighter estimate.',
     seasonality: 'May through September for most plants. Some species benefit from dormant-season pruning (late winter).',
     facts: [
@@ -926,7 +926,7 @@ export const PRIORITY_SERVICES: ServiceData[] = [
         answer: 'Gutter cleaning can be added to fall cleanup service for an additional fee. We blow out leaves and debris from gutters and downspouts, preventing ice dams and water damage. Many clients bundle gutter cleaning with fall cleanup for convenience and cost savings.'
       }
     ],
-    relatedServices: ['mulch-installation', 'hedge-trimming', 'lawn-mowing', 'gutter-cleaning'],
+    relatedServices: ['spring-cleanup', 'fall-cleanup', 'mulch-installation'],
     pricingGuidance: 'Seasonal cleanup is estimated per square foot of area to clean. Typical estimates are about $0.030-$0.060 per sq ft (for example, ~8,000 sq ft often lands around $240-$480), depending on debris volume and complexity. Enter the area for a tighter estimate.',
     seasonality: 'Spring cleanup: March-April. Fall cleanup: October-November. Both are high-demand periods - book early.',
     facts: [
@@ -1018,7 +1018,7 @@ export const PRIORITY_SERVICES: ServiceData[] = [
         answer: 'No, winterization causes no damage. We walk your property to locate all sprinkler zones and are careful around landscaping. The blowout process simply runs your system with air instead of water - sprinkler heads pop up normally and no digging or disruption occurs.'
       }
     ],
-    relatedServices: ['irrigation-repair', 'spring-startup', 'sprinkler-system-installation', 'irrigation-maintenance'],
+    relatedServices: ['sprinkler-repair', 'irrigation-maintenance'],
     pricingGuidance: 'Sprinkler winterization is a base service that covers most residential systems, with small add-ons for larger zone counts. Typical estimates land around $120-$240 for many homes, depending on complexity. Additional zones can add roughly $10-$20 per zone to the estimate.',
     seasonality: 'October only - extremely high demand period. Book in September for guaranteed service before freeze.',
     facts: [
@@ -1110,7 +1110,7 @@ export const PRIORITY_SERVICES: ServiceData[] = [
         answer: 'Your lawn will look rough and brown for 7-14 days after dethatching - this is completely normal. New growth appears within 2-3 weeks as grass responds to improved water and nutrient access. Full recovery takes 4-6 weeks. Fall dethatching recovers faster than spring. Proper watering and fertilization speed recovery significantly.'
       }
     ],
-    relatedServices: ['aeration', 'overseeding', 'fertilization', 'lawn-mowing'],
+    relatedServices: ['aeration', 'overseeding', 'lawn-renovation'],
     pricingGuidance: 'Dethatching is estimated per square foot. Typical residential estimates are about $0.030-$0.060 per sq ft (for example, ~5,000 sq ft often lands around $155-$310), depending on thatch severity and complexity. Enter your lawn area for a tighter estimate.',
     seasonality: 'Best in early spring (April) or early fall (September). Peak demand is September when combined with overseeding.',
     facts: [
@@ -1202,7 +1202,7 @@ export const PRIORITY_SERVICES: ServiceData[] = [
         answer: 'Common failures: inconsistent watering (most common - seed must stay moist), inadequate seedbed preparation (seed on thatch doesn\'t germinate), wrong timing (spring overseeding competes with weeds and heat), cheap seed (poor germination rates), or herbicide contamination. Professional overseeding with proper preparation and aftercare instructions prevents these problems.'
       }
     ],
-    relatedServices: ['aeration', 'dethatching', 'fertilization', 'lawn-renovation'],
+    relatedServices: ['aeration', 'dethatching', 'fertilization'],
     pricingGuidance: 'Overseeding is estimated per square foot (includes seed + application). Typical residential estimates are about $0.030-$0.060 per sq ft (for example, ~5,000 sq ft often lands around $150-$295), depending on complexity. Enter your lawn area for a tighter estimate.',
     seasonality: 'Fall (late August-September) is prime season. Spring overseeding (April-May) also available. Summer overseeding not recommended.',
     facts: [
@@ -1270,7 +1270,7 @@ export const PRIORITY_SERVICES: ServiceData[] = [
         answer: 'Both have advantages. Organic mulch (wood) improves soil, requires periodic replacement, and works well around plants. Rock is permanent, low-maintenance, and works well in modern designs or xeric landscapes. We can help you decide what\'s best for each area.'
       }
     ],
-    relatedServices: ['seasonal-cleanup', 'landscape-design', 'bed-edging', 'weed-barrier-installation'],
+    relatedServices: ['hedge-trimming', 'tree-trimming', 'seasonal-cleanup'],
     pricingGuidance: 'Mulch installation is estimated per square foot of bed area. Typical estimates are about $0.85-$1.65 per sq ft, depending on bed prep and access. Enter the mulch bed area for a tighter estimate.',
     seasonality: 'April through November. Peak demand is April-May (spring refresh) and September (fall prep). Book early for spring service.',
     facts: [
@@ -1362,7 +1362,7 @@ export const PRIORITY_SERVICES: ServiceData[] = [
         answer: 'Retaining walls with proper drainage systems solve many drainage issues by redirecting water, preventing erosion, and managing slope runoff. However, severe drainage problems may require additional solutions like French drains, dry wells, or regrading. We assess your specific situation and recommend the complete solution needed.'
       }
     ],
-    relatedServices: ['patio-installation', 'landscape-design', 'french-drain-installation', 'terraced-gardens'],
+    relatedServices: ['patio-installation', 'landscape-lighting'],
     pricingGuidance: 'Retaining walls are estimated primarily by linear feet. Typical estimates are about $75-$145 per linear ft, depending on complexity and height. Enter approximate wall length (and details) for a tighter estimate.',
     seasonality: 'April through October. Cannot pour concrete bases or work frozen ground in winter. Spring-summer is ideal for completion before fall.',
     facts: [
@@ -1454,7 +1454,7 @@ export const PRIORITY_SERVICES: ServiceData[] = [
         answer: 'Yes. Most cities have setback requirements (10-25 feet from structures). Some limit fire pit size or fuel type. HOAs often have additional restrictions on materials, design, and placement. Check burn bans during dry summers. We research restrictions for your specific location and design compliant fire features. Permits are obtained as needed.'
       }
     ],
-    relatedServices: ['patio-installation', 'outdoor-fireplace', 'landscape-lighting', 'seating-walls'],
+    relatedServices: ['patio-installation', 'landscape-lighting'],
     pricingGuidance: 'Fire pits are estimated as a base project. Typical estimates land around $2,730-$5,455 depending on complexity, materials, and access. Final pricing is confirmed after site assessment.',
     seasonality: 'Installed April through October. High demand in spring for summer completion. Gas line work must be done before ground freezes.',
     facts: [
@@ -1546,7 +1546,7 @@ export const PRIORITY_SERVICES: ServiceData[] = [
         answer: 'Absolutely. We locate all sprinkler lines before trenching. We work carefully to avoid damaging irrigation systems. Our crews are experienced with both lighting and irrigation - we understand how to integrate systems safely. If we encounter sprinkler lines, we route around them or repair any accidental damage at no charge.'
       }
     ],
-    relatedServices: ['patio-installation', 'pathway-lighting', 'security-lighting', 'landscape-design'],
+    relatedServices: ['patio-installation', 'fire-pit-installation'],
     pricingGuidance: 'Landscape lighting is estimated per fixture installed. Typical estimates are about $140-$275 per fixture (for example, ~10 fixtures often lands around $1,400-$2,750), depending on layout and complexity. Enter an approximate fixture count for a tighter estimate.',
     seasonality: 'Installed year-round. Spring and fall are most popular. Installation easier when ground is soft. Winter installations possible but may cost more.',
     facts: [
@@ -1638,7 +1638,7 @@ export const PRIORITY_SERVICES: ServiceData[] = [
         answer: 'Annual spring startup and inspection, monthly checks during season for proper operation, fall winterization (blowout) before freezing temperatures, and occasional head adjustments as landscape matures. We offer maintenance packages covering all seasonal service. Properly maintained systems last 15-25+ years.'
       }
     ],
-    relatedServices: ['irrigation-maintenance', 'sprinkler-blowout', 'smart-controller-upgrade', 'drip-irrigation'],
+    relatedServices: ['irrigation-repair', 'irrigation-maintenance', 'sprinkler-repair'],
     pricingGuidance: 'Sprinkler system installation is estimated per square foot of area to irrigate. Typical estimates are about $0.95-$1.85 per sq ft, depending on complexity and access. Enter the irrigated area (and zones if known) for a tighter estimate.',
     seasonality: 'Installed April through October. Spring installation (March-May) most popular for summer use. Fall installation possible if completed before freeze.',
     facts: [
@@ -1730,7 +1730,7 @@ export const PRIORITY_SERVICES: ServiceData[] = [
         answer: 'Valve failures result from debris clogging diaphragms (most common in Idaho\'s silty water), aging rubber diaphragms cracking, solenoid electrical failures, and freeze damage from inadequate winterization. Valves typically last 10-20 years with proper maintenance. We stock replacement valves for all major brands enabling same-day repair.'
       }
     ],
-    relatedServices: ['sprinkler-blowout', 'irrigation-maintenance', 'sprinkler-system-installation', 'smart-controller-upgrade'],
+    relatedServices: ['sprinkler-repair', 'irrigation-maintenance'],
     pricingGuidance: 'Sprinkler repair is estimated as a base service call. Typical estimates land around $155-$310 depending on complexity and access. Parts and additional repairs can change final pricing after on-site diagnosis.',
     seasonality: 'Repairs needed April through October (operating season). Highest demand May-July when problems are discovered. Emergency service available for major leaks.',
     facts: [
@@ -1822,7 +1822,7 @@ export const PRIORITY_SERVICES: ServiceData[] = [
         answer: 'June or July when your system has run for 2-3 months. This timing catches problems that develop during use (heads damaged by mowers, coverage issues from plant growth, valves wearing out) before peak summer heat stress when lawn damage happens fastest. Mid-season service optimizes performance for the hottest, most demanding part of the growing season.'
       }
     ],
-    relatedServices: ['sprinkler-blowout', 'irrigation-repair', 'smart-controller-upgrade', 'sprinkler-system-installation'],
+    relatedServices: ['sprinkler-repair', 'irrigation-repair', 'sprinkler-blowout'],
     pricingGuidance: 'Irrigation maintenance is estimated per zone. Typical estimates are about $95-$185 per zone depending on complexity. Enter a zone count for a tighter estimate.',
     seasonality: 'Spring startup (March-April), Mid-season service (June-July), Fall winterization (October). Plan members get priority scheduling.',
     facts: [
@@ -1914,7 +1914,7 @@ export const PRIORITY_SERVICES: ServiceData[] = [
         answer: 'Yes! Proper crown thinning reduces wind resistance by 20-40%, allowing wind to pass through rather than catching the full force. Removing deadwood eliminates weak branches that break first. Correcting poor structure strengthens trees. Idaho windstorms cause extensive tree damage - preventive trimming dramatically reduces risk.'
       }
     ],
-    relatedServices: ['tree-removal', 'stump-grinding', 'hedge-trimming', 'storm-damage-cleanup'],
+    relatedServices: ['tree-removal', 'hedge-trimming', 'stump-grinding'],
     pricingGuidance: 'Tree trimming is estimated per tree. Typical estimates land around $455-$910 per tree depending on complexity and access. Larger trees or challenging removals can increase final pricing after site assessment.',
     seasonality: 'Best: Late winter to early spring (February-April). Available year-round except during severe weather. High demand in spring and after summer storms.',
     facts: [
@@ -2006,7 +2006,7 @@ export const PRIORITY_SERVICES: ServiceData[] = [
         answer: 'Edging first, mulch second for best results. Edging creates the boundary that contains mulch and prevents migration. We often install edging and mulch in same visit for complete landscape transformation. Sharp new edges filled with fresh mulch create stunning instant curb appeal. Many clients combine these services for maximum impact.'
       }
     ],
-    relatedServices: ['mulch-installation', 'bed-preparation', 'landscape-design', 'seasonal-cleanup'],
+    relatedServices: ['lawn-mowing', 'hedge-trimming'],
     pricingGuidance: 'Lawn edging is estimated per linear foot. Typical estimates are about $2.75-$5.45 per ft (for example, ~200 ft often lands around $550-$1,090), depending on complexity. Enter approximate edging length for a tighter estimate.',
     seasonality: 'Installed April through October when ground is workable. Spring (April-May) is most popular for combination with mulch installation. Fall installation also common.',
     facts: [
@@ -2127,7 +2127,7 @@ export const PRIORITY_SERVICES: ServiceData[] = [
         answer: 'Absolutely! Permanent lighting systems are specifically engineered for extreme weather conditions including heavy snow, ice, high winds, and temperature extremes (-40°F to 140°F). The sealed LED track system is completely waterproof and designed to perform flawlessly in Idaho winters. In fact, because the system is permanently mounted with professional weatherproof connections, it\'s MORE reliable than traditional lights that can fail from seasonal handling and weather exposure.'
       }
     ],
-    relatedServices: ['landscape-lighting', 'outdoor-lighting', 'holiday-decor'],
+    relatedServices: ['landscape-lighting', 'fall-cleanup'],
     pricingGuidance: 'Traditional seasonal lighting is estimated at about $6.40-$12.75 per linear ft (includes install and removal), depending on complexity. Permanent lighting installs estimate about $27.30-$54.55 per linear ft one-time, depending on complexity. Enter roofline length and lighting type for a tighter estimate.',
     seasonality: 'Installation: November-December (book in October). Removal: January. High demand - early booking essential.',
     facts: [
@@ -2219,7 +2219,7 @@ export const PRIORITY_SERVICES: ServiceData[] = [
         answer: 'We guarantee 80%+ germination and coverage if you follow our watering instructions. If germination is poor due to our error (bad seed, improper application), we\'ll reseed thin areas at no charge. Success requires your commitment to watering - that\'s the #1 factor. We provide ongoing support and will inspect at 2-3 weeks to ensure you\'re on track.'
       }
     ],
-    relatedServices: ['aeration', 'overseeding', 'dethatching', 'sod-installation'],
+    relatedServices: ['sod-installation', 'aeration', 'overseeding'],
     pricingGuidance: 'Lawn renovation is estimated per square foot. Typical estimates are about $0.05-$0.10 per sq ft (for example, ~5,000 sq ft often lands around $230-$455), depending on complexity. Enter your lawn area for a tighter estimate.',
     seasonality: 'Best: Late August to mid-September. Spring: April-May. Peak demand in fall - book by July for September service.',
     facts: [
@@ -2311,7 +2311,7 @@ export const PRIORITY_SERVICES: ServiceData[] = [
         answer: 'We carry $2 million general liability insurance and full workers\' compensation coverage. Liability insurance covers any accidental property damage during removal (structures, vehicles, landscaping, utilities). Workers\' comp protects you from liability if crew members are injured on your property. We provide certificates of insurance upon request before starting work. Never hire uninsured tree services - you assume all liability for injuries and damage.'
       }
     ],
-    relatedServices: ['stump-grinding', 'tree-trimming', 'storm-damage-cleanup', 'emergency-tree-service'],
+    relatedServices: ['stump-grinding', 'tree-trimming'],
     pricingGuidance: 'Tree removal is estimated per tree. Typical estimates land around $910-$1,820 per tree depending on complexity and access. Final pricing is confirmed after site assessment.',
     seasonality: 'Year-round service. High demand after storms. Winter removal common (less landscaping damage). Book ahead for non-emergency work.',
     facts: [
@@ -2403,7 +2403,7 @@ export const PRIORITY_SERVICES: ServiceData[] = [
         answer: 'Yes, grinding is very safe for surrounding landscape when done properly. We don\'t damage surface roots of nearby trees or disturb flower beds. Flying wood chips are controlled and directed into safe areas. We protect nearby plants with barriers if needed. Grinding releases nutrients into soil as chips decompose, actually benefiting nearby plants slightly. Far safer than excavation which tears up everything nearby.'
       }
     ],
-    relatedServices: ['tree-removal', 'sod-installation', 'landscape-design', 'lawn-renovation'],
+    relatedServices: ['tree-removal', 'sod-installation'],
     pricingGuidance: 'Stump grinding is estimated per stump. Typical estimates land around $275-$545 per stump depending on complexity and access. Enter a stump count for a tighter estimate.',
     seasonality: 'Year-round service. Spring and fall most popular for combining with landscape projects. Frozen ground can complicate winter grinding.',
     facts: [
@@ -2495,7 +2495,7 @@ export const PRIORITY_SERVICES: ServiceData[] = [
         answer: 'Yes! Even properties without major trees benefit from fall cleanup. Neighbor\'s leaves blow onto your property. Summer debris, dead plant material, and fallen branches accumulate. Final mowing to proper winter height is critical for snow mold prevention. Bed cleanup and perennial cutting prepares gardens for healthy spring growth. Gutter cleaning prevents winter ice dam damage. Full property cleanup maintains curb appeal through winter. Properties without heavy leaves typically cost 30-50% less than heavy-tree properties.'
       }
     ],
-    relatedServices: ['spring-cleanup', 'leaf-removal', 'gutter-cleaning', 'aeration'],
+    relatedServices: ['spring-cleanup', 'sprinkler-blowout'],
     pricingGuidance: 'Fall cleanup is estimated per square foot of area to clean. Typical estimates are about $0.030-$0.060 per sq ft (for example, ~8,000 sq ft often lands around $240-$480), depending on debris volume and complexity. Enter the area for a tighter estimate.',
     seasonality: 'Late October through mid-November. Peak demand in early November. Book early as schedules fill quickly before first snow.',
     facts: [
@@ -2587,7 +2587,7 @@ export const PRIORITY_SERVICES: ServiceData[] = [
         answer: 'Yes! We provide spring cleanup for office complexes, retail centers, HOA common areas, apartment complexes, and municipal properties throughout the Treasure Valley. Commercial service includes everything residential service offers plus: flexible scheduling to minimize business disruption, multiple-property package pricing, detailed property reports, before/after photo documentation, and ongoing maintenance contracts if desired. Contact us for commercial quotes.'
       }
     ],
-    relatedServices: ['fall-cleanup', 'aeration', 'fertilization', 'mulch-installation'],
+    relatedServices: ['fall-cleanup', 'lawn-mowing', 'fertilization'],
     pricingGuidance: 'Spring cleanup is estimated per square foot of area to clean. Typical estimates are about $0.030-$0.060 per sq ft (for example, ~8,000 sq ft often lands around $240-$480), depending on debris volume and complexity. Enter the area for a tighter estimate.',
     seasonality: 'Late March through April. Peak demand in early April. Book in February-March for best scheduling. Essential service to start season right.',
     facts: [
@@ -2663,7 +2663,7 @@ export const PRIORITY_SERVICES: ServiceData[] = [
         answer: 'We provide snow removal throughout the Treasure Valley: Kuna, Boise, Meridian, Eagle, Star, and Middleton. Service radius extends roughly 20 miles from Kuna. Properties outside service area may be serviced on case-by-case basis with travel surcharge. Eagle and North Boise foothills receive more snow than valley floor - pricing reflects additional service frequency. Contact us for property-specific quote regardless of location.'
       }
     ],
-    relatedServices: ['spring-cleanup', 'fall-cleanup'],
+    relatedServices: ['sprinkler-blowout', 'fall-cleanup'],
     pricingGuidance: 'Snow removal is estimated as a base service per event. Typical estimates land around $140-$275 per visit depending on complexity and access. Final pricing is confirmed after site assessment.',
     seasonality: 'November through March. Peak demand December-February during major snow events. Book seasonal contracts in October-November for best rates.',
     facts: [
@@ -2723,7 +2723,7 @@ export const PRIORITY_SERVICES: ServiceData[] = [
         answer: 'Depends on system age and condition. Individual repairs usually make sense. If system is 20+ years old with multiple failures, replacement may be more cost-effective long-term. We provide honest recommendations based on your situation.'
       }
     ],
-    relatedServices: ['irrigation-repair', 'sprinkler-system-installation', 'irrigation-maintenance', 'sprinkler-blowout'],
+    relatedServices: ['sprinkler-blowout', 'irrigation-repair', 'irrigation-maintenance'],
     pricingGuidance: 'Irrigation repair is estimated as a base service call. Typical estimates land around $155-$310 depending on complexity and access. Parts and additional repairs can change final pricing after on-site diagnosis.',
     seasonality: 'Peak demand: April-August (growing season). Emergency repairs year-round. Broken pipes often discovered during spring startup or after freeze damage.'
   }

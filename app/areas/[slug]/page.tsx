@@ -124,7 +124,7 @@ export default function AreaPage({ params }: { params: { slug: string } }) {
     notFound();
   }
 
-  const popularServices = PRIORITY_SERVICES.slice(0, 12);
+  const popularServices = PRIORITY_SERVICES;
   const faqs = cityFAQs(city.name, city);
   const otherCities = CITIES.filter(c => c.slug !== params.slug);
 
@@ -195,6 +195,15 @@ export default function AreaPage({ params }: { params: { slug: string } }) {
       />
       
       <div className="flex flex-col">
+        <nav className="container px-4 py-4" aria-label="Breadcrumb" data-testid="nav-breadcrumb">
+          <ol className="flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
+            <li><Link href="/" className="hover-elevate px-1 rounded" data-testid="link-breadcrumb-home">Home</Link></li>
+            <li>/</li>
+            <li><Link href="/services" className="hover-elevate px-1 rounded" data-testid="link-breadcrumb-services">Service Areas</Link></li>
+            <li>/</li>
+            <li className="text-foreground font-medium">{city.name}</li>
+          </ol>
+        </nav>
         <section className="relative py-16 md:py-24 bg-gradient-to-b from-primary/10 via-primary/5 to-background">
           <div className="container px-4">
             <div className="max-w-4xl mx-auto">
@@ -406,7 +415,7 @@ export default function AreaPage({ params }: { params: { slug: string } }) {
                   {popularServices.map((service) => (
                     <Link
                       key={service.slug}
-                      href={`/services/${service.slug}`}
+                      href={`/services/${service.slug}/${params.slug}`}
                       className="text-sm px-3 py-1.5 rounded-full bg-card border hover-elevate"
                       data-testid={`link-service-${service.slug}`}
                     >
