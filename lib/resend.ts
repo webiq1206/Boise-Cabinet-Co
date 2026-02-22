@@ -2,8 +2,15 @@
 // Uses Replit's Resend connector for secure API key management
 import { Resend } from 'resend';
 
-// Fetch fresh credentials on each call - never cache
 async function getCredentials() {
+  if (process.env.RESEND_API_KEY) {
+    console.log('[RESEND] Using RESEND_API_KEY from environment');
+    return {
+      apiKey: process.env.RESEND_API_KEY,
+      fromEmail: 'hello@lawncarekuna.com'
+    };
+  }
+
   const hostname = process.env.REPLIT_CONNECTORS_HOSTNAME;
   const xReplitToken = process.env.REPL_IDENTITY 
     ? 'repl ' + process.env.REPL_IDENTITY 
@@ -12,9 +19,16 @@ async function getCredentials() {
     : null;
 
   if (!xReplitToken) {
+    console.error('[RESEND] No auth token found. REPL_IDENTITY:', !!process.env.REPL_IDENTITY, 'WEB_REPL_RENEWAL:', !!process.env.WEB_REPL_RENEWAL);
     throw new Error('X_REPLIT_TOKEN not found for repl/depl');
   }
 
+  if (!hostname) {
+    console.error('[RESEND] REPLIT_CONNECTORS_HOSTNAME is not set');
+    throw new Error('REPLIT_CONNECTORS_HOSTNAME not found');
+  }
+
+  console.log('[RESEND] Fetching credentials from Replit connector...');
   const response = await fetch(
     'https://' + hostname + '/api/v2/connection?include_secrets=true&connector_names=resend',
     {
@@ -25,13 +39,20 @@ async function getCredentials() {
     }
   );
   
+  if (!response.ok) {
+    console.error('[RESEND] Connector API returned status:', response.status, response.statusText);
+    throw new Error(`Resend connector API error: ${response.status} ${response.statusText}`);
+  }
+
   const data = await response.json();
   const connectionSettings = data.items?.[0];
 
   if (!connectionSettings || !connectionSettings.settings?.api_key) {
-    throw new Error('Resend not connected');
+    console.error('[RESEND] No API key found in connector response. Items count:', data.items?.length || 0);
+    throw new Error('Resend not connected - no API key in connector settings');
   }
   
+  console.log('[RESEND] Credentials obtained successfully, from_email:', connectionSettings.settings.from_email || 'hello@lawncarekuna.com');
   return {
     apiKey: connectionSettings.settings.api_key, 
     fromEmail: connectionSettings.settings.from_email || 'hello@lawncarekuna.com'
