@@ -4,6 +4,7 @@ import { Navigation } from '@/components/Navigation'
 import { Footer } from '@/components/Footer'
 import { Toaster } from '@/components/ui/toaster'
 import { Providers } from '@/components/Providers'
+import { ScrollToTop } from '@/components/ScrollToTop'
 import './globals.css'
 
 const montserrat = Montserrat({
@@ -132,6 +133,7 @@ export default function RootLayout({
       </head>
       <body className="min-h-screen bg-background font-sans antialiased">
         <Providers>
+          <ScrollToTop />
           <div className="flex flex-col min-h-screen">
             <Navigation />
             <main className="flex-1">

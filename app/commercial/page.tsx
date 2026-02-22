@@ -52,7 +52,7 @@ export default function CommercialPage() {
         <section className="bg-primary text-primary-foreground py-16">
           <div className="container px-4">
             <div className="max-w-3xl mx-auto text-center space-y-4">
-              <h1 className="text-4xl md:text-5xl font-bold">Commercial Lawn Care & Landscaping</h1>
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold">Commercial Lawn Care & Landscaping</h1>
               <p className="text-lg text-primary-foreground/90">
                 Professional landscaping services for businesses, office parks, retail centers, and commercial properties across the Treasure Valley
               </p>

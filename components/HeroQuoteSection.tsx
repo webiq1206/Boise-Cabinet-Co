@@ -36,12 +36,12 @@ export function HeroQuoteSection({
             </p>
 
             {/* Main Heading - Dark Text */}
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-foreground leading-tight tracking-tight">
+            <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl text-foreground leading-tight tracking-tight break-words">
               {heading}
             </h1>
 
             {/* Subheading - Green Text */}
-            <p className="text-base sm:text-lg md:text-xl text-primary">
+            <p className="text-sm sm:text-base md:text-lg lg:text-xl text-primary">
               {subheading}
             </p>
           </div>

@@ -284,7 +284,7 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
                     Treasure Valley, ID
                   </Badge>
                 </div>
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground" data-testid="text-hero-heading">
+                <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground" data-testid="text-hero-heading">
                   {service.name} Services
                 </h1>
                 <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto" data-testid="text-hero-subtitle">

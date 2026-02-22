@@ -260,7 +260,7 @@ export default function HomePage() {
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
               </Button>
-              <Button size="lg" variant="outline" className="bg-transparent border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary" asChild>
+              <Button size="lg" variant="outline" className="bg-transparent border-primary-foreground text-primary-foreground" asChild>
                 <Link href="/services">
                   View All Services
                 </Link>

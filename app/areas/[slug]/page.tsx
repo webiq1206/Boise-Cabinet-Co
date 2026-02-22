@@ -233,7 +233,7 @@ export default function AreaPage({ params }: { params: { slug: string } }) {
                   <MapPin className="h-3 w-3" aria-hidden="true" />
                   {city.name}, Idaho
                 </Badge>
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground" data-testid="text-hero-heading">
+                <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground" data-testid="text-hero-heading">
                   Lawn Care Services in {city.name}
                 </h1>
                 <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto" data-testid="text-hero-subtitle">

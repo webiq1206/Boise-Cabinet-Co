@@ -414,6 +414,11 @@ export function SimpleQuoteWizard({
       setQuoteId(response.quoteId || response.id || null);
       setFinalQuote(response);
       setIsSubmitted(true);
+      setTimeout(() => {
+        if (formContainerRef.current) {
+          formContainerRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 100);
       toast({
         title: "Quote submitted!",
         description: "We'll contact you shortly with a detailed estimate.",
@@ -773,7 +778,7 @@ export function SimpleQuoteWizard({
           )}
           
           {selectedServices.length > 0 && (
-            <div className="sticky bottom-0 bg-background/95 backdrop-blur border-t p-4 -mx-4 px-4">
+            <div className="sticky bottom-0 bg-background/95 backdrop-blur border-t p-4">
               <div className="flex items-center justify-between">
                 <div>
                   <div className="text-sm text-muted-foreground">{selectedServices.length} service{selectedServices.length > 1 ? 's' : ''} selected</div>
