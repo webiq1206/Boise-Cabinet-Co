@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Checkbox } from "@/components/ui/checkbox";
-import { DollarSign, MapPin, Phone, Mail, Building, ShoppingCart, AlertCircle, CheckCircle2, Clock, Filter, Search, ArrowUpDown, Eye, EyeOff, Star, Receipt, ChevronDown, Info, Lock, X, Loader2, XCircle, Ruler } from "lucide-react";
+import { DollarSign, MapPin, Phone, Mail, Building, ShoppingCart, AlertCircle, CheckCircle2, Clock, Filter, Search, ArrowUpDown, Eye, EyeOff, Star, Receipt, ChevronDown, Info, Lock, X, Loader2, XCircle, Ruler, HelpCircle, TrendingDown, Percent, FileSignature, Users, ShieldCheck } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/hooks/useAuth";
 import type { Lead, User } from "@shared/schema";
@@ -941,6 +941,121 @@ export default function SubcontractorPortal() {
       </section>
       
       <div className="container py-8">
+
+      <Collapsible className="mb-6">
+        <Card>
+          <CollapsibleTrigger asChild>
+            <button
+              className="w-full flex items-center justify-between p-4 md:p-6 text-left hover-elevate rounded-md"
+              data-testid="button-how-it-works-toggle"
+            >
+              <div className="flex items-center gap-3">
+                <div className="flex items-center justify-center h-10 w-10 rounded-md bg-primary/10">
+                  <HelpCircle className="h-5 w-5 text-primary" />
+                </div>
+                <div>
+                  <h2 className="text-lg font-semibold">How It Works</h2>
+                  <p className="text-sm text-muted-foreground">Learn how to browse, watch, and purchase customer leads</p>
+                </div>
+              </div>
+              <ChevronDown className="h-5 w-5 text-muted-foreground transition-transform duration-200 group-data-[state=open]:rotate-180" />
+            </button>
+          </CollapsibleTrigger>
+          <CollapsibleContent>
+            <div className="px-4 pb-4 md:px-6 md:pb-6 space-y-6">
+              <div className="border-t pt-4" />
+
+              <div className="flex gap-4">
+                <div className="flex-shrink-0 flex items-start justify-center h-9 w-9 rounded-md bg-primary/10 mt-0.5">
+                  <FileSignature className="h-4 w-4 text-primary mt-2.5" />
+                </div>
+                <div className="space-y-1">
+                  <h3 className="font-semibold" data-testid="text-how-it-works-getting-started">Getting Started</h3>
+                  <p className="text-sm text-muted-foreground">
+                    After logging in for the first time, you will be asked to sign a short agreement by typing your name. This is a one-time step and you will not need to do it again. Once that is complete, you will have full access to browse and purchase leads.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex gap-4">
+                <div className="flex-shrink-0 flex items-start justify-center h-9 w-9 rounded-md bg-primary/10 mt-0.5">
+                  <Search className="h-4 w-4 text-primary mt-2.5" />
+                </div>
+                <div className="space-y-1">
+                  <h3 className="font-semibold" data-testid="text-how-it-works-browsing">Browsing Available Leads</h3>
+                  <p className="text-sm text-muted-foreground">
+                    The portal shows a live feed of available customer leads in the Treasure Valley area. For each lead, you can see the city, service type, property size, and estimated project value. You can also filter by city, service, and price range to find the leads that match your business.
+                  </p>
+                  <p className="text-sm text-muted-foreground">
+                    Customer contact details (name, phone, email, and exact address) stay hidden until you purchase the lead.
+                  </p>
+                  <div className="flex items-start gap-2 mt-2 p-3 bg-muted/50 rounded-md">
+                    <Users className="h-4 w-4 text-muted-foreground mt-0.5 flex-shrink-0" />
+                    <p className="text-sm text-muted-foreground">
+                      <span className="font-medium text-foreground">Important:</span> Until a lead is purchased, it is visible to all registered subcontractors. Adding a lead to your watchlist does not reserve it.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex gap-4">
+                <div className="flex-shrink-0 flex items-start justify-center h-9 w-9 rounded-md bg-primary/10 mt-0.5">
+                  <Eye className="h-4 w-4 text-primary mt-2.5" />
+                </div>
+                <div className="space-y-1">
+                  <h3 className="font-semibold" data-testid="text-how-it-works-watchlist">Watchlist</h3>
+                  <p className="text-sm text-muted-foreground">
+                    If you are interested in a lead but not ready to buy yet, you can add it to your watchlist. You will be notified when the price drops, so you can come back and grab it at a better deal. Keep in mind that the watchlist is just a bookmark and alert feature. It does not hold or reserve the lead for you, and another subcontractor can still purchase it.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex gap-4">
+                <div className="flex-shrink-0 flex items-start justify-center h-9 w-9 rounded-md bg-primary/10 mt-0.5">
+                  <TrendingDown className="h-4 w-4 text-primary mt-2.5" />
+                </div>
+                <div className="space-y-1">
+                  <h3 className="font-semibold" data-testid="text-how-it-works-pricing">How Pricing Works</h3>
+                  <p className="text-sm text-muted-foreground">
+                    Each lead is priced at roughly 10% of the estimated project value, with a minimum of $15. If a lead goes unclaimed, the price drops by about 1.5% each day. The price will never fall below 20% of its original value. So if you are patient, you may be able to pick up a great lead at a lower cost.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex gap-4">
+                <div className="flex-shrink-0 flex items-start justify-center h-9 w-9 rounded-md bg-primary/10 mt-0.5">
+                  <ShoppingCart className="h-4 w-4 text-primary mt-2.5" />
+                </div>
+                <div className="space-y-1">
+                  <h3 className="font-semibold" data-testid="text-how-it-works-purchasing">Purchasing a Lead</h3>
+                  <p className="text-sm text-muted-foreground">
+                    When you are ready to buy, click the purchase button on the lead. You will enter your payment details through Stripe, which handles everything securely. Once payment goes through, the customer's full contact information is revealed to you, including their name, phone number, email, and address. You will also receive an email with all the details for your records.
+                  </p>
+                  <div className="flex items-start gap-2 mt-2 p-3 bg-primary/5 rounded-md border border-primary/20">
+                    <ShieldCheck className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
+                    <p className="text-sm text-muted-foreground">
+                      <span className="font-medium text-foreground">Exclusive leads:</span> Each lead is sold to only one subcontractor. Once you purchase a lead, that customer is exclusively yours. No other contractor will receive their information, and you will not be competing with anyone for that job.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex gap-4">
+                <div className="flex-shrink-0 flex items-start justify-center h-9 w-9 rounded-md bg-primary/10 mt-0.5">
+                  <Percent className="h-4 w-4 text-primary mt-2.5" />
+                </div>
+                <div className="space-y-1">
+                  <h3 className="font-semibold" data-testid="text-how-it-works-bulk-discounts">Bulk Discounts</h3>
+                  <p className="text-sm text-muted-foreground">
+                    Buying multiple leads at once saves you money. Purchase 2 or more leads to get 5% off, 6 or more for 10% off, and 20 or more for 20% off. Discounts are applied automatically at checkout.
+                  </p>
+                </div>
+              </div>
+
+            </div>
+          </CollapsibleContent>
+        </Card>
+      </Collapsible>
 
       <Card className="mb-6">
         <CardHeader className="pb-3">
