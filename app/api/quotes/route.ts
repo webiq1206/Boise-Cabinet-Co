@@ -187,6 +187,8 @@ export async function POST(request: Request) {
       console.error("[QUOTE] Customer email error details:", JSON.stringify(emailError, null, 2));
     }
 
+    await new Promise(r => setTimeout(r, 600));
+
     try {
       console.log("[QUOTE] Sending admin notification email");
       await sendAdminNotificationEmail({

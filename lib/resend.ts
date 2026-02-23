@@ -289,14 +289,15 @@ export async function sendAdminNotificationEmail(data: {
   const subject = `New Quote: ${data.customerName} - ${data.city} (${data.services.length} services)`;
   let anySuccess = false;
 
-  for (const adminEmail of ADMIN_EMAILS) {
+  for (let i = 0; i < ADMIN_EMAILS.length; i++) {
+    if (i > 0) await new Promise(r => setTimeout(r, 600));
     const sent = await sendEmailWithLogging(
       client,
       fromEmail,
-      adminEmail,
+      ADMIN_EMAILS[i],
       subject,
       html,
-      `Admin notification (${adminEmail})`
+      `Admin notification (${ADMIN_EMAILS[i]})`
     );
     if (sent) anySuccess = true;
   }
