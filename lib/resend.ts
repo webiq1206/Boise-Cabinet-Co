@@ -1,13 +1,17 @@
-// Resend email client integration
-// Uses Replit's Resend connector for secure API key management
 import { Resend } from 'resend';
+
+const ADMIN_EMAILS = [
+  "webiq.co@gmail.com",
+  "info@webiq.co",
+  "hello@lawncarekuna.com",
+  "brostjared@gmail.com",
+];
 
 async function getCredentials() {
   if (process.env.RESEND_API_KEY) {
-    console.log('[RESEND] Using RESEND_API_KEY from environment');
     return {
       apiKey: process.env.RESEND_API_KEY,
-      fromEmail: 'hello@lawncarekuna.com'
+      fromEmail: 'Lawn Care Kuna <hello@lawncarekuna.com>'
     };
   }
 
@@ -19,8 +23,8 @@ async function getCredentials() {
     : null;
 
   if (!xReplitToken) {
-    console.error('[RESEND] No auth token found. REPL_IDENTITY:', !!process.env.REPL_IDENTITY, 'WEB_REPL_RENEWAL:', !!process.env.WEB_REPL_RENEWAL);
-    throw new Error('X_REPLIT_TOKEN not found for repl/depl');
+    console.error('[RESEND] No auth token found');
+    throw new Error('X_REPLIT_TOKEN not found');
   }
 
   if (!hostname) {
@@ -28,7 +32,6 @@ async function getCredentials() {
     throw new Error('REPLIT_CONNECTORS_HOSTNAME not found');
   }
 
-  console.log('[RESEND] Fetching credentials from Replit connector...');
   const response = await fetch(
     'https://' + hostname + '/api/v2/connection?include_secrets=true&connector_names=resend',
     {
@@ -40,34 +43,63 @@ async function getCredentials() {
   );
   
   if (!response.ok) {
-    console.error('[RESEND] Connector API returned status:', response.status, response.statusText);
-    throw new Error(`Resend connector API error: ${response.status} ${response.statusText}`);
+    console.error('[RESEND] Connector API error:', response.status);
+    throw new Error(`Resend connector API error: ${response.status}`);
   }
 
   const data = await response.json();
   const connectionSettings = data.items?.[0];
 
   if (!connectionSettings || !connectionSettings.settings?.api_key) {
-    console.error('[RESEND] No API key found in connector response. Items count:', data.items?.length || 0);
-    throw new Error('Resend not connected - no API key in connector settings');
+    console.error('[RESEND] No API key in connector response');
+    throw new Error('Resend not connected');
   }
   
-  console.log('[RESEND] Credentials obtained successfully, from_email:', connectionSettings.settings.from_email || 'hello@lawncarekuna.com');
+  const rawFrom = connectionSettings.settings.from_email || 'hello@lawncarekuna.com';
   return {
     apiKey: connectionSettings.settings.api_key, 
-    fromEmail: connectionSettings.settings.from_email || 'hello@lawncarekuna.com'
+    fromEmail: rawFrom.includes('<') ? rawFrom : `Lawn Care Kuna <${rawFrom}>`
   };
 }
 
-// WARNING: Never cache this client.
-// Access tokens expire, so a new client must be created each time.
-// Always call this function to get a fresh client.
 async function getUncachableResendClient() {
   const { apiKey, fromEmail } = await getCredentials();
   return {
     client: new Resend(apiKey),
     fromEmail
   };
+}
+
+async function sendEmailWithLogging(
+  client: Resend,
+  from: string,
+  to: string | string[],
+  subject: string,
+  html: string,
+  label: string
+): Promise<boolean> {
+  try {
+    const result = await client.emails.send({ from, to, subject, html });
+    
+    const quota = (result as any)?.headers?.['x-resend-daily-quota'];
+    const errorData = (result as any)?.error;
+    
+    if (errorData) {
+      console.error(`[RESEND] ${label} API error:`, JSON.stringify(errorData));
+      return false;
+    }
+    
+    const emailId = (result as any)?.data?.id;
+    console.log(`[RESEND] ${label} sent successfully. ID: ${emailId}, To: ${Array.isArray(to) ? to.join(', ') : to}`);
+    if (quota !== undefined) {
+      console.log(`[RESEND] Daily quota remaining: ${quota}`);
+    }
+    return true;
+  } catch (error: any) {
+    console.error(`[RESEND] ${label} FAILED:`, error?.message || error);
+    if (error?.statusCode) console.error(`[RESEND] Status code: ${error.statusCode}`);
+    return false;
+  }
 }
 
 // Send quote confirmation email to customer
@@ -141,19 +173,15 @@ export async function sendQuoteConfirmationEmail(data: {
     </html>
   `;
 
-  try {
-    const result = await client.emails.send({
-      from: fromEmail,
-      to: data.to,
-      subject: `Quote Request Received - Lawn Care Kuna (Ref: ${data.quoteId.slice(0, 8)})`,
-      html
-    });
-    console.log('Customer email sent:', result);
-    return result;
-  } catch (error) {
-    console.error('Failed to send customer email:', error);
-    throw error;
-  }
+  const sent = await sendEmailWithLogging(
+    client,
+    fromEmail,
+    data.to,
+    `Quote Request Received - Lawn Care Kuna (Ref: ${data.quoteId.slice(0, 8)})`,
+    html,
+    'Customer confirmation'
+  );
+  if (!sent) throw new Error('Failed to send customer email');
 }
 
 // Send new lead notification to admin
@@ -258,18 +286,23 @@ export async function sendAdminNotificationEmail(data: {
     </html>
   `;
 
-  try {
-    const result = await client.emails.send({
-      from: fromEmail,
-      to: 'hello@lawncarekuna.com',
-      subject: `New Quote: ${data.customerName} - ${data.city} (${data.services.length} services)`,
-      html
-    });
-    console.log('Admin notification email sent:', result);
-    return result;
-  } catch (error) {
-    console.error('Failed to send admin email:', error);
-    throw error;
+  const subject = `New Quote: ${data.customerName} - ${data.city} (${data.services.length} services)`;
+  let anySuccess = false;
+
+  for (const adminEmail of ADMIN_EMAILS) {
+    const sent = await sendEmailWithLogging(
+      client,
+      fromEmail,
+      adminEmail,
+      subject,
+      html,
+      `Admin notification (${adminEmail})`
+    );
+    if (sent) anySuccess = true;
+  }
+
+  if (!anySuccess) {
+    throw new Error('Failed to send admin notification to any admin email');
   }
 }
 

@@ -290,8 +290,9 @@ export async function sendEmail(to: string, subject: string, htmlBody: string): 
       return;
     }
 
+    const fromAddress = fromEmail.includes('<') ? fromEmail : `Lawn Care Kuna <${fromEmail}>`;
     await resend.emails.send({
-      from: `Lawn Care Kuna <${fromEmail}>`,
+      from: fromAddress,
       to,
       subject,
       html: htmlBody
