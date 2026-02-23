@@ -1,10 +1,8 @@
 import { Resend } from 'resend';
 
 const ADMIN_EMAILS = [
-  "webiq.co@gmail.com",
-  "info@webiq.co",
   "hello@lawncarekuna.com",
-  "brostjared@gmail.com",
+  "webiq.co@gmail.com",
 ];
 
 async function getCredentials() {
@@ -290,7 +288,7 @@ export async function sendAdminNotificationEmail(data: {
   let anySuccess = false;
 
   for (let i = 0; i < ADMIN_EMAILS.length; i++) {
-    if (i > 0) await new Promise(r => setTimeout(r, 600));
+    if (i > 0) await new Promise(r => setTimeout(r, 700));
     const sent = await sendEmailWithLogging(
       client,
       fromEmail,
