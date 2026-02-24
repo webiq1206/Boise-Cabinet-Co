@@ -125,10 +125,10 @@ export function AdminAnalyticsPanel({ user }: { user: User | undefined }) {
   const topBuyers = useMemo(() => (data?.charts.topBuyers ?? []).slice(0, 5), [data?.charts.topBuyers]);
 
   return (
-    <div className="space-y-4" data-testid="admin-analytics-panel">
+    <div className="space-y-3 md:space-y-4" data-testid="admin-analytics-panel">
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
         <div className="flex items-center gap-2">
-          <h2 className="text-xl font-semibold">KPIs & Analytics</h2>
+          <h2 className="text-lg md:text-xl font-semibold">KPIs & Analytics</h2>
           {data?.range?.days ? <Badge variant="secondary">{data.range.days}d</Badge> : null}
         </div>
         <div className="flex items-center gap-2">
@@ -155,48 +155,48 @@ export function AdminAnalyticsPanel({ user }: { user: User | undefined }) {
         </Card>
       ) : null}
 
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <Card>
-          <CardHeader className="pb-2">
+          <CardHeader className="p-3 md:p-4 pb-1 md:pb-2">
             <CardTitle className="text-sm font-medium text-muted-foreground flex items-center gap-2">
               <ListChecks className="h-4 w-4" /> New Leads
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-3xl font-bold">{isLoading ? "—" : data?.kpis.leadsCreated ?? 0}</div>
+            <div className="text-2xl md:text-3xl font-bold">{isLoading ? "—" : data?.kpis.leadsCreated ?? 0}</div>
           </CardContent>
         </Card>
         <Card>
-          <CardHeader className="pb-2">
+          <CardHeader className="p-3 md:p-4 pb-1 md:pb-2">
             <CardTitle className="text-sm font-medium text-muted-foreground flex items-center gap-2">
               <Clock className="h-4 w-4" /> Avg Time to Review
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-3xl font-bold">{isLoading ? "—" : formatHours(data?.kpis.avgTimeToReviewHours ?? 0)}</div>
+            <div className="text-2xl md:text-3xl font-bold">{isLoading ? "—" : formatHours(data?.kpis.avgTimeToReviewHours ?? 0)}</div>
           </CardContent>
         </Card>
         <Card>
-          <CardHeader className="pb-2">
+          <CardHeader className="p-3 md:p-4 pb-1 md:pb-2">
             <CardTitle className="text-sm font-medium text-muted-foreground flex items-center gap-2">
               <ShoppingCart className="h-4 w-4" /> Purchases
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-3xl font-bold">{isLoading ? "—" : data?.kpis.leadsPurchased ?? 0}</div>
+            <div className="text-2xl md:text-3xl font-bold">{isLoading ? "—" : data?.kpis.leadsPurchased ?? 0}</div>
             <div className="text-xs text-muted-foreground mt-1">
               Conversion: {isLoading ? "—" : formatPercent(data?.kpis.purchaseConversion ?? 0)}
             </div>
           </CardContent>
         </Card>
         <Card>
-          <CardHeader className="pb-2">
+          <CardHeader className="p-3 md:p-4 pb-1 md:pb-2">
             <CardTitle className="text-sm font-medium text-muted-foreground flex items-center gap-2">
               <DollarSign className="h-4 w-4" /> Revenue
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-3xl font-bold">{isLoading ? "—" : formatCurrency(data?.kpis.revenue ?? 0)}</div>
+            <div className="text-2xl md:text-3xl font-bold">{isLoading ? "—" : formatCurrency(data?.kpis.revenue ?? 0)}</div>
             <div className="text-xs text-muted-foreground mt-1">
               Avg: {isLoading ? "—" : formatCurrency(data?.kpis.avgPurchasePrice ?? 0)}
             </div>
@@ -213,7 +213,7 @@ export function AdminAnalyticsPanel({ user }: { user: User | undefined }) {
           </CardHeader>
           <CardContent>
             <ChartContainer
-              className="h-[260px] w-full"
+              className="h-[180px] md:h-[260px] w-full"
               config={{
                 leadsCreated: { label: "Leads created", color: "hsl(var(--chart-1))" },
                 leadsReviewed: { label: "Reviewed", color: "hsl(var(--chart-2))" },
@@ -242,7 +242,7 @@ export function AdminAnalyticsPanel({ user }: { user: User | undefined }) {
           </CardHeader>
           <CardContent>
             <ChartContainer
-              className="h-[260px] w-full"
+              className="h-[180px] md:h-[260px] w-full"
               config={{
                 revenue: { label: "Revenue", color: "hsl(var(--chart-4))" },
               }}

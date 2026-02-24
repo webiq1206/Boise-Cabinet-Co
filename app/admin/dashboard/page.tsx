@@ -21,7 +21,7 @@ import { NotificationsBell } from "@/components/NotificationsBell";
 import { 
   CheckCircle2, XCircle, Clock, DollarSign, MapPin, Phone, Mail, Building, 
   ChevronDown, Receipt, AlertTriangle, Server, Hash, Search, Filter, X, 
-  ArrowUpDown, MessageSquare, Plus, Tag, Flag, LogOut, Shield 
+  ArrowUpDown, MessageSquare, Plus, Tag, Flag, LogOut, Shield, ArrowLeftRight 
 } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 
@@ -817,28 +817,28 @@ function AdminDashboardContent() {
           </div>
         </div>
       </CardHeader>
-      <CardContent className="space-y-4">
-        <div className="grid grid-cols-2 gap-4 text-sm">
+      <CardContent className="space-y-3 md:space-y-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-4 text-sm">
           <div className="flex items-center gap-2">
-            <DollarSign className="h-4 w-4 text-muted-foreground" />
-            <div>
+            <DollarSign className="h-4 w-4 text-muted-foreground flex-shrink-0" />
+            <div className="min-w-0">
               <p className="font-medium">
-                Quote Range: {lead.finalQuote ? formatQuoteRangeWholeFromValue(lead.finalQuote, 0.15) : "Pending"}
+                {lead.finalQuote ? formatQuoteRangeWholeFromValue(lead.finalQuote, 0.15) : "Pending"}
               </p>
-              <p className="text-muted-foreground">
-                Lead Price: {formatCurrency(lead.currentLeadPrice)}
+              <p className="text-muted-foreground text-xs">
+                Lead: {formatCurrency(lead.currentLeadPrice)}
                 {lead.baseLeadPrice !== lead.currentLeadPrice && (
-                  <span className="ml-1 text-xs">(Base: {formatCurrency(lead.baseLeadPrice)})</span>
+                  <span className="ml-1">(was {formatCurrency(lead.baseLeadPrice)})</span>
                 )}
               </p>
             </div>
           </div>
           <div className="flex items-center gap-2">
-            <Clock className="h-4 w-4 text-muted-foreground" />
+            <Clock className="h-4 w-4 text-muted-foreground flex-shrink-0" />
             <div>
               <p className="font-medium">{formatDate(lead.createdAt)}</p>
               <p className="text-muted-foreground text-xs">
-                {formatLeadAge(lead.createdAt)} • {lead.frequency || "one-time"}
+                {formatLeadAge(lead.createdAt)}, {lead.frequency || "one-time"}
               </p>
             </div>
           </div>
@@ -940,7 +940,7 @@ function AdminDashboardContent() {
         <NotesSection lead={lead} onAddNote={(note) => addNoteMutation.mutate({ leadId: lead.id, note })} />
 
         {showActions && (
-          <div className="flex gap-2 pt-4 border-t">
+          <div className="flex flex-col sm:flex-row gap-2 pt-4 border-t">
             <Button
               onClick={() => acceptLeadMutation.mutate(lead.id)}
               disabled={acceptLeadMutation.isPending}
@@ -948,7 +948,7 @@ function AdminDashboardContent() {
               data-testid={`button-accept-${lead.id}`}
             >
               <CheckCircle2 className="mr-2 h-4 w-4" />
-              Accept Lead
+              Accept
             </Button>
             <Button
               onClick={() => declineLeadMutation.mutate(lead.id)}
@@ -958,7 +958,7 @@ function AdminDashboardContent() {
               data-testid={`button-decline-${lead.id}`}
             >
               <XCircle className="mr-2 h-4 w-4" />
-              Decline (Send to Subcontractors)
+              Send to Subs
             </Button>
           </div>
         )}
@@ -982,15 +982,15 @@ function AdminDashboardContent() {
     <div data-testid="page-admin-dashboard">
       {/* Header */}
       <header className="border-b bg-card">
-        <div className="container px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-                <Shield className="w-5 h-5 text-primary" />
+        <div className="container px-3 md:px-4 py-3 md:py-4">
+          <div className="flex items-center justify-between gap-2">
+            <div className="flex items-center gap-2 md:gap-4 min-w-0">
+              <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                <Shield className="w-4 h-4 md:w-5 md:h-5 text-primary" />
               </div>
-              <div>
-                <div className="flex items-center gap-2">
-                  <h1 className="text-xl font-bold">Admin Dashboard</h1>
+              <div className="min-w-0">
+                <div className="flex items-center gap-2 flex-wrap">
+                  <h1 className="text-lg md:text-xl font-bold">Admin Dashboard</h1>
                   <Badge 
                     variant={environment.isProduction ? "default" : "outline"}
                     className={environment.isProduction ? "bg-primary" : "border-amber-500 text-amber-700 dark:text-amber-400"}
@@ -999,23 +999,33 @@ function AdminDashboardContent() {
                     {environment.environmentLabel}
                   </Badge>
                 </div>
-                <p className="text-sm text-muted-foreground">
+                <p className="text-xs md:text-sm text-muted-foreground truncate">
                   Welcome, {user?.firstName || user?.email}
                 </p>
               </div>
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1 md:gap-2 flex-shrink-0">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => router.push("/subcontractor/portal")}
+                data-testid="button-switch-to-subcontractor"
+                title="View as Subcontractor"
+              >
+                <ArrowLeftRight className="h-4 w-4" />
+                <span className="hidden md:inline ml-2">Sub Portal</span>
+              </Button>
               <NotificationsBell />
-              <Button variant="outline" onClick={handleLogout}>
-                <LogOut className="w-4 h-4 mr-2" />
-                Logout
+              <Button variant="outline" size="sm" onClick={handleLogout}>
+                <LogOut className="w-4 h-4 mr-0 md:mr-2" />
+                <span className="hidden md:inline">Logout</span>
               </Button>
             </div>
           </div>
         </div>
       </header>
       
-      <div className="container py-8 px-4">
+      <div className="container px-3 md:px-4 py-4 md:py-8">
         {!environment.isProduction && (
           <div className="mb-4 p-3 bg-amber-100 dark:bg-amber-900/30 border border-amber-300 dark:border-amber-700 rounded-md flex items-center gap-3">
             <AlertTriangle className="h-5 w-5 text-amber-600 dark:text-amber-400 flex-shrink-0" />
@@ -1040,64 +1050,63 @@ function AdminDashboardContent() {
           <AdminAnalyticsPanel user={user} />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4 mb-6 md:mb-8">
           <Card>
-            <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium text-muted-foreground">Pending Review</CardTitle>
+            <CardHeader className="p-3 md:p-4 pb-1 md:pb-2">
+              <CardTitle className="text-xs md:text-sm font-medium text-muted-foreground">Pending Review</CardTitle>
             </CardHeader>
-            <CardContent>
-              <div className="text-3xl font-bold" data-testid="count-pending">{pendingLeads.length}</div>
+            <CardContent className="p-3 md:p-4 pt-0">
+              <div className="text-2xl md:text-3xl font-bold" data-testid="count-pending">{pendingLeads.length}</div>
             </CardContent>
           </Card>
           <Card>
-            <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium text-muted-foreground">Accepted by You</CardTitle>
+            <CardHeader className="p-3 md:p-4 pb-1 md:pb-2">
+              <CardTitle className="text-xs md:text-sm font-medium text-muted-foreground">Accepted</CardTitle>
             </CardHeader>
-            <CardContent>
-              <div className="text-3xl font-bold" data-testid="count-accepted">{acceptedLeads.length}</div>
+            <CardContent className="p-3 md:p-4 pt-0">
+              <div className="text-2xl md:text-3xl font-bold" data-testid="count-accepted">{acceptedLeads.length}</div>
             </CardContent>
           </Card>
           <Card>
-            <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium text-muted-foreground">Available to Subs</CardTitle>
+            <CardHeader className="p-3 md:p-4 pb-1 md:pb-2">
+              <CardTitle className="text-xs md:text-sm font-medium text-muted-foreground">Available</CardTitle>
             </CardHeader>
-            <CardContent>
-              <div className="text-3xl font-bold" data-testid="count-available">{declinedLeads.length}</div>
+            <CardContent className="p-3 md:p-4 pt-0">
+              <div className="text-2xl md:text-3xl font-bold" data-testid="count-available">{declinedLeads.length}</div>
             </CardContent>
           </Card>
           <Card>
-            <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium text-muted-foreground">Total Purchased</CardTitle>
+            <CardHeader className="p-3 md:p-4 pb-1 md:pb-2">
+              <CardTitle className="text-xs md:text-sm font-medium text-muted-foreground">Purchased</CardTitle>
             </CardHeader>
-            <CardContent>
-              <div className="text-3xl font-bold" data-testid="count-purchased">{allPurchasedLeads.length}</div>
+            <CardContent className="p-3 md:p-4 pt-0">
+              <div className="text-2xl md:text-3xl font-bold" data-testid="count-purchased">{allPurchasedLeads.length}</div>
             </CardContent>
           </Card>
         </div>
 
-        {/* Search and Filters */}
         <Card className="mb-6">
-          <CardHeader>
-            <div className="flex items-center justify-between">
-              <CardTitle className="flex items-center gap-2">
-                <Search className="h-5 w-5" />
+          <CardHeader className="p-3 md:p-4 pb-0">
+            <div className="flex items-center justify-between gap-2">
+              <CardTitle className="flex items-center gap-2 text-sm md:text-base">
+                <Search className="h-4 w-4" />
                 Search & Filters
               </CardTitle>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-1 md:gap-2">
                 {hasActiveFilters && (
-                  <Button variant="ghost" size="sm" onClick={clearFilters}>
+                  <Button variant="ghost" size="sm" onClick={clearFilters} aria-label="Clear filters">
                     <X className="h-4 w-4 mr-1" />
-                    Clear Filters
+                    <span className="hidden sm:inline">Clear</span>
                   </Button>
                 )}
-                <Button variant="outline" size="sm" onClick={() => setShowFilters(!showFilters)}>
-                  <Filter className="h-4 w-4 mr-1" />
-                  {showFilters ? "Hide" : "Show"} Filters
+                <Button variant="outline" size="sm" onClick={() => setShowFilters(!showFilters)} aria-label={showFilters ? "Hide filters" : "Show filters"}>
+                  <Filter className="h-4 w-4 mr-0 md:mr-1" />
+                  <span className="hidden md:inline">{showFilters ? "Hide" : "Show"} Filters</span>
                 </Button>
               </div>
             </div>
           </CardHeader>
-          <CardContent className="space-y-4">
+          <CardContent className="p-3 md:p-4 space-y-3 md:space-y-4">
             <div className="relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
               <Input
@@ -1266,15 +1275,14 @@ function AdminDashboardContent() {
           </CardContent>
         </Card>
 
-        {/* Bulk Actions */}
         {activeTab === "pending" && pendingLeads.length > 0 && (
           <Card className="mb-6">
-            <CardHeader>
-              <CardTitle>Bulk Actions</CardTitle>
-              <CardDescription>Perform bulk operations on filtered leads</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="flex items-center gap-2">
+            <CardContent className="p-3 md:p-4 space-y-3">
+              <div>
+                <span className="text-sm font-semibold">Bulk Actions</span>
+                <p className="text-xs text-muted-foreground">Perform actions on all filtered leads</p>
+              </div>
+              <div className="flex flex-wrap items-center gap-2">
                 <Button
                   variant="outline"
                   size="sm"
@@ -1340,23 +1348,25 @@ function AdminDashboardContent() {
         )}
 
         <Tabs value={activeTab} onValueChange={(value) => setActiveTab(value as typeof activeTab)} className="space-y-4">
-          <TabsList>
-            <TabsTrigger value="pending" data-testid="tab-pending">
-              Pending ({pendingLeads.length})
-            </TabsTrigger>
-            <TabsTrigger value="accepted" data-testid="tab-accepted">
-              Accepted ({acceptedLeads.length})
-            </TabsTrigger>
-            <TabsTrigger value="available" data-testid="tab-available">
-              Available ({declinedLeads.length})
-            </TabsTrigger>
-            <TabsTrigger value="all" data-testid="tab-all">
-              All Purchased ({allPurchasedLeads.length})
-            </TabsTrigger>
-            <TabsTrigger value="subcontractors" data-testid="tab-subcontractors">
-              Subcontractors
-            </TabsTrigger>
-          </TabsList>
+          <div className="overflow-x-auto -mx-1 px-1">
+            <TabsList className="w-max md:w-full">
+              <TabsTrigger value="pending" data-testid="tab-pending" className="text-xs md:text-sm">
+                Pending ({pendingLeads.length})
+              </TabsTrigger>
+              <TabsTrigger value="accepted" data-testid="tab-accepted" className="text-xs md:text-sm">
+                Accepted ({acceptedLeads.length})
+              </TabsTrigger>
+              <TabsTrigger value="available" data-testid="tab-available" className="text-xs md:text-sm">
+                Available ({declinedLeads.length})
+              </TabsTrigger>
+              <TabsTrigger value="all" data-testid="tab-all" className="text-xs md:text-sm">
+                Purchased ({allPurchasedLeads.length})
+              </TabsTrigger>
+              <TabsTrigger value="subcontractors" data-testid="tab-subcontractors" className="text-xs md:text-sm">
+                Subs
+              </TabsTrigger>
+            </TabsList>
+          </div>
 
           <TabsContent value="pending" className="space-y-4">
             {pendingLeads.length === 0 ? (
