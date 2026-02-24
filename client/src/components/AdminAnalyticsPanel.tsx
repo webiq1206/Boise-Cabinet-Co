@@ -113,16 +113,16 @@ export function AdminAnalyticsPanel({ user }: { user: User | undefined }) {
   const topBuyers = useMemo(() => (data?.charts.topBuyers ?? []).slice(0, 5), [data?.charts.topBuyers]);
 
   return (
-    <div className="space-y-4" data-testid="admin-analytics-panel">
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
-        <div className="flex items-center gap-2">
-          <h2 className="text-xl font-semibold">KPIs & Analytics</h2>
+    <div className="space-y-3 md:space-y-4" data-testid="admin-analytics-panel">
+      <div className="flex items-center justify-between gap-3">
+        <div className="flex items-center gap-2 min-w-0">
+          <h2 className="text-lg md:text-xl font-semibold truncate">KPIs & Analytics</h2>
           {data?.range?.days ? <Badge variant="secondary">{data.range.days}d</Badge> : null}
         </div>
-        <div className="flex items-center gap-2">
-          <span className="text-sm text-muted-foreground">Range</span>
+        <div className="flex items-center gap-2 flex-shrink-0">
+          <span className="text-sm text-muted-foreground hidden sm:inline">Range</span>
           <Select value={days} onValueChange={setDays}>
-            <SelectTrigger className="w-[140px]">
+            <SelectTrigger className="w-[130px]">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -137,81 +137,76 @@ export function AdminAnalyticsPanel({ user }: { user: User | undefined }) {
 
       {error ? (
         <Card>
-          <CardContent className="py-6 text-sm text-destructive">
+          <CardContent className="py-4 text-sm text-destructive">
             {(error as Error).message || "Failed to load analytics"}
           </CardContent>
         </Card>
       ) : null}
 
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4">
         <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-muted-foreground flex items-center gap-2">
-              <ListChecks className="h-4 w-4" /> New Leads
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="text-3xl font-bold">{isLoading ? "—" : data?.kpis.leadsCreated ?? 0}</div>
+          <CardContent className="p-3 md:p-4">
+            <div className="flex items-center gap-1.5 mb-1">
+              <ListChecks className="h-3.5 w-3.5 text-muted-foreground" />
+              <span className="text-xs font-medium text-muted-foreground">New Leads</span>
+            </div>
+            <div className="text-2xl md:text-3xl font-bold">{isLoading ? "\u2014" : data?.kpis.leadsCreated ?? 0}</div>
           </CardContent>
         </Card>
         <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-muted-foreground flex items-center gap-2">
-              <Clock className="h-4 w-4" /> Avg Time to Review
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="text-3xl font-bold">{isLoading ? "—" : formatHours(data?.kpis.avgTimeToReviewHours ?? 0)}</div>
+          <CardContent className="p-3 md:p-4">
+            <div className="flex items-center gap-1.5 mb-1">
+              <Clock className="h-3.5 w-3.5 text-muted-foreground" />
+              <span className="text-xs font-medium text-muted-foreground">Avg Review</span>
+            </div>
+            <div className="text-2xl md:text-3xl font-bold">{isLoading ? "\u2014" : formatHours(data?.kpis.avgTimeToReviewHours ?? 0)}</div>
           </CardContent>
         </Card>
         <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-muted-foreground flex items-center gap-2">
-              <ShoppingCart className="h-4 w-4" /> Purchases
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="text-3xl font-bold">{isLoading ? "—" : data?.kpis.leadsPurchased ?? 0}</div>
-            <div className="text-xs text-muted-foreground mt-1">
-              Conversion: {isLoading ? "—" : formatPercent(data?.kpis.purchaseConversion ?? 0)}
+          <CardContent className="p-3 md:p-4">
+            <div className="flex items-center gap-1.5 mb-1">
+              <ShoppingCart className="h-3.5 w-3.5 text-muted-foreground" />
+              <span className="text-xs font-medium text-muted-foreground">Purchases</span>
+            </div>
+            <div className="text-2xl md:text-3xl font-bold">{isLoading ? "\u2014" : data?.kpis.leadsPurchased ?? 0}</div>
+            <div className="text-[10px] md:text-xs text-muted-foreground">
+              {isLoading ? "\u2014" : formatPercent(data?.kpis.purchaseConversion ?? 0)} conv.
             </div>
           </CardContent>
         </Card>
         <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-muted-foreground flex items-center gap-2">
-              <DollarSign className="h-4 w-4" /> Revenue
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="text-3xl font-bold">{isLoading ? "—" : formatCurrency(data?.kpis.revenue ?? 0)}</div>
-            <div className="text-xs text-muted-foreground mt-1">
-              Avg: {isLoading ? "—" : formatCurrency(data?.kpis.avgPurchasePrice ?? 0)}
+          <CardContent className="p-3 md:p-4">
+            <div className="flex items-center gap-1.5 mb-1">
+              <DollarSign className="h-3.5 w-3.5 text-muted-foreground" />
+              <span className="text-xs font-medium text-muted-foreground">Revenue</span>
+            </div>
+            <div className="text-2xl md:text-3xl font-bold">{isLoading ? "\u2014" : formatCurrency(data?.kpis.revenue ?? 0)}</div>
+            <div className="text-[10px] md:text-xs text-muted-foreground">
+              Avg: {isLoading ? "\u2014" : formatCurrency(data?.kpis.avgPurchasePrice ?? 0)}
             </div>
           </CardContent>
         </Card>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 md:gap-4">
         <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-base font-semibold flex items-center gap-2">
-              <TrendingUp className="h-4 w-4" /> Daily Lead Flow
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
+          <CardContent className="p-3 md:p-4">
+            <div className="flex items-center gap-2 mb-2">
+              <TrendingUp className="h-4 w-4 text-muted-foreground" />
+              <span className="text-sm md:text-base font-semibold">Daily Lead Flow</span>
+            </div>
             <ChartContainer
-              className="h-[260px] w-full"
+              className="h-[180px] md:h-[240px] w-full"
               config={{
                 leadsCreated: { label: "Leads created", color: "hsl(var(--chart-1))" },
                 leadsReviewed: { label: "Reviewed", color: "hsl(var(--chart-2))" },
                 leadsPurchased: { label: "Purchased", color: "hsl(var(--chart-3))" },
               }}
             >
-              <LineChart data={data?.charts.daily ?? []} margin={{ left: 8, right: 8, top: 8, bottom: 8 }}>
+              <LineChart data={data?.charts.daily ?? []} margin={{ left: 0, right: 4, top: 4, bottom: 4 }}>
                 <CartesianGrid vertical={false} />
-                <XAxis dataKey="date" tickMargin={8} minTickGap={24} />
-                <YAxis allowDecimals={false} width={32} />
+                <XAxis dataKey="date" tickMargin={6} minTickGap={32} tick={{ fontSize: 11 }} />
+                <YAxis allowDecimals={false} width={28} tick={{ fontSize: 11 }} />
                 <ChartTooltip content={<ChartTooltipContent />} />
                 <ChartLegend content={<ChartLegendContent />} />
                 <Line type="monotone" dataKey="leadsCreated" stroke="var(--color-leadsCreated)" strokeWidth={2} dot={false} />
@@ -223,22 +218,21 @@ export function AdminAnalyticsPanel({ user }: { user: User | undefined }) {
         </Card>
 
         <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-base font-semibold flex items-center gap-2">
-              <DollarSign className="h-4 w-4" /> Daily Revenue
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
+          <CardContent className="p-3 md:p-4">
+            <div className="flex items-center gap-2 mb-2">
+              <DollarSign className="h-4 w-4 text-muted-foreground" />
+              <span className="text-sm md:text-base font-semibold">Daily Revenue</span>
+            </div>
             <ChartContainer
-              className="h-[260px] w-full"
+              className="h-[180px] md:h-[240px] w-full"
               config={{
                 revenue: { label: "Revenue", color: "hsl(var(--chart-4))" },
               }}
             >
-              <BarChart data={data?.charts.daily ?? []} margin={{ left: 8, right: 8, top: 8, bottom: 8 }}>
+              <BarChart data={data?.charts.daily ?? []} margin={{ left: 0, right: 4, top: 4, bottom: 4 }}>
                 <CartesianGrid vertical={false} />
-                <XAxis dataKey="date" tickMargin={8} minTickGap={24} />
-                <YAxis width={64} tickFormatter={(v) => `$${v}`} />
+                <XAxis dataKey="date" tickMargin={6} minTickGap={32} tick={{ fontSize: 11 }} />
+                <YAxis width={48} tickFormatter={(v) => `$${v}`} tick={{ fontSize: 11 }} />
                 <ChartTooltip
                   content={
                     <ChartTooltipContent
@@ -258,70 +252,69 @@ export function AdminAnalyticsPanel({ user }: { user: User | undefined }) {
         </Card>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 md:gap-4">
         <Card className="lg:col-span-2">
-          <CardHeader className="pb-2">
-            <CardTitle className="text-base font-semibold">Top Services</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-3">
-            {topServices.length === 0 ? (
-              <div className="text-sm text-muted-foreground py-3">No data in this range.</div>
-            ) : (
-              topServices.map((s) => (
-                <div key={s.serviceType} className="space-y-1">
-                  <div className="flex items-center justify-between gap-4">
-                    <div className="font-medium text-sm">{s.serviceType.replace(/-/g, " ")}</div>
-                    <div className="text-xs text-muted-foreground">
-                      Leads: {s.leadsCreated} • Purchases: {s.purchases} • Revenue: {formatCurrency(s.revenue)}
+          <CardContent className="p-3 md:p-4">
+            <h3 className="text-sm md:text-base font-semibold mb-3">Top Services</h3>
+            <div className="space-y-2">
+              {topServices.length === 0 ? (
+                <div className="text-sm text-muted-foreground py-2">No data in this range.</div>
+              ) : (
+                topServices.map((s) => (
+                  <div key={s.serviceType}>
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-0.5 sm:gap-4 py-1">
+                      <div className="font-medium text-sm capitalize">{s.serviceType.replace(/-/g, " ")}</div>
+                      <div className="text-xs text-muted-foreground">
+                        {s.leadsCreated} leads, {s.purchases} purchased, {formatCurrency(s.revenue)}
+                      </div>
                     </div>
+                    <Separator />
                   </div>
-                  <Separator />
-                </div>
-              ))
-            )}
+                ))
+              )}
+            </div>
           </CardContent>
         </Card>
 
         <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-base font-semibold flex items-center gap-2">
-              <Users className="h-4 w-4" /> Network
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-3">
-            <div className="text-sm">
-              <div className="flex items-center justify-between">
-                <span className="text-muted-foreground">Active subcontractors</span>
+          <CardContent className="p-3 md:p-4">
+            <div className="flex items-center gap-2 mb-3">
+              <Users className="h-4 w-4 text-muted-foreground" />
+              <span className="text-sm md:text-base font-semibold">Network</span>
+            </div>
+            <div className="space-y-1.5 text-sm">
+              <div className="flex items-center justify-between gap-4">
+                <span className="text-muted-foreground">Active subs</span>
                 <span className="font-medium">{data?.kpis.activeSubcontractors ?? 0}</span>
               </div>
-              <div className="flex items-center justify-between">
-                <span className="text-muted-foreground">Agreement accepted</span>
+              <div className="flex items-center justify-between gap-4">
+                <span className="text-muted-foreground">Agreed</span>
                 <span className="font-medium">
                   {data?.kpis.subcontractorsAgreementAccepted ?? 0}/{data?.kpis.activeSubcontractors ?? 0}
                 </span>
               </div>
-              <div className="flex items-center justify-between">
+              <div className="flex items-center justify-between gap-4">
                 <span className="text-muted-foreground">Available now</span>
                 <span className="font-medium">{data?.kpis.availableNow ?? 0}</span>
               </div>
-              <div className="flex items-center justify-between">
-                <span className="text-muted-foreground">Avg available age</span>
+              <div className="flex items-center justify-between gap-4">
+                <span className="text-muted-foreground">Avg age</span>
                 <span className="font-medium">{formatHours(data?.kpis.availableAvgAgeHours ?? 0)}</span>
               </div>
             </div>
 
-            <Separator />
+            <Separator className="my-3" />
 
-            <div className="space-y-2">
-              <div className="text-sm font-medium">Top Buyers (range)</div>
+            <div className="space-y-1.5">
+              <div className="text-sm font-medium">Top Buyers</div>
               {topBuyers.length === 0 ? (
                 <div className="text-sm text-muted-foreground">No purchases in this range.</div>
               ) : (
                 topBuyers.map((b) => (
                   <div key={b.userId} className="flex items-center justify-between gap-3 text-sm">
                     <span className="truncate">{b.displayName}</span>
-                    <span className="text-muted-foreground">
-                      {b.purchases} • {formatCurrency(b.revenue)}
+                    <span className="text-muted-foreground text-xs">
+                      {b.purchases}, {formatCurrency(b.revenue)}
                     </span>
                   </div>
                 ))
@@ -331,51 +324,51 @@ export function AdminAnalyticsPanel({ user }: { user: User | undefined }) {
         </Card>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 md:gap-4">
         <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-base font-semibold">Top Cities</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-3">
-            {topCities.length === 0 ? (
-              <div className="text-sm text-muted-foreground py-3">No data in this range.</div>
-            ) : (
-              topCities.map((c) => (
-                <div key={c.city} className="flex items-center justify-between gap-4 text-sm">
-                  <span className="font-medium">{c.city}</span>
-                  <span className="text-muted-foreground">
-                    Leads: {c.leadsCreated} • Purchases: {c.purchases} • Revenue: {formatCurrency(c.revenue)}
-                  </span>
-                </div>
-              ))
-            )}
+          <CardContent className="p-3 md:p-4">
+            <h3 className="text-sm md:text-base font-semibold mb-3">Top Cities</h3>
+            <div className="space-y-2">
+              {topCities.length === 0 ? (
+                <div className="text-sm text-muted-foreground py-2">No data in this range.</div>
+              ) : (
+                topCities.map((c) => (
+                  <div key={c.city} className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-0.5 sm:gap-4 text-sm py-1">
+                    <span className="font-medium">{c.city}</span>
+                    <span className="text-xs text-muted-foreground">
+                      {c.leadsCreated} leads, {c.purchases} purchased, {formatCurrency(c.revenue)}
+                    </span>
+                  </div>
+                ))
+              )}
+            </div>
           </CardContent>
         </Card>
 
         <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-base font-semibold">All-time Snapshot</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-2 text-sm">
-            <div className="flex items-center justify-between">
-              <span className="text-muted-foreground">Total leads</span>
-              <span className="font-medium">{data?.allTime.totalLeads ?? 0}</span>
-            </div>
-            <div className="flex items-center justify-between">
-              <span className="text-muted-foreground">Pending review</span>
-              <span className="font-medium">{data?.allTime.pendingAdmin ?? 0}</span>
-            </div>
-            <div className="flex items-center justify-between">
-              <span className="text-muted-foreground">Available</span>
-              <span className="font-medium">{data?.allTime.available ?? 0}</span>
-            </div>
-            <div className="flex items-center justify-between">
-              <span className="text-muted-foreground">Purchased</span>
-              <span className="font-medium">{data?.allTime.purchased ?? 0}</span>
-            </div>
-            <div className="flex items-center justify-between">
-              <span className="text-muted-foreground">Total revenue</span>
-              <span className="font-medium">{formatCurrency(data?.allTime.totalRevenue ?? 0)}</span>
+          <CardContent className="p-3 md:p-4">
+            <h3 className="text-sm md:text-base font-semibold mb-3">All-time Snapshot</h3>
+            <div className="space-y-1.5 text-sm">
+              <div className="flex items-center justify-between gap-4">
+                <span className="text-muted-foreground">Total leads</span>
+                <span className="font-medium">{data?.allTime.totalLeads ?? 0}</span>
+              </div>
+              <div className="flex items-center justify-between gap-4">
+                <span className="text-muted-foreground">Pending review</span>
+                <span className="font-medium">{data?.allTime.pendingAdmin ?? 0}</span>
+              </div>
+              <div className="flex items-center justify-between gap-4">
+                <span className="text-muted-foreground">Available</span>
+                <span className="font-medium">{data?.allTime.available ?? 0}</span>
+              </div>
+              <div className="flex items-center justify-between gap-4">
+                <span className="text-muted-foreground">Purchased</span>
+                <span className="font-medium">{data?.allTime.purchased ?? 0}</span>
+              </div>
+              <div className="flex items-center justify-between gap-4">
+                <span className="text-muted-foreground">Total revenue</span>
+                <span className="font-medium">{formatCurrency(data?.allTime.totalRevenue ?? 0)}</span>
+              </div>
             </div>
           </CardContent>
         </Card>
