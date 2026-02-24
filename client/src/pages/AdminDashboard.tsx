@@ -7,7 +7,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Label } from "@/components/ui/label";
-import { CheckCircle2, XCircle, Clock, DollarSign, MapPin, Phone, Mail, Building, ChevronDown, Receipt, AlertTriangle, Server, Hash, Calendar, Search, Filter, X, ArrowUpDown, MessageSquare, Plus, Tag, Flag } from "lucide-react";
+import { CheckCircle2, XCircle, Clock, DollarSign, MapPin, Phone, Mail, Building, ChevronDown, Receipt, AlertTriangle, Server, Hash, Calendar, Search, Filter, X, ArrowUpDown, MessageSquare, Plus, Tag, Flag, ArrowLeftRight } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/hooks/useAuth";
 import type { Lead } from "@shared/schema";
@@ -958,6 +958,15 @@ export default function AdminDashboard() {
             <p className="text-sm md:text-lg text-muted-foreground">
               Manage incoming leads and quote requests
             </p>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setLocation("/subcontractor/portal")}
+              data-testid="button-switch-to-subcontractor"
+            >
+              <ArrowLeftRight className="h-4 w-4 mr-2" />
+              View as Subcontractor
+            </Button>
           </div>
         </div>
       </section>

@@ -8,7 +8,8 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Checkbox } from "@/components/ui/checkbox";
-import { DollarSign, MapPin, Phone, Mail, Building, ShoppingCart, AlertCircle, CheckCircle2, Clock, Filter, Search, ArrowUpDown, Eye, EyeOff, Star, Receipt, ChevronDown, Info, Lock, X, Loader2, XCircle, Ruler, HelpCircle, TrendingDown, Percent, FileSignature, Users, ShieldCheck } from "lucide-react";
+import { DollarSign, MapPin, Phone, Mail, Building, ShoppingCart, AlertCircle, CheckCircle2, Clock, Filter, Search, ArrowUpDown, Eye, EyeOff, Star, Receipt, ChevronDown, Info, Lock, X, Loader2, XCircle, Ruler, HelpCircle, TrendingDown, Percent, FileSignature, Users, ShieldCheck, ArrowLeftRight } from "lucide-react";
+import { useLocation } from "wouter";
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/hooks/useAuth";
 import type { Lead, User } from "@shared/schema";
@@ -48,6 +49,7 @@ interface ServiceDataEntry {
 export default function SubcontractorPortal() {
   const { toast } = useToast();
   const { user, isAuthenticated, isLoading: authLoading } = useAuth();
+  const [, setLocation] = useLocation();
   const [searchQuery, setSearchQuery] = useState("");
   const [filters, setFilters] = useState({
     city: "all",
@@ -936,6 +938,17 @@ export default function SubcontractorPortal() {
             <p className="text-lg text-muted-foreground">
               Browse and purchase high-quality customer projects in your service area
             </p>
+            {user?.role === "admin" && (
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setLocation("/admin/dashboard")}
+                data-testid="button-switch-to-admin"
+              >
+                <ArrowLeftRight className="h-4 w-4 mr-2" />
+                Switch to Admin Dashboard
+              </Button>
+            )}
           </div>
         </div>
       </section>
