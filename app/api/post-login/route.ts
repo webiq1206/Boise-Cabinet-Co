@@ -9,7 +9,12 @@ export async function GET(request: NextRequest) {
       return NextResponse.redirect(getExternalUrl(request, "/"));
     }
 
-    const user = await getUserFromDb(session.userId);
+    let user = null;
+    try {
+      user = await getUserFromDb(session.userId);
+    } catch (dbError) {
+      console.error("Failed to fetch user during post-login (continuing):", dbError);
+    }
     const returnTo = session.returnTo;
     delete session.returnTo;
     await session.save();

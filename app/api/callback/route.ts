@@ -42,11 +42,17 @@ export async function GET(request: NextRequest) {
 
     await session.save();
 
-    await upsertUserFromClaims(session.claims);
+    try {
+      await upsertUserFromClaims(session.claims);
+    } catch (dbError) {
+      console.error("Failed to upsert user during callback (continuing login):", dbError);
+    }
 
     return NextResponse.redirect(getExternalUrl(request, "/api/post-login"));
   } catch (error) {
     console.error("Callback error:", error);
-    return NextResponse.redirect(getExternalUrl(request, "/api/login"));
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    console.error("Callback error details:", errorMessage);
+    return NextResponse.redirect(getExternalUrl(request, "/?login_error=callback_failed"));
   }
 }

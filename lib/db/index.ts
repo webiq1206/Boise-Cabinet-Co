@@ -1,25 +1,15 @@
-import { Pool, neonConfig } from "@neondatabase/serverless";
-import { drizzle } from "drizzle-orm/neon-serverless";
+import { neon } from "@neondatabase/serverless";
+import { drizzle } from "drizzle-orm/neon-http";
 import * as schema from "@/shared/schema";
-
-// For edge runtime compatibility
-if (typeof globalThis.WebSocket === "undefined") {
-  // Skip WebSocket configuration on server-side if not needed
-}
 
 const connectionString = process.env.DATABASE_URL;
 
-// Create pool only if DATABASE_URL is available
-export const pool = connectionString 
-  ? new Pool({ connectionString }) 
+const sql = connectionString ? neon(connectionString) : null;
+
+export const db = sql
+  ? drizzle(sql, { schema })
   : null;
 
-// Create drizzle instance
-export const db = pool 
-  ? drizzle(pool, { schema }) 
-  : null;
-
-// Helper to check if DB is available
 export function isDbAvailable(): boolean {
   return db !== null;
 }
