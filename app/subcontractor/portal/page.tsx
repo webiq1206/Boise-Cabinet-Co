@@ -303,7 +303,7 @@ function SubcontractorPortalContent() {
       router.push("/subcontractor");
       return;
     }
-    if (!isSubcontractor) {
+    if (!isSubcontractor && user?.role !== "admin") {
       router.push("/admin/dashboard");
       return;
     }
@@ -322,7 +322,7 @@ function SubcontractorPortalContent() {
       if (!res.ok) throw new Error("Failed to fetch leads");
       return res.json();
     },
-    enabled: isAuthenticated && isSubcontractor,
+    enabled: isAuthenticated && (isSubcontractor || user?.role === "admin"),
   });
 
   // Fetch watchlist
@@ -333,7 +333,7 @@ function SubcontractorPortalContent() {
       if (!res.ok) return [];
       return res.json();
     },
-    enabled: isAuthenticated && isSubcontractor,
+    enabled: isAuthenticated && (isSubcontractor || user?.role === "admin"),
   });
 
   const watchedLeadIds = useMemo(() => {
