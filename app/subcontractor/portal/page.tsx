@@ -907,7 +907,7 @@ function SubcontractorPortalContent() {
                   <div className="space-y-1">
                     <h3 className="font-semibold" data-testid="text-how-it-works-getting-started">Getting Started</h3>
                     <p className="text-sm text-muted-foreground">
-                      After logging in for the first time, you will be asked to sign a short agreement by typing your name. This is a one-time step and you will not need to do it again. Once that is complete, you will have full access to browse and purchase leads.
+                      Before purchasing any leads, you will need to sign a short agreement by typing your name. This is a one-time step and only takes a moment. Once that is complete, you will have full access to browse and purchase leads.
                     </p>
                   </div>
                 </div>
