@@ -1046,7 +1046,7 @@ function AdminDashboardContent() {
           </div>
         )}
       
-        <div className="mb-8">
+        <div className="mb-4 md:mb-8">
           <AdminAnalyticsPanel user={user} />
         </div>
 

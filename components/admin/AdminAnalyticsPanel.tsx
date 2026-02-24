@@ -149,20 +149,20 @@ export function AdminAnalyticsPanel({ user }: { user: User | undefined }) {
 
       {error ? (
         <Card>
-          <CardContent className="py-6 text-sm text-destructive">
+          <CardContent className="py-4 md:py-6 text-sm text-destructive">
             {(error as Error).message || "Failed to load analytics"}
           </CardContent>
         </Card>
       ) : null}
 
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4">
         <Card>
           <CardHeader className="p-3 md:p-4 pb-1 md:pb-2">
             <CardTitle className="text-sm font-medium text-muted-foreground flex items-center gap-2">
               <ListChecks className="h-4 w-4" /> New Leads
             </CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="p-3 md:p-4 pt-0">
             <div className="text-2xl md:text-3xl font-bold">{isLoading ? "—" : data?.kpis.leadsCreated ?? 0}</div>
           </CardContent>
         </Card>
@@ -172,7 +172,7 @@ export function AdminAnalyticsPanel({ user }: { user: User | undefined }) {
               <Clock className="h-4 w-4" /> Avg Time to Review
             </CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="p-3 md:p-4 pt-0">
             <div className="text-2xl md:text-3xl font-bold">{isLoading ? "—" : formatHours(data?.kpis.avgTimeToReviewHours ?? 0)}</div>
           </CardContent>
         </Card>
@@ -182,7 +182,7 @@ export function AdminAnalyticsPanel({ user }: { user: User | undefined }) {
               <ShoppingCart className="h-4 w-4" /> Purchases
             </CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="p-3 md:p-4 pt-0">
             <div className="text-2xl md:text-3xl font-bold">{isLoading ? "—" : data?.kpis.leadsPurchased ?? 0}</div>
             <div className="text-xs text-muted-foreground mt-1">
               Conversion: {isLoading ? "—" : formatPercent(data?.kpis.purchaseConversion ?? 0)}
@@ -195,7 +195,7 @@ export function AdminAnalyticsPanel({ user }: { user: User | undefined }) {
               <DollarSign className="h-4 w-4" /> Revenue
             </CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="p-3 md:p-4 pt-0">
             <div className="text-2xl md:text-3xl font-bold">{isLoading ? "—" : formatCurrency(data?.kpis.revenue ?? 0)}</div>
             <div className="text-xs text-muted-foreground mt-1">
               Avg: {isLoading ? "—" : formatCurrency(data?.kpis.avgPurchasePrice ?? 0)}
@@ -204,14 +204,14 @@ export function AdminAnalyticsPanel({ user }: { user: User | undefined }) {
         </Card>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 md:gap-4">
         <Card>
-          <CardHeader className="pb-2">
+          <CardHeader className="p-3 md:p-4">
             <CardTitle className="text-base font-semibold flex items-center gap-2">
               <TrendingUp className="h-4 w-4" /> Daily Lead Flow
             </CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="p-3 md:p-4 pt-0">
             <ChartContainer
               className="h-[180px] md:h-[260px] w-full"
               config={{
@@ -235,12 +235,12 @@ export function AdminAnalyticsPanel({ user }: { user: User | undefined }) {
         </Card>
 
         <Card>
-          <CardHeader className="pb-2">
+          <CardHeader className="p-3 md:p-4">
             <CardTitle className="text-base font-semibold flex items-center gap-2">
               <DollarSign className="h-4 w-4" /> Daily Revenue
             </CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="p-3 md:p-4 pt-0">
             <ChartContainer
               className="h-[180px] md:h-[260px] w-full"
               config={{
@@ -270,12 +270,12 @@ export function AdminAnalyticsPanel({ user }: { user: User | undefined }) {
         </Card>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 md:gap-4">
         <Card className="lg:col-span-2">
-          <CardHeader className="pb-2">
+          <CardHeader className="p-3 md:p-4">
             <CardTitle className="text-base font-semibold">Top Services</CardTitle>
           </CardHeader>
-          <CardContent className="space-y-3">
+          <CardContent className="p-3 md:p-4 space-y-3">
             {topServices.length === 0 ? (
               <div className="text-sm text-muted-foreground py-3">No data in this range.</div>
             ) : (
@@ -295,12 +295,12 @@ export function AdminAnalyticsPanel({ user }: { user: User | undefined }) {
         </Card>
 
         <Card>
-          <CardHeader className="pb-2">
+          <CardHeader className="p-3 md:p-4">
             <CardTitle className="text-base font-semibold flex items-center gap-2">
               <Users className="h-4 w-4" /> Network
             </CardTitle>
           </CardHeader>
-          <CardContent className="space-y-3">
+          <CardContent className="p-3 md:p-4 space-y-3">
             <div className="text-sm">
               <div className="flex items-center justify-between">
                 <span className="text-muted-foreground">Active subcontractors</span>
@@ -343,12 +343,12 @@ export function AdminAnalyticsPanel({ user }: { user: User | undefined }) {
         </Card>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 md:gap-4">
         <Card>
-          <CardHeader className="pb-2">
+          <CardHeader className="p-3 md:p-4">
             <CardTitle className="text-base font-semibold">Top Cities</CardTitle>
           </CardHeader>
-          <CardContent className="space-y-3">
+          <CardContent className="p-3 md:p-4 space-y-3">
             {topCities.length === 0 ? (
               <div className="text-sm text-muted-foreground py-3">No data in this range.</div>
             ) : (
@@ -365,10 +365,10 @@ export function AdminAnalyticsPanel({ user }: { user: User | undefined }) {
         </Card>
 
         <Card>
-          <CardHeader className="pb-2">
+          <CardHeader className="p-3 md:p-4">
             <CardTitle className="text-base font-semibold">All-time Snapshot</CardTitle>
           </CardHeader>
-          <CardContent className="space-y-2 text-sm">
+          <CardContent className="p-3 md:p-4 space-y-2 text-sm">
             <div className="flex items-center justify-between">
               <span className="text-muted-foreground">Total leads</span>
               <span className="font-medium">{data?.allTime.totalLeads ?? 0}</span>

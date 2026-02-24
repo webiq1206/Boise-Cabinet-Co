@@ -729,7 +729,7 @@ function SubcontractorPortalContent() {
 
     return (
       <Card className={`overflow-hidden transition-all ${isSelected ? 'ring-2 ring-primary' : ''}`} id={`lead-${lead.id}`}>
-        <CardHeader className="pb-3">
+        <CardHeader className="pb-2 md:pb-3">
           <div className="flex items-start justify-between gap-4">
             <div className="flex items-start gap-3">
               <Checkbox
@@ -738,7 +738,7 @@ function SubcontractorPortalContent() {
                 className="mt-1"
               />
               <div>
-                <CardTitle className="text-lg flex items-center gap-2">
+                <CardTitle className="text-base md:text-lg flex items-center gap-2">
                   {getServiceName(lead.serviceType)}
                   {hasTimeDiscount && (
                     <Badge variant="outline" className="text-primary border-primary">
@@ -768,8 +768,8 @@ function SubcontractorPortalContent() {
             </div>
           </div>
         </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="grid grid-cols-2 gap-4 text-sm">
+        <CardContent className="space-y-3 md:space-y-4">
+          <div className="grid grid-cols-2 gap-2 md:gap-4 text-sm">
             <div className="flex items-center gap-2">
               <DollarSign className="h-4 w-4 text-muted-foreground" />
               <div>
@@ -789,7 +789,7 @@ function SubcontractorPortalContent() {
           </div>
 
           {lead.selectedServices && lead.selectedServices.length > 0 && (
-            <div className="border-t pt-4">
+            <div className="border-t pt-3 md:pt-4">
               <p className="text-sm font-medium mb-2">Services Requested:</p>
               <div className="flex flex-wrap gap-2">
                 {lead.selectedServices.map((serviceId, index) => (
@@ -802,7 +802,7 @@ function SubcontractorPortalContent() {
           )}
 
           {/* Contact info is masked */}
-          <div className="space-y-2 text-sm border-t pt-4">
+          <div className="space-y-2 text-sm border-t pt-3 md:pt-4">
             <div className="flex items-center gap-2 text-muted-foreground">
               <Eye className="h-4 w-4" />
               <span className="italic">Contact info revealed after purchase</span>
@@ -812,9 +812,9 @@ function SubcontractorPortalContent() {
           <QuoteBreakdownSection lead={lead} />
           <LeadPricingSection lead={lead} discount={isSelected ? discount : 0} />
 
-          <div className="flex items-center justify-between pt-4 border-t">
+          <div className="flex items-center justify-between pt-3 md:pt-4 border-t">
             <div>
-              <p className="text-2xl font-bold text-primary">{formatCurrency(lead.currentLeadPrice)}</p>
+              <p className="text-xl md:text-2xl font-bold text-primary">{formatCurrency(lead.currentLeadPrice)}</p>
               {hasTimeDiscount && (
                 <p className="text-sm text-muted-foreground line-through">{formatCurrency(lead.baseLeadPrice)}</p>
               )}
@@ -844,40 +844,40 @@ function SubcontractorPortalContent() {
     <div className="min-h-screen bg-gradient-to-b from-primary/5 to-white dark:from-primary/10 dark:to-background" data-testid="page-subcontractor-portal">
       {/* Header */}
       <header className="border-b bg-card/80 backdrop-blur-sm sticky top-0 z-50">
-        <div className="container px-4 py-4">
+        <div className="container px-3 md:px-4 py-3 md:py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center">
-                <Leaf className="w-5 h-5 text-white" />
+              <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-primary flex items-center justify-center">
+                <Leaf className="w-4 h-4 md:w-5 md:h-5 text-white" />
               </div>
               <div>
-                <h1 className="text-xl font-bold text-primary">Subcontractor Portal</h1>
+                <h1 className="text-lg md:text-xl font-bold text-primary">Subcontractor Portal</h1>
                 <p className="text-sm text-muted-foreground">
                   Welcome, {user?.firstName || user?.email}
                 </p>
               </div>
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1 md:gap-2">
               <NotificationsBell />
               <Button variant="ghost" size="icon" onClick={() => setShowNotificationPrefs(true)} title="Notification Settings">
                 <Bell className="h-5 w-5" />
               </Button>
-              <Button variant="outline" onClick={() => router.push("/subcontractor/purchases")}>
-                <History className="h-4 w-4 mr-2" />
-                My Purchases
+              <Button variant="outline" size="sm" onClick={() => router.push("/subcontractor/purchases")}>
+                <History className="h-4 w-4 mr-0 md:mr-2" />
+                <span className="hidden md:inline">My Purchases</span>
               </Button>
-              <Button variant="outline" onClick={handleLogout}>
-                <LogOut className="h-4 w-4 mr-2" />
-                Logout
+              <Button variant="outline" size="sm" onClick={handleLogout}>
+                <LogOut className="h-4 w-4 mr-0 md:mr-2" />
+                <span className="hidden md:inline">Logout</span>
               </Button>
             </div>
           </div>
         </div>
       </header>
 
-      <div className="container py-8 px-4">
+      <div className="container py-4 md:py-8 px-4">
         {/* How It Works Guide */}
-        <Collapsible className="mb-6">
+        <Collapsible className="mb-4 md:mb-6">
           <Card>
             <CollapsibleTrigger asChild>
               <button
@@ -1007,35 +1007,35 @@ function SubcontractorPortalContent() {
         )}
 
         {/* Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+        <div className="grid grid-cols-3 gap-2 md:gap-4 mb-4 md:mb-8">
           <Card>
-            <CardHeader className="pb-2">
+            <CardHeader className="p-3 md:p-4 pb-1 md:pb-2">
               <CardTitle className="text-sm font-medium text-muted-foreground flex items-center gap-2">
                 <ShoppingCart className="h-4 w-4" /> Available Leads
               </CardTitle>
             </CardHeader>
-            <CardContent>
-              <div className="text-3xl font-bold">{filteredLeads.length}</div>
+            <CardContent className="p-3 md:p-4 pt-0">
+              <div className="text-xl md:text-3xl font-bold">{filteredLeads.length}</div>
             </CardContent>
           </Card>
           <Card>
-            <CardHeader className="pb-2">
+            <CardHeader className="p-3 md:p-4 pb-1 md:pb-2">
               <CardTitle className="text-sm font-medium text-muted-foreground flex items-center gap-2">
                 <Bookmark className="h-4 w-4" /> Watchlist
               </CardTitle>
             </CardHeader>
-            <CardContent>
-              <div className="text-3xl font-bold">{watchlist.length}</div>
+            <CardContent className="p-3 md:p-4 pt-0">
+              <div className="text-xl md:text-3xl font-bold">{watchlist.length}</div>
             </CardContent>
           </Card>
           <Card>
-            <CardHeader className="pb-2">
+            <CardHeader className="p-3 md:p-4 pb-1 md:pb-2">
               <CardTitle className="text-sm font-medium text-muted-foreground flex items-center gap-2">
                 <CheckCircle2 className="h-4 w-4" /> Selected for Purchase
               </CardTitle>
             </CardHeader>
-            <CardContent>
-              <div className="text-3xl font-bold">{selectedLeadIds.length}</div>
+            <CardContent className="p-3 md:p-4 pt-0">
+              <div className="text-xl md:text-3xl font-bold">{selectedLeadIds.length}</div>
               {selectedLeadsTotal.discount > 0 && (
                 <p className="text-sm text-primary">{selectedLeadsTotal.discount}% bulk discount!</p>
               )}
@@ -1045,7 +1045,7 @@ function SubcontractorPortalContent() {
 
         {/* Bulk Purchase Bar */}
         {selectedLeadIds.length > 0 && (
-          <Card className="mb-6 border-primary bg-primary/5">
+          <Card className="mb-4 md:mb-6 border-primary bg-primary/5">
             <CardContent className="py-4">
               <div className="flex items-center justify-between flex-wrap gap-4">
                 <div>
@@ -1082,7 +1082,7 @@ function SubcontractorPortalContent() {
         )}
 
         {/* Search and Filters */}
-        <Card className="mb-6">
+        <Card className="mb-4 md:mb-6">
           <CardHeader>
             <div className="flex items-center justify-between">
               <CardTitle className="flex items-center gap-2">
