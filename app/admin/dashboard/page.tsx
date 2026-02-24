@@ -23,6 +23,7 @@ import {
   ChevronDown, Receipt, AlertTriangle, Server, Hash, Search, Filter, X, 
   ArrowUpDown, MessageSquare, Plus, Tag, Flag, LogOut, Shield, ArrowLeftRight 
 } from "lucide-react";
+import { Switch } from "@/components/ui/switch";
 import { useRouter, useSearchParams } from "next/navigation";
 
 interface LineItem {
@@ -302,6 +303,33 @@ function AdminDashboardContent() {
       return res.json();
     },
     enabled: isAuthenticated && isAdmin,
+  });
+
+  const { data: siteSettings = {} } = useQuery<Record<string, string>>({
+    queryKey: ["/api/admin/settings"],
+    queryFn: async () => {
+      const res = await fetch("/api/admin/settings");
+      if (!res.ok) return {};
+      return res.json();
+    },
+    enabled: isAuthenticated && isAdmin,
+  });
+
+  const autoRelease = siteSettings.auto_release_leads === "true";
+
+  const toggleAutoReleaseMutation = useMutation({
+    mutationFn: async (enabled: boolean) => {
+      const res = await fetch("/api/admin/settings", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ key: "auto_release_leads", value: String(enabled) }),
+      });
+      if (!res.ok) throw new Error("Failed to update setting");
+      return res.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/settings"] });
+    },
   });
 
   // Deep-link support
@@ -1084,6 +1112,26 @@ function AdminDashboardContent() {
             </CardContent>
           </Card>
         </div>
+
+        <Card className="mb-6">
+          <CardContent className="p-3 md:p-4 flex items-center justify-between gap-4">
+            <div>
+              <p className="font-medium text-sm">Auto-Release Leads</p>
+              <p className="text-xs text-muted-foreground">
+                {autoRelease
+                  ? "New leads skip admin review and go straight to the subcontractor marketplace."
+                  : "New leads require admin review before appearing in the marketplace."}
+              </p>
+            </div>
+            <Switch
+              checked={autoRelease}
+              onCheckedChange={(checked) => toggleAutoReleaseMutation.mutate(Boolean(checked))}
+              disabled={toggleAutoReleaseMutation.isPending}
+              aria-label="Toggle auto-release leads"
+              data-testid="toggle-auto-release"
+            />
+          </CardContent>
+        </Card>
 
         <Card className="mb-6">
           <CardHeader className="p-3 md:p-4 pb-0">

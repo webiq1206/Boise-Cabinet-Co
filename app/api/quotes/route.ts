@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { db } from "@/lib/db";
-import { quotes, leads, users, notifications } from "@/shared/schema";
+import { quotes, leads, users, notifications, siteSettings } from "@/shared/schema";
 import { eq } from "drizzle-orm";
 import { sendQuoteConfirmationEmail, sendAdminNotificationEmail } from "@/lib/resend";
 
@@ -122,6 +122,17 @@ export async function POST(request: Request) {
           serviceType: primaryService,
         });
 
+        let autoRelease = false;
+        try {
+          const setting = await db.select().from(siteSettings).where(eq(siteSettings.key, "auto_release_leads"));
+          autoRelease = setting[0]?.value === "true";
+        } catch (e) {
+          console.error("[QUOTE] Failed to check auto_release setting:", e);
+        }
+
+        const leadStatus = autoRelease ? "available" : "pending_admin";
+        console.log("[QUOTE] Auto-release:", autoRelease, "Lead status:", leadStatus);
+
         const [savedLead] = await db.insert(leads).values({
           quoteId: savedQuote.id,
           name: validatedData.name,
@@ -138,7 +149,12 @@ export async function POST(request: Request) {
           message: validatedData.message || null,
           baseLeadPrice: basePrice.toFixed(2),
           currentLeadPrice: currentPrice.toFixed(2),
-          status: "pending_admin",
+          status: leadStatus,
+          ...(autoRelease ? {
+            adminDeclined: false,
+            adminReviewedAt: new Date(),
+            lastPriceUpdate: new Date(),
+          } : {}),
         }).returning();
 
         leadId = savedLead.id;
@@ -150,14 +166,35 @@ export async function POST(request: Request) {
             await db.insert(notifications).values({
               userId: admin.id,
               type: "admin_new_quote",
-              title: "New Quote Submitted",
-              message: `New ${primaryService} lead in ${validatedData.city}: ${validatedData.name}`,
+              title: autoRelease ? "New Lead Auto-Released" : "New Quote Submitted",
+              message: `New ${primaryService} lead in ${validatedData.city}: ${validatedData.name}${autoRelease ? " (auto-released to marketplace)" : ""}`,
               leadId: savedLead.id,
             });
           }
           console.log("[QUOTE] Admin notifications created for", admins.length, "admins");
+
+          if (autoRelease) {
+            const subs = await db.select().from(users).where(eq(users.role, "subcontractor"));
+            for (const sub of subs) {
+              await db.insert(notifications).values({
+                userId: sub.id,
+                type: "new_lead",
+                title: "New Lead Available",
+                message: `A new ${primaryService} lead in ${validatedData.city} is now available.`,
+                leadId: savedLead.id,
+              });
+
+              if (sub.email && sub.emailNotificationsEnabled !== false) {
+                try {
+                  const { sendContractorNewLeadAvailable } = await import("@/server/services/emailNotifications");
+                  sendContractorNewLeadAvailable(sub.email, savedLead as any).catch(() => {});
+                } catch {}
+              }
+            }
+            console.log("[QUOTE] Subcontractor notifications sent for auto-released lead");
+          }
         } catch (notifyError) {
-          console.error("[QUOTE] Failed to create admin notifications:", notifyError);
+          console.error("[QUOTE] Failed to create notifications:", notifyError);
         }
       } catch (dbError) {
         console.error("[QUOTE] Database error saving quote/lead:", dbError);
