@@ -46,23 +46,6 @@ export default function SubcontractorPage() {
   // Show login page if not authenticated
   return (
     <div className="min-h-screen bg-gradient-to-b from-primary/5 to-white dark:from-primary/10 dark:to-background" data-testid="page-subcontractor-login">
-      {/* Header */}
-      <header className="border-b bg-card/80 backdrop-blur-sm">
-        <div className="container px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center">
-                <Leaf className="w-5 h-5 text-primary-foreground" />
-              </div>
-              <div>
-                <h1 className="text-xl font-bold text-primary dark:text-primary">Lawn Care Kuna</h1>
-                <p className="text-sm text-muted-foreground">Subcontractor Portal</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </header>
-
       {/* Hero Section */}
       <section className="container px-4 py-16 md:py-24">
         <div className="grid md:grid-cols-2 gap-12 items-center">
