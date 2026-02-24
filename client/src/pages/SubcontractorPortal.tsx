@@ -946,7 +946,7 @@ export default function SubcontractorPortal() {
         <Card>
           <CollapsibleTrigger asChild>
             <button
-              className="w-full flex items-center justify-between p-4 md:p-6 text-left hover-elevate rounded-md"
+              className="group w-full flex items-center justify-between p-4 md:p-6 text-left hover-elevate rounded-md"
               data-testid="button-how-it-works-toggle"
             >
               <div className="flex items-center gap-3">
