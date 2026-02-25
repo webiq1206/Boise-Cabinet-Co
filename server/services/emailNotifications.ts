@@ -277,10 +277,21 @@ function formatLeadValueRange(value: string): { subject: string; display: string
   return { subject: display, display };
 }
 
+const BLOCKED_EMAIL_DOMAINS = ['timberandlove.com'];
+
+function isBlockedEmailDomain(email: string): boolean {
+  const domain = email.trim().toLowerCase().split('@')[1];
+  return BLOCKED_EMAIL_DOMAINS.some(d => domain === d);
+}
+
 export async function sendEmail(to: string, subject: string, htmlBody: string): Promise<void> {
-  // Validate recipient email
   if (!to || to.trim().length === 0) {
     throw new Error('Recipient email address is required');
+  }
+
+  if (isBlockedEmailDomain(to)) {
+    console.log(`[email] Blocked email to ${to} (domain on blocklist)`);
+    return;
   }
   
   try {

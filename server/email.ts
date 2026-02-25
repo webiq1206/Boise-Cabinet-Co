@@ -3,6 +3,13 @@ import { formatQuoteForDisplay, calculateQuoteRange } from '../shared/utils';
 import { SERVICE_FIELD_CONFIGS } from '../shared/serviceFieldConfig';
 import { SERVICE_PRICING_CONFIG } from './services/pricing';
 
+const BLOCKED_EMAIL_DOMAINS = ['timberandlove.com'];
+
+function isBlockedEmailDomain(email: string): boolean {
+  const domain = email.trim().toLowerCase().split('@')[1];
+  return BLOCKED_EMAIL_DOMAINS.some(d => domain === d);
+}
+
 const SITE_BASE_URL = 'https://lawncarekuna.com';
 const EMAIL_ASSET_BASE_URL = `${SITE_BASE_URL}/email`;
 // NOTE: `lawn-care-kuna-logo.png` is the light-on-dark logo used in headers.
@@ -737,29 +744,37 @@ export async function sendQuoteNotification(data: QuoteEmailData) {
     `;
 
     // Send email to business owner
-    console.log('[EMAIL] Sending admin notification to:', fromEmail);
-    const adminResult = await resend.emails.send({
-      from: `Lawn Care Kuna <${fromEmail}>`,
-      to: fromEmail,
-      subject: `New Quote Request - ${customerName} (${city})`,
-      html: ownerEmailHtml,
-      replyTo: customerEmail
-    });
-    console.log('[EMAIL] Admin email sent, result:', adminResult);
+    if (isBlockedEmailDomain(fromEmail)) {
+      console.log(`[EMAIL] Blocked admin notification to ${fromEmail} (domain on blocklist)`);
+    } else {
+      console.log('[EMAIL] Sending admin notification to:', fromEmail);
+      const adminResult = await resend.emails.send({
+        from: `Lawn Care Kuna <${fromEmail}>`,
+        to: fromEmail,
+        subject: `New Quote Request - ${customerName} (${city})`,
+        html: ownerEmailHtml,
+        replyTo: customerEmail
+      });
+      console.log('[EMAIL] Admin email sent, result:', adminResult);
+    }
 
     // Wait 2 seconds to avoid Resend rate limit (max 2 requests per second)
     await delay(2000);
 
     // Send confirmation email to customer
     if (customerEmail) {
-      console.log('[EMAIL] Sending customer confirmation to:', customerEmail);
-      const customerResult = await resend.emails.send({
-        from: `Lawn Care Kuna <${fromEmail}>`,
-        to: customerEmail,
-        subject: `Your Quote Request Received - Lawn Care Kuna`,
-        html: customerEmailHtml
-      });
-      console.log('[EMAIL] Customer email sent, result:', customerResult);
+      if (isBlockedEmailDomain(customerEmail)) {
+        console.log(`[EMAIL] Blocked customer confirmation to ${customerEmail} (domain on blocklist)`);
+      } else {
+        console.log('[EMAIL] Sending customer confirmation to:', customerEmail);
+        const customerResult = await resend.emails.send({
+          from: `Lawn Care Kuna <${fromEmail}>`,
+          to: customerEmail,
+          subject: `Your Quote Request Received - Lawn Care Kuna`,
+          html: customerEmailHtml
+        });
+        console.log('[EMAIL] Customer email sent, result:', customerResult);
+      }
     }
 
     console.log('[EMAIL] ✅ Quote notification emails sent successfully via Resend');

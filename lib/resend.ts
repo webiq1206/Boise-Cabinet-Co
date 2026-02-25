@@ -68,6 +68,25 @@ async function getUncachableResendClient() {
   };
 }
 
+const BLOCKED_EMAIL_DOMAINS = ['timberandlove.com'];
+
+function isBlockedEmail(email: string): boolean {
+  const domain = email.trim().toLowerCase().split('@')[1];
+  return BLOCKED_EMAIL_DOMAINS.some(d => domain === d);
+}
+
+function filterBlockedRecipients(to: string | string[]): string[] {
+  const recipients = Array.isArray(to) ? to : [to];
+  const allowed = recipients.filter(email => {
+    if (isBlockedEmail(email)) {
+      console.log(`[RESEND] Blocked email to ${email} (domain on blocklist)`);
+      return false;
+    }
+    return true;
+  });
+  return allowed;
+}
+
 async function sendEmailWithLogging(
   client: Resend,
   from: string,
@@ -77,7 +96,12 @@ async function sendEmailWithLogging(
   label: string
 ): Promise<boolean> {
   try {
-    const result = await client.emails.send({ from, to, subject, html });
+    const filteredTo = filterBlockedRecipients(to);
+    if (filteredTo.length === 0) {
+      console.log(`[RESEND] ${label} skipped: all recipients blocked`);
+      return true;
+    }
+    const result = await client.emails.send({ from, to: filteredTo.length === 1 ? filteredTo[0] : filteredTo, subject, html });
     
     const quota = (result as any)?.headers?.['x-resend-daily-quota'];
     const errorData = (result as any)?.error;
