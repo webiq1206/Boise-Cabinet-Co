@@ -35,6 +35,30 @@ interface LineItem {
   basePrice?: number;
   adjustedPrice?: number;
   calculationExplanation?: string;
+  isRecurring?: boolean;
+}
+
+const RECURRING_ELIGIBLE_SERVICE_IDS = new Set<string>([
+  "lawn-mowing",
+  "lawn-maintenance",
+  "fertilization",
+  "weed-control",
+  "irrigation-maintenance",
+]);
+
+function isServiceRecurring(serviceId: string, frequency: string | null | undefined): boolean {
+  if (!frequency || frequency === "one-time") return false;
+  return RECURRING_ELIGIBLE_SERVICE_IDS.has(serviceId);
+}
+
+function getSeasonMultiplier(frequency: string | null | undefined): { multiplier: number; label: string } | null {
+  if (!frequency || frequency === "one-time") return null;
+  switch (frequency) {
+    case "weekly": return { multiplier: 30, label: "30 weeks" };
+    case "bi-weekly": return { multiplier: 15, label: "15 visits" };
+    case "monthly": return { multiplier: 7, label: "7 months" };
+    default: return null;
+  }
 }
 
 interface ServiceDataEntry {
@@ -159,6 +183,23 @@ function QuoteBreakdownSection({ lead }: { lead: Lead }) {
     if (price === undefined || price === null) return '$0';
     return `$${price.toLocaleString()}`;
   };
+
+  const seasonInfo = getSeasonMultiplier(lead.frequency);
+  const hasAnyRecurring = lineItems.some(item => {
+    const sid = item.serviceId || item.service || "";
+    return item.isRecurring || isServiceRecurring(sid, lead.frequency);
+  });
+
+  const recurringTotal = lineItems.reduce((sum, item) => {
+    const sid = item.serviceId || item.service || "";
+    const recurring = item.isRecurring ?? isServiceRecurring(sid, lead.frequency);
+    return sum + (recurring ? (item.price || item.adjustedPrice || 0) : 0);
+  }, 0);
+  const oneTimeTotal = lineItems.reduce((sum, item) => {
+    const sid = item.serviceId || item.service || "";
+    const recurring = item.isRecurring ?? isServiceRecurring(sid, lead.frequency);
+    return sum + (!recurring ? (item.price || item.adjustedPrice || 0) : 0);
+  }, 0);
   
   return (
     <Collapsible open={isOpen} onOpenChange={setIsOpen}>
@@ -186,6 +227,7 @@ function QuoteBreakdownSection({ lead }: { lead: Lead }) {
                 const serviceName = item.serviceName || item.service || 'Service';
                 const price = item.price || item.adjustedPrice || 0;
                 const measurement = serviceData[serviceId] ? formatMeasurement(serviceId, serviceData[serviceId]) : '';
+                const recurring = item.isRecurring ?? isServiceRecurring(serviceId, lead.frequency);
                 
                 return (
                   <div 
@@ -194,10 +236,17 @@ function QuoteBreakdownSection({ lead }: { lead: Lead }) {
                     data-testid={`lineitem-${lead.id}-${index}`}
                   >
                     <div className="flex justify-between items-start gap-2 mb-1">
-                      <span className="font-medium text-sm" data-testid={`text-service-name-${lead.id}-${index}`}>
-                        {serviceName}
-                      </span>
-                      <span className="font-semibold text-sm text-primary" data-testid={`text-service-price-${lead.id}-${index}`}>
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <span className="font-medium text-sm" data-testid={`text-service-name-${lead.id}-${index}`}>
+                          {serviceName}
+                        </span>
+                        {lead.frequency && lead.frequency !== "one-time" && (
+                          <Badge variant={recurring ? "default" : "secondary"} className="text-[10px] px-1.5 py-0">
+                            {recurring ? `Recurring (${lead.frequency})` : "One-time"}
+                          </Badge>
+                        )}
+                      </div>
+                      <span className="font-semibold text-sm text-primary flex-shrink-0" data-testid={`text-service-price-${lead.id}-${index}`}>
                         {formatPrice(price)}
                       </span>
                     </div>
@@ -221,12 +270,27 @@ function QuoteBreakdownSection({ lead }: { lead: Lead }) {
               })}
               
               {lead.finalQuote && (
-                <div className="flex justify-between items-center pt-2 border-t">
-                  <span className="font-semibold text-sm">Total Quote</span>
-                  <span className="font-bold text-lg text-primary" data-testid={`text-total-quote-${lead.id}`}>
-                    {formatQuoteRangeWholeFromValue(lead.finalQuote, 0.15)}
-                  </span>
-                </div>
+                <>
+                  <div className="flex justify-between items-center pt-2 border-t">
+                    <span className="font-semibold text-sm">
+                      {hasAnyRecurring ? "Per-Visit Estimate" : "Total Quote"}
+                    </span>
+                    <span className="font-bold text-lg text-primary" data-testid={`text-total-quote-${lead.id}`}>
+                      {formatQuoteRangeWholeFromValue(lead.finalQuote, 0.15)}
+                    </span>
+                  </div>
+                  {hasAnyRecurring && seasonInfo && (
+                    <div className="flex justify-between items-center text-sm">
+                      <span className="text-muted-foreground">Est. seasonal value ({seasonInfo.label})</span>
+                      <span className="font-semibold text-primary">
+                        {formatQuoteRangeWholeFromValue(
+                          (recurringTotal > 0 ? recurringTotal * seasonInfo.multiplier : parseFloat(lead.finalQuote) * seasonInfo.multiplier) + oneTimeTotal,
+                          0.15
+                        )}
+                      </span>
+                    </div>
+                  )}
+                </>
               )}
             </div>
           ) : (
@@ -243,12 +307,24 @@ function QuoteBreakdownSection({ lead }: { lead: Lead }) {
                 </div>
               )}
               {lead.finalQuote && (
-                <div className="flex justify-between items-center pt-2 border-t">
-                  <span className="font-semibold text-sm">Total Quote</span>
-                  <span className="font-bold text-lg text-primary" data-testid={`text-total-quote-${lead.id}`}>
-                    {formatQuoteRangeWholeFromValue(lead.finalQuote, 0.15)}
-                  </span>
-                </div>
+                <>
+                  <div className="flex justify-between items-center pt-2 border-t">
+                    <span className="font-semibold text-sm">
+                      {hasAnyRecurring ? "Per-Visit Estimate" : "Total Quote"}
+                    </span>
+                    <span className="font-bold text-lg text-primary" data-testid={`text-total-quote-${lead.id}`}>
+                      {formatQuoteRangeWholeFromValue(lead.finalQuote, 0.15)}
+                    </span>
+                  </div>
+                  {hasAnyRecurring && seasonInfo && (
+                    <div className="flex justify-between items-center text-sm">
+                      <span className="text-muted-foreground">Est. seasonal value ({seasonInfo.label})</span>
+                      <span className="font-semibold text-primary">
+                        {formatQuoteRangeWholeFromValue(parseFloat(lead.finalQuote) * seasonInfo.multiplier, 0.15)}
+                      </span>
+                    </div>
+                  )}
+                </>
               )}
             </div>
           )}

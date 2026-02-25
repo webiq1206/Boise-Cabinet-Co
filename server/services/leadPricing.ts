@@ -26,41 +26,62 @@ function parsePrice(value: unknown, fallback = 0): number {
   return Number.isFinite(n) ? n : fallback;
 }
 
-// Calculate lead price based on quote details
+const RECURRING_ELIGIBLE_SERVICE_IDS = new Set<string>([
+  "lawn-mowing",
+  "lawn-maintenance",
+  "fertilization",
+  "weed-control",
+  "irrigation-maintenance",
+]);
+
+const RECURRING_LEAD_BASE_PRICES: Record<string, number> = {
+  "lawn-mowing": 45,
+  "lawn-care": 50,
+  "lawn-maintenance": 50,
+  "fertilization": 60,
+  "aeration": 75,
+  "weed-control": 55,
+  "tree-trimming": 85,
+  "hedge-trimming": 65,
+  "landscaping": 80,
+  "mulching": 70,
+  "mulch-installation": 70,
+  "seasonal-cleanup": 90,
+  "spring-cleanup": 90,
+  "fall-cleanup": 90,
+  "christmas-light-installation": 150,
+  "irrigation-maintenance": 65,
+};
+
 export function calculateLeadPrice(params: {
   finalQuote: number;
   frequency: string;
   serviceType: string;
+  lineItems?: Array<{ serviceId?: string; service?: string; price?: number; adjustedPrice?: number }>;
 }): { basePrice: number; currentPrice: number } {
-  const { finalQuote, frequency, serviceType } = params;
+  const { finalQuote, frequency, serviceType, lineItems } = params;
+  const isRecurring = frequency && frequency !== "one-time";
 
-  // For recurring services, price the lead as "one service visit" (fixed schedule).
-  // This matches the subcontractor portal + legal agreement copy.
-  const RECURRING_LEAD_BASE_PRICES: Record<string, number> = {
-    "lawn-mowing": 45,
-    "lawn-care": 50,
-    "lawn-maintenance": 50,
-    "fertilization": 60,
-    "aeration": 75,
-    "weed-control": 55,
-    "tree-trimming": 85,
-    "hedge-trimming": 65,
-    "landscaping": 80,
-    "mulching": 70,
-    "mulch-installation": 70,
-    "seasonal-cleanup": 90,
-    "spring-cleanup": 90,
-    "fall-cleanup": 90,
-    "christmas-light-installation": 150,
-  };
+  let basePrice: number;
 
-  // One-time projects: 10% of total quote (minimum $15), rounded up to the nearest $5
-  let basePrice: number =
-    frequency && frequency !== "one-time"
+  if (lineItems && lineItems.length > 0) {
+    let total = 0;
+    for (const item of lineItems) {
+      const sid = item.serviceId || item.service || "";
+      const itemPrice = item.price || item.adjustedPrice || 0;
+      if (isRecurring && RECURRING_ELIGIBLE_SERVICE_IDS.has(sid)) {
+        total += RECURRING_LEAD_BASE_PRICES[sid] ?? 60;
+      } else {
+        total += itemPrice * 0.10;
+      }
+    }
+    basePrice = total;
+  } else {
+    basePrice = isRecurring
       ? (RECURRING_LEAD_BASE_PRICES[serviceType] ?? 60)
       : finalQuote * 0.10;
+  }
 
-  // Ensure minimum price of $15, round to nearest $5
   basePrice = Math.max(15, basePrice);
   basePrice = roundToNearestFive(basePrice);
 

@@ -34,35 +34,61 @@ function roundToNearestFive(price: number): number {
   return Math.ceil(price / 5) * 5;
 }
 
+const RECURRING_ELIGIBLE_SERVICE_IDS = new Set<string>([
+  "lawn-mowing",
+  "lawn-maintenance",
+  "fertilization",
+  "weed-control",
+  "irrigation-maintenance",
+]);
+
+const RECURRING_LEAD_BASE_PRICES: Record<string, number> = {
+  "lawn-mowing": 45,
+  "lawn-care": 50,
+  "lawn-maintenance": 50,
+  "fertilization": 60,
+  "aeration": 75,
+  "weed-control": 55,
+  "tree-trimming": 85,
+  "hedge-trimming": 65,
+  "landscaping": 80,
+  "mulching": 70,
+  "mulch-installation": 70,
+  "seasonal-cleanup": 90,
+  "spring-cleanup": 90,
+  "fall-cleanup": 90,
+  "christmas-light-installation": 150,
+  "irrigation-maintenance": 65,
+};
+
 function calculateLeadPrice(params: {
   finalQuote: number;
   frequency: string;
   serviceType: string;
+  lineItems?: Array<{ serviceId?: string; service?: string; price?: number; adjustedPrice?: number }>;
 }): { basePrice: number; currentPrice: number } {
-  const { finalQuote, frequency, serviceType } = params;
+  const { finalQuote, frequency, serviceType, lineItems } = params;
+  const isRecurring = frequency && frequency !== "one-time";
 
-  const RECURRING_LEAD_BASE_PRICES: Record<string, number> = {
-    "lawn-mowing": 45,
-    "lawn-care": 50,
-    "lawn-maintenance": 50,
-    "fertilization": 60,
-    "aeration": 75,
-    "weed-control": 55,
-    "tree-trimming": 85,
-    "hedge-trimming": 65,
-    "landscaping": 80,
-    "mulching": 70,
-    "mulch-installation": 70,
-    "seasonal-cleanup": 90,
-    "spring-cleanup": 90,
-    "fall-cleanup": 90,
-    "christmas-light-installation": 150,
-  };
+  let basePrice: number;
 
-  let basePrice: number =
-    frequency && frequency !== "one-time"
+  if (lineItems && lineItems.length > 0) {
+    let total = 0;
+    for (const item of lineItems) {
+      const sid = item.serviceId || item.service || "";
+      const itemPrice = item.price || item.adjustedPrice || 0;
+      if (isRecurring && RECURRING_ELIGIBLE_SERVICE_IDS.has(sid)) {
+        total += RECURRING_LEAD_BASE_PRICES[sid] ?? 60;
+      } else {
+        total += itemPrice * 0.10;
+      }
+    }
+    basePrice = total;
+  } else {
+    basePrice = isRecurring
       ? (RECURRING_LEAD_BASE_PRICES[serviceType] ?? 60)
       : finalQuote * 0.10;
+  }
 
   basePrice = Math.max(15, basePrice);
   basePrice = roundToNearestFive(basePrice);
@@ -116,10 +142,27 @@ export async function POST(request: Request) {
         console.log("[QUOTE] Quote saved to database:", quoteId);
 
         const estimatedTotal = validatedData.estimatedTotal || 200;
+
+        const perServicePrice = services.length > 0 ? estimatedTotal / services.length : estimatedTotal;
+        const enrichedLineItems = services.length > 0
+          ? services.map(sid => ({
+              serviceId: sid,
+              serviceName: sid.replace(/-/g, " ").replace(/\b\w/g, (l: string) => l.toUpperCase()),
+              price: Math.round(perServicePrice * 100) / 100,
+              isRecurring: frequency !== "one-time" && RECURRING_ELIGIBLE_SERVICE_IDS.has(sid),
+            }))
+          : [{
+              serviceId: primaryService,
+              serviceName: primaryService.replace(/-/g, " ").replace(/\b\w/g, (l: string) => l.toUpperCase()),
+              price: estimatedTotal,
+              isRecurring: frequency !== "one-time" && RECURRING_ELIGIBLE_SERVICE_IDS.has(primaryService),
+            }];
+
         const { basePrice, currentPrice } = calculateLeadPrice({
           finalQuote: estimatedTotal,
           frequency,
           serviceType: primaryService,
+          lineItems: enrichedLineItems,
         });
 
         let autoRelease = false;
@@ -145,6 +188,7 @@ export async function POST(request: Request) {
           selectedServices: services,
           frequency,
           finalQuote: estimatedTotal.toFixed(2),
+          lineItems: enrichedLineItems,
           serviceData: validatedData.serviceData || null,
           message: validatedData.message || null,
           baseLeadPrice: basePrice.toFixed(2),

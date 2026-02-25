@@ -35,6 +35,30 @@ interface LineItem {
   basePrice?: number;
   adjustedPrice?: number;
   calculationExplanation?: string;
+  isRecurring?: boolean;
+}
+
+const RECURRING_ELIGIBLE_SERVICE_IDS = new Set<string>([
+  "lawn-mowing",
+  "lawn-maintenance",
+  "fertilization",
+  "weed-control",
+  "irrigation-maintenance",
+]);
+
+function isServiceRecurring(serviceId: string, frequency: string | null | undefined): boolean {
+  if (!frequency || frequency === "one-time") return false;
+  return RECURRING_ELIGIBLE_SERVICE_IDS.has(serviceId);
+}
+
+function getSeasonMultiplier(frequency: string | null | undefined): { multiplier: number; label: string } | null {
+  if (!frequency || frequency === "one-time") return null;
+  switch (frequency) {
+    case "weekly": return { multiplier: 30, label: "30 weeks" };
+    case "bi-weekly": return { multiplier: 15, label: "15 visits" };
+    case "monthly": return { multiplier: 7, label: "7 months" };
+    default: return null;
+  }
 }
 
 interface ServiceDataEntry {
@@ -124,6 +148,23 @@ function QuoteBreakdownSection({ lead }: { lead: Lead }) {
     if (price === undefined || price === null) return '$0';
     return `$${price.toLocaleString()}`;
   };
+
+  const seasonInfo = getSeasonMultiplier(lead.frequency);
+  const hasAnyRecurring = lineItems.some(item => {
+    const sid = item.serviceId || item.service || "";
+    return item.isRecurring || isServiceRecurring(sid, lead.frequency);
+  });
+
+  const recurringTotal = lineItems.reduce((sum, item) => {
+    const sid = item.serviceId || item.service || "";
+    const recurring = item.isRecurring ?? isServiceRecurring(sid, lead.frequency);
+    return sum + (recurring ? (item.price || item.adjustedPrice || 0) : 0);
+  }, 0);
+  const oneTimeTotal = lineItems.reduce((sum, item) => {
+    const sid = item.serviceId || item.service || "";
+    const recurring = item.isRecurring ?? isServiceRecurring(sid, lead.frequency);
+    return sum + (!recurring ? (item.price || item.adjustedPrice || 0) : 0);
+  }, 0);
   
   return (
     <Collapsible open={isOpen} onOpenChange={setIsOpen}>
@@ -146,14 +187,23 @@ function QuoteBreakdownSection({ lead }: { lead: Lead }) {
           {lineItems.length > 0 ? (
             <div className="space-y-3">
               {lineItems.map((item, index) => {
+                const sid = item.serviceId || item.service || "";
                 const serviceName = item.serviceName || item.service || 'Service';
                 const price = item.price || item.adjustedPrice || 0;
+                const recurring = item.isRecurring ?? isServiceRecurring(sid, lead.frequency);
                 
                 return (
                   <div key={index} className="bg-muted/50 rounded-md p-3">
                     <div className="flex justify-between items-start gap-2 mb-1">
-                      <span className="font-medium text-sm">{serviceName}</span>
-                      <span className="font-semibold text-sm text-primary">{formatPrice(price)}</span>
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <span className="font-medium text-sm">{serviceName}</span>
+                        {lead.frequency && lead.frequency !== "one-time" && (
+                          <Badge variant={recurring ? "default" : "secondary"} className="text-[10px] px-1.5 py-0">
+                            {recurring ? `Recurring (${lead.frequency})` : "One-time"}
+                          </Badge>
+                        )}
+                      </div>
+                      <span className="font-semibold text-sm text-primary flex-shrink-0">{formatPrice(price)}</span>
                     </div>
                     {item.description && (
                       <p className="text-xs text-muted-foreground">{item.description}</p>
@@ -163,20 +213,47 @@ function QuoteBreakdownSection({ lead }: { lead: Lead }) {
               })}
               
               {lead.finalQuote && (
-                <div className="flex justify-between items-center pt-2 border-t">
-                  <span className="font-semibold text-sm">Estimated Project Value</span>
-                  <span className="font-bold text-lg text-primary">
-                    {formatQuoteRangeWholeFromValue(lead.finalQuote, 0.15)}
-                  </span>
-                </div>
+                <>
+                  <div className="flex justify-between items-center pt-2 border-t">
+                    <span className="font-semibold text-sm">
+                      {hasAnyRecurring ? "Per-Visit Estimate" : "Estimated Project Value"}
+                    </span>
+                    <span className="font-bold text-lg text-primary">
+                      {formatQuoteRangeWholeFromValue(lead.finalQuote, 0.15)}
+                    </span>
+                  </div>
+                  {hasAnyRecurring && seasonInfo && (
+                    <div className="flex justify-between items-center text-sm">
+                      <span className="text-muted-foreground">Est. seasonal value ({seasonInfo.label})</span>
+                      <span className="font-semibold text-primary">
+                        {formatQuoteRangeWholeFromValue(
+                          (recurringTotal > 0 ? recurringTotal * seasonInfo.multiplier : parseFloat(lead.finalQuote) * seasonInfo.multiplier) + oneTimeTotal,
+                          0.15
+                        )}
+                      </span>
+                    </div>
+                  )}
+                </>
               )}
             </div>
           ) : (
-            <div className="flex justify-between items-center">
-              <span className="font-semibold text-sm">Estimated Project Value</span>
-              <span className="font-bold text-lg text-primary">
-                {lead.finalQuote ? formatQuoteRangeWholeFromValue(lead.finalQuote, 0.15) : "Contact for quote"}
-              </span>
+            <div className="space-y-2">
+              <div className="flex justify-between items-center">
+                <span className="font-semibold text-sm">
+                  {hasAnyRecurring ? "Per-Visit Estimate" : "Estimated Project Value"}
+                </span>
+                <span className="font-bold text-lg text-primary">
+                  {lead.finalQuote ? formatQuoteRangeWholeFromValue(lead.finalQuote, 0.15) : "Contact for quote"}
+                </span>
+              </div>
+              {lead.finalQuote && hasAnyRecurring && seasonInfo && (
+                <div className="flex justify-between items-center text-sm">
+                  <span className="text-muted-foreground">Est. seasonal value ({seasonInfo.label})</span>
+                  <span className="font-semibold text-primary">
+                    {formatQuoteRangeWholeFromValue(parseFloat(lead.finalQuote) * seasonInfo.multiplier, 0.15)}
+                  </span>
+                </div>
+              )}
             </div>
           )}
         </CollapsibleContent>
@@ -191,6 +268,28 @@ function LeadPricingSection({ lead, discount = 0 }: { lead: Lead; discount?: num
   const basePrice = parseFloat(lead.baseLeadPrice || "0");
   const hasDiscount = currentPrice < basePrice;
   const discountedPrice = discount > 0 ? currentPrice * (1 - discount / 100) : currentPrice;
+
+  const lineItems = lead.lineItems || [];
+  const isRecurringLead = lead.frequency && lead.frequency !== "one-time";
+  const hasAnyRecurring = lineItems.some(item => {
+    const sid = item.serviceId || item.service || "";
+    return item.isRecurring || isServiceRecurring(sid, lead.frequency);
+  });
+  const hasAnyOneTime = lineItems.some(item => {
+    const sid = item.serviceId || item.service || "";
+    return !(item.isRecurring || isServiceRecurring(sid, lead.frequency));
+  });
+  const isMixed = hasAnyRecurring && hasAnyOneTime;
+  const seasonInfo = getSeasonMultiplier(lead.frequency);
+  
+  let pricingExplanation = "";
+  if (isMixed) {
+    pricingExplanation = "This lead includes both recurring and one-time services. Recurring services are priced at a competitive fixed rate based on the total seasonal contract value. One-time services are priced at approximately 10% of the estimated service price.";
+  } else if (hasAnyRecurring && isRecurringLead) {
+    pricingExplanation = "For recurring services, lead prices are based on a competitive fixed rate that reflects the total seasonal contract value, not just a single visit.";
+  } else {
+    pricingExplanation = "Lead prices are calculated as approximately 10% of the estimated project value.";
+  }
   
   return (
     <Collapsible open={isOpen} onOpenChange={setIsOpen}>
@@ -214,11 +313,38 @@ function LeadPricingSection({ lead, discount = 0 }: { lead: Lead; discount?: num
             <Info className="h-4 w-4" />
             <AlertTitle>How Lead Pricing Works</AlertTitle>
             <AlertDescription className="text-xs mt-2">
-              Lead prices are calculated as approximately 10% of the estimated project value. 
-              {hasDiscount && " This lead has been discounted because it's been available for a while."}{" "}
+              {pricingExplanation}
+              {hasDiscount && " This lead has been discounted because it has been available for a while."}{" "}
               {discount > 0 && ` Your bulk discount of ${discount}% has been applied.`}
             </AlertDescription>
           </Alert>
+
+          {hasAnyRecurring && seasonInfo && lead.finalQuote && (() => {
+            const items = lead.lineItems || [];
+            const recTotal = items.reduce((s, item) => {
+              const sid = item.serviceId || item.service || "";
+              const rec = item.isRecurring ?? isServiceRecurring(sid, lead.frequency);
+              return s + (rec ? (item.price || item.adjustedPrice || 0) : 0);
+            }, 0);
+            const otTotal = items.reduce((s, item) => {
+              const sid = item.serviceId || item.service || "";
+              const rec = item.isRecurring ?? isServiceRecurring(sid, lead.frequency);
+              return s + (!rec ? (item.price || item.adjustedPrice || 0) : 0);
+            }, 0);
+            const seasonalValue = (recTotal > 0 ? recTotal * seasonInfo.multiplier : parseFloat(lead.finalQuote) * seasonInfo.multiplier) + otTotal;
+            return (
+              <div className="bg-primary/5 rounded-md p-3 space-y-1">
+                <div className="flex justify-between text-sm">
+                  <span className="text-muted-foreground">Per-visit estimate</span>
+                  <span>{formatQuoteRangeWholeFromValue(lead.finalQuote, 0.15)}</span>
+                </div>
+                <div className="flex justify-between text-sm font-medium">
+                  <span>Est. seasonal value ({seasonInfo.label})</span>
+                  <span className="text-primary">{formatQuoteRangeWholeFromValue(seasonalValue, 0.15)}</span>
+                </div>
+              </div>
+            );
+          })()}
           
           <div className="space-y-2 text-sm">
             <div className="flex justify-between">
@@ -952,7 +1078,10 @@ function SubcontractorPortalContent() {
                   <div className="space-y-1">
                     <h3 className="font-semibold" data-testid="text-how-it-works-pricing">How Pricing Works</h3>
                     <p className="text-sm text-muted-foreground">
-                      Each lead is priced at roughly 10% of the estimated project value, with a minimum of $15. If a lead goes unclaimed, the price drops by about 1.5% each day. The price will never fall below 20% of its original value. So if you are patient, you may be able to pick up a great lead at a lower cost.
+                      Lead pricing depends on the type of service. For one-time services (like sprinkler blowouts or cleanups), the lead price is approximately 10% of the estimated project value. For recurring services (like lawn mowing, fertilization, or weed control), leads are priced at a competitive fixed rate that reflects the total seasonal contract value, not just a single visit. Quotes with multiple services will have each service priced individually based on its type. The minimum lead price is $15.
+                    </p>
+                    <p className="text-sm text-muted-foreground mt-2">
+                      If a lead goes unclaimed, the price drops by about 1.5% each day. The price will never fall below 20% of its original value. So if you are patient, you may be able to pick up a great lead at a lower cost.
                     </p>
                   </div>
                 </div>
