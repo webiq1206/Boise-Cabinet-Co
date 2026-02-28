@@ -207,25 +207,25 @@ function QuoteBreakdownSection({ lead }: { lead: Lead }) {
   
   return (
     <Collapsible open={isOpen} onOpenChange={setIsOpen}>
-      <div className="border-t pt-4">
+      <div className="border-t pt-2">
         <CollapsibleTrigger asChild>
           <Button
             variant="ghost"
             size="sm"
-            className="w-full justify-between p-0 h-auto font-medium text-sm hover:bg-transparent"
+            className="w-full justify-between p-0 h-auto font-medium text-xs hover:bg-transparent"
             data-testid={`button-toggle-breakdown-${lead.id}`}
           >
-            <span className="flex items-center gap-2">
-              <Receipt className="h-4 w-4 text-muted-foreground" />
+            <span className="flex items-center gap-1.5">
+              <Receipt className="h-3.5 w-3.5 text-muted-foreground" />
               Quote Breakdown
             </span>
-            <ChevronDown className={`h-4 w-4 text-muted-foreground transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+            <ChevronDown className={`h-3.5 w-3.5 text-muted-foreground transition-transform ${isOpen ? 'rotate-180' : ''}`} />
           </Button>
         </CollapsibleTrigger>
         
-        <CollapsibleContent className="pt-3" data-testid={`section-breakdown-${lead.id}`}>
+        <CollapsibleContent className="pt-2" data-testid={`section-breakdown-${lead.id}`}>
           {lineItems.length > 0 ? (
-            <div className="space-y-3">
+            <div className="space-y-1.5">
               {lineItems.map((item, index) => {
                 const serviceId = item.serviceId || item.service || '';
                 const serviceName = item.serviceName || item.service || 'Service';
@@ -236,36 +236,36 @@ function QuoteBreakdownSection({ lead }: { lead: Lead }) {
                 return (
                   <div 
                     key={index} 
-                    className="bg-muted/50 rounded-md p-3"
+                    className="bg-muted/50 rounded-md px-2 py-1.5"
                     data-testid={`lineitem-${lead.id}-${index}`}
                   >
-                    <div className="flex justify-between items-start gap-2 mb-1">
-                      <div className="flex items-center gap-2 flex-wrap">
-                        <span className="font-medium text-sm" data-testid={`text-service-name-${lead.id}-${index}`}>
+                    <div className="flex justify-between items-center gap-2">
+                      <div className="flex items-center gap-1.5 flex-wrap min-w-0">
+                        <span className="font-medium text-xs" data-testid={`text-service-name-${lead.id}-${index}`}>
                           {serviceName}
                         </span>
                         {lead.frequency && lead.frequency !== "one-time" && (
-                          <Badge variant={recurring ? "default" : "secondary"} className="text-[10px] px-1.5 py-0">
+                          <Badge variant={recurring ? "default" : "secondary"} className="text-[9px] px-1 py-0">
                             {recurring ? `Recurring (${lead.frequency})` : "One-time"}
                           </Badge>
                         )}
                       </div>
-                      <span className="font-semibold text-sm text-primary flex-shrink-0" data-testid={`text-service-price-${lead.id}-${index}`}>
+                      <span className="font-semibold text-xs text-primary flex-shrink-0" data-testid={`text-service-price-${lead.id}-${index}`}>
                         {formatPrice(price)}
                       </span>
                     </div>
                     {item.description && (
-                      <p className="text-xs text-muted-foreground" data-testid={`text-service-desc-${lead.id}-${index}`}>
+                      <p className="text-[11px] text-muted-foreground mt-0.5" data-testid={`text-service-desc-${lead.id}-${index}`}>
                         {item.description}
                       </p>
                     )}
                     {measurement && (
-                      <p className="text-xs text-muted-foreground mt-1" data-testid={`text-service-measurement-${lead.id}-${index}`}>
+                      <p className="text-[11px] text-muted-foreground mt-0.5" data-testid={`text-service-measurement-${lead.id}-${index}`}>
                         Measurement: {measurement}
                       </p>
                     )}
                     {item.calculationExplanation && (
-                      <p className="text-xs text-muted-foreground/70 italic mt-2 pl-2 border-l-2 border-muted" data-testid={`text-service-explanation-${lead.id}-${index}`}>
+                      <p className="text-[11px] text-muted-foreground/70 italic mt-1 pl-2 border-l-2 border-muted" data-testid={`text-service-explanation-${lead.id}-${index}`}>
                         {item.calculationExplanation}
                       </p>
                     )}
@@ -275,16 +275,16 @@ function QuoteBreakdownSection({ lead }: { lead: Lead }) {
               
               {lead.finalQuote && (
                 <>
-                  <div className="flex justify-between items-center pt-2 border-t">
-                    <span className="font-semibold text-sm">
+                  <div className="flex justify-between items-center pt-1.5 border-t">
+                    <span className="font-semibold text-xs">
                       {hasAnyRecurring ? "Per-Visit Estimate" : "Total Quote"}
                     </span>
-                    <span className="font-bold text-lg text-primary" data-testid={`text-total-quote-${lead.id}`}>
+                    <span className="font-bold text-sm text-primary" data-testid={`text-total-quote-${lead.id}`}>
                       {formatQuoteRangeWholeFromValue(lead.finalQuote, 0.15)}
                     </span>
                   </div>
                   {hasAnyRecurring && seasonInfo && (
-                    <div className="flex justify-between items-center text-sm">
+                    <div className="flex justify-between items-center text-xs">
                       <span className="text-muted-foreground">Est. seasonal value ({seasonInfo.label})</span>
                       <span className="font-semibold text-primary">
                         {formatQuoteRangeWholeFromValue(
@@ -298,30 +298,30 @@ function QuoteBreakdownSection({ lead }: { lead: Lead }) {
               )}
             </div>
           ) : (
-            <div className="space-y-2">
+            <div className="space-y-1.5">
               {Object.keys(serviceData).length > 0 && (
-                <div className="space-y-2">
-                  <p className="text-sm font-medium">Service Measurements:</p>
+                <div className="space-y-1">
+                  <p className="text-xs font-medium text-muted-foreground">Measurements</p>
                   {Object.entries(serviceData).map(([svcId, data]) => (
-                    <div key={svcId} className="bg-muted/50 rounded-md p-2 text-sm">
+                    <div key={svcId} className="bg-muted/50 rounded-md px-2 py-1 text-xs">
                       <span className="font-medium">{svcId.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}</span>
-                      <span className="text-muted-foreground ml-2">{formatMeasurement(svcId, data)}</span>
+                      <span className="text-muted-foreground ml-1.5">{formatMeasurement(svcId, data)}</span>
                     </div>
                   ))}
                 </div>
               )}
               {lead.finalQuote && (
                 <>
-                  <div className="flex justify-between items-center pt-2 border-t">
-                    <span className="font-semibold text-sm">
+                  <div className="flex justify-between items-center pt-1.5 border-t">
+                    <span className="font-semibold text-xs">
                       {hasAnyRecurring ? "Per-Visit Estimate" : "Total Quote"}
                     </span>
-                    <span className="font-bold text-lg text-primary" data-testid={`text-total-quote-${lead.id}`}>
+                    <span className="font-bold text-sm text-primary" data-testid={`text-total-quote-${lead.id}`}>
                       {formatQuoteRangeWholeFromValue(lead.finalQuote, 0.15)}
                     </span>
                   </div>
                   {hasAnyRecurring && seasonInfo && (
-                    <div className="flex justify-between items-center text-sm">
+                    <div className="flex justify-between items-center text-xs">
                       <span className="text-muted-foreground">Est. seasonal value ({seasonInfo.label})</span>
                       <span className="font-semibold text-primary">
                         {formatQuoteRangeWholeFromValue(parseFloat(lead.finalQuote) * seasonInfo.multiplier, 0.15)}
@@ -736,11 +736,11 @@ function AdminDashboardContent() {
     };
     
     return (
-      <div className="border-t pt-4">
-        <div className="flex items-center justify-between mb-2">
-          <div className="flex items-center gap-2">
-            <MessageSquare className="h-4 w-4 text-muted-foreground" />
-            <p className="text-sm font-medium">Notes ({notes.length})</p>
+      <div className="border-t pt-2">
+        <div className="flex items-center justify-between mb-1">
+          <div className="flex items-center gap-1.5">
+            <MessageSquare className="h-3.5 w-3.5 text-muted-foreground" />
+            <p className="text-xs font-medium">Notes ({notes.length})</p>
           </div>
           <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
             <DialogTrigger asChild>
@@ -775,11 +775,11 @@ function AdminDashboardContent() {
         </div>
         
         {notes.length > 0 ? (
-          <div className="space-y-2 max-h-48 overflow-y-auto">
+          <div className="space-y-1 max-h-36 overflow-y-auto">
             {notes.map((note, index) => (
-              <div key={index} className="bg-muted/50 rounded-md p-3 text-sm">
-                <div className="flex items-start justify-between mb-1">
-                  <p className="font-medium text-xs text-muted-foreground">{note.addedBy}</p>
+              <div key={index} className="bg-muted/50 rounded-md px-2 py-1.5 text-xs">
+                <div className="flex items-start justify-between mb-0.5">
+                  <p className="font-medium text-[11px] text-muted-foreground">{note.addedBy}</p>
                   <p className="text-xs text-muted-foreground">
                     {new Date(note.addedAt).toLocaleDateString("en-US", {
                       month: "short",
@@ -790,7 +790,7 @@ function AdminDashboardContent() {
                     })}
                   </p>
                 </div>
-                <p className="text-sm">{note.text}</p>
+                <p className="text-xs">{note.text}</p>
               </div>
             ))}
           </div>
@@ -821,157 +821,153 @@ function AdminDashboardContent() {
 
     return (
     <Card id={`lead-${lead.id}`} key={lead.id} className="overflow-visible" data-testid={`card-lead-${lead.id}`}>
-      <CardHeader className="pb-3">
-        <div className="flex items-start justify-between gap-4">
-          <div className="flex-1">
-            <div className="flex items-center gap-2 flex-wrap mb-1">
-              <CardTitle className="text-lg" data-testid={`text-lead-name-${lead.id}`}>
-                {lead.name}
-              </CardTitle>
-              {priority !== "normal" && (
-                <Badge className={getPriorityColor(priority)}>
-                  <Flag className="h-3 w-3 mr-1" />
-                  {priority.toUpperCase()}
-                </Badge>
-              )}
-            </div>
-            <CardDescription className="mt-1">
-              {lead.serviceType.replace(/-/g, " ").replace(/\b\w/g, l => l.toUpperCase())} in {lead.city}
-            </CardDescription>
-          </div>
-          <div className="flex flex-col items-end gap-2">
-            <Badge variant={lead.status === "pending_admin" ? "default" : lead.status === "purchased" ? "secondary" : "outline"} data-testid={`badge-status-${lead.id}`}>
+      <CardHeader className="pb-2">
+        <div className="flex items-center justify-between gap-3">
+          <div className="flex items-center gap-2 flex-wrap min-w-0 flex-1">
+            <CardTitle className="text-base" data-testid={`text-lead-name-${lead.id}`}>
+              {lead.name}
+            </CardTitle>
+            {priority !== "normal" && (
+              <Badge className={`${getPriorityColor(priority)} text-[10px] px-1.5 py-0`}>
+                <Flag className="h-2.5 w-2.5 mr-0.5" />
+                {priority.toUpperCase()}
+              </Badge>
+            )}
+            <Badge variant={lead.status === "pending_admin" ? "default" : lead.status === "purchased" ? "secondary" : "outline"} className="text-[10px] px-1.5 py-0" data-testid={`badge-status-${lead.id}`}>
               {lead.status === "pending_admin" ? "Pending Review" : lead.status === "purchased" ? "Purchased" : "Available"}
             </Badge>
-            <div className="flex gap-1">
-              {showActions && (
-                <>
-                  <Popover open={editingPriority} onOpenChange={setEditingPriority}>
-                    <PopoverTrigger asChild>
-                      <Button variant="ghost" size="sm" className="h-7">
-                        <Flag className="h-3 w-3" />
-                      </Button>
-                    </PopoverTrigger>
-                    <PopoverContent className="w-48">
-                      <Label>Priority</Label>
-                      <Select
-                        value={priority}
-                        onValueChange={(value) => {
-                          updateLeadMutation.mutate({ leadId: lead.id, data: { priority: value } });
-                          setEditingPriority(false);
-                        }}
-                      >
-                        <SelectTrigger>
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="low">Low</SelectItem>
-                          <SelectItem value="normal">Normal</SelectItem>
-                          <SelectItem value="high">High</SelectItem>
-                          <SelectItem value="urgent">Urgent</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </PopoverContent>
-                  </Popover>
-                  <Popover open={editingTags} onOpenChange={setEditingTags}>
-                    <PopoverTrigger asChild>
-                      <Button variant="ghost" size="sm" className="h-7">
-                        <Tag className="h-3 w-3" />
-                      </Button>
-                    </PopoverTrigger>
-                    <PopoverContent className="w-64">
-                      <Label>Tags</Label>
-                      <div className="space-y-2 mt-2">
-                        <div className="flex gap-2">
-                          <Input
-                            placeholder="Add tag..."
-                            value={newTag}
-                            onChange={(e) => setNewTag(e.target.value)}
-                            onKeyDown={(e) => {
-                              if (e.key === "Enter" && newTag.trim()) {
-                                const updatedTags = [...leadTags, newTag.trim()];
-                                updateLeadMutation.mutate({ leadId: lead.id, data: { tags: updatedTags } });
-                                setNewTag("");
-                              }
-                            }}
-                          />
-                          <Button
-                            size="sm"
-                            onClick={() => {
-                              if (newTag.trim()) {
-                                const updatedTags = [...leadTags, newTag.trim()];
-                                updateLeadMutation.mutate({ leadId: lead.id, data: { tags: updatedTags } });
-                                setNewTag("");
-                              }
-                            }}
-                          >
-                            Add
-                          </Button>
-                        </div>
-                        <div className="flex flex-wrap gap-1">
-                          {leadTags.map((tag, idx) => (
-                            <Badge key={idx} variant="secondary" className="text-xs">
-                              {tag}
-                              <button
-                                onClick={() => {
-                                  const updatedTags = leadTags.filter((_, i) => i !== idx);
-                                  updateLeadMutation.mutate({ leadId: lead.id, data: { tags: updatedTags } });
-                                }}
-                                className="ml-1 hover:text-destructive"
-                              >
-                                ×
-                              </button>
-                            </Badge>
-                          ))}
-                        </div>
-                      </div>
-                    </PopoverContent>
-                  </Popover>
-                </>
-              )}
-              <AlertDialog>
-                <AlertDialogTrigger asChild>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="h-7 text-destructive"
-                    data-testid={`button-delete-lead-${lead.id}`}
-                  >
-                    <Trash2 className="h-3 w-3" />
-                  </Button>
-                </AlertDialogTrigger>
-                <AlertDialogContent data-testid="dialog-confirm-delete-lead">
-                  <AlertDialogHeader>
-                    <AlertDialogTitle>Delete Lead</AlertDialogTitle>
-                    <AlertDialogDescription>
-                      Are you sure you want to permanently delete this lead? This will remove all associated data including purchase records and notifications. This action cannot be undone.
-                    </AlertDialogDescription>
-                  </AlertDialogHeader>
-                  <AlertDialogFooter>
-                    <AlertDialogCancel data-testid={`button-cancel-delete-lead-${lead.id}`}>Cancel</AlertDialogCancel>
-                    <AlertDialogAction
-                      data-testid={`button-confirm-delete-lead-${lead.id}`}
-                      className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
-                      onClick={() => deleteLeadMutation.mutate(lead.id)}
+          </div>
+          <div className="flex items-center gap-0.5 flex-shrink-0">
+            {showActions && (
+              <>
+                <Popover open={editingPriority} onOpenChange={setEditingPriority}>
+                  <PopoverTrigger asChild>
+                    <Button variant="ghost" size="icon" className="h-7 w-7">
+                      <Flag className="h-3 w-3" />
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-48">
+                    <Label>Priority</Label>
+                    <Select
+                      value={priority}
+                      onValueChange={(value) => {
+                        updateLeadMutation.mutate({ leadId: lead.id, data: { priority: value } });
+                        setEditingPriority(false);
+                      }}
                     >
-                      Delete
-                    </AlertDialogAction>
-                  </AlertDialogFooter>
-                </AlertDialogContent>
-              </AlertDialog>
-            </div>
+                      <SelectTrigger>
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="low">Low</SelectItem>
+                        <SelectItem value="normal">Normal</SelectItem>
+                        <SelectItem value="high">High</SelectItem>
+                        <SelectItem value="urgent">Urgent</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </PopoverContent>
+                </Popover>
+                <Popover open={editingTags} onOpenChange={setEditingTags}>
+                  <PopoverTrigger asChild>
+                    <Button variant="ghost" size="icon" className="h-7 w-7">
+                      <Tag className="h-3 w-3" />
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-64">
+                    <Label>Tags</Label>
+                    <div className="space-y-2 mt-2">
+                      <div className="flex gap-2">
+                        <Input
+                          placeholder="Add tag..."
+                          value={newTag}
+                          onChange={(e) => setNewTag(e.target.value)}
+                          onKeyDown={(e) => {
+                            if (e.key === "Enter" && newTag.trim()) {
+                              const updatedTags = [...leadTags, newTag.trim()];
+                              updateLeadMutation.mutate({ leadId: lead.id, data: { tags: updatedTags } });
+                              setNewTag("");
+                            }
+                          }}
+                        />
+                        <Button
+                          size="sm"
+                          onClick={() => {
+                            if (newTag.trim()) {
+                              const updatedTags = [...leadTags, newTag.trim()];
+                              updateLeadMutation.mutate({ leadId: lead.id, data: { tags: updatedTags } });
+                              setNewTag("");
+                            }
+                          }}
+                        >
+                          Add
+                        </Button>
+                      </div>
+                      <div className="flex flex-wrap gap-1">
+                        {leadTags.map((tag, idx) => (
+                          <Badge key={idx} variant="secondary" className="text-xs">
+                            {tag}
+                            <button
+                              onClick={() => {
+                                const updatedTags = leadTags.filter((_, i) => i !== idx);
+                                updateLeadMutation.mutate({ leadId: lead.id, data: { tags: updatedTags } });
+                              }}
+                              className="ml-1 hover:text-destructive"
+                            >
+                              ×
+                            </button>
+                          </Badge>
+                        ))}
+                      </div>
+                    </div>
+                  </PopoverContent>
+                </Popover>
+              </>
+            )}
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="h-7 w-7 text-destructive"
+                  data-testid={`button-delete-lead-${lead.id}`}
+                >
+                  <Trash2 className="h-3 w-3" />
+                </Button>
+              </AlertDialogTrigger>
+              <AlertDialogContent data-testid="dialog-confirm-delete-lead">
+                <AlertDialogHeader>
+                  <AlertDialogTitle>Delete Lead</AlertDialogTitle>
+                  <AlertDialogDescription>
+                    Are you sure you want to permanently delete this lead? This will remove all associated data including purchase records and notifications. This action cannot be undone.
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel data-testid={`button-cancel-delete-lead-${lead.id}`}>Cancel</AlertDialogCancel>
+                  <AlertDialogAction
+                    data-testid={`button-confirm-delete-lead-${lead.id}`}
+                    className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                    onClick={() => deleteLeadMutation.mutate(lead.id)}
+                  >
+                    Delete
+                  </AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
           </div>
         </div>
+        <CardDescription className="text-xs mt-0.5">
+          {lead.serviceType.replace(/-/g, " ").replace(/\b\w/g, l => l.toUpperCase())} in {lead.city}
+        </CardDescription>
       </CardHeader>
-      <CardContent className="space-y-3 md:space-y-4">
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-4 text-sm">
-          <div className="flex items-center gap-2">
-            <DollarSign className="h-4 w-4 text-muted-foreground flex-shrink-0" />
+      <CardContent className="space-y-2">
+        <div className="grid grid-cols-2 gap-2 text-sm">
+          <div className="flex items-center gap-1.5">
+            <DollarSign className="h-3.5 w-3.5 text-muted-foreground flex-shrink-0" />
             <div className="min-w-0">
-              <p className="font-medium">
+              <p className="font-medium text-sm leading-tight">
                 {lead.finalQuote ? formatQuoteRangeWholeFromValue(lead.finalQuote, 0.15) : "Pending"}
               </p>
-              <p className="text-muted-foreground text-xs">
+              <p className="text-muted-foreground text-[11px] leading-tight">
                 Lead: {formatCurrency(lead.currentLeadPrice)}
                 {lead.baseLeadPrice !== lead.currentLeadPrice && (
                   <span className="ml-1">(was {formatCurrency(lead.baseLeadPrice)})</span>
@@ -979,11 +975,11 @@ function AdminDashboardContent() {
               </p>
             </div>
           </div>
-          <div className="flex items-center gap-2">
-            <Clock className="h-4 w-4 text-muted-foreground flex-shrink-0" />
+          <div className="flex items-center gap-1.5">
+            <Clock className="h-3.5 w-3.5 text-muted-foreground flex-shrink-0" />
             <div>
-              <p className="font-medium">{formatDate(lead.createdAt)}</p>
-              <p className="text-muted-foreground text-xs">
+              <p className="font-medium text-sm leading-tight">{formatDate(lead.createdAt)}</p>
+              <p className="text-muted-foreground text-[11px] leading-tight">
                 {formatLeadAge(lead.createdAt)}, {lead.frequency || "one-time"}
               </p>
             </div>
@@ -991,42 +987,44 @@ function AdminDashboardContent() {
         </div>
 
         {showActions && (
-          <div className="flex flex-col sm:flex-row gap-2 pt-4 border-t">
+          <div className="flex gap-2 pt-2 border-t">
             <Button
               onClick={() => acceptLeadMutation.mutate(lead.id)}
               disabled={acceptLeadMutation.isPending}
+              size="sm"
               className="flex-1"
               data-testid={`button-accept-${lead.id}`}
             >
-              <CheckCircle2 className="mr-2 h-4 w-4" />
+              <CheckCircle2 className="mr-1.5 h-3.5 w-3.5" />
               Accept
             </Button>
             <Button
               onClick={() => declineLeadMutation.mutate(lead.id)}
               disabled={declineLeadMutation.isPending}
               variant="outline"
+              size="sm"
               className="flex-1"
               data-testid={`button-decline-${lead.id}`}
             >
-              <XCircle className="mr-2 h-4 w-4" />
+              <XCircle className="mr-1.5 h-3.5 w-3.5" />
               Send to Subs
             </Button>
           </div>
         )}
 
-        <div className={`${expanded ? 'block' : 'hidden'} md:block space-y-3 md:space-y-4`}>
+        <div className={`${expanded ? 'block' : 'hidden'} md:block space-y-2`}>
           {lead.quoteId && (
-            <div className="flex items-center gap-2 text-xs text-muted-foreground border-t pt-2">
+            <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground border-t pt-2">
               <Hash className="h-3 w-3" />
               <span>Quote ID: {lead.quoteId}</span>
             </div>
           )}
 
           {leadTags.length > 0 && (
-            <div className="flex flex-wrap gap-1 mt-2">
+            <div className="flex flex-wrap gap-1">
               {leadTags.map((tag, idx) => (
-                <Badge key={idx} variant="outline" className="text-xs">
-                  <Tag className="h-3 w-3 mr-1" />
+                <Badge key={idx} variant="outline" className="text-[10px] px-1.5 py-0">
+                  <Tag className="h-2.5 w-2.5 mr-0.5" />
                   {tag}
                 </Badge>
               ))}
@@ -1034,11 +1032,11 @@ function AdminDashboardContent() {
           )}
 
           {lead.selectedServices && lead.selectedServices.length > 0 && (
-            <div className="border-t pt-4">
-              <p className="text-sm font-medium mb-2">Selected Services:</p>
-              <div className="flex flex-wrap gap-2">
+            <div className="border-t pt-2">
+              <p className="text-xs font-medium mb-1.5 text-muted-foreground">Services</p>
+              <div className="flex flex-wrap gap-1">
                 {lead.selectedServices.map((serviceId, index) => (
-                  <Badge key={index} variant="outline" className="text-xs">
+                  <Badge key={index} variant="outline" className="text-[11px] px-1.5 py-0">
                     {getServiceName(serviceId)}
                   </Badge>
                 ))}
@@ -1047,19 +1045,19 @@ function AdminDashboardContent() {
           )}
 
           {!!lead.serviceData && typeof lead.serviceData === "object" && Object.keys(lead.serviceData).length > 0 && (
-            <div className="border-t pt-4">
-              <p className="text-sm font-medium mb-2">Service Measurements:</p>
-              <div className="space-y-2">
+            <div className="border-t pt-2">
+              <p className="text-xs font-medium mb-1 text-muted-foreground">Measurements</p>
+              <div className="space-y-1">
                 {Object.entries(lead.serviceData).map(([serviceId, data]) => {
                   const measurement = formatMeasurement(serviceId, data);
                   return (
-                    <div key={serviceId} className="bg-muted/50 rounded-md p-2 text-sm">
+                    <div key={serviceId} className="bg-muted/50 rounded-md px-2 py-1 text-xs">
                       <span className="font-medium">{getServiceName(serviceId)}:</span>
                       {measurement && (
-                        <span className="text-muted-foreground ml-2">{measurement}</span>
+                        <span className="text-muted-foreground ml-1.5">{measurement}</span>
                       )}
                       {!measurement && data && (
-                        <span className="text-muted-foreground ml-2 text-xs italic">No measurements provided</span>
+                        <span className="text-muted-foreground ml-1.5 italic">No measurements provided</span>
                       )}
                     </div>
                   );
@@ -1068,19 +1066,19 @@ function AdminDashboardContent() {
             </div>
           )}
 
-          <div className="space-y-2 text-sm border-t pt-4">
-            <div className="flex items-center gap-2">
-              <Mail className="h-4 w-4 text-muted-foreground" />
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-1 text-xs border-t pt-2">
+            <div className="flex items-center gap-1.5">
+              <Mail className="h-3 w-3 text-muted-foreground flex-shrink-0" />
               <a 
                 href={`mailto:${lead.email}`} 
-                className="text-primary hover:underline"
+                className="text-primary hover:underline truncate"
                 data-testid={`text-email-${lead.id}`}
               >
                 {lead.email}
               </a>
             </div>
-            <div className="flex items-center gap-2">
-              <Phone className="h-4 w-4 text-muted-foreground" />
+            <div className="flex items-center gap-1.5">
+              <Phone className="h-3 w-3 text-muted-foreground flex-shrink-0" />
               <a 
                 href={`tel:${lead.phone}`} 
                 className="text-primary hover:underline"
@@ -1089,31 +1087,28 @@ function AdminDashboardContent() {
                 {lead.phone}
               </a>
             </div>
-            <div className="flex items-center gap-2">
-              <MapPin className="h-4 w-4 text-muted-foreground" />
-              <span data-testid={`text-address-${lead.id}`}>
+            <div className="flex items-center gap-1.5">
+              <MapPin className="h-3 w-3 text-muted-foreground flex-shrink-0" />
+              <span className="truncate" data-testid={`text-address-${lead.id}`}>
                 {lead.address && lead.address !== "***" ? lead.address : `${lead.city.charAt(0).toUpperCase() + lead.city.slice(1)}, Idaho`}
               </span>
             </div>
-            <div className="flex items-center gap-2">
-              <Building className="h-4 w-4 text-muted-foreground" />
+            <div className="flex items-center gap-1.5">
+              <Building className="h-3 w-3 text-muted-foreground flex-shrink-0" />
               <span>{lead.propertyType.replace(/-/g, " ")}</span>
+              {(() => {
+                const propertySize = getPropertySizeFromServiceData(lead.serviceData);
+                return propertySize ? (
+                  <span className="text-muted-foreground ml-1">({propertySize.toLocaleString()} sq ft)</span>
+                ) : null;
+              })()}
             </div>
-            {(() => {
-              const propertySize = getPropertySizeFromServiceData(lead.serviceData);
-              return propertySize ? (
-                <div className="flex items-center gap-2">
-                  <Server className="h-4 w-4 text-muted-foreground" />
-                  <span>{propertySize.toLocaleString()} sq ft</span>
-                </div>
-              ) : null;
-            })()}
           </div>
 
           {lead.message && (
-            <div className="border-t pt-4">
-              <p className="text-sm text-muted-foreground mb-1">Customer Message:</p>
-              <p className="text-sm" data-testid={`text-message-${lead.id}`}>{lead.message}</p>
+            <div className="border-t pt-2">
+              <p className="text-xs text-muted-foreground mb-0.5">Customer Message:</p>
+              <p className="text-xs" data-testid={`text-message-${lead.id}`}>{lead.message}</p>
             </div>
           )}
 
@@ -1126,17 +1121,17 @@ function AdminDashboardContent() {
           variant="ghost"
           size="sm"
           onClick={() => setExpanded(!expanded)}
-          className="w-full md:hidden justify-center gap-1 text-muted-foreground"
+          className="w-full md:hidden justify-center gap-1 text-xs text-muted-foreground"
           data-testid={`button-toggle-lead-details-${lead.id}`}
         >
           {expanded ? (
             <>
-              <ChevronUp className="h-4 w-4" />
+              <ChevronUp className="h-3.5 w-3.5" />
               Hide details
             </>
           ) : (
             <>
-              <ChevronDown className="h-4 w-4" />
+              <ChevronDown className="h-3.5 w-3.5" />
               Show details
             </>
           )}

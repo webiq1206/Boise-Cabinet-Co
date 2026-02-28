@@ -167,24 +167,24 @@ function QuoteBreakdownSection({ lead }: { lead: Lead }) {
   
   return (
     <Collapsible open={isOpen} onOpenChange={setIsOpen}>
-      <div className="border-t pt-4 mt-4">
+      <div className="border-t pt-2 mt-1">
         <CollapsibleTrigger asChild>
           <Button
             variant="ghost"
             size="sm"
-            className="w-full justify-between p-0 h-auto font-medium text-sm hover:bg-transparent"
+            className="w-full justify-between p-0 h-auto font-medium text-xs hover:bg-transparent"
           >
-            <span className="flex items-center gap-2">
-              <Receipt className="h-4 w-4 text-muted-foreground" />
+            <span className="flex items-center gap-1.5">
+              <Receipt className="h-3.5 w-3.5 text-muted-foreground" />
               Project Details
             </span>
-            <ChevronDown className={`h-4 w-4 text-muted-foreground transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+            <ChevronDown className={`h-3.5 w-3.5 text-muted-foreground transition-transform ${isOpen ? 'rotate-180' : ''}`} />
           </Button>
         </CollapsibleTrigger>
         
-        <CollapsibleContent className="pt-3">
+        <CollapsibleContent className="pt-2">
           {lineItems.length > 0 ? (
-            <div className="space-y-3">
+            <div className="space-y-1.5">
               {lineItems.map((item, index) => {
                 const sid = item.serviceId || item.service || "";
                 const serviceName = item.serviceName || item.service || 'Service';
@@ -192,20 +192,20 @@ function QuoteBreakdownSection({ lead }: { lead: Lead }) {
                 const recurring = item.isRecurring ?? isServiceRecurring(sid, lead.frequency);
                 
                 return (
-                  <div key={index} className="bg-muted/50 rounded-md p-3">
-                    <div className="flex justify-between items-start gap-2 mb-1">
-                      <div className="flex items-center gap-2 flex-wrap">
-                        <span className="font-medium text-sm">{serviceName}</span>
+                  <div key={index} className="bg-muted/50 rounded-md px-2 py-1.5">
+                    <div className="flex justify-between items-center gap-2">
+                      <div className="flex items-center gap-1.5 flex-wrap min-w-0">
+                        <span className="font-medium text-xs">{serviceName}</span>
                         {lead.frequency && lead.frequency !== "one-time" && (
-                          <Badge variant={recurring ? "default" : "secondary"} className="text-[10px] px-1.5 py-0">
+                          <Badge variant={recurring ? "default" : "secondary"} className="text-[9px] px-1 py-0">
                             {recurring ? `Recurring (${lead.frequency})` : "One-time"}
                           </Badge>
                         )}
                       </div>
-                      <span className="font-semibold text-sm text-primary flex-shrink-0">{formatPrice(price)}</span>
+                      <span className="font-semibold text-xs text-primary flex-shrink-0">{formatPrice(price)}</span>
                     </div>
                     {item.description && (
-                      <p className="text-xs text-muted-foreground">{item.description}</p>
+                      <p className="text-[11px] text-muted-foreground mt-0.5">{item.description}</p>
                     )}
                   </div>
                 );
@@ -213,16 +213,16 @@ function QuoteBreakdownSection({ lead }: { lead: Lead }) {
               
               {lead.finalQuote && (
                 <>
-                  <div className="flex justify-between items-center pt-2 border-t">
-                    <span className="font-semibold text-sm">
+                  <div className="flex justify-between items-center pt-1.5 border-t">
+                    <span className="font-semibold text-xs">
                       {hasAnyRecurring ? "Per-Visit Estimate" : "Estimated Project Value"}
                     </span>
-                    <span className="font-bold text-lg text-primary">
+                    <span className="font-bold text-sm text-primary">
                       {formatQuoteRangeWholeFromValue(lead.finalQuote, 0.15)}
                     </span>
                   </div>
                   {hasAnyRecurring && seasonInfo && (
-                    <div className="flex justify-between items-center text-sm">
+                    <div className="flex justify-between items-center text-xs">
                       <span className="text-muted-foreground">Est. seasonal value ({seasonInfo.label})</span>
                       <span className="font-semibold text-primary">
                         {formatQuoteRangeWholeFromValue(
@@ -236,17 +236,17 @@ function QuoteBreakdownSection({ lead }: { lead: Lead }) {
               )}
             </div>
           ) : (
-            <div className="space-y-2">
+            <div className="space-y-1.5">
               <div className="flex justify-between items-center">
-                <span className="font-semibold text-sm">
+                <span className="font-semibold text-xs">
                   {hasAnyRecurring ? "Per-Visit Estimate" : "Estimated Project Value"}
                 </span>
-                <span className="font-bold text-lg text-primary">
+                <span className="font-bold text-sm text-primary">
                   {lead.finalQuote ? formatQuoteRangeWholeFromValue(lead.finalQuote, 0.15) : "Contact for quote"}
                 </span>
               </div>
               {lead.finalQuote && hasAnyRecurring && seasonInfo && (
-                <div className="flex justify-between items-center text-sm">
+                <div className="flex justify-between items-center text-xs">
                   <span className="text-muted-foreground">Est. seasonal value ({seasonInfo.label})</span>
                   <span className="font-semibold text-primary">
                     {formatQuoteRangeWholeFromValue(parseFloat(lead.finalQuote) * seasonInfo.multiplier, 0.15)}
@@ -292,22 +292,22 @@ function LeadPricingSection({ lead, discount = 0 }: { lead: Lead; discount?: num
   
   return (
     <Collapsible open={isOpen} onOpenChange={setIsOpen}>
-      <div className="border-t pt-4 mt-4">
+      <div className="border-t pt-2 mt-1">
         <CollapsibleTrigger asChild>
           <Button
             variant="ghost"
             size="sm"
-            className="w-full justify-between p-0 h-auto font-medium text-sm hover:bg-transparent"
+            className="w-full justify-between p-0 h-auto font-medium text-xs hover:bg-transparent"
           >
-            <span className="flex items-center gap-2">
-              <Info className="h-4 w-4 text-muted-foreground" />
+            <span className="flex items-center gap-1.5">
+              <Info className="h-3.5 w-3.5 text-muted-foreground" />
               Lead Pricing Explanation
             </span>
-            <ChevronDown className={`h-4 w-4 text-muted-foreground transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+            <ChevronDown className={`h-3.5 w-3.5 text-muted-foreground transition-transform ${isOpen ? 'rotate-180' : ''}`} />
           </Button>
         </CollapsibleTrigger>
         
-        <CollapsibleContent className="pt-3 space-y-3">
+        <CollapsibleContent className="pt-2 space-y-2">
           <Alert>
             <Info className="h-4 w-4" />
             <AlertTitle>How Lead Pricing Works</AlertTitle>
@@ -332,12 +332,12 @@ function LeadPricingSection({ lead, discount = 0 }: { lead: Lead; discount?: num
             }, 0);
             const seasonalValue = (recTotal > 0 ? recTotal * seasonInfo.multiplier : parseFloat(lead.finalQuote) * seasonInfo.multiplier) + otTotal;
             return (
-              <div className="bg-primary/5 rounded-md p-3 space-y-1">
-                <div className="flex justify-between text-sm">
+              <div className="bg-primary/5 rounded-md px-2 py-1.5 space-y-0.5">
+                <div className="flex justify-between text-xs">
                   <span className="text-muted-foreground">Per-visit estimate</span>
                   <span>{formatQuoteRangeWholeFromValue(lead.finalQuote, 0.15)}</span>
                 </div>
-                <div className="flex justify-between text-sm font-medium">
+                <div className="flex justify-between text-xs font-medium">
                   <span>Est. seasonal value ({seasonInfo.label})</span>
                   <span className="text-primary">{formatQuoteRangeWholeFromValue(seasonalValue, 0.15)}</span>
                 </div>
@@ -345,7 +345,7 @@ function LeadPricingSection({ lead, discount = 0 }: { lead: Lead; discount?: num
             );
           })()}
           
-          <div className="space-y-2 text-sm">
+          <div className="space-y-1.5 text-xs">
             <div className="flex justify-between">
               <span className="text-muted-foreground">Base lead price</span>
               <span>${basePrice.toFixed(2)}</span>
@@ -855,61 +855,63 @@ function SubcontractorPortalContent() {
 
     return (
       <Card className={`overflow-hidden transition-all ${isSelected ? 'ring-2 ring-primary' : ''}`} id={`lead-${lead.id}`}>
-        <CardHeader className="pb-2 md:pb-3">
-          <div className="flex items-start justify-between gap-4">
-            <div className="flex items-start gap-3">
+        <CardHeader className="pb-1.5">
+          <div className="flex items-center justify-between gap-3">
+            <div className="flex items-center gap-2 min-w-0 flex-1">
               <Checkbox
                 checked={isSelected}
                 onCheckedChange={() => toggleLeadSelection(lead.id)}
-                className="mt-1"
               />
-              <div>
-                <CardTitle className="text-base md:text-lg flex items-center gap-2">
-                  {getServiceName(lead.serviceType)}
+              <div className="min-w-0 flex-1">
+                <div className="flex items-center gap-1.5 flex-wrap">
+                  <CardTitle className="text-sm md:text-base leading-tight">
+                    {getServiceName(lead.serviceType)}
+                  </CardTitle>
                   {hasTimeDiscount && (
-                    <Badge variant="outline" className="text-primary border-primary">
+                    <Badge variant="outline" className="text-[10px] px-1.5 py-0 text-primary border-primary">
                       Price Reduced
                     </Badge>
                   )}
-                </CardTitle>
-                <CardDescription className="mt-1 flex items-center gap-2">
-                  <MapPin className="h-3 w-3" />
+                </div>
+                <CardDescription className="text-[11px] mt-0.5 flex items-center gap-1">
+                  <MapPin className="h-2.5 w-2.5" />
                   {lead.city} - {lead.propertyType.replace(/-/g, " ")}
                 </CardDescription>
               </div>
             </div>
-            <div className="flex items-center gap-2">
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={() => isWatched ? unwatchLeadMutation.mutate(lead.id) : watchLeadMutation.mutate(lead.id)}
-                title={isWatched ? "Remove from watchlist" : "Add to watchlist"}
-              >
-                {isWatched ? (
-                  <BookmarkCheck className="h-5 w-5 text-primary" />
-                ) : (
-                  <Bookmark className="h-5 w-5" />
-                )}
-              </Button>
-            </div>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="h-7 w-7 flex-shrink-0"
+              onClick={() => isWatched ? unwatchLeadMutation.mutate(lead.id) : watchLeadMutation.mutate(lead.id)}
+              title={isWatched ? "Remove from watchlist" : "Add to watchlist"}
+            >
+              {isWatched ? (
+                <BookmarkCheck className="h-4 w-4 text-primary" />
+              ) : (
+                <Bookmark className="h-4 w-4" />
+              )}
+            </Button>
           </div>
         </CardHeader>
-        <CardContent className="space-y-3 md:space-y-4">
-          <div className="grid grid-cols-2 gap-2 md:gap-4 text-sm">
-            <div className="flex items-center gap-2">
-              <DollarSign className="h-4 w-4 text-muted-foreground" />
+        <CardContent className="space-y-2">
+          <div className="grid grid-cols-2 gap-2 text-xs">
+            <div className="flex items-center gap-1.5">
+              <DollarSign className="h-3.5 w-3.5 text-muted-foreground flex-shrink-0" />
               <div>
-                <p className="font-medium">
-                  Project: {lead.finalQuote ? formatQuoteRangeWholeFromValue(lead.finalQuote, 0.15) : "Contact for quote"}
+                <p className="font-medium leading-tight">
+                  {lead.finalQuote ? formatQuoteRangeWholeFromValue(lead.finalQuote, 0.15) : "Contact for quote"}
                 </p>
-                <p className="text-muted-foreground text-xs">Estimated value</p>
+                <p className="text-muted-foreground text-[10px] leading-tight">Est. value</p>
               </div>
             </div>
-            <div className="flex items-center gap-2">
-              <Clock className="h-4 w-4 text-muted-foreground" />
+            <div className="flex items-center gap-1.5">
+              <Clock className="h-3.5 w-3.5 text-muted-foreground flex-shrink-0" />
               <div>
-                <p className="font-medium">{formatLeadAge(lead.createdAt)}</p>
-                <p className="text-muted-foreground text-xs">{lead.frequency || "One-time"} service</p>
+                <p className="font-medium leading-tight">
+                  {formatLeadAge(lead.createdAt)}
+                </p>
+                <p className="text-muted-foreground text-[10px] leading-tight">{lead.frequency || "One-time"} service</p>
               </div>
             </div>
           </div>
@@ -918,22 +920,22 @@ function SubcontractorPortalContent() {
             <Button
               variant="ghost"
               size="sm"
-              className="w-full justify-center gap-1 text-muted-foreground"
+              className="w-full justify-center gap-1 text-xs text-muted-foreground"
               onClick={() => setExpanded(!expanded)}
               data-testid={`button-toggle-lead-details-${lead.id}`}
             >
               {expanded ? "Hide details" : "Show details"}
-              <ChevronDown className={`h-4 w-4 transition-transform ${expanded ? 'rotate-180' : ''}`} />
+              <ChevronDown className={`h-3.5 w-3.5 transition-transform ${expanded ? 'rotate-180' : ''}`} />
             </Button>
           </div>
 
-          <div className={`${expanded ? 'block' : 'hidden'} md:block space-y-3 md:space-y-4`}>
+          <div className={`${expanded ? 'block' : 'hidden'} md:block space-y-2`}>
             {lead.selectedServices && lead.selectedServices.length > 0 && (
-              <div className="border-t pt-3 md:pt-4">
-                <p className="text-sm font-medium mb-2">Services Requested:</p>
-                <div className="flex flex-wrap gap-2">
+              <div className="border-t pt-2">
+                <p className="text-xs font-medium mb-1 text-muted-foreground">Services Requested</p>
+                <div className="flex flex-wrap gap-1">
                   {lead.selectedServices.map((serviceId, index) => (
-                    <Badge key={index} variant="outline" className="text-xs">
+                    <Badge key={index} variant="outline" className="text-[11px] px-1.5 py-0">
                       {getServiceName(serviceId)}
                     </Badge>
                   ))}
@@ -941,26 +943,24 @@ function SubcontractorPortalContent() {
               </div>
             )}
 
-            <div className="space-y-2 text-sm border-t pt-3 md:pt-4">
-              <div className="flex items-center gap-2 text-muted-foreground">
-                <Eye className="h-4 w-4" />
-                <span className="italic">Contact info revealed after purchase</span>
-              </div>
+            <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground border-t pt-2">
+              <Eye className="h-3 w-3" />
+              <span className="italic">Contact info revealed after purchase</span>
             </div>
 
             <QuoteBreakdownSection lead={lead} />
             <LeadPricingSection lead={lead} discount={isSelected ? discount : 0} />
           </div>
 
-          <div className="flex items-center justify-between pt-3 md:pt-4 border-t">
+          <div className="flex items-center justify-between pt-2 border-t">
             <div>
-              <p className="text-xl md:text-2xl font-bold text-primary">{formatCurrency(lead.currentLeadPrice)}</p>
+              <p className="text-lg md:text-xl font-bold text-primary">{formatCurrency(lead.currentLeadPrice)}</p>
               {hasTimeDiscount && (
-                <p className="text-sm text-muted-foreground line-through">{formatCurrency(lead.baseLeadPrice)}</p>
+                <p className="text-xs text-muted-foreground line-through">{formatCurrency(lead.baseLeadPrice)}</p>
               )}
             </div>
-            <Button onClick={() => handleSinglePurchase(lead)}>
-              <ShoppingCart className="mr-2 h-4 w-4" />
+            <Button size="sm" onClick={() => handleSinglePurchase(lead)}>
+              <ShoppingCart className="mr-1.5 h-3.5 w-3.5" />
               Purchase Lead
             </Button>
           </div>
