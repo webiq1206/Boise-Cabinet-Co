@@ -20,6 +20,7 @@ const quoteSubmissionSchema = z.object({
   selectedServices: z.array(z.string()).optional(),
   frequency: z.enum(["one-time", "weekly", "bi-weekly", "monthly"]).optional(),
   estimatedTotal: z.number().optional(),
+  serviceFrequencies: z.record(z.string(), z.string()).optional(),
   serviceData: z.record(z.string(), z.object({
     propertySize: z.number().optional(),
     linearFeet: z.number().optional(),
@@ -28,6 +29,7 @@ const quoteSubmissionSchema = z.object({
     hedgeLengthFt: z.number().optional(),
     treeCount: z.number().optional(),
     fixtureCount: z.number().optional(),
+    frequency: z.string().optional(),
   })).optional(),
 });
 
@@ -143,10 +145,10 @@ function calculateLeadPrice(params: {
   finalQuote: number;
   frequency: string;
   serviceType: string;
-  lineItems?: Array<{ serviceId?: string; service?: string; price?: number; adjustedPrice?: number }>;
+  serviceFrequencies?: Record<string, string>;
+  lineItems?: Array<{ serviceId?: string; service?: string; price?: number; adjustedPrice?: number; isRecurring?: boolean }>;
 }): { basePrice: number; currentPrice: number } {
-  const { finalQuote, frequency, serviceType, lineItems } = params;
-  const isRecurring = frequency && frequency !== "one-time";
+  const { finalQuote, frequency, serviceType, serviceFrequencies, lineItems } = params;
 
   let basePrice: number;
 
@@ -156,7 +158,8 @@ function calculateLeadPrice(params: {
     for (const item of lineItems) {
       const sid = item.serviceId || item.service || "";
       const itemPrice = item.price || item.adjustedPrice || 0;
-      if (isRecurring && RECURRING_ELIGIBLE_SERVICE_IDS.has(sid)) {
+      const itemIsRecurring = item.isRecurring ?? false;
+      if (itemIsRecurring && RECURRING_ELIGIBLE_SERVICE_IDS.has(sid)) {
         const fixedRate = RECURRING_LEAD_BASE_PRICES[sid] ?? 60;
         total += fixedRate;
         breakdown.push(`${sid}: $${fixedRate} (recurring fixed rate)`);
@@ -168,8 +171,9 @@ function calculateLeadPrice(params: {
     }
     basePrice = total;
     console.log("[QUOTE] Lead price breakdown:", breakdown.join(", "));
-    console.log("[QUOTE] Lead price subtotal:", total.toFixed(2), "frequency:", frequency);
+    console.log("[QUOTE] Lead price subtotal:", total.toFixed(2));
   } else {
+    const isRecurring = frequency && frequency !== "one-time";
     basePrice = isRecurring
       ? (RECURRING_LEAD_BASE_PRICES[serviceType] ?? 60)
       : finalQuote * 0.10;
@@ -192,6 +196,7 @@ export async function POST(request: Request) {
     const services = validatedData.selectedServices || validatedData.services || [];
     const primaryService = validatedData.serviceType || services[0] || "lawn-mowing";
     const frequency = validatedData.frequency || "one-time";
+    const serviceFrequencies = validatedData.serviceFrequencies || {};
     const propertyType = validatedData.propertyType || "residential";
 
     console.log("[QUOTE] Quote submission received:", {
@@ -233,11 +238,12 @@ export async function POST(request: Request) {
         const serviceList = services.length > 0 ? services : [primaryService];
         const enrichedLineItems = serviceList.map(sid => {
           const price = calculateServicePrice(sid, svcData[sid], fallbackSqFt, propertyMultiplier);
+          const svcFreq = serviceFrequencies[sid] || svcData[sid]?.frequency || frequency;
           return {
             serviceId: sid,
             serviceName: sid.replace(/-/g, " ").replace(/\b\w/g, (l: string) => l.toUpperCase()),
             price,
-            isRecurring: frequency !== "one-time" && RECURRING_ELIGIBLE_SERVICE_IDS.has(sid),
+            isRecurring: svcFreq !== "one-time" && RECURRING_ELIGIBLE_SERVICE_IDS.has(sid),
           };
         });
 
@@ -252,6 +258,7 @@ export async function POST(request: Request) {
           finalQuote: estimatedTotal,
           frequency,
           serviceType: primaryService,
+          serviceFrequencies,
           lineItems: enrichedLineItems,
         });
 

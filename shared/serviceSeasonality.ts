@@ -127,7 +127,7 @@ const SERVICE_SEASON_CONFIG: Record<string, ServiceSeasonConfig> = {
     maxFrequency: null,
   },
   "snow-removal": {
-    seasons: [{ startMonth: 11, startDay: 1, endMonth: 3, endDay: 31 }],
+    seasons: [{ startMonth: 11, startDay: 1, endMonth: 2, endDay: 28 }],
     nearSeasonBufferDays: 30,
     isRecurringEligible: false,
     maxFrequency: null,
@@ -346,6 +346,19 @@ export function getMaxFrequencyForServices(serviceIds: string[]): "weekly" | "bi
 export function hasAnyRecurringService(serviceIds: string[]): boolean {
   const eligible = getRecurringEligibleServices();
   return serviceIds.some(id => eligible.has(id));
+}
+
+export function getServiceMaxFrequency(serviceId: string): "weekly" | "bi-weekly" | "monthly" | null {
+  const config = SERVICE_SEASON_CONFIG[serviceId];
+  return config?.maxFrequency || null;
+}
+
+export function getServiceDefaultFrequency(serviceId: string): string {
+  const config = SERVICE_SEASON_CONFIG[serviceId];
+  if (!config?.isRecurringEligible) return "one-time";
+  if (config.maxFrequency === "weekly") return "bi-weekly";
+  if (config.maxFrequency === "monthly") return "monthly";
+  return "one-time";
 }
 
 export { SERVICE_SEASON_CONFIG };
