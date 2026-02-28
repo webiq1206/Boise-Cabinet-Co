@@ -41,9 +41,8 @@ interface LineItem {
 const RECURRING_ELIGIBLE_SERVICE_IDS = new Set<string>([
   "lawn-mowing",
   "lawn-maintenance",
-  "fertilization",
+  "hedge-trimming",
   "weed-control",
-  "irrigation-maintenance",
 ]);
 
 function isServiceRecurring(serviceId: string, frequency: string | null | undefined): boolean {
@@ -1078,7 +1077,7 @@ function SubcontractorPortalContent() {
                   <div className="space-y-1">
                     <h3 className="font-semibold" data-testid="text-how-it-works-pricing">How Pricing Works</h3>
                     <p className="text-sm text-muted-foreground">
-                      Lead pricing depends on the type of service. For one-time services (like sprinkler blowouts or cleanups), the lead price is approximately 10% of the estimated project value. For recurring services (like lawn mowing, fertilization, or weed control), leads are priced at a competitive fixed rate that reflects the total seasonal contract value, not just a single visit. Quotes with multiple services will have each service priced individually based on its type. The minimum lead price is $15.
+                      Lead pricing depends on the type of service. For one-time services (like sprinkler blowouts or cleanups), the lead price is approximately 10% of the estimated project value. For recurring services (lawn mowing, lawn maintenance, hedge trimming, and weed control), leads are priced at a competitive fixed rate that reflects the total seasonal contract value, not just a single visit. Quotes with multiple services will have each service priced individually based on its type. The minimum lead price is $15.
                     </p>
                     <p className="text-sm text-muted-foreground mt-2">
                       If a lead goes unclaimed, the price drops by about 1.5% each day. The price will never fall below 20% of its original value. So if you are patient, you may be able to pick up a great lead at a lower cost.

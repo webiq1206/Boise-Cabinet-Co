@@ -30,6 +30,12 @@ import {
 import { useMutation } from "@tanstack/react-query";
 import { useToast } from "@/hooks/use-toast";
 import { PRIORITY_SERVICES } from "@shared/contentData";
+import {
+  isServiceInSeason,
+  getServiceSeasonLabel,
+  getMaxFrequencyForServices,
+  hasAnyRecurringService,
+} from "@shared/serviceSeasonality";
 
 // Service intent categories with primary (auto-added) and upsell (suggested) services
 const SERVICE_INTENTS = [
@@ -328,26 +334,38 @@ export function SimpleQuoteWizard({
       return combined;
     });
     
-    // Set intelligent frequency default based on selected intents
-    // Only apply defaults if user hasn't manually changed the frequency
     if (!frequencyManuallySet) {
-      // Priority: prefer recurring frequencies (lawn-care, snow) over one-time
       const recurringIntents = selectedIntents.filter(
         id => INTENT_DEFAULT_FREQUENCIES[id] !== "one-time"
       );
       
       if (recurringIntents.length > 0) {
-        // Use the first recurring intent's default frequency
         const primaryRecurring = recurringIntents[0];
         setFrequency(INTENT_DEFAULT_FREQUENCIES[primaryRecurring] || "one-time");
       } else if (selectedIntents.length > 0) {
-        // All intents are one-time services
         setFrequency("one-time");
       }
     }
   }, [selectedIntents, frequencyManuallySet]);
+
+  // Auto-reset frequency when all recurring-eligible services are removed
+  useEffect(() => {
+    if (frequency !== "one-time" && !hasAnyRecurringService(selectedServices)) {
+      setFrequency("one-time");
+      setFrequencyManuallySet(false);
+    }
+  }, [selectedServices, frequency]);
   
-  // Get available upsell services based on selected intents
+  const now = new Date();
+
+  const inSeasonIntents = SERVICE_INTENTS.filter(intent =>
+    intent.primaryServices.some(s => isServiceInSeason(s, now))
+  );
+
+  const preselectedOutOfSeason = preselectedService && !isServiceInSeason(preselectedService, now);
+  const preselectedSeasonLabel = preselectedService ? getServiceSeasonLabel(preselectedService) : null;
+
+  // Get available upsell services based on selected intents (filtered by season)
   const getAvailableUpsells = () => {
     const upsells: { service: string; prompt: string; intentLabel: string }[] = [];
     
@@ -355,8 +373,7 @@ export function SimpleQuoteWizard({
       const intent = SERVICE_INTENTS.find(i => i.id === intentId);
       if (intent && intent.upsellServices.length > 0) {
         intent.upsellServices.forEach(s => {
-          // Only show upsell if not already selected
-          if (!selectedServices.includes(s)) {
+          if (!selectedServices.includes(s) && isServiceInSeason(s, now)) {
             upsells.push({
               service: s,
               prompt: intent.upsellPrompt,
@@ -369,6 +386,18 @@ export function SimpleQuoteWizard({
     
     return upsells;
   };
+
+  const maxFreq = getMaxFrequencyForServices(selectedServices);
+  const hasRecurring = hasAnyRecurringService(selectedServices);
+  const frequencyRank: Record<string, number> = { "weekly": 3, "bi-weekly": 2, "monthly": 1 };
+  const maxFreqRank = maxFreq ? (frequencyRank[maxFreq] || 0) : 0;
+
+  const availableFrequencyOptions = FREQUENCY_OPTIONS.filter(opt => {
+    if (opt.value === "one-time") return true;
+    if (!hasRecurring) return false;
+    const optRank = frequencyRank[opt.value] || 0;
+    return optRank <= maxFreqRank;
+  });
   
   // Calculate price range
   const getMeasurementsForPricing = (): ServiceMeasurements => {
@@ -434,6 +463,8 @@ export function SimpleQuoteWizard({
           };
           return acc;
         }, {} as Record<string, any>),
+
+        estimatedTotal: priceRange?.typical || undefined,
       };
       const response = await fetch("/api/quotes", {
         method: "POST",
@@ -661,9 +692,20 @@ export function SimpleQuoteWizard({
                 </p>
               </div>
               
+              {/* Out-of-season preselected service message */}
+              {preselectedOutOfSeason && (
+                <Alert variant="default" className="mb-4" data-testid="out-of-season-notice">
+                  <AlertCircle className="w-4 h-4" />
+                  <AlertDescription>
+                    This service is typically available {preselectedSeasonLabel || "seasonally"}.
+                    You can still request a quote and we will schedule it when the season begins.
+                  </AlertDescription>
+                </Alert>
+              )}
+
               {/* Intent chips */}
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-3" data-testid="intent-grid">
-                {SERVICE_INTENTS.map((intent) => {
+                {inSeasonIntents.map((intent) => {
                   const Icon = intent.icon;
                   const isSelected = selectedIntents.includes(intent.id);
                   return (
@@ -773,17 +815,23 @@ export function SimpleQuoteWizard({
                 
                 {showAllServices && (
                   <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-2 max-h-64 overflow-y-auto">
-                    {ALL_SERVICES.filter(s => !selectedServices.includes(s.id)).map((service) => (
-                      <button
-                        key={service.id}
-                        onClick={() => toggleService(service.id)}
-                        className="p-2 text-left text-sm rounded border border-muted hover:border-primary hover:bg-primary/5 transition-all"
-                        data-testid={`add-service-${service.id}`}
-                      >
-                        <Plus className="w-3 h-3 inline mr-1" />
-                        {service.name}
-                      </button>
-                    ))}
+                    {ALL_SERVICES.filter(s => !selectedServices.includes(s.id) && isServiceInSeason(s.id, now)).map((service) => {
+                      const seasonLabel = getServiceSeasonLabel(service.id);
+                      return (
+                        <button
+                          key={service.id}
+                          onClick={() => toggleService(service.id)}
+                          className="p-2 text-left text-sm rounded border border-muted hover:border-primary hover:bg-primary/5 transition-all"
+                          data-testid={`add-service-${service.id}`}
+                        >
+                          <Plus className="w-3 h-3 inline mr-1" />
+                          {service.name}
+                          {seasonLabel && (
+                            <span className="ml-1 text-xs text-muted-foreground">({seasonLabel})</span>
+                          )}
+                        </button>
+                      );
+                    })}
                   </div>
                 )}
               </CardContent>
@@ -795,8 +843,13 @@ export function SimpleQuoteWizard({
             <Card>
               <CardContent className="pt-6">
                 <h3 className="font-semibold mb-4">How often do you need service?</h3>
+                {!hasRecurring && (
+                  <p className="text-sm text-muted-foreground mb-3" data-testid="frequency-note">
+                    Frequency options are available when recurring services like lawn mowing are selected.
+                  </p>
+                )}
                 <div className="grid grid-cols-2 gap-3">
-                  {FREQUENCY_OPTIONS.map((option) => (
+                  {availableFrequencyOptions.map((option) => (
                     <button
                       key={option.value}
                       onClick={() => {

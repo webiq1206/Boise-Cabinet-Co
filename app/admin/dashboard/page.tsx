@@ -41,9 +41,8 @@ interface LineItem {
 const RECURRING_ELIGIBLE_SERVICE_IDS = new Set<string>([
   "lawn-mowing",
   "lawn-maintenance",
-  "fertilization",
+  "hedge-trimming",
   "weed-control",
-  "irrigation-maintenance",
 ]);
 
 function isServiceRecurring(serviceId: string, frequency: string | null | undefined): boolean {

@@ -4,6 +4,7 @@ import { db } from "@/lib/db";
 import { quotes, leads, users, notifications, siteSettings } from "@/shared/schema";
 import { eq } from "drizzle-orm";
 import { sendQuoteConfirmationEmail, sendAdminNotificationEmail } from "@/lib/resend";
+import { getRecurringEligibleServices, getRecurringLeadPrices } from "@shared/serviceSeasonality";
 
 const quoteSubmissionSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -34,32 +35,109 @@ function roundToNearestFive(price: number): number {
   return Math.ceil(price / 5) * 5;
 }
 
-const RECURRING_ELIGIBLE_SERVICE_IDS = new Set<string>([
-  "lawn-mowing",
-  "lawn-maintenance",
-  "fertilization",
-  "weed-control",
-  "irrigation-maintenance",
-]);
+const RECURRING_ELIGIBLE_SERVICE_IDS = getRecurringEligibleServices();
+const RECURRING_LEAD_BASE_PRICES = getRecurringLeadPrices();
 
-const RECURRING_LEAD_BASE_PRICES: Record<string, number> = {
-  "lawn-mowing": 45,
-  "lawn-care": 50,
-  "lawn-maintenance": 50,
-  "fertilization": 60,
-  "aeration": 75,
-  "weed-control": 55,
-  "tree-trimming": 85,
-  "hedge-trimming": 65,
-  "landscaping": 80,
-  "mulching": 70,
-  "mulch-installation": 70,
-  "seasonal-cleanup": 90,
-  "spring-cleanup": 90,
-  "fall-cleanup": 90,
-  "christmas-light-installation": 150,
-  "irrigation-maintenance": 65,
+const SERVICE_PRICING_RATES: Record<string, { lowRate: number; highRate: number; unit: string; minimum: number; includedZones?: number }> = {
+  "lawn-mowing": { lowRate: 0.00625, highRate: 0.010, unit: "sqft", minimum: 35 },
+  "aeration": { lowRate: 0.0125, highRate: 0.018, unit: "sqft", minimum: 75 },
+  "fertilization": { lowRate: 0.005, highRate: 0.008, unit: "sqft", minimum: 50 },
+  "weed-control": { lowRate: 0.00375, highRate: 0.006, unit: "sqft", minimum: 50 },
+  "overseeding": { lowRate: 0.0125, highRate: 0.030, unit: "sqft", minimum: 100 },
+  "dethatching": { lowRate: 0.0125, highRate: 0.020, unit: "sqft", minimum: 100 },
+  "sod-installation": { lowRate: 1.25, highRate: 2.00, unit: "sqft", minimum: 500 },
+  "lawn-renovation": { lowRate: 0.0625, highRate: 0.100, unit: "sqft", minimum: 500 },
+  "lawn-edging": { lowRate: 0.625, highRate: 1.50, unit: "linear_ft", minimum: 50 },
+  "christmas-light-installation": { lowRate: 3.125, highRate: 7.00, unit: "linear_ft", minimum: 400 },
+  "landscape-lighting": { lowRate: 187.50, highRate: 350.00, unit: "per_fixture", minimum: 500 },
+  "sprinkler-blowout": { lowRate: 12.50, highRate: 15.00, unit: "per_zone", minimum: 50, includedZones: 5 },
+  "sprinkler-repair": { lowRate: 85.00, highRate: 150.00, unit: "base_service", minimum: 85 },
+  "sprinkler-system-installation": { lowRate: 0.50, highRate: 0.80, unit: "sqft", minimum: 2000 },
+  "irrigation-repair": { lowRate: 85.00, highRate: 150.00, unit: "base_service", minimum: 85 },
+  "irrigation-maintenance": { lowRate: 12.50, highRate: 15.00, unit: "per_zone", minimum: 65 },
+  "patio-installation": { lowRate: 12.50, highRate: 24.00, unit: "per_sqft", minimum: 1500 },
+  "retaining-walls": { lowRate: 25.00, highRate: 50.00, unit: "per_sqft", minimum: 1000 },
+  "fire-pit-installation": { lowRate: 500.00, highRate: 2500.00, unit: "base_project", minimum: 500 },
+  "fence": { lowRate: 25.00, highRate: 45.00, unit: "linear_ft", minimum: 1000 },
+  "tree-removal": { lowRate: 625.00, highRate: 1000.00, unit: "per_tree", minimum: 500 },
+  "tree-trimming": { lowRate: 250.00, highRate: 450.00, unit: "per_tree", minimum: 200 },
+  "stump-grinding": { lowRate: 3.75, highRate: 5.00, unit: "per_inch", minimum: 100 },
+  "hedge-trimming": { lowRate: 6.25, highRate: 15.00, unit: "per_shrub", minimum: 50 },
+  "spring-cleanup": { lowRate: 0.0125, highRate: 0.025, unit: "sqft", minimum: 150 },
+  "fall-cleanup": { lowRate: 0.01875, highRate: 0.030, unit: "sqft", minimum: 175 },
+  "seasonal-cleanup": { lowRate: 0.0125, highRate: 0.025, unit: "sqft", minimum: 150 },
+  "mulch-installation": { lowRate: 87.50, highRate: 110.00, unit: "per_cubic_yard", minimum: 150 },
+  "snow-removal": { lowRate: 50.00, highRate: 90.00, unit: "base_service", minimum: 40 },
+  "gutter-cleaning": { lowRate: 1.25, highRate: 2.00, unit: "linear_ft", minimum: 75 },
+  "lawn-maintenance": { lowRate: 0.010, highRate: 0.018, unit: "sqft", minimum: 50 },
 };
+
+const PROPERTY_MULTIPLIERS: Record<string, number> = {
+  residential: 1.0,
+  commercial: 1.3,
+  hoa: 1.2,
+  "property-management": 1.25,
+};
+
+function calculateServicePrice(
+  serviceId: string,
+  serviceData: { propertySize?: number; linearFeet?: number; zones?: number; perimeterFt?: number; hedgeLengthFt?: number; treeCount?: number; fixtureCount?: number } | undefined,
+  fallbackSqFt: number,
+  propertyMultiplier: number
+): number {
+  const config = SERVICE_PRICING_RATES[serviceId];
+  if (!config) return 200;
+
+  const typicalRate = (config.lowRate + config.highRate) / 2;
+  const sqft = serviceData?.propertySize || fallbackSqFt || 5000;
+  const linearFeet = serviceData?.linearFeet || serviceData?.perimeterFt || Math.round(Math.sqrt(Math.max(1, sqft)) * 4 * 0.6);
+  const zones = serviceData?.zones || 6;
+
+  let cost = 0;
+  switch (config.unit) {
+    case "sqft":
+      cost = sqft * typicalRate;
+      break;
+    case "linear_ft":
+      cost = linearFeet * typicalRate;
+      break;
+    case "per_zone": {
+      const included = config.includedZones || 5;
+      cost = Math.max(included, zones) * typicalRate;
+      break;
+    }
+    case "per_tree":
+      cost = (serviceData?.treeCount || 1) * typicalRate;
+      break;
+    case "per_shrub": {
+      const shrubEstimate = serviceData?.hedgeLengthFt ? Math.max(1, Math.round(serviceData.hedgeLengthFt / 4)) : 5;
+      cost = shrubEstimate * typicalRate;
+      break;
+    }
+    case "per_fixture":
+      cost = (serviceData?.fixtureCount || 10) * typicalRate;
+      break;
+    case "per_cubic_yard":
+      cost = 3 * typicalRate;
+      break;
+    case "per_sqft":
+      cost = (sqft * 0.02) * typicalRate;
+      break;
+    case "per_inch":
+      cost = 12 * typicalRate;
+      break;
+    case "base_service":
+    case "base_project":
+      cost = typicalRate;
+      break;
+    default:
+      cost = config.minimum;
+  }
+
+  cost = Math.max(config.minimum, cost);
+  cost *= propertyMultiplier;
+  return roundToNearestFive(cost);
+}
 
 function calculateLeadPrice(params: {
   finalQuote: number;
@@ -74,16 +152,23 @@ function calculateLeadPrice(params: {
 
   if (lineItems && lineItems.length > 0) {
     let total = 0;
+    const breakdown: string[] = [];
     for (const item of lineItems) {
       const sid = item.serviceId || item.service || "";
       const itemPrice = item.price || item.adjustedPrice || 0;
       if (isRecurring && RECURRING_ELIGIBLE_SERVICE_IDS.has(sid)) {
-        total += RECURRING_LEAD_BASE_PRICES[sid] ?? 60;
+        const fixedRate = RECURRING_LEAD_BASE_PRICES[sid] ?? 60;
+        total += fixedRate;
+        breakdown.push(`${sid}: $${fixedRate} (recurring fixed rate)`);
       } else {
-        total += itemPrice * 0.10;
+        const leadCost = itemPrice * 0.10;
+        total += leadCost;
+        breakdown.push(`${sid}: $${leadCost.toFixed(2)} (10% of $${itemPrice.toFixed(2)})`);
       }
     }
     basePrice = total;
+    console.log("[QUOTE] Lead price breakdown:", breakdown.join(", "));
+    console.log("[QUOTE] Lead price subtotal:", total.toFixed(2), "frequency:", frequency);
   } else {
     basePrice = isRecurring
       ? (RECURRING_LEAD_BASE_PRICES[serviceType] ?? 60)
@@ -141,22 +226,27 @@ export async function POST(request: Request) {
         quoteId = savedQuote.id;
         console.log("[QUOTE] Quote saved to database:", quoteId);
 
-        const estimatedTotal = validatedData.estimatedTotal || 200;
+        const propertyMultiplier = PROPERTY_MULTIPLIERS[propertyType] || 1.0;
+        const fallbackSqFt = validatedData.propertySize || 5000;
+        const svcData = validatedData.serviceData || {};
 
-        const perServicePrice = services.length > 0 ? estimatedTotal / services.length : estimatedTotal;
-        const enrichedLineItems = services.length > 0
-          ? services.map(sid => ({
-              serviceId: sid,
-              serviceName: sid.replace(/-/g, " ").replace(/\b\w/g, (l: string) => l.toUpperCase()),
-              price: Math.round(perServicePrice * 100) / 100,
-              isRecurring: frequency !== "one-time" && RECURRING_ELIGIBLE_SERVICE_IDS.has(sid),
-            }))
-          : [{
-              serviceId: primaryService,
-              serviceName: primaryService.replace(/-/g, " ").replace(/\b\w/g, (l: string) => l.toUpperCase()),
-              price: estimatedTotal,
-              isRecurring: frequency !== "one-time" && RECURRING_ELIGIBLE_SERVICE_IDS.has(primaryService),
-            }];
+        const serviceList = services.length > 0 ? services : [primaryService];
+        const enrichedLineItems = serviceList.map(sid => {
+          const price = calculateServicePrice(sid, svcData[sid], fallbackSqFt, propertyMultiplier);
+          return {
+            serviceId: sid,
+            serviceName: sid.replace(/-/g, " ").replace(/\b\w/g, (l: string) => l.toUpperCase()),
+            price,
+            isRecurring: frequency !== "one-time" && RECURRING_ELIGIBLE_SERVICE_IDS.has(sid),
+          };
+        });
+
+        const estimatedTotal = enrichedLineItems.reduce((sum, item) => sum + item.price, 0);
+        const clientEstimate = validatedData.estimatedTotal;
+        if (clientEstimate) {
+          console.log("[QUOTE] Client estimate:", clientEstimate.toFixed(2), "Server estimate:", estimatedTotal.toFixed(2));
+        }
+        console.log("[QUOTE] Per-service prices:", enrichedLineItems.map(i => `${i.serviceId}: $${i.price}`).join(", "));
 
         const { basePrice, currentPrice } = calculateLeadPrice({
           finalQuote: estimatedTotal,

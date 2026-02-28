@@ -1,17 +1,11 @@
 import { storage } from "../storage";
 import type { Lead } from "@shared/schema";
+import { getRecurringEligibleServices, getRecurringLeadPrices } from "@shared/serviceSeasonality";
 
-/**
- * Round price UP to nearest $5 or $0
- * Examples: $147 → $150, $143 → $145, $152 → $155, $198 → $200
- */
 function roundToNearestFive(price: number): number {
   return Math.ceil(price / 5) * 5;
 }
 
-/**
- * Round price DOWN to nearest $5 or $0 (useful for discounts/price drops)
- */
 function roundDownToNearestFive(price: number): number {
   return Math.floor(price / 5) * 5;
 }
@@ -26,32 +20,8 @@ function parsePrice(value: unknown, fallback = 0): number {
   return Number.isFinite(n) ? n : fallback;
 }
 
-const RECURRING_ELIGIBLE_SERVICE_IDS = new Set<string>([
-  "lawn-mowing",
-  "lawn-maintenance",
-  "fertilization",
-  "weed-control",
-  "irrigation-maintenance",
-]);
-
-const RECURRING_LEAD_BASE_PRICES: Record<string, number> = {
-  "lawn-mowing": 45,
-  "lawn-care": 50,
-  "lawn-maintenance": 50,
-  "fertilization": 60,
-  "aeration": 75,
-  "weed-control": 55,
-  "tree-trimming": 85,
-  "hedge-trimming": 65,
-  "landscaping": 80,
-  "mulching": 70,
-  "mulch-installation": 70,
-  "seasonal-cleanup": 90,
-  "spring-cleanup": 90,
-  "fall-cleanup": 90,
-  "christmas-light-installation": 150,
-  "irrigation-maintenance": 65,
-};
+const RECURRING_ELIGIBLE_SERVICE_IDS = getRecurringEligibleServices();
+const RECURRING_LEAD_BASE_PRICES = getRecurringLeadPrices();
 
 export function calculateLeadPrice(params: {
   finalQuote: number;
