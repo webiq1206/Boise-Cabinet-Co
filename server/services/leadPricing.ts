@@ -27,10 +27,10 @@ export function calculateLeadPrice(params: {
   finalQuote: number;
   frequency: string;
   serviceType: string;
-  lineItems?: Array<{ serviceId?: string; service?: string; price?: number; adjustedPrice?: number }>;
+  serviceFrequencies?: Record<string, string>;
+  lineItems?: Array<{ serviceId?: string; service?: string; price?: number; adjustedPrice?: number; isRecurring?: boolean }>;
 }): { basePrice: number; currentPrice: number } {
-  const { finalQuote, frequency, serviceType, lineItems } = params;
-  const isRecurring = frequency && frequency !== "one-time";
+  const { finalQuote, frequency, serviceType, serviceFrequencies, lineItems } = params;
 
   let basePrice: number;
 
@@ -39,7 +39,12 @@ export function calculateLeadPrice(params: {
     for (const item of lineItems) {
       const sid = item.serviceId || item.service || "";
       const itemPrice = item.price || item.adjustedPrice || 0;
-      if (isRecurring && RECURRING_ELIGIBLE_SERVICE_IDS.has(sid)) {
+      const itemIsRecurring = item.isRecurring ?? (
+        serviceFrequencies
+          ? (serviceFrequencies[sid] && serviceFrequencies[sid] !== "one-time")
+          : (frequency && frequency !== "one-time")
+      );
+      if (itemIsRecurring && RECURRING_ELIGIBLE_SERVICE_IDS.has(sid)) {
         total += RECURRING_LEAD_BASE_PRICES[sid] ?? 60;
       } else {
         total += itemPrice * 0.10;
@@ -47,6 +52,7 @@ export function calculateLeadPrice(params: {
     }
     basePrice = total;
   } else {
+    const isRecurring = frequency && frequency !== "one-time";
     basePrice = isRecurring
       ? (RECURRING_LEAD_BASE_PRICES[serviceType] ?? 60)
       : finalQuote * 0.10;

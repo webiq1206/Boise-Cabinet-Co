@@ -262,7 +262,8 @@ export function calculateTotalPriceRange(
   serviceData: Record<string, ServiceMeasurements>,
   sharedMeasurements: ServiceMeasurements,
   propertyType: string = "residential",
-  frequency: string = "one-time"
+  frequency: string = "one-time",
+  serviceFrequencies?: Record<string, string>
 ): TotalPriceRange {
   const breakdown: PriceRangeResult[] = [];
   let totalMin = 0;
@@ -270,7 +271,6 @@ export function calculateTotalPriceRange(
   let totalTypical = 0;
 
   for (const serviceId of selectedServices) {
-    // Get service-specific measurements or fall back to shared
     const serviceMeasurements = serviceData[serviceId] || {};
     const measurements: ServiceMeasurements = {
       propertySize: serviceMeasurements.propertySize || sharedMeasurements.propertySize,
@@ -281,7 +281,8 @@ export function calculateTotalPriceRange(
       lightingType: serviceMeasurements.lightingType,
     };
 
-    const range = calculateServicePriceRange(serviceId, measurements, propertyType, frequency);
+    const svcFreq = serviceFrequencies?.[serviceId] || frequency;
+    const range = calculateServicePriceRange(serviceId, measurements, propertyType, svcFreq);
     if (range) {
       breakdown.push(range);
       totalMin += range.min;

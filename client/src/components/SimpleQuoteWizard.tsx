@@ -422,7 +422,8 @@ export function SimpleQuoteWizard({
     {},
     getMeasurementsForPricing(),
     propertyType,
-    getPrimaryFrequency()
+    "one-time",
+    serviceFrequencies
   );
   
   // Toast hook

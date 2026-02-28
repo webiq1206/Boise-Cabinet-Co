@@ -32,6 +32,12 @@ import {
 import { useMutation } from "@tanstack/react-query";
 import { useToast } from "@/hooks/use-toast";
 import { PRIORITY_SERVICES } from "@/shared/contentData";
+import {
+  getRecurringEligibleServices,
+  getServiceMaxFrequency,
+  getServiceDefaultFrequency,
+  hasAnyRecurringService,
+} from "@/shared/serviceSeasonality";
 
 // Service intent categories with primary (auto-added) and upsell (suggested) services
 const SERVICE_INTENTS = [
@@ -111,16 +117,6 @@ const FREQUENCY_OPTIONS = [
   { value: "bi-weekly", label: "Every 2 Weeks", description: "10% discount" },
   { value: "weekly", label: "Weekly", description: "15% discount" },
 ];
-
-// Default frequency by intent
-const INTENT_DEFAULT_FREQUENCIES: Record<string, string> = {
-  "lawn-care": "bi-weekly",
-  "snow": "monthly",
-  "cleanup": "one-time",
-  "irrigation": "one-time",
-  "lighting": "one-time",
-  "landscaping": "one-time",
-};
 
 // Contact form schema
 const contactSchema = z.object({
@@ -220,9 +216,10 @@ export function SimpleQuoteWizard({
   const [selectedServices, setSelectedServices] = useState<string[]>(
     preselectedService ? [preselectedService] : []
   );
-  const [frequency, setFrequency] = useState("one-time");
-  const [frequencyManuallySet, setFrequencyManuallySet] = useState(false);
+  const [serviceFrequencies, setServiceFrequencies] = useState<Record<string, string>>({});
   const [showAllServices, setShowAllServices] = useState(false);
+
+  const RECURRING_ELIGIBLE = getRecurringEligibleServices();
   
   // Submission state
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -283,7 +280,7 @@ export function SimpleQuoteWizard({
     }
   };
   
-  // Update selected services when intents change
+  // Update selected services when intents change, and auto-assign default frequencies
   useEffect(() => {
     if (selectedIntents.length === 0) return;
     
@@ -308,20 +305,30 @@ export function SimpleQuoteWizard({
       });
       return combined;
     });
-    
-    if (!frequencyManuallySet) {
-      const recurringIntents = selectedIntents.filter(
-        id => INTENT_DEFAULT_FREQUENCIES[id] !== "one-time"
-      );
-      
-      if (recurringIntents.length > 0) {
-        const primaryRecurring = recurringIntents[0];
-        setFrequency(INTENT_DEFAULT_FREQUENCIES[primaryRecurring] || "one-time");
-      } else if (selectedIntents.length > 0) {
-        setFrequency("one-time");
+
+    setServiceFrequencies(prev => {
+      const updated = { ...prev };
+      for (const s of primaryServices) {
+        if (RECURRING_ELIGIBLE.has(s) && !updated[s]) {
+          updated[s] = getServiceDefaultFrequency(s);
+        }
       }
-    }
-  }, [selectedIntents, frequencyManuallySet]);
+      return updated;
+    });
+  }, [selectedIntents]);
+
+  // Clean up frequencies when services are removed
+  useEffect(() => {
+    setServiceFrequencies(prev => {
+      const updated: Record<string, string> = {};
+      for (const sid of selectedServices) {
+        if (RECURRING_ELIGIBLE.has(sid)) {
+          updated[sid] = prev[sid] || getServiceDefaultFrequency(sid);
+        }
+      }
+      return updated;
+    });
+  }, [selectedServices]);
   
   // Get available upsell services
   const getAvailableUpsells = () => {
@@ -345,6 +352,32 @@ export function SimpleQuoteWizard({
     return upsells;
   };
   
+  const hasRecurring = hasAnyRecurringService(selectedServices);
+
+  const getPrimaryFrequency = (): string => {
+    const freqs = Object.values(serviceFrequencies);
+    const recurring = freqs.filter(f => f !== "one-time");
+    if (recurring.length === 0) return "one-time";
+    const counts: Record<string, number> = {};
+    for (const f of recurring) {
+      counts[f] = (counts[f] || 0) + 1;
+    }
+    return Object.entries(counts).sort((a, b) => b[1] - a[1])[0][0];
+  };
+
+  const getFrequencyOptionsForService = (serviceId: string) => {
+    const maxFreq = getServiceMaxFrequency(serviceId);
+    if (!maxFreq) return [];
+    const rank: Record<string, number> = { weekly: 3, "bi-weekly": 2, monthly: 1 };
+    const maxRank = rank[maxFreq] || 0;
+    return FREQUENCY_OPTIONS.filter(opt => {
+      if (opt.value === "one-time") return true;
+      return (rank[opt.value] || 0) <= maxRank;
+    });
+  };
+
+  const recurringCount = Object.values(serviceFrequencies).filter(f => f !== "one-time").length;
+
   // Calculate price range
   const getMeasurementsForPricing = (): ServiceMeasurements => {
     if (!measurementBundle) return {};
@@ -360,7 +393,8 @@ export function SimpleQuoteWizard({
     {},
     getMeasurementsForPricing(),
     propertyType,
-    frequency
+    "one-time",
+    serviceFrequencies
   );
   
   const { toast } = useToast();
@@ -384,7 +418,8 @@ export function SimpleQuoteWizard({
         propertyType: propertyType || "residential",
         serviceType: primaryService,
         selectedServices,
-        frequency: frequency || "one-time",
+        frequency: getPrimaryFrequency(),
+        serviceFrequencies,
         propertySize: measurementBundle?.lawnAreaSqFt || 5000,
         serviceData: selectedServices.reduce((acc, serviceId) => {
           acc[serviceId] = {
@@ -393,6 +428,7 @@ export function SimpleQuoteWizard({
             zones: measurementBundle?.estimatedZones,
             perimeterFt: measurementBundle?.lotPerimeterFt,
             hedgeLengthFt: measurementBundle?.estimatedHedgeFt,
+            frequency: serviceFrequencies[serviceId] || "one-time",
           };
           return acc;
         }, {} as Record<string, any>),
@@ -667,25 +703,49 @@ export function SimpleQuoteWizard({
                   {selectedServices.map((serviceId) => {
                     const service = ALL_SERVICES.find(s => s.id === serviceId);
                     if (!service) return null;
+                    const isRecurringEligible = RECURRING_ELIGIBLE.has(serviceId);
+                    const freqOptions = isRecurringEligible ? getFrequencyOptionsForService(serviceId) : [];
+                    const currentFreq = serviceFrequencies[serviceId] || "one-time";
                     return (
                       <div 
                         key={serviceId}
-                        className="flex items-center justify-between p-3 bg-muted/50 rounded-lg"
+                        className="p-3 bg-muted/50 rounded-lg"
                         data-testid={`selected-service-${serviceId}`}
                       >
-                        <div className="flex items-center gap-2">
-                          <Check className="w-4 h-4 text-primary" />
-                          <span className="font-medium">{service.name}</span>
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-2">
+                            <Check className="w-4 h-4 text-primary" />
+                            <span className="font-medium">{service.name}</span>
+                          </div>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => toggleService(serviceId)}
+                            className="text-muted-foreground hover:text-destructive"
+                            data-testid={`remove-service-${serviceId}`}
+                          >
+                            <X className="w-4 h-4" />
+                          </Button>
                         </div>
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          onClick={() => toggleService(serviceId)}
-                          className="text-muted-foreground hover:text-destructive"
-                          data-testid={`remove-service-${serviceId}`}
-                        >
-                          <X className="w-4 h-4" />
-                        </Button>
+                        {isRecurringEligible && freqOptions.length > 0 && (
+                          <div className="mt-2 flex flex-wrap gap-1.5" data-testid={`frequency-selector-${serviceId}`}>
+                            {freqOptions.map(opt => (
+                              <button
+                                type="button"
+                                key={opt.value}
+                                onClick={() => setServiceFrequencies(prev => ({ ...prev, [serviceId]: opt.value }))}
+                                className={`px-2.5 py-1 text-xs rounded-md border transition-all ${
+                                  currentFreq === opt.value
+                                    ? "border-primary bg-primary/10 text-primary font-medium"
+                                    : "border-muted text-muted-foreground hover:border-primary/50"
+                                }`}
+                                data-testid={`frequency-${serviceId}-${opt.value}`}
+                              >
+                                {opt.label}
+                              </button>
+                            ))}
+                          </div>
+                        )}
                       </div>
                     );
                   })}
@@ -750,40 +810,15 @@ export function SimpleQuoteWizard({
           )}
           
           {selectedServices.length > 0 && (
-            <Card>
-              <CardContent className="pt-6">
-                <h3 className="font-semibold mb-4">How often do you need service?</h3>
-                <div className="grid grid-cols-2 gap-3">
-                  {FREQUENCY_OPTIONS.map((option) => (
-                    <button
-                      key={option.value}
-                      onClick={() => {
-                        setFrequency(option.value);
-                        setFrequencyManuallySet(true);
-                      }}
-                      className={`p-3 rounded-lg border-2 text-left transition-all ${
-                        frequency === option.value
-                          ? "border-primary bg-primary/10"
-                          : "border-muted hover:border-primary/50"
-                      }`}
-                      data-testid={`frequency-${option.value}`}
-                    >
-                      <div className="font-medium">{option.label}</div>
-                      <div className="text-xs text-muted-foreground">{option.description}</div>
-                    </button>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          )}
-          
-          {selectedServices.length > 0 && (
             <div className="sticky bottom-0 bg-background/95 backdrop-blur border-t p-4">
-              <div className="flex items-center justify-between">
+              <div className="flex items-center justify-between gap-2">
                 <div>
-                  <div className="text-sm text-muted-foreground">{selectedServices.length} service{selectedServices.length > 1 ? 's' : ''} selected</div>
-                  <div className="text-base font-medium text-foreground">
-                    {frequency !== "one-time" ? `${frequency} service` : "One-time service"}
+                  <div className="text-sm text-muted-foreground" data-testid="footer-service-summary">
+                    {selectedServices.length} service{selectedServices.length !== 1 ? "s" : ""}
+                    {recurringCount > 0 ? `, ${recurringCount} recurring` : ""}
+                  </div>
+                  <div className="text-2xl font-bold text-primary" data-testid="price-range">
+                    {formatPriceRange(priceRange.min, priceRange.max)}
                   </div>
                 </div>
                 <Button 
@@ -825,10 +860,19 @@ export function SimpleQuoteWizard({
                     <div className="space-y-1">
                       {selectedServices.map((serviceId) => {
                         const service = ALL_SERVICES.find(s => s.id === serviceId);
+                        const freq = serviceFrequencies[serviceId];
+                        const freqLabel = freq && freq !== "one-time"
+                          ? FREQUENCY_OPTIONS.find(o => o.value === freq)?.label || freq
+                          : null;
                         return (
-                          <div key={serviceId} className="flex items-center gap-2 text-sm">
-                            <Check className="w-4 h-4 text-primary" />
-                            <span>{service?.name || serviceId}</span>
+                          <div key={serviceId} className="flex items-center justify-between text-sm" data-testid={`review-service-${serviceId}`}>
+                            <div className="flex items-center gap-2">
+                              <Check className="w-4 h-4 text-primary" />
+                              <span>{service?.name || serviceId}</span>
+                            </div>
+                            {freqLabel && (
+                              <Badge variant="secondary" className="text-xs">{freqLabel}</Badge>
+                            )}
                           </div>
                         );
                       })}
@@ -836,13 +880,15 @@ export function SimpleQuoteWizard({
                   </div>
                   
                   <div className="p-4 bg-primary/10 rounded-lg text-center">
-                    <div className="text-sm text-muted-foreground">Service Frequency</div>
-                    <div className="text-lg font-semibold text-primary">
-                      {frequency === "one-time" ? "One-Time Service" : frequency === "weekly" ? "Weekly Service" : frequency === "bi-weekly" ? "Every 2 Weeks" : "Monthly Service"}
+                    <div className="text-sm text-muted-foreground">Estimated Price Range</div>
+                    <div className="text-3xl font-bold text-primary">
+                      {formatPriceRange(priceRange.min, priceRange.max)}
                     </div>
-                    <div className="text-xs text-muted-foreground mt-1">
-                      Price estimate will be provided after submission
-                    </div>
+                    {recurringCount > 0 && (
+                      <div className="text-xs text-muted-foreground mt-1">
+                        {recurringCount} recurring service{recurringCount !== 1 ? "s" : ""} included
+                      </div>
+                    )}
                   </div>
                 </CardContent>
               </Card>
@@ -947,9 +993,11 @@ export function SimpleQuoteWizard({
                   <div className="text-3xl font-bold text-primary">
                     {formatPriceRange(priceRange.min, priceRange.max)}
                   </div>
-                  <div className="text-xs text-muted-foreground mt-1">
-                    {frequency !== "one-time" ? `per visit (${frequency})` : "one-time service"}
-                  </div>
+                  {recurringCount > 0 && (
+                    <div className="text-xs text-muted-foreground mt-1">
+                      {recurringCount} recurring service{recurringCount !== 1 ? "s" : ""} included
+                    </div>
+                  )}
                 </div>
                 
                 <div className="mb-4 p-3 bg-muted/50 rounded-lg">
@@ -957,10 +1005,19 @@ export function SimpleQuoteWizard({
                   <div className="space-y-1">
                     {selectedServices.map((serviceId) => {
                       const service = ALL_SERVICES.find(s => s.id === serviceId);
+                      const freq = serviceFrequencies[serviceId];
+                      const freqLabel = freq && freq !== "one-time"
+                        ? FREQUENCY_OPTIONS.find(o => o.value === freq)?.label || freq
+                        : null;
                       return (
-                        <div key={serviceId} className="flex items-center gap-2 text-sm">
-                          <Check className="w-4 h-4 text-primary" />
-                          <span>{service?.name || serviceId}</span>
+                        <div key={serviceId} className="flex items-center justify-between text-sm">
+                          <div className="flex items-center gap-2">
+                            <Check className="w-4 h-4 text-primary" />
+                            <span>{service?.name || serviceId}</span>
+                          </div>
+                          {freqLabel && (
+                            <Badge variant="secondary" className="text-xs">{freqLabel}</Badge>
+                          )}
                         </div>
                       );
                     })}
@@ -983,8 +1040,7 @@ export function SimpleQuoteWizard({
                     setSelectedIntents([]);
                     setMeasurementBundle(null);
                     setAddress("");
-                    setFrequency("one-time");
-                    setFrequencyManuallySet(false);
+                    setServiceFrequencies({});
                     contactForm.reset();
                   }}
                   data-testid="button-new-quote"
