@@ -851,6 +851,7 @@ function SubcontractorPortalContent() {
     const currentPrice = parseFloat(lead.currentLeadPrice || "0");
     const basePrice = parseFloat(lead.baseLeadPrice || "0");
     const hasTimeDiscount = currentPrice < basePrice;
+    const [expanded, setExpanded] = useState(false);
 
     return (
       <Card className={`overflow-hidden transition-all ${isSelected ? 'ring-2 ring-primary' : ''}`} id={`lead-${lead.id}`}>
@@ -873,7 +874,7 @@ function SubcontractorPortalContent() {
                 </CardTitle>
                 <CardDescription className="mt-1 flex items-center gap-2">
                   <MapPin className="h-3 w-3" />
-                  {lead.city} • {lead.propertyType.replace(/-/g, " ")}
+                  {lead.city} - {lead.propertyType.replace(/-/g, " ")}
                 </CardDescription>
               </div>
             </div>
@@ -913,29 +914,43 @@ function SubcontractorPortalContent() {
             </div>
           </div>
 
-          {lead.selectedServices && lead.selectedServices.length > 0 && (
-            <div className="border-t pt-3 md:pt-4">
-              <p className="text-sm font-medium mb-2">Services Requested:</p>
-              <div className="flex flex-wrap gap-2">
-                {lead.selectedServices.map((serviceId, index) => (
-                  <Badge key={index} variant="outline" className="text-xs">
-                    {getServiceName(serviceId)}
-                  </Badge>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Contact info is masked */}
-          <div className="space-y-2 text-sm border-t pt-3 md:pt-4">
-            <div className="flex items-center gap-2 text-muted-foreground">
-              <Eye className="h-4 w-4" />
-              <span className="italic">Contact info revealed after purchase</span>
-            </div>
+          <div className="md:hidden">
+            <Button
+              variant="ghost"
+              size="sm"
+              className="w-full justify-center gap-1 text-muted-foreground"
+              onClick={() => setExpanded(!expanded)}
+              data-testid={`button-toggle-lead-details-${lead.id}`}
+            >
+              {expanded ? "Hide details" : "Show details"}
+              <ChevronDown className={`h-4 w-4 transition-transform ${expanded ? 'rotate-180' : ''}`} />
+            </Button>
           </div>
 
-          <QuoteBreakdownSection lead={lead} />
-          <LeadPricingSection lead={lead} discount={isSelected ? discount : 0} />
+          <div className={`${expanded ? 'block' : 'hidden'} md:block space-y-3 md:space-y-4`}>
+            {lead.selectedServices && lead.selectedServices.length > 0 && (
+              <div className="border-t pt-3 md:pt-4">
+                <p className="text-sm font-medium mb-2">Services Requested:</p>
+                <div className="flex flex-wrap gap-2">
+                  {lead.selectedServices.map((serviceId, index) => (
+                    <Badge key={index} variant="outline" className="text-xs">
+                      {getServiceName(serviceId)}
+                    </Badge>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            <div className="space-y-2 text-sm border-t pt-3 md:pt-4">
+              <div className="flex items-center gap-2 text-muted-foreground">
+                <Eye className="h-4 w-4" />
+                <span className="italic">Contact info revealed after purchase</span>
+              </div>
+            </div>
+
+            <QuoteBreakdownSection lead={lead} />
+            <LeadPricingSection lead={lead} discount={isSelected ? discount : 0} />
+          </div>
 
           <div className="flex items-center justify-between pt-3 md:pt-4 border-t">
             <div>

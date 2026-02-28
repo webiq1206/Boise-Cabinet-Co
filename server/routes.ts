@@ -1896,6 +1896,21 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  app.post("/api/leads/:id/delete", isAuthenticated, requireRole(["admin"]), async (req: any, res) => {
+    try {
+      const userId = getAuthUserId(req);
+      const deleted = await storage.deleteLead(req.params.id);
+      if (!deleted) {
+        return res.status(404).json({ error: "Lead not found" });
+      }
+      console.log("[ADMIN] Lead deleted:", req.params.id, "by", userId);
+      res.json({ success: true });
+    } catch (error) {
+      console.error("Error deleting lead:", error);
+      res.status(500).json({ error: "Failed to delete lead" });
+    }
+  });
+
   // Admin withdraws a lead globally - removes it from all subcontractors' view
   app.post("/api/leads/:id/withdraw", isAuthenticated, requireRole(["admin"]), async (req: any, res) => {
     try {

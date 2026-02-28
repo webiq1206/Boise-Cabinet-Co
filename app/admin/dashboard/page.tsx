@@ -19,9 +19,14 @@ import { AdminAnalyticsPanel } from "@/components/admin/AdminAnalyticsPanel";
 import { AdminSubcontractorPanel } from "@/components/admin/AdminSubcontractorPanel";
 import { NotificationsBell } from "@/components/NotificationsBell";
 import { 
+  AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, 
+  AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, 
+  AlertDialogTrigger 
+} from "@/components/ui/alert-dialog";
+import { 
   CheckCircle2, XCircle, Clock, DollarSign, MapPin, Phone, Mail, Building, 
-  ChevronDown, Receipt, AlertTriangle, Server, Hash, Search, Filter, X, 
-  ArrowUpDown, MessageSquare, Plus, Tag, Flag, LogOut, Shield, ArrowLeftRight 
+  ChevronDown, ChevronUp, Receipt, AlertTriangle, Server, Hash, Search, Filter, X, 
+  ArrowUpDown, MessageSquare, Plus, Tag, Flag, LogOut, Shield, ArrowLeftRight, Trash2 
 } from "lucide-react";
 import { Switch } from "@/components/ui/switch";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -639,6 +644,21 @@ function AdminDashboardContent() {
     },
   });
 
+  const deleteLeadMutation = useMutation({
+    mutationFn: async (leadId: string) => {
+      const res = await fetch(`/api/leads/${leadId}/delete`, { method: "POST" });
+      if (!res.ok) throw new Error("Failed to delete lead");
+      return res.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/leads"] });
+      toast({ title: "Lead Deleted", description: "The lead has been permanently deleted." });
+    },
+    onError: (error: Error) => {
+      toast({ title: "Error", description: error.message, variant: "destructive" });
+    },
+  });
+
   const pendingLeads = filteredLeads.filter(l => l.status === "pending_admin");
   const acceptedLeads = filteredLeads.filter(l => l.status === "accepted");
   const declinedLeads = filteredLeads.filter(l => l.status === "available");
@@ -787,6 +807,7 @@ function AdminDashboardContent() {
     const [editingTags, setEditingTags] = useState(false);
     const [newTag, setNewTag] = useState("");
     const [editingPriority, setEditingPriority] = useState(false);
+    const [expanded, setExpanded] = useState(false);
 
     const getPriorityColor = (p: string) => {
       switch (p) {
@@ -799,7 +820,7 @@ function AdminDashboardContent() {
     };
 
     return (
-    <Card id={`lead-${lead.id}`} key={lead.id} className="overflow-hidden" data-testid={`card-lead-${lead.id}`}>
+    <Card id={`lead-${lead.id}`} key={lead.id} className="overflow-visible" data-testid={`card-lead-${lead.id}`}>
       <CardHeader className="pb-3">
         <div className="flex items-start justify-between gap-4">
           <div className="flex-1">
@@ -817,106 +838,128 @@ function AdminDashboardContent() {
             <CardDescription className="mt-1">
               {lead.serviceType.replace(/-/g, " ").replace(/\b\w/g, l => l.toUpperCase())} in {lead.city}
             </CardDescription>
-            {leadTags.length > 0 && (
-              <div className="flex flex-wrap gap-1 mt-2">
-                {leadTags.map((tag, idx) => (
-                  <Badge key={idx} variant="outline" className="text-xs">
-                    <Tag className="h-3 w-3 mr-1" />
-                    {tag}
-                  </Badge>
-                ))}
-              </div>
-            )}
           </div>
           <div className="flex flex-col items-end gap-2">
             <Badge variant={lead.status === "pending_admin" ? "default" : lead.status === "purchased" ? "secondary" : "outline"} data-testid={`badge-status-${lead.id}`}>
               {lead.status === "pending_admin" ? "Pending Review" : lead.status === "purchased" ? "Purchased" : "Available"}
             </Badge>
-            {showActions && (
-              <div className="flex gap-1">
-                <Popover open={editingPriority} onOpenChange={setEditingPriority}>
-                  <PopoverTrigger asChild>
-                    <Button variant="ghost" size="sm" className="h-7">
-                      <Flag className="h-3 w-3" />
-                    </Button>
-                  </PopoverTrigger>
-                  <PopoverContent className="w-48">
-                    <Label>Priority</Label>
-                    <Select
-                      value={priority}
-                      onValueChange={(value) => {
-                        updateLeadMutation.mutate({ leadId: lead.id, data: { priority: value } });
-                        setEditingPriority(false);
-                      }}
-                    >
-                      <SelectTrigger>
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="low">Low</SelectItem>
-                        <SelectItem value="normal">Normal</SelectItem>
-                        <SelectItem value="high">High</SelectItem>
-                        <SelectItem value="urgent">Urgent</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </PopoverContent>
-                </Popover>
-                <Popover open={editingTags} onOpenChange={setEditingTags}>
-                  <PopoverTrigger asChild>
-                    <Button variant="ghost" size="sm" className="h-7">
-                      <Tag className="h-3 w-3" />
-                    </Button>
-                  </PopoverTrigger>
-                  <PopoverContent className="w-64">
-                    <Label>Tags</Label>
-                    <div className="space-y-2 mt-2">
-                      <div className="flex gap-2">
-                        <Input
-                          placeholder="Add tag..."
-                          value={newTag}
-                          onChange={(e) => setNewTag(e.target.value)}
-                          onKeyDown={(e) => {
-                            if (e.key === "Enter" && newTag.trim()) {
-                              const updatedTags = [...leadTags, newTag.trim()];
-                              updateLeadMutation.mutate({ leadId: lead.id, data: { tags: updatedTags } });
-                              setNewTag("");
-                            }
-                          }}
-                        />
-                        <Button
-                          size="sm"
-                          onClick={() => {
-                            if (newTag.trim()) {
-                              const updatedTags = [...leadTags, newTag.trim()];
-                              updateLeadMutation.mutate({ leadId: lead.id, data: { tags: updatedTags } });
-                              setNewTag("");
-                            }
-                          }}
-                        >
-                          Add
-                        </Button>
-                      </div>
-                      <div className="flex flex-wrap gap-1">
-                        {leadTags.map((tag, idx) => (
-                          <Badge key={idx} variant="secondary" className="text-xs">
-                            {tag}
-                            <button
-                              onClick={() => {
-                                const updatedTags = leadTags.filter((_, i) => i !== idx);
+            <div className="flex gap-1">
+              {showActions && (
+                <>
+                  <Popover open={editingPriority} onOpenChange={setEditingPriority}>
+                    <PopoverTrigger asChild>
+                      <Button variant="ghost" size="sm" className="h-7">
+                        <Flag className="h-3 w-3" />
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-48">
+                      <Label>Priority</Label>
+                      <Select
+                        value={priority}
+                        onValueChange={(value) => {
+                          updateLeadMutation.mutate({ leadId: lead.id, data: { priority: value } });
+                          setEditingPriority(false);
+                        }}
+                      >
+                        <SelectTrigger>
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="low">Low</SelectItem>
+                          <SelectItem value="normal">Normal</SelectItem>
+                          <SelectItem value="high">High</SelectItem>
+                          <SelectItem value="urgent">Urgent</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </PopoverContent>
+                  </Popover>
+                  <Popover open={editingTags} onOpenChange={setEditingTags}>
+                    <PopoverTrigger asChild>
+                      <Button variant="ghost" size="sm" className="h-7">
+                        <Tag className="h-3 w-3" />
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-64">
+                      <Label>Tags</Label>
+                      <div className="space-y-2 mt-2">
+                        <div className="flex gap-2">
+                          <Input
+                            placeholder="Add tag..."
+                            value={newTag}
+                            onChange={(e) => setNewTag(e.target.value)}
+                            onKeyDown={(e) => {
+                              if (e.key === "Enter" && newTag.trim()) {
+                                const updatedTags = [...leadTags, newTag.trim()];
                                 updateLeadMutation.mutate({ leadId: lead.id, data: { tags: updatedTags } });
-                              }}
-                              className="ml-1 hover:text-destructive"
-                            >
-                              ×
-                            </button>
-                          </Badge>
-                        ))}
+                                setNewTag("");
+                              }
+                            }}
+                          />
+                          <Button
+                            size="sm"
+                            onClick={() => {
+                              if (newTag.trim()) {
+                                const updatedTags = [...leadTags, newTag.trim()];
+                                updateLeadMutation.mutate({ leadId: lead.id, data: { tags: updatedTags } });
+                                setNewTag("");
+                              }
+                            }}
+                          >
+                            Add
+                          </Button>
+                        </div>
+                        <div className="flex flex-wrap gap-1">
+                          {leadTags.map((tag, idx) => (
+                            <Badge key={idx} variant="secondary" className="text-xs">
+                              {tag}
+                              <button
+                                onClick={() => {
+                                  const updatedTags = leadTags.filter((_, i) => i !== idx);
+                                  updateLeadMutation.mutate({ leadId: lead.id, data: { tags: updatedTags } });
+                                }}
+                                className="ml-1 hover:text-destructive"
+                              >
+                                ×
+                              </button>
+                            </Badge>
+                          ))}
+                        </div>
                       </div>
-                    </div>
-                  </PopoverContent>
-                </Popover>
-              </div>
-            )}
+                    </PopoverContent>
+                  </Popover>
+                </>
+              )}
+              <AlertDialog>
+                <AlertDialogTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="h-7 text-destructive"
+                    data-testid={`button-delete-lead-${lead.id}`}
+                  >
+                    <Trash2 className="h-3 w-3" />
+                  </Button>
+                </AlertDialogTrigger>
+                <AlertDialogContent data-testid="dialog-confirm-delete-lead">
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>Delete Lead</AlertDialogTitle>
+                    <AlertDialogDescription>
+                      Are you sure you want to permanently delete this lead? This will remove all associated data including purchase records and notifications. This action cannot be undone.
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel data-testid={`button-cancel-delete-lead-${lead.id}`}>Cancel</AlertDialogCancel>
+                    <AlertDialogAction
+                      data-testid={`button-confirm-delete-lead-${lead.id}`}
+                      className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                      onClick={() => deleteLeadMutation.mutate(lead.id)}
+                    >
+                      Delete
+                    </AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
+            </div>
           </div>
         </div>
       </CardHeader>
@@ -947,101 +990,6 @@ function AdminDashboardContent() {
           </div>
         </div>
 
-        {lead.quoteId && (
-          <div className="flex items-center gap-2 text-xs text-muted-foreground border-t pt-2">
-            <Hash className="h-3 w-3" />
-            <span>Quote ID: {lead.quoteId}</span>
-          </div>
-        )}
-
-        {lead.selectedServices && lead.selectedServices.length > 0 && (
-          <div className="border-t pt-4">
-            <p className="text-sm font-medium mb-2">Selected Services:</p>
-            <div className="flex flex-wrap gap-2">
-              {lead.selectedServices.map((serviceId, index) => (
-                <Badge key={index} variant="outline" className="text-xs">
-                  {getServiceName(serviceId)}
-                </Badge>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {!!lead.serviceData && typeof lead.serviceData === "object" && Object.keys(lead.serviceData).length > 0 && (
-          <div className="border-t pt-4">
-            <p className="text-sm font-medium mb-2">Service Measurements:</p>
-            <div className="space-y-2">
-              {Object.entries(lead.serviceData).map(([serviceId, data]) => {
-                const measurement = formatMeasurement(serviceId, data);
-                return (
-                  <div key={serviceId} className="bg-muted/50 rounded-md p-2 text-sm">
-                    <span className="font-medium">{getServiceName(serviceId)}:</span>
-                    {measurement && (
-                      <span className="text-muted-foreground ml-2">{measurement}</span>
-                    )}
-                    {!measurement && data && (
-                      <span className="text-muted-foreground ml-2 text-xs italic">No measurements provided</span>
-                    )}
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        )}
-
-        <div className="space-y-2 text-sm border-t pt-4">
-          <div className="flex items-center gap-2">
-            <Mail className="h-4 w-4 text-muted-foreground" />
-            <a 
-              href={`mailto:${lead.email}`} 
-              className="text-primary hover:underline"
-              data-testid={`text-email-${lead.id}`}
-            >
-              {lead.email}
-            </a>
-          </div>
-          <div className="flex items-center gap-2">
-            <Phone className="h-4 w-4 text-muted-foreground" />
-            <a 
-              href={`tel:${lead.phone}`} 
-              className="text-primary hover:underline"
-              data-testid={`text-phone-${lead.id}`}
-            >
-              {lead.phone}
-            </a>
-          </div>
-          <div className="flex items-center gap-2">
-            <MapPin className="h-4 w-4 text-muted-foreground" />
-            <span data-testid={`text-address-${lead.id}`}>
-              {lead.address && lead.address !== "***" ? lead.address : `${lead.city.charAt(0).toUpperCase() + lead.city.slice(1)}, Idaho`}
-            </span>
-          </div>
-          <div className="flex items-center gap-2">
-            <Building className="h-4 w-4 text-muted-foreground" />
-            <span>{lead.propertyType.replace(/-/g, " ")}</span>
-          </div>
-          {(() => {
-            const propertySize = getPropertySizeFromServiceData(lead.serviceData);
-            return propertySize ? (
-              <div className="flex items-center gap-2">
-                <Server className="h-4 w-4 text-muted-foreground" />
-                <span>{propertySize.toLocaleString()} sq ft</span>
-              </div>
-            ) : null;
-          })()}
-        </div>
-
-        {lead.message && (
-          <div className="border-t pt-4">
-            <p className="text-sm text-muted-foreground mb-1">Customer Message:</p>
-            <p className="text-sm" data-testid={`text-message-${lead.id}`}>{lead.message}</p>
-          </div>
-        )}
-
-        <QuoteBreakdownSection lead={lead} />
-
-        <NotesSection lead={lead} onAddNote={(note) => addNoteMutation.mutate({ leadId: lead.id, note })} />
-
         {showActions && (
           <div className="flex flex-col sm:flex-row gap-2 pt-4 border-t">
             <Button
@@ -1065,6 +1013,134 @@ function AdminDashboardContent() {
             </Button>
           </div>
         )}
+
+        <div className={`${expanded ? 'block' : 'hidden'} md:block space-y-3 md:space-y-4`}>
+          {lead.quoteId && (
+            <div className="flex items-center gap-2 text-xs text-muted-foreground border-t pt-2">
+              <Hash className="h-3 w-3" />
+              <span>Quote ID: {lead.quoteId}</span>
+            </div>
+          )}
+
+          {leadTags.length > 0 && (
+            <div className="flex flex-wrap gap-1 mt-2">
+              {leadTags.map((tag, idx) => (
+                <Badge key={idx} variant="outline" className="text-xs">
+                  <Tag className="h-3 w-3 mr-1" />
+                  {tag}
+                </Badge>
+              ))}
+            </div>
+          )}
+
+          {lead.selectedServices && lead.selectedServices.length > 0 && (
+            <div className="border-t pt-4">
+              <p className="text-sm font-medium mb-2">Selected Services:</p>
+              <div className="flex flex-wrap gap-2">
+                {lead.selectedServices.map((serviceId, index) => (
+                  <Badge key={index} variant="outline" className="text-xs">
+                    {getServiceName(serviceId)}
+                  </Badge>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {!!lead.serviceData && typeof lead.serviceData === "object" && Object.keys(lead.serviceData).length > 0 && (
+            <div className="border-t pt-4">
+              <p className="text-sm font-medium mb-2">Service Measurements:</p>
+              <div className="space-y-2">
+                {Object.entries(lead.serviceData).map(([serviceId, data]) => {
+                  const measurement = formatMeasurement(serviceId, data);
+                  return (
+                    <div key={serviceId} className="bg-muted/50 rounded-md p-2 text-sm">
+                      <span className="font-medium">{getServiceName(serviceId)}:</span>
+                      {measurement && (
+                        <span className="text-muted-foreground ml-2">{measurement}</span>
+                      )}
+                      {!measurement && data && (
+                        <span className="text-muted-foreground ml-2 text-xs italic">No measurements provided</span>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
+          <div className="space-y-2 text-sm border-t pt-4">
+            <div className="flex items-center gap-2">
+              <Mail className="h-4 w-4 text-muted-foreground" />
+              <a 
+                href={`mailto:${lead.email}`} 
+                className="text-primary hover:underline"
+                data-testid={`text-email-${lead.id}`}
+              >
+                {lead.email}
+              </a>
+            </div>
+            <div className="flex items-center gap-2">
+              <Phone className="h-4 w-4 text-muted-foreground" />
+              <a 
+                href={`tel:${lead.phone}`} 
+                className="text-primary hover:underline"
+                data-testid={`text-phone-${lead.id}`}
+              >
+                {lead.phone}
+              </a>
+            </div>
+            <div className="flex items-center gap-2">
+              <MapPin className="h-4 w-4 text-muted-foreground" />
+              <span data-testid={`text-address-${lead.id}`}>
+                {lead.address && lead.address !== "***" ? lead.address : `${lead.city.charAt(0).toUpperCase() + lead.city.slice(1)}, Idaho`}
+              </span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Building className="h-4 w-4 text-muted-foreground" />
+              <span>{lead.propertyType.replace(/-/g, " ")}</span>
+            </div>
+            {(() => {
+              const propertySize = getPropertySizeFromServiceData(lead.serviceData);
+              return propertySize ? (
+                <div className="flex items-center gap-2">
+                  <Server className="h-4 w-4 text-muted-foreground" />
+                  <span>{propertySize.toLocaleString()} sq ft</span>
+                </div>
+              ) : null;
+            })()}
+          </div>
+
+          {lead.message && (
+            <div className="border-t pt-4">
+              <p className="text-sm text-muted-foreground mb-1">Customer Message:</p>
+              <p className="text-sm" data-testid={`text-message-${lead.id}`}>{lead.message}</p>
+            </div>
+          )}
+
+          <QuoteBreakdownSection lead={lead} />
+
+          <NotesSection lead={lead} onAddNote={(note) => addNoteMutation.mutate({ leadId: lead.id, note })} />
+        </div>
+
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={() => setExpanded(!expanded)}
+          className="w-full md:hidden justify-center gap-1 text-muted-foreground"
+          data-testid={`button-toggle-lead-details-${lead.id}`}
+        >
+          {expanded ? (
+            <>
+              <ChevronUp className="h-4 w-4" />
+              Hide details
+            </>
+          ) : (
+            <>
+              <ChevronDown className="h-4 w-4" />
+              Show details
+            </>
+          )}
+        </Button>
       </CardContent>
     </Card>
     );

@@ -36,6 +36,7 @@ export interface IStorage {
   getLeadsByStatus(status: string): Promise<Lead[]>;
   getLeadsForSubcontractor(filters?: { city?: string; serviceType?: string; maxPrice?: number }): Promise<Lead[]>;
   updateLead(id: string, data: Partial<Lead>): Promise<Lead | undefined>;
+  deleteLead(id: string): Promise<boolean>;
   updateLeadPrices(): Promise<void>;
   acceptLead(leadId: string, adminUserId: string): Promise<Lead | undefined>;
   declineLead(leadId: string, adminUserId: string): Promise<Lead | undefined>;
@@ -558,6 +559,19 @@ export class MemStorage implements IStorage {
     };
     this.leads.set(id, updated);
     return updated;
+  }
+
+  async deleteLead(id: string): Promise<boolean> {
+    const lead = this.leads.get(id);
+    if (!lead) return false;
+    this.leads.delete(id);
+    for (const [key, purchase] of this.leadPurchases.entries()) {
+      if (purchase.leadId === id) this.leadPurchases.delete(key);
+    }
+    for (const [key, notif] of this.notifications.entries()) {
+      if (notif.leadId === id) this.notifications.delete(key);
+    }
+    return true;
   }
 
   async updateLeadPrices(): Promise<void> {
@@ -1228,6 +1242,15 @@ export class DBStorage implements IStorage {
       updatedAt: new Date(),
     }).where(eq(leads.id, id)).returning();
     return result[0];
+  }
+
+  async deleteLead(id: string): Promise<boolean> {
+    const lead = await this.getLeadById(id);
+    if (!lead) return false;
+    await db.delete(notifications).where(eq(notifications.leadId, id));
+    await db.delete(leadPurchases).where(eq(leadPurchases.leadId, id));
+    await db.delete(leads).where(eq(leads.id, id));
+    return true;
   }
 
   async updateLeadPrices(): Promise<void> {
