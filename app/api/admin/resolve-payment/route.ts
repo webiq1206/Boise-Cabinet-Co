@@ -13,10 +13,6 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Database not available" }, { status: 503 });
     }
 
-    if (!stripe) {
-      return NextResponse.json({ error: "Payments not configured" }, { status: 503 });
-    }
-
     const session = await getSession();
     if (!session.userId) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -28,7 +24,7 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json();
-    const { leadId, userId } = body;
+    const { leadId, userId, stripePaymentIntentId: manualPiId } = body;
 
     if (!leadId || !userId) {
       return NextResponse.json({ error: "Both leadId and userId are required" }, { status: 400 });
@@ -51,24 +47,31 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Lead has already been purchased and recorded" }, { status: 409 });
     }
 
-    const paymentIntents = await stripe.paymentIntents.search({
-      query: `metadata["leadId"]:"${leadId}" AND metadata["userId"]:"${userId}" AND status:"succeeded"`,
-    });
+    let resolvedPiId = manualPiId || null;
 
-    if (paymentIntents.data.length === 0) {
-      return NextResponse.json(
-        { error: "No matching succeeded payment found in Stripe for this lead and user" },
-        { status: 404 }
-      );
+    if (!resolvedPiId && stripe) {
+      const paymentIntents = await stripe.paymentIntents.search({
+        query: `metadata["leadId"]:"${leadId}" AND metadata["userId"]:"${userId}" AND status:"succeeded"`,
+      });
+
+      if (paymentIntents.data.length === 0) {
+        return NextResponse.json(
+          { error: "No matching succeeded payment found in Stripe. You can pass stripePaymentIntentId manually to override." },
+          { status: 404 }
+        );
+      }
+      resolvedPiId = paymentIntents.data[0].id;
     }
 
-    const paymentIntent = paymentIntents.data[0];
+    if (!resolvedPiId) {
+      resolvedPiId = `pi_admin_resolved_${Date.now()}`;
+    }
 
     const [purchase] = await db.insert(leadPurchases).values({
       leadId: lead.id,
       userId: targetUser.id,
       purchasePrice: lead.currentLeadPrice || "0",
-      stripePaymentIntentId: paymentIntent.id,
+      stripePaymentIntentId: resolvedPiId,
     }).returning();
 
     const [updatedLead] = await db.update(leads).set({
@@ -76,7 +79,7 @@ export async function POST(request: NextRequest) {
       purchasedBy: targetUser.id,
       purchasedAt: new Date(),
       purchasePrice: lead.currentLeadPrice,
-      stripePaymentIntentId: paymentIntent.id,
+      stripePaymentIntentId: resolvedPiId,
     }).where(eq(leads.id, leadId)).returning();
 
     try {
@@ -102,7 +105,7 @@ export async function POST(request: NextRequest) {
       message: `Payment resolved. Lead ${leadId} is now marked as purchased by user ${userId}.`,
       purchase,
       lead: updatedLead,
-      stripePaymentIntentId: paymentIntent.id,
+      stripePaymentIntentId: resolvedPiId,
     });
   } catch (error) {
     console.error("Error resolving payment:", error);
