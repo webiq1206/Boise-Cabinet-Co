@@ -785,11 +785,11 @@ function SubcontractorPortalContent() {
     createBulkPaymentIntentMutation.mutate(selectedLeadIds);
   };
 
-  const handlePaymentSuccess = () => {
+  const handlePaymentSuccess = (paymentIntentId: string) => {
     if (singlePurchaseLead) {
-      purchaseLeadMutation.mutate({ leadId: singlePurchaseLead.id });
+      purchaseLeadMutation.mutate({ leadId: singlePurchaseLead.id, paymentIntentId });
     } else {
-      bulkPurchaseMutation.mutate({ leadIds: pendingPurchaseLeadIds });
+      bulkPurchaseMutation.mutate({ leadIds: pendingPurchaseLeadIds, paymentIntentId });
     }
   };
 

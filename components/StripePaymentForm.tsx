@@ -22,7 +22,7 @@ const stripePromise = stripePublishableKey
   : null;
 
 interface PaymentFormContentProps {
-  onSuccess: () => void;
+  onSuccess: (paymentIntentId: string) => void;
   onCancel: () => void;
   amount: number;
   description?: string;
@@ -67,7 +67,7 @@ function PaymentFormContent({ onSuccess, onCancel, amount, description }: Paymen
       }
 
       if (paymentIntent?.status === "succeeded") {
-        onSuccess();
+        onSuccess(paymentIntent.id);
       } else if (paymentIntent?.status === "requires_action") {
         // 3D Secure or other authentication required
         setError("Additional authentication required. Please complete the verification.");
@@ -140,7 +140,7 @@ interface StripePaymentFormProps {
   clientSecret: string;
   amount: number;
   description?: string;
-  onSuccess: () => void;
+  onSuccess: (paymentIntentId: string) => void;
   onCancel: () => void;
 }
 

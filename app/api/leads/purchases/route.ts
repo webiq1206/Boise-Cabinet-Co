@@ -24,11 +24,17 @@ export async function GET() {
     const results = await Promise.all(
       purchases.map(async (purchase) => {
         const leadResults = await db!.select().from(leads).where(eq(leads.id, purchase.leadId));
-        return { purchase, lead: leadResults[0] || null };
+        const lead = leadResults[0];
+        if (!lead) return null;
+        return {
+          ...lead,
+          purchasePrice: purchase.purchasePrice || lead.purchasePrice,
+          purchasedAt: purchase.createdAt || lead.purchasedAt,
+        };
       })
     );
 
-    return NextResponse.json(results);
+    return NextResponse.json(results.filter(Boolean));
   } catch (error) {
     console.error("Error fetching purchases:", error);
     return NextResponse.json(
