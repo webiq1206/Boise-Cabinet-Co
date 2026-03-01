@@ -1,9 +1,5 @@
 export async function register() {
-  if (process.env.NEXT_RUNTIME === "nodejs") {
-    const { Pool, neonConfig } = await import("@neondatabase/serverless");
-    const ws = (await import("ws")).default;
-    neonConfig.webSocketConstructor = ws;
-
+  if (process.env.NEXT_RUNTIME === "nodejs" && process.env.NODE_ENV === "production") {
     const dbUrl = process.env.DATABASE_URL;
     if (!dbUrl) return;
 
@@ -11,53 +7,37 @@ export async function register() {
     const GARY_USER_ID = "55074230";
     const PURCHASE_PRICE = "30.00";
 
-    const pool = new Pool({ connectionString: dbUrl });
     try {
-      const client = await pool.connect();
-      try {
-        const leadResult = await client.query(
-          "SELECT id, status, purchased_by FROM leads WHERE id = $1",
-          [LEAD_ID]
-        );
-        if (leadResult.rows.length === 0) {
-          return;
-        }
-        if (leadResult.rows[0].status === "purchased") {
-          return;
-        }
+      const { neon } = await import("@neondatabase/serverless");
+      const sql = neon(dbUrl);
 
-        const existingResult = await client.query(
-          "SELECT id FROM lead_purchases WHERE lead_id = $1",
-          [LEAD_ID]
-        );
-        if (existingResult.rows.length > 0) {
-          return;
-        }
-
-        await client.query(
-          `INSERT INTO lead_purchases (lead_id, user_id, purchase_price, stripe_payment_intent_id, created_at)
-           VALUES ($1, $2, $3, 'pi_admin_resolved_gary', NOW())`,
-          [LEAD_ID, GARY_USER_ID, PURCHASE_PRICE]
-        );
-
-        await client.query(
-          `UPDATE leads SET 
-            status = 'purchased', 
-            purchased_by = $1, 
-            purchased_at = NOW(), 
-            purchase_price = $2
-          WHERE id = $3`,
-          [GARY_USER_ID, PURCHASE_PRICE, LEAD_ID]
-        );
-
-        console.log("[startup] Resolved Gary's lead purchase: " + LEAD_ID);
-      } finally {
-        client.release();
+      const leadRows = await sql`SELECT id, status, purchased_by FROM leads WHERE id = ${LEAD_ID}`;
+      if (leadRows.length === 0 || leadRows[0].status === "purchased") {
+        return;
       }
+
+      const existingRows = await sql`SELECT id FROM lead_purchases WHERE lead_id = ${LEAD_ID}`;
+      if (existingRows.length > 0) {
+        return;
+      }
+
+      await sql`
+        INSERT INTO lead_purchases (lead_id, user_id, purchase_price, stripe_payment_intent_id, created_at)
+        VALUES (${LEAD_ID}, ${GARY_USER_ID}, ${PURCHASE_PRICE}, 'pi_admin_resolved_gary', NOW())
+      `;
+
+      await sql`
+        UPDATE leads SET
+          status = 'purchased',
+          purchased_by = ${GARY_USER_ID},
+          purchased_at = NOW(),
+          purchase_price = ${PURCHASE_PRICE}
+        WHERE id = ${LEAD_ID}
+      `;
+
+      console.log("[startup] Resolved Gary's lead purchase: " + LEAD_ID);
     } catch (e) {
-      console.error("[startup] Failed to resolve Gary's lead:", e);
-    } finally {
-      await pool.end();
+      console.error("[startup] Could not auto-resolve lead purchase, use /api/admin/resolve-payment instead");
     }
   }
 }

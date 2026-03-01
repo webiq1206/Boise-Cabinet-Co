@@ -7,6 +7,88 @@ import { getSession, getUserFromDb } from "@/lib/auth";
 
 const stripe = process.env.STRIPE_SECRET_KEY ? new Stripe(process.env.STRIPE_SECRET_KEY) : null;
 
+const KNOWN_UNRESOLVED_PURCHASES = [
+  {
+    leadId: "d934a12c-2d73-470c-a7f2-481b991a9b69",
+    userId: "55074230",
+    purchasePrice: "30.00",
+    label: "Gary - Jeff L Johnson spring cleanup",
+  },
+];
+
+async function resolveLeadPurchase(leadId: string, userId: string, purchasePrice: string, piId?: string) {
+  if (!db) throw new Error("Database not available");
+
+  const leadResults = await db.select().from(leads).where(eq(leads.id, leadId));
+  const lead = leadResults[0];
+  if (!lead) return { skipped: true, reason: "Lead not found" };
+
+  const existingPurchase = await db.select().from(leadPurchases).where(eq(leadPurchases.leadId, leadId));
+  if (existingPurchase.length > 0) return { skipped: true, reason: "Purchase record already exists" };
+
+  const resolvedPiId = piId || `pi_admin_resolved_${Date.now()}`;
+
+  const [purchase] = await db.insert(leadPurchases).values({
+    leadId: lead.id,
+    userId,
+    purchasePrice: purchasePrice || lead.currentLeadPrice || "0",
+    stripePaymentIntentId: resolvedPiId,
+  }).returning();
+
+  let updatedLead = lead;
+  if (lead.status !== "purchased") {
+    const [updated] = await db.update(leads).set({
+      status: "purchased",
+      purchasedBy: userId,
+      purchasedAt: new Date(),
+      purchasePrice: purchasePrice || lead.currentLeadPrice,
+      stripePaymentIntentId: resolvedPiId,
+    }).where(eq(leads.id, leadId)).returning();
+    updatedLead = updated;
+  }
+
+  return { success: true, purchase, lead: updatedLead, stripePaymentIntentId: resolvedPiId };
+}
+
+export async function GET() {
+  try {
+    if (!db) {
+      return NextResponse.json({ error: "Database not available" }, { status: 503 });
+    }
+
+    const session = await getSession();
+    if (!session.userId) {
+      return NextResponse.json({ error: "Unauthorized - please log in as admin first" }, { status: 401 });
+    }
+
+    const adminUser = await getUserFromDb(session.userId);
+    if (!adminUser || adminUser.role !== "admin") {
+      return NextResponse.json({ error: "Forbidden: admin access required" }, { status: 403 });
+    }
+
+    const results = [];
+    for (const entry of KNOWN_UNRESOLVED_PURCHASES) {
+      try {
+        const result = await resolveLeadPurchase(entry.leadId, entry.userId, entry.purchasePrice);
+        results.push({ ...entry, ...result });
+      } catch (e) {
+        results.push({ ...entry, error: e instanceof Error ? e.message : "Unknown error" });
+      }
+    }
+
+    return NextResponse.json({
+      message: "Resolve payment check complete",
+      results,
+    });
+  } catch (error) {
+    console.error("Error in GET resolve-payment:", error);
+    return NextResponse.json(
+      { error: error instanceof Error ? error.message : "Failed to resolve payments" },
+      { status: 500 }
+    );
+  }
+}
+
 export async function POST(request: NextRequest) {
   try {
     if (!db) {
@@ -30,21 +112,9 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Both leadId and userId are required" }, { status: 400 });
     }
 
-    const leadResults = await db.select().from(leads).where(eq(leads.id, leadId));
-    const lead = leadResults[0];
-    if (!lead) {
-      return NextResponse.json({ error: "Lead not found" }, { status: 404 });
-    }
-
     const userResults = await db.select().from(users).where(eq(users.id, userId));
-    const targetUser = userResults[0];
-    if (!targetUser) {
+    if (userResults.length === 0) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });
-    }
-
-    const existingPurchase = await db.select().from(leadPurchases).where(eq(leadPurchases.leadId, leadId));
-    if (existingPurchase.length > 0) {
-      return NextResponse.json({ error: "Lead has already been purchased and recorded" }, { status: 409 });
     }
 
     let resolvedPiId = manualPiId || null;
@@ -54,58 +124,48 @@ export async function POST(request: NextRequest) {
         query: `metadata["leadId"]:"${leadId}" AND metadata["userId"]:"${userId}" AND status:"succeeded"`,
       });
 
-      if (paymentIntents.data.length === 0) {
-        return NextResponse.json(
-          { error: "No matching succeeded payment found in Stripe. You can pass stripePaymentIntentId manually to override." },
-          { status: 404 }
-        );
+      if (paymentIntents.data.length > 0) {
+        resolvedPiId = paymentIntents.data[0].id;
       }
-      resolvedPiId = paymentIntents.data[0].id;
     }
 
-    if (!resolvedPiId) {
-      resolvedPiId = `pi_admin_resolved_${Date.now()}`;
+    const leadResults = await db.select().from(leads).where(eq(leads.id, leadId));
+    const lead = leadResults[0];
+    if (!lead) {
+      return NextResponse.json({ error: "Lead not found" }, { status: 404 });
     }
 
-    const [purchase] = await db.insert(leadPurchases).values({
-      leadId: lead.id,
-      userId: targetUser.id,
-      purchasePrice: lead.currentLeadPrice || "0",
-      stripePaymentIntentId: resolvedPiId,
-    }).returning();
+    const result = await resolveLeadPurchase(leadId, userId, lead.currentLeadPrice || "0", resolvedPiId || undefined);
 
-    const [updatedLead] = await db.update(leads).set({
-      status: "purchased",
-      purchasedBy: targetUser.id,
-      purchasedAt: new Date(),
-      purchasePrice: lead.currentLeadPrice,
-      stripePaymentIntentId: resolvedPiId,
-    }).where(eq(leads.id, leadId)).returning();
+    if (result.skipped) {
+      return NextResponse.json({ message: result.reason }, { status: 409 });
+    }
 
     try {
       const { sendLeadPurchaseConfirmation } = await import("@/server/services/emailNotifications");
+      const targetUser = userResults[0];
       const buyerEmail = targetUser.email || '';
-      sendLeadPurchaseConfirmation(
-        buyerEmail,
-        {
-          id: updatedLead.id,
-          name: updatedLead.name,
-          email: updatedLead.email,
-          phone: updatedLead.phone || "",
-          city: updatedLead.city,
-          serviceType: updatedLead.serviceType,
-          finalQuote: updatedLead.finalQuote || "0",
-          address: updatedLead.address || undefined,
-        }
-      ).catch(() => {});
+      if (result.lead) {
+        sendLeadPurchaseConfirmation(
+          buyerEmail,
+          {
+            id: result.lead.id,
+            name: result.lead.name,
+            email: result.lead.email,
+            phone: result.lead.phone || "",
+            city: result.lead.city,
+            serviceType: result.lead.serviceType,
+            finalQuote: result.lead.finalQuote || "0",
+            address: result.lead.address || undefined,
+          }
+        ).catch(() => {});
+      }
     } catch (e) {}
 
     return NextResponse.json({
       success: true,
       message: `Payment resolved. Lead ${leadId} is now marked as purchased by user ${userId}.`,
-      purchase,
-      lead: updatedLead,
-      stripePaymentIntentId: resolvedPiId,
+      ...result,
     });
   } catch (error) {
     console.error("Error resolving payment:", error);
