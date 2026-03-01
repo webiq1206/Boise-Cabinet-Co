@@ -715,24 +715,12 @@ export function SimpleQuoteWizard({
       
       {/* Phase 2: Services */}
       {phase === 2 && (
-        <div className="space-y-6">
+        <div className="space-y-4">
           <Card>
-            <CardContent className="pt-6">
-              <div className="text-center mb-6">
-                <Image 
-                  src="/images/lawn-care-kuna-icon.png" 
-                  alt="Lawn Care Kuna" 
-                  width={56}
-                  height={56}
-                  className="mx-auto mb-3"
-                />
-                <h2 className="text-2xl font-bold text-foreground">What do you need?</h2>
-                <p className="text-muted-foreground mt-1">
-                  Select what you're looking for and we'll recommend the right services
-                </p>
-              </div>
+            <CardContent className="pt-4">
+              <h2 className="text-lg font-bold text-foreground text-center mb-3">What do you need?</h2>
               
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3" data-testid="intent-grid">
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2" data-testid="intent-grid">
                 {SERVICE_INTENTS.map((intent) => {
                   const Icon = intent.icon;
                   const isSelected = selectedIntents.includes(intent.id);
@@ -746,16 +734,16 @@ export function SimpleQuoteWizard({
                             : [...prev, intent.id]
                         );
                       }}
-                      className={`p-4 rounded-lg border-2 transition-all text-left ${
+                      className={`p-2.5 rounded-lg border-2 transition-all text-left ${
                         isSelected 
                           ? "border-primary bg-primary/10" 
                           : "border-muted hover:border-primary/50"
                       }`}
                       data-testid={`intent-${intent.id}`}
                     >
-                      <Icon className={`w-6 h-6 mb-2 ${isSelected ? "text-primary" : "text-muted-foreground"}`} />
-                      <div className="font-medium text-sm">{intent.label}</div>
-                      <div className="text-xs text-muted-foreground mt-0.5">{intent.description}</div>
+                      <Icon className={`w-5 h-5 mb-1 ${isSelected ? "text-primary" : "text-muted-foreground"}`} />
+                      <div className="font-medium text-sm leading-tight">{intent.label}</div>
+                      <div className="text-[11px] text-muted-foreground mt-0.5 leading-tight">{intent.description}</div>
                     </button>
                   );
                 })}
@@ -765,13 +753,13 @@ export function SimpleQuoteWizard({
           
           {selectedServices.length > 0 && (
             <Card>
-              <CardContent className="pt-6">
-                <div className="flex items-center justify-between mb-4">
-                  <h3 className="font-semibold">Selected Services</h3>
+              <CardContent className="pt-4">
+                <div className="flex items-center justify-between mb-3">
+                  <h3 className="font-semibold text-sm">Selected Services</h3>
                   <Badge variant="secondary">{selectedServices.length} services</Badge>
                 </div>
                 
-                <div className="space-y-2">
+                <div className="space-y-1.5">
                   {selectedServices.map((serviceId) => {
                     const service = ALL_SERVICES.find(s => s.id === serviceId);
                     if (!service) return null;
@@ -781,32 +769,32 @@ export function SimpleQuoteWizard({
                     return (
                       <div 
                         key={serviceId}
-                        className="p-3 bg-muted/50 rounded-lg"
+                        className="p-2 bg-muted/50 rounded-lg"
                         data-testid={`selected-service-${serviceId}`}
                       >
                         <div className="flex items-center justify-between">
                           <div className="flex items-center gap-2">
-                            <Check className="w-4 h-4 text-primary" />
-                            <span className="font-medium">{service.name}</span>
+                            <Check className="w-3.5 h-3.5 text-primary" />
+                            <span className="font-medium text-sm">{service.name}</span>
                           </div>
                           <Button
                             variant="ghost"
-                            size="sm"
+                            size="icon"
                             onClick={() => toggleService(serviceId)}
                             className="text-muted-foreground hover:text-destructive"
                             data-testid={`remove-service-${serviceId}`}
                           >
-                            <X className="w-4 h-4" />
+                            <X className="w-3.5 h-3.5" />
                           </Button>
                         </div>
                         {isRecurringEligible && freqOptions.length > 0 && (
-                          <div className="mt-2 flex flex-wrap gap-1.5" data-testid={`frequency-selector-${serviceId}`}>
+                          <div className="mt-1.5 flex flex-wrap gap-1" data-testid={`frequency-selector-${serviceId}`}>
                             {freqOptions.map(opt => (
                               <button
                                 type="button"
                                 key={opt.value}
                                 onClick={() => setServiceFrequencies(prev => ({ ...prev, [serviceId]: opt.value }))}
-                                className={`px-2.5 py-1 text-xs rounded-md border transition-all ${
+                                className={`px-2 py-0.5 text-[11px] rounded-md border transition-all ${
                                   currentFreq === opt.value
                                     ? "border-primary bg-primary/10 text-primary font-medium"
                                     : "border-muted text-muted-foreground hover:border-primary/50"
@@ -824,12 +812,12 @@ export function SimpleQuoteWizard({
                 </div>
                 
                 {getAvailableUpsells().length > 0 && (
-                  <div className="mt-4 p-4 bg-primary/5 border border-primary/20 rounded-lg" data-testid="upsell-section">
-                    <div className="flex items-center gap-2 mb-3">
-                      <Star className="w-4 h-4 text-primary" />
-                      <span className="text-sm font-medium text-primary">We also recommend</span>
+                  <div className="mt-3 p-3 bg-primary/5 border border-primary/20 rounded-lg" data-testid="upsell-section">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Star className="w-3.5 h-3.5 text-primary" />
+                      <span className="text-xs font-medium text-primary">We also recommend</span>
                     </div>
-                    <div className="space-y-2">
+                    <div className="space-y-1.5">
                       {getAvailableUpsells().map(({ service, prompt }) => {
                         const serviceData = ALL_SERVICES.find(s => s.id === service);
                         if (!serviceData) return null;
@@ -837,11 +825,11 @@ export function SimpleQuoteWizard({
                           <button
                             key={service}
                             onClick={() => toggleService(service)}
-                            className="w-full flex items-center justify-between p-3 bg-background rounded-lg border border-muted hover:border-primary/50 transition-all group"
+                            className="w-full flex items-center justify-between p-2 bg-background rounded-lg border border-muted hover:border-primary/50 transition-all group"
                             data-testid={`upsell-${service}`}
                           >
                             <div className="flex items-center gap-2">
-                              <Plus className="w-4 h-4 text-muted-foreground group-hover:text-primary" />
+                              <Plus className="w-3.5 h-3.5 text-muted-foreground group-hover:text-primary" />
                               <span className="text-sm">{serviceData.name}</span>
                             </div>
                             <span className="text-xs text-muted-foreground">Add</span>
@@ -854,7 +842,8 @@ export function SimpleQuoteWizard({
                 
                 <Button
                   variant="outline"
-                  className="w-full mt-4"
+                  size="sm"
+                  className="w-full mt-3"
                   onClick={() => setShowAllServices(!showAllServices)}
                   data-testid="button-add-more-services"
                 >
@@ -915,19 +904,13 @@ export function SimpleQuoteWizard({
           )}
           
           {selectedServices.length > 0 && (
-            <div className="sticky bottom-0 bg-background/95 backdrop-blur border-t p-4">
+            <div className="sticky bottom-0 bg-background/95 backdrop-blur border-t p-3">
               <div className="flex items-center justify-between gap-2">
-                <div>
-                  <div className="text-sm text-muted-foreground" data-testid="footer-service-summary">
-                    {selectedServices.length} service{selectedServices.length !== 1 ? "s" : ""}
-                    {recurringCount > 0 ? `, ${recurringCount} recurring` : ""}
-                  </div>
-                  <div className="text-2xl font-bold text-primary" data-testid="price-range">
-                    {formatPriceRange(priceRange.min, priceRange.max)}
-                  </div>
+                <div className="text-sm text-muted-foreground" data-testid="footer-service-summary">
+                  {selectedServices.length} service{selectedServices.length !== 1 ? "s" : ""}
+                  {recurringCount > 0 ? `, ${recurringCount} recurring` : ""}
                 </div>
                 <Button 
-                  size="lg"
                   onClick={() => setPhase(3)}
                   disabled={!canProceedToPhase3}
                   data-testid="button-continue-to-review"
