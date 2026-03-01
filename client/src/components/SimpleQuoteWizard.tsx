@@ -39,69 +39,138 @@ import {
   hasAnyRecurringService,
 } from "@shared/serviceSeasonality";
 
-// Service intent categories with primary (auto-added) and upsell (suggested) services
-const SERVICE_INTENTS = [
-  {
-    id: "lawn-care",
-    label: "Lawn Care",
-    icon: Leaf,
-    description: "Mowing, aeration, fertilization",
-    color: "bg-primary/10 text-primary border-primary/20",
-    primaryServices: ["lawn-mowing"],
-    upsellServices: ["aeration", "fertilization", "weed-control"],
-    upsellPrompt: "Boost your lawn's health",
-  },
-  {
-    id: "cleanup",
-    label: "Seasonal Cleanup",
-    icon: TreeDeciduous,
-    description: "Spring or fall cleanup",
-    color: "bg-amber-100 text-amber-700 border-amber-200",
-    primaryServices: ["spring-cleanup"],
-    upsellServices: ["fall-cleanup"],
-    upsellPrompt: "Complete seasonal care",
-  },
-  {
-    id: "irrigation",
-    label: "Irrigation",
-    icon: Droplets,
-    description: "Sprinkler repair & winterization",
-    color: "bg-blue-100 text-blue-700 border-blue-200",
-    primaryServices: ["sprinkler-blowout"],
-    upsellServices: ["sprinkler-repair", "irrigation-maintenance"],
-    upsellPrompt: "Keep your system running smoothly",
-  },
-  {
-    id: "lighting",
-    label: "Outdoor Lighting",
-    icon: Lightbulb,
-    description: "Christmas lights & landscape lighting",
-    color: "bg-yellow-100 text-yellow-700 border-yellow-200",
-    primaryServices: ["christmas-light-installation"],
-    upsellServices: ["landscape-lighting"],
-    upsellPrompt: "Enhance your outdoor ambiance",
-  },
-  {
-    id: "snow",
-    label: "Snow Removal",
-    icon: Snowflake,
-    description: "Driveway & walkway clearing",
-    color: "bg-sky-100 text-sky-700 border-sky-200",
-    primaryServices: ["snow-removal"],
-    upsellServices: [],
-    upsellPrompt: "",
-  },
-  {
-    id: "landscaping",
-    label: "Landscaping",
-    icon: Sun,
-    description: "Patios, hedges, trees & more",
-    color: "bg-orange-100 text-orange-700 border-orange-200",
-    primaryServices: ["hedge-trimming"],
-    upsellServices: ["tree-trimming", "mulch-installation", "patio-installation"],
-    upsellPrompt: "Transform your outdoor space",
-  },
-];
+type ServiceIntent = {
+  id: string;
+  label: string;
+  icon: typeof Leaf;
+  description: string;
+  color: string;
+  primaryServices: string[];
+  upsellServices: string[];
+  upsellPrompt: string;
+};
+
+function getSeasonalIntents(): ServiceIntent[] {
+  const inSeason = (id: string) => isServiceInSeason(id);
+  const intents: ServiceIntent[] = [];
+
+  const lawnPrimary = ["lawn-mowing"].filter(inSeason);
+  const lawnUpsells = ["aeration", "fertilization", "weed-control"].filter(inSeason);
+  if (lawnPrimary.length > 0) {
+    intents.push({
+      id: "lawn-care",
+      label: "Lawn Care",
+      icon: Leaf,
+      description: "Mowing, aeration, fertilization",
+      color: "bg-primary/10 text-primary border-primary/20",
+      primaryServices: lawnPrimary,
+      upsellServices: lawnUpsells,
+      upsellPrompt: "Boost your lawn's health",
+    });
+  }
+
+  const springIn = inSeason("spring-cleanup");
+  const fallIn = inSeason("fall-cleanup");
+  if (springIn) {
+    intents.push({
+      id: "cleanup",
+      label: "Spring Cleanup",
+      icon: TreeDeciduous,
+      description: "Debris removal, bed prep, leaf cleanup",
+      color: "bg-amber-100 text-amber-700 border-amber-200",
+      primaryServices: ["spring-cleanup"],
+      upsellServices: ["dethatching", "overseeding"].filter(inSeason),
+      upsellPrompt: "Prepare your lawn for the season",
+    });
+  } else if (fallIn) {
+    intents.push({
+      id: "cleanup",
+      label: "Fall Cleanup",
+      icon: TreeDeciduous,
+      description: "Leaf removal, bed cleanup, winterizing",
+      color: "bg-amber-100 text-amber-700 border-amber-200",
+      primaryServices: ["fall-cleanup"],
+      upsellServices: ["gutter-cleaning", "sprinkler-blowout"].filter(inSeason),
+      upsellPrompt: "Get your yard ready for winter",
+    });
+  }
+
+  const blowoutIn = inSeason("sprinkler-blowout");
+  const irrigPrimary = blowoutIn
+    ? ["sprinkler-blowout"]
+    : ["irrigation-maintenance", "sprinkler-repair"].filter(inSeason);
+  const irrigUpsells = blowoutIn
+    ? ["sprinkler-repair", "irrigation-maintenance"].filter(inSeason)
+    : ["sprinkler-system-installation", "irrigation-repair"].filter(inSeason);
+  if (irrigPrimary.length > 0) {
+    intents.push({
+      id: "irrigation",
+      label: "Irrigation",
+      icon: Droplets,
+      description: blowoutIn ? "Sprinkler winterization & repair" : "Sprinkler startup, repair & install",
+      color: "bg-blue-100 text-blue-700 border-blue-200",
+      primaryServices: irrigPrimary,
+      upsellServices: irrigUpsells.filter(s => !irrigPrimary.includes(s)),
+      upsellPrompt: "Keep your system running smoothly",
+    });
+  }
+
+  const christmasIn = inSeason("christmas-light-installation");
+  const landscapeLightIn = inSeason("landscape-lighting");
+  if (christmasIn) {
+    intents.push({
+      id: "lighting",
+      label: "Holiday Lighting",
+      icon: Lightbulb,
+      description: "Christmas lights & landscape lighting",
+      color: "bg-yellow-100 text-yellow-700 border-yellow-200",
+      primaryServices: ["christmas-light-installation"],
+      upsellServices: landscapeLightIn ? ["landscape-lighting"] : [],
+      upsellPrompt: "Enhance your outdoor ambiance",
+    });
+  } else if (landscapeLightIn) {
+    intents.push({
+      id: "lighting",
+      label: "Landscape Lighting",
+      icon: Lightbulb,
+      description: "Outdoor lighting design & installation",
+      color: "bg-yellow-100 text-yellow-700 border-yellow-200",
+      primaryServices: ["landscape-lighting"],
+      upsellServices: [],
+      upsellPrompt: "",
+    });
+  }
+
+  if (inSeason("snow-removal")) {
+    intents.push({
+      id: "snow",
+      label: "Snow Removal",
+      icon: Snowflake,
+      description: "Driveway & walkway clearing",
+      color: "bg-sky-100 text-sky-700 border-sky-200",
+      primaryServices: ["snow-removal"],
+      upsellServices: [],
+      upsellPrompt: "",
+    });
+  }
+
+  const landscapePrimary = ["hedge-trimming"].filter(inSeason);
+  const landscapeUpsells = ["tree-trimming", "mulch-installation", "patio-installation"].filter(inSeason);
+  if (landscapePrimary.length > 0 || landscapeUpsells.length > 0) {
+    intents.push({
+      id: "landscaping",
+      label: "Landscaping",
+      icon: Sun,
+      description: "Patios, hedges, trees & more",
+      color: "bg-orange-100 text-orange-700 border-orange-200",
+      primaryServices: landscapePrimary.length > 0 ? landscapePrimary : [landscapeUpsells[0]],
+      upsellServices: landscapePrimary.length > 0 ? landscapeUpsells : landscapeUpsells.slice(1),
+      upsellPrompt: "Transform your outdoor space",
+    });
+  }
+
+  return intents;
+}
 
 // All available services for manual selection
 const ALL_SERVICES = PRIORITY_SERVICES.map(s => ({
@@ -153,6 +222,7 @@ export function SimpleQuoteWizard({
   
   // Use preselectedCity if provided, otherwise fall back to defaultCity
   const initialCity = normalizeCity(preselectedCity || defaultCity);
+  const SERVICE_INTENTS = getSeasonalIntents();
   // Phase state: 1 = Property, 2 = Services, 3 = Review
   const [phase, setPhase] = useState(1);
   
@@ -845,27 +915,54 @@ export function SimpleQuoteWizard({
                   {showAllServices ? "Hide additional services" : "Add more services"}
                 </Button>
                 
-                {showAllServices && (
-                  <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-2 max-h-64 overflow-y-auto">
-                    {ALL_SERVICES.filter(s => !selectedServices.includes(s.id) && isServiceInSeason(s.id, now)).map((service) => {
-                      const seasonLabel = getServiceSeasonLabel(service.id);
-                      return (
-                        <button
-                          key={service.id}
-                          onClick={() => toggleService(service.id)}
-                          className="p-2 text-left text-sm rounded border border-muted hover:border-primary hover:bg-primary/5 transition-all"
-                          data-testid={`add-service-${service.id}`}
-                        >
-                          <Plus className="w-3 h-3 inline mr-1" />
-                          {service.name}
-                          {seasonLabel && (
-                            <span className="ml-1 text-xs text-muted-foreground">({seasonLabel})</span>
-                          )}
-                        </button>
-                      );
-                    })}
-                  </div>
-                )}
+                {showAllServices && (() => {
+                  const remaining = ALL_SERVICES.filter(s => !selectedServices.includes(s.id));
+                  const available = remaining.filter(s => isServiceInSeason(s.id));
+                  const outOfSeason = remaining.filter(s => !isServiceInSeason(s.id));
+                  return (
+                    <div className="mt-4 max-h-72 overflow-y-auto">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                        {available.map((service) => (
+                          <button
+                            key={service.id}
+                            onClick={() => toggleService(service.id)}
+                            className="p-2 text-left text-sm rounded border border-muted hover:border-primary hover:bg-primary/5 transition-all"
+                            data-testid={`add-service-${service.id}`}
+                          >
+                            <Plus className="w-3 h-3 inline mr-1" />
+                            {service.name}
+                          </button>
+                        ))}
+                      </div>
+                      {outOfSeason.length > 0 && (
+                        <>
+                          <div className="flex items-center gap-2 my-3">
+                            <div className="h-px flex-1 bg-muted" />
+                            <span className="text-[11px] text-muted-foreground">Not in season</span>
+                            <div className="h-px flex-1 bg-muted" />
+                          </div>
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                            {outOfSeason.map((service) => {
+                              const seasonLabel = getServiceSeasonLabel(service.id);
+                              return (
+                                <div
+                                  key={service.id}
+                                  className="p-2 text-left text-sm rounded border border-muted/50 opacity-50 cursor-not-allowed"
+                                  data-testid={`add-service-${service.id}`}
+                                >
+                                  <span>{service.name}</span>
+                                  {seasonLabel && (
+                                    <span className="ml-1.5 text-[10px] text-muted-foreground">({seasonLabel})</span>
+                                  )}
+                                </div>
+                              );
+                            })}
+                          </div>
+                        </>
+                      )}
+                    </div>
+                  );
+                })()}
               </CardContent>
             </Card>
           )}
