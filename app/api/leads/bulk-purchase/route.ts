@@ -109,6 +109,29 @@ export async function POST(request: NextRequest) {
       updatedLeads.push(updatedLead);
     }
 
+    try {
+      const { sendLeadPurchasedNotification } = await import("@/server/services/emailNotifications");
+      const buyerName = user.company || `${user.firstName || ''} ${user.lastName || ''}`.trim();
+      const buyerEmail = user.email || '';
+
+      for (const updatedLead of updatedLeads) {
+        sendLeadPurchasedNotification(
+          {
+            id: updatedLead.id,
+            name: updatedLead.name,
+            email: updatedLead.email,
+            phone: updatedLead.phone || "",
+            city: updatedLead.city,
+            serviceType: updatedLead.serviceType,
+            finalQuote: updatedLead.finalQuote || "0",
+            address: updatedLead.address || undefined,
+            purchasePrice: updatedLead.purchasePrice || updatedLead.currentLeadPrice || "0",
+          },
+          { name: buyerName, email: buyerEmail }
+        ).catch(() => {});
+      }
+    } catch (e) {}
+
     return NextResponse.json({ success: true, purchases, leads: updatedLeads });
   } catch (error) {
     console.error("Error bulk purchasing leads:", error);

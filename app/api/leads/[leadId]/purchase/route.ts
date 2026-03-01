@@ -114,6 +114,7 @@ export async function POST(
           serviceType: updatedLead.serviceType,
           finalQuote: updatedLead.finalQuote || "0",
           address: updatedLead.address || undefined,
+          purchasePrice: updatedLead.purchasePrice || lead.currentLeadPrice || "0",
         },
         { name: buyerName, email: buyerEmail }
       ).catch(() => {});

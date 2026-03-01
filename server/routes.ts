@@ -866,6 +866,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
             serviceType: fullLead.serviceType,
             finalQuote: fullLead.finalQuote || '',
             address: fullLead.address || undefined,
+            purchasePrice: fullLead.purchasePrice || fullLead.currentLeadPrice || '0',
           }, {
             name: buyerName,
             email: buyerEmail,
@@ -2131,6 +2132,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
             serviceType: lead.serviceType,
             finalQuote: lead.finalQuote || "0",
             address: lead.address || undefined,
+            purchasePrice: lead.purchasePrice || lead.currentLeadPrice || "0",
           },
           {
             name: user.company || user.firstName || "Unknown",

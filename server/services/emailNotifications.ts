@@ -436,6 +436,7 @@ export async function sendLeadPurchasedNotification(leadData: {
   serviceType: string;
   finalQuote: string;
   address?: string;
+  purchasePrice?: string;
 }, purchaserData: {
   name: string;
   email: string;
@@ -443,7 +444,8 @@ export async function sendLeadPurchasedNotification(leadData: {
   const { fromEmail } = await getUncachableResendClient();
   const dashboardUrl = adminLeadUrl('all', leadData.id);
   
-  const subject = `Lead Purchased - ${leadData.name} (${leadData.city})`;
+  const purchasePrice = leadData.purchasePrice ? `$${parseFloat(leadData.purchasePrice).toFixed(2)}` : 'N/A';
+  const subject = `Lead Sold for ${purchasePrice} - ${leadData.name} (${leadData.city})`;
   const leadValue = formatLeadValueRange(leadData.finalQuote);
   
   const htmlBody = `
@@ -520,9 +522,9 @@ export async function sendLeadPurchasedNotification(leadData: {
             </table>
           </div>
 
-          <div class="highlight-box">
-            <p><strong>Transaction Complete</strong></p>
-            <p style="margin: 10px 0 0 0;">The lead has been transferred to the subcontractor. They now have full access to customer contact information and are responsible for following up.</p>
+          <div class="highlight-box" style="background: #dcfce7; border: 2px solid #2D8652;">
+            <p><strong>Lead Purchase Price: ${purchasePrice}</strong></p>
+            <p style="margin: 10px 0 0 0;">The subcontractor paid <strong>${purchasePrice}</strong> for this lead. The lead has been transferred and they now have full access to customer contact information.</p>
           </div>
 
           <div style="text-align: center; margin: 30px 0;">
