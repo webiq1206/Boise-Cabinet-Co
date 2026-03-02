@@ -461,6 +461,16 @@ function SubcontractorPortalContent() {
     enabled: isAuthenticated && (isSubcontractor || user?.role === "admin"),
   });
 
+  const { data: myPurchases = [] } = useQuery<Lead[]>({
+    queryKey: ["/api/leads/purchases"],
+    queryFn: async () => {
+      const res = await fetch("/api/leads/purchases");
+      if (!res.ok) return [];
+      return res.json();
+    },
+    enabled: isAuthenticated && (isSubcontractor || user?.role === "admin"),
+  });
+
   const watchedLeadIds = useMemo(() => {
     const ids = new Set<string>();
     watchlist.forEach(l => ids.add(l.id));
@@ -587,6 +597,7 @@ function SubcontractorPortalContent() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/leads"] });
       queryClient.invalidateQueries({ queryKey: ["/api/leads/watchlist"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/leads/purchases"] });
       setPaymentSuccess(true);
     },
     onError: (error: Error) => {
@@ -608,6 +619,7 @@ function SubcontractorPortalContent() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/leads"] });
       queryClient.invalidateQueries({ queryKey: ["/api/leads/watchlist"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/leads/purchases"] });
       setSelectedLeadIds([]);
       setPaymentSuccess(true);
     },
@@ -1150,7 +1162,7 @@ function SubcontractorPortalContent() {
         )}
 
         {/* Stats */}
-        <div className="grid grid-cols-3 gap-2 md:gap-4 mb-4 md:mb-8">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4 mb-4 md:mb-8">
           <Card>
             <CardHeader className="p-3 md:p-4 pb-1 md:pb-2">
               <CardTitle className="text-sm font-medium text-muted-foreground flex items-center gap-2">
@@ -1158,7 +1170,7 @@ function SubcontractorPortalContent() {
               </CardTitle>
             </CardHeader>
             <CardContent className="p-3 md:p-4 pt-0">
-              <div className="text-xl md:text-3xl font-bold">{filteredLeads.length}</div>
+              <div className="text-xl md:text-3xl font-bold" data-testid="text-stat-available">{filteredLeads.length}</div>
             </CardContent>
           </Card>
           <Card>
@@ -1168,20 +1180,30 @@ function SubcontractorPortalContent() {
               </CardTitle>
             </CardHeader>
             <CardContent className="p-3 md:p-4 pt-0">
-              <div className="text-xl md:text-3xl font-bold">{watchlist.length}</div>
+              <div className="text-xl md:text-3xl font-bold" data-testid="text-stat-watchlist">{watchlist.length}</div>
             </CardContent>
           </Card>
           <Card>
             <CardHeader className="p-3 md:p-4 pb-1 md:pb-2">
               <CardTitle className="text-sm font-medium text-muted-foreground flex items-center gap-2">
-                <CheckCircle2 className="h-4 w-4" /> Selected for Purchase
+                <CheckCircle2 className="h-4 w-4" /> In Cart
               </CardTitle>
             </CardHeader>
             <CardContent className="p-3 md:p-4 pt-0">
-              <div className="text-xl md:text-3xl font-bold">{selectedLeadIds.length}</div>
+              <div className="text-xl md:text-3xl font-bold" data-testid="text-stat-cart">{selectedLeadIds.length}</div>
               {selectedLeadsTotal.discount > 0 && (
                 <p className="text-sm text-primary">{selectedLeadsTotal.discount}% bulk discount!</p>
               )}
+            </CardContent>
+          </Card>
+          <Card className="hover-elevate cursor-pointer" onClick={() => router.push("/subcontractor/purchases")} data-testid="card-stat-purchases">
+            <CardHeader className="p-3 md:p-4 pb-1 md:pb-2">
+              <CardTitle className="text-sm font-medium text-muted-foreground flex items-center gap-2">
+                <Receipt className="h-4 w-4" /> My Purchases
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="p-3 md:p-4 pt-0">
+              <div className="text-xl md:text-3xl font-bold" data-testid="text-stat-purchases">{myPurchases.length}</div>
             </CardContent>
           </Card>
         </div>
