@@ -8,7 +8,7 @@ packages = ["imagemagick", "libwebp"]
 
 [deployment]
 deploymentTarget = "autoscale"
-build = ["bash", "-c", "NODE_OPTIONS='--max-old-space-size=1536' npm run build"]
+build = ["npm", "run", "build"]
 run = ["npm", "run", "start"]
 
 [[ports]]
@@ -48,3 +48,4 @@ integrations = ["javascript_mem_db:1.0.0", "javascript_openai_ai_integrations:1.
 VITE_GA_MEASUREMENT_ID = "G-1HD7RT8PKJ"
 ADMIN_EMAILS = "webiq.co@gmail.com"
 NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY = "pk_live_51LGm9XKmgtIDVx8lrH27gaoWAdwf1F0O7Gxx2RkNqICfBvPslxV7IJCdufiFDHnNxaCKgr3IcOZokNdmNaxy3z6z000ipOzjOv"
+NODE_OPTIONS = "--max-old-space-size=1536"
