@@ -245,6 +245,13 @@ function QuoteBreakdownSection({ lead }: { lead: Lead }) {
     return `$${price.toLocaleString()}`;
   };
 
+  const formatPriceRange = (price: number | undefined) => {
+    if (price === undefined || price === null || price === 0) return '$0';
+    const low = Math.round(price * 0.85);
+    const high = Math.round(price * 1.15);
+    return `$${low.toLocaleString()} - $${high.toLocaleString()}`;
+  };
+
   const seasonInfo = getSeasonMultiplier(lead.frequency);
   const hasAnyRecurring = lineItems.some(item => {
     const sid = item.serviceId || item.service || "";
@@ -273,7 +280,7 @@ function QuoteBreakdownSection({ lead }: { lead: Lead }) {
           >
             <span className="flex items-center gap-1.5">
               <Receipt className="h-3.5 w-3.5 text-muted-foreground" />
-              Project Details
+              Estimated Project Details
             </span>
             <ChevronDown className={`h-3.5 w-3.5 text-muted-foreground transition-transform ${isOpen ? 'rotate-180' : ''}`} />
           </Button>
@@ -305,7 +312,7 @@ function QuoteBreakdownSection({ lead }: { lead: Lead }) {
                             </Badge>
                           )}
                         </div>
-                        <span className="font-semibold text-xs text-primary flex-shrink-0">{formatPrice(price)}</span>
+                        <span className="font-semibold text-xs text-primary flex-shrink-0">{formatPriceRange(price)}</span>
                       </div>
                       {measurement && (
                         <p className="text-[11px] text-muted-foreground mt-0.5">{measurement}</p>
