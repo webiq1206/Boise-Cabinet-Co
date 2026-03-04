@@ -455,8 +455,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
           const { basePrice, currentPrice } = calculateLeadPrice({
             finalQuote: opts.finalQuote,
-            frequency: opts.frequency,
-            serviceType: opts.serviceType,
           });
 
           const lead = await storage.createLead({
@@ -1289,8 +1287,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const finalQuoteNum = quote.finalQuote ? parseFloat(quote.finalQuote) : 0;
       const { basePrice, currentPrice } = calculateLeadPrice({
         finalQuote: finalQuoteNum,
-        frequency: quote.frequency || "one-time",
-        serviceType: quote.serviceType,
       });
       const baseLeadPrice = basePrice.toFixed(2);
       const currentLeadPrice = currentPrice.toFixed(2);
@@ -1597,8 +1593,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const { calculateLeadPrice } = await import("./services/leadPricing");
       const { basePrice, currentPrice } = calculateLeadPrice({
         finalQuote: leadData.finalQuote ? parseFloat(leadData.finalQuote) : 0,
-        frequency: leadData.frequency || "one-time",
-        serviceType: leadData.serviceType,
       });
       
       // Create the lead

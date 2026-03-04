@@ -1,6 +1,5 @@
 import { storage } from "../storage";
 import type { Lead } from "@shared/schema";
-import { getRecurringEligibleServices, getRecurringLeadPrices } from "@shared/serviceSeasonality";
 
 function roundToNearestFive(price: number): number {
   return Math.ceil(price / 5) * 5;
@@ -20,44 +19,12 @@ function parsePrice(value: unknown, fallback = 0): number {
   return Number.isFinite(n) ? n : fallback;
 }
 
-const RECURRING_ELIGIBLE_SERVICE_IDS = getRecurringEligibleServices();
-const RECURRING_LEAD_BASE_PRICES = getRecurringLeadPrices();
-
 export function calculateLeadPrice(params: {
   finalQuote: number;
-  frequency: string;
-  serviceType: string;
-  serviceFrequencies?: Record<string, string>;
-  lineItems?: Array<{ serviceId?: string; service?: string; price?: number; adjustedPrice?: number; isRecurring?: boolean }>;
 }): { basePrice: number; currentPrice: number } {
-  const { finalQuote, frequency, serviceType, serviceFrequencies, lineItems } = params;
+  const { finalQuote } = params;
 
-  let basePrice: number;
-
-  if (lineItems && lineItems.length > 0) {
-    let total = 0;
-    for (const item of lineItems) {
-      const sid = item.serviceId || item.service || "";
-      const itemPrice = item.price || item.adjustedPrice || 0;
-      const itemIsRecurring = item.isRecurring ?? (
-        serviceFrequencies
-          ? (serviceFrequencies[sid] && serviceFrequencies[sid] !== "one-time")
-          : (frequency && frequency !== "one-time")
-      );
-      if (itemIsRecurring && RECURRING_ELIGIBLE_SERVICE_IDS.has(sid)) {
-        total += RECURRING_LEAD_BASE_PRICES[sid] ?? 60;
-      } else {
-        total += itemPrice * 0.10;
-      }
-    }
-    basePrice = total;
-  } else {
-    const isRecurring = frequency && frequency !== "one-time";
-    basePrice = isRecurring
-      ? (RECURRING_LEAD_BASE_PRICES[serviceType] ?? 60)
-      : finalQuote * 0.10;
-  }
-
+  let basePrice = finalQuote * 0.10;
   basePrice = Math.max(15, basePrice);
   basePrice = roundToNearestFive(basePrice);
 
@@ -67,39 +34,33 @@ export function calculateLeadPrice(params: {
   };
 }
 
-// Update all lead prices (runs daily via cron)
 export async function updateLeadPrices(): Promise<Lead[]> {
   const leads = await storage.getAllLeads();
   const updatedLeads: Lead[] = [];
 
   for (const lead of leads) {
-    if (lead.status !== "available") continue; // Only update available leads
+    if (lead.status !== "available") continue;
 
     const currentPrice = parsePrice(lead.currentLeadPrice, 0);
     const basePrice = parsePrice(lead.baseLeadPrice, 0);
     if (currentPrice <= 0 || basePrice <= 0) continue;
 
-    // Calculate days since last price update
     const lastUpdate = new Date(lead.lastPriceUpdate || lead.createdAt);
     const now = new Date();
     const daysSinceUpdate = Math.floor((now.getTime() - lastUpdate.getTime()) / (1000 * 60 * 60 * 24));
 
-    if (daysSinceUpdate < 1) continue; // Don't update if less than a day
+    if (daysSinceUpdate < 1) continue;
 
-    // Daily decay: default 1.5%/day compounded.
-    // Floor: 20% of base price (matches UI + schema defaults).
     const ratePercent = Math.max(0, parsePrice((lead as any).priceReductionRate, 1.5));
     const dailyFactor = Math.max(0, Math.min(1, 1 - ratePercent / 100));
     const floorPct = 0.2;
     const rawPrice = currentPrice * Math.pow(dailyFactor, daysSinceUpdate);
     const floorPrice = basePrice * floorPct;
 
-    // Round down for price drops, then enforce the rounded floor.
     const floored = Math.max(rawPrice, floorPrice);
     const minRoundedFloor = Math.max(5, roundToNearestFive(floorPrice));
     const newPrice = Math.max(roundDownToNearestFive(floored), minRoundedFloor);
 
-    // Only update if price changed
     if (Math.abs(newPrice - currentPrice) > 0.01) {
       const updated = await storage.updateLead(lead.id, {
         currentLeadPrice: newPrice.toFixed(2),
@@ -109,10 +70,8 @@ export async function updateLeadPrices(): Promise<Lead[]> {
       if (updated) {
         updatedLeads.push(updated);
 
-        // Notify subcontractors who are watching this lead
         const subcontractors = await storage.getAllSubcontractors();
         for (const sub of subcontractors) {
-          // watchedLeads may be JSONB array or stringified JSON depending on storage layer
           let watched: string[] = [];
           const rawWatched: any = (sub as any).watchedLeads;
           if (Array.isArray(rawWatched)) watched = rawWatched;

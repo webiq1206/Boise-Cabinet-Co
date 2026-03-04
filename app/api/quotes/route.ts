@@ -4,7 +4,7 @@ import { db } from "@/lib/db";
 import { quotes, leads, users, notifications, siteSettings } from "@/shared/schema";
 import { eq } from "drizzle-orm";
 import { sendQuoteConfirmationEmail, sendAdminNotificationEmail } from "@/lib/resend";
-import { getRecurringEligibleServices, getRecurringLeadPrices } from "@shared/serviceSeasonality";
+import { getRecurringEligibleServices } from "@shared/serviceSeasonality";
 
 const quoteSubmissionSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -38,7 +38,6 @@ function roundToNearestFive(price: number): number {
 }
 
 const RECURRING_ELIGIBLE_SERVICE_IDS = getRecurringEligibleServices();
-const RECURRING_LEAD_BASE_PRICES = getRecurringLeadPrices();
 
 const SERVICE_PRICING_RATES: Record<string, { lowRate: number; highRate: number; unit: string; minimum: number; includedZones?: number }> = {
   "lawn-mowing": { lowRate: 0.00625, highRate: 0.010, unit: "sqft", minimum: 35 },
@@ -143,42 +142,8 @@ function calculateServicePrice(
 
 function calculateLeadPrice(params: {
   finalQuote: number;
-  frequency: string;
-  serviceType: string;
-  serviceFrequencies?: Record<string, string>;
-  lineItems?: Array<{ serviceId?: string; service?: string; price?: number; adjustedPrice?: number; isRecurring?: boolean }>;
 }): { basePrice: number; currentPrice: number } {
-  const { finalQuote, frequency, serviceType, serviceFrequencies, lineItems } = params;
-
-  let basePrice: number;
-
-  if (lineItems && lineItems.length > 0) {
-    let total = 0;
-    const breakdown: string[] = [];
-    for (const item of lineItems) {
-      const sid = item.serviceId || item.service || "";
-      const itemPrice = item.price || item.adjustedPrice || 0;
-      const itemIsRecurring = item.isRecurring ?? false;
-      if (itemIsRecurring && RECURRING_ELIGIBLE_SERVICE_IDS.has(sid)) {
-        const fixedRate = RECURRING_LEAD_BASE_PRICES[sid] ?? 60;
-        total += fixedRate;
-        breakdown.push(`${sid}: $${fixedRate} (recurring fixed rate)`);
-      } else {
-        const leadCost = itemPrice * 0.10;
-        total += leadCost;
-        breakdown.push(`${sid}: $${leadCost.toFixed(2)} (10% of $${itemPrice.toFixed(2)})`);
-      }
-    }
-    basePrice = total;
-    console.log("[QUOTE] Lead price breakdown:", breakdown.join(", "));
-    console.log("[QUOTE] Lead price subtotal:", total.toFixed(2));
-  } else {
-    const isRecurring = frequency && frequency !== "one-time";
-    basePrice = isRecurring
-      ? (RECURRING_LEAD_BASE_PRICES[serviceType] ?? 60)
-      : finalQuote * 0.10;
-  }
-
+  let basePrice = params.finalQuote * 0.10;
   basePrice = Math.max(15, basePrice);
   basePrice = roundToNearestFive(basePrice);
 
@@ -256,10 +221,6 @@ export async function POST(request: Request) {
 
         const { basePrice, currentPrice } = calculateLeadPrice({
           finalQuote: estimatedTotal,
-          frequency,
-          serviceType: primaryService,
-          serviceFrequencies,
-          lineItems: enrichedLineItems,
         });
 
         let autoRelease = false;
