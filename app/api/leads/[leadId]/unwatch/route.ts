@@ -22,7 +22,7 @@ export async function POST(request: Request, { params }: { params: { leadId: str
   if (!session.userId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   const user = await getUserFromDb(session.userId);
   if (!user) return NextResponse.json({ error: "User not found" }, { status: 404 });
-  if (user.role !== "subcontractor") return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+  if (user.role !== "subcontractor" && user.role !== "admin") return NextResponse.json({ error: "Forbidden" }, { status: 403 });
 
   if (!db) return NextResponse.json({ error: "Database unavailable" }, { status: 503 });
 

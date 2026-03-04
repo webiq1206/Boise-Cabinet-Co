@@ -792,7 +792,13 @@ function SubcontractorPortalContent() {
     }
     
     if (filterFrequency !== "all") {
-      filtered = filtered.filter(l => (l.frequency || "one-time") === filterFrequency);
+      if (filterFrequency === "recurring") {
+        filtered = filtered.filter(l => l.frequency && l.frequency !== "one-time");
+      } else if (filterFrequency === "one-time") {
+        filtered = filtered.filter(l => !l.frequency || l.frequency === "one-time");
+      } else {
+        filtered = filtered.filter(l => (l.frequency || "one-time") === filterFrequency);
+      }
     }
     
     if (filterAge !== "all") {
