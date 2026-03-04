@@ -1183,9 +1183,6 @@ function AdminDashboardContent() {
         <div className="container px-3 md:px-4 py-3 md:py-4">
           <div className="flex items-center justify-between gap-2">
             <div className="flex items-center gap-2 md:gap-4 min-w-0">
-              <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                <Shield className="w-4 h-4 md:w-5 md:h-5 text-primary" />
-              </div>
               <div className="min-w-0">
                 <div className="flex items-center gap-2 flex-wrap">
                   <h1 className="text-lg md:text-xl font-bold">Admin Dashboard</h1>

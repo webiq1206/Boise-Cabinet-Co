@@ -1016,11 +1016,8 @@ function SubcontractorPortalContent() {
         <div className="container px-3 md:px-4 py-3 md:py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-primary flex items-center justify-center">
-                <Leaf className="w-4 h-4 md:w-5 md:h-5 text-white" />
-              </div>
               <div>
-                <h1 className="text-lg md:text-xl font-bold text-primary">Subcontractor Portal</h1>
+                <h1 className="text-lg md:text-xl font-bold">Subcontractor Portal</h1>
                 <p className="text-sm text-muted-foreground">
                   Welcome, {user?.firstName || user?.email}
                 </p>
