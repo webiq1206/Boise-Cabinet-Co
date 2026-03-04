@@ -89,6 +89,10 @@ interface ServiceDataEntry {
   zones?: number;
   treeCount?: number;
   quantity?: number;
+  hedgeLengthFt?: number;
+  perimeterFt?: number;
+  fixtureCount?: number;
+  frequency?: string;
   [key: string]: unknown;
 }
 
@@ -156,6 +160,76 @@ function getServiceName(serviceSlug: string): string {
   return service ? service.name : serviceSlug.replace(/-/g, " ").replace(/\b\w/g, l => l.toUpperCase());
 }
 
+const SERVICE_UNITS: Record<string, string> = {
+  "lawn-mowing": "sqft", "lawn-care": "sqft", "aeration": "sqft", "fertilization": "sqft",
+  "weed-control": "sqft", "overseeding": "sqft", "dethatching": "sqft", "sod-installation": "sqft",
+  "lawn-renovation": "sqft", "lawn-maintenance": "sqft",
+  "sprinkler-system-installation": "sqft", "irrigation-installation": "sqft",
+  "spring-cleanup": "sqft", "fall-cleanup": "sqft", "seasonal-cleanup": "sqft",
+  "lawn-edging": "linear_ft",
+  "christmas-light-installation": "linear_ft", "christmas-lights": "linear_ft",
+  "fence": "linear_ft", "fence-installation": "linear_ft",
+  "gutter-cleaning": "linear_ft",
+  "landscape-lighting": "per_fixture",
+  "sprinkler-blowout": "per_zone", "irrigation-maintenance": "per_zone",
+  "tree-removal": "per_tree", "tree-trimming": "per_tree",
+  "hedge-trimming": "per_shrub",
+  "landscaping": "sqft", "mulching": "sqft",
+  "patio-installation": "per_sqft", "retaining-walls": "per_sqft",
+  "pond-installation": "base_project",
+  "stump-grinding": "per_inch",
+  "mulch-installation": "per_cubic_yard",
+  "sprinkler-repair": "base_service", "irrigation-repair": "base_service",
+  "snow-removal": "base_service", "fire-pit-installation": "base_project",
+};
+
+function getServiceMeasurement(serviceId: string, svcEntry?: ServiceDataEntry, fallbackSize?: number): string | null {
+  const unit = SERVICE_UNITS[serviceId];
+  if (!unit) return null;
+
+  switch (unit) {
+    case "sqft":
+    case "per_sqft": {
+      const size = svcEntry?.propertySize || fallbackSize;
+      if (size && size > 0) return `${Number(size).toLocaleString()} SF`;
+      return null;
+    }
+    case "linear_ft": {
+      const lf = svcEntry?.linearFeet || svcEntry?.perimeterFt;
+      if (lf && lf > 0) return `${Number(lf).toLocaleString()} LF`;
+      return null;
+    }
+    case "per_zone": {
+      const z = svcEntry?.zones;
+      if (z && z > 0) return `${z} zone${z !== 1 ? "s" : ""}`;
+      return null;
+    }
+    case "per_tree": {
+      const t = svcEntry?.treeCount;
+      if (t && t > 0) return `${t} tree${t !== 1 ? "s" : ""}`;
+      return null;
+    }
+    case "per_shrub": {
+      const h = svcEntry?.hedgeLengthFt;
+      if (h && h > 0) return `${Number(h).toLocaleString()} LF hedge`;
+      const qty = svcEntry?.quantity;
+      if (qty && qty > 0) return `${qty} shrub${qty !== 1 ? "s" : ""}`;
+      return null;
+    }
+    case "per_fixture": {
+      const f = svcEntry?.fixtureCount;
+      if (f && f > 0) return `${f} fixture${f !== 1 ? "s" : ""}`;
+      return null;
+    }
+    case "per_cubic_yard":
+    case "per_inch":
+    case "base_service":
+    case "base_project":
+    default:
+      return null;
+  }
+}
+
 function QuoteBreakdownSection({ lead }: { lead: Lead }) {
   const [isOpen, setIsOpen] = useState(false);
   
@@ -208,31 +282,41 @@ function QuoteBreakdownSection({ lead }: { lead: Lead }) {
         <CollapsibleContent className="pt-2">
           {lineItems.length > 0 ? (
             <div className="space-y-1.5">
-              {lineItems.map((item, index) => {
-                const sid = item.serviceId || item.service || "";
-                const serviceName = item.serviceName || item.service || 'Service';
-                const price = item.price || item.adjustedPrice || 0;
-                const recurring = item.isRecurring ?? isServiceRecurring(sid, lead.frequency);
-                
-                return (
-                  <div key={index} className="bg-muted/50 rounded-md px-2 py-1.5">
-                    <div className="flex justify-between items-center gap-2">
-                      <div className="flex items-center gap-1.5 flex-wrap min-w-0">
-                        <span className="font-medium text-xs">{serviceName}</span>
-                        {lead.frequency && lead.frequency !== "one-time" && (
-                          <Badge variant={recurring ? "default" : "secondary"} className="text-[9px] px-1 py-0">
-                            {recurring ? `Recurring (${lead.frequency})` : "One-time"}
-                          </Badge>
-                        )}
+              {(() => {
+                const rawSvcData = lead.serviceData && typeof lead.serviceData === 'string'
+                  ? (() => { try { return JSON.parse(lead.serviceData as unknown as string); } catch { return {}; } })()
+                  : (lead.serviceData || {});
+                const svcData: Record<string, ServiceDataEntry> = rawSvcData;
+                return lineItems.map((item, index) => {
+                  const sid = item.serviceId || item.service || "";
+                  const serviceName = item.serviceName || item.service || 'Service';
+                  const price = item.price || item.adjustedPrice || 0;
+                  const recurring = item.isRecurring ?? isServiceRecurring(sid, lead.frequency);
+                  const measurement = getServiceMeasurement(sid, svcData[sid]);
+                  
+                  return (
+                    <div key={index} className="bg-muted/50 rounded-md px-2 py-1.5">
+                      <div className="flex justify-between items-center gap-2">
+                        <div className="flex items-center gap-1.5 flex-wrap min-w-0">
+                          <span className="font-medium text-xs">{serviceName}</span>
+                          {lead.frequency && lead.frequency !== "one-time" && (
+                            <Badge variant={recurring ? "default" : "secondary"} className="text-[9px] px-1 py-0">
+                              {recurring ? `Recurring (${lead.frequency})` : "One-time"}
+                            </Badge>
+                          )}
+                        </div>
+                        <span className="font-semibold text-xs text-primary flex-shrink-0">{formatPrice(price)}</span>
                       </div>
-                      <span className="font-semibold text-xs text-primary flex-shrink-0">{formatPrice(price)}</span>
+                      {measurement && (
+                        <p className="text-[11px] text-muted-foreground mt-0.5">{measurement}</p>
+                      )}
+                      {item.description && (
+                        <p className="text-[11px] text-muted-foreground mt-0.5">{item.description}</p>
+                      )}
                     </div>
-                    {item.description && (
-                      <p className="text-[11px] text-muted-foreground mt-0.5">{item.description}</p>
-                    )}
-                  </div>
-                );
-              })}
+                  );
+                });
+              })()}
               
               {lead.finalQuote && (
                 <>
@@ -901,10 +985,10 @@ function SubcontractorPortalContent() {
                     </Badge>
                   )}
                 </div>
-                <CardDescription className="text-[11px] mt-0.5 flex items-center gap-1">
-                  <MapPin className="h-2.5 w-2.5" />
+                <div className="text-[11px] mt-0.5 flex items-center gap-1 font-semibold text-emerald-700 dark:text-emerald-400">
+                  <MapPin className="h-3 w-3 flex-shrink-0" />
                   {lead.city} - {lead.propertyType.replace(/-/g, " ")}
-                </CardDescription>
+                </div>
               </div>
             </div>
             <Button
