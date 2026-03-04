@@ -277,7 +277,7 @@ function QuoteBreakdownSection({ lead }: { lead: Lead }) {
                 <>
                   <div className="flex justify-between items-center pt-1.5 border-t">
                     <span className="font-semibold text-xs">
-                      {hasAnyRecurring ? "Per-Visit Estimate" : "Total Quote"}
+                      Total Estimate
                     </span>
                     <span className="font-bold text-sm text-primary" data-testid={`text-total-quote-${lead.id}`}>
                       {formatQuoteRangeWholeFromValue(lead.finalQuote, 0.15)}
@@ -314,7 +314,7 @@ function QuoteBreakdownSection({ lead }: { lead: Lead }) {
                 <>
                   <div className="flex justify-between items-center pt-1.5 border-t">
                     <span className="font-semibold text-xs">
-                      {hasAnyRecurring ? "Per-Visit Estimate" : "Total Quote"}
+                      Total Estimate
                     </span>
                     <span className="font-bold text-sm text-primary" data-testid={`text-total-quote-${lead.id}`}>
                       {formatQuoteRangeWholeFromValue(lead.finalQuote, 0.15)}

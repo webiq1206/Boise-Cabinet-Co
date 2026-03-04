@@ -215,7 +215,7 @@ function QuoteBreakdownSection({ lead }: { lead: Lead }) {
                 <>
                   <div className="flex justify-between items-center pt-1.5 border-t">
                     <span className="font-semibold text-xs">
-                      {hasAnyRecurring ? "Per-Visit Estimate" : "Estimated Project Value"}
+                      Total Estimate
                     </span>
                     <span className="font-bold text-sm text-primary">
                       {formatQuoteRangeWholeFromValue(lead.finalQuote, 0.15)}
@@ -239,7 +239,7 @@ function QuoteBreakdownSection({ lead }: { lead: Lead }) {
             <div className="space-y-1.5">
               <div className="flex justify-between items-center">
                 <span className="font-semibold text-xs">
-                  {hasAnyRecurring ? "Per-Visit Estimate" : "Estimated Project Value"}
+                  Total Estimate
                 </span>
                 <span className="font-bold text-sm text-primary">
                   {lead.finalQuote ? formatQuoteRangeWholeFromValue(lead.finalQuote, 0.15) : "Contact for quote"}
@@ -281,14 +281,7 @@ function LeadPricingSection({ lead, discount = 0 }: { lead: Lead; discount?: num
   const isMixed = hasAnyRecurring && hasAnyOneTime;
   const seasonInfo = getSeasonMultiplier(lead.frequency);
   
-  let pricingExplanation = "";
-  if (isMixed) {
-    pricingExplanation = "This lead includes both recurring and one-time services. Recurring services are priced at a competitive fixed rate based on the total seasonal contract value. One-time services are priced at approximately 10% of the estimated service price.";
-  } else if (hasAnyRecurring && isRecurringLead) {
-    pricingExplanation = "For recurring services, lead prices are based on a competitive fixed rate that reflects the total seasonal contract value, not just a single visit.";
-  } else {
-    pricingExplanation = "Lead prices are calculated as approximately 10% of the estimated project value.";
-  }
+  const pricingExplanation = "Lead prices are calculated as approximately 10% of the total estimate, with a $15 minimum, rounded to the nearest $5.";
   
   return (
     <Collapsible open={isOpen} onOpenChange={setIsOpen}>
@@ -334,7 +327,7 @@ function LeadPricingSection({ lead, discount = 0 }: { lead: Lead; discount?: num
             return (
               <div className="bg-primary/5 rounded-md px-2 py-1.5 space-y-0.5">
                 <div className="flex justify-between text-xs">
-                  <span className="text-muted-foreground">Per-visit estimate</span>
+                  <span className="text-muted-foreground">Total estimate</span>
                   <span>{formatQuoteRangeWholeFromValue(lead.finalQuote, 0.15)}</span>
                 </div>
                 <div className="flex justify-between text-xs font-medium">
@@ -1104,7 +1097,7 @@ function SubcontractorPortalContent() {
                   <div className="space-y-1">
                     <h3 className="font-semibold" data-testid="text-how-it-works-pricing">How Pricing Works</h3>
                     <p className="text-sm text-muted-foreground">
-                      Lead pricing depends on the type of service. For one-time services (like sprinkler blowouts or cleanups), the lead price is approximately 10% of the estimated project value. For recurring services (lawn mowing, lawn maintenance, hedge trimming, and weed control), leads are priced at a competitive fixed rate that reflects the total seasonal contract value, not just a single visit. Quotes with multiple services will have each service priced individually based on its type. The minimum lead price is $15.
+                      Lead prices are approximately 10% of the total estimate for all selected services, with a $15 minimum. The price is rounded up to the nearest $5.
                     </p>
                     <p className="text-sm text-muted-foreground mt-2">
                       If a lead goes unclaimed, the price drops by about 1.5% each day. The price will never fall below 20% of its original value. So if you are patient, you may be able to pick up a great lead at a lower cost.
