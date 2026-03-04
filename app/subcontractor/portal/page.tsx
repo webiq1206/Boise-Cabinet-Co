@@ -5,7 +5,6 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -406,7 +405,7 @@ function SubcontractorPortalContent() {
   const { user, isAuthenticated, isLoading: authLoading, isSubcontractor, refetch: refetchUser } = useAuth();
 
   // State
-  const [activeTab, setActiveTab] = useState<"available" | "watchlist">("available");
+  const [activeTab, setActiveTab] = useState<"available" | "watchlist" | "cart" | "purchases">("available");
   const [searchQuery, setSearchQuery] = useState("");
   const [filterCity, setFilterCity] = useState<string>("all");
   const [filterServiceType, setFilterServiceType] = useState<string>("all");
@@ -1177,7 +1176,11 @@ function SubcontractorPortalContent() {
 
         {/* Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4 mb-4 md:mb-8">
-          <Card>
+          <Card
+            className={`hover-elevate cursor-pointer transition-colors ${activeTab === "available" ? "border-primary bg-primary/5" : ""}`}
+            onClick={() => setActiveTab("available")}
+            data-testid="card-stat-available"
+          >
             <CardHeader className="p-3 md:p-4 pb-1 md:pb-2">
               <CardTitle className="text-sm font-medium text-muted-foreground flex items-center gap-2">
                 <ShoppingCart className="h-4 w-4" /> Available Leads
@@ -1187,7 +1190,11 @@ function SubcontractorPortalContent() {
               <div className="text-xl md:text-3xl font-bold" data-testid="text-stat-available">{filteredLeads.length}</div>
             </CardContent>
           </Card>
-          <Card>
+          <Card
+            className={`hover-elevate cursor-pointer transition-colors ${activeTab === "watchlist" ? "border-primary bg-primary/5" : ""}`}
+            onClick={() => setActiveTab("watchlist")}
+            data-testid="card-stat-watchlist"
+          >
             <CardHeader className="p-3 md:p-4 pb-1 md:pb-2">
               <CardTitle className="text-sm font-medium text-muted-foreground flex items-center gap-2">
                 <Bookmark className="h-4 w-4" /> Watchlist
@@ -1197,7 +1204,11 @@ function SubcontractorPortalContent() {
               <div className="text-xl md:text-3xl font-bold" data-testid="text-stat-watchlist">{watchlist.length}</div>
             </CardContent>
           </Card>
-          <Card>
+          <Card
+            className={`hover-elevate cursor-pointer transition-colors ${activeTab === "cart" ? "border-primary bg-primary/5" : ""}`}
+            onClick={() => setActiveTab("cart")}
+            data-testid="card-stat-cart"
+          >
             <CardHeader className="p-3 md:p-4 pb-1 md:pb-2">
               <CardTitle className="text-sm font-medium text-muted-foreground flex items-center gap-2">
                 <CheckCircle2 className="h-4 w-4" /> In Cart
@@ -1210,7 +1221,11 @@ function SubcontractorPortalContent() {
               )}
             </CardContent>
           </Card>
-          <Card className="hover-elevate cursor-pointer" onClick={() => router.push("/subcontractor/purchases")} data-testid="card-stat-purchases">
+          <Card
+            className={`hover-elevate cursor-pointer transition-colors ${activeTab === "purchases" ? "border-primary bg-primary/5" : ""}`}
+            onClick={() => setActiveTab("purchases")}
+            data-testid="card-stat-purchases"
+          >
             <CardHeader className="p-3 md:p-4 pb-1 md:pb-2">
               <CardTitle className="text-sm font-medium text-muted-foreground flex items-center gap-2">
                 <Receipt className="h-4 w-4" /> My Purchases
@@ -1447,53 +1462,82 @@ function SubcontractorPortalContent() {
           </CardContent>
         </Card>
 
-        {/* Tabs */}
-        <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as typeof activeTab)} className="space-y-4">
-          <TabsList>
-            <TabsTrigger value="available">
-              <ShoppingCart className="h-4 w-4 mr-2" />
-              Available ({filteredLeads.length})
-            </TabsTrigger>
-            <TabsTrigger value="watchlist">
-              <Bookmark className="h-4 w-4 mr-2" />
-              Watchlist ({watchlist.length})
-            </TabsTrigger>
-          </TabsList>
+        {/* Lead Cards */}
+        <div className="space-y-4">
+          {activeTab === "available" && (
+            <>
+              {leadsLoading ? (
+                <div className="text-center py-8 text-muted-foreground">Loading leads...</div>
+              ) : filteredLeads.length === 0 ? (
+                <Card>
+                  <CardContent className="py-8 text-center text-muted-foreground">
+                    {hasActiveFilters ? "No leads match your filters" : "No leads available right now. Check back soon!"}
+                  </CardContent>
+                </Card>
+              ) : (
+                <div className="grid gap-4 md:grid-cols-2">
+                  {filteredLeads.map(lead => <LeadCard key={lead.id} lead={lead} />)}
+                </div>
+              )}
+            </>
+          )}
 
-          <TabsContent value="available" className="space-y-4">
-            {leadsLoading ? (
-              <div className="text-center py-8 text-muted-foreground">Loading leads...</div>
-            ) : filteredLeads.length === 0 ? (
-              <Card>
-                <CardContent className="py-8 text-center text-muted-foreground">
-                  {hasActiveFilters ? "No leads match your filters" : "No leads available right now. Check back soon!"}
-                </CardContent>
-              </Card>
-            ) : (
-              <div className="grid gap-4 md:grid-cols-2">
-                {filteredLeads.map(lead => <LeadCard key={lead.id} lead={lead} />)}
-              </div>
-            )}
-          </TabsContent>
+          {activeTab === "watchlist" && (
+            <>
+              {watchlistLoading ? (
+                <div className="text-center py-8 text-muted-foreground">Loading watchlist...</div>
+              ) : watchlist.length === 0 ? (
+                <Card>
+                  <CardContent className="py-8 text-center text-muted-foreground">
+                    <Bookmark className="h-12 w-12 mx-auto mb-4 text-muted-foreground/50" />
+                    <p>Your watchlist is empty.</p>
+                    <p className="text-sm">Click the bookmark icon on leads to add them here.</p>
+                  </CardContent>
+                </Card>
+              ) : (
+                <div className="grid gap-4 md:grid-cols-2">
+                  {watchlist.map(lead => <LeadCard key={lead.id} lead={lead} isWatchlist />)}
+                </div>
+              )}
+            </>
+          )}
 
-          <TabsContent value="watchlist" className="space-y-4">
-            {watchlistLoading ? (
-              <div className="text-center py-8 text-muted-foreground">Loading watchlist...</div>
-            ) : watchlist.length === 0 ? (
-              <Card>
-                <CardContent className="py-8 text-center text-muted-foreground">
-                  <Bookmark className="h-12 w-12 mx-auto mb-4 text-muted-foreground/50" />
-                  <p>Your watchlist is empty.</p>
-                  <p className="text-sm">Click the bookmark icon on leads to add them here.</p>
-                </CardContent>
-              </Card>
-            ) : (
-              <div className="grid gap-4 md:grid-cols-2">
-                {watchlist.map(lead => <LeadCard key={lead.id} lead={lead} isWatchlist />)}
-              </div>
-            )}
-          </TabsContent>
-        </Tabs>
+          {activeTab === "cart" && (
+            <>
+              {selectedLeadIds.length === 0 ? (
+                <Card>
+                  <CardContent className="py-8 text-center text-muted-foreground">
+                    <CheckCircle2 className="h-12 w-12 mx-auto mb-4 text-muted-foreground/50" />
+                    <p>Your cart is empty.</p>
+                    <p className="text-sm">Select leads from the Available tab to add them here.</p>
+                  </CardContent>
+                </Card>
+              ) : (
+                <div className="grid gap-4 md:grid-cols-2">
+                  {leads.filter(l => selectedLeadIds.includes(l.id)).map(lead => <LeadCard key={lead.id} lead={lead} />)}
+                </div>
+              )}
+            </>
+          )}
+
+          {activeTab === "purchases" && (
+            <>
+              {myPurchases.length === 0 ? (
+                <Card>
+                  <CardContent className="py-8 text-center text-muted-foreground">
+                    <Receipt className="h-12 w-12 mx-auto mb-4 text-muted-foreground/50" />
+                    <p>No purchases yet.</p>
+                    <p className="text-sm">Purchased leads will appear here with full contact details.</p>
+                  </CardContent>
+                </Card>
+              ) : (
+                <div className="grid gap-4 md:grid-cols-2">
+                  {myPurchases.map(lead => <LeadCard key={lead.id} lead={lead} />)}
+                </div>
+              )}
+            </>
+          )}
+        </div>
       </div>
 
       {/* Agreement Dialog */}
