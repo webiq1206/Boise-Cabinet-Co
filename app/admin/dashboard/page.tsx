@@ -26,7 +26,8 @@ import {
 import { 
   CheckCircle2, XCircle, Clock, DollarSign, MapPin, Phone, Mail, Building, 
   ChevronDown, ChevronUp, Receipt, AlertTriangle, Server, Hash, Search, Filter, X, 
-  ArrowUpDown, MessageSquare, Plus, Tag, Flag, LogOut, Shield, ArrowLeftRight, Trash2 
+  ArrowUpDown, MessageSquare, Plus, Tag, Flag, LogOut, Shield, ArrowLeftRight, Trash2,
+  Pencil, Check
 } from "lucide-react";
 import { Switch } from "@/components/ui/switch";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -832,6 +833,9 @@ function AdminDashboardContent() {
     const [newTag, setNewTag] = useState("");
     const [editingPriority, setEditingPriority] = useState(false);
     const [expanded, setExpanded] = useState(false);
+    const [editingPrice, setEditingPrice] = useState(false);
+    const [priceEstimate, setPriceEstimate] = useState("");
+    const [priceLeadPrice, setPriceLeadPrice] = useState("");
 
     const getPriorityColor = (p: string) => {
       switch (p) {
@@ -987,17 +991,96 @@ function AdminDashboardContent() {
         <div className="grid grid-cols-2 gap-2 text-sm">
           <div className="flex items-center gap-1.5">
             <DollarSign className="h-3.5 w-3.5 text-muted-foreground flex-shrink-0" />
-            <div className="min-w-0">
-              <p className="font-medium text-sm leading-tight">
-                {lead.finalQuote ? formatQuoteRangeWholeFromValue(lead.finalQuote, 0.15) : "Pending"}
-              </p>
-              <p className="text-muted-foreground text-[11px] leading-tight">
-                Lead: {formatCurrency(lead.currentLeadPrice)}
-                {lead.baseLeadPrice !== lead.currentLeadPrice && (
-                  <span className="ml-1">(was {formatCurrency(lead.baseLeadPrice)})</span>
-                )}
-              </p>
-            </div>
+            {editingPrice ? (
+              <div className="space-y-1.5 min-w-0">
+                <div className="flex items-center gap-1.5">
+                  <label className="text-[10px] text-muted-foreground w-16 flex-shrink-0">Estimate:</label>
+                  <Input
+                    type="number"
+                    step="1"
+                    min="0"
+                    placeholder="e.g. 250"
+                    value={priceEstimate}
+                    onChange={(e) => setPriceEstimate(e.target.value)}
+                    className="h-7 text-xs w-24"
+                    data-testid={`input-price-estimate-${lead.id}`}
+                  />
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <label className="text-[10px] text-muted-foreground w-16 flex-shrink-0">Lead $:</label>
+                  <Input
+                    type="number"
+                    step="1"
+                    min="0"
+                    placeholder="e.g. 25"
+                    value={priceLeadPrice}
+                    onChange={(e) => setPriceLeadPrice(e.target.value)}
+                    className="h-7 text-xs w-24"
+                    data-testid={`input-lead-price-${lead.id}`}
+                  />
+                </div>
+                <div className="flex gap-1">
+                  <Button
+                    size="sm"
+                    className="h-6 text-[10px] px-2"
+                    data-testid={`button-save-price-${lead.id}`}
+                    onClick={() => {
+                      const updates: Partial<Lead> = {};
+                      if (priceEstimate && !isNaN(parseFloat(priceEstimate))) {
+                        updates.finalQuote = priceEstimate;
+                      }
+                      if (priceLeadPrice && !isNaN(parseFloat(priceLeadPrice))) {
+                        updates.currentLeadPrice = priceLeadPrice;
+                        updates.baseLeadPrice = priceLeadPrice;
+                      }
+                      if (Object.keys(updates).length > 0) {
+                        updateLeadMutation.mutate({ leadId: lead.id, data: updates });
+                      }
+                      setEditingPrice(false);
+                    }}
+                  >
+                    <Check className="h-3 w-3 mr-1" /> Save
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="h-6 text-[10px] px-2"
+                    onClick={() => setEditingPrice(false)}
+                    data-testid={`button-cancel-price-${lead.id}`}
+                  >
+                    Cancel
+                  </Button>
+                </div>
+              </div>
+            ) : (
+              <div className="min-w-0 flex items-start gap-1">
+                <div>
+                  <p className="font-medium text-sm leading-tight">
+                    {lead.finalQuote ? formatQuoteRangeWholeFromValue(lead.finalQuote, 0.15) : "Pending"}
+                  </p>
+                  <p className="text-muted-foreground text-[11px] leading-tight">
+                    Lead: {formatCurrency(lead.currentLeadPrice)}
+                    {lead.baseLeadPrice !== lead.currentLeadPrice && (
+                      <span className="ml-1">(was {formatCurrency(lead.baseLeadPrice)})</span>
+                    )}
+                  </p>
+                </div>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="h-5 w-5 flex-shrink-0"
+                  onClick={() => {
+                    setPriceEstimate(lead.finalQuote || "");
+                    setPriceLeadPrice(lead.currentLeadPrice || "");
+                    setEditingPrice(true);
+                  }}
+                  title="Override price"
+                  data-testid={`button-edit-price-${lead.id}`}
+                >
+                  <Pencil className="h-3 w-3" />
+                </Button>
+              </div>
+            )}
           </div>
           <div className="flex items-center gap-1.5">
             <Clock className="h-3.5 w-3.5 text-muted-foreground flex-shrink-0" />
