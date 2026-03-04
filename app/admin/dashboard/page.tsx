@@ -55,6 +55,30 @@ function isServiceRecurring(serviceId: string, frequency: string | null | undefi
   return RECURRING_ELIGIBLE_SERVICE_IDS.has(serviceId);
 }
 
+function getLeadFrequencyDisplay(lead: { frequency?: string | null; selectedServices?: string[] | null; serviceData?: any }): string {
+  const freq = lead.frequency || "one-time";
+  const services = lead.selectedServices;
+  if (!services || services.length === 0) {
+    return freq === "one-time" ? "One-time" : freq;
+  }
+  if (freq === "one-time") return "One-time";
+
+  const svcData = lead.serviceData && typeof lead.serviceData === 'string'
+    ? (() => { try { return JSON.parse(lead.serviceData); } catch { return {}; } })()
+    : (lead.serviceData || {});
+
+  const recurringCount = services.filter(sid => {
+    if (!RECURRING_ELIGIBLE_SERVICE_IDS.has(sid)) return false;
+    const svcFreq = svcData[sid]?.frequency || freq;
+    return svcFreq !== "one-time";
+  }).length;
+  const totalCount = services.length;
+
+  if (recurringCount === 0) return "One-time";
+  if (recurringCount === totalCount) return freq;
+  return `${freq} (${recurringCount} of ${totalCount} recurring)`;
+}
+
 function getSeasonMultiplier(frequency: string | null | undefined): { multiplier: number; label: string } | null {
   if (!frequency || frequency === "one-time") return null;
   switch (frequency) {
@@ -980,7 +1004,7 @@ function AdminDashboardContent() {
             <div>
               <p className="font-medium text-sm leading-tight">{formatDate(lead.createdAt)}</p>
               <p className="text-muted-foreground text-[11px] leading-tight">
-                {formatLeadAge(lead.createdAt)}, {lead.frequency || "one-time"}
+                {formatLeadAge(lead.createdAt)}, {getLeadFrequencyDisplay(lead)}
               </p>
             </div>
           </div>

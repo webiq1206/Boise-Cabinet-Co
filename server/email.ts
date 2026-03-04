@@ -75,6 +75,68 @@ interface QuoteEmailData {
   preferredDate?: string;
   lineItems?: LineItem[];
   serviceData?: any;
+  serviceFrequencies?: Record<string, string>;
+}
+
+const EMAIL_RECURRING_ELIGIBLE = new Set([
+  "lawn-mowing", "lawn-maintenance", "hedge-trimming", "weed-control",
+]);
+
+function buildFrequencyDisplayHtml(
+  services: string[],
+  frequency?: string,
+  serviceFrequencies?: Record<string, string>,
+  serviceData?: any,
+  tableStyle?: boolean,
+): string {
+  if (!services || services.length === 0) {
+    if (!frequency) return '';
+    const label = formatFrequencyLabel(frequency);
+    if (tableStyle) {
+      return `<tr><td class="label">Frequency:</td><td class="value">${label}</td></tr>`;
+    }
+    return `<p style="margin: 0 0 8px 0;"><strong>Frequency:</strong> ${label}</p>`;
+  }
+
+  const svcData = serviceData && typeof serviceData === 'string' ? JSON.parse(serviceData) : serviceData;
+  const perService: Array<{ name: string; freq: string }> = services.map(sid => {
+    let svcFreq = serviceFrequencies?.[sid] || svcData?.[sid]?.frequency || frequency || "one-time";
+    if (svcFreq !== "one-time" && !EMAIL_RECURRING_ELIGIBLE.has(sid)) {
+      svcFreq = "one-time";
+    }
+    return {
+      name: sid.replace(/-/g, ' ').replace(/\b\w/g, (l: string) => l.toUpperCase()),
+      freq: svcFreq,
+    };
+  });
+
+  const uniqueFreqs = new Set(perService.map(s => s.freq));
+  if (uniqueFreqs.size === 1) {
+    const label = formatFrequencyLabel(perService[0].freq);
+    if (tableStyle) {
+      return `<tr><td class="label">Frequency:</td><td class="value">${label}</td></tr>`;
+    }
+    return `<p style="margin: 0 0 8px 0;"><strong>Frequency:</strong> ${label}</p>`;
+  }
+
+  const lines = perService.map(s =>
+    `<li style="padding: 2px 0; color: #333;">${s.name}: <strong>${formatFrequencyLabel(s.freq)}</strong></li>`
+  ).join('');
+
+  if (tableStyle) {
+    return `<tr><td class="label" style="vertical-align: top;">Frequency:</td><td class="value"><ul style="margin: 0; padding-left: 18px; list-style: disc;">${lines}</ul></td></tr>`;
+  }
+  return `<p style="margin: 0 0 4px 0;"><strong>Frequency:</strong></p><ul style="margin: 0 0 8px 0; padding-left: 20px;">${lines}</ul>`;
+}
+
+function formatFrequencyLabel(freq: string): string {
+  const map: Record<string, string> = {
+    'one-time': 'One-time',
+    'weekly': 'Weekly',
+    'bi-weekly': 'Every 2 weeks',
+    'monthly': 'Monthly',
+  };
+  return map[freq] || freq;
 }
 
 const emailStyles = `
@@ -548,12 +610,13 @@ export async function sendQuoteNotification(data: QuoteEmailData) {
                   <td class="label">Primary Service:</td>
                   <td class="value">${serviceType}</td>
                 </tr>
-                ${frequency ? `
-                <tr>
-                  <td class="label">Frequency:</td>
-                  <td class="value">${frequency}</td>
-                </tr>
-                ` : ''}
+                ${buildFrequencyDisplayHtml(
+                  selectedServices || [serviceType],
+                  frequency,
+                  data.serviceFrequencies,
+                  data.serviceData,
+                  true,
+                )}
                 ${deduplicatedServices.length > 0 ? `
                 <tr>
                   <td class="label">Additional Services:</td>
@@ -666,12 +729,13 @@ export async function sendQuoteNotification(data: QuoteEmailData) {
                   <td class="value">${propertyType}</td>
                 </tr>
                 ` : ''}
-                ${frequency ? `
-                <tr>
-                  <td class="label">Service Frequency:</td>
-                  <td class="value">${frequency}</td>
-                </tr>
-                ` : ''}
+                ${buildFrequencyDisplayHtml(
+                  selectedServices || [serviceType],
+                  frequency,
+                  data.serviceFrequencies,
+                  data.serviceData,
+                  true,
+                )}
                 ${preferredDate ? `
                 <tr>
                   <td class="label">Preferred Start Date:</td>

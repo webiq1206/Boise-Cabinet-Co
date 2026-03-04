@@ -10,6 +10,54 @@ const EMAIL_ASSET_BASE_URL = `${SITE_BASE_URL}/email`;
 const EMAIL_LOGO_LIGHT_URL = `${EMAIL_ASSET_BASE_URL}/lawn-care-kuna-logo.png`;
 const EMAIL_LOGO_DARK_URL = `${EMAIL_ASSET_BASE_URL}/lawn-care-kuna-icon.png`;
 
+const NOTIF_RECURRING_ELIGIBLE = new Set([
+  "lawn-mowing", "lawn-maintenance", "hedge-trimming", "weed-control",
+]);
+
+function formatFreqLabel(freq: string): string {
+  const map: Record<string, string> = {
+    'one-time': 'One-time',
+    'weekly': 'Weekly',
+    'bi-weekly': 'Every 2 weeks',
+    'monthly': 'Monthly',
+  };
+  return map[freq] || freq;
+}
+
+function buildLeadFrequencyRow(
+  selectedServices?: string[],
+  frequency?: string,
+  serviceData?: any,
+): string {
+  if (!frequency) return '';
+  const services = selectedServices && selectedServices.length > 0 ? selectedServices : [];
+  if (services.length === 0) {
+    return `<tr><td class="label">Frequency:</td><td class="value">${formatFreqLabel(frequency)}</td></tr>`;
+  }
+
+  const svcData = serviceData && typeof serviceData === 'string' ? JSON.parse(serviceData) : (serviceData || {});
+  const perService = services.map(sid => {
+    let svcFreq = svcData[sid]?.frequency || frequency || "one-time";
+    if (svcFreq !== "one-time" && !NOTIF_RECURRING_ELIGIBLE.has(sid)) {
+      svcFreq = "one-time";
+    }
+    return {
+      name: sid.replace(/-/g, ' ').replace(/\b\w/g, (l: string) => l.toUpperCase()),
+      freq: svcFreq,
+    };
+  });
+
+  const uniqueFreqs = new Set(perService.map(s => s.freq));
+  if (uniqueFreqs.size === 1) {
+    return `<tr><td class="label">Frequency:</td><td class="value">${formatFreqLabel(perService[0].freq)}</td></tr>`;
+  }
+
+  const lines = perService.map(s =>
+    `<li style="padding: 2px 0;">${s.name}: <strong>${formatFreqLabel(s.freq)}</strong></li>`
+  ).join('');
+  return `<tr><td class="label" style="vertical-align: top;">Frequency:</td><td class="value"><ul style="margin: 0; padding-left: 18px; list-style: disc;">${lines}</ul></td></tr>`;
+}
+
 function adminLeadUrl(tab: 'pending' | 'accepted' | 'available' | 'all', leadId: string): string {
   return `${SITE_BASE_URL}/admin/dashboard?tab=${encodeURIComponent(tab)}&leadId=${encodeURIComponent(leadId)}`;
 }
@@ -897,7 +945,7 @@ export async function sendContractorNewLeadAvailable(
               <tr><td class="label">Lead ID:</td><td class="value">${leadData.id}</td></tr>
               <tr><td class="label">City:</td><td class="value">${leadData.city}</td></tr>
               <tr><td class="label">Service:</td><td class="value">${leadData.serviceType}</td></tr>
-              ${leadData.frequency ? `<tr><td class="label">Frequency:</td><td class="value">${leadData.frequency}</td></tr>` : ""}
+              ${buildLeadFrequencyRow(leadData.selectedServices, leadData.frequency, leadData.serviceData)}
               ${leadData.propertyType ? `<tr><td class="label">Property Type:</td><td class="value">${leadData.propertyType}</td></tr>` : ""}
               <tr><td class="label">Lead Price:</td><td class="value" style="font-size: 20px; font-weight: 600; color: #2D8652;">$${formatQuoteForDisplay(leadData.currentLeadPrice, true)}</td></tr>
               <tr><td class="label">Quote Range:</td><td class="value" style="font-size: 18px; font-weight: 600; color: #1e40af;">${leadValue.display}</td></tr>

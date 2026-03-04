@@ -133,6 +133,7 @@ export async function sendQuoteConfirmationEmail(data: {
   city: string;
   services: string[];
   frequency: string;
+  serviceFrequencies?: Record<string, string>;
 }) {
   const { client, fromEmail } = await getUncachableResendClient();
   
@@ -165,7 +166,7 @@ export async function sendQuoteConfirmationEmail(data: {
             <h3 style="margin: 0 0 15px 0; color: #2D8652;">Quote Details</h3>
             <p style="margin: 0 0 8px 0;"><strong>Reference:</strong> ${data.quoteId.slice(0, 8)}</p>
             <p style="margin: 0 0 8px 0;"><strong>Property:</strong> ${data.address}, ${data.city}, Idaho</p>
-            <p style="margin: 0 0 8px 0;"><strong>Frequency:</strong> ${formatFrequency(data.frequency)}</p>
+            ${buildResendFrequencyHtml(data.services, data.frequency, data.serviceFrequencies)}
             <p style="margin: 0 0 8px 0;"><strong>Services:</strong></p>
             <ul style="margin: 0; padding-left: 20px; color: #333;">
               ${servicesHtml}
@@ -218,6 +219,7 @@ export async function sendAdminNotificationEmail(data: {
   frequency: string;
   message?: string;
   propertySize?: number;
+  serviceFrequencies?: Record<string, string>;
 }) {
   const { client, fromEmail } = await getUncachableResendClient();
   
@@ -276,10 +278,7 @@ export async function sendAdminNotificationEmail(data: {
               <td style="padding: 8px 0; border-bottom: 1px solid #e5e5e5;"><strong>Reference:</strong></td>
               <td style="padding: 8px 0; border-bottom: 1px solid #e5e5e5;">${data.quoteId}</td>
             </tr>
-            <tr>
-              <td style="padding: 8px 0; border-bottom: 1px solid #e5e5e5;"><strong>Frequency:</strong></td>
-              <td style="padding: 8px 0; border-bottom: 1px solid #e5e5e5;">${formatFrequency(data.frequency)}</td>
-            </tr>
+            ${buildResendFrequencyTableRow(data.services, data.frequency, data.serviceFrequencies)}
             <tr>
               <td style="padding: 8px 0; vertical-align: top;"><strong>Services:</strong></td>
               <td style="padding: 8px 0;">
@@ -338,10 +337,64 @@ function formatServiceName(slug: string): string {
 
 function formatFrequency(freq: string): string {
   const frequencies: Record<string, string> = {
-    'one-time': 'One-time service',
+    'one-time': 'One-time',
     'weekly': 'Weekly',
     'bi-weekly': 'Every 2 weeks',
     'monthly': 'Monthly'
   };
   return frequencies[freq] || freq;
+}
+
+const RESEND_RECURRING_ELIGIBLE = new Set([
+  "lawn-mowing", "lawn-maintenance", "hedge-trimming", "weed-control",
+]);
+
+function getPerServiceFrequencies(
+  services: string[],
+  frequency: string,
+  serviceFrequencies?: Record<string, string>,
+): Array<{ name: string; freq: string }> {
+  return services.map(sid => {
+    let svcFreq = serviceFrequencies?.[sid] || frequency || "one-time";
+    if (svcFreq !== "one-time" && !RESEND_RECURRING_ELIGIBLE.has(sid)) {
+      svcFreq = "one-time";
+    }
+    return { name: formatServiceName(sid), freq: svcFreq };
+  });
+}
+
+function buildResendFrequencyHtml(
+  services: string[],
+  frequency: string,
+  serviceFrequencies?: Record<string, string>,
+): string {
+  const perService = getPerServiceFrequencies(services, frequency, serviceFrequencies);
+  const uniqueFreqs = new Set(perService.map(s => s.freq));
+
+  if (uniqueFreqs.size <= 1) {
+    return `<p style="margin: 0 0 8px 0;"><strong>Frequency:</strong> ${formatFrequency(perService[0]?.freq || frequency)}</p>`;
+  }
+
+  const lines = perService.map(s =>
+    `<li style="padding: 2px 0;">${s.name}: <strong>${formatFrequency(s.freq)}</strong></li>`
+  ).join('');
+  return `<p style="margin: 0 0 4px 0;"><strong>Frequency:</strong></p><ul style="margin: 0 0 8px 0; padding-left: 20px;">${lines}</ul>`;
+}
+
+function buildResendFrequencyTableRow(
+  services: string[],
+  frequency: string,
+  serviceFrequencies?: Record<string, string>,
+): string {
+  const perService = getPerServiceFrequencies(services, frequency, serviceFrequencies);
+  const uniqueFreqs = new Set(perService.map(s => s.freq));
+
+  if (uniqueFreqs.size <= 1) {
+    return `<tr><td style="padding: 8px 0; border-bottom: 1px solid #e5e5e5;"><strong>Frequency:</strong></td><td style="padding: 8px 0; border-bottom: 1px solid #e5e5e5;">${formatFrequency(perService[0]?.freq || frequency)}</td></tr>`;
+  }
+
+  const lines = perService.map(s =>
+    `<li style="padding: 2px 0;">${s.name}: <strong>${formatFrequency(s.freq)}</strong></li>`
+  ).join('');
+  return `<tr><td style="padding: 8px 0; border-bottom: 1px solid #e5e5e5; vertical-align: top;"><strong>Frequency:</strong></td><td style="padding: 8px 0; border-bottom: 1px solid #e5e5e5;"><ul style="margin: 0; padding-left: 20px;">${lines}</ul></td></tr>`;
 }

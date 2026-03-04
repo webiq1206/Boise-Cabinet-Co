@@ -318,6 +318,7 @@ export async function POST(request: Request) {
         city: validatedData.city,
         services,
         frequency,
+        serviceFrequencies,
       });
       customerEmailSent = true;
       console.log("[QUOTE] Customer email sent successfully");
@@ -341,6 +342,7 @@ export async function POST(request: Request) {
         frequency,
         message: validatedData.message,
         propertySize: validatedData.propertySize,
+        serviceFrequencies,
       });
       adminEmailSent = true;
       console.log("[QUOTE] Admin email sent successfully");
