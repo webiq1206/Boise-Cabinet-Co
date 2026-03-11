@@ -56,14 +56,17 @@ function isServiceRecurring(serviceId: string, frequency: string | null | undefi
   return RECURRING_ELIGIBLE_SERVICE_IDS.has(serviceId);
 }
 
+function formatFreqLabel(f: string): string {
+  const map: Record<string, string> = { 'one-time': 'One-time', 'weekly': 'Weekly', 'bi-weekly': 'Bi-weekly', 'monthly': 'Monthly' };
+  return map[f] || f;
+}
+
 function getLeadFrequencyDisplay(lead: { frequency?: string | null; selectedServices?: string[] | null; serviceData?: any }): string {
   const freq = lead.frequency || "one-time";
   const services = lead.selectedServices;
   if (!services || services.length === 0) {
-    return freq === "one-time" ? "One-time" : freq;
+    return formatFreqLabel(freq);
   }
-  if (freq === "one-time") return "One-time";
-
   const svcData = lead.serviceData && typeof lead.serviceData === 'string'
     ? (() => { try { return JSON.parse(lead.serviceData); } catch { return {}; } })()
     : (lead.serviceData || {});
@@ -76,8 +79,13 @@ function getLeadFrequencyDisplay(lead: { frequency?: string | null; selectedServ
   const totalCount = services.length;
 
   if (recurringCount === 0) return "One-time";
-  if (recurringCount === totalCount) return freq;
-  return `${freq} (${recurringCount} of ${totalCount} recurring)`;
+  if (recurringCount === totalCount) {
+    const firstRecurringFreq = services
+      .map(sid => svcData[sid]?.frequency || freq)
+      .find(f => f !== "one-time") || freq;
+    return formatFreqLabel(firstRecurringFreq);
+  }
+  return `Mixed (${recurringCount} recurring)`;
 }
 
 function getSeasonMultiplier(frequency: string | null | undefined): { multiplier: number; label: string } | null {
@@ -96,6 +104,7 @@ interface ServiceDataEntry {
   zones?: number;
   treeCount?: number;
   quantity?: number;
+  frequency?: string;
   [key: string]: unknown;
 }
 
@@ -256,7 +265,8 @@ function QuoteBreakdownSection({ lead }: { lead: Lead }) {
                 const serviceName = item.serviceName || item.service || 'Service';
                 const price = item.price || item.adjustedPrice || 0;
                 const measurement = serviceData[serviceId] ? formatMeasurement(serviceId, serviceData[serviceId]) : '';
-                const recurring = item.isRecurring ?? isServiceRecurring(serviceId, lead.frequency);
+                const svcFreq = serviceData[serviceId]?.frequency || lead.frequency || "one-time";
+                const recurring = item.isRecurring ?? isServiceRecurring(serviceId, svcFreq);
                 
                 return (
                   <div 
@@ -269,9 +279,9 @@ function QuoteBreakdownSection({ lead }: { lead: Lead }) {
                         <span className="font-medium text-xs" data-testid={`text-service-name-${lead.id}-${index}`}>
                           {serviceName}
                         </span>
-                        {lead.frequency && lead.frequency !== "one-time" && (
+                        {(svcFreq !== "one-time" || (lead.frequency && lead.frequency !== "one-time")) && (
                           <Badge variant={recurring ? "default" : "secondary"} className="text-[9px] px-1 py-0">
-                            {recurring ? `Recurring (${lead.frequency})` : "One-time"}
+                            {recurring ? `Recurring (${formatFreqLabel(svcFreq)})` : "One-time"}
                           </Badge>
                         )}
                       </div>
