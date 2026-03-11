@@ -21,7 +21,8 @@ import {
   Leaf, MapPin, Clock, DollarSign, Building, Search, Filter, X, ArrowUpDown, Eye, 
   EyeOff, ShoppingCart, History, CheckCircle2, Info, AlertTriangle, ChevronDown, 
   Receipt, Bookmark, BookmarkCheck, Bell, LogOut, Mail, Shield, Flame, RefreshCw,
-  TrendingUp, HelpCircle, FileSignature, Users, TrendingDown, ShieldCheck, Percent
+  TrendingUp, HelpCircle, FileSignature, Users, TrendingDown, ShieldCheck, Percent,
+  Phone, User as UserIcon
 } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 
@@ -978,30 +979,37 @@ function SubcontractorPortalContent() {
     window.location.href = "/api/logout";
   };
 
-  const LeadCard = ({ lead, isWatchlist = false }: { lead: Lead; isWatchlist?: boolean }) => {
+  const LeadCard = ({ lead, isWatchlist = false, isPurchased = false }: { lead: Lead; isWatchlist?: boolean; isPurchased?: boolean }) => {
     const isWatched = watchedLeadIds.has(lead.id);
     const isSelected = selectedLeadIds.includes(lead.id);
     const discount = getBulkDiscount(selectedLeadIds.length);
     const currentPrice = parseFloat(lead.currentLeadPrice || "0");
     const basePrice = parseFloat(lead.baseLeadPrice || "0");
     const hasTimeDiscount = currentPrice < basePrice;
-    const [expanded, setExpanded] = useState(false);
+    const [expanded, setExpanded] = useState(isPurchased);
 
     return (
-      <Card className={`overflow-hidden transition-all ${isSelected ? 'ring-2 ring-primary' : ''}`} id={`lead-${lead.id}`}>
+      <Card className={`overflow-hidden transition-all ${isSelected ? 'ring-2 ring-primary' : ''} ${isPurchased ? 'border-primary/30' : ''}`} id={`lead-${lead.id}`}>
         <CardHeader className="pb-1.5">
           <div className="flex items-center justify-between gap-3">
             <div className="flex items-center gap-2 min-w-0 flex-1">
-              <Checkbox
-                checked={isSelected}
-                onCheckedChange={() => toggleLeadSelection(lead.id)}
-              />
+              {!isPurchased && (
+                <Checkbox
+                  checked={isSelected}
+                  onCheckedChange={() => toggleLeadSelection(lead.id)}
+                />
+              )}
+              {isPurchased && (
+                <Badge variant="default" className="text-[10px] px-1.5 py-0 flex-shrink-0">
+                  Purchased
+                </Badge>
+              )}
               <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-1.5 flex-wrap">
                   <CardTitle className="text-sm md:text-base leading-tight">
                     {getServiceName(lead.serviceType)}
                   </CardTitle>
-                  {hasTimeDiscount && (
+                  {!isPurchased && hasTimeDiscount && (
                     <Badge variant="outline" className="text-[10px] px-1.5 py-0 text-primary border-primary">
                       Price Reduced
                     </Badge>
@@ -1009,26 +1017,63 @@ function SubcontractorPortalContent() {
                 </div>
                 <div className="text-[11px] mt-0.5 flex items-center gap-1 font-semibold text-emerald-700 dark:text-emerald-400">
                   <MapPin className="h-3 w-3 flex-shrink-0" />
-                  {lead.city} - {lead.propertyType.replace(/-/g, " ")}
+                  {isPurchased && lead.address ? `${lead.address}, ` : ''}{lead.city} - {lead.propertyType.replace(/-/g, " ")}
                 </div>
               </div>
             </div>
-            <Button
-              variant="ghost"
-              size="icon"
-              className="h-7 w-7 flex-shrink-0"
-              onClick={() => isWatched ? unwatchLeadMutation.mutate(lead.id) : watchLeadMutation.mutate(lead.id)}
-              title={isWatched ? "Remove from watchlist" : "Add to watchlist"}
-            >
-              {isWatched ? (
-                <BookmarkCheck className="h-4 w-4 text-primary" />
-              ) : (
-                <Bookmark className="h-4 w-4" />
-              )}
-            </Button>
+            {!isPurchased && (
+              <Button
+                variant="ghost"
+                size="icon"
+                className="h-7 w-7 flex-shrink-0"
+                onClick={() => isWatched ? unwatchLeadMutation.mutate(lead.id) : watchLeadMutation.mutate(lead.id)}
+                title={isWatched ? "Remove from watchlist" : "Add to watchlist"}
+              >
+                {isWatched ? (
+                  <BookmarkCheck className="h-4 w-4 text-primary" />
+                ) : (
+                  <Bookmark className="h-4 w-4" />
+                )}
+              </Button>
+            )}
           </div>
         </CardHeader>
         <CardContent className="space-y-2">
+          {isPurchased && (
+            <div className="bg-primary/5 border border-primary/20 rounded-md p-3 space-y-2" data-testid={`section-contact-info-${lead.id}`}>
+              <p className="text-xs font-semibold text-primary flex items-center gap-1.5">
+                <CheckCircle2 className="h-3.5 w-3.5" />
+                Contact Information
+              </p>
+              <div className="grid gap-1.5 text-sm">
+                {lead.name && lead.name !== "***" && (
+                  <div className="flex items-center gap-2" data-testid={`text-contact-name-${lead.id}`}>
+                    <UserIcon className="h-3.5 w-3.5 text-muted-foreground flex-shrink-0" />
+                    <span className="font-medium">{lead.name}</span>
+                  </div>
+                )}
+                {lead.phone && lead.phone !== "***" && lead.phone !== "Not provided" && (
+                  <div className="flex items-center gap-2" data-testid={`text-contact-phone-${lead.id}`}>
+                    <Phone className="h-3.5 w-3.5 text-muted-foreground flex-shrink-0" />
+                    <a href={`tel:${lead.phone}`} className="text-primary hover:underline">{lead.phone}</a>
+                  </div>
+                )}
+                {lead.email && lead.email !== "***" && (
+                  <div className="flex items-center gap-2" data-testid={`text-contact-email-${lead.id}`}>
+                    <Mail className="h-3.5 w-3.5 text-muted-foreground flex-shrink-0" />
+                    <a href={`mailto:${lead.email}`} className="text-primary hover:underline">{lead.email}</a>
+                  </div>
+                )}
+                {lead.address && lead.address !== "***" && (
+                  <div className="flex items-center gap-2" data-testid={`text-contact-address-${lead.id}`}>
+                    <MapPin className="h-3.5 w-3.5 text-muted-foreground flex-shrink-0" />
+                    <span>{lead.address}, {lead.city}, Idaho</span>
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
           <div className="grid grid-cols-2 gap-2 text-xs">
             <div className="flex items-center gap-1.5">
               <DollarSign className="h-3.5 w-3.5 text-muted-foreground flex-shrink-0" />
@@ -1077,27 +1122,38 @@ function SubcontractorPortalContent() {
               </div>
             )}
 
-            <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground border-t pt-2">
-              <Eye className="h-3 w-3" />
-              <span className="italic">Contact info revealed after purchase</span>
-            </div>
+            {!isPurchased && (
+              <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground border-t pt-2">
+                <Eye className="h-3 w-3" />
+                <span className="italic">Contact info revealed after purchase</span>
+              </div>
+            )}
 
             <QuoteBreakdownSection lead={lead} />
-            <LeadPricingSection lead={lead} discount={isSelected ? discount : 0} />
+            {!isPurchased && <LeadPricingSection lead={lead} discount={isSelected ? discount : 0} />}
           </div>
 
-          <div className="flex items-center justify-between pt-2 border-t">
-            <div>
-              <p className="text-lg md:text-xl font-bold text-primary">{formatCurrency(lead.currentLeadPrice)}</p>
-              {hasTimeDiscount && (
-                <p className="text-xs text-muted-foreground line-through">{formatCurrency(lead.baseLeadPrice)}</p>
-              )}
+          {!isPurchased && (
+            <div className="flex items-center justify-between pt-2 border-t">
+              <div>
+                <p className="text-lg md:text-xl font-bold text-primary">{formatCurrency(lead.currentLeadPrice)}</p>
+                {hasTimeDiscount && (
+                  <p className="text-xs text-muted-foreground line-through">{formatCurrency(lead.baseLeadPrice)}</p>
+                )}
+              </div>
+              <Button size="sm" onClick={() => handleSinglePurchase(lead)}>
+                <ShoppingCart className="mr-1.5 h-3.5 w-3.5" />
+                Purchase Lead
+              </Button>
             </div>
-            <Button size="sm" onClick={() => handleSinglePurchase(lead)}>
-              <ShoppingCart className="mr-1.5 h-3.5 w-3.5" />
-              Purchase Lead
-            </Button>
-          </div>
+          )}
+
+          {isPurchased && lead.purchasedAt && (
+            <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground pt-2 border-t">
+              <Receipt className="h-3 w-3" />
+              <span>Purchased {new Date(lead.purchasedAt).toLocaleDateString()}</span>
+            </div>
+          )}
         </CardContent>
       </Card>
     );
@@ -1638,7 +1694,7 @@ function SubcontractorPortalContent() {
                 </Card>
               ) : (
                 <div className="grid gap-4 md:grid-cols-2">
-                  {myPurchases.map(lead => <LeadCard key={lead.id} lead={lead} />)}
+                  {myPurchases.map(lead => <LeadCard key={lead.id} lead={lead} isPurchased />)}
                 </div>
               )}
             </>
