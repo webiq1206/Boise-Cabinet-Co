@@ -574,7 +574,7 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
               <Accordion type="single" collapsible className="w-full" data-testid="accordion-faq">
                 {faqs.slice(0, 10).map((faq, index) => (
                   <AccordionItem key={index} value={`faq-${index}`}>
-                    <AccordionTrigger className="text-left" data-testid={`faq-question-${index}`}>
+                    <AccordionTrigger className="text-left text-base font-semibold hover:text-primary" data-testid={`faq-question-${index}`}>
                       {faq.question}
                     </AccordionTrigger>
                     <AccordionContent className="text-muted-foreground" data-testid={`faq-answer-${index}`}>

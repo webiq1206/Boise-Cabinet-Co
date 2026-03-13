@@ -433,8 +433,8 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
                   className="border rounded-lg px-6 hover-elevate"
                   data-testid={`faq-${index}`}
                 >
-                  <AccordionTrigger className="text-left hover:no-underline py-6">
-                    <span className="font-semibold text-base md:text-lg pr-4">{faq.question}</span>
+                  <AccordionTrigger className="text-left hover:text-primary py-4">
+                    <span className="font-semibold text-base pr-4">{faq.question}</span>
                   </AccordionTrigger>
                   <AccordionContent className="text-muted-foreground leading-relaxed pb-6 pt-2">
                     {faq.answer}
