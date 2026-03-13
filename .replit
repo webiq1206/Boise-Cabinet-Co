@@ -8,7 +8,7 @@ packages = ["imagemagick", "libwebp"]
 
 [deployment]
 deploymentTarget = "autoscale"
-build = ["bash", "-c", "npm run build && cp -r .next/static .next/standalone/.next/static && cp -r public .next/standalone/public"]
+build = ["bash", "-c", "npm install && npm run build && cp -r .next/static .next/standalone/.next/static && cp -r public .next/standalone/public"]
 run = ["node", ".next/standalone/server.js"]
 
 [[ports]]
