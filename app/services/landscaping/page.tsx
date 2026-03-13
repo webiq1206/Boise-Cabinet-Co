@@ -8,12 +8,12 @@ import { Hammer, Fence, Droplets, Flame, Lightbulb, Mountain, TreeDeciduous } fr
 import { generateServiceSchema, generateBreadcrumbSchema, generateLocalBusinessSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
-  title: "Professional Landscaping Services in Kuna & Boise | Lawn Care Kuna",
-  description: "Complete landscaping solutions in Kuna, Boise, Meridian, Eagle & the Treasure Valley. Patios, retaining walls, irrigation, water features, fencing, landscape lighting & more. Transform your outdoor space today!",
+  title: "Landscaping Services in Kuna & Boise Idaho | Free Quote",
+  description: "Complete landscaping in Kuna, Boise, Meridian, Eagle & Treasure Valley. Patios, retaining walls, irrigation, water features & lighting. Licensed & insured. Call (208) 352-2011!",
   openGraph: {
-    title: "Professional Landscaping Services | Lawn Care Kuna",
-    description: "Complete landscaping solutions from design to installation across the Treasure Valley.",
-    url: "/services/landscaping",
+    title: "Landscaping Services in Kuna & Boise | Lawn Care Kuna",
+    description: "Complete landscaping solutions from design to installation across the Treasure Valley. Free quotes!",
+    url: "https://lawncarekuna.com/services/landscaping",
     type: "website",
   },
   alternates: {

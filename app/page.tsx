@@ -23,16 +23,21 @@ import { ServiceAreasSection } from "@/components/ServiceAreasSection";
 import { generateLocalBusinessSchema, generateOrganizationSchema, generateFAQSchema, generateSpeakableSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
-  title: "Lawn Care Kuna | Professional Landscaping | Free Quotes",
-  description: "Professional lawn care & landscaping in Kuna, Boise, Meridian & Treasure Valley. Licensed, insured, top-rated. Call (208) 352-2011 for your free quote today!",
+  title: "Lawn Care Kuna Idaho | Mowing & Landscaping | Free Quotes",
+  description: "Top-rated lawn care in Kuna, Boise & Treasure Valley, Idaho. Mowing, landscaping, irrigation & cleanup. Licensed & insured. Call (208) 352-2011!",
   alternates: {
     canonical: "https://lawncarekuna.com/",
   },
   openGraph: {
-    title: "Lawn Care Kuna | Professional Landscaping | Free Quotes",
-    description: "Professional lawn care and landscaping services in the Treasure Valley, Idaho. Get a free quote today!",
-    url: "/",
+    title: "Lawn Care Kuna Idaho | Mowing, Landscaping & Free Quotes",
+    description: "Professional lawn mowing, landscaping, and yard maintenance in Kuna and the Treasure Valley, Idaho. Licensed, insured, top-rated. Get a free quote today!",
+    url: "https://lawncarekuna.com/",
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Lawn Care Kuna Idaho | Mowing & Landscaping",
+    description: "Top-rated lawn care and landscaping in Kuna, Boise & Treasure Valley. Licensed pros. Free quotes. Call (208) 352-2011!",
   },
 };
 
@@ -180,7 +185,7 @@ export default function HomePage() {
             <div className="max-w-4xl mx-auto space-y-8 md:space-y-12">
               <div className="text-center space-y-3 md:space-y-4">
                 <h2 className="text-2xl sm:text-2xl md:text-3xl font-bold tracking-tight" data-testid="text-trust-heading">
-                  Why Kuna trusts us with their lawns
+                  Why Kuna homeowners trust our lawn care
                 </h2>
                 <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto" data-testid="text-trust-subtitle">
                   Professional lawn care backed by experience, licensing, and a commitment to your satisfaction
@@ -221,7 +226,7 @@ export default function HomePage() {
           <div className="max-w-6xl mx-auto space-y-8 md:space-y-12">
             <div className="text-center max-w-3xl mx-auto space-y-3 md:space-y-4">
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">
-                The best local lawn care in Kuna
+                Affordable lawn care and landscaping in Kuna, Idaho
               </h2>
               <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
                 At Lawn Care Kuna, we're dedicated to providing exceptional lawn care and landscaping services 
@@ -268,7 +273,7 @@ export default function HomePage() {
         <div className="container px-4 md:px-8">
           <div className="max-w-5xl mx-auto rounded-2xl bg-gradient-to-br from-green-950 via-primary to-green-700 text-white p-10 md:p-16 text-center space-y-8 shadow-xl">
             <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
-              Ready to transform your lawn?
+              Get a free lawn care estimate in Kuna today
             </h2>
             <p className="text-lg text-white/85 leading-relaxed max-w-2xl mx-auto">
               Get a free consultation and quote today. We'll assess your property and provide 
@@ -297,7 +302,7 @@ export default function HomePage() {
           <div className="max-w-6xl mx-auto space-y-12">
             <div className="text-center max-w-3xl mx-auto space-y-4">
               <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
-                Lawn care services in Kuna
+                Professional lawn mowing and yard maintenance in Kuna
               </h2>
               <p className="text-lg text-muted-foreground leading-relaxed">
                 We offer comprehensive lawn care and landscaping services designed to meet all your 
@@ -311,16 +316,16 @@ export default function HomePage() {
               {/* Lawn Care Services */}
               <div className="space-y-6">
                 <Link href="/services/lawn-care" className="block">
-                  <h3 className="text-2xl font-bold text-primary hover:underline">Lawn Care Services</h3>
+                  <h3 className="text-2xl font-bold text-primary hover:underline">Lawn Care Services in Kuna & Boise</h3>
                 </Link>
                 <ul className="space-y-4">
                   {[
-                    { label: "Professional mowing and edging", href: "/services/lawn-mowing" },
-                    { label: "Fertilization programs", href: "/services/fertilization" },
-                    { label: "Weed control", href: "/services/weed-control" },
-                    { label: "Aeration and overseeding", href: "/services/aeration" },
-                    { label: "Seasonal cleanup", href: "/services/spring-cleanup" },
-                    { label: "Commercial-grade equipment", href: "/commercial" },
+                    { label: "Professional lawn mowing and edging in Kuna", href: "/services/lawn-mowing" },
+                    { label: "Lawn fertilization programs for Idaho lawns", href: "/services/fertilization" },
+                    { label: "Weed control and prevention services", href: "/services/weed-control" },
+                    { label: "Core aeration and overseeding for healthier turf", href: "/services/aeration" },
+                    { label: "Spring and fall yard cleanup", href: "/services/spring-cleanup" },
+                    { label: "Commercial lawn care services", href: "/commercial" },
                   ].map((item, i) => (
                     <li key={i} className="flex items-start gap-3">
                       <CheckCircle2 className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
@@ -335,16 +340,16 @@ export default function HomePage() {
               {/* Landscaping Services */}
               <div className="space-y-6">
                 <Link href="/services/landscaping" className="block">
-                  <h3 className="text-2xl font-bold text-primary hover:underline">Landscaping Services</h3>
+                  <h3 className="text-2xl font-bold text-primary hover:underline">Landscaping Services in Treasure Valley</h3>
                 </Link>
                 <ul className="space-y-4">
                   {[
-                    { label: "Patio installation", href: "/services/patio-installation" },
-                    { label: "Retaining walls", href: "/services/retaining-walls" },
-                    { label: "Water features", href: "/services/pond-installation" },
-                    { label: "Outdoor lighting", href: "/services/landscape-lighting" },
-                    { label: "Custom design services", href: "/services/landscaping" },
-                    { label: "Property value enhancement", href: "/services/sod-installation" },
+                    { label: "Patio design and installation in Idaho", href: "/services/patio-installation" },
+                    { label: "Retaining wall construction and repair", href: "/services/retaining-walls" },
+                    { label: "Backyard water features and pond installation", href: "/services/pond-installation" },
+                    { label: "Outdoor landscape lighting design", href: "/services/landscape-lighting" },
+                    { label: "Custom landscape design services", href: "/services/landscaping" },
+                    { label: "Sod installation for new lawns", href: "/services/sod-installation" },
                   ].map((item, i) => (
                     <li key={i} className="flex items-start gap-3">
                       <CheckCircle2 className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
@@ -377,20 +382,20 @@ export default function HomePage() {
               {/* Left: Dark Green Card */}
               <Card className="bg-primary text-primary-foreground border-primary">
                 <CardContent className="p-8 md:p-12 space-y-6">
-                  <h3 className="text-2xl md:text-3xl font-bold tracking-tight">
-                    Full service lawn care in Kuna
+                <h3 className="text-2xl md:text-3xl font-bold tracking-tight">
+                    Complete lawn maintenance for Kuna and Treasure Valley
                   </h3>
                   <p className="text-primary-foreground leading-relaxed">
                     We handle everything your lawn needs to thrive. Our comprehensive approach includes:
                   </p>
                   <ul className="space-y-3">
                     {[
-                      { label: "Weekly or bi-weekly mowing service", href: "/services/lawn-mowing" },
-                      { label: "Professional fertilization programs", href: "/services/fertilization" },
-                      { label: "Effective weed and pest control", href: "/services/weed-control" },
-                      { label: "Spring and fall cleanup services", href: "/services/spring-cleanup" },
-                      { label: "Aeration and overseeding", href: "/services/aeration" },
-                      { label: "Irrigation system maintenance", href: "/services/irrigation-maintenance" },
+                      { label: "Weekly or bi-weekly lawn mowing in Kuna", href: "/services/lawn-mowing" },
+                      { label: "Seasonal fertilization for Idaho lawns", href: "/services/fertilization" },
+                      { label: "Targeted weed and pest control treatments", href: "/services/weed-control" },
+                      { label: "Spring cleanup and fall leaf removal", href: "/services/spring-cleanup" },
+                      { label: "Core aeration and overseeding services", href: "/services/aeration" },
+                      { label: "Sprinkler and irrigation system maintenance", href: "/services/irrigation-maintenance" },
                     ].map((item, i) => (
                       <li key={i} className="flex items-start gap-3">
                         <CheckCircle2 className="h-5 w-5 flex-shrink-0 mt-0.5" />
@@ -412,7 +417,7 @@ export default function HomePage() {
               {/* Right: Content */}
               <div className="space-y-6">
                 <h3 className="text-2xl md:text-3xl font-bold tracking-tight">
-                  Why choose us for your lawn care needs
+                  Why choose Lawn Care Kuna for yard services near you
                 </h3>
                 <div className="space-y-4 text-muted-foreground">
                   <p className="leading-relaxed">
@@ -447,7 +452,7 @@ export default function HomePage() {
           <div className="max-w-4xl mx-auto space-y-8">
             <div className="text-center space-y-4">
               <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
-                Our approach to lawn care in Kuna
+                How our Kuna lawn care service works
               </h2>
               <p className="text-lg text-muted-foreground leading-relaxed">
                 We believe in doing things right. Our systematic approach ensures consistent, 
@@ -510,7 +515,7 @@ export default function HomePage() {
           <div className="max-w-4xl mx-auto space-y-8">
             <div className="text-center space-y-4">
               <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
-                What lawn care feels like
+                Lawn care pricing in Kuna, Idaho
               </h2>
               <p className="text-lg text-muted-foreground">
                 Transparent pricing for our most popular services
@@ -595,10 +600,10 @@ export default function HomePage() {
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-12 space-y-4">
               <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
-                What Our Customers Say
+                Kuna lawn care reviews from local homeowners
               </h2>
               <p className="text-lg text-muted-foreground">
-                Trusted by homeowners across Kuna and the Treasure Valley
+                See why families across the Treasure Valley trust us with their lawns
               </p>
             </div>
             <Testimonials limit={30} />
@@ -620,7 +625,7 @@ export default function HomePage() {
         <div className="container px-4 md:px-8">
           <div className="max-w-5xl mx-auto rounded-2xl bg-gradient-to-br from-green-950 via-primary to-green-700 text-white p-10 md:p-16 text-center space-y-8 shadow-xl">
             <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
-              Ready to get started?
+              Schedule lawn care in Kuna, Idaho today
             </h2>
             <p className="text-lg text-white/85 leading-relaxed max-w-2xl mx-auto">
               Schedule your free consultation today and discover why we're Kuna's most trusted lawn care company.

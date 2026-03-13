@@ -7,16 +7,21 @@ import { Testimonials } from "@/components/Testimonials";
 import { generateWebPageSchema, generateBreadcrumbSchema, generateOrganizationSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
-  title: "About Us | Lawn Care Kuna",
-  description: "Learn about Lawn Care Kuna - your trusted lawn care and landscaping company serving Kuna, Boise, Meridian, Eagle, Star, and Middleton since 2017.",
+  title: "About Us | Local Idaho Lawn Company Since 2017",
+  description: "Meet the Lawn Care Kuna team. Licensed, insured lawn care pros serving Kuna, Boise, Meridian, Eagle, Star & Middleton since 2017. Call (208) 352-2011.",
   alternates: {
     canonical: "https://lawncarekuna.com/about",
   },
   openGraph: {
-    title: "About Lawn Care Kuna | Professional Lawn Care Services",
-    description: "Professional lawn care and landscaping services serving the Treasure Valley since 2017.",
-    url: "/about",
+    title: "About Lawn Care Kuna | Idaho's Trusted Lawn Pros",
+    description: "Family-run lawn care and landscaping company serving the Treasure Valley since 2017. Licensed, insured, locally owned.",
+    url: "https://lawncarekuna.com/about",
     type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: "About Lawn Care Kuna | Local Idaho Lawn Company",
+    description: "Licensed, insured lawn care pros serving the Treasure Valley since 2017. Call (208) 352-2011.",
   },
 };
 
@@ -111,7 +116,7 @@ export default function AboutPage() {
       <section className="relative py-16 md:py-24 bg-gradient-to-b from-primary/5 to-background">
         <div className="container px-4">
           <div className="max-w-3xl mx-auto text-center space-y-4">
-            <h1 className="text-4xl md:text-5xl font-bold text-foreground">About Lawn Care Kuna</h1>
+            <h1 className="text-4xl md:text-5xl font-bold text-foreground">About Lawn Care Kuna: Local Idaho Lawn Pros</h1>
             <p className="text-lg text-muted-foreground">
               Professional lawn care and landscaping services serving the Treasure Valley since 2017
             </p>

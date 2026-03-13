@@ -8,12 +8,12 @@ import { CheckCircle2, Fence, Shield } from "lucide-react";
 import { generateServiceSchema, generateBreadcrumbSchema, generateLocalBusinessSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
-  title: "Fence Installation in Kuna & Boise | Professional Fencing Services",
-  description: "Professional wood, vinyl, and chain link fence installation in Kuna, Boise, Meridian, Eagle & the Treasure Valley. Privacy fences, decorative fencing, security fencing. Licensed, insured & 7+ years experience. Free quotes!",
+  title: "Fence Installation Kuna & Boise Idaho | Wood, Vinyl & Chain Link",
+  description: "Fence installation in Kuna, Boise & Treasure Valley. Wood, vinyl, chain link options. Licensed & insured. Call (208) 352-2011 for a free quote!",
   openGraph: {
-    title: "Professional Fence Installation | Lawn Care Kuna",
-    description: "Professional wood, vinyl, and chain link fence installation across the Treasure Valley.",
-    url: "/services/fence-installation",
+    title: "Fence Installation in Kuna & Boise | Lawn Care Kuna",
+    description: "Wood, vinyl, and chain link fence installation across the Treasure Valley. Free quotes!",
+    url: "https://lawncarekuna.com/services/fence-installation",
     type: "website",
   },
   alternates: {

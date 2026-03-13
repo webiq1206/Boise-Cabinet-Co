@@ -20,13 +20,18 @@ import { Testimonials } from "@/components/Testimonials";
 export const metadata: Metadata = {
   title: "Seasonal Lawn Care Guide for Idaho | Month-by-Month Calendar",
   description:
-    "Month-by-month lawn care calendar for Idaho's Treasure Valley (USDA Zone 6b-7a). Know exactly when to mow, fertilize, aerate, and winterize. Call (208) 352-2011.",
+    "Month-by-month lawn care calendar for Idaho Zone 6b-7a. When to mow, fertilize, aerate & winterize your lawn. Free guide from Lawn Care Kuna.",
   openGraph: {
     title: "Seasonal Lawn Care Guide | Lawn Care Kuna",
     description:
       "Your complete month-by-month lawn care calendar for Idaho's Treasure Valley. Expert timing recommendations for every season.",
-    url: "/seasonal-guide",
+    url: "https://lawncarekuna.com/seasonal-guide",
     type: "article",
+  },
+  twitter: {
+    card: "summary",
+    title: "Idaho Seasonal Lawn Care Guide | Month-by-Month",
+    description: "When to mow, fertilize, aerate & winterize in Idaho Zone 6b-7a. Free month-by-month calendar.",
   },
   alternates: {
     canonical: "https://lawncarekuna.com/seasonal-guide",

@@ -9,12 +9,12 @@ import { CheckCircle2, Calendar, DollarSign, Shield, Clock } from "lucide-react"
 import { generateServiceSchema, generateBreadcrumbSchema, generateLocalBusinessSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
-  title: "Professional Lawn Mowing Services in Kuna & Boise | Lawn Care Kuna",
-  description: "Weekly and bi-weekly professional lawn mowing services in Kuna, Boise, Meridian, Eagle, Star & Middleton. Commercial-grade equipment, reliable scheduling, and expert crews. Get a free quote today!",
+  title: "Lawn Mowing Services in Kuna & Boise Idaho | Free Quote",
+  description: "Weekly and bi-weekly lawn mowing in Kuna, Boise, Meridian, Eagle, Star & Middleton. Commercial-grade equipment, reliable scheduling. Licensed & insured. Call (208) 352-2011!",
   openGraph: {
-    title: "Professional Lawn Mowing Services | Lawn Care Kuna",
-    description: "Weekly and bi-weekly lawn mowing for beautiful, healthy lawns in the Treasure Valley. Get a free quote today!",
-    url: "/services/lawn-mowing",
+    title: "Lawn Mowing Services in Kuna & Boise | Lawn Care Kuna",
+    description: "Weekly and bi-weekly lawn mowing for beautiful, healthy lawns in the Treasure Valley. Free quotes!",
+    url: "https://lawncarekuna.com/services/lawn-mowing",
     type: "website",
   },
   alternates: {

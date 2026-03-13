@@ -58,7 +58,7 @@ export async function generateMetadata({
   
   if (!city) {
     return {
-      title: "Area Not Found | Lawn Care Kuna",
+      title: "Area Not Found",
     };
   }
 
@@ -68,7 +68,7 @@ export async function generateMetadata({
     openGraph: {
       title: `Lawn Care in ${city.name}, Idaho | Lawn Care Kuna`,
       description: `Professional lawn care and landscaping services in ${city.name}, ID. ${city.population} residents trust us for lawn mowing, fertilization, irrigation, and more.`,
-      url: `/areas/${city.slug}`,
+      url: `https://lawncarekuna.com/areas/${city.slug}`,
       type: "website",
       locale: "en_US",
     },

@@ -60,19 +60,19 @@ export async function generateMetadata({
   
   if (!service) {
     return {
-      title: "Service Not Found | Lawn Care Kuna",
+      title: "Service Not Found",
     };
   }
 
   const cityNames = CITIES.map(c => c.name.toLowerCase()).join(", ");
 
   return {
-    title: `${service.name} Services in Kuna & Boise, Idaho | Free Quote | Lawn Care Kuna`,
+    title: `${service.name} Services in Kuna & Boise, Idaho | Free Quote`,
     description: `Professional ${service.name.toLowerCase()} in Kuna, Boise, Meridian, Eagle & Treasure Valley, ID. ${service.shortDescription}. Licensed & insured. Free estimates. Call (208) 352-2011!`,
     openGraph: {
       title: `${service.name} Services in Kuna & Boise, ID | Lawn Care Kuna`,
       description: `Expert ${service.name.toLowerCase()} for homes and businesses in ${cityNames}. ${service.shortDescription}`,
-      url: `/services/${service.slug}`,
+      url: `https://lawncarekuna.com/services/${service.slug}`,
       type: "website",
       locale: "en_US",
     },

@@ -8,12 +8,12 @@ import { CheckCircle2, Lightbulb, Home, Trees, Sparkles, Clock, Shield } from "l
 import { generateServiceSchema, generateBreadcrumbSchema, generateLocalBusinessSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
-  title: "Christmas Light Installation in Kuna & Boise | Professional Holiday Lighting",
-  description: "Professional Christmas light installation, design, and removal services in Kuna, Boise, Meridian, Eagle & the Treasure Valley. Commercial-grade LED lights, full-service installation, maintenance & storage included. Book early!",
+  title: "Christmas Light Installation Kuna & Boise Idaho | Holiday Lighting",
+  description: "Christmas light installation in Kuna, Boise, Meridian & Treasure Valley. LED lights, full-service setup, maintenance & removal included. Book early! Call (208) 352-2011.",
   openGraph: {
-    title: "Professional Christmas Light Installation | Lawn Care Kuna",
-    description: "Professional holiday lighting design, installation, and maintenance for homes and businesses in the Treasure Valley.",
-    url: "/services/christmas-lights",
+    title: "Christmas Light Installation | Lawn Care Kuna",
+    description: "Professional holiday lighting for homes and businesses in Kuna, Boise & Treasure Valley. Free quotes!",
+    url: "https://lawncarekuna.com/services/christmas-lights",
     type: "website",
   },
   alternates: {

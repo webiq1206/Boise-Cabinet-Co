@@ -15,15 +15,20 @@ import { BUSINESS_INFO } from "@/lib/seo";
 import { FAQSearch } from "@/components/FAQSearch";
 
 export const metadata: Metadata = {
-  title: "Lawn Care FAQ | Common Questions Answered | Lawn Care Kuna",
+  title: "Lawn Care FAQ | Common Questions Answered",
   description:
-    "Find answers to common lawn care and landscaping questions for Idaho's Treasure Valley. Pricing, scheduling, soil tips, and seasonal advice from local pros. Call (208) 352-2011.",
+    "Lawn care FAQ for Idaho homeowners. Answers on pricing, scheduling, soil tips & seasonal advice from Treasure Valley pros. Call (208) 352-2011.",
   openGraph: {
     title: "Lawn Care FAQ | Lawn Care Kuna",
     description:
       "Answers to common lawn care, landscaping, and seasonal service questions for Kuna, Boise, Meridian, and the Treasure Valley.",
-    url: "/faq",
+    url: "https://lawncarekuna.com/faq",
     type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: "Lawn Care FAQ | Lawn Care Kuna",
+    description: "Common lawn care and landscaping questions answered by Idaho pros. Pricing, scheduling, soil tips & more.",
   },
   alternates: {
     canonical: "https://lawncarekuna.com/faq",

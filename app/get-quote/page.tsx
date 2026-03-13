@@ -6,16 +6,21 @@ import { HeroQuoteSection } from "@/components/HeroQuoteSection";
 import { Testimonials } from "@/components/Testimonials";
 
 export const metadata: Metadata = {
-  title: "Get a Free Quote | Lawn Care Kuna",
-  description: "Request a free lawn care quote from Lawn Care Kuna. Professional lawn care and landscaping services in Kuna, Boise, Meridian, and the Treasure Valley.",
+  title: "Free Lawn Care Quote | Kuna, Boise & Treasure Valley Idaho",
+  description: "Free, no-obligation lawn care quote from Lawn Care Kuna. Mowing, landscaping & seasonal services in Kuna, Boise & Meridian. Fast response!",
   alternates: {
     canonical: "https://lawncarekuna.com/get-quote",
   },
   openGraph: {
-    title: "Get a Free Quote | Lawn Care Kuna",
-    description: "Request a free lawn care quote today. No obligation, transparent pricing.",
-    url: "/get-quote",
+    title: "Free Lawn Care Quote | Lawn Care Kuna",
+    description: "Request a free, no-obligation quote for lawn mowing, landscaping, and yard services. Transparent pricing, fast response.",
+    url: "https://lawncarekuna.com/get-quote",
     type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: "Free Lawn Care Quote | Lawn Care Kuna",
+    description: "No-obligation lawn care estimates for Kuna, Boise & Treasure Valley. Fast 24-hour response!",
   },
 };
 

@@ -71,7 +71,7 @@ export async function generateMetadata({
 
   if (!service || !city) {
     return {
-      title: "Page Not Found | Lawn Care Kuna",
+      title: "Page Not Found",
     };
   }
 
@@ -91,7 +91,7 @@ export async function generateMetadata({
     openGraph: {
       title: `${service.name} in ${city.name}, ID | Lawn Care Kuna`,
       description: `Professional ${service.name.toLowerCase()} for ${city.name} homes and businesses. ${city.population} residents trust us. Free estimates!`,
-      url: `/services/${service.slug}/${city.slug}`,
+      url: `https://lawncarekuna.com/services/${service.slug}/${city.slug}`,
       type: "website",
       locale: "en_US",
       images: [{ url: seoMetadata.ogImage || "/images/lawn-care-kuna-logo.png" }],

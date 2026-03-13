@@ -1,16 +1,21 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Pricing | Lawn Care Kuna",
-  description: "Transparent pricing for lawn care and landscaping services in Kuna, Idaho. View our service rates and get a free custom quote.",
+  title: "Lawn Care Pricing Kuna Idaho | Mowing from $35",
+  description: "Transparent lawn care prices in Kuna, Boise & Treasure Valley. Mowing from $35, fertilization from $50. No hidden fees. Get a free quote!",
   alternates: {
     canonical: "https://lawncarekuna.com/pricing",
   },
   openGraph: {
     title: "Lawn Care Pricing | Lawn Care Kuna",
-    description: "Transparent, competitive pricing for lawn care services in the Treasure Valley.",
-    url: "/pricing",
+    description: "Transparent lawn care and landscaping prices for Kuna, Idaho. Mowing, fertilization, aeration and more. Free quotes!",
+    url: "https://lawncarekuna.com/pricing",
     type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: "Lawn Care Pricing Kuna Idaho | Free Quote",
+    description: "Transparent prices for lawn mowing, landscaping & seasonal services. No hidden fees. Get a free quote!",
   },
 };
 

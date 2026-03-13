@@ -7,16 +7,21 @@ import { ObfuscatedEmail } from "@/components/ObfuscatedEmail";
 import { generateLocalBusinessSchema, generateBreadcrumbSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
-  title: "Contact Us | Lawn Care Kuna",
-  description: "Contact Lawn Care Kuna for professional lawn care and landscaping services in Kuna, Boise, Meridian, and the Treasure Valley. Call (208) 352-2011 or request a free quote online.",
+  title: "Contact Us | Call (208) 352-2011 for Free Quote",
+  description: "Contact Lawn Care Kuna for lawn mowing, landscaping & yard services in Kuna, Boise & Treasure Valley. Call (208) 352-2011 or get a free quote.",
   alternates: {
     canonical: "https://lawncarekuna.com/contact",
   },
   openGraph: {
-    title: "Contact Lawn Care Kuna",
-    description: "Get in touch with our lawn care professionals. Call (208) 352-2011 or request a free quote.",
-    url: "/contact",
+    title: "Contact Lawn Care Kuna | Free Quotes",
+    description: "Reach our lawn care team for a free estimate. Call (208) 352-2011 or request a quote online.",
+    url: "https://lawncarekuna.com/contact",
     type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: "Contact Lawn Care Kuna | (208) 352-2011",
+    description: "Get in touch for lawn care, landscaping & free quotes in Kuna and the Treasure Valley.",
   },
 };
 
@@ -78,7 +83,7 @@ export default function ContactPage() {
       <section className="relative py-16 md:py-24 bg-gradient-to-b from-primary/5 to-background">
         <div className="container px-4">
           <div className="max-w-3xl mx-auto text-center space-y-4">
-            <h1 className="text-4xl md:text-5xl font-bold text-foreground">Contact Us</h1>
+            <h1 className="text-4xl md:text-5xl font-bold text-foreground">Contact Lawn Care Kuna</h1>
             <p className="text-lg text-muted-foreground">
               Get in touch with our lawn care professionals. We're here to help!
             </p>

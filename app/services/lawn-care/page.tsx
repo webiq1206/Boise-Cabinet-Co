@@ -8,12 +8,12 @@ import { CheckCircle2, Scissors, Sprout, Droplets, Shield, Leaf, Sun } from "luc
 import { generateServiceSchema, generateBreadcrumbSchema, generateLocalBusinessSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
-  title: "Professional Lawn Care Services in Kuna & Boise | Lawn Care Kuna",
-  description: "Comprehensive lawn care services in Kuna, Boise, Meridian, Eagle & the Treasure Valley. Lawn mowing, fertilization, aeration, weed control, and more. Expert lawn maintenance for beautiful, healthy lawns. Get a free quote!",
+  title: "Lawn Care Services in Kuna & Boise Idaho | Free Quote",
+  description: "Full lawn care in Kuna, Boise, Meridian, Eagle & Treasure Valley. Mowing, fertilization, aeration, weed control & more. Licensed & insured. Call (208) 352-2011 for a free quote!",
   openGraph: {
-    title: "Professional Lawn Care Services | Lawn Care Kuna",
-    description: "Expert lawn maintenance for beautiful, healthy lawns across Kuna, Boise, Meridian, and surrounding areas.",
-    url: "/services/lawn-care",
+    title: "Lawn Care Services in Kuna & Boise | Lawn Care Kuna",
+    description: "Expert lawn maintenance for beautiful, healthy lawns across the Treasure Valley. Free quotes!",
+    url: "https://lawncarekuna.com/services/lawn-care",
     type: "website",
   },
   alternates: {

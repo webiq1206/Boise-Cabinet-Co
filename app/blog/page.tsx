@@ -7,16 +7,21 @@ import { BLOG_POSTS } from "@/shared/blogContent";
 import { generateWebPageSchema, generateBreadcrumbSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
-  title: "Lawn Care Blog | Tips & Guides | Lawn Care Kuna",
-  description: "Expert lawn care tips, guides, and advice for Idaho homeowners. Learn about lawn maintenance, landscaping, irrigation, and seasonal care from Lawn Care Kuna.",
+  title: "Idaho Lawn Care Tips & Blog",
+  description: "Expert lawn care tips for Idaho homeowners. Mowing schedules, fertilizer guides, landscaping ideas & seasonal care for Zone 6b-7a. Read now!",
   alternates: {
     canonical: "https://lawncarekuna.com/blog",
   },
   openGraph: {
-    title: "Lawn Care Blog | Lawn Care Kuna",
-    description: "Expert lawn care tips and guides for Idaho homeowners.",
-    url: "/blog",
+    title: "Idaho Lawn Care Tips & Blog | Lawn Care Kuna",
+    description: "Expert lawn care tips, seasonal guides, and landscaping advice for Idaho homeowners from Lawn Care Kuna.",
+    url: "https://lawncarekuna.com/blog",
     type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: "Idaho Lawn Care Tips & Blog",
+    description: "Expert tips on mowing, fertilizing, landscaping, and seasonal care for Idaho homeowners.",
   },
 };
 
@@ -65,9 +70,9 @@ export default function BlogPage() {
       <section className="relative py-16 md:py-24 bg-gradient-to-b from-primary/5 to-background">
         <div className="container px-4">
           <div className="max-w-3xl mx-auto text-center space-y-4">
-            <h1 className="text-4xl md:text-5xl font-bold text-foreground">Lawn Care Blog</h1>
+            <h1 className="text-4xl md:text-5xl font-bold text-foreground">Idaho Lawn Care Tips & Blog</h1>
             <p className="text-lg text-muted-foreground">
-              Expert tips, guides, and advice for maintaining a beautiful lawn in Idaho
+              Expert mowing, landscaping, and seasonal care advice for Idaho homeowners
             </p>
           </div>
         </div>
@@ -107,7 +112,7 @@ export default function BlogPage() {
         <div className="container px-4">
           <div className="max-w-4xl mx-auto text-center space-y-8">
             <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
-              Need Professional Lawn Care Help?
+              Need professional lawn care in Kuna or Boise?
             </h2>
             <p className="text-lg text-muted-foreground leading-relaxed">
               While our blog is full of helpful tips, sometimes you need the professionals. Contact us for a free consultation.

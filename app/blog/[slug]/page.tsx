@@ -23,12 +23,12 @@ export async function generateMetadata({
   
   if (!post) {
     return {
-      title: "Post Not Found | Lawn Care Kuna Blog",
+      title: "Post Not Found",
     };
   }
 
   return {
-    title: `${post.title} | Lawn Care Kuna Blog`,
+    title: `${post.title} | Lawn Care Blog`,
     description: post.excerpt,
     alternates: {
       canonical: `https://lawncarekuna.com/blog/${post.slug}`,
@@ -36,7 +36,7 @@ export async function generateMetadata({
     openGraph: {
       title: post.title,
       description: post.excerpt,
-      url: `/blog/${post.slug}`,
+      url: `https://lawncarekuna.com/blog/${post.slug}`,
       type: "article",
       publishedTime: post.publishedAt,
     },

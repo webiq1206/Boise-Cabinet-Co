@@ -8,12 +8,12 @@ import { CheckCircle2, Droplets, Shield, Award } from "lucide-react";
 import { generateServiceSchema, generateBreadcrumbSchema, generateLocalBusinessSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
-  title: "Irrigation Systems in Kuna & Boise | Sprinkler Installation & Repair",
-  description: "Professional irrigation system installation, repair & maintenance in Kuna, Boise, Meridian, Eagle & the Treasure Valley. Sprinkler systems, smart controllers, winterization & spring startup. Free quotes!",
+  title: "Sprinkler & Irrigation Systems Kuna & Boise Idaho | Install & Repair",
+  description: "Irrigation system installation, repair & maintenance in Kuna, Boise, Meridian & Treasure Valley. Sprinkler systems, smart controllers, winterization. Licensed. Call (208) 352-2011!",
   openGraph: {
-    title: "Professional Irrigation Systems | Lawn Care Kuna",
-    description: "Professional sprinkler system design, installation, and repair across the Treasure Valley.",
-    url: "/services/irrigation-installation",
+    title: "Irrigation & Sprinkler Systems | Lawn Care Kuna",
+    description: "Sprinkler system design, installation, and repair across the Treasure Valley. Free quotes!",
+    url: "https://lawncarekuna.com/services/irrigation-installation",
     type: "website",
   },
   alternates: {

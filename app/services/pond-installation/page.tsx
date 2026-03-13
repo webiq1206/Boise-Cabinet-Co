@@ -8,12 +8,12 @@ import { Droplets, Shield, Award } from "lucide-react";
 import { generateServiceSchema, generateBreadcrumbSchema, generateLocalBusinessSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
-  title: "Pond Installation in Kuna & Boise | Professional Water Features",
-  description: "Professional pond, fountain, and water feature installation in Kuna, Boise, Meridian, Eagle & the Treasure Valley. Koi ponds, ecosystem ponds, waterfalls & fountains. Expert design for Idaho climate. Free quotes!",
+  title: "Pond & Water Feature Installation Kuna & Boise Idaho",
+  description: "Pond, fountain & water feature installation in Kuna, Boise, Meridian & Treasure Valley. Koi ponds, waterfalls & fountains. Expert design for Idaho climate. Call (208) 352-2011!",
   openGraph: {
-    title: "Professional Pond Installation | Lawn Care Kuna",
-    description: "Professional pond, fountain, and water feature installation across the Treasure Valley.",
-    url: "/services/pond-installation",
+    title: "Pond & Water Feature Installation | Lawn Care Kuna",
+    description: "Pond, fountain, and water feature installation across the Treasure Valley. Free quotes!",
+    url: "https://lawncarekuna.com/services/pond-installation",
     type: "website",
   },
   alternates: {
