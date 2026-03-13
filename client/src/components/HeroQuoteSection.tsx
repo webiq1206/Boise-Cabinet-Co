@@ -46,6 +46,7 @@ export function HeroQuoteSection({
             <SimpleQuoteWizard 
               preselectedService={defaultService}
               preselectedCity={defaultCity}
+              variant={backgroundImage ? "default" : "branded"}
             />
           </div>
         </div>

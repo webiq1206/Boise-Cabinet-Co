@@ -203,6 +203,7 @@ interface SimpleQuoteWizardProps {
   preselectedService?: string;
   preselectedCity?: string;
   className?: string;
+  variant?: "default" | "branded";
   onClose?: () => void;
 }
 
@@ -212,6 +213,7 @@ export function SimpleQuoteWizard({
   preselectedService,
   preselectedCity,
   className,
+  variant = "branded",
   onClose,
 }: SimpleQuoteWizardProps) {
   // Normalize city name to title case (e.g., "kuna" -> "Kuna")
@@ -591,7 +593,7 @@ export function SimpleQuoteWizard({
   const canProceedToPhase3 = selectedServices.length > 0;
   
   return (
-    <div ref={formContainerRef} className={`max-w-2xl mx-auto ${className}`}>
+    <div ref={formContainerRef} className={`max-w-2xl mx-auto ${variant === "branded" ? "bg-gradient-to-br from-primary/5 via-primary/3 to-background rounded-2xl p-6 md:p-8 border border-primary/10" : ""} ${className}`}>
       {/* Progress indicator */}
       <div className="flex items-center justify-center gap-2 mb-8">
         {[1, 2, 3].map((step) => (
