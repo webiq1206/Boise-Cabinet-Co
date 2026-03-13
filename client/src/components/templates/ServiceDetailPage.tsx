@@ -395,7 +395,7 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
 
             <div className="grid md:grid-cols-2 gap-8">
               {coreValues.map((value, index) => (
-                <Card key={index} className="hover-elevate" data-testid={`card-value-${index}`}>
+                <Card key={index} className="hover-elevate bg-gradient-to-br from-primary/5 to-white dark:from-primary/10 dark:to-background" data-testid={`card-value-${index}`}>
                   <CardContent className="p-8 space-y-4">
                     <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-primary text-primary-foreground">
                       <value.icon className="h-7 w-7" />

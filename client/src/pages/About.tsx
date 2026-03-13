@@ -197,7 +197,7 @@ export default function About() {
           <div className="max-w-4xl mx-auto">
             <h2 className="text-3xl font-bold mb-12 text-center">Our Core Values</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <Card className="hover-elevate transition-all duration-200">
+              <Card className="hover-elevate transition-all duration-200 bg-gradient-to-br from-primary/5 to-white dark:from-primary/10 dark:to-background">
                 <CardContent className="p-6">
                   <div className="flex items-start gap-4">
                     <div className="w-12 h-12 rounded-md bg-primary/10 flex items-center justify-center flex-shrink-0">
@@ -213,7 +213,7 @@ export default function About() {
                 </CardContent>
               </Card>
 
-              <Card className="hover-elevate transition-all duration-200">
+              <Card className="hover-elevate transition-all duration-200 bg-gradient-to-br from-primary/5 to-white dark:from-primary/10 dark:to-background">
                 <CardContent className="p-6">
                   <div className="flex items-start gap-4">
                     <div className="w-12 h-12 rounded-md bg-primary/10 flex items-center justify-center flex-shrink-0">
@@ -229,7 +229,7 @@ export default function About() {
                 </CardContent>
               </Card>
 
-              <Card className="hover-elevate transition-all duration-200">
+              <Card className="hover-elevate transition-all duration-200 bg-gradient-to-br from-primary/5 to-white dark:from-primary/10 dark:to-background">
                 <CardContent className="p-6">
                   <div className="flex items-start gap-4">
                     <div className="w-12 h-12 rounded-md bg-primary/10 flex items-center justify-center flex-shrink-0">
@@ -245,7 +245,7 @@ export default function About() {
                 </CardContent>
               </Card>
 
-              <Card className="hover-elevate transition-all duration-200">
+              <Card className="hover-elevate transition-all duration-200 bg-gradient-to-br from-primary/5 to-white dark:from-primary/10 dark:to-background">
                 <CardContent className="p-6">
                   <div className="flex items-start gap-4">
                     <div className="w-12 h-12 rounded-md bg-primary/10 flex items-center justify-center flex-shrink-0">
