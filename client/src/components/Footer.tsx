@@ -31,13 +31,13 @@ export function Footer() {
               </a>
               <button
                 type="button"
-                onClick={() => { window.location.href = `mailto:${"hello"}@${"lawncarekuna.com"}`; }}
+                onClick={() => { const u = "hello"; const d = "lawncarekuna.com"; window.location.href = "mail" + "to:" + u + "@" + d; }}
                 className="flex items-center gap-2 text-sm hover:text-primary transition-colors"
                 data-testid="link-email-footer"
-                aria-label="Email hello at lawncarekuna.com"
+                aria-label="Send us an email"
               >
                 <Mail className="h-4 w-4" />
-                <span>hello&#64;lawncarekuna.com</span>
+                <span>Contact us by email</span>
               </button>
               <div className="flex items-start gap-2 text-sm text-muted-foreground">
                 <MapPin className="h-4 w-4 mt-0.5 flex-shrink-0" />
