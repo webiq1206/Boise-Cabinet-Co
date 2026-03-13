@@ -72,7 +72,7 @@ export default function PondInstallationPage() {
         <section className="relative py-16 bg-gradient-to-b from-primary/10 to-background">
           <div className="container px-4 relative z-10">
             <div className="max-w-3xl mx-auto text-center space-y-4">
-              <h1 className="text-4xl md:text-5xl font-bold text-foreground">Pond Installation in Kuna & Boise</h1>
+              <h1 className="text-4xl md:text-5xl font-bold text-foreground">Pond Installation in Kuna &amp; Boise, Idaho</h1>
               <p className="text-lg text-muted-foreground">
                 Professional pond, fountain, and water feature installation across the Treasure Valley
               </p>

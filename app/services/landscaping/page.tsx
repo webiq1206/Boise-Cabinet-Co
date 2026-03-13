@@ -151,7 +151,7 @@ export default function LandscapingPage() {
         <section className="relative py-16 md:py-24 bg-gradient-to-b from-primary/10 to-background">
           <div className="container px-4 relative z-10">
             <div className="max-w-3xl mx-auto text-center space-y-4">
-              <h1 className="text-4xl md:text-5xl font-bold text-foreground">Professional Landscaping Services</h1>
+              <h1 className="text-4xl md:text-5xl font-bold text-foreground">Landscaping Services in Kuna &amp; Boise, Idaho</h1>
               <p className="text-lg text-muted-foreground">
                 Complete landscaping solutions from design to installation across the Treasure Valley
               </p>

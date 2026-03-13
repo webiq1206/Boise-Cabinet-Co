@@ -35,7 +35,7 @@ import {
 } from "lucide-react";
 import { PRIORITY_SERVICES, CITIES } from "@/shared/contentData";
 import { splitIntoParagraphs } from "@/lib/textUtils";
-import { generateSEOMetadata, CITY_SEO_DATA, BUSINESS_INFO } from "@/lib/seo";
+import { generateSEOMetadata, generateCityServiceTitle, generateCityServiceDescription, CITY_SEO_DATA, BUSINESS_INFO } from "@/lib/seo";
 import {
   generateServiceSchema,
   generateLocalBusinessSchema,
@@ -84,14 +84,19 @@ export async function generateMetadata({
 
   const cityData = CITY_SEO_DATA[city.name as keyof typeof CITY_SEO_DATA];
   const coordinates = cityData?.coordinates;
+  const neighborhoodNames = city.neighborhoods || cityData?.neighborhoods;
 
-  const neighborhoodText = city.neighborhoods && city.neighborhoods.length > 0 
-    ? `Serving ${city.neighborhoods.slice(0, 2).join(", ")} & all ${city.name} areas.` 
-    : `Serving all ${city.name} areas.`;
+  const pageTitle = generateCityServiceTitle(service.name, city.name);
+  const pageDescription = generateCityServiceDescription(
+    service.name,
+    city.name,
+    service.shortDescription,
+    neighborhoodNames,
+  );
 
   return {
-    title: `${service.name} in ${city.name}, Idaho | Licensed Pros | Free Quote`,
-    description: `Top-rated ${service.name.toLowerCase()} in ${city.name}, ID. ${service.shortDescription}. ${neighborhoodText} Licensed & insured. Call (208) 352-2011!`,
+    title: pageTitle,
+    description: pageDescription,
     openGraph: {
       title: `${service.name} in ${city.name}, ID | Lawn Care Kuna`,
       description: `Professional ${service.name.toLowerCase()} for ${city.name} homes and businesses. ${city.population} residents trust us. Free estimates!`,

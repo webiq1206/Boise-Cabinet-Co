@@ -83,7 +83,7 @@ export default function ContactPage() {
       <section className="relative py-16 md:py-24 bg-gradient-to-b from-primary/5 to-background">
         <div className="container px-4">
           <div className="max-w-3xl mx-auto text-center space-y-4">
-            <h1 className="text-4xl md:text-5xl font-bold text-foreground">Contact Lawn Care Kuna</h1>
+            <h1 className="text-4xl md:text-5xl font-bold text-foreground">Contact Us for Lawn Care in Kuna &amp; Boise, Idaho</h1>
             <p className="text-lg text-muted-foreground">
               Get in touch with our lawn care professionals. We're here to help!
             </p>

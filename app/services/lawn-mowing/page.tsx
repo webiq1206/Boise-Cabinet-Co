@@ -75,7 +75,7 @@ export default function LawnMowingPage() {
         <section className="bg-primary text-primary-foreground py-16">
           <div className="container px-4">
             <div className="max-w-3xl mx-auto text-center space-y-4">
-              <h1 className="text-4xl md:text-5xl font-bold">Professional Lawn Mowing Services</h1>
+              <h1 className="text-4xl md:text-5xl font-bold">Lawn Mowing Services in Kuna &amp; Boise, Idaho</h1>
               <p className="text-lg text-primary-foreground/90">
                 Weekly and bi-weekly lawn mowing for beautiful, healthy lawns in Kuna, Boise, Meridian, and surrounding areas
               </p>

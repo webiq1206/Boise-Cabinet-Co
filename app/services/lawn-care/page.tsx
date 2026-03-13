@@ -111,7 +111,7 @@ export default function LawnCarePage() {
         <section className="bg-primary text-primary-foreground py-16 md:py-24">
           <div className="container px-4">
             <div className="max-w-3xl mx-auto text-center space-y-4">
-              <h1 className="text-4xl md:text-5xl font-bold">Professional Lawn Care Services</h1>
+              <h1 className="text-4xl md:text-5xl font-bold">Lawn Care Services in Kuna &amp; Boise, Idaho</h1>
               <p className="text-lg text-primary-foreground/90">
                 Expert lawn maintenance for beautiful, healthy lawns across Kuna, Boise, Meridian, and surrounding areas
               </p>

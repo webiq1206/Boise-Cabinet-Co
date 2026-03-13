@@ -123,6 +123,24 @@ export function generatePageTitle(params: ServiceSEOParams): string {
   return `${truncatedService} | Lawn Care Kuna`;
 }
 
+const CITY_DESCRIPTION_VARIANTS: Record<string, string> = {
+  Kuna: "Kuna's top-rated",
+  Boise: "Boise's most trusted",
+  Meridian: "Meridian's premier",
+  Eagle: "Eagle's preferred",
+  Star: "Star's reliable",
+  Middleton: "Middleton's expert",
+};
+
+const CITY_CTA_VARIANTS: Record<string, string> = {
+  Kuna: "Satisfaction guaranteed",
+  Boise: "5-star rated by Boise homeowners",
+  Meridian: "Trusted by Meridian families",
+  Eagle: "Premium service for Eagle properties",
+  Star: "Dependable service in Star",
+  Middleton: "Serving Middleton with care",
+};
+
 /**
  * Generate SEO-optimized meta description
  * 150-160 characters with phone number, CTA, and unique value prop
@@ -137,24 +155,66 @@ export function generateMetaDescription(params: ServiceSEOParams): string {
   }
   
   if (city && serviceName) {
-    // Unique per city+service with phone and CTA
     const serviceLC = serviceName.toLowerCase();
-    return `Expert ${serviceLC} in ${city}, ID. Licensed pros, satisfaction guaranteed. Call ${phone} for a free quote. Serving ${city} & Treasure Valley!`;
+    const cityVariant = CITY_DESCRIPTION_VARIANTS[city] || `${city}'s trusted`;
+    const ctaVariant = CITY_CTA_VARIANTS[city] || "Satisfaction guaranteed";
+    return `${cityVariant} ${serviceLC} pros. Licensed & insured. ${ctaVariant}. Call ${phone} for a free quote today!`;
   }
   
   if (city) {
-    // City page without service
     return `Professional lawn care & landscaping in ${city}, Idaho. Licensed, insured, locally owned. Call ${phone} for your free quote. Serving all of ${city}!`;
   }
   
   if (!serviceName) {
-    // Fallback for pages without service or city
     return `Professional lawn care & landscaping in Kuna & Treasure Valley. Licensed, insured. Call ${phone} for a free quote. Residential & commercial services!`;
   }
   
-  // Service-only description with phone
   const serviceLC = serviceName.toLowerCase();
   return `Expert ${serviceLC} in Kuna & Treasure Valley Idaho. Licensed, insured, satisfaction guaranteed. Call ${phone} for your free quote today!`;
+}
+
+/**
+ * Generate varied city-service title (used for page metadata title field)
+ * Does NOT include brand name since layout template appends "| Lawn Care Kuna"
+ */
+export function generateCityServiceTitle(serviceName: string, cityName: string): string {
+  const cityData = CITY_SEO_DATA[cityName as keyof typeof CITY_SEO_DATA];
+  const neighborhoods = cityData?.neighborhoods;
+  const neighborhoodHint = neighborhoods && neighborhoods.length > 0
+    ? neighborhoods[0]
+    : null;
+
+  if (neighborhoodHint && `${serviceName} in ${cityName} (${neighborhoodHint}) Idaho`.length <= 55) {
+    return `${serviceName} in ${cityName} (${neighborhoodHint}) Idaho`;
+  }
+  return `${serviceName} in ${cityName}, Idaho | Licensed Pros | Free Quote`;
+}
+
+/**
+ * Generate varied city-service meta description using neighborhood data
+ */
+export function generateCityServiceDescription(
+  serviceName: string,
+  cityName: string,
+  shortDescription?: string,
+  neighborhoodNames?: string[]
+): string {
+  const phone = "(208) 352-2011";
+  const serviceLC = serviceName.toLowerCase();
+  const cityVariant = CITY_DESCRIPTION_VARIANTS[cityName] || `${cityName}'s trusted`;
+  const neighborhoods = neighborhoodNames && neighborhoodNames.length > 0
+    ? neighborhoodNames.slice(0, 2)
+    : null;
+  const neighborhoodText = neighborhoods
+    ? `Serving ${neighborhoods.join(", ")} & all ${cityName} areas.`
+    : `Serving all ${cityName} areas.`;
+
+  if (shortDescription) {
+    const desc = `${cityVariant} ${serviceLC}. ${shortDescription}. ${neighborhoodText} Call ${phone}!`;
+    if (desc.length <= 160) return desc;
+  }
+
+  return `${cityVariant} ${serviceLC} pros. ${neighborhoodText} Licensed & insured. Call ${phone} for a free quote!`;
 }
 
 /**

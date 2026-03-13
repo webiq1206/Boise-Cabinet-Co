@@ -72,7 +72,7 @@ export default function PatioInstallationPage() {
         <section className="bg-primary text-primary-foreground py-16">
           <div className="container px-4">
             <div className="max-w-3xl mx-auto text-center space-y-4">
-              <h1 className="text-4xl md:text-5xl font-bold">Patio Installation in Kuna & Boise</h1>
+              <h1 className="text-4xl md:text-5xl font-bold">Patio Installation in Kuna &amp; Boise, Idaho</h1>
               <p className="text-lg text-primary-foreground/90">
                 Professional paver, stamped concrete, and natural stone patio installation across the Treasure Valley
               </p>
