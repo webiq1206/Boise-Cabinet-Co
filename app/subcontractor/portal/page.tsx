@@ -169,6 +169,35 @@ function getServiceName(serviceSlug: string): string {
   return service ? service.name : serviceSlug.replace(/-/g, " ").replace(/\b\w/g, l => l.toUpperCase());
 }
 
+function getLeadDisplayTitle(lead: { serviceType: string; selectedServices?: string[] | null; lineItems?: LineItem[] | null }): string {
+  const services = lead.selectedServices;
+  if (!services || services.length <= 1) {
+    return getServiceName(lead.serviceType);
+  }
+
+  let topIndex = 0;
+  if (lead.lineItems && lead.lineItems.length > 0) {
+    let maxPrice = -1;
+    for (const item of lead.lineItems) {
+      const price = item.adjustedPrice ?? item.price ?? 0;
+      const slug = item.serviceId || item.service || "";
+      const idx = slug ? services.indexOf(slug) : -1;
+      if (price > maxPrice && idx >= 0) {
+        maxPrice = price;
+        topIndex = idx;
+      }
+    }
+  }
+
+  const topSlug = services[topIndex];
+  const topName = getServiceName(topSlug);
+  if (services.length === 2) {
+    const otherSlug = services[topIndex === 0 ? 1 : 0];
+    return `${topName} & ${getServiceName(otherSlug)}`;
+  }
+  return `${topName} + ${services.length - 1} more`;
+}
+
 const SERVICE_UNITS: Record<string, string> = {
   "lawn-mowing": "sqft", "lawn-care": "sqft", "aeration": "sqft", "fertilization": "sqft",
   "weed-control": "sqft", "overseeding": "sqft", "dethatching": "sqft", "sod-installation": "sqft",
@@ -1007,7 +1036,7 @@ function SubcontractorPortalContent() {
               <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-1.5 flex-wrap">
                   <CardTitle className="text-sm md:text-base leading-tight">
-                    {getServiceName(lead.serviceType)}
+                    {getLeadDisplayTitle(lead)}
                   </CardTitle>
                   {!isPurchased && hasTimeDiscount && (
                     <Badge variant="outline" className="text-[10px] px-1.5 py-0 text-primary border-primary">
@@ -1809,7 +1838,7 @@ function SubcontractorPortalContent() {
               clientSecret={paymentClientSecret}
               amount={paymentAmount}
               description={singlePurchaseLead 
-                ? `Lead: ${getServiceName(singlePurchaseLead.serviceType)} in ${singlePurchaseLead.city}`
+                ? `Lead: ${getLeadDisplayTitle(singlePurchaseLead)} in ${singlePurchaseLead.city}`
                 : `${pendingPurchaseLeadIds.length} Leads (${selectedLeadsTotal.discount}% bulk discount)`
               }
               onSuccess={handlePaymentSuccess}

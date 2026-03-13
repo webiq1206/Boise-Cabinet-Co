@@ -742,6 +742,35 @@ function AdminDashboardContent() {
     return service ? service.name : serviceSlug.replace(/-/g, " ").replace(/\b\w/g, l => l.toUpperCase());
   };
 
+  const getLeadDisplayTitle = (lead: { serviceType: string; selectedServices?: string[] | null; lineItems?: LineItem[] | null }): string => {
+    const services = lead.selectedServices;
+    if (!services || services.length <= 1) {
+      return getServiceName(lead.serviceType);
+    }
+
+    let topIndex = 0;
+    if (lead.lineItems && lead.lineItems.length > 0) {
+      let maxPrice = -1;
+      for (const item of lead.lineItems) {
+        const price = item.adjustedPrice ?? item.price ?? 0;
+        const slug = item.serviceId || item.service || "";
+        const idx = slug ? services.indexOf(slug) : -1;
+        if (price > maxPrice && idx >= 0) {
+          maxPrice = price;
+          topIndex = idx;
+        }
+      }
+    }
+
+    const topSlug = services[topIndex];
+    const topName = getServiceName(topSlug);
+    if (services.length === 2) {
+      const otherSlug = services[topIndex === 0 ? 1 : 0];
+      return `${topName} & ${getServiceName(otherSlug)}`;
+    }
+    return `${topName} + ${services.length - 1} more`;
+  };
+
   const getPropertySizeFromServiceData = (serviceData: Record<string, ServiceDataEntry> | null | undefined): number | null => {
     if (!serviceData) return null;
     for (const data of Object.values(serviceData)) {
@@ -994,7 +1023,7 @@ function AdminDashboardContent() {
           </div>
         </div>
         <CardDescription className="text-xs mt-0.5">
-          {lead.serviceType.replace(/-/g, " ").replace(/\b\w/g, l => l.toUpperCase())} in {lead.city}
+          {getLeadDisplayTitle(lead)} in {lead.city}
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-2">

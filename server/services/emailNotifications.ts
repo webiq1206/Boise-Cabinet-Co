@@ -58,6 +58,48 @@ function buildLeadFrequencyRow(
   return `<tr><td class="label" style="vertical-align: top;">Frequency:</td><td class="value"><ul style="margin: 0; padding-left: 18px; list-style: disc;">${lines}</ul></td></tr>`;
 }
 
+function emailServiceName(slug: string): string {
+  return slug.replace(/-/g, ' ').replace(/\b\w/g, (l: string) => l.toUpperCase());
+}
+
+function getEmailLeadDisplayTitle(leadData: {
+  serviceType: string;
+  selectedServices?: string[];
+  lineItems?: any;
+}): string {
+  const services = leadData.selectedServices;
+  if (!services || services.length <= 1) {
+    return emailServiceName(leadData.serviceType);
+  }
+
+  let topIndex = 0;
+  const items = parseMaybeJson<any[]>(leadData.lineItems);
+  if (items && Array.isArray(items) && items.length > 0) {
+    let maxPrice = -1;
+    for (const item of items) {
+      const price = typeof item?.adjustedPrice === 'number' ? item.adjustedPrice
+        : typeof item?.price === 'number' ? item.price
+        : typeof item?.adjustedPrice === 'string' ? parseFloat(item.adjustedPrice)
+        : typeof item?.price === 'string' ? parseFloat(item.price)
+        : 0;
+      const slug = item?.serviceId || item?.service || "";
+      const idx = slug ? services.indexOf(slug) : -1;
+      if (price > maxPrice && idx >= 0) {
+        maxPrice = price;
+        topIndex = idx;
+      }
+    }
+  }
+
+  const topSlug = services[topIndex];
+  const topName = emailServiceName(topSlug);
+  if (services.length === 2) {
+    const otherSlug = services[topIndex === 0 ? 1 : 0];
+    return `${topName} & ${emailServiceName(otherSlug)}`;
+  }
+  return `${topName} + ${services.length - 1} more`;
+}
+
 function adminLeadUrl(tab: 'pending' | 'accepted' | 'available' | 'all', leadId: string): string {
   return `${SITE_BASE_URL}/admin/dashboard?tab=${encodeURIComponent(tab)}&leadId=${encodeURIComponent(leadId)}`;
 }
@@ -913,12 +955,18 @@ export async function sendContractorNewLeadAvailable(
     message?: string;
   }
 ): Promise<void> {
-  const subject = `New Lead Available - ${leadData.city} - $${formatQuoteForDisplay(leadData.currentLeadPrice, true)}`;
+  const displayTitle = getEmailLeadDisplayTitle(leadData);
+  const serviceCount = leadData.selectedServices?.length || 1;
+  const subject = `${displayTitle} in ${leadData.city} -- $${formatQuoteForDisplay(leadData.currentLeadPrice, true)} lead, first come first served`;
   const leadValue = formatLeadValueRange(leadData.finalQuote);
   const portalUrl = subcontractorLeadUrl(leadData.id);
   const lineItemsHtml = renderLineItemsTable(leadData.lineItems);
   const serviceDataHtml = renderServiceDataTable(leadData.serviceData);
   const safeMessage = leadData.message ? maskEmailBodyText(String(leadData.message)) : "";
+
+  const servicesSummary = serviceCount > 1
+    ? `<tr><td class="label">Services:</td><td class="value">${displayTitle} (${serviceCount} services total)</td></tr>`
+    : `<tr><td class="label">Service:</td><td class="value">${displayTitle}</td></tr>`;
 
   const htmlBody = `
     <!DOCTYPE html>
@@ -934,32 +982,42 @@ export async function sendContractorNewLeadAvailable(
           <div style="margin-bottom: 20px;">
             <img src="${EMAIL_LOGO_LIGHT_URL}" alt="Lawn Care Kuna" width="300" style="display:block; max-width:300px; height:auto;">
           </div>
-          <h1>New Lead Available</h1>
-          <p>Subcontractor Marketplace</p>
+          <h1>${displayTitle}</h1>
+          <p>${leadData.city} -- ${leadValue.display} project</p>
         </div>
         <div class="content">
-          <p class="greeting">A new lead is available for purchase.</p>
-          <div class="section">
-            <h2 class="section-title">Lead Overview</h2>
-            <table class="info-table">
-              <tr><td class="label">Lead ID:</td><td class="value">${leadData.id}</td></tr>
-              <tr><td class="label">City:</td><td class="value">${leadData.city}</td></tr>
-              <tr><td class="label">Service:</td><td class="value">${leadData.serviceType}</td></tr>
-              ${buildLeadFrequencyRow(leadData.selectedServices, leadData.frequency, leadData.serviceData)}
-              ${leadData.propertyType ? `<tr><td class="label">Property Type:</td><td class="value">${leadData.propertyType}</td></tr>` : ""}
-              <tr><td class="label">Lead Price:</td><td class="value" style="font-size: 20px; font-weight: 600; color: #2D8652;">$${formatQuoteForDisplay(leadData.currentLeadPrice, true)}</td></tr>
-              <tr><td class="label">Quote Range:</td><td class="value" style="font-size: 18px; font-weight: 600; color: #1e40af;">${leadValue.display}</td></tr>
-            </table>
+          <p class="greeting">A customer in <strong>${leadData.city}</strong> just requested service and is ready to get started.</p>
+
+          <div class="highlight-box" style="background: linear-gradient(to right, #fffbeb 0%, #fef9c3 100%); border-left-color: #f59e0b;">
+            <p style="margin: 0; font-weight: 600; color: #92400e;">This is a first-come, first-served lead.</p>
+            <p style="margin: 6px 0 0 0; color: #78350f; font-size: 14px;">The first contractor to purchase gets exclusive access to the customer's full contact info. The lead price goes up over time, so today is the best deal.</p>
           </div>
 
           <div class="section">
-            <h2 class="section-title">Contact Info (Locked Until Purchase)</h2>
+            <h2 class="section-title">Lead Overview</h2>
+            <table class="info-table">
+              ${servicesSummary}
+              <tr><td class="label">City:</td><td class="value">${leadData.city}</td></tr>
+              ${buildLeadFrequencyRow(leadData.selectedServices, leadData.frequency, leadData.serviceData)}
+              ${leadData.propertyType ? `<tr><td class="label">Property Type:</td><td class="value">${leadData.propertyType}</td></tr>` : ""}
+              <tr><td class="label">Est. Project Value:</td><td class="value" style="font-size: 18px; font-weight: 600; color: #1e40af;">${leadValue.display}</td></tr>
+              <tr><td class="label">Your Cost:</td><td class="value" style="font-size: 20px; font-weight: 600; color: #2D8652;">$${formatQuoteForDisplay(leadData.currentLeadPrice, true)}</td></tr>
+            </table>
+          </div>
+
+          <div style="text-align:center; margin: 25px 0;">
+            <a href="${portalUrl}" class="cta-button">Claim This Lead</a>
+          </div>
+
+          <div class="section">
+            <h2 class="section-title">Contact Info (Revealed After Purchase)</h2>
             <table class="info-table">
               <tr><td class="label">Customer Name:</td><td class="value">***</td></tr>
               <tr><td class="label">Email:</td><td class="value">***</td></tr>
               <tr><td class="label">Phone:</td><td class="value">***</td></tr>
               <tr><td class="label">Exact Address:</td><td class="value">***</td></tr>
             </table>
+            <p style="font-size: 13px; color: #6b7280; margin: 8px 0 0 0;">Full name, phone, email, and address are revealed immediately after purchase.</p>
           </div>
 
           ${serviceDataHtml}
@@ -975,7 +1033,7 @@ export async function sendContractorNewLeadAvailable(
           ` : ""}
 
           <div style="text-align:center; margin: 30px 0;">
-            <a href="${portalUrl}" class="cta-button">View Lead →</a>
+            <a href="${portalUrl}" class="cta-button">View Lead Details</a>
           </div>
         </div>
         <div class="footer">
