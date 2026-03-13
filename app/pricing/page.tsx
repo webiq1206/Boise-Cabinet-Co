@@ -192,28 +192,23 @@ export default function PricingPage() {
         </div>
       </section>
 
-      <section className="py-16 md:py-24 bg-primary text-primary-foreground">
+      <section className="py-16 md:py-24">
         <div className="container px-4">
-          <div className="max-w-4xl mx-auto text-center space-y-8">
+          <div className="max-w-5xl mx-auto rounded-2xl bg-gradient-to-br from-green-950 via-primary to-green-700 text-white p-10 md:p-16 text-center space-y-8 shadow-xl">
             <h2 className="text-3xl md:text-4xl font-bold tracking-tight" data-testid="text-cta-heading">
               Get Your Custom Quote
             </h2>
-            <p className="text-xl text-primary-foreground leading-relaxed">
+            <p className="text-lg text-white/85 leading-relaxed max-w-2xl mx-auto">
               Every property is unique. Contact us for a free, detailed quote based on your specific needs.
             </p>
             <div className="flex flex-col sm:flex-row flex-wrap gap-4 justify-center pt-4">
-              <Button size="lg" variant="secondary" asChild>
+              <Button size="lg" className="bg-white text-green-900 hover:bg-white/90 border-0" asChild>
                 <Link href="/get-quote" data-testid="link-cta-quote">
                   Get Free Quote
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
               </Button>
-              <Button 
-                size="lg" 
-                variant="outline" 
-                className="bg-transparent border-primary-foreground text-primary-foreground" 
-                asChild
-              >
+              <Button size="lg" variant="outline" className="border-white/40 text-white bg-white/10 backdrop-blur-sm" asChild>
                 <a href="tel:2083522011" data-testid="link-cta-call">Call (208) 352-2011</a>
               </Button>
             </div>

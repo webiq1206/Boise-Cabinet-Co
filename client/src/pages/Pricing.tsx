@@ -172,21 +172,21 @@ export default function Pricing() {
         </section>
 
         {/* CTA */}
-        <section className="py-16 md:py-24 bg-primary text-primary-foreground">
+        <section className="py-16 md:py-24">
           <div className="container px-4">
-            <div className="max-w-3xl mx-auto text-center space-y-6">
+            <div className="max-w-5xl mx-auto rounded-2xl bg-gradient-to-br from-green-950 via-primary to-green-700 text-white p-10 md:p-16 text-center space-y-8 shadow-xl">
               <h2 className="text-3xl md:text-4xl font-bold">
                 Ready to Get Started?
               </h2>
-              <p className="text-lg text-primary-foreground/90">
+              <p className="text-lg text-white/85 leading-relaxed max-w-2xl mx-auto">
                 Contact us today for a free, no-obligation quote on any service
               </p>
               <div className="flex flex-wrap gap-4 justify-center">
-                <Button size="lg" variant="secondary" asChild data-testid="button-get-quote">
+                <Button size="lg" className="bg-white text-green-900 hover:bg-white/90 border-0" asChild data-testid="button-get-quote">
                   <a href="/get-quote">Get Free Quote</a>
                 </Button>
-                <Button size="lg" variant="outline" asChild data-testid="button-services">
-                  <Link href="/services/lawn-care" className="bg-transparent border-primary-foreground text-primary-foreground hover:bg-primary-foreground/10">
+                <Button size="lg" variant="outline" className="border-white/40 text-white bg-white/10 backdrop-blur-sm" asChild data-testid="button-services">
+                  <Link href="/services/lawn-care">
                     View All Services
                   </Link>
                 </Button>

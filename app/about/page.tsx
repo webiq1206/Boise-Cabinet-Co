@@ -216,28 +216,23 @@ export default function AboutPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-16 md:py-24 bg-primary text-primary-foreground">
+      <section className="py-16 md:py-24">
         <div className="container px-4">
-          <div className="max-w-4xl mx-auto text-center space-y-8">
+          <div className="max-w-5xl mx-auto rounded-2xl bg-gradient-to-br from-green-950 via-primary to-green-700 text-white p-10 md:p-16 text-center space-y-8 shadow-xl">
             <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
               Ready to get started?
             </h2>
-            <p className="text-xl text-primary-foreground leading-relaxed">
+            <p className="text-lg text-white/85 leading-relaxed max-w-2xl mx-auto">
               Contact us today for a free consultation and quote.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-              <Button size="lg" variant="secondary" asChild>
+              <Button size="lg" className="bg-white text-green-900 hover:bg-white/90 border-0" asChild>
                 <Link href="/get-quote">
                   Get Free Quote
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
               </Button>
-              <Button 
-                size="lg" 
-                variant="outline" 
-                className="bg-transparent border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary" 
-                asChild
-              >
+              <Button size="lg" variant="outline" className="border-white/40 text-white bg-white/10 backdrop-blur-sm" asChild>
                 <Link href="/contact">Contact Us</Link>
               </Button>
             </div>

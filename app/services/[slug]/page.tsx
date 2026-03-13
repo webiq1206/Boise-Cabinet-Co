@@ -591,40 +591,46 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
           <RelatedBlogPosts serviceSlug={service.slug} limit={3} />
         </div>
 
-        <section className="py-16 md:py-24 bg-primary text-primary-foreground" data-testid="section-cta">
+        <section className="py-16 md:py-24" data-testid="section-cta">
           <div className="container px-4">
-            <div className="max-w-4xl mx-auto text-center space-y-8">
+            <div className="max-w-5xl mx-auto rounded-2xl bg-gradient-to-br from-green-950 via-primary to-green-700 text-white p-10 md:p-16 text-center space-y-8 shadow-xl">
               <h2 className="text-3xl md:text-4xl font-bold tracking-tight" data-testid="text-cta-heading">
                 Ready for Professional {service.name}?
               </h2>
-              <p className="text-xl text-primary-foreground leading-relaxed">
+              <p className="text-lg text-white/85 leading-relaxed max-w-2xl mx-auto">
                 Get a free, no-obligation quote for your property. We'll assess your needs and provide transparent pricing with no hidden fees.
               </p>
-              <div className="grid sm:grid-cols-3 gap-4 max-w-2xl mx-auto pt-4">
-                <div className="text-center">
-                  <Clock className="h-8 w-8 mx-auto mb-2" aria-hidden="true" />
-                  <div className="font-semibold">Fast Response</div>
-                  <div className="text-sm text-primary-foreground/80">Same-day quotes</div>
+              <div className="grid sm:grid-cols-3 gap-6 max-w-2xl mx-auto pt-2">
+                <div className="text-center space-y-2">
+                  <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-white/15 backdrop-blur-sm">
+                    <Clock className="h-5 w-5" aria-hidden="true" />
+                  </div>
+                  <div className="font-semibold text-sm">Fast Response</div>
+                  <div className="text-xs text-white/70">Same-day quotes</div>
                 </div>
-                <div className="text-center">
-                  <Shield className="h-8 w-8 mx-auto mb-2" aria-hidden="true" />
-                  <div className="font-semibold">No Obligation</div>
-                  <div className="text-sm text-primary-foreground/80">Free estimates</div>
+                <div className="text-center space-y-2">
+                  <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-white/15 backdrop-blur-sm">
+                    <Shield className="h-5 w-5" aria-hidden="true" />
+                  </div>
+                  <div className="font-semibold text-sm">No Obligation</div>
+                  <div className="text-xs text-white/70">Free estimates</div>
                 </div>
-                <div className="text-center">
-                  <TrendingUp className="h-8 w-8 mx-auto mb-2" aria-hidden="true" />
-                  <div className="font-semibold">Results Driven</div>
-                  <div className="text-sm text-primary-foreground/80">Quality guaranteed</div>
+                <div className="text-center space-y-2">
+                  <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-white/15 backdrop-blur-sm">
+                    <TrendingUp className="h-5 w-5" aria-hidden="true" />
+                  </div>
+                  <div className="font-semibold text-sm">Results Driven</div>
+                  <div className="text-xs text-white/70">Quality guaranteed</div>
                 </div>
               </div>
               <div className="flex flex-col sm:flex-row flex-wrap gap-4 justify-center pt-4">
-                <Button size="lg" variant="secondary" asChild>
+                <Button size="lg" className="bg-white text-green-900 hover:bg-white/90 border-0" asChild>
                   <Link href="/get-quote" data-testid="link-cta-quote">
                     Get Free Quote
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </Link>
                 </Button>
-                <Button size="lg" variant="secondary" asChild>
+                <Button size="lg" variant="outline" className="border-white/40 text-white bg-white/10 backdrop-blur-sm" asChild>
                   <a href="tel:2083522011" data-testid="link-cta-phone">
                     <Phone className="mr-2 h-5 w-5" />
                     (208) 352-2011
