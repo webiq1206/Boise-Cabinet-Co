@@ -153,7 +153,7 @@ export default function LandscapingPage() {
               <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
                 <Button size="lg" asChild>
                   <a href="#quote">
-                    Get Free Quote
+                    Get a Free Landscaping Quote
                   </a>
                 </Button>
                 <Button size="lg" variant="outline" className="bg-gradient-to-br from-primary/10 to-white border-primary/20 text-primary" asChild>

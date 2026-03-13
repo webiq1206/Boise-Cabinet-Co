@@ -27,27 +27,28 @@ export async function generateMetadata({
     };
   }
 
-  const seoDescription = post.excerpt.length > 160 
+  const title = post.seoTitle || post.title;
+  const description = post.metaDescription || (post.excerpt.length > 160 
     ? post.excerpt.substring(0, 157) + "..." 
-    : post.excerpt;
+    : post.excerpt);
 
   return {
-    title: post.title,
-    description: seoDescription,
+    title,
+    description,
     alternates: {
       canonical: `https://lawncarekuna.com/blog/${post.slug}`,
     },
     openGraph: {
-      title: `${post.title} | Lawn Care Kuna Blog`,
-      description: seoDescription,
+      title: `${title} | Lawn Care Kuna Blog`,
+      description,
       url: `https://lawncarekuna.com/blog/${post.slug}`,
       type: "article",
       publishedTime: post.publishedAt,
     },
     twitter: {
       card: "summary",
-      title: `${post.title} | Lawn Care Kuna Blog`,
-      description: seoDescription,
+      title: `${title} | Lawn Care Kuna Blog`,
+      description,
     },
   };
 }
@@ -308,7 +309,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Button size="lg" asChild className="bg-white text-green-900 hover:bg-white/90 border-0">
                 <Link href="/get-quote" data-testid="link-bottom-cta-quote">
-                  Get Free Quote
+                  Get Your Free Lawn Care Quote
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
               </Button>

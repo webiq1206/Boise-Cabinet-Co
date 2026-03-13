@@ -147,7 +147,7 @@ export default function ContactPage() {
             </p>
             <Button size="lg" asChild>
               <Link href="/get-quote">
-                Get Free Quote
+                Get Your Free Lawn Care Quote
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
             </Button>

@@ -126,10 +126,10 @@ export default function GetQuotePage() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
               <Button size="lg" variant="outline" className="bg-gradient-to-br from-primary/10 to-white border-primary/20 text-primary" asChild>
-                <Link href="/about">Learn About Us</Link>
+                <Link href="/about">Meet Our Kuna Lawn Care Team</Link>
               </Button>
               <Button size="lg" variant="outline" className="bg-gradient-to-br from-primary/10 to-white border-primary/20 text-primary" asChild>
-                <Link href="/services">View Our Services</Link>
+                <Link href="/services">Browse Our Lawn &amp; Landscaping Services</Link>
               </Button>
             </div>
           </div>

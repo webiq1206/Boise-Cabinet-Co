@@ -192,7 +192,7 @@ export default function PondInstallationPage() {
                         </Button>
                         <Button variant="outline" size="lg" className="w-full bg-gradient-to-br from-primary/10 to-white border-primary/20 text-primary" asChild>
                           <a href="#quote">
-                            Get Free Quote
+                            Get a Free Pond Installation Quote
                           </a>
                         </Button>
                       </div>

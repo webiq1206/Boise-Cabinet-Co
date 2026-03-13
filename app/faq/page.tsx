@@ -330,7 +330,7 @@ export default function FAQPage() {
                   asChild
                 >
                   <Link href="/get-quote" data-testid="link-faq-cta-quote">
-                    Get Free Quote
+                    Get Your Free Lawn Care Quote
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </Link>
                 </Button>

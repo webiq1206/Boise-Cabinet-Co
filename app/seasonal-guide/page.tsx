@@ -729,7 +729,7 @@ export default function SeasonalGuidePage() {
                   asChild
                 >
                   <Link href="/get-quote" data-testid="link-seasonal-cta-quote">
-                    Get Free Quote
+                    Get Your Free Lawn Care Quote
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </Link>
                 </Button>

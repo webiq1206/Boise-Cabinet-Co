@@ -61,7 +61,7 @@ export default function ChristmasLightsPage() {
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
                 <Button size="lg" asChild>
-                  <a href="#quote">Get Free Quote</a>
+                  <a href="#quote">Get a Free Christmas Lights Quote</a>
                 </Button>
                 <Button size="lg" variant="outline" className="bg-gradient-to-br from-primary/10 to-white border-primary/20 text-primary" asChild>
                   <a href="tel:2083522011">

@@ -112,7 +112,7 @@ export default function LawnCarePage() {
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
                 <Button size="lg" variant="secondary" asChild>
-                  <a href="#quote">Get Free Quote</a>
+                  <a href="#quote">Get a Free Lawn Care Quote</a>
                 </Button>
                 <Button size="lg" variant="outline" asChild>
                   <a href="tel:2083522011">

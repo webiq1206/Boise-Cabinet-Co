@@ -329,7 +329,7 @@ export default function CityServicePage({
                 <div className="flex flex-col sm:flex-row flex-wrap gap-4 justify-center pt-4">
                   <Button size="lg" asChild>
                     <Link href="/get-quote" data-testid="link-hero-quote">
-                      Get Free Quote
+                      Get a Free {service.name} Quote in {city.name}
                       <ArrowRight className="ml-2 h-5 w-5" />
                     </Link>
                   </Button>
@@ -721,7 +721,7 @@ export default function CityServicePage({
               <div className="flex flex-col sm:flex-row flex-wrap gap-4 justify-center pt-4">
                 <Button size="lg" className="bg-white text-green-900 hover:bg-white/90 border-0" asChild>
                   <Link href="/get-quote" data-testid="link-cta-quote">
-                    Get Free Quote
+                    Request Your Free {service.name} Estimate
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </Link>
                 </Button>

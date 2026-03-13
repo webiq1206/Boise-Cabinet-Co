@@ -282,13 +282,13 @@ export default function HomePage() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
               <Button size="lg" className="bg-white text-green-900 hover:bg-white/90 border-0" asChild>
                 <Link href="/get-quote">
-                  Get Free Quote
+                  Get Your Free Lawn Care Quote
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
               </Button>
               <Button size="lg" variant="outline" className="border-white/40 text-white bg-white/10 backdrop-blur-sm" asChild>
                 <Link href="/services">
-                  View All Services
+                  Explore Our Lawn &amp; Landscaping Services
                 </Link>
               </Button>
             </div>
@@ -365,7 +365,7 @@ export default function HomePage() {
             <div className="text-center">
               <Button size="lg" asChild>
                 <Link href="/services">
-                  View All Services
+                  Browse All Lawn Care &amp; Landscaping Services
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
               </Button>
@@ -436,7 +436,7 @@ export default function HomePage() {
                 </div>
                 <Button variant="outline" className="bg-gradient-to-br from-primary/10 to-white border-primary/20 text-primary" asChild>
                   <Link href="/about">
-                    Learn More About Us
+                    Meet Our Kuna Lawn Care Team
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
                 </Button>
@@ -633,7 +633,7 @@ export default function HomePage() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
               <Button size="lg" className="bg-white text-green-900 hover:bg-white/90 border-0" asChild>
                 <Link href="/get-quote">
-                  Get Free Quote
+                  Request Your Free Lawn Care Estimate
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
               </Button>
