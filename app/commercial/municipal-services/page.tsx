@@ -151,7 +151,7 @@ export default function MunicipalServicesPage() {
                           <Button className="w-full" size="lg">Request Bid Information</Button>
                         </Link>
                         <Link href="/pricing" className="block">
-                          <Button className="w-full" variant="outline" size="lg">View Pricing</Button>
+                          <Button className="w-full bg-gradient-to-br from-primary/10 to-white border-primary/20 text-primary" variant="outline" size="lg">View Pricing</Button>
                         </Link>
                       </div>
                     </CardContent>

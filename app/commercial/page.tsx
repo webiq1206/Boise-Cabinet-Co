@@ -145,13 +145,13 @@ export default function CommercialPage() {
                   <div className="bg-primary/5 p-6 rounded-lg">
                     <h3 className="text-xl font-bold mb-4">Specialized Commercial Services</h3>
                     <div className="flex flex-col sm:flex-row gap-4">
-                      <Button asChild variant="outline">
+                      <Button asChild variant="outline" className="bg-gradient-to-br from-primary/10 to-white border-primary/20 text-primary">
                         <Link href="/commercial/hoa-services">
                           HOA Services
                           <ArrowRight className="ml-2 h-4 w-4" />
                         </Link>
                       </Button>
-                      <Button asChild variant="outline">
+                      <Button asChild variant="outline" className="bg-gradient-to-br from-primary/10 to-white border-primary/20 text-primary">
                         <Link href="/commercial/municipal-services">
                           Municipal Services
                           <ArrowRight className="ml-2 h-4 w-4" />
@@ -196,7 +196,7 @@ export default function CommercialPage() {
                           <Button className="w-full" size="lg">Get Commercial Quote</Button>
                         </Link>
                         <Link href="/pricing" className="block">
-                          <Button className="w-full" variant="outline" size="lg">View Pricing</Button>
+                          <Button className="w-full bg-gradient-to-br from-primary/10 to-white border-primary/20 text-primary" variant="outline" size="lg">View Pricing</Button>
                         </Link>
                       </div>
                     </CardContent>

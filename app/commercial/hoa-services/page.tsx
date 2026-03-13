@@ -62,7 +62,7 @@ export default function HOAServicesPage() {
                 <Button size="lg" asChild>
                   <Link href="#quote">Request Commercial Quote</Link>
                 </Button>
-                <Button size="lg" variant="outline" asChild>
+                <Button size="lg" variant="outline" className="bg-gradient-to-br from-primary/10 to-white border-primary/20 text-primary" asChild>
                   <Link href="/pricing">View Pricing</Link>
                 </Button>
               </div>
@@ -275,7 +275,7 @@ export default function HOAServicesPage() {
               </p>
               <div className="flex flex-wrap justify-center gap-3">
                 {["Kuna", "Boise", "Meridian", "Eagle", "Star", "Middleton"].map((city) => (
-                  <Button key={city} variant="outline" asChild>
+                  <Button key={city} variant="outline" className="bg-gradient-to-br from-primary/10 to-white border-primary/20 text-primary" asChild>
                     <Link href={`/areas/${city.toLowerCase()}`}>{city}</Link>
                   </Button>
                 ))}

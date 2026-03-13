@@ -51,7 +51,7 @@ export function CityCrosslinks({ currentCity, serviceSlug, serviceName }: CityCr
                   <Button 
                     variant="outline" 
                     size="sm" 
-                    className="w-full text-xs" 
+                    className="w-full text-xs bg-gradient-to-br from-primary/10 to-white border-primary/20 text-primary" 
                     asChild
                   >
                     <Link href={`/services/${serviceSlug}/${city.slug}`}>

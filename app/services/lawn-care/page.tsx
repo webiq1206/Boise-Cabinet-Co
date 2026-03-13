@@ -146,7 +146,7 @@ export default function LawnCarePage() {
                       <CardDescription className="text-sm">{service.description}</CardDescription>
                     </CardHeader>
                     <CardContent>
-                      <Button variant="outline" size="sm" asChild>
+                      <Button variant="outline" size="sm" className="bg-gradient-to-br from-primary/10 to-white border-primary/20 text-primary" asChild>
                         <Link href={service.href}>
                           Learn More
                         </Link>

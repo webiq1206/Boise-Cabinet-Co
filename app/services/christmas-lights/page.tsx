@@ -63,7 +63,7 @@ export default function ChristmasLightsPage() {
                 <Button size="lg" asChild>
                   <a href="#quote">Get Free Quote</a>
                 </Button>
-                <Button size="lg" variant="outline" asChild>
+                <Button size="lg" variant="outline" className="bg-gradient-to-br from-primary/10 to-white border-primary/20 text-primary" asChild>
                   <a href="tel:2083522011">
                     Call (208) 352-2011
                   </a>
@@ -318,7 +318,7 @@ export default function ChristmasLightsPage() {
               </p>
               <div className="flex flex-wrap justify-center gap-4">
                 {['Kuna', 'Boise', 'Meridian', 'Eagle', 'Star', 'Middleton'].map((city) => (
-                  <Button key={city} variant="outline" asChild>
+                  <Button key={city} variant="outline" className="bg-gradient-to-br from-primary/10 to-white border-primary/20 text-primary" asChild>
                     <Link href={`/services/christmas-lights/${city.toLowerCase()}`}>{city}</Link>
                   </Button>
                 ))}

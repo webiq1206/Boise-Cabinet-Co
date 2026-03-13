@@ -158,8 +158,8 @@ export default function PricingPage() {
                           </Button>
                           <Button 
                             size="sm" 
-                            variant="outline" 
-                            className="flex-1"
+                            variant="outline"
+                            className="flex-1 bg-gradient-to-br from-primary/10 to-white border-primary/20 text-primary"
                             asChild
                           >
                             <Link href={`/services/${service.slug}`} data-testid={`link-details-${service.slug}`}>

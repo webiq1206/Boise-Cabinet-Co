@@ -173,13 +173,13 @@ function QuoteStatusContent() {
                 <div className="border-t pt-6">
                   <h4 className="text-sm font-medium mb-3">Questions?</h4>
                   <div className="flex flex-col sm:flex-row gap-3">
-                    <Button variant="outline" asChild className="flex-1">
+                    <Button variant="outline" asChild className="flex-1 bg-gradient-to-br from-primary/10 to-white border-primary/20 text-primary">
                       <a href="tel:2083522011">
                         <Phone className="h-4 w-4 mr-2" />
                         (208) 352-2011
                       </a>
                     </Button>
-                    <Button variant="outline" asChild className="flex-1">
+                    <Button variant="outline" asChild className="flex-1 bg-gradient-to-br from-primary/10 to-white border-primary/20 text-primary">
                       <a href="mailto:hello@lawncarekuna.com">
                         <Mail className="h-4 w-4 mr-2" />
                         Email Us

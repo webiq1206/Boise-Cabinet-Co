@@ -69,7 +69,7 @@ export default function NotFound() {
               Go to Homepage
             </Link>
           </Button>
-          <Button size="lg" variant="outline" asChild>
+          <Button size="lg" variant="outline" className="bg-gradient-to-br from-primary/10 to-white border-primary/20 text-primary" asChild>
             <a href="tel:2083522011">
               <Phone className="h-5 w-5 mr-2" />
               Call Us

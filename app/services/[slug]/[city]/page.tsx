@@ -337,7 +337,7 @@ export default function CityServicePage({
                       <ArrowRight className="ml-2 h-5 w-5" />
                     </Link>
                   </Button>
-                  <Button size="lg" variant="outline" asChild>
+                  <Button size="lg" variant="outline" className="bg-gradient-to-br from-primary/10 to-white border-primary/20 text-primary" asChild>
                     <a href="tel:2083522011" data-testid="link-hero-phone">
                       <Phone className="mr-2 h-5 w-5" />
                       (208) 352-2011
@@ -624,7 +624,7 @@ export default function CityServicePage({
                           <p className="text-sm text-muted-foreground line-clamp-2">
                             {relatedService.shortDescription}
                           </p>
-                          <Button variant="outline" size="sm" className="w-full" asChild>
+                          <Button variant="outline" size="sm" className="w-full bg-gradient-to-br from-primary/10 to-white border-primary/20 text-primary" asChild>
                             <Link href={`/services/${relatedService.slug}/${city.slug}`} data-testid={`link-related-${relatedService.slug}`}>
                               View in {city.name}
                             </Link>

@@ -91,7 +91,7 @@ export default function ServicesPage() {
                         <CardDescription>{service.shortDescription}</CardDescription>
                       </CardHeader>
                       <CardContent>
-                        <Button variant="outline" className="w-full" asChild>
+                        <Button variant="outline" className="w-full bg-gradient-to-br from-primary/10 to-white border-primary/20 text-primary" asChild>
                           <Link href={`/services/${service.slug}`}>
                             Explore {service.name}
                             <ArrowRight className="ml-2 h-4 w-4" />

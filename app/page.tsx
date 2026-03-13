@@ -228,7 +228,7 @@ export default function HomePage() {
                         </li>
                       ))}
                     </ul>
-                    <Button variant="outline" className="w-full" asChild>
+                    <Button variant="outline" className="w-full bg-gradient-to-br from-primary/10 to-white border-primary/20 text-primary" asChild>
                       <Link href={service.href}>
                         Explore {service.title} Services
                         <ArrowRight className="ml-2 h-4 w-4" />
@@ -408,7 +408,7 @@ export default function HomePage() {
                     beautiful outdoor spaces that you can be proud of.
                   </p>
                 </div>
-                <Button variant="outline" asChild>
+                <Button variant="outline" className="bg-gradient-to-br from-primary/10 to-white border-primary/20 text-primary" asChild>
                   <Link href="/about">
                     Learn More About Us
                     <ArrowRight className="ml-2 h-4 w-4" />

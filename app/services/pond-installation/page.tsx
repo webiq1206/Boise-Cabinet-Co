@@ -147,7 +147,7 @@ export default function PondInstallationPage() {
                     </p>
                     <div className="flex flex-wrap gap-2">
                       {['Kuna', 'Boise', 'Meridian', 'Eagle', 'Star', 'Middleton'].map((city) => (
-                        <Button key={city} variant="outline" size="sm" asChild>
+                        <Button key={city} variant="outline" size="sm" className="bg-gradient-to-br from-primary/10 to-white border-primary/20 text-primary" asChild>
                           <Link href={`/services/pond-installation/${city.toLowerCase()}`}>{city}</Link>
                         </Button>
                       ))}
@@ -190,7 +190,7 @@ export default function PondInstallationPage() {
                             Call (208) 352-2011
                           </a>
                         </Button>
-                        <Button variant="outline" size="lg" className="w-full" asChild>
+                        <Button variant="outline" size="lg" className="w-full bg-gradient-to-br from-primary/10 to-white border-primary/20 text-primary" asChild>
                           <a href="#quote">
                             Get Free Quote
                           </a>

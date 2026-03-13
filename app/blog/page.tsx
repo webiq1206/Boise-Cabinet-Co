@@ -116,7 +116,7 @@ export default function BlogPage() {
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
               </Button>
-              <Button size="lg" variant="outline" asChild>
+              <Button size="lg" variant="outline" className="bg-gradient-to-br from-primary/10 to-white border-primary/20 text-primary" asChild>
                 <Link href="/services">View Our Services</Link>
               </Button>
             </div>

@@ -84,10 +84,10 @@ export default function GetQuotePage() {
               Since 2017, we've been providing professional lawn care services to homeowners and businesses throughout the Treasure Valley. Our commitment to quality and customer satisfaction has made us one of the most trusted names in lawn care.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-              <Button size="lg" variant="outline" asChild>
+              <Button size="lg" variant="outline" className="bg-gradient-to-br from-primary/10 to-white border-primary/20 text-primary" asChild>
                 <Link href="/about">Learn About Us</Link>
               </Button>
-              <Button size="lg" variant="outline" asChild>
+              <Button size="lg" variant="outline" className="bg-gradient-to-br from-primary/10 to-white border-primary/20 text-primary" asChild>
                 <Link href="/services">View Our Services</Link>
               </Button>
             </div>

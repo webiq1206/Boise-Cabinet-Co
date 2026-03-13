@@ -162,7 +162,7 @@ export default function IrrigationInstallationPage() {
                     </p>
                     <div className="flex flex-wrap gap-2">
                       {['Kuna', 'Boise', 'Meridian', 'Eagle', 'Star', 'Middleton'].map((city) => (
-                        <Button key={city} variant="outline" size="sm" asChild>
+                        <Button key={city} variant="outline" size="sm" className="bg-gradient-to-br from-primary/10 to-white border-primary/20 text-primary" asChild>
                           <Link href={`/services/irrigation-installation/${city.toLowerCase()}`}>{city}</Link>
                         </Button>
                       ))}
