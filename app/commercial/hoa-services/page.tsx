@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   title: "HOA Landscaping Services | Lawn Care Kuna",
   description: "Professional landscape maintenance and management for homeowners associations across the Treasure Valley. Multi-property expertise, budget-friendly solutions, and dedicated account management.",
   alternates: {
-    canonical: "/commercial/hoa-services",
+    canonical: "https://lawncarekuna.com/commercial/hoa-services",
   },
   openGraph: {
     title: "HOA Landscaping Services | Lawn Care Kuna",

@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     type: "article",
   },
   alternates: {
-    canonical: "/seasonal-guide",
+    canonical: "https://lawncarekuna.com/seasonal-guide",
   },
 };
 

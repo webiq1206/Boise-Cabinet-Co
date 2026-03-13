@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     type: "website",
   },
   alternates: {
-    canonical: "/services/pond-installation",
+    canonical: "https://lawncarekuna.com/services/pond-installation",
   },
 };
 

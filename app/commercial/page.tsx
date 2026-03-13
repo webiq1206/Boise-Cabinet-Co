@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   title: "Commercial Lawn Care & Landscaping | Lawn Care Kuna",
   description: "Professional commercial landscaping services for businesses, office parks, retail centers, and commercial properties across the Treasure Valley. Get a free quote today!",
   alternates: {
-    canonical: "/commercial",
+    canonical: "https://lawncarekuna.com/commercial",
   },
   openGraph: {
     title: "Commercial Lawn Care & Landscaping | Lawn Care Kuna",

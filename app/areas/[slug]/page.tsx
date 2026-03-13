@@ -78,7 +78,7 @@ export async function generateMetadata({
       description: `Top-rated lawn care in ${city.name}. Licensed, insured, and locally owned. Call today!`,
     },
     alternates: {
-      canonical: `/areas/${city.slug}`,
+      canonical: `https://lawncarekuna.com/areas/${city.slug}`,
     },
   };
 }

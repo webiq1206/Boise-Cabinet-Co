@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   title: "Privacy Policy | Lawn Care Kuna",
   description: "Read the privacy policy for Lawn Care Kuna. Learn how we collect, use, and protect your personal information.",
   alternates: {
-    canonical: "/privacy-policy",
+    canonical: "https://lawncarekuna.com/privacy-policy",
   },
 };
 

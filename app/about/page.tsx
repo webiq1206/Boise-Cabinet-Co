@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   title: "About Us | Lawn Care Kuna",
   description: "Learn about Lawn Care Kuna - your trusted lawn care and landscaping company serving Kuna, Boise, Meridian, Eagle, Star, and Middleton since 2017.",
   alternates: {
-    canonical: "/about",
+    canonical: "https://lawncarekuna.com/about",
   },
   openGraph: {
     title: "About Lawn Care Kuna | Professional Lawn Care Services",

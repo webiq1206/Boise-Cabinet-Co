@@ -31,7 +31,7 @@ export async function generateMetadata({
     title: `${post.title} | Lawn Care Kuna Blog`,
     description: post.excerpt,
     alternates: {
-      canonical: `/blog/${post.slug}`,
+      canonical: `https://lawncarekuna.com/blog/${post.slug}`,
     },
     openGraph: {
       title: post.title,

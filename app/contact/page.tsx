@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   title: "Contact Us | Lawn Care Kuna",
   description: "Contact Lawn Care Kuna for professional lawn care and landscaping services in Kuna, Boise, Meridian, and the Treasure Valley. Call (208) 352-2011 or request a free quote online.",
   alternates: {
-    canonical: "/contact",
+    canonical: "https://lawncarekuna.com/contact",
   },
   openGraph: {
     title: "Contact Lawn Care Kuna",

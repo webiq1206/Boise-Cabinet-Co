@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   title: "Terms of Service | Lawn Care Kuna",
   description: "Read the terms of service for Lawn Care Kuna. Understand your rights and responsibilities when using our lawn care services.",
   alternates: {
-    canonical: "/terms-of-service",
+    canonical: "https://lawncarekuna.com/terms-of-service",
   },
 };
 

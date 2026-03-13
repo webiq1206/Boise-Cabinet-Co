@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   title: "Get a Free Quote | Lawn Care Kuna",
   description: "Request a free lawn care quote from Lawn Care Kuna. Professional lawn care and landscaping services in Kuna, Boise, Meridian, and the Treasure Valley.",
   alternates: {
-    canonical: "/get-quote",
+    canonical: "https://lawncarekuna.com/get-quote",
   },
   openGraph: {
     title: "Get a Free Quote | Lawn Care Kuna",

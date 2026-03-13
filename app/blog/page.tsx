@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   title: "Lawn Care Blog | Tips & Guides | Lawn Care Kuna",
   description: "Expert lawn care tips, guides, and advice for Idaho homeowners. Learn about lawn maintenance, landscaping, irrigation, and seasonal care from Lawn Care Kuna.",
   alternates: {
-    canonical: "/blog",
+    canonical: "https://lawncarekuna.com/blog",
   },
   openGraph: {
     title: "Lawn Care Blog | Lawn Care Kuna",

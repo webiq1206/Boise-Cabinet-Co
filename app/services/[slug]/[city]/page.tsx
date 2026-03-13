@@ -102,7 +102,7 @@ export async function generateMetadata({
       description: `Top-rated ${service.name.toLowerCase()} in ${city.name}. Licensed, insured, locally owned.`,
     },
     alternates: {
-      canonical: `/services/${service.slug}/${city.slug}`,
+      canonical: `https://lawncarekuna.com/services/${service.slug}/${city.slug}`,
     },
     other: {
       "geo.region": "US-ID",

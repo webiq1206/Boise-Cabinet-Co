@@ -82,7 +82,7 @@ export async function generateMetadata({
       description: `Top-rated ${service.name.toLowerCase()} in the Treasure Valley. Licensed, insured, locally owned.`,
     },
     alternates: {
-      canonical: `/services/${service.slug}`,
+      canonical: `https://lawncarekuna.com/services/${service.slug}`,
     },
   };
 }
