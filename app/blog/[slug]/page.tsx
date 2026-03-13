@@ -177,7 +177,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
                         <Calendar className="h-4 w-4" />
                         <span>{formatDate(relatedPost.publishedAt)}</span>
                       </div>
-                      <h3 className="font-semibold group-hover:text-primary transition-colors line-clamp-2">
+                      <h3 className="text-sm font-semibold group-hover:text-primary transition-colors line-clamp-2">
                         {relatedPost.title}
                       </h3>
                     </div>
