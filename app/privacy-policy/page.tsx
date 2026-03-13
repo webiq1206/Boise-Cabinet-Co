@@ -1,8 +1,12 @@
 import { Metadata } from "next";
+import { ObfuscatedEmail } from "@/components/ObfuscatedEmail";
 
 export const metadata: Metadata = {
   title: "Privacy Policy | Lawn Care Kuna",
   description: "Read the privacy policy for Lawn Care Kuna. Learn how we collect, use, and protect your personal information.",
+  alternates: {
+    canonical: "/privacy-policy",
+  },
 };
 
 export default function PrivacyPolicyPage() {
@@ -70,8 +74,8 @@ export default function PrivacyPolicyPage() {
               If you have questions about this Privacy Policy, please contact us at:
             </p>
             <ul>
-              <li>Email: hello@lawncarekuna.com</li>
-              <li>Phone: (208) 352-2011</li>
+              <li>Email: <ObfuscatedEmail user="hello" domain="lawncarekuna.com" className="text-primary hover:underline inline-flex items-center gap-1" showIcon={false} /></li>
+              <li>Phone: <a href="tel:2083522011" className="text-primary hover:underline">(208) 352-2011</a></li>
               <li>Address: 2283 N Coopers Hawk Ave, Kuna, ID 83634</li>
             </ul>
           </div>

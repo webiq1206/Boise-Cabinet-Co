@@ -8,6 +8,9 @@ import { PRIORITY_SERVICES } from "@/shared/contentData";
 export const metadata: Metadata = {
   title: "Our Services | Lawn Care Kuna",
   description: "Explore our complete range of lawn care and landscaping services in Kuna, Boise, Meridian, and the Treasure Valley. From lawn mowing to complete landscape design.",
+  alternates: {
+    canonical: "/services",
+  },
   openGraph: {
     title: "Lawn Care & Landscaping Services | Lawn Care Kuna",
     description: "Professional lawn care, landscaping, irrigation, and seasonal services for the Treasure Valley.",

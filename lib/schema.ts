@@ -181,7 +181,8 @@ export function generateOrganizationSchema(): SchemaContext {
       addressCountry: BUSINESS_INFO.address.country,
     },
     sameAs: [
-      'https://share.google/qS8UCGzYV6EcS3iUP',
+      'https://www.facebook.com/lawncarekuna',
+      'https://www.instagram.com/lawncarekuna',
     ],
     contactPoint: {
       '@type': 'ContactPoint',

@@ -1,8 +1,12 @@
 import { Metadata } from "next";
+import { ObfuscatedEmail } from "@/components/ObfuscatedEmail";
 
 export const metadata: Metadata = {
   title: "Terms of Service | Lawn Care Kuna",
   description: "Read the terms of service for Lawn Care Kuna. Understand your rights and responsibilities when using our lawn care services.",
+  alternates: {
+    canonical: "/terms-of-service",
+  },
 };
 
 export default function TermsOfServicePage() {
@@ -80,8 +84,8 @@ export default function TermsOfServicePage() {
               For questions about these Terms of Service, please contact us:
             </p>
             <ul>
-              <li>Email: hello@lawncarekuna.com</li>
-              <li>Phone: (208) 352-2011</li>
+              <li>Email: <ObfuscatedEmail user="hello" domain="lawncarekuna.com" className="text-primary hover:underline inline-flex items-center gap-1" showIcon={false} /></li>
+              <li>Phone: <a href="tel:2083522011" className="text-primary hover:underline">(208) 352-2011</a></li>
               <li>Address: 2283 N Coopers Hawk Ave, Kuna, ID 83634</li>
             </ul>
           </div>

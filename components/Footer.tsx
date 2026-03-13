@@ -1,7 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
-import { Phone, Mail, MapPin } from "lucide-react";
+import { Phone, Mail, MapPin, Facebook, Instagram } from "lucide-react";
 import { PRIORITY_SERVICES, CITIES } from "@/shared/contentData";
+import { ObfuscatedEmail } from "@/components/ObfuscatedEmail";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -28,10 +29,12 @@ export function Footer() {
                 <Phone className="h-4 w-4" />
                 <span>(208) 352-2011</span>
               </a>
-              <a href="mailto:hello@lawncarekuna.com" className="flex items-center gap-2 text-sm hover:text-primary transition-colors">
-                <Mail className="h-4 w-4" />
-                <span>hello@lawncarekuna.com</span>
-              </a>
+              <ObfuscatedEmail
+                user="hello"
+                domain="lawncarekuna.com"
+                className="flex items-center gap-2 text-sm hover:text-primary transition-colors"
+                iconClassName="h-4 w-4"
+              />
               <div className="flex items-start gap-2 text-sm text-muted-foreground">
                 <MapPin className="h-4 w-4 mt-0.5 flex-shrink-0" />
                 <span>2283 N Coopers Hawk Ave, Kuna, ID 83634</span>
@@ -139,7 +142,28 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="border-t mt-8 pt-8 text-sm text-muted-foreground space-y-2">
+        <div className="border-t mt-8 pt-8 text-sm text-muted-foreground space-y-4">
+          <div className="flex items-center gap-4">
+            <span className="text-xs font-medium">Follow Us:</span>
+            <a
+              href="https://www.facebook.com/lawncarekuna"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-primary transition-colors"
+              aria-label="Follow Lawn Care Kuna on Facebook"
+            >
+              <Facebook className="h-5 w-5" />
+            </a>
+            <a
+              href="https://www.instagram.com/lawncarekuna"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-primary transition-colors"
+              aria-label="Follow Lawn Care Kuna on Instagram"
+            >
+              <Instagram className="h-5 w-5" />
+            </a>
+          </div>
           <p className="text-xs">
             <strong>Legal Disclaimer:</strong> Lawn Care Kuna reserves the right to subcontract services as needed to ensure quality service delivery.
           </p>

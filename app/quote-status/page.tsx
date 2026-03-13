@@ -17,6 +17,7 @@ import {
   ArrowRight
 } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
+import { ObfuscatedEmail } from "@/components/ObfuscatedEmail";
 
 interface QuoteStatus {
   id: string;
@@ -179,12 +180,13 @@ function QuoteStatusContent() {
                         (208) 352-2011
                       </a>
                     </Button>
-                    <Button variant="outline" asChild className="flex-1 bg-gradient-to-br from-primary/10 to-white border-primary/20 text-primary">
-                      <a href="mailto:hello@lawncarekuna.com">
-                        <Mail className="h-4 w-4 mr-2" />
-                        Email Us
-                      </a>
-                    </Button>
+                    <ObfuscatedEmail
+                      user="hello"
+                      domain="lawncarekuna.com"
+                      className="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 border min-h-9 px-4 py-2 rounded-md flex-1 bg-gradient-to-br from-primary/10 to-white border-primary/20 text-primary"
+                      iconClassName="h-4 w-4 mr-2"
+                      label="Email Us"
+                    />
                   </div>
                 </div>
               </CardContent>

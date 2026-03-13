@@ -25,6 +25,9 @@ import { generateLocalBusinessSchema, generateOrganizationSchema, generateFAQSch
 export const metadata: Metadata = {
   title: "Lawn Care Kuna | Professional Landscaping | Free Quotes",
   description: "Professional lawn care & landscaping in Kuna, Boise, Meridian & Treasure Valley. Licensed, insured, top-rated. Call (208) 352-2011 for your free quote today!",
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
     title: "Lawn Care Kuna | Professional Landscaping | Free Quotes",
     description: "Professional lawn care and landscaping services in the Treasure Valley, Idaho. Get a free quote today!",

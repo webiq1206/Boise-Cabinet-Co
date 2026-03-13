@@ -3,11 +3,15 @@ import { Metadata } from "next";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Phone, Mail, MapPin, Clock, ArrowRight } from "lucide-react";
+import { ObfuscatedEmail } from "@/components/ObfuscatedEmail";
 import { generateLocalBusinessSchema, generateBreadcrumbSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
   title: "Contact Us | Lawn Care Kuna",
   description: "Contact Lawn Care Kuna for professional lawn care and landscaping services in Kuna, Boise, Meridian, and the Treasure Valley. Call (208) 352-2011 or request a free quote online.",
+  alternates: {
+    canonical: "/contact",
+  },
   openGraph: {
     title: "Contact Lawn Care Kuna",
     description: "Get in touch with our lawn care professionals. Call (208) 352-2011 or request a free quote.",
@@ -36,7 +40,9 @@ const contactInfo = [
     icon: Mail,
     title: "Email",
     content: "hello@lawncarekuna.com",
-    link: "mailto:hello@lawncarekuna.com",
+    link: "",
+    emailUser: "hello",
+    emailDomain: "lawncarekuna.com",
     description: "We respond within 24 hours",
   },
   {
@@ -94,7 +100,14 @@ export default function ContactPage() {
                       </div>
                       <div>
                         <h3 className="font-semibold text-lg mb-1">{info.title}</h3>
-                        {info.link ? (
+                        {info.emailUser && info.emailDomain ? (
+                          <ObfuscatedEmail
+                            user={info.emailUser}
+                            domain={info.emailDomain}
+                            className="text-primary hover:underline font-medium"
+                            showIcon={false}
+                          />
+                        ) : info.link ? (
                           <a 
                             href={info.link} 
                             className="text-primary hover:underline font-medium"

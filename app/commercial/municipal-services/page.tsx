@@ -9,6 +9,9 @@ import { generateWebPageSchema, generateBreadcrumbSchema, generateLocalBusinessS
 export const metadata: Metadata = {
   title: "Municipal Lawn Care & Landscaping Services | Lawn Care Kuna",
   description: "Professional grounds maintenance for parks, government facilities, schools, and public spaces across the Treasure Valley. Licensed, bonded, and fully insured.",
+  alternates: {
+    canonical: "/commercial/municipal-services",
+  },
   openGraph: {
     title: "Municipal Lawn Care & Landscaping Services | Lawn Care Kuna",
     description: "Professional grounds maintenance for parks, government facilities, and public spaces.",

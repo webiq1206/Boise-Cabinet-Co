@@ -114,8 +114,13 @@ const organizationSchema = {
     "bestRating": "5",
     "worstRating": "1"
   },
-  "sameAs": []
+  "sameAs": [
+    "https://www.facebook.com/lawncarekuna",
+    "https://www.instagram.com/lawncarekuna"
+  ]
 }
+
+const GA_MEASUREMENT_ID = process.env.VITE_GA_MEASUREMENT_ID || 'G-1HD7RT8PKJ';
 
 export default function RootLayout({
   children,
@@ -131,6 +136,15 @@ export default function RootLayout({
           as="image"
           type="image/webp"
           fetchPriority="high"
+        />
+        <script
+          async
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+        />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${GA_MEASUREMENT_ID}');`,
+          }}
         />
         <script
           type="application/ld+json"
