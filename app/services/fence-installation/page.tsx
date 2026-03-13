@@ -10,7 +10,6 @@ import { generateServiceSchema, generateBreadcrumbSchema, generateLocalBusinessS
 export const metadata: Metadata = {
   title: "Fence Installation in Kuna & Boise | Professional Fencing Services",
   description: "Professional wood, vinyl, and chain link fence installation in Kuna, Boise, Meridian, Eagle & the Treasure Valley. Privacy fences, decorative fencing, security fencing. Licensed, insured & 7+ years experience. Free quotes!",
-  keywords: ["fence installation", "fencing services", "wood fence", "vinyl fence", "chain link fence", "privacy fence", "Kuna fence installation", "Boise fence installation"],
   openGraph: {
     title: "Professional Fence Installation | Lawn Care Kuna",
     description: "Professional wood, vinyl, and chain link fence installation across the Treasure Valley.",

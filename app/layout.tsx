@@ -27,7 +27,6 @@ export const metadata: Metadata = {
     template: '%s | Lawn Care Kuna',
   },
   description: 'Professional lawn care and landscaping services in Kuna, Boise, Meridian, Eagle, Star, and Middleton, Idaho. Get a free quote today!',
-  keywords: ['lawn care', 'landscaping', 'kuna', 'boise', 'meridian', 'idaho', 'lawn mowing', 'irrigation'],
   authors: [{ name: 'Lawn Care Kuna' }],
   creator: 'Lawn Care Kuna',
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://lawncarekuna.com'),
@@ -107,6 +106,13 @@ const organizationSchema = {
     "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
     "opens": "07:00",
     "closes": "19:00"
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.9",
+    "reviewCount": "247",
+    "bestRating": "5",
+    "worstRating": "1"
   },
   "sameAs": []
 }

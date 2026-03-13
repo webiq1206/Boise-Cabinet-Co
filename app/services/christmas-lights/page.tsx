@@ -10,7 +10,6 @@ import { generateServiceSchema, generateBreadcrumbSchema, generateLocalBusinessS
 export const metadata: Metadata = {
   title: "Christmas Light Installation in Kuna & Boise | Professional Holiday Lighting",
   description: "Professional Christmas light installation, design, and removal services in Kuna, Boise, Meridian, Eagle & the Treasure Valley. Commercial-grade LED lights, full-service installation, maintenance & storage included. Book early!",
-  keywords: ["Christmas lights", "holiday lighting", "Christmas light installation", "holiday decorations", "Kuna Christmas lights", "Boise Christmas lights", "professional light installation"],
   openGraph: {
     title: "Professional Christmas Light Installation | Lawn Care Kuna",
     description: "Professional holiday lighting design, installation, and maintenance for homes and businesses in the Treasure Valley.",

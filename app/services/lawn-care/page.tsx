@@ -10,7 +10,6 @@ import { generateServiceSchema, generateBreadcrumbSchema, generateLocalBusinessS
 export const metadata: Metadata = {
   title: "Professional Lawn Care Services in Kuna & Boise | Lawn Care Kuna",
   description: "Comprehensive lawn care services in Kuna, Boise, Meridian, Eagle & the Treasure Valley. Lawn mowing, fertilization, aeration, weed control, and more. Expert lawn maintenance for beautiful, healthy lawns. Get a free quote!",
-  keywords: ["lawn care", "lawn maintenance", "lawn services", "grass care", "Kuna lawn care", "Boise lawn care", "Meridian lawn care", "fertilization", "aeration", "weed control"],
   openGraph: {
     title: "Professional Lawn Care Services | Lawn Care Kuna",
     description: "Expert lawn maintenance for beautiful, healthy lawns across Kuna, Boise, Meridian, and surrounding areas.",

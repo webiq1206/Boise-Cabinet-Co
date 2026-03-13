@@ -11,7 +11,6 @@ import { generateServiceSchema, generateBreadcrumbSchema, generateLocalBusinessS
 export const metadata: Metadata = {
   title: "Professional Lawn Mowing Services in Kuna & Boise | Lawn Care Kuna",
   description: "Weekly and bi-weekly professional lawn mowing services in Kuna, Boise, Meridian, Eagle, Star & Middleton. Commercial-grade equipment, reliable scheduling, and expert crews. Get a free quote today!",
-  keywords: ["lawn mowing", "lawn mowing service", "grass cutting", "lawn maintenance", "Kuna lawn mowing", "Boise lawn mowing", "Meridian lawn mowing", "weekly lawn care"],
   openGraph: {
     title: "Professional Lawn Mowing Services | Lawn Care Kuna",
     description: "Weekly and bi-weekly lawn mowing for beautiful, healthy lawns in the Treasure Valley. Get a free quote today!",

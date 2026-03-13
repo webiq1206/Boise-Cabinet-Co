@@ -10,7 +10,6 @@ import { generateServiceSchema, generateBreadcrumbSchema, generateLocalBusinessS
 export const metadata: Metadata = {
   title: "Professional Landscaping Services in Kuna & Boise | Lawn Care Kuna",
   description: "Complete landscaping solutions in Kuna, Boise, Meridian, Eagle & the Treasure Valley. Patios, retaining walls, irrigation, water features, fencing, landscape lighting & more. Transform your outdoor space today!",
-  keywords: ["landscaping", "landscape design", "patio installation", "retaining walls", "irrigation systems", "water features", "Kuna landscaping", "Boise landscaping", "Meridian landscaping"],
   openGraph: {
     title: "Professional Landscaping Services | Lawn Care Kuna",
     description: "Complete landscaping solutions from design to installation across the Treasure Valley.",

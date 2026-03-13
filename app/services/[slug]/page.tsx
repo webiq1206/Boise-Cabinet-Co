@@ -63,25 +63,12 @@ export async function generateMetadata({
   }
 
   const cityNames = CITIES.map(c => c.name.toLowerCase()).join(", ");
-  const primaryKeywords = [
-    `${service.name.toLowerCase()} kuna`,
-    `${service.name.toLowerCase()} kuna idaho`,
-    `${service.name.toLowerCase()} boise`,
-    `${service.name.toLowerCase()} meridian`,
-    `${service.name.toLowerCase()} near me`,
-    `${service.name.toLowerCase()} treasure valley`,
-    `${service.name.toLowerCase()} service`,
-    `professional ${service.name.toLowerCase()}`,
-    `${service.name.toLowerCase()} cost`,
-    `best ${service.name.toLowerCase()} idaho`,
-  ];
 
   return {
     title: `${service.name} Services in Kuna & Boise, Idaho | Free Quote | Lawn Care Kuna`,
     description: `Professional ${service.name.toLowerCase()} in Kuna, Boise, Meridian, Eagle & Treasure Valley, ID. ${service.shortDescription}. Licensed & insured. Free estimates. Call (208) 352-2011!`,
-    keywords: primaryKeywords,
     openGraph: {
-      title: `${service.name} Services | Best in Treasure Valley | Lawn Care Kuna`,
+      title: `${service.name} Services in Kuna & Boise, ID | Lawn Care Kuna`,
       description: `Expert ${service.name.toLowerCase()} for homes and businesses in ${cityNames}. ${service.shortDescription}`,
       url: `/services/${service.slug}`,
       type: "website",

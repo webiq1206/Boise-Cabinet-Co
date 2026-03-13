@@ -10,7 +10,6 @@ import { generateServiceSchema, generateBreadcrumbSchema, generateLocalBusinessS
 export const metadata: Metadata = {
   title: "Patio Installation in Kuna & Boise | Professional Paver & Concrete Patios",
   description: "Professional patio installation in Kuna, Boise, Meridian, Eagle & the Treasure Valley. Pavers, stamped concrete, natural stone patios. Expert design & installation for Idaho weather. Free quotes!",
-  keywords: ["patio installation", "paver patio", "stamped concrete", "natural stone patio", "outdoor living", "Kuna patio installation", "Boise patio installation"],
   openGraph: {
     title: "Professional Patio Installation | Lawn Care Kuna",
     description: "Professional paver, stamped concrete, and natural stone patio installation across the Treasure Valley.",

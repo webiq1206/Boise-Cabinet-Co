@@ -1,13 +1,12 @@
 /**
  * SEO Utilities for Lawn Care Kuna
- * Generates keyword-optimized meta tags, titles, and descriptions
- * for all 500+ pages to achieve #1 Google rankings
+ * Generates optimized meta tags, titles, and descriptions
+ * for service and location pages
  */
 
 interface SEOMetaData {
   title: string;
   description: string;
-  keywords: string[];
   canonical?: string;
   ogTitle?: string;
   ogDescription?: string;
@@ -159,59 +158,6 @@ export function generateMetaDescription(params: ServiceSEOParams): string {
 }
 
 /**
- * Generate keyword array for meta keywords tag
- * Mix of primary, secondary, and LSI keywords
- * Optimized for "near me" local searches
- */
-export function generateKeywords(params: ServiceSEOParams): string[] {
-  const { serviceName, city, serviceSlug } = params;
-  
-  // Fallback for pages without serviceName (like area pages)
-  const serviceNameLower = serviceName?.toLowerCase() || 'lawn care';
-  
-  const baseKeywords = [
-    serviceNameLower,
-    `${serviceNameLower} services`,
-    `lawn care`,
-    `landscaping`,
-    `Kuna Idaho`,
-    `Treasure Valley`,
-    `lawn care near me`,
-    `landscaping near me`,
-    `local lawn care`,
-    `lawn service near me`,
-  ];
-  
-  if (city) {
-    return [
-      `${serviceNameLower} ${city}`,
-      `${serviceNameLower} ${city} Idaho`,
-      `${serviceNameLower} near me ${city}`,
-      `${city} lawn care`,
-      `${city} landscaping`,
-      `lawn care near me ${city}`,
-      `local ${serviceNameLower} ${city}`,
-      `${city} lawn service`,
-      ...baseKeywords,
-      `professional ${serviceNameLower}`,
-      `best ${serviceNameLower} ${city}`,
-      `${serviceNameLower} near me`,
-    ];
-  }
-  
-  // Service-specific LSI keywords with "near me" variations
-  const lsiKeywords: Record<string, string[]> = {
-    'lawn-mowing': ['grass cutting', 'lawn maintenance', 'yard mowing', 'lawn trimming', 'lawn mowing near me', 'grass cutting near me', 'mowing service near me'],
-    'fertilization': ['lawn fertilizer', 'grass fertilization', 'nutrient application', 'soil treatment', 'fertilization near me', 'lawn fertilizer near me'],
-    'aeration': ['core aeration', 'lawn aeration', 'soil aeration', 'lawn health', 'aeration near me', 'core aeration near me'],
-    'weed-control': ['weed removal', 'weed prevention', 'herbicide application', 'weed treatment', 'weed control near me', 'weed removal near me'],
-    'seasonal-cleanup': ['yard cleanup', 'leaf removal', 'spring cleanup', 'fall cleanup', 'yard cleanup near me', 'leaf removal near me'],
-  };
-  
-  return [...baseKeywords, ...(lsiKeywords[serviceSlug] || [])];
-}
-
-/**
  * Get base URL based on environment
  * Production: https://lawncarekuna.com
  * Development: http://localhost:5000
@@ -264,7 +210,6 @@ export function generateLogoAltTag(params: ServiceSEOParams): string {
 export function generateSEOMetadata(params: ServiceSEOParams): SEOMetaData {
   const title = generatePageTitle(params);
   const description = generateMetaDescription(params);
-  const keywords = generateKeywords(params);
   
   // Environment-aware canonical URL
   const baseUrl = getBaseUrl();
@@ -283,7 +228,6 @@ export function generateSEOMetadata(params: ServiceSEOParams): SEOMetaData {
   return {
     title,
     description,
-    keywords,
     canonical,
     ogTitle: title,
     ogDescription: description,

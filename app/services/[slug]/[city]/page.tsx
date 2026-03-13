@@ -84,23 +84,11 @@ export async function generateMetadata({
   const cityData = CITY_SEO_DATA[city.name as keyof typeof CITY_SEO_DATA];
   const coordinates = cityData?.coordinates;
 
-  const primaryKeywords = [
-    `${service.name.toLowerCase()} ${city.name.toLowerCase()}`,
-    `${service.name.toLowerCase()} ${city.name.toLowerCase()} idaho`,
-    `${service.name.toLowerCase()} ${city.name.toLowerCase()} id`,
-    `${service.name.toLowerCase()} near me ${city.name.toLowerCase()}`,
-    `best ${service.name.toLowerCase()} ${city.name.toLowerCase()}`,
-    `${service.name.toLowerCase()} service ${city.name.toLowerCase()}`,
-    `professional ${service.name.toLowerCase()} ${city.name.toLowerCase()}`,
-    `${service.name.toLowerCase()} cost ${city.name.toLowerCase()}`,
-  ];
-
   return {
-    title: `${service.name} in ${city.name}, Idaho | #1 Local Service | Free Quote`,
+    title: `${service.name} in ${city.name}, Idaho | Licensed Pros | Free Quote`,
     description: `Top-rated ${service.name.toLowerCase()} in ${city.name}, ID. ${service.shortDescription}. ${city.neighborhoods && city.neighborhoods.length > 0 ? `Serving ${city.neighborhoods.slice(0, 2).join(", ")} & all ${city.name} areas.` : `Serving all ${city.name} areas.`} Licensed & insured. Call (208) 352-2011!`,
-    keywords: [...primaryKeywords, ...(seoMetadata.keywords || [])],
     openGraph: {
-      title: `${service.name} in ${city.name}, ID | Best Local Service | Lawn Care Kuna`,
+      title: `${service.name} in ${city.name}, ID | Lawn Care Kuna`,
       description: `Professional ${service.name.toLowerCase()} for ${city.name} homes and businesses. ${city.population} residents trust us. Free estimates!`,
       url: `/services/${service.slug}/${city.slug}`,
       type: "website",

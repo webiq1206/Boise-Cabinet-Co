@@ -10,7 +10,6 @@ import { generateServiceSchema, generateBreadcrumbSchema, generateLocalBusinessS
 export const metadata: Metadata = {
   title: "Irrigation Systems in Kuna & Boise | Sprinkler Installation & Repair",
   description: "Professional irrigation system installation, repair & maintenance in Kuna, Boise, Meridian, Eagle & the Treasure Valley. Sprinkler systems, smart controllers, winterization & spring startup. Free quotes!",
-  keywords: ["irrigation installation", "sprinkler system", "irrigation repair", "smart irrigation", "sprinkler blowout", "Kuna irrigation", "Boise irrigation"],
   openGraph: {
     title: "Professional Irrigation Systems | Lawn Care Kuna",
     description: "Professional sprinkler system design, installation, and repair across the Treasure Valley.",

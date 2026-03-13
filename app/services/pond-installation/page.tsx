@@ -10,7 +10,6 @@ import { generateServiceSchema, generateBreadcrumbSchema, generateLocalBusinessS
 export const metadata: Metadata = {
   title: "Pond Installation in Kuna & Boise | Professional Water Features",
   description: "Professional pond, fountain, and water feature installation in Kuna, Boise, Meridian, Eagle & the Treasure Valley. Koi ponds, ecosystem ponds, waterfalls & fountains. Expert design for Idaho climate. Free quotes!",
-  keywords: ["pond installation", "water features", "koi pond", "fountain installation", "waterfall", "ecosystem pond", "Kuna pond installation", "Boise pond installation"],
   openGraph: {
     title: "Professional Pond Installation | Lawn Care Kuna",
     description: "Professional pond, fountain, and water feature installation across the Treasure Valley.",

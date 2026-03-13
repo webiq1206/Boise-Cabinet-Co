@@ -59,21 +59,11 @@ export async function generateMetadata({
     };
   }
 
-  const primaryKeywords = [
-    `lawn care ${city.name.toLowerCase()}`,
-    `lawn care ${city.name.toLowerCase()} idaho`,
-    `${city.name.toLowerCase()} lawn service`,
-    `landscaping ${city.name.toLowerCase()} id`,
-    `lawn mowing ${city.name.toLowerCase()}`,
-    `lawn care near me ${city.name.toLowerCase()}`,
-  ];
-
   return {
-    title: `Lawn Care ${city.name}, Idaho | #1 Local Lawn Service | Free Quote`,
+    title: `Lawn Care in ${city.name}, Idaho | Licensed & Local | Free Quote`,
     description: `Top-rated lawn care in ${city.name}, ID. Professional lawn mowing, landscaping, irrigation & more. Serving ${city.neighborhoods?.slice(0, 3).join(", ")} & all ${city.name} neighborhoods. Licensed & insured. Call (208) 352-2011!`,
-    keywords: primaryKeywords,
     openGraph: {
-      title: `Best Lawn Care in ${city.name}, Idaho | Lawn Care Kuna`,
+      title: `Lawn Care in ${city.name}, Idaho | Lawn Care Kuna`,
       description: `Professional lawn care and landscaping services in ${city.name}, ID. ${city.population} residents trust us for lawn mowing, fertilization, irrigation, and more.`,
       url: `/areas/${city.slug}`,
       type: "website",

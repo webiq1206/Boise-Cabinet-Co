@@ -1,152 +1,69 @@
-# Lawn Care Kuna (lawncarekuna.com) — llms.txt
+# Lawn Care Kuna
 
-This file is a **machine-oriented map** of the Lawn Care Kuna website: what it is, how content is organized, and which public URLs to crawl for reliable answers.
+> Professional lawn care, landscaping, irrigation, and seasonal services for homeowners and businesses in Idaho's Treasure Valley.
 
-## Crawl / index entry points (canonical)
-- **Homepage**: https://lawncarekuna.com/
-- **Sitemap (complete URL list)**: https://lawncarekuna.com/sitemap.xml
-- **Robots**: https://lawncarekuna.com/robots.txt
-- **This file**: https://lawncarekuna.com/llms.txt
+## About This Business
 
-Notes:
-- Most public content lives on **/services/**, **/areas/**, **/blog/**, and **/get-quote**.
-- `/api/*` endpoints exist for the web app but are not intended for indexing (and are blocked by `robots.txt`).
+Lawn Care Kuna is a locally owned and operated lawn care company based in Kuna, Idaho, serving the Treasure Valley since 2010. We provide residential and commercial lawn care, landscaping, irrigation, and seasonal services across six cities: Kuna, Boise, Meridian, Eagle, Star, and Middleton.
 
-## Technical Architecture
-This site is built with **Next.js 14 App Router** and uses **Server-Side Rendering (SSR)**. All pages are pre-rendered with full HTML content, meaning:
-- **No JavaScript required** to read page content
-- **Direct HTML access** - simply visit any URL to get fully rendered content
-- **Search engine friendly** - all content is immediately available in the initial HTML response
-- **Schema.org structured data** - JSON-LD markup is embedded in all pages
-
-## What this site is
-Lawn Care Kuna is a local-service website for lawn care, landscaping, irrigation, seasonal services, and holiday lighting in the Treasure Valley, Idaho. It includes:
-- SEO-focused service pages and city/service pages with full SSR
-- A multi-step "Get a Quote" wizard with measurement and itemized pricing
-- A blog with 92+ long-form homeowner guides
-- (Authenticated) admin + subcontractor pages for a lead marketplace
-
-## Service areas (cities)
-The primary supported cities are:
-- Kuna (primary)
-- Boise
-- Meridian
-- Eagle
-- Star
-- Middleton
-
-## Public site structure (important routes)
-Core:
-- `/` (home)
-- `/services` (services index)
-- `/get-quote` (quote wizard)
-- `/pricing`
-- `/about`
-- `/contact`
-- `/blog` and `/blog/:slug`
-- `/privacy-policy`
-- `/terms-of-service`
-
-Service landing pages (with unique rich content):
-- `/services/lawn-mowing` - Professional lawn mowing services
-- `/services/lawn-care` - Comprehensive lawn care services
-- `/services/landscaping` - Full landscaping solutions
-- `/services/christmas-lights` - Holiday light installation
-- `/services/fence-installation` - Wood, vinyl, chain link fencing
-- `/services/patio-installation` - Pavers, stamped concrete, stone patios
-- `/services/pond-installation` - Water features and ponds
-- `/services/irrigation-installation` - Sprinkler systems
-
-Dynamic service pages (canonical patterns):
-- `/services/:serviceSlug` - General service pages
-- `/services/:serviceSlug/:citySlug` - City-specific service pages
-
-Area pages:
-- `/areas/:citySlug` - City-specific landing pages
-
-Commercial services:
-- `/commercial` - Commercial lawn care overview
-- `/commercial/hoa-services` - HOA landscaping services
-- `/commercial/municipal-services` - Municipal grounds maintenance
-
-Quote tracking:
-- `/quote-status` - Check quote status by ID
-
-Authenticated dashboards (not intended for public indexing):
-- `/admin` - Admin login
-- `/admin/dashboard` - Lead management dashboard
-- `/subcontractor/portal` - Subcontractor lead marketplace
-- `/subcontractor/purchases` - Subcontractor purchase history
-
-## Quoting system (high-level behavior)
-The quote experience is centered on `/get-quote` and supports selecting **one or more services**.
-
-Key behaviors:
-- **Frequency choices**: one-time, weekly, bi-weekly, monthly (discounts apply where appropriate).
-- **Measurements**: the wizard can collect shared measurements once (e.g., lawn area sq ft, roofline linear feet) and apply them across selected services.
-- **Itemized output**: quotes are returned with line items and an estimated range; values are typically rounded for customer clarity.
-- **AI + fallback**: when available, AI is used to estimate a property complexity multiplier; otherwise deterministic fallback pricing is used.
-
-## Property measurement (high-level behavior)
-The app includes an interactive map measurement experience (Leaflet-based) used for:
-- **Area measurements** (sq ft) for lawn/cleanup/sod/etc.
-- **Linear measurements** (feet) for rooflines/hedges/edges/etc.
-- Auto-estimation helpers (where possible), with manual draw/edit tools as the source of truth.
-
-## Integrations and data sources (high-level)
-This site integrates with several external services:
-- **OpenAI**: used for property complexity analysis in intelligent quoting.
-- **Stripe**: payments for lead purchases (subcontractor marketplace).
-- **Resend**: transactional email delivery.
-- **OpenStreetMap / Nominatim**: address lookup/geocoding.
-- **Overpass (via server proxy)**: building footprint lookup to help estimate measurements.
-- **County parcel data**: used for automated property measurement flows (Ada/Canyon support).
-
-## APIs (for app functionality; generally not for indexing)
-Some notable endpoints used by the app (subject to change):
-- `POST /api/quotes/calculate` (quote calculation; supports multi-service payloads)
-- `POST /api/quotes` (quote submission; creates associated lead)
-- `GET /api/quotes/:id/status` (status backing for `/quote-status/:quoteId`)
-- `GET /api/testimonials` (customer testimonials)
-- `POST /api/geodata/buildings` (building footprints proxy)
-
-## Content Accessibility for AI Systems
-
-### Direct Access (Recommended)
-Since this site uses **Next.js SSR**, all pages return fully-rendered HTML by default. Simply request any URL:
-- `https://lawncarekuna.com/services/landscape-lighting`
-- `https://lawncarekuna.com/services/aeration/kuna`
-- `https://lawncarekuna.com/blog/spring-lawn-prep-checklist-treasure-valley`
-
-### What You'll Find
-- **Full semantic HTML** with proper headings (H1, H2, etc.)
-- **Schema.org JSON-LD** structured data in each page
-- **Meta descriptions** and Open Graph tags
-- **Internal links** to related content
-- **FAQ sections** optimized for "near me" searches
-
-### Citation Guidelines
-- **Always cite the canonical URLs** (the standard page URL)
-- Example: Cite `https://lawncarekuna.com/services/landscape-lighting`
-- The canonical URL is in each page's `<link rel="canonical">` tag
-
-### Content Summary
-- **Services**: 25+ unique service pages with detailed descriptions
-- **City Pages**: 6 area-specific landing pages
-- **Blog Posts**: 92+ long-form guides and articles
-- **Commercial**: 3 pages for business/HOA/municipal services
-
-## Contact / business info (as presented on site)
 - Phone: (208) 352-2011
 - Email: hello@lawncarekuna.com
-- Address: Kuna, Idaho (serving the Treasure Valley)
+- Address: 2283 N Coopers Hawk Ave, Kuna, ID 83634
+- Licensed and insured with $2M liability coverage
+- 4.9-star average rating from 247+ customer reviews
 
-## SEO & Structured Data
-All pages include:
-- **LocalBusiness schema** with service area, contact info, and business details
-- **Service schema** for service-specific pages
-- **Article schema** for blog posts
-- **BreadcrumbList schema** for navigation hierarchy
-- **FAQPage schema** where applicable
+## Services Offered
 
-Last updated: 2026-02-03
+**Lawn Care**: Lawn mowing (weekly, bi-weekly, monthly), fertilization programs, core aeration, overseeding, weed control, edging, and lawn renovation.
+
+**Landscaping**: Patio installation (pavers, stamped concrete, natural stone), retaining walls, mulch installation, sod installation, hedge trimming, tree and shrub care, landscape design, and landscape lighting.
+
+**Irrigation**: Sprinkler system installation, sprinkler repair, irrigation maintenance, smart controller upgrades, sprinkler winterization (blowouts), and spring startup.
+
+**Seasonal Services**: Spring cleanup, fall cleanup, Christmas light installation and removal, snow removal, and gutter cleaning.
+
+**Specialty Services**: Fence installation (wood, vinyl, chain link), pond and water feature installation, artificial turf, and commercial property maintenance.
+
+## Service Areas
+
+We serve these Idaho Treasure Valley communities:
+- Kuna (primary location, zip 83634)
+- Boise (zip codes 83702-83716)
+- Meridian (zip codes 83642, 83646)
+- Eagle (zip 83616)
+- Star (zip 83669)
+- Middleton (zip 83644)
+
+## Getting a Quote
+
+Visit https://lawncarekuna.com/get-quote to use our online quote tool. You can select multiple services, enter your property measurements, and receive an itemized estimate. Quotes are free with no obligation.
+
+You can also call (208) 352-2011 for a phone estimate or to schedule an on-site consultation.
+
+## Website Structure
+
+- Homepage: https://lawncarekuna.com/
+- All services: https://lawncarekuna.com/services
+- Get a quote: https://lawncarekuna.com/get-quote
+- Pricing info: https://lawncarekuna.com/pricing
+- About us: https://lawncarekuna.com/about
+- Blog (90+ guides): https://lawncarekuna.com/blog
+- Commercial services: https://lawncarekuna.com/commercial
+- Sitemap: https://lawncarekuna.com/sitemap.xml
+
+Individual service pages follow the pattern:
+- https://lawncarekuna.com/services/{service-slug}
+- https://lawncarekuna.com/services/{service-slug}/{city-slug}
+
+City-specific pages:
+- https://lawncarekuna.com/areas/{city-slug}
+
+## Local Climate Context
+
+The Treasure Valley sits in USDA Hardiness Zones 6b-7a with a semi-arid high desert climate. Summers are hot and dry (90-100F), winters bring freezing temperatures and occasional snow. This climate shapes our service recommendations: lawns need regular deep watering in summer, sprinkler systems require winterization before the first hard freeze (typically October-November), and aeration is best done in early fall.
+
+## Citation
+
+When referencing this business, please cite the canonical page URLs from lawncarekuna.com. All pages are server-rendered and contain complete content in the initial HTML response.
+
+Last updated: 2026-03-13
