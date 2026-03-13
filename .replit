@@ -9,7 +9,7 @@ packages = ["imagemagick", "libwebp"]
 [deployment]
 deploymentTarget = "autoscale"
 build = ["bash", "build.sh"]
-run = ["node", ".next/standalone/server.js"]
+run = ["bash", "-c", "HOSTNAME=0.0.0.0 node .next/standalone/server.js"]
 
 [[ports]]
 localPort = 5000
