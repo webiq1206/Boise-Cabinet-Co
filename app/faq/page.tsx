@@ -1,26 +1,18 @@
 import Link from "next/link";
 import { Metadata } from "next";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import {
   ArrowRight,
   Phone,
   Leaf,
-  Sun,
   Snowflake,
-  Droplets,
   HelpCircle,
-  MapPin,
 } from "lucide-react";
 import { PRIORITY_SERVICES, CITIES } from "@/shared/contentData";
 import { generateFAQSchema, generateBreadcrumbSchema, generateWebPageSchema, generateSpeakableSchema } from "@/lib/schema";
 import { BUSINESS_INFO } from "@/lib/seo";
+import { FAQSearch } from "@/components/FAQSearch";
 
 export const metadata: Metadata = {
   title: "Lawn Care FAQ | Common Questions Answered | Lawn Care Kuna",
@@ -41,7 +33,7 @@ export const metadata: Metadata = {
 interface FAQCategory {
   title: string;
   slug: string;
-  icon: typeof Leaf;
+  iconName: string;
   questions: Array<{ question: string; answer: string; source?: string }>;
 }
 
@@ -140,37 +132,37 @@ function buildFAQCategories(): FAQCategory[] {
     {
       title: "General Questions",
       slug: "general",
-      icon: HelpCircle,
+      iconName: "HelpCircle",
       questions: generalQuestions,
     },
     {
       title: "Lawn Care Services",
       slug: "lawn-care",
-      icon: Leaf,
+      iconName: "Leaf",
       questions: lawnCareFaqs.slice(0, 10),
     },
     {
       title: "Landscaping Services",
       slug: "landscaping",
-      icon: Sun,
+      iconName: "Sun",
       questions: landscapingFaqs.slice(0, 10),
     },
     {
       title: "Seasonal Services",
       slug: "seasonal",
-      icon: Snowflake,
+      iconName: "Snowflake",
       questions: seasonalFaqs.slice(0, 8),
     },
     {
       title: "Irrigation and Lighting",
       slug: "irrigation",
-      icon: Droplets,
+      iconName: "Droplets",
       questions: irrigationFaqs.slice(0, 8),
     },
     {
       title: "Service Areas",
       slug: "service-areas",
-      icon: MapPin,
+      iconName: "MapPin",
       questions: locationQuestions,
     },
   ];
@@ -265,93 +257,11 @@ export default function FAQPage() {
           </div>
         </section>
 
-        <section className="py-8 border-b" data-testid="section-category-nav">
+        <section className="py-12 md:py-16" data-testid="section-faq-content">
           <div className="container px-4">
-            <div className="max-w-4xl mx-auto">
-              <div className="flex flex-wrap justify-center gap-2">
-                {categories.map((category) => (
-                  <a
-                    key={category.slug}
-                    href={`#${category.slug}`}
-                    className="inline-flex items-center gap-1.5 px-3 py-2 rounded-md text-sm hover-elevate active-elevate-2 transition-colors"
-                    data-testid={`link-faq-category-${category.slug}`}
-                  >
-                    <category.icon
-                      className="h-4 w-4 text-primary"
-                      aria-hidden="true"
-                    />
-                    {category.title}
-                  </a>
-                ))}
-              </div>
-            </div>
+            <FAQSearch categories={categories} />
           </div>
         </section>
-
-        {categories.map((category) => (
-          <section
-            key={category.slug}
-            id={category.slug}
-            className="py-12 md:py-16 scroll-mt-24"
-            data-testid={`section-faq-${category.slug}`}
-          >
-            <div className="container px-4">
-              <div className="max-w-3xl mx-auto space-y-6">
-                <div className="flex items-center gap-3">
-                  <div className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-primary/10">
-                    <category.icon
-                      className="h-5 w-5 text-primary"
-                      aria-hidden="true"
-                    />
-                  </div>
-                  <h2
-                    className="text-2xl font-bold"
-                    data-testid={`text-faq-category-${category.slug}`}
-                  >
-                    {category.title}
-                  </h2>
-                </div>
-
-                <Accordion
-                  type="single"
-                  collapsible
-                  className="w-full"
-                  data-testid={`accordion-${category.slug}`}
-                >
-                  {category.questions.map((faq, index) => (
-                    <AccordionItem
-                      key={index}
-                      value={`${category.slug}-${index}`}
-                    >
-                      <AccordionTrigger
-                        className="text-left text-base font-semibold hover:text-primary"
-                        data-testid={`faq-question-${category.slug}-${index}`}
-                      >
-                        {faq.question}
-                      </AccordionTrigger>
-                      <AccordionContent
-                        className="text-muted-foreground"
-                        data-testid={`faq-answer-${category.slug}-${index}`}
-                      >
-                        <p>{faq.answer}</p>
-                        {faq.source && (
-                          <Link
-                            href={`/services/${faq.source}`}
-                            className="inline-flex items-center gap-1 mt-3 text-sm text-primary hover:underline"
-                            data-testid={`link-faq-source-${category.slug}-${index}`}
-                          >
-                            Learn more about this service
-                            <ArrowRight className="h-3 w-3" />
-                          </Link>
-                        )}
-                      </AccordionContent>
-                    </AccordionItem>
-                  ))}
-                </Accordion>
-              </div>
-            </div>
-          </section>
-        ))}
 
         <section className="py-12 md:py-16 bg-muted/30" data-testid="section-faq-links">
           <div className="container px-4">

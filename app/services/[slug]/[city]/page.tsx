@@ -390,10 +390,20 @@ export default function CityServicePage({
                       <p className="leading-relaxed">{service.shortDescription}</p>
                     )}
                     <p className="leading-relaxed">
-                      {city.name} properties face unique challenges due to {city.localFactors?.climate || "Idaho's semi-arid climate"} and {city.localFactors?.soil || "local soil conditions"}.
+                      {city.name} properties face unique challenges due to {city.localFactors?.climate || "Idaho's semi-arid climate"} and {city.localFactors?.soil || "local soil conditions"}. {city.localFactors?.commonNeeds && city.localFactors.commonNeeds.length > 0 ? `Common concerns for ${city.name} homeowners include ${city.localFactors.commonNeeds.slice(0, 3).join(", ").toLowerCase()}.` : ""}
                     </p>
+                    {city.serviceConsiderations && (
+                      <p className="leading-relaxed">
+                        {city.serviceConsiderations}
+                      </p>
+                    )}
+                    {city.facts && city.facts.length > 0 && (
+                      <p className="leading-relaxed">
+                        For {service.name.toLowerCase()} in {city.name}, we recommend maintaining a grass height of {city.facts.find(f => f.label.toLowerCase().includes("grass height"))?.value || "3 inches"}, watering {city.facts.find(f => f.label.toLowerCase().includes("watering"))?.value || "1-1.5 inches per week"}, and scheduling aeration in {city.facts.find(f => f.label.toLowerCase().includes("aerate"))?.value || "fall"}. The average lawn size in {city.name} is approximately {city.facts.find(f => f.label.toLowerCase().includes("lawn size"))?.value || "5,000 sq. ft."}.
+                      </p>
+                    )}
                     <p className="leading-relaxed">
-                      Our team has extensive experience serving {city.name} homeowners and understands what it takes to achieve great results in this area.
+                      Our team has extensive experience serving {city.name} homeowners{city.neighborhoods && city.neighborhoods.length > 0 ? `, from ${city.neighborhoods[0]} to ${city.neighborhoods[city.neighborhoods.length - 1]}` : ""}, and understands what it takes to achieve great results in this area. {city.zipCodes ? `We cover zip code${city.zipCodes.length > 1 ? "s" : ""} ${city.zipCodes.join(", ")} for all ${service.name.toLowerCase()} needs.` : ""}
                     </p>
                   </div>
 

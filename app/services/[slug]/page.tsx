@@ -502,6 +502,18 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
                   </Link>
                 ))}
               </div>
+              <div className="flex flex-wrap justify-center gap-2 pt-2">
+                {CITIES.map((city) => (
+                  <Link
+                    key={city.slug}
+                    href={`/areas/${city.slug}`}
+                    className="text-sm text-primary hover:underline"
+                    data-testid={`link-area-${city.slug}`}
+                  >
+                    All services in {city.name}
+                  </Link>
+                ))}
+              </div>
             </div>
           </div>
         </section>
