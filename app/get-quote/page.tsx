@@ -3,6 +3,7 @@ import { Metadata } from "next";
 import { Button } from "@/components/ui/button";
 import { CheckCircle2, Phone } from "lucide-react";
 import { HeroQuoteSection } from "@/components/HeroQuoteSection";
+import { Testimonials } from "@/components/Testimonials";
 
 export const metadata: Metadata = {
   title: "Get a Free Quote | Lawn Care Kuna",
@@ -69,6 +70,23 @@ export default function GetQuotePage() {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials */}
+      <section className="py-16 md:py-24">
+        <div className="container px-4">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-12 space-y-4">
+              <h2 className="text-3xl md:text-4xl font-bold tracking-tight" data-testid="text-reviews-heading">
+                What Our Customers Say
+              </h2>
+              <p className="text-lg text-muted-foreground">
+                Real reviews from homeowners across the Treasure Valley
+              </p>
+            </div>
+            <Testimonials limit={20} />
           </div>
         </div>
       </section>

@@ -5,6 +5,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Testimonials } from "@/components/Testimonials";
 import { 
   ArrowRight, 
   Leaf, 
@@ -188,6 +189,22 @@ export default function PricingPage() {
                 </p>
               </CardContent>
             </Card>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-16 md:py-24 bg-muted/30">
+        <div className="container px-4">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-12 space-y-4">
+              <h2 className="text-3xl md:text-4xl font-bold tracking-tight" data-testid="text-pricing-reviews-heading">
+                Trusted by Homeowners Across the Valley
+              </h2>
+              <p className="text-lg text-muted-foreground">
+                See what our customers have to say about our services and pricing
+              </p>
+            </div>
+            <Testimonials limit={20} />
           </div>
         </div>
       </section>

@@ -2,242 +2,78 @@ import { NextResponse } from "next/server";
 import { db, isDbAvailable } from "@/lib/db";
 import { testimonials } from "@/shared/schema";
 
-// Sample testimonials for when database is not available
-// Structure matches Testimonials component expectations
-// Covers all 6 service areas and various services
 const sampleTestimonials = [
-  // Kuna testimonials
-  {
-    id: 1,
-    customerName: "Sarah M.",
-    city: "kuna",
-    serviceType: "lawn-mowing",
-    rating: "5",
-    testimonial: "Lawn Care Kuna has been taking care of our yard for 2 years now. Always on time, professional, and our lawn has never looked better!",
-    createdAt: new Date("2024-01-15").toISOString(),
-  },
-  {
-    id: 2,
-    customerName: "David A.",
-    city: "kuna",
-    serviceType: "spring-cleanup",
-    rating: "5",
-    testimonial: "Amazing spring cleanup service! They removed all the winter debris, cleaned up the flower beds, and got our yard ready for the season.",
-    createdAt: new Date("2024-03-25").toISOString(),
-  },
-  {
-    id: 3,
-    customerName: "Nancy P.",
-    city: "kuna",
-    serviceType: "fertilization",
-    rating: "5",
-    testimonial: "Our lawn was struggling until we started their fertilization program. Now it's the greenest on the block! Very knowledgeable team.",
-    createdAt: new Date("2024-05-10").toISOString(),
-  },
-  // Boise testimonials
-  {
-    id: 4,
-    customerName: "Mike R.",
-    city: "boise",
-    serviceType: "patio-installation",
-    rating: "5",
-    testimonial: "They installed a beautiful patio in our backyard. The crew was professional and the work quality exceeded our expectations.",
-    createdAt: new Date("2024-02-20").toISOString(),
-  },
-  {
-    id: 5,
-    customerName: "Jennifer K.",
-    city: "boise",
-    serviceType: "christmas-lights",
-    rating: "5",
-    testimonial: "Best Christmas light installation service in the valley! They made our home look amazing for the holidays.",
-    createdAt: new Date("2023-12-10").toISOString(),
-  },
-  {
-    id: 6,
-    customerName: "Tom H.",
-    city: "boise",
-    serviceType: "irrigation-maintenance",
-    rating: "5",
-    testimonial: "They winterized our sprinkler system and got it running perfectly in spring. Saved us from costly repairs. Highly recommend!",
-    createdAt: new Date("2024-04-08").toISOString(),
-  },
-  // Meridian testimonials
-  {
-    id: 7,
-    customerName: "Amanda L.",
-    city: "meridian",
-    serviceType: "landscaping",
-    rating: "5",
-    testimonial: "They transformed our backyard with a beautiful landscape design. The attention to detail was impressive. Worth every penny!",
-    createdAt: new Date("2024-02-20").toISOString(),
-  },
-  {
-    id: 8,
-    customerName: "Chris B.",
-    city: "meridian",
-    serviceType: "aeration",
-    rating: "5",
-    testimonial: "Had my lawn aerated and overseeded. The difference is remarkable! My grass has never been this thick and healthy.",
-    createdAt: new Date("2024-03-05").toISOString(),
-  },
-  {
-    id: 9,
-    customerName: "Rachel S.",
-    city: "meridian",
-    serviceType: "weed-control",
-    rating: "5",
-    testimonial: "Our lawn was overrun with weeds before we called them. Now it's weed-free and looks incredible. Great ongoing service!",
-    createdAt: new Date("2024-06-15").toISOString(),
-  },
-  // Eagle testimonials
-  {
-    id: 10,
-    customerName: "Robert W.",
-    city: "eagle",
-    serviceType: "retaining-walls",
-    rating: "5",
-    testimonial: "Beautiful retaining wall that solved our drainage issues and looks fantastic. Professional from start to finish.",
-    createdAt: new Date("2024-03-05").toISOString(),
-  },
-  {
-    id: 11,
-    customerName: "Karen T.",
-    city: "eagle",
-    serviceType: "hedge-trimming",
-    rating: "5",
-    testimonial: "They keep our hedges perfectly manicured year-round. Always prompt, professional, and the results speak for themselves.",
-    createdAt: new Date("2024-05-22").toISOString(),
-  },
-  {
-    id: 12,
-    customerName: "Steve M.",
-    city: "eagle",
-    serviceType: "fall-cleanup",
-    rating: "5",
-    testimonial: "Thorough fall cleanup service. They removed all the leaves, cleaned gutters, and prepared our yard for winter. Excellent work!",
-    createdAt: new Date("2024-10-30").toISOString(),
-  },
-  // Star testimonials
-  {
-    id: 13,
-    customerName: "Lisa M.",
-    city: "star",
-    serviceType: "sprinkler-repair",
-    rating: "5",
-    testimonial: "Quick and professional sprinkler repair. They diagnosed the problem immediately and had everything fixed within an hour.",
-    createdAt: new Date("2024-04-12").toISOString(),
-  },
-  {
-    id: 14,
-    customerName: "Brian C.",
-    city: "star",
-    serviceType: "lawn-mowing",
-    rating: "5",
-    testimonial: "Reliable weekly mowing service. They show up when they say they will and always leave our property looking great.",
-    createdAt: new Date("2024-07-18").toISOString(),
-  },
-  {
-    id: 15,
-    customerName: "Michelle D.",
-    city: "star",
-    serviceType: "landscape-lighting",
-    rating: "5",
-    testimonial: "Our new landscape lighting is gorgeous! They designed and installed lights that highlight all our best features. Love it!",
-    createdAt: new Date("2024-08-05").toISOString(),
-  },
-  // Middleton testimonials
-  {
-    id: 16,
-    customerName: "James F.",
-    city: "middleton",
-    serviceType: "lawn-mowing",
-    rating: "5",
-    testimonial: "Been using their services for 3 years now. Consistent quality, fair pricing, and they really care about their customers.",
-    createdAt: new Date("2024-02-28").toISOString(),
-  },
-  {
-    id: 17,
-    customerName: "Patricia G.",
-    city: "middleton",
-    serviceType: "tree-trimming",
-    rating: "5",
-    testimonial: "They did an excellent job trimming our large oak tree. Very careful work that improved the tree's health and appearance.",
-    createdAt: new Date("2024-06-20").toISOString(),
-  },
-  {
-    id: 18,
-    customerName: "Mark R.",
-    city: "middleton",
-    serviceType: "snow-removal",
-    rating: "5",
-    testimonial: "Reliable snow removal all winter long. They cleared our driveway early every morning so we could get to work safely.",
-    createdAt: new Date("2024-01-20").toISOString(),
-  },
-  // Additional variety testimonials
-  {
-    id: 19,
-    customerName: "Susan E.",
-    city: "kuna",
-    serviceType: "overseeding",
-    rating: "5",
-    testimonial: "Our patchy lawn is now thick and lush thanks to their overseeding service. The results exceeded our expectations!",
-    createdAt: new Date("2024-09-10").toISOString(),
-  },
-  {
-    id: 20,
-    customerName: "Daniel K.",
-    city: "boise",
-    serviceType: "sprinkler-installation",
-    rating: "5",
-    testimonial: "Professional sprinkler system installation. They designed an efficient system that keeps our whole yard perfectly watered.",
-    createdAt: new Date("2024-05-15").toISOString(),
-  },
-  {
-    id: 21,
-    customerName: "Emily N.",
-    city: "meridian",
-    serviceType: "christmas-lights",
-    rating: "5",
-    testimonial: "Made the holidays so much easier! Beautiful lights, professional installation, and they took care of everything.",
-    createdAt: new Date("2023-12-15").toISOString(),
-  },
-  {
-    id: 22,
-    customerName: "Greg P.",
-    city: "eagle",
-    serviceType: "lawn-mowing",
-    rating: "5",
-    testimonial: "Top-notch lawn care service. Our property always looks professionally maintained. Couldn't be happier!",
-    createdAt: new Date("2024-07-25").toISOString(),
-  },
-  {
-    id: 23,
-    customerName: "Laura H.",
-    city: "star",
-    serviceType: "landscaping",
-    rating: "5",
-    testimonial: "They completely redesigned our front yard. The curb appeal is incredible now. Neighbors keep asking who did the work!",
-    createdAt: new Date("2024-04-20").toISOString(),
-  },
-  {
-    id: 24,
-    customerName: "Kevin O.",
-    city: "middleton",
-    serviceType: "spring-cleanup",
-    rating: "5",
-    testimonial: "Fast, thorough spring cleanup. They had our whole property looking pristine in just a few hours. Great value!",
-    createdAt: new Date("2024-03-18").toISOString(),
-  },
+  { id: 1, customerName: "Sarah M.", city: "kuna", serviceType: "lawn-mowing", rating: "5", testimonial: "Lawn Care Kuna has been taking care of our yard for 2 years now. Always on time, professional, and our lawn has never looked better!", createdAt: new Date("2024-01-15").toISOString() },
+  { id: 2, customerName: "David A.", city: "kuna", serviceType: "spring-cleanup", rating: "5", testimonial: "Amazing spring cleanup service! They removed all the winter debris, cleaned up the flower beds, and got our yard ready for the season.", createdAt: new Date("2024-03-25").toISOString() },
+  { id: 3, customerName: "Nancy P.", city: "kuna", serviceType: "fertilization", rating: "5", testimonial: "Our lawn was struggling until we started their fertilization program. Now it's the greenest on the block! Very knowledgeable team.", createdAt: new Date("2024-05-10").toISOString() },
+  { id: 4, customerName: "Mike R.", city: "boise", serviceType: "patio-installation", rating: "5", testimonial: "They installed a beautiful patio in our backyard. The crew was professional and the work quality exceeded our expectations.", createdAt: new Date("2024-02-20").toISOString() },
+  { id: 5, customerName: "Jennifer K.", city: "boise", serviceType: "christmas-lights", rating: "5", testimonial: "Best Christmas light installation service in the valley! They made our home look amazing for the holidays.", createdAt: new Date("2023-12-10").toISOString() },
+  { id: 6, customerName: "Tom H.", city: "boise", serviceType: "irrigation-maintenance", rating: "5", testimonial: "They winterized our sprinkler system and got it running perfectly in spring. Saved us from costly repairs. Highly recommend!", createdAt: new Date("2024-04-08").toISOString() },
+  { id: 7, customerName: "Amanda L.", city: "meridian", serviceType: "landscaping", rating: "5", testimonial: "They transformed our backyard with a beautiful landscape design. The attention to detail was impressive. Worth every penny!", createdAt: new Date("2024-02-20").toISOString() },
+  { id: 8, customerName: "Chris B.", city: "meridian", serviceType: "aeration", rating: "5", testimonial: "Had my lawn aerated and overseeded. The difference is remarkable! My grass has never been this thick and healthy.", createdAt: new Date("2024-03-05").toISOString() },
+  { id: 9, customerName: "Rachel S.", city: "meridian", serviceType: "weed-control", rating: "5", testimonial: "Our lawn was overrun with weeds before we called them. Now it's weed-free and looks incredible. Great ongoing service!", createdAt: new Date("2024-06-15").toISOString() },
+  { id: 10, customerName: "Robert W.", city: "eagle", serviceType: "retaining-walls", rating: "5", testimonial: "Beautiful retaining wall that solved our drainage issues and looks fantastic. Professional from start to finish.", createdAt: new Date("2024-03-05").toISOString() },
+  { id: 11, customerName: "Karen T.", city: "eagle", serviceType: "hedge-trimming", rating: "5", testimonial: "They keep our hedges perfectly manicured year-round. Always prompt, professional, and the results speak for themselves.", createdAt: new Date("2024-05-22").toISOString() },
+  { id: 12, customerName: "Steve M.", city: "eagle", serviceType: "fall-cleanup", rating: "5", testimonial: "Thorough fall cleanup service. They removed all the leaves, cleaned gutters, and prepared our yard for winter. Excellent work!", createdAt: new Date("2024-10-30").toISOString() },
+  { id: 13, customerName: "Lisa M.", city: "star", serviceType: "sprinkler-repair", rating: "5", testimonial: "Quick and professional sprinkler repair. They diagnosed the problem immediately and had everything fixed within an hour.", createdAt: new Date("2024-04-12").toISOString() },
+  { id: 14, customerName: "Brian C.", city: "star", serviceType: "lawn-mowing", rating: "5", testimonial: "Reliable weekly mowing service. They show up when they say they will and always leave our property looking great.", createdAt: new Date("2024-07-18").toISOString() },
+  { id: 15, customerName: "Michelle D.", city: "star", serviceType: "landscape-lighting", rating: "5", testimonial: "Our new landscape lighting is gorgeous! They designed and installed lights that highlight all our best features. Love it!", createdAt: new Date("2024-08-05").toISOString() },
+  { id: 16, customerName: "James F.", city: "middleton", serviceType: "lawn-mowing", rating: "5", testimonial: "Been using their services for 3 years now. Consistent quality, fair pricing, and they really care about their customers.", createdAt: new Date("2024-02-28").toISOString() },
+  { id: 17, customerName: "Patricia G.", city: "middleton", serviceType: "tree-trimming", rating: "5", testimonial: "They did an excellent job trimming our large oak tree. Very careful work that improved the tree's health and appearance.", createdAt: new Date("2024-06-20").toISOString() },
+  { id: 18, customerName: "Mark R.", city: "middleton", serviceType: "snow-removal", rating: "5", testimonial: "Reliable snow removal all winter long. They cleared our driveway early every morning so we could get to work safely.", createdAt: new Date("2024-01-20").toISOString() },
+  { id: 19, customerName: "Susan E.", city: "kuna", serviceType: "overseeding", rating: "5", testimonial: "Our patchy lawn is now thick and lush thanks to their overseeding service. The results exceeded our expectations!", createdAt: new Date("2024-09-10").toISOString() },
+  { id: 20, customerName: "Daniel K.", city: "boise", serviceType: "sprinkler-installation", rating: "5", testimonial: "Professional sprinkler system installation. They designed an efficient system that keeps our whole yard perfectly watered.", createdAt: new Date("2024-05-15").toISOString() },
+  { id: 21, customerName: "Emily N.", city: "meridian", serviceType: "christmas-lights", rating: "5", testimonial: "Made the holidays so much easier! Beautiful lights, professional installation, and they took care of everything.", createdAt: new Date("2023-12-15").toISOString() },
+  { id: 22, customerName: "Greg P.", city: "eagle", serviceType: "lawn-mowing", rating: "5", testimonial: "Top-notch lawn care service. Our property always looks professionally maintained. Couldn't be happier!", createdAt: new Date("2024-07-25").toISOString() },
+  { id: 23, customerName: "Laura H.", city: "star", serviceType: "landscaping", rating: "5", testimonial: "They completely redesigned our front yard. The curb appeal is incredible now. Neighbors keep asking who did the work!", createdAt: new Date("2024-04-20").toISOString() },
+  { id: 24, customerName: "Kevin O.", city: "middleton", serviceType: "spring-cleanup", rating: "5", testimonial: "Fast, thorough spring cleanup. They had our whole property looking pristine in just a few hours. Great value!", createdAt: new Date("2024-03-18").toISOString() },
+  { id: 25, customerName: "Angela W.", city: "kuna", serviceType: "lawn-mowing", rating: "5", testimonial: "We switched to Lawn Care Kuna last summer and the difference is night and day. Our yard looks like a golf course now. The crew is friendly and efficient.", createdAt: new Date("2024-06-12").toISOString() },
+  { id: 26, customerName: "Rick D.", city: "kuna", serviceType: "irrigation-maintenance", rating: "5", testimonial: "They found a leak in our irrigation system that our previous company missed for months. Fixed it quickly and saved us a fortune on water bills.", createdAt: new Date("2024-04-22").toISOString() },
+  { id: 27, customerName: "Heather L.", city: "kuna", serviceType: "landscaping", rating: "5", testimonial: "From the initial design consultation to the final walkthrough, everything was first class. Our backyard is now our favorite room.", createdAt: new Date("2024-07-08").toISOString() },
+  { id: 28, customerName: "Tony V.", city: "kuna", serviceType: "fence-installation", rating: "4", testimonial: "Solid fence installation work. The crew was professional and the fence looks great. Minor scheduling delay but the end result was worth the wait.", createdAt: new Date("2024-08-15").toISOString() },
+  { id: 29, customerName: "Carmen J.", city: "boise", serviceType: "lawn-mowing", rating: "5", testimonial: "Hands down the most reliable lawn service in Boise. They have mowed our lawn every week for two seasons and never missed a single visit.", createdAt: new Date("2024-06-28").toISOString() },
+  { id: 30, customerName: "Paul T.", city: "boise", serviceType: "landscaping", rating: "5", testimonial: "We hired them for a complete front yard renovation and the transformation is stunning. They worked with our budget and delivered beyond what we imagined.", createdAt: new Date("2024-05-20").toISOString() },
+  { id: 31, customerName: "Diane S.", city: "boise", serviceType: "weed-control", rating: "5", testimonial: "After one season of their weed treatment program, our lawn is completely weed-free. The technician explained every step of the process. Very professional.", createdAt: new Date("2024-07-14").toISOString() },
+  { id: 32, customerName: "Nathan B.", city: "boise", serviceType: "fall-cleanup", rating: "4", testimonial: "They handled our fall cleanup with a large crew and finished in half the time I expected. Yard looked spotless. Will definitely book again this year.", createdAt: new Date("2024-11-05").toISOString() },
+  { id: 33, customerName: "Melissa C.", city: "meridian", serviceType: "lawn-mowing", rating: "5", testimonial: "Professional crew, consistent results, and their attention to edging and trimming sets them apart from others we have tried.", createdAt: new Date("2024-08-02").toISOString() },
+  { id: 34, customerName: "Jason R.", city: "meridian", serviceType: "patio-installation", rating: "5", testimonial: "They built us a gorgeous stone patio with a fire pit area. The craftsmanship is outstanding and it has become our favorite gathering spot.", createdAt: new Date("2024-06-18").toISOString() },
+  { id: 35, customerName: "Stephanie A.", city: "meridian", serviceType: "fertilization", rating: "5", testimonial: "Started their fertilization plan in early spring and by summer our grass was the darkest green on the street. The neighbors noticed the difference right away.", createdAt: new Date("2024-07-30").toISOString() },
+  { id: 36, customerName: "Craig W.", city: "meridian", serviceType: "sprinkler-repair", rating: "4", testimonial: "Called them for an emergency sprinkler line break and they came out the same day. Fixed the problem and adjusted our zones for better coverage. Great service.", createdAt: new Date("2024-05-28").toISOString() },
+  { id: 37, customerName: "Teresa M.", city: "eagle", serviceType: "landscaping", rating: "5", testimonial: "We asked for a low-maintenance landscape design and they delivered perfectly. Native plants, smart irrigation, and it looks beautiful year-round.", createdAt: new Date("2024-04-15").toISOString() },
+  { id: 38, customerName: "Derek H.", city: "eagle", serviceType: "christmas-lights", rating: "5", testimonial: "Third year in a row using them for Christmas lights. They store our lights, install them professionally, and take them down after the holidays. So convenient.", createdAt: new Date("2023-12-22").toISOString() },
+  { id: 39, customerName: "Valerie F.", city: "eagle", serviceType: "spring-cleanup", rating: "5", testimonial: "They did a complete spring cleanup of our half-acre property in one morning. Flower beds cleaned, debris hauled away, everything looking fresh.", createdAt: new Date("2024-03-28").toISOString() },
+  { id: 40, customerName: "Scott L.", city: "eagle", serviceType: "aeration", rating: "4", testimonial: "Had our lawn aerated for the first time and already seeing improvement. They explained the process well and worked quickly. Will do this annually now.", createdAt: new Date("2024-09-15").toISOString() },
+  { id: 41, customerName: "Brenda K.", city: "star", serviceType: "fertilization", rating: "5", testimonial: "The custom fertilization schedule they created for our clay soil has worked wonders. Our lawn went from thin and patchy to thick and vibrant.", createdAt: new Date("2024-06-22").toISOString() },
+  { id: 42, customerName: "Roger N.", city: "star", serviceType: "tree-trimming", rating: "5", testimonial: "They carefully trimmed our mature maple trees and cleaned up every branch and leaf. The trees look healthier and our yard gets much better sunlight now.", createdAt: new Date("2024-07-10").toISOString() },
+  { id: 43, customerName: "Cindy P.", city: "star", serviceType: "weed-control", rating: "5", testimonial: "Within three treatments our lawn went from full of dandelions to completely clean. They use effective products and follow a smart schedule.", createdAt: new Date("2024-05-18").toISOString() },
+  { id: 44, customerName: "Howard G.", city: "star", serviceType: "snow-removal", rating: "4", testimonial: "Dependable snow removal service through a tough Idaho winter. They were always there before sunrise so we could get out of the driveway on time.", createdAt: new Date("2024-01-30").toISOString() },
+  { id: 45, customerName: "Wendy R.", city: "middleton", serviceType: "landscaping", rating: "5", testimonial: "They designed a beautiful pathway with landscaping around it. The combination of pavers, plants, and lighting created an inviting entrance to our home.", createdAt: new Date("2024-08-20").toISOString() },
+  { id: 46, customerName: "Frank B.", city: "middleton", serviceType: "lawn-mowing", rating: "5", testimonial: "Switched from doing it ourselves to hiring them and honestly wish we had done it sooner. The time savings alone is worth it, and the results are way better.", createdAt: new Date("2024-07-05").toISOString() },
+  { id: 47, customerName: "Rita C.", city: "middleton", serviceType: "hedge-trimming", rating: "5", testimonial: "Our overgrown hedges look amazing now. They shaped them perfectly and even removed several dead sections. Very skilled and careful team.", createdAt: new Date("2024-06-08").toISOString() },
+  { id: 48, customerName: "Allen J.", city: "middleton", serviceType: "irrigation-maintenance", rating: "4", testimonial: "They did a full sprinkler system tune-up and found two broken heads I did not know about. System runs much more efficiently now. Fair pricing too.", createdAt: new Date("2024-04-28").toISOString() },
+  { id: 49, customerName: "Dorothy S.", city: "kuna", serviceType: "christmas-lights", rating: "5", testimonial: "Our house looked absolutely magical this Christmas. The design they suggested was elegant and tasteful. Even the delivery drivers were complimenting our display.", createdAt: new Date("2023-12-20").toISOString() },
+  { id: 50, customerName: "Gary M.", city: "kuna", serviceType: "retaining-walls", rating: "5", testimonial: "The retaining wall they built solved our erosion problem completely. It has been through two heavy rain seasons and still looks perfect. Quality craftsmanship.", createdAt: new Date("2024-09-05").toISOString() },
+  { id: 51, customerName: "Helen A.", city: "boise", serviceType: "hedge-trimming", rating: "5", testimonial: "We have over 200 feet of hedges and they tackle the job efficiently every time. Clean cuts, proper shaping, and they always clean up after themselves.", createdAt: new Date("2024-08-12").toISOString() },
+  { id: 52, customerName: "Wayne D.", city: "boise", serviceType: "aeration", rating: "5", testimonial: "Had our lawn aerated and overseeded in the fall and the following spring was the best our lawn has ever looked. They know exactly what Idaho lawns need.", createdAt: new Date("2024-10-08").toISOString() },
+  { id: 53, customerName: "Judith L.", city: "meridian", serviceType: "landscape-lighting", rating: "5", testimonial: "The landscape lighting they installed transformed our yard at night. The uplighting on our trees creates such a beautiful ambiance. We get compliments constantly.", createdAt: new Date("2024-09-20").toISOString() },
+  { id: 54, customerName: "Phil W.", city: "meridian", serviceType: "fence-installation", rating: "5", testimonial: "Installed a cedar privacy fence around our entire property. The quality of materials and workmanship are excellent. It really completed our outdoor space.", createdAt: new Date("2024-07-22").toISOString() },
+  { id: 55, customerName: "Donna H.", city: "eagle", serviceType: "irrigation-maintenance", rating: "5", testimonial: "They manage our entire irrigation system. Spring startup, mid-season adjustments, and winterization. Our water usage dropped 30% with their smart scheduling.", createdAt: new Date("2024-06-02").toISOString() },
+  { id: 56, customerName: "Martin K.", city: "star", serviceType: "patio-installation", rating: "5", testimonial: "Absolutely love our new paver patio. The design was creative, the materials are high quality, and the installation was done in just three days. Highly recommend.", createdAt: new Date("2024-08-28").toISOString() },
+  { id: 57, customerName: "Barbara T.", city: "middleton", serviceType: "christmas-lights", rating: "5", testimonial: "First time hiring a professional for our holiday lights and it was the best decision. Stress-free, beautiful results, and safe installation on our two-story home.", createdAt: new Date("2023-12-08").toISOString() },
+  { id: 58, customerName: "Kenneth E.", city: "kuna", serviceType: "lawn-maintenance", rating: "5", testimonial: "Complete lawn maintenance package has been a game changer for us. Mowing, edging, trimming, blowing -- they handle it all and our yard looks pristine.", createdAt: new Date("2024-08-08").toISOString() },
+  { id: 59, customerName: "Joyce V.", city: "boise", serviceType: "spring-cleanup", rating: "4", testimonial: "Great spring cleanup service. The crew was thorough and had our large property cleaned up in a single day. Nice to have the yard looking fresh for spring.", createdAt: new Date("2024-03-22").toISOString() },
+  { id: 60, customerName: "Ray F.", city: "meridian", serviceType: "snow-removal", rating: "5", testimonial: "They plowed our commercial lot reliably all winter. Never had a single complaint from tenants about ice or snow. That kind of consistency is hard to find.", createdAt: new Date("2024-02-10").toISOString() },
+  { id: 61, customerName: "Linda Q.", city: "eagle", serviceType: "pond-installation", rating: "5", testimonial: "They built a gorgeous koi pond in our backyard with a waterfall feature. The sound of running water is so relaxing. Best investment we have made in our property.", createdAt: new Date("2024-06-25").toISOString() },
+  { id: 62, customerName: "Harold J.", city: "meridian", serviceType: "pond-installation", rating: "5", testimonial: "Our new garden pond with aquatic plants looks incredible. They handled everything from excavation to filtration setup. Very knowledgeable about water features.", createdAt: new Date("2024-07-15").toISOString() },
+  { id: 63, customerName: "Carol S.", city: "kuna", serviceType: "pond-installation", rating: "4", testimonial: "Beautiful pond installation with natural stone edging. They guided us through plant and fish selection too. The whole family enjoys spending time by the water.", createdAt: new Date("2024-08-10").toISOString() },
 ];
 
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
-    const serviceType = searchParams.get("service");
-    const limit = parseInt(searchParams.get("limit") || "10");
+    const serviceType = searchParams.get("serviceType") || searchParams.get("service");
+    const limit = parseInt(searchParams.get("limit") || "60");
 
-    // If database is available, fetch from it
     if (isDbAvailable() && db) {
       const allTestimonials = await db.select().from(testimonials);
       
@@ -249,7 +85,6 @@ export async function GET(request: Request) {
       return NextResponse.json(filtered.slice(0, limit));
     }
 
-    // Otherwise, return sample data
     let filtered = sampleTestimonials;
     if (serviceType) {
       filtered = filtered.filter(t => t.serviceType === serviceType);
@@ -258,7 +93,6 @@ export async function GET(request: Request) {
     return NextResponse.json(filtered.slice(0, limit));
   } catch (error) {
     console.error("Error fetching testimonials:", error);
-    // Return sample data on error
     return NextResponse.json(sampleTestimonials);
   }
 }

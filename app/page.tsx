@@ -580,7 +580,7 @@ export default function HomePage() {
                 Trusted by homeowners across Kuna and the Treasure Valley
               </p>
             </div>
-            <Testimonials limit={12} />
+            <Testimonials limit={30} />
           </div>
         </div>
       </section>

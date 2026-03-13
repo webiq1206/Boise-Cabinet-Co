@@ -3,6 +3,7 @@ import { Metadata } from "next";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { CheckCircle2, Shield, Heart, Award, Users, Wrench, FileCheck, GraduationCap, TrendingUp, MapPin, Leaf, Handshake, ArrowRight } from "lucide-react";
+import { Testimonials } from "@/components/Testimonials";
 import { generateWebPageSchema, generateBreadcrumbSchema, generateOrganizationSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
@@ -211,6 +212,23 @@ export default function AboutPage() {
                 </Link>
               ))}
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials */}
+      <section className="py-16 md:py-24 bg-muted/30">
+        <div className="container px-4">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-12 space-y-4">
+              <h2 className="text-3xl md:text-4xl font-bold tracking-tight" data-testid="text-about-reviews-heading">
+                What Kuna Customers Say
+              </h2>
+              <p className="text-lg text-muted-foreground">
+                Real reviews from homeowners and businesses in Kuna and the Treasure Valley
+              </p>
+            </div>
+            <Testimonials limit={20} />
           </div>
         </div>
       </section>

@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { SimpleQuoteWizard } from "@/components/SimpleQuoteWizard";
 import { Building2, CheckCircle2, Shield, Clock, ArrowRight } from "lucide-react";
+import { Testimonials } from "@/components/Testimonials";
 import { generateWebPageSchema, generateBreadcrumbSchema, generateLocalBusinessSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
@@ -203,6 +204,23 @@ export default function CommercialPage() {
                   </Card>
                 </div>
               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Testimonials */}
+        <section className="py-16 md:py-24">
+          <div className="container px-4">
+            <div className="max-w-6xl mx-auto">
+              <div className="text-center mb-12 space-y-4">
+                <h2 className="text-3xl md:text-4xl font-bold tracking-tight" data-testid="text-commercial-reviews-heading">
+                  Trusted by Local Businesses
+                </h2>
+                <p className="text-lg text-muted-foreground">
+                  See why commercial properties choose Lawn Care Kuna
+                </p>
+              </div>
+              <Testimonials limit={16} />
             </div>
           </div>
         </section>

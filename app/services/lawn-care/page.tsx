@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Metadata } from "next";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Testimonials } from "@/components/Testimonials";
 import { SimpleQuoteWizard } from "@/components/SimpleQuoteWizard";
 import { CheckCircle2, Scissors, Sprout, Droplets, Shield, Leaf, Sun } from "lucide-react";
 import { generateServiceSchema, generateBreadcrumbSchema, generateLocalBusinessSchema } from "@/lib/schema";
@@ -223,6 +224,23 @@ export default function LawnCarePage() {
             </div>
           </div>
         </section>
+          {/* Testimonials */}
+          <section className="py-16 md:py-24 bg-muted/30">
+            <div className="container px-4">
+              <div className="max-w-6xl mx-auto">
+                <div className="text-center mb-12 space-y-4">
+                  <h2 className="text-3xl md:text-4xl font-bold tracking-tight" data-testid="text-lawn-maintenance-reviews-heading">
+                    What Our Customers Say
+                  </h2>
+                  <p className="text-lg text-muted-foreground">
+                    Real reviews from lawn care customers in the Treasure Valley
+                  </p>
+                </div>
+                <Testimonials serviceType="lawn-maintenance" limit={16} />
+              </div>
+            </div>
+          </section>
+  
 
         {/* Quote Form */}
         <section id="quote" className="py-16 md:py-24">

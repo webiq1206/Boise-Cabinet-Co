@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Metadata } from "next";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { Testimonials } from "@/components/Testimonials";
 import { SimpleQuoteWizard } from "@/components/SimpleQuoteWizard";
 import { RelatedBlogPosts } from "@/components/RelatedBlogPosts";
 import { CheckCircle2, Calendar, DollarSign, Shield, Clock } from "lucide-react";
@@ -265,6 +266,23 @@ export default function LawnMowingPage() {
             </div>
           </div>
         </section>
+          {/* Testimonials */}
+          <section className="py-16 md:py-24 bg-muted/30">
+            <div className="container px-4">
+              <div className="max-w-6xl mx-auto">
+                <div className="text-center mb-12 space-y-4">
+                  <h2 className="text-3xl md:text-4xl font-bold tracking-tight" data-testid="text-lawn-mowing-reviews-heading">
+                    What Our Customers Say
+                  </h2>
+                  <p className="text-lg text-muted-foreground">
+                    Real reviews from lawn mowing customers in the Treasure Valley
+                  </p>
+                </div>
+                <Testimonials serviceType="lawn-mowing" limit={16} />
+              </div>
+            </div>
+          </section>
+  
 
         {/* Quote Form */}
         <section id="quote" className="py-16 bg-muted/30">
