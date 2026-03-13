@@ -310,4 +310,23 @@ export function generateWebPageSchema(page: {
   };
 }
 
+/**
+ * Generate SpeakableSpecification schema for AI assistants and voice search
+ */
+export function generateSpeakableSchema(page: {
+  name: string;
+  url: string;
+}): SchemaContext {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: page.name,
+    speakable: {
+      '@type': 'SpeakableSpecification',
+      cssSelector: ["[data-speakable='summary']"],
+    },
+    url: `${baseUrl}${page.url}`,
+  };
+}
+
 export type { SchemaContext };

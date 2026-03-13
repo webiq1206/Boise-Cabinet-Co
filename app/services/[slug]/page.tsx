@@ -29,7 +29,8 @@ import {
   ThumbsUp,
   Wrench,
   FileText,
-  TrendingUp
+  TrendingUp,
+  HelpCircle
 } from "lucide-react";
 import { PRIORITY_SERVICES, CITIES } from "@/shared/contentData";
 import { splitIntoParagraphs } from "@/lib/textUtils";
@@ -37,7 +38,8 @@ import {
   generateServiceSchema, 
   generateBreadcrumbSchema, 
   generateFAQSchema,
-  generateLocalBusinessSchema 
+  generateLocalBusinessSchema,
+  generateSpeakableSchema 
 } from "@/lib/schema";
 import { BUSINESS_INFO } from "@/lib/seo";
 import { Testimonials } from "@/components/Testimonials";
@@ -255,6 +257,13 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
         />
       )}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(generateSpeakableSchema({
+          name: `${service.name} Services`,
+          url: `/services/${service.slug}`,
+        })) }}
+      />
       
       <div className="flex flex-col">
         <section className="relative py-16 md:py-24 bg-gradient-to-b from-primary/10 via-primary/5 to-background">
@@ -308,6 +317,16 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
                   </div>
                 ))}
               </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="py-6 bg-muted/20" data-testid="section-ai-summary">
+          <div className="container px-4">
+            <div className="max-w-3xl mx-auto">
+              <p className="text-base text-muted-foreground leading-relaxed text-center" data-speakable="summary" data-testid="text-ai-summary">
+                Lawn Care Kuna offers professional {service.name.toLowerCase()} for residential and commercial properties in Kuna, Boise, Meridian, Eagle, Star, and Middleton, Idaho. {service.shortDescription}. We are licensed and insured with $2M coverage. {service.seasonality ? `Season: ${service.seasonality}` : ''} Call (208) 352-2011 for a free estimate.
+              </p>
             </div>
           </div>
         </section>
@@ -577,6 +596,32 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
         <div data-testid="section-related-blog">
           <RelatedBlogPosts serviceSlug={service.slug} limit={3} />
         </div>
+
+        <section className="py-12 md:py-16 bg-muted/30" data-testid="section-helpful-links">
+          <div className="container px-4">
+            <div className="max-w-4xl mx-auto space-y-6">
+              <h2 className="text-xl font-bold text-center" data-testid="text-helpful-links">Helpful Resources</h2>
+              <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                <Link href="/faq" className="flex items-center gap-2 p-3 rounded-md border bg-background hover-elevate text-sm" data-testid="link-cross-faq">
+                  <HelpCircle className="h-4 w-4 text-primary flex-shrink-0" aria-hidden="true" />
+                  <span className="font-medium">FAQ</span>
+                </Link>
+                <Link href="/seasonal-guide" className="flex items-center gap-2 p-3 rounded-md border bg-background hover-elevate text-sm" data-testid="link-cross-seasonal">
+                  <Calendar className="h-4 w-4 text-primary flex-shrink-0" aria-hidden="true" />
+                  <span className="font-medium">Seasonal Guide</span>
+                </Link>
+                <Link href="/pricing" className="flex items-center gap-2 p-3 rounded-md border bg-background hover-elevate text-sm" data-testid="link-cross-pricing">
+                  <DollarSign className="h-4 w-4 text-primary flex-shrink-0" aria-hidden="true" />
+                  <span className="font-medium">Pricing</span>
+                </Link>
+                <Link href="/blog" className="flex items-center gap-2 p-3 rounded-md border bg-background hover-elevate text-sm" data-testid="link-cross-blog">
+                  <FileText className="h-4 w-4 text-primary flex-shrink-0" aria-hidden="true" />
+                  <span className="font-medium">Blog</span>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
 
         <section className="py-16 md:py-24" data-testid="section-cta">
           <div className="container px-4">

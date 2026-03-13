@@ -28,7 +28,9 @@ import {
   Home,
   Building2,
   ThermometerSun,
-  Mountain
+  Mountain,
+  HelpCircle,
+  Calendar
 } from "lucide-react";
 import { CITIES, PRIORITY_SERVICES } from "@/shared/contentData";
 import { splitIntoParagraphs } from "@/lib/textUtils";
@@ -36,7 +38,8 @@ import {
   generateLocalBusinessSchema, 
   generateBreadcrumbSchema,
   generateFAQSchema,
-  generateServiceSchema
+  generateServiceSchema,
+  generateSpeakableSchema
 } from "@/lib/schema";
 import { Testimonials } from "@/components/Testimonials";
 
@@ -204,6 +207,13 @@ export default function AreaPage({ params }: { params: { slug: string } }) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(generateSpeakableSchema({
+          name: `Lawn Care in ${city.name}`,
+          url: `/areas/${city.slug}`,
+        })) }}
+      />
       
       <div className="flex flex-col">
         <nav className="container px-4 py-4" aria-label="Breadcrumb" data-testid="nav-breadcrumb">
@@ -261,6 +271,16 @@ export default function AreaPage({ params }: { params: { slug: string } }) {
                   </div>
                 ))}
               </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="py-6 bg-muted/20" data-testid="section-ai-summary">
+          <div className="container px-4">
+            <div className="max-w-3xl mx-auto">
+              <p className="text-base text-muted-foreground leading-relaxed text-center" data-speakable="summary" data-testid="text-ai-summary">
+                Lawn Care Kuna provides professional lawn care and landscaping services in {city.name}, Idaho ({city.zipCodes?.join(", ")}). We serve {city.neighborhoods?.slice(0, 3).join(", ")} and all {city.name} neighborhoods. {city.name} properties have {city.localFactors?.soil?.toLowerCase() || "local soil conditions"} and {city.localFactors?.climate?.toLowerCase() || "a semi-arid climate"}. Services include mowing, fertilization, aeration, weed control, landscaping, irrigation, and seasonal cleanup. Licensed and insured. Call (208) 352-2011 for a free quote.
+              </p>
             </div>
           </div>
         </section>
@@ -487,6 +507,28 @@ export default function AreaPage({ params }: { params: { slug: string } }) {
                   </AccordionItem>
                 ))}
               </Accordion>
+            </div>
+          </div>
+        </section>
+
+        <section className="py-12 md:py-16" data-testid="section-helpful-links">
+          <div className="container px-4">
+            <div className="max-w-4xl mx-auto space-y-6">
+              <h2 className="text-xl font-bold text-center" data-testid="text-helpful-links">Helpful Resources</h2>
+              <div className="grid sm:grid-cols-3 gap-3">
+                <Link href="/faq" className="flex items-center gap-2 p-3 rounded-md border bg-background hover-elevate text-sm" data-testid="link-cross-faq">
+                  <HelpCircle className="h-4 w-4 text-primary flex-shrink-0" aria-hidden="true" />
+                  <span className="font-medium">FAQ</span>
+                </Link>
+                <Link href="/seasonal-guide" className="flex items-center gap-2 p-3 rounded-md border bg-background hover-elevate text-sm" data-testid="link-cross-seasonal">
+                  <Calendar className="h-4 w-4 text-primary flex-shrink-0" aria-hidden="true" />
+                  <span className="font-medium">Seasonal Guide</span>
+                </Link>
+                <Link href="/blog" className="flex items-center gap-2 p-3 rounded-md border bg-background hover-elevate text-sm" data-testid="link-cross-blog">
+                  <Leaf className="h-4 w-4 text-primary flex-shrink-0" aria-hidden="true" />
+                  <span className="font-medium">Blog</span>
+                </Link>
+              </div>
             </div>
           </div>
         </section>

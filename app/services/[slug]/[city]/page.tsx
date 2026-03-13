@@ -41,6 +41,7 @@ import {
   generateLocalBusinessSchema,
   generateBreadcrumbSchema,
   generateFAQSchema,
+  generateSpeakableSchema,
 } from "@/lib/schema";
 import { Testimonials } from "@/components/Testimonials";
 import { RelatedBlogPosts } from "@/components/RelatedBlogPosts";
@@ -282,6 +283,13 @@ export default function CityServicePage({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
         />
       )}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(generateSpeakableSchema({
+          name: `${service.name} in ${city.name}`,
+          url: `/services/${service.slug}/${city.slug}`,
+        })) }}
+      />
 
       <div className="flex flex-col">
         <nav className="container px-4 py-4" aria-label="Breadcrumb" data-testid="nav-breadcrumb">
@@ -349,6 +357,16 @@ export default function CityServicePage({
                   </div>
                 ))}
               </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="py-6 bg-muted/20" data-testid="section-ai-summary">
+          <div className="container px-4">
+            <div className="max-w-3xl mx-auto">
+              <p className="text-base text-muted-foreground leading-relaxed text-center" data-speakable="summary" data-testid="text-ai-summary">
+                Lawn Care Kuna provides professional {service.name.toLowerCase()} in {city.name}, Idaho{city.zipCodes ? ` (${city.zipCodes.join(", ")})` : ""}. {city.name} lawns require specialized care due to {city.localFactors?.soil?.toLowerCase() || "local clay-heavy soil"} and {city.localFactors?.climate?.toLowerCase() || "the semi-arid climate with hot summers and cold winters"}. {service.shortDescription}. We serve {city.neighborhoods?.slice(0, 3).join(", ") || `all ${city.name} neighborhoods`} and surrounding areas. Licensed and insured with $2M coverage. Call (208) 352-2011 for a free estimate.
+              </p>
             </div>
           </div>
         </section>

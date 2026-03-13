@@ -20,7 +20,7 @@ import { HeroQuoteSection } from "@/components/HeroQuoteSection";
 import { Testimonials } from "@/components/Testimonials";
 import { NearMeFAQ } from "@/components/NearMeFAQ";
 import { ServiceAreasSection } from "@/components/ServiceAreasSection";
-import { generateLocalBusinessSchema, generateOrganizationSchema, generateFAQSchema } from "@/lib/schema";
+import { generateLocalBusinessSchema, generateOrganizationSchema, generateFAQSchema, generateSpeakableSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
   title: "Lawn Care Kuna | Professional Landscaping | Free Quotes",
@@ -153,6 +153,14 @@ export default function HomePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
       
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(generateSpeakableSchema({
+          name: "Lawn Care Kuna",
+          url: "/",
+        })) }}
+      />
+
       <div className="flex flex-col pb-20">
       {/* Hero Section with Quote Wizard - Background extends to trust indicators */}
       <HeroQuoteSection
@@ -192,6 +200,17 @@ export default function HomePage() {
           </div>
         </section>
       </HeroQuoteSection>
+
+      {/* AI-Friendly Summary */}
+      <section className="py-8 bg-muted/20">
+        <div className="container px-4 md:px-8">
+          <div className="max-w-3xl mx-auto">
+            <p className="text-base text-muted-foreground leading-relaxed text-center" data-speakable="summary" data-testid="text-ai-summary">
+              Lawn Care Kuna is a licensed and insured lawn care and landscaping company based in Kuna, Idaho, serving the Treasure Valley since 2017. We provide residential and commercial services including lawn mowing, fertilization, aeration, weed control, landscaping, irrigation maintenance, Christmas light installation, and snow removal in Kuna, Boise, Meridian, Eagle, Star, and Middleton. Call (208) 352-2011 for a free quote.
+            </p>
+          </div>
+        </div>
+      </section>
 
       {/* Services Section */}
       <section className="py-12 md:py-16 lg:py-24">
