@@ -234,7 +234,7 @@ export default function AreaPage({ params }: { params: { slug: string } }) {
                   {city.name}, Idaho
                 </Badge>
                 <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground" data-testid="text-hero-heading">
-                  Lawn Care Services in {city.name}
+                  Lawn Care Services in {city.name}, Idaho
                 </h1>
                 <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto" data-testid="text-hero-subtitle">
                   Professional lawn care and landscaping for {city.name} homes and businesses. 
@@ -458,7 +458,7 @@ export default function AreaPage({ params }: { params: { slug: string } }) {
                 </div>
                 <Button variant="outline" className="bg-gradient-to-br from-primary/10 to-white border-primary/20 text-primary" asChild>
                   <Link href="/services" data-testid="link-view-all-services">
-                    View All Services
+                    Browse All Lawn &amp; Landscaping Services
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
                 </Button>

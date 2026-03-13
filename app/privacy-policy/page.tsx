@@ -2,10 +2,21 @@ import { Metadata } from "next";
 import { ObfuscatedEmail } from "@/components/ObfuscatedEmail";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy | Lawn Care Kuna",
-  description: "Read the privacy policy for Lawn Care Kuna. Learn how we collect, use, and protect your personal information.",
+  title: "Privacy Policy",
+  description: "Privacy policy for Lawn Care Kuna. How we collect, use, and protect your personal information when you use our services.",
   alternates: {
     canonical: "https://lawncarekuna.com/privacy-policy",
+  },
+  openGraph: {
+    title: "Privacy Policy | Lawn Care Kuna",
+    description: "How Lawn Care Kuna collects, uses, and protects your personal information.",
+    url: "https://lawncarekuna.com/privacy-policy",
+    type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: "Privacy Policy | Lawn Care Kuna",
+    description: "How Lawn Care Kuna collects, uses, and protects your personal information.",
   },
 };
 

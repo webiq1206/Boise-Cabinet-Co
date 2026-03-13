@@ -17,6 +17,11 @@ export const metadata: Metadata = {
     url: "https://lawncarekuna.com/services",
     type: "website",
   },
+  twitter: {
+    card: "summary",
+    title: "Lawn Care & Landscaping Services | Lawn Care Kuna",
+    description: "All lawn care, landscaping & seasonal services in Kuna, Boise & Treasure Valley. Free quotes!",
+  },
 };
 
 // Group services by category
@@ -62,9 +67,9 @@ export default function ServicesPage() {
       <section className="relative py-16 md:py-24 bg-gradient-to-b from-primary/5 to-background">
         <div className="container px-4">
           <div className="max-w-3xl mx-auto text-center space-y-4">
-            <h1 className="text-4xl md:text-5xl font-bold text-foreground">Our Services</h1>
+            <h1 className="text-4xl md:text-5xl font-bold text-foreground">Lawn Care &amp; Landscaping Services in Kuna, Idaho</h1>
             <p className="text-lg text-muted-foreground">
-              Comprehensive lawn care and landscaping services for the Treasure Valley
+              Professional lawn mowing, landscaping, irrigation, and seasonal services for the Treasure Valley
             </p>
           </div>
         </div>

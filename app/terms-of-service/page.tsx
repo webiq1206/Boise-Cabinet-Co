@@ -2,10 +2,21 @@ import { Metadata } from "next";
 import { ObfuscatedEmail } from "@/components/ObfuscatedEmail";
 
 export const metadata: Metadata = {
-  title: "Terms of Service | Lawn Care Kuna",
-  description: "Read the terms of service for Lawn Care Kuna. Understand your rights and responsibilities when using our lawn care services.",
+  title: "Terms of Service",
+  description: "Terms of service for Lawn Care Kuna. Your rights and responsibilities when using our lawn care and landscaping services.",
   alternates: {
     canonical: "https://lawncarekuna.com/terms-of-service",
+  },
+  openGraph: {
+    title: "Terms of Service | Lawn Care Kuna",
+    description: "Your rights and responsibilities when using Lawn Care Kuna services.",
+    url: "https://lawncarekuna.com/terms-of-service",
+    type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: "Terms of Service | Lawn Care Kuna",
+    description: "Your rights and responsibilities when using Lawn Care Kuna services.",
   },
 };
 

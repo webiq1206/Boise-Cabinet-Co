@@ -319,7 +319,7 @@ export default function CityServicePage({
                   </Badge>
                 </div>
                 <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground" data-testid="text-hero-heading">
-                  {service.name} in {city.name}
+                  {service.name} in {city.name}, Idaho
                 </h1>
                 <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto" data-testid="text-hero-subtitle">
                   {service.shortDescription}. {city.neighborhoods && city.neighborhoods.length > 0 

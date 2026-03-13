@@ -27,18 +27,27 @@ export async function generateMetadata({
     };
   }
 
+  const seoDescription = post.excerpt.length > 160 
+    ? post.excerpt.substring(0, 157) + "..." 
+    : post.excerpt;
+
   return {
-    title: `${post.title} | Lawn Care Blog`,
-    description: post.excerpt,
+    title: post.title,
+    description: seoDescription,
     alternates: {
       canonical: `https://lawncarekuna.com/blog/${post.slug}`,
     },
     openGraph: {
-      title: post.title,
-      description: post.excerpt,
+      title: `${post.title} | Lawn Care Kuna Blog`,
+      description: seoDescription,
       url: `https://lawncarekuna.com/blog/${post.slug}`,
       type: "article",
       publishedTime: post.publishedAt,
+    },
+    twitter: {
+      card: "summary",
+      title: `${post.title} | Lawn Care Kuna Blog`,
+      description: seoDescription,
     },
   };
 }
