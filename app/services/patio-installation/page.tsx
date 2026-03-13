@@ -16,6 +16,11 @@ export const metadata: Metadata = {
     url: "https://lawncarekuna.com/services/patio-installation",
     type: "website",
   },
+  twitter: {
+    card: "summary",
+    title: "Patio Installation in Kuna & Boise | Lawn Care Kuna",
+    description: "Paver, stamped concrete, and natural stone patio installation across the Treasure Valley.",
+  },
   alternates: {
     canonical: "https://lawncarekuna.com/services/patio-installation",
   },

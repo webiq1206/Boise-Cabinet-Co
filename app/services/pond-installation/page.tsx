@@ -16,6 +16,11 @@ export const metadata: Metadata = {
     url: "https://lawncarekuna.com/services/pond-installation",
     type: "website",
   },
+  twitter: {
+    card: "summary",
+    title: "Pond & Water Feature Installation | Lawn Care Kuna",
+    description: "Pond, fountain, and water feature installation across the Treasure Valley.",
+  },
   alternates: {
     canonical: "https://lawncarekuna.com/services/pond-installation",
   },

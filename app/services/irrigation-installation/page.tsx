@@ -16,6 +16,11 @@ export const metadata: Metadata = {
     url: "https://lawncarekuna.com/services/irrigation-installation",
     type: "website",
   },
+  twitter: {
+    card: "summary",
+    title: "Irrigation & Sprinkler Systems | Lawn Care Kuna",
+    description: "Sprinkler system design, installation, and repair across the Treasure Valley.",
+  },
   alternates: {
     canonical: "https://lawncarekuna.com/services/irrigation-installation",
   },

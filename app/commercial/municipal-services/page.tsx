@@ -7,16 +7,21 @@ import { Landmark, CheckCircle2, Shield, Award } from "lucide-react";
 import { generateWebPageSchema, generateBreadcrumbSchema, generateLocalBusinessSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
-  title: "Municipal Lawn Care & Landscaping Services | Lawn Care Kuna",
-  description: "Professional grounds maintenance for parks, government facilities, schools, and public spaces across the Treasure Valley. Licensed, bonded, and fully insured.",
+  title: "Municipal Grounds Maintenance in Kuna & Boise, Idaho",
+  description: "Grounds maintenance for parks, schools & public spaces in Kuna, Boise & Treasure Valley. Licensed, bonded & fully insured.",
   alternates: {
     canonical: "https://lawncarekuna.com/commercial/municipal-services",
   },
   openGraph: {
-    title: "Municipal Lawn Care & Landscaping Services | Lawn Care Kuna",
+    title: "Municipal Lawn Care & Landscaping | Lawn Care Kuna",
     description: "Professional grounds maintenance for parks, government facilities, and public spaces.",
-    url: "/commercial/municipal-services",
+    url: "https://lawncarekuna.com/commercial/municipal-services",
     type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: "Municipal Lawn Care & Landscaping | Lawn Care Kuna",
+    description: "Professional grounds maintenance for parks, government facilities, and public spaces.",
   },
 };
 

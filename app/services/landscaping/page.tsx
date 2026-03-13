@@ -16,6 +16,11 @@ export const metadata: Metadata = {
     url: "https://lawncarekuna.com/services/landscaping",
     type: "website",
   },
+  twitter: {
+    card: "summary",
+    title: "Landscaping Services in Kuna & Boise | Lawn Care Kuna",
+    description: "Complete landscaping solutions from design to installation across the Treasure Valley.",
+  },
   alternates: {
     canonical: "https://lawncarekuna.com/services/landscaping",
   },

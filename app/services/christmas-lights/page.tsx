@@ -16,6 +16,11 @@ export const metadata: Metadata = {
     url: "https://lawncarekuna.com/services/christmas-lights",
     type: "website",
   },
+  twitter: {
+    card: "summary",
+    title: "Christmas Light Installation | Lawn Care Kuna",
+    description: "Professional holiday lighting for homes and businesses in Kuna, Boise & Treasure Valley.",
+  },
   alternates: {
     canonical: "https://lawncarekuna.com/services/christmas-lights",
   },

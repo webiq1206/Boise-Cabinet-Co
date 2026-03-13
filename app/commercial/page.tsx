@@ -8,16 +8,21 @@ import { Testimonials } from "@/components/Testimonials";
 import { generateWebPageSchema, generateBreadcrumbSchema, generateLocalBusinessSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
-  title: "Commercial Lawn Care & Landscaping | Lawn Care Kuna",
-  description: "Professional commercial landscaping services for businesses, office parks, retail centers, and commercial properties across the Treasure Valley. Get a free quote today!",
+  title: "Commercial Lawn Care & Landscaping in Kuna & Boise",
+  description: "Commercial landscaping for businesses, office parks & retail in Kuna, Boise & Treasure Valley. Licensed & insured. Free quote!",
   alternates: {
     canonical: "https://lawncarekuna.com/commercial",
   },
   openGraph: {
     title: "Commercial Lawn Care & Landscaping | Lawn Care Kuna",
     description: "Professional landscaping services for businesses across the Treasure Valley.",
-    url: "/commercial",
+    url: "https://lawncarekuna.com/commercial",
     type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: "Commercial Lawn Care & Landscaping | Lawn Care Kuna",
+    description: "Professional landscaping services for businesses across the Treasure Valley.",
   },
 };
 

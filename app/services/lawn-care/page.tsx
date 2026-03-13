@@ -16,6 +16,11 @@ export const metadata: Metadata = {
     url: "https://lawncarekuna.com/services/lawn-care",
     type: "website",
   },
+  twitter: {
+    card: "summary",
+    title: "Lawn Care Services in Kuna & Boise | Lawn Care Kuna",
+    description: "Expert lawn maintenance for beautiful, healthy lawns across the Treasure Valley.",
+  },
   alternates: {
     canonical: "https://lawncarekuna.com/services/lawn-care",
   },
@@ -148,7 +153,7 @@ export default function LawnCarePage() {
                     <CardContent>
                       <Button variant="outline" size="sm" className="bg-gradient-to-br from-primary/10 to-white border-primary/20 text-primary" asChild>
                         <Link href={service.href}>
-                          Learn More
+                          {service.name} Details
                         </Link>
                       </Button>
                     </CardContent>

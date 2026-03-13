@@ -3,21 +3,21 @@ import { ObfuscatedEmail } from "@/components/ObfuscatedEmail";
 import { generateBreadcrumbSchema, generateWebPageSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy",
-  description: "Privacy policy for Lawn Care Kuna. How we collect, use, and protect your personal information when you use our services.",
+  title: "Privacy Policy for Lawn Care Services",
+  description: "Lawn Care Kuna privacy policy. How we protect your data when you request lawn care quotes and services in Kuna & Boise, Idaho.",
   alternates: {
     canonical: "https://lawncarekuna.com/privacy-policy",
   },
   openGraph: {
     title: "Privacy Policy | Lawn Care Kuna",
-    description: "How Lawn Care Kuna collects, uses, and protects your personal information.",
+    description: "How we protect your data when you use Lawn Care Kuna lawn care and landscaping services in Idaho.",
     url: "https://lawncarekuna.com/privacy-policy",
     type: "website",
   },
   twitter: {
     card: "summary",
     title: "Privacy Policy | Lawn Care Kuna",
-    description: "How Lawn Care Kuna collects, uses, and protects your personal information.",
+    description: "How we protect your data when you use Lawn Care Kuna lawn care and landscaping services in Idaho.",
   },
 };
 
@@ -45,7 +45,7 @@ export default function PrivacyPolicyPage() {
       <section className="py-16 md:py-24">
         <div className="container px-4">
           <div className="max-w-3xl mx-auto prose prose-lg">
-            <h1>Privacy Policy</h1>
+            <h1>Privacy Policy for Lawn Care Kuna Services</h1>
             <p className="lead text-muted-foreground">
               Last updated: January 2024
             </p>

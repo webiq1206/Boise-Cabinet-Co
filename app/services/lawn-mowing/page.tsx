@@ -17,6 +17,11 @@ export const metadata: Metadata = {
     url: "https://lawncarekuna.com/services/lawn-mowing",
     type: "website",
   },
+  twitter: {
+    card: "summary",
+    title: "Lawn Mowing Services in Kuna & Boise | Lawn Care Kuna",
+    description: "Weekly and bi-weekly lawn mowing for beautiful, healthy lawns in the Treasure Valley.",
+  },
   alternates: {
     canonical: "https://lawncarekuna.com/services/lawn-mowing",
   },

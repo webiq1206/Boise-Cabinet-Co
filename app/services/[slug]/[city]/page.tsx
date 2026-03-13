@@ -85,16 +85,20 @@ export async function generateMetadata({
   const cityData = CITY_SEO_DATA[city.name as keyof typeof CITY_SEO_DATA];
   const coordinates = cityData?.coordinates;
 
+  const neighborhoodText = city.neighborhoods && city.neighborhoods.length > 0 
+    ? `Serving ${city.neighborhoods.slice(0, 2).join(", ")} & all ${city.name} areas.` 
+    : `Serving all ${city.name} areas.`;
+
   return {
     title: `${service.name} in ${city.name}, Idaho | Licensed Pros | Free Quote`,
-    description: `Top-rated ${service.name.toLowerCase()} in ${city.name}, ID. ${service.shortDescription}. ${city.neighborhoods && city.neighborhoods.length > 0 ? `Serving ${city.neighborhoods.slice(0, 2).join(", ")} & all ${city.name} areas.` : `Serving all ${city.name} areas.`} Licensed & insured. Call (208) 352-2011!`,
+    description: `Top-rated ${service.name.toLowerCase()} in ${city.name}, ID. ${service.shortDescription}. ${neighborhoodText} Licensed & insured. Call (208) 352-2011!`,
     openGraph: {
       title: `${service.name} in ${city.name}, ID | Lawn Care Kuna`,
       description: `Professional ${service.name.toLowerCase()} for ${city.name} homes and businesses. ${city.population} residents trust us. Free estimates!`,
-      url: `https://lawncarekuna.com/services/${service.slug}/${city.slug}`,
+      url: seoMetadata.canonical,
       type: "website",
       locale: "en_US",
-      images: [{ url: seoMetadata.ogImage || "/images/lawn-care-kuna-logo.png" }],
+      images: [{ url: seoMetadata.ogImage }],
     },
     twitter: {
       card: "summary_large_image",
@@ -102,7 +106,7 @@ export async function generateMetadata({
       description: `Top-rated ${service.name.toLowerCase()} in ${city.name}. Licensed, insured, locally owned.`,
     },
     alternates: {
-      canonical: `https://lawncarekuna.com/services/${service.slug}/${city.slug}`,
+      canonical: seoMetadata.canonical,
     },
     other: {
       "geo.region": "US-ID",

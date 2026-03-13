@@ -16,6 +16,11 @@ export const metadata: Metadata = {
     url: "https://lawncarekuna.com/services/fence-installation",
     type: "website",
   },
+  twitter: {
+    card: "summary",
+    title: "Fence Installation in Kuna & Boise | Lawn Care Kuna",
+    description: "Wood, vinyl, and chain link fence installation across the Treasure Valley.",
+  },
   alternates: {
     canonical: "https://lawncarekuna.com/services/fence-installation",
   },

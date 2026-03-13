@@ -3,21 +3,21 @@ import { ObfuscatedEmail } from "@/components/ObfuscatedEmail";
 import { generateBreadcrumbSchema, generateWebPageSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
-  title: "Terms of Service",
-  description: "Terms of service for Lawn Care Kuna. Your rights and responsibilities when using our lawn care and landscaping services.",
+  title: "Terms of Service for Lawn Care & Landscaping",
+  description: "Terms of service for Lawn Care Kuna. Your rights when using our lawn care and landscaping services in Kuna & Boise, Idaho.",
   alternates: {
     canonical: "https://lawncarekuna.com/terms-of-service",
   },
   openGraph: {
     title: "Terms of Service | Lawn Care Kuna",
-    description: "Your rights and responsibilities when using Lawn Care Kuna services.",
+    description: "Your rights when using Lawn Care Kuna lawn care and landscaping services in Idaho's Treasure Valley.",
     url: "https://lawncarekuna.com/terms-of-service",
     type: "website",
   },
   twitter: {
     card: "summary",
     title: "Terms of Service | Lawn Care Kuna",
-    description: "Your rights and responsibilities when using Lawn Care Kuna services.",
+    description: "Your rights when using Lawn Care Kuna lawn care and landscaping services in Idaho's Treasure Valley.",
   },
 };
 
@@ -45,7 +45,7 @@ export default function TermsOfServicePage() {
       <section className="py-16 md:py-24">
         <div className="container px-4">
           <div className="max-w-3xl mx-auto prose prose-lg">
-            <h1>Terms of Service</h1>
+            <h1>Terms of Service for Lawn Care Kuna</h1>
             <p className="lead text-muted-foreground">
               Last updated: January 2024
             </p>
