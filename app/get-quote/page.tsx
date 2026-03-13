@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { CheckCircle2, Phone } from "lucide-react";
 import { HeroQuoteSection } from "@/components/HeroQuoteSection";
 import { Testimonials } from "@/components/Testimonials";
+import { generateBreadcrumbSchema, generateLocalBusinessSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
   title: "Free Lawn Care Quote | Kuna, Boise & Treasure Valley Idaho",
@@ -34,12 +35,26 @@ const benefits = [
 ];
 
 export default function GetQuotePage() {
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: "Home", url: "/" },
+    { name: "Get a Free Quote", url: "/get-quote" },
+  ]);
+  const localBusinessSchema = generateLocalBusinessSchema();
+
   return (
     <div className="flex flex-col">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
+      />
       {/* Hero with Quote Wizard */}
       <HeroQuoteSection
         label="FREE INSTANT ESTIMATE"
-        heading="Get Your Lawn Care Quote"
+        heading="Free Lawn Care Quote in Kuna & Boise, Idaho"
         subheading="Enter your address for an accurate estimate in seconds"
         defaultCity="Kuna"
       />

@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import { ObfuscatedEmail } from "@/components/ObfuscatedEmail";
+import { generateBreadcrumbSchema, generateWebPageSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
@@ -21,8 +22,26 @@ export const metadata: Metadata = {
 };
 
 export default function PrivacyPolicyPage() {
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: "Home", url: "/" },
+    { name: "Privacy Policy", url: "/privacy-policy" },
+  ]);
+  const webPageSchema = generateWebPageSchema({
+    name: "Privacy Policy",
+    description: "Privacy policy for Lawn Care Kuna. How we collect, use, and protect your personal information.",
+    url: "https://lawncarekuna.com/privacy-policy",
+  });
+
   return (
     <div className="flex flex-col">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageSchema) }}
+      />
       <section className="py-16 md:py-24">
         <div className="container px-4">
           <div className="max-w-3xl mx-auto prose prose-lg">

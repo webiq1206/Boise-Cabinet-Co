@@ -173,7 +173,7 @@ export default function HomePage() {
       {/* Hero Section with Quote Wizard - Background extends to trust indicators */}
       <HeroQuoteSection
         label="KUNA'S TRUSTED LAWN CARE"
-        heading="Professional Lawn Care in Kuna"
+        heading="Lawn Care Kuna, Idaho"
         subheading="Top-Rated Local Lawn & Landscaping Services Since 2017"
         defaultCity="Kuna"
         backgroundImage="/images/hero-background.webp"

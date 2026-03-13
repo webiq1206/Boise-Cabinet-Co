@@ -245,7 +245,7 @@ export default function FAQPage() {
                 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground"
                 data-testid="text-faq-heading"
               >
-                Lawn Care Questions, Answered
+                Lawn Care FAQ for Kuna &amp; Treasure Valley, Idaho
               </h1>
               <p
                 className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto"

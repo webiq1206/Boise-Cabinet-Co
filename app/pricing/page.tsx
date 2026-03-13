@@ -98,7 +98,7 @@ export default function PricingPage() {
               Transparent Pricing
             </Badge>
             <h1 className="text-4xl md:text-5xl font-bold text-foreground" data-testid="text-pricing-heading">
-              Simple, Honest Pricing
+              Lawn Care Pricing in Kuna &amp; Boise, Idaho
             </h1>
             <p className="text-lg text-muted-foreground" data-testid="text-pricing-subtitle">
               No hidden fees. No surprises. Just quality lawn care at fair prices.

@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import { ObfuscatedEmail } from "@/components/ObfuscatedEmail";
+import { generateBreadcrumbSchema, generateWebPageSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
   title: "Terms of Service",
@@ -21,8 +22,26 @@ export const metadata: Metadata = {
 };
 
 export default function TermsOfServicePage() {
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: "Home", url: "/" },
+    { name: "Terms of Service", url: "/terms-of-service" },
+  ]);
+  const webPageSchema = generateWebPageSchema({
+    name: "Terms of Service",
+    description: "Terms of service for Lawn Care Kuna. Your rights and responsibilities when using our services.",
+    url: "https://lawncarekuna.com/terms-of-service",
+  });
+
   return (
     <div className="flex flex-col">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageSchema) }}
+      />
       <section className="py-16 md:py-24">
         <div className="container px-4">
           <div className="max-w-3xl mx-auto prose prose-lg">
