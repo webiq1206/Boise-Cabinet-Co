@@ -220,7 +220,7 @@ export default function AreaPage({ params }: { params: { slug: string } }) {
           <ol className="flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
             <li><Link href="/" className="hover-elevate px-1 rounded" data-testid="link-breadcrumb-home">Home</Link></li>
             <li>/</li>
-            <li><Link href="/services" className="hover-elevate px-1 rounded" data-testid="link-breadcrumb-services">Service Areas</Link></li>
+            <li className="text-muted-foreground">Service Areas</li>
             <li>/</li>
             <li className="text-foreground font-medium">{city.name}</li>
           </ol>
