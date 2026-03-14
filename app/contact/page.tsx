@@ -140,7 +140,7 @@ export default function ContactPage() {
         <div className="container px-4">
           <div className="max-w-4xl mx-auto text-center space-y-8">
             <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
-              Request a Free Quote
+              Request a Free Lawn Care Quote in Idaho
             </h2>
             <p className="text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto">
               Fill out our online quote request form and we'll get back to you with a detailed estimate within 24 hours.
@@ -159,7 +159,7 @@ export default function ContactPage() {
       <section className="py-16 md:py-24">
         <div className="container px-4">
           <div className="max-w-4xl mx-auto text-center space-y-8">
-            <h2 className="text-2xl md:text-3xl font-bold">Service Areas</h2>
+            <h2 className="text-2xl md:text-3xl font-bold">Lawn Care Service Areas in the Treasure Valley</h2>
             <p className="text-muted-foreground">
               We proudly serve the following communities in the Treasure Valley
             </p>

@@ -129,7 +129,7 @@ export default function AboutPage() {
         <div className="container px-4">
           <div className="max-w-4xl mx-auto">
             <div className="prose prose-lg max-w-none">
-              <h2 className="text-3xl font-bold mb-6">Our Story</h2>
+              <h2 className="text-3xl font-bold mb-6">Our Story: Lawn Care Pros Serving Kuna Since 2010</h2>
               <p className="text-lg text-muted-foreground mb-4">
                 Since 2017, Lawn Care Kuna has been providing professional lawn care and landscaping services to homeowners and businesses throughout the Treasure Valley. What started as a local <Link href="/services/lawn-mowing" className="text-primary hover:underline">lawn mowing service</Link> has grown into a comprehensive <Link href="/services" className="text-primary hover:underline">landscaping company</Link> offering everything from basic lawn maintenance to complex <Link href="/services/patio-installation" className="text-primary hover:underline">hardscaping projects</Link>.
               </p>
@@ -148,7 +148,7 @@ export default function AboutPage() {
       <section className="py-16 md:py-24 bg-muted/30">
         <div className="container px-4">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl font-bold mb-12 text-center">Credentials & Certifications</h2>
+            <h2 className="text-3xl font-bold mb-12 text-center">Lawn Care Credentials &amp; Idaho Certifications</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {credentials.map((credential, index) => (
                 <Card key={index} className="hover-elevate transition-all duration-200">
@@ -175,7 +175,7 @@ export default function AboutPage() {
         <div className="container px-4">
           <div className="max-w-6xl mx-auto space-y-12">
             <div className="text-center space-y-4">
-              <h2 className="text-3xl md:text-4xl font-bold tracking-tight">Our Values</h2>
+              <h2 className="text-3xl md:text-4xl font-bold tracking-tight">Why Idaho Homeowners Trust Our Lawn Care</h2>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
                 The principles that guide everything we do
               </p>
@@ -204,7 +204,7 @@ export default function AboutPage() {
       <section className="py-16 md:py-24 bg-muted/30">
         <div className="container px-4">
           <div className="max-w-4xl mx-auto text-center space-y-8">
-            <h2 className="text-3xl font-bold">Service Areas</h2>
+            <h2 className="text-3xl font-bold">Lawn Care Service Areas in the Treasure Valley</h2>
             <p className="text-lg text-muted-foreground">
               Proudly serving communities across the Treasure Valley
             </p>

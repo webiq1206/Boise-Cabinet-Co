@@ -134,7 +134,7 @@ export default function LawnCarePage() {
           <div className="container px-4">
             <div className="max-w-6xl mx-auto">
               <div className="text-center max-w-3xl mx-auto mb-12">
-                <h2 className="text-3xl md:text-4xl font-bold mb-4">Our Lawn Care Services</h2>
+                <h2 className="text-3xl md:text-4xl font-bold mb-4">Lawn Care Services for Kuna &amp; Boise Properties</h2>
                 <p className="text-lg text-muted-foreground">
                   Comprehensive lawn maintenance solutions to keep your property looking its best year-round
                 </p>
@@ -168,7 +168,7 @@ export default function LawnCarePage() {
         <section className="py-16 md:py-24 bg-muted/30">
           <div className="container px-4">
             <div className="max-w-4xl mx-auto">
-              <h2 className="text-3xl font-bold mb-12 text-center">Why Choose Professional Lawn Care?</h2>
+              <h2 className="text-3xl font-bold mb-12 text-center">Why Idaho Homeowners Choose Professional Lawn Care</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="flex items-start gap-3">
                   <CheckCircle2 className="h-6 w-6 text-primary flex-shrink-0 mt-1" />
@@ -251,7 +251,7 @@ export default function LawnCarePage() {
           <div className="container px-4">
             <div className="max-w-2xl mx-auto">
               <div className="text-center mb-8">
-                <h2 className="text-3xl font-bold mb-4">Get Your Free Lawn Care Quote</h2>
+                <h2 className="text-3xl font-bold mb-4">Get Your Free Lawn Care Quote in Kuna</h2>
                 <p className="text-lg text-muted-foreground">
                   Tell us about your property and we&apos;ll provide a customized quote
                 </p>
