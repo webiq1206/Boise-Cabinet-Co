@@ -187,18 +187,24 @@ export function generateCityServiceTitle(serviceName: string, cityName: string):
 }
 
 /**
- * Generate varied city-service meta description using neighborhood data
+ * Generate varied city-service meta description
  * Guaranteed under 160 characters
  */
 export function generateCityServiceDescription(
   serviceName: string,
   cityName: string,
   shortDescription?: string,
-  neighborhoodNames?: string[]
 ): string {
   const phone = "(208) 352-2011";
   const serviceLC = serviceName.toLowerCase();
   const cityVariant = CITY_DESCRIPTION_VARIANTS[cityName] || `${cityName}'s trusted`;
+  const cityData = CITY_SEO_DATA[cityName as keyof typeof CITY_SEO_DATA];
+  const neighborhood = cityData?.neighborhoods?.[0];
+
+  if (neighborhood) {
+    const withNeighborhood = `${cityVariant} ${serviceLC}. Serving ${neighborhood} & all ${cityName}. Licensed & insured. Call ${phone}!`;
+    if (withNeighborhood.length <= 160) return withNeighborhood;
+  }
 
   if (shortDescription) {
     const desc = `${cityVariant} ${serviceLC}. ${shortDescription}. Licensed & insured. Call ${phone}!`;
@@ -209,6 +215,25 @@ export function generateCityServiceDescription(
   if (base.length <= 160) return base;
 
   return `${serviceLC} in ${cityName}, ID. Licensed & insured pros. Call ${phone} for a free quote today!`;
+}
+
+/**
+ * Generate a page title for any service or area page
+ * Ensures final rendered title (with layout template " | Lawn Care Kuna")
+ * stays under 60 characters
+ */
+export function generateSafePageTitle(primary: string, suffix?: string): string {
+  const templateSuffix = " | Lawn Care Kuna";
+  const maxLen = 60 - templateSuffix.length;
+
+  if (suffix) {
+    const full = `${primary} | ${suffix}`;
+    if (full.length <= maxLen) return full;
+  }
+
+  if (primary.length <= maxLen) return primary;
+
+  return primary.substring(0, maxLen - 3).trim() + "...";
 }
 
 /**

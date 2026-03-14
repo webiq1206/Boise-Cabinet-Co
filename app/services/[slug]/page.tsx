@@ -41,7 +41,7 @@ import {
   generateLocalBusinessSchema,
   generateSpeakableSchema 
 } from "@/lib/schema";
-import { BUSINESS_INFO } from "@/lib/seo";
+import { BUSINESS_INFO, generateSafePageTitle } from "@/lib/seo";
 import { Testimonials } from "@/components/Testimonials";
 import { RelatedBlogPosts } from "@/components/RelatedBlogPosts";
 
@@ -66,12 +66,16 @@ export async function generateMetadata({
 
   const cityNames = CITIES.map(c => c.name.toLowerCase()).join(", ");
 
+  const safeTitle = generateSafePageTitle(`${service.name} in Kuna & Boise`);
+  const descText = `Professional ${service.name.toLowerCase()} in Kuna, Boise & Treasure Valley. Licensed & insured pros. Call (208) 352-2011 for a free quote!`;
+  const ogDesc = `Expert ${service.name.toLowerCase()} for homes and businesses in ${cityNames}. ${service.shortDescription}`;
+
   return {
-    title: `${service.name} in Kuna & Boise, Idaho`,
-    description: `Professional ${service.name.toLowerCase()} in Kuna, Boise & Treasure Valley. Licensed & insured pros. Call (208) 352-2011 for a free quote!`,
+    title: safeTitle,
+    description: descText.length <= 160 ? descText : descText.substring(0, 157) + "...",
     openGraph: {
       title: `${service.name} Services in Kuna & Boise, ID | Lawn Care Kuna`,
-      description: `Expert ${service.name.toLowerCase()} for homes and businesses in ${cityNames}. ${service.shortDescription}`,
+      description: ogDesc.length <= 200 ? ogDesc : ogDesc.substring(0, 197) + "...",
       url: `https://lawncarekuna.com/services/${service.slug}`,
       type: "website",
       locale: "en_US",

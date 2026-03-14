@@ -91,7 +91,6 @@ export async function generateMetadata({
     service.name,
     city.name,
     service.shortDescription,
-    neighborhoodNames,
   );
 
   return {

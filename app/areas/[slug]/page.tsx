@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { generateSafePageTitle } from "@/lib/seo";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -62,9 +63,12 @@ export async function generateMetadata({
     };
   }
 
+  const safeTitle = generateSafePageTitle(`Lawn Care in ${city.name}, Idaho`);
+  const descText = `Top-rated lawn care in ${city.name}, Idaho. Mowing, landscaping, irrigation & more. Licensed & insured. Call (208) 352-2011 for a free quote!`;
+
   return {
-    title: `Lawn Care in ${city.name}, Idaho`,
-    description: `Top-rated lawn care in ${city.name}, Idaho. Mowing, landscaping, irrigation & more. Licensed & insured. Call (208) 352-2011 for a free quote!`,
+    title: safeTitle,
+    description: descText.length <= 160 ? descText : descText.substring(0, 157) + "...",
     openGraph: {
       title: `Lawn Care in ${city.name}, Idaho | Lawn Care Kuna`,
       description: `Professional lawn care and landscaping services in ${city.name}, ID. ${city.population} residents trust us for lawn mowing, fertilization, irrigation, and more.`,
