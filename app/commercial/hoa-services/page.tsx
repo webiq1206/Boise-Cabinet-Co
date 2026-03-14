@@ -7,7 +7,7 @@ import { Building2, CheckCircle2, FileCheck, Users, Calendar, Shield } from "luc
 import { generateWebPageSchema, generateBreadcrumbSchema, generateLocalBusinessSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
-  title: "HOA Landscaping & Lawn Maintenance in Kuna & Boise",
+  title: "HOA Landscaping in Kuna & Boise",
   description: "HOA landscape maintenance in Kuna, Boise & Treasure Valley. Multi-property expertise, budget-friendly solutions. Licensed & insured.",
   alternates: {
     canonical: "https://lawncarekuna.com/commercial/hoa-services",

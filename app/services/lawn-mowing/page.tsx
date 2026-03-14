@@ -9,8 +9,8 @@ import { CheckCircle2, Calendar, DollarSign, Shield, Clock } from "lucide-react"
 import { generateServiceSchema, generateBreadcrumbSchema, generateLocalBusinessSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
-  title: "Lawn Mowing Services in Kuna & Boise Idaho | Free Quote",
-  description: "Weekly and bi-weekly lawn mowing in Kuna, Boise, Meridian, Eagle, Star & Middleton. Commercial-grade equipment, reliable scheduling. Licensed & insured. Call (208) 352-2011!",
+  title: "Lawn Mowing in Kuna & Boise Idaho",
+  description: "Weekly & bi-weekly lawn mowing in Kuna, Boise & Treasure Valley. Commercial-grade equipment, reliable service. Licensed & insured. Call (208) 352-2011!",
   openGraph: {
     title: "Lawn Mowing Services in Kuna & Boise | Lawn Care Kuna",
     description: "Weekly and bi-weekly lawn mowing for beautiful, healthy lawns in the Treasure Valley. Free quotes!",

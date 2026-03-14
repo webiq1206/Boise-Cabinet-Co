@@ -8,7 +8,7 @@ import { Hammer, Shield, Award, DollarSign } from "lucide-react";
 import { generateServiceSchema, generateBreadcrumbSchema, generateLocalBusinessSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
-  title: "Patio Installation Kuna & Boise Idaho | Pavers & Concrete",
+  title: "Patio Installation in Kuna & Boise",
   description: "Patio installation in Kuna, Boise & Treasure Valley. Pavers, stamped concrete, natural stone. Built for Idaho weather. Call (208) 352-2011!",
   openGraph: {
     title: "Patio Installation in Kuna & Boise | Lawn Care Kuna",

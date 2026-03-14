@@ -8,8 +8,8 @@ import { CheckCircle2, Lightbulb, Home, Trees, Sparkles, Clock, Shield } from "l
 import { generateServiceSchema, generateBreadcrumbSchema, generateLocalBusinessSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
-  title: "Christmas Light Installation Kuna & Boise Idaho | Holiday Lighting",
-  description: "Christmas light installation in Kuna, Boise, Meridian & Treasure Valley. LED lights, full-service setup, maintenance & removal included. Book early! Call (208) 352-2011.",
+  title: "Christmas Lights in Kuna & Boise",
+  description: "Christmas light installation in Kuna, Boise & Treasure Valley. LED lights, full-service setup & removal. Book early! Call (208) 352-2011.",
   openGraph: {
     title: "Christmas Light Installation | Lawn Care Kuna",
     description: "Professional holiday lighting for homes and businesses in Kuna, Boise & Treasure Valley. Free quotes!",

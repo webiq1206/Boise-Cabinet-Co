@@ -8,8 +8,8 @@ import { CheckCircle2, Droplets, Shield, Award } from "lucide-react";
 import { generateServiceSchema, generateBreadcrumbSchema, generateLocalBusinessSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
-  title: "Sprinkler & Irrigation Systems Kuna & Boise Idaho | Install & Repair",
-  description: "Irrigation system installation, repair & maintenance in Kuna, Boise, Meridian & Treasure Valley. Sprinkler systems, smart controllers, winterization. Licensed. Call (208) 352-2011!",
+  title: "Irrigation Systems in Kuna & Boise",
+  description: "Irrigation installation, repair & maintenance in Kuna, Boise & Treasure Valley. Sprinkler systems, smart controllers. Licensed. Call (208) 352-2011!",
   openGraph: {
     title: "Irrigation & Sprinkler Systems | Lawn Care Kuna",
     description: "Sprinkler system design, installation, and repair across the Treasure Valley. Free quotes!",

@@ -8,8 +8,8 @@ import { Hammer, Fence, Droplets, Flame, Lightbulb, Mountain, TreeDeciduous } fr
 import { generateServiceSchema, generateBreadcrumbSchema, generateLocalBusinessSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
-  title: "Landscaping Services in Kuna & Boise Idaho | Free Quote",
-  description: "Complete landscaping in Kuna, Boise, Meridian, Eagle & Treasure Valley. Patios, retaining walls, irrigation, water features & lighting. Licensed & insured. Call (208) 352-2011!",
+  title: "Landscaping in Kuna & Boise Idaho",
+  description: "Complete landscaping in Kuna, Boise & Treasure Valley. Patios, retaining walls, water features & lighting. Licensed & insured. Call (208) 352-2011!",
   openGraph: {
     title: "Landscaping Services in Kuna & Boise | Lawn Care Kuna",
     description: "Complete landscaping solutions from design to installation across the Treasure Valley. Free quotes!",

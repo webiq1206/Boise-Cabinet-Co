@@ -8,8 +8,8 @@ import { Droplets, Shield, Award } from "lucide-react";
 import { generateServiceSchema, generateBreadcrumbSchema, generateLocalBusinessSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
-  title: "Pond & Water Feature Installation Kuna & Boise Idaho",
-  description: "Pond, fountain & water feature installation in Kuna, Boise, Meridian & Treasure Valley. Koi ponds, waterfalls & fountains. Expert design for Idaho climate. Call (208) 352-2011!",
+  title: "Pond Installation in Kuna & Boise",
+  description: "Pond & water feature installation in Kuna, Boise & Treasure Valley. Koi ponds, waterfalls & fountains. Idaho climate design. Call (208) 352-2011!",
   openGraph: {
     title: "Pond & Water Feature Installation | Lawn Care Kuna",
     description: "Pond, fountain, and water feature installation across the Treasure Valley. Free quotes!",

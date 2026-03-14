@@ -188,6 +188,7 @@ export function generateCityServiceTitle(serviceName: string, cityName: string):
 
 /**
  * Generate varied city-service meta description using neighborhood data
+ * Guaranteed under 160 characters
  */
 export function generateCityServiceDescription(
   serviceName: string,
@@ -198,19 +199,16 @@ export function generateCityServiceDescription(
   const phone = "(208) 352-2011";
   const serviceLC = serviceName.toLowerCase();
   const cityVariant = CITY_DESCRIPTION_VARIANTS[cityName] || `${cityName}'s trusted`;
-  const neighborhoods = neighborhoodNames && neighborhoodNames.length > 0
-    ? neighborhoodNames.slice(0, 2)
-    : null;
-  const neighborhoodText = neighborhoods
-    ? `Serving ${neighborhoods.join(", ")} & all ${cityName} areas.`
-    : `Serving all ${cityName} areas.`;
 
   if (shortDescription) {
-    const desc = `${cityVariant} ${serviceLC}. ${shortDescription}. ${neighborhoodText} Call ${phone}!`;
+    const desc = `${cityVariant} ${serviceLC}. ${shortDescription}. Licensed & insured. Call ${phone}!`;
     if (desc.length <= 160) return desc;
   }
 
-  return `${cityVariant} ${serviceLC} pros. ${neighborhoodText} Licensed & insured. Call ${phone} for a free quote!`;
+  const base = `${cityVariant} ${serviceLC} in ${cityName}, ID. Licensed & insured. Call ${phone} for a free quote!`;
+  if (base.length <= 160) return base;
+
+  return `${serviceLC} in ${cityName}, ID. Licensed & insured pros. Call ${phone} for a free quote today!`;
 }
 
 /**

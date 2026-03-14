@@ -8,7 +8,7 @@ import { CheckCircle2, Fence, Shield } from "lucide-react";
 import { generateServiceSchema, generateBreadcrumbSchema, generateLocalBusinessSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
-  title: "Fence Installation Kuna & Boise Idaho | Wood, Vinyl & Chain Link",
+  title: "Fence Installation in Kuna & Boise",
   description: "Fence installation in Kuna, Boise & Treasure Valley. Wood, vinyl, chain link options. Licensed & insured. Call (208) 352-2011 for a free quote!",
   openGraph: {
     title: "Fence Installation in Kuna & Boise | Lawn Care Kuna",

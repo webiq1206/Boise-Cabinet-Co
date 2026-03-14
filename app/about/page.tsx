@@ -7,7 +7,7 @@ import { Testimonials } from "@/components/Testimonials";
 import { generateWebPageSchema, generateBreadcrumbSchema, generateOrganizationSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
-  title: "About Us | Local Idaho Lawn Company Since 2017",
+  title: "About Us | Idaho Lawn Pros Since 2017",
   description: "Meet the Lawn Care Kuna team. Licensed, insured lawn care pros serving Kuna, Boise, Meridian, Eagle, Star & Middleton since 2017. Call (208) 352-2011.",
   alternates: {
     canonical: "https://lawncarekuna.com/about",

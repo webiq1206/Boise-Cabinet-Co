@@ -18,7 +18,7 @@ import { generateBreadcrumbSchema, generateWebPageSchema, generateSpeakableSchem
 import { Testimonials } from "@/components/Testimonials";
 
 export const metadata: Metadata = {
-  title: "Seasonal Lawn Care Guide for Idaho | Month-by-Month Calendar",
+  title: "Seasonal Lawn Care Guide for Idaho",
   description:
     "Month-by-month lawn care calendar for Idaho Zone 6b-7a. When to mow, fertilize, aerate & winterize your lawn. Free guide from Lawn Care Kuna.",
   openGraph: {

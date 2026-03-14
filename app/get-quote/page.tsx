@@ -7,7 +7,7 @@ import { Testimonials } from "@/components/Testimonials";
 import { generateBreadcrumbSchema, generateLocalBusinessSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
-  title: "Free Lawn Care Quote | Kuna, Boise & Treasure Valley Idaho",
+  title: "Free Lawn Care Quote in Idaho",
   description: "Free, no-obligation lawn care quote from Lawn Care Kuna. Mowing, landscaping & seasonal services in Kuna, Boise & Meridian. Fast response!",
   alternates: {
     canonical: "https://lawncarekuna.com/get-quote",

@@ -6,7 +6,7 @@ import { ArrowRight, Scissors, TreeDeciduous, Snowflake, Droplets } from "lucide
 import { PRIORITY_SERVICES } from "@/shared/contentData";
 
 export const metadata: Metadata = {
-  title: "Lawn Care & Landscaping Services in Kuna, Idaho",
+  title: "Lawn Care & Landscaping in Kuna, Idaho",
   description: "All lawn care, landscaping & seasonal services in Kuna, Boise & Treasure Valley. Mowing, patios, fencing, lights & more. Free quotes!",
   alternates: {
     canonical: "https://lawncarekuna.com/services",

@@ -8,7 +8,7 @@ import { Testimonials } from "@/components/Testimonials";
 import { generateWebPageSchema, generateBreadcrumbSchema, generateLocalBusinessSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
-  title: "Commercial Lawn Care & Landscaping in Kuna & Boise",
+  title: "Commercial Landscaping in Kuna & Boise",
   description: "Commercial landscaping for businesses, office parks & retail in Kuna, Boise & Treasure Valley. Licensed & insured. Free quote!",
   alternates: {
     canonical: "https://lawncarekuna.com/commercial",

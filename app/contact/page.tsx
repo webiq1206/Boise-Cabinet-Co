@@ -7,7 +7,7 @@ import { ObfuscatedEmail } from "@/components/ObfuscatedEmail";
 import { generateLocalBusinessSchema, generateBreadcrumbSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
-  title: "Contact Us | Call (208) 352-2011 for Free Quote",
+  title: "Contact Us | (208) 352-2011",
   description: "Contact Lawn Care Kuna for lawn mowing, landscaping & yard services in Kuna, Boise & Treasure Valley. Call (208) 352-2011 or get a free quote.",
   alternates: {
     canonical: "https://lawncarekuna.com/contact",

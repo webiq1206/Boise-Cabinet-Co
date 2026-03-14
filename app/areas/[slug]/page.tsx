@@ -63,8 +63,8 @@ export async function generateMetadata({
   }
 
   return {
-    title: `Lawn Care in ${city.name}, Idaho | Licensed & Local | Free Quote`,
-    description: `Top-rated lawn care in ${city.name}, ID. Professional lawn mowing, landscaping, irrigation & more. Serving ${city.neighborhoods?.slice(0, 3).join(", ")} & all ${city.name} neighborhoods. Licensed & insured. Call (208) 352-2011!`,
+    title: `Lawn Care in ${city.name}, Idaho`,
+    description: `Top-rated lawn care in ${city.name}, Idaho. Mowing, landscaping, irrigation & more. Licensed & insured. Call (208) 352-2011 for a free quote!`,
     openGraph: {
       title: `Lawn Care in ${city.name}, Idaho | Lawn Care Kuna`,
       description: `Professional lawn care and landscaping services in ${city.name}, ID. ${city.population} residents trust us for lawn mowing, fertilization, irrigation, and more.`,

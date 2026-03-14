@@ -7,7 +7,7 @@ import { Landmark, CheckCircle2, Shield, Award } from "lucide-react";
 import { generateWebPageSchema, generateBreadcrumbSchema, generateLocalBusinessSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
-  title: "Municipal Grounds Maintenance in Kuna & Boise, Idaho",
+  title: "Municipal Grounds in Kuna & Boise",
   description: "Grounds maintenance for parks, schools & public spaces in Kuna, Boise & Treasure Valley. Licensed, bonded & fully insured.",
   alternates: {
     canonical: "https://lawncarekuna.com/commercial/municipal-services",

@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Lawn Care Pricing Kuna Idaho | Mowing from $35",
+  title: "Lawn Care Pricing | Mowing from $35",
   description: "Transparent lawn care prices in Kuna, Boise & Treasure Valley. Mowing from $35, fertilization from $50. No hidden fees. Get a free quote!",
   alternates: {
     canonical: "https://lawncarekuna.com/pricing",

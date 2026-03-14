@@ -67,8 +67,8 @@ export async function generateMetadata({
   const cityNames = CITIES.map(c => c.name.toLowerCase()).join(", ");
 
   return {
-    title: `${service.name} Services in Kuna & Boise, Idaho | Free Quote`,
-    description: `Professional ${service.name.toLowerCase()} in Kuna, Boise, Meridian, Eagle & Treasure Valley, ID. ${service.shortDescription}. Licensed & insured. Free estimates. Call (208) 352-2011!`,
+    title: `${service.name} in Kuna & Boise, Idaho`,
+    description: `Professional ${service.name.toLowerCase()} in Kuna, Boise & Treasure Valley. Licensed & insured pros. Call (208) 352-2011 for a free quote!`,
     openGraph: {
       title: `${service.name} Services in Kuna & Boise, ID | Lawn Care Kuna`,
       description: `Expert ${service.name.toLowerCase()} for homes and businesses in ${cityNames}. ${service.shortDescription}`,

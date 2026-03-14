@@ -3,7 +3,7 @@ import { ObfuscatedEmail } from "@/components/ObfuscatedEmail";
 import { generateBreadcrumbSchema, generateWebPageSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
-  title: "Terms of Service for Lawn Care & Landscaping",
+  title: "Terms of Service for Lawn Care",
   description: "Terms of service for Lawn Care Kuna. Your rights when using our lawn care and landscaping services in Kuna & Boise, Idaho.",
   alternates: {
     canonical: "https://lawncarekuna.com/terms-of-service",

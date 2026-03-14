@@ -23,7 +23,7 @@ import { ServiceAreasSection } from "@/components/ServiceAreasSection";
 import { generateLocalBusinessSchema, generateOrganizationSchema, generateFAQSchema, generateSpeakableSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
-  title: "Lawn Care Kuna Idaho | Mowing & Landscaping | Free Quotes",
+  title: "Lawn Care & Landscaping in Idaho",
   description: "Top-rated lawn care in Kuna, Boise & Treasure Valley, Idaho. Mowing, landscaping, irrigation & cleanup. Licensed & insured. Call (208) 352-2011!",
   alternates: {
     canonical: "https://lawncarekuna.com/",
