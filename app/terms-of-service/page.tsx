@@ -27,9 +27,9 @@ export default function TermsOfServicePage() {
     { name: "Terms of Service", url: "/terms-of-service" },
   ]);
   const webPageSchema = generateWebPageSchema({
-    name: "Terms of Service",
+    title: "Terms of Service",
     description: "Terms of service for Lawn Care Kuna. Your rights and responsibilities when using our services.",
-    url: "https://lawncarekuna.com/terms-of-service",
+    url: "/terms-of-service",
   });
 
   return (

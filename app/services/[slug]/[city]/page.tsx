@@ -103,7 +103,7 @@ export async function generateMetadata({
       url: seoMetadata.canonical,
       type: "website",
       locale: "en_US",
-      images: [{ url: seoMetadata.ogImage }],
+      ...(seoMetadata.ogImage && { images: [{ url: seoMetadata.ogImage }] }),
     },
     twitter: {
       card: "summary_large_image",

@@ -27,9 +27,9 @@ export default function PrivacyPolicyPage() {
     { name: "Privacy Policy", url: "/privacy-policy" },
   ]);
   const webPageSchema = generateWebPageSchema({
-    name: "Privacy Policy",
+    title: "Privacy Policy",
     description: "Privacy policy for Lawn Care Kuna. How we collect, use, and protect your personal information.",
-    url: "https://lawncarekuna.com/privacy-policy",
+    url: "/privacy-policy",
   });
 
   return (
