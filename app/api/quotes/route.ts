@@ -144,7 +144,7 @@ function calculateLeadPrice(params: {
   finalQuote: number;
 }): { basePrice: number; currentPrice: number } {
   let basePrice = params.finalQuote * 0.10;
-  basePrice = Math.max(15, basePrice);
+  basePrice = Math.max(5, basePrice);
   basePrice = Math.min(50, basePrice);
   basePrice = roundToNearestFive(basePrice);
 
