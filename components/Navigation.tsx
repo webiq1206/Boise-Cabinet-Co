@@ -176,7 +176,7 @@ export function Navigation() {
                     <div className="mt-4 pt-4 border-t">
                       <Link href="/services">
                         <div className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-md bg-primary/5 hover-elevate active-elevate-2 transition-all cursor-pointer group">
-                          <span className="text-sm font-medium text-primary">View All Services</span>
+                          <span className="text-sm font-medium text-primary">Browse All Lawn &amp; Landscaping Services</span>
                           <ArrowRight className="h-4 w-4 text-primary group-hover:translate-x-1 transition-transform" />
                         </div>
                       </Link>
@@ -228,7 +228,7 @@ export function Navigation() {
               <Link href="/pricing">View Pricing</Link>
             </Button>
             <Button size="sm" asChild>
-              <Link href="/get-quote">Get Free Quote</Link>
+              <Link href="/get-quote">Get Your Free Lawn Care Quote</Link>
             </Button>
           </div>
         </div>

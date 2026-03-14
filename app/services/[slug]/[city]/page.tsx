@@ -548,7 +548,7 @@ export default function CityServicePage({
               <div className="max-w-5xl mx-auto space-y-12">
                 <div className="text-center space-y-4">
                   <h2 className="text-2xl md:text-3xl font-bold" data-testid="text-process-heading">
-                    How Our {service.name} Process Works
+                    How {service.name} Works in {city.name}, Idaho
                   </h2>
                   <p className="text-muted-foreground max-w-2xl mx-auto">
                     Our streamlined process ensures quality results for every {city.name} property
@@ -582,7 +582,7 @@ export default function CityServicePage({
             <div className="max-w-6xl mx-auto space-y-8">
               <div className="text-center space-y-4">
                 <h2 className="text-2xl md:text-3xl font-bold" data-testid="text-testimonials-heading">
-                  What {city.name} Customers Say
+                  {service.name} Reviews from {city.name} Customers
                 </h2>
                 <p className="text-muted-foreground">
                   Real reviews from homeowners and businesses in {city.name} and the Treasure Valley
@@ -627,7 +627,7 @@ export default function CityServicePage({
               <div className="max-w-6xl mx-auto space-y-8">
                 <div className="text-center space-y-4">
                   <h2 className="text-2xl md:text-3xl font-bold" data-testid="text-related-heading">
-                    Related Services in {city.name}
+                    Related Lawn &amp; Landscaping Services in {city.name}
                   </h2>
                   <p className="text-muted-foreground">
                     Complement your {service.name.toLowerCase()} with these additional services
@@ -672,7 +672,7 @@ export default function CityServicePage({
           <div className="container px-4">
             <div className="max-w-4xl mx-auto text-center space-y-8">
               <h2 className="text-2xl md:text-3xl font-bold" data-testid="text-other-cities-heading">
-                {service.name} Also Available In
+                {service.name} in Other Idaho Cities
               </h2>
               <p className="text-muted-foreground">
                 We provide {service.name.toLowerCase()} throughout the Treasure Valley
@@ -699,7 +699,7 @@ export default function CityServicePage({
           <div className="container px-4">
             <div className="max-w-5xl mx-auto rounded-2xl bg-gradient-to-br from-green-950 via-primary to-green-700 text-white p-10 md:p-16 text-center space-y-8 shadow-xl">
               <h2 className="text-3xl md:text-4xl font-bold tracking-tight" data-testid="text-cta-heading">
-                Ready for Professional {service.name} in {city.name}?
+                Get a Free {service.name} Quote in {city.name}
               </h2>
               <p className="text-lg text-white/85 leading-relaxed max-w-2xl mx-auto">
                 Get a free, no-obligation quote for your {city.name} property. We'll assess your needs and provide transparent pricing.

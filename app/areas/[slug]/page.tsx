@@ -472,7 +472,7 @@ export default function AreaPage({ params }: { params: { slug: string } }) {
             <div className="max-w-6xl mx-auto space-y-8">
               <div className="text-center space-y-4">
                 <h2 className="text-2xl md:text-3xl font-bold" data-testid="text-testimonials-heading">
-                  What {city.name} Customers Say
+                  Lawn Care Reviews from {city.name} Customers
                 </h2>
                 <p className="text-muted-foreground">
                   Real reviews from homeowners and businesses in {city.name} and the Treasure Valley
@@ -514,7 +514,7 @@ export default function AreaPage({ params }: { params: { slug: string } }) {
         <section className="py-12 md:py-16" data-testid="section-helpful-links">
           <div className="container px-4">
             <div className="max-w-4xl mx-auto space-y-6">
-              <h2 className="text-xl font-bold text-center" data-testid="text-helpful-links">Helpful Resources</h2>
+              <h2 className="text-xl font-bold text-center" data-testid="text-helpful-links">Idaho Lawn Care Resources</h2>
               <div className="grid sm:grid-cols-3 gap-3">
                 <Link href="/faq" className="flex items-center gap-2 p-3 rounded-md border bg-background hover-elevate text-sm" data-testid="link-cross-faq">
                   <HelpCircle className="h-4 w-4 text-primary flex-shrink-0" aria-hidden="true" />
@@ -537,7 +537,7 @@ export default function AreaPage({ params }: { params: { slug: string } }) {
           <div className="container px-4">
             <div className="max-w-4xl mx-auto text-center space-y-8">
               <h2 className="text-2xl md:text-3xl font-bold" data-testid="text-other-areas-heading">
-                Also Serving Nearby Treasure Valley Communities
+                Lawn Care in Other Treasure Valley Cities
               </h2>
               <p className="text-muted-foreground">
                 In addition to {city.name}, we provide lawn care throughout the Treasure Valley
@@ -564,7 +564,7 @@ export default function AreaPage({ params }: { params: { slug: string } }) {
           <div className="container px-4">
             <div className="max-w-5xl mx-auto rounded-2xl bg-gradient-to-br from-green-950 via-primary to-green-700 text-white p-10 md:p-16 text-center space-y-8 shadow-xl">
               <h2 className="text-3xl md:text-4xl font-bold tracking-tight" data-testid="text-cta-heading">
-                Ready to Transform Your {city.name} Property?
+                Get a Free Lawn Care Quote in {city.name}
               </h2>
               <p className="text-lg text-white/85 leading-relaxed max-w-2xl mx-auto">
                 Get a free, no-obligation quote for your {city.name} home or business. 
