@@ -121,7 +121,7 @@ const organizationSchema = {
   ]
 }
 
-const GA_MEASUREMENT_ID = process.env.VITE_GA_MEASUREMENT_ID || 'G-1HD7RT8PKJ';
+const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || 'G-1HD7RT8PKJ';
 
 export default function RootLayout({
   children,
@@ -138,10 +138,6 @@ export default function RootLayout({
           type="image/webp"
           fetchPriority="high"
         />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
-        />
       </head>
       <body className="min-h-screen bg-background font-sans antialiased">
         <Providers>
@@ -155,17 +151,17 @@ export default function RootLayout({
           </div>
           <Toaster />
         </Providers>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+        />
         <Script
           src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
           strategy="afterInteractive"
         />
-        <Script
-          id="ga4-init"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${GA_MEASUREMENT_ID}');`,
-          }}
-        />
+        <Script id="ga4-init" strategy="afterInteractive">
+          {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${GA_MEASUREMENT_ID}');`}
+        </Script>
       </body>
     </html>
   )

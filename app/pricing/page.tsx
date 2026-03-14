@@ -1,11 +1,9 @@
-"use client";
-
 import Link from "next/link";
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Testimonials } from "@/components/Testimonials";
+import { PricingQuoteButton } from "@/components/PricingQuoteButton";
 import { 
   ArrowRight, 
   Leaf, 
@@ -14,13 +12,12 @@ import {
   Droplets,
   Sparkles
 } from "lucide-react";
-import { QuoteLightbox } from "@/components/QuoteLightbox";
 
 const pricingCategories = [
   {
     title: "Lawn Care",
     description: "Regular maintenance services",
-    icon: Leaf,
+    iconKey: "leaf" as const,
     iconBg: "bg-primary/10",
     iconColor: "text-primary",
     services: [
@@ -35,7 +32,7 @@ const pricingCategories = [
   {
     title: "Seasonal Services",
     description: "Spring, fall, and winter care",
-    icon: TreeDeciduous,
+    iconKey: "tree" as const,
     iconBg: "bg-amber-100",
     iconColor: "text-amber-600",
     services: [
@@ -48,7 +45,7 @@ const pricingCategories = [
   {
     title: "Landscaping",
     description: "Design and installation",
-    icon: Hammer,
+    iconKey: "hammer" as const,
     iconBg: "bg-orange-100",
     iconColor: "text-orange-600",
     services: [
@@ -61,7 +58,7 @@ const pricingCategories = [
   {
     title: "Irrigation",
     description: "System installation and repair",
-    icon: Droplets,
+    iconKey: "droplets" as const,
     iconBg: "bg-blue-100",
     iconColor: "text-blue-600",
     services: [
@@ -72,24 +69,16 @@ const pricingCategories = [
   },
 ];
 
+const iconMap = {
+  leaf: Leaf,
+  tree: TreeDeciduous,
+  hammer: Hammer,
+  droplets: Droplets,
+};
+
 export default function PricingPage() {
-  const [lightboxOpen, setLightboxOpen] = useState(false);
-  const [selectedService, setSelectedService] = useState<{ slug: string; name: string } | null>(null);
-
-  const handleGetQuote = (service: { slug: string; name: string }) => {
-    setSelectedService(service);
-    setLightboxOpen(true);
-  };
-
   return (
     <div className="flex flex-col">
-      <QuoteLightbox
-        open={lightboxOpen}
-        onOpenChange={setLightboxOpen}
-        preselectedService={selectedService?.slug}
-        serviceName={selectedService?.name}
-      />
-
       <section className="relative py-16 md:py-24 bg-gradient-to-b from-primary/5 to-background">
         <div className="container px-4">
           <div className="max-w-3xl mx-auto text-center space-y-4">
@@ -110,70 +99,70 @@ export default function PricingPage() {
       <section className="py-16 md:py-24">
         <div className="container px-4">
           <div className="max-w-6xl mx-auto space-y-16">
-            {pricingCategories.map((category, categoryIndex) => (
-              <div key={categoryIndex} className="space-y-6" data-testid={`section-pricing-${category.title.toLowerCase().replace(/\s+/g, '-')}`}>
-                <div className="flex items-center flex-wrap gap-4">
-                  <div className={`p-3 rounded-md ${category.iconBg}`}>
-                    <category.icon className={`h-6 w-6 ${category.iconColor}`} aria-hidden="true" />
+            {pricingCategories.map((category, categoryIndex) => {
+              const IconComponent = iconMap[category.iconKey];
+              return (
+                <div key={categoryIndex} className="space-y-6" data-testid={`section-pricing-${category.title.toLowerCase().replace(/\s+/g, '-')}`}>
+                  <div className="flex items-center flex-wrap gap-4">
+                    <div className={`p-3 rounded-md ${category.iconBg}`}>
+                      <IconComponent className={`h-6 w-6 ${category.iconColor}`} aria-hidden="true" />
+                    </div>
+                    <div>
+                      <h2 className="text-2xl md:text-3xl font-bold" data-testid={`text-category-title-${categoryIndex}`}>
+                        {category.title}
+                      </h2>
+                      <p className="text-muted-foreground">{category.description}</p>
+                    </div>
                   </div>
-                  <div>
-                    <h2 className="text-2xl md:text-3xl font-bold" data-testid={`text-category-title-${categoryIndex}`}>
-                      {category.title}
-                    </h2>
-                    <p className="text-muted-foreground">{category.description}</p>
+
+                  <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                    {category.services.map((service, index) => (
+                      <Card 
+                        key={index} 
+                        className="group hover-elevate bg-gradient-to-br from-primary/5 to-white dark:from-primary/10 dark:to-background overflow-visible"
+                        data-testid={`card-service-${service.slug}`}
+                      >
+                        <CardContent className="p-5 space-y-4">
+                          <div className="space-y-1">
+                            <h3 className="font-semibold text-lg" data-testid={`text-service-name-${service.slug}`}>
+                              {service.name}
+                            </h3>
+                            <p className="text-sm text-muted-foreground">{service.note}</p>
+                          </div>
+                          
+                          <div className="flex items-baseline flex-wrap gap-1">
+                            <span className="text-2xl font-bold" data-testid={`text-service-price-${service.slug}`}>
+                              {service.price}
+                            </span>
+                            <span className="text-sm text-muted-foreground">
+                              {service.priceNote}
+                            </span>
+                          </div>
+
+                          <div className="flex items-center flex-wrap gap-2 pt-2">
+                            <PricingQuoteButton
+                              serviceSlug={service.slug}
+                              serviceName={service.name}
+                              testId={`button-quote-${service.slug}`}
+                            />
+                            <Button 
+                              size="sm" 
+                              variant="outline"
+                              className="flex-1 bg-gradient-to-br from-primary/10 to-white border-primary/20 text-primary"
+                              asChild
+                            >
+                              <Link href={`/services/${service.slug}`} data-testid={`link-details-${service.slug}`}>
+                                Details
+                              </Link>
+                            </Button>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    ))}
                   </div>
                 </div>
-
-                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                  {category.services.map((service, index) => (
-                    <Card 
-                      key={index} 
-                      className="group hover-elevate bg-gradient-to-br from-primary/5 to-white dark:from-primary/10 dark:to-background overflow-visible"
-                      data-testid={`card-service-${service.slug}`}
-                    >
-                      <CardContent className="p-5 space-y-4">
-                        <div className="space-y-1">
-                          <h3 className="font-semibold text-lg" data-testid={`text-service-name-${service.slug}`}>
-                            {service.name}
-                          </h3>
-                          <p className="text-sm text-muted-foreground">{service.note}</p>
-                        </div>
-                        
-                        <div className="flex items-baseline flex-wrap gap-1">
-                          <span className="text-2xl font-bold" data-testid={`text-service-price-${service.slug}`}>
-                            {service.price}
-                          </span>
-                          <span className="text-sm text-muted-foreground">
-                            {service.priceNote}
-                          </span>
-                        </div>
-
-                        <div className="flex items-center flex-wrap gap-2 pt-2">
-                          <Button 
-                            size="sm" 
-                            className="flex-1"
-                            onClick={() => handleGetQuote({ slug: service.slug, name: service.name })}
-                            data-testid={`button-quote-${service.slug}`}
-                          >
-                            Get Quote
-                          </Button>
-                          <Button 
-                            size="sm" 
-                            variant="outline"
-                            className="flex-1 bg-gradient-to-br from-primary/10 to-white border-primary/20 text-primary"
-                            asChild
-                          >
-                            <Link href={`/services/${service.slug}`} data-testid={`link-details-${service.slug}`}>
-                              Details
-                            </Link>
-                          </Button>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
