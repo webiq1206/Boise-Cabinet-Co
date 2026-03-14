@@ -168,7 +168,7 @@ export function generateOrganizationSchema(): SchemaContext {
     legalName: BUSINESS_INFO.legalName,
     url: baseUrl,
     logo: `${baseUrl}/images/lawn-care-kuna-logo.png`,
-    description: 'Professional lawn care and landscaping services serving the Treasure Valley since 2010. Licensed, insured, and committed to excellence.',
+    description: 'Professional lawn care and landscaping services serving the Treasure Valley since 2017. Licensed, insured, and committed to excellence.',
     foundingDate: BUSINESS_INFO.founded,
     telephone: BUSINESS_INFO.phone,
     email: BUSINESS_INFO.email,

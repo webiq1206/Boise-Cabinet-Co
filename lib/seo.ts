@@ -176,18 +176,14 @@ export function generateMetaDescription(params: ServiceSEOParams): string {
 /**
  * Generate varied city-service title (used for page metadata title field)
  * Does NOT include brand name since layout template appends "| Lawn Care Kuna"
+ * Target: under 40 chars so final rendered title stays under 60 chars
  */
 export function generateCityServiceTitle(serviceName: string, cityName: string): string {
-  const cityData = CITY_SEO_DATA[cityName as keyof typeof CITY_SEO_DATA];
-  const neighborhoods = cityData?.neighborhoods;
-  const neighborhoodHint = neighborhoods && neighborhoods.length > 0
-    ? neighborhoods[0]
-    : null;
-
-  if (neighborhoodHint && `${serviceName} in ${cityName} (${neighborhoodHint}) Idaho`.length <= 55) {
-    return `${serviceName} in ${cityName} (${neighborhoodHint}) Idaho`;
+  const short = `${serviceName} in ${cityName}, Idaho`;
+  if (short.length <= 40) {
+    return short;
   }
-  return `${serviceName} in ${cityName}, Idaho | Licensed Pros | Free Quote`;
+  return `${serviceName} in ${cityName}, ID`;
 }
 
 /**
@@ -391,7 +387,7 @@ export const BUSINESS_INFO = {
     saturday: '8:00 AM - 4:00 PM',
     sunday: 'Closed',
   },
-  founded: '2010',
+  founded: '2017',
   serviceArea: ['Kuna', 'Boise', 'Meridian', 'Eagle', 'Star', 'Middleton'],
   serviceRadius: '25 miles',
   licenses: ['Idaho Contractor License #RCE-12345', 'Pesticide Applicator License #AG-67890'],

@@ -129,7 +129,7 @@ export default function AboutPage() {
         <div className="container px-4">
           <div className="max-w-4xl mx-auto">
             <div className="prose prose-lg max-w-none">
-              <h2 className="text-3xl font-bold mb-6">Our Story: Lawn Care Pros Serving Kuna Since 2010</h2>
+              <h2 className="text-3xl font-bold mb-6">Our Story: Lawn Care Pros Serving Kuna Since 2017</h2>
               <p className="text-lg text-muted-foreground mb-4">
                 Since 2017, Lawn Care Kuna has been providing professional lawn care and landscaping services to homeowners and businesses throughout the Treasure Valley. What started as a local <Link href="/services/lawn-mowing" className="text-primary hover:underline">lawn mowing service</Link> has grown into a comprehensive <Link href="/services" className="text-primary hover:underline">landscaping company</Link> offering everything from basic lawn maintenance to complex <Link href="/services/patio-installation" className="text-primary hover:underline">hardscaping projects</Link>.
               </p>

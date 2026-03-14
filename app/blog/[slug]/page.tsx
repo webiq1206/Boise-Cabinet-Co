@@ -314,7 +314,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
                 </Link>
               </Button>
               <Button size="lg" variant="outline" asChild className="border-white/40 text-white bg-white/10 backdrop-blur-sm hover:bg-white/20">
-                <Link href="tel:2083149867" data-testid="link-bottom-cta-call">
+                <Link href="tel:2083522011" data-testid="link-bottom-cta-call">
                   <Phone className="mr-2 h-4 w-4" />
                   (208) 352-2011
                 </Link>
