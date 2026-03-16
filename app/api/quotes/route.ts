@@ -63,7 +63,7 @@ const SERVICE_PRICING_RATES: Record<string, { lowRate: number; highRate: number;
   "tree-removal": { lowRate: 625.00, highRate: 1000.00, unit: "per_tree", minimum: 500 },
   "tree-trimming": { lowRate: 250.00, highRate: 450.00, unit: "per_tree", minimum: 200 },
   "stump-grinding": { lowRate: 3.75, highRate: 5.00, unit: "per_inch", minimum: 100 },
-  "hedge-trimming": { lowRate: 6.25, highRate: 15.00, unit: "per_shrub", minimum: 50 },
+  "hedge-trimming": { lowRate: 0.015, highRate: 0.035, unit: "sqft", minimum: 75 },
   "spring-cleanup": { lowRate: 0.0125, highRate: 0.025, unit: "sqft", minimum: 150 },
   "fall-cleanup": { lowRate: 0.01875, highRate: 0.030, unit: "sqft", minimum: 175 },
   "seasonal-cleanup": { lowRate: 0.0125, highRate: 0.025, unit: "sqft", minimum: 150 },
