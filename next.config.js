@@ -52,7 +52,21 @@ const nextConfig = {
     const activeCities = ['kuna', 'boise', 'meridian', 'eagle', 'star', 'middleton'];
     const retiredCities = ['nampa', 'caldwell', 'garden-city'];
 
+    const topLevelRedirects = [];
     const cityServiceRedirects = [];
+
+    for (const [oldSlug, newService] of Object.entries(serviceMap)) {
+      topLevelRedirects.push({
+        source: `/${oldSlug}`,
+        destination: `/services/${newService}`,
+        permanent: true,
+      });
+      topLevelRedirects.push({
+        source: `/${oldSlug}/`,
+        destination: `/services/${newService}`,
+        permanent: true,
+      });
+    }
 
     for (const city of activeCities) {
       for (const [oldSlug, newService] of Object.entries(serviceMap)) {
@@ -63,6 +77,16 @@ const nextConfig = {
         });
         cityServiceRedirects.push({
           source: `/${city}/${oldSlug}-location-1city-name/`,
+          destination: `/services/${newService}/${city}`,
+          permanent: true,
+        });
+        cityServiceRedirects.push({
+          source: `/${city}/${oldSlug}`,
+          destination: `/services/${newService}/${city}`,
+          permanent: true,
+        });
+        cityServiceRedirects.push({
+          source: `/${city}/${oldSlug}/`,
           destination: `/services/${newService}/${city}`,
           permanent: true,
         });
@@ -81,16 +105,24 @@ const nextConfig = {
           destination: `/services/${newService}`,
           permanent: true,
         });
+        cityServiceRedirects.push({
+          source: `/${city}/${oldSlug}`,
+          destination: `/services/${newService}`,
+          permanent: true,
+        });
+        cityServiceRedirects.push({
+          source: `/${city}/${oldSlug}/`,
+          destination: `/services/${newService}`,
+          permanent: true,
+        });
       }
     }
 
     return [
-      { source: '/sprinkler-blowouts', destination: '/services/sprinkler-blowout', permanent: true },
-      { source: '/sprinkler-blowouts/', destination: '/services/sprinkler-blowout', permanent: true },
+      ...topLevelRedirects,
+
       { source: '/sprinkler-blowouts-2', destination: '/services/sprinkler-blowout', permanent: true },
       { source: '/sprinkler-blowouts-2/', destination: '/services/sprinkler-blowout', permanent: true },
-      { source: '/snow-removal', destination: '/services/snow-removal', permanent: true },
-      { source: '/snow-removal/', destination: '/services/snow-removal', permanent: true },
       { source: '/about-us', destination: '/about', permanent: true },
       { source: '/about-us/', destination: '/about', permanent: true },
       { source: '/contact-us', destination: '/contact', permanent: true },
