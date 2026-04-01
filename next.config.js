@@ -114,13 +114,13 @@ const nextConfig = {
       'firepit': 'fire-pit-installation',
       'landscape-lighting': 'landscape-lighting',
       'outdoor-lighting': 'landscape-lighting',
-      'gutter-cleaning': 'seasonal-cleanup',
-      'gutter-clean': 'seasonal-cleanup',
-      'gutters': 'seasonal-cleanup',
+      'gutter-cleaning': 'gutter-cleaning',
+      'gutter-clean': 'gutter-cleaning',
+      'gutters': 'gutter-cleaning',
       'irrigation': 'irrigation-repair',
       'sprinkler': 'irrigation-repair',
       'sprinklers': 'irrigation-repair',
-      'sprinkler-system': 'sprinkler-system-installation',
+      'sprinkler-system': 'irrigation-repair',
       'lawn-renovation': 'lawn-renovation',
       'lawn-repair': 'lawn-renovation',
       'lawn-restoration': 'lawn-renovation',
@@ -131,8 +131,6 @@ const nextConfig = {
 
     const activeCities = ['kuna', 'boise', 'meridian', 'eagle', 'star', 'middleton'];
     const retiredCityMap = { 'nampa': '/areas/kuna', 'caldwell': '/areas/kuna', 'garden-city': '/areas/boise' };
-    const allCities = [...activeCities, ...Object.keys(retiredCityMap)];
-
     const redirects = [];
 
     for (const [oldSlug, newService] of Object.entries(serviceMap)) {
@@ -173,6 +171,7 @@ const nextConfig = {
     }
 
     for (const [city, fallback] of Object.entries(retiredCityMap)) {
+      redirects.push(...r(`/${city}`, fallback));
       for (const suffix of cityVariationSuffixes) {
         redirects.push(...r(`/${city}${suffix}`, fallback));
       }
@@ -184,7 +183,7 @@ const nextConfig = {
     const pageAliases = {
       '/our-services': '/services',
       '/all-services': '/services',
-      '/lawn-care': '/services/lawn-care',
+      '/lawn-care': '/services',
       '/lawn-care-services': '/services',
       '/lawn-services': '/services',
       '/landscaping': '/services',
