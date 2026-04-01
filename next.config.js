@@ -114,9 +114,9 @@ const nextConfig = {
       'firepit': 'fire-pit-installation',
       'landscape-lighting': 'landscape-lighting',
       'outdoor-lighting': 'landscape-lighting',
-      'gutter-cleaning': 'gutter-cleaning',
-      'gutter-clean': 'gutter-cleaning',
-      'gutters': 'gutter-cleaning',
+      'gutter-cleaning': 'seasonal-cleanup',
+      'gutter-clean': 'seasonal-cleanup',
+      'gutters': 'seasonal-cleanup',
       'irrigation': 'irrigation-repair',
       'sprinkler': 'irrigation-repair',
       'sprinklers': 'irrigation-repair',
@@ -124,9 +124,6 @@ const nextConfig = {
       'lawn-renovation': 'lawn-renovation',
       'lawn-repair': 'lawn-renovation',
       'lawn-restoration': 'lawn-renovation',
-      'fence': 'fence',
-      'fencing': 'fence',
-      'fence-installation': 'fence',
     };
 
     const activeCities = ['kuna', 'boise', 'meridian', 'eagle', 'star', 'middleton'];
