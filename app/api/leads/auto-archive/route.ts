@@ -2,18 +2,9 @@ import { getSession, getUserFromDb } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { leads } from "@/shared/schema";
 import { eq, and, lt } from "drizzle-orm";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function POST() {
-  const session = await getSession();
-  if (!session.userId) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
-  const user = await getUserFromDb(session.userId);
-  if (!user || user.role !== "admin") {
-    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
-  }
-
+async function runAutoArchive() {
   if (!db) {
     return NextResponse.json({ error: "Database not available" }, { status: 500 });
   }
@@ -36,4 +27,35 @@ export async function POST() {
     archivedCount: archived.length,
     archivedIds: archived.map(l => l.id),
   });
+}
+
+async function authenticateAdmin(request?: NextRequest) {
+  const cronSecret = process.env.CRON_SECRET;
+  if (cronSecret && request) {
+    const authHeader = request.headers.get("authorization");
+    if (authHeader === `Bearer ${cronSecret}`) {
+      return true;
+    }
+  }
+
+  const session = await getSession();
+  if (!session.userId) return false;
+  const user = await getUserFromDb(session.userId);
+  return user?.role === "admin";
+}
+
+export async function POST(request: NextRequest) {
+  const isAuthed = await authenticateAdmin(request);
+  if (!isAuthed) {
+    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+  }
+  return runAutoArchive();
+}
+
+export async function GET(request: NextRequest) {
+  const isAuthed = await authenticateAdmin(request);
+  if (!isAuthed) {
+    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+  }
+  return runAutoArchive();
 }

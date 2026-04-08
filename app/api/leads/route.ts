@@ -1,7 +1,7 @@
 import { getSession, getUserFromDb } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { leads } from "@/shared/schema";
-import { desc, eq, and, gte, lt, ne, or, type SQL } from "drizzle-orm";
+import { desc, eq, and, lt, type SQL } from "drizzle-orm";
 import { NextResponse } from "next/server";
 
 async function autoArchiveStaleLeads() {

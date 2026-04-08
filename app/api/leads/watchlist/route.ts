@@ -35,7 +35,7 @@ export async function GET() {
   const watchedLeads = [];
   for (const id of watchedIds) {
     const result = await db.select().from(leads).where(eq(leads.id, id));
-    if (result[0] && result[0].status === "available") {
+    if (result[0] && result[0].status === "available" && result[0].status !== "purchased" && result[0].status !== "archived") {
       const lead = { ...result[0] };
       lead.name = "***";
       lead.email = "***";
