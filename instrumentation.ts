@@ -12,8 +12,7 @@ export async function register() {
       const sql = neon(dbUrl);
 
       const leadRows = await sql`SELECT id, status, purchased_by FROM leads WHERE id = ${LEAD_ID}`;
-      if (leadRows.length === 0 || leadRows[0].status === "purchased") {
-      } else {
+      if (leadRows.length > 0 && leadRows[0].status !== "purchased") {
         const existingRows = await sql`SELECT id FROM lead_purchases WHERE lead_id = ${LEAD_ID}`;
         if (existingRows.length === 0) {
           await sql`
@@ -32,7 +31,7 @@ export async function register() {
         }
       }
 
-      const archiveResult = await sql`
+      await sql`
         UPDATE leads SET status = 'archived', updated_at = NOW()
         WHERE status = 'available' AND created_at < NOW() - INTERVAL '7 days'
       `;
