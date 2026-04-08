@@ -381,8 +381,8 @@ function AdminDashboardContent() {
   const tabParam = searchParams.get("tab");
   const queryClient = useQueryClient();
   
-  const [activeTab, setActiveTab] = useState<"pending" | "accepted" | "available" | "all" | "subcontractors">(() => {
-    if (tabParam === "pending" || tabParam === "accepted" || tabParam === "available" || tabParam === "all" || tabParam === "subcontractors") return tabParam;
+  const [activeTab, setActiveTab] = useState<"pending" | "accepted" | "available" | "all" | "archived" | "subcontractors">(() => {
+    if (tabParam === "pending" || tabParam === "accepted" || tabParam === "available" || tabParam === "all" || tabParam === "archived" || tabParam === "subcontractors") return tabParam;
     return "pending";
   });
   
@@ -469,7 +469,9 @@ function AdminDashboardContent() {
             ? "available"
             : lead.status === "purchased"
               ? "all"
-              : "pending";
+              : lead.status === "archived"
+                ? "archived"
+                : "pending";
 
     if (activeTab !== desiredTab) {
       setActiveTab(desiredTab);
@@ -698,6 +700,7 @@ function AdminDashboardContent() {
   const acceptedLeads = filteredLeads.filter(l => l.status === "accepted");
   const declinedLeads = filteredLeads.filter(l => l.status === "available");
   const allPurchasedLeads = filteredLeads.filter(l => l.status === "purchased");
+  const archivedLeads = filteredLeads.filter(l => l.status === "archived");
 
   const tabLeads = useMemo(() => {
     switch (activeTab) {
@@ -705,9 +708,10 @@ function AdminDashboardContent() {
       case "accepted": return acceptedLeads;
       case "available": return declinedLeads;
       case "all": return allPurchasedLeads;
+      case "archived": return archivedLeads;
       default: return pendingLeads;
     }
-  }, [activeTab, pendingLeads, acceptedLeads, declinedLeads, allPurchasedLeads]);
+  }, [activeTab, pendingLeads, acceptedLeads, declinedLeads, allPurchasedLeads, archivedLeads]);
 
   const formatCurrency = (amount: string | null | undefined) => {
     if (!amount) return "$0.00";
@@ -900,8 +904,8 @@ function AdminDashboardContent() {
                 {priority.toUpperCase()}
               </Badge>
             )}
-            <Badge variant={lead.status === "pending_admin" ? "default" : lead.status === "purchased" ? "secondary" : "outline"} className="text-[10px] px-1.5 py-0" data-testid={`badge-status-${lead.id}`}>
-              {lead.status === "pending_admin" ? "Pending Review" : lead.status === "purchased" ? "Purchased" : "Available"}
+            <Badge variant={lead.status === "pending_admin" ? "default" : lead.status === "purchased" ? "secondary" : lead.status === "archived" ? "destructive" : "outline"} className="text-[10px] px-1.5 py-0" data-testid={`badge-status-${lead.id}`}>
+              {lead.status === "pending_admin" ? "Pending Review" : lead.status === "purchased" ? "Purchased" : lead.status === "archived" ? "Archived" : "Available"}
             </Badge>
           </div>
           <div className="flex items-center gap-0.5 flex-shrink-0">
@@ -1699,6 +1703,9 @@ function AdminDashboardContent() {
               <TabsTrigger value="all" data-testid="tab-all" className="text-xs md:text-sm">
                 Purchased ({allPurchasedLeads.length})
               </TabsTrigger>
+              <TabsTrigger value="archived" data-testid="tab-archived" className="text-xs md:text-sm">
+                Archived ({archivedLeads.length})
+              </TabsTrigger>
               <TabsTrigger value="subcontractors" data-testid="tab-subcontractors" className="text-xs md:text-sm">
                 Subs
               </TabsTrigger>
@@ -1750,6 +1757,18 @@ function AdminDashboardContent() {
               </Card>
             ) : (
               allPurchasedLeads.map(lead => <LeadCard key={lead.id} lead={lead} />)
+            )}
+          </TabsContent>
+
+          <TabsContent value="archived" className="space-y-4">
+            {archivedLeads.length === 0 ? (
+              <Card>
+                <CardContent className="py-8 text-center text-muted-foreground">
+                  {hasActiveFilters ? "No archived leads match your filters" : "No archived leads. Unpurchased leads older than 7 days are auto-archived."}
+                </CardContent>
+              </Card>
+            ) : (
+              archivedLeads.map(lead => <LeadCard key={lead.id} lead={lead} />)
             )}
           </TabsContent>
 

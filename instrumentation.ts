@@ -13,31 +13,32 @@ export async function register() {
 
       const leadRows = await sql`SELECT id, status, purchased_by FROM leads WHERE id = ${LEAD_ID}`;
       if (leadRows.length === 0 || leadRows[0].status === "purchased") {
-        return;
+      } else {
+        const existingRows = await sql`SELECT id FROM lead_purchases WHERE lead_id = ${LEAD_ID}`;
+        if (existingRows.length === 0) {
+          await sql`
+            INSERT INTO lead_purchases (lead_id, user_id, purchase_price, stripe_payment_intent_id, created_at)
+            VALUES (${LEAD_ID}, ${GARY_USER_ID}, ${PURCHASE_PRICE}, 'pi_admin_resolved_gary', NOW())
+          `;
+          await sql`
+            UPDATE leads SET
+              status = 'purchased',
+              purchased_by = ${GARY_USER_ID},
+              purchased_at = NOW(),
+              purchase_price = ${PURCHASE_PRICE}
+            WHERE id = ${LEAD_ID}
+          `;
+          console.log("[startup] Resolved Gary's lead purchase: " + LEAD_ID);
+        }
       }
 
-      const existingRows = await sql`SELECT id FROM lead_purchases WHERE lead_id = ${LEAD_ID}`;
-      if (existingRows.length > 0) {
-        return;
-      }
-
-      await sql`
-        INSERT INTO lead_purchases (lead_id, user_id, purchase_price, stripe_payment_intent_id, created_at)
-        VALUES (${LEAD_ID}, ${GARY_USER_ID}, ${PURCHASE_PRICE}, 'pi_admin_resolved_gary', NOW())
+      const archiveResult = await sql`
+        UPDATE leads SET status = 'archived', updated_at = NOW()
+        WHERE status = 'available' AND created_at < NOW() - INTERVAL '7 days'
       `;
-
-      await sql`
-        UPDATE leads SET
-          status = 'purchased',
-          purchased_by = ${GARY_USER_ID},
-          purchased_at = NOW(),
-          purchase_price = ${PURCHASE_PRICE}
-        WHERE id = ${LEAD_ID}
-      `;
-
-      console.log("[startup] Resolved Gary's lead purchase: " + LEAD_ID);
+      console.log("[startup] Auto-archived stale leads (7+ days old)");
     } catch (e) {
-      console.error("[startup] Could not auto-resolve lead purchase, use /api/admin/resolve-payment instead");
+      console.error("[startup] Error during startup tasks:", e);
     }
   }
 }

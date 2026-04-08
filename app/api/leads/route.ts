@@ -1,8 +1,27 @@
 import { getSession, getUserFromDb } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { leads } from "@/shared/schema";
-import { desc, eq, and, gte, type SQL } from "drizzle-orm";
+import { desc, eq, and, gte, lt, ne, or, type SQL } from "drizzle-orm";
 import { NextResponse } from "next/server";
+
+async function autoArchiveStaleLeads() {
+  if (!db) return;
+  try {
+    const sevenDaysAgo = new Date();
+    sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+    await db.update(leads).set({
+      status: "archived",
+      updatedAt: new Date(),
+    }).where(
+      and(
+        eq(leads.status, "available"),
+        lt(leads.createdAt, sevenDaysAgo)
+      )
+    );
+  } catch (e) {
+    console.error("[auto-archive] Error archiving stale leads:", e);
+  }
+}
 
 export async function GET(request: Request) {
   const session = await getSession();
@@ -17,6 +36,8 @@ export async function GET(request: Request) {
   if (!db) {
     return NextResponse.json({ error: "Database not available" }, { status: 500 });
   }
+
+  await autoArchiveStaleLeads();
 
   const url = new URL(request.url);
   const status = url.searchParams.get("status");
@@ -55,7 +76,15 @@ export async function GET(request: Request) {
     return NextResponse.json(allLeads);
   }
 
-  const masked = allLeads.map((lead) => {
+  const filtered = allLeads.filter((lead) => {
+    if (lead.status === "archived") return false;
+    if (lead.status === "purchased" && lead.purchasedBy !== user.id) return false;
+    if (lead.status === "declined_admin") return false;
+    if (lead.status === "pending_admin") return false;
+    return true;
+  });
+
+  const masked = filtered.map((lead) => {
     if (lead.purchasedBy === user.id) {
       return lead;
     }
