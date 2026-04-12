@@ -969,17 +969,6 @@ export function SimpleQuoteWizard({
                     </div>
                   </div>
                   
-                  <div className="p-4 bg-primary/10 rounded-lg text-center">
-                    <div className="text-sm text-muted-foreground">Estimated Price Range</div>
-                    <div className="text-3xl font-bold text-primary">
-                      {formatPriceRange(priceRange.min, priceRange.max)}
-                    </div>
-                    {recurringCount > 0 && (
-                      <div className="text-xs text-muted-foreground mt-1">
-                        {recurringCount} recurring service{recurringCount !== 1 ? "s" : ""} included
-                      </div>
-                    )}
-                  </div>
                 </CardContent>
               </Card>
               
