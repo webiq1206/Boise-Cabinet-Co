@@ -159,67 +159,72 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Payment intent ID or credits required" }, { status: 400 });
     }
 
-    if (creditsUsed > 0) {
-      const result = await db.update(users).set({
-        creditBalance: sql`(CAST(${users.creditBalance} AS DECIMAL(10,2)) - ${String(creditsUsed)})::TEXT`,
-        updatedAt: new Date(),
-      }).where(
-        and(
-          eq(users.id, user.id),
-          sql`CAST(${users.creditBalance} AS DECIMAL(10,2)) >= ${String(creditsUsed)}`
-        )
-      ).returning();
-
-      if (result.length === 0) {
-        return NextResponse.json({ error: "Insufficient credit balance" }, { status: 400 });
-      }
-    }
-
     const creditAllocation = distributeCreditsProportionally(fetchedLeads, creditsUsed);
-    const purchases = [];
-    const updatedLeads = [];
 
-    for (const lead of fetchedLeads) {
-      const leadCredits = creditAllocation.get(lead.id) || 0;
-      const [purchase] = await db.insert(leadPurchases).values({
-        leadId: lead.id,
-        userId: user.id,
-        purchasePrice: lead.currentLeadPrice,
-        stripePaymentIntentId: stripePaymentId,
-        creditsUsed: String(leadCredits),
-      }).returning();
+    const result = await db.transaction(async (tx) => {
+      if (creditsUsed > 0) {
+        const deductResult = await tx.update(users).set({
+          creditBalance: sql`(CAST(${users.creditBalance} AS DECIMAL(10,2)) - ${String(creditsUsed)})::TEXT`,
+          updatedAt: new Date(),
+        }).where(
+          and(
+            eq(users.id, user.id),
+            sql`CAST(${users.creditBalance} AS DECIMAL(10,2)) >= ${String(creditsUsed)}`
+          )
+        ).returning();
 
-      const [updatedLead] = await db.update(leads).set({
-        status: "purchased",
-        purchasedBy: user.id,
-        purchasedAt: new Date(),
-        purchasePrice: lead.currentLeadPrice,
-        stripePaymentIntentId: stripePaymentId,
-      }).where(eq(leads.id, lead.id)).returning();
+        if (deductResult.length === 0) {
+          throw new Error("Insufficient credit balance");
+        }
+      }
 
-      purchases.push(purchase);
-      updatedLeads.push(updatedLead);
-    }
+      const purchases = [];
+      const updatedLeads = [];
 
-    if (creditsUsed > 0) {
-      const freshUser = await db.select({ creditBalance: users.creditBalance }).from(users).where(eq(users.id, user.id));
-      const newBalance = freshUser[0]?.creditBalance || "0";
-      await db.insert(creditTransactions).values({
-        userId: user.id,
-        amount: String(-creditsUsed),
-        type: "purchase_debit",
-        description: `Bulk purchase: ${fetchedLeads.length} leads`,
-        leadPurchaseId: purchases[0]?.id || null,
-        balanceAfter: newBalance,
-      });
-    }
+      for (const lead of fetchedLeads) {
+        const leadCredits = creditAllocation.get(lead.id) || 0;
+        const [purchase] = await tx.insert(leadPurchases).values({
+          leadId: lead.id,
+          userId: user.id,
+          purchasePrice: lead.currentLeadPrice,
+          stripePaymentIntentId: stripePaymentId,
+          creditsUsed: String(leadCredits),
+        }).returning();
+
+        const [updatedLead] = await tx.update(leads).set({
+          status: "purchased",
+          purchasedBy: user.id,
+          purchasedAt: new Date(),
+          purchasePrice: lead.currentLeadPrice,
+          stripePaymentIntentId: stripePaymentId,
+        }).where(eq(leads.id, lead.id)).returning();
+
+        purchases.push(purchase);
+        updatedLeads.push(updatedLead);
+      }
+
+      if (creditsUsed > 0) {
+        const freshUser = await tx.select({ creditBalance: users.creditBalance }).from(users).where(eq(users.id, user.id));
+        const newBalance = freshUser[0]?.creditBalance || "0";
+        await tx.insert(creditTransactions).values({
+          userId: user.id,
+          amount: String(-creditsUsed),
+          type: "purchase_debit",
+          description: `Bulk purchase: ${fetchedLeads.length} leads`,
+          leadPurchaseId: purchases[0]?.id || null,
+          balanceAfter: newBalance,
+        });
+      }
+
+      return { purchases, updatedLeads };
+    });
 
     try {
       const { sendLeadPurchasedNotification } = await import("@/server/services/emailNotifications");
       const buyerName = user.company || `${user.firstName || ''} ${user.lastName || ''}`.trim();
       const buyerEmail = user.email || '';
 
-      for (const updatedLead of updatedLeads) {
+      for (const updatedLead of result.updatedLeads) {
         sendLeadPurchasedNotification(
           {
             id: updatedLead.id,
@@ -237,12 +242,13 @@ export async function POST(request: NextRequest) {
       }
     } catch (e) {}
 
-    return NextResponse.json({ success: true, purchases, leads: updatedLeads, creditsUsed });
+    return NextResponse.json({ success: true, purchases: result.purchases, leads: result.updatedLeads, creditsUsed });
   } catch (error) {
     console.error("Error bulk purchasing leads:", error);
-    return NextResponse.json(
-      { error: error instanceof Error ? error.message : "Failed to bulk purchase leads" },
-      { status: 500 }
-    );
+    const message = error instanceof Error ? error.message : "Failed to bulk purchase leads";
+    if (message === "Insufficient credit balance") {
+      return NextResponse.json({ error: message }, { status: 400 });
+    }
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }

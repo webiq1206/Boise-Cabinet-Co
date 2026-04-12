@@ -72,21 +72,25 @@ export async function POST(
     return NextResponse.json({ error: "Cannot add credits to an inactive account" }, { status: 400 });
   }
 
-  const [updatedUser] = await db.update(users).set({
-    creditBalance: sql`(CAST(${users.creditBalance} AS DECIMAL(10,2)) + ${String(amount)})::TEXT`,
-    updatedAt: new Date(),
-  }).where(eq(users.id, userId)).returning();
+  const result = await db.transaction(async (tx) => {
+    const [updatedUser] = await tx.update(users).set({
+      creditBalance: sql`(CAST(${users.creditBalance} AS DECIMAL(10,2)) + ${String(amount)})::TEXT`,
+      updatedAt: new Date(),
+    }).where(eq(users.id, userId)).returning();
 
-  const newBalance = updatedUser.creditBalance || "0";
+    const newBalance = updatedUser.creditBalance || "0";
 
-  const [transaction] = await db.insert(creditTransactions).values({
-    userId,
-    amount: String(amount),
-    type: "admin_credit",
-    description: description || null,
-    adminId: session.userId,
-    balanceAfter: newBalance,
-  }).returning();
+    const [transaction] = await tx.insert(creditTransactions).values({
+      userId,
+      amount: String(amount),
+      type: "admin_credit",
+      description: description || null,
+      adminId: session.userId,
+      balanceAfter: newBalance,
+    }).returning();
 
-  return NextResponse.json({ user: updatedUser, transaction });
+    return { user: updatedUser, transaction };
+  });
+
+  return NextResponse.json(result);
 }
