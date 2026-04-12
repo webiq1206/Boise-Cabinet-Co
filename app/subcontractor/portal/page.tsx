@@ -561,6 +561,13 @@ function SubcontractorPortalContent() {
   const [paymentAmount, setPaymentAmount] = useState(0);
   const [paymentSuccess, setPaymentSuccess] = useState(false);
   const [pendingPurchaseLeadIds, setPendingPurchaseLeadIds] = useState<string[]>([]);
+  const [creditPurchaseInfo, setCreditPurchaseInfo] = useState<{
+    coveredByCredits: boolean;
+    creditsToApply: number;
+    creditBalance: number;
+    amountDue: number;
+    leadPrice: number;
+  } | null>(null);
   
   // Notification preferences
   const [showNotificationPrefs, setShowNotificationPrefs] = useState(false);
@@ -698,8 +705,20 @@ function SubcontractorPortalContent() {
       return res.json();
     },
     onSuccess: (data) => {
-      setPaymentClientSecret(data.clientSecret);
-      setPaymentAmount(data.amount);
+      setCreditPurchaseInfo({
+        coveredByCredits: data.coveredByCredits || false,
+        creditsToApply: data.creditsToApply || 0,
+        creditBalance: data.creditBalance || 0,
+        amountDue: data.amountDue || 0,
+        leadPrice: data.leadPrice || 0,
+      });
+      if (data.coveredByCredits) {
+        setPaymentClientSecret(null);
+        setPaymentAmount(0);
+      } else {
+        setPaymentClientSecret(data.clientSecret);
+        setPaymentAmount(data.amount);
+      }
     },
     onError: (error: Error) => {
       toast({ title: "Error", description: error.message, variant: "destructive" });
@@ -721,8 +740,20 @@ function SubcontractorPortalContent() {
       return res.json();
     },
     onSuccess: (data) => {
-      setPaymentClientSecret(data.clientSecret);
-      setPaymentAmount(data.amount);
+      setCreditPurchaseInfo({
+        coveredByCredits: data.coveredByCredits || false,
+        creditsToApply: data.creditsToApply || 0,
+        creditBalance: data.creditBalance || 0,
+        amountDue: data.amountDue || 0,
+        leadPrice: data.total || 0,
+      });
+      if (data.coveredByCredits) {
+        setPaymentClientSecret(null);
+        setPaymentAmount(0);
+      } else {
+        setPaymentClientSecret(data.clientSecret);
+        setPaymentAmount(data.amount);
+      }
     },
     onError: (error: Error) => {
       toast({ title: "Error", description: error.message, variant: "destructive" });
@@ -731,19 +762,23 @@ function SubcontractorPortalContent() {
 
   // Purchase lead mutation
   const purchaseLeadMutation = useMutation({
-    mutationFn: async ({ leadId, paymentIntentId }: { leadId: string; paymentIntentId?: string }) => {
+    mutationFn: async ({ leadId, paymentIntentId, useCredits, creditsToApply }: { leadId: string; paymentIntentId?: string; useCredits?: boolean; creditsToApply?: number }) => {
       const res = await fetch(`/api/leads/${leadId}/purchase`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ paymentIntentId }),
+        body: JSON.stringify({ paymentIntentId, useCredits, creditsToApply }),
       });
-      if (!res.ok) throw new Error("Failed to purchase lead");
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.error || "Failed to purchase lead");
+      }
       return res.json();
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/leads"] });
       queryClient.invalidateQueries({ queryKey: ["/api/leads/watchlist"] });
       queryClient.invalidateQueries({ queryKey: ["/api/leads/purchases"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/auth/user"] });
       setPaymentSuccess(true);
     },
     onError: (error: Error) => {
@@ -753,19 +788,23 @@ function SubcontractorPortalContent() {
 
   // Bulk purchase mutation
   const bulkPurchaseMutation = useMutation({
-    mutationFn: async ({ leadIds, paymentIntentId }: { leadIds: string[]; paymentIntentId?: string }) => {
+    mutationFn: async ({ leadIds, paymentIntentId, useCredits, creditsToApply }: { leadIds: string[]; paymentIntentId?: string; useCredits?: boolean; creditsToApply?: number }) => {
       const res = await fetch("/api/leads/bulk-purchase", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ leadIds, paymentIntentId }),
+        body: JSON.stringify({ leadIds, paymentIntentId, useCredits, creditsToApply }),
       });
-      if (!res.ok) throw new Error("Failed to purchase leads");
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.error || "Failed to purchase leads");
+      }
       return res.json();
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/leads"] });
       queryClient.invalidateQueries({ queryKey: ["/api/leads/watchlist"] });
       queryClient.invalidateQueries({ queryKey: ["/api/leads/purchases"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/auth/user"] });
       setSelectedLeadIds([]);
       setPaymentSuccess(true);
     },
@@ -950,10 +989,20 @@ function SubcontractorPortalContent() {
   };
 
   const handlePaymentSuccess = (paymentIntentId: string) => {
+    const credits = creditPurchaseInfo?.creditsToApply || 0;
     if (singlePurchaseLead) {
-      purchaseLeadMutation.mutate({ leadId: singlePurchaseLead.id, paymentIntentId });
+      purchaseLeadMutation.mutate({ leadId: singlePurchaseLead.id, paymentIntentId, creditsToApply: credits });
     } else {
-      bulkPurchaseMutation.mutate({ leadIds: pendingPurchaseLeadIds, paymentIntentId });
+      bulkPurchaseMutation.mutate({ leadIds: pendingPurchaseLeadIds, paymentIntentId, creditsToApply: credits });
+    }
+  };
+
+  const handleCreditPurchase = () => {
+    const credits = creditPurchaseInfo?.creditsToApply || 0;
+    if (singlePurchaseLead) {
+      purchaseLeadMutation.mutate({ leadId: singlePurchaseLead.id, useCredits: true, creditsToApply: credits });
+    } else {
+      bulkPurchaseMutation.mutate({ leadIds: pendingPurchaseLeadIds, useCredits: true, creditsToApply: credits });
     }
   };
 
@@ -962,6 +1011,7 @@ function SubcontractorPortalContent() {
     setPaymentClientSecret(null);
     setSinglePurchaseLead(null);
     setPendingPurchaseLeadIds([]);
+    setCreditPurchaseInfo(null);
   };
 
   const handlePaymentComplete = () => {
@@ -970,6 +1020,7 @@ function SubcontractorPortalContent() {
     setPaymentSuccess(false);
     setSinglePurchaseLead(null);
     setPendingPurchaseLeadIds([]);
+    setCreditPurchaseInfo(null);
     router.push("/subcontractor/purchases");
   };
 
@@ -1214,6 +1265,12 @@ function SubcontractorPortalContent() {
               </div>
             </div>
             <div className="flex items-center gap-1 md:gap-2">
+              {parseFloat(user?.creditBalance || "0") > 0 && (
+                <div className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-primary/10 text-sm font-medium" data-testid="text-credit-balance-header">
+                  <DollarSign className="h-3.5 w-3.5 text-primary" />
+                  <span>{parseFloat(user?.creditBalance || "0").toFixed(2)} credits</span>
+                </div>
+              )}
               <NotificationsBell />
               <Button variant="ghost" size="icon" onClick={() => setShowNotificationPrefs(true)} title="Notification Settings">
                 <Bell className="h-5 w-5" />
@@ -1827,23 +1884,79 @@ function SubcontractorPortalContent() {
 
       {/* Purchase Dialog */}
       <Dialog open={purchaseDialogOpen} onOpenChange={(open) => !open && handlePaymentCancel()}>
-        <DialogContent className="max-w-md">
+        <DialogContent className="max-w-md" data-testid="modal-purchase">
           {paymentSuccess ? (
             <PaymentSuccess 
               message={`You've successfully purchased ${pendingPurchaseLeadIds.length} lead${pendingPurchaseLeadIds.length !== 1 ? 's' : ''}! View your purchase history to see the contact information.`}
               onContinue={handlePaymentComplete}
             />
+          ) : creditPurchaseInfo?.coveredByCredits ? (
+            <div className="space-y-4" data-testid="section-credit-purchase">
+              <DialogHeader>
+                <DialogTitle className="flex items-center gap-2">
+                  <DollarSign className="h-5 w-5 text-primary" />
+                  Confirm Credit Purchase
+                </DialogTitle>
+                <DialogDescription>
+                  This purchase will be fully covered by your account credits.
+                </DialogDescription>
+              </DialogHeader>
+              <div className="space-y-3 p-4 rounded-md bg-muted/50">
+                <div className="flex items-center justify-between text-sm">
+                  <span className="text-muted-foreground">Lead cost</span>
+                  <span className="font-medium" data-testid="text-credit-lead-cost">${creditPurchaseInfo.leadPrice.toFixed(2)}</span>
+                </div>
+                <div className="flex items-center justify-between text-sm">
+                  <span className="text-muted-foreground">Credits applied</span>
+                  <span className="font-medium text-primary" data-testid="text-credit-applied">-${creditPurchaseInfo.creditsToApply.toFixed(2)}</span>
+                </div>
+                <div className="border-t pt-2 flex items-center justify-between">
+                  <span className="font-medium">Amount due</span>
+                  <span className="font-bold text-lg" data-testid="text-credit-amount-due">$0.00</span>
+                </div>
+                <p className="text-xs text-muted-foreground">
+                  Remaining balance after purchase: ${(creditPurchaseInfo.creditBalance - creditPurchaseInfo.creditsToApply).toFixed(2)}
+                </p>
+              </div>
+              <DialogFooter className="gap-2 sm:gap-0">
+                <Button variant="outline" onClick={handlePaymentCancel} data-testid="button-cancel-credit-purchase">
+                  Cancel
+                </Button>
+                <Button
+                  onClick={handleCreditPurchase}
+                  disabled={purchaseLeadMutation.isPending || bulkPurchaseMutation.isPending}
+                  data-testid="button-confirm-credit-purchase"
+                >
+                  {purchaseLeadMutation.isPending || bulkPurchaseMutation.isPending
+                    ? "Processing..."
+                    : "Purchase with Credits"}
+                </Button>
+              </DialogFooter>
+            </div>
           ) : paymentClientSecret ? (
-            <StripePaymentForm
-              clientSecret={paymentClientSecret}
-              amount={paymentAmount}
-              description={singlePurchaseLead 
-                ? `Lead: ${getLeadDisplayTitle(singlePurchaseLead)} in ${singlePurchaseLead.city}`
-                : `${pendingPurchaseLeadIds.length} Leads (${selectedLeadsTotal.discount}% bulk discount)`
-              }
-              onSuccess={handlePaymentSuccess}
-              onCancel={handlePaymentCancel}
-            />
+            <div>
+              {creditPurchaseInfo && creditPurchaseInfo.creditsToApply > 0 && (
+                <div className="mb-4 p-3 rounded-md bg-primary/5 border border-primary/20 space-y-1" data-testid="section-partial-credit-info">
+                  <p className="text-sm font-medium flex items-center gap-1.5">
+                    <DollarSign className="h-3.5 w-3.5 text-primary" />
+                    Credits applied: ${creditPurchaseInfo.creditsToApply.toFixed(2)}
+                  </p>
+                  <p className="text-xs text-muted-foreground">
+                    Original: ${creditPurchaseInfo.leadPrice.toFixed(2)} / Remaining to charge: ${creditPurchaseInfo.amountDue.toFixed(2)}
+                  </p>
+                </div>
+              )}
+              <StripePaymentForm
+                clientSecret={paymentClientSecret}
+                amount={paymentAmount}
+                description={singlePurchaseLead 
+                  ? `Lead: ${getLeadDisplayTitle(singlePurchaseLead)} in ${singlePurchaseLead.city}`
+                  : `${pendingPurchaseLeadIds.length} Leads (${selectedLeadsTotal.discount}% bulk discount)`
+                }
+                onSuccess={handlePaymentSuccess}
+                onCancel={handlePaymentCancel}
+              />
+            </div>
           ) : (
             <StripePaymentFormSkeleton />
           )}

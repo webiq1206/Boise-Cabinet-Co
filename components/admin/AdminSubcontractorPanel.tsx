@@ -1,13 +1,18 @@
 "use client";
 
 import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Skeleton } from "@/components/ui/skeleton";
-import { CheckCircle2, Clock, Mail, Phone, Building, FileText, Globe, Shield } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
+import { CheckCircle2, Clock, Mail, Phone, Building, FileText, Globe, Shield, DollarSign, Plus, ArrowDownLeft, ArrowUpRight } from "lucide-react";
 
 interface User {
   id: string;
@@ -18,6 +23,7 @@ interface User {
   company?: string | null;
   licenseNumber?: string | null;
   role: string;
+  creditBalance?: string | null;
   agreementAccepted?: boolean | null;
   agreementAcceptedAt?: string | Date | null;
   agreementSignature?: string | null;
@@ -26,8 +32,25 @@ interface User {
   agreementVersion?: string | null;
 }
 
+interface CreditTransaction {
+  id: string;
+  userId: string;
+  amount: string;
+  type: string;
+  description?: string | null;
+  adminId?: string | null;
+  leadPurchaseId?: string | null;
+  balanceAfter: string;
+  createdAt: string | Date;
+}
+
 export function AdminSubcontractorPanel() {
   const [selectedSubcontractor, setSelectedSubcontractor] = useState<User | null>(null);
+  const [creditDialogSub, setCreditDialogSub] = useState<User | null>(null);
+  const [creditAmount, setCreditAmount] = useState("");
+  const [creditDescription, setCreditDescription] = useState("");
+  const queryClient = useQueryClient();
+  const { toast } = useToast();
 
   const { data: subcontractors = [], isLoading } = useQuery<User[]>({
     queryKey: ["/api/admin/subcontractors"],
@@ -37,6 +60,59 @@ export function AdminSubcontractorPanel() {
       return res.json();
     },
   });
+
+  const { data: creditHistory = [] } = useQuery<CreditTransaction[]>({
+    queryKey: ["/api/admin/subcontractors", selectedSubcontractor?.id, "credits"],
+    queryFn: async () => {
+      if (!selectedSubcontractor?.id) return [];
+      const res = await fetch(`/api/admin/subcontractors/${selectedSubcontractor.id}/credits`);
+      if (!res.ok) throw new Error("Failed to fetch credit history");
+      return res.json();
+    },
+    enabled: !!selectedSubcontractor?.id,
+  });
+
+  const addCreditMutation = useMutation({
+    mutationFn: async ({ userId, amount, description }: { userId: string; amount: number; description: string }) => {
+      const res = await fetch(`/api/admin/subcontractors/${userId}/credits`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ amount, description }),
+      });
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.error || "Failed to add credits");
+      }
+      return res.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/subcontractors"] });
+      if (selectedSubcontractor) {
+        queryClient.invalidateQueries({ queryKey: ["/api/admin/subcontractors", selectedSubcontractor.id, "credits"] });
+      }
+      toast({ title: "Credits Added", description: `$${parseFloat(creditAmount).toFixed(2)} in credits added successfully.` });
+      setCreditDialogSub(null);
+      setCreditAmount("");
+      setCreditDescription("");
+    },
+    onError: (error: Error) => {
+      toast({ title: "Error", description: error.message, variant: "destructive" });
+    },
+  });
+
+  const handleAddCredits = () => {
+    if (!creditDialogSub) return;
+    const amount = parseFloat(creditAmount);
+    if (isNaN(amount) || amount <= 0) {
+      toast({ title: "Invalid Amount", description: "Please enter a positive dollar amount.", variant: "destructive" });
+      return;
+    }
+    addCreditMutation.mutate({
+      userId: creditDialogSub.id,
+      amount,
+      description: creditDescription.trim(),
+    });
+  };
 
   const formatDate = (date: Date | string | null | undefined) => {
     if (!date) return "N/A";
@@ -64,6 +140,11 @@ export function AdminSubcontractorPanel() {
     const lastName = sub.lastName || "";
     const fullName = `${firstName} ${lastName}`.trim();
     return fullName || sub.email || "Unknown";
+  };
+
+  const formatCurrency = (amount: string | null | undefined) => {
+    if (!amount) return "$0.00";
+    return `$${parseFloat(amount).toFixed(2)}`;
   };
 
   if (isLoading) {
@@ -105,8 +186,9 @@ export function AdminSubcontractorPanel() {
                   <TableHead>Name</TableHead>
                   <TableHead>Email</TableHead>
                   <TableHead>Company</TableHead>
-                  <TableHead>Agreement Status</TableHead>
-                  <TableHead>Signed Date</TableHead>
+                  <TableHead>Credits</TableHead>
+                  <TableHead>Agreement</TableHead>
+                  <TableHead>Actions</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -126,6 +208,11 @@ export function AdminSubcontractorPanel() {
                     <TableCell data-testid={`text-subcontractor-company-${sub.id}`}>
                       {sub.company || "N/A"}
                     </TableCell>
+                    <TableCell data-testid={`text-subcontractor-credits-${sub.id}`}>
+                      <span className={parseFloat(sub.creditBalance || "0") > 0 ? "font-semibold text-primary" : "text-muted-foreground"}>
+                        {formatCurrency(sub.creditBalance)}
+                      </span>
+                    </TableCell>
                     <TableCell>
                       {sub.agreementAccepted ? (
                         <Badge variant="default" className="bg-primary" data-testid={`badge-agreement-signed-${sub.id}`}>
@@ -139,8 +226,19 @@ export function AdminSubcontractorPanel() {
                         </Badge>
                       )}
                     </TableCell>
-                    <TableCell data-testid={`text-subcontractor-signed-date-${sub.id}`}>
-                      {formatDate(sub.agreementAcceptedAt)}
+                    <TableCell>
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setCreditDialogSub(sub);
+                        }}
+                        data-testid={`button-add-credits-${sub.id}`}
+                      >
+                        <Plus className="h-3 w-3 mr-1" />
+                        Credits
+                      </Button>
                     </TableCell>
                   </TableRow>
                 ))}
@@ -150,12 +248,13 @@ export function AdminSubcontractorPanel() {
         </CardContent>
       </Card>
 
+      {/* Subcontractor Detail Modal */}
       <Dialog open={!!selectedSubcontractor} onOpenChange={() => setSelectedSubcontractor(null)}>
-        <DialogContent className="max-w-lg" data-testid="modal-subcontractor-detail">
+        <DialogContent className="max-w-lg max-h-[85vh] overflow-y-auto" data-testid="modal-subcontractor-detail">
           <DialogHeader>
             <DialogTitle>Subcontractor Details</DialogTitle>
             <DialogDescription>
-              View contact information and agreement status
+              View contact information, credits, and agreement status
             </DialogDescription>
           </DialogHeader>
           {selectedSubcontractor && (
@@ -187,6 +286,65 @@ export function AdminSubcontractorPanel() {
                     </div>
                   )}
                 </div>
+              </div>
+
+              {/* Credit Balance Section */}
+              <div className="border-t pt-4 space-y-3">
+                <h4 className="font-semibold text-sm text-muted-foreground uppercase tracking-wide">Account Credits</h4>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <DollarSign className="h-5 w-5 text-primary" />
+                    <span className="text-2xl font-bold" data-testid="text-detail-credit-balance">
+                      {formatCurrency(selectedSubcontractor.creditBalance)}
+                    </span>
+                  </div>
+                  <Button
+                    size="sm"
+                    onClick={() => setCreditDialogSub(selectedSubcontractor)}
+                    data-testid="button-add-credits-detail"
+                  >
+                    <Plus className="h-3 w-3 mr-1" />
+                    Add Credits
+                  </Button>
+                </div>
+
+                {creditHistory.length > 0 && (
+                  <div className="space-y-2 mt-3">
+                    <p className="text-xs text-muted-foreground font-medium">Recent Transactions</p>
+                    <div className="max-h-48 overflow-y-auto space-y-1">
+                      {creditHistory.slice(0, 20).map((tx) => {
+                        const isCredit = parseFloat(tx.amount) > 0;
+                        return (
+                          <div key={tx.id} className="flex items-center justify-between text-sm p-2 rounded-md bg-muted/30" data-testid={`row-credit-tx-${tx.id}`}>
+                            <div className="flex items-center gap-2 min-w-0">
+                              {isCredit ? (
+                                <ArrowDownLeft className="h-3.5 w-3.5 text-green-600 flex-shrink-0" />
+                              ) : (
+                                <ArrowUpRight className="h-3.5 w-3.5 text-red-500 flex-shrink-0" />
+                              )}
+                              <div className="min-w-0">
+                                <span className="text-xs block truncate">
+                                  {tx.type === "admin_credit" ? "Admin Credit" : "Lead Purchase"}
+                                </span>
+                                {tx.description && (
+                                  <span className="text-xs text-muted-foreground block truncate">{tx.description}</span>
+                                )}
+                              </div>
+                            </div>
+                            <div className="text-right flex-shrink-0 ml-2">
+                              <span className={`text-xs font-medium ${isCredit ? "text-green-600" : "text-red-500"}`}>
+                                {isCredit ? "+" : ""}{formatCurrency(tx.amount)}
+                              </span>
+                              <span className="text-xs text-muted-foreground block">
+                                {formatDate(tx.createdAt)}
+                              </span>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
               </div>
 
               <div className="border-t pt-4 space-y-3">
@@ -250,6 +408,65 @@ export function AdminSubcontractorPanel() {
               </div>
             </div>
           )}
+        </DialogContent>
+      </Dialog>
+
+      {/* Add Credits Dialog */}
+      <Dialog open={!!creditDialogSub} onOpenChange={(open) => { if (!open) { setCreditDialogSub(null); setCreditAmount(""); setCreditDescription(""); } }}>
+        <DialogContent className="max-w-sm" data-testid="modal-add-credits">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <DollarSign className="h-5 w-5" />
+              Add Credits
+            </DialogTitle>
+            <DialogDescription>
+              Add account credits for {creditDialogSub ? getFullName(creditDialogSub) : ""}
+              {creditDialogSub?.creditBalance && parseFloat(creditDialogSub.creditBalance) > 0 && (
+                <span className="block mt-1">Current balance: {formatCurrency(creditDialogSub.creditBalance)}</span>
+              )}
+            </DialogDescription>
+          </DialogHeader>
+
+          <div className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="credit-amount">Amount ($)</Label>
+              <Input
+                id="credit-amount"
+                type="number"
+                step="0.01"
+                min="0.01"
+                placeholder="0.00"
+                value={creditAmount}
+                onChange={(e) => setCreditAmount(e.target.value)}
+                data-testid="input-credit-amount"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="credit-description">Note (optional)</Label>
+              <Textarea
+                id="credit-description"
+                placeholder="Reason for credit (e.g., promotion, refund, incentive)"
+                value={creditDescription}
+                onChange={(e) => setCreditDescription(e.target.value)}
+                className="resize-none"
+                rows={2}
+                data-testid="input-credit-description"
+              />
+            </div>
+          </div>
+
+          <DialogFooter>
+            <Button variant="outline" onClick={() => { setCreditDialogSub(null); setCreditAmount(""); setCreditDescription(""); }} data-testid="button-cancel-credits">
+              Cancel
+            </Button>
+            <Button
+              onClick={handleAddCredits}
+              disabled={!creditAmount || parseFloat(creditAmount) <= 0 || addCreditMutation.isPending}
+              data-testid="button-confirm-credits"
+            >
+              {addCreditMutation.isPending ? "Adding..." : `Add $${creditAmount && parseFloat(creditAmount) > 0 ? parseFloat(creditAmount).toFixed(2) : "0.00"}`}
+            </Button>
+          </DialogFooter>
         </DialogContent>
       </Dialog>
     </>

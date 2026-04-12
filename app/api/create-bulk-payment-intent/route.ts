@@ -18,13 +18,6 @@ function calculateBulkDiscount(count: number): number {
 
 export async function POST(request: NextRequest) {
   try {
-    if (!stripe) {
-      return NextResponse.json(
-        { error: 'Payments are temporarily unavailable (Stripe not configured)' },
-        { status: 503 }
-      );
-    }
-
     if (!isDbAvailable() || !db) {
       return NextResponse.json(
         { error: 'Database not available' },
@@ -68,10 +61,8 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Fetch all leads and validate
     const leadResults = await db.select().from(leads).where(inArray(leads.id, leadIds));
     
-    // Validate all leads exist and are available
     for (const leadId of leadIds) {
       const lead = leadResults.find(l => l.id === leadId);
       if (!lead) {
@@ -82,15 +73,39 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // Calculate total with bulk discount
     const subtotal = leadResults.reduce((sum, l) => sum + parseFloat(l.currentLeadPrice || '0'), 0);
     const discountPercent = calculateBulkDiscount(leadResults.length);
     const discountAmount = subtotal * discountPercent;
-    const total = subtotal - discountAmount;
+    const total = Math.round((subtotal - discountAmount) * 100) / 100;
+
+    const creditBalance = parseFloat(user.creditBalance || '0');
+    const creditsToApply = Math.min(creditBalance, total);
+    const amountDue = Math.round((total - creditsToApply) * 100) / 100;
+
+    if (amountDue <= 0) {
+      return NextResponse.json({
+        coveredByCredits: true,
+        creditsToApply,
+        creditBalance,
+        amountDue: 0,
+        amount: 0,
+        subtotal,
+        discountPercent: discountPercent * 100,
+        discountAmount,
+        total,
+        leadsCount: leadResults.length,
+      });
+    }
+
+    if (!stripe) {
+      return NextResponse.json(
+        { error: 'Payments are temporarily unavailable (Stripe not configured)' },
+        { status: 503 }
+      );
+    }
 
     let stripeCustomerId = user.stripeCustomerId;
 
-    // Create Stripe customer if not exists
     if (!stripeCustomerId) {
       const customer = await stripe.customers.create({
         email: user.email || undefined,
@@ -101,8 +116,7 @@ export async function POST(request: NextRequest) {
       await db.update(users).set({ stripeCustomerId }).where(eq(users.id, user.id));
     }
 
-    // Create payment intent for the discounted total (amount in cents)
-    const amountInCents = Math.round(total * 100);
+    const amountInCents = Math.round(amountDue * 100);
 
     const paymentIntent = await stripe.paymentIntents.create({
       amount: amountInCents,
@@ -114,6 +128,7 @@ export async function POST(request: NextRequest) {
         bulkPurchase: 'true',
         leadsCount: String(leadResults.length),
         discountPercent: String(Math.round(discountPercent * 100)),
+        creditsToApply: String(creditsToApply),
       },
       description: `Bulk lead purchase: ${leadResults.length} leads`,
       automatic_payment_methods: { enabled: true },
@@ -123,6 +138,10 @@ export async function POST(request: NextRequest) {
       clientSecret: paymentIntent.client_secret,
       paymentIntentId: paymentIntent.id,
       amount: amountInCents,
+      coveredByCredits: false,
+      creditsToApply,
+      creditBalance,
+      amountDue,
       subtotal,
       discountPercent: discountPercent * 100,
       discountAmount,

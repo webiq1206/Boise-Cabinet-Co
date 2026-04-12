@@ -16,6 +16,7 @@ export interface User {
   watchedLeads?: string[] | null;
   declinedLeads?: string[] | null;
   stripeCustomerId?: string | null;
+  creditBalance?: string | null;
 }
 
 export function useAuth() {

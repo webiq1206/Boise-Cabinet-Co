@@ -11,13 +11,6 @@ const stripe = process.env.STRIPE_SECRET_KEY && process.env.STRIPE_SECRET_KEY.tr
 
 export async function POST(request: NextRequest) {
   try {
-    if (!stripe) {
-      return NextResponse.json(
-        { error: 'Payments are temporarily unavailable (Stripe not configured)' },
-        { status: 503 }
-      );
-    }
-
     if (!isDbAvailable() || !db) {
       return NextResponse.json(
         { error: 'Database not available' },
@@ -55,7 +48,6 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'User not found' }, { status: 401 });
     }
 
-    // Verify user has accepted agreement
     if (!user.agreementAccepted) {
       return NextResponse.json(
         { error: 'You must accept the legal agreement before purchasing leads' },
@@ -63,9 +55,31 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    const leadPrice = parseFloat(lead.currentLeadPrice || '10');
+    const creditBalance = parseFloat(user.creditBalance || '0');
+    const creditsToApply = Math.min(creditBalance, leadPrice);
+    const amountDue = Math.round((leadPrice - creditsToApply) * 100) / 100;
+
+    if (amountDue <= 0) {
+      return NextResponse.json({
+        coveredByCredits: true,
+        creditsToApply,
+        creditBalance,
+        amountDue: 0,
+        amount: 0,
+        leadPrice,
+      });
+    }
+
+    if (!stripe) {
+      return NextResponse.json(
+        { error: 'Payments are temporarily unavailable (Stripe not configured)' },
+        { status: 503 }
+      );
+    }
+
     let stripeCustomerId = user.stripeCustomerId;
 
-    // Create Stripe customer if not exists
     if (!stripeCustomerId) {
       const customer = await stripe.customers.create({
         email: user.email || undefined,
@@ -75,13 +89,10 @@ export async function POST(request: NextRequest) {
         },
       });
       stripeCustomerId = customer.id;
-
-      // Save customer ID to user
       await db.update(users).set({ stripeCustomerId }).where(eq(users.id, user.id));
     }
 
-    // Create payment intent for the lead price (amount is in cents)
-    const amountInCents = Math.round(parseFloat(lead.currentLeadPrice || '10') * 100);
+    const amountInCents = Math.round(amountDue * 100);
 
     const paymentIntent = await stripe.paymentIntents.create({
       amount: amountInCents,
@@ -92,6 +103,7 @@ export async function POST(request: NextRequest) {
         userId: user.id,
         serviceType: lead.serviceType || '',
         city: lead.city || '',
+        creditsToApply: String(creditsToApply),
       },
       description: `Lead purchase: ${lead.serviceType} in ${lead.city}`,
       automatic_payment_methods: {
@@ -103,6 +115,11 @@ export async function POST(request: NextRequest) {
       clientSecret: paymentIntent.client_secret,
       paymentIntentId: paymentIntent.id,
       amount: amountInCents,
+      coveredByCredits: false,
+      creditsToApply,
+      creditBalance,
+      amountDue,
+      leadPrice,
     });
   } catch (error) {
     console.error('Error creating payment intent:', error);

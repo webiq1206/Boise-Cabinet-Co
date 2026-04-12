@@ -1,0 +1,89 @@
+import { NextRequest, NextResponse } from "next/server";
+import { db } from "@/lib/db";
+import { users, creditTransactions } from "@/shared/schema";
+import { eq, desc } from "drizzle-orm";
+import { getSession, getUserFromDb } from "@/lib/auth";
+
+export async function GET(
+  _request: NextRequest,
+  { params }: { params: Promise<{ userId: string }> }
+) {
+  const session = await getSession();
+  if (!session.userId) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+  const adminUser = await getUserFromDb(session.userId);
+  if (!adminUser || adminUser.role !== "admin") {
+    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+  }
+  if (!db) {
+    return NextResponse.json({ error: "Database not available" }, { status: 503 });
+  }
+
+  const { userId } = await params;
+
+  const transactions = await db.select().from(creditTransactions)
+    .where(eq(creditTransactions.userId, userId))
+    .orderBy(desc(creditTransactions.createdAt));
+
+  return NextResponse.json(transactions);
+}
+
+export async function POST(
+  request: NextRequest,
+  { params }: { params: Promise<{ userId: string }> }
+) {
+  const session = await getSession();
+  if (!session.userId) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+  const adminUser = await getUserFromDb(session.userId);
+  if (!adminUser || adminUser.role !== "admin") {
+    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+  }
+  if (!db) {
+    return NextResponse.json({ error: "Database not available" }, { status: 503 });
+  }
+
+  const { userId } = await params;
+  const body = await request.json();
+  const { amount, description } = body;
+
+  if (!amount || typeof amount !== "number" || amount <= 0) {
+    return NextResponse.json({ error: "Amount must be a positive number" }, { status: 400 });
+  }
+
+  if (amount > 10000) {
+    return NextResponse.json({ error: "Maximum credit amount is $10,000" }, { status: 400 });
+  }
+
+  const userResults = await db.select().from(users).where(eq(users.id, userId));
+  const targetUser = userResults[0];
+
+  if (!targetUser) {
+    return NextResponse.json({ error: "User not found" }, { status: 404 });
+  }
+
+  if (targetUser.role !== "subcontractor") {
+    return NextResponse.json({ error: "Credits can only be added to subcontractor accounts" }, { status: 400 });
+  }
+
+  const currentBalance = parseFloat(targetUser.creditBalance || "0");
+  const newBalance = Math.round((currentBalance + amount) * 100) / 100;
+
+  const [updatedUser] = await db.update(users).set({
+    creditBalance: String(newBalance),
+    updatedAt: new Date(),
+  }).where(eq(users.id, userId)).returning();
+
+  const [transaction] = await db.insert(creditTransactions).values({
+    userId,
+    amount: String(amount),
+    type: "admin_credit",
+    description: description || null,
+    adminId: session.userId,
+    balanceAfter: String(newBalance),
+  }).returning();
+
+  return NextResponse.json({ user: updatedUser, transaction });
+}

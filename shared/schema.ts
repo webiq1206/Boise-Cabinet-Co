@@ -183,6 +183,9 @@ export const users = pgTable("users", {
   // Stripe
   stripeCustomerId: text("stripe_customer_id"),
   
+  // Account credits
+  creditBalance: decimal("credit_balance", { precision: 10, scale: 2 }).notNull().default("0"),
+  
   // Watchlist for contractors
   watchedLeads: jsonb("watched_leads").$type<string[]>().default(sql`'[]'::jsonb`), // Array of lead IDs
   
@@ -280,13 +283,13 @@ export type InsertLead = z.infer<typeof insertLeadSchema>;
 // Lead Purchases Schema (transaction history)
 export const leadPurchases = pgTable("lead_purchases", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  leadId: varchar("lead_id").notNull().unique().references(() => leads.id), // UNIQUE: one purchase per lead
+  leadId: varchar("lead_id").notNull().unique().references(() => leads.id),
   userId: varchar("user_id").notNull().references(() => users.id),
   purchasePrice: decimal("purchase_price", { precision: 10, scale: 2 }).notNull(),
   stripePaymentIntentId: text("stripe_payment_intent_id").notNull(),
   stripeChargeId: text("stripe_charge_id"),
+  creditsUsed: decimal("credits_used", { precision: 10, scale: 2 }).notNull().default("0"),
   
-  // Refund tracking (for no-refund policy enforcement)
   refunded: boolean("refunded").default(false),
   refundReason: text("refund_reason"),
   refundedAt: timestamp("refunded_at"),
@@ -303,6 +306,29 @@ export const insertLeadPurchaseSchema = createInsertSchema(leadPurchases).omit({
 
 export type LeadPurchase = typeof leadPurchases.$inferSelect;
 export type InsertLeadPurchase = z.infer<typeof insertLeadPurchaseSchema>;
+
+// Credit Transactions Schema (audit trail for credit changes)
+export const creditTransactions = pgTable("credit_transactions", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  userId: varchar("user_id").notNull().references(() => users.id),
+  amount: decimal("amount", { precision: 10, scale: 2 }).notNull(),
+  type: text("type").notNull(),
+  description: text("description"),
+  adminId: varchar("admin_id"),
+  leadPurchaseId: varchar("lead_purchase_id"),
+  balanceAfter: decimal("balance_after", { precision: 10, scale: 2 }).notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+}, (table) => ({
+  userIdIdx: index("credit_transactions_user_id_idx").on(table.userId),
+}));
+
+export const insertCreditTransactionSchema = createInsertSchema(creditTransactions).omit({
+  id: true,
+  createdAt: true,
+});
+
+export type CreditTransaction = typeof creditTransactions.$inferSelect;
+export type InsertCreditTransaction = z.infer<typeof insertCreditTransactionSchema>;
 
 // Notifications Schema
 export const notifications = pgTable("notifications", {

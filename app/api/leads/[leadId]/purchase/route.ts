@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 import { db } from "@/lib/db";
-import { leads, users, leadPurchases, quotes } from "@/shared/schema";
+import { leads, users, leadPurchases, creditTransactions, quotes } from "@/shared/schema";
 import { eq } from "drizzle-orm";
 import { getSession, getUserFromDb } from "@/lib/auth";
 
@@ -14,10 +14,6 @@ export async function POST(
   try {
     if (!db) {
       return NextResponse.json({ error: "Database not available" }, { status: 503 });
-    }
-
-    if (!stripe) {
-      return NextResponse.json({ error: "Payments not configured" }, { status: 503 });
     }
 
     const session = await getSession();
@@ -43,11 +39,7 @@ export async function POST(
 
     const { leadId } = await params;
     const body = await request.json();
-    const { paymentIntentId } = body;
-
-    if (!paymentIntentId) {
-      return NextResponse.json({ error: "Payment intent ID is required" }, { status: 400 });
-    }
+    const { paymentIntentId, useCredits } = body;
 
     const leadResults = await db.select().from(leads).where(eq(leads.id, leadId));
     const lead = leadResults[0];
@@ -65,38 +57,90 @@ export async function POST(
       return NextResponse.json({ error: "Lead has already been purchased" }, { status: 409 });
     }
 
-    const paymentIntent = await stripe.paymentIntents.retrieve(paymentIntentId);
+    const leadPrice = parseFloat(lead.currentLeadPrice || "0");
+    const creditBalance = parseFloat(user.creditBalance || "0");
+    let creditsUsed = 0;
+    let stripePaymentId = "credit_purchase";
 
-    if (paymentIntent.status !== "succeeded") {
-      return NextResponse.json({ error: "Payment has not been completed" }, { status: 400 });
+    if (useCredits && !paymentIntentId) {
+      if (creditBalance < leadPrice) {
+        return NextResponse.json({ error: "Insufficient credit balance" }, { status: 400 });
+      }
+      creditsUsed = leadPrice;
+    } else if (paymentIntentId) {
+      if (!stripe) {
+        return NextResponse.json({ error: "Payments not configured" }, { status: 503 });
+      }
+
+      const paymentIntent = await stripe.paymentIntents.retrieve(paymentIntentId);
+
+      if (paymentIntent.status !== "succeeded") {
+        return NextResponse.json({ error: "Payment has not been completed" }, { status: 400 });
+      }
+
+      if (paymentIntent.metadata?.leadId !== leadId) {
+        return NextResponse.json({ error: "Payment intent does not match this lead" }, { status: 400 });
+      }
+
+      if (paymentIntent.metadata?.userId !== user.id) {
+        return NextResponse.json({ error: "Payment intent does not match this user" }, { status: 400 });
+      }
+
+      const existingPayment = await db.select().from(leadPurchases).where(eq(leadPurchases.stripePaymentIntentId, paymentIntentId));
+      if (existingPayment.length > 0) {
+        return NextResponse.json({ error: "This payment has already been processed" }, { status: 409 });
+      }
+
+      const creditsFromMetadata = parseFloat(paymentIntent.metadata?.creditsToApply || "0");
+      creditsUsed = Math.min(creditsFromMetadata, creditBalance, leadPrice);
+
+      const expectedCharge = Math.round((leadPrice - creditsUsed) * 100);
+      if (Math.abs(paymentIntent.amount - expectedCharge) > 1) {
+        return NextResponse.json({ error: "Payment amount mismatch" }, { status: 400 });
+      }
+
+      stripePaymentId = paymentIntentId;
+    } else {
+      return NextResponse.json({ error: "Payment intent ID or credits required" }, { status: 400 });
     }
 
-    if (paymentIntent.metadata?.leadId !== leadId) {
-      return NextResponse.json({ error: "Payment intent does not match this lead" }, { status: 400 });
-    }
-
-    if (paymentIntent.metadata?.userId !== user.id) {
-      return NextResponse.json({ error: "Payment intent does not match this user" }, { status: 400 });
-    }
-
-    const existingPayment = await db.select().from(leadPurchases).where(eq(leadPurchases.stripePaymentIntentId, paymentIntentId));
-    if (existingPayment.length > 0) {
-      return NextResponse.json({ error: "This payment has already been processed" }, { status: 409 });
+    if (creditsUsed > 0) {
+      const newBalance = Math.round((creditBalance - creditsUsed) * 100) / 100;
+      if (newBalance < 0) {
+        return NextResponse.json({ error: "Insufficient credit balance" }, { status: 400 });
+      }
+      await db.update(users).set({
+        creditBalance: String(newBalance),
+        updatedAt: new Date(),
+      }).where(eq(users.id, user.id));
     }
 
     const [purchase] = await db.insert(leadPurchases).values({
       leadId: lead.id,
       userId: user.id,
       purchasePrice: lead.currentLeadPrice,
-      stripePaymentIntentId: paymentIntentId,
+      stripePaymentIntentId: stripePaymentId,
+      creditsUsed: String(creditsUsed),
     }).returning();
+
+    if (creditsUsed > 0) {
+      const newBalance = Math.round((creditBalance - creditsUsed) * 100) / 100;
+      await db.insert(creditTransactions).values({
+        userId: user.id,
+        amount: String(-creditsUsed),
+        type: "purchase_debit",
+        description: `Lead purchase: ${lead.serviceType} in ${lead.city}`,
+        leadPurchaseId: purchase.id,
+        balanceAfter: String(newBalance),
+      });
+    }
 
     const [updatedLead] = await db.update(leads).set({
       status: "purchased",
       purchasedBy: user.id,
       purchasedAt: new Date(),
       purchasePrice: lead.currentLeadPrice,
-      stripePaymentIntentId: paymentIntentId,
+      stripePaymentIntentId: stripePaymentId,
     }).where(eq(leads.id, leadId)).returning();
 
     try {
@@ -145,7 +189,7 @@ export async function POST(
       }
     } catch (e) {}
 
-    return NextResponse.json({ success: true, purchase, lead: updatedLead });
+    return NextResponse.json({ success: true, purchase, lead: updatedLead, creditsUsed });
   } catch (error) {
     console.error("Error purchasing lead:", error);
     return NextResponse.json(
