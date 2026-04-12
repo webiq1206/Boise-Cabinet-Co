@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 import { db } from "@/lib/db";
 import { leads, users, leadPurchases, creditTransactions } from "@/shared/schema";
-import { eq } from "drizzle-orm";
+import { eq, and, sql } from "drizzle-orm";
 import { getSession, getUserFromDb } from "@/lib/auth";
 
 const stripe = process.env.STRIPE_SECRET_KEY ? new Stripe(process.env.STRIPE_SECRET_KEY) : null;
@@ -12,6 +12,36 @@ function calculateBulkDiscount(count: number): number {
   if (count >= 6) return 0.10;
   if (count >= 2) return 0.05;
   return 0;
+}
+
+function distributeCreditsProportionally(fetchedLeads: Array<{ id: string; currentLeadPrice: string | null }>, totalCredits: number): Map<string, number> {
+  const result = new Map<string, number>();
+  if (totalCredits <= 0) {
+    for (const lead of fetchedLeads) result.set(lead.id, 0);
+    return result;
+  }
+
+  const totalPrice = fetchedLeads.reduce((sum, l) => sum + parseFloat(l.currentLeadPrice || "0"), 0);
+  if (totalPrice <= 0) {
+    for (const lead of fetchedLeads) result.set(lead.id, 0);
+    return result;
+  }
+
+  let allocated = 0;
+  for (let i = 0; i < fetchedLeads.length; i++) {
+    const lead = fetchedLeads[i];
+    const price = parseFloat(lead.currentLeadPrice || "0");
+    if (i === fetchedLeads.length - 1) {
+      const remainder = Math.round((totalCredits - allocated) * 100) / 100;
+      result.set(lead.id, Math.min(remainder, price));
+    } else {
+      const share = Math.round((price / totalPrice) * totalCredits * 100) / 100;
+      const capped = Math.min(share, price);
+      result.set(lead.id, capped);
+      allocated += capped;
+    }
+  }
+  return result;
 }
 
 export async function POST(request: NextRequest) {
@@ -74,12 +104,12 @@ export async function POST(request: NextRequest) {
     const discountPercent = calculateBulkDiscount(fetchedLeads.length);
     const discountAmount = subtotal * discountPercent;
     const totalPrice = Math.round((subtotal - discountAmount) * 100) / 100;
-    
-    const creditBalance = parseFloat(user.creditBalance || "0");
+
     let creditsUsed = 0;
     let stripePaymentId = "credit_purchase";
 
     if (useCredits && !paymentIntentId) {
+      const creditBalance = parseFloat(user.creditBalance || "0");
       if (creditBalance < totalPrice) {
         return NextResponse.json({ error: "Insufficient credit balance" }, { status: 400 });
       }
@@ -115,6 +145,7 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({ error: "This payment has already been processed" }, { status: 409 });
       }
 
+      const creditBalance = parseFloat(user.creditBalance || "0");
       const creditsFromMetadata = parseFloat(paymentIntent.metadata?.creditsToApply || "0");
       creditsUsed = Math.min(creditsFromMetadata, creditBalance, totalPrice);
 
@@ -129,27 +160,33 @@ export async function POST(request: NextRequest) {
     }
 
     if (creditsUsed > 0) {
-      const newBalance = Math.round((creditBalance - creditsUsed) * 100) / 100;
-      if (newBalance < 0) {
+      const result = await db.update(users).set({
+        creditBalance: sql`(CAST(${users.creditBalance} AS DECIMAL(10,2)) - ${String(creditsUsed)})::TEXT`,
+        updatedAt: new Date(),
+      }).where(
+        and(
+          eq(users.id, user.id),
+          sql`CAST(${users.creditBalance} AS DECIMAL(10,2)) >= ${String(creditsUsed)}`
+        )
+      ).returning();
+
+      if (result.length === 0) {
         return NextResponse.json({ error: "Insufficient credit balance" }, { status: 400 });
       }
-      await db.update(users).set({
-        creditBalance: String(newBalance),
-        updatedAt: new Date(),
-      }).where(eq(users.id, user.id));
     }
 
+    const creditAllocation = distributeCreditsProportionally(fetchedLeads, creditsUsed);
     const purchases = [];
     const updatedLeads = [];
-    const creditsPerLead = creditsUsed > 0 ? Math.round((creditsUsed / fetchedLeads.length) * 100) / 100 : 0;
 
     for (const lead of fetchedLeads) {
+      const leadCredits = creditAllocation.get(lead.id) || 0;
       const [purchase] = await db.insert(leadPurchases).values({
         leadId: lead.id,
         userId: user.id,
         purchasePrice: lead.currentLeadPrice,
         stripePaymentIntentId: stripePaymentId,
-        creditsUsed: String(creditsPerLead),
+        creditsUsed: String(leadCredits),
       }).returning();
 
       const [updatedLead] = await db.update(leads).set({
@@ -165,14 +202,15 @@ export async function POST(request: NextRequest) {
     }
 
     if (creditsUsed > 0) {
-      const newBalance = Math.round((creditBalance - creditsUsed) * 100) / 100;
+      const freshUser = await db.select({ creditBalance: users.creditBalance }).from(users).where(eq(users.id, user.id));
+      const newBalance = freshUser[0]?.creditBalance || "0";
       await db.insert(creditTransactions).values({
         userId: user.id,
         amount: String(-creditsUsed),
         type: "purchase_debit",
         description: `Bulk purchase: ${fetchedLeads.length} leads`,
         leadPurchaseId: purchases[0]?.id || null,
-        balanceAfter: String(newBalance),
+        balanceAfter: newBalance,
       });
     }
 

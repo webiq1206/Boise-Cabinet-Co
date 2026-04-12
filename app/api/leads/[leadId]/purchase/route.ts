@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 import { db } from "@/lib/db";
 import { leads, users, leadPurchases, creditTransactions, quotes } from "@/shared/schema";
-import { eq } from "drizzle-orm";
+import { eq, and, sql } from "drizzle-orm";
 import { getSession, getUserFromDb } from "@/lib/auth";
 
 const stripe = process.env.STRIPE_SECRET_KEY ? new Stripe(process.env.STRIPE_SECRET_KEY) : null;
@@ -58,11 +58,11 @@ export async function POST(
     }
 
     const leadPrice = parseFloat(lead.currentLeadPrice || "0");
-    const creditBalance = parseFloat(user.creditBalance || "0");
     let creditsUsed = 0;
     let stripePaymentId = "credit_purchase";
 
     if (useCredits && !paymentIntentId) {
+      const creditBalance = parseFloat(user.creditBalance || "0");
       if (creditBalance < leadPrice) {
         return NextResponse.json({ error: "Insufficient credit balance" }, { status: 400 });
       }
@@ -91,6 +91,7 @@ export async function POST(
         return NextResponse.json({ error: "This payment has already been processed" }, { status: 409 });
       }
 
+      const creditBalance = parseFloat(user.creditBalance || "0");
       const creditsFromMetadata = parseFloat(paymentIntent.metadata?.creditsToApply || "0");
       creditsUsed = Math.min(creditsFromMetadata, creditBalance, leadPrice);
 
@@ -105,14 +106,19 @@ export async function POST(
     }
 
     if (creditsUsed > 0) {
-      const newBalance = Math.round((creditBalance - creditsUsed) * 100) / 100;
-      if (newBalance < 0) {
+      const result = await db.update(users).set({
+        creditBalance: sql`(CAST(${users.creditBalance} AS DECIMAL(10,2)) - ${String(creditsUsed)})::TEXT`,
+        updatedAt: new Date(),
+      }).where(
+        and(
+          eq(users.id, user.id),
+          sql`CAST(${users.creditBalance} AS DECIMAL(10,2)) >= ${String(creditsUsed)}`
+        )
+      ).returning();
+
+      if (result.length === 0) {
         return NextResponse.json({ error: "Insufficient credit balance" }, { status: 400 });
       }
-      await db.update(users).set({
-        creditBalance: String(newBalance),
-        updatedAt: new Date(),
-      }).where(eq(users.id, user.id));
     }
 
     const [purchase] = await db.insert(leadPurchases).values({
@@ -124,14 +130,15 @@ export async function POST(
     }).returning();
 
     if (creditsUsed > 0) {
-      const newBalance = Math.round((creditBalance - creditsUsed) * 100) / 100;
+      const freshUser = await db.select({ creditBalance: users.creditBalance }).from(users).where(eq(users.id, user.id));
+      const newBalance = freshUser[0]?.creditBalance || "0";
       await db.insert(creditTransactions).values({
         userId: user.id,
         amount: String(-creditsUsed),
         type: "purchase_debit",
         description: `Lead purchase: ${lead.serviceType} in ${lead.city}`,
         leadPurchaseId: purchase.id,
-        balanceAfter: String(newBalance),
+        balanceAfter: newBalance,
       });
     }
 

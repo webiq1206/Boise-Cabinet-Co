@@ -314,8 +314,8 @@ export const creditTransactions = pgTable("credit_transactions", {
   amount: decimal("amount", { precision: 10, scale: 2 }).notNull(),
   type: text("type").notNull(),
   description: text("description"),
-  adminId: varchar("admin_id"),
-  leadPurchaseId: varchar("lead_purchase_id"),
+  adminId: varchar("admin_id").references(() => users.id),
+  leadPurchaseId: varchar("lead_purchase_id").references(() => leadPurchases.id),
   balanceAfter: decimal("balance_after", { precision: 10, scale: 2 }).notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 }, (table) => ({

@@ -310,9 +310,9 @@ export function AdminSubcontractorPanel() {
 
                 {creditHistory.length > 0 && (
                   <div className="space-y-2 mt-3">
-                    <p className="text-xs text-muted-foreground font-medium">Recent Transactions</p>
-                    <div className="max-h-48 overflow-y-auto space-y-1">
-                      {creditHistory.slice(0, 20).map((tx) => {
+                    <p className="text-xs text-muted-foreground font-medium">Transaction History ({creditHistory.length})</p>
+                    <div className="max-h-64 overflow-y-auto space-y-1">
+                      {creditHistory.map((tx) => {
                         const isCredit = parseFloat(tx.amount) > 0;
                         return (
                           <div key={tx.id} className="flex items-center justify-between text-sm p-2 rounded-md bg-muted/30" data-testid={`row-credit-tx-${tx.id}`}>
