@@ -336,6 +336,9 @@ export function AdminSubcontractorPanel() {
                                 {isCredit ? "+" : ""}{formatCurrency(tx.amount)}
                               </span>
                               <span className="text-xs text-muted-foreground block">
+                                Bal: {formatCurrency(tx.balanceAfter)}
+                              </span>
+                              <span className="text-xs text-muted-foreground block">
                                 {formatDate(tx.createdAt)}
                               </span>
                             </div>

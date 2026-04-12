@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { users, creditTransactions } from "@/shared/schema";
-import { eq, desc } from "drizzle-orm";
+import { eq, desc, sql } from "drizzle-orm";
 import { getSession, getUserFromDb } from "@/lib/auth";
 
 export async function GET(
@@ -68,13 +68,16 @@ export async function POST(
     return NextResponse.json({ error: "Credits can only be added to subcontractor accounts" }, { status: 400 });
   }
 
-  const currentBalance = parseFloat(targetUser.creditBalance || "0");
-  const newBalance = Math.round((currentBalance + amount) * 100) / 100;
+  if (targetUser.isActive === false) {
+    return NextResponse.json({ error: "Cannot add credits to an inactive account" }, { status: 400 });
+  }
 
   const [updatedUser] = await db.update(users).set({
-    creditBalance: String(newBalance),
+    creditBalance: sql`(CAST(${users.creditBalance} AS DECIMAL(10,2)) + ${String(amount)})::TEXT`,
     updatedAt: new Date(),
   }).where(eq(users.id, userId)).returning();
+
+  const newBalance = updatedUser.creditBalance || "0";
 
   const [transaction] = await db.insert(creditTransactions).values({
     userId,
@@ -82,7 +85,7 @@ export async function POST(
     type: "admin_credit",
     description: description || null,
     adminId: session.userId,
-    balanceAfter: String(newBalance),
+    balanceAfter: newBalance,
   }).returning();
 
   return NextResponse.json({ user: updatedUser, transaction });
