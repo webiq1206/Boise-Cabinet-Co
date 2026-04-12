@@ -22,6 +22,11 @@ export async function GET(
 
   const { userId } = await params;
 
+  const targetUser = await db.select().from(users).where(eq(users.id, userId));
+  if (!targetUser[0] || targetUser[0].role !== "subcontractor") {
+    return NextResponse.json({ error: "Subcontractor not found" }, { status: 404 });
+  }
+
   const transactions = await db.select().from(creditTransactions)
     .where(eq(creditTransactions.userId, userId))
     .orderBy(desc(creditTransactions.createdAt));
