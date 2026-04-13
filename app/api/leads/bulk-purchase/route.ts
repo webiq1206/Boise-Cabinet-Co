@@ -161,29 +161,58 @@ export async function POST(request: NextRequest) {
 
     const creditAllocation = distributeCreditsProportionally(fetchedLeads, creditsUsed);
 
-    const result = await db.transaction(async (tx) => {
-      if (creditsUsed > 0) {
-        const deductResult = await tx.update(users).set({
-          creditBalance: sql`CAST(${users.creditBalance} AS DECIMAL(10,2)) - ${String(creditsUsed)}`,
-          updatedAt: new Date(),
-        }).where(
-          and(
-            eq(users.id, user.id),
-            sql`CAST(${users.creditBalance} AS DECIMAL(10,2)) >= ${String(creditsUsed)}`
-          )
-        ).returning();
+    const purchases = [];
+    const updatedLeads = [];
+    const claimedLeadIds: string[] = [];
 
-        if (deductResult.length === 0) {
-          throw new Error("Insufficient credit balance");
+    for (const lead of fetchedLeads) {
+      const claimResult = await db.update(leads).set({
+        status: "purchased",
+        purchasedBy: user.id,
+        purchasedAt: new Date(),
+        purchasePrice: lead.currentLeadPrice,
+        stripePaymentIntentId: stripePaymentId,
+      }).where(
+        and(eq(leads.id, lead.id), eq(leads.status, "available"))
+      ).returning();
+
+      if (claimResult.length === 0) {
+        for (const claimedId of claimedLeadIds) {
+          await db.update(leads).set({ status: "available", purchasedBy: null, purchasedAt: null, purchasePrice: null, stripePaymentIntentId: null }).where(eq(leads.id, claimedId));
         }
+        return NextResponse.json(
+          { error: "One or more leads are no longer available", unavailableIds: [lead.id] },
+          { status: 409 }
+        );
       }
 
-      const purchases = [];
-      const updatedLeads = [];
+      claimedLeadIds.push(lead.id);
+      updatedLeads.push(claimResult[0]);
+    }
 
+    if (creditsUsed > 0) {
+      const deductResult = await db.update(users).set({
+        creditBalance: sql`CAST(${users.creditBalance} AS DECIMAL(10,2)) - ${String(creditsUsed)}`,
+        updatedAt: new Date(),
+      }).where(
+        and(
+          eq(users.id, user.id),
+          sql`CAST(${users.creditBalance} AS DECIMAL(10,2)) >= ${String(creditsUsed)}`
+        )
+      ).returning();
+
+      if (deductResult.length === 0) {
+        for (const claimedId of claimedLeadIds) {
+          await db.update(leads).set({ status: "available", purchasedBy: null, purchasedAt: null, purchasePrice: null, stripePaymentIntentId: null }).where(eq(leads.id, claimedId));
+        }
+        return NextResponse.json({ error: "Insufficient credit balance" }, { status: 400 });
+      }
+    }
+
+    try {
       for (const lead of fetchedLeads) {
         const leadCredits = creditAllocation.get(lead.id) || 0;
-        const [purchase] = await tx.insert(leadPurchases).values({
+        const [purchase] = await db.insert(leadPurchases).values({
           leadId: lead.id,
           userId: user.id,
           purchasePrice: lead.currentLeadPrice,
@@ -191,22 +220,26 @@ export async function POST(request: NextRequest) {
           creditsUsed: String(leadCredits),
         }).returning();
 
-        const [updatedLead] = await tx.update(leads).set({
-          status: "purchased",
-          purchasedBy: user.id,
-          purchasedAt: new Date(),
-          purchasePrice: lead.currentLeadPrice,
-          stripePaymentIntentId: stripePaymentId,
-        }).where(eq(leads.id, lead.id)).returning();
-
         purchases.push(purchase);
-        updatedLeads.push(updatedLead);
       }
-
+    } catch (insertError) {
       if (creditsUsed > 0) {
-        const freshUser = await tx.select({ creditBalance: users.creditBalance }).from(users).where(eq(users.id, user.id));
+        await db.update(users).set({
+          creditBalance: sql`CAST(${users.creditBalance} AS DECIMAL(10,2)) + ${String(creditsUsed)}`,
+          updatedAt: new Date(),
+        }).where(eq(users.id, user.id));
+      }
+      for (const claimedId of claimedLeadIds) {
+        await db.update(leads).set({ status: "available", purchasedBy: null, purchasedAt: null, purchasePrice: null, stripePaymentIntentId: null }).where(eq(leads.id, claimedId));
+      }
+      throw insertError;
+    }
+
+    if (creditsUsed > 0) {
+      try {
+        const freshUser = await db.select({ creditBalance: users.creditBalance }).from(users).where(eq(users.id, user.id));
         const newBalance = freshUser[0]?.creditBalance || "0";
-        await tx.insert(creditTransactions).values({
+        await db.insert(creditTransactions).values({
           userId: user.id,
           amount: String(-creditsUsed),
           type: "purchase_debit",
@@ -214,17 +247,17 @@ export async function POST(request: NextRequest) {
           leadPurchaseId: purchases[0]?.id || null,
           balanceAfter: newBalance,
         });
+      } catch (auditError) {
+        console.error("Failed to record bulk credit transaction audit log:", auditError);
       }
-
-      return { purchases, updatedLeads };
-    });
+    }
 
     try {
       const { sendLeadPurchasedNotification } = await import("@/server/services/emailNotifications");
       const buyerName = user.company || `${user.firstName || ''} ${user.lastName || ''}`.trim();
       const buyerEmail = user.email || '';
 
-      for (const updatedLead of result.updatedLeads) {
+      for (const updatedLead of updatedLeads) {
         sendLeadPurchasedNotification(
           {
             id: updatedLead.id,
@@ -242,13 +275,10 @@ export async function POST(request: NextRequest) {
       }
     } catch (e) {}
 
-    return NextResponse.json({ success: true, purchases: result.purchases, leads: result.updatedLeads, creditsUsed });
+    return NextResponse.json({ success: true, purchases, leads: updatedLeads, creditsUsed });
   } catch (error) {
     console.error("Error bulk purchasing leads:", error);
     const message = error instanceof Error ? error.message : "Failed to bulk purchase leads";
-    if (message === "Insufficient credit balance") {
-      return NextResponse.json({ error: message }, { status: 400 });
-    }
     return NextResponse.json({ error: message }, { status: 500 });
   }
 }

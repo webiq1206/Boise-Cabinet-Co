@@ -1,16 +1,13 @@
-import { Pool, neonConfig } from "@neondatabase/serverless";
-import { drizzle } from "drizzle-orm/neon-serverless";
-import ws from "ws";
+import { neon } from "@neondatabase/serverless";
+import { drizzle } from "drizzle-orm/neon-http";
 import * as schema from "@/shared/schema";
-
-neonConfig.webSocketConstructor = ws;
 
 const connectionString = process.env.DATABASE_URL;
 
-const pool = connectionString ? new Pool({ connectionString }) : null;
+const sql = connectionString ? neon(connectionString) : null;
 
-export const db = pool
-  ? drizzle(pool, { schema })
+export const db = sql
+  ? drizzle(sql, { schema })
   : null;
 
 export function isDbAvailable(): boolean {

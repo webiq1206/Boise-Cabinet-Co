@@ -105,43 +105,64 @@ export async function POST(
       return NextResponse.json({ error: "Payment intent ID or credits required" }, { status: 400 });
     }
 
-    const result = await db.transaction(async (tx) => {
-      if (creditsUsed > 0) {
-        const deductResult = await tx.update(users).set({
-          creditBalance: sql`CAST(${users.creditBalance} AS DECIMAL(10,2)) - ${String(creditsUsed)}`,
-          updatedAt: new Date(),
-        }).where(
-          and(
-            eq(users.id, user.id),
-            sql`CAST(${users.creditBalance} AS DECIMAL(10,2)) >= ${String(creditsUsed)}`
-          )
-        ).returning();
+    const claimResult = await db.update(leads).set({
+      status: "purchased",
+      purchasedBy: user.id,
+      purchasedAt: new Date(),
+      purchasePrice: lead.currentLeadPrice,
+      stripePaymentIntentId: stripePaymentId,
+    }).where(
+      and(eq(leads.id, leadId), eq(leads.status, "available"))
+    ).returning();
 
-        if (deductResult.length === 0) {
-          throw new Error("Insufficient credit balance");
-        }
+    if (claimResult.length === 0) {
+      return NextResponse.json({ error: "Lead is no longer available" }, { status: 409 });
+    }
+
+    const updatedLead = claimResult[0];
+
+    if (creditsUsed > 0) {
+      const deductResult = await db.update(users).set({
+        creditBalance: sql`CAST(${users.creditBalance} AS DECIMAL(10,2)) - ${String(creditsUsed)}`,
+        updatedAt: new Date(),
+      }).where(
+        and(
+          eq(users.id, user.id),
+          sql`CAST(${users.creditBalance} AS DECIMAL(10,2)) >= ${String(creditsUsed)}`
+        )
+      ).returning();
+
+      if (deductResult.length === 0) {
+        await db.update(leads).set({ status: "available", purchasedBy: null, purchasedAt: null, purchasePrice: null, stripePaymentIntentId: null }).where(eq(leads.id, leadId));
+        return NextResponse.json({ error: "Insufficient credit balance" }, { status: 400 });
       }
+    }
 
-      const [purchase] = await tx.insert(leadPurchases).values({
+    let purchase;
+    try {
+      [purchase] = await db.insert(leadPurchases).values({
         leadId: lead.id,
         userId: user.id,
         purchasePrice: lead.currentLeadPrice,
         stripePaymentIntentId: stripePaymentId,
         creditsUsed: String(creditsUsed),
       }).returning();
-
-      const [updatedLead] = await tx.update(leads).set({
-        status: "purchased",
-        purchasedBy: user.id,
-        purchasedAt: new Date(),
-        purchasePrice: lead.currentLeadPrice,
-        stripePaymentIntentId: stripePaymentId,
-      }).where(eq(leads.id, leadId)).returning();
-
+    } catch (insertError) {
       if (creditsUsed > 0) {
-        const freshUser = await tx.select({ creditBalance: users.creditBalance }).from(users).where(eq(users.id, user.id));
+        await db.update(users).set({
+          creditBalance: sql`CAST(${users.creditBalance} AS DECIMAL(10,2)) + ${String(creditsUsed)}`,
+          updatedAt: new Date(),
+        }).where(eq(users.id, user.id));
+      }
+      await db.update(leads).set({ status: "available", purchasedBy: null, purchasedAt: null, purchasePrice: null, stripePaymentIntentId: null }).where(eq(leads.id, leadId));
+      throw insertError;
+    }
+
+    if (creditsUsed > 0) {
+      try {
+        const freshUser = await db.select({ creditBalance: users.creditBalance }).from(users).where(eq(users.id, user.id));
         const newBalance = freshUser[0]?.creditBalance || "0";
-        await tx.insert(creditTransactions).values({
+        await db.insert(creditTransactions).values({
           userId: user.id,
           amount: String(-creditsUsed),
           type: "purchase_debit",
@@ -149,10 +170,10 @@ export async function POST(
           leadPurchaseId: purchase.id,
           balanceAfter: newBalance,
         });
+      } catch (auditError) {
+        console.error("Failed to record credit transaction audit log:", auditError);
       }
-
-      return { purchase, updatedLead };
-    });
+    }
 
     try {
       const { sendLeadPurchasedNotification, sendLeadPurchaseConfirmation, sendCustomerStatusUpdate } = await import("@/server/services/emailNotifications");
@@ -161,15 +182,15 @@ export async function POST(
 
       sendLeadPurchasedNotification(
         {
-          id: result.updatedLead.id,
-          name: result.updatedLead.name,
-          email: result.updatedLead.email,
-          phone: result.updatedLead.phone || "",
-          city: result.updatedLead.city,
-          serviceType: result.updatedLead.serviceType,
-          finalQuote: result.updatedLead.finalQuote || "0",
-          address: result.updatedLead.address || undefined,
-          purchasePrice: result.updatedLead.purchasePrice || lead.currentLeadPrice || "0",
+          id: updatedLead.id,
+          name: updatedLead.name,
+          email: updatedLead.email,
+          phone: updatedLead.phone || "",
+          city: updatedLead.city,
+          serviceType: updatedLead.serviceType,
+          finalQuote: updatedLead.finalQuote || "0",
+          address: updatedLead.address || undefined,
+          purchasePrice: updatedLead.purchasePrice || lead.currentLeadPrice || "0",
         },
         { name: buyerName, email: buyerEmail }
       ).catch(() => {});
@@ -177,19 +198,19 @@ export async function POST(
       sendLeadPurchaseConfirmation(
         buyerEmail,
         {
-          id: result.updatedLead.id,
-          name: result.updatedLead.name,
-          email: result.updatedLead.email,
-          phone: result.updatedLead.phone || "",
-          city: result.updatedLead.city,
-          serviceType: result.updatedLead.serviceType,
-          finalQuote: result.updatedLead.finalQuote || "0",
-          address: result.updatedLead.address || undefined,
+          id: updatedLead.id,
+          name: updatedLead.name,
+          email: updatedLead.email,
+          phone: updatedLead.phone || "",
+          city: updatedLead.city,
+          serviceType: updatedLead.serviceType,
+          finalQuote: updatedLead.finalQuote || "0",
+          address: updatedLead.address || undefined,
         }
       ).catch(() => {});
 
-      if (result.updatedLead.quoteId) {
-        const quoteResult = await db.select().from(quotes).where(eq(quotes.id, result.updatedLead.quoteId));
+      if (updatedLead.quoteId) {
+        const quoteResult = await db.select().from(quotes).where(eq(quotes.id, updatedLead.quoteId));
         const quote = quoteResult[0];
         if (quote) {
           sendCustomerStatusUpdate(quote.email, quote.id, {
@@ -200,13 +221,10 @@ export async function POST(
       }
     } catch (e) {}
 
-    return NextResponse.json({ success: true, purchase: result.purchase, lead: result.updatedLead, creditsUsed });
+    return NextResponse.json({ success: true, purchase, lead: updatedLead, creditsUsed });
   } catch (error) {
     console.error("Error purchasing lead:", error);
     const message = error instanceof Error ? error.message : "Failed to purchase lead";
-    if (message === "Insufficient credit balance") {
-      return NextResponse.json({ error: message }, { status: 400 });
-    }
     return NextResponse.json({ error: message }, { status: 500 });
   }
 }
