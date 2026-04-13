@@ -22,16 +22,21 @@ export async function GET(
 
   const { userId } = await params;
 
-  const targetUser = await db.select().from(users).where(eq(users.id, userId));
-  if (!targetUser[0] || targetUser[0].role !== "subcontractor") {
-    return NextResponse.json({ error: "Subcontractor not found" }, { status: 404 });
+  try {
+    const targetUser = await db.select().from(users).where(eq(users.id, userId));
+    if (!targetUser[0] || targetUser[0].role !== "subcontractor") {
+      return NextResponse.json({ error: "Subcontractor not found" }, { status: 404 });
+    }
+
+    const transactions = await db.select().from(creditTransactions)
+      .where(eq(creditTransactions.userId, userId))
+      .orderBy(desc(creditTransactions.createdAt));
+
+    return NextResponse.json(transactions);
+  } catch (error) {
+    console.error("Error fetching credit history:", error);
+    return NextResponse.json({ error: "Failed to fetch credit history" }, { status: 500 });
   }
-
-  const transactions = await db.select().from(creditTransactions)
-    .where(eq(creditTransactions.userId, userId))
-    .orderBy(desc(creditTransactions.createdAt));
-
-  return NextResponse.json(transactions);
 }
 
 export async function POST(
@@ -77,30 +82,36 @@ export async function POST(
     return NextResponse.json({ error: "Cannot add credits to an inactive account" }, { status: 400 });
   }
 
-  const [updatedUser] = await db.update(users).set({
-    creditBalance: sql`CAST(${users.creditBalance} AS DECIMAL(10,2)) + ${String(amount)}`,
-    updatedAt: new Date(),
-  }).where(eq(users.id, userId)).returning();
-
-  const newBalance = updatedUser.creditBalance || "0";
-
-  let transaction;
   try {
-    [transaction] = await db.insert(creditTransactions).values({
-      userId,
-      amount: String(amount),
-      type: "admin_credit",
-      description: description || null,
-      adminId: session.userId,
-      balanceAfter: newBalance,
-    }).returning();
-  } catch (auditError) {
-    await db.update(users).set({
-      creditBalance: sql`CAST(${users.creditBalance} AS DECIMAL(10,2)) - ${String(amount)}`,
+    const [updatedUser] = await db.update(users).set({
+      creditBalance: sql`CAST(${users.creditBalance} AS DECIMAL(10,2)) + ${String(amount)}`,
       updatedAt: new Date(),
-    }).where(eq(users.id, userId));
-    throw auditError;
-  }
+    }).where(eq(users.id, userId)).returning();
 
-  return NextResponse.json({ user: updatedUser, transaction });
+    const newBalance = updatedUser.creditBalance || "0";
+
+    let transaction;
+    try {
+      [transaction] = await db.insert(creditTransactions).values({
+        userId,
+        amount: String(amount),
+        type: "admin_credit",
+        description: description || null,
+        adminId: session.userId,
+        balanceAfter: newBalance,
+      }).returning();
+    } catch (auditError) {
+      await db.update(users).set({
+        creditBalance: sql`CAST(${users.creditBalance} AS DECIMAL(10,2)) - ${String(amount)}`,
+        updatedAt: new Date(),
+      }).where(eq(users.id, userId));
+      console.error("Failed to record credit transaction:", auditError);
+      return NextResponse.json({ error: "Failed to record credit transaction" }, { status: 500 });
+    }
+
+    return NextResponse.json({ user: updatedUser, transaction });
+  } catch (error) {
+    console.error("Error adding credits:", error);
+    return NextResponse.json({ error: "Failed to add credits" }, { status: 500 });
+  }
 }

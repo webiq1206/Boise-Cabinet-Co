@@ -19,9 +19,14 @@ export async function GET() {
     return NextResponse.json({ error: "Database not available" }, { status: 503 });
   }
 
-  const subcontractors = await db.select().from(users).where(
-    and(eq(users.role, "subcontractor"), eq(users.isActive, true))
-  );
+  try {
+    const subcontractors = await db.select().from(users).where(
+      and(eq(users.role, "subcontractor"), eq(users.isActive, true))
+    );
 
-  return NextResponse.json(subcontractors);
+    return NextResponse.json(subcontractors);
+  } catch (error) {
+    console.error("Error fetching subcontractors:", error);
+    return NextResponse.json({ error: "Failed to fetch subcontractors" }, { status: 500 });
+  }
 }
