@@ -108,7 +108,7 @@ export async function POST(
     const result = await db.transaction(async (tx) => {
       if (creditsUsed > 0) {
         const deductResult = await tx.update(users).set({
-          creditBalance: sql`(CAST(${users.creditBalance} AS DECIMAL(10,2)) - ${String(creditsUsed)})::TEXT`,
+          creditBalance: sql`CAST(${users.creditBalance} AS DECIMAL(10,2)) - ${String(creditsUsed)}`,
           updatedAt: new Date(),
         }).where(
           and(

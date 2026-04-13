@@ -79,7 +79,7 @@ export async function POST(
 
   const result = await db.transaction(async (tx) => {
     const [updatedUser] = await tx.update(users).set({
-      creditBalance: sql`(CAST(${users.creditBalance} AS DECIMAL(10,2)) + ${String(amount)})::TEXT`,
+      creditBalance: sql`CAST(${users.creditBalance} AS DECIMAL(10,2)) + ${String(amount)}`,
       updatedAt: new Date(),
     }).where(eq(users.id, userId)).returning();
 
