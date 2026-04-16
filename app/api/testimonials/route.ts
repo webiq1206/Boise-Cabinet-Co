@@ -143,10 +143,13 @@ function normalizeDbRow(r: Testimonial): SampleTestimonial {
     serviceType: r.serviceType,
     rating: r.rating,
     testimonial: r.testimonial,
-    createdAt:
-      r.createdAt instanceof Date
-        ? r.createdAt.toISOString()
-        : new Date(r.createdAt).toISOString(),
+    createdAt: (() => {
+      try {
+        const d = r.createdAt instanceof Date ? r.createdAt : r.createdAt ? new Date(r.createdAt) : null;
+        if (d && !isNaN(d.getTime())) return d.toISOString();
+      } catch {}
+      return new Date().toISOString();
+    })(),
   };
 }
 
