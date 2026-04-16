@@ -16,3 +16,4 @@ out
 
 # assets not meant for git
 attached_assets
+tsconfig.tsbuildinfo
