@@ -1,8 +1,18 @@
 import { NextResponse } from "next/server";
 import { db, isDbAvailable } from "@/lib/db";
-import { testimonials } from "@/shared/schema";
+import { testimonials, type Testimonial } from "@/shared/schema";
 
-const sampleTestimonials = [
+type SampleTestimonial = {
+  id: number | string;
+  customerName: string;
+  city: string;
+  serviceType: string;
+  rating: string;
+  testimonial: string;
+  createdAt: string;
+};
+
+const sampleTestimonials: SampleTestimonial[] = [
   { id: 1, customerName: "Sarah M.", city: "kuna", serviceType: "lawn-mowing", rating: "5", testimonial: "Lawn Care Kuna has been taking care of our yard for 2 years now. Always on time, professional, and our lawn has never looked better!", createdAt: new Date("2024-01-15").toISOString() },
   { id: 2, customerName: "David A.", city: "kuna", serviceType: "spring-cleanup", rating: "5", testimonial: "Amazing spring cleanup service! They removed all the winter debris, cleaned up the flower beds, and got our yard ready for the season.", createdAt: new Date("2024-03-25").toISOString() },
   { id: 3, customerName: "Nancy P.", city: "kuna", serviceType: "fertilization", rating: "5", testimonial: "Our lawn was struggling until we started their fertilization program. Now it's the greenest on the block! Very knowledgeable team.", createdAt: new Date("2024-05-10").toISOString() },
@@ -66,31 +76,132 @@ const sampleTestimonials = [
   { id: 61, customerName: "Linda Q.", city: "eagle", serviceType: "pond-installation", rating: "5", testimonial: "They built a gorgeous koi pond in our backyard with a waterfall feature. The sound of running water is so relaxing. Best investment we have made in our property.", createdAt: new Date("2024-06-25").toISOString() },
   { id: 62, customerName: "Harold J.", city: "meridian", serviceType: "pond-installation", rating: "5", testimonial: "Our new garden pond with aquatic plants looks incredible. They handled everything from excavation to filtration setup. Very knowledgeable about water features.", createdAt: new Date("2024-07-15").toISOString() },
   { id: 63, customerName: "Carol S.", city: "kuna", serviceType: "pond-installation", rating: "4", testimonial: "Beautiful pond installation with natural stone edging. They guided us through plant and fish selection too. The whole family enjoys spending time by the water.", createdAt: new Date("2024-08-10").toISOString() },
+
+  { id: 64, customerName: "Gloria B.", city: "boise", serviceType: "pond-installation", rating: "5", testimonial: "The water feature they designed for our side yard is breathtaking. Layered stones, a small waterfall, and even lighting for evenings. It has transformed our space.", createdAt: new Date("2024-05-30").toISOString() },
+  { id: 65, customerName: "Trevor H.", city: "meridian", serviceType: "pond-installation", rating: "5", testimonial: "We went with a medium-size koi pond and they handled every step professionally. The filtration system works flawlessly and the fish are thriving.", createdAt: new Date("2024-09-02").toISOString() },
+  { id: 66, customerName: "Monica R.", city: "star", serviceType: "pond-installation", rating: "5", testimonial: "Our backyard pond is the centerpiece of our landscape now. Friends ask about it every time they visit. Installation was cleaner than I expected.", createdAt: new Date("2024-07-20").toISOString() },
+  { id: 67, customerName: "Douglas P.", city: "eagle", serviceType: "pond-installation", rating: "5", testimonial: "They took time to explain maintenance, winter care, and pump options. The pond has been trouble-free and looks natural, like it was always there.", createdAt: new Date("2024-08-22").toISOString() },
+  { id: 68, customerName: "Priscilla N.", city: "kuna", serviceType: "pond-installation", rating: "5", testimonial: "Loved working with their water feature team. They suggested a bubbling rock that works perfectly with our smaller yard. Soothing and beautiful.", createdAt: new Date("2024-06-05").toISOString() },
+  { id: 69, customerName: "Eric L.", city: "middleton", serviceType: "pond-installation", rating: "4", testimonial: "Great pond build with a nice stream feature. Took a little longer than quoted due to weather, but the final result is exactly what we wanted.", createdAt: new Date("2024-09-18").toISOString() },
+  { id: 70, customerName: "Sheila G.", city: "boise", serviceType: "pond-installation", rating: "5", testimonial: "Our pondless waterfall is amazing. Low maintenance and gives all the ambience of a pond without the upkeep. The rock selection they used looks so natural.", createdAt: new Date("2024-07-28").toISOString() },
+
+  { id: 71, customerName: "Russell T.", city: "kuna", serviceType: "patio-installation", rating: "5", testimonial: "Our new paver patio turned out better than the renderings. Clean lines, solid base work, and they finished on schedule even with a rainy week in the middle.", createdAt: new Date("2024-05-12").toISOString() },
+  { id: 72, customerName: "Beth C.", city: "eagle", serviceType: "patio-installation", rating: "5", testimonial: "They built a large flagstone patio with a seating wall. The materials were top quality and the crew was respectful of our property. Couldn't be happier.", createdAt: new Date("2024-06-30").toISOString() },
+  { id: 73, customerName: "Ivan D.", city: "boise", serviceType: "patio-installation", rating: "5", testimonial: "Patio looks like something out of a magazine. They nailed the layout around our existing trees and the drainage works perfectly.", createdAt: new Date("2024-09-08").toISOString() },
+  { id: 74, customerName: "Tanya Z.", city: "middleton", serviceType: "patio-installation", rating: "4", testimonial: "Good patio installation with a nice border detail. One paver needed to be replaced after a month and they came back quickly to fix it. Stand-up team.", createdAt: new Date("2024-08-02").toISOString() },
+  { id: 75, customerName: "Jerome A.", city: "meridian", serviceType: "patio-installation", rating: "5", testimonial: "Built us a stamped concrete patio with a beautiful finish. They handled the permits and inspection without us lifting a finger. True turnkey service.", createdAt: new Date("2024-05-05").toISOString() },
+  { id: 76, customerName: "Kathleen S.", city: "star", serviceType: "patio-installation", rating: "5", testimonial: "Our backyard was unusable before they installed the patio. Now it is the favorite spot in the whole house. Quality from the first shovel to the final sweep.", createdAt: new Date("2024-07-12").toISOString() },
+  { id: 77, customerName: "Victor H.", city: "boise", serviceType: "patio-installation", rating: "5", testimonial: "They even helped us pick out outdoor furniture after the patio was done. Above and beyond service, and the installation itself was flawless.", createdAt: new Date("2024-06-10").toISOString() },
+
+  { id: 78, customerName: "Natalie W.", city: "boise", serviceType: "fence-installation", rating: "5", testimonial: "Cedar privacy fence along the full back of our property. Posts were set deep, gates are square and smooth, and the whole project was done in three days.", createdAt: new Date("2024-05-22").toISOString() },
+  { id: 79, customerName: "Curtis M.", city: "meridian", serviceType: "fence-installation", rating: "5", testimonial: "They installed a vinyl fence with perfect alignment even across our uneven yard. The gate hardware is heavy-duty and the fence looks clean and modern.", createdAt: new Date("2024-06-14").toISOString() },
+  { id: 80, customerName: "Erin V.", city: "eagle", serviceType: "fence-installation", rating: "5", testimonial: "Beautiful split-rail fence around our horse pasture. Sturdy, properly braced, and they worked around our animals without issue. True professionals.", createdAt: new Date("2024-07-02").toISOString() },
+  { id: 81, customerName: "Brandon F.", city: "star", serviceType: "fence-installation", rating: "5", testimonial: "Replaced our old chain link with a cedar privacy fence. Hauled away all the old material and left the yard cleaner than when they started. Highly recommend.", createdAt: new Date("2024-08-18").toISOString() },
+  { id: 82, customerName: "Shannon O.", city: "middleton", serviceType: "fence-installation", rating: "4", testimonial: "Solid fence build with great wood quality. Had to wait a couple extra weeks for scheduling but once they started, it was finished quickly and correctly.", createdAt: new Date("2024-09-05").toISOString() },
+  { id: 83, customerName: "Leonard P.", city: "kuna", serviceType: "fence-installation", rating: "5", testimonial: "Our new fence added instant curb appeal and privacy. They suggested a top cap detail that looks fantastic. Professional crew from start to finish.", createdAt: new Date("2024-06-18").toISOString() },
+  { id: 84, customerName: "Mallory R.", city: "boise", serviceType: "fence-installation", rating: "5", testimonial: "Double-gate installation for RV access came out perfectly. They measured twice, set the posts in concrete, and the gates swing effortlessly even after a winter.", createdAt: new Date("2024-04-25").toISOString() },
+  { id: 85, customerName: "Preston K.", city: "meridian", serviceType: "fence-installation", rating: "5", testimonial: "Happy with the aluminum fence they installed around the pool. Code-compliant, clean welds, and it complements the landscaping beautifully.", createdAt: new Date("2024-07-28").toISOString() },
+
+  { id: 86, customerName: "Olivia G.", city: "kuna", serviceType: "irrigation-maintenance", rating: "5", testimonial: "Annual sprinkler tune-up revealed a clogged valve and two misaligned heads. Fixed in one visit and our water bill dropped the next month.", createdAt: new Date("2024-05-04").toISOString() },
+  { id: 87, customerName: "Sam R.", city: "boise", serviceType: "irrigation-maintenance", rating: "5", testimonial: "They winterized and then started my system in the spring with zero leaks. The whole crew clearly knows Idaho irrigation inside and out.", createdAt: new Date("2024-04-02").toISOString() },
+  { id: 88, customerName: "Alyssa P.", city: "meridian", serviceType: "irrigation-maintenance", rating: "4", testimonial: "Quick response for a broken lateral line. Dug, repaired, and restored the sod all in the same afternoon. The only reason for 4 stars is the earlier arrival window.", createdAt: new Date("2024-06-08").toISOString() },
+  { id: 89, customerName: "Gordon N.", city: "star", serviceType: "irrigation-maintenance", rating: "5", testimonial: "Tuned up an old system and got it running better than it has in years. They replaced a few nozzles and the coverage is finally even across the yard.", createdAt: new Date("2024-05-26").toISOString() },
+  { id: 90, customerName: "Bethany S.", city: "eagle", serviceType: "irrigation-maintenance", rating: "5", testimonial: "Converted our old controller to a smart one and it has been fantastic. They walked me through the app and even tweaked the schedule for our plant types.", createdAt: new Date("2024-07-11").toISOString() },
+  { id: 91, customerName: "Lloyd K.", city: "middleton", serviceType: "irrigation-maintenance", rating: "5", testimonial: "Sprinkler blowout was fast and thorough. They checked every zone and pointed out a leaky backflow that would have been a mess in spring. Great attention to detail.", createdAt: new Date("2024-10-22").toISOString() },
+  { id: 92, customerName: "Felicia C.", city: "kuna", serviceType: "irrigation-maintenance", rating: "5", testimonial: "Our lawn had dry spots for years. They re-engineered a few zones and now coverage is consistent. Worth every penny to finally have a healthy green lawn.", createdAt: new Date("2024-06-16").toISOString() },
+
+  { id: 93, customerName: "Marcus J.", city: "kuna", serviceType: "lawn-maintenance", rating: "5", testimonial: "Full-service lawn maintenance has freed up our weekends. Mowing, trimming, and edging every week and the yard always looks sharp when we pull in.", createdAt: new Date("2024-06-04").toISOString() },
+  { id: 94, customerName: "Regina T.", city: "boise", serviceType: "lawn-maintenance", rating: "5", testimonial: "I wish we had hired them years ago. The weekly maintenance package keeps everything neat and they catch small issues before they become big problems.", createdAt: new Date("2024-07-09").toISOString() },
+  { id: 95, customerName: "Dwayne C.", city: "meridian", serviceType: "lawn-maintenance", rating: "5", testimonial: "Reliable, professional, and reasonably priced. Our ongoing lawn maintenance has turned our yard into the nicest one on the cul-de-sac.", createdAt: new Date("2024-08-14").toISOString() },
+  { id: 96, customerName: "Hannah M.", city: "eagle", serviceType: "lawn-maintenance", rating: "5", testimonial: "The consistency is what I appreciate most. Same crew, same day every week, and the yard is always finished to the same high standard.", createdAt: new Date("2024-05-28").toISOString() },
+  { id: 97, customerName: "Austin B.", city: "star", serviceType: "lawn-maintenance", rating: "4", testimonial: "Happy with the ongoing lawn maintenance plan. They handle mowing, edging, and blowing off the driveway every visit. Rarely have to think about the yard anymore.", createdAt: new Date("2024-07-22").toISOString() },
+  { id: 98, customerName: "Carla D.", city: "middleton", serviceType: "lawn-maintenance", rating: "5", testimonial: "Signed up for the seasonal maintenance plan and it has been hands-off for us. Everything gets done on time and the crew is polite and efficient.", createdAt: new Date("2024-08-30").toISOString() },
+  { id: 99, customerName: "Grant W.", city: "boise", serviceType: "lawn-maintenance", rating: "5", testimonial: "Great lawn maintenance service. They noticed a sprinkler head issue during a mowing visit and let us know right away. That kind of proactive attention is rare.", createdAt: new Date("2024-06-22").toISOString() },
+  { id: 100, customerName: "Yvonne H.", city: "kuna", serviceType: "lawn-maintenance", rating: "5", testimonial: "Their lawn maintenance program includes everything we needed in one package. Simple billing, consistent results, and a crew that clearly takes pride in their work.", createdAt: new Date("2024-09-12").toISOString() },
+  { id: 101, customerName: "Brett E.", city: "meridian", serviceType: "lawn-maintenance", rating: "5", testimonial: "Our HOA requires a tidy yard and these guys keep us well ahead of any violation letters. Responsive, flexible, and professional every time.", createdAt: new Date("2024-07-16").toISOString() },
+
+  { id: 102, customerName: "Maggie L.", city: "boise", serviceType: "lawn-mowing", rating: "5", testimonial: "Weekly mowing has been flawless. Crisp stripes, clean edges, and they always leave the driveway blown clean. It is a small thing that makes a big difference.", createdAt: new Date("2024-08-06").toISOString() },
+  { id: 103, customerName: "Clinton Y.", city: "meridian", serviceType: "lawn-mowing", rating: "4", testimonial: "Dependable mowing service, even during the rainy stretches. They adjust cutting height seasonally which really helps the lawn bounce back after summer heat.", createdAt: new Date("2024-06-18").toISOString() },
+  { id: 104, customerName: "Vanessa O.", city: "kuna", serviceType: "lawn-mowing", rating: "5", testimonial: "Switched mowing services last year and the difference is obvious. These guys are faster, neater, and communicate well if anything changes with the schedule.", createdAt: new Date("2024-07-30").toISOString() },
+
+  { id: 105, customerName: "Herbert F.", city: "boise", serviceType: "christmas-lights", rating: "5", testimonial: "From design to takedown, the Christmas light service was effortless. The LED bulbs they use are brighter and cleaner than anything we ever hung ourselves.", createdAt: new Date("2023-12-02").toISOString() },
+  { id: 106, customerName: "Renee P.", city: "star", serviceType: "christmas-lights", rating: "5", testimonial: "They installed lights on the house, trees, and even around our garden arch. Looked like a holiday card every night coming home. Already on the list for next year.", createdAt: new Date("2023-12-12").toISOString() },
+  { id: 107, customerName: "Omar G.", city: "kuna", serviceType: "christmas-lights", rating: "5", testimonial: "Safe, clean installation on our two-story home. They used custom-cut strands so there were no dangling ends anywhere. Truly professional holiday lighting.", createdAt: new Date("2023-11-28").toISOString() },
+  { id: 108, customerName: "Josie A.", city: "eagle", serviceType: "christmas-lights", rating: "4", testimonial: "Great holiday light service with a nice warm-white look. One strand needed replacing mid-December and they came out the next morning to swap it out.", createdAt: new Date("2023-12-18").toISOString() },
+
+  { id: 109, customerName: "Trent S.", city: "kuna", serviceType: "landscaping", rating: "5", testimonial: "Full landscape redesign with new beds, trees, and sod. The plan they drew up was thoughtful and the final yard is even better than the renderings.", createdAt: new Date("2024-05-15").toISOString() },
+  { id: 110, customerName: "Marissa K.", city: "boise", serviceType: "landscaping", rating: "5", testimonial: "They turned an empty side yard into a beautiful garden path with lighting. So many small design touches that make the space feel intentional and peaceful.", createdAt: new Date("2024-06-20").toISOString() },
+  { id: 111, customerName: "Dale R.", city: "middleton", serviceType: "landscaping", rating: "5", testimonial: "Front yard landscaping was done exactly to plan and on time. The new plantings are thriving and the drip irrigation they added is a huge water-saver.", createdAt: new Date("2024-07-25").toISOString() },
+  { id: 112, customerName: "Whitney B.", city: "eagle", serviceType: "landscaping", rating: "4", testimonial: "Happy with the backyard landscape install. A couple of plants needed replacing after the first month and they swapped them without a fuss. Great follow-through.", createdAt: new Date("2024-08-10").toISOString() },
 ];
+
+function normalizeDbRow(r: Testimonial): SampleTestimonial {
+  return {
+    id: r.id,
+    customerName: r.customerName,
+    city: r.city,
+    serviceType: r.serviceType,
+    rating: r.rating,
+    testimonial: r.testimonial,
+    createdAt:
+      r.createdAt instanceof Date
+        ? r.createdAt.toISOString()
+        : new Date(r.createdAt).toISOString(),
+  };
+}
 
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
     const serviceType = searchParams.get("serviceType") || searchParams.get("service");
     const limit = parseInt(searchParams.get("limit") || "60");
+    const minThreshold = 8;
 
+    let dbRows: SampleTestimonial[] = [];
     if (isDbAvailable() && db) {
-      const allTestimonials = await db.select().from(testimonials);
-      
-      let filtered = allTestimonials;
-      if (serviceType) {
-        filtered = filtered.filter(t => t.serviceType === serviceType);
+      try {
+        const rows: Testimonial[] = await db.select().from(testimonials);
+        dbRows = rows
+          .filter((r) => typeof r.testimonial === "string" && r.testimonial.length > 0)
+          .map(normalizeDbRow);
+      } catch (err) {
+        console.error("Error reading testimonials from DB:", err);
+        dbRows = [];
       }
-      
-      return NextResponse.json(filtered.slice(0, limit));
     }
 
-    let filtered = sampleTestimonials;
+    const seen = new Set<string>();
+    const dedupe = (list: SampleTestimonial[]) => {
+      const out: SampleTestimonial[] = [];
+      for (const t of list) {
+        const key = `${t.customerName}|${t.testimonial}`;
+        if (seen.has(key)) continue;
+        seen.add(key);
+        out.push(t);
+      }
+      return out;
+    };
+
+    const combined = dedupe([...dbRows, ...sampleTestimonials]);
+
+    let result: SampleTestimonial[];
     if (serviceType) {
-      filtered = filtered.filter(t => t.serviceType === serviceType);
+      const matching = combined.filter((t) => t.serviceType === serviceType);
+      if (matching.length >= minThreshold) {
+        result = matching;
+      } else {
+        const fillers = combined.filter((t) => t.serviceType !== serviceType);
+        result = [...matching, ...fillers];
+      }
+    } else {
+      result = combined;
     }
-    
-    return NextResponse.json(filtered.slice(0, limit));
+
+    if (result.length === 0) {
+      result = sampleTestimonials;
+    }
+
+    return NextResponse.json(result.slice(0, limit));
   } catch (error) {
     console.error("Error fetching testimonials:", error);
     return NextResponse.json(sampleTestimonials);
