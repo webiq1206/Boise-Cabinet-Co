@@ -12,6 +12,7 @@ const nextConfig = {
     instrumentationHook: true,
   },
   images: {
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: 'https',
