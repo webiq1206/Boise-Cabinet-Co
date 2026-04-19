@@ -953,9 +953,10 @@ function AdminDashboardContent() {
               <Badge
                 variant="outline"
                 className="text-[10px] px-1.5 py-0 text-blue-700 border-blue-500 dark:text-blue-400 dark:border-blue-600"
+                title={`Updated ${new Date(lead.updatedAt).toLocaleString()}`}
                 data-testid={`badge-updated-${lead.id}`}
               >
-                Updated
+                Updated {new Date(lead.updatedAt).toLocaleDateString()}
               </Badge>
             )}
           </div>

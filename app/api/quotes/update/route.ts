@@ -127,6 +127,9 @@ export async function GET(request: Request) {
 
   const [lead] = await db.select().from(leads).where(eq(leads.id, decoded.leadId));
   if (!lead) return NextResponse.json({ error: "Quote not found" }, { status: 404 });
+  if (decoded.quoteId && lead.quoteId && decoded.quoteId !== lead.quoteId) {
+    return NextResponse.json({ error: "Token does not match this quote." }, { status: 401 });
+  }
 
   if (lead.status === "purchased") {
     return NextResponse.json({ error: "This quote is already being handled. Please contact us." }, { status: 409 });
@@ -165,6 +168,9 @@ export async function POST(request: Request) {
 
     const [lead] = await db.select().from(leads).where(eq(leads.id, decoded.leadId));
     if (!lead) return NextResponse.json({ error: "Quote not found" }, { status: 404 });
+    if (decoded.quoteId && lead.quoteId && decoded.quoteId !== lead.quoteId) {
+      return NextResponse.json({ error: "Token does not match this quote." }, { status: 401 });
+    }
 
     if (lead.status === "purchased") {
       return NextResponse.json({ error: "This quote is already being handled by a contractor." }, { status: 409 });
@@ -235,7 +241,10 @@ export async function POST(request: Request) {
     const NOTIFY_THROTTLE_MIN = 30;
     try {
       const throttleCutoff = new Date(Date.now() - NOTIFY_THROTTLE_MIN * 60 * 1000);
-      const watchers = await db.select().from(users);
+      const watchers = await db
+        .select()
+        .from(users)
+        .where(eq(users.role, "subcontractor"));
       for (const u of watchers) {
         const watched = (u.watchedLeads as string[] | null) || [];
         if (!Array.isArray(watched) || !watched.includes(lead.id)) continue;
