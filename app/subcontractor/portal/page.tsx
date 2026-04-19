@@ -640,6 +640,14 @@ function SubcontractorPortalContent() {
     staleTime: 0,
   });
 
+  // Refetch purchases when the user switches to the Purchases tab so a
+  // recently-completed purchase appears immediately without a hard reload.
+  useEffect(() => {
+    if (activeTab === "purchases") {
+      queryClient.invalidateQueries({ queryKey: ["/api/leads/purchases"] });
+    }
+  }, [activeTab]);
+
   useEffect(() => {
     if (purchasesError) {
       toast({
