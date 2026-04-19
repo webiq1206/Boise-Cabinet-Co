@@ -126,8 +126,15 @@ interface Lead {
   currentLeadPrice?: string | null;
   status: string;
   createdAt: string;
+  updatedAt?: string | null;
   purchasedBy?: string | null;
   purchasedAt?: string | null;
+  possibleDuplicates?: Array<{
+    id: string;
+    status: string;
+    createdAt: string;
+    matchedOn: ("email" | "address")[];
+  }>;
 }
 
 const PRIORITY_SERVICES = [
@@ -1095,7 +1102,7 @@ function SubcontractorPortalContent() {
                       Price Reduced
                     </Badge>
                   )}
-                  {(lead as any).possibleDuplicates && (lead as any).possibleDuplicates.length > 0 && (
+                  {lead.possibleDuplicates && lead.possibleDuplicates.length > 0 && (
                     <HoverCard>
                       <HoverCardTrigger asChild>
                         <Badge
@@ -1106,13 +1113,24 @@ function SubcontractorPortalContent() {
                           Possible duplicate
                         </Badge>
                       </HoverCardTrigger>
-                      <HoverCardContent className="w-64 text-xs">
-                        Matches {(lead as any).possibleDuplicates.length} other recent lead{(lead as any).possibleDuplicates.length === 1 ? '' : 's'} on{' '}
-                        {Array.from(new Set((lead as any).possibleDuplicates.flatMap((d: any) => d.matchedOn))).join(' / ')}.
+                      <HoverCardContent className="w-72 text-xs space-y-2">
+                        <div className="font-medium">
+                          Matches {lead.possibleDuplicates.length} other lead{lead.possibleDuplicates.length === 1 ? '' : 's'} on{' '}
+                          {Array.from(new Set(lead.possibleDuplicates.flatMap((d) => d.matchedOn))).join(' / ')}.
+                        </div>
+                        <ul className="space-y-1">
+                          {lead.possibleDuplicates.slice(0, 5).map((d) => (
+                            <li key={d.id} className="flex justify-between gap-2">
+                              <span className="font-mono">{d.id.slice(0, 8)}</span>
+                              <span className="capitalize text-muted-foreground">{d.status.replace(/_/g, ' ')}</span>
+                              <span className="text-muted-foreground">{new Date(d.createdAt).toLocaleDateString()}</span>
+                            </li>
+                          ))}
+                        </ul>
                       </HoverCardContent>
                     </HoverCard>
                   )}
-                  {(lead as any).updatedAt && lead.createdAt && new Date((lead as any).updatedAt).getTime() - new Date(lead.createdAt).getTime() > 60000 && (
+                  {lead.updatedAt && lead.createdAt && new Date(lead.updatedAt).getTime() - new Date(lead.createdAt).getTime() > 60000 && (
                     <Badge
                       variant="outline"
                       className="text-[10px] px-1.5 py-0 text-blue-700 border-blue-500 dark:text-blue-400 dark:border-blue-600"

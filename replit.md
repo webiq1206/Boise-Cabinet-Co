@@ -36,7 +36,7 @@ Preferred communication style: Simple, everyday language.
 - **Customer Email Enhancements**: Comprehensive estimate information display in customer and admin quote emails, including detailed breakdowns, brand assets, and per-service frequency displays.
 - **Professional Email Templates**: Overhauled email templates with brand logo, production URLs, contact information, and quote value normalization.
 - **Popup-Free Quote Flow**: Replaced toast notifications with inline error alerts and enhanced quote wizard with per-service pricing dropdowns.
-- **Duplicate Lead Prevention**: Server-side deduplication with HMAC-SHA256 edit tokens and 7-day TTL. Wizard renders inline alerts for existing quotes allowing updates or contact. Subcontractor portal and admin dashboard show badges for possible duplicates and updated leads.
+- **Duplicate Lead Prevention**: Server-side deduplication blocks new submissions only when both email AND address match an active lead, with HMAC-SHA256 edit tokens (7-day TTL) for customer self-service edits. Quote+lead updates are atomic (snapshot+revert on failure). Watcher notifications throttled to one per user/lead/30min. "Possible duplicate" badges (with id/status/date hover details and admin deep-link) and "Updated" badges surface on subcontractor portal, purchases page, and admin dashboard, scanning the full lead history (no recency cutoff).
 - **Lead Display Titles**: Lead card titles in admin and subcontractor portals display the most expensive service first, showing multi-service leads concisely (e.g., "Lawn Renovation + 4 more").
 - **Subcontractor Lead Email Urgency**: New-lead notifications emphasize urgency, exclusivity, and time sensitivity with a "Claim This Lead" CTA.
 

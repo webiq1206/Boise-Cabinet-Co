@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/hooks/useAuth";
 import { NotificationsBell } from "@/components/NotificationsBell";
@@ -48,8 +49,15 @@ interface Lead {
   purchasePrice?: string | null;
   status: string;
   createdAt: string;
+  updatedAt?: string | null;
   purchasedBy?: string | null;
   purchasedAt?: string | null;
+  possibleDuplicates?: Array<{
+    id: string;
+    status: string;
+    createdAt: string;
+    matchedOn: ("email" | "address")[];
+  }>;
 }
 
 const PRIORITY_SERVICES = [
@@ -280,12 +288,49 @@ export default function PurchaseHistoryPage() {
         <CardHeader className="pb-3">
           <div className="flex items-start justify-between gap-4">
             <div>
-              <CardTitle className="text-lg flex items-center gap-2">
+              <CardTitle className="text-lg flex items-center gap-2 flex-wrap">
                 {getServiceName(lead.serviceType)}
                 <Badge variant="secondary" className="text-primary bg-primary/10 dark:bg-primary/15">
                   <CheckCircle2 className="h-3 w-3 mr-1" />
                   Purchased
                 </Badge>
+                {lead.possibleDuplicates && lead.possibleDuplicates.length > 0 && (
+                  <HoverCard>
+                    <HoverCardTrigger asChild>
+                      <Badge
+                        variant="outline"
+                        className="text-[10px] px-1.5 py-0 text-amber-700 border-amber-500 dark:text-amber-400 dark:border-amber-600 cursor-help"
+                        data-testid={`badge-duplicate-${lead.id}`}
+                      >
+                        Possible duplicate
+                      </Badge>
+                    </HoverCardTrigger>
+                    <HoverCardContent className="w-72 text-xs space-y-2">
+                      <div className="font-medium">
+                        Matches {lead.possibleDuplicates.length} other lead{lead.possibleDuplicates.length === 1 ? '' : 's'} on{' '}
+                        {Array.from(new Set(lead.possibleDuplicates.flatMap((d) => d.matchedOn))).join(' / ')}.
+                      </div>
+                      <ul className="space-y-1">
+                        {lead.possibleDuplicates.slice(0, 5).map((d) => (
+                          <li key={d.id} className="flex justify-between gap-2">
+                            <span className="font-mono">{d.id.slice(0, 8)}</span>
+                            <span className="capitalize text-muted-foreground">{d.status.replace(/_/g, ' ')}</span>
+                            <span className="text-muted-foreground">{new Date(d.createdAt).toLocaleDateString()}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </HoverCardContent>
+                  </HoverCard>
+                )}
+                {lead.updatedAt && lead.createdAt && new Date(lead.updatedAt).getTime() - new Date(lead.createdAt).getTime() > 60000 && (
+                  <Badge
+                    variant="outline"
+                    className="text-[10px] px-1.5 py-0 text-blue-700 border-blue-500 dark:text-blue-400 dark:border-blue-600"
+                    data-testid={`badge-updated-${lead.id}`}
+                  >
+                    Updated
+                  </Badge>
+                )}
               </CardTitle>
               <CardDescription className="mt-1 flex items-center gap-2">
                 <MapPin className="h-3 w-3" />

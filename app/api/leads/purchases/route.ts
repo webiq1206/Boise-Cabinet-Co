@@ -1,9 +1,9 @@
 import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { leads, leadPurchases } from "@/shared/schema";
-import { eq, desc, gte } from "drizzle-orm";
+import { eq, desc } from "drizzle-orm";
 import { getSession } from "@/lib/auth";
-import { computeOverlaps, type DedupeCandidate } from "@/lib/leadDedupe";
+import { attachOverlaps, type DedupeCandidate } from "@/lib/leadDedupe";
 
 export async function GET() {
   try {
@@ -35,12 +35,13 @@ export async function GET() {
       })
     );
 
-    const valid = results.filter(Boolean) as any[];
+    type PurchaseLead = NonNullable<(typeof results)[number]>;
+    const valid: PurchaseLead[] = results.filter(
+      (r): r is PurchaseLead => r !== null
+    );
 
-    const sevenDaysAgo = new Date();
-    sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
-    const candidateRows = await db.select().from(leads).where(gte(leads.createdAt, sevenDaysAgo));
-    const candidates: DedupeCandidate[] = candidateRows.map((l) => ({
+    const candidateRows = await db.select().from(leads);
+    const toCandidate = (l: { id: string; quoteId?: string | null; email: string; address?: string | null; status: string; createdAt?: Date | string | null; purchasedBy?: string | null }): DedupeCandidate => ({
       id: l.id,
       quoteId: l.quoteId ?? null,
       email: l.email,
@@ -48,17 +49,9 @@ export async function GET() {
       status: l.status,
       createdAt: l.createdAt ?? new Date(),
       purchasedBy: l.purchasedBy ?? null,
-    }));
-    const targets: DedupeCandidate[] = valid.map((l) => ({
-      id: l.id,
-      quoteId: l.quoteId ?? null,
-      email: l.email,
-      address: l.address ?? null,
-      status: l.status,
-      createdAt: l.createdAt ?? new Date(),
-      purchasedBy: l.purchasedBy ?? null,
-    }));
-    const overlapMap = computeOverlaps(targets, candidates);
+    });
+    const overlaps = attachOverlaps(valid.map(toCandidate), candidateRows.map(toCandidate));
+    const overlapMap = new Map(overlaps.map((o) => [o.id, o.possibleDuplicates]));
     const withOverlaps = valid.map((l) => ({
       ...l,
       possibleDuplicates: overlapMap.get(l.id) ?? [],

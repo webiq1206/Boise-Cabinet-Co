@@ -86,7 +86,9 @@ export function findActiveDuplicate(
 ): DuplicateMatch | null {
   const normEmail = normalizeEmail(email);
   const normAddress = normalizeAddress(address);
-  if (!normEmail && !normAddress) return null;
+  // Blocking requires BOTH email AND address to match (when both are present).
+  // If only one is provided, fall back to that single field as a last resort.
+  if (!normEmail || !normAddress) return null;
 
   const cutoff = Date.now() - DUPLICATE_WINDOW_DAYS * 24 * 60 * 60 * 1000;
 
@@ -96,9 +98,10 @@ export function findActiveDuplicate(
   for (const c of candidates) {
     const cEmail = normalizeEmail(c.email);
     const cAddr = normalizeAddress(c.address);
-    const emailMatch = !!normEmail && cEmail === normEmail;
-    const addrMatch = !!normAddress && !!cAddr && cAddr === normAddress;
-    if (!emailMatch && !addrMatch) continue;
+    const emailMatch = cEmail === normEmail;
+    const addrMatch = !!cAddr && cAddr === normAddress;
+    // Strict: BOTH must match for a duplicate-block.
+    if (!(emailMatch && addrMatch)) continue;
 
     const created = new Date(c.createdAt).getTime();
     if (!Number.isFinite(created) || created < cutoff) continue;
@@ -124,6 +127,21 @@ export interface OverlapEntry {
   status: string;
   createdAt: string;
   matchedOn: ("email" | "address")[];
+}
+
+export type LeadWithOverlaps<T extends { id: string }> = T & {
+  possibleDuplicates: OverlapEntry[];
+};
+
+export function attachOverlaps<T extends DedupeCandidate>(
+  rows: T[],
+  candidates: DedupeCandidate[]
+): LeadWithOverlaps<T>[] {
+  const overlapMap = computeOverlaps(rows, candidates);
+  return rows.map((r) => ({
+    ...r,
+    possibleDuplicates: overlapMap.get(r.id) ?? [],
+  }));
 }
 
 export function computeOverlaps(

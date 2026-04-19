@@ -132,8 +132,15 @@ interface Lead {
   tags?: string[] | null;
   notes?: Array<{text: string; addedBy: string; addedAt: string}> | null;
   createdAt: string;
+  updatedAt?: string | null;
   purchasedBy?: string | null;
   purchasedAt?: string | null;
+  possibleDuplicates?: Array<{
+    id: string;
+    status: string;
+    createdAt: string;
+    matchedOn: ("email" | "address")[];
+  }>;
 }
 
 // Priority services data for service names
@@ -908,7 +915,7 @@ function AdminDashboardContent() {
             <Badge variant={lead.status === "pending_admin" ? "default" : lead.status === "purchased" ? "secondary" : lead.status === "archived" ? "destructive" : "outline"} className="text-[10px] px-1.5 py-0" data-testid={`badge-status-${lead.id}`}>
               {lead.status === "pending_admin" ? "Pending Review" : lead.status === "purchased" ? "Purchased" : lead.status === "archived" ? "Archived" : "Available"}
             </Badge>
-            {(lead as any).possibleDuplicates && (lead as any).possibleDuplicates.length > 0 && (
+            {lead.possibleDuplicates && lead.possibleDuplicates.length > 0 && (
               <HoverCard>
                 <HoverCardTrigger asChild>
                   <Badge
@@ -919,21 +926,30 @@ function AdminDashboardContent() {
                     Possible duplicate
                   </Badge>
                 </HoverCardTrigger>
-                <HoverCardContent className="w-72 text-xs space-y-1">
+                <HoverCardContent className="w-80 text-xs space-y-2">
                   <p className="font-medium">
-                    {(lead as any).possibleDuplicates.length} matching lead{(lead as any).possibleDuplicates.length === 1 ? '' : 's'} in last 7 days
+                    {lead.possibleDuplicates.length} matching lead{lead.possibleDuplicates.length === 1 ? '' : 's'}
                   </p>
-                  {(lead as any).possibleDuplicates.slice(0, 5).map((d: any) => (
-                    <div key={d.id} className="flex items-center justify-between gap-2">
-                      <span className="font-mono">{String(d.id).slice(0, 8)}</span>
-                      <span className="text-muted-foreground">{d.matchedOn.join(' + ')}</span>
-                      <Badge variant="secondary" className="text-[10px] px-1 py-0">{d.status}</Badge>
-                    </div>
-                  ))}
+                  <ul className="space-y-1">
+                    {lead.possibleDuplicates.slice(0, 5).map((d) => (
+                      <li key={d.id} className="flex items-center justify-between gap-2">
+                        <a
+                          href={`/admin/dashboard?leadId=${encodeURIComponent(d.id)}`}
+                          className="font-mono text-blue-600 dark:text-blue-400 underline"
+                          data-testid={`link-duplicate-${d.id}`}
+                        >
+                          {d.id.slice(0, 8)}
+                        </a>
+                        <span className="text-muted-foreground">{d.matchedOn.join(' + ')}</span>
+                        <span className="text-muted-foreground">{new Date(d.createdAt).toLocaleDateString()}</span>
+                        <Badge variant="secondary" className="text-[10px] px-1 py-0">{d.status}</Badge>
+                      </li>
+                    ))}
+                  </ul>
                 </HoverCardContent>
               </HoverCard>
             )}
-            {(lead as any).updatedAt && lead.createdAt && new Date((lead as any).updatedAt).getTime() - new Date(lead.createdAt).getTime() > 60000 && (
+            {lead.updatedAt && lead.createdAt && new Date(lead.updatedAt).getTime() - new Date(lead.createdAt).getTime() > 60000 && (
               <Badge
                 variant="outline"
                 className="text-[10px] px-1.5 py-0 text-blue-700 border-blue-500 dark:text-blue-400 dark:border-blue-600"

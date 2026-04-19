@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import { db } from "@/lib/db";
 import { quotes, leads, users, notifications } from "@/shared/schema";
-import { eq } from "drizzle-orm";
+import { and, desc, eq, gte } from "drizzle-orm";
 import { verifyEditToken } from "@/lib/leadDedupe";
 import { getRecurringEligibleServices } from "@shared/serviceSeasonality";
 
@@ -186,22 +186,22 @@ export async function POST(request: Request) {
     const primaryService = data.selectedServices[0];
     const now = new Date();
 
-    await db
-      .update(leads)
-      .set({
-        selectedServices: data.selectedServices,
-        serviceType: primaryService,
-        serviceData: newServiceData,
-        lineItems,
-        finalQuote: estimatedTotal.toFixed(2),
-        baseLeadPrice: basePrice.toFixed(2),
-        currentLeadPrice: currentPrice.toFixed(2),
-        updatedAt: now,
-      })
-      .where(eq(leads.id, lead.id));
-
+    // Atomic-ish update: quote first (source of truth for the customer),
+    // then lead. If the lead update fails after the quote update succeeds we
+    // attempt a best-effort revert of the quote so the two stay in sync.
+    let originalQuoteSnapshot:
+      | { selectedServices: unknown; serviceType: string; serviceData: unknown; lineItems: unknown; finalQuote: string | null }
+      | null = null;
     if (lead.quoteId) {
-      try {
+      const [existing] = await db.select().from(quotes).where(eq(quotes.id, lead.quoteId));
+      if (existing) {
+        originalQuoteSnapshot = {
+          selectedServices: existing.selectedServices,
+          serviceType: existing.serviceType,
+          serviceData: existing.serviceData,
+          lineItems: existing.lineItems,
+          finalQuote: existing.finalQuote,
+        };
         await db
           .update(quotes)
           .set({
@@ -212,17 +212,70 @@ export async function POST(request: Request) {
             finalQuote: estimatedTotal.toFixed(2),
           })
           .where(eq(quotes.id, lead.quoteId));
-      } catch (e) {
-        console.error("[QUOTE-UPDATE] Failed to update quote:", e);
       }
     }
 
-    // Notify watchlist subscribers (admin + subcontractors who watched it)
     try {
+      await db
+        .update(leads)
+        .set({
+          selectedServices: data.selectedServices,
+          serviceType: primaryService,
+          serviceData: newServiceData,
+          lineItems,
+          finalQuote: estimatedTotal.toFixed(2),
+          baseLeadPrice: basePrice.toFixed(2),
+          currentLeadPrice: currentPrice.toFixed(2),
+          updatedAt: now,
+        })
+        .where(eq(leads.id, lead.id));
+    } catch (leadErr) {
+      console.error("[QUOTE-UPDATE] Lead update failed, reverting quote:", leadErr);
+      if (lead.quoteId && originalQuoteSnapshot) {
+        try {
+          await db
+            .update(quotes)
+            .set({
+              selectedServices: originalQuoteSnapshot.selectedServices as string[],
+              serviceType: originalQuoteSnapshot.serviceType,
+              serviceData: originalQuoteSnapshot.serviceData as Record<string, unknown>,
+              lineItems: originalQuoteSnapshot.lineItems as unknown[],
+              finalQuote: originalQuoteSnapshot.finalQuote,
+            })
+            .where(eq(quotes.id, lead.quoteId));
+        } catch (revertErr) {
+          console.error("[QUOTE-UPDATE] Quote revert also failed:", revertErr);
+        }
+      }
+      throw leadErr;
+    }
+
+    // Notify watchlist subscribers, throttled per-user/per-lead.
+    // Skip both in-app and email if we already notified this user about this
+    // lead in the last NOTIFY_THROTTLE_MIN minutes.
+    const NOTIFY_THROTTLE_MIN = 30;
+    try {
+      const throttleCutoff = new Date(Date.now() - NOTIFY_THROTTLE_MIN * 60 * 1000);
       const watchers = await db.select().from(users);
       for (const u of watchers) {
-        const watched = (u.watchedLeads as string[]) || [];
+        const watched = (u.watchedLeads as string[] | null) || [];
         if (!Array.isArray(watched) || !watched.includes(lead.id)) continue;
+
+        const recent = await db
+          .select()
+          .from(notifications)
+          .where(
+            and(
+              eq(notifications.userId, u.id),
+              eq(notifications.leadId, lead.id),
+              eq(notifications.type, "lead_updated"),
+              gte(notifications.createdAt, throttleCutoff)
+            )
+          )
+          .orderBy(desc(notifications.createdAt))
+          .limit(1);
+        if (recent.length > 0) continue;
+
         await db.insert(notifications).values({
           userId: u.id,
           type: "lead_updated",

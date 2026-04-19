@@ -1,9 +1,9 @@
 import { getSession, getUserFromDb } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { leads } from "@/shared/schema";
-import { eq, gte } from "drizzle-orm";
+import { eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
-import { computeOverlaps, type DedupeCandidate } from "@/lib/leadDedupe";
+import { attachOverlaps, type DedupeCandidate } from "@/lib/leadDedupe";
 
 function parseJsonArray(val: unknown): string[] {
   if (Array.isArray(val)) return val;
@@ -33,7 +33,8 @@ export async function GET() {
     return NextResponse.json([]);
   }
 
-  const watchedLeads: any[] = [];
+  type LeadRow = typeof leads.$inferSelect;
+  const watchedLeads: LeadRow[] = [];
   for (const id of watchedIds) {
     const result = await db.select().from(leads).where(eq(leads.id, id));
     if (result[0] && result[0].status === "available") {
@@ -41,10 +42,8 @@ export async function GET() {
     }
   }
 
-  const sevenDaysAgo = new Date();
-  sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
-  const candidateRows = await db.select().from(leads).where(gte(leads.createdAt, sevenDaysAgo));
-  const candidates: DedupeCandidate[] = candidateRows.map((l) => ({
+  const candidateRows = await db.select().from(leads);
+  const toCandidate = (l: LeadRow): DedupeCandidate => ({
     id: l.id,
     quoteId: l.quoteId ?? null,
     email: l.email,
@@ -52,17 +51,9 @@ export async function GET() {
     status: l.status,
     createdAt: l.createdAt ?? new Date(),
     purchasedBy: l.purchasedBy ?? null,
-  }));
-  const targets: DedupeCandidate[] = watchedLeads.map((l) => ({
-    id: l.id,
-    quoteId: l.quoteId ?? null,
-    email: l.email,
-    address: l.address ?? null,
-    status: l.status,
-    createdAt: l.createdAt ?? new Date(),
-    purchasedBy: l.purchasedBy ?? null,
-  }));
-  const overlapMap = computeOverlaps(targets, candidates);
+  });
+  const overlaps = attachOverlaps(watchedLeads.map(toCandidate), candidateRows.map(toCandidate));
+  const overlapMap = new Map(overlaps.map((o) => [o.id, o.possibleDuplicates]));
 
   const masked = watchedLeads.map((lead) => ({
     ...lead,
