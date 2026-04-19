@@ -19,12 +19,21 @@ import { useAuth, User } from "@/hooks/useAuth";
 import { NotificationsBell } from "@/components/NotificationsBell";
 import { StripePaymentForm, StripePaymentFormSkeleton, PaymentSuccess } from "@/components/StripePaymentForm";
 import {
-  Leaf, MapPin, Clock, DollarSign, Building, Search, Filter, X, ArrowUpDown, Eye, 
-  EyeOff, ShoppingCart, History, CheckCircle2, Info, AlertTriangle, ChevronDown, 
+  Leaf, MapPin, Clock, DollarSign, Building, Search, Filter, X, ArrowUpDown, Eye,
+  EyeOff, ShoppingCart, History, CheckCircle2, Info, AlertTriangle, ChevronDown,
   Receipt, Bookmark, BookmarkCheck, Bell, LogOut, Mail, Shield, Flame, RefreshCw,
   TrendingUp, HelpCircle, FileSignature, Users, TrendingDown, ShieldCheck, Percent,
-  Phone, User as UserIcon
+  Phone, User as UserIcon, Download
 } from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { buildLeadCsv, buildCsvFilename, downloadCsv, type CsvFormat } from "@/lib/leadCsv";
 import { useRouter, useSearchParams } from "next/navigation";
 
 interface LineItem {
@@ -1895,9 +1904,75 @@ function SubcontractorPortalContent() {
                   </CardContent>
                 </Card>
               ) : (
-                <div className="grid gap-4 md:grid-cols-2">
-                  {myPurchases.map(lead => <LeadCard key={lead.id} lead={lead} isPurchased />)}
-                </div>
+                <>
+                  <div className="flex items-center justify-between gap-2 mb-4 flex-wrap">
+                    <p className="text-sm text-muted-foreground">
+                      {myPurchases.length} purchased {myPurchases.length === 1 ? "lead" : "leads"}
+                    </p>
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <Button variant="outline" data-testid="button-export-purchases">
+                          <Download className="h-4 w-4 mr-2" />
+                          Export
+                        </Button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent align="end" className="w-64">
+                        <DropdownMenuLabel>
+                          Export {myPurchases.length}{" "}
+                          {myPurchases.length === 1 ? "lead" : "leads"}
+                        </DropdownMenuLabel>
+                        <DropdownMenuSeparator />
+                        <DropdownMenuItem
+                          onClick={() => {
+                            const csv = buildLeadCsv(myPurchases as any, {
+                              format: "yardbook",
+                              getServiceName,
+                            });
+                            const filename = buildCsvFilename("yardbook");
+                            downloadCsv(csv, filename);
+                            toast({
+                              title: `Exported ${myPurchases.length} ${myPurchases.length === 1 ? "lead" : "leads"}`,
+                              description: filename,
+                            });
+                          }}
+                          data-testid="menu-export-yardbook"
+                        >
+                          <div className="flex flex-col">
+                            <span className="font-medium">Yardbook customer CSV</span>
+                            <span className="text-xs text-muted-foreground">
+                              Drag-and-drop into Yardbook import
+                            </span>
+                          </div>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem
+                          onClick={() => {
+                            const csv = buildLeadCsv(myPurchases as any, {
+                              format: "full",
+                              getServiceName,
+                            });
+                            const filename = buildCsvFilename("full");
+                            downloadCsv(csv, filename);
+                            toast({
+                              title: `Exported ${myPurchases.length} ${myPurchases.length === 1 ? "lead" : "leads"}`,
+                              description: filename,
+                            });
+                          }}
+                          data-testid="menu-export-full"
+                        >
+                          <div className="flex flex-col">
+                            <span className="font-medium">Full lead CSV</span>
+                            <span className="text-xs text-muted-foreground">
+                              All fields for spreadsheets
+                            </span>
+                          </div>
+                        </DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  </div>
+                  <div className="grid gap-4 md:grid-cols-2">
+                    {myPurchases.map(lead => <LeadCard key={lead.id} lead={lead} isPurchased />)}
+                  </div>
+                </>
               )}
             </>
           )}

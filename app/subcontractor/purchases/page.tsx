@@ -8,13 +8,23 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/hooks/useAuth";
 import { NotificationsBell } from "@/components/NotificationsBell";
 import {
-  Leaf, MapPin, Clock, DollarSign, Building, Search, ArrowLeft, Mail, Phone, 
-  User, ChevronDown, Receipt, History, LogOut, ExternalLink, Copy, CheckCircle2
+  Leaf, MapPin, Clock, DollarSign, Building, Search, ArrowLeft, Mail, Phone,
+  User, ChevronDown, Receipt, History, LogOut, ExternalLink, Copy, CheckCircle2,
+  Download
 } from "lucide-react";
+import { buildLeadCsv, buildCsvFilename, downloadCsv, type CsvFormat } from "@/lib/leadCsv";
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 
@@ -283,6 +293,17 @@ export default function PurchaseHistoryPage() {
 
   const handleLogout = () => {
     window.location.href = "/api/logout";
+  };
+
+  const handleExport = (format: CsvFormat) => {
+    if (filteredPurchases.length === 0) return;
+    const csv = buildLeadCsv(filteredPurchases as any, { format, getServiceName });
+    const filename = buildCsvFilename(format);
+    downloadCsv(csv, filename);
+    toast({
+      title: `Exported ${filteredPurchases.length} ${filteredPurchases.length === 1 ? "lead" : "leads"}`,
+      description: filename,
+    });
   };
 
   const PurchasedLeadCard = ({ lead }: { lead: Lead }) => {
@@ -632,7 +653,7 @@ export default function PurchaseHistoryPage() {
                   className="pl-10"
                 />
               </div>
-              <div className="flex gap-2">
+              <div className="flex flex-wrap gap-2">
                 <Select value={sortBy} onValueChange={(v) => setSortBy(v as typeof sortBy)}>
                   <SelectTrigger className="w-[140px]">
                     <SelectValue />
@@ -648,6 +669,52 @@ export default function PurchaseHistoryPage() {
                 >
                   {sortOrder === "asc" ? "↑ Oldest" : "↓ Newest"}
                 </Button>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button
+                      variant="outline"
+                      disabled={filteredPurchases.length === 0}
+                      data-testid="button-export-purchases"
+                    >
+                      <Download className="h-4 w-4 mr-2" />
+                      Export
+                      {filteredPurchases.length > 0 && filteredPurchases.length !== purchases.length && (
+                        <span className="ml-1 text-muted-foreground">
+                          ({filteredPurchases.length})
+                        </span>
+                      )}
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end" className="w-64">
+                    <DropdownMenuLabel>
+                      Export {filteredPurchases.length}{" "}
+                      {filteredPurchases.length === 1 ? "lead" : "leads"}
+                    </DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem
+                      onClick={() => handleExport("yardbook")}
+                      data-testid="menu-export-yardbook"
+                    >
+                      <div className="flex flex-col">
+                        <span className="font-medium">Yardbook customer CSV</span>
+                        <span className="text-xs text-muted-foreground">
+                          Drag-and-drop into Yardbook import
+                        </span>
+                      </div>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      onClick={() => handleExport("full")}
+                      data-testid="menu-export-full"
+                    >
+                      <div className="flex flex-col">
+                        <span className="font-medium">Full lead CSV</span>
+                        <span className="text-xs text-muted-foreground">
+                          All fields for spreadsheets
+                        </span>
+                      </div>
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
               </div>
             </div>
           </CardContent>
