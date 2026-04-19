@@ -92,6 +92,29 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "One or more leads not found" }, { status: 404 });
     }
 
+    // Idempotent retry path: if this user already recorded purchases for
+    // exactly the same set of leads with the same paymentIntentId, return
+    // success so a UI retry after a transient backend failure doesn't 400
+    // even though the leads are now `purchased`.
+    if (paymentIntentId) {
+      const priorPayments = await db.select().from(leadPurchases).where(eq(leadPurchases.stripePaymentIntentId, paymentIntentId));
+      if (priorPayments.length > 0) {
+        const allOwnedByUser = priorPayments.every((p) => p.userId === user.id && !p.refunded);
+        const sortedPriorIds = [...priorPayments.map((p) => p.leadId)].sort();
+        const sortedRequestIds = [...leadIds].sort();
+        if (allOwnedByUser && JSON.stringify(sortedPriorIds) === JSON.stringify(sortedRequestIds)) {
+          return NextResponse.json({
+            success: true,
+            alreadyRecorded: true,
+            purchases: priorPayments,
+            leads: fetchedLeads,
+            creditsUsed: priorPayments.reduce((s, p) => s + parseFloat(p.creditsUsed || "0"), 0),
+          });
+        }
+        return NextResponse.json({ error: "This payment has already been processed" }, { status: 409 });
+      }
+    }
+
     const unavailable = fetchedLeads.filter((l) => l.status !== "available");
     if (unavailable.length > 0) {
       return NextResponse.json(
@@ -142,6 +165,18 @@ export async function POST(request: NextRequest) {
 
       const existingPayment = await db.select().from(leadPurchases).where(eq(leadPurchases.stripePaymentIntentId, paymentIntentId));
       if (existingPayment.length > 0) {
+        const allOwned = existingPayment.every((p) => p.userId === user.id && !p.refunded);
+        const sortedExistingLeadIds = [...existingPayment.map((p) => p.leadId)].sort();
+        const sortedRequestIds2 = [...leadIds].sort();
+        if (allOwned && JSON.stringify(sortedExistingLeadIds) === JSON.stringify(sortedRequestIds2)) {
+          return NextResponse.json({
+            success: true,
+            alreadyRecorded: true,
+            purchases: existingPayment,
+            leads: fetchedLeads,
+            creditsUsed: existingPayment.reduce((s, p) => s + parseFloat(p.creditsUsed || "0"), 0),
+          });
+        }
         return NextResponse.json({ error: "This payment has already been processed" }, { status: 409 });
       }
 

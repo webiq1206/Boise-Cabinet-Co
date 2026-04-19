@@ -26,12 +26,26 @@ interface PaymentFormContentProps {
   onCancel: () => void;
   amount: number;
   description?: string;
+  isFinalizing?: boolean;
+  finalizationError?: string | null;
+  chargedPaymentIntentId?: string | null;
+  onRetryFinalization?: () => void;
 }
 
-function PaymentFormContent({ onSuccess, onCancel, amount, description }: PaymentFormContentProps) {
+function PaymentFormContent({
+  onSuccess,
+  onCancel,
+  amount,
+  description,
+  isFinalizing,
+  finalizationError,
+  chargedPaymentIntentId,
+  onRetryFinalization,
+}: PaymentFormContentProps) {
   const stripe = useStripe();
   const elements = useElements();
   const [isProcessing, setIsProcessing] = useState(false);
+  const [stripeDone, setStripeDone] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -67,9 +81,14 @@ function PaymentFormContent({ onSuccess, onCancel, amount, description }: Paymen
       }
 
       if (paymentIntent?.status === "succeeded") {
+        // Always release the local processing flag once Stripe confirms,
+        // so the modal can never hang on "Processing…" if the back-end
+        // call that follows fails or is delayed. The parent's
+        // isFinalizing prop drives the next visible state.
+        setIsProcessing(false);
+        setStripeDone(true);
         onSuccess(paymentIntent.id);
       } else if (paymentIntent?.status === "requires_action") {
-        // 3D Secure or other authentication required
         setError("Additional authentication required. Please complete the verification.");
         setIsProcessing(false);
       } else {
@@ -82,6 +101,9 @@ function PaymentFormContent({ onSuccess, onCancel, amount, description }: Paymen
     }
   };
 
+  const showFinalizationError = stripeDone && !!finalizationError;
+  const showFinalizing = stripeDone && !finalizationError && (isFinalizing ?? false);
+
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       <div className="space-y-4">
@@ -90,47 +112,113 @@ function PaymentFormContent({ onSuccess, onCancel, amount, description }: Paymen
           <span className="text-lg font-bold">${(amount / 100).toFixed(2)}</span>
         </div>
 
-        <PaymentElement 
-          options={{
-            layout: "tabs",
-          }}
-        />
+        {!stripeDone && (
+          <PaymentElement
+            options={{
+              layout: "tabs",
+            }}
+          />
+        )}
       </div>
 
-      {error && (
+      {error && !stripeDone && (
         <Alert variant="destructive">
           <AlertCircle className="h-4 w-4" />
           <AlertDescription>{error}</AlertDescription>
         </Alert>
       )}
 
+      {showFinalizationError && (
+        <Alert variant="destructive" data-testid="alert-finalization-error">
+          <AlertCircle className="h-4 w-4" />
+          <AlertDescription className="space-y-2">
+            <p className="font-medium">Your card was charged successfully.</p>
+            <p>
+              We couldn't finish recording your purchase on our end:
+              {" "}
+              <span className="font-medium">{finalizationError}</span>
+            </p>
+            {chargedPaymentIntentId && (
+              <p className="text-xs">
+                Payment reference:
+                {" "}
+                <span className="font-mono break-all" data-testid="text-charged-payment-intent">
+                  {chargedPaymentIntentId}
+                </span>
+              </p>
+            )}
+            <p className="text-xs">
+              Tap retry to finish recording, or contact support with the
+              reference above and we'll reconcile it for you.
+            </p>
+          </AlertDescription>
+        </Alert>
+      )}
+
       <div className="flex gap-3">
-        <Button
-          type="button"
-          variant="outline"
-          onClick={onCancel}
-          disabled={isProcessing}
-          className="flex-1"
-        >
-          Cancel
-        </Button>
-        <Button
-          type="submit"
-          disabled={!stripe || !elements || isProcessing}
-          className="flex-1"
-        >
-          {isProcessing ? (
-            <>
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              Processing...
-            </>
-          ) : (
-            <>
-              <CreditCard className="mr-2 h-4 w-4" />
-              Pay ${(amount / 100).toFixed(2)}
-            </>
-          )}
-        </Button>
+        {showFinalizationError ? (
+          <>
+            <Button
+              type="button"
+              variant="outline"
+              onClick={onCancel}
+              className="flex-1"
+              data-testid="button-finalization-close"
+            >
+              Close
+            </Button>
+            <Button
+              type="button"
+              onClick={onRetryFinalization}
+              disabled={isFinalizing || !onRetryFinalization}
+              className="flex-1"
+              data-testid="button-finalization-retry"
+            >
+              {isFinalizing ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Retrying...
+                </>
+              ) : (
+                "Retry recording purchase"
+              )}
+            </Button>
+          </>
+        ) : (
+          <>
+            <Button
+              type="button"
+              variant="outline"
+              onClick={onCancel}
+              disabled={isProcessing || showFinalizing}
+              className="flex-1"
+            >
+              Cancel
+            </Button>
+            <Button
+              type="submit"
+              disabled={!stripe || !elements || isProcessing || stripeDone}
+              className="flex-1"
+            >
+              {showFinalizing ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Finalizing your purchase...
+                </>
+              ) : isProcessing ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Processing...
+                </>
+              ) : (
+                <>
+                  <CreditCard className="mr-2 h-4 w-4" />
+                  Pay ${(amount / 100).toFixed(2)}
+                </>
+              )}
+            </Button>
+          </>
+        )}
       </div>
     </form>
   );
@@ -142,6 +230,10 @@ interface StripePaymentFormProps {
   description?: string;
   onSuccess: (paymentIntentId: string) => void;
   onCancel: () => void;
+  isFinalizing?: boolean;
+  finalizationError?: string | null;
+  chargedPaymentIntentId?: string | null;
+  onRetryFinalization?: () => void;
 }
 
 export function StripePaymentForm({
@@ -150,6 +242,10 @@ export function StripePaymentForm({
   description,
   onSuccess,
   onCancel,
+  isFinalizing,
+  finalizationError,
+  chargedPaymentIntentId,
+  onRetryFinalization,
 }: StripePaymentFormProps) {
   if (!stripePromise) {
     return (
@@ -208,6 +304,10 @@ export function StripePaymentForm({
             description={description}
             onSuccess={onSuccess}
             onCancel={onCancel}
+            isFinalizing={isFinalizing}
+            finalizationError={finalizationError}
+            chargedPaymentIntentId={chargedPaymentIntentId}
+            onRetryFinalization={onRetryFinalization}
           />
         </Elements>
       </CardContent>

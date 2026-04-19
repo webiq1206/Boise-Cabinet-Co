@@ -569,6 +569,8 @@ function SubcontractorPortalContent() {
   const [paymentAmount, setPaymentAmount] = useState(0);
   const [paymentSuccess, setPaymentSuccess] = useState(false);
   const [pendingPurchaseLeadIds, setPendingPurchaseLeadIds] = useState<string[]>([]);
+  const [chargedPaymentIntentId, setChargedPaymentIntentId] = useState<string | null>(null);
+  const [finalizationError, setFinalizationError] = useState<string | null>(null);
   const [creditPurchaseInfo, setCreditPurchaseInfo] = useState<{
     coveredByCredits: boolean;
     creditsToApply: number;
@@ -633,6 +635,9 @@ function SubcontractorPortalContent() {
       return res.json();
     },
     enabled: isAuthenticated && (isSubcontractor || user?.role === "admin"),
+    refetchOnWindowFocus: true,
+    refetchOnMount: "always",
+    staleTime: 0,
   });
 
   useEffect(() => {
@@ -800,9 +805,18 @@ function SubcontractorPortalContent() {
       queryClient.invalidateQueries({ queryKey: ["/api/leads/watchlist"] });
       queryClient.invalidateQueries({ queryKey: ["/api/leads/purchases"] });
       queryClient.invalidateQueries({ queryKey: ["/api/auth/user"] });
+      setFinalizationError(null);
       setPaymentSuccess(true);
     },
     onError: (error: Error) => {
+      // If Stripe already captured the charge, surface a recoverable
+      // inline error inside the modal instead of a fire-and-forget
+      // toast so the customer is never left thinking their card was
+      // charged for nothing.
+      if (chargedPaymentIntentId) {
+        setFinalizationError(error.message || "We couldn't record your purchase.");
+        return;
+      }
       toast({ title: "Error", description: error.message, variant: "destructive" });
     },
   });
@@ -827,9 +841,14 @@ function SubcontractorPortalContent() {
       queryClient.invalidateQueries({ queryKey: ["/api/leads/purchases"] });
       queryClient.invalidateQueries({ queryKey: ["/api/auth/user"] });
       setSelectedLeadIds([]);
+      setFinalizationError(null);
       setPaymentSuccess(true);
     },
     onError: (error: Error) => {
+      if (chargedPaymentIntentId) {
+        setFinalizationError(error.message || "We couldn't record your purchase.");
+        return;
+      }
       toast({ title: "Error", description: error.message, variant: "destructive" });
     },
   });
@@ -1011,10 +1030,31 @@ function SubcontractorPortalContent() {
 
   const handlePaymentSuccess = (paymentIntentId: string) => {
     const credits = creditPurchaseInfo?.creditsToApply || 0;
+    setChargedPaymentIntentId(paymentIntentId);
+    setFinalizationError(null);
     if (singlePurchaseLead) {
       purchaseLeadMutation.mutate({ leadId: singlePurchaseLead.id, paymentIntentId, creditsToApply: credits });
     } else {
       bulkPurchaseMutation.mutate({ leadIds: pendingPurchaseLeadIds, paymentIntentId, creditsToApply: credits });
+    }
+  };
+
+  const handleRetryFinalization = () => {
+    if (!chargedPaymentIntentId) return;
+    const credits = creditPurchaseInfo?.creditsToApply || 0;
+    setFinalizationError(null);
+    if (singlePurchaseLead) {
+      purchaseLeadMutation.mutate({
+        leadId: singlePurchaseLead.id,
+        paymentIntentId: chargedPaymentIntentId,
+        creditsToApply: credits,
+      });
+    } else {
+      bulkPurchaseMutation.mutate({
+        leadIds: pendingPurchaseLeadIds,
+        paymentIntentId: chargedPaymentIntentId,
+        creditsToApply: credits,
+      });
     }
   };
 
@@ -1033,6 +1073,8 @@ function SubcontractorPortalContent() {
     setSinglePurchaseLead(null);
     setPendingPurchaseLeadIds([]);
     setCreditPurchaseInfo(null);
+    setChargedPaymentIntentId(null);
+    setFinalizationError(null);
   };
 
   const handlePaymentComplete = () => {
@@ -1042,6 +1084,8 @@ function SubcontractorPortalContent() {
     setSinglePurchaseLead(null);
     setPendingPurchaseLeadIds([]);
     setCreditPurchaseInfo(null);
+    setChargedPaymentIntentId(null);
+    setFinalizationError(null);
     // Reveal the purchased lead in-place so the contact info shows up
     // immediately without a manual reload, and the masked copy in the
     // "available" list is gone (the cache was already invalidated above).
@@ -1949,7 +1993,7 @@ function SubcontractorPortalContent() {
       {/* Purchase Dialog */}
       <Dialog open={purchaseDialogOpen} onOpenChange={(open) => !open && handlePaymentCancel()}>
         <DialogContent className="max-w-md" data-testid="modal-purchase">
-          {paymentSuccess ? (
+          {paymentSuccess && !finalizationError ? (
             <PaymentSuccess 
               message={`You've successfully purchased ${pendingPurchaseLeadIds.length} lead${pendingPurchaseLeadIds.length !== 1 ? 's' : ''}! View your purchase history to see the contact information.`}
               onContinue={handlePaymentComplete}
@@ -2019,6 +2063,10 @@ function SubcontractorPortalContent() {
                 }
                 onSuccess={handlePaymentSuccess}
                 onCancel={handlePaymentCancel}
+                isFinalizing={purchaseLeadMutation.isPending || bulkPurchaseMutation.isPending}
+                finalizationError={finalizationError}
+                chargedPaymentIntentId={chargedPaymentIntentId}
+                onRetryFinalization={handleRetryFinalization}
               />
             </div>
           ) : (

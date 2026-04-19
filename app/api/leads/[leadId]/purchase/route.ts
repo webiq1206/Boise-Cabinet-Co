@@ -48,13 +48,33 @@ export async function POST(
       return NextResponse.json({ error: "Lead not found" }, { status: 404 });
     }
 
-    if (lead.status !== "available") {
-      return NextResponse.json({ error: "Lead is no longer available" }, { status: 400 });
-    }
-
+    // Idempotent retry path: if this user already recorded a purchase for
+    // this lead with the same paymentIntentId, return success so a UI
+    // retry after a transient backend failure doesn't 400/409 even though
+    // Stripe charged the card and the lead is now `purchased`.
     const existingPurchase = await db.select().from(leadPurchases).where(eq(leadPurchases.leadId, leadId));
     if (existingPurchase.length > 0) {
+      const owned = existingPurchase.find(
+        (p) =>
+          p.userId === user.id &&
+          paymentIntentId &&
+          p.stripePaymentIntentId === paymentIntentId &&
+          !p.refunded
+      );
+      if (owned) {
+        return NextResponse.json({
+          success: true,
+          alreadyRecorded: true,
+          purchase: owned,
+          lead,
+          creditsUsed: parseFloat(owned.creditsUsed || "0"),
+        });
+      }
       return NextResponse.json({ error: "Lead has already been purchased" }, { status: 409 });
+    }
+
+    if (lead.status !== "available") {
+      return NextResponse.json({ error: "Lead is no longer available" }, { status: 400 });
     }
 
     const leadPrice = parseFloat(lead.currentLeadPrice || "0");

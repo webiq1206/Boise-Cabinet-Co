@@ -207,6 +207,9 @@ export default function PurchaseHistoryPage() {
       return res.json();
     },
     enabled: isAuthenticated && isSubcontractor,
+    refetchOnWindowFocus: true,
+    refetchOnMount: "always",
+    staleTime: 0,
   });
 
   // Filter and sort purchases
