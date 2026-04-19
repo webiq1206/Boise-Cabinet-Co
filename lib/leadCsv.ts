@@ -12,7 +12,7 @@ export interface ExportableLead {
   selectedServices?: string[] | null;
   frequency?: string | null;
   finalQuote?: string | null;
-  lineItems?: Array<Record<string, unknown>> | null;
+  lineItems?: readonly unknown[] | null;
   message?: string | null;
   propertySize?: string | number | null;
   purchasePrice?: string | null;

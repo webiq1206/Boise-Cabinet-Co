@@ -1924,7 +1924,7 @@ function SubcontractorPortalContent() {
                         <DropdownMenuSeparator />
                         <DropdownMenuItem
                           onClick={() => {
-                            const csv = buildLeadCsv(myPurchases as any, {
+                            const csv = buildLeadCsv(myPurchases, {
                               format: "yardbook",
                               getServiceName,
                             });
@@ -1946,7 +1946,7 @@ function SubcontractorPortalContent() {
                         </DropdownMenuItem>
                         <DropdownMenuItem
                           onClick={() => {
-                            const csv = buildLeadCsv(myPurchases as any, {
+                            const csv = buildLeadCsv(myPurchases, {
                               format: "full",
                               getServiceName,
                             });

@@ -297,7 +297,7 @@ export default function PurchaseHistoryPage() {
 
   const handleExport = (format: CsvFormat) => {
     if (filteredPurchases.length === 0) return;
-    const csv = buildLeadCsv(filteredPurchases as any, { format, getServiceName });
+    const csv = buildLeadCsv(filteredPurchases, { format, getServiceName });
     const filename = buildCsvFilename(format);
     downloadCsv(csv, filename);
     toast({
