@@ -56,9 +56,20 @@ function roundToNearestFive(price: number): number {
   return Math.ceil(price / 5) * 5;
 }
 
+interface ServiceMeasurement {
+  propertySize?: number;
+  linearFeet?: number;
+  perimeterFt?: number;
+  zones?: number;
+  treeCount?: number;
+  fixtureCount?: number;
+  frequency?: string;
+  [key: string]: unknown;
+}
+
 function calculateServicePrice(
   serviceId: string,
-  serviceData: any,
+  serviceData: ServiceMeasurement | null | undefined,
   fallbackSqFt: number,
   propertyMultiplier: number
 ): number {
@@ -163,11 +174,13 @@ export async function POST(request: Request) {
     }
 
     const propertyMultiplier = PROPERTY_MULTIPLIERS[lead.propertyType] || 1.0;
-    const existingServiceData = (lead.serviceData as any) || {};
-    const fallbackSqFt = Number(existingServiceData?.[lead.serviceType]?.propertySize) || 5000;
+    const existingServiceData =
+      (lead.serviceData as Record<string, ServiceMeasurement> | null) || {};
+    const fallbackSqFt =
+      Number(existingServiceData[lead.serviceType]?.propertySize) || 5000;
 
     const serviceFrequencies = data.serviceFrequencies || {};
-    const newServiceData: Record<string, any> = {};
+    const newServiceData: Record<string, ServiceMeasurement> = {};
     const lineItems = data.selectedServices.map((sid) => {
       const sd = existingServiceData[sid] || existingServiceData[lead.serviceType] || {};
       const svcFreq = serviceFrequencies[sid] || sd?.frequency || lead.frequency || "one-time";

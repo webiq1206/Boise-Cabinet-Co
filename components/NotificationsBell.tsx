@@ -76,7 +76,11 @@ export function NotificationsBell() {
       setOpen(false);
       if (notification.type === "admin_new_quote" || notification.type === "lead_purchased") {
         router.push(`/admin/dashboard?leadId=${notification.leadId}`);
-      } else if (notification.type === "new_lead" || notification.type === "lead_price_drop") {
+      } else if (
+        notification.type === "new_lead" ||
+        notification.type === "lead_price_drop" ||
+        notification.type === "lead_updated"
+      ) {
         router.push(`/subcontractor/portal?leadId=${notification.leadId}`);
       }
     }

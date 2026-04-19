@@ -224,8 +224,20 @@ export async function POST(request: Request) {
               existingQuoteId: dup.lead.quoteId,
             });
           }
+          if (!dup.lead.quoteId) {
+            console.log("[QUOTE] Duplicate (open, no quoteId) blocked:", dup.lead.id);
+            return NextResponse.json({
+              success: false,
+              duplicate: true,
+              status: "open",
+              message:
+                "We already received a quote request from you for this property. Please call (208) 352-2011 or email hello@lawncarekuna.com to make changes.",
+              existingLeadId: dup.lead.id,
+              existingQuoteId: null,
+            });
+          }
           const editToken = signEditToken({
-            quoteId: dup.lead.quoteId || "",
+            quoteId: dup.lead.quoteId,
             leadId: dup.lead.id,
           });
           console.log("[QUOTE] Duplicate (open) blocked:", dup.lead.id);
