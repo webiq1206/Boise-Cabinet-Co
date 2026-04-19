@@ -622,15 +622,28 @@ function SubcontractorPortalContent() {
     enabled: isAuthenticated && (isSubcontractor || user?.role === "admin"),
   });
 
-  const { data: myPurchases = [] } = useQuery<Lead[]>({
+  const { data: myPurchases = [], error: purchasesError } = useQuery<Lead[]>({
     queryKey: ["/api/leads/purchases"],
     queryFn: async () => {
       const res = await fetch("/api/leads/purchases");
-      if (!res.ok) return [];
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.error || "Failed to load your purchased leads");
+      }
       return res.json();
     },
     enabled: isAuthenticated && (isSubcontractor || user?.role === "admin"),
   });
+
+  useEffect(() => {
+    if (purchasesError) {
+      toast({
+        title: "Couldn't load your purchased leads",
+        description: purchasesError instanceof Error ? purchasesError.message : "Please refresh the page or try again shortly.",
+        variant: "destructive",
+      });
+    }
+  }, [purchasesError, toast]);
 
   const watchedLeadIds = useMemo(() => {
     const ids = new Set<string>();
@@ -1029,6 +1042,11 @@ function SubcontractorPortalContent() {
     setSinglePurchaseLead(null);
     setPendingPurchaseLeadIds([]);
     setCreditPurchaseInfo(null);
+    // Reveal the purchased lead in-place so the contact info shows up
+    // immediately without a manual reload, and the masked copy in the
+    // "available" list is gone (the cache was already invalidated above).
+    setActiveTab("purchases");
+    queryClient.refetchQueries({ queryKey: ["/api/leads/purchases"] });
     router.push("/subcontractor/purchases");
   };
 

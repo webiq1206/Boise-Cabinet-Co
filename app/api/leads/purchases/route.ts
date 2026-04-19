@@ -22,11 +22,31 @@ export async function GET() {
       .where(eq(leadPurchases.userId, session.userId))
       .orderBy(desc(leadPurchases.createdAt));
 
+    // Exclude refunded purchases — those leads have been reversed (e.g. via
+    // an admin duplicate-merge) and should not appear as currently-owned.
+    const activePurchases = purchases.filter((p) => !p.refunded);
+
     const results = await Promise.all(
-      purchases.map(async (purchase) => {
+      activePurchases.map(async (purchase) => {
         const leadResults = await db!.select().from(leads).where(eq(leads.id, purchase.leadId));
         const lead = leadResults[0];
         if (!lead) return null;
+        // The buyer must always see the unmasked customer details on a
+        // purchase they own. Surface a server error rather than silently
+        // returning masked data so the regression cannot come back unnoticed.
+        if (
+          lead.name === "***" ||
+          lead.email === "***" ||
+          lead.phone === "***" ||
+          lead.address === "***"
+        ) {
+          // Log full detail server-side for diagnosis; return a generic
+          // error message to the client to avoid leaking internal ids.
+          console.error(
+            `[purchases] Refusing to serve masked contact info for purchased lead ${lead.id} to its buyer ${session.userId}`
+          );
+          throw new Error("Failed to load purchased lead details");
+        }
         return {
           ...lead,
           purchasePrice: purchase.purchasePrice || lead.purchasePrice,
