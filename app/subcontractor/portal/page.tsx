@@ -33,7 +33,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { buildLeadCsv, buildCsvFilename, downloadCsv, type CsvFormat } from "@/lib/leadCsv";
+import { buildLeadCsv, buildCsvFilename, downloadCsv } from "@/lib/leadCsv";
 import { useRouter, useSearchParams } from "next/navigation";
 
 interface LineItem {
