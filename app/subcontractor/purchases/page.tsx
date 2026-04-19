@@ -5,6 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
@@ -197,6 +198,19 @@ export default function PurchaseHistoryPage() {
   const [sortBy, setSortBy] = useState<"date" | "price">("date");
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc");
   const [copiedId, setCopiedId] = useState<string | null>(null);
+  const [selectedPurchaseIds, setSelectedPurchaseIds] = useState<string[]>([]);
+
+  // Reset selection whenever the filter changes so users don't accidentally
+  // export rows that aren't visible.
+  useEffect(() => {
+    setSelectedPurchaseIds([]);
+  }, [searchQuery]);
+
+  const togglePurchaseSelection = (id: string) => {
+    setSelectedPurchaseIds(prev =>
+      prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]
+    );
+  };
 
   // Route guard
   useEffect(() => {
@@ -298,23 +312,49 @@ export default function PurchaseHistoryPage() {
     window.location.href = "/api/logout";
   };
 
+  const exportLeads = useMemo(() => {
+    if (selectedPurchaseIds.length === 0) return filteredPurchases;
+    const selectedSet = new Set(selectedPurchaseIds);
+    return filteredPurchases.filter(l => selectedSet.has(l.id));
+  }, [filteredPurchases, selectedPurchaseIds]);
+
+  const visibleIds = useMemo(() => filteredPurchases.map(l => l.id), [filteredPurchases]);
+  const allVisibleSelected =
+    visibleIds.length > 0 && visibleIds.every(id => selectedPurchaseIds.includes(id));
+
+  const toggleSelectAllVisible = () => {
+    if (allVisibleSelected) {
+      setSelectedPurchaseIds([]);
+    } else {
+      setSelectedPurchaseIds(visibleIds);
+    }
+  };
+
   const handleExport = (format: CsvFormat) => {
-    if (filteredPurchases.length === 0) return;
-    const csv = buildLeadCsv(filteredPurchases, { format, getServiceName });
+    if (exportLeads.length === 0) return;
+    const csv = buildLeadCsv(exportLeads, { format, getServiceName });
     const filename = buildCsvFilename(format);
     downloadCsv(csv, filename);
     markExported(filteredPurchases.map(l => l.id));
     toast({
-      title: `Exported ${filteredPurchases.length} ${filteredPurchases.length === 1 ? "lead" : "leads"}`,
+      title: `Exported ${exportLeads.length} ${exportLeads.length === 1 ? "lead" : "leads"}`,
       description: filename,
     });
   };
 
   const PurchasedLeadCard = ({ lead }: { lead: Lead }) => {
     return (
-      <Card className="overflow-hidden" id={`lead-${lead.id}`}>
+      <Card className={`overflow-hidden transition-all ${selectedPurchaseIds.includes(lead.id) ? 'ring-2 ring-primary' : ''}`} id={`lead-${lead.id}`}>
         <CardHeader className="pb-3">
           <div className="flex items-start justify-between gap-4">
+            <div className="flex items-start gap-3 flex-1 min-w-0">
+              <Checkbox
+                checked={selectedPurchaseIds.includes(lead.id)}
+                onCheckedChange={() => togglePurchaseSelection(lead.id)}
+                className="mt-1.5"
+                aria-label={`Select ${lead.name} for export`}
+                data-testid={`checkbox-purchase-${lead.id}`}
+              />
             <div>
               <CardTitle className="text-lg flex items-center gap-2 flex-wrap">
                 {getServiceName(lead.serviceType)}
@@ -380,6 +420,7 @@ export default function PurchaseHistoryPage() {
                 <MapPin className="h-3 w-3" />
                 {lead.city} • {lead.propertyType.replace(/-/g, " ")}
               </CardDescription>
+            </div>
             </div>
             <div className="text-right">
               <p className="text-sm text-muted-foreground">Purchased</p>
@@ -688,26 +729,41 @@ export default function PurchaseHistoryPage() {
                 >
                   {sortOrder === "asc" ? "↑ Oldest" : "↓ Newest"}
                 </Button>
+                <Button
+                  variant="outline"
+                  onClick={toggleSelectAllVisible}
+                  disabled={filteredPurchases.length === 0}
+                  data-testid="button-toggle-select-all-purchases"
+                >
+                  {allVisibleSelected ? "Clear" : "Select all visible"}
+                </Button>
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <Button
                       variant="outline"
-                      disabled={filteredPurchases.length === 0}
+                      disabled={exportLeads.length === 0}
                       data-testid="button-export-purchases"
                     >
                       <Download className="h-4 w-4 mr-2" />
                       Export
-                      {filteredPurchases.length > 0 && filteredPurchases.length !== purchases.length && (
+                      {selectedPurchaseIds.length > 0 ? (
                         <span className="ml-1 text-muted-foreground">
-                          ({filteredPurchases.length})
+                          ({exportLeads.length} selected)
                         </span>
+                      ) : (
+                        filteredPurchases.length > 0 && filteredPurchases.length !== purchases.length && (
+                          <span className="ml-1 text-muted-foreground">
+                            ({filteredPurchases.length})
+                          </span>
+                        )
                       )}
                     </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="end" className="w-64">
                     <DropdownMenuLabel>
-                      Export {filteredPurchases.length}{" "}
-                      {filteredPurchases.length === 1 ? "lead" : "leads"}
+                      {selectedPurchaseIds.length > 0 ? "Export selected " : "Export "}
+                      {exportLeads.length}{" "}
+                      {exportLeads.length === 1 ? "lead" : "leads"}
                     </DropdownMenuLabel>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem

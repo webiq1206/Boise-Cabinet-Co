@@ -575,6 +575,7 @@ function SubcontractorPortalContent() {
   
   // Purchase state
   const [selectedLeadIds, setSelectedLeadIds] = useState<string[]>([]);
+  const [selectedPurchaseIds, setSelectedPurchaseIds] = useState<string[]>([]);
   const [purchaseDialogOpen, setPurchaseDialogOpen] = useState(false);
   const [singlePurchaseLead, setSinglePurchaseLead] = useState<Lead | null>(null);
   const [paymentClientSecret, setPaymentClientSecret] = useState<string | null>(null);
@@ -651,6 +652,20 @@ function SubcontractorPortalContent() {
     refetchOnMount: "always",
     staleTime: 0,
   });
+
+  // Reset purchase-export selection when the user leaves the Purchases tab
+  // so a returning user doesn't accidentally export stale picks.
+  useEffect(() => {
+    if (activeTab !== "purchases") {
+      setSelectedPurchaseIds([]);
+    }
+  }, [activeTab]);
+
+  const togglePurchaseSelection = (id: string) => {
+    setSelectedPurchaseIds(prev =>
+      prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]
+    );
+  };
 
   // Refetch purchases when the user switches to the Purchases tab so a
   // recently-completed purchase appears immediately without a hard reload.
@@ -1170,9 +1185,17 @@ function SubcontractorPortalContent() {
                 />
               )}
               {isPurchased && (
-                <Badge variant="default" className="text-[10px] px-1.5 py-0 flex-shrink-0">
-                  Purchased
-                </Badge>
+                <>
+                  <Checkbox
+                    checked={selectedPurchaseIds.includes(lead.id)}
+                    onCheckedChange={() => togglePurchaseSelection(lead.id)}
+                    aria-label={`Select ${lead.name} for export`}
+                    data-testid={`checkbox-purchase-${lead.id}`}
+                  />
+                  <Badge variant="default" className="text-[10px] px-1.5 py-0 flex-shrink-0">
+                    Purchased
+                  </Badge>
+                </>
               )}
               {isPurchased && (() => {
                 const when = exportedAt(lead.id);
@@ -1923,26 +1946,60 @@ function SubcontractorPortalContent() {
                 </Card>
               ) : (
                 <>
+                  {(() => {
+                    const exportPurchases = selectedPurchaseIds.length > 0
+                      ? myPurchases.filter(l => selectedPurchaseIds.includes(l.id))
+                      : myPurchases;
+                    const allVisibleSelected =
+                      myPurchases.length > 0 &&
+                      myPurchases.every(l => selectedPurchaseIds.includes(l.id));
+                    const exportLabel = `${exportPurchases.length} ${exportPurchases.length === 1 ? "lead" : "leads"}`;
+                    return (
                   <div className="flex items-center justify-between gap-2 mb-4 flex-wrap">
                     <p className="text-sm text-muted-foreground">
                       {myPurchases.length} purchased {myPurchases.length === 1 ? "lead" : "leads"}
+                      {selectedPurchaseIds.length > 0 && (
+                        <span> • {selectedPurchaseIds.length} selected</span>
+                      )}
                     </p>
+                    <div className="flex flex-wrap gap-2">
+                    <Button
+                      variant="outline"
+                      onClick={() =>
+                        allVisibleSelected
+                          ? setSelectedPurchaseIds([])
+                          : setSelectedPurchaseIds(myPurchases.map(l => l.id))
+                      }
+                      disabled={myPurchases.length === 0}
+                      data-testid="button-toggle-select-all-purchases"
+                    >
+                      {allVisibleSelected ? "Clear" : "Select all visible"}
+                    </Button>
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
-                        <Button variant="outline" data-testid="button-export-purchases">
+                        <Button
+                          variant="outline"
+                          disabled={exportPurchases.length === 0}
+                          data-testid="button-export-purchases"
+                        >
                           <Download className="h-4 w-4 mr-2" />
                           Export
+                          {selectedPurchaseIds.length > 0 && (
+                            <span className="ml-1 text-muted-foreground">
+                              ({exportPurchases.length} selected)
+                            </span>
+                          )}
                         </Button>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align="end" className="w-64">
                         <DropdownMenuLabel>
-                          Export {myPurchases.length}{" "}
-                          {myPurchases.length === 1 ? "lead" : "leads"}
+                          {selectedPurchaseIds.length > 0 ? "Export selected " : "Export "}
+                          {exportLabel}
                         </DropdownMenuLabel>
                         <DropdownMenuSeparator />
                         <DropdownMenuItem
                           onClick={() => {
-                            const csv = buildLeadCsv(myPurchases, {
+                            const csv = buildLeadCsv(exportPurchases, {
                               format: "yardbook",
                               getServiceName,
                             });
@@ -1950,7 +2007,7 @@ function SubcontractorPortalContent() {
                             downloadCsv(csv, filename);
                             markExported(myPurchases.map(l => l.id));
                             toast({
-                              title: `Exported ${myPurchases.length} ${myPurchases.length === 1 ? "lead" : "leads"}`,
+                              title: `Exported ${exportLabel}`,
                               description: filename,
                             });
                           }}
@@ -1965,7 +2022,7 @@ function SubcontractorPortalContent() {
                         </DropdownMenuItem>
                         <DropdownMenuItem
                           onClick={() => {
-                            const csv = buildLeadCsv(myPurchases, {
+                            const csv = buildLeadCsv(exportPurchases, {
                               format: "full",
                               getServiceName,
                             });
@@ -1973,7 +2030,7 @@ function SubcontractorPortalContent() {
                             downloadCsv(csv, filename);
                             markExported(myPurchases.map(l => l.id));
                             toast({
-                              title: `Exported ${myPurchases.length} ${myPurchases.length === 1 ? "lead" : "leads"}`,
+                              title: `Exported ${exportLabel}`,
                               description: filename,
                             });
                           }}
@@ -1988,7 +2045,10 @@ function SubcontractorPortalContent() {
                         </DropdownMenuItem>
                       </DropdownMenuContent>
                     </DropdownMenu>
+                    </div>
                   </div>
+                    );
+                  })()}
                   <div className="grid gap-4 md:grid-cols-2">
                     {myPurchases.map(lead => <LeadCard key={lead.id} lead={lead} isPurchased />)}
                   </div>
