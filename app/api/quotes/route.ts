@@ -2,10 +2,10 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import { db } from "@/lib/db";
 import { quotes, leads, users, notifications, siteSettings } from "@/shared/schema";
-import { eq, gte } from "drizzle-orm";
+import { eq } from "drizzle-orm";
 import { sendQuoteConfirmationEmail, sendAdminNotificationEmail } from "@/lib/resend";
 import { getRecurringEligibleServices } from "@shared/serviceSeasonality";
-import { findActiveDuplicate, signEditToken } from "@/lib/leadDedupe";
+import { findActiveDuplicate, signEditToken, type DedupeCandidate } from "@/lib/leadDedupe";
 
 const quoteSubmissionSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -179,8 +179,11 @@ export async function POST(request: Request) {
 
     if (db) {
       try {
-        const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
-        const recentLeads = await db
+        // Scan all leads (not just recent) so historical purchased/open
+        // leads with the same email + address are still treated as
+        // duplicates. findActiveDuplicate already filters out
+        // archived/declined statuses.
+        const allLeadRows = await db
           .select({
             id: leads.id,
             quoteId: leads.quoteId,
@@ -190,11 +193,20 @@ export async function POST(request: Request) {
             createdAt: leads.createdAt,
             purchasedBy: leads.purchasedBy,
           })
-          .from(leads)
-          .where(gte(leads.createdAt, sevenDaysAgo));
+          .from(leads);
+
+        const candidates: DedupeCandidate[] = allLeadRows.map((l) => ({
+          id: l.id,
+          quoteId: l.quoteId ?? null,
+          email: l.email,
+          address: l.address ?? null,
+          status: l.status,
+          createdAt: l.createdAt ?? new Date(),
+          purchasedBy: l.purchasedBy ?? null,
+        }));
 
         const dup = findActiveDuplicate(
-          recentLeads as any,
+          candidates,
           validatedData.email,
           validatedData.address
         );

@@ -186,23 +186,11 @@ export async function POST(request: Request) {
     const primaryService = data.selectedServices[0];
     const now = new Date();
 
-    // Atomic-ish update: quote first (source of truth for the customer),
-    // then lead. If the lead update fails after the quote update succeeds we
-    // attempt a best-effort revert of the quote so the two stay in sync.
-    let originalQuoteSnapshot:
-      | { selectedServices: unknown; serviceType: string; serviceData: unknown; lineItems: unknown; finalQuote: string | null }
-      | null = null;
-    if (lead.quoteId) {
-      const [existing] = await db.select().from(quotes).where(eq(quotes.id, lead.quoteId));
-      if (existing) {
-        originalQuoteSnapshot = {
-          selectedServices: existing.selectedServices,
-          serviceType: existing.serviceType,
-          serviceData: existing.serviceData,
-          lineItems: existing.lineItems,
-          finalQuote: existing.finalQuote,
-        };
-        await db
+    // Atomic update: quote and lead are written together in a real
+    // transaction (neon-serverless Pool driver) so they cannot diverge.
+    await db.transaction(async (tx) => {
+      if (lead.quoteId) {
+        await tx
           .update(quotes)
           .set({
             selectedServices: data.selectedServices,
@@ -213,10 +201,7 @@ export async function POST(request: Request) {
           })
           .where(eq(quotes.id, lead.quoteId));
       }
-    }
-
-    try {
-      await db
+      await tx
         .update(leads)
         .set({
           selectedServices: data.selectedServices,
@@ -229,26 +214,7 @@ export async function POST(request: Request) {
           updatedAt: now,
         })
         .where(eq(leads.id, lead.id));
-    } catch (leadErr) {
-      console.error("[QUOTE-UPDATE] Lead update failed, reverting quote:", leadErr);
-      if (lead.quoteId && originalQuoteSnapshot) {
-        try {
-          await db
-            .update(quotes)
-            .set({
-              selectedServices: originalQuoteSnapshot.selectedServices as string[],
-              serviceType: originalQuoteSnapshot.serviceType,
-              serviceData: originalQuoteSnapshot.serviceData as Record<string, unknown>,
-              lineItems: originalQuoteSnapshot.lineItems as unknown[],
-              finalQuote: originalQuoteSnapshot.finalQuote,
-            })
-            .where(eq(quotes.id, lead.quoteId));
-        } catch (revertErr) {
-          console.error("[QUOTE-UPDATE] Quote revert also failed:", revertErr);
-        }
-      }
-      throw leadErr;
-    }
+    });
 
     // Notify watchlist subscribers, throttled per-user/per-lead.
     // Skip both in-app and email if we already notified this user about this
@@ -287,12 +253,17 @@ export async function POST(request: Request) {
           try {
             const { sendEmail } = await import("@/server/services/emailNotifications");
             const url = `https://lawncarekuna.com/subcontractor/portal?leadId=${encodeURIComponent(lead.id)}`;
-            sendEmail(
+            await sendEmail(
               u.email,
               `Watched lead updated in ${lead.city}`,
               `<p>A lead you're watching has been updated by the customer.</p><p>City: ${lead.city}<br/>New estimated value: $${estimatedTotal.toLocaleString()}</p><p><a href="${url}">View lead</a></p>`
-            ).catch(() => {});
-          } catch {}
+            );
+          } catch (emailErr) {
+            console.error(
+              `[QUOTE-UPDATE] Watcher email failed for user ${u.id}, lead ${lead.id}:`,
+              emailErr
+            );
+          }
         }
       }
     } catch (e) {
