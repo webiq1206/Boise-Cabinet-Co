@@ -1051,6 +1051,117 @@ export async function sendContractorNewLeadAvailable(
   await sendEmail(contractorEmail, subject, htmlBody);
 }
 
+export async function sendLeadMergeRefundNotification(
+  contractorEmail: string,
+  data: {
+    contractorName?: string | null;
+    refundAmount: string;
+    creditsRefunded?: string;
+    stripeRefunded?: string;
+    sourceLeadId: string;
+    targetLeadId: string;
+    targetLead: {
+      id: string;
+      city?: string | null;
+      serviceType?: string | null;
+      selectedServices?: string[] | null;
+      lineItems?: any;
+    };
+  }
+): Promise<void> {
+  const { fromEmail } = await getUncachableResendClient();
+  const refundAmountNum = parseFloat(data.refundAmount || "0") || 0;
+  const refundDisplay = `$${refundAmountNum.toFixed(2)}`;
+  const creditsNum = parseFloat(data.creditsRefunded || "0") || 0;
+  const stripeNum = parseFloat(data.stripeRefunded || "0") || 0;
+  const targetTitle = getEmailLeadDisplayTitle({
+    serviceType: data.targetLead.serviceType || "Service",
+    selectedServices: data.targetLead.selectedServices || undefined,
+    lineItems: data.targetLead.lineItems,
+  });
+  const cityPart = data.targetLead.city ? ` in ${data.targetLead.city}` : "";
+  const targetUrl = subcontractorLeadUrl(data.targetLead.id);
+  const greetingName = data.contractorName && data.contractorName.trim().length > 0 ? data.contractorName.trim() : "there";
+
+  const subject = `Refund issued (${refundDisplay}) - duplicate lead merged`;
+
+  const breakdownRows: string[] = [];
+  if (stripeNum > 0) {
+    breakdownRows.push(
+      `<tr><td class="label">Refunded to card:</td><td class="value">$${stripeNum.toFixed(2)}</td></tr>`
+    );
+  }
+  if (creditsNum > 0) {
+    breakdownRows.push(
+      `<tr><td class="label">Credits restored:</td><td class="value">$${creditsNum.toFixed(2)}</td></tr>`
+    );
+  }
+  const breakdownHtml = breakdownRows.length > 0
+    ? `<table class="info-table" style="margin-top: 8px;">${breakdownRows.join("")}</table>`
+    : "";
+
+  const htmlBody = `
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <style>${emailStyles}</style>
+    </head>
+    <body>
+      <div class="email-wrapper">
+        <div class="header">
+          <div style="margin-bottom: 20px;">
+            <img src="${EMAIL_LOGO_LIGHT_URL}" alt="Lawn Care Kuna" width="300" style="display:block; max-width:300px; height:auto;">
+          </div>
+          <h1>Lead Refunded</h1>
+          <p>A duplicate lead you purchased was merged</p>
+        </div>
+        <div class="content">
+          <p class="greeting">Hi ${greetingName},</p>
+          <p>We identified a lead you previously purchased as a duplicate of another lead in our system. Our admin team merged the two so that the customer is only being worked once, and we have refunded your purchase in full.</p>
+
+          <div class="highlight-box">
+            <p><strong>Refund total: ${refundDisplay}</strong></p>
+            ${breakdownHtml}
+          </div>
+
+          <div class="section">
+            <h2 class="section-title">What this means</h2>
+            <p style="margin: 0 0 10px 0;">The original lead you bought (ID <code>${data.sourceLeadId}</code>) has been archived. All of its details &mdash; services, measurements, and notes &mdash; have been combined into the surviving lead below. If you were already in contact with this customer, you can keep working with them on the merged lead.</p>
+          </div>
+
+          <div class="section">
+            <h2 class="section-title">Merged Lead</h2>
+            <table class="info-table">
+              <tr><td class="label">Service:</td><td class="value">${targetTitle}${cityPart}</td></tr>
+              <tr><td class="label">Lead ID:</td><td class="value">${data.targetLeadId}</td></tr>
+            </table>
+          </div>
+
+          <div style="text-align:center; margin: 30px 0;">
+            <a href="${targetUrl}" class="cta-button">View Merged Lead →</a>
+          </div>
+
+          <p style="font-size: 13px; color: #6b7280;">If anything looks off about this refund, just reply to this email and we'll take a look.</p>
+        </div>
+        <div class="footer">
+          <div style="margin: 0 0 12px 0;">
+            <img src="${EMAIL_LOGO_DARK_URL}" alt="Lawn Care Kuna" width="44" style="display:block; margin:0 auto; max-width:44px; height:auto;">
+          </div>
+          <p class="footer-brand">Lawn Care Kuna</p>
+          <p class="footer-tagline">Lead Distribution Platform</p>
+          <p class="footer-contact">Email: <a href="mailto:${fromEmail}">${fromEmail}</a></p>
+          <p class="footer-contact">Web: <a href="${SITE_BASE_URL}">www.lawncarekuna.com</a></p>
+        </div>
+      </div>
+    </body>
+    </html>
+  `;
+
+  await sendEmail(contractorEmail, subject, htmlBody);
+}
+
 export async function sendAdminDailyDigest(
   adminEmail: string,
   data: {

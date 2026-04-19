@@ -340,6 +340,46 @@ export async function POST(request: NextRequest) {
       }
     }
 
+    // Email the buyer of the source lead about the refund (respects their email pref).
+    if (refundInfo) {
+      try {
+        const [buyer] = await db.select().from(users).where(eq(users.id, refundInfo.userId));
+        if (buyer && buyer.email && buyer.emailNotificationsEnabled !== false) {
+          // Only report a card refund if Stripe actually executed one for this merge.
+          const cashRefunded = refundInfo.stripeRefundId
+            ? Math.max(
+                0,
+                (parseFloat(refundInfo.amount) || 0) - (parseFloat(refundInfo.creditsRefunded) || 0)
+              )
+            : 0;
+          const { sendLeadMergeRefundNotification } = await import("@/server/services/emailNotifications");
+          try {
+            await sendLeadMergeRefundNotification(buyer.email, {
+              contractorName: buyer.firstName ?? null,
+              refundAmount: refundInfo.amount,
+              creditsRefunded: refundInfo.creditsRefunded,
+              stripeRefunded: cashRefunded.toFixed(2),
+              sourceLeadId: sourceRow.id,
+              targetLeadId: updatedTarget.id,
+              targetLead: {
+                id: updatedTarget.id,
+                city: updatedTarget.city,
+                serviceType: updatedTarget.serviceType,
+                selectedServices: Array.isArray(updatedTarget.selectedServices)
+                  ? (updatedTarget.selectedServices as string[])
+                  : null,
+                lineItems: updatedTarget.lineItems,
+              },
+            });
+          } catch (e) {
+            console.error("[merge] Buyer refund email failed:", e);
+          }
+        }
+      } catch (e) {
+        console.error("[merge] Buyer refund email lookup failed:", e);
+      }
+    }
+
     console.log(
       `[ADMIN] Merge: source=${sourceRow.id} -> target=${targetRow.id} by ${admin.id}; finalQuote=${mergedFinalQuote.toFixed(2)}; refunded=${refundInfo ? "yes" : "no"}`
     );
