@@ -3,7 +3,7 @@ import { db } from "@/lib/db";
 import { leads, leadPurchases } from "@/shared/schema";
 import { eq, desc } from "drizzle-orm";
 import { getSession } from "@/lib/auth";
-import { attachOverlaps, type DedupeCandidate } from "@/lib/leadDedupe";
+import { attachOverlapsToLeads } from "@/lib/leadDedupe";
 
 export async function GET() {
   try {
@@ -40,22 +40,7 @@ export async function GET() {
       (r): r is PurchaseLead => r !== null
     );
 
-    const candidateRows = await db.select().from(leads);
-    const toCandidate = (l: { id: string; quoteId?: string | null; email: string; address?: string | null; status: string; createdAt?: Date | string | null; purchasedBy?: string | null }): DedupeCandidate => ({
-      id: l.id,
-      quoteId: l.quoteId ?? null,
-      email: l.email,
-      address: l.address ?? null,
-      status: l.status,
-      createdAt: l.createdAt ?? new Date(),
-      purchasedBy: l.purchasedBy ?? null,
-    });
-    const overlaps = attachOverlaps(valid.map(toCandidate), candidateRows.map(toCandidate));
-    const overlapMap = new Map(overlaps.map((o) => [o.id, o.possibleDuplicates]));
-    const withOverlaps = valid.map((l) => ({
-      ...l,
-      possibleDuplicates: overlapMap.get(l.id) ?? [],
-    }));
+    const withOverlaps = await attachOverlapsToLeads(valid);
 
     return NextResponse.json(withOverlaps);
   } catch (error) {

@@ -3,23 +3,7 @@ import { db } from "@/lib/db";
 import { leads } from "@/shared/schema";
 import { desc, eq, and, gte, lt, type SQL } from "drizzle-orm";
 import { NextResponse } from "next/server";
-import { attachOverlaps, type DedupeCandidate } from "@/lib/leadDedupe";
-
-async function getOverlapCandidates(): Promise<DedupeCandidate[]> {
-  if (!db) return [];
-  // Pull all leads regardless of age/status so the badge surfaces every
-  // historical overlap, not just recent ones.
-  const rows = await db.select().from(leads);
-  return rows.map((l) => ({
-    id: l.id,
-    quoteId: l.quoteId ?? null,
-    email: l.email,
-    address: l.address ?? null,
-    status: l.status,
-    createdAt: l.createdAt ?? new Date(),
-    purchasedBy: l.purchasedBy ?? null,
-  }));
-}
+import { attachOverlapsToLeads } from "@/lib/leadDedupe";
 
 async function autoArchiveStaleLeads() {
   if (!db) return;
@@ -89,25 +73,9 @@ export async function GET(request: Request) {
     .where(whereClause)
     .orderBy(desc(leads.createdAt));
 
-  const candidates = await getOverlapCandidates();
-
-  const toCandidate = (l: (typeof allLeads)[number]): DedupeCandidate => ({
-    id: l.id,
-    quoteId: l.quoteId ?? null,
-    email: l.email,
-    address: l.address ?? null,
-    status: l.status,
-    createdAt: l.createdAt ?? new Date(),
-    purchasedBy: l.purchasedBy ?? null,
-  });
-
   if (user.role === "admin") {
-    const targets = allLeads.map(toCandidate);
-    const overlaps = attachOverlaps(targets, candidates);
-    const overlapMap = new Map(overlaps.map((o) => [o.id, o.possibleDuplicates]));
-    return NextResponse.json(
-      allLeads.map((l) => ({ ...l, possibleDuplicates: overlapMap.get(l.id) ?? [] }))
-    );
+    const withOverlaps = await attachOverlapsToLeads(allLeads);
+    return NextResponse.json(withOverlaps);
   }
 
   const filtered = allLeads.filter((lead) => {
@@ -118,13 +86,7 @@ export async function GET(request: Request) {
     return true;
   });
 
-  const targets = filtered.map(toCandidate);
-  const overlaps = attachOverlaps(targets, candidates);
-  const overlapMap = new Map(overlaps.map((o) => [o.id, o.possibleDuplicates]));
-  const withOverlaps = filtered.map((l) => ({
-    ...l,
-    possibleDuplicates: overlapMap.get(l.id) ?? [],
-  }));
+  const withOverlaps = await attachOverlapsToLeads(filtered);
 
   const masked = withOverlaps.map((lead) => {
     if (lead.purchasedBy === user.id) {

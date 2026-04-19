@@ -144,6 +144,47 @@ export function attachOverlaps<T extends DedupeCandidate>(
   }));
 }
 
+interface LeadLike {
+  id: string;
+  quoteId?: string | null;
+  email: string;
+  address?: string | null;
+  status: string;
+  createdAt?: Date | string | null;
+  purchasedBy?: string | null;
+}
+
+function toCandidate(l: LeadLike): DedupeCandidate {
+  return {
+    id: l.id,
+    quoteId: l.quoteId ?? null,
+    email: l.email,
+    address: l.address ?? null,
+    status: l.status,
+    createdAt: l.createdAt ?? new Date(),
+    purchasedBy: l.purchasedBy ?? null,
+  };
+}
+
+export async function attachOverlapsToLeads<T extends LeadLike>(
+  rows: T[]
+): Promise<(T & { possibleDuplicates: OverlapEntry[] })[]> {
+  if (rows.length === 0) return [];
+  const { db } = await import("@/lib/db");
+  const { leads } = await import("@/shared/schema");
+  if (!db) {
+    return rows.map((r) => ({ ...r, possibleDuplicates: [] }));
+  }
+  const candidateRows = await db.select().from(leads);
+  const candidates = candidateRows.map(toCandidate);
+  const targets = rows.map(toCandidate);
+  const overlapMap = computeOverlaps(targets, candidates);
+  return rows.map((r) => ({
+    ...r,
+    possibleDuplicates: overlapMap.get(r.id) ?? [],
+  }));
+}
+
 export function computeOverlaps(
   targetLeads: DedupeCandidate[],
   allCandidates: DedupeCandidate[]
