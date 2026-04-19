@@ -704,6 +704,35 @@ function AdminDashboardContent() {
     },
   });
 
+  const mergeLeadsMutation = useMutation({
+    mutationFn: async ({ targetLeadId, sourceLeadId }: { targetLeadId: string; sourceLeadId: string }) => {
+      const res = await fetch(`/api/admin/leads/merge`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ targetLeadId, sourceLeadId }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(data?.error || "Failed to merge leads");
+      return data;
+    },
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: ["/api/leads"] });
+      const refundNote = data?.refund
+        ? ` Refunded $${data.refund.amount} to the prior buyer.`
+        : "";
+      const swapNote = data?.directionSwapped
+        ? " (Older lead was kept; newer was archived.)"
+        : "";
+      toast({
+        title: "Leads Merged",
+        description: `Newer lead archived and combined into the older one.${swapNote}${refundNote}`,
+      });
+    },
+    onError: (error: Error) => {
+      toast({ title: "Merge Failed", description: error.message, variant: "destructive" });
+    },
+  });
+
   const pendingLeads = filteredLeads.filter(l => l.status === "pending_admin");
   const acceptedLeads = filteredLeads.filter(l => l.status === "accepted");
   const declinedLeads = filteredLeads.filter(l => l.status === "available");
@@ -926,13 +955,13 @@ function AdminDashboardContent() {
                     Possible duplicate
                   </Badge>
                 </HoverCardTrigger>
-                <HoverCardContent className="w-80 text-xs space-y-2">
+                <HoverCardContent className="w-96 text-xs space-y-2">
                   <p className="font-medium">
                     {lead.possibleDuplicates.length} matching lead{lead.possibleDuplicates.length === 1 ? '' : 's'}
                   </p>
-                  <ul className="space-y-1">
+                  <ul className="space-y-2">
                     {lead.possibleDuplicates.slice(0, 5).map((d) => (
-                      <li key={d.id} className="flex items-center justify-between gap-2">
+                      <li key={d.id} className="flex items-center justify-between gap-2 flex-wrap">
                         <a
                           href={`/admin/dashboard?leadId=${encodeURIComponent(d.id)}`}
                           className="font-mono text-blue-600 dark:text-blue-400 underline"
@@ -943,6 +972,39 @@ function AdminDashboardContent() {
                         <span className="text-muted-foreground">{d.matchedOn.join(' + ')}</span>
                         <span className="text-muted-foreground">{new Date(d.createdAt).toLocaleDateString()}</span>
                         <Badge variant="secondary" className="text-[10px] px-1 py-0">{d.status}</Badge>
+                        {d.status !== "archived" && (
+                          <AlertDialog>
+                            <AlertDialogTrigger asChild>
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                className="h-7 text-[11px]"
+                                disabled={mergeLeadsMutation.isPending}
+                                data-testid={`button-merge-${lead.id}-${d.id}`}
+                              >
+                                <ArrowLeftRight className="h-3 w-3 mr-1" />
+                                Merge into this lead
+                              </Button>
+                            </AlertDialogTrigger>
+                            <AlertDialogContent>
+                              <AlertDialogHeader>
+                                <AlertDialogTitle>Merge duplicate lead?</AlertDialogTitle>
+                                <AlertDialogDescription>
+                                  The OLDER of these two leads is always kept and the newer one is archived (regardless of which card you click from). Services and pricing from the newer lead will be combined into the older one. If a subcontractor already purchased the archived lead it will be refunded automatically. The action is recorded in the lead notes for reversibility.
+                                </AlertDialogDescription>
+                              </AlertDialogHeader>
+                              <AlertDialogFooter>
+                                <AlertDialogCancel data-testid={`button-cancel-merge-${d.id}`}>Cancel</AlertDialogCancel>
+                                <AlertDialogAction
+                                  onClick={() => mergeLeadsMutation.mutate({ targetLeadId: lead.id, sourceLeadId: d.id })}
+                                  data-testid={`button-confirm-merge-${d.id}`}
+                                >
+                                  Merge
+                                </AlertDialogAction>
+                              </AlertDialogFooter>
+                            </AlertDialogContent>
+                          </AlertDialog>
+                        )}
                       </li>
                     ))}
                   </ul>
