@@ -2,9 +2,10 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import { db } from "@/lib/db";
 import { quotes, leads, users, notifications, siteSettings } from "@/shared/schema";
-import { eq } from "drizzle-orm";
+import { eq, gte } from "drizzle-orm";
 import { sendQuoteConfirmationEmail, sendAdminNotificationEmail } from "@/lib/resend";
 import { getRecurringEligibleServices } from "@shared/serviceSeasonality";
+import { findActiveDuplicate, signEditToken } from "@/lib/leadDedupe";
 
 const quoteSubmissionSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -178,6 +179,56 @@ export async function POST(request: Request) {
 
     if (db) {
       try {
+        const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
+        const recentLeads = await db
+          .select({
+            id: leads.id,
+            quoteId: leads.quoteId,
+            email: leads.email,
+            address: leads.address,
+            status: leads.status,
+            createdAt: leads.createdAt,
+            purchasedBy: leads.purchasedBy,
+          })
+          .from(leads)
+          .where(gte(leads.createdAt, sevenDaysAgo));
+
+        const dup = findActiveDuplicate(
+          recentLeads as any,
+          validatedData.email,
+          validatedData.address
+        );
+
+        if (dup) {
+          if (dup.type === "in_progress") {
+            console.log("[QUOTE] Duplicate (purchased) blocked:", dup.lead.id);
+            return NextResponse.json({
+              success: false,
+              duplicate: true,
+              status: "in_progress",
+              message:
+                "We already have your request and a contractor is handling it. Please call (208) 352-2011 or email hello@lawncarekuna.com to make changes.",
+              existingLeadId: dup.lead.id,
+              existingQuoteId: dup.lead.quoteId,
+            });
+          }
+          const editToken = signEditToken({
+            quoteId: dup.lead.quoteId || "",
+            leadId: dup.lead.id,
+          });
+          console.log("[QUOTE] Duplicate (open) blocked:", dup.lead.id);
+          return NextResponse.json({
+            success: false,
+            duplicate: true,
+            status: "open",
+            message:
+              "We already received a quote request from you for this property. You can update your existing quote instead.",
+            existingLeadId: dup.lead.id,
+            existingQuoteId: dup.lead.quoteId,
+            editToken,
+          });
+        }
+
         const [savedQuote] = await db.insert(quotes).values({
           name: validatedData.name,
           email: validatedData.email,

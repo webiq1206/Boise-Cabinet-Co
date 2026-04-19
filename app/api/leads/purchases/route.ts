@@ -1,8 +1,9 @@
 import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { leads, leadPurchases } from "@/shared/schema";
-import { eq, desc } from "drizzle-orm";
+import { eq, desc, gte } from "drizzle-orm";
 import { getSession } from "@/lib/auth";
+import { computeOverlaps, type DedupeCandidate } from "@/lib/leadDedupe";
 
 export async function GET() {
   try {
@@ -34,7 +35,36 @@ export async function GET() {
       })
     );
 
-    return NextResponse.json(results.filter(Boolean));
+    const valid = results.filter(Boolean) as any[];
+
+    const sevenDaysAgo = new Date();
+    sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+    const candidateRows = await db.select().from(leads).where(gte(leads.createdAt, sevenDaysAgo));
+    const candidates: DedupeCandidate[] = candidateRows.map((l) => ({
+      id: l.id,
+      quoteId: l.quoteId ?? null,
+      email: l.email,
+      address: l.address ?? null,
+      status: l.status,
+      createdAt: l.createdAt ?? new Date(),
+      purchasedBy: l.purchasedBy ?? null,
+    }));
+    const targets: DedupeCandidate[] = valid.map((l) => ({
+      id: l.id,
+      quoteId: l.quoteId ?? null,
+      email: l.email,
+      address: l.address ?? null,
+      status: l.status,
+      createdAt: l.createdAt ?? new Date(),
+      purchasedBy: l.purchasedBy ?? null,
+    }));
+    const overlapMap = computeOverlaps(targets, candidates);
+    const withOverlaps = valid.map((l) => ({
+      ...l,
+      possibleDuplicates: overlapMap.get(l.id) ?? [],
+    }));
+
+    return NextResponse.json(withOverlaps);
   } catch (error) {
     console.error("Error fetching purchases:", error);
     return NextResponse.json(

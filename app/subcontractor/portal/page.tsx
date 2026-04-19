@@ -11,6 +11,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Switch } from "@/components/ui/switch";
 import { useToast } from "@/hooks/use-toast";
@@ -1092,6 +1093,32 @@ function SubcontractorPortalContent() {
                   {!isPurchased && hasTimeDiscount && (
                     <Badge variant="outline" className="text-[10px] px-1.5 py-0 text-primary border-primary">
                       Price Reduced
+                    </Badge>
+                  )}
+                  {(lead as any).possibleDuplicates && (lead as any).possibleDuplicates.length > 0 && (
+                    <HoverCard>
+                      <HoverCardTrigger asChild>
+                        <Badge
+                          variant="outline"
+                          className="text-[10px] px-1.5 py-0 text-amber-700 border-amber-500 dark:text-amber-400 dark:border-amber-600 cursor-help"
+                          data-testid={`badge-duplicate-${lead.id}`}
+                        >
+                          Possible duplicate
+                        </Badge>
+                      </HoverCardTrigger>
+                      <HoverCardContent className="w-64 text-xs">
+                        Matches {(lead as any).possibleDuplicates.length} other recent lead{(lead as any).possibleDuplicates.length === 1 ? '' : 's'} on{' '}
+                        {Array.from(new Set((lead as any).possibleDuplicates.flatMap((d: any) => d.matchedOn))).join(' / ')}.
+                      </HoverCardContent>
+                    </HoverCard>
+                  )}
+                  {(lead as any).updatedAt && lead.createdAt && new Date((lead as any).updatedAt).getTime() - new Date(lead.createdAt).getTime() > 60000 && (
+                    <Badge
+                      variant="outline"
+                      className="text-[10px] px-1.5 py-0 text-blue-700 border-blue-500 dark:text-blue-400 dark:border-blue-600"
+                      data-testid={`badge-updated-${lead.id}`}
+                    >
+                      Updated
                     </Badge>
                   )}
                 </div>

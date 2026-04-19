@@ -299,6 +299,12 @@ export function SimpleQuoteWizard({
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [quoteId, setQuoteId] = useState<string | null>(null);
   const [finalQuote, setFinalQuote] = useState<any>(null);
+  const [duplicateInfo, setDuplicateInfo] = useState<{
+    status: "open" | "in_progress";
+    message: string;
+    editToken?: string;
+    existingLeadId?: string;
+  } | null>(null);
   
   // Contact form
   const contactForm = useForm<ContactData>({
@@ -514,13 +520,27 @@ export function SimpleQuoteWizard({
         body: JSON.stringify(payload),
       });
       
-      if (!response.ok) {
-        const errorData = await response.json().catch(() => ({}));
-        throw new Error(errorData.message || "Failed to submit quote");
+      const json = await response.json().catch(() => ({}));
+      if (!response.ok && !json?.duplicate) {
+        throw new Error(json?.message || "Failed to submit quote");
       }
-      return response.json();
+      return json;
     },
     onSuccess: async (response: any) => {
+      if (response?.duplicate) {
+        setDuplicateInfo({
+          status: response.status,
+          message: response.message,
+          editToken: response.editToken,
+          existingLeadId: response.existingLeadId,
+        });
+        setTimeout(() => {
+          if (formContainerRef.current) {
+            formContainerRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }, 100);
+        return;
+      }
       setQuoteId(response.quoteId || response.id || null);
       setFinalQuote(response);
       setIsSubmitted(true);
@@ -929,7 +949,63 @@ export function SimpleQuoteWizard({
       {/* Phase 3: Review & Submit */}
       {phase === 3 && (
         <div className="space-y-6">
-          {!isSubmitted ? (
+          {duplicateInfo ? (
+            <Card>
+              <CardContent className="pt-6 space-y-4">
+                <div className="flex items-start gap-3">
+                  <AlertCircle className="w-6 h-6 text-primary mt-0.5 flex-shrink-0" />
+                  <div className="flex-1">
+                    <h2 className="text-xl font-bold mb-2" data-testid="text-duplicate-title">
+                      {duplicateInfo.status === "in_progress"
+                        ? "Your request is already being handled"
+                        : "We already have this quote on file"}
+                    </h2>
+                    <p className="text-muted-foreground" data-testid="text-duplicate-message">
+                      {duplicateInfo.message}
+                    </p>
+                  </div>
+                </div>
+
+                {duplicateInfo.status === "open" && duplicateInfo.editToken ? (
+                  <div className="flex flex-col sm:flex-row gap-2 pt-2">
+                    <Button
+                      asChild
+                      className="flex-1"
+                      data-testid="button-update-existing"
+                    >
+                      <a href={`/quote/edit?token=${encodeURIComponent(duplicateInfo.editToken)}`}>
+                        Update my existing quote
+                      </a>
+                    </Button>
+                    <Button
+                      variant="outline"
+                      className="flex-1"
+                      onClick={() => {
+                        setDuplicateInfo(null);
+                        setAddress("");
+                        setMeasurementBundle(null);
+                        setPhase(1);
+                      }}
+                      data-testid="button-different-property"
+                    >
+                      I meant a different property
+                    </Button>
+                  </div>
+                ) : (
+                  <div className="bg-muted/50 rounded-lg p-4 text-sm">
+                    <p className="font-medium mb-1">Need to make changes?</p>
+                    <p>
+                      Call <a href="tel:2083522011" className="text-primary hover:underline">(208) 352-2011</a>
+                      {" "}or email{" "}
+                      <a href="mailto:hello@lawncarekuna.com" className="text-primary hover:underline">
+                        hello@lawncarekuna.com
+                      </a>.
+                    </p>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          ) : !isSubmitted ? (
             <>
               <Card>
                 <CardContent className="pt-6">

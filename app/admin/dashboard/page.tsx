@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
@@ -907,6 +908,40 @@ function AdminDashboardContent() {
             <Badge variant={lead.status === "pending_admin" ? "default" : lead.status === "purchased" ? "secondary" : lead.status === "archived" ? "destructive" : "outline"} className="text-[10px] px-1.5 py-0" data-testid={`badge-status-${lead.id}`}>
               {lead.status === "pending_admin" ? "Pending Review" : lead.status === "purchased" ? "Purchased" : lead.status === "archived" ? "Archived" : "Available"}
             </Badge>
+            {(lead as any).possibleDuplicates && (lead as any).possibleDuplicates.length > 0 && (
+              <HoverCard>
+                <HoverCardTrigger asChild>
+                  <Badge
+                    variant="outline"
+                    className="text-[10px] px-1.5 py-0 text-amber-700 border-amber-500 dark:text-amber-400 dark:border-amber-600 cursor-help"
+                    data-testid={`badge-duplicate-${lead.id}`}
+                  >
+                    Possible duplicate
+                  </Badge>
+                </HoverCardTrigger>
+                <HoverCardContent className="w-72 text-xs space-y-1">
+                  <p className="font-medium">
+                    {(lead as any).possibleDuplicates.length} matching lead{(lead as any).possibleDuplicates.length === 1 ? '' : 's'} in last 7 days
+                  </p>
+                  {(lead as any).possibleDuplicates.slice(0, 5).map((d: any) => (
+                    <div key={d.id} className="flex items-center justify-between gap-2">
+                      <span className="font-mono">{String(d.id).slice(0, 8)}</span>
+                      <span className="text-muted-foreground">{d.matchedOn.join(' + ')}</span>
+                      <Badge variant="secondary" className="text-[10px] px-1 py-0">{d.status}</Badge>
+                    </div>
+                  ))}
+                </HoverCardContent>
+              </HoverCard>
+            )}
+            {(lead as any).updatedAt && lead.createdAt && new Date((lead as any).updatedAt).getTime() - new Date(lead.createdAt).getTime() > 60000 && (
+              <Badge
+                variant="outline"
+                className="text-[10px] px-1.5 py-0 text-blue-700 border-blue-500 dark:text-blue-400 dark:border-blue-600"
+                data-testid={`badge-updated-${lead.id}`}
+              >
+                Updated
+              </Badge>
+            )}
           </div>
           <div className="flex items-center gap-0.5 flex-shrink-0">
             {showActions && (

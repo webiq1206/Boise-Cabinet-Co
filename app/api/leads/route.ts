@@ -3,6 +3,23 @@ import { db } from "@/lib/db";
 import { leads } from "@/shared/schema";
 import { desc, eq, and, gte, lt, type SQL } from "drizzle-orm";
 import { NextResponse } from "next/server";
+import { computeOverlaps, type DedupeCandidate } from "@/lib/leadDedupe";
+
+async function getOverlapCandidates(): Promise<DedupeCandidate[]> {
+  if (!db) return [];
+  const sevenDaysAgo = new Date();
+  sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+  const rows = await db.select().from(leads).where(gte(leads.createdAt, sevenDaysAgo));
+  return rows.map((l) => ({
+    id: l.id,
+    quoteId: l.quoteId ?? null,
+    email: l.email,
+    address: l.address ?? null,
+    status: l.status,
+    createdAt: l.createdAt ?? new Date(),
+    purchasedBy: l.purchasedBy ?? null,
+  }));
+}
 
 async function autoArchiveStaleLeads() {
   if (!db) return;
@@ -72,8 +89,27 @@ export async function GET(request: Request) {
     .where(whereClause)
     .orderBy(desc(leads.createdAt));
 
+  const candidates = await getOverlapCandidates();
+
+  const attachOverlaps = (rows: typeof allLeads) => {
+    const targets: DedupeCandidate[] = rows.map((l) => ({
+      id: l.id,
+      quoteId: l.quoteId ?? null,
+      email: l.email,
+      address: l.address ?? null,
+      status: l.status,
+      createdAt: l.createdAt ?? new Date(),
+      purchasedBy: l.purchasedBy ?? null,
+    }));
+    const overlapMap = computeOverlaps(targets, candidates);
+    return rows.map((l) => ({
+      ...l,
+      possibleDuplicates: overlapMap.get(l.id) ?? [],
+    }));
+  };
+
   if (user.role === "admin") {
-    return NextResponse.json(allLeads);
+    return NextResponse.json(attachOverlaps(allLeads));
   }
 
   const filtered = allLeads.filter((lead) => {
@@ -84,7 +120,9 @@ export async function GET(request: Request) {
     return true;
   });
 
-  const masked = filtered.map((lead) => {
+  const withOverlaps = attachOverlaps(filtered);
+
+  const masked = withOverlaps.map((lead) => {
     if (lead.purchasedBy === user.id) {
       return lead;
     }
