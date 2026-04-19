@@ -53,6 +53,7 @@ interface Lead {
   frequency?: string | null;
   finalQuote?: string | null;
   lineItems?: LineItem[] | null;
+  propertySize?: string | number | null;
   message?: string | null;
   baseLeadPrice?: string | null;
   currentLeadPrice?: string | null;

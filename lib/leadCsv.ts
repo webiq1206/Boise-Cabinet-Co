@@ -26,13 +26,26 @@ export interface CsvBuildOptions {
   getServiceName?: (slug: string) => string;
 }
 
-function escapeCsvValue(value: unknown): string {
-  if (value === null || value === undefined) return "";
-  const str = String(value);
-  if (/[",\r\n]/.test(str)) {
-    return `"${str.replace(/"/g, '""')}"`;
+// Defuse spreadsheet formula injection: cells starting with =, +, -, @,
+// tab, or carriage return can be interpreted as formulas by Excel/Sheets.
+// Prefix with a single quote so the cell renders literally.
+function sanitizeForFormulaInjection(str: string): string {
+  if (str.length === 0) return str;
+  const first = str.charCodeAt(0);
+  // = + - @ \t \r
+  if (first === 0x3d || first === 0x2b || first === 0x2d || first === 0x40 || first === 0x09 || first === 0x0d) {
+    return "'" + str;
   }
   return str;
+}
+
+function escapeCsvValue(value: unknown): string {
+  if (value === null || value === undefined) return "";
+  const safe = sanitizeForFormulaInjection(String(value));
+  if (/[",\r\n]/.test(safe)) {
+    return `"${safe.replace(/"/g, '""')}"`;
+  }
+  return safe;
 }
 
 function rowsToCsv(headers: string[], rows: Array<Record<string, unknown>>): string {

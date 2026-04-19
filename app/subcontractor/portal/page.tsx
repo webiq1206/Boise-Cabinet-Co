@@ -129,6 +129,7 @@ interface Lead {
   frequency?: string | null;
   finalQuote?: string | null;
   lineItems?: LineItem[] | null;
+  propertySize?: string | number | null;
   serviceData?: Record<string, ServiceDataEntry> | null;
   message?: string | null;
   baseLeadPrice?: string | null;
