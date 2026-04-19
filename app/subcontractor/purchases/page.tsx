@@ -25,6 +25,7 @@ import {
   Download
 } from "lucide-react";
 import { buildLeadCsv, buildCsvFilename, downloadCsv, type CsvFormat } from "@/lib/leadCsv";
+import { useExportedLeads, formatExportedDate } from "@/lib/exportedLeads";
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 
@@ -189,6 +190,7 @@ export default function PurchaseHistoryPage() {
   const router = useRouter();
   
   const { user, isAuthenticated, isLoading: authLoading, isSubcontractor } = useAuth();
+  const { isExported, exportedAt, markExported } = useExportedLeads(user?.id);
 
   // State
   const [searchQuery, setSearchQuery] = useState("");
@@ -301,6 +303,7 @@ export default function PurchaseHistoryPage() {
     const csv = buildLeadCsv(filteredPurchases, { format, getServiceName });
     const filename = buildCsvFilename(format);
     downloadCsv(csv, filename);
+    markExported(filteredPurchases.map(l => l.id));
     toast({
       title: `Exported ${filteredPurchases.length} ${filteredPurchases.length === 1 ? "lead" : "leads"}`,
       description: filename,
@@ -319,6 +322,21 @@ export default function PurchaseHistoryPage() {
                   <CheckCircle2 className="h-3 w-3 mr-1" />
                   Purchased
                 </Badge>
+                {(() => {
+                  const when = exportedAt(lead.id);
+                  if (!when) return null;
+                  return (
+                    <Badge
+                      variant="outline"
+                      className="text-[10px] px-1.5 py-0 text-muted-foreground"
+                      title={`Exported ${when.toLocaleString()}`}
+                      data-testid={`badge-exported-${lead.id}`}
+                    >
+                      <Download className="h-3 w-3 mr-1" />
+                      Exported {formatExportedDate(when)}
+                    </Badge>
+                  );
+                })()}
                 {lead.possibleDuplicates && lead.possibleDuplicates.length > 0 && (
                   <HoverCard>
                     <HoverCardTrigger asChild>

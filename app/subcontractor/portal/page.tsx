@@ -34,6 +34,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { buildLeadCsv, buildCsvFilename, downloadCsv } from "@/lib/leadCsv";
+import { useExportedLeads } from "@/lib/exportedLeads";
 import { useRouter, useSearchParams } from "next/navigation";
 
 interface LineItem {
@@ -549,8 +550,9 @@ function SubcontractorPortalContent() {
   const searchParams = useSearchParams();
   const leadIdParam = searchParams.get("leadId");
   const queryClient = useQueryClient();
-  
   const { user, isAuthenticated, isLoading: authLoading, isSubcontractor, refetch: refetchUser } = useAuth();
+  const { isExported, exportedAt, markExported } = useExportedLeads(user?.id);
+  
 
   // State
   const [activeTab, setActiveTab] = useState<"available" | "watchlist" | "cart" | "purchases">("available");
@@ -1172,6 +1174,21 @@ function SubcontractorPortalContent() {
                   Purchased
                 </Badge>
               )}
+              {isPurchased && (() => {
+                const when = exportedAt(lead.id);
+                if (!when) return null;
+                return (
+                  <Badge
+                    variant="outline"
+                    className="text-[10px] px-1.5 py-0 flex-shrink-0 text-muted-foreground"
+                    title={`Exported ${when.toLocaleString()}`}
+                    data-testid={`badge-exported-${lead.id}`}
+                  >
+                    <Download className="h-3 w-3 mr-1" />
+                    Exported
+                  </Badge>
+                );
+              })()}
               <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-1.5 flex-wrap">
                   <CardTitle className="text-sm md:text-base leading-tight">
@@ -1931,6 +1948,7 @@ function SubcontractorPortalContent() {
                             });
                             const filename = buildCsvFilename("yardbook");
                             downloadCsv(csv, filename);
+                            markExported(myPurchases.map(l => l.id));
                             toast({
                               title: `Exported ${myPurchases.length} ${myPurchases.length === 1 ? "lead" : "leads"}`,
                               description: filename,
@@ -1953,6 +1971,7 @@ function SubcontractorPortalContent() {
                             });
                             const filename = buildCsvFilename("full");
                             downloadCsv(csv, filename);
+                            markExported(myPurchases.map(l => l.id));
                             toast({
                               title: `Exported ${myPurchases.length} ${myPurchases.length === 1 ? "lead" : "leads"}`,
                               description: filename,
