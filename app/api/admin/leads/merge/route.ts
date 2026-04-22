@@ -7,15 +7,15 @@ import { getSession, getUserFromDb } from "@/lib/auth";
 
 const stripe = process.env.STRIPE_SECRET_KEY ? new Stripe(process.env.STRIPE_SECRET_KEY) : null;
 
-function roundToNearestFive(value: number): number {
-  return Math.round(value / 5) * 5;
+function roundToNearestDollar(value: number): number {
+  return Math.round(value);
 }
 
 function calculateLeadPrice(finalQuote: number): { basePrice: number; currentPrice: number } {
   let basePrice = finalQuote * 0.10;
-  basePrice = Math.max(5, basePrice);
-  basePrice = Math.min(50, basePrice);
-  basePrice = roundToNearestFive(basePrice);
+  basePrice = Math.max(10, basePrice);
+  basePrice = Math.min(100, basePrice);
+  basePrice = roundToNearestDollar(basePrice);
   return { basePrice, currentPrice: basePrice };
 }
 

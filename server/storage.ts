@@ -591,8 +591,8 @@ export class MemStorage implements IStorage {
           const daysSinceUpdate = Math.floor((now.getTime() - new Date(lead.lastPriceUpdate).getTime()) / oneDayMs);
           const raw = currentPrice * Math.pow(dailyFactor, daysSinceUpdate);
           const floored = Math.max(raw, minPrice);
-          const minRoundedFloor = Math.max(5, Math.ceil(minPrice / 5) * 5);
-          const finalPrice = Math.max(Math.floor(floored / 5) * 5, minRoundedFloor);
+          const minRoundedFloor = Math.max(10, Math.ceil(minPrice));
+          const finalPrice = Math.max(Math.floor(floored), minRoundedFloor);
 
           await this.updateLead(lead.id, {
             currentLeadPrice: finalPrice.toFixed(2),
@@ -1270,8 +1270,8 @@ export class DBStorage implements IStorage {
           const daysSinceUpdate = Math.floor((now.getTime() - new Date(lead.lastPriceUpdate).getTime()) / (1000 * 60 * 60 * 24));
           const raw = currentPrice * Math.pow(dailyFactor, daysSinceUpdate);
           const floored = Math.max(raw, minPrice);
-          const minRoundedFloor = Math.max(5, Math.ceil(minPrice / 5) * 5);
-          const finalPrice = Math.max(Math.floor(floored / 5) * 5, minRoundedFloor);
+          const minRoundedFloor = Math.max(10, Math.ceil(minPrice));
+          const finalPrice = Math.max(Math.floor(floored), minRoundedFloor);
 
           await db.update(leads).set({
             currentLeadPrice: finalPrice.toFixed(2),

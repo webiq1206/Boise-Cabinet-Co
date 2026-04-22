@@ -38,6 +38,10 @@ function roundToNearestFive(price: number): number {
   return Math.ceil(price / 5) * 5;
 }
 
+function roundToNearestDollar(price: number): number {
+  return Math.ceil(price);
+}
+
 const RECURRING_ELIGIBLE_SERVICE_IDS = getRecurringEligibleServices();
 
 const SERVICE_PRICING_RATES: Record<string, { lowRate: number; highRate: number; unit: string; minimum: number; includedZones?: number }> = {
@@ -145,9 +149,9 @@ function calculateLeadPrice(params: {
   finalQuote: number;
 }): { basePrice: number; currentPrice: number } {
   let basePrice = params.finalQuote * 0.10;
-  basePrice = Math.max(5, basePrice);
-  basePrice = Math.min(50, basePrice);
-  basePrice = roundToNearestFive(basePrice);
+  basePrice = Math.max(10, basePrice);
+  basePrice = Math.min(100, basePrice);
+  basePrice = roundToNearestDollar(basePrice);
 
   return {
     basePrice,

@@ -56,6 +56,10 @@ function roundToNearestFive(price: number): number {
   return Math.ceil(price / 5) * 5;
 }
 
+function roundToNearestDollar(price: number): number {
+  return Math.ceil(price);
+}
+
 interface ServiceMeasurement {
   propertySize?: number;
   linearFeet?: number;
@@ -104,9 +108,9 @@ function calculateServicePrice(
 
 function calculateLeadPrice(finalQuote: number): { basePrice: number; currentPrice: number } {
   let basePrice = finalQuote * 0.10;
-  basePrice = Math.max(5, basePrice);
-  basePrice = Math.min(50, basePrice);
-  basePrice = roundToNearestFive(basePrice);
+  basePrice = Math.max(10, basePrice);
+  basePrice = Math.min(100, basePrice);
+  basePrice = roundToNearestDollar(basePrice);
   return { basePrice, currentPrice: basePrice };
 }
 
