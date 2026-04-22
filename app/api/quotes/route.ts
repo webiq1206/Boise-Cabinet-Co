@@ -39,7 +39,7 @@ function roundToNearestFive(price: number): number {
 }
 
 function roundToNearestDollar(price: number): number {
-  return Math.ceil(price);
+  return Math.round(price);
 }
 
 const RECURRING_ELIGIBLE_SERVICE_IDS = getRecurringEligibleServices();
