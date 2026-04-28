@@ -5,6 +5,7 @@ import { quotes, leads, users, notifications } from "@/shared/schema";
 import { and, desc, eq, gte } from "drizzle-orm";
 import { verifyEditToken } from "@/lib/leadDedupe";
 import { getRecurringEligibleServices } from "@shared/serviceSeasonality";
+import { HOUSE_NUMBER_REGEX, HOUSE_NUMBER_ERROR_MESSAGE } from "@/shared/addressValidation";
 
 const RECURRING_ELIGIBLE_SERVICE_IDS = getRecurringEligibleServices();
 
@@ -118,6 +119,18 @@ const updateSchema = z.object({
   token: z.string().min(10),
   selectedServices: z.array(z.string()).min(1, "Please select at least one service"),
   serviceFrequencies: z.record(z.string(), z.string()).optional(),
+  // Optional defensively. The current customer self-service flow doesn't
+  // resubmit address, but if it ever starts to (or an admin uses this
+  // endpoint), the leading-house-number rule must hold for parity with
+  // app/api/quotes/route.ts so we never persist a numberless address.
+  address: z
+    .string()
+    .min(5, "Please enter a valid address")
+    .refine(
+      (val) => HOUSE_NUMBER_REGEX.test(val.trim()),
+      HOUSE_NUMBER_ERROR_MESSAGE
+    )
+    .optional(),
 });
 
 export async function GET(request: Request) {

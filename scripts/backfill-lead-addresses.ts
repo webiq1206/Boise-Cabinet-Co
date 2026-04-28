@@ -42,32 +42,23 @@ export function normalizeStoredAddress(raw: string, city: string | null): string
   // "497, North Shady Grove Way, ..." -> "497 North Shady Grove Way, ..."
   s = s.replace(NUMBER_COMMA_PREFIX_RE, "$1 ");
 
-  // If the value has a leading digit and at least 2 comma-separated tokens,
-  // try to drop trailing noise segments (city, subdivision label) while
-  // preserving real address info like "Apt 4B" or "Suite 200". We only collapse
-  // a tail segment when it clearly looks like noise — never drop unit/sub-
-  // premise data. Never collapse when the value lacks a leading number; that
-  // risks deleting the only street info we have.
+  // If the value has a leading house number, the first comma-separated segment
+  // is the actual street ("497 North Shady Grove Way"). Everything after that
+  // is geographic noise — typically a subdivision label and the city — UNLESS
+  // it contains unit/sub-premise info like "Apt 4B" / "Suite 200" / "Unit 5".
+  // Per spec: collapse `497 N Shady Grove Way, Spice Wood, Kuna` to
+  // `497 N Shady Grove Way` while preserving any real apt/suite token.
   if (HOUSE_NUMBER_RE.test(s)) {
     const parts = s.split(",").map((p) => p.trim()).filter(Boolean);
-    const cityLower = (city || "").toLowerCase();
-    // Heuristic: a part is "noise" if it equals the city, OR has no spaces and
-    // no digits and is a single word longer than 3 chars (likely a city or
-    // subdivision label like "Kuna" / "Meridian"). Unit hints ("apt", "suite",
-    // "unit", "#", "ste") are NEVER treated as noise.
     const isUnitHint = (p: string) =>
       /\b(apt|apartment|suite|ste|unit|#|bldg|building|lot|fl|floor|rm|room)\b/i.test(p);
-    const isNoise = (p: string) => {
-      if (isUnitHint(p)) return false;
-      const lower = p.toLowerCase();
-      if (cityLower && lower === cityLower) return true;
-      if (!/\s/.test(p) && !/\d/.test(p) && p.length > 3) return true;
-      return false;
-    };
-    while (parts.length >= 2 && isNoise(parts[parts.length - 1])) {
-      parts.pop();
+    const kept: string[] = parts.length > 0 ? [parts[0]] : [];
+    for (let i = 1; i < parts.length; i++) {
+      if (isUnitHint(parts[i])) {
+        kept.push(parts[i]);
+      }
     }
-    s = parts.join(", ");
+    s = kept.join(", ");
   } else {
     // No leading digit: still strip a duplicated trailing city if present so
     // the flagged value is at least readable.
@@ -106,7 +97,11 @@ async function main() {
     const missing = !HOUSE_NUMBER_RE.test(normalized);
 
     const updates: { address?: string; addressMissingHouseNumber?: boolean } = {};
-    if (normalized !== original) {
+    // Only rewrite the saved address when the cleaned value still has a leading
+    // house number. If the row is flagged as missing, leave the original
+    // address untouched so a human can read whatever info we have and call the
+    // customer to confirm.
+    if (!missing && normalized !== original) {
       updates.address = normalized;
     }
     if (missing !== Boolean(lead.addressMissingHouseNumber)) {
