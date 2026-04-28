@@ -537,7 +537,7 @@ export default function PurchaseHistoryPage() {
                           data-testid={`badge-missing-house-number-${lead.id}`}
                         >
                           <AlertTriangle className="h-3 w-3" />
-                          No house #
+                          Missing house number
                         </Badge>
                       )}
                     </div>
