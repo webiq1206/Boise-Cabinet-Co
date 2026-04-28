@@ -1328,17 +1328,6 @@ function SubcontractorPortalContent() {
                     <div className="flex items-center gap-2 flex-wrap" data-testid={`text-contact-address-${lead.id}`}>
                       <MapPin className="h-3.5 w-3.5 text-muted-foreground flex-shrink-0" />
                       <span>{cleaned.display}, {lead.city}, Idaho</span>
-                      {(lead.addressMissingHouseNumber || cleaned.missingHouseNumber) && (
-                        <Badge
-                          variant="destructive"
-                          className="gap-1"
-                          title="Address is missing a house number. Confirm exact street number with the customer before driving out."
-                          data-testid={`badge-missing-house-number-${lead.id}`}
-                        >
-                          <AlertTriangle className="h-3 w-3" />
-                          Missing house number
-                        </Badge>
-                      )}
                     </div>
                   );
                 })()}

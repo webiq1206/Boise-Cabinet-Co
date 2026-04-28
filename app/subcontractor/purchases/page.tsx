@@ -529,17 +529,6 @@ export default function PurchaseHistoryPage() {
                     <div className="flex items-center gap-2 flex-wrap">
                       <MapPin className="h-4 w-4 text-muted-foreground" />
                       <span>{fullAddress}</span>
-                      {(lead.addressMissingHouseNumber || cleaned.missingHouseNumber) && (
-                        <Badge
-                          variant="destructive"
-                          className="gap-1"
-                          title="Address is missing a house number. Confirm exact street number with the customer before driving out."
-                          data-testid={`badge-missing-house-number-${lead.id}`}
-                        >
-                          <AlertTriangle className="h-3 w-3" />
-                          Missing house number
-                        </Badge>
-                      )}
                     </div>
                     <div className="flex gap-1">
                       <Button

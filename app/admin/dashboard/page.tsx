@@ -32,7 +32,7 @@ import {
 } from "lucide-react";
 import { Switch } from "@/components/ui/switch";
 import { useRouter, useSearchParams } from "next/navigation";
-import { cleanDisplayAddress } from "@/shared/addressValidation";
+import { cleanDisplayAddress, hasLeadingHouseNumber, HOUSE_NUMBER_ERROR_MESSAGE } from "@/shared/addressValidation";
 
 interface LineItem {
   serviceId?: string;
@@ -918,6 +918,9 @@ function AdminDashboardContent() {
     const [editingPrice, setEditingPrice] = useState(false);
     const [priceEstimate, setPriceEstimate] = useState("");
     const [priceLeadPrice, setPriceLeadPrice] = useState("");
+    const [editingAddress, setEditingAddress] = useState(false);
+    const [addressDraft, setAddressDraft] = useState("");
+    const [addressErr, setAddressErr] = useState("");
 
     const getPriorityColor = (p: string) => {
       switch (p) {
@@ -1359,26 +1362,85 @@ function AdminDashboardContent() {
                 const cleaned = cleanDisplayAddress(lead.address, lead.city);
                 const cityLabel = lead.city.charAt(0).toUpperCase() + lead.city.slice(1);
                 return (
-                  <>
-                    <span className="truncate" data-testid={`text-address-${lead.id}`}>
-                      {cleaned.display
-                        ? `${cleaned.display}, ${cityLabel}, Idaho`
-                        : `${cityLabel}, Idaho`}
-                    </span>
-                    {cleaned.display && (lead.addressMissingHouseNumber || cleaned.missingHouseNumber) && (
-                      <Badge
-                        variant="destructive"
-                        className="gap-1"
-                        title="Address is missing a house number. Confirm exact street number with the customer before driving out."
-                        data-testid={`badge-missing-house-number-${lead.id}`}
-                      >
-                        <AlertTriangle className="h-3 w-3" />
-                        Missing house number
-                      </Badge>
-                    )}
-                  </>
+                  <span className="truncate" data-testid={`text-address-${lead.id}`}>
+                    {cleaned.display
+                      ? `${cleaned.display}, ${cityLabel}, Idaho`
+                      : `${cityLabel}, Idaho`}
+                  </span>
                 );
               })()}
+              <Popover
+                open={editingAddress}
+                onOpenChange={(open) => {
+                  setEditingAddress(open);
+                  if (open) {
+                    const cleaned = cleanDisplayAddress(lead.address, lead.city);
+                    setAddressDraft(cleaned.display || lead.address || "");
+                    setAddressErr("");
+                  }
+                }}
+              >
+                <PopoverTrigger asChild>
+                  <Button
+                    size="icon"
+                    variant="ghost"
+                    className="h-6 w-6"
+                    title="Edit street address"
+                    data-testid={`button-edit-address-${lead.id}`}
+                  >
+                    <Pencil className="h-3 w-3" />
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-80 space-y-2" align="start">
+                  <Label className="text-xs">Street address (must start with a house number)</Label>
+                  <Input
+                    value={addressDraft}
+                    onChange={(e) => {
+                      setAddressDraft(e.target.value);
+                      setAddressErr("");
+                    }}
+                    placeholder="1234 W Main St"
+                    data-testid={`input-edit-address-${lead.id}`}
+                  />
+                  {addressErr && (
+                    <p className="text-xs text-destructive" data-testid={`text-edit-address-error-${lead.id}`}>
+                      {addressErr}
+                    </p>
+                  )}
+                  <p className="text-xs text-muted-foreground">
+                    Tip: phone {lead.phone} — call the customer to confirm the exact house number, then save.
+                  </p>
+                  <div className="flex justify-end gap-2 pt-1">
+                    <Button
+                      size="sm"
+                      variant="ghost"
+                      onClick={() => setEditingAddress(false)}
+                      data-testid={`button-cancel-edit-address-${lead.id}`}
+                    >
+                      Cancel
+                    </Button>
+                    <Button
+                      size="sm"
+                      onClick={() => {
+                        const trimmed = addressDraft.trim();
+                        if (!hasLeadingHouseNumber(trimmed)) {
+                          setAddressErr(HOUSE_NUMBER_ERROR_MESSAGE);
+                          return;
+                        }
+                        updateLeadMutation.mutate(
+                          { leadId: lead.id, data: { address: trimmed, addressMissingHouseNumber: false } as Partial<Lead> },
+                          { onSuccess: () => setEditingAddress(false) },
+                        );
+                      }}
+                      disabled={updateLeadMutation.isPending}
+                      data-testid={`button-save-edit-address-${lead.id}`}
+                    >
+                      <Check className="h-3 w-3 mr-1" />
+                      Save
+                    </Button>
+                  </div>
+                </PopoverContent>
+              </Popover>
             </div>
             <div className="flex items-center gap-1.5">
               <Building className="h-3 w-3 text-muted-foreground flex-shrink-0" />
