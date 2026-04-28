@@ -500,6 +500,7 @@ export class MemStorage implements IStorage {
       purchasedAt: null,
       purchasePrice: insertLead.purchasePrice ?? null,
       stripePaymentIntentId: insertLead.stripePaymentIntentId ?? null,
+      addressMissingHouseNumber: insertLead.addressMissingHouseNumber ?? false,
       id,
       createdAt: new Date(),
       updatedAt: new Date(),

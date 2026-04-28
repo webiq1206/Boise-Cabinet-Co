@@ -135,6 +135,7 @@ interface Lead {
   updatedAt?: string | null;
   purchasedBy?: string | null;
   purchasedAt?: string | null;
+  addressMissingHouseNumber?: boolean | null;
   possibleDuplicates?: Array<{
     id: string;
     status: string;
@@ -1351,11 +1352,22 @@ function AdminDashboardContent() {
                 {lead.phone}
               </a>
             </div>
-            <div className="flex items-center gap-1.5">
+            <div className="flex items-center gap-1.5 flex-wrap">
               <MapPin className="h-3 w-3 text-muted-foreground flex-shrink-0" />
               <span className="truncate" data-testid={`text-address-${lead.id}`}>
                 {lead.address && lead.address !== "***" ? lead.address : `${lead.city.charAt(0).toUpperCase() + lead.city.slice(1)}, Idaho`}
               </span>
+              {lead.address && lead.address !== "***" && lead.addressMissingHouseNumber && (
+                <Badge
+                  variant="destructive"
+                  className="gap-1"
+                  title="Address is missing a house number. Confirm exact street number with the customer before driving out."
+                  data-testid={`badge-missing-house-number-${lead.id}`}
+                >
+                  <AlertTriangle className="h-3 w-3" />
+                  No house #
+                </Badge>
+              )}
             </div>
             <div className="flex items-center gap-1.5">
               <Building className="h-3 w-3 text-muted-foreground flex-shrink-0" />

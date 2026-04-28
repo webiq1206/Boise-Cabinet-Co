@@ -255,7 +255,15 @@ export const leads = pgTable("leads", {
   purchasedAt: timestamp("purchased_at"),
   purchasePrice: decimal("purchase_price", { precision: 10, scale: 2 }),
   stripePaymentIntentId: text("stripe_payment_intent_id"),
-  
+
+  // Set true when the customer's saved address has no leading house number.
+  // Surfaced in admin/sub portals so the buyer knows to call the customer
+  // before driving out. Defaults to false; backfill script may set true on
+  // historical rows.
+  addressMissingHouseNumber: boolean("address_missing_house_number")
+    .notNull()
+    .default(false),
+
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 }, (table) => ({

@@ -6,6 +6,7 @@ import { Command, CommandEmpty, CommandGroup, CommandItem, CommandList } from "@
 import { Popover, PopoverContent, PopoverAnchor } from "@/components/ui/popover";
 import { Loader2, MapPin } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { extractLeadingHouseNumber } from "@/shared/addressValidation";
 
 interface AddressResult {
   label: string;
@@ -15,10 +16,80 @@ interface AddressResult {
   bounds?: any;
 }
 
+const NON_STREET_SEGMENT = /^(United States|USA|U\.S\.A\.|Idaho|ID|Ada County|Canyon County|Boise County|Gem County|Owyhee County|Elmore County|Payette County|Washington County|Twin Falls County|\d{5}(?:-\d{4})?)$/i;
+
+/**
+ * Build the saved street-address string from a Nominatim result.
+ *
+ * Goal: always preserve the user's typed house number. Nominatim has poor
+ * house-number coverage for many newer Treasure Valley subdivisions, so when
+ * the geocoder returns no `house_number` we fall back to whatever leading
+ * digits the user typed (e.g., "4521 W Cherry" -> "4521").
+ *
+ * The result is a clean "<number> <street>" string. The county / state / zip /
+ * country segments from the Nominatim label are dropped because they are
+ * stored separately or are constants.
+ */
+function buildStreetAddress(result: AddressResult, typedValue: string): string {
+  const addr = (result.raw && result.raw.address) || {};
+  const houseNumberFromGeocoder = String(addr.house_number || "").trim();
+  const typedHouseNumber = extractLeadingHouseNumber(typedValue);
+  const houseNumber = houseNumberFromGeocoder || typedHouseNumber;
+
+  const road: string = String(
+    addr.road || addr.pedestrian || addr.path || addr.footway || addr.cycleway || ""
+  ).trim();
+
+  if (road) {
+    return houseNumber ? `${houseNumber} ${road}`.trim() : road;
+  }
+
+  // Fallback: the geocoder didn't expose a `road` field. Parse the label and
+  // strip the noise segments (county / state / zip / country) so we don't end
+  // up storing "Ada County, Idaho, 83634, United States". We also drop a
+  // trailing city token (single word, no digits, longer than 3 chars) since
+  // city is stored separately. Unit/sub-premise hints are preserved.
+  const rawParts = result.label.split(",").map(p => p.trim()).filter(Boolean);
+  const parts = rawParts.filter(p => !NON_STREET_SEGMENT.test(p));
+
+  if (parts.length === 0) {
+    return houseNumber || result.label;
+  }
+
+  // Nominatim sometimes returns the house number as its own leading segment:
+  // "497, North Shady Grove Way" - merge those into a single token.
+  if (/^\d+[A-Za-z]?$/.test(parts[0]) && parts.length >= 2) {
+    parts[0] = `${parts[0]} ${parts[1]}`;
+    parts.splice(1, 1);
+  }
+
+  // Drop a trailing token that looks like a city / subdivision label (single
+  // word, no digits, longer than 3 chars). Keep anything that looks like unit
+  // info such as "Apt 4B", "Suite 200", "Unit 5", or a numeric token.
+  while (parts.length >= 2) {
+    const last = parts[parts.length - 1];
+    const looksLikeCity = !/\s/.test(last) && !/\d/.test(last) && last.length > 3;
+    if (!looksLikeCity) break;
+    parts.pop();
+  }
+
+  let street = parts.join(", ");
+  if (typedHouseNumber && !/^\d/.test(street)) {
+    street = `${typedHouseNumber} ${street}`;
+  }
+  return street;
+}
+
 interface AddressAutocompleteProps {
   value: string;
   onChange: (value: string) => void;
-  onAddressSelect?: (result: AddressResult) => void;
+  /**
+   * Fired when the user selects a suggestion. `streetAddress` is the cleaned
+   * "<number> <street>" string that was just written via `onChange`. Consumers
+   * MUST persist `streetAddress` (not `result.label`) so the saved address
+   * never reverts to the verbose Nominatim display name.
+   */
+  onAddressSelect?: (result: AddressResult, streetAddress: string) => void;
   onPropertySizeCalculated?: (sqft: number) => void;
   placeholder?: string;
   city?: string;
@@ -196,16 +267,8 @@ export function AddressAutocomplete({
 
   // Handle address selection
   const handleSelectAddress = async (result: AddressResult) => {
-    const addressParts = result.label.split(',');
-    let streetAddress = '';
-    if (addressParts.length >= 3) {
-      streetAddress = addressParts.slice(0, 2).map(p => p.trim()).join(' ');
-    } else if (addressParts.length === 2) {
-      streetAddress = addressParts[0]?.trim() || result.label;
-    } else {
-      streetAddress = result.label;
-    }
-    
+    const streetAddress = buildStreetAddress(result, value);
+
     justSelectedRef.current = true;
     
     onChange(streetAddress);
@@ -214,7 +277,7 @@ export function AddressAutocomplete({
     setOpen(false);
     
     if (onAddressSelect) {
-      onAddressSelect(result);
+      onAddressSelect(result, streetAddress);
     }
 
     // Automatically calculate property size
@@ -244,6 +307,8 @@ export function AddressAutocomplete({
             }}
             placeholder={placeholder}
             className={className}
+            autoComplete="street-address"
+            name="street-address"
             data-testid={dataTestId}
           />
           {isLoading && (

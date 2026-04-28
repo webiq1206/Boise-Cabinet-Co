@@ -21,7 +21,7 @@ import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/hooks/useAuth";
 import { NotificationsBell } from "@/components/NotificationsBell";
 import {
-  Leaf, MapPin, Clock, DollarSign, Building, Search, ArrowLeft, Mail, Phone,
+  Leaf, MapPin, Clock, DollarSign, Building, Search, ArrowLeft, Mail, Phone, AlertTriangle,
   User, ChevronDown, Receipt, History, LogOut, ExternalLink, Copy, CheckCircle2,
   Download
 } from "lucide-react";
@@ -65,6 +65,7 @@ interface Lead {
   updatedAt?: string | null;
   purchasedBy?: string | null;
   purchasedAt?: string | null;
+  addressMissingHouseNumber?: boolean | null;
   possibleDuplicates?: Array<{
     id: string;
     status: string;
@@ -519,10 +520,21 @@ export default function PurchaseHistoryPage() {
               )}
               
               {lead.address && (
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
+                <div className="flex items-center justify-between gap-2">
+                  <div className="flex items-center gap-2 flex-wrap">
                     <MapPin className="h-4 w-4 text-muted-foreground" />
                     <span>{lead.address}, {lead.city}</span>
+                    {lead.addressMissingHouseNumber && (
+                      <Badge
+                        variant="destructive"
+                        className="gap-1"
+                        title="Address is missing a house number. Confirm exact street number with the customer before driving out."
+                        data-testid={`badge-missing-house-number-${lead.id}`}
+                      >
+                        <AlertTriangle className="h-3 w-3" />
+                        No house #
+                      </Badge>
+                    )}
                   </div>
                   <div className="flex gap-1">
                     <Button

@@ -16,6 +16,7 @@ import {
   Edit2, AlertCircle, X, Plus, Check, Star
 } from "lucide-react";
 import { AddressAutocomplete } from "@/components/AddressAutocomplete";
+import { hasLeadingHouseNumber, HOUSE_NUMBER_ERROR_MESSAGE } from "@/shared/addressValidation";
 import { queryAssessor, getCountyFromCity } from "@/lib/assessors";
 import { 
   createMeasurementBundleFromAssessor, 
@@ -284,6 +285,7 @@ export function SimpleQuoteWizard({
   const [measurementBundle, setMeasurementBundle] = useState<MeasurementBundle | null>(null);
   const [isLookingUp, setIsLookingUp] = useState(false);
   const [lookupError, setLookupError] = useState<string | null>(null);
+  const [addressError, setAddressError] = useState<string | null>(null);
   
   // Service state
   const [selectedIntents, setSelectedIntents] = useState<string[]>([]);
@@ -316,8 +318,15 @@ export function SimpleQuoteWizard({
   const handleAddressSelect = async (selectedAddress: string, rawAddressData?: any) => {
     setAddress(selectedAddress);
     setLookupError(null);
+
+    if (!hasLeadingHouseNumber(selectedAddress)) {
+      setAddressError(HOUSE_NUMBER_ERROR_MESSAGE);
+      setIsLookingUp(false);
+      return;
+    }
+    setAddressError(null);
     setIsLookingUp(true);
-    
+
     let extractedCity: string | null = null;
     
     if (rawAddressData) {
@@ -615,19 +624,24 @@ export function SimpleQuoteWizard({
               />
               <h2 className="text-2xl font-bold text-foreground">Where's your property?</h2>
               <p className="text-muted-foreground mt-1">
-                Enter your address and we'll automatically measure your property
+                Type your full street address, including the house number, so the crew can find your property.
               </p>
             </div>
             
             <div className="space-y-4">
               <div>
-                <label className="text-sm font-medium mb-1.5 block">Property Address</label>
+                <label className="text-sm font-medium mb-1.5 block">
+                  Street Address (with house number)
+                </label>
                 <AddressAutocomplete
                   value={address}
-                  onChange={(val) => setAddress(val)}
-                  onAddressSelect={(result) => handleAddressSelect(result.label, result.raw)}
+                  onChange={(val) => {
+                    setAddress(val);
+                    if (addressError) setAddressError(null);
+                  }}
+                  onAddressSelect={(result, streetAddress) => handleAddressSelect(streetAddress, result.raw)}
                   city={city}
-                  placeholder="Start typing your address..."
+                  placeholder="4521 W Cherry Ln"
                   className="w-full"
                   data-testid="input-address"
                 />
@@ -642,6 +656,12 @@ export function SimpleQuoteWizard({
                     <MapPin className="w-4 h-4 mr-2" />
                     Use this address
                   </Button>
+                )}
+                {addressError && (
+                  <Alert variant="destructive" className="mt-2" data-testid="alert-address-error">
+                    <AlertCircle className="w-4 h-4" />
+                    <AlertDescription>{addressError}</AlertDescription>
+                  </Alert>
                 )}
               </div>
               

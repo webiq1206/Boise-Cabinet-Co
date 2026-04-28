@@ -6,13 +6,20 @@ import { eq } from "drizzle-orm";
 import { sendQuoteConfirmationEmail, sendAdminNotificationEmail } from "@/lib/resend";
 import { getRecurringEligibleServices } from "@shared/serviceSeasonality";
 import { findActiveDuplicate, signEditToken, type DedupeCandidate } from "@/lib/leadDedupe";
+import { HOUSE_NUMBER_REGEX, HOUSE_NUMBER_ERROR_MESSAGE } from "@/shared/addressValidation";
 
 const quoteSubmissionSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
   email: z.string().email("Please enter a valid email address"),
   phone: z.string().optional(),
   message: z.string().optional(),
-  address: z.string().min(5, "Please enter a valid address"),
+  address: z
+    .string()
+    .min(5, "Please enter a valid address")
+    .refine(
+      (val) => HOUSE_NUMBER_REGEX.test(val.trim()),
+      HOUSE_NUMBER_ERROR_MESSAGE
+    ),
   city: z.string().min(2, "Please enter a valid city"),
   propertyType: z.enum(["residential", "commercial", "hoa", "property-management"]).optional(),
   propertySize: z.number().optional(),
