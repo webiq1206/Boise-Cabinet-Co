@@ -32,6 +32,7 @@ import {
 } from "lucide-react";
 import { Switch } from "@/components/ui/switch";
 import { useRouter, useSearchParams } from "next/navigation";
+import { cleanDisplayAddress } from "@/shared/addressValidation";
 
 interface LineItem {
   serviceId?: string;
@@ -1354,20 +1355,30 @@ function AdminDashboardContent() {
             </div>
             <div className="flex items-center gap-1.5 flex-wrap">
               <MapPin className="h-3 w-3 text-muted-foreground flex-shrink-0" />
-              <span className="truncate" data-testid={`text-address-${lead.id}`}>
-                {lead.address && lead.address !== "***" ? lead.address : `${lead.city.charAt(0).toUpperCase() + lead.city.slice(1)}, Idaho`}
-              </span>
-              {lead.address && lead.address !== "***" && lead.addressMissingHouseNumber && (
-                <Badge
-                  variant="destructive"
-                  className="gap-1"
-                  title="Address is missing a house number. Confirm exact street number with the customer before driving out."
-                  data-testid={`badge-missing-house-number-${lead.id}`}
-                >
-                  <AlertTriangle className="h-3 w-3" />
-                  No house #
-                </Badge>
-              )}
+              {(() => {
+                const cleaned = cleanDisplayAddress(lead.address, lead.city);
+                const cityLabel = lead.city.charAt(0).toUpperCase() + lead.city.slice(1);
+                return (
+                  <>
+                    <span className="truncate" data-testid={`text-address-${lead.id}`}>
+                      {cleaned.display
+                        ? `${cleaned.display}, ${cityLabel}, Idaho`
+                        : `${cityLabel}, Idaho`}
+                    </span>
+                    {cleaned.display && (lead.addressMissingHouseNumber || cleaned.missingHouseNumber) && (
+                      <Badge
+                        variant="destructive"
+                        className="gap-1"
+                        title="Address is missing a house number. Confirm exact street number with the customer before driving out."
+                        data-testid={`badge-missing-house-number-${lead.id}`}
+                      >
+                        <AlertTriangle className="h-3 w-3" />
+                        No house #
+                      </Badge>
+                    )}
+                  </>
+                );
+              })()}
             </div>
             <div className="flex items-center gap-1.5">
               <Building className="h-3 w-3 text-muted-foreground flex-shrink-0" />

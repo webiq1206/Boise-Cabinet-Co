@@ -29,6 +29,7 @@ import { buildLeadCsv, buildCsvFilename, downloadCsv, type CsvFormat } from "@/l
 import { useExportedLeads, formatExportedDate } from "@/lib/exportedLeads";
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
+import { cleanDisplayAddress } from "@/shared/addressValidation";
 
 interface LineItem {
   serviceId?: string;
@@ -519,51 +520,56 @@ export default function PurchaseHistoryPage() {
                 </div>
               )}
               
-              {lead.address && (
-                <div className="flex items-center justify-between gap-2">
-                  <div className="flex items-center gap-2 flex-wrap">
-                    <MapPin className="h-4 w-4 text-muted-foreground" />
-                    <span>{lead.address}, {lead.city}</span>
-                    {lead.addressMissingHouseNumber && (
-                      <Badge
-                        variant="destructive"
-                        className="gap-1"
-                        title="Address is missing a house number. Confirm exact street number with the customer before driving out."
-                        data-testid={`badge-missing-house-number-${lead.id}`}
-                      >
-                        <AlertTriangle className="h-3 w-3" />
-                        No house #
-                      </Badge>
-                    )}
-                  </div>
-                  <div className="flex gap-1">
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => copyToClipboard(`${lead.address}, ${lead.city}`, `${lead.id}-address`)}
-                    >
-                      {copiedId === `${lead.id}-address` ? (
-                        <CheckCircle2 className="h-4 w-4 text-primary" />
-                      ) : (
-                        <Copy className="h-4 w-4" />
+              {(() => {
+                const cleaned = cleanDisplayAddress(lead.address, lead.city);
+                if (!cleaned.display) return null;
+                const fullAddress = `${cleaned.display}, ${lead.city}`;
+                return (
+                  <div className="flex items-center justify-between gap-2">
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <MapPin className="h-4 w-4 text-muted-foreground" />
+                      <span>{fullAddress}</span>
+                      {(lead.addressMissingHouseNumber || cleaned.missingHouseNumber) && (
+                        <Badge
+                          variant="destructive"
+                          className="gap-1"
+                          title="Address is missing a house number. Confirm exact street number with the customer before driving out."
+                          data-testid={`badge-missing-house-number-${lead.id}`}
+                        >
+                          <AlertTriangle className="h-3 w-3" />
+                          No house #
+                        </Badge>
                       )}
-                    </Button>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      asChild
-                    >
-                      <a 
-                        href={`https://maps.google.com/?q=${encodeURIComponent(`${lead.address}, ${lead.city}, ID`)}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
+                    </div>
+                    <div className="flex gap-1">
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => copyToClipboard(fullAddress, `${lead.id}-address`)}
                       >
-                        <ExternalLink className="h-4 w-4" />
-                      </a>
-                    </Button>
+                        {copiedId === `${lead.id}-address` ? (
+                          <CheckCircle2 className="h-4 w-4 text-primary" />
+                        ) : (
+                          <Copy className="h-4 w-4" />
+                        )}
+                      </Button>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        asChild
+                      >
+                        <a 
+                          href={`https://maps.google.com/?q=${encodeURIComponent(`${fullAddress}, ID`)}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <ExternalLink className="h-4 w-4" />
+                        </a>
+                      </Button>
+                    </div>
                   </div>
-                </div>
-              )}
+                );
+              })()}
             </div>
           </div>
 

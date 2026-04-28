@@ -36,6 +36,7 @@ import {
 import { buildLeadCsv, buildCsvFilename, downloadCsv } from "@/lib/leadCsv";
 import { useExportedLeads } from "@/lib/exportedLeads";
 import { useRouter, useSearchParams } from "next/navigation";
+import { cleanDisplayAddress } from "@/shared/addressValidation";
 
 interface LineItem {
   serviceId?: string;
@@ -1264,7 +1265,16 @@ function SubcontractorPortalContent() {
                 </div>
                 <div className="text-[11px] mt-0.5 flex items-center gap-1 font-semibold text-emerald-700 dark:text-emerald-400">
                   <MapPin className="h-3 w-3 flex-shrink-0" />
-                  {isPurchased && lead.address ? `${lead.address}, ` : ''}{lead.city} - {lead.propertyType.replace(/-/g, " ")}
+                  {(() => {
+                    const headerCleaned = isPurchased
+                      ? cleanDisplayAddress(lead.address, lead.city)
+                      : { display: "", missingHouseNumber: false };
+                    return (
+                      <>
+                        {headerCleaned.display ? `${headerCleaned.display}, ` : ''}{lead.city} - {lead.propertyType.replace(/-/g, " ")}
+                      </>
+                    );
+                  })()}
                 </div>
               </div>
             </div>
@@ -1311,23 +1321,27 @@ function SubcontractorPortalContent() {
                     <a href={`mailto:${lead.email}`} className="text-primary hover:underline">{lead.email}</a>
                   </div>
                 )}
-                {lead.address && lead.address !== "***" && (
-                  <div className="flex items-center gap-2 flex-wrap" data-testid={`text-contact-address-${lead.id}`}>
-                    <MapPin className="h-3.5 w-3.5 text-muted-foreground flex-shrink-0" />
-                    <span>{lead.address}, {lead.city}, Idaho</span>
-                    {lead.addressMissingHouseNumber && (
-                      <Badge
-                        variant="destructive"
-                        className="gap-1"
-                        title="Address is missing a house number. Confirm exact street number with the customer before driving out."
-                        data-testid={`badge-missing-house-number-${lead.id}`}
-                      >
-                        <AlertTriangle className="h-3 w-3" />
-                        No house #
-                      </Badge>
-                    )}
-                  </div>
-                )}
+                {(() => {
+                  const cleaned = cleanDisplayAddress(lead.address, lead.city);
+                  if (!cleaned.display) return null;
+                  return (
+                    <div className="flex items-center gap-2 flex-wrap" data-testid={`text-contact-address-${lead.id}`}>
+                      <MapPin className="h-3.5 w-3.5 text-muted-foreground flex-shrink-0" />
+                      <span>{cleaned.display}, {lead.city}, Idaho</span>
+                      {(lead.addressMissingHouseNumber || cleaned.missingHouseNumber) && (
+                        <Badge
+                          variant="destructive"
+                          className="gap-1"
+                          title="Address is missing a house number. Confirm exact street number with the customer before driving out."
+                          data-testid={`badge-missing-house-number-${lead.id}`}
+                        >
+                          <AlertTriangle className="h-3 w-3" />
+                          No house #
+                        </Badge>
+                      )}
+                    </div>
+                  );
+                })()}
               </div>
             </div>
           )}
