@@ -4,6 +4,18 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { ArrowRight, Scissors, TreeDeciduous, Snowflake, Droplets } from "lucide-react";
 import { PRIORITY_SERVICES } from "@/shared/contentData";
+import { generateWebPageSchema, generateBreadcrumbSchema } from "@/lib/schema";
+
+const webPageSchema = generateWebPageSchema({
+  title: "Lawn Care & Landscaping Services",
+  description: "Full range of lawn care, landscaping, irrigation, and seasonal services for the Treasure Valley.",
+  url: "/services",
+});
+
+const breadcrumbSchema = generateBreadcrumbSchema([
+  { name: "Home", url: "/" },
+  { name: "Services", url: "/services" },
+]);
 
 export const metadata: Metadata = {
   title: "Lawn Care & Landscaping in Kuna, Idaho",
@@ -18,7 +30,7 @@ export const metadata: Metadata = {
     type: "website",
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: "Lawn Care & Landscaping Services | Lawn Care Kuna",
     description: "All lawn care, landscaping & seasonal services in Kuna, Boise & Treasure Valley. Free quotes!",
   },
@@ -62,6 +74,15 @@ const serviceCategories = [
 
 export default function ServicesPage() {
   return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
     <div className="flex flex-col">
       {/* Hero */}
       <section className="relative py-16 md:py-24 bg-gradient-to-b from-primary/5 to-background">
@@ -140,5 +161,6 @@ export default function ServicesPage() {
         </div>
       </section>
     </div>
+    </>
   );
 }

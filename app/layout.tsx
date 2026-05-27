@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import Script from 'next/script'
 import { Montserrat, Playfair_Display } from 'next/font/google'
 import { Navigation } from '@/components/Navigation'
@@ -68,57 +68,13 @@ export const metadata: Metadata = {
     icon: '/favicon.png',
     apple: '/apple-touch-icon.png',
   },
+  manifest: '/site.webmanifest',
 }
 
-// Organization JSON-LD Schema
-const organizationSchema = {
-  "@context": "https://schema.org",
-  "@type": "LocalBusiness",
-  "name": "Lawn Care Kuna",
-  "description": "Professional lawn care and landscaping services in Kuna, Boise, Meridian, Eagle, Star, and Middleton, Idaho.",
-  "url": "https://lawncarekuna.com",
-  "logo": "https://lawncarekuna.com/images/lawn-care-kuna-logo.png",
-  "telephone": "(208) 352-2011",
-  "email": "hello@lawncarekuna.com",
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "2283 N Coopers Hawk Ave",
-    "addressLocality": "Kuna",
-    "addressRegion": "ID",
-    "postalCode": "83634",
-    "addressCountry": "US"
-  },
-  "geo": {
-    "@type": "GeoCoordinates",
-    "latitude": "43.4918",
-    "longitude": "-116.4198"
-  },
-  "areaServed": [
-    { "@type": "City", "name": "Kuna" },
-    { "@type": "City", "name": "Boise" },
-    { "@type": "City", "name": "Meridian" },
-    { "@type": "City", "name": "Eagle" },
-    { "@type": "City", "name": "Star" },
-    { "@type": "City", "name": "Middleton" }
-  ],
-  "priceRange": "$$",
-  "openingHoursSpecification": {
-    "@type": "OpeningHoursSpecification",
-    "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-    "opens": "07:00",
-    "closes": "19:00"
-  },
-  "aggregateRating": {
-    "@type": "AggregateRating",
-    "ratingValue": "4.9",
-    "reviewCount": "247",
-    "bestRating": "5",
-    "worstRating": "1"
-  },
-  "sameAs": [
-    "https://www.facebook.com/lawncarekuna",
-    "https://www.instagram.com/lawncarekuna"
-  ]
+export const viewport: Viewport = {
+  themeColor: '#1E5128',
+  width: 'device-width',
+  initialScale: 1,
 }
 
 const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || 'G-1HD7RT8PKJ';
@@ -151,10 +107,6 @@ export default function RootLayout({
           </div>
           <Toaster />
         </Providers>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
-        />
         <Script
           src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
           strategy="afterInteractive"

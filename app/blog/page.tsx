@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     type: "website",
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: "Idaho Lawn Care Tips & Blog",
     description: "Expert tips on mowing, fertilizing, landscaping, and seasonal care for Idaho homeowners.",
   },

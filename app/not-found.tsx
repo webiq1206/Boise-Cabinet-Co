@@ -1,7 +1,17 @@
 import Link from "next/link";
+import { Metadata } from "next";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Home, Search, ArrowRight, Phone, Leaf } from "lucide-react";
+
+export const metadata: Metadata = {
+  title: "Page Not Found (404)",
+  description: "The page you're looking for could not be found. Browse our lawn care services or contact Lawn Care Kuna at (208) 352-2011.",
+  robots: {
+    index: false,
+    follow: true,
+  },
+};
 
 export default function NotFound() {
   return (

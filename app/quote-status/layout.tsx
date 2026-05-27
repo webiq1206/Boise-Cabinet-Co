@@ -6,6 +6,10 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://lawncarekuna.com/quote-status",
   },
+  robots: {
+    index: false,
+    follow: true,
+  },
 };
 
 export default function QuoteStatusLayout({

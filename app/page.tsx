@@ -26,12 +26,12 @@ export const metadata: Metadata = {
   title: "Lawn Care Kuna Idaho | Free Quotes",
   description: "Top-rated lawn care in Kuna, Boise & Treasure Valley, Idaho. Mowing, landscaping, irrigation & cleanup. Licensed & insured. Call (208) 352-2011!",
   alternates: {
-    canonical: "https://lawncarekuna.com/",
+    canonical: "https://lawncarekuna.com",
   },
   openGraph: {
     title: "Lawn Care Kuna Idaho | Mowing, Landscaping & Free Quotes",
     description: "Professional lawn mowing, landscaping, and yard maintenance in Kuna and the Treasure Valley, Idaho. Licensed, insured, top-rated. Get a free quote today!",
-    url: "https://lawncarekuna.com/",
+    url: "https://lawncarekuna.com",
     type: "website",
   },
   twitter: {

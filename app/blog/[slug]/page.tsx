@@ -47,7 +47,7 @@ export async function generateMetadata({
       publishedTime: post.publishedAt,
     },
     twitter: {
-      card: "summary",
+      card: "summary_large_image",
       title: `${title} | Lawn Care Kuna Blog`,
       description,
     },

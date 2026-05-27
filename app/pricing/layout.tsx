@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     type: "website",
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: "Lawn Care Pricing Kuna Idaho | Free Quote",
     description: "Transparent prices for lawn mowing, landscaping & seasonal services. No hidden fees. Get a free quote!",
   },
