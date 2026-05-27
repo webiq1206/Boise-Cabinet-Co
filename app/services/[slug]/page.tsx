@@ -43,7 +43,7 @@ import {
 } from "@/lib/schema";
 import { BUSINESS_INFO, generateSafePageTitle } from "@/lib/seo";
 import { Testimonials } from "@/components/Testimonials";
-import { RelatedBlogPosts } from "@/components/RelatedBlogPosts";
+import { RelatedContent } from "@/components/RelatedContent";
 
 export async function generateStaticParams() {
   return PRIORITY_SERVICES.map((service) => ({
@@ -610,7 +610,11 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
         </section>
 
         <div data-testid="section-related-blog">
-          <RelatedBlogPosts serviceSlug={service.slug} limit={3} />
+          <RelatedContent
+            pageUrl={`/services/${service.slug}`}
+            heading="Related services and guides"
+            subheading="Helpful resources and related work from across Lawn Care Kuna."
+          />
         </div>
 
         <section className="py-12 md:py-16 bg-muted/30" data-testid="section-helpful-links">

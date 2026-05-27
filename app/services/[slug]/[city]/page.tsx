@@ -44,7 +44,7 @@ import {
   generateSpeakableSchema,
 } from "@/lib/schema";
 import { Testimonials } from "@/components/Testimonials";
-import { RelatedBlogPosts } from "@/components/RelatedBlogPosts";
+import { RelatedContent } from "@/components/RelatedContent";
 
 export async function generateStaticParams() {
   const params: { slug: string; city: string }[] = [];
@@ -664,7 +664,11 @@ export default function CityServicePage({
         )}
 
         <div data-testid="section-related-blog">
-          <RelatedBlogPosts serviceSlug={service.slug} limit={3} />
+          <RelatedContent
+            pageUrl={`/services/${service.slug}/${city.slug}`}
+            heading={`More ${service.name.toLowerCase()} resources for ${city.name}`}
+            subheading="Pages and articles related to this service and your area."
+          />
         </div>
 
         <section className="py-16 md:py-24 bg-muted/30" data-testid="section-other-cities">

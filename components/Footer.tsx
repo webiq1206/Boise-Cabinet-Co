@@ -3,6 +3,11 @@ import Image from "next/image";
 import { Phone, Mail, MapPin, Facebook, Instagram } from "lucide-react";
 import { PRIORITY_SERVICES, CITIES } from "@/shared/contentData";
 import { ObfuscatedEmail } from "@/components/ObfuscatedEmail";
+import manifest from "@/data/internal-links.json";
+
+type FooterBlogEntry = { slug: string; title: string; publishedAt: string };
+const BLOG_BY_CATEGORY = (manifest as { blogByCategory: Record<string, FooterBlogEntry[]> }).blogByCategory;
+const FOOTER_BLOG_CATEGORY_ORDER = ["Lawn Maintenance", "Seasonal Guides", "Landscaping", "Lawn Care", "Irrigation", "Landscaping Tips"];
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -10,7 +15,7 @@ export function Footer() {
   return (
     <footer className="bg-muted border-t">
       <div className="container px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
           {/* Company Info */}
           <div>
             <Image 
@@ -139,6 +144,40 @@ export function Footer() {
                 </li>
               ))}
             </ul>
+          </div>
+
+          {/* From the Blog */}
+          <div data-testid="footer-from-the-blog">
+            <h3 className="font-semibold text-sm mb-4">From the Blog</h3>
+            <div className="space-y-4 text-sm">
+              {FOOTER_BLOG_CATEGORY_ORDER.filter((cat) => BLOG_BY_CATEGORY[cat]?.length).slice(0, 2).map((cat) => (
+                <div key={cat} data-testid={`footer-blog-category-${cat.toLowerCase().replace(/\s+/g, "-")}`}>
+                  <p className="text-xs font-semibold text-foreground mb-2" data-testid={`footer-blog-category-label-${cat.toLowerCase().replace(/\s+/g, "-")}`}>
+                    {cat}
+                  </p>
+                  <ul className="space-y-1.5">
+                    {BLOG_BY_CATEGORY[cat].slice(0, 3).map((post) => (
+                      <li key={post.slug}>
+                        <Link
+                          href={`/blog/${post.slug}`}
+                          className="text-muted-foreground hover:text-primary transition-colors line-clamp-2"
+                          data-testid={`footer-blog-link-${post.slug}`}
+                        >
+                          {post.title}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+              <Link
+                href="/blog"
+                className="inline-block text-foreground hover:text-primary font-medium transition-colors text-xs pt-1"
+                data-testid="footer-blog-view-all"
+              >
+                View All Articles →
+              </Link>
+            </div>
           </div>
         </div>
 

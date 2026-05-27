@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Testimonials } from "@/components/Testimonials";
 import { SimpleQuoteWizard } from "@/components/SimpleQuoteWizard";
-import { RelatedBlogPosts } from "@/components/RelatedBlogPosts";
+import { RelatedContent } from "@/components/RelatedContent";
 import { CheckCircle2, Calendar, DollarSign, Shield, Clock } from "lucide-react";
 import { generateServiceSchema, generateBreadcrumbSchema, generateLocalBusinessSchema } from "@/lib/schema";
 
@@ -264,7 +264,12 @@ export default function LawnMowingPage() {
                     </CardContent>
                   </Card>
 
-                  <RelatedBlogPosts serviceSlug="lawn-mowing" />
+                  <RelatedContent
+                    pageUrl="/services/lawn-mowing"
+                    variant="card"
+                    heading="Related reading"
+                    limit={5}
+                  />
                 </div>
               </div>
             </div>

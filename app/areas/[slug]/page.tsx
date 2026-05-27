@@ -43,6 +43,7 @@ import {
   generateSpeakableSchema
 } from "@/lib/schema";
 import { Testimonials } from "@/components/Testimonials";
+import { RelatedContent } from "@/components/RelatedContent";
 
 export async function generateStaticParams() {
   return CITIES.map((city) => ({
@@ -563,6 +564,12 @@ export default function AreaPage({ params }: { params: { slug: string } }) {
             </div>
           </div>
         </section>
+
+        <RelatedContent
+          pageUrl={`/areas/${city.slug}`}
+          heading={`More ways we help in ${city.name}`}
+          subheading="Service pages, neighboring areas, and articles for your property."
+        />
 
         <section className="py-16 md:py-24" data-testid="section-cta">
           <div className="container px-4">

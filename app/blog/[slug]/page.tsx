@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { RelatedContent } from "@/components/RelatedContent";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -68,20 +69,6 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
   if (!post) {
     notFound();
   }
-
-  const relatedPosts = BLOG_POSTS
-    .filter((p) => p.slug !== post.slug && p.category === post.category)
-    .slice(0, 4);
-
-  const moreRelated = relatedPosts.length < 3
-    ? BLOG_POSTS.filter((p) => p.slug !== post.slug && !relatedPosts.find(r => r.slug === p.slug)).slice(0, 3 - relatedPosts.length)
-    : [];
-
-  const allRelated = [...relatedPosts, ...moreRelated];
-
-  const bottomRelated = BLOG_POSTS
-    .filter((p) => p.slug !== post.slug)
-    .slice(0, 3);
 
   const articleSchema = generateArticleSchema({
     title: post.title,
@@ -227,47 +214,12 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
                 </Card>
 
                 {/* Related Articles */}
-                {allRelated.length > 0 && (
-                  <Card>
-                    <CardContent className="p-5">
-                      <div className="flex items-center gap-2 mb-4">
-                        <BookOpen className="h-4 w-4 text-primary" />
-                        <h3 className="font-semibold text-sm">Related Articles</h3>
-                      </div>
-                      <ul className="space-y-3">
-                        {allRelated.map((related) => (
-                          <li key={related.slug}>
-                            <Link 
-                              href={`/blog/${related.slug}`}
-                              className="group flex gap-3 items-start"
-                              data-testid={`link-related-${related.slug}`}
-                            >
-                              <div className="flex-shrink-0 mt-1 w-1.5 h-1.5 rounded-full bg-primary/40 group-hover:bg-primary transition-colors" />
-                              <div className="flex-1 min-w-0">
-                                <p className="text-sm font-medium line-clamp-2 group-hover:text-primary transition-colors">
-                                  {related.title}
-                                </p>
-                                <p className="text-xs text-muted-foreground mt-0.5">
-                                  {formatDate(related.publishedAt)}
-                                </p>
-                              </div>
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
-                      <div className="mt-4 pt-3 border-t">
-                        <Link 
-                          href="/blog"
-                          className="text-xs text-primary hover:underline flex items-center gap-1"
-                          data-testid="link-view-all-articles"
-                        >
-                          View All Articles
-                          <ArrowRight className="h-3 w-3" />
-                        </Link>
-                      </div>
-                    </CardContent>
-                  </Card>
-                )}
+                <RelatedContent
+                  pageUrl={`/blog/${post.slug}`}
+                  variant="card"
+                  heading="Related articles"
+                  testIdPrefix="sidebar-related"
+                />
 
                 {/* Tags */}
                 {post.tags && post.tags.length > 0 && (
@@ -324,44 +276,11 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
         </div>
       </section>
 
-      {/* Related Posts */}
-      {bottomRelated.length > 0 && (
-        <section className="py-12 md:py-16 bg-muted/30">
-          <div className="container px-4">
-            <div className="max-w-6xl mx-auto">
-              <h2 className="text-2xl font-bold mb-8">More Articles</h2>
-              <div className="grid md:grid-cols-3 gap-6">
-                {bottomRelated.map((relatedPost) => (
-                  <Link
-                    key={relatedPost.slug}
-                    href={`/blog/${relatedPost.slug}`}
-                    className="group"
-                    data-testid={`link-more-article-${relatedPost.slug}`}
-                  >
-                    <Card className="h-full hover-elevate transition-all">
-                      <CardContent className="p-5 space-y-3">
-                        <Badge variant="secondary" className="text-xs bg-primary/10 text-primary border-0">
-                          {relatedPost.category}
-                        </Badge>
-                        <h3 className="text-sm font-semibold group-hover:text-primary transition-colors line-clamp-2">
-                          {relatedPost.title}
-                        </h3>
-                        <p className="text-xs text-muted-foreground line-clamp-2">
-                          {relatedPost.excerpt}
-                        </p>
-                        <div className="flex items-center gap-2 text-xs text-muted-foreground pt-1">
-                          <Calendar className="h-3 w-3" />
-                          <span>{formatDate(relatedPost.publishedAt)}</span>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </Link>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-      )}
+      <RelatedContent
+        pageUrl={`/blog/${post.slug}`}
+        heading="Keep reading"
+        subheading="Hand-picked services and guides based on this article."
+      />
     </div>
     </>
   );
