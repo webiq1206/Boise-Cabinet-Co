@@ -614,6 +614,7 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
             pageUrl={`/services/${service.slug}`}
             heading="Related services and guides"
             subheading="Helpful resources and related work from across Lawn Care Kuna."
+            sourceOverrides={service.relatedLinks}
           />
         </div>
 

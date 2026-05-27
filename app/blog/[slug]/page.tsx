@@ -219,6 +219,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
                   variant="card"
                   heading="Related articles"
                   testIdPrefix="sidebar-related"
+                  sourceOverrides={post.relatedLinks}
                 />
 
                 {/* Tags */}
@@ -280,6 +281,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
         pageUrl={`/blog/${post.slug}`}
         heading="Keep reading"
         subheading="Hand-picked services and guides based on this article."
+        sourceOverrides={post.relatedLinks}
       />
     </div>
     </>

@@ -15,6 +15,7 @@ export interface ServiceData {
   seasonality?: string;
   materialOptions?: string[];
   facts?: Array<{label: string; value: string}>;
+  relatedLinks?: Array<{url: string; anchor?: string}>;
 }
 
 export interface CityData {

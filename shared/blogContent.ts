@@ -13,6 +13,7 @@ export interface BlogPostData {
   tags: string[];
   publishedAt: string;
   faqs: Array<{question: string; answer: string}>;
+  relatedLinks?: Array<{url: string; anchor?: string}>;
 }
 
 export const BLOG_POSTS: BlogPostData[] = [

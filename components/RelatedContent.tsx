@@ -30,6 +30,7 @@ interface RelatedContentProps {
   subheading?: string;
   variant?: "section" | "card";
   overrides?: LinkEntry[];
+  sourceOverrides?: Array<{ url: string; anchor?: string }>;
   testIdPrefix?: string;
 }
 
@@ -55,6 +56,25 @@ function defaultHeading(type: PageType | undefined): string {
   }
 }
 
+function resolveSourceOverrides(
+  source: Array<{ url: string; anchor?: string }> | undefined,
+): LinkEntry[] {
+  if (!source || source.length === 0) return [];
+  const resolved: LinkEntry[] = [];
+  for (const ov of source) {
+    const target = PAGES[ov.url];
+    if (!target) continue;
+    resolved.push({
+      url: target.url,
+      anchor: ov.anchor ?? target.anchor,
+      title: target.title,
+      type: target.type,
+      score: 999,
+    });
+  }
+  return resolved;
+}
+
 export function RelatedContent({
   pageUrl,
   limit,
@@ -62,13 +82,26 @@ export function RelatedContent({
   subheading,
   variant = "section",
   overrides,
+  sourceOverrides,
   testIdPrefix = "related",
 }: RelatedContentProps) {
   const page = PAGES[pageUrl];
-  const links = (overrides && overrides.length > 0 ? overrides : page?.links ?? []).slice(
-    0,
-    limit ?? (page?.type === "blog" ? 3 : 5),
-  );
+  const renderLimit = limit ?? (page?.type === "blog" ? 3 : 5);
+
+  let pool: LinkEntry[];
+  if (overrides && overrides.length > 0) {
+    pool = overrides;
+  } else {
+    const resolvedSource = resolveSourceOverrides(sourceOverrides);
+    const manifestLinks = page?.links ?? [];
+    const seen = new Set(resolvedSource.map((l) => l.url));
+    pool = [
+      ...resolvedSource,
+      ...manifestLinks.filter((l) => !seen.has(l.url)),
+    ];
+  }
+
+  const links = pool.slice(0, renderLimit);
 
   if (links.length === 0) return null;
 

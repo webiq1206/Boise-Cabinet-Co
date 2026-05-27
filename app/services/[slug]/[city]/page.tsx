@@ -668,6 +668,7 @@ export default function CityServicePage({
             pageUrl={`/services/${service.slug}/${city.slug}`}
             heading={`More ${service.name.toLowerCase()} resources for ${city.name}`}
             subheading="Pages and articles related to this service and your area."
+            sourceOverrides={service.relatedLinks}
           />
         </div>
 

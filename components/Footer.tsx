@@ -7,7 +7,11 @@ import manifest from "@/data/internal-links.json";
 
 type FooterBlogEntry = { slug: string; title: string; publishedAt: string };
 const BLOG_BY_CATEGORY = (manifest as { blogByCategory: Record<string, FooterBlogEntry[]> }).blogByCategory;
-const FOOTER_BLOG_CATEGORY_ORDER = ["Lawn Maintenance", "Seasonal Guides", "Landscaping", "Lawn Care", "Irrigation", "Landscaping Tips"];
+const FOOTER_BLOG_CATEGORIES = Object.keys(BLOG_BY_CATEGORY).sort((a, b) => {
+  const diff = (BLOG_BY_CATEGORY[b]?.length ?? 0) - (BLOG_BY_CATEGORY[a]?.length ?? 0);
+  if (diff !== 0) return diff;
+  return a.localeCompare(b);
+});
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -150,13 +154,13 @@ export function Footer() {
           <div data-testid="footer-from-the-blog">
             <h3 className="font-semibold text-sm mb-4">From the Blog</h3>
             <div className="space-y-4 text-sm">
-              {FOOTER_BLOG_CATEGORY_ORDER.filter((cat) => BLOG_BY_CATEGORY[cat]?.length).slice(0, 2).map((cat) => (
+              {FOOTER_BLOG_CATEGORIES.map((cat) => (
                 <div key={cat} data-testid={`footer-blog-category-${cat.toLowerCase().replace(/\s+/g, "-")}`}>
                   <p className="text-xs font-semibold text-foreground mb-2" data-testid={`footer-blog-category-label-${cat.toLowerCase().replace(/\s+/g, "-")}`}>
                     {cat}
                   </p>
                   <ul className="space-y-1.5">
-                    {BLOG_BY_CATEGORY[cat].slice(0, 3).map((post) => (
+                    {BLOG_BY_CATEGORY[cat].slice(0, 4).map((post) => (
                       <li key={post.slug}>
                         <Link
                           href={`/blog/${post.slug}`}

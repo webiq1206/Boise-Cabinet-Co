@@ -1,9 +1,9 @@
 import { existsSync, readFileSync } from "fs";
 import { resolve } from "path";
-import type { Manifest } from "./lib";
+import { buildCanonicalRoutes, type Manifest } from "./lib";
 
 const ORPHAN_THRESHOLD = 1;
-const WEAK_THRESHOLD = 3;
+const WEAK_THRESHOLD = 5;
 
 function main() {
   const path = resolve(process.cwd(), "data/internal-links.json");
@@ -14,6 +14,11 @@ function main() {
 
   const manifest: Manifest = JSON.parse(readFileSync(path, "utf8"));
   const pageUrls = new Set(Object.keys(manifest.pages));
+  const canonicalRoutes = buildCanonicalRoutes();
+  const canonicalSet = new Set(canonicalRoutes);
+
+  const missingFromManifest = canonicalRoutes.filter((r) => !pageUrls.has(r));
+  const staleInManifest = [...pageUrls].filter((u) => !canonicalSet.has(u));
 
   const orphans: string[] = [];
   const weak: Array<{ url: string; incoming: number }> = [];
@@ -34,9 +39,24 @@ function main() {
   const avg = totalIncoming / Math.max(1, Object.keys(manifest.incoming).length);
 
   console.log("[audit:links] ----- Internal link audit -----");
-  console.log(`[audit:links] Pages: ${Object.keys(manifest.pages).length}`);
+  console.log(`[audit:links] Canonical routes: ${canonicalRoutes.length}`);
+  console.log(`[audit:links] Manifest pages: ${Object.keys(manifest.pages).length}`);
   console.log(`[audit:links] Total outbound links: ${totalIncoming}`);
   console.log(`[audit:links] Average incoming per page: ${avg.toFixed(2)}`);
+
+  if (missingFromManifest.length > 0) {
+    console.warn(`[audit:links] WARN ${missingFromManifest.length} canonical route(s) missing from manifest:`);
+    for (const u of missingFromManifest.slice(0, 25)) console.warn(`  - ${u}`);
+    if (missingFromManifest.length > 25) console.warn(`  ... and ${missingFromManifest.length - 25} more`);
+  } else {
+    console.log("[audit:links] OK manifest covers all canonical routes.");
+  }
+
+  if (staleInManifest.length > 0) {
+    console.warn(`[audit:links] WARN ${staleInManifest.length} manifest page(s) not in canonical route list (likely stale):`);
+    for (const u of staleInManifest.slice(0, 25)) console.warn(`  - ${u}`);
+    if (staleInManifest.length > 25) console.warn(`  ... and ${staleInManifest.length - 25} more`);
+  }
 
   if (orphans.length > 0) {
     console.warn(`[audit:links] WARN ${orphans.length} orphan page(s) with 0 incoming links:`);
