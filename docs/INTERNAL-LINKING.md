@@ -8,8 +8,8 @@ services. Edit the source data, rerun the generator, and the manifest updates.
 
 The generator reads:
 
-- `shared/blogContent.ts` — every blog post (title, excerpt, category, tags)
-- `shared/contentData.ts` — `PRIORITY_SERVICES` and `CITIES`
+- `shared/blogContent.ts` - every blog post (title, excerpt, category, tags)
+- `shared/contentData.ts` - `PRIORITY_SERVICES` and `CITIES`
 
 It produces every page in scope: blog posts, service pages, city (area) pages,
 and the full city-service permutation set.
@@ -24,8 +24,8 @@ Shape:
 
 ```
 {
-  "generatedAt": "...",
-  "counts": { "blog": 93, "service": 28, "city": 6, "cityService": 168 },
+  "generatedAt": null,
+  "counts": { "blog": 92, "service": 28, "city": 6, "cityService": 168 },
   "pages": {
     "/blog/my-post": {
       "type": "blog",
@@ -55,10 +55,23 @@ For each ordered pair (`from`, `to`) we compute:
    - Each shared tag: `+0.10`
    - Target is a service page: `+0.15` (uniform boost across all 28 services)
 
-The top N candidates per page are kept:
+The generator stores a larger candidate pool per page in the manifest so the
+audit can verify the >=5 incoming floor for every page:
 
-- Blog pages: 3
-- Service, city, and city-service pages: 5
+- Blog pages: up to 6 candidates
+- Service, city, and city-service pages: up to 8 candidates
+
+The render component then trims to:
+
+- Blog pages: 3 links
+- Service, city, and city-service pages: 5 links
+
+After the initial pass, a floor-enforcement step guarantees every page has at
+least 5 incoming links by promoting each weakly-linked target onto its best
+margin candidate's manifest, displacing only the weakest non-override link.
+
+The manifest is deterministic: identical inputs always produce byte-identical
+output, so committed manifest changes always reflect a real content change.
 
 ## Anchor text
 
@@ -69,9 +82,16 @@ The anchor for an outgoing link is the target page's `anchor` field:
 - City: `Lawn Care in <City>`
 - City-service: `<Service> in <City>`
 
-Per-page anchor overrides can be passed to `RelatedContent` via the
-`overrides` prop when a specific page needs custom link text. The component
-never renders generic anchors such as `click here` or `this article`.
+Per-page overrides are supported in two ways:
+
+- **Content-level**: add a `relatedLinks: [{ url, anchor? }]` array to any
+  blog post in `shared/blogContent.ts` or any service in `shared/contentData.ts`.
+  The generator places those first in the manifest and the render component
+  prepends them to the displayed list.
+- **Render-level**: pass an `overrides` prop to `<RelatedContent>` for a one-off
+  page that needs ad-hoc link text.
+
+The component never renders generic anchors such as `click here` or `this article`.
 
 ## Running
 
@@ -92,14 +112,20 @@ The audit is warn-only by design. It never fails the build.
 
 ## Audit report
 
-The audit reports three classes of issues:
+The audit reports five classes of signal:
 
-- **Orphans** — pages with 0 incoming internal links from the manifest.
-- **Weak** — pages with fewer than 3 incoming internal links.
-- **Broken** — links whose target URL is not in the manifest.
+- **Canonical coverage** - every route built from `blogContent.ts`,
+  `contentData.ts`, and the city-service permutation set is present in the
+  manifest. Missing or stale routes are listed.
+- **Orphans** - pages with 0 incoming internal links from the manifest.
+- **Weak** - pages with fewer than 5 incoming internal links (the system's hard floor).
+- **Broken** - links whose target URL is not in the manifest.
+- **Service equity** - any service page whose incoming count is below the
+  site-wide average. The generator boosts all 28 services uniformly so the
+  expected output is "OK all 28 service pages meet or exceed average".
 
-Treat orphans and broken links as something to fix in the next content pass.
-Weak pages are informational only.
+Treat orphans, broken links, and service-equity warnings as something to fix
+in the next content pass. Weak pages are informational only.
 
 ## Adding new content
 

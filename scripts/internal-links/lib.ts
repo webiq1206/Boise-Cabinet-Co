@@ -26,7 +26,7 @@ export interface LinkEntry {
 }
 
 export interface Manifest {
-  generatedAt: string;
+  generatedAt: null;
   counts: { blog: number; service: number; city: number; cityService: number };
   pages: Record<string, {
     type: PageType;
@@ -392,7 +392,7 @@ export function buildManifest(pages: PageNode[]): Manifest {
   }
 
   return {
-    generatedAt: new Date().toISOString(),
+    generatedAt: null,
     counts: {
       blog: BLOG_POSTS.length,
       service: PRIORITY_SERVICES.length,

@@ -74,6 +74,25 @@ function main() {
     console.log("[audit:links] OK no weak-equity pages.");
   }
 
+  const servicePages = Object.entries(manifest.pages).filter(([, p]) => p.type === "service");
+  const belowAverageServices = servicePages
+    .map(([url]) => ({ url, incoming: manifest.incoming[url] ?? 0 }))
+    .filter((s) => s.incoming < avg)
+    .sort((a, b) => a.incoming - b.incoming);
+
+  if (belowAverageServices.length > 0) {
+    console.warn(
+      `[audit:links] WARN ${belowAverageServices.length} service page(s) below site average (${avg.toFixed(2)}) incoming links:`,
+    );
+    for (const s of belowAverageServices.slice(0, 28)) {
+      console.warn(`  - ${s.url} (${s.incoming})`);
+    }
+  } else {
+    console.log(
+      `[audit:links] OK all ${servicePages.length} service pages meet or exceed site average (${avg.toFixed(2)}) incoming links.`,
+    );
+  }
+
   if (broken.length > 0) {
     console.warn(`[audit:links] WARN ${broken.length} broken internal link(s):`);
     for (const b of broken.slice(0, 25)) console.warn(`  - ${b.from} -> ${b.to}`);
