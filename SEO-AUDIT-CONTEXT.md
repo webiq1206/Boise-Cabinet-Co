@@ -3,7 +3,7 @@
 **Domain:** lawncarekuna.com
 **Stack:** Next.js 14.2 App Router, React 18, TypeScript, Tailwind, shadcn/ui
 **Rendering:** Static (SSG via `generateStaticParams`) for all public pages
-**Database:** Neon PostgreSQL (Drizzle ORM) — non-SEO surface
+**Database:** Neon PostgreSQL (Drizzle ORM), non-SEO surface
 **Analytics:** Google Analytics 4 (`G-1HD7RT8PKJ`) loaded in root layout via `next/script` (afterInteractive)
 **Integrations (do NOT break):** GA4, Stripe, Resend, Replit Auth, Nominatim geocoding, Google Mail
 **Image hosting:** local `/public/images/*` only (no CDN)
