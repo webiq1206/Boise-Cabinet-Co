@@ -25,7 +25,7 @@ export function ManifestRelatedLinks({
           <li key={link.url}>
             <Link
               href={link.url}
-              className="block text-sm text-muted-foreground hover:text-accent transition-colors py-1"
+              className="block text-sm text-muted-foreground hover:text-foreground transition-colors py-1"
             >
               {link.anchor}
             </Link>

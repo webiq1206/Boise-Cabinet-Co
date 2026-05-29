@@ -3,7 +3,7 @@
 import { useState, useEffect, useMemo, useRef } from "react";
 import { Check, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { Section } from "@/components/marketing/Section";
+import { DisplayNum, Section } from "@/components/marketing";
 import { EstimateResultPanel } from "@/components/estimate/EstimateResultPanel";
 import {
   type ProjectType,
@@ -48,12 +48,12 @@ function SelectButton<T extends string>({
             aria-pressed={active}
             className={cn(
               "relative flex flex-col items-start gap-1 p-4 rounded-sm text-left transition-all border bg-card",
-              active ? "border-accent border-[1.5px] bg-accent/5" : "border-border",
+              active ? "border-foreground/40 border-[1.5px] bg-muted/40" : "border-border",
               allowUnset && value === null && "opacity-90"
             )}
           >
             {active && (
-              <Check className="absolute top-2.5 right-2.5 h-3.5 w-3.5 text-accent" />
+              <Check className="absolute top-2.5 right-2.5 h-3.5 w-3.5 text-foreground" />
             )}
             <span className="font-medium text-xs text-foreground">{opt.label}</span>
             {opt.sub && (
@@ -145,7 +145,8 @@ export function EstimateCalculator() {
         <div className="max-w-6xl mx-auto mb-10">
           <div className="brc-label mb-3">Project Estimator</div>
           <h2 className="font-sans font-light text-section-title md:text-section-title-lg mb-3 text-foreground">
-            Plan your project investment
+            Plan your project{" "}
+            <em className="brc-accent text-accent">investment</em>
           </h2>
           <p className="text-base max-w-2xl leading-relaxed text-muted-foreground mb-3">
             Get a planning range in seconds. Add details below to improve estimate accuracy before your consultation.
@@ -153,16 +154,6 @@ export function EstimateCalculator() {
           <p className="text-xs text-muted-foreground/90 max-w-2xl">
             Planning estimate only, not a binding quote. Final pricing requires an in-home evaluation.
           </p>
-        </div>
-
-        {/* Mobile: compact result at top */}
-        <div className="lg:hidden max-w-6xl mx-auto mb-8">
-          <EstimateResultPanel
-            result={result}
-            selectionSummary={selectionSummary}
-            onBookVisit={handleBookVisit}
-            variant="full"
-          />
         </div>
 
         <div className="grid lg:grid-cols-[3fr_2fr] gap-8 md:gap-12 items-start max-w-6xl mx-auto">
@@ -182,11 +173,11 @@ export function EstimateCalculator() {
                       aria-pressed={active}
                       className={cn(
                         "relative flex flex-col items-start gap-1.5 p-5 rounded-sm text-left transition-all border bg-card",
-                        active ? "border-accent border-[1.5px] bg-accent/5" : "border-border"
+                        active ? "border-foreground/40 border-[1.5px] bg-muted/40" : "border-border"
                       )}
                     >
                       {active && (
-                        <Check className="absolute top-3 right-3 h-4 w-4 text-accent" />
+                        <Check className="absolute top-3 right-3 h-4 w-4 text-foreground" />
                       )}
                       <span className="font-medium text-sm text-foreground">{info.label}</span>
                       <span className="text-xs text-muted-foreground">{info.sub}</span>
@@ -212,11 +203,11 @@ export function EstimateCalculator() {
                       aria-pressed={active}
                       className={cn(
                         "relative flex flex-col items-start gap-1.5 p-5 rounded-sm text-left transition-all border bg-card",
-                        active ? "border-accent border-[1.5px] bg-accent/5" : "border-border"
+                        active ? "border-foreground/40 border-[1.5px] bg-muted/40" : "border-border"
                       )}
                     >
                       {active && (
-                        <Check className="absolute top-3 right-3 h-4 w-4 text-accent" />
+                        <Check className="absolute top-3 right-3 h-4 w-4 text-foreground" />
                       )}
                       <span className="font-medium text-sm text-foreground">{info.label}</span>
                       <span className="text-xs text-muted-foreground">{info.sub}</span>
@@ -230,10 +221,10 @@ export function EstimateCalculator() {
             <div>
               <div className="flex justify-between items-end mb-4">
                 <div className="brc-label">Step 3: Size of the space</div>
-                <div className="font-sans font-light text-2xl leading-none text-foreground">
+                <DisplayNum className="text-2xl leading-none text-foreground">
                   {sqft.toLocaleString()}{" "}
                   <span className="text-sm font-sans text-muted-foreground">sqft</span>
-                </div>
+                </DisplayNum>
               </div>
               <input
                 type="range"
@@ -251,8 +242,12 @@ export function EstimateCalculator() {
                 aria-valuenow={sqft}
               />
               <div className="flex justify-between text-[11px] mt-2 tracking-wide text-muted-foreground">
-                <span>{sizeConfig.min.toLocaleString()} sqft</span>
-                <span>{sizeConfig.max.toLocaleString()} sqft</span>
+                <span>
+                  <DisplayNum>{sizeConfig.min.toLocaleString()}</DisplayNum> sqft
+                </span>
+                <span>
+                  <DisplayNum>{sizeConfig.max.toLocaleString()}</DisplayNum> sqft
+                </span>
               </div>
             </div>
 
@@ -273,12 +268,12 @@ export function EstimateCalculator() {
                     Add project details for a more tailored planning range
                   </span>
                   {refineOpen && (
-                    <span className="text-[10px] block mt-1 text-accent">{refineProgress}</span>
+                    <span className="text-[10px] block mt-1 text-muted-foreground">{refineProgress}</span>
                   )}
                 </div>
                 <ChevronDown
                   className={cn(
-                    "h-5 w-5 flex-shrink-0 transition-transform text-accent",
+                    "h-5 w-5 flex-shrink-0 transition-transform text-muted-foreground",
                     refineOpen && "rotate-180"
                   )}
                 />
@@ -456,8 +451,10 @@ export function EstimateCalculator() {
             <p className="text-[10px] uppercase tracking-wide text-muted-foreground truncate">
               {selectionSummary}
             </p>
-            <p className="font-sans text-lg text-foreground tabular-nums" data-testid="mobile-estimate-range">
-              ${Math.round(result.priceLow / 1000)}k to ${Math.round(result.priceHigh / 1000)}k
+            <p className="text-lg text-foreground" data-testid="mobile-estimate-range">
+              <DisplayNum>
+                ${Math.round(result.priceLow / 1000)}k to ${Math.round(result.priceHigh / 1000)}k
+              </DisplayNum>
             </p>
           </div>
           <button

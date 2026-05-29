@@ -4,7 +4,6 @@ import { Section } from "@/components/marketing/Section";
 import { SectionHeader } from "@/components/marketing/SectionHeader";
 import {
   DIFFERENTIATORS,
-  DIFFERENTIATORS_HEADLINE,
   DIFFERENTIATORS_INTRO,
   HOMEPAGE_DIFFERENTIATOR_INDICES,
 } from "@/shared/siteContent";
@@ -26,7 +25,12 @@ export function WhyChooseUsSection({ limit }: WhyChooseUsSectionProps) {
       <div className="container px-4">
         <SectionHeader
           eyebrow="What sets us apart"
-          title={DIFFERENTIATORS_HEADLINE}
+          title={
+            <>
+              Built for homeowners who want{" "}
+              <em className="brc-accent text-accent">clarity</em>, not chaos
+            </>
+          }
           description={DIFFERENTIATORS_INTRO}
           className="max-w-3xl"
         />
@@ -48,7 +52,7 @@ export function WhyChooseUsSection({ limit }: WhyChooseUsSectionProps) {
 
         {limit !== undefined && (
           <p className="text-sm text-muted-foreground text-center mt-6 max-w-xl mx-auto">
-            <a href="/about" className="text-foreground hover:text-accent transition-colors font-medium">
+            <a href="/about" className="text-foreground hover:text-foreground/70 transition-colors font-medium">
               Learn more about our approach
             </a>
           </p>

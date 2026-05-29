@@ -41,7 +41,7 @@ export function SectionHeader({
       {description && (
         <p
           className={cn(
-            "text-sm leading-relaxed",
+            "text-base leading-relaxed",
             inverse ? "text-inverse-muted" : "text-muted-foreground"
           )}
         >

@@ -2,7 +2,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowRight, Check } from 'lucide-react';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
-import { Section } from '@/components/marketing/Section';
+import { DisplayNum, formatStepNumber, Section } from '@/components/marketing';
 import { MarketingCard } from '@/components/marketing/MarketingCard';
 import { Button } from '@/components/ui/button';
 import { RelatedLinks } from './RelatedLinks';
@@ -145,10 +145,15 @@ export function LandingPageTemplate({
               {processSteps.map((step, i) => (
                 <div
                   key={step.title}
-                  className={`py-6 ${i < processSteps.length - 1 ? 'border-b border-border' : ''}`}
+                  className={`flex gap-5 py-6 ${i < processSteps.length - 1 ? 'border-b border-border' : ''}`}
                 >
-                  <h3 className="font-medium text-sm text-foreground mb-2">{step.title}</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{step.description}</p>
+                  <DisplayNum className="text-2xl w-8 flex-shrink-0 leading-none mt-0.5 text-foreground/20">
+                    {formatStepNumber(i)}
+                  </DisplayNum>
+                  <div>
+                    <h3 className="font-medium text-sm text-foreground mb-2">{step.title}</h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed">{step.description}</p>
+                  </div>
                 </div>
               ))}
             </div>
@@ -201,17 +206,19 @@ export function LandingPageTemplate({
         </div>
       </Section>
 
-      <Section variant="inverse" spacing="sm">
-        <div className="container px-4 text-center max-w-2xl mx-auto">
-          <h2 className="font-sans font-light text-2xl text-inverse-foreground mb-4">
-            Ready to discuss your project?
-          </h2>
-          <p className="text-inverse-muted text-sm mb-6">
-            Free 60 to 90 minute in-home visit. Planning guidance, design direction, no obligation.
-          </p>
-          <Button variant="brandAccent" asChild>
-            <Link href="/#consult">{CTA_PRIMARY}</Link>
-          </Button>
+      <Section divider spacing="sm">
+        <div className="container px-4 max-w-2xl mx-auto">
+          <div className="marketing-card p-10 md:p-12 text-center">
+            <h2 className="font-sans font-light text-2xl text-foreground mb-4">
+              Ready to discuss your project?
+            </h2>
+            <p className="text-muted-foreground text-base mb-6">
+              Free 60 to 90 minute in-home visit. Planning guidance, design direction, no obligation.
+            </p>
+            <Button variant="brand" asChild>
+              <Link href="/#consult">{CTA_PRIMARY}</Link>
+            </Button>
+          </div>
         </div>
       </Section>
     </div>

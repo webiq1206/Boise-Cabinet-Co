@@ -11,6 +11,7 @@ import {
   generateWebPageSchema,
 } from '@/lib/schema';
 import { BUSINESS_INFO } from '@/lib/seo';
+import { CTA_PRIMARY, CTA_SECONDARY } from '@/shared/ctaCopy';
 
 const PHONE_HREF = 'tel:2085550100';
 
@@ -51,20 +52,20 @@ export default function ContactPage() {
             <div className="space-y-6 mb-10">
               <a
                 href={PHONE_HREF}
-                className="flex items-center gap-3 text-foreground hover:text-accent transition-colors"
+                className="flex items-center gap-3 text-foreground hover:text-foreground/70 transition-colors"
               >
-                <Phone className="h-5 w-5 text-accent" />
-                <span className="text-lg">{BUSINESS_INFO.phone}</span>
+                <Phone className="h-5 w-5 text-foreground/50" />
+                <span className="brc-display-num tabular-nums text-lg">{BUSINESS_INFO.phone}</span>
               </a>
               <a
                 href={`mailto:${BUSINESS_INFO.email}`}
-                className="flex items-center gap-3 text-foreground hover:text-accent transition-colors"
+                className="flex items-center gap-3 text-foreground hover:text-foreground/70 transition-colors"
               >
-                <Mail className="h-5 w-5 text-accent" />
+                <Mail className="h-5 w-5 text-foreground/50" />
                 {BUSINESS_INFO.email}
               </a>
               <div className="flex items-start gap-3 text-muted-foreground">
-                <MapPin className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" />
+                <MapPin className="h-5 w-5 text-foreground/50 flex-shrink-0 mt-0.5" />
                 <span>
                   {BUSINESS_INFO.address.street}
                   <br />
@@ -76,10 +77,10 @@ export default function ContactPage() {
 
             <div className="flex flex-wrap gap-3">
               <Button variant="brand" asChild>
-                <Link href="/#consult">Schedule consultation</Link>
+                <Link href="/#consult">{CTA_PRIMARY}</Link>
               </Button>
               <Button variant="brandOutline" asChild>
-                <Link href="/#calculator">Project estimator</Link>
+                <Link href="/#calculator">{CTA_SECONDARY}</Link>
               </Button>
             </div>
           </div>

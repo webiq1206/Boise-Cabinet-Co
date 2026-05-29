@@ -1368,7 +1368,7 @@ function SubcontractorPortalContent() {
           {!isPurchased && (
             <div className="flex items-center justify-between pt-2 border-t">
               <div>
-                <p className="text-lg md:text-xl font-bold text-primary">{formatCurrency(lead.currentLeadPrice)}</p>
+                <p className="brc-display-num tabular-nums text-lg md:text-xl font-light text-primary">{formatCurrency(lead.currentLeadPrice)}</p>
                 {hasTimeDiscount && (
                   <p className="text-xs text-muted-foreground line-through">{formatCurrency(lead.baseLeadPrice)}</p>
                 )}
@@ -1587,7 +1587,7 @@ function SubcontractorPortalContent() {
               </CardTitle>
             </CardHeader>
             <CardContent className="p-3 md:p-4 pt-0">
-              <div className="text-xl md:text-3xl font-bold" data-testid="text-stat-available">{filteredLeads.length}</div>
+              <div className="brc-display-num tabular-nums text-xl md:text-3xl font-light" data-testid="text-stat-available">{filteredLeads.length}</div>
             </CardContent>
           </Card>
           <Card
@@ -1601,7 +1601,7 @@ function SubcontractorPortalContent() {
               </CardTitle>
             </CardHeader>
             <CardContent className="p-3 md:p-4 pt-0">
-              <div className="text-xl md:text-3xl font-bold" data-testid="text-stat-watchlist">{watchlist.length}</div>
+              <div className="brc-display-num tabular-nums text-xl md:text-3xl font-light" data-testid="text-stat-watchlist">{watchlist.length}</div>
             </CardContent>
           </Card>
           <Card
@@ -1615,7 +1615,7 @@ function SubcontractorPortalContent() {
               </CardTitle>
             </CardHeader>
             <CardContent className="p-3 md:p-4 pt-0">
-              <div className="text-xl md:text-3xl font-bold" data-testid="text-stat-cart">{selectedLeadIds.length}</div>
+              <div className="brc-display-num tabular-nums text-xl md:text-3xl font-light" data-testid="text-stat-cart">{selectedLeadIds.length}</div>
               {selectedLeadsTotal.discount > 0 && (
                 <p className="text-sm text-primary">{selectedLeadsTotal.discount}% bulk discount!</p>
               )}
@@ -1632,7 +1632,7 @@ function SubcontractorPortalContent() {
               </CardTitle>
             </CardHeader>
             <CardContent className="p-3 md:p-4 pt-0">
-              <div className="text-xl md:text-3xl font-bold" data-testid="text-stat-purchases">{myPurchases.length}</div>
+              <div className="brc-display-num tabular-nums text-xl md:text-3xl font-light" data-testid="text-stat-purchases">{myPurchases.length}</div>
             </CardContent>
           </Card>
         </div>

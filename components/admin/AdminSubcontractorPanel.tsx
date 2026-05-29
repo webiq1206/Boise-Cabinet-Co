@@ -294,7 +294,7 @@ export function AdminSubcontractorPanel() {
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <DollarSign className="h-5 w-5 text-primary" />
-                    <span className="text-2xl font-bold" data-testid="text-detail-credit-balance">
+                    <span className="brc-display-num tabular-nums text-2xl font-light" data-testid="text-detail-credit-balance">
                       {formatCurrency(selectedSubcontractor.creditBalance)}
                     </span>
                   </div>

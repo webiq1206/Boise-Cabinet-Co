@@ -53,7 +53,8 @@ export default function HomePage() {
               <Reveal>
                 <div className="brc-label mb-5">Begin a conversation</div>
                 <h2 className="font-sans font-light text-section-title md:text-section-title-lg mb-4 text-foreground">
-                  Tell us about your home.
+                  Tell us about your{" "}
+                  <em className="brc-accent text-accent">home</em>.
                 </h2>
                 <p className="text-base leading-relaxed mb-8 text-muted-foreground">
                   We will reach out within one business day to schedule your free

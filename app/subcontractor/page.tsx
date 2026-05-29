@@ -58,19 +58,19 @@ export default function SubcontractorPage() {
             </p>
             <div className="space-y-3">
               <div className="flex items-center gap-3">
-                <CheckCircle className="w-5 h-5 text-accent shrink-0" />
+                <CheckCircle className="w-5 h-5 text-foreground/50 shrink-0" />
                 <span>Pre-qualified leads with verified contact information</span>
               </div>
               <div className="flex items-center gap-3">
-                <CheckCircle className="w-5 h-5 text-accent shrink-0" />
+                <CheckCircle className="w-5 h-5 text-foreground/50 shrink-0" />
                 <span>Only pay for leads you purchase - no monthly fees</span>
               </div>
               <div className="flex items-center gap-3">
-                <CheckCircle className="w-5 h-5 text-accent shrink-0" />
+                <CheckCircle className="w-5 h-5 text-foreground/50 shrink-0" />
                 <span>Bulk discounts: 5% off 3+ leads, 10% off 5+, 20% off 10+</span>
               </div>
               <div className="flex items-center gap-3">
-                <CheckCircle className="w-5 h-5 text-accent shrink-0" />
+                <CheckCircle className="w-5 h-5 text-foreground/50 shrink-0" />
                 <span>Email notifications when new leads match your preferences</span>
               </div>
             </div>
@@ -119,28 +119,28 @@ export default function SubcontractorPage() {
           <h3 className="text-2xl font-bold text-center mb-12">How It Works</h3>
           <div className="grid md:grid-cols-4 gap-8">
             <div className="text-center">
-              <div className="w-12 h-12 rounded-full bg-primary text-primary-foreground font-bold flex items-center justify-center mx-auto mb-4">
+              <div className="brc-display-num tabular-nums w-12 h-12 rounded-full bg-primary text-primary-foreground text-xl font-light flex items-center justify-center mx-auto mb-4">
                 1
               </div>
               <h4 className="font-semibold mb-2">Sign Up</h4>
               <p className="text-sm text-muted-foreground">Create your free account and accept the subcontractor agreement</p>
             </div>
             <div className="text-center">
-              <div className="w-12 h-12 rounded-full bg-primary text-primary-foreground font-bold flex items-center justify-center mx-auto mb-4">
+              <div className="brc-display-num tabular-nums w-12 h-12 rounded-full bg-primary text-primary-foreground text-xl font-light flex items-center justify-center mx-auto mb-4">
                 2
               </div>
               <h4 className="font-semibold mb-2">Browse Leads</h4>
               <p className="text-sm text-muted-foreground">View available leads with service details, location, and quote estimates</p>
             </div>
             <div className="text-center">
-              <div className="w-12 h-12 rounded-full bg-primary text-primary-foreground font-bold flex items-center justify-center mx-auto mb-4">
+              <div className="brc-display-num tabular-nums w-12 h-12 rounded-full bg-primary text-primary-foreground text-xl font-light flex items-center justify-center mx-auto mb-4">
                 3
               </div>
               <h4 className="font-semibold mb-2">Purchase Leads</h4>
               <p className="text-sm text-muted-foreground">Buy the leads you want. Contact info is revealed after purchase</p>
             </div>
             <div className="text-center">
-              <div className="w-12 h-12 rounded-full bg-primary text-primary-foreground font-bold flex items-center justify-center mx-auto mb-4">
+              <div className="brc-display-num tabular-nums w-12 h-12 rounded-full bg-primary text-primary-foreground text-xl font-light flex items-center justify-center mx-auto mb-4">
                 4
               </div>
               <h4 className="font-semibold mb-2">Win The Job</h4>

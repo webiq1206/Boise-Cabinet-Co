@@ -13,6 +13,7 @@ import { Button } from "@/components/ui/button";
 import { CheckCircle2, ArrowRight } from "lucide-react";
 import type { StoredEstimate } from "@/shared/estimateEngine";
 import { FINISH_LABELS, PROJECT_LABELS } from "@/shared/estimateEngine";
+import { DisplayNum } from "@/components/marketing";
 
 const formSchema = z.object({
   name: z.string().min(2, "Please enter your full name"),
@@ -180,10 +181,17 @@ export function ConsultationForm() {
             <p className="text-muted-foreground">
               {projectLabel}
               {finishLabel ? ` · ${finishLabel}` : ""}
-              {estimate.sqft ? ` · ${estimate.sqft.toLocaleString()} sqft` : ""}
+              {estimate.sqft ? (
+                <>
+                  {" · "}
+                  <DisplayNum>{estimate.sqft.toLocaleString()}</DisplayNum> sqft
+                </>
+              ) : null}
             </p>
-            <p className="font-medium mt-1 text-foreground">
-              {formatCurrency(estimate.priceLow)} to {formatCurrency(estimate.priceHigh)}
+            <p className="mt-1 text-foreground">
+              <DisplayNum className="font-medium">
+                {formatCurrency(estimate.priceLow)} to {formatCurrency(estimate.priceHigh)}
+              </DisplayNum>
             </p>
             {estimate.confidenceLabel && (
               <p className="text-xs mt-1 text-muted-foreground">{estimate.confidenceLabel}</p>
@@ -248,10 +256,17 @@ export function ConsultationForm() {
               <p className="text-muted-foreground" data-testid="text-estimate-summary">
                 {projectLabel}
                 {finishLabel ? ` · ${finishLabel}` : ""}
-                {estimate.sqft ? ` · ${estimate.sqft.toLocaleString()} sqft` : ""}
+                {estimate.sqft ? (
+                  <>
+                    {" · "}
+                    <DisplayNum>{estimate.sqft.toLocaleString()}</DisplayNum> sqft
+                  </>
+                ) : null}
               </p>
-              <p className="font-medium mt-1 text-foreground" data-testid="text-estimate-range">
-                {formatCurrency(estimate.priceLow)} to {formatCurrency(estimate.priceHigh)}
+              <p className="mt-1 text-foreground" data-testid="text-estimate-range">
+                <DisplayNum className="font-medium">
+                  {formatCurrency(estimate.priceLow)} to {formatCurrency(estimate.priceHigh)}
+                </DisplayNum>
               </p>
               {estimate.confidenceLabel && (
                 <p className="text-xs mt-1 text-muted-foreground">

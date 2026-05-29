@@ -39,7 +39,7 @@ function AnimatedPrice({ value }: { value: number }) {
     return `$${n.toLocaleString()}`;
   };
 
-  return <span className="tabular-nums">{fmt(display)}</span>;
+  return <span className="brc-display-num tabular-nums">{fmt(display)}</span>;
 }
 
 export interface EstimateResultPanelProps {
@@ -71,7 +71,7 @@ export function EstimateResultPanel({
     >
       <div className={cn("flex items-center justify-between", isCompact ? "mb-2" : "mb-5")}>
         <div className="brc-label text-inverse-muted">Planning range</div>
-        <div className="text-[10px] tracking-wide uppercase px-2 py-1 rounded-sm bg-accent/20 text-inverse-foreground/90">
+        <div className="text-[10px] tracking-wide uppercase px-2 py-1 rounded-sm bg-inverse-foreground/15 text-inverse-foreground/90">
           {result.confidenceLabel}
         </div>
       </div>
@@ -87,7 +87,7 @@ export function EstimateResultPanel({
 
       <div
         className={cn(
-          "font-sans font-light leading-none text-inverse-foreground",
+          "leading-none text-inverse-foreground",
           isCompact ? "text-2xl mb-2" : "text-[clamp(28px,3.5vw,44px)] mb-4"
         )}
         data-testid="estimate-range"
@@ -116,7 +116,7 @@ export function EstimateResultPanel({
               aria-label="Details provided"
             >
               <div
-                className="h-full rounded-full transition-all duration-500 bg-accent"
+                className="h-full rounded-full transition-all duration-500 bg-inverse-foreground/50"
                 style={{ width: `${result.confidencePercent}%` }}
               />
             </div>
@@ -135,7 +135,7 @@ export function EstimateResultPanel({
                   key={i}
                   className="flex items-start gap-2 text-xs leading-relaxed text-inverse-muted"
                 >
-                  <Check className="h-3.5 w-3.5 flex-shrink-0 mt-0.5 text-accent" />
+                  <Check className="h-3.5 w-3.5 flex-shrink-0 mt-0.5 text-inverse-muted" />
                   {item}
                 </div>
               ))}

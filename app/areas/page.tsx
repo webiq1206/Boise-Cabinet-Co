@@ -75,7 +75,7 @@ export default function AreasHubPage() {
                   </p>
                   <Link
                     href={areaPath(city.slug)}
-                    className="inline-flex items-center gap-2 text-sm font-medium text-foreground hover:text-accent transition-colors"
+                    className="inline-flex items-center gap-2 text-sm font-medium text-foreground hover:text-foreground/70 transition-colors"
                   >
                     View {city.name} services
                     <ArrowRight className="h-4 w-4" />

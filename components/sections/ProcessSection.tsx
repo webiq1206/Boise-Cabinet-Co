@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { Reveal } from "@/components/Reveal";
-import { Section } from "@/components/marketing/Section";
+import { DisplayNum, Section } from "@/components/marketing";
 import { HOW_WE_BUILD_STEPS } from "@/shared/siteContent";
 import { SITE_IMAGES } from "@/shared/siteImages";
 
@@ -46,9 +46,9 @@ export function ProcessSection() {
                   key={step.number}
                   className={`flex gap-5 py-6 ${i < HOW_WE_BUILD_STEPS.length - 1 ? "border-b border-border" : ""}`}
                 >
-                  <span className="font-sans font-light text-2xl w-8 flex-shrink-0 leading-none mt-0.5 text-foreground/20">
+                  <DisplayNum className="text-2xl w-8 flex-shrink-0 leading-none mt-0.5 text-foreground/20">
                     {step.number}
-                  </span>
+                  </DisplayNum>
                   <div>
                     <p className="font-medium text-sm mb-1 text-foreground">{step.title}</p>
                     <p className="text-sm leading-relaxed text-muted-foreground">{step.desc}</p>

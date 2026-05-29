@@ -1561,7 +1561,7 @@ function AdminDashboardContent() {
               <CardTitle className="text-xs md:text-sm font-medium text-muted-foreground">Pending Review</CardTitle>
             </CardHeader>
             <CardContent className="p-3 md:p-4 pt-0">
-              <div className="text-2xl md:text-3xl font-bold" data-testid="count-pending">{pendingLeads.length}</div>
+              <div className="brc-display-num tabular-nums text-2xl md:text-3xl font-light" data-testid="count-pending">{pendingLeads.length}</div>
             </CardContent>
           </Card>
           <Card>
@@ -1569,7 +1569,7 @@ function AdminDashboardContent() {
               <CardTitle className="text-xs md:text-sm font-medium text-muted-foreground">Accepted</CardTitle>
             </CardHeader>
             <CardContent className="p-3 md:p-4 pt-0">
-              <div className="text-2xl md:text-3xl font-bold" data-testid="count-accepted">{acceptedLeads.length}</div>
+              <div className="brc-display-num tabular-nums text-2xl md:text-3xl font-light" data-testid="count-accepted">{acceptedLeads.length}</div>
             </CardContent>
           </Card>
           <Card>
@@ -1577,7 +1577,7 @@ function AdminDashboardContent() {
               <CardTitle className="text-xs md:text-sm font-medium text-muted-foreground">Available</CardTitle>
             </CardHeader>
             <CardContent className="p-3 md:p-4 pt-0">
-              <div className="text-2xl md:text-3xl font-bold" data-testid="count-available">{declinedLeads.length}</div>
+              <div className="brc-display-num tabular-nums text-2xl md:text-3xl font-light" data-testid="count-available">{declinedLeads.length}</div>
             </CardContent>
           </Card>
           <Card>
@@ -1585,7 +1585,7 @@ function AdminDashboardContent() {
               <CardTitle className="text-xs md:text-sm font-medium text-muted-foreground">Purchased</CardTitle>
             </CardHeader>
             <CardContent className="p-3 md:p-4 pt-0">
-              <div className="text-2xl md:text-3xl font-bold" data-testid="count-purchased">{allPurchasedLeads.length}</div>
+              <div className="brc-display-num tabular-nums text-2xl md:text-3xl font-light" data-testid="count-purchased">{allPurchasedLeads.length}</div>
             </CardContent>
           </Card>
         </div>

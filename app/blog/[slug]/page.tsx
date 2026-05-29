@@ -110,14 +110,14 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
             <div className="max-w-3xl mx-auto lg:mx-0 lg:max-w-4xl">
               <Link
                 href="/blog"
-                className="inline-flex items-center text-sm text-muted-foreground hover:text-accent transition-colors mb-6"
+                className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground transition-colors mb-6"
                 data-testid="link-back-to-blog"
               >
                 <ArrowLeft className="mr-2 h-4 w-4" />
                 Back to Blog
               </Link>
               <div className="flex items-center gap-3 mb-4">
-                <Badge variant="secondary" className="bg-accent/10 text-foreground border-0" data-testid="badge-category">
+                <Badge variant="secondary" className="bg-muted text-foreground border-0" data-testid="badge-category">
                   {post.category}
                 </Badge>
               </div>
@@ -170,16 +170,16 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
                 <div className="lg:hidden mt-10">
                   <Card className="marketing-card">
                     <CardContent className="p-6 text-center space-y-4">
-                      <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-accent/10">
-                        <Wrench className="h-6 w-6 text-accent" />
+                      <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-muted">
+                        <Wrench className="h-6 w-6 text-foreground/50" />
                       </div>
-                      <h3 className="text-lg font-sans font-medium">Book a Free Visit</h3>
+                      <h3 className="text-lg font-sans font-medium">{CTA_PRIMARY}</h3>
                       <p className="text-sm text-muted-foreground">
                         Ready to start your project? Schedule a free in-home consultation with no pressure.
                       </p>
                       <Button variant="brand" asChild className="w-full">
                         <Link href="/#consult" data-testid="link-mobile-cta-consult">
-                          Book a Free Visit
+                          {CTA_PRIMARY}
                           <ArrowRight className="ml-2 h-4 w-4" />
                         </Link>
                       </Button>
@@ -198,8 +198,8 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
                   <Card className="marketing-card">
                     <CardContent className="p-5 space-y-4">
                       <div className="flex items-center gap-3">
-                        <div className="flex items-center justify-center w-10 h-10 rounded-full bg-accent/10">
-                          <Wrench className="h-5 w-5 text-accent" />
+                        <div className="flex items-center justify-center w-10 h-10 rounded-full bg-muted">
+                          <Wrench className="h-5 w-5 text-foreground/50" />
                         </div>
                         <h3 className="font-medium text-sm">Free Consultation</h3>
                       </div>
@@ -220,10 +220,10 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
                   </Card>
 
                   {post.tags && post.tags.length > 0 && (
-                    <Card>
+                    <Card className="marketing-card">
                       <CardContent className="p-5">
                         <div className="flex items-center gap-2 mb-3">
-                          <Tag className="h-4 w-4 text-accent" />
+                          <Tag className="h-4 w-4 text-muted-foreground" />
                           <h3 className="font-semibold text-sm">Topics</h3>
                         </div>
                         <div className="flex flex-wrap gap-1.5">
@@ -252,8 +252,8 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
         <section className="section-y section-divider">
           <div className="container px-4">
             <div className="max-w-4xl mx-auto marketing-card p-10 md:p-16 text-center">
-              <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-accent/10 mb-6">
-                <Wrench className="h-7 w-7 text-accent" />
+              <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-muted mb-6">
+                <Wrench className="h-7 w-7 text-foreground/50" />
               </div>
               <h2 className="text-2xl md:text-3xl font-sans font-light tracking-tight mb-4 text-foreground">
                 Ready to start your project?

@@ -21,7 +21,7 @@ export function RelatedLinks({ serviceSlug, citySlug, variant }: RelatedLinksPro
             <Link
               key={city.slug}
               href={cityServicePath(serviceSlug, city.slug)}
-              className="text-sm text-muted-foreground hover:text-accent transition-colors py-2 border-b border-border"
+              className="text-sm text-muted-foreground hover:text-foreground transition-colors py-2 border-b border-border"
             >
               {city.name}, Idaho
             </Link>
@@ -66,7 +66,7 @@ export function RelatedLinks({ serviceSlug, citySlug, variant }: RelatedLinksPro
               <li key={city.slug}>
                 <Link
                   href={cityServicePath(serviceSlug, city.slug)}
-                  className="text-sm text-muted-foreground hover:text-accent"
+                  className="text-sm text-muted-foreground hover:text-foreground"
                 >
                   {SERVICES.find((s) => s.slug === serviceSlug)?.name} in {city.name}
                 </Link>
@@ -83,7 +83,7 @@ export function RelatedLinks({ serviceSlug, citySlug, variant }: RelatedLinksPro
               <li key={service.slug}>
                 <Link
                   href={cityServicePath(service.slug, citySlug)}
-                  className="text-sm text-muted-foreground hover:text-accent"
+                  className="text-sm text-muted-foreground hover:text-foreground"
                 >
                   {service.name}
                 </Link>
@@ -91,10 +91,10 @@ export function RelatedLinks({ serviceSlug, citySlug, variant }: RelatedLinksPro
             ))}
           </ul>
           <div className="mt-6 pt-6 border-t border-border space-y-2">
-            <Link href={servicePath(serviceSlug)} className="text-sm font-medium text-foreground hover:text-accent">
+            <Link href={servicePath(serviceSlug)} className="text-sm font-medium text-foreground hover:text-foreground/70">
               All {SERVICES.find((s) => s.slug === serviceSlug)?.name} areas →
             </Link>
-            <Link href={areaPath(citySlug)} className="block text-sm font-medium text-foreground hover:text-accent">
+            <Link href={areaPath(citySlug)} className="block text-sm font-medium text-foreground hover:text-foreground/70">
               Remodeling in {CITIES.find((c) => c.slug === citySlug)?.name} →
             </Link>
           </div>

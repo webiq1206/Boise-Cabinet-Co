@@ -18,6 +18,16 @@ function cityLabel(slug: string) {
   return CITIES.find((c) => c.slug === slug)?.name ?? slug;
 }
 
+function StarRow({ count }: { count: number }) {
+  return (
+    <div className="flex gap-0.5">
+      {Array.from({ length: count }).map((_, idx) => (
+        <Star key={idx} className="h-3.5 w-3.5 fill-foreground/20 text-foreground/25" />
+      ))}
+    </div>
+  );
+}
+
 interface TestimonialsSectionProps {
   limit?: number;
   showViewAll?: boolean;
@@ -25,38 +35,57 @@ interface TestimonialsSectionProps {
 
 export function TestimonialsSection({ limit = 4, showViewAll = true }: TestimonialsSectionProps) {
   const items = TESTIMONIALS.slice(0, limit);
+  const [featured, ...rest] = items;
 
   return (
     <Section id="testimonials" divider>
       <div className="container px-4">
         <SectionHeader
           eyebrow="Homeowner reviews"
-          title="Trusted by Treasure Valley homeowners"
-          description="Clear communication, reliable timelines, and craftsmanship homeowners notice every day."
+          title={
+            <>
+              Trusted for{" "}
+              <em className="brc-accent text-accent">craftsmanship</em> and communication
+            </>
+          }
+          description="Clear communication, reliable timelines, and quality homeowners notice every day."
           className="mb-10 max-w-3xl"
         />
-        <div className="grid md:grid-cols-2 gap-6">
-          {items.map((item, i) => (
-            <Reveal key={item.customerName} delay={i * 70}>
-              <MarketingCard className="h-full">
-                <div className="flex gap-0.5 mb-4">
-                  {Array.from({ length: Number(item.rating) || 5 }).map((_, idx) => (
-                    <Star key={idx} className="h-3.5 w-3.5 fill-accent text-accent" />
-                  ))}
-                </div>
-                <blockquote className="text-sm leading-relaxed text-muted-foreground mb-6">
-                  &ldquo;{item.testimonial}&rdquo;
-                </blockquote>
-                <div className="pt-4 border-t border-border">
-                  <p className="font-medium text-sm text-foreground">{item.customerName}</p>
-                  <p className="text-xs text-muted-foreground mt-0.5">
-                    {serviceLabel(item.serviceType)} · {cityLabel(item.city)}, Idaho
-                  </p>
-                </div>
-              </MarketingCard>
-            </Reveal>
-          ))}
-        </div>
+
+        {featured && (
+          <Reveal className="mb-8 max-w-3xl">
+            <StarRow count={Number(featured.rating) || 5} />
+            <blockquote className="font-sans font-light text-xl md:text-2xl leading-relaxed text-foreground mt-4 mb-6">
+              &ldquo;{featured.testimonial}&rdquo;
+            </blockquote>
+            <p className="font-medium text-sm text-foreground">{featured.customerName}</p>
+            <p className="text-xs text-muted-foreground mt-0.5">
+              {serviceLabel(featured.serviceType)} · {cityLabel(featured.city)}, Idaho
+            </p>
+          </Reveal>
+        )}
+
+        {rest.length > 0 && (
+          <div className="grid sm:grid-cols-2 gap-4 max-w-4xl">
+            {rest.map((item, i) => (
+              <Reveal key={item.customerName} delay={i * 60}>
+                <MarketingCard className="h-full">
+                  <StarRow count={Number(item.rating) || 5} />
+                  <blockquote className="text-sm leading-relaxed text-muted-foreground mt-3 mb-4">
+                    &ldquo;{item.testimonial}&rdquo;
+                  </blockquote>
+                  <div className="pt-3 border-t border-border">
+                    <p className="font-medium text-sm text-foreground">{item.customerName}</p>
+                    <p className="text-xs text-muted-foreground mt-0.5">
+                      {serviceLabel(item.serviceType)} · {cityLabel(item.city)}, Idaho
+                    </p>
+                  </div>
+                </MarketingCard>
+              </Reveal>
+            ))}
+          </div>
+        )}
+
         {showViewAll && (
           <div className="mt-10 text-center">
             <Button variant="brandOutline" asChild>

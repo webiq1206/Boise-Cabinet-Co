@@ -109,7 +109,7 @@ function PaymentFormContent({
       <div className="space-y-4">
         <div className="flex items-center justify-between p-4 bg-muted/50 rounded-lg">
           <span className="text-sm text-muted-foreground">{description || "Payment"}</span>
-          <span className="text-lg font-bold">${(amount / 100).toFixed(2)}</span>
+          <span className="brc-display-num tabular-nums text-lg">${(amount / 100).toFixed(2)}</span>
         </div>
 
         {!stripeDone && (

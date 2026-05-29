@@ -68,7 +68,7 @@ export default function BlogPage() {
             ) : (
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {sortedPosts.map((post) => (
-                  <Card key={post.slug} className="hover-elevate flex flex-col">
+                  <Card key={post.slug} className="marketing-card hover-elevate flex flex-col">
                     <CardHeader>
                       <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
                         <Calendar className="h-4 w-4" />

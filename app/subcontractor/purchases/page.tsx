@@ -670,7 +670,7 @@ export default function PurchaseHistoryPage() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-3xl font-bold">{purchases.length}</div>
+              <div className="brc-display-num tabular-nums text-3xl font-light">{purchases.length}</div>
             </CardContent>
           </Card>
           <Card>
@@ -680,7 +680,7 @@ export default function PurchaseHistoryPage() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-3xl font-bold">${totalSpent.toFixed(2)}</div>
+              <div className="brc-display-num tabular-nums text-3xl font-light">${totalSpent.toFixed(2)}</div>
             </CardContent>
           </Card>
           <Card>
@@ -690,7 +690,7 @@ export default function PurchaseHistoryPage() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-3xl font-bold">
+              <div className="brc-display-num tabular-nums text-3xl font-light">
                 ${purchases.length > 0 ? (totalSpent / purchases.length).toFixed(2) : "0.00"}
               </div>
             </CardContent>

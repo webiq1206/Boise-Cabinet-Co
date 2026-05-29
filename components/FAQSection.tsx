@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import {
   Accordion,
   AccordionContent,
@@ -14,18 +15,28 @@ import { HOMEPAGE_FAQS } from "@/shared/homepageFaqs";
 
 export { HOMEPAGE_FAQS };
 
+const INITIAL_FAQ_COUNT = 8;
+
 export function FAQSection() {
+  const [showAll, setShowAll] = useState(false);
+  const visibleFaqs = showAll ? HOMEPAGE_FAQS : HOMEPAGE_FAQS.slice(0, INITIAL_FAQ_COUNT);
+
   return (
     <Section id="faq" divider>
       <div className="container px-4">
         <div className="max-w-3xl mx-auto">
           <SectionHeader
             eyebrow="Common questions"
-            title="Straight answers to the questions that matter"
+            title={
+              <>
+                Straight answers to the questions that{" "}
+                <em className="brc-accent text-accent">matter</em>
+              </>
+            }
             className="mb-10"
           />
           <Accordion type="single" collapsible className="w-full">
-            {HOMEPAGE_FAQS.map((faq, i) => (
+            {visibleFaqs.map((faq, i) => (
               <AccordionItem
                 key={i}
                 value={`faq-${i}`}
@@ -40,6 +51,17 @@ export function FAQSection() {
               </AccordionItem>
             ))}
           </Accordion>
+          {!showAll && HOMEPAGE_FAQS.length > INITIAL_FAQ_COUNT && (
+            <div className="mt-6 text-center">
+              <Button
+                variant="brandOutline"
+                type="button"
+                onClick={() => setShowAll(true)}
+              >
+                Show all {HOMEPAGE_FAQS.length} questions
+              </Button>
+            </div>
+          )}
           <div className="mt-10 flex flex-wrap gap-3 justify-center">
             <Button variant="brand" asChild>
               <a href="#consult">{CTA_PRIMARY}</a>

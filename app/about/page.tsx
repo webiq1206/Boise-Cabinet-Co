@@ -133,7 +133,7 @@ export default function AboutPage() {
                 <li key={city.slug}>
                   <Link
                     href={`/areas/${city.slug}`}
-                    className="text-sm text-muted-foreground hover:text-accent"
+                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
                   >
                     Remodeling in {city.name}, Idaho
                   </Link>
