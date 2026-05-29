@@ -146,22 +146,12 @@ interface Lead {
 }
 
 const PRIORITY_SERVICES = [
-  { slug: "lawn-mowing", name: "Lawn Mowing" },
-  { slug: "lawn-care", name: "Lawn Care" },
-  { slug: "fertilization", name: "Fertilization" },
-  { slug: "aeration", name: "Aeration" },
-  { slug: "weed-control", name: "Weed Control" },
-  { slug: "tree-trimming", name: "Tree Trimming" },
-  { slug: "hedge-trimming", name: "Hedge Trimming" },
-  { slug: "landscaping", name: "Landscaping" },
-  { slug: "mulching", name: "Mulching" },
-  { slug: "seasonal-cleanup", name: "Seasonal Cleanup" },
-  { slug: "christmas-lights", name: "Christmas Lights" },
-  { slug: "irrigation-installation", name: "Irrigation Installation" },
-  { slug: "sprinkler-blowout", name: "Sprinkler Blowout" },
-  { slug: "fence-installation", name: "Fence Installation" },
-  { slug: "patio-installation", name: "Patio Installation" },
-  { slug: "pond-installation", name: "Pond Installation" },
+  { slug: "kitchen-remodel", name: "Kitchen Remodel" },
+  { slug: "bathroom-remodel", name: "Bathroom Remodel" },
+  { slug: "whole-home-remodel", name: "Whole-Home Remodel" },
+  { slug: "room-addition", name: "Room Addition" },
+  { slug: "basement-finish", name: "Basement Finish" },
+  { slug: "outdoor-living", name: "Outdoor Living" },
 ];
 
 const AGREEMENT_VERSION = "1.0";
@@ -215,26 +205,12 @@ function getLeadDisplayTitle(lead: { serviceType: string; selectedServices?: str
 }
 
 const SERVICE_UNITS: Record<string, string> = {
-  "lawn-mowing": "sqft", "lawn-care": "sqft", "aeration": "sqft", "fertilization": "sqft",
-  "weed-control": "sqft", "overseeding": "sqft", "dethatching": "sqft", "sod-installation": "sqft",
-  "lawn-renovation": "sqft", "lawn-maintenance": "sqft",
-  "sprinkler-system-installation": "sqft", "irrigation-installation": "sqft",
-  "spring-cleanup": "sqft", "fall-cleanup": "sqft", "seasonal-cleanup": "sqft",
-  "lawn-edging": "linear_ft",
-  "christmas-light-installation": "linear_ft", "christmas-lights": "linear_ft",
-  "fence": "linear_ft", "fence-installation": "linear_ft",
-  "gutter-cleaning": "linear_ft",
-  "landscape-lighting": "per_fixture",
-  "sprinkler-blowout": "per_zone", "irrigation-maintenance": "per_zone",
-  "tree-removal": "per_tree", "tree-trimming": "per_tree",
-  "hedge-trimming": "per_shrub",
-  "landscaping": "sqft", "mulching": "sqft",
-  "patio-installation": "per_sqft", "retaining-walls": "per_sqft",
-  "pond-installation": "base_project",
-  "stump-grinding": "per_inch",
-  "mulch-installation": "per_cubic_yard",
-  "sprinkler-repair": "base_service", "irrigation-repair": "base_service",
-  "snow-removal": "base_service", "fire-pit-installation": "base_project",
+  "kitchen-remodel": "base_project",
+  "bathroom-remodel": "base_project",
+  "whole-home-remodel": "base_project",
+  "room-addition": "base_project",
+  "basement-finish": "sqft",
+  "outdoor-living": "base_project",
 };
 
 function getServiceMeasurement(serviceId: string, svcEntry?: ServiceDataEntry, fallbackSize?: number): string | null {

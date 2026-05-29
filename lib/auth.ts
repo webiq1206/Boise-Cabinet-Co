@@ -32,7 +32,7 @@ function getSessionPassword(): string {
 
 const sessionOptions: SessionOptions = {
   password: getSessionPassword(),
-  cookieName: "lawn_care_session",
+  cookieName: "brc_session",
   cookieOptions: {
     secure: process.env.NODE_ENV === "production",
     httpOnly: true,

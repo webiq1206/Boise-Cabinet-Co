@@ -76,22 +76,12 @@ interface Lead {
 }
 
 const PRIORITY_SERVICES = [
-  { slug: "lawn-mowing", name: "Lawn Mowing" },
-  { slug: "lawn-care", name: "Lawn Care" },
-  { slug: "fertilization", name: "Fertilization" },
-  { slug: "aeration", name: "Aeration" },
-  { slug: "weed-control", name: "Weed Control" },
-  { slug: "tree-trimming", name: "Tree Trimming" },
-  { slug: "hedge-trimming", name: "Hedge Trimming" },
-  { slug: "landscaping", name: "Landscaping" },
-  { slug: "mulching", name: "Mulching" },
-  { slug: "seasonal-cleanup", name: "Seasonal Cleanup" },
-  { slug: "christmas-lights", name: "Christmas Lights" },
-  { slug: "irrigation-installation", name: "Irrigation Installation" },
-  { slug: "sprinkler-blowout", name: "Sprinkler Blowout" },
-  { slug: "fence-installation", name: "Fence Installation" },
-  { slug: "patio-installation", name: "Patio Installation" },
-  { slug: "pond-installation", name: "Pond Installation" },
+  { slug: "kitchen-remodel", name: "Kitchen Remodel" },
+  { slug: "bathroom-remodel", name: "Bathroom Remodel" },
+  { slug: "whole-home-remodel", name: "Whole-Home Remodel" },
+  { slug: "room-addition", name: "Room Addition" },
+  { slug: "basement-finish", name: "Basement Finish" },
+  { slug: "outdoor-living", name: "Outdoor Living" },
 ];
 
 function calculateQuoteRange(finalQuote: string | number, variance: number = 0.15) {

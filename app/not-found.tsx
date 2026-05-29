@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Metadata } from "next";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Home, Search, ArrowRight, Phone, Leaf } from "lucide-react";
+import { Home, ArrowRight, Phone, Wrench } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Page Not Found (404)",
@@ -20,7 +20,7 @@ export default function NotFound() {
         {/* Icon */}
         <div className="mb-8">
           <div className="inline-flex items-center justify-center w-24 h-24 rounded-full bg-primary/10 mb-4">
-            <Leaf className="h-12 w-12 text-primary" />
+            <Wrench className="h-12 w-12 text-primary" />
           </div>
           <h1 className="text-6xl font-bold text-primary mb-2">404</h1>
         </div>
@@ -30,8 +30,7 @@ export default function NotFound() {
           Page Not Found
         </h2>
         <p className="text-lg text-muted-foreground mb-8">
-          Oops! It looks like this page has been trimmed from our garden. 
-          Let us help you find what you're looking for.
+          This page doesn&apos;t exist or may have moved. Let us help you find what you&apos;re looking for.
         </p>
 
         {/* Quick Links */}
@@ -39,33 +38,33 @@ export default function NotFound() {
           <CardContent className="pt-6">
             <h3 className="font-semibold mb-4">Popular Pages</h3>
             <div className="grid grid-cols-2 gap-2">
-              <Link 
-                href="/services"
+              <Link
+                href="/#portfolio"
                 className="flex items-center gap-2 p-3 rounded-lg hover:bg-muted transition-colors text-sm"
               >
                 <ArrowRight className="h-4 w-4 text-primary" />
-                Our Services
+                Our Work
               </Link>
-              <Link 
-                href="/get-quote"
+              <Link
+                href="/#consult"
                 className="flex items-center gap-2 p-3 rounded-lg hover:bg-muted transition-colors text-sm"
               >
                 <ArrowRight className="h-4 w-4 text-primary" />
-                Get a Quote
+                Free Consultation
               </Link>
-              <Link 
+              <Link
                 href="/blog"
                 className="flex items-center gap-2 p-3 rounded-lg hover:bg-muted transition-colors text-sm"
               >
                 <ArrowRight className="h-4 w-4 text-primary" />
-                Blog & Tips
+                Blog &amp; Ideas
               </Link>
-              <Link 
-                href="/contact"
+              <Link
+                href="/#calculator"
                 className="flex items-center gap-2 p-3 rounded-lg hover:bg-muted transition-colors text-sm"
               >
                 <ArrowRight className="h-4 w-4 text-primary" />
-                Contact Us
+                Estimate Calculator
               </Link>
             </div>
           </CardContent>
@@ -79,10 +78,10 @@ export default function NotFound() {
               Go to Homepage
             </Link>
           </Button>
-          <Button size="lg" variant="outline" className="bg-gradient-to-br from-primary/10 to-white border-primary/20 text-primary" asChild>
-            <a href="tel:2083522011">
+          <Button size="lg" variant="outline" asChild>
+            <a href="tel:2085550100">
               <Phone className="h-5 w-5 mr-2" />
-              Call Us
+              Call (208) 555-0100
             </a>
           </Button>
         </div>
@@ -90,17 +89,16 @@ export default function NotFound() {
         {/* Service Areas */}
         <div className="mt-12">
           <p className="text-sm text-muted-foreground mb-3">
-            Looking for lawn care in your area?
+            We serve the full Treasure Valley
           </p>
           <div className="flex flex-wrap justify-center gap-2">
-            {["Kuna", "Boise", "Meridian", "Eagle", "Star", "Middleton"].map((city) => (
-              <Link
+            {["Boise", "Meridian", "Eagle", "Nampa", "Kuna", "Star", "Middleton"].map((city) => (
+              <span
                 key={city}
-                href={`/areas/${city.toLowerCase()}`}
-                className="text-sm text-primary hover:underline"
+                className="text-sm text-primary"
               >
                 {city}
-              </Link>
+              </span>
             ))}
           </div>
         </div>

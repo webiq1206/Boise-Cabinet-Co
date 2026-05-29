@@ -14,217 +14,39 @@ interface ServiceSeasonConfig {
 }
 
 const SERVICE_SEASON_CONFIG: Record<string, ServiceSeasonConfig> = {
-  "lawn-mowing": {
-    seasons: [{ startMonth: 3, startDay: 15, endMonth: 10, endDay: 31 }],
-    nearSeasonBufferDays: 30,
-    isRecurringEligible: true,
-    maxFrequency: "weekly",
-    recurringLeadPrice: 45,
-  },
-  "lawn-maintenance": {
-    seasons: [{ startMonth: 3, startDay: 15, endMonth: 10, endDay: 31 }],
-    nearSeasonBufferDays: 30,
-    isRecurringEligible: true,
-    maxFrequency: "weekly",
-    recurringLeadPrice: 50,
-  },
-  "weed-control": {
-    seasons: [{ startMonth: 4, startDay: 1, endMonth: 9, endDay: 30 }],
-    nearSeasonBufferDays: 30,
-    isRecurringEligible: true,
-    maxFrequency: "monthly",
-    recurringLeadPrice: 55,
-  },
-  "hedge-trimming": {
-    seasons: [{ startMonth: 4, startDay: 1, endMonth: 10, endDay: 31 }],
-    nearSeasonBufferDays: 30,
-    isRecurringEligible: true,
-    maxFrequency: "monthly",
-    recurringLeadPrice: 55,
-  },
-  "fertilization": {
-    seasons: [{ startMonth: 3, startDay: 15, endMonth: 11, endDay: 15 }],
-    nearSeasonBufferDays: 30,
-    isRecurringEligible: false,
-    maxFrequency: null,
-  },
-  "aeration": {
-    seasons: [
-      { startMonth: 3, startDay: 15, endMonth: 4, endDay: 30 },
-      { startMonth: 9, startDay: 1, endMonth: 10, endDay: 31 },
-    ],
-    nearSeasonBufferDays: 30,
-    isRecurringEligible: false,
-    maxFrequency: null,
-  },
-  "dethatching": {
-    seasons: [
-      { startMonth: 3, startDay: 15, endMonth: 4, endDay: 30 },
-      { startMonth: 9, startDay: 1, endMonth: 10, endDay: 31 },
-    ],
-    nearSeasonBufferDays: 30,
-    isRecurringEligible: false,
-    maxFrequency: null,
-  },
-  "overseeding": {
-    seasons: [
-      { startMonth: 3, startDay: 15, endMonth: 4, endDay: 30 },
-      { startMonth: 9, startDay: 1, endMonth: 10, endDay: 31 },
-    ],
-    nearSeasonBufferDays: 30,
-    isRecurringEligible: false,
-    maxFrequency: null,
-  },
-  "spring-cleanup": {
-    seasons: [{ startMonth: 3, startDay: 1, endMonth: 4, endDay: 30 }],
-    nearSeasonBufferDays: 30,
-    isRecurringEligible: false,
-    maxFrequency: null,
-  },
-  "fall-cleanup": {
-    seasons: [{ startMonth: 10, startDay: 1, endMonth: 11, endDay: 30 }],
-    nearSeasonBufferDays: 30,
-    isRecurringEligible: false,
-    maxFrequency: null,
-  },
-  "seasonal-cleanup": {
-    seasons: [
-      { startMonth: 3, startDay: 1, endMonth: 4, endDay: 30 },
-      { startMonth: 10, startDay: 1, endMonth: 11, endDay: 30 },
-    ],
-    nearSeasonBufferDays: 30,
-    isRecurringEligible: false,
-    maxFrequency: null,
-  },
-  "sprinkler-blowout": {
-    seasons: [{ startMonth: 10, startDay: 1, endMonth: 11, endDay: 15 }],
-    nearSeasonBufferDays: 30,
-    isRecurringEligible: false,
-    maxFrequency: null,
-  },
-  "irrigation-maintenance": {
-    seasons: [{ startMonth: 3, startDay: 15, endMonth: 10, endDay: 31 }],
-    nearSeasonBufferDays: 30,
-    isRecurringEligible: false,
-    maxFrequency: null,
-  },
-  "sprinkler-repair": {
-    seasons: [{ startMonth: 3, startDay: 15, endMonth: 10, endDay: 31 }],
-    nearSeasonBufferDays: 30,
-    isRecurringEligible: false,
-    maxFrequency: null,
-  },
-  "sprinkler-system-installation": {
-    seasons: [{ startMonth: 4, startDay: 1, endMonth: 10, endDay: 31 }],
-    nearSeasonBufferDays: 30,
-    isRecurringEligible: false,
-    maxFrequency: null,
-  },
-  "irrigation-repair": {
-    seasons: [{ startMonth: 3, startDay: 15, endMonth: 10, endDay: 31 }],
-    nearSeasonBufferDays: 30,
-    isRecurringEligible: false,
-    maxFrequency: null,
-  },
-  "snow-removal": {
-    seasons: [{ startMonth: 11, startDay: 1, endMonth: 2, endDay: 28 }],
-    nearSeasonBufferDays: 30,
-    isRecurringEligible: false,
-    maxFrequency: null,
-  },
-  "christmas-light-installation": {
-    seasons: [{ startMonth: 10, startDay: 1, endMonth: 11, endDay: 30 }],
-    nearSeasonBufferDays: 30,
-    isRecurringEligible: false,
-    maxFrequency: null,
-  },
-  "tree-trimming": {
+  "kitchen-remodel": {
     seasons: [{ startMonth: 1, startDay: 1, endMonth: 12, endDay: 31 }],
     nearSeasonBufferDays: 0,
     isRecurringEligible: false,
     maxFrequency: null,
   },
-  "tree-removal": {
+  "bathroom-remodel": {
     seasons: [{ startMonth: 1, startDay: 1, endMonth: 12, endDay: 31 }],
     nearSeasonBufferDays: 0,
     isRecurringEligible: false,
     maxFrequency: null,
   },
-  "stump-grinding": {
+  "whole-home-remodel": {
     seasons: [{ startMonth: 1, startDay: 1, endMonth: 12, endDay: 31 }],
     nearSeasonBufferDays: 0,
     isRecurringEligible: false,
     maxFrequency: null,
   },
-  "landscape-lighting": {
+  "room-addition": {
     seasons: [{ startMonth: 1, startDay: 1, endMonth: 12, endDay: 31 }],
     nearSeasonBufferDays: 0,
     isRecurringEligible: false,
     maxFrequency: null,
   },
-  "mulch-installation": {
-    seasons: [
-      { startMonth: 4, startDay: 1, endMonth: 6, endDay: 30 },
-      { startMonth: 9, startDay: 1, endMonth: 10, endDay: 31 },
-    ],
-    nearSeasonBufferDays: 30,
+  "basement-finish": {
+    seasons: [{ startMonth: 1, startDay: 1, endMonth: 12, endDay: 31 }],
+    nearSeasonBufferDays: 0,
     isRecurringEligible: false,
     maxFrequency: null,
   },
-  "sod-installation": {
-    seasons: [
-      { startMonth: 4, startDay: 1, endMonth: 6, endDay: 15 },
-      { startMonth: 9, startDay: 1, endMonth: 10, endDay: 31 },
-    ],
-    nearSeasonBufferDays: 30,
-    isRecurringEligible: false,
-    maxFrequency: null,
-  },
-  "patio-installation": {
-    seasons: [{ startMonth: 4, startDay: 1, endMonth: 11, endDay: 15 }],
-    nearSeasonBufferDays: 30,
-    isRecurringEligible: false,
-    maxFrequency: null,
-  },
-  "retaining-walls": {
-    seasons: [{ startMonth: 4, startDay: 1, endMonth: 11, endDay: 15 }],
-    nearSeasonBufferDays: 30,
-    isRecurringEligible: false,
-    maxFrequency: null,
-  },
-  "fire-pit-installation": {
-    seasons: [{ startMonth: 4, startDay: 1, endMonth: 11, endDay: 15 }],
-    nearSeasonBufferDays: 30,
-    isRecurringEligible: false,
-    maxFrequency: null,
-  },
-  "lawn-edging": {
-    seasons: [{ startMonth: 4, startDay: 1, endMonth: 10, endDay: 31 }],
-    nearSeasonBufferDays: 30,
-    isRecurringEligible: false,
-    maxFrequency: null,
-  },
-  "lawn-renovation": {
-    seasons: [
-      { startMonth: 4, startDay: 1, endMonth: 5, endDay: 31 },
-      { startMonth: 9, startDay: 1, endMonth: 10, endDay: 31 },
-    ],
-    nearSeasonBufferDays: 30,
-    isRecurringEligible: false,
-    maxFrequency: null,
-  },
-  "fence": {
-    seasons: [{ startMonth: 4, startDay: 1, endMonth: 11, endDay: 15 }],
-    nearSeasonBufferDays: 30,
-    isRecurringEligible: false,
-    maxFrequency: null,
-  },
-  "gutter-cleaning": {
-    seasons: [
-      { startMonth: 3, startDay: 1, endMonth: 4, endDay: 30 },
-      { startMonth: 10, startDay: 1, endMonth: 11, endDay: 30 },
-    ],
-    nearSeasonBufferDays: 30,
+  "outdoor-living": {
+    seasons: [{ startMonth: 3, startDay: 1, endMonth: 10, endDay: 31 }],
+    nearSeasonBufferDays: 60,
     isRecurringEligible: false,
     maxFrequency: null,
   },

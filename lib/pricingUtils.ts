@@ -7,59 +7,12 @@
 // Rates are from the official pricing calculator spreadsheet
 // All rates use lowRate/highRate for price ranges, with minimum pricing
 export const SERVICE_PRICING_CONFIG = {
-  // Lawn services (per 1,000 sq ft - divide by 1000 for per sq ft rate)
-  "lawn-mowing": { lowRate: 0.00625, highRate: 0.010, unit: "sqft", name: "Lawn Mowing & Edging", minimum: 35 },
-  "aeration": { lowRate: 0.0125, highRate: 0.018, unit: "sqft", name: "Core Aeration", minimum: 75 },
-  "fertilization": { lowRate: 0.005, highRate: 0.008, unit: "sqft", name: "Fertilization Treatment", minimum: 50 },
-  "weed-control": { lowRate: 0.00375, highRate: 0.006, unit: "sqft", name: "Weed Control", minimum: 50 },
-  "overseeding": { lowRate: 0.0125, highRate: 0.030, unit: "sqft", name: "Overseeding", minimum: 100 },
-  "dethatching": { lowRate: 0.0125, highRate: 0.020, unit: "sqft", name: "Dethatching", minimum: 100 },
-  "sod-installation": { lowRate: 1.25, highRate: 2.00, unit: "sqft", name: "Sod Installation", minimum: 500 },
-  "lawn-renovation": { lowRate: 0.0625, highRate: 0.100, unit: "sqft", name: "Lawn Renovation", minimum: 500 },
-  "lawn-edging": { lowRate: 0.625, highRate: 1.50, unit: "linear_ft", name: "Lawn Edging", minimum: 50 },
-  
-  // Christmas lights & landscape lighting
-  "christmas-light-installation": { lowRate: 3.125, highRate: 7.00, unit: "linear_ft", name: "Christmas Light Installation", minimum: 400, permanentLowRate: 12.00, permanentHighRate: 18.00 },
-  "landscape-lighting": { lowRate: 187.50, highRate: 350.00, unit: "per_fixture", name: "Landscape Lighting (Low Voltage)", minimum: 500 },
-  
-  // Irrigation
-  "sprinkler-blowout": { lowRate: 12.50, highRate: 15.00, unit: "per_zone", name: "Sprinkler Winterization", minimum: 50, includedZones: 5 },
-  "sprinkler-repair": { lowRate: 85.00, highRate: 150.00, unit: "base_service", name: "Sprinkler Repair", minimum: 85 },
-  "sprinkler-system-installation": { lowRate: 0.50, highRate: 0.80, unit: "sqft", name: "Sprinkler System Installation", minimum: 2000 },
-  "irrigation-repair": { lowRate: 85.00, highRate: 150.00, unit: "base_service", name: "Irrigation Repair", minimum: 85 },
-  "irrigation-maintenance": { lowRate: 12.50, highRate: 15.00, unit: "per_zone", name: "Irrigation Maintenance", minimum: 65 },
-  
-  // Hardscape
-  "patio-installation": { lowRate: 12.50, highRate: 24.00, unit: "per_sqft", name: "Patio Installation", minimum: 1500 },
-  "retaining-walls": { lowRate: 25.00, highRate: 50.00, unit: "per_sqft", name: "Retaining Wall Installation", minimum: 1000 },
-  "fire-pit-installation": { lowRate: 500.00, highRate: 2500.00, unit: "base_project", name: "Fire Pit Installation", minimum: 500 },
-  "fence": { lowRate: 25.00, highRate: 45.00, unit: "linear_ft", name: "Fence Installation", minimum: 1000 },
-  
-  // Tree services (medium tree size as default)
-  "tree-removal": { lowRate: 625.00, highRate: 1000.00, unit: "per_tree", name: "Tree Removal", minimum: 500 },
-  "tree-trimming": { lowRate: 250.00, highRate: 450.00, unit: "per_tree", name: "Tree Trimming & Pruning", minimum: 200 },
-  "stump-grinding": { lowRate: 3.75, highRate: 5.00, unit: "per_inch", name: "Stump Grinding", minimum: 100 },
-  
-  // Hedge & seasonal
-  "hedge-trimming": { lowRate: 6.25, highRate: 15.00, unit: "per_shrub", name: "Hedge & Shrub Trimming", minimum: 50 },
-  "spring-cleanup": { lowRate: 0.0125, highRate: 0.025, unit: "sqft", name: "Spring Cleanup", minimum: 150 },
-  "fall-cleanup": { lowRate: 0.01875, highRate: 0.030, unit: "sqft", name: "Fall Cleanup", minimum: 175 },
-  "seasonal-cleanup": { lowRate: 0.0125, highRate: 0.025, unit: "sqft", name: "Seasonal Cleanup", minimum: 150 },
-  "mulch-installation": { lowRate: 87.50, highRate: 110.00, unit: "per_cubic_yard", name: "Mulch Installation", minimum: 150 },
-  
-  // Snow removal
-  "snow-removal": { lowRate: 50.00, highRate: 90.00, unit: "base_service", name: "Snow Removal", minimum: 40 },
-  
-  // Gutter cleaning
-  "gutter-cleaning": { lowRate: 1.25, highRate: 2.00, unit: "linear_ft", name: "Gutter Cleaning", minimum: 75 },
-} as const;
-
-// Property type multipliers
-export const PROPERTY_MULTIPLIERS = {
-  residential: { min: 1.0, max: 1.0 },
-  commercial: { min: 1.2, max: 1.3 },
-  hoa: { min: 1.1, max: 1.2 },
-  "property-management": { min: 1.15, max: 1.25 },
+  "kitchen-remodel": { lowRate: 25000, highRate: 75000, unit: "base_project", name: "Kitchen Remodel", minimum: 15000 },
+  "bathroom-remodel": { lowRate: 8000, highRate: 35000, unit: "base_project", name: "Bathroom Remodel", minimum: 5000 },
+  "whole-home-remodel": { lowRate: 80000, highRate: 300000, unit: "base_project", name: "Whole-Home Remodel", minimum: 50000 },
+  "room-addition": { lowRate: 50000, highRate: 150000, unit: "base_project", name: "Room Addition", minimum: 30000 },
+  "basement-finish": { lowRate: 30, highRate: 65, unit: "sqft", name: "Basement Finish", minimum: 10000 },
+  "outdoor-living": { lowRate: 15000, highRate: 60000, unit: "base_project", name: "Outdoor Living Space", minimum: 8000 },
 };
 
 // Complexity bounds (simulates AI analysis range)
@@ -102,7 +55,7 @@ export interface ServiceMeasurements {
   linearFeet?: number;        // For fencing, hedges, edging, lights
   zones?: number;             // For irrigation
   treeCount?: number;         // For tree services
-  fixtureCount?: number;      // For landscape lighting
+  fixtureCount?: number;      // For fixture-based pricing
   lightingType?: string;      // 'Permanent Lighting' or 'Traditional'
 }
 
@@ -144,54 +97,18 @@ export function calculateServicePriceRange(
 
     case "linear_ft":
       measurementValue = measurements.linearFeet || 100;
-      if (serviceId === "christmas-light-installation" && measurements.lightingType === "Permanent Lighting") {
-        lowCost = measurementValue * (config.permanentLowRate || 12.00);
-        highCost = measurementValue * (config.permanentHighRate || 18.00);
-      } else {
-        lowCost = measurementValue * config.lowRate;
-        highCost = measurementValue * config.highRate;
-      }
+      lowCost = measurementValue * config.lowRate;
+      highCost = measurementValue * config.highRate;
       break;
 
+    case "per_sqft":
     case "per_zone":
-      measurementValue = measurements.zones || 6;
-      const includedZones = config.includedZones || 5;
-      const extraZones = Math.max(0, measurementValue - includedZones);
-      // Base fee for included zones plus per-extra-zone rate
-      const baseLow = includedZones * config.lowRate;
-      const baseHigh = includedZones * config.highRate;
-      lowCost = baseLow + (extraZones * config.lowRate);
-      highCost = baseHigh + (extraZones * config.highRate);
-      break;
-
     case "per_tree":
-      measurementValue = measurements.treeCount || 1;
-      lowCost = measurementValue * config.lowRate;
-      highCost = measurementValue * config.highRate;
-      break;
-
     case "per_inch":
-      measurementValue = measurements.treeCount || 12; // default 12" diameter stump
-      lowCost = measurementValue * config.lowRate;
-      highCost = measurementValue * config.highRate;
-      break;
-
     case "per_shrub":
-      measurementValue = measurements.treeCount || 5; // default 5 shrubs
-      lowCost = measurementValue * config.lowRate;
-      highCost = measurementValue * config.highRate;
-      break;
-
     case "per_fixture":
-      measurementValue = measurements.fixtureCount || 10;
-      lowCost = measurementValue * config.lowRate;
-      highCost = measurementValue * config.highRate;
-      break;
-
     case "per_cubic_yard":
-      // Estimate cubic yards from property size (1 cu yd per 100 sq ft at 3" depth)
-      const sqft = measurements.propertySize || 500;
-      measurementValue = Math.ceil(sqft / 100);
+      measurementValue = measurements.propertySize || 100;
       lowCost = measurementValue * config.lowRate;
       highCost = measurementValue * config.highRate;
       break;
@@ -201,12 +118,6 @@ export function calculateServicePriceRange(
       measurementValue = 1;
       lowCost = config.lowRate;
       highCost = config.highRate;
-      break;
-
-    case "per_sqft":
-      measurementValue = measurements.propertySize || 100;
-      lowCost = measurementValue * config.lowRate;
-      highCost = measurementValue * config.highRate;
       break;
   }
 

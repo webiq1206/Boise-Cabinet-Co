@@ -52,37 +52,12 @@ function roundToNearestDollar(price: number): number {
 const RECURRING_ELIGIBLE_SERVICE_IDS = getRecurringEligibleServices();
 
 const SERVICE_PRICING_RATES: Record<string, { lowRate: number; highRate: number; unit: string; minimum: number; includedZones?: number }> = {
-  "lawn-mowing": { lowRate: 0.00625, highRate: 0.010, unit: "sqft", minimum: 35 },
-  "aeration": { lowRate: 0.0125, highRate: 0.018, unit: "sqft", minimum: 75 },
-  "fertilization": { lowRate: 0.005, highRate: 0.008, unit: "sqft", minimum: 50 },
-  "weed-control": { lowRate: 0.00375, highRate: 0.006, unit: "sqft", minimum: 50 },
-  "overseeding": { lowRate: 0.0125, highRate: 0.030, unit: "sqft", minimum: 100 },
-  "dethatching": { lowRate: 0.0125, highRate: 0.020, unit: "sqft", minimum: 100 },
-  "sod-installation": { lowRate: 1.25, highRate: 2.00, unit: "sqft", minimum: 500 },
-  "lawn-renovation": { lowRate: 0.0625, highRate: 0.100, unit: "sqft", minimum: 500 },
-  "lawn-edging": { lowRate: 0.625, highRate: 1.50, unit: "linear_ft", minimum: 50 },
-  "christmas-light-installation": { lowRate: 3.125, highRate: 7.00, unit: "linear_ft", minimum: 400 },
-  "landscape-lighting": { lowRate: 187.50, highRate: 350.00, unit: "per_fixture", minimum: 500 },
-  "sprinkler-blowout": { lowRate: 12.50, highRate: 15.00, unit: "per_zone", minimum: 50, includedZones: 5 },
-  "sprinkler-repair": { lowRate: 85.00, highRate: 150.00, unit: "base_service", minimum: 85 },
-  "sprinkler-system-installation": { lowRate: 0.50, highRate: 0.80, unit: "sqft", minimum: 2000 },
-  "irrigation-repair": { lowRate: 85.00, highRate: 150.00, unit: "base_service", minimum: 85 },
-  "irrigation-maintenance": { lowRate: 12.50, highRate: 15.00, unit: "per_zone", minimum: 65 },
-  "patio-installation": { lowRate: 12.50, highRate: 24.00, unit: "per_sqft", minimum: 1500 },
-  "retaining-walls": { lowRate: 25.00, highRate: 50.00, unit: "per_sqft", minimum: 1000 },
-  "fire-pit-installation": { lowRate: 500.00, highRate: 2500.00, unit: "base_project", minimum: 500 },
-  "fence": { lowRate: 25.00, highRate: 45.00, unit: "linear_ft", minimum: 1000 },
-  "tree-removal": { lowRate: 625.00, highRate: 1000.00, unit: "per_tree", minimum: 500 },
-  "tree-trimming": { lowRate: 250.00, highRate: 450.00, unit: "per_tree", minimum: 200 },
-  "stump-grinding": { lowRate: 3.75, highRate: 5.00, unit: "per_inch", minimum: 100 },
-  "hedge-trimming": { lowRate: 0.015, highRate: 0.035, unit: "sqft", minimum: 75 },
-  "spring-cleanup": { lowRate: 0.0125, highRate: 0.025, unit: "sqft", minimum: 150 },
-  "fall-cleanup": { lowRate: 0.01875, highRate: 0.030, unit: "sqft", minimum: 175 },
-  "seasonal-cleanup": { lowRate: 0.0125, highRate: 0.025, unit: "sqft", minimum: 150 },
-  "mulch-installation": { lowRate: 87.50, highRate: 110.00, unit: "per_cubic_yard", minimum: 150 },
-  "snow-removal": { lowRate: 50.00, highRate: 90.00, unit: "base_service", minimum: 40 },
-  "gutter-cleaning": { lowRate: 1.25, highRate: 2.00, unit: "linear_ft", minimum: 75 },
-  "lawn-maintenance": { lowRate: 0.010, highRate: 0.018, unit: "sqft", minimum: 50 },
+  "kitchen-remodel": { lowRate: 25000, highRate: 75000, unit: "base_project", minimum: 15000 },
+  "bathroom-remodel": { lowRate: 8000, highRate: 35000, unit: "base_project", minimum: 5000 },
+  "whole-home-remodel": { lowRate: 80000, highRate: 300000, unit: "base_project", minimum: 50000 },
+  "room-addition": { lowRate: 50000, highRate: 150000, unit: "base_project", minimum: 30000 },
+  "basement-finish": { lowRate: 30, highRate: 65, unit: "sqft", minimum: 10000 },
+  "outdoor-living": { lowRate: 15000, highRate: 60000, unit: "base_project", minimum: 8000 },
 };
 
 const PROPERTY_MULTIPLIERS: Record<string, number> = {
@@ -172,7 +147,7 @@ export async function POST(request: Request) {
     const validatedData = quoteSubmissionSchema.parse(body);
 
     const services = validatedData.selectedServices || validatedData.services || [];
-    const primaryService = validatedData.serviceType || services[0] || "lawn-mowing";
+    const primaryService = validatedData.serviceType || services[0] || "kitchen-remodel";
     const frequency = validatedData.frequency || "one-time";
     const serviceFrequencies = validatedData.serviceFrequencies || {};
     const propertyType = validatedData.propertyType || "residential";

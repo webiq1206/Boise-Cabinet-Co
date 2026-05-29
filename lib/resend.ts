@@ -345,9 +345,7 @@ function formatFrequency(freq: string): string {
   return frequencies[freq] || freq;
 }
 
-const RESEND_RECURRING_ELIGIBLE = new Set([
-  "lawn-mowing", "lawn-maintenance", "hedge-trimming", "weed-control",
-]);
+const RESEND_RECURRING_ELIGIBLE = new Set<string>([]);
 
 function getPerServiceFrequencies(
   services: string[],

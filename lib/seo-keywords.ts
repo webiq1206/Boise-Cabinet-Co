@@ -1,13 +1,13 @@
 export const SEO_KEYWORD_MAP = {
   home: {
-    primary: "lawn care kuna idaho",
-    secondary: ["lawn care boise", "landscaping treasure valley", "lawn mowing kuna"],
-    titleTarget: "Boise Remodeling Co Idaho | Free Quotes",
+    primary: "remodeling contractor boise idaho",
+    secondary: ["kitchen remodel boise", "bathroom remodel treasure valley", "home addition boise idaho"],
+    titleTarget: "Boise Remodeling Co | Design-Build Contractor",
   },
   servicePages: {
-    primary: "{service} in kuna boise idaho",
-    secondary: ["{service} treasure valley", "{service} near me idaho", "professional {service} kuna"],
-    titlePattern: "{Service Name} in Kuna & Boise",
+    primary: "{service} boise idaho",
+    secondary: ["{service} treasure valley", "{service} near me idaho", "professional {service} boise"],
+    titlePattern: "{Service Name} in Boise & Treasure Valley",
   },
   cityServicePages: {
     primary: "{service} {city} idaho",
@@ -15,21 +15,17 @@ export const SEO_KEYWORD_MAP = {
     titlePattern: "{Service} in {City}, ID",
   },
   areaPages: {
-    primary: "lawn care {city} idaho",
-    secondary: ["landscaping {city} id", "lawn mowing {city}", "yard care {city} idaho"],
-    titlePattern: "Lawn Care in {City}, Idaho",
+    primary: "remodeling contractor {city} idaho",
+    secondary: ["home renovation {city} id", "kitchen remodel {city}", "bathroom remodel {city} idaho"],
+    titlePattern: "Remodeling Contractor in {City}, Idaho",
   },
   blogPages: {
-    primary: "{topic} lawn care idaho",
+    primary: "{topic} home remodeling idaho",
     secondary: ["{topic} treasure valley", "{topic} boise area"],
     titlePattern: "{Blog Title}",
   },
   staticPages: {
-    pricing: { primary: "lawn care pricing kuna idaho", title: "Lawn Care Pricing in Idaho" },
-    about: { primary: "lawn care company kuna idaho", title: "About Boise Remodeling Co Idaho" },
-    contact: { primary: "contact lawn care kuna", title: "Contact Us in Kuna, Idaho" },
-    commercial: { primary: "commercial lawn care kuna idaho", title: "Commercial Lawn Care Idaho" },
-    faq: { primary: "lawn care questions kuna idaho", title: "Lawn Care FAQ for Idaho" },
-    seasonalGuide: { primary: "idaho lawn care calendar zone 6b", title: "Idaho Lawn Care Calendar" },
+    about: { primary: "design build remodeling company boise idaho", title: "About Boise Remodeling Co" },
+    contact: { primary: "contact remodeling contractor boise", title: "Contact Us | Boise Remodeling Co" },
   },
 } as const;

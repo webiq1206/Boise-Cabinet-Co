@@ -23,10 +23,10 @@ export function generateLocalBusinessSchema(city?: string): SchemaContext {
   
   return {
     '@context': 'https://schema.org',
-    '@type': ['LocalBusiness', 'LawnService'],
+    '@type': ['LocalBusiness', 'HomeAndConstructionBusiness'],
     name: BUSINESS_INFO.name,
     legalName: BUSINESS_INFO.legalName,
-    description: `Professional lawn care and landscaping services in ${city || 'Kuna'} and the Treasure Valley, Idaho. ${BUSINESS_INFO.yearlyServicesCompleted}+ happy customers annually.`,
+    description: `Design-build remodeling contractor serving ${city || 'Boise'} and the Treasure Valley, Idaho. Kitchen remodels, bathrooms, additions & whole-home renovations.`,
     image: `${baseUrl}/images/boiseremodeling-logo.png`,
     '@id': baseUrl,
     url: baseUrl,
@@ -55,7 +55,7 @@ export function generateLocalBusinessSchema(city?: string): SchemaContext {
     areaServed: BUSINESS_INFO.serviceArea.map(area => ({
       '@type': 'City',
       name: area,
-      '@id': `${baseUrl}/areas/${area.toLowerCase()}`,
+      '@id': `${baseUrl}`,
     })),
     aggregateRating: {
       '@type': 'AggregateRating',
@@ -65,35 +65,35 @@ export function generateLocalBusinessSchema(city?: string): SchemaContext {
       worstRating: 1,
     },
     foundingDate: BUSINESS_INFO.founded,
-    slogan: 'Kuna\'s Most Trusted Lawn Care Service',
-    paymentAccepted: 'Cash, Credit Card, Check, Venmo, PayPal',
+    slogan: 'Boise\'s Design-Build Remodeling Company',
+    paymentAccepted: 'Cash, Credit Card, Check, Financing',
     currenciesAccepted: 'USD',
     hasOfferCatalog: {
       '@type': 'OfferCatalog',
-      name: 'Lawn Care Services',
+      name: 'Remodeling Services',
       itemListElement: [
         {
           '@type': 'Offer',
           itemOffered: {
             '@type': 'Service',
-            name: 'Lawn Mowing & Edging',
-            description: 'Professional grass cutting and trimming services',
+            name: 'Kitchen Remodel',
+            description: 'Full kitchen design and renovation — cabinets, countertops, layout, and more',
           },
         },
         {
           '@type': 'Offer',
           itemOffered: {
             '@type': 'Service',
-            name: 'Fertilization',
-            description: 'Seasonal lawn fertilization and nutrient application',
+            name: 'Bathroom Remodel',
+            description: 'Primary, guest, and en-suite bathroom renovations',
           },
         },
         {
           '@type': 'Offer',
           itemOffered: {
             '@type': 'Service',
-            name: 'Core Aeration',
-            description: 'Professional core aeration for healthier lawns',
+            name: 'Room Addition',
+            description: 'Permitted room additions and home expansions',
           },
         },
       ],
@@ -168,7 +168,7 @@ export function generateOrganizationSchema(): SchemaContext {
     legalName: BUSINESS_INFO.legalName,
     url: baseUrl,
     logo: `${baseUrl}/images/boiseremodeling-logo.png`,
-    description: 'Professional lawn care and landscaping services serving the Treasure Valley since 2017. Licensed, insured, and committed to excellence.',
+    description: 'Design-build remodeling contractor serving the Treasure Valley since 2017. Kitchen remodels, bathrooms, additions, and whole-home renovations. Licensed, insured, and committed to excellence.',
     foundingDate: BUSINESS_INFO.founded,
     telephone: BUSINESS_INFO.phone,
     email: BUSINESS_INFO.email,

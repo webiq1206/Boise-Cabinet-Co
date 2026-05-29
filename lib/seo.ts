@@ -144,33 +144,33 @@ const CITY_CTA_VARIANTS: Record<string, string> = {
 /**
  * Generate SEO-optimized meta description
  * 150-160 characters with phone number, CTA, and unique value prop
- * Phone: (208) 352-2011
+ * Phone: (208) 555-0100
  */
 export function generateMetaDescription(params: ServiceSEOParams): string {
   const { serviceName, city } = params;
-  const phone = "(208) 352-2011";
+  const phone = "(208) 555-0100";
   
   if (params.isHomePage) {
-    return `Professional remodeling & landscaping in Kuna, Boise, Meridian & Treasure Valley. Licensed, insured, top-rated. Call ${phone} for your free quote today!`;
+    return `Design-build remodeling contractor serving Boise, Meridian, Eagle & the Treasure Valley. Licensed, insured, top-rated. Call ${phone} for your free consultation!`;
   }
   
   if (city && serviceName) {
     const serviceLC = serviceName.toLowerCase();
     const cityVariant = CITY_DESCRIPTION_VARIANTS[city] || `${city}'s trusted`;
     const ctaVariant = CITY_CTA_VARIANTS[city] || "Satisfaction guaranteed";
-    return `${cityVariant} ${serviceLC} pros. Licensed & insured. ${ctaVariant}. Call ${phone} for a free quote today!`;
+    return `${cityVariant} ${serviceLC} team. Licensed & insured. ${ctaVariant}. Call ${phone} for a free consultation!`;
   }
   
   if (city) {
-    return `Professional remodeling & landscaping in ${city}, Idaho. Licensed, insured, locally owned. Call ${phone} for your free quote. Serving all of ${city}!`;
+    return `Professional remodeling contractor in ${city}, Idaho. Licensed, insured, locally owned. Call ${phone} for your free consultation. Serving all of ${city}!`;
   }
   
   if (!serviceName) {
-    return `Professional remodeling & landscaping in Kuna & Treasure Valley. Licensed, insured. Call ${phone} for a free quote. Residential & commercial services!`;
+    return `Professional remodeling contractor in Boise & Treasure Valley. Licensed, insured. Call ${phone} for a free consultation. Residential design-build services!`;
   }
   
   const serviceLC = serviceName.toLowerCase();
-  return `Expert ${serviceLC} in Kuna & Treasure Valley Idaho. Licensed, insured, satisfaction guaranteed. Call ${phone} for your free quote today!`;
+  return `Expert ${serviceLC} in Boise & Treasure Valley Idaho. Licensed, insured, satisfaction guaranteed. Call ${phone} for your free consultation today!`;
 }
 
 /**
@@ -195,7 +195,7 @@ export function generateCityServiceDescription(
   cityName: string,
   shortDescription?: string,
 ): string {
-  const phone = "(208) 352-2011";
+  const phone = "(208) 555-0100";
   const serviceLC = serviceName.toLowerCase();
   const cityVariant = CITY_DESCRIPTION_VARIANTS[cityName] || `${cityName}'s trusted`;
   const cityData = CITY_SEO_DATA[cityName as keyof typeof CITY_SEO_DATA];
@@ -264,7 +264,7 @@ export function generateLogoAltTag(params: ServiceSEOParams): string {
   const { serviceName, city, isHomePage } = params;
   
   if (isHomePage) {
-    return "Boise Remodeling Co logo - Professional remodeling and landscaping services in Kuna Idaho";
+    return "Boise Remodeling Co logo - Design-build remodeling contractor in Boise, Idaho";
   }
   
   if (city && serviceName) {
@@ -279,7 +279,7 @@ export function generateLogoAltTag(params: ServiceSEOParams): string {
   
   if (!serviceName) {
     // Fallback for pages without service
-    return `Boise Remodeling Co logo - Professional remodeling and landscaping services in Treasure Valley Idaho`;
+    return `Boise Remodeling Co logo - Design-build remodeling contractor serving the Treasure Valley, Idaho`;
   }
   
   // Service-specific alt tag
@@ -392,7 +392,7 @@ export const CITY_SEO_DATA: Record<string, {
 export const BUSINESS_INFO = {
   name: 'Boise Remodeling Co',
   legalName: 'Boise Remodeling Co LLC',
-  phone: '(208) 352-2011',
+  phone: '(208) 555-0100',
   email: 'hello@boiseremodeling.co',
   address: {
     street: '2283 N Coopers Hawk Ave',

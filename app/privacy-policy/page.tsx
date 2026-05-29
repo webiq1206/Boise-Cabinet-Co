@@ -105,7 +105,7 @@ export default function PrivacyPolicyPage() {
             </p>
             <ul>
               <li>Email: <ObfuscatedEmail user="hello" domain="boiseremodeling.co" className="text-primary hover:underline inline-flex items-center gap-1" showIcon={false} /></li>
-              <li>Phone: <a href="tel:2083522011" className="text-primary hover:underline">(208) 352-2011</a></li>
+              <li>Phone: <a href="tel:2085550100" className="text-primary hover:underline">(208) 555-0100</a></li>
               <li>Address: 2283 N Coopers Hawk Ave, Kuna, ID 83634</li>
             </ul>
           </div>
