@@ -8,6 +8,8 @@ out
 # caches
 .npm-cache
 .cache
+test-results
+playwright-report
 
 # env files
 .env
