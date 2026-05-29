@@ -1,7 +1,9 @@
+import Image from "next/image";
 import { Reveal } from "@/components/Reveal";
 import { Button } from "@/components/ui/button";
 import { Section } from "@/components/marketing/Section";
 import { HERO_SUBHEAD, TRUST_ITEMS } from "@/shared/siteContent";
+import { SITE_IMAGES } from "@/shared/siteImages";
 
 const GRAIN_URL = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.45'/%3E%3C/2Fsvg%3E")`;
 
@@ -9,10 +11,13 @@ export function HeroSection() {
   return (
     <>
       <section className="relative min-h-screen flex items-center overflow-hidden bg-inverse">
-        <img
-          src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1920&q=80"
-          alt="Modern home interior remodel in Boise Idaho Treasure Valley"
-          className="absolute inset-0 w-full h-full object-cover opacity-40"
+        <Image
+          src={SITE_IMAGES.hero}
+          alt="Modern luxury home interior remodel in Boise Idaho Treasure Valley"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover opacity-40"
         />
         <div
           className="absolute inset-0 pointer-events-none bg-gradient-to-br from-inverse/90 via-inverse/75 to-inverse/50"
@@ -48,7 +53,7 @@ export function HeroSection() {
               </div>
               <div className="mt-10 pt-8 border-t border-inverse-foreground/10">
                 <p className="text-[11px] tracking-[0.12em] uppercase text-inverse-muted">
-                  Serving Boise · Meridian · Eagle · Nampa · Kuna · Star · Middleton
+                  Serving Boise · Meridian · Eagle · Nampa · Kuna · Star · Middleton · Caldwell
                 </p>
               </div>
             </Reveal>

@@ -77,8 +77,8 @@ export const DIFFERENTIATORS: Differentiator[] = [
 ];
 
 export const TRUST_ITEMS = [
-  "Licensed · Bonded · Insured",
-  "$2M Liability · Fully Insured",
+  "Bonded · Insured",
+  "$2M Liability Coverage",
   "Permits Handled · In-House",
   "Financing · From 0% APR",
   "2-Year Workmanship Guarantee",

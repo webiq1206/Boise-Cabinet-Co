@@ -434,11 +434,10 @@ export const BUSINESS_INFO = {
   founded: '2017',
   serviceArea: ['Boise', 'Meridian', 'Eagle', 'Nampa', 'Kuna', 'Star', 'Middleton', 'Caldwell'],
   serviceRadius: '35 miles',
-  licenses: ['Idaho Contractor License [Pending]'],
+  licenses: ['License details available upon request'],
   certifications: ['Design-Build Remodeling', 'Bonded & Insured'],
   insurance: 'Fully Licensed & Insured',
-  /** Placeholder until real review data is provided */
-  rating: 4.9,
+  rating: 0,
   reviewCount: 0,
   yearlyServicesCompleted: 0,
   sameAs: [

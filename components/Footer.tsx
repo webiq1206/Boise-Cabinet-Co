@@ -67,6 +67,7 @@ export function Footer() {
             <ul className="space-y-2.5">
               {[
                 { label: "About", href: "/about" },
+                { label: "Projects & Reviews", href: "/testimonials" },
                 { label: "Contact", href: "/contact" },
                 { label: "Why Choose Us", href: "/#why-choose-us" },
                 { label: "How We Build", href: "/#how-we-build" },
@@ -143,7 +144,7 @@ export function Footer() {
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 text-xs text-inverse-muted">
           <div className="flex flex-wrap gap-4">
             <span>&copy; {currentYear} Boise Remodeling Co. All rights reserved.</span>
-            <span>Idaho Contractor License [Pending]</span>
+            <span>License details available upon request</span>
           </div>
           <div className="flex gap-4">
             <Link href="/privacy-policy" className="transition-colors hover:text-inverse-foreground">

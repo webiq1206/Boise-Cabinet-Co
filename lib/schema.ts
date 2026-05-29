@@ -28,7 +28,7 @@ export function generateLocalBusinessSchema(city?: string): SchemaContext {
     name: BUSINESS_INFO.name,
     legalName: BUSINESS_INFO.legalName,
     description: `Design-build remodeling contractor serving ${city || 'Boise'} and the Treasure Valley, Idaho. Kitchen remodels, bathrooms, additions & whole-home renovations.`,
-    image: `${baseUrl}/og-default.svg`,
+    image: `${baseUrl}/images/hero-remodel-interior.png`,
     '@id': baseUrl,
     url: baseUrl,
     telephone: BUSINESS_INFO.phone,

@@ -11,6 +11,8 @@ import { ProcessSection } from "@/components/sections/ProcessSection";
 import { InclusionsSection } from "@/components/sections/InclusionsSection";
 import { BudgetGuidance } from "@/components/sections/BudgetGuidance";
 import { LeadershipSection } from "@/components/sections/LeadershipSection";
+import { ProjectGallerySection } from "@/components/sections/ProjectGallerySection";
+import { TestimonialsSection } from "@/components/sections/TestimonialsSection";
 import { Section } from "@/components/marketing/Section";
 import { SectionHeader } from "@/components/marketing/SectionHeader";
 import { MarketingCard } from "@/components/marketing/MarketingCard";
@@ -44,6 +46,7 @@ export default function HomePage() {
       <WhyChooseUsSection />
       <ServicesGrid />
       <ProcessSection />
+      <ProjectGallerySection limit={3} />
       <EstimateCalculator />
       <InclusionsSection />
       <BudgetGuidance />
@@ -92,6 +95,7 @@ export default function HomePage() {
       </Section>
 
       <LeadershipSection />
+      <TestimonialsSection limit={4} showViewAll={true} />
 
       <Section id="principles" variant="inverse" divider>
         <div className="container px-4">

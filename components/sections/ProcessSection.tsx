@@ -1,6 +1,8 @@
+import Image from "next/image";
 import { Reveal } from "@/components/Reveal";
 import { Section } from "@/components/marketing/Section";
 import { HOW_WE_BUILD_STEPS } from "@/shared/siteContent";
+import { SITE_IMAGES } from "@/shared/siteImages";
 
 const GRAIN_URL = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.45'/%3E%3C/2Fsvg%3E")`;
 
@@ -9,11 +11,12 @@ export function ProcessSection() {
     <Section id="how-we-build" spacing="none" divider className="p-0">
       <div className="grid md:grid-cols-2 overflow-hidden">
         <div className="relative min-h-[380px] md:min-h-[560px] overflow-hidden">
-          <img
-            src="https://images.unsplash.com/photo-1503174971373-b1f69850bded?auto=format&fit=crop&w=1200&q=80"
-            alt="Project manager reviewing blueprints"
-            className="absolute inset-0 w-full h-full object-cover"
-            loading="lazy"
+          <Image
+            src={SITE_IMAGES.process}
+            alt="Architectural blueprints and finish material samples for a Treasure Valley remodel"
+            fill
+            sizes="(max-width: 768px) 100vw, 50vw"
+            className="object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-primary/10 to-primary/70" />
           <div

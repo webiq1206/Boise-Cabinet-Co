@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/accordion";
 import { Section } from "@/components/marketing/Section";
 import { SectionHeader } from "@/components/marketing/SectionHeader";
+import { Button } from "@/components/ui/button";
 
 const FAQS = [
   {
@@ -82,7 +83,14 @@ export function FAQSection() {
               </AccordionItem>
             ))}
           </Accordion>
-          <div className="pt-4 border-t border-border" />
+          <div className="mt-10 flex flex-wrap gap-3 justify-center">
+            <Button variant="brand" asChild>
+              <a href="#consult">Schedule your consultation</a>
+            </Button>
+            <Button variant="brandOutline" asChild>
+              <a href="#calculator">Plan your project range</a>
+            </Button>
+          </div>
         </div>
       </div>
     </Section>
