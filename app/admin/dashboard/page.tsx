@@ -1393,7 +1393,7 @@ function AdminDashboardContent() {
                     </p>
                   )}
                   <p className="text-xs text-muted-foreground">
-                    Tip: phone {lead.phone} — call the customer to confirm the exact house number, then save.
+                    Tip: phone {lead.phone}. Call the customer to confirm the exact house number, then save.
                   </p>
                   <div className="flex justify-end gap-2 pt-1">
                     <Button

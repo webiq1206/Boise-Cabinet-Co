@@ -24,7 +24,7 @@ export interface Differentiator {
   contrast: string;
 }
 
-/** Top differentiators for homepage — full list on About. */
+/** Top differentiators for homepage; full list on About. */
 export const HOMEPAGE_DIFFERENTIATOR_INDICES = [0, 1, 2, 3, 6] as const;
 
 export const DIFFERENTIATORS: Differentiator[] = [

@@ -21,7 +21,7 @@ export function Footer() {
                 Boise <em className="brc-accent text-accent">Remodeling</em> Co
               </span>
             </div>
-            <p className="text-sm italic mb-6 text-inverse-muted font-sans">
+            <p className="text-sm mb-6 text-inverse-muted font-sans">
               {SITE_TAGLINE}.
             </p>
             <div className="space-y-2">

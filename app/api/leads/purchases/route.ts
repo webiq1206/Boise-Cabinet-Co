@@ -22,7 +22,7 @@ export async function GET() {
       .where(eq(leadPurchases.userId, session.userId))
       .orderBy(desc(leadPurchases.createdAt));
 
-    // Exclude refunded purchases — those leads have been reversed (e.g. via
+    // Exclude refunded purchases; those leads have been reversed (e.g. via
     // an admin duplicate-merge) and should not appear as currently-owned.
     const activePurchases = purchases.filter((p) => !p.refunded);
 

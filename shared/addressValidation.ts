@@ -80,7 +80,7 @@ function cleanTail(input: string, city: string | null): string {
  * subdivision label) and the verbose Nominatim "<number>, <street>" comma
  * form, while preserving unit/sub-premise tokens like "Apt 4B".
  *
- * Pure function — safe to call on any saved or geocoder-produced string,
+ * Pure function; safe to call on any saved or geocoder-produced string,
  * idempotent (cleaning a clean address returns the same value).
  */
 export function normalizeStoredAddress(

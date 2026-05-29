@@ -28,7 +28,7 @@ export const SERVICE_SEO_CONTENT: Record<string, ServiceSEOContent> = {
     overview:
       'A well-planned kitchen remodel improves how your family cooks, gathers, and moves through the home. Boise Remodeling Co handles design, permitting, and construction under one roof so layout, cabinetry, lighting, and finishes stay aligned from first visit to final walkthrough.',
     benefits: [
-      'Single design-build team — no juggling separate designers and contractors',
+      'Single design-build team, no juggling separate designers and contractors',
       'Written scope and finish selections before construction begins',
       'Ada and Canyon County permits handled in-house',
       'Weekly written schedule updates every Friday',
@@ -75,7 +75,7 @@ export const SERVICE_SEO_CONTENT: Record<string, ServiceSEOContent> = {
     benefits: [
       'Design-build accountability from layout through tile and fixtures',
       'Waterproofing and plumbing scope defined in writing',
-      'Transparent project investment — no surprise line-item games',
+      'Transparent project investment, no surprise line-item games',
       '2-year workmanship guarantee on our labor',
     ],
     inclusions: [
@@ -113,7 +113,7 @@ export const SERVICE_SEO_CONTENT: Record<string, ServiceSEOContent> = {
     headline: 'Whole-Home Remodeling in the Treasure Valley',
     primaryKeyword: 'whole home remodeling boise idaho',
     overview:
-      'Whole-home remodeling brings multiple rooms into one cohesive plan — open concepts, updated systems, new finishes, and better flow. Our design-build approach keeps one team accountable across phases so your home feels intentional, not piecemeal.',
+      'Whole-home remodeling brings multiple rooms into one cohesive plan, open concepts, updated systems, new finishes, and better flow. Our design-build approach keeps one team accountable across phases so your home feels intentional, not piecemeal.',
     benefits: [
       'Phased scheduling to balance livability and progress',
       'Unified design language across rooms',
@@ -143,7 +143,7 @@ export const SERVICE_SEO_CONTENT: Record<string, ServiceSEOContent> = {
       {
         question: 'How do you keep a large project on budget?',
         answer:
-          'Written scope, documented selections, and change orders for any additional work — all approved before we proceed.',
+          'Written scope, documented selections, and change orders for any additional work, all approved before we proceed.',
       },
       {
         question: 'Is design-build better than hiring separate contractors?',
@@ -158,7 +158,7 @@ export const SERVICE_SEO_CONTENT: Record<string, ServiceSEOContent> = {
     headline: 'Home Additions in the Treasure Valley',
     primaryKeyword: 'home additions boise idaho',
     overview:
-      'Room additions expand living space without moving. We design attached additions, in-law suites, and bonus rooms that match your roof lines, foundation, and interior architecture — with permits and structural scope handled professionally.',
+      'Room additions expand living space without moving. We design attached additions, in-law suites, and bonus rooms that match your roof lines, foundation, and interior architecture, with permits and structural scope handled professionally.',
     benefits: [
       'Structural and architectural planning before breaking ground',
       'Exterior materials matched to your existing home',
@@ -186,7 +186,7 @@ export const SERVICE_SEO_CONTENT: Record<string, ServiceSEOContent> = {
       },
       {
         question: 'Will an addition match my existing home?',
-        answer: 'That is a core part of our design process — roof lines, siding, and interior trim are planned to blend, not bolt on.',
+        answer: 'That is a core part of our design process, roof lines, siding, and interior trim are planned to blend, not bolt on.',
       },
       {
         question: 'How do additions affect property taxes?',
@@ -233,7 +233,7 @@ export const AREA_PAGE_FAQS: FAQItem[] = [
   {
     question: 'What remodeling services do you offer?',
     answer:
-      'Kitchen remodels, bathroom remodels, whole-home renovations, and room additions — all managed design-build with one team.',
+      'Kitchen remodels, bathroom remodels, whole-home renovations, and room additions, all managed design-build with one team.',
   },
   {
     question: 'Are you licensed and insured?',

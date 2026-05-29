@@ -54,7 +54,7 @@ export default function AboutPage() {
             <p className="text-lg text-muted-foreground leading-relaxed mb-6" data-speakable="summary">
               We are a locally owned design-build remodeling company serving the Treasure Valley.
               Homeowners work with one accountable team from first in-home visit through final
-              walkthrough — not a patchwork of separate designers and contractors.
+              walkthrough, not a patchwork of separate designers and contractors.
             </p>
             <p className="text-muted-foreground leading-relaxed mb-8">
               Our focus is clarity: written scope before construction, proactive weekly updates,

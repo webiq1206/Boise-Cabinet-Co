@@ -173,7 +173,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
                       <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-accent/10">
                         <Wrench className="h-6 w-6 text-accent" />
                       </div>
-                      <h3 className="text-lg font-medium font-sans font-light">Book a Free Visit</h3>
+                      <h3 className="text-lg font-sans font-medium">Book a Free Visit</h3>
                       <p className="text-sm text-muted-foreground">
                         Ready to start your project? Schedule a free in-home consultation with no pressure.
                       </p>

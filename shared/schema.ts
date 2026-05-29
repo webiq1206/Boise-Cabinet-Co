@@ -384,7 +384,7 @@ export const consultationRequests = pgTable("consultation_requests", {
   zip: text("zip").notNull(),
   projectType: text("project_type").notNull(),
   message: text("message"),
-  // Calculator estimate (optional — populated when user used the estimate tool)
+  // Calculator estimate (optional; populated when user used the estimate tool)
   estimateProject: text("estimate_project"),
   estimateFinish: text("estimate_finish"),
   estimateLow: decimal("estimate_low", { precision: 10, scale: 2 }),

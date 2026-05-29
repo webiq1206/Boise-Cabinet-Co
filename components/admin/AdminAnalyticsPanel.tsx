@@ -99,7 +99,7 @@ function formatPercent(value: number) {
 }
 
 function formatHours(value: number) {
-  if (!Number.isFinite(value)) return "—";
+  if (!Number.isFinite(value)) return "-";
   if (value < 24) return `${Math.round(value)}h`;
   return `${Math.round((value / 24) * 10) / 10}d`;
 }
@@ -163,7 +163,7 @@ export function AdminAnalyticsPanel({ user }: { user: User | undefined }) {
             </CardTitle>
           </CardHeader>
           <CardContent className="p-3 md:p-4 pt-0">
-            <div className="text-2xl md:text-3xl font-bold">{isLoading ? "—" : data?.kpis.leadsCreated ?? 0}</div>
+            <div className="text-2xl md:text-3xl font-bold">{isLoading ? "-" : data?.kpis.leadsCreated ?? 0}</div>
           </CardContent>
         </Card>
         <Card>
@@ -173,7 +173,7 @@ export function AdminAnalyticsPanel({ user }: { user: User | undefined }) {
             </CardTitle>
           </CardHeader>
           <CardContent className="p-3 md:p-4 pt-0">
-            <div className="text-2xl md:text-3xl font-bold">{isLoading ? "—" : formatHours(data?.kpis.avgTimeToReviewHours ?? 0)}</div>
+            <div className="text-2xl md:text-3xl font-bold">{isLoading ? "-" : formatHours(data?.kpis.avgTimeToReviewHours ?? 0)}</div>
           </CardContent>
         </Card>
         <Card>
@@ -183,9 +183,9 @@ export function AdminAnalyticsPanel({ user }: { user: User | undefined }) {
             </CardTitle>
           </CardHeader>
           <CardContent className="p-3 md:p-4 pt-0">
-            <div className="text-2xl md:text-3xl font-bold">{isLoading ? "—" : data?.kpis.leadsPurchased ?? 0}</div>
+            <div className="text-2xl md:text-3xl font-bold">{isLoading ? "-" : data?.kpis.leadsPurchased ?? 0}</div>
             <div className="text-xs text-muted-foreground mt-1">
-              Conversion: {isLoading ? "—" : formatPercent(data?.kpis.purchaseConversion ?? 0)}
+              Conversion: {isLoading ? "-" : formatPercent(data?.kpis.purchaseConversion ?? 0)}
             </div>
           </CardContent>
         </Card>
@@ -196,9 +196,9 @@ export function AdminAnalyticsPanel({ user }: { user: User | undefined }) {
             </CardTitle>
           </CardHeader>
           <CardContent className="p-3 md:p-4 pt-0">
-            <div className="text-2xl md:text-3xl font-bold">{isLoading ? "—" : formatCurrency(data?.kpis.revenue ?? 0)}</div>
+            <div className="text-2xl md:text-3xl font-bold">{isLoading ? "-" : formatCurrency(data?.kpis.revenue ?? 0)}</div>
             <div className="text-xs text-muted-foreground mt-1">
-              Avg: {isLoading ? "—" : formatCurrency(data?.kpis.avgPurchasePrice ?? 0)}
+              Avg: {isLoading ? "-" : formatCurrency(data?.kpis.avgPurchasePrice ?? 0)}
             </div>
           </CardContent>
         </Card>

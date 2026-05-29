@@ -10,7 +10,7 @@ html, body {
   box-sizing: border-box;
 }
 
-/* ─── LIGHT MODE — Premium neutral + sage accent ─── */
+/* ─── LIGHT MODE - Premium neutral + sage accent ─── */
 :root {
   --button-outline: rgba(0,0,0, .08);
   --badge-outline: rgba(0,0,0, .04);
@@ -18,7 +18,7 @@ html, body {
   --elevate-1: rgba(0,0,0, .02);
   --elevate-2: rgba(0,0,0, .06);
 
-  /* Canvas — warm off-white (#F5F3EF) */
+  /* Canvas - warm off-white (#F5F3EF) */
   --background: 40 20% 96%;
   --foreground: 165 3% 24%;
   --border: 40 10% 88%;
@@ -26,7 +26,7 @@ html, body {
   --card-foreground: 165 3% 24%;
   --card-border: 40 12% 90%;
 
-  /* Inverse band — charcoal (#3A3E3D) */
+  /* Inverse band - charcoal (#3A3E3D) */
   --inverse: 165 3% 24%;
   --inverse-foreground: 0 0% 100%;
   --inverse-muted: 0 0% 100%;
@@ -34,12 +34,12 @@ html, body {
   /* Subtle surface step (5% darker than canvas) */
   --surface-muted: 40 14% 93%;
 
-  /* Section tints — soft palette bands for rhythm */
+  /* Section tints - soft palette bands for rhythm */
   --tint-warm: 38 26% 90%;   /* beige / sand */
   --tint-cool: 186 22% 88%;  /* skylight */
   --tint-blush: 10 34% 91%;  /* blush */
 
-  /* Sidebar — charcoal for admin/portal */
+  /* Sidebar - charcoal for admin/portal */
   --sidebar: 165 6% 14%;
   --sidebar-foreground: 40 15% 92%;
   --sidebar-border: 165 5% 22%;
@@ -53,7 +53,7 @@ html, body {
   --popover-foreground: 165 3% 24%;
   --popover-border: 40 12% 90%;
 
-  /* Charcoal — primary actions & ink */
+  /* Charcoal - primary actions & ink */
   --primary: 165 3% 24%;
   --primary-foreground: 0 0% 100%;
 
@@ -64,7 +64,7 @@ html, body {
   --muted: 40 14% 93%;
   --muted-foreground: 150 3% 44%;
 
-  /* Sage accent (#999F93) — highlights & secondary CTAs only */
+  /* Sage accent (#999F93) - highlights & secondary CTAs only */
   --accent: 100 4% 61%;
   --accent-foreground: 0 0% 100%;
 
@@ -85,7 +85,7 @@ html, body {
 
   --radius: 0.125rem;
 
-  /* Shadows — lighter for editorial feel */
+  /* Shadows - lighter for editorial feel */
   --shadow-2xs: 0px 2px 0px 0px hsl(0 0% 0% / 0.03);
   --shadow-xs: 0px 1px 2px 0px hsl(0 0% 0% / 0.04);
   --shadow-sm: 0px 1px 2px 0px hsl(0 0% 0% / 0.04), 0px 1px 3px 0px hsl(0 0% 0% / 0.06);
@@ -117,7 +117,7 @@ html, body {
   --brass-border: hsl(from hsl(var(--brass)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
 }
 
-/* ─── DARK MODE — charcoal + sage (aligned with brand) ─── */
+/* ─── DARK MODE - charcoal + sage (aligned with brand) ─── */
 .dark {
   --button-outline: rgba(255,255,255, .08);
   --badge-outline: rgba(255,255,255, .04);
@@ -138,7 +138,7 @@ html, body {
 
   --surface-muted: 165 8% 14%;
 
-  /* Section tints — subtle hued dark panels */
+  /* Section tints - subtle hued dark panels */
   --tint-warm: 36 9% 15%;
   --tint-cool: 186 10% 15%;
   --tint-blush: 8 12% 16%;

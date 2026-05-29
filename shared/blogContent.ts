@@ -21,7 +21,7 @@ export const BLOG_POSTS: BlogPostData[] = [
     title: 'Kitchen Remodel Cost in the Treasure Valley (2026 Planning Ranges)',
     seoTitle: 'Kitchen Remodel Cost Boise & Treasure Valley',
     metaDescription:
-      'Realistic kitchen remodel cost ranges for Boise, Meridian, Eagle, and Nampa — what drives price, timelines, and how to plan your budget.',
+      'Realistic kitchen remodel cost ranges for Boise, Meridian, Eagle, and Nampa: what drives price, timelines, and how to plan your budget.',
     excerpt:
       'Kitchen remodels in the Treasure Valley typically span mid five figures to low six figures depending on layout changes, cabinetry, and finish level.',
     author: 'Boise Remodeling Co',
@@ -41,12 +41,12 @@ export const BLOG_POSTS: BlogPostData[] = [
       },
     ],
     content: `
-      <p>Planning a kitchen remodel in Boise or the wider Treasure Valley starts with an honest range — not a single number pulled from a national average. Local labor, permit fees, and material lead times all affect what you should expect before you commit to a layout.</p>
+      <p>Planning a kitchen remodel in Boise or the wider Treasure Valley starts with an honest range: not a single number pulled from a national average. Local labor, permit fees, and material lead times all affect what you should expect before you commit to a layout.</p>
       <h2>What drives kitchen remodel cost</h2>
       <ul>
-        <li><strong>Layout changes</strong> — Moving plumbing, gas, or structural walls adds design and permit time.</li>
-        <li><strong>Cabinetry</strong> — Stock, semi-custom, and fully custom lines span a wide spread.</li>
-        <li><strong>Finishes</strong> — Countertops, tile, lighting, and appliances compound quickly.</li>
+        <li><strong>Layout changes</strong>: Moving plumbing, gas, or structural walls adds design and permit time.</li>
+        <li><strong>Cabinetry</strong>: Stock, semi-custom, and fully custom lines span a wide spread.</li>
+        <li><strong>Finishes</strong>: Countertops, tile, lighting, and appliances compound quickly.</li>
       </ul>
       <p>Use our <a href="/#calculator">project estimator</a> for a planning range, then schedule an in-home visit for a written scope. Explore our <a href="/services/kitchen-remodel">kitchen remodeling services</a> across the valley.</p>
     `,
@@ -56,7 +56,7 @@ export const BLOG_POSTS: BlogPostData[] = [
     title: 'Bathroom Remodel Cost in Idaho: Master Bath vs Guest Bath',
     seoTitle: 'Bathroom Remodel Cost Idaho Treasure Valley',
     metaDescription:
-      'Bathroom remodel cost ranges for Idaho homeowners — master baths, walk-in showers, permits in Ada and Canyon County, and timeline expectations.',
+      'Bathroom remodel cost ranges for Idaho homeowners: master baths, walk-in showers, permits in Ada and Canyon County, and timeline expectations.',
     excerpt:
       'Guest bath refreshes and full master suite remodels sit on very different budgets. Here is how Idaho homeowners can plan realistically.',
     author: 'Boise Remodeling Co',
@@ -73,7 +73,7 @@ export const BLOG_POSTS: BlogPostData[] = [
       <p>Bathroom remodels are one of the most common projects we scope in Meridian, Eagle, and Nampa. A powder room update is not priced like a master bath with a curbless shower, heated floor, and custom vanity.</p>
       <h2>Typical planning ranges</h2>
       <p>Smaller guest baths often land in the mid tens of thousands for a full refresh. Master bathrooms with layout changes, tile work, and premium fixtures commonly reach higher five-figure or six-figure ranges.</p>
-      <p>See <a href="/services/bathroom-remodel">bathroom remodeling</a> in your city — for example <a href="/services/bathroom-remodel/nampa">bathroom remodels in Nampa</a> or <a href="/services/bathroom-remodel/eagle">Eagle</a>.</p>
+      <p>See <a href="/services/bathroom-remodel">bathroom remodeling</a> in your city: for example <a href="/services/bathroom-remodel/nampa">bathroom remodels in Nampa</a> or <a href="/services/bathroom-remodel/eagle">Eagle</a>.</p>
     `,
   },
   {
@@ -101,7 +101,7 @@ export const BLOG_POSTS: BlogPostData[] = [
       },
     ],
     content: `
-      <p>Whether your home is in <a href="/areas/boise">Boise</a> (Ada County) or <a href="/areas/nampa">Nampa</a> and <a href="/areas/caldwell">Caldwell</a> (Canyon County), permit lead time should be built into your schedule — not treated as an afterthought.</p>
+      <p>Whether your home is in <a href="/areas/boise">Boise</a> (Ada County) or <a href="/areas/nampa">Nampa</a> and <a href="/areas/caldwell">Caldwell</a> (Canyon County), permit lead time should be built into your schedule: not treated as an afterthought.</p>
       <h2>Ada County</h2>
       <p>Cosmetic updates with no structural or MEP changes may move quickly. Kitchen and bath projects with layout changes typically require plan review; allow several weeks for routing and corrections.</p>
       <h2>Canyon County</h2>
@@ -114,7 +114,7 @@ export const BLOG_POSTS: BlogPostData[] = [
     title: 'How to Choose a Design-Build Remodeling Contractor in Boise',
     seoTitle: 'How to Choose a Design-Build Contractor Boise',
     metaDescription:
-      'A practical checklist for choosing a design-build remodeling contractor in Boise — communication, scope, licenses, and red flags.',
+      'A practical checklist for choosing a design-build remodeling contractor in Boise: communication, scope, licenses, and red flags.',
     excerpt:
       'The best contractor fit is not always the lowest bid. Look for written scope, one accountable team, and local permit experience.',
     author: 'Boise Remodeling Co',
@@ -144,9 +144,9 @@ export const BLOG_POSTS: BlogPostData[] = [
     title: 'Whole-Home Remodel Planning Checklist for Treasure Valley Homeowners',
     seoTitle: 'Whole-Home Remodel Planning Checklist Idaho',
     metaDescription:
-      'A room-by-room checklist for whole-home remodels in Idaho — sequencing, temporary living, budget contingencies, and design-build benefits.',
+      'A room-by-room checklist for whole-home remodels in Idaho: sequencing, temporary living, budget contingencies, and design-build benefits.',
     excerpt:
-      'Whole-home remodels succeed when sequencing, selections, and contingency budgets are decided early — not mid-demo.',
+      'Whole-home remodels succeed when sequencing, selections, and contingency budgets are decided early: not mid-demo.',
     author: 'Boise Remodeling Co',
     category: 'Whole-Home Remodeling',
     tags: ['whole-home', 'checklist', 'meridian'],
@@ -158,7 +158,7 @@ export const BLOG_POSTS: BlogPostData[] = [
     ],
     faqs: [],
     content: `
-      <p>A whole-home remodel touches flooring, lighting, layout, and often multiple wet areas. Treat it as one program with phases — not a series of unrelated mini-projects.</p>
+      <p>A whole-home remodel touches flooring, lighting, layout, and often multiple wet areas. Treat it as one program with phases: not a series of unrelated mini-projects.</p>
       <h2>Checklist highlights</h2>
       <ol>
         <li>Define must-have vs nice-to-have rooms first.</li>
@@ -174,7 +174,7 @@ export const BLOG_POSTS: BlogPostData[] = [
     title: 'Room Addition Guide: Matching Your Home in the Treasure Valley',
     seoTitle: 'Room Addition Guide Boise Treasure Valley',
     metaDescription:
-      'Planning a room addition in Boise, Eagle, or Kuna — setbacks, matching architecture, foundation options, and realistic timelines.',
+      'Planning a room addition in Boise, Eagle, or Kuna: setbacks, matching architecture, foundation options, and realistic timelines.',
     excerpt:
       'Additions that look original require early design collaboration, soil and setback research, and realistic permit schedules.',
     author: 'Boise Remodeling Co',
@@ -190,7 +190,7 @@ export const BLOG_POSTS: BlogPostData[] = [
     content: `
       <p>Room additions in <a href="/services/room-addition/eagle">Eagle</a> and <a href="/services/room-addition/kuna">Kuna</a> often face HOA design review in addition to county permits. Starting with a feasibility conversation saves months of rework.</p>
       <h2>Design-build advantages for additions</h2>
-      <p>Foundation type, roof tie-in, and exterior materials should be resolved in design — not discovered after concrete is poured. Our <a href="/services/room-addition">room addition</a> team coordinates engineering, permits, and build under one contract.</p>
+      <p>Foundation type, roof tie-in, and exterior materials should be resolved in design: not discovered after concrete is poured. Our <a href="/services/room-addition">room addition</a> team coordinates engineering, permits, and build under one contract.</p>
     `,
   },
 ];

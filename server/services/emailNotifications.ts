@@ -144,7 +144,7 @@ function renderLineItemsTable(lineItemsRaw: unknown): string {
               : typeof item?.price === "string"
                 ? parseFloat(item.price)
                 : NaN;
-      const price = Number.isFinite(priceVal) ? `$${Math.round(priceVal).toLocaleString()}` : "—";
+      const price = Number.isFinite(priceVal) ? `$${Math.round(priceVal).toLocaleString()}` : "-";
       const desc = item?.description ? String(item.description) : "";
 
       return `
@@ -181,7 +181,7 @@ function renderServiceDataTable(serviceDataRaw: unknown): string {
     for (const [field, val] of Object.entries(measurements)) {
       if (val === null || val === undefined || val === "") continue;
       const prettyField = field.replace(/([A-Z])/g, " $1").replace(/^./, (s) => s.toUpperCase());
-      const label = `${serviceId.replace(/-/g, " ")} — ${prettyField}`;
+      const label = `${serviceId.replace(/-/g, " ")}: ${prettyField}`;
       const value = typeof val === "number" ? val.toLocaleString() : String(val);
       entries.push({ label, value });
     }
@@ -1123,7 +1123,7 @@ export async function sendLeadMergeRefundNotification(
 
           <div class="section">
             <h2 class="section-title">What this means</h2>
-            <p style="margin: 0 0 10px 0;">The original lead you bought (ID <code>${data.sourceLeadId}</code>) has been archived. All of its details &mdash; services, measurements, and notes &mdash; have been combined into the surviving lead below. If you were already in contact with this customer, you can keep working with them on the merged lead.</p>
+            <p style="margin: 0 0 10px 0;">The original lead you bought (ID <code>${data.sourceLeadId}</code>) has been archived. All of its details, including services, measurements, and notes, have been combined into the surviving lead below. If you were already in contact with this customer, you can keep working with them on the merged lead.</p>
           </div>
 
           <div class="section">

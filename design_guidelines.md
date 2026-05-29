@@ -27,9 +27,9 @@ Use `bg-inverse` + `text-inverse-foreground` for the planning range card, not ad
 
 ## Typography
 
-- **Headlines:** Fraunces (`font-serif`), light weight, generous line height
-- **Body / UI:** Inter (`font-sans`)
-- **Labels:** `.brc-label` — uppercase, tracked, muted
+- **Default (headlines, body, UI):** Montserrat (`font-sans`)
+- **Decorative accent only:** Fraunces via `.brc-accent` on italic emphasis phrases (e.g. hero “clarity”, statement band “outlast the guarantee”, logo “Remodeling”)
+- **Labels:** `.brc-label`, uppercase, tracked, muted (Montserrat)
 
 Section titles use `.text-section-title` scale; avoid one-off font sizes on marketing pages.
 

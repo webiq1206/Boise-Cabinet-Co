@@ -8,7 +8,7 @@ Boise Remodeling Co is a locally owned design-build remodeling company serving t
 
 - Phone: (208) 555-0100
 - Email: hello@boiseremodeling.co
-- Address: 1234 W Main St, Boise, ID 83702 (placeholder — verify before launch)
+- Address: 1234 W Main St, Boise, ID 83702 (placeholder: verify before launch)
 - Hours: Monday–Friday 8:00 AM – 5:00 PM
 - Service area: Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, Caldwell (Ada and Canyon County)
 - Licensed, bonded, and insured (Idaho contractor license placeholder)
