@@ -178,7 +178,6 @@ export function generateOrganizationSchema(): SchemaContext {
     name: BUSINESS_INFO.name,
     legalName: BUSINESS_INFO.legalName,
     url: baseUrl,
-    logo: `${baseUrl}/og-default.svg`,
     description: 'Design-build remodeling contractor serving the Treasure Valley since 2017. Kitchen remodels, bathrooms, additions, and whole-home renovations. Licensed, insured, and committed to excellence.',
     foundingDate: BUSINESS_INFO.founded,
     telephone: BUSINESS_INFO.phone,
@@ -271,7 +270,7 @@ export function generateArticleSchema(article: {
     '@type': 'Article',
     headline: article.title,
     description: article.description,
-    image: article.image || `${baseUrl}/og-default.svg`,
+    image: article.image,
     datePublished: article.publishedAt,
     dateModified: article.publishedAt,
     author: {
@@ -281,10 +280,6 @@ export function generateArticleSchema(article: {
     publisher: {
       '@type': 'Organization',
       name: BUSINESS_INFO.name,
-      logo: {
-        '@type': 'ImageObject',
-        url: `${baseUrl}/og-default.svg`,
-      },
     },
     mainEntityOfPage: {
       '@type': 'WebPage',

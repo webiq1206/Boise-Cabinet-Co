@@ -40,13 +40,11 @@ export const metadata: Metadata = {
     siteName: 'Boise Remodeling Co',
     title: 'Boise Remodeling Co | Treasure Valley Design-Build',
     description: `${SITE_TAGLINE}. Kitchen, bathroom, whole-home, and addition remodeling across the Treasure Valley.`,
-    images: [{ url: '/og-default.svg', width: 1200, height: 630, alt: 'Boise Remodeling Co' }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Boise Remodeling Co | Treasure Valley Design-Build',
     description: `${SITE_TAGLINE}. Design-build remodeling for Boise and the Treasure Valley.`,
-    images: ['/og-default.svg'],
   },
   robots: {
     index: true,
@@ -58,9 +56,6 @@ export const metadata: Metadata = {
       'max-image-preview': 'large',
       'max-snippet': -1,
     },
-  },
-  icons: {
-    icon: '/favicon.svg',
   },
 }
 
