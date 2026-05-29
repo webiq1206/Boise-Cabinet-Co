@@ -1,6 +1,6 @@
-# SEO Audit Context - Lawn Care Kuna
+# SEO Audit Context - Boise Remodeling Co
 
-**Domain:** lawncarekuna.com
+**Domain:** boiseremodeling.co
 **Stack:** Next.js 14.2 App Router, React 18, TypeScript, Tailwind, shadcn/ui
 **Rendering:** Static (SSG via `generateStaticParams`) for all public pages
 **Database:** Neon PostgreSQL (Drizzle ORM), non-SEO surface
@@ -9,10 +9,10 @@
 **Image hosting:** local `/public/images/*` only (no CDN)
 
 ## Business NAP
-- Name: Lawn Care Kuna
-- Legal: Lawn Care Kuna LLC
+- Name: Boise Remodeling Co
+- Legal: Boise Remodeling Co LLC
 - Phone: (208) 352-2011
-- Email: hello@lawncarekuna.com
+- Email: hello@boiseremodeling.co
 - Address: 2283 N Coopers Hawk Ave, Kuna, ID 83634
 - Founded: 2017
 - Service Area: Kuna, Boise, Meridian, Eagle, Star, Middleton (Idaho Treasure Valley, USDA Zone 6b-7a)
@@ -20,7 +20,7 @@
 ## Existing SEO Infrastructure
 | Asset | Location | Status |
 |---|---|---|
-| Root metadata + template | `app/layout.tsx` | Present; default title + template `%s | Lawn Care Kuna` |
+| Root metadata + template | `app/layout.tsx` | Present; default title + template `%s | Boise Remodeling Co` |
 | Sitemap | `app/sitemap.ts` | Present; covers all 294 public routes |
 | robots.txt | `app/robots.ts` | Present; disallows `/api/`, `/admin/`, `/subcontractor/` |
 | 404 page | `app/not-found.tsx` | Present (had no metadata - fixed) |
@@ -32,7 +32,7 @@
 | Web manifest | `public/site.webmanifest` | Added during this audit |
 | Apple touch icon | `public/apple-touch-icon.png` | Present |
 | Favicon | `public/favicon.png` | Present |
-| OG image | `public/images/lawn-care-kuna-logo.png` | Used as default (1200x630 alt declared); dedicated OG image recommended |
+| OG image | `public/images/favicon.png` | Used as default (1200x630 alt declared); dedicated OG image recommended |
 
 ## Route Inventory (294 indexed routes)
 - 1 homepage (`/`)

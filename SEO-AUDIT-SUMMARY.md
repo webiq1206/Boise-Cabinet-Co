@@ -1,4 +1,4 @@
-# SEO Audit Summary - Lawn Care Kuna
+# SEO Audit Summary - Boise Remodeling Co
 
 ## Outcome
 Sitewide audit completed across 294 indexable routes plus the noindex admin / subcontractor / quote surface. 9 defects fixed in-place (3 HIGH, 5 MEDIUM, 1 LOW) and 3 lower-priority items logged for follow-up that need design assets or account credentials this task does not have access to.
@@ -34,7 +34,7 @@ Sitewide audit completed across 294 indexable routes plus the noindex admin / su
 
 ## Logged Follow-ups (not auto-fixable in this task)
 1. **Dedicated 1200×630 Open Graph image** at `/public/og-image.jpg`. Current default is the square brand logo declared as 1200×630, which social platforms will letterbox/crop. Requires a designed asset.
-2. **`twitter.site` handle** once the brand registers `@lawncarekuna` (or whichever handle).
+2. **`twitter.site` handle** once the brand registers `@boiseremodelingco` (or whichever handle).
 3. **`dateModified` tracking** on blog posts: add `updatedAt` field to `shared/blogContent.ts` schema and surface it in `generateArticleSchema` so Google can reward recent edits.
 
 ## Files Modified

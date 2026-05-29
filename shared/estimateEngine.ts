@@ -7,11 +7,29 @@ export type CityZone = "boise-core" | "treasure-valley" | "extended";
 export type Timeline = "flexible" | "standard" | "accelerated";
 export type ConfidenceLevel = "starting" | "refined" | "detailed";
 
+export type UserRefinementKey =
+  | "layoutChanges"
+  | "plumbingElectrical"
+  | "cabinetTier"
+  | "fixtureCount"
+  | "roomCount"
+  | "stories"
+  | "cityZone"
+  | "timeline";
+
 export interface PriceData {
   low: number;
   high: number;
   roi: number;
   included: string[];
+}
+
+export interface ProjectSizeConfig {
+  min: number;
+  max: number;
+  step: number;
+  defaultSqft: number;
+  baselineSqft: number;
 }
 
 export interface EstimateRefinements {
@@ -43,10 +61,20 @@ export interface EstimateResult {
   refinementsApplied: number;
 }
 
+export const INCLUDED_SCOPE_NOTE =
+  "Common scope examples for this project type and finish level. Your final scope is defined during consultation.";
+
+export const PROJECT_SIZE_CONFIG: Record<ProjectType, ProjectSizeConfig> = {
+  kitchen: { min: 100, max: 600, step: 25, defaultSqft: 250, baselineSqft: 250 },
+  bathroom: { min: 40, max: 200, step: 10, defaultSqft: 80, baselineSqft: 80 },
+  "whole-home": { min: 800, max: 4000, step: 100, defaultSqft: 1800, baselineSqft: 1800 },
+  addition: { min: 200, max: 1200, step: 50, defaultSqft: 400, baselineSqft: 400 },
+};
+
 export const DEFAULT_ESTIMATE_INPUT: EstimateInput = {
   project: "kitchen",
   finish: "mid-range",
-  sqft: 250,
+  sqft: PROJECT_SIZE_CONFIG.kitchen.defaultSqft,
   refinements: {
     layoutChanges: "none",
     plumbingElectrical: "cosmetic",
@@ -58,6 +86,16 @@ export const DEFAULT_ESTIMATE_INPUT: EstimateInput = {
     timeline: null,
   },
 };
+
+export function getProjectSizeConfig(project: ProjectType): ProjectSizeConfig {
+  return PROJECT_SIZE_CONFIG[project];
+}
+
+export function getMaxRefinementFields(project: ProjectType): number {
+  return project === "kitchen" || project === "bathroom" || project === "whole-home" || project === "addition"
+    ? 6
+    : 4;
+}
 
 export const PROJECT_LABELS: Record<ProjectType, { label: string; sub: string }> = {
   kitchen: { label: "Kitchen", sub: "Cabinets, counters, appliances" },
@@ -73,11 +111,14 @@ export const FINISH_LABELS: Record<FinishLevel, { label: string; sub: string }> 
   luxury: { label: "Luxury", sub: "No constraints" },
 };
 
-export const CONFIDENCE_LABELS: Record<ConfidenceLevel, string> = {
+export const PLANNING_DETAIL_LABELS: Record<ConfidenceLevel, string> = {
   starting: "Starting guidance",
   refined: "Refined guidance",
   detailed: "Detailed planning range",
 };
+
+/** @deprecated Use PLANNING_DETAIL_LABELS */
+export const CONFIDENCE_LABELS = PLANNING_DETAIL_LABELS;
 
 const PRICE_MATRIX: Record<ProjectType, Record<FinishLevel, PriceData>> = {
   kitchen: {
@@ -154,27 +195,30 @@ const PRICE_MATRIX: Record<ProjectType, Record<FinishLevel, PriceData>> = {
   },
 };
 
-function countRefinements(ref: EstimateRefinements, project: ProjectType): number {
-  let count = 0;
-  if (ref.layoutChanges !== "none") count++;
-  if (ref.plumbingElectrical !== "cosmetic") count++;
-  if (ref.cityZone) count++;
-  if (ref.timeline) count++;
-  if (project === "kitchen" && ref.cabinetTier) count++;
-  if (project === "bathroom" && ref.fixtureCount !== null) count++;
-  if (project === "whole-home" && ref.roomCount !== null) count++;
-  if (project === "addition" && ref.stories !== null) count++;
-  return count;
+export function formatPlanningCurrency(n: number): string {
+  if (n >= 1000000) return `$${(n / 1000000).toFixed(1)}M`;
+  if (n >= 1000) return `$${Math.round(n / 1000)}k`;
+  return `$${n.toLocaleString()}`;
 }
 
-function getConfidence(count: number): { level: ConfidenceLevel; percent: number } {
+export function getFinishPlanningHint(project: ProjectType, finish: FinishLevel): string {
+  const data = PRICE_MATRIX[project][finish];
+  return `Typical band at default size: ${formatPlanningCurrency(data.low)} to ${formatPlanningCurrency(data.high)}`;
+}
+
+export function buildSelectionSummary(project: ProjectType, finish: FinishLevel, sqft: number): string {
+  return `${PROJECT_LABELS[project].label} · ${FINISH_LABELS[finish].label} · ${sqft.toLocaleString()} sqft`;
+}
+
+function getPlanningDetail(count: number): { level: ConfidenceLevel; percent: number } {
   if (count >= 4) return { level: "detailed", percent: 85 };
   if (count >= 2) return { level: "refined", percent: 65 };
   return { level: "starting", percent: 40 };
 }
 
-function getSizeMultiplier(sqft: number): number {
-  return Math.max(0.5, Math.min(2.5, sqft / 300));
+function getSizeMultiplier(sqft: number, project: ProjectType): number {
+  const baseline = PROJECT_SIZE_CONFIG[project].baselineSqft;
+  return Math.max(0.5, Math.min(2.5, sqft / baseline));
 }
 
 function getRefinementMultipliers(ref: EstimateRefinements, project: ProjectType): { low: number; high: number } {
@@ -245,10 +289,10 @@ function getRefinementMultipliers(ref: EstimateRefinements, project: ProjectType
   return { low, high };
 }
 
-function narrowRange(low: number, high: number, confidencePercent: number): { low: number; high: number } {
+function narrowRange(low: number, high: number, detailPercent: number): { low: number; high: number } {
   const mid = (low + high) / 2;
   const halfSpan = (high - low) / 2;
-  const narrowFactor = 1 - (confidencePercent / 100) * 0.35;
+  const narrowFactor = 1 - (detailPercent / 100) * 0.35;
   const newHalfSpan = halfSpan * narrowFactor;
   return {
     low: Math.round((mid - newHalfSpan) / 1000) * 1000,
@@ -256,12 +300,11 @@ function narrowRange(low: number, high: number, confidencePercent: number): { lo
   };
 }
 
-export function calculateEstimate(input: EstimateInput): EstimateResult {
+export function calculateEstimate(input: EstimateInput, userRefinementCount = 0): EstimateResult {
   const base = PRICE_MATRIX[input.project][input.finish];
-  const sizeMult = getSizeMultiplier(input.sqft);
+  const sizeMult = getSizeMultiplier(input.sqft, input.project);
   const refMult = getRefinementMultipliers(input.refinements, input.project);
-  const refinementsApplied = countRefinements(input.refinements, input.project);
-  const { level, percent } = getConfidence(refinementsApplied);
+  const { level, percent } = getPlanningDetail(userRefinementCount);
 
   let priceLow = base.low * sizeMult * refMult.low;
   let priceHigh = base.high * sizeMult * refMult.high;
@@ -269,7 +312,7 @@ export function calculateEstimate(input: EstimateInput): EstimateResult {
   priceLow = Math.round(priceLow / 1000) * 1000;
   priceHigh = Math.round(priceHigh / 1000) * 1000;
 
-  if (refinementsApplied >= 2) {
+  if (userRefinementCount >= 2) {
     const narrowed = narrowRange(priceLow, priceHigh, percent);
     priceLow = narrowed.low;
     priceHigh = narrowed.high;
@@ -281,9 +324,9 @@ export function calculateEstimate(input: EstimateInput): EstimateResult {
     roi: base.roi,
     included: base.included,
     confidence: level,
-    confidenceLabel: CONFIDENCE_LABELS[level],
+    confidenceLabel: PLANNING_DETAIL_LABELS[level],
     confidencePercent: percent,
-    refinementsApplied,
+    refinementsApplied: userRefinementCount,
   };
 }
 
@@ -295,8 +338,8 @@ export interface StoredEstimate extends EstimateInput {
   confidenceLabel: string;
 }
 
-export function buildStoredEstimate(input: EstimateInput): StoredEstimate {
-  const result = calculateEstimate(input);
+export function buildStoredEstimate(input: EstimateInput, userRefinementCount = 0): StoredEstimate {
+  const result = calculateEstimate(input, userRefinementCount);
   return {
     ...input,
     priceLow: result.priceLow,

@@ -4,22 +4,12 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { ArrowRight, Calendar, PenLine } from "lucide-react";
 import { BLOG_POSTS } from "@/shared/blogContent";
+import { buildPageMetadata } from "@/lib/page-metadata";
 
-export const metadata: Metadata = {
-  title: "Remodeling Insights and Ideas | Blog",
-  description:
-    "Planning guides and remodeling advice for Idaho homeowners from Boise Remodeling Co.",
-  alternates: {
-    canonical: `${process.env.NEXT_PUBLIC_SITE_URL || "https://boiseremodeling.co"}/blog`,
-  },
-  openGraph: {
-    title: "Remodeling Insights & Ideas | Boise Remodeling Co",
-    description:
-      "Planning guides and remodeling advice for Idaho homeowners.",
-    url: "/blog",
-    type: "website",
-  },
-};
+export const metadata: Metadata = buildPageMetadata({
+  kind: "blog",
+  path: "/blog",
+});
 
 function formatDate(dateString: string): string {
   return new Date(dateString).toLocaleDateString("en-US", {

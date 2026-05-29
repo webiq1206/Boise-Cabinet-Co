@@ -10,10 +10,10 @@ import { cn } from "@/lib/utils";
 
 const NAV_LINKS = [
   { label: "Services", href: "/#services" },
-  { label: "Process", href: "/#how-we-build" },
-  { label: "Estimator", href: "/#calculator" },
-  { label: "FAQ", href: "/#faq" },
+  { label: "Areas", href: "/areas/boise" },
+  { label: "About", href: "/about" },
   { label: "Blog", href: "/blog" },
+  { label: "Contact", href: "/contact" },
 ];
 
 const PHONE = "(208) 555-0100";

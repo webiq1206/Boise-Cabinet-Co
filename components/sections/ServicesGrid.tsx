@@ -4,6 +4,7 @@ import { Section } from "@/components/marketing/Section";
 import { SectionHeader } from "@/components/marketing/SectionHeader";
 import { MarketingCard } from "@/components/marketing/MarketingCard";
 import { SERVICES } from "@/shared/contentData";
+import { servicePath } from "@/lib/seo-routes";
 import { PROMISE_ITEMS } from "@/shared/siteContent";
 
 export function ServicesGrid() {
@@ -27,11 +28,17 @@ export function ServicesGrid() {
                   {service.shortDescription}
                 </p>
                 <a
-                  href="#calculator"
-                  className="inline-flex items-center gap-2 text-sm font-medium text-foreground hover:text-accent transition-colors"
+                  href={servicePath(service.slug)}
+                  className="inline-flex items-center gap-2 text-sm font-medium text-foreground hover:text-accent transition-colors mr-4"
                 >
-                  Get a planning range
+                  Learn more
                   <ArrowRight className="h-4 w-4" />
+                </a>
+                <a
+                  href="#calculator"
+                  className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-accent transition-colors"
+                >
+                  Planning range
                 </a>
               </MarketingCard>
             </Reveal>

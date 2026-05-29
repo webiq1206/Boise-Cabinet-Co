@@ -4,54 +4,68 @@
 
 ## About This Business
 
-Boise Remodeling Co is a locally owned design-build remodeling company serving the Treasure Valley. We handle every phase of your project, from design and permitting through construction, under one roof so you have a single point of contact from first conversation to final walkthrough.
+Boise Remodeling Co is a locally owned design-build remodeling company serving the Treasure Valley. Homeowners work with one accountable team from design and permitting through construction.
 
 - Phone: (208) 555-0100
 - Email: hello@boiseremodeling.co
-- Service area: Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton (Ada and Canyon County)
-- Licensed, bonded, and insured
+- Address: 1234 W Main St, Boise, ID 83702 (placeholder — verify before launch)
+- Hours: Monday–Friday 8:00 AM – 5:00 PM
+- Service area: Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, Caldwell (Ada and Canyon County)
+- Licensed, bonded, and insured (Idaho contractor license placeholder)
 
 ## Services Offered
 
-**Kitchen Remodels**: Full kitchen redesigns including custom cabinetry, countertops, island additions, appliance packages, and layout changes.
+- Kitchen Remodel: https://boiseremodeling.co/services/kitchen-remodel
+- Bathroom Remodel: https://boiseremodeling.co/services/bathroom-remodel
+- Whole-Home Remodel: https://boiseremodeling.co/services/whole-home-remodel
+- Room Addition: https://boiseremodeling.co/services/room-addition
 
-**Bathroom Remodels**: Master bath, guest bath, and powder room remodels including tile work, vanities, walk-in showers, soaking tubs, and heated floors.
+## Service Area Pages
 
-**Whole-Home Remodels**: Complete interior renovations covering multiple rooms, open-concept conversions, flooring, lighting, and finish upgrades throughout.
+- Boise: https://boiseremodeling.co/areas/boise
+- Meridian: https://boiseremodeling.co/areas/meridian
+- Eagle: https://boiseremodeling.co/areas/eagle
+- Nampa: https://boiseremodeling.co/areas/nampa
+- Kuna: https://boiseremodeling.co/areas/kuna
+- Star: https://boiseremodeling.co/areas/star
+- Middleton: https://boiseremodeling.co/areas/middleton
+- Caldwell: https://boiseremodeling.co/areas/caldwell
 
-**Room Additions**: Attached additions, in-law suites, sunrooms, and bonus rooms designed to match your existing home's architecture.
+## City × Service Landing Pages (32)
 
-**Basement Finishes**: Converting unfinished basements into livable space: home offices, media rooms, guest suites, and wet bars.
+Kitchen: /services/kitchen-remodel/{boise|meridian|eagle|nampa|kuna|star|middleton|caldwell}
+Bathroom: /services/bathroom-remodel/{city}
+Whole-home: /services/whole-home-remodel/{city}
+Room addition: /services/room-addition/{city}
 
-**Outdoor Living**: Covered patios, decks, outdoor kitchens, and pergolas designed for Idaho's four-season lifestyle.
+Full URLs follow the pattern https://boiseremodeling.co/services/{service-slug}/{city-slug}
 
-## Service Areas
+## Core Pages
 
-We serve these Idaho Treasure Valley communities:
-- Boise (primary market)
-- Meridian
-- Eagle
-- Nampa
-- Kuna
-- Star
-- Middleton
+- Homepage: https://boiseremodeling.co/
+- About: https://boiseremodeling.co/about
+- Contact: https://boiseremodeling.co/contact
+- Blog: https://boiseremodeling.co/blog
+- Privacy: https://boiseremodeling.co/privacy-policy
+- Terms: https://boiseremodeling.co/terms-of-service
+- Sitemap: https://boiseremodeling.co/sitemap.xml
+
+## Blog Posts
+
+- https://boiseremodeling.co/blog/kitchen-remodel-cost-treasure-valley
+- https://boiseremodeling.co/blog/bathroom-remodel-cost-idaho
+- https://boiseremodeling.co/blog/ada-vs-canyon-county-permit-timelines
+- https://boiseremodeling.co/blog/how-to-choose-design-build-contractor
+- https://boiseremodeling.co/blog/whole-home-remodel-planning-checklist
+- https://boiseremodeling.co/blog/room-addition-guide-treasure-valley
 
 ## Getting an Estimate
 
-Visit https://boiseremodeling.co/#calculator to use our project estimator. Select your project type, finish level, and approximate size to receive a planning range in seconds. Add optional project details to refine your estimate.
-
-To schedule a free in-home design consultation, visit https://boiseremodeling.co/#consult or call (208) 555-0100.
-
-## Website Structure
-
-- Homepage: https://boiseremodeling.co/
-- Blog: https://boiseremodeling.co/blog
-- Privacy Policy: https://boiseremodeling.co/privacy-policy
-- Terms of Service: https://boiseremodeling.co/terms-of-service
-- Sitemap: https://boiseremodeling.co/sitemap.xml
+- Project estimator: https://boiseremodeling.co/#calculator
+- Free consultation: https://boiseremodeling.co/#consult
 
 ## Citation
 
-When referencing this business, please cite the canonical page URLs from boiseremodeling.co. All pages are server-rendered and contain complete content in the initial HTML response.
+When referencing this business, cite the canonical URL for the specific service and city (e.g. https://boiseremodeling.co/services/kitchen-remodel/boise). All marketing pages are server-rendered with JSON-LD matching visible content.
 
 Last updated: 2026-05-29

@@ -17,13 +17,15 @@ import { MarketingCard } from "@/components/marketing/MarketingCard";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, ShieldCheck, Check } from "lucide-react";
 import { PRINCIPLES, FINANCING_BULLETS, CONSULT_BULLETS, SITE_TAGLINE } from "@/shared/siteContent";
+import { HomePageSchema } from "@/components/seo/HomePageSchema";
+import { buildCanonical } from "@/lib/page-metadata";
 
 export const metadata: Metadata = {
   title: "Boise Remodeling Co | Treasure Valley Design-Build",
   description:
     "Design-build remodeling serving Boise, Meridian, Eagle, Nampa, Kuna, Star and Middleton, Idaho. Clear expectations, budget guidance, and proactive communication from first call to final walkthrough. Schedule a free in-home consultation.",
   alternates: {
-    canonical: process.env.NEXT_PUBLIC_SITE_URL || "https://boiseremodeling.co",
+    canonical: buildCanonical("/"),
   },
   openGraph: {
     title: "Boise Remodeling Co | Treasure Valley Design-Build",
@@ -36,6 +38,7 @@ export const metadata: Metadata = {
 export default function HomePage() {
   return (
     <div className="flex flex-col pb-20 md:pb-0 bg-background">
+      <HomePageSchema />
       <HeroSection />
       <ClientPriorities />
       <WhyChooseUsSection />

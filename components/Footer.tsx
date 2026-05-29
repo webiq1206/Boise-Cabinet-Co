@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { CITIES, SERVICES } from "@/shared/contentData";
 import { SITE_TAGLINE } from "@/shared/siteContent";
+import { areaPath, servicePath } from "@/lib/seo-routes";
 
 const PHONE = "(208) 555-0100";
 const PHONE_HREF = "tel:2085550100";
@@ -12,7 +13,7 @@ export function Footer() {
   return (
     <footer className="bg-inverse text-inverse-foreground">
       <div className="container px-4 py-16 md:py-20">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10 mb-12">
           <div>
             <div className="mb-4">
               <span className="font-serif font-light text-lg tracking-tight text-inverse-foreground">
@@ -48,12 +49,12 @@ export function Footer() {
             <ul className="space-y-2.5">
               {SERVICES.map((service) => (
                 <li key={service.slug}>
-                  <a
-                    href="/#services"
+                  <Link
+                    href={servicePath(service.slug)}
                     className="text-sm text-inverse-muted hover:text-inverse-foreground transition-colors"
                   >
                     {service.name}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -65,10 +66,10 @@ export function Footer() {
             </h3>
             <ul className="space-y-2.5">
               {[
+                { label: "About", href: "/about" },
+                { label: "Contact", href: "/contact" },
                 { label: "Why Choose Us", href: "/#why-choose-us" },
-                { label: "Our Commitment", href: "/#commitment" },
                 { label: "How We Build", href: "/#how-we-build" },
-                { label: "Principles", href: "/#principles" },
                 { label: "Blog", href: "/blog" },
               ].map((link) => (
                 <li key={link.label}>
@@ -77,6 +78,24 @@ export function Footer() {
                     className="text-sm text-inverse-muted hover:text-inverse-foreground transition-colors"
                   >
                     {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <h3 className="font-sans font-medium text-[11px] tracking-[0.12em] uppercase mb-5 text-inverse-muted">
+              Service Areas
+            </h3>
+            <ul className="space-y-2.5 max-h-48 overflow-y-auto pr-2">
+              {CITIES.map((city) => (
+                <li key={city.slug}>
+                  <Link
+                    href={areaPath(city.slug)}
+                    className="text-sm text-inverse-muted hover:text-inverse-foreground transition-colors"
+                  >
+                    {city.name}, Idaho
                   </Link>
                 </li>
               ))}

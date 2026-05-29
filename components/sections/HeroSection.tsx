@@ -11,9 +11,8 @@ export function HeroSection() {
       <section className="relative min-h-screen flex items-center overflow-hidden bg-inverse">
         <img
           src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1920&q=80"
-          alt=""
+          alt="Modern home interior remodel in Boise Idaho Treasure Valley"
           className="absolute inset-0 w-full h-full object-cover opacity-40"
-          aria-hidden
         />
         <div
           className="absolute inset-0 pointer-events-none bg-gradient-to-br from-inverse/90 via-inverse/75 to-inverse/50"
@@ -33,9 +32,12 @@ export function HeroSection() {
                 Remodel with{" "}
                 <em className="italic text-accent">clarity</em> and confidence.
               </h1>
-              <p className="text-lg md:text-xl leading-relaxed mb-10 max-w-xl text-inverse-muted">
+              <p className="text-lg md:text-xl leading-relaxed mb-4 max-w-xl text-inverse-muted">
                 {HERO_SUBHEAD}
               </p>
+              <h2 className="text-base md:text-lg font-sans font-normal text-inverse-muted/90 mb-10 max-w-xl">
+                Design-build remodeling in Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell.
+              </h2>
               <div className="flex flex-wrap gap-3">
                 <Button variant="brandAccent" asChild>
                   <a href="#calculator">Plan your project range</a>

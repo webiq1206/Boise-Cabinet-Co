@@ -4,6 +4,7 @@
  */
 
 import { BUSINESS_INFO, CITY_SEO_DATA, getBaseUrl } from './seo';
+import { SERVICES } from '@/shared/contentData';
 
 interface SchemaContext {
   '@context': string;
@@ -27,7 +28,7 @@ export function generateLocalBusinessSchema(city?: string): SchemaContext {
     name: BUSINESS_INFO.name,
     legalName: BUSINESS_INFO.legalName,
     description: `Design-build remodeling contractor serving ${city || 'Boise'} and the Treasure Valley, Idaho. Kitchen remodels, bathrooms, additions & whole-home renovations.`,
-    image: `${baseUrl}/images/boiseremodeling-logo.png`,
+    image: `${baseUrl}/og-default.svg`,
     '@id': baseUrl,
     url: baseUrl,
     telephone: BUSINESS_INFO.phone,
@@ -55,15 +56,18 @@ export function generateLocalBusinessSchema(city?: string): SchemaContext {
     areaServed: BUSINESS_INFO.serviceArea.map(area => ({
       '@type': 'City',
       name: area,
-      '@id': `${baseUrl}`,
     })),
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: BUSINESS_INFO.rating,
-      reviewCount: BUSINESS_INFO.reviewCount,
-      bestRating: 5,
-      worstRating: 1,
-    },
+    ...(BUSINESS_INFO.reviewCount > 0
+      ? {
+          aggregateRating: {
+            '@type': 'AggregateRating',
+            ratingValue: BUSINESS_INFO.rating,
+            reviewCount: BUSINESS_INFO.reviewCount,
+            bestRating: 5,
+            worstRating: 1,
+          },
+        }
+      : {}),
     foundingDate: BUSINESS_INFO.founded,
     slogan: 'Boise\'s Design-Build Remodeling Company',
     paymentAccepted: 'Cash, Credit Card, Check, Financing',
@@ -71,32 +75,39 @@ export function generateLocalBusinessSchema(city?: string): SchemaContext {
     hasOfferCatalog: {
       '@type': 'OfferCatalog',
       name: 'Remodeling Services',
-      itemListElement: [
-        {
-          '@type': 'Offer',
-          itemOffered: {
-            '@type': 'Service',
-            name: 'Kitchen Remodel',
-            description: 'Full kitchen design and renovation: cabinets, countertops, layout, and more',
-          },
+      itemListElement: SERVICES.map((s) => ({
+        '@type': 'Offer',
+        url: `${baseUrl}/services/${s.slug}`,
+        itemOffered: {
+          '@type': 'Service',
+          name: s.name,
+          description: s.shortDescription,
         },
-        {
-          '@type': 'Offer',
-          itemOffered: {
-            '@type': 'Service',
-            name: 'Bathroom Remodel',
-            description: 'Primary, guest, and en-suite bathroom renovations',
-          },
-        },
-        {
-          '@type': 'Offer',
-          itemOffered: {
-            '@type': 'Service',
-            name: 'Room Addition',
-            description: 'Permitted room additions and home expansions',
-          },
-        },
-      ],
+      })),
+    },
+    sameAs: BUSINESS_INFO.sameAs,
+  };
+}
+
+/**
+ * WebSite schema for homepage entity graph
+ */
+export function generateWebSiteSchema(): SchemaContext {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: BUSINESS_INFO.name,
+    url: baseUrl,
+    description:
+      'Design-build remodeling contractor serving Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, Caldwell, and the Treasure Valley, Idaho.',
+    publisher: {
+      '@type': 'Organization',
+      name: BUSINESS_INFO.name,
+    },
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: `${baseUrl}/blog?q={search_term_string}`,
+      'query-input': 'required name=search_term_string',
     },
   };
 }
@@ -167,7 +178,7 @@ export function generateOrganizationSchema(): SchemaContext {
     name: BUSINESS_INFO.name,
     legalName: BUSINESS_INFO.legalName,
     url: baseUrl,
-    logo: `${baseUrl}/images/boiseremodeling-logo.png`,
+    logo: `${baseUrl}/og-default.svg`,
     description: 'Design-build remodeling contractor serving the Treasure Valley since 2017. Kitchen remodels, bathrooms, additions, and whole-home renovations. Licensed, insured, and committed to excellence.',
     foundingDate: BUSINESS_INFO.founded,
     telephone: BUSINESS_INFO.phone,
@@ -180,10 +191,7 @@ export function generateOrganizationSchema(): SchemaContext {
       postalCode: BUSINESS_INFO.address.zip,
       addressCountry: BUSINESS_INFO.address.country,
     },
-    sameAs: [
-      'https://www.facebook.com/boiseremodeling',
-      'https://www.instagram.com/boiseremodeling',
-    ],
+    sameAs: BUSINESS_INFO.sameAs,
     contactPoint: {
       '@type': 'ContactPoint',
       telephone: BUSINESS_INFO.phone,
@@ -263,7 +271,7 @@ export function generateArticleSchema(article: {
     '@type': 'Article',
     headline: article.title,
     description: article.description,
-    image: article.image || `${baseUrl}/images/boiseremodeling-logo.png`,
+    image: article.image || `${baseUrl}/og-default.svg`,
     datePublished: article.publishedAt,
     dateModified: article.publishedAt,
     author: {
@@ -275,7 +283,7 @@ export function generateArticleSchema(article: {
       name: BUSINESS_INFO.name,
       logo: {
         '@type': 'ImageObject',
-        url: `${baseUrl}/images/boiseremodeling-logo.png`,
+        url: `${baseUrl}/og-default.svg`,
       },
     },
     mainEntityOfPage: {

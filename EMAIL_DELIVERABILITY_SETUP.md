@@ -1,4 +1,4 @@
-# Email Deliverability Setup Guide for Lawn Care Kuna
+# Email Deliverability Setup Guide for Boise Remodeling Co
 
 ## Overview
 This guide ensures your emails reach customers' inboxes instead of spam folders. Proper email authentication is **critical** for deliverability.
@@ -7,7 +7,7 @@ This guide ensures your emails reach customers' inboxes instead of spam folders.
 
 ## 🔴 CRITICAL: DNS Authentication Required
 
-Your emails are going to spam because **SPF, DKIM, and DMARC are not properly configured** on your `lawncarekuna.com` domain. This setup is **mandatory** for inbox delivery in 2025.
+Your emails are going to spam because **SPF, DKIM, and DMARC are not properly configured** on your `boiseremodeling.co` domain. This setup is **mandatory** for inbox delivery in 2025.
 
 ### What Each Protocol Does:
 - **SPF**: Confirms your identity by authorizing which servers can send email from your domain
@@ -19,31 +19,31 @@ Your emails are going to spam because **SPF, DKIM, and DMARC are not properly co
 ## Step 1: Configure Resend DNS Records
 
 ### 1.1 Access Your DNS Provider
-Log into your domain registrar or DNS provider (GoDaddy, Namecheap, Cloudflare, etc.) for `lawncarekuna.com`.
+Log into your domain registrar or DNS provider (GoDaddy, Namecheap, Cloudflare, etc.) for `boiseremodeling.co`.
 
 ### 1.2 Add DKIM Records
 Resend provides DKIM automatically. You need to add these DNS records:
 
 **Get your DKIM records from Resend:**
 1. Log into [Resend Dashboard](https://resend.com/domains)
-2. Select your domain `lawncarekuna.com`
+2. Select your domain `boiseremodeling.co`
 3. Copy the DKIM DNS records provided (usually 3 CNAME records)
 
 **Example DKIM records (yours will be different):**
 ```
 Type: CNAME
 Name: resend._domainkey
-Value: resend._domainkey.lawncarekuna.com.at.resend.com
+Value: resend._domainkey.boiseremodeling.co.at.resend.com
 TTL: 3600
 
 Type: CNAME
 Name: resend2._domainkey
-Value: resend2._domainkey.lawncarekuna.com.at.resend.com
+Value: resend2._domainkey.boiseremodeling.co.at.resend.com
 TTL: 3600
 
 Type: CNAME
 Name: resend3._domainkey
-Value: resend3._domainkey.lawncarekuna.com.at.resend.com
+Value: resend3._domainkey.boiseremodeling.co.at.resend.com
 TTL: 3600
 ```
 
@@ -75,7 +75,7 @@ DMARC tells email providers what to do with unauthenticated emails.
 ```
 Type: TXT
 Name: _dmarc
-Value: v=DMARC1; p=none; rua=mailto:dmarc@lawncarekuna.com; ruf=mailto:dmarc@lawncarekuna.com; fo=1; adkim=s; aspf=s
+Value: v=DMARC1; p=none; rua=mailto:dmarc@boiseremodeling.co; ruf=mailto:dmarc@boiseremodeling.co; fo=1; adkim=s; aspf=s
 TTL: 3600
 ```
 
@@ -83,7 +83,7 @@ TTL: 3600
 ```
 Type: TXT
 Name: _dmarc
-Value: v=DMARC1; p=quarantine; rua=mailto:dmarc@lawncarekuna.com; ruf=mailto:dmarc@lawncarekuna.com; fo=1; adkim=s; aspf=s; pct=25
+Value: v=DMARC1; p=quarantine; rua=mailto:dmarc@boiseremodeling.co; ruf=mailto:dmarc@boiseremodeling.co; fo=1; adkim=s; aspf=s; pct=25
 TTL: 3600
 ```
 
@@ -91,7 +91,7 @@ TTL: 3600
 ```
 Type: TXT
 Name: _dmarc
-Value: v=DMARC1; p=reject; rua=mailto:dmarc@lawncarekuna.com; ruf=mailto:dmarc@lawncarekuna.com; fo=1; adkim=s; aspf=s; pct=100
+Value: v=DMARC1; p=reject; rua=mailto:dmarc@boiseremodeling.co; ruf=mailto:dmarc@boiseremodeling.co; fo=1; adkim=s; aspf=s; pct=100
 TTL: 3600
 ```
 
@@ -101,7 +101,7 @@ TTL: 3600
 
 ### 2.1 Check Resend Dashboard
 1. Go to [Resend Domains](https://resend.com/domains)
-2. Select `lawncarekuna.com`
+2. Select `boiseremodeling.co`
 3. Verify all records show green checkmarks
 4. DNS propagation can take 24-48 hours
 
@@ -178,7 +178,7 @@ If you're starting to send emails from a new domain:
 
 ### What Was Fixed:
 1. **Images moved** from `attached_assets/` to `client/public/email/`
-2. **Email templates updated** to use: `https://lawncarekuna.com/email/lawn-care-kuna-logo.png`
+2. **Email templates updated** to use: `https://boiseremodeling.co/email/favicon.png`
 3. **Proper HTML attributes** added (width, height, display:block)
 
 ### Files Updated:

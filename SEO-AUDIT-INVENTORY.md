@@ -1,4 +1,4 @@
-# SEO Audit Inventory - Lawn Care Kuna
+# SEO Audit Inventory - Boise Remodeling Co
 
 294 indexable routes audited at the **template/group level** (individual per-page `audits/<slug>.md` were skipped: the four templates (home, service, city-service, area, blog) generate 99% of routes deterministically from the same generators, so per-route audits would duplicate the template audit. See SEO-AUDIT-LOG.md for findings.
 

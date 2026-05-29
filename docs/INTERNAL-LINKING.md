@@ -33,12 +33,12 @@ Shape:
       "anchor": "My Post",
       "url": "/blog/my-post",
       "links": [
-        { "url": "/services/aeration", "anchor": "Aeration", "title": "Aeration in Kuna & Boise, Idaho", "type": "service", "score": 0.812 }
+        { "url": "/services/kitchen-remodel", "anchor": "Kitchen Remodel", "title": "Kitchen Remodel in Kuna & Boise, Idaho", "type": "service", "score": 0.812 }
       ]
     }
   },
-  "incoming": { "/services/aeration": 17 },
-  "blogByCategory": { "Lawn Care": [{ "slug": "...", "title": "...", "publishedAt": "..." }] }
+  "incoming": { "/services/kitchen-remodel": 17 },
+  "blogByCategory": { "Remodeling": [{ "slug": "...", "title": "...", "publishedAt": "..." }] }
 }
 ```
 
@@ -78,8 +78,8 @@ output, so committed manifest changes always reflect a real content change.
 The anchor for an outgoing link is the target page's `anchor` field:
 
 - Blog: the post title
-- Service: the service name (`Aeration`, not the full `Aeration in Kuna & Boise, Idaho`)
-- City: `Lawn Care in <City>`
+- Service: the service name (`Kitchen Remodel`, not the full `Kitchen Remodel in Kuna & Boise, Idaho`)
+- City: `Remodeling in <City>`
 - City-service: `<Service> in <City>`
 
 Per-page overrides are supported in two ways:

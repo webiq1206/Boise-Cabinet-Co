@@ -48,5 +48,20 @@ export const CITIES: CityData[] = [
   { slug: 'kuna', name: 'Kuna', county: 'ada', isPrimary: false },
   { slug: 'star', name: 'Star', county: 'ada', isPrimary: false },
   { slug: 'middleton', name: 'Middleton', county: 'canyon', isPrimary: false },
+  { slug: 'caldwell', name: 'Caldwell', county: 'canyon', isPrimary: false },
 ];
+
+export const TREASURE_VALLEY_CITIES = CITIES.map((c) => c.name).join(', ');
+
+export function getServiceBySlug(slug: string): ServiceData | undefined {
+  return SERVICES.find((s) => s.slug === slug);
+}
+
+export function getCityBySlug(slug: string): CityData | undefined {
+  return CITIES.find((c) => c.slug === slug);
+}
+
+export function getCountyLabel(county: CityData['county']): string {
+  return county === 'ada' ? 'Ada County' : 'Canyon County';
+}
 

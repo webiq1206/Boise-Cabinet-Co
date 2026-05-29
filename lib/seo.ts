@@ -82,24 +82,22 @@ export function generatePageTitle(params: ServiceSEOParams): string {
     }
     
     // Level 3: Shorten brand
-    const shortTitle = `${serviceName} in ${city}, ID | Lawn Care`;
+    const shortTitle = `${serviceName} in ${city}, ID | Remodeling`;
     if (shortTitle.length <= 60) {
       return shortTitle;
     }
     
-    // Level 4: Truncate service name
-    const maxServiceLength = 60 - ` in ${city}, ID | Lawn Care`.length;
+    const maxServiceLength = 60 - ` in ${city}, ID | Remodeling`.length;
     const truncatedService = truncateServiceName(serviceName, maxServiceLength);
-    return `${truncatedService} in ${city}, ID | Lawn Care`;
+    return `${truncatedService} in ${city}, ID | Remodeling`;
   }
   
   if (city) {
-    // City page without service
-    const fullTitle = `Lawn Care in ${city}, ID | Boise Remodeling Co | Free Quotes`;
+    const fullTitle = `Remodeling in ${city}, ID | Boise Remodeling Co`;
     if (fullTitle.length <= 60) {
       return fullTitle;
     }
-    return `Lawn Care in ${city}, ID | Boise Remodeling Co`;
+    return `Remodeling Contractor ${city}, ID`;
   }
   
   // Service-only title (defaults to Kuna as home base)
@@ -124,21 +122,25 @@ export function generatePageTitle(params: ServiceSEOParams): string {
 }
 
 const CITY_DESCRIPTION_VARIANTS: Record<string, string> = {
-  Kuna: "Kuna's top-rated",
-  Boise: "Boise's most trusted",
-  Meridian: "Meridian's premier",
+  Kuna: "Kuna's trusted design-build",
+  Boise: "Boise's design-build",
+  Meridian: "Meridian's trusted",
   Eagle: "Eagle's preferred",
   Star: "Star's reliable",
   Middleton: "Middleton's expert",
+  Nampa: "Nampa's trusted",
+  Caldwell: "Caldwell's trusted",
 };
 
 const CITY_CTA_VARIANTS: Record<string, string> = {
-  Kuna: "Satisfaction guaranteed",
-  Boise: "5-star rated by Boise homeowners",
-  Meridian: "Trusted by Meridian families",
-  Eagle: "Premium service for Eagle properties",
-  Star: "Dependable service in Star",
-  Middleton: "Serving Middleton with care",
+  Kuna: "Free in-home consultation",
+  Boise: "Treasure Valley design-build",
+  Meridian: "Licensed & insured",
+  Eagle: "Clear written scope",
+  Star: "Weekly project updates",
+  Middleton: "2-year workmanship guarantee",
+  Nampa: "Ada & Canyon County permits",
+  Caldwell: "Design-build remodeling",
 };
 
 /**
@@ -298,10 +300,11 @@ export function generateSEOMetadata(params: ServiceSEOParams): SEOMetaData {
   let canonical = baseUrl;
   
   if (!params.isHomePage) {
-    if (params.citySlug) {
-      // Use city slug for URL-safe canonical (handles multi-word cities)
+    if (params.citySlug && params.serviceSlug) {
       canonical = `${baseUrl}/services/${params.serviceSlug}/${params.citySlug}`;
-    } else {
+    } else if (params.citySlug && !params.serviceSlug) {
+      canonical = `${baseUrl}/areas/${params.citySlug}`;
+    } else if (params.serviceSlug) {
       canonical = `${baseUrl}/services/${params.serviceSlug}`;
     }
   }
@@ -384,6 +387,24 @@ export const CITY_SEO_DATA: Record<string, {
     climate: 'semi-arid high desert climate with warm summers and cool winters',
     coordinates: { lat: 43.7068, lng: -116.6209 },
   },
+  Nampa: {
+    population: '108,188',
+    founded: '1886',
+    zipCodes: ['83651', '83653', '83686', '83687'],
+    neighborhoods: ['Downtown Nampa', 'Karcher', 'Greenhurst', 'Columbia Village'],
+    landmarks: ['Ford Idaho Center', 'Lake Lowell', 'Nampa Train Depot'],
+    climate: 'semi-arid with hot summers and cold winters',
+    coordinates: { lat: 43.5407, lng: -116.5635 },
+  },
+  Caldwell: {
+    population: '65,359',
+    founded: '1883',
+    zipCodes: ['83605', '83607'],
+    neighborhoods: ['Indian Creek', 'Cleveland Blvd', 'Ustick', 'Wilson'],
+    landmarks: ['Indian Creek Plaza', 'Caldwell Night Rodeo', 'College of Idaho'],
+    climate: 'semi-arid high desert with four distinct seasons',
+    coordinates: { lat: 43.6629, lng: -116.6874 },
+  },
 };
 
 /**
@@ -411,14 +432,19 @@ export const BUSINESS_INFO = {
     sunday: 'Closed',
   },
   founded: '2017',
-  serviceArea: ['Kuna', 'Boise', 'Meridian', 'Eagle', 'Star', 'Middleton'],
-  serviceRadius: '25 miles',
-  licenses: ['Idaho Contractor License #RCE-12345', 'Pesticide Applicator License #AG-67890'],
-  certifications: ['ISA Certified Arborist', 'NALP Certified Landscape Professional'],
-  insurance: 'Fully Licensed & Insured - $2M Liability Coverage',
+  serviceArea: ['Boise', 'Meridian', 'Eagle', 'Nampa', 'Kuna', 'Star', 'Middleton', 'Caldwell'],
+  serviceRadius: '35 miles',
+  licenses: ['Idaho Contractor License [Pending]'],
+  certifications: ['Design-Build Remodeling', 'Bonded & Insured'],
+  insurance: 'Fully Licensed & Insured',
+  /** Placeholder until real review data is provided */
   rating: 4.9,
-  reviewCount: 247,
-  yearlyServicesCompleted: 1200,
+  reviewCount: 0,
+  yearlyServicesCompleted: 0,
+  sameAs: [
+    'https://www.facebook.com/boiseremodeling',
+    'https://www.instagram.com/boiseremodeling',
+  ],
 };
 
 export type { SEOMetaData, ServiceSEOParams };

@@ -6,11 +6,11 @@ Covers 6 slugs: kuna, boise, meridian, eagle, star, middleton.
 ## Template-level checks
 | Field | Generation | Status |
 |---|---|---|
-| Title | `${city} Lawn Care & Landscaping Services` | PASS (<60) |
+| Title | `${city} Design-Build Remodeling Services` | PASS (<60) |
 | Description | city-specific description from CITY_SEO_DATA | PASS (<160) |
 | Canonical | `${BASE_URL}/areas/${slug}` | PASS |
 | OG | inherits + sets url/title/description | PASS |
-| H1 | "Lawn Care in {City}, Idaho" | PASS |
+| H1 | "Remodeling in {City}, Idaho" | PASS |
 | Schema: LocalBusiness | city-scoped with geo coords | PASS |
 | Schema: BreadcrumbList | Home > Areas > {City} | PASS |
 | Schema: Service | per service offered | PASS |

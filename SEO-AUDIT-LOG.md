@@ -1,4 +1,4 @@
-# SEO Audit Log - Lawn Care Kuna
+# SEO Audit Log - Boise Remodeling Co
 
 Severity scale: CRITICAL (blocks indexing/causes ranking loss) > HIGH (rich-snippet eligibility / duplicate signals) > MEDIUM (best-practice / social) > LOW (polish).
 
@@ -12,9 +12,9 @@ Severity scale: CRITICAL (blocks indexing/causes ranking loss) > HIGH (rich-snip
 | 6 | MEDIUM | `/blog`, `/services`, `/pricing` | Same as #5 on index/category pages. | Switched all to `summary_large_image`. | `app/blog/page.tsx`, `app/services/page.tsx`, `app/pricing/layout.tsx` |
 | 7 | MEDIUM | `/services` | No JSON-LD on the services index page (WebPage + BreadcrumbList expected). | Added `generateWebPageSchema` + `generateBreadcrumbSchema`. | `app/services/page.tsx` |
 | 8 | MEDIUM | `/404` | Custom not-found page had no `metadata` export, so search engines saw an empty `<title>` and no robots directive. | Added `metadata` with title, description, and `robots: { index:false, follow:true }`. | `app/not-found.tsx` |
-| 9 | LOW | `/` | Homepage canonical was `https://lawncarekuna.com/` (trailing slash) while every other canonical was slash-less. Inconsistency can split signals between two URL forms. | Normalised to no-trailing-slash (`https://lawncarekuna.com`). | `app/page.tsx` |
-| 10 | LOW | Site-wide | Default OG image is the brand logo (`/images/lawn-care-kuna-logo.png`). Declared 1200x630 but the asset is the square logo, so it is likely auto-cropped by social platforms. | LOGGED, not auto-fixable in this task: requires a designer-produced 1200×630 OG card. Width/height already declared so social cards still render; lower CTR than a dedicated card. Recommend follow-up: add `public/og-image.jpg` and update `app/layout.tsx`. |
-| 11 | LOW | Site-wide | No Twitter handle (`twitter.site`) configured. | LOGGED: account is not currently public-facing; no harm in absence. Add `site: '@lawncarekuna'` when the handle is registered. |
+| 9 | LOW | `/` | Homepage canonical was `https://boiseremodeling.co/` (trailing slash) while every other canonical was slash-less. Inconsistency can split signals between two URL forms. | Normalised to no-trailing-slash (`https://boiseremodeling.co`). | `app/page.tsx` |
+| 10 | LOW | Site-wide | Default OG image is the brand logo (`/images/favicon.png`). Declared 1200x630 but the asset is the square logo, so it is likely auto-cropped by social platforms. | LOGGED, not auto-fixable in this task: requires a designer-produced 1200×630 OG card. Width/height already declared so social cards still render; lower CTR than a dedicated card. Recommend follow-up: add `public/og-image.jpg` and update `app/layout.tsx`. |
+| 11 | LOW | Site-wide | No Twitter handle (`twitter.site`) configured. | LOGGED: account is not currently public-facing; no harm in absence. Add `site: '@boiseremodelingco'` when the handle is registered. |
 | 12 | LOW | `/blog/[slug]` | `dateModified` equals `datePublished` (no revision tracking). | LOGGED: Acceptable for evergreen posts. Recommend follow-up: add `updatedAt` field to blog content schema. |
 | 13 | LOW | `/services/[slug]/[city]` | Two HowTo schemas can be emitted (one in service template, one in city-service template) when the same content is reused. | Verified: HowTo is only emitted when `service.process` is set; the city-service page emits its own city-scoped HowTo distinct from the parent service page. No defect. |
 

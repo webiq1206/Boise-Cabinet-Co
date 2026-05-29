@@ -76,11 +76,11 @@ function serviceTitleAnchor(s: ServiceData): string {
 }
 
 function serviceDisplayTitle(s: ServiceData): string {
-  return `${s.name} in Kuna & Boise, Idaho`;
+  return `${s.name} in Boise & Treasure Valley, Idaho`;
 }
 
 function cityAnchor(c: CityData): string {
-  return `Lawn Care in ${c.name}`;
+  return `Remodeling in ${c.name}`;
 }
 
 function cityServiceAnchor(s: ServiceData, c: CityData): string {
@@ -111,7 +111,7 @@ export function buildPages(): PageNode[] {
       category: post.category,
       tags: post.tags ?? [],
       tokens: tokenSet(post.title, post.excerpt, (post.tags ?? []).join(" "), post.category),
-      overrides: post.relatedLinks,
+      overrides: post.relatedLinks ?? [],
     });
   }
 
@@ -122,11 +122,11 @@ export function buildPages(): PageNode[] {
       url: `/services/${svc.slug}`,
       title: serviceDisplayTitle(svc),
       anchor: serviceTitleAnchor(svc),
-      category: svc.category,
-      tags: svc.relatedServices ?? [],
+      category: "remodeling",
+      tags: [svc.slug],
       serviceSlug: svc.slug,
-      tokens: tokenSet(svc.name, svc.shortDescription, svc.category, svc.slug.replace(/-/g, " ")),
-      overrides: svc.relatedLinks,
+      tokens: tokenSet(svc.name, svc.shortDescription, svc.slug.replace(/-/g, " ")),
+      overrides: [],
     });
   }
 
@@ -135,17 +135,12 @@ export function buildPages(): PageNode[] {
       id: `city:${city.slug}`,
       type: "city",
       url: `/areas/${city.slug}`,
-      title: `Lawn Care Services in ${city.name}, Idaho`,
+      title: `Remodeling Services in ${city.name}, Idaho`,
       anchor: cityAnchor(city),
       category: "city",
-      tags: city.neighborhoods ?? [],
+      tags: [city.slug, city.county],
       citySlug: city.slug,
-      tokens: tokenSet(
-        city.name,
-        (city.neighborhoods ?? []).join(" "),
-        city.localFactors?.climate ?? "",
-        city.localFactors?.soil ?? "",
-      ),
+      tokens: tokenSet(city.name, city.county, "remodeling", "idaho"),
     });
   }
 
@@ -157,11 +152,11 @@ export function buildPages(): PageNode[] {
         url: `/services/${svc.slug}/${city.slug}`,
         title: `${svc.name} in ${city.name}, Idaho`,
         anchor: cityServiceAnchor(svc, city),
-        category: svc.category,
-        tags: [svc.slug, city.slug, ...(svc.relatedServices ?? [])],
+        category: "remodeling",
+        tags: [svc.slug, city.slug],
         serviceSlug: svc.slug,
         citySlug: city.slug,
-        tokens: tokenSet(svc.name, city.name, svc.category, svc.slug.replace(/-/g, " ")),
+        tokens: tokenSet(svc.name, city.name, svc.shortDescription, svc.slug.replace(/-/g, " ")),
       });
     }
   }

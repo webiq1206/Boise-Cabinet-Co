@@ -1,0 +1,108 @@
+import { notFound } from 'next/navigation';
+import { JsonLd } from '@/components/seo/JsonLd';
+import { LandingPageTemplate } from '@/components/seo/LandingPageTemplate';
+import { buildPageMetadata } from '@/lib/page-metadata';
+import {
+  landingBreadcrumbs,
+  landingFAQSchema,
+  landingServiceSchema,
+} from '@/lib/landing-schema';
+import { CITY_SEO_DATA } from '@/lib/seo';
+import {
+  cityServicePath,
+  getAllCityServiceParams,
+  getCityBySlug,
+  getServiceBySlug,
+} from '@/lib/seo-routes';
+import { getCountyLabel } from '@/shared/contentData';
+import {
+  getCityServiceFaqs,
+  getCityServiceIntro,
+  SERVICE_SEO_CONTENT,
+} from '@/shared/seoContent';
+import { generateSpeakableSchema } from '@/lib/schema';
+
+export function generateStaticParams() {
+  return getAllCityServiceParams();
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string; city: string };
+}) {
+  const service = getServiceBySlug(params.slug);
+  const city = getCityBySlug(params.city);
+  if (!service || !city) return {};
+  return buildPageMetadata({
+    kind: 'city-service',
+    serviceName: service.name,
+    serviceSlug: service.slug,
+    cityName: city.name,
+    citySlug: city.slug,
+    path: cityServicePath(service.slug, city.slug),
+  });
+}
+
+export default function CityServicePage({
+  params,
+}: {
+  params: { slug: string; city: string };
+}) {
+  const service = getServiceBySlug(params.slug);
+  const city = getCityBySlug(params.city);
+  const content = SERVICE_SEO_CONTENT[params.slug];
+  if (!service || !city || !content) notFound();
+
+  const path = cityServicePath(service.slug, city.slug);
+  const seo = CITY_SEO_DATA[city.name];
+  const county = getCountyLabel(city.county);
+  const neighborhood = seo?.neighborhoods[0];
+  const localFact = neighborhood
+    ? `Homes near ${neighborhood} and across ${city.name} often need layouts that respect ${county} codes and local inspection timelines.`
+    : undefined;
+
+  const overview = getCityServiceIntro(content, city, localFact);
+  const h1 = `${service.name} in ${city.name}, Idaho`;
+  const faqs = getCityServiceFaqs(content, city);
+  const localNote = `Permitting for ${content.name.toLowerCase()} projects in ${city.name} runs through ${county}. We build permit timelines into your schedule from day one.`;
+
+  const schemas = [
+    landingBreadcrumbs([
+      { name: 'Home', url: '/' },
+      { name: 'Services', url: '/#services' },
+      { name: service.name, url: `/services/${service.slug}` },
+      { name: `${city.name}, ID`, url: path },
+    ]),
+    landingServiceSchema(service.name, overview, city.name),
+    landingFAQSchema(faqs),
+    generateSpeakableSchema({ path, name: h1 }),
+  ];
+
+  return (
+    <>
+      <JsonLd data={schemas} />
+      <LandingPageTemplate
+        h1={h1}
+        speakableSummary={overview}
+        overview={overview}
+        breadcrumbs={[
+          { name: 'Home', href: '/' },
+          { name: service.name, href: `/services/${service.slug}` },
+          { name: `${city.name}, Idaho` },
+        ]}
+        benefits={content.benefits}
+        inclusions={content.inclusions}
+        timeline={content.timeline}
+        processSteps={content.processSteps}
+        localNote={localNote}
+        faqs={faqs}
+        related={{
+          variant: 'city-service',
+          serviceSlug: service.slug,
+          citySlug: city.slug,
+        }}
+      />
+    </>
+  );
+}

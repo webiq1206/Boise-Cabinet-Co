@@ -3,10 +3,10 @@
 ## app/layout.tsx
 | Field | Value | Status |
 |---|---|---|
-| Default title | `Lawn Care Kuna - Professional Lawn Care & Landscaping in Kuna, Idaho` | PASS (62 chars, within Google SERP truncation tolerance) |
-| Title template | `%s | Lawn Care Kuna` | PASS |
-| Default description | "Professional lawn care, landscaping & Christmas light installation services..." | PASS (under 160) |
-| metadataBase | `https://lawncarekuna.com` | PASS |
+| Default title | `Boise Remodeling Co - Professional Design-Build Remodeling in Kuna, Idaho` | PASS (62 chars, within Google SERP truncation tolerance) |
+| Title template | `%s | Boise Remodeling Co` | PASS |
+| Default description | "Professional remodeling, landscaping & Christmas light installation services..." | PASS (under 160) |
+| metadataBase | `https://boiseremodeling.co` | PASS |
 | Default canonical | `/` set per page | PASS |
 | Robots | `index: true, follow: true` with full Googlebot directives | PASS |
 | OG default | type=website, locale=en_US, siteName set, 1200x630 image declared | PASS |

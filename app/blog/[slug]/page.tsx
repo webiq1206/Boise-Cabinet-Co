@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, ArrowRight, Calendar, User, Phone, Tag, Wrench } from "lucide-react";
 import { BLOG_POSTS } from "@/shared/blogContent";
 import { generateArticleSchema, generateBreadcrumbSchema } from "@/lib/schema";
+import { buildCanonical } from "@/lib/page-metadata";
 
 export async function generateStaticParams() {
   return BLOG_POSTS.map((post) => ({
@@ -34,12 +35,12 @@ export async function generateMetadata({
     title,
     description,
     alternates: {
-      canonical: `https://boiseremodeling.co/blog/${post.slug}`,
+      canonical: buildCanonical(`/blog/${post.slug}`),
     },
     openGraph: {
       title: `${title} | Boise Remodeling Co Blog`,
       description,
-      url: `https://boiseremodeling.co/blog/${post.slug}`,
+      url: buildCanonical(`/blog/${post.slug}`),
       type: "article",
       publishedTime: post.publishedAt,
     },

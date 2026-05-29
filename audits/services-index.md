@@ -4,9 +4,9 @@ File: `app/services/page.tsx`
 
 | Field | Value | Status |
 |---|---|---|
-| Title | "Lawn Care & Landscaping in Kuna, Idaho" | PASS |
+| Title | "Design-Build Remodeling in Kuna, Idaho" | PASS |
 | Description | summary of all services | PASS |
-| Canonical | `https://lawncarekuna.com/services` | PASS |
+| Canonical | `https://boiseremodeling.co/services` | PASS |
 | Twitter card | summary_large_image | FIXED |
 | H1 | "Our Services" (single) | PASS |
 | Schema: WebPage | generateWebPageSchema | FIXED (added) |

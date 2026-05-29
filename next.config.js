@@ -44,12 +44,10 @@ const nextConfig = {
 
     // Legacy page aliases → canonical BRC routes
     const pageAliases = {
-      '/about': '/',
-      '/about-us': '/',
+      '/about-us': '/about',
       '/our-story': '/',
       '/meet-the-team': '/',
-      '/contact': '/#consult',
-      '/contact-us': '/#consult',
+      '/contact-us': '/contact',
       '/get-in-touch': '/#consult',
       '/get-quote': '/#consult',
       '/free-quote': '/#consult',
@@ -68,8 +66,7 @@ const nextConfig = {
       '/testimonials': '/',
       '/reviews': '/',
       '/our-reviews': '/',
-      '/services': '/',
-      '/our-services': '/',
+      '/our-services': '/#services',
       '/all-services': '/',
       '/pricing': '/#calculator',
       '/our-pricing': '/#calculator',

@@ -1,6 +1,6 @@
 # Per-Page SEO Audit Reports
 
-Lawn Care Kuna has 294 indexable routes, ~99% of which are produced by 5 deterministic Next.js templates. Auditing every URL individually would generate identical reports per template. Instead this directory contains:
+Boise Remodeling Co has 294 indexable routes, ~99% of which are produced by 5 deterministic Next.js templates. Auditing every URL individually would generate identical reports per template. Instead this directory contains:
 
 1. **One template-level report** per generator covering the full set produced by that template, with a representative sampled URL for each.
 2. **One per-page report** for each of the 14 unique static utility pages whose markup is hand-written.

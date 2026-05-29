@@ -6,7 +6,7 @@ Source: `shared/blogContent.ts` (92 posts).
 ## Template-level checks
 | Field | Generation | Status |
 |---|---|---|
-| Title | post.title + " | Lawn Care Kuna" via template (<60) | PASS |
+| Title | post.title + " | Boise Remodeling Co" via template (<60) | PASS |
 | Description | post.excerpt capped at 160 | PASS |
 | Canonical | `${BASE_URL}/blog/${slug}` | PASS |
 | OG type | article | PASS |
