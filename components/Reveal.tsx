@@ -5,11 +5,12 @@ import { useRef, useEffect, useState } from "react";
 interface RevealProps {
   children: React.ReactNode;
   className?: string;
+  style?: React.CSSProperties;
   delay?: number;
   threshold?: number;
 }
 
-export function Reveal({ children, className = "", delay = 0, threshold = 0.12 }: RevealProps) {
+export function Reveal({ children, className = "", style, delay = 0, threshold = 0.12 }: RevealProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
 
@@ -34,6 +35,7 @@ export function Reveal({ children, className = "", delay = 0, threshold = 0.12 }
       ref={ref}
       className={className}
       style={{
+        ...style,
         transitionDelay: `${delay}ms`,
         transition: "opacity 0.75s cubic-bezier(.2,.7,.2,1), transform 0.75s cubic-bezier(.2,.7,.2,1)",
         opacity: visible ? 1 : 0,
