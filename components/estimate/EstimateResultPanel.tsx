@@ -126,10 +126,10 @@ export function EstimateResultPanel({
 
           <div className="mb-4">
             <p className="text-[11px] font-medium mb-2 text-inverse-foreground/90">
-              Common scope for this project type and finish level
+              Scope based on your selections
             </p>
             <div className="space-y-2 mb-3">
-              {result.included.slice(0, 4).map((item, i) => (
+              {result.included.slice(0, 5).map((item, i) => (
                 <div
                   key={i}
                   className="flex items-start gap-2 text-xs leading-relaxed text-inverse-muted"

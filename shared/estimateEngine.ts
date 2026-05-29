@@ -62,7 +62,7 @@ export interface EstimateResult {
 }
 
 export const INCLUDED_SCOPE_NOTE =
-  "Common scope examples for this project type and finish level. Your final scope is defined during consultation.";
+  "Scope reflects the selections above. Your final scope is confirmed during consultation.";
 
 export const PROJECT_SIZE_CONFIG: Record<ProjectType, ProjectSizeConfig> = {
   kitchen: { min: 100, max: 600, step: 25, defaultSqft: 250, baselineSqft: 250 },
@@ -272,7 +272,7 @@ function getRefinementMultipliers(ref: EstimateRefinements, project: ProjectType
     const zoneMult: Record<CityZone, { low: number; high: number }> = {
       "boise-core": { low: 1.02, high: 1.05 },
       "treasure-valley": { low: 1, high: 1 },
-      extended: { low: 0.96, high: 0.98 },
+      extended: { low: 1.03, high: 1.06 },
     };
     low *= zoneMult[ref.cityZone].low;
     high *= zoneMult[ref.cityZone].high;
@@ -289,15 +289,77 @@ function getRefinementMultipliers(ref: EstimateRefinements, project: ProjectType
   return { low, high };
 }
 
-function narrowRange(low: number, high: number, detailPercent: number): { low: number; high: number } {
-  const mid = (low + high) / 2;
-  const halfSpan = (high - low) / 2;
-  const narrowFactor = 1 - (detailPercent / 100) * 0.35;
-  const newHalfSpan = halfSpan * narrowFactor;
-  return {
-    low: Math.round((mid - newHalfSpan) / 1000) * 1000,
-    high: Math.round((mid + newHalfSpan) / 1000) * 1000,
-  };
+const LAYOUT_SCOPE: Record<LayoutChanges, string | null> = {
+  none: null,
+  moderate: "Non-structural wall reconfiguration",
+  major: "Structural wall removal with engineering",
+};
+
+const PE_SCOPE: Record<PlumbingElectrical, string | null> = {
+  cosmetic: null,
+  partial: "Partial plumbing and electrical rerouting",
+  full: "Full plumbing and electrical replacement",
+};
+
+const CABINET_SCOPE: Record<CabinetTier, string> = {
+  standard: "Standard stock cabinetry",
+  "semi-custom": "Semi-custom cabinetry",
+  custom: "Fully custom cabinetry",
+};
+
+const ZONE_SCOPE: Record<CityZone, string | null> = {
+  "boise-core": "Boise / Eagle permitting and access",
+  "treasure-valley": null,
+  extended: "Extended-area travel and logistics",
+};
+
+/**
+ * Builds the scope list shown in the result panel. Refinement-driven items are
+ * listed first (so the visible slice reflects the user's actual choices), then
+ * the base scope for the project + finish level.
+ */
+export function buildDynamicScope(input: EstimateInput): string[] {
+  const base = PRICE_MATRIX[input.project][input.finish].included;
+  const r = input.refinements;
+  const extra: string[] = [];
+
+  const layoutItem = LAYOUT_SCOPE[r.layoutChanges];
+  if (layoutItem) extra.push(layoutItem);
+
+  const peItem = PE_SCOPE[r.plumbingElectrical];
+  if (peItem) extra.push(peItem);
+
+  if (input.project === "kitchen" && r.cabinetTier) {
+    extra.push(CABINET_SCOPE[r.cabinetTier]);
+  }
+
+  if (input.project === "bathroom" && r.fixtureCount !== null) {
+    extra.push(`${r.fixtureCount} plumbing ${r.fixtureCount === 1 ? "fixture" : "fixtures"}`);
+  }
+
+  if (input.project === "whole-home" && r.roomCount !== null) {
+    extra.push(`${r.roomCount} ${r.roomCount === 1 ? "room" : "rooms"} renovated`);
+  }
+
+  if (input.project === "addition" && r.stories !== null) {
+    extra.push(r.stories > 1 ? "Two-story addition" : "Single-story addition");
+  }
+
+  if (r.cityZone) {
+    const zoneItem = ZONE_SCOPE[r.cityZone];
+    if (zoneItem) extra.push(zoneItem);
+  }
+
+  if (r.timeline === "accelerated") {
+    extra.push("Accelerated project scheduling");
+  }
+
+  const seen = new Set<string>();
+  return [...extra, ...base].filter((item) => {
+    if (seen.has(item)) return false;
+    seen.add(item);
+    return true;
+  });
 }
 
 export function calculateEstimate(input: EstimateInput, userRefinementCount = 0): EstimateResult {
@@ -306,23 +368,19 @@ export function calculateEstimate(input: EstimateInput, userRefinementCount = 0)
   const refMult = getRefinementMultipliers(input.refinements, input.project);
   const { level, percent } = getPlanningDetail(userRefinementCount);
 
-  let priceLow = base.low * sizeMult * refMult.low;
-  let priceHigh = base.high * sizeMult * refMult.high;
-
-  priceLow = Math.round(priceLow / 1000) * 1000;
-  priceHigh = Math.round(priceHigh / 1000) * 1000;
-
-  if (userRefinementCount >= 2) {
-    const narrowed = narrowRange(priceLow, priceHigh, percent);
-    priceLow = narrowed.low;
-    priceHigh = narrowed.high;
-  }
+  // Price is a pure, monotonic function of the cost drivers (project, finish,
+  // size, refinements). A more intensive selection always yields a higher
+  // range. The planning-detail meter below is a separate confidence cue and
+  // intentionally does NOT alter the dollar range, so two configurations are
+  // always directly comparable.
+  const priceLow = Math.round((base.low * sizeMult * refMult.low) / 1000) * 1000;
+  const priceHigh = Math.round((base.high * sizeMult * refMult.high) / 1000) * 1000;
 
   return {
     priceLow,
     priceHigh,
     roi: base.roi,
-    included: base.included,
+    included: buildDynamicScope(input),
     confidence: level,
     confidenceLabel: PLANNING_DETAIL_LABELS[level],
     confidencePercent: percent,
