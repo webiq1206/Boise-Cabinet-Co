@@ -4,7 +4,7 @@ import { FAQSection } from "@/components/FAQSection";
 import { ConsultationForm } from "@/components/ConsultationForm";
 import { Reveal } from "@/components/Reveal";
 import { FOUNDING_SPOTS_REMAINING } from "@/shared/contentData";
-import { ArrowRight, ShieldCheck, Star, Check } from "lucide-react";
+import { ArrowRight, ShieldCheck, Star, Check, CalendarDays, PenLine, HardHat } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Boise Remodeling Co — A More Honest Way to Remodel",
@@ -99,19 +99,19 @@ const PROMISE_ITEMS = [
 
 const HOW_IT_WORKS_STEPS = [
   {
-    num: "01",
+    icon: CalendarDays,
     title: "Book your free visit",
     body: "60–90 minutes. We walk your space, hear your goals, and give you a rough range on the spot. No pitch.",
     foot: "Same-week availability",
   },
   {
-    num: "02",
+    icon: PenLine,
     title: "3D design & detailed scope",
     body: "You'll see exactly what your space will look like, with every line item visible before a single permit is pulled.",
     foot: "Detailed line-item pricing",
   },
   {
-    num: "03",
+    icon: HardHat,
     title: "Permits handled. Build begins.",
     body: "We know the Ada and Canyon County offices. We handle the paperwork while you stay in your home.",
     foot: "Permits included in scope",
@@ -355,11 +355,9 @@ export default function HomePage() {
                 style={{ borderColor: "rgba(28,26,23,0.12)" }}
               >
                 <div
-                  className="font-serif font-light text-5xl mb-5 leading-none"
-                  style={{ color: "rgba(28,26,23,0.12)" }}
-                >
-                  {item.num}
-                </div>
+                  className="w-6 h-px mb-6"
+                  style={{ background: "#2D5F47" }}
+                />
                 <h3
                   className="font-sans font-medium text-sm mb-2"
                   style={{ color: "#1C1A17" }}
@@ -482,7 +480,7 @@ export default function HomePage() {
           </Reveal>
           <div className="grid md:grid-cols-3 gap-4">
             {HOW_IT_WORKS_STEPS.map((step, i) => (
-              <Reveal key={step.num} delay={i * 80}>
+              <Reveal key={step.title} delay={i * 80}>
                 <div
                   className="p-8 rounded-sm h-full flex flex-col"
                   style={{
@@ -490,12 +488,10 @@ export default function HomePage() {
                     border: "1px solid rgba(28,26,23,0.08)",
                   }}
                 >
-                  <div
-                    className="font-serif font-light text-5xl mb-5 leading-none"
-                    style={{ color: "rgba(28,26,23,0.10)" }}
-                  >
-                    {step.num}
-                  </div>
+                  <step.icon
+                    className="h-6 w-6 mb-6 flex-shrink-0"
+                    style={{ color: "#2D5F47" }}
+                  />
                   <h3
                     className="font-sans font-medium text-sm mb-3"
                     style={{ color: "#1C1A17" }}
@@ -759,11 +755,9 @@ export default function HomePage() {
                 style={{ borderColor: "rgba(245,241,232,0.10)" }}
               >
                 <div
-                  className="font-serif font-light text-3xl mb-4 leading-none"
-                  style={{ color: "rgba(245,241,232,0.10)" }}
-                >
-                  {String(i + 1).padStart(2, "0")}
-                </div>
+                  className="w-5 h-px mb-5"
+                  style={{ background: "rgba(245,241,232,0.22)" }}
+                />
                 <h3
                   className="font-sans font-medium text-sm mb-2"
                   style={{ color: "#FBF8F1" }}
