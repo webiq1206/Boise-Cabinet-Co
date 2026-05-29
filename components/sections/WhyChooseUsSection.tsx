@@ -2,7 +2,6 @@ import { Reveal } from "@/components/Reveal";
 import { Button } from "@/components/ui/button";
 import { Section } from "@/components/marketing/Section";
 import { SectionHeader } from "@/components/marketing/SectionHeader";
-import { MarketingCard } from "@/components/marketing/MarketingCard";
 import {
   DIFFERENTIATORS,
   DIFFERENTIATORS_HEADLINE,
@@ -20,17 +19,22 @@ export function WhyChooseUsSection() {
           className="max-w-3xl"
         />
 
-        <div className="grid md:grid-cols-2 gap-4 max-w-5xl mx-auto">
+        <div className="max-w-3xl mx-auto divide-y divide-border border-t border-border">
           {DIFFERENTIATORS.map((item, i) => (
-            <Reveal key={item.title} delay={i * 50}>
-              <MarketingCard padding="default" className="h-full md:p-8">
-                <h3 className="font-sans font-medium text-sm mb-3 text-foreground">
-                  {item.title}
-                </h3>
-                <p className="text-sm leading-relaxed text-muted-foreground">
-                  <span className="text-foreground/80">{item.contrast}</span> {item.body}
-                </p>
-              </MarketingCard>
+            <Reveal key={item.title} delay={i * 40}>
+              <div className="py-7 md:py-8 grid grid-cols-[2.5rem_1fr] md:grid-cols-[3.5rem_1fr] gap-x-4 md:gap-x-8 items-start">
+                <div className="font-serif font-light text-accent text-2xl md:text-3xl leading-none tabular-nums pt-0.5">
+                  {String(i + 1).padStart(2, "0")}
+                </div>
+                <div>
+                  <h3 className="font-serif font-light text-foreground text-xl md:text-2xl leading-snug mb-2">
+                    {item.title}
+                  </h3>
+                  <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
+                    <span className="text-foreground/70">{item.contrast}</span> {item.body}
+                  </p>
+                </div>
+              </div>
             </Reveal>
           ))}
         </div>
