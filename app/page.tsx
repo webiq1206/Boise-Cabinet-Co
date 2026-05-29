@@ -60,8 +60,8 @@ export default function HomePage() {
                 title="Financing that works for you"
                 description={
                   <>
-                    We partner with GreenSky and Mosaic to offer financing starting from{" "}
-                    <strong className="text-foreground font-medium">0% APR</strong> on qualifying
+                    We partner with GreenSky and Mosaic to offer{" "}
+                    <strong className="text-foreground font-medium">flexible financing options</strong> on qualifying
                     projects. Five-minute application, same-day decision.
                   </>
                 }

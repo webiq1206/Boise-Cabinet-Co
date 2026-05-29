@@ -41,7 +41,7 @@ const FAQS = [
   },
   {
     q: "What financing options do you offer?",
-    a: "We partner with GreenSky and Mosaic to offer financing starting from 0% APR on qualifying projects. Applications take about five minutes and you can get a decision the same day. We can walk you through options at your free in-home consultation.",
+    a: "We partner with GreenSky and Mosaic to offer flexible financing options on qualifying projects. Applications take about five minutes and you can get a decision the same day. We can walk you through options at your free in-home consultation.",
   },
   {
     q: "What does the free in-home visit include?",

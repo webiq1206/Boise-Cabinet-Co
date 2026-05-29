@@ -17,10 +17,10 @@ export function HeroSection() {
           fill
           priority
           sizes="100vw"
-          className="object-cover opacity-40"
+          className="object-cover opacity-55"
         />
         <div
-          className="absolute inset-0 pointer-events-none bg-gradient-to-br from-inverse/90 via-inverse/75 to-inverse/50"
+          className="absolute inset-0 pointer-events-none bg-gradient-to-br from-inverse/75 via-inverse/55 to-inverse/30"
         />
         <div
           className="absolute inset-0 pointer-events-none"
@@ -61,7 +61,7 @@ export function HeroSection() {
             <div className="hidden md:flex flex-col gap-3">
               {[
                 { num: "60 sec", label: "Instant planning range" },
-                { num: "0% APR", label: "Financing available" },
+                { num: "Financing", label: "Flexible plans available" },
                 { num: "2 yr", label: "Workmanship guarantee" },
               ].map((stat, i) => (
                 <Reveal key={stat.num} delay={i * 90}>

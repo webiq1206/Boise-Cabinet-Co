@@ -80,7 +80,7 @@ export const TRUST_ITEMS = [
   "Bonded · Insured",
   "$2M Liability Coverage",
   "Permits Handled · In-House",
-  "Financing · From 0% APR",
+  "Financing · Flexible plans",
   "2-Year Workmanship Guarantee",
 ];
 
