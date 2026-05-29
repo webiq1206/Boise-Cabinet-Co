@@ -1,12 +1,10 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { Button } from "@/components/ui/button";
 import { ArrowRight, Check } from "lucide-react";
 
 type ProjectType = "kitchen" | "bathroom" | "whole-home" | "addition";
 type FinishLevel = "refresh" | "mid-range" | "high-end" | "luxury";
-type SizePreset = "compact" | "average" | "spacious";
 
 interface PriceData {
   low: number;
@@ -15,11 +13,11 @@ interface PriceData {
   included: string[];
 }
 
-const PROJECT_LABELS: Record<ProjectType, { label: string; icon: string; sub: string }> = {
-  kitchen: { label: "Kitchen", icon: "🍳", sub: "Cabinets, counters, appliances" },
-  bathroom: { label: "Bathroom", icon: "🛁", sub: "Tile, fixtures, vanity" },
-  "whole-home": { label: "Whole-Home", icon: "🏠", sub: "Multi-room renovation" },
-  addition: { label: "Room Addition", icon: "📐", sub: "New square footage" },
+const PROJECT_LABELS: Record<ProjectType, { label: string; sub: string }> = {
+  kitchen: { label: "Kitchen", sub: "Cabinets, counters, appliances" },
+  bathroom: { label: "Bathroom", sub: "Tile, fixtures, vanity" },
+  "whole-home": { label: "Whole-Home", sub: "Multi-room renovation" },
+  addition: { label: "Room Addition", sub: "New square footage" },
 };
 
 const FINISH_LABELS: Record<FinishLevel, { label: string; sub: string }> = {
@@ -27,12 +25,6 @@ const FINISH_LABELS: Record<FinishLevel, { label: string; sub: string }> = {
   "mid-range": { label: "Mid-Range", sub: "Replace & upgrade" },
   "high-end": { label: "High-End", sub: "Premium finishes" },
   luxury: { label: "Luxury", sub: "No constraints" },
-};
-
-const SIZE_MULTIPLIERS: Record<SizePreset, { label: string; sub: string; mult: number }> = {
-  compact: { label: "Compact", sub: "Under 200 sqft", mult: 0.78 },
-  average: { label: "Average", sub: "200 – 400 sqft", mult: 1.0 },
-  spacious: { label: "Spacious", sub: "400+ sqft", mult: 1.55 },
 };
 
 const PRICE_MATRIX: Record<ProjectType, Record<FinishLevel, PriceData>> = {
@@ -110,25 +102,19 @@ const PRICE_MATRIX: Record<ProjectType, Record<FinishLevel, PriceData>> = {
   },
 };
 
-function formatCurrency(n: number) {
-  if (n >= 1000000) return `$${(n / 1000000).toFixed(1)}M`;
-  if (n >= 1000) return `$${Math.round(n / 1000)}k`;
-  return `$${n.toLocaleString()}`;
-}
-
 function usePrevious<T>(value: T) {
   const ref = useRef<T>(value);
   useEffect(() => { ref.current = value; });
   return ref.current;
 }
 
-function AnimatedPrice({ value, prefix = "" }: { value: number; prefix?: string }) {
+function AnimatedPrice({ value }: { value: number }) {
   const [display, setDisplay] = useState(value);
   const prev = usePrevious(value);
 
   useEffect(() => {
     if (prev === value) return;
-    const steps = 18;
+    const steps = 20;
     const step = (value - prev) / steps;
     let current = prev;
     let i = 0;
@@ -137,187 +123,266 @@ function AnimatedPrice({ value, prefix = "" }: { value: number; prefix?: string 
       current += step;
       if (i >= steps) { setDisplay(value); clearInterval(id); }
       else setDisplay(Math.round(current));
-    }, 14);
+    }, 16);
     return () => clearInterval(id);
   }, [value, prev]);
 
-  return <span className="tabular-nums">{prefix}{display >= 1000000 ? `$${(display / 1000000).toFixed(1)}M` : display >= 1000 ? `$${Math.round(display / 1000)}k` : `$${display.toLocaleString()}`}</span>;
+  const fmt = (n: number) => {
+    if (n >= 1000000) return `$${(n / 1000000).toFixed(1)}M`;
+    if (n >= 1000) return `$${Math.round(n / 1000)}k`;
+    return `$${n.toLocaleString()}`;
+  };
+
+  return <span className="tabular-nums">{fmt(display)}</span>;
 }
 
 export function EstimateCalculator() {
   const [project, setProject] = useState<ProjectType | null>(null);
   const [finish, setFinish] = useState<FinishLevel | null>(null);
-  const [size, setSize] = useState<SizePreset>("average");
+  const [sqft, setSqft] = useState(300);
   const [showResult, setShowResult] = useState(false);
 
   const priceData = project && finish ? PRICE_MATRIX[project][finish] : null;
-  const mult = SIZE_MULTIPLIERS[size].mult;
-  const priceLow = priceData ? Math.round((priceData.low * mult) / 1000) * 1000 : 0;
-  const priceHigh = priceData ? Math.round((priceData.high * mult) / 1000) * 1000 : 0;
+  const sizeMultiplier = Math.max(0.5, Math.min(2.5, sqft / 300));
+  const priceLow = priceData ? Math.round((priceData.low * sizeMultiplier) / 1000) * 1000 : 0;
+  const priceHigh = priceData ? Math.round((priceData.high * sizeMultiplier) / 1000) * 1000 : 0;
+
+  const sliderPct = ((sqft - 100) / (2000 - 100)) * 100;
+  const sliderBackground = `linear-gradient(to right, #2D5F47 0%, #2D5F47 ${sliderPct}%, #D4C4A8 ${sliderPct}%, #D4C4A8 100%)`;
 
   useEffect(() => {
     if (project && finish) setShowResult(true);
   }, [project, finish]);
+
+  function handleSelectProject(type: ProjectType) {
+    setProject(type);
+    setFinish(null);
+  }
 
   function handleBookVisit() {
     if (priceData && project && finish) {
       sessionStorage.setItem("brc_estimate", JSON.stringify({
         project,
         finish,
-        size,
+        sqft,
         priceLow,
         priceHigh,
         roi: priceData.roi,
       }));
     }
-    const el = document.getElementById("consult");
-    el?.scrollIntoView({ behavior: "smooth" });
+    document.getElementById("consult")?.scrollIntoView({ behavior: "smooth" });
   }
 
   return (
-    <section id="calculator" className="py-20 md:py-28 bg-secondary/40">
+    <section id="calculator" style={{ background: "#F5F1E8" }} className="py-20 md:py-28">
       <div className="container px-4">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-12">
-            <p className="text-sm font-semibold tracking-widest uppercase text-primary mb-3">Instant Range</p>
-            <h2 className="text-3xl md:text-4xl font-serif font-semibold text-foreground mb-4">
+        <div className="grid md:grid-cols-[3fr_2fr] gap-8 md:gap-12 items-start max-w-6xl mx-auto">
+
+          {/* ── LEFT: Inputs ── */}
+          <div>
+            <div className="brc-label mb-3">Instant Range</div>
+            <h2
+              className="font-serif font-light text-3xl md:text-4xl mb-3"
+              style={{ color: "#1C1A17" }}
+            >
               What will my project cost?
             </h2>
-            <p className="text-muted-foreground text-lg max-w-xl mx-auto">
+            <p className="text-sm mb-10" style={{ color: "#8F8B82" }}>
               Select your project type and finish level to get a starting-point range in seconds.
             </p>
-          </div>
 
-          {/* Step 1: Project type */}
-          <div className="mb-8">
-            <p className="text-sm font-semibold uppercase tracking-widest text-muted-foreground mb-4">
-              Step 1 — What are we remodeling?
-            </p>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-              {(Object.keys(PROJECT_LABELS) as ProjectType[]).map((type) => {
-                const info = PROJECT_LABELS[type];
-                return (
-                  <button
-                    key={type}
-                    onClick={() => setProject(type)}
-                    data-testid={`button-project-${type}`}
-                    className={`relative flex flex-col items-center gap-2 p-4 rounded-md border-2 text-center transition-all hover-elevate ${
-                      project === type
-                        ? "border-primary bg-primary/5 text-foreground"
-                        : "border-border bg-card text-muted-foreground"
-                    }`}
-                  >
-                    {project === type && (
-                      <span className="absolute top-2 right-2">
-                        <Check className="h-4 w-4 text-primary" />
-                      </span>
-                    )}
-                    <span className="text-2xl">{info.icon}</span>
-                    <span className="font-semibold text-sm text-foreground">{info.label}</span>
-                    <span className="text-xs text-muted-foreground leading-tight">{info.sub}</span>
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* Step 2: Finish level */}
-          {project && (
+            {/* Step 1: Project type */}
             <div className="mb-8">
-              <p className="text-sm font-semibold uppercase tracking-widest text-muted-foreground mb-4">
-                Step 2 — Choose a finish level
-              </p>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                {(Object.keys(FINISH_LABELS) as FinishLevel[]).map((level) => {
-                  const info = FINISH_LABELS[level];
+              <div className="brc-label mb-4">Step 1 — What are we remodeling?</div>
+              <div className="grid grid-cols-2 gap-2">
+                {(Object.keys(PROJECT_LABELS) as ProjectType[]).map((type) => {
+                  const info = PROJECT_LABELS[type];
+                  const active = project === type;
                   return (
                     <button
-                      key={level}
-                      onClick={() => setFinish(level)}
-                      data-testid={`button-finish-${level}`}
-                      className={`relative flex flex-col items-start gap-1 p-4 rounded-md border-2 text-left transition-all hover-elevate ${
-                        finish === level
-                          ? "border-primary bg-primary/5"
-                          : "border-border bg-card"
-                      }`}
+                      key={type}
+                      onClick={() => handleSelectProject(type)}
+                      data-testid={`button-project-${type}`}
+                      className="relative flex flex-col items-start gap-1.5 p-5 rounded-sm text-left transition-all"
+                      style={{
+                        background: active ? "rgba(45,95,71,0.06)" : "#FBF8F1",
+                        border: active ? "1.5px solid #2D5F47" : "1px solid rgba(28,26,23,0.12)",
+                      }}
                     >
-                      {finish === level && (
-                        <span className="absolute top-2 right-2">
-                          <Check className="h-4 w-4 text-primary" />
-                        </span>
+                      {active && (
+                        <Check
+                          className="absolute top-3 right-3 h-4 w-4"
+                          style={{ color: "#2D5F47" }}
+                        />
                       )}
-                      <span className="font-semibold text-sm text-foreground">{info.label}</span>
-                      <span className="text-xs text-muted-foreground">{info.sub}</span>
+                      <span className="font-medium text-sm" style={{ color: "#1C1A17" }}>
+                        {info.label}
+                      </span>
+                      <span className="text-xs" style={{ color: "#8F8B82" }}>
+                        {info.sub}
+                      </span>
                     </button>
                   );
                 })}
               </div>
             </div>
-          )}
 
-          {/* Step 3: Size */}
-          {project && finish && (
-            <div className="mb-8">
-              <p className="text-sm font-semibold uppercase tracking-widest text-muted-foreground mb-4">
-                Step 3 — Roughly how large is the space?
-              </p>
-              <div className="grid grid-cols-3 gap-3">
-                {(Object.keys(SIZE_MULTIPLIERS) as SizePreset[]).map((s) => {
-                  const info = SIZE_MULTIPLIERS[s];
-                  return (
-                    <button
-                      key={s}
-                      onClick={() => setSize(s)}
-                      data-testid={`button-size-${s}`}
-                      className={`flex flex-col items-center gap-1 p-4 rounded-md border-2 text-center transition-all hover-elevate ${
-                        size === s
-                          ? "border-primary bg-primary/5"
-                          : "border-border bg-card"
-                      }`}
-                    >
-                      <span className="font-semibold text-sm text-foreground">{info.label}</span>
-                      <span className="text-xs text-muted-foreground">{info.sub}</span>
-                    </button>
-                  );
-                })}
+            {/* Step 2: Finish level */}
+            {project && (
+              <div className="mb-8">
+                <div className="brc-label mb-4">Step 2 — Choose a finish level</div>
+                <div className="grid grid-cols-2 gap-2">
+                  {(Object.keys(FINISH_LABELS) as FinishLevel[]).map((level) => {
+                    const info = FINISH_LABELS[level];
+                    const active = finish === level;
+                    return (
+                      <button
+                        key={level}
+                        onClick={() => setFinish(level)}
+                        data-testid={`button-finish-${level}`}
+                        className="relative flex flex-col items-start gap-1.5 p-5 rounded-sm text-left transition-all"
+                        style={{
+                          background: active ? "rgba(45,95,71,0.06)" : "#FBF8F1",
+                          border: active ? "1.5px solid #2D5F47" : "1px solid rgba(28,26,23,0.12)",
+                        }}
+                      >
+                        {active && (
+                          <Check
+                            className="absolute top-3 right-3 h-4 w-4"
+                            style={{ color: "#2D5F47" }}
+                          />
+                        )}
+                        <span className="font-medium text-sm" style={{ color: "#1C1A17" }}>
+                          {info.label}
+                        </span>
+                        <span className="text-xs" style={{ color: "#8F8B82" }}>
+                          {info.sub}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
-            </div>
-          )}
+            )}
 
-          {/* Results */}
-          {showResult && priceData && (
-            <div className="bg-card border border-border rounded-md p-6 md:p-8 mt-2">
-              <div className="grid md:grid-cols-2 gap-8">
-                <div>
-                  <p className="text-sm uppercase tracking-widest text-muted-foreground mb-2">Starting-Point Range</p>
-                  <div className="text-4xl md:text-5xl font-serif font-semibold text-foreground mb-1">
-                    <AnimatedPrice value={priceLow} /> – <AnimatedPrice value={priceHigh} />
+            {/* Step 3: Size slider */}
+            {project && finish && (
+              <div className="mb-8">
+                <div className="flex justify-between items-end mb-4">
+                  <div className="brc-label">Step 3 — Size of the space</div>
+                  <div
+                    className="font-serif font-light text-2xl leading-none"
+                    style={{ color: "#1C1A17" }}
+                  >
+                    {sqft.toLocaleString()} <span className="text-sm font-sans" style={{ color: "#8F8B82" }}>sqft</span>
                   </div>
-                  <p className="text-sm text-muted-foreground mb-5">
-                    Estimated ROI at resale: ~{priceData.roi}% recouped
-                  </p>
-                  <Button onClick={handleBookVisit} className="w-full sm:w-auto" size="lg">
-                    Book my free in-home visit
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </Button>
                 </div>
-                <div>
-                  <p className="text-sm font-semibold text-foreground mb-3">Typically included:</p>
-                  <ul className="space-y-2">
-                    {priceData.included.map((item, i) => (
-                      <li key={i} className="flex items-start gap-2 text-sm text-muted-foreground">
-                        <Check className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
+                <input
+                  type="range"
+                  className="brc-slider"
+                  min={100}
+                  max={2000}
+                  step={50}
+                  value={sqft}
+                  onChange={(e) => setSqft(Number(e.target.value))}
+                  style={{ background: sliderBackground }}
+                  data-testid="slider-size"
+                  aria-label="Project size in square feet"
+                />
+                <div
+                  className="flex justify-between text-[11px] mt-2 tracking-wide"
+                  style={{ color: "#8F8B82" }}
+                >
+                  <span>100 sqft</span>
+                  <span>2,000 sqft</span>
                 </div>
               </div>
-              <p className="text-xs text-muted-foreground mt-6 pt-4 border-t">
-                This is a starting-point estimate only, not a contract or firm bid. Final pricing is determined after a free in-home consultation and detailed scope review. Ranges reflect Boise Treasure Valley market conditions as of 2025.
-              </p>
-            </div>
-          )}
+            )}
+          </div>
+
+          {/* ── RIGHT: Result panel ── */}
+          <div className="md:sticky md:top-24">
+            {priceData ? (
+              <div
+                className="rounded-sm p-8"
+                style={{ background: "#1C1A17" }}
+              >
+                <div
+                  className="brc-label mb-5"
+                  style={{ color: "rgba(245,241,232,0.32)" }}
+                >
+                  Starting-Point Range
+                </div>
+                <div
+                  className="font-serif font-light leading-none mb-2"
+                  style={{
+                    fontSize: "clamp(28px, 3.5vw, 44px)",
+                    color: "#FBF8F1",
+                  }}
+                >
+                  <AnimatedPrice value={priceLow} />
+                  {" – "}
+                  <AnimatedPrice value={priceHigh} />
+                </div>
+                <p
+                  className="text-xs mb-7"
+                  style={{ color: "rgba(245,241,232,0.38)" }}
+                >
+                  Estimated ROI at resale: ~{priceData.roi}% recouped
+                </p>
+
+                <div className="space-y-2.5 mb-8">
+                  {priceData.included.map((item, i) => (
+                    <div
+                      key={i}
+                      className="flex items-start gap-2.5 text-sm"
+                      style={{ color: "rgba(245,241,232,0.58)" }}
+                    >
+                      <Check
+                        className="h-4 w-4 flex-shrink-0 mt-0.5"
+                        style={{ color: "#2D5F47" }}
+                      />
+                      {item}
+                    </div>
+                  ))}
+                </div>
+
+                <button
+                  onClick={handleBookVisit}
+                  className="w-full py-3.5 text-sm font-medium rounded-sm flex items-center justify-center gap-2"
+                  style={{ background: "#2D5F47", color: "#FBF8F1" }}
+                  data-testid="button-book-visit"
+                >
+                  Book my free in-home visit
+                  <ArrowRight className="h-4 w-4" />
+                </button>
+
+                <p
+                  className="text-[11px] mt-5 leading-relaxed"
+                  style={{ color: "rgba(245,241,232,0.25)" }}
+                >
+                  Starting-point estimate only. Not a contract or firm bid. Final pricing
+                  determined after your free in-home consultation.
+                </p>
+              </div>
+            ) : (
+              <div
+                className="rounded-sm p-8 flex flex-col items-center justify-center text-center"
+                style={{
+                  background: "#1C1A17",
+                  minHeight: "220px",
+                }}
+              >
+                <p
+                  className="text-sm leading-relaxed max-w-[200px]"
+                  style={{ color: "rgba(245,241,232,0.30)" }}
+                >
+                  Select a project type and finish level to see your starting-point range
+                </p>
+              </div>
+            )}
+          </div>
+
         </div>
       </div>
     </section>

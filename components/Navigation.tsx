@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
@@ -18,13 +18,29 @@ const NAV_LINKS = [
 const PHONE = "(208) 555-0100";
 const PHONE_HREF = "tel:2085550100";
 
-function Logo() {
+function Logo({ hero }: { hero: boolean }) {
   return (
     <Link href="/" className="flex flex-col leading-none">
-      <span className="font-serif text-xl font-semibold tracking-tight text-foreground">
-        Boise Remodeling Co
+      <span
+        className="font-serif text-[1.05rem] font-light tracking-tight"
+        style={{ color: hero ? "#fff" : "#1C1A17", transition: "color 0.3s" }}
+      >
+        Boise{" "}
+        <em
+          style={{
+            fontStyle: "italic",
+            color: hero ? "rgba(255,255,255,0.65)" : "#2D5F47",
+            transition: "color 0.3s",
+          }}
+        >
+          Remodeling
+        </em>{" "}
+        Co
       </span>
-      <span className="text-[11px] text-muted-foreground tracking-widest uppercase font-sans">
+      <span
+        className="text-[9px] tracking-[0.15em] uppercase font-sans font-medium mt-0.5"
+        style={{ color: hero ? "rgba(255,255,255,0.4)" : "#8F8B82", transition: "color 0.3s" }}
+      >
         Design &amp; Build
       </span>
     </Link>
@@ -34,14 +50,24 @@ function Logo() {
 export function Navigation() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
   const isPortal = pathname?.startsWith("/admin") || pathname?.startsWith("/subcontractor");
+  const isHome = pathname === "/";
+  const isHeroMode = isHome && !scrolled && !isPortal;
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 72);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   if (isPortal) {
     return (
       <header className="sticky top-0 z-50 w-full border-b bg-background/98 backdrop-blur supports-[backdrop-filter]:bg-background/95">
         <nav className="container flex h-16 items-center justify-between gap-4 px-6">
-          <Logo />
+          <Logo hero={false} />
         </nav>
       </header>
     );
@@ -49,21 +75,30 @@ export function Navigation() {
 
   return (
     <>
-      <header className="sticky top-0 z-[100] w-full border-b bg-background/98 backdrop-blur supports-[backdrop-filter]:bg-background/95">
-        <nav className="container flex h-16 items-center justify-between gap-4 px-4 md:px-6">
-          <Logo />
+      <header
+        className="sticky top-0 z-[100] w-full transition-all duration-300"
+        style={{
+          background: isHeroMode ? "transparent" : "rgba(251,248,241,0.97)",
+          backdropFilter: isHeroMode ? "none" : "blur(12px)",
+          borderBottom: isHeroMode ? "none" : "1px solid rgba(28,26,23,0.08)",
+        }}
+      >
+        <nav className="container flex h-[60px] items-center justify-between gap-4 px-4 md:px-6">
+          <Logo hero={isHeroMode} />
 
           {/* Desktop nav links */}
-          <div className="hidden md:flex items-center gap-1">
+          <div className="hidden md:flex items-center gap-0">
             {NAV_LINKS.map((link) => (
               <Link
                 key={link.label}
                 href={link.href}
-                className={`px-4 py-2 text-sm font-medium transition-colors rounded-md hover-elevate ${
-                  pathname === link.href
-                    ? "text-primary"
-                    : "text-foreground/70 hover:text-foreground"
-                }`}
+                className="px-4 py-2 text-[13px] font-medium transition-colors rounded-sm hover-elevate"
+                style={{
+                  color: isHeroMode
+                    ? pathname === link.href ? "#fff" : "rgba(255,255,255,0.75)"
+                    : pathname === link.href ? "#2D5F47" : "#4D4944",
+                  transition: "color 0.3s",
+                }}
               >
                 {link.label}
               </Link>
@@ -74,37 +109,45 @@ export function Navigation() {
           <div className="hidden md:flex items-center gap-4">
             <a
               href={PHONE_HREF}
-              className="flex items-center gap-2 text-sm font-medium text-foreground/80 hover:text-foreground transition-colors"
+              className="flex items-center gap-2 text-[13px] font-medium"
+              style={{
+                color: isHeroMode ? "rgba(255,255,255,0.8)" : "#4D4944",
+                transition: "color 0.3s",
+              }}
               data-testid="link-phone-desktop"
             >
-              <span className="relative flex h-2.5 w-2.5">
+              <span className="relative flex h-2 w-2">
                 <span className="pulse-green absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500" />
               </span>
               {PHONE}
             </a>
-            <Button size="sm" asChild>
-              <a href="/#consult">Book a free visit</a>
-            </Button>
+            <a
+              href="/#consult"
+              className="inline-flex items-center px-4 py-2 text-[13px] font-medium rounded-sm"
+              style={{ background: "#1C1A17", color: "#FBF8F1" }}
+            >
+              Book a free visit
+            </a>
           </div>
 
           {/* Mobile: hamburger */}
           <div className="flex md:hidden items-center gap-2">
             <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
               <SheetTrigger asChild>
-                <Button variant="ghost" size="icon" aria-label="Open navigation menu">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  aria-label="Open navigation menu"
+                  style={{ color: isHeroMode ? "#fff" : undefined }}
+                >
                   <Menu className="h-5 w-5" />
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right" className="w-[85vw] sm:w-[360px]">
+              <SheetContent side="right" className="w-[85vw] sm:w-[360px]" style={{ background: "#FBF8F1" }}>
                 <div className="flex items-center justify-between mb-8">
-                  <Logo />
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    onClick={() => setMobileOpen(false)}
-                    aria-label="Close menu"
-                  >
+                  <Logo hero={false} />
+                  <Button variant="ghost" size="icon" onClick={() => setMobileOpen(false)} aria-label="Close menu">
                     <X className="h-5 w-5" />
                   </Button>
                 </div>
@@ -114,7 +157,8 @@ export function Navigation() {
                       key={link.label}
                       href={link.href}
                       onClick={() => setMobileOpen(false)}
-                      className="px-4 py-3 text-base font-medium rounded-md hover-elevate active-elevate-2 transition-colors"
+                      className="px-4 py-3 text-base font-medium rounded-sm transition-colors"
+                      style={{ color: "#1C1A17" }}
                     >
                       {link.label}
                     </Link>
@@ -122,7 +166,8 @@ export function Navigation() {
                   <div className="mt-6 pt-6 border-t space-y-3">
                     <a
                       href={PHONE_HREF}
-                      className="flex items-center gap-3 px-4 py-3 text-base font-medium rounded-md hover-elevate"
+                      className="flex items-center gap-3 px-4 py-3 text-base font-medium rounded-sm"
+                      style={{ color: "#1C1A17" }}
                     >
                       <span className="relative flex h-2.5 w-2.5">
                         <span className="pulse-green absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
@@ -130,11 +175,14 @@ export function Navigation() {
                       </span>
                       {PHONE}
                     </a>
-                    <Button className="w-full" asChild>
-                      <a href="/#consult" onClick={() => setMobileOpen(false)}>
-                        Book a free visit
-                      </a>
-                    </Button>
+                    <a
+                      href="/#consult"
+                      onClick={() => setMobileOpen(false)}
+                      className="flex items-center justify-center w-full py-3 text-base font-medium rounded-sm"
+                      style={{ background: "#1C1A17", color: "#FBF8F1" }}
+                    >
+                      Book a free visit
+                    </a>
                   </div>
                 </nav>
               </SheetContent>
@@ -144,11 +192,19 @@ export function Navigation() {
       </header>
 
       {/* Mobile sticky bottom bar */}
-      <div className="fixed bottom-0 left-0 right-0 z-[100] md:hidden border-t bg-background/98 backdrop-blur supports-[backdrop-filter]:bg-background/95 pb-safe">
-        <div className="grid grid-cols-2 divide-x">
+      <div
+        className="fixed bottom-0 left-0 right-0 z-[100] md:hidden pb-safe"
+        style={{
+          background: "rgba(251,248,241,0.97)",
+          backdropFilter: "blur(12px)",
+          borderTop: "1px solid rgba(28,26,23,0.08)",
+        }}
+      >
+        <div className="grid grid-cols-2 divide-x divide-[rgba(28,26,23,0.08)]">
           <a
             href={PHONE_HREF}
-            className="flex items-center justify-center gap-2 py-4 text-sm font-semibold text-foreground hover:bg-muted transition-colors"
+            className="flex items-center justify-center gap-2 py-4 text-sm font-medium"
+            style={{ color: "#1C1A17" }}
             data-testid="button-call-mobile"
           >
             <Phone className="h-4 w-4" />
@@ -156,7 +212,8 @@ export function Navigation() {
           </a>
           <a
             href="/#consult"
-            className="flex items-center justify-center gap-2 py-4 text-sm font-semibold text-primary hover:bg-muted transition-colors"
+            className="flex items-center justify-center gap-2 py-4 text-sm font-medium"
+            style={{ color: "#2D5F47" }}
             data-testid="button-begin-conversation-mobile"
           >
             Begin a conversation

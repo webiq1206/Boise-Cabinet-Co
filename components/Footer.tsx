@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { Phone, Mail, MapPin } from "lucide-react";
 import { CITIES, SERVICES } from "@/shared/contentData";
 
 const PHONE = "(208) 555-0100";
@@ -10,54 +9,51 @@ export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-muted border-t">
-      <div className="container px-4 py-14">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+    <footer style={{ background: "#1C1A17" }}>
+      <div className="container px-4 py-16 md:py-20">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
 
           {/* Brand column */}
           <div>
-            <div className="mb-3">
-              <span className="font-serif text-xl font-semibold tracking-tight text-foreground">
-                Boise Remodeling Co
+            <div className="mb-4">
+              <span className="font-serif font-light text-lg tracking-tight" style={{ color: "#FBF8F1" }}>
+                Boise <em className="italic" style={{ color: "#2D5F47" }}>Remodeling</em> Co
               </span>
             </div>
-            <p className="text-sm italic text-muted-foreground mb-5">
-              A new kind of Boise remodeler.
+            <p className="text-sm italic mb-6" style={{ color: "rgba(245,241,232,0.4)", fontFamily: "var(--font-fraunces, Georgia, serif)" }}>
+              A more honest way to remodel.
             </p>
-            <div className="space-y-2.5">
+            <div className="space-y-2">
               <a
                 href={PHONE_HREF}
-                className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
+                className="block text-sm transition-colors"
+                style={{ color: "rgba(245,241,232,0.5)" }}
               >
-                <Phone className="h-4 w-4 flex-shrink-0" />
                 {PHONE}
               </a>
               <a
                 href={`mailto:${EMAIL}`}
-                className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
+                className="block text-sm transition-colors"
+                style={{ color: "rgba(245,241,232,0.5)" }}
               >
-                <Mail className="h-4 w-4 flex-shrink-0" />
                 {EMAIL}
               </a>
-              <div className="flex items-start gap-2 text-sm text-muted-foreground">
-                <MapPin className="h-4 w-4 flex-shrink-0 mt-0.5" />
-                <span>Boise, Idaho — serving the Treasure Valley</span>
-              </div>
-            </div>
-            <div className="mt-4 text-xs text-muted-foreground">
-              Serving {CITIES.map(c => c.name).join(", ")}
+              <p className="text-sm" style={{ color: "rgba(245,241,232,0.35)" }}>
+                Boise, Idaho — Treasure Valley
+              </p>
             </div>
           </div>
 
           {/* Services column */}
           <div>
-            <h3 className="font-sans font-semibold text-sm mb-4 text-foreground">Services</h3>
-            <ul className="space-y-2.5 text-sm">
+            <h3 className="font-sans font-medium text-[11px] tracking-[0.12em] uppercase mb-5" style={{ color: "rgba(245,241,232,0.35)" }}>Services</h3>
+            <ul className="space-y-2.5">
               {SERVICES.map((service) => (
                 <li key={service.slug}>
                   <a
                     href="/#services"
-                    className="text-muted-foreground hover:text-primary transition-colors"
+                    className="text-sm transition-colors"
+                    style={{ color: "rgba(245,241,232,0.55)" }}
                   >
                     {service.name}
                   </a>
@@ -68,65 +64,54 @@ export function Footer() {
 
           {/* Studio column */}
           <div>
-            <h3 className="font-sans font-semibold text-sm mb-4 text-foreground">Studio</h3>
-            <ul className="space-y-2.5 text-sm">
-              <li>
-                <a href="/#founder" className="text-muted-foreground hover:text-primary transition-colors">
-                  Our Story
-                </a>
-              </li>
-              <li>
-                <a href="/#how-we-build" className="text-muted-foreground hover:text-primary transition-colors">
-                  How We Build
-                </a>
-              </li>
-              <li>
-                <a href="/#principles" className="text-muted-foreground hover:text-primary transition-colors">
-                  Principles
-                </a>
-              </li>
-              <li>
-                <a href="/#founding-clients" className="text-muted-foreground hover:text-primary transition-colors">
-                  Founding Clients
-                </a>
-              </li>
-              <li>
-                <Link href="/blog" className="text-muted-foreground hover:text-primary transition-colors">
-                  Blog
-                </Link>
-              </li>
+            <h3 className="font-sans font-medium text-[11px] tracking-[0.12em] uppercase mb-5" style={{ color: "rgba(245,241,232,0.35)" }}>Studio</h3>
+            <ul className="space-y-2.5">
+              {[
+                { label: "Our Story", href: "/#founder" },
+                { label: "How We Build", href: "/#how-we-build" },
+                { label: "Principles", href: "/#principles" },
+                { label: "Founding Clients", href: "/#founding-clients" },
+                { label: "Blog", href: "/blog" },
+              ].map((link) => (
+                <li key={link.label}>
+                  <Link
+                    href={link.href}
+                    className="text-sm transition-colors"
+                    style={{ color: "rgba(245,241,232,0.55)" }}
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
-          {/* Visit Us column */}
+          {/* Start a Conversation column */}
           <div>
-            <h3 className="font-sans font-semibold text-sm mb-4 text-foreground">Start a Conversation</h3>
-            <ul className="space-y-2.5 text-sm">
-              <li>
-                <a href="/#consult" className="text-muted-foreground hover:text-primary transition-colors">
-                  Book a free in-home visit
-                </a>
-              </li>
-              <li>
-                <a href="/#calculator" className="text-muted-foreground hover:text-primary transition-colors">
-                  See your estimate range
-                </a>
-              </li>
-              <li>
-                <a href={PHONE_HREF} className="text-muted-foreground hover:text-primary transition-colors">
-                  {PHONE}
-                </a>
-              </li>
-              <li>
-                <a href={`mailto:${EMAIL}`} className="text-muted-foreground hover:text-primary transition-colors">
-                  {EMAIL}
-                </a>
-              </li>
+            <h3 className="font-sans font-medium text-[11px] tracking-[0.12em] uppercase mb-5" style={{ color: "rgba(245,241,232,0.35)" }}>Start a Conversation</h3>
+            <ul className="space-y-2.5">
+              {[
+                { label: "Book a free in-home visit", href: "/#consult" },
+                { label: "See your estimate range", href: "/#calculator" },
+                { label: PHONE, href: PHONE_HREF },
+                { label: EMAIL, href: `mailto:${EMAIL}` },
+              ].map((link) => (
+                <li key={link.label}>
+                  <a
+                    href={link.href}
+                    className="text-sm transition-colors"
+                    style={{ color: "rgba(245,241,232,0.55)" }}
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))}
             </ul>
-            <div className="mt-5 pt-5 border-t">
+            <div className="mt-6 pt-6 border-t" style={{ borderColor: "rgba(245,241,232,0.08)" }}>
               <a
                 href="/api/login"
-                className="text-xs text-muted-foreground hover:text-primary transition-colors"
+                className="text-xs transition-colors"
+                style={{ color: "rgba(245,241,232,0.28)" }}
               >
                 Subcontractor Login
               </a>
@@ -135,17 +120,24 @@ export function Footer() {
 
         </div>
 
+        {/* Service area */}
+        <div className="py-5 border-t border-b mb-5" style={{ borderColor: "rgba(245,241,232,0.08)" }}>
+          <p className="text-[11px] tracking-[0.08em]" style={{ color: "rgba(245,241,232,0.25)" }}>
+            Serving {CITIES.map(c => c.name).join(" · ")} — Ada &amp; Canyon County, Idaho
+          </p>
+        </div>
+
         {/* Base bar */}
-        <div className="border-t mt-10 pt-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 text-xs text-muted-foreground">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 text-xs" style={{ color: "rgba(245,241,232,0.25)" }}>
           <div className="flex flex-wrap gap-4">
             <span>&copy; {currentYear} Boise Remodeling Co. All rights reserved.</span>
             <span>Idaho Contractor License [Pending]</span>
           </div>
           <div className="flex gap-4">
-            <Link href="/privacy-policy" className="hover:text-primary transition-colors">
+            <Link href="/privacy-policy" className="transition-colors hover:opacity-70">
               Privacy Policy
             </Link>
-            <Link href="/terms-of-service" className="hover:text-primary transition-colors">
+            <Link href="/terms-of-service" className="transition-colors hover:opacity-70">
               Terms of Service
             </Link>
           </div>
@@ -154,3 +146,4 @@ export function Footer() {
     </footer>
   );
 }
+

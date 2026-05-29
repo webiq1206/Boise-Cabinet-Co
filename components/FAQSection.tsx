@@ -48,33 +48,42 @@ const FAQS = [
 
 export function FAQSection() {
   return (
-    <section id="faq" className="py-20 md:py-28 bg-secondary/30">
+    <section id="faq" style={{ background: "#FBF8F1" }} className="py-20 md:py-28">
       <div className="container px-4">
         <div className="max-w-3xl mx-auto">
-          <div className="text-center mb-12">
-            <p className="text-sm font-semibold tracking-widest uppercase text-primary mb-3">FAQ</p>
-            <h2 className="text-3xl md:text-4xl font-serif font-semibold text-foreground">
+          <div className="mb-12">
+            <div className="brc-label mb-4">Common questions</div>
+            <h2 className="font-serif font-light text-3xl md:text-4xl tracking-tight" style={{ color: "#1C1A17" }}>
               Honest answers to hard questions
             </h2>
           </div>
-          <Accordion type="single" collapsible className="w-full space-y-2">
+          <Accordion type="single" collapsible className="w-full">
             {FAQS.map((faq, i) => (
               <AccordionItem
                 key={i}
                 value={`faq-${i}`}
-                className="bg-card border border-border rounded-md px-6"
+                className="border-0 border-t"
+                style={{ borderColor: "rgba(28,26,23,0.12)" }}
               >
-                <AccordionTrigger className="text-left font-semibold text-foreground py-5 hover:no-underline">
+                <AccordionTrigger
+                  className="text-left py-5 hover:no-underline font-sans font-medium text-sm"
+                  style={{ color: "#1C1A17" }}
+                >
                   {faq.q}
                 </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground leading-relaxed pb-5">
+                <AccordionContent
+                  className="text-sm leading-relaxed pb-6"
+                  style={{ color: "#8F8B82" }}
+                >
                   {faq.a}
                 </AccordionContent>
               </AccordionItem>
             ))}
           </Accordion>
+          <div className="pt-4 border-t" style={{ borderColor: "rgba(28,26,23,0.12)" }} />
         </div>
       </div>
     </section>
   );
 }
+

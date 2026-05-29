@@ -26,9 +26,9 @@ export default {
     },
     extend: {
       borderRadius: {
-        lg: ".5625rem", /* 9px */
-        md: ".375rem", /* 6px */
-        sm: ".1875rem", /* 3px */
+        lg: "4px",
+        md: "2px",
+        sm: "1px",
       },
       colors: {
         // Flat / base colors (regular buttons)
@@ -108,8 +108,8 @@ export default {
         },
       },
       fontFamily: {
-        sans: ["Montserrat", "system-ui", "-apple-system", "sans-serif"],
-        serif: ["Playfair Display", "Georgia", "serif"],
+        sans: ["var(--font-inter)", "Helvetica Neue", "system-ui", "sans-serif"],
+        serif: ["var(--font-fraunces)", "Georgia", "serif"],
         mono: ["Menlo", "Monaco", "monospace"],
       },
       keyframes: {

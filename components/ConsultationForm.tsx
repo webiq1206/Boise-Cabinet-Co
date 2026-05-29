@@ -5,12 +5,10 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useMutation } from "@tanstack/react-query";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { Alert, AlertDescription } from "@/components/ui/alert";
 import { CheckCircle2, ArrowRight } from "lucide-react";
 
 const formSchema = z.object({
@@ -97,15 +95,19 @@ export function ConsultationForm() {
 
   if (success) {
     return (
-      <div className="flex flex-col items-center justify-center text-center py-16 space-y-4">
-        <div className="rounded-full bg-primary/10 p-4">
-          <CheckCircle2 className="h-10 w-10 text-primary" />
+      <div className="flex flex-col items-start py-8 space-y-4">
+        <div
+          className="w-10 h-10 rounded-sm flex items-center justify-center"
+          style={{ background: "rgba(45,95,71,0.12)" }}
+        >
+          <CheckCircle2 className="h-5 w-5" style={{ color: "#2D5F47" }} />
         </div>
-        <h3 className="text-2xl font-serif font-semibold text-foreground">
+        <h3 className="font-serif font-light text-2xl" style={{ color: "#1C1A17" }}>
           We&apos;ll be in touch shortly.
         </h3>
-        <p className="text-muted-foreground max-w-md">
-          Thank you for reaching out. We typically respond within one business day to schedule your free in-home visit.
+        <p className="text-sm leading-relaxed" style={{ color: "#8F8B82" }}>
+          Thank you for reaching out. We typically respond within one business day to
+          schedule your free in-home visit.
         </p>
       </div>
     );
@@ -119,20 +121,34 @@ export function ConsultationForm() {
       >
         {/* Estimate summary */}
         {estimate && (
-          <div className="bg-primary/5 border border-primary/20 rounded-md p-4 text-sm">
-            <p className="font-medium text-foreground mb-1">Estimate from calculator:</p>
-            <p className="text-muted-foreground">
-              {PROJECT_OPTIONS.find(p => p.value === estimate.project)?.label} — {formatCurrency(estimate.priceLow)} – {formatCurrency(estimate.priceHigh)}
+          <div
+            className="rounded-sm p-4 text-sm"
+            style={{
+              background: "rgba(45,95,71,0.06)",
+              border: "1px solid rgba(45,95,71,0.15)",
+            }}
+          >
+            <p className="font-medium mb-1" style={{ color: "#1C1A17" }}>
+              Estimate from calculator:
+            </p>
+            <p style={{ color: "#8F8B82" }}>
+              {PROJECT_OPTIONS.find((p) => p.value === estimate.project)?.label} —{" "}
+              {formatCurrency(estimate.priceLow)} – {formatCurrency(estimate.priceHigh)}
             </p>
           </div>
         )}
 
         {mutation.isError && (
-          <Alert variant="destructive">
-            <AlertDescription>
-              {(mutation.error as Error).message || "Something went wrong. Please try again."}
-            </AlertDescription>
-          </Alert>
+          <div
+            className="rounded-sm p-4 text-sm"
+            style={{
+              background: "rgba(180,60,50,0.06)",
+              border: "1px solid rgba(180,60,50,0.20)",
+              color: "#B43C32",
+            }}
+          >
+            {(mutation.error as Error).message || "Something went wrong. Please try again."}
+          </div>
         )}
 
         <div className="grid sm:grid-cols-2 gap-4">
@@ -141,9 +157,16 @@ export function ConsultationForm() {
             name="name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Full name</FormLabel>
+                <FormLabel className="text-xs tracking-wide font-medium uppercase" style={{ color: "#8F8B82" }}>
+                  Full name
+                </FormLabel>
                 <FormControl>
-                  <Input placeholder="Jane Smith" data-testid="input-name" {...field} />
+                  <Input
+                    placeholder="Jane Smith"
+                    data-testid="input-name"
+                    style={{ background: "#F5F1E8", border: "1px solid rgba(28,26,23,0.15)", borderRadius: "2px" }}
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -154,9 +177,17 @@ export function ConsultationForm() {
             name="phone"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Phone</FormLabel>
+                <FormLabel className="text-xs tracking-wide font-medium uppercase" style={{ color: "#8F8B82" }}>
+                  Phone
+                </FormLabel>
                 <FormControl>
-                  <Input type="tel" placeholder="(208) 555-0000" data-testid="input-phone" {...field} />
+                  <Input
+                    type="tel"
+                    placeholder="(208) 555-0000"
+                    data-testid="input-phone"
+                    style={{ background: "#F5F1E8", border: "1px solid rgba(28,26,23,0.15)", borderRadius: "2px" }}
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -170,9 +201,17 @@ export function ConsultationForm() {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Email</FormLabel>
+                <FormLabel className="text-xs tracking-wide font-medium uppercase" style={{ color: "#8F8B82" }}>
+                  Email
+                </FormLabel>
                 <FormControl>
-                  <Input type="email" placeholder="jane@example.com" data-testid="input-email" {...field} />
+                  <Input
+                    type="email"
+                    placeholder="jane@example.com"
+                    data-testid="input-email"
+                    style={{ background: "#F5F1E8", border: "1px solid rgba(28,26,23,0.15)", borderRadius: "2px" }}
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -183,9 +222,17 @@ export function ConsultationForm() {
             name="zip"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>ZIP code</FormLabel>
+                <FormLabel className="text-xs tracking-wide font-medium uppercase" style={{ color: "#8F8B82" }}>
+                  ZIP code
+                </FormLabel>
                 <FormControl>
-                  <Input placeholder="83706" maxLength={5} data-testid="input-zip" {...field} />
+                  <Input
+                    placeholder="83706"
+                    maxLength={5}
+                    data-testid="input-zip"
+                    style={{ background: "#F5F1E8", border: "1px solid rgba(28,26,23,0.15)", borderRadius: "2px" }}
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -198,10 +245,15 @@ export function ConsultationForm() {
           name="projectType"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>What are you planning to remodel?</FormLabel>
+              <FormLabel className="text-xs tracking-wide font-medium uppercase" style={{ color: "#8F8B82" }}>
+                What are you planning to remodel?
+              </FormLabel>
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
-                  <SelectTrigger data-testid="select-project-type">
+                  <SelectTrigger
+                    data-testid="select-project-type"
+                    style={{ background: "#F5F1E8", border: "1px solid rgba(28,26,23,0.15)", borderRadius: "2px" }}
+                  >
                     <SelectValue placeholder="Select a project type" />
                   </SelectTrigger>
                 </FormControl>
@@ -223,12 +275,18 @@ export function ConsultationForm() {
           name="message"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Anything else we should know? <span className="text-muted-foreground font-normal">(optional)</span></FormLabel>
+              <FormLabel className="text-xs tracking-wide font-medium uppercase" style={{ color: "#8F8B82" }}>
+                Anything else we should know?{" "}
+                <span className="normal-case" style={{ color: "rgba(143,139,130,0.7)" }}>
+                  (optional)
+                </span>
+              </FormLabel>
               <FormControl>
                 <Textarea
                   placeholder="Tell us a little about your home, your vision, or your timeline..."
                   rows={4}
                   data-testid="textarea-message"
+                  style={{ background: "#F5F1E8", border: "1px solid rgba(28,26,23,0.15)", borderRadius: "2px" }}
                   {...field}
                 />
               </FormControl>
@@ -237,20 +295,26 @@ export function ConsultationForm() {
           )}
         />
 
-        <Button
-          type="submit"
-          size="lg"
-          className="w-full sm:w-auto"
-          disabled={mutation.isPending}
-          data-testid="button-submit-consultation"
-        >
-          {mutation.isPending ? "Sending…" : "Send my request"}
-          {!mutation.isPending && <ArrowRight className="ml-2 h-4 w-4" />}
-        </Button>
-
-        <p className="text-xs text-muted-foreground">
-          No spam, no pressure. We&apos;ll reach out within one business day to schedule your free in-home visit.
-        </p>
+        <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+          <button
+            type="submit"
+            disabled={mutation.isPending}
+            className="inline-flex items-center gap-2 px-6 py-3.5 text-sm font-medium rounded-sm"
+            style={{
+              background: "#1C1A17",
+              color: "#FBF8F1",
+              opacity: mutation.isPending ? 0.65 : 1,
+              cursor: mutation.isPending ? "not-allowed" : "pointer",
+            }}
+            data-testid="button-submit-consultation"
+          >
+            {mutation.isPending ? "Sending…" : "Send my request"}
+            {!mutation.isPending && <ArrowRight className="h-4 w-4" />}
+          </button>
+          <p className="text-xs" style={{ color: "#8F8B82" }}>
+            No spam. Response within one business day.
+          </p>
+        </div>
       </form>
     </Form>
   );
