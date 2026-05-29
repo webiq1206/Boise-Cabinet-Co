@@ -12,11 +12,12 @@ import { CTA_PRIMARY } from "@/shared/ctaCopy";
 
 export function BudgetInclusionsSection() {
   return (
-    <Section id="budget" divider>
+    <Section id="budget" variant="inverse" divider>
       <div className="container px-4">
         <div className="max-w-5xl mx-auto">
           <SectionHeader
             eyebrow="Budget and scope"
+            inverse
             title={
               <>
                 Clear guidance on what to{" "}
@@ -32,10 +33,10 @@ export function BudgetInclusionsSection() {
               <div className="space-y-8">
                 {BUDGET_GUIDANCE_POINTS.map((point) => (
                   <div key={point.title}>
-                    <h3 className="font-sans font-medium text-sm mb-2 text-foreground">
+                    <h3 className="font-sans font-medium text-sm mb-2 text-inverse-foreground">
                       {point.title}
                     </h3>
-                    <p className="text-sm leading-relaxed text-muted-foreground">{point.body}</p>
+                    <p className="text-sm leading-relaxed text-inverse-muted">{point.body}</p>
                   </div>
                 ))}
               </div>
@@ -43,37 +44,37 @@ export function BudgetInclusionsSection() {
 
             <Reveal delay={60}>
               <div>
-                <h3 className="font-sans font-medium text-sm mb-5 text-foreground">
+                <h3 className="font-sans font-medium text-sm mb-5 text-inverse-foreground">
                   Included on every project
                 </h3>
                 <ul className="space-y-3 mb-10">
                   {STANDARD_INCLUSIONS.map((item) => (
                     <li
                       key={item}
-                      className="flex items-start gap-3 text-sm text-muted-foreground"
+                      className="flex items-start gap-3 text-sm text-inverse-muted"
                     >
-                      <Check className="h-4 w-4 flex-shrink-0 mt-0.5 text-foreground/50" />
+                      <Check className="h-4 w-4 flex-shrink-0 mt-0.5 text-accent" />
                       {item}
                     </li>
                   ))}
                 </ul>
 
-                <div className="pt-8 border-t border-border">
-                  <p className="text-[11px] tracking-[0.12em] uppercase font-medium text-muted-foreground mb-3">
+                <div className="pt-8 border-t border-inverse-foreground/15">
+                  <p className="text-[11px] tracking-[0.12em] uppercase font-medium text-inverse-muted mb-3">
                     Optional enhancement
                   </p>
-                  <h3 className="font-sans font-medium text-sm mb-2 text-foreground">
+                  <h3 className="font-sans font-medium text-sm mb-2 text-inverse-foreground">
                     {OPTIONAL_ENHANCEMENTS.title}
                   </h3>
-                  <p className="text-sm leading-relaxed mb-3 text-muted-foreground">
+                  <p className="text-sm leading-relaxed mb-3 text-inverse-muted">
                     {OPTIONAL_ENHANCEMENTS.body}
                   </p>
-                  <p className="text-xs mb-4 text-muted-foreground/80">
+                  <p className="text-xs mb-4 text-inverse-muted/80">
                     {OPTIONAL_ENHANCEMENTS.note}
                   </p>
                   <a
                     href="#consult"
-                    className="inline-flex items-center gap-2 text-sm font-medium text-foreground hover:text-foreground/70 transition-colors"
+                    className="inline-flex items-center gap-2 text-sm font-medium text-inverse-foreground hover:text-inverse-muted transition-colors"
                   >
                     Ask about visualizations
                     <ArrowRight className="h-4 w-4" />
