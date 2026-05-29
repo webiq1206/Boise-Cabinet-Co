@@ -1,0 +1,74 @@
+uploads = []
+outputs = []
+
+[[generated]]
+id = "1XrLrtVQFj5k3alau-7wf"
+uri = "file://public/images/gallery/gallery-kitchen-before.png"
+type = "image"
+title = "kitchen before"
+
+[[generated]]
+id = "6JZMyLn-_vjRcb57TFT7P"
+uri = "file://public/images/gallery/gallery-bathroom-before.png"
+type = "image"
+title = "bathroom before"
+
+[[generated]]
+id = "-AWuH-Pit6v59B6b8k6K8"
+uri = "file://public/images/gallery/gallery-whole-home-before.png"
+type = "image"
+title = "whole-home before"
+
+[[generated]]
+id = "6AlMgSUnGaQ_5_xLPJZ2T"
+uri = "file://public/images/gallery/gallery-addition-before.png"
+type = "image"
+title = "addition before"
+
+[[generated]]
+id = "0ZTSVZGCxjSi9ajRevr5Q"
+uri = "file://public/images/gallery/gallery-basement-before.png"
+type = "image"
+title = "basement before"
+
+[[generated]]
+id = "eQcZB9HsYduWEERyBINIY"
+uri = "file://public/images/gallery/gallery-outdoor-before.png"
+type = "image"
+title = "outdoor before"
+
+[[generated]]
+id = "2dD1799KfX7B6MKkzprKy"
+uri = "file://public/images/gallery/gallery-kitchen-after.png"
+type = "image"
+title = "kitchen after"
+
+[[generated]]
+id = "HgmsNQ51VEQI-khyG08Nz"
+uri = "file://public/images/gallery/gallery-bathroom-after.png"
+type = "image"
+title = "bathroom after"
+
+[[generated]]
+id = "QDjZLIj0x71rcgipX4xpL"
+uri = "file://public/images/gallery/gallery-whole-home-after.png"
+type = "image"
+title = "whole-home after"
+
+[[generated]]
+id = "WJNCYsQ07x4h__6vKUExe"
+uri = "file://public/images/gallery/gallery-addition-after.png"
+type = "image"
+title = "addition after"
+
+[[generated]]
+id = "jM2vepNjtBZWytGkPGyvJ"
+uri = "file://public/images/gallery/gallery-basement-after.png"
+type = "image"
+title = "basement after"
+
+[[generated]]
+id = "V87Lf-Cs6z3AL0V3gKfan"
+uri = "file://public/images/gallery/gallery-outdoor-after.png"
+type = "image"
+title = "outdoor after"
