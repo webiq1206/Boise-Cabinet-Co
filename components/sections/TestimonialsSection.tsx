@@ -41,6 +41,7 @@ export function TestimonialsSection({ limit = 4, showViewAll = true }: Testimoni
     <Section id="testimonials" divider>
       <div className="container px-4">
         <SectionHeader
+          align="center"
           eyebrow="Homeowner reviews"
           title={
             <>
@@ -53,8 +54,10 @@ export function TestimonialsSection({ limit = 4, showViewAll = true }: Testimoni
         />
 
         {featured && (
-          <Reveal className="mb-8 max-w-3xl">
-            <StarRow count={Number(featured.rating) || 5} />
+          <Reveal className="mb-10 max-w-3xl mx-auto text-center">
+            <div className="flex justify-center">
+              <StarRow count={Number(featured.rating) || 5} />
+            </div>
             <blockquote className="font-sans font-light text-xl md:text-2xl leading-relaxed text-foreground mt-4 mb-6">
               &ldquo;{featured.testimonial}&rdquo;
             </blockquote>
@@ -66,7 +69,7 @@ export function TestimonialsSection({ limit = 4, showViewAll = true }: Testimoni
         )}
 
         {rest.length > 0 && (
-          <div className="grid sm:grid-cols-2 gap-4 max-w-4xl">
+          <div className="grid sm:grid-cols-2 gap-4 max-w-4xl mx-auto">
             {rest.map((item, i) => (
               <Reveal key={item.customerName} delay={i * 60}>
                 <MarketingCard className="h-full">
