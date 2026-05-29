@@ -2,6 +2,7 @@ import { Reveal } from "@/components/Reveal";
 import { ArrowRight, Check } from "lucide-react";
 import { Section } from "@/components/marketing/Section";
 import { SectionHeader } from "@/components/marketing/SectionHeader";
+import { Hairline } from "@/components/marketing/Hairline";
 import {
   BUDGET_GUIDANCE_POINTS,
   STANDARD_INCLUSIONS,
@@ -18,6 +19,7 @@ export function BudgetInclusionsSection() {
           <SectionHeader
             eyebrow="Budget and scope"
             inverse
+            size="display"
             title={
               <>
                 Clear guidance on what to{" "}
@@ -25,12 +27,14 @@ export function BudgetInclusionsSection() {
               </>
             }
             description="Planning ranges upfront, a written scope before construction, and standard inclusions on every project, so you always know where things stand."
-            className="mb-10"
+            className="mb-0"
           />
 
-          <div className="grid md:grid-cols-2 gap-12 md:gap-16">
+          <Hairline inverse className="mt-8 mb-12" />
+
+          <div className="grid md:grid-cols-2 gap-12 md:gap-0">
             <Reveal>
-              <div className="space-y-8">
+              <div className="space-y-8 md:pr-16">
                 {BUDGET_GUIDANCE_POINTS.map((point) => (
                   <div key={point.title}>
                     <h3 className="font-sans font-medium text-sm mb-2 text-inverse-foreground">
@@ -43,7 +47,7 @@ export function BudgetInclusionsSection() {
             </Reveal>
 
             <Reveal delay={60}>
-              <div>
+              <div className="md:border-l md:border-inverse-foreground/15 md:pl-16">
                 <h3 className="font-sans font-medium text-sm mb-5 text-inverse-foreground">
                   Included on every project
                 </h3>

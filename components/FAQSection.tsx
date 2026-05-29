@@ -27,6 +27,7 @@ export function FAQSection() {
         <div className="max-w-3xl mx-auto">
           <SectionHeader
             eyebrow="Common questions"
+            size="display"
             title={
               <>
                 Straight answers to the questions that{" "}

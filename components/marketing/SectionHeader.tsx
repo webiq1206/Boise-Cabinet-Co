@@ -9,6 +9,7 @@ export interface SectionHeaderProps {
   className?: string;
   reveal?: boolean;
   inverse?: boolean;
+  size?: "default" | "display";
 }
 
 export function SectionHeader({
@@ -19,6 +20,7 @@ export function SectionHeader({
   className,
   reveal = true,
   inverse = false,
+  size = "default",
 }: SectionHeaderProps) {
   const content = (
     <div
@@ -32,7 +34,10 @@ export function SectionHeader({
       {eyebrow && <div className="brc-label mb-4">{eyebrow}</div>}
       <h2
         className={cn(
-          "font-sans font-light tracking-tight text-section-title md:text-section-title-lg mb-4",
+          "font-light tracking-tight mb-4",
+          size === "display"
+            ? "font-serif text-[2rem] md:text-[2.75rem] lg:text-[3.25rem] leading-[1.08]"
+            : "font-sans text-section-title md:text-section-title-lg",
           inverse ? "text-inverse-foreground" : "text-foreground"
         )}
       >

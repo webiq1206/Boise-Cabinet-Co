@@ -25,6 +25,7 @@ export function WhyChooseUsSection({ limit }: WhyChooseUsSectionProps) {
       <div className="container px-4">
         <SectionHeader
           eyebrow="What sets us apart"
+          size="display"
           title={
             <>
               Built for homeowners who want{" "}

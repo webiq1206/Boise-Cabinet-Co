@@ -12,6 +12,7 @@ export function ServicesGrid() {
       <div className="container px-4">
         <SectionHeader
           eyebrow="Our services"
+          size="display"
           title={
             <>
               Design-build expertise for every major{" "}
