@@ -3,7 +3,7 @@ import { ObfuscatedEmail } from "@/components/ObfuscatedEmail";
 import { generateBreadcrumbSchema, generateWebPageSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
-  title: "Terms of Service for Lawn Care",
+  title: "Terms of Service | Boise Remodeling Co",
   description: "Terms of service for Boise Remodeling Co. Your rights when using our remodeling and renovation services in Kuna & Boise, Idaho.",
   alternates: {
     canonical: "https://boiseremodeling.co/terms-of-service",

@@ -51,8 +51,8 @@ function applyGrossMargin(cost: number): number {
 }
 
 export interface ServiceMeasurements {
-  propertySize?: number;      // Lawn area in sqft
-  linearFeet?: number;        // For fencing, hedges, edging, lights
+  propertySize?: number;      // Property area in sqft
+  linearFeet?: number;        // For additions, fencing, linear measurements
   zones?: number;             // For irrigation
   treeCount?: number;         // For tree services
   fixtureCount?: number;      // For fixture-based pricing

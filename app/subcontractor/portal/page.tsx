@@ -105,7 +105,7 @@ interface ServiceDataEntry {
   zones?: number;
   treeCount?: number;
   quantity?: number;
-  hedgeLengthFt?: number;
+  linearLengthFt?: number;
   perimeterFt?: number;
   fixtureCount?: number;
   frequency?: string;
@@ -240,8 +240,8 @@ function getServiceMeasurement(serviceId: string, svcEntry?: ServiceDataEntry, f
       return null;
     }
     case "per_shrub": {
-      const h = svcEntry?.hedgeLengthFt;
-      if (h && h > 0) return `${Number(h).toLocaleString()} LF hedge`;
+      const h = svcEntry?.linearLengthFt;
+      if (h && h > 0) return `${Number(h).toLocaleString()} linear ft`;
       const qty = svcEntry?.quantity;
       if (qty && qty > 0) return `${qty} shrub${qty !== 1 ? "s" : ""}`;
       return null;

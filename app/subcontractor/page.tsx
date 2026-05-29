@@ -51,7 +51,7 @@ export default function SubcontractorPage() {
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div className="space-y-6">
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white">
-              Grow Your Lawn Care Business
+              Grow Your Remodeling Business
             </h2>
             <p className="text-lg text-muted-foreground">
               Join our network of trusted subcontractors and get access to verified leads in the Kuna, Meridian, and Boise areas. Only pay for the leads you want.

@@ -18,13 +18,13 @@ const KNOWN_UNRESOLVED_PURCHASES = [
     leadId: "2c924537-de65-47a1-bb5c-d5f8bb748111",
     userId: "55074230",
     purchasePrice: "5.00",
-    label: "Gary - Hannah lawn-mowing Kuna $5",
+    label: "Gary - Hannah kitchen-remodel Boise $5",
   },
   {
     leadId: "2a8eb4b6-dfb5-4f3f-a8f2-09962889a897",
     userId: "55074230",
     purchasePrice: "10.00",
-    label: "Gary - Hannah Turner lawn-mowing Kuna $10",
+    label: "Gary - Hannah Turner kitchen-remodel Boise $10",
   },
 ];
 

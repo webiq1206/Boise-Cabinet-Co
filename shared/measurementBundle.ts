@@ -1,8 +1,8 @@
 /**
- * MeasurementBundle - Consolidated property measurements for automated quoting
- * 
- * This schema consolidates all property measurements derived from assessor data
- * to enable automated, accurate pricing across all services.
+ * MeasurementBundle - Consolidated property measurements for remodeling project scoping.
+ *
+ * Derived from assessor data to support automated pricing and lead qualification
+ * for kitchen remodels, bathroom remodels, additions, and whole-home renovations.
  */
 
 export interface MeasurementBundle {
@@ -10,22 +10,18 @@ export interface MeasurementBundle {
   parcelId?: string;
   address: string;
   city: string;
-  
+
   // Area measurements (square feet)
   lotSizeSqFt: number;           // Total lot size
   buildingFootprintSqFt: number; // Building footprint (ground floor + garage)
-  lawnAreaSqFt: number;          // Calculated: lot - building - hardscape
-  
+  interiorSqFt: number;          // Finished interior living area
+
   // Linear measurements (feet)
-  lotPerimeterFt: number;        // Full property perimeter (for fencing)
-  lawnPerimeterFt: number;       // Lawn perimeter (for edging) - ~75% of lot
-  rooflineFt: number;            // Roofline length
-  rooflineWithOverhangFt: number; // Roofline + 25% for eaves (for lights)
-  estimatedHedgeFt: number;      // Estimated hedge length (~40% of perimeter)
-  
-  // Irrigation
-  estimatedZones: number;        // Typical zone count based on lot size
-  
+  lotPerimeterFt: number;        // Full property perimeter
+
+  // Structural
+  rooflineFt: number;            // Roofline length (for additions)
+
   // Confidence metadata
   source: 'assessor' | 'manual' | 'estimated';
   confidence: 'high' | 'medium' | 'low';
@@ -46,63 +42,38 @@ export function createMeasurementBundleFromAssessor(
     groundFloorSqFt?: number;
     garageSqFt?: number;
     deckPatioPoolSqFt?: number;
-    estimatedLawnSqFt?: number;
+    totalLivingAreaSqFt?: number;
     lotPerimeterFt?: number;
-    lawnPerimeterFt?: number;
     estimatedRoofLineFt?: number;
-    rooflineWithOverhangFt?: number;
-    estimatedHedgeFt?: number;
   }
 ): MeasurementBundle {
-  // Calculate lot size in sqft
-  const lotSizeSqFt = propertyData.lotSizeSqFt || 
+  const lotSizeSqFt = propertyData.lotSizeSqFt ||
     (propertyData.lotSizeAcres ? Math.round(propertyData.lotSizeAcres * 43560) : 0);
-  
-  // Calculate building footprint (ground floor + garage)
-  const buildingFootprintSqFt = (propertyData.groundFloorSqFt || 0) + 
+
+  const buildingFootprintSqFt = (propertyData.groundFloorSqFt || 0) +
     (propertyData.garageSqFt || 0);
-  
-  // Use assessor's lawn estimate or calculate from lot - building - hardscape
-  const hardscapeSqFt = propertyData.deckPatioPoolSqFt || 0;
-  const lawnAreaSqFt = propertyData.estimatedLawnSqFt || 
-    Math.max(0, lotSizeSqFt - buildingFootprintSqFt - hardscapeSqFt);
-  
-  // Perimeter calculations - use assessor data or estimate from lot size
+
+  const interiorSqFt = propertyData.totalLivingAreaSqFt ||
+    propertyData.buildingSqFt || 0;
+
   const estimatedPerimeter = Math.round(Math.sqrt(lotSizeSqFt) * 4);
   const lotPerimeterFt = propertyData.lotPerimeterFt || estimatedPerimeter;
-  const lawnPerimeterFt = propertyData.lawnPerimeterFt || Math.round(lotPerimeterFt * 0.75);
-  
-  // Roofline - use assessor data or estimate from building footprint
+
   const estimatedRoofline = Math.round(Math.sqrt(buildingFootprintSqFt || 2000) * 4);
   const rooflineFt = propertyData.estimatedRoofLineFt || estimatedRoofline;
-  const rooflineWithOverhangFt = propertyData.rooflineWithOverhangFt || Math.round(rooflineFt * 1.25);
-  
-  // Hedge length - typical ~40% of lot perimeter
-  const estimatedHedgeFt = propertyData.estimatedHedgeFt || Math.round(lotPerimeterFt * 0.4);
-  
-  // Estimate irrigation zones based on lawn size (1 zone per ~1,500 sqft typical)
-  const estimatedZones = Math.max(4, Math.min(12, Math.round(lawnAreaSqFt / 1500)));
-  
-  // Determine confidence level
-  const hasDirectData = Boolean(
-    propertyData.lotSizeSqFt && 
-    propertyData.groundFloorSqFt
-  );
+
+  const hasDirectData = Boolean(propertyData.lotSizeSqFt && propertyData.groundFloorSqFt);
   const confidence = hasDirectData ? 'high' : (lotSizeSqFt > 0 ? 'medium' : 'low');
-  
+
   return {
     parcelId: propertyData.parcel,
     address: propertyData.address,
     city: propertyData.city,
     lotSizeSqFt,
     buildingFootprintSqFt,
-    lawnAreaSqFt,
+    interiorSqFt,
     lotPerimeterFt,
-    lawnPerimeterFt,
     rooflineFt,
-    rooflineWithOverhangFt,
-    estimatedHedgeFt,
-    estimatedZones,
     source: 'assessor',
     confidence,
     timestamp: new Date().toISOString(),
@@ -116,23 +87,17 @@ export function createDefaultMeasurementBundle(
   address: string = '',
   city: string = ''
 ): MeasurementBundle {
-  // Use typical residential property estimates
   const defaultLotSqFt = 8000;
   const defaultBuildingSqFt = 2000;
-  const defaultLawnSqFt = 5000;
-  
+
   return {
     address,
     city,
     lotSizeSqFt: defaultLotSqFt,
     buildingFootprintSqFt: defaultBuildingSqFt,
-    lawnAreaSqFt: defaultLawnSqFt,
+    interiorSqFt: defaultBuildingSqFt,
     lotPerimeterFt: Math.round(Math.sqrt(defaultLotSqFt) * 4),
-    lawnPerimeterFt: Math.round(Math.sqrt(defaultLotSqFt) * 4 * 0.75),
     rooflineFt: Math.round(Math.sqrt(defaultBuildingSqFt) * 4),
-    rooflineWithOverhangFt: Math.round(Math.sqrt(defaultBuildingSqFt) * 4 * 1.25),
-    estimatedHedgeFt: Math.round(Math.sqrt(defaultLotSqFt) * 4 * 0.4),
-    estimatedZones: 6,
     source: 'estimated',
     confidence: 'low',
     timestamp: new Date().toISOString(),
@@ -144,19 +109,19 @@ export function createDefaultMeasurementBundle(
  */
 export function getMeasurementSummary(bundle: MeasurementBundle): string[] {
   const items: string[] = [];
-  
-  if (bundle.lawnAreaSqFt > 0) {
-    items.push(`${bundle.lawnAreaSqFt.toLocaleString()} sq ft lawn`);
+
+  if (bundle.interiorSqFt > 0) {
+    items.push(`${bundle.interiorSqFt.toLocaleString()} sq ft interior`);
   }
-  
-  if (bundle.rooflineWithOverhangFt > 0) {
-    items.push(`${bundle.rooflineWithOverhangFt} ft roofline`);
+
+  if (bundle.lotSizeSqFt > 0) {
+    items.push(`${bundle.lotSizeSqFt.toLocaleString()} sq ft lot`);
   }
-  
+
   if (bundle.lotPerimeterFt > 0) {
     items.push(`${bundle.lotPerimeterFt} ft perimeter`);
   }
-  
+
   return items;
 }
 

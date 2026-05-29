@@ -34,7 +34,7 @@ const quoteSubmissionSchema = z.object({
     linearFeet: z.number().optional(),
     zones: z.number().optional(),
     perimeterFt: z.number().optional(),
-    hedgeLengthFt: z.number().optional(),
+    linearLengthFt: z.number().optional(),
     treeCount: z.number().optional(),
     fixtureCount: z.number().optional(),
     frequency: z.string().optional(),
@@ -69,7 +69,7 @@ const PROPERTY_MULTIPLIERS: Record<string, number> = {
 
 function calculateServicePrice(
   serviceId: string,
-  serviceData: { propertySize?: number; linearFeet?: number; zones?: number; perimeterFt?: number; hedgeLengthFt?: number; treeCount?: number; fixtureCount?: number } | undefined,
+  serviceData: { propertySize?: number; linearFeet?: number; zones?: number; perimeterFt?: number; linearLengthFt?: number; treeCount?: number; fixtureCount?: number } | undefined,
   fallbackSqFt: number,
   propertyMultiplier: number
 ): number {
@@ -98,8 +98,8 @@ function calculateServicePrice(
       cost = (serviceData?.treeCount || 1) * typicalRate;
       break;
     case "per_shrub": {
-      const shrubEstimate = serviceData?.hedgeLengthFt ? Math.max(1, Math.round(serviceData.hedgeLengthFt / 4)) : 5;
-      cost = shrubEstimate * typicalRate;
+      const unitEstimate = serviceData?.linearLengthFt ? Math.max(1, Math.round(serviceData.linearLengthFt / 4)) : 5;
+      cost = unitEstimate * typicalRate;
       break;
     }
     case "per_fixture":

@@ -202,12 +202,12 @@ export async function searchCanyonCountyProperty(
 export function estimatePropertyMeasurements(address: string, city: string): {
   lotSizeSqFt: number;
   buildingSqFt: number;
-  estimatedLawnSqFt: number;
+  outdoorAreaSqFt: number;
   estimatedRoofLineFt: number;
   lotPerimeterFt: number;
-  lawnPerimeterFt: number;
+  outdoorPerimeterFt: number;
   rooflineWithOverhangFt: number;
-  estimatedHedgeFt: number;
+  estimatedFenceLengthFt: number;
 } {
   // Default assumptions for typical Treasure Valley properties
   let lotSizeSqFt = 7500; // Default ~0.17 acre lot
@@ -246,7 +246,7 @@ export function estimatePropertyMeasurements(address: string, city: string): {
     buildingSqFt *= 0.7;
   }
   
-  // Calculate lawn area (lot minus building, garage, and hardscape)
+  // Calculate outdoor area (lot minus building, garage, and hardscape)
   // Typical garage: 400-500 sq ft
   // Typical driveway/walkways: 500-800 sq ft
   // Typical deck/patio: 200-300 sq ft
@@ -254,8 +254,8 @@ export function estimatePropertyMeasurements(address: string, city: string): {
   const hardscapeSqFt = 650;
   const deckPatioSqFt = 250;
   
-  const estimatedLawnSqFt = Math.max(
-    1000, // Minimum 1000 sq ft lawn
+  const outdoorAreaSqFt = Math.max(
+    1000, // Minimum 1000 sq ft outdoor area
     lotSizeSqFt - buildingSqFt - garageSqFt - hardscapeSqFt - deckPatioSqFt
   );
   
@@ -268,26 +268,26 @@ export function estimatePropertyMeasurements(address: string, city: string): {
   // Apply rectangular correction factor (most lots are 1.5:1 to 2:1 ratio)
   const lotPerimeterFt = Math.round(4 * Math.sqrt(lotSizeSqFt) * 1.1);
   
-  // Lawn Perimeter Calculation
-  // Lawn perimeter is typically 70-80% of lot perimeter (buildings, hardscape reduce it)
-  const lawnPerimeterFt = Math.round(lotPerimeterFt * 0.75);
+  // Perimeter Calculation
+  // Outdoor perimeter is typically 70-80% of lot perimeter (buildings and hardscape reduce it)
+  const outdoorPerimeterFt = Math.round(lotPerimeterFt * 0.75);
   
-  // Roofline with Overhang
-  // Add 25% for eaves, overhangs, and roof complexity for Christmas lights
+  // Roofline Length
+  // Add 25% for eaves and overhangs
   const rooflineWithOverhangFt = Math.round(estimatedRoofLineFt * 1.25);
   
-  // Hedge Footage
-  // Estimate hedges on front + one side (typically 40% of lot perimeter)
-  const estimatedHedgeFt = Math.round(lotPerimeterFt * 0.40);
+  // Fence/Boundary Length Estimate
+  // Estimate fenceable boundary (typically 40% of lot perimeter)
+  const estimatedFenceLengthFt = Math.round(lotPerimeterFt * 0.40);
   
   return {
     lotSizeSqFt: Math.round(lotSizeSqFt),
     buildingSqFt: Math.round(buildingSqFt),
-    estimatedLawnSqFt: Math.round(estimatedLawnSqFt),
+    outdoorAreaSqFt: Math.round(outdoorAreaSqFt),
     estimatedRoofLineFt,
     lotPerimeterFt,
-    lawnPerimeterFt,
+    outdoorPerimeterFt,
     rooflineWithOverhangFt,
-    estimatedHedgeFt,
+    estimatedFenceLengthFt,
   };
 }

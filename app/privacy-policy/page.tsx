@@ -3,7 +3,7 @@ import { ObfuscatedEmail } from "@/components/ObfuscatedEmail";
 import { generateBreadcrumbSchema, generateWebPageSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy for Lawn Care Services",
+  title: "Privacy Policy | Boise Remodeling Co",
   description: "Boise Remodeling Co privacy policy. How we protect your data when you request remodeling services in Kuna & Boise, Idaho.",
   alternates: {
     canonical: "https://boiseremodeling.co/privacy-policy",

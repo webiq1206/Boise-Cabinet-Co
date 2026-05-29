@@ -6,7 +6,7 @@ type ExportedRecord = Record<string, string>;
 
 function storageKey(userId: string | undefined): string | null {
   if (!userId) return null;
-  return `lawnCareKuna.exportedLeads.${userId}`;
+  return `brc.exportedLeads.${userId}`;
 }
 
 function readFromStorage(key: string): ExportedRecord {

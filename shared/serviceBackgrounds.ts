@@ -5,41 +5,25 @@ export interface ServiceBackgroundConfig {
   [key: string]: string;
 }
 
-// Import all custom service backgrounds
-import christmasLightsBackground from "@assets/Christmas Light Installation Services in Kuna_1763675561175.png";
-import hedgeTrimmingBackground from "@assets/Professional Hedge Trimming Services - Professional Bush Trimming Services - Lawn Care Kuna_1763675561175.png";
-import aerationBackground from "@assets/Professional Lawn Aeration Services - Lawn Care Kuna_1763675561175.png";
-import fertilizationBackground from "@assets/Professional Lawn Fertilization Services - Lawn Care Kuna_1763675561176.png";
-import leafRemovalBackground from "@assets/Professional Leaf Removal Services - Lawn Care Kuna_1763675561176.png";
-import snowRemovalBackground from "@assets/Professional Snow Removal Services - Lawn Care Kuna_1763675561176.png";
-import sprinklerBlowoutBackground from "@assets/Professional Sprinkler Blowout Services - Lawn Care Kuna_1763675561176.png";
-import defaultBackground from "@assets/Lawn Care Kuna Background Image_1763675543303.png";
+// Default background for service pages (Unsplash placeholder — replace with real project photos)
+const DEFAULT_BACKGROUND = "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1200";
 
 // Service slug to background image mapping
 export const SERVICE_BACKGROUNDS: ServiceBackgroundConfig = {
-  // Christmas Lights
-  "christmas-lights": christmasLightsBackground,
-  
-  // Lawn Care Services
-  "hedge-trimming": hedgeTrimmingBackground,
-  "aeration": aerationBackground,
-  "fertilization": fertilizationBackground,
-  "seasonal-cleanup": leafRemovalBackground,
-  "fall-cleanup": leafRemovalBackground,
-  "spring-cleanup": leafRemovalBackground,
-  "sprinkler-blowout": sprinklerBlowoutBackground,
-  
-  // Winter Services (if applicable)
-  "snow-removal": snowRemovalBackground,
-  "winter-services": snowRemovalBackground,
+  "kitchen-remodel": "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1200",
+  "bathroom-remodel": "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=1200",
+  "whole-home-remodel": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200",
+  "room-addition": "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1200",
+  "basement-finish": "https://images.unsplash.com/photo-1600607687644-c7171b62ccd4?w=1200",
+  "outdoor-living": "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=1200",
 };
 
 // Default background for services without custom images
-export const DEFAULT_SERVICE_BACKGROUND = defaultBackground;
+export const DEFAULT_SERVICE_BACKGROUND = DEFAULT_BACKGROUND;
 
 /**
  * Get the appropriate background image for a service
- * @param serviceSlug - The service slug (e.g., 'aeration', 'christmas-lights')
+ * @param serviceSlug - The service slug (e.g., 'kitchen-remodel', 'bathroom-remodel')
  * @returns The background image URL
  */
 export function getServiceBackground(serviceSlug: string): string {
