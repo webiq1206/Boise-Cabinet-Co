@@ -5,41 +5,69 @@ import { ArrowRight, Check, Info } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import type { EstimateResult } from "@/shared/estimateEngine";
-import { INCLUDED_SCOPE_NOTE } from "@/shared/estimateEngine";
+import { INCLUDED_SCOPE_NOTE, formatPlanningCurrency } from "@/shared/estimateEngine";
 import { CTA_PRIMARY } from "@/shared/ctaCopy";
 
-function usePrevious<T>(value: T) {
-  const ref = useRef<T>(value);
-  useEffect(() => { ref.current = value; });
-  return ref.current;
-}
+const ANIM_DURATION = 320;
+const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3);
 
+/**
+ * Counts up to `value` from whatever is currently shown. The animation depends
+ * ONLY on the target value, so unrelated re-renders never interrupt or freeze
+ * it. An interrupting value change picks up smoothly from the live displayed
+ * number, and the tween always settles exactly on the target.
+ */
 function AnimatedPrice({ value }: { value: number }) {
   const [display, setDisplay] = useState(value);
-  const prev = usePrevious(value);
+  const displayRef = useRef(value);
+  const rafRef = useRef<number | null>(null);
 
   useEffect(() => {
-    if (prev === value) return;
-    const steps = 20;
-    const step = (value - prev) / steps;
-    let current = prev;
-    let i = 0;
-    const id = setInterval(() => {
-      i++;
-      current += step;
-      if (i >= steps) { setDisplay(value); clearInterval(id); }
-      else setDisplay(Math.round(current));
-    }, 16);
-    return () => clearInterval(id);
-  }, [value, prev]);
+    const from = displayRef.current;
+    const to = value;
+    if (from === to) return;
 
-  const fmt = (n: number) => {
-    if (n >= 1000000) return `$${(n / 1000000).toFixed(1)}M`;
-    if (n >= 1000) return `$${Math.round(n / 1000)}k`;
-    return `$${n.toLocaleString()}`;
-  };
+    const prefersReducedMotion =
+      typeof window !== "undefined" &&
+      typeof window.matchMedia === "function" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  return <span className="brc-display-num tabular-nums">{fmt(display)}</span>;
+    if (prefersReducedMotion) {
+      displayRef.current = to;
+      setDisplay(to);
+      return;
+    }
+
+    const start =
+      typeof performance !== "undefined" ? performance.now() : Date.now();
+
+    const tick = (now: number) => {
+      const elapsed = now - start;
+      const t = Math.min(1, elapsed / ANIM_DURATION);
+      if (t >= 1) {
+        displayRef.current = to;
+        setDisplay(to);
+        rafRef.current = null;
+        return;
+      }
+      const next = Math.round(from + (to - from) * easeOutCubic(t));
+      displayRef.current = next;
+      setDisplay(next);
+      rafRef.current = requestAnimationFrame(tick);
+    };
+
+    rafRef.current = requestAnimationFrame(tick);
+    return () => {
+      if (rafRef.current !== null) {
+        cancelAnimationFrame(rafRef.current);
+        rafRef.current = null;
+      }
+    };
+  }, [value]);
+
+  return (
+    <span className="brc-display-num tabular-nums">{formatPlanningCurrency(display)}</span>
+  );
 }
 
 export interface EstimateResultPanelProps {
@@ -58,7 +86,7 @@ export function EstimateResultPanel({
   className,
 }: EstimateResultPanelProps) {
   const isCompact = variant === "compact";
-  const rangeAnnouncement = `$${Math.round(result.priceLow / 1000)}k to $${Math.round(result.priceHigh / 1000)}k planning range`;
+  const rangeAnnouncement = `${formatPlanningCurrency(result.priceLow)} to ${formatPlanningCurrency(result.priceHigh)} planning range`;
 
   return (
     <div

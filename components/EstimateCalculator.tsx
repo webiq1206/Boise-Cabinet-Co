@@ -20,6 +20,7 @@ import {
   buildSelectionSummary,
   calculateEstimate,
   buildStoredEstimate,
+  formatPlanningCurrency,
 } from "@/shared/estimateEngine";
 
 function SelectButton<T extends string>({
@@ -66,6 +67,80 @@ function SelectButton<T extends string>({
   );
 }
 
+function RefinementNumberInput({
+  id,
+  label,
+  min,
+  max,
+  placeholder,
+  value,
+  onCommit,
+  testId,
+}: {
+  id: string;
+  label: string;
+  min: number;
+  max: number;
+  placeholder: string;
+  value: number | null;
+  onCommit: (n: number | null) => void;
+  testId: string;
+}) {
+  const [text, setText] = useState(value !== null ? String(value) : "");
+  const clamp = (n: number) => Math.max(min, Math.min(max, Math.round(n)));
+
+  // Keep the visible text in sync if the parent resets/changes the value
+  // externally (e.g. switching project types), so the field never shows a
+  // stale number that disagrees with the underlying estimate.
+  useEffect(() => {
+    setText(value !== null ? String(value) : "");
+  }, [value]);
+
+  return (
+    <div>
+      <label htmlFor={id} className="brc-label mb-3 block">
+        {label}
+      </label>
+      <input
+        id={id}
+        type="number"
+        inputMode="numeric"
+        min={min}
+        max={max}
+        placeholder={placeholder}
+        value={text}
+        onChange={(e) => {
+          const raw = e.target.value;
+          setText(raw);
+          if (raw === "") {
+            onCommit(null);
+            return;
+          }
+          const n = Number(raw);
+          if (Number.isFinite(n)) onCommit(clamp(n));
+        }}
+        onBlur={() => {
+          if (text === "") {
+            onCommit(null);
+            return;
+          }
+          const n = Number(text);
+          if (Number.isFinite(n)) {
+            const c = clamp(n);
+            setText(String(c));
+            onCommit(c);
+          } else {
+            setText("");
+            onCommit(null);
+          }
+        }}
+        className="w-full p-3 rounded-sm text-sm bg-background border border-input"
+        data-testid={testId}
+      />
+    </div>
+  );
+}
+
 export function EstimateCalculator() {
   const [project, setProject] = useState<ProjectType>(DEFAULT_ESTIMATE_INPUT.project);
   const [finish, setFinish] = useState<FinishLevel>(DEFAULT_ESTIMATE_INPUT.finish);
@@ -97,6 +172,7 @@ export function EstimateCalculator() {
   }
 
   function handleSelectProject(type: ProjectType) {
+    if (type === project) return;
     setProject(type);
     setSqft(getProjectSizeConfig(type).defaultSqft);
     setRefinements({ ...DEFAULT_ESTIMATE_INPUT.refinements });
@@ -106,6 +182,19 @@ export function EstimateCalculator() {
   function updateRefinement<K extends keyof EstimateRefinements>(key: K, value: EstimateRefinements[K]) {
     setRefinements((prev) => ({ ...prev, [key]: value }));
     markRefinement(key as UserRefinementKey);
+  }
+
+  function commitNumberRefinement<K extends keyof EstimateRefinements>(
+    key: K,
+    value: number | null
+  ) {
+    setRefinements((prev) => ({ ...prev, [key]: value as EstimateRefinements[K] }));
+    setUserRefinements((prev) => {
+      const next = new Set(prev);
+      if (value === null) next.delete(key as UserRefinementKey);
+      else next.add(key as UserRefinementKey);
+      return next;
+    });
   }
 
   function handleBookVisit() {
@@ -330,51 +419,29 @@ export function EstimateCalculator() {
                   )}
 
                   {project === "bathroom" && (
-                    <div>
-                      <label htmlFor="fixture-count" className="brc-label mb-3 block">
-                        Number of fixtures
-                      </label>
-                      <input
-                        id="fixture-count"
-                        type="number"
-                        min={1}
-                        max={8}
-                        placeholder="e.g. 3"
-                        value={refinements.fixtureCount ?? ""}
-                        onChange={(e) => {
-                          const n = Number(e.target.value);
-                          if (e.target.value && Number.isFinite(n)) {
-                            updateRefinement("fixtureCount", n);
-                          }
-                        }}
-                        className="w-full p-3 rounded-sm text-sm bg-background border border-input"
-                        data-testid="input-fixture-count"
-                      />
-                    </div>
+                    <RefinementNumberInput
+                      id="fixture-count"
+                      label="Number of fixtures"
+                      min={1}
+                      max={8}
+                      placeholder="e.g. 3"
+                      value={refinements.fixtureCount}
+                      onCommit={(n) => commitNumberRefinement("fixtureCount", n)}
+                      testId="input-fixture-count"
+                    />
                   )}
 
                   {project === "whole-home" && (
-                    <div>
-                      <label htmlFor="room-count" className="brc-label mb-3 block">
-                        Rooms being remodeled
-                      </label>
-                      <input
-                        id="room-count"
-                        type="number"
-                        min={1}
-                        max={12}
-                        placeholder="e.g. 4"
-                        value={refinements.roomCount ?? ""}
-                        onChange={(e) => {
-                          const n = Number(e.target.value);
-                          if (e.target.value && Number.isFinite(n)) {
-                            updateRefinement("roomCount", n);
-                          }
-                        }}
-                        className="w-full p-3 rounded-sm text-sm bg-background border border-input"
-                        data-testid="input-room-count"
-                      />
-                    </div>
+                    <RefinementNumberInput
+                      id="room-count"
+                      label="Rooms being remodeled"
+                      min={1}
+                      max={12}
+                      placeholder="e.g. 4"
+                      value={refinements.roomCount}
+                      onCommit={(n) => commitNumberRefinement("roomCount", n)}
+                      testId="input-room-count"
+                    />
                   )}
 
                   {project === "addition" && (
@@ -453,7 +520,7 @@ export function EstimateCalculator() {
             </p>
             <p className="text-lg text-foreground" data-testid="mobile-estimate-range">
               <DisplayNum>
-                ${Math.round(result.priceLow / 1000)}k to ${Math.round(result.priceHigh / 1000)}k
+                {formatPlanningCurrency(result.priceLow)} to {formatPlanningCurrency(result.priceHigh)}
               </DisplayNum>
             </p>
           </div>

@@ -91,10 +91,11 @@ export function getProjectSizeConfig(project: ProjectType): ProjectSizeConfig {
   return PROJECT_SIZE_CONFIG[project];
 }
 
-export function getMaxRefinementFields(project: ProjectType): number {
-  return project === "kitchen" || project === "bathroom" || project === "whole-home" || project === "addition"
-    ? 6
-    : 4;
+export function getMaxRefinementFields(_project: ProjectType): number {
+  // Four shared detail fields (layout, plumbing/electrical, location, timeline)
+  // plus exactly one project-specific field (cabinet tier, fixtures, rooms, or
+  // stories). Every project type therefore exposes 5 refinement fields.
+  return 5;
 }
 
 export const PROJECT_LABELS: Record<ProjectType, { label: string; sub: string }> = {
