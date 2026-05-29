@@ -152,7 +152,7 @@ export async function sendQuoteConfirmationEmail(data: {
     <body style="margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; background-color: #f4f4f5;">
       <div style="max-width: 600px; margin: 0 auto; padding: 20px;">
         <div style="background: linear-gradient(135deg, #8B4A2E 0%, #3a9d63 50%, #ffffff 100%); padding: 30px; text-align: center; border-radius: 12px 12px 0 0;">
-          <img src="https://boiseremodeling.co/images/boiseremodeling-logo.png" alt="Boise Remodeling Co" style="max-height: 60px; margin-bottom: 10px;">
+          <img src="https://boiseremodeling.co/images/brc-logo.png" alt="Boise Remodeling Co" style="max-height: 60px; margin-bottom: 10px;">
           <h1 style="color: white; margin: 0; font-size: 24px;">Thank You for Your Quote Request!</h1>
         </div>
         
@@ -238,7 +238,7 @@ export async function sendAdminNotificationEmail(data: {
     <body style="margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; background-color: #f4f4f5;">
       <div style="max-width: 600px; margin: 0 auto; padding: 20px;">
         <div style="background: linear-gradient(135deg, #8B4A2E 0%, #3a9d63 50%, #ffffff 100%); padding: 30px; text-align: center; border-radius: 12px 12px 0 0;">
-          <img src="https://boiseremodeling.co/images/boiseremodeling-logo.png" alt="Boise Remodeling Co" style="max-height: 60px; margin-bottom: 10px;">
+          <img src="https://boiseremodeling.co/images/brc-logo.png" alt="Boise Remodeling Co" style="max-height: 60px; margin-bottom: 10px;">
           <h1 style="color: white; margin: 0; font-size: 24px;">New Quote Request!</h1>
         </div>
         

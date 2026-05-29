@@ -3,9 +3,9 @@ import { formatQuoteForDisplay, calculateQuoteRange } from '../../shared/utils';
 import { storage } from '../storage';
 
 const SITE_BASE_URL = 'https://boiseremodeling.co';
-const EMAIL_ASSET_BASE_URL = `${SITE_BASE_URL}/email`;
-const EMAIL_LOGO_LIGHT_URL = `${EMAIL_ASSET_BASE_URL}/boiseremodeling-logo.png`;
-const EMAIL_LOGO_DARK_URL = `${EMAIL_ASSET_BASE_URL}/boiseremodeling-icon.png`;
+const EMAIL_ASSET_BASE_URL = `${SITE_BASE_URL}/images`;
+const EMAIL_LOGO_LIGHT_URL = `${EMAIL_ASSET_BASE_URL}/brc-logo.png`;
+const EMAIL_LOGO_DARK_URL = `${EMAIL_ASSET_BASE_URL}/brc-icon.png`;
 
 const NOTIF_RECURRING_ELIGIBLE = new Set<string>();
 
