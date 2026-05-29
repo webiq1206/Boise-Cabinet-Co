@@ -48,12 +48,12 @@ const FAQS = [
 
 export function FAQSection() {
   return (
-    <section id="faq" style={{ background: "#FBF8F1" }} className="py-20 md:py-28">
+    <section id="faq" style={{ background: "#FFFFFF" }} className="py-20 md:py-28">
       <div className="container px-4">
         <div className="max-w-3xl mx-auto">
           <div className="mb-12">
             <div className="brc-label mb-4">Common questions</div>
-            <h2 className="font-serif font-light text-3xl md:text-4xl tracking-tight" style={{ color: "#1C1A17" }}>
+            <h2 className="font-serif font-light text-3xl md:text-4xl tracking-tight" style={{ color: "#3A3E3D" }}>
               Honest answers to hard questions
             </h2>
           </div>
@@ -63,24 +63,24 @@ export function FAQSection() {
                 key={i}
                 value={`faq-${i}`}
                 className="border-0 border-t"
-                style={{ borderColor: "rgba(28,26,23,0.12)" }}
+                style={{ borderColor: "rgba(58,62,61,0.12)" }}
               >
                 <AccordionTrigger
                   className="text-left py-5 hover:no-underline font-sans font-medium text-sm"
-                  style={{ color: "#1C1A17" }}
+                  style={{ color: "#3A3E3D" }}
                 >
                   {faq.q}
                 </AccordionTrigger>
                 <AccordionContent
                   className="text-sm leading-relaxed pb-6"
-                  style={{ color: "#8F8B82" }}
+                  style={{ color: "#6E736F" }}
                 >
                   {faq.a}
                 </AccordionContent>
               </AccordionItem>
             ))}
           </Accordion>
-          <div className="pt-4 border-t" style={{ borderColor: "rgba(28,26,23,0.12)" }} />
+          <div className="pt-4 border-t" style={{ borderColor: "rgba(58,62,61,0.12)" }} />
         </div>
       </div>
     </section>

@@ -98,14 +98,14 @@ export function ConsultationForm() {
       <div className="flex flex-col items-start py-8 space-y-4">
         <div
           className="w-10 h-10 rounded-sm flex items-center justify-center"
-          style={{ background: "rgba(45,95,71,0.12)" }}
+          style={{ background: "rgba(153,159,147,0.12)" }}
         >
-          <CheckCircle2 className="h-5 w-5" style={{ color: "#2D5F47" }} />
+          <CheckCircle2 className="h-5 w-5" style={{ color: "#999F93" }} />
         </div>
-        <h3 className="font-serif font-light text-2xl" style={{ color: "#1C1A17" }}>
+        <h3 className="font-serif font-light text-2xl" style={{ color: "#3A3E3D" }}>
           We&apos;ll be in touch shortly.
         </h3>
-        <p className="text-sm leading-relaxed" style={{ color: "#8F8B82" }}>
+        <p className="text-sm leading-relaxed" style={{ color: "#6E736F" }}>
           Thank you for reaching out. We typically respond within one business day to
           schedule your free in-home visit.
         </p>
@@ -124,14 +124,14 @@ export function ConsultationForm() {
           <div
             className="rounded-sm p-4 text-sm"
             style={{
-              background: "rgba(45,95,71,0.06)",
-              border: "1px solid rgba(45,95,71,0.15)",
+              background: "rgba(153,159,147,0.06)",
+              border: "1px solid rgba(153,159,147,0.15)",
             }}
           >
-            <p className="font-medium mb-1" style={{ color: "#1C1A17" }}>
+            <p className="font-medium mb-1" style={{ color: "#3A3E3D" }}>
               Estimate from calculator:
             </p>
-            <p style={{ color: "#8F8B82" }}>
+            <p style={{ color: "#6E736F" }}>
               {PROJECT_OPTIONS.find((p) => p.value === estimate.project)?.label} —{" "}
               {formatCurrency(estimate.priceLow)} – {formatCurrency(estimate.priceHigh)}
             </p>
@@ -157,14 +157,14 @@ export function ConsultationForm() {
             name="name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="text-xs tracking-wide font-medium uppercase" style={{ color: "#8F8B82" }}>
+                <FormLabel className="text-xs tracking-wide font-medium uppercase" style={{ color: "#6E736F" }}>
                   Full name
                 </FormLabel>
                 <FormControl>
                   <Input
                     placeholder="Jane Smith"
                     data-testid="input-name"
-                    style={{ background: "#F5F1E8", border: "1px solid rgba(28,26,23,0.15)", borderRadius: "2px" }}
+                    style={{ background: "#E2DED2", border: "1px solid rgba(58,62,61,0.15)", borderRadius: "2px" }}
                     {...field}
                   />
                 </FormControl>
@@ -177,7 +177,7 @@ export function ConsultationForm() {
             name="phone"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="text-xs tracking-wide font-medium uppercase" style={{ color: "#8F8B82" }}>
+                <FormLabel className="text-xs tracking-wide font-medium uppercase" style={{ color: "#6E736F" }}>
                   Phone
                 </FormLabel>
                 <FormControl>
@@ -185,7 +185,7 @@ export function ConsultationForm() {
                     type="tel"
                     placeholder="(208) 555-0000"
                     data-testid="input-phone"
-                    style={{ background: "#F5F1E8", border: "1px solid rgba(28,26,23,0.15)", borderRadius: "2px" }}
+                    style={{ background: "#E2DED2", border: "1px solid rgba(58,62,61,0.15)", borderRadius: "2px" }}
                     {...field}
                   />
                 </FormControl>
@@ -201,7 +201,7 @@ export function ConsultationForm() {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="text-xs tracking-wide font-medium uppercase" style={{ color: "#8F8B82" }}>
+                <FormLabel className="text-xs tracking-wide font-medium uppercase" style={{ color: "#6E736F" }}>
                   Email
                 </FormLabel>
                 <FormControl>
@@ -209,7 +209,7 @@ export function ConsultationForm() {
                     type="email"
                     placeholder="jane@example.com"
                     data-testid="input-email"
-                    style={{ background: "#F5F1E8", border: "1px solid rgba(28,26,23,0.15)", borderRadius: "2px" }}
+                    style={{ background: "#E2DED2", border: "1px solid rgba(58,62,61,0.15)", borderRadius: "2px" }}
                     {...field}
                   />
                 </FormControl>
@@ -222,7 +222,7 @@ export function ConsultationForm() {
             name="zip"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="text-xs tracking-wide font-medium uppercase" style={{ color: "#8F8B82" }}>
+                <FormLabel className="text-xs tracking-wide font-medium uppercase" style={{ color: "#6E736F" }}>
                   ZIP code
                 </FormLabel>
                 <FormControl>
@@ -230,7 +230,7 @@ export function ConsultationForm() {
                     placeholder="83706"
                     maxLength={5}
                     data-testid="input-zip"
-                    style={{ background: "#F5F1E8", border: "1px solid rgba(28,26,23,0.15)", borderRadius: "2px" }}
+                    style={{ background: "#E2DED2", border: "1px solid rgba(58,62,61,0.15)", borderRadius: "2px" }}
                     {...field}
                   />
                 </FormControl>
@@ -245,14 +245,14 @@ export function ConsultationForm() {
           name="projectType"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="text-xs tracking-wide font-medium uppercase" style={{ color: "#8F8B82" }}>
+              <FormLabel className="text-xs tracking-wide font-medium uppercase" style={{ color: "#6E736F" }}>
                 What are you planning to remodel?
               </FormLabel>
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
                   <SelectTrigger
                     data-testid="select-project-type"
-                    style={{ background: "#F5F1E8", border: "1px solid rgba(28,26,23,0.15)", borderRadius: "2px" }}
+                    style={{ background: "#E2DED2", border: "1px solid rgba(58,62,61,0.15)", borderRadius: "2px" }}
                   >
                     <SelectValue placeholder="Select a project type" />
                   </SelectTrigger>
@@ -275,9 +275,9 @@ export function ConsultationForm() {
           name="message"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="text-xs tracking-wide font-medium uppercase" style={{ color: "#8F8B82" }}>
+              <FormLabel className="text-xs tracking-wide font-medium uppercase" style={{ color: "#6E736F" }}>
                 Anything else we should know?{" "}
-                <span className="normal-case" style={{ color: "rgba(143,139,130,0.7)" }}>
+                <span className="normal-case" style={{ color: "rgba(124,129,126,0.7)" }}>
                   (optional)
                 </span>
               </FormLabel>
@@ -286,7 +286,7 @@ export function ConsultationForm() {
                   placeholder="Tell us a little about your home, your vision, or your timeline..."
                   rows={4}
                   data-testid="textarea-message"
-                  style={{ background: "#F5F1E8", border: "1px solid rgba(28,26,23,0.15)", borderRadius: "2px" }}
+                  style={{ background: "#E2DED2", border: "1px solid rgba(58,62,61,0.15)", borderRadius: "2px" }}
                   {...field}
                 />
               </FormControl>
@@ -301,8 +301,8 @@ export function ConsultationForm() {
             disabled={mutation.isPending}
             className="inline-flex items-center gap-2 px-6 py-3.5 text-sm font-medium rounded-sm"
             style={{
-              background: "#1C1A17",
-              color: "#FBF8F1",
+              background: "#3A3E3D",
+              color: "#FFFFFF",
               opacity: mutation.isPending ? 0.65 : 1,
               cursor: mutation.isPending ? "not-allowed" : "pointer",
             }}
@@ -311,7 +311,7 @@ export function ConsultationForm() {
             {mutation.isPending ? "Sending…" : "Send my request"}
             {!mutation.isPending && <ArrowRight className="h-4 w-4" />}
           </button>
-          <p className="text-xs" style={{ color: "#8F8B82" }}>
+          <p className="text-xs" style={{ color: "#6E736F" }}>
             No spam. Response within one business day.
           </p>
         </div>

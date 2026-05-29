@@ -148,7 +148,7 @@ export function EstimateCalculator() {
   const priceHigh = priceData ? Math.round((priceData.high * sizeMultiplier) / 1000) * 1000 : 0;
 
   const sliderPct = ((sqft - 100) / (2000 - 100)) * 100;
-  const sliderBackground = `linear-gradient(to right, #2D5F47 0%, #2D5F47 ${sliderPct}%, #D4C4A8 ${sliderPct}%, #D4C4A8 100%)`;
+  const sliderBackground = `linear-gradient(to right, #999F93 0%, #999F93 ${sliderPct}%, #C9BCA9 ${sliderPct}%, #C9BCA9 100%)`;
 
   useEffect(() => {
     if (project && finish) setShowResult(true);
@@ -174,7 +174,7 @@ export function EstimateCalculator() {
   }
 
   return (
-    <section id="calculator" style={{ background: "#F5F1E8" }} className="py-20 md:py-28">
+    <section id="calculator" style={{ background: "#E2DED2" }} className="py-20 md:py-28">
       <div className="container px-4">
         <div className="grid md:grid-cols-[3fr_2fr] gap-8 md:gap-12 items-start max-w-6xl mx-auto">
 
@@ -183,11 +183,11 @@ export function EstimateCalculator() {
             <div className="brc-label mb-3">Instant Range</div>
             <h2
               className="font-serif font-light text-3xl md:text-4xl mb-3"
-              style={{ color: "#1C1A17" }}
+              style={{ color: "#3A3E3D" }}
             >
               What will my project cost?
             </h2>
-            <p className="text-sm mb-10" style={{ color: "#8F8B82" }}>
+            <p className="text-sm mb-10" style={{ color: "#6E736F" }}>
               Select your project type and finish level to get a starting-point range in seconds.
             </p>
 
@@ -205,20 +205,20 @@ export function EstimateCalculator() {
                       data-testid={`button-project-${type}`}
                       className="relative flex flex-col items-start gap-1.5 p-5 rounded-sm text-left transition-all"
                       style={{
-                        background: active ? "rgba(45,95,71,0.06)" : "#FBF8F1",
-                        border: active ? "1.5px solid #2D5F47" : "1px solid rgba(28,26,23,0.12)",
+                        background: active ? "rgba(153,159,147,0.06)" : "#FFFFFF",
+                        border: active ? "1.5px solid #999F93" : "1px solid rgba(58,62,61,0.12)",
                       }}
                     >
                       {active && (
                         <Check
                           className="absolute top-3 right-3 h-4 w-4"
-                          style={{ color: "#2D5F47" }}
+                          style={{ color: "#999F93" }}
                         />
                       )}
-                      <span className="font-medium text-sm" style={{ color: "#1C1A17" }}>
+                      <span className="font-medium text-sm" style={{ color: "#3A3E3D" }}>
                         {info.label}
                       </span>
-                      <span className="text-xs" style={{ color: "#8F8B82" }}>
+                      <span className="text-xs" style={{ color: "#6E736F" }}>
                         {info.sub}
                       </span>
                     </button>
@@ -242,20 +242,20 @@ export function EstimateCalculator() {
                         data-testid={`button-finish-${level}`}
                         className="relative flex flex-col items-start gap-1.5 p-5 rounded-sm text-left transition-all"
                         style={{
-                          background: active ? "rgba(45,95,71,0.06)" : "#FBF8F1",
-                          border: active ? "1.5px solid #2D5F47" : "1px solid rgba(28,26,23,0.12)",
+                          background: active ? "rgba(153,159,147,0.06)" : "#FFFFFF",
+                          border: active ? "1.5px solid #999F93" : "1px solid rgba(58,62,61,0.12)",
                         }}
                       >
                         {active && (
                           <Check
                             className="absolute top-3 right-3 h-4 w-4"
-                            style={{ color: "#2D5F47" }}
+                            style={{ color: "#999F93" }}
                           />
                         )}
-                        <span className="font-medium text-sm" style={{ color: "#1C1A17" }}>
+                        <span className="font-medium text-sm" style={{ color: "#3A3E3D" }}>
                           {info.label}
                         </span>
-                        <span className="text-xs" style={{ color: "#8F8B82" }}>
+                        <span className="text-xs" style={{ color: "#6E736F" }}>
                           {info.sub}
                         </span>
                       </button>
@@ -272,9 +272,9 @@ export function EstimateCalculator() {
                   <div className="brc-label">Step 3 — Size of the space</div>
                   <div
                     className="font-serif font-light text-2xl leading-none"
-                    style={{ color: "#1C1A17" }}
+                    style={{ color: "#3A3E3D" }}
                   >
-                    {sqft.toLocaleString()} <span className="text-sm font-sans" style={{ color: "#8F8B82" }}>sqft</span>
+                    {sqft.toLocaleString()} <span className="text-sm font-sans" style={{ color: "#6E736F" }}>sqft</span>
                   </div>
                 </div>
                 <input
@@ -291,7 +291,7 @@ export function EstimateCalculator() {
                 />
                 <div
                   className="flex justify-between text-[11px] mt-2 tracking-wide"
-                  style={{ color: "#8F8B82" }}
+                  style={{ color: "#6E736F" }}
                 >
                   <span>100 sqft</span>
                   <span>2,000 sqft</span>
@@ -305,11 +305,11 @@ export function EstimateCalculator() {
             {priceData ? (
               <div
                 className="rounded-sm p-8"
-                style={{ background: "#1C1A17" }}
+                style={{ background: "#3A3E3D" }}
               >
                 <div
                   className="brc-label mb-5"
-                  style={{ color: "rgba(245,241,232,0.32)" }}
+                  style={{ color: "rgba(255,255,255,0.62)" }}
                 >
                   Starting-Point Range
                 </div>
@@ -317,7 +317,7 @@ export function EstimateCalculator() {
                   className="font-serif font-light leading-none mb-2"
                   style={{
                     fontSize: "clamp(28px, 3.5vw, 44px)",
-                    color: "#FBF8F1",
+                    color: "#FFFFFF",
                   }}
                 >
                   <AnimatedPrice value={priceLow} />
@@ -326,7 +326,7 @@ export function EstimateCalculator() {
                 </div>
                 <p
                   className="text-xs mb-7"
-                  style={{ color: "rgba(245,241,232,0.38)" }}
+                  style={{ color: "rgba(255,255,255,0.66)" }}
                 >
                   Estimated ROI at resale: ~{priceData.roi}% recouped
                 </p>
@@ -336,11 +336,11 @@ export function EstimateCalculator() {
                     <div
                       key={i}
                       className="flex items-start gap-2.5 text-sm"
-                      style={{ color: "rgba(245,241,232,0.58)" }}
+                      style={{ color: "rgba(255,255,255,0.72)" }}
                     >
                       <Check
                         className="h-4 w-4 flex-shrink-0 mt-0.5"
-                        style={{ color: "#2D5F47" }}
+                        style={{ color: "#999F93" }}
                       />
                       {item}
                     </div>
@@ -350,7 +350,7 @@ export function EstimateCalculator() {
                 <button
                   onClick={handleBookVisit}
                   className="w-full py-3.5 text-sm font-medium rounded-sm flex items-center justify-center gap-2"
-                  style={{ background: "#2D5F47", color: "#FBF8F1" }}
+                  style={{ background: "#3A3E3D", color: "#FFFFFF" }}
                   data-testid="button-book-visit"
                 >
                   Book my free in-home visit
@@ -359,7 +359,7 @@ export function EstimateCalculator() {
 
                 <p
                   className="text-[11px] mt-5 leading-relaxed"
-                  style={{ color: "rgba(245,241,232,0.25)" }}
+                  style={{ color: "rgba(255,255,255,0.62)" }}
                 >
                   Starting-point estimate only. Not a contract or firm bid. Final pricing
                   determined after your free in-home consultation.
@@ -369,13 +369,13 @@ export function EstimateCalculator() {
               <div
                 className="rounded-sm p-8 flex flex-col items-center justify-center text-center"
                 style={{
-                  background: "#1C1A17",
+                  background: "#3A3E3D",
                   minHeight: "220px",
                 }}
               >
                 <p
                   className="text-sm leading-relaxed max-w-[200px]"
-                  style={{ color: "rgba(245,241,232,0.30)" }}
+                  style={{ color: "rgba(255,255,255,0.62)" }}
                 >
                   Select a project type and finish level to see your starting-point range
                 </p>

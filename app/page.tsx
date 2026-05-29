@@ -200,13 +200,13 @@ const FOUNDING_BENEFITS = [
 
 export default function HomePage() {
   return (
-    <div className="flex flex-col pb-20 md:pb-0" style={{ background: "#F5F1E8" }}>
+    <div className="flex flex-col pb-20 md:pb-0" style={{ background: "#E2DED2" }}>
 
       {/* ── 1. HERO ── */}
       <section
         className="relative min-h-screen flex items-center overflow-hidden"
         style={{
-          background: "radial-gradient(120% 80% at 78% 12%, #E5C9A4 0%, #B7916D 28%, #6B4F36 60%, #2D1F15 100%)",
+          background: "radial-gradient(120% 80% at 78% 12%, #C9BCA9 0%, #999F93 26%, #5A5F5C 58%, #2A2D2C 100%)",
         }}
       >
         {/* Grain texture */}
@@ -217,14 +217,14 @@ export default function HomePage() {
         {/* Left dark wash */}
         <div
           className="absolute inset-0 pointer-events-none"
-          style={{ background: "linear-gradient(115deg, rgba(20,16,12,.68) 0%, rgba(20,16,12,.22) 48%, rgba(20,16,12,0) 72%)" }}
+          style={{ background: "linear-gradient(115deg, rgba(20,22,21,.68) 0%, rgba(20,22,21,.22) 48%, rgba(20,22,21,0) 72%)" }}
         />
 
         <div className="relative z-10 container px-4 md:px-8 py-28 md:py-36">
           <div className="grid md:grid-cols-[1.4fr_1fr] gap-10 md:gap-16 items-center">
             {/* Left */}
             <Reveal>
-              <div className="brc-label mb-6" style={{ color: "rgba(255,255,255,0.42)" }}>
+              <div className="brc-label mb-6" style={{ color: "rgba(255,255,255,0.68)" }}>
                 Boise Remodeling Co — Treasure Valley Design-Build
               </div>
               <h1
@@ -232,7 +232,7 @@ export default function HomePage() {
                 style={{ fontSize: "clamp(40px, 6vw, 80px)" }}
               >
                 A more{" "}
-                <em className="italic" style={{ color: "#E5C9A4" }}>
+                <em className="italic" style={{ color: "#C9BCA9" }}>
                   honest
                 </em>{" "}
                 way to remodel.
@@ -248,7 +248,7 @@ export default function HomePage() {
                 <a
                   href="#calculator"
                   className="inline-flex items-center gap-2 px-6 py-3.5 text-sm font-medium rounded-sm"
-                  style={{ background: "#2D5F47", color: "#FBF8F1" }}
+                  style={{ background: "#3A3E3D", color: "#FFFFFF" }}
                 >
                   Get my starting range
                   <ArrowRight className="h-4 w-4" />
@@ -257,9 +257,9 @@ export default function HomePage() {
                   href="#consult"
                   className="inline-flex items-center gap-2 px-6 py-3.5 text-sm font-medium rounded-sm"
                   style={{
-                    background: "rgba(251,248,241,0.10)",
-                    color: "#FBF8F1",
-                    border: "1px solid rgba(251,248,241,0.22)",
+                    background: "rgba(255,255,255,0.10)",
+                    color: "#FFFFFF",
+                    border: "1px solid rgba(255,255,255,0.22)",
                     backdropFilter: "blur(4px)",
                   }}
                 >
@@ -269,7 +269,7 @@ export default function HomePage() {
               <div className="mt-10 pt-8 border-t border-white/10">
                 <p
                   className="text-[11px] tracking-[0.12em] uppercase"
-                  style={{ color: "rgba(255,255,255,0.35)" }}
+                  style={{ color: "rgba(255,255,255,0.62)" }}
                 >
                   Serving Boise · Meridian · Eagle · Nampa · Kuna · Star · Middleton
                 </p>
@@ -287,8 +287,8 @@ export default function HomePage() {
                   <div
                     className="px-6 py-5 rounded-sm"
                     style={{
-                      background: "rgba(251,248,241,0.07)",
-                      border: "1px solid rgba(251,248,241,0.12)",
+                      background: "rgba(255,255,255,0.07)",
+                      border: "1px solid rgba(255,255,255,0.12)",
                     }}
                   >
                     <div
@@ -298,7 +298,7 @@ export default function HomePage() {
                     </div>
                     <div
                       className="mt-1.5 text-[11px] tracking-[0.1em] uppercase"
-                      style={{ color: "rgba(255,255,255,0.42)" }}
+                      style={{ color: "rgba(255,255,255,0.68)" }}
                     >
                       {stat.label}
                     </div>
@@ -311,18 +311,18 @@ export default function HomePage() {
       </section>
 
       {/* ── 2. TRUST STRIP ── */}
-      <section style={{ background: "#1C1A17" }} className="py-4">
+      <section style={{ background: "#3A3E3D" }} className="py-4">
         <div className="container px-4">
           <div className="flex flex-wrap justify-center gap-x-8 md:gap-x-12 gap-y-2">
             {TRUST_ITEMS.map((item) => (
               <div
                 key={item}
                 className="flex items-center gap-2 text-[11px] tracking-[0.10em] uppercase font-medium"
-                style={{ color: "rgba(245,241,232,0.42)" }}
+                style={{ color: "rgba(255,255,255,0.68)" }}
               >
                 <span
                   className="w-1 h-1 rounded-full flex-shrink-0"
-                  style={{ background: "#2D5F47" }}
+                  style={{ background: "#999F93" }}
                 />
                 {item}
               </div>
@@ -332,39 +332,39 @@ export default function HomePage() {
       </section>
 
       {/* ── 3. PROMISE BAR ── */}
-      <section id="services" style={{ background: "#FBF8F1" }} className="py-20 md:py-28">
+      <section id="services" style={{ background: "#FFFFFF" }} className="py-20 md:py-28">
         <div className="container px-4">
           <Reveal className="mb-14">
             <div className="brc-label mb-3">What we stand for</div>
             <h2
               className="font-serif font-light text-3xl md:text-4xl tracking-tight"
-              style={{ color: "#1C1A17" }}
+              style={{ color: "#3A3E3D" }}
             >
               Four things we never compromise on
             </h2>
           </Reveal>
           <div
             className="grid sm:grid-cols-2 lg:grid-cols-4 border-t"
-            style={{ borderColor: "rgba(28,26,23,0.12)" }}
+            style={{ borderColor: "rgba(58,62,61,0.12)" }}
           >
             {PROMISE_ITEMS.map((item, i) => (
               <Reveal
                 key={item.num}
                 delay={i * 60}
                 className="pt-8 pb-8 pr-0 lg:pr-10 border-b sm:border-b-0 last:border-0"
-                style={{ borderColor: "rgba(28,26,23,0.12)" }}
+                style={{ borderColor: "rgba(58,62,61,0.12)" }}
               >
                 <div
                   className="w-6 h-px mb-6"
-                  style={{ background: "#2D5F47" }}
+                  style={{ background: "#999F93" }}
                 />
                 <h3
                   className="font-sans font-medium text-sm mb-2"
-                  style={{ color: "#1C1A17" }}
+                  style={{ color: "#3A3E3D" }}
                 >
                   {item.title}
                 </h3>
-                <p className="text-sm leading-relaxed" style={{ color: "#8F8B82" }}>
+                <p className="text-sm leading-relaxed" style={{ color: "#6E736F" }}>
                   {item.body}
                 </p>
               </Reveal>
@@ -387,7 +387,7 @@ export default function HomePage() {
             className="absolute inset-0"
             style={{
               background:
-                "linear-gradient(to bottom, rgba(28,26,23,0.08) 0%, rgba(28,26,23,0.62) 100%)",
+                "linear-gradient(to bottom, rgba(58,62,61,0.08) 0%, rgba(58,62,61,0.62) 100%)",
             }}
           />
           <div
@@ -401,13 +401,13 @@ export default function HomePage() {
           <div className="absolute bottom-0 left-0 p-8 md:p-12">
             <div
               className="brc-label mb-3"
-              style={{ color: "rgba(245,241,232,0.45)" }}
+              style={{ color: "rgba(255,255,255,0.68)" }}
             >
               How We Build
             </div>
             <p
               className="font-serif font-light text-xl md:text-2xl"
-              style={{ color: "#FBF8F1" }}
+              style={{ color: "#FFFFFF" }}
             >
               Free in-home visit
               <br />
@@ -419,16 +419,16 @@ export default function HomePage() {
         {/* Right: content */}
         <div
           className="py-16 md:py-20 px-8 md:px-14 lg:px-16"
-          style={{ background: "#FBF8F1" }}
+          style={{ background: "#FFFFFF" }}
         >
           <Reveal>
             <div className="brc-label mb-5">Our process</div>
             <h2
               className="font-serif font-light text-3xl md:text-4xl leading-tight mb-10"
-              style={{ color: "#1C1A17" }}
+              style={{ color: "#3A3E3D" }}
             >
               From first visit to{" "}
-              <em className="italic" style={{ color: "#2D5F47" }}>
+              <em className="italic" style={{ color: "#999F93" }}>
                 final walkthrough
               </em>
             </h2>
@@ -437,24 +437,24 @@ export default function HomePage() {
                 <div
                   key={step.number}
                   className={`flex gap-5 py-6 ${i < HOW_WE_BUILD_STEPS.length - 1 ? "border-b" : ""}`}
-                  style={{ borderColor: "rgba(28,26,23,0.10)" }}
+                  style={{ borderColor: "rgba(58,62,61,0.10)" }}
                 >
                   <span
                     className="font-serif font-light text-2xl w-8 flex-shrink-0 leading-none mt-0.5"
-                    style={{ color: "rgba(28,26,23,0.18)" }}
+                    style={{ color: "rgba(58,62,61,0.18)" }}
                   >
                     {step.number}
                   </span>
                   <div>
                     <p
                       className="font-medium text-sm mb-1"
-                      style={{ color: "#1C1A17" }}
+                      style={{ color: "#3A3E3D" }}
                     >
                       {step.title}
                     </p>
                     <p
                       className="text-sm leading-relaxed"
-                      style={{ color: "#8F8B82" }}
+                      style={{ color: "#6E736F" }}
                     >
                       {step.desc}
                     </p>
@@ -467,13 +467,13 @@ export default function HomePage() {
       </section>
 
       {/* ── 5. HOW IT WORKS — 3 steps ── */}
-      <section style={{ background: "#F5F1E8" }} className="py-20 md:py-28">
+      <section style={{ background: "#E2DED2" }} className="py-20 md:py-28">
         <div className="container px-4">
           <Reveal className="mb-12">
             <div className="brc-label mb-3">Our simple process</div>
             <h2
               className="font-serif font-light text-3xl md:text-4xl"
-              style={{ color: "#1C1A17" }}
+              style={{ color: "#3A3E3D" }}
             >
               Three steps to a finished home
             </h2>
@@ -484,31 +484,31 @@ export default function HomePage() {
                 <div
                   className="p-8 rounded-sm h-full flex flex-col"
                   style={{
-                    background: "#FBF8F1",
-                    border: "1px solid rgba(28,26,23,0.08)",
+                    background: "#FFFFFF",
+                    border: "1px solid rgba(58,62,61,0.08)",
                   }}
                 >
                   <step.icon
                     className="h-6 w-6 mb-6 flex-shrink-0"
-                    style={{ color: "#2D5F47" }}
+                    style={{ color: "#999F93" }}
                   />
                   <h3
                     className="font-sans font-medium text-sm mb-3"
-                    style={{ color: "#1C1A17" }}
+                    style={{ color: "#3A3E3D" }}
                   >
                     {step.title}
                   </h3>
                   <p
                     className="text-sm leading-relaxed flex-1"
-                    style={{ color: "#8F8B82" }}
+                    style={{ color: "#6E736F" }}
                   >
                     {step.body}
                   </p>
                   <div
                     className="mt-6 pt-5 border-t text-[11px] tracking-[0.10em] uppercase font-medium"
                     style={{
-                      borderColor: "rgba(28,26,23,0.10)",
-                      color: "#2D5F47",
+                      borderColor: "rgba(58,62,61,0.10)",
+                      color: "#3A3E3D",
                     }}
                   >
                     {step.foot}
@@ -524,20 +524,20 @@ export default function HomePage() {
       <EstimateCalculator />
 
       {/* ── 7. VALUE CARDS ── */}
-      <section style={{ background: "#FBF8F1" }} className="py-16 md:py-20">
+      <section style={{ background: "#FFFFFF" }} className="py-16 md:py-20">
         <div className="container px-4">
           <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-4">
             {/* Always included */}
             <div
               className="p-8 rounded-sm"
               style={{
-                background: "#F5F1E8",
-                border: "1px solid rgba(28,26,23,0.08)",
+                background: "#E2DED2",
+                border: "1px solid rgba(58,62,61,0.08)",
               }}
             >
               <h3
                 className="font-sans font-medium text-sm mb-6"
-                style={{ color: "#1C1A17" }}
+                style={{ color: "#3A3E3D" }}
               >
                 Always included — regardless of scope
               </h3>
@@ -546,11 +546,11 @@ export default function HomePage() {
                   <li
                     key={item}
                     className="flex items-start gap-3 text-sm"
-                    style={{ color: "#4D4944" }}
+                    style={{ color: "#5A5F5C" }}
                   >
                     <Check
                       className="h-4 w-4 flex-shrink-0 mt-0.5"
-                      style={{ color: "#2D5F47" }}
+                      style={{ color: "#999F93" }}
                     />
                     {item}
                   </li>
@@ -562,13 +562,13 @@ export default function HomePage() {
             <div
               className="p-8 rounded-sm"
               style={{
-                background: "#F5F1E8",
-                border: "1px solid rgba(28,26,23,0.08)",
+                background: "#E2DED2",
+                border: "1px solid rgba(58,62,61,0.08)",
               }}
             >
               <h3
                 className="font-sans font-medium text-sm mb-6"
-                style={{ color: "#1C1A17" }}
+                style={{ color: "#3A3E3D" }}
               >
                 Where the money goes
               </h3>
@@ -576,24 +576,24 @@ export default function HomePage() {
                 {WHERE_IT_GOES.map((item) => (
                   <div key={item.label}>
                     <div className="flex justify-between text-sm mb-2">
-                      <span style={{ color: "#8F8B82" }}>{item.label}</span>
-                      <span className="font-medium" style={{ color: "#1C1A17" }}>
+                      <span style={{ color: "#6E736F" }}>{item.label}</span>
+                      <span className="font-medium" style={{ color: "#3A3E3D" }}>
                         {item.pct}%
                       </span>
                     </div>
                     <div
                       className="h-[2px] rounded-full overflow-hidden"
-                      style={{ background: "#E8E2D3" }}
+                      style={{ background: "#D8D2C6" }}
                     >
                       <div
                         className="h-full rounded-full"
-                        style={{ width: `${item.pct}%`, background: "#2D5F47" }}
+                        style={{ width: `${item.pct}%`, background: "#999F93" }}
                       />
                     </div>
                   </div>
                 ))}
               </div>
-              <p className="text-xs mt-5 italic" style={{ color: "#8F8B82" }}>
+              <p className="text-xs mt-5 italic" style={{ color: "#6E736F" }}>
                 Approximate averages across all project types and finish levels.
               </p>
             </div>
@@ -602,30 +602,30 @@ export default function HomePage() {
       </section>
 
       {/* ── 8. FINANCING ── */}
-      <section style={{ background: "#E4ECDE" }} className="py-20 md:py-28">
+      <section style={{ background: "#C6D6D6" }} className="py-20 md:py-28">
         <div className="container px-4">
           <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-12 md:gap-20 items-start">
             <Reveal>
-              <div className="brc-label mb-4" style={{ color: "#2D5F47" }}>
+              <div className="brc-label mb-4" style={{ color: "#3A3E3D" }}>
                 Flexible financing
               </div>
               <h2
                 className="font-serif font-light text-3xl md:text-4xl mb-4"
-                style={{ color: "#1C1A17" }}
+                style={{ color: "#3A3E3D" }}
               >
                 Financing that works for you
               </h2>
-              <p className="text-sm leading-relaxed" style={{ color: "#4D4944" }}>
+              <p className="text-sm leading-relaxed" style={{ color: "#5A5F5C" }}>
                 We partner with GreenSky and Mosaic to offer financing starting from{" "}
-                <strong style={{ color: "#1C1A17" }}>0% APR</strong> on qualifying
+                <strong style={{ color: "#3A3E3D" }}>0% APR</strong> on qualifying
                 projects. Five-minute application, same-day decision.
               </p>
             </Reveal>
             <div
               className="rounded-sm p-8"
               style={{
-                background: "#FBF8F1",
-                border: "1px solid rgba(28,26,23,0.08)",
+                background: "#FFFFFF",
+                border: "1px solid rgba(58,62,61,0.08)",
               }}
             >
               <ul className="space-y-4">
@@ -639,11 +639,11 @@ export default function HomePage() {
                   <li
                     key={item}
                     className="flex items-center gap-3 text-sm"
-                    style={{ color: "#4D4944" }}
+                    style={{ color: "#5A5F5C" }}
                   >
                     <Check
                       className="h-4 w-4 flex-shrink-0"
-                      style={{ color: "#2D5F47" }}
+                      style={{ color: "#999F93" }}
                     />
                     {item}
                   </li>
@@ -651,12 +651,12 @@ export default function HomePage() {
               </ul>
               <div
                 className="mt-6 pt-6 border-t"
-                style={{ borderColor: "rgba(28,26,23,0.10)" }}
+                style={{ borderColor: "rgba(58,62,61,0.10)" }}
               >
                 <a
                   href="#consult"
                   className="inline-flex items-center gap-2 text-sm font-medium"
-                  style={{ color: "#2D5F47" }}
+                  style={{ color: "#3A3E3D" }}
                 >
                   Discuss financing options <ArrowRight className="h-4 w-4" />
                 </a>
@@ -667,20 +667,20 @@ export default function HomePage() {
       </section>
 
       {/* ── 9. FOUNDER NOTE ── */}
-      <section id="founder" style={{ background: "#F5F1E8" }} className="py-20 md:py-28">
+      <section id="founder" style={{ background: "#E2DED2" }} className="py-20 md:py-28">
         <div className="container px-4">
           <div className="max-w-5xl mx-auto grid md:grid-cols-[2fr_3fr] gap-12 md:gap-20 items-start">
             {/* Portrait placeholder */}
             <div
               className="aspect-[4/5] rounded-sm overflow-hidden order-2 md:order-1"
               style={{
-                background: "linear-gradient(135deg, #D4C4A8 0%, #A8906A 100%)",
+                background: "linear-gradient(135deg, #C9BCA9 0%, #3A3E3D 100%)",
               }}
             >
               <div className="w-full h-full flex items-end p-6">
                 <p
                   className="text-[11px] italic"
-                  style={{ color: "rgba(28,26,23,0.4)" }}
+                  style={{ color: "rgba(255,255,255,0.70)" }}
                 >
                   Founder photo coming soon
                 </p>
@@ -692,7 +692,7 @@ export default function HomePage() {
                 <div className="brc-label mb-5">A word from our founder</div>
                 <div
                   className="space-y-4 text-base leading-relaxed mb-8"
-                  style={{ color: "#4D4944" }}
+                  style={{ color: "#5A5F5C" }}
                 >
                   <p>
                     I&apos;ve lived in Boise most of my life. And for years, I watched
@@ -710,13 +710,13 @@ export default function HomePage() {
                     We choose differently. Every cost is visible. Every change is written
                     down before it happens. Every Friday, you hear from us.
                   </p>
-                  <p className="font-medium" style={{ color: "#1C1A17" }}>
+                  <p className="font-medium" style={{ color: "#3A3E3D" }}>
                     That&apos;s not a marketing promise. It&apos;s just how we run the company.
                   </p>
                 </div>
                 <p
                   className="font-serif font-light text-lg italic"
-                  style={{ color: "#1C1A17" }}
+                  style={{ color: "#3A3E3D" }}
                 >
                   — The Founder, Boise Remodeling Co
                 </p>
@@ -727,46 +727,46 @@ export default function HomePage() {
       </section>
 
       {/* ── 10. PRINCIPLES ── */}
-      <section id="principles" style={{ background: "#1C1A17" }} className="py-20 md:py-28">
+      <section id="principles" style={{ background: "#3A3E3D" }} className="py-20 md:py-28">
         <div className="container px-4">
           <Reveal className="mb-14">
             <div
               className="brc-label mb-4"
-              style={{ color: "rgba(245,241,232,0.32)" }}
+              style={{ color: "rgba(255,255,255,0.62)" }}
             >
               How we work
             </div>
             <h2
               className="font-serif font-light text-3xl md:text-4xl"
-              style={{ color: "#FBF8F1" }}
+              style={{ color: "#FFFFFF" }}
             >
               Six principles we never compromise on
             </h2>
           </Reveal>
           <div
             className="grid md:grid-cols-2 border-t"
-            style={{ borderColor: "rgba(245,241,232,0.10)" }}
+            style={{ borderColor: "rgba(255,255,255,0.10)" }}
           >
             {PRINCIPLES.map(({ title, desc }, i) => (
               <Reveal
                 key={title}
                 delay={Math.floor(i / 2) * 60}
                 className={`py-8 border-b pr-0 ${i % 2 === 0 ? "md:pr-12 md:border-r" : "md:pl-12"}`}
-                style={{ borderColor: "rgba(245,241,232,0.10)" }}
+                style={{ borderColor: "rgba(255,255,255,0.10)" }}
               >
                 <div
                   className="w-5 h-px mb-5"
-                  style={{ background: "rgba(245,241,232,0.22)" }}
+                  style={{ background: "rgba(255,255,255,0.22)" }}
                 />
                 <h3
                   className="font-sans font-medium text-sm mb-2"
-                  style={{ color: "#FBF8F1" }}
+                  style={{ color: "#FFFFFF" }}
                 >
                   {title}
                 </h3>
                 <p
                   className="text-sm leading-relaxed"
-                  style={{ color: "rgba(245,241,232,0.42)" }}
+                  style={{ color: "rgba(255,255,255,0.68)" }}
                 >
                   {desc}
                 </p>
@@ -779,30 +779,30 @@ export default function HomePage() {
       {/* ── 11. FOUNDING CLIENTS ── */}
       <section
         id="founding-clients"
-        style={{ background: "#E4ECDE" }}
+        style={{ background: "#EED9D6" }}
         className="py-20 md:py-28"
       >
         <div className="container px-4">
           <div className="max-w-3xl mx-auto">
             <Reveal>
               <div className="flex items-center gap-2 mb-6">
-                <Star className="h-4 w-4" style={{ color: "#2D5F47" }} />
+                <Star className="h-4 w-4" style={{ color: "#999F93" }} />
                 <span
                   className="text-[11px] tracking-[0.12em] uppercase font-medium"
-                  style={{ color: "#2D5F47" }}
+                  style={{ color: "#3A3E3D" }}
                 >
                   Founding Client Offer — {FOUNDING_SPOTS_REMAINING} of 10 spots remaining
                 </span>
               </div>
               <h2
                 className="font-serif font-light text-3xl md:text-4xl mb-5"
-                style={{ color: "#1C1A17" }}
+                style={{ color: "#3A3E3D" }}
               >
                 Be one of our first ten projects
               </h2>
               <p
                 className="text-base leading-relaxed mb-10 max-w-xl"
-                style={{ color: "#4D4944" }}
+                style={{ color: "#5A5F5C" }}
               >
                 We&apos;re offering our first ten clients a founding-member package: our best
                 pricing, priority scheduling, and a complimentary design consultation. In
@@ -813,11 +813,11 @@ export default function HomePage() {
                   <div
                     key={text}
                     className="flex items-start gap-3 text-sm"
-                    style={{ color: "#4D4944" }}
+                    style={{ color: "#5A5F5C" }}
                   >
                     <Check
                       className="h-4 w-4 flex-shrink-0 mt-0.5"
-                      style={{ color: "#2D5F47" }}
+                      style={{ color: "#999F93" }}
                     />
                     {text}
                   </div>
@@ -826,7 +826,7 @@ export default function HomePage() {
               <a
                 href="#consult"
                 className="inline-flex items-center gap-2 px-6 py-3.5 text-sm font-medium rounded-sm"
-                style={{ background: "#1C1A17", color: "#FBF8F1" }}
+                style={{ background: "#3A3E3D", color: "#FFFFFF" }}
               >
                 Claim a founding spot
                 <ArrowRight className="h-4 w-4" />
@@ -837,21 +837,21 @@ export default function HomePage() {
       </section>
 
       {/* ── 12. GUARANTEE ── */}
-      <section style={{ background: "#1C1A17" }} className="py-16 md:py-20">
+      <section style={{ background: "#3A3E3D" }} className="py-16 md:py-20">
         <div className="container px-4">
           <div className="max-w-3xl mx-auto flex flex-col md:flex-row items-start md:items-center gap-8">
             <ShieldCheck
               className="h-9 w-9 flex-shrink-0"
-              style={{ color: "#2D5F47" }}
+              style={{ color: "#999F93" }}
             />
             <div className="flex-1">
               <h3
                 className="font-sans font-medium text-sm mb-1.5"
-                style={{ color: "#FBF8F1" }}
+                style={{ color: "#FFFFFF" }}
               >
                 2-Year Workmanship Guarantee
               </h3>
-              <p className="text-sm leading-relaxed" style={{ color: "rgba(245,241,232,0.45)" }}>
+              <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.68)" }}>
                 Industry standard is one year. Ours is two — because we build things meant
                 to outlast the guarantee. If we built it and it fails, we fix it. Free.
               </p>
@@ -860,9 +860,9 @@ export default function HomePage() {
               href="#consult"
               className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-medium rounded-sm whitespace-nowrap"
               style={{
-                background: "rgba(245,241,232,0.08)",
-                color: "#FBF8F1",
-                border: "1px solid rgba(245,241,232,0.14)",
+                background: "rgba(255,255,255,0.08)",
+                color: "#FFFFFF",
+                border: "1px solid rgba(255,255,255,0.14)",
               }}
             >
               Book a free visit <ArrowRight className="h-4 w-4" />
@@ -872,17 +872,17 @@ export default function HomePage() {
       </section>
 
       {/* ── 13. GALLERY ── */}
-      <section id="portfolio" style={{ background: "#F5F1E8" }} className="py-20 md:py-28">
+      <section id="portfolio" style={{ background: "#E2DED2" }} className="py-20 md:py-28">
         <div className="container px-4">
           <Reveal className="mb-12">
             <div className="brc-label mb-3">Design Inspiration</div>
             <h2
               className="font-serif font-light text-3xl md:text-4xl"
-              style={{ color: "#1C1A17" }}
+              style={{ color: "#3A3E3D" }}
             >
               The feeling we&apos;re building toward
             </h2>
-            <p className="text-sm mt-2" style={{ color: "#8F8B82" }}>
+            <p className="text-sm mt-2" style={{ color: "#6E736F" }}>
               Your space. Your vision. These are just starting points.
             </p>
           </Reveal>
@@ -906,12 +906,12 @@ export default function HomePage() {
                   className="absolute inset-0 flex items-end p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                   style={{
                     background:
-                      "linear-gradient(to top, rgba(28,26,23,0.62) 0%, transparent 60%)",
+                      "linear-gradient(to top, rgba(58,62,61,0.62) 0%, transparent 60%)",
                   }}
                 >
                   <p
                     className="font-serif font-light text-sm italic"
-                    style={{ color: "#FBF8F1" }}
+                    style={{ color: "#FFFFFF" }}
                   >
                     {img.caption}
                   </p>
@@ -921,7 +921,7 @@ export default function HomePage() {
           </div>
           <p
             className="text-center text-xs mt-6 italic"
-            style={{ color: "#8F8B82" }}
+            style={{ color: "#6E736F" }}
           >
             Design inspirations — not photos of completed Boise Remodeling Co projects.
           </p>
@@ -934,7 +934,7 @@ export default function HomePage() {
       {/* ── 15. CONSULTATION FORM ── */}
       <section
         id="consult"
-        style={{ background: "#F5F1E8" }}
+        style={{ background: "#E2DED2" }}
         className="py-20 md:py-28 pb-36 md:pb-28"
       >
         <div className="container px-4">
@@ -944,13 +944,13 @@ export default function HomePage() {
                 <div className="brc-label mb-5">Begin a conversation</div>
                 <h2
                   className="font-serif font-light text-3xl md:text-4xl mb-4"
-                  style={{ color: "#1C1A17" }}
+                  style={{ color: "#3A3E3D" }}
                 >
                   Tell us about your home.
                 </h2>
                 <p
                   className="text-sm leading-relaxed mb-8"
-                  style={{ color: "#8F8B82" }}
+                  style={{ color: "#6E736F" }}
                 >
                   We&apos;ll reach out within one business day to schedule your free
                   60–90 minute in-home visit. You&apos;ll leave with a rough range, design
@@ -966,11 +966,11 @@ export default function HomePage() {
                     <div
                       key={item}
                       className="flex items-center gap-3 text-sm"
-                      style={{ color: "#4D4944" }}
+                      style={{ color: "#5A5F5C" }}
                     >
                       <Check
                         className="h-4 w-4 flex-shrink-0"
-                        style={{ color: "#2D5F47" }}
+                        style={{ color: "#999F93" }}
                       />
                       {item}
                     </div>
@@ -981,8 +981,8 @@ export default function HomePage() {
             <div
               className="md:col-span-3 rounded-sm p-7 md:p-10"
               style={{
-                background: "#FBF8F1",
-                border: "1px solid rgba(28,26,23,0.08)",
+                background: "#FFFFFF",
+                border: "1px solid rgba(58,62,61,0.08)",
               }}
             >
               <ConsultationForm />

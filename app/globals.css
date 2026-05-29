@@ -18,60 +18,60 @@ html, body {
   --elevate-1: rgba(0,0,0, .02);
   --elevate-2: rgba(0,0,0, .06);
 
-  /* Warm parchment background */
-  --background: 42 28% 93%;
-  --foreground: 36 11% 10%;
-  --border: 42 12% 82%;
-  --card: 42 33% 96%;
-  --card-foreground: 36 11% 10%;
-  --card-border: 42 12% 88%;
+  /* Beige background */
+  --background: 45 21% 85%;
+  --foreground: 165 3% 24%;
+  --border: 42 12% 80%;
+  --card: 0 0% 100%;
+  --card-foreground: 165 3% 24%;
+  --card-border: 40 14% 88%;
 
-  /* Sidebar — dark sage-tinted for admin/portal */
-  --sidebar: 152 20% 12%;
-  --sidebar-foreground: 42 20% 88%;
-  --sidebar-border: 152 12% 20%;
-  --sidebar-primary: 152 35% 40%;
-  --sidebar-primary-foreground: 0 0% 100%;
-  --sidebar-accent: 152 12% 19%;
-  --sidebar-accent-foreground: 42 20% 88%;
-  --sidebar-ring: 152 35% 40%;
+  /* Sidebar — charcoal-tinted for admin/portal */
+  --sidebar: 165 6% 14%;
+  --sidebar-foreground: 45 15% 88%;
+  --sidebar-border: 165 5% 22%;
+  --sidebar-primary: 90 10% 58%;
+  --sidebar-primary-foreground: 165 8% 14%;
+  --sidebar-accent: 165 5% 20%;
+  --sidebar-accent-foreground: 45 15% 88%;
+  --sidebar-ring: 90 10% 58%;
 
   /* Popover */
-  --popover: 42 33% 96%;
-  --popover-foreground: 36 11% 10%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 165 3% 24%;
   --popover-border: 42 12% 82%;
 
-  /* Sage primary */
-  --primary: 152 35% 28%;
-  --primary-foreground: 0 0% 99%;
+  /* Charcoal primary */
+  --primary: 165 3% 24%;
+  --primary-foreground: 0 0% 100%;
 
-  /* Stone secondary */
-  --secondary: 42 17% 86%;
-  --secondary-foreground: 36 11% 10%;
+  /* Sand secondary */
+  --secondary: 35 23% 80%;
+  --secondary-foreground: 165 3% 24%;
 
-  /* Muted warm */
-  --muted: 42 22% 91%;
-  --muted-foreground: 30 5% 40%;
+  /* Muted */
+  --muted: 45 21% 90%;
+  --muted-foreground: 150 3% 48%;
 
-  /* Sage-tint accent */
-  --accent: 100 15% 83%;
-  --accent-foreground: 36 11% 10%;
+  /* Skylight accent */
+  --accent: 180 16% 81%;
+  --accent-foreground: 165 3% 24%;
 
-  /* Brass — dark warm overlay (kept for any components using it) */
-  --brass: 36 11% 18%;
-  --brass-foreground: 0 0% 99%;
+  /* Brass — charcoal overlay (kept for any components using it) */
+  --brass: 165 3% 24%;
+  --brass-foreground: 0 0% 100%;
 
   --destructive: 0 72% 42%;
   --destructive-foreground: 0 72% 98%;
 
   --input: 42 12% 80%;
-  --ring: 152 35% 28%;
+  --ring: 165 3% 24%;
 
-  --chart-1: 152 35% 28%;
-  --chart-2: 33 38% 57%;
-  --chart-3: 100 15% 45%;
-  --chart-4: 200 35% 45%;
-  --chart-5: 280 30% 45%;
+  --chart-1: 90 10% 60%;
+  --chart-2: 35 23% 73%;
+  --chart-3: 180 16% 81%;
+  --chart-4: 8 41% 89%;
+  --chart-5: 165 3% 24%;
 
   --radius: 0.125rem;
 
@@ -213,8 +213,8 @@ html, body {
   p { @apply leading-relaxed; }
 
   ::selection {
-    background: #1C1A17;
-    color: #FBF8F1;
+    background: #3A3E3D;
+    color: #FFFFFF;
   }
 
   *:focus-visible {
@@ -340,7 +340,7 @@ html, body {
   font-size: 11px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: #8F8B82;
+  color: #6E736F;
 }
 .brc-label::before {
   content: "";
@@ -365,21 +365,21 @@ html, body {
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  background: #2D5F47;
-  border: 3px solid #FBF8F1;
-  box-shadow: 0 2px 8px rgba(28,26,23,.28);
+  background: #999F93;
+  border: 3px solid #FFFFFF;
+  box-shadow: 0 2px 8px rgba(58,62,61,.28);
   cursor: pointer;
   transition: box-shadow 0.15s;
 }
 .brc-slider::-webkit-slider-thumb:hover {
-  box-shadow: 0 2px 14px rgba(28,26,23,.4);
+  box-shadow: 0 2px 14px rgba(58,62,61,.4);
 }
 .brc-slider::-moz-range-thumb {
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  background: #2D5F47;
-  border: 3px solid #FBF8F1;
+  background: #999F93;
+  border: 3px solid #FFFFFF;
   cursor: pointer;
 }
 

@@ -94,10 +94,10 @@ export async function POST(request: NextRequest) {
         subject: "We received your request — Boise Remodeling Co",
         html: `
           <div style="font-family:system-ui,sans-serif;max-width:480px;margin:0 auto;padding:24px;">
-            <h2 style="font-size:22px;color:#1a1208;">Thanks, ${data.name}!</h2>
-            <p style="color:#5a5040;">We received your consultation request and will reach out within one business day to schedule your free in-home visit.</p>
-            <p style="color:#5a5040;">In the meantime, feel free to call us at (208) 555-0100 or reply to this email with any questions.</p>
-            <p style="margin-top:32px;color:#5a5040;">— The Boise Remodeling Co team</p>
+            <h2 style="font-size:22px;color:#3A3E3D;">Thanks, ${data.name}!</h2>
+            <p style="color:#5A5F5C;">We received your consultation request and will reach out within one business day to schedule your free in-home visit.</p>
+            <p style="color:#5A5F5C;">In the meantime, feel free to call us at (208) 555-0100 or reply to this email with any questions.</p>
+            <p style="margin-top:32px;color:#5A5F5C;">— The Boise Remodeling Co team</p>
             <p style="font-size:12px;color:#aaa;margin-top:16px;">${SITE_URL}</p>
           </div>
         `,

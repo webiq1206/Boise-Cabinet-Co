@@ -23,13 +23,13 @@ function Logo({ hero }: { hero: boolean }) {
     <Link href="/" className="flex flex-col leading-none">
       <span
         className="font-serif text-[1.05rem] font-light tracking-tight"
-        style={{ color: hero ? "#fff" : "#1C1A17", transition: "color 0.3s" }}
+        style={{ color: hero ? "#fff" : "#3A3E3D", transition: "color 0.3s" }}
       >
         Boise{" "}
         <em
           style={{
             fontStyle: "italic",
-            color: hero ? "rgba(255,255,255,0.65)" : "#2D5F47",
+            color: hero ? "rgba(255,255,255,0.65)" : "#3A3E3D",
             transition: "color 0.3s",
           }}
         >
@@ -39,7 +39,7 @@ function Logo({ hero }: { hero: boolean }) {
       </span>
       <span
         className="text-[9px] tracking-[0.15em] uppercase font-sans font-medium mt-0.5"
-        style={{ color: hero ? "rgba(255,255,255,0.4)" : "#8F8B82", transition: "color 0.3s" }}
+        style={{ color: hero ? "rgba(255,255,255,0.4)" : "#6E736F", transition: "color 0.3s" }}
       >
         Design &amp; Build
       </span>
@@ -78,9 +78,9 @@ export function Navigation() {
       <header
         className="sticky top-0 z-[100] w-full transition-all duration-300"
         style={{
-          background: isHeroMode ? "transparent" : "rgba(251,248,241,0.97)",
+          background: isHeroMode ? "transparent" : "rgba(255,255,255,0.97)",
           backdropFilter: isHeroMode ? "none" : "blur(12px)",
-          borderBottom: isHeroMode ? "none" : "1px solid rgba(28,26,23,0.08)",
+          borderBottom: isHeroMode ? "none" : "1px solid rgba(58,62,61,0.08)",
         }}
       >
         <nav className="container flex h-[60px] items-center justify-between gap-4 px-4 md:px-6">
@@ -96,7 +96,7 @@ export function Navigation() {
                 style={{
                   color: isHeroMode
                     ? pathname === link.href ? "#fff" : "rgba(255,255,255,0.75)"
-                    : pathname === link.href ? "#2D5F47" : "#4D4944",
+                    : pathname === link.href ? "#3A3E3D" : "#5A5F5C",
                   transition: "color 0.3s",
                 }}
               >
@@ -111,7 +111,7 @@ export function Navigation() {
               href={PHONE_HREF}
               className="flex items-center gap-2 text-[13px] font-medium"
               style={{
-                color: isHeroMode ? "rgba(255,255,255,0.8)" : "#4D4944",
+                color: isHeroMode ? "rgba(255,255,255,0.8)" : "#5A5F5C",
                 transition: "color 0.3s",
               }}
               data-testid="link-phone-desktop"
@@ -125,7 +125,7 @@ export function Navigation() {
             <a
               href="/#consult"
               className="inline-flex items-center px-4 py-2 text-[13px] font-medium rounded-sm"
-              style={{ background: "#1C1A17", color: "#FBF8F1" }}
+              style={{ background: "#3A3E3D", color: "#FFFFFF" }}
             >
               Book a free visit
             </a>
@@ -144,7 +144,7 @@ export function Navigation() {
                   <Menu className="h-5 w-5" />
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right" className="w-[85vw] sm:w-[360px]" style={{ background: "#FBF8F1" }}>
+              <SheetContent side="right" className="w-[85vw] sm:w-[360px]" style={{ background: "#FFFFFF" }}>
                 <div className="flex items-center justify-between mb-8">
                   <Logo hero={false} />
                   <Button variant="ghost" size="icon" onClick={() => setMobileOpen(false)} aria-label="Close menu">
@@ -158,7 +158,7 @@ export function Navigation() {
                       href={link.href}
                       onClick={() => setMobileOpen(false)}
                       className="px-4 py-3 text-base font-medium rounded-sm transition-colors"
-                      style={{ color: "#1C1A17" }}
+                      style={{ color: "#3A3E3D" }}
                     >
                       {link.label}
                     </Link>
@@ -167,7 +167,7 @@ export function Navigation() {
                     <a
                       href={PHONE_HREF}
                       className="flex items-center gap-3 px-4 py-3 text-base font-medium rounded-sm"
-                      style={{ color: "#1C1A17" }}
+                      style={{ color: "#3A3E3D" }}
                     >
                       <span className="relative flex h-2.5 w-2.5">
                         <span className="pulse-green absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
@@ -179,7 +179,7 @@ export function Navigation() {
                       href="/#consult"
                       onClick={() => setMobileOpen(false)}
                       className="flex items-center justify-center w-full py-3 text-base font-medium rounded-sm"
-                      style={{ background: "#1C1A17", color: "#FBF8F1" }}
+                      style={{ background: "#3A3E3D", color: "#FFFFFF" }}
                     >
                       Book a free visit
                     </a>
@@ -195,16 +195,16 @@ export function Navigation() {
       <div
         className="fixed bottom-0 left-0 right-0 z-[100] md:hidden pb-safe"
         style={{
-          background: "rgba(251,248,241,0.97)",
+          background: "rgba(255,255,255,0.97)",
           backdropFilter: "blur(12px)",
-          borderTop: "1px solid rgba(28,26,23,0.08)",
+          borderTop: "1px solid rgba(58,62,61,0.08)",
         }}
       >
-        <div className="grid grid-cols-2 divide-x divide-[rgba(28,26,23,0.08)]">
+        <div className="grid grid-cols-2 divide-x divide-[rgba(58,62,61,0.08)]">
           <a
             href={PHONE_HREF}
             className="flex items-center justify-center gap-2 py-4 text-sm font-medium"
-            style={{ color: "#1C1A17" }}
+            style={{ color: "#3A3E3D" }}
             data-testid="button-call-mobile"
           >
             <Phone className="h-4 w-4" />
@@ -213,7 +213,7 @@ export function Navigation() {
           <a
             href="/#consult"
             className="flex items-center justify-center gap-2 py-4 text-sm font-medium"
-            style={{ color: "#2D5F47" }}
+            style={{ color: "#3A3E3D" }}
             data-testid="button-begin-conversation-mobile"
           >
             Begin a conversation

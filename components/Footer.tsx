@@ -9,36 +9,36 @@ export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer style={{ background: "#1C1A17" }}>
+    <footer style={{ background: "#3A3E3D" }}>
       <div className="container px-4 py-16 md:py-20">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
 
           {/* Brand column */}
           <div>
             <div className="mb-4">
-              <span className="font-serif font-light text-lg tracking-tight" style={{ color: "#FBF8F1" }}>
-                Boise <em className="italic" style={{ color: "#2D5F47" }}>Remodeling</em> Co
+              <span className="font-serif font-light text-lg tracking-tight" style={{ color: "#FFFFFF" }}>
+                Boise <em className="italic" style={{ color: "#999F93" }}>Remodeling</em> Co
               </span>
             </div>
-            <p className="text-sm italic mb-6" style={{ color: "rgba(245,241,232,0.4)", fontFamily: "var(--font-fraunces, Georgia, serif)" }}>
+            <p className="text-sm italic mb-6" style={{ color: "rgba(255,255,255,0.66)", fontFamily: "var(--font-fraunces, Georgia, serif)" }}>
               A more honest way to remodel.
             </p>
             <div className="space-y-2">
               <a
                 href={PHONE_HREF}
                 className="block text-sm transition-colors"
-                style={{ color: "rgba(245,241,232,0.5)" }}
+                style={{ color: "rgba(255,255,255,0.70)" }}
               >
                 {PHONE}
               </a>
               <a
                 href={`mailto:${EMAIL}`}
                 className="block text-sm transition-colors"
-                style={{ color: "rgba(245,241,232,0.5)" }}
+                style={{ color: "rgba(255,255,255,0.70)" }}
               >
                 {EMAIL}
               </a>
-              <p className="text-sm" style={{ color: "rgba(245,241,232,0.35)" }}>
+              <p className="text-sm" style={{ color: "rgba(255,255,255,0.62)" }}>
                 Boise, Idaho — Treasure Valley
               </p>
             </div>
@@ -46,14 +46,14 @@ export function Footer() {
 
           {/* Services column */}
           <div>
-            <h3 className="font-sans font-medium text-[11px] tracking-[0.12em] uppercase mb-5" style={{ color: "rgba(245,241,232,0.35)" }}>Services</h3>
+            <h3 className="font-sans font-medium text-[11px] tracking-[0.12em] uppercase mb-5" style={{ color: "rgba(255,255,255,0.62)" }}>Services</h3>
             <ul className="space-y-2.5">
               {SERVICES.map((service) => (
                 <li key={service.slug}>
                   <a
                     href="/#services"
                     className="text-sm transition-colors"
-                    style={{ color: "rgba(245,241,232,0.55)" }}
+                    style={{ color: "rgba(255,255,255,0.70)" }}
                   >
                     {service.name}
                   </a>
@@ -64,7 +64,7 @@ export function Footer() {
 
           {/* Studio column */}
           <div>
-            <h3 className="font-sans font-medium text-[11px] tracking-[0.12em] uppercase mb-5" style={{ color: "rgba(245,241,232,0.35)" }}>Studio</h3>
+            <h3 className="font-sans font-medium text-[11px] tracking-[0.12em] uppercase mb-5" style={{ color: "rgba(255,255,255,0.62)" }}>Studio</h3>
             <ul className="space-y-2.5">
               {[
                 { label: "Our Story", href: "/#founder" },
@@ -77,7 +77,7 @@ export function Footer() {
                   <Link
                     href={link.href}
                     className="text-sm transition-colors"
-                    style={{ color: "rgba(245,241,232,0.55)" }}
+                    style={{ color: "rgba(255,255,255,0.70)" }}
                   >
                     {link.label}
                   </Link>
@@ -88,7 +88,7 @@ export function Footer() {
 
           {/* Start a Conversation column */}
           <div>
-            <h3 className="font-sans font-medium text-[11px] tracking-[0.12em] uppercase mb-5" style={{ color: "rgba(245,241,232,0.35)" }}>Start a Conversation</h3>
+            <h3 className="font-sans font-medium text-[11px] tracking-[0.12em] uppercase mb-5" style={{ color: "rgba(255,255,255,0.62)" }}>Start a Conversation</h3>
             <ul className="space-y-2.5">
               {[
                 { label: "Book a free in-home visit", href: "/#consult" },
@@ -100,18 +100,18 @@ export function Footer() {
                   <a
                     href={link.href}
                     className="text-sm transition-colors"
-                    style={{ color: "rgba(245,241,232,0.55)" }}
+                    style={{ color: "rgba(255,255,255,0.70)" }}
                   >
                     {link.label}
                   </a>
                 </li>
               ))}
             </ul>
-            <div className="mt-6 pt-6 border-t" style={{ borderColor: "rgba(245,241,232,0.08)" }}>
+            <div className="mt-6 pt-6 border-t" style={{ borderColor: "rgba(255,255,255,0.08)" }}>
               <a
                 href="/api/login"
                 className="text-xs transition-colors"
-                style={{ color: "rgba(245,241,232,0.28)" }}
+                style={{ color: "rgba(255,255,255,0.62)" }}
               >
                 Subcontractor Login
               </a>
@@ -121,14 +121,14 @@ export function Footer() {
         </div>
 
         {/* Service area */}
-        <div className="py-5 border-t border-b mb-5" style={{ borderColor: "rgba(245,241,232,0.08)" }}>
-          <p className="text-[11px] tracking-[0.08em]" style={{ color: "rgba(245,241,232,0.25)" }}>
+        <div className="py-5 border-t border-b mb-5" style={{ borderColor: "rgba(255,255,255,0.08)" }}>
+          <p className="text-[11px] tracking-[0.08em]" style={{ color: "rgba(255,255,255,0.62)" }}>
             Serving {CITIES.map(c => c.name).join(" · ")} — Ada &amp; Canyon County, Idaho
           </p>
         </div>
 
         {/* Base bar */}
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 text-xs" style={{ color: "rgba(245,241,232,0.25)" }}>
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 text-xs" style={{ color: "rgba(255,255,255,0.62)" }}>
           <div className="flex flex-wrap gap-4">
             <span>&copy; {currentYear} Boise Remodeling Co. All rights reserved.</span>
             <span>Idaho Contractor License [Pending]</span>
