@@ -228,32 +228,34 @@ export function ConsultationForm() {
           />
         </div>
 
-        <FormField
-          control={form.control}
-          name="projectType"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel className={labelClass}>
-                What are you planning to remodel?
-              </FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <FormControl>
-                  <SelectTrigger data-testid="select-project-type">
-                    <SelectValue placeholder="Select a project type" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  {PROJECT_OPTIONS.map((opt) => (
-                    <SelectItem key={opt.value} value={opt.value}>
-                      {opt.label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        {!estimate && (
+          <FormField
+            control={form.control}
+            name="projectType"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className={labelClass}>
+                  What are you planning to remodel?
+                </FormLabel>
+                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                  <FormControl>
+                    <SelectTrigger data-testid="select-project-type">
+                      <SelectValue placeholder="Select a project type" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    {PROJECT_OPTIONS.map((opt) => (
+                      <SelectItem key={opt.value} value={opt.value}>
+                        {opt.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        )}
 
         <FormField
           control={form.control}
