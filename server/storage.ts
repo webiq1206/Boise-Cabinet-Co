@@ -112,7 +112,7 @@ export class MemStorage implements IStorage {
         beforeImageUrl: 'https://images.unsplash.com/photo-1484154218962-a197022b5858?w=800',
         afterImageUrl: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800',
         title: 'Whole-Home Remodel',
-        description: 'Complete interior renovation of a 1990s Eagle home — open floor plan, new kitchen, and three updated bathrooms',
+        description: 'Complete interior renovation of a 1990s Eagle home with open floor plan, new kitchen, and three updated bathrooms',
         createdAt: new Date(),
       },
       {
@@ -157,7 +157,7 @@ export class MemStorage implements IStorage {
         serviceType: 'kitchen-remodel',
         city: 'boise',
         rating: '5',
-        testimonial: 'Boise Remodeling Co did an amazing job on our kitchen — on time, transparent about costs, and the results were stunning.',
+        testimonial: 'Boise Remodeling Co did an amazing job on our kitchen. On time, clear communication throughout, and the results were stunning.',
         createdAt: new Date(),
       },
       {
@@ -792,7 +792,7 @@ export class DBStorage implements IStorage {
         beforeImageUrl: 'https://images.unsplash.com/photo-1484154218962-a197022b5858?w=800',
         afterImageUrl: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800',
         title: 'Whole-Home Remodel',
-        description: 'Complete interior renovation of a 1990s Eagle home — open floor plan, new kitchen, and three updated bathrooms',
+        description: 'Complete interior renovation of a 1990s Eagle home with open floor plan, new kitchen, and three updated bathrooms',
         createdAt: new Date(),
       },
       {
@@ -836,7 +836,7 @@ export class DBStorage implements IStorage {
         serviceType: 'kitchen-remodel',
         city: 'boise',
         rating: '5',
-        testimonial: 'Boise Remodeling Co did an amazing job on our kitchen — on time, transparent about costs, and the results were stunning.',
+        testimonial: 'Boise Remodeling Co did an amazing job on our kitchen. On time, clear communication throughout, and the results were stunning.',
         createdAt: new Date(),
       },
       {

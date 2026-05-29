@@ -1,0 +1,61 @@
+import { Reveal } from "@/components/Reveal";
+import { Section } from "@/components/marketing/Section";
+import { HOW_WE_BUILD_STEPS } from "@/shared/siteContent";
+
+const GRAIN_URL = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.45'/%3E%3C/2Fsvg%3E")`;
+
+export function ProcessSection() {
+  return (
+    <Section id="how-we-build" spacing="none" divider className="p-0">
+      <div className="grid md:grid-cols-2 overflow-hidden">
+        <div className="relative min-h-[380px] md:min-h-[560px] overflow-hidden">
+          <img
+            src="https://images.unsplash.com/photo-1503174971373-b1f69850bded?auto=format&fit=crop&w=1200&q=80"
+            alt="Project manager reviewing blueprints"
+            className="absolute inset-0 w-full h-full object-cover"
+            loading="lazy"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-primary/10 to-primary/70" />
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{ backgroundImage: GRAIN_URL, backgroundRepeat: "repeat", opacity: 0.028 }}
+          />
+          <div className="absolute bottom-0 left-0 p-8 md:p-12">
+            <div className="brc-label mb-3 text-inverse-muted">How We Build</div>
+            <p className="font-serif font-light text-xl md:text-2xl text-inverse-foreground">
+              Free in-home visit
+              <br />
+              to final walkthrough
+            </p>
+          </div>
+        </div>
+
+        <div className="section-y-sm px-8 md:px-14 lg:px-16 bg-card border-l border-border">
+          <Reveal>
+            <div className="brc-label mb-5">Our process</div>
+            <h2 className="font-serif font-light text-section-title md:text-section-title-lg leading-tight mb-10 text-foreground">
+              From first visit to{" "}
+              <em className="italic text-accent">final walkthrough</em>
+            </h2>
+            <div className="space-y-0">
+              {HOW_WE_BUILD_STEPS.map((step, i) => (
+                <div
+                  key={step.number}
+                  className={`flex gap-5 py-6 ${i < HOW_WE_BUILD_STEPS.length - 1 ? "border-b border-border" : ""}`}
+                >
+                  <span className="font-serif font-light text-2xl w-8 flex-shrink-0 leading-none mt-0.5 text-foreground/20">
+                    {step.number}
+                  </span>
+                  <div>
+                    <p className="font-medium text-sm mb-1 text-foreground">{step.title}</p>
+                    <p className="text-sm leading-relaxed text-muted-foreground">{step.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </Reveal>
+        </div>
+      </div>
+    </Section>
+  );
+}

@@ -48,7 +48,7 @@ export default function AdminLoginPage() {
 
   if (checkingAuth || isLoading) {
     return (
-      <div className="min-h-[70vh] bg-gradient-to-b from-background to-muted/30 flex items-start md:items-center justify-center pt-12 md:pt-0">
+      <div className="min-h-[70vh] bg-background flex items-start md:items-center justify-center pt-12 md:pt-0">
         <div className="flex flex-col items-center gap-4">
           <Shield className="w-12 h-12 text-primary animate-pulse" />
           <p className="text-muted-foreground">Checking authentication...</p>
@@ -61,10 +61,10 @@ export default function AdminLoginPage() {
   const isLoggedInButNotAdmin = user && user.role !== "admin";
 
   return (
-    <div className="min-h-[70vh] bg-gradient-to-b from-background to-muted/30 flex items-start md:items-center justify-center pt-12 md:pt-0 p-4">
+    <div className="min-h-[70vh] bg-background flex items-start md:items-center justify-center pt-12 md:pt-0 p-4">
       <Card className="w-full max-w-md">
         <CardHeader className="text-center pb-2">
-          <div className="mx-auto w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+          <div className="mx-auto w-16 h-16 rounded-full bg-muted flex items-center justify-center mb-4">
             <Shield className="w-8 h-8 text-primary" />
           </div>
           <CardTitle className="text-2xl">Admin Access</CardTitle>

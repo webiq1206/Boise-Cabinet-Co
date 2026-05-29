@@ -34,7 +34,7 @@ export default function SubcontractorPage() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-primary/5 to-white dark:from-primary/10 dark:to-background flex items-center justify-center">
+      <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="flex flex-col items-center gap-4">
           <Leaf className="w-12 h-12 text-primary animate-pulse" />
           <p className="text-muted-foreground">Loading...</p>
@@ -45,12 +45,12 @@ export default function SubcontractorPage() {
 
   // Show login page if not authenticated
   return (
-    <div className="min-h-screen bg-gradient-to-b from-primary/5 to-white dark:from-primary/10 dark:to-background" data-testid="page-subcontractor-login">
+    <div className="min-h-screen bg-background" data-testid="page-subcontractor-login">
       {/* Hero Section */}
       <section className="container px-4 py-16 md:py-24">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div className="space-y-6">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white">
+            <h2 className="text-4xl md:text-5xl font-serif font-light tracking-tight text-foreground">
               Grow Your Remodeling Business
             </h2>
             <p className="text-lg text-muted-foreground">
@@ -58,26 +58,26 @@ export default function SubcontractorPage() {
             </p>
             <div className="space-y-3">
               <div className="flex items-center gap-3">
-                <CheckCircle className="w-5 h-5 text-primary" />
+                <CheckCircle className="w-5 h-5 text-accent shrink-0" />
                 <span>Pre-qualified leads with verified contact information</span>
               </div>
               <div className="flex items-center gap-3">
-                <CheckCircle className="w-5 h-5 text-primary" />
+                <CheckCircle className="w-5 h-5 text-accent shrink-0" />
                 <span>Only pay for leads you purchase - no monthly fees</span>
               </div>
               <div className="flex items-center gap-3">
-                <CheckCircle className="w-5 h-5 text-primary" />
+                <CheckCircle className="w-5 h-5 text-accent shrink-0" />
                 <span>Bulk discounts: 5% off 3+ leads, 10% off 5+, 20% off 10+</span>
               </div>
               <div className="flex items-center gap-3">
-                <CheckCircle className="w-5 h-5 text-primary" />
+                <CheckCircle className="w-5 h-5 text-accent shrink-0" />
                 <span>Email notifications when new leads match your preferences</span>
               </div>
             </div>
             <Button 
+              variant="brand"
               size="lg" 
               onClick={handleLogin}
-              className="bg-primary"
               data-testid="button-login"
             >
               Sign In to Portal
@@ -88,7 +88,7 @@ export default function SubcontractorPage() {
           <div className="grid gap-4">
             <Card className="border-primary/20 dark:border-primary/30">
               <CardHeader>
-                <div className="w-12 h-12 rounded-lg bg-primary/10 dark:bg-primary/20 flex items-center justify-center mb-2">
+                <div className="w-12 h-12 rounded-lg bg-muted flex items-center justify-center mb-2">
                   <Shield className="w-6 h-6 text-primary" />
                 </div>
                 <CardTitle>Verified Leads</CardTitle>
@@ -100,7 +100,7 @@ export default function SubcontractorPage() {
 
             <Card className="border-primary/20 dark:border-primary/30">
               <CardHeader>
-                <div className="w-12 h-12 rounded-lg bg-primary/10 dark:bg-primary/20 flex items-center justify-center mb-2">
+                <div className="w-12 h-12 rounded-lg bg-muted flex items-center justify-center mb-2">
                   <Building2 className="w-6 h-6 text-primary" />
                 </div>
                 <CardTitle>Local Service Area</CardTitle>
@@ -114,7 +114,7 @@ export default function SubcontractorPage() {
       </section>
 
       {/* How It Works */}
-      <section className="bg-primary/5 dark:bg-primary/10 py-16">
+      <section className="section-y-sm section-divider py-16">
         <div className="container px-4">
           <h3 className="text-2xl font-bold text-center mb-12">How It Works</h3>
           <div className="grid md:grid-cols-4 gap-8">
@@ -150,17 +150,16 @@ export default function SubcontractorPage() {
         </div>
       </section>
 
-      {/* CTA Section */}
       <section className="container px-4 py-16">
-        <Card className="bg-primary border-0 text-primary-foreground">
+        <Card className="bg-inverse border-0 text-inverse-foreground">
           <CardContent className="py-12 text-center">
-            <h3 className="text-2xl font-bold mb-4">Ready to Grow Your Business?</h3>
-            <p className="text-primary-foreground/80 mb-8 max-w-2xl mx-auto">
+            <h3 className="text-2xl font-serif font-light mb-4">Ready to Grow Your Business?</h3>
+            <p className="text-inverse-muted mb-8 max-w-2xl mx-auto">
               Join our network today and start receiving high-quality remodeling leads. No monthly fees, no commitments — only pay for the leads you want.
             </p>
             <Button 
+              variant="brandAccent"
               size="lg" 
-              variant="secondary"
               onClick={handleLogin}
               data-testid="button-login-cta"
             >
@@ -170,21 +169,6 @@ export default function SubcontractorPage() {
           </CardContent>
         </Card>
       </section>
-
-      {/* Footer */}
-      <footer className="border-t py-8">
-        <div className="container px-4">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <div className="flex items-center gap-2">
-              <Leaf className="w-5 h-5 text-primary" />
-              <span className="font-semibold">Boise Remodeling Co</span>
-            </div>
-            <p className="text-sm text-muted-foreground">
-              © {new Date().getFullYear()} Boise Remodeling Co. All rights reserved.
-            </p>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }

@@ -1,10 +1,11 @@
 import type { Metadata, Viewport } from 'next'
 import { Inter, Fraunces } from 'next/font/google'
 import { Navigation } from '@/components/Navigation'
-import { Footer } from '@/components/Footer'
+import { ConditionalFooter } from '@/components/ConditionalFooter'
 import { Toaster } from '@/components/ui/toaster'
 import { Providers } from '@/components/Providers'
 import { ScrollToTop } from '@/components/ScrollToTop'
+import { SITE_TAGLINE } from '@/shared/siteContent'
 import './globals.css'
 
 const inter = Inter({
@@ -24,10 +25,10 @@ const fraunces = Fraunces({
 
 export const metadata: Metadata = {
   title: {
-    default: 'Boise Remodeling Co — A More Honest Way to Remodel',
+    default: 'Boise Remodeling Co | Treasure Valley Design-Build',
     template: '%s | Boise Remodeling Co',
   },
-  description: 'Design-build remodeling serving Boise, Meridian, Eagle, Nampa, Kuna, Star & Middleton. Transparent pricing, 3D renders, and a dedicated project manager from first call to final walkthrough. Book a free in-home consultation.',
+  description: `Design-build remodeling serving Boise, Meridian, Eagle, Nampa, Kuna, Star and Middleton. ${SITE_TAGLINE}. Schedule a free in-home consultation.`,
   authors: [{ name: 'Boise Remodeling Co' }],
   creator: 'Boise Remodeling Co',
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://boiseremodeling.co'),
@@ -36,13 +37,13 @@ export const metadata: Metadata = {
     locale: 'en_US',
     url: '/',
     siteName: 'Boise Remodeling Co',
-    title: 'Boise Remodeling Co — A More Honest Way to Remodel',
-    description: 'Transparent design-build remodeling for kitchens, bathrooms, whole-home renovations, and additions in the Treasure Valley.',
+    title: 'Boise Remodeling Co | Treasure Valley Design-Build',
+    description: `${SITE_TAGLINE}. Kitchen, bathroom, whole-home, and addition remodeling across the Treasure Valley.`,
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Boise Remodeling Co — A More Honest Way to Remodel',
-    description: 'Transparent design-build remodeling for Boise and the Treasure Valley.',
+    title: 'Boise Remodeling Co | Treasure Valley Design-Build',
+    description: `${SITE_TAGLINE}. Design-build remodeling for Boise and the Treasure Valley.`,
   },
   robots: {
     index: true,
@@ -81,7 +82,7 @@ export default function RootLayout({
             <main className="flex-1">
               {children}
             </main>
-            <Footer />
+            <ConditionalFooter />
           </div>
           <Toaster />
         </Providers>

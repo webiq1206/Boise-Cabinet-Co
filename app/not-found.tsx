@@ -15,70 +15,53 @@ export const metadata: Metadata = {
 
 export default function NotFound() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-background to-muted/30 flex items-center justify-center p-4">
+    <div className="min-h-[70vh] bg-background flex items-center justify-center p-4 section-y">
       <div className="max-w-2xl mx-auto text-center">
-        {/* Icon */}
         <div className="mb-8">
-          <div className="inline-flex items-center justify-center w-24 h-24 rounded-full bg-primary/10 mb-4">
-            <Wrench className="h-12 w-12 text-primary" />
+          <div className="inline-flex items-center justify-center w-24 h-24 rounded-full bg-accent/10 mb-4">
+            <Wrench className="h-12 w-12 text-accent" />
           </div>
-          <h1 className="text-6xl font-bold text-primary mb-2">404</h1>
+          <h1 className="text-6xl font-serif font-light text-foreground mb-2">404</h1>
         </div>
 
-        {/* Message */}
-        <h2 className="text-2xl md:text-3xl font-bold mb-4">
+        <h2 className="text-2xl md:text-3xl font-serif font-light tracking-tight mb-4 text-foreground">
           Page Not Found
         </h2>
         <p className="text-lg text-muted-foreground mb-8">
           This page doesn&apos;t exist or may have moved. Let us help you find what you&apos;re looking for.
         </p>
 
-        {/* Quick Links */}
-        <Card className="mb-8">
+        <Card className="marketing-card mb-8 text-left">
           <CardContent className="pt-6">
-            <h3 className="font-semibold mb-4">Popular Pages</h3>
+            <h3 className="font-medium mb-4 text-foreground">Popular Pages</h3>
             <div className="grid grid-cols-2 gap-2">
-              <Link
-                href="/#portfolio"
-                className="flex items-center gap-2 p-3 rounded-lg hover:bg-muted transition-colors text-sm"
-              >
-                <ArrowRight className="h-4 w-4 text-primary" />
-                Our Work
-              </Link>
-              <Link
-                href="/#consult"
-                className="flex items-center gap-2 p-3 rounded-lg hover:bg-muted transition-colors text-sm"
-              >
-                <ArrowRight className="h-4 w-4 text-primary" />
-                Free Consultation
-              </Link>
-              <Link
-                href="/blog"
-                className="flex items-center gap-2 p-3 rounded-lg hover:bg-muted transition-colors text-sm"
-              >
-                <ArrowRight className="h-4 w-4 text-primary" />
-                Blog &amp; Ideas
-              </Link>
-              <Link
-                href="/#calculator"
-                className="flex items-center gap-2 p-3 rounded-lg hover:bg-muted transition-colors text-sm"
-              >
-                <ArrowRight className="h-4 w-4 text-primary" />
-                Estimate Calculator
-              </Link>
+              {[
+                { href: "/#services", label: "Our Services" },
+                { href: "/#consult", label: "Free Consultation" },
+                { href: "/blog", label: "Blog and Ideas" },
+                { href: "/#calculator", label: "Project Estimator" },
+              ].map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="flex items-center gap-2 p-3 rounded-sm hover:bg-muted transition-colors text-sm text-muted-foreground hover:text-foreground"
+                >
+                  <ArrowRight className="h-4 w-4 text-accent" />
+                  {item.label}
+                </Link>
+              ))}
             </div>
           </CardContent>
         </Card>
 
-        {/* Action Buttons */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Button size="lg" asChild>
+          <Button variant="brand" size="lg" asChild>
             <Link href="/">
               <Home className="h-5 w-5 mr-2" />
               Go to Homepage
             </Link>
           </Button>
-          <Button size="lg" variant="outline" asChild>
+          <Button variant="brandOutline" size="lg" asChild>
             <a href="tel:2085550100">
               <Phone className="h-5 w-5 mr-2" />
               Call (208) 555-0100
@@ -86,17 +69,13 @@ export default function NotFound() {
           </Button>
         </div>
 
-        {/* Service Areas */}
         <div className="mt-12">
           <p className="text-sm text-muted-foreground mb-3">
             We serve the full Treasure Valley
           </p>
           <div className="flex flex-wrap justify-center gap-2">
             {["Boise", "Meridian", "Eagle", "Nampa", "Kuna", "Star", "Middleton"].map((city) => (
-              <span
-                key={city}
-                className="text-sm text-primary"
-              >
+              <span key={city} className="text-sm text-muted-foreground">
                 {city}
               </span>
             ))}

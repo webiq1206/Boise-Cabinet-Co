@@ -1477,7 +1477,7 @@ function AdminDashboardContent() {
 
   if (authLoading || isLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-background to-muted/30 flex items-center justify-center">
+      <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="flex flex-col items-center gap-4">
           <Shield className="w-12 h-12 text-primary animate-pulse" />
           <p className="text-muted-foreground">Loading dashboard...</p>
@@ -1968,7 +1968,7 @@ function AdminDashboardContent() {
 export default function AdminDashboardPage() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen bg-gradient-to-b from-background to-muted/30 flex items-center justify-center">
+      <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="flex flex-col items-center gap-4">
           <Shield className="w-12 h-12 text-primary animate-pulse" />
           <p className="text-muted-foreground">Loading dashboard...</p>

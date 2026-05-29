@@ -21,6 +21,16 @@ const buttonVariants = cva(
         secondary: "border bg-secondary text-secondary-foreground border border-secondary-border ",
         // Add a transparent border so that when someone toggles a border on later, it doesn't shift layout/size.
         ghost: "border border-transparent",
+        brand:
+          "rounded-sm bg-primary text-primary-foreground border border-primary-border min-h-11 px-6 py-3.5",
+        brandOutline:
+          "rounded-sm border border-border bg-transparent text-foreground shadow-xs min-h-11 px-6 py-3.5",
+        brandGhost:
+          "rounded-sm border border-transparent text-foreground min-h-11 px-6 py-3.5",
+        brandAccent:
+          "rounded-sm bg-accent text-accent-foreground border border-accent-border min-h-11 px-6 py-3.5",
+        brandInverseOutline:
+          "rounded-sm border border-inverse-muted/25 bg-inverse-foreground/10 text-inverse-foreground min-h-11 px-5 py-2.5",
       },
       // Heights are set as "min" heights, because sometimes Ai will place large amount of content
       // inside buttons. With a min-height they will look appropriate with small amounts of content,

@@ -350,7 +350,7 @@ export default function PurchaseHistoryPage() {
             <div>
               <CardTitle className="text-lg flex items-center gap-2 flex-wrap">
                 {getServiceName(lead.serviceType)}
-                <Badge variant="secondary" className="text-primary bg-primary/10 dark:bg-primary/15">
+                <Badge variant="secondary" className="text-foreground bg-muted">
                   <CheckCircle2 className="h-3 w-3 mr-1" />
                   Purchased
                 </Badge>
@@ -422,7 +422,7 @@ export default function PurchaseHistoryPage() {
         </CardHeader>
         <CardContent className="space-y-4">
           {/* Customer Contact Info - REVEALED */}
-          <div className="bg-primary/5 dark:bg-primary/10 border border-primary/20 dark:border-primary/30 rounded-lg p-4">
+          <div className="bg-muted/50 border border-primary/20 dark:border-primary/30 rounded-lg p-4">
             <h4 className="font-semibold text-primary mb-3 flex items-center gap-2">
               <User className="h-4 w-4" />
               Customer Contact Information
@@ -613,7 +613,7 @@ export default function PurchaseHistoryPage() {
 
   if (authLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-primary/5 to-white dark:from-primary/10 dark:to-background flex items-center justify-center">
+      <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="flex flex-col items-center gap-4">
           <Leaf className="w-12 h-12 text-primary animate-pulse" />
           <p className="text-muted-foreground">Loading...</p>
@@ -623,7 +623,7 @@ export default function PurchaseHistoryPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-primary/5 to-white dark:from-primary/10 dark:to-background" data-testid="page-purchase-history">
+    <div className="min-h-screen bg-background" data-testid="page-purchase-history">
       {/* Header */}
       <header className="border-b bg-card/80 backdrop-blur-sm sticky top-0 z-50">
         <div className="container px-4 py-4">

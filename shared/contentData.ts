@@ -50,5 +50,3 @@ export const CITIES: CityData[] = [
   { slug: 'middleton', name: 'Middleton', county: 'canyon', isPrimary: false },
 ];
 
-// Founding spots remaining — update this number manually as spots fill
-export const FOUNDING_SPOTS_REMAINING = 7;

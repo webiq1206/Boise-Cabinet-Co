@@ -100,6 +100,12 @@ export default {
           foreground: "hsl(var(--brass-foreground) / <alpha-value>)",
           border: "var(--brass-border)",
         },
+        inverse: {
+          DEFAULT: "hsl(var(--inverse) / <alpha-value>)",
+          foreground: "hsl(var(--inverse-foreground) / <alpha-value>)",
+          muted: "hsl(var(--inverse-muted) / <alpha-value>)",
+        },
+        "surface-muted": "hsl(var(--surface-muted) / <alpha-value>)",
         status: {
           online: "rgb(34 197 94)",
           away: "rgb(245 158 11)",
@@ -111,6 +117,11 @@ export default {
         sans: ["var(--font-inter)", "Helvetica Neue", "system-ui", "sans-serif"],
         serif: ["var(--font-fraunces)", "Georgia", "serif"],
         mono: ["Menlo", "Monaco", "monospace"],
+      },
+      fontSize: {
+        display: ["clamp(2.5rem,6vw,5rem)", { lineHeight: "1.04", letterSpacing: "-0.025em" }],
+        "section-title": ["1.875rem", { lineHeight: "1.15", letterSpacing: "-0.025em" }],
+        "section-title-lg": ["2.25rem", { lineHeight: "1.15", letterSpacing: "-0.025em" }],
       },
       keyframes: {
         "accordion-down": {

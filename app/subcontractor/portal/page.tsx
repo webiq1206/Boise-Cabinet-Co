@@ -470,7 +470,7 @@ function LeadPricingSection({ lead, discount = 0 }: { lead: Lead; discount?: num
             }, 0);
             const seasonalValue = (recTotal > 0 ? recTotal * seasonInfo.multiplier : parseFloat(lead.finalQuote) * seasonInfo.multiplier) + otTotal;
             return (
-              <div className="bg-primary/5 rounded-md px-2 py-1.5 space-y-0.5">
+              <div className="bg-muted/50 rounded-md px-2 py-1.5 space-y-0.5">
                 <div className="flex justify-between text-xs">
                   <span className="text-muted-foreground">Total estimate</span>
                   <span>{formatQuoteRangeWholeFromValue(lead.finalQuote, 0.15)}</span>
@@ -1268,7 +1268,7 @@ function SubcontractorPortalContent() {
         </CardHeader>
         <CardContent className="space-y-2">
           {isPurchased && (
-            <div className="bg-primary/5 border border-primary/20 rounded-md p-3 space-y-2" data-testid={`section-contact-info-${lead.id}`}>
+            <div className="bg-muted/50 border border-primary/20 rounded-md p-3 space-y-2" data-testid={`section-contact-info-${lead.id}`}>
               <p className="text-xs font-semibold text-primary flex items-center gap-1.5">
                 <CheckCircle2 className="h-3.5 w-3.5" />
                 Contact Information
@@ -1393,7 +1393,7 @@ function SubcontractorPortalContent() {
 
   if (authLoading || (!user && isAuthenticated)) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-primary/5 to-white dark:from-primary/10 dark:to-background flex items-center justify-center">
+      <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="flex flex-col items-center gap-4">
           <Leaf className="w-12 h-12 text-primary animate-pulse" />
           <p className="text-muted-foreground">Loading portal...</p>
@@ -1403,7 +1403,7 @@ function SubcontractorPortalContent() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-primary/5 to-white dark:from-primary/10 dark:to-background" data-testid="page-subcontractor-portal">
+    <div className="min-h-screen bg-background" data-testid="page-subcontractor-portal">
       {/* Header */}
       <header className="border-b bg-card/80 backdrop-blur-sm sticky top-0 z-50">
         <div className="container px-3 md:px-4 py-3 md:py-4">
@@ -1418,7 +1418,7 @@ function SubcontractorPortalContent() {
             </div>
             <div className="flex items-center gap-1 md:gap-2">
               {parseFloat(user?.creditBalance || "0") > 0 && (
-                <div className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-primary/10 text-sm font-medium" data-testid="text-credit-balance-header">
+                <div className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-muted text-sm font-medium" data-testid="text-credit-balance-header">
                   <DollarSign className="h-3.5 w-3.5 text-primary" />
                   <span>{parseFloat(user?.creditBalance || "0").toFixed(2)} credits</span>
                 </div>
@@ -1450,7 +1450,7 @@ function SubcontractorPortalContent() {
                 data-testid="button-how-it-works-toggle"
               >
                 <div className="flex items-center gap-3">
-                  <div className="flex items-center justify-center h-10 w-10 rounded-md bg-primary/10">
+                  <div className="flex items-center justify-center h-10 w-10 rounded-md bg-muted">
                     <HelpCircle className="h-5 w-5 text-primary" />
                   </div>
                   <div>
@@ -1466,7 +1466,7 @@ function SubcontractorPortalContent() {
                 <div className="border-t pt-4" />
 
                 <div className="flex gap-4">
-                  <div className="flex-shrink-0 flex items-start justify-center h-9 w-9 rounded-md bg-primary/10 mt-0.5">
+                  <div className="flex-shrink-0 flex items-start justify-center h-9 w-9 rounded-md bg-muted mt-0.5">
                     <FileSignature className="h-4 w-4 text-primary mt-2.5" />
                   </div>
                   <div className="space-y-1">
@@ -1478,7 +1478,7 @@ function SubcontractorPortalContent() {
                 </div>
 
                 <div className="flex gap-4">
-                  <div className="flex-shrink-0 flex items-start justify-center h-9 w-9 rounded-md bg-primary/10 mt-0.5">
+                  <div className="flex-shrink-0 flex items-start justify-center h-9 w-9 rounded-md bg-muted mt-0.5">
                     <Search className="h-4 w-4 text-primary mt-2.5" />
                   </div>
                   <div className="space-y-1">
@@ -1499,7 +1499,7 @@ function SubcontractorPortalContent() {
                 </div>
 
                 <div className="flex gap-4">
-                  <div className="flex-shrink-0 flex items-start justify-center h-9 w-9 rounded-md bg-primary/10 mt-0.5">
+                  <div className="flex-shrink-0 flex items-start justify-center h-9 w-9 rounded-md bg-muted mt-0.5">
                     <Eye className="h-4 w-4 text-primary mt-2.5" />
                   </div>
                   <div className="space-y-1">
@@ -1511,7 +1511,7 @@ function SubcontractorPortalContent() {
                 </div>
 
                 <div className="flex gap-4">
-                  <div className="flex-shrink-0 flex items-start justify-center h-9 w-9 rounded-md bg-primary/10 mt-0.5">
+                  <div className="flex-shrink-0 flex items-start justify-center h-9 w-9 rounded-md bg-muted mt-0.5">
                     <TrendingDown className="h-4 w-4 text-primary mt-2.5" />
                   </div>
                   <div className="space-y-1">
@@ -1526,7 +1526,7 @@ function SubcontractorPortalContent() {
                 </div>
 
                 <div className="flex gap-4">
-                  <div className="flex-shrink-0 flex items-start justify-center h-9 w-9 rounded-md bg-primary/10 mt-0.5">
+                  <div className="flex-shrink-0 flex items-start justify-center h-9 w-9 rounded-md bg-muted mt-0.5">
                     <ShoppingCart className="h-4 w-4 text-primary mt-2.5" />
                   </div>
                   <div className="space-y-1">
@@ -1534,7 +1534,7 @@ function SubcontractorPortalContent() {
                     <p className="text-sm text-muted-foreground">
                       When you are ready to buy, click the purchase button on the lead. You will enter your payment details through Stripe, which handles everything securely. Once payment goes through, the customer's full contact information is revealed to you, including their name, phone number, email, and address. You will also receive an email with all the details for your records.
                     </p>
-                    <div className="flex items-start gap-2 mt-2 p-3 bg-primary/5 rounded-md border border-primary/20">
+                    <div className="flex items-start gap-2 mt-2 p-3 bg-muted/50 rounded-md border border-primary/20">
                       <ShieldCheck className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
                       <p className="text-sm text-muted-foreground">
                         <span className="font-medium text-foreground">Exclusive leads:</span> Each lead is sold to only one subcontractor. Once you purchase a lead, that customer is exclusively yours. No other contractor will receive their information, and you will not be competing with anyone for that job.
@@ -1544,7 +1544,7 @@ function SubcontractorPortalContent() {
                 </div>
 
                 <div className="flex gap-4">
-                  <div className="flex-shrink-0 flex items-start justify-center h-9 w-9 rounded-md bg-primary/10 mt-0.5">
+                  <div className="flex-shrink-0 flex items-start justify-center h-9 w-9 rounded-md bg-muted mt-0.5">
                     <Percent className="h-4 w-4 text-primary mt-2.5" />
                   </div>
                   <div className="space-y-1">
@@ -1577,7 +1577,7 @@ function SubcontractorPortalContent() {
         {/* Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4 mb-4 md:mb-8">
           <Card
-            className={`hover-elevate cursor-pointer transition-colors ${activeTab === "available" ? "border-primary bg-primary/5" : ""}`}
+            className={`hover-elevate cursor-pointer transition-colors ${activeTab === "available" ? "border-primary bg-card shadow-sm" : ""}`}
             onClick={() => setActiveTab("available")}
             data-testid="card-stat-available"
           >
@@ -1591,7 +1591,7 @@ function SubcontractorPortalContent() {
             </CardContent>
           </Card>
           <Card
-            className={`hover-elevate cursor-pointer transition-colors ${activeTab === "watchlist" ? "border-primary bg-primary/5" : ""}`}
+            className={`hover-elevate cursor-pointer transition-colors ${activeTab === "watchlist" ? "border-primary bg-card shadow-sm" : ""}`}
             onClick={() => setActiveTab("watchlist")}
             data-testid="card-stat-watchlist"
           >
@@ -1605,7 +1605,7 @@ function SubcontractorPortalContent() {
             </CardContent>
           </Card>
           <Card
-            className={`hover-elevate cursor-pointer transition-colors ${activeTab === "cart" ? "border-primary bg-primary/5" : ""}`}
+            className={`hover-elevate cursor-pointer transition-colors ${activeTab === "cart" ? "border-primary bg-card shadow-sm" : ""}`}
             onClick={() => setActiveTab("cart")}
             data-testid="card-stat-cart"
           >
@@ -1622,7 +1622,7 @@ function SubcontractorPortalContent() {
             </CardContent>
           </Card>
           <Card
-            className={`hover-elevate cursor-pointer transition-colors ${activeTab === "purchases" ? "border-primary bg-primary/5" : ""}`}
+            className={`hover-elevate cursor-pointer transition-colors ${activeTab === "purchases" ? "border-primary bg-card shadow-sm" : ""}`}
             onClick={() => setActiveTab("purchases")}
             data-testid="card-stat-purchases"
           >
@@ -1639,7 +1639,7 @@ function SubcontractorPortalContent() {
 
         {/* Bulk Purchase Bar */}
         {selectedLeadIds.length > 0 && (
-          <Card className="mb-4 md:mb-6 border-primary bg-primary/5">
+          <Card className="mb-4 md:mb-6 border-primary bg-card shadow-sm">
             <CardContent className="py-4">
               <div className="flex items-center justify-between flex-wrap gap-4">
                 <div>
@@ -2193,7 +2193,7 @@ function SubcontractorPortalContent() {
           ) : paymentClientSecret ? (
             <div>
               {creditPurchaseInfo && creditPurchaseInfo.creditsToApply > 0 && (
-                <div className="mb-4 p-3 rounded-md bg-primary/5 border border-primary/20 space-y-1" data-testid="section-partial-credit-info">
+                <div className="mb-4 p-3 rounded-md bg-muted/50 border border-primary/20 space-y-1" data-testid="section-partial-credit-info">
                   <p className="text-sm font-medium flex items-center gap-1.5">
                     <DollarSign className="h-3.5 w-3.5 text-primary" />
                     Credits applied: ${creditPurchaseInfo.creditsToApply.toFixed(2)}
@@ -2279,7 +2279,7 @@ function SubcontractorPortalContent() {
 export default function SubcontractorPortalPage() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen bg-gradient-to-b from-background to-muted/30 flex items-center justify-center">
+      <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="flex flex-col items-center gap-4">
           <Leaf className="w-12 h-12 text-primary animate-pulse" />
           <p className="text-muted-foreground">Loading portal...</p>

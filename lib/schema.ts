@@ -77,7 +77,7 @@ export function generateLocalBusinessSchema(city?: string): SchemaContext {
           itemOffered: {
             '@type': 'Service',
             name: 'Kitchen Remodel',
-            description: 'Full kitchen design and renovation — cabinets, countertops, layout, and more',
+            description: 'Full kitchen design and renovation: cabinets, countertops, layout, and more',
           },
         },
         {

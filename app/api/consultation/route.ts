@@ -66,14 +66,14 @@ export async function POST(request: NextRequest) {
       const { client, fromEmail } = await getUncachableResendClient();
 
       const estimateHtml = data.estimate
-        ? `<p><strong>Calculator estimate:</strong> ${data.estimate.project} (${data.estimate.finish}) — $${Math.round(data.estimate.priceLow / 1000)}k – $${Math.round(data.estimate.priceHigh / 1000)}k</p>`
+        ? `<p><strong>Calculator estimate:</strong> ${data.estimate.project} (${data.estimate.finish}): $${Math.round(data.estimate.priceLow / 1000)}k to $${Math.round(data.estimate.priceHigh / 1000)}k</p>`
         : "";
 
       // Admin notification
       await client.emails.send({
         from: `Boise Remodeling Co <${fromEmail}>`,
         to: ADMIN_EMAIL,
-        subject: `New consultation request — ${data.name}`,
+        subject: `New consultation request: ${data.name}`,
         html: `
           <h2>New consultation request</h2>
           <p><strong>Name:</strong> ${data.name}</p>
@@ -91,13 +91,13 @@ export async function POST(request: NextRequest) {
       await client.emails.send({
         from: `Boise Remodeling Co <${fromEmail}>`,
         to: data.email,
-        subject: "We received your request — Boise Remodeling Co",
+        subject: "We received your request | Boise Remodeling Co",
         html: `
           <div style="font-family:system-ui,sans-serif;max-width:480px;margin:0 auto;padding:24px;">
             <h2 style="font-size:22px;color:#3A3E3D;">Thanks, ${data.name}!</h2>
             <p style="color:#5A5F5C;">We received your consultation request and will reach out within one business day to schedule your free in-home visit.</p>
             <p style="color:#5A5F5C;">In the meantime, feel free to call us at (208) 555-0100 or reply to this email with any questions.</p>
-            <p style="margin-top:32px;color:#5A5F5C;">— The Boise Remodeling Co team</p>
+            <p style="margin-top:32px;color:#5A5F5C;">The Boise Remodeling Co team</p>
             <p style="font-size:12px;color:#aaa;margin-top:16px;">${SITE_URL}</p>
           </div>
         `,

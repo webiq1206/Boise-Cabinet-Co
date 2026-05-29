@@ -6,31 +6,37 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { Section } from "@/components/marketing/Section";
+import { SectionHeader } from "@/components/marketing/SectionHeader";
 
 const FAQS = [
   {
-    q: "You're new. Why should I trust you?",
-    a: "That's the right question to ask. Being new means we don't have a decade of bureaucratic habits — but it also means our reputation is everything to us right now. We publish our pricing methodology upfront, provide 3D renders before a single nail is pulled, and put every scope commitment in writing. We're extending a founding-client offer precisely because we want to earn your trust by doing exceptional work, not just selling you on our history.",
+    q: "How are you different from other remodeling companies in the Treasure Valley?",
+    a: "We operate as a true design-build firm with one accountable team from first visit to final walkthrough, not separate designers and contractors you have to coordinate. You receive a written scope with documented finish selections before construction, weekly written Friday updates, and written change orders before any additional work. We protect your home with daily dust barriers and floor protection, communicate schedule changes early, and handle Ada and Canyon County permits in-house. We stand behind our work with a final walkthrough and a 2-year workmanship guarantee. Our free consultation focuses on planning guidance, not commission-driven sales pressure.",
   },
   {
-    q: "How do you price projects?",
-    a: "We use a transparent cost-plus model: you see the cost of materials and labor, plus our fixed management fee. There are no hidden markups on subcontractors or material deliveries. Before signing, you receive a full scope document with line-item pricing. If scope changes mid-project, we present a written change order before any work begins.",
+    q: "How do you help me understand project costs?",
+    a: "We provide honest planning ranges based on your project type, size, finish level, and goals. After your in-home consultation, you receive a written scope with your project investment outlined clearly. We do not share itemized material costs, subcontractor costs, or line-item pricing. Instead, we focus on clear expectations, budget guidance, and proactive communication throughout your project.",
+  },
+  {
+    q: "How do you help me stay on budget?",
+    a: "Before construction begins, you receive a written scope outlining what is included and your project investment. If selections, site conditions, or scope changes may affect your budget, we communicate early and in writing. Any additional work requires a written change order with your approval before we proceed.",
   },
   {
     q: "What does a typical project timeline look like?",
-    a: "Kitchen remodels typically run 6–10 weeks from permit approval. Bathroom remodels are 3–5 weeks. Whole-home renovations range from 3–6 months depending on scope. We give you a week-by-week schedule at project kickoff and update it every Friday. You always know exactly where we are.",
+    a: "Kitchen remodels typically run 6 to 10 weeks from permit approval. Bathroom remodels are 3 to 5 weeks. Whole-home renovations range from 3 to 6 months depending on scope. We give you a week-by-week schedule at project kickoff and update it every Friday. You always know exactly where we are.",
   },
   {
     q: "Do you handle permits?",
-    a: "Yes — permits are included in our scope and handled entirely in-house. We know the Ada and Canyon County permit offices well and build permit timelines into your project schedule from day one. You never have to chase paperwork.",
+    a: "Yes. Permits are included in our scope and handled entirely in-house. We know the Ada and Canyon County permit offices well and build permit timelines into your project schedule from day one. You never have to chase paperwork.",
   },
   {
     q: "Can I stay in my home during the remodel?",
-    a: "For most kitchen and bathroom projects, yes — with some daily inconvenience. We install dust barriers, protect floors, and schedule noisy work for reasonable hours. For whole-home renovations or additions involving HVAC or electrical throughout the house, we'll give you an honest assessment at consultation of whether staying is practical.",
+    a: "For most kitchen and bathroom projects, yes, with some daily inconvenience. We install dust barriers, protect floors, and schedule noisy work for reasonable hours. For whole-home renovations or additions involving HVAC or electrical throughout the house, we will give you an honest assessment at consultation of whether staying is practical.",
   },
   {
     q: "What areas do you serve?",
-    a: "We serve the full Treasure Valley: Boise, Meridian, Eagle, Nampa, Kuna, Star, and Middleton. If you're just outside these areas, reach out — we'll let you know if we can accommodate your project.",
+    a: "We serve the full Treasure Valley: Boise, Meridian, Eagle, Nampa, Kuna, Star, and Middleton. If you are just outside these areas, reach out and we will let you know if we can accommodate your project.",
   },
   {
     q: "What financing options do you offer?",
@@ -38,7 +44,11 @@ const FAQS = [
   },
   {
     q: "What does the free in-home visit include?",
-    a: "A 60–90 minute walkthrough with our lead designer/estimator. We look at your space, discuss your goals and wish list, share relevant design ideas, and give you a rough budget range on the spot. No pressure — you leave with information, not a sales pitch.",
+    a: "A 60 to 90 minute walkthrough with our lead designer and estimator. We look at your space, discuss your goals and wish list, share relevant design ideas, and give you a planning range on the spot. No pressure. You leave with information, not a sales pitch.",
+  },
+  {
+    q: "Are 3D renderings and visualizations included?",
+    a: "3D renderings and visualizations are available as an optional design enhancement for clients who want to visualize their project before construction begins. They are not included on every project. They add to both project investment and design timeline, but many clients find them valuable for major layout and finish decisions. Ask about this during your consultation.",
   },
   {
     q: "What is your workmanship guarantee?",
@@ -48,42 +58,33 @@ const FAQS = [
 
 export function FAQSection() {
   return (
-    <section id="faq" style={{ background: "#FFFFFF" }} className="py-20 md:py-28">
+    <Section id="faq" divider>
       <div className="container px-4">
         <div className="max-w-3xl mx-auto">
-          <div className="mb-12">
-            <div className="brc-label mb-4">Common questions</div>
-            <h2 className="font-serif font-light text-3xl md:text-4xl tracking-tight" style={{ color: "#3A3E3D" }}>
-              Honest answers to hard questions
-            </h2>
-          </div>
+          <SectionHeader
+            eyebrow="Common questions"
+            title="Straight answers to the questions that matter"
+            className="mb-10"
+          />
           <Accordion type="single" collapsible className="w-full">
             {FAQS.map((faq, i) => (
               <AccordionItem
                 key={i}
                 value={`faq-${i}`}
-                className="border-0 border-t"
-                style={{ borderColor: "rgba(58,62,61,0.12)" }}
+                className="border-0 border-t border-border"
               >
-                <AccordionTrigger
-                  className="text-left py-5 hover:no-underline font-sans font-medium text-sm"
-                  style={{ color: "#3A3E3D" }}
-                >
+                <AccordionTrigger className="text-left py-5 hover:no-underline font-sans font-medium text-sm text-foreground">
                   {faq.q}
                 </AccordionTrigger>
-                <AccordionContent
-                  className="text-sm leading-relaxed pb-6"
-                  style={{ color: "#6E736F" }}
-                >
+                <AccordionContent className="text-sm leading-relaxed pb-6 text-muted-foreground">
                   {faq.a}
                 </AccordionContent>
               </AccordionItem>
             ))}
           </Accordion>
-          <div className="pt-4 border-t" style={{ borderColor: "rgba(58,62,61,0.12)" }} />
+          <div className="pt-4 border-t border-border" />
         </div>
       </div>
-    </section>
+    </Section>
   );
 }
-

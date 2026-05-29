@@ -6,16 +6,16 @@ import { ArrowRight, Calendar, PenLine } from "lucide-react";
 import { BLOG_POSTS } from "@/shared/blogContent";
 
 export const metadata: Metadata = {
-  title: "Remodeling Insights & Ideas — Blog",
+  title: "Remodeling Insights and Ideas | Blog",
   description:
-    "Design inspiration, planning guides, and honest remodeling advice for Idaho homeowners from Boise Remodeling Co.",
+    "Planning guides and remodeling advice for Idaho homeowners from Boise Remodeling Co.",
   alternates: {
     canonical: `${process.env.NEXT_PUBLIC_SITE_URL || "https://boiseremodeling.co"}/blog`,
   },
   openGraph: {
     title: "Remodeling Insights & Ideas | Boise Remodeling Co",
     description:
-      "Design inspiration, planning guides, and honest remodeling advice for Idaho homeowners.",
+      "Planning guides and remodeling advice for Idaho homeowners.",
     url: "/blog",
     type: "website",
   },
@@ -37,11 +37,11 @@ export default function BlogPage() {
   return (
     <div className="flex flex-col pb-20 md:pb-0">
       {/* Hero */}
-      <section className="py-16 md:py-24 bg-secondary/40">
+      <section className="section-y section-divider">
         <div className="container px-4">
           <div className="max-w-3xl mx-auto text-center space-y-4">
-            <p className="text-sm font-semibold tracking-widest uppercase text-primary">Blog</p>
-            <h1 className="text-4xl md:text-5xl font-serif font-semibold text-foreground">
+            <p className="brc-label justify-center mb-2">Blog</p>
+            <h1 className="text-4xl md:text-5xl font-serif font-light tracking-tight text-foreground">
               Remodeling Insights &amp; Ideas
             </h1>
             <p className="text-lg text-muted-foreground">
@@ -51,8 +51,8 @@ export default function BlogPage() {
         </div>
       </section>
 
-      {/* Posts grid — or empty state */}
-      <section className="py-16 md:py-24">
+      {/* Posts grid or empty state */}
+      <section className="section-y">
         <div className="container px-4">
           <div className="max-w-6xl mx-auto">
             {sortedPosts.length === 0 ? (
@@ -61,14 +61,14 @@ export default function BlogPage() {
                   <PenLine className="h-10 w-10 text-muted-foreground" />
                 </div>
                 <div className="space-y-2">
-                  <h2 className="text-2xl font-serif font-semibold text-foreground">
+                  <h2 className="text-2xl font-serif font-light text-foreground">
                     Articles coming soon
                   </h2>
                   <p className="text-muted-foreground max-w-md">
                     We&apos;re writing in-depth guides on budgeting, timelines, material selection, and more. Check back soon.
                   </p>
                 </div>
-                <Button asChild>
+                <Button variant="brand" asChild>
                   <Link href="/">
                     Back to home
                     <ArrowRight className="ml-2 h-4 w-4" />
