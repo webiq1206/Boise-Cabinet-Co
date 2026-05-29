@@ -50,13 +50,6 @@ export function ConsultationForm() {
   const [estimate, setEstimate] = useState<EstimateData | null>(null);
   const [success, setSuccess] = useState(false);
 
-  useEffect(() => {
-    try {
-      const raw = sessionStorage.getItem("brc_estimate");
-      if (raw) setEstimate(JSON.parse(raw));
-    } catch {}
-  }, []);
-
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -64,10 +57,23 @@ export function ConsultationForm() {
       phone: "",
       email: "",
       zip: "",
-      projectType: estimate?.project || "",
+      projectType: "",
       message: "",
     },
   });
+
+  useEffect(() => {
+    try {
+      const raw = sessionStorage.getItem("brc_estimate");
+      if (raw) {
+        const parsed: EstimateData = JSON.parse(raw);
+        setEstimate(parsed);
+        if (parsed.project) {
+          form.setValue("projectType", parsed.project, { shouldValidate: false });
+        }
+      }
+    } catch {}
+  }, [form]);
 
   const mutation = useMutation({
     mutationFn: async (data: FormData) => {

@@ -12,7 +12,7 @@ const KNOWN_UNRESOLVED_PURCHASES = [
     leadId: "d934a12c-2d73-470c-a7f2-481b991a9b69",
     userId: "55074230",
     purchasePrice: "30.00",
-    label: "Gary - Jeff L Johnson spring cleanup",
+    label: "Gary - Jeff L Johnson bathroom-remodel Boise",
   },
   {
     leadId: "2c924537-de65-47a1-bb5c-d5f8bb748111",

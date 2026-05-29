@@ -6,9 +6,9 @@ export async function register() {
     const GARY_USER_ID = "55074230";
 
     const UNRESOLVED_PURCHASES = [
-      { leadId: "d934a12c-2d73-470c-a7f2-481b991a9b69", price: "30.00", label: "Jeff L Johnson spring cleanup" },
-      { leadId: "2c924537-de65-47a1-bb5c-d5f8bb748111", price: "5.00", label: "Hannah lawn-mowing Kuna $5" },
-      { leadId: "2a8eb4b6-dfb5-4f3f-a8f2-09962889a897", price: "10.00", label: "Hannah Turner lawn-mowing Kuna $10" },
+      { leadId: "d934a12c-2d73-470c-a7f2-481b991a9b69", price: "30.00", label: "Jeff L Johnson bathroom-remodel Boise $30" },
+      { leadId: "2c924537-de65-47a1-bb5c-d5f8bb748111", price: "5.00", label: "Hannah kitchen-remodel Boise $5" },
+      { leadId: "2a8eb4b6-dfb5-4f3f-a8f2-09962889a897", price: "10.00", label: "Hannah Turner kitchen-remodel Boise $10" },
     ];
 
     try {

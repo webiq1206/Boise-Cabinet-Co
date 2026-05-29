@@ -1,11 +1,11 @@
 {
-  "name": "Lawn Care Kuna",
-  "short_name": "Lawn Care Kuna",
-  "description": "Professional lawn care and landscaping services in Kuna, Boise, and the Treasure Valley, Idaho.",
+  "name": "Boise Remodeling Co",
+  "short_name": "Boise Remodeling",
+  "description": "Design-build remodeling for kitchens, bathrooms, and whole-home renovations in the Treasure Valley, Idaho.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#1E5128",
+  "background_color": "#f8f5f0",
+  "theme_color": "#8B4513",
   "icons": [
     {
       "src": "/icon-192.png",
