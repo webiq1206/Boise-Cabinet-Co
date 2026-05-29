@@ -8,6 +8,7 @@ import { ClientPriorities } from "@/components/sections/ClientPriorities";
 import { WhyChooseUsSection } from "@/components/sections/WhyChooseUsSection";
 import { ServicesGrid } from "@/components/sections/ServicesGrid";
 import { ProcessSection } from "@/components/sections/ProcessSection";
+import { StatementBand } from "@/components/sections/StatementBand";
 import { InclusionsSection } from "@/components/sections/InclusionsSection";
 import { BudgetGuidance } from "@/components/sections/BudgetGuidance";
 import { LeadershipSection } from "@/components/sections/LeadershipSection";
@@ -46,12 +47,13 @@ export default function HomePage() {
       <WhyChooseUsSection />
       <ServicesGrid />
       <ProcessSection />
+      <StatementBand />
       <ProjectGallerySection limit={3} />
       <EstimateCalculator />
       <InclusionsSection />
       <BudgetGuidance />
 
-      <Section divider>
+      <Section variant="blush" divider>
         <div className="container px-4">
           <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-12 md:gap-20 items-start">
             <Reveal>

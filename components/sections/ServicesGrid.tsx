@@ -9,7 +9,7 @@ import { PROMISE_ITEMS } from "@/shared/siteContent";
 
 export function ServicesGrid() {
   return (
-    <Section id="services" divider>
+    <Section id="services" variant="tint" divider>
       <div className="container px-4">
         <SectionHeader
           eyebrow="Our services"

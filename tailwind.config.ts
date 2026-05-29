@@ -106,6 +106,9 @@ export default {
           muted: "hsl(var(--inverse-muted) / <alpha-value>)",
         },
         "surface-muted": "hsl(var(--surface-muted) / <alpha-value>)",
+        "tint-warm": "hsl(var(--tint-warm) / <alpha-value>)",
+        "tint-cool": "hsl(var(--tint-cool) / <alpha-value>)",
+        "tint-blush": "hsl(var(--tint-blush) / <alpha-value>)",
         status: {
           online: "rgb(34 197 94)",
           away: "rgb(245 158 11)",

@@ -1,11 +1,20 @@
 import { cn } from "@/lib/utils";
 
-type SectionVariant = "canvas" | "surface" | "inverse";
+type SectionVariant =
+  | "canvas"
+  | "surface"
+  | "inverse"
+  | "tint"
+  | "cool"
+  | "blush";
 
 const variantClasses: Record<SectionVariant, string> = {
   canvas: "bg-background text-foreground",
   surface: "bg-card text-card-foreground",
   inverse: "bg-inverse text-inverse-foreground",
+  tint: "bg-tint-warm text-foreground",
+  cool: "bg-tint-cool text-foreground",
+  blush: "bg-tint-blush text-foreground",
 };
 
 export interface SectionProps extends React.HTMLAttributes<HTMLElement> {

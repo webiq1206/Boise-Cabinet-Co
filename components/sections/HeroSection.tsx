@@ -80,7 +80,7 @@ export function HeroSection() {
         </div>
       </section>
 
-      <Section spacing="none" className="py-5 section-divider">
+      <Section variant="surface" spacing="none" className="py-5 section-divider">
         <div className="container px-4">
           <div className="flex flex-wrap justify-center gap-x-8 md:gap-x-12 gap-y-2">
             {TRUST_ITEMS.map((item) => (

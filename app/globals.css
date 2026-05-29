@@ -34,6 +34,11 @@ html, body {
   /* Subtle surface step (5% darker than canvas) */
   --surface-muted: 40 14% 93%;
 
+  /* Section tints — soft palette bands for rhythm */
+  --tint-warm: 38 26% 90%;   /* beige / sand */
+  --tint-cool: 186 22% 88%;  /* skylight */
+  --tint-blush: 10 34% 91%;  /* blush */
+
   /* Sidebar — charcoal for admin/portal */
   --sidebar: 165 6% 14%;
   --sidebar-foreground: 40 15% 92%;
@@ -132,6 +137,11 @@ html, body {
   --inverse-muted: 0 0% 100%;
 
   --surface-muted: 165 8% 14%;
+
+  /* Section tints — subtle hued dark panels */
+  --tint-warm: 36 9% 15%;
+  --tint-cool: 186 10% 15%;
+  --tint-blush: 8 12% 16%;
 
   --sidebar: 165 8% 10%;
   --sidebar-foreground: 40 15% 88%;
@@ -388,6 +398,10 @@ html, body {
   height: 1px;
   background: currentColor;
   flex-shrink: 0;
+}
+/* Ensure inverse-muted wins over the default label color on dark/image bands */
+.brc-label.text-inverse-muted {
+  color: hsl(var(--inverse-muted) / 0.68);
 }
 
 /* ─── Calculator range slider ─── */

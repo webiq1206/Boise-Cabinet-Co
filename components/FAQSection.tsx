@@ -59,7 +59,7 @@ const FAQS = [
 
 export function FAQSection() {
   return (
-    <Section id="faq" divider>
+    <Section id="faq" variant="tint" divider>
       <div className="container px-4">
         <div className="max-w-3xl mx-auto">
           <SectionHeader

@@ -126,7 +126,7 @@ export function EstimateCalculator() {
   const refineProgress = `${userRefinementCount} of ${getMaxRefinementFields(project)} details added`;
 
   return (
-    <Section id="calculator" divider>
+    <Section id="calculator" variant="cool" divider>
       <div className="container px-4 pb-24 lg:pb-0">
         <div className="max-w-6xl mx-auto mb-10">
           <div className="brc-label mb-3">Project Estimator</div>

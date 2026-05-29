@@ -3,6 +3,8 @@
 export const SITE_IMAGES = {
   hero: "/images/hero-remodel-interior.png",
   process: "/images/process-design-review.png",
+  statementBand: "/images/gallery/gallery-whole-home-after.png",
+  leadership: "/images/gallery/gallery-kitchen-after.png",
 } as const;
 
 export const GALLERY_IMAGES = {

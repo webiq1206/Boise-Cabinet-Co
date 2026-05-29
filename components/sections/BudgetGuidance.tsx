@@ -7,7 +7,7 @@ import { BUDGET_GUIDANCE_POINTS } from "@/shared/siteContent";
 
 export function BudgetGuidance() {
   return (
-    <Section id="budget" divider>
+    <Section id="budget" variant="tint" divider>
       <div className="container px-4">
         <div className="max-w-5xl mx-auto">
           <SectionHeader
