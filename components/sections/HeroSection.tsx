@@ -17,7 +17,7 @@ const HERO_STATS = [
 export function HeroSection() {
   return (
     <>
-      <section className="relative min-h-[85vh] md:min-h-screen flex items-center overflow-hidden bg-inverse">
+      <section className="relative -mt-[60px] pt-[60px] min-h-[85vh] md:min-h-screen flex items-center overflow-hidden bg-inverse">
         <Image
           src={SITE_IMAGES.hero}
           alt="Modern luxury home interior remodel in Boise Idaho Treasure Valley"
@@ -27,7 +27,7 @@ export function HeroSection() {
           className="object-cover opacity-[0.72]"
         />
         <div className="absolute inset-0 pointer-events-none bg-gradient-to-br from-inverse/65 via-inverse/45 to-inverse/20" />
-        <div className="absolute inset-x-0 top-0 h-32 pointer-events-none bg-gradient-to-b from-inverse/55 to-transparent" />
+        <div className="absolute inset-x-0 top-0 h-40 pointer-events-none bg-gradient-to-b from-inverse/80 via-inverse/45 to-transparent" />
         <div
           className="absolute inset-x-0 bottom-0 h-40 pointer-events-none bg-gradient-to-t from-background via-background/40 to-transparent"
         />
