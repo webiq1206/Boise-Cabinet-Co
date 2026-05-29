@@ -44,6 +44,7 @@ function formatCurrency(n: number) {
 export function ConsultationForm() {
   const [estimate, setEstimate] = useState<StoredEstimate | null>(null);
   const [success, setSuccess] = useState(false);
+  const [pendingData, setPendingData] = useState<FormData | null>(null);
 
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
@@ -127,10 +128,95 @@ export function ConsultationForm() {
     ? FINISH_LABELS[estimate.finish]?.label
     : null;
 
+  if (pendingData) {
+    const pendingProjectLabel = estimate?.project
+      ? PROJECT_LABELS[estimate.project]?.label
+      : PROJECT_OPTIONS.find((o) => o.value === pendingData.projectType)?.label ??
+        pendingData.projectType;
+
+    const rows: [string, string][] = [
+      ["Name", pendingData.name],
+      ["Phone", pendingData.phone],
+      ["Email", pendingData.email],
+      ["ZIP code", pendingData.zip],
+      ["Project", pendingProjectLabel],
+    ];
+    if (pendingData.message) rows.push(["Notes", pendingData.message]);
+
+    return (
+      <div className="space-y-5" data-testid="confirm-consultation">
+        <div>
+          <h3 className="font-serif font-light text-2xl text-foreground">
+            Does everything look right?
+          </h3>
+          <p className="text-sm text-muted-foreground mt-1">
+            Take a quick look before we send your request.
+          </p>
+        </div>
+
+        {estimate && (
+          <div className="rounded-sm p-4 text-sm bg-accent/5 border border-accent/20">
+            <p className="font-medium mb-1 text-foreground">Planning range from estimator:</p>
+            <p className="text-muted-foreground">
+              {projectLabel}
+              {finishLabel ? ` · ${finishLabel}` : ""}
+              {estimate.sqft ? ` · ${estimate.sqft.toLocaleString()} sqft` : ""}
+            </p>
+            <p className="font-medium mt-1 text-foreground">
+              {formatCurrency(estimate.priceLow)} to {formatCurrency(estimate.priceHigh)}
+            </p>
+            {estimate.confidenceLabel && (
+              <p className="text-xs mt-1 text-muted-foreground">{estimate.confidenceLabel}</p>
+            )}
+          </div>
+        )}
+
+        <dl className="rounded-sm border border-border divide-y divide-border text-sm">
+          {rows.map(([label, value]) => (
+            <div key={label} className="flex gap-4 p-3">
+              <dt className="w-24 shrink-0 text-muted-foreground">{label}</dt>
+              <dd className="text-foreground break-words" data-testid={`confirm-${label.toLowerCase().replace(/\s+/g, "-")}`}>
+                {value}
+              </dd>
+            </div>
+          ))}
+        </dl>
+
+        {mutation.isError && (
+          <div className="rounded-sm p-4 text-sm bg-destructive/5 border border-destructive/20 text-destructive">
+            {(mutation.error as Error).message || "Something went wrong. Please try again."}
+          </div>
+        )}
+
+        <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+          <Button
+            type="button"
+            variant="brand"
+            disabled={mutation.isPending}
+            onClick={() => mutation.mutate(pendingData)}
+            data-testid="button-confirm-consultation"
+          >
+            {mutation.isPending ? "Sending…" : "Confirm and send"}
+            {!mutation.isPending && <ArrowRight className="h-4 w-4" />}
+          </Button>
+          <Button
+            type="button"
+            variant="ghost"
+            disabled={mutation.isPending}
+            onClick={() => setPendingData(null)}
+            data-testid="button-edit-consultation"
+          >
+            Edit details
+          </Button>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit((data) => mutation.mutate(data))}
+        onSubmit={form.handleSubmit((data) => setPendingData(data))}
         className="space-y-5"
       >
         {estimate && (

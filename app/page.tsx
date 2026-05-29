@@ -53,7 +53,7 @@ export default function HomePage() {
       <InclusionsSection />
       <BudgetGuidance />
 
-      <Section variant="blush" divider>
+      <Section divider>
         <div className="container px-4">
           <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-12 md:gap-20 items-start">
             <Reveal>
