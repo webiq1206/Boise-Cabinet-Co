@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -41,10 +41,14 @@ function formatCurrency(n: number) {
   return `$${n.toLocaleString()}`;
 }
 
+type EstimateDecision = "pending" | "confirmed" | "deciding" | "dropped";
+
 export function ConsultationForm() {
   const [estimate, setEstimate] = useState<StoredEstimate | null>(null);
+  const [decision, setDecision] = useState<EstimateDecision>("pending");
   const [success, setSuccess] = useState(false);
   const [pendingData, setPendingData] = useState<FormData | null>(null);
+  const lastKeyRef = useRef<string | null>(null);
 
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
@@ -59,23 +63,36 @@ export function ConsultationForm() {
   });
 
   useEffect(() => {
-    try {
-      const raw = sessionStorage.getItem("brc_estimate");
-      if (raw) {
+    function loadEstimate() {
+      try {
+        const raw = sessionStorage.getItem("brc_estimate");
+        if (!raw) return;
         const parsed: StoredEstimate = JSON.parse(raw);
+        const key = `${parsed.project}|${parsed.finish}|${parsed.sqft}|${parsed.priceLow}|${parsed.priceHigh}|${parsed.confidenceLabel}`;
+        if (key === lastKeyRef.current) return;
+        lastKeyRef.current = key;
         setEstimate(parsed);
+        setDecision("pending");
         if (parsed.project) {
           form.setValue("projectType", parsed.project, { shouldValidate: false });
         }
-      }
-    } catch {}
+      } catch {}
+    }
+    loadEstimate();
+    window.addEventListener("brc_estimate_updated", loadEstimate);
+    return () => window.removeEventListener("brc_estimate_updated", loadEstimate);
   }, [form]);
+
+  function handleRevise() {
+    setDecision("deciding");
+    document.getElementById("calculator")?.scrollIntoView({ behavior: "smooth" });
+  }
 
   const mutation = useMutation({
     mutationFn: async (data: FormData) => {
       const payload = {
         ...data,
-        estimate: estimate
+        estimate: estimate && decision === "confirmed"
           ? {
               project: estimate.project,
               finish: estimate.finish,
@@ -127,6 +144,9 @@ export function ConsultationForm() {
   const finishLabel = estimate?.finish
     ? FINISH_LABELS[estimate.finish]?.label
     : null;
+
+  const canSubmit =
+    !estimate || decision === "confirmed" || decision === "dropped";
 
   if (pendingData) {
     const pendingProjectLabel = estimate?.project
@@ -219,24 +239,115 @@ export function ConsultationForm() {
         onSubmit={form.handleSubmit((data) => setPendingData(data))}
         className="space-y-5"
       >
-        {estimate && (
-          <div className="rounded-sm p-4 text-sm bg-accent/5 border border-accent/20">
-            <p className="font-medium mb-1 text-foreground">
-              Planning range from estimator:
-            </p>
-            <p className="text-muted-foreground">
-              {projectLabel}
-              {finishLabel ? ` · ${finishLabel}` : ""}
-              {estimate.sqft ? ` · ${estimate.sqft.toLocaleString()} sqft` : ""}
-            </p>
-            <p className="font-medium mt-1 text-foreground">
-              {formatCurrency(estimate.priceLow)} to {formatCurrency(estimate.priceHigh)}
-            </p>
-            {estimate.confidenceLabel && (
-              <p className="text-xs mt-1 text-muted-foreground">
-                {estimate.confidenceLabel}
+        {estimate && decision !== "dropped" && (
+          <div className="rounded-sm p-4 text-sm bg-accent/5 border border-accent/20 space-y-3">
+            <div>
+              <p className="font-medium mb-1 text-foreground">
+                Planning range from estimator
               </p>
+              <p className="text-muted-foreground" data-testid="text-estimate-summary">
+                {projectLabel}
+                {finishLabel ? ` · ${finishLabel}` : ""}
+                {estimate.sqft ? ` · ${estimate.sqft.toLocaleString()} sqft` : ""}
+              </p>
+              <p className="font-medium mt-1 text-foreground" data-testid="text-estimate-range">
+                {formatCurrency(estimate.priceLow)} to {formatCurrency(estimate.priceHigh)}
+              </p>
+              {estimate.confidenceLabel && (
+                <p className="text-xs mt-1 text-muted-foreground">
+                  {estimate.confidenceLabel}
+                </p>
+              )}
+            </div>
+
+            {decision === "pending" && (
+              <div className="space-y-2 border-t border-accent/20 pt-3">
+                <p className="text-foreground">
+                  Is this the planning range you&apos;d like to submit with?
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  <Button
+                    type="button"
+                    size="sm"
+                    variant="brand"
+                    onClick={() => setDecision("confirmed")}
+                    data-testid="button-confirm-estimate"
+                  >
+                    Yes, use this range
+                  </Button>
+                  <Button
+                    type="button"
+                    size="sm"
+                    variant="outline"
+                    onClick={() => setDecision("deciding")}
+                    data-testid="button-reject-estimate"
+                  >
+                    No, not quite
+                  </Button>
+                </div>
+              </div>
             )}
+
+            {decision === "deciding" && (
+              <div className="space-y-2 border-t border-accent/20 pt-3">
+                <p className="text-foreground">No problem — what would you like to do?</p>
+                <div className="flex flex-wrap gap-2">
+                  <Button
+                    type="button"
+                    size="sm"
+                    variant="outline"
+                    onClick={handleRevise}
+                    data-testid="button-revise-estimate"
+                  >
+                    Revise it
+                  </Button>
+                  <Button
+                    type="button"
+                    size="sm"
+                    variant="outline"
+                    onClick={() => setDecision("dropped")}
+                    data-testid="button-drop-estimate"
+                  >
+                    Submit without it
+                  </Button>
+                </div>
+              </div>
+            )}
+
+            {decision === "confirmed" && (
+              <div className="flex flex-wrap items-center gap-2 border-t border-accent/20 pt-3">
+                <CheckCircle2 className="h-4 w-4 text-accent" />
+                <span className="font-medium text-foreground" data-testid="status-estimate-attached">
+                  This range will be attached to your request.
+                </span>
+                <Button
+                  type="button"
+                  size="sm"
+                  variant="ghost"
+                  onClick={() => setDecision("pending")}
+                  data-testid="button-change-estimate"
+                >
+                  Change
+                </Button>
+              </div>
+            )}
+          </div>
+        )}
+
+        {estimate && decision === "dropped" && (
+          <div className="rounded-sm p-3 text-sm bg-muted/40 border border-border flex flex-wrap items-center gap-2">
+            <span className="text-muted-foreground" data-testid="status-estimate-dropped">
+              Submitting without a planning range attached.
+            </span>
+            <Button
+              type="button"
+              size="sm"
+              variant="ghost"
+              onClick={() => setDecision("pending")}
+              data-testid="button-reattach-estimate"
+            >
+              Use my estimate instead
+            </Button>
           </div>
         )}
 
@@ -314,7 +425,7 @@ export function ConsultationForm() {
           />
         </div>
 
-        {!estimate && (
+        {(!estimate || decision === "dropped") && (
           <FormField
             control={form.control}
             name="projectType"
@@ -323,7 +434,7 @@ export function ConsultationForm() {
                 <FormLabel className={labelClass}>
                   What are you planning to remodel?
                 </FormLabel>
-                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <Select onValueChange={field.onChange} value={field.value}>
                   <FormControl>
                     <SelectTrigger data-testid="select-project-type">
                       <SelectValue placeholder="Select a project type" />
@@ -369,14 +480,16 @@ export function ConsultationForm() {
           <Button
             type="submit"
             variant="brand"
-            disabled={mutation.isPending}
+            disabled={mutation.isPending || !canSubmit}
             data-testid="button-submit-consultation"
           >
             {mutation.isPending ? "Sending…" : "Send my request"}
             {!mutation.isPending && <ArrowRight className="h-4 w-4" />}
           </Button>
           <p className="text-xs text-muted-foreground">
-            No spam. Response within one business day.
+            {canSubmit
+              ? "No spam. Response within one business day."
+              : "Please confirm your planning range above before sending."}
           </p>
         </div>
       </form>

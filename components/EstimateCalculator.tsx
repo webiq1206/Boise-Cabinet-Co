@@ -121,6 +121,7 @@ export function EstimateCalculator() {
       "brc_estimate",
       JSON.stringify(buildStoredEstimate(input, userRefinementCount))
     );
+    window.dispatchEvent(new CustomEvent("brc_estimate_updated"));
   }, [input, userRefinementCount]);
 
   const refineProgress = `${userRefinementCount} of ${getMaxRefinementFields(project)} details added`;
