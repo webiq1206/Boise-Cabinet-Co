@@ -1,7 +1,7 @@
-# Lawn Care Kuna Website
+# Boise Remodeling Co Website
 
 ## Overview
-The Lawn Care Kuna website is an online platform for a local Idaho business offering lawn care, landscaping, and Christmas light installation services. Its main purpose is to provide service information, facilitate quote requests, and enhance local SEO. Key features include an AI-powered quoting system, an interactive property measurement tool, a lead distribution platform, and a comprehensive content management system for services, project galleries, testimonials, and blogs. The site includes 500+ SEO-optimized location pages designed for top rankings in local search results.
+The Boise Remodeling Co website is a marketing and lead-generation platform for a Boise, Idaho design-build remodeling company. The site serves homeowners in the Treasure Valley (Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton) considering kitchen remodels, bathroom remodels, whole-home renovations, and room additions. Key features include an instant estimate calculator (project type + finish level + size → animated price range), a consultation request form, a founding-clients offer section, a blog, and a B2B lead distribution marketplace for subcontractors.
 
 ## User Preferences
 Preferred communication style: Simple, everyday language.
@@ -9,69 +9,39 @@ Preferred communication style: Simple, everyday language.
 ## System Architecture
 
 ### UI/UX Decisions
-- **Design System**: Mobile-first responsive design, Montserrat font, specific color palette (Forest Green, Mint, White).
+- **Design System**: Mobile-first responsive design, Playfair Display for headings/serif accents, Montserrat for body text.
+- **Color Palette**: Warm cream background (`36 30% 97%`), warm dark charcoal foreground (`24 18% 12%`), terracotta/sienna primary (`18 56% 40%`), warm sand secondary, soft sage accent.
 - **Component Library**: shadcn/ui (Radix UI primitives) with custom Tailwind CSS.
-- **Visuals**: Service-specific hero backgrounds, consistent typography, redesigned mobile navigation.
-- **Content Layout**: Clean, modern layouts with alternating backgrounds, two-column quote forms, and scannable content.
-- **Interactive Elements**: FAQ accordions, property measurement tool, site-wide search with autocomplete.
-- **Accessibility**: WCAG AA compliant with visible focus states, 4.5:1 color contrast, ARIA labels, keyboard navigation, and semantic HTML.
+- **Homepage**: 12-section single-page marketing layout: Hero → Trust Strip → Founder Note → Inspiration Gallery → Estimate Calculator → Below-Calculator Cards → How We Build → Principles → Financing/Guarantee → Founding Clients → FAQ Accordion → Consultation Form.
+- **Founding Spots**: `FOUNDING_SPOTS_REMAINING` constant in `shared/contentData.ts` — update manually as spots fill.
+- **Mobile Navigation**: Sticky bottom bar with "Call" and "Begin a conversation" links. Desktop nav has logo, anchor links, phone with pulsing green dot, and "Book a free visit" CTA.
 
 ### Technical Implementations
 - **Frontend Framework**: Next.js 14 (App Router) with React 18 and TypeScript.
-- **Routing**: Next.js file-based routing with dynamic segments.
-- **State Management**: TanStack Query for server state, React Hook Form with Zod for forms.
-- **Performance Optimization**: Route-level code splitting.
-- **Multi-Service Quote System**: A 4-step intelligent wizard supporting multiple service selections, service-aware field rendering, itemized pricing, and robust validation, filtered by Idaho Treasure Valley seasonality. Recurring-eligible services have per-service frequency selection.
-- **Service Seasonality System**: Configurable season windows and recurring eligibility for services based on Idaho USDA Zone 6b-7a climate. The quote wizard dynamically filters service displays by season.
-- **Server-Side Lead Pricing**: Quote API calculates per-service prices from measurement data using defined rates, not client-sent totals. Lead prices are 10% of total estimate (midpoint of range), with a $10 min/$100 max, rounded to the nearest $1, and apply a daily price decay of 1.5% with a 20% floor.
-- **Intelligent Property Calculator**: Automated property measurement system querying Ada County Assessor parcel data, including address normalization, multi-county support, and intelligent estimation.
-- **SEO Optimization**: E-E-A-T optimized, city-specific pages (2000+ words), comprehensive internal linking, SEO-optimized headings and FAQs, `robots.txt`, `sitemap.xml`, and `llms.txt`. Includes city-specific metadata, URL-safe canonicals, smart title generation, and Google Analytics 4 integration. AI-friendly `llms.txt` and SpeakableSpecification JSON-LD for voice search.
-- **Dynamic Content**: Navigation and footer automatically display services and service areas from `contentData.ts`.
-- **Mega Menu Navigation**: Organized into 4 service columns with category icons for desktop and collapsible categories for mobile.
-- **Mobile Navigation**: Sticky bottom navigation for quick access.
-- **Site-Wide Search**: Real-time autocomplete search for services, areas, and main pages.
-- **Lead Distribution System**: B2B lead marketplace with admin dashboard, subcontractor portal, privacy protection, automated lead pricing, legal agreement flow, and in-app notifications. Integrates with Stripe for payments and supports an account credits system. Features lead purchase exclusivity and auto-archival for unpurchased leads older than 7 days.
-- **Testimonials System**: Scrolling marquee component with branded gradient cards, pause on hover, and fade edge overlays, displaying 60 sample reviews across cities and services.
-- **Blog System**: Category-organized blog with seeded posts and a responsive grid UI.
-- **Customer Email Enhancements**: Comprehensive estimate information display in customer and admin quote emails, including detailed breakdowns, brand assets, and per-service frequency displays.
-- **Professional Email Templates**: Overhauled email templates with brand logo, production URLs, contact information, and quote value normalization.
-- **Popup-Free Quote Flow**: Replaced toast notifications with inline error alerts and enhanced quote wizard with per-service pricing dropdowns.
-- **Duplicate Lead Prevention**: Server-side deduplication blocks new submissions only when both email AND address match an active lead, with HMAC-SHA256 edit tokens (7-day TTL) for customer self-service edits. Quote+lead updates are atomic (snapshot+revert on failure). Watcher notifications throttled to one per user/lead/30min. "Possible duplicate" badges (with id/status/date hover details and admin deep-link) and "Updated" badges surface on subcontractor portal, purchases page, and admin dashboard, scanning the full lead history (no recency cutoff).
-- **Lead Display Titles**: Lead card titles in admin and subcontractor portals display the most expensive service first, showing multi-service leads concisely (e.g., "Lawn Renovation + 4 more").
-- **Subcontractor Lead Email Urgency**: New-lead notifications emphasize urgency, exclusivity, and time sensitivity with a "Claim This Lead" CTA.
-- **Address House Number Validation**: Quote submissions require a street address that begins with a house number, validated client-side in `SimpleQuoteWizard` (inline alert) and server-side via the `address` field in `app/api/quotes/route.ts` using shared regex helpers in `shared/addressValidation.ts`. `AddressAutocomplete` reconstructs `<number> <street>` from the Nominatim raw `address` object (preferring `house_number + road`) and falls back to digits the user typed, instead of using the verbose `display_name` label. The `leads` table has an `addressMissingHouseNumber` boolean column; rows flagged true render a destructive "No house #" badge next to the address on the admin dashboard, subcontractor portal, and purchases page (only when the address is unmasked). `scripts/backfill-lead-addresses.ts` rewrites historical Nominatim-style addresses (strips trailing country/state/zip/county segments, joins `497, Street` → `497 Street`) and flags rows that still lack a leading house number.
+- **Instant Estimate Calculator**: Client component (`EstimateCalculator.tsx`) — project type cards + finish level cards + size preset → animated price range, typically-included list, ROI, and disclaimer. Saves estimate to sessionStorage for form pre-fill.
+- **Consultation Form**: Client component (`ConsultationForm.tsx`) — reads sessionStorage estimate, collects name/phone/email/zip/project/message, posts to `/api/consultation`, sends admin notification + customer confirmation via Resend.
+- **FAQ Section**: Client component (`FAQSection.tsx`) — Radix Accordion with 9 Q&As.
+- **Lead Distribution System**: B2B lead marketplace with admin dashboard, subcontractor portal, privacy protection, automated lead pricing, legal agreement flow, and in-app notifications. Integrates with Stripe for payments and supports an account credits system.
+- **Blog System**: Infrastructure kept but no posts yet — `shared/blogContent.ts` has empty `BLOG_POSTS` array.
+- **Email**: Resend integration, `hello@boiseremodeling.co` as from address.
+- **Service Areas**: Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton (Ada + Canyon County).
+- **Services**: Kitchen Remodel, Bathroom Remodel, Whole-Home Remodel, Room Addition.
 
 ### System Design Choices
 - **Backend Framework**: Next.js API routes.
-- **API Design**: RESTful endpoints with JSON responses.
-- **Data Validation**: Shared Zod schemas for client and server.
-- **Content Management**: All service and geographic data centralized in `shared/contentData.ts`.
+- **Database Schema**: Drizzle ORM for PostgreSQL via Neon serverless driver. Tables: `quotes`, `leads`, `users`, `sessions`, `leadPurchases`, `creditTransactions`, `notifications`, `siteSettings`, `consultationRequests`, `blogPosts`, `galleryPhotos`, `testimonials`.
+- **Content Management**: Services and cities centralized in `shared/contentData.ts`. `FOUNDING_SPOTS_REMAINING` constant also lives there.
 - **Build System**: Next.js with TypeScript.
-- **Database Schema**: Drizzle ORM for PostgreSQL via Neon serverless driver, with a `quotes` table schema defined in `shared/schema.ts`.
 
 ## External Dependencies
-
-### UI/UX & Components
-- **Radix UI**: Headless accessible components.
-- **class-variance-authority**: Component variant management.
-- **embla-carousel-react**: Carousel functionality.
-- **lucide-react**: Icon library.
-
-### Form & State Management
-- **react-hook-form**: Form state and validation.
-- **@hookform/resolvers**: Zod resolver for React Hook Form.
+- **Radix UI**: Headless accessible components (via shadcn/ui).
+- **react-hook-form** + **@hookform/resolvers**: Form state and Zod validation.
 - **@tanstack/react-query**: Server state management.
-
-### Styling
 - **Tailwind CSS**: Utility-first CSS framework.
-- **tailwind-merge & clsx**: CSS class merging.
-
-### Data & Validation
 - **zod**: Schema validation.
-- **@neondatabase/serverless**: PostgreSQL client.
-- **drizzle-orm & drizzle-zod**: ORM and schema validation.
-
-### Utilities
+- **@neondatabase/serverless** + **drizzle-orm**: Database ORM.
 - **date-fns**: Date manipulation.
 - **nanoid**: Unique ID generation.
-- **@next/third-parties**: Google Analytics integration for Next.js.
+- **Resend**: Transactional email.
+- **Stripe**: Payments for the lead marketplace.
+- **Playfair Display** + **Montserrat**: Google Fonts (loaded via `next/font/google`).

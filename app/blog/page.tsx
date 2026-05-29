@@ -2,136 +2,107 @@ import Link from "next/link";
 import { Metadata } from "next";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowRight, Calendar } from "lucide-react";
+import { ArrowRight, Calendar, PenLine } from "lucide-react";
 import { BLOG_POSTS } from "@/shared/blogContent";
-import { generateWebPageSchema, generateBreadcrumbSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
-  title: "Idaho Lawn Care Tips & Blog",
-  description: "Expert lawn care tips for Idaho homeowners. Mowing schedules, fertilizer guides, landscaping ideas & seasonal care for Zone 6b-7a. Read now!",
+  title: "Remodeling Insights & Ideas — Blog",
+  description:
+    "Design inspiration, planning guides, and honest remodeling advice for Idaho homeowners from Boise Remodeling Co.",
   alternates: {
-    canonical: "https://lawncarekuna.com/blog",
+    canonical: `${process.env.NEXT_PUBLIC_SITE_URL || "https://boiseremodeling.co"}/blog`,
   },
   openGraph: {
-    title: "Idaho Lawn Care Tips & Blog | Lawn Care Kuna",
-    description: "Expert lawn care tips, seasonal guides, and landscaping advice for Idaho homeowners from Lawn Care Kuna.",
-    url: "https://lawncarekuna.com/blog",
+    title: "Remodeling Insights & Ideas | Boise Remodeling Co",
+    description:
+      "Design inspiration, planning guides, and honest remodeling advice for Idaho homeowners.",
+    url: "/blog",
     type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Idaho Lawn Care Tips & Blog",
-    description: "Expert tips on mowing, fertilizing, landscaping, and seasonal care for Idaho homeowners.",
   },
 };
 
-// Schema markup
-const webPageSchema = generateWebPageSchema({
-  title: "Lawn Care Blog",
-  description: "Expert lawn care tips, guides, and advice for Idaho homeowners.",
-  url: "/blog",
-});
-
-const breadcrumbSchema = generateBreadcrumbSchema([
-  { name: "Home", url: "/" },
-  { name: "Blog", url: "/blog" },
-]);
-
-// Format date helper
 function formatDate(dateString: string): string {
-  const date = new Date(dateString);
-  return date.toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
+  return new Date(dateString).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
   });
 }
 
 export default function BlogPage() {
-  // Sort blog posts by date (newest first)
-  const sortedPosts = [...BLOG_POSTS].sort((a, b) => 
-    new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
+  const sortedPosts = [...BLOG_POSTS].sort(
+    (a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
   );
 
   return (
-    <>
-      {/* JSON-LD Schema Markup */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-      />
-      
-    <div className="flex flex-col">
+    <div className="flex flex-col pb-20 md:pb-0">
       {/* Hero */}
-      <section className="relative py-16 md:py-24 bg-gradient-to-b from-primary/5 to-background">
+      <section className="py-16 md:py-24 bg-secondary/40">
         <div className="container px-4">
           <div className="max-w-3xl mx-auto text-center space-y-4">
-            <h1 className="text-4xl md:text-5xl font-bold text-foreground">Idaho Lawn Care Tips & Blog</h1>
+            <p className="text-sm font-semibold tracking-widest uppercase text-primary">Blog</p>
+            <h1 className="text-4xl md:text-5xl font-serif font-semibold text-foreground">
+              Remodeling Insights &amp; Ideas
+            </h1>
             <p className="text-lg text-muted-foreground">
-              Expert mowing, landscaping, and seasonal care advice for Idaho homeowners
+              Honest advice for Idaho homeowners planning their next renovation.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Blog Posts Grid */}
+      {/* Posts grid — or empty state */}
       <section className="py-16 md:py-24">
         <div className="container px-4">
           <div className="max-w-6xl mx-auto">
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {sortedPosts.map((post) => (
-                <Card key={post.slug} className="hover-elevate flex flex-col bg-gradient-to-br from-primary/5 to-white dark:from-primary/10 dark:to-background">
-                  <CardHeader>
-                    <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
-                      <Calendar className="h-4 w-4" />
-                      <span>{formatDate(post.publishedAt)}</span>
-                    </div>
-                    <CardTitle className="text-lg line-clamp-2">{post.title}</CardTitle>
-                    <CardDescription className="line-clamp-3">{post.excerpt}</CardDescription>
-                  </CardHeader>
-                  <CardContent className="mt-auto">
-                    <Button variant="ghost" size="sm" className="p-0 h-auto text-primary" asChild>
-                      <Link href={`/blog/${post.slug}`}>
-                        Read Full Article <ArrowRight className="ml-1 h-3 w-3" />
-                      </Link>
-                    </Button>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="py-16 md:py-24 bg-muted/30">
-        <div className="container px-4">
-          <div className="max-w-4xl mx-auto text-center space-y-8">
-            <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
-              Need professional lawn care in Kuna or Boise?
-            </h2>
-            <p className="text-lg text-muted-foreground leading-relaxed">
-              While our blog is full of helpful tips, sometimes you need the professionals. Contact us for a free consultation.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-              <Button size="lg" asChild>
-                <Link href="/get-quote">
-                  Get Your Free Lawn Care Quote
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Link>
-              </Button>
-              <Button size="lg" variant="outline" className="bg-gradient-to-br from-primary/10 to-white border-primary/20 text-primary" asChild>
-                <Link href="/services">Browse Our Lawn &amp; Landscaping Services</Link>
-              </Button>
-            </div>
+            {sortedPosts.length === 0 ? (
+              <div className="flex flex-col items-center justify-center text-center py-24 space-y-6">
+                <div className="rounded-full bg-muted p-6">
+                  <PenLine className="h-10 w-10 text-muted-foreground" />
+                </div>
+                <div className="space-y-2">
+                  <h2 className="text-2xl font-serif font-semibold text-foreground">
+                    Articles coming soon
+                  </h2>
+                  <p className="text-muted-foreground max-w-md">
+                    We&apos;re writing in-depth guides on budgeting, timelines, material selection, and more. Check back soon.
+                  </p>
+                </div>
+                <Button asChild>
+                  <Link href="/">
+                    Back to home
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Link>
+                </Button>
+              </div>
+            ) : (
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {sortedPosts.map((post) => (
+                  <Card key={post.slug} className="hover-elevate flex flex-col">
+                    <CardHeader>
+                      <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
+                        <Calendar className="h-4 w-4" />
+                        <span>{formatDate(post.publishedAt)}</span>
+                      </div>
+                      <CardTitle className="text-lg line-clamp-2 font-serif">
+                        {post.title}
+                      </CardTitle>
+                      <CardDescription className="line-clamp-3">{post.excerpt}</CardDescription>
+                    </CardHeader>
+                    <CardContent className="mt-auto">
+                      <Button variant="ghost" size="sm" className="p-0 h-auto text-primary" asChild>
+                        <Link href={`/blog/${post.slug}`}>
+                          Read article <ArrowRight className="ml-1 h-3 w-3" />
+                        </Link>
+                      </Button>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </section>
     </div>
-    </>
   );
 }

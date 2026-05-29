@@ -46,12 +46,7 @@ interface LineItem {
   isRecurring?: boolean;
 }
 
-const RECURRING_ELIGIBLE_SERVICE_IDS = new Set<string>([
-  "lawn-mowing",
-  "lawn-maintenance",
-  "hedge-trimming",
-  "weed-control",
-]);
+const RECURRING_ELIGIBLE_SERVICE_IDS = new Set<string>();
 
 function isServiceRecurring(serviceId: string, frequency: string | null | undefined): boolean {
   if (!frequency || frequency === "one-time") return false;
@@ -207,7 +202,7 @@ function useEnvironment() {
   return useMemo(() => {
     if (typeof window === 'undefined') return { isProduction: false, environmentLabel: 'Development', hostname: '' };
     const hostname = window.location.hostname;
-    const isProduction = hostname === 'lawncarekuna.com' || hostname === 'www.lawncarekuna.com';
+    const isProduction = hostname === 'boiseremodeling.co' || hostname === 'www.boiseremodeling.co';
     return {
       isProduction,
       environmentLabel: isProduction ? 'Production' : 'Development',
@@ -1554,12 +1549,12 @@ function AdminDashboardContent() {
               <p className="text-sm text-amber-700 dark:text-amber-300">
                 You&apos;re viewing the development database. For production leads, visit{" "}
                 <a 
-                  href="https://lawncarekuna.com/admin" 
+                  href="https://boiseremodeling.co/admin" 
                   className="underline font-medium hover:no-underline"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  lawncarekuna.com/admin
+                  boiseremodeling.co/admin
                 </a>
               </p>
             </div>

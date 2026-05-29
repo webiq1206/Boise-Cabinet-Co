@@ -4,20 +4,20 @@ import { generateBreadcrumbSchema, generateWebPageSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
   title: "Privacy Policy for Lawn Care Services",
-  description: "Lawn Care Kuna privacy policy. How we protect your data when you request lawn care quotes and services in Kuna & Boise, Idaho.",
+  description: "Boise Remodeling Co privacy policy. How we protect your data when you request remodeling services in Kuna & Boise, Idaho.",
   alternates: {
-    canonical: "https://lawncarekuna.com/privacy-policy",
+    canonical: "https://boiseremodeling.co/privacy-policy",
   },
   openGraph: {
-    title: "Privacy Policy | Lawn Care Kuna",
-    description: "How we protect your data when you use Lawn Care Kuna lawn care and landscaping services in Idaho.",
-    url: "https://lawncarekuna.com/privacy-policy",
+    title: "Privacy Policy | Boise Remodeling Co",
+    description: "How we protect your data when you use Boise Remodeling Co remodeling and renovation services in Idaho.",
+    url: "https://boiseremodeling.co/privacy-policy",
     type: "website",
   },
   twitter: {
     card: "summary",
-    title: "Privacy Policy | Lawn Care Kuna",
-    description: "How we protect your data when you use Lawn Care Kuna lawn care and landscaping services in Idaho.",
+    title: "Privacy Policy | Boise Remodeling Co",
+    description: "How we protect your data when you use Boise Remodeling Co remodeling and renovation services in Idaho.",
   },
 };
 
@@ -28,7 +28,7 @@ export default function PrivacyPolicyPage() {
   ]);
   const webPageSchema = generateWebPageSchema({
     title: "Privacy Policy",
-    description: "Privacy policy for Lawn Care Kuna. How we collect, use, and protect your personal information.",
+    description: "Privacy policy for Boise Remodeling Co. How we collect, use, and protect your personal information.",
     url: "/privacy-policy",
   });
 
@@ -45,14 +45,14 @@ export default function PrivacyPolicyPage() {
       <section className="py-16 md:py-24">
         <div className="container px-4">
           <div className="max-w-3xl mx-auto prose prose-lg">
-            <h1>Privacy Policy for Lawn Care Kuna Services</h1>
+            <h1>Privacy Policy for Boise Remodeling Co Services</h1>
             <p className="lead text-muted-foreground">
               Last updated: January 2024
             </p>
 
             <h2>Introduction</h2>
             <p>
-              Lawn Care Kuna ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website or use our services.
+              Boise Remodeling Co ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website or use our services.
             </p>
 
             <h2>Information We Collect</h2>
@@ -104,7 +104,7 @@ export default function PrivacyPolicyPage() {
               If you have questions about this Privacy Policy, please contact us at:
             </p>
             <ul>
-              <li>Email: <ObfuscatedEmail user="hello" domain="lawncarekuna.com" className="text-primary hover:underline inline-flex items-center gap-1" showIcon={false} /></li>
+              <li>Email: <ObfuscatedEmail user="hello" domain="boiseremodeling.co" className="text-primary hover:underline inline-flex items-center gap-1" showIcon={false} /></li>
               <li>Phone: <a href="tel:2083522011" className="text-primary hover:underline">(208) 352-2011</a></li>
               <li>Address: 2283 N Coopers Hawk Ave, Kuna, ID 83634</li>
             </ul>

@@ -177,10 +177,10 @@ export default function SubcontractorPage() {
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <div className="flex items-center gap-2">
               <Leaf className="w-5 h-5 text-primary" />
-              <span className="font-semibold">Lawn Care Kuna</span>
+              <span className="font-semibold">Boise Remodeling Co</span>
             </div>
             <p className="text-sm text-muted-foreground">
-              © {new Date().getFullYear()} Lawn Care Kuna. All rights reserved.
+              © {new Date().getFullYear()} Boise Remodeling Co. All rights reserved.
             </p>
           </div>
         </div>

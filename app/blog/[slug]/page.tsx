@@ -37,18 +37,18 @@ export async function generateMetadata({
     title,
     description,
     alternates: {
-      canonical: `https://lawncarekuna.com/blog/${post.slug}`,
+      canonical: `https://boiseremodeling.co/blog/${post.slug}`,
     },
     openGraph: {
-      title: `${title} | Lawn Care Kuna Blog`,
+      title: `${title} | Boise Remodeling Co Blog`,
       description,
-      url: `https://lawncarekuna.com/blog/${post.slug}`,
+      url: `https://boiseremodeling.co/blog/${post.slug}`,
       type: "article",
       publishedTime: post.publishedAt,
     },
     twitter: {
       card: "summary_large_image",
-      title: `${title} | Lawn Care Kuna Blog`,
+      title: `${title} | Boise Remodeling Co Blog`,
       description,
     },
   };

@@ -50,12 +50,7 @@ interface LineItem {
   isRecurring?: boolean;
 }
 
-const RECURRING_ELIGIBLE_SERVICE_IDS = new Set<string>([
-  "lawn-mowing",
-  "lawn-maintenance",
-  "hedge-trimming",
-  "weed-control",
-]);
+const RECURRING_ELIGIBLE_SERVICE_IDS = new Set<string>();
 
 function isServiceRecurring(serviceId: string, frequency: string | null | undefined): boolean {
   if (!frequency || frequency === "one-time") return false;
@@ -2105,14 +2100,14 @@ function SubcontractorPortalContent() {
                 </li>
                 <li>
                   <strong>Professional Conduct:</strong> You agree to conduct yourself professionally when 
-                  contacting customers. You represent your own business, not Lawn Care Kuna.
+                  contacting customers. You represent your own business, not Boise Remodeling Co.
                 </li>
                 <li>
                   <strong>No Resale:</strong> You may not resell, share, or transfer leads to any third party.
                 </li>
                 <li>
                   <strong>Insurance & Licensing:</strong> You warrant that you maintain appropriate business 
-                  insurance and any required licenses for lawn care services in Idaho.
+                  insurance and any required licenses for remodeling and construction services in Idaho.
                 </li>
                 <li>
                   <strong>Privacy:</strong> Customer information is confidential. You agree not to use contact 

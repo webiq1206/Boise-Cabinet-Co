@@ -6,7 +6,7 @@ import { Home, Search, ArrowRight, Phone, Leaf } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Page Not Found (404)",
-  description: "The page you're looking for could not be found. Browse our lawn care services or contact Lawn Care Kuna at (208) 352-2011.",
+  description: "The page you're looking for could not be found. Browse our remodeling services or contact Boise Remodeling Co.",
   robots: {
     index: false,
     follow: true,

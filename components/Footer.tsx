@@ -1,224 +1,153 @@
 import Link from "next/link";
-import Image from "next/image";
-import { Phone, Mail, MapPin, Facebook, Instagram } from "lucide-react";
-import { PRIORITY_SERVICES, CITIES } from "@/shared/contentData";
-import { ObfuscatedEmail } from "@/components/ObfuscatedEmail";
-import manifest from "@/data/internal-links.json";
+import { Phone, Mail, MapPin } from "lucide-react";
+import { CITIES, SERVICES } from "@/shared/contentData";
 
-type FooterBlogEntry = { slug: string; title: string; publishedAt: string };
-const BLOG_BY_CATEGORY = (manifest as { blogByCategory: Record<string, FooterBlogEntry[]> }).blogByCategory;
-const FOOTER_BLOG_CATEGORIES = Object.keys(BLOG_BY_CATEGORY).sort((a, b) => {
-  const diff = (BLOG_BY_CATEGORY[b]?.length ?? 0) - (BLOG_BY_CATEGORY[a]?.length ?? 0);
-  if (diff !== 0) return diff;
-  return a.localeCompare(b);
-});
+const PHONE = "(208) 555-0100";
+const PHONE_HREF = "tel:2085550100";
+const EMAIL = "hello@boiseremodeling.co";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
     <footer className="bg-muted border-t">
-      <div className="container px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
-          {/* Company Info */}
+      <div className="container px-4 py-14">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+
+          {/* Brand column */}
           <div>
-            <Image 
-              src="/images/lawn-care-kuna-logo.png" 
-              alt="Lawn Care Kuna - Professional Lawn Care and Landscaping Services in Kuna Idaho" 
-              className="h-8 w-auto mb-4"
-              width={160}
-              height={32}
-              priority
-            />
-            <p className="text-sm text-muted-foreground mb-4">
-              Most Trusted Lawn Care Services in Kuna, Idaho
+            <div className="mb-3">
+              <span className="font-serif text-xl font-semibold tracking-tight text-foreground">
+                Boise Remodeling Co
+              </span>
+            </div>
+            <p className="text-sm italic text-muted-foreground mb-5">
+              A new kind of Boise remodeler.
             </p>
-            <div className="space-y-2">
-              <a href="tel:2083522011" className="flex items-center gap-2 text-sm hover:text-primary transition-colors">
-                <Phone className="h-4 w-4" />
-                <span>(208) 352-2011</span>
+            <div className="space-y-2.5">
+              <a
+                href={PHONE_HREF}
+                className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
+              >
+                <Phone className="h-4 w-4 flex-shrink-0" />
+                {PHONE}
               </a>
-              <ObfuscatedEmail
-                user="hello"
-                domain="lawncarekuna.com"
-                className="flex items-center gap-2 text-sm hover:text-primary transition-colors"
-                iconClassName="h-4 w-4"
-              />
+              <a
+                href={`mailto:${EMAIL}`}
+                className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
+              >
+                <Mail className="h-4 w-4 flex-shrink-0" />
+                {EMAIL}
+              </a>
               <div className="flex items-start gap-2 text-sm text-muted-foreground">
-                <MapPin className="h-4 w-4 mt-0.5 flex-shrink-0" />
-                <span>2283 N Coopers Hawk Ave, Kuna, ID 83634</span>
+                <MapPin className="h-4 w-4 flex-shrink-0 mt-0.5" />
+                <span>Boise, Idaho — serving the Treasure Valley</span>
               </div>
-              <div className="flex items-start gap-2 text-sm text-muted-foreground">
-                <MapPin className="h-4 w-4 mt-0.5 flex-shrink-0" />
-                <span>Serving Kuna, Boise, Meridian, Eagle, Star & Middleton</span>
-              </div>
+            </div>
+            <div className="mt-4 text-xs text-muted-foreground">
+              Serving {CITIES.map(c => c.name).join(", ")}
             </div>
           </div>
 
-          {/* Quick Links */}
+          {/* Services column */}
           <div>
-            <h3 className="font-semibold text-sm mb-4">Quick Links</h3>
-            <ul className="space-y-2 text-sm">
+            <h3 className="font-sans font-semibold text-sm mb-4 text-foreground">Services</h3>
+            <ul className="space-y-2.5 text-sm">
+              {SERVICES.map((service) => (
+                <li key={service.slug}>
+                  <a
+                    href="/#services"
+                    className="text-muted-foreground hover:text-primary transition-colors"
+                  >
+                    {service.name}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Studio column */}
+          <div>
+            <h3 className="font-sans font-semibold text-sm mb-4 text-foreground">Studio</h3>
+            <ul className="space-y-2.5 text-sm">
               <li>
-                <Link href="/" className="text-muted-foreground hover:text-primary transition-colors">
-                  Home
-                </Link>
+                <a href="/#founder" className="text-muted-foreground hover:text-primary transition-colors">
+                  Our Story
+                </a>
               </li>
               <li>
-                <Link href="/about" className="text-muted-foreground hover:text-primary transition-colors">
-                  About Us
-                </Link>
+                <a href="/#how-we-build" className="text-muted-foreground hover:text-primary transition-colors">
+                  How We Build
+                </a>
               </li>
               <li>
-                <Link href="/contact" className="text-muted-foreground hover:text-primary transition-colors">
-                  Contact & Quote
-                </Link>
+                <a href="/#principles" className="text-muted-foreground hover:text-primary transition-colors">
+                  Principles
+                </a>
               </li>
               <li>
-                <Link href="/services/lawn-care" className="text-muted-foreground hover:text-primary transition-colors">
-                  Lawn Care Services
-                </Link>
-              </li>
-              <li>
-                <Link href="/services/landscaping" className="text-muted-foreground hover:text-primary transition-colors">
-                  Landscaping Services
-                </Link>
+                <a href="/#founding-clients" className="text-muted-foreground hover:text-primary transition-colors">
+                  Founding Clients
+                </a>
               </li>
               <li>
                 <Link href="/blog" className="text-muted-foreground hover:text-primary transition-colors">
-                  Lawn Care Blog
+                  Blog
                 </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Visit Us column */}
+          <div>
+            <h3 className="font-sans font-semibold text-sm mb-4 text-foreground">Start a Conversation</h3>
+            <ul className="space-y-2.5 text-sm">
+              <li>
+                <a href="/#consult" className="text-muted-foreground hover:text-primary transition-colors">
+                  Book a free in-home visit
+                </a>
               </li>
               <li>
-                <Link href="/faq" className="text-muted-foreground hover:text-primary transition-colors">
-                  FAQ
-                </Link>
+                <a href="/#calculator" className="text-muted-foreground hover:text-primary transition-colors">
+                  See your estimate range
+                </a>
               </li>
               <li>
-                <Link href="/seasonal-guide" className="text-muted-foreground hover:text-primary transition-colors">
-                  Seasonal Guide
-                </Link>
+                <a href={PHONE_HREF} className="text-muted-foreground hover:text-primary transition-colors">
+                  {PHONE}
+                </a>
               </li>
               <li>
-                <Link href="/privacy-policy" className="text-muted-foreground hover:text-primary transition-colors">
-                  Privacy Policy
-                </Link>
-              </li>
-              <li>
-                <Link href="/terms-of-service" className="text-muted-foreground hover:text-primary transition-colors">
-                  Terms of Service
-                </Link>
-              </li>
-              <li className="pt-2 border-t mt-2">
-                <a href="/api/login" className="text-muted-foreground hover:text-primary transition-colors">
-                  Subcontractor Login
+                <a href={`mailto:${EMAIL}`} className="text-muted-foreground hover:text-primary transition-colors">
+                  {EMAIL}
                 </a>
               </li>
             </ul>
-          </div>
-
-          {/* Services */}
-          <div>
-            <h3 className="font-semibold text-sm mb-4">Popular Services</h3>
-            <ul className="space-y-2 text-sm">
-              {PRIORITY_SERVICES.slice(0, 8).map((service) => (
-                <li key={service.slug}>
-                  <Link href={`/services/${service.slug}`} className="text-muted-foreground hover:text-primary transition-colors">
-                    {service.name}
-                  </Link>
-                </li>
-              ))}
-              <li className="pt-2">
-                <Link href="/services" className="text-foreground hover:text-primary font-medium transition-colors">
-                  View All Services →
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Service Areas */}
-          <div>
-            <h3 className="font-semibold text-sm mb-4">Service Areas</h3>
-            <ul className="space-y-2 text-sm">
-              {CITIES.map((city) => (
-                <li key={city.slug}>
-                  <Link href={`/areas/${city.slug}`} className="text-muted-foreground hover:text-primary transition-colors">
-                    {city.name}, Idaho
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* From the Blog */}
-          <div data-testid="footer-from-the-blog">
-            <h3 className="font-semibold text-sm mb-4">From the Blog</h3>
-            <div className="space-y-4 text-sm">
-              {FOOTER_BLOG_CATEGORIES.map((cat) => (
-                <div key={cat} data-testid={`footer-blog-category-${cat.toLowerCase().replace(/\s+/g, "-")}`}>
-                  <p className="text-xs font-semibold text-foreground mb-2" data-testid={`footer-blog-category-label-${cat.toLowerCase().replace(/\s+/g, "-")}`}>
-                    {cat}
-                  </p>
-                  <ul className="space-y-1.5">
-                    {BLOG_BY_CATEGORY[cat].slice(0, 4).map((post) => (
-                      <li key={post.slug}>
-                        <Link
-                          href={`/blog/${post.slug}`}
-                          className="text-muted-foreground hover:text-primary transition-colors line-clamp-2"
-                          data-testid={`footer-blog-link-${post.slug}`}
-                        >
-                          {post.title}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-              <Link
-                href="/blog"
-                className="inline-block text-foreground hover:text-primary font-medium transition-colors text-xs pt-1"
-                data-testid="footer-blog-view-all"
+            <div className="mt-5 pt-5 border-t">
+              <a
+                href="/api/login"
+                className="text-xs text-muted-foreground hover:text-primary transition-colors"
               >
-                View All Articles →
-              </Link>
+                Subcontractor Login
+              </a>
             </div>
           </div>
+
         </div>
 
-        <div className="border-t mt-8 pt-8 text-sm text-muted-foreground space-y-4">
-          <div className="flex items-center gap-4">
-            <span className="text-xs font-medium">Follow Us:</span>
-            <a
-              href="https://www.facebook.com/lawncarekuna"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-primary transition-colors"
-              aria-label="Follow Lawn Care Kuna on Facebook"
-            >
-              <Facebook className="h-5 w-5" />
-            </a>
-            <a
-              href="https://www.instagram.com/lawncarekuna"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-primary transition-colors"
-              aria-label="Follow Lawn Care Kuna on Instagram"
-            >
-              <Instagram className="h-5 w-5" />
-            </a>
+        {/* Base bar */}
+        <div className="border-t mt-10 pt-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 text-xs text-muted-foreground">
+          <div className="flex flex-wrap gap-4">
+            <span>&copy; {currentYear} Boise Remodeling Co. All rights reserved.</span>
+            <span>Idaho Contractor License [Pending]</span>
           </div>
-          <p className="text-xs">
-            <strong>Legal Disclaimer:</strong> Lawn Care Kuna reserves the right to subcontract services as needed to ensure quality service delivery.
-          </p>
-          <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
-            <p>© {currentYear} Lawn Care Kuna. All rights reserved. Serving Idahoans since 2017.</p>
-            <div className="flex gap-4 text-xs">
-              <span>Fully Insured</span>
-              <span>•</span>
-              <span>No Hidden Fees</span>
-              <span>•</span>
-              <span>Free Quotes</span>
-            </div>
+          <div className="flex gap-4">
+            <Link href="/privacy-policy" className="hover:text-primary transition-colors">
+              Privacy Policy
+            </Link>
+            <Link href="/terms-of-service" className="hover:text-primary transition-colors">
+              Terms of Service
+            </Link>
           </div>
         </div>
       </div>

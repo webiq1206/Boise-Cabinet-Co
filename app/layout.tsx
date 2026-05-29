@@ -1,5 +1,4 @@
 import type { Metadata, Viewport } from 'next'
-import Script from 'next/script'
 import { Montserrat, Playfair_Display } from 'next/font/google'
 import { Navigation } from '@/components/Navigation'
 import { Footer } from '@/components/Footer'
@@ -18,40 +17,32 @@ const montserrat = Montserrat({
 const playfair = Playfair_Display({
   subsets: ['latin'],
   weight: ['400', '500', '600', '700'],
+  style: ['normal', 'italic'],
   variable: '--font-playfair',
   display: 'swap',
 })
 
 export const metadata: Metadata = {
   title: {
-    default: 'Lawn Care Kuna - Professional Landscaping Services in Idaho',
-    template: '%s | Lawn Care Kuna',
+    default: 'Boise Remodeling Co — A More Honest Way to Remodel',
+    template: '%s | Boise Remodeling Co',
   },
-  description: 'Professional lawn care and landscaping services in Kuna, Boise, Meridian, Eagle, Star, and Middleton, Idaho. Get a free quote today!',
-  authors: [{ name: 'Lawn Care Kuna' }],
-  creator: 'Lawn Care Kuna',
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://lawncarekuna.com'),
+  description: 'Design-build remodeling serving Boise, Meridian, Eagle, Nampa, Kuna, Star & Middleton. Transparent pricing, 3D renders, and a dedicated project manager from first call to final walkthrough. Book a free in-home consultation.',
+  authors: [{ name: 'Boise Remodeling Co' }],
+  creator: 'Boise Remodeling Co',
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://boiseremodeling.co'),
   openGraph: {
     type: 'website',
     locale: 'en_US',
     url: '/',
-    siteName: 'Lawn Care Kuna',
-    title: 'Lawn Care Kuna - Professional Landscaping Services',
-    description: 'Professional lawn care and landscaping services in the Treasure Valley, Idaho.',
-    images: [
-      {
-        url: '/images/lawn-care-kuna-logo.png',
-        width: 1200,
-        height: 630,
-        alt: 'Lawn Care Kuna - Professional Lawn Care and Landscaping Services in Kuna Idaho',
-      },
-    ],
+    siteName: 'Boise Remodeling Co',
+    title: 'Boise Remodeling Co — A More Honest Way to Remodel',
+    description: 'Transparent design-build remodeling for kitchens, bathrooms, whole-home renovations, and additions in the Treasure Valley.',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Lawn Care Kuna - Professional Landscaping Services',
-    description: 'Professional lawn care and landscaping services in the Treasure Valley, Idaho.',
-    images: ['/images/lawn-care-kuna-logo.png'],
+    title: 'Boise Remodeling Co — A More Honest Way to Remodel',
+    description: 'Transparent design-build remodeling for Boise and the Treasure Valley.',
   },
   robots: {
     index: true,
@@ -66,18 +57,14 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: '/favicon.png',
-    apple: '/apple-touch-icon.png',
   },
-  manifest: '/site.webmanifest',
 }
 
 export const viewport: Viewport = {
-  themeColor: '#1E5128',
+  themeColor: '#7a3a20',
   width: 'device-width',
   initialScale: 1,
 }
-
-const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || 'G-1HD7RT8PKJ';
 
 export default function RootLayout({
   children,
@@ -86,15 +73,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${montserrat.variable} ${playfair.variable}`}>
-      <head>
-        <link
-          rel="preload"
-          href="/images/hero-background.webp"
-          as="image"
-          type="image/webp"
-          fetchPriority="high"
-        />
-      </head>
       <body className="min-h-screen bg-background font-sans antialiased">
         <Providers>
           <ScrollToTop />
@@ -107,13 +85,6 @@ export default function RootLayout({
           </div>
           <Toaster />
         </Providers>
-        <Script
-          src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
-          strategy="afterInteractive"
-        />
-        <Script id="ga4-init" strategy="afterInteractive">
-          {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${GA_MEASUREMENT_ID}');`}
-        </Script>
       </body>
     </html>
   )

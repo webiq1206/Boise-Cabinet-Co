@@ -291,7 +291,7 @@ export async function POST(request: Request) {
         if (u.email && u.emailNotificationsEnabled !== false) {
           try {
             const { sendEmail } = await import("@/server/services/emailNotifications");
-            const url = `https://lawncarekuna.com/subcontractor/portal?leadId=${encodeURIComponent(lead.id)}`;
+            const url = `https://boiseremodeling.co/subcontractor/portal?leadId=${encodeURIComponent(lead.id)}`;
             await sendEmail(
               u.email,
               `Watched lead updated in ${lead.city}`,

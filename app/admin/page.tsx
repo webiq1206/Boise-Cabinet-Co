@@ -69,7 +69,7 @@ export default function AdminLoginPage() {
           </div>
           <CardTitle className="text-2xl">Admin Access</CardTitle>
           <CardDescription>
-            Lawn Care Kuna administrative portal
+            Boise Remodeling Co administrative portal
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">

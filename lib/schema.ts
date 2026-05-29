@@ -27,7 +27,7 @@ export function generateLocalBusinessSchema(city?: string): SchemaContext {
     name: BUSINESS_INFO.name,
     legalName: BUSINESS_INFO.legalName,
     description: `Professional lawn care and landscaping services in ${city || 'Kuna'} and the Treasure Valley, Idaho. ${BUSINESS_INFO.yearlyServicesCompleted}+ happy customers annually.`,
-    image: `${baseUrl}/images/lawn-care-kuna-logo.png`,
+    image: `${baseUrl}/images/boiseremodeling-logo.png`,
     '@id': baseUrl,
     url: baseUrl,
     telephone: BUSINESS_INFO.phone,
@@ -167,7 +167,7 @@ export function generateOrganizationSchema(): SchemaContext {
     name: BUSINESS_INFO.name,
     legalName: BUSINESS_INFO.legalName,
     url: baseUrl,
-    logo: `${baseUrl}/images/lawn-care-kuna-logo.png`,
+    logo: `${baseUrl}/images/boiseremodeling-logo.png`,
     description: 'Professional lawn care and landscaping services serving the Treasure Valley since 2017. Licensed, insured, and committed to excellence.',
     foundingDate: BUSINESS_INFO.founded,
     telephone: BUSINESS_INFO.phone,
@@ -181,8 +181,8 @@ export function generateOrganizationSchema(): SchemaContext {
       addressCountry: BUSINESS_INFO.address.country,
     },
     sameAs: [
-      'https://www.facebook.com/lawncarekuna',
-      'https://www.instagram.com/lawncarekuna',
+      'https://www.facebook.com/boiseremodeling',
+      'https://www.instagram.com/boiseremodeling',
     ],
     contactPoint: {
       '@type': 'ContactPoint',
@@ -263,7 +263,7 @@ export function generateArticleSchema(article: {
     '@type': 'Article',
     headline: article.title,
     description: article.description,
-    image: article.image || `${baseUrl}/images/lawn-care-kuna-logo.png`,
+    image: article.image || `${baseUrl}/images/boiseremodeling-logo.png`,
     datePublished: article.publishedAt,
     dateModified: article.publishedAt,
     author: {
@@ -275,7 +275,7 @@ export function generateArticleSchema(article: {
       name: BUSINESS_INFO.name,
       logo: {
         '@type': 'ImageObject',
-        url: `${baseUrl}/images/lawn-care-kuna-logo.png`,
+        url: `${baseUrl}/images/boiseremodeling-logo.png`,
       },
     },
     mainEntityOfPage: {

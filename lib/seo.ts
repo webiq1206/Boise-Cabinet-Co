@@ -1,5 +1,5 @@
 /**
- * SEO Utilities for Lawn Care Kuna
+ * SEO Utilities for Boise Remodeling Co
  * Generates optimized meta tags, titles, and descriptions
  * for service and location pages
  */
@@ -56,7 +56,7 @@ function truncateServiceName(serviceName: string, maxLength: number): string {
 
 /**
  * Generate SEO-optimized page title
- * Format: "[Service] in [City], ID | Lawn Care Kuna | Free Quotes"
+ * Format: "[Service] in [City], ID | Boise Remodeling Co | Free Quotes"
  * Max 60 characters for optimal Google display
  * GUARANTEED ≤60 chars through intelligent truncation
  */
@@ -64,19 +64,19 @@ export function generatePageTitle(params: ServiceSEOParams): string {
   const { serviceName, city, isHomePage } = params;
   
   if (isHomePage) {
-    return "Lawn Care Kuna | Professional Landscaping | Free Quotes";
+    return "Boise Remodeling Co | Remodeling & Design";
   }
   
   if (city && serviceName) {
-    // Full formula: "[Service] in [City], ID | Lawn Care Kuna | Free Quotes"
-    const fullTitle = `${serviceName} in ${city}, ID | Lawn Care Kuna | Free Quotes`;
+    // Full formula: "[Service] in [City], ID | Boise Remodeling Co | Free Quotes"
+    const fullTitle = `${serviceName} in ${city}, ID | Boise Remodeling Co | Free Quotes`;
     
     if (fullTitle.length <= 60) {
       return fullTitle;
     }
     
     // Level 2: Drop "Free Quotes"
-    const mediumTitle = `${serviceName} in ${city}, ID | Lawn Care Kuna`;
+    const mediumTitle = `${serviceName} in ${city}, ID | Boise Remodeling Co`;
     if (mediumTitle.length <= 60) {
       return mediumTitle;
     }
@@ -95,32 +95,32 @@ export function generatePageTitle(params: ServiceSEOParams): string {
   
   if (city) {
     // City page without service
-    const fullTitle = `Lawn Care in ${city}, ID | Lawn Care Kuna | Free Quotes`;
+    const fullTitle = `Lawn Care in ${city}, ID | Boise Remodeling Co | Free Quotes`;
     if (fullTitle.length <= 60) {
       return fullTitle;
     }
-    return `Lawn Care in ${city}, ID | Lawn Care Kuna`;
+    return `Lawn Care in ${city}, ID | Boise Remodeling Co`;
   }
   
   // Service-only title (defaults to Kuna as home base)
   if (!serviceName) {
-    return "Lawn Care Kuna | Professional Landscaping | Free Quotes";
+    return "Boise Remodeling Co | Remodeling & Design";
   }
   
-  const fullTitle = `${serviceName} | Lawn Care Kuna | Free Quotes`;
+  const fullTitle = `${serviceName} | Boise Remodeling Co | Free Quotes`;
   if (fullTitle.length <= 60) {
     return fullTitle;
   }
   
-  const mediumTitle = `${serviceName} | Lawn Care Kuna`;
+  const mediumTitle = `${serviceName} | Boise Remodeling Co`;
   if (mediumTitle.length <= 60) {
     return mediumTitle;
   }
   
   // Truncate service name intelligently
-  const maxServiceLength = 60 - ' | Lawn Care Kuna'.length;
+  const maxServiceLength = 60 - ' | Boise Remodeling Co'.length;
   const truncatedService = truncateServiceName(serviceName, maxServiceLength);
-  return `${truncatedService} | Lawn Care Kuna`;
+  return `${truncatedService} | Boise Remodeling Co`;
 }
 
 const CITY_DESCRIPTION_VARIANTS: Record<string, string> = {
@@ -151,7 +151,7 @@ export function generateMetaDescription(params: ServiceSEOParams): string {
   const phone = "(208) 352-2011";
   
   if (params.isHomePage) {
-    return `Professional lawn care & landscaping in Kuna, Boise, Meridian & Treasure Valley. Licensed, insured, top-rated. Call ${phone} for your free quote today!`;
+    return `Professional remodeling & landscaping in Kuna, Boise, Meridian & Treasure Valley. Licensed, insured, top-rated. Call ${phone} for your free quote today!`;
   }
   
   if (city && serviceName) {
@@ -162,11 +162,11 @@ export function generateMetaDescription(params: ServiceSEOParams): string {
   }
   
   if (city) {
-    return `Professional lawn care & landscaping in ${city}, Idaho. Licensed, insured, locally owned. Call ${phone} for your free quote. Serving all of ${city}!`;
+    return `Professional remodeling & landscaping in ${city}, Idaho. Licensed, insured, locally owned. Call ${phone} for your free quote. Serving all of ${city}!`;
   }
   
   if (!serviceName) {
-    return `Professional lawn care & landscaping in Kuna & Treasure Valley. Licensed, insured. Call ${phone} for a free quote. Residential & commercial services!`;
+    return `Professional remodeling & landscaping in Kuna & Treasure Valley. Licensed, insured. Call ${phone} for a free quote. Residential & commercial services!`;
   }
   
   const serviceLC = serviceName.toLowerCase();
@@ -175,7 +175,7 @@ export function generateMetaDescription(params: ServiceSEOParams): string {
 
 /**
  * Generate varied city-service title (used for page metadata title field)
- * Does NOT include brand name since layout template appends "| Lawn Care Kuna"
+ * Does NOT include brand name since layout template appends "| Boise Remodeling Co"
  * Target: under 40 chars so final rendered title stays under 60 chars
  */
 export function generateCityServiceTitle(serviceName: string, cityName: string): string {
@@ -219,11 +219,11 @@ export function generateCityServiceDescription(
 
 /**
  * Generate a page title for any service or area page
- * Ensures final rendered title (with layout template " | Lawn Care Kuna")
+ * Ensures final rendered title (with layout template " | Boise Remodeling Co")
  * stays under 60 characters
  */
 export function generateSafePageTitle(primary: string, suffix?: string): string {
-  const templateSuffix = " | Lawn Care Kuna";
+  const templateSuffix = " | Boise Remodeling Co";
   const maxLen = 60 - templateSuffix.length;
 
   if (suffix) {
@@ -253,7 +253,7 @@ export function getBaseUrl(): string {
     }
   }
   // Default to production URL for SSR/build time
-  return 'https://lawncarekuna.com';
+  return 'https://boiseremodeling.co';
 }
 
 /**
@@ -264,26 +264,26 @@ export function generateLogoAltTag(params: ServiceSEOParams): string {
   const { serviceName, city, isHomePage } = params;
   
   if (isHomePage) {
-    return "Lawn Care Kuna logo - Professional lawn care and landscaping services in Kuna Idaho";
+    return "Boise Remodeling Co logo - Professional remodeling and landscaping services in Kuna Idaho";
   }
   
   if (city && serviceName) {
     // City-specific alt tag with service context
-    return `Lawn Care Kuna logo - ${serviceName} services in ${city} Idaho - Licensed lawn care professionals`;
+    return `Boise Remodeling Co logo - ${serviceName} services in ${city} Idaho - Licensed remodeling professionals`;
   }
   
   if (city) {
     // City page alt tag without service
-    return `Lawn Care Kuna logo - Professional lawn care services in ${city} Idaho`;
+    return `Boise Remodeling Co logo - Professional remodeling services in ${city} Idaho`;
   }
   
   if (!serviceName) {
     // Fallback for pages without service
-    return `Lawn Care Kuna logo - Professional lawn care and landscaping services in Treasure Valley Idaho`;
+    return `Boise Remodeling Co logo - Professional remodeling and landscaping services in Treasure Valley Idaho`;
   }
   
   // Service-specific alt tag
-  return `Lawn Care Kuna logo - Professional ${serviceName.toLowerCase()} services in Treasure Valley Idaho`;
+  return `Boise Remodeling Co logo - Professional ${serviceName.toLowerCase()} services in Treasure Valley Idaho`;
 }
 
 /**
@@ -313,7 +313,7 @@ export function generateSEOMetadata(params: ServiceSEOParams): SEOMetaData {
     canonical,
     ogTitle: title,
     ogDescription: description,
-    ogImage: `${baseUrl}/images/lawn-care-kuna-logo.png`,
+    ogImage: `${baseUrl}/images/boiseremodeling-logo.png`,
     twitterCard: 'summary_large_image',
   };
 }
@@ -390,10 +390,10 @@ export const CITY_SEO_DATA: Record<string, {
  * Business information for NAP consistency
  */
 export const BUSINESS_INFO = {
-  name: 'Lawn Care Kuna',
-  legalName: 'Lawn Care Kuna LLC',
+  name: 'Boise Remodeling Co',
+  legalName: 'Boise Remodeling Co LLC',
   phone: '(208) 352-2011',
-  email: 'hello@lawncarekuna.com',
+  email: 'hello@boiseremodeling.co',
   address: {
     street: '2283 N Coopers Hawk Ave',
     city: 'Kuna',

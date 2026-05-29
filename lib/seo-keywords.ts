@@ -2,7 +2,7 @@ export const SEO_KEYWORD_MAP = {
   home: {
     primary: "lawn care kuna idaho",
     secondary: ["lawn care boise", "landscaping treasure valley", "lawn mowing kuna"],
-    titleTarget: "Lawn Care Kuna Idaho | Free Quotes",
+    titleTarget: "Boise Remodeling Co Idaho | Free Quotes",
   },
   servicePages: {
     primary: "{service} in kuna boise idaho",
@@ -26,7 +26,7 @@ export const SEO_KEYWORD_MAP = {
   },
   staticPages: {
     pricing: { primary: "lawn care pricing kuna idaho", title: "Lawn Care Pricing in Idaho" },
-    about: { primary: "lawn care company kuna idaho", title: "About Lawn Care Kuna Idaho" },
+    about: { primary: "lawn care company kuna idaho", title: "About Boise Remodeling Co Idaho" },
     contact: { primary: "contact lawn care kuna", title: "Contact Us in Kuna, Idaho" },
     commercial: { primary: "commercial lawn care kuna idaho", title: "Commercial Lawn Care Idaho" },
     faq: { primary: "lawn care questions kuna idaho", title: "Lawn Care FAQ for Idaho" },

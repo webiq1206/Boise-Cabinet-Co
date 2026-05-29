@@ -124,7 +124,7 @@ export async function getUserFromDb(userId: string) {
 const ADMIN_EMAILS = [
   "webiq.co@gmail.com",
   "info@webiq.co",
-  "hello@lawncarekuna.com",
+  "hello@boiseremodeling.co",
   "brostjared@gmail.com",
 ];
 

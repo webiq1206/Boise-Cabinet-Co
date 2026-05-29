@@ -2,17 +2,12 @@ import { getUncachableResendClient } from '../resend';
 import { formatQuoteForDisplay, calculateQuoteRange } from '../../shared/utils';
 import { storage } from '../storage';
 
-const SITE_BASE_URL = 'https://lawncarekuna.com';
+const SITE_BASE_URL = 'https://boiseremodeling.co';
 const EMAIL_ASSET_BASE_URL = `${SITE_BASE_URL}/email`;
-// NOTE: `lawn-care-kuna-logo.png` is the light-on-dark logo used in headers.
-// We do not currently have a separate dark-on-light full logo in-repo, so we use the icon
-// for light backgrounds (footer) as a branded fallback.
-const EMAIL_LOGO_LIGHT_URL = `${EMAIL_ASSET_BASE_URL}/lawn-care-kuna-logo.png`;
-const EMAIL_LOGO_DARK_URL = `${EMAIL_ASSET_BASE_URL}/lawn-care-kuna-icon.png`;
+const EMAIL_LOGO_LIGHT_URL = `${EMAIL_ASSET_BASE_URL}/boiseremodeling-logo.png`;
+const EMAIL_LOGO_DARK_URL = `${EMAIL_ASSET_BASE_URL}/boiseremodeling-icon.png`;
 
-const NOTIF_RECURRING_ELIGIBLE = new Set([
-  "lawn-mowing", "lawn-maintenance", "hedge-trimming", "weed-control",
-]);
+const NOTIF_RECURRING_ELIGIBLE = new Set<string>();
 
 function formatFreqLabel(freq: string): string {
   const map: Record<string, string> = {
@@ -391,7 +386,7 @@ export async function sendEmail(to: string, subject: string, htmlBody: string): 
       return;
     }
 
-    const fromAddress = fromEmail.includes('<') ? fromEmail : `Lawn Care Kuna <${fromEmail}>`;
+    const fromAddress = fromEmail.includes('<') ? fromEmail : `Boise Remodeling Co <${fromEmail}>`;
     await resend.emails.send({
       from: fromAddress,
       to,
@@ -435,7 +430,7 @@ export async function sendNewLeadNotification(leadData: {
       <div class="email-wrapper">
         <div class="header">
           <div style="margin-bottom: 20px;">
-            <img src="${EMAIL_LOGO_LIGHT_URL}" alt="Lawn Care Kuna" width="300" style="display:block; max-width:300px; height:auto;">
+            <img src="${EMAIL_LOGO_LIGHT_URL}" alt="Boise Remodeling Co" width="300" style="display:block; max-width:300px; height:auto;">
           </div>
           <h1>New Lead Available</h1>
           <p>Lead Distribution Platform</p>
@@ -493,12 +488,12 @@ export async function sendNewLeadNotification(leadData: {
 
         <div class="footer">
           <div style="margin: 0 0 12px 0;">
-            <img src="${EMAIL_LOGO_DARK_URL}" alt="Lawn Care Kuna" width="44" style="display:block; margin:0 auto; max-width:44px; height:auto;">
+            <img src="${EMAIL_LOGO_DARK_URL}" alt="Boise Remodeling Co" width="44" style="display:block; margin:0 auto; max-width:44px; height:auto;">
           </div>
-          <p class="footer-brand">Lawn Care Kuna</p>
+          <p class="footer-brand">Boise Remodeling Co</p>
           <p class="footer-tagline">Lead Distribution Platform</p>
           <p class="footer-contact">Email: <a href="mailto:${fromEmail}">${fromEmail}</a></p>
-          <p class="footer-contact">Web: <a href="${SITE_BASE_URL}">www.lawncarekuna.com</a></p>
+          <p class="footer-contact">Web: <a href="${SITE_BASE_URL}">www.boiseremodeling.co</a></p>
         </div>
       </div>
     </body>
@@ -550,7 +545,7 @@ export async function sendLeadPurchasedNotification(leadData: {
       <div class="email-wrapper">
         <div class="header" style="background: linear-gradient(135deg, #dcfce7 0%, #f0fdf4 50%, #ffffff 100%); border-bottom: 1px solid #bbf7d0;">
           <div style="margin-bottom: 20px;">
-            <img src="${EMAIL_LOGO_LIGHT_URL}" alt="Lawn Care Kuna" width="300" style="display:block; max-width:300px; height:auto;">
+            <img src="${EMAIL_LOGO_LIGHT_URL}" alt="Boise Remodeling Co" width="300" style="display:block; max-width:300px; height:auto;">
           </div>
           <h1 style="color: #2D8652;">Lead Purchased</h1>
           <p style="color: #3a9d63;">Transaction Notification</p>
@@ -624,12 +619,12 @@ export async function sendLeadPurchasedNotification(leadData: {
 
         <div class="footer">
           <div style="margin: 0 0 12px 0;">
-            <img src="${EMAIL_LOGO_DARK_URL}" alt="Lawn Care Kuna" width="44" style="display:block; margin:0 auto; max-width:44px; height:auto;">
+            <img src="${EMAIL_LOGO_DARK_URL}" alt="Boise Remodeling Co" width="44" style="display:block; margin:0 auto; max-width:44px; height:auto;">
           </div>
-          <p class="footer-brand">Lawn Care Kuna</p>
+          <p class="footer-brand">Boise Remodeling Co</p>
           <p class="footer-tagline">Lead Distribution Platform</p>
           <p class="footer-contact">Email: <a href="mailto:${fromEmail}">${fromEmail}</a></p>
-          <p class="footer-contact">Web: <a href="${SITE_BASE_URL}">www.lawncarekuna.com</a></p>
+          <p class="footer-contact">Web: <a href="${SITE_BASE_URL}">www.boiseremodeling.co</a></p>
         </div>
       </div>
     </body>
@@ -673,7 +668,7 @@ export async function sendLeadPurchaseConfirmation(purchaserEmail: string, leadD
       <div class="email-wrapper">
         <div class="header">
           <div style="margin-bottom: 20px;">
-            <img src="${EMAIL_LOGO_LIGHT_URL}" alt="Lawn Care Kuna" width="300" style="display:block; max-width:300px; height:auto;">
+            <img src="${EMAIL_LOGO_LIGHT_URL}" alt="Boise Remodeling Co" width="300" style="display:block; max-width:300px; height:auto;">
           </div>
           <h1>Purchase Confirmed</h1>
           <p>Your lead is ready to contact</p>
@@ -743,9 +738,9 @@ export async function sendLeadPurchaseConfirmation(purchaserEmail: string, leadD
 
         <div class="footer">
           <div style="margin: 0 0 12px 0;">
-            <img src="${EMAIL_LOGO_DARK_URL}" alt="Lawn Care Kuna" width="44" style="display:block; margin:0 auto; max-width:44px; height:auto;">
+            <img src="${EMAIL_LOGO_DARK_URL}" alt="Boise Remodeling Co" width="44" style="display:block; margin:0 auto; max-width:44px; height:auto;">
           </div>
-          <p class="footer-brand">Lawn Care Kuna</p>
+          <p class="footer-brand">Boise Remodeling Co</p>
           <p class="footer-tagline">Lead Distribution Platform</p>
           <p style="font-size: 12px; color: #6b7280; margin: 15px 0;">Questions about your purchase? Contact us anytime.</p>
         </div>
@@ -788,7 +783,7 @@ export async function sendAdminAutoDeclineNotification(leadData: {
       <div class="email-wrapper">
         <div class="header" style="background: linear-gradient(135deg, #dcfce7 0%, #f0fdf4 50%, #ffffff 100%); border-bottom: 1px solid #bbf7d0;">
           <div style="margin-bottom: 20px;">
-            <img src="${EMAIL_LOGO_LIGHT_URL}" alt="Lawn Care Kuna" width="300" style="display:block; max-width:300px; height:auto;">
+            <img src="${EMAIL_LOGO_LIGHT_URL}" alt="Boise Remodeling Co" width="300" style="display:block; max-width:300px; height:auto;">
           </div>
           <h1 style="color: #2D8652;">Lead Auto-Declined</h1>
           <p style="color: #3a9d63;">Automated System Notification</p>
@@ -855,12 +850,12 @@ export async function sendAdminAutoDeclineNotification(leadData: {
 
         <div class="footer">
           <div style="margin: 0 0 12px 0;">
-            <img src="${EMAIL_LOGO_DARK_URL}" alt="Lawn Care Kuna" width="44" style="display:block; margin:0 auto; max-width:44px; height:auto;">
+            <img src="${EMAIL_LOGO_DARK_URL}" alt="Boise Remodeling Co" width="44" style="display:block; margin:0 auto; max-width:44px; height:auto;">
           </div>
-          <p class="footer-brand">Lawn Care Kuna</p>
+          <p class="footer-brand">Boise Remodeling Co</p>
           <p class="footer-tagline">Lead Distribution Platform</p>
           <p class="footer-contact">Email: <a href="mailto:${fromEmail}">${fromEmail}</a></p>
-          <p class="footer-contact">Web: <a href="${SITE_BASE_URL}">www.lawncarekuna.com</a></p>
+          <p class="footer-contact">Web: <a href="${SITE_BASE_URL}">www.boiseremodeling.co</a></p>
         </div>
       </div>
     </body>
@@ -905,7 +900,7 @@ export async function sendCustomerStatusUpdate(
       <div class="email-wrapper">
         <div class="header">
           <div style="margin-bottom: 20px;">
-            <img src="${EMAIL_LOGO_LIGHT_URL}" alt="Lawn Care Kuna" width="300" style="display:block; max-width:300px; height:auto;">
+            <img src="${EMAIL_LOGO_LIGHT_URL}" alt="Boise Remodeling Co" width="300" style="display:block; max-width:300px; height:auto;">
           </div>
           <h1>Quote Status Update</h1>
           <p>${subject}</p>
@@ -922,9 +917,9 @@ export async function sendCustomerStatusUpdate(
         </div>
         <div class="footer">
           <div style="margin: 0 0 12px 0;">
-            <img src="${EMAIL_LOGO_DARK_URL}" alt="Lawn Care Kuna" width="44" style="display:block; margin:0 auto; max-width:44px; height:auto;">
+            <img src="${EMAIL_LOGO_DARK_URL}" alt="Boise Remodeling Co" width="44" style="display:block; margin:0 auto; max-width:44px; height:auto;">
           </div>
-          <p class="footer-brand">Lawn Care Kuna</p>
+          <p class="footer-brand">Boise Remodeling Co</p>
           <p class="footer-tagline">Customer Updates</p>
         </div>
       </div>
@@ -980,7 +975,7 @@ export async function sendContractorNewLeadAvailable(
       <div class="email-wrapper">
         <div class="header">
           <div style="margin-bottom: 20px;">
-            <img src="${EMAIL_LOGO_LIGHT_URL}" alt="Lawn Care Kuna" width="300" style="display:block; max-width:300px; height:auto;">
+            <img src="${EMAIL_LOGO_LIGHT_URL}" alt="Boise Remodeling Co" width="300" style="display:block; max-width:300px; height:auto;">
           </div>
           <h1>${displayTitle}</h1>
           <p>${leadData.city} -- ${leadValue.display} project</p>
@@ -1038,9 +1033,9 @@ export async function sendContractorNewLeadAvailable(
         </div>
         <div class="footer">
           <div style="margin: 0 0 12px 0;">
-            <img src="${EMAIL_LOGO_DARK_URL}" alt="Lawn Care Kuna" width="44" style="display:block; margin:0 auto; max-width:44px; height:auto;">
+            <img src="${EMAIL_LOGO_DARK_URL}" alt="Boise Remodeling Co" width="44" style="display:block; margin:0 auto; max-width:44px; height:auto;">
           </div>
-          <p class="footer-brand">Lawn Care Kuna</p>
+          <p class="footer-brand">Boise Remodeling Co</p>
           <p class="footer-tagline">Lead Distribution Platform</p>
         </div>
       </div>
@@ -1112,7 +1107,7 @@ export async function sendLeadMergeRefundNotification(
       <div class="email-wrapper">
         <div class="header">
           <div style="margin-bottom: 20px;">
-            <img src="${EMAIL_LOGO_LIGHT_URL}" alt="Lawn Care Kuna" width="300" style="display:block; max-width:300px; height:auto;">
+            <img src="${EMAIL_LOGO_LIGHT_URL}" alt="Boise Remodeling Co" width="300" style="display:block; max-width:300px; height:auto;">
           </div>
           <h1>Lead Refunded</h1>
           <p>A duplicate lead you purchased was merged</p>
@@ -1147,12 +1142,12 @@ export async function sendLeadMergeRefundNotification(
         </div>
         <div class="footer">
           <div style="margin: 0 0 12px 0;">
-            <img src="${EMAIL_LOGO_DARK_URL}" alt="Lawn Care Kuna" width="44" style="display:block; margin:0 auto; max-width:44px; height:auto;">
+            <img src="${EMAIL_LOGO_DARK_URL}" alt="Boise Remodeling Co" width="44" style="display:block; margin:0 auto; max-width:44px; height:auto;">
           </div>
-          <p class="footer-brand">Lawn Care Kuna</p>
+          <p class="footer-brand">Boise Remodeling Co</p>
           <p class="footer-tagline">Lead Distribution Platform</p>
           <p class="footer-contact">Email: <a href="mailto:${fromEmail}">${fromEmail}</a></p>
-          <p class="footer-contact">Web: <a href="${SITE_BASE_URL}">www.lawncarekuna.com</a></p>
+          <p class="footer-contact">Web: <a href="${SITE_BASE_URL}">www.boiseremodeling.co</a></p>
         </div>
       </div>
     </body>
@@ -1187,7 +1182,7 @@ export async function sendAdminDailyDigest(
       <div class="email-wrapper">
         <div class="header">
           <div style="margin-bottom: 20px;">
-            <img src="${EMAIL_LOGO_LIGHT_URL}" alt="Lawn Care Kuna" width="300" style="display:block; max-width:300px; height:auto;">
+            <img src="${EMAIL_LOGO_LIGHT_URL}" alt="Boise Remodeling Co" width="300" style="display:block; max-width:300px; height:auto;">
           </div>
           <h1>Admin Daily Digest</h1>
           <p>Pending leads summary</p>
@@ -1204,9 +1199,9 @@ export async function sendAdminDailyDigest(
         </div>
         <div class="footer">
           <div style="margin: 0 0 12px 0;">
-            <img src="${EMAIL_LOGO_DARK_URL}" alt="Lawn Care Kuna" width="44" style="display:block; margin:0 auto; max-width:44px; height:auto;">
+            <img src="${EMAIL_LOGO_DARK_URL}" alt="Boise Remodeling Co" width="44" style="display:block; margin:0 auto; max-width:44px; height:auto;">
           </div>
-          <p class="footer-brand">Lawn Care Kuna</p>
+          <p class="footer-brand">Boise Remodeling Co</p>
           <p class="footer-tagline">Admin Notifications</p>
         </div>
       </div>
@@ -1244,7 +1239,7 @@ export async function sendAdminReminder(
       <div class="email-wrapper">
         <div class="header">
           <div style="margin-bottom: 20px;">
-            <img src="${EMAIL_LOGO_LIGHT_URL}" alt="Lawn Care Kuna" width="300" style="display:block; max-width:300px; height:auto;">
+            <img src="${EMAIL_LOGO_LIGHT_URL}" alt="Boise Remodeling Co" width="300" style="display:block; max-width:300px; height:auto;">
           </div>
           <h1>Lead Reminder</h1>
           <p>Pending admin review</p>
@@ -1263,9 +1258,9 @@ export async function sendAdminReminder(
         </div>
         <div class="footer">
           <div style="margin: 0 0 12px 0;">
-            <img src="${EMAIL_LOGO_DARK_URL}" alt="Lawn Care Kuna" width="44" style="display:block; margin:0 auto; max-width:44px; height:auto;">
+            <img src="${EMAIL_LOGO_DARK_URL}" alt="Boise Remodeling Co" width="44" style="display:block; margin:0 auto; max-width:44px; height:auto;">
           </div>
-          <p class="footer-brand">Lawn Care Kuna</p>
+          <p class="footer-brand">Boise Remodeling Co</p>
           <p class="footer-tagline">Admin Notifications</p>
         </div>
       </div>

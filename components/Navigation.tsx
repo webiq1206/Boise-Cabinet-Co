@@ -2,352 +2,167 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-} from "@/components/ui/navigation-menu";
-import { Menu, FileText, Scissors, TreeDeciduous, Droplets, ArrowRight, Snowflake, ChevronDown } from "lucide-react";
-import { PRIORITY_SERVICES } from "@/shared/contentData";
+import { Menu, Phone, X } from "lucide-react";
 
-// Menu grouping configuration
-interface MenuGroup {
-  title: string;
-  icon: typeof Scissors;
-  serviceSlugs: string[];
+const NAV_LINKS = [
+  { label: "Services", href: "/#services" },
+  { label: "How We Build", href: "/#how-we-build" },
+  { label: "Estimates", href: "/#calculator" },
+  { label: "FAQ", href: "/#faq" },
+  { label: "Blog", href: "/blog" },
+];
+
+const PHONE = "(208) 555-0100";
+const PHONE_HREF = "tel:2085550100";
+
+function Logo() {
+  return (
+    <Link href="/" className="flex flex-col leading-none">
+      <span className="font-serif text-xl font-semibold tracking-tight text-foreground">
+        Boise Remodeling Co
+      </span>
+      <span className="text-[11px] text-muted-foreground tracking-widest uppercase font-sans">
+        Design &amp; Build
+      </span>
+    </Link>
+  );
 }
-
-const MENU_GROUPS: MenuGroup[] = [
-  {
-    title: "Lawn Care",
-    icon: Scissors,
-    serviceSlugs: [
-      'lawn-mowing',
-      'aeration',
-      'fertilization',
-      'weed-control',
-      'dethatching',
-      'overseeding',
-      'lawn-edging',
-      'lawn-renovation',
-    ]
-  },
-  {
-    title: "Landscaping",
-    icon: TreeDeciduous,
-    serviceSlugs: [
-      'patio-installation',
-      'retaining-walls',
-      'fire-pit-installation',
-      'hedge-trimming',
-      'mulch-installation',
-      'sod-installation',
-    ]
-  },
-  {
-    title: "Seasonal & Specialty",
-    icon: Snowflake,
-    serviceSlugs: [
-      'spring-cleanup',
-      'fall-cleanup',
-      'snow-removal',
-      'christmas-light-installation',
-      'tree-trimming',
-      'tree-removal',
-      'stump-grinding',
-    ]
-  },
-  {
-    title: "Irrigation & Lighting",
-    icon: Droplets,
-    serviceSlugs: [
-      'sprinkler-system-installation',
-      'sprinkler-repair',
-      'irrigation-repair',
-      'irrigation-maintenance',
-      'sprinkler-blowout',
-      'landscape-lighting',
-    ]
-  },
-];
-
-// Static pages with custom URLs that differ from PRIORITY_SERVICES slugs
-const STATIC_SERVICE_OVERRIDES: Record<string, { name: string; href: string }> = {
-  'christmas-light-installation': { name: 'Christmas Lights', href: '/services/christmas-lights' },
-};
-
-// Build menu items from PRIORITY_SERVICES
-const menuGroups = MENU_GROUPS.map(group => ({
-  ...group,
-  services: group.serviceSlugs
-    .map(slug => {
-      // Check for static page overrides first
-      if (STATIC_SERVICE_OVERRIDES[slug]) {
-        return STATIC_SERVICE_OVERRIDES[slug];
-      }
-      const service = PRIORITY_SERVICES.find(s => s.slug === slug);
-      return service ? { name: service.name, href: `/services/${service.slug}` } : null;
-    })
-    .filter((s): s is { name: string; href: string } => s !== null)
-}));
-
-const commercialServices = [
-  { name: "HOA Services", href: "/commercial/hoa-services" },
-  { name: "Commercial Services", href: "/commercial" },
-  { name: "Municipal Services", href: "/commercial/municipal-services" },
-];
 
 export function Navigation() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [expandedCategory, setExpandedCategory] = useState<string | null>(null);
-  
-  const toggleCategory = (category: string) => {
-    setExpandedCategory(expandedCategory === category ? null : category);
-  };
+
+  const isPortal = pathname?.startsWith("/admin") || pathname?.startsWith("/subcontractor");
+
+  if (isPortal) {
+    return (
+      <header className="sticky top-0 z-50 w-full border-b bg-background/98 backdrop-blur supports-[backdrop-filter]:bg-background/95">
+        <nav className="container flex h-16 items-center justify-between gap-4 px-6">
+          <Logo />
+        </nav>
+      </header>
+    );
+  }
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/98 backdrop-blur supports-[backdrop-filter]:bg-background/95">
-      <nav className="container flex h-20 items-center justify-between gap-4 px-8 md:px-12">
-        <Link href="/" className="flex items-center flex-shrink-0">
-          <Image 
-            src="/images/lawn-care-kuna-logo.png" 
-            alt="Lawn Care Kuna - Professional Lawn Care and Landscaping Services in Kuna Idaho" 
-            className="h-10 w-auto"
-            width={200}
-            height={40}
-            priority
-          />
-        </Link>
+    <>
+      <header className="sticky top-0 z-[100] w-full border-b bg-background/98 backdrop-blur supports-[backdrop-filter]:bg-background/95">
+        <nav className="container flex h-16 items-center justify-between gap-4 px-4 md:px-6">
+          <Logo />
 
-        {/* Desktop Navigation */}
-        <div className="hidden lg:flex items-center gap-8">
-          <NavigationMenu>
-            <NavigationMenuList className="gap-2">
-              <NavigationMenuItem>
-                <Link href="/">
-                  <span
-                    className={`px-4 py-2 text-sm font-medium transition-colors cursor-pointer ${
-                      pathname === "/" ? "text-primary" : "text-foreground/80 hover:text-foreground"
-                    }`}
-                  >
-                    Home
-                  </span>
-                </Link>
-              </NavigationMenuItem>
+          {/* Desktop nav links */}
+          <div className="hidden md:flex items-center gap-1">
+            {NAV_LINKS.map((link) => (
+              <Link
+                key={link.label}
+                href={link.href}
+                className={`px-4 py-2 text-sm font-medium transition-colors rounded-md hover-elevate ${
+                  pathname === link.href
+                    ? "text-primary"
+                    : "text-foreground/70 hover:text-foreground"
+                }`}
+              >
+                {link.label}
+              </Link>
+            ))}
+          </div>
 
-              <NavigationMenuItem>
-                <NavigationMenuTrigger className="text-foreground/80 hover:text-foreground">
-                  Services
-                </NavigationMenuTrigger>
-                <NavigationMenuContent>
-                  <div className="w-[900px] p-6">
-                    <div className="grid gap-4 md:grid-cols-4">
-                      {menuGroups.map((group) => (
-                        <div key={group.title} className="bg-muted/30 rounded-lg p-5 space-y-3 border border-border/50">
-                          <div className="flex items-center gap-2 mb-3">
-                            <div className="p-2 rounded-md bg-primary/10">
-                              <group.icon className="h-4 w-4 text-primary" />
-                            </div>
-                            <h3 className="text-sm font-bold text-foreground">{group.title}</h3>
-                          </div>
-                          <ul className="space-y-1">
-                            {group.services.map((service) => (
-                              <li key={service.href}>
-                                <Link href={service.href}>
-                                  <span className="group flex items-center gap-2 select-none rounded-md px-3 py-2 text-sm leading-tight transition-colors hover-elevate cursor-pointer">
-                                    <ArrowRight className="h-3 w-3 text-muted-foreground group-hover:text-primary transition-colors opacity-0 group-hover:opacity-100" />
-                                    <span className="group-hover:text-primary transition-colors">{service.name}</span>
-                                  </span>
-                                </Link>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      ))}
-                    </div>
-
-                    <div className="mt-4 pt-4 border-t">
-                      <Link href="/services">
-                        <div className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-md bg-primary/5 hover-elevate active-elevate-2 transition-all cursor-pointer group">
-                          <span className="text-sm font-medium text-primary">Browse All Lawn &amp; Landscaping Services</span>
-                          <ArrowRight className="h-4 w-4 text-primary group-hover:translate-x-1 transition-transform" />
-                        </div>
-                      </Link>
-                    </div>
-                  </div>
-                </NavigationMenuContent>
-              </NavigationMenuItem>
-
-              <NavigationMenuItem>
-                <Link href="/about">
-                  <span
-                    className={`px-4 py-2 text-sm font-medium transition-colors cursor-pointer ${
-                      pathname === "/about" ? "text-primary" : "text-foreground/80 hover:text-foreground"
-                    }`}
-                  >
-                    About
-                  </span>
-                </Link>
-              </NavigationMenuItem>
-
-              <NavigationMenuItem>
-                <Link href="/blog">
-                  <span
-                    className={`px-4 py-2 text-sm font-medium transition-colors cursor-pointer ${
-                      pathname?.startsWith("/blog") ? "text-primary" : "text-foreground/80 hover:text-foreground"
-                    }`}
-                  >
-                    Blog
-                  </span>
-                </Link>
-              </NavigationMenuItem>
-
-              <NavigationMenuItem>
-                <Link href="/contact">
-                  <span
-                    className={`px-4 py-2 text-sm font-medium transition-colors cursor-pointer ${
-                      pathname === "/contact" ? "text-primary" : "text-foreground/80 hover:text-foreground"
-                    }`}
-                  >
-                    Contact
-                  </span>
-                </Link>
-              </NavigationMenuItem>
-            </NavigationMenuList>
-          </NavigationMenu>
-
-          <div className="flex items-center gap-3 border-l pl-8">
-            <Button variant="ghost" size="sm" asChild>
-              <Link href="/pricing">View Pricing</Link>
-            </Button>
+          {/* Desktop right: phone + CTA */}
+          <div className="hidden md:flex items-center gap-4">
+            <a
+              href={PHONE_HREF}
+              className="flex items-center gap-2 text-sm font-medium text-foreground/80 hover:text-foreground transition-colors"
+              data-testid="link-phone-desktop"
+            >
+              <span className="relative flex h-2.5 w-2.5">
+                <span className="pulse-green absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
+                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500" />
+              </span>
+              {PHONE}
+            </a>
             <Button size="sm" asChild>
-              <Link href="/get-quote">Get Your Free Lawn Care Quote</Link>
+              <a href="/#consult">Book a free visit</a>
             </Button>
           </div>
-        </div>
 
-        {/* Mobile Navigation */}
-        <div className="flex lg:hidden items-center gap-2">
-          <Button variant="ghost" size="icon" asChild aria-label="Get free quote">
-            <Link href="/get-quote">
-              <FileText className="h-4 w-4" />
-            </Link>
-          </Button>
-          <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
-            <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" aria-label="Open navigation menu">
-                <Menu className="h-5 w-5" />
-              </Button>
-            </SheetTrigger>
-            <SheetContent side="right" className="w-[85vw] sm:w-[400px] overflow-y-auto">
-              <nav className="flex flex-col gap-1 mt-8">
-                {/* Home */}
-                <Link href="/" onClick={() => setMobileOpen(false)}>
-                  <div className="px-4 py-3 text-base font-medium rounded-md hover-elevate active-elevate-2 transition-colors">
-                    Home
-                  </div>
-                </Link>
-                
-                {/* All Service Groups - Collapsible */}
-                {menuGroups.map((group) => (
-                  <div key={group.title} className="mt-2">
-                    <button
-                      onClick={() => toggleCategory(group.title)}
-                      className="w-full flex items-center justify-between px-4 py-3 text-sm font-semibold text-foreground tracking-wide uppercase hover-elevate active-elevate-2 rounded-md transition-colors"
-                    >
-                      <span>{group.title}</span>
-                      <ChevronDown 
-                        className={`h-4 w-4 transition-transform duration-200 ${
-                          expandedCategory === group.title ? 'rotate-180' : ''
-                        }`} 
-                      />
-                    </button>
-                    <div 
-                      className={`overflow-hidden transition-all duration-200 ${
-                        expandedCategory === group.title ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'
-                      }`}
-                    >
-                      <div className="mt-1 space-y-0.5 pb-2">
-                        {group.services.map((service) => (
-                          <Link key={service.href} href={service.href} onClick={() => setMobileOpen(false)}>
-                            <div className="px-6 py-2.5 text-sm rounded-md hover-elevate active-elevate-2 transition-colors">
-                              {service.name}
-                            </div>
-                          </Link>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                ))}
-
-                {/* Commercial Services - Collapsible */}
-                <div className="mt-2">
-                  <button
-                    onClick={() => toggleCategory('Commercial')}
-                    className="w-full flex items-center justify-between px-4 py-3 text-sm font-semibold text-foreground tracking-wide uppercase hover-elevate active-elevate-2 rounded-md transition-colors"
+          {/* Mobile: hamburger */}
+          <div className="flex md:hidden items-center gap-2">
+            <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
+              <SheetTrigger asChild>
+                <Button variant="ghost" size="icon" aria-label="Open navigation menu">
+                  <Menu className="h-5 w-5" />
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="right" className="w-[85vw] sm:w-[360px]">
+                <div className="flex items-center justify-between mb-8">
+                  <Logo />
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => setMobileOpen(false)}
+                    aria-label="Close menu"
                   >
-                    <span>Commercial</span>
-                    <ChevronDown 
-                      className={`h-4 w-4 transition-transform duration-200 ${
-                        expandedCategory === 'Commercial' ? 'rotate-180' : ''
-                      }`} 
-                    />
-                  </button>
-                  <div 
-                    className={`overflow-hidden transition-all duration-200 ${
-                      expandedCategory === 'Commercial' ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'
-                    }`}
-                  >
-                    <div className="mt-1 space-y-0.5 pb-2">
-                      {commercialServices.map((service) => (
-                        <Link key={service.href} href={service.href} onClick={() => setMobileOpen(false)}>
-                          <div className="px-6 py-2.5 text-sm rounded-md hover-elevate active-elevate-2 transition-colors">
-                            {service.name}
-                          </div>
-                        </Link>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-
-                {/* Main Pages */}
-                <div className="mt-6 pt-6 border-t space-y-0.5">
-                  <Link href="/about" onClick={() => setMobileOpen(false)}>
-                    <div className="px-4 py-3 text-base font-medium rounded-md hover-elevate active-elevate-2 transition-colors">
-                      About
-                    </div>
-                  </Link>
-
-                  <Link href="/blog" onClick={() => setMobileOpen(false)}>
-                    <div className="px-4 py-3 text-base font-medium rounded-md hover-elevate active-elevate-2 transition-colors">
-                      Blog
-                    </div>
-                  </Link>
-
-                  <Link href="/contact" onClick={() => setMobileOpen(false)}>
-                    <div className="px-4 py-3 text-base font-medium rounded-md hover-elevate active-elevate-2 transition-colors">
-                      Contact
-                    </div>
-                  </Link>
-
-                  <Button className="w-full mt-4" asChild>
-                    <Link href="/get-quote" onClick={() => setMobileOpen(false)}>
-                      Get Free Estimate
-                    </Link>
+                    <X className="h-5 w-5" />
                   </Button>
                 </div>
-              </nav>
-            </SheetContent>
-          </Sheet>
+                <nav className="flex flex-col gap-1">
+                  {NAV_LINKS.map((link) => (
+                    <Link
+                      key={link.label}
+                      href={link.href}
+                      onClick={() => setMobileOpen(false)}
+                      className="px-4 py-3 text-base font-medium rounded-md hover-elevate active-elevate-2 transition-colors"
+                    >
+                      {link.label}
+                    </Link>
+                  ))}
+                  <div className="mt-6 pt-6 border-t space-y-3">
+                    <a
+                      href={PHONE_HREF}
+                      className="flex items-center gap-3 px-4 py-3 text-base font-medium rounded-md hover-elevate"
+                    >
+                      <span className="relative flex h-2.5 w-2.5">
+                        <span className="pulse-green absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
+                        <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500" />
+                      </span>
+                      {PHONE}
+                    </a>
+                    <Button className="w-full" asChild>
+                      <a href="/#consult" onClick={() => setMobileOpen(false)}>
+                        Book a free visit
+                      </a>
+                    </Button>
+                  </div>
+                </nav>
+              </SheetContent>
+            </Sheet>
+          </div>
+        </nav>
+      </header>
+
+      {/* Mobile sticky bottom bar */}
+      <div className="fixed bottom-0 left-0 right-0 z-[100] md:hidden border-t bg-background/98 backdrop-blur supports-[backdrop-filter]:bg-background/95 pb-safe">
+        <div className="grid grid-cols-2 divide-x">
+          <a
+            href={PHONE_HREF}
+            className="flex items-center justify-center gap-2 py-4 text-sm font-semibold text-foreground hover:bg-muted transition-colors"
+            data-testid="button-call-mobile"
+          >
+            <Phone className="h-4 w-4" />
+            Call
+          </a>
+          <a
+            href="/#consult"
+            className="flex items-center justify-center gap-2 py-4 text-sm font-semibold text-primary hover:bg-muted transition-colors"
+            data-testid="button-begin-conversation-mobile"
+          >
+            Begin a conversation
+          </a>
         </div>
-      </nav>
-    </header>
+      </div>
+    </>
   );
 }

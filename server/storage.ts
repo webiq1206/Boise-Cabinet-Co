@@ -157,7 +157,7 @@ export class MemStorage implements IStorage {
         serviceType: "lawn-care",
         city: "kuna",
         rating: "5",
-        testimonial: "Lawn Care Kuna has been taking care of our yard for 2 years now. Always on time, professional, and our lawn has never looked better!",
+        testimonial: "Boise Remodeling Co did an amazing job on our kitchen — on time, transparent about costs, and the results were stunning.",
         createdAt: new Date(),
       },
       {
@@ -214,7 +214,7 @@ export class MemStorage implements IStorage {
     const testUsers: User[] = [
       {
         id: "admin-temp-id",
-        email: "admin@lawncarekuna.com",
+        email: "admin@boiseremodeling.co",
         firstName: "Admin",
         lastName: "User",
         phone: null,
@@ -836,7 +836,7 @@ export class DBStorage implements IStorage {
         serviceType: "lawn-care",
         city: "kuna",
         rating: "5",
-        testimonial: "Lawn Care Kuna has been taking care of our yard for 2 years now. Always on time, professional, and our lawn has never looked better!",
+        testimonial: "Boise Remodeling Co did an amazing job on our kitchen — on time, transparent about costs, and the results were stunning.",
         createdAt: new Date(),
       },
       {
@@ -925,7 +925,7 @@ export class DBStorage implements IStorage {
     const testUsers = [
       {
         id: "admin-temp-id",
-        email: "admin@lawncarekuna.com",
+        email: "admin@boiseremodeling.co",
         firstName: "Admin",
         lastName: "User",
         phone: null,

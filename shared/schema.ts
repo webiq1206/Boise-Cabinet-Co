@@ -374,3 +374,30 @@ export const siteSettings = pgTable("site_settings", {
 });
 
 export type SiteSetting = typeof siteSettings.$inferSelect;
+
+// Consultation Requests Schema (new contacts from the homepage form)
+export const consultationRequests = pgTable("consultation_requests", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  name: text("name").notNull(),
+  phone: text("phone").notNull(),
+  email: text("email").notNull(),
+  zip: text("zip").notNull(),
+  projectType: text("project_type").notNull(),
+  message: text("message"),
+  // Calculator estimate (optional — populated when user used the estimate tool)
+  estimateProject: text("estimate_project"),
+  estimateFinish: text("estimate_finish"),
+  estimateLow: decimal("estimate_low", { precision: 10, scale: 2 }),
+  estimateHigh: decimal("estimate_high", { precision: 10, scale: 2 }),
+  // Status
+  status: text("status").notNull().default("new"), // new, contacted, converted, closed
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+export const insertConsultationRequestSchema = createInsertSchema(consultationRequests).omit({
+  id: true,
+  createdAt: true,
+});
+
+export type ConsultationRequest = typeof consultationRequests.$inferSelect;
+export type InsertConsultationRequest = z.infer<typeof insertConsultationRequestSchema>;
