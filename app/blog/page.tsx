@@ -31,7 +31,7 @@ export default function BlogPage() {
         <div className="container px-4">
           <div className="max-w-3xl mx-auto text-center space-y-4">
             <p className="brc-label justify-center mb-2">Blog</p>
-            <h1 className="text-4xl md:text-5xl font-serif font-light tracking-tight text-foreground">
+            <h1 className="text-4xl md:text-5xl font-sans font-light tracking-tight text-foreground">
               Remodeling Insights &amp; Ideas
             </h1>
             <p className="text-lg text-muted-foreground">
@@ -51,7 +51,7 @@ export default function BlogPage() {
                   <PenLine className="h-10 w-10 text-muted-foreground" />
                 </div>
                 <div className="space-y-2">
-                  <h2 className="text-2xl font-serif font-light text-foreground">
+                  <h2 className="text-2xl font-sans font-light text-foreground">
                     Articles coming soon
                   </h2>
                   <p className="text-muted-foreground max-w-md">
@@ -74,7 +74,7 @@ export default function BlogPage() {
                         <Calendar className="h-4 w-4" />
                         <span>{formatDate(post.publishedAt)}</span>
                       </div>
-                      <CardTitle className="text-lg line-clamp-2 font-serif">
+                      <CardTitle className="text-lg line-clamp-2 font-sans">
                         {post.title}
                       </CardTitle>
                       <CardDescription className="line-clamp-3">{post.excerpt}</CardDescription>

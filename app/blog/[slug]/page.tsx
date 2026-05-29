@@ -6,8 +6,10 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, ArrowRight, Calendar, User, Phone, Tag, Wrench } from "lucide-react";
 import { BLOG_POSTS } from "@/shared/blogContent";
-import { generateArticleSchema, generateBreadcrumbSchema } from "@/lib/schema";
+import { generateArticleSchema, generateBreadcrumbSchema, generateFAQSchema } from "@/lib/schema";
 import { buildCanonical } from "@/lib/page-metadata";
+import { ManifestRelatedLinks } from "@/components/seo/ManifestRelatedLinks";
+import { CTA_PRIMARY } from "@/shared/ctaCopy";
 
 export async function generateStaticParams() {
   return BLOG_POSTS.map((post) => ({
@@ -81,6 +83,9 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
     { name: post.title, url: `/blog/${post.slug}` },
   ]);
 
+  const faqSchema = post.faqs.length > 0 ? generateFAQSchema(post.faqs) : null;
+  const blogPath = `/blog/${post.slug}`;
+
   return (
     <>
       <script
@@ -91,6 +96,12 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
+      {faqSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        />
+      )}
 
       <div className="flex flex-col pb-20 md:pb-0">
         {/* Hero */}
@@ -110,7 +121,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
                   {post.category}
                 </Badge>
               </div>
-              <h1 className="text-3xl md:text-4xl lg:text-5xl font-serif font-light tracking-tight text-foreground mb-4">
+              <h1 className="text-3xl md:text-4xl lg:text-5xl font-sans font-light tracking-tight text-foreground mb-4">
                 {post.title}
               </h1>
               <p className="text-lg text-muted-foreground mb-6 max-w-2xl">{post.excerpt}</p>
@@ -162,7 +173,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
                       <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-accent/10">
                         <Wrench className="h-6 w-6 text-accent" />
                       </div>
-                      <h3 className="text-lg font-medium font-serif font-light">Book a Free Visit</h3>
+                      <h3 className="text-lg font-medium font-sans font-light">Book a Free Visit</h3>
                       <p className="text-sm text-muted-foreground">
                         Ready to start your project? Schedule a free in-home consultation with no pressure.
                       </p>
@@ -197,7 +208,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
                       </p>
                       <Button variant="brand" size="sm" asChild className="w-full">
                         <Link href="/#consult" data-testid="link-sidebar-cta-consult">
-                          Book a Free Visit
+                          {CTA_PRIMARY}
                           <ArrowRight className="ml-2 h-4 w-4" />
                         </Link>
                       </Button>
@@ -231,6 +242,12 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
           </div>
         </section>
 
+        <section className="section-y-sm section-divider">
+          <div className="container px-4 max-w-3xl">
+            <ManifestRelatedLinks path={blogPath} />
+          </div>
+        </section>
+
         {/* Bottom CTA */}
         <section className="section-y section-divider">
           <div className="container px-4">
@@ -238,7 +255,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
               <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-accent/10 mb-6">
                 <Wrench className="h-7 w-7 text-accent" />
               </div>
-              <h2 className="text-2xl md:text-3xl font-serif font-light tracking-tight mb-4 text-foreground">
+              <h2 className="text-2xl md:text-3xl font-sans font-light tracking-tight mb-4 text-foreground">
                 Ready to start your project?
               </h2>
               <p className="text-muted-foreground mb-8 max-w-lg mx-auto">
@@ -247,7 +264,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                 <Button variant="brand" size="lg" asChild>
                   <Link href="/#consult" data-testid="link-bottom-cta-consult">
-                    Book a Free Visit
+                    {CTA_PRIMARY}
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </Link>
                 </Button>

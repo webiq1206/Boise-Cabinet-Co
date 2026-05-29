@@ -13,7 +13,7 @@ export function RelatedLinks({ serviceSlug, citySlug, variant }: RelatedLinksPro
   if (variant === 'service' && serviceSlug) {
     return (
       <div>
-        <h2 className="font-serif font-light text-section-title mb-6 text-foreground">
+        <h2 className="font-sans font-light text-section-title mb-6 text-foreground">
           {SERVICES.find((s) => s.slug === serviceSlug)?.name} by city
         </h2>
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
@@ -35,7 +35,7 @@ export function RelatedLinks({ serviceSlug, citySlug, variant }: RelatedLinksPro
     const city = CITIES.find((c) => c.slug === citySlug);
     return (
       <div>
-        <h2 className="font-serif font-light text-section-title mb-6 text-foreground">
+        <h2 className="font-sans font-light text-section-title mb-6 text-foreground">
           Remodeling services in {city?.name}
         </h2>
         <div className="grid sm:grid-cols-2 gap-4">

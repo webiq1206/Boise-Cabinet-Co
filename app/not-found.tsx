@@ -21,10 +21,10 @@ export default function NotFound() {
           <div className="inline-flex items-center justify-center w-24 h-24 rounded-full bg-accent/10 mb-4">
             <Wrench className="h-12 w-12 text-accent" />
           </div>
-          <h1 className="text-6xl font-serif font-light text-foreground mb-2">404</h1>
+          <h1 className="text-6xl font-sans font-light text-foreground mb-2">404</h1>
         </div>
 
-        <h2 className="text-2xl md:text-3xl font-serif font-light tracking-tight mb-4 text-foreground">
+        <h2 className="text-2xl md:text-3xl font-sans font-light tracking-tight mb-4 text-foreground">
           Page Not Found
         </h2>
         <p className="text-lg text-muted-foreground mb-8">

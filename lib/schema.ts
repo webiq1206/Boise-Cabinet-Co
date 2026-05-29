@@ -324,8 +324,10 @@ export function generateWebPageSchema(page: {
  */
 export function generateSpeakableSchema(page: {
   name: string;
-  url: string;
+  url?: string;
+  path?: string;
 }): SchemaContext {
+  const pagePath = page.url ?? page.path ?? '/';
   return {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
@@ -334,7 +336,7 @@ export function generateSpeakableSchema(page: {
       '@type': 'SpeakableSpecification',
       cssSelector: ["[data-speakable='summary']"],
     },
-    url: `${baseUrl}${page.url}`,
+    url: `${baseUrl}${pagePath.startsWith('/') ? pagePath : `/${pagePath}`}`,
   };
 }
 

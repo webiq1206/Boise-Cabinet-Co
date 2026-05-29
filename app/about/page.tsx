@@ -4,6 +4,7 @@ import { JsonLd } from '@/components/seo/JsonLd';
 import { Section } from '@/components/marketing/Section';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { Button } from '@/components/ui/button';
+import { MarketingCard } from '@/components/marketing/MarketingCard';
 import { buildPageMetadata } from '@/lib/page-metadata';
 import {
   generateBreadcrumbSchema,
@@ -11,6 +12,12 @@ import {
   generateWebPageSchema,
 } from '@/lib/schema';
 import { CITIES, TREASURE_VALLEY_CITIES } from '@/shared/contentData';
+import {
+  DIFFERENTIATORS,
+  HOMEPAGE_DIFFERENTIATOR_INDICES,
+  PRINCIPLES,
+} from '@/shared/siteContent';
+import { CTA_PRIMARY } from '@/shared/ctaCopy';
 
 export const metadata = buildPageMetadata({
   kind: 'about',
@@ -32,6 +39,8 @@ export default function AboutPage() {
     ]),
   ];
 
+  const featuredDifferentiators = HOMEPAGE_DIFFERENTIATOR_INDICES.map((i) => DIFFERENTIATORS[i]);
+
   return (
     <>
       <JsonLd data={schemas} />
@@ -39,7 +48,7 @@ export default function AboutPage() {
         <Section spacing="sm" className="pt-8 md:pt-12">
           <div className="container px-4 max-w-3xl">
             <Breadcrumbs items={[{ name: 'Home', href: '/' }, { name: 'About' }]} />
-            <h1 className="font-serif font-light text-display md:text-[2.75rem] tracking-tight text-foreground mt-6 mb-6">
+            <h1 className="font-sans font-light text-display md:text-[2.75rem] tracking-tight text-foreground mt-6 mb-6">
               About Boise Remodeling Co
             </h1>
             <p className="text-lg text-muted-foreground leading-relaxed mb-6" data-speakable="summary">
@@ -54,7 +63,7 @@ export default function AboutPage() {
             </p>
             <Button variant="brand" asChild>
               <Link href="/#consult">
-                Schedule a consultation <ArrowRight className="h-4 w-4" />
+                {CTA_PRIMARY} <ArrowRight className="h-4 w-4" />
               </Link>
             </Button>
           </div>
@@ -62,7 +71,7 @@ export default function AboutPage() {
 
         <Section divider>
           <div className="container px-4 max-w-3xl">
-            <h2 className="font-serif font-light text-section-title mb-6 text-foreground">
+            <h2 className="font-sans font-light text-section-title mb-6 text-foreground">
               Design-build, explained
             </h2>
             <p className="text-muted-foreground leading-relaxed mb-4">
@@ -79,7 +88,41 @@ export default function AboutPage() {
 
         <Section divider>
           <div className="container px-4 max-w-3xl">
-            <h2 className="font-serif font-light text-section-title mb-6 text-foreground">
+            <h2 className="font-sans font-light text-section-title mb-8 text-foreground">
+              How we are different
+            </h2>
+            <div className="space-y-8">
+              {featuredDifferentiators.map((item) => (
+                <div key={item.title}>
+                  <h3 className="font-sans font-light text-xl text-foreground mb-2">{item.title}</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    <span className="text-foreground/90">{item.contrast}</span> {item.body}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </Section>
+
+        <Section divider>
+          <div className="container px-4 max-w-3xl">
+            <h2 className="font-sans font-light text-section-title mb-8 text-foreground">
+              Six principles we never compromise on
+            </h2>
+            <div className="grid sm:grid-cols-2 gap-6">
+              {PRINCIPLES.map(({ title, desc }) => (
+                <MarketingCard key={title} className="h-full">
+                  <h3 className="font-sans font-medium text-sm mb-2 text-foreground">{title}</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{desc}</p>
+                </MarketingCard>
+              ))}
+            </div>
+          </div>
+        </Section>
+
+        <Section divider>
+          <div className="container px-4 max-w-3xl">
+            <h2 className="font-sans font-light text-section-title mb-6 text-foreground">
               Service areas
             </h2>
             <p className="text-muted-foreground mb-6">

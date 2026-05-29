@@ -40,7 +40,7 @@ export default function ContactPage() {
         <Section spacing="sm" className="pt-8 md:pt-12">
           <div className="container px-4 max-w-3xl">
             <Breadcrumbs items={[{ name: 'Home', href: '/' }, { name: 'Contact' }]} />
-            <h1 className="font-serif font-light text-display md:text-[2.75rem] tracking-tight text-foreground mt-6 mb-6">
+            <h1 className="font-sans font-light text-display md:text-[2.75rem] tracking-tight text-foreground mt-6 mb-6">
               Contact Boise Remodeling Co
             </h1>
             <p className="text-lg text-muted-foreground leading-relaxed mb-10" data-speakable="summary">

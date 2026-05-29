@@ -5,11 +5,11 @@ import { SectionHeader } from "@/components/marketing/SectionHeader";
 import { MarketingCard } from "@/components/marketing/MarketingCard";
 import { SERVICES } from "@/shared/contentData";
 import { servicePath } from "@/lib/seo-routes";
-import { PROMISE_ITEMS } from "@/shared/siteContent";
+import { CTA_SECONDARY } from "@/shared/ctaCopy";
 
 export function ServicesGrid() {
   return (
-    <Section id="services" variant="tint" divider>
+    <Section id="services" divider>
       <div className="container px-4">
         <SectionHeader
           eyebrow="Our services"
@@ -17,7 +17,7 @@ export function ServicesGrid() {
           description="Full design-build coordination under one roof, not piecemeal trades managed by multiple vendors. One team handles layout, permitting, and construction so your project stays aligned from start to finish."
         />
 
-        <div className="grid sm:grid-cols-2 gap-4 max-w-5xl mx-auto mb-20">
+        <div className="grid sm:grid-cols-2 gap-4 max-w-5xl mx-auto">
           {SERVICES.map((service, i) => (
             <Reveal key={service.slug} delay={i * 60}>
               <MarketingCard className="h-full flex flex-col">
@@ -27,42 +27,22 @@ export function ServicesGrid() {
                 <p className="text-sm leading-relaxed flex-1 mb-6 text-muted-foreground">
                   {service.shortDescription}
                 </p>
-                <a
-                  href={servicePath(service.slug)}
-                  className="inline-flex items-center gap-2 text-sm font-medium text-foreground hover:text-accent transition-colors mr-4"
-                >
-                  Learn more
-                  <ArrowRight className="h-4 w-4" />
-                </a>
-                <a
-                  href="#calculator"
-                  className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-accent transition-colors"
-                >
-                  Planning range
-                </a>
+                <div className="flex flex-wrap gap-x-4 gap-y-2">
+                  <a
+                    href={servicePath(service.slug)}
+                    className="inline-flex items-center gap-2 text-sm font-medium text-foreground hover:text-accent transition-colors"
+                  >
+                    Learn more
+                    <ArrowRight className="h-4 w-4" />
+                  </a>
+                  <a
+                    href="#calculator"
+                    className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-accent transition-colors"
+                  >
+                    {CTA_SECONDARY}
+                  </a>
+                </div>
               </MarketingCard>
-            </Reveal>
-          ))}
-        </div>
-
-        <SectionHeader
-          eyebrow="What we stand for"
-          title="Four commitments on every project"
-          reveal={false}
-          className="mb-10"
-        />
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 border-t border-border max-w-6xl mx-auto">
-          {PROMISE_ITEMS.map((item, i) => (
-            <Reveal
-              key={item.num}
-              delay={i * 60}
-              className="pt-8 pb-8 pr-0 lg:pr-10 border-b sm:border-b-0 last:border-0 border-border"
-            >
-              <div className="w-6 h-px mb-6 bg-accent" />
-              <h3 className="font-sans font-medium text-sm mb-2 text-foreground">
-                {item.title}
-              </h3>
-              <p className="text-sm leading-relaxed text-muted-foreground">{item.body}</p>
             </Reveal>
           ))}
         </div>

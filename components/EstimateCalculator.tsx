@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
 import { Check, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Section } from "@/components/marketing/Section";
@@ -125,17 +125,33 @@ export function EstimateCalculator() {
   }, [input, userRefinementCount]);
 
   const refineProgress = `${userRefinementCount} of ${getMaxRefinementFields(project)} details added`;
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const [calculatorInView, setCalculatorInView] = useState(false);
+
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setCalculatorInView(entry.isIntersecting),
+      { threshold: 0.05, rootMargin: "0px 0px -56px 0px" }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <Section id="calculator" divider>
-      <div className="container px-4 pb-24 lg:pb-0">
+      <div ref={sectionRef} className="container px-4 pb-24 lg:pb-0">
         <div className="max-w-6xl mx-auto mb-10">
           <div className="brc-label mb-3">Project Estimator</div>
-          <h2 className="font-serif font-light text-section-title md:text-section-title-lg mb-3 text-foreground">
+          <h2 className="font-sans font-light text-section-title md:text-section-title-lg mb-3 text-foreground">
             Plan your project investment
           </h2>
-          <p className="text-sm max-w-2xl leading-relaxed text-muted-foreground">
-            Get a planning range in seconds. Add details below to refine your estimate and build confidence before your consultation.
+          <p className="text-base max-w-2xl leading-relaxed text-muted-foreground mb-3">
+            Get a planning range in seconds. Add details below to improve estimate accuracy before your consultation.
+          </p>
+          <p className="text-xs text-muted-foreground/90 max-w-2xl">
+            Planning estimate only, not a binding quote. Final pricing requires an in-home evaluation.
           </p>
         </div>
 
@@ -214,7 +230,7 @@ export function EstimateCalculator() {
             <div>
               <div className="flex justify-between items-end mb-4">
                 <div className="brc-label">Step 3: Size of the space</div>
-                <div className="font-serif font-light text-2xl leading-none text-foreground">
+                <div className="font-sans font-light text-2xl leading-none text-foreground">
                   {sqft.toLocaleString()}{" "}
                   <span className="text-sm font-sans text-muted-foreground">sqft</span>
                 </div>
@@ -251,7 +267,7 @@ export function EstimateCalculator() {
               >
                 <div>
                   <span className="font-medium text-sm block text-foreground">
-                    Refine my estimate
+                    Improve estimate accuracy
                   </span>
                   <span className="text-xs text-muted-foreground">
                     Add project details for a more tailored planning range
@@ -429,17 +445,18 @@ export function EstimateCalculator() {
       </div>
 
       {/* Mobile sticky summary bar while scrolling inputs */}
-      <div
-        className="lg:hidden fixed left-0 right-0 z-[90] border-t border-border bg-background/97 backdrop-blur-md px-4 py-3 pb-safe"
-        style={{ bottom: "56px" }}
-        data-testid="mobile-estimate-bar"
-      >
+      {calculatorInView && (
+        <div
+          className="lg:hidden fixed left-0 right-0 z-[90] border-t border-border bg-background/97 backdrop-blur-md px-4 py-3 pb-safe"
+          style={{ bottom: "56px" }}
+          data-testid="mobile-estimate-bar"
+        >
         <div className="flex items-center justify-between gap-3 max-w-6xl mx-auto">
           <div className="min-w-0">
             <p className="text-[10px] uppercase tracking-wide text-muted-foreground truncate">
               {selectionSummary}
             </p>
-            <p className="font-serif text-lg text-foreground tabular-nums" data-testid="mobile-estimate-range">
+            <p className="font-sans text-lg text-foreground tabular-nums" data-testid="mobile-estimate-range">
               ${Math.round(result.priceLow / 1000)}k to ${Math.round(result.priceHigh / 1000)}k
             </p>
           </div>
@@ -452,7 +469,8 @@ export function EstimateCalculator() {
             Consult
           </button>
         </div>
-      </div>
+        </div>
+      )}
     </Section>
   );
 }

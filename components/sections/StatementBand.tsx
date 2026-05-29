@@ -21,9 +21,9 @@ export function StatementBand() {
       <div className="relative z-10 container px-4 py-28 md:py-40">
         <div className="max-w-2xl">
           <div className="brc-label mb-5 text-inverse-muted">Built to last</div>
-          <p className="font-serif font-light text-inverse-foreground text-3xl md:text-5xl leading-tight tracking-tight">
-            Spaces designed for how you actually live — and built to{" "}
-            <em className="italic text-accent">outlast the guarantee</em>.
+          <p className="font-sans font-light text-inverse-foreground text-3xl md:text-5xl leading-tight tracking-tight">
+            Spaces designed for how you actually live, and built to{" "}
+            <em className="brc-accent text-accent">outlast the guarantee</em>.
           </p>
         </div>
       </div>

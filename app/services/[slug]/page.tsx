@@ -11,6 +11,7 @@ import {
 import { SERVICE_SLUGS, getServiceBySlug, servicePath } from '@/lib/seo-routes';
 import { SERVICE_SEO_CONTENT } from '@/shared/seoContent';
 import { generateSpeakableSchema } from '@/lib/schema';
+import { getServiceBackground } from '@/shared/serviceBackgrounds';
 
 export function generateStaticParams() {
   return SERVICE_SLUGS.map((slug) => ({ slug }));
@@ -57,6 +58,8 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
         h1={content.headline}
         speakableSummary={content.overview}
         overview={content.overview}
+        heroImageUrl={getServiceBackground(service.slug)}
+        manifestPath={path}
         breadcrumbs={[
           { name: 'Home', href: '/' },
           { name: 'Services', href: '/#services' },

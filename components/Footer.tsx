@@ -2,6 +2,7 @@ import Link from "next/link";
 import { CITIES, SERVICES } from "@/shared/contentData";
 import { SITE_TAGLINE } from "@/shared/siteContent";
 import { areaPath, servicePath } from "@/lib/seo-routes";
+import { CTA_PRIMARY, CTA_SECONDARY } from "@/shared/ctaCopy";
 
 const PHONE = "(208) 555-0100";
 const PHONE_HREF = "tel:2085550100";
@@ -16,11 +17,11 @@ export function Footer() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10 mb-12">
           <div>
             <div className="mb-4">
-              <span className="font-serif font-light text-lg tracking-tight text-inverse-foreground">
-                Boise <em className="italic text-accent">Remodeling</em> Co
+              <span className="font-sans font-light text-lg tracking-tight text-inverse-foreground">
+                Boise <em className="brc-accent text-accent">Remodeling</em> Co
               </span>
             </div>
-            <p className="text-sm italic mb-6 text-inverse-muted font-serif">
+            <p className="text-sm italic mb-6 text-inverse-muted font-sans">
               {SITE_TAGLINE}.
             </p>
             <div className="space-y-2">
@@ -87,7 +88,9 @@ export function Footer() {
 
           <div>
             <h3 className="font-sans font-medium text-[11px] tracking-[0.12em] uppercase mb-5 text-inverse-muted">
-              Service Areas
+              <Link href="/areas" className="hover:text-inverse-foreground transition-colors">
+                Service Areas
+              </Link>
             </h3>
             <ul className="space-y-2.5 max-h-48 overflow-y-auto pr-2">
               {CITIES.map((city) => (
@@ -109,8 +112,8 @@ export function Footer() {
             </h3>
             <ul className="space-y-2.5">
               {[
-                { label: "Schedule your consultation", href: "/#consult" },
-                { label: "Plan your project range", href: "/#calculator" },
+                { label: CTA_PRIMARY, href: "/#consult" },
+                { label: CTA_SECONDARY, href: "/#calculator" },
                 { label: PHONE, href: PHONE_HREF },
                 { label: EMAIL, href: `mailto:${EMAIL}` },
               ].map((link) => (

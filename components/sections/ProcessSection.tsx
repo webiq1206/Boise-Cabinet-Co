@@ -25,7 +25,7 @@ export function ProcessSection() {
           />
           <div className="absolute bottom-0 left-0 p-8 md:p-12">
             <div className="brc-label mb-3 text-inverse-muted">How We Build</div>
-            <p className="font-serif font-light text-xl md:text-2xl text-inverse-foreground">
+            <p className="font-sans font-light text-xl md:text-2xl text-inverse-foreground">
               Free in-home visit
               <br />
               to final walkthrough
@@ -36,9 +36,9 @@ export function ProcessSection() {
         <div className="section-y-sm px-8 md:px-14 lg:px-16 bg-card border-l border-border">
           <Reveal>
             <div className="brc-label mb-5">Our process</div>
-            <h2 className="font-serif font-light text-section-title md:text-section-title-lg leading-tight mb-10 text-foreground">
+            <h2 className="font-sans font-light text-section-title md:text-section-title-lg leading-tight mb-10 text-foreground">
               From first visit to{" "}
-              <em className="italic text-accent">final walkthrough</em>
+              <em className="brc-accent text-accent">final walkthrough</em>
             </h2>
             <div className="space-y-0">
               {HOW_WE_BUILD_STEPS.map((step, i) => (
@@ -46,7 +46,7 @@ export function ProcessSection() {
                   key={step.number}
                   className={`flex gap-5 py-6 ${i < HOW_WE_BUILD_STEPS.length - 1 ? "border-b border-border" : ""}`}
                 >
-                  <span className="font-serif font-light text-2xl w-8 flex-shrink-0 leading-none mt-0.5 text-foreground/20">
+                  <span className="font-sans font-light text-2xl w-8 flex-shrink-0 leading-none mt-0.5 text-foreground/20">
                     {step.number}
                   </span>
                   <div>

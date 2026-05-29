@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import type { EstimateResult } from "@/shared/estimateEngine";
 import { INCLUDED_SCOPE_NOTE } from "@/shared/estimateEngine";
+import { CTA_PRIMARY } from "@/shared/ctaCopy";
 
 function usePrevious<T>(value: T) {
   const ref = useRef<T>(value);
@@ -86,7 +87,7 @@ export function EstimateResultPanel({
 
       <div
         className={cn(
-          "font-serif font-light leading-none text-inverse-foreground",
+          "font-sans font-light leading-none text-inverse-foreground",
           isCompact ? "text-2xl mb-2" : "text-[clamp(28px,3.5vw,44px)] mb-4"
         )}
         data-testid="estimate-range"
@@ -103,7 +104,7 @@ export function EstimateResultPanel({
         <>
           <div className="mb-6">
             <div className="flex justify-between text-[11px] mb-1.5 text-inverse-muted">
-              <span>Planning detail level</span>
+              <span>Details provided</span>
               <span>{result.confidencePercent}%</span>
             </div>
             <div
@@ -112,7 +113,7 @@ export function EstimateResultPanel({
               aria-valuenow={result.confidencePercent}
               aria-valuemin={0}
               aria-valuemax={100}
-              aria-label="Planning detail level"
+              aria-label="Details provided"
             >
               <div
                 className="h-full rounded-full transition-all duration-500 bg-accent"
@@ -151,7 +152,7 @@ export function EstimateResultPanel({
         data-testid="button-book-visit"
         size={isCompact ? "sm" : "default"}
       >
-        Schedule your consultation
+        {CTA_PRIMARY}
         <ArrowRight className="h-4 w-4" />
       </Button>
 
@@ -170,6 +171,12 @@ export function EstimateResultPanel({
             </p>
           </div>
         </>
+      )}
+
+      {isCompact && (
+        <p className="text-[10px] leading-snug mt-2 text-inverse-muted">
+          Planning estimate only, not a binding quote.
+        </p>
       )}
     </div>
   );

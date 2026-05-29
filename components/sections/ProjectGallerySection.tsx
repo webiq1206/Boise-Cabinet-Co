@@ -9,31 +9,30 @@ import { SectionHeader } from "@/components/marketing/SectionHeader";
 import { MarketingCard } from "@/components/marketing/MarketingCard";
 import { Button } from "@/components/ui/button";
 import { GALLERY_PROJECTS, type GalleryProject } from "@/shared/galleryData";
+import { CITIES } from "@/shared/contentData";
+
+function cityDisplayName(slug: string) {
+  return CITIES.find((c) => c.slug === slug)?.name ?? slug;
+}
 
 function BeforeAfterCard({ project }: { project: GalleryProject }) {
   const [showAfter, setShowAfter] = useState(false);
+  const cityName = cityDisplayName(project.city);
 
   return (
     <MarketingCard className="overflow-hidden p-0">
-      <div
-        className="relative aspect-[4/3] cursor-pointer group"
+      <button
+        type="button"
         onClick={() => setShowAfter((v) => !v)}
-        onKeyDown={(e) => {
-          if (e.key === "Enter" || e.key === " ") {
-            e.preventDefault();
-            setShowAfter((v) => !v);
-          }
-        }}
-        role="button"
-        tabIndex={0}
+        className="relative block w-full aspect-[4/3] cursor-pointer group text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
         aria-label={`Toggle before and after for ${project.title}`}
       >
         <Image
           src={showAfter ? project.afterImageUrl : project.beforeImageUrl}
           alt={
             showAfter
-              ? `After: ${project.title} in ${project.city}, Idaho`
-              : `Before: ${project.title} in ${project.city}, Idaho`
+              ? `After: ${project.title} in ${cityName}, Idaho`
+              : `Before: ${project.title} in ${cityName}, Idaho`
           }
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -47,7 +46,7 @@ function BeforeAfterCard({ project }: { project: GalleryProject }) {
         <div className="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-inverse/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
           <p className="text-[10px] tracking-wide uppercase text-inverse-muted">Tap to compare</p>
         </div>
-      </div>
+      </button>
       <div className="p-5">
         <h3 className="font-sans font-medium text-sm mb-1 text-foreground">{project.title}</h3>
         <p className="text-xs text-muted-foreground leading-relaxed">{project.description}</p>

@@ -32,7 +32,7 @@ export function SectionHeader({
       {eyebrow && <div className="brc-label mb-4">{eyebrow}</div>}
       <h2
         className={cn(
-          "font-serif font-light tracking-tight text-section-title md:text-section-title-lg mb-4",
+          "font-sans font-light tracking-tight text-section-title md:text-section-title-lg mb-4",
           inverse ? "text-inverse-foreground" : "text-foreground"
         )}
       >

@@ -31,5 +31,5 @@ export function landingAreaBusinessSchema(cityName: string) {
 }
 
 export function landingSpeakable(path: string, name: string) {
-  return generateSpeakableSchema({ path, name });
+  return generateSpeakableSchema({ url: path, name });
 }

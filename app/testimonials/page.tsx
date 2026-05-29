@@ -27,7 +27,7 @@ export default function TestimonialsPage() {
               { name: "Projects & Reviews" },
             ]}
           />
-          <h1 className="font-serif font-light text-display md:text-[2.75rem] tracking-tight text-foreground mt-6 mb-6">
+          <h1 className="font-sans font-light text-display md:text-[2.75rem] tracking-tight text-foreground mt-6 mb-6">
             Projects &amp; homeowner reviews
           </h1>
           <p className="text-lg text-muted-foreground leading-relaxed mb-8">
@@ -52,7 +52,7 @@ export default function TestimonialsPage() {
 
       <Section variant="inverse">
         <div className="container px-4 text-center max-w-2xl mx-auto">
-          <h2 className="font-serif font-light text-section-title mb-4 text-inverse-foreground">
+          <h2 className="font-sans font-light text-section-title mb-4 text-inverse-foreground">
             Ready to start your project?
           </h2>
           <p className="text-sm text-inverse-muted mb-8">

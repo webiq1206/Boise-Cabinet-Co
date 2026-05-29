@@ -12,6 +12,7 @@ import { areaPath, CITY_SLUGS, getCityBySlug } from '@/lib/seo-routes';
 import { getCountyLabel } from '@/shared/contentData';
 import { AREA_PAGE_FAQS, getAreaIntro } from '@/shared/seoContent';
 import { generateSpeakableSchema } from '@/lib/schema';
+import { SITE_IMAGES } from '@/shared/siteImages';
 
 export function generateStaticParams() {
   return CITY_SLUGS.map((city) => ({ city }));
@@ -56,7 +57,7 @@ export default function AreaPage({ params }: { params: { city: string } }) {
   const schemas = [
     landingBreadcrumbs([
       { name: 'Home', url: '/' },
-      { name: 'Service Areas', url: '/#services' },
+      { name: 'Service Areas', url: '/areas' },
       { name: city.name, url: path },
     ]),
     landingAreaBusinessSchema(city.name),
@@ -71,9 +72,11 @@ export default function AreaPage({ params }: { params: { city: string } }) {
         h1={h1}
         speakableSummary={overview}
         overview={overview}
+        heroImageUrl={SITE_IMAGES.hero}
+        manifestPath={path}
         breadcrumbs={[
           { name: 'Home', href: '/' },
-          { name: 'Service Areas', href: '/#services' },
+          { name: 'Service Areas', href: '/areas' },
           { name: city.name },
         ]}
         benefits={[

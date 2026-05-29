@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next'
-import { Inter, Fraunces } from 'next/font/google'
+import { Montserrat, Fraunces } from 'next/font/google'
 import { Navigation } from '@/components/Navigation'
 import { ConditionalFooter } from '@/components/ConditionalFooter'
 import { Toaster } from '@/components/ui/toaster'
@@ -8,10 +8,10 @@ import { ScrollToTop } from '@/components/ScrollToTop'
 import { SITE_TAGLINE } from '@/shared/siteContent'
 import './globals.css'
 
-const inter = Inter({
+const montserrat = Montserrat({
   subsets: ['latin'],
   weight: ['300', '400', '500', '600'],
-  variable: '--font-inter',
+  variable: '--font-montserrat',
   display: 'swap',
 })
 
@@ -76,7 +76,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={`${inter.variable} ${fraunces.variable}`}>
+    <html lang="en" className={`${montserrat.variable} ${fraunces.variable}`}>
       <body className="min-h-screen bg-background font-sans antialiased">
         <Providers>
           <ScrollToTop />

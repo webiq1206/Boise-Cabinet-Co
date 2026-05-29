@@ -6,43 +6,57 @@ import {
   DIFFERENTIATORS,
   DIFFERENTIATORS_HEADLINE,
   DIFFERENTIATORS_INTRO,
+  HOMEPAGE_DIFFERENTIATOR_INDICES,
 } from "@/shared/siteContent";
+import { CTA_PRIMARY } from "@/shared/ctaCopy";
 
-export function WhyChooseUsSection() {
+interface WhyChooseUsSectionProps {
+  /** When set, show only the first N homepage-curated differentiators. */
+  limit?: number;
+}
+
+export function WhyChooseUsSection({ limit }: WhyChooseUsSectionProps) {
+  const items =
+    limit !== undefined
+      ? HOMEPAGE_DIFFERENTIATOR_INDICES.map((i) => DIFFERENTIATORS[i])
+      : DIFFERENTIATORS;
+
   return (
-    <Section id="why-choose-us" variant="inverse">
+    <Section id="why-choose-us" divider>
       <div className="container px-4">
         <SectionHeader
           eyebrow="What sets us apart"
           title={DIFFERENTIATORS_HEADLINE}
           description={DIFFERENTIATORS_INTRO}
           className="max-w-3xl"
-          inverse
         />
 
-        <div className="max-w-3xl mx-auto divide-y divide-inverse-foreground/15 border-t border-inverse-foreground/15">
-          {DIFFERENTIATORS.map((item, i) => (
+        <div className="max-w-3xl mx-auto divide-y divide-border border-t border-border">
+          {items.map((item, i) => (
             <Reveal key={item.title} delay={i * 40}>
-              <div className="py-7 md:py-8 grid grid-cols-[2.5rem_1fr] md:grid-cols-[3.5rem_1fr] gap-x-4 md:gap-x-8 items-start">
-                <div className="font-serif font-light text-accent text-2xl md:text-3xl leading-none tabular-nums pt-0.5">
-                  {String(i + 1).padStart(2, "0")}
-                </div>
-                <div>
-                  <h3 className="font-serif font-light text-inverse-foreground text-xl md:text-2xl leading-snug mb-2">
-                    {item.title}
-                  </h3>
-                  <p className="text-sm md:text-base leading-relaxed text-inverse-muted">
-                    <span className="text-inverse-foreground/90">{item.contrast}</span> {item.body}
-                  </p>
-                </div>
+              <div className="py-7 md:py-8">
+                <h3 className="font-sans font-light text-foreground text-xl md:text-2xl leading-snug mb-2">
+                  {item.title}
+                </h3>
+                <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
+                  <span className="text-foreground/90">{item.contrast}</span> {item.body}
+                </p>
               </div>
             </Reveal>
           ))}
         </div>
 
+        {limit !== undefined && (
+          <p className="text-sm text-muted-foreground text-center mt-6 max-w-xl mx-auto">
+            <a href="/about" className="text-foreground hover:text-accent transition-colors font-medium">
+              Learn more about our approach
+            </a>
+          </p>
+        )}
+
         <Reveal className="mt-12 text-center">
-          <Button variant="brandAccent" asChild>
-            <a href="#consult">Schedule your consultation</a>
+          <Button variant="brand" asChild>
+            <a href="#consult">{CTA_PRIMARY}</a>
           </Button>
         </Reveal>
       </div>

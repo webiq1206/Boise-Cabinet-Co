@@ -21,6 +21,7 @@ import {
   SERVICE_SEO_CONTENT,
 } from '@/shared/seoContent';
 import { generateSpeakableSchema } from '@/lib/schema';
+import { getServiceBackground } from '@/shared/serviceBackgrounds';
 
 export function generateStaticParams() {
   return getAllCityServiceParams();
@@ -86,6 +87,8 @@ export default function CityServicePage({
         h1={h1}
         speakableSummary={overview}
         overview={overview}
+        heroImageUrl={getServiceBackground(service.slug)}
+        manifestPath={path}
         breadcrumbs={[
           { name: 'Home', href: '/' },
           { name: service.name, href: `/services/${service.slug}` },

@@ -6,7 +6,7 @@ import {
   generateWebSiteSchema,
   generateSpeakableSchema,
 } from '@/lib/schema';
-import { HOMEPAGE_FAQS_FOR_SCHEMA } from '@/shared/seoContent';
+import { HOMEPAGE_FAQS } from '@/shared/homepageFaqs';
 
 export function HomePageSchema() {
   return (
@@ -15,10 +15,12 @@ export function HomePageSchema() {
         generateOrganizationSchema(),
         generateLocalBusinessSchema('Boise'),
         generateWebSiteSchema(),
-        generateFAQSchema(HOMEPAGE_FAQS_FOR_SCHEMA),
+        generateFAQSchema(
+          HOMEPAGE_FAQS.map((f) => ({ question: f.q, answer: f.a })),
+        ),
         generateSpeakableSchema({
           path: '/',
-          name: 'Boise Remodeling Co — Design-Build Remodeling in the Treasure Valley',
+          name: 'Boise Remodeling Co, Design-Build Remodeling in the Treasure Valley',
         }),
       ]}
     />

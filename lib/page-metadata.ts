@@ -78,17 +78,17 @@ export function buildPageMetadata(input: PageMetaInput): Metadata {
     case 'about':
       title = 'About Us';
       description =
-        'Learn about Boise Remodeling Co — Treasure Valley design-build remodeling. Licensed, insured, and committed to clear communication from consultation to walkthrough.';
+        'Learn about Boise Remodeling Co, Treasure Valley design-build remodeling. Licensed, insured, and committed to clear communication from consultation to walkthrough.';
       break;
     case 'contact':
       title = 'Contact Us';
       description =
-        'Contact Boise Remodeling Co for a free in-home consultation. Call (208) 555-0100 or schedule online. Serving Boise, Meridian, Eagle, Nampa, and the Treasure Valley.';
+        'Contact Boise Remodeling Co for a free in-home consultation. Call (208) 555-0100 or schedule online. Serving Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, Caldwell, and the Treasure Valley.';
       break;
     case 'blog':
       title = 'Remodeling Insights & Ideas';
       description =
-        'Honest remodeling advice for Idaho homeowners — budgeting, timelines, permits, and design-build guidance from Boise Remodeling Co.';
+        'Honest remodeling advice for Idaho homeowners: budgeting, timelines, permits, and design-build guidance from Boise Remodeling Co.';
       break;
     default:
       title = input.titleOverride || 'Boise Remodeling Co';

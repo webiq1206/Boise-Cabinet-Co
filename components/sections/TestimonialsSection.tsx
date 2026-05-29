@@ -27,7 +27,7 @@ export function TestimonialsSection({ limit = 4, showViewAll = true }: Testimoni
   const items = TESTIMONIALS.slice(0, limit);
 
   return (
-    <Section id="testimonials" variant="surface" divider>
+    <Section id="testimonials" divider>
       <div className="container px-4">
         <SectionHeader
           eyebrow="Homeowner reviews"

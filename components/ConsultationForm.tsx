@@ -127,7 +127,7 @@ export function ConsultationForm() {
         <div className="w-10 h-10 rounded-sm flex items-center justify-center bg-accent/10">
           <CheckCircle2 className="h-5 w-5 text-accent" />
         </div>
-        <h3 className="font-serif font-light text-2xl text-foreground">
+        <h3 className="font-sans font-light text-2xl text-foreground">
           We&apos;ll be in touch shortly.
         </h3>
         <p className="text-sm leading-relaxed text-muted-foreground">
@@ -166,7 +166,7 @@ export function ConsultationForm() {
     return (
       <div className="space-y-5" data-testid="confirm-consultation">
         <div>
-          <h3 className="font-serif font-light text-2xl text-foreground">
+          <h3 className="font-sans font-light text-2xl text-foreground">
             Does everything look right?
           </h3>
           <p className="text-sm text-muted-foreground mt-1">
@@ -290,7 +290,7 @@ export function ConsultationForm() {
 
             {decision === "deciding" && (
               <div className="space-y-2 border-t border-accent/20 pt-3">
-                <p className="text-foreground">No problem — what would you like to do?</p>
+                <p className="text-foreground">No problem. What would you like to do?</p>
                 <div className="flex flex-wrap gap-2">
                   <Button
                     type="button"

@@ -7,10 +7,12 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Menu, Phone, X } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { CTA_PRIMARY, CTA_PRIMARY_SHORT } from "@/shared/ctaCopy";
 
 const NAV_LINKS = [
   { label: "Services", href: "/#services" },
-  { label: "Areas", href: "/areas/boise" },
+  { label: "Our Work", href: "/testimonials" },
+  { label: "Areas", href: "/areas" },
   { label: "About", href: "/about" },
   { label: "Blog", href: "/blog" },
   { label: "Contact", href: "/contact" },
@@ -24,12 +26,12 @@ function Logo({ hero }: { hero: boolean }) {
     <Link href="/" className="flex flex-col leading-none">
       <span
         className={cn(
-          "font-serif text-[1.05rem] font-light tracking-tight transition-colors duration-300",
+          "font-sans text-[1.05rem] font-light tracking-tight transition-colors duration-300",
           hero ? "text-inverse-foreground" : "text-foreground"
         )}
       >
         Boise{" "}
-        <em className={cn("italic transition-colors duration-300", hero ? "text-inverse-muted" : "text-foreground")}>
+        <em className={cn("brc-accent transition-colors duration-300", hero ? "text-inverse-muted" : "text-accent")}>
           Remodeling
         </em>{" "}
         Co
@@ -121,7 +123,7 @@ export function Navigation() {
               {PHONE}
             </a>
             <Button variant={isHeroMode ? "brandAccent" : "brand"} size="sm" asChild>
-              <a href="/#consult">Schedule consultation</a>
+              <a href="/#consult">{CTA_PRIMARY_SHORT}</a>
             </Button>
           </div>
 
@@ -168,7 +170,7 @@ export function Navigation() {
                     </a>
                     <Button variant="brand" className="w-full" asChild>
                       <a href="/#consult" onClick={() => setMobileOpen(false)}>
-                        Schedule consultation
+                        {CTA_PRIMARY}
                       </a>
                     </Button>
                   </div>
@@ -194,7 +196,7 @@ export function Navigation() {
             className="flex items-center justify-center gap-2 py-4 text-sm font-medium text-foreground"
             data-testid="button-begin-conversation-mobile"
           >
-            Schedule visit
+            {CTA_PRIMARY_SHORT}
           </a>
         </div>
       </div>

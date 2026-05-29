@@ -28,7 +28,7 @@ export function LeadershipSection() {
         <div className="section-y-sm px-8 md:px-14 lg:px-16 bg-card order-2 md:order-1">
           <Reveal>
             <div className="brc-label mb-5">{LEADERSHIP_COPY.label}</div>
-            <h2 className="font-serif font-light text-section-title md:text-section-title-lg mb-8 text-foreground">
+            <h2 className="font-sans font-light text-section-title md:text-section-title-lg mb-8 text-foreground">
               {LEADERSHIP_COPY.headline}
             </h2>
             <div className="space-y-4 text-base leading-relaxed mb-8 text-muted-foreground">

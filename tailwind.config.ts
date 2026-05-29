@@ -117,7 +117,7 @@ export default {
         },
       },
       fontFamily: {
-        sans: ["var(--font-inter)", "Helvetica Neue", "system-ui", "sans-serif"],
+        sans: ["var(--font-montserrat)", "Helvetica Neue", "system-ui", "sans-serif"],
         serif: ["var(--font-fraunces)", "Georgia", "serif"],
         mono: ["Menlo", "Monaco", "monospace"],
       },
