@@ -4,10 +4,6 @@ import {
   CalendarClock,
   Wallet,
   Hammer,
-  Sparkles,
-  UserCheck,
-  FileCheck,
-  Eye,
   HeartHandshake,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
@@ -143,26 +139,6 @@ export const CLIENT_PRIORITIES: ClientPriority[] = [
     title: "A stress-free process",
     body: "Dust barriers, floor protection, and a team that respects your home while you live through the remodel.",
     icon: HeartHandshake,
-  },
-  {
-    title: "Design expertise",
-    body: "Full design-build under one roof: layout, finishes, and construction coordinated from a single team.",
-    icon: Sparkles,
-  },
-  {
-    title: "Accountability",
-    body: "Written scope commitments, written change orders only, and a team that stands behind the work.",
-    icon: UserCheck,
-  },
-  {
-    title: "Clear expectations",
-    body: "You know what is included, what is optional, and what happens at every phase before construction starts.",
-    icon: FileCheck,
-  },
-  {
-    title: "Confidence in the outcome",
-    body: "Detailed scope review, optional 3D visualizations, and a 2-year workmanship guarantee on every project.",
-    icon: Eye,
   },
 ];
 
