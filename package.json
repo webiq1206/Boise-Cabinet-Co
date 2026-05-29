@@ -12,6 +12,7 @@
     "db:push": "drizzle-kit push",
     "links:generate": "tsx scripts/internal-links/generate.ts",
     "audit:links": "tsx scripts/internal-links/audit.ts",
+    "images:placeholders": "node scripts/generate-placeholder-images.mjs",
     "prebuild": "npm run links:generate && npm run audit:links"
   },
   "dependencies": {

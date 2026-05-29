@@ -243,7 +243,7 @@ export const AREA_PAGE_FAQS: FAQItem[] = [
   {
     question: 'How do I start a project?',
     answer:
-      'Call (208) 555-0100, use our project estimator, or schedule a free in-home consultation through our website.',
+      'Call us, use our project estimator, or schedule a free in-home consultation through our website.',
   },
 ];
 

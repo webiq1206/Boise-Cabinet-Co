@@ -4,6 +4,8 @@
  * for service and location pages
  */
 
+import { SITE_CONFIG } from '@/shared/siteConfig';
+
 interface SEOMetaData {
   title: string;
   description: string;
@@ -150,7 +152,7 @@ const CITY_CTA_VARIANTS: Record<string, string> = {
  */
 export function generateMetaDescription(params: ServiceSEOParams): string {
   const { serviceName, city } = params;
-  const phone = "(208) 555-0100";
+  const phone = SITE_CONFIG.phone;
   
   if (params.isHomePage) {
     return `Design-build remodeling contractor serving Boise, Meridian, Eagle & the Treasure Valley. Licensed, insured, top-rated. Call ${phone} for your free consultation!`;
@@ -197,7 +199,7 @@ export function generateCityServiceDescription(
   cityName: string,
   shortDescription?: string,
 ): string {
-  const phone = "(208) 555-0100";
+  const phone = SITE_CONFIG.phone;
   const serviceLC = serviceName.toLowerCase();
   const cityVariant = CITY_DESCRIPTION_VARIANTS[cityName] || `${cityName}'s trusted`;
   const cityData = CITY_SEO_DATA[cityName as keyof typeof CITY_SEO_DATA];
@@ -411,15 +413,15 @@ export const CITY_SEO_DATA: Record<string, {
  * Business information for NAP consistency
  */
 export const BUSINESS_INFO = {
-  name: 'Boise Remodeling Co',
-  legalName: 'Boise Remodeling Co LLC',
-  phone: '(208) 555-0100',
-  email: 'hello@boiseremodeling.co',
+  name: SITE_CONFIG.name,
+  legalName: SITE_CONFIG.legalName,
+  phone: SITE_CONFIG.phone,
+  email: SITE_CONFIG.email,
   address: {
-    street: '2283 N Coopers Hawk Ave',
-    city: 'Kuna',
+    street: SITE_CONFIG.address.street,
+    city: SITE_CONFIG.address.city,
     state: 'Idaho',
-    zip: '83634',
+    zip: SITE_CONFIG.address.zip,
     country: 'United States',
   },
   hours: {

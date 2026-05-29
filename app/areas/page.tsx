@@ -1,7 +1,11 @@
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Section } from "@/components/marketing/Section";
+import { PageHeader } from "@/components/marketing/PageHeader";
+import { TextLink } from "@/components/marketing/TextLink";
+import { GALLERY_IMAGES } from "@/shared/siteImages";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Button } from "@/components/ui/button";
 import { MarketingCard } from "@/components/marketing/MarketingCard";
@@ -42,12 +46,19 @@ export default function AreasHubPage() {
         <Section spacing="sm" className="pt-8 md:pt-12">
           <div className="container px-4 max-w-3xl">
             <Breadcrumbs items={[{ name: "Home", href: "/" }, { name: "Service Areas" }]} />
-            <h1 className="font-sans font-light text-display md:text-[2.75rem] tracking-tight text-foreground mt-6 mb-6">
-              Treasure Valley service areas
-            </h1>
-            <p className="text-lg text-muted-foreground leading-relaxed mb-8" data-speakable="summary">
-              We serve homeowners across {TREASURE_VALLEY_CITIES}, and surrounding communities
-              with kitchen, bathroom, whole-home, and addition remodeling under one design-build team.
+            <PageHeader
+              align="left"
+              className="mt-6"
+              title={
+                <>
+                  Treasure Valley service{" "}
+                  <em className="brc-accent text-accent">areas</em>
+                </>
+              }
+              description={`We serve homeowners across ${TREASURE_VALLEY_CITIES}, and surrounding communities with kitchen, bathroom, whole-home, and addition remodeling under one design-build team.`}
+            />
+            <p className="sr-only" data-speakable="summary">
+              Treasure Valley design-build remodeling service areas.
             </p>
             <div className="flex flex-wrap gap-3">
               <Button variant="brand" asChild>
@@ -62,26 +73,42 @@ export default function AreasHubPage() {
           </div>
         </Section>
 
-        <Section divider>
+        <Section variant="greige" divider>
           <div className="container px-4">
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-6xl mx-auto">
-              {CITIES.map((city) => (
-                <MarketingCard key={city.slug} className="h-full">
+              {CITIES.map((city, i) => {
+                const images = [
+                  GALLERY_IMAGES.kitchen.after,
+                  GALLERY_IMAGES.bathroom.after,
+                  GALLERY_IMAGES.wholeHome.after,
+                  GALLERY_IMAGES.addition.after,
+                ];
+                const img = images[i % images.length];
+                return (
+                <MarketingCard key={city.slug} className="h-full p-0 overflow-hidden">
+                  <div className="relative aspect-[4/3]">
+                    <Image
+                      src={img}
+                      alt={`Remodeling in ${city.name}, Idaho`}
+                      fill
+                      sizes="300px"
+                      className="object-cover img-brand-grade"
+                    />
+                  </div>
+                  <div className="p-6">
                   <h2 className="font-sans font-medium text-sm mb-2 text-foreground">
                     {city.name}, Idaho
                   </h2>
                   <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
                     Design-build remodeling in {city.name} and {city.county === "ada" ? "Ada" : "Canyon"} County.
                   </p>
-                  <Link
-                    href={areaPath(city.slug)}
-                    className="inline-flex items-center gap-2 text-sm font-medium text-foreground hover:text-foreground/70 transition-colors"
-                  >
+                  <TextLink href={areaPath(city.slug)} showArrow>
                     View {city.name} services
-                    <ArrowRight className="h-4 w-4" />
-                  </Link>
+                  </TextLink>
+                  </div>
                 </MarketingCard>
-              ))}
+              );
+              })}
             </div>
           </div>
         </Section>

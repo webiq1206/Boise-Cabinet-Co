@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Home, ArrowRight, Phone, Wrench } from "lucide-react";
 import { DisplayNum } from "@/components/marketing";
+import { SITE_CONFIG } from "@/shared/siteConfig";
 
 export const metadata: Metadata = {
   title: "Page Not Found (404)",
@@ -65,9 +66,9 @@ export default function NotFound() {
             </Link>
           </Button>
           <Button variant="brandOutline" size="lg" asChild>
-            <a href="tel:2085550100">
+            <a href={SITE_CONFIG.phoneHref}>
               <Phone className="h-5 w-5 mr-2" />
-              Call (208) 555-0100
+              Call {SITE_CONFIG.phone}
             </a>
           </Button>
         </div>

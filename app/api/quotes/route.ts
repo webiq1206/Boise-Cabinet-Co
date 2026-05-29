@@ -7,6 +7,7 @@ import { sendQuoteConfirmationEmail, sendAdminNotificationEmail } from "@/lib/re
 import { getRecurringEligibleServices } from "@shared/serviceSeasonality";
 import { findActiveDuplicate, signEditToken, type DedupeCandidate } from "@/lib/leadDedupe";
 import { HOUSE_NUMBER_REGEX, HOUSE_NUMBER_ERROR_MESSAGE } from "@/shared/addressValidation";
+import { SITE_CONFIG } from "@/shared/siteConfig";
 
 const quoteSubmissionSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -205,7 +206,7 @@ export async function POST(request: Request) {
               duplicate: true,
               status: "in_progress",
               message:
-                "We already have your request and a contractor is handling it. Please call (208) 555-0100 or email hello@boiseremodeling.co to make changes.",
+                `We already have your request and a contractor is handling it. Please call ${SITE_CONFIG.phone} or email ${SITE_CONFIG.email} to make changes.`,
               existingLeadId: dup.lead.id,
               existingQuoteId: dup.lead.quoteId,
             });
@@ -217,7 +218,7 @@ export async function POST(request: Request) {
               duplicate: true,
               status: "open",
               message:
-                "We already received a quote request from you for this property. Please call (208) 555-0100 or email hello@boiseremodeling.co to make changes.",
+                `We already received a quote request from you for this property. Please call ${SITE_CONFIG.phone} or email ${SITE_CONFIG.email} to make changes.`,
               existingLeadId: dup.lead.id,
               existingQuoteId: null,
             });

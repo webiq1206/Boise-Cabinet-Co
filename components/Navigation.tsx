@@ -8,6 +8,7 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Menu, Phone, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { CTA_PRIMARY, CTA_PRIMARY_SHORT } from "@/shared/ctaCopy";
+import { SITE_CONFIG } from "@/shared/siteConfig";
 
 const NAV_LINKS = [
   { label: "Services", href: "/#services" },
@@ -17,9 +18,6 @@ const NAV_LINKS = [
   { label: "Blog", href: "/blog" },
   { label: "Contact", href: "/contact" },
 ];
-
-const PHONE = "(208) 555-0100";
-const PHONE_HREF = "tel:2085550100";
 
 function Logo({ hero }: { hero: boolean }) {
   return (
@@ -109,7 +107,7 @@ export function Navigation() {
 
           <div className="hidden md:flex items-center gap-4">
             <a
-              href={PHONE_HREF}
+              href={SITE_CONFIG.phoneHref}
               className={cn(
                 "flex items-center gap-2 text-[13px] font-medium transition-colors",
                 isHeroMode ? "text-inverse-muted hover:text-inverse-foreground" : "text-muted-foreground hover:text-foreground"
@@ -120,9 +118,9 @@ export function Navigation() {
                 <span className="pulse-accent absolute inline-flex h-full w-full rounded-full bg-accent opacity-75" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-accent" />
               </span>
-              {PHONE}
+              {SITE_CONFIG.phone}
             </a>
-            <Button variant={isHeroMode ? "brandAccent" : "brand"} size="sm" asChild>
+            <Button variant="brand" size="sm" asChild>
               <a href="/#consult">{CTA_PRIMARY_SHORT}</a>
             </Button>
           </div>
@@ -159,14 +157,14 @@ export function Navigation() {
                   ))}
                   <div className="mt-6 pt-6 border-t border-border space-y-3">
                     <a
-                      href={PHONE_HREF}
+                      href={SITE_CONFIG.phoneHref}
                       className="flex items-center gap-3 px-4 py-3 text-base font-medium rounded-sm text-foreground"
                     >
                       <span className="relative flex h-2.5 w-2.5">
                         <span className="pulse-accent absolute inline-flex h-full w-full rounded-full bg-accent opacity-75" />
                         <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-accent" />
                       </span>
-                      {PHONE}
+                      {SITE_CONFIG.phone}
                     </a>
                     <Button variant="brand" className="w-full" asChild>
                       <a href="/#consult" onClick={() => setMobileOpen(false)}>
@@ -184,7 +182,7 @@ export function Navigation() {
       <div className="fixed bottom-0 left-0 right-0 z-[100] md:hidden pb-safe bg-background/97 backdrop-blur border-t border-border">
         <div className="grid grid-cols-2 divide-x divide-border">
           <a
-            href={PHONE_HREF}
+            href={SITE_CONFIG.phoneHref}
             className="flex items-center justify-center gap-2 py-4 text-sm font-medium text-foreground"
             data-testid="button-call-mobile"
           >

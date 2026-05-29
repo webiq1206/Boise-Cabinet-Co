@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { Section } from '@/components/marketing/Section';
+import { PageHeader } from '@/components/marketing/PageHeader';
 import { Button } from '@/components/ui/button';
 import { ProjectGallerySection } from '@/components/sections/ProjectGallerySection';
 import { TestimonialsSection } from '@/components/sections/TestimonialsSection';
@@ -27,13 +28,18 @@ export default function TestimonialsPage() {
               { name: 'Projects & Reviews' },
             ]}
           />
-          <h1 className="font-sans font-light text-display md:text-[2.75rem] tracking-tight text-foreground mt-6 mb-6">
-            Projects &amp; homeowner reviews
-          </h1>
-          <p className="text-lg text-muted-foreground leading-relaxed mb-8">
-            Explore recent design-build work across the Treasure Valley and hear from homeowners
-            who prioritized clarity, craftsmanship, and communication.
-          </p>
+          <PageHeader
+            align="left"
+            className="mt-6"
+            title={
+              <>
+                Projects &amp; homeowner{" "}
+                <em className="brc-accent text-accent">reviews</em>
+              </>
+            }
+            description="Explore recent design-build work across the Treasure Valley and hear from homeowners who prioritized clarity, craftsmanship, and communication."
+          />
+          <div className="mb-8" />
           <div className="flex flex-wrap gap-3">
             <Button variant="brand" asChild>
               <Link href="/#consult">

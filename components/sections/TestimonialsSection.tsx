@@ -22,7 +22,7 @@ function StarRow({ count }: { count: number }) {
   return (
     <div className="flex gap-0.5">
       {Array.from({ length: count }).map((_, idx) => (
-        <Star key={idx} className="h-3.5 w-3.5 fill-foreground/20 text-foreground/25" />
+        <Star key={idx} className="h-3.5 w-3.5 fill-foreground text-foreground" />
       ))}
     </div>
   );
@@ -38,7 +38,7 @@ export function TestimonialsSection({ limit = 4, showViewAll = true }: Testimoni
   const [featured, ...rest] = items;
 
   return (
-    <Section id="testimonials" divider>
+    <Section id="testimonials" variant="greige" divider>
       <div className="container px-4">
         <SectionHeader
           align="center"

@@ -2,73 +2,69 @@
 
 ## Design Approach
 
-**Premium, Clear, Trustworthy** — Design-build remodeling with a calm, editorial feel: warm neutrals, confident typography, and enough whitespace that planning content feels approachable, not salesy.
+**Premium, Clear, Trustworthy** — Design-build remodeling with a calm, editorial feel: warm neutrals, confident typography, and generous whitespace.
 
 **Core principles:**
 - Clarity over clutter: one primary action per section
-- Trust through process and copy, not hype
-- Mobile-first: key conversion elements (estimate range, consult CTA) stay visible
-- Consistent design tokens across marketing and portal surfaces
+- Charcoal primary CTAs; sage accent for heading emphasis only
+- Mobile-first conversion (estimator, consult CTA)
+- Shared tokens in `app/globals.css` — no one-off page styles
 
 ---
 
 ## Color Palette
 
-Brand tokens live in `app/globals.css` and Tailwind theme extensions.
-
-**Primary (warm brown):** `--primary` — CTAs, key actions  
-**Accent (copper):** `--accent` — highlights, selected states, detail meter  
-**Inverse (charcoal):** `--inverse` — estimate result panel, premium contrast blocks  
-**Background / surface:** warm off-white and card surfaces for section rhythm
-
-Use `bg-inverse` + `text-inverse-foreground` for the planning range card, not ad-hoc hex values.
+| Role | Token | Use |
+|------|-------|-----|
+| Canvas | `--background` | Default sections |
+| Greige | `--surface-greige` | Alternating sections |
+| Card | `--card` | White cards |
+| Ink | `--foreground` | Body text (AA) |
+| Meta | `--muted-foreground` | Eyebrows, captions only |
+| Anchor | `--inverse` | Dark bands, footer |
+| Accent | `--accent` (sage) | `.brc-accent` in headings, slider thumb — not filled buttons |
 
 ---
 
 ## Typography
 
-- **Default (headlines, body, UI):** Montserrat (`font-sans`)
-- **Decorative accent only:** Fraunces via `.brc-accent` on italic emphasis phrases (e.g. hero “clarity”, statement band “outlast the guarantee”, logo “Remodeling”)
-- **Decorative numerals:** Fraunces via `.brc-display-num` or `<DisplayNum>` (stats, prices, step markers, KPI counts)
-- **Labels:** `.brc-label`, uppercase, tracked, muted (Montserrat)
+- **UI & body:** Montserrat (`font-sans`)
+- **Accent word:** Fraunces italic via `.brc-accent` (max one word per heading)
+- **Numerals:** Fraunces via `.brc-display-num` / `<DisplayNum>`
+- **Eyebrows:** `.brc-label` — 11px, uppercase, 0.14em tracking
 
-Section titles use `.text-section-title` scale; avoid one-off font sizes on marketing pages.
+Living reference: `/style-guide` (noindex).
+
+---
+
+## Buttons & links
+
+1. **Primary:** `Button variant="brand"` (charcoal solid)
+2. **Secondary:** `Button variant="brandOutline"`
+3. **Tertiary:** `<TextLink href="…">`
+
+Do not use `brandAccent`, `brandGhost`, or `brandInverseOutline` on marketing pages.
 
 ---
 
 ## Components
 
-Prefer shared marketing primitives:
-
-- `Section` — page sections with optional divider
-- `MarketingCard` — bordered cards on light backgrounds
-- `EstimateResultPanel` — dark planning range card (desktop sticky + mobile)
-- `EstimateCalculator` — unified quick + refine estimator
-
-Match existing border radius (`rounded-sm`), spacing (`section-y`), and hover patterns.
+- `Section` — variants: `canvas` (default), `greige`, `surface`, `inverse`, `tint`
+- `PageHeader` — inner page heroes
+- `MarketingCard` / `BlogCard`
+- `Hairline` — fullBleed, spaced
+- `Chip` — categories and tags
 
 ---
 
 ## Imagery
 
-- Real project photography where available; no stock “generic contractor” clichés
-- Hero and service imagery should reinforce **design-build** (finished spaces, detail shots)
-- Optional 3D renderings are positioned as upgrades, not the default promise
+- Paths: `shared/siteImages.ts`, `shared/serviceBackgrounds.ts`, `shared/blogImages.ts`
+- Class: `.img-brand-grade` on all `next/image` marketing photos
+- Replace placeholder files in `public/images/` before launch
 
 ---
 
-## Copy & SEO
+## Contact config
 
-- Site name: **Boise Remodeling Co**
-- Domain: **boiseremodeling.co**
-- Title template: `%s | Boise Remodeling Co`
-- Position estimates as **planning ranges**, not bids or line-item quotes
-- No em dashes in customer-facing copy
-
----
-
-## Accessibility
-
-- Interactive toggles: `aria-pressed`, `aria-expanded` where applicable
-- Live estimate updates: `aria-live="polite"` on the range
-- Sufficient contrast on inverse panels; don’t rely on color alone for state
+Single source: `shared/siteConfig.ts` (env: `NEXT_PUBLIC_PHONE`, `NEXT_PUBLIC_EMAIL`, `NEXT_PUBLIC_SITE_URL`).

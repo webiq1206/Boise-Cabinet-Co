@@ -158,7 +158,7 @@ export default function SubcontractorPage() {
               Join our network today and start receiving high-quality remodeling leads. No monthly fees, no commitments: only pay for the leads you want.
             </p>
             <Button 
-              variant="brandAccent"
+              variant="brand"
               size="lg" 
               onClick={handleLogin}
               data-testid="button-login-cta"

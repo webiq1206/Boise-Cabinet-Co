@@ -1,7 +1,8 @@
 import { Resend } from 'resend';
+import { SITE_CONFIG } from '@/shared/siteConfig';
 
 const ADMIN_EMAILS = [
-  "hello@boiseremodeling.co",
+  SITE_CONFIG.email,
   "webiq.co@gmail.com",
 ];
 
@@ -9,7 +10,7 @@ async function getCredentials() {
   if (process.env.RESEND_API_KEY) {
     return {
       apiKey: process.env.RESEND_API_KEY,
-      fromEmail: 'Boise Remodeling Co <hello@boiseremodeling.co>'
+      fromEmail: `Boise Remodeling Co <${SITE_CONFIG.email}>`
     };
   }
 

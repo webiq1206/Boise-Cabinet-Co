@@ -4,9 +4,7 @@ import { SITE_TAGLINE } from "@/shared/siteContent";
 import { areaPath, servicePath } from "@/lib/seo-routes";
 import { CTA_PRIMARY, CTA_SECONDARY } from "@/shared/ctaCopy";
 
-const PHONE = "(208) 555-0100";
-const PHONE_HREF = "tel:2085550100";
-const EMAIL = "hello@boiseremodeling.co";
+import { SITE_CONFIG } from "@/shared/siteConfig";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -26,16 +24,16 @@ export function Footer() {
             </p>
             <div className="space-y-2">
               <a
-                href={PHONE_HREF}
+                href={SITE_CONFIG.phoneHref}
                 className="block text-sm text-inverse-muted hover:text-inverse-foreground transition-colors"
               >
-                {PHONE}
+                {SITE_CONFIG.phone}
               </a>
               <a
-                href={`mailto:${EMAIL}`}
+                href={`mailto:${SITE_CONFIG.email}`}
                 className="block text-sm text-inverse-muted hover:text-inverse-foreground transition-colors"
               >
-                {EMAIL}
+                {SITE_CONFIG.email}
               </a>
               <p className="text-sm text-inverse-muted">
                 Boise, Idaho · Treasure Valley
@@ -114,8 +112,8 @@ export function Footer() {
               {[
                 { label: CTA_PRIMARY, href: "/#consult" },
                 { label: CTA_SECONDARY, href: "/#calculator" },
-                { label: PHONE, href: PHONE_HREF },
-                { label: EMAIL, href: `mailto:${EMAIL}` },
+                { label: SITE_CONFIG.phone, href: SITE_CONFIG.phoneHref },
+                { label: SITE_CONFIG.email, href: `mailto:${SITE_CONFIG.email}` },
               ].map((link) => (
                 <li key={link.label}>
                   <a

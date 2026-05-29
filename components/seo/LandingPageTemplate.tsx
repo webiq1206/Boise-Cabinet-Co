@@ -6,7 +6,7 @@ import { DisplayNum, formatStepNumber, Section } from '@/components/marketing';
 import { MarketingCard } from '@/components/marketing/MarketingCard';
 import { Button } from '@/components/ui/button';
 import { RelatedLinks } from './RelatedLinks';
-import { ManifestRelatedLinks } from './ManifestRelatedLinks';
+import { RelatedPostCards } from '@/components/marketing/RelatedPostCards';
 import type { FAQItem } from '@/shared/seoContent';
 import { CTA_PRIMARY, CTA_SECONDARY } from '@/shared/ctaCopy';
 import {
@@ -64,11 +64,12 @@ export function LandingPageTemplate({
             src={heroImageUrl}
             alt=""
             fill
-            className="object-cover opacity-60"
+            className="object-cover opacity-70 img-brand-grade"
             sizes="100vw"
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-inverse/40 via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent" />
         </div>
       )}
 
@@ -98,7 +99,7 @@ export function LandingPageTemplate({
       </Section>
 
       {benefits && benefits.length > 0 && (
-        <Section divider>
+        <Section variant="greige" divider>
           <div className="container px-4 max-w-5xl">
             <h2 className="font-sans font-light text-section-title md:text-section-title-lg mb-8 text-foreground">
               Why homeowners choose us
@@ -136,7 +137,7 @@ export function LandingPageTemplate({
       )}
 
       {processSteps && processSteps.length > 0 && (
-        <Section divider>
+        <Section variant="greige" divider>
           <div className="container px-4 max-w-3xl">
             <h2 className="font-sans font-light text-section-title mb-8 text-foreground">
               Our process
@@ -202,7 +203,7 @@ export function LandingPageTemplate({
       <Section divider>
         <div className="container px-4 max-w-5xl space-y-12">
           <RelatedLinks {...related} />
-          {manifestPath && <ManifestRelatedLinks path={manifestPath} />}
+          {manifestPath && <RelatedPostCards path={manifestPath} />}
         </div>
       </Section>
 

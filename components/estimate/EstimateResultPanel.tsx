@@ -174,7 +174,7 @@ export function EstimateResultPanel({
       )}
 
       <Button
-        variant="brandAccent"
+        variant="brand"
         onClick={onBookVisit}
         className={cn("w-full", isCompact ? "mb-0" : "mb-3")}
         data-testid="button-book-visit"

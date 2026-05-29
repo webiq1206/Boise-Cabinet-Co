@@ -1,10 +1,11 @@
 import { cn } from "@/lib/utils";
 
-type SectionVariant = "canvas" | "surface" | "inverse" | "tint";
+type SectionVariant = "canvas" | "surface" | "greige" | "inverse" | "tint";
 
 const variantClasses: Record<SectionVariant, string> = {
   canvas: "bg-background text-foreground",
   surface: "bg-card text-card-foreground",
+  greige: "bg-surface-greige text-foreground",
   inverse: "bg-inverse text-inverse-foreground",
   tint: "bg-tint-warm text-foreground",
 };

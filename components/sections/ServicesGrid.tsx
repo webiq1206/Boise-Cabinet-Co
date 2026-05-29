@@ -1,10 +1,13 @@
+import Image from "next/image";
 import { Reveal } from "@/components/Reveal";
-import { ArrowRight } from "lucide-react";
 import { Section } from "@/components/marketing/Section";
 import { SectionHeader } from "@/components/marketing/SectionHeader";
+import { TextLink } from "@/components/marketing/TextLink";
+import { Button } from "@/components/ui/button";
 import { SERVICES } from "@/shared/contentData";
 import { servicePath } from "@/lib/seo-routes";
 import { CTA_SECONDARY } from "@/shared/ctaCopy";
+import { getServiceBackground } from "@/shared/serviceBackgrounds";
 
 export function ServicesGrid() {
   return (
@@ -22,34 +25,37 @@ export function ServicesGrid() {
           description="Full design-build coordination under one roof, not piecemeal trades managed by multiple vendors. One team handles layout, permitting, and construction so your project stays aligned from start to finish."
         />
 
-        <div className="max-w-3xl mx-auto divide-y divide-border border-t border-border">
+        <div className="grid sm:grid-cols-2 gap-6 md:gap-8 max-w-5xl mx-auto">
           {SERVICES.map((service, i) => (
             <Reveal key={service.slug} delay={i * 40}>
-              <div className="py-7 md:py-8">
+              <article className="group">
+                <div className="relative aspect-[4/3] overflow-hidden rounded-sm mb-4">
+                  <Image
+                    src={getServiceBackground(service.slug)}
+                    alt={`${service.name} project by Boise Remodeling Co`}
+                    fill
+                    sizes="(max-width: 640px) 100vw, 50vw"
+                    className="object-cover img-brand-grade transition-transform duration-300 ease-out group-hover:scale-[1.02]"
+                  />
+                </div>
                 <h3 className="font-sans font-medium text-base mb-2 text-foreground">
                   {service.name}
                 </h3>
                 <p className="text-sm leading-relaxed mb-4 text-muted-foreground">
                   {service.shortDescription}
                 </p>
-                <div className="flex flex-wrap gap-x-4 gap-y-2">
-                  <a
-                    href={servicePath(service.slug)}
-                    className="inline-flex items-center gap-2 text-sm font-medium text-foreground hover:text-foreground/70 transition-colors"
-                  >
-                    Learn more
-                    <ArrowRight className="h-4 w-4" />
-                  </a>
-                  <a
-                    href="#calculator"
-                    className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-                  >
-                    {CTA_SECONDARY}
-                  </a>
-                </div>
-              </div>
+                <TextLink href={servicePath(service.slug)} showArrow>
+                  Learn more
+                </TextLink>
+              </article>
             </Reveal>
           ))}
+        </div>
+
+        <div className="mt-12 text-center">
+          <Button variant="brand" asChild>
+            <a href="#calculator">{CTA_SECONDARY}</a>
+          </Button>
         </div>
       </div>
     </Section>

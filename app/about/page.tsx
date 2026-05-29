@@ -1,7 +1,10 @@
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import { JsonLd } from '@/components/seo/JsonLd';
+import Image from 'next/image';
 import { Section } from '@/components/marketing/Section';
+import { PageHeader } from '@/components/marketing/PageHeader';
+import { SITE_IMAGES } from '@/shared/siteImages';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { Button } from '@/components/ui/button';
 import { MarketingCard } from '@/components/marketing/MarketingCard';
@@ -48,15 +51,27 @@ export default function AboutPage() {
         <Section spacing="sm" className="pt-8 md:pt-12">
           <div className="container px-4 max-w-3xl">
             <Breadcrumbs items={[{ name: 'Home', href: '/' }, { name: 'About' }]} />
-            <h1 className="font-sans font-light text-display md:text-[2.75rem] tracking-tight text-foreground mt-6 mb-6">
-              About Boise Remodeling Co
-            </h1>
-            <p className="text-lg text-muted-foreground leading-relaxed mb-6" data-speakable="summary">
-              We are a locally owned design-build remodeling company serving the Treasure Valley.
-              Homeowners work with one accountable team from first in-home visit through final
-              walkthrough, not a patchwork of separate designers and contractors.
-            </p>
-            <p className="text-muted-foreground leading-relaxed mb-8">
+            <div className="mt-6 mb-10 relative aspect-[16/9] overflow-hidden rounded-sm">
+              <Image
+                src={SITE_IMAGES.leadership}
+                alt="Boise Remodeling Co design-build team at a finished kitchen project"
+                fill
+                sizes="(max-width: 768px) 100vw, 768px"
+                className="object-cover img-brand-grade"
+                priority
+              />
+            </div>
+            <PageHeader
+              align="left"
+              title={
+                <>
+                  About Boise Remodeling{" "}
+                  <em className="brc-accent text-accent">Co</em>
+                </>
+              }
+              description="We are a locally owned design-build remodeling company serving the Treasure Valley. Homeowners work with one accountable team from first in-home visit through final walkthrough."
+            />
+            <p className="text-foreground leading-relaxed mb-8 prose-measure" data-speakable="summary">
               Our focus is clarity: written scope before construction, proactive weekly updates,
               permits handled in-house for Ada and Canyon County, and a 2-year workmanship
               guarantee on our labor.

@@ -21,7 +21,7 @@ export function WhyChooseUsSection({ limit }: WhyChooseUsSectionProps) {
       : DIFFERENTIATORS;
 
   return (
-    <Section id="why-choose-us" divider>
+    <Section id="why-choose-us" variant="greige" divider>
       <div className="container px-4">
         <SectionHeader
           eyebrow="What sets us apart"

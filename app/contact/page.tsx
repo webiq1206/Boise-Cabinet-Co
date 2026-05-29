@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { Phone, Mail, MapPin } from 'lucide-react';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { Section } from '@/components/marketing/Section';
+import { PageHeader } from '@/components/marketing/PageHeader';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { Button } from '@/components/ui/button';
 import { buildPageMetadata } from '@/lib/page-metadata';
@@ -11,9 +12,8 @@ import {
   generateWebPageSchema,
 } from '@/lib/schema';
 import { BUSINESS_INFO } from '@/lib/seo';
+import { SITE_CONFIG } from '@/shared/siteConfig';
 import { CTA_PRIMARY, CTA_SECONDARY } from '@/shared/ctaCopy';
-
-const PHONE_HREF = 'tel:2085550100';
 
 export const metadata = buildPageMetadata({
   kind: 'contact',
@@ -41,17 +41,24 @@ export default function ContactPage() {
         <Section spacing="sm" className="pt-8 md:pt-12">
           <div className="container px-4 max-w-3xl">
             <Breadcrumbs items={[{ name: 'Home', href: '/' }, { name: 'Contact' }]} />
-            <h1 className="font-sans font-light text-display md:text-[2.75rem] tracking-tight text-foreground mt-6 mb-6">
-              Contact Boise Remodeling Co
-            </h1>
-            <p className="text-lg text-muted-foreground leading-relaxed mb-10" data-speakable="summary">
-              Schedule a free 60 to 90 minute in-home visit, call our team, or use the project
-              estimator to explore a planning range for your remodel.
-            </p>
+            <PageHeader
+              align="left"
+              className="mt-6 mb-10"
+              title={
+                <>
+                  Contact Boise Remodeling{" "}
+                  <em className="brc-accent text-accent">Co</em>
+                </>
+              }
+              description="Schedule a free 60 to 90 minute in-home visit, call our team, or use the project estimator to explore a planning range for your remodel."
+            />
+            <div data-speakable="summary" className="sr-only">
+              Contact Boise Remodeling Co for a free consultation.
+            </div>
 
             <div className="space-y-6 mb-10">
               <a
-                href={PHONE_HREF}
+                href={SITE_CONFIG.phoneHref}
                 className="flex items-center gap-3 text-foreground hover:text-foreground/70 transition-colors"
               >
                 <Phone className="h-5 w-5 text-foreground/50" />

@@ -10,8 +10,16 @@ import type { LucideIcon } from "lucide-react";
 
 export const SITE_TAGLINE = "Treasure Valley design-build, built on clarity and craftsmanship";
 
+export const HERO_EYEBROW = "Treasure Valley Design-Build";
+
 export const HERO_SUBHEAD =
-  "One accountable design-build team from first visit to final walkthrough. Clear expectations, budget guidance, and proactive communication without juggling separate designers, contractors, and subs.";
+  "One accountable design-build team from first visit to final walkthrough.";
+
+export const HERO_STATS = [
+  { num: "60 sec", label: "Instant planning range" },
+  { num: "Free", label: "In-home visit" },
+  { num: "Written", label: "Scope before build" },
+] as const;
 
 export const DIFFERENTIATORS_HEADLINE = "Built for homeowners who want clarity, not chaos";
 

@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import { ObfuscatedEmail } from "@/components/ObfuscatedEmail";
+import { SITE_CONFIG } from "@/shared/siteConfig";
 import { generateBreadcrumbSchema, generateWebPageSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
@@ -44,7 +45,7 @@ export default function PrivacyPolicyPage() {
       />
       <section className="py-16 md:py-24">
         <div className="container px-4">
-          <div className="max-w-3xl mx-auto prose prose-lg">
+          <div className="max-w-3xl mx-auto blog-content prose-measure">
             <h1>Privacy Policy for Boise Remodeling Co Services</h1>
             <p className="lead text-muted-foreground">
               Last updated: January 2024
@@ -105,8 +106,8 @@ export default function PrivacyPolicyPage() {
             </p>
             <ul>
               <li>Email: <ObfuscatedEmail user="hello" domain="boiseremodeling.co" className="text-primary hover:underline inline-flex items-center gap-1" showIcon={false} /></li>
-              <li>Phone: <a href="tel:2085550100" className="text-primary hover:underline">(208) 555-0100</a></li>
-              <li>Address: 2283 N Coopers Hawk Ave, Kuna, ID 83634</li>
+              <li>Phone: <a href={SITE_CONFIG.phoneHref} className="text-primary hover:underline">{SITE_CONFIG.phone}</a></li>
+              <li>Address: {SITE_CONFIG.address.full}</li>
             </ul>
           </div>
         </div>

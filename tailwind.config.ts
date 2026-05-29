@@ -106,6 +106,7 @@ export default {
           muted: "hsl(var(--inverse-muted) / <alpha-value>)",
         },
         "surface-muted": "hsl(var(--surface-muted) / <alpha-value>)",
+        "surface-greige": "hsl(var(--surface-greige) / <alpha-value>)",
         "tint-warm": "hsl(var(--tint-warm) / <alpha-value>)",
         "tint-cool": "hsl(var(--tint-cool) / <alpha-value>)",
         "tint-blush": "hsl(var(--tint-blush) / <alpha-value>)",

@@ -6,9 +6,9 @@
 
 Boise Remodeling Co is a locally owned design-build remodeling company serving the Treasure Valley. Homeowners work with one accountable team from design and permitting through construction.
 
-- Phone: (208) 555-0100
+- Phone: (208) 555-0100 (update via NEXT_PUBLIC_PHONE before launch)
 - Email: hello@boiseremodeling.co
-- Address: 1234 W Main St, Boise, ID 83702 (placeholder: verify before launch)
+- Address: 2283 N Coopers Hawk Ave, Kuna, ID 83634
 - Hours: Monday–Friday 8:00 AM – 5:00 PM
 - Service area: Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, Caldwell (Ada and Canyon County)
 - Licensed, bonded, and insured (Idaho contractor license placeholder)

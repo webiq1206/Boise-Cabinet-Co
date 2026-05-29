@@ -11,6 +11,8 @@ export interface BlogPostData {
   category: string;
   tags: string[];
   publishedAt: string;
+  heroImage?: string;
+  thumbnail?: string;
   faqs: Array<{ question: string; answer: string }>;
   relatedLinks?: Array<{ url: string; anchor?: string }>;
 }

@@ -3,6 +3,7 @@ import { z } from "zod";
 import { db } from "@/lib/db";
 import { consultationRequests } from "@/shared/schema";
 import { getUncachableResendClient } from "@/server/resend";
+import { SITE_CONFIG } from "@/shared/siteConfig";
 
 const bodySchema = z.object({
   name: z.string().min(2),
@@ -23,8 +24,8 @@ const bodySchema = z.object({
     .nullable(),
 });
 
-const ADMIN_EMAIL = "hello@boiseremodeling.co";
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://boiseremodeling.co";
+const ADMIN_EMAIL = SITE_CONFIG.email;
+const SITE_URL = SITE_CONFIG.siteUrl;
 
 export async function POST(request: NextRequest) {
   try {
@@ -96,7 +97,7 @@ export async function POST(request: NextRequest) {
           <div style="font-family:system-ui,sans-serif;max-width:480px;margin:0 auto;padding:24px;">
             <h2 style="font-size:22px;color:#3A3E3D;">Thanks, ${data.name}!</h2>
             <p style="color:#5A5F5C;">We received your consultation request and will reach out within one business day to schedule your free in-home visit.</p>
-            <p style="color:#5A5F5C;">In the meantime, feel free to call us at (208) 555-0100 or reply to this email with any questions.</p>
+            <p style="color:#5A5F5C;">In the meantime, feel free to call us at ${SITE_CONFIG.phone} or reply to this email with any questions.</p>
             <p style="margin-top:32px;color:#5A5F5C;">The Boise Remodeling Co team</p>
             <p style="font-size:12px;color:#aaa;margin-top:16px;">${SITE_URL}</p>
           </div>

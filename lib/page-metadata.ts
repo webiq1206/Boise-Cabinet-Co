@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { SITE_CONFIG } from '@/shared/siteConfig';
 import {
   generateCityServiceDescription,
   generateCityServiceTitle,
@@ -82,7 +83,7 @@ export function buildPageMetadata(input: PageMetaInput): Metadata {
     case 'contact':
       title = 'Contact Us';
       description =
-        'Contact Boise Remodeling Co for a free in-home consultation. Call (208) 555-0100 or schedule online. Serving Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, Caldwell, and the Treasure Valley.';
+        `Contact Boise Remodeling Co for a free in-home consultation. Call ${SITE_CONFIG.phone} or schedule online. Serving Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, Caldwell, and the Treasure Valley.`;
       break;
     case 'blog':
       title = 'Remodeling Insights & Ideas';

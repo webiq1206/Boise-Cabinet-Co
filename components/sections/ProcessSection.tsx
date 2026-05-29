@@ -8,7 +8,7 @@ const GRAIN_URL = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/
 
 export function ProcessSection() {
   return (
-    <Section id="how-we-build" spacing="none" divider className="p-0">
+    <Section id="how-we-build" variant="greige" spacing="none" divider className="p-0">
       <div className="grid md:grid-cols-2 overflow-hidden">
         <div className="relative min-h-[380px] md:min-h-[560px] overflow-hidden">
           <Image
@@ -16,7 +16,7 @@ export function ProcessSection() {
             alt="Architectural blueprints and finish material samples for a Treasure Valley remodel"
             fill
             sizes="(max-width: 768px) 100vw, 50vw"
-            className="object-cover"
+            className="object-cover img-brand-grade"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-primary/10 to-primary/70" />
           <div
