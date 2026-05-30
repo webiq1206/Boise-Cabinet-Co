@@ -44,9 +44,9 @@ export function BlogCard({ post, featured = false, formatDate }: BlogCardProps) 
             <p className="text-muted-foreground leading-relaxed line-clamp-2 max-w-2xl">
               {post.excerpt}
             </p>
-            <span className="inline-block mt-4 text-sm font-medium text-foreground">
-              Read article →
-            </span>
+            <TextLink href={`/blog/${post.slug}`} className="mt-4" showArrow>
+              Read article
+            </TextLink>
           </div>
         </article>
       </Link>
@@ -66,12 +66,14 @@ export function BlogCard({ post, featured = false, formatDate }: BlogCardProps) 
           />
         </div>
         <div className="p-6 md:p-8 flex flex-col flex-1">
-          <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
-            <Calendar className="h-4 w-4" />
-            <span>{formatDate(post.publishedAt)}</span>
+          <div className="flex items-center gap-3 mb-3 flex-wrap">
+            <Chip>{post.category}</Chip>
+            <span className="flex items-center gap-2 text-sm text-muted-foreground">
+              <Calendar className="h-4 w-4" />
+              {formatDate(post.publishedAt)}
+            </span>
           </div>
-          <Chip className="mb-3 w-fit">{post.category}</Chip>
-          <h3 className="text-lg font-sans font-medium text-foreground line-clamp-2 mb-2">
+          <h3 className="text-lg font-serif font-light tracking-tight text-foreground line-clamp-2 mb-2">
             {post.title}
           </h3>
           <p className="text-sm text-muted-foreground line-clamp-3 flex-1">{post.excerpt}</p>

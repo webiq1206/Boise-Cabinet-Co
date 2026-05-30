@@ -18,7 +18,7 @@ export function Chip({ children, active, className, onClick }: ChipProps) {
         "inline-flex items-center rounded-sm px-3 py-1 text-xs font-medium tracking-wide transition-colors duration-200 ease-out",
         active
           ? "bg-primary text-primary-foreground"
-          : "bg-muted text-foreground border border-border",
+          : "bg-[hsl(var(--surface-muted))] text-foreground",
         onClick && "cursor-pointer hover:bg-muted/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
         className
       )}
