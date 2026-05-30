@@ -4,7 +4,7 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { Section } from "@/components/marketing/Section";
 import { PageHeader } from "@/components/marketing/PageHeader";
 import { TextLink } from "@/components/marketing/TextLink";
-import { GALLERY_IMAGES } from "@/shared/siteImages";
+import { CITY_HERO_IMAGES } from "@/shared/cityServiceImages";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { MarketingCard } from "@/components/marketing/MarketingCard";
 import { buildPageMetadata } from "@/lib/page-metadata";
@@ -74,14 +74,8 @@ export default function AreasHubPage() {
         <Section variant="greige" divider>
           <div className="container px-4">
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-6xl mx-auto">
-              {CITIES.map((city, i) => {
-                const images = [
-                  GALLERY_IMAGES.kitchen.after,
-                  GALLERY_IMAGES.bathroom.after,
-                  GALLERY_IMAGES.wholeHome.after,
-                  GALLERY_IMAGES.addition.after,
-                ];
-                const img = images[i % images.length];
+              {CITIES.map((city) => {
+                const img = CITY_HERO_IMAGES[city.slug];
                 return (
                 <MarketingCard key={city.slug} className="h-full p-0 overflow-hidden">
                   <div className="relative aspect-[4/3]">
