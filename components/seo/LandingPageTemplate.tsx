@@ -138,7 +138,7 @@ export function LandingPageTemplate({
           style={{ backgroundImage: GRAIN_URL, backgroundRepeat: 'repeat', opacity: 0.03 }}
         />
 
-        <div className="relative z-10 w-full container px-4 pb-14 md:pb-20 pt-10">
+        <div className="relative z-10 w-full container px-4 pb-14 md:pb-20 pt-10 fade-up">
           <HeroBreadcrumbs items={breadcrumbs} />
           <p data-speakable="summary" className="sr-only">
             {speakableSummary}
@@ -228,17 +228,22 @@ export function LandingPageTemplate({
               <h2 className="font-serif font-light text-[2rem] md:text-[2.5rem] leading-[1.08] tracking-tight text-foreground mb-10">
                 What&apos;s <em className="brc-accent text-accent">included</em>
               </h2>
-              <MarketingCard>
-                <ul className="grid sm:grid-cols-2 gap-x-8 gap-y-4">
-                  {inclusions.map((item) => (
-                    <li key={item} className="flex items-start gap-3 text-sm">
+            </Reveal>
+            <MarketingCard>
+              <ul className="grid sm:grid-cols-2 gap-x-8 gap-y-4">
+                {inclusions.map((item, i) => (
+                  <li key={item} className="list-none">
+                    <Reveal
+                      delay={Math.min(i, 6) * 60}
+                      className="flex items-start gap-3 text-sm"
+                    >
                       <Check className="h-4 w-4 text-accent flex-shrink-0 mt-0.5" />
                       <span className="text-muted-foreground">{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </MarketingCard>
-            </Reveal>
+                    </Reveal>
+                  </li>
+                ))}
+              </ul>
+            </MarketingCard>
           </div>
         </Section>
       )}
@@ -247,8 +252,17 @@ export function LandingPageTemplate({
       {processSteps && processSteps.length > 0 && (
         <Section variant="greige" divider spacing="none" className="p-0">
           <div className="grid md:grid-cols-2 overflow-hidden">
-            <div className="relative min-h-[200px] md:min-h-[520px] overflow-hidden bg-inverse">
-              <div className="absolute inset-0 bg-gradient-to-br from-inverse via-inverse to-primary/60" />
+            <div className="relative min-h-[260px] md:min-h-[520px] overflow-hidden bg-inverse">
+              {heroImageUrl && (
+                <Image
+                  src={heroImageUrl}
+                  alt=""
+                  fill
+                  className="object-cover img-brand-grade"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                />
+              )}
+              <div className="absolute inset-0 bg-gradient-to-t from-inverse via-inverse/70 to-inverse/40" />
               <div
                 className="absolute inset-0 pointer-events-none"
                 style={{ backgroundImage: GRAIN_URL, backgroundRepeat: 'repeat', opacity: 0.03 }}
