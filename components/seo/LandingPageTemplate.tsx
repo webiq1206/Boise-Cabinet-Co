@@ -72,6 +72,28 @@ function HeroBreadcrumbs({ items }: { items: BreadcrumbItem[] }) {
   );
 }
 
+/**
+ * Splits a benefit string into a bold lead phrase and a muted supporting caption.
+ * Priority: split on first comma; fallback: split after first 4 words if string > 6 words.
+ */
+function splitBenefit(text: string): { lead: string; body: string } {
+  const commaIdx = text.indexOf(',');
+  if (commaIdx > 0 && commaIdx < text.length - 1) {
+    return {
+      lead: text.slice(0, commaIdx).trim(),
+      body: text.slice(commaIdx + 1).trim(),
+    };
+  }
+  const words = text.split(' ');
+  if (words.length > 6) {
+    return {
+      lead: words.slice(0, 4).join(' '),
+      body: words.slice(4).join(' '),
+    };
+  }
+  return { lead: text, body: '' };
+}
+
 export function LandingPageTemplate({
   h1,
   speakableSummary,
@@ -110,7 +132,7 @@ export function LandingPageTemplate({
           <p data-speakable="summary" className="sr-only">
             {speakableSummary}
           </p>
-          <h1 className="font-sans font-light text-[2.25rem] md:text-[3rem] lg:text-[3.5rem] leading-[1.08] tracking-tight text-inverse-foreground max-w-4xl mt-5 mb-5">
+          <h1 className="font-sans font-light text-display tracking-tight text-inverse-foreground max-w-4xl mt-5 mb-5">
             {h1}
           </h1>
           <p className="text-base md:text-lg text-inverse-muted max-w-2xl leading-relaxed mb-8">
@@ -139,12 +161,20 @@ export function LandingPageTemplate({
               Why homeowners <em className="brc-accent text-accent">choose us</em>
             </h2>
             <ul className="grid sm:grid-cols-2 gap-4">
-              {benefits.map((item) => (
-                <li key={item} className="marketing-card p-5 flex items-start gap-3">
-                  <Check className="h-4 w-4 text-accent flex-shrink-0 mt-0.5" />
-                  <span className="text-sm text-foreground leading-relaxed">{item}</span>
-                </li>
-              ))}
+              {benefits.map((item) => {
+                const { lead, body } = splitBenefit(item);
+                return (
+                  <li key={item} className="marketing-card p-5 flex items-start gap-3">
+                    <Check className="h-4 w-4 text-accent flex-shrink-0 mt-0.5" />
+                    <span className="text-sm leading-relaxed">
+                      <strong className="font-medium text-foreground">{lead}</strong>
+                      {body && (
+                        <span className="text-muted-foreground">{', '}{body}</span>
+                      )}
+                    </span>
+                  </li>
+                );
+              })}
             </ul>
           </div>
         </Section>
@@ -182,10 +212,7 @@ export function LandingPageTemplate({
             </h2>
             <div>
               {processSteps.map((step, i) => (
-                <div
-                  key={step.title}
-                  className={`flex gap-6 py-8 ${i < processSteps.length - 1 ? 'border-b border-border' : ''}`}
-                >
+                <div key={step.title} className="flex gap-6 py-10">
                   <DisplayNum className="text-3xl w-10 flex-shrink-0 leading-none mt-0.5 text-foreground/20">
                     {formatStepNumber(i)}
                   </DisplayNum>
@@ -211,20 +238,30 @@ export function LandingPageTemplate({
             >
               {timeline && (
                 <MarketingCard className="p-6 md:p-8">
-                  <div className="brc-label mb-3">Planning details</div>
-                  <h3 className="font-sans font-medium text-base text-foreground mt-3 mb-3">
-                    Typical timeline
-                  </h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{timeline}</p>
+                  <div className="flex gap-4">
+                    <div className="w-0.5 bg-accent/50 flex-shrink-0 rounded-full" />
+                    <div>
+                      <div className="brc-label mb-3">Planning details</div>
+                      <h3 className="font-sans font-medium text-base text-foreground mt-3 mb-3">
+                        Typical timeline
+                      </h3>
+                      <p className="text-sm text-muted-foreground leading-relaxed">{timeline}</p>
+                    </div>
+                  </div>
                 </MarketingCard>
               )}
               {localNote && (
                 <MarketingCard className="p-6 md:p-8">
-                  <div className="brc-label mb-3">Local details</div>
-                  <h3 className="font-sans font-medium text-base text-foreground mt-3 mb-3">
-                    Local notes
-                  </h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{localNote}</p>
+                  <div className="flex gap-4">
+                    <div className="w-0.5 bg-accent/50 flex-shrink-0 rounded-full" />
+                    <div>
+                      <div className="brc-label mb-3">Local details</div>
+                      <h3 className="font-sans font-medium text-base text-foreground mt-3 mb-3">
+                        Local notes
+                      </h3>
+                      <p className="text-sm text-muted-foreground leading-relaxed">{localNote}</p>
+                    </div>
+                  </div>
                 </MarketingCard>
               )}
             </div>
