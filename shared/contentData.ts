@@ -35,6 +35,11 @@ export const SERVICES: ServiceData[] = [
     name: 'Room Addition',
     shortDescription: 'Thoughtfully designed additions that feel like they were always part of your home.',
   },
+  {
+    slug: 'adu',
+    name: 'ADU / Guest House',
+    shortDescription: 'Detached or attached accessory dwelling units designed to maximize your property value.',
+  },
 ];
 
 // Alias so existing imports stay compatible

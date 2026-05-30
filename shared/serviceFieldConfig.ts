@@ -133,6 +133,43 @@ export const SERVICE_FIELD_CONFIGS: ServiceFieldConfig[] = [
     ],
   },
   {
+    serviceId: "adu",
+    displayName: "ADU / Guest House",
+    measurementType: "propertySize",
+    fields: [
+      {
+        id: "propertySize",
+        label: "ADU square footage",
+        helpText: "Approximate size of the accessory dwelling unit",
+        placeholder: "e.g., 600",
+        unit: "sq ft",
+        type: "number",
+        required: false,
+      },
+      {
+        id: "finishLevel",
+        label: "Finish level",
+        type: "select",
+        options: [
+          { value: "standard", label: "Standard" },
+          { value: "premium", label: "Premium" },
+          { value: "luxury", label: "Luxury / Custom" },
+        ],
+        required: false,
+      },
+      {
+        id: "aduType",
+        label: "ADU type",
+        type: "select",
+        options: [
+          { value: "detached", label: "Detached" },
+          { value: "attached", label: "Attached" },
+        ],
+        required: false,
+      },
+    ],
+  },
+  {
     serviceId: "basement-finish",
     displayName: "Basement Finish",
     measurementType: "propertySize",

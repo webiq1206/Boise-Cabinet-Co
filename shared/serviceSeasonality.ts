@@ -38,6 +38,12 @@ const SERVICE_SEASON_CONFIG: Record<string, ServiceSeasonConfig> = {
     isRecurringEligible: false,
     maxFrequency: null,
   },
+  "adu": {
+    seasons: [{ startMonth: 1, startDay: 1, endMonth: 12, endDay: 31 }],
+    nearSeasonBufferDays: 0,
+    isRecurringEligible: false,
+    maxFrequency: null,
+  },
   "basement-finish": {
     seasons: [{ startMonth: 1, startDay: 1, endMonth: 12, endDay: 31 }],
     nearSeasonBufferDays: 0,

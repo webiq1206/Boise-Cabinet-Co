@@ -464,6 +464,22 @@ export function EstimateCalculator({ inModal = false, onBookVisit: onBookVisitPr
               </div>
             )}
 
+            {project === "adu" && (
+              <div>
+                <label className="brc-label mb-3 block">ADU configuration</label>
+                <SelectButton
+                  value={refinements.stories !== null ? String(refinements.stories) as "1" | "2" : null}
+                  onChange={(v) => updateRefinement("stories", Number(v))}
+                  testIdPrefix="adu-type"
+                  allowUnset
+                  options={[
+                    { value: "1", label: "Detached", sub: "Separate structure on lot" },
+                    { value: "2", label: "Attached", sub: "Connected to main home" },
+                  ]}
+                />
+              </div>
+            )}
+
             <div>
               <label className="brc-label mb-3 block">Project location</label>
               <SelectButton

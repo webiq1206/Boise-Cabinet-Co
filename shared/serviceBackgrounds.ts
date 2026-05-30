@@ -11,6 +11,7 @@ export const SERVICE_BACKGROUNDS: ServiceBackgroundConfig = {
   "bathroom-remodel": GALLERY_IMAGES.bathroom.after,
   "whole-home-remodel": GALLERY_IMAGES.wholeHome.after,
   "room-addition": GALLERY_IMAGES.addition.after,
+  "adu": GALLERY_IMAGES.addition.after,
   "basement-finish": GALLERY_IMAGES.basement.after,
   "outdoor-living": GALLERY_IMAGES.outdoor.after,
 };

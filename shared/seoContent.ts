@@ -152,6 +152,51 @@ export const SERVICE_SEO_CONTENT: Record<string, ServiceSEOContent> = {
       },
     ],
   },
+  'adu': {
+    slug: 'adu',
+    name: 'ADU / Guest House',
+    headline: 'ADU & Guest House Construction in the Treasure Valley',
+    primaryKeyword: 'adu construction boise idaho',
+    overview:
+      'Accessory dwelling units add livable square footage, rental income potential, and long-term property value without leaving your lot. Boise Remodeling Co designs and builds detached and attached ADUs with full permit handling, structural planning, and interior finishes under one accountable design-build team.',
+    benefits: [
+      'Single team from design through certificate of occupancy, no coordinating separate trades',
+      'Ada and Canyon County ADU permitting and setback requirements handled in-house',
+      'Rental-ready finish packages designed for durability and appeal',
+      'Exterior materials and rooflines planned to complement your existing home',
+    ],
+    inclusions: [
+      'Site feasibility evaluation and setback review',
+      'Foundation, framing, and structural engineering',
+      'Plumbing, electrical, and HVAC for a fully self-contained unit',
+      'Kitchen and bath fit-out with finish selections guidance',
+      'Permit coordination and final inspection through certificate of occupancy',
+    ],
+    timeline: 'Most ADU projects run 4 to 7 months from design through certificate of occupancy, depending on unit size, site conditions, and permit timelines.',
+    processSteps: [
+      { title: 'Site visit and feasibility', description: 'We review your lot, setbacks, utility access, and HOA rules to confirm the ADU approach that works best.' },
+      { title: 'Design and engineering', description: 'Plans are drawn to meet code, match your property, and maximize livability within your investment target.' },
+      { title: 'Permitting and construction', description: 'We file permits and manage every trade from foundation through finish with weekly written updates.' },
+      { title: 'Inspections and closeout', description: 'Final inspections are coordinated and we walk through every detail before handoff.' },
+    ],
+    faqs: [
+      {
+        question: 'How much does an ADU cost in the Treasure Valley?',
+        answer:
+          'ADU investment typically ranges from $120,000 to $350,000 depending on size, detached or attached configuration, and finish level. Use our project estimator for a planning range, then schedule a free in-home visit for a written scope.',
+      },
+      {
+        question: 'Do I need a permit for an ADU in Boise or Ada County?',
+        answer:
+          'Yes. ADUs require permits in all Treasure Valley jurisdictions. Requirements vary by city and lot. We handle permitting as part of our design-build scope and are current on local ADU ordinances.',
+      },
+      {
+        question: 'Can an ADU be rented out as a long-term or short-term rental?',
+        answer:
+          'In many cases yes, subject to local zoning and HOA rules. We can discuss what your city allows during your consultation so you can plan your unit accordingly.',
+      },
+    ],
+  },
   'room-addition': {
     slug: 'room-addition',
     name: 'Room Addition',

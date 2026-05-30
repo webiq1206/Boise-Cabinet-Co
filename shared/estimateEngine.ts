@@ -1,4 +1,4 @@
-export type ProjectType = "kitchen" | "bathroom" | "whole-home" | "addition";
+export type ProjectType = "kitchen" | "bathroom" | "whole-home" | "addition" | "adu";
 export type FinishLevel = "refresh" | "mid-range" | "high-end" | "luxury";
 export type LayoutChanges = "none" | "moderate" | "major";
 export type PlumbingElectrical = "cosmetic" | "partial" | "full";
@@ -69,6 +69,7 @@ export const PROJECT_SIZE_CONFIG: Record<ProjectType, ProjectSizeConfig> = {
   bathroom: { min: 40, max: 200, step: 10, defaultSqft: 80, baselineSqft: 80 },
   "whole-home": { min: 800, max: 4000, step: 100, defaultSqft: 1800, baselineSqft: 1800 },
   addition: { min: 200, max: 1200, step: 50, defaultSqft: 400, baselineSqft: 400 },
+  adu: { min: 300, max: 1200, step: 50, defaultSqft: 600, baselineSqft: 600 },
 };
 
 export const DEFAULT_ESTIMATE_INPUT: EstimateInput = {
@@ -103,6 +104,7 @@ export const PROJECT_LABELS: Record<ProjectType, { label: string; sub: string }>
   bathroom: { label: "Bathroom", sub: "Tile, fixtures, vanity" },
   "whole-home": { label: "Whole-Home", sub: "Multi-room renovation" },
   addition: { label: "Room Addition", sub: "New square footage" },
+  adu: { label: "ADU / Guest House", sub: "Detached or attached unit" },
 };
 
 export const FINISH_LABELS: Record<FinishLevel, { label: string; sub: string }> = {
@@ -194,6 +196,24 @@ const PRICE_MATRIX: Record<ProjectType, Record<FinishLevel, PriceData>> = {
       included: ["600+ sqft addition", "Structural engineering", "Premium finishes throughout", "Custom design integration"],
     },
   },
+  adu: {
+    refresh: {
+      low: 120000, high: 185000, roi: 68,
+      included: ["Foundation and framing", "Self-contained plumbing and electrical", "Standard kitchen and bath package", "Matching exterior siding and roofline"],
+    },
+    "mid-range": {
+      low: 185000, high: 260000, roi: 70,
+      included: ["Full design-build ADU", "Mid-range kitchen and bath finishes", "Separate HVAC system", "Permit coordination through CO"],
+    },
+    "high-end": {
+      low: 260000, high: 350000, roi: 65,
+      included: ["600+ sqft ADU or guest house", "High-end finishes throughout", "Custom kitchen and bath", "Engineered foundation and structural plans"],
+    },
+    luxury: {
+      low: 350000, high: 550000, roi: 58,
+      included: ["Large detached guest house", "Premium finishes and fixtures", "Smart home integration", "Structural engineering and custom design"],
+    },
+  },
 };
 
 export function formatPlanningCurrency(n: number): string {
@@ -264,7 +284,7 @@ function getRefinementMultipliers(ref: EstimateRefinements, project: ProjectType
     high *= Math.max(0.85, roomFactor);
   }
 
-  if (project === "addition" && ref.stories !== null && ref.stories > 1) {
+  if ((project === "addition" || project === "adu") && ref.stories !== null && ref.stories > 1) {
     low *= 1.12;
     high *= 1.2;
   }
@@ -344,6 +364,10 @@ export function buildDynamicScope(input: EstimateInput): string[] {
 
   if (input.project === "addition" && r.stories !== null) {
     extra.push(r.stories > 1 ? "Two-story addition" : "Single-story addition");
+  }
+
+  if (input.project === "adu" && r.stories !== null) {
+    extra.push(r.stories > 1 ? "Attached ADU" : "Detached ADU");
   }
 
   if (r.cityZone) {

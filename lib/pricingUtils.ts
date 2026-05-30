@@ -11,6 +11,7 @@ export const SERVICE_PRICING_CONFIG = {
   "bathroom-remodel": { lowRate: 8000, highRate: 35000, unit: "base_project", name: "Bathroom Remodel", minimum: 5000 },
   "whole-home-remodel": { lowRate: 80000, highRate: 300000, unit: "base_project", name: "Whole-Home Remodel", minimum: 50000 },
   "room-addition": { lowRate: 50000, highRate: 150000, unit: "base_project", name: "Room Addition", minimum: 30000 },
+  "adu": { lowRate: 120000, highRate: 350000, unit: "base_project", name: "ADU / Guest House", minimum: 100000 },
   "basement-finish": { lowRate: 30, highRate: 65, unit: "sqft", name: "Basement Finish", minimum: 10000 },
   "outdoor-living": { lowRate: 15000, highRate: 60000, unit: "base_project", name: "Outdoor Living Space", minimum: 8000 },
 };
