@@ -129,6 +129,12 @@ export function EstimateResultPanel({
       </div>
 
       {!isCompact && (
+        <p className="text-xs text-inverse-muted mb-4">
+          Based on your inputs. Your exact investment is confirmed at your in-home visit.
+        </p>
+      )}
+
+      {!isCompact && (
         <>
           <div className="mb-6">
             <div className="flex justify-between text-[11px] mb-1.5 text-inverse-muted">
