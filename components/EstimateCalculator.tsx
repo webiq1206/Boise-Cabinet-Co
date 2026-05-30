@@ -17,6 +17,9 @@ import {
   getProjectSizeConfig,
   getAvailableFinishLevels,
   getMaxRefinementFields,
+  getRefinementVisibility,
+  getPlumbingElectricalLabel,
+  getPlumbingElectricalOptions,
   getFinishPlanningHint,
   buildSelectionSummary,
   calculateEstimate,
@@ -166,6 +169,7 @@ export function EstimateCalculator({ inModal = false, onBookVisit: onBookVisitPr
   const [userRefinements, setUserRefinements] = useState<Set<UserRefinementKey>>(new Set());
 
   const sizeConfig = getProjectSizeConfig(project);
+  const refinementVisibility = getRefinementVisibility(project);
   const userRefinementCount = userRefinements.size;
 
   const input: EstimateInput = useMemo(
@@ -382,35 +386,37 @@ export function EstimateCalculator({ inModal = false, onBookVisit: onBookVisitPr
             id="refine-estimate-panel"
             className="p-5 space-y-6 bg-card border-t border-border"
           >
-            <div>
-              <label className="brc-label mb-3 block">Layout changes</label>
-              <SelectButton
-                value={refinements.layoutChanges}
-                onChange={(v) => updateRefinement("layoutChanges", v)}
-                testIdPrefix="layout"
-                options={[
-                  { value: "none", label: "None", sub: "Same layout" },
-                  { value: "moderate", label: "Moderate", sub: "Minor wall changes" },
-                  { value: "major", label: "Major", sub: "Structural changes" },
-                ]}
-              />
-            </div>
+            {refinementVisibility.layoutChanges && (
+              <div>
+                <label className="brc-label mb-3 block">Layout changes</label>
+                <SelectButton
+                  value={refinements.layoutChanges}
+                  onChange={(v) => updateRefinement("layoutChanges", v)}
+                  testIdPrefix="layout"
+                  options={[
+                    { value: "none", label: "None", sub: "Same layout" },
+                    { value: "moderate", label: "Moderate", sub: "Minor wall changes" },
+                    { value: "major", label: "Major", sub: "Structural changes" },
+                  ]}
+                />
+              </div>
+            )}
 
-            <div>
-              <label className="brc-label mb-3 block">Plumbing and electrical scope</label>
-              <SelectButton
-                value={refinements.plumbingElectrical}
-                onChange={(v) => updateRefinement("plumbingElectrical", v)}
-                testIdPrefix="plumbing"
-                options={[
-                  { value: "cosmetic", label: "Cosmetic", sub: "Fixtures only" },
-                  { value: "partial", label: "Partial", sub: "Some rerouting" },
-                  { value: "full", label: "Full", sub: "Complete update" },
-                ]}
-              />
-            </div>
+            {refinementVisibility.plumbingElectrical && (
+              <div>
+                <label className="brc-label mb-3 block">
+                  {getPlumbingElectricalLabel(project)}
+                </label>
+                <SelectButton
+                  value={refinements.plumbingElectrical}
+                  onChange={(v) => updateRefinement("plumbingElectrical", v)}
+                  testIdPrefix="plumbing"
+                  options={getPlumbingElectricalOptions(project)}
+                />
+              </div>
+            )}
 
-            {project === "kitchen" && (
+            {refinementVisibility.cabinetTier && (
               <div>
                 <label className="brc-label mb-3 block">Cabinet level</label>
                 <SelectButton
@@ -427,7 +433,7 @@ export function EstimateCalculator({ inModal = false, onBookVisit: onBookVisitPr
               </div>
             )}
 
-            {project === "bathroom" && (
+            {refinementVisibility.fixtureCount && (
               <RefinementNumberInput
                 id="fixture-count"
                 label="Number of fixtures"
@@ -440,7 +446,7 @@ export function EstimateCalculator({ inModal = false, onBookVisit: onBookVisitPr
               />
             )}
 
-            {project === "whole-home" && (
+            {refinementVisibility.roomCount && (
               <RefinementNumberInput
                 id="room-count"
                 label="Rooms being remodeled"
@@ -453,7 +459,7 @@ export function EstimateCalculator({ inModal = false, onBookVisit: onBookVisitPr
               />
             )}
 
-            {project === "addition" && (
+            {refinementVisibility.stories && (
               <div>
                 <label className="brc-label mb-3 block">Stories involved</label>
                 <SelectButton
@@ -469,7 +475,7 @@ export function EstimateCalculator({ inModal = false, onBookVisit: onBookVisitPr
               </div>
             )}
 
-            {project === "adu" && (
+            {refinementVisibility.aduConfiguration && (
               <div>
                 <label className="brc-label mb-3 block">ADU configuration</label>
                 <SelectButton

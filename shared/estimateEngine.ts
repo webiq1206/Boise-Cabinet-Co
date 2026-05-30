@@ -87,11 +87,60 @@ export function getProjectSizeConfig(project: ProjectType): ProjectSizeConfig {
   return PROJECT_SIZE_CONFIG[project];
 }
 
-export function getMaxRefinementFields(_project: ProjectType): number {
-  // Two shared detail fields (layout changes, plumbing/electrical) plus
-  // exactly one project-specific field (cabinet tier, fixtures, rooms, or
-  // stories). Every project type therefore exposes 3 refinement fields.
-  return 3;
+export interface RefinementVisibility {
+  layoutChanges: boolean;
+  plumbingElectrical: boolean;
+  cabinetTier: boolean;
+  fixtureCount: boolean;
+  roomCount: boolean;
+  stories: boolean;
+  aduConfiguration: boolean;
+}
+
+/** Which optional detail fields appear for each project type. */
+export function getRefinementVisibility(project: ProjectType): RefinementVisibility {
+  return {
+    layoutChanges: project === "kitchen" || project === "bathroom" || project === "whole-home",
+    plumbingElectrical: true,
+    cabinetTier: project === "kitchen",
+    fixtureCount: project === "bathroom",
+    roomCount: project === "whole-home",
+    stories: project === "addition",
+    aduConfiguration: project === "adu",
+  };
+}
+
+export function getMaxRefinementFields(project: ProjectType): number {
+  return Object.values(getRefinementVisibility(project)).filter(Boolean).length;
+}
+
+export function getPlumbingElectricalLabel(project: ProjectType): string {
+  if (project === "addition" || project === "adu") {
+    return "Utility & systems scope";
+  }
+  return "Plumbing and electrical scope";
+}
+
+export const PLUMBING_ELECTRICAL_OPTIONS: Record<
+  "remodel" | "newConstruction",
+  { value: PlumbingElectrical; label: string; sub: string }[]
+> = {
+  remodel: [
+    { value: "cosmetic", label: "Cosmetic", sub: "Fixtures only" },
+    { value: "partial", label: "Partial", sub: "Some rerouting" },
+    { value: "full", label: "Full", sub: "Complete update" },
+  ],
+  newConstruction: [
+    { value: "cosmetic", label: "Standard", sub: "Tie into existing home" },
+    { value: "partial", label: "Extended", sub: "Longer runs or panel work" },
+    { value: "full", label: "Full new", sub: "Separate systems throughout" },
+  ],
+};
+
+export function getPlumbingElectricalOptions(project: ProjectType) {
+  return project === "addition" || project === "adu"
+    ? PLUMBING_ELECTRICAL_OPTIONS.newConstruction
+    : PLUMBING_ELECTRICAL_OPTIONS.remodel;
 }
 
 export const PROJECT_LABELS: Record<ProjectType, { label: string; sub: string }> = {
