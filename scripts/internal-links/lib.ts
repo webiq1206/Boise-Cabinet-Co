@@ -1,7 +1,9 @@
 import { BLOG_POSTS, type BlogPostData } from "../../shared/blogContent";
+import { GUIDE_PAGES } from "../../shared/guideContent";
+import { getHubBySlug, getHubPillarSlug, guidePath } from "../../shared/contentHubs";
 import { PRIORITY_SERVICES, CITIES, type ServiceData, type CityData } from "../../shared/contentData";
 
-export type PageType = "blog" | "service" | "city" | "city-service";
+export type PageType = "blog" | "guide" | "service" | "city" | "city-service";
 
 export interface PageNode {
   id: string;
@@ -11,6 +13,7 @@ export interface PageNode {
   anchor: string;
   category: string;
   tags: string[];
+  hubSlug?: string;
   serviceSlug?: string;
   citySlug?: string;
   tokens: Set<string>;
@@ -27,7 +30,7 @@ export interface LinkEntry {
 
 export interface Manifest {
   generatedAt: null;
-  counts: { blog: number; service: number; city: number; cityService: number };
+  counts: { blog: number; guide: number; service: number; city: number; cityService: number };
   pages: Record<string, {
     type: PageType;
     title: string;
@@ -90,6 +93,7 @@ function cityServiceAnchor(s: ServiceData, c: CityData): string {
 export function buildCanonicalRoutes(): string[] {
   const routes: string[] = [];
   for (const post of BLOG_POSTS) routes.push(`/blog/${post.slug}`);
+  for (const guide of GUIDE_PAGES) routes.push(guidePath(guide.slug));
   for (const svc of PRIORITY_SERVICES) routes.push(`/services/${svc.slug}`);
   for (const city of CITIES) routes.push(`/areas/${city.slug}`);
   for (const svc of PRIORITY_SERVICES) {
@@ -102,6 +106,14 @@ export function buildPages(): PageNode[] {
   const pages: PageNode[] = [];
 
   for (const post of BLOG_POSTS) {
+    const hub = getHubBySlug(post.hubSlug);
+    const pillarSlug = getHubPillarSlug(post.hubSlug);
+    const pillarPublished = GUIDE_PAGES.some((g) => g.slug === pillarSlug);
+    const pillarOverride =
+      pillarSlug && pillarPublished
+        ? [{ url: guidePath(pillarSlug), anchor: hub?.title ?? "Guide" }]
+        : [];
+    const overrides = [...pillarOverride, ...(post.relatedLinks ?? [])];
     pages.push({
       id: `blog:${post.slug}`,
       type: "blog",
@@ -109,9 +121,31 @@ export function buildPages(): PageNode[] {
       title: post.title,
       anchor: post.title,
       category: post.category,
+      hubSlug: post.hubSlug,
       tags: post.tags ?? [],
-      tokens: tokenSet(post.title, post.excerpt, (post.tags ?? []).join(" "), post.category),
-      overrides: post.relatedLinks ?? [],
+      tokens: tokenSet(
+        post.title,
+        post.excerpt,
+        (post.tags ?? []).join(" "),
+        post.category,
+        post.hubSlug,
+      ),
+      overrides,
+    });
+  }
+
+  for (const guide of GUIDE_PAGES) {
+    pages.push({
+      id: `guide:${guide.slug}`,
+      type: "guide",
+      url: guidePath(guide.slug),
+      title: guide.title,
+      anchor: guide.title,
+      category: guide.hubSlug,
+      hubSlug: guide.hubSlug,
+      tags: guide.tags ?? [],
+      tokens: tokenSet(guide.title, guide.excerpt, (guide.tags ?? []).join(" "), guide.hubSlug),
+      overrides: guide.relatedLinks ?? [],
     });
   }
 
@@ -166,9 +200,11 @@ export function buildPages(): PageNode[] {
 
 const SERVICE_BOOST = 0.15;
 const SAME_CATEGORY_BONUS = 0.3;
+const SAME_HUB_BONUS = 0.35;
 const SHARED_SERVICE_BONUS = 0.5;
 const SHARED_CITY_BONUS = 0.3;
 const SHARED_TAG_BONUS = 0.1;
+const GUIDE_BOOST = 0.12;
 
 function jaccard(a: Set<string>, b: Set<string>): number {
   if (a.size === 0 || b.size === 0) return 0;
@@ -184,6 +220,7 @@ function similarity(from: PageNode, to: PageNode): number {
   let score = jaccard(from.tokens, to.tokens);
 
   if (from.category && from.category === to.category) score += SAME_CATEGORY_BONUS;
+  if (from.hubSlug && to.hubSlug && from.hubSlug === to.hubSlug) score += SAME_HUB_BONUS;
   if (from.serviceSlug && to.serviceSlug && from.serviceSlug === to.serviceSlug) {
     score += SHARED_SERVICE_BONUS;
   }
@@ -195,16 +232,21 @@ function similarity(from: PageNode, to: PageNode): number {
   for (const t of to.tags) if (fromTagSet.has(t.toLowerCase())) score += SHARED_TAG_BONUS;
 
   if (to.type === "service") score += SERVICE_BOOST;
+  if (to.type === "guide") score += GUIDE_BOOST;
 
   return score;
 }
 
 function targetLimit(from: PageNode): number {
-  return from.type === "blog" ? 6 : 8;
+  if (from.type === "blog") return 6;
+  if (from.type === "guide") return 8;
+  return 8;
 }
 
 export function renderLimit(type: PageType): number {
-  return type === "blog" ? 3 : 5;
+  if (type === "blog") return 3;
+  if (type === "guide") return 5;
+  return 5;
 }
 
 type Quota = Partial<Record<PageType, number>>;
@@ -212,7 +254,9 @@ type Quota = Partial<Record<PageType, number>>;
 function quotasFor(from: PageNode): Quota {
   switch (from.type) {
     case "blog":
-      return { service: 3, blog: 2, "city-service": 1 };
+      return { guide: 1, service: 2, blog: 2, "city-service": 1 };
+    case "guide":
+      return { blog: 3, guide: 1, service: 2, "city-service": 1 };
     case "service":
       return { "city-service": 3, service: 3, blog: 2 };
     case "city":
@@ -373,7 +417,7 @@ export function buildManifest(pages: PageNode[]): Manifest {
 
   const blogByCategory: Manifest["blogByCategory"] = {};
   for (const post of BLOG_POSTS) {
-    const cat = post.category;
+    const cat = post.hubSlug || post.category;
     if (!blogByCategory[cat]) blogByCategory[cat] = [];
     blogByCategory[cat].push({
       slug: post.slug,
@@ -390,6 +434,7 @@ export function buildManifest(pages: PageNode[]): Manifest {
     generatedAt: null,
     counts: {
       blog: BLOG_POSTS.length,
+      guide: GUIDE_PAGES.length,
       service: PRIORITY_SERVICES.length,
       city: CITIES.length,
       cityService: PRIORITY_SERVICES.length * CITIES.length,

@@ -11,6 +11,15 @@ import { SITE_CONFIG } from "@/shared/siteConfig";
 import type { BlogPostData } from "@/shared/blogContent";
 import { getBlogHeroImage } from "@/shared/blogImages";
 import { ConsultCTA } from "@/components/modals/ConsultCTA";
+import { GuideContentBlocks } from "./GuideContentBlocks";
+import {
+  injectHeadingIds,
+  extractHeadingsFromHtml,
+  estimateReadingTime,
+  countWords,
+} from "@/lib/content-utils";
+import { getHubBySlug, categoryHubPath, guidePath, getHubPillarSlug, isCategoryHubIndexable } from "@/shared/contentHubs";
+import { getBlogPostsByHub } from "@/shared/blogContent";
 
 interface BlogPostLayoutProps {
   post: BlogPostData;
@@ -20,6 +29,12 @@ interface BlogPostLayoutProps {
 export function BlogPostLayout({ post, formatDate }: BlogPostLayoutProps) {
   const heroImage = getBlogHeroImage(post.category, post.heroImage);
   const blogPath = `/blog/${post.slug}`;
+  const hub = getHubBySlug(post.hubSlug);
+  const contentWithIds = injectHeadingIds(post.content);
+  const tocHeadings = extractHeadingsFromHtml(contentWithIds).filter((h) => h.level === 2);
+  const readingTime = estimateReadingTime(countWords(post.content));
+  const hubPosts = getBlogPostsByHub(post.hubSlug);
+  const pillarSlug = getHubPillarSlug(post.hubSlug);
 
   return (
     <div className="flex flex-col pb-20 md:pb-0">
@@ -47,17 +62,20 @@ export function BlogPostLayout({ post, formatDate }: BlogPostLayoutProps) {
           </Link>
 
           <header className="max-w-3xl mb-8 md:mb-10">
-            <Chip className="mb-4">{post.category}</Chip>
+            <Chip className="mb-4">
+              {hub?.categoryLabel ?? post.category}
+            </Chip>
             <h1 className="text-3xl md:text-4xl lg:text-[2.75rem] font-sans font-light tracking-tight text-foreground mb-4">
               {post.title}
             </h1>
             <p className="text-lg text-muted-foreground mb-5 max-w-2xl">{post.excerpt}</p>
             <div role="presentation" className="border-t border-border/60 mb-5" />
-            <div className="flex items-center gap-4 text-sm text-muted-foreground">
+            <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
               <span className="flex items-center gap-2">
                 <Calendar className="h-4 w-4" />
                 {formatDate(post.publishedAt)}
               </span>
+              <span>{readingTime} min read</span>
               {post.author && (
                 <span className="flex items-center gap-2">
                   <User className="h-4 w-4" />
@@ -69,11 +87,39 @@ export function BlogPostLayout({ post, formatDate }: BlogPostLayoutProps) {
 
           <div className="flex flex-col lg:flex-row gap-10 lg:gap-12 items-start">
             <div className="flex-1 min-w-0 w-full">
-              <article className="blog-content prose-measure" data-testid="blog-content">
-                {post.content && (
-                  <div dangerouslySetInnerHTML={{ __html: post.content }} />
-                )}
-              </article>
+              <GuideContentBlocks
+                quickAnswer={post.quickAnswer}
+                keyTakeaways={post.keyTakeaways}
+                tocHeadings={tocHeadings.length >= 3 ? tocHeadings : undefined}
+              >
+                <article className="blog-content prose-measure" data-testid="blog-content">
+                  {post.content && (
+                    <div dangerouslySetInnerHTML={{ __html: contentWithIds }} />
+                  )}
+                </article>
+              </GuideContentBlocks>
+
+              {hub && pillarSlug && (
+                <p className="mt-8 text-sm text-muted-foreground">
+                  Part of our{' '}
+                  <Link href={guidePath(pillarSlug)} className="text-accent hover:underline">
+                    {hub.title}
+                  </Link>{' '}
+                  guide
+                  {isCategoryHubIndexable(post.hubSlug, hubPosts.length) && (
+                    <>
+                      {' '}
+                      ·{' '}
+                      <Link
+                        href={categoryHubPath(post.hubSlug)}
+                        className="text-accent hover:underline"
+                      >
+                        All articles
+                      </Link>
+                    </>
+                  )}
+                </p>
+              )}
 
               {post.tags && post.tags.length > 0 && (
                 <div className="mt-10 pt-8 border-t border-border" data-testid="blog-tags">

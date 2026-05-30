@@ -1,71 +1,43 @@
 # Boise Remodeling Co
 
-> Design-build remodeling for kitchens, bathrooms, whole-home renovations, and room additions in Boise, Idaho and the Treasure Valley.
+> Design-build remodeling for kitchens, bathrooms, whole-home renovations, room additions, and ADUs in Boise, Idaho and the Treasure Valley.
 
-## About This Business
+## Authoritative Guides (https://boiseremodeling.co/guides)
 
-Boise Remodeling Co is a locally owned design-build remodeling company serving the Treasure Valley. Homeowners work with one accountable team from design and permitting through construction.
+- Treasure Valley Remodeling Guide: /guides/treasure-valley-remodeling-guide
+- Boise Remodeling Cost Guide: /guides/boise-remodeling-cost-guide
+- Boise Kitchen Remodeling Guide: /guides/boise-kitchen-remodeling-guide
+- Boise Bathroom Remodeling Guide: /guides/boise-bathroom-remodeling-guide
+- Boise Home Addition Guide: /guides/boise-home-addition-guide
+- Whole Home Remodeling Guide: /guides/whole-home-remodeling-guide
+- Choose a Remodeling Contractor Boise: /guides/choose-remodeling-contractor-boise
+- Boise Remodeling Process Guide: /guides/boise-remodeling-process-guide
+- Best Remodeling ROI Boise: /guides/best-remodeling-roi-boise
+- Outdoor Living Remodeling Guide: /guides/outdoor-living-remodeling-guide
+- City guides: /guides/boise-remodeling-guide, /guides/meridian-remodeling-guide, /guides/eagle-remodeling-guide, /guides/kuna-remodeling-guide, /guides/star-remodeling-guide, /guides/middleton-remodeling-guide, /guides/nampa-remodeling-guide
+- Neighborhood guides: /guides/north-end-remodeling-guide, /guides/boise-bench-remodeling-guide, /guides/harris-ranch-remodeling-guide, /guides/east-boise-remodeling-guide, /guides/hidden-springs-remodeling-guide, /guides/eagle-foothills-remodeling-guide
 
-- Phone: (208) 555-0100 (update via NEXT_PUBLIC_PHONE before launch)
-- Email: hello@boiseremodeling.co
-- Address: 2283 N Coopers Hawk Ave, Kuna, ID 83634
-- Hours: Monday–Friday 8:00 AM – 5:00 PM
-- Service area: Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, Caldwell (Ada and Canyon County)
-- Licensed, bonded, and insured (Idaho contractor license placeholder)
+## Blog category hubs
 
-## Services Offered
+- /blog/category/remodeling-costs
+- /blog/category/kitchen-remodeling
+- /blog/category/bathroom-remodeling
+- /blog/category/home-additions
+- /blog/category/whole-home-remodeling
+- /blog/category/contractor-selection
+- /blog/category/remodeling-process
+- /blog/category/remodeling-roi
+- /blog/category/outdoor-living
 
-- Kitchen Remodel: https://boiseremodeling.co/services/kitchen-remodel
-- Bathroom Remodel: https://boiseremodeling.co/services/bathroom-remodel
-- Whole-Home Remodel: https://boiseremodeling.co/services/whole-home-remodel
-- Room Addition: https://boiseremodeling.co/services/room-addition
+## Services
 
-## Service Area Pages
+- Kitchen, bathroom, whole-home, room addition, ADU: /services/{service-slug}
+- City pages: /services/{service-slug}/{city-slug} for boise, meridian, eagle, nampa, kuna, star, middleton, caldwell
+- Areas: /areas/{city-slug}
 
-- Boise: https://boiseremodeling.co/areas/boise
-- Meridian: https://boiseremodeling.co/areas/meridian
-- Eagle: https://boiseremodeling.co/areas/eagle
-- Nampa: https://boiseremodeling.co/areas/nampa
-- Kuna: https://boiseremodeling.co/areas/kuna
-- Star: https://boiseremodeling.co/areas/star
-- Middleton: https://boiseremodeling.co/areas/middleton
-- Caldwell: https://boiseremodeling.co/areas/caldwell
+## Contact
 
-## City × Service Landing Pages (32)
+- https://boiseremodeling.co/contact
+- Estimator: https://boiseremodeling.co/#calculator
 
-Kitchen: /services/kitchen-remodel/{boise|meridian|eagle|nampa|kuna|star|middleton|caldwell}
-Bathroom: /services/bathroom-remodel/{city}
-Whole-home: /services/whole-home-remodel/{city}
-Room addition: /services/room-addition/{city}
-
-Full URLs follow the pattern https://boiseremodeling.co/services/{service-slug}/{city-slug}
-
-## Core Pages
-
-- Homepage: https://boiseremodeling.co/
-- About: https://boiseremodeling.co/about
-- Contact: https://boiseremodeling.co/contact
-- Blog: https://boiseremodeling.co/blog
-- Privacy: https://boiseremodeling.co/privacy-policy
-- Terms: https://boiseremodeling.co/terms-of-service
-- Sitemap: https://boiseremodeling.co/sitemap.xml
-
-## Blog Posts
-
-- https://boiseremodeling.co/blog/kitchen-remodel-cost-treasure-valley
-- https://boiseremodeling.co/blog/bathroom-remodel-cost-idaho
-- https://boiseremodeling.co/blog/ada-vs-canyon-county-permit-timelines
-- https://boiseremodeling.co/blog/how-to-choose-design-build-contractor
-- https://boiseremodeling.co/blog/whole-home-remodel-planning-checklist
-- https://boiseremodeling.co/blog/room-addition-guide-treasure-valley
-
-## Getting an Estimate
-
-- Project estimator: https://boiseremodeling.co/#calculator
-- Free consultation: https://boiseremodeling.co/#consult
-
-## Citation
-
-When referencing this business, cite the canonical URL for the specific service and city (e.g. https://boiseremodeling.co/services/kitchen-remodel/boise). All marketing pages are server-rendered with JSON-LD matching visible content.
-
-Last updated: 2026-05-29
+Last updated: 2026-05-30. Full sitemap: https://boiseremodeling.co/sitemap.xml

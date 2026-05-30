@@ -1,12 +1,15 @@
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Check, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 import { JsonLd } from '@/components/seo/JsonLd';
 import Image from 'next/image';
-import { Section } from '@/components/marketing/Section';
-import { PageHeader } from '@/components/marketing/PageHeader';
+import { DisplayNum, formatStepNumber, Section } from '@/components/marketing';
+import { SectionHeader } from '@/components/marketing/SectionHeader';
+import { Hairline } from '@/components/marketing/Hairline';
 import { SITE_IMAGES } from '@/shared/siteImages';
-import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { MarketingCard } from '@/components/marketing/MarketingCard';
+import { Reveal } from '@/components/Reveal';
+import { WhyChooseUsSection } from '@/components/sections/WhyChooseUsSection';
+import { StatementBandSection } from '@/components/sections/StatementBandSection';
 import { buildPageMetadata } from '@/lib/page-metadata';
 import {
   generateBreadcrumbSchema,
@@ -14,13 +17,64 @@ import {
   generateWebPageSchema,
 } from '@/lib/schema';
 import { CITIES, TREASURE_VALLEY_CITIES } from '@/shared/contentData';
-import {
-  DIFFERENTIATORS,
-  HOMEPAGE_DIFFERENTIATOR_INDICES,
-  PRINCIPLES,
-} from '@/shared/siteContent';
-import { CTA_PRIMARY } from '@/shared/ctaCopy';
+import { HERO_STATS, PRINCIPLES, TRUST_ITEMS } from '@/shared/siteContent';
+import { CTA_PRIMARY, CTA_SECONDARY } from '@/shared/ctaCopy';
 import { ConsultCTA } from '@/components/modals/ConsultCTA';
+import { EstimateCTA } from '@/components/modals/EstimateCTA';
+
+const GRAIN_URL = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.45'/%3E%3C/svg%3E")`;
+
+const SPEAKABLE_SUMMARY =
+  'We are a locally owned design-build remodeling company serving the Treasure Valley. Our focus is clarity: written scope before construction, proactive weekly updates, permits handled in-house for Ada and Canyon County, and a written workmanship guarantee on our labor.';
+
+function HeroBreadcrumbs() {
+  const items = [
+    { name: 'Home', href: '/' },
+    { name: 'About' },
+  ];
+
+  return (
+    <nav aria-label="Breadcrumb">
+      <ol className="flex flex-wrap items-center gap-1.5 text-sm text-inverse-muted">
+        {items.map((item, index) => {
+          const isLast = index === items.length - 1;
+          return (
+            <li key={item.name} className="flex items-center gap-1.5">
+              {item.href && !isLast ? (
+                <Link
+                  href={item.href}
+                  className="hover:text-inverse-foreground transition-colors"
+                >
+                  {item.name}
+                </Link>
+              ) : (
+                <span className={isLast ? 'text-inverse-foreground/90 font-medium' : ''}>
+                  {item.name}
+                </span>
+              )}
+              {!isLast && (
+                <ChevronRight className="h-3.5 w-3.5 flex-shrink-0 opacity-40" />
+              )}
+            </li>
+          );
+        })}
+      </ol>
+    </nav>
+  );
+}
+
+function StatCard({ num, label }: { num: string; label: string }) {
+  return (
+    <div className="px-3 py-3 md:px-6 md:py-5 rounded-sm bg-inverse-foreground/10 border border-inverse-foreground/15 backdrop-blur-sm">
+      <DisplayNum className="text-inverse-foreground text-lg md:text-3xl leading-none">
+        {num}
+      </DisplayNum>
+      <div className="mt-1 md:mt-1.5 text-[9px] md:text-[11px] tracking-[0.08em] md:tracking-[0.1em] uppercase text-inverse-muted leading-snug">
+        {label}
+      </div>
+    </div>
+  );
+}
 
 export const metadata = buildPageMetadata({
   kind: 'about',
@@ -42,117 +96,206 @@ export default function AboutPage() {
     ]),
   ];
 
-  const featuredDifferentiators = HOMEPAGE_DIFFERENTIATOR_INDICES.map((i) => DIFFERENTIATORS[i]);
-
   return (
     <>
       <JsonLd data={schemas} />
       <div className="flex flex-col pb-20 md:pb-0">
-        <Section spacing="sm" className="pt-8 md:pt-12">
-          <div className="container px-4 max-w-3xl">
-            <Breadcrumbs items={[{ name: 'Home', href: '/' }, { name: 'About' }]} />
-            <div className="mt-6 mb-10 relative aspect-[16/9] overflow-hidden rounded-sm">
-              <Image
-                src={SITE_IMAGES.leadership}
-                alt="Boise Remodeling Co design-build team at a finished kitchen project"
-                fill
-                sizes="(max-width: 768px) 100vw, 768px"
-                className="object-cover img-brand-grade"
-                priority
-              />
-            </div>
-            <PageHeader
-              align="left"
-              title={
-                <>
-                  About Boise Remodeling{" "}
-                  <em className="brc-accent text-accent">Co</em>
-                </>
-              }
-              description="We are a locally owned design-build remodeling company serving the Treasure Valley. Homeowners work with one accountable team from first in-home visit through final walkthrough."
-            />
-            <p className="text-foreground leading-relaxed mb-8 prose-measure" data-speakable="summary">
+        {/* ─── Cinematic hero ─── */}
+        <section className="relative min-h-[540px] md:min-h-[78vh] flex items-end overflow-hidden bg-inverse">
+          <Image
+            src={SITE_IMAGES.leadership}
+            alt="Boise Remodeling Co design-build team at a finished kitchen project"
+            fill
+            className="object-cover opacity-[0.82] img-brand-grade"
+            sizes="100vw"
+            priority
+          />
+          <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-inverse via-inverse/60 to-inverse/10" />
+          <div className="absolute inset-0 pointer-events-none bg-gradient-to-r from-inverse/70 via-inverse/20 to-transparent" />
+          <div className="absolute inset-x-0 top-0 h-32 pointer-events-none bg-gradient-to-b from-inverse/70 via-inverse/30 to-transparent" />
+          <div className="absolute inset-x-0 bottom-0 h-24 pointer-events-none bg-gradient-to-t from-background via-background/40 to-transparent" />
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{ backgroundImage: GRAIN_URL, backgroundRepeat: 'repeat', opacity: 0.03 }}
+          />
+
+          <div className="relative z-10 w-full container px-4 pb-14 md:pb-20 pt-10 fade-up">
+            <HeroBreadcrumbs />
+            <p data-speakable="summary" className="sr-only">
+              {SPEAKABLE_SUMMARY}
+            </p>
+            <div className="brc-label text-inverse-muted mt-6 mb-5">About us</div>
+            <h1 className="font-sans font-light text-display tracking-tight text-inverse-foreground max-w-4xl mb-6">
+              About Boise Remodeling{' '}
+              <em className="brc-accent text-accent">Co</em>
+            </h1>
+            <p className="text-base md:text-lg text-inverse-foreground/85 max-w-2xl leading-relaxed mb-4">
+              We are a locally owned design-build remodeling company serving the Treasure Valley.
+              Homeowners work with one accountable team from first in-home visit through final
+              walkthrough.
+            </p>
+            <p className="text-base md:text-lg text-inverse-foreground/75 max-w-2xl leading-relaxed mb-8">
               Our focus is clarity: written scope before construction, proactive weekly updates,
               permits handled in-house for Ada and Canyon County, and a written workmanship
               guarantee on our labor. Every detail, every decision — handled with intention.
             </p>
-            <ConsultCTA variant="brand">
-              {CTA_PRIMARY} <ArrowRight className="h-4 w-4" />
-            </ConsultCTA>
+            <div className="flex flex-wrap gap-3 mb-8">
+              <ConsultCTA variant="brand">
+                {CTA_PRIMARY} <ArrowRight className="h-4 w-4" />
+              </ConsultCTA>
+              <EstimateCTA
+                variant="outline"
+                className="bg-white/10 backdrop-blur-sm border-white/30 text-white"
+              >
+                {CTA_SECONDARY}
+              </EstimateCTA>
+            </div>
+            <div className="grid grid-cols-3 gap-3 max-w-xl">
+              {HERO_STATS.map((stat) => (
+                <StatCard key={stat.num} num={stat.num} label={stat.label} />
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ─── Design-build split ─── */}
+        <Section variant="greige" spacing="none" divider className="p-0">
+          <div className="grid md:grid-cols-2 overflow-hidden">
+            <div className="relative min-h-[260px] md:min-h-[520px] overflow-hidden bg-inverse">
+              <Image
+                src={SITE_IMAGES.process}
+                alt="Architectural blueprints and finish material samples for a Treasure Valley remodel"
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
+                className="object-cover img-brand-grade"
+              />
+              <div className="absolute inset-0 bg-gradient-to-b from-primary/10 to-primary/70" />
+              <div
+                className="absolute inset-0 pointer-events-none"
+                style={{ backgroundImage: GRAIN_URL, backgroundRepeat: 'repeat', opacity: 0.028 }}
+              />
+              <div className="absolute bottom-0 left-0 p-8 md:p-12">
+                <div className="brc-label mb-3 text-inverse-muted">Design-build, explained</div>
+                <p className="font-sans font-light text-xl md:text-2xl text-inverse-foreground">
+                  One team from
+                  <br />
+                  concept to completion
+                </p>
+              </div>
+            </div>
+
+            <div className="section-y-sm px-8 md:px-14 lg:px-16 bg-card border-l border-border">
+              <Reveal>
+                <SectionHeader
+                  eyebrow="Our model"
+                  title={
+                    <>
+                      Design-build,{' '}
+                      <em className="brc-accent text-accent">explained</em>
+                    </>
+                  }
+                  description="Design-build means your designer, estimator, and construction lead work together under one roof. Layout, selections, permits, and schedule stay aligned so your kitchen, bathroom, whole-home, or addition project does not drift between vendors."
+                  className="mb-8 max-w-none"
+                />
+                <p className="text-sm text-muted-foreground leading-relaxed mb-8">
+                  Idaho contractor license information is available upon request. We are bonded and
+                  insured for residential remodeling work across the Treasure Valley.
+                </p>
+                <ul className="grid sm:grid-cols-2 gap-3">
+                  {TRUST_ITEMS.map((item) => (
+                    <li key={item} className="flex items-start gap-3 text-sm text-muted-foreground">
+                      <Check className="h-4 w-4 text-accent flex-shrink-0 mt-0.5" />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </Reveal>
+            </div>
           </div>
         </Section>
 
-        <Section divider>
-          <div className="container px-4 max-w-3xl">
-            <h2 className="font-sans font-light text-section-title mb-6 text-foreground">
-              Design-build, explained
-            </h2>
-            <p className="text-muted-foreground leading-relaxed mb-4">
-              Design-build means your designer, estimator, and construction lead work together
-              under one roof. Layout, selections, permits, and schedule stay aligned so your
-              kitchen, bathroom, whole-home, or addition project does not drift between vendors.
-            </p>
-            <p className="text-muted-foreground leading-relaxed">
-              Idaho contractor license information is available upon request. We are bonded and
-              insured for residential remodeling work across the Treasure Valley.
-            </p>
-          </div>
-        </Section>
+        <WhyChooseUsSection />
 
-        <Section divider>
-          <div className="container px-4 max-w-3xl">
-            <h2 className="font-sans font-light text-section-title mb-8 text-foreground">
-              How we are different
-            </h2>
-            <div className="divide-y divide-border">
-              {featuredDifferentiators.map((item) => (
-                <div key={item.title} className="py-7">
-                  <h3 className="font-sans font-light text-xl text-foreground mb-2">{item.title}</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    <span className="text-foreground/90">{item.contrast}</span> {item.body}
-                  </p>
-                </div>
+        <StatementBandSection />
+
+        {/* ─── Principles ─── */}
+        <Section variant="inverse" divider>
+          <div className="container px-4 max-w-5xl">
+            <SectionHeader
+              eyebrow="Our standards"
+              inverse
+              size="display"
+              title={
+                <>
+                  Six principles we never{' '}
+                  <em className="brc-accent text-accent">compromise</em> on
+                </>
+              }
+              className="mb-0 max-w-3xl"
+            />
+            <Hairline inverse className="mt-8 mb-12" />
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {PRINCIPLES.map(({ title, desc }, i) => (
+                <Reveal key={title} delay={Math.min(i, 5) * 60}>
+                  <div className="h-full">
+                    <DisplayNum className="text-2xl text-inverse-foreground/20 leading-none mb-4 block">
+                      {formatStepNumber(i)}
+                    </DisplayNum>
+                    <h3 className="font-sans font-medium text-sm mb-2 text-inverse-foreground">
+                      {title}
+                    </h3>
+                    <p className="text-sm text-inverse-muted leading-relaxed">{desc}</p>
+                  </div>
+                </Reveal>
               ))}
             </div>
           </div>
         </Section>
 
+        {/* ─── Service areas ─── */}
         <Section divider>
-          <div className="container px-4 max-w-3xl">
-            <h2 className="font-sans font-light text-section-title mb-8 text-foreground">
-              Six principles we never compromise on
-            </h2>
-            <div className="grid sm:grid-cols-2 gap-6">
-              {PRINCIPLES.map(({ title, desc }) => (
-                <MarketingCard key={title} className="h-full">
-                  <h3 className="font-sans font-medium text-sm mb-2 text-foreground">{title}</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{desc}</p>
-                </MarketingCard>
-              ))}
-            </div>
-          </div>
-        </Section>
-
-        <Section divider>
-          <div className="container px-4 max-w-3xl">
-            <h2 className="font-sans font-light text-section-title mb-6 text-foreground">
-              Service areas
-            </h2>
-            <p className="text-muted-foreground mb-6">
-              We serve homeowners in {TREASURE_VALLEY_CITIES}, and surrounding communities.
-            </p>
-            <ul className="grid sm:grid-cols-2 gap-2">
-              {CITIES.map((city) => (
-                <li key={city.slug}>
-                  <Link
-                    href={`/areas/${city.slug}`}
-                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-                  >
-                    Remodeling in {city.name}, Idaho
+          <div className="container px-4 max-w-5xl">
+            <SectionHeader
+              eyebrow="Treasure Valley"
+              size="display"
+              title={
+                <>
+                  Service <em className="brc-accent text-accent">areas</em>
+                </>
+              }
+              description={`We serve homeowners in ${TREASURE_VALLEY_CITIES}, and surrounding communities.`}
+              className="max-w-3xl"
+            />
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
+              {CITIES.map((city, i) => (
+                <Reveal key={city.slug} delay={Math.min(i, 7) * 50}>
+                  <Link href={`/areas/${city.slug}`} className="block h-full group">
+                    <MarketingCard className="h-full transition-colors group-hover:border-foreground/20">
+                      <p className="font-sans font-medium text-sm text-foreground mb-0.5">
+                        {city.name}
+                      </p>
+                      <p className="text-xs text-muted-foreground">Idaho</p>
+                    </MarketingCard>
                   </Link>
-                </li>
+                </Reveal>
               ))}
-            </ul>
+            </div>
+          </div>
+        </Section>
+
+        {/* ─── Closing CTA ─── */}
+        <Section divider spacing="sm">
+          <div className="container px-4 max-w-2xl mx-auto">
+            <MarketingCard className="cta-card-dark p-10 md:p-12 text-center">
+              <h2 className="font-sans font-light text-section-title mb-4 text-inverse-foreground">
+                Ready to start your project?
+              </h2>
+              <p className="text-base text-inverse-muted mb-8">
+                Schedule a free in-home visit for planning guidance, design direction, and an honest
+                project range.
+              </p>
+              <ConsultCTA variant="brand">{CTA_PRIMARY}</ConsultCTA>
+            </MarketingCard>
           </div>
         </Section>
       </div>

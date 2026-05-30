@@ -4,6 +4,12 @@ import { SITE_TAGLINE } from "@/shared/siteContent";
 import { areaPath, servicePath } from "@/lib/seo-routes";
 import { SITE_CONFIG } from "@/shared/siteConfig";
 import { FooterCTAs } from "@/components/modals/FooterCTAs";
+import { CONTENT_HUBS, categoryHubPath, guidePath } from "@/shared/contentHubs";
+import { BLOG_POSTS } from "@/shared/blogContent";
+import { GUIDE_PAGES } from "@/shared/guideContent";
+import manifest from "@/data/internal-links.json";
+
+const PUBLISHED_GUIDE_SLUGS = new Set(GUIDE_PAGES.map((g) => g.slug));
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -11,7 +17,7 @@ export function Footer() {
   return (
     <footer className="bg-inverse text-inverse-foreground">
       <div className="container px-4 py-16 md:py-20">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10 mb-12 lg:gap-0 lg:divide-x lg:divide-inverse-foreground/10 [&>*]:lg:px-8 [&>*:first-child]:lg:pl-0 [&>*:last-child]:lg:pr-0">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-10 mb-12 lg:gap-0 lg:divide-x lg:divide-inverse-foreground/10 [&>*]:lg:px-6 [&>*:first-child]:lg:pl-0 [&>*:last-child]:lg:pr-0">
           <div>
             <div className="mb-4">
               <span className="font-sans font-light text-lg tracking-tight text-inverse-foreground">
@@ -60,6 +66,36 @@ export function Footer() {
 
           <div>
             <h3 className="font-sans font-medium text-[11px] tracking-[0.12em] uppercase mb-5 text-inverse-muted">
+              Resources
+            </h3>
+            <ul className="space-y-2.5">
+              <li>
+                <Link
+                  href="/guides"
+                  className="text-sm text-inverse-muted hover:text-inverse-foreground transition-colors"
+                >
+                  Remodeling Guides
+                </Link>
+              </li>
+              {CONTENT_HUBS.filter(
+                (h) => h.priorityTier <= 2 && PUBLISHED_GUIDE_SLUGS.has(h.pillarSlug),
+              )
+                .slice(0, 3)
+                .map((hub) => (
+                  <li key={hub.hubSlug}>
+                    <Link
+                      href={guidePath(hub.pillarSlug)}
+                      className="text-sm text-inverse-muted hover:text-inverse-foreground transition-colors"
+                    >
+                      {hub.title}
+                    </Link>
+                  </li>
+                ))}
+            </ul>
+          </div>
+
+          <div>
+            <h3 className="font-sans font-medium text-[11px] tracking-[0.12em] uppercase mb-5 text-inverse-muted">
               Studio
             </h3>
             <ul className="space-y-2.5">
@@ -100,6 +136,54 @@ export function Footer() {
                   </Link>
                 </li>
               ))}
+            </ul>
+          </div>
+
+          <div>
+            <h3 className="font-sans font-medium text-[11px] tracking-[0.12em] uppercase mb-5 text-inverse-muted">
+              From the Blog
+            </h3>
+            <ul className="space-y-2.5">
+              <li>
+                <Link
+                  href="/blog"
+                  className="text-sm text-inverse-muted hover:text-inverse-foreground transition-colors"
+                >
+                  All articles
+                </Link>
+              </li>
+              {CONTENT_HUBS.filter((h) => h.priorityTier <= 2)
+                .slice(0, 3)
+                .map((hub) => (
+                  <li key={hub.hubSlug}>
+                    <Link
+                      href={categoryHubPath(hub.hubSlug)}
+                      className="text-sm text-inverse-muted hover:text-inverse-foreground transition-colors"
+                    >
+                      {hub.title}
+                    </Link>
+                  </li>
+                ))}
+              {(
+                (manifest.blogByCategory as Record<
+                  string,
+                  Array<{ slug: string; title: string }>
+                >)?.['remodeling-costs'] ??
+                BLOG_POSTS.filter((p) => p.hubSlug === 'remodeling-costs')
+                  .slice(0, 1)
+                  .map((p) => ({ slug: p.slug, title: p.title }))
+              )
+                .slice(0, 1)
+                .map((post) => (
+                  <li key={post.slug}>
+                    <Link
+                      href={`/blog/${post.slug}`}
+                      className="text-sm text-inverse-muted hover:text-inverse-foreground transition-colors line-clamp-2"
+                    >
+                      {post.title}
+                    </Link>
+                  </li>
+                ))}
             </ul>
           </div>
 

@@ -1,6 +1,13 @@
 import { MetadataRoute } from 'next';
 import { BLOG_POSTS } from '@/shared/blogContent';
 import { CITIES, SERVICES } from '@/shared/contentData';
+import { GUIDE_PAGES } from '@/shared/guideContent';
+import {
+  CONTENT_HUBS,
+  categoryHubPath,
+  guidePath,
+  isCategoryHubIndexable,
+} from '@/shared/contentHubs';
 import { getBaseUrl } from '@/lib/seo';
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -14,6 +21,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/contact`, lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
     { url: `${baseUrl}/testimonials`, lastModified: now, changeFrequency: 'monthly', priority: 0.65 },
     { url: `${baseUrl}/blog`, lastModified: now, changeFrequency: 'weekly', priority: 0.6 },
+    { url: `${baseUrl}/guides`, lastModified: now, changeFrequency: 'weekly', priority: 0.85 },
     { url: `${baseUrl}/privacy-policy`, lastModified: now, changeFrequency: 'yearly', priority: 0.3 },
     { url: `${baseUrl}/terms-of-service`, lastModified: now, changeFrequency: 'yearly', priority: 0.3 },
   ];
@@ -48,11 +56,33 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
+  const guidePages: MetadataRoute.Sitemap = GUIDE_PAGES.map((guide) => ({
+    url: `${baseUrl}${guidePath(guide.slug)}`,
+    lastModified: new Date(guide.publishedAt),
+    changeFrequency: 'monthly' as const,
+    priority: 0.9,
+  }));
+
+  const categoryHubPages: MetadataRoute.Sitemap = CONTENT_HUBS.flatMap((hub) => {
+    const count = BLOG_POSTS.filter((p) => p.hubSlug === hub.hubSlug).length;
+    if (!isCategoryHubIndexable(hub.hubSlug, count)) return [];
+    return [
+      {
+        url: `${baseUrl}${categoryHubPath(hub.hubSlug)}`,
+        lastModified: now,
+        changeFrequency: 'weekly' as const,
+        priority: 0.55,
+      },
+    ];
+  });
+
   return [
     ...staticPages,
     ...servicePages,
     ...areaPages,
     ...cityServicePages,
+    ...guidePages,
     ...blogPages,
+    ...categoryHubPages,
   ];
 }

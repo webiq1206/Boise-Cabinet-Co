@@ -1,0 +1,50 @@
+---
+description: Master content brief for Boise Remodeling Co topical authority articles and guides
+globs:
+  - shared/**/*.ts
+  - shared/content/**/*
+---
+
+# Treasure Valley Content Standards
+
+When creating or expanding blog posts (`shared/blogContent.ts`, `shared/content/`) or guides (`shared/guideContent.ts`):
+
+## Registry
+
+- Register every piece in `shared/contentHubs.ts` with correct `hubSlug`, `contentType`, and `status`.
+- Pillars live at `/guides/[slug]`; clusters at `/blog/[slug]`.
+- Use hub-aligned `category` / `categoryLabel` from `CONTENT_HUBS`.
+
+## Length & structure
+
+- **Pillar guides:** 4,000–8,000 words, 15–25 FAQs, Quick Answer + Key Takeaways.
+- **Cluster posts:** 2,500+ words (target 4,000), 8–15 FAQs.
+- **Location guides:** cluster-tier unless marked master pillar.
+- Required sections: intro, quick answer, takeaways, main content, cost/timeline tables where relevant, Boise-specific block, FAQ, soft CTA.
+
+## HTML conventions
+
+- `class="quick-answer"` / `key-takeaways` via layout props; in-body use `summary-block`, `cost-table`, `timeline-table`.
+- Put `id` on `h2` (injected automatically in layout).
+- 8+ internal links (pillars): link to `/guides/{pillar}`, `/services/*`, `/areas/*`, sibling clusters.
+
+## Local SEO
+
+- Name all eight cities where appropriate: Boise, Meridian, Eagle, Kuna, Star, Middleton, Nampa, Caldwell.
+- Reference Ada vs Canyon permits, local housing stock, dry climate / freeze-thaw for exterior topics.
+- Position Boise Remodeling Co as trusted local authority; educate before selling.
+
+## AI search
+
+- H2s as homeowner questions; quotable `summary-block` every few sections.
+- Concise Quick Answer at top; Speakable-compatible summary.
+
+## QA
+
+Run `npx tsx scripts/verify-content.ts` before merge. Regenerate links: `npm run links:generate`.
+
+## Hubs (10)
+
+1. remodeling-costs 2. kitchen-remodeling 3. bathroom-remodeling 4. home-additions 5. whole-home-remodeling 6. contractor-selection 7. remodeling-process 8. remodeling-roi 9. outdoor-living 10. treasure-valley-locations
+
+Outdoor, luxury, and aging-in-place: blog/guides only (no dedicated service pages).

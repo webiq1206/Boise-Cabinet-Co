@@ -1,83 +1,73 @@
 # SEO Audit Inventory - Boise Remodeling Co
 
-294 indexable routes audited at the **template/group level** (individual per-page `audits/<slug>.md` were skipped: the four templates (home, service, city-service, area, blog) generate 99% of routes deterministically from the same generators, so per-route audits would duplicate the template audit. See SEO-AUDIT-LOG.md for findings.
+**Last updated:** 2026-05-30 — topical authority ecosystem finalized.
+
+## Content surface (published)
+
+| Asset | Count | Source |
+|---|---|---|
+| Hub pillar + location guides | 23 | `shared/guideContent.ts`, `shared/content/allHubsContent.ts` |
+| Blog cluster articles | 75 | `shared/content/allBlogPosts.ts` |
+| Content manifest entries | 94 | `shared/contentHubs.ts` (all `published`) |
+| Blog category hub pages | 10 | `app/blog/category/[hubSlug]/page.tsx` |
+| Static sitemap URLs (approx.) | ~203 | `npm run build` — home, services, areas, guides, blog, categories |
 
 ## Group A - Root / Site-wide
+
 | Route | File | Notes |
 |---|---|---|
-| Layout | `app/layout.tsx` | Title template, root OG, GA4, JSON-LD root, manifest, viewport |
-| `/sitemap.xml` | `app/sitemap.ts` | Generates all 294 URLs |
+| Layout | `app/layout.tsx` | Title template, root OG, GA4, JSON-LD |
+| `/sitemap.xml` | `app/sitemap.ts` | Services, areas, guides, blog, category hubs |
 | `/robots.txt` | `app/robots.ts` | Disallows /api, /admin, /subcontractor |
-| `/404` | `app/not-found.tsx` | Custom; needs metadata + noindex |
-| `/llms.txt` | `public/llms.txt` | Static, AI crawler manifest |
-| `/site.webmanifest` | `public/site.webmanifest` | PWA manifest |
+| `/404` | `app/not-found.tsx` | Custom not-found |
+| `/llms.txt` | `public/llms.txt` | AI crawler manifest — guides + category hubs |
 
-## Group B - Homepage (1 route)
-| Route | File | Schema | Status |
-|---|---|---|---|
-| `/` | `app/page.tsx` | LocalBusiness, Organization, FAQPage, Speakable | metadata + canonical |
+## Group B - Homepage
 
-## Group C - Service Pages (28 routes, 1 template)
-Template: `app/services/[slug]/page.tsx`
-Schema emitted: Service, BreadcrumbList, FAQPage, LocalBusiness, HowTo, SpeakableSpecification
-Generates: lawn-mowing, aeration, fertilization, weed-control, dethatching, overseeding, lawn-edging, lawn-renovation, patio-installation, retaining-walls, fire-pit-installation, hedge-trimming, mulch-installation, sod-installation, spring-cleanup, fall-cleanup, snow-removal, christmas-light-installation, tree-trimming, tree-removal, stump-grinding, sprinkler-system-installation, sprinkler-repair, irrigation-repair, irrigation-maintenance, sprinkler-blowout, landscape-lighting + legacy redirects
+| Route | File | Schema |
+|---|---|---|
+| `/` | `app/page.tsx` | LocalBusiness, Organization, FAQPage, Speakable |
 
-Legacy individual service files (also auto-included for back-compat):
-- `app/services/christmas-lights/page.tsx`
-- `app/services/fence-installation/page.tsx`
-- `app/services/irrigation-installation/page.tsx`
-- `app/services/landscaping/page.tsx`
-- `app/services/lawn-care/page.tsx`
-- `app/services/lawn-mowing/page.tsx`
-- `app/services/patio-installation/page.tsx`
-- `app/services/pond-installation/page.tsx`
+## Group C - Service Pages (5 services)
 
-## Group D - City-Service Pages (168 routes, 1 template)
-Template: `app/services/[slug]/[city]/page.tsx`
-Schema emitted: LocalBusiness (city-scoped), Service (city-scoped), BreadcrumbList, FAQPage, HowTo, SpeakableSpecification
-Generates: 28 services × 6 cities
+Template: `app/services/[slug]/page.tsx`  
+Services: kitchen-remodel, bathroom-remodel, whole-home-remodel, room-addition, adu
 
-## Group E - Area Pages (6 routes, 1 template)
+## Group D - City-Service Pages (5 × 8 cities = 40)
+
+Template: `app/services/[slug]/[city]/page.tsx`  
+Cities: boise, meridian, eagle, nampa, kuna, star, middleton, caldwell
+
+## Group E - Area Pages (8 routes)
+
 Template: `app/areas/[slug]/page.tsx`
-Cities: kuna, boise, meridian, eagle, star, middleton
 
-## Group F - Blog (1 index + 92 posts)
-- `app/blog/page.tsx` (index) - WebPage, BreadcrumbList
-- `app/blog/[slug]/page.tsx` (template) - Article, BreadcrumbList
+## Group F - Guides (23 + index)
 
-## Group G - Static Utility (12 routes)
-| Route | File | Has metadata | JSON-LD |
-|---|---|---|---|
-| `/about` | `app/about/page.tsx` | yes | none |
-| `/contact` | `app/contact/page.tsx` | yes | none |
-| `/faq` | `app/faq/page.tsx` | yes | none |
-| `/get-quote` | `app/get-quote/page.tsx` | yes | none |
-| `/pricing` | `app/pricing/layout.tsx` | yes (layout) | none |
-| `/services` | `app/services/page.tsx` | yes | WebPage, BreadcrumbList (added) |
-| `/seasonal-guide` | `app/seasonal-guide/page.tsx` | yes | none |
-| `/commercial` | `app/commercial/page.tsx` | yes | none |
-| `/commercial/hoa-services` | `app/commercial/hoa-services/page.tsx` | yes | none |
-| `/commercial/municipal-services` | `app/commercial/municipal-services/page.tsx` | yes | none |
-| `/privacy-policy` | `app/privacy-policy/page.tsx` | yes | none |
-| `/terms-of-service` | `app/terms-of-service/page.tsx` | yes | none |
+| Route | Template | Schema |
+|---|---|---|
+| `/guides` | `app/guides/page.tsx` | WebPage, BreadcrumbList |
+| `/guides/[slug]` | `app/guides/[slug]/page.tsx` | Article, FAQ, Breadcrumb, Speakable |
 
-## Group H - Noindex Surface (excluded from sitemap)
-- `app/admin/page.tsx`, `app/admin/dashboard/page.tsx` (+ added `app/admin/layout.tsx` with noindex)
-- `app/subcontractor/page.tsx`, `/portal/page.tsx`, `/purchases/page.tsx` (+ added `app/subcontractor/layout.tsx`)
-- `app/quote/edit/page.tsx` (+ added `app/quote/layout.tsx`)
-- `app/quote-status/page.tsx` (+ updated `app/quote-status/layout.tsx` noindex)
+## Group G - Blog (75 posts + index + 10 category hubs)
 
-## Field-by-field per-template summary
-For each page template, the following SEO surface was audited:
-1. `<title>` (≤60 chars target via `generateSafePageTitle` / `generateCityServiceTitle`)
-2. meta description (≤160 chars)
-3. canonical URL (`alternates.canonical`)
-4. OG title / description / image / type / url
-5. Twitter card type
-6. H1 (single, keyword-rich, city/service)
-7. JSON-LD blocks rendered
-8. Internal links (via `RelatedContent` + nav/footer + hard-coded CTAs)
-9. Robots directive
-10. Image alt text (icons use `aria-hidden`, content images checked)
+| Route | Template | Schema |
+|---|---|---|
+| `/blog` | `app/blog/page.tsx` | WebPage, BreadcrumbList |
+| `/blog/[slug]` | `app/blog/[slug]/page.tsx` | Article, FAQ, Breadcrumb, Speakable |
+| `/blog/category/[hubSlug]` | `app/blog/category/[hubSlug]/page.tsx` | CollectionPage, BreadcrumbList |
 
-Defects discovered are recorded in SEO-AUDIT-LOG.md.
+## Group H - Static utility
+
+`/about`, `/contact`, `/testimonials`, `/areas`, `/privacy-policy`, `/terms-of-service`
+
+## Quality gates
+
+- `npm run verify:content` — pillar ≥4k words, cluster ≥2.5k, FAQ/city coverage
+- `npm run links:generate` — internal link graph (~147 pages, ~1k links)
+- `prebuild` runs links + audit + verify before `next build`
+
+## Redirects (content migration)
+
+- `/blog/kitchen-remodel-cost-treasure-valley` → `/blog/kitchen-remodel-cost-boise`
+- `/blog/bathroom-remodel-cost-idaho` → `/blog/bathroom-remodel-cost-boise`

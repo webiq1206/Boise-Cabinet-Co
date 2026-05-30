@@ -264,7 +264,10 @@ export function generateArticleSchema(article: {
   author?: string;
   image?: string;
   slug: string;
+  /** Defaults to /blog/ */
+  pathPrefix?: 'blog' | 'guides';
 }): SchemaContext {
+  const prefix = article.pathPrefix ?? 'blog';
   return {
     '@context': 'https://schema.org',
     '@type': 'Article',
@@ -283,7 +286,31 @@ export function generateArticleSchema(article: {
     },
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id': `${baseUrl}/blog/${article.slug}`,
+      '@id': `${baseUrl}/${prefix}/${article.slug}`,
+    },
+  };
+}
+
+export function generateCollectionPageSchema(page: {
+  title: string;
+  description: string;
+  url: string;
+  items: Array<{ name: string; url: string }>;
+}): SchemaContext {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: page.title,
+    description: page.description,
+    url: `${baseUrl}${page.url}`,
+    mainEntity: {
+      '@type': 'ItemList',
+      itemListElement: page.items.map((item, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        name: item.name,
+        url: `${baseUrl}${item.url}`,
+      })),
     },
   };
 }

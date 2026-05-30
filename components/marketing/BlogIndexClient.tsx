@@ -9,6 +9,11 @@ import { PageHeader } from "@/components/marketing/PageHeader";
 import { BlogCard } from "@/components/marketing/BlogCard";
 import { Chip } from "@/components/marketing/Chip";
 import { BLOG_POSTS } from "@/shared/blogContent";
+import {
+  CONTENT_HUBS,
+  categoryHubPath,
+  isCategoryHubIndexable,
+} from "@/shared/contentHubs";
 
 function formatDate(dateString: string): string {
   return new Date(dateString).toLocaleDateString("en-US", {
@@ -27,16 +32,26 @@ export function BlogIndexClient() {
     []
   );
 
-  const categories = useMemo(
-    () => Array.from(new Set(sortedPosts.map((p) => p.category))).sort(),
-    [sortedPosts]
+  const indexableHubs = useMemo(
+    () =>
+      [...CONTENT_HUBS]
+        .sort((a, b) => a.priorityTier - b.priorityTier)
+        .filter((hub) => {
+          const count = sortedPosts.filter((p) => p.hubSlug === hub.hubSlug).length;
+          return count > 0 && isCategoryHubIndexable(hub.hubSlug, count);
+        }),
+    [sortedPosts],
   );
 
-  const [activeCategory, setActiveCategory] = useState<string | null>(null);
+  const [activeHub, setActiveHub] = useState<string | null>(null);
 
-  const filtered = activeCategory
-    ? sortedPosts.filter((p) => p.category === activeCategory)
+  const filtered = activeHub
+    ? sortedPosts.filter((p) => p.hubSlug === activeHub)
     : sortedPosts;
+
+  const activeHubMeta = activeHub
+    ? CONTENT_HUBS.find((h) => h.hubSlug === activeHub)
+    : undefined;
 
   const [featured, ...rest] = filtered;
 
@@ -70,21 +85,34 @@ export function BlogIndexClient() {
               </div>
             ) : (
               <>
-                {categories.length >= 3 && (
-                  <div className="flex flex-wrap gap-2 justify-center mb-10">
-                    <Chip active={!activeCategory} onClick={() => setActiveCategory(null)}>
-                      All
+                {indexableHubs.length >= 2 && (
+                  <div className="flex flex-wrap gap-2 justify-center mb-6">
+                    <Chip active={!activeHub} onClick={() => setActiveHub(null)}>
+                      All topics
                     </Chip>
-                    {categories.map((cat) => (
+                    {indexableHubs.map((hub) => (
                       <Chip
-                        key={cat}
-                        active={activeCategory === cat}
-                        onClick={() => setActiveCategory(cat)}
+                        key={hub.hubSlug}
+                        active={activeHub === hub.hubSlug}
+                        onClick={() => setActiveHub(hub.hubSlug)}
                       >
-                        {cat}
+                        {hub.title}
                       </Chip>
                     ))}
                   </div>
+                )}
+
+                {activeHubMeta && (
+                  <p className="text-center text-sm text-muted-foreground mb-10 max-w-xl mx-auto">
+                    Showing articles in{' '}
+                    <span className="text-foreground">{activeHubMeta.title}</span>.{' '}
+                    <Link
+                      href={categoryHubPath(activeHubMeta.hubSlug)}
+                      className="text-accent hover:underline"
+                    >
+                      View topic hub
+                    </Link>
+                  </p>
                 )}
 
                 {featured && (

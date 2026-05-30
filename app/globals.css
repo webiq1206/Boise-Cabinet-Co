@@ -620,6 +620,19 @@ html, body {
   margin: 1.5rem 0;
 }
 
+.blog-content .summary-block {
+  padding: 1rem 1.25rem;
+  margin: 1.25rem 0;
+  border-left: 3px solid hsl(var(--accent));
+  background: hsl(var(--muted) / 0.35);
+  border-radius: 0 0.5rem 0.5rem 0;
+}
+.blog-content .summary-block p {
+  margin: 0;
+  font-size: 0.95rem;
+  color: hsl(var(--muted-foreground));
+}
+
 .blog-content figcaption {
   font-size: 0.75rem;
   color: hsl(var(--muted-foreground));

@@ -1,7 +1,12 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { BLOG_POSTS } from "@/shared/blogContent";
-import { generateArticleSchema, generateBreadcrumbSchema, generateFAQSchema } from "@/lib/schema";
+import {
+  generateArticleSchema,
+  generateBreadcrumbSchema,
+  generateFAQSchema,
+  generateSpeakableSchema,
+} from "@/lib/schema";
 import { buildCanonical } from "@/lib/page-metadata";
 import { BlogPostLayout } from "@/components/marketing/BlogPostLayout";
 
@@ -78,6 +83,9 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
   ]);
 
   const faqSchema = post.faqs.length > 0 ? generateFAQSchema(post.faqs) : null;
+  const speakableSchema = post.quickAnswer
+    ? generateSpeakableSchema({ name: post.title, path: `/blog/${post.slug}` })
+    : null;
 
   return (
     <>
@@ -93,6 +101,12 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        />
+      )}
+      {speakableSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(speakableSchema) }}
         />
       )}
       <BlogPostLayout post={post} formatDate={formatDate} />

@@ -99,6 +99,14 @@ const nextConfig = {
       redirects.push(...r(source, destination));
     }
 
+    const blogRedirects = {
+      '/blog/kitchen-remodel-cost-treasure-valley': '/blog/kitchen-remodel-cost-boise',
+      '/blog/bathroom-remodel-cost-idaho': '/blog/bathroom-remodel-cost-boise',
+    };
+    for (const [source, destination] of Object.entries(blogRedirects)) {
+      redirects.push(...r(source, destination));
+    }
+
     return redirects;
   },
 }

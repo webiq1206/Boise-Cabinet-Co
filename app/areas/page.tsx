@@ -1,19 +1,19 @@
-import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Section } from "@/components/marketing/Section";
+import { SectionHeader } from "@/components/marketing/SectionHeader";
 import { PageHeader } from "@/components/marketing/PageHeader";
-import { TextLink } from "@/components/marketing/TextLink";
+import { AreaCard } from "@/components/marketing/AreaCard";
+import { BlogEndCta } from "@/components/marketing/BlogEndCta";
 import { CITY_HERO_IMAGES } from "@/shared/cityServiceImages";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
-import { MarketingCard } from "@/components/marketing/MarketingCard";
+import { Reveal } from "@/components/Reveal";
 import { buildPageMetadata } from "@/lib/page-metadata";
 import {
   generateBreadcrumbSchema,
   generateWebPageSchema,
 } from "@/lib/schema";
 import { CITIES, TREASURE_VALLEY_CITIES } from "@/shared/contentData";
-import { areaPath } from "@/lib/seo-routes";
 import { CTA_PRIMARY, CTA_SECONDARY } from "@/shared/ctaCopy";
 import { ConsultCTA } from "@/components/modals/ConsultCTA";
 import { EstimateCTA } from "@/components/modals/EstimateCTA";
@@ -73,35 +73,26 @@ export default function AreasHubPage() {
 
         <Section variant="greige" divider>
           <div className="container px-4">
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-6xl mx-auto">
-              {CITIES.map((city) => {
-                const img = CITY_HERO_IMAGES[city.slug];
-                return (
-                <MarketingCard key={city.slug} className="h-full p-0 overflow-hidden">
-                  <div className="relative aspect-[4/3]">
-                    <Image
-                      src={img}
-                      alt={`Remodeling in ${city.name}, Idaho`}
-                      fill
-                      sizes="300px"
-                      className="object-cover img-brand-grade"
-                    />
-                  </div>
-                  <div className="p-6">
-                  <h2 className="font-sans font-medium text-sm mb-2 text-foreground">
-                    {city.name}, Idaho
-                  </h2>
-                  <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
-                    Design-build remodeling in {city.name} and {city.county === "ada" ? "Ada" : "Canyon"} County.
-                  </p>
-                  <TextLink href={areaPath(city.slug)} showArrow>
-                    View {city.name} services
-                  </TextLink>
-                  </div>
-                </MarketingCard>
-              );
-              })}
+            <SectionHeader
+              eyebrow="Treasure Valley"
+              title={<>Eight cities, one design-build team</>}
+              description="Kitchen, bath, whole-home, and addition remodeling across Ada and Canyon County."
+              className="mb-10 max-w-2xl mx-auto text-center [&_.brc-label]:justify-center"
+              align="center"
+            />
+            <div className="grid sm:grid-cols-2 gap-6 md:gap-8 max-w-5xl mx-auto">
+              {CITIES.map((city, i) => (
+                <Reveal key={city.slug} delay={i * 40}>
+                  <AreaCard city={city} imageSrc={CITY_HERO_IMAGES[city.slug]} />
+                </Reveal>
+              ))}
             </div>
+          </div>
+        </Section>
+
+        <Section>
+          <div className="container px-4">
+            <BlogEndCta />
           </div>
         </Section>
       </div>
