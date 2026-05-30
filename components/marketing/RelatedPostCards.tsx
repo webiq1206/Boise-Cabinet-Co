@@ -1,8 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { getManifestLinks } from "@/lib/internal-links";
-import { getBlogThumbnail } from "@/shared/blogImages";
+import { getBlogImageAlt, getBlogThumbnail } from "@/shared/blogImages";
 import { BLOG_POSTS } from "@/shared/blogContent";
+import { GUIDE_PAGES } from "@/shared/guideContent";
 import { getCityServiceImage } from "@/shared/cityServiceImages";
 import { MarketingCard } from "./MarketingCard";
 
@@ -12,37 +13,40 @@ interface RelatedPostCardsProps {
   limit?: number;
 }
 
-function imageForUrl(url: string, usedImages: Set<string>): string {
-  const post = BLOG_POSTS.find((p) => url.includes(`/blog/${p.slug}`));
-  if (post) {
-    const img = getBlogThumbnail(post.category, post.thumbnail);
-    if (!usedImages.has(img)) { usedImages.add(img); return img; }
-  }
+function slugFromUrl(url: string): string | undefined {
+  const pathname = url.split("?")[0].split("#")[0];
+  const blogMatch = pathname.match(/\/blog\/([^/]+)$/);
+  if (blogMatch) return blogMatch[1];
+  const guideMatch = pathname.match(/\/guides\/([^/]+)$/);
+  if (guideMatch) return guideMatch[1];
+  return undefined;
+}
 
-  const csImage = getCityServiceImage(url);
-  if (csImage && !usedImages.has(csImage)) {
-    usedImages.add(csImage);
-    return csImage;
-  }
-
-  const categoryFallbacks = [
-    "/images/services/kitchen-remodel.png",
-    "/images/services/bathroom-remodel.png",
-    "/images/services/whole-home-remodel.png",
-    "/images/services/room-addition.png",
-    "/images/services/adu.png",
-    "/images/areas/boise.png",
-    "/images/areas/eagle.png",
-  ];
-
-  for (const fb of categoryFallbacks) {
-    if (!usedImages.has(fb)) {
-      usedImages.add(fb);
-      return fb;
+function imageForUrl(url: string): { src: string; alt: string } | null {
+  const slug = slugFromUrl(url);
+  if (slug) {
+    const post = BLOG_POSTS.find((p) => p.slug === slug);
+    if (post) {
+      return {
+        src: getBlogThumbnail(post.slug, post.thumbnail),
+        alt: getBlogImageAlt(post.slug),
+      };
+    }
+    const guide = GUIDE_PAGES.find((g) => g.slug === slug);
+    if (guide) {
+      return {
+        src: getBlogThumbnail(guide.slug, guide.heroImage),
+        alt: getBlogImageAlt(guide.slug),
+      };
     }
   }
 
-  return categoryFallbacks[0];
+  const csImage = getCityServiceImage(url);
+  if (csImage) {
+    return { src: csImage, alt: "Boise Remodeling Co project photography" };
+  }
+
+  return null;
 }
 
 export function RelatedPostCards({
@@ -53,22 +57,20 @@ export function RelatedPostCards({
   const links = getManifestLinks(path).slice(0, limit);
   if (links.length === 0) return null;
 
-  const usedImages = new Set<string>();
-
   return (
     <div>
       <h2 className="font-sans font-light text-section-title mb-6 text-foreground">{title}</h2>
       <div className="grid sm:grid-cols-2 gap-4">
         {links.map((link) => {
-          const img = imageForUrl(link.url, usedImages);
+          const image = imageForUrl(link.url);
           return (
             <Link key={link.url} href={link.url} className="block group">
               <MarketingCard className="overflow-hidden hover-elevate h-full">
-                {img && (
+                {image && (
                   <div className="relative aspect-[16/9] -mx-6 -mt-6 md:-mx-8 md:-mt-8 mb-4">
                     <Image
-                      src={img}
-                      alt=""
+                      src={image.src}
+                      alt={image.alt}
                       fill
                       sizes="400px"
                       className="object-cover img-brand-grade"

@@ -12,9 +12,20 @@ import {
   CATEGORY_HUB_MIN_POSTS,
 } from '@/shared/contentHubs';
 import { buildCanonical } from '@/lib/page-metadata';
+import { getHubHeroImage, getBlogImageAlt, getAbsoluteImageUrl } from '@/shared/blogImages';
 import { Section } from '@/components/marketing/Section';
-import { MarketingCard } from '@/components/marketing/MarketingCard';
+import { BlogCard } from '@/components/marketing/BlogCard';
+import { HubHeroBanner } from '@/components/marketing/BlogHeroBanner';
 import { generateBreadcrumbSchema, generateCollectionPageSchema } from '@/lib/schema';
+import { getBaseUrl } from '@/lib/seo';
+
+function formatDate(dateString: string): string {
+  return new Date(dateString).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+}
 
 export async function generateStaticParams() {
   return CONTENT_HUBS.map((hub) => ({ hubSlug: hub.hubSlug }));
@@ -32,12 +43,27 @@ export async function generateMetadata({
   const indexable = isCategoryHubIndexable(params.hubSlug, posts.length);
   const title = `${hub.title} Articles | Boise Remodeling Co`;
   const description = `Articles about ${hub.title.toLowerCase()} for Treasure Valley homeowners.`;
+  const heroImage = getHubHeroImage(params.hubSlug);
+  const imageUrl = getAbsoluteImageUrl(heroImage, getBaseUrl());
 
   return {
     title,
     description,
     alternates: { canonical: buildCanonical(categoryHubPath(params.hubSlug)) },
     robots: indexable ? undefined : { index: false, follow: true },
+    openGraph: {
+      title,
+      description,
+      url: buildCanonical(categoryHubPath(params.hubSlug)),
+      type: 'website',
+      images: [{ url: imageUrl, alt: `${hub.title} articles` }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: [imageUrl],
+    },
   };
 }
 
@@ -52,6 +78,10 @@ export default function BlogCategoryHubPage({
   const posts = BLOG_POSTS.filter((p) => p.hubSlug === params.hubSlug).sort(
     (a, b) => (a.publishedAt < b.publishedAt ? 1 : -1),
   );
+
+  const hubHero = getHubHeroImage(params.hubSlug);
+  const pillarSlug = hub.pillarSlug;
+  const hubAlt = pillarSlug ? getBlogImageAlt(pillarSlug) : `${hub.title} articles`;
 
   const breadcrumbSchema = generateBreadcrumbSchema([
     { name: 'Home', url: '/' },
@@ -82,17 +112,20 @@ export default function BlogCategoryHubPage({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
       <Section spacing="lg" className="pt-28 md:pt-32">
-        <div className="container px-4 max-w-4xl mx-auto">
+        <div className="container px-4 max-w-6xl mx-auto">
           <Link
             href="/blog"
             className="text-sm text-muted-foreground hover:text-foreground mb-6 inline-block"
           >
             ← Back to blog
           </Link>
+
+          <HubHeroBanner src={hubHero} alt={hubAlt} />
+
           <h1 className="text-3xl md:text-4xl font-sans font-light tracking-tight mb-4">
             {hub.title}
           </h1>
-          <p className="text-lg text-muted-foreground mb-6">{hub.description}</p>
+          <p className="text-lg text-muted-foreground mb-6 max-w-2xl">{hub.description}</p>
           <Link
             href={guidePath(hub.pillarSlug)}
             className="inline-flex items-center text-accent hover:underline text-sm mb-10"
@@ -107,16 +140,9 @@ export default function BlogCategoryHubPage({
             </p>
           )}
 
-          <div className="grid gap-4">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {posts.map((post) => (
-              <MarketingCard key={post.slug} className="p-5">
-                <Link href={`/blog/${post.slug}`} className="group">
-                  <h2 className="font-medium text-lg group-hover:text-accent transition-colors">
-                    {post.title}
-                  </h2>
-                  <p className="text-sm text-muted-foreground mt-2">{post.excerpt}</p>
-                </Link>
-              </MarketingCard>
+              <BlogCard key={post.slug} post={post} formatDate={formatDate} />
             ))}
           </div>
         </div>

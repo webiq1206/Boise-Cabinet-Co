@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, Calendar, Phone, Tag, User, Wrench } from "lucide-react";
 import { MarketingCard } from "./MarketingCard";
@@ -9,7 +8,8 @@ import { Section } from "./Section";
 import { CTA_PRIMARY } from "@/shared/ctaCopy";
 import { SITE_CONFIG } from "@/shared/siteConfig";
 import type { BlogPostData } from "@/shared/blogContent";
-import { getBlogHeroImage } from "@/shared/blogImages";
+import { getBlogHeroImage, getBlogImageAlt } from "@/shared/blogImages";
+import { BlogHeroBanner } from "./BlogHeroBanner";
 import { ConsultCTA } from "@/components/modals/ConsultCTA";
 import { GuideContentBlocks } from "./GuideContentBlocks";
 import {
@@ -27,7 +27,8 @@ interface BlogPostLayoutProps {
 }
 
 export function BlogPostLayout({ post, formatDate }: BlogPostLayoutProps) {
-  const heroImage = getBlogHeroImage(post.category, post.heroImage);
+  const heroImage = getBlogHeroImage(post.slug, post.heroImage);
+  const heroAlt = getBlogImageAlt(post.slug);
   const blogPath = `/blog/${post.slug}`;
   const hub = getHubBySlug(post.hubSlug);
   const contentWithIds = injectHeadingIds(post.content);
@@ -38,17 +39,7 @@ export function BlogPostLayout({ post, formatDate }: BlogPostLayoutProps) {
 
   return (
     <div className="flex flex-col pb-20 md:pb-0">
-      <div className="relative h-56 md:h-72 overflow-hidden bg-inverse">
-        <Image
-          src={heroImage}
-          alt=""
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover opacity-80 img-brand-grade"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent" />
-      </div>
+      <BlogHeroBanner src={heroImage} alt={heroAlt} />
 
       <Section spacing="sm" className="pt-8 md:pt-10 pb-0">
         <div className="container px-4 max-w-6xl mx-auto">

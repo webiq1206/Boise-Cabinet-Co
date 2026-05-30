@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import Link from 'next/link';
 import {
   ArrowLeft,
@@ -19,7 +18,8 @@ import { GuideContentBlocks } from './GuideContentBlocks';
 import { CTA_PRIMARY } from '@/shared/ctaCopy';
 import { SITE_CONFIG } from '@/shared/siteConfig';
 import type { GuidePageData } from '@/shared/guideContent';
-import { getBlogHeroImage } from '@/shared/blogImages';
+import { getBlogHeroImage, getBlogImageAlt } from '@/shared/blogImages';
+import { BlogHeroBanner } from './BlogHeroBanner';
 import { ConsultCTA } from '@/components/modals/ConsultCTA';
 import { injectHeadingIds, extractHeadingsFromHtml, estimateReadingTime, countWords } from '@/lib/content-utils';
 import { getHubBySlug, guidePath, getClustersForHub, categoryHubPath } from '@/shared/contentHubs';
@@ -32,7 +32,8 @@ interface GuidePageLayoutProps {
 
 export function GuidePageLayout({ guide, formatDate }: GuidePageLayoutProps) {
   const hub = getHubBySlug(guide.hubSlug);
-  const heroImage = getBlogHeroImage(hub?.categoryLabel ?? guide.hubSlug, guide.heroImage);
+  const heroImage = getBlogHeroImage(guide.slug, guide.heroImage);
+  const heroAlt = getBlogImageAlt(guide.slug);
   const guideUrl = guidePath(guide.slug);
   const contentWithIds = injectHeadingIds(guide.content);
   const tocHeadings = extractHeadingsFromHtml(contentWithIds).filter((h) => h.level === 2);
@@ -42,17 +43,7 @@ export function GuidePageLayout({ guide, formatDate }: GuidePageLayoutProps) {
 
   return (
     <div className="flex flex-col pb-20 md:pb-0">
-      <div className="relative h-56 md:h-72 overflow-hidden bg-inverse">
-        <Image
-          src={heroImage}
-          alt=""
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover opacity-80 img-brand-grade"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent" />
-      </div>
+      <BlogHeroBanner src={heroImage} alt={heroAlt} />
 
       <Section spacing="sm" className="pt-8 md:pt-10 pb-0">
         <div className="container px-4 max-w-6xl mx-auto">

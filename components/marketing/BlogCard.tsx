@@ -5,7 +5,7 @@ import { MarketingCard } from "./MarketingCard";
 import { TextLink } from "./TextLink";
 import { Chip } from "./Chip";
 import type { BlogPostData } from "@/shared/blogContent";
-import { getBlogThumbnail } from "@/shared/blogImages";
+import { getBlogImageAlt, getBlogThumbnail } from "@/shared/blogImages";
 
 export interface BlogCardProps {
   post: BlogPostData;
@@ -14,7 +14,8 @@ export interface BlogCardProps {
 }
 
 export function BlogCard({ post, featured = false, formatDate }: BlogCardProps) {
-  const thumbnail = getBlogThumbnail(post.category, post.thumbnail);
+  const thumbnail = getBlogThumbnail(post.slug, post.thumbnail);
+  const alt = getBlogImageAlt(post.slug);
   const href = `/blog/${post.slug}`;
 
   if (featured) {
@@ -24,7 +25,7 @@ export function BlogCard({ post, featured = false, formatDate }: BlogCardProps) 
         <div className="relative aspect-[21/9] md:aspect-[2.4/1] overflow-hidden">
           <Image
             src={thumbnail}
-            alt=""
+            alt={alt}
             fill
             sizes="(max-width: 768px) 100vw, 1200px"
             className="object-cover img-brand-grade transition-transform duration-300 ease-out group-hover:scale-[1.01]"
@@ -59,7 +60,7 @@ export function BlogCard({ post, featured = false, formatDate }: BlogCardProps) 
       <div className="relative aspect-[16/10] overflow-hidden">
         <Image
           src={thumbnail}
-          alt=""
+          alt={alt}
           fill
           sizes="(max-width: 768px) 100vw, 400px"
           className="object-cover img-brand-grade transition-transform duration-300 ease-out group-hover:scale-[1.02]"

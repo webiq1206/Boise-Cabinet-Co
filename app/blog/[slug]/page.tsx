@@ -9,6 +9,12 @@ import {
 } from "@/lib/schema";
 import { buildCanonical } from "@/lib/page-metadata";
 import { BlogPostLayout } from "@/components/marketing/BlogPostLayout";
+import {
+  getAbsoluteImageUrl,
+  getBlogHeroImage,
+  getBlogImageAlt,
+} from "@/shared/blogImages";
+import { getBaseUrl } from "@/lib/seo";
 
 export async function generateStaticParams() {
   return BLOG_POSTS.map((post) => ({
@@ -31,6 +37,9 @@ export async function generateMetadata({
   const description =
     post.metaDescription ||
     (post.excerpt.length > 160 ? post.excerpt.substring(0, 157) + "..." : post.excerpt);
+  const heroPath = getBlogHeroImage(post.slug, post.heroImage);
+  const imageUrl = getAbsoluteImageUrl(heroPath, getBaseUrl());
+  const imageAlt = getBlogImageAlt(post.slug);
 
   return {
     title,
@@ -44,11 +53,13 @@ export async function generateMetadata({
       url: buildCanonical(`/blog/${post.slug}`),
       type: "article",
       publishedTime: post.publishedAt,
+      images: [{ url: imageUrl, alt: imageAlt }],
     },
     twitter: {
       card: "summary_large_image",
       title: `${title} | Boise Remodeling Co Blog`,
       description,
+      images: [imageUrl],
     },
   };
 }
@@ -74,6 +85,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
     publishedAt: post.publishedAt,
     author: post.author,
     slug: post.slug,
+    image: getAbsoluteImageUrl(getBlogHeroImage(post.slug, post.heroImage), getBaseUrl()),
   });
 
   const breadcrumbSchema = generateBreadcrumbSchema([

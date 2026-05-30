@@ -10,5 +10,6 @@ export { AreaCard, type AreaCardProps } from "./AreaCard";
 export { BlogCard, type BlogCardProps } from "./BlogCard";
 export { BlogEndCta } from "./BlogEndCta";
 export { BlogPostLayout } from "./BlogPostLayout";
+export { BlogHeroBanner, HubHeroBanner } from "./BlogHeroBanner";
 export { BlogIndexClient } from "./BlogIndexClient";
 export { RelatedPostCards } from "./RelatedPostCards";

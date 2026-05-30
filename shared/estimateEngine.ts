@@ -64,9 +64,9 @@ export const APPLIANCE_DISCLAIMER =
 export const PROJECT_SIZE_CONFIG: Record<ProjectType, ProjectSizeConfig> = {
   kitchen: { min: 100, max: 600, step: 25, defaultSqft: 250, baselineSqft: 250 },
   bathroom: { min: 40, max: 200, step: 10, defaultSqft: 80, baselineSqft: 80 },
-  "whole-home": { min: 800, max: 4000, step: 100, defaultSqft: 1800, baselineSqft: 1800 },
+  "whole-home": { min: 800, max: 8000, step: 100, defaultSqft: 1800, baselineSqft: 1800 },
   addition: { min: 200, max: 1200, step: 50, defaultSqft: 400, baselineSqft: 400 },
-  adu: { min: 300, max: 1200, step: 50, defaultSqft: 600, baselineSqft: 600 },
+  adu: { min: 300, max: 900, step: 50, defaultSqft: 600, baselineSqft: 600 },
 };
 
 export const DEFAULT_ESTIMATE_INPUT: EstimateInput = {

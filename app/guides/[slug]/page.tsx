@@ -10,6 +10,12 @@ import {
 import { buildCanonical } from '@/lib/page-metadata';
 import { GuidePageLayout } from '@/components/marketing/GuidePageLayout';
 import { getHubBySlug, guidePath } from '@/shared/contentHubs';
+import {
+  getAbsoluteImageUrl,
+  getBlogHeroImage,
+  getBlogImageAlt,
+} from '@/shared/blogImages';
+import { getBaseUrl } from '@/lib/seo';
 
 export async function generateStaticParams() {
   return GUIDE_PAGES.map((guide) => ({ slug: guide.slug }));
@@ -27,6 +33,9 @@ export async function generateMetadata({
   const description =
     guide.metaDescription ||
     (guide.excerpt.length > 160 ? guide.excerpt.substring(0, 157) + '...' : guide.excerpt);
+  const heroPath = getBlogHeroImage(guide.slug, guide.heroImage);
+  const imageUrl = getAbsoluteImageUrl(heroPath, getBaseUrl());
+  const imageAlt = getBlogImageAlt(guide.slug);
 
   return {
     title,
@@ -38,6 +47,13 @@ export async function generateMetadata({
       url: buildCanonical(guidePath(guide.slug)),
       type: 'article',
       publishedTime: guide.publishedAt,
+      images: [{ url: imageUrl, alt: imageAlt }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${title} | Boise Remodeling Co`,
+      description,
+      images: [imageUrl],
     },
   };
 }
@@ -63,6 +79,7 @@ export default function GuidePage({ params }: { params: { slug: string } }) {
     publishedAt: guide.publishedAt,
     slug: guide.slug,
     pathPrefix: 'guides',
+    image: getAbsoluteImageUrl(getBlogHeroImage(guide.slug, guide.heroImage), getBaseUrl()),
   });
 
   const breadcrumbItems = [
