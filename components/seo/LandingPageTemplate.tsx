@@ -304,19 +304,21 @@ export function LandingPageTemplate({
       </Section>
 
       {/* ─── Bottom CTA strip ─── */}
-      <Section variant="inverse" divider>
-        <div className="container px-4 max-w-2xl mx-auto text-center">
-          <div className="brc-label text-inverse-muted justify-center mb-6">
-            Start your project
-          </div>
-          <h2 className="font-serif font-light text-[2rem] md:text-[2.5rem] leading-tight tracking-tight text-inverse-foreground mb-4">
-            Ready to <em className="brc-accent">begin</em>?
-          </h2>
-          <p className="text-inverse-muted mb-8 text-base leading-relaxed">
-            Free 60 to 90 minute in-home visit. Planning guidance, design direction, no
-            obligation.
-          </p>
-          <ConsultCTA variant="brand">{CTA_PRIMARY}</ConsultCTA>
+      <Section divider>
+        <div className="container px-4">
+          <MarketingCard className="cta-card-dark p-10 md:p-16 text-center max-w-4xl mx-auto">
+            <div className="brc-label text-inverse-muted justify-center mb-6">
+              Start your project
+            </div>
+            <h2 className="font-serif font-light text-[2rem] md:text-[2.5rem] leading-tight tracking-tight text-inverse-foreground mb-4">
+              Ready to <em className="brc-accent">begin</em>?
+            </h2>
+            <p className="text-inverse-muted mb-8 text-base leading-relaxed">
+              Free 60 to 90 minute in-home visit. Planning guidance, design direction, no
+              obligation.
+            </p>
+            <ConsultCTA variant="brand">{CTA_PRIMARY}</ConsultCTA>
+          </MarketingCard>
         </div>
       </Section>
     </div>

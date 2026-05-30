@@ -130,22 +130,22 @@ export function BlogPostLayout({ post, formatDate }: BlogPostLayoutProps) {
 
 function SidebarCta() {
   return (
-    <MarketingCard>
+    <MarketingCard className="cta-card-dark">
       <div className="p-5 space-y-4">
         <div className="flex items-center gap-3">
-          <div className="flex items-center justify-center w-10 h-10 rounded-full bg-muted">
-            <Wrench className="h-5 w-5 text-foreground/50" />
+          <div className="flex items-center justify-center w-10 h-10 rounded-full bg-white/10">
+            <Wrench className="h-5 w-5 text-inverse-foreground/60" />
           </div>
-          <h3 className="font-medium text-sm">Free Consultation</h3>
+          <h3 className="font-medium text-sm text-inverse-foreground">Free Consultation</h3>
         </div>
-        <p className="text-sm text-muted-foreground">
+        <p className="text-sm text-inverse-muted">
           Planning a remodel? Get a free in-home visit and rough estimate from our team.
         </p>
         <ConsultCTA variant="brand" size="sm" className="w-full" data-testid="link-sidebar-cta-consult">
           {CTA_PRIMARY}
           <ArrowRight className="ml-2 h-4 w-4" />
         </ConsultCTA>
-        <p className="text-xs text-muted-foreground text-center flex items-center justify-center gap-1">
+        <p className="text-xs text-inverse-muted text-center flex items-center justify-center gap-1">
           <Phone className="h-3 w-3" />
           {SITE_CONFIG.phone}
         </p>

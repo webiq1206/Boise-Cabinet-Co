@@ -379,6 +379,12 @@ html, body {
     @apply rounded-sm bg-card border border-card-border shadow-sm transition-colors duration-200 ease-out;
   }
 
+  .cta-card-dark {
+    background-color: hsl(var(--inverse));
+    border-color: hsl(var(--inverse-foreground) / 0.08);
+    color: hsl(var(--inverse-foreground));
+  }
+
   .prose-measure {
     @apply max-w-[42rem];
   }

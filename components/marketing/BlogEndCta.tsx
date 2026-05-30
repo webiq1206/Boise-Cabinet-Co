@@ -6,11 +6,11 @@ import { ConsultCTA } from "@/components/modals/ConsultCTA";
 
 export function BlogEndCta() {
   return (
-    <MarketingCard className="p-10 md:p-16 text-center max-w-4xl mx-auto">
-      <h2 className="text-2xl md:text-3xl font-sans font-light tracking-tight mb-4 text-foreground">
+    <MarketingCard className="cta-card-dark p-10 md:p-16 text-center max-w-4xl mx-auto">
+      <h2 className="text-2xl md:text-3xl font-sans font-light tracking-tight mb-4 text-inverse-foreground">
         Ready to start your project?
       </h2>
-      <p className="text-muted-foreground mb-8 max-w-lg mx-auto">
+      <p className="text-inverse-muted mb-8 max-w-lg mx-auto">
         Book a free in-home visit. We&apos;ll walk your space, hear your goals, and give you a
         planning range on the spot with no obligation.
       </p>
@@ -22,7 +22,7 @@ export function BlogEndCta() {
         <a
           href={SITE_CONFIG.phoneHref}
           data-testid="link-bottom-cta-call"
-          className="inline-flex items-center justify-center gap-2 rounded-sm border border-primary bg-transparent px-4 py-2 text-sm font-medium text-foreground transition-colors hover-elevate"
+          className="inline-flex items-center justify-center gap-2 rounded-sm border border-white/30 bg-white/10 px-4 py-2 text-sm font-medium text-inverse-foreground transition-colors hover-elevate"
         >
           <Phone className="h-4 w-4" />
           {SITE_CONFIG.phone}
