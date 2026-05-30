@@ -141,6 +141,19 @@ function RefinementNumberInput({
   );
 }
 
+function StepHeader({ num, label }: { num: number; label: string }) {
+  return (
+    <div className="flex items-center gap-3 mb-5">
+      <span className="flex-shrink-0 flex items-center justify-center h-7 w-7 rounded-full border border-primary/60 text-primary text-[11px] font-semibold tracking-wide">
+        {num}
+      </span>
+      <span className="font-sans font-medium text-sm text-foreground tracking-wide">
+        {label}
+      </span>
+    </div>
+  );
+}
+
 export function EstimateCalculator() {
   const [project, setProject] = useState<ProjectType>(DEFAULT_ESTIMATE_INPUT.project);
   const [finish, setFinish] = useState<FinishLevel>(DEFAULT_ESTIMATE_INPUT.finish);
@@ -248,7 +261,7 @@ export function EstimateCalculator() {
         <div className="grid lg:grid-cols-[3fr_2fr] gap-8 md:gap-12 items-start max-w-6xl mx-auto">
           <div className="space-y-8">
             <div>
-              <div className="brc-label mb-4">Step 1: What are we remodeling?</div>
+              <StepHeader num={1} label="What are we remodeling?" />
               <div className="grid grid-cols-2 gap-2">
                 {(Object.keys(PROJECT_LABELS) as ProjectType[]).map((type) => {
                   const info = PROJECT_LABELS[type];
@@ -277,7 +290,7 @@ export function EstimateCalculator() {
             </div>
 
             <div>
-              <div className="brc-label mb-4">Step 2: Choose a finish level</div>
+              <StepHeader num={2} label="Choose a finish level" />
               <div className="grid grid-cols-2 gap-2">
                 {(Object.keys(FINISH_LABELS) as FinishLevel[]).map((level) => {
                   const info = FINISH_LABELS[level];
@@ -308,8 +321,8 @@ export function EstimateCalculator() {
             </div>
 
             <div>
-              <div className="flex justify-between items-end mb-4">
-                <div className="brc-label">Step 3: Size of the space</div>
+              <div className="flex justify-between items-center mb-5">
+                <StepHeader num={3} label="Size of the space" />
                 <DisplayNum className="text-2xl leading-none text-foreground">
                   {sqft.toLocaleString()}{" "}
                   <span className="text-sm font-sans text-muted-foreground">sqft</span>
