@@ -83,7 +83,7 @@ export default function AreaPage({ params }: { params: { city: string } }) {
           `Local experience in ${city.name} and ${county}`,
           'Design-build team, one accountable contact',
           'Written scope before construction',
-          '2-year workmanship guarantee',
+          'Written workmanship guarantee',
         ]}
         localNote={localNote}
         faqs={faqs}

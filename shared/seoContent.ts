@@ -76,7 +76,7 @@ export const SERVICE_SEO_CONTENT: Record<string, ServiceSEOContent> = {
       'Design-build accountability from layout through tile and fixtures',
       'Waterproofing and plumbing scope defined in writing',
       'Transparent project investment, no surprise line-item games',
-      '2-year workmanship guarantee on our labor',
+      'Written workmanship guarantee on our labor',
     ],
     inclusions: [
       'Vanity, shower, and tub planning',
@@ -211,7 +211,7 @@ export function getCityServiceIntro(
   const fact = localFact
     ? ` ${localFact}`
     : ` We understand ${county} permit requirements and typical ${city.name} home styles.`;
-  return `Looking for ${service.name.toLowerCase()} in ${city.name}, Idaho?${fact} Boise Remodeling Co offers design-build ${service.name.toLowerCase()} with clear written scope, proactive weekly updates, and a 2-year workmanship guarantee. Schedule a free in-home consultation or use our project estimator for a planning range.`;
+  return `Looking for ${service.name.toLowerCase()} in ${city.name}, Idaho?${fact} Boise Remodeling Co offers design-build ${service.name.toLowerCase()} with clear written scope, proactive weekly updates, and a written workmanship guarantee. Schedule a free in-home consultation or use our project estimator for a planning range.`;
 }
 
 export function getCityServiceFaqs(service: ServiceSEOContent, city: CityData): FAQItem[] {
@@ -264,6 +264,6 @@ export const HOMEPAGE_FAQS_FOR_SCHEMA: FAQItem[] = [
   },
   {
     question: 'What is your workmanship guarantee?',
-    answer: 'We provide a 2-year workmanship guarantee on our labor.',
+    answer: 'We provide a written workmanship guarantee on our labor.',
   },
 ];

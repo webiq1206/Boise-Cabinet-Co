@@ -140,7 +140,7 @@ const CITY_CTA_VARIANTS: Record<string, string> = {
   Meridian: "Licensed & insured",
   Eagle: "Clear written scope",
   Star: "Weekly project updates",
-  Middleton: "2-year workmanship guarantee",
+  Middleton: "Workmanship guarantee",
   Nampa: "Ada & Canyon County permits",
   Caldwell: "Design-build remodeling",
 };

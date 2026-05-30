@@ -6,7 +6,7 @@ export interface HomepageFaq {
 export const HOMEPAGE_FAQS: HomepageFaq[] = [
   {
     q: "How are you different from other remodeling companies in the Treasure Valley?",
-    a: "We operate as a true design-build firm with one accountable team from first visit to final walkthrough, not separate designers and contractors you have to coordinate. You receive a written scope with documented finish selections before construction, weekly written Friday updates, and written change orders before any additional work. We protect your home with daily dust barriers and floor protection, communicate schedule changes early, and handle Ada and Canyon County permits in-house. We stand behind our work with a final walkthrough and a 2-year workmanship guarantee. Our free consultation focuses on planning guidance, not commission-driven sales pressure.",
+    a: "We operate as a true design-build firm with one accountable team from first visit to final walkthrough, not separate designers and contractors you have to coordinate. You receive a written scope with documented finish selections before construction, weekly written Friday updates, and written change orders before any additional work. We protect your home with daily dust barriers and floor protection, communicate schedule changes early, and handle Ada and Canyon County permits in-house. We stand behind our work with a final walkthrough and a written workmanship guarantee. Our free consultation focuses on planning guidance, not commission-driven sales pressure.",
   },
   {
     q: "How do you help me understand project costs?",
@@ -46,7 +46,7 @@ export const HOMEPAGE_FAQS: HomepageFaq[] = [
   },
   {
     q: "What is your workmanship guarantee?",
-    a: "We stand behind our work with a 2-year workmanship guarantee. If something we built or installed fails due to workmanship (not normal wear or homeowner modifications), we fix it at no charge. We also pass through all manufacturer warranties on fixtures, cabinetry, and appliances.",
+    a: "We stand behind our work with a written workmanship guarantee. If something we built or installed fails due to workmanship (not normal wear or homeowner modifications), we fix it at no charge. We also pass through all manufacturer warranties on fixtures, cabinetry, and appliances.",
   },
   {
     q: "How does design-build compare to hiring a separate architect and general contractor?",

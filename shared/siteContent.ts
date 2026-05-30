@@ -58,8 +58,8 @@ export const DIFFERENTIATORS: Differentiator[] = [
   },
   {
     title: "Confidence that outlasts the project",
-    contrast: "Beyond the typical one-year industry warranty,",
-    body: "we stand behind our craftsmanship with a 2-year workmanship guarantee. Optional 3D visualizations are available for clients who want extra confidence in major layout and finish decisions before construction begins.",
+    contrast: "Beyond a quick sign-off and goodbye,",
+    body: "we stand behind our craftsmanship with a written workmanship guarantee. Optional 3D visualizations are available for clients who want extra confidence in major layout and finish decisions before construction begins.",
   },
   {
     title: "A job site that respects your home",
@@ -85,10 +85,10 @@ export const DIFFERENTIATORS: Differentiator[] = [
 
 export const TRUST_ITEMS = [
   "Bonded · Insured",
-  "$2M Liability Coverage",
+  "Liability Coverage",
   "Permits Handled · In-House",
   "Financing · Flexible plans",
-  "2-Year Workmanship Guarantee",
+  "Workmanship Guarantee",
 ];
 
 export const PROMISE_ITEMS = [
@@ -109,8 +109,8 @@ export const PROMISE_ITEMS = [
   },
   {
     num: "04",
-    title: "The 2-year guarantee",
-    body: "Industry standard is 12 months. We stand behind our craftsmanship for 24.",
+    title: "The workmanship guarantee",
+    body: "We stand behind our craftsmanship with a written workmanship guarantee, long after the final walkthrough.",
   },
 ];
 
@@ -176,8 +176,8 @@ export const HOW_WE_BUILD_STEPS = [
   },
   {
     number: "05",
-    title: "Final walkthrough and 2-year guarantee",
-    desc: "We walk every inch with you. If we built it and it fails, we fix it free for two years.",
+    title: "Final walkthrough and workmanship guarantee",
+    desc: "We walk every inch with you. If we built it and it fails due to workmanship, we fix it free.",
   },
 ];
 
@@ -203,8 +203,8 @@ export const PRINCIPLES = [
     desc: "Your project manager is the same person from design day to final walkthrough. You always know who to call.",
   },
   {
-    title: "2-year workmanship guarantee",
-    desc: "Industry standard is one year. Ours is two, because we build things meant to last longer than that.",
+    title: "Workmanship guarantee",
+    desc: "We stand behind what we build with a written workmanship guarantee, because we build things meant to last.",
   },
 ];
 
@@ -213,7 +213,7 @@ export const STANDARD_INCLUSIONS = [
   "Dedicated project manager",
   "Weekly written progress updates",
   "Dust barriers and floor protection daily",
-  "2-year workmanship guarantee",
+  "Written workmanship guarantee",
   "Manufacturer warranties passed through",
 ];
 

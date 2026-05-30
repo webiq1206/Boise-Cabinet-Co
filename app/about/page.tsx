@@ -73,7 +73,7 @@ export default function AboutPage() {
             />
             <p className="text-foreground leading-relaxed mb-8 prose-measure" data-speakable="summary">
               Our focus is clarity: written scope before construction, proactive weekly updates,
-              permits handled in-house for Ada and Canyon County, and a 2-year workmanship
+              permits handled in-house for Ada and Canyon County, and a written workmanship
               guarantee on our labor.
             </p>
             <Button variant="brand" asChild>
