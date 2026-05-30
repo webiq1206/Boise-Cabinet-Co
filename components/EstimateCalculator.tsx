@@ -15,6 +15,7 @@ import {
   PROJECT_LABELS,
   FINISH_LABELS,
   getProjectSizeConfig,
+  getAvailableFinishLevels,
   getMaxRefinementFields,
   getFinishPlanningHint,
   buildSelectionSummary,
@@ -192,6 +193,10 @@ export function EstimateCalculator({ inModal = false, onBookVisit: onBookVisitPr
     setSqft(getProjectSizeConfig(type).defaultSqft);
     setRefinements({ ...DEFAULT_ESTIMATE_INPUT.refinements });
     setUserRefinements(new Set());
+    const availableFinishes = getAvailableFinishLevels(type);
+    if (!availableFinishes.includes(finish)) {
+      setFinish(availableFinishes[0]);
+    }
   }
 
   function updateRefinement<K extends keyof EstimateRefinements>(key: K, value: EstimateRefinements[K]) {
@@ -283,7 +288,7 @@ export function EstimateCalculator({ inModal = false, onBookVisit: onBookVisitPr
       <div>
         <StepHeader num={2} label="Choose a finish level" />
         <div className="grid grid-cols-2 gap-2">
-          {(Object.keys(FINISH_LABELS) as FinishLevel[]).map((level) => {
+          {getAvailableFinishLevels(project).map((level) => {
             const info = FINISH_LABELS[level];
             const active = finish === level;
             const hint = getFinishPlanningHint(project, level);

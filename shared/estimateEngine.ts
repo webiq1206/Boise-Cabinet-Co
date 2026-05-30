@@ -109,6 +109,30 @@ export const FINISH_LABELS: Record<FinishLevel, { label: string; sub: string }> 
   luxury: { label: "Luxury", sub: "No constraints" },
 };
 
+const ALL_FINISH_LEVELS: FinishLevel[] = ["refresh", "mid-range", "high-end", "luxury"];
+
+/**
+ * Finish levels available for a given project type. "Refresh" (cosmetic
+ * upgrades / repaint) is meaningless for new construction, so additions and
+ * ADUs / guest houses start at "mid-range".
+ */
+export function getAvailableFinishLevels(project: ProjectType): FinishLevel[] {
+  if (project === "addition" || project === "adu") {
+    return ALL_FINISH_LEVELS.filter((level) => level !== "refresh");
+  }
+  return ALL_FINISH_LEVELS;
+}
+
+/**
+ * Coerces a finish level to one that is valid for the given project. Guards the
+ * pricing engine against disallowed combinations (e.g. "refresh" + addition)
+ * regardless of how the input was produced, so the rule is not UI-only.
+ */
+export function normalizeFinishLevel(project: ProjectType, finish: FinishLevel): FinishLevel {
+  const available = getAvailableFinishLevels(project);
+  return available.includes(finish) ? finish : available[0];
+}
+
 export const PLANNING_DETAIL_LABELS: Record<ConfidenceLevel, string> = {
   starting: "Starting guidance",
   refined: "Refined guidance",
@@ -311,7 +335,8 @@ const CABINET_SCOPE: Record<CabinetTier, string> = {
  * the base scope for the project + finish level.
  */
 export function buildDynamicScope(input: EstimateInput): string[] {
-  const base = PRICE_MATRIX[input.project][input.finish].included;
+  const finish = normalizeFinishLevel(input.project, input.finish);
+  const base = PRICE_MATRIX[input.project][finish].included;
   const r = input.refinements;
   const extra: string[] = [];
 
@@ -350,7 +375,9 @@ export function buildDynamicScope(input: EstimateInput): string[] {
 }
 
 export function calculateEstimate(input: EstimateInput, userRefinementCount = 0): EstimateResult {
-  const base = PRICE_MATRIX[input.project][input.finish];
+  const finish = normalizeFinishLevel(input.project, input.finish);
+  const safeInput: EstimateInput = finish === input.finish ? input : { ...input, finish };
+  const base = PRICE_MATRIX[safeInput.project][safeInput.finish];
   const sizeMult = getSizeMultiplier(input.sqft, input.project);
   const refMult = getRefinementMultipliers(input.refinements, input.project);
   const { level, percent } = getPlanningDetail(userRefinementCount);
@@ -387,6 +414,7 @@ export function buildStoredEstimate(input: EstimateInput, userRefinementCount = 
   const result = calculateEstimate(input, userRefinementCount);
   return {
     ...input,
+    finish: normalizeFinishLevel(input.project, input.finish),
     priceLow: result.priceLow,
     priceHigh: result.priceHigh,
     roi: result.roi,
