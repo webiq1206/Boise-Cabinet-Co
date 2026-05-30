@@ -135,48 +135,49 @@ export function EstimateResultPanel({
       )}
 
       {!isCompact && (
-        <>
-          <div className="mb-6">
-            <div className="flex justify-between text-[11px] mb-1.5 text-inverse-muted">
-              <span>Details provided</span>
-              <span>{result.confidencePercent}%</span>
-            </div>
-            <div
-              className="h-1 rounded-full overflow-hidden bg-inverse-foreground/15"
-              role="progressbar"
-              aria-valuenow={result.confidencePercent}
-              aria-valuemin={0}
-              aria-valuemax={100}
-              aria-label="Details provided"
-            >
+        <div className="mb-6" data-testid="typically-included-section">
+          <p className="text-[11px] font-medium mb-2 text-inverse-foreground/90">
+            What&apos;s typically included
+          </p>
+          <div className="space-y-2 mb-3">
+            {result.included.slice(0, 5).map((item, i) => (
               <div
-                className="h-full rounded-full transition-all duration-500 bg-inverse-foreground/50"
-                style={{ width: `${result.confidencePercent}%` }}
-              />
-            </div>
-            <p className="text-[10px] mt-2 text-inverse-muted">
-              More project details help tailor your planning range.
-            </p>
+                key={i}
+                className="flex items-start gap-2 text-xs leading-relaxed text-inverse-muted"
+                data-testid={`included-item-${i}`}
+              >
+                <Check className="h-3.5 w-3.5 flex-shrink-0 mt-0.5 text-inverse-muted" />
+                {item}
+              </div>
+            ))}
           </div>
+          <p className="text-[10px] leading-relaxed text-inverse-muted">{INCLUDED_SCOPE_NOTE}</p>
+        </div>
+      )}
 
-          <div className="mb-4">
-            <p className="text-[11px] font-medium mb-2 text-inverse-foreground/90">
-              Scope based on your selections
-            </p>
-            <div className="space-y-2 mb-3">
-              {result.included.slice(0, 5).map((item, i) => (
-                <div
-                  key={i}
-                  className="flex items-start gap-2 text-xs leading-relaxed text-inverse-muted"
-                >
-                  <Check className="h-3.5 w-3.5 flex-shrink-0 mt-0.5 text-inverse-muted" />
-                  {item}
-                </div>
-              ))}
-            </div>
-            <p className="text-[10px] leading-relaxed text-inverse-muted">{INCLUDED_SCOPE_NOTE}</p>
+      {!isCompact && (
+        <div className="mb-6">
+          <div className="flex justify-between text-[11px] mb-1.5 text-inverse-muted">
+            <span>Details provided</span>
+            <span>{result.confidencePercent}%</span>
           </div>
-        </>
+          <div
+            className="h-1 rounded-full overflow-hidden bg-inverse-foreground/15"
+            role="progressbar"
+            aria-valuenow={result.confidencePercent}
+            aria-valuemin={0}
+            aria-valuemax={100}
+            aria-label="Details provided"
+          >
+            <div
+              className="h-full rounded-full transition-all duration-500 bg-inverse-foreground/50"
+              style={{ width: `${result.confidencePercent}%` }}
+            />
+          </div>
+          <p className="text-[10px] mt-2 text-inverse-muted">
+            More project details help tailor your planning range.
+          </p>
+        </div>
       )}
 
       <Button
