@@ -10,7 +10,7 @@ export function ProcessSection() {
   return (
     <Section id="how-we-build" variant="greige" spacing="none" divider className="p-0">
       <div className="grid md:grid-cols-2 overflow-hidden">
-        <div className="relative min-h-[380px] md:min-h-[560px] overflow-hidden">
+        <div className="hidden md:block relative min-h-[380px] md:min-h-[560px] overflow-hidden">
           <Image
             src={SITE_IMAGES.process}
             alt="Architectural blueprints and finish material samples for a Treasure Valley remodel"
