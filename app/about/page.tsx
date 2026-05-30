@@ -1,4 +1,5 @@
 import { ArrowRight } from 'lucide-react';
+import Link from 'next/link';
 import { JsonLd } from '@/components/seo/JsonLd';
 import Image from 'next/image';
 import { Section } from '@/components/marketing/Section';
@@ -103,9 +104,9 @@ export default function AboutPage() {
             <h2 className="font-sans font-light text-section-title mb-8 text-foreground">
               How we are different
             </h2>
-            <div className="space-y-8">
+            <div className="divide-y divide-border">
               {featuredDifferentiators.map((item) => (
-                <div key={item.title}>
+                <div key={item.title} className="py-7">
                   <h3 className="font-sans font-light text-xl text-foreground mb-2">{item.title}</h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">
                     <span className="text-foreground/90">{item.contrast}</span> {item.body}

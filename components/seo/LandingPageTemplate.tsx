@@ -210,7 +210,7 @@ export function LandingPageTemplate({
             <h2 className="font-sans font-light text-section-title tracking-tight text-foreground mb-10">
               Our <em className="brc-accent text-accent">process</em>
             </h2>
-            <div>
+            <div className="divide-y divide-border border-t border-border">
               {processSteps.map((step, i) => (
                 <div key={step.title} className="flex gap-6 py-10">
                   <DisplayNum className="text-3xl w-10 flex-shrink-0 leading-none mt-0.5 text-foreground/20">

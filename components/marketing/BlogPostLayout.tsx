@@ -51,7 +51,8 @@ export function BlogPostLayout({ post, formatDate }: BlogPostLayoutProps) {
             <h1 className="text-3xl md:text-4xl lg:text-[2.75rem] font-sans font-light tracking-tight text-foreground mb-4">
               {post.title}
             </h1>
-            <p className="text-lg text-muted-foreground mb-4 max-w-2xl">{post.excerpt}</p>
+            <p className="text-lg text-muted-foreground mb-5 max-w-2xl">{post.excerpt}</p>
+            <div role="presentation" className="border-t border-border/60 mb-5" />
             <div className="flex items-center gap-4 text-sm text-muted-foreground">
               <span className="flex items-center gap-2">
                 <Calendar className="h-4 w-4" />

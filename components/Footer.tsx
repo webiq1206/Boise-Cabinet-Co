@@ -11,7 +11,7 @@ export function Footer() {
   return (
     <footer className="bg-inverse text-inverse-foreground">
       <div className="container px-4 py-16 md:py-20">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10 mb-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10 mb-12 lg:gap-0 lg:divide-x lg:divide-inverse-foreground/10 [&>*]:lg:px-8 [&>*:first-child]:lg:pl-0 [&>*:last-child]:lg:pr-0">
           <div>
             <div className="mb-4">
               <span className="font-sans font-light text-lg tracking-tight text-inverse-foreground">

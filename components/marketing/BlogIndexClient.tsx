@@ -94,11 +94,16 @@ export function BlogIndexClient() {
                 )}
 
                 {rest.length > 0 && (
-                  <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {rest.map((post) => (
-                      <BlogCard key={post.slug} post={post} formatDate={formatDate} />
-                    ))}
-                  </div>
+                  <>
+                    {featured && (
+                      <div role="presentation" className="border-t border-border/60 mb-10" />
+                    )}
+                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                      {rest.map((post) => (
+                        <BlogCard key={post.slug} post={post} formatDate={formatDate} />
+                      ))}
+                    </div>
+                  </>
                 )}
               </>
             )}
