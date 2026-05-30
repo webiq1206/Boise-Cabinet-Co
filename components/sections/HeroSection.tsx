@@ -83,7 +83,7 @@ export function HeroSection() {
         <div className="container px-4">
           <div className="flex flex-col items-center text-center max-w-5xl mx-auto">
             <h2 className="font-serif text-xl md:text-2xl text-foreground">
-              The standard we hold
+              What you can count on
             </h2>
             <span className="mt-4 h-px w-10 bg-primary/50" aria-hidden="true" />
             <div className="mt-7 md:mt-8 flex flex-wrap items-center justify-center gap-y-4">
