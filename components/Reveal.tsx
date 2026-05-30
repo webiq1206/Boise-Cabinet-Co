@@ -46,7 +46,7 @@ export function Reveal({ children, className = "", style, delay = 0, threshold =
   return (
     <div
       ref={ref}
-      className={className}
+      className={`reveal-init ${className}`}
       style={{
         ...style,
         transitionDelay: reduceMotion ? "0ms" : `${delay}ms`,

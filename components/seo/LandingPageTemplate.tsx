@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { ArrowRight, Check, ChevronRight } from 'lucide-react';
 import { DisplayNum, formatStepNumber, Section } from '@/components/marketing';
 import { MarketingCard } from '@/components/marketing/MarketingCard';
+import { Reveal } from '@/components/Reveal';
 import { RelatedLinks } from './RelatedLinks';
 import { RelatedPostCards } from '@/components/marketing/RelatedPostCards';
 import type { FAQItem } from '@/shared/seoContent';
@@ -15,6 +16,8 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
+
+const GRAIN_URL = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.45'/%3E%3C/svg%3E")`;
 
 interface BreadcrumbItem {
   name: string;
@@ -109,33 +112,44 @@ export function LandingPageTemplate({
   faqs,
   related,
 }: LandingPageTemplateProps) {
+  const eyebrow = breadcrumbs[breadcrumbs.length - 2]?.name;
+
   return (
     <div className="flex flex-col pb-20 md:pb-0">
 
       {/* ─── Cinematic hero ─── */}
-      <div className="relative min-h-[420px] md:min-h-[60vh] flex items-end overflow-hidden bg-inverse">
+      <section className="relative min-h-[540px] md:min-h-[78vh] flex items-end overflow-hidden bg-inverse">
         {heroImageUrl && (
           <Image
             src={heroImageUrl}
             alt=""
             fill
-            className="object-cover img-brand-grade"
+            className="object-cover opacity-[0.82] img-brand-grade"
             sizes="100vw"
             priority
           />
         )}
-        <div className="absolute inset-0 bg-gradient-to-t from-inverse via-inverse/65 to-inverse/15" />
-        <div className="absolute inset-0 bg-gradient-to-r from-inverse/30 via-transparent to-transparent" />
+        <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-inverse via-inverse/60 to-inverse/10" />
+        <div className="absolute inset-0 pointer-events-none bg-gradient-to-r from-inverse/70 via-inverse/20 to-transparent" />
+        <div className="absolute inset-x-0 top-0 h-32 pointer-events-none bg-gradient-to-b from-inverse/70 via-inverse/30 to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 h-24 pointer-events-none bg-gradient-to-t from-background via-background/40 to-transparent" />
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{ backgroundImage: GRAIN_URL, backgroundRepeat: 'repeat', opacity: 0.03 }}
+        />
 
-        <div className="relative z-10 w-full container px-4 pb-12 md:pb-16 pt-8">
+        <div className="relative z-10 w-full container px-4 pb-14 md:pb-20 pt-10">
           <HeroBreadcrumbs items={breadcrumbs} />
           <p data-speakable="summary" className="sr-only">
             {speakableSummary}
           </p>
-          <h1 className="font-sans font-light text-display tracking-tight text-inverse-foreground max-w-4xl mt-5 mb-5">
+          {eyebrow && (
+            <div className="brc-label text-inverse-muted mt-6 mb-5">{eyebrow}</div>
+          )}
+          <h1 className="font-sans font-light text-display tracking-tight text-inverse-foreground max-w-4xl mb-6">
             {h1}
           </h1>
-          <p className="text-base md:text-lg text-inverse-muted max-w-2xl leading-relaxed mb-8">
+          <p className="text-base md:text-lg text-inverse-foreground/85 max-w-2xl leading-relaxed mb-8">
             {overview}
           </p>
           <div className="flex flex-wrap gap-3">
@@ -150,28 +164,35 @@ export function LandingPageTemplate({
             </EstimateCTA>
           </div>
         </div>
-      </div>
+      </section>
 
       {/* ─── Benefits ─── */}
       {benefits && benefits.length > 0 && (
         <Section variant="greige" divider>
           <div className="container px-4 max-w-5xl">
-            <div className="brc-label mb-4">Why choose us</div>
-            <h2 className="font-sans font-light text-section-title md:text-section-title-lg tracking-tight text-foreground mb-10">
-              Why homeowners <em className="brc-accent text-accent">choose us</em>
-            </h2>
+            <Reveal>
+              <div className="brc-label mb-5">Why choose us</div>
+              <h2 className="font-serif font-light text-[2rem] md:text-[2.5rem] leading-[1.08] tracking-tight text-foreground mb-10">
+                Why homeowners <em className="brc-accent text-accent">choose us</em>
+              </h2>
+            </Reveal>
             <ul className="grid sm:grid-cols-2 gap-4">
-              {benefits.map((item) => {
+              {benefits.map((item, i) => {
                 const { lead, body } = splitBenefit(item);
                 return (
-                  <li key={item} className="marketing-card p-5 flex items-start gap-3">
-                    <Check className="h-4 w-4 text-accent flex-shrink-0 mt-0.5" />
-                    <span className="text-sm leading-relaxed">
-                      <strong className="font-medium text-foreground">{lead}</strong>
-                      {body && (
-                        <span className="text-muted-foreground">{', '}{body}</span>
-                      )}
-                    </span>
+                  <li key={item} className="list-none">
+                    <Reveal
+                      delay={Math.min(i, 5) * 70}
+                      className="marketing-card p-5 flex items-start gap-3 h-full"
+                    >
+                      <Check className="h-4 w-4 text-accent flex-shrink-0 mt-0.5" />
+                      <span className="text-sm leading-relaxed">
+                        <strong className="font-medium text-foreground">{lead}</strong>
+                        {body && (
+                          <span className="text-muted-foreground">{', '}{body}</span>
+                        )}
+                      </span>
+                    </Reveal>
                   </li>
                 );
               })}
@@ -180,50 +201,86 @@ export function LandingPageTemplate({
         </Section>
       )}
 
+      {/* ─── Full-bleed image breather ─── */}
+      {heroImageUrl && (
+        <section className="relative h-44 md:h-64 overflow-hidden" aria-hidden>
+          <Image
+            src={heroImageUrl}
+            alt=""
+            fill
+            sizes="100vw"
+            className="object-cover img-brand-grade"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-background via-inverse/20 to-background/90" />
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{ backgroundImage: GRAIN_URL, backgroundRepeat: 'repeat', opacity: 0.03 }}
+          />
+        </section>
+      )}
+
       {/* ─── Inclusions ─── */}
       {inclusions && inclusions.length > 0 && (
         <Section divider>
           <div className="container px-4 max-w-5xl">
-            <div className="brc-label mb-4">Scope of work</div>
-            <h2 className="font-sans font-light text-section-title tracking-tight text-foreground mb-10">
-              What&apos;s <em className="brc-accent text-accent">included</em>
-            </h2>
-            <MarketingCard>
-              <ul className="grid sm:grid-cols-2 gap-x-8 gap-y-4">
-                {inclusions.map((item) => (
-                  <li key={item} className="flex items-start gap-3 text-sm">
-                    <Check className="h-4 w-4 text-accent flex-shrink-0 mt-0.5" />
-                    <span className="text-muted-foreground">{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </MarketingCard>
+            <Reveal>
+              <div className="brc-label mb-5">Scope of work</div>
+              <h2 className="font-serif font-light text-[2rem] md:text-[2.5rem] leading-[1.08] tracking-tight text-foreground mb-10">
+                What&apos;s <em className="brc-accent text-accent">included</em>
+              </h2>
+              <MarketingCard>
+                <ul className="grid sm:grid-cols-2 gap-x-8 gap-y-4">
+                  {inclusions.map((item) => (
+                    <li key={item} className="flex items-start gap-3 text-sm">
+                      <Check className="h-4 w-4 text-accent flex-shrink-0 mt-0.5" />
+                      <span className="text-muted-foreground">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </MarketingCard>
+            </Reveal>
           </div>
         </Section>
       )}
 
-      {/* ─── Process ─── */}
+      {/* ─── Process (split: charcoal panel + steps) ─── */}
       {processSteps && processSteps.length > 0 && (
-        <Section variant="greige" divider>
-          <div className="container px-4 max-w-3xl">
-            <div className="brc-label mb-4">How it works</div>
-            <h2 className="font-sans font-light text-section-title tracking-tight text-foreground mb-10">
-              Our <em className="brc-accent text-accent">process</em>
-            </h2>
-            <div className="divide-y divide-border border-t border-border">
-              {processSteps.map((step, i) => (
-                <div key={step.title} className="flex gap-6 py-10">
-                  <DisplayNum className="text-3xl w-10 flex-shrink-0 leading-none mt-0.5 text-foreground/20">
-                    {formatStepNumber(i)}
-                  </DisplayNum>
-                  <div>
-                    <h3 className="font-medium text-base text-foreground mb-2">{step.title}</h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed">
-                      {step.description}
-                    </p>
-                  </div>
-                </div>
-              ))}
+        <Section variant="greige" divider spacing="none" className="p-0">
+          <div className="grid md:grid-cols-2 overflow-hidden">
+            <div className="relative min-h-[200px] md:min-h-[520px] overflow-hidden bg-inverse">
+              <div className="absolute inset-0 bg-gradient-to-br from-inverse via-inverse to-primary/60" />
+              <div
+                className="absolute inset-0 pointer-events-none"
+                style={{ backgroundImage: GRAIN_URL, backgroundRepeat: 'repeat', opacity: 0.03 }}
+              />
+              <div className="relative h-full flex flex-col justify-end p-8 md:p-12 lg:p-14">
+                <div className="brc-label text-inverse-muted mb-4">How it works</div>
+                <h2 className="font-serif font-light text-[2rem] md:text-[2.75rem] leading-[1.06] tracking-tight text-inverse-foreground">
+                  Our <em className="brc-accent text-accent">process</em>,
+                  <br />
+                  step by step
+                </h2>
+              </div>
+            </div>
+
+            <div className="section-y-sm px-6 md:px-12 lg:px-14 bg-card border-l border-border">
+              <div className="divide-y divide-border border-t border-border">
+                {processSteps.map((step, i) => (
+                  <Reveal key={step.title} delay={Math.min(i, 5) * 70}>
+                    <div className="flex gap-5 py-7">
+                      <DisplayNum className="text-2xl w-9 flex-shrink-0 leading-none mt-0.5 text-foreground/20">
+                        {formatStepNumber(i)}
+                      </DisplayNum>
+                      <div>
+                        <h3 className="font-medium text-base text-foreground mb-1.5">{step.title}</h3>
+                        <p className="text-sm text-muted-foreground leading-relaxed">
+                          {step.description}
+                        </p>
+                      </div>
+                    </div>
+                  </Reveal>
+                ))}
+              </div>
             </div>
           </div>
         </Section>
@@ -237,32 +294,36 @@ export function LandingPageTemplate({
               className={`grid gap-6 ${timeline && localNote ? 'md:grid-cols-2' : 'max-w-2xl'}`}
             >
               {timeline && (
-                <MarketingCard className="p-6 md:p-8">
-                  <div className="flex gap-4">
-                    <div className="w-0.5 bg-accent/50 flex-shrink-0 rounded-full" />
-                    <div>
-                      <div className="brc-label mb-3">Planning details</div>
-                      <h3 className="font-sans font-medium text-base text-foreground mt-3 mb-3">
-                        Typical timeline
-                      </h3>
-                      <p className="text-sm text-muted-foreground leading-relaxed">{timeline}</p>
+                <Reveal>
+                  <MarketingCard className="p-6 md:p-8 h-full">
+                    <div className="flex gap-4">
+                      <div className="w-0.5 bg-accent/50 flex-shrink-0 rounded-full" />
+                      <div>
+                        <div className="brc-label mb-3">Planning details</div>
+                        <h3 className="font-sans font-medium text-base text-foreground mt-3 mb-3">
+                          Typical timeline
+                        </h3>
+                        <p className="text-sm text-muted-foreground leading-relaxed">{timeline}</p>
+                      </div>
                     </div>
-                  </div>
-                </MarketingCard>
+                  </MarketingCard>
+                </Reveal>
               )}
               {localNote && (
-                <MarketingCard className="p-6 md:p-8">
-                  <div className="flex gap-4">
-                    <div className="w-0.5 bg-accent/50 flex-shrink-0 rounded-full" />
-                    <div>
-                      <div className="brc-label mb-3">Local details</div>
-                      <h3 className="font-sans font-medium text-base text-foreground mt-3 mb-3">
-                        Local notes
-                      </h3>
-                      <p className="text-sm text-muted-foreground leading-relaxed">{localNote}</p>
+                <Reveal delay={timeline ? 90 : 0}>
+                  <MarketingCard className="p-6 md:p-8 h-full">
+                    <div className="flex gap-4">
+                      <div className="w-0.5 bg-accent/50 flex-shrink-0 rounded-full" />
+                      <div>
+                        <div className="brc-label mb-3">Local details</div>
+                        <h3 className="font-sans font-medium text-base text-foreground mt-3 mb-3">
+                          Local notes
+                        </h3>
+                        <p className="text-sm text-muted-foreground leading-relaxed">{localNote}</p>
+                      </div>
                     </div>
-                  </div>
-                </MarketingCard>
+                  </MarketingCard>
+                </Reveal>
               )}
             </div>
           </div>
@@ -270,55 +331,71 @@ export function LandingPageTemplate({
       )}
 
       {/* ─── FAQ ─── */}
-      <Section divider>
+      <Section variant="greige" divider>
         <div className="container px-4 max-w-3xl">
-          <div className="brc-label mb-4">Common questions</div>
-          <h2 className="font-sans font-light text-section-title tracking-tight text-foreground mb-10">
-            Frequently asked <em className="brc-accent text-accent">questions</em>
-          </h2>
-          <Accordion type="single" collapsible className="w-full">
-            {faqs.map((faq, i) => (
-              <AccordionItem
-                key={i}
-                value={`faq-${i}`}
-                className="border-0 border-t border-border"
-              >
-                <AccordionTrigger className="text-left py-5 hover:no-underline font-sans font-medium text-sm text-foreground">
-                  {faq.question}
-                </AccordionTrigger>
-                <AccordionContent className="text-sm leading-relaxed pb-6 text-muted-foreground">
-                  {faq.answer}
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
+          <Reveal>
+            <div className="brc-label mb-5">Common questions</div>
+            <h2 className="font-serif font-light text-[2rem] md:text-[2.5rem] leading-[1.08] tracking-tight text-foreground mb-10">
+              Frequently asked <em className="brc-accent text-accent">questions</em>
+            </h2>
+            <Accordion type="single" collapsible className="w-full">
+              {faqs.map((faq, i) => (
+                <AccordionItem
+                  key={i}
+                  value={`faq-${i}`}
+                  className="border-0 border-t border-border"
+                >
+                  <AccordionTrigger className="text-left py-5 hover:no-underline font-sans font-medium text-sm text-foreground">
+                    {faq.question}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-sm leading-relaxed pb-6 text-muted-foreground">
+                    {faq.answer}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </Reveal>
         </div>
       </Section>
 
       {/* ─── Related links & posts ─── */}
       <Section divider>
         <div className="container px-4 max-w-5xl space-y-12">
-          <RelatedLinks {...related} />
-          {manifestPath && <RelatedPostCards path={manifestPath} />}
+          <Reveal>
+            <RelatedLinks {...related} />
+          </Reveal>
+          {manifestPath && (
+            <Reveal>
+              <RelatedPostCards path={manifestPath} />
+            </Reveal>
+          )}
         </div>
       </Section>
 
       {/* ─── Bottom CTA strip ─── */}
       <Section divider>
         <div className="container px-4">
-          <MarketingCard className="cta-card-dark p-10 md:p-16 text-center max-w-4xl mx-auto">
-            <div className="brc-label text-inverse-muted justify-center mb-6">
-              Start your project
-            </div>
-            <h2 className="font-serif font-light text-[2rem] md:text-[2.5rem] leading-tight tracking-tight text-inverse-foreground mb-4">
-              Ready to <em className="brc-accent">begin</em>?
-            </h2>
-            <p className="text-inverse-muted mb-8 text-base leading-relaxed">
-              Free 60 to 90 minute in-home visit. Planning guidance, design direction, no
-              obligation.
-            </p>
-            <ConsultCTA variant="brand">{CTA_PRIMARY}</ConsultCTA>
-          </MarketingCard>
+          <Reveal>
+            <MarketingCard className="cta-card-dark relative overflow-hidden p-10 md:p-16 text-center max-w-4xl mx-auto">
+              <div
+                className="absolute inset-0 pointer-events-none"
+                style={{ backgroundImage: GRAIN_URL, backgroundRepeat: 'repeat', opacity: 0.04 }}
+              />
+              <div className="relative">
+                <div className="brc-label text-inverse-muted justify-center mb-6">
+                  Start your project
+                </div>
+                <h2 className="font-serif font-light text-[2rem] md:text-[2.5rem] leading-tight tracking-tight text-inverse-foreground mb-4">
+                  Ready to <em className="brc-accent">begin</em>?
+                </h2>
+                <p className="text-inverse-muted mb-8 text-base leading-relaxed">
+                  Free 60 to 90 minute in-home visit. Planning guidance, design direction, no
+                  obligation.
+                </p>
+                <ConsultCTA variant="brand">{CTA_PRIMARY}</ConsultCTA>
+              </div>
+            </MarketingCard>
+          </Reveal>
         </div>
       </Section>
     </div>

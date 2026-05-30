@@ -73,6 +73,9 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${montserrat.variable} ${fraunces.variable}`}>
       <body className="min-h-screen bg-background font-sans antialiased">
+        <noscript>
+          <style>{`.reveal-init{opacity:1!important;transform:none!important}`}</style>
+        </noscript>
         <Providers>
           <ScrollToTop />
           <div className="flex flex-col min-h-screen">
