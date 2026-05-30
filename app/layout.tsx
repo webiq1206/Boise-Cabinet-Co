@@ -71,7 +71,14 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={`${montserrat.variable} ${fraunces.variable}`}>
+    <html lang="en" className={`${montserrat.variable} ${fraunces.variable}`} suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `document.documentElement.classList.add('js')`,
+          }}
+        />
+      </head>
       <body className="min-h-screen bg-background font-sans antialiased">
         <noscript>
           <style>{`.reveal-init{opacity:1!important;transform:none!important}`}</style>
