@@ -491,6 +491,7 @@ export function EstimateCalculator({ inModal = false, onBookVisit: onBookVisitPr
       result={result}
       selectionSummary={selectionSummary}
       onBookVisit={handleBookVisit}
+      project={project}
       variant="full"
     />
   );

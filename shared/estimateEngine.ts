@@ -58,6 +58,9 @@ export interface EstimateResult {
 export const INCLUDED_SCOPE_NOTE =
   "Scope reflects the selections above. Your final scope is confirmed during consultation.";
 
+export const APPLIANCE_DISCLAIMER =
+  "Appliances are client-supplied; we'll guide your selection but do not purchase or install them.";
+
 export const PROJECT_SIZE_CONFIG: Record<ProjectType, ProjectSizeConfig> = {
   kitchen: { min: 100, max: 600, step: 25, defaultSqft: 250, baselineSqft: 250 },
   bathroom: { min: 40, max: 200, step: 10, defaultSqft: 80, baselineSqft: 80 },
@@ -92,7 +95,7 @@ export function getMaxRefinementFields(_project: ProjectType): number {
 }
 
 export const PROJECT_LABELS: Record<ProjectType, { label: string; sub: string }> = {
-  kitchen: { label: "Kitchen", sub: "Cabinets, counters, appliances" },
+  kitchen: { label: "Kitchen", sub: "Cabinets, counters, layout" },
   bathroom: { label: "Bathroom", sub: "Tile, fixtures, vanity" },
   "whole-home": { label: "Whole-Home", sub: "Multi-room renovation" },
   addition: { label: "Room Addition", sub: "New square footage" },
@@ -119,19 +122,19 @@ const PRICE_MATRIX: Record<ProjectType, Record<FinishLevel, PriceData>> = {
   kitchen: {
     refresh: {
       low: 15000, high: 35000, roi: 72,
-      included: ["New countertops (laminate/entry quartz)", "Cabinet repaints or door replacement", "Standard appliance package", "New plumbing fixtures", "LVP or tile flooring"],
+      included: ["New countertops (laminate/entry quartz)", "Cabinet repaints or door replacement", "Appliance selection guidance (appliances are client-supplied)", "New plumbing fixtures", "LVP or tile flooring"],
     },
     "mid-range": {
       low: 35000, high: 75000, roi: 74,
-      included: ["Semi-custom cabinetry", "Quartz or granite countertops", "Mid-range appliance package", "Tile backsplash", "Updated plumbing and electrical"],
+      included: ["Semi-custom cabinetry", "Quartz or granite countertops", "Appliance selection guidance (appliances are client-supplied)", "Tile backsplash", "Updated plumbing and electrical"],
     },
     "high-end": {
       low: 75000, high: 150000, roi: 70,
-      included: ["Custom or semi-custom cabinetry", "Premium stone countertops", "High-end appliance package", "Island addition or expansion", "Custom tile work and lighting redesign"],
+      included: ["Custom or semi-custom cabinetry", "Premium stone countertops", "Appliance selection guidance (appliances are client-supplied)", "Island addition or expansion", "Custom tile work and lighting redesign"],
     },
     luxury: {
       low: 150000, high: 300000, roi: 62,
-      included: ["Fully custom cabinetry", "Exotic stone countertops", "Professional-grade appliances", "Structural layout changes", "Smart home integration"],
+      included: ["Fully custom cabinetry", "Exotic stone countertops", "Appliance selection guidance (appliances are client-supplied)", "Structural layout changes", "Smart home integration"],
     },
   },
   bathroom: {

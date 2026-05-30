@@ -4,8 +4,8 @@ import { useEffect, useRef, useState } from "react";
 import { ArrowRight, Check, Info } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import type { EstimateResult } from "@/shared/estimateEngine";
-import { INCLUDED_SCOPE_NOTE, formatPlanningCurrency } from "@/shared/estimateEngine";
+import type { EstimateResult, ProjectType } from "@/shared/estimateEngine";
+import { INCLUDED_SCOPE_NOTE, APPLIANCE_DISCLAIMER, formatPlanningCurrency } from "@/shared/estimateEngine";
 import { CTA_PRIMARY } from "@/shared/ctaCopy";
 
 const ANIM_DURATION = 320;
@@ -72,7 +72,7 @@ function AnimatedPrice({ value }: { value: number }) {
 
 const SCOPE_PREVIEW_COUNT = 5;
 
-function IncludedSection({ included }: { included: string[] }) {
+function IncludedSection({ included, project }: { included: string[]; project?: ProjectType }) {
   const [showAll, setShowAll] = useState(false);
   const hasMore = included.length > SCOPE_PREVIEW_COUNT;
   const visible = showAll ? included : included.slice(0, SCOPE_PREVIEW_COUNT);
@@ -106,6 +106,11 @@ function IncludedSection({ included }: { included: string[] }) {
       )}
       {!hasMore && <div className="mb-3" />}
       <p className="text-[10px] leading-relaxed text-inverse-muted">{INCLUDED_SCOPE_NOTE}</p>
+      {project === "kitchen" && (
+        <p className="text-[10px] leading-relaxed text-inverse-muted mt-2" data-testid="appliance-disclaimer">
+          {APPLIANCE_DISCLAIMER}
+        </p>
+      )}
     </div>
   );
 }
@@ -114,6 +119,7 @@ export interface EstimateResultPanelProps {
   result: EstimateResult;
   selectionSummary: string;
   onBookVisit: () => void;
+  project?: ProjectType;
   variant?: "full" | "compact";
   className?: string;
 }
@@ -122,6 +128,7 @@ export function EstimateResultPanel({
   result,
   selectionSummary,
   onBookVisit,
+  project,
   variant = "full",
   className,
 }: EstimateResultPanelProps) {
@@ -175,7 +182,7 @@ export function EstimateResultPanel({
       )}
 
       {!isCompact && (
-        <IncludedSection included={result.included} />
+        <IncludedSection included={result.included} project={project} />
       )}
 
       {!isCompact && (

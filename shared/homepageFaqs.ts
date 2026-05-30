@@ -46,7 +46,7 @@ export const HOMEPAGE_FAQS: HomepageFaq[] = [
   },
   {
     q: "What is your workmanship guarantee?",
-    a: "We stand behind our work with a written workmanship guarantee. If something we built or installed fails due to workmanship (not normal wear or homeowner modifications), we fix it at no charge. We also pass through all manufacturer warranties on fixtures, cabinetry, and appliances.",
+    a: "We stand behind our work with a written workmanship guarantee. If something we built or installed fails due to workmanship (not normal wear or homeowner modifications), we fix it at no charge. We also pass through all manufacturer warranties on fixtures and cabinetry.",
   },
   {
     q: "How does design-build compare to hiring a separate architect and general contractor?",

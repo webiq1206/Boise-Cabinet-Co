@@ -37,7 +37,7 @@ export const SERVICE_SEO_CONTENT: Record<string, ServiceSEOContent> = {
       'Layout planning and design direction',
       'Cabinetry, countertops, and backsplash coordination',
       'Lighting and electrical updates as needed',
-      'Plumbing adjustments for sinks and appliances',
+      'Plumbing adjustments for sinks and fixtures',
       'Dust barriers, floor protection, and daily cleanup',
     ],
     timeline: 'Most kitchen remodels run 6 to 10 weeks from permit approval, depending on layout changes and custom lead times.',

@@ -48,7 +48,8 @@ export const BLOG_POSTS: BlogPostData[] = [
       <ul>
         <li><strong>Layout changes</strong>: Moving plumbing, gas, or structural walls adds design and permit time.</li>
         <li><strong>Cabinetry</strong>: Stock, semi-custom, and fully custom lines span a wide spread.</li>
-        <li><strong>Finishes</strong>: Countertops, tile, lighting, and appliances compound quickly.</li>
+        <li><strong>Finishes</strong>: Countertops, tile, and lighting compound quickly.</li>
+        <li><strong>Appliances (client-supplied)</strong>: A cost many homeowners budget separately; we guide your selection but do not purchase or install them.</li>
       </ul>
       <p>Use our <a href="/#calculator">project estimator</a> for a planning range, then schedule an in-home visit for a written scope. Explore our <a href="/services/kitchen-remodel">kitchen remodeling services</a> across the valley.</p>
     `,
