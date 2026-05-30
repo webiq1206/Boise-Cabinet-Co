@@ -1,6 +1,6 @@
 import Image from 'next/image';
-import { ArrowRight, Check } from 'lucide-react';
-import { Breadcrumbs } from '@/components/Breadcrumbs';
+import Link from 'next/link';
+import { ArrowRight, Check, ChevronRight } from 'lucide-react';
 import { DisplayNum, formatStepNumber, Section } from '@/components/marketing';
 import { MarketingCard } from '@/components/marketing/MarketingCard';
 import { RelatedLinks } from './RelatedLinks';
@@ -41,6 +41,37 @@ interface LandingPageTemplateProps {
   };
 }
 
+function HeroBreadcrumbs({ items }: { items: BreadcrumbItem[] }) {
+  return (
+    <nav aria-label="Breadcrumb">
+      <ol className="flex flex-wrap items-center gap-1.5 text-sm text-inverse-muted">
+        {items.map((item, index) => {
+          const isLast = index === items.length - 1;
+          return (
+            <li key={index} className="flex items-center gap-1.5">
+              {item.href && !isLast ? (
+                <Link
+                  href={item.href}
+                  className="hover:text-inverse-foreground transition-colors"
+                >
+                  {item.name}
+                </Link>
+              ) : (
+                <span className={isLast ? 'text-inverse-foreground/90 font-medium' : ''}>
+                  {item.name}
+                </span>
+              )}
+              {!isLast && (
+                <ChevronRight className="h-3.5 w-3.5 flex-shrink-0 opacity-40" />
+              )}
+            </li>
+          );
+        })}
+      </ol>
+    </nav>
+  );
+}
+
 export function LandingPageTemplate({
   h1,
   speakableSummary,
@@ -58,55 +89,60 @@ export function LandingPageTemplate({
 }: LandingPageTemplateProps) {
   return (
     <div className="flex flex-col pb-20 md:pb-0">
-      {heroImageUrl && (
-        <div className="relative h-48 md:h-64 overflow-hidden bg-inverse">
+
+      {/* ─── Cinematic hero ─── */}
+      <div className="relative min-h-[420px] md:min-h-[60vh] flex items-end overflow-hidden bg-inverse">
+        {heroImageUrl && (
           <Image
             src={heroImageUrl}
             alt=""
             fill
-            className="object-cover opacity-70 img-brand-grade"
+            className="object-cover img-brand-grade"
             sizes="100vw"
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-inverse/40 via-transparent to-transparent" />
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent" />
-        </div>
-      )}
+        )}
+        <div className="absolute inset-0 bg-gradient-to-t from-inverse via-inverse/65 to-inverse/15" />
+        <div className="absolute inset-0 bg-gradient-to-r from-inverse/30 via-transparent to-transparent" />
 
-      <Section spacing="sm" className={heroImageUrl ? 'pt-8 md:pt-10' : 'pt-8 md:pt-12'}>
-        <div className="container px-4">
-          <Breadcrumbs items={breadcrumbs} />
+        <div className="relative z-10 w-full container px-4 pb-12 md:pb-16 pt-8">
+          <HeroBreadcrumbs items={breadcrumbs} />
           <p data-speakable="summary" className="sr-only">
             {speakableSummary}
           </p>
-          <h1 className="font-sans font-light text-display md:text-[2.75rem] tracking-tight text-foreground max-w-4xl mt-6 mb-6">
+          <h1 className="font-sans font-light text-[2.25rem] md:text-[3rem] lg:text-[3.5rem] leading-[1.08] tracking-tight text-inverse-foreground max-w-4xl mt-5 mb-5">
             {h1}
           </h1>
-          <p className="text-lg text-muted-foreground max-w-3xl leading-relaxed mb-8">
+          <p className="text-base md:text-lg text-inverse-muted max-w-2xl leading-relaxed mb-8">
             {overview}
           </p>
           <div className="flex flex-wrap gap-3">
             <ConsultCTA variant="brand">
               {CTA_PRIMARY} <ArrowRight className="h-4 w-4" />
             </ConsultCTA>
-            <EstimateCTA variant="brandOutline">
+            <EstimateCTA
+              variant="outline"
+              className="bg-white/10 backdrop-blur-sm border-white/30 text-white"
+            >
               {CTA_SECONDARY}
             </EstimateCTA>
           </div>
         </div>
-      </Section>
+      </div>
 
+      {/* ─── Benefits ─── */}
       {benefits && benefits.length > 0 && (
         <Section variant="greige" divider>
           <div className="container px-4 max-w-5xl">
-            <h2 className="font-sans font-light text-section-title md:text-section-title-lg mb-8 text-foreground">
-              Why homeowners choose us
+            <div className="brc-label mb-4">Why choose us</div>
+            <h2 className="font-sans font-light text-section-title md:text-section-title-lg tracking-tight text-foreground mb-10">
+              Why homeowners <em className="brc-accent text-accent">choose us</em>
             </h2>
             <ul className="grid sm:grid-cols-2 gap-4">
               {benefits.map((item) => (
-                <li key={item} className="flex items-start gap-3 text-sm text-muted-foreground">
-                  <Check className="h-4 w-4 text-foreground/60 flex-shrink-0 mt-0.5" />
-                  {item}
+                <li key={item} className="marketing-card p-5 flex items-start gap-3">
+                  <Check className="h-4 w-4 text-accent flex-shrink-0 mt-0.5" />
+                  <span className="text-sm text-foreground leading-relaxed">{item}</span>
                 </li>
               ))}
             </ul>
@@ -114,18 +150,20 @@ export function LandingPageTemplate({
         </Section>
       )}
 
+      {/* ─── Inclusions ─── */}
       {inclusions && inclusions.length > 0 && (
         <Section divider>
           <div className="container px-4 max-w-5xl">
-            <h2 className="font-sans font-light text-section-title mb-8 text-foreground">
-              What&apos;s included
+            <div className="brc-label mb-4">Scope of work</div>
+            <h2 className="font-sans font-light text-section-title tracking-tight text-foreground mb-10">
+              What&apos;s <em className="brc-accent text-accent">included</em>
             </h2>
             <MarketingCard>
-              <ul className="space-y-3">
+              <ul className="grid sm:grid-cols-2 gap-x-8 gap-y-4">
                 {inclusions.map((item) => (
-                  <li key={item} className="flex items-start gap-3 text-sm text-muted-foreground">
-                    <Check className="h-4 w-4 text-foreground/60 flex-shrink-0 mt-0.5" />
-                    {item}
+                  <li key={item} className="flex items-start gap-3 text-sm">
+                    <Check className="h-4 w-4 text-accent flex-shrink-0 mt-0.5" />
+                    <span className="text-muted-foreground">{item}</span>
                   </li>
                 ))}
               </ul>
@@ -134,24 +172,28 @@ export function LandingPageTemplate({
         </Section>
       )}
 
+      {/* ─── Process ─── */}
       {processSteps && processSteps.length > 0 && (
         <Section variant="greige" divider>
           <div className="container px-4 max-w-3xl">
-            <h2 className="font-sans font-light text-section-title mb-8 text-foreground">
-              Our process
+            <div className="brc-label mb-4">How it works</div>
+            <h2 className="font-sans font-light text-section-title tracking-tight text-foreground mb-10">
+              Our <em className="brc-accent text-accent">process</em>
             </h2>
-            <div className="space-y-0">
+            <div>
               {processSteps.map((step, i) => (
                 <div
                   key={step.title}
-                  className={`flex gap-5 py-6 ${i < processSteps.length - 1 ? 'border-b border-border' : ''}`}
+                  className={`flex gap-6 py-8 ${i < processSteps.length - 1 ? 'border-b border-border' : ''}`}
                 >
-                  <DisplayNum className="text-2xl w-8 flex-shrink-0 leading-none mt-0.5 text-foreground/20">
+                  <DisplayNum className="text-3xl w-10 flex-shrink-0 leading-none mt-0.5 text-foreground/20">
                     {formatStepNumber(i)}
                   </DisplayNum>
                   <div>
-                    <h3 className="font-medium text-sm text-foreground mb-2">{step.title}</h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed">{step.description}</p>
+                    <h3 className="font-medium text-base text-foreground mb-2">{step.title}</h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      {step.description}
+                    </p>
                   </div>
                 </div>
               ))}
@@ -160,32 +202,50 @@ export function LandingPageTemplate({
         </Section>
       )}
 
-      {timeline && (
-        <Section divider spacing="sm">
-          <div className="container px-4 max-w-3xl">
-            <h2 className="font-sans font-light text-xl text-foreground mb-3">Typical timeline</h2>
-            <p className="text-sm text-muted-foreground leading-relaxed">{timeline}</p>
+      {/* ─── Timeline & local notes ─── */}
+      {(timeline || localNote) && (
+        <Section divider>
+          <div className="container px-4 max-w-5xl">
+            <div
+              className={`grid gap-6 ${timeline && localNote ? 'md:grid-cols-2' : 'max-w-2xl'}`}
+            >
+              {timeline && (
+                <MarketingCard className="p-6 md:p-8">
+                  <div className="brc-label mb-3">Planning details</div>
+                  <h3 className="font-sans font-medium text-base text-foreground mt-3 mb-3">
+                    Typical timeline
+                  </h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{timeline}</p>
+                </MarketingCard>
+              )}
+              {localNote && (
+                <MarketingCard className="p-6 md:p-8">
+                  <div className="brc-label mb-3">Local details</div>
+                  <h3 className="font-sans font-medium text-base text-foreground mt-3 mb-3">
+                    Local notes
+                  </h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{localNote}</p>
+                </MarketingCard>
+              )}
+            </div>
           </div>
         </Section>
       )}
 
-      {localNote && (
-        <Section divider spacing="sm">
-          <div className="container px-4 max-w-3xl">
-            <h2 className="font-sans font-light text-xl text-foreground mb-3">Local notes</h2>
-            <p className="text-sm text-muted-foreground leading-relaxed">{localNote}</p>
-          </div>
-        </Section>
-      )}
-
+      {/* ─── FAQ ─── */}
       <Section divider>
         <div className="container px-4 max-w-3xl">
-          <h2 className="font-sans font-light text-section-title mb-8 text-foreground">
-            Frequently asked questions
+          <div className="brc-label mb-4">Common questions</div>
+          <h2 className="font-sans font-light text-section-title tracking-tight text-foreground mb-10">
+            Frequently asked <em className="brc-accent text-accent">questions</em>
           </h2>
           <Accordion type="single" collapsible className="w-full">
             {faqs.map((faq, i) => (
-              <AccordionItem key={i} value={`faq-${i}`} className="border-0 border-t border-border">
+              <AccordionItem
+                key={i}
+                value={`faq-${i}`}
+                className="border-0 border-t border-border"
+              >
                 <AccordionTrigger className="text-left py-5 hover:no-underline font-sans font-medium text-sm text-foreground">
                   {faq.question}
                 </AccordionTrigger>
@@ -198,6 +258,7 @@ export function LandingPageTemplate({
         </div>
       </Section>
 
+      {/* ─── Related links & posts ─── */}
       <Section divider>
         <div className="container px-4 max-w-5xl space-y-12">
           <RelatedLinks {...related} />
@@ -205,19 +266,20 @@ export function LandingPageTemplate({
         </div>
       </Section>
 
-      <Section divider spacing="sm">
-        <div className="container px-4 max-w-2xl mx-auto">
-          <div className="marketing-card p-10 md:p-12 text-center">
-            <h2 className="font-sans font-light text-2xl text-foreground mb-4">
-              Ready to discuss your project?
-            </h2>
-            <p className="text-muted-foreground text-base mb-6">
-              Free 60 to 90 minute in-home visit. Planning guidance, design direction, no obligation.
-            </p>
-            <ConsultCTA variant="brand">
-              {CTA_PRIMARY}
-            </ConsultCTA>
+      {/* ─── Bottom CTA strip ─── */}
+      <Section variant="inverse" divider>
+        <div className="container px-4 max-w-2xl mx-auto text-center">
+          <div className="brc-label text-inverse-muted justify-center mb-6">
+            Start your project
           </div>
+          <h2 className="font-serif font-light text-[2rem] md:text-[2.5rem] leading-tight tracking-tight text-inverse-foreground mb-4">
+            Ready to <em className="brc-accent">begin</em>?
+          </h2>
+          <p className="text-inverse-muted mb-8 text-base leading-relaxed">
+            Free 60 to 90 minute in-home visit. Planning guidance, design direction, no
+            obligation.
+          </p>
+          <ConsultCTA variant="brand">{CTA_PRIMARY}</ConsultCTA>
         </div>
       </Section>
     </div>
