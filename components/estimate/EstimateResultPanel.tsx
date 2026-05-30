@@ -70,6 +70,46 @@ function AnimatedPrice({ value }: { value: number }) {
   );
 }
 
+const SCOPE_PREVIEW_COUNT = 5;
+
+function IncludedSection({ included }: { included: string[] }) {
+  const [showAll, setShowAll] = useState(false);
+  const hasMore = included.length > SCOPE_PREVIEW_COUNT;
+  const visible = showAll ? included : included.slice(0, SCOPE_PREVIEW_COUNT);
+
+  return (
+    <div className="mb-6" data-testid="typically-included-section">
+      <p className="text-[11px] font-medium mb-2 text-inverse-foreground/90">
+        What&apos;s typically included
+      </p>
+      <div className="space-y-2 mb-2">
+        {visible.map((item, i) => (
+          <div
+            key={i}
+            className="flex items-start gap-2 text-xs leading-relaxed text-inverse-muted"
+            data-testid={`included-item-${i}`}
+          >
+            <Check className="h-3.5 w-3.5 flex-shrink-0 mt-0.5 text-inverse-muted" />
+            {item}
+          </div>
+        ))}
+      </div>
+      {hasMore && (
+        <button
+          type="button"
+          onClick={() => setShowAll((prev) => !prev)}
+          className="text-[11px] text-inverse-foreground/70 underline underline-offset-2 mb-3 hover:text-inverse-foreground transition-colors"
+          data-testid="button-toggle-scope"
+        >
+          {showAll ? "Show less" : `Show all (${included.length})`}
+        </button>
+      )}
+      {!hasMore && <div className="mb-3" />}
+      <p className="text-[10px] leading-relaxed text-inverse-muted">{INCLUDED_SCOPE_NOTE}</p>
+    </div>
+  );
+}
+
 export interface EstimateResultPanelProps {
   result: EstimateResult;
   selectionSummary: string;
@@ -135,24 +175,7 @@ export function EstimateResultPanel({
       )}
 
       {!isCompact && (
-        <div className="mb-6" data-testid="typically-included-section">
-          <p className="text-[11px] font-medium mb-2 text-inverse-foreground/90">
-            What&apos;s typically included
-          </p>
-          <div className="space-y-2 mb-3">
-            {result.included.slice(0, 5).map((item, i) => (
-              <div
-                key={i}
-                className="flex items-start gap-2 text-xs leading-relaxed text-inverse-muted"
-                data-testid={`included-item-${i}`}
-              >
-                <Check className="h-3.5 w-3.5 flex-shrink-0 mt-0.5 text-inverse-muted" />
-                {item}
-              </div>
-            ))}
-          </div>
-          <p className="text-[10px] leading-relaxed text-inverse-muted">{INCLUDED_SCOPE_NOTE}</p>
-        </div>
+        <IncludedSection included={result.included} />
       )}
 
       {!isCompact && (
