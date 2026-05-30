@@ -2,9 +2,9 @@
   "generatedAt": null,
   "counts": {
     "blog": 6,
-    "service": 4,
+    "service": 5,
     "city": 8,
-    "cityService": 32
+    "cityService": 40
   },
   "pages": {
     "/blog/ada-vs-canyon-county-permit-timelines": {
@@ -92,18 +92,18 @@
           "score": 0.225
         },
         {
+          "url": "/services/adu",
+          "anchor": "ADU / Guest House",
+          "title": "ADU / Guest House in Boise & Treasure Valley, Idaho",
+          "type": "service",
+          "score": 0.182
+        },
+        {
           "url": "/services/room-addition",
           "anchor": "Room Addition",
           "title": "Room Addition in Boise & Treasure Valley, Idaho",
           "type": "service",
           "score": 0.15
-        },
-        {
-          "url": "/services/whole-home-remodel",
-          "anchor": "Whole-Home Remodel",
-          "title": "Whole-Home Remodel in Boise & Treasure Valley, Idaho",
-          "type": "service",
-          "score": 0.144
         }
       ]
     },
@@ -135,25 +135,25 @@
           "score": 0.126
         },
         {
+          "url": "/services/adu",
+          "anchor": "ADU / Guest House",
+          "title": "ADU / Guest House in Boise & Treasure Valley, Idaho",
+          "type": "service",
+          "score": 0.11
+        },
+        {
+          "url": "/services/whole-home-remodel",
+          "anchor": "Whole-Home Remodel",
+          "title": "Whole-Home Remodel in Boise & Treasure Valley, Idaho",
+          "type": "service",
+          "score": 0.11
+        },
+        {
           "url": "/blog/room-addition-guide-treasure-valley",
           "anchor": "Room Addition Guide: Matching Your Home in the Treasure Valley",
           "title": "Room Addition Guide: Matching Your Home in the Treasure Valley",
           "type": "blog",
           "score": 0.091
-        },
-        {
-          "url": "/services/bathroom-remodel",
-          "anchor": "Bathroom Remodel",
-          "title": "Bathroom Remodel in Boise & Treasure Valley, Idaho",
-          "type": "service",
-          "score": 0.07
-        },
-        {
-          "url": "/services/kitchen-remodel",
-          "anchor": "Kitchen Remodel",
-          "title": "Kitchen Remodel in Boise & Treasure Valley, Idaho",
-          "type": "service",
-          "score": 0.07
         }
       ]
     },
@@ -192,18 +192,18 @@
           "score": 0.137
         },
         {
-          "url": "/services/room-addition",
-          "anchor": "Room Addition",
-          "title": "Room Addition in Boise & Treasure Valley, Idaho",
-          "type": "service",
-          "score": 0.07
-        },
-        {
           "url": "/services/bathroom-remodel",
           "anchor": "Bathroom Remodel",
           "title": "Bathroom Remodel in Boise & Treasure Valley, Idaho",
           "type": "service",
-          "score": 0.063
+          "score": 0.103
+        },
+        {
+          "url": "/services/adu",
+          "anchor": "ADU / Guest House",
+          "title": "ADU / Guest House in Boise & Treasure Valley, Idaho",
+          "type": "service",
+          "score": 0.07
         }
       ]
     },
@@ -242,18 +242,18 @@
           "score": 0.067
         },
         {
+          "url": "/services/adu",
+          "anchor": "ADU / Guest House",
+          "title": "ADU / Guest House in Boise & Treasure Valley, Idaho",
+          "type": "service",
+          "score": 0.03
+        },
+        {
           "url": "/services/bathroom-remodel",
           "anchor": "Bathroom Remodel",
           "title": "Bathroom Remodel in Boise & Treasure Valley, Idaho",
           "type": "service",
-          "score": -0.01
-        },
-        {
-          "url": "/services/kitchen-remodel",
-          "anchor": "Kitchen Remodel",
-          "title": "Kitchen Remodel in Boise & Treasure Valley, Idaho",
-          "type": "service",
-          "score": -0.01
+          "score": 0.03
         }
       ]
     },
@@ -285,25 +285,537 @@
           "score": 999
         },
         {
+          "url": "/services/kitchen-remodel",
+          "anchor": "Kitchen Remodel",
+          "title": "Kitchen Remodel in Boise & Treasure Valley, Idaho",
+          "type": "service",
+          "score": 0.068
+        },
+        {
           "url": "/services/room-addition",
           "anchor": "Room Addition",
           "title": "Room Addition in Boise & Treasure Valley, Idaho",
           "type": "service",
-          "score": 0.028
+          "score": 0.068
         },
         {
           "url": "/services/bathroom-remodel",
           "anchor": "Bathroom Remodel",
           "title": "Bathroom Remodel in Boise & Treasure Valley, Idaho",
           "type": "service",
-          "score": -0.012
+          "score": 0.028
+        }
+      ]
+    },
+    "/services/adu/boise": {
+      "type": "city-service",
+      "title": "ADU / Guest House in Boise, Idaho",
+      "anchor": "ADU / Guest House in Boise",
+      "url": "/services/adu/boise",
+      "links": [
+        {
+          "url": "/services/adu/kuna",
+          "anchor": "ADU / Guest House in Kuna",
+          "title": "ADU / Guest House in Kuna, Idaho",
+          "type": "city-service",
+          "score": 1.9
+        },
+        {
+          "url": "/services/adu",
+          "anchor": "ADU / Guest House",
+          "title": "ADU / Guest House in Boise & Treasure Valley, Idaho",
+          "type": "service",
+          "score": 1.89
+        },
+        {
+          "url": "/services/adu/caldwell",
+          "anchor": "ADU / Guest House in Caldwell",
+          "title": "ADU / Guest House in Caldwell, Idaho",
+          "type": "city-service",
+          "score": 1.823
+        },
+        {
+          "url": "/services/adu/eagle",
+          "anchor": "ADU / Guest House in Eagle",
+          "title": "ADU / Guest House in Eagle, Idaho",
+          "type": "city-service",
+          "score": 1.823
+        },
+        {
+          "url": "/areas/boise",
+          "anchor": "Remodeling in Boise",
+          "title": "Remodeling Services in Boise, Idaho",
+          "type": "city",
+          "score": 0.36
+        },
+        {
+          "url": "/services/room-addition",
+          "anchor": "Room Addition",
+          "title": "Room Addition in Boise & Treasure Valley, Idaho",
+          "type": "service",
+          "score": 0.34
+        },
+        {
+          "url": "/blog/how-to-choose-design-build-contractor",
+          "anchor": "How to Choose a Design-Build Remodeling Contractor in Boise",
+          "title": "How to Choose a Design-Build Remodeling Contractor in Boise",
+          "type": "blog",
+          "score": 0.1
+        },
+        {
+          "url": "/blog/kitchen-remodel-cost-treasure-valley",
+          "anchor": "Kitchen Remodel Cost in the Treasure Valley (2026 Planning Ranges)",
+          "title": "Kitchen Remodel Cost in the Treasure Valley (2026 Planning Ranges)",
+          "type": "blog",
+          "score": 0.06
+        }
+      ]
+    },
+    "/services/adu/caldwell": {
+      "type": "city-service",
+      "title": "ADU / Guest House in Caldwell, Idaho",
+      "anchor": "ADU / Guest House in Caldwell",
+      "url": "/services/adu/caldwell",
+      "links": [
+        {
+          "url": "/services/adu/boise",
+          "anchor": "ADU / Guest House in Boise",
+          "title": "ADU / Guest House in Boise, Idaho",
+          "type": "city-service",
+          "score": 1.823
+        },
+        {
+          "url": "/services/adu/kuna",
+          "anchor": "ADU / Guest House in Kuna",
+          "title": "ADU / Guest House in Kuna, Idaho",
+          "type": "city-service",
+          "score": 1.783
+        },
+        {
+          "url": "/services/adu",
+          "anchor": "ADU / Guest House",
+          "title": "ADU / Guest House in Boise & Treasure Valley, Idaho",
+          "type": "service",
+          "score": 1.773
+        },
+        {
+          "url": "/services/adu/eagle",
+          "anchor": "ADU / Guest House in Eagle",
+          "title": "ADU / Guest House in Eagle, Idaho",
+          "type": "city-service",
+          "score": 1.757
+        },
+        {
+          "url": "/services/adu/meridian",
+          "anchor": "ADU / Guest House in Meridian",
+          "title": "ADU / Guest House in Meridian, Idaho",
+          "type": "city-service",
+          "score": 1.757
+        },
+        {
+          "url": "/services/adu/middleton",
+          "anchor": "ADU / Guest House in Middleton",
+          "title": "ADU / Guest House in Middleton, Idaho",
+          "type": "city-service",
+          "score": 1.757
+        },
+        {
+          "url": "/areas/caldwell",
+          "anchor": "Remodeling in Caldwell",
+          "title": "Remodeling Services in Caldwell, Idaho",
+          "type": "city",
+          "score": 0.431
+        },
+        {
+          "url": "/services/bathroom-remodel",
+          "anchor": "Bathroom Remodel",
+          "title": "Bathroom Remodel in Boise & Treasure Valley, Idaho",
+          "type": "service",
+          "score": 0.298
+        }
+      ]
+    },
+    "/services/adu/eagle": {
+      "type": "city-service",
+      "title": "ADU / Guest House in Eagle, Idaho",
+      "anchor": "ADU / Guest House in Eagle",
+      "url": "/services/adu/eagle",
+      "links": [
+        {
+          "url": "/services/adu/boise",
+          "anchor": "ADU / Guest House in Boise",
+          "title": "ADU / Guest House in Boise, Idaho",
+          "type": "city-service",
+          "score": 1.783
+        },
+        {
+          "url": "/services/adu/nampa",
+          "anchor": "ADU / Guest House in Nampa",
+          "title": "ADU / Guest House in Nampa, Idaho",
+          "type": "city-service",
+          "score": 1.757
+        },
+        {
+          "url": "/services/adu/star",
+          "anchor": "ADU / Guest House in Star",
+          "title": "ADU / Guest House in Star, Idaho",
+          "type": "city-service",
+          "score": 1.757
+        },
+        {
+          "url": "/services/adu",
+          "anchor": "ADU / Guest House",
+          "title": "ADU / Guest House in Boise & Treasure Valley, Idaho",
+          "type": "service",
+          "score": 1.733
+        },
+        {
+          "url": "/areas/eagle",
+          "anchor": "Remodeling in Eagle",
+          "title": "Remodeling Services in Eagle, Idaho",
+          "type": "city",
+          "score": 0.471
+        },
+        {
+          "url": "/services/room-addition",
+          "anchor": "Room Addition",
+          "title": "Room Addition in Boise & Treasure Valley, Idaho",
+          "type": "service",
+          "score": 0.298
+        },
+        {
+          "url": "/blog/bathroom-remodel-cost-idaho",
+          "anchor": "Bathroom Remodel Cost in Idaho: Master Bath vs Guest Bath",
+          "title": "Bathroom Remodel Cost in Idaho: Master Bath vs Guest Bath",
+          "type": "blog",
+          "score": 0.125
+        },
+        {
+          "url": "/blog/room-addition-guide-treasure-valley",
+          "anchor": "Room Addition Guide: Matching Your Home in the Treasure Valley",
+          "title": "Room Addition Guide: Matching Your Home in the Treasure Valley",
+          "type": "blog",
+          "score": 0.093
+        }
+      ]
+    },
+    "/services/adu/kuna": {
+      "type": "city-service",
+      "title": "ADU / Guest House in Kuna, Idaho",
+      "anchor": "ADU / Guest House in Kuna",
+      "url": "/services/adu/kuna",
+      "links": [
+        {
+          "url": "/services/adu/middleton",
+          "anchor": "ADU / Guest House in Middleton",
+          "title": "ADU / Guest House in Middleton, Idaho",
+          "type": "city-service",
+          "score": 1.823
+        },
+        {
+          "url": "/services/adu/star",
+          "anchor": "ADU / Guest House in Star",
+          "title": "ADU / Guest House in Star, Idaho",
+          "type": "city-service",
+          "score": 1.823
+        },
+        {
+          "url": "/services/adu/boise",
+          "anchor": "ADU / Guest House in Boise",
+          "title": "ADU / Guest House in Boise, Idaho",
+          "type": "city-service",
+          "score": 1.82
+        },
+        {
+          "url": "/services/adu/caldwell",
+          "anchor": "ADU / Guest House in Caldwell",
+          "title": "ADU / Guest House in Caldwell, Idaho",
+          "type": "city-service",
+          "score": 1.783
+        },
+        {
+          "url": "/services/adu/eagle",
+          "anchor": "ADU / Guest House in Eagle",
+          "title": "ADU / Guest House in Eagle, Idaho",
+          "type": "city-service",
+          "score": 1.783
+        },
+        {
+          "url": "/services/adu",
+          "anchor": "ADU / Guest House",
+          "title": "ADU / Guest House in Boise & Treasure Valley, Idaho",
+          "type": "service",
+          "score": 1.77
+        },
+        {
+          "url": "/areas/kuna",
+          "anchor": "Remodeling in Kuna",
+          "title": "Remodeling Services in Kuna, Idaho",
+          "type": "city",
+          "score": 0.4
         },
         {
           "url": "/services/kitchen-remodel",
           "anchor": "Kitchen Remodel",
           "title": "Kitchen Remodel in Boise & Treasure Valley, Idaho",
           "type": "service",
-          "score": -0.012
+          "score": 0.29
+        }
+      ]
+    },
+    "/services/adu/meridian": {
+      "type": "city-service",
+      "title": "ADU / Guest House in Meridian, Idaho",
+      "anchor": "ADU / Guest House in Meridian",
+      "url": "/services/adu/meridian",
+      "links": [
+        {
+          "url": "/services/adu/star",
+          "anchor": "ADU / Guest House in Star",
+          "title": "ADU / Guest House in Star, Idaho",
+          "type": "city-service",
+          "score": 1.757
+        },
+        {
+          "url": "/services/adu/kuna",
+          "anchor": "ADU / Guest House in Kuna",
+          "title": "ADU / Guest House in Kuna, Idaho",
+          "type": "city-service",
+          "score": 1.743
+        },
+        {
+          "url": "/services/adu/middleton",
+          "anchor": "ADU / Guest House in Middleton",
+          "title": "ADU / Guest House in Middleton, Idaho",
+          "type": "city-service",
+          "score": 1.717
+        },
+        {
+          "url": "/services/adu/nampa",
+          "anchor": "ADU / Guest House in Nampa",
+          "title": "ADU / Guest House in Nampa, Idaho",
+          "type": "city-service",
+          "score": 1.717
+        },
+        {
+          "url": "/services/adu",
+          "anchor": "ADU / Guest House",
+          "title": "ADU / Guest House in Boise & Treasure Valley, Idaho",
+          "type": "service",
+          "score": 1.653
+        },
+        {
+          "url": "/areas/meridian",
+          "anchor": "Remodeling in Meridian",
+          "title": "Remodeling Services in Meridian, Idaho",
+          "type": "city",
+          "score": 0.471
+        },
+        {
+          "url": "/services/bathroom-remodel",
+          "anchor": "Bathroom Remodel",
+          "title": "Bathroom Remodel in Boise & Treasure Valley, Idaho",
+          "type": "service",
+          "score": 0.258
+        },
+        {
+          "url": "/blog/whole-home-remodel-planning-checklist",
+          "anchor": "Whole-Home Remodel Planning Checklist for Treasure Valley Homeowners",
+          "title": "Whole-Home Remodel Planning Checklist for Treasure Valley Homeowners",
+          "type": "blog",
+          "score": 0.133
+        }
+      ]
+    },
+    "/services/adu/middleton": {
+      "type": "city-service",
+      "title": "ADU / Guest House in Middleton, Idaho",
+      "anchor": "ADU / Guest House in Middleton",
+      "url": "/services/adu/middleton",
+      "links": [
+        {
+          "url": "/services/adu/nampa",
+          "anchor": "ADU / Guest House in Nampa",
+          "title": "ADU / Guest House in Nampa, Idaho",
+          "type": "city-service",
+          "score": 1.757
+        },
+        {
+          "url": "/services/adu/meridian",
+          "anchor": "ADU / Guest House in Meridian",
+          "title": "ADU / Guest House in Meridian, Idaho",
+          "type": "city-service",
+          "score": 1.717
+        },
+        {
+          "url": "/services/adu/star",
+          "anchor": "ADU / Guest House in Star",
+          "title": "ADU / Guest House in Star, Idaho",
+          "type": "city-service",
+          "score": 1.717
+        },
+        {
+          "url": "/services/adu/boise",
+          "anchor": "ADU / Guest House in Boise",
+          "title": "ADU / Guest House in Boise, Idaho",
+          "type": "city-service",
+          "score": 1.703
+        },
+        {
+          "url": "/services/adu/kuna",
+          "anchor": "ADU / Guest House in Kuna",
+          "title": "ADU / Guest House in Kuna, Idaho",
+          "type": "city-service",
+          "score": 1.703
+        },
+        {
+          "url": "/services/adu",
+          "anchor": "ADU / Guest House",
+          "title": "ADU / Guest House in Boise & Treasure Valley, Idaho",
+          "type": "service",
+          "score": 1.613
+        },
+        {
+          "url": "/areas/middleton",
+          "anchor": "Remodeling in Middleton",
+          "title": "Remodeling Services in Middleton, Idaho",
+          "type": "city",
+          "score": 0.471
+        },
+        {
+          "url": "/services/room-addition",
+          "anchor": "Room Addition",
+          "title": "Room Addition in Boise & Treasure Valley, Idaho",
+          "type": "service",
+          "score": 0.258
+        }
+      ]
+    },
+    "/services/adu/nampa": {
+      "type": "city-service",
+      "title": "ADU / Guest House in Nampa, Idaho",
+      "anchor": "ADU / Guest House in Nampa",
+      "url": "/services/adu/nampa",
+      "links": [
+        {
+          "url": "/services/adu/caldwell",
+          "anchor": "ADU / Guest House in Caldwell",
+          "title": "ADU / Guest House in Caldwell, Idaho",
+          "type": "city-service",
+          "score": 1.677
+        },
+        {
+          "url": "/services/adu/eagle",
+          "anchor": "ADU / Guest House in Eagle",
+          "title": "ADU / Guest House in Eagle, Idaho",
+          "type": "city-service",
+          "score": 1.677
+        },
+        {
+          "url": "/services/adu/meridian",
+          "anchor": "ADU / Guest House in Meridian",
+          "title": "ADU / Guest House in Meridian, Idaho",
+          "type": "city-service",
+          "score": 1.677
+        },
+        {
+          "url": "/services/adu/middleton",
+          "anchor": "ADU / Guest House in Middleton",
+          "title": "ADU / Guest House in Middleton, Idaho",
+          "type": "city-service",
+          "score": 1.677
+        },
+        {
+          "url": "/services/adu",
+          "anchor": "ADU / Guest House",
+          "title": "ADU / Guest House in Boise & Treasure Valley, Idaho",
+          "type": "service",
+          "score": 1.573
+        },
+        {
+          "url": "/areas/nampa",
+          "anchor": "Remodeling in Nampa",
+          "title": "Remodeling Services in Nampa, Idaho",
+          "type": "city",
+          "score": 0.431
+        },
+        {
+          "url": "/services/kitchen-remodel",
+          "anchor": "Kitchen Remodel",
+          "title": "Kitchen Remodel in Boise & Treasure Valley, Idaho",
+          "type": "service",
+          "score": 0.25
+        },
+        {
+          "url": "/blog/bathroom-remodel-cost-idaho",
+          "anchor": "Bathroom Remodel Cost in Idaho: Master Bath vs Guest Bath",
+          "title": "Bathroom Remodel Cost in Idaho: Master Bath vs Guest Bath",
+          "type": "blog",
+          "score": -0.035
+        }
+      ]
+    },
+    "/services/adu/star": {
+      "type": "city-service",
+      "title": "ADU / Guest House in Star, Idaho",
+      "anchor": "ADU / Guest House in Star",
+      "url": "/services/adu/star",
+      "links": [
+        {
+          "url": "/services/adu/meridian",
+          "anchor": "ADU / Guest House in Meridian",
+          "title": "ADU / Guest House in Meridian, Idaho",
+          "type": "city-service",
+          "score": 1.757
+        },
+        {
+          "url": "/services/adu/nampa",
+          "anchor": "ADU / Guest House in Nampa",
+          "title": "ADU / Guest House in Nampa, Idaho",
+          "type": "city-service",
+          "score": 1.677
+        },
+        {
+          "url": "/services/adu/boise",
+          "anchor": "ADU / Guest House in Boise",
+          "title": "ADU / Guest House in Boise, Idaho",
+          "type": "city-service",
+          "score": 1.663
+        },
+        {
+          "url": "/services/adu/kuna",
+          "anchor": "ADU / Guest House in Kuna",
+          "title": "ADU / Guest House in Kuna, Idaho",
+          "type": "city-service",
+          "score": 1.663
+        },
+        {
+          "url": "/services/adu/caldwell",
+          "anchor": "ADU / Guest House in Caldwell",
+          "title": "ADU / Guest House in Caldwell, Idaho",
+          "type": "city-service",
+          "score": 1.637
+        },
+        {
+          "url": "/services/adu",
+          "anchor": "ADU / Guest House",
+          "title": "ADU / Guest House in Boise & Treasure Valley, Idaho",
+          "type": "service",
+          "score": 1.533
+        },
+        {
+          "url": "/areas/star",
+          "anchor": "Remodeling in Star",
+          "title": "Remodeling Services in Star, Idaho",
+          "type": "city",
+          "score": 0.471
+        },
+        {
+          "url": "/services/whole-home-remodel",
+          "anchor": "Whole-Home Remodel",
+          "title": "Whole-Home Remodel in Boise & Treasure Valley, Idaho",
+          "type": "service",
+          "score": 0.25
         }
       ]
     },
@@ -321,13 +833,6 @@
           "score": 1.9
         },
         {
-          "url": "/services/bathroom-remodel",
-          "anchor": "Bathroom Remodel",
-          "title": "Bathroom Remodel in Boise & Treasure Valley, Idaho",
-          "type": "service",
-          "score": 1.81
-        },
-        {
           "url": "/services/bathroom-remodel/caldwell",
           "anchor": "Bathroom Remodel in Caldwell",
           "title": "Bathroom Remodel in Caldwell, Idaho",
@@ -342,32 +847,39 @@
           "score": 1.8
         },
         {
+          "url": "/services/bathroom-remodel",
+          "anchor": "Bathroom Remodel",
+          "title": "Bathroom Remodel in Boise & Treasure Valley, Idaho",
+          "type": "service",
+          "score": 1.77
+        },
+        {
           "url": "/areas/boise",
           "anchor": "Remodeling in Boise",
           "title": "Remodeling Services in Boise, Idaho",
           "type": "city",
-          "score": 0.36
+          "score": 0.32
         },
         {
-          "url": "/services/room-addition",
-          "anchor": "Room Addition",
-          "title": "Room Addition in Boise & Treasure Valley, Idaho",
+          "url": "/services/kitchen-remodel",
+          "anchor": "Kitchen Remodel",
+          "title": "Kitchen Remodel in Boise & Treasure Valley, Idaho",
           "type": "service",
-          "score": 0.309
+          "score": 0.269
         },
         {
           "url": "/blog/how-to-choose-design-build-contractor",
           "anchor": "How to Choose a Design-Build Remodeling Contractor in Boise",
           "title": "How to Choose a Design-Build Remodeling Contractor in Boise",
           "type": "blog",
-          "score": 0.1
+          "score": 0.06
         },
         {
           "url": "/blog/kitchen-remodel-cost-treasure-valley",
           "anchor": "Kitchen Remodel Cost in the Treasure Valley (2026 Planning Ranges)",
           "title": "Kitchen Remodel Cost in the Treasure Valley (2026 Planning Ranges)",
           "type": "blog",
-          "score": 0.093
+          "score": 0.053
         }
       ]
     },
@@ -403,28 +915,21 @@
           "anchor": "Bathroom Remodel",
           "title": "Bathroom Remodel in Boise & Treasure Valley, Idaho",
           "type": "service",
-          "score": 1.67
+          "score": 1.63
         },
         {
           "url": "/areas/caldwell",
           "anchor": "Remodeling in Caldwell",
           "title": "Remodeling Services in Caldwell, Idaho",
           "type": "city",
-          "score": 0.451
+          "score": 0.411
         },
         {
           "url": "/services/whole-home-remodel",
           "anchor": "Whole-Home Remodel",
           "title": "Whole-Home Remodel in Boise & Treasure Valley, Idaho",
           "type": "service",
-          "score": 0.303
-        },
-        {
-          "url": "/blog/bathroom-remodel-cost-idaho",
-          "anchor": "Bathroom Remodel Cost in Idaho: Master Bath vs Guest Bath",
-          "title": "Bathroom Remodel Cost in Idaho: Master Bath vs Guest Bath",
-          "type": "blog",
-          "score": 0.071
+          "score": 0.263
         },
         {
           "url": "/blog/ada-vs-canyon-county-permit-timelines",
@@ -432,6 +937,13 @@
           "title": "Ada vs Canyon County Remodel Permits: Timelines Homeowners Should Know",
           "type": "blog",
           "score": 0.038
+        },
+        {
+          "url": "/blog/whole-home-remodel-planning-checklist",
+          "anchor": "Whole-Home Remodel Planning Checklist for Treasure Valley Homeowners",
+          "title": "Whole-Home Remodel Planning Checklist for Treasure Valley Homeowners",
+          "type": "blog",
+          "score": -0.003
         }
       ]
     },
@@ -467,35 +979,35 @@
           "anchor": "Bathroom Remodel",
           "title": "Bathroom Remodel in Boise & Treasure Valley, Idaho",
           "type": "service",
-          "score": 1.63
+          "score": 1.59
         },
         {
           "url": "/areas/eagle",
           "anchor": "Remodeling in Eagle",
           "title": "Remodeling Services in Eagle, Idaho",
           "type": "city",
-          "score": 0.491
+          "score": 0.451
         },
         {
           "url": "/services/kitchen-remodel",
           "anchor": "Kitchen Remodel",
           "title": "Kitchen Remodel in Boise & Treasure Valley, Idaho",
           "type": "service",
-          "score": 0.266
-        },
-        {
-          "url": "/blog/bathroom-remodel-cost-idaho",
-          "anchor": "Bathroom Remodel Cost in Idaho: Master Bath vs Guest Bath",
-          "title": "Bathroom Remodel Cost in Idaho: Master Bath vs Guest Bath",
-          "type": "blog",
-          "score": 0.171
+          "score": 0.226
         },
         {
           "url": "/blog/room-addition-guide-treasure-valley",
           "anchor": "Room Addition Guide: Matching Your Home in the Treasure Valley",
           "title": "Room Addition Guide: Matching Your Home in the Treasure Valley",
           "type": "blog",
-          "score": 0.097
+          "score": 0.017
+        },
+        {
+          "url": "/blog/ada-vs-canyon-county-permit-timelines",
+          "anchor": "Ada vs Canyon County Remodel Permits: Timelines Homeowners Should Know",
+          "title": "Ada vs Canyon County Remodel Permits: Timelines Homeowners Should Know",
+          "type": "blog",
+          "score": -0.002
         }
       ]
     },
@@ -538,28 +1050,28 @@
           "anchor": "Bathroom Remodel",
           "title": "Bathroom Remodel in Boise & Treasure Valley, Idaho",
           "type": "service",
-          "score": 1.69
+          "score": 1.65
         },
         {
           "url": "/areas/kuna",
           "anchor": "Remodeling in Kuna",
           "title": "Remodeling Services in Kuna, Idaho",
           "type": "city",
-          "score": 0.4
+          "score": 0.36
         },
         {
           "url": "/services/room-addition",
           "anchor": "Room Addition",
           "title": "Room Addition in Boise & Treasure Valley, Idaho",
           "type": "service",
-          "score": 0.269
+          "score": 0.229
         },
         {
-          "url": "/blog/whole-home-remodel-planning-checklist",
-          "anchor": "Whole-Home Remodel Planning Checklist for Treasure Valley Homeowners",
-          "title": "Whole-Home Remodel Planning Checklist for Treasure Valley Homeowners",
+          "url": "/blog/ada-vs-canyon-county-permit-timelines",
+          "anchor": "Ada vs Canyon County Remodel Permits: Timelines Homeowners Should Know",
+          "title": "Ada vs Canyon County Remodel Permits: Timelines Homeowners Should Know",
           "type": "blog",
-          "score": 0.038
+          "score": -0.04
         }
       ]
     },
@@ -595,35 +1107,35 @@
           "anchor": "Bathroom Remodel",
           "title": "Bathroom Remodel in Boise & Treasure Valley, Idaho",
           "type": "service",
-          "score": 1.55
+          "score": 1.51
         },
         {
           "url": "/areas/meridian",
           "anchor": "Remodeling in Meridian",
           "title": "Remodeling Services in Meridian, Idaho",
           "type": "city",
-          "score": 0.491
+          "score": 0.451
         },
         {
           "url": "/services/whole-home-remodel",
           "anchor": "Whole-Home Remodel",
           "title": "Whole-Home Remodel in Boise & Treasure Valley, Idaho",
           "type": "service",
-          "score": 0.263
+          "score": 0.223
         },
         {
           "url": "/blog/whole-home-remodel-planning-checklist",
           "anchor": "Whole-Home Remodel Planning Checklist for Treasure Valley Homeowners",
           "title": "Whole-Home Remodel Planning Checklist for Treasure Valley Homeowners",
           "type": "blog",
-          "score": 0.137
+          "score": 0.057
         },
         {
           "url": "/blog/ada-vs-canyon-county-permit-timelines",
           "anchor": "Ada vs Canyon County Remodel Permits: Timelines Homeowners Should Know",
           "title": "Ada vs Canyon County Remodel Permits: Timelines Homeowners Should Know",
           "type": "blog",
-          "score": -0.002
+          "score": -0.082
         }
       ]
     },
@@ -659,35 +1171,35 @@
           "anchor": "Bathroom Remodel",
           "title": "Bathroom Remodel in Boise & Treasure Valley, Idaho",
           "type": "service",
-          "score": 1.51
+          "score": 1.47
         },
         {
           "url": "/areas/middleton",
           "anchor": "Remodeling in Middleton",
           "title": "Remodeling Services in Middleton, Idaho",
           "type": "city",
-          "score": 0.491
+          "score": 0.451
         },
         {
           "url": "/services/kitchen-remodel",
           "anchor": "Kitchen Remodel",
           "title": "Kitchen Remodel in Boise & Treasure Valley, Idaho",
           "type": "service",
-          "score": 0.226
+          "score": 0.186
         },
         {
-          "url": "/blog/bathroom-remodel-cost-idaho",
-          "anchor": "Bathroom Remodel Cost in Idaho: Master Bath vs Guest Bath",
-          "title": "Bathroom Remodel Cost in Idaho: Master Bath vs Guest Bath",
+          "url": "/blog/kitchen-remodel-cost-treasure-valley",
+          "anchor": "Kitchen Remodel Cost in the Treasure Valley (2026 Planning Ranges)",
+          "title": "Kitchen Remodel Cost in the Treasure Valley (2026 Planning Ranges)",
           "type": "blog",
-          "score": -0.009
+          "score": -0.088
         },
         {
           "url": "/blog/ada-vs-canyon-county-permit-timelines",
           "anchor": "Ada vs Canyon County Remodel Permits: Timelines Homeowners Should Know",
           "title": "Ada vs Canyon County Remodel Permits: Timelines Homeowners Should Know",
           "type": "blog",
-          "score": -0.042
+          "score": -0.122
         }
       ]
     },
@@ -723,35 +1235,35 @@
           "anchor": "Bathroom Remodel",
           "title": "Bathroom Remodel in Boise & Treasure Valley, Idaho",
           "type": "service",
-          "score": 1.47
+          "score": 1.43
         },
         {
           "url": "/areas/nampa",
           "anchor": "Remodeling in Nampa",
           "title": "Remodeling Services in Nampa, Idaho",
           "type": "city",
-          "score": 0.451
+          "score": 0.411
         },
         {
           "url": "/services/room-addition",
           "anchor": "Room Addition",
           "title": "Room Addition in Boise & Treasure Valley, Idaho",
           "type": "service",
-          "score": 0.226
+          "score": 0.186
         },
         {
           "url": "/blog/bathroom-remodel-cost-idaho",
           "anchor": "Bathroom Remodel Cost in Idaho: Master Bath vs Guest Bath",
           "title": "Bathroom Remodel Cost in Idaho: Master Bath vs Guest Bath",
           "type": "blog",
-          "score": 0.091
+          "score": -0.069
         },
         {
           "url": "/blog/whole-home-remodel-planning-checklist",
           "anchor": "Whole-Home Remodel Planning Checklist for Treasure Valley Homeowners",
           "title": "Whole-Home Remodel Planning Checklist for Treasure Valley Homeowners",
           "type": "blog",
-          "score": -0.043
+          "score": -0.123
         }
       ]
     },
@@ -794,28 +1306,28 @@
           "anchor": "Bathroom Remodel",
           "title": "Bathroom Remodel in Boise & Treasure Valley, Idaho",
           "type": "service",
-          "score": 1.43
+          "score": 1.39
         },
         {
           "url": "/areas/star",
           "anchor": "Remodeling in Star",
           "title": "Remodeling Services in Star, Idaho",
           "type": "city",
-          "score": 0.491
+          "score": 0.451
         },
         {
           "url": "/services/whole-home-remodel",
           "anchor": "Whole-Home Remodel",
           "title": "Whole-Home Remodel in Boise & Treasure Valley, Idaho",
           "type": "service",
-          "score": 0.223
+          "score": 0.183
         },
         {
           "url": "/blog/kitchen-remodel-cost-treasure-valley",
           "anchor": "Kitchen Remodel Cost in the Treasure Valley (2026 Planning Ranges)",
           "title": "Kitchen Remodel Cost in the Treasure Valley (2026 Planning Ranges)",
           "type": "blog",
-          "score": -0.048
+          "score": -0.128
         }
       ]
     },
@@ -851,35 +1363,35 @@
           "anchor": "Kitchen Remodel",
           "title": "Kitchen Remodel in Boise & Treasure Valley, Idaho",
           "type": "service",
-          "score": 1.73
+          "score": 1.69
         },
         {
           "url": "/areas/boise",
           "anchor": "Remodeling in Boise",
           "title": "Remodeling Services in Boise, Idaho",
           "type": "city",
-          "score": 0.32
+          "score": 0.28
         },
         {
           "url": "/services/whole-home-remodel",
           "anchor": "Whole-Home Remodel",
           "title": "Whole-Home Remodel in Boise & Treasure Valley, Idaho",
           "type": "service",
-          "score": 0.248
+          "score": 0.208
         },
         {
           "url": "/blog/how-to-choose-design-build-contractor",
           "anchor": "How to Choose a Design-Build Remodeling Contractor in Boise",
           "title": "How to Choose a Design-Build Remodeling Contractor in Boise",
           "type": "blog",
-          "score": 0.06
+          "score": 0.02
         },
         {
           "url": "/blog/kitchen-remodel-cost-treasure-valley",
           "anchor": "Kitchen Remodel Cost in the Treasure Valley (2026 Planning Ranges)",
           "title": "Kitchen Remodel Cost in the Treasure Valley (2026 Planning Ranges)",
           "type": "blog",
-          "score": 0.049
+          "score": -0.031
         }
       ]
     },
@@ -915,35 +1427,35 @@
           "anchor": "Kitchen Remodel",
           "title": "Kitchen Remodel in Boise & Treasure Valley, Idaho",
           "type": "service",
-          "score": 1.59
+          "score": 1.55
         },
         {
           "url": "/areas/caldwell",
           "anchor": "Remodeling in Caldwell",
           "title": "Remodeling Services in Caldwell, Idaho",
           "type": "city",
-          "score": 0.411
+          "score": 0.371
         },
         {
           "url": "/services/whole-home-remodel",
           "anchor": "Whole-Home Remodel",
           "title": "Whole-Home Remodel in Boise & Treasure Valley, Idaho",
           "type": "service",
-          "score": 0.201
-        },
-        {
-          "url": "/blog/bathroom-remodel-cost-idaho",
-          "anchor": "Bathroom Remodel Cost in Idaho: Master Bath vs Guest Bath",
-          "title": "Bathroom Remodel Cost in Idaho: Master Bath vs Guest Bath",
-          "type": "blog",
-          "score": -0.049
+          "score": 0.161
         },
         {
           "url": "/blog/whole-home-remodel-planning-checklist",
           "anchor": "Whole-Home Remodel Planning Checklist for Treasure Valley Homeowners",
           "title": "Whole-Home Remodel Planning Checklist for Treasure Valley Homeowners",
           "type": "blog",
-          "score": -0.083
+          "score": -0.163
+        },
+        {
+          "url": "/blog/kitchen-remodel-cost-treasure-valley",
+          "anchor": "Kitchen Remodel Cost in the Treasure Valley (2026 Planning Ranges)",
+          "title": "Kitchen Remodel Cost in the Treasure Valley (2026 Planning Ranges)",
+          "type": "blog",
+          "score": -0.173
         }
       ]
     },
@@ -979,35 +1491,35 @@
           "anchor": "Kitchen Remodel",
           "title": "Kitchen Remodel in Boise & Treasure Valley, Idaho",
           "type": "service",
-          "score": 1.55
+          "score": 1.51
         },
         {
           "url": "/areas/eagle",
           "anchor": "Remodeling in Eagle",
           "title": "Remodeling Services in Eagle, Idaho",
           "type": "city",
-          "score": 0.451
+          "score": 0.411
         },
         {
           "url": "/services/whole-home-remodel",
           "anchor": "Whole-Home Remodel",
           "title": "Whole-Home Remodel in Boise & Treasure Valley, Idaho",
           "type": "service",
-          "score": 0.161
-        },
-        {
-          "url": "/blog/bathroom-remodel-cost-idaho",
-          "anchor": "Bathroom Remodel Cost in Idaho: Master Bath vs Guest Bath",
-          "title": "Bathroom Remodel Cost in Idaho: Master Bath vs Guest Bath",
-          "type": "blog",
-          "score": 0.054
+          "score": 0.121
         },
         {
           "url": "/blog/room-addition-guide-treasure-valley",
           "anchor": "Room Addition Guide: Matching Your Home in the Treasure Valley",
           "title": "Room Addition Guide: Matching Your Home in the Treasure Valley",
           "type": "blog",
-          "score": 0.017
+          "score": -0.023
+        },
+        {
+          "url": "/blog/bathroom-remodel-cost-idaho",
+          "anchor": "Bathroom Remodel Cost in Idaho: Master Bath vs Guest Bath",
+          "title": "Bathroom Remodel Cost in Idaho: Master Bath vs Guest Bath",
+          "type": "blog",
+          "score": -0.066
         }
       ]
     },
@@ -1043,35 +1555,35 @@
           "anchor": "Kitchen Remodel",
           "title": "Kitchen Remodel in Boise & Treasure Valley, Idaho",
           "type": "service",
-          "score": 1.61
+          "score": 1.57
         },
         {
           "url": "/areas/kuna",
           "anchor": "Remodeling in Kuna",
           "title": "Remodeling Services in Kuna, Idaho",
           "type": "city",
-          "score": 0.36
+          "score": 0.32
         },
         {
           "url": "/services/room-addition",
           "anchor": "Room Addition",
           "title": "Room Addition in Boise & Treasure Valley, Idaho",
           "type": "service",
-          "score": 0.13
+          "score": 0.09
         },
         {
           "url": "/blog/room-addition-guide-treasure-valley",
           "anchor": "Room Addition Guide: Matching Your Home in the Treasure Valley",
           "title": "Room Addition Guide: Matching Your Home in the Treasure Valley",
           "type": "blog",
-          "score": -0.06
+          "score": -0.1
         },
         {
-          "url": "/blog/kitchen-remodel-cost-treasure-valley",
-          "anchor": "Kitchen Remodel Cost in the Treasure Valley (2026 Planning Ranges)",
-          "title": "Kitchen Remodel Cost in the Treasure Valley (2026 Planning Ranges)",
+          "url": "/blog/ada-vs-canyon-county-permit-timelines",
+          "anchor": "Ada vs Canyon County Remodel Permits: Timelines Homeowners Should Know",
+          "title": "Ada vs Canyon County Remodel Permits: Timelines Homeowners Should Know",
           "type": "blog",
-          "score": -0.091
+          "score": -0.2
         }
       ]
     },
@@ -1107,35 +1619,35 @@
           "anchor": "Kitchen Remodel",
           "title": "Kitchen Remodel in Boise & Treasure Valley, Idaho",
           "type": "service",
-          "score": 1.47
+          "score": 1.43
         },
         {
           "url": "/areas/meridian",
           "anchor": "Remodeling in Meridian",
           "title": "Remodeling Services in Meridian, Idaho",
           "type": "city",
-          "score": 0.451
+          "score": 0.411
         },
         {
           "url": "/services/whole-home-remodel",
           "anchor": "Whole-Home Remodel",
           "title": "Whole-Home Remodel in Boise & Treasure Valley, Idaho",
           "type": "service",
-          "score": 0.121
+          "score": 0.081
         },
         {
           "url": "/blog/whole-home-remodel-planning-checklist",
           "anchor": "Whole-Home Remodel Planning Checklist for Treasure Valley Homeowners",
           "title": "Whole-Home Remodel Planning Checklist for Treasure Valley Homeowners",
           "type": "blog",
-          "score": 0.017
+          "score": -0.063
         },
         {
-          "url": "/blog/ada-vs-canyon-county-permit-timelines",
-          "anchor": "Ada vs Canyon County Remodel Permits: Timelines Homeowners Should Know",
-          "title": "Ada vs Canyon County Remodel Permits: Timelines Homeowners Should Know",
+          "url": "/blog/kitchen-remodel-cost-treasure-valley",
+          "anchor": "Kitchen Remodel Cost in the Treasure Valley (2026 Planning Ranges)",
+          "title": "Kitchen Remodel Cost in the Treasure Valley (2026 Planning Ranges)",
           "type": "blog",
-          "score": -0.122
+          "score": -0.213
         }
       ]
     },
@@ -1171,35 +1683,35 @@
           "anchor": "Kitchen Remodel",
           "title": "Kitchen Remodel in Boise & Treasure Valley, Idaho",
           "type": "service",
-          "score": 1.43
+          "score": 1.39
         },
         {
           "url": "/areas/middleton",
           "anchor": "Remodeling in Middleton",
           "title": "Remodeling Services in Middleton, Idaho",
           "type": "city",
-          "score": 0.451
+          "score": 0.411
         },
         {
           "url": "/services/room-addition",
           "anchor": "Room Addition",
           "title": "Room Addition in Boise & Treasure Valley, Idaho",
           "type": "service",
-          "score": 0.09
+          "score": 0.05
         },
         {
-          "url": "/blog/bathroom-remodel-cost-idaho",
-          "anchor": "Bathroom Remodel Cost in Idaho: Master Bath vs Guest Bath",
-          "title": "Bathroom Remodel Cost in Idaho: Master Bath vs Guest Bath",
+          "url": "/blog/ada-vs-canyon-county-permit-timelines",
+          "anchor": "Ada vs Canyon County Remodel Permits: Timelines Homeowners Should Know",
+          "title": "Ada vs Canyon County Remodel Permits: Timelines Homeowners Should Know",
           "type": "blog",
-          "score": -0.129
+          "score": -0.242
         },
         {
-          "url": "/blog/kitchen-remodel-cost-treasure-valley",
-          "anchor": "Kitchen Remodel Cost in the Treasure Valley (2026 Planning Ranges)",
-          "title": "Kitchen Remodel Cost in the Treasure Valley (2026 Planning Ranges)",
+          "url": "/blog/whole-home-remodel-planning-checklist",
+          "anchor": "Whole-Home Remodel Planning Checklist for Treasure Valley Homeowners",
+          "title": "Whole-Home Remodel Planning Checklist for Treasure Valley Homeowners",
           "type": "blog",
-          "score": -0.133
+          "score": -0.243
         }
       ]
     },
@@ -1242,28 +1754,28 @@
           "anchor": "Kitchen Remodel",
           "title": "Kitchen Remodel in Boise & Treasure Valley, Idaho",
           "type": "service",
-          "score": 1.39
+          "score": 1.35
         },
         {
           "url": "/areas/nampa",
           "anchor": "Remodeling in Nampa",
           "title": "Remodeling Services in Nampa, Idaho",
           "type": "city",
-          "score": 0.411
+          "score": 0.371
         },
         {
           "url": "/services/whole-home-remodel",
           "anchor": "Whole-Home Remodel",
           "title": "Whole-Home Remodel in Boise & Treasure Valley, Idaho",
           "type": "service",
-          "score": 0.081
+          "score": 0.041
         },
         {
           "url": "/blog/bathroom-remodel-cost-idaho",
           "anchor": "Bathroom Remodel Cost in Idaho: Master Bath vs Guest Bath",
           "title": "Bathroom Remodel Cost in Idaho: Master Bath vs Guest Bath",
           "type": "blog",
-          "score": -0.026
+          "score": -0.106
         }
       ]
     },
@@ -1306,28 +1818,28 @@
           "anchor": "Kitchen Remodel",
           "title": "Kitchen Remodel in Boise & Treasure Valley, Idaho",
           "type": "service",
-          "score": 1.35
+          "score": 1.31
         },
         {
           "url": "/areas/star",
           "anchor": "Remodeling in Star",
           "title": "Remodeling Services in Star, Idaho",
           "type": "city",
-          "score": 0.451
+          "score": 0.411
         },
         {
           "url": "/services/room-addition",
           "anchor": "Room Addition",
           "title": "Room Addition in Boise & Treasure Valley, Idaho",
           "type": "service",
-          "score": 0.05
+          "score": 0.01
         },
         {
-          "url": "/blog/whole-home-remodel-planning-checklist",
-          "anchor": "Whole-Home Remodel Planning Checklist for Treasure Valley Homeowners",
-          "title": "Whole-Home Remodel Planning Checklist for Treasure Valley Homeowners",
+          "url": "/blog/ada-vs-canyon-county-permit-timelines",
+          "anchor": "Ada vs Canyon County Remodel Permits: Timelines Homeowners Should Know",
+          "title": "Ada vs Canyon County Remodel Permits: Timelines Homeowners Should Know",
           "type": "blog",
-          "score": -0.163
+          "score": -0.282
         }
       ]
     },
@@ -1363,35 +1875,35 @@
           "anchor": "Room Addition",
           "title": "Room Addition in Boise & Treasure Valley, Idaho",
           "type": "service",
-          "score": 1.61
+          "score": 1.57
         },
         {
           "url": "/areas/boise",
           "anchor": "Remodeling in Boise",
           "title": "Remodeling Services in Boise, Idaho",
           "type": "city",
-          "score": 0.28
+          "score": 0.24
+        },
+        {
+          "url": "/services/adu",
+          "anchor": "ADU / Guest House",
+          "title": "ADU / Guest House in Boise & Treasure Valley, Idaho",
+          "type": "service",
+          "score": 0.02
         },
         {
           "url": "/blog/how-to-choose-design-build-contractor",
           "anchor": "How to Choose a Design-Build Remodeling Contractor in Boise",
           "title": "How to Choose a Design-Build Remodeling Contractor in Boise",
           "type": "blog",
-          "score": 0.058
-        },
-        {
-          "url": "/services/whole-home-remodel",
-          "anchor": "Whole-Home Remodel",
-          "title": "Whole-Home Remodel in Boise & Treasure Valley, Idaho",
-          "type": "service",
-          "score": -0.014
+          "score": 0.018
         },
         {
           "url": "/blog/room-addition-guide-treasure-valley",
           "anchor": "Room Addition Guide: Matching Your Home in the Treasure Valley",
           "title": "Room Addition Guide: Matching Your Home in the Treasure Valley",
           "type": "blog",
-          "score": -0.026
+          "score": -0.066
         }
       ]
     },
@@ -1427,35 +1939,35 @@
           "anchor": "Room Addition",
           "title": "Room Addition in Boise & Treasure Valley, Idaho",
           "type": "service",
-          "score": 1.47
+          "score": 1.43
         },
         {
           "url": "/areas/caldwell",
           "anchor": "Remodeling in Caldwell",
           "title": "Remodeling Services in Caldwell, Idaho",
           "type": "city",
-          "score": 0.371
+          "score": 0.331
         },
         {
-          "url": "/services/bathroom-remodel",
-          "anchor": "Bathroom Remodel",
-          "title": "Bathroom Remodel in Boise & Treasure Valley, Idaho",
+          "url": "/services/adu",
+          "anchor": "ADU / Guest House",
+          "title": "ADU / Guest House in Boise & Treasure Valley, Idaho",
           "type": "service",
-          "score": -0.054
+          "score": -0.022
         },
         {
           "url": "/blog/room-addition-guide-treasure-valley",
           "anchor": "Room Addition Guide: Matching Your Home in the Treasure Valley",
           "title": "Room Addition Guide: Matching Your Home in the Treasure Valley",
           "type": "blog",
-          "score": -0.073
+          "score": -0.113
         },
         {
           "url": "/blog/how-to-choose-design-build-contractor",
           "anchor": "How to Choose a Design-Build Remodeling Contractor in Boise",
           "title": "How to Choose a Design-Build Remodeling Contractor in Boise",
           "type": "blog",
-          "score": -0.083
+          "score": -0.123
         }
       ]
     },
@@ -1491,21 +2003,21 @@
           "anchor": "Room Addition",
           "title": "Room Addition in Boise & Treasure Valley, Idaho",
           "type": "service",
-          "score": 1.43
+          "score": 1.39
         },
         {
           "url": "/areas/eagle",
           "anchor": "Remodeling in Eagle",
           "title": "Remodeling Services in Eagle, Idaho",
           "type": "city",
-          "score": 0.411
+          "score": 0.371
         },
         {
           "url": "/blog/room-addition-guide-treasure-valley",
           "anchor": "Room Addition Guide: Matching Your Home in the Treasure Valley",
           "title": "Room Addition Guide: Matching Your Home in the Treasure Valley",
           "type": "blog",
-          "score": 0.037
+          "score": -0.003
         },
         {
           "url": "/services/whole-home-remodel",
@@ -1519,7 +2031,7 @@
           "anchor": "How to Choose a Design-Build Remodeling Contractor in Boise",
           "title": "How to Choose a Design-Build Remodeling Contractor in Boise",
           "type": "blog",
-          "score": -0.123
+          "score": -0.163
         }
       ]
     },
@@ -1562,28 +2074,28 @@
           "anchor": "Room Addition",
           "title": "Room Addition in Boise & Treasure Valley, Idaho",
           "type": "service",
-          "score": 1.49
+          "score": 1.45
         },
         {
           "url": "/areas/kuna",
           "anchor": "Remodeling in Kuna",
           "title": "Remodeling Services in Kuna, Idaho",
           "type": "city",
-          "score": 0.32
+          "score": 0.28
+        },
+        {
+          "url": "/services/adu",
+          "anchor": "ADU / Guest House",
+          "title": "ADU / Guest House in Boise & Treasure Valley, Idaho",
+          "type": "service",
+          "score": -0.06
         },
         {
           "url": "/blog/room-addition-guide-treasure-valley",
           "anchor": "Room Addition Guide: Matching Your Home in the Treasure Valley",
           "title": "Room Addition Guide: Matching Your Home in the Treasure Valley",
           "type": "blog",
-          "score": -0.046
-        },
-        {
-          "url": "/services/bathroom-remodel",
-          "anchor": "Bathroom Remodel",
-          "title": "Bathroom Remodel in Boise & Treasure Valley, Idaho",
-          "type": "service",
-          "score": -0.091
+          "score": -0.086
         }
       ]
     },
@@ -1619,35 +2131,35 @@
           "anchor": "Room Addition",
           "title": "Room Addition in Boise & Treasure Valley, Idaho",
           "type": "service",
-          "score": 1.35
+          "score": 1.31
         },
         {
           "url": "/areas/meridian",
           "anchor": "Remodeling in Meridian",
           "title": "Remodeling Services in Meridian, Idaho",
           "type": "city",
-          "score": 0.411
+          "score": 0.371
+        },
+        {
+          "url": "/services/bathroom-remodel",
+          "anchor": "Bathroom Remodel",
+          "title": "Bathroom Remodel in Boise & Treasure Valley, Idaho",
+          "type": "service",
+          "score": -0.094
         },
         {
           "url": "/blog/whole-home-remodel-planning-checklist",
           "anchor": "Whole-Home Remodel Planning Checklist for Treasure Valley Homeowners",
           "title": "Whole-Home Remodel Planning Checklist for Treasure Valley Homeowners",
           "type": "blog",
-          "score": -0.063
-        },
-        {
-          "url": "/services/whole-home-remodel",
-          "anchor": "Whole-Home Remodel",
-          "title": "Whole-Home Remodel in Boise & Treasure Valley, Idaho",
-          "type": "service",
-          "score": -0.097
+          "score": -0.183
         },
         {
           "url": "/blog/room-addition-guide-treasure-valley",
           "anchor": "Room Addition Guide: Matching Your Home in the Treasure Valley",
           "title": "Room Addition Guide: Matching Your Home in the Treasure Valley",
           "type": "blog",
-          "score": -0.193
+          "score": -0.233
         }
       ]
     },
@@ -1683,35 +2195,35 @@
           "anchor": "Room Addition",
           "title": "Room Addition in Boise & Treasure Valley, Idaho",
           "type": "service",
-          "score": 1.31
+          "score": 1.27
         },
         {
           "url": "/areas/middleton",
           "anchor": "Remodeling in Middleton",
           "title": "Remodeling Services in Middleton, Idaho",
           "type": "city",
-          "score": 0.411
+          "score": 0.371
         },
         {
-          "url": "/services/bathroom-remodel",
-          "anchor": "Bathroom Remodel",
-          "title": "Bathroom Remodel in Boise & Treasure Valley, Idaho",
+          "url": "/services/whole-home-remodel",
+          "anchor": "Whole-Home Remodel",
+          "title": "Whole-Home Remodel in Boise & Treasure Valley, Idaho",
           "type": "service",
-          "score": -0.134
+          "score": -0.097
         },
         {
           "url": "/blog/how-to-choose-design-build-contractor",
           "anchor": "How to Choose a Design-Build Remodeling Contractor in Boise",
           "title": "How to Choose a Design-Build Remodeling Contractor in Boise",
           "type": "blog",
-          "score": -0.203
+          "score": -0.243
         },
         {
           "url": "/blog/room-addition-guide-treasure-valley",
           "anchor": "Room Addition Guide: Matching Your Home in the Treasure Valley",
           "title": "Room Addition Guide: Matching Your Home in the Treasure Valley",
           "type": "blog",
-          "score": -0.233
+          "score": -0.273
         }
       ]
     },
@@ -1747,35 +2259,35 @@
           "anchor": "Room Addition",
           "title": "Room Addition in Boise & Treasure Valley, Idaho",
           "type": "service",
-          "score": 1.27
+          "score": 1.23
         },
         {
           "url": "/areas/nampa",
           "anchor": "Remodeling in Nampa",
           "title": "Remodeling Services in Nampa, Idaho",
           "type": "city",
-          "score": 0.371
+          "score": 0.331
         },
         {
-          "url": "/services/whole-home-remodel",
-          "anchor": "Whole-Home Remodel",
-          "title": "Whole-Home Remodel in Boise & Treasure Valley, Idaho",
+          "url": "/services/adu",
+          "anchor": "ADU / Guest House",
+          "title": "ADU / Guest House in Boise & Treasure Valley, Idaho",
           "type": "service",
-          "score": -0.137
+          "score": -0.102
         },
         {
           "url": "/blog/bathroom-remodel-cost-idaho",
           "anchor": "Bathroom Remodel Cost in Idaho: Master Bath vs Guest Bath",
           "title": "Bathroom Remodel Cost in Idaho: Master Bath vs Guest Bath",
           "type": "blog",
-          "score": -0.186
+          "score": -0.266
         },
         {
           "url": "/blog/how-to-choose-design-build-contractor",
           "anchor": "How to Choose a Design-Build Remodeling Contractor in Boise",
           "title": "How to Choose a Design-Build Remodeling Contractor in Boise",
           "type": "blog",
-          "score": -0.243
+          "score": -0.283
         }
       ]
     },
@@ -1818,28 +2330,28 @@
           "anchor": "Room Addition",
           "title": "Room Addition in Boise & Treasure Valley, Idaho",
           "type": "service",
-          "score": 1.23
+          "score": 1.19
         },
         {
           "url": "/areas/star",
           "anchor": "Remodeling in Star",
           "title": "Remodeling Services in Star, Idaho",
           "type": "city",
-          "score": 0.411
+          "score": 0.371
         },
         {
           "url": "/services/bathroom-remodel",
           "anchor": "Bathroom Remodel",
           "title": "Bathroom Remodel in Boise & Treasure Valley, Idaho",
           "type": "service",
-          "score": -0.174
+          "score": -0.134
         },
         {
-          "url": "/blog/whole-home-remodel-planning-checklist",
-          "anchor": "Whole-Home Remodel Planning Checklist for Treasure Valley Homeowners",
-          "title": "Whole-Home Remodel Planning Checklist for Treasure Valley Homeowners",
+          "url": "/blog/room-addition-guide-treasure-valley",
+          "anchor": "Room Addition Guide: Matching Your Home in the Treasure Valley",
+          "title": "Room Addition Guide: Matching Your Home in the Treasure Valley",
           "type": "blog",
-          "score": -0.243
+          "score": -0.313
         }
       ]
     },
@@ -1875,35 +2387,35 @@
           "anchor": "Whole-Home Remodel",
           "title": "Whole-Home Remodel in Boise & Treasure Valley, Idaho",
           "type": "service",
-          "score": 1.37
+          "score": 1.41
         },
         {
           "url": "/areas/boise",
           "anchor": "Remodeling in Boise",
           "title": "Remodeling Services in Boise, Idaho",
           "type": "city",
-          "score": 0.24
+          "score": 0.2
         },
         {
           "url": "/services/kitchen-remodel",
           "anchor": "Kitchen Remodel",
           "title": "Kitchen Remodel in Boise & Treasure Valley, Idaho",
           "type": "service",
-          "score": -0.072
+          "score": -0.112
         },
         {
           "url": "/blog/kitchen-remodel-cost-treasure-valley",
           "anchor": "Kitchen Remodel Cost in the Treasure Valley (2026 Planning Ranges)",
           "title": "Kitchen Remodel Cost in the Treasure Valley (2026 Planning Ranges)",
           "type": "blog",
-          "score": -0.113
+          "score": -0.193
         },
         {
           "url": "/blog/ada-vs-canyon-county-permit-timelines",
           "anchor": "Ada vs Canyon County Remodel Permits: Timelines Homeowners Should Know",
           "title": "Ada vs Canyon County Remodel Permits: Timelines Homeowners Should Know",
           "type": "blog",
-          "score": -0.16
+          "score": -0.28
         }
       ]
     },
@@ -1939,35 +2451,35 @@
           "anchor": "Whole-Home Remodel",
           "title": "Whole-Home Remodel in Boise & Treasure Valley, Idaho",
           "type": "service",
-          "score": 1.239
+          "score": 1.279
         },
         {
           "url": "/areas/caldwell",
           "anchor": "Remodeling in Caldwell",
           "title": "Remodeling Services in Caldwell, Idaho",
           "type": "city",
-          "score": 0.323
+          "score": 0.283
         },
         {
           "url": "/services/kitchen-remodel",
           "anchor": "Kitchen Remodel",
           "title": "Kitchen Remodel in Boise & Treasure Valley, Idaho",
           "type": "service",
-          "score": -0.119
-        },
-        {
-          "url": "/blog/ada-vs-canyon-county-permit-timelines",
-          "anchor": "Ada vs Canyon County Remodel Permits: Timelines Homeowners Should Know",
-          "title": "Ada vs Canyon County Remodel Permits: Timelines Homeowners Should Know",
-          "type": "blog",
-          "score": -0.203
+          "score": -0.159
         },
         {
           "url": "/blog/whole-home-remodel-planning-checklist",
           "anchor": "Whole-Home Remodel Planning Checklist for Treasure Valley Homeowners",
           "title": "Whole-Home Remodel Planning Checklist for Treasure Valley Homeowners",
           "type": "blog",
-          "score": -0.205
+          "score": -0.285
+        },
+        {
+          "url": "/blog/ada-vs-canyon-county-permit-timelines",
+          "anchor": "Ada vs Canyon County Remodel Permits: Timelines Homeowners Should Know",
+          "title": "Ada vs Canyon County Remodel Permits: Timelines Homeowners Should Know",
+          "type": "blog",
+          "score": -0.323
         }
       ]
     },
@@ -2003,35 +2515,35 @@
           "anchor": "Whole-Home Remodel",
           "title": "Whole-Home Remodel in Boise & Treasure Valley, Idaho",
           "type": "service",
-          "score": 1.199
+          "score": 1.239
         },
         {
           "url": "/areas/eagle",
           "anchor": "Remodeling in Eagle",
           "title": "Remodeling Services in Eagle, Idaho",
           "type": "city",
-          "score": 0.363
+          "score": 0.323
         },
         {
-          "url": "/services/kitchen-remodel",
-          "anchor": "Kitchen Remodel",
-          "title": "Kitchen Remodel in Boise & Treasure Valley, Idaho",
+          "url": "/services/bathroom-remodel",
+          "anchor": "Bathroom Remodel",
+          "title": "Bathroom Remodel in Boise & Treasure Valley, Idaho",
           "type": "service",
-          "score": -0.159
+          "score": -0.177
         },
         {
           "url": "/blog/bathroom-remodel-cost-idaho",
           "anchor": "Bathroom Remodel Cost in Idaho: Master Bath vs Guest Bath",
           "title": "Bathroom Remodel Cost in Idaho: Master Bath vs Guest Bath",
           "type": "blog",
-          "score": -0.191
+          "score": -0.271
         },
         {
-          "url": "/blog/ada-vs-canyon-county-permit-timelines",
-          "anchor": "Ada vs Canyon County Remodel Permits: Timelines Homeowners Should Know",
-          "title": "Ada vs Canyon County Remodel Permits: Timelines Homeowners Should Know",
+          "url": "/blog/whole-home-remodel-planning-checklist",
+          "anchor": "Whole-Home Remodel Planning Checklist for Treasure Valley Homeowners",
+          "title": "Whole-Home Remodel Planning Checklist for Treasure Valley Homeowners",
           "type": "blog",
-          "score": -0.243
+          "score": -0.325
         }
       ]
     },
@@ -2074,28 +2586,28 @@
           "anchor": "Whole-Home Remodel",
           "title": "Whole-Home Remodel in Boise & Treasure Valley, Idaho",
           "type": "service",
-          "score": 1.25
+          "score": 1.29
         },
         {
           "url": "/areas/kuna",
           "anchor": "Remodeling in Kuna",
           "title": "Remodeling Services in Kuna, Idaho",
           "type": "city",
-          "score": 0.28
+          "score": 0.24
         },
         {
-          "url": "/services/kitchen-remodel",
-          "anchor": "Kitchen Remodel",
-          "title": "Kitchen Remodel in Boise & Treasure Valley, Idaho",
+          "url": "/services/adu",
+          "anchor": "ADU / Guest House",
+          "title": "ADU / Guest House in Boise & Treasure Valley, Idaho",
           "type": "service",
-          "score": -0.192
+          "score": -0.19
         },
         {
-          "url": "/blog/whole-home-remodel-planning-checklist",
-          "anchor": "Whole-Home Remodel Planning Checklist for Treasure Valley Homeowners",
-          "title": "Whole-Home Remodel Planning Checklist for Treasure Valley Homeowners",
+          "url": "/blog/kitchen-remodel-cost-treasure-valley",
+          "anchor": "Kitchen Remodel Cost in the Treasure Valley (2026 Planning Ranges)",
+          "title": "Kitchen Remodel Cost in the Treasure Valley (2026 Planning Ranges)",
           "type": "blog",
-          "score": -0.24
+          "score": -0.333
         }
       ]
     },
@@ -2131,35 +2643,35 @@
           "anchor": "Whole-Home Remodel",
           "title": "Whole-Home Remodel in Boise & Treasure Valley, Idaho",
           "type": "service",
-          "score": 1.119
+          "score": 1.159
         },
         {
           "url": "/areas/meridian",
           "anchor": "Remodeling in Meridian",
           "title": "Remodeling Services in Meridian, Idaho",
           "type": "city",
-          "score": 0.363
+          "score": 0.323
+        },
+        {
+          "url": "/services/kitchen-remodel",
+          "anchor": "Kitchen Remodel",
+          "title": "Kitchen Remodel in Boise & Treasure Valley, Idaho",
+          "type": "service",
+          "score": -0.199
         },
         {
           "url": "/blog/whole-home-remodel-planning-checklist",
           "anchor": "Whole-Home Remodel Planning Checklist for Treasure Valley Homeowners",
           "title": "Whole-Home Remodel Planning Checklist for Treasure Valley Homeowners",
           "type": "blog",
-          "score": -0.14
+          "score": -0.22
         },
         {
-          "url": "/services/bathroom-remodel",
-          "anchor": "Bathroom Remodel",
-          "title": "Bathroom Remodel in Boise & Treasure Valley, Idaho",
-          "type": "service",
-          "score": -0.217
-        },
-        {
-          "url": "/blog/ada-vs-canyon-county-permit-timelines",
-          "anchor": "Ada vs Canyon County Remodel Permits: Timelines Homeowners Should Know",
-          "title": "Ada vs Canyon County Remodel Permits: Timelines Homeowners Should Know",
+          "url": "/blog/kitchen-remodel-cost-treasure-valley",
+          "anchor": "Kitchen Remodel Cost in the Treasure Valley (2026 Planning Ranges)",
+          "title": "Kitchen Remodel Cost in the Treasure Valley (2026 Planning Ranges)",
           "type": "blog",
-          "score": -0.283
+          "score": -0.375
         }
       ]
     },
@@ -2195,35 +2707,35 @@
           "anchor": "Whole-Home Remodel",
           "title": "Whole-Home Remodel in Boise & Treasure Valley, Idaho",
           "type": "service",
-          "score": 1.079
+          "score": 1.119
         },
         {
           "url": "/areas/middleton",
           "anchor": "Remodeling in Middleton",
           "title": "Remodeling Services in Middleton, Idaho",
           "type": "city",
-          "score": 0.363
+          "score": 0.323
         },
         {
-          "url": "/services/kitchen-remodel",
-          "anchor": "Kitchen Remodel",
-          "title": "Kitchen Remodel in Boise & Treasure Valley, Idaho",
+          "url": "/services/bathroom-remodel",
+          "anchor": "Bathroom Remodel",
+          "title": "Bathroom Remodel in Boise & Treasure Valley, Idaho",
           "type": "service",
-          "score": -0.239
-        },
-        {
-          "url": "/blog/kitchen-remodel-cost-treasure-valley",
-          "anchor": "Kitchen Remodel Cost in the Treasure Valley (2026 Planning Ranges)",
-          "title": "Kitchen Remodel Cost in the Treasure Valley (2026 Planning Ranges)",
-          "type": "blog",
-          "score": -0.295
+          "score": -0.217
         },
         {
           "url": "/blog/ada-vs-canyon-county-permit-timelines",
           "anchor": "Ada vs Canyon County Remodel Permits: Timelines Homeowners Should Know",
           "title": "Ada vs Canyon County Remodel Permits: Timelines Homeowners Should Know",
           "type": "blog",
-          "score": -0.323
+          "score": -0.403
+        },
+        {
+          "url": "/blog/whole-home-remodel-planning-checklist",
+          "anchor": "Whole-Home Remodel Planning Checklist for Treasure Valley Homeowners",
+          "title": "Whole-Home Remodel Planning Checklist for Treasure Valley Homeowners",
+          "type": "blog",
+          "score": -0.405
         }
       ]
     },
@@ -2259,35 +2771,35 @@
           "anchor": "Whole-Home Remodel",
           "title": "Whole-Home Remodel in Boise & Treasure Valley, Idaho",
           "type": "service",
-          "score": 1.039
+          "score": 1.079
         },
         {
           "url": "/areas/nampa",
           "anchor": "Remodeling in Nampa",
           "title": "Remodeling Services in Nampa, Idaho",
           "type": "city",
-          "score": 0.323
+          "score": 0.283
+        },
+        {
+          "url": "/services/adu",
+          "anchor": "ADU / Guest House",
+          "title": "ADU / Guest House in Boise & Treasure Valley, Idaho",
+          "type": "service",
+          "score": -0.23
         },
         {
           "url": "/blog/bathroom-remodel-cost-idaho",
           "anchor": "Bathroom Remodel Cost in Idaho: Master Bath vs Guest Bath",
           "title": "Bathroom Remodel Cost in Idaho: Master Bath vs Guest Bath",
           "type": "blog",
-          "score": -0.231
+          "score": -0.311
         },
         {
-          "url": "/services/bathroom-remodel",
-          "anchor": "Bathroom Remodel",
-          "title": "Bathroom Remodel in Boise & Treasure Valley, Idaho",
-          "type": "service",
-          "score": -0.257
-        },
-        {
-          "url": "/blog/whole-home-remodel-planning-checklist",
-          "anchor": "Whole-Home Remodel Planning Checklist for Treasure Valley Homeowners",
-          "title": "Whole-Home Remodel Planning Checklist for Treasure Valley Homeowners",
+          "url": "/blog/kitchen-remodel-cost-treasure-valley",
+          "anchor": "Kitchen Remodel Cost in the Treasure Valley (2026 Planning Ranges)",
+          "title": "Kitchen Remodel Cost in the Treasure Valley (2026 Planning Ranges)",
           "type": "blog",
-          "score": -0.325
+          "score": -0.415
         }
       ]
     },
@@ -2323,35 +2835,35 @@
           "anchor": "Whole-Home Remodel",
           "title": "Whole-Home Remodel in Boise & Treasure Valley, Idaho",
           "type": "service",
-          "score": 0.999
+          "score": 1.039
         },
         {
           "url": "/areas/star",
           "anchor": "Remodeling in Star",
           "title": "Remodeling Services in Star, Idaho",
           "type": "city",
-          "score": 0.363
+          "score": 0.323
         },
         {
-          "url": "/services/room-addition",
-          "anchor": "Room Addition",
-          "title": "Room Addition in Boise & Treasure Valley, Idaho",
+          "url": "/services/kitchen-remodel",
+          "anchor": "Kitchen Remodel",
+          "title": "Kitchen Remodel in Boise & Treasure Valley, Idaho",
           "type": "service",
-          "score": -0.257
-        },
-        {
-          "url": "/blog/kitchen-remodel-cost-treasure-valley",
-          "anchor": "Kitchen Remodel Cost in the Treasure Valley (2026 Planning Ranges)",
-          "title": "Kitchen Remodel Cost in the Treasure Valley (2026 Planning Ranges)",
-          "type": "blog",
-          "score": -0.335
+          "score": -0.239
         },
         {
           "url": "/blog/ada-vs-canyon-county-permit-timelines",
           "anchor": "Ada vs Canyon County Remodel Permits: Timelines Homeowners Should Know",
           "title": "Ada vs Canyon County Remodel Permits: Timelines Homeowners Should Know",
           "type": "blog",
-          "score": -0.363
+          "score": -0.443
+        },
+        {
+          "url": "/blog/whole-home-remodel-planning-checklist",
+          "anchor": "Whole-Home Remodel Planning Checklist for Treasure Valley Homeowners",
+          "title": "Whole-Home Remodel Planning Checklist for Treasure Valley Homeowners",
+          "type": "blog",
+          "score": -0.445
         }
       ]
     },
@@ -2362,11 +2874,11 @@
       "url": "/areas/boise",
       "links": [
         {
-          "url": "/areas/kuna",
-          "anchor": "Remodeling in Kuna",
-          "title": "Remodeling Services in Kuna, Idaho",
-          "type": "city",
-          "score": 1.4
+          "url": "/services/adu/boise",
+          "anchor": "ADU / Guest House in Boise",
+          "title": "ADU / Guest House in Boise, Idaho",
+          "type": "city-service",
+          "score": 0.2
         },
         {
           "url": "/services/bathroom-remodel/boise",
@@ -2390,25 +2902,25 @@
           "score": 0.2
         },
         {
-          "url": "/services/whole-home-remodel/boise",
-          "anchor": "Whole-Home Remodel in Boise",
-          "title": "Whole-Home Remodel in Boise, Idaho",
-          "type": "city-service",
-          "score": 0.2
-        },
-        {
           "url": "/blog/how-to-choose-design-build-contractor",
           "anchor": "How to Choose a Design-Build Remodeling Contractor in Boise",
           "title": "How to Choose a Design-Build Remodeling Contractor in Boise",
           "type": "blog",
-          "score": -0.164
+          "score": -0.244
+        },
+        {
+          "url": "/services/adu",
+          "anchor": "ADU / Guest House",
+          "title": "ADU / Guest House in Boise & Treasure Valley, Idaho",
+          "type": "service",
+          "score": -0.57
         },
         {
           "url": "/services/bathroom-remodel",
           "anchor": "Bathroom Remodel",
           "title": "Bathroom Remodel in Boise & Treasure Valley, Idaho",
           "type": "service",
-          "score": -0.65
+          "score": -0.61
         },
         {
           "url": "/services/room-addition",
@@ -2458,28 +2970,28 @@
           "anchor": "How to Choose a Design-Build Remodeling Contractor in Boise",
           "title": "How to Choose a Design-Build Remodeling Contractor in Boise",
           "type": "blog",
-          "score": -0.307
+          "score": -0.387
+        },
+        {
+          "url": "/services/adu",
+          "anchor": "ADU / Guest House",
+          "title": "ADU / Guest House in Boise & Treasure Valley, Idaho",
+          "type": "service",
+          "score": -0.61
         },
         {
           "url": "/services/bathroom-remodel",
           "anchor": "Bathroom Remodel",
           "title": "Bathroom Remodel in Boise & Treasure Valley, Idaho",
           "type": "service",
-          "score": -0.69
-        },
-        {
-          "url": "/services/room-addition",
-          "anchor": "Room Addition",
-          "title": "Room Addition in Boise & Treasure Valley, Idaho",
-          "type": "service",
-          "score": -0.69
+          "score": -0.65
         },
         {
           "url": "/services/kitchen-remodel",
           "anchor": "Kitchen Remodel",
           "title": "Kitchen Remodel in Boise & Treasure Valley, Idaho",
           "type": "service",
-          "score": -0.73
+          "score": -0.69
         }
       ]
     },
@@ -2522,28 +3034,28 @@
           "anchor": "Bathroom Remodel Cost in Idaho: Master Bath vs Guest Bath",
           "title": "Bathroom Remodel Cost in Idaho: Master Bath vs Guest Bath",
           "type": "blog",
-          "score": -0.24
+          "score": -0.32
+        },
+        {
+          "url": "/services/adu",
+          "anchor": "ADU / Guest House",
+          "title": "ADU / Guest House in Boise & Treasure Valley, Idaho",
+          "type": "service",
+          "score": -0.65
         },
         {
           "url": "/services/bathroom-remodel",
           "anchor": "Bathroom Remodel",
           "title": "Bathroom Remodel in Boise & Treasure Valley, Idaho",
           "type": "service",
-          "score": -0.73
+          "score": -0.69
         },
         {
           "url": "/services/room-addition",
           "anchor": "Room Addition",
           "title": "Room Addition in Boise & Treasure Valley, Idaho",
           "type": "service",
-          "score": -0.73
-        },
-        {
-          "url": "/services/kitchen-remodel",
-          "anchor": "Kitchen Remodel",
-          "title": "Kitchen Remodel in Boise & Treasure Valley, Idaho",
-          "type": "service",
-          "score": -0.77
+          "score": -0.69
         }
       ]
     },
@@ -2554,25 +3066,11 @@
       "url": "/areas/kuna",
       "links": [
         {
-          "url": "/areas/eagle",
-          "anchor": "Remodeling in Eagle",
-          "title": "Remodeling Services in Eagle, Idaho",
-          "type": "city",
-          "score": 0.9
-        },
-        {
-          "url": "/areas/meridian",
-          "anchor": "Remodeling in Meridian",
-          "title": "Remodeling Services in Meridian, Idaho",
-          "type": "city",
-          "score": 0.9
-        },
-        {
-          "url": "/areas/star",
-          "anchor": "Remodeling in Star",
-          "title": "Remodeling Services in Star, Idaho",
-          "type": "city",
-          "score": 0.9
+          "url": "/services/adu/kuna",
+          "anchor": "ADU / Guest House in Kuna",
+          "title": "ADU / Guest House in Kuna, Idaho",
+          "type": "city-service",
+          "score": 0.2
         },
         {
           "url": "/services/bathroom-remodel/kuna",
@@ -2596,18 +3094,32 @@
           "score": 0.2
         },
         {
-          "url": "/services/whole-home-remodel/kuna",
-          "anchor": "Whole-Home Remodel in Kuna",
-          "title": "Whole-Home Remodel in Kuna, Idaho",
-          "type": "city-service",
-          "score": 0.2
+          "url": "/blog/room-addition-guide-treasure-valley",
+          "anchor": "Room Addition Guide: Matching Your Home in the Treasure Valley",
+          "title": "Room Addition Guide: Matching Your Home in the Treasure Valley",
+          "type": "blog",
+          "score": -0.42
         },
         {
-          "url": "/blog/how-to-choose-design-build-contractor",
-          "anchor": "How to Choose a Design-Build Remodeling Contractor in Boise",
-          "title": "How to Choose a Design-Build Remodeling Contractor in Boise",
-          "type": "blog",
-          "score": -0.344
+          "url": "/services/adu",
+          "anchor": "ADU / Guest House",
+          "title": "ADU / Guest House in Boise & Treasure Valley, Idaho",
+          "type": "service",
+          "score": -0.69
+        },
+        {
+          "url": "/services/bathroom-remodel",
+          "anchor": "Bathroom Remodel",
+          "title": "Bathroom Remodel in Boise & Treasure Valley, Idaho",
+          "type": "service",
+          "score": -0.73
+        },
+        {
+          "url": "/services/kitchen-remodel",
+          "anchor": "Kitchen Remodel",
+          "title": "Kitchen Remodel in Boise & Treasure Valley, Idaho",
+          "type": "service",
+          "score": -0.73
         }
       ]
     },
@@ -2650,28 +3162,28 @@
           "anchor": "Whole-Home Remodel Planning Checklist for Treasure Valley Homeowners",
           "title": "Whole-Home Remodel Planning Checklist for Treasure Valley Homeowners",
           "type": "blog",
-          "score": -0.269
+          "score": -0.389
         },
         {
-          "url": "/services/bathroom-remodel",
-          "anchor": "Bathroom Remodel",
-          "title": "Bathroom Remodel in Boise & Treasure Valley, Idaho",
+          "url": "/services/adu",
+          "anchor": "ADU / Guest House",
+          "title": "ADU / Guest House in Boise & Treasure Valley, Idaho",
           "type": "service",
-          "score": -0.81
+          "score": -0.73
         },
         {
           "url": "/services/room-addition",
           "anchor": "Room Addition",
           "title": "Room Addition in Boise & Treasure Valley, Idaho",
           "type": "service",
-          "score": -0.81
+          "score": -0.73
         },
         {
-          "url": "/services/kitchen-remodel",
-          "anchor": "Kitchen Remodel",
-          "title": "Kitchen Remodel in Boise & Treasure Valley, Idaho",
+          "url": "/services/bathroom-remodel",
+          "anchor": "Bathroom Remodel",
+          "title": "Bathroom Remodel in Boise & Treasure Valley, Idaho",
           "type": "service",
-          "score": -0.85
+          "score": -0.77
         }
       ]
     },
@@ -2714,28 +3226,28 @@
           "anchor": "How to Choose a Design-Build Remodeling Contractor in Boise",
           "title": "How to Choose a Design-Build Remodeling Contractor in Boise",
           "type": "blog",
-          "score": -0.387
+          "score": -0.427
         },
         {
-          "url": "/services/bathroom-remodel",
-          "anchor": "Bathroom Remodel",
-          "title": "Bathroom Remodel in Boise & Treasure Valley, Idaho",
+          "url": "/services/adu",
+          "anchor": "ADU / Guest House",
+          "title": "ADU / Guest House in Boise & Treasure Valley, Idaho",
           "type": "service",
-          "score": -0.85
+          "score": -0.77
+        },
+        {
+          "url": "/services/kitchen-remodel",
+          "anchor": "Kitchen Remodel",
+          "title": "Kitchen Remodel in Boise & Treasure Valley, Idaho",
+          "type": "service",
+          "score": -0.77
         },
         {
           "url": "/services/room-addition",
           "anchor": "Room Addition",
           "title": "Room Addition in Boise & Treasure Valley, Idaho",
           "type": "service",
-          "score": -0.85
-        },
-        {
-          "url": "/services/whole-home-remodel",
-          "anchor": "Whole-Home Remodel",
-          "title": "Whole-Home Remodel in Boise & Treasure Valley, Idaho",
-          "type": "service",
-          "score": -0.85
+          "score": -0.77
         }
       ]
     },
@@ -2745,13 +3257,6 @@
       "anchor": "Remodeling in Nampa",
       "url": "/areas/nampa",
       "links": [
-        {
-          "url": "/areas/middleton",
-          "anchor": "Remodeling in Middleton",
-          "title": "Remodeling Services in Middleton, Idaho",
-          "type": "city",
-          "score": 0.733
-        },
         {
           "url": "/services/bathroom-remodel/nampa",
           "anchor": "Bathroom Remodel in Nampa",
@@ -2785,21 +3290,28 @@
           "anchor": "Bathroom Remodel Cost in Idaho: Master Bath vs Guest Bath",
           "title": "Bathroom Remodel Cost in Idaho: Master Bath vs Guest Bath",
           "type": "blog",
-          "score": -0.28
+          "score": -0.36
+        },
+        {
+          "url": "/services/adu",
+          "anchor": "ADU / Guest House",
+          "title": "ADU / Guest House in Boise & Treasure Valley, Idaho",
+          "type": "service",
+          "score": -0.81
         },
         {
           "url": "/services/bathroom-remodel",
           "anchor": "Bathroom Remodel",
           "title": "Bathroom Remodel in Boise & Treasure Valley, Idaho",
           "type": "service",
-          "score": -0.89
+          "score": -0.81
         },
         {
           "url": "/services/kitchen-remodel",
           "anchor": "Kitchen Remodel",
           "title": "Kitchen Remodel in Boise & Treasure Valley, Idaho",
           "type": "service",
-          "score": -0.89
+          "score": -0.81
         }
       ]
     },
@@ -2838,32 +3350,96 @@
           "score": 0.403
         },
         {
-          "url": "/blog/kitchen-remodel-cost-treasure-valley",
-          "anchor": "Kitchen Remodel Cost in the Treasure Valley (2026 Planning Ranges)",
-          "title": "Kitchen Remodel Cost in the Treasure Valley (2026 Planning Ranges)",
+          "url": "/blog/how-to-choose-design-build-contractor",
+          "anchor": "How to Choose a Design-Build Remodeling Contractor in Boise",
+          "title": "How to Choose a Design-Build Remodeling Contractor in Boise",
           "type": "blog",
-          "score": -0.397
+          "score": -0.467
+        },
+        {
+          "url": "/services/room-addition",
+          "anchor": "Room Addition",
+          "title": "Room Addition in Boise & Treasure Valley, Idaho",
+          "type": "service",
+          "score": -0.81
         },
         {
           "url": "/services/whole-home-remodel",
           "anchor": "Whole-Home Remodel",
           "title": "Whole-Home Remodel in Boise & Treasure Valley, Idaho",
           "type": "service",
-          "score": -0.89
+          "score": -0.81
+        },
+        {
+          "url": "/services/adu",
+          "anchor": "ADU / Guest House",
+          "title": "ADU / Guest House in Boise & Treasure Valley, Idaho",
+          "type": "service",
+          "score": -0.85
+        }
+      ]
+    },
+    "/services/adu": {
+      "type": "service",
+      "title": "ADU / Guest House in Boise & Treasure Valley, Idaho",
+      "anchor": "ADU / Guest House",
+      "url": "/services/adu",
+      "links": [
+        {
+          "url": "/services/adu/caldwell",
+          "anchor": "ADU / Guest House in Caldwell",
+          "title": "ADU / Guest House in Caldwell, Idaho",
+          "type": "city-service",
+          "score": 1.823
+        },
+        {
+          "url": "/services/adu/nampa",
+          "anchor": "ADU / Guest House in Nampa",
+          "title": "ADU / Guest House in Nampa, Idaho",
+          "type": "city-service",
+          "score": 1.823
+        },
+        {
+          "url": "/services/adu/star",
+          "anchor": "ADU / Guest House in Star",
+          "title": "ADU / Guest House in Star, Idaho",
+          "type": "city-service",
+          "score": 1.743
+        },
+        {
+          "url": "/services/adu/eagle",
+          "anchor": "ADU / Guest House in Eagle",
+          "title": "ADU / Guest House in Eagle, Idaho",
+          "type": "city-service",
+          "score": 1.703
+        },
+        {
+          "url": "/services/adu/meridian",
+          "anchor": "ADU / Guest House in Meridian",
+          "title": "ADU / Guest House in Meridian, Idaho",
+          "type": "city-service",
+          "score": 1.703
+        },
+        {
+          "url": "/services/adu/middleton",
+          "anchor": "ADU / Guest House in Middleton",
+          "title": "ADU / Guest House in Middleton, Idaho",
+          "type": "city-service",
+          "score": 1.703
         },
         {
           "url": "/services/bathroom-remodel",
           "anchor": "Bathroom Remodel",
           "title": "Bathroom Remodel in Boise & Treasure Valley, Idaho",
           "type": "service",
-          "score": -0.93
+          "score": -0.5
         },
         {
-          "url": "/services/kitchen-remodel",
-          "anchor": "Kitchen Remodel",
-          "title": "Kitchen Remodel in Boise & Treasure Valley, Idaho",
+          "url": "/services/room-addition",
+          "anchor": "Room Addition",
+          "title": "Room Addition in Boise & Treasure Valley, Idaho",
           "type": "service",
-          "score": -0.93
+          "score": -0.5
         }
       ]
     },
@@ -2923,11 +3499,11 @@
           "score": 1.66
         },
         {
-          "url": "/blog/ada-vs-canyon-county-permit-timelines",
-          "anchor": "Ada vs Canyon County Remodel Permits: Timelines Homeowners Should Know",
-          "title": "Ada vs Canyon County Remodel Permits: Timelines Homeowners Should Know",
+          "url": "/blog/kitchen-remodel-cost-treasure-valley",
+          "anchor": "Kitchen Remodel Cost in the Treasure Valley (2026 Planning Ranges)",
+          "title": "Kitchen Remodel Cost in the Treasure Valley (2026 Planning Ranges)",
           "type": "blog",
-          "score": -0.44
+          "score": -0.487
         }
       ]
     },
@@ -2987,11 +3563,11 @@
           "score": 1.66
         },
         {
-          "url": "/blog/kitchen-remodel-cost-treasure-valley",
-          "anchor": "Kitchen Remodel Cost in the Treasure Valley (2026 Planning Ranges)",
-          "title": "Kitchen Remodel Cost in the Treasure Valley (2026 Planning Ranges)",
-          "type": "blog",
-          "score": -0.411
+          "url": "/services/whole-home-remodel",
+          "anchor": "Whole-Home Remodel",
+          "title": "Whole-Home Remodel in Boise & Treasure Valley, Idaho",
+          "type": "service",
+          "score": -0.472
         }
       ]
     },
@@ -3055,7 +3631,7 @@
           "anchor": "Room Addition Guide: Matching Your Home in the Treasure Valley",
           "title": "Room Addition Guide: Matching Your Home in the Treasure Valley",
           "type": "blog",
-          "score": -0.306
+          "score": -0.386
         }
       ]
     },
@@ -3101,48 +3677,49 @@
           "score": 1.809
         },
         {
-          "url": "/services/whole-home-remodel/star",
-          "anchor": "Whole-Home Remodel in Star",
-          "title": "Whole-Home Remodel in Star, Idaho",
-          "type": "city-service",
-          "score": 1.689
-        },
-        {
           "url": "/services/whole-home-remodel/boise",
           "anchor": "Whole-Home Remodel in Boise",
           "title": "Whole-Home Remodel in Boise, Idaho",
           "type": "city-service",
-          "score": 1.66
+          "score": 1.7
         },
         {
           "url": "/services/whole-home-remodel/kuna",
           "anchor": "Whole-Home Remodel in Kuna",
           "title": "Whole-Home Remodel in Kuna, Idaho",
           "type": "city-service",
-          "score": 1.66
+          "score": 1.7
+        },
+        {
+          "url": "/services/whole-home-remodel/star",
+          "anchor": "Whole-Home Remodel in Star",
+          "title": "Whole-Home Remodel in Star, Idaho",
+          "type": "city-service",
+          "score": 1.689
         }
       ]
     }
   },
   "incoming": {
-    "/blog/kitchen-remodel-cost-treasure-valley": 11,
-    "/blog/bathroom-remodel-cost-idaho": 13,
-    "/blog/ada-vs-canyon-county-permit-timelines": 11,
-    "/blog/how-to-choose-design-build-contractor": 11,
-    "/blog/whole-home-remodel-planning-checklist": 13,
-    "/blog/room-addition-guide-treasure-valley": 11,
-    "/services/kitchen-remodel": 26,
-    "/services/bathroom-remodel": 27,
-    "/services/whole-home-remodel": 27,
-    "/services/room-addition": 25,
-    "/areas/boise": 5,
+    "/blog/kitchen-remodel-cost-treasure-valley": 13,
+    "/blog/bathroom-remodel-cost-idaho": 10,
+    "/blog/ada-vs-canyon-county-permit-timelines": 12,
+    "/blog/how-to-choose-design-build-contractor": 12,
+    "/blog/whole-home-remodel-planning-checklist": 14,
+    "/blog/room-addition-guide-treasure-valley": 14,
+    "/services/kitchen-remodel": 25,
+    "/services/bathroom-remodel": 26,
+    "/services/whole-home-remodel": 26,
+    "/services/room-addition": 26,
+    "/services/adu": 26,
+    "/areas/boise": 6,
     "/areas/meridian": 5,
     "/areas/eagle": 5,
-    "/areas/nampa": 5,
+    "/areas/nampa": 6,
     "/areas/kuna": 5,
     "/areas/star": 5,
     "/areas/middleton": 5,
-    "/areas/caldwell": 5,
+    "/areas/caldwell": 6,
     "/services/kitchen-remodel/boise": 7,
     "/services/kitchen-remodel/meridian": 5,
     "/services/kitchen-remodel/eagle": 5,
@@ -3159,11 +3736,11 @@
     "/services/bathroom-remodel/star": 5,
     "/services/bathroom-remodel/middleton": 5,
     "/services/bathroom-remodel/caldwell": 5,
-    "/services/whole-home-remodel/boise": 7,
+    "/services/whole-home-remodel/boise": 6,
     "/services/whole-home-remodel/meridian": 5,
     "/services/whole-home-remodel/eagle": 5,
     "/services/whole-home-remodel/nampa": 5,
-    "/services/whole-home-remodel/kuna": 7,
+    "/services/whole-home-remodel/kuna": 6,
     "/services/whole-home-remodel/star": 5,
     "/services/whole-home-remodel/middleton": 5,
     "/services/whole-home-remodel/caldwell": 5,
@@ -3174,7 +3751,15 @@
     "/services/room-addition/kuna": 6,
     "/services/room-addition/star": 5,
     "/services/room-addition/middleton": 5,
-    "/services/room-addition/caldwell": 5
+    "/services/room-addition/caldwell": 5,
+    "/services/adu/boise": 6,
+    "/services/adu/meridian": 5,
+    "/services/adu/eagle": 5,
+    "/services/adu/nampa": 5,
+    "/services/adu/kuna": 6,
+    "/services/adu/star": 5,
+    "/services/adu/middleton": 5,
+    "/services/adu/caldwell": 5
   },
   "blogByCategory": {
     "Kitchen Remodeling": [
