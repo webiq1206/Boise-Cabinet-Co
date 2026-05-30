@@ -178,7 +178,7 @@ export function LandingPageTemplate({
           <div className="container px-4 max-w-5xl">
             <Reveal>
               <div className="brc-label mb-5">Why choose us</div>
-              <h2 className="font-serif font-light text-[2rem] md:text-[2.5rem] leading-[1.08] tracking-tight text-foreground mb-10">
+              <h2 className="font-sans font-light text-[2rem] md:text-[2.5rem] leading-[1.08] tracking-tight text-foreground mb-10">
                 Why homeowners <em className="brc-accent text-accent">choose us</em>
               </h2>
             </Reveal>
@@ -231,7 +231,7 @@ export function LandingPageTemplate({
           <div className="container px-4 max-w-5xl">
             <Reveal>
               <div className="brc-label mb-5">Scope of work</div>
-              <h2 className="font-serif font-light text-[2rem] md:text-[2.5rem] leading-[1.08] tracking-tight text-foreground mb-10">
+              <h2 className="font-sans font-light text-[2rem] md:text-[2.5rem] leading-[1.08] tracking-tight text-foreground mb-10">
                 What&apos;s <em className="brc-accent text-accent">included</em>
               </h2>
             </Reveal>
@@ -275,7 +275,7 @@ export function LandingPageTemplate({
               />
               <div className="relative h-full flex flex-col justify-end p-8 md:p-12 lg:p-14">
                 <div className="brc-label text-inverse-muted mb-4">How it works</div>
-                <h2 className="font-serif font-light text-[2rem] md:text-[2.75rem] leading-[1.06] tracking-tight text-inverse-foreground">
+                <h2 className="font-sans font-light text-[2rem] md:text-[2.75rem] leading-[1.06] tracking-tight text-inverse-foreground">
                   Our <em className="brc-accent text-accent">process</em>,
                   <br />
                   step by step
@@ -355,7 +355,7 @@ export function LandingPageTemplate({
         <div className="container px-4 max-w-3xl">
           <Reveal>
             <div className="brc-label mb-5">Common questions</div>
-            <h2 className="font-serif font-light text-[2rem] md:text-[2.5rem] leading-[1.08] tracking-tight text-foreground mb-10">
+            <h2 className="font-sans font-light text-[2rem] md:text-[2.5rem] leading-[1.08] tracking-tight text-foreground mb-10">
               Frequently asked <em className="brc-accent text-accent">questions</em>
             </h2>
             <Accordion type="single" collapsible className="w-full">
@@ -405,7 +405,7 @@ export function LandingPageTemplate({
                 <div className="brc-label text-inverse-muted justify-center mb-6">
                   Start your project
                 </div>
-                <h2 className="font-serif font-light text-[2rem] md:text-[2.5rem] leading-tight tracking-tight text-inverse-foreground mb-4">
+                <h2 className="font-sans font-light text-[2rem] md:text-[2.5rem] leading-tight tracking-tight text-inverse-foreground mb-4">
                   Ready to <em className="brc-accent">begin</em>?
                 </h2>
                 <p className="text-inverse-muted mb-8 text-base leading-relaxed">

@@ -36,7 +36,7 @@ export function SectionHeader({
         className={cn(
           "font-light tracking-tight mb-4",
           size === "display"
-            ? "font-serif text-[2rem] md:text-[2.75rem] lg:text-[3.25rem] leading-[1.08]"
+            ? "font-sans text-[2rem] md:text-[2.75rem] lg:text-[3.25rem] leading-[1.08]"
             : "font-sans text-section-title md:text-section-title-lg",
           inverse ? "text-inverse-foreground" : "text-foreground"
         )}

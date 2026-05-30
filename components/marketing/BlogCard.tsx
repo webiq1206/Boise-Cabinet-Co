@@ -73,7 +73,7 @@ export function BlogCard({ post, featured = false, formatDate }: BlogCardProps) 
             {formatDate(post.publishedAt)}
           </span>
         </div>
-        <h3 className="text-lg font-serif font-light tracking-tight text-foreground line-clamp-2 mb-2">
+        <h3 className="text-lg font-sans font-light tracking-tight text-foreground line-clamp-2 mb-2">
           {post.title}
         </h3>
         <p className="text-sm text-muted-foreground line-clamp-3 flex-1">{post.excerpt}</p>
