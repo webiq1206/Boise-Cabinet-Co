@@ -1,0 +1,149 @@
+"use client";
+
+import { useId, useRef, useState } from "react";
+import Image from "next/image";
+import { MoveHorizontal } from "lucide-react";
+
+interface BeforeAfterSliderProps {
+  beforeSrc: string;
+  afterSrc: string;
+  beforeAlt: string;
+  afterAlt: string;
+  caption?: React.ReactNode;
+  className?: string;
+  aspectClass?: string;
+}
+
+export function BeforeAfterSlider({
+  beforeSrc,
+  afterSrc,
+  beforeAlt,
+  afterAlt,
+  caption,
+  className = "",
+  aspectClass = "aspect-[4/3]",
+}: BeforeAfterSliderProps) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const draggingRef = useRef(false);
+  const [pos, setPos] = useState(50);
+  const instructionsId = useId();
+
+  const updateFromClientX = (clientX: number) => {
+    const el = containerRef.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    const next = ((clientX - rect.left) / rect.width) * 100;
+    setPos(Math.max(0, Math.min(100, next)));
+  };
+
+  return (
+    <div
+      ref={containerRef}
+      className={`relative w-full overflow-hidden select-none touch-none cursor-ew-resize ${aspectClass} ${className}`}
+      onPointerDown={(e) => {
+        draggingRef.current = true;
+        e.currentTarget.setPointerCapture(e.pointerId);
+        updateFromClientX(e.clientX);
+      }}
+      onPointerMove={(e) => {
+        if (draggingRef.current) updateFromClientX(e.clientX);
+      }}
+      onPointerUp={(e) => {
+        draggingRef.current = false;
+        if (e.currentTarget.hasPointerCapture(e.pointerId)) {
+          e.currentTarget.releasePointerCapture(e.pointerId);
+        }
+      }}
+      onPointerCancel={() => {
+        draggingRef.current = false;
+      }}
+      onLostPointerCapture={() => {
+        draggingRef.current = false;
+      }}
+      data-testid="slider-before-after"
+    >
+      <p id={instructionsId} className="sr-only">
+        {beforeAlt} on the left, {afterAlt} on the right. Drag the handle, or
+        use the arrow keys, Home, and End to reveal the transformation.
+      </p>
+
+      {/* After image (base layer) */}
+      <Image
+        src={afterSrc}
+        alt={afterAlt}
+        fill
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+        className="object-cover pointer-events-none"
+      />
+
+      {/* Before image (clipped overlay, revealed on the left) */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 overflow-hidden pointer-events-none"
+        style={{ clipPath: `inset(0 ${100 - pos}% 0 0)` }}
+      >
+        <Image
+          src={beforeSrc}
+          alt=""
+          fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          className="object-cover"
+        />
+      </div>
+
+      {/* Corner labels */}
+      <div className="absolute top-3 left-3 md:top-4 md:left-4 px-2.5 py-1 rounded-sm bg-inverse/80 text-inverse-foreground text-[10px] tracking-[0.12em] uppercase font-medium pointer-events-none">
+        Before
+      </div>
+      <div className="absolute top-3 right-3 md:top-4 md:right-4 px-2.5 py-1 rounded-sm bg-inverse/80 text-inverse-foreground text-[10px] tracking-[0.12em] uppercase font-medium pointer-events-none">
+        After
+      </div>
+
+      {/* Divider line + drag handle */}
+      <div
+        className="absolute inset-y-0 z-10 w-px bg-inverse-foreground/90 pointer-events-none"
+        style={{ left: `${pos}%`, transform: "translateX(-0.5px)" }}
+      >
+        <button
+          type="button"
+          role="slider"
+          aria-label="Compare before and after"
+          aria-orientation="horizontal"
+          aria-describedby={instructionsId}
+          aria-valuemin={0}
+          aria-valuemax={100}
+          aria-valuenow={Math.round(pos)}
+          onKeyDown={(e) => {
+            if (e.key === "ArrowLeft" || e.key === "ArrowDown") {
+              e.preventDefault();
+              setPos((p) => Math.max(0, p - 4));
+            } else if (e.key === "ArrowRight" || e.key === "ArrowUp") {
+              e.preventDefault();
+              setPos((p) => Math.min(100, p + 4));
+            } else if (e.key === "Home") {
+              e.preventDefault();
+              setPos(0);
+            } else if (e.key === "End") {
+              e.preventDefault();
+              setPos(100);
+            }
+          }}
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex h-10 w-10 items-center justify-center rounded-full bg-inverse-foreground text-inverse shadow-md pointer-events-auto cursor-ew-resize focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+          data-testid="handle-before-after"
+        >
+          <MoveHorizontal className="h-4 w-4" />
+        </button>
+      </div>
+
+      {/* Caption */}
+      {caption && (
+        <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-inverse/70 via-inverse/20 to-transparent pointer-events-none" />
+      )}
+      {caption && (
+        <div className="absolute bottom-4 left-4 right-4 md:bottom-8 md:left-8 md:right-8 pointer-events-none">
+          {caption}
+        </div>
+      )}
+    </div>
+  );
+}

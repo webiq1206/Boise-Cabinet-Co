@@ -55,13 +55,4 @@ export const GALLERY_PROJECTS: GalleryProject[] = [
     description:
       "Unfinished basement transformed into a family room, home office, and full bath in Boise",
   },
-  {
-    serviceType: "outdoor-living",
-    city: "star",
-    beforeImageUrl: GALLERY_IMAGES.outdoor.before,
-    afterImageUrl: GALLERY_IMAGES.outdoor.after,
-    title: "Outdoor Living Space",
-    description:
-      "Covered patio with outdoor kitchen and pergola for year-round entertaining in Star",
-  },
 ];
