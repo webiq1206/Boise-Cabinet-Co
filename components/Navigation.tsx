@@ -29,11 +29,10 @@ function Logo({ hero }: { hero: boolean }) {
           hero ? "text-inverse-foreground" : "text-foreground"
         )}
       >
-        Boise{" "}
+        Boise Remodeling{" "}
         <em className={cn("brc-accent transition-colors duration-300", hero ? "text-inverse-muted" : "text-accent")}>
-          Remodeling
-        </em>{" "}
-        Co
+          Co
+        </em>
       </span>
       <span
         className={cn(
