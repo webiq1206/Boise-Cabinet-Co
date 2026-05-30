@@ -18,6 +18,7 @@ import {
   getAvailableFinishLevels,
   getMaxRefinementFields,
   getRefinementVisibility,
+  countVisibleUserRefinements,
   getPlumbingElectricalLabel,
   getPlumbingElectricalOptions,
   getFinishPlanningHint,
@@ -170,7 +171,7 @@ export function EstimateCalculator({ inModal = false, onBookVisit: onBookVisitPr
 
   const sizeConfig = getProjectSizeConfig(project);
   const refinementVisibility = getRefinementVisibility(project);
-  const userRefinementCount = userRefinements.size;
+  const userRefinementCount = countVisibleUserRefinements(project, userRefinements);
 
   const input: EstimateInput = useMemo(
     () => ({ project, finish, sqft, refinements }),
@@ -233,6 +234,12 @@ export function EstimateCalculator({ inModal = false, onBookVisit: onBookVisitPr
       document.getElementById("consult")?.scrollIntoView({ behavior: "smooth" });
     }
   }
+
+  useEffect(() => {
+    if (sqft < sizeConfig.min || sqft > sizeConfig.max) {
+      setSqft(Math.max(sizeConfig.min, Math.min(sizeConfig.max, sqft)));
+    }
+  }, [sizeConfig.min, sizeConfig.max, sqft]);
 
   useEffect(() => {
     sessionStorage.setItem(
@@ -321,9 +328,9 @@ export function EstimateCalculator({ inModal = false, onBookVisit: onBookVisitPr
       </div>
 
       <div>
-        <div className="flex justify-between items-center mb-5">
+        <div className="flex flex-wrap justify-between items-start sm:items-center gap-x-4 gap-y-2 mb-5">
           <StepHeader num={3} label="Size of the space" />
-          <DisplayNum className="text-2xl leading-none text-foreground">
+          <DisplayNum className="text-2xl leading-none text-foreground sm:text-right">
             {sqft.toLocaleString()}{" "}
             <span className="text-sm font-sans text-muted-foreground">sqft</span>
           </DisplayNum>
@@ -538,6 +545,7 @@ export function EstimateCalculator({ inModal = false, onBookVisit: onBookVisitPr
           <div className="hidden lg:block lg:sticky lg:top-24">
             {resultPanel}
           </div>
+          <div className="lg:hidden">{resultPanel}</div>
         </div>
       </div>
 

@@ -29,8 +29,10 @@ test.describe("Project Estimator", () => {
     await expect(toggle).toHaveAttribute("aria-expanded", "false");
     await toggle.click();
     await expect(toggle).toHaveAttribute("aria-expanded", "true");
-    await page.getByTestId("city-treasure-valley").click();
-    await page.getByTestId("timeline-standard").click();
+    await page.getByTestId("layout-major").click();
+    await page.getByTestId("plumbing-full").click();
+    await page.getByTestId("cabinet-custom").click();
+    await expect(page.getByText("Detailed planning range")).toBeVisible();
     await expect(page.locator('[data-testid="estimate-range"]:visible')).toBeVisible();
   });
 

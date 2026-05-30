@@ -299,10 +299,37 @@ export function buildSelectionSummary(project: ProjectType, finish: FinishLevel,
   return `${PROJECT_LABELS[project].label} · ${FINISH_LABELS[finish].label} · ${sqft.toLocaleString()} sqft`;
 }
 
-function getPlanningDetail(count: number): { level: ConfidenceLevel; percent: number } {
-  if (count >= 4) return { level: "detailed", percent: 85 };
-  if (count >= 2) return { level: "refined", percent: 65 };
-  return { level: "starting", percent: 40 };
+function getPlanningDetail(
+  count: number,
+  maxFields: number,
+): { level: ConfidenceLevel; percent: number } {
+  if (maxFields <= 0) return { level: "starting", percent: 40 };
+
+  const ratio = Math.min(count, maxFields) / maxFields;
+  const percent = Math.round(40 + ratio * 45);
+
+  if (count >= maxFields) return { level: "detailed", percent: 85 };
+  if (count >= Math.ceil(maxFields / 2)) return { level: "refined", percent: Math.max(65, percent) };
+  return { level: "starting", percent: Math.max(40, percent) };
+}
+
+export function countVisibleUserRefinements(
+  project: ProjectType,
+  userRefinements: Iterable<UserRefinementKey>,
+): number {
+  const visibility = getRefinementVisibility(project);
+  let count = 0;
+
+  for (const key of userRefinements) {
+    if (key === "layoutChanges" && visibility.layoutChanges) count++;
+    else if (key === "plumbingElectrical" && visibility.plumbingElectrical) count++;
+    else if (key === "cabinetTier" && visibility.cabinetTier) count++;
+    else if (key === "fixtureCount" && visibility.fixtureCount) count++;
+    else if (key === "roomCount" && visibility.roomCount) count++;
+    else if (key === "stories" && (visibility.stories || visibility.aduConfiguration)) count++;
+  }
+
+  return count;
 }
 
 function getSizeMultiplier(sqft: number, project: ProjectType): number {
@@ -372,6 +399,12 @@ const PE_SCOPE: Record<PlumbingElectrical, string | null> = {
   full: "Full plumbing and electrical replacement",
 };
 
+const PE_SCOPE_NEW_CONSTRUCTION: Record<PlumbingElectrical, string | null> = {
+  cosmetic: null,
+  partial: "Extended utility runs or panel upgrades",
+  full: "Full new utility systems throughout",
+};
+
 const CABINET_SCOPE: Record<CabinetTier, string> = {
   standard: "Standard stock cabinetry",
   "semi-custom": "Semi-custom cabinetry",
@@ -387,13 +420,22 @@ export function buildDynamicScope(input: EstimateInput): string[] {
   const finish = normalizeFinishLevel(input.project, input.finish);
   const base = PRICE_MATRIX[input.project][finish].included;
   const r = input.refinements;
+  const visibility = getRefinementVisibility(input.project);
   const extra: string[] = [];
 
-  const layoutItem = LAYOUT_SCOPE[r.layoutChanges];
-  if (layoutItem) extra.push(layoutItem);
+  if (visibility.layoutChanges) {
+    const layoutItem = LAYOUT_SCOPE[r.layoutChanges];
+    if (layoutItem) extra.push(layoutItem);
+  }
 
-  const peItem = PE_SCOPE[r.plumbingElectrical];
-  if (peItem) extra.push(peItem);
+  if (visibility.plumbingElectrical) {
+    const peScope =
+      input.project === "addition" || input.project === "adu"
+        ? PE_SCOPE_NEW_CONSTRUCTION
+        : PE_SCOPE;
+    const peItem = peScope[r.plumbingElectrical];
+    if (peItem) extra.push(peItem);
+  }
 
   if (input.project === "kitchen" && r.cabinetTier) {
     extra.push(CABINET_SCOPE[r.cabinetTier]);
@@ -429,7 +471,8 @@ export function calculateEstimate(input: EstimateInput, userRefinementCount = 0)
   const base = PRICE_MATRIX[safeInput.project][safeInput.finish];
   const sizeMult = getSizeMultiplier(input.sqft, input.project);
   const refMult = getRefinementMultipliers(input.refinements, input.project);
-  const { level, percent } = getPlanningDetail(userRefinementCount);
+  const maxFields = getMaxRefinementFields(input.project);
+  const { level, percent } = getPlanningDetail(userRefinementCount, maxFields);
 
   // Price is a pure, monotonic function of the cost drivers (project, finish,
   // size, refinements). A more intensive selection always yields a higher
