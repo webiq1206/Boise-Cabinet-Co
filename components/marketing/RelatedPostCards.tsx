@@ -26,13 +26,13 @@ function imageForUrl(url: string, usedImages: Set<string>): string {
   }
 
   const categoryFallbacks = [
-    "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=800&q=80",
-    "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?auto=format&fit=crop&w=800&q=80",
-    "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=800&q=80",
-    "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=800&q=80",
-    "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80",
-    "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=800&q=80",
-    "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?auto=format&fit=crop&w=800&q=80",
+    "/images/services/kitchen-remodel.png",
+    "/images/services/bathroom-remodel.png",
+    "/images/services/whole-home-remodel.png",
+    "/images/services/room-addition.png",
+    "/images/services/adu.png",
+    "/images/areas/boise.png",
+    "/images/areas/eagle.png",
   ];
 
   for (const fb of categoryFallbacks) {

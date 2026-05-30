@@ -72,3 +72,273 @@ id = "V87Lf-Cs6z3AL0V3gKfan"
 uri = "file://public/images/gallery/gallery-outdoor-after.png"
 type = "image"
 title = "outdoor after"
+
+[[generated]]
+id = "FVvxoW0mzWc0t8cmUFdMU"
+uri = "file://public/images/areas/star.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "wWEIFoCEIccYbuHFDekv_"
+uri = "file://public/images/areas/middleton.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "TVT9msMweqnwKwOWocTMl"
+uri = "file://public/images/areas/caldwell.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "j2cCUPM6YJLzUiGvwSUdo"
+uri = "file://public/images/services/kitchen-remodel.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "aUZsoM16lj-j9sod4Ed3w"
+uri = "file://public/images/services/bathroom-remodel.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "yL_pW_AE0339U6oCO7vJO"
+uri = "file://public/images/services/whole-home-remodel.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "zQO9vtChg0mFlAHY2qX_t"
+uri = "file://public/images/services/room-addition.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "Y15wMdu_wKPZFb4OwtPfa"
+uri = "file://public/images/services/adu.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "Ae43TXi6b3IAmfZh2C5W0"
+uri = "file://public/images/areas/boise.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "S0PJhdV8BYa0AqM2rJFwV"
+uri = "file://public/images/areas/meridian.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "qE9n_MEiXSUUCG4L5jFru"
+uri = "file://public/images/areas/eagle.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "NwnyTyyTlHcWcrjvBxPrR"
+uri = "file://public/images/areas/nampa.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "5glA0D0NelS9gODPRh3wt"
+uri = "file://public/images/areas/kuna.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "Yd3NZSVy-E1IwjUqt4CsQ"
+uri = "file://public/images/city-service/bathroom-remodel__eagle.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "Xamz45rmYd4Q5fX_DFu58"
+uri = "file://public/images/city-service/bathroom-remodel__nampa.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "qkrWiTuJtm1C-er5eJBs_"
+uri = "file://public/images/city-service/kitchen-remodel__boise.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "sze3d_oQeuK0ppCj45Cu1"
+uri = "file://public/images/city-service/kitchen-remodel__meridian.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "xqM7IestFtxfBlaEKmh7A"
+uri = "file://public/images/city-service/kitchen-remodel__eagle.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "u5vLv8fGjTvKm396UAGQv"
+uri = "file://public/images/city-service/whole-home-remodel__kuna.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "TSargRBic4I7prfxjs_29"
+uri = "file://public/images/city-service/kitchen-remodel__nampa.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "5B3KRdS-h8EwhKvBAzFQf"
+uri = "file://public/images/city-service/whole-home-remodel__star.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "oxn2JYjNdWG0SdTnUf26q"
+uri = "file://public/images/city-service/bathroom-remodel__caldwell.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "HetF2jIXBQo-0VJA8uj0K"
+uri = "file://public/images/city-service/whole-home-remodel__middleton.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "iabrK725ddjfS5bDyX656"
+uri = "file://public/images/city-service/whole-home-remodel__boise.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "Ncdbjf9FwqdM_fnesxx1L"
+uri = "file://public/images/city-service/whole-home-remodel__caldwell.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "WCSvYEgpj8CFLXW_A2GO2"
+uri = "file://public/images/city-service/kitchen-remodel__middleton.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "joXWvVBes1ikJnxbYPTkc"
+uri = "file://public/images/city-service/room-addition__boise.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "YEMhONbwFQdPg6Tvm1HiG"
+uri = "file://public/images/city-service/whole-home-remodel__eagle.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "fxZ7Ih0nQ3uU3jD9D8Cxe"
+uri = "file://public/images/city-service/room-addition__meridian.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "p-AmZ7fPHVFJHpFQRXf4a"
+uri = "file://public/images/city-service/whole-home-remodel__nampa.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "DEoqfWF2j836_mNhEbsGG"
+uri = "file://public/images/city-service/room-addition__eagle.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "nMCoBbKBDfzCVHsM2Fc1Q"
+uri = "file://public/images/city-service/bathroom-remodel__meridian.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "je28J9-tvpxBYySCzXwJx"
+uri = "file://public/images/city-service/room-addition__nampa.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "ES414YzoN0pHIZ8luyrzQ"
+uri = "file://public/images/city-service/room-addition__kuna.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "2TN6UBjylXA0Z7-acWypP"
+uri = "file://public/images/city-service/room-addition__star.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "55xTfoXKRKz5GVjKL3Lz9"
+uri = "file://public/images/city-service/room-addition__middleton.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "F3FK0Pced5zUaSPfEoENK"
+uri = "file://public/images/city-service/room-addition__caldwell.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "y-JqT8ChGysipml6J6E-4"
+uri = "file://public/images/city-service/adu__boise.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "0mu2-RvGnlncZfY5Maxsf"
+uri = "file://public/images/city-service/adu__meridian.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "EQmcm_cLLTeosvlGTKlfS"
+uri = "file://public/images/city-service/adu__eagle.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "3VUEqQad8tsHTfnbvYOtP"
+uri = "file://public/images/city-service/adu__nampa.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "EXJdLGljP2JjobQLpxvR2"
+uri = "file://public/images/city-service/adu__kuna.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "4Qenph63yzxzi7IX7pNsB"
+uri = "file://public/images/city-service/adu__star.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "6RjpYNzsYGqiQe86hyPQh"
+uri = "file://public/images/city-service/adu__middleton.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "z5bSbsoCLzFeXdzg9JwYY"
+uri = "file://public/images/city-service/adu__caldwell.png"
+type = "image"
+title = "generated_image"

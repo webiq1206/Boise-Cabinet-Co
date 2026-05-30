@@ -7,11 +7,11 @@ export interface ServiceBackgroundConfig {
 const DEFAULT_BACKGROUND = SITE_IMAGES.hero;
 
 export const SERVICE_BACKGROUNDS: ServiceBackgroundConfig = {
-  "kitchen-remodel": GALLERY_IMAGES.kitchen.after,
-  "bathroom-remodel": GALLERY_IMAGES.bathroom.after,
-  "whole-home-remodel": GALLERY_IMAGES.wholeHome.after,
-  "room-addition": GALLERY_IMAGES.addition.after,
-  "adu": GALLERY_IMAGES.addition.after,
+  "kitchen-remodel": "/images/services/kitchen-remodel.png",
+  "bathroom-remodel": "/images/services/bathroom-remodel.png",
+  "whole-home-remodel": "/images/services/whole-home-remodel.png",
+  "room-addition": "/images/services/room-addition.png",
+  "adu": "/images/services/adu.png",
   "basement-finish": GALLERY_IMAGES.basement.after,
   "outdoor-living": GALLERY_IMAGES.outdoor.after,
 };
