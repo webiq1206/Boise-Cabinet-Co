@@ -12,8 +12,7 @@ import { areaPath, CITY_SLUGS, getCityBySlug } from '@/lib/seo-routes';
 import { getCountyLabel } from '@/shared/contentData';
 import { AREA_PAGE_FAQS, getAreaIntro } from '@/shared/seoContent';
 import { generateSpeakableSchema } from '@/lib/schema';
-import { SITE_IMAGES } from '@/shared/siteImages';
-import { CITY_HERO_IMAGES } from '@/shared/cityServiceImages';
+import { getAreaImageSet } from '@/shared/cityServiceImages';
 
 export function generateStaticParams() {
   return CITY_SLUGS.map((city) => ({ city }));
@@ -42,6 +41,7 @@ export default function AreaPage({ params }: { params: { city: string } }) {
   const county = getCountyLabel(city.county);
   const path = areaPath(city.slug);
   const overview = getAreaIntro(city);
+  const images = getAreaImageSet(city.slug);
   const localNote = seo
     ? `We serve ${city.name} homeowners across ${seo.neighborhoods.slice(0, 3).join(', ')}, and all of ${county}. Permits are coordinated through ${county} for projects requiring approval.`
     : `We serve ${city.name} and all of ${county} with design-build remodeling.`;
@@ -73,7 +73,9 @@ export default function AreaPage({ params }: { params: { city: string } }) {
         h1={h1}
         speakableSummary={overview}
         overview={overview}
-        heroImageUrl={CITY_HERO_IMAGES[city.slug] ?? SITE_IMAGES.hero}
+        heroImageUrl={images.hero}
+        breatherImageUrl={images.breather}
+        processImageUrl={images.process}
         manifestPath={path}
         breadcrumbs={[
           { name: 'Home', href: '/' },

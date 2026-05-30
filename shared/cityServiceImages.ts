@@ -10,6 +10,12 @@
  * Key format for CITY_SERVICE_IMAGES: "service-slug/city-slug"
  */
 
+import { GALLERY_IMAGES, SITE_IMAGES } from "./siteImages";
+import {
+  getServiceBackground,
+  type LandingImageSet,
+} from "./serviceBackgrounds";
+
 const SERVICE_SLUGS = [
   "kitchen-remodel",
   "bathroom-remodel",
@@ -79,6 +85,53 @@ export function getCityServiceBackground(
     CITY_SERVICE_IMAGES[`${serviceSlug}/${citySlug}`] ??
     SERVICE_FALLBACK_IMAGES[serviceSlug]
   );
+}
+
+/**
+ * Per-service "finished room" gallery photos, used for the breather band on
+ * city-service pages so it differs from the city-specific hero render.
+ */
+const SERVICE_GALLERY_AFTER: Record<string, string> = {
+  "kitchen-remodel": GALLERY_IMAGES.kitchen.after,
+  "bathroom-remodel": GALLERY_IMAGES.bathroom.after,
+  "whole-home-remodel": GALLERY_IMAGES.wholeHome.after,
+  "room-addition": GALLERY_IMAGES.addition.after,
+  adu: GALLERY_IMAGES.basement.after,
+};
+
+/**
+ * Three distinct images for a service-in-city page: the unique city-service
+ * render as the hero, a finished-room gallery photo for the breather band, and
+ * the generic service photo for the process panel. Each slot falls back to the
+ * hero image when a dedicated photo is unavailable.
+ */
+export function getCityServiceImageSet(
+  serviceSlug: string,
+  citySlug: string,
+): LandingImageSet {
+  const hero =
+    CITY_SERVICE_IMAGES[`${serviceSlug}/${citySlug}`] ??
+    SERVICE_FALLBACK_IMAGES[serviceSlug] ??
+    getServiceBackground(serviceSlug);
+  return {
+    hero,
+    breather: SERVICE_GALLERY_AFTER[serviceSlug] ?? hero,
+    process: SERVICE_FALLBACK_IMAGES[serviceSlug] ?? hero,
+  };
+}
+
+/**
+ * Three distinct images for an area (city) page: the neighborhood hero, plus
+ * two different service renders set in that same city for the breather band and
+ * process panel. Each slot falls back to the hero image when unavailable.
+ */
+export function getAreaImageSet(citySlug: string): LandingImageSet {
+  const hero = CITY_HERO_IMAGES[citySlug] ?? SITE_IMAGES.hero;
+  return {
+    hero,
+    breather: CITY_SERVICE_IMAGES[`kitchen-remodel/${citySlug}`] ?? hero,
+    process: CITY_SERVICE_IMAGES[`whole-home-remodel/${citySlug}`] ?? hero,
+  };
 }
 
 /**

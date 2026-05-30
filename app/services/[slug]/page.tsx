@@ -11,7 +11,7 @@ import {
 import { SERVICE_SLUGS, getServiceBySlug, servicePath } from '@/lib/seo-routes';
 import { SERVICE_SEO_CONTENT } from '@/shared/seoContent';
 import { generateSpeakableSchema } from '@/lib/schema';
-import { getServiceBackground } from '@/shared/serviceBackgrounds';
+import { getServiceImageSet } from '@/shared/serviceBackgrounds';
 
 export function generateStaticParams() {
   return SERVICE_SLUGS.map((slug) => ({ slug }));
@@ -39,6 +39,7 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
 
   const path = servicePath(service.slug);
   const faqs = content.faqs;
+  const images = getServiceImageSet(service.slug);
 
   const schemas = [
     landingBreadcrumbs([
@@ -58,7 +59,9 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
         h1={content.headline}
         speakableSummary={content.overview}
         overview={content.overview}
-        heroImageUrl={getServiceBackground(service.slug)}
+        heroImageUrl={images.hero}
+        breatherImageUrl={images.breather}
+        processImageUrl={images.process}
         manifestPath={path}
         breadcrumbs={[
           { name: 'Home', href: '/' },

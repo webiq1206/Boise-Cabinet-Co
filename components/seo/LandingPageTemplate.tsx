@@ -30,6 +30,8 @@ interface LandingPageTemplateProps {
   overview: string;
   breadcrumbs: BreadcrumbItem[];
   heroImageUrl?: string;
+  breatherImageUrl?: string;
+  processImageUrl?: string;
   manifestPath?: string;
   benefits?: string[];
   inclusions?: string[];
@@ -103,6 +105,8 @@ export function LandingPageTemplate({
   overview,
   breadcrumbs,
   heroImageUrl,
+  breatherImageUrl,
+  processImageUrl,
   manifestPath,
   benefits,
   inclusions,
@@ -113,6 +117,8 @@ export function LandingPageTemplate({
   related,
 }: LandingPageTemplateProps) {
   const eyebrow = breadcrumbs[breadcrumbs.length - 2]?.name;
+  const breatherImage = breatherImageUrl ?? heroImageUrl;
+  const processImage = processImageUrl ?? heroImageUrl;
 
   return (
     <div className="flex flex-col pb-20 md:pb-0">
@@ -202,10 +208,10 @@ export function LandingPageTemplate({
       )}
 
       {/* ─── Full-bleed image breather ─── */}
-      {heroImageUrl && (
+      {breatherImage && (
         <section className="relative h-44 md:h-64 overflow-hidden" aria-hidden>
           <Image
-            src={heroImageUrl}
+            src={breatherImage}
             alt=""
             fill
             sizes="100vw"
@@ -253,9 +259,9 @@ export function LandingPageTemplate({
         <Section variant="greige" divider spacing="none" className="p-0">
           <div className="grid md:grid-cols-2 overflow-hidden">
             <div className="relative min-h-[260px] md:min-h-[520px] overflow-hidden bg-inverse">
-              {heroImageUrl && (
+              {processImage && (
                 <Image
-                  src={heroImageUrl}
+                  src={processImage}
                   alt=""
                   fill
                   className="object-cover img-brand-grade"

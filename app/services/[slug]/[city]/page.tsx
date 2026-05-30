@@ -21,8 +21,7 @@ import {
   SERVICE_SEO_CONTENT,
 } from '@/shared/seoContent';
 import { generateSpeakableSchema } from '@/lib/schema';
-import { getServiceBackground } from '@/shared/serviceBackgrounds';
-import { getCityServiceBackground } from '@/shared/cityServiceImages';
+import { getCityServiceImageSet } from '@/shared/cityServiceImages';
 
 export function generateStaticParams() {
   return getAllCityServiceParams();
@@ -68,6 +67,7 @@ export default function CityServicePage({
   const h1 = `${service.name} in ${city.name}, Idaho`;
   const faqs = getCityServiceFaqs(content, city);
   const localNote = `Permitting for ${content.name.toLowerCase()} projects in ${city.name} runs through ${county}. We build permit timelines into your schedule from day one.`;
+  const images = getCityServiceImageSet(service.slug, city.slug);
 
   const schemas = [
     landingBreadcrumbs([
@@ -88,10 +88,9 @@ export default function CityServicePage({
         h1={h1}
         speakableSummary={overview}
         overview={overview}
-        heroImageUrl={
-          getCityServiceBackground(service.slug, city.slug) ??
-          getServiceBackground(service.slug)
-        }
+        heroImageUrl={images.hero}
+        breatherImageUrl={images.breather}
+        processImageUrl={images.process}
         manifestPath={path}
         breadcrumbs={[
           { name: 'Home', href: '/' },
