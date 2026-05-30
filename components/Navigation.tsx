@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
@@ -9,6 +9,12 @@ import { cn } from "@/lib/utils";
 import { CTA_PRIMARY, CTA_PRIMARY_SHORT } from "@/shared/ctaCopy";
 import { SITE_CONFIG } from "@/shared/siteConfig";
 import { useModals } from "@/components/modals/ModalProvider";
+import { useAdaptiveGlassTheme } from "@/hooks/useAdaptiveGlassTheme";
+import {
+  ADAPTIVE_GLASS_ATTR,
+  ADAPTIVE_GLASS_BAR_BASE,
+  getAdaptiveGlassClasses,
+} from "@/components/marketing/adaptiveGlassTheme";
 
 const NAV_LINKS = [
   { label: "Services", href: "/#services" },
@@ -51,6 +57,9 @@ export function Navigation() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const { openConsult } = useModals();
+  const bottomBarRef = useRef<HTMLDivElement>(null);
+  const bottomBarTheme = useAdaptiveGlassTheme(bottomBarRef);
+  const bottomBarClasses = getAdaptiveGlassClasses(bottomBarTheme);
 
   const isPortal =
     pathname?.startsWith("/admin") ||
@@ -227,11 +236,22 @@ export function Navigation() {
       </div>
 
       {/* Sticky bottom bar */}
-      <div className="fixed bottom-0 left-0 right-0 z-[100] md:hidden pb-safe bg-background/97 backdrop-blur border-t border-border">
-        <div className="grid grid-cols-2 divide-x divide-border">
+      <div
+        ref={bottomBarRef}
+        {...{ [ADAPTIVE_GLASS_ATTR]: "" }}
+        className={cn(
+          ADAPTIVE_GLASS_BAR_BASE,
+          "bottom-0 z-[100] md:hidden",
+          bottomBarClasses.bar
+        )}
+      >
+        <div className={cn("grid grid-cols-2 divide-x", bottomBarClasses.divide)}>
           <a
             href={SITE_CONFIG.phoneHref}
-            className="flex items-center justify-center gap-2 py-4 text-sm font-medium text-foreground"
+            className={cn(
+              "flex items-center justify-center gap-2 py-4 text-sm font-medium",
+              bottomBarClasses.text
+            )}
             data-testid="button-call-mobile"
           >
             Call
@@ -239,7 +259,10 @@ export function Navigation() {
           {isHome ? (
             <a
               href="/#consult"
-              className="flex items-center justify-center gap-2 py-4 text-sm font-medium text-foreground"
+              className={cn(
+                "flex items-center justify-center gap-2 py-4 text-sm font-medium",
+                bottomBarClasses.text
+              )}
               data-testid="button-begin-conversation-mobile"
             >
               {CTA_PRIMARY_SHORT}
@@ -247,7 +270,10 @@ export function Navigation() {
           ) : (
             <button
               onClick={openConsult}
-              className="flex items-center justify-center gap-2 py-4 text-sm font-medium text-foreground"
+              className={cn(
+                "flex items-center justify-center gap-2 py-4 text-sm font-medium",
+                bottomBarClasses.text
+              )}
               data-testid="button-begin-conversation-mobile"
             >
               {CTA_PRIMARY_SHORT}

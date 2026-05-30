@@ -40,4 +40,26 @@ test.describe("Project Estimator", () => {
     await openCalculator(page);
     await expect(page.locator('[data-testid="button-book-visit"]:visible')).toBeVisible();
   });
+
+  test("sticky glass bars use light text over dark estimate panel on mobile", async ({ page }) => {
+    await page.setViewportSize({ width: 375, height: 812 });
+    await page.goto("/#calculator");
+    await page.locator("#calculator").scrollIntoViewIfNeeded();
+    await expect(page.getByTestId("mobile-estimate-bar")).toBeVisible();
+
+    const resultPanel = page.locator('[data-testid="estimate-result-panel"]:visible');
+    await expect(resultPanel).toBeVisible();
+
+    await resultPanel.evaluate((panel) => {
+      const rect = panel.getBoundingClientRect();
+      const targetBottom = window.innerHeight - 30;
+      window.scrollBy(0, rect.bottom - targetBottom);
+    });
+
+    await expect(page.getByTestId("mobile-estimate-bar")).toBeVisible();
+    await expect(page.getByTestId("mobile-estimate-range")).toHaveClass(/text-inverse-foreground/, {
+      timeout: 15_000,
+    });
+    await expect(page.getByTestId("button-call-mobile")).toHaveClass(/text-inverse-foreground/);
+  });
 });

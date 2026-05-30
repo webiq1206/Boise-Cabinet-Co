@@ -4,6 +4,12 @@ import { useState, useEffect, useMemo, useRef } from "react";
 import { Check, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { DisplayNum, Section } from "@/components/marketing";
+import {
+  ADAPTIVE_GLASS_ATTR,
+  ADAPTIVE_GLASS_BAR_BASE,
+  getAdaptiveGlassClasses,
+} from "@/components/marketing/adaptiveGlassTheme";
+import { useAdaptiveGlassTheme } from "@/hooks/useAdaptiveGlassTheme";
 import { EstimateResultPanel } from "@/components/estimate/EstimateResultPanel";
 import {
   type ProjectType,
@@ -251,7 +257,12 @@ export function EstimateCalculator({ inModal = false, onBookVisit: onBookVisitPr
 
   const refineProgress = `${userRefinementCount} of ${getMaxRefinementFields(project)} details added`;
   const sectionRef = useRef<HTMLDivElement>(null);
+  const mobileEstimateBarRef = useRef<HTMLDivElement>(null);
   const [calculatorInView, setCalculatorInView] = useState(false);
+  const mobileEstimateBarTheme = useAdaptiveGlassTheme(mobileEstimateBarRef, {
+    enabled: calculatorInView && !inModal,
+  });
+  const mobileEstimateBarClasses = getAdaptiveGlassClasses(mobileEstimateBarTheme);
 
   useEffect(() => {
     if (inModal) return;
@@ -551,16 +562,30 @@ export function EstimateCalculator({ inModal = false, onBookVisit: onBookVisitPr
 
       {calculatorInView && (
         <div
-          className="lg:hidden fixed left-0 right-0 z-[90] border-t border-border bg-background/97 backdrop-blur-md px-4 py-3 pb-safe"
+          ref={mobileEstimateBarRef}
+          {...{ [ADAPTIVE_GLASS_ATTR]: "" }}
+          className={cn(
+            ADAPTIVE_GLASS_BAR_BASE,
+            "lg:hidden z-[90] px-4 py-3",
+            mobileEstimateBarClasses.bar
+          )}
           style={{ bottom: "56px" }}
           data-testid="mobile-estimate-bar"
         >
           <div className="flex items-center justify-between gap-3 max-w-6xl mx-auto">
             <div className="min-w-0">
-              <p className="text-[10px] uppercase tracking-wide text-muted-foreground truncate">
+              <p
+                className={cn(
+                  "text-[10px] uppercase tracking-wide truncate",
+                  mobileEstimateBarClasses.textMuted
+                )}
+              >
                 {selectionSummary}
               </p>
-              <p className="text-lg text-foreground" data-testid="mobile-estimate-range">
+              <p
+                className={cn("text-lg", mobileEstimateBarClasses.text)}
+                data-testid="mobile-estimate-range"
+              >
                 <DisplayNum>
                   {formatPlanningCurrency(result.priceLow)} to {formatPlanningCurrency(result.priceHigh)}
                 </DisplayNum>
