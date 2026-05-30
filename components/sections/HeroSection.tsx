@@ -79,28 +79,19 @@ export function HeroSection() {
         </div>
       </section>
 
-      <div className="bg-background border-t border-border/60 py-10 md:py-14">
+      <div className="bg-background border-t border-border/60 py-8 md:py-10">
         <div className="container px-4">
-          <div className="flex flex-col items-center text-center max-w-5xl mx-auto">
-            <h2 className="font-serif text-xl md:text-2xl text-foreground">
-              What you can count on
-            </h2>
-            <span className="mt-4 h-px w-10 bg-primary/50" aria-hidden="true" />
-            <div className="mt-7 md:mt-8 flex flex-wrap items-center justify-center gap-y-4">
-              {TRUST_ITEMS.map((item, i) => (
-                <div key={item} className="flex items-center">
-                  {i > 0 && (
-                    <span
-                      aria-hidden="true"
-                      className="hidden md:inline-block h-3.5 w-px bg-border mx-8 lg:mx-12"
-                    />
-                  )}
-                  <span className="px-5 md:px-0 text-[11px] leading-snug tracking-[0.2em] uppercase text-muted-foreground">
-                    {item}
-                  </span>
-                </div>
-              ))}
-            </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 max-w-5xl mx-auto divide-x divide-y md:divide-y-0 divide-border/70">
+            {TRUST_ITEMS.map((item) => (
+              <div
+                key={item}
+                className="flex items-center justify-center px-4 py-5 md:py-3 text-center"
+              >
+                <span className="text-[11px] leading-snug tracking-[0.2em] uppercase text-muted-foreground">
+                  {item}
+                </span>
+              </div>
+            ))}
           </div>
         </div>
       </div>
