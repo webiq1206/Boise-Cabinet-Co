@@ -81,11 +81,11 @@ export function HeroSection() {
 
       <div className="bg-background border-t border-border/60 py-8 md:py-10">
         <div className="container px-4">
-          <div className="grid grid-cols-2 md:grid-cols-4 max-w-5xl mx-auto divide-x divide-y md:divide-y-0 divide-border/70">
+          <div className="grid grid-cols-2 md:grid-cols-4 max-w-5xl mx-auto border-l border-t border-border/70">
             {TRUST_ITEMS.map((item) => (
               <div
                 key={item}
-                className="flex items-center justify-center px-4 py-5 md:py-3 text-center"
+                className="flex items-center justify-center px-4 py-5 md:py-3 text-center border-r border-b border-border/70"
               >
                 <span className="text-[11px] leading-snug tracking-[0.2em] uppercase text-muted-foreground">
                   {item}
