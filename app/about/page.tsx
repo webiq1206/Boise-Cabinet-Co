@@ -73,7 +73,7 @@ export default function AboutPage() {
             <p className="text-foreground leading-relaxed mb-8 prose-measure" data-speakable="summary">
               Our focus is clarity: written scope before construction, proactive weekly updates,
               permits handled in-house for Ada and Canyon County, and a written workmanship
-              guarantee on our labor.
+              guarantee on our labor. Every detail, every decision — handled with intention.
             </p>
             <ConsultCTA variant="brand">
               {CTA_PRIMARY} <ArrowRight className="h-4 w-4" />
