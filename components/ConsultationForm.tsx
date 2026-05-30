@@ -44,7 +44,11 @@ function formatCurrency(n: number) {
 
 type EstimateDecision = "pending" | "confirmed" | "deciding" | "dropped";
 
-export function ConsultationForm() {
+interface ConsultationFormProps {
+  onRevise?: () => void;
+}
+
+export function ConsultationForm({ onRevise }: ConsultationFormProps = {}) {
   const [estimate, setEstimate] = useState<StoredEstimate | null>(null);
   const [decision, setDecision] = useState<EstimateDecision>("pending");
   const [success, setSuccess] = useState(false);
@@ -86,7 +90,11 @@ export function ConsultationForm() {
 
   function handleRevise() {
     setDecision("deciding");
-    document.getElementById("calculator")?.scrollIntoView({ behavior: "smooth" });
+    if (onRevise) {
+      onRevise();
+    } else {
+      document.getElementById("calculator")?.scrollIntoView({ behavior: "smooth" });
+    }
   }
 
   const mutation = useMutation({

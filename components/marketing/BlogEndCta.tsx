@@ -1,9 +1,8 @@
-import Link from "next/link";
 import { ArrowRight, Phone } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { MarketingCard } from "./MarketingCard";
 import { CTA_PRIMARY } from "@/shared/ctaCopy";
 import { SITE_CONFIG } from "@/shared/siteConfig";
+import { ConsultCTA } from "@/components/modals/ConsultCTA";
 
 export function BlogEndCta() {
   return (
@@ -16,18 +15,18 @@ export function BlogEndCta() {
         planning range on the spot with no obligation.
       </p>
       <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-        <Button variant="brand" size="lg" asChild>
-          <Link href="/#consult" data-testid="link-bottom-cta-consult">
-            {CTA_PRIMARY}
-            <ArrowRight className="ml-2 h-5 w-5" />
-          </Link>
-        </Button>
-        <Button variant="brandOutline" size="lg" asChild>
-          <a href={SITE_CONFIG.phoneHref} data-testid="link-bottom-cta-call">
-            <Phone className="mr-2 h-4 w-4" />
-            {SITE_CONFIG.phone}
-          </a>
-        </Button>
+        <ConsultCTA variant="brand" size="lg" data-testid="link-bottom-cta-consult">
+          {CTA_PRIMARY}
+          <ArrowRight className="ml-2 h-5 w-5" />
+        </ConsultCTA>
+        <a
+          href={SITE_CONFIG.phoneHref}
+          data-testid="link-bottom-cta-call"
+          className="inline-flex items-center justify-center gap-2 rounded-sm border border-primary bg-transparent px-4 py-2 text-sm font-medium text-foreground transition-colors hover-elevate"
+        >
+          <Phone className="h-4 w-4" />
+          {SITE_CONFIG.phone}
+        </a>
       </div>
     </MarketingCard>
   );

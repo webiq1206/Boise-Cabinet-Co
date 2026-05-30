@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, Calendar, Phone, Tag, User, Wrench } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { MarketingCard } from "./MarketingCard";
 import { Chip } from "./Chip";
 import { BlogEndCta } from "./BlogEndCta";
@@ -11,6 +10,7 @@ import { CTA_PRIMARY } from "@/shared/ctaCopy";
 import { SITE_CONFIG } from "@/shared/siteConfig";
 import type { BlogPostData } from "@/shared/blogContent";
 import { getBlogHeroImage } from "@/shared/blogImages";
+import { ConsultCTA } from "@/components/modals/ConsultCTA";
 
 interface BlogPostLayoutProps {
   post: BlogPostData;
@@ -141,12 +141,10 @@ function SidebarCta() {
         <p className="text-sm text-muted-foreground">
           Planning a remodel? Get a free in-home visit and rough estimate from our team.
         </p>
-        <Button variant="brand" size="sm" asChild className="w-full">
-          <Link href="/#consult" data-testid="link-sidebar-cta-consult">
-            {CTA_PRIMARY}
-            <ArrowRight className="ml-2 h-4 w-4" />
-          </Link>
-        </Button>
+        <ConsultCTA variant="brand" size="sm" className="w-full" data-testid="link-sidebar-cta-consult">
+          {CTA_PRIMARY}
+          <ArrowRight className="ml-2 h-4 w-4" />
+        </ConsultCTA>
         <p className="text-xs text-muted-foreground text-center flex items-center justify-center gap-1">
           <Phone className="h-3 w-3" />
           {SITE_CONFIG.phone}

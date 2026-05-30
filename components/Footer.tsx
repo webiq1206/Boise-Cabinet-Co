@@ -2,9 +2,8 @@ import Link from "next/link";
 import { CITIES, SERVICES } from "@/shared/contentData";
 import { SITE_TAGLINE } from "@/shared/siteContent";
 import { areaPath, servicePath } from "@/lib/seo-routes";
-import { CTA_PRIMARY, CTA_SECONDARY } from "@/shared/ctaCopy";
-
 import { SITE_CONFIG } from "@/shared/siteConfig";
+import { FooterCTAs } from "@/components/modals/FooterCTAs";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -109,9 +108,8 @@ export function Footer() {
               Start a Conversation
             </h3>
             <ul className="space-y-2.5">
+              <FooterCTAs />
               {[
-                { label: CTA_PRIMARY, href: "/#consult" },
-                { label: CTA_SECONDARY, href: "/#calculator" },
                 { label: SITE_CONFIG.phone, href: SITE_CONFIG.phoneHref },
                 { label: SITE_CONFIG.email, href: `mailto:${SITE_CONFIG.email}` },
               ].map((link) => (

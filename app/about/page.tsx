@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import { JsonLd } from '@/components/seo/JsonLd';
 import Image from 'next/image';
@@ -6,7 +5,6 @@ import { Section } from '@/components/marketing/Section';
 import { PageHeader } from '@/components/marketing/PageHeader';
 import { SITE_IMAGES } from '@/shared/siteImages';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
-import { Button } from '@/components/ui/button';
 import { MarketingCard } from '@/components/marketing/MarketingCard';
 import { buildPageMetadata } from '@/lib/page-metadata';
 import {
@@ -21,6 +19,7 @@ import {
   PRINCIPLES,
 } from '@/shared/siteContent';
 import { CTA_PRIMARY } from '@/shared/ctaCopy';
+import { ConsultCTA } from '@/components/modals/ConsultCTA';
 
 export const metadata = buildPageMetadata({
   kind: 'about',
@@ -76,11 +75,9 @@ export default function AboutPage() {
               permits handled in-house for Ada and Canyon County, and a written workmanship
               guarantee on our labor.
             </p>
-            <Button variant="brand" asChild>
-              <Link href="/#consult">
-                {CTA_PRIMARY} <ArrowRight className="h-4 w-4" />
-              </Link>
-            </Button>
+            <ConsultCTA variant="brand">
+              {CTA_PRIMARY} <ArrowRight className="h-4 w-4" />
+            </ConsultCTA>
           </div>
         </Section>
 

@@ -1,5 +1,4 @@
 import Image from "next/image";
-import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Section } from "@/components/marketing/Section";
@@ -7,7 +6,6 @@ import { PageHeader } from "@/components/marketing/PageHeader";
 import { TextLink } from "@/components/marketing/TextLink";
 import { GALLERY_IMAGES } from "@/shared/siteImages";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
-import { Button } from "@/components/ui/button";
 import { MarketingCard } from "@/components/marketing/MarketingCard";
 import { buildPageMetadata } from "@/lib/page-metadata";
 import {
@@ -17,6 +15,8 @@ import {
 import { CITIES, TREASURE_VALLEY_CITIES } from "@/shared/contentData";
 import { areaPath } from "@/lib/seo-routes";
 import { CTA_PRIMARY, CTA_SECONDARY } from "@/shared/ctaCopy";
+import { ConsultCTA } from "@/components/modals/ConsultCTA";
+import { EstimateCTA } from "@/components/modals/EstimateCTA";
 
 export const metadata = buildPageMetadata({
   kind: "about",
@@ -61,14 +61,12 @@ export default function AreasHubPage() {
               Treasure Valley design-build remodeling service areas.
             </p>
             <div className="flex flex-wrap gap-3">
-              <Button variant="brand" asChild>
-                <Link href="/#consult">
-                  {CTA_PRIMARY} <ArrowRight className="h-4 w-4" />
-                </Link>
-              </Button>
-              <Button variant="brandOutline" asChild>
-                <Link href="/#calculator">{CTA_SECONDARY}</Link>
-              </Button>
+              <ConsultCTA variant="brand">
+                {CTA_PRIMARY} <ArrowRight className="h-4 w-4" />
+              </ConsultCTA>
+              <EstimateCTA variant="brandOutline">
+                {CTA_SECONDARY}
+              </EstimateCTA>
             </div>
           </div>
         </Section>

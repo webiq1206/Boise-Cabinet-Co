@@ -1,10 +1,8 @@
-import Link from 'next/link';
 import { Phone, Mail, MapPin } from 'lucide-react';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { Section } from '@/components/marketing/Section';
 import { PageHeader } from '@/components/marketing/PageHeader';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
-import { Button } from '@/components/ui/button';
 import { buildPageMetadata } from '@/lib/page-metadata';
 import {
   generateBreadcrumbSchema,
@@ -14,6 +12,8 @@ import {
 import { BUSINESS_INFO } from '@/lib/seo';
 import { SITE_CONFIG } from '@/shared/siteConfig';
 import { CTA_PRIMARY, CTA_SECONDARY } from '@/shared/ctaCopy';
+import { ConsultCTA } from '@/components/modals/ConsultCTA';
+import { EstimateCTA } from '@/components/modals/EstimateCTA';
 
 export const metadata = buildPageMetadata({
   kind: 'contact',
@@ -83,12 +83,8 @@ export default function ContactPage() {
             </div>
 
             <div className="flex flex-wrap gap-3">
-              <Button variant="brand" asChild>
-                <Link href="/#consult">{CTA_PRIMARY}</Link>
-              </Button>
-              <Button variant="brandOutline" asChild>
-                <Link href="/#calculator">{CTA_SECONDARY}</Link>
-              </Button>
+              <ConsultCTA variant="brand">{CTA_PRIMARY}</ConsultCTA>
+              <EstimateCTA variant="brandOutline">{CTA_SECONDARY}</EstimateCTA>
             </div>
           </div>
         </Section>

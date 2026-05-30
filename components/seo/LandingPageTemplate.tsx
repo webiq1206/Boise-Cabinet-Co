@@ -1,14 +1,14 @@
-import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowRight, Check } from 'lucide-react';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { DisplayNum, formatStepNumber, Section } from '@/components/marketing';
 import { MarketingCard } from '@/components/marketing/MarketingCard';
-import { Button } from '@/components/ui/button';
 import { RelatedLinks } from './RelatedLinks';
 import { RelatedPostCards } from '@/components/marketing/RelatedPostCards';
 import type { FAQItem } from '@/shared/seoContent';
 import { CTA_PRIMARY, CTA_SECONDARY } from '@/shared/ctaCopy';
+import { ConsultCTA } from '@/components/modals/ConsultCTA';
+import { EstimateCTA } from '@/components/modals/EstimateCTA';
 import {
   Accordion,
   AccordionContent,
@@ -86,14 +86,12 @@ export function LandingPageTemplate({
             {overview}
           </p>
           <div className="flex flex-wrap gap-3">
-            <Button variant="brand" asChild>
-              <Link href="/#consult">
-                {CTA_PRIMARY} <ArrowRight className="h-4 w-4" />
-              </Link>
-            </Button>
-            <Button variant="brandOutline" asChild>
-              <Link href="/#calculator">{CTA_SECONDARY}</Link>
-            </Button>
+            <ConsultCTA variant="brand">
+              {CTA_PRIMARY} <ArrowRight className="h-4 w-4" />
+            </ConsultCTA>
+            <EstimateCTA variant="brandOutline">
+              {CTA_SECONDARY}
+            </EstimateCTA>
           </div>
         </div>
       </Section>
@@ -216,9 +214,9 @@ export function LandingPageTemplate({
             <p className="text-muted-foreground text-base mb-6">
               Free 60 to 90 minute in-home visit. Planning guidance, design direction, no obligation.
             </p>
-            <Button variant="brand" asChild>
-              <Link href="/#consult">{CTA_PRIMARY}</Link>
-            </Button>
+            <ConsultCTA variant="brand">
+              {CTA_PRIMARY}
+            </ConsultCTA>
           </div>
         </div>
       </Section>

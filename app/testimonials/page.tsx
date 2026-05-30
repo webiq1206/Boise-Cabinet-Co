@@ -1,13 +1,13 @@
-import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { Section } from '@/components/marketing/Section';
 import { PageHeader } from '@/components/marketing/PageHeader';
-import { Button } from '@/components/ui/button';
 import { ProjectGallerySection } from '@/components/sections/ProjectGallerySection';
 import { TestimonialsSection } from '@/components/sections/TestimonialsSection';
 import { buildPageMetadata } from '@/lib/page-metadata';
 import { CTA_PRIMARY, CTA_SECONDARY } from '@/shared/ctaCopy';
+import { ConsultCTA } from '@/components/modals/ConsultCTA';
+import { EstimateCTA } from '@/components/modals/EstimateCTA';
 
 export const metadata = buildPageMetadata({
   kind: 'about',
@@ -41,14 +41,12 @@ export default function TestimonialsPage() {
           />
           <div className="mb-8" />
           <div className="flex flex-wrap gap-3">
-            <Button variant="brand" asChild>
-              <Link href="/#consult">
-                {CTA_PRIMARY} <ArrowRight className="h-4 w-4" />
-              </Link>
-            </Button>
-            <Button variant="brandOutline" asChild>
-              <Link href="/#calculator">{CTA_SECONDARY}</Link>
-            </Button>
+            <ConsultCTA variant="brand">
+              {CTA_PRIMARY} <ArrowRight className="h-4 w-4" />
+            </ConsultCTA>
+            <EstimateCTA variant="brandOutline">
+              {CTA_SECONDARY}
+            </EstimateCTA>
           </div>
         </div>
       </Section>
@@ -66,9 +64,7 @@ export default function TestimonialsPage() {
               Schedule a free in-home visit for planning guidance, design direction, and an honest
               project range.
             </p>
-            <Button variant="brand" asChild>
-              <Link href="/#consult">{CTA_PRIMARY}</Link>
-            </Button>
+            <ConsultCTA variant="brand">{CTA_PRIMARY}</ConsultCTA>
           </div>
         </div>
       </Section>

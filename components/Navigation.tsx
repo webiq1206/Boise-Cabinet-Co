@@ -9,6 +9,7 @@ import { Menu, Phone, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { CTA_PRIMARY, CTA_PRIMARY_SHORT } from "@/shared/ctaCopy";
 import { SITE_CONFIG } from "@/shared/siteConfig";
+import { useModals } from "@/components/modals/ModalProvider";
 
 const NAV_LINKS = [
   { label: "Services", href: "/#services" },
@@ -50,6 +51,7 @@ export function Navigation() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const { openConsult } = useModals();
 
   const isPortal =
     pathname?.startsWith("/admin") ||
@@ -120,9 +122,15 @@ export function Navigation() {
               </span>
               {SITE_CONFIG.phone}
             </a>
-            <Button variant="brand" size="sm" asChild>
-              <a href="/#consult">{CTA_PRIMARY_SHORT}</a>
-            </Button>
+            {isHome ? (
+              <Button variant="brand" size="sm" asChild>
+                <a href="/#consult">{CTA_PRIMARY_SHORT}</a>
+              </Button>
+            ) : (
+              <Button variant="brand" size="sm" onClick={openConsult}>
+                {CTA_PRIMARY_SHORT}
+              </Button>
+            )}
           </div>
 
           <div className="flex md:hidden items-center gap-2">
@@ -166,11 +174,21 @@ export function Navigation() {
                       </span>
                       {SITE_CONFIG.phone}
                     </a>
-                    <Button variant="brand" className="w-full" asChild>
-                      <a href="/#consult" onClick={() => setMobileOpen(false)}>
+                    {isHome ? (
+                      <Button variant="brand" className="w-full" asChild>
+                        <a href="/#consult" onClick={() => setMobileOpen(false)}>
+                          {CTA_PRIMARY}
+                        </a>
+                      </Button>
+                    ) : (
+                      <Button
+                        variant="brand"
+                        className="w-full"
+                        onClick={() => { openConsult(); setMobileOpen(false); }}
+                      >
                         {CTA_PRIMARY}
-                      </a>
-                    </Button>
+                      </Button>
+                    )}
                   </div>
                 </nav>
               </SheetContent>
@@ -189,13 +207,23 @@ export function Navigation() {
             <Phone className="h-4 w-4" />
             Call
           </a>
-          <a
-            href="/#consult"
-            className="flex items-center justify-center gap-2 py-4 text-sm font-medium text-foreground"
-            data-testid="button-begin-conversation-mobile"
-          >
-            {CTA_PRIMARY_SHORT}
-          </a>
+          {isHome ? (
+            <a
+              href="/#consult"
+              className="flex items-center justify-center gap-2 py-4 text-sm font-medium text-foreground"
+              data-testid="button-begin-conversation-mobile"
+            >
+              {CTA_PRIMARY_SHORT}
+            </a>
+          ) : (
+            <button
+              onClick={openConsult}
+              className="flex items-center justify-center gap-2 py-4 text-sm font-medium text-foreground"
+              data-testid="button-begin-conversation-mobile"
+            >
+              {CTA_PRIMARY_SHORT}
+            </button>
+          )}
         </div>
       </div>
     </>
