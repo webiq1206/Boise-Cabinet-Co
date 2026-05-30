@@ -13,6 +13,7 @@ import { getCountyLabel } from '@/shared/contentData';
 import { AREA_PAGE_FAQS, getAreaIntro } from '@/shared/seoContent';
 import { generateSpeakableSchema } from '@/lib/schema';
 import { SITE_IMAGES } from '@/shared/siteImages';
+import { CITY_HERO_IMAGES } from '@/shared/cityServiceImages';
 
 export function generateStaticParams() {
   return CITY_SLUGS.map((city) => ({ city }));
@@ -72,7 +73,7 @@ export default function AreaPage({ params }: { params: { city: string } }) {
         h1={h1}
         speakableSummary={overview}
         overview={overview}
-        heroImageUrl={SITE_IMAGES.hero}
+        heroImageUrl={CITY_HERO_IMAGES[city.slug] ?? SITE_IMAGES.hero}
         manifestPath={path}
         breadcrumbs={[
           { name: 'Home', href: '/' },
