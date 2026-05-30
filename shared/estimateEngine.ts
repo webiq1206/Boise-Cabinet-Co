@@ -3,8 +3,6 @@ export type FinishLevel = "refresh" | "mid-range" | "high-end" | "luxury";
 export type LayoutChanges = "none" | "moderate" | "major";
 export type PlumbingElectrical = "cosmetic" | "partial" | "full";
 export type CabinetTier = "standard" | "semi-custom" | "custom";
-export type CityZone = "boise-core" | "treasure-valley" | "extended";
-export type Timeline = "flexible" | "standard" | "accelerated";
 export type ConfidenceLevel = "starting" | "refined" | "detailed";
 
 export type UserRefinementKey =
@@ -13,9 +11,7 @@ export type UserRefinementKey =
   | "cabinetTier"
   | "fixtureCount"
   | "roomCount"
-  | "stories"
-  | "cityZone"
-  | "timeline";
+  | "stories";
 
 export interface PriceData {
   low: number;
@@ -39,8 +35,6 @@ export interface EstimateRefinements {
   fixtureCount: number | null;
   stories: number | null;
   roomCount: number | null;
-  cityZone: CityZone | null;
-  timeline: Timeline | null;
 }
 
 export interface EstimateInput {
@@ -83,8 +77,6 @@ export const DEFAULT_ESTIMATE_INPUT: EstimateInput = {
     fixtureCount: null,
     stories: null,
     roomCount: null,
-    cityZone: null,
-    timeline: null,
   },
 };
 
@@ -93,10 +85,10 @@ export function getProjectSizeConfig(project: ProjectType): ProjectSizeConfig {
 }
 
 export function getMaxRefinementFields(_project: ProjectType): number {
-  // Four shared detail fields (layout, plumbing/electrical, location, timeline)
-  // plus exactly one project-specific field (cabinet tier, fixtures, rooms, or
-  // stories). Every project type therefore exposes 5 refinement fields.
-  return 5;
+  // Two shared detail fields (layout changes, plumbing/electrical) plus
+  // exactly one project-specific field (cabinet tier, fixtures, rooms, or
+  // stories). Every project type therefore exposes 3 refinement fields.
+  return 3;
 }
 
 export const PROJECT_LABELS: Record<ProjectType, { label: string; sub: string }> = {
@@ -289,24 +281,6 @@ function getRefinementMultipliers(ref: EstimateRefinements, project: ProjectType
     high *= 1.2;
   }
 
-  if (ref.cityZone) {
-    const zoneMult: Record<CityZone, { low: number; high: number }> = {
-      "boise-core": { low: 1.02, high: 1.05 },
-      "treasure-valley": { low: 1, high: 1 },
-      extended: { low: 1.03, high: 1.06 },
-    };
-    low *= zoneMult[ref.cityZone].low;
-    high *= zoneMult[ref.cityZone].high;
-  }
-
-  if (ref.timeline === "accelerated") {
-    low *= 1.05;
-    high *= 1.15;
-  } else if (ref.timeline === "flexible") {
-    low *= 0.97;
-    high *= 1;
-  }
-
   return { low, high };
 }
 
@@ -326,12 +300,6 @@ const CABINET_SCOPE: Record<CabinetTier, string> = {
   standard: "Standard stock cabinetry",
   "semi-custom": "Semi-custom cabinetry",
   custom: "Fully custom cabinetry",
-};
-
-const ZONE_SCOPE: Record<CityZone, string | null> = {
-  "boise-core": "Boise / Eagle permitting and access",
-  "treasure-valley": null,
-  extended: "Extended-area travel and logistics",
 };
 
 /**
@@ -368,15 +336,6 @@ export function buildDynamicScope(input: EstimateInput): string[] {
 
   if (input.project === "adu" && r.stories !== null) {
     extra.push(r.stories > 1 ? "Attached ADU" : "Detached ADU");
-  }
-
-  if (r.cityZone) {
-    const zoneItem = ZONE_SCOPE[r.cityZone];
-    if (zoneItem) extra.push(zoneItem);
-  }
-
-  if (r.timeline === "accelerated") {
-    extra.push("Accelerated project scheduling");
   }
 
   const seen = new Set<string>();

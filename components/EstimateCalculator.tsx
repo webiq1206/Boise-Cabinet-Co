@@ -480,35 +480,6 @@ export function EstimateCalculator({ inModal = false, onBookVisit: onBookVisitPr
               </div>
             )}
 
-            <div>
-              <label className="brc-label mb-3 block">Project location</label>
-              <SelectButton
-                value={refinements.cityZone}
-                onChange={(v) => updateRefinement("cityZone", v)}
-                testIdPrefix="city"
-                allowUnset
-                options={[
-                  { value: "boise-core", label: "Boise / Eagle" },
-                  { value: "treasure-valley", label: "Treasure Valley" },
-                  { value: "extended", label: "Extended area" },
-                ]}
-              />
-            </div>
-
-            <div>
-              <label className="brc-label mb-3 block">Desired timeline</label>
-              <SelectButton
-                value={refinements.timeline}
-                onChange={(v) => updateRefinement("timeline", v)}
-                testIdPrefix="timeline"
-                allowUnset
-                options={[
-                  { value: "flexible", label: "Flexible", sub: "6+ months out" },
-                  { value: "standard", label: "Standard", sub: "3 to 6 months" },
-                  { value: "accelerated", label: "Soon", sub: "Under 3 months" },
-                ]}
-              />
-            </div>
           </div>
         )}
       </div>
