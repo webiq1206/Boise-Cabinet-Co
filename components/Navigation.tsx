@@ -4,8 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Menu, Phone, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { CTA_PRIMARY, CTA_PRIMARY_SHORT } from "@/shared/ctaCopy";
 import { SITE_CONFIG } from "@/shared/siteConfig";
@@ -65,6 +64,15 @@ export function Navigation() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  useEffect(() => {
+    if (mobileOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => { document.body.style.overflow = ""; };
+  }, [mobileOpen]);
 
   if (isPortal) {
     return (
@@ -133,69 +141,91 @@ export function Navigation() {
           </div>
 
           <div className="flex md:hidden items-center gap-2">
-            <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
-              <SheetTrigger asChild>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  aria-label="Open navigation menu"
-                  className={isHeroMode ? "text-inverse-foreground" : undefined}
-                >
-                  <Menu className="h-5 w-5" />
-                </Button>
-              </SheetTrigger>
-              <SheetContent side="right" className="w-[85vw] sm:w-[360px] bg-card">
-                <div className="flex items-center justify-between mb-8">
-                  <Logo hero={false} />
-                  <Button variant="ghost" size="icon" onClick={() => setMobileOpen(false)} aria-label="Close menu">
-                    <X className="h-5 w-5" />
-                  </Button>
-                </div>
-                <nav className="flex flex-col gap-1">
-                  {NAV_LINKS.map((link) => (
-                    <Link
-                      key={link.label}
-                      href={link.href}
-                      onClick={() => setMobileOpen(false)}
-                      className="px-4 py-3 text-base font-medium rounded-sm text-foreground hover:bg-muted transition-colors"
-                    >
-                      {link.label}
-                    </Link>
-                  ))}
-                  <div className="mt-6 pt-6 border-t border-border space-y-3">
-                    <a
-                      href={SITE_CONFIG.phoneHref}
-                      className="flex items-center gap-3 px-4 py-3 text-base font-medium rounded-sm text-foreground"
-                    >
-                      <span className="relative flex h-2.5 w-2.5">
-                        <span className="pulse-accent absolute inline-flex h-full w-full rounded-full bg-accent opacity-75" />
-                        <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-accent" />
-                      </span>
-                      {SITE_CONFIG.phone}
-                    </a>
-                    {isHome ? (
-                      <Button variant="brand" className="w-full" asChild>
-                        <a href="/#consult" onClick={() => setMobileOpen(false)}>
-                          {CTA_PRIMARY}
-                        </a>
-                      </Button>
-                    ) : (
-                      <Button
-                        variant="brand"
-                        className="w-full"
-                        onClick={() => { openConsult(); setMobileOpen(false); }}
-                      >
-                        {CTA_PRIMARY}
-                      </Button>
-                    )}
-                  </div>
-                </nav>
-              </SheetContent>
-            </Sheet>
+            <Button
+              variant="ghost"
+              size="icon"
+              aria-label="Open navigation menu"
+              className={isHeroMode ? "text-inverse-foreground" : undefined}
+              onClick={() => setMobileOpen(true)}
+              data-testid="button-mobile-menu-open"
+            >
+              <Menu className="h-5 w-5" />
+            </Button>
           </div>
         </nav>
       </header>
 
+      {/* Full-screen mobile nav overlay — md:hidden via pointer-events only on desktop */}
+      <div
+        className={cn(
+          "fixed inset-0 z-[200] bg-background flex flex-col md:hidden",
+          "transition-opacity duration-200",
+          mobileOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+        )}
+        aria-hidden={!mobileOpen}
+      >
+        {/* Header row */}
+        <div className="flex items-center justify-between px-6 h-[60px] border-b border-border/40 shrink-0">
+          <Logo hero={false} />
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => setMobileOpen(false)}
+            aria-label="Close navigation menu"
+            data-testid="button-mobile-menu-close"
+          >
+            <X className="h-5 w-5" />
+          </Button>
+        </div>
+
+        {/* Nav links */}
+        <nav className="flex-1 overflow-y-auto">
+          {NAV_LINKS.map((link) => (
+            <div key={link.label} className="border-b border-border/40">
+              <Link
+                href={link.href}
+                onClick={() => setMobileOpen(false)}
+                className="block px-6 py-5 text-2xl font-medium text-muted-foreground hover:text-foreground transition-colors"
+                data-testid={`link-mobile-nav-${link.label.toLowerCase().replace(/\s+/g, "-")}`}
+              >
+                {link.label}
+              </Link>
+            </div>
+          ))}
+        </nav>
+
+        {/* Bottom contact row */}
+        <div className="shrink-0 border-t border-border/40 px-6 py-6 space-y-3">
+          <a
+            href={SITE_CONFIG.phoneHref}
+            className="flex items-center gap-3 text-base font-medium text-foreground"
+            data-testid="link-phone-mobile-menu"
+          >
+            <span className="relative flex h-2.5 w-2.5">
+              <span className="pulse-accent absolute inline-flex h-full w-full rounded-full bg-accent opacity-75" />
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-accent" />
+            </span>
+            {SITE_CONFIG.phone}
+          </a>
+          {isHome ? (
+            <Button variant="brand" className="w-full" asChild>
+              <a href="/#consult" onClick={() => setMobileOpen(false)}>
+                {CTA_PRIMARY}
+              </a>
+            </Button>
+          ) : (
+            <Button
+              variant="brand"
+              className="w-full"
+              onClick={() => { openConsult(); setMobileOpen(false); }}
+            >
+              {CTA_PRIMARY}
+            </Button>
+          )}
+        </div>
+      </div>
+
+      {/* Sticky bottom bar */}
       <div className="fixed bottom-0 left-0 right-0 z-[100] md:hidden pb-safe bg-background/97 backdrop-blur border-t border-border">
         <div className="grid grid-cols-2 divide-x divide-border">
           <a
@@ -203,7 +233,6 @@ export function Navigation() {
             className="flex items-center justify-center gap-2 py-4 text-sm font-medium text-foreground"
             data-testid="button-call-mobile"
           >
-            <Phone className="h-4 w-4" />
             Call
           </a>
           {isHome ? (
