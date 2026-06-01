@@ -1,109 +1,61 @@
 import { buildSectionsHtml, CITIES_LIST, type ContentSection } from './wave1/snippets';
-import { buildContextualExpansions } from './contextualExpansions';
+import { buildClusterArticleSections } from './clusterArticleSections';
+import {
+  clusterLinksSection,
+  hubTopicSections,
+  pillarEssentialsSection,
+} from './guideSectionBlocks';
+import { getHubPillarFaqs, getLocationFaqs } from './hubFaqs';
+import { buildLocationGuideSections } from './locationCityContent';
 import { getHubBySlug, guidePath } from '../contentHubs';
 import type { BlogPostData } from '../blogContent';
 import type { GuidePageData, GuideType } from '../guideContent';
 
-const CITY_LINKS = `<a href="/areas/boise">Boise</a>, <a href="/areas/meridian">Meridian</a>, <a href="/areas/eagle">Eagle</a>, <a href="/areas/kuna">Kuna</a>, <a href="/areas/star">Star</a>, <a href="/areas/middleton">Middleton</a>, <a href="/areas/nampa">Nampa</a>, and <a href="/areas/caldwell">Caldwell</a>`;
+const PILLAR_FOOTER =
+  '<p class="text-sm text-muted-foreground">Explore <a href="/guides/treasure-valley-remodeling-guide">local guides</a>, <a href="/guides/boise-remodeling-cost-guide">cost planning</a>, and <a href="/areas">service areas</a>.</p>';
 
-export function expandHtml(
-  html: string,
-  slug: string,
-  hubSlug: string,
-  blockCount: number,
-  footer?: string,
-): string {
-  return html + (footer ?? '') + buildContextualExpansions(slug, hubSlug, blockCount);
+export function expandPillar(html: string, _slug: string, _hubSlug: string): string {
+  return html + PILLAR_FOOTER;
 }
 
-export function expandPillar(html: string, slug: string, hubSlug: string, blockCount = 182): string {
-  return expandHtml(
-    html,
-    slug,
-    hubSlug,
-    blockCount,
-    `<p>Explore <a href="/guides/treasure-valley-remodeling-guide">local guides</a>, <a href="/guides/boise-remodeling-cost-guide">cost planning</a>, and <a href="/areas">service areas</a>.</p>`,
-  );
+export function expandLocation(html: string, _slug: string): string {
+  return html;
 }
 
-export function expandCluster(html: string, slug: string, hubSlug: string, blockCount = 110): string {
-  return expandHtml(html, slug, hubSlug, blockCount);
-}
-
-export function expandLocation(html: string, slug: string, blockCount = 118): string {
-  return expandHtml(html, slug, 'treasure-valley-locations', blockCount);
-}
-
-export function clusterFaqs(topic: string): Array<{ question: string; answer: string }> {
-  const t = topic.toLowerCase();
-  return [
-    { question: `What should I know about ${t} in the Treasure Valley?`, answer: 'Local permits, housing stock, and finish level matter more than national averages. This article covers Boise-area specifics.' },
-    { question: 'Do you serve my city?', answer: `Yes—we remodel in ${CITIES_LIST}.` },
-    { question: 'How do I get started?', answer: 'Schedule an in-home consultation or use our project estimator for a planning range.' },
-    { question: 'Are permits included?', answer: 'Our design-build scope includes permit coordination for Ada and Canyon County when required.' },
-    { question: 'How long do projects take?', answer: 'Timelines depend on design, selections, and permit review—often weeks to months.' },
-    { question: 'What is design-build?', answer: 'One team handles design, estimating, permits, and construction under a single contract.' },
-    { question: 'How do I budget?', answer: 'See our Boise Remodeling Cost Guide and hub pillar articles for planning ranges.' },
-    { question: 'Why choose a local contractor?', answer: 'Local teams understand Ada vs Canyon permitting, trade availability, and Treasure Valley housing types.' },
-  ];
-}
-
-export function pillarFaqs(hubTitle: string): Array<{ question: string; answer: string }> {
-  const base = clusterFaqs(hubTitle);
-  const extra = [
-    { question: `What is the best order to plan a ${hubTitle.toLowerCase()} project?`, answer: 'Define scope, get a written preliminary plan, lock structural/MEP, then selections before construction.' },
-    { question: 'How does Boise climate affect remodeling?', answer: 'Dry summers and cold winters influence scheduling, concrete work, and humidity control during finishes.' },
-    { question: 'Ada County vs Canyon County—does it matter?', answer: 'Yes—submission portals, review cadence, and fees differ between Ada and Canyon County projects.' },
-    { question: 'Can I live at home during construction?', answer: 'Depends on scope; baths and kitchens can sometimes be phased; whole-home work may need temporary housing.' },
-    { question: 'What warranty should I expect?', answer: 'Ask for written warranty terms covering labor and clarify manufacturer warranties on products.' },
-    { question: 'Do you publish starting-at prices?', answer: 'We publish planning education, not bait pricing—firm numbers require seeing your home and scope.' },
-    { question: 'How do I compare contractors fairly?', answer: 'Match scope, allowances, permits, and schedule—not just bottom-line bids.' },
-  ];
-  return [...base, ...extra].slice(0, 18);
-}
-
-function hubSections(
+/** ~8 focused H2 sections per hub pillar — no repeated template walls. */
+function buildPillarSections(
   topic: string,
   pillarUrl: string,
   serviceUrl: string,
   cityServiceUrl: string,
+  hubSlug: string,
+  linkedClusterSlugs: string[] | undefined,
   extra: ContentSection[] = [],
 ): ContentSection[] {
+  const clusterSection = clusterLinksSection(hubSlug, linkedClusterSlugs);
   return [
     {
-      h2: `What should Treasure Valley homeowners know about ${topic}?`,
+      h2: `What should homeowners know about ${topic}?`,
       paragraphs: [
-        `Homeowners in ${CITIES_LIST} research ${topic.toLowerCase()} before committing to design-build construction. This guide is part of our topical library—start with the <a href="${pillarUrl}">pillar guide</a> for the full picture.`,
-        'Boise Remodeling Co coordinates design, permits, and construction under one contract so scope stays aligned from consultation through walkthrough.',
+        `This overview covers ${topic.toLowerCase()} for ${CITIES_LIST}. Use the topic sections below, then follow linked articles for room-specific depth.`,
+        'Boise Remodeling Co provides design-build remodeling with permits and construction under one contract.',
       ],
     },
+    pillarEssentialsSection(topic),
+    ...hubTopicSections(hubSlug, topic),
     {
-      h2: 'Planning ranges and timelines',
+      h2: 'Local services',
       paragraphs: [
-        'Budget and schedule depend on layout changes, finishes, and Ada or Canyon County permit paths—not a single sticker price.',
-        `See <a href="/guides/boise-remodeling-cost-guide">remodeling costs</a> for cross-project planning bands.`,
-      ],
-      table: {
-        className: 'timeline-table',
-        headers: ['Phase', 'Typical duration'],
-        rows: [
-          ['Design & selections', '4–10 weeks'],
-          ['Permits (if required)', '2–8 weeks'],
-          ['Construction', '4–16+ weeks'],
-        ],
-      },
-    },
-    {
-      h2: 'Local services and areas',
-      paragraphs: [
-        `Explore <a href="${serviceUrl}">remodeling services</a> and <a href="${cityServiceUrl}">city-specific pages</a>. We serve ${CITY_LINKS}.`,
+        `<a href="${serviceUrl}">Service overview</a> · <a href="${cityServiceUrl}">Boise</a> · <a href="/areas">All service areas</a>.`,
       ],
     },
     ...extra,
+    ...(clusterSection ? [clusterSection] : []),
     {
       h2: 'Next steps',
       paragraphs: [
-        'Use our <a href="/#calculator">estimator</a> for a planning range, then <a href="/contact">schedule a consultation</a> for written scope.',
+        '<a href="/#calculator">Estimator</a> · <a href="/contact">Schedule consultation</a> · <a href="/guides">All guides</a>.',
+        `Back to <a href="${pillarUrl}">this guide</a> anytime for the overview.`,
       ],
     },
   ];
@@ -130,13 +82,52 @@ export function buildClusterPost(config: ClusterConfig): BlogPostData {
   const pillarUrl = guidePath(hub.pillarSlug);
   const serviceUrl = config.serviceUrl ?? '/services/kitchen-remodel';
   const cityUrl = config.cityServiceUrl ?? '/services/kitchen-remodel/boise';
-  const html = expandCluster(
-    buildSectionsHtml(
-      hubSections(config.title, pillarUrl, serviceUrl, cityUrl, config.extraSections),
-    ),
-    config.slug,
-    config.hubSlug,
+  const html = buildSectionsHtml(
+    buildClusterArticleSections({
+      slug: config.slug,
+      title: config.title,
+      excerpt: config.excerpt,
+      quickAnswer: config.quickAnswer,
+      hubSlug: config.hubSlug,
+      serviceUrl: config.serviceUrl,
+      cityServiceUrl: config.cityServiceUrl,
+      extraSections: config.extraSections,
+    }),
   );
+
+  const hubFaqs = getHubPillarFaqs(config.hubSlug);
+  const faqs =
+    hubFaqs.length > 0
+      ? hubFaqs.slice(0, 6)
+      : [
+          {
+            question: `How does ${config.title} apply in the Treasure Valley?`,
+            answer: config.quickAnswer,
+          },
+          {
+            question: 'Where is the full guide?',
+            answer: `See our ${hub.title} at ${pillarUrl} for the complete overview.`,
+          },
+          {
+            question: 'How do I get a planning range?',
+            answer:
+              'Use our estimator, then schedule an in-home consultation for written scope.',
+          },
+          {
+            question: 'Do you serve Ada and Canyon County?',
+            answer: `Yes—we remodel across ${CITIES_LIST}.`,
+          },
+          {
+            question: 'Are permits included?',
+            answer:
+              'Permit coordination is included in design-build scope when layout or MEP changes require review.',
+          },
+          {
+            question: 'What should I read next?',
+            answer: `Start with the <a href="${pillarUrl}">pillar guide</a> and <a href="/guides/boise-remodeling-cost-guide">cost guide</a>.`,
+          },
+        ];
+
   return {
     slug: config.slug,
     title: config.title,
@@ -149,7 +140,7 @@ export function buildClusterPost(config: ClusterConfig): BlogPostData {
     hubSlug: config.hubSlug,
     tags: config.tags,
     publishedAt: config.publishedAt ?? '2026-05-15',
-    faqs: clusterFaqs(config.title),
+    faqs,
     quickAnswer: config.quickAnswer,
     keyTakeaways: config.takeaways,
     relatedLinks: [
@@ -180,20 +171,28 @@ export interface PillarConfig {
 export function buildPillarGuide(config: PillarConfig): GuidePageData {
   const hub = getHubBySlug(config.hubSlug)!;
   const pillarUrl = guidePath(config.slug);
-  const sections = hubSections(
+  const servicePath = config.linkedServices?.[0]
+    ? `/services/${config.linkedServices[0]}`
+    : '/services/kitchen-remodel';
+  const cityPath = `${servicePath}/boise`;
+  const sections = buildPillarSections(
     config.title,
     pillarUrl,
-    config.linkedServices?.[0] ? `/services/${config.linkedServices[0]}` : '/services/kitchen-remodel',
-    '/services/kitchen-remodel/boise',
+    servicePath,
+    cityPath,
+    config.hubSlug,
+    config.linkedClusterSlugs,
     config.extraSections,
   );
+  const hubFaqs = getHubPillarFaqs(config.hubSlug);
+
   return {
     slug: config.slug,
     title: config.title,
     seoTitle: config.seoTitle,
     metaDescription: config.metaDescription,
     excerpt: config.excerpt,
-    content: expandPillar(buildSectionsHtml(sections), config.slug, config.hubSlug, 182),
+    content: expandPillar(buildSectionsHtml(sections), config.slug, config.hubSlug),
     author: 'Boise Remodeling Co',
     hubSlug: config.hubSlug,
     guideType: 'hub-pillar',
@@ -201,7 +200,7 @@ export function buildPillarGuide(config: PillarConfig): GuidePageData {
     publishedAt: '2026-05-10',
     quickAnswer: config.quickAnswer,
     keyTakeaways: config.takeaways,
-    faqs: pillarFaqs(hub.title),
+    faqs: hubFaqs.length > 0 ? hubFaqs : [],
     linkedClusterSlugs: config.linkedClusterSlugs,
     linkedServices: config.linkedServices,
     relatedLinks: [
@@ -229,36 +228,15 @@ export interface LocationGuideConfig {
 }
 
 export function buildLocationGuide(config: LocationGuideConfig): GuidePageData {
-  const sections: ContentSection[] = [
-    {
-      h2: `Remodeling in ${config.cityName}, Idaho`,
-      paragraphs: [
-        config.housingNote,
-        `This ${config.guideType === 'neighborhood' ? 'neighborhood' : 'city'} guide is part of our <a href="/guides/treasure-valley-remodeling-guide">Treasure Valley remodeling hub</a>.`,
-      ],
-    },
-    {
-      h2: 'Permits and jurisdiction',
-      paragraphs: [
-        config.county === 'ada'
-          ? `${config.cityName} projects typically route through Ada County plan review for layout and structural work.`
-          : `${config.cityName} is in Canyon County—expect different submission portals and review cadence than Ada County.`,
-        '<a href="/blog/ada-vs-canyon-county-permit-timelines">Compare permit timelines</a> · <a href="/blog/boise-permit-guide">Boise permit guide</a>.',
-      ],
-    },
-    {
-      h2: 'Services in your area',
-      paragraphs: [
-        `<a href="/services/kitchen-remodel/${config.citySlug}">Kitchen remodels</a>, <a href="/services/bathroom-remodel/${config.citySlug}">bathrooms</a>, <a href="/services/whole-home-remodel/${config.citySlug}">whole-home</a>, <a href="/services/room-addition/${config.citySlug}">additions</a>, <a href="/areas/${config.citySlug}">${config.cityName} area page</a>.`,
-      ],
-    },
-    {
-      h2: 'Costs and planning',
-      paragraphs: [
-        'Use the <a href="/guides/boise-remodeling-cost-guide">Boise Remodeling Cost Guide</a> for planning ranges before design.',
-      ],
-    },
-  ];
+  const sections = buildLocationGuideSections(
+    config.slug,
+    config.cityName,
+    config.citySlug,
+    config.county,
+    config.housingNote,
+    config.guideType,
+  );
+
   return {
     slug: config.slug,
     title: config.title,
@@ -273,7 +251,7 @@ export function buildLocationGuide(config: LocationGuideConfig): GuidePageData {
     publishedAt: '2026-05-12',
     quickAnswer: config.quickAnswer,
     keyTakeaways: config.takeaways,
-    faqs: clusterFaqs(config.cityName),
+    faqs: getLocationFaqs(config.cityName, config.citySlug, config.county),
     linkedCities: [config.citySlug],
     relatedLinks: [
       { url: '/guides/treasure-valley-remodeling-guide' },

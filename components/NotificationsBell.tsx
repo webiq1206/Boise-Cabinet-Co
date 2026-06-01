@@ -19,6 +19,9 @@ interface Notification {
   title: string;
   message: string;
   leadId?: string | null;
+  projectId?: string | null;
+  contractId?: string | null;
+  complianceDocumentId?: string | null;
   read: boolean;
   createdAt: string;
 }
@@ -66,22 +69,60 @@ export function NotificationsBell() {
   const unreadCount = notifications.filter((n) => !n.read).length;
 
   const handleNotificationClick = (notification: Notification) => {
-    // Mark as read
     if (!notification.read) {
       markReadMutation.mutate(notification.id);
     }
 
-    // Navigate if there's a lead
+    setOpen(false);
+
+    if (notification.projectId) {
+      if (notification.type.startsWith("compliance") || notification.type === "project_assigned") {
+        router.push(
+          notification.type.includes("admin") || notification.type === "compliance_missing"
+            ? `/admin/contractors`
+            : `/subcontractor/projects/${notification.projectId}`
+        );
+      } else {
+        router.push(
+          notification.type === "contract_signed"
+            ? `/admin/projects/${notification.projectId}`
+            : `/subcontractor/projects/${notification.projectId}`
+        );
+      }
+      return;
+    }
+
+    if (notification.contractId) {
+      router.push(
+        notification.type === "contract_signed"
+          ? `/admin/contracts`
+          : `/subcontractor/contracts`
+      );
+      return;
+    }
+
+    if (
+      notification.type.startsWith("compliance") ||
+      notification.complianceDocumentId
+    ) {
+      router.push(
+        notification.type === "compliance_missing" &&
+        (notification.title.includes("Compliance issue") || notification.message.includes("admin"))
+          ? `/admin/dashboard`
+          : `/subcontractor/compliance`
+      );
+      return;
+    }
+
     if (notification.leadId) {
-      setOpen(false);
       if (notification.type === "admin_new_quote" || notification.type === "lead_purchased") {
-        router.push(`/admin/dashboard?leadId=${notification.leadId}`);
+        router.push(`/admin/leads?leadId=${notification.leadId}`);
       } else if (
         notification.type === "new_lead" ||
         notification.type === "lead_price_drop" ||
         notification.type === "lead_updated"
       ) {
-        router.push(`/subcontractor/portal?leadId=${notification.leadId}`);
+        router.push(`/subcontractor/leads?leadId=${notification.leadId}`);
       }
     }
   };
@@ -167,7 +208,10 @@ export function NotificationsBell() {
                       {formatTimeAgo(notification.createdAt)}
                     </p>
                   </div>
-                  {notification.leadId && (
+                  {(notification.leadId ||
+                    notification.projectId ||
+                    notification.contractId ||
+                    notification.type.startsWith("compliance")) && (
                     <ExternalLink className="h-4 w-4 text-muted-foreground flex-shrink-0" />
                   )}
                 </div>

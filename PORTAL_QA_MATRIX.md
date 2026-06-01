@@ -1,8 +1,49 @@
 # Portal QA Matrix (Admin + Subcontractor + Quote Wizard)
 
-This document maps **every user-facing feature/control** in the admin dashboard, subcontractor portal, and lead quote wizard to the **API endpoints, data objects, and expected state transitions**. It also provides a **test matrix** to execute end-to-end QA.
+This document maps user-facing features in the compliance-focused admin and subcontractor portals, lead marketplace, and quote wizard.
 
-## Admin portal (`/admin/dashboard`, `/admin/analytics`)
+## Portal navigation (2026 overhaul)
+
+### Admin Portal (primary → secondary)
+| Route | Purpose |
+|-------|---------|
+| `/admin/dashboard` | Compliance dashboard (COI/W-9 KPIs, contractor status, contracts, projects) |
+| `/admin/projects` | Project list |
+| `/admin/projects/[id]` | Project detail (scope, assignments, change orders, documents) |
+| `/admin/contracts` | Contract templates and workflow |
+| `/admin/contractors` | Contractor management + compliance doc review |
+| `/admin/leads` | Lead marketplace (secondary) |
+
+### Subcontractor Portal (primary → secondary)
+| Route | Purpose |
+|-------|---------|
+| `/subcontractor` | Home dashboard (compliance status, projects, contracts) |
+| `/subcontractor/compliance` | COI and W-9 upload |
+| `/subcontractor/projects` | Assigned projects |
+| `/subcontractor/projects/[id]` | Project scope, change orders, documents |
+| `/subcontractor/contracts` | Review and sign contracts |
+| `/subcontractor/leads` | Lead marketplace (secondary) |
+| `/subcontractor/purchases` | Purchase history |
+
+### Cron jobs
+- `POST /api/cron/compliance-reminders` — daily compliance expiration reminders (Bearer `CRON_SECRET`)
+- `POST /api/leads/auto-archive` — archive stale available leads
+
+### Compliance APIs
+- `GET /api/compliance` — subcontractor compliance docs + summary
+- `GET /api/admin/compliance/dashboard` — admin compliance KPIs
+- `POST /api/admin/compliance/documents/[id]/review` — approve/reject COI or W-9
+- `GET /api/admin/compliance/export` — CSV export
+- `POST /api/documents/upload` — upload compliance or entity documents
+
+### Project & contract APIs
+- `POST /api/admin/leads/[leadId]/convert-to-project` — one-click lead → project
+- `GET/POST /api/admin/projects`, `GET/PATCH/POST /api/admin/projects/[id]`
+- `GET/POST /api/admin/contracts` — templates, create, send, void
+- `GET/POST /api/contracts` — subcontractor list + sign
+- `GET /api/projects`, `GET /api/projects/[id]` — subcontractor project access
+
+## Admin portal (`/admin/dashboard`, `/admin/leads`)
 
 ### Access & auth
 - **Route(s)**: `/admin/dashboard`, `/admin/analytics`

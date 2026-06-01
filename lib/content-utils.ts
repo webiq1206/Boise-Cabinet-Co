@@ -36,10 +36,23 @@ export function injectHeadingIds(html: string): string {
   });
 }
 
+/** Remove legacy SEO filler blocks before word count / reading time. */
+export function stripSummaryBlocks(html: string): string {
+  return html.replace(/<div class="summary-block">[\s\S]*?<\/div>/gi, '');
+}
+
 export function countWords(html: string): number {
   const text = html.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
   if (!text) return 0;
   return text.split(' ').filter((w) => w.length > 0).length;
+}
+
+export function countSubstantiveWords(html: string): number {
+  return countWords(stripSummaryBlocks(html));
+}
+
+export function countH2Headings(html: string): number {
+  return (html.match(/<h2[^>]*>/gi) ?? []).length;
 }
 
 export function countInternalLinks(html: string): number {

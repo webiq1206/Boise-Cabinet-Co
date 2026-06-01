@@ -55,6 +55,12 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    const { assertSubcontractorCanPurchase } = await import('@/lib/compliance/gate');
+    const complianceCheck = await assertSubcontractorCanPurchase(session.userId);
+    if (!complianceCheck.allowed) {
+      return NextResponse.json({ error: complianceCheck.reason }, { status: 403 });
+    }
+
     const leadPrice = parseFloat(lead.currentLeadPrice || '10');
     const creditBalance = parseFloat(user.creditBalance || '0');
     const creditsToApply = Math.min(creditBalance, leadPrice);

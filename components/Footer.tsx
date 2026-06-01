@@ -77,6 +77,14 @@ export function Footer() {
                   Remodeling Guides
                 </Link>
               </li>
+              <li>
+                <Link
+                  href="/resources"
+                  className="text-sm text-inverse-muted hover:text-inverse-foreground transition-colors"
+                >
+                  Planning Downloads
+                </Link>
+              </li>
               {CONTENT_HUBS.filter(
                 (h) => h.priorityTier <= 2 && PUBLISHED_GUIDE_SLUGS.has(h.pillarSlug),
               )

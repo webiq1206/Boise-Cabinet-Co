@@ -64,6 +64,11 @@ export function Navigation() {
   const isPortal =
     pathname?.startsWith("/admin") ||
     pathname?.startsWith("/subcontractor/portal") ||
+    pathname?.startsWith("/subcontractor/leads") ||
+    pathname?.startsWith("/subcontractor/compliance") ||
+    pathname?.startsWith("/subcontractor/projects") ||
+    pathname?.startsWith("/subcontractor/contracts") ||
+    pathname === "/subcontractor" ||
     pathname?.startsWith("/subcontractor/purchases");
   const isHome = pathname === "/";
   const isHeroMode = isHome && !scrolled && !isPortal;

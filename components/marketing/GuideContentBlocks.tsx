@@ -1,20 +1,17 @@
+import Link from 'next/link';
 import type { TocHeading } from '@/lib/content-utils';
 
 interface GuideContentBlocksProps {
   quickAnswer?: string;
   keyTakeaways?: string[];
-  tocHeadings?: TocHeading[];
   children: React.ReactNode;
 }
 
 export function GuideContentBlocks({
   quickAnswer,
   keyTakeaways,
-  tocHeadings,
   children,
 }: GuideContentBlocksProps) {
-  const showToc = tocHeadings && tocHeadings.length >= 3;
-
   return (
     <div className="space-y-8">
       {quickAnswer && (
@@ -40,34 +37,71 @@ export function GuideContentBlocks({
         </div>
       )}
 
-      {showToc && (
-        <nav
-          className="rounded-lg border border-border p-5 md:p-6"
-          aria-label="Table of contents"
-          data-testid="guide-toc"
-        >
-          <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground mb-3">
-            On this page
-          </p>
-          <ol className="space-y-1.5 text-sm">
-            {tocHeadings!.map((h) => (
-              <li
-                key={h.id}
-                className={h.level === 3 ? 'ml-4 list-[circle]' : 'list-decimal ml-4'}
-              >
-                <a
-                  href={`#${h.id}`}
-                  className="text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  {h.text}
-                </a>
-              </li>
-            ))}
-          </ol>
-        </nav>
-      )}
-
       {children}
     </div>
+  );
+}
+
+interface GuideJumpChipsProps {
+  headings: TocHeading[];
+}
+
+/** Mobile-friendly jump links for top-level sections. */
+export function GuideJumpChips({ headings }: GuideJumpChipsProps) {
+  const h2s = headings.filter((h) => h.level === 2).slice(0, 5);
+  if (h2s.length < 2) return null;
+
+  return (
+    <nav className="lg:hidden mb-6" aria-label="Jump to section" data-testid="guide-jump-chips">
+      <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground mb-2">
+        Jump to
+      </p>
+      <div className="flex flex-wrap gap-2">
+        {h2s.map((h) => (
+          <Link
+            key={h.id}
+            href={`#${h.id}`}
+            className="inline-flex items-center rounded-full border border-border bg-muted/40 px-3 py-1 text-xs text-foreground hover:bg-muted transition-colors"
+          >
+            {h.text.length > 42 ? `${h.text.slice(0, 40)}…` : h.text}
+          </Link>
+        ))}
+      </div>
+    </nav>
+  );
+}
+
+interface GuideSidebarTocProps {
+  headings: TocHeading[];
+}
+
+export function GuideSidebarToc({ headings }: GuideSidebarTocProps) {
+  if (!headings || headings.length < 2) return null;
+
+  return (
+    <nav
+      className="rounded-lg border border-border p-4 mb-4 max-h-[min(50vh,20rem)] overflow-y-auto"
+      aria-label="Table of contents"
+      data-testid="guide-toc"
+    >
+      <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground mb-3">
+        On this page
+      </p>
+      <ol className="space-y-1 text-sm">
+        {headings.map((h) => (
+          <li
+            key={h.id}
+            className={h.level === 3 ? 'ml-3 list-[circle]' : 'list-decimal ml-4'}
+          >
+            <a
+              href={`#${h.id}`}
+              className="text-muted-foreground hover:text-foreground transition-colors leading-snug"
+            >
+              {h.text}
+            </a>
+          </li>
+        ))}
+      </ol>
+    </nav>
   );
 }

@@ -640,6 +640,35 @@ html, body {
   text-align: center;
 }
 
+/* Collapsible guide/article sections (long-form scanability) */
+.guide-section-details[open] .guide-section-summary span {
+  display: none;
+}
+.guide-section-summary {
+  list-style: none;
+}
+.guide-section-summary::-webkit-details-marker {
+  display: none;
+}
+.guide-section-summary::after {
+  content: '+';
+  flex-shrink: 0;
+  margin-left: auto;
+  font-size: 1.25rem;
+  font-weight: 300;
+  color: hsl(var(--muted-foreground));
+  line-height: 1;
+}
+.guide-section-details[open] .guide-section-summary::after {
+  content: '−';
+}
+.guide-section-summary {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 0.25rem 1rem;
+}
+
 /* Marketing text link (tertiary action) */
 .brc-text-link {
   @apply inline-flex items-center gap-2 text-sm font-medium text-foreground underline-offset-2 hover:underline transition-colors duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-sm;

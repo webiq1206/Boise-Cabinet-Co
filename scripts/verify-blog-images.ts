@@ -2,11 +2,13 @@
  * Validates blog and guide image registry coverage and quality.
  * Run: npm run verify:images
  */
+import crypto from 'crypto';
 import fs from 'fs';
 import path from 'path';
 import { BLOG_POSTS } from '../shared/blogContent';
 import { GUIDE_PAGES } from '../shared/guideContent';
 import {
+  BLOG_ASSET_COPY_MAP,
   BLOG_IMAGE_REGISTRY,
   HUB_HERO_IMAGES,
 } from '../shared/blogImageRegistry';
@@ -18,6 +20,20 @@ const warnings: string[] = [];
 
 function resolvePublicPath(urlPath: string): string {
   return path.join(root, 'public', urlPath.replace(/^\//, ''));
+}
+
+/** Resolve the on-disk file used for a blog post's hero (follows copyFrom sources). */
+function resolveEffectiveImagePath(slug: string, hero: string): string {
+  const copySource = BLOG_ASSET_COPY_MAP[slug];
+  if (copySource) {
+    return copySource;
+  }
+  return hero;
+}
+
+function fileContentHash(filePath: string): string {
+  const data = fs.readFileSync(filePath);
+  return crypto.createHash('sha256').update(data).digest('hex');
 }
 
 function isLocalPath(url: string): boolean {
@@ -99,6 +115,34 @@ for (const [slug, entry] of Object.entries(BLOG_IMAGE_REGISTRY)) {
     if (!tagMatch && !entry.topicTags.includes('guide')) {
       warnings.push(`Topic tags may not match hub for ${slug}: [${entry.topicTags.join(', ')}]`);
     }
+  }
+}
+
+// Visual uniqueness: no two blog posts may share the same image file content
+const blogContentHashUsage = new Map<string, string>();
+
+for (const post of BLOG_POSTS) {
+  const entry = BLOG_IMAGE_REGISTRY[post.slug];
+  if (!entry) continue;
+
+  const effectivePath = resolveEffectiveImagePath(post.slug, entry.hero);
+  const filePath = resolvePublicPath(effectivePath);
+
+  if (!fs.existsSync(filePath)) {
+    errors.push(
+      `Missing effective image for blog post ${post.slug}: ${effectivePath}`,
+    );
+    continue;
+  }
+
+  const hash = fileContentHash(filePath);
+  const prev = blogContentHashUsage.get(hash);
+  if (prev) {
+    errors.push(
+      `Duplicate image content for blog posts ${prev} and ${post.slug} (${effectivePath})`,
+    );
+  } else {
+    blogContentHashUsage.set(hash, post.slug);
   }
 }
 

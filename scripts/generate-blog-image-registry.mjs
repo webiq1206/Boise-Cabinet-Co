@@ -103,7 +103,6 @@ const ENTRIES = {
     alt: "Open-concept kitchen connected to living space after wall removal in Boise",
     topicTags: ["kitchen", "open-concept"],
     source: "blog",
-    copyFrom: gal("kitchen-after"),
   },
   "kitchen-island-design-guide": {
     hero: cs("kitchen-remodel", "middleton"),
@@ -124,14 +123,12 @@ const ENTRIES = {
     alt: "Walk-in shower with glass enclosure and tile surround in a Treasure Valley bath",
     topicTags: ["bathroom", "shower"],
     source: "blog",
-    copyFrom: gal("bathroom-after"),
   },
   "curbless-shower-guide": {
     hero: blog("curbless-shower-guide"),
     alt: "Curbless shower with linear drain and accessible entry in a master bathroom",
     topicTags: ["bathroom", "shower", "accessibility"],
     source: "blog",
-    copyFrom: cs("bathroom-remodel", "eagle"),
   },
   "luxury-bathroom-features": {
     hero: cs("bathroom-remodel", "eagle"),
@@ -182,14 +179,12 @@ const ENTRIES = {
     alt: "Second-story addition under construction with framing on a Treasure Valley home",
     topicTags: ["addition", "second-story"],
     source: "blog",
-    copyFrom: gal("addition-before"),
   },
   "garage-conversions": {
     hero: blog("garage-conversions"),
     alt: "Converted garage living space with new windows and finished interior",
     topicTags: ["addition", "garage-conversion"],
     source: "blog",
-    copyFrom: gal("basement-after"),
   },
   "adu-guide-boise": {
     hero: cs("adu", "boise"),
@@ -252,7 +247,6 @@ const ENTRIES = {
     alt: "Completed whole-home remodel showcasing cohesive design-build results",
     topicTags: ["whole-home", "design-build"],
     source: "blog",
-    copyFrom: gal("whole-home-after"),
   },
   "whole-home-remodel-planning-checklist": {
     hero: cs("whole-home-remodel", "eagle"),
@@ -267,128 +261,110 @@ const ENTRIES = {
     alt: "Homeowner meeting with remodeling contractor reviewing project scope in Boise",
     topicTags: ["contractor", "consultation"],
     source: "blog",
-    copyFrom: "/images/process-design-review.png",
   },
   "remodeling-contractor-red-flags": {
     hero: blog("remodeling-contractor-red-flags"),
     alt: "Professional remodel craftsmanship detail showing quality tile and trim work",
     topicTags: ["contractor", "quality"],
     source: "blog",
-    copyFrom: gal("kitchen-before"),
   },
   "design-build-vs-general-contractor": {
     hero: blog("design-build-vs-general-contractor"),
     alt: "Design-build team collaborating on plans in a Treasure Valley home",
     topicTags: ["contractor", "design-build"],
     source: "blog",
-    copyFrom: "/images/hero-remodel-interior.png",
   },
   "fixed-price-vs-cost-plus": {
-    hero: blog("fixed-price-vs-cost-plus"),
-    alt: "Written remodel estimate and scope documents on a kitchen table",
+    hero: gal("basement-before"),
+    alt: "Remodel scope documents and pricing notes laid out for a fixed-price versus cost-plus comparison",
     topicTags: ["contractor", "pricing"],
-    source: "blog",
-    copyFrom: gal("whole-home-before"),
+    source: "gallery",
   },
   "how-to-compare-remodeling-estimates": {
     hero: blog("how-to-compare-remodeling-estimates"),
     alt: "Side-by-side remodel scope comparison for kitchen and bath projects",
     topicTags: ["contractor", "estimates"],
     source: "blog",
-    copyFrom: cs("bathroom-remodel", "star"),
   },
   "why-remodeling-bids-vary": {
-    hero: blog("why-remodeling-bids-vary"),
+    hero: cs("bathroom-remodel", "middleton"),
     alt: "Finished bathroom remodel illustrating scope differences in contractor bids",
     topicTags: ["contractor", "pricing"],
-    source: "blog",
-    copyFrom: cs("bathroom-remodel", "middleton"),
+    source: "city-service",
   },
   "what-makes-great-remodeling-contractor": {
-    hero: blog("what-makes-great-remodeling-contractor"),
-    alt: "Precision cabinetry installation demonstrating expert Treasure Valley craftsmanship",
+    hero: svc("adu"),
+    alt: "Precision craftsmanship on a custom ADU build demonstrating expert Treasure Valley work",
     topicTags: ["contractor", "craftsmanship"],
-    source: "blog",
-    copyFrom: cs("kitchen-remodel", "boise"),
+    source: "services",
   },
   "consultation-process-remodeling": {
-    hero: blog("consultation-process-remodeling"),
-    alt: "In-home remodeling consultation with homeowners in a Boise living room",
+    hero: cs("adu", "star"),
+    alt: "In-home remodeling consultation with homeowners at a Star-area property",
     topicTags: ["contractor", "consultation"],
-    source: "blog",
-    copyFrom: cs("whole-home-remodel", "nampa"),
+    source: "city-service",
   },
   "how-to-choose-design-build-contractor": {
-    hero: blog("how-to-choose-design-build-contractor"),
-    alt: "Design-build remodeling team walking a job site with Treasure Valley homeowners",
+    hero: cs("room-addition", "kuna"),
+    alt: "Design-build remodeling team walking a room addition job site with Treasure Valley homeowners",
     topicTags: ["contractor", "design-build", "boise"],
-    source: "blog",
-    copyFrom: cs("room-addition", "kuna"),
+    source: "city-service",
   },
 
   // —— Remodeling process (9) ——
   "remodeling-timeline-guide": {
-    hero: blog("remodeling-timeline-guide"),
-    alt: "Remodel project timeline phases from design through construction completion",
+    hero: cs("room-addition", "middleton"),
+    alt: "Remodel project timeline phases from design through construction completion in Middleton",
     topicTags: ["process", "timeline"],
-    source: "blog",
-    copyFrom: cs("room-addition", "middleton"),
+    source: "city-service",
   },
   "boise-permit-guide": {
     hero: blog("boise-permit-guide"),
     alt: "Residential remodel plans prepared for Ada County permit submission",
     topicTags: ["process", "permits", "boise"],
     source: "blog",
-    copyFrom: "/images/process-design-review.png",
   },
   "preconstruction-guide": {
-    hero: blog("preconstruction-guide"),
-    alt: "Preconstruction planning with material samples and floor plans in Boise",
+    hero: gal("kitchen-before"),
+    alt: "Preconstruction planning with material samples and floor plans before demo begins",
     topicTags: ["process", "preconstruction"],
-    source: "blog",
-    copyFrom: gal("kitchen-before"),
+    source: "gallery",
   },
   "design-development-guide": {
-    hero: blog("design-development-guide"),
-    alt: "Design development selections for kitchen cabinets and finishes",
+    hero: gal("bathroom-before"),
+    alt: "Design development selections for bathroom tile, fixtures, and finishes",
     topicTags: ["process", "design"],
-    source: "blog",
-    copyFrom: svc("kitchen-remodel"),
+    source: "gallery",
   },
   "material-selection-guide": {
     hero: blog("material-selection-guide"),
     alt: "Remodel material selections including tile, counters, and hardware samples",
     topicTags: ["process", "materials"],
     source: "blog",
-    copyFrom: cs("bathroom-remodel", "caldwell"),
   },
   "construction-phase-guide": {
-    hero: blog("construction-phase-guide"),
-    alt: "Active construction phase with framing and mechanical rough-in visible",
+    hero: cs("room-addition", "caldwell"),
+    alt: "Active construction phase with framing and mechanical rough-in on a Caldwell room addition",
     topicTags: ["process", "construction"],
-    source: "blog",
-    copyFrom: gal("addition-before"),
+    source: "city-service",
   },
   "punch-list-guide": {
     hero: blog("punch-list-guide"),
     alt: "Final walkthrough punch list review in a nearly completed remodel",
     topicTags: ["process", "punch-list"],
     source: "blog",
-    copyFrom: gal("bathroom-before"),
   },
   "warranty-guide-remodeling": {
-    hero: blog("warranty-guide-remodeling"),
-    alt: "Completed remodel detail showing warranty-worthy finish quality",
+    hero: gal("basement-after"),
+    alt: "Completed basement finish detail showing warranty-worthy craftsmanship",
     topicTags: ["process", "warranty"],
-    source: "blog",
-    copyFrom: gal("whole-home-after"),
+    source: "gallery",
   },
   "ada-vs-canyon-county-permit-timelines": {
     hero: blog("ada-vs-canyon-county-permit-timelines"),
     alt: "Treasure Valley home remodel subject to Ada or Canyon County permit review",
     topicTags: ["process", "permits", "ada-county", "canyon-county"],
     source: "blog",
-    copyFrom: area("nampa"),
   },
 
   // —— ROI (8) ——
@@ -397,14 +373,12 @@ const ENTRIES = {
     alt: "Kitchen remodel delivering strong resale value in Boise",
     topicTags: ["roi", "kitchen", "boise"],
     source: "blog",
-    copyFrom: gal("kitchen-after"),
   },
   "bathroom-roi-remodeling": {
     hero: blog("bathroom-roi-remodeling"),
     alt: "Bathroom update improving home value in the Treasure Valley",
     topicTags: ["roi", "bathroom", "boise"],
     source: "blog",
-    copyFrom: gal("bathroom-after"),
   },
   "addition-roi-remodeling": {
     hero: cs("room-addition", "star"),
@@ -417,14 +391,12 @@ const ENTRIES = {
     alt: "Outdoor living space with patio and landscaping boosting curb appeal",
     topicTags: ["roi", "outdoor"],
     source: "blog",
-    copyFrom: gal("outdoor-after"),
   },
   "exterior-remodeling-roi": {
-    hero: blog("exterior-remodeling-roi"),
-    alt: "Updated Eagle home exterior improving curb appeal and resale value",
-    topicTags: ["roi", "exterior", "eagle"],
-    source: "blog",
-    copyFrom: area("eagle"),
+    hero: cs("adu", "middleton"),
+    alt: "Updated Middleton home exterior improving curb appeal and resale value",
+    topicTags: ["roi", "exterior", "middleton"],
+    source: "city-service",
   },
   "energy-efficiency-roi": {
     hero: cs("whole-home-remodel", "nampa"),
@@ -433,18 +405,16 @@ const ENTRIES = {
     source: "city-service",
   },
   "remodeling-before-selling": {
-    hero: blog("remodeling-before-selling"),
-    alt: "Kitchen refresh before listing a Treasure Valley home for sale",
-    topicTags: ["roi", "selling", "kitchen"],
-    source: "blog",
-    copyFrom: cs("kitchen-remodel", "eagle"),
+    hero: cs("bathroom-remodel", "star"),
+    alt: "Updated bathroom and finishes staged before listing a Treasure Valley home for sale",
+    topicTags: ["roi", "selling", "bathroom"],
+    source: "city-service",
   },
   "remodeling-long-term-living": {
-    hero: blog("remodeling-long-term-living"),
-    alt: "Whole-home remodel tailored for long-term family living in Meridian",
-    topicTags: ["roi", "long-term", "meridian"],
-    source: "blog",
-    copyFrom: cs("whole-home-remodel", "meridian"),
+    hero: cs("adu", "caldwell"),
+    alt: "ADU and whole-home updates tailored for long-term multigenerational living in Caldwell",
+    topicTags: ["roi", "long-term", "caldwell"],
+    source: "city-service",
   },
 
   // —— Outdoor (7) ——
@@ -453,14 +423,12 @@ const ENTRIES = {
     alt: "Outdoor kitchen with built-in grill and counter space in a Boise backyard",
     topicTags: ["outdoor", "kitchen", "boise"],
     source: "blog",
-    copyFrom: gal("outdoor-after"),
   },
   "covered-patios-boise": {
     hero: blog("covered-patios-boise"),
     alt: "Covered patio with ceiling fans and comfortable seating in the Treasure Valley",
     topicTags: ["outdoor", "patio", "boise"],
     source: "blog",
-    copyFrom: gal("outdoor-after"),
   },
   "decks-vs-patios-boise": {
     hero: gal("outdoor-before"),
@@ -473,7 +441,6 @@ const ENTRIES = {
     alt: "Outdoor fireplace on a covered patio for year-round Treasure Valley entertaining",
     topicTags: ["outdoor", "fireplace", "boise"],
     source: "blog",
-    copyFrom: gal("outdoor-after"),
   },
   "outdoor-entertaining-spaces": {
     hero: cs("adu", "eagle"),
@@ -657,6 +624,33 @@ const HUB_HEROES = {
   "outdoor-living": gal("outdoor-before"),
   "treasure-valley-locations": area("boise"),
 };
+
+// Derive blog slugs from entries before the guides section (first guide key)
+const GUIDE_START = "boise-remodeling-cost-guide";
+const blogSlugsFromEntries = Object.keys(ENTRIES).slice(0, Object.keys(ENTRIES).indexOf(GUIDE_START));
+if (blogSlugsFromEntries.length !== 71) {
+  console.error(`Expected 71 blog slugs before guides, got ${blogSlugsFromEntries.length}`);
+  process.exit(1);
+}
+const BLOG_POST_SLUGS = new Set(blogSlugsFromEntries);
+
+function effectiveImage(entry) {
+  return entry.copyFrom ?? entry.hero;
+}
+
+// Validate blog post effective-image uniqueness (visual source paths)
+const blogEffectivePaths = new Map();
+for (const slug of BLOG_POST_SLUGS) {
+  const entry = ENTRIES[slug];
+  const eff = effectiveImage(entry);
+  if (blogEffectivePaths.has(eff)) {
+    console.error(
+      `Duplicate effective image for blog posts: ${eff} used by ${blogEffectivePaths.get(eff)} and ${slug}`,
+    );
+    process.exit(1);
+  }
+  blogEffectivePaths.set(eff, slug);
+}
 
 // Validate uniqueness
 const heroPaths = new Map();

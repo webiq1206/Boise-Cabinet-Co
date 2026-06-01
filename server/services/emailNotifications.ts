@@ -100,7 +100,7 @@ function adminLeadUrl(tab: 'pending' | 'accepted' | 'available' | 'all', leadId:
 }
 
 function subcontractorLeadUrl(leadId: string): string {
-  return `${SITE_BASE_URL}/subcontractor/portal?leadId=${encodeURIComponent(leadId)}`;
+  return `${SITE_BASE_URL}/subcontractor/leads?leadId=${encodeURIComponent(leadId)}`;
 }
 
 function parseMaybeJson<T>(value: unknown): T | null {

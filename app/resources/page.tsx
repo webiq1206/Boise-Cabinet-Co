@@ -1,0 +1,91 @@
+import { Metadata } from 'next';
+import Link from 'next/link';
+import { ArrowRight, Download, FileText, Workflow } from 'lucide-react';
+import { buildPageMetadata } from '@/lib/page-metadata';
+import { Section } from '@/components/marketing/Section';
+import { MarketingCard } from '@/components/marketing/MarketingCard';
+import { ALL_RESOURCES_LIST } from '@/shared/guideResources';
+
+export const metadata: Metadata = buildPageMetadata({
+  kind: 'blog',
+  path: '/resources',
+  titleOverride: 'Remodel Planning Resources | Boise Remodeling Co',
+  descriptionOverride:
+    'Free PDF worksheets and visual guides for Treasure Valley remodeling: budget worksheet, kitchen & bath checklist, Ada vs Canyon permits.',
+});
+
+export default function ResourcesIndexPage() {
+  const pdfs = ALL_RESOURCES_LIST.filter((r) => r.kind === 'pdf');
+  const visuals = ALL_RESOURCES_LIST.filter((r) => r.kind === 'visual');
+
+  return (
+    <Section spacing="lg" className="pt-28 md:pt-32">
+      <div className="container px-4 max-w-4xl mx-auto">
+        <p className="text-xs font-medium uppercase tracking-wider text-accent mb-3">
+          Free downloads
+        </p>
+        <h1 className="text-3xl md:text-4xl font-sans font-light tracking-tight text-foreground mb-4">
+          Remodel planning resources
+        </h1>
+        <p className="text-lg text-muted-foreground mb-12 max-w-2xl">
+          Printable PDFs and visual guides to use alongside our{' '}
+          <Link href="/guides" className="text-accent hover:underline">
+            remodeling guides
+          </Link>
+          . These are planning tools—not quotes or contracts.
+        </p>
+
+        <h2 className="text-sm font-medium uppercase tracking-wider text-muted-foreground mb-4">
+          PDF worksheets
+        </h2>
+        <div className="grid gap-4 sm:grid-cols-2 mb-12">
+          {pdfs.map((r) => (
+            <MarketingCard key={r.id} className="p-5 flex flex-col h-full">
+              <FileText className="h-5 w-5 text-accent mb-3" />
+              <h3 className="font-medium mb-2">{r.title}</h3>
+              <p className="text-sm text-muted-foreground flex-1 mb-4">{r.description}</p>
+              <a
+                href={r.href}
+                download
+                className="inline-flex items-center text-sm text-accent hover:underline font-medium"
+              >
+                <Download className="h-4 w-4 mr-1" />
+                Download PDF
+              </a>
+            </MarketingCard>
+          ))}
+        </div>
+
+        <h2 className="text-sm font-medium uppercase tracking-wider text-muted-foreground mb-4">
+          Visual guides
+        </h2>
+        <div className="grid gap-4 sm:grid-cols-2">
+          {visuals.map((r) => (
+            <MarketingCard key={r.id} className="p-5 flex flex-col h-full">
+              <Workflow className="h-5 w-5 text-accent mb-3" />
+              <h3 className="font-medium mb-2">{r.title}</h3>
+              <p className="text-sm text-muted-foreground flex-1 mb-4">{r.description}</p>
+              <Link
+                href={r.href}
+                className="inline-flex items-center text-sm text-accent hover:underline font-medium"
+              >
+                View infographic
+                <ArrowRight className="h-4 w-4 ml-1" />
+              </Link>
+            </MarketingCard>
+          ))}
+        </div>
+
+        <p className="text-sm text-muted-foreground mt-12 text-center">
+          <Link href="/guides/boise-remodeling-cost-guide" className="text-accent hover:underline">
+            Start with the cost guide
+          </Link>
+          {' · '}
+          <Link href="/contact" className="text-accent hover:underline">
+            Schedule a consultation
+          </Link>
+        </p>
+      </div>
+    </Section>
+  );
+}

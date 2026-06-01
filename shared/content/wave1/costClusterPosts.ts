@@ -1,5 +1,4 @@
 import { buildSectionsHtml, CITIES_LIST, PILLAR_COST, type ContentSection } from './snippets';
-import { buildContextualExpansions } from '../contextualExpansions';
 
 function clusterSections(topic: string, extra: ContentSection[]): ContentSection[] {
   const intro: ContentSection[] = [
@@ -410,5 +409,5 @@ const CLUSTER_LINK_FOOTER = `
 
 export function getExpandedClusterHtml(slug: string): string {
   const base = COST_CLUSTER_CONTENT[slug]?.html ?? '';
-  return base + CLUSTER_LINK_FOOTER + buildContextualExpansions(slug, 'remodeling-costs', 105);
+  return base + CLUSTER_LINK_FOOTER;
 }

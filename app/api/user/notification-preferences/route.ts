@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
-import { users } from "@/shared/schema";
+import { users } from "@shared/schema";
 import { eq } from "drizzle-orm";
 import { getSession, getUserFromDb } from "@/lib/auth";
 import { z } from "zod";
@@ -9,6 +9,11 @@ const notificationPrefsSchema = z.object({
   notifyNewLeads: z.boolean().optional(),
   notifyPriceDrops: z.boolean().optional(),
   emailNotificationsEnabled: z.boolean().optional(),
+  complianceNotificationsEnabled: z.boolean().optional(),
+  coiReminders: z.boolean().optional(),
+  w9Reminders: z.boolean().optional(),
+  contractReminders: z.boolean().optional(),
+  leadEmails: z.boolean().optional(),
 });
 
 export async function POST(request: NextRequest) {
@@ -30,20 +35,41 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const parsed = notificationPrefsSchema.parse(body);
 
-    let emailEnabled: boolean | undefined;
-
-    if (parsed.notifyNewLeads !== undefined) {
-      emailEnabled = parsed.notifyNewLeads;
-    } else if (parsed.emailNotificationsEnabled !== undefined) {
-      emailEnabled = parsed.emailNotificationsEnabled;
-    }
-
-    const updateData: Record<string, any> = {
+    const updateData: Record<string, unknown> = {
       updatedAt: new Date(),
     };
 
-    if (emailEnabled !== undefined) {
-      updateData.emailNotificationsEnabled = emailEnabled;
+    if (parsed.emailNotificationsEnabled !== undefined) {
+      updateData.emailNotificationsEnabled = parsed.emailNotificationsEnabled;
+    } else if (parsed.notifyNewLeads !== undefined) {
+      updateData.emailNotificationsEnabled = parsed.notifyNewLeads;
+    } else if (parsed.leadEmails !== undefined) {
+      updateData.emailNotificationsEnabled = parsed.leadEmails;
+    }
+
+    if (parsed.complianceNotificationsEnabled !== undefined) {
+      updateData.complianceNotificationsEnabled = parsed.complianceNotificationsEnabled;
+    }
+
+    const currentPrefs =
+      (user.notificationPreferences as Record<string, boolean>) ?? {};
+    const newPrefs = {
+      ...currentPrefs,
+      ...(parsed.notifyPriceDrops !== undefined
+        ? { notifyPriceDrops: parsed.notifyPriceDrops }
+        : {}),
+      ...(parsed.coiReminders !== undefined
+        ? { coiReminders: parsed.coiReminders }
+        : {}),
+      ...(parsed.w9Reminders !== undefined ? { w9Reminders: parsed.w9Reminders } : {}),
+      ...(parsed.contractReminders !== undefined
+        ? { contractReminders: parsed.contractReminders }
+        : {}),
+      ...(parsed.leadEmails !== undefined ? { leadEmails: parsed.leadEmails } : {}),
+    };
+
+    if (Object.keys(newPrefs).length > 0) {
+      updateData.notificationPreferences = newPrefs;
     }
 
     const [updatedUser] = await db
@@ -55,11 +81,17 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(updatedUser);
   } catch (error) {
     if (error instanceof z.ZodError) {
-      return NextResponse.json({ error: "Invalid request body", details: error.errors }, { status: 400 });
+      return NextResponse.json(
+        { error: "Invalid request body", details: error.errors },
+        { status: 400 }
+      );
     }
     console.error("Error updating notification preferences:", error);
     return NextResponse.json(
-      { error: error instanceof Error ? error.message : "Failed to update preferences" },
+      {
+        error:
+          error instanceof Error ? error.message : "Failed to update preferences",
+      },
       { status: 500 }
     );
   }

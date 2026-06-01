@@ -29,7 +29,7 @@ export async function GET(request: NextRequest) {
     }
 
     if (user?.role === "subcontractor") {
-      return NextResponse.redirect(getExternalUrl(request, "/subcontractor/portal"));
+      return NextResponse.redirect(getExternalUrl(request, safeReturnTo || "/subcontractor"));
     }
 
     if (user?.role === "admin") {

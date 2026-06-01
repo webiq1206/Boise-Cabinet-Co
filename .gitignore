@@ -18,4 +18,6 @@ playwright-report
 
 # assets not meant for git
 attached_assets
+.uploads
+public/images/blog/Screenshot_*.png
 tsconfig.tsbuildinfo

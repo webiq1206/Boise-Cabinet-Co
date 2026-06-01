@@ -1,25 +1,37 @@
-import Link from "next/link";
-import { ArrowLeft, ArrowRight, Calendar, Phone, Tag, User, Wrench } from "lucide-react";
-import { MarketingCard } from "./MarketingCard";
-import { Chip } from "./Chip";
-import { BlogEndCta } from "./BlogEndCta";
-import { RelatedPostCards } from "./RelatedPostCards";
-import { Section } from "./Section";
-import { CTA_PRIMARY } from "@/shared/ctaCopy";
-import { SITE_CONFIG } from "@/shared/siteConfig";
-import type { BlogPostData } from "@/shared/blogContent";
-import { getBlogHeroImage, getBlogImageAlt } from "@/shared/blogImages";
-import { BlogHeroBanner } from "./BlogHeroBanner";
-import { ConsultCTA } from "@/components/modals/ConsultCTA";
-import { GuideContentBlocks } from "./GuideContentBlocks";
+import Link from 'next/link';
+import { ArrowLeft, ArrowRight, Calendar, Tag, User, BookOpen } from 'lucide-react';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion';
+import { Chip } from './Chip';
+import { BlogEndCta } from './BlogEndCta';
+import { RelatedPostCards } from './RelatedPostCards';
+import { Section } from './Section';
+import type { BlogPostData } from '@/shared/blogContent';
+import { getBlogHeroImage, getBlogImageAlt } from '@/shared/blogImages';
+import { BlogHeroBanner } from './BlogHeroBanner';
+import { GuideContentBlocks, GuideJumpChips } from './GuideContentBlocks';
+import { SectionedArticle } from './SectionedArticle';
+import { ArticleSidebar, ArticleSidebarCta } from './ArticleSidebar';
 import {
   injectHeadingIds,
   extractHeadingsFromHtml,
   estimateReadingTime,
-  countWords,
-} from "@/lib/content-utils";
-import { getHubBySlug, categoryHubPath, guidePath, getHubPillarSlug, isCategoryHubIndexable } from "@/shared/contentHubs";
-import { getBlogPostsByHub } from "@/shared/blogContent";
+  countSubstantiveWords,
+} from '@/lib/content-utils';
+import {
+  getHubBySlug,
+  categoryHubPath,
+  guidePath,
+  getHubPillarSlug,
+  isCategoryHubIndexable,
+} from '@/shared/contentHubs';
+import { getBlogPostsByHub } from '@/shared/blogContent';
+import { getResourcesForBlog } from '@/shared/guideResources';
+import { GuideResourceDownloads } from './GuideResourceDownloads';
 
 interface BlogPostLayoutProps {
   post: BlogPostData;
@@ -32,10 +44,11 @@ export function BlogPostLayout({ post, formatDate }: BlogPostLayoutProps) {
   const blogPath = `/blog/${post.slug}`;
   const hub = getHubBySlug(post.hubSlug);
   const contentWithIds = injectHeadingIds(post.content);
-  const tocHeadings = extractHeadingsFromHtml(contentWithIds).filter((h) => h.level === 2);
-  const readingTime = estimateReadingTime(countWords(post.content));
+  const tocHeadings = extractHeadingsFromHtml(contentWithIds);
+  const readingTime = estimateReadingTime(countSubstantiveWords(post.content));
   const hubPosts = getBlogPostsByHub(post.hubSlug);
   const pillarSlug = getHubPillarSlug(post.hubSlug);
+  const resources = getResourcesForBlog(post.slug);
 
   return (
     <div className="flex flex-col pb-20 md:pb-0">
@@ -53,9 +66,7 @@ export function BlogPostLayout({ post, formatDate }: BlogPostLayoutProps) {
           </Link>
 
           <header className="max-w-3xl mb-8 md:mb-10">
-            <Chip className="mb-4">
-              {hub?.categoryLabel ?? post.category}
-            </Chip>
+            <Chip className="mb-4">{hub?.categoryLabel ?? post.category}</Chip>
             <h1 className="text-3xl md:text-4xl lg:text-[2.75rem] font-sans font-light tracking-tight text-foreground mb-4">
               {post.title}
             </h1>
@@ -76,44 +87,76 @@ export function BlogPostLayout({ post, formatDate }: BlogPostLayoutProps) {
             </div>
           </header>
 
+          <GuideJumpChips headings={tocHeadings} />
+
           <div className="flex flex-col lg:flex-row gap-10 lg:gap-12 items-start">
             <div className="flex-1 min-w-0 w-full">
-              <GuideContentBlocks
-                quickAnswer={post.quickAnswer}
-                keyTakeaways={post.keyTakeaways}
-                tocHeadings={tocHeadings.length >= 3 ? tocHeadings : undefined}
-              >
-                <article className="blog-content prose-measure" data-testid="blog-content">
-                  {post.content && (
-                    <div dangerouslySetInnerHTML={{ __html: contentWithIds }} />
-                  )}
-                </article>
+              <GuideContentBlocks quickAnswer={post.quickAnswer} keyTakeaways={post.keyTakeaways}>
+                <GuideResourceDownloads resources={resources} />
+
+                {hub && pillarSlug && (
+                  <div className="rounded-lg border border-accent/20 bg-accent/5 p-5 md:p-6 mb-8">
+                    <div className="flex items-center gap-2 mb-2">
+                      <BookOpen className="h-5 w-5 text-accent" />
+                      <p className="text-sm font-medium">Part of a larger guide</p>
+                    </div>
+                    <p className="text-sm text-muted-foreground mb-3">
+                      This article goes deep on one topic. Start with the overview if you have not
+                      read it yet.
+                    </p>
+                    <Link
+                      href={guidePath(pillarSlug)}
+                      className="text-sm text-accent hover:underline inline-flex items-center font-medium"
+                    >
+                      {hub.title}
+                      <ArrowRight className="ml-1 h-4 w-4" />
+                    </Link>
+                    {isCategoryHubIndexable(post.hubSlug, hubPosts.length) && (
+                      <>
+                        <span className="text-muted-foreground mx-2">·</span>
+                        <Link
+                          href={categoryHubPath(post.hubSlug)}
+                          className="text-sm text-muted-foreground hover:text-accent hover:underline"
+                        >
+                          All articles in this topic
+                        </Link>
+                      </>
+                    )}
+                  </div>
+                )}
+
+                <SectionedArticle html={contentWithIds} testId="blog-content" />
               </GuideContentBlocks>
 
-              {hub && pillarSlug && (
-                <p className="mt-8 text-sm text-muted-foreground">
-                  Part of our{' '}
-                  <Link href={guidePath(pillarSlug)} className="text-accent hover:underline">
-                    {hub.title}
-                  </Link>{' '}
-                  guide
-                  {isCategoryHubIndexable(post.hubSlug, hubPosts.length) && (
-                    <>
-                      {' '}
-                      ·{' '}
-                      <Link
-                        href={categoryHubPath(post.hubSlug)}
-                        className="text-accent hover:underline"
+              {post.faqs && post.faqs.length > 0 && (
+                <section className="mt-12 pt-8 border-t border-border" data-testid="blog-faqs">
+                  <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground mb-3">
+                    Common questions
+                  </p>
+                  <h2 className="text-xl md:text-2xl font-sans font-light tracking-tight text-foreground mb-6">
+                    Frequently asked questions
+                  </h2>
+                  <Accordion type="single" collapsible className="w-full">
+                    {post.faqs.map((faq, i) => (
+                      <AccordionItem
+                        key={faq.question}
+                        value={`faq-${i}`}
+                        className="border-0 border-t border-border"
                       >
-                        All articles
-                      </Link>
-                    </>
-                  )}
-                </p>
+                        <AccordionTrigger className="text-left py-5 hover:no-underline font-sans font-medium text-sm text-foreground">
+                          {faq.question}
+                        </AccordionTrigger>
+                        <AccordionContent className="text-sm leading-relaxed pb-6 text-muted-foreground">
+                          {faq.answer}
+                        </AccordionContent>
+                      </AccordionItem>
+                    ))}
+                  </Accordion>
+                </section>
               )}
 
               {post.tags && post.tags.length > 0 && (
-                <div className="mt-10 pt-8 border-t border-border" data-testid="blog-tags">
+                <div className="mt-10 pt-8 border-t border-border lg:hidden">
                   <div className="flex items-center gap-2 flex-wrap">
                     <Tag className="h-4 w-4 text-muted-foreground" />
                     {post.tags.map((tag) => (
@@ -124,17 +167,17 @@ export function BlogPostLayout({ post, formatDate }: BlogPostLayoutProps) {
               )}
 
               <div className="lg:hidden mt-10">
-                <SidebarCta />
+                <ArticleSidebarCta ctaDescription="Planning a remodel? Get a free in-home visit and planning range from our team." />
               </div>
             </div>
 
-            <aside
-              className="hidden lg:block w-72 xl:w-80 flex-shrink-0 sticky top-24"
-              data-testid="blog-sidebar"
-            >
-              <SidebarCta />
+            <aside className="hidden lg:block w-72 xl:w-80 flex-shrink-0 sticky top-24 self-start">
+              <ArticleSidebar
+                tocHeadings={tocHeadings}
+                ctaDescription="Planning a remodel? Get a free in-home visit and planning range from our team."
+              />
               {post.tags && post.tags.length > 0 && (
-                <MarketingCard className="mt-6 p-5">
+                <div className="mt-6 rounded-lg border border-border p-4">
                   <div className="flex items-center gap-2 mb-3">
                     <Tag className="h-4 w-4 text-muted-foreground" />
                     <h3 className="font-medium text-sm">Topics</h3>
@@ -144,7 +187,7 @@ export function BlogPostLayout({ post, formatDate }: BlogPostLayoutProps) {
                       <Chip key={tag}>{tag}</Chip>
                     ))}
                   </div>
-                </MarketingCard>
+                </div>
               )}
             </aside>
           </div>
@@ -163,31 +206,5 @@ export function BlogPostLayout({ post, formatDate }: BlogPostLayoutProps) {
         </div>
       </Section>
     </div>
-  );
-}
-
-function SidebarCta() {
-  return (
-    <MarketingCard className="cta-card-dark">
-      <div className="p-5 space-y-4">
-        <div className="flex items-center gap-3">
-          <div className="flex items-center justify-center w-10 h-10 rounded-full bg-white/10">
-            <Wrench className="h-5 w-5 text-inverse-foreground/60" />
-          </div>
-          <h3 className="font-medium text-sm text-inverse-foreground">Free Consultation</h3>
-        </div>
-        <p className="text-sm text-inverse-muted">
-          Planning a remodel? Get a free in-home visit and rough estimate from our team.
-        </p>
-        <ConsultCTA variant="brand" size="sm" className="w-full" data-testid="link-sidebar-cta-consult">
-          {CTA_PRIMARY}
-          <ArrowRight className="ml-2 h-4 w-4" />
-        </ConsultCTA>
-        <p className="text-xs text-inverse-muted text-center flex items-center justify-center gap-1">
-          <Phone className="h-3 w-3" />
-          {SITE_CONFIG.phone}
-        </p>
-      </div>
-    </MarketingCard>
   );
 }

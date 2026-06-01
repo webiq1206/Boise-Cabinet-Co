@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/hooks/useAuth";
+import { SubcontractorHomeDashboard } from "@/components/subcontractor/SubcontractorHomeDashboard";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Shield, Leaf, Building2, ArrowRight, CheckCircle } from "lucide-react";
@@ -20,16 +21,14 @@ export default function SubcontractorPage() {
       return;
     }
     
-    // If authenticated as subcontractor, redirect to portal
+    // If authenticated as subcontractor, show portal home
     if (isAuthenticated && isSubcontractor) {
-      router.push("/subcontractor/portal");
       return;
     }
   }, [isLoading, isAuthenticated, isSubcontractor, isAdmin, router]);
 
   const handleLogin = () => {
-    // Redirect to login flow or show login modal
-    window.location.href = "/api/login?returnTo=/subcontractor/portal";
+    window.location.href = "/api/login?returnTo=/subcontractor";
   };
 
   if (isLoading) {
@@ -41,6 +40,10 @@ export default function SubcontractorPage() {
         </div>
       </div>
     );
+  }
+
+  if (isAuthenticated && isSubcontractor) {
+    return <SubcontractorHomeDashboard />;
   }
 
   // Show login page if not authenticated

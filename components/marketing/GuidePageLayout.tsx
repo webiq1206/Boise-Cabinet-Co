@@ -6,24 +6,34 @@ import {
   Phone,
   Tag,
   User,
-  Wrench,
   BookOpen,
 } from 'lucide-react';
-import { MarketingCard } from './MarketingCard';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion';
 import { Chip } from './Chip';
 import { BlogEndCta } from './BlogEndCta';
 import { RelatedPostCards } from './RelatedPostCards';
 import { Section } from './Section';
-import { GuideContentBlocks } from './GuideContentBlocks';
-import { CTA_PRIMARY } from '@/shared/ctaCopy';
-import { SITE_CONFIG } from '@/shared/siteConfig';
+import { GuideContentBlocks, GuideJumpChips } from './GuideContentBlocks';
+import { SectionedArticle } from './SectionedArticle';
+import { ArticleSidebar, ArticleSidebarCta } from './ArticleSidebar';
 import type { GuidePageData } from '@/shared/guideContent';
 import { getBlogHeroImage, getBlogImageAlt } from '@/shared/blogImages';
 import { BlogHeroBanner } from './BlogHeroBanner';
-import { ConsultCTA } from '@/components/modals/ConsultCTA';
-import { injectHeadingIds, extractHeadingsFromHtml, estimateReadingTime, countWords } from '@/lib/content-utils';
+import {
+  injectHeadingIds,
+  extractHeadingsFromHtml,
+  estimateReadingTime,
+  countSubstantiveWords,
+} from '@/lib/content-utils';
 import { getHubBySlug, guidePath, getClustersForHub, categoryHubPath } from '@/shared/contentHubs';
 import { CATEGORY_HUB_MIN_POSTS } from '@/shared/contentHubs';
+import { getResourcesForGuide } from '@/shared/guideResources';
+import { GuideResourceDownloads } from './GuideResourceDownloads';
 
 interface GuidePageLayoutProps {
   guide: GuidePageData;
@@ -36,10 +46,10 @@ export function GuidePageLayout({ guide, formatDate }: GuidePageLayoutProps) {
   const heroAlt = getBlogImageAlt(guide.slug);
   const guideUrl = guidePath(guide.slug);
   const contentWithIds = injectHeadingIds(guide.content);
-  const tocHeadings = extractHeadingsFromHtml(contentWithIds).filter((h) => h.level === 2);
-  const wordCount = countWords(guide.content);
-  const readingTime = estimateReadingTime(wordCount);
+  const tocHeadings = extractHeadingsFromHtml(contentWithIds);
+  const readingTime = estimateReadingTime(countSubstantiveWords(guide.content));
   const publishedClusters = getClustersForHub(guide.hubSlug, true);
+  const resources = getResourcesForGuide(guide.slug);
 
   return (
     <div className="flex flex-col pb-20 md:pb-0">
@@ -57,9 +67,7 @@ export function GuidePageLayout({ guide, formatDate }: GuidePageLayoutProps) {
           </Link>
 
           <header className="max-w-3xl mb-8 md:mb-10">
-            {hub && (
-              <Chip className="mb-4">{hub.categoryLabel}</Chip>
-            )}
+            {hub && <Chip className="mb-4">{hub.categoryLabel}</Chip>}
             <h1 className="text-3xl md:text-4xl lg:text-[2.75rem] font-sans font-light tracking-tight text-foreground mb-4">
               {guide.title}
             </h1>
@@ -80,46 +88,81 @@ export function GuidePageLayout({ guide, formatDate }: GuidePageLayoutProps) {
             </div>
           </header>
 
+          <GuideJumpChips headings={tocHeadings} />
+
           <div className="flex flex-col lg:flex-row gap-10 lg:gap-12 items-start">
             <div className="flex-1 min-w-0 w-full">
               <GuideContentBlocks
                 quickAnswer={guide.quickAnswer}
                 keyTakeaways={guide.keyTakeaways}
-                tocHeadings={tocHeadings}
               >
-                <article className="blog-content prose-measure" data-testid="guide-content">
-                  <div dangerouslySetInnerHTML={{ __html: contentWithIds }} />
-                </article>
+                <GuideResourceDownloads resources={resources} />
+
+                {publishedClusters.length > 0 && (
+                  <div
+                    className="rounded-lg border border-border bg-muted/20 p-5 md:p-6 mb-8"
+                    data-testid="guide-cluster-links"
+                  >
+                    <div className="flex items-center gap-2 mb-3">
+                      <BookOpen className="h-5 w-5 text-accent" />
+                      <h2 className="text-base font-medium">Go deeper in this guide</h2>
+                    </div>
+                    <p className="text-sm text-muted-foreground mb-4">
+                      Topic-specific articles—read these for detail beyond this overview.
+                    </p>
+                    <ul className="space-y-2">
+                      {publishedClusters.slice(0, 8).map((c) => (
+                        <li key={c.slug}>
+                          <Link
+                            href={`/blog/${c.replacesSlug ?? c.slug}`}
+                            className="text-sm text-accent hover:underline inline-flex items-center"
+                          >
+                            {c.title}
+                            <ArrowRight className="ml-1 h-3 w-3 shrink-0" />
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                    {publishedClusters.length >= CATEGORY_HUB_MIN_POSTS && hub && (
+                      <Link
+                        href={categoryHubPath(guide.hubSlug)}
+                        className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground mt-4"
+                      >
+                        View all in {hub.title}
+                        <ArrowRight className="ml-1 h-4 w-4" />
+                      </Link>
+                    )}
+                  </div>
+                )}
+
+                <SectionedArticle html={contentWithIds} testId="guide-content" />
               </GuideContentBlocks>
 
-              {publishedClusters.length > 0 && (
-                <div className="mt-10 pt-8 border-t border-border">
-                  <div className="flex items-center gap-2 mb-4">
-                    <BookOpen className="h-5 w-5 text-muted-foreground" />
-                    <h2 className="text-lg font-medium">Related articles in this guide</h2>
-                  </div>
-                  <ul className="space-y-2">
-                    {publishedClusters.map((c) => (
-                      <li key={c.slug}>
-                        <Link
-                          href={`/blog/${c.replacesSlug ?? c.slug}`}
-                          className="text-sm text-accent hover:underline"
-                        >
-                          {c.title}
-                        </Link>
-                      </li>
+              {guide.faqs.length > 0 && (
+                <section className="mt-12 pt-8 border-t border-border" data-testid="guide-faqs">
+                  <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground mb-3">
+                    Common questions
+                  </p>
+                  <h2 className="text-xl md:text-2xl font-sans font-light tracking-tight text-foreground mb-6">
+                    Frequently asked questions
+                  </h2>
+                  <Accordion type="single" collapsible className="w-full">
+                    {guide.faqs.map((faq, i) => (
+                      <AccordionItem
+                        key={faq.question}
+                        value={`faq-${i}`}
+                        className="border-0 border-t border-border"
+                      >
+                        <AccordionTrigger className="text-left py-5 hover:no-underline font-sans font-medium text-sm text-foreground">
+                          {faq.question}
+                        </AccordionTrigger>
+                        <AccordionContent className="text-sm leading-relaxed pb-6 text-muted-foreground">
+                          {faq.answer}
+                        </AccordionContent>
+                      </AccordionItem>
                     ))}
-                  </ul>
-                  {publishedClusters.length >= CATEGORY_HUB_MIN_POSTS && (
-                    <Link
-                      href={categoryHubPath(guide.hubSlug)}
-                      className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground mt-4"
-                    >
-                      View all in {hub?.title}
-                      <ArrowRight className="ml-1 h-4 w-4" />
-                    </Link>
-                  )}
-                </div>
+                  </Accordion>
+                </section>
               )}
 
               {guide.tags && guide.tags.length > 0 && (
@@ -134,12 +177,12 @@ export function GuidePageLayout({ guide, formatDate }: GuidePageLayoutProps) {
               )}
 
               <div className="lg:hidden mt-10">
-                <SidebarCta />
+                <ArticleSidebarCta />
               </div>
             </div>
 
-            <aside className="hidden lg:block w-72 xl:w-80 flex-shrink-0 sticky top-24">
-              <SidebarCta />
+            <aside className="hidden lg:block w-72 xl:w-80 flex-shrink-0 sticky top-24 self-start">
+              <ArticleSidebar tocHeadings={tocHeadings} />
             </aside>
           </div>
         </div>
@@ -157,31 +200,5 @@ export function GuidePageLayout({ guide, formatDate }: GuidePageLayoutProps) {
         </div>
       </Section>
     </div>
-  );
-}
-
-function SidebarCta() {
-  return (
-    <MarketingCard className="cta-card-dark">
-      <div className="p-5 space-y-4">
-        <div className="flex items-center gap-3">
-          <div className="flex items-center justify-center w-10 h-10 rounded-full bg-white/10">
-            <Wrench className="h-5 w-5 text-inverse-foreground/60" />
-          </div>
-          <h3 className="font-medium text-sm text-inverse-foreground">Free Consultation</h3>
-        </div>
-        <p className="text-sm text-inverse-muted">
-          Ready for a written scope? Schedule an in-home visit with our design-build team.
-        </p>
-        <ConsultCTA variant="brand" size="sm" className="w-full">
-          {CTA_PRIMARY}
-          <ArrowRight className="ml-2 h-4 w-4" />
-        </ConsultCTA>
-        <p className="text-xs text-inverse-muted text-center flex items-center justify-center gap-1">
-          <Phone className="h-3 w-3" />
-          {SITE_CONFIG.phone}
-        </p>
-      </div>
-    </MarketingCard>
   );
 }

@@ -632,7 +632,7 @@ export default function PurchaseHistoryPage() {
               <Button 
                 variant="ghost" 
                 size="icon" 
-                onClick={() => router.push("/subcontractor/portal")}
+                onClick={() => router.push("/subcontractor/leads")}
               >
                 <ArrowLeft className="h-5 w-5" />
               </Button>
@@ -648,7 +648,7 @@ export default function PurchaseHistoryPage() {
             </div>
             <div className="flex items-center gap-2">
               <NotificationsBell />
-              <Button variant="outline" onClick={() => router.push("/subcontractor/portal")}>
+              <Button variant="outline" onClick={() => router.push("/subcontractor/leads")}>
                 Browse Leads
               </Button>
               <Button variant="outline" onClick={handleLogout}>
@@ -807,7 +807,7 @@ export default function PurchaseHistoryPage() {
               ) : (
                 <>
                   <p className="text-muted-foreground mb-4">You haven&apos;t purchased any leads yet.</p>
-                  <Button onClick={() => router.push("/subcontractor/portal")}>
+                  <Button onClick={() => router.push("/subcontractor/leads")}>
                     Browse Available Leads
                   </Button>
                 </>

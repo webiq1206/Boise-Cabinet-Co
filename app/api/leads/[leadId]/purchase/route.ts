@@ -37,6 +37,12 @@ export async function POST(
       );
     }
 
+    const { assertSubcontractorCanPurchase } = await import("@/lib/compliance/gate");
+    const complianceCheck = await assertSubcontractorCanPurchase(session.userId);
+    if (!complianceCheck.allowed) {
+      return NextResponse.json({ error: complianceCheck.reason }, { status: 403 });
+    }
+
     const { leadId } = await params;
     const body = await request.json();
     const { paymentIntentId, useCredits } = body;

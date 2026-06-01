@@ -17,14 +17,17 @@ When creating or expanding blog posts (`shared/blogContent.ts`, `shared/content/
 
 ## Length & structure
 
-- **Pillar guides:** 4,000–8,000 words, 15–25 FAQs, Quick Answer + Key Takeaways.
-- **Cluster posts:** 2,500+ words (target 4,000), 8–15 FAQs.
-- **Location guides:** cluster-tier unless marked master pillar.
-- Required sections: intro, quick answer, takeaways, main content, cost/timeline tables where relevant, Boise-specific block, FAQ, soft CTA.
+- **Pillar guides:** 250–2,000 substantive words, **7–10 H2** sections (hub-specific, not repeated templates), 8+ FAQs visible on page, Quick Answer + Key Takeaways. Depth lives in `/blog` cluster posts.
+- **Master guides (Treasure Valley overview):** 150–800 words, **≥ 5 H2**, index to city and topic pillars.
+- **Location/neighborhood guides:** 100–700 words, **≥ 5 H2**, unique local copy per slug; link to cost guide and services.
+- **Blog cluster posts:** 75–3,500 substantive words, **≥ 5 H2**; no `summary-block` filler.
+- **Planning resources:** PDFs in `public/downloads/` (regenerate via `npm run resources:generate`); link from guides via `shared/guideResources.ts` and `GuideResourceDownloads`.
+- Required sections: intro, quick answer, takeaways, scannable H2 sections, cost/timeline tables where relevant, Boise-specific block, visible FAQ, soft CTA.
+- **Do not** use `buildContextualExpansions` / `summary-block` filler on guides—depth belongs in cluster blog posts.
 
 ## HTML conventions
 
-- `class="quick-answer"` / `key-takeaways` via layout props; in-body use `summary-block`, `cost-table`, `timeline-table`.
+- `class="quick-answer"` / `key-takeaways` via layout props; in-body use `cost-table`, `timeline-table`, and `<ul>` lists for scanability.
 - Put `id` on `h2` (injected automatically in layout).
 - 8+ internal links (pillars): link to `/guides/{pillar}`, `/services/*`, `/areas/*`, sibling clusters.
 
@@ -36,8 +39,8 @@ When creating or expanding blog posts (`shared/blogContent.ts`, `shared/content/
 
 ## AI search
 
-- H2s as homeowner questions; quotable `summary-block` every few sections.
-- Concise Quick Answer at top; Speakable-compatible summary.
+- H2s as homeowner questions; concise Quick Answer at top; Speakable-compatible summary.
+- FAQs must render on the guide page (accordion), not schema-only.
 
 ## QA
 

@@ -5,8 +5,29 @@ import { buildPageMetadata } from '@/lib/page-metadata';
 import { Section } from '@/components/marketing/Section';
 import { MarketingCard } from '@/components/marketing/MarketingCard';
 import { CONTENT_HUBS, guidePath } from '@/shared/contentHubs';
-import { GUIDE_PAGES } from '@/shared/guideContent';
+import { GUIDE_PAGES, type GuidePageData } from '@/shared/guideContent';
 import { generateBreadcrumbSchema, generateWebPageSchema } from '@/lib/schema';
+import {
+  countH2Headings,
+  countSubstantiveWords,
+  estimateReadingTime,
+} from '@/lib/content-utils';
+
+function guideCardMeta(guide: GuidePageData) {
+  const words = countSubstantiveWords(guide.content);
+  const topics = countH2Headings(guide.content);
+  const minutes = estimateReadingTime(words);
+  return { minutes, topics };
+}
+
+function GuideCardStats({ guide }: { guide: GuidePageData }) {
+  const { minutes, topics } = guideCardMeta(guide);
+  return (
+    <p className="text-xs text-muted-foreground mb-4">
+      {topics} topics · {minutes} min read
+    </p>
+  );
+}
 
 export const metadata: Metadata = buildPageMetadata({
   kind: 'blog',
@@ -59,6 +80,15 @@ export default function GuidesIndexPage() {
             In-depth guides for Boise, Meridian, Eagle, Nampa, and the entire Treasure Valley—costs,
             process, locations, and planning resources from Boise Remodeling Co.
           </p>
+          <p className="mt-4">
+            <Link
+              href="/resources"
+              className="text-sm text-accent hover:underline inline-flex items-center justify-center"
+            >
+              Free PDF worksheets & permit infographic
+              <ArrowRight className="ml-1 h-4 w-4" />
+            </Link>
+          </p>
         </div>
 
         <div className="container px-4 max-w-6xl mx-auto mb-16">
@@ -70,7 +100,8 @@ export default function GuidesIndexPage() {
               <MarketingCard key={guide.slug} className="p-6 flex flex-col h-full">
                 <BookOpen className="h-5 w-5 text-accent mb-3" />
                 <h3 className="font-medium text-lg mb-2">{guide.title}</h3>
-                <p className="text-sm text-muted-foreground flex-1 mb-4">{guide.excerpt}</p>
+                <p className="text-sm text-muted-foreground flex-1 mb-3">{guide.excerpt}</p>
+                <GuideCardStats guide={guide} />
                 <Link
                   href={guidePath(guide.slug)}
                   className="inline-flex items-center text-sm text-accent hover:underline"
@@ -92,9 +123,10 @@ export default function GuidesIndexPage() {
               <MarketingCard key={guide.slug} className="p-5 flex flex-col h-full">
                 <MapPin className="h-4 w-4 text-accent mb-2" />
                 <h3 className="font-medium text-base mb-1">{guide.title}</h3>
-                <p className="text-sm text-muted-foreground flex-1 mb-3 line-clamp-2">
+                <p className="text-sm text-muted-foreground flex-1 mb-2 line-clamp-2">
                   {guide.excerpt}
                 </p>
+                <GuideCardStats guide={guide} />
                 <Link
                   href={guidePath(guide.slug)}
                   className="text-sm text-accent hover:underline inline-flex items-center"

@@ -6,13 +6,13 @@ test("portal smoke: quote → admin → subcontractor (no Stripe)", async ({ pag
   await expect(page.getByTestId("page-dev-login")).toBeVisible();
 
   await page.getByTestId("button-dev-login-admin").click();
-  await expect(page.getByTestId("page-admin-dashboard")).toBeVisible();
+  await expect(page.getByText(/Compliance Dashboard/i)).toBeVisible();
 
   await page.goto("/__dev__/login");
   await page.getByTestId("button-dev-seed").click();
 
-  // Admin dashboard: tab counts remain stable across tab switching
-  await page.goto("/admin/dashboard");
+  // Admin leads: tab counts remain stable across tab switching
+  await page.goto("/admin/leads");
   await expect(page.getByTestId("count-pending")).toBeVisible();
 
   const pendingCountBefore = await page.getByTestId("count-pending").textContent();
@@ -47,9 +47,10 @@ test("portal smoke: quote → admin → subcontractor (no Stripe)", async ({ pag
   await expect(page.getByText(/Quote Submitted!/i)).toBeVisible();
   await expect(page.getByText(/Quote Reference:/i)).toBeVisible();
 
-  // Subcontractor portal: loads and shows masked leads (no Stripe required)
+  // Subcontractor portal: loads lead marketplace and shows masked leads (no Stripe required)
   await page.goto("/__dev__/login");
   await page.getByTestId("button-dev-login-sub").click();
+  await page.goto("/subcontractor/leads");
   await expect(page.getByTestId("page-subcontractor-portal")).toBeVisible();
 
   const firstCard = page.locator("[data-testid^='card-lead-']").first();
