@@ -214,7 +214,7 @@ export class MemStorage implements IStorage {
     const testUsers: User[] = [
       {
         id: "admin-temp-id",
-        email: "admin@boiseremodeling.co",
+        email: "hello@boiseremodeling.co",
         firstName: "Admin",
         lastName: "User",
         phone: null,
@@ -277,6 +277,7 @@ export class MemStorage implements IStorage {
       phone: insertQuote.phone,
       address: insertQuote.address ?? null,
       city: insertQuote.city,
+      propertyProfile: insertQuote.propertyProfile ?? null,
       propertyType: insertQuote.propertyType,
       propertySize: insertQuote.propertySize ?? null,
       serviceType: insertQuote.serviceType,
@@ -479,6 +480,7 @@ export class MemStorage implements IStorage {
       ...insertLead,
       quoteId: insertLead.quoteId ?? null,
       address: insertLead.address ?? null,
+      propertyProfile: insertLead.propertyProfile ?? null,
       selectedServices: insertLead.selectedServices ?? null,
       frequency: insertLead.frequency ?? null,
       finalQuote: insertLead.finalQuote ?? null,
@@ -501,6 +503,8 @@ export class MemStorage implements IStorage {
       purchasePrice: insertLead.purchasePrice ?? null,
       stripePaymentIntentId: insertLead.stripePaymentIntentId ?? null,
       addressMissingHouseNumber: insertLead.addressMissingHouseNumber ?? false,
+      projectId: insertLead.projectId ?? null,
+      convertedToProjectAt: insertLead.convertedToProjectAt ?? null,
       id,
       createdAt: new Date(),
       updatedAt: new Date(),
@@ -925,7 +929,7 @@ export class DBStorage implements IStorage {
     const testUsers = [
       {
         id: "admin-temp-id",
-        email: "admin@boiseremodeling.co",
+        email: "hello@boiseremodeling.co",
         firstName: "Admin",
         lastName: "User",
         phone: null,

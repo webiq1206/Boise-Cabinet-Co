@@ -1,4 +1,5 @@
 import { Resend } from 'resend';
+import { SITE_CONFIG } from '@/shared/siteConfig';
 
 let connectionSettings: any;
 let warnedNoEmailConfig = false;
@@ -7,7 +8,7 @@ async function getCredentials() {
   if (process.env.RESEND_API_KEY) {
     return {
       apiKey: process.env.RESEND_API_KEY,
-      fromEmail: 'hello@boiseremodeling.co'
+      fromEmail: SITE_CONFIG.email
     };
   }
 
@@ -37,7 +38,7 @@ async function getCredentials() {
   }
   return {
     apiKey: connectionSettings.settings.api_key,
-    fromEmail: connectionSettings.settings.from_email || 'hello@boiseremodeling.co'
+    fromEmail: SITE_CONFIG.email
   };
 }
 
@@ -64,7 +65,7 @@ export async function getUncachableResendClient() {
 
       return {
         client: noopClient,
-        fromEmail: "hello@boiseremodeling.co",
+        fromEmail: SITE_CONFIG.email,
       };
     }
 

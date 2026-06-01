@@ -6,6 +6,7 @@ import {
   signContract,
 } from "@/server/services/contractService";
 import { storage } from "@/server/storage";
+import { getAdminRecipientEmails } from "@/server/services/emailLayout";
 
 export async function GET() {
   try {
@@ -89,6 +90,28 @@ export async function POST(request: NextRequest) {
             projectId: signed.projectId,
             contractId: signed.id,
           });
+        }
+
+        try {
+          const {
+            sendContractSignedNotification,
+            sendContractSignedConfirmation,
+          } = await import("@/server/services/emailNotifications");
+          const adminEmails = await getAdminRecipientEmails();
+          if (adminEmails.length > 0) {
+            await sendContractSignedNotification(adminEmails, {
+              signerName: body.signature,
+              contractTitle: signed.title,
+              projectId: signed.projectId,
+            });
+          }
+          if (user.email && user.emailNotificationsEnabled !== false) {
+            await sendContractSignedConfirmation(user.email, {
+              contractTitle: signed.title,
+            });
+          }
+        } catch (emailErr) {
+          console.error("[contracts] Signed email failed:", emailErr);
         }
       }
 

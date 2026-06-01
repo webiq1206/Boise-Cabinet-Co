@@ -33,6 +33,8 @@ import {
 import { Switch } from "@/components/ui/switch";
 import { useRouter, useSearchParams } from "next/navigation";
 import { cleanDisplayAddress, hasLeadingHouseNumber, HOUSE_NUMBER_ERROR_MESSAGE } from "@/shared/addressValidation";
+import { PropertyProfileEditor } from "@/components/admin/PropertyProfileEditor";
+import type { PropertyProfile } from "@/shared/propertyProfile";
 
 interface LineItem {
   serviceId?: string;
@@ -134,6 +136,7 @@ interface Lead {
   addressMissingHouseNumber?: boolean | null;
   projectId?: string | null;
   convertedToProjectAt?: string | null;
+  propertyProfile?: PropertyProfile | null;
   possibleDuplicates?: Array<{
     id: string;
     status: string;
@@ -1491,6 +1494,17 @@ function AdminDashboardContent({ embedded = false }: { embedded?: boolean }) {
               <p className="text-xs" data-testid={`text-message-${lead.id}`}>{lead.message}</p>
             </div>
           )}
+
+          <PropertyProfileEditor
+            profile={lead.propertyProfile}
+            saving={updateLeadMutation.isPending}
+            onSave={(profile) =>
+              updateLeadMutation.mutate({
+                leadId: lead.id,
+                data: { propertyProfile: profile },
+              })
+            }
+          />
 
           <QuoteBreakdownSection lead={lead} />
 

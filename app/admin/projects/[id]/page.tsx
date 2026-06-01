@@ -15,6 +15,8 @@ import { Badge } from "@/components/ui/badge";
 import { useAuth } from "@/hooks/useAuth";
 import { useToast } from "@/hooks/use-toast";
 import Link from "next/link";
+import { PropertyProfileEditor } from "@/components/admin/PropertyProfileEditor";
+import type { PropertyProfile } from "@/shared/propertyProfile";
 
 export default function AdminProjectDetailPage() {
   const { isAdmin, isLoading } = useAuth();
@@ -198,6 +200,13 @@ export default function AdminProjectDetailPage() {
                 )}
               </CardContent>
             </Card>
+
+            <PropertyProfileEditor
+              profile={project.propertyProfile as PropertyProfile | null | undefined}
+              saving={updateMutation.isPending}
+              onSave={(profile) => updateMutation.mutate({ propertyProfile: profile })}
+            />
+
             <div className="flex gap-2">
               <Select
                 value={project.status}

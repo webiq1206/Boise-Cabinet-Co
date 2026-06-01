@@ -119,6 +119,7 @@ export async function convertLeadToProject(
       phone: lead.phone,
       address: lead.address,
       city: lead.city,
+      propertyProfile: lead.propertyProfile ?? undefined,
       propertyType: lead.propertyType,
       serviceType: lead.serviceType,
       selectedServices: lead.selectedServices,

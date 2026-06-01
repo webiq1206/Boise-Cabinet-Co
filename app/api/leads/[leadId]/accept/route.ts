@@ -28,15 +28,29 @@ export async function POST(request: Request, { params }: { params: { leadId: str
 
   const updated = await db.select().from(leads).where(eq(leads.id, leadId));
 
+  let customerStatus: "contact_soon" | "quote_ready" = "contact_soon";
+  try {
+    const body = await request.json();
+    if (body?.customerStatus === "quote_ready") {
+      customerStatus = "quote_ready";
+    }
+  } catch {
+    // No body — default status
+  }
+
   try {
     if (lead.quoteId) {
       const quoteResult = await db.select().from(quotes).where(eq(quotes.id, lead.quoteId));
       const quote = quoteResult[0];
       if (quote) {
         const { sendCustomerStatusUpdate } = await import("@/server/services/emailNotifications");
+        const message =
+          customerStatus === "quote_ready"
+            ? "Your customized quote is ready to review. Click below to view your quote status and next steps."
+            : "Your quote has been reviewed and we'll be contacting you shortly to discuss the details.";
         sendCustomerStatusUpdate(quote.email, quote.id, {
-          status: 'contact_soon',
-          message: "Your quote has been reviewed and we'll be contacting you shortly to discuss the details.",
+          status: customerStatus,
+          message,
         }).catch(() => {});
       }
     }

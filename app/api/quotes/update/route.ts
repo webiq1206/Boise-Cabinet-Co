@@ -262,13 +262,12 @@ export async function POST(request: Request) {
         });
         if (u.email && u.emailNotificationsEnabled !== false) {
           try {
-            const { sendEmail } = await import("@/server/services/emailNotifications");
-            const url = `https://boiseremodeling.co/subcontractor/leads?leadId=${encodeURIComponent(lead.id)}`;
-            await sendEmail(
-              u.email,
-              `Watched lead updated in ${lead.city}`,
-              `<p>A lead you're watching has been updated by the customer.</p><p>City: ${lead.city}<br/>New estimated value: $${estimatedTotal.toLocaleString()}</p><p><a href="${url}">View lead</a></p>`
-            );
+            const { sendWatchedLeadUpdatedEmail } = await import("@/server/services/emailNotifications");
+            await sendWatchedLeadUpdatedEmail(u.email, {
+              city: lead.city,
+              estimatedTotal,
+              leadId: lead.id,
+            });
           } catch (emailErr) {
             console.error(
               `[QUOTE-UPDATE] Watcher email failed for user ${u.id}, lead ${lead.id}:`,

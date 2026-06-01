@@ -14,6 +14,7 @@ export const quotes = pgTable("quotes", {
   // Property details
   address: text("address"),
   city: text("city").notNull(),
+  propertyProfile: jsonb("property_profile").$type<import("@/shared/propertyProfile").PropertyProfile>(),
   propertyType: text("property_type").notNull(),
   propertySize: decimal("property_size", { precision: 10, scale: 2 }), // sq ft
   
@@ -235,6 +236,7 @@ export const leads = pgTable("leads", {
   phone: text("phone").notNull(),
   address: text("address"),
   city: text("city").notNull(),
+  propertyProfile: jsonb("property_profile").$type<import("@/shared/propertyProfile").PropertyProfile>(),
   propertyType: text("property_type").notNull(),
   serviceType: text("service_type").notNull(),
   selectedServices: text("selected_services").array(),
@@ -400,6 +402,9 @@ export const consultationRequests = pgTable("consultation_requests", {
   phone: text("phone").notNull(),
   email: text("email").notNull(),
   zip: text("zip").notNull(),
+  address: text("address"),
+  city: text("city"),
+  propertyProfile: jsonb("property_profile").$type<import("@/shared/propertyProfile").PropertyProfile>(),
   projectType: text("project_type").notNull(),
   message: text("message"),
   // Calculator estimate (optional; populated when user used the estimate tool)
@@ -469,6 +474,7 @@ export const projects = pgTable("projects", {
   phone: text("phone").notNull(),
   address: text("address"),
   city: text("city").notNull(),
+  propertyProfile: jsonb("property_profile").$type<import("@/shared/propertyProfile").PropertyProfile>(),
   propertyType: text("property_type").notNull(),
   serviceType: text("service_type").notNull(),
   selectedServices: text("selected_services").array(),

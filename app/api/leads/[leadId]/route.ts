@@ -32,6 +32,7 @@ const patchSchema = z
     serviceData: z.any().optional(),
     lineItems: z.any().optional(),
     addressMissingHouseNumber: z.boolean().optional(),
+    propertyProfile: z.record(z.unknown()).optional(),
   })
   .strict();
 

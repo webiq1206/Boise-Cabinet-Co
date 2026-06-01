@@ -14,12 +14,19 @@ import { CheckCircle2, ArrowRight } from "lucide-react";
 import type { StoredEstimate } from "@/shared/estimateEngine";
 import { FINISH_LABELS, PROJECT_LABELS } from "@/shared/estimateEngine";
 import { DisplayNum } from "@/components/marketing";
+import { AddressAutocomplete } from "@/components/AddressAutocomplete";
+import type { PropertyProfile } from "@/shared/propertyProfile";
+import { HOUSE_NUMBER_REGEX, HOUSE_NUMBER_ERROR_MESSAGE } from "@/shared/addressValidation";
 
 const formSchema = z.object({
   name: z.string().min(2, "Please enter your full name"),
   phone: z.string().min(10, "Please enter a valid phone number"),
   email: z.string().email("Please enter a valid email"),
-  zip: z.string().min(5, "Please enter your ZIP code"),
+  address: z
+    .string()
+    .min(5, "Please enter your property address")
+    .refine((v) => HOUSE_NUMBER_REGEX.test(v.trim()), HOUSE_NUMBER_ERROR_MESSAGE),
+  zip: z.string().min(5, "ZIP code is required"),
   projectType: z.string().min(1, "Please select a project type"),
   message: z.string().optional(),
 });
@@ -53,6 +60,8 @@ export function ConsultationForm({ onRevise }: ConsultationFormProps = {}) {
   const [decision, setDecision] = useState<EstimateDecision>("pending");
   const [success, setSuccess] = useState(false);
   const [pendingData, setPendingData] = useState<FormData | null>(null);
+  const [propertyProfile, setPropertyProfile] = useState<PropertyProfile | null>(null);
+  const [addressInput, setAddressInput] = useState("");
   const lastKeyRef = useRef<string | null>(null);
 
   const form = useForm<FormData>({
@@ -61,11 +70,22 @@ export function ConsultationForm({ onRevise }: ConsultationFormProps = {}) {
       name: "",
       phone: "",
       email: "",
+      address: "",
       zip: "",
       projectType: "",
       message: "",
     },
   });
+
+  function handleProfileResolved(profile: PropertyProfile | null) {
+    setPropertyProfile(profile);
+    if (profile?.zip) {
+      form.setValue("zip", profile.zip.slice(0, 5), { shouldValidate: true });
+    }
+    if (profile?.formattedAddress) {
+      form.setValue("address", profile.formattedAddress, { shouldValidate: true });
+    }
+  }
 
   useEffect(() => {
     function loadEstimate() {
@@ -101,6 +121,7 @@ export function ConsultationForm({ onRevise }: ConsultationFormProps = {}) {
     mutationFn: async (data: FormData) => {
       const payload = {
         ...data,
+        propertyProfile,
         estimate: estimate && decision === "confirmed"
           ? {
               project: estimate.project,
@@ -167,6 +188,7 @@ export function ConsultationForm({ onRevise }: ConsultationFormProps = {}) {
       ["Name", pendingData.name],
       ["Phone", pendingData.phone],
       ["Email", pendingData.email],
+      ["Address", pendingData.address],
       ["ZIP code", pendingData.zip],
       ["Project", pendingProjectLabel],
     ];
@@ -414,6 +436,28 @@ export function ConsultationForm({ onRevise }: ConsultationFormProps = {}) {
           />
         </div>
 
+        <FormField
+          control={form.control}
+          name="address"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel className={labelClass}>Property address</FormLabel>
+              <FormControl>
+                <AddressAutocomplete
+                  value={addressInput || field.value}
+                  onChange={(v) => {
+                    setAddressInput(v);
+                    field.onChange(v);
+                  }}
+                  onProfileResolved={handleProfileResolved}
+                  data-testid="input-address"
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
         <div className="grid sm:grid-cols-2 gap-4">
           <FormField
             control={form.control}
@@ -440,7 +484,12 @@ export function ConsultationForm({ onRevise }: ConsultationFormProps = {}) {
               <FormItem>
                 <FormLabel className={labelClass}>ZIP code</FormLabel>
                 <FormControl>
-                  <Input placeholder="83706" maxLength={5} data-testid="input-zip" {...field} />
+                  <Input
+                    placeholder="83706"
+                    maxLength={5}
+                    data-testid="input-zip"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>

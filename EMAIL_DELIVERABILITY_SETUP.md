@@ -174,17 +174,24 @@ If you're starting to send emails from a new domain:
 
 ---
 
-## Current Status: Email Images Fixed ✅
+## Current Status: Email Branding Unified
 
 ### What Was Fixed:
-1. **Images moved** from `attached_assets/` to `client/public/email/`
-2. **Email templates updated** to use: `https://boiseremodeling.co/email/favicon.png`
-3. **Proper HTML attributes** added (width, height, display:block)
+1. **Shared email layout** in `server/services/emailLayout.ts` — text-based logo matching the public site (charcoal + sage palette)
+2. **Plain-text parts** added to all Resend sends for deliverability and accessibility
+3. **HTML escaping** applied to user-provided content in templates
+4. **From / reply-to / admin notifications** use `hello@boiseremodeling.co` (`PLATFORM_EMAIL` in `emailLayout.ts`)
 
-### Files Updated:
-- `server/email.ts` - Quote notification emails
-- `server/services/emailNotifications.ts` - Lead distribution emails
-- `client/public/email/` - Logo and icon files now publicly accessible
+### Email modules:
+- `server/services/emailLayout.ts` — shared layout, branding, escaping
+- `server/services/emailNotifications.ts` — lead marketplace and admin emails
+- `lib/resend.ts` — quote form emails
+- `server/services/complianceEmails.ts` — compliance, contract, and project emails
+
+### Cron routes (set `CRON_SECRET` and schedule in production):
+- `GET|POST /api/cron/compliance-reminders` — compliance document reminders
+- `GET|POST /api/cron/lead-price-updates` — lead price reductions + watcher notifications
+- `GET|POST /api/cron/admin-lead-reminders` — admin digest, pending reminders, auto-decline after 48h
 
 ---
 

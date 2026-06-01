@@ -4,14 +4,36 @@ import { db } from "@/lib/db";
 import { consultationRequests } from "@/shared/schema";
 import { getUncachableResendClient } from "@/server/resend";
 import { SITE_CONFIG } from "@/shared/siteConfig";
+import {
+  escapeHtml,
+  wrapEmailHtml,
+  htmlToPlainText,
+  getAdminRecipientEmails,
+  formatFromAddress,
+  getReplyToAddress,
+} from "@/server/services/emailLayout";
+import type { PropertyProfile } from "@/shared/propertyProfile";
+
+const propertyProfileSchema = z
+  .object({
+    formattedAddress: z.string(),
+    city: z.string(),
+    state: z.string(),
+    zip: z.string(),
+  })
+  .passthrough()
+  .optional()
+  .nullable();
 
 const bodySchema = z.object({
   name: z.string().min(2),
   phone: z.string().min(10),
   email: z.string().email(),
+  address: z.string().min(5),
   zip: z.string().min(5),
   projectType: z.string().min(1),
   message: z.string().optional(),
+  propertyProfile: propertyProfileSchema,
   estimate: z
     .object({
       project: z.string(),
@@ -23,9 +45,6 @@ const bodySchema = z.object({
     .optional()
     .nullable(),
 });
-
-const ADMIN_EMAIL = SITE_CONFIG.email;
-const SITE_URL = SITE_CONFIG.siteUrl;
 
 export async function POST(request: NextRequest) {
   try {
@@ -41,14 +60,17 @@ export async function POST(request: NextRequest) {
 
     const data = parsed.data;
 
-    // Persist to database if available
     if (db) {
       try {
+        const profile = data.propertyProfile as Record<string, unknown> | null | undefined;
         await db.insert(consultationRequests).values({
           name: data.name,
           phone: data.phone,
           email: data.email,
           zip: data.zip,
+          address: data.address,
+          city: (profile?.city as string) || null,
+          propertyProfile: (data.propertyProfile as PropertyProfile | null) ?? null,
           projectType: data.projectType,
           message: data.message || null,
           estimateProject: data.estimate?.project || null,
@@ -58,54 +80,90 @@ export async function POST(request: NextRequest) {
         });
       } catch (dbErr) {
         console.error("[consultation] DB insert failed:", dbErr);
-        // Continue to send emails even if DB fails
       }
     }
 
-    // Send emails
     try {
       const { client, fromEmail } = await getUncachableResendClient();
+      const from = formatFromAddress(fromEmail);
 
-      const estimateHtml = data.estimate
-        ? `<p><strong>Calculator estimate:</strong> ${data.estimate.project} (${data.estimate.finish}): $${Math.round(data.estimate.priceLow / 1000)}k to $${Math.round(data.estimate.priceHigh / 1000)}k</p>`
+      const estimateBlock = data.estimate
+        ? `<p><strong>Calculator estimate:</strong> ${escapeHtml(data.estimate.project)} (${escapeHtml(data.estimate.finish)}): $${Math.round(data.estimate.priceLow / 1000)}k to $${Math.round(data.estimate.priceHigh / 1000)}k</p>`
         : "";
 
-      // Admin notification
-      await client.emails.send({
-        from: `Boise Remodeling Co <${fromEmail}>`,
-        to: ADMIN_EMAIL,
-        subject: `New consultation request: ${data.name}`,
-        html: `
-          <h2>New consultation request</h2>
-          <p><strong>Name:</strong> ${data.name}</p>
-          <p><strong>Phone:</strong> ${data.phone}</p>
-          <p><strong>Email:</strong> ${data.email}</p>
-          <p><strong>ZIP:</strong> ${data.zip}</p>
-          <p><strong>Project:</strong> ${data.projectType}</p>
-          ${estimateHtml}
-          <p><strong>Message:</strong> ${data.message || "(none)"}</p>
-          <p style="margin-top:16px;font-size:12px;color:#888;">Submitted via ${SITE_URL}</p>
+      const profile = data.propertyProfile as {
+        parcelId?: string;
+        squareFootage?: number;
+        lotSizeSqFt?: number;
+        permittingAuthority?: string;
+        jurisdiction?: string;
+      } | null | undefined;
+      const propertyBlock = profile
+        ? `<div class="highlight-box" style="margin-top:12px;">
+            <p><strong>Property (auto-enriched):</strong></p>
+            <p style="margin-top:6px;">${escapeHtml(data.address)}</p>
+            ${profile.parcelId ? `<p>Parcel: ${escapeHtml(profile.parcelId)}</p>` : ""}
+            ${profile.squareFootage ? `<p>~${profile.squareFootage.toLocaleString()} sq ft</p>` : ""}
+            ${profile.lotSizeSqFt ? `<p>Lot: ${profile.lotSizeSqFt.toLocaleString()} sq ft</p>` : ""}
+            ${profile.permittingAuthority ? `<p>Permits: ${escapeHtml(profile.permittingAuthority)}</p>` : ""}
+          </div>`
+        : `<p><strong>Address:</strong> ${escapeHtml(data.address)}</p>`;
+
+      const adminHtml = wrapEmailHtml({
+        title: "New Consultation Request",
+        subtitle: escapeHtml(data.name),
+        tagline: "Admin Notifications",
+        content: `
+          <table class="info-table">
+            <tr><td class="label">Name:</td><td class="value">${escapeHtml(data.name)}</td></tr>
+            <tr><td class="label">Phone:</td><td class="value"><a href="tel:${escapeHtml(data.phone)}">${escapeHtml(data.phone)}</a></td></tr>
+            <tr><td class="label">Email:</td><td class="value"><a href="mailto:${escapeHtml(data.email)}">${escapeHtml(data.email)}</a></td></tr>
+            <tr><td class="label">ZIP:</td><td class="value">${escapeHtml(data.zip)}</td></tr>
+            <tr><td class="label">Project:</td><td class="value">${escapeHtml(data.projectType)}</td></tr>
+          </table>
+          ${propertyBlock}
+          ${estimateBlock}
+          <div class="highlight-box">
+            <p><strong>Message:</strong></p>
+            <p style="margin-top:8px;">${escapeHtml(data.message || "(none)")}</p>
+          </div>
+          <p style="font-size:12px;color:#888;margin-top:16px;">Submitted via ${escapeHtml(SITE_CONFIG.siteUrl)}</p>
         `,
       });
 
-      // Customer confirmation
+      const adminEmails = await getAdminRecipientEmails(SITE_CONFIG.email);
+      for (const adminEmail of adminEmails) {
+        await client.emails.send({
+          from,
+          replyTo: getReplyToAddress(),
+          to: adminEmail,
+          subject: `New consultation request: ${data.name}`,
+          html: adminHtml,
+          text: htmlToPlainText(adminHtml),
+        });
+      }
+
+      const customerHtml = wrapEmailHtml({
+        title: `Thanks, ${escapeHtml(data.name)}!`,
+        subtitle: "We received your consultation request",
+        tagline: "Design & Build",
+        content: `
+          <p class="greeting">We received your consultation request and will reach out within one business day to schedule your free in-home visit.</p>
+          <p>In the meantime, feel free to call us at <a href="${SITE_CONFIG.phoneHref}">${escapeHtml(SITE_CONFIG.phone)}</a> or reply to this email with any questions.</p>
+          <p style="margin-top:24px;">The Boise Remodeling Co team</p>
+        `,
+      });
+
       await client.emails.send({
-        from: `Boise Remodeling Co <${fromEmail}>`,
+        from,
+        replyTo: getReplyToAddress(),
         to: data.email,
         subject: "We received your request | Boise Remodeling Co",
-        html: `
-          <div style="font-family:system-ui,sans-serif;max-width:480px;margin:0 auto;padding:24px;">
-            <h2 style="font-size:22px;color:#3A3E3D;">Thanks, ${data.name}!</h2>
-            <p style="color:#5A5F5C;">We received your consultation request and will reach out within one business day to schedule your free in-home visit.</p>
-            <p style="color:#5A5F5C;">In the meantime, feel free to call us at ${SITE_CONFIG.phone} or reply to this email with any questions.</p>
-            <p style="margin-top:32px;color:#5A5F5C;">The Boise Remodeling Co team</p>
-            <p style="font-size:12px;color:#aaa;margin-top:16px;">${SITE_URL}</p>
-          </div>
-        `,
+        html: customerHtml,
+        text: htmlToPlainText(customerHtml),
       });
     } catch (emailErr) {
       console.error("[consultation] Email send failed:", emailErr);
-      // Don't fail the request just because email failed
     }
 
     return NextResponse.json({ success: true });

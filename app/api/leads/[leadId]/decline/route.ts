@@ -42,7 +42,7 @@ export async function POST(request: Request, { params }: { params: { leadId: str
         leadId: lead.id,
       });
 
-      if (sub.email) {
+      if (sub.email && sub.emailNotificationsEnabled !== false) {
         sendContractorNewLeadAvailable(sub.email, updated[0] as any).catch(() => {});
       }
     }

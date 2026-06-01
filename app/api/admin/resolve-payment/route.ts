@@ -154,9 +154,11 @@ export async function POST(request: NextRequest) {
     }
 
     try {
-      const { sendLeadPurchaseConfirmation } = await import("@/server/services/emailNotifications");
+      const { sendLeadPurchasedNotification, sendLeadPurchaseConfirmation } = await import("@/server/services/emailNotifications");
       const targetUser = userResults[0];
       const buyerEmail = targetUser.email || '';
+      const buyerName = [targetUser.firstName, targetUser.lastName].filter(Boolean).join(' ') || targetUser.email || 'Subcontractor';
+
       if (result.lead) {
         sendLeadPurchaseConfirmation(
           buyerEmail,
@@ -169,6 +171,24 @@ export async function POST(request: NextRequest) {
             serviceType: result.lead.serviceType,
             finalQuote: result.lead.finalQuote || "0",
             address: result.lead.address || undefined,
+          }
+        ).catch(() => {});
+
+        sendLeadPurchasedNotification(
+          {
+            id: result.lead.id,
+            name: result.lead.name,
+            email: result.lead.email,
+            phone: result.lead.phone || "",
+            city: result.lead.city,
+            serviceType: result.lead.serviceType,
+            finalQuote: result.lead.finalQuote || "0",
+            address: result.lead.address || undefined,
+            purchasePrice: result.lead.purchasePrice || lead.currentLeadPrice || "0",
+          },
+          {
+            name: buyerName,
+            email: buyerEmail,
           }
         ).catch(() => {});
       }

@@ -1,11 +1,20 @@
 import { getUncachableResendClient } from '../resend';
 import { formatQuoteForDisplay, calculateQuoteRange } from '../../shared/utils';
 import { storage } from '../storage';
-
-const SITE_BASE_URL = 'https://boiseremodeling.co';
-const EMAIL_ASSET_BASE_URL = `${SITE_BASE_URL}/images`;
-const EMAIL_LOGO_LIGHT_URL = `${EMAIL_ASSET_BASE_URL}/brc-logo.png`;
-const EMAIL_LOGO_DARK_URL = `${EMAIL_ASSET_BASE_URL}/brc-icon.png`;
+import {
+  SITE_BASE_URL,
+  EMAIL_BRAND,
+  emailStyles,
+  escapeHtml,
+  htmlToPlainText,
+  buildTextLogo,
+  buildEmailFooter,
+  wrapEmailHtml,
+  getAdminRecipientEmails,
+  formatFromAddress,
+  getReplyToAddress,
+} from './emailLayout';
+import { SITE_CONFIG } from '@/shared/siteConfig';
 
 const NOTIF_RECURRING_ELIGIBLE = new Set<string>();
 
@@ -208,151 +217,6 @@ function renderServiceDataTable(serviceDataRaw: unknown): string {
   `;
 }
 
-const emailStyles = `
-  body { 
-    margin: 0; 
-    padding: 0; 
-    font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; 
-    background-color: #f5f5f5;
-    line-height: 1.6;
-  }
-  .email-wrapper { 
-    max-width: 600px; 
-    margin: 0 auto; 
-    background-color: #ffffff;
-  }
-  .header { 
-    background: linear-gradient(135deg, #dcfce7 0%, #f0fdf4 50%, #ffffff 100%); 
-    color: #2D8652; 
-    padding: 40px 30px; 
-    text-align: center;
-    border-bottom: 1px solid #bbf7d0;
-  }
-  .header h1 {
-    margin: 0;
-    font-size: 28px;
-    font-weight: 600;
-    letter-spacing: -0.5px;
-    color: #2D8652;
-  }
-  .header p {
-    margin: 8px 0 0 0;
-    font-size: 14px;
-    color: #3a9d63;
-  }
-  .content { 
-    padding: 40px 30px;
-    background-color: #ffffff;
-  }
-  .greeting {
-    font-size: 18px;
-    color: #1f2937;
-    margin: 0 0 20px 0;
-  }
-  .section {
-    margin: 30px 0;
-  }
-  .section-title {
-    font-size: 16px;
-    font-weight: 600;
-    color: #2D8652;
-    margin: 0 0 15px 0;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-  }
-  .info-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 15px 0;
-  }
-  .info-table td {
-    padding: 12px 0;
-    border-bottom: 1px solid #e5e7eb;
-  }
-  .info-table .label {
-    font-weight: 600;
-    color: #4b5563;
-    width: 40%;
-  }
-  .info-table .value {
-    color: #1f2937;
-  }
-  .highlight-box {
-    background: linear-gradient(to right, #f0f9f4 0%, #f0fdf4 100%);
-    border-left: 4px solid #2D8652;
-    padding: 20px;
-    margin: 25px 0;
-    border-radius: 4px;
-  }
-  .highlight-box p {
-    margin: 0;
-    color: #1f2937;
-  }
-  .warning-box {
-    background: #fffbeb;
-    border-left: 4px solid #f59e0b;
-    padding: 20px;
-    margin: 25px 0;
-    border-radius: 4px;
-  }
-  .warning-box p {
-    margin: 0;
-    color: #78350f;
-  }
-  .cta-button {
-    display: inline-block;
-    background: linear-gradient(135deg, #2D8652 0%, #3a9d63 100%);
-    color: #ffffff !important;
-    padding: 14px 32px;
-    text-decoration: none;
-    border-radius: 6px;
-    font-weight: 600;
-    margin: 20px 0;
-    text-align: center;
-  }
-  .footer {
-    background-color: #f9fafb;
-    padding: 30px;
-    text-align: center;
-    border-top: 1px solid #e5e7eb;
-  }
-  .footer-brand {
-    font-size: 18px;
-    font-weight: 600;
-    color: #2D8652;
-    margin: 0 0 8px 0;
-  }
-  .footer-tagline {
-    font-size: 13px;
-    color: #6b7280;
-    margin: 0 0 15px 0;
-  }
-  .footer-contact {
-    font-size: 13px;
-    color: #4b5563;
-    margin: 5px 0;
-  }
-  .footer-contact a {
-    color: #2D8652;
-    text-decoration: none;
-  }
-  .divider {
-    height: 1px;
-    background-color: #e5e7eb;
-    margin: 25px 0;
-  }
-  .badge {
-    display: inline-block;
-    background-color: #f0f9f4;
-    color: #2D8652;
-    padding: 6px 12px;
-    border-radius: 4px;
-    font-size: 13px;
-    font-weight: 600;
-    margin: 5px 0;
-  }
-`;
-
 function formatLeadValueRange(value: string): { subject: string; display: string } {
   const { min, max } = calculateQuoteRange(value, 0.15);
   if (min === 0 && max === 0) {
@@ -369,7 +233,12 @@ function isBlockedEmailDomain(email: string): boolean {
   return BLOCKED_EMAIL_DOMAINS.some(d => domain === d);
 }
 
-export async function sendEmail(to: string, subject: string, htmlBody: string): Promise<void> {
+export async function sendEmail(
+  to: string,
+  subject: string,
+  htmlBody: string,
+  textBody?: string
+): Promise<void> {
   if (!to || to.trim().length === 0) {
     throw new Error('Recipient email address is required');
   }
@@ -386,12 +255,13 @@ export async function sendEmail(to: string, subject: string, htmlBody: string): 
       return;
     }
 
-    const fromAddress = fromEmail.includes('<') ? fromEmail : `Boise Remodeling Co <${fromEmail}>`;
     await resend.emails.send({
-      from: fromAddress,
+      from: formatFromAddress(fromEmail),
+      replyTo: getReplyToAddress(),
       to,
       subject,
-      html: htmlBody
+      html: htmlBody,
+      text: textBody ?? htmlToPlainText(htmlBody),
     });
 
     console.log(`Email sent successfully to ${to}: ${subject}`);
@@ -401,114 +271,15 @@ export async function sendEmail(to: string, subject: string, htmlBody: string): 
   }
 }
 
-export async function sendNewLeadNotification(leadData: {
-  id: string;
-  name: string;
-  email: string;
-  phone: string;
-  city: string;
-  serviceType: string;
-  finalQuote: string;
-  address?: string;
-}): Promise<void> {
-  const { fromEmail } = await getUncachableResendClient();
-  const dashboardUrl = adminLeadUrl('pending', leadData.id);
-  
-  const leadValue = formatLeadValueRange(leadData.finalQuote);
-  
-  const subject = `New Lead Available - ${leadData.name} (${leadData.city}) - ${leadValue.subject}`;
-  
-  const htmlBody = `
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <style>${emailStyles}</style>
-    </head>
-    <body>
-      <div class="email-wrapper">
-        <div class="header">
-          <div style="margin-bottom: 20px;">
-            <img src="${EMAIL_LOGO_LIGHT_URL}" alt="Boise Remodeling Co" width="300" style="display:block; max-width:300px; height:auto;">
-          </div>
-          <h1>New Lead Available</h1>
-          <p>Lead Distribution Platform</p>
-        </div>
-        
-        <div class="content">
-          <p class="greeting">A new high-quality lead is now available in your dashboard.</p>
-          
-          <div class="highlight-box">
-            <p><strong>48-Hour Priority Window</strong></p>
-            <p style="margin: 10px 0 0 0;">You have first right of refusal for the next 48 hours. After that, this lead will become available to other team members.</p>
-          </div>
-
-          <div class="section">
-            <h2 class="section-title">Lead Overview</h2>
-            <p><span class="badge">Lead ID: ${leadData.id}</span></p>
-            <table class="info-table">
-              <tr>
-                <td class="label">Customer Name:</td>
-                <td class="value">${leadData.name}</td>
-              </tr>
-              <tr>
-                <td class="label">Email:</td>
-                <td class="value"><a href="mailto:${leadData.email}" style="color: #2D8652; text-decoration: none;">${leadData.email}</a></td>
-              </tr>
-              <tr>
-                <td class="label">Phone:</td>
-                <td class="value"><a href="tel:${leadData.phone}" style="color: #2D8652; text-decoration: none;">${leadData.phone}</a></td>
-              </tr>
-              <tr>
-                <td class="label">Service Area:</td>
-                <td class="value">${leadData.city}</td>
-              </tr>
-              ${leadData.address ? `
-              <tr>
-                <td class="label">Property Address:</td>
-                <td class="value">${leadData.address}</td>
-              </tr>
-              ` : ''}
-              <tr>
-                <td class="label">Service Type:</td>
-                <td class="value">${leadData.serviceType}</td>
-              </tr>
-              <tr>
-                <td class="label">Estimated Value:</td>
-                <td class="value" style="font-size: 20px; font-weight: 600; color: #2D8652;">${leadValue.display}</td>
-              </tr>
-            </table>
-          </div>
-
-          <div style="text-align: center; margin: 30px 0;">
-            <a href="${dashboardUrl}" class="cta-button">Review Lead in Dashboard →</a>
-          </div>
-        </div>
-
-        <div class="footer">
-          <div style="margin: 0 0 12px 0;">
-            <img src="${EMAIL_LOGO_DARK_URL}" alt="Boise Remodeling Co" width="44" style="display:block; margin:0 auto; max-width:44px; height:auto;">
-          </div>
-          <p class="footer-brand">Boise Remodeling Co</p>
-          <p class="footer-tagline">Lead Distribution Platform</p>
-          <p class="footer-contact">Email: <a href="mailto:${fromEmail}">${fromEmail}</a></p>
-          <p class="footer-contact">Web: <a href="${SITE_BASE_URL}">www.boiseremodeling.co</a></p>
-        </div>
-      </div>
-    </body>
-    </html>
-  `;
-
-  // Send to all admins (fallback: fromEmail).
-  const admins = await storage.getAllAdmins();
-  const adminEmails = admins.map(a => a.email).filter((e): e is string => typeof e === "string" && e.trim().length > 0);
-  const recipients = adminEmails.length > 0 ? adminEmails : [fromEmail];
-
+async function sendEmailToAdmins(
+  subject: string,
+  htmlBody: string,
+  fromEmail: string
+): Promise<void> {
+  const recipients = await getAdminRecipientEmails(fromEmail);
   for (const to of recipients) {
     await sendEmail(to, subject, htmlBody);
-    // Space out emails to avoid rate limits
-    await new Promise(resolve => setTimeout(resolve, 500));
+    await new Promise((resolve) => setTimeout(resolve, 500));
   }
 }
 
@@ -543,12 +314,10 @@ export async function sendLeadPurchasedNotification(leadData: {
     </head>
     <body>
       <div class="email-wrapper">
-        <div class="header" style="background: linear-gradient(135deg, #dcfce7 0%, #f0fdf4 50%, #ffffff 100%); border-bottom: 1px solid #bbf7d0;">
-          <div style="margin-bottom: 20px;">
-            <img src="${EMAIL_LOGO_LIGHT_URL}" alt="Boise Remodeling Co" width="300" style="display:block; max-width:300px; height:auto;">
-          </div>
-          <h1 style="color: #2D8652;">Lead Purchased</h1>
-          <p style="color: #3a9d63;">Transaction Notification</p>
+        <div class="header">
+          ${buildTextLogo()}
+          <h1>Lead Purchased</h1>
+          <p>Transaction Notification</p>
         </div>
         
         <div class="content">
@@ -563,7 +332,7 @@ export async function sendLeadPurchasedNotification(leadData: {
               </tr>
               <tr>
                 <td class="label">Email:</td>
-                <td class="value"><a href="mailto:${purchaserData.email}" style="color: #2D8652; text-decoration: none;">${purchaserData.email}</a></td>
+                <td class="value"><a href="mailto:${purchaserData.email}" style="color: ${EMAIL_BRAND.charcoal}; text-decoration: none;">${purchaserData.email}</a></td>
               </tr>
             </table>
           </div>
@@ -602,12 +371,12 @@ export async function sendLeadPurchasedNotification(leadData: {
               </tr>
               <tr>
                 <td class="label">Quote Value:</td>
-                <td class="value" style="font-size: 20px; font-weight: 600; color: #2D8652;">${leadValue.display}</td>
+                <td class="value" style="font-size: 20px; font-weight: 600; color: ${EMAIL_BRAND.charcoal};">${leadValue.display}</td>
               </tr>
             </table>
           </div>
 
-          <div class="highlight-box" style="background: #dcfce7; border: 2px solid #2D8652;">
+          <div class="highlight-box" >
             <p><strong>Lead Purchase Price: ${purchasePrice}</strong></p>
             <p style="margin: 10px 0 0 0;">The subcontractor paid <strong>${purchasePrice}</strong> for this lead. The lead has been transferred and they now have full access to customer contact information.</p>
           </div>
@@ -617,29 +386,13 @@ export async function sendLeadPurchasedNotification(leadData: {
           </div>
         </div>
 
-        <div class="footer">
-          <div style="margin: 0 0 12px 0;">
-            <img src="${EMAIL_LOGO_DARK_URL}" alt="Boise Remodeling Co" width="44" style="display:block; margin:0 auto; max-width:44px; height:auto;">
-          </div>
-          <p class="footer-brand">Boise Remodeling Co</p>
-          <p class="footer-tagline">Lead Distribution Platform</p>
-          <p class="footer-contact">Email: <a href="mailto:${fromEmail}">${fromEmail}</a></p>
-          <p class="footer-contact">Web: <a href="${SITE_BASE_URL}">www.boiseremodeling.co</a></p>
-        </div>
+        ${buildEmailFooter('Lead Marketplace')}
       </div>
     </body>
     </html>
   `;
 
-  // Send to all admins (fallback: fromEmail).
-  const admins = await storage.getAllAdmins();
-  const adminEmails = admins.map(a => a.email).filter((e): e is string => typeof e === "string" && e.trim().length > 0);
-  const recipients = adminEmails.length > 0 ? adminEmails : [fromEmail];
-
-  for (const to of recipients) {
-    await sendEmail(to, subject, htmlBody);
-    await new Promise(resolve => setTimeout(resolve, 500));
-  }
+  await sendEmailToAdmins(subject, htmlBody, fromEmail);
 }
 
 export async function sendLeadPurchaseConfirmation(purchaserEmail: string, leadData: {
@@ -667,9 +420,7 @@ export async function sendLeadPurchaseConfirmation(purchaserEmail: string, leadD
     <body>
       <div class="email-wrapper">
         <div class="header">
-          <div style="margin-bottom: 20px;">
-            <img src="${EMAIL_LOGO_LIGHT_URL}" alt="Boise Remodeling Co" width="300" style="display:block; max-width:300px; height:auto;">
-          </div>
+          ${buildTextLogo()}
           <h1>Purchase Confirmed</h1>
           <p>Your lead is ready to contact</p>
         </div>
@@ -689,11 +440,11 @@ export async function sendLeadPurchaseConfirmation(purchaserEmail: string, leadD
               </tr>
               <tr>
                 <td class="label">Email:</td>
-                <td class="value"><a href="mailto:${leadData.email}" style="color: #2D8652; text-decoration: none; font-weight: 600;">${leadData.email}</a></td>
+                <td class="value"><a href="mailto:${leadData.email}" style="color: ${EMAIL_BRAND.charcoal}; text-decoration: none; font-weight: 600;">${leadData.email}</a></td>
               </tr>
               <tr>
                 <td class="label">Phone:</td>
-                <td class="value"><a href="tel:${leadData.phone}" style="color: #2D8652; text-decoration: none; font-weight: 600;">${leadData.phone}</a></td>
+                <td class="value"><a href="tel:${leadData.phone}" style="color: ${EMAIL_BRAND.charcoal}; text-decoration: none; font-weight: 600;">${leadData.phone}</a></td>
               </tr>
               <tr>
                 <td class="label">Service Area:</td>
@@ -711,7 +462,7 @@ export async function sendLeadPurchaseConfirmation(purchaserEmail: string, leadD
               </tr>
               <tr>
                 <td class="label">Quote Range:</td>
-                <td class="value" style="font-size: 20px; font-weight: 600; color: #1e40af;">${leadValue.display}</td>
+                <td class="value" style="font-size: 20px; font-weight: 600; color: ${EMAIL_BRAND.charcoal};">${leadValue.display}</td>
               </tr>
             </table>
           </div>
@@ -736,14 +487,7 @@ export async function sendLeadPurchaseConfirmation(purchaserEmail: string, leadD
           </div>
         </div>
 
-        <div class="footer">
-          <div style="margin: 0 0 12px 0;">
-            <img src="${EMAIL_LOGO_DARK_URL}" alt="Boise Remodeling Co" width="44" style="display:block; margin:0 auto; max-width:44px; height:auto;">
-          </div>
-          <p class="footer-brand">Boise Remodeling Co</p>
-          <p class="footer-tagline">Lead Distribution Platform</p>
-          <p style="font-size: 12px; color: #6b7280; margin: 15px 0;">Questions about your purchase? Contact us anytime.</p>
-        </div>
+        ${buildEmailFooter('Lead Marketplace')}
       </div>
     </body>
     </html>
@@ -781,12 +525,10 @@ export async function sendAdminAutoDeclineNotification(leadData: {
     </head>
     <body>
       <div class="email-wrapper">
-        <div class="header" style="background: linear-gradient(135deg, #dcfce7 0%, #f0fdf4 50%, #ffffff 100%); border-bottom: 1px solid #bbf7d0;">
-          <div style="margin-bottom: 20px;">
-            <img src="${EMAIL_LOGO_LIGHT_URL}" alt="Boise Remodeling Co" width="300" style="display:block; max-width:300px; height:auto;">
-          </div>
-          <h1 style="color: #2D8652;">Lead Auto-Declined</h1>
-          <p style="color: #3a9d63;">Automated System Notification</p>
+        <div class="header">
+          ${buildTextLogo()}
+          <h1>Lead Auto-Declined</h1>
+          <p>Automated System Notification</p>
         </div>
         
         <div class="content">
@@ -807,11 +549,11 @@ export async function sendAdminAutoDeclineNotification(leadData: {
               </tr>
               <tr>
                 <td class="label">Email:</td>
-                <td class="value"><a href="mailto:${leadData.email}" style="color: #2D8652; text-decoration: none;">${leadData.email}</a></td>
+                <td class="value"><a href="mailto:${leadData.email}" style="color: ${EMAIL_BRAND.charcoal}; text-decoration: none;">${leadData.email}</a></td>
               </tr>
               <tr>
                 <td class="label">Phone:</td>
-                <td class="value"><a href="tel:${leadData.phone}" style="color: #2D8652; text-decoration: none;">${leadData.phone}</a></td>
+                <td class="value"><a href="tel:${leadData.phone}" style="color: ${EMAIL_BRAND.charcoal}; text-decoration: none;">${leadData.phone}</a></td>
               </tr>
               <tr>
                 <td class="label">Service Area:</td>
@@ -829,7 +571,7 @@ export async function sendAdminAutoDeclineNotification(leadData: {
               </tr>
               <tr>
                 <td class="label">Estimated Value:</td>
-                <td class="value" style="font-size: 20px; font-weight: 600; color: #2D8652;">${leadValue.display}</td>
+                <td class="value" style="font-size: 20px; font-weight: 600; color: ${EMAIL_BRAND.charcoal};">${leadValue.display}</td>
               </tr>
               <tr>
                 <td class="label">Time Pending:</td>
@@ -848,29 +590,13 @@ export async function sendAdminAutoDeclineNotification(leadData: {
           </div>
         </div>
 
-        <div class="footer">
-          <div style="margin: 0 0 12px 0;">
-            <img src="${EMAIL_LOGO_DARK_URL}" alt="Boise Remodeling Co" width="44" style="display:block; margin:0 auto; max-width:44px; height:auto;">
-          </div>
-          <p class="footer-brand">Boise Remodeling Co</p>
-          <p class="footer-tagline">Lead Distribution Platform</p>
-          <p class="footer-contact">Email: <a href="mailto:${fromEmail}">${fromEmail}</a></p>
-          <p class="footer-contact">Web: <a href="${SITE_BASE_URL}">www.boiseremodeling.co</a></p>
-        </div>
+        ${buildEmailFooter('Lead Marketplace')}
       </div>
     </body>
     </html>
   `;
 
-  // Send to all admins (fallback: fromEmail).
-  const admins = await storage.getAllAdmins();
-  const adminEmails = admins.map(a => a.email).filter((e): e is string => typeof e === "string" && e.trim().length > 0);
-  const recipients = adminEmails.length > 0 ? adminEmails : [fromEmail];
-
-  for (const to of recipients) {
-    await sendEmail(to, subject, htmlBody);
-    await new Promise(resolve => setTimeout(resolve, 500));
-  }
+  await sendEmailToAdmins(subject, htmlBody, fromEmail);
 }
 
 export async function sendCustomerStatusUpdate(
@@ -899,29 +625,22 @@ export async function sendCustomerStatusUpdate(
     <body>
       <div class="email-wrapper">
         <div class="header">
-          <div style="margin-bottom: 20px;">
-            <img src="${EMAIL_LOGO_LIGHT_URL}" alt="Boise Remodeling Co" width="300" style="display:block; max-width:300px; height:auto;">
-          </div>
+          ${buildTextLogo()}
           <h1>Quote Status Update</h1>
           <p>${subject}</p>
         </div>
         <div class="content">
           <p class="greeting">Here’s the latest update on your quote request:</p>
           <div class="highlight-box">
-            <p style="margin: 0;"><strong>Status:</strong> ${update.status.replace(/_/g, ' ')}</p>
-            <p style="margin: 10px 0 0 0;">${update.message}</p>
+            <p style="margin: 0;"><strong>Status:</strong> ${escapeHtml(update.status.replace(/_/g, ' '))}</p>
+            <p style="margin: 10px 0 0 0;">${escapeHtml(update.message)}</p>
           </div>
           <div style="text-align:center; margin: 30px 0;">
             <a href="${statusUrl}" class="cta-button">View Quote Status →</a>
           </div>
+          <p style="font-size: 14px; color: ${EMAIL_BRAND.charcoalLight};">Questions? Call us at <a href="${SITE_CONFIG.phoneHref}">${escapeHtml(SITE_CONFIG.phone)}</a>.</p>
         </div>
-        <div class="footer">
-          <div style="margin: 0 0 12px 0;">
-            <img src="${EMAIL_LOGO_DARK_URL}" alt="Boise Remodeling Co" width="44" style="display:block; margin:0 auto; max-width:44px; height:auto;">
-          </div>
-          <p class="footer-brand">Boise Remodeling Co</p>
-          <p class="footer-tagline">Customer Updates</p>
-        </div>
+        ${buildEmailFooter('Customer Updates')}
       </div>
     </body>
     </html>
@@ -974,9 +693,7 @@ export async function sendContractorNewLeadAvailable(
     <body>
       <div class="email-wrapper">
         <div class="header">
-          <div style="margin-bottom: 20px;">
-            <img src="${EMAIL_LOGO_LIGHT_URL}" alt="Boise Remodeling Co" width="300" style="display:block; max-width:300px; height:auto;">
-          </div>
+          ${buildTextLogo()}
           <h1>${displayTitle}</h1>
           <p>${leadData.city} -- ${leadValue.display} project</p>
         </div>
@@ -996,7 +713,7 @@ export async function sendContractorNewLeadAvailable(
               ${buildLeadFrequencyRow(leadData.selectedServices, leadData.frequency, leadData.serviceData)}
               ${leadData.propertyType ? `<tr><td class="label">Property Type:</td><td class="value">${leadData.propertyType}</td></tr>` : ""}
               <tr><td class="label">Est. Project Value:</td><td class="value" style="font-size: 18px; font-weight: 600; color: #1e40af;">${leadValue.display}</td></tr>
-              <tr><td class="label">Your Cost:</td><td class="value" style="font-size: 20px; font-weight: 600; color: #2D8652;">$${formatQuoteForDisplay(leadData.currentLeadPrice, true)}</td></tr>
+              <tr><td class="label">Your Cost:</td><td class="value" style="font-size: 20px; font-weight: 600; color: ${EMAIL_BRAND.charcoal};">$${formatQuoteForDisplay(leadData.currentLeadPrice, true)}</td></tr>
             </table>
           </div>
 
@@ -1031,13 +748,7 @@ export async function sendContractorNewLeadAvailable(
             <a href="${portalUrl}" class="cta-button">View Lead Details</a>
           </div>
         </div>
-        <div class="footer">
-          <div style="margin: 0 0 12px 0;">
-            <img src="${EMAIL_LOGO_DARK_URL}" alt="Boise Remodeling Co" width="44" style="display:block; margin:0 auto; max-width:44px; height:auto;">
-          </div>
-          <p class="footer-brand">Boise Remodeling Co</p>
-          <p class="footer-tagline">Lead Distribution Platform</p>
-        </div>
+        ${buildEmailFooter('Lead Marketplace')}
       </div>
     </body>
     </html>
@@ -1106,9 +817,7 @@ export async function sendLeadMergeRefundNotification(
     <body>
       <div class="email-wrapper">
         <div class="header">
-          <div style="margin-bottom: 20px;">
-            <img src="${EMAIL_LOGO_LIGHT_URL}" alt="Boise Remodeling Co" width="300" style="display:block; max-width:300px; height:auto;">
-          </div>
+          ${buildTextLogo()}
           <h1>Lead Refunded</h1>
           <p>A duplicate lead you purchased was merged</p>
         </div>
@@ -1140,15 +849,7 @@ export async function sendLeadMergeRefundNotification(
 
           <p style="font-size: 13px; color: #6b7280;">If anything looks off about this refund, just reply to this email and we'll take a look.</p>
         </div>
-        <div class="footer">
-          <div style="margin: 0 0 12px 0;">
-            <img src="${EMAIL_LOGO_DARK_URL}" alt="Boise Remodeling Co" width="44" style="display:block; margin:0 auto; max-width:44px; height:auto;">
-          </div>
-          <p class="footer-brand">Boise Remodeling Co</p>
-          <p class="footer-tagline">Lead Distribution Platform</p>
-          <p class="footer-contact">Email: <a href="mailto:${fromEmail}">${fromEmail}</a></p>
-          <p class="footer-contact">Web: <a href="${SITE_BASE_URL}">www.boiseremodeling.co</a></p>
-        </div>
+        ${buildEmailFooter('Lead Marketplace')}
       </div>
     </body>
     </html>
@@ -1181,9 +882,7 @@ export async function sendAdminDailyDigest(
     <body>
       <div class="email-wrapper">
         <div class="header">
-          <div style="margin-bottom: 20px;">
-            <img src="${EMAIL_LOGO_LIGHT_URL}" alt="Boise Remodeling Co" width="300" style="display:block; max-width:300px; height:auto;">
-          </div>
+          ${buildTextLogo()}
           <h1>Admin Daily Digest</h1>
           <p>Pending leads summary</p>
         </div>
@@ -1193,17 +892,14 @@ export async function sendAdminDailyDigest(
             <p style="margin-top:10px;"><strong>24–48 hours:</strong> ${data.leads24h}</p>
             <p><strong>48+ hours:</strong> ${data.leads48h}</p>
           </div>
+          ${formatDigestLeadList("Pending review", data.pendingLeads)}
+          ${formatDigestLeadList("24–48 hours pending", data.leads24hList)}
+          ${formatDigestLeadList("48+ hours pending", data.leads48hList)}
           <div style="text-align:center; margin: 30px 0;">
             <a href="${dashboardUrl}" class="cta-button">Open Dashboard →</a>
           </div>
         </div>
-        <div class="footer">
-          <div style="margin: 0 0 12px 0;">
-            <img src="${EMAIL_LOGO_DARK_URL}" alt="Boise Remodeling Co" width="44" style="display:block; margin:0 auto; max-width:44px; height:auto;">
-          </div>
-          <p class="footer-brand">Boise Remodeling Co</p>
-          <p class="footer-tagline">Admin Notifications</p>
-        </div>
+        ${buildEmailFooter('Lead Marketplace')}
       </div>
     </body>
     </html>
@@ -1238,9 +934,7 @@ export async function sendAdminReminder(
     <body>
       <div class="email-wrapper">
         <div class="header">
-          <div style="margin-bottom: 20px;">
-            <img src="${EMAIL_LOGO_LIGHT_URL}" alt="Boise Remodeling Co" width="300" style="display:block; max-width:300px; height:auto;">
-          </div>
+          ${buildTextLogo()}
           <h1>Lead Reminder</h1>
           <p>Pending admin review</p>
         </div>
@@ -1256,13 +950,7 @@ export async function sendAdminReminder(
             <a href="${dashboardUrl}" class="cta-button">Review Now →</a>
           </div>
         </div>
-        <div class="footer">
-          <div style="margin: 0 0 12px 0;">
-            <img src="${EMAIL_LOGO_DARK_URL}" alt="Boise Remodeling Co" width="44" style="display:block; margin:0 auto; max-width:44px; height:auto;">
-          </div>
-          <p class="footer-brand">Boise Remodeling Co</p>
-          <p class="footer-tagline">Admin Notifications</p>
-        </div>
+        ${buildEmailFooter('Lead Marketplace')}
       </div>
     </body>
     </html>
@@ -1285,4 +973,124 @@ export async function sendAdminUrgentReminder(
   }
 ): Promise<void> {
   await sendAdminReminder(adminEmail, leadData);
+}
+
+function formatDigestLeadList(title: string, leads: any[]): string {
+  if (!leads || leads.length === 0) return "";
+  const rows = leads
+    .slice(0, 10)
+    .map(
+      (lead) =>
+        `<tr><td class="value">${escapeHtml(lead.name || "Unknown")}</td><td class="value">${escapeHtml(lead.city || "")}</td><td class="value">${escapeHtml(lead.serviceType || "")}</td></tr>`
+    )
+    .join("");
+  return `
+    <div class="section">
+      <h2 class="section-title">${escapeHtml(title)}</h2>
+      <table class="info-table">
+        <tr><td class="label">Customer</td><td class="label">City</td><td class="label">Service</td></tr>
+        ${rows}
+      </table>
+      ${leads.length > 10 ? `<p style="font-size:13px;color:${EMAIL_BRAND.charcoalLight};">+ ${leads.length - 10} more in dashboard</p>` : ""}
+    </div>
+  `;
+}
+
+export async function sendWatchedLeadUpdatedEmail(
+  contractorEmail: string,
+  data: { city: string; estimatedTotal: number; leadId: string }
+): Promise<void> {
+  const url = subcontractorLeadUrl(data.leadId);
+  const subject = `Watched lead updated in ${data.city}`;
+  const htmlBody = wrapEmailHtml({
+    title: "Watched Lead Updated",
+    subtitle: data.city,
+    tagline: "Lead Marketplace",
+    content: `
+      <p class="greeting">A lead you're watching has been updated by the customer.</p>
+      <div class="highlight-box">
+        <p><strong>City:</strong> ${escapeHtml(data.city)}</p>
+        <p style="margin-top:10px;"><strong>New estimated value:</strong> $${data.estimatedTotal.toLocaleString()}</p>
+      </div>
+      <div style="text-align:center; margin: 30px 0;">
+        <a href="${url}" class="cta-button">View Lead →</a>
+      </div>
+    `,
+  });
+  await sendEmail(contractorEmail, subject, htmlBody);
+}
+
+export async function sendLeadPriceDropEmail(
+  contractorEmail: string,
+  data: {
+    leadId: string;
+    city: string;
+    serviceType: string;
+    oldPrice: string;
+    newPrice: string;
+  }
+): Promise<void> {
+  const url = subcontractorLeadUrl(data.leadId);
+  const subject = `Price drop: ${data.serviceType} in ${data.city} — now $${formatQuoteForDisplay(data.newPrice, true)}`;
+  const htmlBody = wrapEmailHtml({
+    title: "Lead Price Drop",
+    subtitle: `${data.city} — ${data.serviceType}`,
+    tagline: "Lead Marketplace",
+    content: `
+      <p class="greeting">A lead you're watching just dropped in price.</p>
+      <div class="highlight-box">
+        <p><strong>Previous price:</strong> $${formatQuoteForDisplay(data.oldPrice, true)}</p>
+        <p style="margin-top:10px;"><strong>New price:</strong> $${formatQuoteForDisplay(data.newPrice, true)}</p>
+      </div>
+      <div style="text-align:center; margin: 30px 0;">
+        <a href="${url}" class="cta-button">View Lead →</a>
+      </div>
+    `,
+  });
+  await sendEmail(contractorEmail, subject, htmlBody);
+}
+
+export async function sendContractSignedNotification(
+  adminEmails: string[],
+  data: {
+    signerName: string;
+    contractTitle: string;
+    projectId?: string | null;
+  }
+): Promise<void> {
+  const subject = `Contract signed: ${data.contractTitle}`;
+  const htmlBody = wrapEmailHtml({
+    title: "Contract Signed",
+    subtitle: data.contractTitle,
+    tagline: "Admin Notifications",
+    content: `
+      <p class="greeting">${escapeHtml(data.signerName)} signed <strong>${escapeHtml(data.contractTitle)}</strong>.</p>
+      <div style="text-align:center; margin: 30px 0;">
+        <a href="${SITE_BASE_URL}/admin/dashboard" class="cta-button">Open Admin Dashboard →</a>
+      </div>
+    `,
+  });
+  for (const email of adminEmails) {
+    await sendEmail(email, subject, htmlBody);
+  }
+}
+
+export async function sendContractSignedConfirmation(
+  subcontractorEmail: string,
+  data: { contractTitle: string }
+): Promise<void> {
+  const subject = `Contract signed: ${data.contractTitle}`;
+  const htmlBody = wrapEmailHtml({
+    title: "Contract Signed",
+    subtitle: "Thank you for signing",
+    tagline: "Contractor Portal",
+    content: `
+      <p class="greeting">We've received your signature for <strong>${escapeHtml(data.contractTitle)}</strong>.</p>
+      <p>Our team has been notified and will follow up if anything else is needed.</p>
+      <div style="text-align:center; margin: 30px 0;">
+        <a href="${SITE_BASE_URL}/subcontractor/contracts" class="cta-button">View Contracts →</a>
+      </div>
+    `,
+  });
+  await sendEmail(subcontractorEmail, subject, htmlBody);
 }

@@ -8,6 +8,8 @@ import { getRecurringEligibleServices } from "@shared/serviceSeasonality";
 import { findActiveDuplicate, signEditToken, type DedupeCandidate } from "@/lib/leadDedupe";
 import { HOUSE_NUMBER_REGEX, HOUSE_NUMBER_ERROR_MESSAGE } from "@/shared/addressValidation";
 import { SITE_CONFIG } from "@/shared/siteConfig";
+import { enrichPropertyFromFormattedAddress } from "@/server/services/propertyEnrichment";
+import type { PropertyProfile } from "@/shared/propertyProfile";
 
 const quoteSubmissionSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -40,6 +42,7 @@ const quoteSubmissionSchema = z.object({
     fixtureCount: z.number().optional(),
     frequency: z.string().optional(),
   })).optional(),
+  propertyProfile: z.record(z.unknown()).optional(),
 });
 
 function roundToNearestFive(price: number): number {
@@ -153,6 +156,23 @@ export async function POST(request: Request) {
     const serviceFrequencies = validatedData.serviceFrequencies || {};
     const propertyType = validatedData.propertyType || "residential";
 
+    let propertyProfile: PropertyProfile | null =
+      (validatedData.propertyProfile as PropertyProfile | undefined) ?? null;
+    if (!propertyProfile && validatedData.address && validatedData.city) {
+      try {
+        propertyProfile = await enrichPropertyFromFormattedAddress(
+          `${validatedData.address}, ${validatedData.city}, ID`
+        );
+      } catch (e) {
+        console.warn("[QUOTE] Property enrichment skipped:", e);
+      }
+    }
+
+    const enrichedPropertySize =
+      validatedData.propertySize ??
+      propertyProfile?.squareFootage ??
+      propertyProfile?.measurementBundle?.interiorSqFt;
+
     console.log("[QUOTE] Quote submission received:", {
       name: validatedData.name,
       email: validatedData.email,
@@ -246,8 +266,9 @@ export async function POST(request: Request) {
           phone: validatedData.phone || "Not provided",
           address: validatedData.address,
           city: validatedData.city,
+          propertyProfile,
           propertyType,
-          propertySize: validatedData.propertySize?.toString(),
+          propertySize: enrichedPropertySize?.toString(),
           serviceType: primaryService,
           selectedServices: services,
           frequency,
@@ -260,7 +281,7 @@ export async function POST(request: Request) {
         console.log("[QUOTE] Quote saved to database:", quoteId);
 
         const propertyMultiplier = PROPERTY_MULTIPLIERS[propertyType] || 1.0;
-        const fallbackSqFt = validatedData.propertySize || 5000;
+        const fallbackSqFt = enrichedPropertySize || 5000;
         const svcData = validatedData.serviceData || {};
 
         const serviceList = services.length > 0 ? services : [primaryService];
@@ -304,6 +325,7 @@ export async function POST(request: Request) {
           phone: validatedData.phone || "Not provided",
           address: validatedData.address || null,
           city: validatedData.city,
+          propertyProfile,
           propertyType,
           serviceType: primaryService,
           selectedServices: services,
