@@ -12,6 +12,10 @@ build = ["bash", "build.sh"]
 run = ["bash", "-c", "HOSTNAME=0.0.0.0 node .next/standalone/server.js"]
 
 [[ports]]
+localPort = 3011
+externalPort = 3000
+
+[[ports]]
 localPort = 5000
 externalPort = 80
 
