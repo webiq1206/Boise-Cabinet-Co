@@ -1,5 +1,5 @@
-import { Pool } from "pg";
-import { drizzle } from "drizzle-orm/node-postgres";
+import { neon } from "@neondatabase/serverless";
+import { drizzle } from "drizzle-orm/neon-http";
 import * as schema from "@/shared/schema";
 
 const connectionString =
@@ -7,16 +7,10 @@ const connectionString =
   process.env.PGDATABASE_URL ??
   process.env.REPLIT_DB_URL;
 
-const pool = connectionString
-  ? new Pool({ connectionString })
-  : null;
+const sql = connectionString ? neon(connectionString) : null;
 
-export const db = pool ? drizzle(pool, { schema }) : null;
+export const db = sql ? drizzle(sql, { schema }) : null;
 
 export function isDbAvailable(): boolean {
   return db !== null;
-}
-
-export function getDbPool(): Pool | null {
-  return pool;
 }
