@@ -2,6 +2,7 @@
 
 import { useDesignStudio } from "../DesignStudioProvider";
 import { RoomPhotoOverlay } from "../RoomPhotoOverlay";
+import { ARLauncher } from "../ARLauncher";
 import { Card, CardContent } from "@/components/ui/card";
 import { getFinishHex } from "@/lib/design/previewConfig";
 import { COLLECTION_BY_SLUG } from "@/shared/catalog/collections";
@@ -36,8 +37,21 @@ export function VisualizeStep() {
         </p>
       </div>
 
+      <Card>
+        <CardContent className="pt-6 flex flex-wrap items-start justify-between gap-4">
+          <div className="min-w-0">
+            <p className="text-sm font-medium">See it in your space (AR)</p>
+            <p className="text-sm text-muted-foreground mt-1 max-w-md">
+              On a phone or tablet, place your exact cabinets — finish, doors,
+              and hardware — on your real floor and walk around them.
+            </p>
+          </div>
+          <ARLauncher />
+        </CardContent>
+      </Card>
+
       <div>
-        <p className="text-sm font-medium mb-3">Overlay on a room photo</p>
+        <p className="text-sm font-medium mb-3">Or overlay on a room photo</p>
         <RoomPhotoOverlay
           photoUrl={design.photoUrl}
           finishColor={finishHex}

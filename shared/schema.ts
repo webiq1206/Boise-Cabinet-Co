@@ -679,6 +679,24 @@ export const designPricingRequests = pgTable("design_pricing_requests", {
 
 export type DesignPricingRequest = typeof designPricingRequests.$inferSelect;
 
+// Exported AR models (GLB + USDZ) hosted so native device AR viewers can fetch
+// them over HTTPS. Bytes stored base64-encoded; rows are short-lived previews.
+export const arModels = pgTable("ar_models", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  glb: text("glb"), // base64-encoded GLB (Android Scene Viewer)
+  usdz: text("usdz"), // base64-encoded USDZ (iOS Quick Look)
+  name: text("name"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+export const insertArModelSchema = createInsertSchema(arModels).omit({
+  id: true,
+  createdAt: true,
+});
+
+export type InsertArModel = z.infer<typeof insertArModelSchema>;
+export type ArModel = typeof arModels.$inferSelect;
+
 export const projectOrders = pgTable("project_orders", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
   projectId: varchar("project_id").notNull().references(() => projects.id),

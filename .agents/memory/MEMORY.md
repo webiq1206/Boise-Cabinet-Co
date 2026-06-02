@@ -1,1 +1,2 @@
 - [Neon driver on Replit Postgres](neon-driver-on-replit-postgres.md) — use neon-serverless WebSocket Pool in lib/db, NOT neon-http (HTTP endpoint throws null-`map`); REPLIT_DB_URL fallback is not Postgres.
+- [three.js AR export](three-ar-export.md) — GLB/USDZ export must run client-side (FileReader); USDZExporter use parseAsync; Scene Viewer needs absolute HTTPS .glb URL; WebGL/AR not testable headless.

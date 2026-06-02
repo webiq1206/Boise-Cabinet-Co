@@ -10,19 +10,9 @@ import {
   useState,
 } from "react";
 import { useDesignStudio } from "./DesignStudioProvider";
-import {
-  buildPreviewConfig,
-  getFinishHex,
-  getFinishCategory,
-} from "@/lib/design/previewConfig";
-import type {
-  CaptureApi,
-  HardwareSpec,
-  ResolvedModuleStyle,
-  ViewMode,
-} from "./CabinetPreview3D";
-import type { CabinetModule } from "@/lib/design/previewConfig";
-import { HARDWARE_BY_SLUG } from "@/shared/catalog/hardware";
+import { buildPreviewConfig } from "@/lib/design/previewConfig";
+import type { CaptureApi, ViewMode } from "./CabinetPreview3D";
+import { hardwareSpec, makeResolveModule } from "@/lib/design/resolveDesignStyles";
 import { DOOR_STYLES, DOOR_STYLE_BY_SLUG } from "@/shared/catalog/doorStyles";
 import { FINISHES, FINISH_BY_SLUG } from "@/shared/catalog/finishes";
 import { Button } from "@/components/ui/button";
@@ -62,25 +52,6 @@ class WebGLBoundary extends Component<
     if (this.state.failed) return this.props.fallback;
     return this.props.children;
   }
-}
-
-const HARDWARE_FINISH_HEX: Record<string, string> = {
-  "matte-black": "#1c1c1c",
-  "brushed-nickel": "#b6babf",
-  "polished-chrome": "#d9dee3",
-  "brushed-gold": "#c6a35a",
-  "oil-rubbed-bronze": "#3a2f29",
-  stainless: "#c2c6ca",
-};
-
-function hardwareSpec(slug: string | null): HardwareSpec {
-  const hw = slug ? HARDWARE_BY_SLUG[slug] : undefined;
-  if (!hw) return { category: "pull", color: "#1c1c1c" };
-  const color = HARDWARE_FINISH_HEX[hw.finish] ?? "#1c1c1c";
-  if (hw.category === "knob") return { category: "knob", color };
-  if (hw.category === "handleless") return { category: "handleless", color };
-  if (hw.category === "pull") return { category: "pull", color };
-  return { category: "other", color };
 }
 
 interface LivePreviewPanelProps {
@@ -166,18 +137,7 @@ export function LivePreviewPanel({ className, compact }: LivePreviewPanelProps) 
   const hardware = useMemo(() => hardwareSpec(design.hardware), [design.hardware]);
 
   const overrides = design.moduleOverrides;
-  const resolveModule = useMemo(() => {
-    return (module: CabinetModule): ResolvedModuleStyle => {
-      const ov = overrides[module.id];
-      const finishSlug = ov?.finish ?? design.finish;
-      const doorStyle = ov?.doorStyle ?? design.doorStyle ?? "slab";
-      return {
-        color: getFinishHex(finishSlug),
-        category: getFinishCategory(finishSlug),
-        doorStyle,
-      };
-    };
-  }, [overrides, design.finish, design.doorStyle]);
+  const resolveModule = useMemo(() => makeResolveModule(design), [design]);
 
   // Clear the selection if the selected module no longer exists (e.g. after a
   // layout change rebuilds the module set).
