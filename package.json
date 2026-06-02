@@ -33,7 +33,7 @@
     "images:generate": "node scripts/generate-blog-images.mjs",
     "images:placeholders": "node scripts/generate-placeholder-images.mjs",
     "images:catalog": "node scripts/generate-catalog-placeholders.mjs",
-    "prebuild": "npm run links:generate && npm run audit:links && npm run resources:generate && npm run verify:content && npm run verify:images && npm run verify:no-em-dash"
+    "prebuild": "npm run links:generate && npm run audit:links && npm run resources:generate && npm run images:blog && npm run verify:content && npm run verify:images && npm run verify:no-em-dash"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
@@ -116,7 +116,8 @@
     "vaul": "^1.1.2",
     "ws": "^8.19.0",
     "zod": "^3.24.2",
-    "zod-validation-error": "^3.4.0"
+    "zod-validation-error": "^3.4.0",
+    "sharp": "^0.34.5"
   },
   "devDependencies": {
     "@playwright/test": "^1.60.0",
@@ -132,7 +133,6 @@
     "eslint": "^8.57.0",
     "eslint-config-next": "14.2.18",
     "postcss": "^8.4.47",
-    "sharp": "^0.34.5",
     "tailwindcss": "^3.4.17",
     "typescript": "5.6.3"
   }

@@ -4,8 +4,17 @@
  */
 import fs from "fs";
 import path from "path";
-import sharp from "sharp";
 import { fileURLToPath } from "url";
+
+let sharp;
+try {
+  sharp = (await import("sharp")).default;
+} catch {
+  console.warn(
+    "sharp is not installed (npm install sharp). Skipping image optimization.",
+  );
+  process.exit(0);
+}
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.join(__dirname, "..");

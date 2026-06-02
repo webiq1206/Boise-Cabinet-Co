@@ -408,7 +408,7 @@ const ENTRIES = {
     copyFrom: area("meridian"),
   },
   "boise-kitchen-cabinet-guide": {
-    hero: cat("kitchen"),
+    hero: "/images/marketing/hero-design-studio.webp",
     alt: "Boise kitchen cabinet guide with layouts, door styles, finishes, and lead times",
     topicTags: ["kitchen", "guide", "pillar"],
     source: "services",
