@@ -25,7 +25,7 @@ export default function DesignStudioPage() {
         </div>
       </header>
 
-      <main className="flex-1 container px-4 py-8 md:py-12 max-w-4xl mx-auto w-full">
+      <main className="flex-1 container px-4 py-8 md:py-12 max-w-6xl mx-auto w-full">
         <div className="mb-8">
           <p className="brc-label mb-2">Design Studio</p>
           <h1 className="text-3xl md:text-4xl font-sans font-light tracking-tight">

@@ -5,13 +5,13 @@ import { useDesignStudio } from "../DesignStudioProvider";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
+import { HARDWARE_OPTIONS as CATALOG_HARDWARE } from "@/shared/catalog/hardware";
 
-const HARDWARE_OPTIONS = [
-  { value: "matte-black-bar", label: "Matte black bar pulls" },
-  { value: "brushed-nickel-bar", label: "Brushed nickel bar pulls" },
-  { value: "brass-knob", label: "Unlacquered brass knobs" },
-  { value: "integrated-channel", label: "Integrated channel (handleless)" },
-];
+const SELECTABLE_HARDWARE_CATEGORIES = new Set(["pull", "knob", "handleless"]);
+
+const HARDWARE_OPTIONS = CATALOG_HARDWARE.filter((h) =>
+  SELECTABLE_HARDWARE_CATEGORIES.has(h.category),
+).map((h) => ({ value: h.slug, label: h.name, category: h.category }));
 
 const ACCESSORY_OPTIONS = [
   "Soft-close drawers",

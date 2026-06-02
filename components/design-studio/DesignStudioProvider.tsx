@@ -24,6 +24,12 @@ export type DoorStyle = string;
 /** Finish slug from shared/catalog/finishes */
 export type FinishOption = string;
 
+/** Per-module style overrides keyed by module id from previewConfig. */
+export interface ModuleOverride {
+  doorStyle?: DoorStyle | null;
+  finish?: FinishOption | null;
+}
+
 export interface DesignState {
   roomType: RoomType | null;
   collection: CabinetCollection | null;
@@ -38,6 +44,7 @@ export interface DesignState {
   savedDesignId: string | null;
   shareToken: string | null;
   pricingSubmitted: boolean;
+  moduleOverrides: Record<string, ModuleOverride>;
 }
 
 const initialState: DesignState = {
@@ -54,12 +61,16 @@ const initialState: DesignState = {
   savedDesignId: null,
   shareToken: null,
   pricingSubmitted: false,
+  moduleOverrides: {},
 };
 
 interface DesignStudioContextValue {
   design: DesignState;
   updateDesign: (patch: Partial<DesignState>) => void;
   resetDesign: () => void;
+  updateModuleOverride: (moduleId: string, patch: ModuleOverride) => void;
+  resetModuleOverride: (moduleId: string) => void;
+  resetAllModuleOverrides: () => void;
   isStepComplete: (step: number) => boolean;
   saveDesign: () => Promise<{ id: string; shareToken: string } | null>;
   submitPricingRequest: (contact: {
@@ -78,11 +89,44 @@ export function DesignStudioProvider({ children }: { children: ReactNode }) {
   const [isSaving, setIsSaving] = useState(false);
 
   const updateDesign = useCallback((patch: Partial<DesignState>) => {
-    setDesign((prev) => ({ ...prev, ...patch }));
+    setDesign((prev) => {
+      const next = { ...prev, ...patch };
+      // Module overrides are keyed by layout-specific module ids; changing the
+      // layout invalidates them, so clear them to avoid stale orphaned keys.
+      if (patch.layout !== undefined && patch.layout !== prev.layout) {
+        next.moduleOverrides = {};
+      }
+      return next;
+    });
   }, []);
 
   const resetDesign = useCallback(() => {
     setDesign(initialState);
+  }, []);
+
+  const updateModuleOverride = useCallback(
+    (moduleId: string, patch: ModuleOverride) => {
+      setDesign((prev) => ({
+        ...prev,
+        moduleOverrides: {
+          ...prev.moduleOverrides,
+          [moduleId]: { ...prev.moduleOverrides[moduleId], ...patch },
+        },
+      }));
+    },
+    [],
+  );
+
+  const resetModuleOverride = useCallback((moduleId: string) => {
+    setDesign((prev) => {
+      const next = { ...prev.moduleOverrides };
+      delete next[moduleId];
+      return { ...prev, moduleOverrides: next };
+    });
+  }, []);
+
+  const resetAllModuleOverrides = useCallback(() => {
+    setDesign((prev) => ({ ...prev, moduleOverrides: {} }));
   }, []);
 
   const isStepComplete = useCallback(
@@ -189,6 +233,9 @@ export function DesignStudioProvider({ children }: { children: ReactNode }) {
       design,
       updateDesign,
       resetDesign,
+      updateModuleOverride,
+      resetModuleOverride,
+      resetAllModuleOverrides,
       isStepComplete,
       saveDesign,
       submitPricingRequest,
@@ -198,6 +245,9 @@ export function DesignStudioProvider({ children }: { children: ReactNode }) {
       design,
       updateDesign,
       resetDesign,
+      updateModuleOverride,
+      resetModuleOverride,
+      resetAllModuleOverrides,
       isStepComplete,
       saveDesign,
       submitPricingRequest,
