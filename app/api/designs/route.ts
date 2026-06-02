@@ -1,4 +1,4 @@
-import { eq } from "drizzle-orm";
+import { eq, desc } from "drizzle-orm";
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { db } from "@/lib/db";
@@ -13,6 +13,7 @@ const createDesignSchema = z.object({
   photoUrl: z.string().optional(),
   name: z.string().optional(),
   userEmail: z.string().email().optional(),
+  versionGroupId: z.string().optional(),
 });
 
 export async function POST(request: NextRequest) {
@@ -40,6 +41,7 @@ export async function POST(request: NextRequest) {
         photoUrl: data.photoUrl,
         name: data.name,
         userEmail: data.userEmail,
+        versionGroupId: data.versionGroupId,
         shareToken,
         status: "draft",
       })
@@ -57,24 +59,44 @@ export async function POST(request: NextRequest) {
 
 export async function GET(request: NextRequest) {
   const shareToken = request.nextUrl.searchParams.get("shareToken");
-  if (!shareToken) {
-    return NextResponse.json({ error: "shareToken required" }, { status: 400 });
+  const versionGroupId = request.nextUrl.searchParams.get("versionGroupId");
+
+  if (!shareToken && !versionGroupId) {
+    return NextResponse.json(
+      { error: "shareToken or versionGroupId required" },
+      { status: 400 },
+    );
   }
 
   if (!db) {
     return NextResponse.json({ error: "Database unavailable" }, { status: 503 });
   }
 
-  const results = await db
-    .select()
-    .from(cabinetDesigns)
-    .where(eq(cabinetDesigns.shareToken, shareToken))
-    .limit(1);
+  try {
+    // List all saved versions in a group, newest first.
+    if (versionGroupId) {
+      const versions = await db
+        .select()
+        .from(cabinetDesigns)
+        .where(eq(cabinetDesigns.versionGroupId, versionGroupId))
+        .orderBy(desc(cabinetDesigns.createdAt));
+      return NextResponse.json({ versions });
+    }
 
-  const design = results[0];
-  if (!design) {
-    return NextResponse.json({ error: "Design not found" }, { status: 404 });
+    const results = await db
+      .select()
+      .from(cabinetDesigns)
+      .where(eq(cabinetDesigns.shareToken, shareToken!))
+      .limit(1);
+
+    const design = results?.[0];
+    if (!design) {
+      return NextResponse.json({ error: "Design not found" }, { status: 404 });
+    }
+
+    return NextResponse.json(design);
+  } catch (error) {
+    console.error("Fetch design error:", error);
+    return NextResponse.json({ error: "Failed to load design" }, { status: 500 });
   }
-
-  return NextResponse.json(design);
 }

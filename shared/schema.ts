@@ -651,6 +651,7 @@ export const cabinetDesigns = pgTable("cabinet_designs", {
   userId: varchar("user_id").references(() => users.id),
   userEmail: text("user_email"),
   projectId: varchar("project_id").references(() => projects.id),
+  versionGroupId: varchar("version_group_id"),
   roomType: text("room_type").notNull(),
   collectionId: text("collection_id").notNull(),
   layoutJson: jsonb("layout_json").$type<Record<string, unknown>>().default(sql`'{}'::jsonb`),

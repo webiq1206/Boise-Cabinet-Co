@@ -9,6 +9,30 @@ import type { FinishCategory } from "@/shared/catalog/doorStyles";
 
 export type ViewMode = "orbit" | "walk";
 
+/** Imperative capture handle exposed by the 3D scene. */
+export interface CaptureApi {
+  /** Render the current frame and return a PNG data URL (or null on failure). */
+  screenshot: () => string | null;
+  /** Record a rotating turntable clip and resolve a video Blob (or null). */
+  record: (seconds?: number) => Promise<Blob | null>;
+}
+
+export type CaptureApiRef = { current: CaptureApi | null };
+
+/** Pick the best supported webm mime type for MediaRecorder. */
+function pickVideoMime(): string {
+  if (typeof MediaRecorder === "undefined") return "video/webm";
+  const candidates = [
+    "video/webm;codecs=vp9",
+    "video/webm;codecs=vp8",
+    "video/webm",
+  ];
+  for (const c of candidates) {
+    if (MediaRecorder.isTypeSupported(c)) return c;
+  }
+  return "video/webm";
+}
+
 export interface ResolvedModuleStyle {
   color: string;
   category: FinishCategory;
@@ -29,6 +53,8 @@ interface SceneProps {
   onSelect: (id: string | null) => void;
   viewMode: ViewMode;
   resetSignal: number;
+  /** When provided, the scene wires capture (screenshot/video) handlers here. */
+  captureApiRef?: CaptureApiRef;
 }
 
 const GAP = 0.014;
@@ -448,6 +474,102 @@ function CameraRig({
   return null;
 }
 
+/* ── Capture controller: screenshot + turntable video from the live canvas ── */
+function CaptureController({
+  captureApiRef,
+  controlsRef,
+}: {
+  captureApiRef: CaptureApiRef;
+  controlsRef: React.MutableRefObject<any>;
+}) {
+  const { gl, scene, camera } = useThree();
+
+  useEffect(() => {
+    const api: CaptureApi = {
+      screenshot: () => {
+        try {
+          gl.render(scene, camera);
+          return gl.domElement.toDataURL("image/png");
+        } catch {
+          return null;
+        }
+      },
+      record: (seconds = 4) =>
+        new Promise<Blob | null>((resolve) => {
+          try {
+            const canvas = gl.domElement as HTMLCanvasElement & {
+              captureStream?: (fps?: number) => MediaStream;
+            };
+            if (
+              typeof canvas.captureStream !== "function" ||
+              typeof MediaRecorder === "undefined"
+            ) {
+              resolve(null);
+              return;
+            }
+            const target =
+              controlsRef.current?.target?.clone?.() ??
+              new THREE.Vector3(0, 0.85, 0);
+            const startPos = camera.position.clone();
+            const radius = Math.hypot(
+              startPos.x - target.x,
+              startPos.z - target.z,
+            );
+            const startAngle = Math.atan2(
+              startPos.z - target.z,
+              startPos.x - target.x,
+            );
+            const yLevel = startPos.y;
+
+            const stream = canvas.captureStream(30);
+            const mimeType = pickVideoMime();
+            const recorder = new MediaRecorder(stream, { mimeType });
+            const chunks: BlobPart[] = [];
+            recorder.ondataavailable = (e) => {
+              if (e.data && e.data.size > 0) chunks.push(e.data);
+            };
+            recorder.onstop = () => {
+              // Restore the original camera framing.
+              camera.position.copy(startPos);
+              camera.lookAt(target);
+              controlsRef.current?.update?.();
+              gl.render(scene, camera);
+              resolve(new Blob(chunks, { type: mimeType }));
+            };
+
+            const start = performance.now();
+            recorder.start();
+            const tick = (now: number) => {
+              const frac = Math.min(1, (now - start) / 1000 / seconds);
+              const angle = startAngle + frac * Math.PI * 2;
+              camera.position.set(
+                target.x + radius * Math.cos(angle),
+                yLevel,
+                target.z + radius * Math.sin(angle),
+              );
+              camera.lookAt(target);
+              gl.render(scene, camera);
+              if (frac < 1) {
+                requestAnimationFrame(tick);
+              } else {
+                recorder.stop();
+              }
+            };
+            requestAnimationFrame(tick);
+          } catch {
+            resolve(null);
+          }
+        }),
+    };
+    captureApiRef.current = api;
+    return () => {
+      if (captureApiRef.current === api) captureApiRef.current = null;
+    };
+  }, [captureApiRef, controlsRef, gl, scene, camera]);
+
+  return null;
+}
+
 function Scene({
   config,
   resolveModule,
@@ -457,6 +579,7 @@ function Scene({
   onSelect,
   viewMode,
   resetSignal,
+  captureApiRef,
 }: SceneProps) {
   const controlsRef = useRef<any>(null);
 
@@ -491,6 +614,9 @@ function Scene({
       <Environment preset="apartment" />
 
       <CameraRig viewMode={viewMode} resetSignal={resetSignal} controlsRef={controlsRef} />
+      {captureApiRef && (
+        <CaptureController captureApiRef={captureApiRef} controlsRef={controlsRef} />
+      )}
       <OrbitControls
         ref={controlsRef}
         makeDefault
@@ -509,7 +635,7 @@ export function CabinetScene3D(props: SceneProps) {
     <Canvas
       shadows
       camera={{ position: [3.6, 2.3, 3.6], fov: 42 }}
-      gl={{ antialias: true, alpha: true }}
+      gl={{ antialias: true, alpha: true, preserveDrawingBuffer: true }}
       style={{ background: "linear-gradient(180deg, #f8f5f0 0%, #ebe6df 100%)" }}
       onPointerMissed={() => props.onSelect(null)}
     >

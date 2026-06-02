@@ -1,13 +1,23 @@
 "use client";
 
 import Link from "next/link";
+import { Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 import { DesignStudioProvider } from "@/components/design-studio/DesignStudioProvider";
 import { DesignWizard } from "@/components/design-studio/DesignWizard";
+import { ShareView } from "@/components/design-studio/ShareView";
 import { Button } from "@/components/ui/button";
 import { SITE_CONFIG } from "@/shared/siteConfig";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Loader2 } from "lucide-react";
 
-export default function DesignStudioPage() {
+function DesignStudioContent() {
+  const searchParams = useSearchParams();
+  const shareToken = searchParams.get("share");
+
+  if (shareToken) {
+    return <ShareView shareToken={shareToken} />;
+  }
+
   return (
     <DesignStudioProvider>
       <header className="sticky top-0 z-40 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -40,5 +50,19 @@ export default function DesignStudioPage() {
         <DesignWizard />
       </main>
     </DesignStudioProvider>
+  );
+}
+
+export default function DesignStudioPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex flex-1 items-center justify-center py-24 text-muted-foreground">
+          <Loader2 className="h-8 w-8 animate-spin" />
+        </div>
+      }
+    >
+      <DesignStudioContent />
+    </Suspense>
   );
 }

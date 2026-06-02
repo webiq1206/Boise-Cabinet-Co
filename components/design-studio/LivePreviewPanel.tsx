@@ -1,7 +1,14 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { Component, type ReactNode, useEffect, useMemo, useState } from "react";
+import {
+  Component,
+  type ReactNode,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { useDesignStudio } from "./DesignStudioProvider";
 import {
   buildPreviewConfig,
@@ -9,6 +16,7 @@ import {
   getFinishCategory,
 } from "@/lib/design/previewConfig";
 import type {
+  CaptureApi,
   HardwareSpec,
   ResolvedModuleStyle,
   ViewMode,
@@ -19,7 +27,16 @@ import { DOOR_STYLES, DOOR_STYLE_BY_SLUG } from "@/shared/catalog/doorStyles";
 import { FINISHES, FINISH_BY_SLUG } from "@/shared/catalog/finishes";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { Loader2, RotateCcw, Box, PersonStanding, X } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
+import {
+  Loader2,
+  RotateCcw,
+  Box,
+  PersonStanding,
+  X,
+  Camera,
+  Video,
+} from "lucide-react";
 
 const CabinetScene3D = dynamic(
   () => import("./CabinetPreview3D").then((m) => m.CabinetScene3D),
@@ -81,8 +98,59 @@ export function LivePreviewPanel({ className, compact }: LivePreviewPanelProps) 
   } = useDesignStudio();
   const [viewMode, setViewMode] = useState<ViewMode>("orbit");
   const [resetSignal, setResetSignal] = useState(0);
+  const [isRecording, setIsRecording] = useState(false);
+  const captureApiRef = useRef<CaptureApi | null>(null);
+  const { toast } = useToast();
   const selectedId = design.selectedModuleId;
   const setSelectedId = setSelectedModuleId;
+
+  const captureFileBase = (design.designName || "boise-cabinet-design")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .slice(0, 48) || "boise-cabinet-design";
+
+  const handleScreenshot = () => {
+    const url = captureApiRef.current?.screenshot();
+    if (!url) {
+      toast({
+        title: "Couldn't capture image",
+        description: "The 3D preview isn't ready yet. Try again in a moment.",
+        variant: "destructive",
+      });
+      return;
+    }
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `${captureFileBase}.png`;
+    a.click();
+    toast({ title: "Screenshot saved" });
+  };
+
+  const handleRecord = async () => {
+    if (isRecording || !captureApiRef.current) return;
+    setIsRecording(true);
+    try {
+      const blob = await captureApiRef.current.record(4);
+      if (!blob || blob.size === 0) {
+        toast({
+          title: "Couldn't record video",
+          description: "Your browser may not support video capture.",
+          variant: "destructive",
+        });
+        return;
+      }
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `${captureFileBase}.webm`;
+      a.click();
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+      toast({ title: "Turntable video saved" });
+    } finally {
+      setIsRecording(false);
+    }
+  };
 
   const config = useMemo(
     () =>
@@ -165,6 +233,31 @@ export function LivePreviewPanel({ className, compact }: LivePreviewPanelProps) 
           >
             <RotateCcw className="h-4 w-4" />
           </Button>
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={handleScreenshot}
+            aria-label="Save screenshot"
+            title="Save a screenshot"
+            data-testid="button-capture-screenshot"
+          >
+            <Camera className="h-4 w-4" />
+          </Button>
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={handleRecord}
+            disabled={isRecording}
+            aria-label="Record turntable video"
+            title="Record a rotating video"
+            data-testid="button-capture-video"
+          >
+            {isRecording ? (
+              <Loader2 className="h-4 w-4 animate-spin" />
+            ) : (
+              <Video className="h-4 w-4" />
+            )}
+          </Button>
         </div>
       </div>
 
@@ -188,6 +281,7 @@ export function LivePreviewPanel({ className, compact }: LivePreviewPanelProps) 
             onSelect={setSelectedId}
             viewMode={viewMode}
             resetSignal={resetSignal}
+            captureApiRef={captureApiRef}
           />
         </WebGLBoundary>
 

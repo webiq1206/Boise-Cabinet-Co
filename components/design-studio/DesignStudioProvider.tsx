@@ -4,6 +4,7 @@ import {
   createContext,
   useCallback,
   useContext,
+  useEffect,
   useMemo,
   useState,
   type ReactNode,
@@ -15,6 +16,15 @@ import {
   type CabinetModule,
   type RoomBounds,
 } from "@/lib/design/previewConfig";
+import {
+  designToPayload,
+  rowToSnapshot,
+  type DesignRow,
+  type DesignSnapshot,
+  type SavedVersion,
+} from "@/lib/design/designSerialization";
+
+const VERSION_GROUP_STORAGE_KEY = "brc-design-version-group";
 
 /** Room slug from shared/catalog/roomCategories */
 export type RoomType = string;
@@ -101,6 +111,14 @@ interface DesignStudioContextValue {
     message?: string;
   }) => Promise<boolean>;
   isSaving: boolean;
+  /** Saved named versions in the current version group (newest first). */
+  versions: SavedVersion[];
+  /** Save the current design as a new named version. */
+  saveVersion: (name: string) => Promise<SavedVersion | null>;
+  /** Reopen a saved version into the editor. */
+  loadVersion: (id: string) => void;
+  /** Remove a version from the local list. */
+  deleteVersion: (id: string) => void;
 }
 
 const DesignStudioContext = createContext<DesignStudioContextValue | null>(null);
@@ -108,6 +126,8 @@ const DesignStudioContext = createContext<DesignStudioContextValue | null>(null)
 export function DesignStudioProvider({ children }: { children: ReactNode }) {
   const [design, setDesign] = useState<DesignState>(initialState);
   const [isSaving, setIsSaving] = useState(false);
+  const [versions, setVersions] = useState<SavedVersion[]>([]);
+  const [versionGroupId, setVersionGroupId] = useState<string | null>(null);
 
   const updateDesign = useCallback((patch: Partial<DesignState>) => {
     setDesign((prev) => {
@@ -237,33 +257,33 @@ export function DesignStudioProvider({ children }: { children: ReactNode }) {
     [design],
   );
 
+  const toSnapshot = useCallback((d: DesignState): DesignSnapshot => {
+    return {
+      roomType: d.roomType,
+      collection: d.collection,
+      layout: d.layout,
+      doorStyle: d.doorStyle,
+      finish: d.finish,
+      hardware: d.hardware,
+      accessories: d.accessories,
+      notes: d.notes,
+      photoUrl: d.photoUrl,
+      designName: d.designName,
+      moduleOverrides: d.moduleOverrides,
+      modules: d.modules,
+      roomBounds: d.roomBounds,
+    };
+  }, []);
+
   const saveDesign = useCallback(async () => {
-    if (!design.roomType || !design.collection) return null;
+    const payload = designToPayload(toSnapshot(design));
+    if (!payload) return null;
     setIsSaving(true);
     try {
       const res = await fetch("/api/designs", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          roomType: design.roomType,
-          collectionId: design.collection,
-          name: design.designName || `My ${design.roomType} design`,
-          photoUrl: design.photoUrl ?? undefined,
-          layoutJson: {
-            layout: design.layout,
-            accessories: design.accessories,
-            modules: design.modules,
-            moduleOverrides: design.moduleOverrides,
-            roomBounds: design.roomBounds,
-          },
-          styleJson: {
-            doorStyle: design.doorStyle,
-            finish: design.finish,
-            hardware: design.hardware,
-            accessories: design.accessories,
-            notes: design.notes,
-          },
-        }),
+        body: JSON.stringify(payload),
       });
       if (!res.ok) throw new Error("Save failed");
       const data = await res.json();
@@ -274,7 +294,133 @@ export function DesignStudioProvider({ children }: { children: ReactNode }) {
     } finally {
       setIsSaving(false);
     }
-  }, [design, updateDesign]);
+  }, [design, toSnapshot, updateDesign]);
+
+  const refreshVersions = useCallback(async (groupId: string) => {
+    try {
+      const res = await fetch(
+        `/api/designs?versionGroupId=${encodeURIComponent(groupId)}`,
+      );
+      if (!res.ok) return;
+      const data = await res.json();
+      const rows: DesignRow[] = data.versions ?? [];
+      const loaded: SavedVersion[] = rows.map((row) => ({
+        id: String(row.id),
+        name:
+          (typeof row.name === "string" && row.name) ||
+          "Untitled version",
+        shareToken:
+          typeof row.shareToken === "string"
+            ? row.shareToken
+            : typeof row.share_token === "string"
+              ? (row.share_token as string)
+              : null,
+        createdAt:
+          typeof row.createdAt === "string"
+            ? row.createdAt
+            : typeof row.created_at === "string"
+              ? (row.created_at as string)
+              : new Date().toISOString(),
+        snapshot: rowToSnapshot(row),
+      }));
+      setVersions(loaded);
+    } catch {
+      /* ignore — versions are a best-effort enhancement */
+    }
+  }, []);
+
+  // Hydrate saved versions for a returning visitor from their last group.
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const stored = window.localStorage.getItem(VERSION_GROUP_STORAGE_KEY);
+    if (stored) {
+      setVersionGroupId(stored);
+      void refreshVersions(stored);
+    }
+  }, [refreshVersions]);
+
+  const saveVersion = useCallback(
+    async (name: string) => {
+      const trimmed = name.trim() || `Version ${versions.length + 1}`;
+      const snapshot = toSnapshot({ ...design, designName: trimmed });
+      let groupId = versionGroupId;
+      if (!groupId) {
+        groupId =
+          typeof crypto !== "undefined" && "randomUUID" in crypto
+            ? crypto.randomUUID()
+            : `grp-${Date.now()}-${Math.random().toString(16).slice(2)}`;
+        setVersionGroupId(groupId);
+        if (typeof window !== "undefined") {
+          window.localStorage.setItem(VERSION_GROUP_STORAGE_KEY, groupId);
+        }
+      }
+      const payload = designToPayload(snapshot, { versionGroupId: groupId });
+      if (!payload) return null;
+      setIsSaving(true);
+      try {
+        const res = await fetch("/api/designs", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        });
+        if (!res.ok) throw new Error("Save failed");
+        const data = await res.json();
+        const version: SavedVersion = {
+          id: String(data.id),
+          name: trimmed,
+          shareToken: data.shareToken ?? null,
+          createdAt: new Date().toISOString(),
+          snapshot,
+        };
+        setVersions((prev) => [version, ...prev]);
+        updateDesign({
+          designName: trimmed,
+          savedDesignId: version.id,
+          shareToken: version.shareToken,
+          pricingSubmitted: false,
+        });
+        return version;
+      } catch {
+        return null;
+      } finally {
+        setIsSaving(false);
+      }
+    },
+    [design, versions.length, versionGroupId, toSnapshot, updateDesign],
+  );
+
+  const loadVersion = useCallback(
+    (id: string) => {
+      const version = versions.find((v) => v.id === id);
+      if (!version) return;
+      const s = version.snapshot;
+      setDesign({
+        ...initialState,
+        roomType: s.roomType,
+        collection: s.collection,
+        layout: s.layout as LayoutType | null,
+        doorStyle: s.doorStyle,
+        finish: s.finish,
+        hardware: s.hardware,
+        accessories: s.accessories ?? [],
+        notes: s.notes ?? "",
+        photoUrl: s.photoUrl,
+        designName: version.name,
+        moduleOverrides: s.moduleOverrides ?? {},
+        modules: s.modules ?? [],
+        roomBounds: s.roomBounds ?? null,
+        savedDesignId: version.id,
+        shareToken: version.shareToken,
+        pricingSubmitted: false,
+        selectedModuleId: null,
+      });
+    },
+    [versions],
+  );
+
+  const deleteVersion = useCallback((id: string) => {
+    setVersions((prev) => prev.filter((v) => v.id !== id));
+  }, []);
 
   const submitPricingRequest = useCallback(
     async (contact: {
@@ -333,6 +479,10 @@ export function DesignStudioProvider({ children }: { children: ReactNode }) {
       saveDesign,
       submitPricingRequest,
       isSaving,
+      versions,
+      saveVersion,
+      loadVersion,
+      deleteVersion,
     }),
     [
       design,
@@ -351,6 +501,10 @@ export function DesignStudioProvider({ children }: { children: ReactNode }) {
       saveDesign,
       submitPricingRequest,
       isSaving,
+      versions,
+      saveVersion,
+      loadVersion,
+      deleteVersion,
     ],
   );
 

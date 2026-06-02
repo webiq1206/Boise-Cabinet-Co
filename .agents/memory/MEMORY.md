@@ -1,1 +1,1 @@
-- [Design Studio module model](design-studio-module-model.md) — 2D planner & 3D preview share design.modules; saveDesign must serialize modules+overrides+roomBounds or edits vanish on reload.
+- [Neon driver on Replit Postgres](neon-driver-on-replit-postgres.md) — use neon-serverless WebSocket Pool in lib/db, NOT neon-http (HTTP endpoint throws null-`map`); REPLIT_DB_URL fallback is not Postgres.
