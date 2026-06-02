@@ -5,7 +5,7 @@ const sections: ContentSection[] = [
     h2: 'What should Treasure Valley homeowners budget for a remodel in 2026?',
     paragraphs: [
       `Most residential remodels we scope across ${CITIES_LIST} fall into planning bands—not single sticker prices. A guest bath refresh in Meridian is not priced like a full kitchen gut in the North End. National averages rarely account for Ada County plan review, Canyon County submission portals, Idaho labor markets, or the finish level common in Eagle and Hidden Springs.`,
-      `This guide is the pillar for our <strong>Boise Remodeling Costs</strong> hub. Use it to understand typical ranges, then read the linked articles on kitchen, bathroom, whole-home, addition, and luxury costs for project-specific detail.`,
+      `This guide is the pillar for our <strong>Boise Cabinet Costs</strong> hub. Use it to understand typical ranges, then read the linked articles on kitchen, bathroom, whole-home, addition, and luxury costs for project-specific detail.`,
       `For a rough planning number before design, start with our <a href="/#calculator">project estimator</a>, then schedule an in-home consultation for a written scope.`,
     ],
   },
@@ -175,7 +175,7 @@ const sections: ContentSection[] = [
     ],
   },
   {
-    h2: 'Expert recommendations from Boise Remodeling Co',
+    h2: 'Expert recommendations from Boise Cabinet Co',
     paragraphs: [
       'We are a design-build remodeling team serving homeowners throughout the Treasure Valley. Our process: in-home consultation, preliminary scope, design development, fixed-scope agreement, permits, construction, and warranty walkthrough.',
       'We do not publish bait pricing or “starting at” numbers without seeing your home. We do publish honest planning ranges so you can decide whether to invest in design before you commit to construction.',

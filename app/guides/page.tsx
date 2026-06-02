@@ -32,9 +32,9 @@ function GuideCardStats({ guide }: { guide: GuidePageData }) {
 export const metadata: Metadata = buildPageMetadata({
   kind: 'blog',
   path: '/guides',
-  titleOverride: 'Remodeling Guides | Boise Remodeling Co',
+  titleOverride: 'Cabinet Design Guides | Boise Cabinet Co',
   descriptionOverride:
-    'Definitive Treasure Valley remodeling guides: costs, kitchens, baths, additions, contractor selection, ROI, outdoor living, and local city resources.',
+    'Treasure Valley cabinet guides: costs, kitchen and bath cabinetry, built-ins, company selection, project process, ROI, and local city resources.',
 });
 
 const PILLAR_TYPES = new Set(['hub-pillar', 'master']);
@@ -47,9 +47,9 @@ export default function GuidesIndexPage() {
   const sortedHubs = [...CONTENT_HUBS].sort((a, b) => a.priorityTier - b.priorityTier);
 
   const webPageSchema = generateWebPageSchema({
-    title: 'Remodeling Guides',
+    title: 'Cabinet Design Guides',
     description:
-      'Definitive Treasure Valley remodeling guides: costs, kitchens, baths, additions, contractor selection, ROI, outdoor living, and local city resources.',
+      'Treasure Valley cabinet guides: costs, kitchen and bath cabinetry, built-ins, company selection, project process, ROI, and local city resources.',
     url: '/guides',
   });
 
@@ -74,11 +74,11 @@ export default function GuidesIndexPage() {
             Treasure Valley authority
           </p>
           <h1 className="text-3xl md:text-4xl font-sans font-light tracking-tight text-foreground mb-4">
-            Remodeling Guides
+            Cabinet Design Guides
           </h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             In-depth guides for Boise, Meridian, Eagle, Nampa, and the entire Treasure Valley—costs,
-            process, locations, and planning resources from Boise Remodeling Co.
+            finishes, layouts, and planning resources from Boise Cabinet Co.
           </p>
           <p className="mt-4">
             <Link

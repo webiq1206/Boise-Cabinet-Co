@@ -8,7 +8,7 @@ import { SITE_CONFIG } from "@/shared/siteConfig";
 
 export const metadata: Metadata = {
   title: "Page Not Found (404)",
-  description: "The page you're looking for could not be found. Browse our remodeling services or contact Boise Remodeling Co.",
+  description: "The page you're looking for could not be found. Browse our cabinet catalog, Design Studio, or contact Boise Cabinet Co.",
   robots: {
     index: false,
     follow: true,
@@ -40,10 +40,10 @@ export default function NotFound() {
             <h3 className="font-medium mb-4 text-foreground">Popular Pages</h3>
             <div className="grid grid-cols-2 gap-2">
               {[
-                { href: "/#services", label: "Our Services" },
-                { href: "/#consult", label: "Free Consultation" },
-                { href: "/blog", label: "Blog and Ideas" },
-                { href: "/#calculator", label: "Project Estimator" },
+                { href: "/cabinets", label: "Cabinet Catalog" },
+                { href: "/design-studio", label: "Design Studio" },
+                { href: "/collections", label: "Collections" },
+                { href: "/contact", label: "Free Consultation" },
               ].map((item) => (
                 <Link
                   key={item.href}

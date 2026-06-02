@@ -11,7 +11,7 @@ function clusterFaqs(
     {
       question: `How much does a ${topic} cost in Boise?`,
       answer:
-        'Planning ranges depend on layout, finishes, and permits. See the tables in this article and our Boise Remodeling Cost Guide for full context.',
+        'Planning ranges depend on layout, finishes, and permits. See the tables in this article and our Boise Cabinet Cost Guide for full context.',
     },
     {
       question: 'Does this include permits?',
@@ -67,8 +67,8 @@ function makeCostCluster(
     metaDescription,
     excerpt,
     content: getExpandedClusterHtml(slug),
-    author: 'Boise Remodeling Co',
-    category: 'Boise Remodeling Costs',
+    author: 'Boise Cabinet Co',
+    category: 'Boise Cabinet Costs',
     hubSlug: 'remodeling-costs',
     tags,
     publishedAt: '2026-05-02',
@@ -76,7 +76,7 @@ function makeCostCluster(
     quickAnswer: pack.quickAnswer,
     keyTakeaways: pack.takeaways,
     relatedLinks: [
-      { url: PILLAR, anchor: 'Boise Remodeling Cost Guide' },
+      { url: PILLAR, anchor: 'Boise Cabinet Cost Guide' },
       { url: '/services/kitchen-remodel' },
       { url: '/services/bathroom-remodel' },
       { url: '/areas/boise' },

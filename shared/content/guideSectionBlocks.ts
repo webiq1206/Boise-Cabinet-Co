@@ -8,7 +8,7 @@ export function pillarEssentialsSection(topic: string): ContentSection {
     h2: 'Planning essentials',
     paragraphs: [
       `Budget, permits, and selections drive ${t} timelines in ${CITIES_LIST}—not a single sticker price.`,
-      `Use the <a href="${PILLAR_COST}">Boise Remodeling Cost Guide</a> for ranges, the <a href="/guides/treasure-valley-remodeling-guide">Treasure Valley guide</a> for Ada vs Canyon context, and the <a href="/guides/boise-remodeling-process-guide">process guide</a> for milestones.`,
+      `Use the <a href="${PILLAR_COST}">Boise Cabinet Cost Guide</a> for ranges, the <a href="/guides/treasure-valley-remodeling-guide">Treasure Valley guide</a> for Ada vs Canyon context, and the <a href="/guides/boise-remodeling-process-guide">process guide</a> for milestones.`,
     ],
     list: [
       'Hold 10–15% contingency in older homes',

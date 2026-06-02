@@ -127,21 +127,39 @@ const ADMIN_EMAILS = [
   "webiq.co@gmail.com",
   "info@webiq.co",
   "hello@boiseremodeling.co",
+  "hello@boisecabinet.co",
   "brostjared@gmail.com",
 ];
 
-function getDesignatedRole(email: string | undefined): "admin" | "subcontractor" {
+/** Partner emails can be extended via env or admin assignment */
+const PARTNER_EMAILS: string[] = (
+  process.env.PARTNER_EMAILS?.split(",").map((e) => e.trim().toLowerCase()) ?? []
+).filter(Boolean);
+
+export type AppRole = "admin" | "partner" | "customer" | "subcontractor";
+
+function getDesignatedRole(
+  email: string | undefined,
+  existingRole?: string | null,
+): AppRole {
   if (email && ADMIN_EMAILS.includes(email.toLowerCase())) {
     return "admin";
   }
+  if (email && PARTNER_EMAILS.includes(email.toLowerCase())) {
+    return "partner";
+  }
+  if (existingRole === "customer") return "customer";
+  if (existingRole === "partner" || existingRole === "subcontractor") return "partner";
+  // Default new OIDC users without project link remain partners for legacy marketplace;
+  // customer role assigned via invite or project linking
   return "subcontractor";
 }
 
 export async function upsertUserFromClaims(claims: SessionData["claims"]) {
   if (!db || !claims?.sub) return null;
 
-  const designatedRole = getDesignatedRole(claims.email);
   const existing = await getUserFromDb(claims.sub);
+  const designatedRole = getDesignatedRole(claims.email, existing?.role);
 
   if (existing) {
     const updateData: Record<string, any> = {
@@ -154,6 +172,9 @@ export async function upsertUserFromClaims(claims: SessionData["claims"]) {
     if (existing.role !== designatedRole && designatedRole === "admin") {
       updateData.role = "admin";
       console.log(`[AUTH] Upgrading user ${claims.sub} (${claims.email}) from ${existing.role} to admin`);
+    } else if (existing.role === "customer" && designatedRole !== "admin") {
+      // Preserve customer role unless upgrading to admin
+      updateData.role = "customer";
     }
 
     await db.update(users).set(updateData).where(eq(users.id, claims.sub));

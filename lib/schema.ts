@@ -24,10 +24,10 @@ export function generateLocalBusinessSchema(city?: string): SchemaContext {
   
   return {
     '@context': 'https://schema.org',
-    '@type': ['LocalBusiness', 'HomeAndConstructionBusiness'],
+    '@type': ['LocalBusiness', 'FurnitureStore'],
     name: BUSINESS_INFO.name,
     legalName: BUSINESS_INFO.legalName,
-    description: `Design-build remodeling contractor serving ${city || 'Boise'} and the Treasure Valley, Idaho. Kitchen remodels, bathrooms, additions & whole-home renovations.`,
+    description: `Custom cabinet company serving ${city || 'Boise'} and the Treasure Valley, Idaho. Kitchen cabinets, bathroom vanities, closet systems, and built-in storage.`,
     image: `${baseUrl}/images/hero-remodel-interior.png`,
     '@id': baseUrl,
     url: baseUrl,
@@ -69,7 +69,7 @@ export function generateLocalBusinessSchema(city?: string): SchemaContext {
         }
       : {}),
     foundingDate: BUSINESS_INFO.founded,
-    slogan: 'Boise\'s Design-Build Remodeling Company',
+    slogan: 'Idaho\'s Premier Custom Cabinet Company',
     paymentAccepted: 'Cash, Credit Card, Check, Financing',
     currenciesAccepted: 'USD',
     hasOfferCatalog: {

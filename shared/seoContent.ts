@@ -26,7 +26,7 @@ export const SERVICE_SEO_CONTENT: Record<string, ServiceSEOContent> = {
     headline: 'Kitchen Remodeling in the Treasure Valley',
     primaryKeyword: 'kitchen remodeling boise idaho',
     overview:
-      'A well-planned kitchen remodel improves how your family cooks, gathers, and moves through the home. Boise Remodeling Co handles design, permitting, and construction under one roof so layout, cabinetry, lighting, and finishes stay aligned from first visit to final walkthrough.',
+      'A well-planned kitchen remodel improves how your family cooks, gathers, and moves through the home. Boise Cabinet Co handles design, permitting, and construction under one roof so layout, cabinetry, lighting, and finishes stay aligned from first visit to final walkthrough.',
     benefits: [
       'Single design-build team, no juggling separate designers and contractors',
       'Written scope and finish selections before construction begins',
@@ -158,7 +158,7 @@ export const SERVICE_SEO_CONTENT: Record<string, ServiceSEOContent> = {
     headline: 'ADU & Guest House Construction in the Treasure Valley',
     primaryKeyword: 'adu construction boise idaho',
     overview:
-      'Accessory dwelling units add livable square footage, rental income potential, and long-term property value without leaving your lot. Boise Remodeling Co designs and builds detached and attached ADUs with full permit handling, structural planning, and interior finishes under one accountable design-build team.',
+      'Accessory dwelling units add livable square footage, rental income potential, and long-term property value without leaving your lot. Boise Cabinet Co designs and builds detached and attached ADUs with full permit handling, structural planning, and interior finishes under one accountable design-build team.',
     benefits: [
       'Single team from design through certificate of occupancy, no coordinating separate trades',
       'Ada and Canyon County ADU permitting and setback requirements handled in-house',
@@ -244,7 +244,7 @@ export const SERVICE_SEO_CONTENT: Record<string, ServiceSEOContent> = {
 export function getAreaIntro(city: CityData): string {
   const county = getCountyLabel(city.county);
   const neighborhood = ''; // filled from CITY_SEO_DATA at runtime in pages
-  return `Boise Remodeling Co provides design-build remodeling for homeowners in ${city.name}, Idaho and throughout ${county}. From kitchen and bathroom renovations to whole-home remodels and room additions, you work with one accountable team from consultation through final walkthrough.`;
+  return `Boise Cabinet Co provides design-build remodeling for homeowners in ${city.name}, Idaho and throughout ${county}. From kitchen and bathroom renovations to whole-home remodels and room additions, you work with one accountable team from consultation through final walkthrough.`;
 }
 
 export function getCityServiceIntro(
@@ -256,7 +256,7 @@ export function getCityServiceIntro(
   const fact = localFact
     ? ` ${localFact}`
     : ` We understand ${county} permit requirements and typical ${city.name} home styles.`;
-  return `Looking for ${service.name.toLowerCase()} in ${city.name}, Idaho?${fact} Boise Remodeling Co offers design-build ${service.name.toLowerCase()} with clear written scope, proactive weekly updates, and a written workmanship guarantee. Schedule a free in-home consultation or use our project estimator for a planning range.`;
+  return `Looking for ${service.name.toLowerCase()} in ${city.name}, Idaho?${fact} Boise Cabinet Co offers design-build ${service.name.toLowerCase()} with clear written scope, proactive weekly updates, and a written workmanship guarantee. Schedule a free in-home consultation or use our project estimator for a planning range.`;
 }
 
 export function getCityServiceFaqs(service: ServiceSEOContent, city: CityData): FAQItem[] {
@@ -283,7 +283,7 @@ export const AREA_PAGE_FAQS: FAQItem[] = [
   {
     question: 'Are you licensed and insured?',
     answer:
-      'Yes. Boise Remodeling Co is licensed, bonded, and insured. Idaho contractor license details available upon request.',
+      'Yes. Boise Cabinet Co is licensed, bonded, and insured. Idaho contractor license details available upon request.',
   },
   {
     question: 'How do I start a project?',

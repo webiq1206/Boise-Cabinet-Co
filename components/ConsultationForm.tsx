@@ -34,11 +34,11 @@ const formSchema = z.object({
 type FormData = z.infer<typeof formSchema>;
 
 const PROJECT_OPTIONS = [
-  { value: "kitchen", label: "Kitchen Remodel" },
-  { value: "bathroom", label: "Bathroom Remodel" },
-  { value: "whole-home", label: "Whole-Home Remodel" },
-  { value: "addition", label: "Room Addition" },
-  { value: "other", label: "Other / Not sure yet" },
+  { value: "kitchen", label: "Kitchen Cabinets" },
+  { value: "bathroom", label: "Bathroom Vanities" },
+  { value: "laundry", label: "Laundry / Mudroom" },
+  { value: "closet", label: "Closet & Storage" },
+  { value: "other", label: "Other / Whole-home" },
 ];
 
 const labelClass = "text-xs tracking-wide font-medium uppercase text-muted-foreground";

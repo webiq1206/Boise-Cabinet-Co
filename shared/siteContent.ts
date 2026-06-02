@@ -8,23 +8,23 @@ import {
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
-export const SITE_TAGLINE = "Treasure Valley design-build, built on clarity and craftsmanship";
+export const SITE_TAGLINE = "Idaho's premier custom cabinet company";
 
-export const HERO_EYEBROW = "Treasure Valley Design-Build";
+export const HERO_EYEBROW = "Treasure Valley Custom Cabinetry";
 
 export const HERO_SUBHEAD =
-  "One accountable design-build team from first visit to final walkthrough.";
+  "Design, build, and install premium custom cabinets — from first sketch to final walkthrough.";
 
 export const HERO_STATS = [
-  { num: "60 sec", label: "Instant planning range" },
-  { num: "Free", label: "In-home visit" },
-  { num: "Written", label: "Scope before build" },
+  { num: "50+", label: "Finish options" },
+  { num: "Free", label: "Design consultation" },
+  { num: "Lifetime", label: "Warranty" },
 ] as const;
 
 export const DIFFERENTIATORS_HEADLINE = "Built for homeowners who want clarity, not chaos";
 
 export const DIFFERENTIATORS_INTRO =
-  "Many homeowners we meet have lived through a remodel where the scope shifted, the budget grew, the house became unlivable, or nobody returned their calls. We built our process around the opposite: one accountable team, a written plan before construction, a job site that respects your home, and proactive updates every Friday.";
+  "Many homeowners we meet have lived through a cabinet project where finishes shifted, timelines slipped, or nobody returned their calls. We built our process around the opposite: one accountable team, a written scope before fabrication, a job site that respects your home, and proactive updates through installation.";
 
 export interface Differentiator {
   title: string;
@@ -155,28 +155,28 @@ export const CLIENT_PRIORITIES: ClientPriority[] = [
 export const HOW_WE_BUILD_STEPS = [
   {
     number: "01",
-    title: "Free in-home visit",
-    desc: "We walk your space, hear your goals, and give you a planning range on the spot. No obligation.",
+    title: "Free design consultation",
+    desc: "We walk your space, discuss goals, and explore collection and finish options. No obligation.",
   },
   {
     number: "02",
-    title: "Detailed scope and design direction",
-    desc: "You receive a clear written scope with design direction and finish selections before construction begins.",
+    title: "Design Studio & selections",
+    desc: "Refine your layout, door style, finish, and hardware in our Design Studio — with 3D preview.",
   },
   {
     number: "03",
-    title: "Permits handled for you",
-    desc: "We know the Ada and Canyon County offices. Permits are built into your schedule from day one.",
+    title: "Approval & deposit",
+    desc: "Review your proposal in the client portal, sign your agreement, and secure production with a deposit.",
   },
   {
     number: "04",
-    title: "Weekly progress updates",
-    desc: "Every Friday you get a written update: what was done, what is next, and any decisions needed from you.",
+    title: "Fabrication & quality check",
+    desc: "Your cabinets are built to order with frameless Euro construction and inspected before shipping.",
   },
   {
     number: "05",
-    title: "Final walkthrough and workmanship guarantee",
-    desc: "We walk every inch with you. If we built it and it fails due to workmanship, we fix it free.",
+    title: "Delivery, install & warranty",
+    desc: "Professional installation, final walkthrough, and lifetime warranty support through your portal.",
   },
 ];
 
@@ -243,10 +243,10 @@ export const BUDGET_GUIDANCE_POINTS = [
 
 export const LEADERSHIP_COPY = {
   label: "Our commitment",
-  headline: "Remodeling should feel clear, not chaotic.",
+  headline: "Custom cabinets should feel clear, not chaotic.",
   paragraphs: [
-    "Boise Remodeling Co was built on a simple belief: homeowners in the Treasure Valley deserve a design-build partner who communicates clearly, plans carefully, and treats their home with respect.",
-    "We know how most firms are compared: separate designers and contractors, vague scopes, inconsistent updates, and pressure to sign before you have real answers. Our process was designed around what comparison shoppers actually need.",
+    "Boise Cabinet Co was built on a simple belief: homeowners in the Treasure Valley deserve a cabinet partner who communicates clearly, designs thoughtfully, and treats their home with respect.",
+    "We know how most firms are compared: separate designers and installers, vague scopes, inconsistent updates, and pressure to sign before you have real answers. Our process was designed around what comparison shoppers actually need.",
     "That means one accountable team, written scope before we build, weekly updates while we work, and a team that picks up the phone when you have a question.",
   ],
   closing: "That is not a marketing promise. Every detail, every decision — handled with intention.",
@@ -261,8 +261,8 @@ export const FINANCING_BULLETS = [
 ];
 
 export const CONSULT_BULLETS = [
-  "No commission-driven salespeople",
-  "No pressure to decide on the spot",
-  "Honest planning ranges, in writing",
-  "Response within one business day",
+  "60–90 minute design consultation at your home",
+  "Explore collections, finishes, and door styles",
+  "Planning investment range on the spot",
+  "No pressure — clarity, not a sales pitch",
 ];

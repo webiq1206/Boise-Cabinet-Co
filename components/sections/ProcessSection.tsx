@@ -13,7 +13,7 @@ export function ProcessSection() {
         <div className="hidden md:block relative min-h-[380px] md:min-h-[560px] overflow-hidden">
           <Image
             src={SITE_IMAGES.process}
-            alt="Architectural blueprints and finish material samples for a Treasure Valley remodel"
+            alt="Cabinet design review with finish samples and layout plans"
             fill
             sizes="(max-width: 768px) 100vw, 50vw"
             className="object-cover img-brand-grade"
@@ -24,11 +24,11 @@ export function ProcessSection() {
             style={{ backgroundImage: GRAIN_URL, backgroundRepeat: "repeat", opacity: 0.028 }}
           />
           <div className="absolute bottom-0 left-0 p-8 md:p-12">
-            <div className="brc-label mb-3 text-inverse-muted">How We Build</div>
+            <div className="brc-label mb-3 text-inverse-muted">Our Process</div>
             <p className="font-sans font-light text-xl md:text-2xl text-inverse-foreground">
-              Free in-home visit
+              Design consultation
               <br />
-              to final walkthrough
+              to installed cabinets
             </p>
           </div>
         </div>
@@ -37,8 +37,8 @@ export function ProcessSection() {
           <Reveal>
             <div className="brc-label mb-5">Our process</div>
             <h2 className="font-sans font-light text-[2rem] md:text-[2.5rem] lg:text-[2.75rem] leading-[1.08] tracking-tight mb-10 text-foreground">
-              From first visit to{" "}
-              <em className="brc-accent text-accent">final walkthrough</em>
+              From design to{" "}
+              <em className="brc-accent text-accent">installed cabinets</em>
             </h2>
             <div className="space-y-0">
               {HOW_WE_BUILD_STEPS.map((step, i) => (

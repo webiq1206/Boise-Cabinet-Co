@@ -13,6 +13,7 @@ import {
 } from './content/wave1/locationGuides';
 import { ALL_HUB_PILLARS, LOCATION_GUIDES } from './content/allHubsContent';
 import { expandPillar } from './content/contentFactory';
+import { SITE_CONFIG } from './siteConfig';
 
 export type GuideType = 'hub-pillar' | 'location' | 'neighborhood' | 'master';
 
@@ -53,7 +54,7 @@ const costPillarFaqs = [
   {
     question: 'Do you include permits in remodeling quotes?',
     answer:
-      'Yes. Boise Remodeling Co includes permits in design-build scope for Ada and Canyon County projects and coordinates submissions on your behalf.',
+      'Yes. Boise Cabinet Co includes permits in design-build scope for Ada and Canyon County projects and coordinates submissions on your behalf.',
   },
   {
     question: 'Why do remodeling bids vary so much?',
@@ -111,7 +112,7 @@ const costPillarFaqs = [
       'Start with our online estimator for a planning range, then schedule an in-home consultation for a written scope tied to your layout and selections.',
   },
   {
-    question: 'Does Boise Remodeling Co publish starting-at prices?',
+    question: 'Does Boise Cabinet Co publish starting-at prices?',
     answer:
       'We publish planning ranges by project type for education, not bait pricing. Firm numbers require seeing your home and defining scope.',
   },
@@ -120,14 +121,14 @@ const costPillarFaqs = [
 export const GUIDE_PAGES: GuidePageData[] = [
   {
     slug: 'boise-remodeling-cost-guide',
-    title: 'Boise Remodeling Cost Guide (2026 Planning Ranges)',
-    seoTitle: 'Boise Remodeling Cost Guide | Treasure Valley',
+    title: 'Boise Cabinet Cost Guide (2026 Planning Ranges)',
+    seoTitle: 'Boise Cabinet Cost Guide | Treasure Valley',
     metaDescription:
       'Definitive 2026 remodeling cost guide for Boise and the Treasure Valley: kitchens, baths, whole-home, additions, luxury, $/SF, budgeting, permits, and timelines.',
     excerpt:
       'The complete planning guide for remodeling costs in Boise, Meridian, Eagle, Nampa, and the Treasure Valley—with ranges, tables, and local permit context.',
     content: expandPillar(BOISE_REMODELING_COST_GUIDE_HTML, 'boise-remodeling-cost-guide', 'remodeling-costs'),
-    author: 'Boise Remodeling Co',
+    author: 'Boise Cabinet Co',
     hubSlug: 'remodeling-costs',
     guideType: 'hub-pillar',
     tags: ['cost', 'budget', 'boise', 'treasure valley'],
@@ -154,7 +155,7 @@ export const GUIDE_PAGES: GuidePageData[] = [
       { url: '/areas' },
       { url: '/#calculator' },
     ],
-    primaryKeyword: 'boise remodeling cost',
+    primaryKeyword: 'Boise Cabinet Cost',
   },
   {
     slug: 'treasure-valley-remodeling-guide',
@@ -165,7 +166,7 @@ export const GUIDE_PAGES: GuidePageData[] = [
     excerpt:
       'Your starting point for remodeling anywhere in the Treasure Valley—city guides, permits, and links to local services.',
     content: TREASURE_VALLEY_GUIDE_HTML,
-    author: 'Boise Remodeling Co',
+    author: 'Boise Cabinet Co',
     hubSlug: 'treasure-valley-locations',
     guideType: 'master',
     tags: ['treasure valley', 'locations', 'idaho'],
@@ -174,7 +175,7 @@ export const GUIDE_PAGES: GuidePageData[] = [
     keyTakeaways: TV_TAKEAWAYS,
     faqs: [
       {
-        question: 'What cities does Boise Remodeling Co serve?',
+        question: 'What cities does Boise Cabinet Co serve?',
         answer:
           'We serve Boise, Meridian, Eagle, Kuna, Star, Middleton, Nampa, and Caldwell throughout Ada and Canyon Counties.',
       },
@@ -190,7 +191,7 @@ export const GUIDE_PAGES: GuidePageData[] = [
       },
       {
         question: 'How do I find remodeling costs for my city?',
-        answer: 'Start with our Boise Remodeling Cost Guide and city-specific service pages linked from this hub.',
+        answer: 'Start with our Boise Cabinet Cost Guide and city-specific service pages linked from this hub.',
       },
       {
         question: 'Do you work in Eagle and Hidden Springs?',
@@ -246,14 +247,14 @@ export const GUIDE_PAGES: GuidePageData[] = [
   },
   {
     slug: 'boise-remodeling-guide',
-    title: 'Boise Remodeling Guide',
-    seoTitle: 'Boise Remodeling Guide | Neighborhoods & Services',
+    title: 'Boise Custom Cabinet Guide',
+    seoTitle: 'Boise Custom Cabinet Guide | Neighborhoods & Services',
     metaDescription:
-      'Remodeling in Boise: North End, Bench, Harris Ranch, costs, permits, and design-build services for kitchens, baths, whole-home, and additions.',
+      'Custom cabinets in Boise: North End, Bench, Harris Ranch, costs, finishes, and cabinet services for kitchens, baths, and built-ins.',
     excerpt:
-      'Local guide to remodeling in Boise—neighborhood housing types, costs, and city-specific service links.',
+      'Local guide to custom cabinets in Boise—neighborhood housing types, costs, and city-specific service links.',
     content: BOISE_GUIDE_HTML,
-    author: 'Boise Remodeling Co',
+    author: 'Boise Cabinet Co',
     hubSlug: 'treasure-valley-locations',
     guideType: 'location',
     tags: ['boise', 'north end', 'bench'],

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { Reveal } from "@/components/Reveal";
 import { Button } from "@/components/ui/button";
 import { HERO_EYEBROW, HERO_SUBHEAD, HERO_STATS, TRUST_ITEMS } from "@/shared/siteContent";
@@ -27,7 +28,7 @@ export function HeroSection() {
       <section className="relative -mt-[60px] pt-[60px] min-h-[85vh] md:min-h-screen flex items-center overflow-hidden bg-inverse">
         <Image
           src={SITE_IMAGES.hero}
-          alt="Modern luxury home interior remodel in Boise Idaho Treasure Valley"
+            alt="Custom kitchen cabinets in a Treasure Valley home"
           fill
           priority
           sizes="100vw"
@@ -46,18 +47,18 @@ export function HeroSection() {
             <Reveal>
               <div className="brc-label mb-6 text-inverse-muted">{HERO_EYEBROW}</div>
               <h1 className="font-sans font-light text-inverse-foreground text-display tracking-tight mb-6">
-                Remodel with{" "}
-                <em className="brc-accent text-accent">clarity</em> and confidence.
+                Idaho&apos;s premier{" "}
+                <em className="brc-accent text-accent">cabinet</em> company.
               </h1>
               <p className="text-lg md:text-xl leading-relaxed mb-8 max-w-xl text-inverse-foreground/90">
                 {HERO_SUBHEAD}
               </p>
               <div className="flex flex-wrap gap-3 mb-6 md:mb-0">
                 <Button variant="brand" asChild>
-                  <a href="#consult">{CTA_PRIMARY}</a>
+                  <Link href="/design-studio">{CTA_PRIMARY}</Link>
                 </Button>
                 <Button variant="brandOutline" className="border-inverse-foreground/25 bg-inverse-foreground/10 text-inverse-foreground hover:bg-inverse-foreground/15" asChild>
-                  <a href="#calculator">{CTA_SECONDARY}</a>
+                  <Link href="/collections">{CTA_SECONDARY}</Link>
                 </Button>
               </div>
 

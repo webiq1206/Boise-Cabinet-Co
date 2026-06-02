@@ -58,7 +58,7 @@ export const LEGACY_BLOG_POSTS: BlogPostData[] = [
     hubSlug: 'remodeling-process',
     quickAnswer:
       'Ada County and Canyon County use different permit portals and review timelines—layout and structural remodels often need weeks of plan review in both.',
-    author: 'Boise Remodeling Co',
+    author: 'Boise Cabinet Co',
     category: 'Remodeling Process',
     tags: ['permits', 'ada county', 'canyon county'],
     publishedAt: '2026-02-05',
@@ -71,7 +71,7 @@ export const LEGACY_BLOG_POSTS: BlogPostData[] = [
     faqs: [
       {
         question: 'Who pulls permits on a design-build remodel?',
-        answer: 'Boise Remodeling Co includes permits in scope for Ada and Canyon County projects.',
+        answer: 'Boise Cabinet Co includes permits in scope for Ada and Canyon County projects.',
       },
       {
         question: 'How long do Ada County kitchen permits take?',
@@ -114,7 +114,7 @@ export const LEGACY_BLOG_POSTS: BlogPostData[] = [
     hubSlug: 'contractor-selection',
     quickAnswer:
       'Choose a Boise design-build remodeler with written scope, local permits experience, clear communication, and aligned bids—not price alone.',
-    author: 'Boise Remodeling Co',
+    author: 'Boise Cabinet Co',
     category: 'Contractor Selection',
     tags: ['contractor', 'design-build', 'boise'],
     publishedAt: '2026-02-18',
@@ -154,7 +154,7 @@ export const LEGACY_BLOG_POSTS: BlogPostData[] = [
     hubSlug: 'whole-home-remodeling',
     quickAnswer:
       'Whole-home remodel planning requires phased scope, early structural decisions, contingency, and realistic timelines across the Treasure Valley.',
-    author: 'Boise Remodeling Co',
+    author: 'Boise Cabinet Co',
     category: 'Whole Home Remodeling',
     tags: ['whole-home', 'checklist', 'meridian'],
     publishedAt: '2026-03-01',
@@ -195,7 +195,7 @@ export const LEGACY_BLOG_POSTS: BlogPostData[] = [
     hubSlug: 'home-additions',
     quickAnswer:
       'Treasure Valley room additions need feasibility on setbacks and structure, matching architecture, and Ada or Canyon permits—often $80k–$250k+.',
-    author: 'Boise Remodeling Co',
+    author: 'Boise Cabinet Co',
     category: 'Home Additions',
     tags: ['addition', 'eagle', 'kuna'],
     publishedAt: '2026-03-12',

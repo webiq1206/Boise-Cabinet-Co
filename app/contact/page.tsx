@@ -26,7 +26,7 @@ import { EstimateCTA } from '@/components/modals/EstimateCTA';
 const GRAIN_URL = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.45'/%3E%3C/svg%3E")`;
 
 const SPEAKABLE_SUMMARY =
-  'Contact Boise Remodeling Co for a free consultation. Schedule a free 60 to 90 minute in-home visit, call our team, or use the project estimator to explore a planning range for your remodel.';
+  'Contact Boise Cabinet Co for a free design consultation. Call our team, schedule a visit, or use the Design Studio to explore cabinet options for your Treasure Valley home.';
 
 const MAPS_URL = `https://maps.google.com/?q=${encodeURIComponent(SITE_CONFIG.address.full)}`;
 
@@ -148,9 +148,9 @@ export default function ContactPage() {
   const schemas = [
     generateLocalBusinessSchema(),
     generateWebPageSchema({
-      title: 'Contact Boise Remodeling Co',
+      title: `Contact ${SITE_CONFIG.name}`,
       description:
-        'Schedule a free in-home consultation or call our Treasure Valley design-build team.',
+        'Schedule a free design consultation or explore options in our online Design Studio.',
       url: '/contact',
     }),
     generateBreadcrumbSchema([
@@ -167,7 +167,7 @@ export default function ContactPage() {
         <section className="relative min-h-[520px] md:min-h-[72vh] flex items-end overflow-hidden bg-inverse">
           <Image
             src={SITE_IMAGES.hero}
-            alt="Modern luxury home interior remodel in Boise Idaho Treasure Valley"
+            alt="Custom kitchen cabinets in a Treasure Valley home"
             fill
             className="object-cover opacity-[0.82] img-brand-grade"
             sizes="100vw"
@@ -189,12 +189,12 @@ export default function ContactPage() {
             </p>
             <div className="brc-label text-inverse-muted mt-6 mb-5">Get in touch</div>
             <h1 className="font-sans font-light text-display tracking-tight text-inverse-foreground max-w-4xl mb-6">
-              Contact Boise Remodeling{' '}
-              <em className="brc-accent text-accent">Co</em>
+              Contact {SITE_CONFIG.name.split(' ').slice(0, -1).join(' ')}{' '}
+              <em className="brc-accent text-accent">{SITE_CONFIG.name.split(' ').slice(-1)}</em>
             </h1>
             <p className="text-base md:text-lg text-inverse-foreground/85 max-w-2xl leading-relaxed mb-6">
-              Schedule a free 60 to 90 minute in-home visit, call our team, or use the project
-              estimator to explore a planning range for your remodel.
+              Schedule a free design consultation, call our team, or use the Design Studio to
+              explore cabinet options for your home.
             </p>
             <a
               href={SITE_CONFIG.phoneHref}
@@ -293,7 +293,7 @@ export default function ContactPage() {
             <div className="relative min-h-[260px] md:min-h-[520px] overflow-hidden bg-inverse order-2 md:order-1">
               <Image
                 src={SITE_IMAGES.leadership}
-                alt="Boise Remodeling Co team at a finished kitchen project"
+                alt={`${SITE_CONFIG.name} team reviewing cabinet finish samples`}
                 fill
                 sizes="(max-width: 768px) 100vw, 50vw"
                 className="object-cover img-brand-grade"

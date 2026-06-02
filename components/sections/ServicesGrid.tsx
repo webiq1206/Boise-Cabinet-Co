@@ -32,7 +32,7 @@ export function ServicesGrid() {
                 <div className="relative aspect-[4/3] overflow-hidden rounded-sm mb-4">
                   <Image
                     src={getServiceBackground(service.slug)}
-                    alt={`${service.name} project by Boise Remodeling Co`}
+                    alt={`${service.name} by Boise Cabinet Co`}
                     fill
                     sizes="(max-width: 640px) 100vw, 50vw"
                     className="object-cover img-brand-grade transition-transform duration-300 ease-out group-hover:scale-[1.02]"

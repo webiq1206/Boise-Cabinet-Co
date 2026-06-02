@@ -78,20 +78,20 @@ export function buildPageMetadata(input: PageMetaInput): Metadata {
     case 'about':
       title = 'About Us';
       description =
-        'Learn about Boise Remodeling Co, Treasure Valley design-build remodeling. Licensed, insured, and committed to clear communication from consultation to walkthrough.';
+        `Learn about ${SITE_CONFIG.name}, Idaho's premier custom cabinet company. Design Studio, client portal, and installation across the Treasure Valley.`;
       break;
     case 'contact':
       title = 'Contact Us';
       description =
-        `Contact Boise Remodeling Co for a free in-home consultation. Call ${SITE_CONFIG.phone} or schedule online. Serving Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, Caldwell, and the Treasure Valley.`;
+        `Contact ${SITE_CONFIG.name} for a free design consultation. Call ${SITE_CONFIG.phone} or schedule online. Serving Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, Caldwell, and the Treasure Valley.`;
       break;
     case 'blog':
-      title = 'Remodeling Insights & Ideas';
+      title = 'Cabinet Design Insights';
       description =
-        'Honest remodeling advice for Idaho homeowners: budgeting, timelines, permits, and design-build guidance from Boise Remodeling Co.';
+        `Honest cabinet design advice for Idaho homeowners: finishes, layouts, timelines, and planning guidance from ${SITE_CONFIG.name}.`;
       break;
     default:
-      title = input.titleOverride || 'Boise Remodeling Co';
+      title = input.titleOverride || SITE_CONFIG.name;
       description = input.descriptionOverride || '';
   }
 

@@ -21,11 +21,12 @@ import { HERO_STATS, PRINCIPLES, TRUST_ITEMS } from '@/shared/siteContent';
 import { CTA_PRIMARY, CTA_SECONDARY } from '@/shared/ctaCopy';
 import { ConsultCTA } from '@/components/modals/ConsultCTA';
 import { EstimateCTA } from '@/components/modals/EstimateCTA';
+import { SITE_CONFIG } from '@/shared/siteConfig';
 
 const GRAIN_URL = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.45'/%3E%3C/svg%3E")`;
 
 const SPEAKABLE_SUMMARY =
-  'We are a locally owned design-build remodeling company serving the Treasure Valley. Our focus is clarity: written scope before construction, proactive weekly updates, permits handled in-house for Ada and Canyon County, and a written workmanship guarantee on our labor.';
+  'Boise Cabinet Co is Idaho\'s premier custom cabinet company serving the Treasure Valley. We offer frameless Euro cabinetry, 50+ finishes, an online Design Studio, and a client portal to track your project from design through installation.';
 
 function HeroBreadcrumbs() {
   const items = [
@@ -85,9 +86,9 @@ export default function AboutPage() {
   const schemas = [
     generateOrganizationSchema(),
     generateWebPageSchema({
-      title: 'About Boise Remodeling Co',
+      title: `About ${SITE_CONFIG.name}`,
       description:
-        'Treasure Valley design-build remodeling company. Licensed, insured, and committed to clear communication.',
+        'Idaho premier custom cabinet company serving the Treasure Valley. Design Studio, client portal, and white-glove installation.',
       url: '/about',
     }),
     generateBreadcrumbSchema([
@@ -104,7 +105,7 @@ export default function AboutPage() {
         <section className="relative min-h-[540px] md:min-h-[78vh] flex items-end overflow-hidden bg-inverse">
           <Image
             src={SITE_IMAGES.leadership}
-            alt="Boise Remodeling Co design-build team at a finished kitchen project"
+            alt={`${SITE_CONFIG.name} team reviewing custom kitchen cabinet designs`}
             fill
             className="object-cover opacity-[0.82] img-brand-grade"
             sizes="100vw"
@@ -126,18 +127,17 @@ export default function AboutPage() {
             </p>
             <div className="brc-label text-inverse-muted mt-6 mb-5">About us</div>
             <h1 className="font-sans font-light text-display tracking-tight text-inverse-foreground max-w-4xl mb-6">
-              About Boise Remodeling{' '}
-              <em className="brc-accent text-accent">Co</em>
+              About {SITE_CONFIG.name.split(' ').slice(0, -1).join(' ')}{' '}
+              <em className="brc-accent text-accent">{SITE_CONFIG.name.split(' ').slice(-1)}</em>
             </h1>
             <p className="text-base md:text-lg text-inverse-foreground/85 max-w-2xl leading-relaxed mb-4">
-              We are a locally owned design-build remodeling company serving the Treasure Valley.
-              Homeowners work with one accountable team from first in-home visit through final
-              walkthrough.
+              We are Idaho&apos;s premier custom cabinet company, serving the Treasure Valley from
+              design through installation.
             </p>
             <p className="text-base md:text-lg text-inverse-foreground/75 max-w-2xl leading-relaxed mb-8">
-              Our focus is clarity: written scope before construction, proactive weekly updates,
-              permits handled in-house for Ada and Canyon County, and a written workmanship
-              guarantee on our labor. Every detail, every decision — handled with intention.
+              Our focus is clarity: written scope before fabrication, proactive project updates,
+              an online Design Studio to explore finishes and layouts, and a client portal to track
+              every milestone. Every detail, every decision — handled with intention.
             </p>
             <div className="flex flex-wrap gap-3 mb-8">
               <ConsultCTA variant="brand">
@@ -164,7 +164,7 @@ export default function AboutPage() {
             <div className="relative min-h-[260px] md:min-h-[520px] overflow-hidden bg-inverse">
               <Image
                 src={SITE_IMAGES.process}
-                alt="Architectural blueprints and finish material samples for a Treasure Valley remodel"
+                alt="Cabinet design review with finish samples and layout plans"
                 fill
                 sizes="(max-width: 768px) 100vw, 50vw"
                 className="object-cover img-brand-grade"

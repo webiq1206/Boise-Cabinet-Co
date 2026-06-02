@@ -5,12 +5,13 @@
 
 const DEFAULT_PHONE = "(208) 555-0100";
 const DEFAULT_PHONE_TEL = "2085550100";
-const DEFAULT_EMAIL = "hello@boiseremodeling.co";
-const DEFAULT_SITE_URL = "https://boiseremodeling.co";
+const DEFAULT_EMAIL = "hello@boisecabinet.co";
+const DEFAULT_SITE_URL = "https://boisecabinet.co";
 
 export const SITE_CONFIG = {
-  name: "Boise Remodeling Co",
-  legalName: "Boise Remodeling Co LLC",
+  name: "Boise Cabinet Co",
+  legalName: "Boise Cabinet Co LLC",
+  tagline: "Idaho's premier custom cabinet company",
   phone: process.env.NEXT_PUBLIC_PHONE ?? DEFAULT_PHONE,
   phoneTel: process.env.NEXT_PUBLIC_PHONE_TEL ?? DEFAULT_PHONE_TEL,
   phoneHref: `tel:${process.env.NEXT_PUBLIC_PHONE_TEL ?? DEFAULT_PHONE_TEL}`,

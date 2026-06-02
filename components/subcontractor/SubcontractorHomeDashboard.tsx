@@ -16,7 +16,13 @@ import {
   AlertTriangle,
 } from "lucide-react";
 
-export function SubcontractorHomeDashboard() {
+export function SubcontractorHomeDashboard({
+  embedded = false,
+  shellVariant = "subcontractor",
+}: {
+  embedded?: boolean;
+  shellVariant?: "subcontractor" | "partner";
+} = {}) {
   const { user } = useAuth();
 
   const { data: compliance } = useQuery({
@@ -54,8 +60,8 @@ export function SubcontractorHomeDashboard() {
       p.assignment.status === "assigned" || p.assignment.status === "active"
   );
 
-  return (
-    <PortalShell variant="subcontractor" title="Home">
+  const content = (
+    <>
       <ComplianceBanner />
 
       <p className="text-muted-foreground mb-6">
@@ -151,6 +157,14 @@ export function SubcontractorHomeDashboard() {
           </CardContent>
         </Card>
       )}
+    </>
+  );
+
+  if (embedded) return content;
+
+  return (
+    <PortalShell variant={shellVariant} title="Home">
+      {content}
     </PortalShell>
   );
 }

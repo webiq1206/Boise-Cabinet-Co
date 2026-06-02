@@ -44,7 +44,7 @@ export function buildTextLogo(): string {
   return `
     <div style="margin-bottom: 20px;">
       <div style="font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; font-size: 22px; font-weight: 300; letter-spacing: -0.02em; color: ${EMAIL_BRAND.charcoal}; line-height: 1.2;">
-        Boise Remodeling <span style="color: ${EMAIL_BRAND.sage}; font-style: italic;">Co</span>
+        Boise Cabinet <span style="color: ${EMAIL_BRAND.sage}; font-style: italic;">Co</span>
       </div>
       <div style="font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: ${EMAIL_BRAND.charcoalLight}; margin-top: 4px;">
         Design &amp; Build

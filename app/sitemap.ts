@@ -2,6 +2,9 @@ import { MetadataRoute } from 'next';
 import { BLOG_POSTS } from '@/shared/blogContent';
 import { CITIES, SERVICES } from '@/shared/contentData';
 import { GUIDE_PAGES } from '@/shared/guideContent';
+import { ROOM_CATEGORIES } from '@/shared/catalog/roomCategories';
+import { COLLECTIONS } from '@/shared/catalog/collections';
+import { DOOR_STYLES } from '@/shared/catalog/doorStyles';
 import {
   CONTENT_HUBS,
   categoryHubPath,
@@ -23,6 +26,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/blog`, lastModified: now, changeFrequency: 'weekly', priority: 0.6 },
     { url: `${baseUrl}/guides`, lastModified: now, changeFrequency: 'weekly', priority: 0.85 },
     { url: `${baseUrl}/resources`, lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${baseUrl}/cabinets`, lastModified: now, changeFrequency: 'weekly', priority: 0.95 },
+    { url: `${baseUrl}/collections`, lastModified: now, changeFrequency: 'weekly', priority: 0.95 },
+    { url: `${baseUrl}/finishes`, lastModified: now, changeFrequency: 'weekly', priority: 0.9 },
+    { url: `${baseUrl}/door-styles`, lastModified: now, changeFrequency: 'monthly', priority: 0.85 },
+    { url: `${baseUrl}/accessories`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${baseUrl}/hardware`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${baseUrl}/construction`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${baseUrl}/compare`, lastModified: now, changeFrequency: 'monthly', priority: 0.75 },
+    { url: `${baseUrl}/design-studio`, lastModified: now, changeFrequency: 'weekly', priority: 0.9 },
     {
       url: `${baseUrl}/resources/ada-canyon-permit-flow`,
       lastModified: now,
@@ -33,11 +45,39 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/terms-of-service`, lastModified: now, changeFrequency: 'yearly', priority: 0.3 },
   ];
 
+  const cabinetRoomPages: MetadataRoute.Sitemap = ROOM_CATEGORIES.map((room) => ({
+    url: `${baseUrl}/cabinets/${room.slug}`,
+    lastModified: now,
+    changeFrequency: 'monthly' as const,
+    priority: 0.9,
+  }));
+
+  const collectionPages: MetadataRoute.Sitemap = COLLECTIONS.map((c) => ({
+    url: `${baseUrl}/collections/${c.slug}`,
+    lastModified: now,
+    changeFrequency: 'monthly' as const,
+    priority: 0.9,
+  }));
+
+  const finishCategoryPages: MetadataRoute.Sitemap = ['matte', 'gloss', 'woodgrain'].map((cat) => ({
+    url: `${baseUrl}/finishes/${cat}`,
+    lastModified: now,
+    changeFrequency: 'monthly' as const,
+    priority: 0.85,
+  }));
+
+  const doorStylePages: MetadataRoute.Sitemap = DOOR_STYLES.map((d) => ({
+    url: `${baseUrl}/door-styles/${d.slug}`,
+    lastModified: now,
+    changeFrequency: 'monthly' as const,
+    priority: 0.85,
+  }));
+
   const servicePages: MetadataRoute.Sitemap = SERVICES.map((s) => ({
     url: `${baseUrl}/services/${s.slug}`,
     lastModified: now,
     changeFrequency: 'monthly' as const,
-    priority: 0.85,
+    priority: 0.5,
   }));
 
   const areaPages: MetadataRoute.Sitemap = CITIES.map((c) => ({
@@ -52,7 +92,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${baseUrl}/services/${s.slug}/${c.slug}`,
       lastModified: now,
       changeFrequency: 'monthly' as const,
-      priority: 0.75,
+      priority: 0.4,
     })),
   );
 
@@ -85,6 +125,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return [
     ...staticPages,
+    ...cabinetRoomPages,
+    ...collectionPages,
+    ...finishCategoryPages,
+    ...doorStylePages,
     ...servicePages,
     ...areaPages,
     ...cityServicePages,

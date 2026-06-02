@@ -1,4 +1,4 @@
-// Blog Content for Boise Remodeling Co
+// Blog Content for Boise Cabinet Co
 
 import { ALL_BLOG_POSTS } from './content/allBlogPosts';
 

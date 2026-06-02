@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getSession, getUserFromDb, getExternalUrl } from "@/lib/auth";
+import { getPortalHomePath, normalizeRole } from "@/lib/auth/roles";
 
 export async function GET(request: NextRequest) {
   try {
@@ -19,21 +20,39 @@ export async function GET(request: NextRequest) {
     delete session.returnTo;
     await session.save();
 
-    const safeReturnTo = 
-      typeof returnTo === "string" && returnTo.startsWith("/") 
-        ? returnTo 
-        : null;
+    const safeReturnTo =
+      typeof returnTo === "string" && returnTo.startsWith("/") ? returnTo : null;
 
-    if (safeReturnTo?.startsWith("/admin") && user?.role !== "admin") {
+    const role = normalizeRole(user?.role);
+
+    if (safeReturnTo?.startsWith("/admin") && role !== "admin") {
       return NextResponse.redirect(getExternalUrl(request, "/admin"));
     }
 
-    if (user?.role === "subcontractor") {
-      return NextResponse.redirect(getExternalUrl(request, safeReturnTo || "/subcontractor"));
+    if (safeReturnTo?.startsWith("/portal") && role !== "customer" && role !== "admin") {
+      return NextResponse.redirect(getExternalUrl(request, getPortalHomePath(role)));
     }
 
-    if (user?.role === "admin") {
-      return NextResponse.redirect(getExternalUrl(request, safeReturnTo || "/admin/dashboard"));
+    if (role === "customer") {
+      return NextResponse.redirect(getExternalUrl(request, safeReturnTo || "/portal"));
+    }
+
+    if (role === "partner") {
+      return NextResponse.redirect(
+        getExternalUrl(request, safeReturnTo || "/partner"),
+      );
+    }
+
+    if (user?.role === "subcontractor") {
+      return NextResponse.redirect(
+        getExternalUrl(request, safeReturnTo || "/partner"),
+      );
+    }
+
+    if (role === "admin") {
+      return NextResponse.redirect(
+        getExternalUrl(request, safeReturnTo || "/admin/dashboard"),
+      );
     }
 
     return NextResponse.redirect(getExternalUrl(request, safeReturnTo || "/"));

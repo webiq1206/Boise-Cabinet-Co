@@ -42,7 +42,7 @@ const tvSections: ContentSection[] = [
         ['Addition', 'Setbacks and soil matter early'],
       ],
     },
-    paragraphs: [`Full bands: <a href="${PILLAR_COST}">Boise Remodeling Cost Guide</a>.`],
+    paragraphs: [`Full bands: <a href="${PILLAR_COST}">Boise Cabinet Cost Guide</a>.`],
   },
   {
     h2: 'Hub guides by project',

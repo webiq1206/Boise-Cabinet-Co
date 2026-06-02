@@ -1,8 +1,8 @@
 export const SEO_KEYWORD_MAP = {
   home: {
-    primary: "remodeling contractor boise idaho",
-    secondary: ["kitchen remodel boise", "bathroom remodel treasure valley", "home addition boise idaho"],
-    titleTarget: "Boise Remodeling Co | Design-Build Contractor",
+    primary: "custom cabinets boise idaho",
+    secondary: ["kitchen cabinets boise", "bathroom vanity treasure valley", "custom cabinetry boise idaho"],
+    titleTarget: "Boise Cabinet Co | Custom Cabinets Idaho",
   },
   servicePages: {
     primary: "{service} boise idaho",
@@ -25,7 +25,7 @@ export const SEO_KEYWORD_MAP = {
     titlePattern: "{Blog Title}",
   },
   staticPages: {
-    about: { primary: "design build remodeling company boise idaho", title: "About Boise Remodeling Co" },
-    contact: { primary: "contact remodeling contractor boise", title: "Contact Us | Boise Remodeling Co" },
+    about: { primary: "custom cabinet company boise idaho", title: "About Boise Cabinet Co" },
+    contact: { primary: "contact cabinet company boise", title: "Contact Us | Boise Cabinet Co" },
   },
 } as const;

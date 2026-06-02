@@ -2,6 +2,7 @@
  * Generated hub content for hubs 2–10 (hub 1 + legacy in other files).
  */
 import { buildClusterPost, buildPillarGuide, buildLocationGuide } from './contentFactory';
+import { SITE_CONFIG } from '../siteConfig';
 import type { BlogPostData } from '../blogContent';
 import type { GuidePageData } from '../guideContent';
 
@@ -18,11 +19,11 @@ const adu = '/services/adu';
 // —— Hub 2 Kitchen ——
 export const KITCHEN_PILLAR = buildPillarGuide({
   slug: 'boise-kitchen-remodeling-guide',
-  title: 'Boise Kitchen Remodeling Guide',
-  seoTitle: 'Boise Kitchen Remodeling Guide | Treasure Valley',
+  title: 'Boise Kitchen Cabinet Guide',
+  seoTitle: 'Boise Kitchen Cabinet Guide | Treasure Valley',
   metaDescription:
-    'Definitive kitchen remodeling guide for Boise and the Treasure Valley: layouts, timelines, cabinets, ROI, and design-build planning.',
-  excerpt: 'Plan a kitchen remodel in Boise, Meridian, or Eagle with layouts, timelines, materials, and local permit context.',
+    'Definitive kitchen cabinet guide for Boise and the Treasure Valley: layouts, door styles, finishes, timelines, and custom cabinetry planning.',
+  excerpt: 'Plan custom kitchen cabinets in Boise, Meridian, or Eagle with layouts, door styles, finishes, and local delivery timelines.',
   hubSlug: 'kitchen-remodeling',
   tags: ['kitchen', 'boise', 'design'],
   quickAnswer:
@@ -61,7 +62,7 @@ export const KITCHEN_CLUSTER_POSTS: BlogPostData[] = kitchenClusters.map(([slug,
   buildClusterPost({
     slug,
     title,
-    seoTitle: `${title} | Boise Remodeling Co`,
+    seoTitle: `${title} | ${SITE_CONFIG.name}`,
     metaDescription: `${excerpt} Serving Boise, Meridian, Eagle, Nampa, and the Treasure Valley.`,
     excerpt,
     hubSlug: 'kitchen-remodeling',
@@ -247,7 +248,7 @@ export const CONTRACTOR_PILLAR = buildPillarGuide({
   hubSlug: 'contractor-selection',
   tags: ['contractor', 'design-build'],
   quickAnswer:
-    'Choose a Boise remodeling contractor with written scope, local permit experience, clear communication, verified insurance, and a single point of contact during construction.',
+    'Choose a Boise Cabinet Contractor with written scope, local permit experience, clear communication, verified insurance, and a single point of contact during construction.',
   takeaways: [
     'Compare bids only when scope and allowances match.',
     'Design-build reduces handoff risk between designer and builder.',
@@ -297,8 +298,8 @@ export const CONTRACTOR_CLUSTER_POSTS: BlogPostData[] = contractorSlugs.map(([sl
 // —— Hub 7 Process ——
 export const PROCESS_PILLAR = buildPillarGuide({
   slug: 'boise-remodeling-process-guide',
-  title: 'Boise Remodeling Process Guide',
-  seoTitle: 'Boise Remodeling Process Guide',
+  title: 'Boise Cabinet Project Process Guide',
+  seoTitle: 'Boise Cabinet Project Process Guide',
   metaDescription:
     'End-to-end remodeling process: preconstruction, design, permits, construction, punch list, and warranty in Idaho.',
   excerpt: 'Understand every phase of a Treasure Valley design-build remodel before you start.',

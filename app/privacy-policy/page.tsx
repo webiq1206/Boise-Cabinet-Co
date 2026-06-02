@@ -4,21 +4,21 @@ import { SITE_CONFIG } from "@/shared/siteConfig";
 import { generateBreadcrumbSchema, generateWebPageSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy | Boise Remodeling Co",
-  description: "Boise Remodeling Co privacy policy. How we protect your data when you request remodeling services in Kuna & Boise, Idaho.",
+  title: "Privacy Policy | Boise Cabinet Co",
+  description: "Boise Cabinet Co privacy policy. How we protect your data when you request custom cabinet services in Kuna & Boise, Idaho.",
   alternates: {
-    canonical: "https://boiseremodeling.co/privacy-policy",
+    canonical: "https://boisecabinet.co/privacy-policy",
   },
   openGraph: {
-    title: "Privacy Policy | Boise Remodeling Co",
-    description: "How we protect your data when you use Boise Remodeling Co remodeling and renovation services in Idaho.",
-    url: "https://boiseremodeling.co/privacy-policy",
+    title: "Privacy Policy | Boise Cabinet Co",
+    description: "How we protect your data when you use Boise Cabinet Co custom cabinet services in Idaho.",
+    url: "https://boisecabinet.co/privacy-policy",
     type: "website",
   },
   twitter: {
     card: "summary",
-    title: "Privacy Policy | Boise Remodeling Co",
-    description: "How we protect your data when you use Boise Remodeling Co remodeling and renovation services in Idaho.",
+    title: "Privacy Policy | Boise Cabinet Co",
+    description: "How we protect your data when you use Boise Cabinet Co custom cabinet services in Idaho.",
   },
 };
 
@@ -29,7 +29,7 @@ export default function PrivacyPolicyPage() {
   ]);
   const webPageSchema = generateWebPageSchema({
     title: "Privacy Policy",
-    description: "Privacy policy for Boise Remodeling Co. How we collect, use, and protect your personal information.",
+    description: "Privacy policy for Boise Cabinet Co. How we collect, use, and protect your personal information.",
     url: "/privacy-policy",
   });
 
@@ -46,14 +46,14 @@ export default function PrivacyPolicyPage() {
       <section className="py-16 md:py-24">
         <div className="container px-4">
           <div className="max-w-3xl mx-auto blog-content prose-measure">
-            <h1>Privacy Policy for Boise Remodeling Co Services</h1>
+            <h1>Privacy Policy for Boise Cabinet Co Services</h1>
             <p className="lead text-muted-foreground">
               Last updated: January 2024
             </p>
 
             <h2>Introduction</h2>
             <p>
-              Boise Remodeling Co ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website or use our services.
+              Boise Cabinet Co ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website or use our services.
             </p>
 
             <h2>Information We Collect</h2>
@@ -105,7 +105,7 @@ export default function PrivacyPolicyPage() {
               If you have questions about this Privacy Policy, please contact us at:
             </p>
             <ul>
-              <li>Email: <ObfuscatedEmail user="hello" domain="boiseremodeling.co" className="text-primary hover:underline inline-flex items-center gap-1" showIcon={false} /></li>
+              <li>Email: <ObfuscatedEmail user="hello" domain="boisecabinet.co" className="text-primary hover:underline inline-flex items-center gap-1" showIcon={false} /></li>
               <li>Phone: <a href={SITE_CONFIG.phoneHref} className="text-primary hover:underline">{SITE_CONFIG.phone}</a></li>
               <li>Address: {SITE_CONFIG.address.full}</li>
             </ul>

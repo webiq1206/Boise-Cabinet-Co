@@ -18,6 +18,7 @@ import { BlogCard } from '@/components/marketing/BlogCard';
 import { HubHeroBanner } from '@/components/marketing/BlogHeroBanner';
 import { generateBreadcrumbSchema, generateCollectionPageSchema } from '@/lib/schema';
 import { getBaseUrl } from '@/lib/seo';
+import { SITE_CONFIG } from '@/shared/siteConfig';
 
 function formatDate(dateString: string): string {
   return new Date(dateString).toLocaleDateString('en-US', {
@@ -41,7 +42,7 @@ export async function generateMetadata({
 
   const posts = BLOG_POSTS.filter((p) => p.hubSlug === params.hubSlug);
   const indexable = isCategoryHubIndexable(params.hubSlug, posts.length);
-  const title = `${hub.title} Articles | Boise Remodeling Co`;
+  const title = `${hub.title} Articles | ${SITE_CONFIG.name}`;
   const description = `Articles about ${hub.title.toLowerCase()} for Treasure Valley homeowners.`;
   const heroImage = getHubHeroImage(params.hubSlug);
   const imageUrl = getAbsoluteImageUrl(heroImage, getBaseUrl());

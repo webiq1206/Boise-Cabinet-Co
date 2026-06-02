@@ -11,6 +11,12 @@ import {
   updateChangeOrderStatus,
   getEntityDocuments,
   addProjectActivityNote,
+  getAdminProjectInvoices,
+  getAdminProjectMessages,
+  createProjectInvoice,
+  updateProjectInvoice,
+  sendAdminProjectMessage,
+  linkCustomerToProject,
 } from "@/server/services/projectService";
 import { storage } from "@/server/storage";
 
@@ -34,13 +40,15 @@ export async function GET(
       return NextResponse.json({ error: "Not found" }, { status: 404 });
     }
 
-    const [assignments, changeOrders, documents] = await Promise.all([
+    const [assignments, changeOrders, documents, invoices, messages] = await Promise.all([
       getProjectAssignments(params.id),
       getChangeOrdersForProject(params.id),
       getEntityDocuments("project", params.id),
+      getAdminProjectInvoices(params.id),
+      getAdminProjectMessages(params.id),
     ]);
 
-    return NextResponse.json({ project, assignments, changeOrders, documents });
+    return NextResponse.json({ project, assignments, changeOrders, documents, invoices, messages });
   } catch (error) {
     console.error("[admin project GET]", error);
     return NextResponse.json({ error: "Failed to fetch project" }, { status: 500 });
@@ -139,6 +147,33 @@ export async function POST(
           session.userId
         );
         return NextResponse.json(order);
+      }
+      case "create_invoice": {
+        const invoice = await createProjectInvoice(params.id, {
+          description: body.description,
+          amount: String(body.amount),
+          dueDate: body.dueDate,
+          status: "draft",
+        });
+        return NextResponse.json(invoice);
+      }
+      case "update_invoice": {
+        const invoice = await updateProjectInvoice(body.invoiceId, {
+          status: body.status,
+        });
+        return NextResponse.json(invoice);
+      }
+      case "send_message": {
+        const message = await sendAdminProjectMessage(
+          params.id,
+          session.userId,
+          body.body,
+        );
+        return NextResponse.json(message);
+      }
+      case "link_customer": {
+        const result = await linkCustomerToProject(params.id);
+        return NextResponse.json(result);
       }
       default:
         return NextResponse.json({ error: "Invalid action" }, { status: 400 });

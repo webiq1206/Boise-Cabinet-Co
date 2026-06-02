@@ -13,7 +13,7 @@ export const TESTIMONIALS: TestimonialItem[] = [
     city: "boise",
     rating: "5",
     testimonial:
-      "Boise Remodeling Co did an amazing job on our kitchen. On time, clear communication throughout, and the results were stunning.",
+      "Boise Cabinet Co did an amazing job on our kitchen cabinets. On time, clear communication throughout, and the results were stunning.",
   },
   {
     customerName: "Mike R.",

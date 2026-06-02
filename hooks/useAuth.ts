@@ -1,6 +1,7 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
+import { isAdmin, isCustomer, isPartner, normalizeRole } from "@/lib/auth/roles";
 
 export interface User {
   id: string;
@@ -33,17 +34,22 @@ export function useAuth() {
       return res.json();
     },
     retry: false,
-    staleTime: 5 * 60 * 1000, // 5 minutes
+    staleTime: 5 * 60 * 1000,
   });
+
+  const role = normalizeRole(user?.role);
 
   return {
     user,
+    role,
     isLoading,
     isAuthenticated: !!user && !isError,
     isError,
     error,
     refetch,
-    isAdmin: user?.role === "admin",
-    isSubcontractor: user?.role === "subcontractor",
+    isAdmin: isAdmin(user),
+    isPartner: isPartner(user) || user?.role === "subcontractor",
+    isSubcontractor: isPartner(user) || user?.role === "subcontractor",
+    isCustomer: isCustomer(user),
   };
 }

@@ -107,6 +107,20 @@ const nextConfig = {
       redirects.push(...r(source, destination));
     }
 
+    const serviceRedirects = {
+      '/services/kitchen-remodel': '/cabinets/kitchen',
+      '/services/bathroom-remodel': '/cabinets/bathroom',
+      '/services/whole-home-remodel': '/cabinets/built-ins',
+      '/services/room-addition': '/cabinets/built-ins',
+      '/services/adu': '/cabinets/built-ins',
+      '/subcontractor': '/partner',
+      '/subcontractor/': '/partner',
+    };
+
+    for (const [source, destination] of Object.entries(serviceRedirects)) {
+      redirects.push(...r(source, destination));
+    }
+
     return redirects;
   },
 }

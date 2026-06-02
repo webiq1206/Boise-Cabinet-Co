@@ -363,7 +363,7 @@ export function getLocationFaqs(
     {
       question: `How much does a remodel cost in ${cityName}?`,
       answer:
-        'Use our Boise Remodeling Cost Guide for planning bands by project type, then schedule a consultation for written scope tied to your home.',
+        'Use our Boise Cabinet Cost Guide for planning bands by project type, then schedule a consultation for written scope tied to your home.',
     },
     {
       question: `What remodels are most common in ${cityName}?`,

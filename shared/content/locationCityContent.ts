@@ -152,7 +152,7 @@ export function buildLocationGuideSections(
       h2: 'Services and planning ranges',
       paragraphs: [
         `<a href="/services/kitchen-remodel/${citySlug}">Kitchen</a> · <a href="/services/bathroom-remodel/${citySlug}">Bathroom</a> · <a href="/services/whole-home-remodel/${citySlug}">Whole-home</a> · <a href="/services/room-addition/${citySlug}">Additions</a> · <a href="/areas/${citySlug}">${cityName} area page</a>.`,
-        `Planning bands: <a href="${PILLAR_COST}">Boise Remodeling Cost Guide</a>.`,
+        `Planning bands: <a href="${PILLAR_COST}">Boise Cabinet Cost Guide</a>.`,
       ],
     },
     {

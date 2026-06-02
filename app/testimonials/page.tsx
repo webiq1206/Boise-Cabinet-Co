@@ -14,7 +14,7 @@ export const metadata = buildPageMetadata({
   path: '/testimonials',
   titleOverride: 'Projects & Reviews',
   descriptionOverride:
-    'See Treasure Valley remodeling transformations and read reviews from Boise Remodeling Co homeowners. Kitchen, bath, whole-home, and addition projects.',
+    'See Treasure Valley custom cabinet projects and read reviews from Boise Cabinet Co homeowners. Kitchen, bath, closet, and built-in cabinetry.',
 });
 
 export default function TestimonialsPage() {

@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { CITIES, SERVICES } from "@/shared/contentData";
+import { FOOTER_CABINET_LINKS, FOOTER_COLLECTION_LINKS } from "@/shared/cabinetNav";
+import { CITIES } from "@/shared/contentData";
 import { SITE_TAGLINE } from "@/shared/siteContent";
 import { areaPath, servicePath } from "@/lib/seo-routes";
 import { SITE_CONFIG } from "@/shared/siteConfig";
@@ -21,7 +22,7 @@ export function Footer() {
           <div>
             <div className="mb-4">
               <span className="font-sans font-light text-lg tracking-tight text-inverse-foreground">
-                Boise <em className="brc-accent text-accent">Remodeling</em> Co
+                Boise <em className="brc-accent text-accent">Cabinet</em> Co
               </span>
             </div>
             <p className="text-sm mb-6 text-inverse-muted font-sans">
@@ -48,19 +49,46 @@ export function Footer() {
 
           <div>
             <h3 className="font-sans font-medium text-[11px] tracking-[0.12em] uppercase mb-5 text-inverse-muted">
-              Services
+              Cabinets
             </h3>
             <ul className="space-y-2.5">
-              {SERVICES.map((service) => (
-                <li key={service.slug}>
-                  <Link
-                    href={servicePath(service.slug)}
-                    className="text-sm text-inverse-muted hover:text-inverse-foreground transition-colors"
-                  >
-                    {service.name}
+              <li>
+                <Link href="/cabinets" className="text-sm text-inverse-muted hover:text-inverse-foreground transition-colors">
+                  All Rooms
+                </Link>
+              </li>
+              {FOOTER_CABINET_LINKS.map((link) => (
+                <li key={link.href}>
+                  <Link href={link.href} className="text-sm text-inverse-muted hover:text-inverse-foreground transition-colors">
+                    {link.label}
                   </Link>
                 </li>
               ))}
+            </ul>
+          </div>
+
+          <div>
+            <h3 className="font-sans font-medium text-[11px] tracking-[0.12em] uppercase mb-5 text-inverse-muted">
+              Collections
+            </h3>
+            <ul className="space-y-2.5">
+              {FOOTER_COLLECTION_LINKS.map((link) => (
+                <li key={link.href}>
+                  <Link href={link.href} className="text-sm text-inverse-muted hover:text-inverse-foreground transition-colors">
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+              <li>
+                <Link href="/design-studio" className="text-sm text-inverse-muted hover:text-inverse-foreground transition-colors">
+                  Design Studio
+                </Link>
+              </li>
+              <li>
+                <Link href="/portal" className="text-sm text-inverse-muted hover:text-inverse-foreground transition-colors">
+                  My Project
+                </Link>
+              </li>
             </ul>
           </div>
 
@@ -74,7 +102,7 @@ export function Footer() {
                   href="/guides"
                   className="text-sm text-inverse-muted hover:text-inverse-foreground transition-colors"
                 >
-                  Remodeling Guides
+                  Cabinet Guides
                 </Link>
               </li>
               <li>
@@ -234,7 +262,7 @@ export function Footer() {
 
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 text-xs text-inverse-muted">
           <div className="flex flex-wrap gap-4">
-            <span>&copy; {currentYear} Boise Remodeling Co. All rights reserved.</span>
+            <span>&copy; {currentYear} {SITE_CONFIG.name}. All rights reserved.</span>
             <span>License details available upon request</span>
           </div>
           <div className="flex gap-4">

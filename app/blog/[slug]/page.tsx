@@ -15,6 +15,7 @@ import {
   getBlogImageAlt,
 } from "@/shared/blogImages";
 import { getBaseUrl } from "@/lib/seo";
+import { SITE_CONFIG } from "@/shared/siteConfig";
 
 export async function generateStaticParams() {
   return BLOG_POSTS.map((post) => ({
@@ -48,7 +49,7 @@ export async function generateMetadata({
       canonical: buildCanonical(`/blog/${post.slug}`),
     },
     openGraph: {
-      title: `${title} | Boise Remodeling Co Blog`,
+      title: `${title} | ${SITE_CONFIG.name} Blog`,
       description,
       url: buildCanonical(`/blog/${post.slug}`),
       type: "article",
@@ -57,7 +58,7 @@ export async function generateMetadata({
     },
     twitter: {
       card: "summary_large_image",
-      title: `${title} | Boise Remodeling Co Blog`,
+      title: `${title} | ${SITE_CONFIG.name} Blog`,
       description,
       images: [imageUrl],
     },

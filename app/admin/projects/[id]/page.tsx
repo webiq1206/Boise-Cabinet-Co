@@ -16,6 +16,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { useToast } from "@/hooks/use-toast";
 import Link from "next/link";
 import { PropertyProfileEditor } from "@/components/admin/PropertyProfileEditor";
+import { AdminProjectPortalPanel } from "@/components/admin/AdminProjectPortalPanel";
 import type { PropertyProfile } from "@/shared/propertyProfile";
 
 export default function AdminProjectDetailPage() {
@@ -160,6 +161,8 @@ export default function AdminProjectDetailPage() {
   const assignments = data?.assignments ?? [];
   const changeOrders = data?.changeOrders ?? [];
   const documents = data?.documents ?? [];
+  const invoices = data?.invoices ?? [];
+  const messages = data?.messages ?? [];
 
   return (
     <PortalShell variant="admin" title={project?.title ?? "Project"}>
@@ -173,6 +176,7 @@ export default function AdminProjectDetailPage() {
             <TabsTrigger value="assignments">Assignments</TabsTrigger>
             <TabsTrigger value="change_orders">Change Orders</TabsTrigger>
             <TabsTrigger value="documents">Documents</TabsTrigger>
+            <TabsTrigger value="client_portal">Client Portal</TabsTrigger>
             <TabsTrigger value="activity">Activity</TabsTrigger>
           </TabsList>
 
@@ -414,6 +418,20 @@ export default function AdminProjectDetailPage() {
                 </div>
               ))
             )}
+          </TabsContent>
+
+          <TabsContent value="client_portal">
+            <AdminProjectPortalPanel
+              projectId={projectId}
+              currentStage={project.currentStage}
+              customerUserId={project.customerUserId}
+              customerEmail={project.email}
+              invoices={invoices}
+              messages={messages}
+              onAction={(body) => actionMutation.mutate(body)}
+              onPatch={(body) => updateMutation.mutate(body)}
+              isPending={actionMutation.isPending || updateMutation.isPending}
+            />
           </TabsContent>
 
           <TabsContent value="activity" className="mt-4 space-y-4">

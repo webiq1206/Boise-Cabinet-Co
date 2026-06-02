@@ -8,11 +8,12 @@ import {
 import { getHubPillarFaqs, getLocationFaqs } from './hubFaqs';
 import { buildLocationGuideSections } from './locationCityContent';
 import { getHubBySlug, guidePath } from '../contentHubs';
+import { SITE_CONFIG } from '../siteConfig';
 import type { BlogPostData } from '../blogContent';
 import type { GuidePageData, GuideType } from '../guideContent';
 
 const PILLAR_FOOTER =
-  '<p class="text-sm text-muted-foreground">Explore <a href="/guides/treasure-valley-remodeling-guide">local guides</a>, <a href="/guides/boise-remodeling-cost-guide">cost planning</a>, and <a href="/areas">service areas</a>.</p>';
+  `<p class="text-sm text-muted-foreground">Explore <a href="/guides/treasure-valley-remodeling-guide">local guides</a>, <a href="/guides/boise-remodeling-cost-guide">cost planning</a>, <a href="/cabinets">cabinet catalog</a>, and <a href="/areas">service areas</a>.</p>`;
 
 export function expandPillar(html: string, _slug: string, _hubSlug: string): string {
   return html + PILLAR_FOOTER;
@@ -38,7 +39,7 @@ function buildPillarSections(
       h2: `What should homeowners know about ${topic}?`,
       paragraphs: [
         `This overview covers ${topic.toLowerCase()} for ${CITIES_LIST}. Use the topic sections below, then follow linked articles for room-specific depth.`,
-        'Boise Remodeling Co provides design-build remodeling with permits and construction under one contract.',
+        `${SITE_CONFIG.name} designs, builds, and installs custom cabinets with clear written scope from consultation through installation.`,
       ],
     },
     pillarEssentialsSection(topic),
@@ -54,7 +55,7 @@ function buildPillarSections(
     {
       h2: 'Next steps',
       paragraphs: [
-        '<a href="/#calculator">Estimator</a> · <a href="/contact">Schedule consultation</a> · <a href="/guides">All guides</a>.',
+        '<a href="/design-studio">Design Studio</a> · <a href="/contact">Schedule consultation</a> · <a href="/guides">All guides</a>.',
         `Back to <a href="${pillarUrl}">this guide</a> anytime for the overview.`,
       ],
     },
@@ -135,7 +136,7 @@ export function buildClusterPost(config: ClusterConfig): BlogPostData {
     metaDescription: config.metaDescription,
     excerpt: config.excerpt,
     content: html,
-    author: 'Boise Remodeling Co',
+    author: SITE_CONFIG.name,
     category: hub.categoryLabel,
     hubSlug: config.hubSlug,
     tags: config.tags,
@@ -193,7 +194,7 @@ export function buildPillarGuide(config: PillarConfig): GuidePageData {
     metaDescription: config.metaDescription,
     excerpt: config.excerpt,
     content: expandPillar(buildSectionsHtml(sections), config.slug, config.hubSlug),
-    author: 'Boise Remodeling Co',
+    author: SITE_CONFIG.name,
     hubSlug: config.hubSlug,
     guideType: 'hub-pillar',
     tags: config.tags,
@@ -244,7 +245,7 @@ export function buildLocationGuide(config: LocationGuideConfig): GuidePageData {
     metaDescription: config.metaDescription,
     excerpt: config.excerpt,
     content: expandLocation(buildSectionsHtml(sections), config.slug),
-    author: 'Boise Remodeling Co',
+    author: SITE_CONFIG.name,
     hubSlug: 'treasure-valley-locations',
     guideType: config.guideType,
     tags: [config.citySlug, config.cityName.toLowerCase(), 'idaho'],

@@ -1,7 +1,7 @@
 {
-  "name": "Boise Remodeling Co",
-  "short_name": "Boise Remodeling",
-  "description": "Design-build remodeling for kitchens, bathrooms, and whole-home renovations in the Treasure Valley, Idaho.",
+  "name": "Boise Cabinet Co",
+  "short_name": "Boise Cabinet",
+  "description": "Custom kitchen, bathroom, and storage cabinets for the Treasure Valley, Idaho. Design online or schedule a free consultation.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#f8f5f0",

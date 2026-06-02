@@ -449,7 +449,7 @@ export const BLOG_IMAGE_REGISTRY: Record<string, BlogImageEntry> = {
   },
   'treasure-valley-remodeling-guide': {
     hero: '/images/areas/boise.png',
-    alt: 'Treasure Valley neighborhoods and homes served by Boise Remodeling Co',
+    alt: 'Treasure Valley neighborhoods and homes served by Boise Cabinet Co',
     topicTags: ["location","treasure-valley","guide"],
     source: 'areas',
   },

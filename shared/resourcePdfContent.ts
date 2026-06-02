@@ -10,7 +10,7 @@ export const BUDGET_WORKSHEET_BLOCKS: PdfBlock[] = [
   },
   {
     type: 'subtitle',
-    text: 'Use with our Boise Remodeling Cost Guide. Planning ranges only—firm numbers require written scope.',
+    text: 'Use with our Boise Cabinet Cost Guide. Planning ranges only—firm numbers require written scope.',
   },
   { type: 'heading', text: '1. Project snapshot' },
   {

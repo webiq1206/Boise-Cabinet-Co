@@ -7,6 +7,7 @@ import {
   generateSpeakableSchema,
 } from '@/lib/schema';
 import { HOMEPAGE_FAQS } from '@/shared/homepageFaqs';
+import { SITE_CONFIG } from '@/shared/siteConfig';
 
 export function HomePageSchema() {
   return (
@@ -20,7 +21,7 @@ export function HomePageSchema() {
         ),
         generateSpeakableSchema({
           path: '/',
-          name: 'Boise Remodeling Co, Design-Build Remodeling in the Treasure Valley',
+          name: `${SITE_CONFIG.name}, Custom Cabinets in the Treasure Valley`,
         }),
       ]}
     />

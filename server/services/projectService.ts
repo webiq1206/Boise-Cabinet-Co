@@ -7,12 +7,16 @@ import {
   leads,
   quotes,
   users,
+  projectInvoices,
+  projectMessages,
   type Project,
   type InsertProject,
   type ProjectAssignment,
   type ChangeOrder,
   type EntityDocument,
   type Lead,
+  type ProjectInvoice,
+  type ProjectMessage,
 } from "@shared/schema";
 import { and, desc, eq, sql } from "drizzle-orm";
 import { canBeAssignedToProject } from "@/lib/compliance/complianceStatus";
@@ -410,3 +414,114 @@ export async function getProjectStats(): Promise<{
 }
 
 export type LeadWithProject = Lead & { hasProject: boolean };
+
+export async function getAdminProjectInvoices(projectId: string): Promise<ProjectInvoice[]> {
+  if (!db) return [];
+  return db
+    .select()
+    .from(projectInvoices)
+    .where(eq(projectInvoices.projectId, projectId))
+    .orderBy(desc(projectInvoices.createdAt));
+}
+
+export async function getAdminProjectMessages(projectId: string): Promise<ProjectMessage[]> {
+  if (!db) return [];
+  return db
+    .select()
+    .from(projectMessages)
+    .where(eq(projectMessages.projectId, projectId))
+    .orderBy(desc(projectMessages.createdAt));
+}
+
+export async function createProjectInvoice(
+  projectId: string,
+  data: { description: string; amount: string; dueDate?: string; status?: string },
+): Promise<ProjectInvoice> {
+  if (!db) throw new Error("Database not available");
+
+  const [invoice] = await db
+    .insert(projectInvoices)
+    .values({
+      projectId,
+      description: data.description,
+      amount: data.amount,
+      status: data.status ?? "draft",
+      dueDate: data.dueDate ? new Date(data.dueDate) : null,
+    })
+    .returning();
+
+  return invoice;
+}
+
+export async function updateProjectInvoice(
+  invoiceId: string,
+  data: { status?: string; paidAt?: Date | null },
+): Promise<ProjectInvoice | null> {
+  if (!db) throw new Error("Database not available");
+
+  const patch: Partial<ProjectInvoice> = {};
+  if (data.status) patch.status = data.status;
+  if (data.status === "paid") patch.paidAt = data.paidAt ?? new Date();
+  if (data.paidAt === null) patch.paidAt = null;
+
+  const [invoice] = await db
+    .update(projectInvoices)
+    .set(patch)
+    .where(eq(projectInvoices.id, invoiceId))
+    .returning();
+
+  return invoice ?? null;
+}
+
+export async function sendAdminProjectMessage(
+  projectId: string,
+  adminUserId: string,
+  body: string,
+): Promise<ProjectMessage> {
+  if (!db) throw new Error("Database not available");
+
+  const [message] = await db
+    .insert(projectMessages)
+    .values({
+      projectId,
+      senderUserId: adminUserId,
+      senderRole: "admin",
+      body,
+    })
+    .returning();
+
+  return message;
+}
+
+export async function linkCustomerToProject(
+  projectId: string,
+): Promise<{ userId: string; email: string | null }> {
+  if (!db) throw new Error("Database not available");
+
+  const project = await getProjectById(projectId);
+  if (!project?.email) {
+    throw new Error("Project has no customer email on file");
+  }
+
+  const normalizedEmail = project.email.trim().toLowerCase();
+  const [user] = await db
+    .select()
+    .from(users)
+    .where(sql`lower(${users.email}) = ${normalizedEmail}`)
+    .limit(1);
+
+  if (!user) {
+    throw new Error(
+      "No account found with matching email. Ask the customer to sign in with the project email first.",
+    );
+  }
+
+  await db
+    .update(users)
+    .set({ role: "customer" })
+    .where(eq(users.id, user.id));
+
+  await updateProject(projectId, { customerUserId: user.id });
+
+  return { userId: user.id, email: user.email };
+}

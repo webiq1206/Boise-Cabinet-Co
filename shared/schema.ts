@@ -488,6 +488,12 @@ export const projects = pgTable("projects", {
   startDate: timestamp("start_date"),
   completionDate: timestamp("completion_date"),
   status: text("status").notNull().default("draft"),
+  currentStage: text("current_stage").default("consultation"),
+  customerUserId: varchar("customer_user_id").references(() => users.id),
+  estimatedDeliveryDate: timestamp("estimated_delivery_date"),
+  estimatedInstallDate: timestamp("estimated_install_date"),
+  designId: varchar("design_id"),
+  selectionsJson: jsonb("selections_json").$type<Record<string, unknown>>(),
   internalNotes: jsonb("internal_notes").$type<Array<{ text: string; addedBy: string; addedAt: string; type?: string }>>().default(sql`'[]'::jsonb`),
   customFields: jsonb("custom_fields").$type<Record<string, unknown>>().default(sql`'{}'::jsonb`),
   createdBy: varchar("created_by").references(() => users.id),
@@ -637,3 +643,140 @@ export const complianceReminderLog = pgTable("compliance_reminder_log", {
 }, (table) => ({
   dedupeIdx: index("compliance_reminder_log_dedupe_idx").on(table.userId, table.documentType, table.reminderType, table.sentAt),
 }));
+
+// ─── Boise Cabinet Co Platform Extensions ───────────────────────────────────
+
+export const cabinetDesigns = pgTable("cabinet_designs", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  userId: varchar("user_id").references(() => users.id),
+  userEmail: text("user_email"),
+  projectId: varchar("project_id").references(() => projects.id),
+  roomType: text("room_type").notNull(),
+  collectionId: text("collection_id").notNull(),
+  layoutJson: jsonb("layout_json").$type<Record<string, unknown>>().default(sql`'{}'::jsonb`),
+  styleJson: jsonb("style_json").$type<Record<string, unknown>>().default(sql`'{}'::jsonb`),
+  photoUrl: text("photo_url"),
+  shareToken: varchar("share_token").unique(),
+  status: text("status").notNull().default("draft"), // draft | submitted | approved
+  name: text("name"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
+export type CabinetDesign = typeof cabinetDesigns.$inferSelect;
+
+export const designPricingRequests = pgTable("design_pricing_requests", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  designId: varchar("design_id").references(() => cabinetDesigns.id),
+  name: text("name").notNull(),
+  email: text("email").notNull(),
+  phone: text("phone").notNull(),
+  message: text("message"),
+  status: text("status").notNull().default("pending"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+export type DesignPricingRequest = typeof designPricingRequests.$inferSelect;
+
+export const projectOrders = pgTable("project_orders", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  projectId: varchar("project_id").notNull().references(() => projects.id),
+  orderNumber: text("order_number").notNull(),
+  status: text("status").notNull().default("pending"), // pending | fabrication | shipped | delivered
+  itemsJson: jsonb("items_json").$type<Record<string, unknown>[]>(),
+  estimatedShipDate: timestamp("estimated_ship_date"),
+  trackingNumber: text("tracking_number"),
+  carrier: text("carrier"),
+  shippedAt: timestamp("shipped_at"),
+  deliveredAt: timestamp("delivered_at"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+export type ProjectOrder = typeof projectOrders.$inferSelect;
+
+export const projectInvoices = pgTable("project_invoices", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  projectId: varchar("project_id").notNull().references(() => projects.id),
+  stripeInvoiceId: text("stripe_invoice_id"),
+  amount: decimal("amount", { precision: 10, scale: 2 }).notNull(),
+  status: text("status").notNull().default("draft"), // draft | sent | paid | overdue
+  dueDate: timestamp("due_date"),
+  paidAt: timestamp("paid_at"),
+  lineItemsJson: jsonb("line_items_json").$type<Record<string, unknown>[]>(),
+  description: text("description"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+export type ProjectInvoice = typeof projectInvoices.$inferSelect;
+
+export const projectPayments = pgTable("project_payments", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  invoiceId: varchar("invoice_id").notNull().references(() => projectInvoices.id),
+  stripePaymentIntentId: text("stripe_payment_intent_id"),
+  amount: decimal("amount", { precision: 10, scale: 2 }).notNull(),
+  status: text("status").notNull().default("pending"),
+  paidAt: timestamp("paid_at"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+export type ProjectPayment = typeof projectPayments.$inferSelect;
+
+export const projectMessages = pgTable("project_messages", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  projectId: varchar("project_id").notNull().references(() => projects.id),
+  senderUserId: varchar("sender_user_id").references(() => users.id),
+  senderRole: text("sender_role").notNull(), // customer | admin | partner
+  body: text("body").notNull(),
+  attachmentsJson: jsonb("attachments_json").$type<Array<{ url: string; name: string }>>(),
+  readAt: timestamp("read_at"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+export type ProjectMessage = typeof projectMessages.$inferSelect;
+
+export const changeRequests = pgTable("change_requests", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  projectId: varchar("project_id").notNull().references(() => projects.id),
+  customerUserId: varchar("customer_user_id").references(() => users.id),
+  description: text("description").notNull(),
+  status: text("status").notNull().default("pending"), // pending | reviewing | approved | declined
+  adminResponse: text("admin_response"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+export type ChangeRequest = typeof changeRequests.$inferSelect;
+
+export const projectAppointments = pgTable("project_appointments", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  projectId: varchar("project_id").notNull().references(() => projects.id),
+  type: text("type").notNull(), // consultation | measure | install | walkthrough
+  scheduledAt: timestamp("scheduled_at").notNull(),
+  status: text("status").notNull().default("scheduled"),
+  notes: text("notes"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+export type ProjectAppointment = typeof projectAppointments.$inferSelect;
+
+export const serviceRequests = pgTable("service_requests", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  projectId: varchar("project_id").notNull().references(() => projects.id),
+  customerUserId: varchar("customer_user_id").references(() => users.id),
+  description: text("description").notNull(),
+  status: text("status").notNull().default("open"),
+  resolvedAt: timestamp("resolved_at"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+export type ServiceRequest = typeof serviceRequests.$inferSelect;
+
+export const customerContracts = pgTable("customer_contracts", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  projectId: varchar("project_id").notNull().references(() => projects.id),
+  templateId: varchar("template_id"),
+  status: text("status").notNull().default("draft"), // draft | sent | signed
+  signedAt: timestamp("signed_at"),
+  signedPdfUrl: text("signed_pdf_url"),
+  signatureName: text("signature_name"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});

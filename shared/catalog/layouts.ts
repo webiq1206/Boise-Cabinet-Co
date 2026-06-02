@@ -1,0 +1,128 @@
+/**
+ * Floor-plan layout options for the Design Studio.
+ * 3D preview geometry stays in lib/design/previewConfig.ts keyed by slug.
+ */
+
+export interface CabinetLayout {
+  id: string;
+  slug: string;
+  name: string;
+  description: string;
+  /** Room slugs from roomCategories.ts that offer this layout */
+  applicableRoomSlugs: string[];
+  sortOrder: number;
+}
+
+export const CABINET_LAYOUTS: CabinetLayout[] = [
+  {
+    id: "galley",
+    slug: "galley",
+    name: "Galley",
+    description: "Parallel runs — ideal for narrow spaces",
+    applicableRoomSlugs: ["kitchen"],
+    sortOrder: 1,
+  },
+  {
+    id: "l-shape",
+    slug: "l-shape",
+    name: "L-Shape",
+    description: "Corner configuration with open flow",
+    applicableRoomSlugs: ["kitchen", "wet-bar"],
+    sortOrder: 2,
+  },
+  {
+    id: "u-shape",
+    slug: "u-shape",
+    name: "U-Shape",
+    description: "Maximum storage on three walls",
+    applicableRoomSlugs: ["kitchen"],
+    sortOrder: 3,
+  },
+  {
+    id: "island",
+    slug: "island",
+    name: "L-Shape + Island",
+    description: "Our most requested Treasure Valley layout",
+    applicableRoomSlugs: ["kitchen"],
+    sortOrder: 4,
+  },
+  {
+    id: "peninsula",
+    slug: "peninsula",
+    name: "Peninsula",
+    description: "Connected counter for seating and prep",
+    applicableRoomSlugs: ["kitchen", "wet-bar"],
+    sortOrder: 5,
+  },
+  {
+    id: "single-vanity",
+    slug: "single-vanity",
+    name: "Single Vanity",
+    description: "One sink with upper and base storage",
+    applicableRoomSlugs: ["bathroom"],
+    sortOrder: 10,
+  },
+  {
+    id: "double-vanity",
+    slug: "double-vanity",
+    name: "Double Vanity",
+    description: "His-and-hers sinks with shared storage",
+    applicableRoomSlugs: ["bathroom"],
+    sortOrder: 11,
+  },
+  {
+    id: "wall-run",
+    slug: "wall-run",
+    name: "Wall Run",
+    description: "Linear cabinets along one wall",
+    applicableRoomSlugs: [
+      "laundry",
+      "mudroom",
+      "home-office",
+      "pantry",
+      "closet",
+      "garage",
+      "bedroom",
+      "entertainment",
+      "built-ins",
+      "outdoor",
+    ],
+    sortOrder: 20,
+  },
+  {
+    id: "floor-to-ceiling",
+    slug: "floor-to-ceiling",
+    name: "Floor to Ceiling",
+    description: "Full-height storage on one or two walls",
+    applicableRoomSlugs: [
+      "laundry",
+      "mudroom",
+      "home-office",
+      "pantry",
+      "closet",
+      "garage",
+      "bedroom",
+      "entertainment",
+      "built-ins",
+    ],
+    sortOrder: 21,
+  },
+];
+
+export type LayoutSlug = (typeof CABINET_LAYOUTS)[number]["slug"];
+
+export const LAYOUT_BY_SLUG: Record<string, CabinetLayout> = Object.fromEntries(
+  CABINET_LAYOUTS.map((l) => [l.slug, l]),
+);
+
+/** Layouts shown in Design Studio for a given room slug */
+export function getLayoutsForRoom(roomSlug: string | null | undefined): CabinetLayout[] {
+  if (!roomSlug) return CABINET_LAYOUTS.filter((l) => l.applicableRoomSlugs.includes("kitchen"));
+
+  const matches = CABINET_LAYOUTS.filter((l) => l.applicableRoomSlugs.includes(roomSlug));
+  if (matches.length > 0) {
+    return matches.sort((a, b) => a.sortOrder - b.sortOrder);
+  }
+
+  return CABINET_LAYOUTS.filter((l) => l.slug === "wall-run");
+}

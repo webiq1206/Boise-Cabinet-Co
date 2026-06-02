@@ -9,7 +9,7 @@ import { ALL_RESOURCES_LIST } from '@/shared/guideResources';
 export const metadata: Metadata = buildPageMetadata({
   kind: 'blog',
   path: '/resources',
-  titleOverride: 'Remodel Planning Resources | Boise Remodeling Co',
+  titleOverride: 'Cabinet Planning Resources | Boise Cabinet Co',
   descriptionOverride:
     'Free PDF worksheets and visual guides for Treasure Valley remodeling: budget worksheet, kitchen & bath checklist, Ada vs Canyon permits.',
 });
@@ -25,7 +25,7 @@ export default function ResourcesIndexPage() {
           Free downloads
         </p>
         <h1 className="text-3xl md:text-4xl font-sans font-light tracking-tight text-foreground mb-4">
-          Remodel planning resources
+          Cabinet planning resources
         </h1>
         <p className="text-lg text-muted-foreground mb-12 max-w-2xl">
           Printable PDFs and visual guides to use alongside our{' '}

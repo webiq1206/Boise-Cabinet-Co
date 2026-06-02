@@ -1,4 +1,4 @@
-// Content Data for Boise Remodeling Co
+// Content Data for Boise Cabinet Co
 // Serves the Treasure Valley: Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton
 
 export interface ServiceData {
@@ -14,36 +14,50 @@ export interface CityData {
   isPrimary: boolean;
 }
 
+/** Legacy service slugs retained for redirects and existing SEO URLs */
 export const SERVICES: ServiceData[] = [
   {
     slug: 'kitchen-remodel',
-    name: 'Kitchen Remodel',
-    shortDescription: 'Custom kitchen renovations from cabinet refreshes to full gut-and-rebuild.',
+    name: 'Kitchen Cabinets',
+    shortDescription: 'Custom kitchen cabinets from layout design through installation — frameless Euro construction, 50+ finishes.',
   },
   {
     slug: 'bathroom-remodel',
-    name: 'Bathroom Remodel',
-    shortDescription: 'Spa-quality bathroom transformations designed around how you actually live.',
+    name: 'Bathroom Vanities',
+    shortDescription: 'Vanity cabinets, linen towers, and bath storage designed for your space and style.',
   },
   {
     slug: 'whole-home-remodel',
-    name: 'Whole-Home Remodel',
-    shortDescription: 'Cohesive whole-home renovations with a single project manager start to finish.',
+    name: 'Whole-Home Cabinetry',
+    shortDescription: 'Coordinated cabinet packages across kitchen, bath, laundry, mudroom, and built-ins.',
   },
   {
     slug: 'room-addition',
-    name: 'Room Addition',
-    shortDescription: 'Thoughtfully designed additions that feel like they were always part of your home.',
+    name: 'Built-In Storage',
+    shortDescription: 'Custom built-ins, entertainment centers, and specialty storage for any room.',
   },
   {
     slug: 'adu',
-    name: 'ADU / Guest House',
-    shortDescription: 'Detached or attached accessory dwelling units designed to maximize your property value.',
+    name: 'Closet & Garage Storage',
+    shortDescription: 'Closet systems, garage storage, and organizational solutions built to last.',
   },
 ];
 
-// Alias so existing imports stay compatible
+/** Alias for internal linking, SEO routes, and legacy imports */
 export const PRIORITY_SERVICES = SERVICES;
+
+export const CABINET_ROOM_SLUGS = [
+  'kitchen',
+  'bathroom',
+  'laundry',
+  'mudroom',
+  'home-office',
+  'entertainment',
+  'built-ins',
+  'pantry',
+  'closet',
+  'garage',
+] as const;
 
 export const CITIES: CityData[] = [
   { slug: 'boise', name: 'Boise', county: 'ada', isPrimary: true },
@@ -69,4 +83,3 @@ export function getCityBySlug(slug: string): CityData | undefined {
 export function getCountyLabel(county: CityData['county']): string {
   return county === 'ada' ? 'Ada County' : 'Canyon County';
 }
-

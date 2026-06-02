@@ -1,43 +1,34 @@
-# Boise Remodeling Co
+# Boise Cabinet Co
 
-> Design-build remodeling for kitchens, bathrooms, whole-home renovations, room additions, and ADUs in Boise, Idaho and the Treasure Valley.
+> Idaho's premier custom cabinet company — kitchen, bathroom, laundry, mudroom, closet, garage, and built-in cabinetry for Boise and the Treasure Valley.
 
-## Authoritative Guides (https://boiseremodeling.co/guides)
+## Product Catalog
 
-- Treasure Valley Remodeling Guide: /guides/treasure-valley-remodeling-guide
-- Boise Remodeling Cost Guide: /guides/boise-remodeling-cost-guide
-- Boise Kitchen Remodeling Guide: /guides/boise-kitchen-remodeling-guide
-- Boise Bathroom Remodeling Guide: /guides/boise-bathroom-remodeling-guide
-- Boise Home Addition Guide: /guides/boise-home-addition-guide
-- Whole Home Remodeling Guide: /guides/whole-home-remodeling-guide
-- Choose a Remodeling Contractor Boise: /guides/choose-remodeling-contractor-boise
-- Boise Remodeling Process Guide: /guides/boise-remodeling-process-guide
-- Best Remodeling ROI Boise: /guides/best-remodeling-roi-boise
-- Outdoor Living Remodeling Guide: /guides/outdoor-living-remodeling-guide
-- City guides: /guides/boise-remodeling-guide, /guides/meridian-remodeling-guide, /guides/eagle-remodeling-guide, /guides/kuna-remodeling-guide, /guides/star-remodeling-guide, /guides/middleton-remodeling-guide, /guides/nampa-remodeling-guide
-- Neighborhood guides: /guides/north-end-remodeling-guide, /guides/boise-bench-remodeling-guide, /guides/harris-ranch-remodeling-guide, /guides/east-boise-remodeling-guide, /guides/hidden-springs-remodeling-guide, /guides/eagle-foothills-remodeling-guide
+- Cabinet rooms: /cabinets (kitchen, bathroom, laundry, mudroom, home-office, entertainment, built-ins, pantry, closet, garage, outdoor)
+- Collections: /collections (full-custom, semi-custom, reserve, spec-grade)
+- Finishes: /finishes (matte, gloss, woodgrain)
+- Door styles: /door-styles (slab, modern-shaker, thin-shaker, and more)
+- Accessories: /accessories
+- Hardware: /hardware
+- Construction standards: /construction
+- Compare collections: /compare
 
-## Blog category hubs
+## Design Studio
 
-- /blog/category/remodeling-costs
-- /blog/category/kitchen-remodeling
-- /blog/category/bathroom-remodeling
-- /blog/category/home-additions
-- /blog/category/whole-home-remodeling
-- /blog/category/contractor-selection
-- /blog/category/remodeling-process
-- /blog/category/remodeling-roi
-- /blog/category/outdoor-living
+- Online cabinet design tool: /design-studio
+- Customer project portal: /portal
 
-## Services
+## Service Areas
 
-- Kitchen, bathroom, whole-home, room addition, ADU: /services/{service-slug}
-- City pages: /services/{service-slug}/{city-slug} for boise, meridian, eagle, nampa, kuna, star, middleton, caldwell
-- Areas: /areas/{city-slug}
+- /areas/{city-slug} for boise, meridian, eagle, nampa, kuna, star, middleton, caldwell
+
+## Guides & Resources
+
+- Cabinet and remodeling guides: /guides
+- Blog: /blog
+- Planning downloads: /resources
 
 ## Contact
 
-- https://boiseremodeling.co/contact
-- Estimator: https://boiseremodeling.co/#calculator
-
-Last updated: 2026-05-30. Full sitemap: https://boiseremodeling.co/sitemap.xml
+- https://boisecabinet.co/contact
+- Phone and email on every page footer

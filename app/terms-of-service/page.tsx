@@ -4,21 +4,21 @@ import { SITE_CONFIG } from "@/shared/siteConfig";
 import { generateBreadcrumbSchema, generateWebPageSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
-  title: "Terms of Service | Boise Remodeling Co",
-  description: "Terms of service for Boise Remodeling Co. Your rights when using our remodeling and renovation services in Kuna & Boise, Idaho.",
+  title: "Terms of Service | Boise Cabinet Co",
+  description: "Terms of service for Boise Cabinet Co. Your rights when using our custom cabinet design, fabrication, and installation services in Kuna & Boise, Idaho.",
   alternates: {
-    canonical: "https://boiseremodeling.co/terms-of-service",
+    canonical: "https://boisecabinet.co/terms-of-service",
   },
   openGraph: {
-    title: "Terms of Service | Boise Remodeling Co",
-    description: "Your rights when using Boise Remodeling Co remodeling and renovation services in Idaho's Treasure Valley.",
-    url: "https://boiseremodeling.co/terms-of-service",
+    title: "Terms of Service | Boise Cabinet Co",
+    description: "Your rights when using Boise Cabinet Co custom cabinet services in Idaho's Treasure Valley.",
+    url: "https://boisecabinet.co/terms-of-service",
     type: "website",
   },
   twitter: {
     card: "summary",
-    title: "Terms of Service | Boise Remodeling Co",
-    description: "Your rights when using Boise Remodeling Co remodeling and renovation services in Idaho's Treasure Valley.",
+    title: "Terms of Service | Boise Cabinet Co",
+    description: "Your rights when using Boise Cabinet Co custom cabinet services in Idaho's Treasure Valley.",
   },
 };
 
@@ -29,7 +29,7 @@ export default function TermsOfServicePage() {
   ]);
   const webPageSchema = generateWebPageSchema({
     title: "Terms of Service",
-    description: "Terms of service for Boise Remodeling Co. Your rights and responsibilities when using our services.",
+    description: "Terms of service for Boise Cabinet Co. Your rights and responsibilities when using our services.",
     url: "/terms-of-service",
   });
 
@@ -46,19 +46,19 @@ export default function TermsOfServicePage() {
       <section className="py-16 md:py-24">
         <div className="container px-4">
           <div className="max-w-3xl mx-auto blog-content prose-measure">
-            <h1>Terms of Service for Boise Remodeling Co</h1>
+            <h1>Terms of Service for Boise Cabinet Co</h1>
             <p className="lead text-muted-foreground">
               Last updated: January 2024
             </p>
 
             <h2>Agreement to Terms</h2>
             <p>
-              By accessing or using the services provided by Boise Remodeling Co ("Company," "we," "us," or "our"), you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use our services.
+              By accessing or using the services provided by Boise Cabinet Co ("Company," "we," "us," or "our"), you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use our services.
             </p>
 
             <h2>Services</h2>
             <p>
-              Boise Remodeling Co provides remodeling and renovation services to residential and commercial customers in the Treasure Valley area of Idaho.
+              Boise Cabinet Co provides custom cabinet design, fabrication, and installation services to residential and commercial customers in the Treasure Valley area of Idaho.
             </p>
 
             <h2>Service Estimates and Pricing</h2>
@@ -92,12 +92,12 @@ export default function TermsOfServicePage() {
 
             <h2>Subcontracting</h2>
             <p>
-              Boise Remodeling Co reserves the right to subcontract services as needed to ensure quality service delivery and timely completion of work.
+              Boise Cabinet Co reserves the right to subcontract services as needed to ensure quality service delivery and timely completion of work.
             </p>
 
             <h2>Limitation of Liability</h2>
             <p>
-              While we take great care in providing our services, Boise Remodeling Co's liability for any claims arising from our services is limited to the amount paid for the specific service in question. We are not liable for pre-existing conditions, normal wear, or conditions outside our control.
+              While we take great care in providing our services, Boise Cabinet Co's liability for any claims arising from our services is limited to the amount paid for the specific service in question. We are not liable for pre-existing conditions, normal wear, or conditions outside our control.
             </p>
 
             <h2>Satisfaction Guarantee</h2>

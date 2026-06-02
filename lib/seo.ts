@@ -1,10 +1,12 @@
 /**
- * SEO Utilities for Boise Remodeling Co
+ * SEO Utilities for Boise Cabinet Co
  * Generates optimized meta tags, titles, and descriptions
  * for service and location pages
  */
 
 import { SITE_CONFIG } from '@/shared/siteConfig';
+
+const BRAND = SITE_CONFIG.name;
 
 interface SEOMetaData {
   title: string;
@@ -66,61 +68,56 @@ export function generatePageTitle(params: ServiceSEOParams): string {
   const { serviceName, city, isHomePage } = params;
   
   if (isHomePage) {
-    return "Boise Remodeling Co | Remodeling & Design";
+    return `${BRAND} | Custom Cabinets Idaho`;
   }
   
   if (city && serviceName) {
-    // Full formula: "[Service] in [City], ID | Boise Remodeling Co | Free Quotes"
-    const fullTitle = `${serviceName} in ${city}, ID | Boise Remodeling Co | Free Quotes`;
+    const fullTitle = `${serviceName} in ${city}, ID | ${BRAND} | Free Quotes`;
     
     if (fullTitle.length <= 60) {
       return fullTitle;
     }
     
-    // Level 2: Drop "Free Quotes"
-    const mediumTitle = `${serviceName} in ${city}, ID | Boise Remodeling Co`;
+    const mediumTitle = `${serviceName} in ${city}, ID | ${BRAND}`;
     if (mediumTitle.length <= 60) {
       return mediumTitle;
     }
     
-    // Level 3: Shorten brand
-    const shortTitle = `${serviceName} in ${city}, ID | Remodeling`;
+    const shortTitle = `${serviceName} in ${city}, ID | Cabinets`;
     if (shortTitle.length <= 60) {
       return shortTitle;
     }
     
-    const maxServiceLength = 60 - ` in ${city}, ID | Remodeling`.length;
+    const maxServiceLength = 60 - ` in ${city}, ID | Cabinets`.length;
     const truncatedService = truncateServiceName(serviceName, maxServiceLength);
-    return `${truncatedService} in ${city}, ID | Remodeling`;
+    return `${truncatedService} in ${city}, ID | Cabinets`;
   }
   
   if (city) {
-    const fullTitle = `Remodeling in ${city}, ID | Boise Remodeling Co`;
+    const fullTitle = `Custom Cabinets in ${city}, ID | ${BRAND}`;
     if (fullTitle.length <= 60) {
       return fullTitle;
     }
-    return `Remodeling Contractor ${city}, ID`;
+    return `Cabinet Company ${city}, ID`;
   }
   
-  // Service-only title (defaults to Kuna as home base)
   if (!serviceName) {
-    return "Boise Remodeling Co | Remodeling & Design";
+    return `${BRAND} | Custom Cabinets Idaho`;
   }
   
-  const fullTitle = `${serviceName} | Boise Remodeling Co | Free Quotes`;
+  const fullTitle = `${serviceName} | ${BRAND} | Free Quotes`;
   if (fullTitle.length <= 60) {
     return fullTitle;
   }
   
-  const mediumTitle = `${serviceName} | Boise Remodeling Co`;
+  const mediumTitle = `${serviceName} | ${BRAND}`;
   if (mediumTitle.length <= 60) {
     return mediumTitle;
   }
   
-  // Truncate service name intelligently
-  const maxServiceLength = 60 - ' | Boise Remodeling Co'.length;
+  const maxServiceLength = 60 - ` | ${BRAND}`.length;
   const truncatedService = truncateServiceName(serviceName, maxServiceLength);
-  return `${truncatedService} | Boise Remodeling Co`;
+  return `${truncatedService} | ${BRAND}`;
 }
 
 const CITY_DESCRIPTION_VARIANTS: Record<string, string> = {
@@ -227,7 +224,7 @@ export function generateCityServiceDescription(
  * stays under 60 characters
  */
 export function generateSafePageTitle(primary: string, suffix?: string): string {
-  const templateSuffix = " | Boise Remodeling Co";
+  const templateSuffix = ` | ${BRAND}`;
   const maxLen = 60 - templateSuffix.length;
 
   if (suffix) {
@@ -257,7 +254,7 @@ export function getBaseUrl(): string {
     }
   }
   // Default to production URL for SSR/build time
-  return 'https://boiseremodeling.co';
+  return 'https://boisecabinet.co';
 }
 
 /**
@@ -268,26 +265,22 @@ export function generateLogoAltTag(params: ServiceSEOParams): string {
   const { serviceName, city, isHomePage } = params;
   
   if (isHomePage) {
-    return "Boise Remodeling Co logo - Design-build remodeling contractor in Boise, Idaho";
+    return `${BRAND} logo - Custom cabinet company in Boise, Idaho`;
   }
   
   if (city && serviceName) {
-    // City-specific alt tag with service context
-    return `Boise Remodeling Co logo - ${serviceName} services in ${city} Idaho - Licensed remodeling professionals`;
+    return `${BRAND} logo - ${serviceName} in ${city} Idaho - Custom cabinet professionals`;
   }
   
   if (city) {
-    // City page alt tag without service
-    return `Boise Remodeling Co logo - Professional remodeling services in ${city} Idaho`;
+    return `${BRAND} logo - Custom cabinets in ${city} Idaho`;
   }
   
   if (!serviceName) {
-    // Fallback for pages without service
-    return `Boise Remodeling Co logo - Design-build remodeling contractor serving the Treasure Valley, Idaho`;
+    return `${BRAND} logo - Custom cabinet company serving the Treasure Valley, Idaho`;
   }
   
-  // Service-specific alt tag
-  return `Boise Remodeling Co logo - Professional ${serviceName.toLowerCase()} services in Treasure Valley Idaho`;
+  return `${BRAND} logo - ${serviceName.toLowerCase()} cabinets in Treasure Valley Idaho`;
 }
 
 /**
@@ -437,7 +430,7 @@ export const BUSINESS_INFO = {
   serviceArea: ['Boise', 'Meridian', 'Eagle', 'Nampa', 'Kuna', 'Star', 'Middleton', 'Caldwell'],
   serviceRadius: '35 miles',
   licenses: ['License details available upon request'],
-  certifications: ['Design-Build Remodeling', 'Bonded & Insured'],
+  certifications: ['Custom Cabinetry', 'Frameless Euro Construction', 'Bonded & Insured'],
   insurance: 'Fully Licensed & Insured',
   rating: 0,
   reviewCount: 0,
