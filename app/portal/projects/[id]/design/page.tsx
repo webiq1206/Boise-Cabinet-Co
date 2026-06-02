@@ -12,7 +12,7 @@ import { ArrowLeft, Check } from "lucide-react";
 const SELECTIONS = [
   { category: "Collection", value: "Heritage Shaker", status: "selected" },
   { category: "Door style", value: "Full overlay shaker", status: "selected" },
-  { category: "Finish", value: "White Oak — Natural", status: "pending" },
+  { category: "Finish", value: "White Oak, Natural", status: "pending" },
   { category: "Hardware", value: "Matte black bar pulls", status: "selected" },
   { category: "Layout", value: "L-shape with island", status: "review" },
 ];
@@ -43,7 +43,7 @@ export default function ProjectDesignPage() {
             Design <em className="brc-accent text-accent">selections</em>
           </h2>
           <p className="text-muted-foreground text-sm mt-1">
-            {project.title} — review and approve your cabinet choices
+            {project.title}, review and approve your cabinet choices
           </p>
         </div>
 
@@ -51,7 +51,7 @@ export default function ProjectDesignPage() {
           <CardHeader>
             <CardTitle className="text-base">Current selections</CardTitle>
             <CardDescription>
-              Placeholder data — selections will sync from Design Studio when connected
+              Placeholder data, selections will sync from Design Studio when connected
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-3">

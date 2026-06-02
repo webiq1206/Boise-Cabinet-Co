@@ -65,8 +65,8 @@ export const PROJECT_SIZE_CONFIG: Record<ProjectType, ProjectSizeConfig> = {
   kitchen: { min: 100, max: 600, step: 25, defaultSqft: 250, baselineSqft: 250 },
   bathroom: { min: 40, max: 200, step: 10, defaultSqft: 80, baselineSqft: 80 },
   "whole-home": { min: 800, max: 8000, step: 100, defaultSqft: 1800, baselineSqft: 1800 },
-  addition: { min: 200, max: 1200, step: 50, defaultSqft: 400, baselineSqft: 400 },
-  adu: { min: 300, max: 900, step: 50, defaultSqft: 600, baselineSqft: 600 },
+  addition: { min: 20, max: 400, step: 10, defaultSqft: 120, baselineSqft: 120 },
+  adu: { min: 20, max: 300, step: 10, defaultSqft: 80, baselineSqft: 80 },
 };
 
 export const DEFAULT_ESTIMATE_INPUT: EstimateInput = {
@@ -122,10 +122,10 @@ export function getPlumbingElectricalLabel(project: ProjectType): string {
 }
 
 export const PLUMBING_ELECTRICAL_OPTIONS: Record<
-  "remodel" | "newConstruction",
+  "cabinet" | "newConstruction",
   { value: PlumbingElectrical; label: string; sub: string }[]
 > = {
-  remodel: [
+  cabinet: [
     { value: "cosmetic", label: "Cosmetic", sub: "Fixtures only" },
     { value: "partial", label: "Partial", sub: "Some rerouting" },
     { value: "full", label: "Full", sub: "Complete update" },
@@ -140,15 +140,15 @@ export const PLUMBING_ELECTRICAL_OPTIONS: Record<
 export function getPlumbingElectricalOptions(project: ProjectType) {
   return project === "addition" || project === "adu"
     ? PLUMBING_ELECTRICAL_OPTIONS.newConstruction
-    : PLUMBING_ELECTRICAL_OPTIONS.remodel;
+    : PLUMBING_ELECTRICAL_OPTIONS.cabinet;
 }
 
 export const PROJECT_LABELS: Record<ProjectType, { label: string; sub: string }> = {
-  kitchen: { label: "Kitchen", sub: "Cabinets, counters, layout" },
-  bathroom: { label: "Bathroom", sub: "Tile, fixtures, vanity" },
-  "whole-home": { label: "Whole-Home", sub: "Multi-room renovation" },
-  addition: { label: "Room Addition", sub: "New square footage" },
-  adu: { label: "ADU / Guest House", sub: "Detached or attached unit" },
+  kitchen: { label: "Kitchen Cabinets", sub: "Layout, line, and installation" },
+  bathroom: { label: "Bathroom Vanities", sub: "Vanity, towers, storage" },
+  "whole-home": { label: "Whole-Home Cabinetry", sub: "Multiple rooms, one program" },
+  addition: { label: "Built-Ins & Storage", sub: "Mudroom, pantry, office, media" },
+  adu: { label: "Closet & Garage", sub: "Closet systems and garage storage" },
 };
 
 export const FINISH_LABELS: Record<FinishLevel, { label: string; sub: string }> = {
@@ -163,7 +163,7 @@ const ALL_FINISH_LEVELS: FinishLevel[] = ["refresh", "mid-range", "high-end", "l
 /**
  * Finish levels available for a given project type. "Refresh" (cosmetic
  * upgrades / repaint) is meaningless for new construction, so additions and
- * ADUs / guest houses start at "mid-range".
+ * Closet and garage programs start at "mid-range".
  */
 export function getAvailableFinishLevels(project: ProjectType): FinishLevel[] {
   if (project === "addition" || project === "adu") {
@@ -194,92 +194,92 @@ export const CONFIDENCE_LABELS = PLANNING_DETAIL_LABELS;
 const PRICE_MATRIX: Record<ProjectType, Record<FinishLevel, PriceData>> = {
   kitchen: {
     refresh: {
-      low: 15000, high: 35000, roi: 72,
-      included: ["New countertops (laminate/entry quartz)", "Cabinet repaints or door replacement", "Appliance selection guidance (appliances are client-supplied)", "New plumbing fixtures", "LVP or tile flooring"],
+      low: 8000, high: 18000, roi: 72,
+      included: ["Stock or entry semi-custom line", "Standard door style and hardware", "Professional installation", "Soft-close hinges"],
     },
     "mid-range": {
-      low: 35000, high: 75000, roi: 74,
-      included: ["Semi-custom cabinetry", "Quartz or granite countertops", "Appliance selection guidance (appliances are client-supplied)", "Tile backsplash", "Updated plumbing and electrical"],
+      low: 18000, high: 45000, roi: 74,
+      included: ["Semi-custom cabinetry", "Upgrade door style and finish", "Interior organizers", "Countertop coordination", "Installation and adjustment"],
     },
     "high-end": {
-      low: 75000, high: 150000, roi: 70,
-      included: ["Custom or semi-custom cabinetry", "Premium stone countertops", "Appliance selection guidance (appliances are client-supplied)", "Island addition or expansion", "Custom tile work and lighting redesign"],
+      low: 45000, high: 85000, roi: 70,
+      included: ["Premium semi-custom or full custom line", "Island and tall pantry cabinets", "Premium hardware package", "Glass accents optional", "Full installation program"],
     },
     luxury: {
-      low: 150000, high: 300000, roi: 62,
-      included: ["Fully custom cabinetry", "Exotic stone countertops", "Appliance selection guidance (appliances are client-supplied)", "Structural layout changes", "Smart home integration"],
+      low: 85000, high: 150000, roi: 62,
+      included: ["Full custom cabinetry", "Exotic veneers or specialty finishes", "Integrated lighting and accessories", "Appliance panel coordination", "White-glove installation"],
     },
   },
   bathroom: {
     refresh: {
-      low: 5000, high: 15000, roi: 70,
-      included: ["New vanity and mirror", "Tile shower refresh", "Updated fixtures and hardware", "New toilet if needed", "Lighting update"],
+      low: 2500, high: 8000, roi: 70,
+      included: ["Single vanity replacement", "Standard top coordination", "Hardware refresh", "Professional installation"],
     },
     "mid-range": {
-      low: 15000, high: 35000, roi: 71,
-      included: ["Custom tile shower", "Semi-custom vanity", "Heated floors", "Updated plumbing", "New windows"],
+      low: 8000, high: 18000, roi: 71,
+      included: ["Double vanity or vanity plus tower", "Semi-custom line", "Organized drawers", "Mirror and hardware coordination"],
     },
     "high-end": {
-      low: 35000, high: 80000, roi: 65,
-      included: ["Wet room or custom walk-in shower", "Freestanding soaking tub", "Radiant heated floors", "Custom built-ins", "High-end plumbing fixtures"],
+      low: 18000, high: 35000, roi: 65,
+      included: ["Floating or furniture-style vanity", "Premium finish and hardware", "Linen tower storage", "Countertop templating"],
     },
     luxury: {
-      low: 80000, high: 160000, roi: 58,
-      included: ["Steam shower system", "Spa soaking tub", "Heated floors and walls", "Full layout reconfiguration", "Designer fixtures throughout"],
+      low: 35000, high: 65000, roi: 58,
+      included: ["Full custom vanity program", "Specialty finishes", "Integrated lighting", "Premium organizers throughout"],
     },
   },
   "whole-home": {
     refresh: {
-      low: 25000, high: 60000, roi: 65,
-      included: ["Kitchen and bath cosmetic refresh", "New flooring throughout", "Fresh interior paint", "Updated light fixtures"],
+      low: 15000, high: 35000, roi: 65,
+      included: ["Kitchen cabinet refresh", "One bath vanity", "Matching hardware schedule"],
     },
     "mid-range": {
-      low: 60000, high: 150000, roi: 68,
-      included: ["Kitchen and bath mid-range renovation", "Open-concept conversion", "New flooring throughout", "Updated HVAC and windows"],
+      low: 35000, high: 90000, roi: 68,
+      included: ["Kitchen plus two bath programs", "Mudroom or pantry storage", "Coordinated finishes"],
     },
     "high-end": {
-      low: 150000, high: 350000, roi: 62,
-      included: ["Custom kitchen and bath renovation", "Structural modifications", "New windows and doors", "High-end finishes throughout"],
+      low: 90000, high: 160000, roi: 62,
+      included: ["Full kitchen and bath custom lines", "Built-ins and office storage", "Premium hardware house-wide"],
     },
     luxury: {
-      low: 350000, high: 700000, roi: 55,
-      included: ["Full gut renovation", "Structural engineering", "Smart home system", "Premium finishes throughout", "New HVAC, electrical and plumbing"],
+      low: 160000, high: 280000, roi: 55,
+      included: ["Whole-home custom cabinetry", "Closet and garage storage", "Integrated accessories throughout"],
     },
   },
   addition: {
     refresh: {
-      low: 40000, high: 80000, roi: 60,
-      included: ["New room with standard finishes", "Basic electrical and HVAC", "Matching exterior siding and roofline"],
+      low: 3000, high: 12000, roi: 60,
+      included: ["Single built-in or pantry wall", "Standard line", "Installation"],
     },
     "mid-range": {
-      low: 80000, high: 180000, roi: 63,
-      included: ["Bedroom or family room addition", "Full HVAC integration", "Updated electrical panel", "Mid-range finishes"],
+      low: 12000, high: 35000, roi: 63,
+      included: ["Mudroom locker system", "Pantry fit-out", "Home office wall unit"],
     },
     "high-end": {
-      low: 180000, high: 400000, roi: 58,
-      included: ["400 to 600 sqft addition", "High-end finishes", "Full integration with existing layout", "Custom windows and doors"],
+      low: 35000, high: 75000, roi: 58,
+      included: ["Entertainment center wall", "Multiple built-in rooms", "Premium finishes"],
     },
     luxury: {
-      low: 400000, high: 750000, roi: 50,
-      included: ["600+ sqft addition", "Structural engineering", "Premium finishes throughout", "Custom design integration"],
+      low: 75000, high: 140000, roi: 50,
+      included: ["Whole-floor built-in program", "Custom millwork details", "Integrated lighting"],
     },
   },
   adu: {
     refresh: {
-      low: 120000, high: 185000, roi: 68,
-      included: ["Foundation and framing", "Self-contained plumbing and electrical", "Standard kitchen and bath package", "Matching exterior siding and roofline"],
+      low: 2000, high: 8000, roi: 68,
+      included: ["Reach-in closet system", "Standard shelving and rods", "Installation"],
     },
     "mid-range": {
-      low: 185000, high: 260000, roi: 70,
-      included: ["Full design-build ADU", "Mid-range kitchen and bath finishes", "Separate HVAC system", "Permit coordination through CO"],
+      low: 8000, high: 22000, roi: 70,
+      included: ["Walk-in closet package", "Garage wall storage", "Durable hardware"],
     },
     "high-end": {
-      low: 260000, high: 350000, roi: 65,
-      included: ["600+ sqft ADU or guest house", "High-end finishes throughout", "Custom kitchen and bath", "Engineered foundation and structural plans"],
+      low: 22000, high: 45000, roi: 65,
+      included: ["Multiple closet zones", "Garage cabinetry and benches", "Premium organizers"],
     },
     luxury: {
-      low: 350000, high: 550000, roi: 58,
-      included: ["Large detached guest house", "Premium finishes and fixtures", "Smart home integration", "Structural engineering and custom design"],
+      low: 45000, high: 85000, roi: 58,
+      included: ["Whole-home closet program", "Custom garage fit-out", "Specialty finishes"],
     },
   },
 };
@@ -454,7 +454,7 @@ export function buildDynamicScope(input: EstimateInput): string[] {
   }
 
   if (input.project === "adu" && r.stories !== null) {
-    extra.push(r.stories > 1 ? "Attached ADU" : "Detached ADU");
+    extra.push(r.stories > 1 ? "Multi-wall closet program" : "Single-wall storage program");
   }
 
   const seen = new Set<string>();

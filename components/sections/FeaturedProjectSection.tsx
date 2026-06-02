@@ -21,7 +21,7 @@ export function FeaturedProjectSection() {
         <Reveal className="max-w-3xl">
           <div className="brc-label mb-4">Featured project</div>
           <h2 className="font-sans font-light text-[2rem] md:text-[2.75rem] lg:text-[3.25rem] leading-[1.08] tracking-tight mb-4 text-foreground">
-            See what a thoughtful remodel can{" "}
+            See what quality cabinetry can{" "}
             <em className="brc-accent text-accent">become</em>
           </h2>
           <p className="text-base leading-relaxed text-muted-foreground">

@@ -8,7 +8,7 @@ import type {
 
 /**
  * Imperative (no-React) port of the geometry in CabinetPreview3D.tsx. Produces a
- * plain THREE.Group of cabinets ONLY — no room floor/walls — at real-world metre
+ * plain THREE.Group of cabinets ONLY, no room floor/walls, at real-world metre
  * scale with the bottom resting on y=0 so device AR viewers place it on the
  * detected floor. Reused both for GLB/USDZ export and for the photo-overlay
  * transparent cutout. Keep this in sync with CabinetPreview3D's geometry.
@@ -272,7 +272,7 @@ function addModuleFronts(
     return;
   }
 
-  // doors — split wide runs into multiple panels
+  // doors, split wide runs into multiple panels
   const panelCount = Math.min(4, Math.max(1, Math.round(module.width / 0.62)));
   const panelW = (module.width - GAP * (panelCount + 1)) / panelCount;
   const panelH = h - GAP * 2;
@@ -372,7 +372,7 @@ function addModule(
  * Build a THREE.Group containing only the cabinets, centred on the X/Z origin
  * with the lowest point at y=0 (ready for floor placement in AR).
  */
-/** 12 in (0.3048 m) floor marker — helps verify AR scale on device. */
+/** 12 in (0.3048 m) floor marker, helps verify AR scale on device. */
 function addScaleReference(root: THREE.Group, layoutBox: THREE.Box3): void {
   const size = 0.3048;
   const geo = new THREE.BoxGeometry(size, 0.004, size);

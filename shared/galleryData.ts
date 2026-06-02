@@ -15,36 +15,36 @@ export const GALLERY_PROJECTS: GalleryProject[] = [
     city: "boise",
     beforeImageUrl: GALLERY_IMAGES.kitchen.before,
     afterImageUrl: GALLERY_IMAGES.kitchen.after,
-    title: "Modern Kitchen Transformation",
+    title: "Modern Kitchen Cabinet Upgrade",
     description:
-      "Custom kitchen cabinets with One Source Modern Shaker doors and quartz island in Boise",
+      "Custom kitchen cabinets with shaker doors, soft-close hardware, and quartz island in Boise",
   },
   {
     serviceType: "bathroom-remodel",
     city: "meridian",
     beforeImageUrl: GALLERY_IMAGES.bathroom.before,
     afterImageUrl: GALLERY_IMAGES.bathroom.after,
-    title: "Primary Bathroom Renovation",
+    title: "Primary Bath Vanity Transformation",
     description:
-      "Luxury primary bathroom remodel with walk-in shower, freestanding tub, and heated floors in Meridian",
+      "Double vanity with linen tower, organized drawers, and coordinated mirrors in Meridian",
   },
   {
     serviceType: "whole-home-remodel",
     city: "eagle",
     beforeImageUrl: GALLERY_IMAGES.wholeHome.before,
     afterImageUrl: GALLERY_IMAGES.wholeHome.after,
-    title: "Whole-Home Remodel",
+    title: "Whole-Home Cabinet Program",
     description:
-      "Complete interior renovation of a 1990s Eagle home with open floor plan, new kitchen, and three updated bathrooms",
+      "Coordinated kitchen, bath, mudroom, and office cabinetry across an Eagle home with one finish schedule",
   },
   {
     serviceType: "room-addition",
     city: "nampa",
     beforeImageUrl: GALLERY_IMAGES.addition.before,
     afterImageUrl: GALLERY_IMAGES.addition.after,
-    title: "Master Suite Addition",
+    title: "Pantry and Mudroom Storage",
     description:
-      "600 sq ft master suite addition with ensuite bath and walk-in closet in Nampa",
+      "Floor-to-ceiling pantry and mudroom locker system with bench storage in Nampa",
   },
   {
     serviceType: "basement-finish",
@@ -53,7 +53,7 @@ export const GALLERY_PROJECTS: GalleryProject[] = [
     afterImageUrl: GALLERY_IMAGES.basement.after,
     title: "Basement Wet Bar Cabinets",
     description:
-      "Custom wet bar and storage cabinets in a finished Boise basement entertainment space",
+      "Custom wet bar and storage cabinets in a Boise basement entertainment space",
   },
   {
     serviceType: "outdoor-kitchen",
@@ -62,6 +62,6 @@ export const GALLERY_PROJECTS: GalleryProject[] = [
     afterImageUrl: GALLERY_IMAGES.outdoor.after,
     title: "Outdoor Kitchen Cabinets",
     description:
-      "Weather-rated outdoor kitchen cabinetry with Reserve cedar finish under a covered patio in Meridian",
+      "Weather-rated outdoor kitchen cabinetry with durable finish under a covered patio in Meridian",
   },
 ];

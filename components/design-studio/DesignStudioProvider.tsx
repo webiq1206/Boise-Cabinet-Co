@@ -67,7 +67,7 @@ export interface DesignState {
   shareToken: string | null;
   pricingSubmitted: boolean;
   moduleOverrides: Record<string, ModuleOverride>;
-  /** Placed cabinet modules — single source of truth for 2D planner + 3D preview. */
+  /** Placed cabinet modules, single source of truth for 2D planner + 3D preview. */
   modules: CabinetModule[];
   /** Room rectangle the planner snaps to (meters). */
   roomBounds: RoomBounds | null;
@@ -309,20 +309,16 @@ export function DesignStudioProvider({ children }: { children: ReactNode }) {
     (step: number) => {
       switch (step) {
         case 0:
-          return design.roomType !== null;
+          return (
+            design.roomType !== null && isScannedRoom(design.roomMeta)
+          );
         case 1:
-          return isScannedRoom(design.roomMeta);
-        case 2:
           return design.layout !== null;
-        case 3:
+        case 2:
           return design.collection !== null;
-        case 4:
+        case 3:
           return design.doorStyle !== null && design.finish !== null;
-        case 5:
-          return design.hardware !== null;
-        case 6:
-          return true;
-        case 7:
+        case 4:
           return design.roomType !== null && design.collection !== null;
         default:
           return false;
@@ -400,7 +396,7 @@ export function DesignStudioProvider({ children }: { children: ReactNode }) {
       }));
       setVersions(loaded);
     } catch {
-      /* ignore — versions are a best-effort enhancement */
+      /* ignore, versions are a best-effort enhancement */
     }
   }, []);
 

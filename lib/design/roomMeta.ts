@@ -30,7 +30,7 @@ export interface RoomMeta {
   obstacles: RoomObstacle[];
   /** Ready for layout validation (set automatically or by user). */
   userConfirmed: boolean;
-  /** How the size was determined — shown in UI for transparency. */
+  /** How the size was determined, shown in UI for transparency. */
   source?: RoomDimensionSource;
   /** AR floor corner points (metres), persisted for reload. */
   scanPoints?: { x: number; y: number; z: number }[];

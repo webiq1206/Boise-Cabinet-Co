@@ -103,7 +103,7 @@ export const CABINET_TYPES: CabinetType[] = [
     category: "base",
     name: "Drawer Base",
     description:
-      "Base cabinet configured entirely as drawers — typically three equal drawers or one shallow plus two deep. Ideal for utensil storage and pot-and-pan drawers with heavy-duty slides.",
+      "Base cabinet configured entirely as drawers, typically three equal drawers or one shallow plus two deep. Ideal for utensil storage and pot-and-pan drawers with heavy-duty slides.",
     nomenclature: {
       example: "DB24",
       pattern: "DB{width}",
@@ -196,7 +196,7 @@ export const CABINET_TYPES: CabinetType[] = [
     category: "vanity",
     name: "Vanity Cabinet",
     description:
-      "Shallower-depth base cabinets sized for bathrooms. Standard height is 31-1/2 inches for vessel sinks or 34-1/2 inches for undermount — configurable per bath design in your written scope.",
+      "Shallower-depth base cabinets sized for bathrooms. Standard height is 31-1/2 inches for vessel sinks or 34-1/2 inches for undermount, configurable per bath design in your written scope.",
     nomenclature: {
       example: "V3621",
       pattern: "V{width}{depth}",

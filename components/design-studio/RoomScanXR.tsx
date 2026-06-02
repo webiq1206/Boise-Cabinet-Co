@@ -3,10 +3,9 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import { Button } from "@/components/ui/button";
-import { Loader2, RotateCcw, Undo2, X } from "lucide-react";
+import { Camera, Loader2, RotateCcw, Undo2, X } from "lucide-react";
 import {
   boundsFromScanPoints,
-  SCAN_CORNER_LABELS,
   SCAN_CORNERS_REQUIRED,
   type ScanPoint3,
 } from "@/lib/design/roomScanGeometry";
@@ -17,6 +16,8 @@ import {
 import type { RoomBounds } from "@/lib/design/previewConfig";
 import type { RoomMeta } from "@/lib/design/roomMeta";
 import { trackDesignEvent } from "@/lib/design/designAnalytics";
+import { scanCopy, SCAN_CORNER_USER_LABELS } from "@/shared/designStudioCopy";
+import { RoomScanFloorHint } from "./RoomScanFloorHint";
 
 type XRNavigator = Navigator & {
   xr?: XRSystem;
@@ -36,6 +37,7 @@ interface RoomScanXRProps {
   ceilingIn?: number;
   onClose: () => void;
   onComplete: (result: RoomScanResult) => void;
+  onPhotoFallback?: () => void;
 }
 
 export function RoomScanXR({
@@ -44,6 +46,7 @@ export function RoomScanXR({
   ceilingIn = 96,
   onClose,
   onComplete,
+  onPhotoFallback,
 }: RoomScanXRProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const finishScanRef = useRef<() => void>(() => {});
@@ -86,18 +89,20 @@ export function RoomScanXR({
       return;
     }
 
-    trackDesignEvent("scan_started", { method: mode === "walls" ? "wall-run" : "ar" });
+    trackDesignEvent("scan_started", {
+      method: mode === "walls" ? "wall-run" : "ar",
+    });
 
     let cancelled = false;
 
     async function start() {
       setStatus("checking");
-      setMessage("Checking AR support…");
+      setMessage("Starting camera…");
 
       const nav = navigator as XRNavigator;
       if (!nav.xr) {
         setStatus("unsupported");
-        setMessage("WebXR is not available on this device.");
+        setMessage(scanCopy.arUnavailable);
         trackDesignEvent("ar_unsupported");
         return;
       }
@@ -106,15 +111,13 @@ export function RoomScanXR({
         const supported = await nav.xr.isSessionSupported("immersive-ar");
         if (!supported) {
           setStatus("unsupported");
-          setMessage(
-            "AR scanning needs a phone or tablet with Chrome (Android) or Safari (iOS 17+).",
-          );
+          setMessage(scanCopy.arUnavailable);
           trackDesignEvent("ar_unsupported");
           return;
         }
       } catch {
         setStatus("unsupported");
-        setMessage("Could not start AR on this browser.");
+        setMessage(scanCopy.arUnavailable);
         trackDesignEvent("ar_unsupported");
         return;
       }
@@ -125,8 +128,8 @@ export function RoomScanXR({
       setStatus("scanning");
       setMessage(
         mode === "walls"
-          ? `Tap ${WALL_SCAN_MIN_POINTS}+ points along your floor outline (L/U rooms).`
-          : `Tap ${SCAN_CORNER_LABELS[0]} on the floor where walls meet.`,
+          ? `Tap ${WALL_SCAN_MIN_POINTS}+ points along your floor outline.`
+          : scanCopy.arInstructionFirst,
       );
 
       const renderer = new THREE.WebGLRenderer({
@@ -157,7 +160,7 @@ export function RoomScanXR({
       } catch (e) {
         setStatus("error");
         setMessage(
-          e instanceof Error ? e.message : "AR permission denied or unavailable.",
+          e instanceof Error ? e.message : scanCopy.arUnavailable,
         );
         renderer.dispose();
         return;
@@ -183,17 +186,16 @@ export function RoomScanXR({
           setMessage(
             count >= WALL_SCAN_MIN_POINTS
               ? "Outline captured. Tap Done."
-              : `Point ${count} — keep tapping along walls (${WALL_SCAN_MIN_POINTS} minimum).`,
+              : `Point ${count}, keep tapping along walls (${WALL_SCAN_MIN_POINTS} minimum).`,
           );
           return;
         }
         if (count >= SCAN_CORNERS_REQUIRED) {
-          setMessage("All corners marked. Tap Done.");
+          setMessage(scanCopy.arAllDone);
           return;
         }
-        setMessage(
-          `Tap ${SCAN_CORNER_LABELS[count]} (${count + 1} of ${SCAN_CORNERS_REQUIRED}).`,
-        );
+        const label = SCAN_CORNER_USER_LABELS[count] ?? "corner";
+        setMessage(scanCopy.arInstructionNext(label, count + 1, SCAN_CORNERS_REQUIRED));
       };
 
       const onSelect = (event: XRInputSourceEvent) => {
@@ -239,15 +241,13 @@ export function RoomScanXR({
 
       finishScanRef.current = () => {
         if (cornerPoints.length < requiredPoints) {
-          setMessage(
-            `Mark ${requiredPoints - cornerPoints.length} more point(s) on the floor.`,
-          );
+          setMessage(scanCopy.arNeedMore(requiredPoints - cornerPoints.length));
           return;
         }
         if (mode === "walls") {
           const wallResult = roomMetaFromWallPoints(cornerPoints, { ceilingIn });
           if (!wallResult) {
-            setMessage("Room too small — stand farther back and re-mark points.");
+            setMessage(scanCopy.arTooSmall);
             return;
           }
           stopSession();
@@ -266,7 +266,7 @@ export function RoomScanXR({
 
         const cornerResult = boundsFromScanPoints(cornerPoints);
         if (!cornerResult) {
-          setMessage("Room too small — stand farther back and re-mark corners.");
+          setMessage(scanCopy.arTooSmall);
           return;
         }
         const meta = { ...cornerResult.meta, ceilingIn };
@@ -358,12 +358,19 @@ export function RoomScanXR({
             <X className="h-5 w-5" />
           </Button>
         </div>
+        {status === "scanning" && mode === "corners" && (
+          <div className="pointer-events-none text-white/80 text-center text-xs mt-2">
+            <RoomScanFloorHint />
+            <p>{scanCopy.standInDoorway}</p>
+          </div>
+        )}
         <div className="flex-1" />
         <div className="p-4 pb-8 pointer-events-auto bg-gradient-to-t from-black/80 to-transparent space-y-3">
-          <p className="text-white/90 text-center text-sm">
-            {cornerCount} / {requiredPoints}
-            {mode === "walls" ? "+ wall points" : " floor corners"}
-          </p>
+          {status === "scanning" && (
+            <p className="text-white/90 text-center text-sm">
+              {scanCopy.cornerProgress(cornerCount, requiredPoints)}
+            </p>
+          )}
           {status === "checking" && (
             <div className="flex justify-center text-white">
               <Loader2 className="h-8 w-8 animate-spin" />
@@ -381,7 +388,7 @@ export function RoomScanXR({
                   data-testid="button-scan-undo"
                 >
                   <Undo2 className="h-4 w-4" />
-                  Undo
+                  {scanCopy.arUndo}
                 </Button>
                 <Button
                   type="button"
@@ -392,7 +399,7 @@ export function RoomScanXR({
                   data-testid="button-scan-reset"
                 >
                   <RotateCcw className="h-4 w-4" />
-                  Reset
+                  {scanCopy.arReset}
                 </Button>
               </div>
               <Button
@@ -403,14 +410,28 @@ export function RoomScanXR({
                 onClick={finishScan}
                 data-testid="button-scan-done"
               >
-                Done — use scanned size
+                {scanCopy.arDone}
               </Button>
             </div>
           )}
           {(status === "unsupported" || status === "error") && (
-            <Button type="button" variant="outline" className="w-full" onClick={onClose}>
-              Close
-            </Button>
+            <div className="flex flex-col gap-2">
+              {onPhotoFallback && (
+                <Button
+                  type="button"
+                  variant="brand"
+                  className="w-full"
+                  onClick={onPhotoFallback}
+                  data-testid="button-ar-photo-fallback"
+                >
+                  <Camera className="h-4 w-4" />
+                  {scanCopy.arTryPhoto}
+                </Button>
+              )}
+              <Button type="button" variant="outline" className="w-full" onClick={onClose}>
+                Close
+              </Button>
+            </div>
           )}
         </div>
       </div>

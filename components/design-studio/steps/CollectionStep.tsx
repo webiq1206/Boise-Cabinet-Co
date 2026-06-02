@@ -16,7 +16,7 @@ export function CollectionStep() {
           Choose your <em className="brc-accent text-accent">collection</em>
         </h2>
         <p className="text-muted-foreground mt-2">
-          Frameless Euro construction with soft-close hardware on every line.
+          Sleek cabinets with soft-close doors on every line.
         </p>
       </div>
 

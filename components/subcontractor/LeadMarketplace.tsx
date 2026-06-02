@@ -146,9 +146,9 @@ interface Lead {
 }
 
 const PRIORITY_SERVICES = [
-  { slug: "kitchen-remodel", name: "Kitchen Remodel" },
-  { slug: "bathroom-remodel", name: "Bathroom Remodel" },
-  { slug: "whole-home-remodel", name: "Whole-Home Remodel" },
+  { slug: "kitchen-remodel", name: "Kitchen Cabinets" },
+  { slug: "bathroom-remodel", name: "Bathroom Vanities" },
+  { slug: "whole-home-remodel", name: "Whole-Home Cabinetry" },
   { slug: "room-addition", name: "Room Addition" },
   { slug: "basement-finish", name: "Basement Finish" },
   { slug: "outdoor-living", name: "Outdoor Living" },
@@ -2076,14 +2076,14 @@ function SubcontractorPortalContent() {
                 </li>
                 <li>
                   <strong>Professional Conduct:</strong> You agree to conduct yourself professionally when 
-                  contacting customers. You represent your own business, not Boise Remodeling Co.
+                  contacting customers. You represent your own business, not Boise Cabinet Co.
                 </li>
                 <li>
                   <strong>No Resale:</strong> You may not resell, share, or transfer leads to any third party.
                 </li>
                 <li>
                   <strong>Insurance & Licensing:</strong> You warrant that you maintain appropriate business 
-                  insurance and any required licenses for remodeling and construction services in Idaho.
+                  insurance and any required licenses for cabinet installation and related trade work in Idaho.
                 </li>
                 <li>
                   <strong>Privacy:</strong> Customer information is confidential. You agree not to use contact 

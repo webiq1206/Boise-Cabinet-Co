@@ -16,17 +16,17 @@ function clusterFaqs(
     {
       question: 'What is included in a cabinet quote?',
       answer:
-        'Our quotes specify cabinet line, boxes, fronts, hardware, delivery, and installation—countertops and appliances are typically separate.',
+        'Our quotes specify cabinet line, boxes, fronts, hardware, delivery, and installation, countertops and appliances are typically separate.',
     },
     {
       question: 'How long until cabinets are installed?',
       answer:
-        'Timelines vary by line and finish—often several weeks of design plus 6–12 weeks fabrication after design lock.',
+        'Timelines vary by line and finish, often several weeks of design plus 6–12 weeks fabrication after design lock.',
     },
     {
       question: 'Can I supply my own countertops?',
       answer:
-        'Yes—we coordinate cabinet installation with your countertop fabricator’s schedule.',
+        'Yes, we coordinate cabinet installation with your countertop fabricator’s schedule.',
     },
     {
       question: 'Do you serve Meridian and Eagle?',
@@ -46,7 +46,7 @@ function clusterFaqs(
     {
       question: 'Should I hold contingency?',
       answer:
-        'Yes—10–15% is prudent for field adjustments and late layout changes in older Treasure Valley homes.',
+        'Yes, 10–15% is prudent for field adjustments and late layout changes in older Treasure Valley homes.',
     },
   ];
 }
@@ -100,7 +100,7 @@ export const WAVE1_COST_CLUSTERS: BlogPostData[] = [
     'Bathroom Vanity Cost Boise: Guest vs Master',
     'Bathroom Vanity Cost Boise Idaho',
     'Bathroom vanity cabinet cost in Boise and the Treasure Valley: guest baths, master suites, and storage options.',
-    'Guest and master vanity cabinets sit on different budgets—plan with realistic Treasure Valley ranges.',
+    'Guest and master vanity cabinets sit on different budgets, plan with realistic Treasure Valley ranges.',
     ['bathroom', 'cost', 'vanity', 'boise'],
   ),
   makeCostCluster(

@@ -23,7 +23,7 @@ export function RoomCategoriesGrid() {
               <em className="brc-accent text-accent">room</em>
             </>
           }
-          description="From kitchen and bath to mudroom, closet, and garage — every cabinet is made to order with your choice of door style, finish, and hardware."
+          description="From kitchen and bath to mudroom, closet, and garage, every cabinet is made to order with your choice of door style, finish, and hardware."
         />
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">

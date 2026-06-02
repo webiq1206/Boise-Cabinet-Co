@@ -6,11 +6,11 @@ const FOOTER = `${SITE_CONFIG.name} | ${SITE_CONFIG.siteUrl} | Planning resource
 export const BUDGET_WORKSHEET_BLOCKS: PdfBlock[] = [
   {
     type: 'title',
-    text: 'Treasure Valley Remodel Budget Worksheet',
+    text: 'Treasure Valley Cabinet Budget Worksheet',
   },
   {
     type: 'subtitle',
-    text: 'Use with our Boise Cabinet Cost Guide. Planning ranges only—firm numbers require written scope.',
+    text: 'Use with our Boise Cabinet Cost Guide. Planning ranges only, firm numbers require written scope.',
   },
   { type: 'heading', text: '1. Project snapshot' },
   {
@@ -19,7 +19,7 @@ export const BUDGET_WORKSHEET_BLOCKS: PdfBlock[] = [
       'Property address: _________________________________',
       'City (Ada / Canyon): _____________________________',
       'Target start season: _____________________________',
-      'Will you occupy during construction? Yes / No',
+      'Will you occupy during installation? Yes / No',
     ],
   },
   { type: 'heading', text: '2. Planning ranges by project type (2026 bands)' },
@@ -27,11 +27,11 @@ export const BUDGET_WORKSHEET_BLOCKS: PdfBlock[] = [
     type: 'table',
     headers: ['Project', 'Low planning', 'High planning', 'Your target'],
     rows: [
-      ['Kitchen (full)', '$45,000', '$120,000+', '___________'],
-      ['Bath (guest)', '$18,000', '$45,000', '___________'],
-      ['Bath (master)', '$35,000', '$85,000+', '___________'],
-      ['Whole-home', '$150,000', '$400,000+', '___________'],
-      ['Addition', '$80,000', '$250,000+', '___________'],
+      ['Kitchen cabinets', '$15,000', '$65,000+', '___________'],
+      ['Bath vanity', '$2,500', '$18,000', '___________'],
+      ['Built-ins / pantry', '$4,000', '$25,000', '___________'],
+      ['Whole-home program', '$40,000', '$150,000+', '___________'],
+      ['Closet / garage', '$2,000', '$45,000', '___________'],
     ],
   },
   { type: 'heading', text: '3. Budget line items (separate buckets)' },
@@ -40,7 +40,7 @@ export const BUDGET_WORKSHEET_BLOCKS: PdfBlock[] = [
     headers: ['Category', 'Planned $', 'Notes'],
     rows: [
       ['Design & permits', '___________', ''],
-      ['Construction contract', '___________', ''],
+      ['Cabinet contract', '___________', ''],
       ['Appliances (if kitchen)', '___________', 'Client-supplied typical'],
       ['Furnishings / window treatments', '___________', ''],
       ['Contingency (10–15%)', '___________', 'Older homes: use high end'],
@@ -62,7 +62,7 @@ export const BUDGET_WORKSHEET_BLOCKS: PdfBlock[] = [
     type: 'bullets',
     items: [
       `Online estimator: ${SITE_CONFIG.siteUrl}/#calculator`,
-      `Cost guide: ${SITE_CONFIG.siteUrl}/guides/boise-remodeling-cost-guide`,
+      `Cost guide: ${SITE_CONFIG.siteUrl}/guides/boise-cabinet-cost-guide`,
       `Schedule consultation: ${SITE_CONFIG.siteUrl}/contact`,
       `Phone: ${SITE_CONFIG.phone}`,
     ],
@@ -76,7 +76,7 @@ export const KITCHEN_BATH_CHECKLIST_BLOCKS: PdfBlock[] = [
   },
   {
     type: 'subtitle',
-    text: 'Treasure Valley design-build — print and bring to your consultation.',
+    text: 'Treasure Valley cabinet design and installation, print and bring to your consultation.',
   },
   { type: 'heading', text: 'Before design starts' },
   {
@@ -93,7 +93,7 @@ export const KITCHEN_BATH_CHECKLIST_BLOCKS: PdfBlock[] = [
   {
     type: 'checkboxes',
     items: [
-      'Appliance list (or placeholders) — rough-in before drywall',
+      'Appliance list (or placeholders), rough-in before drywall',
       'Cabinet line: stock / semi-custom / custom',
       'Island size and walkway clearances',
       'Open wall removal? Structural beam needed?',
@@ -104,7 +104,7 @@ export const KITCHEN_BATH_CHECKLIST_BLOCKS: PdfBlock[] = [
   {
     type: 'checkboxes',
     items: [
-      'Guest vs master — separate budgets',
+      'Guest vs master, separate budgets',
       'Shower type: curbless / walk-in / tub-shower',
       'Ventilation and heat planned with layout',
       'Aging-in-place features (height, blocking, width)',
@@ -123,7 +123,7 @@ export const KITCHEN_BATH_CHECKLIST_BLOCKS: PdfBlock[] = [
       ['Construction start', '___________', '[ ]'],
     ],
   },
-  { type: 'heading', text: 'During construction' },
+  { type: 'heading', text: 'during installation' },
   {
     type: 'checkboxes',
     items: [
@@ -137,9 +137,9 @@ export const KITCHEN_BATH_CHECKLIST_BLOCKS: PdfBlock[] = [
   {
     type: 'bullets',
     items: [
-      `${SITE_CONFIG.siteUrl}/guides/boise-kitchen-remodeling-guide`,
-      `${SITE_CONFIG.siteUrl}/guides/boise-bathroom-remodeling-guide`,
-      `${SITE_CONFIG.siteUrl}/guides/boise-remodeling-process-guide`,
+      `${SITE_CONFIG.siteUrl}/guides/boise-kitchen-cabinets-guide`,
+      `${SITE_CONFIG.siteUrl}/guides/boise-bathroom-vanities-guide`,
+      `${SITE_CONFIG.siteUrl}/guides/boise-cabinet-project-process-guide`,
     ],
   },
 ];
@@ -147,11 +147,11 @@ export const KITCHEN_BATH_CHECKLIST_BLOCKS: PdfBlock[] = [
 export const ADA_CANYON_PERMIT_BLOCKS: PdfBlock[] = [
   {
     type: 'title',
-    text: 'Ada vs Canyon County Remodel Permits',
+    text: 'Ada vs Canyon County Cabinet Permits',
   },
   {
     type: 'subtitle',
-    text: 'Quick reference for Treasure Valley homeowners — timelines are estimates.',
+    text: 'Quick reference for Treasure Valley homeowners, timelines are estimates.',
   },
   { type: 'heading', text: 'Which county am I in?' },
   {
@@ -190,7 +190,7 @@ export const ADA_CANYON_PERMIT_BLOCKS: PdfBlock[] = [
     rows: [
       ['Plan prep', '2–6 weeks', '2–6 weeks'],
       ['Review / comments', '2–8 weeks', '2–8 weeks'],
-      ['Inspections', 'During construction', 'During construction'],
+      ['Inspections', 'during installation', 'during installation'],
     ],
   },
   { type: 'heading', text: 'Homeowner checklist' },
@@ -210,7 +210,7 @@ export const ADA_CANYON_PERMIT_BLOCKS: PdfBlock[] = [
     items: [
       `Visual flowchart: ${SITE_CONFIG.siteUrl}/resources/ada-canyon-permit-flow`,
       `Article: ${SITE_CONFIG.siteUrl}/blog/ada-vs-canyon-county-permit-timelines`,
-      `Process guide: ${SITE_CONFIG.siteUrl}/guides/boise-remodeling-process-guide`,
+      `Process guide: ${SITE_CONFIG.siteUrl}/guides/boise-cabinet-project-process-guide`,
     ],
   },
 ];

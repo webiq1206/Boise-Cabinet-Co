@@ -22,7 +22,7 @@ const ACCESSORY_OPTIONS = [
   "Lazy Susan corner",
 ];
 
-export function DetailsStep() {
+export function DetailsStep({ embedded = false }: { embedded?: boolean }) {
   const { design, updateDesign } = useDesignStudio();
 
   const toggleAccessory = (item: string) => {
@@ -34,14 +34,16 @@ export function DetailsStep() {
 
   return (
     <div className="space-y-8">
-      <div>
-        <h2 className="text-2xl font-sans font-light tracking-tight">
-          Hardware & <em className="brc-accent text-accent">details</em>
-        </h2>
-        <p className="text-muted-foreground mt-2">
-          Fine-tune hardware and add-ons for your project.
-        </p>
-      </div>
+      {!embedded && (
+        <div>
+          <h2 className="text-2xl font-sans font-light tracking-tight">
+            Hardware & <em className="brc-accent text-accent">details</em>
+          </h2>
+          <p className="text-muted-foreground mt-2">
+            Pick handles and any extras for your project.
+          </p>
+        </div>
+      )}
 
       <div className="space-y-3">
         <Label className="text-sm font-medium">Hardware</Label>

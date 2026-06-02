@@ -87,7 +87,7 @@ export function CollectionLandingTemplate({ collection }: CollectionLandingTempl
                 key={feature}
                 className="flex gap-2 text-sm text-muted-foreground leading-relaxed"
               >
-                <span className="text-accent shrink-0">—</span>
+                <span className="text-accent shrink-0">, </span>
                 {feature}
               </li>
             ))}
@@ -165,7 +165,7 @@ export function CollectionLandingTemplate({ collection }: CollectionLandingTempl
             <MarketingCard>
               <h3 className="text-base font-medium mb-2">Hardware &amp; quality</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
-                Soft-close hinges included on every door. Drawer slides and pulls are selected during design —
+                Soft-close hinges included on every door. Drawer slides and pulls are selected during design , 
                 Reserve and Full Custom include premium soft-close slides rated for heavy daily use.
               </p>
             </MarketingCard>
@@ -263,7 +263,7 @@ export function CollectionLandingTemplate({ collection }: CollectionLandingTempl
             Ready to design your cabinets?
           </h2>
           <p className="text-inverse-muted mb-6 leading-relaxed">
-            Use Design Studio to explore {collection.name} layouts, finishes, and room configurations —
+            Use Design Studio to explore {collection.name} layouts, finishes, and room configurations , 
             then save your design to your {SITE_CONFIG.name} project.
           </p>
           <Button variant="brand" asChild>

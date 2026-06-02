@@ -18,7 +18,7 @@ export const CABINET_LAYOUTS: CabinetLayout[] = [
     id: "galley",
     slug: "galley",
     name: "Galley",
-    description: "Parallel runs — ideal for narrow spaces",
+    description: "Parallel runs, ideal for narrow spaces",
     applicableRoomSlugs: ["kitchen"],
     sortOrder: 1,
   },

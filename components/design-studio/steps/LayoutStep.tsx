@@ -22,7 +22,7 @@ import {
 } from "@/lib/design/floorPlanExport";
 import { Download, ScanLine } from "lucide-react";
 import { trackDesignEvent } from "@/lib/design/designAnalytics";
-import { RoomScanPanel } from "../RoomScanPanel";
+import { wizardCopy } from "@/shared/designStudioCopy";
 
 export function LayoutStep() {
   const { design, updateDesign, setModules } = useDesignStudio();
@@ -77,13 +77,9 @@ export function LayoutStep() {
       <div className="space-y-4">
         <Alert variant="destructive">
           <ScanLine className="h-4 w-4" />
-          <AlertTitle>Scan your room first</AlertTitle>
-          <AlertDescription>
-            Layout options are based on your real floor size, not guesses. Scan below
-            or go back to the Scan step.
-          </AlertDescription>
+          <AlertTitle>{wizardCopy.layoutNeedScan}</AlertTitle>
+          <AlertDescription>{wizardCopy.layoutNeedScanHint}</AlertDescription>
         </Alert>
-        <RoomScanPanel />
       </div>
     );
   }
@@ -94,12 +90,13 @@ export function LayoutStep() {
     <div className="space-y-6">
       <div>
         <h2 className="text-2xl font-sans font-light tracking-tight">
-          Choose a <em className="brc-accent text-accent">layout</em> that fits
+          Pick a <em className="brc-accent text-accent">layout</em>
         </h2>
         <p className="text-muted-foreground mt-2">
-          Your scanned room is {design.roomMeta!.widthIn}&quot; ×{" "}
-          {design.roomMeta!.depthIn}&quot;. We only highlight layouts that fit;
-          then place cabinets on your actual floor plan.
+          {wizardCopy.layoutHint(
+            design.roomMeta!.widthIn,
+            design.roomMeta!.depthIn,
+          )}
         </p>
       </div>
 
@@ -142,8 +139,7 @@ export function LayoutStep() {
               </p>
               {fit.fits && (
                 <p className="text-xs text-muted-foreground mt-2">
-                  +{fit.widthSlackIn}&quot; width · +{fit.depthSlackIn}&quot; depth
-                  slack
+                  {wizardCopy.layoutSlack(fit.widthSlackIn, fit.depthSlackIn)}
                 </p>
               )}
             </button>

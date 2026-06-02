@@ -185,9 +185,9 @@ export function ARLauncher({ className }: { className?: string }) {
 
   const supportLabel =
     platform === "ios"
-      ? "Opens in AR Quick Look — true-scale cabinets + 12 in reference"
+      ? "Opens in AR Quick Look, true-scale cabinets + 12 in reference"
       : platform === "android"
-        ? "Opens in Google Scene Viewer — true-scale cabinets"
+        ? "Opens in Google Scene Viewer, true-scale cabinets"
         : "Best on a phone or tablet";
 
   return (
@@ -211,7 +211,7 @@ export function ARLauncher({ className }: { className?: string }) {
         {supportLabel}
       </p>
       <p className="text-xs text-muted-foreground mt-1 max-w-xs">
-        Visual only — does not measure your room. Compare the grey 12&quot;
+        Visual only, does not measure your room. Compare the grey 12&quot;
         square to a real foot ruler when placing.
       </p>
 
@@ -221,7 +221,7 @@ export function ARLauncher({ className }: { className?: string }) {
             <DialogTitle>Before AR preview</DialogTitle>
             <DialogDescription>
               Cabinets export at the same sizes as your 2D plan. AR does not scan
-              walls or confirm fit — it helps you visualize finish and scale.
+              walls or confirm fit, it helps you visualize finish and scale.
             </DialogDescription>
           </DialogHeader>
           <ul className="text-sm space-y-2 text-muted-foreground">
@@ -235,13 +235,13 @@ export function ARLauncher({ className }: { className?: string }) {
             </li>
             <li>
               ~{summary.approximateLinearFeet} linear ft of base cabinets (
-              {summary.moduleCount} modules) — planning estimate only.
+              {summary.moduleCount} modules), planning estimate only.
             </li>
             {errorCount > 0 && (
               <li className="flex gap-2 text-destructive">
                 <AlertTriangle className="h-4 w-4 shrink-0" />
                 {errorCount} layout error{errorCount === 1 ? "" : "s"} in the
-                planner — fix in Layout before ordering.
+                planner, fix in Layout before ordering.
               </li>
             )}
           </ul>
@@ -272,7 +272,7 @@ export function ARLauncher({ className }: { className?: string }) {
             <DialogTitle>View in your room on a phone</DialogTitle>
             <DialogDescription>
               Augmented reality needs a phone or tablet camera. Open this page on
-              your iPhone, iPad, or Android device to place true-scale cabinets —
+              your iPhone, iPad, or Android device to place true-scale cabinets , 
               or download the 3D model.
             </DialogDescription>
           </DialogHeader>

@@ -8,10 +8,17 @@ import {
   CheckCircle2,
   Loader2,
   AlertTriangle,
+  ChevronDown,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -23,6 +30,7 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { useToast } from "@/hooks/use-toast";
+import { useIsDesktop } from "@/hooks/use-media-query";
 import { useDesignStudio } from "./DesignStudioProvider";
 import { RoomScanXR, type RoomScanResult, type ScanMode } from "./RoomScanXR";
 import { DesktopScanHandoff } from "./DesktopScanHandoff";
@@ -34,7 +42,8 @@ import { getLayoutsForRoom, type LayoutSlug } from "@/shared/catalog/layouts";
 import type { RoomMeta } from "@/lib/design/roomMeta";
 import type { RoomBounds } from "@/lib/design/previewConfig";
 import { trackDesignEvent } from "@/lib/design/designAnalytics";
-import { SCAN_CORNER_LABELS } from "@/lib/design/roomScanGeometry";
+import { checkArSupport, resolveScanRoute } from "@/lib/design/arSupport";
+import { scanCopy } from "@/shared/designStudioCopy";
 
 function fileToDataUrl(file: File): Promise<string> {
   return new Promise((resolve, reject) => {
@@ -48,10 +57,15 @@ function fileToDataUrl(file: File): Promise<string> {
 export function RoomScanPanel() {
   const { design, updateDesign } = useDesignStudio();
   const { toast } = useToast();
+  const isDesktop = useIsDesktop();
   const [xrOpen, setXrOpen] = useState(false);
   const [scanMode, setScanMode] = useState<ScanMode>("corners");
   const [photoLoading, setPhotoLoading] = useState(false);
-  const [ceilingIn, setCeilingIn] = useState(96);
+  const [smartScanLoading, setSmartScanLoading] = useState(false);
+  const [altOpen, setAltOpen] = useState(false);
+  const [advancedOpen, setAdvancedOpen] = useState(false);
+  const [arAlert, setArAlert] = useState<string | null>(null);
+  const [ceilingIn] = useState(96);
   const [pendingVision, setPendingVision] = useState<{
     roomMeta: RoomMeta;
     roomBounds: RoomBounds;
@@ -61,9 +75,11 @@ export function RoomScanPanel() {
   } | null>(null);
   const [lowConfAck, setLowConfAck] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
+  const handoffRef = useRef<HTMLDivElement>(null);
 
   const scanned = isScannedRoom(design.roomMeta);
   const meta = design.roomMeta;
+  const roomSelected = design.roomType !== null;
 
   function applyScan(roomMeta: RoomMeta, roomBounds: RoomScanResult["roomBounds"]) {
     const synced = syncRoomForModules({
@@ -94,15 +110,60 @@ export function RoomScanPanel() {
     setXrOpen(false);
     applyScan(result.meta, result.roomBounds);
     toast({
-      title: "Room scanned",
-      description: `${result.meta.widthIn}" × ${result.meta.depthIn}" captured.`,
+      title: scanCopy.roomCaptured,
+      description: `${result.meta.widthIn}" × ${result.meta.depthIn}"`,
     });
   }
 
-  function openAr(mode: ScanMode) {
+  async function openAr(mode: ScanMode) {
+    setArAlert(null);
+    const support = await checkArSupport();
+    if (!support.ok) {
+      setArAlert(support.reason);
+      trackDesignEvent("ar_unsupported");
+      return;
+    }
     setScanMode(mode);
     setXrOpen(true);
-    trackDesignEvent("scan_method", { method: mode === "walls" ? "wall-run" : "ar-scan" });
+    trackDesignEvent("scan_method", {
+      method: mode === "walls" ? "wall-run" : "ar-scan",
+    });
+  }
+
+  function triggerPhotoPicker() {
+    fileRef.current?.click();
+  }
+
+  async function handleSmartScan() {
+    if (!roomSelected) {
+      toast({
+        title: "Pick a room first",
+        description: "Choose which room you're designing above.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setSmartScanLoading(true);
+    setArAlert(null);
+    try {
+      const route = await resolveScanRoute(isDesktop);
+      if (route === "desktop-handoff") {
+        handoffRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+        toast({
+          title: scanCopy.desktopScanHint,
+          description: "Scan the QR code with your phone to measure your room.",
+        });
+        return;
+      }
+      if (route === "ar") {
+        await openAr("corners");
+        return;
+      }
+      triggerPhotoPicker();
+    } finally {
+      setSmartScanLoading(false);
+    }
   }
 
   async function handlePhotoScan(file: File) {
@@ -121,12 +182,7 @@ export function RoomScanPanel() {
       if (!res.ok) {
         const err = (await res.json()) as { error?: string };
         const msg =
-          typeof err.error === "string" ? err.error : "Photo scan failed";
-        if (res.status === 503) {
-          throw new Error(
-            `${msg} Use phone AR scan, or enter W×D from a laser measure below.`,
-          );
-        }
+          typeof err.error === "string" ? err.error : scanCopy.photoFailed;
         throw new Error(msg);
       }
       const data = (await res.json()) as {
@@ -172,13 +228,14 @@ export function RoomScanPanel() {
       updateDesign({ photoUrl: image });
       trackDesignEvent("scan_completed", { method: "vision-scan" });
       toast({
-        title: "Room estimated from photo",
-        description: `${data.widthIn}" × ${data.depthIn}" (${data.confidence} confidence).`,
+        title: scanCopy.photoSuccess,
+        description: `${data.widthIn}" × ${data.depthIn}"`,
       });
     } catch (e) {
       toast({
-        title: "Could not scan photo",
-        description: e instanceof Error ? e.message : "Try AR scan on your phone.",
+        title: scanCopy.photoFailed,
+        description:
+          e instanceof Error ? e.message : scanCopy.photoFailedHint,
         variant: "destructive",
       });
     } finally {
@@ -191,8 +248,7 @@ export function RoomScanPanel() {
     const d = parseInt(String(design.roomMeta?.depthIn ?? 0), 10);
     if (w < 48 || d < 48) {
       toast({
-        title: "Enter valid dimensions",
-        description: "Width and depth must be at least 48 inches.",
+        title: scanCopy.manualInvalid,
         variant: "destructive",
       });
       return;
@@ -216,32 +272,37 @@ export function RoomScanPanel() {
     trackDesignEvent("scan_completed", { method: "manual" });
   }
 
+  const loading = photoLoading || smartScanLoading;
+
   return (
     <div className="space-y-4" data-testid="room-scan-panel">
-      <DesktopScanHandoff />
+      <div ref={handoffRef}>
+        <DesktopScanHandoff />
+      </div>
 
       {scanned && meta ? (
         <div className="flex items-start gap-3 rounded-md border border-accent/40 bg-accent/10 p-4">
           <CheckCircle2 className="h-5 w-5 text-accent shrink-0 mt-0.5" />
           <div>
-            <p className="text-sm font-medium">Room captured</p>
+            <p className="text-sm font-medium">{scanCopy.roomCaptured}</p>
             <p className="text-sm text-muted-foreground mt-0.5">
               {meta.widthIn}&quot; × {meta.depthIn}&quot;
-              {meta.ceilingIn ? `, ${meta.ceilingIn}" ceiling` : ""} —{" "}
+              {meta.ceilingIn ? `, ${meta.ceilingIn}" ceiling` : ""} , {" "}
               {meta.source === "ar-scan"
-                ? "measured in AR"
+                ? scanCopy.sourceAr
                 : meta.source === "vision-scan"
-                  ? `photo estimate${meta.scanConfidence ? ` (${meta.scanConfidence})` : ""}`
-                  : "entered manually"}
+                  ? scanCopy.sourcePhoto
+                  : scanCopy.sourceManual}
               .
             </p>
             <Button
               type="button"
-              variant="link"
-              className="h-auto p-0 mt-2 text-sm"
-              onClick={() => openAr("corners")}
+              variant="ghost"
+              className="h-auto p-0 mt-2 text-sm text-accent underline-offset-4 hover:underline"
+              onClick={() => void handleSmartScan()}
+              data-testid="button-start-ar-scan"
             >
-              Scan again
+              {scanCopy.scanAgain}
             </Button>
           </div>
         </div>
@@ -250,76 +311,49 @@ export function RoomScanPanel() {
           <div className="rounded-md border-2 border-dashed border-primary/30 bg-primary/5 p-5">
             <h3 className="text-lg font-medium flex items-center gap-2">
               <ScanLine className="h-5 w-5 text-accent" />
-              Scan your room first
+              {scanCopy.panelTitle}
             </h3>
-            <p className="text-sm text-muted-foreground mt-2">
-              Measure your real floor in AR (best on phone) or from a wide room photo.
-              Layouts are ranked to fit this space—not generic template sizes.
-            </p>
+            <p className="text-sm text-muted-foreground mt-2">{scanCopy.panelHint}</p>
 
-            <ol className="mt-4 space-y-1 text-sm list-decimal list-inside text-muted-foreground">
-              {SCAN_CORNER_LABELS.map((label) => (
-                <li key={label}>
-                  Tap <span className="font-medium text-foreground">{label}</span> where
-                  walls meet the floor
-                </li>
-              ))}
-            </ol>
-
-            <div className="grid gap-3 sm:grid-cols-2 mt-4 max-w-xs">
-              <div className="space-y-1.5">
-                <Label htmlFor="ceiling-in" className="text-xs">
-                  Ceiling height (in)
-                </Label>
-                <Input
-                  id="ceiling-in"
-                  type="number"
-                  min={84}
-                  max={144}
-                  value={ceilingIn}
-                  onChange={(e) => setCeilingIn(Number(e.target.value) || 96)}
-                  data-testid="input-ceiling-height"
-                />
-              </div>
-            </div>
-
-            <div className="flex flex-col sm:flex-row gap-3 mt-4">
-              <Button
-                type="button"
-                variant="brand"
-                className="flex-1"
-                onClick={() => openAr("corners")}
-                data-testid="button-start-ar-scan"
-              >
-                <Smartphone className="h-4 w-4" />
-                Scan with phone AR
-              </Button>
-              <Button
-                type="button"
-                variant="outline"
-                className="flex-1"
-                disabled={photoLoading}
-                onClick={() => fileRef.current?.click()}
-                data-testid="button-scan-from-photo"
-              >
-                {photoLoading ? (
-                  <Loader2 className="h-4 w-4 animate-spin" />
-                ) : (
-                  <Camera className="h-4 w-4" />
-                )}
-                Scan from photo
-              </Button>
-            </div>
+            {arAlert && (
+              <Alert variant="destructive" className="mt-4">
+                <AlertDescription className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+                  <span>{arAlert}</span>
+                  <Button
+                    type="button"
+                    size="sm"
+                    variant="outline"
+                    className="shrink-0"
+                    onClick={triggerPhotoPicker}
+                    data-testid="button-scan-from-photo"
+                  >
+                    {scanCopy.arTryPhoto}
+                  </Button>
+                </AlertDescription>
+              </Alert>
+            )}
 
             <Button
               type="button"
-              variant="ghost"
-              className="w-full mt-2 text-sm"
-              onClick={() => openAr("walls")}
-              data-testid="button-wall-scan"
+              variant="brand"
+              className="w-full mt-4"
+              disabled={loading || !roomSelected}
+              onClick={() => void handleSmartScan()}
+              data-testid="button-smart-scan"
             >
-              L- or U-shaped room? Trace wall outline (6+ points)
+              {loading ? (
+                <Loader2 className="h-4 w-4 animate-spin" />
+              ) : (
+                <ScanLine className="h-4 w-4" />
+              )}
+              {loading ? scanCopy.primaryButtonLoading : scanCopy.primaryButton}
             </Button>
+
+            {!roomSelected && (
+              <p className="text-xs text-muted-foreground mt-2 text-center">
+                Pick a room type above first.
+              </p>
+            )}
 
             <input
               ref={fileRef}
@@ -333,72 +367,132 @@ export function RoomScanPanel() {
                 e.target.value = "";
               }}
             />
-          </div>
 
-          <RoomPlanImport
-            onImport={(roomMeta, roomBounds) => {
-              applyScan(roomMeta, roomBounds);
-              trackDesignEvent("scan_completed", { method: "roomplan" });
-            }}
-          />
+            <Collapsible open={altOpen} onOpenChange={setAltOpen} className="mt-3">
+              <CollapsibleTrigger asChild>
+                <Button
+                  type="button"
+                  variant="ghost"
+                  className="w-full text-sm text-muted-foreground"
+                >
+                  {scanCopy.tryDifferent}
+                  <ChevronDown
+                    className={`h-4 w-4 ml-1 transition-transform ${altOpen ? "rotate-180" : ""}`}
+                  />
+                </Button>
+              </CollapsibleTrigger>
+              <CollapsibleContent className="space-y-2 pt-2">
+                <Button
+                  type="button"
+                  variant="outline"
+                  className="w-full"
+                  onClick={() => void openAr("corners")}
+                >
+                  <Smartphone className="h-4 w-4" />
+                  {scanCopy.measureWithCamera}
+                </Button>
+                <Button
+                  type="button"
+                  variant="outline"
+                  className="w-full"
+                  disabled={photoLoading}
+                  onClick={triggerPhotoPicker}
+                >
+                  <Camera className="h-4 w-4" />
+                  {scanCopy.takePhoto}
+                </Button>
 
-          <div className="rounded-md border p-4 space-y-3">
-            <p className="text-sm font-medium">No photo API? Enter W × D (inches)</p>
-            <div className="grid grid-cols-2 gap-3 max-w-sm">
-              <div className="space-y-1">
-                <Label htmlFor="manual-w" className="text-xs">
-                  Width
-                </Label>
-                <Input
-                  id="manual-w"
-                  type="number"
-                  placeholder="120"
-                  onChange={(e) =>
-                    updateDesign({
-                      roomMeta: {
-                        widthIn: Number(e.target.value) || 0,
-                        depthIn: design.roomMeta?.depthIn ?? 0,
-                        obstacles: [],
-                        userConfirmed: false,
-                        source: "manual",
-                      },
-                    })
-                  }
-                  data-testid="input-manual-width"
+                <Collapsible open={advancedOpen} onOpenChange={setAdvancedOpen}>
+                  <CollapsibleTrigger asChild>
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      className="w-full text-sm"
+                    >
+                      {scanCopy.typeSizeAdvanced}
+                      <ChevronDown
+                        className={`h-4 w-4 ml-1 transition-transform ${advancedOpen ? "rotate-180" : ""}`}
+                      />
+                    </Button>
+                  </CollapsibleTrigger>
+                  <CollapsibleContent className="rounded-md border p-4 space-y-3 mt-2">
+                    <p className="text-sm font-medium">{scanCopy.manualTitle}</p>
+                    <div className="grid grid-cols-2 gap-3">
+                      <div className="space-y-1">
+                        <Label htmlFor="manual-w" className="text-xs">
+                          Width
+                        </Label>
+                        <Input
+                          id="manual-w"
+                          type="number"
+                          placeholder="120"
+                          onChange={(e) =>
+                            updateDesign({
+                              roomMeta: {
+                                widthIn: Number(e.target.value) || 0,
+                                depthIn: design.roomMeta?.depthIn ?? 0,
+                                obstacles: [],
+                                userConfirmed: false,
+                                source: "manual",
+                              },
+                            })
+                          }
+                          data-testid="input-manual-width"
+                        />
+                      </div>
+                      <div className="space-y-1">
+                        <Label htmlFor="manual-d" className="text-xs">
+                          Depth
+                        </Label>
+                        <Input
+                          id="manual-d"
+                          type="number"
+                          placeholder="144"
+                          onChange={(e) =>
+                            updateDesign({
+                              roomMeta: {
+                                widthIn: design.roomMeta?.widthIn ?? 0,
+                                depthIn: Number(e.target.value) || 0,
+                                obstacles: [],
+                                userConfirmed: false,
+                                source: "manual",
+                              },
+                            })
+                          }
+                          data-testid="input-manual-depth"
+                        />
+                      </div>
+                    </div>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      onClick={applyManualDims}
+                      data-testid="button-apply-manual-dims"
+                    >
+                      {scanCopy.manualApply}
+                    </Button>
+                  </CollapsibleContent>
+                </Collapsible>
+
+                <Button
+                  type="button"
+                  variant="ghost"
+                  className="w-full text-sm"
+                  onClick={() => void openAr("walls")}
+                  data-testid="button-wall-scan"
+                >
+                  {scanCopy.traceWalls}
+                </Button>
+
+                <RoomPlanImport
+                  onImport={(roomMeta, roomBounds) => {
+                    applyScan(roomMeta, roomBounds);
+                    trackDesignEvent("scan_completed", { method: "roomplan" });
+                  }}
                 />
-              </div>
-              <div className="space-y-1">
-                <Label htmlFor="manual-d" className="text-xs">
-                  Depth
-                </Label>
-                <Input
-                  id="manual-d"
-                  type="number"
-                  placeholder="144"
-                  onChange={(e) =>
-                    updateDesign({
-                      roomMeta: {
-                        widthIn: design.roomMeta?.widthIn ?? 0,
-                        depthIn: Number(e.target.value) || 0,
-                        obstacles: [],
-                        userConfirmed: false,
-                        source: "manual",
-                      },
-                    })
-                  }
-                  data-testid="input-manual-depth"
-                />
-              </div>
-            </div>
-            <Button
-              type="button"
-              variant="outline"
-              size="sm"
-              onClick={applyManualDims}
-              data-testid="button-apply-manual-dims"
-            >
-              Use these dimensions
-            </Button>
+              </CollapsibleContent>
+            </Collapsible>
           </div>
         </>
       )}
@@ -409,6 +503,10 @@ export function RoomScanPanel() {
         ceilingIn={ceilingIn}
         onClose={() => setXrOpen(false)}
         onComplete={handleXrComplete}
+        onPhotoFallback={() => {
+          setXrOpen(false);
+          triggerPhotoPicker();
+        }}
       />
 
       <AlertDialog open={!!pendingVision} onOpenChange={() => setPendingVision(null)}>
@@ -416,16 +514,20 @@ export function RoomScanPanel() {
           <AlertDialogHeader>
             <AlertDialogTitle className="flex items-center gap-2">
               <AlertTriangle className="h-5 w-5 text-amber-600" />
-              Low confidence estimate
+              {scanCopy.lowConfidenceTitle}
             </AlertDialogTitle>
             <AlertDialogDescription>
               {pendingVision
-                ? `Photo scan suggests ${pendingVision.roomMeta.widthIn}" × ${pendingVision.roomMeta.depthIn}" with low confidence. ${pendingVision.notes ?? "Confirm or re-scan in AR for better accuracy."}`
+                ? scanCopy.lowConfidenceBody(
+                    pendingVision.roomMeta.widthIn,
+                    pendingVision.roomMeta.depthIn,
+                    pendingVision.notes,
+                  )
                 : null}
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogCancel>{scanCopy.lowConfidenceCancel}</AlertDialogCancel>
             <AlertDialogAction
               disabled={!lowConfAck}
               onClick={() => {
@@ -440,7 +542,7 @@ export function RoomScanPanel() {
                 setLowConfAck(false);
               }}
             >
-              Use estimate anyway
+              {scanCopy.lowConfidenceConfirm}
             </AlertDialogAction>
           </AlertDialogFooter>
           <label className="flex items-center gap-2 text-sm px-6 pb-4">
@@ -450,7 +552,7 @@ export function RoomScanPanel() {
               onChange={(e) => setLowConfAck(e.target.checked)}
               data-testid="checkbox-low-confidence-ack"
             />
-            I understand this is approximate — site measure required
+            {scanCopy.lowConfidenceAck}
           </label>
         </AlertDialogContent>
       </AlertDialog>

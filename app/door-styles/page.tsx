@@ -55,7 +55,7 @@ export default function DoorStylesPage() {
                 </>
               }
               description={catalogDescription(
-                "From contemporary slab to Reserve-exclusive Alpha Shaker — every profile is machined in our Kuna shop with soft-close hinge boring standard.",
+                "From contemporary slab to Reserve-exclusive Alpha Shaker, every profile is machined in our Kuna shop with soft-close hinge boring standard.",
               )}
             />
             <CatalogSearch className="mb-8" />

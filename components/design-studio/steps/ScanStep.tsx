@@ -51,7 +51,7 @@ export function ScanStep() {
           Scan your <em className="brc-accent text-accent">space</em>
         </h2>
         <p className="text-muted-foreground mt-2">
-          We use your real room size—not a generic layout guess—so cabinets and
+          We use your real room size, not a generic layout guess, so cabinets and
           clearances match what you actually have.
         </p>
       </div>

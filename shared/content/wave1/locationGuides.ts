@@ -10,7 +10,7 @@ const tvSections: ContentSection[] = [
     h2: 'Why the Treasure Valley is a distinct cabinet market',
     paragraphs: [
       `We serve ${CITIES_LIST} across Ada and Canyon Counties with custom kitchen, bath, laundry, mudroom, built-in, and storage cabinetry.`,
-      'Home styles, ceiling heights, and layout quirks vary by city—use this hub to pick your Boise cabinet guide, then the room catalog that matches your project.',
+      'Home styles, ceiling heights, and layout quirks vary by city, use this hub to pick your Boise cabinet guide, then the room catalog that matches your project.',
     ],
   },
   {
@@ -25,7 +25,7 @@ const tvSections: ContentSection[] = [
       '<a href="/guides/middleton-remodeling-guide">Middleton</a>',
       'Caldwell and Canyon County homes (see cost and catalog links below)',
     ],
-    paragraphs: ['Removed city guides redirect here—local notes live in Boise and valley-wide articles.'],
+    paragraphs: ['Removed city guides redirect here, local notes live in Boise and valley-wide articles.'],
   },
   {
     h2: 'Ada County vs Canyon County',
@@ -51,13 +51,13 @@ const tvSections: ContentSection[] = [
   {
     h2: 'Cabinet guides by topic',
     list: [
-      '<a href="/guides/boise-kitchen-remodeling-guide">Kitchen cabinets</a>',
-      '<a href="/guides/boise-bathroom-remodeling-guide">Bathroom vanities</a>',
+      '<a href="/guides/boise-kitchen-cabinets-guide">Kitchen cabinets</a>',
+      '<a href="/guides/boise-bathroom-vanities-guide">Bathroom vanities</a>',
       '<a href="/guides/boise-home-addition-guide">Built-ins & storage</a>',
-      '<a href="/guides/whole-home-remodeling-guide">Whole-home cabinetry</a>',
-      '<a href="/guides/choose-remodeling-contractor-boise">Choosing a cabinet company</a>',
-      '<a href="/guides/boise-remodeling-process-guide">Cabinet project process</a>',
-      '<a href="/guides/best-remodeling-roi-boise">Cabinet ROI</a>',
+      '<a href="/guides/whole-home-cabinetry-guide">Whole-home cabinetry</a>',
+      '<a href="/guides/choose-cabinet-company-boise">Choosing a cabinet company</a>',
+      '<a href="/guides/boise-cabinet-project-process-guide">Cabinet project process</a>',
+      '<a href="/guides/best-cabinet-roi-boise">Cabinet ROI</a>',
     ],
     paragraphs: ['Legacy guide URLs redirect to updated cabinet pillar slugs.'],
   },
@@ -86,13 +86,13 @@ const boiseSections: ContentSection[] = [
     h2: 'Boise neighborhoods at a glance',
     paragraphs: [
       'North End bungalows, Bench ranches, Harris Ranch, and East Boise infill each need different cabinet sizing and filler strategies.',
-      'We measure on site and build to your room—not catalog-only stock widths.',
+      'We measure on site and build to your room, not catalog-only stock widths.',
     ],
   },
   {
     h2: 'North End and Bench',
     paragraphs: [
-      'Smaller footprints and galley kitchens are common—tall pantry cabinets, pull-out bases, and custom widths maximize storage.',
+      'Smaller footprints and galley kitchens are common, tall pantry cabinets, pull-out bases, and custom widths maximize storage.',
       '<a href="/guides/north-end-remodeling-guide">North End notes</a> · <a href="/guides/boise-bench-remodeling-guide">Bench notes</a> (redirect to this guide).',
     ],
   },
@@ -135,10 +135,10 @@ export const TREASURE_VALLEY_GUIDE_HTML = expandLocation(
 export const BOISE_GUIDE_HTML = expandLocation(buildSectionsHtml(boiseSections), 'boise-cabinet-guide');
 
 export const TV_QUICK_ANSWER =
-  'The Treasure Valley covers Boise, Meridian, Eagle, Kuna, Star, Middleton, Nampa, and Caldwell. Boise Cabinet Co builds and installs custom cabinets valley-wide—start with our catalog and cost guide for your room.';
+  'The Treasure Valley covers Boise, Meridian, Eagle, Kuna, Star, Middleton, Nampa, and Caldwell. Boise Cabinet Co builds and installs custom cabinets valley-wide, start with our catalog and cost guide for your room.';
 
 export const BOISE_QUICK_ANSWER =
-  'Boise spans North End, Bench, Harris Ranch, and East Boise—each with different layout and storage needs. Browse kitchen and bath catalog pages and our cabinet cost guide before your consultation.';
+  'Boise spans North End, Bench, Harris Ranch, and East Boise, each with different layout and storage needs. Browse kitchen and bath catalog pages and our cabinet cost guide before your consultation.';
 
 export const TV_TAKEAWAYS = [
   'Eight cities across Ada and Canyon Counties.',

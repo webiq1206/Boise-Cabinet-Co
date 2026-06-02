@@ -5,8 +5,8 @@ function clusterSections(topic: string, extra: ContentSection[]): ContentSection
     {
       h2: `Quick planning overview for ${topic}`,
       paragraphs: [
-        `Homeowners in ${CITIES_LIST} ask us about ${topic.toLowerCase()} more than almost any other line item on a remodel budget. This article is part of our <a href="${PILLAR_COST}">Boise Cabinet Cost Guide</a>—the definitive hub for Treasure Valley remodeling costs.`,
-        `Numbers below are planning ranges from design-build consultations, not advertisements. Your home, layout, and finish level will move you within or beyond these bands.`,
+        `Homeowners in ${CITIES_LIST} ask us about ${topic.toLowerCase()} more than almost any other line item on a cabinet budget. This article is part of our <a href="${PILLAR_COST}">Boise Cabinet Cost Guide</a>, the definitive hub for Treasure Valley cabinet costs.`,
+        `Numbers below are planning ranges from cabinet design and installation consultations, not advertisements. Your home, layout, and finish level will move you within or beyond these bands.`,
         `Use our <a href="/#calculator">project estimator</a> for a rough range, then request an in-home visit for written scope.`,
       ],
     },
@@ -16,9 +16,9 @@ function clusterSections(topic: string, extra: ContentSection[]): ContentSection
 
 const kitchenExtra: ContentSection[] = [
   {
-    h2: 'What is a typical kitchen remodel budget in Boise?',
+    h2: 'What is a typical kitchen cabinets budget in Boise?',
     paragraphs: [
-      'Most full kitchen remodels we plan in Ada County fall between roughly $45,000 and $120,000+, with layout changes and custom cabinetry at the upper end. Cosmetic refreshes—doors, counters, backsplash—can land lower if plumbing and gas stay put.',
+      'Most full kitchen cabinetss we plan in Ada County fall between roughly $45,000 and $120,000+, with layout changes and custom cabinetry at the upper end. Cosmetic refreshes, doors, counters, backsplash, can land lower if plumbing and gas stay put.',
       'Meridian and Eagle kitchens often include larger islands, walk-in pantries, and panel-ready appliances. Kuna and Star homes may have builder-grade layouts worth reconfiguring for open concept living.',
     ],
   },
@@ -44,13 +44,13 @@ const kitchenExtra: ContentSection[] = [
     h2: 'When layout changes increase price in the Treasure Valley',
     paragraphs: [
       'Moving the sink, dishwasher, or range requires plumbing and often electrical panel work. Removing a wall may need a beam, engineering, and Ada County plan review.',
-      'Open concept requests from Boise Bench homeowners frequently combine kitchen, dining, and living flooring transitions—another cost layer beyond cabinets.',
+      'Open concept requests from Boise Bench homeowners frequently combine kitchen, dining, and living flooring transitions, another cost layer beyond cabinets.',
     ],
   },
   {
     h2: 'Timeline and how it affects cash flow',
     paragraphs: [
-      'Kitchen remodels typically run 8–16 weeks after permits and materials are released. Long-lead cabinets can add 8–12 weeks to the front of the schedule—order at design lock.',
+      'kitchen cabinetss typically run 8–16 weeks after permits and materials are released. Long-lead cabinets can add 8–12 weeks to the front of the schedule, order at design lock.',
     ],
     table: {
       className: 'timeline-table',
@@ -75,7 +75,7 @@ const kitchenExtra: ContentSection[] = [
       'Lock appliance models before rough-in. Confirm soft-close hardware, crown, and filler details at cabinet sign-off. Hold contingency for drywall and subfloor after demo.',
     ],
     list: [
-      'Written scope before construction contract',
+      'Written scope before fabrication contract',
       'Selection schedule with long-lead tracking',
       'Panel check if adding circuits',
       'Contingency for concealed damage',
@@ -105,7 +105,7 @@ const bathroomExtra: ContentSection[] = [
   {
     h2: 'Ventilation, heat, and electrical',
     paragraphs: [
-      'Proper exhaust prevents mold in Idaho’s dry-but-steamy bath cycles. Radiant floor heat adds electrical load and thermostat zones—popular in Eagle and Boise Foothills master baths.',
+      'Proper exhaust prevents mold in Idaho’s dry-but-steamy bath cycles. Radiant floor heat adds electrical load and thermostat zones, popular in Eagle and Boise Foothills master baths.',
     ],
   },
   {
@@ -130,7 +130,7 @@ const bathroomExtra: ContentSection[] = [
 
 const wholeHomeExtra: ContentSection[] = [
   {
-    h2: 'What defines a whole-home remodel budget?',
+    h2: 'What defines a whole-home cabinetry budget?',
     paragraphs: [
       'Whole-home programs in Boise and Meridian often span $150,000–$400,000+ depending on square footage affected, structural work, and number of wet areas.',
     ],
@@ -144,7 +144,7 @@ const wholeHomeExtra: ContentSection[] = [
   {
     h2: 'Electrical, HVAC, and envelope upgrades',
     paragraphs: [
-      'Older North End and Bench homes may need panel upgrades and insulation when walls are open—budget these early, not as change orders.',
+      'Older North End and Bench homes may need panel upgrades and insulation when walls are open, budget these early, not as change orders.',
     ],
   },
   {
@@ -163,7 +163,7 @@ const wholeHomeExtra: ContentSection[] = [
 
 const additionExtra: ContentSection[] = [
   {
-    h2: 'Room addition cost ranges in the Treasure Valley',
+    h2: 'built-in storage cost ranges in the Treasure Valley',
     paragraphs: [
       'Ground-floor additions often run $80,000–$250,000+ including design, permits, foundation, framing, MEP, and finish. Second stories can exceed this when structural retrofits are required.',
     ],
@@ -183,7 +183,7 @@ const additionExtra: ContentSection[] = [
   {
     h2: 'ADU comparison',
     paragraphs: [
-      'Garage and mudroom built-ins often pair with new living space—see <a href="/cabinets/built-ins">built-in cabinetry</a> and <a href="/guides/built-in-cabinet-guide">built-in cabinet guide</a>.',
+      'Garage and mudroom built-ins often pair with new living space, see <a href="/cabinets/built-ins">built-in cabinetry</a> and <a href="/guides/built-in-cabinet-guide">built-in cabinet guide</a>.',
     ],
   },
   {
@@ -196,9 +196,9 @@ const additionExtra: ContentSection[] = [
 
 const luxuryExtra: ContentSection[] = [
   {
-    h2: 'What counts as a luxury remodel in Boise and Eagle?',
+    h2: 'What counts as a luxury cabinet program in Boise and Eagle?',
     paragraphs: [
-      'Custom millwork, book-matched stone, integrated lighting scenes, and high-performance windows define luxury programs—often $200,000–$600,000+ for multi-room scope.',
+      'Custom millwork, book-matched stone, integrated lighting scenes, and high-performance windows define luxury programs, often $200,000–$600,000+ for multi-room scope.',
     ],
   },
   {
@@ -216,14 +216,14 @@ const luxuryExtra: ContentSection[] = [
   {
     h2: 'Without a dedicated luxury service page',
     paragraphs: [
-      'We deliver luxury cabinetry through <a href="/cabinets/kitchen">kitchen</a>, <a href="/cabinets/bathroom">bathroom</a>, and <a href="/guides/whole-home-cabinetry-guide">whole-home</a> programs—one custom cabinet partner.',
+      'We deliver luxury cabinetry through <a href="/cabinets/kitchen">kitchen</a>, <a href="/cabinets/bathroom">bathroom</a>, and <a href="/guides/whole-home-cabinetry-guide">whole-home</a> programs, one custom cabinet partner.',
     ],
   },
 ];
 
 const perSqFtExtra: ContentSection[] = [
   {
-    h2: 'When cost per square foot helps—and when it misleads',
+    h2: 'When cost per square foot helps, and when it misleads',
     paragraphs: [
       '$/SF is useful for whole-home and addition planning after preliminary design. It misleads when comparing a kitchen to a carpet refresh.',
     ],
@@ -244,14 +244,14 @@ const perSqFtExtra: ContentSection[] = [
   {
     h2: 'Boise market factors in 2026',
     paragraphs: [
-      'Labor demand, material lead times, and insurance rebuild costs influence $/SF. Localize numbers—national blogs understate Idaho plumbing and electrical rates.',
+      'Labor demand, material lead times, and insurance rebuild costs influence $/SF. Localize numbers, national blogs understate Idaho plumbing and electrical rates.',
     ],
   },
 ];
 
 const impactsExtra: ContentSection[] = [
   {
-    h2: 'Top 10 variables that move your remodel price',
+    h2: 'Top 10 variables that move your cabinet project price',
     paragraphs: ['Ranked from what we see on Treasure Valley jobs:'],
     list: [
       'Layout and structural changes',
@@ -262,7 +262,7 @@ const impactsExtra: ContentSection[] = [
       'Material lead times and freight',
       'Finish level (fixtures, lighting, hardware)',
       'Occupied vs vacant construction',
-      'Design-build vs separated contracts',
+      'cabinet design and installation vs separated contracts',
       'Change orders from late selections',
     ],
   },
@@ -283,7 +283,7 @@ const impactsExtra: ContentSection[] = [
 
 const budgetExtra: ContentSection[] = [
   {
-    h2: 'Step-by-step remodeling budget framework',
+    h2: 'Step-by-step cabinet budget framework',
     paragraphs: [
       '1) Define must-haves. 2) Get planning ranges per room. 3) Add soft costs (housing, storage). 4) Hold contingency. 5) Compare only aligned bids.',
     ],
@@ -295,7 +295,7 @@ const budgetExtra: ContentSection[] = [
       className: 'cost-table',
       headers: ['Category', 'Share'],
       rows: [
-        ['Construction contract', '70 – 75%'],
+        ['cabinet contract', '70 – 75%'],
         ['Appliances & furnishings', '10 – 15%'],
         ['Contingency', '10 – 15%'],
         ['Temporary housing (if any)', 'Case by case'],
@@ -305,7 +305,7 @@ const budgetExtra: ContentSection[] = [
   {
     h2: 'Financing and timing',
     paragraphs: [
-      'HELOCs and renovation loans are common. Align draw schedules with construction milestones in your contract.',
+      'HELOCs and project financing are common. Align draw schedules with installation milestones in your contract.',
     ],
   },
   {
@@ -365,7 +365,7 @@ export const COST_CLUSTER_CONTENT: Record<
   'what-impacts-cabinet-costs-boise': {
     html: buildSectionsHtml(clusterSections('cabinet cost drivers', impactsExtra)),
     quickAnswer:
-      'The biggest cost drivers for Treasure Valley cabinets are line and box material, finish level, interior accessories, installation complexity, and late selections—not room square footage alone.',
+      'The biggest cost drivers for Treasure Valley cabinets are line and box material, finish level, interior accessories, installation complexity, and late selections, not room square footage alone.',
     takeaways: [
       'Scope alignment matters more than a low bid.',
       'Field conditions at install can add labor.',

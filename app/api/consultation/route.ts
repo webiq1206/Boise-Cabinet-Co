@@ -146,11 +146,11 @@ export async function POST(request: NextRequest) {
       const customerHtml = wrapEmailHtml({
         title: `Thanks, ${escapeHtml(data.name)}!`,
         subtitle: "We received your consultation request",
-        tagline: "Design & Build",
+        tagline: "Custom Cabinets",
         content: `
-          <p class="greeting">We received your consultation request and will reach out within one business day to schedule your free in-home visit.</p>
+          <p class="greeting">We received your cabinet consultation request and will reach out within one business day to schedule your free design visit.</p>
           <p>In the meantime, feel free to call us at <a href="${SITE_CONFIG.phoneHref}">${escapeHtml(SITE_CONFIG.phone)}</a> or reply to this email with any questions.</p>
-          <p style="margin-top:24px;">The Boise Remodeling Co team</p>
+          <p style="margin-top:24px;">The Boise Cabinet Co team</p>
         `,
       });
 
@@ -158,7 +158,7 @@ export async function POST(request: NextRequest) {
         from,
         replyTo: getReplyToAddress(),
         to: data.email,
-        subject: "We received your request | Boise Remodeling Co",
+        subject: "We received your request | Boise Cabinet Co",
         html: customerHtml,
         text: htmlToPlainText(customerHtml),
       });

@@ -11,7 +11,7 @@ export const metadata: Metadata = buildPageMetadata({
   path: '/resources',
   titleOverride: 'Cabinet Planning Resources | Boise Cabinet Co',
   descriptionOverride:
-    'Free PDF worksheets and visual guides for Treasure Valley remodeling: budget worksheet, kitchen & bath checklist, Ada vs Canyon permits.',
+    'Free PDF worksheets and visual guides for Treasure Valley cabinet planning: budget worksheet, kitchen and bath checklist, Ada vs Canyon permits.',
 });
 
 export default function ResourcesIndexPage() {
@@ -30,9 +30,9 @@ export default function ResourcesIndexPage() {
         <p className="text-lg text-muted-foreground mb-12 max-w-2xl">
           Printable PDFs and visual guides to use alongside our{' '}
           <Link href="/guides" className="text-accent hover:underline">
-            remodeling guides
+            cabinet planning guides
           </Link>
-          . These are planning tools—not quotes or contracts.
+          . These are planning tools, not quotes or contracts.
         </p>
 
         <h2 className="text-sm font-medium uppercase tracking-wider text-muted-foreground mb-4">
@@ -77,7 +77,7 @@ export default function ResourcesIndexPage() {
         </div>
 
         <p className="text-sm text-muted-foreground mt-12 text-center">
-          <Link href="/guides/boise-remodeling-cost-guide" className="text-accent hover:underline">
+          <Link href="/guides/boise-cabinet-cost-guide" className="text-accent hover:underline">
             Start with the cost guide
           </Link>
           {' · '}

@@ -32,7 +32,7 @@ export const HARDWARE_OPTIONS: HardwareOption[] = [
     name: "Bar Pull 128mm",
     category: "pull",
     description:
-      "Slim rectangular bar pull in matte black — our most popular choice for Modern Shaker and slab kitchens across the Treasure Valley.",
+      "Slim rectangular bar pull in matte black, our most popular choice for Modern Shaker and slab kitchens across the Treasure Valley.",
     finish: "matte-black",
     centerToCenterMm: 128,
     compatibleCollectionIds: ["full-custom", "semi-custom", "reserve", "spec-grade"],
@@ -75,7 +75,7 @@ export const HARDWARE_OPTIONS: HardwareOption[] = [
     name: "J-Channel Integrated Pull",
     category: "handleless",
     description:
-      "Angled J-pull profile milled into slab door edges — a cleaner alternative to surface-mounted bars for contemporary Idaho kitchens.",
+      "Angled J-pull profile milled into slab door edges, a cleaner alternative to surface-mounted bars for contemporary Idaho kitchens.",
     finish: "matte-black",
     compatibleCollectionIds: ["full-custom", "semi-custom", "reserve"],
   },
@@ -105,7 +105,7 @@ export const HARDWARE_OPTIONS: HardwareOption[] = [
     name: "Glass Knob",
     category: "knob",
     description:
-      "Faceted glass knob with polished chrome base — an accent option for vanity suites and wet bar glass-door uppers.",
+      "Faceted glass knob with polished chrome base, an accent option for vanity suites and wet bar glass-door uppers.",
     finish: "polished-chrome",
     compatibleCollectionIds: ["full-custom", "semi-custom", "reserve"],
   },

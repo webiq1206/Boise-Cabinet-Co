@@ -137,7 +137,7 @@ export default function AboutPage() {
             <p className="text-base md:text-lg text-inverse-foreground/75 max-w-2xl leading-relaxed mb-8">
               Our focus is clarity: written scope before fabrication, proactive project updates,
               an online Design Studio to explore finishes and layouts, and a client portal to track
-              every milestone. Every detail, every decision — handled with intention.
+              every milestone. Every detail, every decision, handled with intention.
             </p>
             <div className="flex flex-wrap gap-3 mb-8">
               <ConsultCTA variant="brand">
@@ -175,11 +175,11 @@ export default function AboutPage() {
                 style={{ backgroundImage: GRAIN_URL, backgroundRepeat: 'repeat', opacity: 0.028 }}
               />
               <div className="absolute bottom-0 left-0 p-8 md:p-12">
-                <div className="brc-label mb-3 text-inverse-muted">Design-build, explained</div>
+                <div className="brc-label mb-3 text-inverse-muted">How we work</div>
                 <p className="font-sans font-light text-xl md:text-2xl text-inverse-foreground">
                   One team from
                   <br />
-                  concept to completion
+                  design to installation
                 </p>
               </div>
             </div>
@@ -190,16 +190,16 @@ export default function AboutPage() {
                   eyebrow="Our model"
                   title={
                     <>
-                      Design-build,{' '}
-                      <em className="brc-accent text-accent">explained</em>
+                      Cabinet design,{' '}
+                      <em className="brc-accent text-accent">one team</em>
                     </>
                   }
-                  description="Design-build means your designer, estimator, and construction lead work together under one roof. Layout, selections, permits, and schedule stay aligned so your kitchen, bathroom, whole-home, or addition project does not drift between vendors."
+                  description="Your designer, estimator, and installation lead work together under one roof. Layout, finishes, hardware, fabrication, and schedule stay aligned so your kitchen, bath, storage, and built-in projects do not drift between vendors."
                   className="mb-8 max-w-none"
                 />
                 <p className="text-sm text-muted-foreground leading-relaxed mb-8">
                   Idaho contractor license information is available upon request. We are bonded and
-                  insured for residential remodeling work across the Treasure Valley.
+                  insured for residential cabinet design and installation across the Treasure Valley.
                 </p>
                 <ul className="grid sm:grid-cols-2 gap-3">
                   {TRUST_ITEMS.map((item) => (

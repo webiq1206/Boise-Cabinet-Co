@@ -61,8 +61,8 @@ export function BlogIndexClient() {
         <div className="container px-4">
           <PageHeader
             eyebrow="Blog"
-            title="Remodeling Insights & Ideas"
-            description="Honest advice for Idaho homeowners planning their next renovation."
+            title="Cabinet Planning Insights"
+            description="Honest advice for Idaho homeowners planning kitchen cabinets, vanities, and storage."
           />
         </div>
       </Section>

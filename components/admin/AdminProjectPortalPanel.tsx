@@ -203,7 +203,7 @@ export function AdminProjectPortalPanel({
               <Input
                 value={invoiceDesc}
                 onChange={(e) => setInvoiceDesc(e.target.value)}
-                placeholder="Production deposit — 50%"
+                placeholder="Production deposit, 50%"
               />
             </div>
             <div className="space-y-2">

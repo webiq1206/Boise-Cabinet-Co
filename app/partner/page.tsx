@@ -48,11 +48,11 @@ export default function PartnerPage() {
           Partner <em className="brc-accent text-accent">Portal</em>
         </h1>
         <p className="text-lg text-muted-foreground">
-          Access leads, manage projects, and stay compliant — all in one place.
+          Access leads, manage projects, and stay compliant, all in one place.
         </p>
         <div className="space-y-3 text-left max-w-md mx-auto">
           {[
-            "Browse and purchase verified remodeling leads",
+            "Browse and purchase verified cabinet installation leads",
             "Track active projects and contracts",
             "Upload compliance documents",
           ].map((item) => (

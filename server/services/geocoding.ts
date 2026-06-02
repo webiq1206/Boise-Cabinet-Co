@@ -75,7 +75,7 @@ async function fetchNominatimSuggestions(input: string): Promise<AddressSuggesti
     `https://nominatim.openstreetmap.org/search?${params}`,
     {
       headers: {
-        "User-Agent": "BoiseRemodelingCo/1.0 (property lookup)",
+        "User-Agent": "BoiseCabinetCo/1.0 (property lookup)",
       },
     }
   );
@@ -168,7 +168,7 @@ async function resolveNominatimPlace(
     `https://nominatim.openstreetmap.org/details?${params}`,
     {
       headers: {
-        "User-Agent": "BoiseRemodelingCo/1.0 (property lookup)",
+        "User-Agent": "BoiseCabinetCo/1.0 (property lookup)",
       },
     }
   );
@@ -182,7 +182,7 @@ async function resolveNominatimPlace(
       `https://nominatim.openstreetmap.org/search?${searchParams}`,
       {
         headers: {
-          "User-Agent": "BoiseRemodelingCo/1.0 (property lookup)",
+          "User-Agent": "BoiseCabinetCo/1.0 (property lookup)",
         },
       }
     );

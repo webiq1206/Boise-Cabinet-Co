@@ -378,7 +378,7 @@ export function RoomPhotoOverlay({
               >
                 <span className="text-xs text-white/90 px-2 text-center">
                   {cutoutFailed
-                    ? "3D overlay isn't supported on this device — showing finish color"
+                    ? "3D overlay isn't supported on this device, showing finish color"
                     : "Add cabinets in the layout step to preview them here"}
                 </span>
               </div>
@@ -413,7 +413,7 @@ export function RoomPhotoOverlay({
                 data-testid="switch-remodel"
               />
               <Label htmlFor="remodel-toggle" className="text-sm">
-                This is a remodel — replace existing cabinets
+                Replace existing cabinets in this room
               </Label>
             </div>
             {remodel &&

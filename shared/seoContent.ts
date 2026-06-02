@@ -22,84 +22,84 @@ export interface ServiceSEOContent {
 export const SERVICE_SEO_CONTENT: Record<string, ServiceSEOContent> = {
   'kitchen-remodel': {
     slug: 'kitchen-remodel',
-    name: 'Kitchen Remodel',
-    headline: 'Kitchen Remodeling in the Treasure Valley',
-    primaryKeyword: 'kitchen remodeling boise idaho',
+    name: 'Kitchen Cabinets',
+    headline: 'Kitchen Cabinets in the Treasure Valley',
+    primaryKeyword: 'kitchen cabinets boise idaho',
     overview:
-      'A well-planned kitchen remodel improves how your family cooks, gathers, and moves through the home. Boise Cabinet Co handles design, permitting, and construction under one roof so layout, cabinetry, lighting, and finishes stay aligned from first visit to final walkthrough.',
+      'Quality kitchen cabinets define how your family cooks, stores, and gathers. Boise Cabinet Co designs, supplies, and installs custom and semi-custom kitchen cabinetry with clear written scope from first visit through final walkthrough.',
     benefits: [
-      'Single design-build team, no juggling separate designers and contractors',
-      'Written scope and finish selections before construction begins',
-      'Ada and Canyon County permits handled in-house',
-      'Weekly written schedule updates every Friday',
+      'Design Studio layout tools and in-home templating',
+      'Written scope and finish selections before shop release',
+      'Frameless Euro construction and plywood box options',
+      'Professional installation with workmanship guarantee',
     ],
     inclusions: [
-      'Layout planning and design direction',
-      'Cabinetry, countertops, and backsplash coordination',
-      'Lighting and electrical updates as needed',
-      'Plumbing adjustments for sinks and fixtures',
-      'Dust barriers, floor protection, and daily cleanup',
+      'Cabinet layout and design direction',
+      'Door style, finish, and hardware selections',
+      'Interior organization and accessory planning',
+      'Shop drawings and fabrication coordination',
+      'Installation, adjustment, and punch list',
     ],
-    timeline: 'Most kitchen remodels run 6 to 10 weeks from permit approval, depending on layout changes and custom lead times.',
+    timeline: 'Most kitchen cabinet programs run 8 to 16 weeks from design lock through installation, depending on line and finish lead times.',
     processSteps: [
-      { title: 'In-home consultation', description: 'We walk your space, discuss goals, and share a planning range on the spot.' },
-      { title: 'Design and scope', description: 'You receive selections guidance and a written scope with your project investment.' },
-      { title: 'Permits and scheduling', description: 'We file permits and build a week-by-week schedule before demo day.' },
-      { title: 'Construction and walkthrough', description: 'Our crew executes the plan; you receive a final walkthrough and workmanship guarantee.' },
+      { title: 'Design consultation', description: 'We walk your space, discuss storage goals, and share a planning range.' },
+      { title: 'Selections and scope', description: 'You receive line, finish, and hardware guidance with written scope.' },
+      { title: 'Fabrication', description: 'Shop drawings are approved before cabinets are built.' },
+      { title: 'Installation and walkthrough', description: 'Our team sets cabinets, coordinates tops, and completes final walkthrough.' },
     ],
     faqs: [
       {
-        question: 'How much does a kitchen remodel cost in the Treasure Valley?',
+        question: 'How much do kitchen cabinets cost in the Treasure Valley?',
         answer:
-          'Investment depends on size, layout changes, and finish level. Use our project estimator for a planning range, then schedule a free in-home visit for a written scope tailored to your home.',
+          'Investment depends on linear footage, line tier, and accessories. Use our project estimator for a planning range, then schedule a free design visit for written scope.',
       },
       {
-        question: 'Can I use my kitchen during the remodel?',
+        question: 'Can I use my kitchen during cabinet installation?',
         answer:
-          'For many projects, yes with temporary setups. We install dust barriers and protect adjacent rooms. We will be honest about timeline impacts during your consultation.',
+          'Often yes with a temporary setup. We protect adjacent rooms and communicate utility shutoff windows during consultation.',
       },
       {
-        question: 'Do you handle permits for kitchen remodels?',
+        question: 'Do you handle permits for kitchen cabinet work?',
         answer:
-          'Yes. Permits are included and managed in-house for Ada and Canyon County jurisdictions.',
+          'Cabinet-only work may not require permits. Trade work in scope is coordinated when included in your project.',
       },
     ],
   },
   'bathroom-remodel': {
     slug: 'bathroom-remodel',
-    name: 'Bathroom Remodel',
-    headline: 'Bathroom Remodeling in the Treasure Valley',
-    primaryKeyword: 'bathroom remodeling boise idaho',
+    name: 'Bathroom Vanities',
+    headline: 'Bathroom Vanities in the Treasure Valley',
+    primaryKeyword: 'bathroom vanity cabinets boise idaho',
     overview:
-      'Bathroom remodels should feel calm, functional, and built to last. We design primary baths, guest baths, and powder rooms with clear expectations, proactive communication, and finishes chosen for Idaho homes.',
+      'Bathroom vanities should be beautiful, durable, and sized for real storage. We design single and double vanities, linen towers, and bath storage with clear expectations and finishes chosen for Idaho homes.',
     benefits: [
-      'Design-build accountability from layout through tile and fixtures',
-      'Waterproofing and plumbing scope defined in writing',
-      'Transparent project investment, no surprise line-item games',
-      'Written workmanship guarantee on our labor',
+      'Vanity sizing matched to plumbing and wall conditions',
+      'Finish and hardware coordinated with your home',
+      'Transparent project investment with written scope',
+      'Written workmanship guarantee on installation',
     ],
     inclusions: [
-      'Vanity, shower, and tub planning',
-      'Tile, flooring, and fixture selections guidance',
-      'Ventilation and lighting improvements',
-      'Plumbing and electrical updates as scoped',
-      'Daily protection of adjacent living spaces',
+      'Vanity and tower planning',
+      'Finish, hardware, and mirror coordination',
+      'Countertop templating coordination when in scope',
+      'Professional installation and adjustment',
+      'Protection of adjacent living spaces',
     ],
-    timeline: 'Typical bathroom remodels complete in 3 to 5 weeks after permits, depending on custom materials and layout changes.',
+    timeline: 'Typical vanity projects complete in 4 to 10 weeks from design lock, depending on custom lead times and countertops.',
     processSteps: [
-      { title: 'Consultation', description: 'We assess your bath, discuss storage and accessibility needs, and outline a planning range.' },
-      { title: 'Selections and scope', description: 'Finishes and fixtures are documented before demolition.' },
-      { title: 'Build', description: 'Licensed trades coordinate waterproofing, tile, and trim with weekly updates.' },
+      { title: 'Consultation', description: 'We assess your bath, discuss storage needs, and outline a planning range.' },
+      { title: 'Selections and scope', description: 'Finishes and dimensions are documented before order.' },
+      { title: 'Fabrication and install', description: 'Cabinets are built to approved drawings and installed on site.' },
       { title: 'Final walkthrough', description: 'We review every detail with you before sign-off.' },
     ],
     faqs: [
       {
-        question: 'How long does a bathroom remodel take?',
-        answer: 'Most projects run 3 to 5 weeks from permit approval. Larger primary baths with layout changes may take longer.',
+        question: 'How long does a vanity project take?',
+        answer: 'Most projects run 4 to 10 weeks from design lock. Double vanities with custom storage may take longer.',
       },
       {
-        question: 'Can you remodel a bathroom without moving plumbing?',
-        answer: 'Yes. Cosmetic and mid-scope updates can keep existing plumbing locations. We will recommend layout changes only when they add real value.',
+        question: 'Can you replace a vanity without moving plumbing?',
+        answer: 'Yes. Many updates keep existing plumbing locations. We recommend layout changes only when they add real value.',
       },
       {
         question: 'Do you work in both Ada and Canyon County?',
@@ -109,133 +109,133 @@ export const SERVICE_SEO_CONTENT: Record<string, ServiceSEOContent> = {
   },
   'whole-home-remodel': {
     slug: 'whole-home-remodel',
-    name: 'Whole-Home Remodel',
-    headline: 'Whole-Home Remodeling in the Treasure Valley',
-    primaryKeyword: 'whole home remodeling boise idaho',
+    name: 'Whole-Home Cabinetry',
+    headline: 'Whole-Home Cabinetry in the Treasure Valley',
+    primaryKeyword: 'whole home custom cabinets boise idaho',
     overview:
-      'Whole-home remodeling brings multiple rooms into one cohesive plan, open concepts, updated systems, new finishes, and better flow. Our design-build approach keeps one team accountable across phases so your home feels intentional, not piecemeal.',
+      'Whole-home cabinetry brings kitchens, baths, laundry, mudroom, and built-ins into one cohesive finish and hardware plan. One team keeps selections, lead times, and installation aligned across rooms.',
     benefits: [
-      'Phased scheduling to balance livability and progress',
-      'Unified design language across rooms',
-      'Single point of contact for scope, budget, and schedule',
-      'Experience with Treasure Valley homes from ranchers to new construction',
+      'Unified finish and hardware schedule',
+      'Phased installation to balance livability',
+      'Single point of contact for scope and schedule',
+      'Experience with Treasure Valley home styles',
     ],
     inclusions: [
-      'Whole-home planning and prioritization',
-      'Structural and layout changes as scoped',
-      'Flooring, paint, and trim packages',
-      'Kitchen and bath updates within the master plan',
-      'Permit coordination across trades',
+      'Room-by-room cabinet planning',
+      'Consistent line and finish selections',
+      'Shop drawing coordination',
+      'Phased delivery and installation',
+      'Final walkthrough on every space in scope',
     ],
-    timeline: 'Whole-home renovations typically run 3 to 6 months depending on scope, phasing, and permit timelines.',
+    timeline: 'Whole-home cabinet programs typically run 3 to 6 months depending on room count and fabrication lead times.',
     processSteps: [
-      { title: 'Discovery', description: 'We map goals room by room and identify must-haves vs. nice-to-haves.' },
-      { title: 'Master scope', description: 'A written plan sequences work to minimize disruption.' },
-      { title: 'Phased construction', description: 'Trades follow an agreed schedule with Friday written updates.' },
+      { title: 'Discovery', description: 'We map goals room by room and identify priorities.' },
+      { title: 'Master scope', description: 'A written plan sequences fabrication and install.' },
+      { title: 'Phased installation', description: 'Rooms are completed in agreed order with written updates.' },
       { title: 'Completion', description: 'Final walkthrough covers every space in the scope.' },
     ],
     faqs: [
       {
-        question: 'Can we live in the home during a whole-home remodel?',
+        question: 'Can we stay in the home during whole-home cabinet work?',
         answer:
-          'Sometimes yes, sometimes no. We will give you an honest assessment based on HVAC, electrical, and dust exposure during your consultation.',
+          'Usually yes when work is phased by room. We will give you an honest assessment based on kitchen and bath access during consultation.',
       },
       {
-        question: 'How do you keep a large project on budget?',
+        question: 'How do you keep a large cabinet program on budget?',
         answer:
           'Written scope, documented selections, and change orders for any additional work, all approved before we proceed.',
       },
       {
-        question: 'Is design-build better than hiring separate contractors?',
+        question: 'Why order cabinets as one program?',
         answer:
-          'For multi-room work, design-build reduces coordination risk and keeps design intent intact through construction.',
+          'One finish and hardware schedule prevents mismatched adjacent rooms and can reduce mobilization cost.',
       },
     ],
   },
   'adu': {
     slug: 'adu',
-    name: 'ADU / Guest House',
-    headline: 'ADU & Guest House Construction in the Treasure Valley',
-    primaryKeyword: 'adu construction boise idaho',
+    name: 'Closet & Garage Storage',
+    headline: 'Closet and Garage Storage in the Treasure Valley',
+    primaryKeyword: 'custom closet systems boise idaho',
     overview:
-      'Accessory dwelling units add livable square footage, rental income potential, and long-term property value without leaving your lot. Boise Cabinet Co designs and builds detached and attached ADUs with full permit handling, structural planning, and interior finishes under one accountable design-build team.',
+      'Closet systems and garage storage turn unused space into daily function. Boise Cabinet Co designs reach-in closets, walk-ins, and garage wall systems with durable materials and professional installation.',
     benefits: [
-      'Single team from design through certificate of occupancy, no coordinating separate trades',
-      'Ada and Canyon County ADU permitting and setback requirements handled in-house',
-      'Rental-ready finish packages designed for durability and appeal',
-      'Exterior materials and rooflines planned to complement your existing home',
+      'Layouts matched to how you store and access items',
+      'Durable hardware and adjustable shelving options',
+      'Finish choices that hold up in Idaho garages and closets',
+      'Professional installation and alignment',
     ],
     inclusions: [
-      'Site feasibility evaluation and setback review',
-      'Foundation, framing, and structural engineering',
-      'Plumbing, electrical, and HVAC for a fully self-contained unit',
-      'Kitchen and bath fit-out with finish selections guidance',
-      'Permit coordination and final inspection through certificate of occupancy',
+      'On-site measurement and design',
+      'Shelving, rods, drawers, and accessory planning',
+      'Finish and hardware selections',
+      'Fabrication and delivery',
+      'Installation and final adjustment',
     ],
-    timeline: 'Most ADU projects run 4 to 7 months from design through certificate of occupancy, depending on unit size, site conditions, and permit timelines.',
+    timeline: 'Most closet and garage projects run 3 to 8 weeks from design lock through installation.',
     processSteps: [
-      { title: 'Site visit and feasibility', description: 'We review your lot, setbacks, utility access, and HOA rules to confirm the ADU approach that works best.' },
-      { title: 'Design and engineering', description: 'Plans are drawn to meet code, match your property, and maximize livability within your investment target.' },
-      { title: 'Permitting and construction', description: 'We file permits and manage every trade from foundation through finish with weekly written updates.' },
-      { title: 'Inspections and closeout', description: 'Final inspections are coordinated and we walk through every detail before handoff.' },
+      { title: 'Consultation', description: 'We review your space, storage habits, and goals.' },
+      { title: 'Design and scope', description: 'Layouts and finishes are documented in writing.' },
+      { title: 'Fabrication', description: 'Components are built to approved dimensions.' },
+      { title: 'Installation', description: 'Systems are installed, aligned, and walked through with you.' },
     ],
     faqs: [
       {
-        question: 'How much does an ADU cost in the Treasure Valley?',
+        question: 'How much do custom closets cost in the Treasure Valley?',
         answer:
-          'ADU investment typically ranges from $120,000 to $350,000 depending on size, detached or attached configuration, and finish level. Use our project estimator for a planning range, then schedule a free in-home visit for a written scope.',
+          'Investment depends on size, line, and accessories. Use our estimator for a planning range, then schedule a visit for written scope.',
       },
       {
-        question: 'Do I need a permit for an ADU in Boise or Ada County?',
+        question: 'Can garage storage handle temperature swings?',
         answer:
-          'Yes. ADUs require permits in all Treasure Valley jurisdictions. Requirements vary by city and lot. We handle permitting as part of our design-build scope and are current on local ADU ordinances.',
+          'We specify materials and finishes suited to Idaho garages and discuss ventilation during design.',
       },
       {
-        question: 'Can an ADU be rented out as a long-term or short-term rental?',
+        question: 'Do closet systems need permits?',
         answer:
-          'In many cases yes, subject to local zoning and HOA rules. We can discuss what your city allows during your consultation so you can plan your unit accordingly.',
+          'Most fastened casework does not. Electrical for integrated lighting may. We clarify during consultation.',
       },
     ],
   },
   'room-addition': {
     slug: 'room-addition',
-    name: 'Room Addition',
-    headline: 'Home Additions in the Treasure Valley',
-    primaryKeyword: 'home additions boise idaho',
+    name: 'Built-In Storage',
+    headline: 'Built-In Storage in the Treasure Valley',
+    primaryKeyword: 'custom built-in cabinets boise idaho',
     overview:
-      'Room additions expand living space without moving. We design attached additions, in-law suites, and bonus rooms that match your roof lines, foundation, and interior architecture, with permits and structural scope handled professionally.',
+      'Built-ins, entertainment centers, and specialty storage add function without sacrificing style. We design mudroom lockers, home office walls, and media units that match your architecture and daily routines.',
     benefits: [
-      'Structural and architectural planning before breaking ground',
-      'Exterior materials matched to your existing home',
-      'Clear permit path for Ada and Canyon County',
-      'Integrated HVAC and electrical planning',
+      'Custom dimensions for alcoves and feature walls',
+      'Finish and profile matched to existing trim',
+      'Integrated outlets and cable paths when needed',
+      'Clear scope before fabrication',
     ],
     inclusions: [
-      'Feasibility and site evaluation',
-      'Foundation and framing',
-      'Roof tie-in and exterior finish',
-      'Interior finish to match existing home',
-      'Permit and inspection coordination',
+      'Design and field measurement',
+      'Shop drawings and finish selections',
+      'Fabrication of casework and panels',
+      'On-site installation and scribe details',
+      'Hardware adjustment and punch list',
     ],
-    timeline: 'Additions vary widely; many projects run 3 to 5 months from design through certificate of occupancy.',
+    timeline: 'Built-in projects vary; many single-room programs run 4 to 10 weeks from design lock through installation.',
     processSteps: [
-      { title: 'Site visit', description: 'We review setbacks, access, and structural implications.' },
-      { title: 'Design and engineering', description: 'Plans address code, loads, and aesthetic match.' },
-      { title: 'Construction', description: 'Foundation through finish with weekly communication.' },
-      { title: 'Inspections and closeout', description: 'We coordinate final inspections and walkthrough.' },
+      { title: 'Site visit', description: 'We review dimensions, outlets, and design goals.' },
+      { title: 'Design and drawings', description: 'Plans address fit, finish, and function.' },
+      { title: 'Fabrication', description: 'Components are built to approved shop drawings.' },
+      { title: 'Installation', description: 'Units are set, scribed, and finished on site.' },
     ],
     faqs: [
       {
-        question: 'Do I need a permit for a room addition in Idaho?',
-        answer: 'Yes. Additions require permits in Ada and Canyon County. We handle permitting as part of our scope.',
+        question: 'Can built-ins match my existing millwork?',
+        answer: 'Yes. Profile, paint, and stain are planned to blend or contrast intentionally with your home.',
       },
       {
-        question: 'Will an addition match my existing home?',
-        answer: 'That is a core part of our design process, roof lines, siding, and interior trim are planned to blend, not bolt on.',
+        question: 'What rooms work best for built-ins?',
+        answer: 'Mudrooms, home offices, entertainment areas, and under-stair storage are common Treasure Valley requests.',
       },
       {
-        question: 'How do additions affect property taxes?',
-        answer: 'Added square footage may affect assessed value. We can discuss timing and scope during planning; consult your tax advisor for specifics.',
+        question: 'How do I get a quote for built-ins?',
+        answer: 'Use our online estimator for a planning range, then book a design visit for written scope.',
       },
     ],
   },
@@ -243,8 +243,7 @@ export const SERVICE_SEO_CONTENT: Record<string, ServiceSEOContent> = {
 
 export function getAreaIntro(city: CityData): string {
   const county = getCountyLabel(city.county);
-  const neighborhood = ''; // filled from CITY_SEO_DATA at runtime in pages
-  return `Boise Cabinet Co provides design-build remodeling for homeowners in ${city.name}, Idaho and throughout ${county}. From kitchen and bathroom renovations to whole-home remodels and room additions, you work with one accountable team from consultation through final walkthrough.`;
+  return `Boise Cabinet Co provides custom kitchen cabinets, bathroom vanities, built-ins, and storage solutions for homeowners in ${city.name}, Idaho and throughout ${county}. You work with one accountable team from design through installation.`;
 }
 
 export function getCityServiceIntro(
@@ -255,8 +254,8 @@ export function getCityServiceIntro(
   const county = getCountyLabel(city.county);
   const fact = localFact
     ? ` ${localFact}`
-    : ` We understand ${county} permit requirements and typical ${city.name} home styles.`;
-  return `Looking for ${service.name.toLowerCase()} in ${city.name}, Idaho?${fact} Boise Cabinet Co offers design-build ${service.name.toLowerCase()} with clear written scope, proactive weekly updates, and a written workmanship guarantee. Schedule a free in-home consultation or use our project estimator for a planning range.`;
+    : ` We understand ${county} requirements and typical ${city.name} home styles.`;
+  return `Looking for ${service.name.toLowerCase()} in ${city.name}, Idaho?${fact} Boise Cabinet Co offers ${service.name.toLowerCase()} with clear written scope, proactive updates, and a written workmanship guarantee. Schedule a free design consultation or use our project estimator for a planning range.`;
 }
 
 export function getCityServiceFaqs(service: ServiceSEOContent, city: CityData): FAQItem[] {
@@ -269,34 +268,34 @@ export function getCityServiceFaqs(service: ServiceSEOContent, city: CityData): 
     },
     {
       question: `How do I get a quote for ${service.name.toLowerCase()} in ${city.name}?`,
-      answer: `Use our online project estimator for a planning range, then book a free 60 to 90 minute in-home visit. We will leave you with design direction and clear next steps.`,
+      answer: `Use our online project estimator for a planning range, then book a free design visit. We will leave you with clear next steps and written scope options.`,
     },
   ];
 }
 
 export const AREA_PAGE_FAQS: FAQItem[] = [
   {
-    question: 'What remodeling services do you offer?',
+    question: 'What cabinet products and services do you offer?',
     answer:
-      'Kitchen remodels, bathroom remodels, whole-home renovations, and room additions, all managed design-build with one team.',
+      'Kitchen cabinets, bathroom vanities, laundry and mudroom storage, pantry systems, closets, built-ins, entertainment centers, home office cabinetry, garage storage, hardware, and professional installation.',
   },
   {
     question: 'Are you licensed and insured?',
     answer:
-      'Yes. Boise Cabinet Co is licensed, bonded, and insured. Idaho contractor license details available upon request.',
+      'Yes. Boise Cabinet Co is licensed, bonded, and insured. License details available upon request.',
   },
   {
-    question: 'How do I start a project?',
+    question: 'How do I start a cabinet project?',
     answer:
-      'Call us, use our project estimator, or schedule a free in-home consultation through our website.',
+      'Call us, use our project estimator, or schedule a free design consultation through our website.',
   },
 ];
 
 export const HOMEPAGE_FAQS_FOR_SCHEMA: FAQItem[] = [
   {
-    question: 'How are you different from other remodeling companies in the Treasure Valley?',
+    question: 'How are you different from other cabinet companies in the Treasure Valley?',
     answer:
-      'We operate as a true design-build firm with one accountable team from first visit to final walkthrough, not separate designers and contractors you have to coordinate.',
+      'We combine Design Studio planning, curated collections, shop-built quality, and professional installation under one accountable team.',
   },
   {
     question: 'What areas do you serve?',
@@ -304,11 +303,11 @@ export const HOMEPAGE_FAQS_FOR_SCHEMA: FAQItem[] = [
       'Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, Caldwell, and the greater Treasure Valley.',
   },
   {
-    question: 'Do you handle permits?',
-    answer: 'Yes. Permits are included in our scope and handled in-house for Ada and Canyon County.',
+    question: 'Do you handle permits when needed?',
+    answer: 'When trade work is in scope, we coordinate permits for Ada and Canyon County.',
   },
   {
     question: 'What is your workmanship guarantee?',
-    answer: 'We provide a written workmanship guarantee on our labor.',
+    answer: 'We provide a written workmanship guarantee on our installation labor.',
   },
 ];

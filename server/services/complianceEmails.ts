@@ -34,7 +34,7 @@ export async function sendComplianceReminderEmail(
 
   await sendEmail(
     user.email,
-    "Compliance Action Required - Boise Remodeling Co",
+    "Compliance Action Required - Boise Cabinet Co",
     htmlBody
   );
 }

@@ -5,39 +5,31 @@ import { cn } from "@/lib/utils";
 import { useDesignStudio } from "./DesignStudioProvider";
 import { useIsDesktop } from "@/hooks/use-media-query";
 import { isScannedRoom } from "@/lib/design/roomScanGeometry";
-import { RoomStep } from "./steps/RoomStep";
-import { ScanStep } from "./steps/ScanStep";
+import { RoomSetupStep } from "./steps/RoomSetupStep";
 import { LayoutStep } from "./steps/LayoutStep";
 import { CollectionStep } from "./steps/CollectionStep";
-import { StyleStep } from "./steps/StyleStep";
-import { DetailsStep } from "./steps/DetailsStep";
-import { VisualizeStep } from "./steps/VisualizeStep";
-import { SaveStep } from "./steps/SaveStep";
+import { LookStep } from "./steps/LookStep";
+import { FinishStep } from "./steps/FinishStep";
 import { LivePreviewPanel } from "./LivePreviewPanel";
 import { ScannedRoomPreview } from "./ScannedRoomPreview";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight, Check, Eye, ChevronUp } from "lucide-react";
+import { wizardCopy } from "@/shared/designStudioCopy";
 
 export const WIZARD_STEPS = [
-  { id: "room", label: "Room", shortLabel: "Room" },
-  { id: "scan", label: "Scan", shortLabel: "Scan" },
+  { id: "room", label: "Your room", shortLabel: "Room" },
   { id: "layout", label: "Layout", shortLabel: "Layout" },
-  { id: "collection", label: "Collection", shortLabel: "Collection" },
-  { id: "style", label: "Style", shortLabel: "Style" },
-  { id: "details", label: "Details", shortLabel: "Details" },
-  { id: "visualize", label: "Visualize", shortLabel: "Preview" },
-  { id: "save", label: "Save", shortLabel: "Save" },
+  { id: "collection", label: "Cabinets", shortLabel: "Cabinets" },
+  { id: "look", label: "Look", shortLabel: "Look" },
+  { id: "finish", label: "Finish", shortLabel: "Finish" },
 ] as const;
 
 const STEP_COMPONENTS = [
-  RoomStep,
-  ScanStep,
+  RoomSetupStep,
   LayoutStep,
   CollectionStep,
-  StyleStep,
-  DetailsStep,
-  VisualizeStep,
-  SaveStep,
+  LookStep,
+  FinishStep,
 ];
 
 interface DesignWizardProps {
@@ -133,10 +125,7 @@ export function DesignWizard({ className }: DesignWizardProps) {
     )
   ) : (
     <div className="rounded-md border bg-card aspect-[4/3] flex items-center justify-center p-6 text-center">
-      <p className="text-sm text-muted-foreground">
-        Scan your room to see your floor plan here, then pick a layout for the 3D
-        preview.
-      </p>
+      <p className="text-sm text-muted-foreground">{wizardCopy.previewPlaceholder}</p>
     </div>
   );
 

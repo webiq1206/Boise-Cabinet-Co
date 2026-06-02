@@ -504,7 +504,7 @@ export function ConsultationForm({ onRevise }: ConsultationFormProps = {}) {
             render={({ field }) => (
               <FormItem>
                 <FormLabel className={labelClass}>
-                  What are you planning to remodel?
+                  What cabinetry are you planning?
                 </FormLabel>
                 <Select onValueChange={field.onChange} value={field.value}>
                   <FormControl>

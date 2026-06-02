@@ -90,7 +90,7 @@ export function RoomDimensionsForm({ className }: { className?: string }) {
           <p className="text-sm font-medium">Room size applied automatically</p>
           <p className="text-sm text-muted-foreground mt-0.5">
             {meta.widthIn}&quot; × {meta.depthIn}&quot;
-            {meta.ceilingIn ? `, ${meta.ceilingIn}" ceiling` : ""} —{" "}
+            {meta.ceilingIn ? `, ${meta.ceilingIn}" ceiling` : ""} , {" "}
             {SOURCE_LABEL[meta.source ?? "auto-layout"] ?? "Ready for layout checks"}.
             Appliance zones are marked automatically. The room expands when you
             add or resize cabinets.

@@ -68,7 +68,7 @@ interface SnapshotPreview3DProps {
 }
 
 /**
- * Read-only 3D render of a saved design snapshot. No selection, no editing —
+ * Read-only 3D render of a saved design snapshot. No selection, no editing , 
  * used by the comparison dialog and the view-only share page.
  */
 export function SnapshotPreview3D({ snapshot, className }: SnapshotPreview3DProps) {

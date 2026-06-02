@@ -9,7 +9,7 @@ export function getCollectionFaqs(collection: CabinetCollection): CollectionFaq[
   return [
     {
       question: `What is the typical lead time for ${collection.name}?`,
-      answer: `${collection.name} cabinets typically ship in ${collection.leadTime}. Timelines begin after you approve shop drawings and we receive your deposit — exact dates depend on finish selections and project scope.`,
+      answer: `${collection.name} cabinets typically ship in ${collection.leadTime}. Timelines begin after you approve shop drawings and we receive your deposit, exact dates depend on finish selections and project scope.`,
     },
     {
       question: `Who is ${collection.name} best suited for?`,
@@ -18,7 +18,7 @@ export function getCollectionFaqs(collection: CabinetCollection): CollectionFaq[
     {
       question: "Does Boise Cabinet Co include installation?",
       answer:
-        "Yes. Every collection includes professional installation by our Treasure Valley crew, soft-close hinges on doors, and our written workmanship guarantee. We coordinate with your remodel timeline when other trades are on site.",
+        "Yes. Every collection includes professional installation by our Treasure Valley crew, soft-close hinges on doors, and our written workmanship guarantee. We coordinate with your project timeline when other trades are on site.",
     },
     {
       question: "Can I see finishes before ordering?",

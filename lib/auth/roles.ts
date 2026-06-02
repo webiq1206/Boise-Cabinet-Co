@@ -2,7 +2,7 @@ import type { User } from "@/shared/schema";
 
 export type UserRole = "admin" | "partner" | "customer";
 
-/** Legacy alias — subcontractor maps to partner */
+/** Legacy alias, subcontractor maps to partner */
 export function normalizeRole(role: string | null | undefined): UserRole | null {
   if (!role) return null;
   if (role === "admin") return "admin";

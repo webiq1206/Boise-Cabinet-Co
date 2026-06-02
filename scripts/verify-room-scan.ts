@@ -10,6 +10,7 @@ import { rankLayoutsForRoom, layoutFitsScannedRoom } from "../lib/design/layoutF
 import { roomMetaFromWallPoints, WALL_SCAN_MIN_POINTS } from "../lib/design/wallScanGeometry";
 import { getLayoutsForRoom } from "../shared/catalog/layouts";
 import { roomMetaToBounds } from "../lib/design/roomMeta";
+import { SCAN_CORNER_USER_LABELS } from "../shared/designStudioCopy";
 
 function assert(cond: boolean, msg: string) {
   if (!cond) throw new Error(msg);
@@ -23,6 +24,10 @@ const corners = [
 ];
 
 assert(corners.length === SCAN_CORNERS_REQUIRED, "fixture corners");
+assert(
+  SCAN_CORNER_USER_LABELS.length === SCAN_CORNERS_REQUIRED,
+  "user-facing corner labels",
+);
 
 const meta = roomMetaFromScanPoints(corners);
 assert(meta !== null && meta.widthIn >= 48, "roomMetaFromScanPoints");

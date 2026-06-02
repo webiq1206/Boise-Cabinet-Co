@@ -7,11 +7,11 @@ export interface ServiceBackgroundConfig {
 const DEFAULT_BACKGROUND = SITE_IMAGES.hero;
 
 export const SERVICE_BACKGROUNDS: ServiceBackgroundConfig = {
-  "kitchen-remodel": "/images/services/kitchen-remodel.webp",
-  "bathroom-remodel": "/images/services/bathroom-remodel.webp",
-  "whole-home-remodel": "/images/services/whole-home-remodel.webp",
-  "room-addition": "/images/services/room-addition.webp",
-  "adu": "/images/services/adu.webp",
+  "kitchen-remodel": "/images/catalog/rooms/kitchen.webp",
+  "bathroom-remodel": "/images/catalog/rooms/bathroom.webp",
+  "whole-home-remodel": "/images/catalog/collections/semi-custom.webp",
+  "room-addition": "/images/catalog/rooms/built-ins.webp",
+  "adu": "/images/catalog/rooms/closet.webp",
   "basement-finish": GALLERY_IMAGES.basement.after,
   "outdoor-living": GALLERY_IMAGES.outdoor.after,
 };
@@ -41,27 +41,27 @@ export interface LandingImageSet {
  */
 const SERVICE_IMAGE_SETS: Record<string, LandingImageSet> = {
   "kitchen-remodel": {
-    hero: "/images/services/kitchen-remodel.webp",
+    hero: "/images/catalog/rooms/kitchen.webp",
     breather: GALLERY_IMAGES.kitchen.after,
     process: GALLERY_IMAGES.kitchen.before,
   },
   "bathroom-remodel": {
-    hero: "/images/services/bathroom-remodel.webp",
+    hero: "/images/catalog/rooms/bathroom.webp",
     breather: GALLERY_IMAGES.bathroom.after,
     process: GALLERY_IMAGES.bathroom.before,
   },
   "whole-home-remodel": {
-    hero: "/images/services/whole-home-remodel.webp",
+    hero: "/images/catalog/collections/semi-custom.webp",
     breather: GALLERY_IMAGES.wholeHome.after,
     process: GALLERY_IMAGES.wholeHome.before,
   },
   "room-addition": {
-    hero: "/images/services/room-addition.webp",
+    hero: "/images/catalog/rooms/built-ins.webp",
     breather: GALLERY_IMAGES.addition.after,
     process: GALLERY_IMAGES.addition.before,
   },
   adu: {
-    hero: "/images/services/adu.webp",
+    hero: "/images/catalog/rooms/closet.webp",
     breather: GALLERY_IMAGES.addition.after,
     process: GALLERY_IMAGES.basement.after,
   },

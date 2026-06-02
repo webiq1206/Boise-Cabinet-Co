@@ -16,7 +16,7 @@ const OUT_DIR = path.join(process.cwd(), 'public', 'downloads');
 
 const FILES = [
   {
-    name: 'remodel-budget-worksheet.pdf',
+    name: 'cabinet-budget-worksheet.pdf',
     blocks: BUDGET_WORKSHEET_BLOCKS,
     footer: PDF_FOOTERS.budget,
   },

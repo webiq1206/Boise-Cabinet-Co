@@ -4,7 +4,7 @@ const sections: ContentSection[] = [
   {
     h2: 'What should Treasure Valley homeowners budget for custom cabinets in 2026?',
     paragraphs: [
-      `Most cabinet packages we scope across ${CITIES_LIST} fall into planning bands—not single sticker prices. A laundry refresh in Meridian is not priced like a full custom kitchen in the North End. National averages rarely account for Ada County plan review, Canyon County submission portals, Idaho labor markets, or the finish level common in Eagle and Hidden Springs.`,
+      `Most cabinet packages we scope across ${CITIES_LIST} fall into planning bands, not single sticker prices. A laundry refresh in Meridian is not priced like a full custom kitchen in the North End. National averages rarely account for Ada County plan review, Canyon County submission portals, Idaho labor markets, or the finish level common in Eagle and Hidden Springs.`,
       `This guide is the pillar for our <strong>Boise Cabinet Costs</strong> hub. Use it to understand typical ranges, then read the linked articles on kitchen, bathroom, whole-home, built-in, and luxury cabinet costs for project-specific detail.`,
       `For a rough planning number before design, start with our <a href="/#calculator">project estimator</a>, then schedule a consultation for a written scope.`,
     ],
@@ -31,7 +31,7 @@ const sections: ContentSection[] = [
   {
     h2: 'How much do kitchen cabinets cost in Boise?',
     paragraphs: [
-      'Kitchen cabinets are the most common inquiry in Boise and Meridian. Layout changes—adding an island, extending uppers, or reworking the sink wall—drive both design time and field measure complexity. Cabinet line (stock, semi-custom, full custom), door style, and interior organizers compound quickly.',
+      'Kitchen cabinets are the most common inquiry in Boise and Meridian. Layout changes, adding an island, extending uppers, or reworking the sink wall, drive both design time and field measure complexity. Cabinet line (stock, semi-custom, full custom), door style, and interior organizers compound quickly.',
       'Countertops, appliances, and plumbing are typically coordinated separately; we guide rough-in and cabinet openings but do not supply stone or appliances. Budget those separately, often $8,000–$25,000 for a full appliance suite.',
       'Read our dedicated article: <a href="/blog/kitchen-cabinet-cost-boise">Kitchen Cabinet Cost Boise</a>. Explore <a href="/cabinets/kitchen">kitchen cabinet catalog</a> and <a href="/guides/boise-kitchen-cabinet-guide">Boise kitchen cabinet guide</a>.',
     ],
@@ -48,7 +48,7 @@ const sections: ContentSection[] = [
     h2: 'Whole-home cabinet costs across Ada and Canyon County',
     paragraphs: [
       'Whole-home programs coordinate door style, finish, and hardware across kitchen, baths, laundry, mudroom, and built-ins under one specification. Sequencing matters: lock the master palette before fabrication starts on the first room.',
-      'Older Treasure Valley homes may need field scribing and filler strategies when walls are out of plumb—hold contingency for adjustments at install.',
+      'Older Treasure Valley homes may need field scribing and filler strategies when walls are out of plumb, hold contingency for adjustments at install.',
       'Our <a href="/blog/whole-home-cabinet-cost-boise">whole-home cabinet cost guide</a> and <a href="/guides/whole-home-cabinetry-guide">whole-home cabinetry guide</a> go deeper.',
     ],
   },
@@ -69,7 +69,7 @@ const sections: ContentSection[] = [
     ],
   },
   {
-    h2: 'Cabinet cost per linear foot in Boise—is it useful?',
+    h2: 'Cabinet cost per linear foot in Boise, is it useful?',
     paragraphs: [
       'Cost per linear foot is a shorthand, not a contract price. It varies by line, door style, interior accessories, and whether installation is included. Pantry walls and islands count differently than base runs alone.',
       'For whole-home or large kitchen planning, many homeowners ask for a $/LF range after preliminary design. We publish realistic bands in <a href="/blog/cabinet-cost-per-linear-foot">cabinet cost per linear foot in Boise</a>.',
@@ -111,7 +111,7 @@ const sections: ContentSection[] = [
   {
     h2: 'Cabinet timeline expectations in Boise, Meridian, and Nampa',
     paragraphs: [
-      'Timelines depend on design duration, shop backlog, material lead times, and install sequencing—not just installation days. Kitchen packages with layout changes often need field measure after rough work is complete.',
+      'Timelines depend on design duration, shop backlog, material lead times, and install sequencing, not just installation days. Kitchen packages with layout changes often need field measure after rough work is complete.',
     ],
     table: {
       className: 'timeline-table',
@@ -150,7 +150,7 @@ const sections: ContentSection[] = [
     h2: 'Climate and seasonal considerations in Idaho',
     paragraphs: [
       'Dry summers favor exterior-adjacent casework delivery; winter installs require heat and humidity control for wood movement. Freeze-thaw cycles matter for outdoor kitchen bases and drainage.',
-      'Book design early if you want installation complete before holidays or school years—shop schedules tighten in peak months across the valley.',
+      'Book design early if you want installation complete before holidays or school years, shop schedules tighten in peak months across the valley.',
     ],
   },
   {
@@ -185,7 +185,7 @@ const sections: ContentSection[] = [
   {
     h2: 'Boise-specific considerations for 2026 cabinet planning',
     paragraphs: [
-      'Material lead times and local labor demand still influence 2026 budgets. Tariffs and supply chains affect specialty hardware and imported components—lock long-lead items early in design.',
+      'Material lead times and local labor demand still influence 2026 budgets. Tariffs and supply chains affect specialty hardware and imported components, lock long-lead items early in design.',
       'If you are in a mapped floodplain or hillside overlay (common near the Bench and Foothills), coordinate structural and casework dimensions before pricing is firm.',
       `For city-level context, read <a href="${PILLAR_BOISE}">Boise Custom Cabinet Guide</a> and the <a href="${PILLAR_TV}">Treasure Valley Cabinet Guide</a>.`,
     ],
@@ -193,7 +193,7 @@ const sections: ContentSection[] = [
   {
     h2: 'Next steps: from planning range to written scope',
     paragraphs: [
-      'Use the cost cluster articles linked from this hub for room-by-room detail. When you are ready, schedule a consultation—we will walk your space, discuss goals, and outline a realistic path from design through installation.',
+      'Use the cost cluster articles linked from this hub for room-by-room detail. When you are ready, schedule a consultation, we will walk your space, discuss goals, and outline a realistic path from design through installation.',
       'Explore cabinetry by room: <a href="/cabinets">cabinet catalog</a>, <a href="/collections">collections</a>, <a href="/cabinets/kitchen">kitchen</a>, <a href="/cabinets/bathroom">bathroom</a>, and <a href="/compare">compare lines</a>.',
     ],
   },
@@ -202,7 +202,7 @@ const sections: ContentSection[] = [
 export const BOISE_REMODELING_COST_GUIDE_HTML = buildSectionsHtml(sections);
 
 export const BOISE_REMODELING_COST_QUICK_ANSWER =
-  'Treasure Valley custom cabinets in 2026 typically range from about $4,000 for a small vanity refresh to $120,000+ for whole-home packages, with most full kitchens between $15,000 and $45,000 and master vanities from $8,000 to $25,000+. Exact cost depends on linear footage, door style, interior accessories, install complexity, and shop lead times—not national averages.';
+  'Treasure Valley custom cabinets in 2026 typically range from about $4,000 for a small vanity refresh to $120,000+ for whole-home packages, with most full kitchens between $15,000 and $45,000 and master vanities from $8,000 to $25,000+. Exact cost depends on linear footage, door style, interior accessories, install complexity, and shop lead times, not national averages.';
 
 export const BOISE_REMODELING_COST_TAKEAWAYS = [
   'Use planning ranges by room type, not a single $/LF number for every cabinet project.',

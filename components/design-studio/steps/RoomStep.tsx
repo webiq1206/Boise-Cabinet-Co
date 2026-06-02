@@ -30,20 +30,21 @@ const ROOM_ICONS: Record<string, LucideIcon> = {
   garage: Car,
 };
 
-export function RoomStep() {
+export function RoomStep({ showHeader = true }: { showHeader?: boolean }) {
   const { design, updateDesign } = useDesignStudio();
 
   return (
     <div className="space-y-6">
-      <div>
-        <h2 className="text-2xl font-sans font-light tracking-tight">
-          Which <em className="brc-accent text-accent">room</em> are we designing?
-        </h2>
-        <p className="text-muted-foreground mt-2">
-          Select the space, then scan your real room on the next step—we won&apos;t
-          size cabinets from a generic template.
-        </p>
-      </div>
+      {showHeader && (
+        <div>
+          <h2 className="text-2xl font-sans font-light tracking-tight">
+            Which <em className="brc-accent text-accent">room</em> are we designing?
+          </h2>
+          <p className="text-muted-foreground mt-2">
+            Pick your room, then scan it so cabinets fit your space.
+          </p>
+        </div>
+      )}
 
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {DESIGN_STUDIO_ROOMS.map((room) => {

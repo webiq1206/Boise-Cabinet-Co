@@ -1,5 +1,5 @@
 /**
- * Catalog product image paths — maps catalog slugs to manifest output filenames.
+ * Catalog product image paths, maps catalog slugs to manifest output filenames.
  */
 
 /** Catalog hardware slug → image filename (without directory). */
@@ -30,5 +30,5 @@ export function getAccessoryImagePath(slug: string): string {
 
 export function getCatalogProductAlt(name: string, category: "hardware" | "accessory"): string {
   const label = category === "hardware" ? "cabinet hardware" : "cabinet accessory";
-  return `${name} ${label} — Boise Cabinet Co`;
+  return `${name} ${label}, Boise Cabinet Co`;
 }

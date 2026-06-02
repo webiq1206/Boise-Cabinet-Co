@@ -1,394 +1,384 @@
-/** Hub-specific FAQs — substantive answers, not generic templates. */
+/** Hub-specific FAQs for cabinet planning guides. */
 
 export function getHubPillarFaqs(hubSlug: string): Array<{ question: string; answer: string }> {
   const faqs: Record<string, Array<{ question: string; answer: string }>> = {
-    'kitchen-remodeling': [
+    'kitchen-cabinets': [
       {
-        question: 'How much does a kitchen remodel cost in Boise?',
+        question: 'How much do kitchen cabinets cost in Boise?',
         answer:
-          'Most full kitchen remodels in the Treasure Valley plan between roughly $45,000 and $120,000+ depending on layout changes, cabinetry line, and finishes. Guest-scale refreshes cost less; open-concept structural work costs more.',
+          'Most Treasure Valley kitchen cabinet projects plan between roughly $15,000 and $65,000+ for cabinetry alone, depending on line, door style, interior accessories, and linear footage. Full kitchen programs with countertops and installation run higher.',
       },
       {
-        question: 'How long does a kitchen remodel take?',
+        question: 'How long does a kitchen cabinet project take?',
         answer:
-          'Expect 4–10 weeks for design and selections, 2–8 weeks for permits when layout changes, and 8–16 weeks of construction. Cabinet lead times often drive the calendar.',
+          'Expect 2 to 6 weeks for design and selections, then 6 to 14 weeks for shop fabrication and installation. Lead times vary by collection and finish.',
       },
       {
-        question: 'Do I need permits for a kitchen remodel in Ada County?',
+        question: 'Do I need permits for new kitchen cabinets in Ada County?',
         answer:
-          'Cosmetic updates may need minimal review. Relocating plumbing, removing walls, or adding circuits typically requires Ada County or city plan review with inspections.',
+          'Cabinet-only replacements often need minimal review. Relocating plumbing, adding circuits, or removing walls may require Ada County or city plan review. We coordinate when installation scope includes trade work.',
       },
       {
-        question: 'Are appliances included in your kitchen quotes?',
+        question: 'Are appliances included in cabinet quotes?',
         answer:
-          'Appliances are usually client-supplied. We coordinate rough-in and cutouts but do not purchase or install appliances unless written into scope.',
+          'Appliances are usually client-supplied. We coordinate rough-in dimensions and panel-ready openings in your cabinet design.',
       },
       {
-        question: 'Can you open my galley kitchen to the living room?',
+        question: 'Can you design cabinets for an open kitchen layout?',
         answer:
-          'Often yes, when structure allows. We verify beam sizing and permits before demolition—common on Boise Bench and Meridian ranches.',
+          'Yes. Islands, tall pantries, and appliance walls are planned in our Design Studio with clearances verified before order.',
       },
       {
-        question: 'What is design-build kitchen remodeling?',
+        question: 'What is the difference between semi-custom and full custom cabinets?',
         answer:
-          'One contract covers design, estimating, permits, and construction so selections, allowances, and schedule stay aligned.',
+          'Semi-custom uses standard box sizes with flexible fronts and interiors. Full custom is built to your exact dimensions, details, and finish specifications.',
       },
       {
-        question: 'When should I order cabinets?',
+        question: 'When should I order kitchen cabinets?',
         answer:
-          'At design lock, after layout and MEP are confirmed—lead times can exceed eight weeks.',
+          'At design lock, after layout, appliance locations, and finish selections are confirmed. Popular lines can exceed eight weeks.',
       },
       {
-        question: 'How do I compare kitchen contractor bids?',
+        question: 'How do I compare cabinet company bids?',
         answer:
-          'Match demolition, haul-off, permits, allowances, and appliance rough-in—not just cabinet install price.',
-      },
-    ],
-    'bathroom-remodeling': [
-      {
-        question: 'How much does a bathroom remodel cost in Meridian or Boise?',
-        answer:
-          'Guest bath refreshes often plan $18,000–$45,000. Master baths with curbless showers and layout changes commonly reach $35,000–$85,000+ in Ada County.',
-      },
-      {
-        question: 'What is different about a curbless shower install?',
-        answer:
-          'Slope, drain, and waterproofing must pass inspection before tile. Failures here delay most master bath timelines.',
-      },
-      {
-        question: 'Can you add aging-in-place features without a hospital look?',
-        answer:
-          'Yes—comfort-height vanities, blocking for grab bars, and wider doorways can be designed with normal finishes.',
-      },
-      {
-        question: 'Do bathroom remodels need permits in the Treasure Valley?',
-        answer:
-          'Layout and plumbing moves require permits. Cosmetic swaps may not. We include permit coordination in design-build scope when required.',
-      },
-      {
-        question: 'How long does a master bath remodel take?',
-        answer:
-          'Often 6–12 weeks of construction after design and permits, longer when curbless showers and radiant heat are included.',
-      },
-      {
-        question: 'Should guest and master baths share one budget?',
-        answer:
-          'No—scope, waterproofing, and fixture level differ too much to combine into one number.',
-      },
-      {
-        question: 'What ventilation is required in Idaho bathrooms?',
-        answer:
-          'Proper exhaust and heat should be planned with layout, especially in older Boise homes with limited existing fan capacity.',
-      },
-      {
-        question: 'How do I start a bathroom remodel with your team?',
-        answer:
-          'Schedule an in-home consultation or use our estimator for a planning range, then develop written scope before construction.',
+          'Match box construction, finish level, hardware, installation, haul-off, and warranty. Line-item cabinet price alone rarely tells the full story.',
       },
     ],
-    'home-additions': [
+    'bathroom-vanities': [
       {
-        question: 'How much does a room addition cost in Boise?',
+        question: 'How much do bathroom vanities cost in Meridian or Boise?',
         answer:
-          'Additions often plan $80,000–$250,000+ depending on size, foundation type, utilities, and finishes. Second stories and hillside lots trend higher.',
+          'Single vanity refreshes often plan $2,500 to $8,000 for cabinetry. Double vanities with custom storage and mirrors commonly reach $6,000 to $18,000+ before tops and plumbing.',
       },
       {
-        question: 'Do I need a structural engineer for a second story?',
+        question: 'What should I plan for a floating vanity?',
         answer:
-          'Yes—second-story additions in Boise and Eagle require engineering and typically longer Ada County review.',
+          'Blocking, drain location, and drawer depth must be confirmed before shop drawings. We verify wall structure during design.',
       },
       {
-        question: 'Can I build an ADU on my lot?',
+        question: 'Can vanities include aging-in-place features?',
         answer:
-          'Feasibility depends on zoning, utilities, fire separation, and parking—not just desired square footage. We study lots during design.',
+          'Yes. Comfort-height bases, pull-out trays, and blocking for grab bars can be designed with normal door styles and finishes.',
       },
       {
-        question: 'How do setbacks affect addition design in Eagle?',
+        question: 'Do vanity installations need permits in the Treasure Valley?',
         answer:
-          'Setbacks and soil conditions can move foundation type and budget early—especially in Foothills neighborhoods.',
+          'Cabinet set and top install may not require permits. Plumbing moves and new circuits typically do. We clarify scope during consultation.',
       },
       {
-        question: 'Are permits included for additions?',
+        question: 'How long does a vanity project take?',
         answer:
-          'Yes—our design-build scope includes permit coordination for Ada and Canyon County when structural work is involved.',
+          'Often 3 to 8 weeks from design lock through installation, depending on custom lead times and countertop templating.',
       },
       {
-        question: 'How long do additions take to build?',
+        question: 'Should guest and master bath vanities share one budget?',
         answer:
-          'Many additions run 4–9 months total including design, permits, and construction.',
+          'No. Size, storage, and finish level differ too much to combine into one number.',
       },
       {
-        question: 'Can additions match my existing roofline?',
+        question: 'What countertop options pair with your vanities?',
         answer:
-          'That is a design goal—we plan tie-ins, materials, and HOA review where applicable so the addition reads as original architecture.',
+          'Quartz, natural stone, and solid surface are common. We coordinate cutouts and overhangs with your cabinet order.',
       },
       {
-        question: 'What is the first step for an addition project?',
+        question: 'How do I start a vanity project with Boise Cabinet Co?',
         answer:
-          'In-home consultation with preliminary feasibility on setbacks, access, and utility paths.',
+          'Schedule a design consultation or use our estimator for a planning range, then approve written scope before shop release.',
       },
     ],
-    'whole-home-remodeling': [
+    'built-ins-storage': [
       {
-        question: 'How much does a whole-home remodel cost in the Treasure Valley?',
+        question: 'How much do built-ins and closet systems cost in Boise?',
         answer:
-          'Programs often plan $150,000–$400,000+ depending on how many rooms, structural work, and finish level are involved.',
+          'Reach-in closets often plan $1,500 to $5,000. Full wall units, mudroom lockers, and pantry systems commonly run $4,000 to $25,000+ depending on size and finish.',
       },
       {
-        question: 'Should I remodel in phases or all at once?',
+        question: 'What rooms benefit most from custom built-ins?',
         answer:
-          'Phasing spreads cost but adds mobilization. A master plan keeps finishes cohesive across phases.',
+          'Mudrooms, pantries, home offices, entertainment walls, and primary closets deliver the strongest daily-use value in Treasure Valley homes.',
       },
       {
-        question: 'Do whole-home remodels require moving out?',
+        question: 'Can built-ins match existing trim and paint?',
         answer:
-          'Depends on scope—dust, utilities, and kitchen/bath access drive the answer. We plan barriers or temporary kitchens when possible.',
+          'Yes. We specify finish, profile, and hardware to align with your home or create a deliberate contrast feature.',
+      },
+      {
+        question: 'Do closet systems need permits?',
+        answer:
+          'Freestanding and fastened casework typically does not. Electrical for lighting inside units may. We flag requirements during design.',
+      },
+      {
+        question: 'How long do built-in projects take?',
+        answer:
+          'Many single-room programs complete in 4 to 10 weeks from design lock through installation.',
+      },
+      {
+        question: 'What organization accessories should I include?',
+        answer:
+          'Pull-out pantries, spice racks, shoe shelves, and hamper pull-outs are planned per room during selections.',
+      },
+      {
+        question: 'Can you integrate laundry room cabinetry?',
+        answer:
+          'Yes. Folding surfaces, appliance panels, and supply storage are common in Idaho laundry rooms.',
+      },
+      {
+        question: 'How do I measure for built-ins?',
+        answer:
+          'We template on site or use Design Studio dimensions. Accurate ceiling height and outlet locations prevent field surprises.',
+      },
+    ],
+    'whole-home-cabinetry': [
+      {
+        question: 'How much does whole-home cabinetry cost in the Treasure Valley?',
+        answer:
+          'Multi-room programs often plan $40,000 to $150,000+ depending on room count, line, and finish consistency across spaces.',
+      },
+      {
+        question: 'Should I order cabinets room by room or as one program?',
+        answer:
+          'One master finish and hardware schedule keeps adjacent spaces cohesive and can reduce mobilization cost.',
+      },
+      {
+        question: 'Can I stay in my home during cabinet installation?',
+        answer:
+          'Usually yes room by room. We sequence kitchens, baths, and storage areas to limit downtime.',
       },
       {
         question: 'What should be decided before finish selections?',
         answer:
-          'Structural, panel, HVAC, and layout decisions should be locked when multiple rooms are involved.',
+          'Floor plan, appliance locations, and lighting plans should be stable when multiple rooms share one palette.',
       },
       {
         question: 'How much contingency should I hold?',
         answer:
-          '10–15% is prudent in pre-1990 homes when walls will be opened throughout the house.',
+          '5 to 10% is prudent when opening walls or coordinating trades beyond cabinetry scope.',
       },
       {
-        question: 'Are permits required for whole-home work?',
+        question: 'Do whole-home cabinet programs need permits?',
         answer:
-          'Most layout and MEP changes require Ada or Canyon County review. We coordinate submissions and inspections.',
+          'Cabinet-only work may not. Trade work bundled with install may. We outline requirements in written scope.',
       },
       {
-        question: 'Can you coordinate flooring and lighting house-wide?',
+        question: 'Can you coordinate hardware house-wide?',
         answer:
-          'Yes—whole-home programs are where design-build coordination pays off most.',
+          'Yes. One hardware schedule across kitchen, baths, and built-ins is standard on whole-home programs.',
       },
       {
-        question: 'How do I budget a whole-home remodel?',
+        question: 'How do I budget whole-home cabinetry?',
         answer:
-          'Start with our cost guide and whole-home cost article, then schedule a consultation for written scope.',
+          'Start with our cabinet cost guide, then schedule a consultation for room-by-room written scope.',
       },
     ],
-    'contractor-selection': [
+    'choosing-cabinet-company': [
       {
-        question: 'How do I compare remodeling contractors in Boise fairly?',
+        question: 'How do I compare cabinet companies in Boise fairly?',
         answer:
-          'Align scope, allowances, permits, haul-off, and schedule before comparing price. Ask who owns communication during construction.',
+          'Align box construction, finish, warranty, installation, and lead times before comparing price.',
       },
       {
         question: 'What red flags should I avoid?',
         answer:
-          'Bait pricing, verbal-only scope, and teams that cannot explain Ada vs Canyon paths for your address.',
+          'Unclear line specifications, no shop drawings, and quotes that omit installation or haul-off.',
       },
       {
-        question: 'Is design-build better than hiring a designer and GC separately?',
+        question: 'Is it better to buy cabinets direct or through a local company?',
         answer:
-          'Design-build reduces gaps that become change orders. Separate contracts can work but require tight coordination.',
+          'Local design, templating, and installation accountability reduce field errors and warranty gaps.',
       },
       {
-        question: 'What should be in a remodeling contract?',
+        question: 'What should be in a cabinet contract?',
         answer:
-          'Written scope, allowances, payment schedule, permit responsibility, change-order terms, and warranty language.',
+          'Written scope, line and finish, payment schedule, lead time, change-order terms, and warranty language.',
       },
       {
         question: 'Do you provide references and insurance certificates?',
         answer:
-          'Yes—professional remodelers should provide both before you sign.',
+          'Yes. Professional cabinet companies should provide both before you sign.',
       },
       {
         question: 'How many bids should I get?',
         answer:
-          'Two to three aligned proposals are enough if scope is documented—more bids without aligned scope add confusion.',
+          'Two to three aligned proposals are enough when scope and line are documented.',
       },
       {
-        question: 'Why do Boise remodeling bids vary so much?',
+        question: 'Why do Boise cabinet bids vary so much?',
         answer:
-          'Different allowances, permit assumptions, and finish levels—not always different quality of work.',
+          'Different construction, finish tier, and installation assumptions, not always different quality.',
       },
       {
         question: 'What questions should I ask in the first meeting?',
         answer:
-          'Ask about permit experience in your city, selection process, contingency handling, and who manages inspections.',
+          'Ask about shop capabilities, Design Studio process, lead times, and who manages installation punch list.',
       },
     ],
-    'remodeling-process': [
+    'cabinet-project-process': [
       {
-        question: 'What are the steps in a design-build remodel?',
+        question: 'What are the steps in a cabinet project with Boise Cabinet Co?',
         answer:
-          'Consultation, preliminary scope, design development, agreement, permits, construction, punch list, and warranty walkthrough.',
+          'Consultation, design and selections, shop drawings, fabrication, delivery, installation, and final walkthrough.',
       },
       {
-        question: 'When should permits be submitted?',
+        question: 'When should shop drawings be approved?',
         answer:
-          'After layout and structural decisions are stable—before ordering long-lead items tied to rough-in.',
+          'Before fabrication begins. Dimensions, fillers, and finished ends are locked at approval.',
       },
       {
-        question: 'Can I live at home during a kitchen remodel?',
+        question: 'Can I use my kitchen during cabinet installation?',
         answer:
-          'Sometimes, with a temporary kitchen plan. Layout and utility shutoffs determine feasibility.',
+          'Often with a temporary setup. We protect floors and adjacent rooms and communicate utility shutoff windows.',
       },
       {
         question: 'How are selections tracked?',
         answer:
-          'Against allowances in written scope so upgrades are intentional, not surprise change orders.',
+          'Door style, finish, hardware, and accessories are documented in scope so upgrades are intentional.',
       },
       {
         question: 'What is a punch list?',
         answer:
-          'A documented list of items to complete before final payment and warranty walkthrough.',
+          'A documented list of adjustment items to complete before final payment and warranty walkthrough.',
       },
       {
-        question: 'How long does Ada County plan review take?',
+        question: 'How long does fabrication take?',
         answer:
-          'Often 2–8+ weeks depending on project type and comment cycles—see our permit timeline article.',
+          'Often 4 to 12 weeks depending on collection and finish. Rush options vary by line.',
       },
       {
-        question: 'Who coordinates inspections?',
+        question: 'Who coordinates countertop templating?',
         answer:
-          'Our design-build team schedules inspections with the jurisdiction when permits are in our scope.',
+          'Our team schedules templating after base cabinets are set when countertops are in scope.',
       },
       {
-        question: 'What happens if hidden damage is found?',
+        question: 'What happens if a wall is out of plumb?',
         answer:
-          'Documented in writing with contingency or change order before cover-up—standard in older Treasure Valley homes.',
+          'Field conditions are documented and scribe fillers or adjustments are planned before panels are cut.',
       },
     ],
-    'remodeling-roi': [
+    'cabinet-roi': [
       {
-        question: 'Which remodels have the best ROI in Boise?',
+        question: 'Which cabinet upgrades have the best ROI in Boise?',
         answer:
-          'Focused kitchen and bath updates often align with neighborhood comps. Avoid over-improving beyond the street.',
+          'Quality kitchen cabinets and primary bath vanities often align with neighborhood comps. Avoid finish levels far above the street.',
       },
       {
-        question: 'Should I remodel before selling in Meridian?',
+        question: 'Should I upgrade cabinets before selling in Meridian?',
         answer:
-          'Target what buyers expect in your subdivision—agent input and local comps should drive scope.',
+          'Target what buyers expect in your subdivision. Agent input and local comps should drive scope.',
       },
       {
         question: 'Does a luxury kitchen always return on resale?',
         answer:
-          'Not always—finish level should match the neighborhood, especially in Eagle and Harris Ranch.',
+          'Not always. Finish level should match the neighborhood, especially in Eagle and Harris Ranch.',
       },
       {
         question: 'Is ROI the right metric for a long-term home?',
         answer:
-          'Comfort, layout, and efficiency may justify projects with modest resale payback if you plan to stay.',
+          'Daily function and storage may justify projects with modest resale payback if you plan to stay.',
       },
       {
-        question: 'Do bathroom updates help resale in Nampa?',
+        question: 'Do vanity updates help resale in Nampa?',
         answer:
           'Updated baths often help buyer appeal when consistent with home price band in Canyon County.',
       },
       {
-        question: 'What pre-sale projects should I skip?',
+        question: 'What pre-sale cabinet projects should I skip?',
         answer:
-          'Over-scoped additions or finishes well above comps rarely return dollar-for-dollar.',
+          'Over-custom features well above comps rarely return dollar for dollar.',
       },
       {
-        question: 'How do I research comps for remodel decisions?',
+        question: 'How do I research comps for cabinet decisions?',
         answer:
           'Use recent sales on your street and subdivision, not broad Treasure Valley averages.',
       },
       {
-        question: 'Can energy upgrades improve ROI?',
+        question: 'Can pantry and mudroom storage improve buyer appeal?',
         answer:
-          'Windows, insulation, and HVAC can improve comfort and operating cost; dollar return varies by home age.',
+          'Organized storage and drop zones are strong selling points in family-oriented Treasure Valley listings.',
       },
     ],
-    'outdoor-living': [
+    'cabinet-costs': [
       {
-        question: 'Do outdoor kitchens need permits in Ada County?',
+        question: 'What drives cabinet cost the most?',
         answer:
-          'Gas, electric, and structures tied to the home may require permits—plan utilities before hardscape.',
+          'Line tier, door style, finish, interior accessories, and linear footage. Installation and tops are separate line items.',
       },
       {
-        question: 'When should I build a covered patio in Idaho?',
+        question: 'How accurate is an online cabinet estimate?',
         answer:
-          'Schedule concrete and structural work in stable weather windows; freeze-thaw affects footings and drainage.',
+          'Estimates are planning ranges. Written scope after design is required for firm pricing.',
       },
       {
-        question: 'Deck vs paver patio—which is better in Boise?',
+        question: 'Do prices include installation?',
         answer:
-          'Depends on grade, drainage, and maintenance preference—see our decks vs patios article.',
+          'Quotes specify whether installation, haul-off, and trade coordination are included. Match assumptions when comparing bids.',
       },
       {
-        question: 'Can outdoor work run with an indoor kitchen remodel?',
+        question: 'When do cabinet prices change?',
         answer:
-          'Yes—shared utilities and design cohesion are easier when both are planned together.',
+          'Supplier and material adjustments can affect quotes held beyond their expiration date.',
       },
       {
-        question: 'How do I plan drainage for outdoor entertaining?',
+        question: 'Can I phase cabinet work by room?',
         answer:
-          'Slope and downspout routing should be resolved before pavers or concrete are installed.',
+          'Yes. A master plan keeps finishes aligned across phases.',
       },
       {
-        question: 'Are outdoor fireplaces worth it in the Treasure Valley?',
+        question: 'What financing options exist for cabinetry?',
         answer:
-          'They extend shoulder seasons; fuel type and venting must match local codes and HOA rules.',
+          'Options vary by project size. Ask during consultation for current programs.',
       },
       {
-        question: 'What maintenance do outdoor kitchens need?',
+        question: 'How do semi-custom and full custom compare on cost?',
         answer:
-          'Winterize plumbing lines, protect stone and appliances from freeze, and plan covers in windy corridors.',
+          'Semi-custom is typically lower per linear foot with faster lead times. Full custom costs more for exact sizing and details.',
       },
       {
-        question: 'How do I budget outdoor living?',
+        question: 'Where can I see Treasure Valley cabinet cost ranges?',
         answer:
-          'Scope utilities, structure, and finishes separately—outdoor kitchens and covered patios are not one flat SF price.',
+          'Our cabinet cost guide breaks down typical ranges by room and collection tier.',
       },
     ],
-    'remodeling-costs': [],
     'treasure-valley-locations': [],
+    'local-guides': [],
   };
 
-  const legacyHub: Record<string, string> = {
-    'kitchen-cabinets': 'kitchen-remodeling',
-    'bathroom-vanities': 'bathroom-remodeling',
-    'built-ins-storage': 'home-additions',
-    'whole-home-cabinetry': 'whole-home-remodeling',
-    'choosing-cabinet-company': 'contractor-selection',
-    'cabinet-project-process': 'remodeling-process',
-    'cabinet-roi': 'remodeling-roi',
-    'cabinet-costs': 'remodeling-costs',
-  };
-  return faqs[hubSlug] ?? faqs[legacyHub[hubSlug]] ?? [];
+  return faqs[hubSlug] ?? [];
 }
 
 export function getLocationFaqs(
   cityName: string,
-  citySlug: string,
+  _citySlug: string,
   county: 'ada' | 'canyon',
 ): Array<{ question: string; answer: string }> {
   const countyLabel = county === 'ada' ? 'Ada County' : 'Canyon County';
   return [
     {
-      question: `Do you remodel homes in ${cityName}?`,
-      answer: `Yes—we serve ${cityName} with kitchen, bathroom, whole-home, and addition design-build. See our ${cityName} area page for local services.`,
+      question: `Do you install cabinets in ${cityName}?`,
+      answer: `Yes. We serve ${cityName} with kitchen cabinets, bathroom vanities, built-ins, closet systems, and storage solutions. See our ${cityName} area page for local services.`,
     },
     {
-      question: `What permits apply in ${cityName}?`,
-      answer: `${cityName} projects typically use ${countyLabel} review for layout and structural work. Cosmetic updates may move faster with fewer sheets.`,
+      question: `What permits apply in ${cityName} for cabinet work?`,
+      answer: `${cityName} projects in ${countyLabel} may need review when installation includes plumbing, electrical, or structural changes. Cabinet-only replacements often move faster.`,
     },
     {
-      question: `How much does a remodel cost in ${cityName}?`,
+      question: `How much do cabinets cost in ${cityName}?`,
       answer:
-        'Use our Boise Cabinet Cost Guide for planning bands by project type, then schedule a consultation for written scope tied to your home.',
+        'Use our Treasure Valley Cabinet Cost Guide for planning bands by room type, then schedule a consultation for written scope tied to your home.',
     },
     {
-      question: `What remodels are most common in ${cityName}?`,
+      question: `What cabinet projects are most common in ${cityName}?`,
       answer:
-        'Kitchen updates, primary suite baths, open-layout conversions, and rear additions are frequent—scope depends on housing era in your neighborhood.',
+        'Kitchen cabinet upgrades, vanity replacements, pantry and mudroom storage, and home office built-ins are frequent. Scope depends on housing era in your neighborhood.',
     },
     {
-      question: 'How long do local remodels take?',
+      question: 'How long do local cabinet projects take?',
       answer:
-        'Timelines follow design, selections, and permit review—often several weeks to months before construction completes.',
+        'Timelines follow design, selections, and fabrication lead times, often several weeks from order to installation completion.',
     },
     {
-      question: 'Do you offer design-build in my neighborhood?',
+      question: 'Do you offer design and installation in my neighborhood?',
       answer:
-        'Yes—one team handles design, permits, and construction under a single contract with local permit experience.',
+        'Yes. One team handles design, ordering, and professional installation with local experience in your city.',
     },
   ];
 }

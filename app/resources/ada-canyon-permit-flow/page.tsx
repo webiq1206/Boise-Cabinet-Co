@@ -10,9 +10,9 @@ import { CTA_PRIMARY } from '@/shared/ctaCopy';
 export const metadata: Metadata = buildPageMetadata({
   kind: 'blog',
   path: '/resources/ada-canyon-permit-flow',
-  titleOverride: 'Ada vs Canyon County Permit Flow | Boise Remodeling Co',
+  titleOverride: 'Ada vs Canyon County Permit Flow | Boise Cabinet Co',
   descriptionOverride:
-    'Visual guide to remodeling permits in Ada and Canyon County—jurisdiction, review steps, and inspections for Treasure Valley homeowners.',
+    'Visual guide to cabinet and trade permits in Ada and Canyon County, jurisdiction, review steps, and inspections for Treasure Valley homeowners.',
 });
 
 export default function AdaCanyonPermitFlowPage() {
@@ -35,7 +35,7 @@ export default function AdaCanyonPermitFlowPage() {
             Ada vs Canyon County permit flow
           </h1>
           <p className="text-lg text-muted-foreground mb-8 max-w-2xl">
-            A step-by-step view of how remodeling permits move through review and inspections in
+            A step-by-step view of how cabinet and trade permits move through review and inspections in
             the Treasure Valley. Timelines vary by project scope.
           </p>
 
@@ -66,7 +66,7 @@ export default function AdaCanyonPermitFlowPage() {
               to county permits.
             </p>
             <p>
-              Design-build contracts should state who submits plans, pays fees, and schedules
+              cabinet design and installation contracts should state who submits plans, pays fees, and schedules
               inspections. Cosmetic work without layout changes may not need the full path below.
             </p>
           </div>
@@ -77,10 +77,10 @@ export default function AdaCanyonPermitFlowPage() {
               <ArrowRight className="ml-2 h-4 w-4" />
             </ConsultCTA>
             <Link
-              href="/guides/boise-remodeling-process-guide"
+              href="/guides/boise-cabinet-project-process-guide"
               className="inline-flex items-center text-sm text-accent hover:underline"
             >
-              Remodeling process guide
+              cabinet project process guide
             </Link>
           </div>
         </div>

@@ -18,7 +18,7 @@ const SLUG_SECTIONS: Record<string, ContentSection[]> = {
     {
       h2: 'What drives kitchen cost in Boise?',
       paragraphs: [
-        'Cabinet line, layout moves, and structural beams are the top variables. Appliance packages are usually separate from construction contracts.',
+        'Cabinet line, layout moves, and structural beams are the top variables. Appliance packages are usually separate from cabinet contracts.',
         'See the <a href="/guides/boise-cabinet-cost-guide">full cost guide</a> for cross-room comparisons.',
       ],
     },
@@ -40,7 +40,7 @@ const SLUG_SECTIONS: Record<string, ContentSection[]> = {
     {
       h2: 'Island cabinets as the new anchor',
       paragraphs: [
-        'In open layouts the island often becomes the main prep zone and visual divider. Size base cabinets for drawers, trash pullouts, and appliance garages—not just seating overhang.',
+        'In open layouts the island often becomes the main prep zone and visual divider. Size base cabinets for drawers, trash pullouts, and appliance garages, not just seating overhang.',
         'See our <a href="/blog/kitchen-island-design-guide">kitchen island design guide</a> for clearances on Boise ranches and newer Meridian floor plans.',
       ],
     },
@@ -69,13 +69,13 @@ const SLUG_SECTIONS: Record<string, ContentSection[]> = {
     {
       h2: 'Ada County review expectations',
       paragraphs: [
-        'Boise, Meridian, Eagle, Kuna, and Star projects often route through Ada County for residential remodels with layout changes.',
+        'Boise, Meridian, Eagle, Kuna, and Star projects often route through Ada County for residential cabinet projects with layout changes.',
       ],
     },
     {
       h2: 'Canyon County review expectations',
       paragraphs: [
-        'Nampa, Middleton, and Caldwell use Canyon County portals with different fees and comment cycles—do not assume Ada timelines.',
+        'Nampa, Middleton, and Caldwell use Canyon County portals with different fees and comment cycles, do not assume Ada timelines.',
       ],
     },
   ],
@@ -86,7 +86,7 @@ function defaultTopicSections(title: string, hubSlug: string): ContentSection[] 
     {
       h2: `Planning ${title.toLowerCase()} in the Treasure Valley`,
       paragraphs: [
-        `Homeowners in ${CITIES_LIST} should use local scope, permits, and finish level—not national averages—when budgeting this topic.`,
+        `Homeowners in ${CITIES_LIST} should use local scope, permits, and finish level, not national averages, when budgeting this topic.`,
         `For the full overview, read the hub guide and cost planning resources linked below.`,
       ],
     },

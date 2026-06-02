@@ -41,7 +41,7 @@ interface BlogPostLayoutProps {
 export function BlogPostLayout({ post, formatDate }: BlogPostLayoutProps) {
   const heroImage = getBlogHeroImage(post.slug, post.heroImage);
   const heroAlt = getBlogImageAlt(post.slug);
-  const heroCaption = `${post.title} — custom cabinet design and installation in the Treasure Valley by Boise Cabinet Co.`;
+  const heroCaption = `${post.title}, custom cabinet design and installation in the Treasure Valley by Boise Cabinet Co.`;
   const blogPath = `/blog/${post.slug}`;
   const hub = getHubBySlug(post.hubSlug);
   const contentWithIds = injectHeadingIds(post.content);
@@ -171,14 +171,14 @@ export function BlogPostLayout({ post, formatDate }: BlogPostLayoutProps) {
               )}
 
               <div className="lg:hidden mt-10">
-                <ArticleSidebarCta ctaDescription="Planning a remodel? Get a free in-home visit and planning range from our team." />
+                <ArticleSidebarCta ctaDescription="Planning cabinet work? Get a free design visit and planning range from our team." />
               </div>
             </div>
 
             <aside className="hidden lg:block w-72 xl:w-80 flex-shrink-0 sticky top-24 self-start">
               <ArticleSidebar
                 tocHeadings={tocHeadings}
-                ctaDescription="Planning a remodel? Get a free in-home visit and planning range from our team."
+                ctaDescription="Planning cabinet work? Get a free design visit and planning range from our team."
               />
               {post.tags && post.tags.length > 0 && (
                 <div className="mt-6 rounded-lg border border-border p-4">

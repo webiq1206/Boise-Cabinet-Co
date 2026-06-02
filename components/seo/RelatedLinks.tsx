@@ -36,7 +36,7 @@ export function RelatedLinks({ serviceSlug, citySlug, variant }: RelatedLinksPro
     return (
       <div>
         <h2 className="font-sans font-light text-section-title mb-6 text-foreground">
-          Remodeling services in {city?.name}
+          Cabinet services in {city?.name}
         </h2>
         <div className="grid sm:grid-cols-2 gap-4">
           {SERVICES.map((service) => (
@@ -95,7 +95,7 @@ export function RelatedLinks({ serviceSlug, citySlug, variant }: RelatedLinksPro
               All {SERVICES.find((s) => s.slug === serviceSlug)?.name} areas →
             </Link>
             <Link href={areaPath(citySlug)} className="block text-sm font-medium text-foreground hover:text-foreground/70">
-              Remodeling in {CITIES.find((c) => c.slug === citySlug)?.name} →
+              Cabinets in {CITIES.find((c) => c.slug === citySlug)?.name} →
             </Link>
           </div>
         </div>

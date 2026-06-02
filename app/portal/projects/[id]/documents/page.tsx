@@ -11,7 +11,7 @@ import { ArrowLeft, Download, FileText, Upload } from "lucide-react";
 const PLACEHOLDER_DOCUMENTS = [
   { id: "doc-1", name: "Signed Design Agreement.pdf", type: "Contract", date: "May 12, 2026", size: "245 KB" },
   { id: "doc-2", name: "Kitchen Floor Plan.pdf", type: "Design", date: "May 18, 2026", size: "1.2 MB" },
-  { id: "doc-3", name: "Cabinet Elevation — North Wall.pdf", type: "Design", date: "May 22, 2026", size: "890 KB" },
+  { id: "doc-3", name: "Cabinet Elevation, North Wall.pdf", type: "Design", date: "May 22, 2026", size: "890 KB" },
   { id: "doc-4", name: "Inspiration Photos.zip", type: "Upload", date: "May 25, 2026", size: "4.8 MB" },
 ];
 

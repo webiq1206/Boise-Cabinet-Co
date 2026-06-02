@@ -63,7 +63,7 @@ export default function CollectionsHubPage() {
                 </>
               }
               description={catalogDescription(
-                "From flagship Full Custom to builder-friendly Spec Grade — every {company} line includes professional installation and our workmanship guarantee.",
+                "From flagship Full Custom to builder-friendly Spec Grade, every {company} line includes professional installation and our workmanship guarantee.",
               )}
             />
             <CatalogSearch className="mb-6" />
@@ -100,7 +100,7 @@ export default function CollectionsHubPage() {
                     <div className="relative aspect-[16/10] overflow-hidden bg-muted">
                       <Image
                         src={collection.heroImage}
-                        alt={`${collection.name} custom cabinets — ${collection.tagline}`}
+                        alt={`${collection.name} custom cabinets, ${collection.tagline}`}
                         title={`${collection.name} Cabinet Collection | Boise Cabinet Co`}
                         fill
                         sizes="(max-width: 640px) 100vw, 50vw"

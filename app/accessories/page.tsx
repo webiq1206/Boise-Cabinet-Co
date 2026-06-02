@@ -56,12 +56,12 @@ export default function AccessoriesPage() {
                 </>
               }
               description={catalogDescription(
-                "Organize every inch with pull-outs, lazy susans, waste solutions, and integrated lighting — specified during your {company} design consultation.",
+                "Organize every inch with pull-outs, lazy susans, waste solutions, and integrated lighting, specified during your {company} design consultation.",
               )}
             />
             <CatalogPageHero
               src={MARKETING_IMAGES.statementBand}
-              alt="Cabinet interior accessories and pull-out organizers — Boise Cabinet Co"
+              alt="Cabinet interior accessories and pull-out organizers, Boise Cabinet Co"
             />
             <CatalogSearch className="mb-8" />
             <Button variant="brand" asChild>

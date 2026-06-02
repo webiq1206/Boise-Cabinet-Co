@@ -32,11 +32,11 @@ function displayLabel(
   value: string | null | undefined,
   lookup: Record<string, { name: string } | undefined>,
 ): string {
-  if (!value) return "—";
+  if (!value) return "N/A";
   return lookup[value]?.name ?? value.replace(/-/g, " ");
 }
 
-export function VisualizeStep() {
+export function VisualizeStep({ embedded = false }: { embedded?: boolean }) {
   const { design, setModules, updateDesign } = useDesignStudio();
   const finishHex = getFinishHex(design.finish);
   const customizedCount = Object.keys(design.moduleOverrides).length;
@@ -90,16 +90,17 @@ export function VisualizeStep() {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h2 className="text-2xl font-sans font-light tracking-tight">
-          Preview your <em className="brc-accent text-accent">design</em>
-        </h2>
-        <p className="text-muted-foreground mt-2">
-          Use the live 3D preview to explore finishes and cabinet sizes. AR and
-          photo overlay help you visualize — they do not scan or measure your
-          room.
-        </p>
-      </div>
+      {!embedded && (
+        <div>
+          <h2 className="text-2xl font-sans font-light tracking-tight">
+            Preview your <em className="brc-accent text-accent">design</em>
+          </h2>
+          <p className="text-muted-foreground mt-2">
+            See your cabinets in 3D, AR, or on a room photo. These tools help you
+            picture the result, they don&apos;t measure your room.
+          </p>
+        </div>
+      )}
 
       {design.photoUrl && design.roomMeta?.source === "photo" && (
         <Alert data-testid="alert-room-photo-sized">
@@ -119,7 +120,7 @@ export function VisualizeStep() {
             <p className="text-sm font-medium">See it in your space (AR)</p>
             <p className="text-sm text-muted-foreground mt-1 max-w-lg">
               Cabinets export at <strong>true scale</strong> (same sizes as the
-              2D planner). AR places them on your floor for visualization only —
+              2D planner). AR places them on your floor for visualization only , 
               it does not map walls, windows, or room size. A small 12&quot;
               reference square is included so you can sanity-check scale on your
               phone.
@@ -165,7 +166,7 @@ export function VisualizeStep() {
       <div>
         <p className="text-sm font-medium mb-1">Room photo overlay</p>
         <p className="text-sm text-muted-foreground mb-3">
-          Align finish color manually — not a measured overlay. For scale, use
+          Align finish color manually, not a measured overlay. For scale, use
           AR or the floor plan export.
         </p>
         <RoomPhotoOverlay

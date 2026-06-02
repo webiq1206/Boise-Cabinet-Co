@@ -21,7 +21,7 @@ export const metadata = catalogMetadata(
   "/cabinets",
   "Cabinet Catalog by Room",
   catalogDescription(
-    "Browse custom cabinets by room — kitchen, bath, laundry, mudroom, and more. {company} builds and installs cabinetry across the Treasure Valley.",
+    "Browse custom cabinets by room, kitchen, bath, laundry, mudroom, and more. {company} builds and installs cabinetry across the Treasure Valley.",
   ),
 );
 
@@ -55,7 +55,7 @@ export default function CabinetsHubPage() {
                 </>
               }
               description={catalogDescription(
-                "Explore how {company} designs and builds cabinetry for every space in your Treasure Valley home — from primary kitchens to garage storage.",
+                "Explore how {company} designs and builds cabinetry for every space in your Treasure Valley home, from primary kitchens to garage storage.",
               )}
             />
             <CatalogSearch className="mb-8" />

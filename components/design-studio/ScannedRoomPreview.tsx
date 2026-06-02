@@ -38,7 +38,7 @@ export function ScannedRoomPreview({ className }: { className?: string }) {
       data-testid="scanned-room-preview"
     >
       <div className="px-3 py-2 border-b text-xs text-muted-foreground">
-        Scanned room — {meta.widthIn}&quot; × {meta.depthIn}&quot;
+        Scanned room, {meta.widthIn}&quot; × {meta.depthIn}&quot;
         {meta.source === "ar-scan" ? " (AR)" : " (photo)"}
       </div>
       <svg
@@ -88,7 +88,7 @@ export function ScannedRoomPreview({ className }: { className?: string }) {
       </svg>
       <p className="px-3 py-2 text-xs text-muted-foreground border-t">
         Planner area ≈ {metersToInches(bounds.maxX - bounds.minX)}&quot; ×{" "}
-        {metersToInches(bounds.maxZ - bounds.minZ)}&quot; — pick a layout next.
+        {metersToInches(bounds.maxZ - bounds.minZ)}&quot;, pick a layout next.
       </p>
     </div>
   );

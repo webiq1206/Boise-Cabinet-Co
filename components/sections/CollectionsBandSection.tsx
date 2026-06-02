@@ -19,7 +19,7 @@ export function CollectionsBandSection() {
               <em className="brc-accent text-accent">cabinets</em>
             </>
           }
-          description="From fully bespoke to fast-track reserve finishes — every collection shares the same frameless construction and lifetime warranty."
+          description="From fully bespoke to fast-track reserve finishes, every collection shares the same frameless construction and lifetime warranty."
         />
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
@@ -32,7 +32,7 @@ export function CollectionsBandSection() {
                 <div className="relative aspect-[4/3] overflow-hidden">
                   <Image
                     src={collection.heroImage}
-                    alt={`${collection.name} custom cabinets — ${collection.tagline}`}
+                    alt={`${collection.name} custom cabinets, ${collection.tagline}`}
                     title={`${collection.name} Cabinet Collection | Boise Cabinet Co`}
                     fill
                     sizes="(max-width: 768px) 50vw, 25vw"

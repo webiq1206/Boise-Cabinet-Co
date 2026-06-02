@@ -157,7 +157,7 @@ export class MemStorage implements IStorage {
         serviceType: 'kitchen-remodel',
         city: 'boise',
         rating: '5',
-        testimonial: 'Boise Remodeling Co did an amazing job on our kitchen. On time, clear communication throughout, and the results were stunning.',
+        testimonial: 'Boise Cabinet Co did an amazing job on our kitchen cabinets. On time, clear communication throughout, and the craftsmanship was stunning.',
         createdAt: new Date(),
       },
       {
@@ -214,7 +214,7 @@ export class MemStorage implements IStorage {
     const testUsers: User[] = [
       {
         id: "admin-temp-id",
-        email: "hello@boiseremodeling.co",
+        email: "hello@boisecabinet.co",
         firstName: "Admin",
         lastName: "User",
         phone: null,
@@ -840,7 +840,7 @@ export class DBStorage implements IStorage {
         serviceType: 'kitchen-remodel',
         city: 'boise',
         rating: '5',
-        testimonial: 'Boise Remodeling Co did an amazing job on our kitchen. On time, clear communication throughout, and the results were stunning.',
+        testimonial: 'Boise Cabinet Co did an amazing job on our kitchen cabinets. On time, clear communication throughout, and the craftsmanship was stunning.',
         createdAt: new Date(),
       },
       {
@@ -929,7 +929,7 @@ export class DBStorage implements IStorage {
     const testUsers = [
       {
         id: "admin-temp-id",
-        email: "hello@boiseremodeling.co",
+        email: "hello@boisecabinet.co",
         firstName: "Admin",
         lastName: "User",
         phone: null,

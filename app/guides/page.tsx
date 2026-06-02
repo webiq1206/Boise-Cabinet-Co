@@ -78,7 +78,7 @@ export default function GuidesIndexPage() {
             Cabinet Design Guides
           </h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            In-depth guides for Boise, Meridian, Eagle, Nampa, and the entire Treasure Valley—costs,
+            In-depth guides for Boise, Meridian, Eagle, Nampa, and the entire Treasure Valley, costs,
             finishes, layouts, and planning resources from Boise Cabinet Co.
           </p>
           <p className="mt-4">

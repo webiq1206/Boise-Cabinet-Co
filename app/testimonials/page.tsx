@@ -24,18 +24,18 @@ export default function TestimonialsPage() {
   const gallerySchema = generateImageGallerySchema({
     name: 'Boise Cabinet Co Project Gallery',
     description:
-      'Before and after custom cabinet projects across the Treasure Valley — kitchens, baths, built-ins, and whole-home packages.',
+      'Before and after custom cabinet projects across the Treasure Valley, kitchens, baths, built-ins, and whole-home packages.',
     url: '/testimonials',
     images: GALLERY_PROJECTS.flatMap((project) => [
       {
         url: project.beforeImageUrl,
         caption: `Before: ${project.title} in ${project.city}, Idaho`,
-        name: `${project.title} — before`,
+        name: `${project.title}, before`,
       },
       {
         url: project.afterImageUrl,
         caption: `After: ${project.description}`,
-        name: `${project.title} — after`,
+        name: `${project.title}, after`,
       },
     ]),
   });
@@ -61,7 +61,7 @@ export default function TestimonialsPage() {
                 <em className="brc-accent text-accent">reviews</em>
               </>
             }
-            description="Explore recent design-build work across the Treasure Valley and hear from homeowners who prioritized clarity, craftsmanship, and communication."
+            description="Explore recent cabinet work across the Treasure Valley and hear from homeowners who prioritized clarity, craftsmanship, and communication."
           />
           <div className="mb-8" />
           <div className="flex flex-wrap gap-3">

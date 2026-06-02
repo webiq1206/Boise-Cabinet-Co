@@ -28,7 +28,7 @@ export const ACCESSORIES: Accessory[] = [
     name: "Full-Extension Pull-Out Shelf",
     category: "storage",
     description:
-      "A single full-extension shelf on 100 lb-rated slides — ideal for heavy mixers, pots, and small appliances tucked in base cabinets.",
+      "A single full-extension shelf on 100 lb-rated slides, ideal for heavy mixers, pots, and small appliances tucked in base cabinets.",
     minCabinetWidth: 12,
     compatibleCabinetTypes: ["base", "tall", "pantry-base"],
     compatibleCollectionIds: ["full-custom", "semi-custom", "reserve", "spec-grade"],
@@ -61,7 +61,7 @@ export const ACCESSORIES: Accessory[] = [
     name: "Blind Corner Pull-Out",
     category: "storage",
     description:
-      "LeMans-style or magic-corner hardware that swings shelves into the opening for blind corner bases — higher access than traditional lazy susans.",
+      "LeMans-style or magic-corner hardware that swings shelves into the opening for blind corner bases, higher access than traditional lazy susans.",
     minCabinetWidth: 36,
     compatibleCabinetTypes: ["base", "corner-base"],
     compatibleCollectionIds: ["full-custom", "semi-custom", "reserve"],

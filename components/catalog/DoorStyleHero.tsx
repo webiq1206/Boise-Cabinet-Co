@@ -15,7 +15,7 @@ export function DoorStyleHero({ slug, name, className }: DoorStyleHeroProps) {
     <div className={`relative aspect-[16/9] overflow-hidden rounded-sm bg-muted ${className ?? ""}`}>
       <Image
         src={src}
-        alt={`One Source ${name} cabinet door profile — Boise Cabinet Co`}
+        alt={`One Source ${name} cabinet door profile, Boise Cabinet Co`}
         title={`${name} Door Style | Boise Cabinet Co`}
         fill
         sizes="(max-width: 768px) 100vw, 50vw"

@@ -115,7 +115,7 @@ export default function TermsOfServicePage() {
               For questions about these Terms of Service, please contact us:
             </p>
             <ul>
-              <li>Email: <ObfuscatedEmail user="hello" domain="boiseremodeling.co" className="text-primary hover:underline inline-flex items-center gap-1" showIcon={false} /></li>
+              <li>Email: <ObfuscatedEmail user="hello" domain="boisecabinet.co" className="text-primary hover:underline inline-flex items-center gap-1" showIcon={false} /></li>
               <li>Phone: <a href={SITE_CONFIG.phoneHref} className="text-primary hover:underline">{SITE_CONFIG.phone}</a></li>
               <li>Address: 2283 N Coopers Hawk Ave, Kuna, ID 83634</li>
             </ul>

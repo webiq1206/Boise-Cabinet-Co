@@ -76,9 +76,9 @@ interface Lead {
 }
 
 const PRIORITY_SERVICES = [
-  { slug: "kitchen-remodel", name: "Kitchen Remodel" },
-  { slug: "bathroom-remodel", name: "Bathroom Remodel" },
-  { slug: "whole-home-remodel", name: "Whole-Home Remodel" },
+  { slug: "kitchen-remodel", name: "Kitchen Cabinets" },
+  { slug: "bathroom-remodel", name: "Bathroom Vanities" },
+  { slug: "whole-home-remodel", name: "Whole-Home Cabinetry" },
   { slug: "room-addition", name: "Room Addition" },
   { slug: "basement-finish", name: "Basement Finish" },
   { slug: "outdoor-living", name: "Outdoor Living" },

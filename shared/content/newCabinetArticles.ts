@@ -1,5 +1,5 @@
 /**
- * Tier 1 cabinet education articles — catalog and comparison focused.
+ * Tier 1 cabinet education articles, catalog and comparison focused.
  * Slugs align with CONTENT_MANIFEST; not duplicated in allHubsContent cluster maps.
  */
 import { buildClusterPost } from './contentFactory';
@@ -15,7 +15,7 @@ const tier1Articles = [
     hubSlug: 'choosing-cabinet-company',
     serviceUrl: '/cabinets/kitchen',
     quickAnswer:
-      'Custom cabinets are built to your exact sizes and specifications; semi-custom uses standard boxes with flexible fronts and modifications—semi-custom often balances lead time and budget in Treasure Valley kitchens.',
+      'Custom cabinets are built to your exact sizes and specifications; semi-custom uses standard boxes with flexible fronts and modifications, semi-custom often balances lead time and budget in Treasure Valley kitchens.',
     takeaways: [
       'Custom fits odd ceiling lines and tight clearances.',
       'Semi-custom offers faster lead times on many lines.',
@@ -30,7 +30,7 @@ const tier1Articles = [
     hubSlug: 'kitchen-cabinets',
     serviceUrl: '/cabinets/kitchen',
     quickAnswer:
-      'Shaker, slab, and raised-panel doors remain the most requested styles in Boise—pick a profile that matches your home era and coordinate bath and built-ins for a cohesive look.',
+      'Shaker, slab, and raised-panel doors remain the most requested styles in Boise, pick a profile that matches your home era and coordinate bath and built-ins for a cohesive look.',
     takeaways: [
       'Shaker suits both modern and transitional homes.',
       'Slab reads contemporary; mind fingerprinting on dark finishes.',
@@ -46,7 +46,7 @@ const tier1Articles = [
     hubSlug: 'kitchen-cabinets',
     serviceUrl: '/cabinets/kitchen',
     quickAnswer:
-      'Painted cabinets, stained wood, and thermally fused finishes each wear differently in Idaho’s dry climate—sample doors in your actual kitchen light before final sign-off.',
+      'Painted cabinets, stained wood, and thermally fused finishes each wear differently in Idaho’s dry climate, sample doors in your actual kitchen light before final sign-off.',
     takeaways: [
       'Painted finishes show fewer grain variations.',
       'Stains highlight wood movement and character.',
@@ -62,7 +62,7 @@ const tier1Articles = [
     hubSlug: 'kitchen-cabinets',
     serviceUrl: '/cabinets/kitchen',
     quickAnswer:
-      'Pulls vs knobs, center-to-center spacing, and soft-close hinges should be selected with door style—hardware is often 3–5% of cabinet budget but defines daily feel.',
+      'Pulls vs knobs, center-to-center spacing, and soft-close hinges should be selected with door style, hardware is often 3–5% of cabinet budget but defines daily feel.',
     takeaways: [
       'Consistent bar pulls simplify cleaning.',
       'Soft-close is standard on quality lines.',
@@ -77,7 +77,7 @@ const tier1Articles = [
     hubSlug: 'choosing-cabinet-company',
     serviceUrl: '/cabinets/kitchen',
     quickAnswer:
-      'Plywood boxes, solid wood frames, dovetail drawers, and full-extension guides signal durable construction—ask what is standard vs upgrade on any Treasure Valley quote.',
+      'Plywood boxes, solid wood frames, dovetail drawers, and full-extension guides signal durable construction, ask what is standard vs upgrade on any Treasure Valley quote.',
     takeaways: [
       'All-plywood boxes resist moisture better than particleboard.',
       'Full-extension drawers improve usable storage.',
@@ -93,7 +93,7 @@ const tier1Articles = [
     hubSlug: 'cabinet-costs',
     serviceUrl: '/cabinets/kitchen',
     quickAnswer:
-      'Kitchen cabinet cost per linear foot in Boise often plans $400–$1,200+ installed depending on line, finish, and interior accessories—use LF only with a defined elevation, not as a whole-home shortcut.',
+      'Kitchen cabinet cost per linear foot in Boise often plans $400–$1,200+ installed depending on line, finish, and interior accessories, use LF only with a defined elevation, not as a whole-home shortcut.',
     takeaways: [
       'Linear foot pricing needs a measured run list.',
       'Islands and tall units may price separately.',
@@ -109,7 +109,7 @@ const tier1Articles = [
     hubSlug: 'choosing-cabinet-company',
     serviceUrl: '/cabinets/kitchen',
     quickAnswer:
-      'Stock cabinets fit standard sizes with limited modifications; custom cabinets are built for your space—many Treasure Valley projects blend stock pantries with custom perimeter runs.',
+      'Stock cabinets fit standard sizes with limited modifications; custom cabinets are built for your space, many Treasure Valley projects blend stock pantries with custom perimeter runs.',
     takeaways: [
       'Stock works for simple rectangular kitchens.',
       'Custom solves soffits, uneven walls, and tall ceilings.',

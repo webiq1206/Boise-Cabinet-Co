@@ -9,7 +9,7 @@ import { DoorStylePreview } from "../DoorStylePreview";
 
 const DEFAULT_FINISH = FINISH_BY_SLUG["white-oak"];
 
-export function StyleStep() {
+export function StyleStep({ embedded = false }: { embedded?: boolean }) {
   const { design, updateDesign } = useDesignStudio();
 
   const featuredFinishes = FINISHES.slice(0, 12);
@@ -21,14 +21,16 @@ export function StyleStep() {
 
   return (
     <div className="space-y-8">
-      <div>
-        <h2 className="text-2xl font-sans font-light tracking-tight">
-          Door style & <em className="brc-accent text-accent">finish</em>
-        </h2>
-        <p className="text-muted-foreground mt-2">
-          Define the look of your cabinet faces — browse all {FINISHES.length}+ finishes on our site.
-        </p>
-      </div>
+      {!embedded && (
+        <div>
+          <h2 className="text-2xl font-sans font-light tracking-tight">
+            Door style & <em className="brc-accent text-accent">finish</em>
+          </h2>
+          <p className="text-muted-foreground mt-2">
+            Pick the look of your cabinet doors and colors.
+          </p>
+        </div>
+      )}
 
       <div className="space-y-4">
         <div className="flex flex-wrap items-center justify-between gap-2">

@@ -65,12 +65,12 @@ export default function HardwarePage() {
                 </>
               }
               description={catalogDescription(
-                "Bar pulls, cup pulls, integrated channels, hinges, and drawer slides — selected to match your door style and finish during design.",
+                "Bar pulls, cup pulls, integrated channels, hinges, and drawer slides, selected to match your door style and finish during design.",
               )}
             />
             <CatalogPageHero
               src={MARKETING_IMAGES.process}
-              alt="Cabinet hardware samples on One Source shaker doors — Boise Cabinet Co"
+              alt="Cabinet hardware samples on One Source shaker doors, Boise Cabinet Co"
             />
             <CatalogSearch className="mb-8" />
             <Button variant="brand" asChild>

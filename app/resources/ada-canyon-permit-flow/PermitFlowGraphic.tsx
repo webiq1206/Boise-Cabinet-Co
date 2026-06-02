@@ -93,7 +93,7 @@ export function PermitFlowGraphic() {
         <div className="grid md:grid-cols-2 gap-4">
           <CountyColumn
             title="Ada County"
-            subtitle="Most Boise metro remodels"
+            subtitle="Most Boise metro cabinet projects"
             cities={['Boise', 'Meridian', 'Eagle', 'Kuna', 'Star']}
             accentClass="border-accent/40 bg-accent/5"
           />
@@ -148,8 +148,8 @@ export function PermitFlowGraphic() {
             </tr>
             <tr>
               <td className="py-2 pr-4">Inspections</td>
-              <td className="py-2 pr-4">During construction</td>
-              <td className="py-2">During construction</td>
+              <td className="py-2 pr-4">during installation</td>
+              <td className="py-2">during installation</td>
             </tr>
           </tbody>
         </table>

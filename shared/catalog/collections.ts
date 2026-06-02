@@ -1,5 +1,5 @@
 /**
- * Boise Cabinet Co product collections — tiered cabinet lines for Treasure Valley homes.
+ * Boise Cabinet Co product collections, tiered cabinet lines for Treasure Valley homes.
  */
 
 export type PriceTier = "entry" | "mid" | "premium" | "luxury";
@@ -80,7 +80,7 @@ export const COLLECTIONS: CabinetCollection[] = [
     name: "Spec Grade",
     tagline: "Reliable quality for builders, flips, and rental refreshes.",
     description:
-      "Spec Grade delivers Boise Cabinet Co craftsmanship at predictable price points for production schedules. Fixed module sizes, a streamlined finish roster, and bulk-order pricing make this line a fit for new construction, ADU packages, and investment property updates across Ada and Canyon counties. Same installation standards and warranty as our custom lines — without the extended design cycle.",
+      "Spec Grade delivers Boise Cabinet Co craftsmanship at predictable price points for production schedules. Fixed module sizes, a streamlined finish roster, and bulk-order pricing make this line a fit for new construction, ADU packages, and investment property updates across Ada and Canyon counties. Same installation standards and warranty as our custom lines, without the extended design cycle.",
     features: [
       "Standard module sizes for fast quoting",
       "Four door styles and 12 core finishes in stock",

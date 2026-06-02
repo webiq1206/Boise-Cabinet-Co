@@ -74,7 +74,7 @@ export function generateLocalBusinessSchema(city?: string): SchemaContext {
     currenciesAccepted: 'USD',
     hasOfferCatalog: {
       '@type': 'OfferCatalog',
-      name: 'Remodeling Services',
+      name: 'Cabinet Products & Services',
       itemListElement: SERVICES.map((s) => ({
         '@type': 'Offer',
         url: `${baseUrl}/services/${s.slug}`,
@@ -173,7 +173,7 @@ export function generateOrganizationSchema(): SchemaContext {
     name: BUSINESS_INFO.name,
     legalName: BUSINESS_INFO.legalName,
     url: baseUrl,
-    description: 'Design-build remodeling contractor serving the Treasure Valley since 2017. Kitchen remodels, bathrooms, additions, and whole-home renovations. Licensed, insured, and committed to excellence.',
+    description: 'Custom cabinet company serving the Treasure Valley since 2017. Kitchen cabinets, bathroom vanities, closet systems, pantry storage, built-ins, and professional installation. Licensed, insured, and committed to craftsmanship.',
     foundingDate: BUSINESS_INFO.founded,
     telephone: BUSINESS_INFO.phone,
     email: BUSINESS_INFO.email,

@@ -35,7 +35,7 @@ export async function POST(request: NextRequest) {
         message: [
           data.message,
           data.layoutSummary
-            ? `[Layout summary — planning only]\n${JSON.stringify(data.layoutSummary, null, 2)}`
+            ? `[Layout summary, planning only]\n${JSON.stringify(data.layoutSummary, null, 2)}`
             : null,
         ]
           .filter(Boolean)

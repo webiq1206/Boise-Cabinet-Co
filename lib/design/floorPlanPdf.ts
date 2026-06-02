@@ -41,7 +41,7 @@ export async function buildFloorPlanPdf(input: {
   });
 
   page.drawText(
-    "Planning document only — confirm dimensions at site measure before order.",
+    "Planning document only, confirm dimensions at site measure before order.",
     {
       x: margin,
       y: height - margin - 38,
@@ -70,7 +70,7 @@ export async function buildFloorPlanPdf(input: {
   page.drawText("Modules", { x: margin, y, size: 12, font: bold });
   y -= 16;
   for (const m of input.modules.slice(0, 24)) {
-    const line = `${m.id.replace(/-/g, " ")} — ${Math.round(m.width / 0.0254)}"W`;
+    const line = `${m.id.replace(/-/g, " ")}, ${Math.round(m.width / 0.0254)}"W`;
     page.drawText(line, { x: margin, y, size: 9, font });
     y -= 12;
     if (y < margin + 80) break;

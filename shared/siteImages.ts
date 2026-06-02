@@ -12,7 +12,7 @@ export const MARKETING_IMAGES = {
   ogDefault: "/images/marketing/og-default.webp",
 } as const;
 
-/** @deprecated Use MARKETING_IMAGES — kept for gradual migration */
+/** @deprecated Use MARKETING_IMAGES, kept for gradual migration */
 export const SITE_IMAGES = {
   hero: MARKETING_IMAGES.heroHome,
   process: MARKETING_IMAGES.process,
@@ -54,12 +54,3 @@ export function imageWithFallback(webpPath: string, pngPath: string): string {
   return webpPath;
 }
 
-export const LEGACY_IMAGE_MAP: Record<string, string> = {
-  [MARKETING_IMAGES.heroHome]: "/images/hero-remodel-interior.png",
-  [MARKETING_IMAGES.process]: "/images/process-design-review.png",
-  [MARKETING_IMAGES.statementBand]: "/images/gallery/gallery-whole-home-after.png",
-  [MARKETING_IMAGES.heroAbout]: "/images/gallery/gallery-kitchen-after.png",
-  [MARKETING_IMAGES.heroContact]: "/images/hero-remodel-interior.png",
-  [MARKETING_IMAGES.designStudio]: "/images/process-design-review.png",
-  [MARKETING_IMAGES.ogDefault]: "/images/hero-remodel-interior.png",
-};

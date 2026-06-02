@@ -29,7 +29,7 @@ export const TESTIMONIALS: TestimonialItem[] = [
     city: "eagle",
     rating: "5",
     testimonial:
-      "We stayed in our home through a full renovation and the team made it as painless as possible. Absolutely love the result.",
+      "We stayed in our home through a full cabinet program and the team made it as painless as possible. Absolutely love the result.",
   },
   {
     customerName: "David L.",
@@ -37,6 +37,6 @@ export const TESTIMONIALS: TestimonialItem[] = [
     city: "nampa",
     rating: "5",
     testimonial:
-      "Fantastic craftsmanship and reliable timeline. Our new master suite addition exceeded every expectation.",
+      "Fantastic craftsmanship and reliable timeline. Our new mudroom and pantry storage exceeded every expectation.",
   },
 ];

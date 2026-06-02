@@ -116,7 +116,7 @@ export default function AdminDashboardPage() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-3xl font-bold">{compliance?.missingCoi ?? "—"}</p>
+              <p className="text-3xl font-bold">{compliance?.missingCoi ?? "N/A"}</p>
             </CardContent>
           </Card>
           <Card>
@@ -127,7 +127,7 @@ export default function AdminDashboardPage() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-3xl font-bold">{compliance?.missingW9 ?? "—"}</p>
+              <p className="text-3xl font-bold">{compliance?.missingW9 ?? "N/A"}</p>
             </CardContent>
           </Card>
           <Card>
@@ -138,7 +138,7 @@ export default function AdminDashboardPage() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-3xl font-bold">{compliance?.expiring30 ?? "—"}</p>
+              <p className="text-3xl font-bold">{compliance?.expiring30 ?? "N/A"}</p>
               <p className="text-xs text-muted-foreground mt-1">
                 {compliance?.expiring7 ?? 0} within 7 days
               </p>
@@ -152,7 +152,7 @@ export default function AdminDashboardPage() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-3xl font-bold">{compliance?.compliant ?? "—"}</p>
+              <p className="text-3xl font-bold">{compliance?.compliant ?? "N/A"}</p>
             </CardContent>
           </Card>
         </div>
@@ -166,7 +166,7 @@ export default function AdminDashboardPage() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-2xl font-bold">{contracts?.unsigned ?? "—"}</p>
+              <p className="text-2xl font-bold">{contracts?.unsigned ?? "N/A"}</p>
               <Button size="sm" variant="link" className="px-0" asChild>
                 <Link href="/admin/contracts">Manage contracts</Link>
               </Button>
@@ -180,7 +180,7 @@ export default function AdminDashboardPage() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-2xl font-bold">{projects?.active ?? "—"}</p>
+              <p className="text-2xl font-bold">{projects?.active ?? "N/A"}</p>
               <p className="text-xs text-muted-foreground">
                 {projects?.totalAssignments ?? 0} assignments
               </p>
@@ -194,7 +194,7 @@ export default function AdminDashboardPage() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-2xl font-bold">{compliance?.pendingReview ?? "—"}</p>
+              <p className="text-2xl font-bold">{compliance?.pendingReview ?? "N/A"}</p>
               <Button size="sm" variant="link" className="px-0" asChild>
                 <Link href="/admin/contractors">Review documents</Link>
               </Button>
@@ -229,7 +229,7 @@ export default function AdminDashboardPage() {
                             {[user.firstName, user.lastName].filter(Boolean).join(" ") ||
                               user.email}
                           </td>
-                          <td className="py-2 pr-4">{user.company ?? "—"}</td>
+                          <td className="py-2 pr-4">{user.company ?? "N/A"}</td>
                           <td className="py-2 pr-4">
                             <Badge
                               variant={
@@ -251,7 +251,7 @@ export default function AdminDashboardPage() {
                           <td className="py-2">
                             {summary.coiExpiresAt
                               ? new Date(summary.coiExpiresAt).toLocaleDateString()
-                              : "—"}
+                              : "N/A"}
                           </td>
                         </tr>
                       )

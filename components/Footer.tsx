@@ -169,7 +169,7 @@ export function Footer() {
                   href="/guides/treasure-valley-remodeling-guide"
                   className="text-sm text-inverse-muted hover:text-inverse-foreground transition-colors"
                 >
-                  Remodeling guide
+                  Cabinet planning guide
                 </Link>
               </li>
               <li>
@@ -219,8 +219,8 @@ export function Footer() {
                 (manifest.blogByCategory as Record<
                   string,
                   Array<{ slug: string; title: string }>
-                >)?.['remodeling-costs'] ??
-                BLOG_POSTS.filter((p) => p.hubSlug === 'remodeling-costs')
+                >)?.['cabinet-costs'] ??
+                BLOG_POSTS.filter((p) => p.hubSlug === 'cabinet-costs')
                   .slice(0, 1)
                   .map((p) => ({ slug: p.slug, title: p.title }))
               )

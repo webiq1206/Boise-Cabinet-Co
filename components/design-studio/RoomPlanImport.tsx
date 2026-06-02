@@ -58,7 +58,7 @@ export function RoomPlanImport({ onImport }: RoomPlanImportProps) {
       });
       toast({
         title: "RoomPlan imported",
-        description: `${data.widthIn}" × ${data.depthIn}" — review before continuing.`,
+        description: `${data.widthIn}" × ${data.depthIn}", review before continuing.`,
       });
     } catch (e) {
       toast({
@@ -74,7 +74,7 @@ export function RoomPlanImport({ onImport }: RoomPlanImportProps) {
   return (
     <div className="rounded-md border p-3" data-testid="roomplan-import">
       <p className="text-xs text-muted-foreground mb-2">
-        iOS RoomPlan export (JSON) — best accuracy for L-shaped rooms.
+        iOS RoomPlan export (JSON), best accuracy for L-shaped rooms.
       </p>
       <Button
         type="button"

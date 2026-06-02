@@ -43,7 +43,7 @@ function overlaps(a: CabinetModule, b: CabinetModule): number {
   return 0;
 }
 
-/** Uppers legitimately sit above bases — only compare like with like. */
+/** Uppers legitimately sit above bases, only compare like with like. */
 function samePlane(a: CabinetModule, b: CabinetModule): boolean {
   return Boolean(a.isWall) === Boolean(b.isWall);
 }
@@ -280,7 +280,7 @@ function detectRoomMetaIssues(
         id: `island-clear-${m.id}`,
         severity: "warning",
         title: "Island may be tight to the wall",
-        message: `This island or peninsula has about ${inches(clearance)} in to the nearest wall — aim for 36 in or more for walkways.`,
+        message: `This island or peninsula has about ${inches(clearance)} in to the nearest wall, aim for 36 in or more for walkways.`,
       });
     }
   }
@@ -341,7 +341,7 @@ export function detectIssues(
     });
   }
 
-  // 3. per-module front clearance (warnings) — at most one per module
+  // 3. per-module front clearance (warnings), at most one per module
   for (const m of modules) {
     if (m.isWall) continue;
     const gap = frontGap(m, modules, bounds);
@@ -359,7 +359,7 @@ export function detectIssues(
         id: `appliance-${m.id}`,
         severity: "warning",
         title: "Tight space at the range",
-        message: `Give the range some breathing room — about ${inches(gap)} in is open in front of it.`,
+        message: `Give the range some breathing room, about ${inches(gap)} in is open in front of it.`,
       });
     } else if (m.appliance && gap < 0.4) {
       issues.push({
@@ -373,7 +373,7 @@ export function detectIssues(
         id: `door-${m.id}`,
         severity: "warning",
         title: "A door can't fully open",
-        message: `This cabinet door needs room to swing — there's about ${inches(gap)} in in front of it.`,
+        message: `This cabinet door needs room to swing, there's about ${inches(gap)} in in front of it.`,
       });
     } else if (floating && gap > 0 && gap < 0.85) {
       issues.push({
@@ -418,7 +418,7 @@ export function getRecommendations(
         id: "rec-trash",
         title: "Trash by the sink",
         message:
-          "Most people prep and clean in the same spot — a pull-out trash next to the sink keeps cleanup quick. You can add it in the Details step.",
+          "Most people prep and clean in the same spot, a pull-out trash next to the sink keeps cleanup quick. You can add it in the Details step.",
       });
     }
 

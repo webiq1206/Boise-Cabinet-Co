@@ -40,7 +40,7 @@ export function buildFloorPlanSvg(input: {
   body += `<rect x="0" y="0" width="${W}" height="${H}" fill="#f8f6f3" stroke="#3A3E3D" stroke-width="2"/>`;
 
   body += `<text x="${W / 2}" y="-8" text-anchor="middle" font-size="12" fill="#3A3E3D">${esc(designName || "Cabinet layout")}</text>`;
-  body += `<text x="${W / 2}" y="14" text-anchor="middle" font-size="10" fill="#666">${widthIn}" W × ${depthIn}" D — planning only, confirm at site measure</text>`;
+  body += `<text x="${W / 2}" y="14" text-anchor="middle" font-size="10" fill="#666">${widthIn}" W × ${depthIn}" D, planning only, confirm at site measure</text>`;
 
   body += `<text x="${W / 2}" y="${H + 18}" text-anchor="middle" font-size="11" fill="#3A3E3D">${widthIn}"</text>`;
   body += `<text x="-4" y="${H / 2}" text-anchor="end" font-size="11" fill="#3A3E3D" transform="rotate(-90 -4 ${H / 2})">${depthIn}"</text>`;
@@ -59,7 +59,7 @@ export function buildFloorPlanSvg(input: {
   }
 
   if (issues.length > 0) {
-    body += `<text x="8" y="${H - 8}" font-size="9" fill="#b91c1c">${issues.length} layout note(s) — see Design Studio</text>`;
+    body += `<text x="8" y="${H - 8}" font-size="9" fill="#b91c1c">${issues.length} layout note(s), see Design Studio</text>`;
   }
 
   const pad = 32;

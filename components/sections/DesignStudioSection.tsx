@@ -8,7 +8,7 @@ import { CTA_PRIMARY } from "@/shared/ctaCopy";
 import { Palette, LayoutGrid, Box, Share2 } from "lucide-react";
 
 const FEATURES = [
-  { icon: LayoutGrid, title: "Scan your room", body: "Measure your space with phone AR or a room photo — then only see layouts that fit." },
+  { icon: LayoutGrid, title: "Scan your room", body: "Measure your space with phone AR or a room photo, then only see layouts that fit." },
   { icon: Palette, title: "Instant finish preview", body: "Swap door styles, colors, and hardware in real time." },
   { icon: Box, title: "3D & AR preview", body: "View true-scale cabinets in 3D and place them in your room on your phone." },
   { icon: Share2, title: "Save & share", body: "Save your design and request pricing with one click." },
@@ -26,7 +26,7 @@ export function DesignStudioSection() {
               <em className="brc-accent text-accent">online</em>
             </h2>
             <p className="text-inverse-muted text-lg leading-relaxed mb-8">
-              Scan your room first, pick a layout that fits your space, preview in 3D and AR, then save and request pricing — we confirm exact dimensions at your consultation.
+              Scan your room first, pick a layout that fits your space, preview in 3D and AR, then save and request pricing, we confirm exact dimensions at your consultation.
             </p>
             <Button variant="brand" className="bg-inverse-foreground text-inverse hover:bg-inverse-foreground/90" asChild>
               <Link href="/design-studio">{CTA_PRIMARY}</Link>

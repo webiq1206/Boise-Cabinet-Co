@@ -23,7 +23,8 @@ When creating or expanding blog posts (`shared/blogContent.ts`, `shared/content/
 - **Blog cluster posts:** 75–3,500 substantive words, **≥ 5 H2**; no `summary-block` filler.
 - **Planning resources:** PDFs in `public/downloads/` (regenerate via `npm run resources:generate`); link from guides via `shared/guideResources.ts` and `GuideResourceDownloads`.
 - Required sections: intro, quick answer, takeaways, scannable H2 sections, cost/timeline tables where relevant, Boise-specific block, visible FAQ, soft CTA.
-- **Do not** use `buildContextualExpansions` / `summary-block` filler on guides—depth belongs in cluster blog posts.
+- **Do not** use `buildContextualExpansions` / `summary-block` filler on guides. Depth belongs in cluster blog posts.
+- **Do not** use Unicode em dashes (`—`) anywhere in copy. Use commas, periods, colons, or parentheses instead.
 
 ## HTML conventions
 

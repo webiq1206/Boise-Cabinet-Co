@@ -28,7 +28,7 @@ const PROMPT =
   "matching the existing wall color, paint, flooring material, baseboards, " +
   "windows, lighting, shadows, and camera perspective. Keep the room itself " +
   "(walls, floor, windows, ceiling) intact and photorealistic. The result " +
-  "should look like the same room emptied of all cabinetry, ready for a remodel.";
+  "should look like the same room emptied of all cabinetry, ready for new cabinet installation.";
 
 class BadImageError extends Error {}
 
@@ -121,7 +121,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: error.message }, { status: 400 });
     }
     console.error("Remove cabinets error:", error);
-    // Return a bounded, generic message — never forward raw upstream/provider
+    // Return a bounded, generic message, never forward raw upstream/provider
     // error text to the client.
     return NextResponse.json(
       { error: "We couldn't edit the photo right now. Please try again." },

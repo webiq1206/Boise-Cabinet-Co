@@ -13,7 +13,7 @@ export const SITE_TAGLINE = "Idaho's premier custom cabinet company";
 export const HERO_EYEBROW = "Treasure Valley Custom Cabinetry";
 
 export const HERO_SUBHEAD =
-  "Design, build, and install premium custom cabinets — from first sketch to final walkthrough.";
+  "Design, build, and install premium custom cabinets from first sketch to final walkthrough.";
 
 export const HERO_STATS = [
   { num: "50+", label: "Finish options" },
@@ -39,12 +39,12 @@ export const DIFFERENTIATORS: Differentiator[] = [
   {
     title: "One team, one point of accountability",
     contrast: "Instead of coordinating a designer, a contractor, and multiple subs who may point fingers when something goes wrong,",
-    body: "you work with a single design-build team. Design, permitting, and construction stay under one roof, with the same dedicated project manager from your first visit through final walkthrough.",
+    body: "you work with one cabinet team. Design, fabrication, and installation stay under one roof, with the same dedicated project manager from your first visit through final walkthrough.",
   },
   {
     title: "A written plan before we swing a hammer",
     contrast: "Rather than relying on a verbal estimate that shifts once work begins,",
-    body: "you receive a clear written scope with design direction and finish selections before construction starts. Any change mid-project requires a written change order with your approval first.",
+    body: "you receive a clear written scope with design direction and finish selections before fabrication begins. Any change mid-project requires a written change order with your approval first.",
   },
   {
     title: "Proactive communication, not radio silence",
@@ -64,7 +64,7 @@ export const DIFFERENTIATORS: Differentiator[] = [
   {
     title: "A job site that respects your home",
     contrast: "Instead of living with open dust, damaged floors, and crews working at all hours,",
-    body: "we use dust barriers and floor protection daily, schedule disruptive work during reasonable hours, and plan the project so most kitchen and bath remodels remain livable while we work.",
+    body: "we use floor protection daily, schedule installation during reasonable hours, and plan the project so most kitchen and bath cabinet work remains livable while we work.",
   },
   {
     title: "No high-pressure sales, no going dark",
@@ -142,12 +142,12 @@ export const CLIENT_PRIORITIES: ClientPriority[] = [
   },
   {
     title: "Staying on schedule",
-    body: "Realistic timelines built into your project plan with permit and construction milestones you can follow.",
+    body: "Realistic timelines built into your project plan with design, fabrication, and installation milestones you can follow.",
     icon: CalendarClock,
   },
   {
     title: "A stress-free process",
-    body: "Dust barriers, floor protection, and a team that respects your home while you live through the remodel.",
+    body: "Floor protection and a team that respects your home while cabinet work is in progress.",
     icon: HeartHandshake,
   },
 ];
@@ -161,7 +161,7 @@ export const HOW_WE_BUILD_STEPS = [
   {
     number: "02",
     title: "Design Studio & selections",
-    desc: "Refine your layout, door style, finish, and hardware in our Design Studio — with 3D preview.",
+    desc: "Refine your layout, door style, finish, and hardware in our Design Studio with 3D preview.",
   },
   {
     number: "03",
@@ -183,7 +183,7 @@ export const HOW_WE_BUILD_STEPS = [
 export const PRINCIPLES = [
   {
     title: "Written scope before we build",
-    desc: "Every project starts with a clear written scope so you know exactly what to expect before construction begins.",
+    desc: "Every project starts with a clear written scope so you know exactly what to expect before fabrication begins.",
   },
   {
     title: "Written change orders only",
@@ -249,7 +249,7 @@ export const LEADERSHIP_COPY = {
     "We know how most firms are compared: separate designers and installers, vague scopes, inconsistent updates, and pressure to sign before you have real answers. Our process was designed around what comparison shoppers actually need.",
     "That means one accountable team, written scope before we build, weekly updates while we work, and a team that picks up the phone when you have a question.",
   ],
-  closing: "That is not a marketing promise. Every detail, every decision — handled with intention.",
+  closing: "That is not a marketing promise. Every detail and every decision is handled with intention.",
 };
 
 export const FINANCING_BULLETS = [
@@ -264,5 +264,5 @@ export const CONSULT_BULLETS = [
   "60–90 minute design consultation at your home",
   "Explore collections, finishes, and door styles",
   "Planning investment range on the spot",
-  "No pressure — clarity, not a sales pitch",
+  "No pressure. Clarity, not a sales pitch",
 ];

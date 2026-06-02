@@ -65,7 +65,7 @@ const costPillarFaqs = [
   {
     question: 'How long from cabinet order to installation?',
     answer:
-      'Lead times vary by collection—often 6–14 weeks from approved design to delivery. Measure early in your project so cabinets do not delay other trades.',
+      'Lead times vary by collection, often 6–14 weeks from approved design to delivery. Measure early in your project so cabinets do not delay other trades.',
   },
   {
     question: 'Should I budget by linear foot or per cabinet?',
@@ -85,7 +85,7 @@ const costPillarFaqs = [
   {
     question: 'Should I hold contingency on a cabinet project?',
     answer:
-      'Hold 5–10% for field adjustments—out-of-plumb walls, soffit surprises, or late selection changes are common in older Treasure Valley homes.',
+      'Hold 5–10% for field adjustments, out-of-plumb walls, soffit surprises, or late selection changes are common in older Treasure Valley homes.',
   },
   {
     question: 'Why do cabinet quotes vary so much between companies?',
@@ -110,7 +110,7 @@ const costPillarFaqs = [
   {
     question: 'Does Eagle or Meridian cost more than Boise for cabinets?',
     answer:
-      'Material and labor rates are similar across the valley. Finish level, travel, and HOA documentation time—not zip code alone—usually explain differences.',
+      'Material and labor rates are similar across the valley. Finish level, travel, and HOA documentation time, not zip code alone, usually explain differences.',
   },
   {
     question: 'Can I phase cabinets room by room to spread cost?',
@@ -127,7 +127,7 @@ export const GUIDE_PAGES: GuidePageData[] = [
     metaDescription:
       '2026 cabinet cost guide for Boise and the Treasure Valley: kitchen, bath, whole-home packages, linear-foot planning, collections, lead times, and budgeting.',
     excerpt:
-      'Planning ranges for custom and semi-custom cabinets in Boise, Meridian, Eagle, Nampa, and the Treasure Valley—with collection tiers and budgeting tips.',
+      'Planning ranges for custom and semi-custom cabinets in Boise, Meridian, Eagle, Nampa, and the Treasure Valley, with collection tiers and budgeting tips.',
     content: expandPillar(BOISE_REMODELING_COST_GUIDE_HTML, 'boise-cabinet-cost-guide', 'cabinet-costs'),
     author: 'Boise Cabinet Co',
     hubSlug: 'cabinet-costs',
@@ -161,9 +161,9 @@ export const GUIDE_PAGES: GuidePageData[] = [
     title: 'Treasure Valley Custom Cabinet Guide',
     seoTitle: 'Treasure Valley Cabinet Guide | Idaho',
     metaDescription:
-      'Custom cabinets across the Treasure Valley: Boise, Meridian, Eagle, Kuna, Star, Middleton, Nampa, Caldwell—room guides, collections, design studio, and delivery.',
+      'Custom cabinets across the Treasure Valley: Boise, Meridian, Eagle, Kuna, Star, Middleton, Nampa, Caldwell, room guides, collections, design studio, and delivery.',
     excerpt:
-      'Your starting point for custom cabinets anywhere in the Treasure Valley—city context, catalog rooms, and links to planning guides.',
+      'Your starting point for custom cabinets anywhere in the Treasure Valley, city context, catalog rooms, and links to planning guides.',
     content: TREASURE_VALLEY_GUIDE_HTML,
     author: 'Boise Cabinet Co',
     hubSlug: 'local-guides',
@@ -181,7 +181,7 @@ export const GUIDE_PAGES: GuidePageData[] = [
       {
         question: 'What cabinet rooms do you offer?',
         answer:
-          'Kitchens, bathroom vanities, laundry, mudroom, pantry, closet, garage, home office, entertainment centers, built-ins, outdoor kitchens, and wet bars—see our catalog.',
+          'Kitchens, bathroom vanities, laundry, mudroom, pantry, closet, garage, home office, entertainment centers, built-ins, outdoor kitchens, and wet bars, see our catalog.',
       },
       {
         question: 'How do I explore cabinet styles and finishes?',
@@ -196,7 +196,7 @@ export const GUIDE_PAGES: GuidePageData[] = [
       {
         question: 'Do you deliver to Eagle and Hidden Springs?',
         answer:
-          'Yes—we serve Eagle and many HOA communities; allow time for architectural review when exterior-visible cabinetry is involved.',
+          'Yes, we serve Eagle and many HOA communities; allow time for architectural review when exterior-visible cabinetry is involved.',
       },
       {
         question: 'Is Meridian in Ada County?',
@@ -206,22 +206,22 @@ export const GUIDE_PAGES: GuidePageData[] = [
       {
         question: 'What collections do you offer?',
         answer:
-          'Spec-grade, semi-custom, reserve, and full-custom lines—compare tiers on our collections pages or during a consultation.',
+          'Spec-grade, semi-custom, reserve, and full-custom lines, compare tiers on our collections pages or during a consultation.',
       },
       {
         question: 'How do I compare cabinet companies in the valley?',
         answer:
-          'Compare box construction, warranty, installation scope, and finish options—not price alone. Ask for line-item quotes.',
+          'Compare box construction, warranty, installation scope, and finish options, not price alone. Ask for line-item quotes.',
       },
       {
         question: 'Can cabinet upgrades help before selling a home?',
         answer:
-          'Kitchen and bath cabinet refreshes often support resale when aligned with neighborhood expectations—avoid over-improving for the street.',
+          'Kitchen and bath cabinet refreshes often support resale when aligned with neighborhood expectations, avoid over-improving for the street.',
       },
       {
         question: 'How long do custom cabinets take to receive?',
         answer:
-          'Lead times depend on collection and shop schedule—often 6–14 weeks from approved design. Plan measurements early.',
+          'Lead times depend on collection and shop schedule, often 6–14 weeks from approved design. Plan measurements early.',
       },
       {
         question: 'Do you offer free consultations?',
@@ -260,7 +260,7 @@ export const GUIDE_PAGES: GuidePageData[] = [
     metaDescription:
       'Custom cabinets in Boise: North End, Bench, Harris Ranch, costs, finishes, and kitchen, bath, and built-in cabinetry for Treasure Valley homes.',
     excerpt:
-      'Local guide to custom cabinets in Boise—neighborhood housing types, planning ranges, and catalog links for kitchens, baths, and built-ins.',
+      'Local guide to custom cabinets in Boise, neighborhood housing types, planning ranges, and catalog links for kitchens, baths, and built-ins.',
     content: BOISE_GUIDE_HTML,
     author: 'Boise Cabinet Co',
     hubSlug: 'local-guides',
@@ -278,7 +278,7 @@ export const GUIDE_PAGES: GuidePageData[] = [
       {
         question: 'How much do kitchen cabinets cost in Boise?',
         answer:
-          'Most kitchen cabinet packages plan from roughly $15,000–$45,000+ depending on linear footage and collection—see our cabinet cost guide for detail.',
+          'Most kitchen cabinet packages plan from roughly $15,000–$45,000+ depending on linear footage and collection, see our cabinet cost guide for detail.',
       },
       {
         question: 'What Boise neighborhoods do you serve?',
@@ -287,12 +287,12 @@ export const GUIDE_PAGES: GuidePageData[] = [
       {
         question: 'Can you fit cabinets in a small galley kitchen?',
         answer:
-          'Yes—tall pantry cabinets, pull-out bases, and custom widths help maximize storage in compact North End and Bench layouts.',
+          'Yes, tall pantry cabinets, pull-out bases, and custom widths help maximize storage in compact North End and Bench layouts.',
       },
       {
         question: 'Do you build bathroom vanities for Boise homes?',
         answer:
-          'Yes—single and double vanities, linen towers, and drawer interiors sized for your bath layout.',
+          'Yes, single and double vanities, linen towers, and drawer interiors sized for your bath layout.',
       },
       {
         question: 'How do I budget cabinets in Boise?',
@@ -302,7 +302,7 @@ export const GUIDE_PAGES: GuidePageData[] = [
       {
         question: 'Do you offer design and measurement in one visit?',
         answer:
-          'Yes—consultations include layout discussion and field measurements for accurate shop drawings.',
+          'Yes, consultations include layout discussion and field measurements for accurate shop drawings.',
       },
       {
         question: 'Where can I see door styles and finishes?',

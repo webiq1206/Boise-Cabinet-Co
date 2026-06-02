@@ -744,8 +744,8 @@ export function Room2DPlanner({ className }: { className?: string }) {
           data-testid="text-planner-hint"
         >
           {modules.length === 0
-            ? "This room is empty. Use Base, Drawers, or Wall above to add cabinets — or pick a layout to start from."
-            : "Tap a cabinet to move, resize, or change it. Drag to reposition — it snaps to walls and neighbors."}
+            ? "This room is empty. Use Base, Drawers, or Wall above to add cabinets, or pick a layout to start from."
+            : "Tap a cabinet to move, resize, or change it. Drag to reposition, it snaps to walls and neighbors."}
         </p>
       )}
     </div>

@@ -279,7 +279,7 @@ export function EstimateCalculator({ inModal = false, onBookVisit: onBookVisitPr
   const steps = (
     <div className="space-y-8">
       <div>
-        <StepHeader num={1} label="What are we remodeling?" />
+        <StepHeader num={1} label="What cabinetry are you planning?" />
         <div className="grid grid-cols-2 gap-2">
           {(Object.keys(PROJECT_LABELS) as ProjectType[]).map((type) => {
             const info = PROJECT_LABELS[type];
@@ -467,7 +467,7 @@ export function EstimateCalculator({ inModal = false, onBookVisit: onBookVisitPr
             {refinementVisibility.roomCount && (
               <RefinementNumberInput
                 id="room-count"
-                label="Rooms being remodeled"
+                label="Rooms in scope"
                 min={1}
                 max={12}
                 placeholder="e.g. 4"

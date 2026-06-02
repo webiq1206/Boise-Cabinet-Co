@@ -18,11 +18,11 @@ export function ServicesGrid() {
           size="display"
           title={
             <>
-              Design-build expertise for every major{" "}
-              <em className="brc-accent text-accent">remodel</em>
+              Cabinet expertise for every major{" "}
+              <em className="brc-accent text-accent">room</em>
             </>
           }
-          description="Full design-build coordination under one roof, not piecemeal trades managed by multiple vendors. One team handles layout, permitting, and construction so your project stays aligned from start to finish."
+          description="Kitchen cabinets, bathroom vanities, built-ins, and storage solutions under one roof. One team handles design, fabrication, and installation so your project stays aligned from start to finish."
         />
 
         <div className="grid sm:grid-cols-2 gap-6 md:gap-8 max-w-5xl mx-auto">

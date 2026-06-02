@@ -121,8 +121,8 @@ export function generatePageTitle(params: ServiceSEOParams): string {
 }
 
 const CITY_DESCRIPTION_VARIANTS: Record<string, string> = {
-  Kuna: "Kuna's trusted design-build",
-  Boise: "Boise's design-build",
+  Kuna: "Kuna's trusted custom cabinet",
+  Boise: "Boise's custom cabinet",
   Meridian: "Meridian's trusted",
   Eagle: "Eagle's preferred",
   Star: "Star's reliable",
@@ -132,14 +132,14 @@ const CITY_DESCRIPTION_VARIANTS: Record<string, string> = {
 };
 
 const CITY_CTA_VARIANTS: Record<string, string> = {
-  Kuna: "Free in-home consultation",
-  Boise: "Treasure Valley design-build",
+  Kuna: "Free design consultation",
+  Boise: "Treasure Valley cabinet pros",
   Meridian: "Licensed & insured",
   Eagle: "Clear written scope",
-  Star: "Weekly project updates",
+  Star: "Shop-built quality",
   Middleton: "Workmanship guarantee",
-  Nampa: "Ada & Canyon County permits",
-  Caldwell: "Design-build remodeling",
+  Nampa: "Ada & Canyon County service",
+  Caldwell: "Professional installation",
 };
 
 /**
@@ -152,7 +152,7 @@ export function generateMetaDescription(params: ServiceSEOParams): string {
   const phone = SITE_CONFIG.phone;
   
   if (params.isHomePage) {
-    return `Design-build remodeling contractor serving Boise, Meridian, Eagle & the Treasure Valley. Licensed, insured, top-rated. Call ${phone} for your free consultation!`;
+    return `Custom kitchen cabinets, bathroom vanities, and built-in storage for Boise, Meridian, Eagle & the Treasure Valley. Licensed, insured. Call ${phone} for a free design consultation!`;
   }
   
   if (city && serviceName) {
@@ -163,11 +163,11 @@ export function generateMetaDescription(params: ServiceSEOParams): string {
   }
   
   if (city) {
-    return `Professional remodeling contractor in ${city}, Idaho. Licensed, insured, locally owned. Call ${phone} for your free consultation. Serving all of ${city}!`;
+    return `Custom cabinets and storage solutions in ${city}, Idaho. Licensed, insured, locally owned. Call ${phone} for a free design consultation. Serving all of ${city}!`;
   }
   
   if (!serviceName) {
-    return `Professional remodeling contractor in Boise & Treasure Valley. Licensed, insured. Call ${phone} for a free consultation. Residential design-build services!`;
+    return `Custom cabinet company in Boise & the Treasure Valley. Kitchen cabinets, vanities, closets, and built-ins. Call ${phone} for a free design consultation!`;
   }
   
   const serviceLC = serviceName.toLowerCase();
@@ -436,8 +436,8 @@ export const BUSINESS_INFO = {
   reviewCount: 0,
   yearlyServicesCompleted: 0,
   sameAs: [
-    'https://www.facebook.com/boiseremodeling',
-    'https://www.instagram.com/boiseremodeling',
+    'https://www.facebook.com/boisecabinetco',
+    'https://www.instagram.com/boisecabinetco',
   ],
 };
 

@@ -15,13 +15,13 @@ export const SEO_KEYWORD_MAP = {
     titlePattern: "{Service} in {City}, ID",
   },
   areaPages: {
-    primary: "remodeling contractor {city} idaho",
-    secondary: ["home renovation {city} id", "kitchen remodel {city}", "bathroom remodel {city} idaho"],
-    titlePattern: "Remodeling Contractor in {City}, Idaho",
+    primary: "custom cabinets {city} idaho",
+    secondary: ["kitchen cabinets {city}", "cabinet installation {city}", "bathroom vanity {city} idaho"],
+    titlePattern: "Custom Cabinets in {City}, Idaho",
   },
   blogPages: {
-    primary: "{topic} home remodeling idaho",
-    secondary: ["{topic} treasure valley", "{topic} boise area"],
+    primary: "{topic} custom cabinets idaho",
+    secondary: ["{topic} treasure valley", "{topic} boise cabinet planning"],
     titlePattern: "{Blog Title}",
   },
   staticPages: {

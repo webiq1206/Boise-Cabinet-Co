@@ -158,7 +158,7 @@ export default function SubcontractorPage() {
           <CardContent className="py-12 text-center">
             <h3 className="text-2xl font-sans font-light mb-4">Ready to Grow Your Business?</h3>
             <p className="text-inverse-muted mb-8 max-w-2xl mx-auto">
-              Join our network today and start receiving high-quality remodeling leads. No monthly fees, no commitments: only pay for the leads you want.
+              Join our network today and start receiving high-quality cabinet installation leads. No monthly fees, no commitments: only pay for the leads you want.
             </p>
             <Button 
               variant="brand"

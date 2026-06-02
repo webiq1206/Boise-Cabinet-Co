@@ -13,7 +13,7 @@ interface ArticleSidebarProps {
 
 export function ArticleSidebar({
   tocHeadings,
-  ctaDescription = 'Ready for a written scope? Schedule an in-home visit with our design-build team.',
+  ctaDescription = 'Ready for a written scope? Schedule a design consultation with our cabinet team.',
 }: ArticleSidebarProps) {
   return (
     <>

@@ -53,7 +53,7 @@ interface SceneProps {
   onSelect: (id: string | null) => void;
   viewMode: ViewMode;
   resetSignal: number;
-  /** Scanned room bounds — sizes the floor plane (metres). */
+  /** Scanned room bounds, sizes the floor plane (metres). */
   roomBounds?: RoomBounds | null;
   /** When provided, the scene wires capture (screenshot/video) handlers here. */
   captureApiRef?: CaptureApiRef;
@@ -328,7 +328,7 @@ function ModuleFronts({
     );
   }
 
-  // doors — split wide runs into multiple panels
+  // doors, split wide runs into multiple panels
   const panelCount = Math.min(4, Math.max(1, Math.round(module.width / 0.62)));
   const panelW = (module.width - GAP * (panelCount + 1)) / panelCount;
   const panelH = h - GAP * 2;

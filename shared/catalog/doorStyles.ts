@@ -21,7 +21,7 @@ export const DOOR_STYLES: DoorStyle[] = [
     slug: "slab",
     name: "Slab",
     description:
-      "A flat, uninterrupted door face with clean edges — the defining look of contemporary Idaho kitchens. Slab doors emphasize horizontal lines and pair naturally with handleless hardware or long linear pulls.",
+      "A flat, uninterrupted door face with clean edges, the defining look of contemporary Idaho kitchens. Slab doors emphasize horizontal lines and pair naturally with handleless hardware or long linear pulls.",
     constructionNotes:
       "1-inch MDF or hardwood-veneer panel with internal stiffening rails. Edge banding matched to face finish. Available with J-pull integrated edge or standard overlay hinges.",
     compatibleFinishCategories: ["matte", "gloss", "woodgrain"],
@@ -43,7 +43,7 @@ export const DOOR_STYLES: DoorStyle[] = [
     slug: "modern-shaker",
     name: "Modern Shaker",
     description:
-      "A wider, squarer shaker rail than traditional profiles — bold enough for open-concept Meridian kitchens yet restrained enough for transitional baths. Our most requested door style across the Treasure Valley.",
+      "A wider, squarer shaker rail than traditional profiles, bold enough for open-concept Meridian kitchens yet restrained enough for transitional baths. Our most requested door style across the Treasure Valley.",
     constructionNotes:
       "2-1/4 inch stiles and rails with 1/4 inch reveal. Flat center panel in MDF or plywood. Soft-close hinge boring standard at 3-1/2 inch overlay.",
     compatibleFinishCategories: ["matte", "gloss", "woodgrain"],
@@ -54,7 +54,7 @@ export const DOOR_STYLES: DoorStyle[] = [
     slug: "thin-shaker",
     name: "Thin Shaker",
     description:
-      "Delicate 1-inch rails create a lighter visual weight than Modern Shaker. Thin Shaker suits smaller footprints — galley kitchens, laundry rooms, and powder baths — where proportion matters.",
+      "Delicate 1-inch rails create a lighter visual weight than Modern Shaker. Thin Shaker suits smaller footprints, galley kitchens, laundry rooms, and powder baths, where proportion matters.",
     constructionNotes:
       "1-inch stiles and rails with 1/8 inch step-back on center panel. Requires precision machining to maintain square reveals; available in widths down to 9 inches for spice pull-outs.",
     compatibleFinishCategories: ["matte", "gloss", "woodgrain"],
@@ -65,7 +65,7 @@ export const DOOR_STYLES: DoorStyle[] = [
     slug: "alpha-shaker",
     name: "Alpha Shaker",
     description:
-      "Reserve-exclusive profile with a beveled inner frame and slightly raised center panel. Alpha Shaker bridges shaker simplicity with subtle dimension — ideal for primary suites and entertainment spaces.",
+      "Reserve-exclusive profile with a beveled inner frame and slightly raised center panel. Alpha Shaker bridges shaker simplicity with subtle dimension, ideal for primary suites and entertainment spaces.",
     constructionNotes:
       "Reserve line only. 2-inch rails with 15-degree bevel on inner edge. Center panel sits 1/16 inch proud. Hand-sanded transitions before finish application.",
     compatibleFinishCategories: ["matte", "woodgrain"],

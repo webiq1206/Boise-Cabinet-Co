@@ -14,7 +14,7 @@ function nameOf(
   lookup: Record<string, { name: string } | undefined>,
   slug: string | null,
 ): string {
-  if (!slug) return "—";
+  if (!slug) return "N/A";
   return lookup[slug]?.name ?? slug;
 }
 
@@ -27,7 +27,7 @@ function scanMethodLabel(source: string | undefined): string {
     case "manual":
       return "Manual entry";
     default:
-      return "—";
+      return "N/A";
   }
 }
 
@@ -36,9 +36,9 @@ export function snapshotSpecRows(snapshot: DesignSnapshot): SpecRow[] {
   const tier = getEstimatedTier(snapshot.collection, snapshot.finish);
   const meta = snapshot.roomMeta;
   const rows: SpecRow[] = [
-    { label: "Room", value: snapshot.roomType ?? "—" },
+    { label: "Room", value: snapshot.roomType ?? "N/A" },
     { label: "Collection", value: nameOf(COLLECTION_BY_SLUG, snapshot.collection) },
-    { label: "Layout", value: snapshot.layout ?? "—" },
+    { label: "Layout", value: snapshot.layout ?? "N/A" },
     { label: "Door style", value: nameOf(DOOR_STYLE_BY_SLUG, snapshot.doorStyle) },
     { label: "Finish", value: nameOf(FINISH_BY_SLUG, snapshot.finish) },
     { label: "Hardware", value: nameOf(HARDWARE_BY_SLUG, snapshot.hardware) },

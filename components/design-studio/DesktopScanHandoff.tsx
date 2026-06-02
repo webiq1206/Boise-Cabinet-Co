@@ -38,8 +38,8 @@ export function DesktopScanHandoff() {
           Continue on your phone
         </p>
         <p className="text-sm text-muted-foreground mt-1">
-          AR room scan works on a phone or tablet. Scan this QR code to open the
-          same design on your device — your progress is saved in this browser.
+          Scan this QR code on your phone to measure your room. Your progress stays
+          saved in this browser.
         </p>
       </div>
     </div>

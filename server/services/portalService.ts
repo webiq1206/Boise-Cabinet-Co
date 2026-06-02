@@ -65,7 +65,7 @@ const DEMO_INVOICES: PortalInvoice[] = [
   {
     id: "inv-2",
     number: "INV-2026-0058",
-    description: "Production deposit — 50%",
+    description: "Production deposit, 50%",
     amount: 8750,
     status: "due",
     dueDate: "June 15, 2026",
@@ -74,7 +74,7 @@ const DEMO_INVOICES: PortalInvoice[] = [
   {
     id: "inv-3",
     number: "INV-2026-0071",
-    description: "Final balance — upon installation",
+    description: "Final balance, upon installation",
     amount: 8750,
     status: "upcoming",
     dueDate: "Upon completion",

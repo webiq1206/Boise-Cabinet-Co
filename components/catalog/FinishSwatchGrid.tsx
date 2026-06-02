@@ -36,7 +36,7 @@ function FinishSwatch({ finish }: { finish: Finish }) {
         finish.category === "woodgrain" && "ring-1 ring-inset ring-black/5",
       )}
       role="img"
-      aria-label={`${finish.name} finish swatch${supplierLabel ? ` — One Source ${supplierLabel}` : ""}`}
+      aria-label={`${finish.name} finish swatch${supplierLabel ? `, One Source ${supplierLabel}` : ""}`}
     >
       {imagePath && !useHex ? (
         <Image

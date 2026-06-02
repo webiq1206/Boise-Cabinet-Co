@@ -38,7 +38,7 @@ import { SnapshotPreview3D } from "../SnapshotPreview3D";
 import { snapshotSpecRows } from "@/lib/design/snapshotSpecs";
 import type { SavedVersion } from "@/lib/design/designSerialization";
 
-export function SaveStep() {
+export function SaveStep({ embedded = false }: { embedded?: boolean }) {
   const {
     design,
     updateDesign,
@@ -184,14 +184,16 @@ export function SaveStep() {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h2 className="text-2xl font-sans font-light tracking-tight">
-          Save & request <em className="brc-accent text-accent">pricing</em>
-        </h2>
-        <p className="text-muted-foreground mt-2">
-          Save your design and our team will prepare a detailed quote.
-        </p>
-      </div>
+      {!embedded && (
+        <div>
+          <h2 className="text-2xl font-sans font-light tracking-tight">
+            Save & request <em className="brc-accent text-accent">pricing</em>
+          </h2>
+          <p className="text-muted-foreground mt-2">
+            Save your design and our team will prepare a detailed quote.
+          </p>
+        </div>
+      )}
 
       <Card>
         <CardHeader>
@@ -210,7 +212,7 @@ export function SaveStep() {
               id="designName"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              placeholder="e.g. Kitchen v1 — White Oak"
+              placeholder="e.g. Kitchen v1, White Oak"
             />
           </div>
           <div className="flex flex-wrap gap-3">
@@ -373,7 +375,7 @@ export function SaveStep() {
           <CardHeader>
             <CardTitle className="text-base">Layout summary (planning)</CardTitle>
             <CardDescription>
-              Sent with your pricing request — planning ranges only, not a firm bid.
+              Sent with your pricing request, planning ranges only, not a firm bid.
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4 text-sm">

@@ -32,7 +32,7 @@ export interface CollectionMapping {
   verified: boolean;
 }
 
-/** Tafisa Prélude/Sommet crosswalk — seeded from finish names and OSC panel partner docs. */
+/** Tafisa Prélude/Sommet crosswalk, seeded from finish names and OSC panel partner docs. */
 export const FINISH_COLOR_MAP: FinishColorMapping[] = [
   { brcSlug: "snowcap", brcName: "Snowcap", supplierPanelBrand: "Tafisa", supplierColorName: "Classic White (CR)", supplierSeries: "Prélude Crystalite", finishType: "matte", verified: true, imagePath: "/images/catalog/finishes/snowcap.webp" },
   { brcSlug: "glacier", brcName: "Glacier", supplierPanelBrand: "Tafisa", supplierColorName: "Glacier White (CR)", supplierSeries: "Prélude Crystalite", finishType: "matte", verified: true, imagePath: "/images/catalog/finishes/glacier.webp" },

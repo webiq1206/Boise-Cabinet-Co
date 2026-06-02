@@ -147,9 +147,9 @@ interface Lead {
 
 // Priority services data for service names
 const PRIORITY_SERVICES = [
-  { slug: "kitchen-remodel", name: "Kitchen Remodel" },
-  { slug: "bathroom-remodel", name: "Bathroom Remodel" },
-  { slug: "whole-home-remodel", name: "Whole-Home Remodel" },
+  { slug: "kitchen-remodel", name: "Kitchen Cabinets" },
+  { slug: "bathroom-remodel", name: "Bathroom Vanities" },
+  { slug: "whole-home-remodel", name: "Whole-Home Cabinetry" },
   { slug: "room-addition", name: "Room Addition" },
   { slug: "basement-finish", name: "Basement Finish" },
   { slug: "outdoor-living", name: "Outdoor Living" },
@@ -197,7 +197,7 @@ function useEnvironment() {
   return useMemo(() => {
     if (typeof window === 'undefined') return { isProduction: false, environmentLabel: 'Development', hostname: '' };
     const hostname = window.location.hostname;
-    const isProduction = hostname === 'boiseremodeling.co' || hostname === 'www.boiseremodeling.co';
+    const isProduction = hostname === 'boisecabinet.co' || hostname === 'www.boisecabinet.co';
     return {
       isProduction,
       environmentLabel: isProduction ? 'Production' : 'Development',
@@ -1600,12 +1600,12 @@ function AdminDashboardContent({ embedded = false }: { embedded?: boolean }) {
               <p className="text-sm text-amber-700 dark:text-amber-300">
                 You&apos;re viewing the development database. For production leads, visit{" "}
                 <a 
-                  href="https://boiseremodeling.co/admin" 
+                  href="https://boisecabinet.co/admin" 
                   className="underline font-medium hover:no-underline"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  boiseremodeling.co/admin
+                  boisecabinet.co/admin
                 </a>
               </p>
             </div>

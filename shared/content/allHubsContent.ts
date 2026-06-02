@@ -1,5 +1,5 @@
 /**
- * Generated hub content — cabinet-focused pillars and cluster posts.
+ * Generated hub content, cabinet-focused pillars and cluster posts.
  * Cluster slugs align with shared/contentHubs.ts CONTENT_MANIFEST.
  */
 import { buildClusterPost, buildPillarGuide } from './contentFactory';
@@ -12,7 +12,7 @@ const b = '/cabinets/bathroom';
 const bi = '/cabinets/built-ins';
 const out = '/cabinets/outdoor';
 
-// —— Kitchen cabinets ——
+// , ,  Kitchen cabinets , , 
 export const KITCHEN_PILLAR = buildPillarGuide({
   slug: 'boise-kitchen-cabinet-guide',
   title: 'Boise Kitchen Cabinet Guide',
@@ -27,7 +27,7 @@ export const KITCHEN_PILLAR = buildPillarGuide({
     'Treasure Valley kitchen cabinets typically plan $15,000–$45,000+ for semi-custom to custom lines, with lead times of 6–12 weeks after design lock depending on scope and finishes.',
   takeaways: [
     'Lock layout before ordering cabinets.',
-    'Cabinet lead times drive the calendar—order at design lock.',
+    'Cabinet lead times drive the calendar, order at design lock.',
     'Match door style and finish across kitchen and adjacent spaces.',
     'Panel-ready appliances need rough-in dimensions early.',
   ],
@@ -49,7 +49,7 @@ const kitchenClusters = [
   ['kitchen-cabinet-timeline-boise', 'Kitchen Cabinet Timeline Boise', 'Typical kitchen cabinet phases in Boise from design through installation.'],
   ['kitchen-layout-ideas-boise-homes', 'Kitchen Layout Ideas for Boise Homes', 'Layouts for ranches, split-levels, and open kitchens in the Treasure Valley.'],
   ['kitchen-cabinet-trends', 'Kitchen Cabinet Trends', 'Cabinet styles and storage trends popular in Meridian, Eagle, and Boise.'],
-  ['open-kitchen-cabinet-storage', 'Open Kitchen Cabinet Storage', 'Cabinet planning when opening kitchen to living space—storage, islands, and sight lines.'],
+  ['open-kitchen-cabinet-storage', 'Open Kitchen Cabinet Storage', 'Cabinet planning when opening kitchen to living space, storage, islands, and sight lines.'],
   ['kitchen-island-design-guide', 'Kitchen Island Design Guide', 'Sizing islands for Boise ranches and newer Meridian floor plans.'],
   ['walk-in-pantry-design-guide', 'Walk-In Pantry Design Guide', 'Pantry cabinet layouts, shelving, and traffic flow for Idaho homes.'],
 ] as const;
@@ -69,7 +69,7 @@ export const KITCHEN_CLUSTER_POSTS: BlogPostData[] = kitchenClusters.map(([slug,
   }),
 );
 
-// —— Bathroom vanities ——
+// , ,  Bathroom vanities , , 
 export const BATHROOM_PILLAR = buildPillarGuide({
   slug: 'boise-bathroom-vanity-guide',
   title: 'Boise Bathroom Vanity Guide',
@@ -117,7 +117,7 @@ export const BATHROOM_CLUSTER_POSTS: BlogPostData[] = bathSlugs.map(([slug, titl
   }),
 );
 
-// —— Built-ins & storage ——
+// , ,  Built-ins & storage , , 
 export const BUILT_INS_PILLAR = buildPillarGuide({
   slug: 'built-in-cabinet-guide',
   title: 'Built-In Cabinet Guide',
@@ -128,7 +128,7 @@ export const BUILT_INS_PILLAR = buildPillarGuide({
   hubSlug: 'built-ins-storage',
   tags: ['built-ins', 'storage', 'cabinets'],
   quickAnswer:
-    'Built-in cabinet programs in the Treasure Valley often plan $5,000–$35,000+ per room depending on size, finish, and hardware—outdoor and garage walls can run higher.',
+    'Built-in cabinet programs in the Treasure Valley often plan $5,000–$35,000+ per room depending on size, finish, and hardware, outdoor and garage walls can run higher.',
   takeaways: [
     'Measure traffic paths before locking locker depth.',
     'Match door style to kitchen and bath for resale cohesion.',
@@ -169,18 +169,18 @@ export const BUILT_INS_CLUSTER_POSTS: BlogPostData[] = builtInSlugs.map(([slug, 
   }),
 );
 
-// —— Whole-home cabinetry ——
+// , ,  Whole-home cabinetry , , 
 export const WHOLE_HOME_PILLAR = buildPillarGuide({
   slug: 'whole-home-cabinetry-guide',
   title: 'Whole-Home Cabinetry Guide',
   seoTitle: 'Whole-Home Cabinetry Guide Boise',
   metaDescription:
     'Coordinated cabinet packages across kitchen, bath, laundry, mudroom, and built-ins in Idaho.',
-  excerpt: 'Coordinate whole-home cabinets as one program—not mismatched rooms.',
+  excerpt: 'Coordinate whole-home cabinets as one program, not mismatched rooms.',
   hubSlug: 'whole-home-cabinetry',
   tags: ['whole-home', 'cabinets'],
   quickAnswer:
-    'Whole-home cabinet packages in the Treasure Valley often span $40,000–$120,000+ depending on room count, line, and finish—phased delivery can spread investment.',
+    'Whole-home cabinet packages in the Treasure Valley often span $40,000–$120,000+ depending on room count, line, and finish, phased delivery can spread investment.',
   takeaways: [
     'Pick one door style and finish family early.',
     'Sequence rooms by construction schedule.',
@@ -223,14 +223,14 @@ export const WHOLE_HOME_CLUSTER_POSTS: BlogPostData[] = wholeSlugs.map(([slug, t
   }),
 );
 
-// —— Choosing a cabinet company ——
+// , ,  Choosing a cabinet company , , 
 export const CONTRACTOR_PILLAR = buildPillarGuide({
   slug: 'choose-cabinet-company-boise',
   title: 'How to Choose a Cabinet Company in Boise',
   seoTitle: 'Choose a Cabinet Company Boise | Treasure Valley',
   metaDescription:
     'Vet custom cabinet companies in Boise: shop vs dealer, quotes, red flags, consultations, and written scope.',
-  excerpt: 'Choose a Treasure Valley cabinet partner with aligned scope—not just the lowest bid.',
+  excerpt: 'Choose a Treasure Valley cabinet partner with aligned scope, not just the lowest bid.',
   hubSlug: 'choosing-cabinet-company',
   tags: ['contractor', 'cabinets'],
   quickAnswer:
@@ -282,7 +282,7 @@ export const CONTRACTOR_CLUSTER_POSTS: BlogPostData[] = contractorSlugs.map(([sl
   }),
 );
 
-// —— Cabinet project process ——
+// , ,  Cabinet project process , , 
 export const PROCESS_PILLAR = buildPillarGuide({
   slug: 'cabinet-project-process-guide',
   title: 'Boise Cabinet Project Process Guide',
@@ -293,7 +293,7 @@ export const PROCESS_PILLAR = buildPillarGuide({
   hubSlug: 'cabinet-project-process',
   tags: ['process', 'cabinets'],
   quickAnswer:
-    'A typical Boise cabinet project moves from consultation and measure, through design and approvals, into fabrication, delivery, and installation—with one team accountable at each phase.',
+    'A typical Boise cabinet project moves from consultation and measure, through design and approvals, into fabrication, delivery, and installation, with one team accountable at each phase.',
   takeaways: [
     'Field measure after rough construction is complete when possible.',
     'Selections should be locked before fabrication.',
@@ -334,7 +334,7 @@ export const PROCESS_CLUSTER_POSTS: BlogPostData[] = processSlugs.map(([slug, ti
   }),
 );
 
-// —— Cabinet ROI ——
+// , ,  Cabinet ROI , , 
 export const ROI_PILLAR = buildPillarGuide({
   slug: 'cabinet-roi-guide-boise',
   title: 'Best Cabinet Upgrades for ROI in Boise',
@@ -344,7 +344,7 @@ export const ROI_PILLAR = buildPillarGuide({
   hubSlug: 'cabinet-roi',
   tags: ['roi', 'cabinets', 'value'],
   quickAnswer:
-    'Kitchen and bath cabinet updates often deliver strong lifestyle value; ROI depends on neighborhood comps—avoid over-improving beyond your street in Boise or Meridian.',
+    'Kitchen and bath cabinet updates often deliver strong lifestyle value; ROI depends on neighborhood comps, avoid over-improving beyond your street in Boise or Meridian.',
   takeaways: [
     'Match cabinet investment to neighborhood sale prices.',
     'Coordinated finishes read as intentional to buyers.',

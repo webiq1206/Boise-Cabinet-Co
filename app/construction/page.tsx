@@ -16,7 +16,7 @@ import { SITE_CONFIG } from "@/shared/siteConfig";
 const STANDARDS = [
   {
     title: "Plywood box construction",
-    body: "Cabinet boxes are built from furniture-grade plywood — not particle board — for screw holding power, moisture resistance, and long-term stability in Idaho's dry climate and seasonal humidity swings.",
+    body: "Cabinet boxes are built from furniture-grade plywood, not particle board, for screw holding power, moisture resistance, and long-term stability in Idaho's dry climate and seasonal humidity swings.",
   },
   {
     title: "Precision door machining",
@@ -32,7 +32,7 @@ const STANDARDS = [
   },
   {
     title: "Installation & warranty",
-    body: "Treasure Valley installation by our crew — not outsourced day labor. Workmanship warranties range from 3 years on Spec Grade to 5 years on custom lines, documented in your contract.",
+    body: "Treasure Valley installation by our crew, not outsourced day labor. Workmanship warranties range from 3 years on Spec Grade to 5 years on custom lines, documented in your contract.",
   },
   {
     title: "Written scope before build",
@@ -44,7 +44,7 @@ export const metadata = catalogMetadata(
   "/construction",
   "Construction Standards",
   catalogDescription(
-    "How {company} builds custom cabinets — plywood boxes, dovetail drawers, soft-close hardware, and professional installation in the Treasure Valley.",
+    "How {company} builds custom cabinets, plywood boxes, dovetail drawers, soft-close hardware, and professional installation in the Treasure Valley.",
   ),
 );
 
@@ -79,7 +79,7 @@ export default function ConstructionPage() {
                 </>
               }
               description={catalogDescription(
-                "{company} cabinets are engineered and built in Kuna, Idaho — with materials and methods chosen for daily use in Treasure Valley homes, not showroom-only display.",
+                "{company} cabinets are engineered and built in Kuna, Idaho, with materials and methods chosen for daily use in Treasure Valley homes, not showroom-only display.",
               )}
             />
             <CatalogPageHero

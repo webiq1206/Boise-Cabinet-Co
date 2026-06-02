@@ -23,7 +23,7 @@ export function expandLocation(html: string, _slug: string): string {
   return html;
 }
 
-/** ~8 focused H2 sections per hub pillar — no repeated template walls. */
+/** ~8 focused H2 sections per hub pillar, no repeated template walls. */
 function buildPillarSections(
   topic: string,
   pillarUrl: string,
@@ -115,12 +115,12 @@ export function buildClusterPost(config: ClusterConfig): BlogPostData {
           },
           {
             question: 'Do you serve Ada and Canyon County?',
-            answer: `Yes—we install custom cabinets across ${CITIES_LIST}.`,
+            answer: `Yes, we install custom cabinets across ${CITIES_LIST}.`,
           },
           {
             question: 'What lead times should I expect?',
             answer:
-              'Cabinet lead times depend on line, finish, and scope—typically several weeks after design lock.',
+              'Cabinet lead times depend on line, finish, and scope, typically several weeks after design lock.',
           },
           {
             question: 'What should I read next?',

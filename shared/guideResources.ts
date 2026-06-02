@@ -19,14 +19,14 @@ export const GUIDE_RESOURCES: Record<string, GuideResource> = {
     description:
       'Printable worksheet with 2026 Treasure Valley planning ranges, budget buckets, and bid comparison checks.',
     kind: 'pdf',
-    href: '/downloads/remodel-budget-worksheet.pdf',
+    href: '/downloads/cabinet-budget-worksheet.pdf',
     fileLabel: 'PDF · 2 pages',
   },
   'kitchen-bath-checklist': {
     id: 'kitchen-bath-checklist',
     title: 'Kitchen & Bath Planning Checklist',
     description:
-      'Room-by-room checklist for layouts, selections, permits, and construction—bring to your consultation.',
+      'Room-by-room checklist for layouts, selections, permits, and construction, bring to your consultation.',
     kind: 'pdf',
     href: '/downloads/kitchen-bath-planning-checklist.pdf',
     fileLabel: 'PDF · 2 pages',

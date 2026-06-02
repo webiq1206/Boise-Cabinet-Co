@@ -1,5 +1,5 @@
 /**
- * Boise Cabinet Co product catalog — collections, finishes, door styles, and lookup helpers.
+ * Boise Cabinet Co product catalog, collections, finishes, door styles, and lookup helpers.
  */
 
 export type { PriceTier, CabinetCollection } from "./collections";

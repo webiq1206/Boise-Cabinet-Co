@@ -35,7 +35,7 @@ export const FINISHES: Finish[] = [
     hexColor: "#F5F3EF",
     tier: "standard",
     compatibleDoorStyleIds: ["slab", "modern-shaker", "thin-shaker", "beta-shaker"],
-    description: "Warm white with a hint of cream — brightens north-facing Boise kitchens without stark glare.",
+    description: "Warm white with a hint of cream, brightens north-facing Boise kitchens without stark glare.",
   },
   {
     id: "matte-glacier",
@@ -123,7 +123,7 @@ export const FINISHES: Finish[] = [
     hexColor: "#E5DDD0",
     tier: "standard",
     compatibleDoorStyleIds: ["slab", "modern-shaker", "thin-shaker", "three-piece", "alpha-shaker", "beta-shaker"],
-    description: "Textured-look matte in warm off-white — a Reserve favorite for whole-home packages.",
+    description: "Textured-look matte in warm off-white, a Reserve favorite for whole-home packages.",
   },
   {
     id: "matte-riverstone",
@@ -145,7 +145,7 @@ export const FINISHES: Finish[] = [
     hexColor: "#3D4044",
     tier: "premium",
     compatibleDoorStyleIds: ["slab", "modern-shaker", "beta-shaker"],
-    description: "Near-black with brown undertones — references Idaho basalt columns without gloss reflection.",
+    description: "Near-black with brown undertones, references Idaho basalt columns without gloss reflection.",
   },
   {
     id: "matte-mist",
@@ -213,7 +213,7 @@ export const FINISHES: Finish[] = [
     hexColor: "#F0EBE0",
     tier: "standard",
     compatibleDoorStyleIds: ["slab", "modern-shaker", "thin-shaker"],
-    description: "Soft gloss cream — easier to maintain than high-gloss in busy family kitchens.",
+    description: "Soft gloss cream, easier to maintain than high-gloss in busy family kitchens.",
   },
   {
     id: "gloss-pearl",
@@ -336,7 +336,7 @@ export const FINISHES: Finish[] = [
     hexColor: "#C4A882",
     tier: "standard",
     compatibleDoorStyleIds: ["slab", "modern-shaker", "thin-shaker", "three-piece", "alpha-shaker", "beta-shaker"],
-    description: "Natural white oak grain with clear satin topcoat — our most versatile wood finish.",
+    description: "Natural white oak grain with clear satin topcoat, our most versatile wood finish.",
   },
   {
     id: "wood-natural-walnut",
@@ -391,7 +391,7 @@ export const FINISHES: Finish[] = [
     hexColor: "#4A4540",
     tier: "premium",
     compatibleDoorStyleIds: ["slab", "modern-shaker", "beta-shaker"],
-    description: "Smoked oak with muted grain — pairs with black hardware and concrete counters.",
+    description: "Smoked oak with muted grain, pairs with black hardware and concrete counters.",
   },
   {
     id: "wood-hickory",

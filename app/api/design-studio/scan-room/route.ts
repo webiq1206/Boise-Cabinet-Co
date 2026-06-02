@@ -44,7 +44,10 @@ export async function POST(request: NextRequest) {
     const apiKey = process.env.OPENAI_API_KEY;
     if (!apiKey) {
       return NextResponse.json(
-        { error: "Room scan from photo is not configured." },
+        {
+          error:
+            "We couldn't read your photo. Try again or use phone camera measure.",
+        },
         { status: 503 },
       );
     }
