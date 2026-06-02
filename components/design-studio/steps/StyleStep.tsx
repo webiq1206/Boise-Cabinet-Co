@@ -3,13 +3,21 @@
 import { cn } from "@/lib/utils";
 import { useDesignStudio } from "../DesignStudioProvider";
 import { DOOR_STYLES } from "@/shared/catalog/doorStyles";
-import { FINISHES } from "@/shared/catalog/finishes";
+import { FINISHES, FINISH_BY_SLUG } from "@/shared/catalog/finishes";
 import { Label } from "@/components/ui/label";
+import { DoorStylePreview } from "../DoorStylePreview";
+
+const DEFAULT_FINISH = FINISH_BY_SLUG["white-oak"];
 
 export function StyleStep() {
   const { design, updateDesign } = useDesignStudio();
 
   const featuredFinishes = FINISHES.slice(0, 12);
+
+  const previewFinish =
+    (design.finish ? FINISH_BY_SLUG[design.finish] : undefined) ?? DEFAULT_FINISH;
+  const previewColor = previewFinish.hexColor;
+  const previewCategory = previewFinish.category;
 
   return (
     <div className="space-y-8">
@@ -23,7 +31,13 @@ export function StyleStep() {
       </div>
 
       <div className="space-y-4">
-        <Label className="text-sm font-medium">Door style</Label>
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <Label className="text-sm font-medium">Door style</Label>
+          <p className="text-xs text-muted-foreground">
+            Previews shown in{" "}
+            <span className="font-medium text-foreground">{previewFinish.name}</span>
+          </p>
+        </div>
         <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
           {DOOR_STYLES.map((item) => {
             const selected = design.doorStyle === item.slug;
@@ -33,14 +47,20 @@ export function StyleStep() {
                 type="button"
                 onClick={() => updateDesign({ doorStyle: item.slug as never })}
                 className={cn(
-                  "rounded-lg border-2 px-4 py-3 text-sm text-left transition-colors",
+                  "flex gap-3 rounded-lg border-2 px-4 py-3 text-sm text-left transition-colors",
                   selected
                     ? "border-primary bg-primary/5 font-medium"
                     : "border-border hover:border-primary/40",
                 )}
+                data-testid={`button-door-style-${item.slug}`}
               >
-                <p className="font-medium">{item.name}</p>
-                <p className="text-xs text-muted-foreground mt-1 line-clamp-2">{item.description}</p>
+                <div className="h-16 w-12 shrink-0 self-start">
+                  <DoorStylePreview slug={item.slug} color={previewColor} category={previewCategory} />
+                </div>
+                <div className="min-w-0">
+                  <p className="font-medium">{item.name}</p>
+                  <p className="text-xs text-muted-foreground mt-1 line-clamp-3">{item.description}</p>
+                </div>
               </button>
             );
           })}
