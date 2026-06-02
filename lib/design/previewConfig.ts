@@ -4,6 +4,8 @@ import type { FinishCategory } from "@/shared/catalog/doorStyles";
 
 export type ModuleFront = "door" | "drawers";
 
+export type ApplianceType = "sink" | "range" | "refrigerator" | "dishwasher";
+
 export interface CabinetModule {
   id: string;
   x: number;
@@ -15,6 +17,15 @@ export interface CabinetModule {
   front: ModuleFront;
   /** facing direction of the front, in radians around Y (0 = +Z) */
   facing?: number;
+  /** optional appliance this module represents (kitchen layouts) */
+  appliance?: ApplianceType;
+}
+
+export interface RoomBounds {
+  minX: number;
+  maxX: number;
+  minZ: number;
+  maxZ: number;
 }
 
 export interface PreviewConfig {
@@ -140,13 +151,31 @@ export function layoutToModules(layout: LayoutSlug | null): CabinetModule[] {
       ];
       break;
   }
-  return finalize(previewLayout, raw);
+  const modules = finalize(previewLayout, raw);
+  const isKitchen =
+    layout != null &&
+    ["galley", "l-shape", "u-shape", "island", "peninsula"].includes(layout);
+  return isKitchen ? tagKitchenAppliances(modules) : modules;
+}
+
+/** Tag a couple of base modules as appliances so smart checks have anchors. */
+function tagKitchenAppliances(mods: CabinetModule[]): CabinetModule[] {
+  const bases = mods.filter((m) => !m.isWall).sort((a, b) => a.x - b.x);
+  if (bases.length === 0) return mods;
+  const sink = bases[Math.floor(bases.length / 2)];
+  const range = bases[0] === sink ? bases[bases.length - 1] : bases[0];
+  return mods.map((m) => {
+    if (m === sink) return { ...m, appliance: "sink" as const, front: "door" as const };
+    if (m === range) return { ...m, appliance: "range" as const };
+    return m;
+  });
 }
 
 export function buildPreviewConfig(
   layout: LayoutSlug | null,
   finish: string | null,
   doorStyle: string | null,
+  modules?: CabinetModule[] | null,
 ): PreviewConfig {
   const resolvedLayout = previewLayoutSlug(layout);
   return {
@@ -154,6 +183,66 @@ export function buildPreviewConfig(
     finishCategory: getFinishCategory(finish),
     doorStyle: doorStyle ?? "slab",
     layout: resolvedLayout,
-    modules: layoutToModules(layout),
+    // An explicit array (even empty) is the source of truth; only derive from
+    // the layout when no module array is provided at all.
+    modules: modules != null ? modules : layoutToModules(layout),
   };
+}
+
+/** Axis-aligned top-down footprint of a module, accounting for facing. */
+export function moduleFootprint(m: CabinetModule) {
+  const rotated = Math.abs(Math.sin(m.facing ?? 0)) > 0.5;
+  const w = rotated ? m.depth : m.width;
+  const d = rotated ? m.width : m.depth;
+  return {
+    w,
+    d,
+    x0: m.x - w / 2,
+    x1: m.x + w / 2,
+    z0: m.z - d / 2,
+    z1: m.z + d / 2,
+  };
+}
+
+/** Bounding room rectangle around a set of modules, with a small margin. */
+export function computeRoomBounds(
+  modules: CabinetModule[],
+  margin = 0.14,
+): RoomBounds {
+  if (modules.length === 0) {
+    return { minX: -2, maxX: 2, minZ: -1.6, maxZ: 1.6 };
+  }
+  let minX = Infinity;
+  let maxX = -Infinity;
+  let minZ = Infinity;
+  let maxZ = -Infinity;
+  for (const m of modules) {
+    const f = moduleFootprint(m);
+    minX = Math.min(minX, f.x0);
+    maxX = Math.max(maxX, f.x1);
+    minZ = Math.min(minZ, f.z0);
+    maxZ = Math.max(maxZ, f.z1);
+  }
+  return {
+    minX: minX - margin,
+    maxX: maxX + margin,
+    minZ: minZ - margin,
+    maxZ: maxZ + margin,
+  };
+}
+
+export function moduleWidthInches(m: CabinetModule): number {
+  return Math.round(m.width / 0.0254);
+}
+
+/** Short cabinet code/label for a module (e.g. B24, DB30, W36, SB33). */
+export function cabinetCode(m: CabinetModule): string {
+  const inches = moduleWidthInches(m);
+  if (m.appliance === "sink") return `SB${inches}`;
+  if (m.appliance === "range") return `Range ${inches}"`;
+  if (m.appliance === "refrigerator") return "Fridge";
+  if (m.appliance === "dishwasher") return "DW";
+  if (m.isWall) return `W${inches}`;
+  if (m.front === "drawers") return `DB${inches}`;
+  return `B${inches}`;
 }

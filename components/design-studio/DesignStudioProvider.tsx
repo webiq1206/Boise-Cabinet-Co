@@ -9,6 +9,12 @@ import {
   type ReactNode,
 } from "react";
 import type { LayoutSlug } from "@/shared/catalog/layouts";
+import {
+  layoutToModules,
+  computeRoomBounds,
+  type CabinetModule,
+  type RoomBounds,
+} from "@/lib/design/previewConfig";
 
 /** Room slug from shared/catalog/roomCategories */
 export type RoomType = string;
@@ -45,6 +51,12 @@ export interface DesignState {
   shareToken: string | null;
   pricingSubmitted: boolean;
   moduleOverrides: Record<string, ModuleOverride>;
+  /** Placed cabinet modules — single source of truth for 2D planner + 3D preview. */
+  modules: CabinetModule[];
+  /** Room rectangle the planner snaps to (meters). */
+  roomBounds: RoomBounds | null;
+  /** Currently selected module id, shared across the 2D planner and 3D preview. */
+  selectedModuleId: string | null;
 }
 
 const initialState: DesignState = {
@@ -62,6 +74,9 @@ const initialState: DesignState = {
   shareToken: null,
   pricingSubmitted: false,
   moduleOverrides: {},
+  modules: [],
+  roomBounds: null,
+  selectedModuleId: null,
 };
 
 interface DesignStudioContextValue {
@@ -71,6 +86,12 @@ interface DesignStudioContextValue {
   updateModuleOverride: (moduleId: string, patch: ModuleOverride) => void;
   resetModuleOverride: (moduleId: string) => void;
   resetAllModuleOverrides: () => void;
+  setModules: (modules: CabinetModule[]) => void;
+  updateModule: (id: string, patch: Partial<CabinetModule>) => void;
+  removeModule: (id: string) => void;
+  addModule: (module: CabinetModule) => void;
+  resetModulesToLayout: () => void;
+  setSelectedModuleId: (id: string | null) => void;
   isStepComplete: (step: number) => boolean;
   saveDesign: () => Promise<{ id: string; shareToken: string } | null>;
   submitPricingRequest: (contact: {
@@ -92,9 +113,18 @@ export function DesignStudioProvider({ children }: { children: ReactNode }) {
     setDesign((prev) => {
       const next = { ...prev, ...patch };
       // Module overrides are keyed by layout-specific module ids; changing the
-      // layout invalidates them, so clear them to avoid stale orphaned keys.
+      // layout invalidates them, so clear them and reseed the placed modules.
       if (patch.layout !== undefined && patch.layout !== prev.layout) {
         next.moduleOverrides = {};
+        next.selectedModuleId = null;
+        if (patch.layout) {
+          const seeded = layoutToModules(patch.layout);
+          next.modules = seeded;
+          next.roomBounds = computeRoomBounds(seeded);
+        } else {
+          next.modules = [];
+          next.roomBounds = null;
+        }
       }
       return next;
     });
@@ -127,6 +157,60 @@ export function DesignStudioProvider({ children }: { children: ReactNode }) {
 
   const resetAllModuleOverrides = useCallback(() => {
     setDesign((prev) => ({ ...prev, moduleOverrides: {} }));
+  }, []);
+
+  const setModules = useCallback((modules: CabinetModule[]) => {
+    setDesign((prev) => ({ ...prev, modules }));
+  }, []);
+
+  const updateModule = useCallback(
+    (id: string, patch: Partial<CabinetModule>) => {
+      setDesign((prev) => ({
+        ...prev,
+        modules: prev.modules.map((m) => (m.id === id ? { ...m, ...patch } : m)),
+      }));
+    },
+    [],
+  );
+
+  const removeModule = useCallback((id: string) => {
+    setDesign((prev) => {
+      const next = { ...prev.moduleOverrides };
+      delete next[id];
+      return {
+        ...prev,
+        modules: prev.modules.filter((m) => m.id !== id),
+        moduleOverrides: next,
+        selectedModuleId:
+          prev.selectedModuleId === id ? null : prev.selectedModuleId,
+      };
+    });
+  }, []);
+
+  const addModule = useCallback((module: CabinetModule) => {
+    setDesign((prev) => ({
+      ...prev,
+      modules: [...prev.modules, module],
+      selectedModuleId: module.id,
+    }));
+  }, []);
+
+  const resetModulesToLayout = useCallback(() => {
+    setDesign((prev) => {
+      if (!prev.layout) return prev;
+      const seeded = layoutToModules(prev.layout);
+      return {
+        ...prev,
+        modules: seeded,
+        roomBounds: computeRoomBounds(seeded),
+        moduleOverrides: {},
+        selectedModuleId: null,
+      };
+    });
+  }, []);
+
+  const setSelectedModuleId = useCallback((id: string | null) => {
+    setDesign((prev) => ({ ...prev, selectedModuleId: id }));
   }, []);
 
   const isStepComplete = useCallback(
@@ -168,6 +252,9 @@ export function DesignStudioProvider({ children }: { children: ReactNode }) {
           layoutJson: {
             layout: design.layout,
             accessories: design.accessories,
+            modules: design.modules,
+            moduleOverrides: design.moduleOverrides,
+            roomBounds: design.roomBounds,
           },
           styleJson: {
             doorStyle: design.doorStyle,
@@ -236,6 +323,12 @@ export function DesignStudioProvider({ children }: { children: ReactNode }) {
       updateModuleOverride,
       resetModuleOverride,
       resetAllModuleOverrides,
+      setModules,
+      updateModule,
+      removeModule,
+      addModule,
+      resetModulesToLayout,
+      setSelectedModuleId,
       isStepComplete,
       saveDesign,
       submitPricingRequest,
@@ -248,6 +341,12 @@ export function DesignStudioProvider({ children }: { children: ReactNode }) {
       updateModuleOverride,
       resetModuleOverride,
       resetAllModuleOverrides,
+      setModules,
+      updateModule,
+      removeModule,
+      addModule,
+      resetModulesToLayout,
+      setSelectedModuleId,
       isStepComplete,
       saveDesign,
       submitPricingRequest,

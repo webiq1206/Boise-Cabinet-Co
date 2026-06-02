@@ -73,14 +73,26 @@ interface LivePreviewPanelProps {
 }
 
 export function LivePreviewPanel({ className, compact }: LivePreviewPanelProps) {
-  const { design, updateModuleOverride, resetModuleOverride } = useDesignStudio();
+  const {
+    design,
+    updateModuleOverride,
+    resetModuleOverride,
+    setSelectedModuleId,
+  } = useDesignStudio();
   const [viewMode, setViewMode] = useState<ViewMode>("orbit");
   const [resetSignal, setResetSignal] = useState(0);
-  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const selectedId = design.selectedModuleId;
+  const setSelectedId = setSelectedModuleId;
 
   const config = useMemo(
-    () => buildPreviewConfig(design.layout, design.finish, design.doorStyle),
-    [design.layout, design.finish, design.doorStyle],
+    () =>
+      buildPreviewConfig(
+        design.layout,
+        design.finish,
+        design.doorStyle,
+        design.modules,
+      ),
+    [design.layout, design.finish, design.doorStyle, design.modules],
   );
 
   const hardware = useMemo(() => hardwareSpec(design.hardware), [design.hardware]);

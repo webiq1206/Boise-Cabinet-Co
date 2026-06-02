@@ -1,0 +1,1 @@
+- [Design Studio module model](design-studio-module-model.md) — 2D planner & 3D preview share design.modules; saveDesign must serialize modules+overrides+roomBounds or edits vanish on reload.
