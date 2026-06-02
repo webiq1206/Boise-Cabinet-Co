@@ -19,3 +19,4 @@ E2E tests use port **3456** by default (macOS often reserves 5000 for AirPlay).
 - Homepage + estimator: `app/page.tsx`, `components/EstimateCalculator.tsx`
 - Estimate engine: `shared/estimateEngine.ts`
 - Site copy: `shared/siteContent.ts`
+# Boise-Cabinet-Co
