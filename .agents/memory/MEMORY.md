@@ -1,1 +1,2 @@
 - [Autoscale deploy promote-step failure](deploy-promote-step-failure.md) — build+push succeed but build marked "failed" with no logs; diagnose by comparing build-log tails for the `Creating Autoscale service` marker.
+- [Deploy prebuild verify gates](deploy-prebuild-verify-gates.md) — publish can fail FAST in prebuild (before next build) via verify:no-em-dash etc; generated files are regenerated each build, so fix the generator template not the committed file.
