@@ -1,9 +1,17 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import OpenAI, { toFile } from "openai";
+import { rateLimit, getClientIp } from "@/lib/rateLimit";
 
 export const runtime = "nodejs";
 export const maxDuration = 120;
+
+// Abuse / cost protection for this paid AI endpoint:
+// per-IP limit plus a global per-process budget to cap total spend.
+const PER_IP_LIMIT = 6;
+const PER_IP_WINDOW_MS = 10 * 60 * 1000; // 6 edits / 10 min per IP
+const GLOBAL_LIMIT = 60;
+const GLOBAL_WINDOW_MS = 60 * 60 * 1000; // 60 edits / hour overall
 
 // ~12MB cap on the incoming base64 string to avoid memory abuse.
 const MAX_IMAGE_CHARS = 12 * 1024 * 1024;
@@ -48,6 +56,22 @@ function pickSize(width: number, height: number): "1024x1024" | "1536x1024" | "1
 
 export async function POST(request: NextRequest) {
   try {
+    const ip = getClientIp(request);
+    const perIp = rateLimit(`remove-cabinets:${ip}`, PER_IP_LIMIT, PER_IP_WINDOW_MS);
+    if (!perIp.ok) {
+      return NextResponse.json(
+        { error: "You've made too many edits in a short time. Please wait a bit and try again." },
+        { status: 429, headers: { "Retry-After": String(perIp.retryAfter) } },
+      );
+    }
+    const global = rateLimit("remove-cabinets:global", GLOBAL_LIMIT, GLOBAL_WINDOW_MS);
+    if (!global.ok) {
+      return NextResponse.json(
+        { error: "AI photo editing is busy right now. Please try again later." },
+        { status: 429, headers: { "Retry-After": String(global.retryAfter) } },
+      );
+    }
+
     const body = await request.json();
     const { image } = bodySchema.parse(body);
     const aspect = z
@@ -97,8 +121,11 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: error.message }, { status: 400 });
     }
     console.error("Remove cabinets error:", error);
-    const message =
-      error instanceof Error ? error.message : "Failed to edit the photo.";
-    return NextResponse.json({ error: message }, { status: 500 });
+    // Return a bounded, generic message — never forward raw upstream/provider
+    // error text to the client.
+    return NextResponse.json(
+      { error: "We couldn't edit the photo right now. Please try again." },
+      { status: 500 },
+    );
   }
 }
