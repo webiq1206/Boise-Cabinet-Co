@@ -100,7 +100,8 @@ export default function CollectionsHubPage() {
                     <div className="relative aspect-[16/10] overflow-hidden bg-muted">
                       <Image
                         src={collection.heroImage}
-                        alt={collection.name}
+                        alt={`${collection.name} custom cabinets — ${collection.tagline}`}
+                        title={`${collection.name} Cabinet Collection | Boise Cabinet Co`}
                         fill
                         sizes="(max-width: 640px) 100vw, 50vw"
                         className="object-cover img-brand-grade group-hover:scale-[1.02] transition-transform duration-300"

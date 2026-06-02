@@ -15,7 +15,7 @@ export interface GuideResource {
 export const GUIDE_RESOURCES: Record<string, GuideResource> = {
   'budget-worksheet': {
     id: 'budget-worksheet',
-    title: 'Remodel Budget Worksheet',
+    title: 'Cabinet Budget Worksheet',
     description:
       'Printable worksheet with 2026 Treasure Valley planning ranges, budget buckets, and bid comparison checks.',
     kind: 'pdf',
@@ -51,23 +51,18 @@ export const GUIDE_RESOURCES: Record<string, GuideResource> = {
 
 /** Resource IDs shown on each guide slug */
 export const RESOURCES_BY_GUIDE_SLUG: Record<string, string[]> = {
-  'boise-remodeling-cost-guide': ['budget-worksheet', 'kitchen-bath-checklist'],
-  'boise-remodeling-process-guide': ['kitchen-bath-checklist', 'ada-canyon-permit-pdf', 'ada-canyon-permit-flow'],
-  'treasure-valley-remodeling-guide': ['budget-worksheet', 'ada-canyon-permit-pdf', 'ada-canyon-permit-flow'],
-  'boise-kitchen-remodeling-guide': ['kitchen-bath-checklist', 'budget-worksheet'],
-  'boise-bathroom-remodeling-guide': ['kitchen-bath-checklist'],
-  'boise-remodeling-guide': ['budget-worksheet', 'kitchen-bath-checklist'],
+  'boise-cabinet-cost-guide': ['budget-worksheet', 'kitchen-bath-checklist'],
+  'cabinet-project-process-guide': ['kitchen-bath-checklist'],
+  'treasure-valley-cabinet-guide': ['budget-worksheet'],
+  'boise-kitchen-cabinet-guide': ['kitchen-bath-checklist', 'budget-worksheet'],
+  'boise-bathroom-vanity-guide': ['kitchen-bath-checklist'],
+  'boise-cabinet-guide': ['budget-worksheet', 'kitchen-bath-checklist'],
 };
 
 export const RESOURCES_BY_BLOG_SLUG: Record<string, string[]> = {
-  'ada-vs-canyon-county-permit-timelines': [
-    'ada-canyon-permit-pdf',
-    'ada-canyon-permit-flow',
-  ],
-  'how-to-budget-remodel-boise': ['budget-worksheet'],
-  'kitchen-remodel-cost-boise': ['budget-worksheet', 'kitchen-bath-checklist'],
-  'bathroom-remodel-cost-boise': ['kitchen-bath-checklist'],
-  'boise-permit-guide': ['ada-canyon-permit-pdf', 'ada-canyon-permit-flow'],
+  'how-to-budget-cabinets-boise': ['budget-worksheet'],
+  'kitchen-cabinet-cost-boise': ['budget-worksheet', 'kitchen-bath-checklist'],
+  'bathroom-vanity-cost-boise': ['kitchen-bath-checklist'],
 };
 
 export function getResourcesForGuide(slug: string): GuideResource[] {

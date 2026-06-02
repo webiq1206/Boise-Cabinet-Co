@@ -42,7 +42,7 @@ export async function generateMetadata({
     description,
     alternates: { canonical: buildCanonical(guidePath(guide.slug)) },
     openGraph: {
-      title: `${title} | Boise Remodeling Co`,
+      title: `${title} | Boise Cabinet Co`,
       description,
       url: buildCanonical(guidePath(guide.slug)),
       type: 'article',
@@ -51,7 +51,7 @@ export async function generateMetadata({
     },
     twitter: {
       card: 'summary_large_image',
-      title: `${title} | Boise Remodeling Co`,
+      title: `${title} | Boise Cabinet Co`,
       description,
       images: [imageUrl],
     },
@@ -77,6 +77,7 @@ export default function GuidePage({ params }: { params: { slug: string } }) {
     title: guide.title,
     description: guide.excerpt,
     publishedAt: guide.publishedAt,
+    updatedAt: guide.updatedAt,
     slug: guide.slug,
     pathPrefix: 'guides',
     image: getAbsoluteImageUrl(getBlogHeroImage(guide.slug, guide.heroImage), getBaseUrl()),

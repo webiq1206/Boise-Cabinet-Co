@@ -5,7 +5,7 @@
 export type ContentType = 'pillar' | 'cluster' | 'location' | 'neighborhood' | 'master';
 export type ContentStatus = 'planned' | 'draft' | 'published';
 
-/** Default status for manifest entries — all hubs finalized */
+/** Default status for manifest entries — cabinet migration finalized */
 const PUBLISHED: ContentStatus = 'published';
 export type ContentRoute = 'guide' | 'blog';
 
@@ -17,7 +17,7 @@ export interface ContentHub {
   pillarRoute: ContentRoute;
   description: string;
   priorityTier: 1 | 2 | 3 | 4 | 5;
-  serviceSlugs: string[];
+  catalogRoomSlugs?: string[];
 }
 
 export interface ContentManifestEntry {
@@ -33,104 +33,94 @@ export interface ContentManifestEntry {
 
 export const CONTENT_HUBS: ContentHub[] = [
   {
-    hubSlug: 'remodeling-costs',
+    hubSlug: 'cabinet-costs',
     title: 'Boise Cabinet Costs',
     categoryLabel: 'Boise Cabinet Costs',
-    pillarSlug: 'boise-remodeling-cost-guide',
+    pillarSlug: 'boise-cabinet-cost-guide',
     pillarRoute: 'guide',
     description: 'Planning ranges, cost drivers, and budgeting for custom cabinets in the Treasure Valley.',
     priorityTier: 1,
-    serviceSlugs: ['kitchen-remodel', 'bathroom-remodel', 'whole-home-remodel', 'room-addition'],
+    catalogRoomSlugs: ['kitchen', 'bathroom', 'laundry', 'mudroom', 'pantry', 'closet', 'garage', 'built-ins'],
   },
   {
-    hubSlug: 'kitchen-remodeling',
+    hubSlug: 'kitchen-cabinets',
     title: 'Kitchen Cabinets',
     categoryLabel: 'Kitchen Cabinets',
-    pillarSlug: 'boise-kitchen-remodeling-guide',
+    pillarSlug: 'boise-kitchen-cabinet-guide',
     pillarRoute: 'guide',
     description: 'Layouts, door styles, finishes, and timelines for custom kitchen cabinetry in Boise.',
     priorityTier: 2,
-    serviceSlugs: ['kitchen-remodel'],
+    catalogRoomSlugs: ['kitchen', 'pantry'],
   },
   {
-    hubSlug: 'bathroom-remodeling',
+    hubSlug: 'bathroom-vanities',
     title: 'Bathroom Vanities',
     categoryLabel: 'Bathroom Vanities',
-    pillarSlug: 'boise-bathroom-remodeling-guide',
+    pillarSlug: 'boise-bathroom-vanity-guide',
     pillarRoute: 'guide',
     description: 'Vanity layouts, storage, aging-in-place, and bath cabinet ROI.',
     priorityTier: 2,
-    serviceSlugs: ['bathroom-remodel'],
+    catalogRoomSlugs: ['bathroom'],
   },
   {
-    hubSlug: 'home-additions',
+    hubSlug: 'built-ins-storage',
     title: 'Built-In Storage',
     categoryLabel: 'Built-In Storage',
-    pillarSlug: 'boise-home-addition-guide',
+    pillarSlug: 'built-in-cabinet-guide',
     pillarRoute: 'guide',
-    description: 'Entertainment centers, mudroom lockers, pantries, and custom built-ins.',
+    description: 'Entertainment centers, mudroom lockers, pantries, outdoor kitchens, and custom built-ins.',
     priorityTier: 2,
-    serviceSlugs: ['room-addition', 'adu'],
+    catalogRoomSlugs: ['built-ins', 'entertainment', 'mudroom', 'closet', 'garage', 'outdoor', 'pantry', 'home-office', 'wet-bar'],
   },
   {
-    hubSlug: 'whole-home-remodeling',
+    hubSlug: 'whole-home-cabinetry',
     title: 'Whole-Home Cabinetry',
     categoryLabel: 'Whole-Home Cabinetry',
-    pillarSlug: 'whole-home-remodeling-guide',
+    pillarSlug: 'whole-home-cabinetry-guide',
     pillarRoute: 'guide',
-    description: 'Coordinated cabinet packages across kitchen, bath, laundry, and built-ins.',
+    description: 'Coordinated cabinet packages across kitchen, bath, laundry, mudroom, and built-ins.',
     priorityTier: 2,
-    serviceSlugs: ['whole-home-remodel'],
+    catalogRoomSlugs: ['kitchen', 'bathroom', 'laundry', 'mudroom', 'pantry', 'closet', 'garage', 'built-ins', 'home-office', 'entertainment'],
   },
   {
-    hubSlug: 'contractor-selection',
+    hubSlug: 'choosing-cabinet-company',
     title: 'Choosing a Cabinet Company',
     categoryLabel: 'Choosing a Cabinet Company',
-    pillarSlug: 'choose-remodeling-contractor-boise',
+    pillarSlug: 'choose-cabinet-company-boise',
     pillarRoute: 'guide',
     description: 'How to vet, compare quotes, and choose a custom cabinet partner.',
     priorityTier: 1,
-    serviceSlugs: ['kitchen-remodel', 'bathroom-remodel', 'whole-home-remodel'],
+    catalogRoomSlugs: ['kitchen', 'bathroom', 'built-ins'],
   },
   {
-    hubSlug: 'remodeling-process',
+    hubSlug: 'cabinet-project-process',
     title: 'Cabinet Project Process',
     categoryLabel: 'Cabinet Project Process',
-    pillarSlug: 'boise-remodeling-process-guide',
+    pillarSlug: 'cabinet-project-process-guide',
     pillarRoute: 'guide',
     description: 'Design, fabrication, delivery, installation, and warranty for custom cabinets.',
     priorityTier: 3,
-    serviceSlugs: ['whole-home-remodel', 'kitchen-remodel', 'bathroom-remodel'],
+    catalogRoomSlugs: ['kitchen', 'bathroom', 'built-ins'],
   },
   {
-    hubSlug: 'remodeling-roi',
+    hubSlug: 'cabinet-roi',
     title: 'Cabinet ROI & Home Value',
     categoryLabel: 'Cabinet ROI & Home Value',
-    pillarSlug: 'best-remodeling-roi-boise',
+    pillarSlug: 'cabinet-roi-guide-boise',
     pillarRoute: 'guide',
     description: 'Cabinet upgrades that return value in the Treasure Valley market.',
     priorityTier: 3,
-    serviceSlugs: ['kitchen-remodel', 'bathroom-remodel', 'room-addition'],
+    catalogRoomSlugs: ['kitchen', 'bathroom', 'built-ins', 'outdoor'],
   },
   {
-    hubSlug: 'outdoor-living',
-    title: 'Outdoor Cabinets',
-    categoryLabel: 'Outdoor Cabinets',
-    pillarSlug: 'outdoor-living-remodeling-guide',
+    hubSlug: 'local-guides',
+    title: 'Treasure Valley Cabinet Guides',
+    categoryLabel: 'Local Guides',
+    pillarSlug: '',
     pillarRoute: 'guide',
-    description: 'Outdoor kitchen cabinets, bar storage, and weather-rated finishes.',
-    priorityTier: 4,
-    serviceSlugs: ['whole-home-remodel'],
-  },
-  {
-    hubSlug: 'treasure-valley-locations',
-    title: 'Treasure Valley Locations',
-    categoryLabel: 'Treasure Valley Locations',
-    pillarSlug: 'treasure-valley-remodeling-guide',
-    pillarRoute: 'guide',
-    description: 'City and neighborhood custom cabinet guides across the valley.',
+    description: 'Treasure Valley and Boise cabinet guides — no category pillar; master and location guides only.',
     priorityTier: 1,
-    serviceSlugs: ['kitchen-remodel', 'bathroom-remodel', 'whole-home-remodel', 'room-addition', 'adu'],
+    catalogRoomSlugs: ['kitchen', 'bathroom', 'built-ins', 'closet', 'garage', 'mudroom', 'laundry'],
   },
 ];
 
@@ -178,8 +168,8 @@ function guide(
   hubSlug: string,
   contentType: ContentType,
   status: ContentStatus = PUBLISHED,
+  replacesSlug?: string,
 ): ContentManifestEntry {
-  const hub = CONTENT_HUBS.find((h) => h.hubSlug === hubSlug)!;
   return {
     slug,
     title,
@@ -187,124 +177,95 @@ function guide(
     contentType,
     route: 'guide',
     status,
+    replacesSlug,
   };
 }
 
-/** Full content manifest (~94 pieces) */
+/** Cabinet-focused content manifest (published only, new slugs) */
 export const CONTENT_MANIFEST: ContentManifestEntry[] = [
-  // Hub 1 — Costs
-  { slug: 'boise-remodeling-cost-guide', title: 'Boise Cabinet Cost Guide', ...hubPillar('remodeling-costs'), status: 'published' },
-  cluster('kitchen-remodel-cost-boise', 'Kitchen Remodel Cost Boise', 'remodeling-costs', 'published', 'kitchen-remodel-cost-treasure-valley'),
-  cluster('bathroom-remodel-cost-boise', 'Bathroom Remodel Cost Boise', 'remodeling-costs', 'published', 'bathroom-remodel-cost-idaho'),
-  cluster('whole-home-remodel-cost-boise', 'Whole Home Remodel Cost Boise', 'remodeling-costs', 'published'),
-  cluster('home-addition-cost-boise', 'Home Addition Cost Boise', 'remodeling-costs', 'published'),
-  cluster('luxury-remodel-cost-boise', 'Luxury Remodel Cost Boise', 'remodeling-costs', 'published'),
-  cluster('remodel-cost-per-square-foot-boise', 'Cost Per Square Foot to Remodel a Home in Boise', 'remodeling-costs', 'published'),
-  cluster('what-impacts-remodeling-costs-boise', 'What Impacts Remodeling Costs in Boise', 'remodeling-costs', 'published'),
-  cluster('how-to-budget-remodel-boise', 'How to Budget for a Remodel in Boise', 'remodeling-costs', 'published'),
+  // Hub 1 — Cabinet costs
+  { slug: 'boise-cabinet-cost-guide', title: 'Boise Cabinet Cost Guide', ...hubPillar('cabinet-costs'), status: PUBLISHED, replacesSlug: 'boise-remodeling-cost-guide' },
+  cluster('kitchen-cabinet-cost-boise', 'Kitchen Cabinet Cost Boise', 'cabinet-costs', PUBLISHED, 'kitchen-remodel-cost-boise'),
+  cluster('bathroom-vanity-cost-boise', 'Bathroom Vanity Cost Boise', 'cabinet-costs', PUBLISHED, 'bathroom-remodel-cost-boise'),
+  cluster('whole-home-cabinet-cost-boise', 'Whole Home Cabinet Cost Boise', 'cabinet-costs', PUBLISHED, 'whole-home-remodel-cost-boise'),
+  cluster('luxury-custom-cabinet-cost-boise', 'Luxury Custom Cabinet Cost Boise', 'cabinet-costs', PUBLISHED, 'luxury-remodel-cost-boise'),
+  cluster('cabinet-cost-per-linear-foot', 'Cabinet Cost Per Linear Foot', 'cabinet-costs', PUBLISHED, 'remodel-cost-per-square-foot-boise'),
+  cluster('what-impacts-cabinet-costs-boise', 'What Impacts Cabinet Costs in Boise', 'cabinet-costs', PUBLISHED, 'what-impacts-remodeling-costs-boise'),
+  cluster('how-to-budget-cabinets-boise', 'How to Budget for Cabinets in Boise', 'cabinet-costs', PUBLISHED, 'how-to-budget-remodel-boise'),
 
-  // Hub 2 — Kitchen
-  { slug: 'boise-kitchen-remodeling-guide', title: 'Boise Kitchen Cabinet Guide', ...hubPillar('kitchen-remodeling'), status: PUBLISHED },
-  cluster('kitchen-remodel-timeline-boise', 'Kitchen Remodel Timeline Boise', 'kitchen-remodeling'),
-  cluster('kitchen-layout-ideas-boise-homes', 'Kitchen Layout Ideas for Boise Homes', 'kitchen-remodeling'),
-  cluster('kitchen-cabinet-trends', 'Kitchen Cabinet Trends', 'kitchen-remodeling'),
-  cluster('quartz-vs-quartzite-kitchen', 'Quartz vs Quartzite', 'kitchen-remodeling'),
-  cluster('kitchen-remodel-roi', 'Kitchen Remodel ROI', 'kitchen-remodeling'),
-  cluster('open-concept-kitchen-remodeling', 'Open Concept Kitchen Remodeling', 'kitchen-remodeling'),
-  cluster('kitchen-island-design-guide', 'Kitchen Island Design Guide', 'kitchen-remodeling'),
-  cluster('walk-in-pantry-design-guide', 'Walk-In Pantry Design Guide', 'kitchen-remodeling'),
+  // Hub 2 — Kitchen cabinets
+  { slug: 'boise-kitchen-cabinet-guide', title: 'Boise Kitchen Cabinet Guide', ...hubPillar('kitchen-cabinets'), status: PUBLISHED, replacesSlug: 'boise-kitchen-remodeling-guide' },
+  cluster('kitchen-cabinet-trends', 'Kitchen Cabinet Trends', 'kitchen-cabinets'),
+  cluster('walk-in-pantry-design-guide', 'Walk-In Pantry Design Guide', 'kitchen-cabinets'),
+  cluster('kitchen-island-design-guide', 'Kitchen Island Design Guide', 'kitchen-cabinets'),
+  cluster('kitchen-layout-ideas-boise-homes', 'Kitchen Layout Ideas for Boise Homes', 'kitchen-cabinets'),
+  cluster('kitchen-cabinet-timeline-boise', 'Kitchen Cabinet Timeline Boise', 'kitchen-cabinets', PUBLISHED, 'kitchen-remodel-timeline-boise'),
+  cluster('open-kitchen-cabinet-storage', 'Open Kitchen Cabinet Storage', 'kitchen-cabinets', PUBLISHED, 'open-concept-kitchen-remodeling'),
+  cluster('cabinet-door-styles-guide', 'Cabinet Door Styles Guide', 'kitchen-cabinets'),
+  cluster('cabinet-finishes-colors-guide', 'Cabinet Finishes & Colors Guide', 'kitchen-cabinets'),
+  cluster('cabinet-hardware-guide', 'Cabinet Hardware Guide', 'kitchen-cabinets'),
 
-  // Hub 3 — Bathroom
-  { slug: 'boise-bathroom-remodeling-guide', title: 'Boise Bathroom Vanity Guide', ...hubPillar('bathroom-remodeling'), status: PUBLISHED },
-  cluster('walk-in-shower-guide', 'Walk-In Shower Guide', 'bathroom-remodeling'),
-  cluster('curbless-shower-guide', 'Curbless Shower Guide', 'bathroom-remodeling'),
-  cluster('luxury-bathroom-features', 'Luxury Bathroom Features', 'bathroom-remodeling'),
-  cluster('small-bathroom-remodel-ideas', 'Small Bathroom Remodel Ideas', 'bathroom-remodeling'),
-  cluster('aging-in-place-bathroom-design', 'Aging-in-Place Bathroom Design', 'bathroom-remodeling'),
-  cluster('bathroom-remodel-roi', 'Bathroom Remodel ROI', 'bathroom-remodeling'),
-  cluster('bathroom-layout-planning-guide', 'Bathroom Layout Planning Guide', 'bathroom-remodeling'),
+  // Hub 3 — Bathroom vanities
+  { slug: 'boise-bathroom-vanity-guide', title: 'Boise Bathroom Vanity Guide', ...hubPillar('bathroom-vanities'), status: PUBLISHED, replacesSlug: 'boise-bathroom-remodeling-guide' },
+  cluster('luxury-bathroom-vanity-guide', 'Luxury Bathroom Vanity Guide', 'bathroom-vanities', PUBLISHED, 'luxury-bathroom-features'),
+  cluster('small-bathroom-vanity-ideas', 'Small Bathroom Vanity Ideas', 'bathroom-vanities', PUBLISHED, 'small-bathroom-remodel-ideas'),
+  cluster('accessible-bathroom-vanity-guide', 'Accessible Bathroom Vanity Guide', 'bathroom-vanities', PUBLISHED, 'aging-in-place-bathroom-design'),
+  cluster('bathroom-vanity-layout-guide', 'Bathroom Vanity Layout Guide', 'bathroom-vanities', PUBLISHED, 'bathroom-layout-planning-guide'),
 
-  // Hub 4 — Additions
-  { slug: 'boise-home-addition-guide', title: 'Boise Home Addition Guide', ...hubPillar('home-additions'), status: PUBLISHED },
-  cluster('primary-suite-additions', 'Primary Suite Additions', 'home-additions'),
-  cluster('bedroom-additions', 'Bedroom Additions', 'home-additions'),
-  cluster('second-story-additions', 'Second Story Additions', 'home-additions'),
-  cluster('garage-conversions', 'Garage Conversions', 'home-additions'),
-  cluster('adu-guide-boise', 'ADU Guide Boise', 'home-additions'),
-  cluster('multigenerational-living-remodels', 'Multigenerational Living Remodels', 'home-additions'),
-  cluster('home-addition-timeline-guide', 'Home Addition Timeline Guide', 'home-additions'),
-  cluster('room-addition-guide-treasure-valley', 'Room Addition Guide Treasure Valley', 'home-additions', 'planned', undefined),
+  // Hub 4 — Built-ins & storage
+  { slug: 'built-in-cabinet-guide', title: 'Built-In Cabinet Guide', ...hubPillar('built-ins-storage'), status: PUBLISHED, replacesSlug: 'boise-home-addition-guide' },
+  cluster('primary-suite-closet-cabinets', 'Primary Suite Closet Cabinets', 'built-ins-storage', PUBLISHED, 'primary-suite-additions'),
+  cluster('garage-storage-cabinet-systems', 'Garage Storage Cabinet Systems', 'built-ins-storage', PUBLISHED, 'garage-conversions'),
+  cluster('multi-room-cabinet-planning', 'Multi-Room Cabinet Planning', 'built-ins-storage', PUBLISHED, 'multigenerational-living-remodels'),
+  cluster('outdoor-kitchen-cabinets-boise', 'Outdoor Kitchen Cabinets Boise', 'built-ins-storage', PUBLISHED, 'outdoor-kitchens-boise'),
+  cluster('outdoor-bar-cabinet-storage', 'Outdoor Bar Cabinet Storage', 'built-ins-storage', PUBLISHED, 'outdoor-entertaining-spaces'),
+  cluster('premium-outdoor-cabinetry', 'Premium Outdoor Cabinetry', 'built-ins-storage', PUBLISHED, 'luxury-outdoor-living'),
 
-  // Hub 5 — Whole home
-  { slug: 'whole-home-remodeling-guide', title: 'Whole Home Remodeling Guide', ...hubPillar('whole-home-remodeling'), status: PUBLISHED },
-  cluster('remodeling-vs-moving', 'Remodeling vs Moving', 'whole-home-remodeling'),
-  cluster('whole-home-remodel-timeline', 'Whole Home Remodel Timeline', 'whole-home-remodeling'),
-  cluster('living-through-a-remodel', 'Living Through a Remodel', 'whole-home-remodeling'),
-  cluster('remodel-planning-guide', 'Remodel Planning Guide', 'whole-home-remodeling'),
-  cluster('remodeling-mistakes-to-avoid', 'Remodeling Mistakes to Avoid', 'whole-home-remodeling'),
-  cluster('design-build-process-guide', 'Design-Build Process Guide', 'whole-home-remodeling'),
-  cluster('whole-home-remodel-planning-checklist', 'Whole-Home Remodel Planning Checklist', 'whole-home-remodeling', 'planned'),
+  // Hub 5 — Whole-home cabinetry
+  { slug: 'whole-home-cabinetry-guide', title: 'Whole Home Cabinetry Guide', ...hubPillar('whole-home-cabinetry'), status: PUBLISHED, replacesSlug: 'whole-home-remodeling-guide' },
+  cluster('cabinet-project-planning-guide', 'Cabinet Project Planning Guide', 'whole-home-cabinetry', PUBLISHED, 'remodel-planning-guide'),
+  cluster('cabinet-buying-mistakes', 'Cabinet Buying Mistakes to Avoid', 'whole-home-cabinetry', PUBLISHED, 'remodeling-mistakes-to-avoid'),
+  cluster('whole-home-cabinet-timeline', 'Whole Home Cabinet Timeline', 'whole-home-cabinetry', PUBLISHED, 'whole-home-remodel-timeline'),
+  cluster('living-through-cabinet-installation', 'Living Through Cabinet Installation', 'whole-home-cabinetry', PUBLISHED, 'living-through-a-remodel'),
+  cluster('cabinet-refresh-vs-replace-vs-moving', 'Cabinet Refresh vs Replace vs Moving', 'whole-home-cabinetry', PUBLISHED, 'remodeling-vs-moving'),
+  cluster('custom-cabinet-design-process', 'Custom Cabinet Design Process', 'whole-home-cabinetry', PUBLISHED, 'design-build-process-guide'),
+  cluster('cabinet-planning-checklist', 'Cabinet Planning Checklist', 'whole-home-cabinetry', PUBLISHED, 'whole-home-remodel-planning-checklist'),
 
-  // Hub 6 — Contractor
-  { slug: 'choose-remodeling-contractor-boise', title: 'How to Choose a Remodeling Contractor in Boise', ...hubPillar('contractor-selection'), status: PUBLISHED },
-  cluster('questions-to-ask-remodeling-contractor', 'Questions to Ask a Remodeling Contractor', 'contractor-selection'),
-  cluster('remodeling-contractor-red-flags', 'Remodeling Contractor Red Flags', 'contractor-selection'),
-  cluster('design-build-vs-general-contractor', 'Design-Build vs General Contractor', 'contractor-selection'),
-  cluster('fixed-price-vs-cost-plus', 'Fixed Price vs Cost Plus', 'contractor-selection'),
-  cluster('how-to-compare-remodeling-estimates', 'How to Compare Remodeling Estimates', 'contractor-selection'),
-  cluster('why-remodeling-bids-vary', 'Why Remodeling Bids Vary So Much', 'contractor-selection'),
-  cluster('what-makes-great-remodeling-contractor', 'What Makes a Great Remodeling Contractor', 'contractor-selection'),
-  cluster('consultation-process-remodeling', 'What to Expect During the Consultation Process', 'contractor-selection'),
-  cluster('how-to-choose-design-build-contractor', 'How to Choose a Design-Build Contractor', 'contractor-selection', 'planned'),
+  // Hub 6 — Choosing a cabinet company
+  { slug: 'choose-cabinet-company-boise', title: 'How to Choose a Cabinet Company in Boise', ...hubPillar('choosing-cabinet-company'), status: PUBLISHED, replacesSlug: 'choose-remodeling-contractor-boise' },
+  cluster('questions-to-ask-cabinet-company', 'Questions to Ask a Cabinet Company', 'choosing-cabinet-company', PUBLISHED, 'questions-to-ask-remodeling-contractor'),
+  cluster('cabinet-company-red-flags', 'Cabinet Company Red Flags', 'choosing-cabinet-company', PUBLISHED, 'remodeling-contractor-red-flags'),
+  cluster('what-makes-great-cabinet-company', 'What Makes a Great Cabinet Company', 'choosing-cabinet-company', PUBLISHED, 'what-makes-great-remodeling-contractor'),
+  cluster('how-to-compare-cabinet-quotes', 'How to Compare Cabinet Quotes', 'choosing-cabinet-company', PUBLISHED, 'how-to-compare-remodeling-estimates'),
+  cluster('cabinet-consultation-process', 'Cabinet Consultation Process', 'choosing-cabinet-company', PUBLISHED, 'consultation-process-remodeling'),
+  cluster('custom-cabinet-shop-vs-big-box', 'Custom Cabinet Shop vs Big Box', 'choosing-cabinet-company', PUBLISHED, 'design-build-vs-general-contractor'),
+  cluster('fixed-price-vs-cost-plus', 'Fixed Price vs Cost Plus Cabinet Quotes', 'choosing-cabinet-company'),
+  cluster('why-cabinet-quotes-vary', 'Why Cabinet Quotes Vary So Much', 'choosing-cabinet-company', PUBLISHED, 'why-remodeling-bids-vary'),
+  cluster('custom-vs-semi-custom-cabinets', 'Custom vs Semi-Custom Cabinets', 'choosing-cabinet-company'),
+  cluster('stock-vs-custom-cabinets-boise', 'Stock vs Custom Cabinets Boise', 'choosing-cabinet-company'),
+  cluster('cabinet-construction-quality-guide', 'Cabinet Construction Quality Guide', 'choosing-cabinet-company'),
 
-  // Hub 7 — Process
-  { slug: 'boise-remodeling-process-guide', title: 'Boise Cabinet Project Process Guide', ...hubPillar('remodeling-process'), status: PUBLISHED },
-  cluster('remodeling-timeline-guide', 'Remodeling Timeline Guide', 'remodeling-process'),
-  cluster('boise-permit-guide', 'Boise Permit Guide', 'remodeling-process'),
-  cluster('preconstruction-guide', 'Preconstruction Guide', 'remodeling-process'),
-  cluster('design-development-guide', 'Design Development Guide', 'remodeling-process'),
-  cluster('material-selection-guide', 'Material Selection Guide', 'remodeling-process'),
-  cluster('construction-phase-guide', 'Construction Phase Guide', 'remodeling-process'),
-  cluster('punch-list-guide', 'Punch List Guide', 'remodeling-process'),
-  cluster('warranty-guide-remodeling', 'Warranty Guide', 'remodeling-process'),
-  cluster('ada-vs-canyon-county-permit-timelines', 'Ada vs Canyon County Permit Timelines', 'remodeling-process', 'planned'),
+  // Hub 7 — Cabinet project process
+  { slug: 'cabinet-project-process-guide', title: 'Boise Cabinet Project Process Guide', ...hubPillar('cabinet-project-process'), status: PUBLISHED, replacesSlug: 'boise-remodeling-process-guide' },
+  cluster('cabinet-finishes-door-styles-guide', 'Cabinet Finishes & Door Styles Selection', 'cabinet-project-process', PUBLISHED, 'material-selection-guide'),
+  cluster('cabinet-measurement-design-phase', 'Cabinet Measurement & Design Phase', 'cabinet-project-process', PUBLISHED, 'preconstruction-guide'),
+  cluster('cabinet-design-development', 'Cabinet Design Development', 'cabinet-project-process', PUBLISHED, 'design-development-guide'),
+  cluster('cabinet-fabrication-installation', 'Cabinet Fabrication & Installation', 'cabinet-project-process', PUBLISHED, 'construction-phase-guide'),
+  cluster('cabinet-installation-punch-list', 'Cabinet Installation Punch List', 'cabinet-project-process', PUBLISHED, 'punch-list-guide'),
+  cluster('cabinet-warranty-guide', 'Cabinet Warranty Guide', 'cabinet-project-process', PUBLISHED, 'warranty-guide-remodeling'),
 
-  // Hub 8 — ROI
-  { slug: 'best-remodeling-roi-boise', title: 'Best Remodeling Projects for ROI in Boise', ...hubPillar('remodeling-roi'), status: PUBLISHED },
-  cluster('kitchen-roi-remodeling', 'Kitchen ROI', 'remodeling-roi'),
-  cluster('bathroom-roi-remodeling', 'Bathroom ROI', 'remodeling-roi'),
-  cluster('addition-roi-remodeling', 'Addition ROI', 'remodeling-roi'),
-  cluster('outdoor-living-roi', 'Outdoor Living ROI', 'remodeling-roi'),
-  cluster('exterior-remodeling-roi', 'Exterior Remodeling ROI', 'remodeling-roi'),
-  cluster('energy-efficiency-roi', 'Energy Efficiency ROI', 'remodeling-roi'),
-  cluster('remodeling-before-selling', 'Remodeling Before Selling', 'remodeling-roi'),
-  cluster('remodeling-long-term-living', 'Remodeling for Long-Term Living', 'remodeling-roi'),
+  // Hub 8 — Cabinet ROI
+  { slug: 'cabinet-roi-guide-boise', title: 'Best Cabinet Upgrades for ROI in Boise', ...hubPillar('cabinet-roi'), status: PUBLISHED, replacesSlug: 'best-remodeling-roi-boise' },
+  cluster('kitchen-cabinet-roi-boise', 'Kitchen Cabinet ROI Boise', 'cabinet-roi', PUBLISHED, 'kitchen-roi-remodeling'),
+  cluster('bathroom-vanity-roi-boise', 'Bathroom Vanity ROI Boise', 'cabinet-roi', PUBLISHED, 'bathroom-roi-remodeling'),
+  cluster('built-in-storage-roi', 'Built-In Storage ROI', 'cabinet-roi', PUBLISHED, 'addition-roi-remodeling'),
+  cluster('outdoor-cabinet-roi', 'Outdoor Cabinet ROI', 'cabinet-roi', PUBLISHED, 'outdoor-living-roi'),
+  cluster('cabinet-upgrades-before-selling', 'Cabinet Upgrades Before Selling', 'cabinet-roi', PUBLISHED, 'remodeling-before-selling'),
+  cluster('cabinets-for-long-term-living', 'Cabinets for Long-Term Living', 'cabinet-roi', PUBLISHED, 'remodeling-long-term-living'),
 
-  // Hub 9 — Outdoor
-  { slug: 'outdoor-living-remodeling-guide', title: 'Outdoor Living Remodeling Guide', ...hubPillar('outdoor-living'), status: PUBLISHED },
-  cluster('outdoor-kitchens-boise', 'Outdoor Kitchens', 'outdoor-living'),
-  cluster('covered-patios-boise', 'Covered Patios', 'outdoor-living'),
-  cluster('decks-vs-patios-boise', 'Decks vs Patios', 'outdoor-living'),
-  cluster('outdoor-fireplaces-boise', 'Outdoor Fireplaces', 'outdoor-living'),
-  cluster('outdoor-entertaining-spaces', 'Outdoor Entertaining Spaces', 'outdoor-living'),
-  cluster('luxury-outdoor-living', 'Luxury Outdoor Living', 'outdoor-living'),
-  cluster('backyard-transformations-boise', 'Backyard Transformations', 'outdoor-living'),
-
-  // Hub 10 — Locations
-  guide('treasure-valley-remodeling-guide', 'Treasure Valley Cabinet Guide', 'treasure-valley-locations', 'master', 'published'),
-  guide('boise-remodeling-guide', 'Boise Custom Cabinet Guide', 'treasure-valley-locations', 'location', 'published'),
-  guide('meridian-remodeling-guide', 'Meridian Remodeling Guide', 'treasure-valley-locations', 'location'),
-  guide('eagle-remodeling-guide', 'Eagle Remodeling Guide', 'treasure-valley-locations', 'location'),
-  guide('kuna-remodeling-guide', 'Kuna Remodeling Guide', 'treasure-valley-locations', 'location'),
-  guide('star-remodeling-guide', 'Star Remodeling Guide', 'treasure-valley-locations', 'location'),
-  guide('middleton-remodeling-guide', 'Middleton Remodeling Guide', 'treasure-valley-locations', 'location'),
-  guide('nampa-remodeling-guide', 'Nampa Remodeling Guide', 'treasure-valley-locations', 'location'),
-  guide('north-end-remodeling-guide', 'North End Remodeling Guide', 'treasure-valley-locations', 'neighborhood'),
-  guide('boise-bench-remodeling-guide', 'Boise Bench Remodeling Guide', 'treasure-valley-locations', 'neighborhood'),
-  guide('harris-ranch-remodeling-guide', 'Harris Ranch Remodeling Guide', 'treasure-valley-locations', 'neighborhood'),
-  guide('east-boise-remodeling-guide', 'East Boise Remodeling Guide', 'treasure-valley-locations', 'neighborhood'),
-  guide('hidden-springs-remodeling-guide', 'Hidden Springs Remodeling Guide', 'treasure-valley-locations', 'neighborhood'),
-  guide('eagle-foothills-remodeling-guide', 'Eagle Foothills Remodeling Guide', 'treasure-valley-locations', 'neighborhood'),
+  // Local guides (no pillar)
+  guide('treasure-valley-cabinet-guide', 'Treasure Valley Cabinet Guide', 'local-guides', 'master', PUBLISHED, 'treasure-valley-remodeling-guide'),
+  guide('boise-cabinet-guide', 'Boise Custom Cabinet Guide', 'local-guides', 'location', PUBLISHED, 'boise-remodeling-guide'),
 ];
 
 export function getHubBySlug(hubSlug: string): ContentHub | undefined {

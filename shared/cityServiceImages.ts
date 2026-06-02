@@ -51,14 +51,14 @@ export const CITY_SERVICE_IMAGES: Record<string, string> = buildCityServiceImage
  * Distinct neighborhood-style hero images for each city area page.
  */
 export const CITY_HERO_IMAGES: Record<string, string> = {
-  boise: "/images/areas/boise.png",
-  meridian: "/images/areas/meridian.png",
-  eagle: "/images/areas/eagle.png",
-  nampa: "/images/areas/nampa.png",
-  kuna: "/images/areas/kuna.png",
-  star: "/images/areas/star.png",
-  middleton: "/images/areas/middleton.png",
-  caldwell: "/images/areas/caldwell.png",
+  boise: "/images/areas/boise.webp",
+  meridian: "/images/areas/meridian.webp",
+  eagle: "/images/areas/eagle.webp",
+  nampa: "/images/areas/nampa.webp",
+  kuna: "/images/areas/kuna.webp",
+  star: "/images/areas/star.webp",
+  middleton: "/images/areas/middleton.webp",
+  caldwell: "/images/areas/caldwell.webp",
 };
 
 /**
@@ -99,6 +99,51 @@ const SERVICE_GALLERY_AFTER: Record<string, string> = {
   adu: GALLERY_IMAGES.basement.after,
 };
 
+const CITY_DISPLAY: Record<string, string> = {
+  boise: "Boise",
+  meridian: "Meridian",
+  eagle: "Eagle",
+  nampa: "Nampa",
+  kuna: "Kuna",
+  star: "Star",
+  middleton: "Middleton",
+  caldwell: "Caldwell",
+};
+
+const SERVICE_LABELS: Record<string, string> = {
+  "kitchen-remodel": "Kitchen custom cabinets",
+  "bathroom-remodel": "Bathroom vanity cabinets",
+  "whole-home-remodel": "Whole-home custom cabinets",
+  "room-addition": "Built-in cabinet addition",
+  adu: "ADU kitchen and storage cabinets",
+  "kitchen-cabinets": "Kitchen custom cabinets",
+  "bathroom-cabinets": "Bathroom vanity cabinets",
+  "custom-built-ins": "Custom built-in cabinets",
+  "closet-cabinets": "Closet cabinet systems",
+  "whole-home-cabinets": "Whole-home cabinet packages",
+};
+
+function cityServiceHeroAlt(serviceSlug: string, citySlug: string): string {
+  const service = SERVICE_LABELS[serviceSlug] ?? "Custom cabinets";
+  const city = CITY_DISPLAY[citySlug] ?? citySlug;
+  return `${service} in ${city}, Idaho — Boise Cabinet Co One Source cabinetry`;
+}
+
+function cityServiceProcessAlt(serviceSlug: string): string {
+  const service = SERVICE_LABELS[serviceSlug] ?? "Custom cabinets";
+  return `${service} installation and design process by Boise Cabinet Co`;
+}
+
+function areaHeroAlt(citySlug: string): string {
+  const city = CITY_DISPLAY[citySlug] ?? citySlug;
+  return `Custom kitchen and bathroom cabinets in ${city}, Idaho by Boise Cabinet Co`;
+}
+
+function areaProcessAlt(citySlug: string): string {
+  const city = CITY_DISPLAY[citySlug] ?? citySlug;
+  return `Whole-home custom cabinet package installed in ${city}, Idaho`;
+}
+
 /**
  * Three distinct images for a service-in-city page: the unique city-service
  * render as the hero, a finished-room gallery photo for the breather band, and
@@ -113,10 +158,14 @@ export function getCityServiceImageSet(
     CITY_SERVICE_IMAGES[`${serviceSlug}/${citySlug}`] ??
     SERVICE_FALLBACK_IMAGES[serviceSlug] ??
     getServiceBackground(serviceSlug);
+  const heroAlt = cityServiceHeroAlt(serviceSlug, citySlug);
+  const processAlt = cityServiceProcessAlt(serviceSlug);
   return {
     hero,
     breather: SERVICE_GALLERY_AFTER[serviceSlug] ?? hero,
     process: SERVICE_FALLBACK_IMAGES[serviceSlug] ?? hero,
+    heroAlt,
+    processAlt,
   };
 }
 
@@ -127,10 +176,14 @@ export function getCityServiceImageSet(
  */
 export function getAreaImageSet(citySlug: string): LandingImageSet {
   const hero = CITY_HERO_IMAGES[citySlug] ?? SITE_IMAGES.hero;
+  const heroAlt = areaHeroAlt(citySlug);
+  const processAlt = areaProcessAlt(citySlug);
   return {
     hero,
     breather: CITY_SERVICE_IMAGES[`kitchen-remodel/${citySlug}`] ?? hero,
     process: CITY_SERVICE_IMAGES[`whole-home-remodel/${citySlug}`] ?? hero,
+    heroAlt,
+    processAlt,
   };
 }
 
@@ -159,6 +212,25 @@ export function getCityServiceImage(url: string): string | undefined {
   if (segments[0] === "areas" && segments[1]) {
     const city = segments[1];
     if (CITY_HERO_IMAGES[city]) return CITY_HERO_IMAGES[city];
+  }
+
+  return undefined;
+}
+
+export function getCityServiceImageAlt(url: string): string | undefined {
+  const pathname = url.split("?")[0].split("#")[0];
+  const segments = pathname.split("/").filter(Boolean);
+
+  if (segments[0] === "services" && segments[1]) {
+    const service = segments[1];
+    const city = segments[2];
+    if (city) return cityServiceHeroAlt(service, city);
+    const label = SERVICE_LABELS[service] ?? "Custom cabinets";
+    return `${label} by Boise Cabinet Co in the Treasure Valley`;
+  }
+
+  if (segments[0] === "areas" && segments[1]) {
+    return areaHeroAlt(segments[1]);
   }
 
   return undefined;

@@ -8,6 +8,9 @@ import { SectionHeader } from "@/components/marketing/SectionHeader";
 import { MarketingCard } from "@/components/marketing/MarketingCard";
 import { Chip } from "@/components/marketing/Chip";
 import { CatalogSearch } from "@/components/catalog/CatalogSearch";
+import { CatalogPageHero } from "@/components/catalog/CatalogPageHero";
+import { CatalogProductImage } from "@/components/catalog/CatalogProductImage";
+import { MARKETING_IMAGES } from "@/shared/siteImages";
 import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/Reveal";
 import { catalogMetadata, catalogDescription } from "@/lib/catalog-metadata";
@@ -65,6 +68,10 @@ export default function HardwarePage() {
                 "Bar pulls, cup pulls, integrated channels, hinges, and drawer slides — selected to match your door style and finish during design.",
               )}
             />
+            <CatalogPageHero
+              src={MARKETING_IMAGES.process}
+              alt="Cabinet hardware samples on One Source shaker doors — Boise Cabinet Co"
+            />
             <CatalogSearch className="mb-8" />
             <Button variant="brand" asChild>
               <Link href="/design-studio">
@@ -85,7 +92,14 @@ export default function HardwarePage() {
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
               {HARDWARE_OPTIONS.map((item, i) => (
                 <Reveal key={item.id} delay={i * 30}>
-                  <MarketingCard className="h-full flex flex-col">
+                  <MarketingCard className="h-full flex flex-col p-0 overflow-hidden">
+                    <CatalogProductImage
+                      slug={item.slug}
+                      name={item.name}
+                      type="hardware"
+                      className="rounded-none"
+                    />
+                    <div className="p-6 flex flex-col flex-1">
                     <div className="flex flex-wrap gap-2 mb-3">
                       <Chip className="capitalize">{item.category}</Chip>
                       <Chip>{FINISH_LABELS[item.finish] ?? item.finish}</Chip>
@@ -102,6 +116,7 @@ export default function HardwarePage() {
                         {item.centerToCenterMm}mm center-to-center
                       </p>
                     )}
+                    </div>
                   </MarketingCard>
                 </Reveal>
               ))}

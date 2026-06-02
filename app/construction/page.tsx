@@ -7,6 +7,8 @@ import { PageHeader } from "@/components/marketing/PageHeader";
 import { SectionHeader } from "@/components/marketing/SectionHeader";
 import { MarketingCard } from "@/components/marketing/MarketingCard";
 import { Button } from "@/components/ui/button";
+import { CatalogPageHero } from "@/components/catalog/CatalogPageHero";
+import { MARKETING_IMAGES } from "@/shared/siteImages";
 import { catalogMetadata, catalogDescription } from "@/lib/catalog-metadata";
 import { generateBreadcrumbSchema, generateWebPageSchema } from "@/lib/schema";
 import { SITE_CONFIG } from "@/shared/siteConfig";
@@ -79,6 +81,11 @@ export default function ConstructionPage() {
               description={catalogDescription(
                 "{company} cabinets are engineered and built in Kuna, Idaho — with materials and methods chosen for daily use in Treasure Valley homes, not showroom-only display.",
               )}
+            />
+            <CatalogPageHero
+              src={MARKETING_IMAGES.process}
+              alt="CNC cabinet door machining and quality inspection at Boise Cabinet Co Kuna shop"
+              title="Cabinet Construction Standards | Boise Cabinet Co"
             />
             <div className="flex flex-wrap gap-3 mt-4">
               <Button variant="brand" asChild>

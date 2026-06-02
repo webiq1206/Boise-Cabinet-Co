@@ -4,7 +4,7 @@ import { getManifestLinks } from "@/lib/internal-links";
 import { getBlogImageAlt, getBlogThumbnail } from "@/shared/blogImages";
 import { BLOG_POSTS } from "@/shared/blogContent";
 import { GUIDE_PAGES } from "@/shared/guideContent";
-import { getCityServiceImage } from "@/shared/cityServiceImages";
+import { getCityServiceImage, getCityServiceImageAlt } from "@/shared/cityServiceImages";
 import { MarketingCard } from "./MarketingCard";
 
 interface RelatedPostCardsProps {
@@ -43,7 +43,10 @@ function imageForUrl(url: string): { src: string; alt: string } | null {
 
   const csImage = getCityServiceImage(url);
   if (csImage) {
-    return { src: csImage, alt: "Boise Remodeling Co project photography" };
+    return {
+      src: csImage,
+      alt: getCityServiceImageAlt(url) ?? "Boise Cabinet Co custom cabinet project photography",
+    };
   }
 
   return null;

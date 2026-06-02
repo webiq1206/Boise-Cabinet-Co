@@ -1,9 +1,10 @@
 import { BLOG_POSTS, type BlogPostData } from "../../shared/blogContent";
 import { GUIDE_PAGES } from "../../shared/guideContent";
 import { getHubBySlug, getHubPillarSlug, guidePath } from "../../shared/contentHubs";
-import { PRIORITY_SERVICES, CITIES, type ServiceData, type CityData } from "../../shared/contentData";
+import { ROOM_CATEGORIES } from "../../shared/catalog/roomCategories";
+import { COLLECTIONS } from "../../shared/catalog/collections";
 
-export type PageType = "blog" | "guide" | "service" | "city" | "city-service";
+export type PageType = "blog" | "guide" | "catalog";
 
 export interface PageNode {
   id: string;
@@ -14,8 +15,6 @@ export interface PageNode {
   category: string;
   tags: string[];
   hubSlug?: string;
-  serviceSlug?: string;
-  citySlug?: string;
   tokens: Set<string>;
   overrides?: Array<{ url: string; anchor?: string }>;
 }
@@ -30,7 +29,7 @@ export interface LinkEntry {
 
 export interface Manifest {
   generatedAt: null;
-  counts: { blog: number; guide: number; service: number; city: number; cityService: number };
+  counts: { blog: number; guide: number; catalog: number };
   pages: Record<string, {
     type: PageType;
     title: string;
@@ -53,7 +52,7 @@ const STOPWORDS = new Set([
   "all","any","some","make","makes","made","get","gets","got","go","goes","going",
   "about","after","before","between","because","being","been","via","near","off",
   "id","idaho","kuna","boise","treasure","valley","ada","county","canyon",
-  "service","services","page","pages","guide","guides","tips","tip",
+  "page","pages","guide","guides","tips","tip","cabinet","cabinets",
 ]);
 
 function tokenize(text: string): string[] {
@@ -74,31 +73,22 @@ function tokenSet(...parts: string[]): Set<string> {
   return set;
 }
 
-function serviceTitleAnchor(s: ServiceData): string {
-  return s.name;
-}
-
-function serviceDisplayTitle(s: ServiceData): string {
-  return `${s.name} in Boise & Treasure Valley, Idaho`;
-}
-
-function cityAnchor(c: CityData): string {
-  return `Remodeling in ${c.name}`;
-}
-
-function cityServiceAnchor(s: ServiceData, c: CityData): string {
-  return `${s.name} in ${c.name}`;
-}
+const CATALOG_HUB_PAGES: Array<{ url: string; title: string; anchor: string; tags: string[] }> = [
+  { url: "/cabinets", title: "Cabinet Catalog", anchor: "Cabinet catalog", tags: ["catalog", "cabinets"] },
+  { url: "/collections", title: "Cabinet Collections", anchor: "Collections", tags: ["collections"] },
+  { url: "/door-styles", title: "Door Styles", anchor: "Door styles", tags: ["door", "styles"] },
+  { url: "/finishes", title: "Finishes", anchor: "Finishes", tags: ["finishes"] },
+  { url: "/hardware", title: "Cabinet Hardware", anchor: "Hardware", tags: ["hardware"] },
+  { url: "/design-studio", title: "Design Studio", anchor: "Design studio", tags: ["design"] },
+];
 
 export function buildCanonicalRoutes(): string[] {
   const routes: string[] = [];
   for (const post of BLOG_POSTS) routes.push(`/blog/${post.slug}`);
   for (const guide of GUIDE_PAGES) routes.push(guidePath(guide.slug));
-  for (const svc of PRIORITY_SERVICES) routes.push(`/services/${svc.slug}`);
-  for (const city of CITIES) routes.push(`/areas/${city.slug}`);
-  for (const svc of PRIORITY_SERVICES) {
-    for (const city of CITIES) routes.push(`/services/${svc.slug}/${city.slug}`);
-  }
+  for (const hub of CATALOG_HUB_PAGES) routes.push(hub.url);
+  for (const room of ROOM_CATEGORIES) routes.push(`/cabinets/${room.slug}`);
+  for (const col of COLLECTIONS) routes.push(`/collections/${col.slug}`);
   return routes;
 }
 
@@ -149,62 +139,56 @@ export function buildPages(): PageNode[] {
     });
   }
 
-  for (const svc of PRIORITY_SERVICES) {
+  for (const hub of CATALOG_HUB_PAGES) {
     pages.push({
-      id: `service:${svc.slug}`,
-      type: "service",
-      url: `/services/${svc.slug}`,
-      title: serviceDisplayTitle(svc),
-      anchor: serviceTitleAnchor(svc),
-      category: "remodeling",
-      tags: [svc.slug],
-      serviceSlug: svc.slug,
-      tokens: tokenSet(svc.name, svc.shortDescription, svc.slug.replace(/-/g, " ")),
+      id: `catalog:${hub.url}`,
+      type: "catalog",
+      url: hub.url,
+      title: hub.title,
+      anchor: hub.anchor,
+      category: "catalog",
+      tags: hub.tags,
+      tokens: tokenSet(hub.title, hub.anchor, hub.tags.join(" ")),
       overrides: [],
     });
   }
 
-  for (const city of CITIES) {
+  for (const room of ROOM_CATEGORIES) {
     pages.push({
-      id: `city:${city.slug}`,
-      type: "city",
-      url: `/areas/${city.slug}`,
-      title: `Remodeling Services in ${city.name}, Idaho`,
-      anchor: cityAnchor(city),
-      category: "city",
-      tags: [city.slug, city.county],
-      citySlug: city.slug,
-      tokens: tokenSet(city.name, city.county, "remodeling", "idaho"),
+      id: `catalog:room:${room.slug}`,
+      type: "catalog",
+      url: `/cabinets/${room.slug}`,
+      title: `${room.name} Cabinets`,
+      anchor: `${room.name} cabinets`,
+      category: "catalog",
+      tags: [room.slug, "room", "cabinets"],
+      tokens: tokenSet(room.name, room.description, room.slug),
+      overrides: [],
     });
   }
 
-  for (const svc of PRIORITY_SERVICES) {
-    for (const city of CITIES) {
-      pages.push({
-        id: `city-service:${svc.slug}__${city.slug}`,
-        type: "city-service",
-        url: `/services/${svc.slug}/${city.slug}`,
-        title: `${svc.name} in ${city.name}, Idaho`,
-        anchor: cityServiceAnchor(svc, city),
-        category: "remodeling",
-        tags: [svc.slug, city.slug],
-        serviceSlug: svc.slug,
-        citySlug: city.slug,
-        tokens: tokenSet(svc.name, city.name, svc.shortDescription, svc.slug.replace(/-/g, " ")),
-      });
-    }
+  for (const col of COLLECTIONS) {
+    pages.push({
+      id: `catalog:collection:${col.slug}`,
+      type: "catalog",
+      url: `/collections/${col.slug}`,
+      title: col.name,
+      anchor: col.name,
+      category: "catalog",
+      tags: [col.slug, "collection"],
+      tokens: tokenSet(col.name, col.tagline, col.description, col.slug),
+      overrides: [],
+    });
   }
 
   return pages;
 }
 
-const SERVICE_BOOST = 0.15;
 const SAME_CATEGORY_BONUS = 0.3;
 const SAME_HUB_BONUS = 0.35;
-const SHARED_SERVICE_BONUS = 0.5;
-const SHARED_CITY_BONUS = 0.3;
 const SHARED_TAG_BONUS = 0.1;
 const GUIDE_BOOST = 0.12;
+const CATALOG_BOOST = 0.1;
 
 function jaccard(a: Set<string>, b: Set<string>): number {
   if (a.size === 0 || b.size === 0) return 0;
@@ -221,18 +205,12 @@ function similarity(from: PageNode, to: PageNode): number {
 
   if (from.category && from.category === to.category) score += SAME_CATEGORY_BONUS;
   if (from.hubSlug && to.hubSlug && from.hubSlug === to.hubSlug) score += SAME_HUB_BONUS;
-  if (from.serviceSlug && to.serviceSlug && from.serviceSlug === to.serviceSlug) {
-    score += SHARED_SERVICE_BONUS;
-  }
-  if (from.citySlug && to.citySlug && from.citySlug === to.citySlug) {
-    score += SHARED_CITY_BONUS;
-  }
 
   const fromTagSet = new Set(from.tags.map((t) => t.toLowerCase()));
   for (const t of to.tags) if (fromTagSet.has(t.toLowerCase())) score += SHARED_TAG_BONUS;
 
-  if (to.type === "service") score += SERVICE_BOOST;
   if (to.type === "guide") score += GUIDE_BOOST;
+  if (to.type === "catalog") score += CATALOG_BOOST;
 
   return score;
 }
@@ -240,13 +218,13 @@ function similarity(from: PageNode, to: PageNode): number {
 function targetLimit(from: PageNode): number {
   if (from.type === "blog") return 6;
   if (from.type === "guide") return 8;
-  return 8;
+  return 6;
 }
 
 export function renderLimit(type: PageType): number {
   if (type === "blog") return 3;
   if (type === "guide") return 5;
-  return 5;
+  return 4;
 }
 
 type Quota = Partial<Record<PageType, number>>;
@@ -254,41 +232,18 @@ type Quota = Partial<Record<PageType, number>>;
 function quotasFor(from: PageNode): Quota {
   switch (from.type) {
     case "blog":
-      return { guide: 1, service: 2, blog: 2, "city-service": 1 };
+      return { guide: 1, catalog: 2, blog: 2 };
     case "guide":
-      return { blog: 3, guide: 1, service: 2, "city-service": 1 };
-    case "service":
-      return { "city-service": 3, service: 3, blog: 2 };
-    case "city":
-      return { "city-service": 4, service: 3, blog: 1 };
-    case "city-service":
-      return { service: 2, city: 1, "city-service": 3, blog: 2 };
+      return { blog: 3, guide: 1, catalog: 2 };
+    case "catalog":
+      return { guide: 2, blog: 2, catalog: 2 };
     default:
       return {};
   }
 }
 
-function eligible(from: PageNode, to: PageNode): boolean {
-  if (from.id === to.id) return false;
-
-  if (from.type === "city-service") {
-    if (to.type === "city-service") {
-      return to.serviceSlug === from.serviceSlug || to.citySlug === from.citySlug;
-    }
-    return true;
-  }
-
-  if (from.type === "service") {
-    if (to.type === "city-service") return to.serviceSlug === from.serviceSlug;
-    return true;
-  }
-
-  if (from.type === "city") {
-    if (to.type === "city-service") return to.citySlug === from.citySlug;
-    return true;
-  }
-
-  return true;
+function eligible(_from: PageNode, _to: PageNode): boolean {
+  return _from.id !== _to.id;
 }
 
 export function buildManifest(pages: PageNode[]): Manifest {
@@ -430,14 +385,15 @@ export function buildManifest(pages: PageNode[]): Manifest {
     blogByCategory[cat] = blogByCategory[cat].slice(0, 4);
   }
 
+  const catalogCount =
+    CATALOG_HUB_PAGES.length + ROOM_CATEGORIES.length + COLLECTIONS.length;
+
   return {
     generatedAt: null,
     counts: {
       blog: BLOG_POSTS.length,
       guide: GUIDE_PAGES.length,
-      service: PRIORITY_SERVICES.length,
-      city: CITIES.length,
-      cityService: PRIORITY_SERVICES.length * CITIES.length,
+      catalog: catalogCount,
     },
     pages: out,
     incoming,

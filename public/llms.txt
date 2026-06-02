@@ -18,14 +18,10 @@
 - Online cabinet design tool: /design-studio
 - Customer project portal: /portal
 
-## Service Areas
-
-- /areas/{city-slug} for boise, meridian, eagle, nampa, kuna, star, middleton, caldwell
-
 ## Guides & Resources
 
-- Cabinet and remodeling guides: /guides
-- Blog: /blog
+- Cabinet design guides: /guides (costs, kitchen and bath cabinetry, built-ins, company selection, project process, ROI, Treasure Valley local guides)
+- Blog: /blog (cabinet planning, costs, timelines, and selection advice)
 - Planning downloads: /resources
 
 ## Contact

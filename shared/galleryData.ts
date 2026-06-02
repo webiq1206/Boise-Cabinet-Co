@@ -17,7 +17,7 @@ export const GALLERY_PROJECTS: GalleryProject[] = [
     afterImageUrl: GALLERY_IMAGES.kitchen.after,
     title: "Modern Kitchen Transformation",
     description:
-      "Full kitchen remodel with custom cabinets, quartz countertops, and new layout in Boise",
+      "Custom kitchen cabinets with One Source Modern Shaker doors and quartz island in Boise",
   },
   {
     serviceType: "bathroom-remodel",
@@ -51,8 +51,17 @@ export const GALLERY_PROJECTS: GalleryProject[] = [
     city: "boise",
     beforeImageUrl: GALLERY_IMAGES.basement.before,
     afterImageUrl: GALLERY_IMAGES.basement.after,
-    title: "Basement Finish",
+    title: "Basement Wet Bar Cabinets",
     description:
-      "Unfinished basement transformed into a family room, home office, and full bath in Boise",
+      "Custom wet bar and storage cabinets in a finished Boise basement entertainment space",
+  },
+  {
+    serviceType: "outdoor-kitchen",
+    city: "meridian",
+    beforeImageUrl: GALLERY_IMAGES.outdoor.before,
+    afterImageUrl: GALLERY_IMAGES.outdoor.after,
+    title: "Outdoor Kitchen Cabinets",
+    description:
+      "Weather-rated outdoor kitchen cabinetry with Reserve cedar finish under a covered patio in Meridian",
   },
 ];

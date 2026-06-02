@@ -1,9 +1,10 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Reveal } from "@/components/Reveal";
 import { Section } from "@/components/marketing/Section";
-import { SectionHeader } from "@/components/marketing/SectionHeader";
 import { Button } from "@/components/ui/button";
-import { CTA_PRIMARY, CTA_PRIMARY_SHORT } from "@/shared/ctaCopy";
+import { MARKETING_IMAGES } from "@/shared/siteImages";
+import { CTA_PRIMARY } from "@/shared/ctaCopy";
 import { Palette, LayoutGrid, Box, Share2 } from "lucide-react";
 
 const FEATURES = [
@@ -32,17 +33,30 @@ export function DesignStudioSection() {
             </Button>
           </Reveal>
 
-          <div className="grid sm:grid-cols-2 gap-4">
-            {FEATURES.map((feature, i) => (
-              <Reveal key={feature.title} delay={i * 60}>
-                <div className="rounded-sm border border-inverse-foreground/15 bg-inverse-foreground/5 p-5">
-                  <feature.icon className="h-5 w-5 text-accent mb-3" />
-                  <h3 className="font-medium text-inverse-foreground text-sm mb-1">{feature.title}</h3>
-                  <p className="text-sm text-inverse-muted">{feature.body}</p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
+          <Reveal delay={80}>
+            <div className="relative aspect-[4/3] rounded-sm overflow-hidden border border-inverse-foreground/15">
+              <Image
+                src={MARKETING_IMAGES.designStudio}
+                alt="Boise Cabinet Co Design Studio showing 3D custom cabinet preview and finish selection"
+                title="Design Studio | Boise Cabinet Co"
+                fill
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                className="object-cover img-brand-grade"
+              />
+            </div>
+          </Reveal>
+        </div>
+
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-6xl mx-auto mt-10">
+          {FEATURES.map((feature, i) => (
+            <Reveal key={feature.title} delay={i * 60}>
+              <div className="rounded-sm border border-inverse-foreground/15 bg-inverse-foreground/5 p-5">
+                <feature.icon className="h-5 w-5 text-accent mb-3" />
+                <h3 className="font-medium text-inverse-foreground text-sm mb-1">{feature.title}</h3>
+                <p className="text-sm text-inverse-muted">{feature.body}</p>
+              </div>
+            </Reveal>
+          ))}
         </div>
       </div>
     </Section>

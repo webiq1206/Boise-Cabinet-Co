@@ -45,6 +45,13 @@ export {
   HARDWARE_BY_ID,
 } from "./hardware";
 
+export {
+  getHardwareImagePath,
+  getAccessoryImagePath,
+  getCatalogProductAlt,
+  HARDWARE_IMAGE_FILES,
+} from "./catalogImages";
+
 export type {
   CabinetCategory,
   DimensionRange,

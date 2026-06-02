@@ -8,6 +8,7 @@ import { PageHeader } from "@/components/marketing/PageHeader";
 import { SectionHeader } from "@/components/marketing/SectionHeader";
 import { MarketingCard } from "@/components/marketing/MarketingCard";
 import { FinishSwatchGrid } from "@/components/catalog/FinishSwatchGrid";
+import { DoorStyleHero } from "@/components/catalog/DoorStyleHero";
 import { Chip } from "@/components/marketing/Chip";
 import { TextLink } from "@/components/marketing/TextLink";
 import { Button } from "@/components/ui/button";
@@ -90,6 +91,7 @@ export default function DoorStyleDetailPage({ params }: { params: { slug: string
                 </div>
               }
             />
+            <DoorStyleHero slug={style.slug} name={style.name} className="mt-8" />
             <Button variant="brand" asChild className="mt-4">
               <Link href="/design-studio">
                 Use in Design Studio <ArrowRight className="h-4 w-4" />

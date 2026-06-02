@@ -342,7 +342,17 @@ export function getHubPillarFaqs(hubSlug: string): Array<{ question: string; ans
     'treasure-valley-locations': [],
   };
 
-  return faqs[hubSlug] ?? [];
+  const legacyHub: Record<string, string> = {
+    'kitchen-cabinets': 'kitchen-remodeling',
+    'bathroom-vanities': 'bathroom-remodeling',
+    'built-ins-storage': 'home-additions',
+    'whole-home-cabinetry': 'whole-home-remodeling',
+    'choosing-cabinet-company': 'contractor-selection',
+    'cabinet-project-process': 'remodeling-process',
+    'cabinet-roi': 'remodeling-roi',
+    'cabinet-costs': 'remodeling-costs',
+  };
+  return faqs[hubSlug] ?? faqs[legacyHub[hubSlug]] ?? [];
 }
 
 export function getLocationFaqs(

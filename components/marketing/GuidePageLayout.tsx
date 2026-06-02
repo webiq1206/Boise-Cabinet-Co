@@ -51,9 +51,14 @@ export function GuidePageLayout({ guide, formatDate }: GuidePageLayoutProps) {
   const publishedClusters = getClustersForHub(guide.hubSlug, true);
   const resources = getResourcesForGuide(guide.slug);
 
+  const heroCaption = `${guide.title} — Treasure Valley custom cabinet guide by Boise Cabinet Co.`;
+
   return (
     <div className="flex flex-col pb-20 md:pb-0">
       <BlogHeroBanner src={heroImage} alt={heroAlt} />
+      <div className="container px-4 max-w-4xl mx-auto -mt-2 mb-2">
+        <p className="text-sm text-muted-foreground text-center md:text-left">{heroCaption}</p>
+      </div>
 
       <Section spacing="sm" className="pt-8 md:pt-10 pb-0">
         <div className="container px-4 max-w-6xl mx-auto">
@@ -63,7 +68,7 @@ export function GuidePageLayout({ guide, formatDate }: GuidePageLayoutProps) {
             data-testid="link-back-to-guides"
           >
             <ArrowLeft className="mr-2 h-4 w-4" />
-            Remodeling Guides
+            Cabinet Design Guides
           </Link>
 
           <header className="max-w-3xl mb-8 md:mb-10">

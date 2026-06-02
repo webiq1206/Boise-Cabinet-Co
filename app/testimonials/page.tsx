@@ -1,11 +1,14 @@
 import { ArrowRight } from 'lucide-react';
+import { JsonLd } from '@/components/seo/JsonLd';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { Section } from '@/components/marketing/Section';
 import { PageHeader } from '@/components/marketing/PageHeader';
 import { ProjectGallerySection } from '@/components/sections/ProjectGallerySection';
 import { TestimonialsSection } from '@/components/sections/TestimonialsSection';
 import { buildPageMetadata } from '@/lib/page-metadata';
+import { generateImageGallerySchema } from '@/lib/schema';
 import { CTA_PRIMARY, CTA_SECONDARY } from '@/shared/ctaCopy';
+import { GALLERY_PROJECTS } from '@/shared/galleryData';
 import { ConsultCTA } from '@/components/modals/ConsultCTA';
 import { EstimateCTA } from '@/components/modals/EstimateCTA';
 
@@ -18,7 +21,28 @@ export const metadata = buildPageMetadata({
 });
 
 export default function TestimonialsPage() {
+  const gallerySchema = generateImageGallerySchema({
+    name: 'Boise Cabinet Co Project Gallery',
+    description:
+      'Before and after custom cabinet projects across the Treasure Valley — kitchens, baths, built-ins, and whole-home packages.',
+    url: '/testimonials',
+    images: GALLERY_PROJECTS.flatMap((project) => [
+      {
+        url: project.beforeImageUrl,
+        caption: `Before: ${project.title} in ${project.city}, Idaho`,
+        name: `${project.title} — before`,
+      },
+      {
+        url: project.afterImageUrl,
+        caption: `After: ${project.description}`,
+        name: `${project.title} — after`,
+      },
+    ]),
+  });
+
   return (
+    <>
+      <JsonLd data={gallerySchema} />
     <div className="flex flex-col pb-20 md:pb-0">
       <Section spacing="sm" className="pt-8 md:pt-12">
         <div className="container px-4 max-w-3xl">
@@ -69,5 +93,6 @@ export default function TestimonialsPage() {
         </div>
       </Section>
     </div>
+    </>
   );
 }

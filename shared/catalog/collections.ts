@@ -34,7 +34,7 @@ export const COLLECTIONS: CabinetCollection[] = [
     ],
     leadTime: "10–14 weeks from approved design",
     priceTier: "luxury",
-    heroImage: "/images/catalog/collections/full-custom.png",
+    heroImage: "/images/catalog/collections/full-custom.webp",
   },
   {
     id: "semi-custom",
@@ -53,7 +53,7 @@ export const COLLECTIONS: CabinetCollection[] = [
     ],
     leadTime: "6–8 weeks from approved design",
     priceTier: "premium",
-    heroImage: "/images/catalog/collections/semi-custom.png",
+    heroImage: "/images/catalog/collections/semi-custom.webp",
   },
   {
     id: "reserve",
@@ -72,7 +72,7 @@ export const COLLECTIONS: CabinetCollection[] = [
     ],
     leadTime: "5–7 weeks from approved design",
     priceTier: "premium",
-    heroImage: "/images/catalog/collections/reserve.png",
+    heroImage: "/images/catalog/collections/reserve.webp",
   },
   {
     id: "spec-grade",
@@ -91,7 +91,7 @@ export const COLLECTIONS: CabinetCollection[] = [
     ],
     leadTime: "3–5 weeks from approved order",
     priceTier: "entry",
-    heroImage: "/images/catalog/collections/spec-grade.png",
+    heroImage: "/images/catalog/collections/spec-grade.webp",
   },
 ];
 

@@ -166,8 +166,9 @@ export default function ContactPage() {
         {/* ─── Cinematic hero ─── */}
         <section className="relative min-h-[520px] md:min-h-[72vh] flex items-end overflow-hidden bg-inverse">
           <Image
-            src={SITE_IMAGES.hero}
-            alt="Custom kitchen cabinets in a Treasure Valley home"
+            src={SITE_IMAGES.contactHero}
+            alt="Custom bathroom vanity cabinets in a Meridian Idaho home by Boise Cabinet Co"
+            title="Contact Boise Cabinet Co | Custom Cabinets Idaho"
             fill
             className="object-cover opacity-[0.82] img-brand-grade"
             sizes="100vw"
@@ -292,8 +293,9 @@ export default function ContactPage() {
           <div className="grid md:grid-cols-2 overflow-hidden">
             <div className="relative min-h-[260px] md:min-h-[520px] overflow-hidden bg-inverse order-2 md:order-1">
               <Image
-                src={SITE_IMAGES.leadership}
-                alt={`${SITE_CONFIG.name} team reviewing cabinet finish samples`}
+                src={SITE_IMAGES.process}
+                alt="Cabinet finish samples and design plans during a Boise Cabinet Co consultation"
+                title="Design consultation | Boise Cabinet Co"
                 fill
                 sizes="(max-width: 768px) 100vw, 50vw"
                 className="object-cover img-brand-grade"

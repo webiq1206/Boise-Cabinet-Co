@@ -11,7 +11,7 @@ import {
   TV_TAKEAWAYS,
   BOISE_TAKEAWAYS,
 } from './content/wave1/locationGuides';
-import { ALL_HUB_PILLARS, LOCATION_GUIDES } from './content/allHubsContent';
+import { ALL_HUB_PILLARS } from './content/allHubsContent';
 import { expandPillar } from './content/contentFactory';
 import { SITE_CONFIG } from './siteConfig';
 
@@ -29,6 +29,7 @@ export interface GuidePageData {
   guideType: GuideType;
   tags: string[];
   publishedAt: string;
+  updatedAt?: string;
   heroImage?: string;
   quickAnswer?: string;
   keyTakeaways?: string[];
@@ -42,134 +43,132 @@ export interface GuidePageData {
 
 const costPillarFaqs = [
   {
-    question: 'How much does a typical home remodel cost in Boise?',
+    question: 'How much do custom kitchen cabinets cost in Boise?',
     answer:
-      'Most homeowners should plan room-level budgets: kitchens often $45,000–$120,000+, master baths $35,000–$85,000+, and whole-home programs $150,000–$400,000+ depending on scope and finishes.',
+      'Most Treasure Valley kitchen cabinet packages plan from roughly $15,000–$45,000+ for semi-custom lines and higher for full-custom layouts, depending on linear footage, door style, and interior accessories.',
   },
   {
-    question: 'Are remodeling costs higher in Eagle than in Meridian?',
+    question: 'What affects custom cabinet pricing the most?',
     answer:
-      'Finish level and structural complexity drive price more than zip code alone. Eagle projects often include premium materials and HOA design review time, which can increase overall investment.',
+      'Door style, box construction, finish tier, interior organizers, and total linear footage drive price more than city alone. Layout complexity and specialty storage add cost.',
   },
   {
-    question: 'Do you include permits in remodeling quotes?',
+    question: 'How do semi-custom and full-custom cabinet costs compare?',
     answer:
-      'Yes. Boise Cabinet Co includes permits in design-build scope for Ada and Canyon County projects and coordinates submissions on your behalf.',
+      'Semi-custom lines offer standardized sizes with selectable finishes at a lower entry point. Full-custom is sized to your room and typically costs more per linear foot with longer lead times.',
   },
   {
-    question: 'Why do remodeling bids vary so much?',
+    question: 'Are cabinet installation and delivery included in quotes?',
     answer:
-      'Bids differ when scope, allowances, permit fees, and finish levels are not aligned. A lower bid may exclude demolition haul-off, design, or engineering.',
+      'Boise Cabinet Co quotes typically include shop fabrication, delivery, and professional installation for cabinet scope. Countertops, appliances, and trade work are quoted separately when needed.',
   },
   {
-    question: 'Should I budget contingency for a remodel?',
+    question: 'How long from cabinet order to installation?',
     answer:
-      'Hold 10–15% contingency for concealed conditions—especially in pre-1990 Boise and Bench homes where framing, plumbing, or wiring surprises are common.',
+      'Lead times vary by collection—often 6–14 weeks from approved design to delivery. Measure early in your project so cabinets do not delay other trades.',
   },
   {
-    question: 'Are appliances included in kitchen remodel cost?',
+    question: 'Should I budget by linear foot or per cabinet?',
     answer:
-      'Appliances are typically client-supplied. We guide selection and coordinate rough-in but do not purchase or install appliances.',
+      'Linear foot is a useful planning metric for runs of base and wall cabinets. Vanities and tall units are often quoted per piece after layout is defined.',
   },
   {
-    question: 'How long does a kitchen remodel take in the Treasure Valley?',
+    question: 'How much do bathroom vanity cabinets cost in Boise?',
     answer:
-      'Many full kitchen remodels run 8–16 weeks of construction after design and permits. Cabinet lead times can add weeks before demo.',
+      'Single-vanity packages often plan from roughly $2,500–$8,000+; double vanities and linen storage increase investment. Finish and drawer interior selections matter.',
   },
   {
-    question: 'What permits are needed for a bathroom remodel in Boise?',
+    question: 'What does a whole-home cabinet package cost?',
     answer:
-      'Cosmetic updates may need minimal permits. Layout changes, plumbing relocations, and structural work require Ada County or city plan review with inspections.',
+      'Coordinated kitchen, bath, laundry, mudroom, and built-in packages are quoted as a program after room-by-room layouts. Bundling can improve finish consistency and scheduling.',
   },
   {
-    question: 'Is cost per square foot accurate for remodeling?',
+    question: 'Should I hold contingency on a cabinet project?',
     answer:
-      'Cost per square foot is a planning shorthand for whole-home or addition work. Individual rooms like kitchens should be budgeted on room scope, not whole-house SF alone.',
+      'Hold 5–10% for field adjustments—out-of-plumb walls, soffit surprises, or late selection changes are common in older Treasure Valley homes.',
   },
   {
-    question: 'How does design-build affect total cost?',
+    question: 'Why do cabinet quotes vary so much between companies?',
     answer:
-      'Design-build consolidates design, estimating, and construction under one contract, reducing change orders and gaps common when design and build are separate.',
+      'Quotes differ when box material, hardware tier, installation scope, and warranty are not aligned. Compare line-item scope, not bottom-line price alone.',
   },
   {
-    question: 'What is the cheapest remodel with the best ROI?',
+    question: 'Are stock cabinets cheaper than custom in Boise?',
     answer:
-      'Focused bath and kitchen updates often deliver strong lifestyle and resale value when aligned with neighborhood comps—avoid over-improving beyond the street.',
+      'Stock and big-box lines cost less upfront but offer fewer sizes and finishes. Custom and semi-custom fit irregular Boise layouts and typically include professional measurement and install.',
   },
   {
-    question: 'Can I remodel in phases to spread cost?',
+    question: 'Do you publish starting-at cabinet prices?',
     answer:
-      'Yes. Phasing can spread cash flow but may add mobilization cost. A master plan helps keep finishes cohesive across phases.',
+      'We publish planning ranges by room and collection for education. Firm pricing requires measurements, layout approval, and finish selections.',
   },
   {
-    question: 'Do Canyon County remodels cost less than Ada County?',
+    question: 'How do I get an accurate cabinet estimate?',
     answer:
-      'Labor and materials are similar; differences are usually permit processes, travel, and project scope—not a simple county discount.',
+      'Browse our catalog, use the design studio or consultation form, and schedule an in-home measure for a written quote tied to your layout.',
   },
   {
-    question: 'How do I get a realistic remodeling number for my home?',
+    question: 'Does Eagle or Meridian cost more than Boise for cabinets?',
     answer:
-      'Start with our online estimator for a planning range, then schedule an in-home consultation for a written scope tied to your layout and selections.',
+      'Material and labor rates are similar across the valley. Finish level, travel, and HOA documentation time—not zip code alone—usually explain differences.',
   },
   {
-    question: 'Does Boise Cabinet Co publish starting-at prices?',
+    question: 'Can I phase cabinets room by room to spread cost?',
     answer:
-      'We publish planning ranges by project type for education, not bait pricing. Firm numbers require seeing your home and defining scope.',
+      'Yes. A whole-home cabinet plan helps keep door styles and finishes cohesive when you install kitchen first and baths or built-ins later.',
   },
 ];
 
 export const GUIDE_PAGES: GuidePageData[] = [
   {
-    slug: 'boise-remodeling-cost-guide',
+    slug: 'boise-cabinet-cost-guide',
     title: 'Boise Cabinet Cost Guide (2026 Planning Ranges)',
     seoTitle: 'Boise Cabinet Cost Guide | Treasure Valley',
     metaDescription:
-      'Definitive 2026 remodeling cost guide for Boise and the Treasure Valley: kitchens, baths, whole-home, additions, luxury, $/SF, budgeting, permits, and timelines.',
+      '2026 cabinet cost guide for Boise and the Treasure Valley: kitchen, bath, whole-home packages, linear-foot planning, collections, lead times, and budgeting.',
     excerpt:
-      'The complete planning guide for remodeling costs in Boise, Meridian, Eagle, Nampa, and the Treasure Valley—with ranges, tables, and local permit context.',
-    content: expandPillar(BOISE_REMODELING_COST_GUIDE_HTML, 'boise-remodeling-cost-guide', 'remodeling-costs'),
+      'Planning ranges for custom and semi-custom cabinets in Boise, Meridian, Eagle, Nampa, and the Treasure Valley—with collection tiers and budgeting tips.',
+    content: expandPillar(BOISE_REMODELING_COST_GUIDE_HTML, 'boise-cabinet-cost-guide', 'cabinet-costs'),
     author: 'Boise Cabinet Co',
-    hubSlug: 'remodeling-costs',
+    hubSlug: 'cabinet-costs',
     guideType: 'hub-pillar',
-    tags: ['cost', 'budget', 'boise', 'treasure valley'],
+    tags: ['cost', 'budget', 'boise', 'treasure valley', 'cabinets'],
     publishedAt: '2026-05-01',
     quickAnswer: BOISE_REMODELING_COST_QUICK_ANSWER,
     keyTakeaways: BOISE_REMODELING_COST_TAKEAWAYS,
     faqs: costPillarFaqs,
     linkedClusterSlugs: [
-      'kitchen-remodel-cost-boise',
-      'bathroom-remodel-cost-boise',
-      'whole-home-remodel-cost-boise',
-      'home-addition-cost-boise',
-      'luxury-remodel-cost-boise',
-      'remodel-cost-per-square-foot-boise',
-      'what-impacts-remodeling-costs-boise',
-      'how-to-budget-remodel-boise',
+      'kitchen-cabinet-cost-boise',
+      'bathroom-vanity-cost-boise',
+      'whole-home-cabinet-cost-boise',
+      'luxury-custom-cabinet-cost-boise',
+      'cabinet-cost-per-linear-foot',
+      'what-impacts-cabinet-costs-boise',
+      'how-to-budget-cabinets-boise',
     ],
-    linkedServices: ['kitchen-remodel', 'bathroom-remodel', 'whole-home-remodel', 'room-addition'],
-    linkedCities: ['boise', 'meridian', 'eagle', 'nampa'],
     relatedLinks: [
-      { url: '/guides/treasure-valley-remodeling-guide' },
-      { url: '/guides/boise-remodeling-guide' },
-      { url: '/blog/category/remodeling-costs' },
-      { url: '/areas' },
-      { url: '/#calculator' },
+      { url: '/guides/treasure-valley-cabinet-guide' },
+      { url: '/guides/boise-cabinet-guide' },
+      { url: '/blog/category/cabinet-costs' },
+      { url: '/cabinets' },
+      { url: '/design-studio' },
+      { url: '/contact' },
     ],
-    primaryKeyword: 'Boise Cabinet Cost',
+    primaryKeyword: 'Boise cabinet cost',
   },
   {
-    slug: 'treasure-valley-remodeling-guide',
-    title: 'Treasure Valley Remodeling Guide',
-    seoTitle: 'Treasure Valley Remodeling Guide | Idaho',
+    slug: 'treasure-valley-cabinet-guide',
+    title: 'Treasure Valley Custom Cabinet Guide',
+    seoTitle: 'Treasure Valley Cabinet Guide | Idaho',
     metaDescription:
-      'Master guide to remodeling in the Treasure Valley: Boise, Meridian, Eagle, Kuna, Star, Middleton, Nampa, Caldwell—permits, housing stock, costs, and services.',
+      'Custom cabinets across the Treasure Valley: Boise, Meridian, Eagle, Kuna, Star, Middleton, Nampa, Caldwell—room guides, collections, design studio, and delivery.',
     excerpt:
-      'Your starting point for remodeling anywhere in the Treasure Valley—city guides, permits, and links to local services.',
+      'Your starting point for custom cabinets anywhere in the Treasure Valley—city context, catalog rooms, and links to planning guides.',
     content: TREASURE_VALLEY_GUIDE_HTML,
     author: 'Boise Cabinet Co',
-    hubSlug: 'treasure-valley-locations',
+    hubSlug: 'local-guides',
     guideType: 'master',
-    tags: ['treasure valley', 'locations', 'idaho'],
+    tags: ['treasure valley', 'locations', 'idaho', 'cabinets'],
     publishedAt: '2026-05-01',
     quickAnswer: TV_QUICK_ANSWER,
     keyTakeaways: TV_TAKEAWAYS,
@@ -177,136 +176,152 @@ export const GUIDE_PAGES: GuidePageData[] = [
       {
         question: 'What cities does Boise Cabinet Co serve?',
         answer:
-          'We serve Boise, Meridian, Eagle, Kuna, Star, Middleton, Nampa, and Caldwell throughout Ada and Canyon Counties.',
+          'We design, build, and install custom cabinets for Boise, Meridian, Eagle, Kuna, Star, Middleton, Nampa, and Caldwell throughout Ada and Canyon Counties.',
       },
       {
-        question: 'Where are remodeling permits processed?',
+        question: 'What cabinet rooms do you offer?',
         answer:
-          'Most Boise-area projects use Ada County processes; Nampa, Middleton, and Caldwell are in Canyon County with separate portals and timelines.',
+          'Kitchens, bathroom vanities, laundry, mudroom, pantry, closet, garage, home office, entertainment centers, built-ins, outdoor kitchens, and wet bars—see our catalog.',
       },
       {
-        question: 'What remodeling services do you offer?',
+        question: 'How do I explore cabinet styles and finishes?',
         answer:
-          'Kitchen remodels, bathroom remodels, whole-home renovations, room additions, and ADU/guest house design-build.',
+          'Browse door styles and finishes online, then use the design studio or schedule a consultation to see samples in your space.',
       },
       {
-        question: 'How do I find remodeling costs for my city?',
-        answer: 'Start with our Boise Cabinet Cost Guide and city-specific service pages linked from this hub.',
+        question: 'How do I find cabinet costs for my project?',
+        answer:
+          'Start with our Boise Cabinet Cost Guide and room-specific articles, then request a quote after layout and selections are defined.',
       },
       {
-        question: 'Do you work in Eagle and Hidden Springs?',
-        answer: 'Yes—we plan HOA review time for architectural approvals in many Eagle neighborhoods.',
+        question: 'Do you deliver to Eagle and Hidden Springs?',
+        answer:
+          'Yes—we serve Eagle and many HOA communities; allow time for architectural review when exterior-visible cabinetry is involved.',
       },
       {
         question: 'Is Meridian in Ada County?',
-        answer: 'Yes. Meridian is in Ada County for most residential permit paths we coordinate.',
+        answer:
+          'Yes. Meridian is in Ada County. We deliver and install throughout Meridian subdivisions.',
       },
       {
-        question: 'What is design-build remodeling?',
-        answer: 'One contract covers design, permits, and construction with a single accountable team.',
+        question: 'What collections do you offer?',
+        answer:
+          'Spec-grade, semi-custom, reserve, and full-custom lines—compare tiers on our collections pages or during a consultation.',
       },
       {
-        question: 'How do I compare remodeling contractors?',
-        answer: 'Use written scope, local permit experience, and aligned allowances—not price alone.',
+        question: 'How do I compare cabinet companies in the valley?',
+        answer:
+          'Compare box construction, warranty, installation scope, and finish options—not price alone. Ask for line-item quotes.',
       },
       {
-        question: 'Can I remodel before selling?',
-        answer: 'Target updates that match neighborhood comps; avoid over-improving for the street.',
+        question: 'Can cabinet upgrades help before selling a home?',
+        answer:
+          'Kitchen and bath cabinet refreshes often support resale when aligned with neighborhood expectations—avoid over-improving for the street.',
       },
       {
-        question: 'What about ADUs in Boise?',
-        answer: 'ADUs are permitted under local rules; feasibility depends on lot, utilities, and zoning.',
+        question: 'How long do custom cabinets take to receive?',
+        answer:
+          'Lead times depend on collection and shop schedule—often 6–14 weeks from approved design. Plan measurements early.',
       },
       {
-        question: 'How long do valley remodels take?',
-        answer: 'Kitchens often 2–4 months total; additions and whole-home programs can run much longer.',
-      },
-      {
-        question: 'Do you offer free estimates?',
-        answer: 'We offer in-home consultations and planning ranges; firm pricing follows defined scope.',
+        question: 'Do you offer free consultations?',
+        answer:
+          'We offer design consultations and planning ranges; firm pricing follows measurements and approved layouts.',
       },
       {
         question: 'What neighborhoods do you know best?',
-        answer: 'North End, Boise Bench, Harris Ranch, Eagle, Meridian subdivisions, and growing Kuna/Star communities.',
+        answer:
+          'North End, Boise Bench, Harris Ranch, Eagle, Meridian subdivisions, and growing Kuna and Star communities.',
       },
       {
-        question: 'Are materials included in quotes?',
-        answer: 'Our contracts specify material allowances and selections; appliances are often client-supplied for kitchens.',
+        question: 'Are hardware and organizers included in quotes?',
+        answer:
+          'Quotes specify soft-close hardware and interior accessory allowances. Upgrades are selected during design.',
       },
       {
-        question: 'How do I start a project?',
-        answer: 'Contact us or use the online estimator, then schedule an in-home visit.',
+        question: 'How do I start a cabinet project?',
+        answer:
+          'Explore the catalog, try the design studio, or contact us to schedule an in-home measure.',
       },
     ],
     relatedLinks: [
-      { url: '/guides/boise-remodeling-guide' },
-      { url: '/guides/boise-remodeling-cost-guide' },
-      { url: '/areas' },
+      { url: '/guides/boise-cabinet-guide' },
+      { url: '/guides/boise-cabinet-cost-guide' },
+      { url: '/cabinets' },
+      { url: '/design-studio' },
+      { url: '/contact' },
     ],
-    primaryKeyword: 'treasure valley remodeling',
+    primaryKeyword: 'Treasure Valley custom cabinets',
   },
   {
-    slug: 'boise-remodeling-guide',
+    slug: 'boise-cabinet-guide',
     title: 'Boise Custom Cabinet Guide',
-    seoTitle: 'Boise Custom Cabinet Guide | Neighborhoods & Services',
+    seoTitle: 'Boise Custom Cabinet Guide | Neighborhoods & Catalog',
     metaDescription:
-      'Custom cabinets in Boise: North End, Bench, Harris Ranch, costs, finishes, and cabinet services for kitchens, baths, and built-ins.',
+      'Custom cabinets in Boise: North End, Bench, Harris Ranch, costs, finishes, and kitchen, bath, and built-in cabinetry for Treasure Valley homes.',
     excerpt:
-      'Local guide to custom cabinets in Boise—neighborhood housing types, costs, and city-specific service links.',
+      'Local guide to custom cabinets in Boise—neighborhood housing types, planning ranges, and catalog links for kitchens, baths, and built-ins.',
     content: BOISE_GUIDE_HTML,
     author: 'Boise Cabinet Co',
-    hubSlug: 'treasure-valley-locations',
+    hubSlug: 'local-guides',
     guideType: 'location',
-    tags: ['boise', 'north end', 'bench'],
+    tags: ['boise', 'north end', 'bench', 'cabinets'],
     publishedAt: '2026-05-01',
     quickAnswer: BOISE_QUICK_ANSWER,
     keyTakeaways: BOISE_TAKEAWAYS,
     faqs: [
       {
-        question: 'Do you remodel homes in the North End?',
+        question: 'Do you install cabinets in the North End?',
         answer:
-          'Yes. We regularly work in the North End and Boise Bench with layouts suited to older footprints and electrical upgrades.',
+          'Yes. We regularly measure and install in the North End and Boise Bench, sizing cabinets for older footprints and uneven walls.',
       },
       {
-        question: 'How much does a kitchen remodel cost in Boise?',
+        question: 'How much do kitchen cabinets cost in Boise?',
         answer:
-          'Most full kitchen remodels plan between roughly $45,000 and $120,000+ depending on layout and cabinetry—see our cost guide for detail.',
+          'Most kitchen cabinet packages plan from roughly $15,000–$45,000+ depending on linear footage and collection—see our cabinet cost guide for detail.',
       },
       {
         question: 'What Boise neighborhoods do you serve?',
         answer: 'North End, Bench, Harris Ranch, East Boise, and surrounding Ada County communities.',
       },
       {
-        question: 'Does Boise use Ada County permits?',
-        answer: 'Most residential remodel permits route through Ada County or city building departments depending on address.',
+        question: 'Can you fit cabinets in a small galley kitchen?',
+        answer:
+          'Yes—tall pantry cabinets, pull-out bases, and custom widths help maximize storage in compact North End and Bench layouts.',
       },
       {
-        question: 'Can you open up a ranch kitchen on the Bench?',
-        answer: 'Yes—when structure allows, we design open kitchen/family layouts with proper beams and permits.',
+        question: 'Do you build bathroom vanities for Boise homes?',
+        answer:
+          'Yes—single and double vanities, linen towers, and drawer interiors sized for your bath layout.',
       },
       {
-        question: 'Do you build primary suite additions in Boise?',
-        answer: 'Yes—room additions and second stories are scoped through our addition design-build team.',
+        question: 'How do I budget cabinets in Boise?',
+        answer:
+          'Use our cost guide and room articles, then schedule a consultation for a written quote after measurement.',
       },
       {
-        question: 'How do I budget a Boise remodel?',
-        answer: 'Use our cost guide and room-specific articles, then schedule a consultation for written scope.',
+        question: 'Do you offer design and measurement in one visit?',
+        answer:
+          'Yes—consultations include layout discussion and field measurements for accurate shop drawings.',
       },
       {
-        question: 'Do you coordinate design and construction?',
-        answer: 'Yes—we are a design-build remodeler with in-house permitting support.',
+        question: 'Where can I see door styles and finishes?',
+        answer:
+          'Browse online, use the design studio, or view samples during your in-home consultation.',
       },
     ],
     linkedCities: ['boise'],
     relatedLinks: [
-      { url: '/guides/treasure-valley-remodeling-guide' },
-      { url: '/areas/boise' },
-      { url: '/services/kitchen-remodel/boise' },
+      { url: '/guides/treasure-valley-cabinet-guide' },
+      { url: '/guides/boise-cabinet-cost-guide' },
+      { url: '/cabinets/kitchen' },
+      { url: '/cabinets/bathroom' },
+      { url: '/design-studio' },
+      { url: '/contact' },
     ],
-    primaryKeyword: 'boise remodeling',
+    primaryKeyword: 'Boise custom cabinets',
   },
   ...ALL_HUB_PILLARS,
-  ...LOCATION_GUIDES,
 ];
 
 export function getGuideBySlug(slug: string): GuidePageData | undefined {

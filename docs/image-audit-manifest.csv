@@ -1,0 +1,161 @@
+id,outputPath,pages,placement,priority,phase,status,alt,doorStyleId,finishId
+img-0001,/images/catalog/collections/full-custom.webp,/collections|/collections/full-custom,hero,critical,2,pending,"Full Custom custom cabinets by Boise Cabinet Co — One Source Full Custom line with premium frameless construction",three-piece,natural-walnut
+img-0002,/images/catalog/collections/semi-custom.webp,/collections|/collections/semi-custom,hero,critical,2,pending,"Semi-Custom custom cabinets by Boise Cabinet Co — One Source Semi-Custom line with premium frameless construction",modern-shaker,white-oak
+img-0003,/images/catalog/collections/reserve.webp,/collections|/collections/reserve,hero,critical,2,pending,"Reserve custom cabinets by Boise Cabinet Co — One Source Reserve line with premium frameless construction",thin-shaker,pebble
+img-0004,/images/catalog/collections/spec-grade.webp,/collections|/collections/spec-grade,hero,critical,2,pending,"Spec Grade custom cabinets by Boise Cabinet Co — One Source Spec Grade line with premium frameless construction",slab,snowcap
+img-0005,/images/catalog/rooms/kitchen.webp,/|/cabinets|/cabinets/kitchen,card-hero,critical,2,pending,"Custom kitchen cabinets with One Source modern shaker doors in Treasure Valley Idaho",modern-shaker,snowcap
+img-0006,/images/catalog/rooms/bathroom.webp,/|/cabinets|/cabinets/bathroom,card-hero,critical,2,pending,"Custom bathroom cabinets with One Source thin shaker doors in Treasure Valley Idaho",thin-shaker,glacier
+img-0007,/images/catalog/rooms/laundry.webp,/|/cabinets|/cabinets/laundry,card-hero,critical,2,pending,"Custom laundry cabinets with One Source slab doors in Treasure Valley Idaho",slab,fog
+img-0008,/images/catalog/rooms/mudroom.webp,/|/cabinets|/cabinets/mudroom,card-hero,critical,2,pending,"Custom mudroom cabinets with One Source thin shaker doors in Treasure Valley Idaho",thin-shaker,riverstone
+img-0009,/images/catalog/rooms/home-office.webp,/|/cabinets|/cabinets/home-office,card-hero,critical,2,pending,"Custom home office cabinets with One Source modern shaker doors in Treasure Valley Idaho",modern-shaker,white-oak
+img-0010,/images/catalog/rooms/entertainment.webp,/|/cabinets|/cabinets/entertainment,card-hero,critical,2,pending,"Custom entertainment cabinets with One Source slab doors in Treasure Valley Idaho",slab,basalt
+img-0011,/images/catalog/rooms/built-ins.webp,/|/cabinets|/cabinets/built-ins,card-hero,critical,2,pending,"Custom built-ins cabinets with One Source three piece doors in Treasure Valley Idaho",three-piece,natural-walnut
+img-0012,/images/catalog/rooms/pantry.webp,/|/cabinets|/cabinets/pantry,card-hero,critical,2,pending,"Custom pantry cabinets with One Source modern shaker doors in Treasure Valley Idaho",modern-shaker,linen
+img-0013,/images/catalog/rooms/closet.webp,/|/cabinets|/cabinets/closet,card-hero,critical,2,pending,"Custom closet cabinets with One Source slab doors in Treasure Valley Idaho",slab,white-oak
+img-0014,/images/catalog/rooms/garage.webp,/|/cabinets|/cabinets/garage,card-hero,critical,2,pending,"Custom garage cabinets with One Source slab doors in Treasure Valley Idaho",slab,slate
+img-0015,/images/catalog/rooms/outdoor.webp,/|/cabinets|/cabinets/outdoor,card-hero,critical,2,pending,"Custom outdoor kitchen cabinets with One Source slab doors in Treasure Valley Idaho",slab,cedar
+img-0016,/images/catalog/rooms/wet-bar.webp,/|/cabinets|/cabinets/wet-bar,card-hero,critical,2,pending,"Custom wet bar cabinets with One Source modern shaker doors in Treasure Valley Idaho",modern-shaker,espresso-walnut
+img-0017,/images/catalog/rooms/bedroom.webp,/|/cabinets|/cabinets/bedroom,card-hero,critical,2,pending,"Custom bedroom cabinets with One Source thin shaker doors in Treasure Valley Idaho",thin-shaker,blonde-oak
+img-0018,/images/catalog/finishes/snowcap.webp,/finishes|/finishes/matte|/finishes/gloss|/finishes/woodgrain,swatch,high,2,pending,"snowcap cabinet finish swatch — One Source Tafisa panel color for Boise Cabinet Co",,snowcap
+img-0019,/images/catalog/finishes/glacier.webp,/finishes|/finishes/matte|/finishes/gloss|/finishes/woodgrain,swatch,high,2,pending,"glacier cabinet finish swatch — One Source Tafisa panel color for Boise Cabinet Co",,glacier
+img-0020,/images/catalog/finishes/dune.webp,/finishes|/finishes/matte|/finishes/gloss|/finishes/woodgrain,swatch,high,2,pending,"dune cabinet finish swatch — One Source Tafisa panel color for Boise Cabinet Co",,dune
+img-0021,/images/catalog/finishes/sagebrush.webp,/finishes|/finishes/matte|/finishes/gloss|/finishes/woodgrain,swatch,high,2,pending,"sagebrush cabinet finish swatch — One Source Tafisa panel color for Boise Cabinet Co",,sagebrush
+img-0022,/images/catalog/finishes/slate.webp,/finishes|/finishes/matte|/finishes/gloss|/finishes/woodgrain,swatch,high,2,pending,"slate cabinet finish swatch — One Source Tafisa panel color for Boise Cabinet Co",,slate
+img-0023,/images/catalog/finishes/midnight.webp,/finishes|/finishes/matte|/finishes/gloss|/finishes/woodgrain,swatch,high,2,pending,"midnight cabinet finish swatch — One Source Tafisa panel color for Boise Cabinet Co",,midnight
+img-0024,/images/catalog/finishes/clay.webp,/finishes|/finishes/matte|/finishes/gloss|/finishes/woodgrain,swatch,high,2,pending,"clay cabinet finish swatch — One Source Tafisa panel color for Boise Cabinet Co",,clay
+img-0025,/images/catalog/finishes/fog.webp,/finishes|/finishes/matte|/finishes/gloss|/finishes/woodgrain,swatch,high,2,pending,"fog cabinet finish swatch — One Source Tafisa panel color for Boise Cabinet Co",,fog
+img-0026,/images/catalog/finishes/linen.webp,/finishes|/finishes/matte|/finishes/gloss|/finishes/woodgrain,swatch,high,2,pending,"linen cabinet finish swatch — One Source Tafisa panel color for Boise Cabinet Co",,linen
+img-0027,/images/catalog/finishes/riverstone.webp,/finishes|/finishes/matte|/finishes/gloss|/finishes/woodgrain,swatch,high,2,pending,"riverstone cabinet finish swatch — One Source Tafisa panel color for Boise Cabinet Co",,riverstone
+img-0028,/images/catalog/finishes/basalt.webp,/finishes|/finishes/matte|/finishes/gloss|/finishes/woodgrain,swatch,high,2,pending,"basalt cabinet finish swatch — One Source Tafisa panel color for Boise Cabinet Co",,basalt
+img-0029,/images/catalog/finishes/mist.webp,/finishes|/finishes/matte|/finishes/gloss|/finishes/woodgrain,swatch,high,2,pending,"mist cabinet finish swatch — One Source Tafisa panel color for Boise Cabinet Co",,mist
+img-0030,/images/catalog/finishes/terracotta.webp,/finishes|/finishes/matte|/finishes/gloss|/finishes/woodgrain,swatch,high,2,pending,"terracotta cabinet finish swatch — One Source Tafisa panel color for Boise Cabinet Co",,terracotta
+img-0031,/images/catalog/finishes/fern.webp,/finishes|/finishes/matte|/finishes/gloss|/finishes/woodgrain,swatch,high,2,pending,"fern cabinet finish swatch — One Source Tafisa panel color for Boise Cabinet Co",,fern
+img-0032,/images/catalog/finishes/pebble.webp,/finishes|/finishes/matte|/finishes/gloss|/finishes/woodgrain,swatch,high,2,pending,"pebble cabinet finish swatch — One Source Tafisa panel color for Boise Cabinet Co",,pebble
+img-0033,/images/catalog/finishes/porcelain.webp,/finishes|/finishes/matte|/finishes/gloss|/finishes/woodgrain,swatch,high,2,pending,"porcelain cabinet finish swatch — One Source Tafisa panel color for Boise Cabinet Co",,porcelain
+img-0034,/images/catalog/finishes/ivory.webp,/finishes|/finishes/matte|/finishes/gloss|/finishes/woodgrain,swatch,high,2,pending,"ivory cabinet finish swatch — One Source Tafisa panel color for Boise Cabinet Co",,ivory
+img-0035,/images/catalog/finishes/pearl.webp,/finishes|/finishes/matte|/finishes/gloss|/finishes/woodgrain,swatch,high,2,pending,"pearl cabinet finish swatch — One Source Tafisa panel color for Boise Cabinet Co",,pearl
+img-0036,/images/catalog/finishes/graphite.webp,/finishes|/finishes/matte|/finishes/gloss|/finishes/woodgrain,swatch,high,2,pending,"graphite cabinet finish swatch — One Source Tafisa panel color for Boise Cabinet Co",,graphite
+img-0037,/images/catalog/finishes/obsidian.webp,/finishes|/finishes/matte|/finishes/gloss|/finishes/woodgrain,swatch,high,2,pending,"obsidian cabinet finish swatch — One Source Tafisa panel color for Boise Cabinet Co",,obsidian
+img-0038,/images/catalog/finishes/seafoam.webp,/finishes|/finishes/matte|/finishes/gloss|/finishes/woodgrain,swatch,high,2,pending,"seafoam cabinet finish swatch — One Source Tafisa panel color for Boise Cabinet Co",,seafoam
+img-0039,/images/catalog/finishes/blush.webp,/finishes|/finishes/matte|/finishes/gloss|/finishes/woodgrain,swatch,high,2,pending,"blush cabinet finish swatch — One Source Tafisa panel color for Boise Cabinet Co",,blush
+img-0040,/images/catalog/finishes/cobalt.webp,/finishes|/finishes/matte|/finishes/gloss|/finishes/woodgrain,swatch,high,2,pending,"cobalt cabinet finish swatch — One Source Tafisa panel color for Boise Cabinet Co",,cobalt
+img-0041,/images/catalog/finishes/champagne.webp,/finishes|/finishes/matte|/finishes/gloss|/finishes/woodgrain,swatch,high,2,pending,"champagne cabinet finish swatch — One Source Tafisa panel color for Boise Cabinet Co",,champagne
+img-0042,/images/catalog/finishes/storm.webp,/finishes|/finishes/matte|/finishes/gloss|/finishes/woodgrain,swatch,high,2,pending,"storm cabinet finish swatch — One Source Tafisa panel color for Boise Cabinet Co",,storm
+img-0043,/images/catalog/finishes/alabaster.webp,/finishes|/finishes/matte|/finishes/gloss|/finishes/woodgrain,swatch,high,2,pending,"alabaster cabinet finish swatch — One Source Tafisa panel color for Boise Cabinet Co",,alabaster
+img-0044,/images/catalog/finishes/crimson.webp,/finishes|/finishes/matte|/finishes/gloss|/finishes/woodgrain,swatch,high,2,pending,"crimson cabinet finish swatch — One Source Tafisa panel color for Boise Cabinet Co",,crimson
+img-0045,/images/catalog/finishes/white-oak.webp,/finishes|/finishes/matte|/finishes/gloss|/finishes/woodgrain,swatch,high,2,pending,"white oak cabinet finish swatch — One Source Tafisa panel color for Boise Cabinet Co",,white-oak
+img-0046,/images/catalog/finishes/natural-walnut.webp,/finishes|/finishes/matte|/finishes/gloss|/finishes/woodgrain,swatch,high,2,pending,"natural walnut cabinet finish swatch — One Source Tafisa panel color for Boise Cabinet Co",,natural-walnut
+img-0047,/images/catalog/finishes/espresso-walnut.webp,/finishes|/finishes/matte|/finishes/gloss|/finishes/woodgrain,swatch,high,2,pending,"espresso walnut cabinet finish swatch — One Source Tafisa panel color for Boise Cabinet Co",,espresso-walnut
+img-0048,/images/catalog/finishes/honey-maple.webp,/finishes|/finishes/matte|/finishes/gloss|/finishes/woodgrain,swatch,high,2,pending,"honey maple cabinet finish swatch — One Source Tafisa panel color for Boise Cabinet Co",,honey-maple
+img-0049,/images/catalog/finishes/driftwood.webp,/finishes|/finishes/matte|/finishes/gloss|/finishes/woodgrain,swatch,high,2,pending,"driftwood cabinet finish swatch — One Source Tafisa panel color for Boise Cabinet Co",,driftwood
+img-0050,/images/catalog/finishes/charcoal-oak.webp,/finishes|/finishes/matte|/finishes/gloss|/finishes/woodgrain,swatch,high,2,pending,"charcoal oak cabinet finish swatch — One Source Tafisa panel color for Boise Cabinet Co",,charcoal-oak
+img-0051,/images/catalog/finishes/hickory.webp,/finishes|/finishes/matte|/finishes/gloss|/finishes/woodgrain,swatch,high,2,pending,"hickory cabinet finish swatch — One Source Tafisa panel color for Boise Cabinet Co",,hickory
+img-0052,/images/catalog/finishes/cherry.webp,/finishes|/finishes/matte|/finishes/gloss|/finishes/woodgrain,swatch,high,2,pending,"cherry cabinet finish swatch — One Source Tafisa panel color for Boise Cabinet Co",,cherry
+img-0053,/images/catalog/finishes/ash.webp,/finishes|/finishes/matte|/finishes/gloss|/finishes/woodgrain,swatch,high,2,pending,"ash cabinet finish swatch — One Source Tafisa panel color for Boise Cabinet Co",,ash
+img-0054,/images/catalog/finishes/teak.webp,/finishes|/finishes/matte|/finishes/gloss|/finishes/woodgrain,swatch,high,2,pending,"teak cabinet finish swatch — One Source Tafisa panel color for Boise Cabinet Co",,teak
+img-0055,/images/catalog/finishes/reclaimed-barn.webp,/finishes|/finishes/matte|/finishes/gloss|/finishes/woodgrain,swatch,high,2,pending,"reclaimed barn cabinet finish swatch — One Source Tafisa panel color for Boise Cabinet Co",,reclaimed-barn
+img-0056,/images/catalog/finishes/ebony.webp,/finishes|/finishes/matte|/finishes/gloss|/finishes/woodgrain,swatch,high,2,pending,"ebony cabinet finish swatch — One Source Tafisa panel color for Boise Cabinet Co",,ebony
+img-0057,/images/catalog/finishes/blonde-oak.webp,/finishes|/finishes/matte|/finishes/gloss|/finishes/woodgrain,swatch,high,2,pending,"blonde oak cabinet finish swatch — One Source Tafisa panel color for Boise Cabinet Co",,blonde-oak
+img-0058,/images/catalog/finishes/pecan.webp,/finishes|/finishes/matte|/finishes/gloss|/finishes/woodgrain,swatch,high,2,pending,"pecan cabinet finish swatch — One Source Tafisa panel color for Boise Cabinet Co",,pecan
+img-0059,/images/catalog/finishes/cedar.webp,/finishes|/finishes/matte|/finishes/gloss|/finishes/woodgrain,swatch,high,2,pending,"cedar cabinet finish swatch — One Source Tafisa panel color for Boise Cabinet Co",,cedar
+img-0060,/images/catalog/door-styles/slab.webp,/door-styles|/door-styles/slab,profile,high,2,pending,"One Source slab cabinet door profile — Boise Cabinet Co",slab,snowcap
+img-0061,/images/catalog/door-styles/modern-shaker.webp,/door-styles|/door-styles/modern-shaker,profile,high,2,pending,"One Source modern shaker cabinet door profile — Boise Cabinet Co",modern-shaker,snowcap
+img-0062,/images/catalog/door-styles/thin-shaker.webp,/door-styles|/door-styles/thin-shaker,profile,high,2,pending,"One Source thin shaker cabinet door profile — Boise Cabinet Co",thin-shaker,snowcap
+img-0063,/images/catalog/door-styles/three-piece.webp,/door-styles|/door-styles/three-piece,profile,high,2,pending,"One Source three piece cabinet door profile — Boise Cabinet Co",three-piece,snowcap
+img-0064,/images/catalog/door-styles/alpha-shaker.webp,/door-styles|/door-styles/alpha-shaker,profile,high,2,pending,"One Source alpha shaker cabinet door profile — Boise Cabinet Co",alpha-shaker,snowcap
+img-0065,/images/catalog/door-styles/beta-shaker.webp,/door-styles|/door-styles/beta-shaker,profile,high,2,pending,"One Source beta shaker cabinet door profile — Boise Cabinet Co",beta-shaker,snowcap
+img-0066,/images/marketing/hero-home.webp,/,hero,critical,2,pending,"Custom kitchen cabinets with One Source Modern Shaker doors in a Treasure Valley home",modern-shaker,white-oak
+img-0067,/images/marketing/hero-about.webp,/about,hero,critical,2,pending,"Boise Cabinet Co design team reviewing custom cabinet plans with homeowners",modern-shaker,white-oak
+img-0068,/images/marketing/hero-contact.webp,/contact,hero,critical,2,pending,"Custom bathroom vanity cabinets installed in a Meridian Idaho home",modern-shaker,white-oak
+img-0069,/images/marketing/hero-design-studio.webp,/design-studio,hero,critical,2,pending,"Boise Cabinet Co Design Studio 3D cabinet preview on laptop in kitchen",modern-shaker,white-oak
+img-0070,/images/marketing/process-design-review.webp,/|/about,hero,high,2,pending,"Cabinet finish samples and layout plans during Boise Cabinet Co design consultation",modern-shaker,white-oak
+img-0071,/images/marketing/statement-whole-home.webp,/|/about|/contact,hero,high,2,pending,"Whole-home custom cabinet installation in an Eagle Idaho residence",modern-shaker,white-oak
+img-0072,/images/marketing/og-default.webp,og,hero,high,2,pending,"Boise Cabinet Co custom kitchen cabinets Treasure Valley Idaho",modern-shaker,white-oak
+img-0073,/images/areas/boise.webp,/areas|/areas/boise,hero,high,2,pending,"Custom cabinets installed in Boise, Idaho by Boise Cabinet Co",,
+img-0074,/images/areas/meridian.webp,/areas|/areas/meridian,hero,high,2,pending,"Custom cabinets installed in Meridian, Idaho by Boise Cabinet Co",,
+img-0075,/images/areas/eagle.webp,/areas|/areas/eagle,hero,high,2,pending,"Custom cabinets installed in Eagle, Idaho by Boise Cabinet Co",,
+img-0076,/images/areas/nampa.webp,/areas|/areas/nampa,hero,high,2,pending,"Custom cabinets installed in Nampa, Idaho by Boise Cabinet Co",,
+img-0077,/images/areas/kuna.webp,/areas|/areas/kuna,hero,high,2,pending,"Custom cabinets installed in Kuna, Idaho by Boise Cabinet Co",,
+img-0078,/images/areas/star.webp,/areas|/areas/star,hero,high,2,pending,"Custom cabinets installed in Star, Idaho by Boise Cabinet Co",,
+img-0079,/images/areas/middleton.webp,/areas|/areas/middleton,hero,high,2,pending,"Custom cabinets installed in Middleton, Idaho by Boise Cabinet Co",,
+img-0080,/images/areas/caldwell.webp,/areas|/areas/caldwell,hero,high,2,pending,"Custom cabinets installed in Caldwell, Idaho by Boise Cabinet Co",,
+img-0081,/images/city-service/kitchen-cabinets__boise.webp,/services/kitchen-cabinets/boise,hero,medium,2,pending,"Kitchen cabinets in Boise, Idaho — Boise Cabinet Co One Source cabinets",modern-shaker,white-oak
+img-0082,/images/city-service/kitchen-cabinets__meridian.webp,/services/kitchen-cabinets/meridian,hero,medium,2,pending,"Kitchen cabinets in Meridian, Idaho — Boise Cabinet Co One Source cabinets",modern-shaker,white-oak
+img-0083,/images/city-service/kitchen-cabinets__eagle.webp,/services/kitchen-cabinets/eagle,hero,medium,2,pending,"Kitchen cabinets in Eagle, Idaho — Boise Cabinet Co One Source cabinets",modern-shaker,white-oak
+img-0084,/images/city-service/kitchen-cabinets__nampa.webp,/services/kitchen-cabinets/nampa,hero,medium,2,pending,"Kitchen cabinets in Nampa, Idaho — Boise Cabinet Co One Source cabinets",modern-shaker,white-oak
+img-0085,/images/city-service/kitchen-cabinets__kuna.webp,/services/kitchen-cabinets/kuna,hero,medium,2,pending,"Kitchen cabinets in Kuna, Idaho — Boise Cabinet Co One Source cabinets",modern-shaker,white-oak
+img-0086,/images/city-service/kitchen-cabinets__star.webp,/services/kitchen-cabinets/star,hero,medium,2,pending,"Kitchen cabinets in Star, Idaho — Boise Cabinet Co One Source cabinets",modern-shaker,white-oak
+img-0087,/images/city-service/kitchen-cabinets__middleton.webp,/services/kitchen-cabinets/middleton,hero,medium,2,pending,"Kitchen cabinets in Middleton, Idaho — Boise Cabinet Co One Source cabinets",modern-shaker,white-oak
+img-0088,/images/city-service/kitchen-cabinets__caldwell.webp,/services/kitchen-cabinets/caldwell,hero,medium,2,pending,"Kitchen cabinets in Caldwell, Idaho — Boise Cabinet Co One Source cabinets",modern-shaker,white-oak
+img-0089,/images/city-service/bathroom-cabinets__boise.webp,/services/bathroom-cabinets/boise,hero,medium,2,pending,"Bathroom vanity cabinets in Boise, Idaho — Boise Cabinet Co One Source cabinets",thin-shaker,glacier
+img-0090,/images/city-service/bathroom-cabinets__meridian.webp,/services/bathroom-cabinets/meridian,hero,medium,2,pending,"Bathroom vanity cabinets in Meridian, Idaho — Boise Cabinet Co One Source cabinets",thin-shaker,glacier
+img-0091,/images/city-service/bathroom-cabinets__eagle.webp,/services/bathroom-cabinets/eagle,hero,medium,2,pending,"Bathroom vanity cabinets in Eagle, Idaho — Boise Cabinet Co One Source cabinets",thin-shaker,glacier
+img-0092,/images/city-service/bathroom-cabinets__nampa.webp,/services/bathroom-cabinets/nampa,hero,medium,2,pending,"Bathroom vanity cabinets in Nampa, Idaho — Boise Cabinet Co One Source cabinets",thin-shaker,glacier
+img-0093,/images/city-service/bathroom-cabinets__kuna.webp,/services/bathroom-cabinets/kuna,hero,medium,2,pending,"Bathroom vanity cabinets in Kuna, Idaho — Boise Cabinet Co One Source cabinets",thin-shaker,glacier
+img-0094,/images/city-service/bathroom-cabinets__star.webp,/services/bathroom-cabinets/star,hero,medium,2,pending,"Bathroom vanity cabinets in Star, Idaho — Boise Cabinet Co One Source cabinets",thin-shaker,glacier
+img-0095,/images/city-service/bathroom-cabinets__middleton.webp,/services/bathroom-cabinets/middleton,hero,medium,2,pending,"Bathroom vanity cabinets in Middleton, Idaho — Boise Cabinet Co One Source cabinets",thin-shaker,glacier
+img-0096,/images/city-service/bathroom-cabinets__caldwell.webp,/services/bathroom-cabinets/caldwell,hero,medium,2,pending,"Bathroom vanity cabinets in Caldwell, Idaho — Boise Cabinet Co One Source cabinets",thin-shaker,glacier
+img-0097,/images/city-service/custom-built-ins__boise.webp,/services/custom-built-ins/boise,hero,medium,2,pending,"Custom built-in cabinets in Boise, Idaho — Boise Cabinet Co One Source cabinets",three-piece,natural-walnut
+img-0098,/images/city-service/custom-built-ins__meridian.webp,/services/custom-built-ins/meridian,hero,medium,2,pending,"Custom built-in cabinets in Meridian, Idaho — Boise Cabinet Co One Source cabinets",three-piece,natural-walnut
+img-0099,/images/city-service/custom-built-ins__eagle.webp,/services/custom-built-ins/eagle,hero,medium,2,pending,"Custom built-in cabinets in Eagle, Idaho — Boise Cabinet Co One Source cabinets",three-piece,natural-walnut
+img-0100,/images/city-service/custom-built-ins__nampa.webp,/services/custom-built-ins/nampa,hero,medium,2,pending,"Custom built-in cabinets in Nampa, Idaho — Boise Cabinet Co One Source cabinets",three-piece,natural-walnut
+img-0101,/images/city-service/custom-built-ins__kuna.webp,/services/custom-built-ins/kuna,hero,medium,2,pending,"Custom built-in cabinets in Kuna, Idaho — Boise Cabinet Co One Source cabinets",three-piece,natural-walnut
+img-0102,/images/city-service/custom-built-ins__star.webp,/services/custom-built-ins/star,hero,medium,2,pending,"Custom built-in cabinets in Star, Idaho — Boise Cabinet Co One Source cabinets",three-piece,natural-walnut
+img-0103,/images/city-service/custom-built-ins__middleton.webp,/services/custom-built-ins/middleton,hero,medium,2,pending,"Custom built-in cabinets in Middleton, Idaho — Boise Cabinet Co One Source cabinets",three-piece,natural-walnut
+img-0104,/images/city-service/custom-built-ins__caldwell.webp,/services/custom-built-ins/caldwell,hero,medium,2,pending,"Custom built-in cabinets in Caldwell, Idaho — Boise Cabinet Co One Source cabinets",three-piece,natural-walnut
+img-0105,/images/city-service/closet-cabinets__boise.webp,/services/closet-cabinets/boise,hero,medium,2,pending,"Closet cabinet systems in Boise, Idaho — Boise Cabinet Co One Source cabinets",slab,white-oak
+img-0106,/images/city-service/closet-cabinets__meridian.webp,/services/closet-cabinets/meridian,hero,medium,2,pending,"Closet cabinet systems in Meridian, Idaho — Boise Cabinet Co One Source cabinets",slab,white-oak
+img-0107,/images/city-service/closet-cabinets__eagle.webp,/services/closet-cabinets/eagle,hero,medium,2,pending,"Closet cabinet systems in Eagle, Idaho — Boise Cabinet Co One Source cabinets",slab,white-oak
+img-0108,/images/city-service/closet-cabinets__nampa.webp,/services/closet-cabinets/nampa,hero,medium,2,pending,"Closet cabinet systems in Nampa, Idaho — Boise Cabinet Co One Source cabinets",slab,white-oak
+img-0109,/images/city-service/closet-cabinets__kuna.webp,/services/closet-cabinets/kuna,hero,medium,2,pending,"Closet cabinet systems in Kuna, Idaho — Boise Cabinet Co One Source cabinets",slab,white-oak
+img-0110,/images/city-service/closet-cabinets__star.webp,/services/closet-cabinets/star,hero,medium,2,pending,"Closet cabinet systems in Star, Idaho — Boise Cabinet Co One Source cabinets",slab,white-oak
+img-0111,/images/city-service/closet-cabinets__middleton.webp,/services/closet-cabinets/middleton,hero,medium,2,pending,"Closet cabinet systems in Middleton, Idaho — Boise Cabinet Co One Source cabinets",slab,white-oak
+img-0112,/images/city-service/closet-cabinets__caldwell.webp,/services/closet-cabinets/caldwell,hero,medium,2,pending,"Closet cabinet systems in Caldwell, Idaho — Boise Cabinet Co One Source cabinets",slab,white-oak
+img-0113,/images/city-service/whole-home-cabinets__boise.webp,/services/whole-home-cabinets/boise,hero,medium,2,pending,"Whole-home cabinet packages in Boise, Idaho — Boise Cabinet Co One Source cabinets",modern-shaker,snowcap
+img-0114,/images/city-service/whole-home-cabinets__meridian.webp,/services/whole-home-cabinets/meridian,hero,medium,2,pending,"Whole-home cabinet packages in Meridian, Idaho — Boise Cabinet Co One Source cabinets",modern-shaker,snowcap
+img-0115,/images/city-service/whole-home-cabinets__eagle.webp,/services/whole-home-cabinets/eagle,hero,medium,2,pending,"Whole-home cabinet packages in Eagle, Idaho — Boise Cabinet Co One Source cabinets",modern-shaker,snowcap
+img-0116,/images/city-service/whole-home-cabinets__nampa.webp,/services/whole-home-cabinets/nampa,hero,medium,2,pending,"Whole-home cabinet packages in Nampa, Idaho — Boise Cabinet Co One Source cabinets",modern-shaker,snowcap
+img-0117,/images/city-service/whole-home-cabinets__kuna.webp,/services/whole-home-cabinets/kuna,hero,medium,2,pending,"Whole-home cabinet packages in Kuna, Idaho — Boise Cabinet Co One Source cabinets",modern-shaker,snowcap
+img-0118,/images/city-service/whole-home-cabinets__star.webp,/services/whole-home-cabinets/star,hero,medium,2,pending,"Whole-home cabinet packages in Star, Idaho — Boise Cabinet Co One Source cabinets",modern-shaker,snowcap
+img-0119,/images/city-service/whole-home-cabinets__middleton.webp,/services/whole-home-cabinets/middleton,hero,medium,2,pending,"Whole-home cabinet packages in Middleton, Idaho — Boise Cabinet Co One Source cabinets",modern-shaker,snowcap
+img-0120,/images/city-service/whole-home-cabinets__caldwell.webp,/services/whole-home-cabinets/caldwell,hero,medium,2,pending,"Whole-home cabinet packages in Caldwell, Idaho — Boise Cabinet Co One Source cabinets",modern-shaker,snowcap
+img-0121,/images/services/kitchen-cabinets.webp,/services/kitchen-cabinets,hero,medium,2,pending,"Kitchen cabinets by Boise Cabinet Co using One Source panel products",modern-shaker,white-oak
+img-0122,/images/services/bathroom-cabinets.webp,/services/bathroom-cabinets,hero,medium,2,pending,"Bathroom vanity cabinets by Boise Cabinet Co using One Source panel products",thin-shaker,glacier
+img-0123,/images/services/custom-built-ins.webp,/services/custom-built-ins,hero,medium,2,pending,"Custom built-in cabinets by Boise Cabinet Co using One Source panel products",three-piece,natural-walnut
+img-0124,/images/services/closet-cabinets.webp,/services/closet-cabinets,hero,medium,2,pending,"Closet cabinet systems by Boise Cabinet Co using One Source panel products",slab,white-oak
+img-0125,/images/services/whole-home-cabinets.webp,/services/whole-home-cabinets,hero,medium,2,pending,"Whole-home cabinet packages by Boise Cabinet Co using One Source panel products",modern-shaker,snowcap
+img-0126,/images/gallery/gallery-kitchen-before.webp,/|/testimonials,gallery-before,medium,2,pending,"Before: Kitchen cabinet transformation in Treasure Valley Idaho",,
+img-0127,/images/gallery/gallery-kitchen-after.webp,/|/testimonials,gallery-after,medium,2,pending,"After: Kitchen cabinet transformation in Treasure Valley Idaho",,
+img-0128,/images/gallery/gallery-bathroom-before.webp,/|/testimonials,gallery-before,medium,2,pending,"Before: Bathroom vanity cabinet renovation in Treasure Valley Idaho",,
+img-0129,/images/gallery/gallery-bathroom-after.webp,/|/testimonials,gallery-after,medium,2,pending,"After: Bathroom vanity cabinet renovation in Treasure Valley Idaho",,
+img-0130,/images/gallery/gallery-whole-home-before.webp,/|/testimonials,gallery-before,medium,2,pending,"Before: Whole-home custom cabinets in Treasure Valley Idaho",,
+img-0131,/images/gallery/gallery-whole-home-after.webp,/|/testimonials,gallery-after,medium,2,pending,"After: Whole-home custom cabinets in Treasure Valley Idaho",,
+img-0132,/images/gallery/gallery-addition-before.webp,/|/testimonials,gallery-before,medium,2,pending,"Before: Built-in cabinet addition in Treasure Valley Idaho",,
+img-0133,/images/gallery/gallery-addition-after.webp,/|/testimonials,gallery-after,medium,2,pending,"After: Built-in cabinet addition in Treasure Valley Idaho",,
+img-0134,/images/gallery/gallery-basement-before.webp,/|/testimonials,gallery-before,medium,2,pending,"Before: Basement wet bar cabinets in Treasure Valley Idaho",,
+img-0135,/images/gallery/gallery-basement-after.webp,/|/testimonials,gallery-after,medium,2,pending,"After: Basement wet bar cabinets in Treasure Valley Idaho",,
+img-0136,/images/gallery/gallery-outdoor-before.webp,/|/testimonials,gallery-before,medium,2,pending,"Before: Outdoor kitchen cabinets in Treasure Valley Idaho",,
+img-0137,/images/gallery/gallery-outdoor-after.webp,/|/testimonials,gallery-after,medium,2,pending,"After: Outdoor kitchen cabinets in Treasure Valley Idaho",,
+img-0138,/images/catalog/hardware/bar-pull-128-black.webp,/hardware,product,low,3,pending,"Cabinet bar pull 128 black hardware option — Boise Cabinet Co",,
+img-0139,/images/catalog/hardware/bar-pull-160-nickel.webp,/hardware,product,low,3,pending,"Cabinet bar pull 160 nickel hardware option — Boise Cabinet Co",,
+img-0140,/images/catalog/hardware/cup-pull-gold.webp,/hardware,product,low,3,pending,"Cabinet cup pull gold hardware option — Boise Cabinet Co",,
+img-0141,/images/catalog/hardware/finger-edge-pull.webp,/hardware,product,low,3,pending,"Cabinet finger edge pull hardware option — Boise Cabinet Co",,
+img-0142,/images/catalog/hardware/j-channel-pull.webp,/hardware,product,low,3,pending,"Cabinet j channel pull hardware option — Boise Cabinet Co",,
+img-0143,/images/catalog/hardware/knob-round-nickel.webp,/hardware,product,low,3,pending,"Cabinet knob round nickel hardware option — Boise Cabinet Co",,
+img-0144,/images/catalog/hardware/knob-square-black.webp,/hardware,product,low,3,pending,"Cabinet knob square black hardware option — Boise Cabinet Co",,
+img-0145,/images/catalog/hardware/glass-knob-chrome.webp,/hardware,product,low,3,pending,"Cabinet glass knob chrome hardware option — Boise Cabinet Co",,
+img-0146,/images/catalog/hardware/hinge-soft-close.webp,/hardware,product,low,3,pending,"Cabinet hinge soft close hardware option — Boise Cabinet Co",,
+img-0147,/images/catalog/hardware/push-to-open-hinge.webp,/hardware,product,low,3,pending,"Cabinet push to open hinge hardware option — Boise Cabinet Co",,
+img-0148,/images/catalog/hardware/slide-soft-close.webp,/hardware,product,low,3,pending,"Cabinet slide soft close hardware option — Boise Cabinet Co",,
+img-0149,/images/catalog/hardware/slide-heavy-duty.webp,/hardware,product,low,3,pending,"Cabinet slide heavy duty hardware option — Boise Cabinet Co",,
+img-0150,/images/catalog/hardware/outdoor-bar-pull-stainless.webp,/hardware,product,low,3,pending,"Cabinet outdoor bar pull stainless hardware option — Boise Cabinet Co",,
+img-0151,/images/catalog/accessories/pull-out-shelf.webp,/accessories,product,low,3,pending,"Cabinet pull out shelf interior accessory — Boise Cabinet Co",,
+img-0152,/images/catalog/accessories/pull-out-pantry.webp,/accessories,product,low,3,pending,"Cabinet pull out pantry interior accessory — Boise Cabinet Co",,
+img-0153,/images/catalog/accessories/lazy-susan.webp,/accessories,product,low,3,pending,"Cabinet lazy susan interior accessory — Boise Cabinet Co",,
+img-0154,/images/catalog/accessories/blind-corner-pullout.webp,/accessories,product,low,3,pending,"Cabinet blind corner pullout interior accessory — Boise Cabinet Co",,
+img-0155,/images/catalog/accessories/spice-rack-pullout.webp,/accessories,product,low,3,pending,"Cabinet spice rack pullout interior accessory — Boise Cabinet Co",,
+img-0156,/images/catalog/accessories/trash-pullout.webp,/accessories,product,low,3,pending,"Cabinet trash pullout interior accessory — Boise Cabinet Co",,
+img-0157,/images/catalog/accessories/mixer-lift.webp,/accessories,product,low,3,pending,"Cabinet mixer lift interior accessory — Boise Cabinet Co",,
+img-0158,/images/catalog/accessories/appliance-garage.webp,/accessories,product,low,3,pending,"Cabinet appliance garage interior accessory — Boise Cabinet Co",,
+img-0159,/images/catalog/accessories/led-strip-channel.webp,/accessories,product,low,3,pending,"Cabinet led strip channel interior accessory — Boise Cabinet Co",,
+img-0160,/images/catalog/accessories/wine-rack-insert.webp,/accessories,product,low,3,pending,"Cabinet wine rack insert interior accessory — Boise Cabinet Co",,

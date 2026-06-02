@@ -30,8 +30,12 @@ interface LandingPageTemplateProps {
   overview: string;
   breadcrumbs: BreadcrumbItem[];
   heroImageUrl?: string;
+  /** Accessible description for hero image — required when heroImageUrl is set */
+  heroImageAlt?: string;
   breatherImageUrl?: string;
   processImageUrl?: string;
+  /** Accessible description for process panel image */
+  processImageAlt?: string;
   manifestPath?: string;
   benefits?: string[];
   inclusions?: string[];
@@ -105,8 +109,10 @@ export function LandingPageTemplate({
   overview,
   breadcrumbs,
   heroImageUrl,
+  heroImageAlt,
   breatherImageUrl,
   processImageUrl,
+  processImageAlt,
   manifestPath,
   benefits,
   inclusions,
@@ -128,7 +134,8 @@ export function LandingPageTemplate({
         {heroImageUrl && (
           <Image
             src={heroImageUrl}
-            alt=""
+            alt={heroImageAlt ?? h1}
+            title={heroImageAlt ?? h1}
             fill
             className="object-cover opacity-[0.82] img-brand-grade"
             sizes="100vw"
@@ -262,7 +269,8 @@ export function LandingPageTemplate({
               {processImage && (
                 <Image
                   src={processImage}
-                  alt=""
+                  alt={processImageAlt ?? `Custom cabinet project process — ${h1}`}
+                  title={processImageAlt ?? `Cabinet installation process — ${h1}`}
                   fill
                   className="object-cover img-brand-grade"
                   sizes="(max-width: 768px) 100vw, 50vw"

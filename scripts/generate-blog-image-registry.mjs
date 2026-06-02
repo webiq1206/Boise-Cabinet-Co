@@ -9,74 +9,75 @@ import { fileURLToPath } from "url";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.join(__dirname, "..");
 
-const cs = (service, city) => `/images/city-service/${service}__${city}.png`;
-const gal = (name) => `/images/gallery/gallery-${name}.png`;
-const area = (city) => `/images/areas/${city}.png`;
-const svc = (name) => `/images/services/${name}.png`;
+const cs = (service, city) => `/images/city-service/${service}__${city}.webp`;
+const gal = (name) => `/images/gallery/gallery-${name}.webp`;
+const area = (city) => `/images/areas/${city}.webp`;
+const svc = (name) => `/images/services/${name}.webp`;
+const cat = (room) => `/images/catalog/rooms/${room}.webp`;
 const blog = (slug) => `/images/blog/${slug}.png`;
 
 /** slug -> { hero, alt, topicTags, source, copyFrom? } */
 const ENTRIES = {
-  // —— Remodeling costs (8 blog) ——
-  "kitchen-remodel-cost-boise": {
+  // —— Cabinet costs (8) ——
+  "kitchen-cabinet-cost-boise": {
     hero: cs("kitchen-remodel", "boise"),
-    alt: "Completed kitchen remodel in a Boise home with warm cabinetry and quartz counters",
+    alt: "Custom kitchen cabinets installed in a Boise home with warm finishes and quartz counters",
     topicTags: ["kitchen", "cost", "boise"],
     source: "city-service",
   },
-  "bathroom-remodel-cost-boise": {
+  "bathroom-vanity-cost-boise": {
     hero: cs("bathroom-remodel", "boise"),
-    alt: "Refreshed guest bathroom in a Boise ranch with modern tile and vanity",
+    alt: "Bathroom vanity cabinets in a Boise home with modern tile and coordinated storage",
     topicTags: ["bathroom", "cost", "boise"],
     source: "city-service",
   },
-  "whole-home-remodel-cost-boise": {
+  "whole-home-cabinet-cost-boise": {
     hero: cs("whole-home-remodel", "boise"),
-    alt: "Whole-home remodel interior with open living space in Boise",
+    alt: "Whole-home cabinet package with coordinated kitchen and living storage in Boise",
     topicTags: ["whole-home", "cost", "boise"],
     source: "city-service",
   },
-  "home-addition-cost-boise": {
-    hero: cs("room-addition", "boise"),
-    alt: "Room addition seamlessly tied into an existing Boise home exterior",
-    topicTags: ["addition", "cost", "boise"],
-    source: "city-service",
-  },
-  "luxury-remodel-cost-boise": {
+  "luxury-custom-cabinet-cost-boise": {
     hero: cs("kitchen-remodel", "eagle"),
-    alt: "Luxury kitchen remodel with premium finishes in an Eagle executive home",
+    alt: "Luxury custom kitchen cabinetry with premium finishes in an Eagle executive home",
     topicTags: ["luxury", "cost", "eagle"],
     source: "city-service",
   },
-  "remodel-cost-per-square-foot-boise": {
+  "cabinet-cost-per-linear-foot": {
     hero: cs("whole-home-remodel", "meridian"),
-    alt: "Whole-home renovation showing finished living areas in a Meridian home",
-    topicTags: ["cost", "whole-home", "meridian"],
+    alt: "Kitchen cabinet run illustrating linear-foot planning in a Meridian home",
+    topicTags: ["cost", "kitchen", "meridian"],
     source: "city-service",
   },
-  "what-impacts-remodeling-costs-boise": {
-    hero: "/images/process-design-review.png",
-    alt: "Design-build team reviewing remodel plans and selections with Treasure Valley homeowners",
+  "what-impacts-cabinet-costs-boise": {
+    hero: "/images/marketing/process-design-review.webp",
+    alt: "Design team reviewing cabinet layouts, finishes, and Treasure Valley project scope with homeowners",
     topicTags: ["cost", "planning", "process"],
     source: "services",
   },
-  "how-to-budget-remodel-boise": {
-    hero: "/images/hero-remodel-interior.png",
-    alt: "Warm remodeled interior illustrating thoughtful budgeting for a Boise renovation",
+  "how-to-budget-cabinets-boise": {
+    hero: "/images/marketing/hero-home.webp",
+    alt: "Warm interior cabinetry illustrating thoughtful budgeting for a Boise cabinet project",
     topicTags: ["cost", "budget", "planning"],
     source: "services",
   },
+  "stock-vs-custom-cabinets-boise": {
+    hero: cat("bedroom"),
+    alt: "Kitchen catalog cabinetry comparing stock, semi-custom, and full-custom lines in Boise",
+    topicTags: ["cost", "cabinets", "boise"],
+    source: "services",
+  },
 
-  // —— Kitchen (8) ——
-  "kitchen-remodel-timeline-boise": {
+  // —— Kitchen cabinets (6) ——
+  "kitchen-cabinet-timeline-boise": {
     hero: cs("kitchen-remodel", "meridian"),
-    alt: "Kitchen remodel in progress with cabinetry installed in a Meridian home",
+    alt: "Kitchen cabinet installation in progress with boxes staged in a Meridian home",
     topicTags: ["kitchen", "timeline", "meridian"],
     source: "city-service",
   },
   "kitchen-layout-ideas-boise-homes": {
     hero: cs("kitchen-remodel", "nampa"),
-    alt: "Efficient kitchen layout with clear work triangle in a Nampa home",
+    alt: "Efficient kitchen cabinet layout with clear work zones in a Nampa home",
     topicTags: ["kitchen", "layout", "nampa"],
     source: "city-service",
   },
@@ -86,559 +87,401 @@ const ENTRIES = {
     topicTags: ["kitchen", "cabinets", "kuna"],
     source: "city-service",
   },
-  "quartz-vs-quartzite-kitchen": {
-    hero: cs("kitchen-remodel", "star"),
-    alt: "Kitchen countertop detail showing quartz surfaces in a Star-area home",
-    topicTags: ["kitchen", "countertops", "star"],
-    source: "city-service",
-  },
-  "kitchen-remodel-roi": {
-    hero: gal("kitchen-after"),
-    alt: "Finished kitchen remodel showcasing updated cabinets, counters, and lighting",
-    topicTags: ["kitchen", "roi"],
-    source: "gallery",
-  },
-  "open-concept-kitchen-remodeling": {
+  "open-kitchen-cabinet-storage": {
     hero: blog("open-concept-kitchen-remodeling"),
-    alt: "Open-concept kitchen connected to living space after wall removal in Boise",
+    alt: "Open kitchen with upper and base cabinets tied to living space storage in Boise",
     topicTags: ["kitchen", "open-concept"],
     source: "blog",
+    copyFrom: cs("kitchen-remodel", "star"),
   },
   "kitchen-island-design-guide": {
     hero: cs("kitchen-remodel", "middleton"),
-    alt: "Large kitchen island with seating in a Middleton home remodel",
+    alt: "Large kitchen island cabinets with seating in a Middleton home",
     topicTags: ["kitchen", "island", "middleton"],
     source: "city-service",
   },
   "walk-in-pantry-design-guide": {
     hero: cs("kitchen-remodel", "caldwell"),
-    alt: "Walk-in pantry with custom shelving in a Caldwell kitchen remodel",
+    alt: "Walk-in pantry cabinets with custom shelving in a Caldwell kitchen",
     topicTags: ["kitchen", "pantry", "caldwell"],
     source: "city-service",
   },
 
-  // —— Bathroom (7) ——
-  "walk-in-shower-guide": {
-    hero: blog("walk-in-shower-guide"),
-    alt: "Walk-in shower with glass enclosure and tile surround in a Treasure Valley bath",
-    topicTags: ["bathroom", "shower"],
-    source: "blog",
-  },
-  "curbless-shower-guide": {
-    hero: blog("curbless-shower-guide"),
-    alt: "Curbless shower with linear drain and accessible entry in a master bathroom",
-    topicTags: ["bathroom", "shower", "accessibility"],
-    source: "blog",
-  },
-  "luxury-bathroom-features": {
+  // —— Bathroom vanities (4) ——
+  "luxury-bathroom-vanity-guide": {
     hero: cs("bathroom-remodel", "eagle"),
-    alt: "Luxury master bathroom with premium tile and fixtures in Eagle",
+    alt: "Luxury master bathroom vanity cabinets with premium finishes in Eagle",
     topicTags: ["bathroom", "luxury", "eagle"],
     source: "city-service",
   },
-  "small-bathroom-remodel-ideas": {
+  "small-bathroom-vanity-ideas": {
     hero: cs("bathroom-remodel", "meridian"),
-    alt: "Compact bathroom remodel maximizing storage and light in Meridian",
+    alt: "Compact bathroom vanity cabinets maximizing storage and light in Meridian",
     topicTags: ["bathroom", "small", "meridian"],
     source: "city-service",
   },
-  "aging-in-place-bathroom-design": {
+  "accessible-bathroom-vanity-guide": {
     hero: cs("bathroom-remodel", "nampa"),
-    alt: "Accessible bathroom design with grab bars and curbless shower in Nampa",
+    alt: "Accessible bathroom vanity height and storage in a Nampa bath remodel",
     topicTags: ["bathroom", "aging-in-place", "nampa"],
     source: "city-service",
   },
-  "bathroom-remodel-roi": {
-    hero: gal("bathroom-after"),
-    alt: "Updated bathroom with modern vanity and tile after a Treasure Valley remodel",
-    topicTags: ["bathroom", "roi"],
-    source: "gallery",
-  },
-  "bathroom-layout-planning-guide": {
+  "bathroom-vanity-layout-guide": {
     hero: cs("bathroom-remodel", "kuna"),
-    alt: "Bathroom layout with optimized vanity and shower placement in Kuna",
+    alt: "Bathroom vanity layout with optimized drawers and mirror placement in Kuna",
     topicTags: ["bathroom", "layout", "kuna"],
     source: "city-service",
   },
 
-  // —— Additions (8) ——
-  "primary-suite-additions": {
-    hero: cs("room-addition", "eagle"),
-    alt: "Primary suite addition with bedroom and bath tied to an Eagle home",
-    topicTags: ["addition", "primary-suite", "eagle"],
+  // —— Built-ins & storage (3) ——
+  "primary-suite-closet-cabinets": {
+    hero: cat("closet"),
+    alt: "Primary suite closet cabinetry with hanging zones and custom drawers in the Treasure Valley",
+    topicTags: ["built-ins", "closet", "storage"],
+    source: "services",
+  },
+  "garage-storage-cabinet-systems": {
+    hero: cat("garage"),
+    alt: "Garage storage cabinet systems with durable finishes for Boise-area homes",
+    topicTags: ["built-ins", "garage", "storage"],
+    source: "services",
+  },
+  "multi-room-cabinet-planning": {
+    hero: cs("whole-home-remodel", "star"),
+    alt: "Coordinated cabinet selections across multiple rooms in a Star-area home",
+    topicTags: ["whole-home", "planning", "star"],
     source: "city-service",
-  },
-  "bedroom-additions": {
-    hero: cs("room-addition", "meridian"),
-    alt: "Bedroom addition with matching roofline on a Meridian home",
-    topicTags: ["addition", "bedroom", "meridian"],
-    source: "city-service",
-  },
-  "second-story-additions": {
-    hero: blog("second-story-additions"),
-    alt: "Second-story addition under construction with framing on a Treasure Valley home",
-    topicTags: ["addition", "second-story"],
-    source: "blog",
-  },
-  "garage-conversions": {
-    hero: blog("garage-conversions"),
-    alt: "Converted garage living space with new windows and finished interior",
-    topicTags: ["addition", "garage-conversion"],
-    source: "blog",
-  },
-  "adu-guide-boise": {
-    hero: cs("adu", "boise"),
-    alt: "Accessory dwelling unit completed in a Boise backyard with separate entry",
-    topicTags: ["adu", "addition", "boise"],
-    source: "city-service",
-  },
-  "multigenerational-living-remodels": {
-    hero: cs("adu", "meridian"),
-    alt: "ADU or in-law suite supporting multigenerational living in Meridian",
-    topicTags: ["adu", "addition", "multigenerational", "meridian"],
-    source: "city-service",
-  },
-  "home-addition-timeline-guide": {
-    hero: cs("room-addition", "nampa"),
-    alt: "Room addition project showing exterior progress in Nampa",
-    topicTags: ["addition", "timeline", "nampa"],
-    source: "city-service",
-  },
-  "room-addition-guide-treasure-valley": {
-    hero: gal("addition-after"),
-    alt: "Completed room addition blending with original Treasure Valley home architecture",
-    topicTags: ["addition", "treasure-valley"],
-    source: "gallery",
   },
 
-  // —— Whole home (7) ——
-  "remodeling-vs-moving": {
-    hero: cs("whole-home-remodel", "kuna"),
-    alt: "Fully remodeled living area helping homeowners stay in their Kuna neighborhood",
-    topicTags: ["whole-home", "planning", "kuna"],
+  // —— Outdoor cabinetry (3) ——
+  "outdoor-kitchen-cabinets-boise": {
+    hero: blog("outdoor-kitchens-boise"),
+    alt: "Outdoor kitchen cabinets with built-in grill storage in a Boise backyard",
+    topicTags: ["outdoor", "kitchen", "boise"],
+    source: "blog",
+    copyFrom: cat("outdoor"),
+  },
+  "outdoor-bar-cabinet-storage": {
+    hero: blog("covered-patios-boise"),
+    alt: "Outdoor bar cabinet storage under a covered patio in the Treasure Valley",
+    topicTags: ["outdoor", "patio", "boise"],
+    source: "blog",
+    copyFrom: gal("outdoor-before"),
+  },
+  "premium-outdoor-cabinetry": {
+    hero: cs("adu", "eagle"),
+    alt: "Premium outdoor cabinetry adjacent to an Eagle home entertaining area",
+    topicTags: ["outdoor", "luxury", "eagle"],
     source: "city-service",
   },
-  "whole-home-remodel-timeline": {
-    hero: cs("whole-home-remodel", "star"),
-    alt: "Whole-home remodel showing phased construction in a Star-area residence",
-    topicTags: ["whole-home", "timeline", "star"],
-    source: "city-service",
-  },
-  "living-through-a-remodel": {
-    hero: gal("whole-home-before"),
-    alt: "Home interior during whole-home remodel with protected pathways and dust control",
-    topicTags: ["whole-home", "living-in-place"],
-    source: "gallery",
-  },
-  "remodel-planning-guide": {
+
+  // —— Whole-home cabinetry (7) ——
+  "cabinet-project-planning-guide": {
     hero: cs("whole-home-remodel", "middleton"),
-    alt: "Remodel planning session in a Middleton home with design selections underway",
+    alt: "Cabinet project planning session with layouts and finish samples in Middleton",
     topicTags: ["whole-home", "planning", "middleton"],
     source: "city-service",
   },
-  "remodeling-mistakes-to-avoid": {
+  "cabinet-buying-mistakes": {
     hero: cs("whole-home-remodel", "caldwell"),
-    alt: "Quality whole-home finish work illustrating proper planning in Caldwell",
+    alt: "Quality whole-home cabinetry illustrating proper specification in Caldwell",
     topicTags: ["whole-home", "planning", "caldwell"],
     source: "city-service",
   },
-  "design-build-process-guide": {
+  "whole-home-cabinet-timeline": {
+    hero: cs("whole-home-remodel", "kuna"),
+    alt: "Phased whole-home cabinet delivery and installation in a Kuna residence",
+    topicTags: ["whole-home", "timeline", "kuna"],
+    source: "city-service",
+  },
+  "living-through-cabinet-installation": {
+    hero: gal("whole-home-before"),
+    alt: "Home interior during cabinet installation with protected floors and staged boxes",
+    topicTags: ["whole-home", "living-in-place"],
+    source: "gallery",
+  },
+  "cabinet-refresh-vs-replace-vs-moving": {
+    hero: gal("addition-after"),
+    alt: "Refreshed cabinetry helping Treasure Valley homeowners stay in their neighborhood",
+    topicTags: ["whole-home", "planning", "boise"],
+    source: "gallery",
+  },
+  "custom-cabinet-design-process": {
     hero: blog("design-build-process-guide"),
-    alt: "Completed whole-home remodel showcasing cohesive design-build results",
+    alt: "Custom cabinet design process from measure through shop drawings and approval",
     topicTags: ["whole-home", "design-build"],
     source: "blog",
+    copyFrom: gal("addition-before"),
   },
-  "whole-home-remodel-planning-checklist": {
-    hero: cs("whole-home-remodel", "eagle"),
-    alt: "Eagle whole-home renovation with updated kitchen and living spaces",
-    topicTags: ["whole-home", "checklist", "eagle"],
+  "cabinet-planning-checklist": {
+    hero: cs("whole-home-remodel", "nampa"),
+    alt: "Whole-home cabinet checklist review in a Nampa kitchen and bath package",
+    topicTags: ["whole-home", "checklist", "nampa"],
     source: "city-service",
   },
 
-  // —— Contractor selection (9) ——
-  "questions-to-ask-remodeling-contractor": {
+  // —— Choosing a cabinet company (9) ——
+  "questions-to-ask-cabinet-company": {
     hero: blog("questions-to-ask-remodeling-contractor"),
-    alt: "Homeowner meeting with remodeling contractor reviewing project scope in Boise",
+    alt: "Homeowner meeting with a cabinet company reviewing scope and line-item quote in Boise",
     topicTags: ["contractor", "consultation"],
     source: "blog",
+    copyFrom: cs("adu", "boise"),
   },
-  "remodeling-contractor-red-flags": {
+  "cabinet-company-red-flags": {
     hero: blog("remodeling-contractor-red-flags"),
-    alt: "Professional remodel craftsmanship detail showing quality tile and trim work",
+    alt: "Quality cabinet installation detail showing aligned doors and finished end panels",
     topicTags: ["contractor", "quality"],
     source: "blog",
+    copyFrom: cs("room-addition", "boise"),
   },
-  "design-build-vs-general-contractor": {
-    hero: blog("design-build-vs-general-contractor"),
-    alt: "Design-build team collaborating on plans in a Treasure Valley home",
-    topicTags: ["contractor", "design-build"],
-    source: "blog",
-  },
-  "fixed-price-vs-cost-plus": {
-    hero: gal("basement-before"),
-    alt: "Remodel scope documents and pricing notes laid out for a fixed-price versus cost-plus comparison",
-    topicTags: ["contractor", "pricing"],
-    source: "gallery",
-  },
-  "how-to-compare-remodeling-estimates": {
-    hero: blog("how-to-compare-remodeling-estimates"),
-    alt: "Side-by-side remodel scope comparison for kitchen and bath projects",
-    topicTags: ["contractor", "estimates"],
-    source: "blog",
-  },
-  "why-remodeling-bids-vary": {
-    hero: cs("bathroom-remodel", "middleton"),
-    alt: "Finished bathroom remodel illustrating scope differences in contractor bids",
-    topicTags: ["contractor", "pricing"],
-    source: "city-service",
-  },
-  "what-makes-great-remodeling-contractor": {
+  "what-makes-great-cabinet-company": {
     hero: svc("adu"),
-    alt: "Precision craftsmanship on a custom ADU build demonstrating expert Treasure Valley work",
+    alt: "Precision cabinet shop craftsmanship demonstrating expert Treasure Valley work",
     topicTags: ["contractor", "craftsmanship"],
     source: "services",
   },
-  "consultation-process-remodeling": {
+  "how-to-compare-cabinet-quotes": {
+    hero: blog("how-to-compare-remodeling-estimates"),
+    alt: "Side-by-side cabinet quote comparison for kitchen and bath packages",
+    topicTags: ["contractor", "estimates"],
+    source: "blog",
+    copyFrom: cs("bathroom-remodel", "middleton"),
+  },
+  "why-cabinet-quotes-vary": {
+    hero: cs("bathroom-remodel", "star"),
+    alt: "Finished bathroom vanity illustrating scope differences between cabinet quotes",
+    topicTags: ["contractor", "pricing"],
+    source: "city-service",
+  },
+  "cabinet-consultation-process": {
     hero: cs("adu", "star"),
-    alt: "In-home remodeling consultation with homeowners at a Star-area property",
+    alt: "In-home cabinet consultation with samples at a Star-area property",
     topicTags: ["contractor", "consultation"],
     source: "city-service",
   },
-  "how-to-choose-design-build-contractor": {
-    hero: cs("room-addition", "kuna"),
-    alt: "Design-build remodeling team walking a room addition job site with Treasure Valley homeowners",
-    topicTags: ["contractor", "design-build", "boise"],
-    source: "city-service",
-  },
-
-  // —— Remodeling process (9) ——
-  "remodeling-timeline-guide": {
-    hero: cs("room-addition", "middleton"),
-    alt: "Remodel project timeline phases from design through construction completion in Middleton",
-    topicTags: ["process", "timeline"],
-    source: "city-service",
-  },
-  "boise-permit-guide": {
-    hero: blog("boise-permit-guide"),
-    alt: "Residential remodel plans prepared for Ada County permit submission",
-    topicTags: ["process", "permits", "boise"],
+  "custom-cabinet-shop-vs-big-box": {
+    hero: blog("design-build-vs-general-contractor"),
+    alt: "Custom cabinet shop team reviewing shop drawings with Treasure Valley homeowners",
+    topicTags: ["contractor", "design-build"],
     source: "blog",
+    copyFrom: cs("room-addition", "kuna"),
   },
-  "preconstruction-guide": {
-    hero: gal("kitchen-before"),
-    alt: "Preconstruction planning with material samples and floor plans before demo begins",
-    topicTags: ["process", "preconstruction"],
+  "fixed-price-vs-cost-plus": {
+    hero: gal("basement-before"),
+    alt: "Cabinet scope documents laid out for fixed-price versus cost-plus comparison",
+    topicTags: ["contractor", "pricing"],
     source: "gallery",
   },
-  "design-development-guide": {
-    hero: gal("bathroom-before"),
-    alt: "Design development selections for bathroom tile, fixtures, and finishes",
+  "cabinet-construction-quality-guide": {
+    hero: cat("pantry"),
+    alt: "Cabinet box construction and joinery quality in a pantry installation detail",
+    topicTags: ["cabinets", "quality", "guide"],
+    source: "services",
+  },
+
+  // —— Cabinet project process (8) ——
+  "cabinet-finishes-door-styles-guide": {
+    hero: blog("material-selection-guide"),
+    alt: "Cabinet door style and finish samples for Treasure Valley selections",
+    topicTags: ["process", "materials"],
+    source: "blog",
+    copyFrom: cat("mudroom"),
+  },
+  "cabinet-measurement-design-phase": {
+    hero: gal("kitchen-before"),
+    alt: "Field measure and layout verification before cabinet shop drawings are released",
     topicTags: ["process", "design"],
     source: "gallery",
   },
-  "material-selection-guide": {
-    hero: blog("material-selection-guide"),
-    alt: "Remodel material selections including tile, counters, and hardware samples",
-    topicTags: ["process", "materials"],
-    source: "blog",
+  "cabinet-design-development": {
+    hero: gal("bathroom-before"),
+    alt: "Design development for bathroom vanity cabinets, hardware, and interior accessories",
+    topicTags: ["process", "design"],
+    source: "gallery",
   },
-  "construction-phase-guide": {
+  "cabinet-fabrication-installation": {
     hero: cs("room-addition", "caldwell"),
-    alt: "Active construction phase with framing and mechanical rough-in on a Caldwell room addition",
+    alt: "Cabinet delivery and installation phase with staged boxes on a Caldwell job site",
     topicTags: ["process", "construction"],
     source: "city-service",
   },
-  "punch-list-guide": {
+  "cabinet-installation-punch-list": {
     hero: blog("punch-list-guide"),
-    alt: "Final walkthrough punch list review in a nearly completed remodel",
+    alt: "Final cabinet installation punch list with adjusted doors and scribe fillers",
     topicTags: ["process", "punch-list"],
     source: "blog",
+    copyFrom: cs("room-addition", "meridian"),
   },
-  "warranty-guide-remodeling": {
+  "cabinet-warranty-guide": {
     hero: gal("basement-after"),
-    alt: "Completed basement finish detail showing warranty-worthy craftsmanship",
+    alt: "Completed cabinet installation detail showing warranty-worthy adjustment and finish",
     topicTags: ["process", "warranty"],
     source: "gallery",
   },
-  "ada-vs-canyon-county-permit-timelines": {
-    hero: blog("ada-vs-canyon-county-permit-timelines"),
-    alt: "Treasure Valley home remodel subject to Ada or Canyon County permit review",
-    topicTags: ["process", "permits", "ada-county", "canyon-county"],
-    source: "blog",
+  "custom-vs-semi-custom-cabinets": {
+    hero: cat("laundry"),
+    alt: "Laundry room cabinets comparing semi-custom and full-custom specification levels",
+    topicTags: ["cabinets", "collections", "planning"],
+    source: "services",
+  },
+  "cabinet-door-styles-guide": {
+    hero: cat("home-office"),
+    alt: "Home office built-in cabinets showcasing popular door style profiles",
+    topicTags: ["cabinets", "door-styles", "guide"],
+    source: "services",
   },
 
-  // —— ROI (8) ——
-  "kitchen-roi-remodeling": {
+  // —— Cabinet ROI (6) ——
+  "kitchen-cabinet-roi-boise": {
     hero: blog("kitchen-roi-remodeling"),
-    alt: "Kitchen remodel delivering strong resale value in Boise",
+    alt: "Kitchen cabinet upgrade delivering strong resale context in Boise",
     topicTags: ["roi", "kitchen", "boise"],
     source: "blog",
+    copyFrom: gal("kitchen-after"),
   },
-  "bathroom-roi-remodeling": {
+  "bathroom-vanity-roi-boise": {
     hero: blog("bathroom-roi-remodeling"),
-    alt: "Bathroom update improving home value in the Treasure Valley",
+    alt: "Bathroom vanity cabinets improving home value in the Treasure Valley",
     topicTags: ["roi", "bathroom", "boise"],
     source: "blog",
+    copyFrom: gal("bathroom-after"),
   },
-  "addition-roi-remodeling": {
+  "built-in-storage-roi": {
     hero: cs("room-addition", "star"),
-    alt: "Room addition increasing livable square footage and home value in Star",
-    topicTags: ["roi", "addition", "star"],
+    alt: "Built-in storage cabinets increasing functional value in a Star-area home",
+    topicTags: ["roi", "built-ins", "star"],
     source: "city-service",
   },
-  "outdoor-living-roi": {
+  "outdoor-cabinet-roi": {
     hero: blog("outdoor-living-roi"),
-    alt: "Outdoor living space with patio and landscaping boosting curb appeal",
+    alt: "Outdoor cabinetry supporting entertaining and curb appeal in Boise",
     topicTags: ["roi", "outdoor"],
     source: "blog",
+    copyFrom: gal("outdoor-after"),
   },
-  "exterior-remodeling-roi": {
-    hero: cs("adu", "middleton"),
-    alt: "Updated Middleton home exterior improving curb appeal and resale value",
-    topicTags: ["roi", "exterior", "middleton"],
-    source: "city-service",
-  },
-  "energy-efficiency-roi": {
-    hero: cs("whole-home-remodel", "nampa"),
-    alt: "Whole-home upgrade with efficient windows and insulation in Nampa",
-    topicTags: ["roi", "energy-efficiency", "nampa"],
-    source: "city-service",
-  },
-  "remodeling-before-selling": {
-    hero: cs("bathroom-remodel", "star"),
-    alt: "Updated bathroom and finishes staged before listing a Treasure Valley home for sale",
+  "cabinet-upgrades-before-selling": {
+    hero: cs("bathroom-remodel", "caldwell"),
+    alt: "Vanity cabinet refresh staged before listing a Treasure Valley home for sale",
     topicTags: ["roi", "selling", "bathroom"],
     source: "city-service",
   },
-  "remodeling-long-term-living": {
+  "cabinets-for-long-term-living": {
     hero: cs("adu", "caldwell"),
-    alt: "ADU and whole-home updates tailored for long-term multigenerational living in Caldwell",
+    alt: "Accessible and durable cabinets planned for long-term living in Caldwell",
     topicTags: ["roi", "long-term", "caldwell"],
     source: "city-service",
   },
 
-  // —— Outdoor (7) ——
-  "outdoor-kitchens-boise": {
-    hero: blog("outdoor-kitchens-boise"),
-    alt: "Outdoor kitchen with built-in grill and counter space in a Boise backyard",
-    topicTags: ["outdoor", "kitchen", "boise"],
-    source: "blog",
+  // —— Cabinet specs & finishes (4) ——
+  "cabinet-finishes-colors-guide": {
+    hero: area("caldwell"),
+    alt: "Cabinet finish and color samples for wet bar and entertainment built-ins",
+    topicTags: ["cabinets", "finishes", "guide"],
+    source: "areas",
   },
-  "covered-patios-boise": {
-    hero: blog("covered-patios-boise"),
-    alt: "Covered patio with ceiling fans and comfortable seating in the Treasure Valley",
-    topicTags: ["outdoor", "patio", "boise"],
-    source: "blog",
-  },
-  "decks-vs-patios-boise": {
-    hero: gal("outdoor-before"),
-    alt: "Backyard deck and patio options for Boise outdoor living",
-    topicTags: ["outdoor", "deck", "patio"],
-    source: "gallery",
-  },
-  "outdoor-fireplaces-boise": {
-    hero: blog("outdoor-fireplaces-boise"),
-    alt: "Outdoor fireplace on a covered patio for year-round Treasure Valley entertaining",
-    topicTags: ["outdoor", "fireplace", "boise"],
-    source: "blog",
-  },
-  "outdoor-entertaining-spaces": {
-    hero: cs("adu", "eagle"),
-    alt: "Outdoor entertaining area adjacent to an Eagle home with seating and shade",
-    topicTags: ["outdoor", "entertaining", "eagle"],
-    source: "city-service",
-  },
-  "luxury-outdoor-living": {
-    hero: cs("adu", "nampa"),
-    alt: "Luxury outdoor living space with premium finishes in the Treasure Valley",
-    topicTags: ["outdoor", "luxury", "nampa"],
-    source: "city-service",
-  },
-  "backyard-transformations-boise": {
-    hero: cs("adu", "kuna"),
-    alt: "Transformed backyard with hardscape and plantings in Kuna",
-    topicTags: ["outdoor", "backyard", "kuna"],
-    source: "city-service",
+  "cabinet-hardware-guide": {
+    hero: cat("entertainment"),
+    alt: "Cabinet hardware and pull samples on entertainment center built-ins",
+    topicTags: ["cabinets", "hardware", "guide"],
+    source: "services",
   },
 
-  // —— Guides (23) ——
-  "boise-remodeling-cost-guide": {
+  // —— Guides (10) ——
+  "boise-cabinet-cost-guide": {
     hero: gal("whole-home-after"),
-    alt: "Treasure Valley remodel cost planning guide featuring whole-home renovation context",
+    alt: "Treasure Valley cabinet cost planning guide with whole-home kitchen and bath context",
     topicTags: ["cost", "guide", "pillar"],
     source: "gallery",
   },
-  "treasure-valley-remodeling-guide": {
+  "treasure-valley-cabinet-guide": {
     hero: area("boise"),
-    alt: "Treasure Valley neighborhoods and homes served by Boise Remodeling Co",
+    alt: "Treasure Valley neighborhoods served by Boise Cabinet Co custom cabinetry",
     topicTags: ["location", "treasure-valley", "guide"],
     source: "areas",
   },
-  "boise-remodeling-guide": {
+  "boise-cabinet-guide": {
     hero: blog("boise-remodeling-guide"),
-    alt: "Boise homes and neighborhoods for remodeling projects across the North End and Bench",
+    alt: "Boise homes and neighborhoods for custom kitchen, bath, and built-in cabinetry",
     topicTags: ["location", "boise", "guide"],
     source: "blog",
-    copyFrom: area("boise"),
+    copyFrom: area("meridian"),
   },
-  "boise-kitchen-remodeling-guide": {
-    hero: svc("kitchen-remodel"),
-    alt: "Complete Boise kitchen remodeling guide with layouts, materials, and timelines",
+  "boise-kitchen-cabinet-guide": {
+    hero: cat("kitchen"),
+    alt: "Boise kitchen cabinet guide with layouts, door styles, finishes, and lead times",
     topicTags: ["kitchen", "guide", "pillar"],
     source: "services",
   },
-  "boise-bathroom-remodeling-guide": {
-    hero: svc("bathroom-remodel"),
-    alt: "Boise bathroom remodeling guide covering showers, layouts, and aging-in-place",
+  "boise-bathroom-vanity-guide": {
+    hero: cat("bathroom"),
+    alt: "Boise bathroom vanity guide covering layouts, storage, and aging-in-place",
     topicTags: ["bathroom", "guide", "pillar"],
     source: "services",
   },
-  "boise-home-addition-guide": {
-    hero: svc("room-addition"),
-    alt: "Boise home addition guide for second stories, suites, and ADUs",
-    topicTags: ["addition", "guide", "pillar"],
+  "built-in-cabinet-guide": {
+    hero: cat("built-ins"),
+    alt: "Built-in and storage cabinet guide for mudroom, closet, and entertainment casework",
+    topicTags: ["built-ins", "guide", "pillar"],
     source: "services",
   },
-  "whole-home-remodeling-guide": {
+  "whole-home-cabinetry-guide": {
     hero: svc("whole-home-remodel"),
-    alt: "Whole home remodeling guide for Treasure Valley homeowners",
+    alt: "Whole-home cabinetry guide for coordinated Treasure Valley cabinet packages",
     topicTags: ["whole-home", "guide", "pillar"],
     source: "services",
   },
-  "choose-remodeling-contractor-boise": {
+  "choose-cabinet-company-boise": {
     hero: blog("choose-remodeling-contractor-boise"),
-    alt: "Choosing a trusted remodeling contractor in Boise and the Treasure Valley",
+    alt: "Choosing a custom cabinet company in Boise and the Treasure Valley",
     topicTags: ["contractor", "guide", "pillar"],
     source: "blog",
-    copyFrom: "/images/process-design-review.png",
+    copyFrom: "/images/marketing/process-design-review.webp",
   },
-  "boise-remodeling-process-guide": {
+  "cabinet-project-process-guide": {
     hero: blog("boise-remodeling-process-guide"),
-    alt: "Boise remodeling process from consultation through warranty walkthrough",
+    alt: "Boise cabinet project process from consultation through installation and warranty",
     topicTags: ["process", "guide", "pillar"],
     source: "blog",
     copyFrom: gal("whole-home-before"),
   },
-  "best-remodeling-roi-boise": {
+  "cabinet-roi-guide-boise": {
     hero: blog("best-remodeling-roi-boise"),
-    alt: "Best remodeling projects for ROI in Boise homes",
+    alt: "Best cabinet upgrades for ROI in Boise and Treasure Valley homes",
     topicTags: ["roi", "guide", "pillar"],
     source: "blog",
     copyFrom: gal("kitchen-after"),
   },
-  "outdoor-living-remodeling-guide": {
-    hero: gal("outdoor-after"),
-    alt: "Outdoor living remodeling guide for patios, kitchens, and backyards in Boise",
-    topicTags: ["outdoor", "guide", "pillar"],
-    source: "gallery",
-  },
-  "meridian-remodeling-guide": {
-    hero: area("meridian"),
-    alt: "Meridian subdivision homes and remodeling context in Ada County",
-    topicTags: ["location", "meridian", "guide"],
-    source: "areas",
-  },
-  "eagle-remodeling-guide": {
-    hero: area("eagle"),
-    alt: "Eagle executive homes and remodeling opportunities in the Foothills",
-    topicTags: ["location", "eagle", "guide"],
-    source: "areas",
-  },
-  "kuna-remodeling-guide": {
-    hero: area("kuna"),
-    alt: "Kuna family homes and newer construction suited for remodeling",
-    topicTags: ["location", "kuna", "guide"],
-    source: "areas",
-  },
-  "star-remodeling-guide": {
-    hero: area("star"),
-    alt: "Star-area homes and rural-suburban remodeling in Ada County",
-    topicTags: ["location", "star", "guide"],
-    source: "areas",
-  },
-  "middleton-remodeling-guide": {
-    hero: area("middleton"),
-    alt: "Middleton homes in Canyon County with remodeling and permit context",
-    topicTags: ["location", "middleton", "guide"],
-    source: "areas",
-  },
-  "nampa-remodeling-guide": {
-    hero: area("nampa"),
-    alt: "Nampa homes and Canyon County remodeling considerations",
-    topicTags: ["location", "nampa", "guide"],
-    source: "areas",
-  },
-  "north-end-remodeling-guide": {
-    hero: blog("north-end-remodeling-guide"),
-    alt: "Historic North End craftsman bungalows and period-appropriate remodels in Boise",
-    topicTags: ["location", "north-end", "neighborhood", "guide"],
-    source: "blog",
-    copyFrom: area("boise"),
-  },
-  "boise-bench-remodeling-guide": {
-    hero: blog("boise-bench-remodeling-guide"),
-    alt: "Mid-century ranch homes on the Boise Bench suited for kitchen and bath updates",
-    topicTags: ["location", "bench", "neighborhood", "guide"],
-    source: "blog",
-    copyFrom: cs("whole-home-remodel", "boise"),
-  },
-  "harris-ranch-remodeling-guide": {
-    hero: blog("harris-ranch-remodeling-guide"),
-    alt: "Harris Ranch planned community homes in Southeast Boise",
-    topicTags: ["location", "harris-ranch", "neighborhood", "guide"],
-    source: "blog",
-    copyFrom: cs("kitchen-remodel", "boise"),
-  },
-  "east-boise-remodeling-guide": {
-    hero: blog("east-boise-remodeling-guide"),
-    alt: "East Boise neighborhoods with varied housing stock for remodeling",
-    topicTags: ["location", "east-boise", "neighborhood", "guide"],
-    source: "blog",
-    copyFrom: cs("bathroom-remodel", "boise"),
-  },
-  "hidden-springs-remodeling-guide": {
-    hero: blog("hidden-springs-remodeling-guide"),
-    alt: "Hidden Springs community homes in the Boise foothills",
-    topicTags: ["location", "hidden-springs", "neighborhood", "guide"],
-    source: "blog",
-    copyFrom: cs("whole-home-remodel", "boise"),
-  },
-  "eagle-foothills-remodeling-guide": {
-    hero: blog("eagle-foothills-remodeling-guide"),
-    alt: "Eagle Foothills custom homes with mountain views and premium remodel potential",
-    topicTags: ["location", "eagle-foothills", "neighborhood", "guide"],
-    source: "blog",
-    copyFrom: area("eagle"),
-  },
 };
 
 const HUB_HEROES = {
-  "remodeling-costs": gal("whole-home-after"),
-  "kitchen-remodeling": svc("kitchen-remodel"),
-  "bathroom-remodeling": svc("bathroom-remodel"),
-  "home-additions": svc("room-addition"),
-  "whole-home-remodeling": svc("whole-home-remodel"),
-  "contractor-selection": blog("choose-remodeling-contractor-boise"),
-  "remodeling-process": blog("boise-remodeling-process-guide"),
-  "remodeling-roi": blog("best-remodeling-roi-boise"),
-  "outdoor-living": gal("outdoor-before"),
-  "treasure-valley-locations": area("boise"),
+  "cabinet-costs": gal("whole-home-after"),
+  "kitchen-cabinets": cat("kitchen"),
+  "bathroom-vanities": cat("bathroom"),
+  "built-ins-storage": cat("built-ins"),
+  "whole-home-cabinetry": svc("whole-home-remodel"),
+  "choosing-cabinet-company": blog("choose-remodeling-contractor-boise"),
+  "cabinet-project-process": blog("boise-remodeling-process-guide"),
+  "cabinet-roi": blog("best-remodeling-roi-boise"),
+  "local-guides": area("boise"),
 };
 
-// Derive blog slugs from entries before the guides section (first guide key)
-const GUIDE_START = "boise-remodeling-cost-guide";
+const GUIDE_START = "boise-cabinet-cost-guide";
 const blogSlugsFromEntries = Object.keys(ENTRIES).slice(0, Object.keys(ENTRIES).indexOf(GUIDE_START));
-if (blogSlugsFromEntries.length !== 71) {
-  console.error(`Expected 71 blog slugs before guides, got ${blogSlugsFromEntries.length}`);
+const EXPECTED_BLOG = 56;
+const EXPECTED_GUIDES = 10;
+
+if (blogSlugsFromEntries.length !== EXPECTED_BLOG) {
+  console.error(`Expected ${EXPECTED_BLOG} blog slugs before guides, got ${blogSlugsFromEntries.length}`);
   process.exit(1);
 }
+
 const BLOG_POST_SLUGS = new Set(blogSlugsFromEntries);
 
 function effectiveImage(entry) {
   return entry.copyFrom ?? entry.hero;
 }
 
-// Validate blog post effective-image uniqueness (visual source paths)
 const blogEffectivePaths = new Map();
 for (const slug of BLOG_POST_SLUGS) {
   const entry = ENTRIES[slug];
@@ -652,7 +495,6 @@ for (const slug of BLOG_POST_SLUGS) {
   blogEffectivePaths.set(eff, slug);
 }
 
-// Validate uniqueness
 const heroPaths = new Map();
 for (const [slug, entry] of Object.entries(ENTRIES)) {
   if (heroPaths.has(entry.hero)) {
@@ -662,17 +504,11 @@ for (const [slug, entry] of Object.entries(ENTRIES)) {
   heroPaths.set(entry.hero, slug);
 }
 
-// Validate count
-const expectedBlog = 71;
-const expectedGuides = 23;
-const blogSlugs = Object.keys(ENTRIES).filter((s) => !s.includes("-guide") || ENTRIES[s].topicTags.includes("guide") === false);
-// Just check total
-if (Object.keys(ENTRIES).length !== expectedBlog + expectedGuides) {
-  console.error(`Expected ${expectedBlog + expectedGuides} entries, got ${Object.keys(ENTRIES).length}`);
+if (Object.keys(ENTRIES).length !== EXPECTED_BLOG + EXPECTED_GUIDES) {
+  console.error(`Expected ${EXPECTED_BLOG + EXPECTED_GUIDES} entries, got ${Object.keys(ENTRIES).length}`);
   process.exit(1);
 }
 
-// Generate TS file
 const registryBody = Object.entries(ENTRIES)
   .map(([slug, e]) => {
     const thumb = e.thumbnail ? `\n    thumbnail: '${e.thumbnail}',` : "";

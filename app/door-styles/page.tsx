@@ -9,6 +9,7 @@ import { MarketingCard } from "@/components/marketing/MarketingCard";
 import { TextLink } from "@/components/marketing/TextLink";
 import { Chip } from "@/components/marketing/Chip";
 import { CatalogSearch } from "@/components/catalog/CatalogSearch";
+import { DoorStyleHero } from "@/components/catalog/DoorStyleHero";
 import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/Reveal";
 import { catalogMetadata, catalogDescription } from "@/lib/catalog-metadata";
@@ -77,7 +78,9 @@ export default function DoorStylesPage() {
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
               {DOOR_STYLES.map((style, i) => (
                 <Reveal key={style.id} delay={i * 40}>
-                  <MarketingCard className="h-full flex flex-col">
+                  <MarketingCard className="h-full flex flex-col p-0 overflow-hidden">
+                    <DoorStyleHero slug={style.slug} name={style.name} className="rounded-none" />
+                    <div className="p-6 flex flex-col flex-1">
                     <div className="flex flex-wrap gap-1.5 mb-3">
                       {style.compatibleFinishCategories.map((cat) => (
                         <Chip key={cat} className="capitalize">
@@ -94,6 +97,7 @@ export default function DoorStylesPage() {
                     <TextLink href={`/door-styles/${style.slug}`} className="mt-4" showArrow>
                       View details
                     </TextLink>
+                    </div>
                   </MarketingCard>
                 </Reveal>
               ))}

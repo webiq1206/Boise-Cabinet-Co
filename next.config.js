@@ -1,5 +1,8 @@
 const path = require('path');
 
+const { register } = require('tsx/cjs/api');
+register();
+
 process.env.WS_NO_BUFFER_UTIL = '1';
 process.env.WS_NO_UTF_8_VALIDATE = '1';
 
@@ -15,7 +18,8 @@ const nextConfig = {
     instrumentationHook: true,
   },
   images: {
-    unoptimized: true,
+    unoptimized: false,
+    formats: ["image/avif", "image/webp"],
     remotePatterns: [
       {
         protocol: 'https',
@@ -99,26 +103,53 @@ const nextConfig = {
       redirects.push(...r(source, destination));
     }
 
-    const blogRedirects = {
-      '/blog/kitchen-remodel-cost-treasure-valley': '/blog/kitchen-remodel-cost-boise',
-      '/blog/bathroom-remodel-cost-idaho': '/blog/bathroom-remodel-cost-boise',
-    };
-    for (const [source, destination] of Object.entries(blogRedirects)) {
+    const { allContentRedirects } = require(path.resolve(
+      __dirname,
+      'shared/contentRedirects.ts',
+    ));
+    for (const { source, destination } of allContentRedirects()) {
       redirects.push(...r(source, destination));
     }
 
     const serviceRedirects = {
       '/services/kitchen-remodel': '/cabinets/kitchen',
       '/services/bathroom-remodel': '/cabinets/bathroom',
-      '/services/whole-home-remodel': '/cabinets/built-ins',
-      '/services/room-addition': '/cabinets/built-ins',
-      '/services/adu': '/cabinets/built-ins',
+      '/services/whole-home-remodel': '/guides/whole-home-cabinetry-guide',
+      '/services/room-addition': '/guides/built-in-cabinet-guide',
+      '/services/adu': '/cabinets/closet',
       '/subcontractor': '/partner',
       '/subcontractor/': '/partner',
     };
 
     for (const [source, destination] of Object.entries(serviceRedirects)) {
       redirects.push(...r(source, destination));
+    }
+
+    const treasureValleyGuide = '/guides/treasure-valley-cabinet-guide';
+    redirects.push(...r('/areas', treasureValleyGuide));
+
+    const cities = [
+      'boise',
+      'meridian',
+      'eagle',
+      'nampa',
+      'kuna',
+      'star',
+      'middleton',
+      'caldwell',
+    ];
+
+    for (const city of cities) {
+      redirects.push(...r(`/areas/${city}`, treasureValleyGuide));
+      redirects.push(...r(`/services/kitchen-remodel/${city}`, '/cabinets/kitchen'));
+      redirects.push(...r(`/services/bathroom-remodel/${city}`, '/cabinets/bathroom'));
+      redirects.push(
+        ...r(`/services/whole-home-remodel/${city}`, '/guides/whole-home-cabinetry-guide'),
+      );
+      redirects.push(
+        ...r(`/services/room-addition/${city}`, '/guides/built-in-cabinet-guide'),
+      );
+      redirects.push(...r(`/services/adu/${city}`, '/cabinets/closet'));
     }
 
     return redirects;

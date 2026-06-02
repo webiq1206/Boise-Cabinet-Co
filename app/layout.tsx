@@ -40,6 +40,7 @@ export const metadata: Metadata = {
     siteName: 'Boise Cabinet Co',
     title: 'Boise Cabinet Co | Custom Cabinets Idaho',
     description: `${SITE_TAGLINE}. Premium custom cabinetry across the Treasure Valley.`,
+    images: [{ url: '/images/marketing/og-default.webp', width: 1792, height: 1024, alt: 'Boise Cabinet Co custom kitchen cabinets' }],
   },
   twitter: {
     card: 'summary_large_image',
@@ -73,6 +74,12 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${montserrat.variable} ${fraunces.variable}`} suppressHydrationWarning>
       <head>
+        <link
+          rel="preload"
+          as="image"
+          href="/images/marketing/hero-home.webp"
+          fetchPriority="high"
+        />
         <script
           dangerouslySetInnerHTML={{
             __html: `document.documentElement.classList.add('js')`,

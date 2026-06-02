@@ -66,7 +66,7 @@ const kitchenExtra: ContentSection[] = [
     h2: 'Boise, Meridian, Eagle, and Nampa: local notes',
     paragraphs: [
       'Ada County cities share many permit conventions; Canyon County (Nampa, Middleton, Caldwell) uses different portals. HOA review in Eagle may add design time without changing construction unit costs dramatically.',
-      'Links: <a href="/services/kitchen-remodel/boise">Boise</a>, <a href="/services/kitchen-remodel/meridian">Meridian</a>, <a href="/services/kitchen-remodel/eagle">Eagle</a>, <a href="/services/kitchen-remodel/nampa">Nampa</a>, <a href="/areas/kuna">Kuna</a>, <a href="/areas/star">Star</a>.',
+      '<a href="/cabinets/kitchen">Kitchen cabinets</a> · <a href="/guides/boise-kitchen-cabinet-guide">Kitchen cabinet guide</a> · <a href="/door-styles">Door styles</a>.',
     ],
   },
   {
@@ -84,7 +84,7 @@ const kitchenExtra: ContentSection[] = [
   {
     h2: 'Related cost guides',
     paragraphs: [
-      'Compare <a href="/blog/bathroom-remodel-cost-boise">bathroom costs</a>, <a href="/blog/whole-home-remodel-cost-boise">whole-home ranges</a>, and <a href="/blog/what-impacts-remodeling-costs-boise">cost drivers</a> in our cost hub.',
+      'Compare <a href="/blog/bathroom-vanity-cost-boise">bathroom vanity costs</a>, <a href="/blog/whole-home-cabinet-cost-boise">whole-home ranges</a>, and <a href="/blog/what-impacts-cabinet-costs-boise">cost drivers</a> in our cost hub.',
     ],
   },
 ];
@@ -117,13 +117,13 @@ const bathroomExtra: ContentSection[] = [
   {
     h2: 'City-specific service links',
     paragraphs: [
-      '<a href="/services/bathroom-remodel/boise">Boise bathroom remodel</a>, <a href="/services/bathroom-remodel/meridian">Meridian</a>, <a href="/services/bathroom-remodel/nampa">Nampa</a>, <a href="/services/bathroom-remodel/eagle">Eagle</a>, <a href="/areas/middleton">Middleton</a>, <a href="/areas/caldwell">Caldwell</a>.',
+      '<a href="/cabinets/bathroom">Bathroom vanity cabinets</a> · <a href="/guides/boise-bathroom-vanity-guide">Bathroom vanity guide</a> · <a href="/finishes">Finishes</a>.',
     ],
   },
   {
     h2: 'Budgeting tips',
     paragraphs: [
-      'Bundle plumbing fixtures at one finish level. Use alcove tubs in guest baths to save space and cost. See <a href="/blog/how-to-budget-remodel-boise">budgeting guide</a>.',
+      'Bundle vanity fixtures at one finish level. Match cabinet hardware across baths. See <a href="/blog/how-to-budget-cabinets-boise">cabinet budgeting guide</a>.',
     ],
   },
 ];
@@ -156,7 +156,7 @@ const wholeHomeExtra: ContentSection[] = [
   {
     h2: 'Links',
     paragraphs: [
-      '<a href="/services/whole-home-remodel">Whole-home remodeling</a>, <a href="/services/whole-home-remodel/boise">Boise</a>, <a href="/services/whole-home-remodel/meridian">Meridian</a>, <a href="/blog/remodeling-vs-moving">remodeling vs moving</a> (coming soon).',
+      '<a href="/cabinets/kitchen">Kitchen cabinets</a>, <a href="/cabinets/bathroom">Bathroom vanities</a>, <a href="/guides/whole-home-cabinetry-guide">Whole-home cabinetry guide</a>.',
     ],
   },
 ];
@@ -183,13 +183,13 @@ const additionExtra: ContentSection[] = [
   {
     h2: 'ADU comparison',
     paragraphs: [
-      'ADUs and guest houses overlap addition economics—see <a href="/services/adu">ADU services</a> and <a href="/blog/home-addition-cost-boise">this guide’s companion articles</a>.',
+      'Garage and mudroom built-ins often pair with new living space—see <a href="/cabinets/built-ins">built-in cabinetry</a> and <a href="/guides/built-in-cabinet-guide">built-in cabinet guide</a>.',
     ],
   },
   {
     h2: 'Service areas',
     paragraphs: [
-      '<a href="/services/room-addition/boise">Boise additions</a>, <a href="/services/room-addition/eagle">Eagle</a>, <a href="/services/room-addition/kuna">Kuna</a>, <a href="/areas/nampa">Nampa area</a>.',
+      '<a href="/cabinets/kitchen">Kitchen cabinets</a> · <a href="/cabinets/built-ins">Built-ins</a> · <a href="/guides/built-in-cabinet-guide">Built-in guide</a> · <a href="/guides/treasure-valley-cabinet-guide">Treasure Valley hub</a>.',
     ],
   },
 ];
@@ -216,7 +216,7 @@ const luxuryExtra: ContentSection[] = [
   {
     h2: 'Without a dedicated luxury service page',
     paragraphs: [
-      'We deliver luxury work through our <a href="/services/kitchen-remodel">kitchen</a>, <a href="/services/bathroom-remodel">bathroom</a>, and <a href="/services/whole-home-remodel">whole-home</a> teams—one design-build contract.',
+      'We deliver luxury cabinetry through <a href="/cabinets/kitchen">kitchen</a>, <a href="/cabinets/bathroom">bathroom</a>, and <a href="/guides/whole-home-cabinetry-guide">whole-home</a> programs—one custom cabinet partner.',
     ],
   },
 ];
@@ -270,7 +270,7 @@ const impactsExtra: ContentSection[] = [
     h2: 'Ada vs Canyon permit cost and time',
     paragraphs: [
       'Plan review fees and timelines differ. Structural additions almost always extend both counties’ schedules.',
-      '<a href="/blog/ada-vs-canyon-county-permit-timelines">Permit timeline article</a>.',
+      '<a href="/guides/cabinet-project-process-guide">Cabinet project process guide</a>.',
     ],
   },
   {
@@ -309,9 +309,10 @@ const budgetExtra: ContentSection[] = [
     ],
   },
   {
-    h2: 'Work with a local design-build team',
+    h2: 'Work with a local cabinet team',
     paragraphs: [
       '<a href="/contact">Contact Boise Cabinet Co</a> for a consultation across Boise, Meridian, Eagle, Kuna, Star, Middleton, Nampa, and Caldwell.',
+      '<a href="/cabinets">Cabinet catalog</a> · <a href="/design-studio">Design Studio</a> · <a href="/guides/boise-cabinet-cost-guide">Cost guide</a>.',
     ],
   },
 ];
@@ -320,84 +321,64 @@ export const COST_CLUSTER_CONTENT: Record<
   string,
   { html: string; quickAnswer: string; takeaways: string[] }
 > = {
-  'kitchen-remodel-cost-boise': {
-    html: buildSectionsHtml(clusterSections('kitchen remodel cost', kitchenExtra)),
+  'kitchen-cabinet-cost-boise': {
+    html: buildSectionsHtml(clusterSections('kitchen cabinet cost', kitchenExtra)),
     quickAnswer:
-      'Full kitchen remodels in Boise and the Treasure Valley typically range from about $45,000 to $120,000+, driven by layout changes, cabinetry level, and finishes. Appliances are usually budgeted separately.',
+      'Kitchen cabinets in Boise and the Treasure Valley typically range from about $15,000 to $45,000+ installed, driven by line, layout complexity, finishes, and interior accessories. Countertops and appliances are usually budgeted separately.',
     takeaways: [
-      'Layout and structural changes are the largest cost swing.',
-      'Cabinetry is often 30–40% of the construction budget.',
+      'Cabinet line and box material are the largest cost swing.',
+      'Interior organizers and hardware add up quickly.',
       'Order long-lead cabinets at design lock.',
-      'Compare bids only with matching scope and allowances.',
+      'Compare quotes only with matching scope and line.',
     ],
   },
-  'bathroom-remodel-cost-boise': {
-    html: buildSectionsHtml(clusterSections('bathroom remodel cost', bathroomExtra)),
+  'bathroom-vanity-cost-boise': {
+    html: buildSectionsHtml(clusterSections('bathroom vanity cost', bathroomExtra)),
     quickAnswer:
-      'Guest bath remodels often run $18,000–$45,000; master baths with layout changes and curbless showers commonly reach $35,000–$85,000+ in Idaho.',
+      'Guest bath vanity cabinets often plan $3,500–$12,000 installed; master vanity suites with double sinks and custom storage commonly reach $8,000–$25,000+ in Idaho.',
     takeaways: [
-      'Master and guest baths should not share one budget number.',
-      'Curbless showers add waterproofing and labor.',
-      'Ventilation and heat are worth planning upfront.',
+      'Master and guest vanities should not share one budget number.',
+      'Moisture-rated finishes are worth specifying upfront.',
+      'Plumbing moves are separate from cabinet install scope.',
     ],
   },
-  'whole-home-remodel-cost-boise': {
-    html: buildSectionsHtml(clusterSections('whole-home remodel cost', wholeHomeExtra)),
+  'whole-home-cabinet-cost-boise': {
+    html: buildSectionsHtml(clusterSections('whole-home cabinet cost', wholeHomeExtra)),
     quickAnswer:
-      'Whole-home remodels in the Treasure Valley often range from $150,000 to $400,000+ depending on scope, structural work, and number of wet areas.',
+      'Whole-home cabinet packages in the Treasure Valley often range from $40,000 to $120,000+ depending on room count, line, finish, and coordinated delivery.',
     takeaways: [
-      'Treat whole-home work as one program with phases.',
-      'Hold 10–15% contingency.',
-      'Panel and envelope upgrades are common in older Boise homes.',
+      'Treat whole-home cabinets as one specification.',
+      'Hold 10–15% contingency for field adjustments.',
+      'Phased delivery can spread investment over time.',
     ],
   },
-  'home-addition-cost-boise': {
-    html: buildSectionsHtml(clusterSections('home addition cost', additionExtra)),
+  'luxury-custom-cabinet-cost-boise': {
+    html: buildSectionsHtml(clusterSections('luxury custom cabinet cost', luxuryExtra)),
     quickAnswer:
-      'Room additions in Boise, Eagle, and Meridian commonly plan between $80,000 and $250,000+ including foundation, structure, MEP, and finish—with second stories often higher.',
-    takeaways: [
-      'Site and foundation conditions move price early.',
-      'HOA review adds time in many Eagle neighborhoods.',
-      'Match architecture to protect resale.',
-    ],
-  },
-  'luxury-remodel-cost-boise': {
-    html: buildSectionsHtml(clusterSections('luxury remodel cost', luxuryExtra)),
-    quickAnswer:
-      'Luxury remodels in Eagle, the Foothills, and premium Boise neighborhoods often exceed $200,000 for multi-room scope, with heavy design development and custom finishes.',
+      'Luxury custom cabinets in Eagle, the Foothills, and premium Boise neighborhoods often exceed $60,000 for multi-room scope, with extended design development and premium finishes.',
     takeaways: [
       'Design time is part of the investment.',
       'HOA review affects calendar, not just aesthetics.',
-      'Luxury is delivered through kitchen, bath, and whole-home programs.',
+      'Luxury is delivered through coordinated kitchen, bath, and built-in programs.',
     ],
   },
-  'remodel-cost-per-square-foot-boise': {
-    html: buildSectionsHtml(clusterSections('remodel cost per square foot', perSqFtExtra)),
+  'what-impacts-cabinet-costs-boise': {
+    html: buildSectionsHtml(clusterSections('cabinet cost drivers', impactsExtra)),
     quickAnswer:
-      'Remodel cost per square foot in Boise varies by project type: whole-home major work often plans at $100–$200+ per affected SF; room-specific remodels should not use whole-house $/SF alone.',
-    takeaways: [
-      'Use $/SF only with a defined scope.',
-      'Kitchen $/SF is based on room size, not home SF.',
-      'Local labor and permits differ from national charts.',
-    ],
-  },
-  'what-impacts-remodeling-costs-boise': {
-    html: buildSectionsHtml(clusterSections('remodeling cost drivers', impactsExtra)),
-    quickAnswer:
-      'The biggest cost drivers for Treasure Valley remodels are layout/structural changes, cabinetry and tile level, existing home conditions, permits (Ada vs Canyon), and late selections—not just square footage.',
+      'The biggest cost drivers for Treasure Valley cabinets are line and box material, finish level, interior accessories, installation complexity, and late selections—not room square footage alone.',
     takeaways: [
       'Scope alignment matters more than a low bid.',
-      'Permits and engineering are real schedule and cost items.',
-      'Finish level moves budget without adding SF.',
+      'Field conditions at install can add labor.',
+      'Finish and hardware level move budget without adding cabinets.',
     ],
   },
-  'how-to-budget-remodel-boise': {
-    html: buildSectionsHtml(clusterSections('remodel budgeting', budgetExtra)),
+  'how-to-budget-cabinets-boise': {
+    html: buildSectionsHtml(clusterSections('cabinet budgeting', budgetExtra)),
     quickAnswer:
-      'Budget a Treasure Valley remodel by defining must-have scope, getting room-level planning ranges, adding appliances and soft costs separately, holding 10–15% contingency, and comparing only aligned written scopes.',
+      'Budget Treasure Valley cabinets by defining must-have rooms, getting line-level planning ranges, adding countertops and appliances separately, holding 10–15% contingency, and comparing only aligned written scopes.',
     takeaways: [
-      'Separate construction, furnishings, and contingency.',
-      'Lock selections before demo to limit change orders.',
+      'Separate cabinets, countertops, and contingency.',
+      'Lock selections before fabrication to limit change orders.',
       'Use local planning ranges, not national averages.',
     ],
   },
@@ -405,7 +386,7 @@ export const COST_CLUSTER_CONTENT: Record<
 
 const CLUSTER_LINK_FOOTER = `
 <h2>More planning resources</h2>
-<p>Explore our <a href="/guides/boise-remodeling-cost-guide">Boise Cabinet Cost Guide</a>, <a href="/guides/treasure-valley-remodeling-guide">Treasure Valley guide</a>, <a href="/guides/boise-remodeling-guide">Boise remodeling guide</a>, <a href="/areas">service areas</a>, <a href="/services/kitchen-remodel/boise">Boise kitchen remodels</a>, <a href="/services/bathroom-remodel/meridian">Meridian bathrooms</a>, <a href="/services/whole-home-remodel/eagle">Eagle whole-home</a>, <a href="/services/room-addition/nampa">Nampa additions</a>, <a href="/contact">schedule a consultation</a>, and <a href="/#calculator">project estimator</a>.</p>`;
+<p>Explore our <a href="/guides/boise-cabinet-cost-guide">Boise Cabinet Cost Guide</a>, <a href="/guides/treasure-valley-cabinet-guide">Treasure Valley guide</a>, <a href="/guides/boise-cabinet-guide">Boise cabinet guide</a>, <a href="/cabinets">cabinet catalog</a>, <a href="/cabinets/kitchen">kitchen cabinets</a>, <a href="/cabinets/bathroom">bathroom vanities</a>, <a href="/design-studio">Design Studio</a>, <a href="/contact">schedule a consultation</a>, and <a href="/#calculator">project estimator</a>.</p>`;
 
 export function getExpandedClusterHtml(slug: string): string {
   const base = COST_CLUSTER_CONTENT[slug]?.html ?? '';

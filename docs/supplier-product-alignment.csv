@@ -1,0 +1,43 @@
+brcSlug,brcName,supplierPanelBrand,supplierColorName,supplierSeries,finishType,verified,imagePath
+snowcap,Snowcap,Tafisa,Classic White (CR),Prélude Crystalite,matte,true,/images/catalog/finishes/snowcap.webp
+glacier,Glacier,Tafisa,Glacier White (CR),Prélude Crystalite,matte,true,/images/catalog/finishes/glacier.webp
+dune,Dune,Tafisa,Daybreak (IS),Prélude Isola,matte,true,/images/catalog/finishes/dune.webp
+sagebrush,Sagebrush,Tafisa,Force of Nature (KA),Prélude Karisma,matte,true,/images/catalog/finishes/sagebrush.webp
+slate,Slate,Tafisa,Materia Black (MA),Prélude Materia,matte,true,/images/catalog/finishes/slate.webp
+midnight,Midnight,Tafisa,Black Tie (BV),Sommet Brava,matte,true,/images/catalog/finishes/midnight.webp
+clay,Clay,Tafisa,Hot Cinnamon (SN),Prélude Smoothwood,matte,true,/images/catalog/finishes/clay.webp
+fog,Fog,Tafisa,Froth of Sea (CR),Prélude Crystalite,matte,true,/images/catalog/finishes/fog.webp
+linen,Linen,Tafisa,Materia Cream Puff (MA),Prélude Materia,matte,true,/images/catalog/finishes/linen.webp
+riverstone,Riverstone,Tafisa,Dark Chocolate (UR),Prélude Urbania,matte,true,/images/catalog/finishes/riverstone.webp
+basalt,Basalt,Tafisa,Black (CR),Prélude Crystalite,matte,true,/images/catalog/finishes/basalt.webp
+mist,Mist,Tafisa,Evening Star (IS),Prélude Isola,matte,true,/images/catalog/finishes/mist.webp
+terracotta,Terracotta,Tafisa,Hot Fudge (CR),Prélude Crystalite,matte,false,/images/catalog/finishes/terracotta.webp
+fern,Fern,Tafisa,Force of Nature (KA),Prélude Karisma,matte,true,/images/catalog/finishes/fern.webp
+pebble,Pebble,Salt International,Reserve Greige (OSC Reserve),One Source Reserve,matte,true,/images/catalog/finishes/pebble.webp
+porcelain,Porcelain,Tafisa,Classic White High Gloss (CR),Prélude Crystalite,gloss,true,/images/catalog/finishes/porcelain.webp
+ivory,Ivory,Tafisa,Ivory (CR),Prélude Crystalite,gloss,true,/images/catalog/finishes/ivory.webp
+pearl,Pearl,Tafisa,Crème de la Crème (BV),Sommet Brava,gloss,true,/images/catalog/finishes/pearl.webp
+graphite,Graphite,Tafisa,Black (IS),Prélude Isola,gloss,true,/images/catalog/finishes/graphite.webp
+obsidian,Obsidian,Tafisa,Materia Black High Gloss (MA),Prélude Materia,gloss,true,/images/catalog/finishes/obsidian.webp
+seafoam,Seafoam,Tafisa,Copa Cabana (SN),Prélude Smoothwood,gloss,false,/images/catalog/finishes/seafoam.webp
+blush,Blush,Tafisa,Fashionista (KA),Prélude Karisma,gloss,false,/images/catalog/finishes/blush.webp
+cobalt,Cobalt,Tafisa,Latitude East (AT),Prélude Alto,gloss,false,/images/catalog/finishes/cobalt.webp
+champagne,Champagne,Tafisa,First Class (KA),Prélude Karisma,gloss,true,/images/catalog/finishes/champagne.webp
+storm,Storm,Tafisa,Brushed Aluminum (CR),Prélude Crystalite,gloss,true,/images/catalog/finishes/storm.webp
+alabaster,Alabaster,Tafisa,Home Sweet Home (BV),Sommet Brava,gloss,true,/images/catalog/finishes/alabaster.webp
+crimson,Crimson,Salt International,Reserve Crimson (OSC Reserve),One Source Reserve,gloss,false,/images/catalog/finishes/crimson.webp
+white-oak,White Oak,Tafisa,Sand Barbera Oak (OSC Semi-Custom),Prélude Smoothwood EIR,eir-woodgrain,true,/images/catalog/finishes/white-oak.webp
+natural-walnut,Natural Walnut,Tafisa,Hardrock Maple (CR),Prélude Crystalite EIR,eir-woodgrain,true,/images/catalog/finishes/natural-walnut.webp
+espresso-walnut,Espresso Walnut,Tafisa,Dark Rum Cherry (CR),Prélude Crystalite EIR,eir-woodgrain,true,/images/catalog/finishes/espresso-walnut.webp
+honey-maple,Honey Maple,Tafisa,Acacia Honey (KA),Prélude Karisma EIR,eir-woodgrain,true,/images/catalog/finishes/honey-maple.webp
+driftwood,Driftwood,Tafisa,Bora Bora (SN),Prélude Smoothwood EIR,eir-woodgrain,true,/images/catalog/finishes/driftwood.webp
+charcoal-oak,Charcoal Oak,Tafisa,Grenada (SN),Prélude Smoothwood EIR,eir-woodgrain,true,/images/catalog/finishes/charcoal-oak.webp
+hickory,Hickory,Tafisa,Dolce Vita (SN),Prélude Smoothwood EIR,eir-woodgrain,true,/images/catalog/finishes/hickory.webp
+cherry,Cherry,Tafisa,Dark Rum Cherry (CR),Prélude Crystalite EIR,eir-woodgrain,true,/images/catalog/finishes/cherry.webp
+ash,Ash,Tafisa,Latitude North (AT),Prélude Alto EIR,eir-woodgrain,true,/images/catalog/finishes/ash.webp
+teak,Teak,Tafisa,Free Spirit (KA),Prélude Karisma EIR,eir-woodgrain,true,/images/catalog/finishes/teak.webp
+reclaimed-barn,Reclaimed Barn,Salt International,Reserve Wire-Brushed (OSC Reserve),One Source Reserve,eir-woodgrain,false,/images/catalog/finishes/reclaimed-barn.webp
+ebony,Ebony,Tafisa,Materia Black (MA) EIR,Prélude Materia EIR,eir-woodgrain,true,/images/catalog/finishes/ebony.webp
+blonde-oak,Blonde Oak,Tafisa,Sand Barbera Oak Light (OSC),Prélude Smoothwood EIR,eir-woodgrain,true,/images/catalog/finishes/blonde-oak.webp
+pecan,Pecan,Tafisa,Acacia Honey (KA),Prélude Karisma EIR,eir-woodgrain,true,/images/catalog/finishes/pecan.webp
+cedar,Cedar,Salt International,Reserve Cedar (OSC Reserve),One Source Reserve,eir-woodgrain,true,/images/catalog/finishes/cedar.webp

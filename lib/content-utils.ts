@@ -56,7 +56,11 @@ export function countH2Headings(html: string): number {
 }
 
 export function countInternalLinks(html: string): number {
-  return (html.match(/href="\/(?:blog|guides|services|areas)[^"]*"/g) ?? []).length;
+  return (
+    html.match(
+      /href="\/(?:blog|guides|cabinets|collections|door-styles|finishes|hardware|accessories|construction|compare|design-studio|contact)[^"]*"/g,
+    ) ?? []
+  ).length;
 }
 
 export function countCitiesMentioned(html: string, cities: readonly string[]): number {

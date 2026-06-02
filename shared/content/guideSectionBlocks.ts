@@ -8,26 +8,36 @@ export function pillarEssentialsSection(topic: string): ContentSection {
     h2: 'Planning essentials',
     paragraphs: [
       `Budget, permits, and selections drive ${t} timelines in ${CITIES_LIST}—not a single sticker price.`,
-      `Use the <a href="${PILLAR_COST}">Boise Cabinet Cost Guide</a> for ranges, the <a href="/guides/treasure-valley-remodeling-guide">Treasure Valley guide</a> for Ada vs Canyon context, and the <a href="/guides/boise-remodeling-process-guide">process guide</a> for milestones.`,
+      `Use the <a href="${PILLAR_COST}">Boise Cabinet Cost Guide</a> for ranges, the <a href="/guides/treasure-valley-cabinet-guide">Treasure Valley guide</a> for local context, and the <a href="/guides/cabinet-project-process-guide">cabinet process guide</a> for milestones.`,
     ],
     list: [
-      'Hold 10–15% contingency in older homes',
-      'Lock layout and MEP before finish orders',
-      'Match contractor bids with identical scope and permits',
+      'Hold 10–15% contingency for field adjustments',
+      'Lock layout before cabinet fabrication',
+      'Match quotes with identical line, finish, and install scope',
     ],
   };
 }
 
 export function hubTopicSections(hubSlug: string, topic: string): ContentSection[] {
   const t = topic.toLowerCase();
-  switch (hubSlug) {
+  const legacyHub: Record<string, string> = {
+    'kitchen-cabinets': 'kitchen-remodeling',
+    'bathroom-vanities': 'bathroom-remodeling',
+    'built-ins-storage': 'home-additions',
+    'whole-home-cabinetry': 'whole-home-remodeling',
+    'choosing-cabinet-company': 'contractor-selection',
+    'cabinet-project-process': 'remodeling-process',
+    'cabinet-roi': 'remodeling-roi',
+  };
+  const resolved = legacyHub[hubSlug] ?? hubSlug;
+  switch (resolved) {
     case 'kitchen-remodeling':
       return [
         {
           h2: 'Kitchen layouts that work in Boise homes',
           paragraphs: [
             'Ranches, split-levels, and 1990s subdivisions each have different wall and panel constraints. Opening a kitchen often means beams, Ada County sheets, and revised electrical—not just cabinetry.',
-            '<a href="/blog/kitchen-layout-ideas-boise-homes">Layout ideas</a> · <a href="/blog/open-concept-kitchen-remodeling">Open concept guide</a>.',
+            '<a href="/blog/kitchen-layout-ideas-boise-homes">Layout ideas</a> · <a href="/blog/open-kitchen-cabinet-storage">Open kitchen storage</a>.',
           ],
         },
         {
@@ -49,7 +59,7 @@ export function hubTopicSections(hubSlug: string, topic: string): ContentSection
             ],
           },
           paragraphs: [
-            '<a href="/blog/kitchen-remodel-timeline-boise">Kitchen remodel timeline</a> · <a href="/blog/kitchen-remodel-cost-boise">Kitchen cost in Boise</a>.',
+            '<a href="/blog/kitchen-cabinet-timeline-boise">Kitchen cabinet timeline</a> · <a href="/blog/kitchen-cabinet-cost-boise">Kitchen cabinet cost in Boise</a>.',
           ],
         },
       ];
@@ -65,14 +75,14 @@ export function hubTopicSections(hubSlug: string, topic: string): ContentSection
           h2: 'Showers, curbless design, and inspections',
           paragraphs: [
             'Walk-in and curbless showers need slope, drain, and liner systems that pass inspection before tile.',
-            '<a href="/blog/walk-in-shower-guide">Walk-in shower guide</a> · <a href="/blog/curbless-shower-guide">Curbless shower guide</a>.',
+            '<a href="/cabinets/bathroom">Bathroom vanity catalog</a> · <a href="/blog/bathroom-vanity-layout-guide">Vanity layout guide</a>.',
           ],
         },
         {
           h2: 'Aging-in-place without institutional design',
           paragraphs: [
             'Comfort-height vanities, blocking for grab bars, and wider doorways can look residential—common on the Boise Bench and in North End updates.',
-            '<a href="/blog/aging-in-place-bathroom-design">Aging-in-place design</a>.',
+            '<a href="/blog/accessible-bathroom-vanity-guide">Accessible vanity design</a>.',
           ],
         },
       ];
@@ -88,7 +98,7 @@ export function hubTopicSections(hubSlug: string, topic: string): ContentSection
           h2: 'Second story vs rear addition',
           paragraphs: [
             'Second stories require engineering and longer Ada review. Rear mudrooms and family entries are common in Meridian lots with side or alley access.',
-            '<a href="/blog/home-addition-cost-boise">Addition cost planning</a> · <a href="/services/adu">ADU design-build</a>.',
+            '<a href="/cabinets/built-ins">Built-in catalog</a> · <a href="/blog/garage-storage-cabinet-systems">Garage storage cabinets</a>.',
           ],
         },
         {
@@ -117,7 +127,7 @@ export function hubTopicSections(hubSlug: string, topic: string): ContentSection
           h2: 'Living through construction',
           paragraphs: [
             'Temporary kitchens, dust barriers, and utility shutoffs should be planned before demo—not negotiated mid-project.',
-            '<a href="/blog/whole-home-remodel-cost-boise">Whole-home cost guide</a>.',
+            '<a href="/blog/whole-home-cabinet-cost-boise">Whole-home cabinet cost guide</a>.',
           ],
         },
         {
@@ -165,7 +175,7 @@ export function hubTopicSections(hubSlug: string, topic: string): ContentSection
           h2: 'Permits and selections order',
           paragraphs: [
             'Submit permits when layout is stable; order long-lead items after rough-in requirements are known.',
-            '<a href="/blog/boise-permit-guide">Boise permit guide</a> · <a href="/blog/ada-vs-canyon-county-permit-timelines">County timelines</a>.',
+            '<a href="/guides/cabinet-project-process-guide">Cabinet process guide</a> · <a href="/blog/cabinet-fabrication-installation">Fabrication & installation</a>.',
           ],
         },
         {
@@ -187,7 +197,7 @@ export function hubTopicSections(hubSlug: string, topic: string): ContentSection
           h2: 'Pre-sale vs long-term living',
           paragraphs: [
             'Pre-sale updates should mirror buyer expectations. Long-term owners may accept lower resale payback for layout and comfort wins.',
-            '<a href="/blog/kitchen-remodel-roi">Kitchen ROI</a> · <a href="/blog/bathroom-remodel-roi">Bathroom ROI</a>.',
+            '<a href="/blog/kitchen-cabinet-roi-boise">Kitchen cabinet ROI</a> · <a href="/blog/bathroom-vanity-roi-boise">Bathroom vanity ROI</a>.',
           ],
         },
         {

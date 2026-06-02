@@ -28,7 +28,7 @@ export function generateLocalBusinessSchema(city?: string): SchemaContext {
     name: BUSINESS_INFO.name,
     legalName: BUSINESS_INFO.legalName,
     description: `Custom cabinet company serving ${city || 'Boise'} and the Treasure Valley, Idaho. Kitchen cabinets, bathroom vanities, closet systems, and built-in storage.`,
-    image: `${baseUrl}/images/hero-remodel-interior.png`,
+    image: `${baseUrl}/images/marketing/og-default.webp`,
     '@id': baseUrl,
     url: baseUrl,
     telephone: BUSINESS_INFO.phone,
@@ -99,15 +99,10 @@ export function generateWebSiteSchema(): SchemaContext {
     name: BUSINESS_INFO.name,
     url: baseUrl,
     description:
-      'Design-build remodeling contractor serving Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, Caldwell, and the Treasure Valley, Idaho.',
+      'Custom cabinet company serving Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, Caldwell, and the Treasure Valley, Idaho.',
     publisher: {
       '@type': 'Organization',
       name: BUSINESS_INFO.name,
-    },
-    potentialAction: {
-      '@type': 'SearchAction',
-      target: `${baseUrl}/blog?q={search_term_string}`,
-      'query-input': 'required name=search_term_string',
     },
   };
 }
@@ -261,21 +256,32 @@ export function generateArticleSchema(article: {
   title: string;
   description: string;
   publishedAt: string;
+  updatedAt?: string;
   author?: string;
   image?: string;
+  imageCaption?: string;
   slug: string;
-  /** Defaults to /blog/ */
   pathPrefix?: 'blog' | 'guides';
 }): SchemaContext {
   const prefix = article.pathPrefix ?? 'blog';
+  const imageUrl = article.image?.startsWith('http')
+    ? article.image
+    : article.image
+      ? `${baseUrl}${article.image}`
+      : `${baseUrl}/images/marketing/og-default.webp`;
+
   return {
     '@context': 'https://schema.org',
     '@type': 'Article',
     headline: article.title,
     description: article.description,
-    image: article.image,
+    image: {
+      '@type': 'ImageObject',
+      url: imageUrl,
+      caption: article.imageCaption ?? article.description,
+    },
     datePublished: article.publishedAt,
-    dateModified: article.publishedAt,
+    dateModified: article.updatedAt ?? article.publishedAt,
     author: {
       '@type': 'Organization',
       name: BUSINESS_INFO.name,
@@ -359,6 +365,30 @@ export function generateSpeakableSchema(page: {
       cssSelector: ["[data-speakable='summary']"],
     },
     url: `${baseUrl}${pagePath.startsWith('/') ? pagePath : `/${pagePath}`}`,
+  };
+}
+
+/**
+ * Generate ImageGallery schema for project showcase pages
+ */
+export function generateImageGallerySchema(gallery: {
+  name: string;
+  description: string;
+  url: string;
+  images: Array<{ url: string; caption: string; name?: string }>;
+}): SchemaContext {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'ImageGallery',
+    name: gallery.name,
+    description: gallery.description,
+    url: `${baseUrl}${gallery.url}`,
+    image: gallery.images.map((img) => ({
+      '@type': 'ImageObject',
+      contentUrl: img.url.startsWith('http') ? img.url : `${baseUrl}${img.url}`,
+      caption: img.caption,
+      ...(img.name ? { name: img.name } : {}),
+    })),
   };
 }
 

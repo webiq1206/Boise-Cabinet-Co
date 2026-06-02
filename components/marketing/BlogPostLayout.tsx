@@ -41,6 +41,7 @@ interface BlogPostLayoutProps {
 export function BlogPostLayout({ post, formatDate }: BlogPostLayoutProps) {
   const heroImage = getBlogHeroImage(post.slug, post.heroImage);
   const heroAlt = getBlogImageAlt(post.slug);
+  const heroCaption = `${post.title} — custom cabinet design and installation in the Treasure Valley by Boise Cabinet Co.`;
   const blogPath = `/blog/${post.slug}`;
   const hub = getHubBySlug(post.hubSlug);
   const contentWithIds = injectHeadingIds(post.content);
@@ -53,6 +54,9 @@ export function BlogPostLayout({ post, formatDate }: BlogPostLayoutProps) {
   return (
     <div className="flex flex-col pb-20 md:pb-0">
       <BlogHeroBanner src={heroImage} alt={heroAlt} />
+      <div className="container px-4 max-w-4xl mx-auto -mt-2 mb-2">
+        <p className="text-sm text-muted-foreground text-center md:text-left">{heroCaption}</p>
+      </div>
 
       <Section spacing="sm" className="pt-8 md:pt-10 pb-0">
         <div className="container px-4 max-w-6xl mx-auto">

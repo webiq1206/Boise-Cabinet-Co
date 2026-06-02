@@ -136,22 +136,22 @@ export function buildLocationGuideSections(
 ): ContentSection[] {
   const countyGuide =
     county === 'ada'
-      ? '<a href="/blog/ada-vs-canyon-county-permit-timelines">Ada vs Canyon permit timelines</a>'
-      : '<a href="/blog/ada-vs-canyon-county-permit-timelines">Canyon County permit timelines</a>';
+      ? '<a href="/guides/cabinet-project-process-guide">Cabinet project process & permits</a>'
+      : '<a href="/guides/cabinet-project-process-guide">Canyon County cabinet permits</a>';
 
   return [
     {
       h2: `Remodeling in ${cityName}`,
       paragraphs: [
         housingNote,
-        `This ${guideType === 'neighborhood' ? 'neighborhood' : 'city'} guide links local housing context, permits, and services—start with the <a href="/guides/treasure-valley-remodeling-guide">Treasure Valley hub</a> for valley-wide planning.`,
+        `This ${guideType === 'neighborhood' ? 'neighborhood' : 'city'} guide links local housing context, permits, and cabinetry—start with the <a href="/guides/treasure-valley-cabinet-guide">Treasure Valley cabinet hub</a> for valley-wide planning.`,
       ],
     },
     ...getCitySpecificSections(slug),
     {
-      h2: 'Services and planning ranges',
+      h2: 'Cabinet rooms and planning ranges',
       paragraphs: [
-        `<a href="/services/kitchen-remodel/${citySlug}">Kitchen</a> · <a href="/services/bathroom-remodel/${citySlug}">Bathroom</a> · <a href="/services/whole-home-remodel/${citySlug}">Whole-home</a> · <a href="/services/room-addition/${citySlug}">Additions</a> · <a href="/areas/${citySlug}">${cityName} area page</a>.`,
+        `<a href="/cabinets/kitchen">Kitchen cabinets</a> · <a href="/cabinets/bathroom">Bathroom vanities</a> · <a href="/cabinets/built-ins">Built-ins</a> · <a href="/collections">Collections</a> · <a href="/guides/boise-cabinet-guide">${cityName} cabinet guide</a>.`,
         `Planning bands: <a href="${PILLAR_COST}">Boise Cabinet Cost Guide</a>.`,
       ],
     },

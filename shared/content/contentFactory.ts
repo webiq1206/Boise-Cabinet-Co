@@ -13,7 +13,7 @@ import type { BlogPostData } from '../blogContent';
 import type { GuidePageData, GuideType } from '../guideContent';
 
 const PILLAR_FOOTER =
-  `<p class="text-sm text-muted-foreground">Explore <a href="/guides/treasure-valley-remodeling-guide">local guides</a>, <a href="/guides/boise-remodeling-cost-guide">cost planning</a>, <a href="/cabinets">cabinet catalog</a>, and <a href="/areas">service areas</a>.</p>`;
+  `<p class="text-sm text-muted-foreground">Explore <a href="/guides/treasure-valley-cabinet-guide">local guides</a>, <a href="/guides/boise-cabinet-cost-guide">cost planning</a>, <a href="/cabinets">cabinet catalog</a>, and <a href="/design-studio">Design Studio</a>.</p>`;
 
 export function expandPillar(html: string, _slug: string, _hubSlug: string): string {
   return html + PILLAR_FOOTER;
@@ -27,8 +27,8 @@ export function expandLocation(html: string, _slug: string): string {
 function buildPillarSections(
   topic: string,
   pillarUrl: string,
-  serviceUrl: string,
-  cityServiceUrl: string,
+  _serviceUrl: string,
+  _cityServiceUrl: string,
   hubSlug: string,
   linkedClusterSlugs: string[] | undefined,
   extra: ContentSection[] = [],
@@ -45,9 +45,9 @@ function buildPillarSections(
     pillarEssentialsSection(topic),
     ...hubTopicSections(hubSlug, topic),
     {
-      h2: 'Local services',
+      h2: 'Explore our catalog',
       paragraphs: [
-        `<a href="${serviceUrl}">Service overview</a> · <a href="${cityServiceUrl}">Boise</a> · <a href="/areas">All service areas</a>.`,
+        '<a href="/cabinets">All cabinets</a> · <a href="/collections">Collections</a> · <a href="/door-styles">Door styles</a> · <a href="/finishes">Finishes</a>.',
       ],
     },
     ...extra,
@@ -81,8 +81,7 @@ export interface ClusterConfig {
 export function buildClusterPost(config: ClusterConfig): BlogPostData {
   const hub = getHubBySlug(config.hubSlug)!;
   const pillarUrl = guidePath(hub.pillarSlug);
-  const serviceUrl = config.serviceUrl ?? '/services/kitchen-remodel';
-  const cityUrl = config.cityServiceUrl ?? '/services/kitchen-remodel/boise';
+  const serviceUrl = config.serviceUrl ?? '/cabinets/kitchen';
   const html = buildSectionsHtml(
     buildClusterArticleSections({
       slug: config.slug,
@@ -116,16 +115,16 @@ export function buildClusterPost(config: ClusterConfig): BlogPostData {
           },
           {
             question: 'Do you serve Ada and Canyon County?',
-            answer: `Yes—we remodel across ${CITIES_LIST}.`,
+            answer: `Yes—we install custom cabinets across ${CITIES_LIST}.`,
           },
           {
-            question: 'Are permits included?',
+            question: 'What lead times should I expect?',
             answer:
-              'Permit coordination is included in design-build scope when layout or MEP changes require review.',
+              'Cabinet lead times depend on line, finish, and scope—typically several weeks after design lock.',
           },
           {
             question: 'What should I read next?',
-            answer: `Start with the <a href="${pillarUrl}">pillar guide</a> and <a href="/guides/boise-remodeling-cost-guide">cost guide</a>.`,
+            answer: `Start with the <a href="${pillarUrl}">pillar guide</a> and <a href="/guides/boise-cabinet-cost-guide">cost guide</a>.`,
           },
         ];
 
@@ -147,8 +146,8 @@ export function buildClusterPost(config: ClusterConfig): BlogPostData {
     relatedLinks: [
       { url: pillarUrl, anchor: hub.title },
       { url: serviceUrl },
-      { url: cityUrl },
-      { url: '/guides/boise-remodeling-cost-guide' },
+      { url: '/guides/boise-cabinet-cost-guide' },
+      { url: '/cabinets' },
     ],
     wordCountTarget: 'cluster',
   };
@@ -172,15 +171,14 @@ export interface PillarConfig {
 export function buildPillarGuide(config: PillarConfig): GuidePageData {
   const hub = getHubBySlug(config.hubSlug)!;
   const pillarUrl = guidePath(config.slug);
-  const servicePath = config.linkedServices?.[0]
-    ? `/services/${config.linkedServices[0]}`
-    : '/services/kitchen-remodel';
-  const cityPath = `${servicePath}/boise`;
+  const catalogPath = config.linkedServices?.[0]
+    ? `/cabinets/${config.linkedServices[0]}`
+    : '/cabinets/kitchen';
   const sections = buildPillarSections(
     config.title,
     pillarUrl,
-    servicePath,
-    cityPath,
+    catalogPath,
+    catalogPath,
     config.hubSlug,
     config.linkedClusterSlugs,
     config.extraSections,
@@ -205,10 +203,10 @@ export function buildPillarGuide(config: PillarConfig): GuidePageData {
     linkedClusterSlugs: config.linkedClusterSlugs,
     linkedServices: config.linkedServices,
     relatedLinks: [
-      { url: '/guides/treasure-valley-remodeling-guide' },
-      { url: '/guides/boise-remodeling-cost-guide' },
+      { url: '/guides/treasure-valley-cabinet-guide' },
+      { url: '/guides/boise-cabinet-cost-guide' },
       { url: `/blog/category/${config.hubSlug}` },
-      { url: '/areas' },
+      { url: '/cabinets' },
     ],
   };
 }
@@ -255,8 +253,8 @@ export function buildLocationGuide(config: LocationGuideConfig): GuidePageData {
     faqs: getLocationFaqs(config.cityName, config.citySlug, config.county),
     linkedCities: [config.citySlug],
     relatedLinks: [
-      { url: '/guides/treasure-valley-remodeling-guide' },
-      { url: `/areas/${config.citySlug}` },
+      { url: '/guides/treasure-valley-cabinet-guide' },
+      { url: '/cabinets' },
     ],
   };
 }

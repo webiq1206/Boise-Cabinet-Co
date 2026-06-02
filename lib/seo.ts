@@ -60,7 +60,7 @@ function truncateServiceName(serviceName: string, maxLength: number): string {
 
 /**
  * Generate SEO-optimized page title
- * Format: "[Service] in [City], ID | Boise Remodeling Co | Free Quotes"
+ * Format: "[Service] in [City], ID | Boise Cabinet Co | Free Quotes"
  * Max 60 characters for optimal Google display
  * GUARANTEED ≤60 chars through intelligent truncation
  */
@@ -176,7 +176,7 @@ export function generateMetaDescription(params: ServiceSEOParams): string {
 
 /**
  * Generate varied city-service title (used for page metadata title field)
- * Does NOT include brand name since layout template appends "| Boise Remodeling Co"
+ * Does NOT include brand name since layout template appends "| Boise Cabinet Co"
  * Target: under 40 chars so final rendered title stays under 60 chars
  */
 export function generateCityServiceTitle(serviceName: string, cityName: string): string {
@@ -220,7 +220,7 @@ export function generateCityServiceDescription(
 
 /**
  * Generate a page title for any service or area page
- * Ensures final rendered title (with layout template " | Boise Remodeling Co")
+ * Ensures final rendered title (with layout template " | Boise Cabinet Co")
  * stays under 60 characters
  */
 export function generateSafePageTitle(primary: string, suffix?: string): string {
@@ -311,7 +311,7 @@ export function generateSEOMetadata(params: ServiceSEOParams): SEOMetaData {
     canonical,
     ogTitle: title,
     ogDescription: description,
-    ogImage: `${baseUrl}/images/brc-logo.png`,
+    ogImage: `${baseUrl}/images/marketing/og-default.webp`,
     twitterCard: 'summary_large_image',
   };
 }

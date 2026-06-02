@@ -8,6 +8,9 @@ import { SectionHeader } from "@/components/marketing/SectionHeader";
 import { MarketingCard } from "@/components/marketing/MarketingCard";
 import { Chip } from "@/components/marketing/Chip";
 import { CatalogSearch } from "@/components/catalog/CatalogSearch";
+import { CatalogPageHero } from "@/components/catalog/CatalogPageHero";
+import { CatalogProductImage } from "@/components/catalog/CatalogProductImage";
+import { MARKETING_IMAGES } from "@/shared/siteImages";
 import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/Reveal";
 import { catalogMetadata, catalogDescription } from "@/lib/catalog-metadata";
@@ -56,6 +59,10 @@ export default function AccessoriesPage() {
                 "Organize every inch with pull-outs, lazy susans, waste solutions, and integrated lighting — specified during your {company} design consultation.",
               )}
             />
+            <CatalogPageHero
+              src={MARKETING_IMAGES.statementBand}
+              alt="Cabinet interior accessories and pull-out organizers — Boise Cabinet Co"
+            />
             <CatalogSearch className="mb-8" />
             <Button variant="brand" asChild>
               <Link href="/design-studio">
@@ -76,7 +83,14 @@ export default function AccessoriesPage() {
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
               {ACCESSORIES.map((item, i) => (
                 <Reveal key={item.id} delay={i * 30}>
-                  <MarketingCard id={item.slug} className="h-full flex flex-col scroll-mt-24">
+                  <MarketingCard id={item.slug} className="h-full flex flex-col scroll-mt-24 p-0 overflow-hidden">
+                    <CatalogProductImage
+                      slug={item.slug}
+                      name={item.name}
+                      type="accessory"
+                      className="rounded-none"
+                    />
+                    <div className="p-6 flex flex-col flex-1">
                     <Chip className="mb-3 capitalize w-fit">{item.category}</Chip>
                     <h2 className="text-lg font-sans font-light tracking-tight mb-2">
                       {item.name}
@@ -89,6 +103,7 @@ export default function AccessoriesPage() {
                         Min. cabinet width: {item.minCabinetWidth}&quot;
                       </p>
                     )}
+                    </div>
                   </MarketingCard>
                 </Reveal>
               ))}

@@ -1,5 +1,5 @@
 ---
-description: Master content brief for Boise Remodeling Co topical authority articles and guides
+description: Master content brief for Boise Cabinet Co topical authority articles and guides
 globs:
   - shared/**/*.ts
   - shared/content/**/*
@@ -19,7 +19,7 @@ When creating or expanding blog posts (`shared/blogContent.ts`, `shared/content/
 
 - **Pillar guides:** 250–2,000 substantive words, **7–10 H2** sections (hub-specific, not repeated templates), 8+ FAQs visible on page, Quick Answer + Key Takeaways. Depth lives in `/blog` cluster posts.
 - **Master guides (Treasure Valley overview):** 150–800 words, **≥ 5 H2**, index to city and topic pillars.
-- **Location/neighborhood guides:** 100–700 words, **≥ 5 H2**, unique local copy per slug; link to cost guide and services.
+- **Location/neighborhood guides:** 100–700 words, **≥ 5 H2**, unique local copy per slug; link to cost guide and catalog rooms.
 - **Blog cluster posts:** 75–3,500 substantive words, **≥ 5 H2**; no `summary-block` filler.
 - **Planning resources:** PDFs in `public/downloads/` (regenerate via `npm run resources:generate`); link from guides via `shared/guideResources.ts` and `GuideResourceDownloads`.
 - Required sections: intro, quick answer, takeaways, scannable H2 sections, cost/timeline tables where relevant, Boise-specific block, visible FAQ, soft CTA.
@@ -29,13 +29,13 @@ When creating or expanding blog posts (`shared/blogContent.ts`, `shared/content/
 
 - `class="quick-answer"` / `key-takeaways` via layout props; in-body use `cost-table`, `timeline-table`, and `<ul>` lists for scanability.
 - Put `id` on `h2` (injected automatically in layout).
-- 8+ internal links (pillars): link to `/guides/{pillar}`, `/services/*`, `/areas/*`, sibling clusters.
+- 8+ internal links (pillars): link to `/guides/{pillar}`, `/cabinets/*`, `/collections`, `/compare`, sibling clusters.
 
 ## Local SEO
 
 - Name all eight cities where appropriate: Boise, Meridian, Eagle, Kuna, Star, Middleton, Nampa, Caldwell.
 - Reference Ada vs Canyon permits, local housing stock, dry climate / freeze-thaw for exterior topics.
-- Position Boise Remodeling Co as trusted local authority; educate before selling.
+- Position Boise Cabinet Co as trusted local authority; educate before selling.
 
 ## AI search
 
@@ -46,8 +46,8 @@ When creating or expanding blog posts (`shared/blogContent.ts`, `shared/content/
 
 Run `npx tsx scripts/verify-content.ts` before merge. Regenerate links: `npm run links:generate`.
 
-## Hubs (10)
+## Hubs (8 + local-guides)
 
-1. remodeling-costs 2. kitchen-remodeling 3. bathroom-remodeling 4. home-additions 5. whole-home-remodeling 6. contractor-selection 7. remodeling-process 8. remodeling-roi 9. outdoor-living 10. treasure-valley-locations
+1. cabinet-costs 2. kitchen-cabinets 3. bathroom-vanities 4. built-ins-storage 5. whole-home-cabinetry 6. choosing-cabinet-company 7. cabinet-project-process 8. cabinet-roi 9. local-guides (master + location; no category pillar)
 
-Outdoor, luxury, and aging-in-place: blog/guides only (no dedicated service pages).
+Outdoor, luxury, and aging-in-place: blog/guides only (link to `/cabinets/outdoor` or relevant catalog room).

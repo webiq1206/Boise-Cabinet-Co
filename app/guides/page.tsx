@@ -1,9 +1,10 @@
-import { Metadata } from 'next';
+import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowRight, BookOpen, MapPin } from 'lucide-react';
 import { buildPageMetadata } from '@/lib/page-metadata';
 import { Section } from '@/components/marketing/Section';
 import { MarketingCard } from '@/components/marketing/MarketingCard';
+import { getBlogThumbnail, getBlogImageAlt } from '@/shared/blogImages';
 import { CONTENT_HUBS, guidePath } from '@/shared/contentHubs';
 import { GUIDE_PAGES, type GuidePageData } from '@/shared/guideContent';
 import { generateBreadcrumbSchema, generateWebPageSchema } from '@/lib/schema';
@@ -97,7 +98,17 @@ export default function GuidesIndexPage() {
           </h2>
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {pillarGuides.map((guide) => (
-              <MarketingCard key={guide.slug} className="p-6 flex flex-col h-full">
+              <MarketingCard key={guide.slug} className="p-0 overflow-hidden flex flex-col h-full">
+                <Link href={guidePath(guide.slug)} className="block relative aspect-[16/9] overflow-hidden">
+                  <Image
+                    src={getBlogThumbnail(guide.slug, guide.heroImage)}
+                    alt={getBlogImageAlt(guide.slug)}
+                    fill
+                    sizes="400px"
+                    className="object-cover img-brand-grade"
+                  />
+                </Link>
+                <div className="p-6 flex flex-col flex-1">
                 <BookOpen className="h-5 w-5 text-accent mb-3" />
                 <h3 className="font-medium text-lg mb-2">{guide.title}</h3>
                 <p className="text-sm text-muted-foreground flex-1 mb-3">{guide.excerpt}</p>
@@ -109,6 +120,7 @@ export default function GuidesIndexPage() {
                   Read guide
                   <ArrowRight className="ml-1 h-4 w-4" />
                 </Link>
+                </div>
               </MarketingCard>
             ))}
           </div>

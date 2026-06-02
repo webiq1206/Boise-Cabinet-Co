@@ -2,7 +2,6 @@ import Link from "next/link";
 import { FOOTER_CABINET_LINKS, FOOTER_COLLECTION_LINKS } from "@/shared/cabinetNav";
 import { CITIES } from "@/shared/contentData";
 import { SITE_TAGLINE } from "@/shared/siteContent";
-import { areaPath, servicePath } from "@/lib/seo-routes";
 import { SITE_CONFIG } from "@/shared/siteConfig";
 import { FooterCTAs } from "@/components/modals/FooterCTAs";
 import { CONTENT_HUBS, categoryHubPath, guidePath } from "@/shared/contentHubs";
@@ -157,19 +156,35 @@ export function Footer() {
 
           <div>
             <h3 className="font-sans font-medium text-[11px] tracking-[0.12em] uppercase mb-5 text-inverse-muted">
-              <Link href="/areas" className="hover:text-inverse-foreground transition-colors">
-                Service Areas
+              <Link
+                href="/guides/treasure-valley-remodeling-guide"
+                className="hover:text-inverse-foreground transition-colors"
+              >
+                Treasure Valley
               </Link>
             </h3>
             <ul className="space-y-2.5 max-h-48 overflow-y-auto pr-2">
+              <li>
+                <Link
+                  href="/guides/treasure-valley-remodeling-guide"
+                  className="text-sm text-inverse-muted hover:text-inverse-foreground transition-colors"
+                >
+                  Remodeling guide
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/cabinets"
+                  className="text-sm text-inverse-muted hover:text-inverse-foreground transition-colors"
+                >
+                  Cabinet catalog
+                </Link>
+              </li>
               {CITIES.map((city) => (
                 <li key={city.slug}>
-                  <Link
-                    href={areaPath(city.slug)}
-                    className="text-sm text-inverse-muted hover:text-inverse-foreground transition-colors"
-                  >
+                  <span className="text-sm text-inverse-muted">
                     {city.name}, Idaho
-                  </Link>
+                  </span>
                 </li>
               ))}
             </ul>

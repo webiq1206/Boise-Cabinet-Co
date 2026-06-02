@@ -7,6 +7,8 @@ import { DesignStudioProvider } from "@/components/design-studio/DesignStudioPro
 import { DesignWizard } from "@/components/design-studio/DesignWizard";
 import { ShareView } from "@/components/design-studio/ShareView";
 import { Button } from "@/components/ui/button";
+import Image from "next/image";
+import { MARKETING_IMAGES } from "@/shared/siteImages";
 import { SITE_CONFIG } from "@/shared/siteConfig";
 import { ArrowLeft, Loader2 } from "lucide-react";
 
@@ -37,6 +39,17 @@ function DesignStudioContent() {
 
       <main className="flex-1 container px-4 py-8 md:py-12 max-w-6xl mx-auto w-full">
         <div className="mb-8">
+          <div className="relative aspect-[21/9] max-h-[280px] overflow-hidden rounded-sm mb-6">
+            <Image
+              src={MARKETING_IMAGES.designStudio}
+              alt="Boise Cabinet Co Design Studio 3D cabinet preview and finish selection"
+              title="Design Studio | Boise Cabinet Co"
+              fill
+              sizes="100vw"
+              className="object-cover img-brand-grade"
+              priority
+            />
+          </div>
           <p className="brc-label mb-2">Design Studio</p>
           <h1 className="text-3xl md:text-4xl font-sans font-light tracking-tight">
             Build your dream <em className="brc-accent text-accent">cabinets</em>

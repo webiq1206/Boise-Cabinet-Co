@@ -3,9 +3,9 @@
 export const CITIES_LIST =
   'Boise, Meridian, Eagle, Kuna, Star, Middleton, Nampa, and Caldwell';
 
-export const PILLAR_COST = '/guides/boise-remodeling-cost-guide';
-export const PILLAR_TV = '/guides/treasure-valley-remodeling-guide';
-export const PILLAR_BOISE = '/guides/boise-remodeling-guide';
+export const PILLAR_COST = '/guides/boise-cabinet-cost-guide';
+export const PILLAR_TV = '/guides/treasure-valley-cabinet-guide';
+export const PILLAR_BOISE = '/guides/boise-cabinet-guide';
 
 export function svc(path: string, label?: string): string {
   return `<a href="${path}">${label ?? path.split('/').pop()?.replace(/-/g, ' ') ?? path}</a>`;

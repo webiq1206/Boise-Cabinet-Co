@@ -1,6 +1,5 @@
 import { MetadataRoute } from 'next';
 import { BLOG_POSTS } from '@/shared/blogContent';
-import { CITIES, SERVICES } from '@/shared/contentData';
 import { GUIDE_PAGES } from '@/shared/guideContent';
 import { ROOM_CATEGORIES } from '@/shared/catalog/roomCategories';
 import { COLLECTIONS } from '@/shared/catalog/collections';
@@ -20,7 +19,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticPages: MetadataRoute.Sitemap = [
     { url: baseUrl, lastModified: now, changeFrequency: 'weekly', priority: 1 },
     { url: `${baseUrl}/about`, lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
-    { url: `${baseUrl}/areas`, lastModified: now, changeFrequency: 'monthly', priority: 0.75 },
     { url: `${baseUrl}/contact`, lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
     { url: `${baseUrl}/testimonials`, lastModified: now, changeFrequency: 'monthly', priority: 0.65 },
     { url: `${baseUrl}/blog`, lastModified: now, changeFrequency: 'weekly', priority: 0.6 },
@@ -73,29 +71,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.85,
   }));
 
-  const servicePages: MetadataRoute.Sitemap = SERVICES.map((s) => ({
-    url: `${baseUrl}/services/${s.slug}`,
-    lastModified: now,
-    changeFrequency: 'monthly' as const,
-    priority: 0.5,
-  }));
-
-  const areaPages: MetadataRoute.Sitemap = CITIES.map((c) => ({
-    url: `${baseUrl}/areas/${c.slug}`,
-    lastModified: now,
-    changeFrequency: 'monthly' as const,
-    priority: 0.8,
-  }));
-
-  const cityServicePages: MetadataRoute.Sitemap = SERVICES.flatMap((s) =>
-    CITIES.map((c) => ({
-      url: `${baseUrl}/services/${s.slug}/${c.slug}`,
-      lastModified: now,
-      changeFrequency: 'monthly' as const,
-      priority: 0.4,
-    })),
-  );
-
   const blogPages: MetadataRoute.Sitemap = BLOG_POSTS.map((post) => ({
     url: `${baseUrl}/blog/${post.slug}`,
     lastModified: new Date(post.publishedAt),
@@ -129,9 +104,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...collectionPages,
     ...finishCategoryPages,
     ...doorStylePages,
-    ...servicePages,
-    ...areaPages,
-    ...cityServicePages,
     ...guidePages,
     ...blogPages,
     ...categoryHubPages,

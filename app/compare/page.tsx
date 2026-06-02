@@ -6,6 +6,8 @@ import { Section } from "@/components/marketing/Section";
 import { PageHeader } from "@/components/marketing/PageHeader";
 import { SectionHeader } from "@/components/marketing/SectionHeader";
 import { Button } from "@/components/ui/button";
+import { CatalogPageHero } from "@/components/catalog/CatalogPageHero";
+import { MARKETING_IMAGES } from "@/shared/siteImages";
 import { catalogMetadata, catalogDescription } from "@/lib/catalog-metadata";
 import { generateBreadcrumbSchema, generateWebPageSchema } from "@/lib/schema";
 import {
@@ -84,6 +86,11 @@ export default function ComparePage() {
                 </>
               }
               description={matrix.description}
+            />
+            <CatalogPageHero
+              src="/images/catalog/collections/semi-custom.webp"
+              alt="Compare Full Custom, Semi-Custom, Reserve, and Spec Grade cabinet collections"
+              title="Compare Cabinet Collections | Boise Cabinet Co"
             />
             <Button variant="brand" asChild className="mt-4">
               <Link href="/design-studio">

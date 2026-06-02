@@ -17,6 +17,11 @@ export interface Finish {
   tier: FinishTier;
   compatibleDoorStyleIds: string[];
   description?: string;
+  /** One Source / Tafisa panel product name when verified */
+  supplierColorName?: string;
+  supplierPanelBrand?: "Tafisa" | "Salt International";
+  /** Optimized swatch texture path */
+  imagePath?: string;
 }
 
 export const FINISHES: Finish[] = [

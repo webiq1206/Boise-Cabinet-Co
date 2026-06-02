@@ -14,12 +14,12 @@ export interface ClusterArticleConfig {
 /** Topic-specific depth for cluster blog posts (not full pillar duplication). */
 
 const SLUG_SECTIONS: Record<string, ContentSection[]> = {
-  'kitchen-remodel-cost-boise': [
+  'kitchen-cabinet-cost-boise': [
     {
       h2: 'What drives kitchen cost in Boise?',
       paragraphs: [
         'Cabinet line, layout moves, and structural beams are the top variables. Appliance packages are usually separate from construction contracts.',
-        'See the <a href="/guides/boise-remodeling-cost-guide">full cost guide</a> for cross-room comparisons.',
+        'See the <a href="/guides/boise-cabinet-cost-guide">full cost guide</a> for cross-room comparisons.',
       ],
     },
     {
@@ -29,7 +29,27 @@ const SLUG_SECTIONS: Record<string, ContentSection[]> = {
       ],
     },
   ],
-  'open-concept-kitchen-remodeling': [
+  'open-kitchen-cabinet-storage': [
+    {
+      h2: 'Replacing wall cabinets with working storage',
+      paragraphs: [
+        'When a load-bearing wall comes out, you lose upper and base runs on that line. Plan compensating storage on remaining walls, in the island, and in a pantry before demolition.',
+        'Review <a href="/cabinets/kitchen">kitchen cabinet options</a> early so door style, depth, and interior accessories are locked at design sign-off.',
+      ],
+    },
+    {
+      h2: 'Island cabinets as the new anchor',
+      paragraphs: [
+        'In open layouts the island often becomes the main prep zone and visual divider. Size base cabinets for drawers, trash pullouts, and appliance garages—not just seating overhang.',
+        'See our <a href="/blog/kitchen-island-design-guide">kitchen island design guide</a> for clearances on Boise ranches and newer Meridian floor plans.',
+      ],
+    },
+    {
+      h2: 'Upper cabinets and sight lines',
+      paragraphs: [
+        'Shorter uppers, glass doors, or open shelving keep the living room in view while preserving dish and pantry storage. Align finished heights with windows and beam lines after structural engineering.',
+      ],
+    },
     {
       h2: 'Structural checks before demo',
       paragraphs: [
@@ -83,8 +103,6 @@ function defaultTopicSections(title: string, hubSlug: string): ContentSection[] 
 export function buildClusterArticleSections(config: ClusterArticleConfig): ContentSection[] {
   const hub = getHubBySlug(config.hubSlug)!;
   const pillarUrl = guidePath(hub.pillarSlug);
-  const serviceUrl = config.serviceUrl ?? '/services/kitchen-remodel';
-  const cityUrl = config.cityServiceUrl ?? '/services/kitchen-remodel/boise';
   const topicSections = SLUG_SECTIONS[config.slug] ?? defaultTopicSections(config.title, config.hubSlug);
 
   return [
@@ -97,13 +115,13 @@ export function buildClusterArticleSections(config: ClusterArticleConfig): Conte
     {
       h2: 'Full guide and cost planning',
       paragraphs: [
-        `<a href="${pillarUrl}">${hub.title}</a> · <a href="${PILLAR_COST}">Remodeling cost guide</a> · <a href="/blog/category/${config.hubSlug}">More articles</a>.`,
+        `<a href="${pillarUrl}">${hub.title}</a> · <a href="${PILLAR_COST}">Cabinet cost guide</a> · <a href="/blog/category/${config.hubSlug}">More articles</a>.`,
       ],
     },
     {
-      h2: 'Local services',
+      h2: 'Explore the catalog',
       paragraphs: [
-        `<a href="${serviceUrl}">Service overview</a> · <a href="${cityUrl}">Boise area</a> · <a href="/areas">All cities</a>.`,
+        '<a href="/cabinets">Cabinet rooms</a> · <a href="/collections">Collections</a> · <a href="/guides/treasure-valley-cabinet-guide">Treasure Valley cabinet guide</a>.',
       ],
     },
     {

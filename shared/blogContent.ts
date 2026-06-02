@@ -14,6 +14,7 @@ export interface BlogPostData {
   hubSlug: string;
   tags: string[];
   publishedAt: string;
+  updatedAt?: string;
   heroImage?: string;
   thumbnail?: string;
   faqs: Array<{ question: string; answer: string }>;
