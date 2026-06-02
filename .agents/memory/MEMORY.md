@@ -1,3 +1,1 @@
-- [Neon driver on Replit Postgres](neon-driver-on-replit-postgres.md) — use neon-serverless WebSocket Pool in lib/db, NOT neon-http (HTTP endpoint throws null-`map`); REPLIT_DB_URL fallback is not Postgres.
-- [three.js AR export](three-ar-export.md) — GLB/USDZ export must run client-side (FileReader); USDZExporter use parseAsync; Scene Viewer needs absolute HTTPS .glb URL; WebGL/AR not testable headless.
-- [Standalone deploy / instrumentation](deploy-standalone-instrumentation.md) — Next.js standalone autoscale deploy fails at promote (no logs) if instrumentation register() blocks boot; keep startup DB work fire-and-forget inside the nodejs guard.
+- [Autoscale deploy promote-step failure](deploy-promote-step-failure.md) — build+push succeed but build marked "failed" with no logs; diagnose by comparing build-log tails for the `Creating Autoscale service` marker.
