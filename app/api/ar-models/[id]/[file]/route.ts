@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { eq } from "drizzle-orm";
 import { db } from "@/lib/db";
 import { arModels } from "@/shared/schema";
+import { purgeExpiredArModels } from "@/lib/db/arModels";
 
 export const runtime = "nodejs";
 
@@ -28,6 +29,9 @@ export async function GET(
   }
 
   try {
+    // Best-effort cleanup of any expired previews on each fetch.
+    void purgeExpiredArModels();
+
     const rows = await db
       .select()
       .from(arModels)
@@ -35,6 +39,11 @@ export async function GET(
       .limit(1);
     const row = rows?.[0];
     if (!row) {
+      return NextResponse.json({ error: "Not found" }, { status: 404 });
+    }
+
+    // Treat expired previews as gone even if the purge hasn't removed them yet.
+    if (row.expiresAt && row.expiresAt.getTime() <= Date.now()) {
       return NextResponse.json({ error: "Not found" }, { status: 404 });
     }
 

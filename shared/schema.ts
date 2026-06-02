@@ -687,11 +687,16 @@ export const arModels = pgTable("ar_models", {
   usdz: text("usdz"), // base64-encoded USDZ (iOS Quick Look)
   name: text("name"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
+  // Short-lived previews: rows past this time are treated as gone and purged.
+  expiresAt: timestamp("expires_at")
+    .notNull()
+    .default(sql`now() + interval '1 hour'`),
 });
 
 export const insertArModelSchema = createInsertSchema(arModels).omit({
   id: true,
   createdAt: true,
+  expiresAt: true,
 });
 
 export type InsertArModel = z.infer<typeof insertArModelSchema>;

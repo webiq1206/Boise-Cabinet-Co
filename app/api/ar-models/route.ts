@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { db } from "@/lib/db";
 import { arModels } from "@/shared/schema";
+import { purgeExpiredArModels } from "@/lib/db/arModels";
 
 export const runtime = "nodejs";
 
@@ -25,6 +26,9 @@ export async function POST(request: NextRequest) {
         { status: 503 },
       );
     }
+
+    // Opportunistically clean up old previews so the table doesn't grow forever.
+    await purgeExpiredArModels();
 
     const [row] = await db
       .insert(arModels)
