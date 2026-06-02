@@ -22,6 +22,8 @@ export interface BuildCabinetOptions {
   resolveModule: (module: CabinetModule) => ResolvedModuleStyle;
   hardware: HardwareSpec;
   accessories: string[];
+  /** Semi-transparent 12 in floor square for AR scale sanity-check. */
+  includeScaleReference?: boolean;
 }
 
 function shadeColor(hex: string, amt: number): string {
@@ -370,8 +372,26 @@ function addModule(
  * Build a THREE.Group containing only the cabinets, centred on the X/Z origin
  * with the lowest point at y=0 (ready for floor placement in AR).
  */
+/** 12 in (0.3048 m) floor marker — helps verify AR scale on device. */
+function addScaleReference(root: THREE.Group, layoutBox: THREE.Box3): void {
+  const size = 0.3048;
+  const geo = new THREE.BoxGeometry(size, 0.004, size);
+  const mat = new THREE.MeshBasicMaterial({
+    color: 0x6b7280,
+    transparent: true,
+    opacity: 0.4,
+  });
+  const mesh = new THREE.Mesh(geo, mat);
+  mesh.name = "ScaleReference12in";
+  const offsetX = layoutBox.max.x + size * 0.75;
+  const offsetZ = layoutBox.min.z;
+  mesh.position.set(offsetX, 0.002, offsetZ);
+  root.add(mesh);
+}
+
 export function buildCabinetGroup(opts: BuildCabinetOptions): THREE.Group {
-  const { config, resolveModule, hardware, accessories } = opts;
+  const { config, resolveModule, hardware, accessories, includeScaleReference } =
+    opts;
   const root = new THREE.Group();
   root.name = "CabinetDesign";
 
@@ -386,6 +406,12 @@ export function buildCabinetGroup(opts: BuildCabinetOptions): THREE.Group {
   root.position.x -= center.x;
   root.position.z -= center.z;
   root.position.y -= box.min.y;
+
+  if (includeScaleReference) {
+    const placed = new THREE.Box3().setFromObject(root);
+    addScaleReference(root, placed);
+  }
+
   return root;
 }
 

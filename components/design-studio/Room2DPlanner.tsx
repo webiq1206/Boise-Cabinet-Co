@@ -17,13 +17,18 @@ import { cn } from "@/lib/utils";
 import { useDesignStudio } from "./DesignStudioProvider";
 import {
   cabinetCode,
-  computeRoomBounds,
   moduleFootprint,
   type ApplianceType,
   type CabinetModule,
   type ModuleFront,
 } from "@/lib/design/previewConfig";
 import { optimizeLayout } from "@/lib/design/planAdvisor";
+import { resolveRoomBounds } from "@/lib/design/resolveRoomBounds";
+import {
+  hasUserRoomDimensions,
+  inchesToM,
+  metersToInches,
+} from "@/lib/design/roomMeta";
 
 const SCALE = 120; // px per meter
 const SNAP = 0.07; // meters
@@ -63,7 +68,16 @@ export function Room2DPlanner({ className }: { className?: string }) {
   } = useDesignStudio();
 
   const modules = design.modules;
-  const bounds = design.roomBounds ?? computeRoomBounds(modules);
+  const bounds = resolveRoomBounds(
+    modules,
+    design.roomBounds,
+    design.roomMeta,
+  );
+  const roomMeta = design.roomMeta;
+  const widthIn =
+    roomMeta?.widthIn ?? Math.round((bounds.maxX - bounds.minX) / 0.0254);
+  const depthIn =
+    roomMeta?.depthIn ?? Math.round((bounds.maxZ - bounds.minZ) / 0.0254);
   const selectedId = design.selectedModuleId;
   const selected = modules.find((m) => m.id === selectedId) ?? null;
 
@@ -324,13 +338,22 @@ export function Room2DPlanner({ className }: { className?: string }) {
           data-testid="svg-room-planner"
         >
           {/* floor */}
-          <rect
-            x={0}
-            y={0}
-            width={W}
-            height={H}
-            fill="hsl(var(--background))"
-          />
+          {roomMeta?.floorPolygon && roomMeta.floorPolygon.length >= 3 ? (
+            <polygon
+              points={roomMeta.floorPolygon
+                .map((p) => `${toPxX(p.x)},${toPxZ(p.z)}`)
+                .join(" ")}
+              fill="hsl(var(--background))"
+            />
+          ) : (
+            <rect
+              x={0}
+              y={0}
+              width={W}
+              height={H}
+              fill="hsl(var(--background))"
+            />
+          )}
           {/* grid */}
           {gridLines.map((gx) => (
             <line
@@ -357,6 +380,17 @@ export function Room2DPlanner({ className }: { className?: string }) {
             />
           ))}
           {/* walls outline */}
+          {roomMeta?.floorPolygon && roomMeta.floorPolygon.length >= 3 ? (
+            <polygon
+              points={roomMeta.floorPolygon
+                .map((p) => `${toPxX(p.x)},${toPxZ(p.z)}`)
+                .join(" ")}
+              fill="none"
+              stroke="hsl(var(--foreground))"
+              strokeOpacity={0.45}
+              strokeWidth={3}
+            />
+          ) : null}
           <rect
             x={1.5}
             y={1.5}
@@ -367,6 +401,71 @@ export function Room2DPlanner({ className }: { className?: string }) {
             strokeOpacity={0.45}
             strokeWidth={3}
           />
+          <text
+            x={W / 2}
+            y={H + 14}
+            textAnchor="middle"
+            fontSize={10}
+            fill="hsl(var(--muted-foreground))"
+            data-testid="label-wall-width"
+          >
+            {widthIn}&quot;{hasUserRoomDimensions(roomMeta) ? " (measured)" : ""}
+          </text>
+          <text
+            x={-8}
+            y={H / 2}
+            textAnchor="middle"
+            fontSize={10}
+            fill="hsl(var(--muted-foreground))"
+            transform={`rotate(-90 -8 ${H / 2})`}
+            data-testid="label-wall-depth"
+          >
+            {depthIn}&quot;
+          </text>
+
+          {roomMeta?.obstacles.map((o) => {
+            const off = inchesToM(o.offsetIn);
+            const len = inchesToM(o.widthIn);
+            let x = 0;
+            let y = 0;
+            let ow = 0;
+            let oh = 0;
+            if (o.wall === "back") {
+              x = toPxX(bounds.minX + off);
+              y = toPxZ(bounds.minZ);
+              ow = len * SCALE;
+              oh = 5;
+            } else if (o.wall === "front") {
+              x = toPxX(bounds.minX + off);
+              y = toPxZ(bounds.maxZ) - 5;
+              ow = len * SCALE;
+              oh = 5;
+            } else if (o.wall === "left") {
+              x = toPxX(bounds.minX);
+              y = toPxZ(bounds.minZ + off);
+              ow = 5;
+              oh = len * SCALE;
+            } else {
+              x = toPxX(bounds.maxX) - 5;
+              y = toPxZ(bounds.minZ + off);
+              ow = 5;
+              oh = len * SCALE;
+            }
+            return (
+              <rect
+                key={o.id}
+                x={x}
+                y={y}
+                width={ow}
+                height={oh}
+                fill="hsl(var(--destructive))"
+                fillOpacity={0.35}
+                stroke="hsl(var(--destructive))"
+                strokeWidth={1}
+                data-testid={`planner-obstacle-${o.id}`}
+              />
+            );
+          })}
 
           {/* modules */}
           {ordered.map((m) => {
@@ -537,7 +636,7 @@ export function Room2DPlanner({ className }: { className?: string }) {
             className="text-sm text-muted-foreground"
             data-testid="text-selected-size"
           >
-            {moduleFootprintInches(selected)}
+            {moduleDimensionsLabel(selected)}
           </span>
 
           <div className="flex items-center gap-1">
@@ -651,6 +750,11 @@ export function Room2DPlanner({ className }: { className?: string }) {
       )}
     </div>
   );
+}
+
+function moduleDimensionsLabel(m: CabinetModule) {
+  const f = moduleFootprint(m);
+  return `${metersToInches(m.width)}" W × ${metersToInches(f.d)}" D × ${metersToInches(m.height)}" H`;
 }
 
 function moduleFootprintInches(m: CabinetModule) {

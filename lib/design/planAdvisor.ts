@@ -3,6 +3,14 @@ import {
   type CabinetModule,
   type RoomBounds,
 } from "./previewConfig";
+import {
+  hasUserRoomDimensions,
+  inchesToM,
+  obstacleSpansOnWall,
+  wallLengthIn,
+  type RoomMeta,
+  type RoomWallId,
+} from "./roomMeta";
 
 export type IssueSeverity = "error" | "warning";
 
@@ -176,9 +184,114 @@ export function optimizeLayout(
 
 /* ── detection ──────────────────────────────────────────────────────────── */
 
+function nearestWall(
+  m: CabinetModule,
+  bounds: RoomBounds,
+): RoomWallId | null {
+  const f = moduleFootprint(m);
+  const dBack = f.z0 - bounds.minZ;
+  const dFront = bounds.maxZ - f.z1;
+  const dLeft = f.x0 - bounds.minX;
+  const dRight = bounds.maxX - f.x1;
+  const min = Math.min(dBack, dFront, dLeft, dRight);
+  if (min > 0.25) return null;
+  if (min === dBack) return "back";
+  if (min === dFront) return "front";
+  if (min === dLeft) return "left";
+  return "right";
+}
+
+function moduleSpanOnWall(
+  m: CabinetModule,
+  wall: RoomWallId,
+): { start: number; end: number } | null {
+  const f = moduleFootprint(m);
+  if (wall === "back" || wall === "front") {
+    return { start: f.x0, end: f.x1 };
+  }
+  return { start: f.z0, end: f.z1 };
+}
+
+function spansOverlap(
+  a: { start: number; end: number },
+  b: { start: number; end: number },
+): boolean {
+  return a.end > b.start + TOL && b.end > a.start + TOL;
+}
+
+function detectRoomMetaIssues(
+  modules: CabinetModule[],
+  bounds: RoomBounds,
+  roomMeta: RoomMeta,
+): PlanIssue[] {
+  const issues: PlanIssue[] = [];
+  if (!hasUserRoomDimensions(roomMeta)) return issues;
+
+  const walls: RoomWallId[] = ["back", "front", "left", "right"];
+  for (const wall of walls) {
+    const wallLenM = inchesToM(wallLengthIn(roomMeta, wall));
+    const obs = obstacleSpansOnWall(roomMeta, wall, bounds);
+    const onWall = modules.filter((m) => nearestWall(m, bounds) === wall);
+    if (onWall.length === 0) continue;
+
+    let usedStart = Infinity;
+    let usedEnd = -Infinity;
+    for (const m of onWall) {
+      const span = moduleSpanOnWall(m, wall);
+      if (!span) continue;
+      usedStart = Math.min(usedStart, span.start);
+      usedEnd = Math.max(usedEnd, span.end);
+
+      for (const o of obs) {
+        if (spansOverlap(span, o)) {
+          issues.push({
+            id: `obstacle-${m.id}-${wall}`,
+            severity: "error",
+            title: "Cabinet overlaps a fixed opening",
+            message:
+              "This cabinet sits where you marked a window, door, or appliance. Move it or adjust the obstacle in room dimensions.",
+          });
+          break;
+        }
+      }
+    }
+
+    if (usedStart !== Infinity && usedEnd - usedStart > wallLenM + TOL) {
+      issues.push({
+        id: `wall-run-${wall}`,
+        severity: "error",
+        title: "Wall run is too long",
+        message: `Cabinets along the ${wall} wall need about ${inches(usedEnd - usedStart)} in but the wall is ${wallLengthIn(roomMeta, wall)} in (minus any openings).`,
+      });
+    }
+  }
+
+  const islands = modules.filter((m) => nearestWall(m, bounds) === null && !m.isWall);
+  for (const m of islands) {
+    const f = moduleFootprint(m);
+    const clearance = Math.min(
+      f.x0 - bounds.minX,
+      bounds.maxX - f.x1,
+      f.z0 - bounds.minZ,
+      bounds.maxZ - f.z1,
+    );
+    if (clearance < 0.85 && clearance > 0) {
+      issues.push({
+        id: `island-clear-${m.id}`,
+        severity: "warning",
+        title: "Island may be tight to the wall",
+        message: `This island or peninsula has about ${inches(clearance)} in to the nearest wall — aim for 36 in or more for walkways.`,
+      });
+    }
+  }
+
+  return issues;
+}
+
 export function detectIssues(
   modules: CabinetModule[],
   bounds: RoomBounds,
+  roomMeta?: RoomMeta | null,
 ): PlanIssue[] {
   const issues: PlanIssue[] = [];
   if (modules.length === 0) return issues;
@@ -270,6 +383,10 @@ export function detectIssues(
         message: `Aim for 36–42 in of walkway. This run leaves about ${inches(gap)} in to pass through.`,
       });
     }
+  }
+
+  if (roomMeta) {
+    issues.push(...detectRoomMetaIssues(modules, bounds, roomMeta));
   }
 
   return issues;

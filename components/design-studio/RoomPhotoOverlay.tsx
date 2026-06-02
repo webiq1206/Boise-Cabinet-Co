@@ -76,6 +76,13 @@ export function RoomPhotoOverlay({
   const [cutoutFailed, setCutoutFailed] = useState(false);
   const [opacity, setOpacity] = useState(0.95);
   const [transform, setTransform] = useState<Transform>(DEFAULT_TRANSFORM);
+
+  useEffect(() => {
+    const w = design.roomMeta?.widthIn;
+    if (!w || w < 48) return;
+    const scale = Math.min(1.15, Math.max(0.4, (w / 132) * 0.65));
+    setTransform((t) => ({ ...t, scale }));
+  }, [design.roomMeta?.widthIn]);
   const [remodel, setRemodel] = useState(false);
   const [removing, setRemoving] = useState(false);
   const [originalPhoto, setOriginalPhoto] = useState<string | null>(null);

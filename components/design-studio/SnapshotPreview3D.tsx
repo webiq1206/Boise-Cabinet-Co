@@ -121,6 +121,7 @@ export function SnapshotPreview3D({ snapshot, className }: SnapshotPreview3DProp
           onSelect={() => {}}
           viewMode="orbit"
           resetSignal={0}
+          roomBounds={snapshot.roomBounds}
         />
       </WebGLBoundary>
     </div>

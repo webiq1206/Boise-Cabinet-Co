@@ -10,7 +10,7 @@ import {
   DialogDescription,
   DialogFooter,
 } from "@/components/ui/dialog";
-import { View, Loader2, Smartphone, Download } from "lucide-react";
+import { View, Loader2, Smartphone, Download, Ruler, AlertTriangle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useDesignStudio } from "./DesignStudioProvider";
 import {
@@ -24,6 +24,11 @@ import {
   exportUSDZ,
   bytesToBase64,
 } from "@/lib/design/modelExport";
+import { hasUserRoomDimensions } from "@/lib/design/roomMeta";
+import { isScannedRoom } from "@/lib/design/roomScanGeometry";
+import { buildLayoutSummary } from "@/lib/design/layoutSummary";
+import { resolveRoomBounds } from "@/lib/design/resolveRoomBounds";
+import { detectIssues } from "@/lib/design/planAdvisor";
 
 type Platform = "ios" | "android" | "unsupported" | "unknown";
 
@@ -56,10 +61,27 @@ export function ARLauncher({ className }: { className?: string }) {
   const [platform, setPlatform] = useState<Platform>("unknown");
   const [loading, setLoading] = useState(false);
   const [fallback, setFallback] = useState<UploadedUrls | null>(null);
+  const [preflightOpen, setPreflightOpen] = useState(false);
 
   useEffect(() => {
     setPlatform(detectPlatform());
   }, []);
+
+  const summary = buildLayoutSummary({
+    modules: design.modules,
+    roomBounds: design.roomBounds,
+    roomMeta: design.roomMeta,
+    layout: design.layout,
+  });
+  const bounds = resolveRoomBounds(
+    design.modules,
+    design.roomBounds,
+    design.roomMeta,
+  );
+  const arIssues = detectIssues(design.modules, bounds, design.roomMeta);
+  const errorCount = arIssues.filter((i) => i.severity === "error").length;
+  const roomDimsSet = hasUserRoomDimensions(design.roomMeta);
+  const scanned = isScannedRoom(design.roomMeta);
 
   async function buildAndUpload(): Promise<UploadedUrls> {
     const config = buildConfigFromDesign(design);
@@ -71,6 +93,7 @@ export function ARLauncher({ className }: { className?: string }) {
       resolveModule: makeResolveModule(design),
       hardware: hardwareSpec(design.hardware),
       accessories: design.accessories,
+      includeScaleReference: true,
     });
 
     const [glbBuffer, usdzBytes] = await Promise.all([
@@ -122,7 +145,8 @@ export function ARLauncher({ className }: { className?: string }) {
     window.location.href = intentUrl;
   }
 
-  async function handleLaunch() {
+  async function runArLaunch() {
+    setPreflightOpen(false);
     setLoading(true);
     try {
       const urls = await buildAndUpload();
@@ -131,7 +155,6 @@ export function ARLauncher({ className }: { className?: string }) {
       } else if (platform === "android") {
         launchAndroid(urls.glbUrl);
       } else {
-        // Desktop / unsupported — offer the model for download / phone hand-off.
         setFallback(urls);
       }
     } catch (err) {
@@ -148,11 +171,23 @@ export function ARLauncher({ className }: { className?: string }) {
     }
   }
 
+  function handleLaunchClick() {
+    if (!design.modules.length) {
+      toast({
+        title: "No cabinets yet",
+        description: "Add cabinets in the Layout step first.",
+        variant: "destructive",
+      });
+      return;
+    }
+    setPreflightOpen(true);
+  }
+
   const supportLabel =
     platform === "ios"
-      ? "Opens in AR Quick Look"
+      ? "Opens in AR Quick Look — true-scale cabinets + 12 in reference"
       : platform === "android"
-        ? "Opens in Google Scene Viewer"
+        ? "Opens in Google Scene Viewer — true-scale cabinets"
         : "Best on a phone or tablet";
 
   return (
@@ -160,7 +195,7 @@ export function ARLauncher({ className }: { className?: string }) {
       <Button
         type="button"
         variant="brand"
-        onClick={handleLaunch}
+        onClick={handleLaunchClick}
         disabled={loading}
         data-testid="button-view-in-room"
       >
@@ -175,6 +210,61 @@ export function ARLauncher({ className }: { className?: string }) {
         <Smartphone className="h-3.5 w-3.5" />
         {supportLabel}
       </p>
+      <p className="text-xs text-muted-foreground mt-1 max-w-xs">
+        Visual only — does not measure your room. Compare the grey 12&quot;
+        square to a real foot ruler when placing.
+      </p>
+
+      <Dialog open={preflightOpen} onOpenChange={setPreflightOpen}>
+        <DialogContent data-testid="dialog-ar-preflight">
+          <DialogHeader>
+            <DialogTitle>Before AR preview</DialogTitle>
+            <DialogDescription>
+              Cabinets export at the same sizes as your 2D plan. AR does not scan
+              walls or confirm fit — it helps you visualize finish and scale.
+            </DialogDescription>
+          </DialogHeader>
+          <ul className="text-sm space-y-2 text-muted-foreground">
+            <li className="flex gap-2">
+              <Ruler className="h-4 w-4 shrink-0" />
+              {scanned
+                ? `Scanned room (${summary.scanSource ?? "scan"}): ${summary.roomWidthIn}" × ${summary.roomDepthIn}"${summary.scanConfidence ? `, ${summary.scanConfidence} confidence` : ""}`
+                : roomDimsSet
+                  ? `Room: ${summary.roomWidthIn}" × ${summary.roomDepthIn}"`
+                  : "Scan your room in the wizard for fit-aware layout checks."}
+            </li>
+            <li>
+              ~{summary.approximateLinearFeet} linear ft of base cabinets (
+              {summary.moduleCount} modules) — planning estimate only.
+            </li>
+            {errorCount > 0 && (
+              <li className="flex gap-2 text-destructive">
+                <AlertTriangle className="h-4 w-4 shrink-0" />
+                {errorCount} layout error{errorCount === 1 ? "" : "s"} in the
+                planner — fix in Layout before ordering.
+              </li>
+            )}
+          </ul>
+          <DialogFooter className="flex-col sm:flex-row gap-2">
+            <Button
+              type="button"
+              variant="ghost"
+              onClick={() => setPreflightOpen(false)}
+            >
+              Cancel
+            </Button>
+            <Button
+              type="button"
+              variant="brand"
+              onClick={() => void runArLaunch()}
+              disabled={loading}
+              data-testid="button-ar-continue"
+            >
+              Continue to AR
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
 
       <Dialog open={!!fallback} onOpenChange={(o) => !o && setFallback(null)}>
         <DialogContent>
@@ -182,9 +272,8 @@ export function ARLauncher({ className }: { className?: string }) {
             <DialogTitle>View in your room on a phone</DialogTitle>
             <DialogDescription>
               Augmented reality needs a phone or tablet camera. Open this page on
-              your iPhone, iPad, or Android device to place your cabinets in your
-              real space — or download the 3D model to view it on a device that
-              supports it.
+              your iPhone, iPad, or Android device to place true-scale cabinets —
+              or download the 3D model.
             </DialogDescription>
           </DialogHeader>
           {fallback && (

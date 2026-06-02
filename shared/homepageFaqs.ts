@@ -18,7 +18,7 @@ export const HOMEPAGE_FAQS: HomepageFaq[] = [
   },
   {
     q: "Can I design my cabinets online before committing?",
-    a: "Yes. Our Design Studio walks you through room type, collection, layout, door style, finish, hardware, and accessories. You can preview your layout in 3D, upload a photo of your room, save your design, and request pricing — all before your free consultation.",
+    a: "Yes. Our Design Studio starts by scanning your real room (phone AR or a wide photo), then shows cabinet layouts that fit your space. You refine the plan in 2D and 3D, preview finishes, save your design, and request pricing — all before your free consultation. We still confirm exact dimensions at your site visit.",
   },
   {
     q: "What areas do you serve?",

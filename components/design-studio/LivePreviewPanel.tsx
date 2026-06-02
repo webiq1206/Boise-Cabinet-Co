@@ -241,6 +241,7 @@ export function LivePreviewPanel({ className, compact }: LivePreviewPanelProps) 
             onSelect={setSelectedId}
             viewMode={viewMode}
             resetSignal={resetSignal}
+            roomBounds={design.roomBounds}
             captureApiRef={captureApiRef}
           />
         </WebGLBoundary>

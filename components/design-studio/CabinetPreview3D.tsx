@@ -4,7 +4,7 @@ import { useEffect, useMemo, useRef } from "react";
 import * as THREE from "three";
 import { Canvas, useThree } from "@react-three/fiber";
 import { OrbitControls, Environment, ContactShadows } from "@react-three/drei";
-import type { CabinetModule, PreviewConfig } from "@/lib/design/previewConfig";
+import type { CabinetModule, PreviewConfig, RoomBounds } from "@/lib/design/previewConfig";
 import type { FinishCategory } from "@/shared/catalog/doorStyles";
 
 export type ViewMode = "orbit" | "walk";
@@ -53,6 +53,8 @@ interface SceneProps {
   onSelect: (id: string | null) => void;
   viewMode: ViewMode;
   resetSignal: number;
+  /** Scanned room bounds — sizes the floor plane (metres). */
+  roomBounds?: RoomBounds | null;
   /** When provided, the scene wires capture (screenshot/video) handlers here. */
   captureApiRef?: CaptureApiRef;
 }
@@ -579,9 +581,16 @@ function Scene({
   onSelect,
   viewMode,
   resetSignal,
+  roomBounds,
   captureApiRef,
 }: SceneProps) {
   const controlsRef = useRef<any>(null);
+  const floorW = roomBounds
+    ? Math.max(2, roomBounds.maxX - roomBounds.minX + 0.4)
+    : 14;
+  const floorD = roomBounds
+    ? Math.max(2, roomBounds.maxZ - roomBounds.minZ + 0.4)
+    : 14;
 
   return (
     <>
@@ -590,7 +599,7 @@ function Scene({
       <directionalLight position={[-3, 4, -2]} intensity={0.35} />
 
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]} receiveShadow>
-        <planeGeometry args={[14, 14]} />
+        <planeGeometry args={[floorW, floorD]} />
         <meshStandardMaterial color="#E8E4DF" roughness={0.92} />
       </mesh>
       <mesh position={[0, 1.6, -1.35]} receiveShadow>

@@ -4,21 +4,25 @@ import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import { useDesignStudio } from "./DesignStudioProvider";
 import { useIsDesktop } from "@/hooks/use-media-query";
+import { isScannedRoom } from "@/lib/design/roomScanGeometry";
 import { RoomStep } from "./steps/RoomStep";
-import { CollectionStep } from "./steps/CollectionStep";
+import { ScanStep } from "./steps/ScanStep";
 import { LayoutStep } from "./steps/LayoutStep";
+import { CollectionStep } from "./steps/CollectionStep";
 import { StyleStep } from "./steps/StyleStep";
 import { DetailsStep } from "./steps/DetailsStep";
 import { VisualizeStep } from "./steps/VisualizeStep";
 import { SaveStep } from "./steps/SaveStep";
 import { LivePreviewPanel } from "./LivePreviewPanel";
+import { ScannedRoomPreview } from "./ScannedRoomPreview";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight, Check, Eye, ChevronUp } from "lucide-react";
 
 export const WIZARD_STEPS = [
   { id: "room", label: "Room", shortLabel: "Room" },
-  { id: "collection", label: "Collection", shortLabel: "Collection" },
+  { id: "scan", label: "Scan", shortLabel: "Scan" },
   { id: "layout", label: "Layout", shortLabel: "Layout" },
+  { id: "collection", label: "Collection", shortLabel: "Collection" },
   { id: "style", label: "Style", shortLabel: "Style" },
   { id: "details", label: "Details", shortLabel: "Details" },
   { id: "visualize", label: "Visualize", shortLabel: "Preview" },
@@ -27,8 +31,9 @@ export const WIZARD_STEPS = [
 
 const STEP_COMPONENTS = [
   RoomStep,
-  CollectionStep,
+  ScanStep,
   LayoutStep,
+  CollectionStep,
   StyleStep,
   DetailsStep,
   VisualizeStep,
@@ -53,8 +58,8 @@ export function DesignWizard({ className }: DesignWizardProps) {
   const isLast = currentStep === WIZARD_STEPS.length - 1;
   const canAdvance = isStepComplete(currentStep);
 
-  // Show preview once the user has chosen a layout (something to render).
-  const previewReady = design.layout !== null;
+  const previewReady =
+    isScannedRoom(design.roomMeta) || design.layout !== null;
 
   const goNext = () => {
     if (!canAdvance || isLast) return;
@@ -120,6 +125,21 @@ export function DesignWizard({ className }: DesignWizardProps) {
     </nav>
   );
 
+  const previewPanel = previewReady ? (
+    design.layout ? (
+      <LivePreviewPanel />
+    ) : (
+      <ScannedRoomPreview />
+    )
+  ) : (
+    <div className="rounded-md border bg-card aspect-[4/3] flex items-center justify-center p-6 text-center">
+      <p className="text-sm text-muted-foreground">
+        Scan your room to see your floor plan here, then pick a layout for the 3D
+        preview.
+      </p>
+    </div>
+  );
+
   const stepBody = (
     <>
       {stepNav}
@@ -141,8 +161,6 @@ export function DesignWizard({ className }: DesignWizardProps) {
     </>
   );
 
-  // Before mount we don't know the viewport; render the steps alone to avoid a
-  // desktop→mobile (or vice-versa) layout flip on first paint.
   if (!mounted) {
     return <div className={cn("flex flex-col", className)}>{stepBody}</div>;
   }
@@ -156,22 +174,11 @@ export function DesignWizard({ className }: DesignWizardProps) {
         )}
       >
         <div className="flex flex-col min-w-0">{stepBody}</div>
-        <div className="sticky top-20">
-          {previewReady ? (
-            <LivePreviewPanel />
-          ) : (
-            <div className="rounded-md border bg-card aspect-[4/3] flex items-center justify-center p-6 text-center">
-              <p className="text-sm text-muted-foreground">
-                Your live 3D preview appears here once you pick a layout.
-              </p>
-            </div>
-          )}
-        </div>
+        <div className="sticky top-20">{previewPanel}</div>
       </div>
     );
   }
 
-  // Mobile / tablet: collapsible preview above the steps.
   return (
     <div className={cn("flex flex-col", className)}>
       {previewReady && (
@@ -193,11 +200,7 @@ export function DesignWizard({ className }: DesignWizardProps) {
               )}
             />
           </Button>
-          {mobilePreviewOpen && (
-            <div className="mt-3">
-              <LivePreviewPanel compact />
-            </div>
-          )}
+          {mobilePreviewOpen && <div className="mt-3">{previewPanel}</div>}
         </div>
       )}
       {stepBody}

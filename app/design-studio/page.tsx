@@ -55,7 +55,7 @@ function DesignStudioContent() {
             Build your dream <em className="brc-accent text-accent">cabinets</em>
           </h1>
           <p className="text-muted-foreground mt-2 max-w-xl">
-            Walk through seven steps to explore collections, layouts, and finishes — then save
+            Scan your room, pick a layout that fits, explore finishes in 3D — then save
             your design to your {SITE_CONFIG.name} project.
           </p>
         </div>

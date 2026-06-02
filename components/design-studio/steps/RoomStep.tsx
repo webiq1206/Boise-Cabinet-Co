@@ -40,7 +40,8 @@ export function RoomStep() {
           Which <em className="brc-accent text-accent">room</em> are we designing?
         </h2>
         <p className="text-muted-foreground mt-2">
-          Select the space for your custom cabinet project.
+          Select the space, then scan your real room on the next step—we won&apos;t
+          size cabinets from a generic template.
         </p>
       </div>
 
@@ -65,6 +66,7 @@ export function RoomStep() {
                   ? "border-primary bg-primary/5"
                   : "border-border hover:border-primary/40 hover:bg-muted/50",
               )}
+              data-testid={`button-room-${room.slug}`}
             >
               <div
                 className={cn(

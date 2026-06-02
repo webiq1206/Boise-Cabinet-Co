@@ -1,8 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useDesignStudio } from "../DesignStudioProvider";
+import { PlanIssuesPanel } from "../PlanIssuesPanel";
+import { buildLayoutSummary } from "@/lib/design/layoutSummary";
+import { detectIssues } from "@/lib/design/planAdvisor";
+import { resolveRoomBounds } from "@/lib/design/resolveRoomBounds";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -129,6 +133,27 @@ export function SaveStep() {
   };
 
   const compareVersions = versions.filter((v) => compareIds.includes(v.id));
+
+  const layoutSummary = useMemo(
+    () =>
+      buildLayoutSummary({
+        modules: design.modules,
+        roomBounds: design.roomBounds,
+        roomMeta: design.roomMeta,
+        layout: design.layout,
+      }),
+    [design.modules, design.roomBounds, design.roomMeta, design.layout],
+  );
+
+  const bounds = resolveRoomBounds(
+    design.modules,
+    design.roomBounds,
+    design.roomMeta,
+  );
+  const pricingIssues = useMemo(
+    () => detectIssues(design.modules, bounds, design.roomMeta),
+    [design.modules, bounds, design.roomMeta],
+  );
 
   const handlePricing = async () => {
     if (!contactName || !contactEmail || !contactPhone) {
@@ -342,6 +367,51 @@ export function SaveStep() {
           )}
         </CardContent>
       </Card>
+
+      {design.modules.length > 0 && (
+        <Card data-testid="card-layout-summary">
+          <CardHeader>
+            <CardTitle className="text-base">Layout summary (planning)</CardTitle>
+            <CardDescription>
+              Sent with your pricing request — planning ranges only, not a firm bid.
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4 text-sm">
+            <dl className="grid gap-2 sm:grid-cols-2">
+              <div className="flex justify-between gap-2 border-b border-dashed py-1">
+                <dt className="text-muted-foreground">Room</dt>
+                <dd className="font-medium">
+                  {layoutSummary.roomDimensionsConfirmed
+                    ? `${layoutSummary.roomWidthIn}" × ${layoutSummary.roomDepthIn}"`
+                    : "Not entered"}
+                </dd>
+              </div>
+              <div className="flex justify-between gap-2 border-b border-dashed py-1">
+                <dt className="text-muted-foreground">Base cabinets</dt>
+                <dd className="font-medium">~{layoutSummary.approximateLinearFeet} linear ft</dd>
+              </div>
+              <div className="flex justify-between gap-2 border-b border-dashed py-1">
+                <dt className="text-muted-foreground">Modules</dt>
+                <dd className="font-medium">
+                  {layoutSummary.baseCount} base / {layoutSummary.wallCount} wall
+                </dd>
+              </div>
+              <div className="flex justify-between gap-2 border-b border-dashed py-1">
+                <dt className="text-muted-foreground">Layout notes</dt>
+                <dd className="font-medium">
+                  {layoutSummary.errorCount} error{layoutSummary.errorCount === 1 ? "" : "s"},{" "}
+                  {layoutSummary.warningCount} warning
+                  {layoutSummary.warningCount === 1 ? "" : "s"}
+                </dd>
+              </div>
+            </dl>
+            <PlanIssuesPanel
+              issues={pricingIssues}
+              showRecommendations={false}
+            />
+          </CardContent>
+        </Card>
+      )}
 
       <Card>
         <CardHeader>

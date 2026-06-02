@@ -1,4 +1,5 @@
 import type { CabinetModule, RoomBounds } from "./previewConfig";
+import type { RoomMeta } from "./roomMeta";
 
 /** Per-module style override (mirrors DesignStudioProvider's ModuleOverride). */
 export interface SnapshotModuleOverride {
@@ -24,6 +25,7 @@ export interface DesignSnapshot {
   moduleOverrides: Record<string, SnapshotModuleOverride>;
   modules: CabinetModule[];
   roomBounds: RoomBounds | null;
+  roomMeta: RoomMeta | null;
 }
 
 /** A saved, named version of a design within a version group. */
@@ -67,6 +69,7 @@ export function designToPayload(
       modules: snapshot.modules,
       moduleOverrides: snapshot.moduleOverrides,
       roomBounds: snapshot.roomBounds,
+      roomMeta: snapshot.roomMeta,
     },
     styleJson: {
       doorStyle: snapshot.doorStyle,
@@ -138,5 +141,6 @@ export function rowToSnapshot(row: DesignRow): DesignSnapshot {
       ? (layoutJson.modules as CabinetModule[])
       : [],
     roomBounds: (layoutJson.roomBounds as RoomBounds | null) ?? null,
+    roomMeta: (layoutJson.roomMeta as RoomMeta | null) ?? null,
   };
 }

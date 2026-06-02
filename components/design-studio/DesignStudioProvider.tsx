@@ -12,10 +12,16 @@ import {
 import type { LayoutSlug } from "@/shared/catalog/layouts";
 import {
   layoutToModules,
-  computeRoomBounds,
   type CabinetModule,
   type RoomBounds,
 } from "@/lib/design/previewConfig";
+import { hasUserRoomDimensions, type RoomMeta } from "@/lib/design/roomMeta";
+import { syncRoomForModules } from "@/lib/design/syncDesignRoom";
+import { estimateRoomFromPhotoAspect } from "@/lib/design/photoRoomEstimate";
+import { isScannedRoom } from "@/lib/design/roomScanGeometry";
+import { roomMetaToBounds } from "@/lib/design/roomMeta";
+import { buildLayoutSummary } from "@/lib/design/layoutSummary";
+import { fitModulesIntoRoomBounds } from "@/lib/design/fitModulesToRoom";
 import {
   designToPayload,
   rowToSnapshot,
@@ -65,6 +71,8 @@ export interface DesignState {
   modules: CabinetModule[];
   /** Room rectangle the planner snaps to (meters). */
   roomBounds: RoomBounds | null;
+  /** User-measured room dimensions and obstacles (inches). */
+  roomMeta: RoomMeta | null;
   /** Currently selected module id, shared across the 2D planner and 3D preview. */
   selectedModuleId: string | null;
 }
@@ -86,6 +94,7 @@ const initialState: DesignState = {
   moduleOverrides: {},
   modules: [],
   roomBounds: null,
+  roomMeta: null,
   selectedModuleId: null,
 };
 
@@ -140,10 +149,29 @@ export function DesignStudioProvider({ children }: { children: ReactNode }) {
         if (patch.layout) {
           const seeded = layoutToModules(patch.layout);
           next.modules = seeded;
-          next.roomBounds = computeRoomBounds(seeded);
+          const keptMeta = patch.roomMeta ?? prev.roomMeta;
+          const keepRoom =
+            (keptMeta?.source === "manual" && hasUserRoomDimensions(keptMeta)) ||
+            isScannedRoom(keptMeta);
+          if (keepRoom && keptMeta) {
+            const bounds = patch.roomBounds ?? roomMetaToBounds(keptMeta);
+            next.roomMeta = keptMeta;
+            next.roomBounds = bounds;
+            next.modules = fitModulesIntoRoomBounds(seeded, bounds);
+          } else {
+            const synced = syncRoomForModules({
+              layout: patch.layout,
+              roomType: next.roomType ?? prev.roomType,
+              modules: seeded,
+              roomMeta: null,
+            });
+            next.roomBounds = synced.roomBounds;
+            next.roomMeta = synced.roomMeta;
+          }
         } else {
           next.modules = [];
           next.roomBounds = null;
+          next.roomMeta = null;
         }
       }
       return next;
@@ -180,27 +208,51 @@ export function DesignStudioProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const setModules = useCallback((modules: CabinetModule[]) => {
-    setDesign((prev) => ({ ...prev, modules }));
+    setDesign((prev) => {
+      const synced = syncRoomForModules({
+        layout: prev.layout,
+        roomType: prev.roomType,
+        modules,
+        roomMeta: prev.roomMeta,
+      });
+      return { ...prev, modules, ...synced };
+    });
   }, []);
 
   const updateModule = useCallback(
     (id: string, patch: Partial<CabinetModule>) => {
-      setDesign((prev) => ({
-        ...prev,
-        modules: prev.modules.map((m) => (m.id === id ? { ...m, ...patch } : m)),
-      }));
+      setDesign((prev) => {
+        const modules = prev.modules.map((m) =>
+          m.id === id ? { ...m, ...patch } : m,
+        );
+        const synced = syncRoomForModules({
+          layout: prev.layout,
+          roomType: prev.roomType,
+          modules,
+          roomMeta: prev.roomMeta,
+        });
+        return { ...prev, modules, ...synced };
+      });
     },
     [],
   );
 
   const removeModule = useCallback((id: string) => {
     setDesign((prev) => {
-      const next = { ...prev.moduleOverrides };
-      delete next[id];
+      const nextOverrides = { ...prev.moduleOverrides };
+      delete nextOverrides[id];
+      const modules = prev.modules.filter((m) => m.id !== id);
+      const synced = syncRoomForModules({
+        layout: prev.layout,
+        roomType: prev.roomType,
+        modules,
+        roomMeta: prev.roomMeta,
+      });
       return {
         ...prev,
-        modules: prev.modules.filter((m) => m.id !== id),
-        moduleOverrides: next,
+        modules,
+        ...synced,
+        moduleOverrides: nextOverrides,
         selectedModuleId:
           prev.selectedModuleId === id ? null : prev.selectedModuleId,
       };
@@ -208,21 +260,41 @@ export function DesignStudioProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const addModule = useCallback((module: CabinetModule) => {
-    setDesign((prev) => ({
-      ...prev,
-      modules: [...prev.modules, module],
-      selectedModuleId: module.id,
-    }));
+    setDesign((prev) => {
+      const modules = [...prev.modules, module];
+      const synced = syncRoomForModules({
+        layout: prev.layout,
+        roomType: prev.roomType,
+        modules,
+        roomMeta: prev.roomMeta,
+      });
+      return {
+        ...prev,
+        modules,
+        ...synced,
+        selectedModuleId: module.id,
+      };
+    });
   }, []);
 
   const resetModulesToLayout = useCallback(() => {
     setDesign((prev) => {
       if (!prev.layout) return prev;
-      const seeded = layoutToModules(prev.layout);
+      let seeded = layoutToModules(prev.layout);
+      if (isScannedRoom(prev.roomMeta) && prev.roomBounds) {
+        seeded = fitModulesIntoRoomBounds(seeded, prev.roomBounds);
+      }
+      const synced = syncRoomForModules({
+        layout: prev.layout,
+        roomType: prev.roomType,
+        modules: seeded,
+        roomMeta:
+          prev.roomMeta?.source === "manual" ? prev.roomMeta : prev.roomMeta,
+      });
       return {
         ...prev,
         modules: seeded,
-        roomBounds: computeRoomBounds(seeded),
+        ...synced,
         moduleOverrides: {},
         selectedModuleId: null,
       };
@@ -239,16 +311,18 @@ export function DesignStudioProvider({ children }: { children: ReactNode }) {
         case 0:
           return design.roomType !== null;
         case 1:
-          return design.collection !== null;
+          return isScannedRoom(design.roomMeta);
         case 2:
           return design.layout !== null;
         case 3:
-          return design.doorStyle !== null && design.finish !== null;
+          return design.collection !== null;
         case 4:
-          return design.hardware !== null;
+          return design.doorStyle !== null && design.finish !== null;
         case 5:
-          return true;
+          return design.hardware !== null;
         case 6:
+          return true;
+        case 7:
           return design.roomType !== null && design.collection !== null;
         default:
           return false;
@@ -272,6 +346,7 @@ export function DesignStudioProvider({ children }: { children: ReactNode }) {
       moduleOverrides: d.moduleOverrides,
       modules: d.modules,
       roomBounds: d.roomBounds,
+      roomMeta: d.roomMeta,
     };
   }, []);
 
@@ -328,6 +403,49 @@ export function DesignStudioProvider({ children }: { children: ReactNode }) {
       /* ignore — versions are a best-effort enhancement */
     }
   }, []);
+
+  // Auto-estimate room size when a room photo is added (Layout or Visualize step).
+  useEffect(() => {
+    const url = design.photoUrl;
+    if (
+      !url ||
+      !design.layout ||
+      design.roomMeta?.source === "manual" ||
+      isScannedRoom(design.roomMeta)
+    ) {
+      return;
+    }
+
+    let cancelled = false;
+    const img = new Image();
+    img.crossOrigin = "anonymous";
+    img.onload = () => {
+      if (cancelled) return;
+      const meta = estimateRoomFromPhotoAspect(
+        img.naturalWidth,
+        img.naturalHeight,
+        design.layout,
+        design.roomType,
+        design.roomMeta,
+      );
+      setDesign((prev) => {
+        if (prev.photoUrl !== url || prev.roomMeta?.source === "manual") {
+          return prev;
+        }
+        const synced = syncRoomForModules({
+          layout: prev.layout,
+          roomType: prev.roomType,
+          modules: prev.modules,
+          roomMeta: meta,
+        });
+        return { ...prev, ...synced };
+      });
+    };
+    img.src = url;
+    return () => {
+      cancelled = true;
+    };
+  }, [design.photoUrl, design.layout, design.roomType, design.roomMeta?.source]);
 
   // Hydrate saved versions for a returning visitor from their last group.
   useEffect(() => {
@@ -409,6 +527,7 @@ export function DesignStudioProvider({ children }: { children: ReactNode }) {
         moduleOverrides: s.moduleOverrides ?? {},
         modules: s.modules ?? [],
         roomBounds: s.roomBounds ?? null,
+        roomMeta: s.roomMeta ?? null,
         savedDesignId: version.id,
         shareToken: version.shareToken,
         pricingSubmitted: false,
@@ -447,6 +566,12 @@ export function DesignStudioProvider({ children }: { children: ReactNode }) {
               finish: design.finish,
               layout: design.layout,
             },
+            layoutSummary: buildLayoutSummary({
+              modules: design.modules,
+              roomBounds: design.roomBounds,
+              roomMeta: design.roomMeta,
+              layout: design.layout,
+            }),
           }),
         });
         if (!res.ok) return false;

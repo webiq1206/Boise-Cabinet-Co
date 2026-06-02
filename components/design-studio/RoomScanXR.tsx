@@ -1,0 +1,419 @@
+"use client";
+
+import { useCallback, useEffect, useRef, useState } from "react";
+import * as THREE from "three";
+import { Button } from "@/components/ui/button";
+import { Loader2, RotateCcw, Undo2, X } from "lucide-react";
+import {
+  boundsFromScanPoints,
+  SCAN_CORNER_LABELS,
+  SCAN_CORNERS_REQUIRED,
+  type ScanPoint3,
+} from "@/lib/design/roomScanGeometry";
+import {
+  roomMetaFromWallPoints,
+  WALL_SCAN_MIN_POINTS,
+} from "@/lib/design/wallScanGeometry";
+import type { RoomBounds } from "@/lib/design/previewConfig";
+import type { RoomMeta } from "@/lib/design/roomMeta";
+import { trackDesignEvent } from "@/lib/design/designAnalytics";
+
+type XRNavigator = Navigator & {
+  xr?: XRSystem;
+};
+
+export type ScanMode = "corners" | "walls";
+
+export interface RoomScanResult {
+  meta: RoomMeta;
+  roomBounds: RoomBounds;
+  points: ScanPoint3[];
+}
+
+interface RoomScanXRProps {
+  open: boolean;
+  mode?: ScanMode;
+  ceilingIn?: number;
+  onClose: () => void;
+  onComplete: (result: RoomScanResult) => void;
+}
+
+export function RoomScanXR({
+  open,
+  mode = "corners",
+  ceilingIn = 96,
+  onClose,
+  onComplete,
+}: RoomScanXRProps) {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const finishScanRef = useRef<() => void>(() => {});
+  const undoCornerRef = useRef<() => void>(() => {});
+  const resetScanRef = useRef<() => void>(() => {});
+
+  const requiredPoints =
+    mode === "walls" ? WALL_SCAN_MIN_POINTS : SCAN_CORNERS_REQUIRED;
+
+  const [status, setStatus] = useState<
+    "idle" | "checking" | "scanning" | "unsupported" | "error"
+  >("idle");
+  const [cornerCount, setCornerCount] = useState(0);
+  const [message, setMessage] = useState("");
+
+  const cleanupRef = useRef<(() => void) | null>(null);
+
+  const stopSession = useCallback(() => {
+    cleanupRef.current?.();
+    cleanupRef.current = null;
+  }, []);
+
+  const finishScan = useCallback(() => {
+    finishScanRef.current();
+  }, []);
+
+  const undoCorner = useCallback(() => {
+    undoCornerRef.current();
+  }, []);
+
+  const resetScan = useCallback(() => {
+    resetScanRef.current();
+  }, []);
+
+  useEffect(() => {
+    if (!open) {
+      stopSession();
+      setStatus("idle");
+      setCornerCount(0);
+      return;
+    }
+
+    trackDesignEvent("scan_started", { method: mode === "walls" ? "wall-run" : "ar" });
+
+    let cancelled = false;
+
+    async function start() {
+      setStatus("checking");
+      setMessage("Checking AR support…");
+
+      const nav = navigator as XRNavigator;
+      if (!nav.xr) {
+        setStatus("unsupported");
+        setMessage("WebXR is not available on this device.");
+        trackDesignEvent("ar_unsupported");
+        return;
+      }
+
+      try {
+        const supported = await nav.xr.isSessionSupported("immersive-ar");
+        if (!supported) {
+          setStatus("unsupported");
+          setMessage(
+            "AR scanning needs a phone or tablet with Chrome (Android) or Safari (iOS 17+).",
+          );
+          trackDesignEvent("ar_unsupported");
+          return;
+        }
+      } catch {
+        setStatus("unsupported");
+        setMessage("Could not start AR on this browser.");
+        trackDesignEvent("ar_unsupported");
+        return;
+      }
+
+      const canvas = canvasRef.current;
+      if (!canvas || cancelled) return;
+
+      setStatus("scanning");
+      setMessage(
+        mode === "walls"
+          ? `Tap ${WALL_SCAN_MIN_POINTS}+ points along your floor outline (L/U rooms).`
+          : `Tap ${SCAN_CORNER_LABELS[0]} on the floor where walls meet.`,
+      );
+
+      const renderer = new THREE.WebGLRenderer({
+        canvas,
+        alpha: true,
+        antialias: true,
+      });
+      renderer.setPixelRatio(window.devicePixelRatio);
+      renderer.xr.enabled = true;
+
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(70, 1, 0.01, 20);
+      camera.matrixAutoUpdate = false;
+
+      const markerGeo = new THREE.SphereGeometry(0.04, 16, 16);
+      const markerMat = new THREE.MeshBasicMaterial({ color: 0xc4a882 });
+      const cornerPoints: ScanPoint3[] = [];
+      const markers: THREE.Mesh[] = [];
+
+      let session: XRSession;
+      let refSpace: XRReferenceSpace;
+      let hitTestSource: XRHitTestSource | null = null;
+
+      try {
+        session = await nav.xr.requestSession("immersive-ar", {
+          requiredFeatures: ["hit-test"],
+        });
+      } catch (e) {
+        setStatus("error");
+        setMessage(
+          e instanceof Error ? e.message : "AR permission denied or unavailable.",
+        );
+        renderer.dispose();
+        return;
+      }
+
+      await renderer.xr.setSession(session);
+      refSpace = await session.requestReferenceSpace("local-floor");
+
+      try {
+        hitTestSource = await session.requestHitTestSourceForTransientInput(
+          "input",
+          refSpace,
+        );
+      } catch {
+        const viewerSpace = await session.requestReferenceSpace("viewer");
+        hitTestSource = await session.requestHitTestSource!({
+          space: viewerSpace,
+        });
+      }
+
+      const updateMessage = (count: number) => {
+        if (mode === "walls") {
+          setMessage(
+            count >= WALL_SCAN_MIN_POINTS
+              ? "Outline captured. Tap Done."
+              : `Point ${count} — keep tapping along walls (${WALL_SCAN_MIN_POINTS} minimum).`,
+          );
+          return;
+        }
+        if (count >= SCAN_CORNERS_REQUIRED) {
+          setMessage("All corners marked. Tap Done.");
+          return;
+        }
+        setMessage(
+          `Tap ${SCAN_CORNER_LABELS[count]} (${count + 1} of ${SCAN_CORNERS_REQUIRED}).`,
+        );
+      };
+
+      const onSelect = (event: XRInputSourceEvent) => {
+        const frame = event.frame;
+        if (!hitTestSource) return;
+        const results = frame.getHitTestResults(hitTestSource);
+        if (results.length === 0) return;
+
+        const pose = results[0].getPose(refSpace);
+        if (!pose) return;
+
+        const x = pose.transform.position.x;
+        const y = pose.transform.position.y;
+        const z = pose.transform.position.z;
+
+        cornerPoints.push({ x, y, z });
+        const mesh = new THREE.Mesh(markerGeo, markerMat.clone());
+        mesh.position.set(x, y, z);
+        scene.add(mesh);
+        markers.push(mesh);
+        setCornerCount(cornerPoints.length);
+        updateMessage(cornerPoints.length);
+      };
+
+      session.addEventListener("select", onSelect);
+
+      undoCornerRef.current = () => {
+        if (cornerPoints.length === 0) return;
+        cornerPoints.pop();
+        const mesh = markers.pop();
+        if (mesh) {
+          scene.remove(mesh);
+          mesh.geometry.dispose();
+          (mesh.material as THREE.Material).dispose();
+        }
+        setCornerCount(cornerPoints.length);
+        updateMessage(cornerPoints.length);
+      };
+
+      resetScanRef.current = () => {
+        while (cornerPoints.length > 0) undoCornerRef.current();
+      };
+
+      finishScanRef.current = () => {
+        if (cornerPoints.length < requiredPoints) {
+          setMessage(
+            `Mark ${requiredPoints - cornerPoints.length} more point(s) on the floor.`,
+          );
+          return;
+        }
+        if (mode === "walls") {
+          const wallResult = roomMetaFromWallPoints(cornerPoints, { ceilingIn });
+          if (!wallResult) {
+            setMessage("Room too small — stand farther back and re-mark points.");
+            return;
+          }
+          stopSession();
+          trackDesignEvent("scan_completed", {
+            method: "wall-run",
+            widthIn: wallResult.meta.widthIn,
+            depthIn: wallResult.meta.depthIn,
+          });
+          onComplete({
+            meta: wallResult.meta,
+            roomBounds: wallResult.roomBounds,
+            points: cornerPoints,
+          });
+          return;
+        }
+
+        const cornerResult = boundsFromScanPoints(cornerPoints);
+        if (!cornerResult) {
+          setMessage("Room too small — stand farther back and re-mark corners.");
+          return;
+        }
+        const meta = { ...cornerResult.meta, ceilingIn };
+        stopSession();
+        trackDesignEvent("scan_completed", {
+          method: "ar-scan",
+          widthIn: meta.widthIn,
+          depthIn: meta.depthIn,
+        });
+        onComplete({
+          meta,
+          roomBounds: cornerResult.roomBounds,
+          points: cornerPoints,
+        });
+      };
+
+      const onResize = () => {
+        const w = window.innerWidth;
+        const h = window.innerHeight;
+        renderer.setSize(w, h, false);
+        camera.aspect = w / h;
+        camera.updateProjectionMatrix();
+      };
+      onResize();
+      window.addEventListener("resize", onResize);
+
+      const loop = (_t: number, frame?: XRFrame) => {
+        if (!frame) return;
+        const pose = frame.getViewerPose(refSpace);
+        if (pose) {
+          const view = pose.views[0];
+          if (view) {
+            camera.matrix.fromArray(view.transform.matrix);
+            camera.projectionMatrix.fromArray(view.projectionMatrix);
+          }
+        }
+        renderer.render(scene, camera);
+      };
+
+      renderer.setAnimationLoop(loop);
+
+      cleanupRef.current = () => {
+        session.removeEventListener("select", onSelect);
+        window.removeEventListener("resize", onResize);
+        renderer.setAnimationLoop(null);
+        session.end().catch(() => {});
+        renderer.dispose();
+        markerGeo.dispose();
+        markerMat.dispose();
+        markers.forEach((m) => {
+          m.geometry.dispose();
+          (m.material as THREE.Material).dispose();
+        });
+      };
+    }
+
+    void start();
+
+    return () => {
+      cancelled = true;
+      stopSession();
+      finishScanRef.current = () => {};
+      undoCornerRef.current = () => {};
+      resetScanRef.current = () => {};
+    };
+  }, [open, mode, ceilingIn, onComplete, stopSession]);
+
+  if (!open) return null;
+
+  return (
+    <div
+      className="fixed inset-0 z-[100] flex flex-col bg-black"
+      data-testid="room-scan-xr"
+    >
+      <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />
+      <div className="relative z-10 flex flex-col h-full pointer-events-none">
+        <div className="flex items-center justify-between p-4 pointer-events-auto bg-gradient-to-b from-black/70 to-transparent">
+          <p className="text-white text-sm font-medium max-w-[70%]">{message}</p>
+          <Button
+            type="button"
+            size="icon"
+            variant="ghost"
+            className="text-white hover:bg-white/20"
+            onClick={() => {
+              stopSession();
+              onClose();
+            }}
+          >
+            <X className="h-5 w-5" />
+          </Button>
+        </div>
+        <div className="flex-1" />
+        <div className="p-4 pb-8 pointer-events-auto bg-gradient-to-t from-black/80 to-transparent space-y-3">
+          <p className="text-white/90 text-center text-sm">
+            {cornerCount} / {requiredPoints}
+            {mode === "walls" ? "+ wall points" : " floor corners"}
+          </p>
+          {status === "checking" && (
+            <div className="flex justify-center text-white">
+              <Loader2 className="h-8 w-8 animate-spin" />
+            </div>
+          )}
+          {status === "scanning" && (
+            <div className="flex flex-col gap-2">
+              <div className="flex gap-2">
+                <Button
+                  type="button"
+                  variant="outline"
+                  className="flex-1 border-white/40 text-white hover:bg-white/10"
+                  disabled={cornerCount === 0}
+                  onClick={undoCorner}
+                  data-testid="button-scan-undo"
+                >
+                  <Undo2 className="h-4 w-4" />
+                  Undo
+                </Button>
+                <Button
+                  type="button"
+                  variant="outline"
+                  className="flex-1 border-white/40 text-white hover:bg-white/10"
+                  disabled={cornerCount === 0}
+                  onClick={resetScan}
+                  data-testid="button-scan-reset"
+                >
+                  <RotateCcw className="h-4 w-4" />
+                  Reset
+                </Button>
+              </div>
+              <Button
+                type="button"
+                variant="brand"
+                className="w-full"
+                disabled={cornerCount < requiredPoints}
+                onClick={finishScan}
+                data-testid="button-scan-done"
+              >
+                Done — use scanned size
+              </Button>
+            </div>
+          )}
+          {(status === "unsupported" || status === "error") && (
+            <Button type="button" variant="outline" className="w-full" onClick={onClose}>
+              Close
+            </Button>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}

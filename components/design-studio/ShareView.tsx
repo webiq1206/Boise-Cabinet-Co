@@ -8,6 +8,13 @@ import {
   type DesignSnapshot,
 } from "@/lib/design/designSerialization";
 import { snapshotSpecRows } from "@/lib/design/snapshotSpecs";
+import { resolveRoomBounds } from "@/lib/design/resolveRoomBounds";
+import { detectIssues } from "@/lib/design/planAdvisor";
+import {
+  buildFloorPlanSvg,
+  downloadFloorPlanSvg,
+} from "@/lib/design/floorPlanExport";
+import { Download } from "lucide-react";
 import { SnapshotPreview3D } from "./SnapshotPreview3D";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -101,6 +108,24 @@ export function ShareView({ shareToken }: ShareViewProps) {
 
   const rows = snapshot ? snapshotSpecRows(snapshot) : [];
 
+  const shareBounds = snapshot
+    ? resolveRoomBounds(snapshot.modules, snapshot.roomBounds, snapshot.roomMeta)
+    : null;
+  const shareIssues = snapshot && shareBounds
+    ? detectIssues(snapshot.modules, shareBounds, snapshot.roomMeta)
+    : [];
+
+  function downloadShareFloorPlan() {
+    if (!snapshot || !shareBounds) return;
+    const svg = buildFloorPlanSvg({
+      modules: snapshot.modules,
+      bounds: shareBounds,
+      roomMeta: snapshot.roomMeta,
+      designName: designName || "shared-design",
+    });
+    downloadFloorPlanSvg(svg, `shared-${shareToken.slice(0, 8)}-floor-plan.svg`);
+  }
+
   return (
     <>
       <header className="sticky top-0 z-40 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -178,6 +203,54 @@ export function ShareView({ shareToken }: ShareViewProps) {
                 </CardContent>
               </Card>
             </div>
+
+            {snapshot?.roomMeta?.userConfirmed && (
+              <Card>
+                <CardHeader className="flex flex-row items-center justify-between gap-2">
+                  <div>
+                    <CardTitle className="text-base">Room & layout check</CardTitle>
+                    <CardDescription>
+                      Scanned {snapshot.roomMeta.widthIn}&quot; ×{" "}
+                      {snapshot.roomMeta.depthIn}&quot;
+                      {snapshot.roomMeta.scanConfidence
+                        ? ` (${snapshot.roomMeta.scanConfidence} confidence)`
+                        : ""}
+                    </CardDescription>
+                  </div>
+                  {snapshot.modules.length > 0 && (
+                    <Button
+                      type="button"
+                      size="sm"
+                      variant="outline"
+                      onClick={downloadShareFloorPlan}
+                      data-testid="button-share-floor-plan"
+                    >
+                      <Download className="h-4 w-4" />
+                      Floor plan
+                    </Button>
+                  )}
+                </CardHeader>
+                {shareIssues.length > 0 && (
+                  <CardContent>
+                    <ul className="text-sm space-y-1 text-muted-foreground">
+                      {shareIssues.slice(0, 6).map((issue) => (
+                        <li key={issue.id}>
+                          <span
+                            className={
+                              issue.severity === "error"
+                                ? "text-destructive font-medium"
+                                : ""
+                            }
+                          >
+                            {issue.title}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  </CardContent>
+                )}
+              </Card>
+            )}
 
             <Card>
               <CardHeader>

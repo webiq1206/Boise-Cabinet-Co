@@ -13,6 +13,7 @@ const pricingRequestSchema = z.object({
   roomType: z.string().optional(),
   collectionId: z.string().optional(),
   styleJson: z.record(z.unknown()).optional(),
+  layoutSummary: z.record(z.unknown()).optional(),
 });
 
 export async function POST(request: NextRequest) {
@@ -31,7 +32,14 @@ export async function POST(request: NextRequest) {
         name: data.name,
         email: data.email,
         phone: data.phone,
-        message: data.message,
+        message: [
+          data.message,
+          data.layoutSummary
+            ? `[Layout summary — planning only]\n${JSON.stringify(data.layoutSummary, null, 2)}`
+            : null,
+        ]
+          .filter(Boolean)
+          .join("\n\n") || undefined,
         status: "pending",
       })
       .returning();
