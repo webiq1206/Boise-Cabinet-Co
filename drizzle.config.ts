@@ -4,8 +4,13 @@ import { defineConfig } from "drizzle-kit";
 config({ path: ".env.local" });
 config({ path: ".env" });
 
-if (!process.env.DATABASE_URL) {
-  throw new Error("DATABASE_URL not set — add it to .env.local");
+const databaseUrl =
+  process.env.DATABASE_URL ?? process.env.PGDATABASE_URL ?? process.env.REPLIT_DB_URL;
+
+if (!databaseUrl) {
+  throw new Error(
+    "DATABASE_URL not set — configure Replit Postgres or add DATABASE_URL to .env.local",
+  );
 }
 
 export default defineConfig({
@@ -13,6 +18,6 @@ export default defineConfig({
   schema: "./shared/schema.ts",
   dialect: "postgresql",
   dbCredentials: {
-    url: process.env.DATABASE_URL,
+    url: databaseUrl,
   },
 });

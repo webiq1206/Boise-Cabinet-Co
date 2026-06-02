@@ -1,6 +1,9 @@
 export async function register() {
   if (process.env.NEXT_RUNTIME === "nodejs" && process.env.NODE_ENV === "production") {
-    const dbUrl = process.env.DATABASE_URL;
+    const dbUrl =
+      process.env.DATABASE_URL ??
+      process.env.PGDATABASE_URL ??
+      process.env.REPLIT_DB_URL;
     if (!dbUrl) return;
 
     const GARY_USER_ID = "55074230";
@@ -11,87 +14,84 @@ export async function register() {
       { leadId: "2a8eb4b6-dfb5-4f3f-a8f2-09962889a897", price: "10.00", label: "Hannah Turner kitchen-remodel Boise $10" },
     ];
 
-    try {
-      const { neon } = await import("@neondatabase/serverless");
-      const sql = neon(dbUrl);
+    const pool = new (await import("pg")).Pool({ connectionString: dbUrl });
 
+    try {
       for (const entry of UNRESOLVED_PURCHASES) {
-        const leadRows = await sql`SELECT id, status FROM leads WHERE id = ${entry.leadId}`;
-        if (leadRows.length > 0 && leadRows[0].status !== "purchased") {
-          const existingRows = await sql`SELECT id FROM lead_purchases WHERE lead_id = ${entry.leadId}`;
-          if (existingRows.length === 0) {
-            await sql`
-              INSERT INTO lead_purchases (lead_id, user_id, purchase_price, stripe_payment_intent_id, created_at)
-              VALUES (${entry.leadId}, ${GARY_USER_ID}, ${entry.price}, ${'pi_admin_resolved_' + Date.now()}, NOW())
-            `;
-            await sql`
-              UPDATE leads SET
+        const leadRows = await pool.query(
+          "SELECT id, status FROM leads WHERE id = $1",
+          [entry.leadId],
+        );
+        if (leadRows.rows.length > 0 && leadRows.rows[0].status !== "purchased") {
+          const existingRows = await pool.query(
+            "SELECT id FROM lead_purchases WHERE lead_id = $1",
+            [entry.leadId],
+          );
+          if (existingRows.rows.length === 0) {
+            await pool.query(
+              `INSERT INTO lead_purchases (lead_id, user_id, purchase_price, stripe_payment_intent_id, created_at)
+               VALUES ($1, $2, $3, $4, NOW())`,
+              [entry.leadId, GARY_USER_ID, entry.price, `pi_admin_resolved_${Date.now()}`],
+            );
+            await pool.query(
+              `UPDATE leads SET
                 status = 'purchased',
-                purchased_by = ${GARY_USER_ID},
+                purchased_by = $1,
                 purchased_at = NOW(),
-                purchase_price = ${entry.price}
-              WHERE id = ${entry.leadId}
-            `;
+                purchase_price = $2
+               WHERE id = $3`,
+              [GARY_USER_ID, entry.price, entry.leadId],
+            );
             console.log("[startup] Resolved purchase: " + entry.label);
           }
         }
       }
 
-      await sql`
+      await pool.query(`
         UPDATE leads SET status = 'archived', updated_at = NOW()
         WHERE status = 'available' AND created_at < NOW() - INTERVAL '7 days'
-      `;
+      `);
       console.log("[startup] Auto-archived stale leads (7+ days old)");
 
-      // ----------------------------------------------------------------
-      // One-shot lead address cleanup. Idempotent: only rows whose stored
-      // value differs from the cleaned form (or whose missing-house-number
-      // flag is wrong) are touched, so re-runs become no-ops once production
-      // is fully normalized.
-      // ----------------------------------------------------------------
       try {
         const { normalizeStoredAddress, hasLeadingHouseNumber } = await import(
           "./shared/addressValidation"
         );
-        const rows = (await sql`
+        const rows = await pool.query(`
           SELECT id, address, city, address_missing_house_number
           FROM leads
           WHERE address IS NOT NULL AND address <> '***'
-        `) as Array<{
-          id: string;
-          address: string;
-          city: string | null;
-          address_missing_house_number: boolean | null;
-        }>;
+        `);
         let cleaned = 0;
         let flagged = 0;
-        for (const row of rows) {
+        for (const row of rows.rows) {
           const normalized = normalizeStoredAddress(row.address, row.city);
           const missing = !hasLeadingHouseNumber(normalized);
           const addressChanged = normalized && normalized !== row.address;
           const flagChanged = missing !== Boolean(row.address_missing_house_number);
           if (!addressChanged && !flagChanged) continue;
           if (addressChanged && flagChanged) {
-            await sql`
-              UPDATE leads
-              SET address = ${normalized}, address_missing_house_number = ${missing}
-              WHERE id = ${row.id}
-            `;
+            await pool.query(
+              `UPDATE leads SET address = $1, address_missing_house_number = $2 WHERE id = $3`,
+              [normalized, missing, row.id],
+            );
           } else if (addressChanged) {
-            await sql`
-              UPDATE leads SET address = ${normalized} WHERE id = ${row.id}
-            `;
+            await pool.query(
+              "UPDATE leads SET address = $1 WHERE id = $2",
+              [normalized, row.id],
+            );
           } else {
-            await sql`
-              UPDATE leads SET address_missing_house_number = ${missing} WHERE id = ${row.id}
-            `;
+            await pool.query(
+              "UPDATE leads SET address_missing_house_number = $1 WHERE id = $2",
+              [missing, row.id],
+            );
           }
           if (addressChanged) cleaned++;
           if (missing) flagged++;
         }
         if (cleaned > 0 || flagged > 0) {
           console.log(
-            `[startup] Address backfill: rewrote ${cleaned} address(es), flagged ${flagged} missing-house-number row(s)`
+            `[startup] Address backfill: rewrote ${cleaned} address(es), flagged ${flagged} missing-house-number row(s)`,
           );
         }
       } catch (addrErr) {
@@ -99,6 +99,8 @@ export async function register() {
       }
     } catch (e) {
       console.error("[startup] Error during startup tasks:", e);
+    } finally {
+      await pool.end();
     }
   }
 }
