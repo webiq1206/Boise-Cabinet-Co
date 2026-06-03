@@ -125,9 +125,6 @@ const nextConfig = {
       redirects.push(...r(source, destination));
     }
 
-    const treasureValleyGuide = '/guides/treasure-valley-cabinet-guide';
-    redirects.push(...r('/areas', treasureValleyGuide));
-
     const cities = [
       'boise',
       'meridian',
@@ -140,7 +137,6 @@ const nextConfig = {
     ];
 
     for (const city of cities) {
-      redirects.push(...r(`/areas/${city}`, treasureValleyGuide));
       redirects.push(...r(`/services/kitchen-remodel/${city}`, '/cabinets/kitchen'));
       redirects.push(...r(`/services/bathroom-remodel/${city}`, '/cabinets/bathroom'));
       redirects.push(

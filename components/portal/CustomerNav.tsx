@@ -5,31 +5,41 @@ import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { SITE_CONFIG } from "@/shared/siteConfig";
 import { Home, FolderKanban, FileText, MessageSquare, User } from "lucide-react";
-
-import { PLACEHOLDER_PROJECT_ID } from "@/shared/portalPlaceholder";
-
-const navItems = [
-  { href: "/portal", label: "Home", icon: Home, exact: true },
-  {
-    href: `/portal/projects/${PLACEHOLDER_PROJECT_ID}`,
-    label: "My Project",
-    icon: FolderKanban,
-  },
-  {
-    href: `/portal/projects/${PLACEHOLDER_PROJECT_ID}/documents`,
-    label: "Documents",
-    icon: FileText,
-  },
-  {
-    href: `/portal/projects/${PLACEHOLDER_PROJECT_ID}/messages`,
-    label: "Messages",
-    icon: MessageSquare,
-  },
-  { href: "/portal/account", label: "Account", icon: User },
-];
+import { usePortalNav } from "@/components/portal/PortalNavProvider";
 
 export function CustomerNav() {
   const pathname = usePathname();
+  const { activeProjectId } = usePortalNav();
+
+  const projectMatch = pathname.match(/^\/portal\/projects\/([^/]+)/);
+  const projectId = projectMatch?.[1] ?? activeProjectId;
+
+  const navItems = [
+    { href: "/portal", label: "Home", icon: Home, exact: true },
+    ...(projectId
+      ? [
+          {
+            href: `/portal/projects/${projectId}`,
+            label: "My Project",
+            icon: FolderKanban,
+            exact: false as const,
+          },
+          {
+            href: `/portal/projects/${projectId}/documents`,
+            label: "Documents",
+            icon: FileText,
+            exact: false as const,
+          },
+          {
+            href: `/portal/projects/${projectId}/messages`,
+            label: "Messages",
+            icon: MessageSquare,
+            exact: false as const,
+          },
+        ]
+      : []),
+    { href: "/portal/account", label: "Account", icon: User, exact: true },
+  ];
 
   return (
     <nav className="flex flex-col gap-1 p-4">
@@ -55,7 +65,7 @@ export function CustomerNav() {
               "flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors",
               active
                 ? "bg-primary text-primary-foreground"
-                : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                : "text-muted-foreground hover:bg-muted hover:text-foreground",
             )}
           >
             <Icon className="h-4 w-4 shrink-0" />

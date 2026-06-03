@@ -4,6 +4,8 @@ import { useEffect, useState, useRef } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter, useParams } from "next/navigation";
 import { PortalShell } from "@/components/portal/PortalShell";
+import { AdminAuthGate } from "@/components/admin/AdminAuthGate";
+import { Skeleton } from "@/components/ui/skeleton";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
@@ -12,7 +14,6 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
-import { useAuth } from "@/hooks/useAuth";
 import { useToast } from "@/hooks/use-toast";
 import Link from "next/link";
 import { PropertyProfileEditor } from "@/components/admin/PropertyProfileEditor";
@@ -20,7 +21,6 @@ import { AdminProjectPortalPanel } from "@/components/admin/AdminProjectPortalPa
 import type { PropertyProfile } from "@/shared/propertyProfile";
 
 export default function AdminProjectDetailPage() {
-  const { isAdmin, isLoading } = useAuth();
   const router = useRouter();
   const params = useParams();
   const projectId = params.id as string;
@@ -34,8 +34,8 @@ export default function AdminProjectDetailPage() {
   const docInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    if (!isLoading && !isAdmin) router.push("/admin");
-  }, [isAdmin, isLoading, router]);
+    if (!projectId) router.push("/admin/projects");
+  }, [projectId, router]);
 
   const { data, isLoading: loadingProject } = useQuery({
     queryKey: ["/api/admin/projects", projectId],
@@ -44,7 +44,7 @@ export default function AdminProjectDetailPage() {
       if (!res.ok) throw new Error("Failed to load");
       return res.json();
     },
-    enabled: isAdmin && !!projectId,
+    enabled: !!projectId,
   });
 
   const { data: subcontractors = [] } = useQuery({
@@ -54,7 +54,7 @@ export default function AdminProjectDetailPage() {
       if (!res.ok) return [];
       return res.json();
     },
-    enabled: isAdmin,
+    enabled: !!projectId,
   });
 
   const { data: templates = [] } = useQuery({
@@ -64,7 +64,7 @@ export default function AdminProjectDetailPage() {
       if (!res.ok) return [];
       return res.json();
     },
-    enabled: isAdmin,
+    enabled: !!projectId,
   });
 
   const actionMutation = useMutation({
@@ -155,8 +155,6 @@ export default function AdminProjectDetailPage() {
     },
   });
 
-  if (isLoading || !isAdmin) return null;
-
   const project = data?.project;
   const assignments = data?.assignments ?? [];
   const changeOrders = data?.changeOrders ?? [];
@@ -165,12 +163,16 @@ export default function AdminProjectDetailPage() {
   const messages = data?.messages ?? [];
 
   return (
-    <PortalShell variant="admin" title={project?.title ?? "Project"}>
+    <AdminAuthGate title="Project">
+      <PortalShell variant="admin" title={project?.title ?? "Project"}>
       {loadingProject || !project ? (
-        <p className="text-muted-foreground">Loading...</p>
+        <div className="space-y-4">
+          <Skeleton className="h-10 w-full max-w-lg" />
+          <Skeleton className="h-48 w-full" />
+        </div>
       ) : (
         <Tabs defaultValue="overview">
-          <TabsList>
+          <TabsList className="w-full justify-start overflow-x-auto scrollbar-hide flex-nowrap h-auto p-1">
             <TabsTrigger value="overview">Overview</TabsTrigger>
             <TabsTrigger value="scope">Scope</TabsTrigger>
             <TabsTrigger value="assignments">Assignments</TabsTrigger>
@@ -462,5 +464,6 @@ export default function AdminProjectDetailPage() {
         </Tabs>
       )}
     </PortalShell>
+    </AdminAuthGate>
   );
 }

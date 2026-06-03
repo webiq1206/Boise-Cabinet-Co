@@ -7,7 +7,7 @@ import {
   DIFFERENTIATORS_INTRO,
   HOMEPAGE_DIFFERENTIATOR_INDICES,
 } from "@/shared/siteContent";
-import { CTA_PRIMARY } from "@/shared/ctaCopy";
+import { CTA_CONSULT } from "@/shared/ctaCopy";
 
 interface WhyChooseUsSectionProps {
   /** When set, show only the first N homepage-curated differentiators. */
@@ -61,7 +61,7 @@ export function WhyChooseUsSection({ limit }: WhyChooseUsSectionProps) {
 
         <Reveal className="mt-12 text-center">
           <Button variant="brand" asChild>
-            <a href="#consult">{CTA_PRIMARY}</a>
+            <a href="#consult">{CTA_CONSULT}</a>
           </Button>
         </Reveal>
       </div>

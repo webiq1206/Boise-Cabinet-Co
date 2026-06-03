@@ -8,6 +8,9 @@ import { PortalShell } from "@/components/portal/PortalShell";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { useAuth } from "@/hooks/useAuth";
+import { formatProjectStatus } from "@/lib/formatStatus";
+import { AdminAuthGate } from "@/components/admin/AdminAuthGate";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export default function AdminProjectsPage() {
   const { isAdmin, isLoading } = useAuth();
@@ -27,13 +30,20 @@ export default function AdminProjectsPage() {
     enabled: isAdmin,
   });
 
-  if (isLoading || !isAdmin) return null;
+  if (isLoading || !isAdmin) {
+    return (
+      <AdminAuthGate title="Projects">
+        <span />
+      </AdminAuthGate>
+    );
+  }
 
   return (
+    <AdminAuthGate title="Projects">
     <PortalShell variant="admin" title="Projects">
       <div className="space-y-4">
         {loadingProjects ? (
-          <p className="text-muted-foreground">Loading projects...</p>
+          <Skeleton className="h-32 w-full" />
         ) : projects.length === 0 ? (
           <Card>
             <CardContent className="py-8 text-center text-muted-foreground">
@@ -60,7 +70,7 @@ export default function AdminProjectsPage() {
                   <CardHeader className="pb-2">
                     <div className="flex items-start justify-between gap-4">
                       <CardTitle className="text-base">{project.title}</CardTitle>
-                      <Badge variant="outline">{project.status}</Badge>
+                      <Badge variant="outline">{formatProjectStatus(project.status)}</Badge>
                     </div>
                   </CardHeader>
                   <CardContent className="text-sm text-muted-foreground">
@@ -78,5 +88,6 @@ export default function AdminProjectsPage() {
         )}
       </div>
     </PortalShell>
+    </AdminAuthGate>
   );
 }

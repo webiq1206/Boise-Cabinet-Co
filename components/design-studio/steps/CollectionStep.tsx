@@ -6,6 +6,13 @@ import { COLLECTIONS } from "@/shared/catalog/collections";
 import { Badge } from "@/components/ui/badge";
 import type { CabinetCollection } from "../DesignStudioProvider";
 
+const COLLECTION_HINTS: Record<string, string> = {
+  "spec-grade": "Fastest lead time",
+  "semi-custom": "Most popular",
+  reserve: "Balanced custom options",
+  "full-custom": "Most customization",
+};
+
 export function CollectionStep() {
   const { design, updateDesign } = useDesignStudio();
 
@@ -16,14 +23,14 @@ export function CollectionStep() {
           Choose your <em className="brc-accent text-accent">collection</em>
         </h2>
         <p className="text-muted-foreground mt-2">
-          Sleek cabinets with soft-close doors on every line.
+          Choose the cabinet line that fits your timeline and budget. Every line includes soft-close doors.
         </p>
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2">
         {COLLECTIONS.map((item) => {
           const selected = design.collection === item.slug;
-          const tag = item.priceTier === "luxury" ? "Premium" : item.priceTier === "premium" ? "Popular" : undefined;
+          const tag = COLLECTION_HINTS[item.slug] ?? (item.priceTier === "luxury" ? "Premium" : item.priceTier === "premium" ? "Popular" : undefined);
 
           return (
             <button

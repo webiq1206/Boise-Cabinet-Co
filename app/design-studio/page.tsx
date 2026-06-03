@@ -29,9 +29,9 @@ function DesignStudioContent() {
           </Link>
           <p className="text-sm text-muted-foreground hidden sm:block">Design Studio</p>
           <Button variant="ghost" size="sm" asChild>
-            <Link href="/portal">
+            <Link href="/">
               <ArrowLeft className="h-4 w-4" />
-              <span className="hidden sm:inline">Back to portal</span>
+              <span className="hidden sm:inline">Back to site</span>
             </Link>
           </Button>
         </div>
@@ -56,7 +56,7 @@ function DesignStudioContent() {
           </h1>
           <p className="text-muted-foreground mt-2 max-w-xl">
             Scan your room, pick a layout that fits, explore finishes in 3D, then save
-            your design to your {SITE_CONFIG.name} project.
+            and share your design with our team for pricing.
           </p>
         </div>
 

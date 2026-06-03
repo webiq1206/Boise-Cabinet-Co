@@ -7,6 +7,7 @@ import { PageHeader } from "@/components/marketing/PageHeader";
 import { SectionHeader } from "@/components/marketing/SectionHeader";
 import { Button } from "@/components/ui/button";
 import { CatalogPageHero } from "@/components/catalog/CatalogPageHero";
+import { CatalogClosingCTA } from "@/components/catalog/CatalogClosingCTA";
 import { MARKETING_IMAGES } from "@/shared/siteImages";
 import { catalogMetadata, catalogDescription } from "@/lib/catalog-metadata";
 import { generateBreadcrumbSchema, generateWebPageSchema } from "@/lib/schema";
@@ -42,7 +43,7 @@ function ComparisonCell({ value }: { value: ComparisonValue | undefined }) {
     );
   }
   if (value === undefined) {
-    return <span className="text-muted-foreground">, </span>;
+    return <span className="text-muted-foreground">N/A</span>;
   }
   return <span className="text-sm text-foreground">{String(value)}</span>;
 }
@@ -178,6 +179,7 @@ export default function ComparePage() {
             </div>
           </div>
         </Section>
+        <CatalogClosingCTA />
       </div>
     </>
   );

@@ -7,6 +7,7 @@ import { Section } from "@/components/marketing/Section";
 import { PageHeader } from "@/components/marketing/PageHeader";
 import { SectionHeader } from "@/components/marketing/SectionHeader";
 import { MarketingCard } from "@/components/marketing/MarketingCard";
+import { CatalogClosingCTA } from "@/components/catalog/CatalogClosingCTA";
 import { TextLink } from "@/components/marketing/TextLink";
 import { CatalogSearch } from "@/components/catalog/CatalogSearch";
 import { Button } from "@/components/ui/button";
@@ -123,6 +124,7 @@ export default function CabinetsHubPage() {
             </div>
           </div>
         </Section>
+        <CatalogClosingCTA />
       </div>
     </>
   );

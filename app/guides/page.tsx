@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowRight, BookOpen, MapPin } from 'lucide-react';
+import type { Metadata } from 'next';
 import { buildPageMetadata } from '@/lib/page-metadata';
 import { Section } from '@/components/marketing/Section';
 import { MarketingCard } from '@/components/marketing/MarketingCard';

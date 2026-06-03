@@ -3,7 +3,9 @@
 import { Suspense, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/hooks/useAuth";
+import { PortalShell } from "@/components/portal/PortalShell";
 import LeadMarketplace from "@/components/subcontractor/LeadMarketplace";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export default function SubcontractorLeadsPage() {
   const { isSubcontractor, isAdmin, isLoading } = useAuth();
@@ -15,11 +17,19 @@ export default function SubcontractorLeadsPage() {
     }
   }, [isSubcontractor, isAdmin, isLoading, router]);
 
-  if (isLoading) return null;
+  if (isLoading) {
+    return (
+      <PortalShell variant="subcontractor" title="Lead Marketplace">
+        <Skeleton className="h-48 w-full" />
+      </PortalShell>
+    );
+  }
 
   return (
-    <Suspense fallback={<div className="p-8 text-center text-muted-foreground">Loading marketplace...</div>}>
-      <LeadMarketplace />
-    </Suspense>
+    <PortalShell variant="subcontractor" title="Lead Marketplace">
+      <Suspense fallback={<Skeleton className="h-48 w-full" />}>
+        <LeadMarketplace embedded />
+      </Suspense>
+    </PortalShell>
   );
 }

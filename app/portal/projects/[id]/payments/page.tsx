@@ -8,7 +8,9 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
-import { ArrowLeft, CreditCard } from "lucide-react";
+import { ProjectSubNav } from "@/components/portal/ProjectSubNav";
+import { PortalEmptyState } from "@/components/portal/PortalEmptyState";
+import { ArrowLeft, CreditCard, FileText } from "lucide-react";
 import { useState } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements, PaymentElement, useStripe, useElements } from "@stripe/react-stripe-js";
@@ -124,12 +126,7 @@ export default function ProjectPaymentsPage() {
   return (
     <PortalShell variant="customer" title="Payments">
       <div className="max-w-3xl mx-auto space-y-6">
-        <Button variant="ghost" size="sm" asChild className="-ml-2">
-          <Link href={`/portal/projects/${projectId}`}>
-            <ArrowLeft className="h-4 w-4" />
-            Back to project
-          </Link>
-        </Button>
+        <ProjectSubNav />
 
         <div>
           <h2 className="text-xl font-sans font-light tracking-tight">
@@ -170,7 +167,14 @@ export default function ProjectPaymentsPage() {
             <CardTitle className="text-base">Invoices</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
-            {invoices.map((invoice) => {
+            {!isLoading && invoices.length === 0 ? (
+              <PortalEmptyState
+                icon={FileText}
+                title="No invoices yet"
+                description="Invoices will appear here when your project reaches the contract stage."
+              />
+            ) : (
+              invoices.map((invoice) => {
               const config = statusConfig[invoice.status] ?? statusConfig.upcoming;
               const canPay = ["due", "sent", "overdue"].includes(invoice.status);
               return (
@@ -193,7 +197,8 @@ export default function ProjectPaymentsPage() {
                   </div>
                 </div>
               );
-            })}
+            })
+            )}
           </CardContent>
         </Card>
       </div>

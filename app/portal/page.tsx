@@ -10,6 +10,8 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { SITE_CONFIG } from "@/shared/siteConfig";
+import { PortalEmptyState } from "@/components/portal/PortalEmptyState";
+import { formatProjectStatus } from "@/lib/formatStatus";
 import {
   MessageSquare,
   Upload,
@@ -17,6 +19,7 @@ import {
   Palette,
   ArrowRight,
   MapPin,
+  FolderKanban,
 } from "lucide-react";
 
 interface DashboardData {
@@ -56,7 +59,7 @@ export default function PortalHomePage() {
         { label: "Message", href: `/portal/projects/${project.id}/messages`, icon: MessageSquare, description: "Chat with your project team" },
         { label: "Upload", href: `/portal/projects/${project.id}/documents`, icon: Upload, description: "Add photos or documents" },
         { label: "View Invoice", href: `/portal/projects/${project.id}/payments`, icon: FileText, description: "Review payments & invoices" },
-        { label: "Design Studio", href: "/design-studio", icon: Palette, description: "Explore cabinet options" },
+        { label: "Design", href: `/portal/projects/${project.id}/design`, icon: Palette, description: "Review cabinet selections" },
       ]
     : [];
 
@@ -65,7 +68,7 @@ export default function PortalHomePage() {
       <div className="max-w-5xl mx-auto space-y-8">
         <div>
           <p className="text-muted-foreground mb-1">Welcome to your {SITE_CONFIG.name} portal</p>
-          <h2 className="text-2xl font-sans font-light tracking-tight">
+          <h2 className="text-xl sm:text-2xl font-sans font-light tracking-tight">
             Your project at a <em className="brc-accent text-accent">glance</em>
           </h2>
         </div>
@@ -89,7 +92,7 @@ export default function PortalHomePage() {
                     {project.address}, {project.city}, {project.state}
                   </CardDescription>
                 </div>
-                <Badge variant="secondary">{project.status}</Badge>
+                <Badge variant="secondary">{formatProjectStatus(project.status)}</Badge>
               </div>
             </CardHeader>
             <CardContent className="space-y-4">
@@ -115,7 +118,15 @@ export default function PortalHomePage() {
               </Button>
             </CardContent>
           </Card>
-        ) : null}
+        ) : (
+          <PortalEmptyState
+            icon={FolderKanban}
+            title="No active project yet"
+            description="Once your project is set up, you'll see your timeline, documents, and messages here. Contact us if you expected to see a project."
+            actionLabel="Contact our team"
+            actionHref="/contact"
+          />
+        )}
 
         {project && (
           <Card>
@@ -129,12 +140,13 @@ export default function PortalHomePage() {
           </Card>
         )}
 
-        <div>
-          <h3 className="text-sm font-medium uppercase tracking-wider text-muted-foreground mb-3">
-            Quick actions
-          </h3>
-          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-            {quickActions.map((action) => {
+        {project ? (
+          <div>
+            <h3 className="text-sm font-medium uppercase tracking-wider text-muted-foreground mb-3">
+              Quick actions
+            </h3>
+            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+              {quickActions.map((action) => {
               const Icon = action.icon;
               return (
                 <Link
@@ -152,8 +164,9 @@ export default function PortalHomePage() {
                 </Link>
               );
             })}
+            </div>
           </div>
-        </div>
+        ) : null}
       </div>
     </PortalShell>
   );

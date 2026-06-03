@@ -18,7 +18,8 @@ import {
 import { BUSINESS_INFO } from '@/lib/seo';
 import { SITE_CONFIG } from '@/shared/siteConfig';
 import { CITIES, TREASURE_VALLEY_CITIES } from '@/shared/contentData';
-import { CTA_PRIMARY, CTA_SECONDARY } from '@/shared/ctaCopy';
+import { ConsultationForm } from '@/components/ConsultationForm';
+import { CTA_CONSULT, CTA_ESTIMATE } from '@/shared/ctaCopy';
 import { CONSULT_BULLETS, HERO_STATS } from '@/shared/siteContent';
 import { ConsultCTA } from '@/components/modals/ConsultCTA';
 import { EstimateCTA } from '@/components/modals/EstimateCTA';
@@ -205,13 +206,13 @@ export default function ContactPage() {
             </a>
             <div className="flex flex-wrap gap-3 mb-8">
               <ConsultCTA variant="brand">
-                {CTA_PRIMARY} <ArrowRight className="h-4 w-4" />
+                {CTA_CONSULT} <ArrowRight className="h-4 w-4" />
               </ConsultCTA>
               <EstimateCTA
                 variant="outline"
                 className="bg-white/10 backdrop-blur-sm border-white/30 text-white"
               >
-                {CTA_SECONDARY}
+                {CTA_ESTIMATE}
               </EstimateCTA>
             </div>
             <div className="grid grid-cols-3 gap-3 max-w-xl">
@@ -342,8 +343,8 @@ export default function ContactPage() {
                   ))}
                 </ul>
                 <div className="flex flex-col sm:flex-row flex-wrap gap-3">
-                  <ConsultCTA variant="brand">{CTA_PRIMARY}</ConsultCTA>
-                  <EstimateCTA variant="brandOutline">{CTA_SECONDARY}</EstimateCTA>
+                  <ConsultCTA variant="brand">{CTA_CONSULT}</ConsultCTA>
+                  <EstimateCTA variant="brandOutline">{CTA_ESTIMATE}</EstimateCTA>
                 </div>
               </Reveal>
             </div>
@@ -351,6 +352,29 @@ export default function ContactPage() {
         </Section>
 
         <StatementBandSection />
+
+        {/* ─── Consultation form ─── */}
+        <Section id="consult" divider>
+          <div className="container px-4 max-w-5xl mx-auto grid md:grid-cols-5 gap-12 items-start">
+            <div className="md:col-span-2">
+              <SectionHeader
+                eyebrow="Begin a conversation"
+                size="display"
+                title={
+                  <>
+                    Tell us about your{' '}
+                    <em className="brc-accent text-accent">project</em>
+                  </>
+                }
+                description="We respond within one business day. Share your goals and we will schedule a free in-home design consultation."
+                className="max-w-none"
+              />
+            </div>
+            <MarketingCard className="md:col-span-3" padding="lg">
+              <ConsultationForm />
+            </MarketingCard>
+          </div>
+        </Section>
 
         {/* ─── Service areas ─── */}
         <Section divider>
@@ -401,12 +425,12 @@ export default function ContactPage() {
                   {BUSINESS_INFO.phone}
                 </a>
                 <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-3">
-                  <ConsultCTA variant="brand">{CTA_PRIMARY}</ConsultCTA>
+                  <ConsultCTA variant="brand">{CTA_CONSULT}</ConsultCTA>
                   <EstimateCTA
                     variant="outline"
                     className="bg-white/10 backdrop-blur-sm border-white/30 text-white"
                   >
-                    {CTA_SECONDARY}
+                    {CTA_ESTIMATE}
                   </EstimateCTA>
                 </div>
               </MarketingCard>

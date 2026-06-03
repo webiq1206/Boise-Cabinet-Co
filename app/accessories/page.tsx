@@ -8,6 +8,7 @@ import { SectionHeader } from "@/components/marketing/SectionHeader";
 import { MarketingCard } from "@/components/marketing/MarketingCard";
 import { Chip } from "@/components/marketing/Chip";
 import { CatalogSearch } from "@/components/catalog/CatalogSearch";
+import { CatalogClosingCTA } from "@/components/catalog/CatalogClosingCTA";
 import { CatalogPageHero } from "@/components/catalog/CatalogPageHero";
 import { CatalogProductImage } from "@/components/catalog/CatalogProductImage";
 import { MARKETING_IMAGES } from "@/shared/siteImages";
@@ -110,6 +111,7 @@ export default function AccessoriesPage() {
             </div>
           </div>
         </Section>
+        <CatalogClosingCTA />
       </div>
     </>
   );

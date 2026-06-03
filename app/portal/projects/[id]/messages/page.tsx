@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
@@ -9,7 +8,9 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { ArrowLeft, Send, Loader2 } from "lucide-react";
+import { ProjectSubNav } from "@/components/portal/ProjectSubNav";
+import { PortalEmptyState } from "@/components/portal/PortalEmptyState";
+import { ArrowLeft, Send, Loader2, MessageSquare } from "lucide-react";
 import { format } from "date-fns";
 
 interface Message {
@@ -53,12 +54,7 @@ export default function ProjectMessagesPage() {
   return (
     <PortalShell variant="customer" title="Messages">
       <div className="max-w-3xl mx-auto space-y-6">
-        <Button variant="ghost" size="sm" asChild className="-ml-2">
-          <Link href={`/portal/projects/${projectId}`}>
-            <ArrowLeft className="h-4 w-4" />
-            Back to project
-          </Link>
-        </Button>
+        <ProjectSubNav />
 
         <div>
           <h2 className="text-xl font-sans font-light tracking-tight">
@@ -74,6 +70,12 @@ export default function ProjectMessagesPage() {
           <CardContent className="flex-1 overflow-y-auto py-4 space-y-4">
             {isLoading ? (
               <p className="text-sm text-muted-foreground">Loading messages…</p>
+            ) : messages.length === 0 ? (
+              <PortalEmptyState
+                icon={MessageSquare}
+                title="No messages yet"
+                description="When your project team sends an update, it will appear here. Send a message below to start the conversation."
+              />
             ) : (
               messages.map((msg) => (
                 <div key={msg.id} className={`flex gap-3 ${msg.isOwn ? "flex-row-reverse" : ""}`}>

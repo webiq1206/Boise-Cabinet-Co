@@ -517,7 +517,7 @@ function LeadPricingSection({ lead, discount = 0 }: { lead: Lead; discount?: num
   );
 }
 
-function SubcontractorPortalContent() {
+function SubcontractorPortalContent({ embedded = false }: { embedded?: boolean }) {
   const { toast } = useToast();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -1403,14 +1403,14 @@ function SubcontractorPortalContent() {
   }
 
   return (
-    <div className="min-h-screen bg-background" data-testid="page-subcontractor-portal">
-      {/* Header */}
+    <div className={embedded ? "space-y-4" : "min-h-screen bg-background"} data-testid="page-subcontractor-portal">
+      {!embedded && (
       <header className="border-b bg-card/80 backdrop-blur-sm sticky top-0 z-50">
         <div className="container px-3 md:px-4 py-3 md:py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div>
-                <h1 className="text-lg md:text-xl font-bold">Subcontractor Portal</h1>
+                <h1 className="text-lg md:text-xl font-bold">Partner Portal</h1>
                 <p className="text-sm text-muted-foreground">
                   Welcome, {user?.firstName || user?.email}
                 </p>
@@ -1439,8 +1439,9 @@ function SubcontractorPortalContent() {
           </div>
         </div>
       </header>
+      )}
 
-      <div className="container py-4 md:py-8 px-4">
+      <div className={embedded ? "" : "container py-4 md:py-8 px-4"}>
         {/* How It Works Guide */}
         <Collapsible className="mb-4 md:mb-6">
           <Card>
@@ -2276,17 +2277,14 @@ function SubcontractorPortalContent() {
   );
 }
 
-export default function LeadMarketplace() {
+export default function LeadMarketplace({ embedded = false }: { embedded?: boolean }) {
   return (
     <Suspense fallback={
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <div className="flex flex-col items-center gap-4">
-          <Leaf className="w-12 h-12 text-primary animate-pulse" />
-          <p className="text-muted-foreground">Loading portal...</p>
-        </div>
+      <div className="min-h-[200px] flex items-center justify-center">
+        <p className="text-muted-foreground">Loading marketplace...</p>
       </div>
     }>
-      <SubcontractorPortalContent />
+      <SubcontractorPortalContent embedded={embedded} />
     </Suspense>
   );
 }

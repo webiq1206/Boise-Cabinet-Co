@@ -7,6 +7,7 @@ import { Section } from "@/components/marketing/Section";
 import { PageHeader } from "@/components/marketing/PageHeader";
 import { SectionHeader } from "@/components/marketing/SectionHeader";
 import { MarketingCard } from "@/components/marketing/MarketingCard";
+import { CatalogClosingCTA } from "@/components/catalog/CatalogClosingCTA";
 import { TextLink } from "@/components/marketing/TextLink";
 import { Chip } from "@/components/marketing/Chip";
 import { CatalogSearch } from "@/components/catalog/CatalogSearch";
@@ -132,6 +133,7 @@ export default function CollectionsHubPage() {
             </div>
           </div>
         </Section>
+        <CatalogClosingCTA />
       </div>
     </>
   );

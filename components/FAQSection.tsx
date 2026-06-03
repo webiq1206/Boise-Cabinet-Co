@@ -10,7 +10,7 @@ import {
 import { Section } from "@/components/marketing/Section";
 import { SectionHeader } from "@/components/marketing/SectionHeader";
 import { Button } from "@/components/ui/button";
-import { CTA_PRIMARY, CTA_SECONDARY } from "@/shared/ctaCopy";
+import { CTA_CONSULT, CTA_ESTIMATE } from "@/shared/ctaCopy";
 import { HOMEPAGE_FAQS } from "@/shared/homepageFaqs";
 
 export { HOMEPAGE_FAQS };
@@ -65,10 +65,10 @@ export function FAQSection() {
           )}
           <div className="mt-10 flex flex-wrap gap-3 justify-center">
             <Button variant="brand" asChild>
-              <a href="#consult">{CTA_PRIMARY}</a>
+              <a href="#consult">{CTA_CONSULT}</a>
             </Button>
             <Button variant="brandOutline" asChild>
-              <a href="#calculator">{CTA_SECONDARY}</a>
+              <a href="#calculator">{CTA_ESTIMATE}</a>
             </Button>
           </div>
         </div>

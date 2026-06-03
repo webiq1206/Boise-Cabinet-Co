@@ -17,7 +17,7 @@ export function Footer() {
   return (
     <footer className="bg-inverse text-inverse-foreground">
       <div className="container px-4 py-16 md:py-20">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-10 mb-12 lg:gap-0 lg:divide-x lg:divide-inverse-foreground/10 [&>*]:lg:px-6 [&>*:first-child]:lg:pl-0 [&>*:last-child]:lg:pr-0">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-8 gap-10 mb-12 lg:gap-0 lg:divide-x lg:divide-inverse-foreground/10 [&>*]:lg:px-6 [&>*:first-child]:lg:pl-0 [&>*:last-child]:lg:pr-0">
           <div>
             <div className="mb-4">
               <span className="font-sans font-light text-lg tracking-tight text-inverse-foreground">
@@ -182,9 +182,12 @@ export function Footer() {
               </li>
               {CITIES.map((city) => (
                 <li key={city.slug}>
-                  <span className="text-sm text-inverse-muted">
+                  <Link
+                    href={`/areas/${city.slug}`}
+                    className="text-sm text-inverse-muted hover:text-inverse-foreground transition-colors"
+                  >
                     {city.name}, Idaho
-                  </span>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -260,10 +263,10 @@ export function Footer() {
             </ul>
             <div className="mt-6 pt-6 border-t border-inverse-foreground/10">
               <a
-                href="/api/login"
+                href="/partner"
                 className="text-xs text-inverse-muted hover:text-inverse-foreground transition-colors"
               >
-                Subcontractor Login
+                Partner Login
               </a>
             </div>
           </div>

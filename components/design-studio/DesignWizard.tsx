@@ -17,11 +17,11 @@ import { ChevronLeft, ChevronRight, Check, Eye, ChevronUp } from "lucide-react";
 import { wizardCopy } from "@/shared/designStudioCopy";
 
 export const WIZARD_STEPS = [
-  { id: "room", label: "Your room", shortLabel: "Room" },
-  { id: "layout", label: "Layout", shortLabel: "Layout" },
-  { id: "collection", label: "Cabinets", shortLabel: "Cabinets" },
-  { id: "look", label: "Look", shortLabel: "Look" },
-  { id: "finish", label: "Finish", shortLabel: "Finish" },
+  { id: "room", label: "Measure room", shortLabel: "Room" },
+  { id: "layout", label: "Kitchen shape", shortLabel: "Layout" },
+  { id: "collection", label: "Cabinet line", shortLabel: "Line" },
+  { id: "look", label: "Colors & hardware", shortLabel: "Look" },
+  { id: "finish", label: "Preview & quote", shortLabel: "Quote" },
 ] as const;
 
 const STEP_COMPONENTS = [
@@ -44,6 +44,12 @@ export function DesignWizard({ className }: DesignWizardProps) {
   const [mobilePreviewOpen, setMobilePreviewOpen] = useState(false);
 
   useEffect(() => setMounted(true), []);
+
+  useEffect(() => {
+    if (previewReady && design.layout) {
+      setMobilePreviewOpen(true);
+    }
+  }, [previewReady, design.layout]);
 
   const StepComponent = STEP_COMPONENTS[currentStep];
   const isFirst = currentStep === 0;
@@ -145,7 +151,17 @@ export function DesignWizard({ className }: DesignWizardProps) {
             Continue
             <ChevronRight className="h-4 w-4" />
           </Button>
-        ) : null}
+        ) : (
+          <Button
+            variant="brand"
+            onClick={() => {
+              document.getElementById("request-pricing")?.scrollIntoView({ behavior: "smooth" });
+            }}
+          >
+            Save & request quote
+            <ChevronRight className="h-4 w-4" />
+          </Button>
+        )}
       </div>
     </>
   );
@@ -193,6 +209,19 @@ export function DesignWizard({ className }: DesignWizardProps) {
         </div>
       )}
       {stepBody}
+      {isLast && (
+        <div className="fixed bottom-0 inset-x-0 z-30 border-t bg-background/95 backdrop-blur p-4 md:hidden">
+          <Button
+            variant="brand"
+            className="w-full"
+            onClick={() => {
+              document.getElementById("request-pricing")?.scrollIntoView({ behavior: "smooth" });
+            }}
+          >
+            Save & request quote
+          </Button>
+        </div>
+      )}
     </div>
   );
 }

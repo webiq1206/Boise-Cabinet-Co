@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/navigation-menu";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { CTA_PRIMARY, CTA_PRIMARY_SHORT, CTA_PORTAL_SHORT } from "@/shared/ctaCopy";
+import { CTA_CONSULT, CTA_DESIGN_STUDIO_SHORT, CTA_PORTAL_SHORT } from "@/shared/ctaCopy";
 import { SITE_CONFIG } from "@/shared/siteConfig";
 import { PRIMARY_NAV } from "@/shared/cabinetNav";
 import { useModals } from "@/components/modals/ModalProvider";
@@ -63,18 +63,35 @@ export function Navigation() {
   const [scrolled, setScrolled] = useState(false);
   const [expandedMobile, setExpandedMobile] = useState<string | null>(null);
   const { openConsult } = useModals();
-  const { isAuthenticated, isCustomer } = useAuth();
+  const { isAuthenticated, isCustomer, isSubcontractor, isAdmin } = useAuth();
   const bottomBarRef = useRef<HTMLDivElement>(null);
   const bottomBarTheme = useAdaptiveGlassTheme(bottomBarRef);
   const bottomBarClasses = getAdaptiveGlassClasses(bottomBarTheme);
 
-  const isPortal =
+  const isPortalRoute =
     pathname?.startsWith("/admin") ||
     pathname?.startsWith("/portal") ||
     pathname?.startsWith("/partner") ||
     pathname?.startsWith("/subcontractor");
+
+  const isPortalAppShell =
+    pathname?.startsWith("/portal") ||
+    pathname?.startsWith("/admin/dashboard") ||
+    pathname?.startsWith("/admin/projects") ||
+    pathname?.startsWith("/admin/leads") ||
+    pathname?.startsWith("/admin/contracts") ||
+    pathname?.startsWith("/admin/contractors") ||
+    pathname?.startsWith("/subcontractor/leads") ||
+    pathname?.startsWith("/subcontractor/projects") ||
+    pathname?.startsWith("/subcontractor/compliance") ||
+    pathname?.startsWith("/subcontractor/contracts") ||
+    pathname?.startsWith("/subcontractor/purchases") ||
+    pathname?.startsWith("/subcontractor/portal") ||
+    (pathname === "/subcontractor" && isAuthenticated && isSubcontractor) ||
+    (pathname === "/partner" && isAuthenticated && (isSubcontractor || isAdmin));
+
   const isHome = pathname === "/";
-  const isHeroMode = isHome && !scrolled && !isPortal;
+  const isHeroMode = isHome && !scrolled && !isPortalRoute;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 72);
@@ -94,7 +111,9 @@ export function Navigation() {
     };
   }, [mobileOpen]);
 
-  if (isPortal) {
+  if (isPortalAppShell) return null;
+
+  if (isPortalRoute) {
     return (
       <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/90">
         <nav className="container flex h-16 items-center justify-between gap-4 px-6">
@@ -206,7 +225,7 @@ export function Navigation() {
               {SITE_CONFIG.phone}
             </a>
             <Button variant="brand" size="sm" asChild>
-              <Link href="/design-studio">{CTA_PRIMARY_SHORT}</Link>
+              <Link href="/design-studio">{CTA_DESIGN_STUDIO_SHORT}</Link>
             </Button>
           </div>
 
@@ -298,9 +317,19 @@ export function Navigation() {
           <a href={SITE_CONFIG.phoneHref} className="flex items-center gap-3 text-base font-medium">
             {SITE_CONFIG.phone}
           </a>
+          <Button
+            variant="brandOutline"
+            className="w-full"
+            onClick={() => {
+              setMobileOpen(false);
+              openConsult();
+            }}
+          >
+            {CTA_CONSULT}
+          </Button>
           <Button variant="brand" className="w-full" asChild>
             <Link href="/design-studio" onClick={() => setMobileOpen(false)}>
-              {CTA_PRIMARY}
+              {CTA_DESIGN_STUDIO_SHORT}
             </Link>
           </Button>
         </div>
@@ -322,7 +351,7 @@ export function Navigation() {
             href="/design-studio"
             className={cn("flex items-center justify-center gap-2 py-4 text-sm font-medium", bottomBarClasses.text)}
           >
-            {CTA_PRIMARY_SHORT}
+            {CTA_DESIGN_STUDIO_SHORT}
           </Link>
         </div>
       </div>

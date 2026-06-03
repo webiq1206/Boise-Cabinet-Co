@@ -6,6 +6,7 @@ import { PortalShell } from "@/components/portal/PortalShell";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { ProjectSubNav } from "@/components/portal/ProjectSubNav";
 import { ArrowLeft, Download, FileText, Upload } from "lucide-react";
 
 const PLACEHOLDER_DOCUMENTS = [
@@ -22,12 +23,7 @@ export default function ProjectDocumentsPage() {
   return (
     <PortalShell variant="customer" title="Documents">
       <div className="max-w-3xl mx-auto space-y-6">
-        <Button variant="ghost" size="sm" asChild className="-ml-2">
-          <Link href={`/portal/projects/${projectId}`}>
-            <ArrowLeft className="h-4 w-4" />
-            Back to project
-          </Link>
-        </Button>
+        <ProjectSubNav />
 
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>
@@ -38,16 +34,18 @@ export default function ProjectDocumentsPage() {
               Contracts, plans, and uploaded files
             </p>
           </div>
-          <Button variant="brand" disabled>
+          <Button variant="brand" disabled title="Upload coming soon">
             <Upload className="h-4 w-4" />
-            Upload file
+            Upload file (coming soon)
           </Button>
         </div>
 
         <Card>
           <CardHeader>
             <CardTitle className="text-base">All documents</CardTitle>
-            <CardDescription>{PLACEHOLDER_DOCUMENTS.length} files</CardDescription>
+            <CardDescription>
+              Sample documents shown for preview. Live uploads sync when your project is connected.
+            </CardDescription>
           </CardHeader>
           <CardContent className="divide-y">
             {PLACEHOLDER_DOCUMENTS.map((doc) => (

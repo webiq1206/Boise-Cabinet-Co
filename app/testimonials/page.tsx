@@ -7,7 +7,7 @@ import { ProjectGallerySection } from '@/components/sections/ProjectGallerySecti
 import { TestimonialsSection } from '@/components/sections/TestimonialsSection';
 import { buildPageMetadata } from '@/lib/page-metadata';
 import { generateImageGallerySchema } from '@/lib/schema';
-import { CTA_PRIMARY, CTA_SECONDARY } from '@/shared/ctaCopy';
+import { CTA_CONSULT, CTA_ESTIMATE } from '@/shared/ctaCopy';
 import { GALLERY_PROJECTS } from '@/shared/galleryData';
 import { ConsultCTA } from '@/components/modals/ConsultCTA';
 import { EstimateCTA } from '@/components/modals/EstimateCTA';
@@ -66,10 +66,10 @@ export default function TestimonialsPage() {
           <div className="mb-8" />
           <div className="flex flex-wrap gap-3">
             <ConsultCTA variant="brand">
-              {CTA_PRIMARY} <ArrowRight className="h-4 w-4" />
+              {CTA_CONSULT} <ArrowRight className="h-4 w-4" />
             </ConsultCTA>
             <EstimateCTA variant="brandOutline">
-              {CTA_SECONDARY}
+              {CTA_ESTIMATE}
             </EstimateCTA>
           </div>
         </div>
@@ -80,15 +80,15 @@ export default function TestimonialsPage() {
 
       <Section divider spacing="sm">
         <div className="container px-4 max-w-2xl mx-auto">
-          <div className="marketing-card p-10 md:p-12 text-center">
-            <h2 className="font-sans font-light text-section-title mb-4 text-foreground">
+          <div className="marketing-card cta-card-dark p-10 md:p-12 text-center">
+            <h2 className="font-sans font-light text-section-title mb-4 text-inverse-foreground">
               Ready to start your project?
             </h2>
-            <p className="text-base text-muted-foreground mb-8">
+            <p className="text-base text-inverse-muted mb-8">
               Schedule a free in-home visit for planning guidance, design direction, and an honest
               project range.
             </p>
-            <ConsultCTA variant="brand">{CTA_PRIMARY}</ConsultCTA>
+            <ConsultCTA variant="brand">{CTA_CONSULT}</ConsultCTA>
           </div>
         </div>
       </Section>

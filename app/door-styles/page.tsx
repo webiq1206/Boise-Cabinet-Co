@@ -6,7 +6,7 @@ import { Section } from "@/components/marketing/Section";
 import { PageHeader } from "@/components/marketing/PageHeader";
 import { SectionHeader } from "@/components/marketing/SectionHeader";
 import { MarketingCard } from "@/components/marketing/MarketingCard";
-import { TextLink } from "@/components/marketing/TextLink";
+import { CatalogClosingCTA } from "@/components/catalog/CatalogClosingCTA";
 import { Chip } from "@/components/marketing/Chip";
 import { CatalogSearch } from "@/components/catalog/CatalogSearch";
 import { DoorStyleHero } from "@/components/catalog/DoorStyleHero";
@@ -78,32 +78,35 @@ export default function DoorStylesPage() {
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
               {DOOR_STYLES.map((style, i) => (
                 <Reveal key={style.id} delay={i * 40}>
-                  <MarketingCard className="h-full flex flex-col p-0 overflow-hidden">
-                    <DoorStyleHero slug={style.slug} name={style.name} className="rounded-none" />
-                    <div className="p-6 flex flex-col flex-1">
-                    <div className="flex flex-wrap gap-1.5 mb-3">
-                      {style.compatibleFinishCategories.map((cat) => (
-                        <Chip key={cat} className="capitalize">
-                          {cat}
-                        </Chip>
-                      ))}
-                    </div>
-                    <h2 className="text-lg font-sans font-light tracking-tight mb-2">
-                      {style.name}
-                    </h2>
-                    <p className="text-sm text-muted-foreground flex-1 line-clamp-4 leading-relaxed">
-                      {style.description}
-                    </p>
-                    <TextLink href={`/door-styles/${style.slug}`} className="mt-4" showArrow>
-                      View details
-                    </TextLink>
-                    </div>
-                  </MarketingCard>
+                  <Link href={`/door-styles/${style.slug}`} className="block h-full group">
+                    <MarketingCard className="h-full flex flex-col p-0 overflow-hidden hover-elevate transition-colors">
+                      <DoorStyleHero slug={style.slug} name={style.name} className="rounded-none" />
+                      <div className="p-6 flex flex-col flex-1">
+                        <div className="flex flex-wrap gap-1.5 mb-3">
+                          {style.compatibleFinishCategories.map((cat) => (
+                            <Chip key={cat} className="capitalize">
+                              {cat}
+                            </Chip>
+                          ))}
+                        </div>
+                        <h2 className="text-lg font-sans font-light tracking-tight mb-2 group-hover:text-primary transition-colors">
+                          {style.name}
+                        </h2>
+                        <p className="text-sm text-muted-foreground flex-1 line-clamp-4 leading-relaxed">
+                          {style.description}
+                        </p>
+                        <span className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-primary group-hover:underline">
+                          View details →
+                        </span>
+                      </div>
+                    </MarketingCard>
+                  </Link>
                 </Reveal>
               ))}
             </div>
           </div>
         </Section>
+        <CatalogClosingCTA />
       </div>
     </>
   );

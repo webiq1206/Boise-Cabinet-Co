@@ -319,7 +319,13 @@ export function DesignStudioProvider({ children }: { children: ReactNode }) {
         case 3:
           return design.doorStyle !== null && design.finish !== null;
         case 4:
-          return design.roomType !== null && design.collection !== null;
+          return (
+            design.roomType !== null &&
+            design.layout !== null &&
+            design.collection !== null &&
+            design.doorStyle !== null &&
+            design.finish !== null
+          );
         default:
           return false;
       }

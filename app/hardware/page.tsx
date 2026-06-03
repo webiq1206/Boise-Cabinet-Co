@@ -9,6 +9,7 @@ import { MarketingCard } from "@/components/marketing/MarketingCard";
 import { Chip } from "@/components/marketing/Chip";
 import { CatalogSearch } from "@/components/catalog/CatalogSearch";
 import { CatalogPageHero } from "@/components/catalog/CatalogPageHero";
+import { CatalogClosingCTA } from "@/components/catalog/CatalogClosingCTA";
 import { CatalogProductImage } from "@/components/catalog/CatalogProductImage";
 import { MARKETING_IMAGES } from "@/shared/siteImages";
 import { Button } from "@/components/ui/button";
@@ -123,6 +124,7 @@ export default function HardwarePage() {
             </div>
           </div>
         </Section>
+        <CatalogClosingCTA />
       </div>
     </>
   );

@@ -1,26 +1,19 @@
 "use client";
 
 import Link from "next/link";
-import { useParams, usePathname } from "next/navigation";
+import { useParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { PortalShell } from "@/components/portal/PortalShell";
 import { ProjectTimeline } from "@/components/portal/ProjectTimeline";
+import { ProjectSubNav } from "@/components/portal/ProjectSubNav";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
-import { cn } from "@/lib/utils";
+import { formatProjectStatus, formatProjectStage } from "@/lib/formatStatus";
 import type { ProjectStage } from "@/shared/projectStages";
-import {
-  LayoutDashboard,
-  Palette,
-  FileText,
-  MessageSquare,
-  CreditCard,
-  MapPin,
-} from "lucide-react";
+import { Palette, FileText, MessageSquare, CreditCard, MapPin } from "lucide-react";
 
 const hubLinks = [
-  { slug: "", label: "Overview", icon: LayoutDashboard },
   { slug: "design", label: "Design", icon: Palette },
   { slug: "documents", label: "Documents", icon: FileText },
   { slug: "messages", label: "Messages", icon: MessageSquare },
@@ -43,7 +36,6 @@ interface ProjectHubData {
 
 export default function ProjectHubPage() {
   const params = useParams();
-  const pathname = usePathname();
   const projectId = params.id as string;
   const basePath = `/portal/projects/${projectId}`;
 
@@ -61,34 +53,7 @@ export default function ProjectHubPage() {
   return (
     <PortalShell variant="customer" title={project?.title ?? "Project"}>
       <div className="max-w-5xl mx-auto space-y-6">
-        <nav
-          className="flex gap-1 overflow-x-auto pb-1 -mx-1 px-1"
-          aria-label="Project sections"
-        >
-          {hubLinks.map((link) => {
-            const href = link.slug ? `${basePath}/${link.slug}` : basePath;
-            const active = link.slug
-              ? pathname.startsWith(`${basePath}/${link.slug}`)
-              : pathname === basePath;
-            const Icon = link.icon;
-
-            return (
-              <Link
-                key={link.slug || "overview"}
-                href={href}
-                className={cn(
-                  "inline-flex items-center gap-2 rounded-lg px-3 py-2 text-sm whitespace-nowrap transition-colors shrink-0",
-                  active
-                    ? "bg-primary text-primary-foreground"
-                    : "text-muted-foreground hover:bg-muted hover:text-foreground",
-                )}
-              >
-                <Icon className="h-4 w-4" />
-                {link.label}
-              </Link>
-            );
-          })}
-        </nav>
+        <ProjectSubNav />
 
         {isLoading ? (
           <>
@@ -119,7 +84,7 @@ export default function ProjectHubPage() {
                       {project.address}, {project.city}, {project.state}
                     </CardDescription>
                   </div>
-                  <Badge variant="secondary">{project.status}</Badge>
+                  <Badge variant="secondary">{formatProjectStatus(project.status)}</Badge>
                 </div>
               </CardHeader>
               <CardContent className="grid gap-4 sm:grid-cols-3 text-sm">
@@ -133,7 +98,7 @@ export default function ProjectHubPage() {
                 </div>
                 <div>
                   <p className="text-muted-foreground">Current stage</p>
-                  <p className="font-medium">{project.status}</p>
+                  <p className="font-medium">{formatProjectStage(project.currentStage)}</p>
                 </div>
               </CardContent>
             </Card>
@@ -149,7 +114,7 @@ export default function ProjectHubPage() {
             </Card>
 
             <div className="grid gap-4 sm:grid-cols-2">
-              {hubLinks.slice(1).map((link) => {
+              {hubLinks.map((link) => {
                 const Icon = link.icon;
                 return (
                   <Link

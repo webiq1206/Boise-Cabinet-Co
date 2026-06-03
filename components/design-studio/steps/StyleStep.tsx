@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { useDesignStudio } from "../DesignStudioProvider";
 import { DOOR_STYLES } from "@/shared/catalog/doorStyles";
@@ -12,7 +13,12 @@ const DEFAULT_FINISH = FINISH_BY_SLUG["white-oak"];
 export function StyleStep({ embedded = false }: { embedded?: boolean }) {
   const { design, updateDesign } = useDesignStudio();
 
-  const featuredFinishes = FINISHES.slice(0, 12);
+  const [finishCategory, setFinishCategory] = useState<"all" | "matte" | "gloss" | "woodgrain">("all");
+
+  const filteredFinishes =
+    finishCategory === "all"
+      ? FINISHES
+      : FINISHES.filter((f) => f.category === finishCategory);
 
   const previewFinish =
     (design.finish ? FINISH_BY_SLUG[design.finish] : undefined) ?? DEFAULT_FINISH;
@@ -70,9 +76,28 @@ export function StyleStep({ embedded = false }: { embedded?: boolean }) {
       </div>
 
       <div className="space-y-4">
-        <Label className="text-sm font-medium">Finish</Label>
-        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {featuredFinishes.map((item) => {
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <Label className="text-sm font-medium">Finish</Label>
+          <div className="flex flex-wrap gap-1">
+            {(["all", "matte", "gloss", "woodgrain"] as const).map((cat) => (
+              <button
+                key={cat}
+                type="button"
+                onClick={() => setFinishCategory(cat)}
+                className={cn(
+                  "rounded-full px-3 py-1 text-xs capitalize transition-colors",
+                  finishCategory === cat
+                    ? "bg-primary text-primary-foreground"
+                    : "bg-muted text-muted-foreground hover:text-foreground",
+                )}
+              >
+                {cat === "all" ? "All" : cat}
+              </button>
+            ))}
+          </div>
+        </div>
+        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 max-h-[420px] overflow-y-auto pr-1">
+          {filteredFinishes.map((item) => {
             const selected = design.finish === item.slug;
             return (
               <button

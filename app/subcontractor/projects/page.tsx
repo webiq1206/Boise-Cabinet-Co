@@ -5,10 +5,14 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { PortalShell } from "@/components/portal/PortalShell";
+import { PortalEmptyState } from "@/components/portal/PortalEmptyState";
 import { ComplianceBanner } from "@/components/portal/ComplianceBanner";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/useAuth";
+import { FolderKanban, ShoppingBag } from "lucide-react";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export default function SubcontractorProjectsPage() {
   const { isSubcontractor, isLoading } = useAuth();
@@ -28,18 +32,26 @@ export default function SubcontractorProjectsPage() {
     enabled: isSubcontractor,
   });
 
-  if (isLoading || !isSubcontractor) return null;
+  if (isLoading || !isSubcontractor) {
+    return (
+      <PortalShell variant="subcontractor" title="My Projects">
+        <Skeleton className="h-32 w-full" />
+      </PortalShell>
+    );
+  }
 
   return (
     <PortalShell variant="subcontractor" title="My Projects">
       <ComplianceBanner />
       <div className="space-y-4">
         {projects.length === 0 ? (
-          <Card>
-            <CardContent className="py-8 text-center text-muted-foreground">
-              No project assignments yet.
-            </CardContent>
-          </Card>
+          <PortalEmptyState
+            icon={FolderKanban}
+            title="No project assignments yet"
+            description="Complete compliance and browse the lead marketplace to get assigned to cabinet installation projects."
+            actionLabel="Browse leads"
+            actionHref="/subcontractor/leads"
+          />
         ) : (
           projects.map(
             (p: {

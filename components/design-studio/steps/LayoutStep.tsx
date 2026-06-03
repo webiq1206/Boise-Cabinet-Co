@@ -20,7 +20,12 @@ import {
   buildFloorPlanSvg,
   downloadFloorPlanSvg,
 } from "@/lib/design/floorPlanExport";
-import { Download, ScanLine } from "lucide-react";
+import { Download, ScanLine, ChevronDown } from "lucide-react";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
 import { trackDesignEvent } from "@/lib/design/designAnalytics";
 import { wizardCopy } from "@/shared/designStudioCopy";
 
@@ -150,7 +155,7 @@ export function LayoutStep() {
       {!design.layout && topFit && (
         <Button
           type="button"
-          variant="outline"
+          variant="brand"
           onClick={() => updateDesign({ layout: topFit.slug as LayoutSlug })}
           data-testid="button-use-best-layout"
         >
@@ -159,29 +164,40 @@ export function LayoutStep() {
       )}
 
       {design.layout && (
-        <div className="space-y-5 border-t pt-6">
-          <div className="flex flex-wrap items-center justify-between gap-2">
-            <h3 className="text-lg font-medium">Place cabinets on your scan</h3>
-            <Button
-              type="button"
-              size="sm"
-              variant="outline"
-              onClick={exportPlan}
-              data-testid="button-export-floor-plan-layout"
-            >
-              <Download className="h-4 w-4" />
-              Export floor plan
+        <Collapsible className="border-t pt-6">
+          <CollapsibleTrigger asChild>
+            <Button variant="outline" className="w-full justify-between">
+              Customize layout (optional)
+              <ChevronDown className="h-4 w-4" />
             </Button>
-          </div>
+          </CollapsibleTrigger>
+          <CollapsibleContent className="space-y-5 pt-5">
+            <p className="text-sm text-muted-foreground">
+              Drag cabinet boxes to adjust placement, or use Auto-arrange to fix spacing.
+            </p>
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <h3 className="text-lg font-medium">2D floor planner</h3>
+              <Button
+                type="button"
+                size="sm"
+                variant="outline"
+                onClick={exportPlan}
+                data-testid="button-export-floor-plan-layout"
+              >
+                <Download className="h-4 w-4" />
+                Export floor plan
+              </Button>
+            </div>
 
-          <Room2DPlanner />
+            <Room2DPlanner />
 
-          <PlanIssuesPanel
-            issues={issues}
-            recommendations={recommendations}
-            onApplyFix={(apply) => setModules(apply(design.modules))}
-          />
-        </div>
+            <PlanIssuesPanel
+              issues={issues}
+              recommendations={recommendations}
+              onApplyFix={(apply) => setModules(apply(design.modules))}
+            />
+          </CollapsibleContent>
+        </Collapsible>
       )}
     </div>
   );

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { FAQSection } from "@/components/FAQSection";
+import { EstimateCalculator } from "@/components/EstimateCalculator";
 import { ConsultationForm } from "@/components/ConsultationForm";
 import { Reveal } from "@/components/Reveal";
 import { HeroSection } from "@/components/sections/HeroSection";
@@ -47,6 +48,7 @@ export default function HomePage() {
       <TestimonialsSection limit={3} showViewAll={true} />
       <WhyChooseUsSection limit={5} />
       <FAQSection />
+      <EstimateCalculator />
       <Section id="consult" divider className="pb-28 md:pb-28">
         <div className="container px-4">
           <div className="max-w-5xl mx-auto grid md:grid-cols-5 gap-12 items-start">

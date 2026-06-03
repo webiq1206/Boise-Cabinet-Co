@@ -8,6 +8,7 @@ import { SectionHeader } from "@/components/marketing/SectionHeader";
 import { MarketingCard } from "@/components/marketing/MarketingCard";
 import { Button } from "@/components/ui/button";
 import { CatalogPageHero } from "@/components/catalog/CatalogPageHero";
+import { CatalogClosingCTA } from "@/components/catalog/CatalogClosingCTA";
 import { MARKETING_IMAGES } from "@/shared/siteImages";
 import { catalogMetadata, catalogDescription } from "@/lib/catalog-metadata";
 import { generateBreadcrumbSchema, generateWebPageSchema } from "@/lib/schema";
@@ -131,6 +132,7 @@ export default function ConstructionPage() {
             </Button>
           </div>
         </Section>
+        <CatalogClosingCTA />
       </div>
     </>
   );

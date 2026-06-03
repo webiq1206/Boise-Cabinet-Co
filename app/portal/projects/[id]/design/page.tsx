@@ -7,6 +7,7 @@ import { PLACEHOLDER_PROJECT } from "@/shared/portalPlaceholder";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { ProjectSubNav } from "@/components/portal/ProjectSubNav";
 import { ArrowLeft, Check } from "lucide-react";
 
 const SELECTIONS = [
@@ -31,12 +32,7 @@ export default function ProjectDesignPage() {
   return (
     <PortalShell variant="customer" title="Design Selections">
       <div className="max-w-3xl mx-auto space-y-6">
-        <Button variant="ghost" size="sm" asChild className="-ml-2">
-          <Link href={`/portal/projects/${projectId}`}>
-            <ArrowLeft className="h-4 w-4" />
-            Back to project
-          </Link>
-        </Button>
+        <ProjectSubNav />
 
         <div>
           <h2 className="text-xl font-sans font-light tracking-tight">
@@ -51,7 +47,7 @@ export default function ProjectDesignPage() {
           <CardHeader>
             <CardTitle className="text-base">Current selections</CardTitle>
             <CardDescription>
-              Placeholder data, selections will sync from Design Studio when connected
+              Preview selections below. Save designs in Design Studio and share the link with our team.
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-3">

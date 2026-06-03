@@ -7,9 +7,14 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { Separator } from "@/components/ui/separator";
+import { Badge } from "@/components/ui/badge";
 import { SITE_CONFIG } from "@/shared/siteConfig";
+import { useAuth } from "@/hooks/useAuth";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export default function PortalAccountPage() {
+  const { user, isLoading } = useAuth();
+
   return (
     <PortalShell variant="customer" title="Account">
       <div className="max-w-2xl mx-auto space-y-6">
@@ -28,27 +33,36 @@ export default function PortalAccountPage() {
             <CardDescription>Your contact information on file</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
-            <div className="grid gap-4 sm:grid-cols-2">
-              <div className="space-y-2">
-                <Label htmlFor="firstName">First name</Label>
-                <Input id="firstName" defaultValue="Jamie" />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="lastName">Last name</Label>
-                <Input id="lastName" defaultValue="Anderson" />
-              </div>
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
-              <Input id="email" type="email" defaultValue="jamie.anderson@example.com" />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="phone">Phone</Label>
-              <Input id="phone" type="tel" defaultValue={SITE_CONFIG.phone} />
-            </div>
-            <Button variant="brand" disabled>
-              Save changes
-            </Button>
+            {isLoading ? (
+              <Skeleton className="h-32 w-full" />
+            ) : (
+              <>
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <div className="space-y-2">
+                    <Label htmlFor="firstName">First name</Label>
+                    <Input id="firstName" defaultValue={user?.firstName ?? ""} />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="lastName">Last name</Label>
+                    <Input id="lastName" defaultValue={user?.lastName ?? ""} />
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="email">Email</Label>
+                  <Input id="email" type="email" defaultValue={user?.email ?? ""} readOnly />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="phone">Phone</Label>
+                  <Input id="phone" type="tel" defaultValue={user?.phone ?? ""} />
+                </div>
+                <div className="flex items-center gap-2">
+                  <Button variant="brand" disabled>
+                    Save changes
+                  </Button>
+                  <Badge variant="outline">Profile editing coming soon</Badge>
+                </div>
+              </>
+            )}
           </CardContent>
         </Card>
 
@@ -73,10 +87,11 @@ export default function PortalAccountPage() {
                     </Label>
                     <p className="text-sm text-muted-foreground">{pref.description}</p>
                   </div>
-                  <Switch id={pref.id} defaultChecked={index < 3} />
+                  <Switch id={pref.id} defaultChecked={index < 3} disabled />
                 </div>
               </div>
             ))}
+            <p className="text-xs text-muted-foreground">Notification preferences will be saved in a future update.</p>
           </CardContent>
         </Card>
 

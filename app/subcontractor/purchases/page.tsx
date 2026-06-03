@@ -19,11 +19,12 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/hooks/useAuth";
-import { NotificationsBell } from "@/components/NotificationsBell";
+import { PortalShell } from "@/components/portal/PortalShell";
+import { Skeleton } from "@/components/ui/skeleton";
 import {
-  Leaf, MapPin, Clock, DollarSign, Building, Search, ArrowLeft, Mail, Phone, AlertTriangle,
-  User, ChevronDown, Receipt, History, LogOut, ExternalLink, Copy, CheckCircle2,
-  Download
+  MapPin, Clock, DollarSign, Building, Search, Mail, Phone, AlertTriangle,
+  User, ChevronDown, Receipt, History, ExternalLink, Copy, CheckCircle2,
+  Download, ShoppingBag
 } from "lucide-react";
 import { buildLeadCsv, buildCsvFilename, downloadCsv, type CsvFormat } from "@/lib/leadCsv";
 import { useExportedLeads, formatExportedDate } from "@/lib/exportedLeads";
@@ -298,10 +299,6 @@ export default function PurchaseHistoryPage() {
     setCopiedId(leadId);
     toast({ title: "Copied to clipboard" });
     setTimeout(() => setCopiedId(null), 2000);
-  };
-
-  const handleLogout = () => {
-    window.location.href = "/api/logout";
   };
 
   const exportLeads = useMemo(() => {
@@ -613,54 +610,30 @@ export default function PurchaseHistoryPage() {
 
   if (authLoading) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <div className="flex flex-col items-center gap-4">
-          <Leaf className="w-12 h-12 text-primary animate-pulse" />
-          <p className="text-muted-foreground">Loading...</p>
-        </div>
-      </div>
+      <PortalShell variant="subcontractor" title="My Purchases">
+        <Skeleton className="h-32 w-full" />
+        <Skeleton className="h-48 w-full mt-4" />
+      </PortalShell>
     );
   }
 
   return (
-    <div className="min-h-screen bg-background" data-testid="page-purchase-history">
-      {/* Header */}
-      <header className="border-b bg-card/80 backdrop-blur-sm sticky top-0 z-50">
-        <div className="container px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <Button 
-                variant="ghost" 
-                size="icon" 
-                onClick={() => router.push("/subcontractor/leads")}
-              >
-                <ArrowLeft className="h-5 w-5" />
-              </Button>
-              <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center">
-                <Leaf className="w-5 h-5 text-white" />
-              </div>
-              <div>
-                <h1 className="text-xl font-bold text-primary">Purchase History</h1>
-                <p className="text-sm text-muted-foreground">
-                  View your purchased leads
-                </p>
-              </div>
-            </div>
-            <div className="flex items-center gap-2">
-              <NotificationsBell />
-              <Button variant="outline" onClick={() => router.push("/subcontractor/leads")}>
-                Browse Leads
-              </Button>
-              <Button variant="outline" onClick={handleLogout}>
-                <LogOut className="h-4 w-4 mr-2" />
-                Logout
-              </Button>
-            </div>
-          </div>
-        </div>
-      </header>
-
-      <div className="container py-8 px-4">
+    <PortalShell
+      variant="subcontractor"
+      title="My Purchases"
+      headerActions={
+        <Button
+          variant="outline"
+          size="sm"
+          className="shrink-0"
+          onClick={() => router.push("/subcontractor/leads")}
+        >
+          <ShoppingBag className="h-4 w-4 sm:mr-2" />
+          <span className="hidden sm:inline">Browse leads</span>
+        </Button>
+      }
+    >
+      <div className="space-y-6" data-testid="page-purchase-history">
         {/* Stats */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
           <Card>
@@ -710,9 +683,9 @@ export default function PurchaseHistoryPage() {
                   className="pl-10"
                 />
               </div>
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-col sm:flex-row flex-wrap gap-2 w-full sm:w-auto">
                 <Select value={sortBy} onValueChange={(v) => setSortBy(v as typeof sortBy)}>
-                  <SelectTrigger className="w-[140px]">
+                  <SelectTrigger className="w-full sm:w-[140px]">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -722,6 +695,7 @@ export default function PurchaseHistoryPage() {
                 </Select>
                 <Button
                   variant="outline"
+                  className="w-full sm:w-auto"
                   onClick={() => setSortOrder(sortOrder === "asc" ? "desc" : "asc")}
                 >
                   {sortOrder === "asc" ? "↑ Oldest" : "↓ Newest"}
@@ -820,6 +794,6 @@ export default function PurchaseHistoryPage() {
           </div>
         )}
       </div>
-    </div>
+    </PortalShell>
   );
 }

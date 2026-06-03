@@ -2,27 +2,20 @@
 
 import { useEffect, useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
 import { PortalShell } from "@/components/portal/PortalShell";
+import { AdminAuthGate } from "@/components/admin/AdminAuthGate";
 import { AdminSubcontractorPanel } from "@/components/admin/AdminSubcontractorPanel";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { useAuth } from "@/hooks/useAuth";
 import { useToast } from "@/hooks/use-toast";
 
 export default function AdminContractsPage() {
-  const { isAdmin, isLoading } = useAuth();
-  const router = useRouter();
   const { toast } = useToast();
   const queryClient = useQueryClient();
   const [editingTemplate, setEditingTemplate] = useState(false);
   const [templateBody, setTemplateBody] = useState("");
   const [templateName, setTemplateName] = useState("");
-
-  useEffect(() => {
-    if (!isLoading && !isAdmin) router.push("/admin");
-  }, [isAdmin, isLoading, router]);
 
   const { data: templates = [] } = useQuery({
     queryKey: ["/api/admin/contracts"],
@@ -31,7 +24,7 @@ export default function AdminContractsPage() {
       if (!res.ok) return [];
       return res.json();
     },
-    enabled: isAdmin,
+    enabled: true,
   });
 
   const saveTemplateMutation = useMutation({
@@ -64,10 +57,9 @@ export default function AdminContractsPage() {
     }
   }, [templates]);
 
-  if (isLoading || !isAdmin) return null;
-
   return (
-    <PortalShell variant="admin" title="Contracts">
+    <AdminAuthGate title="Contracts">
+      <PortalShell variant="admin" title="Contracts">
       <div className="space-y-6">
         <Card>
           <CardHeader>
@@ -113,5 +105,6 @@ export default function AdminContractsPage() {
         </Card>
       </div>
     </PortalShell>
+    </AdminAuthGate>
   );
 }

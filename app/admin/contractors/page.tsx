@@ -1,20 +1,17 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
 import { PortalShell } from "@/components/portal/PortalShell";
+import { AdminAuthGate } from "@/components/admin/AdminAuthGate";
 import { AdminSubcontractorPanel } from "@/components/admin/AdminSubcontractorPanel";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Textarea } from "@/components/ui/textarea";
-import { useAuth } from "@/hooks/useAuth";
 import { useToast } from "@/hooks/use-toast";
 
 export default function AdminContractorsPage() {
-  const { isAdmin, isLoading } = useAuth();
-  const router = useRouter();
   const { toast } = useToast();
   const queryClient = useQueryClient();
   const [reviewDoc, setReviewDoc] = useState<{
@@ -24,10 +21,6 @@ export default function AdminContractorsPage() {
   } | null>(null);
   const [rejectionReason, setRejectionReason] = useState("");
 
-  useEffect(() => {
-    if (!isLoading && !isAdmin) router.push("/admin");
-  }, [isAdmin, isLoading, router]);
-
   const { data: dashboard } = useQuery({
     queryKey: ["/api/admin/compliance/dashboard"],
     queryFn: async () => {
@@ -35,7 +28,7 @@ export default function AdminContractorsPage() {
       if (!res.ok) return null;
       return res.json();
     },
-    enabled: isAdmin,
+    enabled: true,
   });
 
   const reviewMutation = useMutation({
@@ -84,10 +77,9 @@ export default function AdminContractorsPage() {
     }
   );
 
-  if (isLoading || !isAdmin) return null;
-
   return (
-    <PortalShell variant="admin" title="Contractors">
+    <AdminAuthGate title="Contractors">
+      <PortalShell variant="admin" title="Contractors">
       <div className="space-y-8">
         {pendingDocs.length > 0 && (
           <Card>
@@ -174,5 +166,6 @@ export default function AdminContractorsPage() {
         <AdminSubcontractorPanel />
       </div>
     </PortalShell>
+    </AdminAuthGate>
   );
 }

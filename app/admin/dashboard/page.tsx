@@ -12,6 +12,7 @@ import { Label } from "@/components/ui/label";
 import { useAuth } from "@/hooks/useAuth";
 import { useToast } from "@/hooks/use-toast";
 import Link from "next/link";
+import { AdminAuthGate } from "@/components/admin/AdminAuthGate";
 import {
   AlertTriangle,
   FileWarning,
@@ -85,19 +86,42 @@ export default function AdminDashboardPage() {
     },
   });
 
-  useEffect(() => {
-    if (!isLoading && !isAdmin) router.push("/admin");
-  }, [isAdmin, isLoading, router]);
+  if (!isAdmin && !isLoading) {
+    return <AdminAuthGate title="Operations Dashboard"><span /></AdminAuthGate>;
+  }
 
-  if (isLoading || !isAdmin) return null;
+  if (isLoading) {
+    return <AdminAuthGate title="Operations Dashboard"><span /></AdminAuthGate>;
+  }
 
   const compliance = data?.compliance;
   const contracts = data?.contracts;
   const projects = data?.projects;
 
   return (
-    <PortalShell variant="admin" title="Compliance Dashboard">
+    <AdminAuthGate title="Operations Dashboard">
+    <PortalShell variant="admin" title="Operations Dashboard">
       <div className="space-y-6">
+        <div className="grid gap-3 sm:grid-cols-3">
+          <Button variant="outline" asChild className="h-auto py-4 justify-start">
+            <Link href="/admin/projects">
+              <FolderKanban className="h-4 w-4 mr-2" />
+              Projects
+            </Link>
+          </Button>
+          <Button variant="outline" asChild className="h-auto py-4 justify-start">
+            <Link href="/admin/leads">
+              <Users className="h-4 w-4 mr-2" />
+              Lead marketplace
+            </Link>
+          </Button>
+          <Button variant="outline" asChild className="h-auto py-4 justify-start">
+            <Link href="/admin/contractors">
+              <ShieldCheck className="h-4 w-4 mr-2" />
+              Contractors
+            </Link>
+          </Button>
+        </div>
         <div className="flex justify-between items-center">
           <p className="text-muted-foreground">
             Monitor contractor compliance, contracts, and project assignments.
@@ -291,5 +315,6 @@ export default function AdminDashboardPage() {
         </Card>
       </div>
     </PortalShell>
+    </AdminAuthGate>
   );
 }

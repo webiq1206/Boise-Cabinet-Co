@@ -44,7 +44,7 @@ export default function PartnerPage() {
     <div className="min-h-screen bg-background">
       <section className="container px-4 py-16 md:py-24 max-w-3xl mx-auto text-center space-y-6">
         <Shield className="h-12 w-12 text-primary mx-auto" />
-        <h1 className="text-4xl font-sans font-light tracking-tight">
+        <h1 className="text-3xl sm:text-4xl font-sans font-light tracking-tight">
           Partner <em className="brc-accent text-accent">Portal</em>
         </h1>
         <p className="text-lg text-muted-foreground">

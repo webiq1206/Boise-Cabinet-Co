@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { PortalLayoutClient } from "@/components/portal/PortalLayoutClient";
 
 export const metadata: Metadata = {
   title: "Client Portal",
@@ -11,5 +12,5 @@ export const metadata: Metadata = {
 };
 
 export default function PortalLayout({ children }: { children: React.ReactNode }) {
-  return children;
+  return <PortalLayoutClient>{children}</PortalLayoutClient>;
 }

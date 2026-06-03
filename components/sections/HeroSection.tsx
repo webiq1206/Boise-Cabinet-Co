@@ -4,7 +4,7 @@ import { Reveal } from "@/components/Reveal";
 import { Button } from "@/components/ui/button";
 import { HERO_EYEBROW, HERO_SUBHEAD, HERO_STATS, TRUST_ITEMS } from "@/shared/siteContent";
 import { SITE_IMAGES } from "@/shared/siteImages";
-import { CTA_PRIMARY, CTA_SECONDARY } from "@/shared/ctaCopy";
+import { CTA_DESIGN_STUDIO, CTA_EXPLORE_COLLECTIONS } from "@/shared/ctaCopy";
 import { DisplayNum } from "@/components/marketing";
 
 const GRAIN_URL = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.45'/%3E%3C/2Fsvg%3E")`;
@@ -55,10 +55,10 @@ export function HeroSection() {
               </p>
               <div className="flex flex-wrap gap-3 mb-6 md:mb-0">
                 <Button variant="brand" asChild>
-                  <Link href="/design-studio">{CTA_PRIMARY}</Link>
+                  <Link href="/design-studio">{CTA_DESIGN_STUDIO}</Link>
                 </Button>
                 <Button variant="brandOutline" className="border-inverse-foreground/25 bg-inverse-foreground/10 text-inverse-foreground hover:bg-inverse-foreground/15" asChild>
-                  <Link href="/collections">{CTA_SECONDARY}</Link>
+                  <Link href="/collections">{CTA_EXPLORE_COLLECTIONS}</Link>
                 </Button>
               </div>
 

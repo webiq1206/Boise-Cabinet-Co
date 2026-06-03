@@ -4,7 +4,7 @@ import { Reveal } from "@/components/Reveal";
 import { Section } from "@/components/marketing/Section";
 import { Button } from "@/components/ui/button";
 import { MARKETING_IMAGES } from "@/shared/siteImages";
-import { CTA_PRIMARY } from "@/shared/ctaCopy";
+import { CTA_DESIGN_STUDIO } from "@/shared/ctaCopy";
 import { Palette, LayoutGrid, Box, Share2 } from "lucide-react";
 
 const FEATURES = [
@@ -29,7 +29,7 @@ export function DesignStudioSection() {
               Scan your room first, pick a layout that fits your space, preview in 3D and AR, then save and request pricing, we confirm exact dimensions at your consultation.
             </p>
             <Button variant="brand" className="bg-inverse-foreground text-inverse hover:bg-inverse-foreground/90" asChild>
-              <Link href="/design-studio">{CTA_PRIMARY}</Link>
+              <Link href="/design-studio">{CTA_DESIGN_STUDIO}</Link>
             </Button>
           </Reveal>
 

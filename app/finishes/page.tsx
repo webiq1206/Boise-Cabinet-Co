@@ -5,6 +5,7 @@ import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Section } from "@/components/marketing/Section";
 import { PageHeader } from "@/components/marketing/PageHeader";
 import { FinishSwatchGrid } from "@/components/catalog/FinishSwatchGrid";
+import { CatalogClosingCTA } from "@/components/catalog/CatalogClosingCTA";
 import { CatalogSearch } from "@/components/catalog/CatalogSearch";
 import { Button } from "@/components/ui/button";
 import { catalogMetadata, catalogDescription } from "@/lib/catalog-metadata";
@@ -93,6 +94,7 @@ export default function FinishesPage() {
             </Button>
           </div>
         </Section>
+        <CatalogClosingCTA />
       </div>
     </>
   );

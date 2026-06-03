@@ -15,6 +15,17 @@ import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import {
   Dialog,
   DialogContent,
   DialogHeader,
@@ -232,10 +243,26 @@ export function SaveStep({ embedded = false }: { embedded?: boolean }) {
                 Copy share link
               </Button>
             )}
-            <Button variant="ghost" onClick={resetDesign}>
-              <RotateCcw className="h-4 w-4" />
-              Start over
-            </Button>
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <Button variant="ghost">
+                  <RotateCcw className="h-4 w-4" />
+                  Start over
+                </Button>
+              </AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>Start over?</AlertDialogTitle>
+                  <AlertDialogDescription>
+                    This clears your current design. Saved versions in this browser are kept until you delete them.
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                  <AlertDialogAction onClick={resetDesign}>Start over</AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
           </div>
         </CardContent>
       </Card>
@@ -415,7 +442,7 @@ export function SaveStep({ embedded = false }: { embedded?: boolean }) {
         </Card>
       )}
 
-      <Card>
+      <Card id="request-pricing">
         <CardHeader>
           <CardTitle className="text-base">Request pricing</CardTitle>
           <CardDescription>
