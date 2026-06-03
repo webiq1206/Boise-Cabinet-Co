@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState, type Dispatch, type SetStateAction } from "react";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
 import { Switch } from "@/components/ui/switch";
@@ -24,6 +24,11 @@ import {
   hardwareSpec,
 } from "@/lib/design/resolveDesignStyles";
 import { renderCabinetCutout } from "@/lib/design/cabinetModelBuilder";
+import {
+  DEFAULT_PHOTO_OVERLAY_TRANSFORM,
+  normalizePhotoOverlayTransform,
+  type PhotoOverlayTransform,
+} from "@/lib/design/photoOverlayTransform";
 
 interface RoomPhotoOverlayProps {
   photoUrl: string | null;
@@ -32,23 +37,29 @@ interface RoomPhotoOverlayProps {
   className?: string;
 }
 
-interface Transform {
-  xPct: number;
-  yPct: number;
-  scale: number;
-  tilt: number; // rotateX degrees
-  turn: number; // rotateY degrees
-}
-
-const DEFAULT_TRANSFORM: Transform = {
-  xPct: 50,
-  yPct: 64,
-  scale: 0.7,
-  tilt: 0,
-  turn: 0,
-};
+type Transform = Omit<PhotoOverlayTransform, "opacity">;
 
 const BASE_WIDTH_PCT = 62; // overlay width as % of the photo before scaling
+
+function transformFromDesign(
+  saved: PhotoOverlayTransform | null | undefined,
+): { transform: Transform; opacity: number } {
+  const n = normalizePhotoOverlayTransform(saved);
+  if (!n) {
+    return {
+      transform: {
+        xPct: DEFAULT_PHOTO_OVERLAY_TRANSFORM.xPct,
+        yPct: DEFAULT_PHOTO_OVERLAY_TRANSFORM.yPct,
+        scale: DEFAULT_PHOTO_OVERLAY_TRANSFORM.scale,
+        tilt: DEFAULT_PHOTO_OVERLAY_TRANSFORM.tilt,
+        turn: DEFAULT_PHOTO_OVERLAY_TRANSFORM.turn,
+      },
+      opacity: DEFAULT_PHOTO_OVERLAY_TRANSFORM.opacity,
+    };
+  }
+  const { opacity, ...transform } = n;
+  return { transform, opacity };
+}
 
 function loadImage(src: string): Promise<HTMLImageElement> {
   return new Promise((resolve, reject) => {
@@ -66,23 +77,62 @@ export function RoomPhotoOverlay({
   onPhotoChange,
   className,
 }: RoomPhotoOverlayProps) {
-  const { design } = useDesignStudio();
+  const { design, updateDesign } = useDesignStudio();
   const { toast } = useToast();
   const inputRef = useRef<HTMLInputElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const dragState = useRef<{ active: boolean }>({ active: false });
+  const persistTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
+  const initial = transformFromDesign(design.photoOverlayTransform);
   const [cutoutUrl, setCutoutUrl] = useState<string | null>(null);
   const [cutoutFailed, setCutoutFailed] = useState(false);
-  const [opacity, setOpacity] = useState(0.95);
-  const [transform, setTransform] = useState<Transform>(DEFAULT_TRANSFORM);
+  const [opacity, setOpacity] = useState(initial.opacity);
+  const [transform, setTransform] = useState<Transform>(initial.transform);
+
+  useEffect(() => {
+    const next = transformFromDesign(design.photoOverlayTransform);
+    setTransform(next.transform);
+    setOpacity(next.opacity);
+  }, [design.photoOverlayTransform]);
+
+  const persistOverlay = useCallback(
+    (t: Transform, op: number) => {
+      if (persistTimer.current) clearTimeout(persistTimer.current);
+      persistTimer.current = setTimeout(() => {
+        updateDesign({
+          photoOverlayTransform: { ...t, opacity: op },
+        });
+      }, 350);
+    },
+    [updateDesign],
+  );
+
+  const setTransformPersist: Dispatch<SetStateAction<Transform>> = useCallback(
+    (action) => {
+      setTransform((prev) => {
+        const next = typeof action === "function" ? action(prev) : action;
+        persistOverlay(next, opacity);
+        return next;
+      });
+    },
+    [opacity, persistOverlay],
+  );
+
+  const setOpacityPersist = useCallback(
+    (op: number) => {
+      setOpacity(op);
+      persistOverlay(transform, op);
+    },
+    [transform, persistOverlay],
+  );
 
   useEffect(() => {
     const w = design.roomMeta?.widthIn;
     if (!w || w < 48) return;
     const scale = Math.min(1.15, Math.max(0.4, (w / 132) * 0.65));
-    setTransform((t) => ({ ...t, scale }));
-  }, [design.roomMeta?.widthIn]);
+    setTransformPersist((t) => ({ ...t, scale }));
+  }, [design.roomMeta?.widthIn, setTransformPersist]);
   const [remodel, setRemodel] = useState(false);
   const [removing, setRemoving] = useState(false);
   const [originalPhoto, setOriginalPhoto] = useState<string | null>(null);
@@ -159,7 +209,7 @@ export function RoomPhotoOverlay({
     if (!rect) return;
     const x = ((e.clientX - rect.left) / rect.width) * 100;
     const y = ((e.clientY - rect.top) / rect.height) * 100;
-    setTransform((t) => ({
+    setTransformPersist((t) => ({
       ...t,
       xPct: Math.min(100, Math.max(0, x)),
       yPct: Math.min(100, Math.max(0, y)),
@@ -460,7 +510,7 @@ export function RoomPhotoOverlay({
             min={0.3}
             max={1.6}
             step={0.02}
-            onChange={(v) => setTransform((t) => ({ ...t, scale: v }))}
+            onChange={(v) => setTransformPersist((t) => ({ ...t, scale: v }))}
             testId="slider-scale"
           />
           <SliderRow
@@ -469,7 +519,7 @@ export function RoomPhotoOverlay({
             min={-20}
             max={20}
             step={1}
-            onChange={(v) => setTransform((t) => ({ ...t, tilt: v }))}
+            onChange={(v) => setTransformPersist((t) => ({ ...t, tilt: v }))}
             testId="slider-tilt"
           />
           <SliderRow
@@ -478,7 +528,7 @@ export function RoomPhotoOverlay({
             min={-30}
             max={30}
             step={1}
-            onChange={(v) => setTransform((t) => ({ ...t, turn: v }))}
+            onChange={(v) => setTransformPersist((t) => ({ ...t, turn: v }))}
             testId="slider-turn"
           />
           <SliderRow
@@ -487,7 +537,7 @@ export function RoomPhotoOverlay({
             min={0.3}
             max={1}
             step={0.05}
-            onChange={setOpacity}
+            onChange={setOpacityPersist}
             testId="slider-opacity"
           />
 
@@ -497,8 +547,15 @@ export function RoomPhotoOverlay({
               variant="outline"
               size="sm"
               onClick={() => {
-                setTransform(DEFAULT_TRANSFORM);
-                setOpacity(0.95);
+                const d = DEFAULT_PHOTO_OVERLAY_TRANSFORM;
+                setTransformPersist({
+                  xPct: d.xPct,
+                  yPct: d.yPct,
+                  scale: d.scale,
+                  tilt: d.tilt,
+                  turn: d.turn,
+                });
+                setOpacityPersist(d.opacity);
               }}
               data-testid="button-reset-overlay"
             >

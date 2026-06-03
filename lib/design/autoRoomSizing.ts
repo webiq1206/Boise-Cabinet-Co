@@ -8,6 +8,7 @@ import {
 import { inchesToM, metersToInches, roomMetaToBounds } from "./roomMeta";
 
 import type { RoomDimensionSource, RoomMeta, RoomObstacle, RoomWallId } from "./roomMeta";
+import { isUserMeasuredRoom } from "./roomScanGeometry";
 
 /** Typical wall-to-wall sizes (inches) for Treasure Valley homes by layout. */
 const TYPICAL_ROOM_IN: Record<
@@ -141,6 +142,8 @@ export function expandRoomMetaToFitModules(
   modules: CabinetModule[],
   marginIn = 6,
 ): RoomMeta {
+  /** Never inflate user-measured walls — layout issues should surface instead. */
+  if (isUserMeasuredRoom(meta)) return meta;
   if (modules.length === 0) return meta;
   const marginM = inchesToM(marginIn);
   const moduleBounds = computeRoomBounds(modules, marginM);

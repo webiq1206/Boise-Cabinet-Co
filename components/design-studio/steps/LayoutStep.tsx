@@ -8,7 +8,11 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { useDesignStudio } from "../DesignStudioProvider";
 import { getLayoutsForRoom, type LayoutSlug } from "@/shared/catalog/layouts";
 import { Room2DPlanner } from "../Room2DPlanner";
+import { RoomPhotoOverlay } from "../RoomPhotoOverlay";
+import { RoomPhotoQuickMeasure } from "../RoomPhotoQuickMeasure";
+import { RoomAccuracyNotice } from "../RoomAccuracyNotice";
 import { PlanIssuesPanel } from "../PlanIssuesPanel";
+import { getPreviewFinishHex } from "@/lib/design/previewConfig";
 import {
   detectIssues,
   getRecommendations,
@@ -21,17 +25,13 @@ import {
   buildFloorPlanSvg,
   downloadFloorPlanSvg,
 } from "@/lib/design/floorPlanExport";
-import { Download, ScanLine, ChevronDown } from "lucide-react";
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/collapsible";
+import { Download, ScanLine } from "lucide-react";
 import { trackDesignEvent } from "@/lib/design/designAnalytics";
 import { wizardCopy } from "@/shared/designStudioCopy";
 
 export function LayoutStep() {
   const { design, updateDesign, setModules } = useDesignStudio();
+  const finishHex = getPreviewFinishHex(design);
   const layouts = getLayoutsForRoom(design.roomType);
   const scanned = isScannedRoom(design.roomMeta);
 
@@ -104,6 +104,8 @@ export function LayoutStep() {
 
   return (
     <div className="space-y-6">
+      <RoomAccuracyNotice meta={design.roomMeta} />
+
       <div>
         <h2 className="text-2xl font-sans font-light tracking-tight">
           Pick a <em className="brc-accent text-accent">layout</em>
@@ -169,6 +171,15 @@ export function LayoutStep() {
         })}
       </div>
 
+      {ranked.length > 0 && ranked.every((r) => !r.fits) && (
+        <p
+          className="text-sm text-amber-800 dark:text-amber-200 rounded-md border border-amber-500/30 bg-amber-500/10 p-3"
+          data-testid="layout-all-too-large"
+        >
+          {wizardCopy.layoutTooLargeHint}
+        </p>
+      )}
+
       {!design.layout && topFit && (
         <Button
           type="button"
@@ -181,19 +192,27 @@ export function LayoutStep() {
       )}
 
       {design.layout && (
-        <Collapsible className="border-t pt-6">
-          <CollapsibleTrigger asChild>
-            <Button variant="outline" className="w-full justify-between">
-              Customize layout (optional)
-              <ChevronDown className="h-4 w-4" />
-            </Button>
-          </CollapsibleTrigger>
-          <CollapsibleContent className="space-y-5 pt-5">
-            <p className="text-sm text-muted-foreground">
-              Drag cabinet boxes to adjust placement, or use Auto-arrange to fix spacing.
-            </p>
+        <div className="border-t pt-6 space-y-6">
+          {design.photoUrl && (
+            <div className="space-y-3" data-testid="layout-room-photo-section">
+              <div>
+                <h3 className="text-lg font-medium">{wizardCopy.layoutPhotoTitle}</h3>
+                <p className="text-sm text-muted-foreground mt-1">
+                  {wizardCopy.layoutPhotoHint}
+                </p>
+              </div>
+              <RoomPhotoQuickMeasure />
+              <RoomPhotoOverlay
+                photoUrl={design.photoUrl}
+                finishColor={finishHex}
+                onPhotoChange={(url) => updateDesign({ photoUrl: url })}
+              />
+            </div>
+          )}
+
+          <div className="space-y-3">
             <div className="flex flex-wrap items-center justify-between gap-2">
-              <h3 className="text-lg font-medium">2D floor planner</h3>
+              <h3 className="text-lg font-medium">Edit layout in your room</h3>
               <Button
                 type="button"
                 size="sm"
@@ -205,16 +224,17 @@ export function LayoutStep() {
                 Export floor plan
               </Button>
             </div>
-
+            <p className="text-sm text-muted-foreground">
+              Drag cabinet boxes in the floor plan, or adjust the photo overlay above.
+            </p>
             <Room2DPlanner />
-
             <PlanIssuesPanel
               issues={issues}
               recommendations={recommendations}
               onApplyFix={(apply) => setModules(apply(design.modules))}
             />
-          </CollapsibleContent>
-        </Collapsible>
+          </div>
+        </div>
       )}
     </div>
   );

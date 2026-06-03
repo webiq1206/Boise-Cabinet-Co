@@ -56,8 +56,8 @@ function DesignStudioContent() {
             Build your dream <em className="brc-accent text-accent">cabinets</em>
           </h1>
           <p className="text-muted-foreground mt-2 max-w-xl">
-            Scan your room, pick a layout that fits, explore finishes in 3D, then save
-            and share your design with our team for pricing.
+            Add a room photo or rough size, pick a layout, visualize cabinets in your
+            space, then save and share with our team for pricing.
           </p>
         </div>
 

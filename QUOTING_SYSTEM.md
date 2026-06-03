@@ -1,34 +1,64 @@
-# Project Estimator
+# Project Estimator & Design Studio sizing
+
+## Project Estimator
 
 The Boise Remodeling Co website includes a unified **Project Estimator** on the homepage (`/#calculator`). It gives visitors a planning range in seconds and optional refinement for a more tailored range before consultation.
 
-## Architecture
+### Architecture
 
 | Layer | File | Role |
 |---|---|---|
 | Engine | `shared/estimateEngine.ts` | Price matrix, project-aware sqft config, refinement multipliers, planning detail level |
-| UI | `components/EstimateCalculator.tsx` | Steps: project type, finish level, sqft; collapsible refine panel |
+| UI | `components/EstimateCalculator.tsx` | Guided wizard steps |
 | Result | `components/estimate/EstimateResultPanel.tsx` | Range, selection summary, scope examples, disclaimer, CTA |
 | Handoff | `components/ConsultationForm.tsx` | Reads `sessionStorage.brc_estimate` for pre-filled consult context |
 
-## Behavior
+### Behavior
 
 - **Defaults on load:** kitchen, mid-range, project-specific default sqft; range visible immediately
-- **Project-aware sizing:** slider min/max/default per project type (kitchen, bath, whole-home, addition)
 - **Planning detail level:** counts only user-initiated refine choices (not auto-filled defaults)
-- **Mobile:** result card above inputs + sticky summary bar above bottom nav
 - **Disclaimer:** planning range only; not a proposal, bid, or guaranteed cost
 
-## Stored estimate shape
-
-`buildStoredEstimate()` persists to `sessionStorage` for the consult form:
-
-- `project`, `finish`, `sqft`, `refinements`
-- `priceLow`, `priceHigh`, `confidenceLabel`
-
-## Tests
+### Tests
 
 ```bash
-npm run test:e2e:install   # once per machine
+npm run test:e2e:install   # chromium + webkit
 npm run test:e2e -- e2e/calculator.spec.ts
+```
+
+---
+
+## Design Studio room sizing
+
+Design Studio (`/design-studio`) uses **planning-grade** room dimensions for layout fit checks and visualization. **Field template measure** is still required before ordering cabinets.
+
+### Dimension sources (accuracy)
+
+| `roomMeta.source` | Meaning | Wizard gate | Room box can grow? |
+|---|---|---|---|
+| `manual` | User typed inches or picked a size bucket | Yes | No |
+| `vision-scan` | OpenAI photo API or client fallback from photo aspect | Yes | No |
+| `photo` | Two-tap refine on room photo | Yes | No |
+| `ar-scan` | WebXR corner measure (beta) | Yes | No |
+| `auto-layout` | Template size for a layout | No | Yes (internal only) |
+| `auto-fit` | Expanded to fit cabinet modules | No | Yes (internal only) |
+
+`isScannedRoom()` in `lib/design/roomScanGeometry.ts` only accepts **user-measured** sources. `expandRoomMetaToFitModules()` does not change user-measured width/depth.
+
+### UX flow
+
+1. **Room step:** photo (primary), size buckets, or exact inches
+2. **Layout step:** floor plan + optional photo overlay + 2D planner
+3. **Preview step:** 3D + photo overlay (transform persisted in `layoutJson.photoOverlayTransform`)
+
+### API
+
+- `POST /api/design-studio/scan-room` — requires `OPENAI_API_KEY`; client falls back to `estimateRoomFromDataUrl()` on failure
+- Saved designs store `roomMeta`, `roomBounds`, `photoUrl`, `photoOverlayTransform` in `layoutJson`
+
+### Tests
+
+```bash
+npm run verify:room-scan
+npm run test:e2e -- e2e/design-studio-mobile.spec.ts e2e/design-studio-photo.spec.ts
 ```

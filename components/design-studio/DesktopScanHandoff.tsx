@@ -38,8 +38,8 @@ export function DesktopScanHandoff() {
           Continue on your phone
         </p>
         <p className="text-sm text-muted-foreground mt-1">
-          Scan this QR code on your phone to measure your room. Your progress stays
-          saved in this browser.
+          Scan this QR code on your phone to take a room photo or set your size. Progress
+          stays saved in this browser.
         </p>
       </div>
     </div>

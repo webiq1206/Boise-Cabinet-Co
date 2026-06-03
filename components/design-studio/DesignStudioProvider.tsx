@@ -30,6 +30,7 @@ import {
   type SavedVersion,
 } from "@/lib/design/designSerialization";
 import { trackDesignEvent } from "@/lib/design/designAnalytics";
+import type { PhotoOverlayTransform } from "@/lib/design/photoOverlayTransform";
 
 const VERSION_GROUP_STORAGE_KEY = "brc-design-version-group";
 export const PORTAL_PROJECT_STORAGE_KEY = "brc-portal-project-id";
@@ -79,6 +80,7 @@ export interface DesignState {
   selectedModuleId: string | null;
   /** OSC catalog product slugs selected for this design */
   lineItemSlugs: string[];
+  photoOverlayTransform: PhotoOverlayTransform | null;
 }
 
 const initialState: DesignState = {
@@ -101,6 +103,7 @@ const initialState: DesignState = {
   roomMeta: null,
   selectedModuleId: null,
   lineItemSlugs: [],
+  photoOverlayTransform: null,
 };
 
 interface DesignStudioContextValue {
@@ -383,6 +386,7 @@ export function DesignStudioProvider({
       roomBounds: d.roomBounds,
       roomMeta: d.roomMeta,
       lineItemSlugs: d.lineItemSlugs,
+      photoOverlayTransform: d.photoOverlayTransform,
     };
   }, []);
 
@@ -579,6 +583,7 @@ export function DesignStudioProvider({
         pricingSubmitted: false,
         selectedModuleId: null,
         lineItemSlugs: s.lineItemSlugs ?? [],
+        photoOverlayTransform: s.photoOverlayTransform ?? null,
       });
     },
     [versions],

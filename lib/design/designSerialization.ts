@@ -1,4 +1,8 @@
 import type { CabinetModule, RoomBounds } from "./previewConfig";
+import {
+  normalizePhotoOverlayTransform,
+  type PhotoOverlayTransform,
+} from "./photoOverlayTransform";
 import type { RoomMeta } from "./roomMeta";
 import {
   toProjectSelections,
@@ -33,6 +37,7 @@ export interface DesignSnapshot {
   roomBounds: RoomBounds | null;
   roomMeta: RoomMeta | null;
   lineItemSlugs: string[];
+  photoOverlayTransform: PhotoOverlayTransform | null;
 }
 
 /** Extract catalog selections aligned with shared/catalog/projectSelections */
@@ -100,6 +105,7 @@ export function designToPayload(
       moduleOverrides: snapshot.moduleOverrides,
       roomBounds: snapshot.roomBounds,
       roomMeta: snapshot.roomMeta,
+      photoOverlayTransform: snapshot.photoOverlayTransform,
     },
     styleJson: {
       ...projectSelectionsToStyleJson(snapshotToProjectSelections(snapshot), snapshot.notes),
@@ -174,5 +180,8 @@ export function rowToSnapshot(row: DesignRow): DesignSnapshot {
     lineItemSlugs: Array.isArray(styleJson.lineItemSlugs)
       ? (styleJson.lineItemSlugs as string[])
       : [],
+    photoOverlayTransform: normalizePhotoOverlayTransform(
+      layoutJson.photoOverlayTransform,
+    ),
   };
 }

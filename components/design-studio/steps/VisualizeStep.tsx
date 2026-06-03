@@ -8,7 +8,7 @@ import { PlanIssuesPanel } from "../PlanIssuesPanel";
 import { Card, CardContent } from "@/components/ui/card";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
-import { getFinishHex } from "@/lib/design/previewConfig";
+import { getPreviewFinishHex } from "@/lib/design/previewConfig";
 import { detectIssues, getRecommendations } from "@/lib/design/planAdvisor";
 import { resolveRoomBounds } from "@/lib/design/resolveRoomBounds";
 import { hasUserRoomDimensions } from "@/lib/design/roomMeta";
@@ -38,7 +38,7 @@ function displayLabel(
 
 export function VisualizeStep({ embedded = false }: { embedded?: boolean }) {
   const { design, setModules, updateDesign } = useDesignStudio();
-  const finishHex = getFinishHex(design.finish);
+  const finishHex = getPreviewFinishHex(design);
   const customizedCount = Object.keys(design.moduleOverrides).length;
   const bounds = resolveRoomBounds(
     design.modules,
@@ -102,7 +102,9 @@ export function VisualizeStep({ embedded = false }: { embedded?: boolean }) {
         </div>
       )}
 
-      {design.photoUrl && design.roomMeta?.source === "photo" && (
+      {design.photoUrl &&
+        (design.roomMeta?.source === "photo" ||
+          design.roomMeta?.source === "vision-scan") && (
         <Alert data-testid="alert-room-photo-sized">
           <Info className="h-4 w-4" />
           <AlertTitle>Room sized from your photo</AlertTitle>
@@ -166,8 +168,8 @@ export function VisualizeStep({ embedded = false }: { embedded?: boolean }) {
       <div>
         <p className="text-sm font-medium mb-1">Room photo overlay</p>
         <p className="text-sm text-muted-foreground mb-3">
-          Align finish color manually, not a measured overlay. For scale, use
-          AR or the floor plan export.
+          Drag cabinets on your photo to match your walls. Sliders adjust tilt and
+          opacity; the 2D planner offers precise placement.
         </p>
         <RoomPhotoOverlay
           photoUrl={design.photoUrl}

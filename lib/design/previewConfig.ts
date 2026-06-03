@@ -1,5 +1,6 @@
 import type { LayoutSlug } from "@/shared/catalog/layouts";
 import { FINISH_BY_SLUG, resolveFinishSlug } from "@/shared/catalog/finishes";
+import { FINISHES } from "@/shared/catalog/generated/finishes";
 import type { FinishCategory } from "@/shared/catalog/doorStyles";
 
 export type ModuleFront = "door" | "drawers";
@@ -39,6 +40,21 @@ export interface PreviewConfig {
 const BASE_HEIGHT = 0.9;
 const WALL_HEIGHT = 0.7;
 const DEPTH = 0.6;
+
+/** Finish color for 3D/photo preview when user has not reached the Look step yet. */
+export function getPreviewFinishHex(design: {
+  finish: string | null;
+  collection: string | null;
+}): string {
+  if (design.finish) return getFinishHex(design.finish);
+  if (design.collection) {
+    const match = FINISHES.find((f) =>
+      f.compatibleCollectionIds.includes(design.collection!),
+    );
+    if (match) return getFinishHex(match.slug);
+  }
+  return getFinishHex(null);
+}
 
 export function getFinishHex(finish: string | null): string {
   if (!finish) return "#F5F3EF";

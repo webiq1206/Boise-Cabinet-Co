@@ -23,7 +23,7 @@ export function ScannedRoomPreview({ className }: { className?: string }) {
       <div
         className={`rounded-md border bg-card aspect-[4/3] flex items-center justify-center p-6 text-center text-sm text-muted-foreground ${className ?? ""}`}
       >
-        Complete the Scan step to see your room outline.
+        Add a room photo or size to see your floor plan here.
       </div>
     );
   }

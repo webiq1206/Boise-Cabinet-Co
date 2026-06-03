@@ -41,7 +41,7 @@ export function RoomStep({ showHeader = true }: { showHeader?: boolean }) {
             Which <em className="brc-accent text-accent">room</em> are we designing?
           </h2>
           <p className="text-muted-foreground mt-2">
-            Pick your room, then scan it so cabinets fit your space.
+            Pick your room, then add a photo or rough size so cabinets fit your space.
           </p>
         </div>
       )}

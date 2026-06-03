@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import { ArrowRight, Check, Info } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -229,6 +230,18 @@ export function EstimateResultPanel({
         {CTA_PRIMARY}
         <ArrowRight className="h-4 w-4" />
       </Button>
+
+      {!isCompact && project && (project === "kitchen" || project === "bathroom") && (
+        <p className="text-center text-sm mb-4">
+          <Link
+            href={`/design-studio?roomType=${project}`}
+            className="text-accent hover:underline underline-offset-2"
+            data-testid="link-estimator-design-studio"
+          >
+            Visualize cabinets in Design Studio
+          </Link>
+        </p>
+      )}
 
       {!isCompact && (
         <>

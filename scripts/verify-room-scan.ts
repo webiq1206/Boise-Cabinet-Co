@@ -3,6 +3,9 @@
  */
 import {
   boundsFromScanPoints,
+  isScannedRoom,
+  isUserMeasuredRoom,
+  isAutoPlanningRoom,
   roomMetaFromScanPoints,
   SCAN_CORNERS_REQUIRED,
 } from "../lib/design/roomScanGeometry";
@@ -78,5 +81,27 @@ const fitCount = rankLayoutsForRoom(layouts, tinyMeta, "kitchen", tinyBounds).fi
   (r) => r.fits,
 ).length;
 assert(fitCount === 0, "tiny room should block all layouts");
+
+assert(isUserMeasuredRoom(tinyMeta), "ar-scan counts as user measured");
+assert(
+  !isScannedRoom({
+    widthIn: 144,
+    depthIn: 132,
+    obstacles: [],
+    userConfirmed: true,
+    source: "auto-fit",
+  }),
+  "auto-fit must not pass wizard room gate",
+);
+assert(
+  isAutoPlanningRoom({
+    widthIn: 144,
+    depthIn: 132,
+    obstacles: [],
+    userConfirmed: true,
+    source: "auto-layout",
+  }),
+  "auto-layout is planning-only",
+);
 
 console.log("verify-room-scan: all checks passed");

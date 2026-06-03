@@ -9,7 +9,8 @@ export type DesignAnalyticsEvent =
   | "webgl_error"
   | "step_blocked"
   | "save_failed"
-  | "device_class";
+  | "device_class"
+  | "room_size_set";
 
 export type EstimatorAnalyticsEvent =
   | "estimator_step_view"

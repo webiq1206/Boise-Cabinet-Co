@@ -32,8 +32,33 @@ export function estimateRoomFromPhotoAspect(
     ceilingIn: prev?.ceilingIn ?? typical.ceilingIn,
     obstacles: prev?.obstacles ?? [],
     userConfirmed: true,
-    source: "photo",
+    source: "vision-scan",
+    scanConfidence: "medium",
   };
+}
+
+/** Client-side fallback when /api/design-studio/scan-room is unavailable. */
+export function estimateRoomFromDataUrl(
+  dataUrl: string,
+  roomType: string | null,
+  layout: LayoutSlug | string | null = null,
+): Promise<RoomMeta> {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload = () => {
+      resolve(
+        estimateRoomFromPhotoAspect(
+          img.naturalWidth,
+          img.naturalHeight,
+          layout,
+          roomType,
+          null,
+        ),
+      );
+    };
+    img.onerror = () => reject(new Error("Could not read image"));
+    img.src = dataUrl;
+  });
 }
 
 /** Refine width from two taps on the back wall in image coordinates. */

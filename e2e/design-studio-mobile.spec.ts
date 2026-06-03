@@ -16,17 +16,36 @@ test.describe("Design Studio mobile paths", () => {
   test("primary manual dimensions path", async ({ page }) => {
     await page.goto("/design-studio");
     await page.getByTestId("button-room-kitchen").click();
+    await page.getByRole("button", { name: /I know my wall measurements/i }).click();
     await page.getByTestId("input-manual-width").fill("120");
     await page.getByTestId("input-manual-depth").fill("144");
     await page.getByTestId("button-apply-manual-dims").click();
-    await expect(page.getByText(/Room size saved/i)).toBeVisible({ timeout: 10_000 });
+    await expect(page.getByTestId("room-scan-panel").getByText(/Room size saved/i)).toBeVisible({
+      timeout: 10_000,
+    });
     await expect(page.getByRole("button", { name: "Continue" })).toBeEnabled();
   });
 
-  test("typical kitchen preset enables continue", async ({ page }) => {
+  test("size bucket enables continue without exact measurements", async ({ page }) => {
     await page.goto("/design-studio");
     await page.getByTestId("button-room-kitchen").click();
-    await page.getByTestId("button-typical-kitchen-size").click();
+    await page.getByTestId("button-bucket-kitchen-average").click();
+    await expect(page.getByTestId("room-scan-panel").getByText(/Room size saved/i)).toBeVisible({
+      timeout: 10_000,
+    });
+    await expect(page.getByRole("button", { name: "Continue" })).toBeEnabled({
+      timeout: 10_000,
+    });
+  });
+
+  test("kitchen quick preset enables continue", async ({ page }) => {
+    await page.goto("/design-studio");
+    await page.getByTestId("button-room-kitchen").click();
+    await page.getByRole("button", { name: /I know my wall measurements/i }).click();
+    await page.getByTestId("button-preset-kitchen-12x14").click();
+    await expect(page.getByTestId("room-scan-panel").getByText(/Room size saved/i)).toBeVisible({
+      timeout: 10_000,
+    });
     await expect(page.getByRole("button", { name: "Continue" })).toBeEnabled({
       timeout: 10_000,
     });

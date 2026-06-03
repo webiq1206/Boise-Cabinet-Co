@@ -24,6 +24,7 @@ test.describe("Design Studio scan-first flow", () => {
     await page.goto("/design-studio");
     await page.getByTestId("button-room-kitchen").click();
     await expect(page.getByRole("button", { name: "Continue" })).toBeDisabled();
-    await expect(page.getByTestId("button-smart-scan")).toBeVisible();
+    await expect(page.getByTestId("button-estimate-from-photo")).toBeVisible();
+    await expect(page.getByTestId("button-bucket-kitchen-average")).toBeVisible();
   });
 });

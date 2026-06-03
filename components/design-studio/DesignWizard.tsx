@@ -11,8 +11,7 @@ import { CollectionStep } from "./steps/CollectionStep";
 import { LookStep } from "./steps/LookStep";
 import { PreviewStep } from "./steps/PreviewStep";
 import { QuoteStep } from "./steps/QuoteStep";
-import { LivePreviewPanel } from "./LivePreviewPanel";
-import { ScannedRoomPreview } from "./ScannedRoomPreview";
+import { RoomStepLivePreview } from "./RoomStepLivePreview";
 import { Button } from "@/components/ui/button";
 import { ChevronUp, Eye } from "lucide-react";
 import { wizardCopy } from "@/shared/designStudioCopy";
@@ -20,7 +19,7 @@ import { GuidedFlowShell } from "@/components/guided-flow";
 import type { GuidedStep } from "@/components/guided-flow";
 
 export const WIZARD_STEPS: readonly GuidedStep[] = [
-  { id: "room", label: "Measure room", shortLabel: "Room" },
+  { id: "room", label: "Your room", shortLabel: "Room" },
   { id: "layout", label: "Kitchen shape", shortLabel: "Layout" },
   { id: "collection", label: "Cabinet line", shortLabel: "Line" },
   { id: "look", label: "Colors & hardware", shortLabel: "Look" },
@@ -51,7 +50,9 @@ export function DesignWizard({ className }: DesignWizardProps) {
   useEffect(() => setMounted(true), []);
 
   const previewReady =
-    isScannedRoom(design.roomMeta) || design.layout !== null;
+    isScannedRoom(design.roomMeta) ||
+    design.layout !== null ||
+    Boolean(design.photoUrl);
 
   const StepComponent = STEP_COMPONENTS[currentStep];
   const isFirst = currentStep === 0;
@@ -69,11 +70,9 @@ export function DesignWizard({ className }: DesignWizardProps) {
   };
 
   const previewPanel = previewReady ? (
-    design.layout ? (
-      <LivePreviewPanel deferMount={!isDesktop && !mobilePreviewOpen} />
-    ) : (
-      <ScannedRoomPreview />
-    )
+    <RoomStepLivePreview
+      deferMount={!isDesktop && !mobilePreviewOpen}
+    />
   ) : (
     <div className="rounded-md border bg-card aspect-[4/3] flex items-center justify-center p-6 text-center">
       <p className="text-sm text-muted-foreground">{wizardCopy.previewPlaceholder}</p>

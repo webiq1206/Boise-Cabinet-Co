@@ -35,6 +35,23 @@ function applyFixtureRoom(
 }
 
 /** E2E/dev: ?fixtureScan=1 or ?fixtureManual=1 applies room size without AR. */
+/** Pre-select room from ?roomType=kitchen (e.g. estimator handoff). */
+function RoomTypeFromQuery() {
+  const params = useSearchParams();
+  const { design, updateDesign } = useDesignStudio();
+
+  useEffect(() => {
+    const rt = params.get("roomType");
+    if (!rt || design.roomType) return;
+    const allowed = ["kitchen", "bathroom", "laundry", "home-office", "closet", "mudroom"];
+    if (allowed.includes(rt)) {
+      updateDesign({ roomType: rt });
+    }
+  }, [params, design.roomType, updateDesign]);
+
+  return null;
+}
+
 function ScanFixtureLoader() {
   const params = useSearchParams();
   const { design, updateDesign } = useDesignStudio();
@@ -62,6 +79,7 @@ export function RoomSetupStep() {
   return (
     <div className="space-y-8">
       <Suspense fallback={null}>
+        <RoomTypeFromQuery />
         <ScanFixtureLoader />
       </Suspense>
       <div>
