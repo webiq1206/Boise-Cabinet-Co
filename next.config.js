@@ -16,6 +16,19 @@ const nextConfig = {
   },
   experimental: {
     instrumentationHook: true,
+    // Run the webpack compile in a separate worker process so its heap is
+    // isolated from (and freed before) the static-page-generation phase. This
+    // keeps the two biggest memory consumers from stacking on top of each
+    // other during `next build`. Must be set explicitly because this project
+    // customizes the webpack config below, which otherwise disables the worker.
+    webpackBuildWorker: true,
+    // Size the static-page-generation worker pool from available RAM instead
+    // of CPU count. On builders with many cores but a modest memory envelope,
+    // the default spawns one full app-loading render worker per core, which is
+    // the largest build-memory spike for this content-heavy site (~150 static
+    // pages). Capping by memory prevents OOM kills during static generation.
+    memoryBasedWorkersCount: true,
+    cpus: 2,
   },
   images: {
     unoptimized: false,

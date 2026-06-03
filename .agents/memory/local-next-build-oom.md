@@ -27,3 +27,16 @@ soundness without a full local build:
 - grep source for any dangling references to removed slugs/images.
 If a true production build is required, it must run in a higher-memory environment
 (the deploy builder) rather than locally.
+
+**Deploy-builder memory (next.config.js `experimental`):** to keep deploy builds
+inside a modest memory envelope, three flags are set: `webpackBuildWorker: true`
+(isolates the webpack compile heap in its own worker — must be set *explicitly*
+because the project's custom `webpack()` alias function otherwise disables the
+worker by default), `memoryBasedWorkersCount: true`, and `cpus: 2`. The dominant
+build-memory spike for this site is the "Generating static pages" phase: Next
+spawns one full app-loading render worker per CPU by default, and with ~150 static
+pages (blog/guides/city-service `generateStaticParams`) that stacks fast. Capping
+workers by memory + a hard `cpus` cap is the structural fix; do not just raise
+`--max-old-space-size`. The `@shared`/`@/shared` webpack aliases are redundant with
+tsconfig `paths`, so the custom `webpack()` fn could be dropped to auto-enable the
+build worker, but it's kept and the flag set explicitly instead.
