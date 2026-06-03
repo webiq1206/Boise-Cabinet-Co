@@ -1,21 +1,32 @@
 /**
- * Image path helpers for catalog entities (door styles, finishes, search results).
+ * Image path helpers for catalog entities (doors, finishes, products, search).
  */
 
+import type { CabinetProduct } from "./types";
 import type { CatalogSearchResultType } from "./queries";
 import { DOOR_STYLE_BY_SLUG } from "./generated/doorStyles";
 import { FINISH_BY_SLUG } from "./generated/finishes";
 import { COLLECTION_BY_SLUG } from "./generated/collections";
-import { getHardwareImagePath, getAccessoryImagePath } from "./catalogImages";
+import {
+  getHardwareImagePath,
+  getAccessoryImagePath,
+  getAccessoryFamilyImagePath,
+} from "./catalogImages";
 
 export interface DoorStyleImages {
   primary: string;
-  /** Optimized thumbnail used in estimator and compact grids */
   thumb640: string;
 }
 
 export interface FinishImages {
   swatch: string;
+  inRoom: string;
+}
+
+export interface ProductImages {
+  hero: string;
+  diagram: string;
+  thumb: string;
 }
 
 /** Door style hero + 640px thumbnail paths with sensible fallbacks */
@@ -27,10 +38,22 @@ export function getDoorStyleImages(slug: string, imagePath?: string): DoorStyleI
   return { primary, thumb640 };
 }
 
-/** Finish swatch image path */
+/** Finish swatch + in-room application preview */
 export function getFinishImages(slug: string, imagePath?: string): FinishImages {
+  const swatch = imagePath ?? `/images/catalog/finishes/${slug}.webp`;
   return {
-    swatch: imagePath ?? `/images/catalog/finishes/${slug}.webp`,
+    swatch,
+    inRoom: `/images/catalog/finishes/in-room/${slug}.webp`,
+  };
+}
+
+/** Product hero, elevation diagram, and list thumbnail */
+export function getProductImages(product: Pick<CabinetProduct, "slug">): ProductImages {
+  const base = `/images/catalog/products/${product.slug}`;
+  return {
+    hero: `${base}.webp`,
+    diagram: `${base}-diagram.webp`,
+    thumb: `${base}-thumb.webp`,
   };
 }
 
@@ -63,7 +86,10 @@ export function pickSearchResultImage(input: SearchResultImageInput): string | u
       return getHardwareImagePath(input.slug);
     case "accessory":
       return getAccessoryImagePath(input.slug);
+    case "cabinetProduct":
+      return getProductImages({ slug: input.slug }).thumb;
     default:
       return undefined;
   }
 }
+

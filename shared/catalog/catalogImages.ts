@@ -28,6 +28,11 @@ export function getAccessoryImagePath(slug: string): string {
   return `/images/catalog/accessories/${slug}.webp`;
 }
 
+/** OSC accessory family slug → application image (same path convention as accessories) */
+export function getAccessoryFamilyImagePath(slug: string): string {
+  return `/images/catalog/accessories/${slug}.webp`;
+}
+
 export function getCatalogProductAlt(name: string, category: "hardware" | "accessory"): string {
   const label = category === "hardware" ? "cabinet hardware" : "cabinet accessory";
   return `${name} ${label}, Boise Cabinet Co`;

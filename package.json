@@ -33,6 +33,7 @@
     "catalog:verify": "npx tsx scripts/catalog/verify-catalog-integrity.ts",
     "catalog:inventory": "node scripts/catalog/inventory-finishes.mjs && node scripts/catalog/diff-pdf-skus.mjs",
     "catalog:visuals:verify": "npx tsx scripts/catalog/verify-catalog-visuals.ts",
+    "catalog:images:generate": "node scripts/catalog/generate-catalog-product-images.mjs && node scripts/catalog/generate-finish-in-room-images.mjs && node scripts/catalog/generate-accessory-family-images.mjs",
     "catalog:build": "npm run catalog:extract && npm run catalog:codegen && npm run catalog:verify",
     "catalog:images:verify": "npx tsx scripts/catalog/verify-catalog-images.ts",
     "verify:room-scan": "tsx scripts/verify-room-scan.ts",
