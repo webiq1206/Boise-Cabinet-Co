@@ -444,3 +444,219 @@ id = "JZlLH1qU3ZcML6dpEEIob"
 uri = "file://public/images/catalog/collections/spec-grade.png"
 type = "image"
 title = "spec-grade kitchen"
+
+[[generated]]
+id = "yULseY1JYR-sNnD0sYbJx"
+uri = "file://public/images/catalog/door-styles/slab.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "n6bu2V5yNrybiULIUkJtl"
+uri = "file://public/images/catalog/door-styles/modern-shaker.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "R1dPM4nFIbg74AYNiMpt_"
+uri = "file://public/images/catalog/door-styles/thin-shaker.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "VIIzzM8Pa9F7haKSlraoX"
+uri = "file://public/images/catalog/door-styles/three-piece.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "jkQh4jxO3voOTnBXm4Kiz"
+uri = "file://public/images/catalog/door-styles/alpha-shaker.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "omsjXSH6CUn25APBp6fNw"
+uri = "file://public/images/catalog/door-styles/beta-shaker.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "Loq-Zw2y0j7xQ9aSwhThk"
+uri = "file://public/images/catalog/hardware/bar-pull-128-black.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "qWox_VzTLSsbCYeL6mmaD"
+uri = "file://public/images/catalog/hardware/bar-pull-160-nickel.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "BF5Fd8Vl2u3TQ7NxdMmEH"
+uri = "file://public/images/catalog/hardware/cup-pull-gold.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "rg42mQosYP-_H2N2102a7"
+uri = "file://public/images/catalog/hardware/finger-edge-pull.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "VY3uwYDq5VLXVvQ5Xor5h"
+uri = "file://public/images/catalog/hardware/j-channel-pull.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "I3jVMLzzcjXj-zD9xakjS"
+uri = "file://public/images/catalog/hardware/knob-round-nickel.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "UZ9QmeacPLTFKwd09Tlat"
+uri = "file://public/images/catalog/hardware/knob-square-black.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "OJYCimGE3GnUPwpUd6Uzc"
+uri = "file://public/images/catalog/hardware/glass-knob-chrome.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "5U4rkUTSh9WgzXrNOj-pj"
+uri = "file://public/images/catalog/hardware/hinge-soft-close.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "KJHKSONlahNBPs5jtRfn7"
+uri = "file://public/images/catalog/hardware/push-to-open-hinge.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "QfimWNgJ9JZC6daC5IhFj"
+uri = "file://public/images/catalog/hardware/slide-soft-close.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "H5p9UTljnVl16IK6Vc5Ed"
+uri = "file://public/images/catalog/hardware/slide-heavy-duty.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "ZlXLXZRLwz-pSFrD0QwSS"
+uri = "file://public/images/catalog/hardware/outdoor-bar-pull-stainless.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "ozt1EA4RHwraS4HcrTzoq"
+uri = "file://public/images/catalog/accessories/pull-out-shelf.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "HqGV0hA-D34s15FuXx_pN"
+uri = "file://public/images/catalog/accessories/pull-out-pantry.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "mPZLiIBsl3eG0J5nOEKdG"
+uri = "file://public/images/catalog/accessories/lazy-susan.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "kzX4v-5VVGJSPPCk9ffqH"
+uri = "file://public/images/catalog/accessories/blind-corner-pullout.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "KmO6EFqszi3b3XEpJ0Acn"
+uri = "file://public/images/catalog/accessories/spice-rack-pullout.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "lriK7gKh_23IjGtCbQGlZ"
+uri = "file://public/images/catalog/accessories/utensil-divider.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "cXdn4bv-bITPhM91xGo7y"
+uri = "file://public/images/catalog/accessories/peg-board-drawer.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "2GxF_S_zCbM1zsuorbAt5"
+uri = "file://public/images/catalog/accessories/trash-pullout.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "2nLcTDV3DpQdvDCl95Ooz"
+uri = "file://public/images/catalog/accessories/cutting-board-insert.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "OndUPFZ3KBrMl68GHxFeG"
+uri = "file://public/images/catalog/accessories/mixer-lift.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "vGiZ-KmCA1MkA1fXQwiF4"
+uri = "file://public/images/catalog/accessories/tip-out-tray.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "ixNNKkVqtbU9G9m3zKdDi"
+uri = "file://public/images/catalog/accessories/vertical-divider.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "ti1cxJGwFRw-lvGh_n3V3"
+uri = "file://public/images/catalog/accessories/drawer-organizer-kit.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "jy8Q093X6YM0a33z5DV9T"
+uri = "file://public/images/catalog/accessories/led-strip-channel.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "0GdW4vS70Ke74ruaGpZSB"
+uri = "file://public/images/catalog/accessories/pull-out-hamper.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "jUx1GHu1ga8MEsHIxtsW_"
+uri = "file://public/images/catalog/accessories/wine-rack-insert.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "Migfdi8fgRhgDWhwG_Z9m"
+uri = "file://public/images/catalog/accessories/appliance-garage.png"
+type = "image"
+title = "generated_image"

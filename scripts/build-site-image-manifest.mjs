@@ -284,11 +284,18 @@ const ACCESSORIES = [
   "lazy-susan",
   "blind-corner-pullout",
   "spice-rack-pullout",
+  "utensil-divider",
+  "peg-board-drawer",
   "trash-pullout",
+  "cutting-board-insert",
   "mixer-lift",
-  "appliance-garage",
+  "tip-out-tray",
+  "vertical-divider",
+  "drawer-organizer-kit",
   "led-strip-channel",
+  "pull-out-hamper",
   "wine-rack-insert",
+  "appliance-garage",
 ];
 for (const a of ACCESSORIES) {
   add({

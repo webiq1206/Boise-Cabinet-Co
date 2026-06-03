@@ -1510,7 +1510,7 @@
     },
     {
       "id": "img-0060",
-      "status": "pending",
+      "status": "generated",
       "phase": 2,
       "priority": "high",
       "width": 1200,
@@ -1534,7 +1534,7 @@
     },
     {
       "id": "img-0061",
-      "status": "pending",
+      "status": "generated",
       "phase": 2,
       "priority": "high",
       "width": 1200,
@@ -1558,7 +1558,7 @@
     },
     {
       "id": "img-0062",
-      "status": "pending",
+      "status": "generated",
       "phase": 2,
       "priority": "high",
       "width": 1200,
@@ -1582,7 +1582,7 @@
     },
     {
       "id": "img-0063",
-      "status": "pending",
+      "status": "generated",
       "phase": 2,
       "priority": "high",
       "width": 1200,
@@ -1606,7 +1606,7 @@
     },
     {
       "id": "img-0064",
-      "status": "pending",
+      "status": "generated",
       "phase": 2,
       "priority": "high",
       "width": 1200,
@@ -1630,7 +1630,7 @@
     },
     {
       "id": "img-0065",
-      "status": "pending",
+      "status": "generated",
       "phase": 2,
       "priority": "high",
       "width": 1200,
@@ -3293,7 +3293,7 @@
     },
     {
       "id": "img-0138",
-      "status": "pending",
+      "status": "generated",
       "phase": 3,
       "priority": "low",
       "width": 800,
@@ -3313,7 +3313,7 @@
     },
     {
       "id": "img-0139",
-      "status": "pending",
+      "status": "generated",
       "phase": 3,
       "priority": "low",
       "width": 800,
@@ -3333,7 +3333,7 @@
     },
     {
       "id": "img-0140",
-      "status": "pending",
+      "status": "generated",
       "phase": 3,
       "priority": "low",
       "width": 800,
@@ -3353,7 +3353,7 @@
     },
     {
       "id": "img-0141",
-      "status": "pending",
+      "status": "generated",
       "phase": 3,
       "priority": "low",
       "width": 800,
@@ -3373,7 +3373,7 @@
     },
     {
       "id": "img-0142",
-      "status": "pending",
+      "status": "generated",
       "phase": 3,
       "priority": "low",
       "width": 800,
@@ -3393,7 +3393,7 @@
     },
     {
       "id": "img-0143",
-      "status": "pending",
+      "status": "generated",
       "phase": 3,
       "priority": "low",
       "width": 800,
@@ -3413,7 +3413,7 @@
     },
     {
       "id": "img-0144",
-      "status": "pending",
+      "status": "generated",
       "phase": 3,
       "priority": "low",
       "width": 800,
@@ -3433,7 +3433,7 @@
     },
     {
       "id": "img-0145",
-      "status": "pending",
+      "status": "generated",
       "phase": 3,
       "priority": "low",
       "width": 800,
@@ -3453,7 +3453,7 @@
     },
     {
       "id": "img-0146",
-      "status": "pending",
+      "status": "generated",
       "phase": 3,
       "priority": "low",
       "width": 800,
@@ -3473,7 +3473,7 @@
     },
     {
       "id": "img-0147",
-      "status": "pending",
+      "status": "generated",
       "phase": 3,
       "priority": "low",
       "width": 800,
@@ -3493,7 +3493,7 @@
     },
     {
       "id": "img-0148",
-      "status": "pending",
+      "status": "generated",
       "phase": 3,
       "priority": "low",
       "width": 800,
@@ -3513,7 +3513,7 @@
     },
     {
       "id": "img-0149",
-      "status": "pending",
+      "status": "generated",
       "phase": 3,
       "priority": "low",
       "width": 800,
@@ -3533,7 +3533,7 @@
     },
     {
       "id": "img-0150",
-      "status": "pending",
+      "status": "generated",
       "phase": 3,
       "priority": "low",
       "width": 800,
@@ -3553,7 +3553,7 @@
     },
     {
       "id": "img-0151",
-      "status": "pending",
+      "status": "generated",
       "phase": 3,
       "priority": "low",
       "width": 800,
@@ -3573,7 +3573,7 @@
     },
     {
       "id": "img-0152",
-      "status": "pending",
+      "status": "generated",
       "phase": 3,
       "priority": "low",
       "width": 800,
@@ -3593,7 +3593,7 @@
     },
     {
       "id": "img-0153",
-      "status": "pending",
+      "status": "generated",
       "phase": 3,
       "priority": "low",
       "width": 800,
@@ -3613,7 +3613,7 @@
     },
     {
       "id": "img-0154",
-      "status": "pending",
+      "status": "generated",
       "phase": 3,
       "priority": "low",
       "width": 800,
@@ -3633,7 +3633,7 @@
     },
     {
       "id": "img-0155",
-      "status": "pending",
+      "status": "generated",
       "phase": 3,
       "priority": "low",
       "width": 800,
@@ -3653,7 +3653,7 @@
     },
     {
       "id": "img-0156",
-      "status": "pending",
+      "status": "generated",
       "phase": 3,
       "priority": "low",
       "width": 800,
@@ -3673,7 +3673,7 @@
     },
     {
       "id": "img-0157",
-      "status": "pending",
+      "status": "generated",
       "phase": 3,
       "priority": "low",
       "width": 800,
@@ -3693,7 +3693,7 @@
     },
     {
       "id": "img-0158",
-      "status": "pending",
+      "status": "generated",
       "phase": 3,
       "priority": "low",
       "width": 800,
@@ -3713,7 +3713,7 @@
     },
     {
       "id": "img-0159",
-      "status": "pending",
+      "status": "generated",
       "phase": 3,
       "priority": "low",
       "width": 800,
@@ -3733,7 +3733,7 @@
     },
     {
       "id": "img-0160",
-      "status": "pending",
+      "status": "generated",
       "phase": 3,
       "priority": "low",
       "width": 800,
@@ -3750,6 +3750,153 @@
       "promptScene": "Cabinet wine rack insert interior accessory installed in One Source kitchen, product photography, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
       "alt": "Cabinet wine rack insert interior accessory — Boise Cabinet Co",
       "title": "wine rack insert"
+    },
+    {
+      "id": "img-0161",
+      "status": "generated",
+      "phase": 3,
+      "priority": "low",
+      "width": 800,
+      "height": 800,
+      "formats": [
+        "webp",
+        "png"
+      ],
+      "outputPath": "/images/catalog/accessories/utensil-divider.webp",
+      "pages": [
+        "/accessories"
+      ],
+      "placement": "product",
+      "promptScene": "Cabinet utensil divider interior accessory installed in One Source kitchen, product photography, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "alt": "Cabinet utensil divider interior accessory — Boise Cabinet Co",
+      "title": "utensil divider",
+      "caption": "Cabinet utensil divider interior accessory from One Source Cabinets, available through Boise Cabinet Co."
+    },
+    {
+      "id": "img-0162",
+      "status": "generated",
+      "phase": 3,
+      "priority": "low",
+      "width": 800,
+      "height": 800,
+      "formats": [
+        "webp",
+        "png"
+      ],
+      "outputPath": "/images/catalog/accessories/peg-board-drawer.webp",
+      "pages": [
+        "/accessories"
+      ],
+      "placement": "product",
+      "promptScene": "Cabinet peg board drawer interior accessory installed in One Source kitchen, product photography, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "alt": "Cabinet peg board drawer interior accessory — Boise Cabinet Co",
+      "title": "peg board drawer",
+      "caption": "Cabinet peg board drawer interior accessory from One Source Cabinets, available through Boise Cabinet Co."
+    },
+    {
+      "id": "img-0163",
+      "status": "generated",
+      "phase": 3,
+      "priority": "low",
+      "width": 800,
+      "height": 800,
+      "formats": [
+        "webp",
+        "png"
+      ],
+      "outputPath": "/images/catalog/accessories/cutting-board-insert.webp",
+      "pages": [
+        "/accessories"
+      ],
+      "placement": "product",
+      "promptScene": "Cabinet cutting board insert interior accessory installed in One Source kitchen, product photography, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "alt": "Cabinet cutting board insert interior accessory — Boise Cabinet Co",
+      "title": "cutting board insert",
+      "caption": "Cabinet cutting board insert interior accessory from One Source Cabinets, available through Boise Cabinet Co."
+    },
+    {
+      "id": "img-0164",
+      "status": "generated",
+      "phase": 3,
+      "priority": "low",
+      "width": 800,
+      "height": 800,
+      "formats": [
+        "webp",
+        "png"
+      ],
+      "outputPath": "/images/catalog/accessories/tip-out-tray.webp",
+      "pages": [
+        "/accessories"
+      ],
+      "placement": "product",
+      "promptScene": "Cabinet tip out tray interior accessory installed in One Source kitchen, product photography, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "alt": "Cabinet tip out tray interior accessory — Boise Cabinet Co",
+      "title": "tip out tray",
+      "caption": "Cabinet tip out tray interior accessory from One Source Cabinets, available through Boise Cabinet Co."
+    },
+    {
+      "id": "img-0165",
+      "status": "generated",
+      "phase": 3,
+      "priority": "low",
+      "width": 800,
+      "height": 800,
+      "formats": [
+        "webp",
+        "png"
+      ],
+      "outputPath": "/images/catalog/accessories/vertical-divider.webp",
+      "pages": [
+        "/accessories"
+      ],
+      "placement": "product",
+      "promptScene": "Cabinet vertical divider interior accessory installed in One Source kitchen, product photography, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "alt": "Cabinet vertical divider interior accessory — Boise Cabinet Co",
+      "title": "vertical divider",
+      "caption": "Cabinet vertical divider interior accessory from One Source Cabinets, available through Boise Cabinet Co."
+    },
+    {
+      "id": "img-0166",
+      "status": "generated",
+      "phase": 3,
+      "priority": "low",
+      "width": 800,
+      "height": 800,
+      "formats": [
+        "webp",
+        "png"
+      ],
+      "outputPath": "/images/catalog/accessories/drawer-organizer-kit.webp",
+      "pages": [
+        "/accessories"
+      ],
+      "placement": "product",
+      "promptScene": "Cabinet drawer organizer kit interior accessory installed in One Source kitchen, product photography, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "alt": "Cabinet drawer organizer kit interior accessory — Boise Cabinet Co",
+      "title": "drawer organizer kit",
+      "caption": "Cabinet drawer organizer kit interior accessory from One Source Cabinets, available through Boise Cabinet Co."
+    },
+    {
+      "id": "img-0167",
+      "status": "generated",
+      "phase": 3,
+      "priority": "low",
+      "width": 800,
+      "height": 800,
+      "formats": [
+        "webp",
+        "png"
+      ],
+      "outputPath": "/images/catalog/accessories/pull-out-hamper.webp",
+      "pages": [
+        "/accessories"
+      ],
+      "placement": "product",
+      "promptScene": "Cabinet pull out hamper interior accessory installed in One Source kitchen, product photography, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "alt": "Cabinet pull out hamper interior accessory — Boise Cabinet Co",
+      "title": "pull out hamper",
+      "caption": "Cabinet pull out hamper interior accessory from One Source Cabinets, available through Boise Cabinet Co."
     }
   ]
 }
