@@ -12,7 +12,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Button } from "@/components/ui/button";
 import { CheckCircle2, ArrowRight } from "lucide-react";
 import type { StoredEstimate } from "@/shared/estimateEngine";
-import { FINISH_LABELS, PROJECT_LABELS } from "@/shared/estimateEngine";
+import { PROJECT_LABELS } from "@/shared/estimateEngine";
 import { DisplayNum } from "@/components/marketing";
 import { AddressAutocomplete } from "@/components/AddressAutocomplete";
 import type { PropertyProfile } from "@/shared/propertyProfile";
@@ -93,7 +93,7 @@ export function ConsultationForm({ onRevise }: ConsultationFormProps = {}) {
         const raw = sessionStorage.getItem("brc_estimate");
         if (!raw) return;
         const parsed: StoredEstimate = JSON.parse(raw);
-        const key = `${parsed.project}|${parsed.finish}|${parsed.sqft}|${parsed.priceLow}|${parsed.priceHigh}|${parsed.confidenceLabel}`;
+        const key = `${parsed.project}|${parsed.scopeSummary}|${parsed.size}|${parsed.priceLow}|${parsed.priceHigh}|${parsed.confidenceLabel}`;
         if (key === lastKeyRef.current) return;
         lastKeyRef.current = key;
         setEstimate(parsed);
@@ -124,13 +124,11 @@ export function ConsultationForm({ onRevise }: ConsultationFormProps = {}) {
         propertyProfile,
         estimate: estimate && decision === "confirmed"
           ? {
-              project: estimate.project,
-              finish: estimate.finish,
+              project: estimate.projectLabel,
+              finish: estimate.scopeSummary,
               priceLow: estimate.priceLow,
               priceHigh: estimate.priceHigh,
               roi: estimate.roi,
-              confidence: estimate.confidenceLabel,
-              sqft: estimate.sqft,
             }
           : null,
       };
@@ -168,12 +166,10 @@ export function ConsultationForm({ onRevise }: ConsultationFormProps = {}) {
     );
   }
 
-  const projectLabel = estimate?.project
-    ? PROJECT_LABELS[estimate.project]?.label
-    : null;
-  const finishLabel = estimate?.finish
-    ? FINISH_LABELS[estimate.finish]?.label
-    : null;
+  const projectLabel = estimate?.projectLabel
+    ?? (estimate?.project ? PROJECT_LABELS[estimate.project]?.label : null);
+  const scopeSummary = estimate?.scopeSummary ?? null;
+  const sizeLabel = estimate?.sizeLabel ?? null;
 
   const canSubmit =
     !estimate || decision === "confirmed" || decision === "dropped";
@@ -210,14 +206,11 @@ export function ConsultationForm({ onRevise }: ConsultationFormProps = {}) {
             <p className="font-medium mb-1 text-foreground">Planning range from estimator:</p>
             <p className="text-muted-foreground">
               {projectLabel}
-              {finishLabel ? ` · ${finishLabel}` : ""}
-              {estimate.sqft ? (
-                <>
-                  {" · "}
-                  <DisplayNum>{estimate.sqft.toLocaleString()}</DisplayNum> sqft
-                </>
-              ) : null}
+              {sizeLabel ? ` · ${sizeLabel}` : ""}
             </p>
+            {scopeSummary && (
+              <p className="text-xs text-muted-foreground mt-1">{scopeSummary}</p>
+            )}
             <p className="mt-1 text-foreground">
               <DisplayNum className="font-medium">
                 {formatCurrency(estimate.priceLow)} to {formatCurrency(estimate.priceHigh)}
@@ -285,14 +278,13 @@ export function ConsultationForm({ onRevise }: ConsultationFormProps = {}) {
               </p>
               <p className="text-muted-foreground" data-testid="text-estimate-summary">
                 {projectLabel}
-                {finishLabel ? ` · ${finishLabel}` : ""}
-                {estimate.sqft ? (
-                  <>
-                    {" · "}
-                    <DisplayNum>{estimate.sqft.toLocaleString()}</DisplayNum> sqft
-                  </>
-                ) : null}
+                {sizeLabel ? ` · ${sizeLabel}` : ""}
               </p>
+              {scopeSummary && (
+                <p className="text-xs text-muted-foreground mt-1" data-testid="text-estimate-scope">
+                  {scopeSummary}
+                </p>
+              )}
               <p className="mt-1 text-foreground" data-testid="text-estimate-range">
                 <DisplayNum className="font-medium">
                   {formatCurrency(estimate.priceLow)} to {formatCurrency(estimate.priceHigh)}

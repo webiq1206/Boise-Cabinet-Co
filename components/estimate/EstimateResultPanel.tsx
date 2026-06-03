@@ -118,6 +118,7 @@ function IncludedSection({ included, project }: { included: string[]; project?: 
 export interface EstimateResultPanelProps {
   result: EstimateResult;
   selectionSummary: string;
+  scopeSummary?: string;
   onBookVisit: () => void;
   project?: ProjectType;
   variant?: "full" | "compact";
@@ -127,6 +128,7 @@ export interface EstimateResultPanelProps {
 export function EstimateResultPanel({
   result,
   selectionSummary,
+  scopeSummary,
   onBookVisit,
   project,
   variant = "full",
@@ -174,6 +176,13 @@ export function EstimateResultPanel({
         <span aria-hidden="true"> to </span>
         <AnimatedPrice value={result.priceHigh} />
       </div>
+
+      {!isCompact && scopeSummary && (
+        <div className="mb-4 rounded-sm p-3 bg-inverse-foreground/6 border border-inverse-foreground/10" data-testid="text-scope-summary">
+          <div className="brc-label text-inverse-muted mb-1">Your selections</div>
+          <p className="text-xs leading-relaxed text-inverse-foreground/90">{scopeSummary}</p>
+        </div>
+      )}
 
       {!isCompact && (
         <p className="text-xs text-inverse-muted mb-4">

@@ -1,47 +1,54 @@
+import { COLLECTIONS } from "./catalog/collections";
+import { DOOR_STYLES } from "./catalog/doorStyles";
+import { ACCESSORY_BY_ID } from "./catalog/accessories";
+import { LAYOUT_BY_SLUG } from "./catalog/layouts";
+
+/**
+ * Cabinet-specific Project Estimator engine.
+ *
+ * Pricing is grounded in the real Boise Cabinet Co catalog: the Custom and
+ * Reserve cabinet lines, the Slab / Shaker / Thin Shaker door styles, the
+ * matte / gloss / woodgrain finish categories and standard / premium / reserve
+ * finish tiers, Good / Better / Best box construction, and the Smart Storage
+ * add-on accessories. Option lists are pulled from `shared/catalog/*` so the
+ * estimator and catalog never drift.
+ *
+ * The model composes a base from layout + size (linear-foot or per-room
+ * driven), then applies multipliers for cabinet line, door style, finish
+ * category, finish tier, construction quality, and Smart Storage. Every upgrade
+ * raises the range monotonically; every downgrade lowers it.
+ */
+
 export type ProjectType = "kitchen" | "bathroom" | "whole-home" | "addition" | "adu";
-export type FinishLevel = "refresh" | "mid-range" | "high-end" | "luxury";
-export type LayoutChanges = "none" | "moderate" | "major";
-export type PlumbingElectrical = "cosmetic" | "partial" | "full";
-export type CabinetTier = "standard" | "semi-custom" | "custom";
+export type FinishCategory = "matte" | "woodgrain" | "gloss";
+export type FinishTier = "standard" | "premium" | "reserve";
+export type ConstructionTier = "good" | "better" | "best";
+export type StorageTier = "none" | "essential" | "upgraded" | "premium";
 export type ConfidenceLevel = "starting" | "refined" | "detailed";
 
-export type UserRefinementKey =
-  | "layoutChanges"
-  | "plumbingElectrical"
-  | "cabinetTier"
-  | "fixtureCount"
-  | "roomCount"
-  | "stories";
+export type SelectionStepKey =
+  | "layout"
+  | "size"
+  | "line"
+  | "doorStyle"
+  | "finish"
+  | "construction"
+  | "storage";
 
-export interface PriceData {
-  low: number;
-  high: number;
-  roi: number;
-  included: string[];
-}
-
-export interface ProjectSizeConfig {
-  min: number;
-  max: number;
-  step: number;
-  defaultSqft: number;
-  baselineSqft: number;
-}
-
-export interface EstimateRefinements {
-  layoutChanges: LayoutChanges;
-  plumbingElectrical: PlumbingElectrical;
-  cabinetTier: CabinetTier | null;
-  fixtureCount: number | null;
-  stories: number | null;
-  roomCount: number | null;
-}
-
-export interface EstimateInput {
+export interface EstimateSelections {
   project: ProjectType;
-  finish: FinishLevel;
-  sqft: number;
-  refinements: EstimateRefinements;
+  /** Layout slug from the catalog; "" when the project has no layout step. */
+  layout: string;
+  /** Size in the project's size unit: linear feet, vanity feet, or room count. */
+  size: number;
+  /** Cabinet line = catalog collection id ("custom" | "reserve"). */
+  cabinetLine: string;
+  /** Door style = catalog door style id ("slab" | "shaker" | "thin-shaker"). */
+  doorStyle: string;
+  finishCategory: FinishCategory;
+  finishTier: FinishTier;
+  construction: ConstructionTier;
+  storage: StorageTier;
 }
 
 export interface EstimateResult {
@@ -52,95 +59,147 @@ export interface EstimateResult {
   confidence: ConfidenceLevel;
   confidenceLabel: string;
   confidencePercent: number;
-  refinementsApplied: number;
+  /** Product-named scope line, e.g. "Reserve line · Thin Shaker · Premium matte finish · Best construction · Upgraded storage". */
+  scopeSummary: string;
+  selectionsMade: number;
+  totalSteps: number;
 }
 
-export const INCLUDED_SCOPE_NOTE =
-  "Scope reflects the selections above. Your final scope is confirmed during consultation.";
+// ============================================================================
+// MODELED TREASURE VALLEY PRICING — EDIT HERE
+// ----------------------------------------------------------------------------
+// These are PLANNING figures modeled on Boise Cabinet Co's tier structure and
+// typical Treasure Valley installed-cabinetry rates. They are NOT a supplier
+// price sheet and not a per-cabinet quote. Every dollar figure the estimator
+// uses lives in this block — tune these numbers to refine the estimator.
+//
+// How the math works:
+//   priceLow  = round( perUnitLow  × size × multiplier )
+//   priceHigh = round( perUnitHigh × size × multiplier )
+//   multiplier = layout × cabinetLine × doorStyle × finishCategory
+//              × finishTier × construction × storage
+// ============================================================================
 
-export const APPLIANCE_DISCLAIMER =
-  "Appliances are client-supplied; we'll guide your selection but do not purchase or install them.";
-
-export const PROJECT_SIZE_CONFIG: Record<ProjectType, ProjectSizeConfig> = {
-  kitchen: { min: 100, max: 600, step: 25, defaultSqft: 250, baselineSqft: 250 },
-  bathroom: { min: 40, max: 200, step: 10, defaultSqft: 80, baselineSqft: 80 },
-  "whole-home": { min: 800, max: 8000, step: 100, defaultSqft: 1800, baselineSqft: 1800 },
-  addition: { min: 20, max: 400, step: 10, defaultSqft: 120, baselineSqft: 120 },
-  adu: { min: 20, max: 300, step: 10, defaultSqft: 80, baselineSqft: 80 },
+/** Base installed price per size unit (low/high band) and resale ROI per project. */
+export const PROJECT_PRICING: Record<
+  ProjectType,
+  { perUnitLow: number; perUnitHigh: number; roi: number }
+> = {
+  // kitchen / bathroom / built-ins / closet are priced per linear foot of cabinetry.
+  kitchen: { perUnitLow: 520, perUnitHigh: 880, roi: 72 },
+  bathroom: { perUnitLow: 460, perUnitHigh: 820, roi: 68 },
+  // whole-home is priced per room of cabinetry applied house-wide.
+  "whole-home": { perUnitLow: 10000, perUnitHigh: 22000, roi: 65 },
+  addition: { perUnitLow: 360, perUnitHigh: 640, roi: 60 },
+  adu: { perUnitLow: 220, perUnitHigh: 460, roi: 58 },
 };
 
-export const DEFAULT_ESTIMATE_INPUT: EstimateInput = {
-  project: "kitchen",
-  finish: "mid-range",
-  sqft: PROJECT_SIZE_CONFIG.kitchen.defaultSqft,
-  refinements: {
-    layoutChanges: "none",
-    plumbingElectrical: "cosmetic",
-    cabinetTier: null,
-    fixtureCount: null,
-    stories: null,
-    roomCount: null,
+/** Cabinet line premium, keyed by catalog collection id. */
+export const CABINET_LINE_MULTIPLIER: Record<string, number> = {
+  custom: 1.0,
+  reserve: 1.18,
+};
+
+/** Door style premium, keyed by catalog door style id. Thin Shaker needs more machining. */
+export const DOOR_STYLE_MULTIPLIER: Record<string, number> = {
+  slab: 1.0,
+  shaker: 1.05,
+  "thin-shaker": 1.1,
+};
+
+/** Finish category premium. Woodgrain laminates and high-gloss cost more than matte. */
+export const FINISH_CATEGORY_MULTIPLIER: Record<FinishCategory, number> = {
+  matte: 1.0,
+  woodgrain: 1.1,
+  gloss: 1.18,
+};
+
+/** Finish tier premium across standard / premium / reserve colors. */
+export const FINISH_TIER_MULTIPLIER: Record<FinishTier, number> = {
+  standard: 1.0,
+  premium: 1.12,
+  reserve: 1.26,
+};
+
+/** Box construction quality premium (Good / Better / Best). */
+export const CONSTRUCTION_MULTIPLIER: Record<ConstructionTier, number> = {
+  good: 1.0,
+  better: 1.12,
+  best: 1.3,
+};
+
+/** Smart Storage add-on premium. */
+export const STORAGE_MULTIPLIER: Record<StorageTier, number> = {
+  none: 1.0,
+  essential: 1.06,
+  upgraded: 1.15,
+  premium: 1.26,
+};
+
+/** Layout complexity premium, keyed by catalog layout slug. More corners cost more. */
+export const LAYOUT_COMPLEXITY_MULTIPLIER: Record<string, number> = {
+  galley: 1.0,
+  "l-shape": 1.05,
+  "u-shape": 1.12,
+  island: 1.16,
+  peninsula: 1.08,
+  "single-vanity": 1.0,
+  "double-vanity": 1.12,
+  "wall-run": 1.0,
+  "floor-to-ceiling": 1.12,
+};
+
+/** Rounding increment for the displayed planning range, in dollars. */
+const PRICE_ROUND_TO = 100;
+
+// ============================================================================
+// END MODELED PRICING
+// ============================================================================
+
+export interface ProjectSizeConfig {
+  min: number;
+  max: number;
+  step: number;
+  default: number;
+  unit: "linear-ft" | "rooms";
+  unitNoun: string;
+  unitNounSingular: string;
+  /** Short noun for the slider end labels, e.g. "lf" or "rooms". */
+  unitShort: string;
+  /** Step header for the size selector. */
+  sizeStepLabel: string;
+}
+
+export const PROJECT_SIZE_CONFIG: Record<ProjectType, ProjectSizeConfig> = {
+  kitchen: {
+    min: 10, max: 60, step: 2, default: 24,
+    unit: "linear-ft", unitNoun: "linear feet", unitNounSingular: "linear foot",
+    unitShort: "lf", sizeStepLabel: "Run of cabinetry",
+  },
+  bathroom: {
+    min: 3, max: 16, step: 1, default: 6,
+    unit: "linear-ft", unitNoun: "vanity feet", unitNounSingular: "vanity foot",
+    unitShort: "ft", sizeStepLabel: "Vanity size",
+  },
+  "whole-home": {
+    min: 2, max: 10, step: 1, default: 4,
+    unit: "rooms", unitNoun: "rooms", unitNounSingular: "room",
+    unitShort: "rooms", sizeStepLabel: "Rooms in scope",
+  },
+  addition: {
+    min: 4, max: 40, step: 1, default: 12,
+    unit: "linear-ft", unitNoun: "linear feet", unitNounSingular: "linear foot",
+    unitShort: "lf", sizeStepLabel: "Run of cabinetry",
+  },
+  adu: {
+    min: 4, max: 60, step: 1, default: 16,
+    unit: "linear-ft", unitNoun: "linear feet", unitNounSingular: "linear foot",
+    unitShort: "lf", sizeStepLabel: "Run of cabinetry",
   },
 };
 
 export function getProjectSizeConfig(project: ProjectType): ProjectSizeConfig {
   return PROJECT_SIZE_CONFIG[project];
-}
-
-export interface RefinementVisibility {
-  layoutChanges: boolean;
-  plumbingElectrical: boolean;
-  cabinetTier: boolean;
-  fixtureCount: boolean;
-  roomCount: boolean;
-  stories: boolean;
-  aduConfiguration: boolean;
-}
-
-/** Which optional detail fields appear for each project type. */
-export function getRefinementVisibility(project: ProjectType): RefinementVisibility {
-  return {
-    layoutChanges: project === "kitchen" || project === "bathroom" || project === "whole-home",
-    plumbingElectrical: true,
-    cabinetTier: project === "kitchen",
-    fixtureCount: project === "bathroom",
-    roomCount: project === "whole-home",
-    stories: project === "addition",
-    aduConfiguration: project === "adu",
-  };
-}
-
-export function getMaxRefinementFields(project: ProjectType): number {
-  return Object.values(getRefinementVisibility(project)).filter(Boolean).length;
-}
-
-export function getPlumbingElectricalLabel(project: ProjectType): string {
-  if (project === "addition" || project === "adu") {
-    return "Utility & systems scope";
-  }
-  return "Plumbing and electrical scope";
-}
-
-export const PLUMBING_ELECTRICAL_OPTIONS: Record<
-  "cabinet" | "newConstruction",
-  { value: PlumbingElectrical; label: string; sub: string }[]
-> = {
-  cabinet: [
-    { value: "cosmetic", label: "Cosmetic", sub: "Fixtures only" },
-    { value: "partial", label: "Partial", sub: "Some rerouting" },
-    { value: "full", label: "Full", sub: "Complete update" },
-  ],
-  newConstruction: [
-    { value: "cosmetic", label: "Standard", sub: "Tie into existing home" },
-    { value: "partial", label: "Extended", sub: "Longer runs or panel work" },
-    { value: "full", label: "Full new", sub: "Separate systems throughout" },
-  ],
-};
-
-export function getPlumbingElectricalOptions(project: ProjectType) {
-  return project === "addition" || project === "adu"
-    ? PLUMBING_ELECTRICAL_OPTIONS.newConstruction
-    : PLUMBING_ELECTRICAL_OPTIONS.cabinet;
 }
 
 export const PROJECT_LABELS: Record<ProjectType, { label: string; sub: string }> = {
@@ -151,36 +210,135 @@ export const PROJECT_LABELS: Record<ProjectType, { label: string; sub: string }>
   adu: { label: "Closet & Garage", sub: "Closet systems and garage storage" },
 };
 
-export const FINISH_LABELS: Record<FinishLevel, { label: string; sub: string }> = {
-  refresh: { label: "Refresh", sub: "Cosmetic upgrades, repaint" },
-  "mid-range": { label: "Mid-Range", sub: "Replace and upgrade" },
-  "high-end": { label: "High-End", sub: "Premium finishes" },
-  luxury: { label: "Luxury", sub: "No constraints" },
+/** Which layout slugs each project type offers (membership defined here, names pulled from catalog). */
+export const PROJECT_LAYOUT_SLUGS: Record<ProjectType, string[]> = {
+  kitchen: ["galley", "l-shape", "u-shape", "island", "peninsula"],
+  bathroom: ["single-vanity", "double-vanity"],
+  "whole-home": [],
+  addition: ["wall-run", "floor-to-ceiling"],
+  adu: ["wall-run", "floor-to-ceiling"],
 };
 
-const ALL_FINISH_LEVELS: FinishLevel[] = ["refresh", "mid-range", "high-end", "luxury"];
-
-/**
- * Finish levels available for a given project type. "Refresh" (cosmetic
- * upgrades / repaint) is meaningless for new construction, so additions and
- * Closet and garage programs start at "mid-range".
- */
-export function getAvailableFinishLevels(project: ProjectType): FinishLevel[] {
-  if (project === "addition" || project === "adu") {
-    return ALL_FINISH_LEVELS.filter((level) => level !== "refresh");
-  }
-  return ALL_FINISH_LEVELS;
+export interface StepVisibility {
+  layout: boolean;
+  doorStyle: boolean;
 }
 
-/**
- * Coerces a finish level to one that is valid for the given project. Guards the
- * pricing engine against disallowed combinations (e.g. "refresh" + addition)
- * regardless of how the input was produced, so the rule is not UI-only.
- */
-export function normalizeFinishLevel(project: ProjectType, finish: FinishLevel): FinishLevel {
-  const available = getAvailableFinishLevels(project);
-  return available.includes(finish) ? finish : available[0];
+/** Per-project step visibility. Whole-home applies one finish program house-wide, so it skips layout and door style. */
+export function getStepVisibility(project: ProjectType): StepVisibility {
+  if (project === "whole-home") return { layout: false, doorStyle: false };
+  return { layout: true, doorStyle: true };
 }
+
+/** The ordered list of selection steps that appear for a project type. */
+export function getVisibleSteps(project: ProjectType): SelectionStepKey[] {
+  const vis = getStepVisibility(project);
+  const steps: SelectionStepKey[] = [];
+  if (vis.layout) steps.push("layout");
+  steps.push("size", "line");
+  if (vis.doorStyle) steps.push("doorStyle");
+  steps.push("finish", "construction", "storage");
+  return steps;
+}
+
+export function getTotalSteps(project: ProjectType): number {
+  return getVisibleSteps(project).length;
+}
+
+// ── Option lists (pulled from the catalog where possible) ───────────────────
+
+export interface SelectOption<T extends string = string> {
+  value: T;
+  label: string;
+  sub?: string;
+}
+
+export function getLayoutOptions(project: ProjectType): SelectOption[] {
+  return PROJECT_LAYOUT_SLUGS[project]
+    .map((slug) => LAYOUT_BY_SLUG[slug])
+    .filter(Boolean)
+    .map((l) => ({ value: l.slug, label: l.name, sub: l.description }));
+}
+
+export function getCabinetLineOptions(): SelectOption[] {
+  return COLLECTIONS.map((c) => ({ value: c.id, label: c.name, sub: c.tagline }));
+}
+
+const DOOR_STYLE_SUB: Record<string, string> = {
+  slab: "Flat, handleless-ready contemporary face",
+  shaker: "Classic recessed five-piece panel",
+  "thin-shaker": "Narrow rails, lighter transitional look",
+};
+
+export function getDoorStyleOptions(): SelectOption[] {
+  return DOOR_STYLES.map((d) => ({
+    value: d.id,
+    label: d.name,
+    sub: DOOR_STYLE_SUB[d.id] ?? d.name,
+  }));
+}
+
+export const FINISH_CATEGORY_OPTIONS: SelectOption<FinishCategory>[] = [
+  { value: "matte", label: "Matte", sub: "Soft, low-sheen, fingerprint-friendly" },
+  { value: "woodgrain", label: "Woodgrain", sub: "Natural grain laminates and stains" },
+  { value: "gloss", label: "High-Gloss", sub: "Reflective, contemporary brightness" },
+];
+
+export const FINISH_TIER_OPTIONS: SelectOption<FinishTier>[] = [
+  { value: "standard", label: "Standard", sub: "Core palette colors" },
+  { value: "premium", label: "Premium", sub: "Designer tones and deeper hues" },
+  { value: "reserve", label: "Reserve", sub: "Exclusive Reserve-only colors" },
+];
+
+export const CONSTRUCTION_OPTIONS: SelectOption<ConstructionTier>[] = [
+  { value: "good", label: "Good", sub: "Furniture-board box, soft-close doors and drawers" },
+  { value: "better", label: "Better", sub: "Plywood box, full-extension soft-close slides" },
+  { value: "best", label: "Best", sub: "All-plywood, dovetail drawer boxes, reinforced" },
+];
+
+export const STORAGE_OPTIONS: SelectOption<StorageTier>[] = [
+  { value: "none", label: "None", sub: "Standard adjustable shelving" },
+  { value: "essential", label: "Essential", sub: "Pull-out shelves and trash pull-out" },
+  { value: "upgraded", label: "Upgraded", sub: "Organizers, lazy susan, spice pull-out" },
+  { value: "premium", label: "Premium", sub: "Full Smart Storage: pantry pull-outs, mixer lift, LED" },
+];
+
+const CONSTRUCTION_LABEL: Record<ConstructionTier, string> = {
+  good: "Good", better: "Better", best: "Best",
+};
+const FINISH_TIER_LABEL: Record<FinishTier, string> = {
+  standard: "Standard", premium: "Premium", reserve: "Reserve",
+};
+const FINISH_CATEGORY_LABEL: Record<FinishCategory, string> = {
+  matte: "matte", woodgrain: "woodgrain", gloss: "high-gloss",
+};
+const STORAGE_SUMMARY_LABEL: Record<StorageTier, string> = {
+  none: "Standard storage",
+  essential: "Essential storage",
+  upgraded: "Upgraded storage",
+  premium: "Premium storage",
+};
+
+/** Construction story shown in the included scope. */
+const CONSTRUCTION_INCLUDED: Record<ConstructionTier, string> = {
+  good: "Furniture-board box with soft-close doors and drawers",
+  better: "Plywood box construction with full-extension soft-close slides",
+  best: "All-plywood box with dovetail drawer boxes and reinforced shelves",
+};
+
+/** Smart Storage accessory ids per tier (names resolved from the catalog). */
+const STORAGE_ACCESSORY_IDS: Record<StorageTier, string[]> = {
+  none: [],
+  essential: ["pull-out-shelf", "trash-pullout"],
+  upgraded: ["pull-out-shelf", "trash-pullout", "drawer-organizer-kit", "lazy-susan", "spice-rack-pullout"],
+  premium: ["pull-out-pantry", "drawer-organizer-kit", "lazy-susan", "mixer-lift", "led-strip-channel", "trash-pullout"],
+};
+
+export const INCLUDED_SCOPE_NOTE =
+  "Scope reflects the selections above. Your final scope is confirmed during consultation.";
+
+export const APPLIANCE_DISCLAIMER =
+  "Appliances are client-supplied; we'll guide your selection but do not purchase or install them.";
 
 export const PLANNING_DETAIL_LABELS: Record<ConfidenceLevel, string> = {
   starting: "Starting guidance",
@@ -188,101 +346,32 @@ export const PLANNING_DETAIL_LABELS: Record<ConfidenceLevel, string> = {
   detailed: "Detailed planning range",
 };
 
-/** @deprecated Use PLANNING_DETAIL_LABELS */
-export const CONFIDENCE_LABELS = PLANNING_DETAIL_LABELS;
+// ── Defaults ────────────────────────────────────────────────────────────────
 
-const PRICE_MATRIX: Record<ProjectType, Record<FinishLevel, PriceData>> = {
-  kitchen: {
-    refresh: {
-      low: 8000, high: 18000, roi: 72,
-      included: ["Stock or entry semi-custom line", "Standard door style and hardware", "Professional installation", "Soft-close hinges"],
-    },
-    "mid-range": {
-      low: 18000, high: 45000, roi: 74,
-      included: ["Semi-custom cabinetry", "Upgrade door style and finish", "Interior organizers", "Countertop coordination", "Installation and adjustment"],
-    },
-    "high-end": {
-      low: 45000, high: 85000, roi: 70,
-      included: ["Premium semi-custom or full custom line", "Island and tall pantry cabinets", "Premium hardware package", "Glass accents optional", "Full installation program"],
-    },
-    luxury: {
-      low: 85000, high: 150000, roi: 62,
-      included: ["Full custom cabinetry", "Exotic veneers or specialty finishes", "Integrated lighting and accessories", "Appliance panel coordination", "White-glove installation"],
-    },
-  },
-  bathroom: {
-    refresh: {
-      low: 2500, high: 8000, roi: 70,
-      included: ["Single vanity replacement", "Standard top coordination", "Hardware refresh", "Professional installation"],
-    },
-    "mid-range": {
-      low: 8000, high: 18000, roi: 71,
-      included: ["Double vanity or vanity plus tower", "Semi-custom line", "Organized drawers", "Mirror and hardware coordination"],
-    },
-    "high-end": {
-      low: 18000, high: 35000, roi: 65,
-      included: ["Floating or furniture-style vanity", "Premium finish and hardware", "Linen tower storage", "Countertop templating"],
-    },
-    luxury: {
-      low: 35000, high: 65000, roi: 58,
-      included: ["Full custom vanity program", "Specialty finishes", "Integrated lighting", "Premium organizers throughout"],
-    },
-  },
-  "whole-home": {
-    refresh: {
-      low: 15000, high: 35000, roi: 65,
-      included: ["Kitchen cabinet refresh", "One bath vanity", "Matching hardware schedule"],
-    },
-    "mid-range": {
-      low: 35000, high: 90000, roi: 68,
-      included: ["Kitchen plus two bath programs", "Mudroom or pantry storage", "Coordinated finishes"],
-    },
-    "high-end": {
-      low: 90000, high: 160000, roi: 62,
-      included: ["Full kitchen and bath custom lines", "Built-ins and office storage", "Premium hardware house-wide"],
-    },
-    luxury: {
-      low: 160000, high: 280000, roi: 55,
-      included: ["Whole-home custom cabinetry", "Closet and garage storage", "Integrated accessories throughout"],
-    },
-  },
-  addition: {
-    refresh: {
-      low: 3000, high: 12000, roi: 60,
-      included: ["Single built-in or pantry wall", "Standard line", "Installation"],
-    },
-    "mid-range": {
-      low: 12000, high: 35000, roi: 63,
-      included: ["Mudroom locker system", "Pantry fit-out", "Home office wall unit"],
-    },
-    "high-end": {
-      low: 35000, high: 75000, roi: 58,
-      included: ["Entertainment center wall", "Multiple built-in rooms", "Premium finishes"],
-    },
-    luxury: {
-      low: 75000, high: 140000, roi: 50,
-      included: ["Whole-floor built-in program", "Custom millwork details", "Integrated lighting"],
-    },
-  },
-  adu: {
-    refresh: {
-      low: 2000, high: 8000, roi: 68,
-      included: ["Reach-in closet system", "Standard shelving and rods", "Installation"],
-    },
-    "mid-range": {
-      low: 8000, high: 22000, roi: 70,
-      included: ["Walk-in closet package", "Garage wall storage", "Durable hardware"],
-    },
-    "high-end": {
-      low: 22000, high: 45000, roi: 65,
-      included: ["Multiple closet zones", "Garage cabinetry and benches", "Premium organizers"],
-    },
-    luxury: {
-      low: 45000, high: 85000, roi: 58,
-      included: ["Whole-home closet program", "Custom garage fit-out", "Specialty finishes"],
-    },
-  },
-};
+export function getDefaultLayout(project: ProjectType): string {
+  const slugs = PROJECT_LAYOUT_SLUGS[project];
+  // Kitchen defaults to its most-requested layout; others use the first.
+  if (project === "kitchen") return "island";
+  return slugs[0] ?? "";
+}
+
+export function getDefaultSelectionsForProject(project: ProjectType): EstimateSelections {
+  return {
+    project,
+    layout: getDefaultLayout(project),
+    size: PROJECT_SIZE_CONFIG[project].default,
+    cabinetLine: "custom",
+    doorStyle: "shaker",
+    finishCategory: "matte",
+    finishTier: "standard",
+    construction: "better",
+    storage: "essential",
+  };
+}
+
+export const DEFAULT_SELECTIONS: EstimateSelections = getDefaultSelectionsForProject("kitchen");
+
+// ── Pricing ──────────────────────────────────────────────────────────────────
 
 export function formatPlanningCurrency(n: number): string {
   if (n >= 1000000) return `$${(n / 1000000).toFixed(1)}M`;
@@ -290,227 +379,175 @@ export function formatPlanningCurrency(n: number): string {
   return `$${n.toLocaleString()}`;
 }
 
-export function getFinishPlanningHint(project: ProjectType, finish: FinishLevel): string {
-  const data = PRICE_MATRIX[project][finish];
-  return `Typical band at default size: ${formatPlanningCurrency(data.low)} to ${formatPlanningCurrency(data.high)}`;
+function clampSize(project: ProjectType, size: number): number {
+  const cfg = PROJECT_SIZE_CONFIG[project];
+  if (!Number.isFinite(size)) return cfg.default;
+  return Math.max(cfg.min, Math.min(cfg.max, Math.round(size)));
 }
 
-export function buildSelectionSummary(project: ProjectType, finish: FinishLevel, sqft: number): string {
-  return `${PROJECT_LABELS[project].label} · ${FINISH_LABELS[finish].label} · ${sqft.toLocaleString()} sqft`;
+/** Combined upgrade multiplier for the current selections. */
+export function getSelectionMultiplier(sel: EstimateSelections): number {
+  const vis = getStepVisibility(sel.project);
+  let m = 1;
+  if (vis.layout) m *= LAYOUT_COMPLEXITY_MULTIPLIER[sel.layout] ?? 1;
+  if (vis.doorStyle) m *= DOOR_STYLE_MULTIPLIER[sel.doorStyle] ?? 1;
+  m *= CABINET_LINE_MULTIPLIER[sel.cabinetLine] ?? 1;
+  m *= FINISH_CATEGORY_MULTIPLIER[sel.finishCategory] ?? 1;
+  m *= FINISH_TIER_MULTIPLIER[sel.finishTier] ?? 1;
+  m *= CONSTRUCTION_MULTIPLIER[sel.construction] ?? 1;
+  m *= STORAGE_MULTIPLIER[sel.storage] ?? 1;
+  return m;
 }
 
-function getPlanningDetail(
-  count: number,
-  maxFields: number,
-): { level: ConfidenceLevel; percent: number } {
-  if (maxFields <= 0) return { level: "starting", percent: 40 };
-
-  const ratio = Math.min(count, maxFields) / maxFields;
-  const percent = Math.round(40 + ratio * 45);
-
-  if (count >= maxFields) return { level: "detailed", percent: 85 };
-  if (count >= Math.ceil(maxFields / 2)) return { level: "refined", percent: Math.max(65, percent) };
-  return { level: "starting", percent: Math.max(40, percent) };
+function roundPrice(n: number): number {
+  return Math.round(n / PRICE_ROUND_TO) * PRICE_ROUND_TO;
 }
 
-export function countVisibleUserRefinements(
-  project: ProjectType,
-  userRefinements: Iterable<UserRefinementKey>,
-): number {
-  const visibility = getRefinementVisibility(project);
-  let count = 0;
-
-  for (const key of userRefinements) {
-    if (key === "layoutChanges" && visibility.layoutChanges) count++;
-    else if (key === "plumbingElectrical" && visibility.plumbingElectrical) count++;
-    else if (key === "cabinetTier" && visibility.cabinetTier) count++;
-    else if (key === "fixtureCount" && visibility.fixtureCount) count++;
-    else if (key === "roomCount" && visibility.roomCount) count++;
-    else if (key === "stories" && (visibility.stories || visibility.aduConfiguration)) count++;
-  }
-
-  return count;
+/** Short cabinet-line name for scope copy, e.g. "Custom Cabinets" -> "Custom". */
+function lineDisplayName(id: string): string {
+  const c = COLLECTIONS.find((x) => x.id === id);
+  if (!c) return "Custom";
+  return c.name.replace(/\s+Cabinets$/i, "");
 }
 
-function getSizeMultiplier(sqft: number, project: ProjectType): number {
-  const baseline = PROJECT_SIZE_CONFIG[project].baselineSqft;
-  return Math.max(0.5, Math.min(2.5, sqft / baseline));
+export function getSizeLabel(project: ProjectType, size: number): string {
+  const cfg = PROJECT_SIZE_CONFIG[project];
+  const noun = size === 1 ? cfg.unitNounSingular : cfg.unitNoun;
+  return `${size.toLocaleString()} ${noun}`;
 }
 
-function getRefinementMultipliers(ref: EstimateRefinements, project: ProjectType): { low: number; high: number } {
-  let low = 1;
-  let high = 1;
-
-  const layoutMult: Record<LayoutChanges, { low: number; high: number }> = {
-    none: { low: 1, high: 1 },
-    moderate: { low: 1.08, high: 1.15 },
-    major: { low: 1.18, high: 1.35 },
-  };
-  low *= layoutMult[ref.layoutChanges].low;
-  high *= layoutMult[ref.layoutChanges].high;
-
-  const peMult: Record<PlumbingElectrical, { low: number; high: number }> = {
-    cosmetic: { low: 1, high: 1 },
-    partial: { low: 1.05, high: 1.12 },
-    full: { low: 1.12, high: 1.22 },
-  };
-  low *= peMult[ref.plumbingElectrical].low;
-  high *= peMult[ref.plumbingElectrical].high;
-
-  if (project === "kitchen" && ref.cabinetTier) {
-    const cabMult: Record<CabinetTier, { low: number; high: number }> = {
-      standard: { low: 0.95, high: 0.98 },
-      "semi-custom": { low: 1, high: 1 },
-      custom: { low: 1.1, high: 1.2 },
-    };
-    low *= cabMult[ref.cabinetTier].low;
-    high *= cabMult[ref.cabinetTier].high;
+export function buildScopeSummary(sel: EstimateSelections): string {
+  const vis = getStepVisibility(sel.project);
+  const parts: string[] = [];
+  parts.push(`${lineDisplayName(sel.cabinetLine)} line`);
+  if (vis.doorStyle) {
+    const door = DOOR_STYLES.find((d) => d.id === sel.doorStyle);
+    if (door) parts.push(door.name);
   }
-
-  if (project === "bathroom" && ref.fixtureCount !== null) {
-    const fixtureFactor = 1 + (ref.fixtureCount - 2) * 0.04;
-    low *= Math.max(0.9, fixtureFactor);
-    high *= Math.max(0.9, fixtureFactor);
-  }
-
-  if (project === "whole-home" && ref.roomCount !== null) {
-    const roomFactor = 1 + (ref.roomCount - 3) * 0.06;
-    low *= Math.max(0.85, roomFactor);
-    high *= Math.max(0.85, roomFactor);
-  }
-
-  if ((project === "addition" || project === "adu") && ref.stories !== null && ref.stories > 1) {
-    low *= 1.12;
-    high *= 1.2;
-  }
-
-  return { low, high };
+  parts.push(`${FINISH_TIER_LABEL[sel.finishTier]} ${FINISH_CATEGORY_LABEL[sel.finishCategory]} finish`);
+  parts.push(`${CONSTRUCTION_LABEL[sel.construction]} construction`);
+  parts.push(STORAGE_SUMMARY_LABEL[sel.storage]);
+  return parts.join(" · ");
 }
 
-const LAYOUT_SCOPE: Record<LayoutChanges, string | null> = {
-  none: null,
-  moderate: "Non-structural wall reconfiguration",
-  major: "Structural wall removal with engineering",
-};
+/** Short header line for the result panel: project + size. */
+export function buildSelectionSummary(sel: EstimateSelections): string {
+  return `${PROJECT_LABELS[sel.project].label} · ${getSizeLabel(sel.project, sel.size)}`;
+}
 
-const PE_SCOPE: Record<PlumbingElectrical, string | null> = {
-  cosmetic: null,
-  partial: "Partial plumbing and electrical rerouting",
-  full: "Full plumbing and electrical replacement",
-};
+function buildIncluded(sel: EstimateSelections): string[] {
+  const vis = getStepVisibility(sel.project);
+  const list: string[] = [];
+  list.push(`${lineDisplayName(sel.cabinetLine)} line cabinets, built to order`);
 
-const PE_SCOPE_NEW_CONSTRUCTION: Record<PlumbingElectrical, string | null> = {
-  cosmetic: null,
-  partial: "Extended utility runs or panel upgrades",
-  full: "Full new utility systems throughout",
-};
-
-const CABINET_SCOPE: Record<CabinetTier, string> = {
-  standard: "Standard stock cabinetry",
-  "semi-custom": "Semi-custom cabinetry",
-  custom: "Fully custom cabinetry",
-};
-
-/**
- * Builds the scope list shown in the result panel. Refinement-driven items are
- * listed first (so the visible slice reflects the user's actual choices), then
- * the base scope for the project + finish level.
- */
-export function buildDynamicScope(input: EstimateInput): string[] {
-  const finish = normalizeFinishLevel(input.project, input.finish);
-  const base = PRICE_MATRIX[input.project][finish].included;
-  const r = input.refinements;
-  const visibility = getRefinementVisibility(input.project);
-  const extra: string[] = [];
-
-  if (visibility.layoutChanges) {
-    const layoutItem = LAYOUT_SCOPE[r.layoutChanges];
-    if (layoutItem) extra.push(layoutItem);
+  if (vis.layout) {
+    const layout = LAYOUT_BY_SLUG[sel.layout];
+    if (layout) list.push(`${layout.name} layout`);
+  } else if (sel.project === "whole-home") {
+    list.push(`Coordinated cabinetry across ${getSizeLabel(sel.project, sel.size)}`);
   }
 
-  if (visibility.plumbingElectrical) {
-    const peScope =
-      input.project === "addition" || input.project === "adu"
-        ? PE_SCOPE_NEW_CONSTRUCTION
-        : PE_SCOPE;
-    const peItem = peScope[r.plumbingElectrical];
-    if (peItem) extra.push(peItem);
+  if (vis.doorStyle) {
+    const door = DOOR_STYLES.find((d) => d.id === sel.doorStyle);
+    if (door) list.push(`${door.name} door style`);
   }
 
-  if (input.project === "kitchen" && r.cabinetTier) {
-    extra.push(CABINET_SCOPE[r.cabinetTier]);
+  list.push(`${FINISH_TIER_LABEL[sel.finishTier]} ${FINISH_CATEGORY_LABEL[sel.finishCategory]} finish`);
+  list.push(CONSTRUCTION_INCLUDED[sel.construction]);
+
+  const storageNames = STORAGE_ACCESSORY_IDS[sel.storage]
+    .map((id) => ACCESSORY_BY_ID[id]?.name)
+    .filter(Boolean) as string[];
+  if (storageNames.length > 0) {
+    list.push(`Smart Storage: ${storageNames.join(", ")}`);
   }
 
-  if (input.project === "bathroom" && r.fixtureCount !== null) {
-    extra.push(`${r.fixtureCount} plumbing ${r.fixtureCount === 1 ? "fixture" : "fixtures"}`);
-  }
-
-  if (input.project === "whole-home" && r.roomCount !== null) {
-    extra.push(`${r.roomCount} ${r.roomCount === 1 ? "room" : "rooms"} renovated`);
-  }
-
-  if (input.project === "addition" && r.stories !== null) {
-    extra.push(r.stories > 1 ? "Two-story addition" : "Single-story addition");
-  }
-
-  if (input.project === "adu" && r.stories !== null) {
-    extra.push(r.stories > 1 ? "Multi-wall closet program" : "Single-wall storage program");
-  }
+  list.push("Soft-close hinges and full-extension drawer slides");
+  list.push("Professional installation and final adjustment");
 
   const seen = new Set<string>();
-  return [...extra, ...base].filter((item) => {
+  return list.filter((item) => {
     if (seen.has(item)) return false;
     seen.add(item);
     return true;
   });
 }
 
-export function calculateEstimate(input: EstimateInput, userRefinementCount = 0): EstimateResult {
-  const finish = normalizeFinishLevel(input.project, input.finish);
-  const safeInput: EstimateInput = finish === input.finish ? input : { ...input, finish };
-  const base = PRICE_MATRIX[safeInput.project][safeInput.finish];
-  const sizeMult = getSizeMultiplier(input.sqft, input.project);
-  const refMult = getRefinementMultipliers(input.refinements, input.project);
-  const maxFields = getMaxRefinementFields(input.project);
-  const { level, percent } = getPlanningDetail(userRefinementCount, maxFields);
+function getConfidence(count: number, total: number): { level: ConfidenceLevel; percent: number } {
+  if (total <= 0) return { level: "starting", percent: 40 };
+  const ratio = Math.min(count, total) / total;
+  const percent = Math.round(40 + ratio * 55);
+  if (count >= total) return { level: "detailed", percent: 95 };
+  if (ratio >= 0.5) return { level: "refined", percent: Math.max(65, percent) };
+  return { level: "starting", percent: Math.max(40, percent) };
+}
 
-  // Price is a pure, monotonic function of the cost drivers (project, finish,
-  // size, refinements). A more intensive selection always yields a higher
-  // range. The planning-detail meter below is a separate confidence cue and
-  // intentionally does NOT alter the dollar range, so two configurations are
-  // always directly comparable.
-  const priceLow = Math.round((base.low * sizeMult * refMult.low) / 1000) * 1000;
-  const priceHigh = Math.round((base.high * sizeMult * refMult.high) / 1000) * 1000;
+/** Normalizes selections so out-of-range sizes / unknown layouts can't break pricing. */
+export function normalizeSelections(sel: EstimateSelections): EstimateSelections {
+  const vis = getStepVisibility(sel.project);
+  const layoutSlugs = PROJECT_LAYOUT_SLUGS[sel.project];
+  const layout = vis.layout && !layoutSlugs.includes(sel.layout)
+    ? getDefaultLayout(sel.project)
+    : sel.layout;
+  return { ...sel, layout, size: clampSize(sel.project, sel.size) };
+}
+
+export function calculateEstimate(
+  selections: EstimateSelections,
+  selectionsMade = 0,
+): EstimateResult {
+  const sel = normalizeSelections(selections);
+  const pricing = PROJECT_PRICING[sel.project];
+  const mult = getSelectionMultiplier(sel);
+
+  const priceLow = roundPrice(pricing.perUnitLow * sel.size * mult);
+  const priceHigh = roundPrice(pricing.perUnitHigh * sel.size * mult);
+
+  const total = getTotalSteps(sel.project);
+  const { level, percent } = getConfidence(selectionsMade, total);
 
   return {
     priceLow,
     priceHigh,
-    roi: base.roi,
-    included: buildDynamicScope(input),
+    roi: pricing.roi,
+    included: buildIncluded(sel),
     confidence: level,
     confidenceLabel: PLANNING_DETAIL_LABELS[level],
     confidencePercent: percent,
-    refinementsApplied: userRefinementCount,
+    scopeSummary: buildScopeSummary(sel),
+    selectionsMade,
+    totalSteps: total,
   };
 }
 
-export interface StoredEstimate extends EstimateInput {
+// ── sessionStorage handoff to the consultation form ──────────────────────────
+
+export interface StoredEstimate extends EstimateSelections {
   priceLow: number;
   priceHigh: number;
   roi: number;
   confidence: ConfidenceLevel;
   confidenceLabel: string;
+  scopeSummary: string;
+  sizeLabel: string;
+  projectLabel: string;
 }
 
-export function buildStoredEstimate(input: EstimateInput, userRefinementCount = 0): StoredEstimate {
-  const result = calculateEstimate(input, userRefinementCount);
+export function buildStoredEstimate(
+  selections: EstimateSelections,
+  selectionsMade = 0,
+): StoredEstimate {
+  const sel = normalizeSelections(selections);
+  const result = calculateEstimate(sel, selectionsMade);
   return {
-    ...input,
-    finish: normalizeFinishLevel(input.project, input.finish),
+    ...sel,
     priceLow: result.priceLow,
     priceHigh: result.priceHigh,
     roi: result.roi,
     confidence: result.confidence,
     confidenceLabel: result.confidenceLabel,
+    scopeSummary: result.scopeSummary,
+    sizeLabel: getSizeLabel(sel.project, sel.size),
+    projectLabel: PROJECT_LABELS[sel.project].label,
   };
 }

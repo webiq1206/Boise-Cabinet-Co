@@ -18,20 +18,25 @@ test.describe("Project Estimator", () => {
     await page.getByTestId("button-project-whole-home").click();
     await expect(page.getByTestId("button-project-whole-home")).toHaveAttribute("aria-pressed", "true");
     await expect(page.locator('[data-testid="estimate-range"]:visible')).toBeVisible();
+    // Whole-home is scoped by number of rooms, not square footage.
     const slider = page.getByTestId("slider-size");
-    const wholeHomeSqft = await slider.inputValue();
-    expect(Number(wholeHomeSqft)).toBeGreaterThanOrEqual(800);
+    const wholeHomeRooms = Number(await slider.inputValue());
+    expect(wholeHomeRooms).toBeGreaterThanOrEqual(2);
+    expect(wholeHomeRooms).toBeLessThanOrEqual(10);
   });
 
-  test("refine panel expands and tracks detail level", async ({ page }) => {
+  test("guided selections raise the planning detail level", async ({ page }) => {
     await openCalculator(page);
-    const toggle = page.getByTestId("button-refine-toggle");
-    await expect(toggle).toHaveAttribute("aria-expanded", "false");
-    await toggle.click();
-    await expect(toggle).toHaveAttribute("aria-expanded", "true");
-    await page.getByTestId("layout-major").click();
-    await page.getByTestId("plumbing-full").click();
-    await page.getByTestId("cabinet-custom").click();
+    // Touch every step in the kitchen guided flow to reach the most detailed range.
+    await page.getByTestId("button-layout-island").click();
+    const slider = page.getByTestId("slider-size");
+    await slider.focus();
+    await page.keyboard.press("ArrowRight");
+    await page.getByTestId("button-line-reserve").click();
+    await page.getByTestId("button-door-shaker").click();
+    await page.getByTestId("button-finish-tier-premium").click();
+    await page.getByTestId("button-construction-best").click();
+    await page.getByTestId("button-storage-premium").click();
     await expect(page.getByText("Detailed planning range")).toBeVisible();
     await expect(page.locator('[data-testid="estimate-range"]:visible')).toBeVisible();
   });
