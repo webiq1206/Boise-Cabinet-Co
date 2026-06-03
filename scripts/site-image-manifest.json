@@ -460,7 +460,7 @@
     },
     {
       "id": "img-0018",
-      "status": "pending",
+      "status": "generated",
       "phase": 2,
       "priority": "high",
       "width": 800,
@@ -485,7 +485,7 @@
     },
     {
       "id": "img-0019",
-      "status": "pending",
+      "status": "generated",
       "phase": 2,
       "priority": "high",
       "width": 800,
@@ -510,7 +510,7 @@
     },
     {
       "id": "img-0020",
-      "status": "pending",
+      "status": "generated",
       "phase": 2,
       "priority": "high",
       "width": 800,
@@ -535,7 +535,7 @@
     },
     {
       "id": "img-0021",
-      "status": "pending",
+      "status": "generated",
       "phase": 2,
       "priority": "high",
       "width": 800,
@@ -560,7 +560,7 @@
     },
     {
       "id": "img-0022",
-      "status": "pending",
+      "status": "generated",
       "phase": 2,
       "priority": "high",
       "width": 800,
@@ -585,7 +585,7 @@
     },
     {
       "id": "img-0023",
-      "status": "pending",
+      "status": "generated",
       "phase": 2,
       "priority": "high",
       "width": 800,
@@ -610,7 +610,7 @@
     },
     {
       "id": "img-0024",
-      "status": "pending",
+      "status": "generated",
       "phase": 2,
       "priority": "high",
       "width": 800,
@@ -635,7 +635,7 @@
     },
     {
       "id": "img-0025",
-      "status": "pending",
+      "status": "generated",
       "phase": 2,
       "priority": "high",
       "width": 800,
@@ -660,7 +660,7 @@
     },
     {
       "id": "img-0026",
-      "status": "pending",
+      "status": "generated",
       "phase": 2,
       "priority": "high",
       "width": 800,
@@ -685,7 +685,7 @@
     },
     {
       "id": "img-0027",
-      "status": "pending",
+      "status": "generated",
       "phase": 2,
       "priority": "high",
       "width": 800,
@@ -710,7 +710,7 @@
     },
     {
       "id": "img-0028",
-      "status": "pending",
+      "status": "generated",
       "phase": 2,
       "priority": "high",
       "width": 800,
@@ -735,7 +735,7 @@
     },
     {
       "id": "img-0029",
-      "status": "pending",
+      "status": "generated",
       "phase": 2,
       "priority": "high",
       "width": 800,
@@ -760,7 +760,7 @@
     },
     {
       "id": "img-0030",
-      "status": "pending",
+      "status": "generated",
       "phase": 2,
       "priority": "high",
       "width": 800,
@@ -785,7 +785,7 @@
     },
     {
       "id": "img-0031",
-      "status": "pending",
+      "status": "generated",
       "phase": 2,
       "priority": "high",
       "width": 800,
@@ -810,7 +810,7 @@
     },
     {
       "id": "img-0032",
-      "status": "pending",
+      "status": "generated",
       "phase": 2,
       "priority": "high",
       "width": 800,
@@ -835,7 +835,7 @@
     },
     {
       "id": "img-0033",
-      "status": "pending",
+      "status": "generated",
       "phase": 2,
       "priority": "high",
       "width": 800,
@@ -860,7 +860,7 @@
     },
     {
       "id": "img-0034",
-      "status": "pending",
+      "status": "generated",
       "phase": 2,
       "priority": "high",
       "width": 800,
@@ -885,7 +885,7 @@
     },
     {
       "id": "img-0035",
-      "status": "pending",
+      "status": "generated",
       "phase": 2,
       "priority": "high",
       "width": 800,
@@ -910,7 +910,7 @@
     },
     {
       "id": "img-0036",
-      "status": "pending",
+      "status": "generated",
       "phase": 2,
       "priority": "high",
       "width": 800,
@@ -935,7 +935,7 @@
     },
     {
       "id": "img-0037",
-      "status": "pending",
+      "status": "generated",
       "phase": 2,
       "priority": "high",
       "width": 800,
@@ -960,7 +960,7 @@
     },
     {
       "id": "img-0038",
-      "status": "pending",
+      "status": "generated",
       "phase": 2,
       "priority": "high",
       "width": 800,
@@ -985,7 +985,7 @@
     },
     {
       "id": "img-0039",
-      "status": "pending",
+      "status": "generated",
       "phase": 2,
       "priority": "high",
       "width": 800,
@@ -1010,7 +1010,7 @@
     },
     {
       "id": "img-0040",
-      "status": "pending",
+      "status": "generated",
       "phase": 2,
       "priority": "high",
       "width": 800,
@@ -1035,7 +1035,7 @@
     },
     {
       "id": "img-0041",
-      "status": "pending",
+      "status": "generated",
       "phase": 2,
       "priority": "high",
       "width": 800,
@@ -1060,7 +1060,7 @@
     },
     {
       "id": "img-0042",
-      "status": "pending",
+      "status": "generated",
       "phase": 2,
       "priority": "high",
       "width": 800,
@@ -1085,7 +1085,7 @@
     },
     {
       "id": "img-0043",
-      "status": "pending",
+      "status": "generated",
       "phase": 2,
       "priority": "high",
       "width": 800,
@@ -1110,7 +1110,7 @@
     },
     {
       "id": "img-0044",
-      "status": "pending",
+      "status": "generated",
       "phase": 2,
       "priority": "high",
       "width": 800,
@@ -1135,7 +1135,7 @@
     },
     {
       "id": "img-0045",
-      "status": "pending",
+      "status": "generated",
       "phase": 2,
       "priority": "high",
       "width": 800,
@@ -1160,7 +1160,7 @@
     },
     {
       "id": "img-0046",
-      "status": "pending",
+      "status": "generated",
       "phase": 2,
       "priority": "high",
       "width": 800,
@@ -1185,7 +1185,7 @@
     },
     {
       "id": "img-0047",
-      "status": "pending",
+      "status": "generated",
       "phase": 2,
       "priority": "high",
       "width": 800,
@@ -1210,7 +1210,7 @@
     },
     {
       "id": "img-0048",
-      "status": "pending",
+      "status": "generated",
       "phase": 2,
       "priority": "high",
       "width": 800,
@@ -1235,7 +1235,7 @@
     },
     {
       "id": "img-0049",
-      "status": "pending",
+      "status": "generated",
       "phase": 2,
       "priority": "high",
       "width": 800,
@@ -1260,7 +1260,7 @@
     },
     {
       "id": "img-0050",
-      "status": "pending",
+      "status": "generated",
       "phase": 2,
       "priority": "high",
       "width": 800,
@@ -1285,7 +1285,7 @@
     },
     {
       "id": "img-0051",
-      "status": "pending",
+      "status": "generated",
       "phase": 2,
       "priority": "high",
       "width": 800,
@@ -1310,7 +1310,7 @@
     },
     {
       "id": "img-0052",
-      "status": "pending",
+      "status": "generated",
       "phase": 2,
       "priority": "high",
       "width": 800,
@@ -1335,7 +1335,7 @@
     },
     {
       "id": "img-0053",
-      "status": "pending",
+      "status": "generated",
       "phase": 2,
       "priority": "high",
       "width": 800,
@@ -1360,7 +1360,7 @@
     },
     {
       "id": "img-0054",
-      "status": "pending",
+      "status": "generated",
       "phase": 2,
       "priority": "high",
       "width": 800,
@@ -1385,7 +1385,7 @@
     },
     {
       "id": "img-0055",
-      "status": "pending",
+      "status": "generated",
       "phase": 2,
       "priority": "high",
       "width": 800,
@@ -1410,7 +1410,7 @@
     },
     {
       "id": "img-0056",
-      "status": "pending",
+      "status": "generated",
       "phase": 2,
       "priority": "high",
       "width": 800,
@@ -1435,7 +1435,7 @@
     },
     {
       "id": "img-0057",
-      "status": "pending",
+      "status": "generated",
       "phase": 2,
       "priority": "high",
       "width": 800,
@@ -1460,7 +1460,7 @@
     },
     {
       "id": "img-0058",
-      "status": "pending",
+      "status": "generated",
       "phase": 2,
       "priority": "high",
       "width": 800,
@@ -1485,7 +1485,7 @@
     },
     {
       "id": "img-0059",
-      "status": "pending",
+      "status": "generated",
       "phase": 2,
       "priority": "high",
       "width": 800,
