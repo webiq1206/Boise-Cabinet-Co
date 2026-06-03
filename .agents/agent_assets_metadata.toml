@@ -894,3 +894,9 @@ id = "BX1xMzkzYtZjQUSi6j767"
 uri = "file://public/images/catalog/finishes/linen.png"
 type = "image"
 title = "linen panel"
+
+[[generated]]
+id = "hrierX3Hzkbb5wzhcVjCr"
+uri = "file://attached_assets/generated_images/hero-home-new.png"
+type = "image"
+title = "generated_image"
