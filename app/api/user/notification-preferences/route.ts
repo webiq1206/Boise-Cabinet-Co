@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { users } from "@shared/schema";
 import { eq } from "drizzle-orm";
-import { getSession, getUserFromDb } from "@/lib/auth";
+import { getSession, getUserFromDb, sanitizeUser } from "@/lib/auth";
 import { z } from "zod";
 
 const notificationPrefsSchema = z.object({
@@ -78,7 +78,7 @@ export async function POST(request: NextRequest) {
       .where(eq(users.id, session.userId))
       .returning();
 
-    return NextResponse.json(updatedUser);
+    return NextResponse.json(sanitizeUser(updatedUser));
   } catch (error) {
     if (error instanceof z.ZodError) {
       return NextResponse.json(

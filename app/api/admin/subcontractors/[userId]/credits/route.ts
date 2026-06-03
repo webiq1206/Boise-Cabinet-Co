@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { users, creditTransactions } from "@/shared/schema";
 import { eq, desc, sql } from "drizzle-orm";
-import { getSession, getUserFromDb } from "@/lib/auth";
+import { getSession, getUserFromDb, sanitizeUser } from "@/lib/auth";
 
 export async function GET(
   _request: NextRequest,
@@ -109,7 +109,7 @@ export async function POST(
       return NextResponse.json({ error: "Failed to record credit transaction" }, { status: 500 });
     }
 
-    return NextResponse.json({ user: updatedUser, transaction });
+    return NextResponse.json({ user: sanitizeUser(updatedUser), transaction });
   } catch (error) {
     console.error("Error adding credits:", error);
     return NextResponse.json({ error: "Failed to add credits" }, { status: 500 });

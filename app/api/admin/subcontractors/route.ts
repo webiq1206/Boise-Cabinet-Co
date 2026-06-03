@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { users } from "@/shared/schema";
 import { eq, and } from "drizzle-orm";
-import { getSession, getUserFromDb } from "@/lib/auth";
+import { getSession, getUserFromDb, sanitizeUser } from "@/lib/auth";
 
 export async function GET() {
   const session = await getSession();
@@ -24,7 +24,7 @@ export async function GET() {
       and(eq(users.role, "subcontractor"), eq(users.isActive, true))
     );
 
-    return NextResponse.json(subcontractors);
+    return NextResponse.json(subcontractors.map(sanitizeUser));
   } catch (error) {
     console.error("Error fetching subcontractors:", error);
     return NextResponse.json({ error: "Failed to fetch subcontractors" }, { status: 500 });

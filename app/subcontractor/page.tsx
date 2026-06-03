@@ -28,7 +28,7 @@ export default function SubcontractorPage() {
   }, [isLoading, isAuthenticated, isSubcontractor, isAdmin, router]);
 
   const handleLogin = () => {
-    window.location.href = "/api/login?returnTo=/subcontractor";
+    window.location.href = "/login?returnTo=/subcontractor";
   };
 
   if (isLoading) {

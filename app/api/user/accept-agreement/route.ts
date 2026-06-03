@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getSession, getUserFromDb } from "@/lib/auth";
+import { getSession, getUserFromDb, sanitizeUser } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { users } from "@/shared/schema";
 import { eq } from "drizzle-orm";
@@ -65,7 +65,7 @@ export async function POST(request: NextRequest) {
     if (!updatedUser) {
       return NextResponse.json({ error: "Failed to update user agreement" }, { status: 500 });
     }
-    return NextResponse.json(updatedUser);
+    return NextResponse.json(sanitizeUser(updatedUser));
   } catch (error) {
     console.error("[accept-agreement] Error:", error);
     return NextResponse.json({ error: "Failed to accept agreement" }, { status: 500 });

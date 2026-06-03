@@ -1,9 +1,13 @@
 import { getIronSession, SessionOptions, IronSession } from "iron-session";
 import { cookies } from "next/headers";
-import * as client from "openid-client";
+import { randomBytes, scrypt as scryptCb, timingSafeEqual } from "crypto";
+import { promisify } from "util";
 import { db } from "./db";
 import { users } from "@/shared/schema";
 import { eq } from "drizzle-orm";
+import { normalizeRole, getPortalHomePath } from "@/lib/auth/roles";
+
+const scrypt = promisify(scryptCb);
 
 export interface SessionData {
   userId?: string;
@@ -63,20 +67,24 @@ export async function getValidatedSession() {
   return session;
 }
 
-let oidcConfig: Awaited<ReturnType<typeof client.discovery>> | null = null;
+const SCRYPT_KEYLEN = 64;
 
-export async function getOidcConfig() {
-  if (oidcConfig) return oidcConfig;
+export async function hashPassword(password: string): Promise<string> {
+  const salt = randomBytes(16).toString("hex");
+  const derived = (await scrypt(password, salt, SCRYPT_KEYLEN)) as Buffer;
+  return `${salt}:${derived.toString("hex")}`;
+}
 
-  const issuerUrl = process.env.ISSUER_URL || "https://replit.com/oidc";
-  const clientId = process.env.REPL_ID;
-
-  if (!clientId) {
-    throw new Error("REPL_ID environment variable is required for authentication");
-  }
-
-  oidcConfig = await client.discovery(new URL(issuerUrl), clientId);
-  return oidcConfig;
+export async function verifyPassword(
+  password: string,
+  stored: string | null | undefined,
+): Promise<boolean> {
+  if (!stored || !stored.includes(":")) return false;
+  const [salt, hashHex] = stored.split(":");
+  const hashBuf = Buffer.from(hashHex, "hex");
+  const derived = (await scrypt(password, salt, hashBuf.length)) as Buffer;
+  if (derived.length !== hashBuf.length) return false;
+  return timingSafeEqual(derived, hashBuf);
 }
 
 function getExternalProtocol(request: { headers: { get(name: string): string | null } }) {
@@ -208,4 +216,125 @@ export async function getCurrentUser() {
 
   const user = await getUserFromDb(session.userId);
   return user;
+}
+
+export function sanitizeUser<T extends Record<string, unknown>>(
+  user: T,
+): Omit<T, "passwordHash"> {
+  const { passwordHash: _omit, ...rest } = user as T & { passwordHash?: unknown };
+  return rest;
+}
+
+export async function getUserByEmail(email: string) {
+  if (!db) return null;
+  const normalized = email.trim().toLowerCase();
+  const result = await db
+    .select()
+    .from(users)
+    .where(eq(users.email, normalized))
+    .limit(1);
+  return result[0] || null;
+}
+
+export class AuthError extends Error {
+  status: number;
+  constructor(message: string, status = 400) {
+    super(message);
+    this.name = "AuthError";
+    this.status = status;
+  }
+}
+
+const SESSION_TTL_SECONDS = 7 * 24 * 60 * 60;
+
+export async function establishSession(
+  session: IronSession<SessionData>,
+  user: {
+    id: string;
+    email?: string | null;
+    firstName?: string | null;
+    lastName?: string | null;
+    profileImageUrl?: string | null;
+  },
+) {
+  session.userId = user.id;
+  session.expiresAt = Math.floor(Date.now() / 1000) + SESSION_TTL_SECONDS;
+  session.claims = {
+    sub: user.id,
+    email: user.email ?? undefined,
+    first_name: user.firstName ?? undefined,
+    last_name: user.lastName ?? undefined,
+    profile_image_url: user.profileImageUrl ?? undefined,
+  };
+  delete session.codeVerifier;
+  delete session.state;
+  delete session.accessToken;
+  delete session.refreshToken;
+  await session.save();
+}
+
+export async function registerUser(input: {
+  email: string;
+  password: string;
+  firstName?: string;
+  lastName?: string;
+}) {
+  if (!db) throw new AuthError("Database unavailable", 500);
+  const email = input.email.trim().toLowerCase();
+  const existing = await getUserByEmail(email);
+  if (existing) {
+    throw new AuthError("An account with this email already exists.", 409);
+  }
+  const passwordHash = await hashPassword(input.password);
+  const role = getDesignatedRole(email, null);
+  const inserted = await db
+    .insert(users)
+    .values({
+      email,
+      firstName: input.firstName?.trim() || null,
+      lastName: input.lastName?.trim() || null,
+      role,
+      passwordHash,
+    })
+    .returning();
+  return inserted[0];
+}
+
+export async function loginUser(email: string, password: string) {
+  const user = await getUserByEmail(email);
+  if (!user || !user.passwordHash) {
+    throw new AuthError("Invalid email or password.", 401);
+  }
+  const ok = await verifyPassword(password, user.passwordHash);
+  if (!ok) throw new AuthError("Invalid email or password.", 401);
+
+  // Keep admin promotion behavior consistent with the previous OIDC flow.
+  const designated = getDesignatedRole(user.email ?? undefined, user.role);
+  if (designated === "admin" && user.role !== "admin" && db) {
+    await db.update(users).set({ role: "admin" }).where(eq(users.id, user.id));
+    return { ...user, role: "admin" };
+  }
+  return user;
+}
+
+export function resolveLoginRedirect(
+  user: { role?: string | null } | null,
+  returnTo?: string | null,
+): string {
+  const safeReturnTo =
+    typeof returnTo === "string" && returnTo.startsWith("/") ? returnTo : null;
+  const role = normalizeRole(user?.role);
+
+  if (safeReturnTo?.startsWith("/admin") && role !== "admin") return "/admin";
+  if (
+    safeReturnTo?.startsWith("/portal") &&
+    role !== "customer" &&
+    role !== "admin"
+  ) {
+    return getPortalHomePath(role);
+  }
+  if (role === "admin") return safeReturnTo || "/admin/dashboard";
+  if (role === "partner") return safeReturnTo || "/partner";
+  if (role === "customer") return safeReturnTo || "/portal";
+  return safeReturnTo || "/";
 }

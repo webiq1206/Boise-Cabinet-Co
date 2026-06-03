@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getSession, getUserFromDb, upsertUserFromClaims } from "@/lib/auth";
+import { getSession, getUserFromDb, sanitizeUser } from "@/lib/auth";
 
 export async function GET() {
   try {
@@ -14,17 +14,12 @@ export async function GET() {
       return NextResponse.json({ message: "Session expired" }, { status: 401 });
     }
 
-    if (session.claims) {
-      const user = await upsertUserFromClaims(session.claims);
-      if (user) return NextResponse.json(user);
-    }
-
     const user = await getUserFromDb(session.userId);
     if (!user) {
       return NextResponse.json({ message: "User not found" }, { status: 401 });
     }
 
-    return NextResponse.json(user);
+    return NextResponse.json(sanitizeUser(user));
   } catch (error) {
     console.error("Error fetching user:", error);
     return NextResponse.json({ message: "Failed to fetch user" }, { status: 500 });

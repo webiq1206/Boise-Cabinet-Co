@@ -43,7 +43,7 @@ export default function AdminLoginPage() {
 
   const handleLogin = () => {
     // Pass returnTo parameter so server knows user came from admin login
-    window.location.href = "/api/login?returnTo=/admin";
+    window.location.href = "/login?returnTo=/admin";
   };
 
   if (checkingAuth || isLoading) {
@@ -85,10 +85,10 @@ export default function AdminLoginPage() {
           <div className="bg-muted/50 rounded-lg p-4 space-y-2">
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
               <Lock className="w-4 h-4" />
-              <span>Secure login via Google</span>
+              <span>Secure email &amp; password login</span>
             </div>
             <p className="text-sm text-muted-foreground">
-              Only authorized administrators can access this portal. Login with your approved Google account to continue.
+              Only authorized administrators can access this portal. Sign in with your approved account to continue.
             </p>
           </div>
 
@@ -97,7 +97,7 @@ export default function AdminLoginPage() {
             className="w-full" 
             size="lg"
           >
-            Login with Google
+            Sign in
             <ArrowRight className="w-4 h-4 ml-2" />
           </Button>
 

@@ -1,3 +1,4 @@
 - [Autoscale deploy promote-step failure](deploy-promote-step-failure.md) — build+push succeed but build marked "failed" with no logs; diagnose by comparing build-log tails for the `Creating Autoscale service` marker.
+- [users table secret-column leak](users-table-passwordhash-leak.md) — secret/PII columns on `users` leak through any route returning raw rows; route all user JSON through `sanitizeUser()` in lib/auth.ts.
 - [Deploy prebuild verify gates](deploy-prebuild-verify-gates.md) — publish can fail FAST in prebuild (before next build) via verify:no-em-dash etc; generated files are regenerated each build, so fix the generator template not the committed file.
 - [Catalog image pipeline](catalog-image-pipeline.md) — the catalog image seeder fills hero images with wrong-room placeholders; generate real images instead, never re-seed to "restore"; sharp missing in env, use cwebp.

@@ -42,7 +42,7 @@ export function PortalAuthGate({
 
   if (!isAuthenticated || !allowed) {
     const returnTo = typeof window !== "undefined" ? window.location.pathname : "/portal";
-    const loginHref = `/api/login?returnTo=${encodeURIComponent(returnTo)}`;
+    const loginHref = `/login?returnTo=${encodeURIComponent(returnTo)}`;
 
     return (
       <PortalShell variant={role === "admin" ? "admin" : role === "partner" ? "partner" : "customer"} title={title}>

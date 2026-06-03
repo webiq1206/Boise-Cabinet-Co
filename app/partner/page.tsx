@@ -21,7 +21,7 @@ export default function PartnerPage() {
   }, [isLoading, isAuthenticated, isAdmin, router]);
 
   const handleLogin = () => {
-    window.location.href = "/api/login?returnTo=/partner";
+    window.location.href = "/login?returnTo=/partner";
   };
 
   if (isLoading) {
