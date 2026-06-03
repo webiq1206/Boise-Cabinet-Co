@@ -1,5 +1,5 @@
 /**
- * Door styles — sourced from data/supplier-catalog/doorStyles.json
+ * Door styles - sourced from data/supplier-catalog/doorStyles.json
  */
 
 import { DOOR_STYLES } from "./generated/doorStyles";

@@ -26,7 +26,7 @@ export async function generateMetadata({
   return catalogMetadata(
     `/finishes/${params.category}/${params.slug}`,
     `${finish.name} Finish`,
-    `${finish.name} — ${finish.panelBrand} ${finish.panelSeries} ${finish.category} finish from One Source Cabinets.`,
+    `${finish.name} - ${finish.panelBrand} ${finish.panelSeries} ${finish.category} finish from One Source Cabinets.`,
   );
 }
 

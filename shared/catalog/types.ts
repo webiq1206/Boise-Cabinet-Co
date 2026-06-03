@@ -1,5 +1,5 @@
 /**
- * Catalog type definitions — aligned with data/supplier-catalog/*.json
+ * Catalog type definitions - aligned with data/supplier-catalog/*.json
  */
 
 export type FinishCategory = "matte" | "gloss" | "woodgrain";

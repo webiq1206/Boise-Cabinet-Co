@@ -1,5 +1,5 @@
 /**
- * Finishes — OSC-primary names from data/supplier-catalog/finishes.json
+ * Finishes - OSC-primary names from data/supplier-catalog/finishes.json
  */
 
 import { FINISHES } from "./generated/finishes";

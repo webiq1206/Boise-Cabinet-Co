@@ -66,12 +66,12 @@ export interface EstimateResult {
 }
 
 // ============================================================================
-// MODELED TREASURE VALLEY PRICING — EDIT HERE
+// MODELED TREASURE VALLEY PRICING - EDIT HERE
 // ----------------------------------------------------------------------------
 // These are PLANNING figures modeled on Boise Cabinet Co's tier structure and
 // typical Treasure Valley installed-cabinetry rates. They are NOT a supplier
 // price sheet and not a per-cabinet quote. Every dollar figure the estimator
-// uses lives in this block — tune these numbers to refine the estimator.
+// uses lives in this block - tune these numbers to refine the estimator.
 //
 // How the math works:
 //   priceLow  = round( perUnitLow  × size × multiplier )

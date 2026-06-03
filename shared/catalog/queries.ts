@@ -1,5 +1,5 @@
 /**
- * Central catalog query layer — single source for all surfaces
+ * Central catalog query layer - single source for all surfaces
  */
 
 import { COLLECTIONS } from "./collections";

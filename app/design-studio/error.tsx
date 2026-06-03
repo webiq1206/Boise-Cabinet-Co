@@ -28,7 +28,7 @@ export default function DesignStudioError({
         <CardContent className="text-center space-y-4">
           <p className="text-sm text-muted-foreground">
             Something unexpected happened while loading your design. This is
-            usually temporary — try again and you should be right back to
+            usually temporary - try again and you should be right back to
             building your cabinets.
           </p>
           <div className="flex flex-col gap-2">

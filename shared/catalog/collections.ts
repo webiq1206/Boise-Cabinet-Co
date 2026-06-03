@@ -1,5 +1,5 @@
 /**
- * Collections — BRC go-to-market lines over OSC manufacturing
+ * Collections - BRC go-to-market lines over OSC manufacturing
  */
 
 export type { PriceTier, CabinetCollection } from "./types";
