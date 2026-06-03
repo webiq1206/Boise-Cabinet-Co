@@ -172,9 +172,6 @@ export function getDoorStylesForFinishCategory(category: FinishCategory): DoorSt
   return DOOR_STYLES.filter((d) => d.compatibleFinishCategories.includes(category));
 }
 
-// Re-export query helpers for backward compatibility
-export { getFinishesForDoorStyle } from "./queries";
-
 export interface CatalogSearchResult {
   type:
     | "collection"
