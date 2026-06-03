@@ -17,4 +17,7 @@ export type {
   CatalogVisualCardProps,
   CatalogVisualSpec,
   VisualSearchResultProps,
+  FinishDualPreviewProps,
+  ProductConfigGalleryProps,
 } from "./visual";
+export { FinishDualPreview, ProductConfigGallery } from "./visual";

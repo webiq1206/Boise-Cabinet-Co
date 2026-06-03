@@ -6,6 +6,7 @@ import {
   getSimilarFinishes,
 } from "@/shared/catalog";
 import { FinishSwatchGrid } from "@/components/catalog/FinishSwatchGrid";
+import { FinishDualPreview } from "@/components/catalog/visual";
 import { CatalogAvailabilityStrip } from "@/components/catalog/CatalogAvailabilityStrip";
 import { CatalogActionBar } from "@/components/catalog/CatalogActionBar";
 
@@ -20,13 +21,8 @@ export function FinishExplorer({ finish }: FinishExplorerProps) {
 
   return (
     <div className="space-y-8">
-      <div className="flex gap-6 items-start">
-        <div
-          className="h-24 w-24 rounded-lg border shadow-sm shrink-0"
-          style={{ backgroundColor: finish.hexColor }}
-          role="img"
-          aria-label={`${finish.name} swatch`}
-        />
+      <FinishDualPreview finish={finish} />
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
         <div>
           <h2 className="text-2xl font-sans font-light tracking-tight">{finish.name}</h2>
           <p className="text-muted-foreground mt-1">

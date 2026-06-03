@@ -13,6 +13,9 @@ import {
   countH2Headings,
 } from '../lib/content-utils';
 import { TREASURE_VALLEY_CITIES } from '../shared/contentHubs';
+import { htmlContainsCatalogEmbeds } from '../lib/catalog/parseCatalogEmbeds';
+import { BOISE_REMODELING_COST_GUIDE_HTML } from '../shared/content/wave1/boiseRemodelingCostGuide';
+import { KITCHEN_PILLAR } from '../shared/content/allHubsContent';
 import fs from 'node:fs';
 import path from 'node:path';
 
@@ -195,6 +198,20 @@ if (catalogCopyFailures.length === 0) {
   allPass = false;
   for (const f of catalogCopyFailures) {
     console.log(`❌ ${f}`);
+  }
+}
+
+console.log('\n=== CATALOG EMBEDS ===\n');
+const embedTargets: { label: string; html: string }[] = [
+  { label: 'Boise cabinet cost guide', html: BOISE_REMODELING_COST_GUIDE_HTML },
+  { label: 'Boise kitchen cabinet guide', html: KITCHEN_PILLAR.content },
+];
+for (const { label, html } of embedTargets) {
+  if (!htmlContainsCatalogEmbeds(html)) {
+    allPass = false;
+    console.log(`❌ ${label}: missing [[catalog …]] embed markers`);
+  } else {
+    console.log(`✅ ${label}: catalog embed markers present`);
   }
 }
 

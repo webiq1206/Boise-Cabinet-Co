@@ -61,6 +61,7 @@ export function SaveStep({ embedded = false }: { embedded?: boolean }) {
     saveVersion,
     loadVersion,
     deleteVersion,
+    portalProjectId,
   } = useDesignStudio();
   const { toast } = useToast();
   const [name, setName] = useState(design.designName || `My ${design.roomType ?? "cabinet"} design`);
@@ -78,7 +79,12 @@ export function SaveStep({ embedded = false }: { embedded?: boolean }) {
     const result = await saveDesign();
     if (result) {
       setSaved(true);
-      toast({ title: "Design saved", description: "Your design has been saved. Request pricing below." });
+      toast({
+        title: "Design saved",
+        description: result.linkedProjectId
+          ? "Saved and synced to your project portal."
+          : "Your design has been saved. Request pricing below.",
+      });
     } else {
       toast({ title: "Could not save", description: "Please try again.", variant: "destructive" });
     }
@@ -480,7 +486,15 @@ export function SaveStep({ embedded = false }: { embedded?: boolean }) {
             Track your project in the client portal after we create your project file.
           </p>
           <Button variant="brandOutline" asChild>
-            <Link href="/portal">Go to My Project</Link>
+            <Link
+              href={
+                portalProjectId
+                  ? `/portal/projects/${portalProjectId}/design`
+                  : "/portal"
+              }
+            >
+              {portalProjectId ? "View project selections" : "Go to My Project"}
+            </Link>
           </Button>
         </CardContent>
       </Card>

@@ -71,6 +71,8 @@ export interface DesignPayload {
   name: string;
   photoUrl?: string;
   versionGroupId?: string;
+  /** When set, POST /api/designs links this save to the portal project. */
+  projectId?: string;
   layoutJson: Record<string, unknown>;
   styleJson: Record<string, unknown>;
 }
@@ -81,7 +83,7 @@ export interface DesignPayload {
  */
 export function designToPayload(
   snapshot: DesignSnapshot,
-  opts?: { versionGroupId?: string },
+  opts?: { versionGroupId?: string; projectId?: string | null },
 ): DesignPayload | null {
   if (!snapshot.roomType || !snapshot.collection) return null;
   return {
@@ -90,6 +92,7 @@ export function designToPayload(
     name: snapshot.designName || `My ${snapshot.roomType} design`,
     photoUrl: snapshot.photoUrl ?? undefined,
     versionGroupId: opts?.versionGroupId,
+    projectId: opts?.projectId ?? undefined,
     layoutJson: {
       layout: snapshot.layout,
       accessories: snapshot.accessories,

@@ -4,6 +4,7 @@ import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Section } from "@/components/marketing/Section";
 import { PageHeader } from "@/components/marketing/PageHeader";
 import { CatalogVisualCard } from "@/components/catalog/visual";
+import { getProductImages } from "@/shared/catalog/entityImages";
 import {
   ACCESSORY_FAMILY_BY_SLUG,
   filterProductsByAccessoryFamily,
@@ -110,18 +111,23 @@ export default function ProductCategoryPage({
       </Section>
       <Section>
         <div className="container px-4 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {products.map((p) => (
-            <CatalogVisualCard
-              key={p.id}
-              name={p.oscCode}
-              description={p.description}
-              specs={productSpecs(p)}
-              primaryHref={`/products/${p.category}/${p.slug}`}
-              primaryLabel="Specifications"
-              secondaryHref={`/design-studio?product=${p.slug}`}
-              secondaryLabel="Design Studio"
-            />
-          ))}
+          {products.map((p) => {
+            const imgs = getProductImages(p);
+            return (
+              <CatalogVisualCard
+                key={p.id}
+                name={p.oscCode}
+                description={p.description}
+                imageSrc={imgs.thumb}
+                imageAlt={`${p.oscCode} cabinet configuration`}
+                specs={productSpecs(p)}
+                primaryHref={`/products/${p.category}/${p.slug}`}
+                primaryLabel="Specifications"
+                secondaryHref={`/design-studio?product=${p.slug}`}
+                secondaryLabel="Design Studio"
+              />
+            );
+          })}
         </div>
       </Section>
     </div>

@@ -55,6 +55,7 @@ export {
 export {
   getHardwareImagePath,
   getAccessoryImagePath,
+  getAccessoryFamilyImagePath,
   getCatalogProductAlt,
   HARDWARE_IMAGE_FILES,
 } from "./catalogImages";
@@ -62,9 +63,15 @@ export {
 export {
   getDoorStyleImages,
   getFinishImages,
+  getProductImages,
   pickSearchResultImage,
 } from "./entityImages";
-export type { DoorStyleImages, FinishImages, SearchResultImageInput } from "./entityImages";
+export type {
+  DoorStyleImages,
+  FinishImages,
+  ProductImages,
+  SearchResultImageInput,
+} from "./entityImages";
 
 export type {
   CabinetCategory,

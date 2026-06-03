@@ -20,6 +20,7 @@ import {
   COLLECTIONS,
 } from "@/shared/catalog";
 import { SITE_CONFIG } from "@/shared/siteConfig";
+import { RoomCatalogShowcase } from "@/components/catalog/RoomCatalogShowcase";
 
 export function generateStaticParams() {
   return ROOM_CATEGORIES.map((room) => ({ room: room.slug }));
@@ -105,6 +106,16 @@ export default function RoomCabinetPage({ params }: { params: { room: string } }
                 <ArrowRight className="h-4 w-4" />
               </Link>
             </Button>
+          </div>
+        </Section>
+
+        <Section divider>
+          <div className="container px-4 max-w-5xl">
+            <RoomCatalogShowcase
+              roomSlug={room.slug}
+              roomName={room.name}
+              defaultCollectionId={room.defaultCollectionId}
+            />
           </div>
         </Section>
 

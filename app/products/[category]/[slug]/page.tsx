@@ -7,6 +7,7 @@ import { getCabinetProductBySlug } from "@/shared/catalog";
 import type { CabinetProductCategory } from "@/shared/catalog";
 import { CABINET_PRODUCTS } from "@/shared/catalog";
 import { getProductImages } from "@/shared/catalog/entityImages";
+import { ProductConfigGallery } from "@/components/catalog/visual";
 import { catalogMetadata } from "@/lib/catalog-metadata";
 import { generateBreadcrumbSchema, generateProductSchema } from "@/lib/schema";
 
@@ -83,8 +84,9 @@ export default function ProductDetailPage({
               { name: product.oscCode },
             ]}
           />
-          <div className="mt-8">
-            <ProductConfigurationCard product={product} />
+          <div className="mt-8 max-w-xl">
+            <ProductConfigGallery product={product} className="mb-8" />
+            <ProductConfigurationCard product={product} showGallery={false} />
           </div>
           <p className="text-sm text-muted-foreground mt-6">{product.widthRange.note}</p>
         </div>

@@ -2,8 +2,13 @@ import { eq, desc } from "drizzle-orm";
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { db } from "@/lib/db";
-import { cabinetDesigns, designPricingRequests } from "@/shared/schema";
+import { cabinetDesigns } from "@/shared/schema";
 import { randomBytes } from "crypto";
+import { getCurrentUser } from "@/lib/auth";
+import {
+  canLinkDesignToProject,
+  linkDesignToProject,
+} from "@/server/services/projectDesignSync";
 
 const createDesignSchema = z.object({
   roomType: z.string().min(1),
@@ -14,6 +19,7 @@ const createDesignSchema = z.object({
   name: z.string().optional(),
   userEmail: z.string().email().optional(),
   versionGroupId: z.string().optional(),
+  projectId: z.string().min(1).optional(),
 });
 
 export async function POST(request: NextRequest) {
@@ -31,23 +37,37 @@ export async function POST(request: NextRequest) {
       });
     }
 
+    const styleJson = data.styleJson ?? {};
+    const layoutJson = data.layoutJson ?? {};
+
     const [design] = await db
       .insert(cabinetDesigns)
       .values({
         roomType: data.roomType,
         collectionId: data.collectionId,
-        layoutJson: data.layoutJson ?? {},
-        styleJson: data.styleJson ?? {},
+        layoutJson,
+        styleJson,
         photoUrl: data.photoUrl,
         name: data.name,
         userEmail: data.userEmail,
         versionGroupId: data.versionGroupId,
+        projectId: data.projectId,
         shareToken,
         status: "draft",
       })
       .returning();
 
-    return NextResponse.json(design);
+    let linkedProjectId: string | null = null;
+    if (data.projectId) {
+      const user = await getCurrentUser();
+      const customerId = user?.role === "customer" ? user.id : null;
+      if (await canLinkDesignToProject(data.projectId, customerId)) {
+        await linkDesignToProject(data.projectId, design.id, styleJson);
+        linkedProjectId = data.projectId;
+      }
+    }
+
+    return NextResponse.json({ ...design, linkedProjectId });
   } catch (error) {
     if (error instanceof z.ZodError) {
       return NextResponse.json({ error: error.errors }, { status: 400 });

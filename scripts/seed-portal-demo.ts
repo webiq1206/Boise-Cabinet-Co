@@ -7,6 +7,7 @@ import { config } from "dotenv";
 config({ path: ".env.local" });
 config({ path: ".env" });
 
+import { eq } from "drizzle-orm";
 import { db } from "../lib/db";
 import {
   projects,
@@ -15,6 +16,29 @@ import {
   projectOrders,
 } from "../shared/schema";
 import { PLACEHOLDER_PROJECT_ID } from "../shared/portalPlaceholder";
+import { DEMO_PROJECT_SELECTIONS } from "../lib/catalog/resolveProjectSelections";
+import { projectSelectionsToStyleJson } from "../lib/design/designSerialization";
+
+function demoSelectionsJson() {
+  return {
+    ...projectSelectionsToStyleJson(DEMO_PROJECT_SELECTIONS),
+    roomType: DEMO_PROJECT_SELECTIONS.roomType,
+    collection: DEMO_PROJECT_SELECTIONS.collection,
+    layout: DEMO_PROJECT_SELECTIONS.layout,
+  };
+}
+
+async function patchDemoSelectionsIfPresent() {
+  const styleJson = demoSelectionsJson();
+  const updated = await db!
+    .update(projects)
+    .set({ selectionsJson: styleJson, updatedAt: new Date() })
+    .where(eq(projects.id, PLACEHOLDER_PROJECT_ID))
+    .returning({ id: projects.id });
+  if (updated.length > 0) {
+    console.log("Patched selectionsJson on demo project:", PLACEHOLDER_PROJECT_ID);
+  }
+}
 
 async function main() {
   if (!db) {
@@ -24,9 +48,13 @@ async function main() {
 
   const existing = await db.select().from(projects).limit(1);
   if (existing.length > 0) {
-    console.log("Projects already exist — skipping seed.");
+    await patchDemoSelectionsIfPresent();
+    console.log("Projects already exist — skipped full seed (demo selectionsJson patched if demo-001 exists).");
+    console.log("To backfill only: npm run db:patch-demo-selections");
     return;
   }
+
+  const styleJson = demoSelectionsJson();
 
   await db.insert(projects).values({
     id: PLACEHOLDER_PROJECT_ID,
@@ -41,6 +69,7 @@ async function main() {
     status: "active",
     currentStage: "design_review",
     estimatedDeliveryDate: new Date("2026-08-01"),
+    selectionsJson: styleJson,
   });
 
   const [inv1] = await db

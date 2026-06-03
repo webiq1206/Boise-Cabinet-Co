@@ -31,6 +31,7 @@ import {
 } from "@/lib/design/designSerialization";
 
 const VERSION_GROUP_STORAGE_KEY = "brc-design-version-group";
+export const PORTAL_PROJECT_STORAGE_KEY = "brc-portal-project-id";
 
 /** Room slug from shared/catalog/roomCategories */
 export type RoomType = string;
@@ -115,7 +116,11 @@ interface DesignStudioContextValue {
   resetModulesToLayout: () => void;
   setSelectedModuleId: (id: string | null) => void;
   isStepComplete: (step: number) => boolean;
-  saveDesign: () => Promise<{ id: string; shareToken: string } | null>;
+  saveDesign: () => Promise<{
+    id: string;
+    shareToken: string;
+    linkedProjectId?: string | null;
+  } | null>;
   submitPricingRequest: (contact: {
     name: string;
     email: string;
@@ -131,15 +136,37 @@ interface DesignStudioContextValue {
   loadVersion: (id: string) => void;
   /** Remove a version from the local list. */
   deleteVersion: (id: string) => void;
+  /** Portal project id from ?projectId= (persisted for saves). */
+  portalProjectId: string | null;
 }
 
 const DesignStudioContext = createContext<DesignStudioContextValue | null>(null);
 
-export function DesignStudioProvider({ children }: { children: ReactNode }) {
+export function DesignStudioProvider({
+  children,
+  projectId: projectIdFromUrl,
+}: {
+  children: ReactNode;
+  projectId?: string | null;
+}) {
   const [design, setDesign] = useState<DesignState>(initialState);
   const [isSaving, setIsSaving] = useState(false);
   const [versions, setVersions] = useState<SavedVersion[]>([]);
   const [versionGroupId, setVersionGroupId] = useState<string | null>(null);
+  const [portalProjectId, setPortalProjectId] = useState<string | null>(
+    projectIdFromUrl ?? null,
+  );
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    if (projectIdFromUrl) {
+      setPortalProjectId(projectIdFromUrl);
+      window.localStorage.setItem(PORTAL_PROJECT_STORAGE_KEY, projectIdFromUrl);
+      return;
+    }
+    const stored = window.localStorage.getItem(PORTAL_PROJECT_STORAGE_KEY);
+    if (stored) setPortalProjectId(stored);
+  }, [projectIdFromUrl]);
 
   const updateDesign = useCallback((patch: Partial<DesignState>) => {
     setDesign((prev) => {
@@ -357,7 +384,9 @@ export function DesignStudioProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const saveDesign = useCallback(async () => {
-    const payload = designToPayload(toSnapshot(design));
+    const payload = designToPayload(toSnapshot(design), {
+      projectId: portalProjectId,
+    });
     if (!payload) return null;
     setIsSaving(true);
     try {
@@ -369,13 +398,17 @@ export function DesignStudioProvider({ children }: { children: ReactNode }) {
       if (!res.ok) throw new Error("Save failed");
       const data = await res.json();
       updateDesign({ savedDesignId: data.id, shareToken: data.shareToken });
-      return { id: data.id, shareToken: data.shareToken };
+      return {
+        id: data.id,
+        shareToken: data.shareToken,
+        linkedProjectId: data.linkedProjectId ?? null,
+      };
     } catch {
       return null;
     } finally {
       setIsSaving(false);
     }
-  }, [design, toSnapshot, updateDesign]);
+  }, [design, portalProjectId, toSnapshot, updateDesign]);
 
   const refreshVersions = useCallback(async (groupId: string) => {
     try {
@@ -478,7 +511,10 @@ export function DesignStudioProvider({ children }: { children: ReactNode }) {
           window.localStorage.setItem(VERSION_GROUP_STORAGE_KEY, groupId);
         }
       }
-      const payload = designToPayload(snapshot, { versionGroupId: groupId });
+      const payload = designToPayload(snapshot, {
+        versionGroupId: groupId,
+        projectId: portalProjectId,
+      });
       if (!payload) return null;
       setIsSaving(true);
       try {
@@ -510,7 +546,7 @@ export function DesignStudioProvider({ children }: { children: ReactNode }) {
         setIsSaving(false);
       }
     },
-    [design, versions.length, versionGroupId, toSnapshot, updateDesign],
+    [design, versions.length, versionGroupId, portalProjectId, toSnapshot, updateDesign],
   );
 
   const loadVersion = useCallback(
@@ -615,9 +651,11 @@ export function DesignStudioProvider({ children }: { children: ReactNode }) {
       saveVersion,
       loadVersion,
       deleteVersion,
+      portalProjectId,
     }),
     [
       design,
+      portalProjectId,
       updateDesign,
       resetDesign,
       updateModuleOverride,

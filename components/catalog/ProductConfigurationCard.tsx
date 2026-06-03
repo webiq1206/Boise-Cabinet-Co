@@ -3,12 +3,17 @@ import type { CabinetProduct } from "@/shared/catalog";
 import { MarketingCard } from "@/components/marketing/MarketingCard";
 import { CatalogActionBar } from "@/components/catalog/CatalogActionBar";
 import { Chip } from "@/components/marketing/Chip";
+import { ProductConfigGallery } from "@/components/catalog/visual";
 
 export interface ProductConfigurationCardProps {
   product: CabinetProduct;
+  showGallery?: boolean;
 }
 
-export function ProductConfigurationCard({ product }: ProductConfigurationCardProps) {
+export function ProductConfigurationCard({
+  product,
+  showGallery = true,
+}: ProductConfigurationCardProps) {
   const cfg = product.configuration;
   const tags: string[] = [];
   if (cfg.doors) tags.push(`${cfg.doors} door${cfg.doors > 1 ? "s" : ""}`);
@@ -18,33 +23,40 @@ export function ProductConfigurationCard({ product }: ProductConfigurationCardPr
   if (cfg.partitions) tags.push("partition");
 
   return (
-    <MarketingCard className="h-full flex flex-col">
-      <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">
-        {product.category}
-      </p>
-      <h3 className="font-mono text-lg font-medium">{product.oscCode}</h3>
-      <p className="text-sm text-muted-foreground mt-2 flex-1">{product.description}</p>
-      <div className="flex flex-wrap gap-1 mt-3">
-        {tags.map((t) => (
-          <Chip key={t} className="text-xs">
-            {t}
+    <MarketingCard className="h-full flex flex-col p-0 overflow-hidden">
+      {showGallery && (
+        <div className="p-4 pb-0">
+          <ProductConfigGallery product={product} />
+        </div>
+      )}
+      <div className="p-6 flex flex-col flex-1">
+        <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">
+          {product.category}
+        </p>
+        <h3 className="font-mono text-lg font-medium">{product.oscCode}</h3>
+        <p className="text-sm text-muted-foreground mt-2 flex-1">{product.description}</p>
+        <div className="flex flex-wrap gap-1 mt-3">
+          {tags.map((t) => (
+            <Chip key={t} className="text-xs">
+              {t}
+            </Chip>
+          ))}
+          <Chip className="text-xs">
+            {product.widthRange.minInches}"–{product.widthRange.maxInches}" wide
           </Chip>
-        ))}
-        <Chip className="text-xs">
-          {product.widthRange.minInches}"–{product.widthRange.maxInches}" wide
-        </Chip>
+        </div>
+        <CatalogActionBar
+          className="mt-4"
+          designStudioHref={`/design-studio?product=${product.slug}`}
+          productsHref={`/products/${product.category}/${product.slug}`}
+        />
+        <Link
+          href={`/products/${product.category}/${product.slug}`}
+          className="text-sm text-accent mt-2 inline-block hover:underline"
+        >
+          Full specifications
+        </Link>
       </div>
-      <CatalogActionBar
-        className="mt-4"
-        designStudioHref={`/design-studio?product=${product.slug}`}
-        productsHref={`/products/${product.category}/${product.slug}`}
-      />
-      <Link
-        href={`/products/${product.category}/${product.slug}`}
-        className="text-sm text-accent mt-2 inline-block hover:underline"
-      >
-        Full specifications
-      </Link>
     </MarketingCard>
   );
 }

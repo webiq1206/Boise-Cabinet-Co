@@ -1,5 +1,5 @@
 /**
- * Fail if customer-facing catalog entities use placeholder hex or missing swatch files.
+ * Verifies customer-facing catalog imagery on disk.
  * Run: npm run catalog:visuals:verify
  */
 
@@ -22,13 +22,20 @@ function fail(msg: string): never {
 function main() {
   const doorStyles = JSON.parse(
     fs.readFileSync(path.join(DATA, "doorStyles.json"), "utf8"),
-  ) as { slug: string; name: string; imagePath?: string }[];
+  ) as { slug: string; imagePath?: string }[];
   const finishes = JSON.parse(
     fs.readFileSync(path.join(DATA, "finishes.json"), "utf8"),
-  ) as { slug: string; name: string; imagePath?: string; hexColor: string }[];
+  ) as { slug: string; imagePath?: string; hexColor: string }[];
   const collections = JSON.parse(
     fs.readFileSync(path.join(DATA, "collections.json"), "utf8"),
   ) as { slug: string; heroImage?: string }[];
+  const products = JSON.parse(
+    fs.readFileSync(path.join(DATA, "cabinetProducts.json"), "utf8"),
+  ) as { slug: string }[];
+  const familiesPath = path.join(DATA, "accessoryFamilies.json");
+  const families = fs.existsSync(familiesPath)
+    ? (JSON.parse(fs.readFileSync(familiesPath, "utf8")) as { slug: string }[])
+    : [];
 
   const errors: string[] = [];
 
@@ -38,6 +45,10 @@ function main() {
     }
     if (f.imagePath && !exists(f.imagePath)) {
       errors.push(`Missing finish swatch: ${f.imagePath} (${f.slug})`);
+    }
+    const inRoom = `/images/catalog/finishes/in-room/${f.slug}.webp`;
+    if (!exists(inRoom)) {
+      errors.push(`Missing in-room finish: ${inRoom}`);
     }
   }
 
@@ -53,6 +64,22 @@ function main() {
     }
   }
 
+  for (const p of products) {
+    const hero = `/images/catalog/products/${p.slug}.webp`;
+    const thumb = `/images/catalog/products/${p.slug}-thumb.webp`;
+    const diagram = `/images/catalog/products/${p.slug}-diagram.webp`;
+    if (!exists(hero)) errors.push(`Missing product hero: ${hero}`);
+    if (!exists(thumb)) errors.push(`Missing product thumb: ${thumb}`);
+    if (!exists(diagram)) errors.push(`Missing product diagram: ${diagram}`);
+  }
+
+  for (const family of families) {
+    const img = `/images/catalog/accessories/${family.slug}.webp`;
+    if (!exists(img)) {
+      errors.push(`Missing accessory family image: ${img}`);
+    }
+  }
+
   if (errors.length > 0) {
     for (const e of errors.slice(0, 30)) {
       console.error(`  • ${e}`);
@@ -64,7 +91,7 @@ function main() {
   }
 
   console.log(
-    `catalog:visuals:verify OK — ${finishes.length} finishes, ${doorStyles.length} door styles`,
+    `catalog:visuals:verify OK — ${finishes.length} finishes (swatch+in-room), ${doorStyles.length} doors, ${products.length} products, ${families.length} accessory families`,
   );
 }
 

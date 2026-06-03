@@ -2,6 +2,7 @@ import {
   splitHtmlByH2,
   shouldUseCollapsibleSections,
 } from '@/lib/split-article-sections';
+import { HtmlWithCatalogEmbeds } from '@/components/catalog/HtmlWithCatalogEmbeds';
 
 interface SectionedArticleProps {
   html: string;
@@ -20,7 +21,7 @@ export function SectionedArticle({
   if (!shouldUseCollapsibleSections(sections.length)) {
     return (
       <article className="blog-content prose-measure" data-testid={testId}>
-        <div dangerouslySetInnerHTML={{ __html: html }} />
+        <HtmlWithCatalogEmbeds html={html} />
       </article>
     );
   }
@@ -33,10 +34,10 @@ export function SectionedArticle({
 
         if (!section.headingHtml) {
           return (
-            <div
+            <HtmlWithCatalogEmbeds
               key={`section-${index}`}
+              html={section.bodyHtml}
               className="blog-content pb-8 border-b border-border"
-              dangerouslySetInnerHTML={{ __html: section.bodyHtml }}
             />
           );
         }
@@ -56,9 +57,9 @@ export function SectionedArticle({
                 Tap to expand
               </span>
             </summary>
-            <div
+            <HtmlWithCatalogEmbeds
+              html={section.bodyHtml}
               className="blog-content pb-8 pt-0"
-              dangerouslySetInnerHTML={{ __html: section.bodyHtml }}
             />
           </details>
         );

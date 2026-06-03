@@ -6,6 +6,7 @@ import { CatalogVisualCard } from "@/components/catalog/visual";
 import { GuidedCatalogWizard } from "@/components/catalog/GuidedCatalogWizard";
 import { CABINET_PRODUCTS_BY_CATEGORY } from "@/shared/catalog";
 import type { CabinetProductCategory } from "@/shared/catalog";
+import { getProductImages } from "@/shared/catalog/entityImages";
 import { catalogMetadata } from "@/lib/catalog-metadata";
 
 const CATEGORY_LABELS: Record<CabinetProductCategory, string> = {
@@ -63,13 +64,18 @@ export default function ProductsHubPage() {
         <div className="container px-4">
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {categories.map((cat) => {
-              const count = CABINET_PRODUCTS_BY_CATEGORY[cat]?.length ?? 0;
+              const items = CABINET_PRODUCTS_BY_CATEGORY[cat] ?? [];
+              const count = items.length;
               if (count === 0) return null;
+              const sample = items[0];
+              const imageSrc = sample ? getProductImages(sample).hero : undefined;
               return (
                 <CatalogVisualCard
                   key={cat}
                   name={CATEGORY_LABELS[cat] ?? cat}
                   description={`Browse ${count} One Source ${cat.replace(/-/g, " ")} configurations.`}
+                  imageSrc={imageSrc}
+                  imageAlt={`${CATEGORY_LABELS[cat]} example configuration`}
                   specs={[{ label: "Configurations", value: String(count) }]}
                   primaryHref={`/products/${cat}`}
                   primaryLabel={`Browse ${CATEGORY_LABELS[cat]}`}

@@ -38,15 +38,14 @@ export function CatalogExploreStrip() {
       <div className="grid sm:grid-cols-3 gap-4">
         {doors.map((door) => {
           if (!door) return null;
-          const imgs = getDoorStyleImages(door);
+          const imgs = getDoorStyleImages(door.slug, door.imagePath);
           return (
             <CatalogVisualCard
               key={door.slug}
-              href={`/door-styles/${door.slug}`}
-              title={door.name}
-              imageSrc={imgs.thumb ?? imgs.profile}
+              name={door.name}
+              imageSrc={imgs.thumb640}
               imageAlt={`${door.name} door profile`}
-              meta="Door style"
+              primaryHref={`/door-styles/${door.slug}`}
             />
           );
         })}
@@ -54,15 +53,15 @@ export function CatalogExploreStrip() {
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         {finishes.map((finish) => {
           if (!finish) return null;
-          const imgs = getFinishImages(finish);
+          const imgs = getFinishImages(finish.slug, finish.imagePath);
           return (
             <CatalogVisualCard
               key={finish.slug}
-              href={`/finishes/${finish.category}/${finish.slug}`}
-              title={finish.name}
+              name={finish.name}
               imageSrc={imgs.swatch}
               imageAlt={`${finish.name} finish swatch`}
-              meta={finish.category}
+              specs={[{ label: "Category", value: finish.category }]}
+              primaryHref={`/finishes/${finish.category}/${finish.slug}`}
             />
           );
         })}
