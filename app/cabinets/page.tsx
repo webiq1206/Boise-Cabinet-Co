@@ -43,7 +43,7 @@ export default function CabinetsHubPage() {
     <>
       <JsonLd data={schemas} />
       <div className="flex flex-col pb-20 md:pb-0">
-        <Section spacing="sm" className="pt-8 md:pt-12">
+        <Section spacing="sm" className="pt-4 md:pt-6">
           <div className="container px-4 max-w-3xl">
             <Breadcrumbs items={[{ name: "Home", href: "/" }, { name: "Cabinets" }]} />
             <PageHeader

@@ -41,7 +41,7 @@ export default function CollectionDetailPage({ params }: { params: { slug: strin
   return (
     <>
       <JsonLd data={schemas} />
-      <Section spacing="sm" className="pt-8 md:pt-12">
+      <Section spacing="none" className="pt-4 md:pt-6 pb-3 md:pb-4">
         <div className="container px-4">
           <Breadcrumbs
             items={[

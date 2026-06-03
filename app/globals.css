@@ -390,11 +390,11 @@ html, body {
   }
 
   .section-y {
-    @apply py-24 md:py-32;
+    @apply py-16 md:py-20;
   }
 
   .section-y-sm {
-    @apply py-16 md:py-20;
+    @apply py-10 md:py-14;
   }
 
   .section-divider {

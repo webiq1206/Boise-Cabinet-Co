@@ -72,7 +72,7 @@ export default function RoomCabinetPage({ params }: { params: { room: string } }
             />
             <div className="absolute inset-0 bg-gradient-to-t from-background/95 via-background/40 to-transparent" />
           </div>
-          <div className="container px-4 max-w-3xl pt-8">
+          <div className="container px-4 max-w-3xl pt-6">
             <Breadcrumbs
               items={[
                 { name: "Home", href: "/" },

@@ -57,8 +57,8 @@ export function SectionHeader({
   );
 
   if (reveal) {
-    return <Reveal className={cn("mb-14", className?.includes("mb-0") && "mb-0")}>{content}</Reveal>;
+    return <Reveal className={cn("mb-10", className?.includes("mb-0") && "mb-0")}>{content}</Reveal>;
   }
 
-  return <div className={cn("mb-14", className?.includes("mb-0") && "mb-0")}>{content}</div>;
+  return <div className={cn("mb-10", className?.includes("mb-0") && "mb-0")}>{content}</div>;
 }
