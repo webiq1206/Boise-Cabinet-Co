@@ -7,36 +7,52 @@ import { RoomScanPanel } from "../RoomScanPanel";
 import { useDesignStudio } from "../DesignStudioProvider";
 import { wizardCopy } from "@/shared/designStudioCopy";
 
-/** E2E/dev: ?fixtureScan=1 applies a 120×144 kitchen scan without AR. */
+function applyFixtureRoom(
+  updateDesign: ReturnType<typeof useDesignStudio>["updateDesign"],
+  widthIn: number,
+  depthIn: number,
+  source: "ar-scan" | "manual" = "ar-scan",
+) {
+  const w = widthIn * 0.0254;
+  const d = depthIn * 0.0254;
+  updateDesign({
+    roomMeta: {
+      widthIn,
+      depthIn,
+      ceilingIn: 96,
+      obstacles: [],
+      userConfirmed: true,
+      source,
+      scanConfidence: source === "manual" ? "medium" : "high",
+    },
+    roomBounds: {
+      minX: -w / 2,
+      maxX: w / 2,
+      minZ: -d / 2,
+      maxZ: d / 2,
+    },
+  });
+}
+
+/** E2E/dev: ?fixtureScan=1 or ?fixtureManual=1 applies room size without AR. */
 function ScanFixtureLoader() {
   const params = useSearchParams();
   const { design, updateDesign } = useDesignStudio();
 
   useEffect(() => {
-    if (params.get("fixtureScan") !== "1") return;
+    const fixtureScan = params.get("fixtureScan") === "1";
+    const fixtureManual = params.get("fixtureManual") === "1";
+    if (!fixtureScan && !fixtureManual) return;
     if (design.roomMeta && design.roomMeta.userConfirmed) return;
 
     const widthIn = 120;
     const depthIn = 144;
-    const w = widthIn * 0.0254;
-    const d = depthIn * 0.0254;
-    updateDesign({
-      roomMeta: {
-        widthIn,
-        depthIn,
-        ceilingIn: 96,
-        obstacles: [],
-        userConfirmed: true,
-        source: "ar-scan",
-        scanConfidence: "high",
-      },
-      roomBounds: {
-        minX: -w / 2,
-        maxX: w / 2,
-        minZ: -d / 2,
-        maxZ: d / 2,
-      },
-    });
+    applyFixtureRoom(
+      updateDesign,
+      widthIn,
+      depthIn,
+      fixtureManual ? "manual" : "ar-scan",
+    );
   }, [params, design.roomMeta, updateDesign]);
 
   return null;

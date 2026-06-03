@@ -324,7 +324,14 @@ export function Room2DPlanner({ className }: { className?: string }) {
       </div>
 
       {/* canvas */}
-      <div className="w-full overflow-auto rounded-md border bg-card">
+      <p className="text-xs text-muted-foreground mb-2 md:hidden" data-testid="planner-touch-hint">
+        Drag cabinets on the plan. Use two fingers on the gray area outside the plan to scroll
+        the page.
+      </p>
+      <div
+        className="w-full overflow-auto rounded-md border bg-card overscroll-contain"
+        style={{ overscrollBehavior: "contain" }}
+      >
         <svg
           ref={svgRef}
           viewBox={`0 0 ${W} ${H}`}

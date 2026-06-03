@@ -12,7 +12,8 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Button } from "@/components/ui/button";
 import { CheckCircle2, ArrowRight } from "lucide-react";
 import type { StoredEstimate } from "@/shared/estimateEngine";
-import { PROJECT_LABELS } from "@/shared/estimateEngine";
+import { PROJECT_LABELS, mapEstimateProjectToConsultType } from "@/shared/estimateEngine";
+import { useIsMobile } from "@/hooks/use-media-query";
 import { DisplayNum } from "@/components/marketing";
 import { AddressAutocomplete } from "@/components/AddressAutocomplete";
 import type { PropertyProfile } from "@/shared/propertyProfile";
@@ -56,6 +57,7 @@ interface ConsultationFormProps {
 }
 
 export function ConsultationForm({ onRevise }: ConsultationFormProps = {}) {
+  const isMobile = useIsMobile();
   const [estimate, setEstimate] = useState<StoredEstimate | null>(null);
   const [decision, setDecision] = useState<EstimateDecision>("pending");
   const [success, setSuccess] = useState(false);
@@ -99,7 +101,11 @@ export function ConsultationForm({ onRevise }: ConsultationFormProps = {}) {
         setEstimate(parsed);
         setDecision("pending");
         if (parsed.project) {
-          form.setValue("projectType", parsed.project, { shouldValidate: false });
+          form.setValue(
+            "projectType",
+            mapEstimateProjectToConsultType(parsed.project),
+            { shouldValidate: false },
+          );
         }
       } catch {}
     }
@@ -118,11 +124,19 @@ export function ConsultationForm({ onRevise }: ConsultationFormProps = {}) {
   }
 
   const mutation = useMutation({
-    mutationFn: async (data: FormData) => {
+    mutationFn: async ({
+      data,
+      confirmEstimate,
+    }: {
+      data: FormData;
+      confirmEstimate?: boolean;
+    }) => {
+      const attachEstimate =
+        estimate && (decision === "confirmed" || confirmEstimate);
       const payload = {
         ...data,
         propertyProfile,
-        estimate: estimate && decision === "confirmed"
+        estimate: attachEstimate
           ? {
               project: estimate.projectLabel,
               finish: estimate.scopeSummary,
@@ -244,7 +258,7 @@ export function ConsultationForm({ onRevise }: ConsultationFormProps = {}) {
             type="button"
             variant="brand"
             disabled={mutation.isPending}
-            onClick={() => mutation.mutate(pendingData)}
+            onClick={() => mutation.mutate({ data: pendingData })}
             data-testid="button-confirm-consultation"
           >
             {mutation.isPending ? "Sending…" : "Confirm and send"}
@@ -267,7 +281,16 @@ export function ConsultationForm({ onRevise }: ConsultationFormProps = {}) {
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit((data) => setPendingData(data))}
+        onSubmit={form.handleSubmit((data) => {
+          if (isMobile) {
+            mutation.mutate({
+              data,
+              confirmEstimate: !!estimate && decision !== "dropped",
+            });
+            return;
+          }
+          setPendingData(data);
+        })}
         className="space-y-5"
       >
         {estimate && decision !== "dropped" && (

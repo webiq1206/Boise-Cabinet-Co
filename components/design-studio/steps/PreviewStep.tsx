@@ -1,20 +1,19 @@
 "use client";
 
 import { VisualizeStep } from "./VisualizeStep";
-import { SaveStep } from "./SaveStep";
 import { wizardCopy } from "@/shared/designStudioCopy";
 
-export function FinishStep() {
+export function PreviewStep() {
   return (
-    <div className="space-y-10">
+    <div className="space-y-8">
       <div>
         <h2 className="text-2xl font-sans font-light tracking-tight">
-          Preview & <em className="brc-accent text-accent">save</em>
+          {wizardCopy.previewStepTitle.split(" ")[0]}{" "}
+          <em className="brc-accent text-accent">design</em>
         </h2>
-        <p className="text-muted-foreground mt-2">{wizardCopy.finishHint}</p>
+        <p className="text-muted-foreground mt-2">{wizardCopy.previewStepHint}</p>
       </div>
       <VisualizeStep embedded />
-      <SaveStep embedded />
     </div>
   );
 }

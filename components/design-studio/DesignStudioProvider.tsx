@@ -29,6 +29,7 @@ import {
   type DesignSnapshot,
   type SavedVersion,
 } from "@/lib/design/designSerialization";
+import { trackDesignEvent } from "@/lib/design/designAnalytics";
 
 const VERSION_GROUP_STORAGE_KEY = "brc-design-version-group";
 export const PORTAL_PROJECT_STORAGE_KEY = "brc-portal-project-id";
@@ -349,8 +350,10 @@ export function DesignStudioProvider({
         case 3:
           return design.doorStyle !== null && design.finish !== null;
         case 4:
+        case 5:
           return (
             design.roomType !== null &&
+            isScannedRoom(design.roomMeta) &&
             design.layout !== null &&
             design.collection !== null &&
             design.doorStyle !== null &&
@@ -404,6 +407,7 @@ export function DesignStudioProvider({
         linkedProjectId: data.linkedProjectId ?? null,
       };
     } catch {
+      trackDesignEvent("save_failed");
       return null;
     } finally {
       setIsSaving(false);

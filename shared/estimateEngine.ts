@@ -247,7 +247,7 @@ export function getVisibleSteps(project: ProjectType): SelectionStepKey[] {
   const steps: SelectionStepKey[] = [];
   if (vis.layout) steps.push("layout");
   steps.push("size", "line");
-  if (vis.doorStyle) steps.push("doorStyle", "finishColor");
+  if (vis.doorStyle) steps.push("doorStyle");
   steps.push("finish", "construction", "storage");
   return steps;
 }
@@ -488,10 +488,28 @@ export const APPLIANCE_DISCLAIMER =
   "Appliances are client-supplied; we'll guide your selection but do not purchase or install them.";
 
 export const PLANNING_DETAIL_LABELS: Record<ConfidenceLevel, string> = {
-  starting: "Starting guidance",
+  starting: "Example range — personalize below",
   refined: "Refined guidance",
   detailed: "Detailed planning range",
 };
+
+/** Maps estimator project types to consultation form select values. */
+export function mapEstimateProjectToConsultType(project: ProjectType): string {
+  switch (project) {
+    case "kitchen":
+      return "kitchen";
+    case "bathroom":
+      return "bathroom";
+    case "whole-home":
+      return "other";
+    case "addition":
+      return "closet";
+    case "adu":
+      return "laundry";
+    default:
+      return "other";
+  }
+}
 
 // ── Defaults ────────────────────────────────────────────────────────────────
 

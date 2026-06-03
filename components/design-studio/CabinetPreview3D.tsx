@@ -57,6 +57,8 @@ interface SceneProps {
   roomBounds?: RoomBounds | null;
   /** When provided, the scene wires capture (screenshot/video) handlers here. */
   captureApiRef?: CaptureApiRef;
+  /** Lighter scene for phones (fewer shadows / env). */
+  mobileQuality?: boolean;
 }
 
 const GAP = 0.014;
@@ -578,6 +580,7 @@ function Scene({
   resetSignal,
   roomBounds,
   captureApiRef,
+  mobileQuality,
 }: SceneProps) {
   const controlsRef = useRef<any>(null);
   const floorW = roomBounds
@@ -590,7 +593,11 @@ function Scene({
   return (
     <>
       <ambientLight intensity={0.55} />
-      <directionalLight position={[4, 6, 3]} intensity={1.15} castShadow />
+      <directionalLight
+        position={[4, 6, 3]}
+        intensity={1.15}
+        castShadow={!mobileQuality}
+      />
       <directionalLight position={[-3, 4, -2]} intensity={0.35} />
 
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]} receiveShadow>
@@ -614,8 +621,12 @@ function Scene({
         />
       ))}
 
-      <ContactShadows position={[0, 0.01, 0]} opacity={0.35} scale={9} blur={2.2} />
-      <Environment preset="apartment" />
+      {!mobileQuality && (
+        <>
+          <ContactShadows position={[0, 0.01, 0]} opacity={0.35} scale={9} blur={2.2} />
+          <Environment preset="apartment" />
+        </>
+      )}
 
       <CameraRig viewMode={viewMode} resetSignal={resetSignal} controlsRef={controlsRef} />
       {captureApiRef && (
@@ -637,9 +648,15 @@ function Scene({
 export function CabinetScene3D(props: SceneProps) {
   return (
     <Canvas
-      shadows
+      shadows={!props.mobileQuality}
+      dpr={props.mobileQuality ? [1, 1.5] : undefined}
       camera={{ position: [3.6, 2.3, 3.6], fov: 42 }}
-      gl={{ antialias: true, alpha: true, preserveDrawingBuffer: true }}
+      gl={{
+        antialias: !props.mobileQuality,
+        alpha: true,
+        preserveDrawingBuffer: true,
+        powerPreference: props.mobileQuality ? "low-power" : "high-performance",
+      }}
       style={{ background: "linear-gradient(180deg, #f8f5f0 0%, #ebe6df 100%)" }}
       onPointerMissed={() => props.onSelect(null)}
     >

@@ -9,19 +9,23 @@ import { RoomSetupStep } from "./steps/RoomSetupStep";
 import { LayoutStep } from "./steps/LayoutStep";
 import { CollectionStep } from "./steps/CollectionStep";
 import { LookStep } from "./steps/LookStep";
-import { FinishStep } from "./steps/FinishStep";
+import { PreviewStep } from "./steps/PreviewStep";
+import { QuoteStep } from "./steps/QuoteStep";
 import { LivePreviewPanel } from "./LivePreviewPanel";
 import { ScannedRoomPreview } from "./ScannedRoomPreview";
 import { Button } from "@/components/ui/button";
-import { ChevronLeft, ChevronRight, Check, Eye, ChevronUp } from "lucide-react";
+import { ChevronUp, Eye } from "lucide-react";
 import { wizardCopy } from "@/shared/designStudioCopy";
+import { GuidedFlowShell } from "@/components/guided-flow";
+import type { GuidedStep } from "@/components/guided-flow";
 
-export const WIZARD_STEPS = [
+export const WIZARD_STEPS: readonly GuidedStep[] = [
   { id: "room", label: "Measure room", shortLabel: "Room" },
   { id: "layout", label: "Kitchen shape", shortLabel: "Layout" },
   { id: "collection", label: "Cabinet line", shortLabel: "Line" },
   { id: "look", label: "Colors & hardware", shortLabel: "Look" },
-  { id: "finish", label: "Preview & quote", shortLabel: "Quote" },
+  { id: "preview", label: "3D preview", shortLabel: "Preview" },
+  { id: "quote", label: "Save & quote", shortLabel: "Quote" },
 ] as const;
 
 const STEP_COMPONENTS = [
@@ -29,8 +33,9 @@ const STEP_COMPONENTS = [
   LayoutStep,
   CollectionStep,
   LookStep,
-  FinishStep,
-];
+  PreviewStep,
+  QuoteStep,
+] as const;
 
 interface DesignWizardProps {
   className?: string;
@@ -48,12 +53,6 @@ export function DesignWizard({ className }: DesignWizardProps) {
   const previewReady =
     isScannedRoom(design.roomMeta) || design.layout !== null;
 
-  useEffect(() => {
-    if (previewReady && design.layout) {
-      setMobilePreviewOpen(true);
-    }
-  }, [previewReady, design.layout]);
-
   const StepComponent = STEP_COMPONENTS[currentStep];
   const isFirst = currentStep === 0;
   const isLast = currentStep === WIZARD_STEPS.length - 1;
@@ -69,63 +68,9 @@ export function DesignWizard({ className }: DesignWizardProps) {
     setCurrentStep((s) => s - 1);
   };
 
-  const stepNav = (
-    <nav aria-label="Design wizard progress" className="mb-8">
-      <ol className="flex items-center justify-between gap-1 overflow-x-auto pb-2">
-        {WIZARD_STEPS.map((step, index) => {
-          const done = index < currentStep || (index === currentStep && isStepComplete(index));
-          const active = index === currentStep;
-
-          return (
-            <li key={step.id} className="flex flex-1 items-center min-w-0">
-              <button
-                type="button"
-                onClick={() => index <= currentStep && setCurrentStep(index)}
-                disabled={index > currentStep}
-                className={cn(
-                  "flex flex-col items-center gap-1.5 w-full group",
-                  index > currentStep && "cursor-not-allowed opacity-50",
-                )}
-              >
-                <span
-                  className={cn(
-                    "flex h-8 w-8 shrink-0 items-center justify-center rounded-full border-2 text-xs font-medium transition-colors",
-                    active && "border-primary bg-primary text-primary-foreground",
-                    done && !active && "border-primary bg-primary/10 text-primary",
-                    !done && !active && "border-border bg-muted text-muted-foreground",
-                  )}
-                >
-                  {done && !active ? <Check className="h-3.5 w-3.5" /> : index + 1}
-                </span>
-                <span
-                  className={cn(
-                    "text-[10px] sm:text-xs truncate max-w-full",
-                    active ? "font-semibold text-foreground" : "text-muted-foreground",
-                  )}
-                >
-                  <span className="hidden sm:inline">{step.label}</span>
-                  <span className="sm:hidden">{step.shortLabel}</span>
-                </span>
-              </button>
-              {index < WIZARD_STEPS.length - 1 && (
-                <div
-                  className={cn(
-                    "hidden sm:block h-0.5 flex-1 mx-1 min-w-[1rem]",
-                    index < currentStep ? "bg-primary" : "bg-border",
-                  )}
-                  aria-hidden
-                />
-              )}
-            </li>
-          );
-        })}
-      </ol>
-    </nav>
-  );
-
   const previewPanel = previewReady ? (
     design.layout ? (
-      <LivePreviewPanel />
+      <LivePreviewPanel deferMount={!isDesktop && !mobilePreviewOpen} />
     ) : (
       <ScannedRoomPreview />
     )
@@ -135,39 +80,69 @@ export function DesignWizard({ className }: DesignWizardProps) {
     </div>
   );
 
-  const stepBody = (
-    <>
-      {stepNav}
-      <div className="flex-1 min-h-[320px]">
-        <StepComponent />
-      </div>
-      <div className="flex items-center justify-between gap-4 mt-8 pt-6 border-t">
-        <Button variant="outline" onClick={goBack} disabled={isFirst}>
-          <ChevronLeft className="h-4 w-4" />
-          Back
+  const mobilePreviewToggle =
+    !isDesktop && previewReady ? (
+      <div className="mb-6">
+        <Button
+          variant="outline"
+          className="w-full justify-between min-h-11"
+          onClick={() => setMobilePreviewOpen((o) => !o)}
+          data-testid="button-toggle-mobile-preview"
+        >
+          <span className="flex items-center gap-2">
+            <Eye className="h-4 w-4" />
+            {mobilePreviewOpen ? "Hide live preview" : "Show live preview"}
+          </span>
+          <ChevronUp
+            className={cn(
+              "h-4 w-4 transition-transform",
+              mobilePreviewOpen ? "" : "rotate-180",
+            )}
+          />
         </Button>
-        {!isLast ? (
-          <Button variant="brand" onClick={goNext} disabled={!canAdvance}>
-            Continue
-            <ChevronRight className="h-4 w-4" />
-          </Button>
-        ) : (
+        {mobilePreviewOpen && <div className="mt-3">{previewPanel}</div>}
+      </div>
+    ) : null;
+
+  const shell = (
+    <GuidedFlowShell
+      steps={WIZARD_STEPS}
+      currentIndex={currentStep}
+      isStepComplete={isStepComplete}
+      onStepClick={(index) => index <= currentStep && setCurrentStep(index)}
+      onBack={goBack}
+      onNext={
+        isLast
+          ? () => {
+              document.getElementById("request-pricing")?.scrollIntoView({ behavior: "smooth" });
+            }
+          : goNext
+      }
+      isFirst={isFirst}
+      isLast={isLast}
+      canAdvance={canAdvance || isLast}
+      continueLabel={isLast ? "Go to pricing form" : "Continue"}
+      headerExtra={mobilePreviewToggle}
+      mobileStickyFooter={
+        isLast ? (
           <Button
             variant="brand"
+            className="w-full min-h-11"
             onClick={() => {
               document.getElementById("request-pricing")?.scrollIntoView({ behavior: "smooth" });
             }}
           >
             Save & request quote
-            <ChevronRight className="h-4 w-4" />
           </Button>
-        )}
-      </div>
-    </>
+        ) : undefined
+      }
+    >
+      <StepComponent />
+    </GuidedFlowShell>
   );
 
   if (!mounted) {
-    return <div className={cn("flex flex-col", className)}>{stepBody}</div>;
+    return <div className={cn("flex flex-col", className)}>{shell}</div>;
   }
 
   if (isDesktop) {
@@ -178,50 +153,11 @@ export function DesignWizard({ className }: DesignWizardProps) {
           className,
         )}
       >
-        <div className="flex flex-col min-w-0">{stepBody}</div>
+        <div className="flex flex-col min-w-0">{shell}</div>
         <div className="sticky top-20">{previewPanel}</div>
       </div>
     );
   }
 
-  return (
-    <div className={cn("flex flex-col", className)}>
-      {previewReady && (
-        <div className="mb-6">
-          <Button
-            variant="outline"
-            className="w-full justify-between"
-            onClick={() => setMobilePreviewOpen((o) => !o)}
-            data-testid="button-toggle-mobile-preview"
-          >
-            <span className="flex items-center gap-2">
-              <Eye className="h-4 w-4" />
-              {mobilePreviewOpen ? "Hide live preview" : "Show live preview"}
-            </span>
-            <ChevronUp
-              className={cn(
-                "h-4 w-4 transition-transform",
-                mobilePreviewOpen ? "" : "rotate-180",
-              )}
-            />
-          </Button>
-          {mobilePreviewOpen && <div className="mt-3">{previewPanel}</div>}
-        </div>
-      )}
-      {stepBody}
-      {isLast && (
-        <div className="fixed bottom-0 inset-x-0 z-30 border-t bg-background/95 backdrop-blur p-4 md:hidden">
-          <Button
-            variant="brand"
-            className="w-full"
-            onClick={() => {
-              document.getElementById("request-pricing")?.scrollIntoView({ behavior: "smooth" });
-            }}
-          >
-            Save & request quote
-          </Button>
-        </div>
-      )}
-    </div>
-  );
+  return <div className={cn("flex flex-col", className)}>{shell}</div>;
 }

@@ -232,6 +232,7 @@ export function RoomScanPanel() {
         description: `${data.widthIn}" × ${data.depthIn}"`,
       });
     } catch (e) {
+      trackDesignEvent("scan_failed", { method: "vision-scan" });
       toast({
         title: scanCopy.photoFailed,
         description:
@@ -314,6 +315,116 @@ export function RoomScanPanel() {
               {scanCopy.panelTitle}
             </h3>
             <p className="text-sm text-muted-foreground mt-2">{scanCopy.panelHint}</p>
+            <p className="text-xs text-muted-foreground mt-1">{scanCopy.typeSizeHint}</p>
+
+            <div className="mt-4 rounded-md border bg-card p-4 space-y-3">
+              <p className="text-sm font-medium">{scanCopy.typeSizePrimary}</p>
+              <div className="grid grid-cols-2 gap-3">
+                <div className="space-y-1">
+                  <Label htmlFor="manual-w-primary" className="text-xs">
+                    Width (in)
+                  </Label>
+                  <Input
+                    id="manual-w-primary"
+                    type="number"
+                    inputMode="numeric"
+                    placeholder="144"
+                    className="min-h-11 text-base"
+                    defaultValue={design.roomMeta?.widthIn || ""}
+                    onChange={(e) =>
+                      updateDesign({
+                        roomMeta: {
+                          widthIn: Number(e.target.value) || 0,
+                          depthIn: design.roomMeta?.depthIn ?? 0,
+                          obstacles: [],
+                          userConfirmed: false,
+                          source: "manual",
+                        },
+                      })
+                    }
+                    data-testid="input-manual-width"
+                  />
+                </div>
+                <div className="space-y-1">
+                  <Label htmlFor="manual-d-primary" className="text-xs">
+                    Depth (in)
+                  </Label>
+                  <Input
+                    id="manual-d-primary"
+                    type="number"
+                    inputMode="numeric"
+                    placeholder="168"
+                    className="min-h-11 text-base"
+                    defaultValue={design.roomMeta?.depthIn || ""}
+                    onChange={(e) =>
+                      updateDesign({
+                        roomMeta: {
+                          widthIn: design.roomMeta?.widthIn ?? 0,
+                          depthIn: Number(e.target.value) || 0,
+                          obstacles: [],
+                          userConfirmed: false,
+                          source: "manual",
+                        },
+                      })
+                    }
+                    data-testid="input-manual-depth"
+                  />
+                </div>
+              </div>
+              <div className="flex flex-col sm:flex-row gap-2">
+                <Button
+                  type="button"
+                  variant="brandOutline"
+                  className="min-h-11 flex-1"
+                  disabled={!roomSelected}
+                  onClick={applyManualDims}
+                  data-testid="button-apply-manual-dims"
+                >
+                  {scanCopy.manualApply}
+                </Button>
+                <Button
+                  type="button"
+                  variant="outline"
+                  className="min-h-11 flex-1"
+                  disabled={!roomSelected}
+                  onClick={() => {
+                    updateDesign({
+                      roomMeta: {
+                        widthIn: 144,
+                        depthIn: 168,
+                        ceilingIn: 96,
+                        obstacles: [],
+                        userConfirmed: false,
+                        source: "manual",
+                      },
+                    });
+                    const roomMeta: RoomMeta = {
+                      widthIn: 144,
+                      depthIn: 168,
+                      ceilingIn: 96,
+                      obstacles: [],
+                      userConfirmed: true,
+                      source: "manual",
+                      scanConfidence: "medium",
+                    };
+                    const wm = 144 * 0.0254;
+                    const dm = 168 * 0.0254;
+                    applyScan(roomMeta, {
+                      minX: -wm / 2,
+                      maxX: wm / 2,
+                      minZ: -dm / 2,
+                      maxZ: dm / 2,
+                    });
+                    trackDesignEvent("scan_completed", { method: "typical-preset" });
+                  }}
+                  data-testid="button-typical-kitchen-size"
+                >
+                  {scanCopy.typicalKitchen}
+                </Button>
+              </div>
+            </div>
+
+            <p className="text-xs text-center text-muted-foreground mt-4">or scan with your phone</p>
 
             {arAlert && (
               <Alert variant="destructive" className="mt-4">

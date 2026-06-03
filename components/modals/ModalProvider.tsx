@@ -55,7 +55,7 @@ export function ModalProvider({ children }: { children: React.ReactNode }) {
       </Dialog>
 
       <Dialog open={open === "estimate"} onOpenChange={(v) => !v && close()}>
-        <DialogContent className="max-w-4xl w-[95vw] max-h-[90vh] overflow-y-auto">
+        <DialogContent className="max-w-4xl w-[100vw] sm:w-[95vw] max-h-[100dvh] sm:max-h-[90vh] h-[100dvh] sm:h-auto overflow-y-auto rounded-none sm:rounded-lg">
           <DialogHeader>
             <DialogTitle className="font-sans font-light text-xl text-foreground">
               Get your planning range

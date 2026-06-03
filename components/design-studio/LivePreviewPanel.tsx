@@ -13,6 +13,8 @@ import { useDesignStudio } from "./DesignStudioProvider";
 import { buildPreviewConfig } from "@/lib/design/previewConfig";
 import type { CaptureApi, ViewMode } from "./CabinetPreview3D";
 import { hardwareSpec, makeResolveModule } from "@/lib/design/resolveDesignStyles";
+import { trackDesignEvent } from "@/lib/design/designAnalytics";
+import { useIsMobile } from "@/hooks/use-media-query";
 import { DOOR_STYLES, DOOR_STYLE_BY_SLUG } from "@/shared/catalog/doorStyles";
 import { FINISHES, FINISH_BY_SLUG } from "@/shared/catalog/finishes";
 import { Button } from "@/components/ui/button";
@@ -41,12 +43,15 @@ const CabinetScene3D = dynamic(
 );
 
 class WebGLBoundary extends Component<
-  { children: ReactNode; fallback: ReactNode },
+  { children: ReactNode; fallback: ReactNode; onFail?: () => void },
   { failed: boolean }
 > {
   state = { failed: false };
   static getDerivedStateFromError() {
     return { failed: true };
+  }
+  componentDidCatch() {
+    this.props.onFail?.();
   }
   render() {
     if (this.state.failed) return this.props.fallback;
@@ -58,9 +63,12 @@ interface LivePreviewPanelProps {
   className?: string;
   /** When true, render at a taller fixed height (mobile expanded sheet). */
   compact?: boolean;
+  /** Skip WebGL mount until user opens preview (mobile). */
+  deferMount?: boolean;
 }
 
-export function LivePreviewPanel({ className, compact }: LivePreviewPanelProps) {
+export function LivePreviewPanel({ className, compact, deferMount }: LivePreviewPanelProps) {
+  const isMobile = useIsMobile();
   const {
     design,
     updateModuleOverride,
@@ -70,6 +78,7 @@ export function LivePreviewPanel({ className, compact }: LivePreviewPanelProps) 
   const [viewMode, setViewMode] = useState<ViewMode>("orbit");
   const [resetSignal, setResetSignal] = useState(0);
   const [isRecording, setIsRecording] = useState(false);
+  const [webglRetry, setWebglRetry] = useState(0);
   const captureApiRef = useRef<CaptureApi | null>(null);
   const { toast } = useToast();
   const selectedId = design.selectedModuleId;
@@ -155,6 +164,34 @@ export function LivePreviewPanel({ className, compact }: LivePreviewPanelProps) 
     selectedOverride?.doorStyle ?? design.doorStyle ?? "slab";
   const activeFinish = selectedOverride?.finish ?? design.finish;
 
+  if (deferMount) {
+    return (
+      <div
+        className={cn(
+          "flex flex-col rounded-md border bg-card overflow-hidden aspect-[4/3] items-center justify-center p-6 text-center",
+          className,
+        )}
+        data-testid="panel-live-preview-deferred"
+      >
+        <p className="text-sm text-muted-foreground">
+          Tap &quot;Show live preview&quot; above to load the 3D view.
+        </p>
+      </div>
+    );
+  }
+
+  const webglFallback = (
+    <div className="h-full w-full flex flex-col items-center justify-center bg-muted p-6 text-center gap-3">
+      <p className="text-sm text-muted-foreground">
+        Your browser can&apos;t show the 3D preview. You can still save your design
+        and request pricing.
+      </p>
+      <Button variant="outline" size="sm" onClick={() => setWebglRetry((n) => n + 1)}>
+        Try again
+      </Button>
+    </div>
+  );
+
   return (
     <div
       className={cn(
@@ -175,15 +212,17 @@ export function LivePreviewPanel({ className, compact }: LivePreviewPanelProps) 
             <Box className="h-4 w-4" />
             <span className="hidden sm:inline">Orbit</span>
           </Button>
-          <Button
-            variant={viewMode === "walk" ? "default" : "ghost"}
-            size="sm"
-            onClick={() => setViewMode("walk")}
-            data-testid="button-view-walk"
-          >
-            <PersonStanding className="h-4 w-4" />
-            <span className="hidden sm:inline">Walk</span>
-          </Button>
+          {!isMobile && (
+            <Button
+              variant={viewMode === "walk" ? "default" : "ghost"}
+              size="sm"
+              onClick={() => setViewMode("walk")}
+              data-testid="button-view-walk"
+            >
+              <PersonStanding className="h-4 w-4" />
+              <span className="hidden sm:inline">Walk</span>
+            </Button>
+          )}
           <Button
             variant="ghost"
             size="icon"
@@ -207,10 +246,11 @@ export function LivePreviewPanel({ className, compact }: LivePreviewPanelProps) 
             variant="ghost"
             size="icon"
             onClick={handleRecord}
-            disabled={isRecording}
+            disabled={isRecording || isMobile}
             aria-label="Record turntable video"
-            title="Record a rotating video"
+            title={isMobile ? "Video capture not available on mobile" : "Record a rotating video"}
             data-testid="button-capture-video"
+            className={isMobile ? "hidden" : undefined}
           >
             {isRecording ? (
               <Loader2 className="h-4 w-4 animate-spin" />
@@ -221,19 +261,20 @@ export function LivePreviewPanel({ className, compact }: LivePreviewPanelProps) 
         </div>
       </div>
 
-      <div className={cn("relative w-full", compact ? "h-[44vh]" : "aspect-[4/3]")}>
+      <div
+        className={cn(
+          "relative w-full touch-none",
+          compact ? "h-[50dvh] max-h-[420px]" : "aspect-[4/3]",
+        )}
+      >
         <WebGLBoundary
-          fallback={
-            <div className="h-full w-full flex items-center justify-center bg-muted p-6 text-center">
-              <p className="text-sm text-muted-foreground">
-                Your browser can&apos;t show the 3D preview. You can still configure
-                your design and overlay finishes on a room photo in the Visualize step.
-              </p>
-            </div>
-          }
+          key={webglRetry}
+          fallback={webglFallback}
+          onFail={() => trackDesignEvent("webgl_error")}
         >
           <CabinetScene3D
             config={config}
+            mobileQuality={isMobile}
             resolveModule={resolveModule}
             hardware={hardware}
             accessories={design.accessories}
@@ -329,9 +370,11 @@ export function LivePreviewPanel({ className, compact }: LivePreviewPanelProps) 
       <p className="px-3 py-2 text-[11px] text-muted-foreground border-t">
         {selectedId
           ? "Adjust this cabinet, or tap empty space to deselect."
-          : viewMode === "walk"
-            ? "Drag to look around · Scroll to move · Tap a cabinet to customize it."
-            : "Drag to rotate · Scroll to zoom · Tap a cabinet to customize it."}
+          : isMobile
+            ? "Pinch to zoom · Drag to orbit · Tap a cabinet to customize."
+            : viewMode === "walk"
+              ? "Drag to look around · Scroll to move · Tap a cabinet to customize it."
+              : "Drag to rotate · Scroll to zoom · Tap a cabinet to customize it."}
       </p>
     </div>
   );

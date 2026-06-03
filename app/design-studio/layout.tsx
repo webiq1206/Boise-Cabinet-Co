@@ -7,7 +7,7 @@ export const metadata: Metadata = {
 
 export default function DesignStudioLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="min-h-screen bg-background flex flex-col">
+    <div className="min-h-dvh bg-background flex flex-col pb-[env(safe-area-inset-bottom)]">
       {children}
     </div>
   );

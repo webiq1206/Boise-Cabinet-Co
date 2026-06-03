@@ -6,21 +6,16 @@ test.describe("Design Studio scan-first flow", () => {
     await expect(page.getByTestId("room-scan-panel")).toBeVisible();
 
     await page.getByTestId("button-room-kitchen").click();
-    await expect(
-      page.getByText(/Room size saved|Scan your room/i),
-    ).toBeVisible({ timeout: 15_000 });
+    await expect(page.getByText("Room size saved").first()).toBeVisible({
+      timeout: 15_000,
+    });
 
     await page.getByRole("button", { name: "Continue" }).click();
-    await expect(page.getByText(/Pick a layout/i)).toBeVisible({
+    await expect(page.getByText(/Kitchen shape|Pick a layout/i).first()).toBeVisible({
       timeout: 10_000,
     });
 
-    const layoutBtn = page.getByTestId("button-layout-l-shape").or(
-      page.getByTestId(/^button-layout-/).first(),
-    );
-    if (await layoutBtn.isEnabled()) {
-      await layoutBtn.click();
-    }
+    await page.getByTestId(/^button-layout-/).first().click();
   });
 
   test("room step blocks continue without scan when fixture omitted", async ({

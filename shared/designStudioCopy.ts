@@ -8,7 +8,10 @@ export const scanCopy = {
   tryDifferent: "Try a different way",
   measureWithCamera: "Measure with phone camera",
   takePhoto: "Take a room photo",
-  typeSizeAdvanced: "Type room size (advanced)",
+  typeSizePrimary: "Enter room size",
+  typeSizeHint: "Scan optional — we'll verify exact sizes at your home visit.",
+  typicalKitchen: "Use typical kitchen size (12×14 ft)",
+  typeSizeAdvanced: "More scan options",
   traceWalls: "L- or U-shaped room? Trace the walls",
   roomCaptured: "Room size saved",
   scanAgain: "Scan again",
@@ -51,7 +54,12 @@ export const scanCopy = {
 
 export const wizardCopy = {
   roomSetupTitle: "Your room",
-  roomSetupHint: "Pick a room, then tap Scan your room.",
+  roomSetupHint: "Pick a room, then scan or enter your room size to continue.",
+  roomWhatNext: "Next you'll pick a layout that fits your space.",
+  previewStepTitle: "Preview your design",
+  previewStepHint: "Orbit the 3D view, then continue to save and request pricing.",
+  saveStepTitle: "Save & request quote",
+  saveStepHint: "Name your design and send it to our team.",
   layoutNeedScan: "Scan your room first",
   layoutNeedScanHint:
     "Go back and scan your room so we can show layouts that fit.",
