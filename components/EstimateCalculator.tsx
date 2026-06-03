@@ -28,6 +28,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import Image from "next/image";
+import { LAYOUT_DIAGRAM_SVG } from "@/shared/catalog/generated/layoutDiagrams";
 import { cn } from "@/lib/utils";
 import { DisplayNum, Section } from "@/components/marketing";
 import {
@@ -50,6 +51,7 @@ import {
   getLayoutOptions,
   getCabinetLineOptions,
   getDoorStyleOptions,
+  getFinishTint,
   FINISH_CATEGORY_OPTIONS,
   FINISH_TIER_OPTIONS,
   CONSTRUCTION_OPTIONS,
@@ -90,11 +92,26 @@ function OptionVisual({
   image,
   imageAlt,
   icon,
+  svg,
+  svgStyle,
 }: {
   image?: string;
   imageAlt?: string;
   icon?: string;
+  svg?: string;
+  svgStyle?: React.CSSProperties;
 }) {
+  if (svg) {
+    return (
+      <div
+        role="img"
+        aria-label={imageAlt ?? ""}
+        style={svgStyle}
+        className="relative w-full aspect-[4/3] mb-2.5 overflow-hidden rounded-sm bg-muted [&>svg]:h-full [&>svg]:w-full [&>svg]:object-cover"
+        dangerouslySetInnerHTML={{ __html: svg }}
+      />
+    );
+  }
   if (image) {
     return (
       <div className="relative w-full aspect-[4/3] mb-2.5 overflow-hidden rounded-sm bg-muted">
@@ -125,11 +142,15 @@ function SelectButton<T extends string>({
   options,
   onChange,
   testIdPrefix,
+  svgByValue,
+  svgStyle,
 }: {
   value: T;
   options: SelectOption<T>[];
   onChange: (v: T) => void;
   testIdPrefix: string;
+  svgByValue?: Record<string, string>;
+  svgStyle?: React.CSSProperties;
 }) {
   return (
     <div className="grid grid-cols-2 gap-2">
@@ -150,7 +171,13 @@ function SelectButton<T extends string>({
             {active && (
               <Check className="absolute top-2.5 right-2.5 h-3.5 w-3.5 text-foreground z-10" />
             )}
-            <OptionVisual image={opt.image} imageAlt={opt.imageAlt} icon={opt.icon} />
+            <OptionVisual
+              image={opt.image}
+              imageAlt={opt.imageAlt}
+              icon={opt.icon}
+              svg={svgByValue?.[opt.value]}
+              svgStyle={svgStyle}
+            />
             <span className="font-medium text-xs text-foreground pr-5">{opt.label}</span>
             {opt.sub && (
               <span className="text-[11px] leading-snug text-muted-foreground">{opt.sub}</span>
@@ -273,6 +300,20 @@ export function EstimateCalculator({ inModal = false, onBookVisit: onBookVisitPr
   const lineOptions = getCabinetLineOptions();
   const doorOptions = getDoorStyleOptions();
 
+  // Tint the layout diagram cabinet runs to roughly match the selected finish,
+  // but only once the homeowner has actually chosen a finish. Before then the
+  // diagrams keep their default terracotta (the SVG var() fallbacks).
+  const layoutTintStyle = touched.has("finish")
+    ? (() => {
+        const tint = getFinishTint(selections.finishCategory, selections.finishTier);
+        return {
+          "--cab-fill": tint.fill,
+          "--cab-stroke": tint.stroke,
+          "--cab-island": tint.island,
+        } as React.CSSProperties;
+      })()
+    : undefined;
+
   const steps = (
     <div className="space-y-8">
       <div>
@@ -313,6 +354,8 @@ export function EstimateCalculator({ inModal = false, onBookVisit: onBookVisitPr
             options={layoutOptions}
             onChange={(v) => updateField("layout", v, "layout")}
             testIdPrefix="button-layout"
+            svgByValue={LAYOUT_DIAGRAM_SVG}
+            svgStyle={layoutTintStyle}
           />
         </div>
       )}

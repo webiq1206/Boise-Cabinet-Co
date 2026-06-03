@@ -355,6 +355,59 @@ const FINISH_TIER_LABEL: Record<FinishTier, string> = {
 const FINISH_CATEGORY_LABEL: Record<FinishCategory, string> = {
   matte: "matte", woodgrain: "woodgrain", gloss: "high-gloss",
 };
+
+/**
+ * Approximate cabinet tint used to recolor the layout floor-plan diagrams so
+ * they roughly reflect the homeowner's selected finish. The estimator only
+ * captures a finish style (sheen) and color tier, not a specific named color,
+ * so these are representative tones matched to the finish-style swatches rather
+ * than a literal swatch. Returned as CSS custom property values consumed by the
+ * generated diagram SVGs (--cab-fill / --cab-stroke / --cab-island).
+ */
+export interface FinishTint {
+  fill: string;
+  stroke: string;
+  island: string;
+}
+
+const FINISH_TINT_BASE: Record<FinishCategory, string> = {
+  matte: "#8C8073", // soft warm greige
+  woodgrain: "#B0814F", // natural oak
+  gloss: "#34343A", // deep reflective charcoal
+};
+
+// Reserve colors read deeper/richer; premium slightly deeper than standard.
+const FINISH_TIER_SHADE: Record<FinishTier, number> = {
+  standard: 0,
+  premium: -0.06,
+  reserve: -0.12,
+};
+
+function shadeHex(hex: string, amount: number): string {
+  const m = /^#?([0-9a-f]{6})$/i.exec(hex.trim());
+  if (!m) return hex;
+  const num = parseInt(m[1], 16);
+  const clamp = (v: number) => Math.max(0, Math.min(255, Math.round(v)));
+  const adjust = (channel: number) =>
+    amount >= 0 ? channel + (255 - channel) * amount : channel * (1 + amount);
+  const r = clamp(adjust((num >> 16) & 0xff));
+  const g = clamp(adjust((num >> 8) & 0xff));
+  const b = clamp(adjust(num & 0xff));
+  return `#${((r << 16) | (g << 8) | b).toString(16).padStart(6, "0")}`;
+}
+
+export function getFinishTint(
+  category: FinishCategory,
+  tier: FinishTier,
+): FinishTint {
+  const fill = shadeHex(FINISH_TINT_BASE[category], FINISH_TIER_SHADE[tier] ?? 0);
+  return {
+    fill,
+    stroke: shadeHex(fill, -0.22),
+    island: shadeHex(fill, 0.12),
+  };
+}
+
 const STORAGE_SUMMARY_LABEL: Record<StorageTier, string> = {
   none: "Standard storage",
   essential: "Essential storage",
