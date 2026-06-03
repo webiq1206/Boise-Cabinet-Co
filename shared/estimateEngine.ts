@@ -264,19 +264,6 @@ export interface SelectOption<T extends string = string> {
   icon?: string;
 }
 
-/** Lucide icon key per layout slug (no catalog photos exist for layouts). */
-const LAYOUT_ICON: Record<string, string> = {
-  galley: "Columns2",
-  "l-shape": "LayoutDashboard",
-  "u-shape": "LayoutPanelLeft",
-  island: "Square",
-  peninsula: "Grid2x2",
-  "single-vanity": "Square",
-  "double-vanity": "Columns2",
-  "wall-run": "Rows2",
-  "floor-to-ceiling": "Container",
-};
-
 export function getLayoutOptions(project: ProjectType): SelectOption[] {
   return PROJECT_LAYOUT_SLUGS[project]
     .map((slug) => LAYOUT_BY_SLUG[slug])
@@ -285,7 +272,8 @@ export function getLayoutOptions(project: ProjectType): SelectOption[] {
       value: l.slug,
       label: l.name,
       sub: l.description,
-      icon: LAYOUT_ICON[l.slug] ?? "LayoutGrid",
+      image: l.image,
+      imageAlt: `${l.name} cabinet layout floor plan`,
     }));
 }
 

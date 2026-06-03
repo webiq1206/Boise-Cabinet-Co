@@ -1,0 +1,146 @@
+/**
+ * Generates top-down floor-plan diagrams (SVG) for each cabinet layout.
+ *
+ * Output: public/images/catalog/layouts/<slug>.svg
+ *
+ * These diagrams are shared by the Project Estimator ("Pick your layout") and
+ * the Design Studio layout step so homeowners see the actual shape of each
+ * configuration instead of a generic icon. Re-run after changing a layout:
+ *   node scripts/generate-layout-diagrams.mjs
+ */
+
+import { mkdirSync, writeFileSync } from "node:fs";
+import { dirname, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const OUT_DIR = resolve(__dirname, "../public/images/catalog/layouts");
+
+const W = 320;
+const H = 240;
+
+const FLOOR = "#F3ECDF";
+const WALL = "#8A7B66";
+const CAB = "#9F4F2D";
+const CAB_TOP = "#7E3E22";
+const ISLAND = "#B5673F";
+const SINK_STROKE = "#5A4E3E";
+const DIVIDER = "#00000022";
+
+const D = 22; // standard cabinet depth
+
+function cab(x, y, w, h, { fill = CAB, dividers = 0, vertical = false } = {}) {
+  let out = `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="2" fill="${fill}" stroke="${CAB_TOP}" stroke-width="1.5"/>`;
+  if (dividers > 0) {
+    for (let i = 1; i < dividers; i++) {
+      if (vertical) {
+        const yy = (y + (h / dividers) * i).toFixed(1);
+        out += `<line x1="${x}" y1="${yy}" x2="${x + w}" y2="${yy}" stroke="${DIVIDER}" stroke-width="1"/>`;
+      } else {
+        const xx = (x + (w / dividers) * i).toFixed(1);
+        out += `<line x1="${xx}" y1="${y}" x2="${xx}" y2="${y + h}" stroke="${DIVIDER}" stroke-width="1"/>`;
+      }
+    }
+  }
+  return out;
+}
+
+function sink(cx, cy) {
+  const w = 26;
+  const h = 14;
+  return (
+    `<rect x="${cx - w / 2}" y="${cy - h / 2}" width="${w}" height="${h}" rx="3" fill="${FLOOR}" stroke="${SINK_STROKE}" stroke-width="1.5"/>` +
+    `<circle cx="${cx}" cy="${cy - h / 2 - 2}" r="1.6" fill="${SINK_STROKE}"/>`
+  );
+}
+
+function frame(inner) {
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" role="img">
+<rect x="14" y="14" width="${W - 28}" height="${H - 28}" rx="6" fill="${FLOOR}" stroke="${WALL}" stroke-width="3"/>
+${inner}
+</svg>`;
+}
+
+const diagrams = {
+  galley: () =>
+    frame(
+      [
+        cab(34, 20, 252, D),
+        cab(34, H - 20 - D, 252, D),
+        sink(160, 20 + D / 2),
+      ].join("\n"),
+    ),
+
+  "l-shape": () =>
+    frame(
+      [
+        cab(20, 36, D, 168),
+        cab(20, H - 20 - D, 220, D),
+        sink(150, H - 20 - D / 2),
+      ].join("\n"),
+    ),
+
+  "u-shape": () =>
+    frame(
+      [
+        cab(20, 36, D, 162),
+        cab(W - 20 - D, 36, D, 162),
+        cab(20, H - 20 - D, W - 40, D),
+        sink(160, H - 20 - D / 2),
+      ].join("\n"),
+    ),
+
+  island: () =>
+    frame(
+      [
+        cab(20, 20, 246, D),
+        cab(20, 20, D, 150),
+        cab(112, 116, 128, 54, { fill: ISLAND }),
+        sink(176, 143),
+      ].join("\n"),
+    ),
+
+  peninsula: () =>
+    frame(
+      [
+        cab(20, 40, D, 164),
+        cab(20, H - 20 - D, 232, D),
+        cab(170, 116, D, 86, { fill: ISLAND }),
+        sink(120, H - 20 - D / 2),
+      ].join("\n"),
+    ),
+
+  "single-vanity": () =>
+    frame(
+      [cab(86, H - 20 - 30, 148, 30), sink(160, H - 20 - 15)].join("\n"),
+    ),
+
+  "double-vanity": () =>
+    frame(
+      [
+        cab(40, H - 20 - 30, 240, 30),
+        sink(100, H - 20 - 15),
+        sink(220, H - 20 - 15),
+      ].join("\n"),
+    ),
+
+  "wall-run": () =>
+    frame(cab(34, 20, 252, D, { dividers: 6 })),
+
+  "floor-to-ceiling": () =>
+    frame(
+      [
+        cab(20, 20, W - 40, 34, { dividers: 7 }),
+        cab(20, 20, 34, 150, { dividers: 5, vertical: true }),
+      ].join("\n"),
+    ),
+};
+
+mkdirSync(OUT_DIR, { recursive: true });
+let count = 0;
+for (const [slug, build] of Object.entries(diagrams)) {
+  const file = resolve(OUT_DIR, `${slug}.svg`);
+  writeFileSync(file, build() + "\n", "utf8");
+  count++;
+}
+console.log(`Wrote ${count} layout diagrams to ${OUT_DIR}`);

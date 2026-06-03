@@ -33,6 +33,11 @@ const nextConfig = {
   images: {
     unoptimized: false,
     formats: ["image/avif", "image/webp"],
+    // Layout floor-plan diagrams in /public are first-party static SVGs. The CSP
+    // below sandboxes them and blocks any scripting when served by the optimizer.
+    dangerouslyAllowSVG: true,
+    contentDispositionType: 'attachment',
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
     remotePatterns: [
       {
         protocol: 'https',

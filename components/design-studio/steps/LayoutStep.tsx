@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo } from "react";
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -135,8 +136,14 @@ export function LayoutStep() {
                   Too large
                 </Badge>
               )}
-              <div className="aspect-[4/3] rounded-md bg-muted mb-3 flex items-center justify-center">
-                <LayoutIcon type={item.slug as LayoutSlug} selected={selected} />
+              <div className="relative aspect-[4/3] rounded-md bg-muted mb-3 overflow-hidden">
+                <Image
+                  src={item.image}
+                  alt={`${item.name} cabinet layout floor plan`}
+                  fill
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 320px"
+                  className="object-cover"
+                />
               </div>
               <p className="font-medium">{item.name}</p>
               <p className="text-sm text-muted-foreground mt-0.5">
@@ -203,49 +210,3 @@ export function LayoutStep() {
   );
 }
 
-function LayoutIcon({ type, selected }: { type: LayoutSlug; selected: boolean }) {
-  const fill = selected ? "bg-primary" : "bg-muted-foreground/30";
-  const previewType =
-    type === "single-vanity" || type === "double-vanity"
-      ? "peninsula"
-      : type === "wall-run" || type === "floor-to-ceiling"
-        ? "galley"
-        : type;
-
-  return (
-    <div className="w-16 h-12 relative">
-      {previewType === "galley" && (
-        <>
-          <div className={cn("absolute left-2 top-1 bottom-1 w-3 rounded-sm", fill)} />
-          <div className={cn("absolute right-2 top-1 bottom-1 w-3 rounded-sm", fill)} />
-        </>
-      )}
-      {previewType === "l-shape" && (
-        <>
-          <div className={cn("absolute left-1 top-1 bottom-1 w-3 rounded-sm", fill)} />
-          <div className={cn("absolute left-1 bottom-1 right-1 h-3 rounded-sm", fill)} />
-        </>
-      )}
-      {previewType === "u-shape" && (
-        <>
-          <div className={cn("absolute left-1 top-1 bottom-1 w-3 rounded-sm", fill)} />
-          <div className={cn("absolute right-1 top-1 bottom-1 w-3 rounded-sm", fill)} />
-          <div className={cn("absolute left-1 bottom-1 right-1 h-3 rounded-sm", fill)} />
-        </>
-      )}
-      {(previewType === "island" || previewType === "peninsula") && (
-        <>
-          <div className={cn("absolute left-1 top-1 bottom-4 w-3 rounded-sm", fill)} />
-          <div className={cn("absolute left-1 bottom-1 w-10 h-3 rounded-sm", fill)} />
-          <div
-            className={cn(
-              "absolute rounded-sm",
-              fill,
-              previewType === "island" ? "left-6 top-4 w-6 h-4" : "left-10 top-5 w-5 h-3",
-            )}
-          />
-        </>
-      )}
-    </div>
-  );
-}
