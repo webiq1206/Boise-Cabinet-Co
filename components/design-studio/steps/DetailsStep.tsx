@@ -1,34 +1,28 @@
 "use client";
 
-import { cn } from "@/lib/utils";
 import { useDesignStudio } from "../DesignStudioProvider";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Checkbox } from "@/components/ui/checkbox";
-import { HARDWARE_OPTIONS as CATALOG_HARDWARE } from "@/shared/catalog/hardware";
+import { ACCESSORY_FAMILIES, HARDWARE_OPTIONS as CATALOG_HARDWARE } from "@/shared/catalog";
+import {
+  getAccessoryFamilyImagePath,
+  getHardwareImagePath,
+} from "@/shared/catalog/catalogImages";
+import { VisualOptionGrid } from "@/components/catalog/visual";
 
 const SELECTABLE_HARDWARE_CATEGORIES = new Set(["pull", "knob", "handleless"]);
 
 const HARDWARE_OPTIONS = CATALOG_HARDWARE.filter((h) =>
   SELECTABLE_HARDWARE_CATEGORIES.has(h.category),
-).map((h) => ({ value: h.slug, label: h.name, category: h.category }));
-
-const ACCESSORY_OPTIONS = [
-  "Soft-close drawers",
-  "Pull-out trash",
-  "Spice rack insert",
-  "Glass uppers",
-  "Under-cabinet lighting prep",
-  "Lazy Susan corner",
-];
+);
 
 export function DetailsStep({ embedded = false }: { embedded?: boolean }) {
   const { design, updateDesign } = useDesignStudio();
 
-  const toggleAccessory = (item: string) => {
-    const next = design.accessories.includes(item)
-      ? design.accessories.filter((a) => a !== item)
-      : [...design.accessories, item];
+  const toggleAccessoryFamily = (slug: string) => {
+    const next = design.accessories.includes(slug)
+      ? design.accessories.filter((a) => a !== slug)
+      : [...design.accessories, slug];
     updateDesign({ accessories: next });
   };
 
@@ -46,45 +40,39 @@ export function DetailsStep({ embedded = false }: { embedded?: boolean }) {
       )}
 
       <div className="space-y-3">
-        <Label className="text-sm font-medium">Hardware</Label>
-        <div className="grid gap-2 sm:grid-cols-2">
-          {HARDWARE_OPTIONS.map((item) => {
-            const selected = design.hardware === item.value;
-            return (
-              <button
-                key={item.value}
-                type="button"
-                onClick={() => updateDesign({ hardware: item.value })}
-                className={cn(
-                  "rounded-lg border-2 px-4 py-3 text-sm text-left transition-colors",
-                  selected
-                    ? "border-primary bg-primary/5 font-medium"
-                    : "border-border hover:border-primary/40"
-                )}
-              >
-                {item.label}
-              </button>
-            );
-          })}
-        </div>
+        <Label className="text-sm font-medium">Decorative hardware (consultation)</Label>
+        <VisualOptionGrid
+          columns={3}
+          className="gap-3"
+          items={HARDWARE_OPTIONS.map((item) => ({
+            id: item.slug,
+            label: item.name,
+            meta: item.category,
+            imageSrc: getHardwareImagePath(item.slug),
+            imageAlt: item.name,
+          }))}
+          selectedId={design.hardware}
+          onSelect={(slug) => updateDesign({ hardware: slug })}
+          testIdPrefix="button-hardware"
+        />
       </div>
 
       <div className="space-y-3">
-        <Label className="text-sm font-medium">Accessories (optional)</Label>
-        <div className="grid gap-3 sm:grid-cols-2">
-          {ACCESSORY_OPTIONS.map((item) => (
-            <label
-              key={item}
-              className="flex items-center gap-3 rounded-lg border px-4 py-3 cursor-pointer hover:bg-muted/50"
-            >
-              <Checkbox
-                checked={design.accessories.includes(item)}
-                onCheckedChange={() => toggleAccessory(item)}
-              />
-              <span className="text-sm">{item}</span>
-            </label>
-          ))}
-        </div>
+        <Label className="text-sm font-medium">OSC accessory families (optional)</Label>
+        <VisualOptionGrid
+          columns={3}
+          className="gap-3"
+          items={ACCESSORY_FAMILIES.map((family) => ({
+            id: family.slug,
+            label: family.name,
+            description: family.description,
+            imageSrc: getAccessoryFamilyImagePath(family.slug),
+            imageAlt: family.name,
+          }))}
+          selectedIds={design.accessories}
+          onSelect={toggleAccessoryFamily}
+          testIdPrefix="button-accessory-family"
+        />
       </div>
 
       <div className="space-y-2">

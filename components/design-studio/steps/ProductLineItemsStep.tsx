@@ -3,10 +3,28 @@
 import { useDesignStudio } from "../DesignStudioProvider";
 import { CABINET_PRODUCTS_BY_CATEGORY } from "@/shared/catalog";
 import type { CabinetProductCategory } from "@/shared/catalog";
+import { getProductImages } from "@/shared/catalog/entityImages";
 import { Label } from "@/components/ui/label";
-import { cn } from "@/lib/utils";
+import { VisualOptionGrid } from "@/components/catalog/visual";
 
-const CATEGORIES: CabinetProductCategory[] = ["base", "wall", "tall", "vanity"];
+const CATEGORIES: CabinetProductCategory[] = [
+  "base",
+  "wall",
+  "tall",
+  "vanity",
+  "floating-shelf",
+];
+
+const CATEGORY_LABELS: Record<CabinetProductCategory, string> = {
+  base: "Base",
+  wall: "Wall",
+  tall: "Tall",
+  vanity: "Vanity",
+  "end-panel": "End panel",
+  filler: "Filler",
+  hood: "Hood",
+  "floating-shelf": "Floating shelf",
+};
 
 export function ProductLineItemsStep() {
   const { design, updateDesign } = useDesignStudio();
@@ -26,33 +44,45 @@ export function ProductLineItemsStep() {
           Cabinet <em className="brc-accent text-accent">configurations</em>
         </h2>
         <p className="text-muted-foreground mt-2">
-          Select One Source SKU configurations for your layout. Only catalog products are shown.
+          Select One Source SKU configurations for your layout. Tap a card to add or remove it from your project.
         </p>
+        {selected.length > 0 && (
+          <p className="text-xs text-muted-foreground mt-2">
+            {selected.length} configuration{selected.length === 1 ? "" : "s"} selected
+          </p>
+        )}
       </div>
       {CATEGORIES.map((cat) => {
-        const products = (CABINET_PRODUCTS_BY_CATEGORY[cat] ?? []).slice(0, 12);
+        const products = (CABINET_PRODUCTS_BY_CATEGORY[cat] ?? []).slice(0, 16);
         if (products.length === 0) return null;
         return (
           <div key={cat} className="space-y-3">
-            <Label className="capitalize">{cat.replace(/-/g, " ")}</Label>
-            <div className="grid gap-2 sm:grid-cols-2">
-              {products.map((p) => {
-                const on = selected.includes(p.slug);
-                return (
-                  <button
-                    key={p.slug}
-                    type="button"
-                    onClick={() => toggle(p.slug)}
-                    className={cn(
-                      "rounded-lg border px-3 py-2 text-left text-sm font-mono transition-colors",
-                      on ? "border-primary bg-primary/5" : "border-border hover:border-primary/40",
-                    )}
-                  >
-                    {p.oscCode}
-                  </button>
-                );
+            <Label>{CATEGORY_LABELS[cat]}</Label>
+            <VisualOptionGrid
+              columns={4}
+              className="gap-3"
+              items={products.map((p) => {
+                const imgs = getProductImages(p);
+                const cfg = p.configuration;
+                const tags = [
+                  cfg.doors ? `${cfg.doors}D` : null,
+                  cfg.drawers ? `${cfg.drawers}Dr` : null,
+                  cfg.rollouts ? "ROT" : null,
+                ]
+                  .filter(Boolean)
+                  .join(" · ");
+                return {
+                  id: p.slug,
+                  label: p.oscCode,
+                  description: tags || undefined,
+                  imageSrc: imgs.thumb,
+                  imageAlt: `${p.oscCode} configuration`,
+                };
               })}
-            </div>
+              selectedIds={selected}
+              onSelect={toggle}
+              testIdPrefix="button-line-item"
+            />
           </div>
         );
       })}

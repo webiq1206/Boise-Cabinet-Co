@@ -1,9 +1,8 @@
 "use client";
 
-import { cn } from "@/lib/utils";
 import { useDesignStudio } from "../DesignStudioProvider";
 import { COLLECTIONS } from "@/shared/catalog/collections";
-import { Badge } from "@/components/ui/badge";
+import { VisualOptionGrid } from "@/components/catalog/visual";
 import type { CabinetCollection } from "../DesignStudioProvider";
 
 const COLLECTION_HINTS: Record<string, string> = {
@@ -25,33 +24,20 @@ export function CollectionStep() {
         </p>
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-2">
-        {COLLECTIONS.map((item) => {
-          const selected = design.collection === item.slug;
-          const tag = COLLECTION_HINTS[item.slug] ?? (item.priceTier === "luxury" ? "Premium" : item.priceTier === "premium" ? "Popular" : undefined);
-
-          return (
-            <button
-              key={item.slug}
-              type="button"
-              onClick={() => updateDesign({ collection: item.slug as CabinetCollection })}
-              className={cn(
-                "rounded-lg border-2 p-5 text-left transition-colors",
-                selected
-                  ? "border-primary bg-primary/5"
-                  : "border-border hover:border-primary/40 hover:bg-muted/50",
-              )}
-            >
-              <div className="flex items-start justify-between gap-2 mb-2">
-                <p className="font-medium">{item.name}</p>
-                {tag && <Badge variant="secondary">{tag}</Badge>}
-              </div>
-              <p className="text-sm text-muted-foreground">{item.tagline}</p>
-              <p className="text-xs text-muted-foreground mt-2">Lead time: {item.leadTime}</p>
-            </button>
-          );
-        })}
-      </div>
+      <VisualOptionGrid
+        columns={2}
+        items={COLLECTIONS.map((item) => ({
+          id: item.slug,
+          label: item.name,
+          description: item.tagline,
+          meta: `${COLLECTION_HINTS[item.slug] ?? item.priceTier} · ${item.leadTime}`,
+          imageSrc: item.heroImage,
+          imageAlt: `${item.name} cabinet collection`,
+        }))}
+        selectedId={design.collection}
+        onSelect={(slug) => updateDesign({ collection: slug as CabinetCollection })}
+        testIdPrefix="button-collection"
+      />
     </div>
   );
 }
