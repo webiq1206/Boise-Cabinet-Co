@@ -4,21 +4,26 @@ import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { useDesignStudio } from "../DesignStudioProvider";
 import { DOOR_STYLES } from "@/shared/catalog/doorStyles";
-import { FINISHES, FINISH_BY_SLUG } from "@/shared/catalog/finishes";
+import { FINISH_BY_SLUG } from "@/shared/catalog/finishes";
+import { getFinishesForDoorStyle } from "@/shared/catalog";
 import { Label } from "@/components/ui/label";
 import { DoorStylePreview } from "../DoorStylePreview";
 
-const DEFAULT_FINISH = FINISH_BY_SLUG["white-oak"];
+const DEFAULT_FINISH = FINISH_BY_SLUG["woodgrain-canyon-oak"] ?? FINISH_BY_SLUG["matte-vanilla-orchid"];
 
 export function StyleStep({ embedded = false }: { embedded?: boolean }) {
   const { design, updateDesign } = useDesignStudio();
 
   const [finishCategory, setFinishCategory] = useState<"all" | "matte" | "gloss" | "woodgrain">("all");
 
+  const doorFinishes = design.doorStyle
+    ? getFinishesForDoorStyle(design.doorStyle)
+    : getFinishesForDoorStyle("modern-shaker");
+
   const filteredFinishes =
     finishCategory === "all"
-      ? FINISHES
-      : FINISHES.filter((f) => f.category === finishCategory);
+      ? doorFinishes
+      : doorFinishes.filter((f) => f.category === finishCategory);
 
   const previewFinish =
     (design.finish ? FINISH_BY_SLUG[design.finish] : undefined) ?? DEFAULT_FINISH;

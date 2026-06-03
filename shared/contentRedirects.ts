@@ -126,12 +126,30 @@ export const CATEGORY_REDIRECTS: Record<string, string> = {
   '/blog/category/treasure-valley-locations': '/blog/category/local-guides',
 };
 
+/** BRC finish/door slug → OSC catalog slug (301) */
+export const CATALOG_FINISH_REDIRECTS: Record<string, string> = {
+  "/finishes/matte/snowcap": "/finishes/matte/matte-vanilla-orchid",
+  "/finishes/matte/glacier": "/finishes/matte/matte-carte-blanche",
+  "/finishes/matte/sagebrush": "/finishes/matte/matte-eucalyptus",
+  "/finishes/gloss/porcelain": "/finishes/gloss/gloss-white-hg",
+  "/finishes/gloss/pearl": "/finishes/gloss/gloss-light-grey",
+  "/finishes/gloss/obsidian": "/finishes/gloss/gloss-black-hg",
+  "/finishes/gloss/cobalt": "/finishes/gloss/gloss-deep-blue",
+  "/finishes/gloss/storm": "/finishes/gloss/gloss-dark-grey",
+  "/finishes/woodgrain/white-oak": "/finishes/woodgrain/woodgrain-canyon-oak",
+  "/finishes/woodgrain/natural-walnut": "/finishes/woodgrain/woodgrain-canyon-walnut",
+  "/finishes/woodgrain/driftwood": "/finishes/woodgrain/woodgrain-chameleon",
+  "/finishes/woodgrain/cherry": "/finishes/woodgrain/woodgrain-kirsche",
+  "/door-styles/shaker": "/door-styles/modern-shaker",
+};
+
 export function allContentRedirects(): ContentRedirect[] {
   const maps = [
     GUIDE_REDIRECTS,
     BLOG_REDIRECTS,
     BLOG_REMOVAL_REDIRECTS,
     CATEGORY_REDIRECTS,
+    CATALOG_FINISH_REDIRECTS,
   ];
   const out: ContentRedirect[] = [];
   for (const map of maps) {

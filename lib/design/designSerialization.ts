@@ -26,6 +26,7 @@ export interface DesignSnapshot {
   modules: CabinetModule[];
   roomBounds: RoomBounds | null;
   roomMeta: RoomMeta | null;
+  lineItemSlugs: string[];
 }
 
 /** A saved, named version of a design within a version group. */
@@ -77,6 +78,7 @@ export function designToPayload(
       hardware: snapshot.hardware,
       accessories: snapshot.accessories,
       notes: snapshot.notes,
+      lineItemSlugs: snapshot.lineItemSlugs,
     },
   };
 }
@@ -142,5 +144,8 @@ export function rowToSnapshot(row: DesignRow): DesignSnapshot {
       : [],
     roomBounds: (layoutJson.roomBounds as RoomBounds | null) ?? null,
     roomMeta: (layoutJson.roomMeta as RoomMeta | null) ?? null,
+    lineItemSlugs: Array.isArray(styleJson.lineItemSlugs)
+      ? (styleJson.lineItemSlugs as string[])
+      : [],
   };
 }

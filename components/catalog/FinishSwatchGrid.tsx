@@ -25,12 +25,9 @@ const FILTER_OPTIONS: Array<{ id: "all" | FinishCategory; label: string }> = [
 
 function FinishSwatch({ finish }: { finish: Finish }) {
   const mapping = getFinishMapping(finish.slug);
-  const imagePath = mapping?.imagePath ?? finish.imagePath;
+  const imagePath = finish.imagePath ?? mapping?.imagePath;
   const [useHex, setUseHex] = useState(false);
-  const supplierLabel =
-    mapping?.verified && mapping.supplierColorName
-      ? mapping.supplierColorName
-      : undefined;
+  const supplierLabel = finish.oscName ?? finish.name;
 
   return (
     <div
@@ -106,23 +103,19 @@ export function FinishSwatchGrid({
                 <p className="text-xs text-muted-foreground capitalize">
                   {finish.category} · {finish.sheen}
                 </p>
-                {mapping?.verified && mapping.supplierColorName && (
-                  <p className="text-xs text-muted-foreground mt-1 line-clamp-2">
-                    One Source
-                    {mapping.supplierPanelBrand ? ` (${mapping.supplierPanelBrand})` : ""}:{" "}
-                    {mapping.supplierColorName}
-                  </p>
-                )}
-                {finish.tier !== "standard" && (
-                  <p className="text-xs text-accent mt-1 capitalize">{finish.tier}</p>
+                <p className="text-xs text-muted-foreground mt-1 line-clamp-2">
+                  {finish.panelBrand} · {finish.panelSeries}
+                </p>
+                {finish.priceTierMarker >= 4 && (
+                  <p className="text-xs text-accent mt-1">Premium tier</p>
                 )}
               </div>
               {showCategoryLinks && (
                 <Link
-                  href={`/finishes/${finish.category}`}
+                  href={`/finishes/${finish.category}/${finish.slug}`}
                   className="text-xs text-muted-foreground hover:text-foreground underline-offset-2 hover:underline"
                 >
-                  View {CATEGORY_LABELS[finish.category]} finishes
+                  View {finish.name} details
                 </Link>
               )}
             </MarketingCard>

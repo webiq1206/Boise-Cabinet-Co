@@ -43,7 +43,7 @@ export interface EstimateSelections {
   size: number;
   /** Cabinet line = catalog collection id ("custom" | "reserve"). */
   cabinetLine: string;
-  /** Door style = catalog door style id ("slab" | "shaker" | "thin-shaker"). */
+  /** Door style = OSC door style id (slab, modern-shaker, thin-shaker, etc.). */
   doorStyle: string;
   finishCategory: FinishCategory;
   finishTier: FinishTier;
@@ -100,11 +100,16 @@ export const CABINET_LINE_MULTIPLIER: Record<string, number> = {
   reserve: 1.18,
 };
 
-/** Door style premium, keyed by catalog door style id. Thin Shaker needs more machining. */
+/** Door style premium, keyed by OSC door style id. */
 export const DOOR_STYLE_MULTIPLIER: Record<string, number> = {
   slab: 1.0,
-  shaker: 1.05,
+  "three-piece": 1.08,
+  "modern-shaker": 1.05,
   "thin-shaker": 1.1,
+  "alpha-shaker": 1.12,
+  "beta-shaker": 1.15,
+  /** @deprecated */
+  shaker: 1.05,
 };
 
 /** Finish category premium. Woodgrain laminates and high-gloss cost more than matte. */
@@ -411,7 +416,7 @@ export function getDefaultSelectionsForProject(project: ProjectType): EstimateSe
     layout: getDefaultLayout(project),
     size: PROJECT_SIZE_CONFIG[project].default,
     cabinetLine: "custom",
-    doorStyle: "shaker",
+    doorStyle: "modern-shaker",
     finishCategory: "matte",
     finishTier: "standard",
     construction: "better",

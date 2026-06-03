@@ -38,10 +38,10 @@ export function CollectionLandingTemplate({ collection }: CollectionLandingTempl
   const doorStyleIds = new Set(doorStyles.map((d) => d.id));
   const finishes = FINISHES.filter((f) =>
     f.compatibleDoorStyleIds.some((id) => doorStyleIds.has(id)),
-  ).slice(0, 20);
+  );
   const accessories = ACCESSORIES.filter((a) =>
     a.compatibleCollectionIds.includes(collection.id),
-  ).slice(0, 8);
+  );
   const related = COLLECTIONS.filter((c) => c.id !== collection.id);
   const faqs = getCollectionFaqs(collection);
 

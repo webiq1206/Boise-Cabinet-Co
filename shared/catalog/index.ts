@@ -14,6 +14,7 @@ export {
   DOOR_STYLES,
   DOOR_STYLE_BY_SLUG,
   DOOR_STYLE_BY_ID,
+  resolveDoorStyleSlug,
 } from "./doorStyles";
 
 export type { FinishTier, FinishSheen, Finish } from "./finishes";
@@ -22,6 +23,7 @@ export {
   FINISH_BY_SLUG,
   FINISH_BY_ID,
   FINISHES_BY_CATEGORY,
+  resolveFinishSlug,
 } from "./finishes";
 
 export type { RoomCategory } from "./roomCategories";
@@ -88,6 +90,38 @@ export {
   getLayoutsForRoom,
 } from "./layouts";
 
+export type {
+  CabinetProduct,
+  CabinetProductCategory,
+  CatalogSearchFacets,
+} from "./types";
+export {
+  CABINET_PRODUCTS,
+  CABINET_PRODUCT_BY_SLUG,
+  CABINET_PRODUCTS_BY_CATEGORY,
+  getCabinetProductBySlug,
+  getCabinetProductsByCategory,
+} from "./cabinetProducts";
+
+export { OSC_CONSTRUCTION } from "./construction";
+
+export {
+  getFinishesForDoorStyle,
+  getDoorStylesForFinish,
+  getCollectionsForDoorStyle,
+  getCollectionsForFinish,
+  getProductCountForDoorStyle,
+  getProductsForDoorStyle,
+  getProductsByCategory,
+  getSimilarFinishes,
+  getConstructionForCollection,
+  narrowCatalog,
+  searchCatalogWithFacets,
+  getRecommendations,
+} from "./queries";
+
+export type { CatalogSearchResult as CatalogSearchResultExtended } from "./queries";
+
 import { COLLECTION_BY_SLUG, COLLECTIONS, type CabinetCollection } from "./collections";
 import {
   DOOR_STYLE_BY_SLUG,
@@ -100,6 +134,8 @@ import { ROOM_BY_SLUG, ROOM_CATEGORIES, type RoomCategory } from "./roomCategori
 import { ACCESSORIES, type Accessory } from "./accessories";
 import { HARDWARE_OPTIONS, type HardwareOption } from "./hardware";
 import { CABINET_TYPES, type CabinetType } from "./cabinetTypes";
+import { CABINET_PRODUCTS } from "./cabinetProducts";
+import { searchCatalogWithFacets } from "./queries";
 
 // ── Lookup helpers ──────────────────────────────────────────────────────────
 
@@ -131,20 +167,24 @@ export function getCabinetTypeBySlug(slug: string): CabinetType | undefined {
   return CABINET_TYPES.find((c) => c.slug === slug);
 }
 
-/** Finishes compatible with a given door style slug */
-export function getFinishesForDoorStyle(doorStyleSlug: string): Finish[] {
-  const doorStyle = getDoorStyleBySlug(doorStyleSlug);
-  if (!doorStyle) return [];
-  return FINISHES.filter((f) => f.compatibleDoorStyleIds.includes(doorStyle.id));
-}
-
 /** Door styles that accept a given finish category */
 export function getDoorStylesForFinishCategory(category: FinishCategory): DoorStyle[] {
   return DOOR_STYLES.filter((d) => d.compatibleFinishCategories.includes(category));
 }
 
+// Re-export query helpers for backward compatibility
+export { getFinishesForDoorStyle } from "./queries";
+
 export interface CatalogSearchResult {
-  type: "collection" | "doorStyle" | "finish" | "room" | "accessory" | "hardware" | "cabinetType";
+  type:
+    | "collection"
+    | "doorStyle"
+    | "finish"
+    | "room"
+    | "accessory"
+    | "hardware"
+    | "cabinetType"
+    | "cabinetProduct";
   slug: string;
   name: string;
   description: string;
@@ -155,7 +195,10 @@ export interface CatalogSearchResult {
  * Search the full catalog by keyword. Matches name, slug, description, and feature text.
  * Results sorted by relevance score (higher = better match).
  */
-export function searchCatalog(query: string): CatalogSearchResult[] {
+export function searchCatalog(query: string, facets?: import("./types").CatalogSearchFacets): CatalogSearchResult[] {
+  if (facets) {
+    return searchCatalogWithFacets(query, facets) as CatalogSearchResult[];
+  }
   const q = query.trim().toLowerCase();
   if (!q) return [];
 
@@ -263,6 +306,19 @@ export function searchCatalog(query: string): CatalogSearchResult[] {
         slug: c.slug,
         name: c.name,
         description: c.description.slice(0, 120) + (c.description.length > 120 ? "…" : ""),
+        score: s,
+      });
+    }
+  }
+
+  for (const p of CABINET_PRODUCTS) {
+    const s = score([p.oscCode, p.description].join(" "), p.slug, p.oscCode);
+    if (s > 0) {
+      results.push({
+        type: "cabinetProduct",
+        slug: p.slug,
+        name: p.oscCode,
+        description: p.description.slice(0, 100),
         score: s,
       });
     }

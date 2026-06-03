@@ -106,8 +106,12 @@ export const FINISH_COLOR_MAP: FinishColorMapping[] = [
 
 export const DOOR_STYLE_MAP: DoorStyleMapping[] = [
   { brcSlug: "slab", brcName: "Slab", oscName: "Slab", verified: true, imagePath: "/images/catalog/door-styles/slab.webp" },
-  { brcSlug: "shaker", brcName: "Shaker", oscName: "Shaker", verified: true, imagePath: "/images/catalog/door-styles/shaker.webp" },
+  { brcSlug: "three-piece", brcName: "3 Piece", oscName: "3 Piece", verified: true, imagePath: "/images/catalog/door-styles/three-piece.webp" },
+  { brcSlug: "modern-shaker", brcName: "Modern Shaker", oscName: "Modern Shaker", verified: true, imagePath: "/images/catalog/door-styles/modern-shaker.webp" },
   { brcSlug: "thin-shaker", brcName: "Thin Shaker", oscName: "Thin Shaker", verified: true, imagePath: "/images/catalog/door-styles/thin-shaker.webp" },
+  { brcSlug: "alpha-shaker", brcName: "Alpha Shaker", oscName: "Alpha Shaker", verified: true, imagePath: "/images/catalog/door-styles/alpha-shaker.webp" },
+  { brcSlug: "beta-shaker", brcName: "Beta Shaker", oscName: "Beta Shaker", verified: true, imagePath: "/images/catalog/door-styles/beta-shaker.webp" },
+  { brcSlug: "shaker", brcName: "Shaker", oscName: "Modern Shaker", verified: true, imagePath: "/images/catalog/door-styles/shaker.webp" },
 ];
 
 export const COLLECTION_MAP: CollectionMapping[] = [
@@ -119,8 +123,14 @@ export const FINISH_MAP_BY_SLUG = Object.fromEntries(
   FINISH_COLOR_MAP.map((f) => [f.brcSlug, f]),
 ) as Record<string, FinishColorMapping>;
 
+const LEGACY_FINISH_SLUG: Record<string, string> = {
+  snowcap: "matte-vanilla-orchid",
+  glacier: "matte-carte-blanche",
+  "white-oak": "woodgrain-canyon-oak",
+};
+
 export function getFinishMapping(slug: string): FinishColorMapping | undefined {
-  return FINISH_MAP_BY_SLUG[slug];
+  return FINISH_MAP_BY_SLUG[slug] ?? FINISH_MAP_BY_SLUG[LEGACY_FINISH_SLUG[slug] ?? ""];
 }
 
 export function getSupplierColorPrompt(slug: string): string {

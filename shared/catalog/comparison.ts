@@ -153,20 +153,29 @@ export const DOOR_STYLE_COMPARISON: CollectionComparisonMatrix = {
       },
     },
     {
-      id: "shaker",
-      label: "Shaker",
-      values: {
-        custom: true,
-        reserve: true,
-      },
+      id: "three-piece",
+      label: "3 Piece",
+      values: { custom: true, reserve: true },
+    },
+    {
+      id: "modern-shaker",
+      label: "Modern Shaker",
+      values: { custom: true, reserve: true },
     },
     {
       id: "thin-shaker",
       label: "Thin Shaker",
-      values: {
-        custom: true,
-        reserve: true,
-      },
+      values: { custom: true, reserve: true },
+    },
+    {
+      id: "alpha-shaker",
+      label: "Alpha Shaker",
+      values: { custom: true, reserve: true },
+    },
+    {
+      id: "beta-shaker",
+      label: "Beta Shaker",
+      values: { custom: true, reserve: true },
     },
   ],
 };

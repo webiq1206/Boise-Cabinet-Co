@@ -1,0 +1,5695 @@
+[
+  {
+    "id": "b-1d-1bd-0s",
+    "slug": "b-1d-1bd-0s",
+    "oscCode": "B-1D-1BD-0S",
+    "name": "B 1D 1BD 0S",
+    "category": "base",
+    "description": "One Source base cabinet configuration B-1D-1BD-0S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 1
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "b-1d-1bd-1part",
+    "slug": "b-1d-1bd-1part",
+    "oscCode": "B-1D-1BD-1PART",
+    "name": "B 1D 1BD 1PART",
+    "category": "base",
+    "description": "One Source base cabinet configuration B-1D-1BD-1PART.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 1,
+      "partitions": 1
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "b-1d-1bd-1rot",
+    "slug": "b-1d-1bd-1rot",
+    "oscCode": "B-1D-1BD-1ROT",
+    "name": "B 1D 1BD 1ROT",
+    "category": "base",
+    "description": "One Source base cabinet configuration B-1D-1BD-1ROT.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 1,
+      "rollouts": 2
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "b-1d-1bd-1s",
+    "slug": "b-1d-1bd-1s",
+    "oscCode": "B-1D-1BD-1S",
+    "name": "B 1D 1BD 1S",
+    "category": "base",
+    "description": "One Source base cabinet configuration B-1D-1BD-1S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 1,
+      "shelves": 1
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "b-1d-1bd-2part",
+    "slug": "b-1d-1bd-2part",
+    "oscCode": "B-1D-1BD-2PART",
+    "name": "B 1D 1BD 2PART",
+    "category": "base",
+    "description": "One Source base cabinet configuration B-1D-1BD-2PART.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 1,
+      "partitions": 1
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "b-1d-1bd-2rot",
+    "slug": "b-1d-1bd-2rot",
+    "oscCode": "B-1D-1BD-2ROT",
+    "name": "B 1D 1BD 2ROT",
+    "category": "base",
+    "description": "One Source base cabinet configuration B-1D-1BD-2ROT.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 1,
+      "rollouts": 2
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "b-1d-1bd-3part",
+    "slug": "b-1d-1bd-3part",
+    "oscCode": "B-1D-1BD-3PART",
+    "name": "B 1D 1BD 3PART",
+    "category": "base",
+    "description": "One Source base cabinet configuration B-1D-1BD-3PART.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 1,
+      "partitions": 1
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "b-1d-1td-1part",
+    "slug": "b-1d-1td-1part",
+    "oscCode": "B-1D-1TD-1PART",
+    "name": "B 1D 1TD 1PART",
+    "category": "base",
+    "description": "One Source base cabinet configuration B-1D-1TD-1PART.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 1,
+      "drawers": 1,
+      "partitions": 1
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "b-1d-1td-1rot",
+    "slug": "b-1d-1td-1rot",
+    "oscCode": "B-1D-1TD-1ROT",
+    "name": "B 1D 1TD 1ROT",
+    "category": "base",
+    "description": "One Source base cabinet configuration B-1D-1TD-1ROT.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 1,
+      "drawers": 1,
+      "rollouts": 2
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "b-1d-1td-1s",
+    "slug": "b-1d-1td-1s",
+    "oscCode": "B-1D-1TD-1S",
+    "name": "B 1D 1TD 1S",
+    "category": "base",
+    "description": "One Source base cabinet configuration B-1D-1TD-1S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 1,
+      "drawers": 1,
+      "shelves": 1
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "b-1d-1td-2part",
+    "slug": "b-1d-1td-2part",
+    "oscCode": "B-1D-1TD-2PART",
+    "name": "B 1D 1TD 2PART",
+    "category": "base",
+    "description": "One Source base cabinet configuration B-1D-1TD-2PART.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 1,
+      "drawers": 1,
+      "partitions": 1
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "b-1d-1td-2rot",
+    "slug": "b-1d-1td-2rot",
+    "oscCode": "B-1D-1TD-2ROT",
+    "name": "B 1D 1TD 2ROT",
+    "category": "base",
+    "description": "One Source base cabinet configuration B-1D-1TD-2ROT.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 1,
+      "drawers": 1,
+      "rollouts": 2
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "b-1d-1td-3part",
+    "slug": "b-1d-1td-3part",
+    "oscCode": "B-1D-1TD-3PART",
+    "name": "B 1D 1TD 3PART",
+    "category": "base",
+    "description": "One Source base cabinet configuration B-1D-1TD-3PART.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 1,
+      "drawers": 1,
+      "partitions": 1
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "b-2d-1bd-0s",
+    "slug": "b-2d-1bd-0s",
+    "oscCode": "B-2D-1BD-0S",
+    "name": "B 2D 1BD 0S",
+    "category": "base",
+    "description": "One Source base cabinet configuration B-2D-1BD-0S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 2
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "b-2d-1bd-1part",
+    "slug": "b-2d-1bd-1part",
+    "oscCode": "B-2D-1BD-1PART",
+    "name": "B 2D 1BD 1PART",
+    "category": "base",
+    "description": "One Source base cabinet configuration B-2D-1BD-1PART.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 2,
+      "partitions": 1
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "b-2d-1bd-1rot",
+    "slug": "b-2d-1bd-1rot",
+    "oscCode": "B-2D-1BD-1ROT",
+    "name": "B 2D 1BD 1ROT",
+    "category": "base",
+    "description": "One Source base cabinet configuration B-2D-1BD-1ROT.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 2,
+      "rollouts": 2
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "b-2d-1bd-1s",
+    "slug": "b-2d-1bd-1s",
+    "oscCode": "B-2D-1BD-1S",
+    "name": "B 2D 1BD 1S",
+    "category": "base",
+    "description": "One Source base cabinet configuration B-2D-1BD-1S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 2,
+      "shelves": 1
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "b-2d-1bd-2part",
+    "slug": "b-2d-1bd-2part",
+    "oscCode": "B-2D-1BD-2PART",
+    "name": "B 2D 1BD 2PART",
+    "category": "base",
+    "description": "One Source base cabinet configuration B-2D-1BD-2PART.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 2,
+      "partitions": 1
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "b-2d-1bd-2rot",
+    "slug": "b-2d-1bd-2rot",
+    "oscCode": "B-2D-1BD-2ROT",
+    "name": "B 2D 1BD 2ROT",
+    "category": "base",
+    "description": "One Source base cabinet configuration B-2D-1BD-2ROT.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 2,
+      "rollouts": 2
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "b-2d-1bd-3part",
+    "slug": "b-2d-1bd-3part",
+    "oscCode": "B-2D-1BD-3PART",
+    "name": "B 2D 1BD 3PART",
+    "category": "base",
+    "description": "One Source base cabinet configuration B-2D-1BD-3PART.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 2,
+      "partitions": 1
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "b-2d-1td-1part",
+    "slug": "b-2d-1td-1part",
+    "oscCode": "B-2D-1TD-1PART",
+    "name": "B 2D 1TD 1PART",
+    "category": "base",
+    "description": "One Source base cabinet configuration B-2D-1TD-1PART.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 2,
+      "drawers": 1,
+      "partitions": 1
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "b-2d-1td-1rot",
+    "slug": "b-2d-1td-1rot",
+    "oscCode": "B-2D-1TD-1ROT",
+    "name": "B 2D 1TD 1ROT",
+    "category": "base",
+    "description": "One Source base cabinet configuration B-2D-1TD-1ROT.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 2,
+      "drawers": 1,
+      "rollouts": 2
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "b-2d-1td-1s",
+    "slug": "b-2d-1td-1s",
+    "oscCode": "B-2D-1TD-1S",
+    "name": "B 2D 1TD 1S",
+    "category": "base",
+    "description": "One Source base cabinet configuration B-2D-1TD-1S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 2,
+      "drawers": 1,
+      "shelves": 1
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "b-2d-1td-2part",
+    "slug": "b-2d-1td-2part",
+    "oscCode": "B-2D-1TD-2PART",
+    "name": "B 2D 1TD 2PART",
+    "category": "base",
+    "description": "One Source base cabinet configuration B-2D-1TD-2PART.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 2,
+      "drawers": 1,
+      "partitions": 1
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "b-2d-1td-2rot",
+    "slug": "b-2d-1td-2rot",
+    "oscCode": "B-2D-1TD-2ROT",
+    "name": "B 2D 1TD 2ROT",
+    "category": "base",
+    "description": "One Source base cabinet configuration B-2D-1TD-2ROT.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 2,
+      "drawers": 1,
+      "rollouts": 2
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "b-2d-1td-3part",
+    "slug": "b-2d-1td-3part",
+    "oscCode": "B-2D-1TD-3PART",
+    "name": "B 2D 1TD 3PART",
+    "category": "base",
+    "description": "One Source base cabinet configuration B-2D-1TD-3PART.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 2,
+      "drawers": 1,
+      "partitions": 1
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "b-2d-2td-1part",
+    "slug": "b-2d-2td-1part",
+    "oscCode": "B-2D-2TD-1PART",
+    "name": "B 2D 2TD 1PART",
+    "category": "base",
+    "description": "One Source base cabinet configuration B-2D-2TD-1PART.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 2,
+      "drawers": 2,
+      "partitions": 1
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "b-2d-2td-1rot",
+    "slug": "b-2d-2td-1rot",
+    "oscCode": "B-2D-2TD-1ROT",
+    "name": "B 2D 2TD 1ROT",
+    "category": "base",
+    "description": "One Source base cabinet configuration B-2D-2TD-1ROT.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 2,
+      "drawers": 2,
+      "rollouts": 2
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "b-2d-2td-1s",
+    "slug": "b-2d-2td-1s",
+    "oscCode": "B-2D-2TD-1S",
+    "name": "B 2D 2TD 1S",
+    "category": "base",
+    "description": "One Source base cabinet configuration B-2D-2TD-1S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 2,
+      "drawers": 2,
+      "shelves": 1
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "b-2d-2td-2part",
+    "slug": "b-2d-2td-2part",
+    "oscCode": "B-2D-2TD-2PART",
+    "name": "B 2D 2TD 2PART",
+    "category": "base",
+    "description": "One Source base cabinet configuration B-2D-2TD-2PART.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 2,
+      "drawers": 2,
+      "partitions": 1
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "b-2d-2td-2rot",
+    "slug": "b-2d-2td-2rot",
+    "oscCode": "B-2D-2TD-2ROT",
+    "name": "B 2D 2TD 2ROT",
+    "category": "base",
+    "description": "One Source base cabinet configuration B-2D-2TD-2ROT.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 2,
+      "drawers": 2,
+      "rollouts": 2
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "b-2d-2td-3part",
+    "slug": "b-2d-2td-3part",
+    "oscCode": "B-2D-2TD-3PART",
+    "name": "B 2D 2TD 3PART",
+    "category": "base",
+    "description": "One Source base cabinet configuration B-2D-2TD-3PART.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 2,
+      "drawers": 2,
+      "partitions": 1
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "ba-open",
+    "slug": "ba-open",
+    "oscCode": "BA-OPEN",
+    "name": "BA OPEN",
+    "category": "base",
+    "description": "One Source base cabinet configuration BA-OPEN.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {},
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "bbcl-1td-0s",
+    "slug": "bbcl-1td-0s",
+    "oscCode": "BBCL-1TD-0S",
+    "name": "BBCL 1TD 0S",
+    "category": "base",
+    "description": "One Source base cabinet configuration BBCL-1TD-0S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "drawers": 1
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "bbcl-1td-1s",
+    "slug": "bbcl-1td-1s",
+    "oscCode": "BBCL-1TD-1S",
+    "name": "BBCL 1TD 1S",
+    "category": "base",
+    "description": "One Source base cabinet configuration BBCL-1TD-1S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "drawers": 1,
+      "shelves": 1
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "bbcl-fhd-0s",
+    "slug": "bbcl-fhd-0s",
+    "oscCode": "BBCL-FHD-0S",
+    "name": "BBCL FHD 0S",
+    "category": "base",
+    "description": "One Source base cabinet configuration BBCL-FHD-0S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {},
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "bbcl-fhd-1s",
+    "slug": "bbcl-fhd-1s",
+    "oscCode": "BBCL-FHD-1S",
+    "name": "BBCL FHD 1S",
+    "category": "base",
+    "description": "One Source base cabinet configuration BBCL-FHD-1S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "shelves": 1
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "bbcl-fhd-2s",
+    "slug": "bbcl-fhd-2s",
+    "oscCode": "BBCL-FHD-2S",
+    "name": "BBCL FHD 2S",
+    "category": "base",
+    "description": "One Source base cabinet configuration BBCL-FHD-2S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "shelves": 2
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "bbcr-1td-0s",
+    "slug": "bbcr-1td-0s",
+    "oscCode": "BBCR-1TD-0S",
+    "name": "BBCR 1TD 0S",
+    "category": "base",
+    "description": "One Source base cabinet configuration BBCR-1TD-0S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "drawers": 1
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "bbcr-1td-1s",
+    "slug": "bbcr-1td-1s",
+    "oscCode": "BBCR-1TD-1S",
+    "name": "BBCR 1TD 1S",
+    "category": "base",
+    "description": "One Source base cabinet configuration BBCR-1TD-1S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "drawers": 1,
+      "shelves": 1
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "bbcr-fhd-0s",
+    "slug": "bbcr-fhd-0s",
+    "oscCode": "BBCR-FHD-0S",
+    "name": "BBCR FHD 0S",
+    "category": "base",
+    "description": "One Source base cabinet configuration BBCR-FHD-0S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {},
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "bbcr-fhd-1s",
+    "slug": "bbcr-fhd-1s",
+    "oscCode": "BBCR-FHD-1S",
+    "name": "BBCR FHD 1S",
+    "category": "base",
+    "description": "One Source base cabinet configuration BBCR-FHD-1S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "shelves": 1
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "bbcr-fhd-2s",
+    "slug": "bbcr-fhd-2s",
+    "oscCode": "BBCR-FHD-2S",
+    "name": "BBCR FHD 2S",
+    "category": "base",
+    "description": "One Source base cabinet configuration BBCR-FHD-2S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "shelves": 2
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "bc45-0s",
+    "slug": "bc45-0s",
+    "oscCode": "BC45-0S",
+    "name": "BC45 0S",
+    "category": "base",
+    "description": "One Source base cabinet configuration BC45-0S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {},
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "bc45-1s",
+    "slug": "bc45-1s",
+    "oscCode": "BC45-1S",
+    "name": "BC45 1S",
+    "category": "base",
+    "description": "One Source base cabinet configuration BC45-1S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "shelves": 1
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "bc45-ls",
+    "slug": "bc45-ls",
+    "oscCode": "BC45-LS",
+    "name": "BC45 LS",
+    "category": "base",
+    "description": "One Source base cabinet configuration BC45-LS.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {},
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "bdf-l",
+    "slug": "bdf-l",
+    "oscCode": "BDF-L",
+    "name": "BDF L",
+    "category": "base",
+    "description": "One Source base cabinet configuration BDF-L.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {},
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "bdf-r",
+    "slug": "bdf-r",
+    "oscCode": "BDF-R",
+    "name": "BDF R",
+    "category": "base",
+    "description": "One Source base cabinet configuration BDF-R.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {},
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "bfh-1d-0s",
+    "slug": "bfh-1d-0s",
+    "oscCode": "BFH-1D-0S",
+    "name": "BFH 1D 0S",
+    "category": "tall",
+    "description": "One Source tall cabinet configuration BFH-1D-0S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 1
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "bfh-1d-1part",
+    "slug": "bfh-1d-1part",
+    "oscCode": "BFH-1D-1PART",
+    "name": "BFH 1D 1PART",
+    "category": "tall",
+    "description": "One Source tall cabinet configuration BFH-1D-1PART.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 1,
+      "partitions": 1
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "bfh-1d-1rot",
+    "slug": "bfh-1d-1rot",
+    "oscCode": "BFH-1D-1ROT",
+    "name": "BFH 1D 1ROT",
+    "category": "tall",
+    "description": "One Source tall cabinet configuration BFH-1D-1ROT.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 1,
+      "rollouts": 2
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "bfh-1d-1s",
+    "slug": "bfh-1d-1s",
+    "oscCode": "BFH-1D-1S",
+    "name": "BFH 1D 1S",
+    "category": "tall",
+    "description": "One Source tall cabinet configuration BFH-1D-1S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 1,
+      "shelves": 1
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "bfh-1d-2part",
+    "slug": "bfh-1d-2part",
+    "oscCode": "BFH-1D-2PART",
+    "name": "BFH 1D 2PART",
+    "category": "tall",
+    "description": "One Source tall cabinet configuration BFH-1D-2PART.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 1,
+      "partitions": 1
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "bfh-1d-2rot",
+    "slug": "bfh-1d-2rot",
+    "oscCode": "BFH-1D-2ROT",
+    "name": "BFH 1D 2ROT",
+    "category": "tall",
+    "description": "One Source tall cabinet configuration BFH-1D-2ROT.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 1,
+      "rollouts": 2
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "bfh-1d-2s",
+    "slug": "bfh-1d-2s",
+    "oscCode": "BFH-1D-2S",
+    "name": "BFH 1D 2S",
+    "category": "tall",
+    "description": "One Source tall cabinet configuration BFH-1D-2S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 1,
+      "shelves": 2
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "bfh-1d-3part",
+    "slug": "bfh-1d-3part",
+    "oscCode": "BFH-1D-3PART",
+    "name": "BFH 1D 3PART",
+    "category": "tall",
+    "description": "One Source tall cabinet configuration BFH-1D-3PART.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 1,
+      "partitions": 1
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "bfh-1d-3rot",
+    "slug": "bfh-1d-3rot",
+    "oscCode": "BFH-1D-3ROT",
+    "name": "BFH 1D 3ROT",
+    "category": "tall",
+    "description": "One Source tall cabinet configuration BFH-1D-3ROT.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 1,
+      "rollouts": 2
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "bfh-1d-3s",
+    "slug": "bfh-1d-3s",
+    "oscCode": "BFH-1D-3S",
+    "name": "BFH 1D 3S",
+    "category": "tall",
+    "description": "One Source tall cabinet configuration BFH-1D-3S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 1,
+      "shelves": 3
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "bfh-2d-0s",
+    "slug": "bfh-2d-0s",
+    "oscCode": "BFH-2D-0S",
+    "name": "BFH 2D 0S",
+    "category": "tall",
+    "description": "One Source tall cabinet configuration BFH-2D-0S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 2
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "bfh-2d-1part",
+    "slug": "bfh-2d-1part",
+    "oscCode": "BFH-2D-1PART",
+    "name": "BFH 2D 1PART",
+    "category": "tall",
+    "description": "One Source tall cabinet configuration BFH-2D-1PART.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 2,
+      "partitions": 1
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "bfh-2d-1rot",
+    "slug": "bfh-2d-1rot",
+    "oscCode": "BFH-2D-1ROT",
+    "name": "BFH 2D 1ROT",
+    "category": "tall",
+    "description": "One Source tall cabinet configuration BFH-2D-1ROT.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 2,
+      "rollouts": 2
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "bfh-2d-1s",
+    "slug": "bfh-2d-1s",
+    "oscCode": "BFH-2D-1S",
+    "name": "BFH 2D 1S",
+    "category": "tall",
+    "description": "One Source tall cabinet configuration BFH-2D-1S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 2,
+      "shelves": 1
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "bfh-2d-2part",
+    "slug": "bfh-2d-2part",
+    "oscCode": "BFH-2D-2PART",
+    "name": "BFH 2D 2PART",
+    "category": "tall",
+    "description": "One Source tall cabinet configuration BFH-2D-2PART.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 2,
+      "partitions": 1
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "bfh-2d-2rot",
+    "slug": "bfh-2d-2rot",
+    "oscCode": "BFH-2D-2ROT",
+    "name": "BFH 2D 2ROT",
+    "category": "tall",
+    "description": "One Source tall cabinet configuration BFH-2D-2ROT.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 2,
+      "rollouts": 2
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "bfh-2d-2s",
+    "slug": "bfh-2d-2s",
+    "oscCode": "BFH-2D-2S",
+    "name": "BFH 2D 2S",
+    "category": "tall",
+    "description": "One Source tall cabinet configuration BFH-2D-2S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 2,
+      "shelves": 2
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "bfh-2d-3part",
+    "slug": "bfh-2d-3part",
+    "oscCode": "BFH-2D-3PART",
+    "name": "BFH 2D 3PART",
+    "category": "tall",
+    "description": "One Source tall cabinet configuration BFH-2D-3PART.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 2,
+      "partitions": 1
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "bfh-2d-3rot",
+    "slug": "bfh-2d-3rot",
+    "oscCode": "BFH-2D-3ROT",
+    "name": "BFH 2D 3ROT",
+    "category": "tall",
+    "description": "One Source tall cabinet configuration BFH-2D-3ROT.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 2,
+      "rollouts": 2
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "bfh-2d-3s",
+    "slug": "bfh-2d-3s",
+    "oscCode": "BFH-2D-3S",
+    "name": "BFH 2D 3S",
+    "category": "tall",
+    "description": "One Source tall cabinet configuration BFH-2D-3S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 2,
+      "shelves": 3
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "bir-1d-1td",
+    "slug": "bir-1d-1td",
+    "oscCode": "BIR-1D-1TD",
+    "name": "BIR 1D 1TD",
+    "category": "base",
+    "description": "One Source base cabinet configuration BIR-1D-1TD.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 1,
+      "drawers": 1
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "birfh-1d",
+    "slug": "birfh-1d",
+    "oscCode": "BIRFH-1D",
+    "name": "BIRFH 1D",
+    "category": "base",
+    "description": "One Source base cabinet configuration BIRFH-1D.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 1
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "epic",
+    "slug": "epic",
+    "oscCode": "EPIC",
+    "name": "EPIC",
+    "category": "end-panel",
+    "description": "One Source end-panel cabinet configuration EPIC.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {},
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "filler",
+    "slug": "filler",
+    "oscCode": "FILLER",
+    "name": "FILLER",
+    "category": "filler",
+    "description": "One Source filler cabinet configuration FILLER.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {},
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "fillers",
+    "slug": "fillers",
+    "oscCode": "FILLERS",
+    "name": "FILLERS",
+    "category": "filler",
+    "description": "One Source filler cabinet configuration FILLERS.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {},
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "hoods",
+    "slug": "hoods",
+    "oscCode": "HOODS",
+    "name": "HOODS",
+    "category": "hood",
+    "description": "One Source hood cabinet configuration HOODS.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {},
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "ta-1d",
+    "slug": "ta-1d",
+    "oscCode": "TA-1D",
+    "name": "TA 1D",
+    "category": "tall",
+    "description": "One Source tall cabinet configuration TA-1D.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 1
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "ta-2d",
+    "slug": "ta-2d",
+    "oscCode": "TA-2D",
+    "name": "TA 2D",
+    "category": "tall",
+    "description": "One Source tall cabinet configuration TA-2D.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 2
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "ta-3d",
+    "slug": "ta-3d",
+    "oscCode": "TA-3D",
+    "name": "TA 3D",
+    "category": "tall",
+    "description": "One Source tall cabinet configuration TA-3D.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 3
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "tb15-fhd",
+    "slug": "tb15-fhd",
+    "oscCode": "TB15-FHD",
+    "name": "TB15 FHD",
+    "category": "tall",
+    "description": "One Source tall cabinet configuration TB15-FHD.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {},
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "tb15-td",
+    "slug": "tb15-td",
+    "oscCode": "TB15-TD",
+    "name": "TB15 TD",
+    "category": "tall",
+    "description": "One Source tall cabinet configuration TB15-TD.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {},
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "tb18-fhd",
+    "slug": "tb18-fhd",
+    "oscCode": "TB18-FHD",
+    "name": "TB18 FHD",
+    "category": "tall",
+    "description": "One Source tall cabinet configuration TB18-FHD.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {},
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "tb18-td",
+    "slug": "tb18-td",
+    "oscCode": "TB18-TD",
+    "name": "TB18 TD",
+    "category": "tall",
+    "description": "One Source tall cabinet configuration TB18-TD.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {},
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "tb21-fhd",
+    "slug": "tb21-fhd",
+    "oscCode": "TB21-FHD",
+    "name": "TB21 FHD",
+    "category": "tall",
+    "description": "One Source tall cabinet configuration TB21-FHD.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {},
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "tb21-td",
+    "slug": "tb21-td",
+    "oscCode": "TB21-TD",
+    "name": "TB21 TD",
+    "category": "tall",
+    "description": "One Source tall cabinet configuration TB21-TD.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {},
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "tbfh-1d-0s",
+    "slug": "tbfh-1d-0s",
+    "oscCode": "TBFH-1D-0S",
+    "name": "TBFH 1D 0S",
+    "category": "tall",
+    "description": "One Source tall cabinet configuration TBFH-1D-0S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 1
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "tbfh-1d-1rot-2s",
+    "slug": "tbfh-1d-1rot-2s",
+    "oscCode": "TBFH-1D-1ROT-2S",
+    "name": "TBFH 1D 1ROT 2S",
+    "category": "tall",
+    "description": "One Source tall cabinet configuration TBFH-1D-1ROT-2S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 1,
+      "shelves": 2,
+      "rollouts": 2
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "tbfh-1d-1s",
+    "slug": "tbfh-1d-1s",
+    "oscCode": "TBFH-1D-1S",
+    "name": "TBFH 1D 1S",
+    "category": "tall",
+    "description": "One Source tall cabinet configuration TBFH-1D-1S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 1,
+      "shelves": 1
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "tbfh-1d-2rot-2s",
+    "slug": "tbfh-1d-2rot-2s",
+    "oscCode": "TBFH-1D-2ROT-2S",
+    "name": "TBFH 1D 2ROT 2S",
+    "category": "tall",
+    "description": "One Source tall cabinet configuration TBFH-1D-2ROT-2S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 1,
+      "shelves": 2,
+      "rollouts": 2
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "tbfh-1d-2s",
+    "slug": "tbfh-1d-2s",
+    "oscCode": "TBFH-1D-2S",
+    "name": "TBFH 1D 2S",
+    "category": "tall",
+    "description": "One Source tall cabinet configuration TBFH-1D-2S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 1,
+      "shelves": 2
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "tbfh-1d-3rot",
+    "slug": "tbfh-1d-3rot",
+    "oscCode": "TBFH-1D-3ROT",
+    "name": "TBFH 1D 3ROT",
+    "category": "tall",
+    "description": "One Source tall cabinet configuration TBFH-1D-3ROT.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 1,
+      "rollouts": 2
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "tbfh-1d-3s",
+    "slug": "tbfh-1d-3s",
+    "oscCode": "TBFH-1D-3S",
+    "name": "TBFH 1D 3S",
+    "category": "tall",
+    "description": "One Source tall cabinet configuration TBFH-1D-3S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 1,
+      "shelves": 3
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "tbfh-1d-4rot",
+    "slug": "tbfh-1d-4rot",
+    "oscCode": "TBFH-1D-4ROT",
+    "name": "TBFH 1D 4ROT",
+    "category": "tall",
+    "description": "One Source tall cabinet configuration TBFH-1D-4ROT.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 1,
+      "rollouts": 2
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "tbfh-2d-0s",
+    "slug": "tbfh-2d-0s",
+    "oscCode": "TBFH-2D-0S",
+    "name": "TBFH 2D 0S",
+    "category": "tall",
+    "description": "One Source tall cabinet configuration TBFH-2D-0S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 2
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "tbfh-2d-1rot-2s",
+    "slug": "tbfh-2d-1rot-2s",
+    "oscCode": "TBFH-2D-1ROT-2S",
+    "name": "TBFH 2D 1ROT 2S",
+    "category": "tall",
+    "description": "One Source tall cabinet configuration TBFH-2D-1ROT-2S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 2,
+      "shelves": 2,
+      "rollouts": 2
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "tbfh-2d-1s",
+    "slug": "tbfh-2d-1s",
+    "oscCode": "TBFH-2D-1S",
+    "name": "TBFH 2D 1S",
+    "category": "tall",
+    "description": "One Source tall cabinet configuration TBFH-2D-1S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 2,
+      "shelves": 1
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "tbfh-2d-2rot-2s",
+    "slug": "tbfh-2d-2rot-2s",
+    "oscCode": "TBFH-2D-2ROT-2S",
+    "name": "TBFH 2D 2ROT 2S",
+    "category": "tall",
+    "description": "One Source tall cabinet configuration TBFH-2D-2ROT-2S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 2,
+      "shelves": 2,
+      "rollouts": 2
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "tbfh-2d-2s",
+    "slug": "tbfh-2d-2s",
+    "oscCode": "TBFH-2D-2S",
+    "name": "TBFH 2D 2S",
+    "category": "tall",
+    "description": "One Source tall cabinet configuration TBFH-2D-2S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 2,
+      "shelves": 2
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "tbfh-2d-3rot",
+    "slug": "tbfh-2d-3rot",
+    "oscCode": "TBFH-2D-3ROT",
+    "name": "TBFH 2D 3ROT",
+    "category": "tall",
+    "description": "One Source tall cabinet configuration TBFH-2D-3ROT.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 2,
+      "rollouts": 2
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "tbfh-2d-3s",
+    "slug": "tbfh-2d-3s",
+    "oscCode": "TBFH-2D-3S",
+    "name": "TBFH 2D 3S",
+    "category": "tall",
+    "description": "One Source tall cabinet configuration TBFH-2D-3S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 2,
+      "shelves": 3
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "tbfh-2d-4rot",
+    "slug": "tbfh-2d-4rot",
+    "oscCode": "TBFH-2D-4ROT",
+    "name": "TBFH 2D 4ROT",
+    "category": "tall",
+    "description": "One Source tall cabinet configuration TBFH-2D-4ROT.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 2,
+      "rollouts": 2
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "tdf-l",
+    "slug": "tdf-l",
+    "oscCode": "TDF-L",
+    "name": "TDF L",
+    "category": "tall",
+    "description": "One Source tall cabinet configuration TDF-L.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {},
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "tdf-r",
+    "slug": "tdf-r",
+    "oscCode": "TDF-R",
+    "name": "TDF R",
+    "category": "tall",
+    "description": "One Source tall cabinet configuration TDF-R.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {},
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "vt-1d-1bd-0s",
+    "slug": "vt-1d-1bd-0s",
+    "oscCode": "VT-1D-1BD-0S",
+    "name": "VT 1D 1BD 0S",
+    "category": "vanity",
+    "description": "One Source vanity cabinet configuration VT-1D-1BD-0S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 1
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "vt-1d-1bd-1s",
+    "slug": "vt-1d-1bd-1s",
+    "oscCode": "VT-1D-1BD-1S",
+    "name": "VT 1D 1BD 1S",
+    "category": "vanity",
+    "description": "One Source vanity cabinet configuration VT-1D-1BD-1S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 1,
+      "shelves": 1
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "vt-1d-1bd-2s",
+    "slug": "vt-1d-1bd-2s",
+    "oscCode": "VT-1D-1BD-2S",
+    "name": "VT 1D 1BD 2S",
+    "category": "vanity",
+    "description": "One Source vanity cabinet configuration VT-1D-1BD-2S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 1,
+      "shelves": 2
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "vt-1d-1bd-3s",
+    "slug": "vt-1d-1bd-3s",
+    "oscCode": "VT-1D-1BD-3S",
+    "name": "VT 1D 1BD 3S",
+    "category": "vanity",
+    "description": "One Source vanity cabinet configuration VT-1D-1BD-3S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 1,
+      "shelves": 3
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "vt-1d-2bd-0s",
+    "slug": "vt-1d-2bd-0s",
+    "oscCode": "VT-1D-2BD-0S",
+    "name": "VT 1D 2BD 0S",
+    "category": "vanity",
+    "description": "One Source vanity cabinet configuration VT-1D-2BD-0S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 1
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "vt-1d-2bd-1s",
+    "slug": "vt-1d-2bd-1s",
+    "oscCode": "VT-1D-2BD-1S",
+    "name": "VT 1D 2BD 1S",
+    "category": "vanity",
+    "description": "One Source vanity cabinet configuration VT-1D-2BD-1S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 1,
+      "shelves": 1
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "vt-1d-2bd-2s",
+    "slug": "vt-1d-2bd-2s",
+    "oscCode": "VT-1D-2BD-2S",
+    "name": "VT 1D 2BD 2S",
+    "category": "vanity",
+    "description": "One Source vanity cabinet configuration VT-1D-2BD-2S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 1,
+      "shelves": 2
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "vt-1d-2bd-3s",
+    "slug": "vt-1d-2bd-3s",
+    "oscCode": "VT-1D-2BD-3S",
+    "name": "VT 1D 2BD 3S",
+    "category": "vanity",
+    "description": "One Source vanity cabinet configuration VT-1D-2BD-3S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 1,
+      "shelves": 3
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "vt-2d-1bd-0s",
+    "slug": "vt-2d-1bd-0s",
+    "oscCode": "VT-2D-1BD-0S",
+    "name": "VT 2D 1BD 0S",
+    "category": "vanity",
+    "description": "One Source vanity cabinet configuration VT-2D-1BD-0S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 2
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "vt-2d-1bd-1s",
+    "slug": "vt-2d-1bd-1s",
+    "oscCode": "VT-2D-1BD-1S",
+    "name": "VT 2D 1BD 1S",
+    "category": "vanity",
+    "description": "One Source vanity cabinet configuration VT-2D-1BD-1S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 2,
+      "shelves": 1
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "vt-2d-1bd-2s",
+    "slug": "vt-2d-1bd-2s",
+    "oscCode": "VT-2D-1BD-2S",
+    "name": "VT 2D 1BD 2S",
+    "category": "vanity",
+    "description": "One Source vanity cabinet configuration VT-2D-1BD-2S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 2,
+      "shelves": 2
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "vt-2d-1bd-3s",
+    "slug": "vt-2d-1bd-3s",
+    "oscCode": "VT-2D-1BD-3S",
+    "name": "VT 2D 1BD 3S",
+    "category": "vanity",
+    "description": "One Source vanity cabinet configuration VT-2D-1BD-3S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 2,
+      "shelves": 3
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "vt-2d-2bd-0s",
+    "slug": "vt-2d-2bd-0s",
+    "oscCode": "VT-2D-2BD-0S",
+    "name": "VT 2D 2BD 0S",
+    "category": "vanity",
+    "description": "One Source vanity cabinet configuration VT-2D-2BD-0S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 2
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "vt-2d-2bd-1s",
+    "slug": "vt-2d-2bd-1s",
+    "oscCode": "VT-2D-2BD-1S",
+    "name": "VT 2D 2BD 1S",
+    "category": "vanity",
+    "description": "One Source vanity cabinet configuration VT-2D-2BD-1S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 2,
+      "shelves": 1
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "vt-2d-2bd-2s",
+    "slug": "vt-2d-2bd-2s",
+    "oscCode": "VT-2D-2BD-2S",
+    "name": "VT 2D 2BD 2S",
+    "category": "vanity",
+    "description": "One Source vanity cabinet configuration VT-2D-2BD-2S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 2,
+      "shelves": 2
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "vt-2d-2bd-3s",
+    "slug": "vt-2d-2bd-3s",
+    "oscCode": "VT-2D-2BD-3S",
+    "name": "VT 2D 2BD 3S",
+    "category": "vanity",
+    "description": "One Source vanity cabinet configuration VT-2D-2BD-3S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 2,
+      "shelves": 3
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "w-1d-0s",
+    "slug": "w-1d-0s",
+    "oscCode": "W-1D-0S",
+    "name": "W 1D 0S",
+    "category": "wall",
+    "description": "One Source wall cabinet configuration W-1D-0S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 1
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "w-1d-1part",
+    "slug": "w-1d-1part",
+    "oscCode": "W-1D-1PART",
+    "name": "W 1D 1PART",
+    "category": "wall",
+    "description": "One Source wall cabinet configuration W-1D-1PART.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 1,
+      "partitions": 1
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "w-1d-1s",
+    "slug": "w-1d-1s",
+    "oscCode": "W-1D-1S",
+    "name": "W 1D 1S",
+    "category": "wall",
+    "description": "One Source wall cabinet configuration W-1D-1S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 1,
+      "shelves": 1
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "w-1d-2part",
+    "slug": "w-1d-2part",
+    "oscCode": "W-1D-2PART",
+    "name": "W 1D 2PART",
+    "category": "wall",
+    "description": "One Source wall cabinet configuration W-1D-2PART.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 1,
+      "partitions": 1
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "w-1d-2s",
+    "slug": "w-1d-2s",
+    "oscCode": "W-1D-2S",
+    "name": "W 1D 2S",
+    "category": "wall",
+    "description": "One Source wall cabinet configuration W-1D-2S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 1,
+      "shelves": 2
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "w-1d-3part",
+    "slug": "w-1d-3part",
+    "oscCode": "W-1D-3PART",
+    "name": "W 1D 3PART",
+    "category": "wall",
+    "description": "One Source wall cabinet configuration W-1D-3PART.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 1,
+      "partitions": 1
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "w-1d-3s",
+    "slug": "w-1d-3s",
+    "oscCode": "W-1D-3S",
+    "name": "W 1D 3S",
+    "category": "wall",
+    "description": "One Source wall cabinet configuration W-1D-3S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 1,
+      "shelves": 3
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "w-1d-4s",
+    "slug": "w-1d-4s",
+    "oscCode": "W-1D-4S",
+    "name": "W 1D 4S",
+    "category": "wall",
+    "description": "One Source wall cabinet configuration W-1D-4S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 1,
+      "shelves": 4
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "w-2d-0s",
+    "slug": "w-2d-0s",
+    "oscCode": "W-2D-0S",
+    "name": "W 2D 0S",
+    "category": "wall",
+    "description": "One Source wall cabinet configuration W-2D-0S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 2
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "w-2d-1part",
+    "slug": "w-2d-1part",
+    "oscCode": "W-2D-1PART",
+    "name": "W 2D 1PART",
+    "category": "wall",
+    "description": "One Source wall cabinet configuration W-2D-1PART.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 2,
+      "partitions": 1
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "w-2d-1s",
+    "slug": "w-2d-1s",
+    "oscCode": "W-2D-1S",
+    "name": "W 2D 1S",
+    "category": "wall",
+    "description": "One Source wall cabinet configuration W-2D-1S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 2,
+      "shelves": 1
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "w-2d-2part",
+    "slug": "w-2d-2part",
+    "oscCode": "W-2D-2PART",
+    "name": "W 2D 2PART",
+    "category": "wall",
+    "description": "One Source wall cabinet configuration W-2D-2PART.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 2,
+      "partitions": 1
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "w-2d-2s",
+    "slug": "w-2d-2s",
+    "oscCode": "W-2D-2S",
+    "name": "W 2D 2S",
+    "category": "wall",
+    "description": "One Source wall cabinet configuration W-2D-2S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 2,
+      "shelves": 2
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "w-2d-3part",
+    "slug": "w-2d-3part",
+    "oscCode": "W-2D-3PART",
+    "name": "W 2D 3PART",
+    "category": "wall",
+    "description": "One Source wall cabinet configuration W-2D-3PART.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 2,
+      "partitions": 1
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "w-2d-3s",
+    "slug": "w-2d-3s",
+    "oscCode": "W-2D-3S",
+    "name": "W 2D 3S",
+    "category": "wall",
+    "description": "One Source wall cabinet configuration W-2D-3S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 2,
+      "shelves": 3
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "w-2d-4s",
+    "slug": "w-2d-4s",
+    "oscCode": "W-2D-4S",
+    "name": "W 2D 4S",
+    "category": "wall",
+    "description": "One Source wall cabinet configuration W-2D-4S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 2,
+      "shelves": 4
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "wbcl-0s",
+    "slug": "wbcl-0s",
+    "oscCode": "WBCL-0S",
+    "name": "WBCL 0S",
+    "category": "wall",
+    "description": "One Source wall cabinet configuration WBCL-0S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {},
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "wbcl-1s",
+    "slug": "wbcl-1s",
+    "oscCode": "WBCL-1S",
+    "name": "WBCL 1S",
+    "category": "wall",
+    "description": "One Source wall cabinet configuration WBCL-1S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "shelves": 1
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "wbcl-2s",
+    "slug": "wbcl-2s",
+    "oscCode": "WBCL-2S",
+    "name": "WBCL 2S",
+    "category": "wall",
+    "description": "One Source wall cabinet configuration WBCL-2S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "shelves": 2
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "wbcl-3s",
+    "slug": "wbcl-3s",
+    "oscCode": "WBCL-3S",
+    "name": "WBCL 3S",
+    "category": "wall",
+    "description": "One Source wall cabinet configuration WBCL-3S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "shelves": 3
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "wbcl-4s",
+    "slug": "wbcl-4s",
+    "oscCode": "WBCL-4S",
+    "name": "WBCL 4S",
+    "category": "wall",
+    "description": "One Source wall cabinet configuration WBCL-4S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "shelves": 4
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "wbcldd-0s",
+    "slug": "wbcldd-0s",
+    "oscCode": "WBCLDD-0S",
+    "name": "WBCLDD 0S",
+    "category": "wall",
+    "description": "One Source wall cabinet configuration WBCLDD-0S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {},
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "wbcldd-1s",
+    "slug": "wbcldd-1s",
+    "oscCode": "WBCLDD-1S",
+    "name": "WBCLDD 1S",
+    "category": "wall",
+    "description": "One Source wall cabinet configuration WBCLDD-1S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "shelves": 1
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "wbcldd-2s",
+    "slug": "wbcldd-2s",
+    "oscCode": "WBCLDD-2S",
+    "name": "WBCLDD 2S",
+    "category": "wall",
+    "description": "One Source wall cabinet configuration WBCLDD-2S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "shelves": 2
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "wbcldd-3s",
+    "slug": "wbcldd-3s",
+    "oscCode": "WBCLDD-3S",
+    "name": "WBCLDD 3S",
+    "category": "wall",
+    "description": "One Source wall cabinet configuration WBCLDD-3S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "shelves": 3
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "wbcldd-4s",
+    "slug": "wbcldd-4s",
+    "oscCode": "WBCLDD-4S",
+    "name": "WBCLDD 4S",
+    "category": "wall",
+    "description": "One Source wall cabinet configuration WBCLDD-4S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "shelves": 4
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "wbcr-0s",
+    "slug": "wbcr-0s",
+    "oscCode": "WBCR-0S",
+    "name": "WBCR 0S",
+    "category": "wall",
+    "description": "One Source wall cabinet configuration WBCR-0S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {},
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "wbcr-1s",
+    "slug": "wbcr-1s",
+    "oscCode": "WBCR-1S",
+    "name": "WBCR 1S",
+    "category": "wall",
+    "description": "One Source wall cabinet configuration WBCR-1S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "shelves": 1
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "wbcr-2s",
+    "slug": "wbcr-2s",
+    "oscCode": "WBCR-2S",
+    "name": "WBCR 2S",
+    "category": "wall",
+    "description": "One Source wall cabinet configuration WBCR-2S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "shelves": 2
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "wbcr-3s",
+    "slug": "wbcr-3s",
+    "oscCode": "WBCR-3S",
+    "name": "WBCR 3S",
+    "category": "wall",
+    "description": "One Source wall cabinet configuration WBCR-3S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "shelves": 3
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "wbcr-4s",
+    "slug": "wbcr-4s",
+    "oscCode": "WBCR-4S",
+    "name": "WBCR 4S",
+    "category": "wall",
+    "description": "One Source wall cabinet configuration WBCR-4S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "shelves": 4
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "wbcrdd-0s",
+    "slug": "wbcrdd-0s",
+    "oscCode": "WBCRDD-0S",
+    "name": "WBCRDD 0S",
+    "category": "wall",
+    "description": "One Source wall cabinet configuration WBCRDD-0S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {},
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "wbcrdd-1s",
+    "slug": "wbcrdd-1s",
+    "oscCode": "WBCRDD-1S",
+    "name": "WBCRDD 1S",
+    "category": "wall",
+    "description": "One Source wall cabinet configuration WBCRDD-1S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "shelves": 1
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "wbcrdd-2s",
+    "slug": "wbcrdd-2s",
+    "oscCode": "WBCRDD-2S",
+    "name": "WBCRDD 2S",
+    "category": "wall",
+    "description": "One Source wall cabinet configuration WBCRDD-2S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "shelves": 2
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "wbcrdd-3s",
+    "slug": "wbcrdd-3s",
+    "oscCode": "WBCRDD-3S",
+    "name": "WBCRDD 3S",
+    "category": "wall",
+    "description": "One Source wall cabinet configuration WBCRDD-3S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "shelves": 3
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "wbcrdd-4s",
+    "slug": "wbcrdd-4s",
+    "oscCode": "WBCRDD-4S",
+    "name": "WBCRDD 4S",
+    "category": "wall",
+    "description": "One Source wall cabinet configuration WBCRDD-4S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "shelves": 4
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "wc90l-0s",
+    "slug": "wc90l-0s",
+    "oscCode": "WC90L-0S",
+    "name": "WC90L 0S",
+    "category": "wall",
+    "description": "One Source wall cabinet configuration WC90L-0S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {},
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "wc90l-1s",
+    "slug": "wc90l-1s",
+    "oscCode": "WC90L-1S",
+    "name": "WC90L 1S",
+    "category": "wall",
+    "description": "One Source wall cabinet configuration WC90L-1S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "shelves": 1
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "wc90l-2s",
+    "slug": "wc90l-2s",
+    "oscCode": "WC90L-2S",
+    "name": "WC90L 2S",
+    "category": "wall",
+    "description": "One Source wall cabinet configuration WC90L-2S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "shelves": 2
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "wc90l-3s",
+    "slug": "wc90l-3s",
+    "oscCode": "WC90L-3S",
+    "name": "WC90L 3S",
+    "category": "wall",
+    "description": "One Source wall cabinet configuration WC90L-3S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "shelves": 3
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "wc90l-4s",
+    "slug": "wc90l-4s",
+    "oscCode": "WC90L-4S",
+    "name": "WC90L 4S",
+    "category": "wall",
+    "description": "One Source wall cabinet configuration WC90L-4S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "shelves": 4
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "wc90ldd-0s",
+    "slug": "wc90ldd-0s",
+    "oscCode": "WC90LDD-0S",
+    "name": "WC90LDD 0S",
+    "category": "wall",
+    "description": "One Source wall cabinet configuration WC90LDD-0S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {},
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "wc90ldd-1s",
+    "slug": "wc90ldd-1s",
+    "oscCode": "WC90LDD-1S",
+    "name": "WC90LDD 1S",
+    "category": "wall",
+    "description": "One Source wall cabinet configuration WC90LDD-1S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "shelves": 1
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "wc90ldd-2s",
+    "slug": "wc90ldd-2s",
+    "oscCode": "WC90LDD-2S",
+    "name": "WC90LDD 2S",
+    "category": "wall",
+    "description": "One Source wall cabinet configuration WC90LDD-2S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "shelves": 2
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "wc90ldd-3s",
+    "slug": "wc90ldd-3s",
+    "oscCode": "WC90LDD-3S",
+    "name": "WC90LDD 3S",
+    "category": "wall",
+    "description": "One Source wall cabinet configuration WC90LDD-3S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "shelves": 3
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "wc90ldd-4s",
+    "slug": "wc90ldd-4s",
+    "oscCode": "WC90LDD-4S",
+    "name": "WC90LDD 4S",
+    "category": "wall",
+    "description": "One Source wall cabinet configuration WC90LDD-4S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "shelves": 4
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "wc90r-0s",
+    "slug": "wc90r-0s",
+    "oscCode": "WC90R-0S",
+    "name": "WC90R 0S",
+    "category": "wall",
+    "description": "One Source wall cabinet configuration WC90R-0S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {},
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "wc90r-1s",
+    "slug": "wc90r-1s",
+    "oscCode": "WC90R-1S",
+    "name": "WC90R 1S",
+    "category": "wall",
+    "description": "One Source wall cabinet configuration WC90R-1S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "shelves": 1
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "wc90r-2s",
+    "slug": "wc90r-2s",
+    "oscCode": "WC90R-2S",
+    "name": "WC90R 2S",
+    "category": "wall",
+    "description": "One Source wall cabinet configuration WC90R-2S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "shelves": 2
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "wc90r-3s",
+    "slug": "wc90r-3s",
+    "oscCode": "WC90R-3S",
+    "name": "WC90R 3S",
+    "category": "wall",
+    "description": "One Source wall cabinet configuration WC90R-3S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "shelves": 3
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "wc90r-4s",
+    "slug": "wc90r-4s",
+    "oscCode": "WC90R-4S",
+    "name": "WC90R 4S",
+    "category": "wall",
+    "description": "One Source wall cabinet configuration WC90R-4S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "shelves": 4
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "wc90rdd-0s",
+    "slug": "wc90rdd-0s",
+    "oscCode": "WC90RDD-0S",
+    "name": "WC90RDD 0S",
+    "category": "wall",
+    "description": "One Source wall cabinet configuration WC90RDD-0S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {},
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "wc90rdd-1s",
+    "slug": "wc90rdd-1s",
+    "oscCode": "WC90RDD-1S",
+    "name": "WC90RDD 1S",
+    "category": "wall",
+    "description": "One Source wall cabinet configuration WC90RDD-1S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "shelves": 1
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "wc90rdd-2s",
+    "slug": "wc90rdd-2s",
+    "oscCode": "WC90RDD-2S",
+    "name": "WC90RDD 2S",
+    "category": "wall",
+    "description": "One Source wall cabinet configuration WC90RDD-2S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "shelves": 2
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "wc90rdd-3s",
+    "slug": "wc90rdd-3s",
+    "oscCode": "WC90RDD-3S",
+    "name": "WC90RDD 3S",
+    "category": "wall",
+    "description": "One Source wall cabinet configuration WC90RDD-3S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "shelves": 3
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "wc90rdd-4s",
+    "slug": "wc90rdd-4s",
+    "oscCode": "WC90RDD-4S",
+    "name": "WC90RDD 4S",
+    "category": "wall",
+    "description": "One Source wall cabinet configuration WC90RDD-4S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "shelves": 4
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "wdc-0s",
+    "slug": "wdc-0s",
+    "oscCode": "WDC-0S",
+    "name": "WDC 0S",
+    "category": "wall",
+    "description": "One Source wall cabinet configuration WDC-0S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {},
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "wdc-1s",
+    "slug": "wdc-1s",
+    "oscCode": "WDC-1S",
+    "name": "WDC 1S",
+    "category": "wall",
+    "description": "One Source wall cabinet configuration WDC-1S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "shelves": 1
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "wdc-2s",
+    "slug": "wdc-2s",
+    "oscCode": "WDC-2S",
+    "name": "WDC 2S",
+    "category": "wall",
+    "description": "One Source wall cabinet configuration WDC-2S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "shelves": 2
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "wdc-3s",
+    "slug": "wdc-3s",
+    "oscCode": "WDC-3S",
+    "name": "WDC 3S",
+    "category": "wall",
+    "description": "One Source wall cabinet configuration WDC-3S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "shelves": 3
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "wdc-4s",
+    "slug": "wdc-4s",
+    "oscCode": "WDC-4S",
+    "name": "WDC 4S",
+    "category": "wall",
+    "description": "One Source wall cabinet configuration WDC-4S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "shelves": 4
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "wdcdd-0s",
+    "slug": "wdcdd-0s",
+    "oscCode": "WDCDD-0S",
+    "name": "WDCDD 0S",
+    "category": "wall",
+    "description": "One Source wall cabinet configuration WDCDD-0S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {},
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "wdcdd-1s",
+    "slug": "wdcdd-1s",
+    "oscCode": "WDCDD-1S",
+    "name": "WDCDD 1S",
+    "category": "wall",
+    "description": "One Source wall cabinet configuration WDCDD-1S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "shelves": 1
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "wdcdd-2s",
+    "slug": "wdcdd-2s",
+    "oscCode": "WDCDD-2S",
+    "name": "WDCDD 2S",
+    "category": "wall",
+    "description": "One Source wall cabinet configuration WDCDD-2S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "shelves": 2
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "wdcdd-3s",
+    "slug": "wdcdd-3s",
+    "oscCode": "WDCDD-3S",
+    "name": "WDCDD 3S",
+    "category": "wall",
+    "description": "One Source wall cabinet configuration WDCDD-3S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "shelves": 3
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "wdcdd-4s",
+    "slug": "wdcdd-4s",
+    "oscCode": "WDCDD-4S",
+    "name": "WDCDD 4S",
+    "category": "wall",
+    "description": "One Source wall cabinet configuration WDCDD-4S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "shelves": 4
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "wdd-1d-0s",
+    "slug": "wdd-1d-0s",
+    "oscCode": "WDD-1D-0S",
+    "name": "WDD 1D 0S",
+    "category": "wall",
+    "description": "One Source wall cabinet configuration WDD-1D-0S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 1
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "wdd-1d-1part",
+    "slug": "wdd-1d-1part",
+    "oscCode": "WDD-1D-1PART",
+    "name": "WDD 1D 1PART",
+    "category": "wall",
+    "description": "One Source wall cabinet configuration WDD-1D-1PART.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 1,
+      "partitions": 1
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "wdd-1d-1s",
+    "slug": "wdd-1d-1s",
+    "oscCode": "WDD-1D-1S",
+    "name": "WDD 1D 1S",
+    "category": "wall",
+    "description": "One Source wall cabinet configuration WDD-1D-1S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 1,
+      "shelves": 1
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "wdd-1d-2part",
+    "slug": "wdd-1d-2part",
+    "oscCode": "WDD-1D-2PART",
+    "name": "WDD 1D 2PART",
+    "category": "wall",
+    "description": "One Source wall cabinet configuration WDD-1D-2PART.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 1,
+      "partitions": 1
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "wdd-1d-2s",
+    "slug": "wdd-1d-2s",
+    "oscCode": "WDD-1D-2S",
+    "name": "WDD 1D 2S",
+    "category": "wall",
+    "description": "One Source wall cabinet configuration WDD-1D-2S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 1,
+      "shelves": 2
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "wdd-1d-3part",
+    "slug": "wdd-1d-3part",
+    "oscCode": "WDD-1D-3PART",
+    "name": "WDD 1D 3PART",
+    "category": "wall",
+    "description": "One Source wall cabinet configuration WDD-1D-3PART.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 1,
+      "partitions": 1
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "wdd-1d-3s",
+    "slug": "wdd-1d-3s",
+    "oscCode": "WDD-1D-3S",
+    "name": "WDD 1D 3S",
+    "category": "wall",
+    "description": "One Source wall cabinet configuration WDD-1D-3S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 1,
+      "shelves": 3
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "wdd-1d-4s",
+    "slug": "wdd-1d-4s",
+    "oscCode": "WDD-1D-4S",
+    "name": "WDD 1D 4S",
+    "category": "wall",
+    "description": "One Source wall cabinet configuration WDD-1D-4S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 1,
+      "shelves": 4
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "wdd-2d-0s",
+    "slug": "wdd-2d-0s",
+    "oscCode": "WDD-2D-0S",
+    "name": "WDD 2D 0S",
+    "category": "wall",
+    "description": "One Source wall cabinet configuration WDD-2D-0S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 2
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "wdd-2d-1part",
+    "slug": "wdd-2d-1part",
+    "oscCode": "WDD-2D-1PART",
+    "name": "WDD 2D 1PART",
+    "category": "wall",
+    "description": "One Source wall cabinet configuration WDD-2D-1PART.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 2,
+      "partitions": 1
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "wdd-2d-1s",
+    "slug": "wdd-2d-1s",
+    "oscCode": "WDD-2D-1S",
+    "name": "WDD 2D 1S",
+    "category": "wall",
+    "description": "One Source wall cabinet configuration WDD-2D-1S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 2,
+      "shelves": 1
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "wdd-2d-2part",
+    "slug": "wdd-2d-2part",
+    "oscCode": "WDD-2D-2PART",
+    "name": "WDD 2D 2PART",
+    "category": "wall",
+    "description": "One Source wall cabinet configuration WDD-2D-2PART.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 2,
+      "partitions": 1
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "wdd-2d-2s",
+    "slug": "wdd-2d-2s",
+    "oscCode": "WDD-2D-2S",
+    "name": "WDD 2D 2S",
+    "category": "wall",
+    "description": "One Source wall cabinet configuration WDD-2D-2S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 2,
+      "shelves": 2
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "wdd-2d-3part",
+    "slug": "wdd-2d-3part",
+    "oscCode": "WDD-2D-3PART",
+    "name": "WDD 2D 3PART",
+    "category": "wall",
+    "description": "One Source wall cabinet configuration WDD-2D-3PART.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 2,
+      "partitions": 1
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "wdd-2d-3s",
+    "slug": "wdd-2d-3s",
+    "oscCode": "WDD-2D-3S",
+    "name": "WDD 2D 3S",
+    "category": "wall",
+    "description": "One Source wall cabinet configuration WDD-2D-3S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 2,
+      "shelves": 3
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "wdd-2d-4s",
+    "slug": "wdd-2d-4s",
+    "oscCode": "WDD-2D-4S",
+    "name": "WDD 2D 4S",
+    "category": "wall",
+    "description": "One Source wall cabinet configuration WDD-2D-4S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 2,
+      "shelves": 4
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "wdf-l",
+    "slug": "wdf-l",
+    "oscCode": "WDF-L",
+    "name": "WDF L",
+    "category": "wall",
+    "description": "One Source wall cabinet configuration WDF-L.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {},
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "wdf-r",
+    "slug": "wdf-r",
+    "oscCode": "WDF-R",
+    "name": "WDF R",
+    "category": "wall",
+    "description": "One Source wall cabinet configuration WDF-R.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {},
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  }
+]

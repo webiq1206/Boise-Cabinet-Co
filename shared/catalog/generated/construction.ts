@@ -1,0 +1,46 @@
+/** AUTO-GENERATED */
+export const OSC_CONSTRUCTION = {
+  "boxStyle": "frameless euro-style",
+  "boxMaterial": "3/4\" melamine box with 3/4\" melamine shelves",
+  "sides": "3/4\" birch plywood sides",
+  "bottom": "1/2\" birch plywood bottoms",
+  "drawerConstruction": "3/4\" plywood dovetail drawer boxes",
+  "hingeType": "Salice six-way adjustable soft-close hinges",
+  "drawerSlides": "Salice Futura Smove full-extension soft-close",
+  "legLevelers": true,
+  "adjustableDrawerFronts": true,
+  "fillerConstruction": "Doweled crown, return panels and fillers",
+  "endPanels": "3/4\" finished end panels field applied",
+  "warranty": "Limited lifetime for original homeowner",
+  "facilities": [
+    "Mesa, Arizona",
+    "Colorado Springs, Colorado"
+  ],
+  "features": [
+    {
+      "id": "melamine-box",
+      "label": "3/4\" Melamine Box",
+      "description": "Structural box with PUR edge banding"
+    },
+    {
+      "id": "birch-sides",
+      "label": "Birch Plywood Sides",
+      "description": "Full 3/4\" birch plywood sides"
+    },
+    {
+      "id": "salice-hinges",
+      "label": "Salice Soft-Close Hinges",
+      "description": "Six-way adjustable, 64mm line bore"
+    },
+    {
+      "id": "dovetail-drawers",
+      "label": "Dovetail Drawer Boxes",
+      "description": "3/4\" plywood, soft-close slides"
+    },
+    {
+      "id": "doweled-fillers",
+      "label": "Doweled Fillers",
+      "description": "Coordinating crown and filler panels"
+    }
+  ]
+} as const;

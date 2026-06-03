@@ -4,22 +4,14 @@ import { ArrowRight } from "lucide-react";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Section } from "@/components/marketing/Section";
-import { PageHeader } from "@/components/marketing/PageHeader";
 import { SectionHeader } from "@/components/marketing/SectionHeader";
-import { MarketingCard } from "@/components/marketing/MarketingCard";
-import { FinishSwatchGrid } from "@/components/catalog/FinishSwatchGrid";
-import { DoorStyleHero } from "@/components/catalog/DoorStyleHero";
-import { Chip } from "@/components/marketing/Chip";
-import { TextLink } from "@/components/marketing/TextLink";
-import { Button } from "@/components/ui/button";
+import { DoorStyleExplorer } from "@/components/catalog/DoorStyleExplorer";
+import { ProductConfigurationCard } from "@/components/catalog/ProductConfigurationCard";
+import { getProductsForDoorStyle } from "@/shared/catalog";
 import { catalogMetadata, catalogDescription } from "@/lib/catalog-metadata";
 import { generateBreadcrumbSchema, generateWebPageSchema } from "@/lib/schema";
-import {
-  DOOR_STYLES,
-  getDoorStyleBySlug,
-  getFinishesForDoorStyle,
-  COLLECTIONS,
-} from "@/shared/catalog";
+import { DOOR_STYLES, getDoorStyleBySlug } from "@/shared/catalog";
+import { Button } from "@/components/ui/button";
 
 export function generateStaticParams() {
   return DOOR_STYLES.map((d) => ({ slug: d.slug }));
@@ -39,10 +31,7 @@ export default function DoorStyleDetailPage({ params }: { params: { slug: string
   const style = getDoorStyleBySlug(params.slug);
   if (!style) notFound();
 
-  const finishes = getFinishesForDoorStyle(style.slug);
-  const collections = COLLECTIONS.filter((c) =>
-    style.availableInCollections.includes(c.id),
-  );
+  const sampleProducts = getProductsForDoorStyle(style.slug, 6);
 
   const schemas = [
     generateWebPageSchema({
@@ -70,81 +59,34 @@ export default function DoorStyleDetailPage({ params }: { params: { slug: string
                 { name: style.name },
               ]}
             />
-            <PageHeader
-              align="left"
-              className="mt-6"
-              eyebrow="Door profile"
-              title={
-                <>
-                  {style.name}{" "}
-                  <em className="brc-accent text-accent">doors</em>
-                </>
-              }
-              description={style.description}
-              meta={
-                <div className="flex flex-wrap gap-2">
-                  {style.compatibleFinishCategories.map((cat) => (
-                    <Chip key={cat} className="capitalize">
-                      {cat} finishes
-                    </Chip>
-                  ))}
-                </div>
-              }
-            />
-            <DoorStyleHero slug={style.slug} name={style.name} className="mt-8" />
-            <Button variant="brand" asChild className="mt-4">
-              <Link href="/design-studio">
-                Use in Design Studio <ArrowRight className="h-4 w-4" />
-              </Link>
-            </Button>
+            <DoorStyleExplorer style={style} />
           </div>
         </Section>
 
-        <Section variant="greige" divider>
-          <div className="container px-4 max-w-3xl">
-            <SectionHeader
-              eyebrow="Construction"
-              title={<>How it is built</>}
-              description={style.constructionNotes}
-              align="left"
-              className="mb-0"
-            />
-          </div>
-        </Section>
-
-        <Section divider>
-          <div className="container px-4">
-            <SectionHeader
-              eyebrow="Collections"
-              title={<>Available in these lines</>}
-              align="center"
-              className="mb-8 max-w-xl mx-auto text-center [&_.brc-label]:justify-center"
-            />
-            <div className="grid sm:grid-cols-2 gap-4 max-w-3xl mx-auto">
-              {collections.map((c) => (
-                <MarketingCard key={c.id}>
-                  <h3 className="font-medium mb-1">{c.name}</h3>
-                  <TextLink href={`/collections/${c.slug}`} showArrow>
-                    View collection
-                  </TextLink>
-                </MarketingCard>
-              ))}
+        {sampleProducts.length > 0 && (
+          <Section variant="surface" divider>
+            <div className="container px-4">
+              <SectionHeader
+                eyebrow="Configurations"
+                title={<>Example products</>}
+                align="center"
+                className="mb-8 max-w-xl mx-auto text-center [&_.brc-label]:justify-center"
+              />
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl mx-auto">
+                {sampleProducts.map((p) => (
+                  <ProductConfigurationCard key={p.id} product={p} />
+                ))}
+              </div>
+              <div className="text-center mt-6">
+                <Button variant="outline" asChild>
+                  <Link href={`/products?doorStyle=${style.slug}`}>
+                    View all configurations <ArrowRight className="h-4 w-4" />
+                  </Link>
+                </Button>
+              </div>
             </div>
-          </div>
-        </Section>
-
-        <Section variant="surface" divider>
-          <div className="container px-4">
-            <SectionHeader
-              eyebrow="Compatible finishes"
-              title={<>Finishes for {style.name}</>}
-              description={`${finishes.length} finishes in our library pair with this door profile.`}
-              align="center"
-              className="mb-10 max-w-xl mx-auto text-center [&_.brc-label]:justify-center"
-            />
-            <FinishSwatchGrid finishes={finishes} />
-          </div>
-        </Section>
+          </Section>
+        )}
       </div>
     </>
   );

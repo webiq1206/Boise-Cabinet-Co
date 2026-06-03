@@ -1,5 +1,5 @@
 import type { LayoutSlug } from "@/shared/catalog/layouts";
-import { FINISH_BY_SLUG } from "@/shared/catalog/finishes";
+import { FINISH_BY_SLUG, resolveFinishSlug } from "@/shared/catalog/finishes";
 import type { FinishCategory } from "@/shared/catalog/doorStyles";
 
 export type ModuleFront = "door" | "drawers";
@@ -42,7 +42,7 @@ const DEPTH = 0.6;
 
 export function getFinishHex(finish: string | null): string {
   if (!finish) return "#F5F3EF";
-  const catalogFinish = FINISH_BY_SLUG[finish];
+  const catalogFinish = FINISH_BY_SLUG[finish] ?? FINISH_BY_SLUG[resolveFinishSlug(finish)];
   if (catalogFinish?.hexColor) return catalogFinish.hexColor;
 
   const legacy: Record<string, string> = {
@@ -56,7 +56,8 @@ export function getFinishHex(finish: string | null): string {
 
 export function getFinishCategory(finish: string | null): FinishCategory {
   if (!finish) return "matte";
-  return FINISH_BY_SLUG[finish]?.category ?? "matte";
+  const f = FINISH_BY_SLUG[finish] ?? FINISH_BY_SLUG[resolveFinishSlug(finish)];
+  return f?.category ?? "matte";
 }
 
 function previewLayoutSlug(layout: LayoutSlug | null): LayoutSlug {

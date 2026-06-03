@@ -9,6 +9,7 @@ import { MarketingCard } from "@/components/marketing/MarketingCard";
 import { Button } from "@/components/ui/button";
 import { CatalogPageHero } from "@/components/catalog/CatalogPageHero";
 import { CatalogClosingCTA } from "@/components/catalog/CatalogClosingCTA";
+import { ConstructionExplorer } from "@/components/catalog/ConstructionExplorer";
 import { MARKETING_IMAGES } from "@/shared/siteImages";
 import { catalogMetadata, catalogDescription } from "@/lib/catalog-metadata";
 import { generateBreadcrumbSchema, generateWebPageSchema } from "@/lib/schema";
@@ -102,6 +103,12 @@ export default function ConstructionPage() {
         </Section>
 
         <Section variant="greige" divider>
+          <div className="container px-4 max-w-4xl">
+            <ConstructionExplorer />
+          </div>
+        </Section>
+
+        <Section divider>
           <div className="container px-4 max-w-4xl">
             <SectionHeader
               eyebrow="Built to last"

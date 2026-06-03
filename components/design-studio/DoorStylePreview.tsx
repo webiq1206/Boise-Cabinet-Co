@@ -58,8 +58,9 @@ export function DoorStylePreview({ slug, color, category, className }: DoorStyle
 
   const grainId = `grain-${slug}`;
 
-  const railWidth = slug === "thin-shaker" ? 4 : 8;
-  const isFramed = slug !== "slab";
+  const railWidth =
+    slug === "thin-shaker" ? 4 : slug === "alpha-shaker" || slug === "beta-shaker" ? 6 : 8;
+  const isFramed = slug !== "slab" && slug !== "three-piece";
 
   const px = x + railWidth;
   const py = y + railWidth;
@@ -94,7 +95,11 @@ export function DoorStylePreview({ slug, color, category, className }: DoorStyle
       )}
 
       {/* Shaker recessed panel (standard + thin) */}
-      {(slug === "shaker" || slug === "thin-shaker") && (
+      {(slug === "modern-shaker" ||
+        slug === "shaker" ||
+        slug === "thin-shaker" ||
+        slug === "alpha-shaker" ||
+        slug === "beta-shaker") && (
         <>
           <rect x={px} y={py} width={pw} height={ph} rx="1.5" fill={recess} stroke={recessEdge} strokeWidth="1" />
           <line x1={px} y1={py + 1} x2={px + pw} y2={py + 1} stroke={recessEdge} strokeWidth="1" opacity="0.6" />

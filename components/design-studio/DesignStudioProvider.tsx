@@ -75,6 +75,8 @@ export interface DesignState {
   roomMeta: RoomMeta | null;
   /** Currently selected module id, shared across the 2D planner and 3D preview. */
   selectedModuleId: string | null;
+  /** OSC catalog product slugs selected for this design */
+  lineItemSlugs: string[];
 }
 
 const initialState: DesignState = {
@@ -96,6 +98,7 @@ const initialState: DesignState = {
   roomBounds: null,
   roomMeta: null,
   selectedModuleId: null,
+  lineItemSlugs: [],
 };
 
 interface DesignStudioContextValue {
@@ -349,6 +352,7 @@ export function DesignStudioProvider({ children }: { children: ReactNode }) {
       modules: d.modules,
       roomBounds: d.roomBounds,
       roomMeta: d.roomMeta,
+      lineItemSlugs: d.lineItemSlugs,
     };
   }, []);
 
@@ -534,6 +538,7 @@ export function DesignStudioProvider({ children }: { children: ReactNode }) {
         shareToken: version.shareToken,
         pricingSubmitted: false,
         selectedModuleId: null,
+        lineItemSlugs: s.lineItemSlugs ?? [],
       });
     },
     [versions],

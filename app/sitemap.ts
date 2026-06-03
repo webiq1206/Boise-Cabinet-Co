@@ -4,6 +4,8 @@ import { GUIDE_PAGES } from '@/shared/guideContent';
 import { ROOM_CATEGORIES } from '@/shared/catalog/roomCategories';
 import { COLLECTIONS } from '@/shared/catalog/collections';
 import { DOOR_STYLES } from '@/shared/catalog/doorStyles';
+import { FINISHES } from '@/shared/catalog/finishes';
+import { CABINET_PRODUCTS } from '@/shared/catalog/cabinetProducts';
 import {
   CONTENT_HUBS,
   categoryHubPath,
@@ -32,6 +34,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/hardware`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${baseUrl}/construction`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${baseUrl}/compare`, lastModified: now, changeFrequency: 'monthly', priority: 0.75 },
+    { url: `${baseUrl}/products`, lastModified: now, changeFrequency: 'weekly', priority: 0.9 },
+    { url: `${baseUrl}/search`, lastModified: now, changeFrequency: 'weekly', priority: 0.75 },
     { url: `${baseUrl}/design-studio`, lastModified: now, changeFrequency: 'weekly', priority: 0.9 },
     {
       url: `${baseUrl}/resources/ada-canyon-permit-flow`,
@@ -71,6 +75,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.85,
   }));
 
+  const finishDetailPages: MetadataRoute.Sitemap = FINISHES.map((f) => ({
+    url: `${baseUrl}/finishes/${f.category}/${f.slug}`,
+    lastModified: now,
+    changeFrequency: 'monthly' as const,
+    priority: 0.7,
+  }));
+
+  const productPages: MetadataRoute.Sitemap = CABINET_PRODUCTS.map((p) => ({
+    url: `${baseUrl}/products/${p.category}/${p.slug}`,
+    lastModified: now,
+    changeFrequency: 'monthly' as const,
+    priority: 0.65,
+  }));
+
   const blogPages: MetadataRoute.Sitemap = BLOG_POSTS.map((post) => ({
     url: `${baseUrl}/blog/${post.slug}`,
     lastModified: new Date(post.publishedAt),
@@ -103,7 +121,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...cabinetRoomPages,
     ...collectionPages,
     ...finishCategoryPages,
+    ...finishDetailPages,
     ...doorStylePages,
+    ...productPages,
     ...guidePages,
     ...blogPages,
     ...categoryHubPages,

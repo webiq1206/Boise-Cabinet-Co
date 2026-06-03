@@ -2,6 +2,7 @@
 
 import { StyleStep } from "./StyleStep";
 import { DetailsStep } from "./DetailsStep";
+import { ProductLineItemsStep } from "./ProductLineItemsStep";
 import { useDesignStudio } from "../DesignStudioProvider";
 import { HARDWARE_OPTIONS as CATALOG_HARDWARE } from "@/shared/catalog/hardware";
 import { wizardCopy } from "@/shared/designStudioCopy";
@@ -46,7 +47,8 @@ export function LookStep() {
             />
           </Button>
         </CollapsibleTrigger>
-        <CollapsibleContent className="pt-6">
+        <CollapsibleContent className="pt-6 space-y-8">
+          <ProductLineItemsStep />
           <DetailsStep embedded />
         </CollapsibleContent>
       </Collapsible>

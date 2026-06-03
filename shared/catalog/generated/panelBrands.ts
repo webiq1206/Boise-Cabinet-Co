@@ -1,0 +1,59 @@
+/** AUTO-GENERATED */
+export const PANEL_BRANDS = [
+  {
+    "id": "supramat",
+    "name": "Supramat",
+    "series": [
+      "Supramat"
+    ]
+  },
+  {
+    "id": "fenix",
+    "name": "FENIX",
+    "series": [
+      "FENIX NTM"
+    ]
+  },
+  {
+    "id": "lummia",
+    "name": "Tafisa Lummia",
+    "series": [
+      "Lummia Perfect Matt"
+    ]
+  },
+  {
+    "id": "karisma",
+    "name": "Tafisa Karisma",
+    "series": [
+      "Karisma"
+    ]
+  },
+  {
+    "id": "agt",
+    "name": "AGT",
+    "series": [
+      "High Gloss"
+    ]
+  },
+  {
+    "id": "mirlux",
+    "name": "Mirlux",
+    "series": [
+      "Premium Gloss"
+    ]
+  },
+  {
+    "id": "salt",
+    "name": "Salt International",
+    "series": [
+      "Salt TSV"
+    ]
+  },
+  {
+    "id": "stevenswood",
+    "name": "Stevenswood",
+    "series": [
+      "Stevenswood"
+    ]
+  }
+] as const;

@@ -2,8 +2,7 @@
  * Verified One Source Cabinets construction and product specifications.
  * Source: onesourcecabinets.com, dealer documentation, Tafisa/Salt panel partners.
  *
- * Door styles reflect the three profiles the supplier actually produces:
- * Slab, Shaker, and Thin Shaker.
+ * Door styles: Slab, 3 Piece, Modern Shaker, Thin Shaker, Alpha Shaker, Beta Shaker.
  */
 
 export const ONE_SOURCE_SUPPLIER = {
@@ -13,7 +12,13 @@ export const ONE_SOURCE_SUPPLIER = {
   facilities: ["Mesa, Arizona", "Colorado Springs, Colorado"],
 } as const;
 
-export type OneSourceDoorStyleId = "slab" | "shaker" | "thin-shaker";
+export type OneSourceDoorStyleId =
+  | "slab"
+  | "three-piece"
+  | "modern-shaker"
+  | "thin-shaker"
+  | "alpha-shaker"
+  | "beta-shaker";
 
 export interface OneSourceDoorStyleSpec {
   brcSlug: string;
@@ -34,11 +39,19 @@ export const ONE_SOURCE_DOOR_STYLES: OneSourceDoorStyleSpec[] = [
     drawerFrontDefault: "slab",
   },
   {
-    brcSlug: "shaker",
-    oscName: "Shaker",
+    brcSlug: "three-piece",
+    oscName: "3 Piece",
     verified: true,
     geometryPrompt:
-      "five-piece shaker cabinet door with 3/4 inch thick frame, square stiles and rails, flat recessed center panel",
+      "three-piece cabinet door with horizontal grain center panel, frameless euro overlay",
+    drawerFrontDefault: "slab",
+  },
+  {
+    brcSlug: "modern-shaker",
+    oscName: "Modern Shaker",
+    verified: true,
+    geometryPrompt:
+      "five-piece modern shaker cabinet door with square stiles and rails, flat recessed center panel",
     drawerFrontDefault: "slab",
   },
   {
@@ -47,6 +60,22 @@ export const ONE_SOURCE_DOOR_STYLES: OneSourceDoorStyleSpec[] = [
     verified: true,
     geometryPrompt:
       "thin shaker cabinet door with narrow 1-inch stiles and rails, flat recessed center panel",
+    drawerFrontDefault: "slab",
+  },
+  {
+    brcSlug: "alpha-shaker",
+    oscName: "Alpha Shaker",
+    verified: true,
+    geometryPrompt:
+      "mitered alpha shaker cabinet door, streamlined profile, horizontal grain slab drawer front",
+    drawerFrontDefault: "slab",
+  },
+  {
+    brcSlug: "beta-shaker",
+    oscName: "Beta Shaker",
+    verified: true,
+    geometryPrompt:
+      "mitered beta shaker cabinet door with radius center profile, flat center panel",
     drawerFrontDefault: "slab",
   },
 ];

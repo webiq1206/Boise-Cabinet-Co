@@ -138,12 +138,9 @@ const nextConfig = {
       redirects.push(...r(source, destination));
     }
 
-    // Catalog cleanup: removed door styles and collections → canonical real products
+    // Legacy catalog slugs → OSC catalog
     const catalogRedirects = {
-      '/door-styles/modern-shaker': '/door-styles/shaker',
-      '/door-styles/three-piece': '/door-styles',
-      '/door-styles/alpha-shaker': '/door-styles',
-      '/door-styles/beta-shaker': '/door-styles',
+      '/door-styles/shaker': '/door-styles/modern-shaker',
       '/collections/full-custom': '/collections/custom',
       '/collections/semi-custom': '/collections/custom',
       '/collections/spec-grade': '/collections/custom',

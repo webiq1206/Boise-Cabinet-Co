@@ -28,12 +28,17 @@
     "images:blog-alts": "node scripts/migrate-blog-alts.mjs",
     "resources:generate": "tsx scripts/generate-resource-pdfs.ts",
     "verify:estimate": "tsx scripts/verify-estimate-engine.ts",
+    "catalog:extract": "node scripts/catalog/extract-osc-pdf.mjs",
+    "catalog:codegen": "node scripts/catalog/codegen-catalog.mjs",
+    "catalog:verify": "npx tsx scripts/catalog/verify-catalog-integrity.ts",
+    "catalog:build": "npm run catalog:extract && npm run catalog:codegen && npm run catalog:verify",
+    "catalog:images:verify": "npx tsx scripts/catalog/verify-catalog-images.ts",
     "verify:room-scan": "tsx scripts/verify-room-scan.ts",
     "images:blog": "node scripts/generate-blog-image-registry.mjs && node scripts/setup-blog-images.mjs",
     "images:generate": "node scripts/generate-blog-images.mjs",
     "images:placeholders": "node scripts/generate-placeholder-images.mjs",
     "images:catalog": "node scripts/generate-catalog-placeholders.mjs",
-    "prebuild": "npm run links:generate && npm run audit:links && npm run resources:generate && npm run images:blog && npm run verify:content && npm run verify:images && npm run verify:no-em-dash"
+    "prebuild": "npm run catalog:verify && npm run catalog:images:verify && npm run links:generate && npm run audit:links && npm run resources:generate && npm run images:blog && npm run verify:content && npm run verify:images && npm run verify:no-em-dash"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",

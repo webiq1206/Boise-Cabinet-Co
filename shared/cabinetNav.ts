@@ -18,12 +18,15 @@ export const PRIMARY_NAV = [
       href: `/collections/${c.slug}`,
     })),
   },
+  { label: "Products", href: "/products" },
   { label: "Finishes", href: "/finishes" },
   {
     label: "Explore",
     href: "/door-styles",
     children: [
       { label: "Door Styles", href: "/door-styles" },
+      { label: "Search Catalog", href: "/search" },
+      { label: "Shop by Room", href: "/products" },
       { label: "Hardware", href: "/hardware" },
       { label: "Accessories", href: "/accessories" },
       { label: "Compare Collections", href: "/compare" },
