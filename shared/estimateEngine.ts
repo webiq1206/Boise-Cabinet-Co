@@ -488,7 +488,7 @@ export const APPLIANCE_DISCLAIMER =
   "Appliances are client-supplied; we'll guide your selection but do not purchase or install them.";
 
 export const PLANNING_DETAIL_LABELS: Record<ConfidenceLevel, string> = {
-  starting: "Example range — personalize below",
+  starting: "Example range - personalize below",
   refined: "Refined guidance",
   detailed: "Detailed planning range",
 };

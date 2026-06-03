@@ -82,7 +82,7 @@ export default function HardwarePage() {
                 </>
               }
               description={catalogDescription(
-                "Standard One Source packages include Salice soft-close hinges and full-extension drawer slides. Decorative pulls are selected during design — samples below are for inspiration, not separate catalog SKUs.",
+                "Standard One Source packages include Salice soft-close hinges and full-extension drawer slides. Decorative pulls are selected during design - samples below are for inspiration, not separate catalog SKUs.",
               )}
             />
             <CatalogPageHero
@@ -134,7 +134,7 @@ export default function HardwarePage() {
             <SectionHeader
               eyebrow="Design consultation"
               title={<>Decorative pull &amp; knob samples</>}
-              description="These finishes are shown for planning — your designer will confirm availability and sizing with your door style."
+              description="These finishes are shown for planning - your designer will confirm availability and sizing with your door style."
               align="center"
               className="mb-10 max-w-xl mx-auto text-center [&_.brc-label]:justify-center"
             />

@@ -32,7 +32,7 @@ export function CatalogExploreStrip() {
           Explore door styles &amp; finishes
         </h3>
         <p className="text-sm text-muted-foreground mt-2">
-          Six door profiles and 108 OSC finishes — browse the full library or open Design Studio.
+          Six door profiles and 108 OSC finishes - browse the full library or open Design Studio.
         </p>
       </div>
       <div className="grid sm:grid-cols-3 gap-4">

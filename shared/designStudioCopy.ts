@@ -11,18 +11,18 @@ export const scanCopy = {
   takePhotoLoading: "Reading your photo…",
   typeSizePrimary: "Room size (inches)",
   typeSizeHint: "Works in Safari and Chrome. We'll confirm exact sizes at your home visit.",
-  widthLabel: "Width — wall to wall",
-  depthLabel: "Depth — into the room",
+  widthLabel: "Width - wall to wall",
+  depthLabel: "Depth - into the room",
   typicalKitchen: "12×14 ft typical",
   typeSizeAdvanced: "Advanced options",
   presetLabel: "Quick sizes",
   changeSize: "Change size",
   photoPrimaryTitle: "Start with a room photo",
   photoPrimaryHint:
-    "Don't know your exact size? Take a wide photo of the whole room — we'll estimate dimensions and you can adjust after.",
+    "Don't know your exact size? Take a wide photo of the whole room - we'll estimate dimensions and you can adjust after.",
   photoPrimaryButton: "Take or upload room photo",
   bucketLabel: "Not sure? Pick the closest size",
-  bucketHint: "No tape measure needed — you can refine with a photo or on the layout step.",
+  bucketHint: "No tape measure needed - you can refine with a photo or on the layout step.",
   knowSizeLabel: "I know my wall measurements",
   tunerTitle: "Fine-tune the estimate",
   tunerHint: "Nudge smaller or larger until the floor plan feels right.",
@@ -34,12 +34,12 @@ export const scanCopy = {
   photoReviewHint: "Tap two points on the back wall below to refine width, or use the size buttons.",
   photoFallbackTitle: "Used a quick photo estimate",
   photoFallbackNote:
-    "AI sizing was unavailable — we estimated from your photo proportions. Adjust with the buttons below.",
-  accuracySiteMeasure: "Using your size for layout checks — we confirm exact dimensions at your home visit.",
+    "AI sizing was unavailable - we estimated from your photo proportions. Adjust with the buttons below.",
+  accuracySiteMeasure: "Using your size for layout checks - we confirm exact dimensions at your home visit.",
   accuracyEstimated:
-    "Planning estimate from photo or rough size — not a site measure. Layout may flag issues if cabinets won't fit.",
+    "Planning estimate from photo or rough size - not a site measure. Layout may flag issues if cabinets won't fit.",
   accuracyPlanningOnly:
-    "Template size for preview only — enter a photo or room size before relying on fit checks.",
+    "Template size for preview only - enter a photo or room size before relying on fit checks.",
   traceWalls: "L- or U-shaped room? Trace the walls",
   roomCaptured: "Room size saved",
   scanAgain: "Change size",
@@ -83,7 +83,7 @@ export const scanCopy = {
 export const wizardCopy = {
   roomSetupTitle: "Your room",
   roomSetupHint:
-    "Pick a room, then use a photo or rough size — you'll see and edit the layout in your space on the next steps.",
+    "Pick a room, then use a photo or rough size - you'll see and edit the layout in your space on the next steps.",
   roomWhatNext: "Next you'll pick a layout that fits your space.",
   previewStepTitle: "Preview your design",
   previewStepHint: "Orbit the 3D view, then continue to save and request pricing.",

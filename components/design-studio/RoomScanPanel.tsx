@@ -242,7 +242,7 @@ export function RoomScanPanel() {
     trackDesignEvent("scan_completed", { method });
     toast({
       title: scanCopy.photoSuccess,
-      description: `${roomMeta.widthIn}" × ${roomMeta.depthIn}" — adjust below if needed.`,
+      description: `${roomMeta.widthIn}" × ${roomMeta.depthIn}" - adjust below if needed.`,
     });
   }
 
@@ -380,7 +380,7 @@ export function RoomScanPanel() {
               <p className="text-sm font-medium">{scanCopy.roomCaptured}</p>
               <p className="text-sm text-muted-foreground mt-0.5">
                 {meta.widthIn}&quot; × {meta.depthIn}&quot;
-                {meta.ceilingIn ? `, ${meta.ceilingIn}" ceiling` : ""} —{" "}
+                {meta.ceilingIn ? `, ${meta.ceilingIn}" ceiling` : ""} -{" "}
                 {meta.source === "ar-scan"
                   ? scanCopy.sourceAr
                   : meta.source === "vision-scan" || meta.source === "photo"

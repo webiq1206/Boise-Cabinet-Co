@@ -5,7 +5,7 @@ import {
   type RoomMeta,
 } from "./roomMeta";
 
-/** User-provided or captured room size — used for wizard gates and layout fit. */
+/** User-provided or captured room size - used for wizard gates and layout fit. */
 export const USER_MEASURED_SOURCES: readonly RoomDimensionSource[] = [
   "ar-scan",
   "vision-scan",
@@ -13,7 +13,7 @@ export const USER_MEASURED_SOURCES: readonly RoomDimensionSource[] = [
   "manual",
 ] as const;
 
-/** Template / cabinet-driven placeholders — not real wall measurements. */
+/** Template / cabinet-driven placeholders - not real wall measurements. */
 export const AUTO_PLANNING_SOURCES: readonly RoomDimensionSource[] = [
   "auto-layout",
   "auto-fit",
@@ -100,7 +100,7 @@ export function boundsFromScanPoints(points: ScanPoint3[]) {
   };
 }
 
-/** True when the user (or AR/photo capture) set room size — not auto-expanded template boxes. */
+/** True when the user (or AR/photo capture) set room size - not auto-expanded template boxes. */
 export function isScannedRoom(meta: RoomMeta | null | undefined): boolean {
   return isUserMeasuredRoom(meta);
 }

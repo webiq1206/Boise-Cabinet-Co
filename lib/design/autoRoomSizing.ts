@@ -142,7 +142,7 @@ export function expandRoomMetaToFitModules(
   modules: CabinetModule[],
   marginIn = 6,
 ): RoomMeta {
-  /** Never inflate user-measured walls — layout issues should surface instead. */
+  /** Never inflate user-measured walls - layout issues should surface instead. */
   if (isUserMeasuredRoom(meta)) return meta;
   if (modules.length === 0) return meta;
   const marginM = inchesToM(marginIn);

@@ -39,7 +39,7 @@ export async function resolveProjectDesign(
     return {
       selections: DEMO_PROJECT_SELECTIONS,
       designId: null,
-      designName: "Kitchen — L-Shape (Demo)",
+      designName: "Kitchen - L-Shape (Demo)",
       source: "demo",
     };
   }

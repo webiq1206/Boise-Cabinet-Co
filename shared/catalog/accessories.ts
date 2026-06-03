@@ -1,5 +1,5 @@
 /**
- * Interior cabinet accessories — OSC families (generated) plus legacy marketing entries.
+ * Interior cabinet accessories - OSC families (generated) plus legacy marketing entries.
  */
 
 import {
@@ -33,7 +33,7 @@ export interface Accessory {
   exampleSkus?: string[];
 }
 
-/** @deprecated Prefer ACCESSORY_FAMILIES — legacy slugs mapped to family ids */
+/** @deprecated Prefer ACCESSORY_FAMILIES - legacy slugs mapped to family ids */
 export const ACCESSORY_SLUG_TO_FAMILY: Record<string, string> = {
   "pull-out-shelf": "rollout-tray",
   "lazy-susan": "lazy-susan",

@@ -8,7 +8,7 @@ import { getPreviewFinishHex } from "@/lib/design/previewConfig";
 import { isScannedRoom } from "@/lib/design/roomScanGeometry";
 import { wizardCopy } from "@/shared/designStudioCopy";
 
-/** Sidebar / mobile preview during the wizard — prioritizes the user's room photo. */
+/** Sidebar / mobile preview during the wizard - prioritizes the user's room photo. */
 export function RoomStepLivePreview({
   deferMount,
 }: {
@@ -43,7 +43,7 @@ export function RoomStepLivePreview({
         />
         <p className="text-xs text-muted-foreground px-1">
           {design.layout
-            ? "Your layout is selected — continue to preview cabinets on this photo."
+            ? "Your layout is selected - continue to preview cabinets on this photo."
             : "Pick a layout next to place cabinets on your photo."}
         </p>
         <ScannedRoomPreview />
