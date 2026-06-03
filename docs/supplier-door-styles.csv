@@ -1,7 +1,4 @@
 brcSlug,brcName,oscName,verified,imagePath
 slab,Slab,Slab,true,/images/catalog/door-styles/slab.webp
-modern-shaker,Modern Shaker,Modern Shaker,true,/images/catalog/door-styles/modern-shaker.webp
+shaker,Shaker,Shaker,true,/images/catalog/door-styles/shaker.webp
 thin-shaker,Thin Shaker,Thin Shaker,true,/images/catalog/door-styles/thin-shaker.webp
-three-piece,Three-Piece,5-Piece Shaker,true,/images/catalog/door-styles/three-piece.webp
-alpha-shaker,Alpha Shaker,Alpha Shaker (Reserve),false,/images/catalog/door-styles/alpha-shaker.webp
-beta-shaker,Beta Shaker,Beta Shaker (Reserve),false,/images/catalog/door-styles/beta-shaker.webp

@@ -1,5 +1,3 @@
 brcSlug,brcName,oscLine,verified,imagePath
-full-custom,Full Custom,One Source Full Custom,true,/images/catalog/collections/full-custom.webp
-semi-custom,Semi-Custom,One Source Semi-Custom,true,/images/catalog/collections/semi-custom.webp
+custom,Custom Cabinets,One Source Custom Cabinets,true,/images/catalog/collections/custom.webp
 reserve,Reserve,One Source Reserve Collection,true,/images/catalog/collections/reserve.webp
-spec-grade,Spec Grade,One Source Spec / Builder Line,true,/images/catalog/collections/spec-grade.webp

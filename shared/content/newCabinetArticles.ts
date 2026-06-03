@@ -6,22 +6,22 @@ import { buildClusterPost } from './contentFactory';
 import type { BlogPostData } from '../blogContent';
 
 const catalogLinks =
-  'Explore <a href="/compare">custom vs semi-custom</a>, <a href="/collections">collections</a>, <a href="/door-styles">door styles</a>, <a href="/finishes">finishes</a>, <a href="/hardware">hardware</a>, and <a href="/construction">construction details</a>.';
+  'Explore <a href="/compare">custom vs reserve</a>, <a href="/collections">collections</a>, <a href="/door-styles">door styles</a>, <a href="/finishes">finishes</a>, <a href="/hardware">hardware</a>, and <a href="/construction">construction details</a>.';
 
 const tier1Articles = [
   {
-    slug: 'custom-vs-semi-custom-cabinets',
-    title: 'Custom vs Semi-Custom Cabinets',
+    slug: 'custom-vs-reserve-cabinets',
+    title: 'Custom Cabinets vs Reserve Collection',
     hubSlug: 'choosing-cabinet-company',
     serviceUrl: '/cabinets/kitchen',
     quickAnswer:
-      'Custom cabinets are built to your exact sizes and specifications; semi-custom uses standard boxes with flexible fronts and modifications, semi-custom often balances lead time and budget in Treasure Valley kitchens.',
+      'Custom Cabinets are built to your exact sizes and specifications; the Reserve Collection pairs curated premium finishes with expedited production, and Reserve often balances lead time and design impact in Treasure Valley kitchens.',
     takeaways: [
       'Custom fits odd ceiling lines and tight clearances.',
-      'Semi-custom offers faster lead times on many lines.',
+      'Reserve offers faster lead times on curated finishes.',
       'Compare warranty and install scope, not door photos alone.',
     ],
-    tags: ['custom', 'semi-custom', 'compare'],
+    tags: ['custom', 'reserve', 'compare'],
     extraParagraph: catalogLinks,
   },
   {

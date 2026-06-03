@@ -6,10 +6,8 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.join(__dirname, "..", "public", "images", "catalog");
 
 const collections = [
-  ["collections/full-custom.png", "Full Custom Collection"],
-  ["collections/semi-custom.png", "Semi-Custom Collection"],
+  ["collections/custom.png", "Custom Cabinets Collection"],
   ["collections/reserve.png", "Reserve Collection"],
-  ["collections/spec-grade.png", "Spec-Grade Collection"],
 ];
 
 const rooms = [

@@ -29,9 +29,9 @@ export function getHubPillarFaqs(hubSlug: string): Array<{ question: string; ans
           'Yes. Islands, tall pantries, and appliance walls are planned in our Design Studio with clearances verified before order.',
       },
       {
-        question: 'What is the difference between semi-custom and full custom cabinets?',
+        question: 'What is the difference between our Custom Cabinets and Reserve Collection?',
         answer:
-          'Semi-custom uses standard box sizes with flexible fronts and interiors. Full custom is built to your exact dimensions, details, and finish specifications.',
+          'Custom Cabinets are built to your exact dimensions, details, and finish specifications. The Reserve Collection pairs curated premium finishes with expedited production.',
       },
       {
         question: 'When should I order kitchen cabinets?',
@@ -328,9 +328,9 @@ export function getHubPillarFaqs(hubSlug: string): Array<{ question: string; ans
           'Options vary by project size. Ask during consultation for current programs.',
       },
       {
-        question: 'How do semi-custom and full custom compare on cost?',
+        question: 'How do value and custom cabinets compare on cost?',
         answer:
-          'Semi-custom is typically lower per linear foot with faster lead times. Full custom costs more for exact sizing and details.',
+          'Value cabinetry is typically lower per linear foot with faster lead times. Custom Cabinets cost more for exact sizing and details.',
       },
       {
         question: 'Where can I see Treasure Valley cabinet cost ranges?',

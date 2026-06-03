@@ -6,15 +6,15 @@ export interface HomepageFaq {
 export const HOMEPAGE_FAQS: HomepageFaq[] = [
   {
     q: "What makes Boise Cabinet Co different from other cabinet companies?",
-    a: "We combine a full product catalog (50+ finishes, six door profiles, four collection tiers) with an online Design Studio, a dedicated client portal for project tracking, and frameless Euro construction backed by a lifetime warranty. You get one accountable team from design through installation, with transparent timelines, written scope, and proactive updates at every stage.",
+    a: "We combine a full product catalog (50+ finishes, three door profiles, two collection tiers) with an online Design Studio, a dedicated client portal for project tracking, and frameless Euro construction backed by a lifetime warranty. You get one accountable team from design through installation, with transparent timelines, written scope, and proactive updates at every stage.",
   },
   {
     q: "What cabinet collections do you offer?",
-    a: "We offer four lines: Full Custom for fully bespoke projects, Semi-Custom for popular styles with faster lead times, Reserve Collection for curated premium finishes with expedited production, and Spec-Grade for trade and multi-unit developers. Every line uses the same quality construction, the difference is customization level and lead time.",
+    a: "We offer two lines: Custom Cabinets for fully bespoke projects built to your exact specifications, and our Reserve Collection for curated premium finishes with expedited production. Both lines use the same quality construction, the difference is finish selection and lead time.",
   },
   {
     q: "How long does a custom cabinet project take?",
-    a: "Lead times vary by collection: Semi-Custom typically runs 6–8 weeks, Reserve Collection 4–6 weeks, and Full Custom 10–14 weeks from approved design. Your client portal shows real-time status from design review through fabrication, delivery, and installation.",
+    a: "Lead times vary by collection: our Reserve Collection typically runs 4–6 weeks and Custom Cabinets 10–14 weeks from approved design. Your client portal shows real-time status from design review through fabrication, delivery, and installation.",
   },
   {
     q: "Can I design my cabinets online before committing?",
@@ -42,7 +42,7 @@ export const HOMEPAGE_FAQS: HomepageFaq[] = [
   },
   {
     q: "What door styles and finishes are available?",
-    a: "Six door profiles including Slab, Modern Shaker, Thin Shaker, Alpha Shaker, Beta Shaker, and 3-Piece. Finishes span matte solids, high-gloss, and woodgrain textures, over 50 options total. Browse the full finish library at boisecabinet.co/finishes or explore them in the Design Studio.",
+    a: "Three door profiles: Slab, Shaker, and Thin Shaker. Finishes span matte solids, high-gloss, and woodgrain textures, over 50 options total. Browse the full finish library at boisecabinet.co/finishes or explore them in the Design Studio.",
   },
   {
     q: "Do you offer closet, laundry, and mudroom cabinets?",

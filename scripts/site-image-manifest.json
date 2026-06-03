@@ -1,67 +1,41 @@
 {
   "version": 1,
-  "generatedAt": "2026-06-02T22:58:37.421Z",
+  "generatedAt": "2026-06-03T03:44:30.807Z",
   "styleSuffix": "Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
   "entries": [
     {
       "id": "img-0001",
-      "status": "generated",
+      "status": "pending",
       "phase": 2,
       "priority": "critical",
-      "width": 1280,
-      "height": 896,
+      "width": 1792,
+      "height": 1024,
       "formats": [
         "webp",
         "png"
       ],
-      "outputPath": "/images/catalog/collections/full-custom.webp",
+      "outputPath": "/images/catalog/collections/custom.webp",
       "pages": [
         "/collections",
-        "/collections/full-custom"
+        "/collections/custom"
       ],
       "placement": "hero",
-      "collectionId": "full-custom",
-      "doorStyleId": "three-piece",
-      "finishId": "natural-walnut",
-      "supplierColorName": "natural-walnut",
-      "promptScene": "Full Custom custom cabinet collection, One Source three piece doors, Tafisa natural-walnut finish, frameless kitchen with island, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
-      "alt": "Full Custom custom cabinets by Boise Cabinet Co — One Source Full Custom line with premium frameless construction",
-      "title": "Full Custom Cabinet Collection | Boise Cabinet Co",
-      "caption": "Full Custom cabinets featuring One Source panel products and Treasure Valley installation."
+      "collectionId": "custom",
+      "doorStyleId": "shaker",
+      "finishId": "white-oak",
+      "supplierColorName": "white-oak",
+      "promptScene": "Custom Cabinets custom cabinet collection, One Source shaker doors, Tafisa white-oak finish, frameless kitchen with island, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "alt": "Custom Cabinets custom cabinets by Boise Cabinet Co — One Source Custom Cabinets line with premium frameless construction",
+      "title": "Custom Cabinets Cabinet Collection | Boise Cabinet Co",
+      "caption": "Custom Cabinets cabinets featuring One Source panel products and Treasure Valley installation."
     },
     {
       "id": "img-0002",
-      "status": "generated",
+      "status": "pending",
       "phase": 2,
       "priority": "critical",
-      "width": 1280,
-      "height": 896,
-      "formats": [
-        "webp",
-        "png"
-      ],
-      "outputPath": "/images/catalog/collections/semi-custom.webp",
-      "pages": [
-        "/collections",
-        "/collections/semi-custom"
-      ],
-      "placement": "hero",
-      "collectionId": "semi-custom",
-      "doorStyleId": "modern-shaker",
-      "finishId": "white-oak",
-      "supplierColorName": "white-oak",
-      "promptScene": "Semi-Custom custom cabinet collection, One Source modern shaker doors, Tafisa white-oak finish, frameless kitchen with island, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
-      "alt": "Semi-Custom custom cabinets by Boise Cabinet Co — One Source Semi-Custom line with premium frameless construction",
-      "title": "Semi-Custom Cabinet Collection | Boise Cabinet Co",
-      "caption": "Semi-Custom cabinets featuring One Source panel products and Treasure Valley installation."
-    },
-    {
-      "id": "img-0003",
-      "status": "generated",
-      "phase": 2,
-      "priority": "critical",
-      "width": 1280,
-      "height": 896,
+      "width": 1792,
+      "height": 1024,
       "formats": [
         "webp",
         "png"
@@ -82,38 +56,12 @@
       "caption": "Reserve cabinets featuring One Source panel products and Treasure Valley installation."
     },
     {
-      "id": "img-0004",
-      "status": "generated",
+      "id": "img-0003",
+      "status": "pending",
       "phase": 2,
       "priority": "critical",
-      "width": 1280,
-      "height": 896,
-      "formats": [
-        "webp",
-        "png"
-      ],
-      "outputPath": "/images/catalog/collections/spec-grade.webp",
-      "pages": [
-        "/collections",
-        "/collections/spec-grade"
-      ],
-      "placement": "hero",
-      "collectionId": "spec-grade",
-      "doorStyleId": "slab",
-      "finishId": "snowcap",
-      "supplierColorName": "snowcap",
-      "promptScene": "Spec Grade custom cabinet collection, One Source slab doors, Tafisa snowcap finish, frameless kitchen with island, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
-      "alt": "Spec Grade custom cabinets by Boise Cabinet Co — One Source Spec Grade line with premium frameless construction",
-      "title": "Spec Grade Cabinet Collection | Boise Cabinet Co",
-      "caption": "Spec Grade cabinets featuring One Source panel products and Treasure Valley installation."
-    },
-    {
-      "id": "img-0005",
-      "status": "generated",
-      "phase": 2,
-      "priority": "critical",
-      "width": 1280,
-      "height": 896,
+      "width": 1792,
+      "height": 1024,
       "formats": [
         "webp",
         "png"
@@ -126,21 +74,21 @@
       ],
       "placement": "card-hero",
       "roomId": "kitchen",
-      "collectionId": "semi-custom",
-      "doorStyleId": "modern-shaker",
+      "collectionId": "custom",
+      "doorStyleId": "shaker",
       "finishId": "snowcap",
-      "promptScene": "Kitchen with custom frameless cabinets, One Source modern shaker doors, snowcap finish, Idaho home interior, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
-      "alt": "Custom kitchen cabinets with One Source modern shaker doors in Treasure Valley Idaho",
+      "promptScene": "Kitchen with custom frameless cabinets, One Source shaker doors, snowcap finish, Idaho home interior, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "alt": "Custom kitchen cabinets with One Source shaker doors in Treasure Valley Idaho",
       "title": "Kitchen Custom Cabinets | Boise Cabinet Co",
       "caption": "Kitchen cabinetry designed and installed by Boise Cabinet Co using One Source panel products."
     },
     {
-      "id": "img-0006",
-      "status": "generated",
+      "id": "img-0004",
+      "status": "pending",
       "phase": 2,
       "priority": "critical",
-      "width": 1280,
-      "height": 896,
+      "width": 1792,
+      "height": 1024,
       "formats": [
         "webp",
         "png"
@@ -153,7 +101,7 @@
       ],
       "placement": "card-hero",
       "roomId": "bathroom",
-      "collectionId": "semi-custom",
+      "collectionId": "custom",
       "doorStyleId": "thin-shaker",
       "finishId": "glacier",
       "promptScene": "Bathroom with custom frameless cabinets, One Source thin shaker doors, glacier finish, Idaho home interior, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
@@ -162,12 +110,12 @@
       "caption": "Bathroom cabinetry designed and installed by Boise Cabinet Co using One Source panel products."
     },
     {
-      "id": "img-0007",
-      "status": "generated",
+      "id": "img-0005",
+      "status": "pending",
       "phase": 2,
       "priority": "critical",
-      "width": 1280,
-      "height": 896,
+      "width": 1792,
+      "height": 1024,
       "formats": [
         "webp",
         "png"
@@ -180,7 +128,7 @@
       ],
       "placement": "card-hero",
       "roomId": "laundry",
-      "collectionId": "spec-grade",
+      "collectionId": "custom",
       "doorStyleId": "slab",
       "finishId": "fog",
       "promptScene": "Laundry with custom frameless cabinets, One Source slab doors, fog finish, Idaho home interior, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
@@ -189,12 +137,12 @@
       "caption": "Laundry cabinetry designed and installed by Boise Cabinet Co using One Source panel products."
     },
     {
-      "id": "img-0008",
-      "status": "generated",
+      "id": "img-0006",
+      "status": "pending",
       "phase": 2,
       "priority": "critical",
-      "width": 1280,
-      "height": 896,
+      "width": 1792,
+      "height": 1024,
       "formats": [
         "webp",
         "png"
@@ -216,12 +164,12 @@
       "caption": "Mudroom cabinetry designed and installed by Boise Cabinet Co using One Source panel products."
     },
     {
-      "id": "img-0009",
-      "status": "generated",
+      "id": "img-0007",
+      "status": "pending",
       "phase": 2,
       "priority": "critical",
-      "width": 1280,
-      "height": 896,
+      "width": 1792,
+      "height": 1024,
       "formats": [
         "webp",
         "png"
@@ -234,21 +182,21 @@
       ],
       "placement": "card-hero",
       "roomId": "home-office",
-      "collectionId": "semi-custom",
-      "doorStyleId": "modern-shaker",
+      "collectionId": "custom",
+      "doorStyleId": "shaker",
       "finishId": "white-oak",
-      "promptScene": "Home Office with custom frameless cabinets, One Source modern shaker doors, white-oak finish, Idaho home interior, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
-      "alt": "Custom home office cabinets with One Source modern shaker doors in Treasure Valley Idaho",
+      "promptScene": "Home Office with custom frameless cabinets, One Source shaker doors, white-oak finish, Idaho home interior, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "alt": "Custom home office cabinets with One Source shaker doors in Treasure Valley Idaho",
       "title": "Home Office Custom Cabinets | Boise Cabinet Co",
       "caption": "Home Office cabinetry designed and installed by Boise Cabinet Co using One Source panel products."
     },
     {
-      "id": "img-0010",
-      "status": "generated",
+      "id": "img-0008",
+      "status": "pending",
       "phase": 2,
       "priority": "critical",
-      "width": 1280,
-      "height": 896,
+      "width": 1792,
+      "height": 1024,
       "formats": [
         "webp",
         "png"
@@ -270,12 +218,12 @@
       "caption": "Entertainment cabinetry designed and installed by Boise Cabinet Co using One Source panel products."
     },
     {
-      "id": "img-0011",
-      "status": "generated",
+      "id": "img-0009",
+      "status": "pending",
       "phase": 2,
       "priority": "critical",
-      "width": 1280,
-      "height": 896,
+      "width": 1792,
+      "height": 1024,
       "formats": [
         "webp",
         "png"
@@ -288,21 +236,21 @@
       ],
       "placement": "card-hero",
       "roomId": "built-ins",
-      "collectionId": "full-custom",
-      "doorStyleId": "three-piece",
+      "collectionId": "custom",
+      "doorStyleId": "shaker",
       "finishId": "natural-walnut",
-      "promptScene": "Built-Ins with custom frameless cabinets, One Source three piece doors, natural-walnut finish, Idaho home interior, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
-      "alt": "Custom built-ins cabinets with One Source three piece doors in Treasure Valley Idaho",
+      "promptScene": "Built-Ins with custom frameless cabinets, One Source shaker doors, natural-walnut finish, Idaho home interior, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "alt": "Custom built-ins cabinets with One Source shaker doors in Treasure Valley Idaho",
       "title": "Built-Ins Custom Cabinets | Boise Cabinet Co",
       "caption": "Built-Ins cabinetry designed and installed by Boise Cabinet Co using One Source panel products."
     },
     {
-      "id": "img-0012",
-      "status": "generated",
+      "id": "img-0010",
+      "status": "pending",
       "phase": 2,
       "priority": "critical",
-      "width": 1280,
-      "height": 896,
+      "width": 1792,
+      "height": 1024,
       "formats": [
         "webp",
         "png"
@@ -315,21 +263,21 @@
       ],
       "placement": "card-hero",
       "roomId": "pantry",
-      "collectionId": "semi-custom",
-      "doorStyleId": "modern-shaker",
+      "collectionId": "custom",
+      "doorStyleId": "shaker",
       "finishId": "linen",
-      "promptScene": "Pantry with custom frameless cabinets, One Source modern shaker doors, linen finish, Idaho home interior, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
-      "alt": "Custom pantry cabinets with One Source modern shaker doors in Treasure Valley Idaho",
+      "promptScene": "Pantry with custom frameless cabinets, One Source shaker doors, linen finish, Idaho home interior, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "alt": "Custom pantry cabinets with One Source shaker doors in Treasure Valley Idaho",
       "title": "Pantry Custom Cabinets | Boise Cabinet Co",
       "caption": "Pantry cabinetry designed and installed by Boise Cabinet Co using One Source panel products."
     },
     {
-      "id": "img-0013",
-      "status": "generated",
+      "id": "img-0011",
+      "status": "pending",
       "phase": 2,
       "priority": "critical",
-      "width": 1280,
-      "height": 896,
+      "width": 1792,
+      "height": 1024,
       "formats": [
         "webp",
         "png"
@@ -342,7 +290,7 @@
       ],
       "placement": "card-hero",
       "roomId": "closet",
-      "collectionId": "semi-custom",
+      "collectionId": "custom",
       "doorStyleId": "slab",
       "finishId": "white-oak",
       "promptScene": "Closet with custom frameless cabinets, One Source slab doors, white-oak finish, Idaho home interior, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
@@ -351,12 +299,12 @@
       "caption": "Closet cabinetry designed and installed by Boise Cabinet Co using One Source panel products."
     },
     {
-      "id": "img-0014",
-      "status": "generated",
+      "id": "img-0012",
+      "status": "pending",
       "phase": 2,
       "priority": "critical",
-      "width": 1280,
-      "height": 896,
+      "width": 1792,
+      "height": 1024,
       "formats": [
         "webp",
         "png"
@@ -369,7 +317,7 @@
       ],
       "placement": "card-hero",
       "roomId": "garage",
-      "collectionId": "spec-grade",
+      "collectionId": "custom",
       "doorStyleId": "slab",
       "finishId": "slate",
       "promptScene": "Garage with custom frameless cabinets, One Source slab doors, slate finish, Idaho home interior, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
@@ -378,12 +326,12 @@
       "caption": "Garage cabinetry designed and installed by Boise Cabinet Co using One Source panel products."
     },
     {
-      "id": "img-0015",
-      "status": "generated",
+      "id": "img-0013",
+      "status": "pending",
       "phase": 2,
       "priority": "critical",
-      "width": 1280,
-      "height": 896,
+      "width": 1792,
+      "height": 1024,
       "formats": [
         "webp",
         "png"
@@ -405,12 +353,12 @@
       "caption": "Outdoor Kitchen cabinetry designed and installed by Boise Cabinet Co using One Source panel products."
     },
     {
-      "id": "img-0016",
-      "status": "generated",
+      "id": "img-0014",
+      "status": "pending",
       "phase": 2,
       "priority": "critical",
-      "width": 1280,
-      "height": 896,
+      "width": 1792,
+      "height": 1024,
       "formats": [
         "webp",
         "png"
@@ -424,20 +372,20 @@
       "placement": "card-hero",
       "roomId": "wet-bar",
       "collectionId": "reserve",
-      "doorStyleId": "modern-shaker",
+      "doorStyleId": "shaker",
       "finishId": "espresso-walnut",
-      "promptScene": "Wet Bar with custom frameless cabinets, One Source modern shaker doors, espresso-walnut finish, Idaho home interior, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
-      "alt": "Custom wet bar cabinets with One Source modern shaker doors in Treasure Valley Idaho",
+      "promptScene": "Wet Bar with custom frameless cabinets, One Source shaker doors, espresso-walnut finish, Idaho home interior, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "alt": "Custom wet bar cabinets with One Source shaker doors in Treasure Valley Idaho",
       "title": "Wet Bar Custom Cabinets | Boise Cabinet Co",
       "caption": "Wet Bar cabinetry designed and installed by Boise Cabinet Co using One Source panel products."
     },
     {
-      "id": "img-0017",
-      "status": "generated",
+      "id": "img-0015",
+      "status": "pending",
       "phase": 2,
       "priority": "critical",
-      "width": 1280,
-      "height": 896,
+      "width": 1792,
+      "height": 1024,
       "formats": [
         "webp",
         "png"
@@ -450,7 +398,7 @@
       ],
       "placement": "card-hero",
       "roomId": "bedroom",
-      "collectionId": "semi-custom",
+      "collectionId": "custom",
       "doorStyleId": "thin-shaker",
       "finishId": "blonde-oak",
       "promptScene": "Bedroom with custom frameless cabinets, One Source thin shaker doors, blonde-oak finish, Idaho home interior, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
@@ -459,8 +407,8 @@
       "caption": "Bedroom cabinetry designed and installed by Boise Cabinet Co using One Source panel products."
     },
     {
-      "id": "img-0018",
-      "status": "generated",
+      "id": "img-0016",
+      "status": "pending",
       "phase": 2,
       "priority": "high",
       "width": 800,
@@ -484,8 +432,8 @@
       "caption": "One Source snowcap finish available through Boise Cabinet Co."
     },
     {
-      "id": "img-0019",
-      "status": "generated",
+      "id": "img-0017",
+      "status": "pending",
       "phase": 2,
       "priority": "high",
       "width": 800,
@@ -509,8 +457,8 @@
       "caption": "One Source glacier finish available through Boise Cabinet Co."
     },
     {
-      "id": "img-0020",
-      "status": "generated",
+      "id": "img-0018",
+      "status": "pending",
       "phase": 2,
       "priority": "high",
       "width": 800,
@@ -534,8 +482,8 @@
       "caption": "One Source dune finish available through Boise Cabinet Co."
     },
     {
-      "id": "img-0021",
-      "status": "generated",
+      "id": "img-0019",
+      "status": "pending",
       "phase": 2,
       "priority": "high",
       "width": 800,
@@ -559,8 +507,8 @@
       "caption": "One Source sagebrush finish available through Boise Cabinet Co."
     },
     {
-      "id": "img-0022",
-      "status": "generated",
+      "id": "img-0020",
+      "status": "pending",
       "phase": 2,
       "priority": "high",
       "width": 800,
@@ -584,8 +532,8 @@
       "caption": "One Source slate finish available through Boise Cabinet Co."
     },
     {
-      "id": "img-0023",
-      "status": "generated",
+      "id": "img-0021",
+      "status": "pending",
       "phase": 2,
       "priority": "high",
       "width": 800,
@@ -609,8 +557,8 @@
       "caption": "One Source midnight finish available through Boise Cabinet Co."
     },
     {
-      "id": "img-0024",
-      "status": "generated",
+      "id": "img-0022",
+      "status": "pending",
       "phase": 2,
       "priority": "high",
       "width": 800,
@@ -634,8 +582,8 @@
       "caption": "One Source clay finish available through Boise Cabinet Co."
     },
     {
-      "id": "img-0025",
-      "status": "generated",
+      "id": "img-0023",
+      "status": "pending",
       "phase": 2,
       "priority": "high",
       "width": 800,
@@ -659,8 +607,8 @@
       "caption": "One Source fog finish available through Boise Cabinet Co."
     },
     {
-      "id": "img-0026",
-      "status": "generated",
+      "id": "img-0024",
+      "status": "pending",
       "phase": 2,
       "priority": "high",
       "width": 800,
@@ -684,8 +632,8 @@
       "caption": "One Source linen finish available through Boise Cabinet Co."
     },
     {
-      "id": "img-0027",
-      "status": "generated",
+      "id": "img-0025",
+      "status": "pending",
       "phase": 2,
       "priority": "high",
       "width": 800,
@@ -709,8 +657,8 @@
       "caption": "One Source riverstone finish available through Boise Cabinet Co."
     },
     {
-      "id": "img-0028",
-      "status": "generated",
+      "id": "img-0026",
+      "status": "pending",
       "phase": 2,
       "priority": "high",
       "width": 800,
@@ -734,8 +682,8 @@
       "caption": "One Source basalt finish available through Boise Cabinet Co."
     },
     {
-      "id": "img-0029",
-      "status": "generated",
+      "id": "img-0027",
+      "status": "pending",
       "phase": 2,
       "priority": "high",
       "width": 800,
@@ -759,8 +707,8 @@
       "caption": "One Source mist finish available through Boise Cabinet Co."
     },
     {
-      "id": "img-0030",
-      "status": "generated",
+      "id": "img-0028",
+      "status": "pending",
       "phase": 2,
       "priority": "high",
       "width": 800,
@@ -784,8 +732,8 @@
       "caption": "One Source terracotta finish available through Boise Cabinet Co."
     },
     {
-      "id": "img-0031",
-      "status": "generated",
+      "id": "img-0029",
+      "status": "pending",
       "phase": 2,
       "priority": "high",
       "width": 800,
@@ -809,8 +757,8 @@
       "caption": "One Source fern finish available through Boise Cabinet Co."
     },
     {
-      "id": "img-0032",
-      "status": "generated",
+      "id": "img-0030",
+      "status": "pending",
       "phase": 2,
       "priority": "high",
       "width": 800,
@@ -834,8 +782,8 @@
       "caption": "One Source pebble finish available through Boise Cabinet Co."
     },
     {
-      "id": "img-0033",
-      "status": "generated",
+      "id": "img-0031",
+      "status": "pending",
       "phase": 2,
       "priority": "high",
       "width": 800,
@@ -859,8 +807,8 @@
       "caption": "One Source porcelain finish available through Boise Cabinet Co."
     },
     {
-      "id": "img-0034",
-      "status": "generated",
+      "id": "img-0032",
+      "status": "pending",
       "phase": 2,
       "priority": "high",
       "width": 800,
@@ -884,8 +832,8 @@
       "caption": "One Source ivory finish available through Boise Cabinet Co."
     },
     {
-      "id": "img-0035",
-      "status": "generated",
+      "id": "img-0033",
+      "status": "pending",
       "phase": 2,
       "priority": "high",
       "width": 800,
@@ -909,8 +857,8 @@
       "caption": "One Source pearl finish available through Boise Cabinet Co."
     },
     {
-      "id": "img-0036",
-      "status": "generated",
+      "id": "img-0034",
+      "status": "pending",
       "phase": 2,
       "priority": "high",
       "width": 800,
@@ -934,8 +882,8 @@
       "caption": "One Source graphite finish available through Boise Cabinet Co."
     },
     {
-      "id": "img-0037",
-      "status": "generated",
+      "id": "img-0035",
+      "status": "pending",
       "phase": 2,
       "priority": "high",
       "width": 800,
@@ -959,8 +907,8 @@
       "caption": "One Source obsidian finish available through Boise Cabinet Co."
     },
     {
-      "id": "img-0038",
-      "status": "generated",
+      "id": "img-0036",
+      "status": "pending",
       "phase": 2,
       "priority": "high",
       "width": 800,
@@ -984,8 +932,8 @@
       "caption": "One Source seafoam finish available through Boise Cabinet Co."
     },
     {
-      "id": "img-0039",
-      "status": "generated",
+      "id": "img-0037",
+      "status": "pending",
       "phase": 2,
       "priority": "high",
       "width": 800,
@@ -1009,8 +957,8 @@
       "caption": "One Source blush finish available through Boise Cabinet Co."
     },
     {
-      "id": "img-0040",
-      "status": "generated",
+      "id": "img-0038",
+      "status": "pending",
       "phase": 2,
       "priority": "high",
       "width": 800,
@@ -1034,8 +982,8 @@
       "caption": "One Source cobalt finish available through Boise Cabinet Co."
     },
     {
-      "id": "img-0041",
-      "status": "generated",
+      "id": "img-0039",
+      "status": "pending",
       "phase": 2,
       "priority": "high",
       "width": 800,
@@ -1059,8 +1007,8 @@
       "caption": "One Source champagne finish available through Boise Cabinet Co."
     },
     {
-      "id": "img-0042",
-      "status": "generated",
+      "id": "img-0040",
+      "status": "pending",
       "phase": 2,
       "priority": "high",
       "width": 800,
@@ -1084,8 +1032,8 @@
       "caption": "One Source storm finish available through Boise Cabinet Co."
     },
     {
-      "id": "img-0043",
-      "status": "generated",
+      "id": "img-0041",
+      "status": "pending",
       "phase": 2,
       "priority": "high",
       "width": 800,
@@ -1109,8 +1057,8 @@
       "caption": "One Source alabaster finish available through Boise Cabinet Co."
     },
     {
-      "id": "img-0044",
-      "status": "generated",
+      "id": "img-0042",
+      "status": "pending",
       "phase": 2,
       "priority": "high",
       "width": 800,
@@ -1134,8 +1082,8 @@
       "caption": "One Source crimson finish available through Boise Cabinet Co."
     },
     {
-      "id": "img-0045",
-      "status": "generated",
+      "id": "img-0043",
+      "status": "pending",
       "phase": 2,
       "priority": "high",
       "width": 800,
@@ -1159,8 +1107,8 @@
       "caption": "One Source white oak finish available through Boise Cabinet Co."
     },
     {
-      "id": "img-0046",
-      "status": "generated",
+      "id": "img-0044",
+      "status": "pending",
       "phase": 2,
       "priority": "high",
       "width": 800,
@@ -1184,8 +1132,8 @@
       "caption": "One Source natural walnut finish available through Boise Cabinet Co."
     },
     {
-      "id": "img-0047",
-      "status": "generated",
+      "id": "img-0045",
+      "status": "pending",
       "phase": 2,
       "priority": "high",
       "width": 800,
@@ -1209,8 +1157,8 @@
       "caption": "One Source espresso walnut finish available through Boise Cabinet Co."
     },
     {
-      "id": "img-0048",
-      "status": "generated",
+      "id": "img-0046",
+      "status": "pending",
       "phase": 2,
       "priority": "high",
       "width": 800,
@@ -1234,8 +1182,8 @@
       "caption": "One Source honey maple finish available through Boise Cabinet Co."
     },
     {
-      "id": "img-0049",
-      "status": "generated",
+      "id": "img-0047",
+      "status": "pending",
       "phase": 2,
       "priority": "high",
       "width": 800,
@@ -1259,8 +1207,8 @@
       "caption": "One Source driftwood finish available through Boise Cabinet Co."
     },
     {
-      "id": "img-0050",
-      "status": "generated",
+      "id": "img-0048",
+      "status": "pending",
       "phase": 2,
       "priority": "high",
       "width": 800,
@@ -1284,8 +1232,8 @@
       "caption": "One Source charcoal oak finish available through Boise Cabinet Co."
     },
     {
-      "id": "img-0051",
-      "status": "generated",
+      "id": "img-0049",
+      "status": "pending",
       "phase": 2,
       "priority": "high",
       "width": 800,
@@ -1309,8 +1257,8 @@
       "caption": "One Source hickory finish available through Boise Cabinet Co."
     },
     {
-      "id": "img-0052",
-      "status": "generated",
+      "id": "img-0050",
+      "status": "pending",
       "phase": 2,
       "priority": "high",
       "width": 800,
@@ -1334,8 +1282,8 @@
       "caption": "One Source cherry finish available through Boise Cabinet Co."
     },
     {
-      "id": "img-0053",
-      "status": "generated",
+      "id": "img-0051",
+      "status": "pending",
       "phase": 2,
       "priority": "high",
       "width": 800,
@@ -1359,8 +1307,8 @@
       "caption": "One Source ash finish available through Boise Cabinet Co."
     },
     {
-      "id": "img-0054",
-      "status": "generated",
+      "id": "img-0052",
+      "status": "pending",
       "phase": 2,
       "priority": "high",
       "width": 800,
@@ -1384,8 +1332,8 @@
       "caption": "One Source teak finish available through Boise Cabinet Co."
     },
     {
-      "id": "img-0055",
-      "status": "generated",
+      "id": "img-0053",
+      "status": "pending",
       "phase": 2,
       "priority": "high",
       "width": 800,
@@ -1409,8 +1357,8 @@
       "caption": "One Source reclaimed barn finish available through Boise Cabinet Co."
     },
     {
-      "id": "img-0056",
-      "status": "generated",
+      "id": "img-0054",
+      "status": "pending",
       "phase": 2,
       "priority": "high",
       "width": 800,
@@ -1434,8 +1382,8 @@
       "caption": "One Source ebony finish available through Boise Cabinet Co."
     },
     {
-      "id": "img-0057",
-      "status": "generated",
+      "id": "img-0055",
+      "status": "pending",
       "phase": 2,
       "priority": "high",
       "width": 800,
@@ -1459,8 +1407,8 @@
       "caption": "One Source blonde oak finish available through Boise Cabinet Co."
     },
     {
-      "id": "img-0058",
-      "status": "generated",
+      "id": "img-0056",
+      "status": "pending",
       "phase": 2,
       "priority": "high",
       "width": 800,
@@ -1484,8 +1432,8 @@
       "caption": "One Source pecan finish available through Boise Cabinet Co."
     },
     {
-      "id": "img-0059",
-      "status": "generated",
+      "id": "img-0057",
+      "status": "pending",
       "phase": 2,
       "priority": "high",
       "width": 800,
@@ -1509,8 +1457,8 @@
       "caption": "One Source cedar finish available through Boise Cabinet Co."
     },
     {
-      "id": "img-0060",
-      "status": "generated",
+      "id": "img-0058",
+      "status": "pending",
       "phase": 2,
       "priority": "high",
       "width": 1200,
@@ -1533,8 +1481,8 @@
       "caption": "slab door style from One Source Cabinets, available through Boise Cabinet Co."
     },
     {
-      "id": "img-0061",
-      "status": "generated",
+      "id": "img-0059",
+      "status": "pending",
       "phase": 2,
       "priority": "high",
       "width": 1200,
@@ -1543,22 +1491,22 @@
         "webp",
         "png"
       ],
-      "outputPath": "/images/catalog/door-styles/modern-shaker.webp",
+      "outputPath": "/images/catalog/door-styles/shaker.webp",
       "pages": [
         "/door-styles",
-        "/door-styles/modern-shaker"
+        "/door-styles/shaker"
       ],
       "placement": "profile",
-      "doorStyleId": "modern-shaker",
+      "doorStyleId": "shaker",
       "finishId": "snowcap",
-      "promptScene": "Close-up of One Source modern shaker cabinet door profile on frameless box, white matte finish, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
-      "alt": "One Source modern shaker cabinet door profile — Boise Cabinet Co",
-      "title": "modern shaker Door Style",
-      "caption": "modern shaker door style from One Source Cabinets, available through Boise Cabinet Co."
+      "promptScene": "Close-up of One Source shaker cabinet door profile on frameless box, white matte finish, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "alt": "One Source shaker cabinet door profile — Boise Cabinet Co",
+      "title": "shaker Door Style",
+      "caption": "shaker door style from One Source Cabinets, available through Boise Cabinet Co."
     },
     {
-      "id": "img-0062",
-      "status": "generated",
+      "id": "img-0060",
+      "status": "pending",
       "phase": 2,
       "priority": "high",
       "width": 1200,
@@ -1581,79 +1529,7 @@
       "caption": "thin shaker door style from One Source Cabinets, available through Boise Cabinet Co."
     },
     {
-      "id": "img-0063",
-      "status": "generated",
-      "phase": 2,
-      "priority": "high",
-      "width": 1200,
-      "height": 800,
-      "formats": [
-        "webp",
-        "png"
-      ],
-      "outputPath": "/images/catalog/door-styles/three-piece.webp",
-      "pages": [
-        "/door-styles",
-        "/door-styles/three-piece"
-      ],
-      "placement": "profile",
-      "doorStyleId": "three-piece",
-      "finishId": "snowcap",
-      "promptScene": "Close-up of One Source three piece cabinet door profile on frameless box, white matte finish, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
-      "alt": "One Source three piece cabinet door profile — Boise Cabinet Co",
-      "title": "three piece Door Style",
-      "caption": "three piece door style from One Source Cabinets, available through Boise Cabinet Co."
-    },
-    {
-      "id": "img-0064",
-      "status": "generated",
-      "phase": 2,
-      "priority": "high",
-      "width": 1200,
-      "height": 800,
-      "formats": [
-        "webp",
-        "png"
-      ],
-      "outputPath": "/images/catalog/door-styles/alpha-shaker.webp",
-      "pages": [
-        "/door-styles",
-        "/door-styles/alpha-shaker"
-      ],
-      "placement": "profile",
-      "doorStyleId": "alpha-shaker",
-      "finishId": "snowcap",
-      "promptScene": "Close-up of One Source alpha shaker cabinet door profile on frameless box, white matte finish, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
-      "alt": "One Source alpha shaker cabinet door profile — Boise Cabinet Co",
-      "title": "alpha shaker Door Style",
-      "caption": "alpha shaker door style from One Source Cabinets, available through Boise Cabinet Co."
-    },
-    {
-      "id": "img-0065",
-      "status": "generated",
-      "phase": 2,
-      "priority": "high",
-      "width": 1200,
-      "height": 800,
-      "formats": [
-        "webp",
-        "png"
-      ],
-      "outputPath": "/images/catalog/door-styles/beta-shaker.webp",
-      "pages": [
-        "/door-styles",
-        "/door-styles/beta-shaker"
-      ],
-      "placement": "profile",
-      "doorStyleId": "beta-shaker",
-      "finishId": "snowcap",
-      "promptScene": "Close-up of One Source beta shaker cabinet door profile on frameless box, white matte finish, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
-      "alt": "One Source beta shaker cabinet door profile — Boise Cabinet Co",
-      "title": "beta shaker Door Style",
-      "caption": "beta shaker door style from One Source Cabinets, available through Boise Cabinet Co."
-    },
-    {
-      "id": "img-0066",
+      "id": "img-0061",
       "status": "pending",
       "phase": 2,
       "priority": "critical",
@@ -1668,15 +1544,15 @@
         "/"
       ],
       "placement": "hero",
-      "doorStyleId": "modern-shaker",
+      "doorStyleId": "shaker",
       "finishId": "white-oak",
-      "promptScene": "Custom kitchen cabinets with One Source Modern Shaker doors in a Treasure Valley home, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
-      "alt": "Custom kitchen cabinets with One Source Modern Shaker doors in a Treasure Valley home",
+      "promptScene": "Custom kitchen cabinets with One Source Shaker doors in a Treasure Valley home, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "alt": "Custom kitchen cabinets with One Source Shaker doors in a Treasure Valley home",
       "title": "Boise Cabinet Co Custom Cabinets",
-      "caption": "Custom kitchen cabinets with One Source Modern Shaker doors in a Treasure Valley home"
+      "caption": "Custom kitchen cabinets with One Source Shaker doors in a Treasure Valley home"
     },
     {
-      "id": "img-0067",
+      "id": "img-0062",
       "status": "pending",
       "phase": 2,
       "priority": "critical",
@@ -1691,7 +1567,7 @@
         "/about"
       ],
       "placement": "hero",
-      "doorStyleId": "modern-shaker",
+      "doorStyleId": "shaker",
       "finishId": "white-oak",
       "promptScene": "Boise Cabinet Co design team reviewing custom cabinet plans with homeowners, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
       "alt": "Boise Cabinet Co design team reviewing custom cabinet plans with homeowners",
@@ -1699,7 +1575,7 @@
       "caption": "Boise Cabinet Co design team reviewing custom cabinet plans with homeowners"
     },
     {
-      "id": "img-0068",
+      "id": "img-0063",
       "status": "pending",
       "phase": 2,
       "priority": "critical",
@@ -1714,7 +1590,7 @@
         "/contact"
       ],
       "placement": "hero",
-      "doorStyleId": "modern-shaker",
+      "doorStyleId": "shaker",
       "finishId": "white-oak",
       "promptScene": "Custom bathroom vanity cabinets installed in a Meridian Idaho home, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
       "alt": "Custom bathroom vanity cabinets installed in a Meridian Idaho home",
@@ -1722,7 +1598,7 @@
       "caption": "Custom bathroom vanity cabinets installed in a Meridian Idaho home"
     },
     {
-      "id": "img-0069",
+      "id": "img-0064",
       "status": "pending",
       "phase": 2,
       "priority": "critical",
@@ -1737,7 +1613,7 @@
         "/design-studio"
       ],
       "placement": "hero",
-      "doorStyleId": "modern-shaker",
+      "doorStyleId": "shaker",
       "finishId": "white-oak",
       "promptScene": "Boise Cabinet Co Design Studio 3D cabinet preview on laptop in kitchen, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
       "alt": "Boise Cabinet Co Design Studio 3D cabinet preview on laptop in kitchen",
@@ -1745,7 +1621,7 @@
       "caption": "Boise Cabinet Co Design Studio 3D cabinet preview on laptop in kitchen"
     },
     {
-      "id": "img-0070",
+      "id": "img-0065",
       "status": "pending",
       "phase": 2,
       "priority": "high",
@@ -1761,7 +1637,7 @@
         "/about"
       ],
       "placement": "hero",
-      "doorStyleId": "modern-shaker",
+      "doorStyleId": "shaker",
       "finishId": "white-oak",
       "promptScene": "Cabinet finish samples and layout plans during Boise Cabinet Co design consultation, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
       "alt": "Cabinet finish samples and layout plans during Boise Cabinet Co design consultation",
@@ -1769,7 +1645,7 @@
       "caption": "Cabinet finish samples and layout plans during Boise Cabinet Co design consultation"
     },
     {
-      "id": "img-0071",
+      "id": "img-0066",
       "status": "pending",
       "phase": 2,
       "priority": "high",
@@ -1786,7 +1662,7 @@
         "/contact"
       ],
       "placement": "hero",
-      "doorStyleId": "modern-shaker",
+      "doorStyleId": "shaker",
       "finishId": "white-oak",
       "promptScene": "Whole-home custom cabinet installation in an Eagle Idaho residence, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
       "alt": "Whole-home custom cabinet installation in an Eagle Idaho residence",
@@ -1794,7 +1670,7 @@
       "caption": "Whole-home custom cabinet installation in an Eagle Idaho residence"
     },
     {
-      "id": "img-0072",
+      "id": "img-0067",
       "status": "pending",
       "phase": 2,
       "priority": "high",
@@ -1809,7 +1685,7 @@
         "og"
       ],
       "placement": "hero",
-      "doorStyleId": "modern-shaker",
+      "doorStyleId": "shaker",
       "finishId": "white-oak",
       "promptScene": "Boise Cabinet Co custom kitchen cabinets Treasure Valley Idaho, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
       "alt": "Boise Cabinet Co custom kitchen cabinets Treasure Valley Idaho",
@@ -1817,7 +1693,7 @@
       "caption": "Boise Cabinet Co custom kitchen cabinets Treasure Valley Idaho"
     },
     {
-      "id": "img-0073",
+      "id": "img-0068",
       "status": "pending",
       "phase": 2,
       "priority": "high",
@@ -1839,7 +1715,7 @@
       "caption": "Boise Cabinet Co custom cabinet projects serving Boise and the Treasure Valley."
     },
     {
-      "id": "img-0074",
+      "id": "img-0069",
       "status": "pending",
       "phase": 2,
       "priority": "high",
@@ -1861,7 +1737,7 @@
       "caption": "Boise Cabinet Co custom cabinet projects serving Meridian and the Treasure Valley."
     },
     {
-      "id": "img-0075",
+      "id": "img-0070",
       "status": "pending",
       "phase": 2,
       "priority": "high",
@@ -1883,7 +1759,7 @@
       "caption": "Boise Cabinet Co custom cabinet projects serving Eagle and the Treasure Valley."
     },
     {
-      "id": "img-0076",
+      "id": "img-0071",
       "status": "pending",
       "phase": 2,
       "priority": "high",
@@ -1905,7 +1781,7 @@
       "caption": "Boise Cabinet Co custom cabinet projects serving Nampa and the Treasure Valley."
     },
     {
-      "id": "img-0077",
+      "id": "img-0072",
       "status": "pending",
       "phase": 2,
       "priority": "high",
@@ -1927,7 +1803,7 @@
       "caption": "Boise Cabinet Co custom cabinet projects serving Kuna and the Treasure Valley."
     },
     {
-      "id": "img-0078",
+      "id": "img-0073",
       "status": "pending",
       "phase": 2,
       "priority": "high",
@@ -1949,7 +1825,7 @@
       "caption": "Boise Cabinet Co custom cabinet projects serving Star and the Treasure Valley."
     },
     {
-      "id": "img-0079",
+      "id": "img-0074",
       "status": "pending",
       "phase": 2,
       "priority": "high",
@@ -1971,7 +1847,7 @@
       "caption": "Boise Cabinet Co custom cabinet projects serving Middleton and the Treasure Valley."
     },
     {
-      "id": "img-0080",
+      "id": "img-0075",
       "status": "pending",
       "phase": 2,
       "priority": "high",
@@ -1993,7 +1869,7 @@
       "caption": "Boise Cabinet Co custom cabinet projects serving Caldwell and the Treasure Valley."
     },
     {
-      "id": "img-0081",
+      "id": "img-0076",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -2008,15 +1884,15 @@
         "/services/kitchen-cabinets/boise"
       ],
       "placement": "hero",
-      "doorStyleId": "modern-shaker",
+      "doorStyleId": "shaker",
       "finishId": "white-oak",
-      "promptScene": "Kitchen cabinets in Boise Idaho, One Source modern shaker doors, white-oak finish, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Kitchen cabinets in Boise Idaho, One Source shaker doors, white-oak finish, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
       "alt": "Kitchen cabinets in Boise, Idaho — Boise Cabinet Co One Source cabinets",
       "title": "Kitchen cabinets Boise ID",
       "caption": "Custom kitchen cabinets for Boise homeowners by Boise Cabinet Co."
     },
     {
-      "id": "img-0082",
+      "id": "img-0077",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -2031,15 +1907,15 @@
         "/services/kitchen-cabinets/meridian"
       ],
       "placement": "hero",
-      "doorStyleId": "modern-shaker",
+      "doorStyleId": "shaker",
       "finishId": "white-oak",
-      "promptScene": "Kitchen cabinets in Meridian Idaho, One Source modern shaker doors, white-oak finish, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Kitchen cabinets in Meridian Idaho, One Source shaker doors, white-oak finish, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
       "alt": "Kitchen cabinets in Meridian, Idaho — Boise Cabinet Co One Source cabinets",
       "title": "Kitchen cabinets Meridian ID",
       "caption": "Custom kitchen cabinets for Meridian homeowners by Boise Cabinet Co."
     },
     {
-      "id": "img-0083",
+      "id": "img-0078",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -2054,15 +1930,15 @@
         "/services/kitchen-cabinets/eagle"
       ],
       "placement": "hero",
-      "doorStyleId": "modern-shaker",
+      "doorStyleId": "shaker",
       "finishId": "white-oak",
-      "promptScene": "Kitchen cabinets in Eagle Idaho, One Source modern shaker doors, white-oak finish, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Kitchen cabinets in Eagle Idaho, One Source shaker doors, white-oak finish, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
       "alt": "Kitchen cabinets in Eagle, Idaho — Boise Cabinet Co One Source cabinets",
       "title": "Kitchen cabinets Eagle ID",
       "caption": "Custom kitchen cabinets for Eagle homeowners by Boise Cabinet Co."
     },
     {
-      "id": "img-0084",
+      "id": "img-0079",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -2077,15 +1953,15 @@
         "/services/kitchen-cabinets/nampa"
       ],
       "placement": "hero",
-      "doorStyleId": "modern-shaker",
+      "doorStyleId": "shaker",
       "finishId": "white-oak",
-      "promptScene": "Kitchen cabinets in Nampa Idaho, One Source modern shaker doors, white-oak finish, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Kitchen cabinets in Nampa Idaho, One Source shaker doors, white-oak finish, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
       "alt": "Kitchen cabinets in Nampa, Idaho — Boise Cabinet Co One Source cabinets",
       "title": "Kitchen cabinets Nampa ID",
       "caption": "Custom kitchen cabinets for Nampa homeowners by Boise Cabinet Co."
     },
     {
-      "id": "img-0085",
+      "id": "img-0080",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -2100,15 +1976,15 @@
         "/services/kitchen-cabinets/kuna"
       ],
       "placement": "hero",
-      "doorStyleId": "modern-shaker",
+      "doorStyleId": "shaker",
       "finishId": "white-oak",
-      "promptScene": "Kitchen cabinets in Kuna Idaho, One Source modern shaker doors, white-oak finish, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Kitchen cabinets in Kuna Idaho, One Source shaker doors, white-oak finish, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
       "alt": "Kitchen cabinets in Kuna, Idaho — Boise Cabinet Co One Source cabinets",
       "title": "Kitchen cabinets Kuna ID",
       "caption": "Custom kitchen cabinets for Kuna homeowners by Boise Cabinet Co."
     },
     {
-      "id": "img-0086",
+      "id": "img-0081",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -2123,15 +1999,15 @@
         "/services/kitchen-cabinets/star"
       ],
       "placement": "hero",
-      "doorStyleId": "modern-shaker",
+      "doorStyleId": "shaker",
       "finishId": "white-oak",
-      "promptScene": "Kitchen cabinets in Star Idaho, One Source modern shaker doors, white-oak finish, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Kitchen cabinets in Star Idaho, One Source shaker doors, white-oak finish, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
       "alt": "Kitchen cabinets in Star, Idaho — Boise Cabinet Co One Source cabinets",
       "title": "Kitchen cabinets Star ID",
       "caption": "Custom kitchen cabinets for Star homeowners by Boise Cabinet Co."
     },
     {
-      "id": "img-0087",
+      "id": "img-0082",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -2146,15 +2022,15 @@
         "/services/kitchen-cabinets/middleton"
       ],
       "placement": "hero",
-      "doorStyleId": "modern-shaker",
+      "doorStyleId": "shaker",
       "finishId": "white-oak",
-      "promptScene": "Kitchen cabinets in Middleton Idaho, One Source modern shaker doors, white-oak finish, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Kitchen cabinets in Middleton Idaho, One Source shaker doors, white-oak finish, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
       "alt": "Kitchen cabinets in Middleton, Idaho — Boise Cabinet Co One Source cabinets",
       "title": "Kitchen cabinets Middleton ID",
       "caption": "Custom kitchen cabinets for Middleton homeowners by Boise Cabinet Co."
     },
     {
-      "id": "img-0088",
+      "id": "img-0083",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -2169,15 +2045,15 @@
         "/services/kitchen-cabinets/caldwell"
       ],
       "placement": "hero",
-      "doorStyleId": "modern-shaker",
+      "doorStyleId": "shaker",
       "finishId": "white-oak",
-      "promptScene": "Kitchen cabinets in Caldwell Idaho, One Source modern shaker doors, white-oak finish, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Kitchen cabinets in Caldwell Idaho, One Source shaker doors, white-oak finish, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
       "alt": "Kitchen cabinets in Caldwell, Idaho — Boise Cabinet Co One Source cabinets",
       "title": "Kitchen cabinets Caldwell ID",
       "caption": "Custom kitchen cabinets for Caldwell homeowners by Boise Cabinet Co."
     },
     {
-      "id": "img-0089",
+      "id": "img-0084",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -2200,7 +2076,7 @@
       "caption": "Custom bathroom vanity cabinets for Boise homeowners by Boise Cabinet Co."
     },
     {
-      "id": "img-0090",
+      "id": "img-0085",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -2223,7 +2099,7 @@
       "caption": "Custom bathroom vanity cabinets for Meridian homeowners by Boise Cabinet Co."
     },
     {
-      "id": "img-0091",
+      "id": "img-0086",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -2246,7 +2122,7 @@
       "caption": "Custom bathroom vanity cabinets for Eagle homeowners by Boise Cabinet Co."
     },
     {
-      "id": "img-0092",
+      "id": "img-0087",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -2269,7 +2145,7 @@
       "caption": "Custom bathroom vanity cabinets for Nampa homeowners by Boise Cabinet Co."
     },
     {
-      "id": "img-0093",
+      "id": "img-0088",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -2292,7 +2168,7 @@
       "caption": "Custom bathroom vanity cabinets for Kuna homeowners by Boise Cabinet Co."
     },
     {
-      "id": "img-0094",
+      "id": "img-0089",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -2315,7 +2191,7 @@
       "caption": "Custom bathroom vanity cabinets for Star homeowners by Boise Cabinet Co."
     },
     {
-      "id": "img-0095",
+      "id": "img-0090",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -2338,7 +2214,7 @@
       "caption": "Custom bathroom vanity cabinets for Middleton homeowners by Boise Cabinet Co."
     },
     {
-      "id": "img-0096",
+      "id": "img-0091",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -2361,7 +2237,7 @@
       "caption": "Custom bathroom vanity cabinets for Caldwell homeowners by Boise Cabinet Co."
     },
     {
-      "id": "img-0097",
+      "id": "img-0092",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -2376,15 +2252,15 @@
         "/services/custom-built-ins/boise"
       ],
       "placement": "hero",
-      "doorStyleId": "three-piece",
+      "doorStyleId": "shaker",
       "finishId": "natural-walnut",
-      "promptScene": "Custom built-in cabinets in Boise Idaho, One Source three piece doors, natural-walnut finish, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Custom built-in cabinets in Boise Idaho, One Source shaker doors, natural-walnut finish, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
       "alt": "Custom built-in cabinets in Boise, Idaho — Boise Cabinet Co One Source cabinets",
       "title": "Custom built-in cabinets Boise ID",
       "caption": "Custom custom built-in cabinets for Boise homeowners by Boise Cabinet Co."
     },
     {
-      "id": "img-0098",
+      "id": "img-0093",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -2399,15 +2275,15 @@
         "/services/custom-built-ins/meridian"
       ],
       "placement": "hero",
-      "doorStyleId": "three-piece",
+      "doorStyleId": "shaker",
       "finishId": "natural-walnut",
-      "promptScene": "Custom built-in cabinets in Meridian Idaho, One Source three piece doors, natural-walnut finish, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Custom built-in cabinets in Meridian Idaho, One Source shaker doors, natural-walnut finish, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
       "alt": "Custom built-in cabinets in Meridian, Idaho — Boise Cabinet Co One Source cabinets",
       "title": "Custom built-in cabinets Meridian ID",
       "caption": "Custom custom built-in cabinets for Meridian homeowners by Boise Cabinet Co."
     },
     {
-      "id": "img-0099",
+      "id": "img-0094",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -2422,15 +2298,15 @@
         "/services/custom-built-ins/eagle"
       ],
       "placement": "hero",
-      "doorStyleId": "three-piece",
+      "doorStyleId": "shaker",
       "finishId": "natural-walnut",
-      "promptScene": "Custom built-in cabinets in Eagle Idaho, One Source three piece doors, natural-walnut finish, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Custom built-in cabinets in Eagle Idaho, One Source shaker doors, natural-walnut finish, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
       "alt": "Custom built-in cabinets in Eagle, Idaho — Boise Cabinet Co One Source cabinets",
       "title": "Custom built-in cabinets Eagle ID",
       "caption": "Custom custom built-in cabinets for Eagle homeowners by Boise Cabinet Co."
     },
     {
-      "id": "img-0100",
+      "id": "img-0095",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -2445,15 +2321,15 @@
         "/services/custom-built-ins/nampa"
       ],
       "placement": "hero",
-      "doorStyleId": "three-piece",
+      "doorStyleId": "shaker",
       "finishId": "natural-walnut",
-      "promptScene": "Custom built-in cabinets in Nampa Idaho, One Source three piece doors, natural-walnut finish, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Custom built-in cabinets in Nampa Idaho, One Source shaker doors, natural-walnut finish, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
       "alt": "Custom built-in cabinets in Nampa, Idaho — Boise Cabinet Co One Source cabinets",
       "title": "Custom built-in cabinets Nampa ID",
       "caption": "Custom custom built-in cabinets for Nampa homeowners by Boise Cabinet Co."
     },
     {
-      "id": "img-0101",
+      "id": "img-0096",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -2468,15 +2344,15 @@
         "/services/custom-built-ins/kuna"
       ],
       "placement": "hero",
-      "doorStyleId": "three-piece",
+      "doorStyleId": "shaker",
       "finishId": "natural-walnut",
-      "promptScene": "Custom built-in cabinets in Kuna Idaho, One Source three piece doors, natural-walnut finish, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Custom built-in cabinets in Kuna Idaho, One Source shaker doors, natural-walnut finish, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
       "alt": "Custom built-in cabinets in Kuna, Idaho — Boise Cabinet Co One Source cabinets",
       "title": "Custom built-in cabinets Kuna ID",
       "caption": "Custom custom built-in cabinets for Kuna homeowners by Boise Cabinet Co."
     },
     {
-      "id": "img-0102",
+      "id": "img-0097",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -2491,15 +2367,15 @@
         "/services/custom-built-ins/star"
       ],
       "placement": "hero",
-      "doorStyleId": "three-piece",
+      "doorStyleId": "shaker",
       "finishId": "natural-walnut",
-      "promptScene": "Custom built-in cabinets in Star Idaho, One Source three piece doors, natural-walnut finish, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Custom built-in cabinets in Star Idaho, One Source shaker doors, natural-walnut finish, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
       "alt": "Custom built-in cabinets in Star, Idaho — Boise Cabinet Co One Source cabinets",
       "title": "Custom built-in cabinets Star ID",
       "caption": "Custom custom built-in cabinets for Star homeowners by Boise Cabinet Co."
     },
     {
-      "id": "img-0103",
+      "id": "img-0098",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -2514,15 +2390,15 @@
         "/services/custom-built-ins/middleton"
       ],
       "placement": "hero",
-      "doorStyleId": "three-piece",
+      "doorStyleId": "shaker",
       "finishId": "natural-walnut",
-      "promptScene": "Custom built-in cabinets in Middleton Idaho, One Source three piece doors, natural-walnut finish, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Custom built-in cabinets in Middleton Idaho, One Source shaker doors, natural-walnut finish, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
       "alt": "Custom built-in cabinets in Middleton, Idaho — Boise Cabinet Co One Source cabinets",
       "title": "Custom built-in cabinets Middleton ID",
       "caption": "Custom custom built-in cabinets for Middleton homeowners by Boise Cabinet Co."
     },
     {
-      "id": "img-0104",
+      "id": "img-0099",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -2537,15 +2413,15 @@
         "/services/custom-built-ins/caldwell"
       ],
       "placement": "hero",
-      "doorStyleId": "three-piece",
+      "doorStyleId": "shaker",
       "finishId": "natural-walnut",
-      "promptScene": "Custom built-in cabinets in Caldwell Idaho, One Source three piece doors, natural-walnut finish, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Custom built-in cabinets in Caldwell Idaho, One Source shaker doors, natural-walnut finish, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
       "alt": "Custom built-in cabinets in Caldwell, Idaho — Boise Cabinet Co One Source cabinets",
       "title": "Custom built-in cabinets Caldwell ID",
       "caption": "Custom custom built-in cabinets for Caldwell homeowners by Boise Cabinet Co."
     },
     {
-      "id": "img-0105",
+      "id": "img-0100",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -2568,7 +2444,7 @@
       "caption": "Custom closet cabinet systems for Boise homeowners by Boise Cabinet Co."
     },
     {
-      "id": "img-0106",
+      "id": "img-0101",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -2591,7 +2467,7 @@
       "caption": "Custom closet cabinet systems for Meridian homeowners by Boise Cabinet Co."
     },
     {
-      "id": "img-0107",
+      "id": "img-0102",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -2614,7 +2490,7 @@
       "caption": "Custom closet cabinet systems for Eagle homeowners by Boise Cabinet Co."
     },
     {
-      "id": "img-0108",
+      "id": "img-0103",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -2637,7 +2513,7 @@
       "caption": "Custom closet cabinet systems for Nampa homeowners by Boise Cabinet Co."
     },
     {
-      "id": "img-0109",
+      "id": "img-0104",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -2660,7 +2536,7 @@
       "caption": "Custom closet cabinet systems for Kuna homeowners by Boise Cabinet Co."
     },
     {
-      "id": "img-0110",
+      "id": "img-0105",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -2683,7 +2559,7 @@
       "caption": "Custom closet cabinet systems for Star homeowners by Boise Cabinet Co."
     },
     {
-      "id": "img-0111",
+      "id": "img-0106",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -2706,7 +2582,7 @@
       "caption": "Custom closet cabinet systems for Middleton homeowners by Boise Cabinet Co."
     },
     {
-      "id": "img-0112",
+      "id": "img-0107",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -2729,7 +2605,7 @@
       "caption": "Custom closet cabinet systems for Caldwell homeowners by Boise Cabinet Co."
     },
     {
-      "id": "img-0113",
+      "id": "img-0108",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -2744,15 +2620,15 @@
         "/services/whole-home-cabinets/boise"
       ],
       "placement": "hero",
-      "doorStyleId": "modern-shaker",
+      "doorStyleId": "shaker",
       "finishId": "snowcap",
-      "promptScene": "Whole-home cabinet packages in Boise Idaho, One Source modern shaker doors, snowcap finish, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Whole-home cabinet packages in Boise Idaho, One Source shaker doors, snowcap finish, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
       "alt": "Whole-home cabinet packages in Boise, Idaho — Boise Cabinet Co One Source cabinets",
       "title": "Whole-home cabinet packages Boise ID",
       "caption": "Custom whole-home cabinet packages for Boise homeowners by Boise Cabinet Co."
     },
     {
-      "id": "img-0114",
+      "id": "img-0109",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -2767,15 +2643,15 @@
         "/services/whole-home-cabinets/meridian"
       ],
       "placement": "hero",
-      "doorStyleId": "modern-shaker",
+      "doorStyleId": "shaker",
       "finishId": "snowcap",
-      "promptScene": "Whole-home cabinet packages in Meridian Idaho, One Source modern shaker doors, snowcap finish, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Whole-home cabinet packages in Meridian Idaho, One Source shaker doors, snowcap finish, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
       "alt": "Whole-home cabinet packages in Meridian, Idaho — Boise Cabinet Co One Source cabinets",
       "title": "Whole-home cabinet packages Meridian ID",
       "caption": "Custom whole-home cabinet packages for Meridian homeowners by Boise Cabinet Co."
     },
     {
-      "id": "img-0115",
+      "id": "img-0110",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -2790,15 +2666,15 @@
         "/services/whole-home-cabinets/eagle"
       ],
       "placement": "hero",
-      "doorStyleId": "modern-shaker",
+      "doorStyleId": "shaker",
       "finishId": "snowcap",
-      "promptScene": "Whole-home cabinet packages in Eagle Idaho, One Source modern shaker doors, snowcap finish, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Whole-home cabinet packages in Eagle Idaho, One Source shaker doors, snowcap finish, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
       "alt": "Whole-home cabinet packages in Eagle, Idaho — Boise Cabinet Co One Source cabinets",
       "title": "Whole-home cabinet packages Eagle ID",
       "caption": "Custom whole-home cabinet packages for Eagle homeowners by Boise Cabinet Co."
     },
     {
-      "id": "img-0116",
+      "id": "img-0111",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -2813,15 +2689,15 @@
         "/services/whole-home-cabinets/nampa"
       ],
       "placement": "hero",
-      "doorStyleId": "modern-shaker",
+      "doorStyleId": "shaker",
       "finishId": "snowcap",
-      "promptScene": "Whole-home cabinet packages in Nampa Idaho, One Source modern shaker doors, snowcap finish, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Whole-home cabinet packages in Nampa Idaho, One Source shaker doors, snowcap finish, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
       "alt": "Whole-home cabinet packages in Nampa, Idaho — Boise Cabinet Co One Source cabinets",
       "title": "Whole-home cabinet packages Nampa ID",
       "caption": "Custom whole-home cabinet packages for Nampa homeowners by Boise Cabinet Co."
     },
     {
-      "id": "img-0117",
+      "id": "img-0112",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -2836,15 +2712,15 @@
         "/services/whole-home-cabinets/kuna"
       ],
       "placement": "hero",
-      "doorStyleId": "modern-shaker",
+      "doorStyleId": "shaker",
       "finishId": "snowcap",
-      "promptScene": "Whole-home cabinet packages in Kuna Idaho, One Source modern shaker doors, snowcap finish, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Whole-home cabinet packages in Kuna Idaho, One Source shaker doors, snowcap finish, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
       "alt": "Whole-home cabinet packages in Kuna, Idaho — Boise Cabinet Co One Source cabinets",
       "title": "Whole-home cabinet packages Kuna ID",
       "caption": "Custom whole-home cabinet packages for Kuna homeowners by Boise Cabinet Co."
     },
     {
-      "id": "img-0118",
+      "id": "img-0113",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -2859,15 +2735,15 @@
         "/services/whole-home-cabinets/star"
       ],
       "placement": "hero",
-      "doorStyleId": "modern-shaker",
+      "doorStyleId": "shaker",
       "finishId": "snowcap",
-      "promptScene": "Whole-home cabinet packages in Star Idaho, One Source modern shaker doors, snowcap finish, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Whole-home cabinet packages in Star Idaho, One Source shaker doors, snowcap finish, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
       "alt": "Whole-home cabinet packages in Star, Idaho — Boise Cabinet Co One Source cabinets",
       "title": "Whole-home cabinet packages Star ID",
       "caption": "Custom whole-home cabinet packages for Star homeowners by Boise Cabinet Co."
     },
     {
-      "id": "img-0119",
+      "id": "img-0114",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -2882,15 +2758,15 @@
         "/services/whole-home-cabinets/middleton"
       ],
       "placement": "hero",
-      "doorStyleId": "modern-shaker",
+      "doorStyleId": "shaker",
       "finishId": "snowcap",
-      "promptScene": "Whole-home cabinet packages in Middleton Idaho, One Source modern shaker doors, snowcap finish, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Whole-home cabinet packages in Middleton Idaho, One Source shaker doors, snowcap finish, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
       "alt": "Whole-home cabinet packages in Middleton, Idaho — Boise Cabinet Co One Source cabinets",
       "title": "Whole-home cabinet packages Middleton ID",
       "caption": "Custom whole-home cabinet packages for Middleton homeowners by Boise Cabinet Co."
     },
     {
-      "id": "img-0120",
+      "id": "img-0115",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -2905,15 +2781,15 @@
         "/services/whole-home-cabinets/caldwell"
       ],
       "placement": "hero",
-      "doorStyleId": "modern-shaker",
+      "doorStyleId": "shaker",
       "finishId": "snowcap",
-      "promptScene": "Whole-home cabinet packages in Caldwell Idaho, One Source modern shaker doors, snowcap finish, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "promptScene": "Whole-home cabinet packages in Caldwell Idaho, One Source shaker doors, snowcap finish, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
       "alt": "Whole-home cabinet packages in Caldwell, Idaho — Boise Cabinet Co One Source cabinets",
       "title": "Whole-home cabinet packages Caldwell ID",
       "caption": "Custom whole-home cabinet packages for Caldwell homeowners by Boise Cabinet Co."
     },
     {
-      "id": "img-0121",
+      "id": "img-0116",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -2928,7 +2804,7 @@
         "/services/kitchen-cabinets"
       ],
       "placement": "hero",
-      "doorStyleId": "modern-shaker",
+      "doorStyleId": "shaker",
       "finishId": "white-oak",
       "promptScene": "Kitchen cabinets, One Source custom cabinets, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
       "alt": "Kitchen cabinets by Boise Cabinet Co using One Source panel products",
@@ -2936,7 +2812,7 @@
       "caption": "Kitchen cabinets throughout the Treasure Valley."
     },
     {
-      "id": "img-0122",
+      "id": "img-0117",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -2959,7 +2835,7 @@
       "caption": "Bathroom vanity cabinets throughout the Treasure Valley."
     },
     {
-      "id": "img-0123",
+      "id": "img-0118",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -2974,7 +2850,7 @@
         "/services/custom-built-ins"
       ],
       "placement": "hero",
-      "doorStyleId": "three-piece",
+      "doorStyleId": "shaker",
       "finishId": "natural-walnut",
       "promptScene": "Custom built-in cabinets, One Source custom cabinets, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
       "alt": "Custom built-in cabinets by Boise Cabinet Co using One Source panel products",
@@ -2982,7 +2858,7 @@
       "caption": "Custom built-in cabinets throughout the Treasure Valley."
     },
     {
-      "id": "img-0124",
+      "id": "img-0119",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -3005,7 +2881,7 @@
       "caption": "Closet cabinet systems throughout the Treasure Valley."
     },
     {
-      "id": "img-0125",
+      "id": "img-0120",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -3020,7 +2896,7 @@
         "/services/whole-home-cabinets"
       ],
       "placement": "hero",
-      "doorStyleId": "modern-shaker",
+      "doorStyleId": "shaker",
       "finishId": "snowcap",
       "promptScene": "Whole-home cabinet packages, One Source custom cabinets, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
       "alt": "Whole-home cabinet packages by Boise Cabinet Co using One Source panel products",
@@ -3028,7 +2904,7 @@
       "caption": "Whole-home cabinet packages throughout the Treasure Valley."
     },
     {
-      "id": "img-0126",
+      "id": "img-0121",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -3050,7 +2926,7 @@
       "caption": "Kitchen cabinet transformation cabinet project by Boise Cabinet Co."
     },
     {
-      "id": "img-0127",
+      "id": "img-0122",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -3072,7 +2948,7 @@
       "caption": "Kitchen cabinet transformation cabinet project by Boise Cabinet Co."
     },
     {
-      "id": "img-0128",
+      "id": "img-0123",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -3094,7 +2970,7 @@
       "caption": "Bathroom vanity cabinet renovation cabinet project by Boise Cabinet Co."
     },
     {
-      "id": "img-0129",
+      "id": "img-0124",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -3116,7 +2992,7 @@
       "caption": "Bathroom vanity cabinet renovation cabinet project by Boise Cabinet Co."
     },
     {
-      "id": "img-0130",
+      "id": "img-0125",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -3138,7 +3014,7 @@
       "caption": "Whole-home custom cabinets cabinet project by Boise Cabinet Co."
     },
     {
-      "id": "img-0131",
+      "id": "img-0126",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -3160,7 +3036,7 @@
       "caption": "Whole-home custom cabinets cabinet project by Boise Cabinet Co."
     },
     {
-      "id": "img-0132",
+      "id": "img-0127",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -3182,7 +3058,7 @@
       "caption": "Built-in cabinet addition cabinet project by Boise Cabinet Co."
     },
     {
-      "id": "img-0133",
+      "id": "img-0128",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -3204,7 +3080,7 @@
       "caption": "Built-in cabinet addition cabinet project by Boise Cabinet Co."
     },
     {
-      "id": "img-0134",
+      "id": "img-0129",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -3226,7 +3102,7 @@
       "caption": "Basement wet bar cabinets cabinet project by Boise Cabinet Co."
     },
     {
-      "id": "img-0135",
+      "id": "img-0130",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -3248,7 +3124,7 @@
       "caption": "Basement wet bar cabinets cabinet project by Boise Cabinet Co."
     },
     {
-      "id": "img-0136",
+      "id": "img-0131",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -3270,7 +3146,7 @@
       "caption": "Outdoor kitchen cabinets cabinet project by Boise Cabinet Co."
     },
     {
-      "id": "img-0137",
+      "id": "img-0132",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -3292,8 +3168,8 @@
       "caption": "Outdoor kitchen cabinets cabinet project by Boise Cabinet Co."
     },
     {
-      "id": "img-0138",
-      "status": "generated",
+      "id": "img-0133",
+      "status": "pending",
       "phase": 3,
       "priority": "low",
       "width": 800,
@@ -3312,8 +3188,8 @@
       "title": "bar pull 128 black"
     },
     {
-      "id": "img-0139",
-      "status": "generated",
+      "id": "img-0134",
+      "status": "pending",
       "phase": 3,
       "priority": "low",
       "width": 800,
@@ -3332,8 +3208,8 @@
       "title": "bar pull 160 nickel"
     },
     {
-      "id": "img-0140",
-      "status": "generated",
+      "id": "img-0135",
+      "status": "pending",
       "phase": 3,
       "priority": "low",
       "width": 800,
@@ -3352,8 +3228,8 @@
       "title": "cup pull gold"
     },
     {
-      "id": "img-0141",
-      "status": "generated",
+      "id": "img-0136",
+      "status": "pending",
       "phase": 3,
       "priority": "low",
       "width": 800,
@@ -3372,8 +3248,8 @@
       "title": "finger edge pull"
     },
     {
-      "id": "img-0142",
-      "status": "generated",
+      "id": "img-0137",
+      "status": "pending",
       "phase": 3,
       "priority": "low",
       "width": 800,
@@ -3392,8 +3268,8 @@
       "title": "j channel pull"
     },
     {
-      "id": "img-0143",
-      "status": "generated",
+      "id": "img-0138",
+      "status": "pending",
       "phase": 3,
       "priority": "low",
       "width": 800,
@@ -3412,8 +3288,8 @@
       "title": "knob round nickel"
     },
     {
-      "id": "img-0144",
-      "status": "generated",
+      "id": "img-0139",
+      "status": "pending",
       "phase": 3,
       "priority": "low",
       "width": 800,
@@ -3432,8 +3308,8 @@
       "title": "knob square black"
     },
     {
-      "id": "img-0145",
-      "status": "generated",
+      "id": "img-0140",
+      "status": "pending",
       "phase": 3,
       "priority": "low",
       "width": 800,
@@ -3452,8 +3328,8 @@
       "title": "glass knob chrome"
     },
     {
-      "id": "img-0146",
-      "status": "generated",
+      "id": "img-0141",
+      "status": "pending",
       "phase": 3,
       "priority": "low",
       "width": 800,
@@ -3472,8 +3348,8 @@
       "title": "hinge soft close"
     },
     {
-      "id": "img-0147",
-      "status": "generated",
+      "id": "img-0142",
+      "status": "pending",
       "phase": 3,
       "priority": "low",
       "width": 800,
@@ -3492,8 +3368,8 @@
       "title": "push to open hinge"
     },
     {
-      "id": "img-0148",
-      "status": "generated",
+      "id": "img-0143",
+      "status": "pending",
       "phase": 3,
       "priority": "low",
       "width": 800,
@@ -3512,8 +3388,8 @@
       "title": "slide soft close"
     },
     {
-      "id": "img-0149",
-      "status": "generated",
+      "id": "img-0144",
+      "status": "pending",
       "phase": 3,
       "priority": "low",
       "width": 800,
@@ -3532,8 +3408,8 @@
       "title": "slide heavy duty"
     },
     {
-      "id": "img-0150",
-      "status": "generated",
+      "id": "img-0145",
+      "status": "pending",
       "phase": 3,
       "priority": "low",
       "width": 800,
@@ -3552,8 +3428,8 @@
       "title": "outdoor bar pull stainless"
     },
     {
-      "id": "img-0151",
-      "status": "generated",
+      "id": "img-0146",
+      "status": "pending",
       "phase": 3,
       "priority": "low",
       "width": 800,
@@ -3572,8 +3448,8 @@
       "title": "pull out shelf"
     },
     {
-      "id": "img-0152",
-      "status": "generated",
+      "id": "img-0147",
+      "status": "pending",
       "phase": 3,
       "priority": "low",
       "width": 800,
@@ -3592,8 +3468,8 @@
       "title": "pull out pantry"
     },
     {
-      "id": "img-0153",
-      "status": "generated",
+      "id": "img-0148",
+      "status": "pending",
       "phase": 3,
       "priority": "low",
       "width": 800,
@@ -3612,8 +3488,8 @@
       "title": "lazy susan"
     },
     {
-      "id": "img-0154",
-      "status": "generated",
+      "id": "img-0149",
+      "status": "pending",
       "phase": 3,
       "priority": "low",
       "width": 800,
@@ -3632,8 +3508,8 @@
       "title": "blind corner pullout"
     },
     {
-      "id": "img-0155",
-      "status": "generated",
+      "id": "img-0150",
+      "status": "pending",
       "phase": 3,
       "priority": "low",
       "width": 800,
@@ -3652,8 +3528,48 @@
       "title": "spice rack pullout"
     },
     {
-      "id": "img-0156",
-      "status": "generated",
+      "id": "img-0151",
+      "status": "pending",
+      "phase": 3,
+      "priority": "low",
+      "width": 800,
+      "height": 800,
+      "formats": [
+        "webp",
+        "png"
+      ],
+      "outputPath": "/images/catalog/accessories/utensil-divider.webp",
+      "pages": [
+        "/accessories"
+      ],
+      "placement": "product",
+      "promptScene": "Cabinet utensil divider interior accessory installed in One Source kitchen, product photography, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "alt": "Cabinet utensil divider interior accessory — Boise Cabinet Co",
+      "title": "utensil divider"
+    },
+    {
+      "id": "img-0152",
+      "status": "pending",
+      "phase": 3,
+      "priority": "low",
+      "width": 800,
+      "height": 800,
+      "formats": [
+        "webp",
+        "png"
+      ],
+      "outputPath": "/images/catalog/accessories/peg-board-drawer.webp",
+      "pages": [
+        "/accessories"
+      ],
+      "placement": "product",
+      "promptScene": "Cabinet peg board drawer interior accessory installed in One Source kitchen, product photography, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "alt": "Cabinet peg board drawer interior accessory — Boise Cabinet Co",
+      "title": "peg board drawer"
+    },
+    {
+      "id": "img-0153",
+      "status": "pending",
       "phase": 3,
       "priority": "low",
       "width": 800,
@@ -3672,8 +3588,28 @@
       "title": "trash pullout"
     },
     {
-      "id": "img-0157",
-      "status": "generated",
+      "id": "img-0154",
+      "status": "pending",
+      "phase": 3,
+      "priority": "low",
+      "width": 800,
+      "height": 800,
+      "formats": [
+        "webp",
+        "png"
+      ],
+      "outputPath": "/images/catalog/accessories/cutting-board-insert.webp",
+      "pages": [
+        "/accessories"
+      ],
+      "placement": "product",
+      "promptScene": "Cabinet cutting board insert interior accessory installed in One Source kitchen, product photography, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "alt": "Cabinet cutting board insert interior accessory — Boise Cabinet Co",
+      "title": "cutting board insert"
+    },
+    {
+      "id": "img-0155",
+      "status": "pending",
       "phase": 3,
       "priority": "low",
       "width": 800,
@@ -3692,8 +3628,8 @@
       "title": "mixer lift"
     },
     {
-      "id": "img-0158",
-      "status": "generated",
+      "id": "img-0156",
+      "status": "pending",
       "phase": 3,
       "priority": "low",
       "width": 800,
@@ -3702,18 +3638,58 @@
         "webp",
         "png"
       ],
-      "outputPath": "/images/catalog/accessories/appliance-garage.webp",
+      "outputPath": "/images/catalog/accessories/tip-out-tray.webp",
       "pages": [
         "/accessories"
       ],
       "placement": "product",
-      "promptScene": "Cabinet appliance garage interior accessory installed in One Source kitchen, product photography, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
-      "alt": "Cabinet appliance garage interior accessory — Boise Cabinet Co",
-      "title": "appliance garage"
+      "promptScene": "Cabinet tip out tray interior accessory installed in One Source kitchen, product photography, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "alt": "Cabinet tip out tray interior accessory — Boise Cabinet Co",
+      "title": "tip out tray"
+    },
+    {
+      "id": "img-0157",
+      "status": "pending",
+      "phase": 3,
+      "priority": "low",
+      "width": 800,
+      "height": 800,
+      "formats": [
+        "webp",
+        "png"
+      ],
+      "outputPath": "/images/catalog/accessories/vertical-divider.webp",
+      "pages": [
+        "/accessories"
+      ],
+      "placement": "product",
+      "promptScene": "Cabinet vertical divider interior accessory installed in One Source kitchen, product photography, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "alt": "Cabinet vertical divider interior accessory — Boise Cabinet Co",
+      "title": "vertical divider"
+    },
+    {
+      "id": "img-0158",
+      "status": "pending",
+      "phase": 3,
+      "priority": "low",
+      "width": 800,
+      "height": 800,
+      "formats": [
+        "webp",
+        "png"
+      ],
+      "outputPath": "/images/catalog/accessories/drawer-organizer-kit.webp",
+      "pages": [
+        "/accessories"
+      ],
+      "placement": "product",
+      "promptScene": "Cabinet drawer organizer kit interior accessory installed in One Source kitchen, product photography, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "alt": "Cabinet drawer organizer kit interior accessory — Boise Cabinet Co",
+      "title": "drawer organizer kit"
     },
     {
       "id": "img-0159",
-      "status": "generated",
+      "status": "pending",
       "phase": 3,
       "priority": "low",
       "width": 800,
@@ -3733,7 +3709,27 @@
     },
     {
       "id": "img-0160",
-      "status": "generated",
+      "status": "pending",
+      "phase": 3,
+      "priority": "low",
+      "width": 800,
+      "height": 800,
+      "formats": [
+        "webp",
+        "png"
+      ],
+      "outputPath": "/images/catalog/accessories/pull-out-hamper.webp",
+      "pages": [
+        "/accessories"
+      ],
+      "placement": "product",
+      "promptScene": "Cabinet pull out hamper interior accessory installed in One Source kitchen, product photography, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "alt": "Cabinet pull out hamper interior accessory — Boise Cabinet Co",
+      "title": "pull out hamper"
+    },
+    {
+      "id": "img-0161",
+      "status": "pending",
       "phase": 3,
       "priority": "low",
       "width": 800,
@@ -3752,29 +3748,8 @@
       "title": "wine rack insert"
     },
     {
-      "id": "img-0161",
-      "status": "generated",
-      "phase": 3,
-      "priority": "low",
-      "width": 800,
-      "height": 800,
-      "formats": [
-        "webp",
-        "png"
-      ],
-      "outputPath": "/images/catalog/accessories/utensil-divider.webp",
-      "pages": [
-        "/accessories"
-      ],
-      "placement": "product",
-      "promptScene": "Cabinet utensil divider interior accessory installed in One Source kitchen, product photography, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
-      "alt": "Cabinet utensil divider interior accessory — Boise Cabinet Co",
-      "title": "utensil divider",
-      "caption": "Cabinet utensil divider interior accessory from One Source Cabinets, available through Boise Cabinet Co."
-    },
-    {
       "id": "img-0162",
-      "status": "generated",
+      "status": "pending",
       "phase": 3,
       "priority": "low",
       "width": 800,
@@ -3783,120 +3758,14 @@
         "webp",
         "png"
       ],
-      "outputPath": "/images/catalog/accessories/peg-board-drawer.webp",
+      "outputPath": "/images/catalog/accessories/appliance-garage.webp",
       "pages": [
         "/accessories"
       ],
       "placement": "product",
-      "promptScene": "Cabinet peg board drawer interior accessory installed in One Source kitchen, product photography, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
-      "alt": "Cabinet peg board drawer interior accessory — Boise Cabinet Co",
-      "title": "peg board drawer",
-      "caption": "Cabinet peg board drawer interior accessory from One Source Cabinets, available through Boise Cabinet Co."
-    },
-    {
-      "id": "img-0163",
-      "status": "generated",
-      "phase": 3,
-      "priority": "low",
-      "width": 800,
-      "height": 800,
-      "formats": [
-        "webp",
-        "png"
-      ],
-      "outputPath": "/images/catalog/accessories/cutting-board-insert.webp",
-      "pages": [
-        "/accessories"
-      ],
-      "placement": "product",
-      "promptScene": "Cabinet cutting board insert interior accessory installed in One Source kitchen, product photography, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
-      "alt": "Cabinet cutting board insert interior accessory — Boise Cabinet Co",
-      "title": "cutting board insert",
-      "caption": "Cabinet cutting board insert interior accessory from One Source Cabinets, available through Boise Cabinet Co."
-    },
-    {
-      "id": "img-0164",
-      "status": "generated",
-      "phase": 3,
-      "priority": "low",
-      "width": 800,
-      "height": 800,
-      "formats": [
-        "webp",
-        "png"
-      ],
-      "outputPath": "/images/catalog/accessories/tip-out-tray.webp",
-      "pages": [
-        "/accessories"
-      ],
-      "placement": "product",
-      "promptScene": "Cabinet tip out tray interior accessory installed in One Source kitchen, product photography, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
-      "alt": "Cabinet tip out tray interior accessory — Boise Cabinet Co",
-      "title": "tip out tray",
-      "caption": "Cabinet tip out tray interior accessory from One Source Cabinets, available through Boise Cabinet Co."
-    },
-    {
-      "id": "img-0165",
-      "status": "generated",
-      "phase": 3,
-      "priority": "low",
-      "width": 800,
-      "height": 800,
-      "formats": [
-        "webp",
-        "png"
-      ],
-      "outputPath": "/images/catalog/accessories/vertical-divider.webp",
-      "pages": [
-        "/accessories"
-      ],
-      "placement": "product",
-      "promptScene": "Cabinet vertical divider interior accessory installed in One Source kitchen, product photography, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
-      "alt": "Cabinet vertical divider interior accessory — Boise Cabinet Co",
-      "title": "vertical divider",
-      "caption": "Cabinet vertical divider interior accessory from One Source Cabinets, available through Boise Cabinet Co."
-    },
-    {
-      "id": "img-0166",
-      "status": "generated",
-      "phase": 3,
-      "priority": "low",
-      "width": 800,
-      "height": 800,
-      "formats": [
-        "webp",
-        "png"
-      ],
-      "outputPath": "/images/catalog/accessories/drawer-organizer-kit.webp",
-      "pages": [
-        "/accessories"
-      ],
-      "placement": "product",
-      "promptScene": "Cabinet drawer organizer kit interior accessory installed in One Source kitchen, product photography, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
-      "alt": "Cabinet drawer organizer kit interior accessory — Boise Cabinet Co",
-      "title": "drawer organizer kit",
-      "caption": "Cabinet drawer organizer kit interior accessory from One Source Cabinets, available through Boise Cabinet Co."
-    },
-    {
-      "id": "img-0167",
-      "status": "generated",
-      "phase": 3,
-      "priority": "low",
-      "width": 800,
-      "height": 800,
-      "formats": [
-        "webp",
-        "png"
-      ],
-      "outputPath": "/images/catalog/accessories/pull-out-hamper.webp",
-      "pages": [
-        "/accessories"
-      ],
-      "placement": "product",
-      "promptScene": "Cabinet pull out hamper interior accessory installed in One Source kitchen, product photography, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
-      "alt": "Cabinet pull out hamper interior accessory — Boise Cabinet Co",
-      "title": "pull out hamper",
-      "caption": "Cabinet pull out hamper interior accessory from One Source Cabinets, available through Boise Cabinet Co."
+      "promptScene": "Cabinet appliance garage interior accessory installed in One Source kitchen, product photography, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "alt": "Cabinet appliance garage interior accessory — Boise Cabinet Co",
+      "title": "appliance garage"
     }
   ]
 }

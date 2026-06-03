@@ -1,6 +1,9 @@
 /**
  * Verified One Source Cabinets construction and product specifications.
- * Source: onesourcecabinets.com/about, dealer documentation, Tafisa/Salt panel partners.
+ * Source: onesourcecabinets.com, dealer documentation, Tafisa/Salt panel partners.
+ *
+ * Door styles reflect the three profiles the supplier actually produces:
+ * Slab, Shaker, and Thin Shaker.
  */
 
 export const ONE_SOURCE_SUPPLIER = {
@@ -10,11 +13,7 @@ export const ONE_SOURCE_SUPPLIER = {
   facilities: ["Mesa, Arizona", "Colorado Springs, Colorado"],
 } as const;
 
-export type OneSourceDoorStyleId =
-  | "slab"
-  | "modern-shaker"
-  | "thin-shaker"
-  | "five-piece-shaker";
+export type OneSourceDoorStyleId = "slab" | "shaker" | "thin-shaker";
 
 export interface OneSourceDoorStyleSpec {
   brcSlug: string;
@@ -35,11 +34,11 @@ export const ONE_SOURCE_DOOR_STYLES: OneSourceDoorStyleSpec[] = [
     drawerFrontDefault: "slab",
   },
   {
-    brcSlug: "modern-shaker",
-    oscName: "Modern Shaker",
+    brcSlug: "shaker",
+    oscName: "Shaker",
     verified: true,
     geometryPrompt:
-      "modern shaker cabinet door with 3/4 inch thick frame, 2-1/4 inch stiles and rails, 1/4 inch flat center panel reveal",
+      "five-piece shaker cabinet door with 3/4 inch thick frame, square stiles and rails, flat recessed center panel",
     drawerFrontDefault: "slab",
   },
   {
@@ -47,31 +46,7 @@ export const ONE_SOURCE_DOOR_STYLES: OneSourceDoorStyleSpec[] = [
     oscName: "Thin Shaker",
     verified: true,
     geometryPrompt:
-      "thin shaker cabinet door with delicate 1-inch stiles and rails, 1/8 inch step-back flat center panel",
-    drawerFrontDefault: "slab",
-  },
-  {
-    brcSlug: "three-piece",
-    oscName: "5-Piece Shaker",
-    verified: true,
-    geometryPrompt:
-      "five-piece shaker cabinet door with 3/4 inch frame, 1/4 inch flat center panel, cope-and-stick joinery",
-    drawerFrontDefault: "five-piece",
-  },
-  {
-    brcSlug: "alpha-shaker",
-    oscName: "Alpha Shaker (Reserve)",
-    verified: false,
-    geometryPrompt:
-      "shaker door with beveled inner frame and slightly raised center panel, 2-inch rails",
-    drawerFrontDefault: "slab",
-  },
-  {
-    brcSlug: "beta-shaker",
-    oscName: "Beta Shaker (Reserve)",
-    verified: false,
-    geometryPrompt:
-      "shaker door with shadow-line groove between frame and panel, 2-inch rails",
+      "thin shaker cabinet door with narrow 1-inch stiles and rails, flat recessed center panel",
     drawerFrontDefault: "slab",
   },
 ];

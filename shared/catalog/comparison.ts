@@ -1,5 +1,8 @@
 /**
  * Side-by-side feature comparison matrices for Boise Cabinet Co collections.
+ *
+ * Two collections: Custom Cabinets and the premium Reserve color collection.
+ * Three door styles: Slab, Shaker, Thin Shaker.
  */
 
 import type { PriceTier } from "./collections";
@@ -33,157 +36,104 @@ export const COLLECTION_COMPARISON: CollectionComparisonMatrix = {
   id: "collection-overview",
   title: "Collection Comparison",
   description:
-    "Compare Boise Cabinet Co cabinet lines at a glance. Every collection includes professional installation, soft-close hinges on doors, and our written workmanship guarantee.",
+    "Compare our two cabinet lines at a glance. Both are built to order with professional installation, soft-close hinges on doors, and our written workmanship guarantee. Reserve adds an exclusive premium color palette.",
   features: [
     {
       id: "custom-sizing",
       label: "Custom sizing",
-      description: "Ability to specify non-standard widths, heights, and depths.",
+      description: "Cabinets built to your room's exact widths, heights, and depths.",
       values: {
-        "full-custom": "Any dimension within shop limits",
-        "semi-custom": "1-inch width increments",
-        reserve: "1-inch width increments",
-        "spec-grade": "Fixed module sizes only",
+        custom: "Built to order for your space",
+        reserve: "Built to order for your space",
       },
     },
     {
       id: "door-styles",
       label: "Door styles available",
       values: {
-        "full-custom": "All 6 profiles",
-        "semi-custom": "5 profiles",
-        reserve: "5 profiles (incl. Alpha & Beta Shaker)",
-        "spec-grade": "4 profiles",
+        custom: "Slab, Shaker, Thin Shaker",
+        reserve: "Slab, Shaker, Thin Shaker",
       },
     },
     {
-      id: "finish-count",
-      label: "Finish options",
+      id: "finish-palette",
+      label: "Finish palette",
       values: {
-        "full-custom": "Full library + custom color match",
-        "semi-custom": "42 finishes",
-        reserve: "42 finishes (Reserve exclusives included)",
-        "spec-grade": "12 core finishes",
+        custom: "Full matte, gloss, and woodgrain library",
+        reserve: "Exclusive Reserve premium colors",
       },
     },
     {
       id: "box-construction",
       label: "Box construction",
       values: {
-        "full-custom": "Plywood or furniture-grade ply",
-        "semi-custom": "Plywood with hardwood/MDF fronts",
-        reserve: "Premium plywood, dovetail drawers",
-        "spec-grade": "Plywood with moisture-resistant option",
-      },
-    },
-    {
-      id: "drawer-box",
-      label: "Drawer box",
-      values: {
-        "full-custom": "Dovetail hardwood or ply",
-        "semi-custom": "Dovetail or dowel (configurable)",
-        reserve: "Dovetail standard",
-        "spec-grade": "Dowel construction",
+        custom: "Plywood boxes",
+        reserve: "Plywood boxes",
       },
     },
     {
       id: "soft-close-hinges",
       label: "Soft-close hinges",
       values: {
-        "full-custom": true,
-        "semi-custom": true,
+        custom: true,
         reserve: true,
-        "spec-grade": true,
       },
     },
     {
       id: "soft-close-drawers",
       label: "Soft-close drawer slides",
       values: {
-        "full-custom": true,
-        "semi-custom": true,
+        custom: true,
         reserve: true,
-        "spec-grade": "Optional upgrade",
+      },
+    },
+    {
+      id: "smart-storage",
+      label: "Smart Storage accessories",
+      description: "Pull-outs, organizers, spice racks, and corner solutions.",
+      values: {
+        custom: true,
+        reserve: true,
       },
     },
     {
       id: "design-consultation",
       label: "In-home design consultation",
       values: {
-        "full-custom": "Included with 3D layout option",
-        "semi-custom": "Included",
+        custom: "Included",
         reserve: "Included with sample kit",
-        "spec-grade": "Remote or template-based",
       },
     },
     {
       id: "shop-drawings",
       label: "Shop drawings for approval",
       values: {
-        "full-custom": true,
-        "semi-custom": true,
+        custom: true,
         reserve: true,
-        "spec-grade": "Standard elevations only",
+      },
+    },
+    {
+      id: "sample-kit",
+      label: "Complimentary finish sample kit",
+      values: {
+        custom: "On request",
+        reserve: true,
       },
     },
     {
       id: "lead-time",
       label: "Typical lead time",
       values: {
-        "full-custom": "10–14 weeks",
-        "semi-custom": "6–8 weeks",
-        reserve: "5–7 weeks",
-        "spec-grade": "3–5 weeks",
+        custom: "6–10 weeks",
+        reserve: "6–10 weeks",
       },
     },
     {
       id: "warranty",
       label: "Workmanship warranty",
       values: {
-        "full-custom": "5 years",
-        "semi-custom": "5 years",
+        custom: "5 years",
         reserve: "5 years",
-        "spec-grade": "3 years",
-      },
-    },
-    {
-      id: "volume-pricing",
-      label: "Volume / builder pricing",
-      values: {
-        "full-custom": "Project-based",
-        "semi-custom": "10+ units",
-        reserve: "Whole-home packages",
-        "spec-grade": "10+ units standard",
-      },
-    },
-    {
-      id: "accessories",
-      label: "Full accessory catalog",
-      values: {
-        "full-custom": true,
-        "semi-custom": true,
-        reserve: true,
-        "spec-grade": "Core accessories only",
-      },
-    },
-    {
-      id: "outdoor-rated",
-      label: "Outdoor-rated options",
-      values: {
-        "full-custom": true,
-        "semi-custom": "Limited finishes",
-        reserve: true,
-        "spec-grade": false,
-      },
-    },
-    {
-      id: "integrated-lighting",
-      label: "Integrated LED channels",
-      values: {
-        "full-custom": true,
-        "semi-custom": true,
-        reserve: true,
-        "spec-grade": false,
       },
     },
   ],
@@ -192,66 +142,30 @@ export const COLLECTION_COMPARISON: CollectionComparisonMatrix = {
 export const DOOR_STYLE_COMPARISON: CollectionComparisonMatrix = {
   id: "door-style-fit",
   title: "Door Style by Collection",
-  description: "Which door profiles are available in each cabinet line.",
+  description: "Every door profile is available in both cabinet lines.",
   features: [
     {
       id: "slab",
       label: "Slab",
       values: {
-        "full-custom": true,
-        "semi-custom": true,
+        custom: true,
         reserve: true,
-        "spec-grade": true,
       },
     },
     {
-      id: "three-piece",
-      label: "Three-Piece",
+      id: "shaker",
+      label: "Shaker",
       values: {
-        "full-custom": true,
-        "semi-custom": true,
+        custom: true,
         reserve: true,
-        "spec-grade": false,
-      },
-    },
-    {
-      id: "modern-shaker",
-      label: "Modern Shaker",
-      values: {
-        "full-custom": true,
-        "semi-custom": true,
-        reserve: true,
-        "spec-grade": true,
       },
     },
     {
       id: "thin-shaker",
       label: "Thin Shaker",
       values: {
-        "full-custom": true,
-        "semi-custom": true,
+        custom: true,
         reserve: true,
-        "spec-grade": true,
-      },
-    },
-    {
-      id: "alpha-shaker",
-      label: "Alpha Shaker",
-      values: {
-        "full-custom": true,
-        "semi-custom": false,
-        reserve: true,
-        "spec-grade": false,
-      },
-    },
-    {
-      id: "beta-shaker",
-      label: "Beta Shaker",
-      values: {
-        "full-custom": true,
-        "semi-custom": true,
-        reserve: true,
-        "spec-grade": false,
       },
     },
   ],
@@ -259,47 +173,39 @@ export const DOOR_STYLE_COMPARISON: CollectionComparisonMatrix = {
 
 export const FINISH_TIER_COMPARISON: CollectionComparisonMatrix = {
   id: "finish-tier-access",
-  title: "Finish Tier Access",
-  description: "Which finish tiers are included or available per collection.",
+  title: "Finish Access",
+  description: "Which finishes are included per collection.",
   features: [
     {
-      id: "standard-finishes",
-      label: "Standard finishes",
+      id: "matte-finishes",
+      label: "Matte finishes",
       values: {
-        "full-custom": true,
-        "semi-custom": true,
+        custom: true,
         reserve: true,
-        "spec-grade": true,
       },
     },
     {
-      id: "premium-finishes",
-      label: "Premium finishes",
+      id: "gloss-finishes",
+      label: "High-gloss finishes",
       values: {
-        "full-custom": true,
-        "semi-custom": true,
+        custom: true,
         reserve: true,
-        "spec-grade": "Upgrade fee",
       },
     },
     {
-      id: "reserve-finishes",
-      label: "Reserve-exclusive finishes",
+      id: "woodgrain-finishes",
+      label: "Woodgrain finishes",
       values: {
-        "full-custom": true,
-        "semi-custom": "Upgrade fee",
+        custom: true,
         reserve: true,
-        "spec-grade": false,
       },
     },
     {
-      id: "custom-color-match",
-      label: "Custom color match",
+      id: "reserve-colors",
+      label: "Exclusive Reserve color palette",
       values: {
-        "full-custom": true,
-        "semi-custom": "Project add-on",
-        reserve: false,
-        "spec-grade": false,
+        custom: false,
+        reserve: true,
       },
     },
   ],

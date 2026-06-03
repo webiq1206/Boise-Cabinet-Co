@@ -1,5 +1,8 @@
 /**
- * Boise Cabinet Co product collections, tiered cabinet lines for Treasure Valley homes.
+ * Boise Cabinet Co product collections.
+ *
+ * Two real lines: our made-to-order Custom Cabinets, and the premium Reserve
+ * color collection. Both are built to order from the same supplier program.
  */
 
 export type PriceTier = "entry" | "mid" | "premium" | "luxury";
@@ -18,80 +21,42 @@ export interface CabinetCollection {
 
 export const COLLECTIONS: CabinetCollection[] = [
   {
-    id: "full-custom",
-    slug: "full-custom",
-    name: "Full Custom",
+    id: "custom",
+    slug: "custom",
+    name: "Custom Cabinets",
     tagline: "Built around your space, not the other way around.",
     description:
-      "Our flagship line for homeowners who want every dimension, detail, and finish chosen for their home. Full Custom cabinets are engineered in our Kuna shop from premium hardwood and plywood, sized to the millimeter for irregular walls, vaulted ceilings, and one-of-a-kind layouts common in Treasure Valley remodels. Design consultations include 3D layout review, sample finishes in your home's natural light, and a written scope before production begins.",
+      "Our made-to-order line for homeowners who want their cabinets sized and finished for their home. Custom Cabinets are built to order in Slab, Shaker, and Thin Shaker door styles with a full library of matte, high-gloss, and woodgrain finishes. Design consultations include layout review, finish samples in your home's natural light, and a written scope before production begins.",
     features: [
-      "Any width, height, and depth within structural limits",
-      "Solid hardwood face frames or full-ply construction",
-      "Unlimited finish palette including custom color match",
-      "Integrated lighting channels and appliance panels",
-      "Soft-close hardware included on every door and drawer",
+      "Sized to your kitchen, bath, or built-in layout",
+      "Slab, Shaker, and Thin Shaker door styles",
+      "Full matte, high-gloss, and woodgrain finish library",
+      "Plywood box construction with soft-close hardware",
+      "Smart Storage pull-outs and organizers available",
       "Dedicated project manager from design through install",
     ],
-    leadTime: "10–14 weeks from approved design",
-    priceTier: "luxury",
-    heroImage: "/images/catalog/collections/full-custom.webp",
-  },
-  {
-    id: "semi-custom",
-    slug: "semi-custom",
-    name: "Semi-Custom",
-    tagline: "Flexible sizing with proven door styles and finishes.",
-    description:
-      "Semi-Custom balances personalization with faster lead times. Choose from our curated door profiles and finish library, then specify cabinet widths in 1-inch increments within standard height and depth modules. Ideal for kitchen refreshes, bathroom vanities, and built-ins where you need a tailored fit without fully bespoke engineering. Every Semi-Custom order includes our shop drawings for your approval before we cut a single panel.",
-    features: [
-      "Widths adjustable in 1-inch increments",
-      "Six door style profiles and 40+ finishes",
-      "Plywood box construction with hardwood or MDF fronts",
-      "Optional glass inserts and open shelving modules",
-      "Standard and premium hardware packages available",
-      "Compatible with all Boise Cabinet Co accessories",
-    ],
-    leadTime: "6–8 weeks from approved design",
+    leadTime: "6–10 weeks from approved design",
     priceTier: "premium",
-    heroImage: "/images/catalog/collections/semi-custom.webp",
+    heroImage: "/images/catalog/collections/custom.webp",
   },
   {
     id: "reserve",
     slug: "reserve",
     name: "Reserve",
-    tagline: "Curated materials for elevated everyday living.",
+    tagline: "Premium colors for elevated everyday living.",
     description:
-      "Reserve is our designer-forward collection featuring exclusive finishes, thicker door profiles, and upgraded interior hardware. Selected woodgrains and matte tones are stocked locally for quicker turnaround on whole-room packages. Reserve works especially well in primary kitchens, mudrooms, and home offices where durability and a refined aesthetic matter equally.",
+      "Reserve is our premium color collection, the same made-to-order cabinets finished in an exclusive palette of designer tones reserved for this line. Reserve works especially well in primary kitchens, mudrooms, and home offices where a refined, of-the-moment color matters as much as durability. Reserve orders include a complimentary finish sample kit for the Reserve palette.",
     features: [
-      "Exclusive Reserve-only finish selections",
-      "1-inch adjustable widths on standard modules",
-      "Thicker door panels with reinforced joinery",
-      "Premium soft-close slides rated for 100 lb loads",
-      "Dovetail drawer boxes on base and vanity units",
-      "Complimentary finish sample kit for Reserve palettes",
+      "Exclusive Reserve-only color palette",
+      "Slab, Shaker, and Thin Shaker door styles",
+      "Built to order in your room's exact sizes",
+      "Plywood box construction with soft-close hardware",
+      "Smart Storage pull-outs and organizers available",
+      "Complimentary Reserve finish sample kit",
     ],
-    leadTime: "5–7 weeks from approved design",
-    priceTier: "premium",
+    leadTime: "6–10 weeks from approved design",
+    priceTier: "luxury",
     heroImage: "/images/catalog/collections/reserve.webp",
-  },
-  {
-    id: "spec-grade",
-    slug: "spec-grade",
-    name: "Spec Grade",
-    tagline: "Reliable quality for builders, flips, and rental refreshes.",
-    description:
-      "Spec Grade delivers Boise Cabinet Co craftsmanship at predictable price points for production schedules. Fixed module sizes, a streamlined finish roster, and bulk-order pricing make this line a fit for new construction, ADU packages, and investment property updates across Ada and Canyon counties. Same installation standards and warranty as our custom lines, without the extended design cycle.",
-    features: [
-      "Standard module sizes for fast quoting",
-      "Four door styles and 12 core finishes in stock",
-      "Builder-friendly lead times and phased delivery",
-      "Volume pricing for 10+ units per order",
-      "Moisture-resistant box options for laundry and bath",
-      "Written spec sheets for permit and appraisal packages",
-    ],
-    leadTime: "3–5 weeks from approved order",
-    priceTier: "entry",
-    heroImage: "/images/catalog/collections/spec-grade.webp",
   },
 ];
 

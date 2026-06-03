@@ -9,7 +9,7 @@ const DEFAULT_BACKGROUND = SITE_IMAGES.hero;
 export const SERVICE_BACKGROUNDS: ServiceBackgroundConfig = {
   "kitchen-remodel": "/images/catalog/rooms/kitchen.webp",
   "bathroom-remodel": "/images/catalog/rooms/bathroom.webp",
-  "whole-home-remodel": "/images/catalog/collections/semi-custom.webp",
+  "whole-home-remodel": "/images/catalog/collections/reserve.webp",
   "room-addition": "/images/catalog/rooms/built-ins.webp",
   "adu": "/images/catalog/rooms/closet.webp",
   "basement-finish": GALLERY_IMAGES.basement.after,
@@ -51,7 +51,7 @@ const SERVICE_IMAGE_SETS: Record<string, LandingImageSet> = {
     process: GALLERY_IMAGES.bathroom.before,
   },
   "whole-home-remodel": {
-    hero: "/images/catalog/collections/semi-custom.webp",
+    hero: "/images/catalog/collections/reserve.webp",
     breather: GALLERY_IMAGES.wholeHome.after,
     process: GALLERY_IMAGES.wholeHome.before,
   },

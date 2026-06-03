@@ -34,7 +34,7 @@ export const FINISHES: Finish[] = [
     sheen: "matte",
     hexColor: "#F5F3EF",
     tier: "standard",
-    compatibleDoorStyleIds: ["slab", "modern-shaker", "thin-shaker", "beta-shaker"],
+    compatibleDoorStyleIds: ["slab", "shaker", "thin-shaker"],
     description: "Warm white with a hint of cream, brightens north-facing Boise kitchens without stark glare.",
   },
   {
@@ -45,7 +45,7 @@ export const FINISHES: Finish[] = [
     sheen: "matte",
     hexColor: "#E8EBED",
     tier: "standard",
-    compatibleDoorStyleIds: ["slab", "modern-shaker", "thin-shaker"],
+    compatibleDoorStyleIds: ["slab", "shaker", "thin-shaker"],
     description: "Cool neutral white suited to contemporary slab and thin-shaker profiles.",
   },
   {
@@ -56,7 +56,7 @@ export const FINISHES: Finish[] = [
     sheen: "matte",
     hexColor: "#D4C9B8",
     tier: "standard",
-    compatibleDoorStyleIds: ["slab", "modern-shaker", "thin-shaker", "three-piece", "beta-shaker"],
+    compatibleDoorStyleIds: ["slab", "shaker", "thin-shaker"],
     description: "Sandy beige that complements Idaho sandstone and warm quartz countertops.",
   },
   {
@@ -67,7 +67,7 @@ export const FINISHES: Finish[] = [
     sheen: "matte",
     hexColor: "#8B9A7E",
     tier: "standard",
-    compatibleDoorStyleIds: ["slab", "modern-shaker", "thin-shaker", "beta-shaker"],
+    compatibleDoorStyleIds: ["slab", "shaker", "thin-shaker"],
     description: "Muted green-gray inspired by high-desert foothills near Eagle and Hidden Springs.",
   },
   {
@@ -78,7 +78,7 @@ export const FINISHES: Finish[] = [
     sheen: "matte",
     hexColor: "#5C6369",
     tier: "standard",
-    compatibleDoorStyleIds: ["slab", "modern-shaker", "thin-shaker", "beta-shaker"],
+    compatibleDoorStyleIds: ["slab", "shaker", "thin-shaker"],
     description: "Charcoal gray for lower cabinets or full monochrome kitchen schemes.",
   },
   {
@@ -89,7 +89,7 @@ export const FINISHES: Finish[] = [
     sheen: "matte",
     hexColor: "#2C3338",
     tier: "premium",
-    compatibleDoorStyleIds: ["slab", "modern-shaker", "beta-shaker"],
+    compatibleDoorStyleIds: ["slab", "shaker"],
     description: "Deep navy-black matte for dramatic island bases and entertainment built-ins.",
   },
   {
@@ -100,7 +100,7 @@ export const FINISHES: Finish[] = [
     sheen: "matte",
     hexColor: "#B8957A",
     tier: "standard",
-    compatibleDoorStyleIds: ["slab", "modern-shaker", "thin-shaker", "three-piece"],
+    compatibleDoorStyleIds: ["slab", "shaker", "thin-shaker"],
     description: "Terracotta-leaning neutral that pairs with brass hardware and natural stone.",
   },
   {
@@ -111,7 +111,7 @@ export const FINISHES: Finish[] = [
     sheen: "matte",
     hexColor: "#C5C8C4",
     tier: "standard",
-    compatibleDoorStyleIds: ["slab", "modern-shaker", "thin-shaker", "beta-shaker"],
+    compatibleDoorStyleIds: ["slab", "shaker", "thin-shaker"],
     description: "Soft gray-green for laundry rooms and mudrooms where fingerprints show less.",
   },
   {
@@ -122,7 +122,7 @@ export const FINISHES: Finish[] = [
     sheen: "matte",
     hexColor: "#E5DDD0",
     tier: "standard",
-    compatibleDoorStyleIds: ["slab", "modern-shaker", "thin-shaker", "three-piece", "alpha-shaker", "beta-shaker"],
+    compatibleDoorStyleIds: ["slab", "shaker", "thin-shaker"],
     description: "Textured-look matte in warm off-white, a Reserve favorite for whole-home packages.",
   },
   {
@@ -133,7 +133,7 @@ export const FINISHES: Finish[] = [
     sheen: "matte",
     hexColor: "#9A9590",
     tier: "premium",
-    compatibleDoorStyleIds: ["slab", "modern-shaker", "thin-shaker", "beta-shaker"],
+    compatibleDoorStyleIds: ["slab", "shaker", "thin-shaker"],
     description: "Medium warm gray with subtle depth for transitional kitchens in Meridian subdivisions.",
   },
   {
@@ -144,7 +144,7 @@ export const FINISHES: Finish[] = [
     sheen: "matte",
     hexColor: "#3D4044",
     tier: "premium",
-    compatibleDoorStyleIds: ["slab", "modern-shaker", "beta-shaker"],
+    compatibleDoorStyleIds: ["slab", "shaker"],
     description: "Near-black with brown undertones, references Idaho basalt columns without gloss reflection.",
   },
   {
@@ -155,7 +155,7 @@ export const FINISHES: Finish[] = [
     sheen: "flat",
     hexColor: "#D8DCE0",
     tier: "standard",
-    compatibleDoorStyleIds: ["slab", "modern-shaker", "thin-shaker"],
+    compatibleDoorStyleIds: ["slab", "shaker", "thin-shaker"],
     description: "Ultra-flat pale gray for handleless slab kitchens and minimalist baths.",
   },
   {
@@ -166,7 +166,7 @@ export const FINISHES: Finish[] = [
     sheen: "matte",
     hexColor: "#A86B52",
     tier: "premium",
-    compatibleDoorStyleIds: ["slab", "modern-shaker", "beta-shaker"],
+    compatibleDoorStyleIds: ["slab", "shaker"],
     description: "Earthy rust tone for accent islands and butler's pantry statements.",
   },
   {
@@ -177,7 +177,7 @@ export const FINISHES: Finish[] = [
     sheen: "matte",
     hexColor: "#4A6B52",
     tier: "premium",
-    compatibleDoorStyleIds: ["slab", "modern-shaker", "thin-shaker", "beta-shaker"],
+    compatibleDoorStyleIds: ["slab", "shaker", "thin-shaker"],
     description: "Deep forest green for mudrooms, home bars, and library built-ins.",
   },
   {
@@ -188,7 +188,7 @@ export const FINISHES: Finish[] = [
     sheen: "matte",
     hexColor: "#AEA89E",
     tier: "reserve",
-    compatibleDoorStyleIds: ["slab", "modern-shaker", "alpha-shaker", "beta-shaker"],
+    compatibleDoorStyleIds: ["slab", "shaker"],
     description: "Reserve-exclusive greige with a hand-applied texture effect.",
   },
 
@@ -201,7 +201,7 @@ export const FINISHES: Finish[] = [
     sheen: "high-gloss",
     hexColor: "#FAFAF8",
     tier: "premium",
-    compatibleDoorStyleIds: ["slab", "modern-shaker", "thin-shaker"],
+    compatibleDoorStyleIds: ["slab", "shaker", "thin-shaker"],
     description: "Mirror-bright white for contemporary kitchens with waterfall islands.",
   },
   {
@@ -212,7 +212,7 @@ export const FINISHES: Finish[] = [
     sheen: "gloss",
     hexColor: "#F0EBE0",
     tier: "standard",
-    compatibleDoorStyleIds: ["slab", "modern-shaker", "thin-shaker"],
+    compatibleDoorStyleIds: ["slab", "shaker", "thin-shaker"],
     description: "Soft gloss cream, easier to maintain than high-gloss in busy family kitchens.",
   },
   {
@@ -223,7 +223,7 @@ export const FINISHES: Finish[] = [
     sheen: "gloss",
     hexColor: "#E2E4E8",
     tier: "standard",
-    compatibleDoorStyleIds: ["slab", "modern-shaker", "thin-shaker"],
+    compatibleDoorStyleIds: ["slab", "shaker", "thin-shaker"],
     description: "Light gray gloss with a subtle pearlescent shift in direct sun.",
   },
   {
@@ -234,7 +234,7 @@ export const FINISHES: Finish[] = [
     sheen: "high-gloss",
     hexColor: "#4A4E54",
     tier: "premium",
-    compatibleDoorStyleIds: ["slab", "modern-shaker"],
+    compatibleDoorStyleIds: ["slab", "shaker"],
     description: "Reflective charcoal for sleek slab uppers paired with matte bases.",
   },
   {
@@ -256,7 +256,7 @@ export const FINISHES: Finish[] = [
     sheen: "gloss",
     hexColor: "#A8C4BC",
     tier: "standard",
-    compatibleDoorStyleIds: ["slab", "modern-shaker", "thin-shaker"],
+    compatibleDoorStyleIds: ["slab", "shaker", "thin-shaker"],
     description: "Coastal-inspired aqua gloss popular in Boise Bench bungalow refreshes.",
   },
   {
@@ -267,7 +267,7 @@ export const FINISHES: Finish[] = [
     sheen: "gloss",
     hexColor: "#D4A89A",
     tier: "premium",
-    compatibleDoorStyleIds: ["slab", "modern-shaker", "thin-shaker"],
+    compatibleDoorStyleIds: ["slab", "shaker", "thin-shaker"],
     description: "Dusty rose gloss for vanity suites and dressing-room built-ins.",
   },
   {
@@ -278,7 +278,7 @@ export const FINISHES: Finish[] = [
     sheen: "gloss",
     hexColor: "#3D5A80",
     tier: "premium",
-    compatibleDoorStyleIds: ["slab", "modern-shaker"],
+    compatibleDoorStyleIds: ["slab", "shaker"],
     description: "Bold blue gloss for island accents and wet-bar focal points.",
   },
   {
@@ -289,7 +289,7 @@ export const FINISHES: Finish[] = [
     sheen: "semi-gloss",
     hexColor: "#D9CEB8",
     tier: "standard",
-    compatibleDoorStyleIds: ["slab", "modern-shaker", "thin-shaker"],
+    compatibleDoorStyleIds: ["slab", "shaker", "thin-shaker"],
     description: "Warm metallic-leaning semi-gloss that complements brushed gold hardware.",
   },
   {
@@ -300,7 +300,7 @@ export const FINISHES: Finish[] = [
     sheen: "gloss",
     hexColor: "#6B7280",
     tier: "standard",
-    compatibleDoorStyleIds: ["slab", "modern-shaker", "thin-shaker"],
+    compatibleDoorStyleIds: ["slab", "shaker", "thin-shaker"],
     description: "Medium gray gloss with even reflectivity for two-tone kitchen designs.",
   },
   {
@@ -311,7 +311,7 @@ export const FINISHES: Finish[] = [
     sheen: "semi-gloss",
     hexColor: "#EDE8DF",
     tier: "standard",
-    compatibleDoorStyleIds: ["slab", "modern-shaker", "thin-shaker"],
+    compatibleDoorStyleIds: ["slab", "shaker", "thin-shaker"],
     description: "Low-luster gloss alternative for clients who want sheen without mirror finish.",
   },
   {
@@ -322,7 +322,7 @@ export const FINISHES: Finish[] = [
     sheen: "gloss",
     hexColor: "#8B3A3A",
     tier: "reserve",
-    compatibleDoorStyleIds: ["slab", "modern-shaker"],
+    compatibleDoorStyleIds: ["slab", "shaker"],
     description: "Reserve-exclusive deep red gloss for statement pantries and wine rooms.",
   },
 
@@ -335,7 +335,7 @@ export const FINISHES: Finish[] = [
     sheen: "satin",
     hexColor: "#C4A882",
     tier: "standard",
-    compatibleDoorStyleIds: ["slab", "modern-shaker", "thin-shaker", "three-piece", "alpha-shaker", "beta-shaker"],
+    compatibleDoorStyleIds: ["slab", "shaker", "thin-shaker"],
     description: "Natural white oak grain with clear satin topcoat, our most versatile wood finish.",
   },
   {
@@ -346,7 +346,7 @@ export const FINISHES: Finish[] = [
     sheen: "satin",
     hexColor: "#6B5344",
     tier: "premium",
-    compatibleDoorStyleIds: ["slab", "modern-shaker", "thin-shaker", "three-piece", "alpha-shaker", "beta-shaker"],
+    compatibleDoorStyleIds: ["slab", "shaker", "thin-shaker"],
     description: "Rich brown walnut with visible grain movement for primary kitchens and offices.",
   },
   {
@@ -357,8 +357,8 @@ export const FINISHES: Finish[] = [
     sheen: "satin",
     hexColor: "#3E2E24",
     tier: "premium",
-    compatibleDoorStyleIds: ["slab", "modern-shaker", "three-piece", "alpha-shaker", "beta-shaker"],
-    description: "Dark-stained walnut for traditional three-piece and alpha-shaker libraries.",
+    compatibleDoorStyleIds: ["slab", "shaker"],
+    description: "Dark-stained walnut for traditional Shaker libraries.",
   },
   {
     id: "wood-honey-maple",
@@ -368,8 +368,8 @@ export const FINISHES: Finish[] = [
     sheen: "satin",
     hexColor: "#D4A855",
     tier: "standard",
-    compatibleDoorStyleIds: ["modern-shaker", "thin-shaker", "three-piece"],
-    description: "Warm golden maple suited to Spec Grade kitchens and rental refreshes.",
+    compatibleDoorStyleIds: ["shaker", "thin-shaker"],
+    description: "Warm golden maple suited to budget-conscious kitchens and rental refreshes.",
   },
   {
     id: "wood-driftwood",
@@ -379,7 +379,7 @@ export const FINISHES: Finish[] = [
     sheen: "matte",
     hexColor: "#A89F94",
     tier: "standard",
-    compatibleDoorStyleIds: ["slab", "modern-shaker", "thin-shaker", "beta-shaker"],
+    compatibleDoorStyleIds: ["slab", "shaker", "thin-shaker"],
     description: "Weathered gray oak tone for mountain-modern homes in the Boise Foothills.",
   },
   {
@@ -390,7 +390,7 @@ export const FINISHES: Finish[] = [
     sheen: "matte",
     hexColor: "#4A4540",
     tier: "premium",
-    compatibleDoorStyleIds: ["slab", "modern-shaker", "beta-shaker"],
+    compatibleDoorStyleIds: ["slab", "shaker"],
     description: "Smoked oak with muted grain, pairs with black hardware and concrete counters.",
   },
   {
@@ -401,7 +401,7 @@ export const FINISHES: Finish[] = [
     sheen: "satin",
     hexColor: "#B8956A",
     tier: "standard",
-    compatibleDoorStyleIds: ["modern-shaker", "thin-shaker", "three-piece"],
+    compatibleDoorStyleIds: ["shaker", "thin-shaker"],
     description: "Pronounced grain pattern for rustic-transitional kitchens in Kuna and Star.",
   },
   {
@@ -412,7 +412,7 @@ export const FINISHES: Finish[] = [
     sheen: "satin",
     hexColor: "#8B5A42",
     tier: "premium",
-    compatibleDoorStyleIds: ["three-piece", "alpha-shaker", "modern-shaker"],
+    compatibleDoorStyleIds: ["shaker"],
     description: "Red-toned cherry for North End craftsman and traditional built-in libraries.",
   },
   {
@@ -423,7 +423,7 @@ export const FINISHES: Finish[] = [
     sheen: "matte",
     hexColor: "#B8AEA0",
     tier: "standard",
-    compatibleDoorStyleIds: ["slab", "modern-shaker", "thin-shaker", "beta-shaker"],
+    compatibleDoorStyleIds: ["slab", "shaker", "thin-shaker"],
     description: "Light ash with subtle cathedral grain for Scandinavian-inspired interiors.",
   },
   {
@@ -434,7 +434,7 @@ export const FINISHES: Finish[] = [
     sheen: "satin",
     hexColor: "#9A7B5A",
     tier: "premium",
-    compatibleDoorStyleIds: ["slab", "modern-shaker", "alpha-shaker"],
+    compatibleDoorStyleIds: ["slab", "shaker"],
     description: "Warm golden-brown teak tone for outdoor kitchen cabinetry and wet bars.",
   },
   {
@@ -445,7 +445,7 @@ export const FINISHES: Finish[] = [
     sheen: "matte",
     hexColor: "#7A6A58",
     tier: "reserve",
-    compatibleDoorStyleIds: ["slab", "modern-shaker", "beta-shaker"],
+    compatibleDoorStyleIds: ["slab", "shaker"],
     description: "Reserve-exclusive wire-brushed texture mimicking aged barn wood.",
   },
   {
@@ -456,7 +456,7 @@ export const FINISHES: Finish[] = [
     sheen: "satin",
     hexColor: "#2A2520",
     tier: "premium",
-    compatibleDoorStyleIds: ["slab", "modern-shaker", "alpha-shaker", "beta-shaker"],
+    compatibleDoorStyleIds: ["slab", "shaker"],
     description: "Near-black wood stain with faint grain visibility for luxe primary suites.",
   },
   {
@@ -467,7 +467,7 @@ export const FINISHES: Finish[] = [
     sheen: "matte",
     hexColor: "#DCC9A8",
     tier: "standard",
-    compatibleDoorStyleIds: ["slab", "modern-shaker", "thin-shaker", "beta-shaker"],
+    compatibleDoorStyleIds: ["slab", "shaker", "thin-shaker"],
     description: "Light bleached oak popular in open-concept Eagle and Meridian great rooms.",
   },
   {
@@ -478,8 +478,8 @@ export const FINISHES: Finish[] = [
     sheen: "satin",
     hexColor: "#A08060",
     tier: "standard",
-    compatibleDoorStyleIds: ["modern-shaker", "thin-shaker", "three-piece"],
-    description: "Medium brown with varied grain for whole-home Spec Grade packages.",
+    compatibleDoorStyleIds: ["shaker", "thin-shaker"],
+    description: "Medium brown with varied grain for whole-home cabinet packages.",
   },
   {
     id: "wood-cedar",
@@ -489,7 +489,7 @@ export const FINISHES: Finish[] = [
     sheen: "matte",
     hexColor: "#A87858",
     tier: "reserve",
-    compatibleDoorStyleIds: ["slab", "modern-shaker", "beta-shaker"],
+    compatibleDoorStyleIds: ["slab", "shaker"],
     description: "Reserve outdoor-rated cedar tone for covered patio and outdoor kitchen lines.",
   },
 ];

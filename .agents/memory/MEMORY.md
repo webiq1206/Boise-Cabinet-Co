@@ -3,3 +3,4 @@
 - [iOS fixed bars + overflow-x](ios-fixed-overflow-clip.md) — never use `overflow-x: hidden` on html/body (breaks `position: fixed` on iOS); use `overflow-x: clip`.
 - [Deploy prebuild verify gates](deploy-prebuild-verify-gates.md) — publish can fail FAST in prebuild (before next build) via verify:no-em-dash etc; generated files are regenerated each build, so fix the generator template not the committed file.
 - [Catalog image pipeline](catalog-image-pipeline.md) — the catalog image seeder fills hero images with wrong-room placeholders; generate real images instead, never re-seed to "restore"; sharp missing in env, use cwebp.
+- [Local next build OOM](local-next-build-oom.md) — `next build` silently OOM-dies in webpack compile (co-resident dev server eats RAM); verify via prebuild gates + dev-server route 200s + redirect checks, not a full local build.

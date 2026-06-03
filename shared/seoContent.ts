@@ -26,7 +26,7 @@ export const SERVICE_SEO_CONTENT: Record<string, ServiceSEOContent> = {
     headline: 'Kitchen Cabinets in the Treasure Valley',
     primaryKeyword: 'kitchen cabinets boise idaho',
     overview:
-      'Quality kitchen cabinets define how your family cooks, stores, and gathers. Boise Cabinet Co designs, supplies, and installs custom and semi-custom kitchen cabinetry with clear written scope from first visit through final walkthrough.',
+      'Quality kitchen cabinets define how your family cooks, stores, and gathers. Boise Cabinet Co designs, supplies, and installs custom and value kitchen cabinetry with clear written scope from first visit through final walkthrough.',
     benefits: [
       'Design Studio layout tools and in-home templating',
       'Written scope and finish selections before shop release',

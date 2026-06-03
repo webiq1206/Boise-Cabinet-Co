@@ -94,7 +94,7 @@ export const KITCHEN_BATH_CHECKLIST_BLOCKS: PdfBlock[] = [
     type: 'checkboxes',
     items: [
       'Appliance list (or placeholders), rough-in before drywall',
-      'Cabinet line: stock / semi-custom / custom',
+      'Cabinet line: stock / value / custom',
       'Island size and walkway clearances',
       'Open wall removal? Structural beam needed?',
       'Lighting plan: cans, pendants, under-cabinet',

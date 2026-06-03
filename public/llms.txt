@@ -5,9 +5,9 @@
 ## Product Catalog
 
 - Cabinet rooms: /cabinets (kitchen, bathroom, laundry, mudroom, home-office, entertainment, built-ins, pantry, closet, garage, outdoor)
-- Collections: /collections (full-custom, semi-custom, reserve, spec-grade)
+- Collections: /collections (custom, reserve)
 - Finishes: /finishes (matte, gloss, woodgrain)
-- Door styles: /door-styles (slab, modern-shaker, thin-shaker, and more)
+- Door styles: /door-styles (slab, shaker, thin-shaker)
 - Accessories: /accessories
 - Hardware: /hardware
 - Construction standards: /construction

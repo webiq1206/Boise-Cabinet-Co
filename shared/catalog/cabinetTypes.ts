@@ -11,7 +11,7 @@ export interface DimensionRange {
   maxHeight: number;
   minDepth: number;
   maxDepth: number;
-  /** Standard increment for width in inches (1 for semi-custom, 3 for spec-grade) */
+  /** Standard increment for width in inches */
   widthIncrement: number;
   unit: "inches";
 }

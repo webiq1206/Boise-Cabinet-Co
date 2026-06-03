@@ -23,7 +23,7 @@ export const metadata = catalogMetadata(
   "/compare",
   "Compare Collections",
   catalogDescription(
-    "Side-by-side comparison of Full Custom, Semi-Custom, Reserve, and Spec Grade cabinet lines from {company}.",
+    "Side-by-side comparison of our Custom Cabinets and Reserve cabinet lines from {company}.",
   ),
 );
 
@@ -89,8 +89,8 @@ export default function ComparePage() {
               description={matrix.description}
             />
             <CatalogPageHero
-              src="/images/catalog/collections/semi-custom.webp"
-              alt="Compare Full Custom, Semi-Custom, Reserve, and Spec Grade cabinet collections"
+              src="/images/catalog/collections/custom.webp"
+              alt="Compare Custom Cabinets and Reserve cabinet collections"
               title="Compare Cabinet Collections | Boise Cabinet Co"
             />
             <Button variant="brand" asChild className="mt-4">

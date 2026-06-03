@@ -59,7 +59,7 @@ export const BLOG_IMAGE_REGISTRY: Record<string, BlogImageEntry> = {
   },
   'stock-vs-custom-cabinets-boise': {
     hero: '/images/catalog/rooms/bedroom.webp',
-    alt: 'Kitchen catalog cabinetry comparing stock, semi-custom, and full-custom lines in Boise',
+    alt: 'Kitchen catalog cabinetry comparing stock, value, and custom lines in Boise',
     topicTags: ["cost","cabinets","boise"],
     source: 'services',
   },
@@ -291,9 +291,9 @@ export const BLOG_IMAGE_REGISTRY: Record<string, BlogImageEntry> = {
     topicTags: ["process","warranty"],
     source: 'gallery',
   },
-  'custom-vs-semi-custom-cabinets': {
+  'custom-vs-reserve-cabinets': {
     hero: '/images/catalog/rooms/laundry.webp',
-    alt: 'Laundry room cabinets comparing semi-custom and full-custom specification levels',
+    alt: 'Laundry room cabinets comparing Custom Cabinets and Reserve Collection specification levels',
     topicTags: ["cabinets","collections","planning"],
     source: 'services',
   },

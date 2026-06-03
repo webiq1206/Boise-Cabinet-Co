@@ -155,18 +155,16 @@ export function CollectionLandingTemplate({ collection }: CollectionLandingTempl
             <MarketingCard>
               <h3 className="text-base font-medium mb-2">Box &amp; drawers</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
-                {collection.id === "full-custom"
-                  ? "Plywood or furniture-grade ply boxes with dovetail hardwood or plywood drawer options sized to your layout."
-                  : collection.id === "spec-grade"
-                    ? "Plywood boxes with moisture-resistant options for bath and laundry. Dowel drawer construction with soft-close hinge standard."
-                    : "Premium plywood construction with dovetail drawer boxes on base and vanity units where specified in your scope."}
+                {collection.id === "reserve"
+                  ? "Premium plywood construction with dovetail drawer boxes on base and vanity units, finished in the exclusive Reserve palette."
+                  : "Plywood box construction with dovetail drawer boxes sized to your layout and soft-close hardware throughout."}
               </p>
             </MarketingCard>
             <MarketingCard>
               <h3 className="text-base font-medium mb-2">Hardware &amp; quality</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
                 Soft-close hinges included on every door. Drawer slides and pulls are selected during design , 
-                Reserve and Full Custom include premium soft-close slides rated for heavy daily use.
+                and our cabinets include premium soft-close slides rated for heavy daily use.
               </p>
             </MarketingCard>
           </div>

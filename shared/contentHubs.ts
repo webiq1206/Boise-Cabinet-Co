@@ -241,7 +241,7 @@ export const CONTENT_MANIFEST: ContentManifestEntry[] = [
   cluster('custom-cabinet-shop-vs-big-box', 'Custom Cabinet Shop vs Big Box', 'choosing-cabinet-company', PUBLISHED, 'cabinet design and installation-vs-general-contractor'),
   cluster('fixed-price-vs-cost-plus', 'Fixed Price vs Cost Plus Cabinet Quotes', 'choosing-cabinet-company'),
   cluster('why-cabinet-quotes-vary', 'Why Cabinet Quotes Vary So Much', 'choosing-cabinet-company', PUBLISHED, 'why-remodeling-bids-vary'),
-  cluster('custom-vs-semi-custom-cabinets', 'Custom vs Semi-Custom Cabinets', 'choosing-cabinet-company'),
+  cluster('custom-vs-reserve-cabinets', 'Custom Cabinets vs Reserve Collection', 'choosing-cabinet-company'),
   cluster('stock-vs-custom-cabinets-boise', 'Stock vs Custom Cabinets Boise', 'choosing-cabinet-company'),
   cluster('cabinet-construction-quality-guide', 'Cabinet Construction Quality Guide', 'choosing-cabinet-company'),
 

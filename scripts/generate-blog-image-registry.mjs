@@ -63,7 +63,7 @@ const ENTRIES = {
   },
   "stock-vs-custom-cabinets-boise": {
     hero: cat("bedroom"),
-    alt: "Kitchen catalog cabinetry comparing stock, semi-custom, and full-custom lines in Boise",
+    alt: "Kitchen catalog cabinetry comparing stock, value, and custom lines in Boise",
     topicTags: ["cost", "cabinets", "boise"],
     source: "services",
   },
@@ -319,9 +319,9 @@ const ENTRIES = {
     topicTags: ["process", "warranty"],
     source: "gallery",
   },
-  "custom-vs-semi-custom-cabinets": {
+  "custom-vs-reserve-cabinets": {
     hero: cat("laundry"),
-    alt: "Laundry room cabinets comparing semi-custom and full-custom specification levels",
+    alt: "Laundry room cabinets comparing Custom Cabinets and Reserve Collection specification levels",
     topicTags: ["cabinets", "collections", "planning"],
     source: "services",
   },

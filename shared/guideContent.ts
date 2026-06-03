@@ -45,7 +45,7 @@ const costPillarFaqs = [
   {
     question: 'How much do custom kitchen cabinets cost in Boise?',
     answer:
-      'Most Treasure Valley kitchen cabinet packages plan from roughly $15,000–$45,000+ for semi-custom lines and higher for full-custom layouts, depending on linear footage, door style, and interior accessories.',
+      'Most Treasure Valley kitchen cabinet packages plan from roughly $15,000–$45,000+ for value cabinet lines and higher for fully custom layouts, depending on linear footage, door style, and interior accessories.',
   },
   {
     question: 'What affects custom cabinet pricing the most?',
@@ -53,9 +53,9 @@ const costPillarFaqs = [
       'Door style, box construction, finish tier, interior organizers, and total linear footage drive price more than city alone. Layout complexity and specialty storage add cost.',
   },
   {
-    question: 'How do semi-custom and full-custom cabinet costs compare?',
+    question: 'How do value and custom cabinet costs compare?',
     answer:
-      'Semi-custom lines offer standardized sizes with selectable finishes at a lower entry point. Full-custom is sized to your room and typically costs more per linear foot with longer lead times.',
+      'Value cabinet lines offer standardized sizes with selectable finishes at a lower entry point. Custom Cabinets are sized to your room and typically cost more per linear foot with longer lead times.',
   },
   {
     question: 'Are cabinet installation and delivery included in quotes?',
@@ -95,7 +95,7 @@ const costPillarFaqs = [
   {
     question: 'Are stock cabinets cheaper than custom in Boise?',
     answer:
-      'Stock and big-box lines cost less upfront but offer fewer sizes and finishes. Custom and semi-custom fit irregular Boise layouts and typically include professional measurement and install.',
+      'Stock and big-box lines cost less upfront but offer fewer sizes and finishes. Custom cabinetry fits irregular Boise layouts and typically includes professional measurement and install.',
   },
   {
     question: 'Do you publish starting-at cabinet prices?',
@@ -127,7 +127,7 @@ export const GUIDE_PAGES: GuidePageData[] = [
     metaDescription:
       '2026 cabinet cost guide for Boise and the Treasure Valley: kitchen, bath, whole-home packages, linear-foot planning, collections, lead times, and budgeting.',
     excerpt:
-      'Planning ranges for custom and semi-custom cabinets in Boise, Meridian, Eagle, Nampa, and the Treasure Valley, with collection tiers and budgeting tips.',
+      'Planning ranges for custom and value cabinets in Boise, Meridian, Eagle, Nampa, and the Treasure Valley, with collection tiers and budgeting tips.',
     content: expandPillar(BOISE_REMODELING_COST_GUIDE_HTML, 'boise-cabinet-cost-guide', 'cabinet-costs'),
     author: 'Boise Cabinet Co',
     hubSlug: 'cabinet-costs',
@@ -206,7 +206,7 @@ export const GUIDE_PAGES: GuidePageData[] = [
       {
         question: 'What collections do you offer?',
         answer:
-          'Spec-grade, semi-custom, reserve, and full-custom lines, compare tiers on our collections pages or during a consultation.',
+          'Value cabinetry, our Custom Cabinets, and the Reserve Collection, compare tiers on our collections pages or during a consultation.',
       },
       {
         question: 'How do I compare cabinet companies in the valley?',

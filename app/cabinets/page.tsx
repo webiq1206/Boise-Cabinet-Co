@@ -80,7 +80,7 @@ export default function CabinetsHubPage() {
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-6xl mx-auto">
               {ROOM_CATEGORIES.map((room, i) => {
                 const collection = getCollectionBySlug(room.defaultCollectionId);
-                const collectionName = collection?.name ?? "Semi-Custom";
+                const collectionName = collection?.name ?? "Custom Cabinets";
 
                 return (
                   <Reveal key={room.id} delay={i * 30}>

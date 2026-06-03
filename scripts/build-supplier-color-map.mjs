@@ -39,7 +39,7 @@ const FINISH_COLOR_MAP = [
   ["storm", "Storm", "Tafisa", "Brushed Aluminum (CR)", "Prélude Crystalite", "gloss", "true"],
   ["alabaster", "Alabaster", "Tafisa", "Home Sweet Home (BV)", "Sommet Brava", "gloss", "true"],
   ["crimson", "Crimson", "Salt International", "Reserve Crimson (OSC Reserve)", "One Source Reserve", "gloss", "false"],
-  ["white-oak", "White Oak", "Tafisa", "Sand Barbera Oak (OSC Semi-Custom)", "Prélude Smoothwood EIR", "eir-woodgrain", "true"],
+  ["white-oak", "White Oak", "Tafisa", "Sand Barbera Oak (OSC Custom)", "Prélude Smoothwood EIR", "eir-woodgrain", "true"],
   ["natural-walnut", "Natural Walnut", "Tafisa", "Hardrock Maple (CR)", "Prélude Crystalite EIR", "eir-woodgrain", "true"],
   ["espresso-walnut", "Espresso Walnut", "Tafisa", "Dark Rum Cherry (CR)", "Prélude Crystalite EIR", "eir-woodgrain", "true"],
   ["honey-maple", "Honey Maple", "Tafisa", "Acacia Honey (KA)", "Prélude Karisma EIR", "eir-woodgrain", "true"],
@@ -58,18 +58,13 @@ const FINISH_COLOR_MAP = [
 
 const DOOR_STYLES = [
   ["slab", "Slab", "Slab", "true"],
-  ["modern-shaker", "Modern Shaker", "Modern Shaker", "true"],
+  ["shaker", "Shaker", "Shaker", "true"],
   ["thin-shaker", "Thin Shaker", "Thin Shaker", "true"],
-  ["three-piece", "Three-Piece", "5-Piece Shaker", "true"],
-  ["alpha-shaker", "Alpha Shaker", "Alpha Shaker (Reserve)", "false"],
-  ["beta-shaker", "Beta Shaker", "Beta Shaker (Reserve)", "false"],
 ];
 
 const COLLECTIONS = [
-  ["full-custom", "Full Custom", "One Source Full Custom", "true"],
-  ["semi-custom", "Semi-Custom", "One Source Semi-Custom", "true"],
+  ["custom", "Custom Cabinets", "One Source Custom Cabinets", "true"],
   ["reserve", "Reserve", "One Source Reserve Collection", "true"],
-  ["spec-grade", "Spec Grade", "One Source Spec / Builder Line", "true"],
 ];
 
 function csvEscape(val) {
@@ -91,7 +86,7 @@ function toCsv(headers, rows) {
 fs.mkdirSync(docsDir, { recursive: true });
 
 const finishRows = FINISH_COLOR_MAP.map((r) => [
-  r[0], r[1], r[2], r[3], r[4], r[5], r[6],
+  r[0], r[1], r[2], r[3], r[4], r[5], "false",
   `/images/catalog/finishes/${r[0]}.webp`,
 ]);
 

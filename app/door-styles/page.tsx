@@ -21,7 +21,7 @@ export const metadata = catalogMetadata(
   "/door-styles",
   "Door Styles",
   catalogDescription(
-    "Explore slab, shaker, and traditional door profiles from {company}. Six profiles with compatible matte, gloss, and woodgrain finishes.",
+    "Explore slab, shaker, and thin shaker door profiles from {company}. Three profiles with compatible matte, gloss, and woodgrain finishes.",
   ),
 );
 
@@ -55,7 +55,7 @@ export default function DoorStylesPage() {
                 </>
               }
               description={catalogDescription(
-                "From contemporary slab to Reserve-exclusive Alpha Shaker, every profile is machined in our Kuna shop with soft-close hinge boring standard.",
+                "From contemporary slab to classic shaker, every profile is machined in our Kuna shop with soft-close hinge boring standard.",
               )}
             />
             <CatalogSearch className="mb-8" />
@@ -71,7 +71,7 @@ export default function DoorStylesPage() {
           <div className="container px-4">
             <SectionHeader
               eyebrow="Profiles"
-              title={<>Six door styles</>}
+              title={<>Three door styles</>}
               align="center"
               className="mb-10 max-w-xl mx-auto text-center [&_.brc-label]:justify-center"
             />

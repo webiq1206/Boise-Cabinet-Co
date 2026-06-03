@@ -7,10 +7,8 @@ import { Badge } from "@/components/ui/badge";
 import type { CabinetCollection } from "../DesignStudioProvider";
 
 const COLLECTION_HINTS: Record<string, string> = {
-  "spec-grade": "Fastest lead time",
-  "semi-custom": "Most popular",
-  reserve: "Balanced custom options",
-  "full-custom": "Most customization",
+  custom: "Most popular",
+  reserve: "Premium colors",
 };
 
 export function CollectionStep() {

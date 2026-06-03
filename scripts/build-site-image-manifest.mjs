@@ -13,26 +13,24 @@ const STYLE_SUFFIX =
   "Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks";
 
 const ROOMS = [
-  { slug: "kitchen", name: "Kitchen", door: "modern-shaker", finish: "snowcap", collection: "semi-custom" },
-  { slug: "bathroom", name: "Bathroom", door: "thin-shaker", finish: "glacier", collection: "semi-custom" },
-  { slug: "laundry", name: "Laundry", door: "slab", finish: "fog", collection: "spec-grade" },
+  { slug: "kitchen", name: "Kitchen", door: "shaker", finish: "snowcap", collection: "custom" },
+  { slug: "bathroom", name: "Bathroom", door: "thin-shaker", finish: "glacier", collection: "custom" },
+  { slug: "laundry", name: "Laundry", door: "slab", finish: "fog", collection: "custom" },
   { slug: "mudroom", name: "Mudroom", door: "thin-shaker", finish: "riverstone", collection: "reserve" },
-  { slug: "home-office", name: "Home Office", door: "modern-shaker", finish: "white-oak", collection: "semi-custom" },
+  { slug: "home-office", name: "Home Office", door: "shaker", finish: "white-oak", collection: "custom" },
   { slug: "entertainment", name: "Entertainment", door: "slab", finish: "basalt", collection: "reserve" },
-  { slug: "built-ins", name: "Built-Ins", door: "three-piece", finish: "natural-walnut", collection: "full-custom" },
-  { slug: "pantry", name: "Pantry", door: "modern-shaker", finish: "linen", collection: "semi-custom" },
-  { slug: "closet", name: "Closet", door: "slab", finish: "white-oak", collection: "semi-custom" },
-  { slug: "garage", name: "Garage", door: "slab", finish: "slate", collection: "spec-grade" },
+  { slug: "built-ins", name: "Built-Ins", door: "shaker", finish: "natural-walnut", collection: "custom" },
+  { slug: "pantry", name: "Pantry", door: "shaker", finish: "linen", collection: "custom" },
+  { slug: "closet", name: "Closet", door: "slab", finish: "white-oak", collection: "custom" },
+  { slug: "garage", name: "Garage", door: "slab", finish: "slate", collection: "custom" },
   { slug: "outdoor", name: "Outdoor Kitchen", door: "slab", finish: "cedar", collection: "reserve" },
-  { slug: "wet-bar", name: "Wet Bar", door: "modern-shaker", finish: "espresso-walnut", collection: "reserve" },
-  { slug: "bedroom", name: "Bedroom", door: "thin-shaker", finish: "blonde-oak", collection: "semi-custom" },
+  { slug: "wet-bar", name: "Wet Bar", door: "shaker", finish: "espresso-walnut", collection: "reserve" },
+  { slug: "bedroom", name: "Bedroom", door: "thin-shaker", finish: "blonde-oak", collection: "custom" },
 ];
 
 const COLLECTIONS = [
-  { slug: "full-custom", name: "Full Custom", door: "three-piece", finish: "natural-walnut" },
-  { slug: "semi-custom", name: "Semi-Custom", door: "modern-shaker", finish: "white-oak" },
+  { slug: "custom", name: "Custom Cabinets", door: "shaker", finish: "white-oak" },
   { slug: "reserve", name: "Reserve", door: "thin-shaker", finish: "pebble" },
-  { slug: "spec-grade", name: "Spec Grade", door: "slab", finish: "snowcap" },
 ];
 
 const FINISHES = [
@@ -43,7 +41,7 @@ const FINISHES = [
   "hickory", "cherry", "ash", "teak", "reclaimed-barn", "ebony", "blonde-oak", "pecan", "cedar",
 ];
 
-const DOOR_STYLES = ["slab", "modern-shaker", "thin-shaker", "three-piece", "alpha-shaker", "beta-shaker"];
+const DOOR_STYLES = ["slab", "shaker", "thin-shaker"];
 
 const CITIES = ["boise", "meridian", "eagle", "nampa", "kuna", "star", "middleton", "caldwell"];
 const CITY_NAMES = {
@@ -51,11 +49,11 @@ const CITY_NAMES = {
   kuna: "Kuna", star: "Star", middleton: "Middleton", caldwell: "Caldwell",
 };
 const SERVICES = [
-  { slug: "kitchen-cabinets", label: "Kitchen cabinets", door: "modern-shaker", finish: "white-oak" },
+  { slug: "kitchen-cabinets", label: "Kitchen cabinets", door: "shaker", finish: "white-oak" },
   { slug: "bathroom-cabinets", label: "Bathroom vanity cabinets", door: "thin-shaker", finish: "glacier" },
-  { slug: "custom-built-ins", label: "Custom built-in cabinets", door: "three-piece", finish: "natural-walnut" },
+  { slug: "custom-built-ins", label: "Custom built-in cabinets", door: "shaker", finish: "natural-walnut" },
   { slug: "closet-cabinets", label: "Closet cabinet systems", door: "slab", finish: "white-oak" },
-  { slug: "whole-home-cabinets", label: "Whole-home cabinet packages", door: "modern-shaker", finish: "snowcap" },
+  { slug: "whole-home-cabinets", label: "Whole-home cabinet packages", door: "shaker", finish: "snowcap" },
 ];
 
 const GALLERY = [
@@ -152,7 +150,7 @@ for (const d of DOOR_STYLES) {
 
 // Site heroes (deduplicated)
 const siteHeroes = [
-  { id: "hero-home", path: "/images/marketing/hero-home.webp", pages: ["/"], alt: "Custom kitchen cabinets with One Source Modern Shaker doors in a Treasure Valley home" },
+  { id: "hero-home", path: "/images/marketing/hero-home.webp", pages: ["/"], alt: "Custom kitchen cabinets with One Source Shaker doors in a Treasure Valley home" },
   { id: "hero-about", path: "/images/marketing/hero-about.webp", pages: ["/about"], alt: "Boise Cabinet Co design team reviewing custom cabinet plans with homeowners" },
   { id: "hero-contact", path: "/images/marketing/hero-contact.webp", pages: ["/contact"], alt: "Custom bathroom vanity cabinets installed in a Meridian Idaho home" },
   { id: "hero-design-studio", path: "/images/marketing/hero-design-studio.webp", pages: ["/design-studio"], alt: "Boise Cabinet Co Design Studio 3D cabinet preview on laptop in kitchen" },
@@ -166,7 +164,7 @@ for (const h of siteHeroes) {
     outputPath: h.path,
     pages: h.pages,
     placement: "hero",
-    doorStyleId: "modern-shaker",
+    doorStyleId: "shaker",
     finishId: "white-oak",
     promptScene: h.alt + ", " + STYLE_SUFFIX,
     alt: h.alt,

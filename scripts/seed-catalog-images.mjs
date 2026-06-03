@@ -56,10 +56,8 @@ const ROOM_SOURCES = {
 };
 
 const COLLECTION_SOURCES = {
-  "full-custom": "images/gallery/gallery-kitchen-after.png",
-  "semi-custom": "images/city-service/kitchen-remodel__boise.png",
+  custom: "images/gallery/gallery-kitchen-after.png",
   reserve: "images/city-service/kitchen-remodel__eagle.png",
-  "spec-grade": "images/services/kitchen-remodel.png",
 };
 
 async function copyAsWebp(srcRel, destRel) {
@@ -94,7 +92,7 @@ async function main() {
     await copyAsWebp(src, `images/catalog/collections/${col}.webp`);
   }
   console.log("Door style profiles (from process photo):");
-  const doorStyles = ["slab", "modern-shaker", "thin-shaker", "three-piece", "alpha-shaker", "beta-shaker"];
+  const doorStyles = ["slab", "shaker", "thin-shaker"];
   for (const d of doorStyles) {
     await copyAsWebp("images/marketing/process-design-review.webp", `images/catalog/door-styles/${d}.webp`);
   }

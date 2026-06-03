@@ -32,10 +32,10 @@ export const HARDWARE_OPTIONS: HardwareOption[] = [
     name: "Bar Pull 128mm",
     category: "pull",
     description:
-      "Slim rectangular bar pull in matte black, our most popular choice for Modern Shaker and slab kitchens across the Treasure Valley.",
+      "Slim rectangular bar pull in matte black, our most popular choice for Shaker and slab kitchens across the Treasure Valley.",
     finish: "matte-black",
     centerToCenterMm: 128,
-    compatibleCollectionIds: ["full-custom", "semi-custom", "reserve", "spec-grade"],
+    compatibleCollectionIds: ["custom", "reserve"],
   },
   {
     id: "pull-bar-160-nickel",
@@ -46,7 +46,7 @@ export const HARDWARE_OPTIONS: HardwareOption[] = [
       "Longer bar pull in brushed nickel suited to pantry tall doors and wide drawer fronts on island bases.",
     finish: "brushed-nickel",
     centerToCenterMm: 160,
-    compatibleCollectionIds: ["full-custom", "semi-custom", "reserve", "spec-grade"],
+    compatibleCollectionIds: ["custom", "reserve"],
   },
   {
     id: "pull-cup-gold",
@@ -54,10 +54,10 @@ export const HARDWARE_OPTIONS: HardwareOption[] = [
     name: "Cup Pull",
     category: "pull",
     description:
-      "Traditional cup pull in brushed gold for three-piece and alpha-shaker profiles in transitional kitchens.",
+      "Traditional cup pull in brushed gold for Shaker profiles in transitional kitchens.",
     finish: "brushed-gold",
     centerToCenterMm: 96,
-    compatibleCollectionIds: ["full-custom", "semi-custom", "reserve"],
+    compatibleCollectionIds: ["custom", "reserve"],
   },
   {
     id: "pull-finger-edge",
@@ -67,7 +67,7 @@ export const HARDWARE_OPTIONS: HardwareOption[] = [
     description:
       "C-channel routed into the top edge of slab doors and drawer fronts for a true handleless look. Available in matte black or brushed nickel edge inserts.",
     finish: "matte-black",
-    compatibleCollectionIds: ["full-custom", "semi-custom", "reserve"],
+    compatibleCollectionIds: ["custom", "reserve"],
   },
   {
     id: "pull-j-channel",
@@ -77,7 +77,7 @@ export const HARDWARE_OPTIONS: HardwareOption[] = [
     description:
       "Angled J-pull profile milled into slab door edges, a cleaner alternative to surface-mounted bars for contemporary Idaho kitchens.",
     finish: "matte-black",
-    compatibleCollectionIds: ["full-custom", "semi-custom", "reserve"],
+    compatibleCollectionIds: ["custom", "reserve"],
   },
   {
     id: "knob-round-nickel",
@@ -85,9 +85,9 @@ export const HARDWARE_OPTIONS: HardwareOption[] = [
     name: "Round Knob",
     category: "knob",
     description:
-      "Classic round knob in brushed nickel for wall cabinets, vanity doors, and Spec Grade packages where simplicity and cost matter.",
+      "Classic round knob in brushed nickel for wall cabinets, vanity doors, and budget-friendly packages where simplicity and cost matter.",
     finish: "brushed-nickel",
-    compatibleCollectionIds: ["full-custom", "semi-custom", "reserve", "spec-grade"],
+    compatibleCollectionIds: ["custom", "reserve"],
   },
   {
     id: "knob-square-black",
@@ -97,7 +97,7 @@ export const HARDWARE_OPTIONS: HardwareOption[] = [
     description:
       "Geometric square knob in matte black for thin-shaker uppers and laundry room cabinets.",
     finish: "matte-black",
-    compatibleCollectionIds: ["full-custom", "semi-custom", "reserve", "spec-grade"],
+    compatibleCollectionIds: ["custom", "reserve"],
   },
   {
     id: "knob-glass-chrome",
@@ -107,7 +107,7 @@ export const HARDWARE_OPTIONS: HardwareOption[] = [
     description:
       "Faceted glass knob with polished chrome base, an accent option for vanity suites and wet bar glass-door uppers.",
     finish: "polished-chrome",
-    compatibleCollectionIds: ["full-custom", "semi-custom", "reserve"],
+    compatibleCollectionIds: ["custom", "reserve"],
   },
   {
     id: "hinge-soft-close",
@@ -117,7 +117,7 @@ export const HARDWARE_OPTIONS: HardwareOption[] = [
     description:
       "110-degree concealed hinge with integrated soft-close damper. Included standard on all Boise Cabinet Co collections except where handleless push-to-open is specified.",
     finish: "stainless",
-    compatibleCollectionIds: ["full-custom", "semi-custom", "reserve", "spec-grade"],
+    compatibleCollectionIds: ["custom", "reserve"],
     isSoftClose: true,
   },
   {
@@ -128,7 +128,7 @@ export const HARDWARE_OPTIONS: HardwareOption[] = [
     description:
       "Touch-latch hinge for handleless slab doors. Pairs with J-channel or finger edge profiles for fully hardware-free facades.",
     finish: "stainless",
-    compatibleCollectionIds: ["full-custom", "semi-custom", "reserve"],
+    compatibleCollectionIds: ["custom", "reserve"],
     isSoftClose: false,
   },
   {
@@ -137,9 +137,9 @@ export const HARDWARE_OPTIONS: HardwareOption[] = [
     name: "Soft-Close Full-Extension Slide",
     category: "slide",
     description:
-      "Full-extension undermount slide rated to 100 lbs with soft-close on every drawer box. Standard on Semi-Custom and above; optional upgrade on Spec Grade.",
+      "Full-extension undermount slide rated to 100 lbs with soft-close on every drawer box. Standard on every drawer box.",
     finish: "stainless",
-    compatibleCollectionIds: ["full-custom", "semi-custom", "reserve", "spec-grade"],
+    compatibleCollectionIds: ["custom", "reserve"],
     isSoftClose: true,
   },
   {
@@ -148,9 +148,9 @@ export const HARDWARE_OPTIONS: HardwareOption[] = [
     name: "Heavy-Duty Soft-Close Slide",
     category: "slide",
     description:
-      "150 lb-rated slides for pot-and-pan drawers, appliance bases, and garage tool cabinets. Reserve and Full Custom standard on designated wide drawers.",
+      "150 lb-rated slides for pot-and-pan drawers, appliance bases, and garage tool cabinets. Standard on designated wide drawers.",
     finish: "stainless",
-    compatibleCollectionIds: ["full-custom", "semi-custom", "reserve"],
+    compatibleCollectionIds: ["custom", "reserve"],
     isSoftClose: true,
   },
   {
@@ -162,7 +162,7 @@ export const HARDWARE_OPTIONS: HardwareOption[] = [
       "Marine-grade stainless bar pull for outdoor kitchen and covered patio cabinetry. Resists corrosion from Idaho humidity swings under roof overhangs.",
     finish: "stainless",
     centerToCenterMm: 128,
-    compatibleCollectionIds: ["full-custom", "reserve"],
+    compatibleCollectionIds: ["custom", "reserve"],
   },
 ];
 

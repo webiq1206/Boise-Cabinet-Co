@@ -125,6 +125,21 @@ const nextConfig = {
       redirects.push(...r(source, destination));
     }
 
+    // Catalog cleanup: removed door styles and collections → canonical real products
+    const catalogRedirects = {
+      '/door-styles/modern-shaker': '/door-styles/shaker',
+      '/door-styles/three-piece': '/door-styles',
+      '/door-styles/alpha-shaker': '/door-styles',
+      '/door-styles/beta-shaker': '/door-styles',
+      '/collections/full-custom': '/collections/custom',
+      '/collections/semi-custom': '/collections/custom',
+      '/collections/spec-grade': '/collections/custom',
+    };
+
+    for (const [source, destination] of Object.entries(catalogRedirects)) {
+      redirects.push(...r(source, destination));
+    }
+
     const cities = [
       'boise',
       'meridian',

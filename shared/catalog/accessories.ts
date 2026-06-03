@@ -31,7 +31,7 @@ export const ACCESSORIES: Accessory[] = [
       "A single full-extension shelf on 100 lb-rated slides, ideal for heavy mixers, pots, and small appliances tucked in base cabinets.",
     minCabinetWidth: 12,
     compatibleCabinetTypes: ["base", "tall", "pantry-base"],
-    compatibleCollectionIds: ["full-custom", "semi-custom", "reserve", "spec-grade"],
+    compatibleCollectionIds: ["custom", "reserve"],
   },
   {
     id: "pull-out-pantry",
@@ -42,7 +42,7 @@ export const ACCESSORIES: Accessory[] = [
       "Multi-tier pull-out columns for tall cabinets with adjustable shelves and soft-close slides. Brings deep pantry storage forward so nothing hides in the back.",
     minCabinetWidth: 18,
     compatibleCabinetTypes: ["tall", "pantry-base"],
-    compatibleCollectionIds: ["full-custom", "semi-custom", "reserve", "spec-grade"],
+    compatibleCollectionIds: ["custom", "reserve"],
   },
   {
     id: "lazy-susan",
@@ -53,7 +53,7 @@ export const ACCESSORIES: Accessory[] = [
       "Full-circle or kidney-shaped rotating trays for corner base cabinets. Durable polymer or maple options with adjustable height posts.",
     minCabinetWidth: 33,
     compatibleCabinetTypes: ["base", "corner-base"],
-    compatibleCollectionIds: ["full-custom", "semi-custom", "reserve", "spec-grade"],
+    compatibleCollectionIds: ["custom", "reserve"],
   },
   {
     id: "blind-corner-pullout",
@@ -64,7 +64,7 @@ export const ACCESSORIES: Accessory[] = [
       "LeMans-style or magic-corner hardware that swings shelves into the opening for blind corner bases, higher access than traditional lazy susans.",
     minCabinetWidth: 36,
     compatibleCabinetTypes: ["base", "corner-base"],
-    compatibleCollectionIds: ["full-custom", "semi-custom", "reserve"],
+    compatibleCollectionIds: ["custom", "reserve"],
   },
   {
     id: "spice-rack-pullout",
@@ -75,7 +75,7 @@ export const ACCESSORIES: Accessory[] = [
       "Narrow pull-out rack sized for 3-inch or 9-inch base fillers beside ranges and refrigerators. Tiered shelves hold standard spice jars at a glance.",
     minCabinetWidth: 3,
     compatibleCabinetTypes: ["base", "filler-base"],
-    compatibleCollectionIds: ["full-custom", "semi-custom", "reserve", "spec-grade"],
+    compatibleCollectionIds: ["custom", "reserve"],
   },
   {
     id: "utensil-divider",
@@ -85,7 +85,7 @@ export const ACCESSORIES: Accessory[] = [
     description:
       "Adjustable maple or bamboo dividers for wide utensil drawers. Keeps spatulas, ladles, and gadgets sorted without rattling on soft-close slides.",
     compatibleCabinetTypes: ["base", "drawer-base"],
-    compatibleCollectionIds: ["full-custom", "semi-custom", "reserve", "spec-grade"],
+    compatibleCollectionIds: ["custom", "reserve"],
   },
   {
     id: "peg-board-drawer",
@@ -95,7 +95,7 @@ export const ACCESSORIES: Accessory[] = [
     description:
       "Customizable peg system for plate and bowl storage in deep drawers. Popular for dishware drawers replacing upper cabinets in open kitchens.",
     compatibleCabinetTypes: ["base", "drawer-base"],
-    compatibleCollectionIds: ["full-custom", "semi-custom", "reserve"],
+    compatibleCollectionIds: ["custom", "reserve"],
   },
   {
     id: "trash-pullout",
@@ -106,7 +106,7 @@ export const ACCESSORIES: Accessory[] = [
       "Two-bin pull-out for waste and recycling with soft-close slides and removable liners. Sized for 18-inch or wider base cabinets.",
     minCabinetWidth: 15,
     compatibleCabinetTypes: ["base", "sink-base"],
-    compatibleCollectionIds: ["full-custom", "semi-custom", "reserve", "spec-grade"],
+    compatibleCollectionIds: ["custom", "reserve"],
   },
   {
     id: "cutting-board-insert",
@@ -117,7 +117,7 @@ export const ACCESSORIES: Accessory[] = [
       "Sliding cutting board that stores above a base drawer or pull-out trash. Maple or composite board with finger pull and moisture-resistant finish.",
     minCabinetWidth: 18,
     compatibleCabinetTypes: ["base"],
-    compatibleCollectionIds: ["full-custom", "semi-custom", "reserve"],
+    compatibleCollectionIds: ["custom", "reserve"],
   },
   {
     id: "mixer-lift",
@@ -128,7 +128,7 @@ export const ACCESSORIES: Accessory[] = [
       "Spring-assisted platform that raises stand mixers to counter height and lowers them for storage. Rated for appliances up to 60 lbs.",
     minCabinetWidth: 24,
     compatibleCabinetTypes: ["base", "appliance-base"],
-    compatibleCollectionIds: ["full-custom", "semi-custom", "reserve"],
+    compatibleCollectionIds: ["custom", "reserve"],
   },
   {
     id: "tip-out-tray",
@@ -138,7 +138,7 @@ export const ACCESSORIES: Accessory[] = [
     description:
       "Hinged tray behind false drawer fronts at sinks for sponges, scrubbers, and small cleaning supplies. Keeps counters clear.",
     compatibleCabinetTypes: ["sink-base"],
-    compatibleCollectionIds: ["full-custom", "semi-custom", "reserve", "spec-grade"],
+    compatibleCollectionIds: ["custom", "reserve"],
   },
   {
     id: "vertical-divider",
@@ -149,7 +149,7 @@ export const ACCESSORIES: Accessory[] = [
       "Adjustable vertical slots for baking sheets, cutting boards, and platters in base or tall cabinets. Maple or metal dividers with customizable spacing.",
     minCabinetWidth: 15,
     compatibleCabinetTypes: ["base", "tall", "wall"],
-    compatibleCollectionIds: ["full-custom", "semi-custom", "reserve", "spec-grade"],
+    compatibleCollectionIds: ["custom", "reserve"],
   },
   {
     id: "drawer-organizer-kit",
@@ -159,7 +159,7 @@ export const ACCESSORIES: Accessory[] = [
     description:
       "Modular bins and dividers for junk drawers, office supplies, and vanity grooming storage. Cut-to-fit for any drawer box depth.",
     compatibleCabinetTypes: ["base", "vanity", "drawer-base"],
-    compatibleCollectionIds: ["full-custom", "semi-custom", "reserve", "spec-grade"],
+    compatibleCollectionIds: ["custom", "reserve"],
   },
   {
     id: "led-strip-channel",
@@ -169,7 +169,7 @@ export const ACCESSORIES: Accessory[] = [
     description:
       "Routed aluminum channel in upper cabinets or under-cabinet valances for integrated LED tape. Dimmable driver options and diffuser covers included.",
     compatibleCabinetTypes: ["wall", "tall", "vanity"],
-    compatibleCollectionIds: ["full-custom", "semi-custom", "reserve"],
+    compatibleCollectionIds: ["custom", "reserve"],
   },
   {
     id: "pull-out-hamper",
@@ -180,7 +180,7 @@ export const ACCESSORIES: Accessory[] = [
       "Canvas or wire hamper on full-extension slides for laundry rooms and primary bath vanities. Removable bag for easy carry to the washer.",
     minCabinetWidth: 18,
     compatibleCabinetTypes: ["base", "vanity", "tall"],
-    compatibleCollectionIds: ["full-custom", "semi-custom", "reserve", "spec-grade"],
+    compatibleCollectionIds: ["custom", "reserve"],
   },
   {
     id: "wine-rack-insert",
@@ -191,7 +191,7 @@ export const ACCESSORIES: Accessory[] = [
       "Horizontal or X-style wine storage for base or tall cabinets. Holds standard 750 ml bottles with ventilation clearance per Idaho building practice.",
     minCabinetWidth: 15,
     compatibleCabinetTypes: ["base", "tall", "wine-tall"],
-    compatibleCollectionIds: ["full-custom", "semi-custom", "reserve"],
+    compatibleCollectionIds: ["custom", "reserve"],
   },
   {
     id: "appliance-garage",
@@ -202,7 +202,7 @@ export const ACCESSORIES: Accessory[] = [
       "Lift-up or tambour door enclosure on the counter for toasters, coffee makers, and stand mixers. Keeps small appliances accessible but off the countertop.",
     minCabinetWidth: 24,
     compatibleCabinetTypes: ["wall", "counter-wall"],
-    compatibleCollectionIds: ["full-custom", "semi-custom", "reserve"],
+    compatibleCollectionIds: ["custom", "reserve"],
   },
 ];
 

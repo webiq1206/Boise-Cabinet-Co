@@ -25,7 +25,7 @@ const kitchenExtra: ContentSection[] = [
   {
     h2: 'Cost breakdown: cabinets, counters, and labor',
     paragraphs: [
-      'Cabinetry commonly represents 30–40% of a full kitchen construction budget. Semi-custom lines balance selection flexibility with lead time; fully custom shops extend design time but fit odd ceiling lines in North End homes.',
+      'Cabinetry commonly represents 30–40% of a full kitchen construction budget. Value cabinet lines balance selection flexibility with lead time; fully custom shops extend design time but fit odd ceiling lines in North End homes.',
       'Quartz and quartzite countertops range widely; waterfall edges and thick mitered builds add fabrication labor. Tile backsplashes, under-cabinet lighting, and recessed cans are frequently underestimated.',
     ],
     table: {

@@ -211,13 +211,8 @@ function addPanel(
 ) {
   const { doorStyle, color, category } = style;
   const isSlab = doorStyle === "slab";
-  const isRaised = doorStyle === "three-piece" || doorStyle === "alpha-shaker";
-  const rail =
-    doorStyle === "thin-shaker"
-      ? 0.035
-      : doorStyle === "beta-shaker"
-        ? 0.05
-        : 0.06;
+  const isRaised = false;
+  const rail = doorStyle === "thin-shaker" ? 0.035 : 0.06;
 
   const innerW = Math.max(0.04, w - rail * 2);
   const innerH = Math.max(0.04, h - rail * 2);

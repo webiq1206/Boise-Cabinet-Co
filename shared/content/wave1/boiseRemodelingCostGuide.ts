@@ -4,7 +4,7 @@ const sections: ContentSection[] = [
   {
     h2: 'What should Treasure Valley homeowners budget for custom cabinets in 2026?',
     paragraphs: [
-      `Most cabinet packages we scope across ${CITIES_LIST} fall into planning bands, not single sticker prices. A laundry refresh in Meridian is not priced like a full custom kitchen in the North End. National averages rarely account for Ada County plan review, Canyon County submission portals, Idaho labor markets, or the finish level common in Eagle and Hidden Springs.`,
+      `Most cabinet packages we scope across ${CITIES_LIST} fall into planning bands, not single sticker prices. A laundry refresh in Meridian is not priced like a large custom kitchen in the North End. National averages rarely account for Ada County plan review, Canyon County submission portals, Idaho labor markets, or the finish level common in Eagle and Hidden Springs.`,
       `This guide is the pillar for our <strong>Boise Cabinet Costs</strong> hub. Use it to understand typical ranges, then read the linked articles on kitchen, bathroom, whole-home, built-in, and luxury cabinet costs for project-specific detail.`,
       `For a rough planning number before design, start with our <a href="/#calculator">project estimator</a>, then schedule a consultation for a written scope.`,
     ],
@@ -31,7 +31,7 @@ const sections: ContentSection[] = [
   {
     h2: 'How much do kitchen cabinets cost in Boise?',
     paragraphs: [
-      'Kitchen cabinets are the most common inquiry in Boise and Meridian. Layout changes, adding an island, extending uppers, or reworking the sink wall, drive both design time and field measure complexity. Cabinet line (stock, semi-custom, full custom), door style, and interior organizers compound quickly.',
+      'Kitchen cabinets are the most common inquiry in Boise and Meridian. Layout changes, adding an island, extending uppers, or reworking the sink wall, drive both design time and field measure complexity. Cabinet line (stock, value, custom), door style, and interior organizers compound quickly.',
       'Countertops, appliances, and plumbing are typically coordinated separately; we guide rough-in and cabinet openings but do not supply stone or appliances. Budget those separately, often $8,000–$25,000 for a full appliance suite.',
       'Read our dedicated article: <a href="/blog/kitchen-cabinet-cost-boise">Kitchen Cabinet Cost Boise</a>. Explore <a href="/cabinets/kitchen">kitchen cabinet catalog</a> and <a href="/guides/boise-kitchen-cabinet-guide">Boise kitchen cabinet guide</a>.',
     ],
@@ -39,7 +39,7 @@ const sections: ContentSection[] = [
   {
     h2: 'How much do bathroom vanities cost in the Treasure Valley?',
     paragraphs: [
-      'Powder-room vanities in Star, Middleton, and Kuna often land in the mid four figures for semi-custom lines with quartz tops coordinated by others. Master vanities with wide drawers, tower storage, and layout changes commonly reach higher four-figure or five-figure ranges.',
+      'Powder-room vanities in Star, Middleton, and Kuna often land in the mid four figures for value cabinet lines with quartz tops coordinated by others. Master vanities with wide drawers, tower storage, and layout changes commonly reach higher four-figure or five-figure ranges.',
       'Floating vanities and curbless-adjacent bath layouts require precise wall blocking and plumbing locations that affect both shop drawings and installation.',
       'See <a href="/blog/bathroom-vanity-cost-boise">Bathroom Vanity Cost Boise</a> and <a href="/cabinets/bathroom">bathroom vanity catalog</a>.',
     ],
@@ -63,7 +63,7 @@ const sections: ContentSection[] = [
   {
     h2: 'What does luxury custom cabinetry cost in Eagle and the Foothills?',
     paragraphs: [
-      'Luxury cabinet programs emphasize full-custom construction, specialty finishes, integrated lighting, and meticulous install in occupied homes. HOA design review in Harris Ranch, Hidden Springs, and Eagle Foothills adds weeks to front-end scheduling.',
+      'Luxury cabinet programs emphasize fully custom construction, specialty finishes, integrated lighting, and meticulous install in occupied homes. HOA design review in Harris Ranch, Hidden Springs, and Eagle Foothills adds weeks to front-end scheduling.',
       'Expect dedicated design development, sample doors, and white-glove protection of finished floors. A single luxury kitchen can exceed mid-range whole-home cabinet budgets when millwork and hardware are complex.',
       'Read <a href="/blog/luxury-custom-cabinet-cost-boise">luxury custom cabinet cost in Boise</a> for finish-level breakdowns.',
     ],
@@ -79,8 +79,8 @@ const sections: ContentSection[] = [
       headers: ['Project context', 'Planning $/LF (cabinet boxes + install)'],
       rows: [
         ['Stock / builder-grade replacement', '$250 – $450'],
-        ['Semi-custom kitchen package', '$450 – $750+'],
-        ['Full-custom kitchen', '$750 – $1,200+'],
+        ['Value kitchen package', '$450 – $750+'],
+        ['Custom kitchen', '$750 – $1,200+'],
         ['Built-in wall (entertainment / office)', '$400 – $900+'],
       ],
     },

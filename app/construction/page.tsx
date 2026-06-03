@@ -25,15 +25,15 @@ const STANDARDS = [
   },
   {
     title: "Drawer boxes & slides",
-    body: "Dovetail hardwood or plywood drawer boxes on premium lines; configurable dowel or dovetail options on Semi-Custom. Soft-close slides are standard on Full Custom, Semi-Custom, and Reserve.",
+    body: "Dovetail hardwood or plywood drawer boxes sized to your layout. Soft-close slides are standard on our Custom Cabinets and Reserve lines.",
   },
   {
     title: "Soft-close hinges",
-    body: "Every collection includes soft-close hinges on doors. Spec Grade offers soft-close drawer slides as an upgrade; other lines include them standard or as configurable packages.",
+    body: "Every collection includes soft-close hinges on doors and soft-close drawer slides as standard across our cabinet lines.",
   },
   {
     title: "Installation & warranty",
-    body: "Treasure Valley installation by our crew, not outsourced day labor. Workmanship warranties range from 3 years on Spec Grade to 5 years on custom lines, documented in your contract.",
+    body: "Treasure Valley installation by our crew, not outsourced day labor. Workmanship warranties run up to 5 years on our cabinet lines, documented in your contract.",
   },
   {
     title: "Written scope before build",

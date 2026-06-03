@@ -93,78 +93,11 @@ export function DoorStylePreview({ slug, color, category, className }: DoorStyle
         <line x1={x + w - 6} y1={y + 4} x2={x + w - 6} y2={y + h - 4} stroke={edge} strokeWidth="1" opacity="0.5" />
       )}
 
-      {/* Simple shaker recessed panel (modern + thin) */}
-      {(slug === "modern-shaker" || slug === "thin-shaker") && (
+      {/* Shaker recessed panel (standard + thin) */}
+      {(slug === "shaker" || slug === "thin-shaker") && (
         <>
           <rect x={px} y={py} width={pw} height={ph} rx="1.5" fill={recess} stroke={recessEdge} strokeWidth="1" />
           <line x1={px} y1={py + 1} x2={px + pw} y2={py + 1} stroke={recessEdge} strokeWidth="1" opacity="0.6" />
-        </>
-      )}
-
-      {/* Three-piece: recessed frame with raised center panel */}
-      {slug === "three-piece" && (
-        <>
-          <rect x={px} y={py} width={pw} height={ph} rx="1" fill={recess} stroke={recessEdge} strokeWidth="1" />
-          <rect
-            x={px + 4}
-            y={py + 4}
-            width={pw - 8}
-            height={ph - 8}
-            rx="1"
-            fill={raised}
-            stroke={recessEdge}
-            strokeWidth="0.75"
-          />
-        </>
-      )}
-
-      {/* Alpha shaker: beveled inner frame + slightly raised center */}
-      {slug === "alpha-shaker" && (
-        <>
-          <rect
-            x={px}
-            y={py}
-            width={pw}
-            height={ph}
-            rx="1"
-            fill={recess}
-            stroke={recessEdge}
-            strokeWidth="2.5"
-          />
-          <rect
-            x={px + 3.5}
-            y={py + 3.5}
-            width={pw - 7}
-            height={ph - 7}
-            rx="1"
-            fill={raised}
-            stroke={shade(color, 0.12)}
-            strokeWidth="0.75"
-          />
-        </>
-      )}
-
-      {/* Beta shaker: flat panel with shadow-line groove */}
-      {slug === "beta-shaker" && (
-        <>
-          <rect
-            x={px}
-            y={py}
-            width={pw}
-            height={ph}
-            fill={color}
-            stroke={groove}
-            strokeWidth="1.5"
-          />
-          <rect
-            x={px + 2.5}
-            y={py + 2.5}
-            width={pw - 5}
-            height={ph - 5}
-            fill={color}
-            stroke={shade(color, -0.12)}
-            strokeWidth="0.5"
-          />
         </>
       )}
 
