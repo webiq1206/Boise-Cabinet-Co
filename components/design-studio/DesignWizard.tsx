@@ -45,6 +45,9 @@ export function DesignWizard({ className }: DesignWizardProps) {
 
   useEffect(() => setMounted(true), []);
 
+  const previewReady =
+    isScannedRoom(design.roomMeta) || design.layout !== null;
+
   useEffect(() => {
     if (previewReady && design.layout) {
       setMobilePreviewOpen(true);
@@ -55,9 +58,6 @@ export function DesignWizard({ className }: DesignWizardProps) {
   const isFirst = currentStep === 0;
   const isLast = currentStep === WIZARD_STEPS.length - 1;
   const canAdvance = isStepComplete(currentStep);
-
-  const previewReady =
-    isScannedRoom(design.roomMeta) || design.layout !== null;
 
   const goNext = () => {
     if (!canAdvance || isLast) return;
