@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useMemo } from "react";
-import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -17,6 +16,7 @@ import {
 import { resolveRoomBounds } from "@/lib/design/resolveRoomBounds";
 import { rankLayoutsForRoom } from "@/lib/design/layoutFit";
 import { isScannedRoom } from "@/lib/design/roomScanGeometry";
+import { buildLayoutDiagram } from "@/lib/design/layoutDiagram";
 import {
   buildFloorPlanSvg,
   downloadFloorPlanSvg,
@@ -45,6 +45,16 @@ export function LayoutStep() {
       ),
     [layouts, design.roomMeta, design.roomType, design.roomBounds],
   );
+
+  const widthIn = design.roomMeta?.widthIn;
+  const depthIn = design.roomMeta?.depthIn;
+  const diagrams = useMemo(() => {
+    const map: Record<string, { svg: string; aspect: number }> = {};
+    for (const l of layouts) {
+      map[l.slug] = buildLayoutDiagram(l.slug, { widthIn, depthIn });
+    }
+    return map;
+  }, [layouts, widthIn, depthIn]);
 
   const bounds = resolveRoomBounds(
     design.modules,
@@ -136,15 +146,15 @@ export function LayoutStep() {
                   Too large
                 </Badge>
               )}
-              <div className="relative aspect-[4/3] rounded-md bg-muted mb-3 overflow-hidden">
-                <Image
-                  src={item.image}
-                  alt={`${item.name} cabinet layout floor plan`}
-                  fill
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 320px"
-                  className="object-cover"
-                />
-              </div>
+              <div
+                className="relative w-full rounded-md bg-muted mb-3 overflow-hidden"
+                style={{ aspectRatio: diagrams[item.slug]?.aspect ?? 4 / 3 }}
+                role="img"
+                aria-label={`${item.name} cabinet layout floor plan, scaled to your ${Math.round((widthIn ?? 0) / 12)} by ${Math.round((depthIn ?? 0) / 12)} foot room`}
+                dangerouslySetInnerHTML={{
+                  __html: diagrams[item.slug]?.svg ?? "",
+                }}
+              />
               <p className="font-medium">{item.name}</p>
               <p className="text-sm text-muted-foreground mt-0.5">
                 {item.description}
