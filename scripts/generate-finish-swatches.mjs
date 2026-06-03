@@ -1,83 +1,62 @@
 /**
- * Generates finish swatch WebP textures from catalog hex colors.
+ * Finish swatch QC / guard.
+ *
+ * The finish swatches under public/images/catalog/finishes/ are now real
+ * photorealistic material textures (PNG + WebP). The old procedural generator
+ * that rebuilt flat solid-color squares from hex values has been RETIRED — it
+ * would have silently clobbered the real photos and it relied on `sharp`, which
+ * is not installed in this environment.
+ *
+ * This script now only verifies coverage. It NEVER writes or overwrites a
+ * finish image. The skip-if-exists behaviour mirrors the guard in
+ * scripts/seed-catalog-images.mjs so the npm scripts (images:swatches /
+ * images:qc) stay safe to run.
+ *
  * Run: node scripts/generate-finish-swatches.mjs
  */
 import fs from "fs";
 import path from "path";
-import sharp from "sharp";
 import { fileURLToPath } from "url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.join(__dirname, "..");
+const finishesDir = path.join(root, "public", "images", "catalog", "finishes");
 
 const FINISHES = JSON.parse(
   fs.readFileSync(path.join(root, "scripts", "site-image-manifest.json"), "utf8"),
 ).entries.filter((e) => e.placement === "swatch");
 
-function hexToRgb(hex) {
-  const h = hex.replace("#", "");
-  return {
-    r: parseInt(h.slice(0, 2), 16),
-    g: parseInt(h.slice(2, 4), 16),
-    b: parseInt(h.slice(4, 6), 16),
-  };
-}
+function main() {
+  let present = 0;
+  const missing = [];
 
-// Load hex from finishes.ts via simple parse
-const finishesTs = fs.readFileSync(path.join(root, "shared/catalog/finishes.ts"), "utf8");
-const hexBySlug = {};
-for (const m of finishesTs.matchAll(/slug: "([^"]+)"[\s\S]*?hexColor: "(#[0-9A-Fa-f]+)"/g)) {
-  hexBySlug[m[1]] = m[2];
-}
-
-async function generateSwatch(slug, hex, category) {
-  const size = 400;
-  const { r, g, b } = hexToRgb(hex);
-  const svg =
-    category === "woodgrain"
-      ? `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}">
-          <defs>
-            <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stop-color="rgb(${Math.min(r + 20, 255)},${Math.min(g + 15, 255)},${Math.min(b + 10, 255)})"/>
-              <stop offset="50%" stop-color="rgb(${r},${g},${b})"/>
-              <stop offset="100%" stop-color="rgb(${Math.max(r - 25, 0)},${Math.max(g - 20, 0)},${Math.max(b - 15, 0)})"/>
-            </linearGradient>
-            <filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3"/></filter>
-          </defs>
-          <rect width="100%" height="100%" fill="url(#g)"/>
-          <rect width="100%" height="100%" filter="url(#n)" opacity="0.08"/>
-        </svg>`
-      : category === "gloss"
-        ? `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}">
-            <defs>
-              <linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stop-color="rgb(${Math.min(r + 40, 255)},${Math.min(g + 40, 255)},${Math.min(b + 40, 255)})"/>
-                <stop offset="100%" stop-color="rgb(${r},${g},${b})"/>
-              </linearGradient>
-            </defs>
-            <rect width="100%" height="100%" fill="url(#g)"/>
-          </svg>`
-        : `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}">
-            <rect width="100%" height="100%" fill="rgb(${r},${g},${b})"/>
-          </svg>`;
-
-  const dest = path.join(root, "public", "images", "catalog", "finishes", `${slug}.webp`);
-  fs.mkdirSync(path.dirname(dest), { recursive: true });
-  await sharp(Buffer.from(svg)).webp({ quality: 90 }).toFile(dest);
-}
-
-async function main() {
   for (const entry of FINISHES) {
     const slug = entry.finishId;
-    const hex = hexBySlug[slug] ?? "#E8E4DE";
-    const category = slug.includes("oak") || slug.includes("walnut") ? "woodgrain" : entry.finishId?.startsWith("gloss") ? "gloss" : "matte";
-    await generateSwatch(slug, hex, category);
-    console.log(`Swatch: ${slug}`);
+    if (!slug) continue;
+    const webp = path.join(finishesDir, `${slug}.webp`);
+    const png = path.join(finishesDir, `${slug}.png`);
+    // Mirror the seed-catalog-images guard: a slug is considered present (and is
+    // therefore never touched) if EITHER the .webp or the .png already exists.
+    if (fs.existsSync(webp) || fs.existsSync(png)) {
+      present++;
+      console.log(`  ok ${slug}`);
+      continue;
+    }
+    missing.push(slug);
+    console.warn(`  MISSING ${slug} — needs a real finish texture (no procedural fallback).`);
   }
-  console.log(`Generated ${FINISHES.length} finish swatches.`);
+
+  console.log(`Finish swatch QC: ${present}/${FINISHES.length} present.`);
+
+  if (missing.length) {
+    console.warn(
+      `\n${missing.length} finish swatch(es) missing: ${missing.join(", ")}.\n` +
+        "The procedural generator has been retired; generate real textures via the " +
+        "image pipeline (e.g. images:generate:catalog) instead of solid-color squares.",
+    );
+  } else {
+    console.log("All finish swatches present. Nothing to do.");
+  }
 }
 
-main().catch((e) => {
-  console.error(e);
-  process.exit(1);
-});
+main();
