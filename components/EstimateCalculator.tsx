@@ -1,7 +1,33 @@
 "use client";
 
 import { useState, useEffect, useMemo, useRef, useCallback } from "react";
-import { Check } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
+import {
+  Check,
+  ChefHat,
+  Bath,
+  House,
+  Boxes,
+  Warehouse,
+  Columns2,
+  LayoutDashboard,
+  LayoutPanelLeft,
+  Square,
+  Grid2x2,
+  Rows2,
+  Container,
+  LayoutGrid,
+  Layers,
+  Star,
+  Gem,
+  Shield,
+  ShieldCheck,
+  Crown,
+  Box,
+  Package,
+  Sparkles,
+} from "lucide-react";
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { DisplayNum, Section } from "@/components/marketing";
 import {
@@ -35,6 +61,65 @@ import {
   formatPlanningCurrency,
 } from "@/shared/estimateEngine";
 
+const OPTION_ICONS: Record<string, LucideIcon> = {
+  ChefHat,
+  Bath,
+  House,
+  Boxes,
+  Warehouse,
+  Columns2,
+  LayoutDashboard,
+  LayoutPanelLeft,
+  Square,
+  Grid2x2,
+  Rows2,
+  Container,
+  LayoutGrid,
+  Layers,
+  Star,
+  Gem,
+  Shield,
+  ShieldCheck,
+  Crown,
+  Box,
+  Package,
+  Sparkles,
+};
+
+function OptionVisual({
+  image,
+  imageAlt,
+  icon,
+}: {
+  image?: string;
+  imageAlt?: string;
+  icon?: string;
+}) {
+  if (image) {
+    return (
+      <div className="relative w-full aspect-[4/3] mb-2.5 overflow-hidden rounded-sm bg-muted">
+        <Image
+          src={image}
+          alt={imageAlt ?? ""}
+          fill
+          sizes="(max-width: 1024px) 50vw, 200px"
+          className="object-cover img-brand-grade"
+        />
+      </div>
+    );
+  }
+  if (icon) {
+    const Icon = OPTION_ICONS[icon];
+    if (!Icon) return null;
+    return (
+      <span className="flex items-center justify-center h-9 w-9 mb-2.5 rounded-sm border border-border bg-muted/50 text-foreground/80">
+        <Icon className="h-4 w-4" />
+      </span>
+    );
+  }
+  return null;
+}
+
 function SelectButton<T extends string>({
   value,
   options,
@@ -63,8 +148,9 @@ function SelectButton<T extends string>({
             )}
           >
             {active && (
-              <Check className="absolute top-2.5 right-2.5 h-3.5 w-3.5 text-foreground" />
+              <Check className="absolute top-2.5 right-2.5 h-3.5 w-3.5 text-foreground z-10" />
             )}
+            <OptionVisual image={opt.image} imageAlt={opt.imageAlt} icon={opt.icon} />
             <span className="font-medium text-xs text-foreground pr-5">{opt.label}</span>
             {opt.sub && (
               <span className="text-[11px] leading-snug text-muted-foreground">{opt.sub}</span>
@@ -208,8 +294,9 @@ export function EstimateCalculator({ inModal = false, onBookVisit: onBookVisitPr
                 )}
               >
                 {active && (
-                  <Check className="absolute top-3 right-3 h-4 w-4 text-foreground" />
+                  <Check className="absolute top-3 right-3 h-4 w-4 text-foreground z-10" />
                 )}
+                <OptionVisual icon={info.icon} />
                 <span className="font-medium text-sm text-foreground pr-5">{info.label}</span>
                 <span className="text-xs text-muted-foreground">{info.sub}</span>
               </button>

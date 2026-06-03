@@ -202,12 +202,12 @@ export function getProjectSizeConfig(project: ProjectType): ProjectSizeConfig {
   return PROJECT_SIZE_CONFIG[project];
 }
 
-export const PROJECT_LABELS: Record<ProjectType, { label: string; sub: string }> = {
-  kitchen: { label: "Kitchen Cabinets", sub: "Layout, line, and installation" },
-  bathroom: { label: "Bathroom Vanities", sub: "Vanity, towers, storage" },
-  "whole-home": { label: "Whole-Home Cabinetry", sub: "Multiple rooms, one program" },
-  addition: { label: "Built-Ins & Storage", sub: "Mudroom, pantry, office, media" },
-  adu: { label: "Closet & Garage", sub: "Closet systems and garage storage" },
+export const PROJECT_LABELS: Record<ProjectType, { label: string; sub: string; icon: string }> = {
+  kitchen: { label: "Kitchen Cabinets", sub: "Layout, line, and installation", icon: "ChefHat" },
+  bathroom: { label: "Bathroom Vanities", sub: "Vanity, towers, storage", icon: "Bath" },
+  "whole-home": { label: "Whole-Home Cabinetry", sub: "Multiple rooms, one program", icon: "House" },
+  addition: { label: "Built-Ins & Storage", sub: "Mudroom, pantry, office, media", icon: "Boxes" },
+  adu: { label: "Closet & Garage", sub: "Closet systems and garage storage", icon: "Warehouse" },
 };
 
 /** Which layout slugs each project type offers (membership defined here, names pulled from catalog). */
@@ -251,17 +251,47 @@ export interface SelectOption<T extends string = string> {
   value: T;
   label: string;
   sub?: string;
+  /** Representative catalog thumbnail/swatch path, when a real photo exists. */
+  image?: string;
+  /** Alt text for the thumbnail image. */
+  imageAlt?: string;
+  /** Icon key resolved to a lucide icon in the UI, for abstract options. */
+  icon?: string;
 }
+
+/** Lucide icon key per layout slug (no catalog photos exist for layouts). */
+const LAYOUT_ICON: Record<string, string> = {
+  galley: "Columns2",
+  "l-shape": "LayoutDashboard",
+  "u-shape": "LayoutPanelLeft",
+  island: "Square",
+  peninsula: "Grid2x2",
+  "single-vanity": "Square",
+  "double-vanity": "Columns2",
+  "wall-run": "Rows2",
+  "floor-to-ceiling": "Container",
+};
 
 export function getLayoutOptions(project: ProjectType): SelectOption[] {
   return PROJECT_LAYOUT_SLUGS[project]
     .map((slug) => LAYOUT_BY_SLUG[slug])
     .filter(Boolean)
-    .map((l) => ({ value: l.slug, label: l.name, sub: l.description }));
+    .map((l) => ({
+      value: l.slug,
+      label: l.name,
+      sub: l.description,
+      icon: LAYOUT_ICON[l.slug] ?? "LayoutGrid",
+    }));
 }
 
 export function getCabinetLineOptions(): SelectOption[] {
-  return COLLECTIONS.map((c) => ({ value: c.id, label: c.name, sub: c.tagline }));
+  return COLLECTIONS.map((c) => ({
+    value: c.id,
+    label: c.name,
+    sub: c.tagline,
+    image: `/images/catalog/collections/${c.slug}-640.webp`,
+    imageAlt: `${c.name} cabinets, Boise Cabinet Co`,
+  }));
 }
 
 const DOOR_STYLE_SUB: Record<string, string> = {
@@ -275,32 +305,52 @@ export function getDoorStyleOptions(): SelectOption[] {
     value: d.id,
     label: d.name,
     sub: DOOR_STYLE_SUB[d.id] ?? d.name,
+    image: `/images/catalog/door-styles/${d.slug}-640.webp`,
+    imageAlt: `${d.name} door style, Boise Cabinet Co`,
   }));
 }
 
 export const FINISH_CATEGORY_OPTIONS: SelectOption<FinishCategory>[] = [
-  { value: "matte", label: "Matte", sub: "Soft, low-sheen, fingerprint-friendly" },
-  { value: "woodgrain", label: "Woodgrain", sub: "Natural grain laminates and stains" },
-  { value: "gloss", label: "High-Gloss", sub: "Reflective, contemporary brightness" },
+  {
+    value: "matte",
+    label: "Matte",
+    sub: "Soft, low-sheen, fingerprint-friendly",
+    image: "/images/catalog/finishes/slate.webp",
+    imageAlt: "Matte cabinet finish swatch",
+  },
+  {
+    value: "woodgrain",
+    label: "Woodgrain",
+    sub: "Natural grain laminates and stains",
+    image: "/images/catalog/finishes/white-oak.webp",
+    imageAlt: "Woodgrain cabinet finish swatch",
+  },
+  {
+    value: "gloss",
+    label: "High-Gloss",
+    sub: "Reflective, contemporary brightness",
+    image: "/images/catalog/finishes/obsidian.webp",
+    imageAlt: "High-gloss cabinet finish swatch",
+  },
 ];
 
 export const FINISH_TIER_OPTIONS: SelectOption<FinishTier>[] = [
-  { value: "standard", label: "Standard", sub: "Core palette colors" },
-  { value: "premium", label: "Premium", sub: "Designer tones and deeper hues" },
-  { value: "reserve", label: "Reserve", sub: "Exclusive Reserve-only colors" },
+  { value: "standard", label: "Standard", sub: "Core palette colors", icon: "Layers" },
+  { value: "premium", label: "Premium", sub: "Designer tones and deeper hues", icon: "Star" },
+  { value: "reserve", label: "Reserve", sub: "Exclusive Reserve-only colors", icon: "Gem" },
 ];
 
 export const CONSTRUCTION_OPTIONS: SelectOption<ConstructionTier>[] = [
-  { value: "good", label: "Good", sub: "Furniture-board box, soft-close doors and drawers" },
-  { value: "better", label: "Better", sub: "Plywood box, full-extension soft-close slides" },
-  { value: "best", label: "Best", sub: "All-plywood, dovetail drawer boxes, reinforced" },
+  { value: "good", label: "Good", sub: "Furniture-board box, soft-close doors and drawers", icon: "Shield" },
+  { value: "better", label: "Better", sub: "Plywood box, full-extension soft-close slides", icon: "ShieldCheck" },
+  { value: "best", label: "Best", sub: "All-plywood, dovetail drawer boxes, reinforced", icon: "Crown" },
 ];
 
 export const STORAGE_OPTIONS: SelectOption<StorageTier>[] = [
-  { value: "none", label: "None", sub: "Standard adjustable shelving" },
-  { value: "essential", label: "Essential", sub: "Pull-out shelves and trash pull-out" },
-  { value: "upgraded", label: "Upgraded", sub: "Organizers, lazy susan, spice pull-out" },
-  { value: "premium", label: "Premium", sub: "Full Smart Storage: pantry pull-outs, mixer lift, LED" },
+  { value: "none", label: "None", sub: "Standard adjustable shelving", icon: "Box" },
+  { value: "essential", label: "Essential", sub: "Pull-out shelves and trash pull-out", icon: "Package" },
+  { value: "upgraded", label: "Upgraded", sub: "Organizers, lazy susan, spice pull-out", icon: "Boxes" },
+  { value: "premium", label: "Premium", sub: "Full Smart Storage: pantry pull-outs, mixer lift, LED", icon: "Sparkles" },
 ];
 
 const CONSTRUCTION_LABEL: Record<ConstructionTier, string> = {
