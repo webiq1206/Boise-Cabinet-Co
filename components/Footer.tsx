@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { FOOTER_CABINET_LINKS, FOOTER_COLLECTION_LINKS } from "@/shared/cabinetNav";
-import { CITIES } from "@/shared/contentData";
 import { SITE_TAGLINE } from "@/shared/siteContent";
 import { SITE_CONFIG } from "@/shared/siteConfig";
 import { FooterCTAs } from "@/components/modals/FooterCTAs";
@@ -17,7 +16,7 @@ export function Footer() {
   return (
     <footer className="bg-inverse text-inverse-foreground">
       <div className="container px-4 py-16 md:py-20">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-8 gap-10 mb-12 lg:gap-0 lg:divide-x lg:divide-inverse-foreground/10 [&>*]:lg:px-6 [&>*:first-child]:lg:pl-0 [&>*:last-child]:lg:pr-0">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-7 gap-10 mb-12 lg:gap-0 lg:divide-x lg:divide-inverse-foreground/10 [&>*]:lg:px-6 [&>*:first-child]:lg:pl-0 [&>*:last-child]:lg:pr-0">
           <div>
             <div className="mb-4">
               <span className="font-sans font-light text-lg tracking-tight text-inverse-foreground">
@@ -156,45 +155,6 @@ export function Footer() {
 
           <div>
             <h3 className="font-sans font-medium text-[11px] tracking-[0.12em] uppercase mb-5 text-inverse-muted">
-              <Link
-                href="/guides/treasure-valley-remodeling-guide"
-                className="hover:text-inverse-foreground transition-colors"
-              >
-                Treasure Valley
-              </Link>
-            </h3>
-            <ul className="space-y-2.5 max-h-48 overflow-y-auto pr-2">
-              <li>
-                <Link
-                  href="/guides/treasure-valley-remodeling-guide"
-                  className="text-sm text-inverse-muted hover:text-inverse-foreground transition-colors"
-                >
-                  Cabinet planning guide
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/cabinets"
-                  className="text-sm text-inverse-muted hover:text-inverse-foreground transition-colors"
-                >
-                  Cabinet catalog
-                </Link>
-              </li>
-              {CITIES.map((city) => (
-                <li key={city.slug}>
-                  <Link
-                    href={`/areas/${city.slug}`}
-                    className="text-sm text-inverse-muted hover:text-inverse-foreground transition-colors"
-                  >
-                    {city.name}, Idaho
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div>
-            <h3 className="font-sans font-medium text-[11px] tracking-[0.12em] uppercase mb-5 text-inverse-muted">
               From the Blog
             </h3>
             <ul className="space-y-2.5">
@@ -272,13 +232,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="py-5 border-t border-b border-inverse-foreground/10 mb-5">
-          <p className="text-[11px] tracking-[0.08em] text-inverse-muted">
-            Serving {CITIES.map((c) => c.name).join(" · ")} · Ada and Canyon County, Idaho
-          </p>
-        </div>
-
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 text-xs text-inverse-muted">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 text-xs text-inverse-muted pt-5 border-t border-inverse-foreground/10">
           <div className="flex flex-wrap gap-4">
             <span>&copy; {currentYear} {SITE_CONFIG.name}. All rights reserved.</span>
             <span>License details available upon request</span>

@@ -292,17 +292,7 @@ export function generateSEOMetadata(params: ServiceSEOParams): SEOMetaData {
   
   // Environment-aware canonical URL
   const baseUrl = getBaseUrl();
-  let canonical = baseUrl;
-  
-  if (!params.isHomePage) {
-    if (params.citySlug && params.serviceSlug) {
-      canonical = `${baseUrl}/services/${params.serviceSlug}/${params.citySlug}`;
-    } else if (params.citySlug && !params.serviceSlug) {
-      canonical = `${baseUrl}/areas/${params.citySlug}`;
-    } else if (params.serviceSlug) {
-      canonical = `${baseUrl}/services/${params.serviceSlug}`;
-    }
-  }
+  const canonical = baseUrl;
   
   // Open Graph defaults to meta tags
   return {

@@ -73,18 +73,6 @@ export default function NotFound() {
           </Button>
         </div>
 
-        <div className="mt-12">
-          <p className="text-sm text-muted-foreground mb-3">
-            We serve the full Treasure Valley
-          </p>
-          <div className="flex flex-wrap justify-center gap-2">
-            {["Boise", "Meridian", "Eagle", "Nampa", "Kuna", "Star", "Middleton"].map((city) => (
-              <span key={city} className="text-sm text-muted-foreground">
-                {city}
-              </span>
-            ))}
-          </div>
-        </div>
       </div>
     </div>
   );

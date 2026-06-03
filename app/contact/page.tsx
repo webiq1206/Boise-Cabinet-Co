@@ -17,7 +17,6 @@ import {
 } from '@/lib/schema';
 import { BUSINESS_INFO } from '@/lib/seo';
 import { SITE_CONFIG } from '@/shared/siteConfig';
-import { CITIES, TREASURE_VALLEY_CITIES } from '@/shared/contentData';
 import { ConsultationForm } from '@/components/ConsultationForm';
 import { CTA_CONSULT, CTA_ESTIMATE } from '@/shared/ctaCopy';
 import { CONSULT_BULLETS, HERO_STATS } from '@/shared/siteContent';
@@ -276,15 +275,6 @@ export default function ContactPage() {
                   </address>
                 </ContactChannel>
               </Reveal>
-              <Reveal delay={180} className="sm:col-span-2">
-                <ContactChannel
-                  icon={<MapPin className="h-5 w-5" strokeWidth={1.5} />}
-                  label="Service area"
-                  subtext="Free in-home visits across the Treasure Valley"
-                >
-                  <span className="text-sm leading-relaxed">{TREASURE_VALLEY_CITIES}</span>
-                </ContactChannel>
-              </Reveal>
             </div>
           </div>
         </Section>
@@ -373,37 +363,6 @@ export default function ContactPage() {
             <MarketingCard className="md:col-span-3" padding="lg">
               <ConsultationForm />
             </MarketingCard>
-          </div>
-        </Section>
-
-        {/* ─── Service areas ─── */}
-        <Section divider>
-          <div className="container px-4 max-w-5xl">
-            <SectionHeader
-              eyebrow="Treasure Valley"
-              size="display"
-              title={
-                <>
-                  Where we <em className="brc-accent text-accent">work</em>
-                </>
-              }
-              description={`We serve homeowners in ${TREASURE_VALLEY_CITIES}, and surrounding communities.`}
-              className="max-w-3xl"
-            />
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
-              {CITIES.map((city, i) => (
-                <Reveal key={city.slug} delay={Math.min(i, 7) * 50}>
-                  <Link href={`/areas/${city.slug}`} className="block h-full group">
-                    <MarketingCard className="h-full transition-colors group-hover:border-foreground/20">
-                      <p className="font-sans font-medium text-sm text-foreground mb-0.5">
-                        {city.name}
-                      </p>
-                      <p className="text-xs text-muted-foreground">Idaho</p>
-                    </MarketingCard>
-                  </Link>
-                </Reveal>
-              ))}
-            </div>
           </div>
         </Section>
 

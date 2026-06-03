@@ -16,7 +16,6 @@ import {
   generateOrganizationSchema,
   generateWebPageSchema,
 } from '@/lib/schema';
-import { CITIES, TREASURE_VALLEY_CITIES } from '@/shared/contentData';
 import { HERO_STATS, PRINCIPLES, TRUST_ITEMS } from '@/shared/siteContent';
 import { CTA_PRIMARY, CTA_SECONDARY } from '@/shared/ctaCopy';
 import { ConsultCTA } from '@/components/modals/ConsultCTA';
@@ -246,37 +245,6 @@ export default function AboutPage() {
                     </h3>
                     <p className="text-sm text-inverse-muted leading-relaxed">{desc}</p>
                   </div>
-                </Reveal>
-              ))}
-            </div>
-          </div>
-        </Section>
-
-        {/* ─── Service areas ─── */}
-        <Section divider>
-          <div className="container px-4 max-w-5xl">
-            <SectionHeader
-              eyebrow="Treasure Valley"
-              size="display"
-              title={
-                <>
-                  Service <em className="brc-accent text-accent">areas</em>
-                </>
-              }
-              description={`We serve homeowners in ${TREASURE_VALLEY_CITIES}, and surrounding communities.`}
-              className="max-w-3xl"
-            />
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
-              {CITIES.map((city, i) => (
-                <Reveal key={city.slug} delay={Math.min(i, 7) * 50}>
-                  <Link href={`/areas/${city.slug}`} className="block h-full group">
-                    <MarketingCard className="h-full transition-colors group-hover:border-foreground/20">
-                      <p className="font-sans font-medium text-sm text-foreground mb-0.5">
-                        {city.name}
-                      </p>
-                      <p className="text-xs text-muted-foreground">Idaho</p>
-                    </MarketingCard>
-                  </Link>
                 </Reveal>
               ))}
             </div>

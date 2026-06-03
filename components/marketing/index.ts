@@ -6,7 +6,6 @@ export { Chip, type ChipProps } from "./Chip";
 export { MarketingCard, type MarketingCardProps } from "./MarketingCard";
 export { DisplayNum, formatStepNumber, type DisplayNumProps } from "./DisplayNum";
 export { TextLink, type TextLinkProps } from "./TextLink";
-export { AreaCard, type AreaCardProps } from "./AreaCard";
 export { BlogCard, type BlogCardProps } from "./BlogCard";
 export { BlogEndCta } from "./BlogEndCta";
 export { BlogPostLayout } from "./BlogPostLayout";

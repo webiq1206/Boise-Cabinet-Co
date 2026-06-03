@@ -33,7 +33,6 @@ export const PRIMARY_NAV = [
     ],
   },
   { label: "Design Studio", href: "/design-studio" },
-  { label: "Areas", href: "/areas" },
   { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
 ] as const;
