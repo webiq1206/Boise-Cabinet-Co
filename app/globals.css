@@ -3,7 +3,11 @@
 @tailwind utilities;
 
 html, body {
-  overflow-x: hidden;
+  /* `clip` (not `hidden`) prevents horizontal scroll WITHOUT turning the root
+     into a scroll container. On iOS Safari, `overflow-x: hidden` on <html>
+     makes `position: fixed` resolve against the root instead of the viewport,
+     causing fixed bars (the mobile bottom nav) to drift mid-screen on scroll. */
+  overflow-x: clip;
 }
 
 * {
