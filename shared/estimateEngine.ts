@@ -1,5 +1,8 @@
 import { COLLECTIONS } from "./catalog/collections";
 import { DOOR_STYLES } from "./catalog/doorStyles";
+import { FINISH_BY_SLUG } from "./catalog/finishes";
+import { getDoorStyleImages, getFinishImages } from "./catalog/entityImages";
+import { getFinishesForDoorStyle } from "./catalog/queries";
 import { ACCESSORY_BY_ID } from "./catalog/accessories";
 import { LAYOUT_BY_SLUG } from "./catalog/layouts";
 
@@ -31,6 +34,7 @@ export type SelectionStepKey =
   | "size"
   | "line"
   | "doorStyle"
+  | "finishColor"
   | "finish"
   | "construction"
   | "storage";
@@ -45,6 +49,8 @@ export interface EstimateSelections {
   cabinetLine: string;
   /** Door style = OSC door style id (slab, modern-shaker, thin-shaker, etc.). */
   doorStyle: string;
+  /** Optional OSC finish slug; empty string skips named-color selection. */
+  finishSlug: string;
   finishCategory: FinishCategory;
   finishTier: FinishTier;
   construction: ConstructionTier;
@@ -241,7 +247,7 @@ export function getVisibleSteps(project: ProjectType): SelectionStepKey[] {
   const steps: SelectionStepKey[] = [];
   if (vis.layout) steps.push("layout");
   steps.push("size", "line");
-  if (vis.doorStyle) steps.push("doorStyle");
+  if (vis.doorStyle) steps.push("doorStyle", "finishColor");
   steps.push("finish", "construction", "storage");
   return steps;
 }
@@ -289,18 +295,63 @@ export function getCabinetLineOptions(): SelectOption[] {
 
 const DOOR_STYLE_SUB: Record<string, string> = {
   slab: "Flat, handleless-ready contemporary face",
+  "three-piece": "Horizontal grain center panel",
+  "modern-shaker": "Classic recessed five-piece panel",
   shaker: "Classic recessed five-piece panel",
   "thin-shaker": "Narrow rails, lighter transitional look",
+  "alpha-shaker": "Bold shaker rails and stiles",
+  "beta-shaker": "Deep-profile shaker with mitered frame",
 };
 
 export function getDoorStyleOptions(): SelectOption[] {
-  return DOOR_STYLES.map((d) => ({
-    value: d.id,
-    label: d.name,
-    sub: DOOR_STYLE_SUB[d.id] ?? d.name,
-    image: `/images/catalog/door-styles/${d.slug}-640.webp`,
-    imageAlt: `${d.name} door style, Boise Cabinet Co`,
+  return DOOR_STYLES.map((d) => {
+    const { thumb640 } = getDoorStyleImages(d.slug, d.imagePath);
+    return {
+      value: d.id,
+      label: d.name,
+      sub: DOOR_STYLE_SUB[d.id] ?? d.name,
+      image: thumb640,
+      imageAlt: `${d.name} door style, Boise Cabinet Co`,
+    };
+  });
+}
+
+/** Map OSC price tier marker to estimator finish tier. */
+export function finishMarkerToTier(marker: number): FinishTier {
+  if (marker >= 5) return "reserve";
+  if (marker >= 4) return "premium";
+  return "standard";
+}
+
+export function getFinishColorOptions(doorStyleId: string): SelectOption[] {
+  const doorSlug = DOOR_STYLES.find((d) => d.id === doorStyleId)?.slug ?? doorStyleId;
+  return getFinishesForDoorStyle(doorSlug).map((f) => ({
+    value: f.slug,
+    label: f.name,
+    sub: f.category,
+    image: getFinishImages(f.slug, f.imagePath).swatch,
+    imageAlt: `${f.name} finish swatch`,
   }));
+}
+
+/** Apply finish slug to category/tier; returns selections unchanged when slug is empty. */
+export function applyFinishSlug(
+  sel: EstimateSelections,
+  finishSlug: string,
+): EstimateSelections {
+  if (!finishSlug) {
+    return { ...sel, finishSlug: "" };
+  }
+  const finish = FINISH_BY_SLUG[finishSlug];
+  if (!finish) {
+    return { ...sel, finishSlug: "" };
+  }
+  return {
+    ...sel,
+    finishSlug,
+    finishCategory: finish.category,
+    finishTier: finishMarkerToTier(finish.priceTierMarker),
+  };
 }
 
 export const FINISH_CATEGORY_OPTIONS: SelectOption<FinishCategory>[] = [
@@ -458,6 +509,7 @@ export function getDefaultSelectionsForProject(project: ProjectType): EstimateSe
     size: PROJECT_SIZE_CONFIG[project].default,
     cabinetLine: "custom",
     doorStyle: "modern-shaker",
+    finishSlug: "",
     finishCategory: "matte",
     finishTier: "standard",
     construction: "better",
@@ -520,7 +572,12 @@ export function buildScopeSummary(sel: EstimateSelections): string {
     const door = DOOR_STYLES.find((d) => d.id === sel.doorStyle);
     if (door) parts.push(door.name);
   }
-  parts.push(`${FINISH_TIER_LABEL[sel.finishTier]} ${FINISH_CATEGORY_LABEL[sel.finishCategory]} finish`);
+  const namedFinish = sel.finishSlug ? FINISH_BY_SLUG[sel.finishSlug]?.name : undefined;
+  parts.push(
+    namedFinish
+      ? `${namedFinish} (${FINISH_TIER_LABEL[sel.finishTier]} ${FINISH_CATEGORY_LABEL[sel.finishCategory]})`
+      : `${FINISH_TIER_LABEL[sel.finishTier]} ${FINISH_CATEGORY_LABEL[sel.finishCategory]} finish`,
+  );
   parts.push(`${CONSTRUCTION_LABEL[sel.construction]} construction`);
   parts.push(STORAGE_SUMMARY_LABEL[sel.storage]);
   return parts.join(" · ");
@@ -548,7 +605,12 @@ function buildIncluded(sel: EstimateSelections): string[] {
     if (door) list.push(`${door.name} door style`);
   }
 
-  list.push(`${FINISH_TIER_LABEL[sel.finishTier]} ${FINISH_CATEGORY_LABEL[sel.finishCategory]} finish`);
+  const namedFinish = sel.finishSlug ? FINISH_BY_SLUG[sel.finishSlug]?.name : undefined;
+  list.push(
+    namedFinish
+      ? `${namedFinish} finish`
+      : `${FINISH_TIER_LABEL[sel.finishTier]} ${FINISH_CATEGORY_LABEL[sel.finishCategory]} finish`,
+  );
   list.push(CONSTRUCTION_INCLUDED[sel.construction]);
 
   const storageNames = STORAGE_ACCESSORY_IDS[sel.storage]
@@ -585,7 +647,17 @@ export function normalizeSelections(sel: EstimateSelections): EstimateSelections
   const layout = vis.layout && !layoutSlugs.includes(sel.layout)
     ? getDefaultLayout(sel.project)
     : sel.layout;
-  return { ...sel, layout, size: clampSize(sel.project, sel.size) };
+  let next = { ...sel, layout, size: clampSize(sel.project, sel.size) };
+  if (next.finishSlug) {
+    const doorSlug = DOOR_STYLES.find((d) => d.id === next.doorStyle)?.slug ?? next.doorStyle;
+    const allowed = new Set(getFinishesForDoorStyle(doorSlug).map((f) => f.slug));
+    if (!allowed.has(next.finishSlug)) {
+      next = { ...next, finishSlug: "" };
+    } else {
+      next = applyFinishSlug(next, next.finishSlug);
+    }
+  }
+  return next;
 }
 
 export function calculateEstimate(

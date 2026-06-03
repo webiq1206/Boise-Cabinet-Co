@@ -28,6 +28,9 @@ function FinishSwatch({ finish }: { finish: Finish }) {
   const imagePath = finish.imagePath ?? mapping?.imagePath;
   const [useHex, setUseHex] = useState(false);
   const supplierLabel = finish.oscName ?? finish.name;
+  const allowHexFallback = process.env.NODE_ENV === "development";
+
+  const showImage = Boolean(imagePath && !useHex);
 
   return (
     <div
@@ -38,17 +41,19 @@ function FinishSwatch({ finish }: { finish: Finish }) {
       role="img"
       aria-label={`${finish.name} finish swatch${supplierLabel ? `, One Source ${supplierLabel}` : ""}`}
     >
-      {imagePath && !useHex ? (
+      {showImage ? (
         <Image
-          src={imagePath}
+          src={imagePath!}
           alt={`${finish.name} cabinet finish swatch`}
           fill
           sizes="120px"
           className="object-cover"
           onError={() => setUseHex(true)}
         />
-      ) : (
+      ) : allowHexFallback ? (
         <div className="absolute inset-0" style={{ backgroundColor: finish.hexColor }} />
+      ) : (
+        <div className="absolute inset-0 bg-muted" />
       )}
     </div>
   );

@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useParams } from "next/navigation";
 import { PortalShell } from "@/components/portal/PortalShell";
 import { PLACEHOLDER_PROJECT } from "@/shared/portalPlaceholder";
@@ -15,29 +16,86 @@ import {
   getCollectionBySlug,
   resolveFinishSlug,
   resolveDoorStyleSlug,
+  getDoorStyleImages,
+  getFinishImages,
 } from "@/shared/catalog";
 import { FINISHES, DOOR_STYLES, COLLECTIONS } from "@/shared/catalog";
+import { cn } from "@/lib/utils";
 
 function resolveLabel(
   category: string,
   value: string | null | undefined,
-): { category: string; value: string; status: string } {
+): { category: string; value: string; status: string; slug?: string } {
   if (!value) {
     return { category, value: "Not selected", status: "pending" };
   }
   if (category === "Collection") {
     const c = getCollectionBySlug(value) ?? COLLECTIONS.find((x) => x.id === value);
-    return { category, value: c?.name ?? value, status: "selected" };
+    return { category, value: c?.name ?? value, status: "selected", slug: c?.slug ?? value };
   }
   if (category === "Door style") {
-    const d = getDoorStyleBySlug(resolveDoorStyleSlug(value));
-    return { category, value: d?.name ?? value, status: "selected" };
+    const resolved = resolveDoorStyleSlug(value);
+    const d = getDoorStyleBySlug(resolved);
+    return { category, value: d?.name ?? value, status: "selected", slug: d?.slug ?? resolved };
   }
   if (category === "Finish") {
-    const f = getFinishBySlug(value) ?? getFinishBySlug(resolveFinishSlug(value));
-    return { category, value: f?.name ?? value, status: f ? "selected" : "pending" };
+    const resolved = resolveFinishSlug(value);
+    const f = getFinishBySlug(value) ?? getFinishBySlug(resolved);
+    return {
+      category,
+      value: f?.name ?? value,
+      status: f ? "selected" : "pending",
+      slug: f?.slug ?? resolved,
+    };
   }
   return { category, value, status: "selected" };
+}
+
+function SelectionThumbnail({
+  category,
+  slug,
+}: {
+  category: string;
+  slug?: string;
+}) {
+  if (!slug) return null;
+
+  if (category === "Collection") {
+    const c = getCollectionBySlug(slug) ?? COLLECTIONS.find((x) => x.id === slug);
+    if (!c?.heroImage) return null;
+    return (
+      <div className="relative h-14 w-20 shrink-0 overflow-hidden rounded-sm bg-muted">
+        <Image src={c.heroImage} alt="" fill sizes="80px" className="object-cover" />
+      </div>
+    );
+  }
+
+  if (category === "Door style") {
+    const d = getDoorStyleBySlug(slug);
+    if (!d) return null;
+    const { thumb640 } = getDoorStyleImages(d.slug, d.imagePath);
+    return (
+      <div className="relative h-14 w-20 shrink-0 overflow-hidden rounded-sm bg-muted">
+        <Image src={thumb640} alt="" fill sizes="80px" className="object-cover" />
+      </div>
+    );
+  }
+
+  if (category === "Finish") {
+    const f = getFinishBySlug(slug);
+    if (!f) return null;
+    const { swatch } = getFinishImages(f.slug, f.imagePath);
+    return (
+      <div
+        className="relative h-14 w-14 shrink-0 overflow-hidden rounded-sm border border-border"
+        style={{ backgroundColor: f.hexColor }}
+      >
+        <Image src={swatch} alt="" fill sizes="56px" className="object-cover" />
+      </div>
+    );
+  }
+
+  return null;
 }
 
 const statusBadge: Record<string, "default" | "secondary" | "outline"> = {
@@ -97,13 +155,18 @@ export default function ProjectDesignPage() {
             {selections.map((item) => (
               <div
                 key={item.category}
-                className="flex flex-wrap items-center justify-between gap-2 py-3 border-b last:border-0"
+                className={cn(
+                  "flex flex-wrap items-center justify-between gap-3 py-3 border-b last:border-0",
+                )}
               >
-                <div>
-                  <p className="text-xs text-muted-foreground uppercase tracking-wider">
-                    {item.category}
-                  </p>
-                  <p className="font-medium">{item.value}</p>
+                <div className="flex items-center gap-3 min-w-0">
+                  <SelectionThumbnail category={item.category} slug={item.slug} />
+                  <div>
+                    <p className="text-xs text-muted-foreground uppercase tracking-wider">
+                      {item.category}
+                    </p>
+                    <p className="font-medium">{item.value}</p>
+                  </div>
                 </div>
                 <Badge variant={statusBadge[item.status] ?? "outline"}>
                   {item.status === "selected" && <Check className="h-3 w-3 mr-1" />}

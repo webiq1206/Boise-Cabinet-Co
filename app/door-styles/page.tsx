@@ -21,7 +21,7 @@ export const metadata = catalogMetadata(
   "/door-styles",
   "Door Styles",
   catalogDescription(
-    "Explore slab, shaker, and thin shaker door profiles from {company}. Three profiles with compatible matte, gloss, and woodgrain finishes.",
+    "Explore six door profiles from {company}. Slab, shaker, and mitered styles with compatible matte, gloss, and woodgrain finishes.",
   ),
 );
 
@@ -71,7 +71,7 @@ export default function DoorStylesPage() {
           <div className="container px-4">
             <SectionHeader
               eyebrow="Profiles"
-              title={<>Three door styles</>}
+              title={<>Six door styles</>}
               align="center"
               className="mb-10 max-w-xl mx-auto text-center [&_.brc-label]:justify-center"
             />

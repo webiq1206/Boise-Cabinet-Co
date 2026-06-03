@@ -1,5 +1,11 @@
 import type { CabinetModule, RoomBounds } from "./previewConfig";
 import type { RoomMeta } from "./roomMeta";
+import {
+  toProjectSelections,
+  type ProjectSelections,
+} from "@/shared/catalog/projectSelections";
+
+export type { ProjectSelections };
 
 /** Per-module style override (mirrors DesignStudioProvider's ModuleOverride). */
 export interface SnapshotModuleOverride {
@@ -27,6 +33,26 @@ export interface DesignSnapshot {
   roomBounds: RoomBounds | null;
   roomMeta: RoomMeta | null;
   lineItemSlugs: string[];
+}
+
+/** Extract catalog selections aligned with shared/catalog/projectSelections */
+export function snapshotToProjectSelections(snapshot: DesignSnapshot): ProjectSelections {
+  return toProjectSelections(snapshot);
+}
+
+/** Build styleJson keys that match ProjectSelections (plus notes). */
+export function projectSelectionsToStyleJson(
+  selections: ProjectSelections,
+  notes = "",
+): Record<string, unknown> {
+  return {
+    doorStyle: selections.doorStyle,
+    finish: selections.finish,
+    hardware: selections.hardware,
+    accessories: selections.accessories,
+    lineItemSlugs: selections.lineItemSlugs,
+    notes,
+  };
 }
 
 /** A saved, named version of a design within a version group. */
@@ -73,12 +99,10 @@ export function designToPayload(
       roomMeta: snapshot.roomMeta,
     },
     styleJson: {
-      doorStyle: snapshot.doorStyle,
-      finish: snapshot.finish,
-      hardware: snapshot.hardware,
-      accessories: snapshot.accessories,
-      notes: snapshot.notes,
-      lineItemSlugs: snapshot.lineItemSlugs,
+      ...projectSelectionsToStyleJson(snapshotToProjectSelections(snapshot), snapshot.notes),
+      roomType: snapshot.roomType,
+      collection: snapshot.collection,
+      layout: snapshot.layout,
     },
   };
 }

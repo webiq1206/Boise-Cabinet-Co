@@ -5,9 +5,9 @@ import { cn } from "@/lib/utils";
 import { useDesignStudio } from "../DesignStudioProvider";
 import { DOOR_STYLES } from "@/shared/catalog/doorStyles";
 import { FINISH_BY_SLUG } from "@/shared/catalog/finishes";
-import { getFinishesForDoorStyle } from "@/shared/catalog";
+import { getFinishesForDoorStyle, getDoorStyleImages, getFinishImages } from "@/shared/catalog";
 import { Label } from "@/components/ui/label";
-import { DoorStylePreview } from "../DoorStylePreview";
+import { VisualOptionGrid } from "@/components/catalog/visual";
 
 const DEFAULT_FINISH = FINISH_BY_SLUG["woodgrain-canyon-oak"] ?? FINISH_BY_SLUG["matte-vanilla-orchid"];
 
@@ -27,8 +27,6 @@ export function StyleStep({ embedded = false }: { embedded?: boolean }) {
 
   const previewFinish =
     (design.finish ? FINISH_BY_SLUG[design.finish] : undefined) ?? DEFAULT_FINISH;
-  const previewColor = previewFinish.hexColor;
-  const previewCategory = previewFinish.category;
 
   return (
     <div className="space-y-8">
@@ -51,33 +49,21 @@ export function StyleStep({ embedded = false }: { embedded?: boolean }) {
             <span className="font-medium text-foreground">{previewFinish.name}</span>
           </p>
         </div>
-        <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
-          {DOOR_STYLES.map((item) => {
-            const selected = design.doorStyle === item.slug;
-            return (
-              <button
-                key={item.slug}
-                type="button"
-                onClick={() => updateDesign({ doorStyle: item.slug as never })}
-                className={cn(
-                  "flex gap-3 rounded-lg border-2 px-4 py-3 text-sm text-left transition-colors",
-                  selected
-                    ? "border-primary bg-primary/5 font-medium"
-                    : "border-border hover:border-primary/40",
-                )}
-                data-testid={`button-door-style-${item.slug}`}
-              >
-                <div className="h-16 w-12 shrink-0 self-start">
-                  <DoorStylePreview slug={item.slug} color={previewColor} category={previewCategory} />
-                </div>
-                <div className="min-w-0">
-                  <p className="font-medium">{item.name}</p>
-                  <p className="text-xs text-muted-foreground mt-1 line-clamp-3">{item.description}</p>
-                </div>
-              </button>
-            );
+        <VisualOptionGrid
+          items={DOOR_STYLES.map((item) => {
+            const images = getDoorStyleImages(item.slug, item.imagePath);
+            return {
+              id: item.slug,
+              label: item.name,
+              description: item.description,
+              imageSrc: images.primary,
+              imageAlt: `${item.name} door profile`,
+            };
           })}
-        </div>
+          selectedId={design.doorStyle}
+          onSelect={(slug) => updateDesign({ doorStyle: slug as never })}
+          testIdPrefix="button-door-style"
+        />
       </div>
 
       <div className="space-y-4">
@@ -101,31 +87,21 @@ export function StyleStep({ embedded = false }: { embedded?: boolean }) {
             ))}
           </div>
         </div>
-        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 max-h-[420px] overflow-y-auto pr-1">
-          {filteredFinishes.map((item) => {
-            const selected = design.finish === item.slug;
-            return (
-              <button
-                key={item.slug}
-                type="button"
-                onClick={() => updateDesign({ finish: item.slug })}
-                className={cn(
-                  "flex items-center gap-3 rounded-lg border-2 px-4 py-3 text-sm text-left transition-colors",
-                  selected ? "border-primary bg-primary/5" : "border-border hover:border-primary/40",
-                )}
-              >
-                <span
-                  className="h-8 w-8 rounded-full shrink-0 border border-border/50"
-                  style={{ backgroundColor: item.hexColor }}
-                />
-                <span>
-                  <span className="block font-medium">{item.name}</span>
-                  <span className="text-xs text-muted-foreground capitalize">{item.category}</span>
-                </span>
-              </button>
-            );
-          })}
-        </div>
+        <VisualOptionGrid
+          className="max-h-[420px] overflow-y-auto pr-1 gap-3"
+          columns={3}
+          items={filteredFinishes.map((item) => ({
+            id: item.slug,
+            label: item.name,
+            meta: item.category,
+            imageSrc: getFinishImages(item.slug, item.imagePath).swatch,
+            imageAlt: `${item.name} finish swatch`,
+            fallbackHex: item.hexColor,
+          }))}
+          selectedId={design.finish}
+          onSelect={(slug) => updateDesign({ finish: slug })}
+          testIdPrefix="button-finish"
+        />
       </div>
     </div>
   );

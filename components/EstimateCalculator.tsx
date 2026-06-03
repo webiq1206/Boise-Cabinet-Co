@@ -38,6 +38,7 @@ import {
 } from "@/components/marketing/adaptiveGlassTheme";
 import { useAdaptiveGlassTheme } from "@/hooks/useAdaptiveGlassTheme";
 import { EstimateResultPanel } from "@/components/estimate/EstimateResultPanel";
+import { VisualOptionGrid } from "@/components/catalog/visual";
 import {
   type ProjectType,
   type EstimateSelections,
@@ -51,6 +52,8 @@ import {
   getLayoutOptions,
   getCabinetLineOptions,
   getDoorStyleOptions,
+  getFinishColorOptions,
+  applyFinishSlug,
   getFinishTint,
   FINISH_CATEGORY_OPTIONS,
   FINISH_TIER_OPTIONS,
@@ -299,6 +302,9 @@ export function EstimateCalculator({ inModal = false, onBookVisit: onBookVisitPr
   const layoutOptions = getLayoutOptions(project);
   const lineOptions = getCabinetLineOptions();
   const doorOptions = getDoorStyleOptions();
+  const finishColorOptions = visibility.doorStyle
+    ? getFinishColorOptions(selections.doorStyle)
+    : [];
 
   // Tint the layout diagram cabinet runs to roughly match the selected finish,
   // but only once the homeowner has actually chosen a finish. Before then the
@@ -409,9 +415,55 @@ export function EstimateCalculator({ inModal = false, onBookVisit: onBookVisitPr
           <SelectButton
             value={selections.doorStyle}
             options={doorOptions}
-            onChange={(v) => updateField("doorStyle", v, "doorStyle")}
+            onChange={(v) => {
+              setSelections((prev) =>
+                applyFinishSlug({ ...prev, doorStyle: v }, prev.finishSlug),
+              );
+              markTouched("doorStyle");
+            }}
             testIdPrefix="button-door"
           />
+        </div>
+      )}
+
+      {visibility.doorStyle && finishColorOptions.length > 0 && (
+        <div>
+          <StepHeader
+            num={stepNum++}
+            label="Pick a finish color (optional)"
+            hint="Or skip and choose finish style below"
+          />
+          <VisualOptionGrid
+            className="max-h-[360px] overflow-y-auto pr-1 gap-3"
+            columns={3}
+            items={finishColorOptions.map((opt) => ({
+              id: opt.value,
+              label: opt.label,
+              meta: opt.sub,
+              imageSrc: opt.image,
+              imageAlt: opt.imageAlt,
+            }))}
+            selectedId={selections.finishSlug || undefined}
+            onSelect={(slug) => {
+              setSelections((prev) => applyFinishSlug(prev, slug));
+              markTouched("finishColor");
+              markTouched("finish");
+            }}
+            testIdPrefix="button-finish-color"
+          />
+          {selections.finishSlug && (
+            <button
+              type="button"
+              className="mt-3 text-xs text-muted-foreground underline hover:text-foreground"
+              onClick={() => {
+                setSelections((prev) => applyFinishSlug(prev, ""));
+                markTouched("finishColor");
+              }}
+              data-testid="button-finish-color-clear"
+            >
+              Clear color selection
+            </button>
+          )}
         </div>
       )}
 

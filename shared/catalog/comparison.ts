@@ -2,7 +2,7 @@
  * Side-by-side feature comparison matrices for Boise Cabinet Co collections.
  *
  * Two collections: Custom Cabinets and the premium Reserve color collection.
- * Three door styles: Slab, Shaker, Thin Shaker.
+ * Six OSC door styles: Slab, 3 Piece, Modern Shaker, Thin Shaker, Alpha Shaker, Beta Shaker.
  */
 
 import type { PriceTier } from "./collections";
@@ -51,8 +51,8 @@ export const COLLECTION_COMPARISON: CollectionComparisonMatrix = {
       id: "door-styles",
       label: "Door styles available",
       values: {
-        custom: "Slab, Shaker, Thin Shaker",
-        reserve: "Slab, Shaker, Thin Shaker",
+        custom: "Slab, 3 Piece, Modern Shaker, Thin Shaker, Alpha Shaker, Beta Shaker",
+        reserve: "Slab, 3 Piece, Modern Shaker, Thin Shaker, Alpha Shaker, Beta Shaker",
       },
     },
     {

@@ -5,25 +5,24 @@ import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Section } from "@/components/marketing/Section";
 import { PageHeader } from "@/components/marketing/PageHeader";
 import { SectionHeader } from "@/components/marketing/SectionHeader";
-import { MarketingCard } from "@/components/marketing/MarketingCard";
-import { Chip } from "@/components/marketing/Chip";
 import { CatalogSearch } from "@/components/catalog/CatalogSearch";
 import { CatalogClosingCTA } from "@/components/catalog/CatalogClosingCTA";
 import { CatalogPageHero } from "@/components/catalog/CatalogPageHero";
-import { CatalogProductImage } from "@/components/catalog/CatalogProductImage";
+import { CatalogVisualCard } from "@/components/catalog/visual";
+import { getAccessoryImagePath } from "@/shared/catalog";
+import { ACCESSORY_FAMILIES } from "@/shared/catalog";
 import { MARKETING_IMAGES } from "@/shared/siteImages";
 import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/Reveal";
 import { catalogMetadata, catalogDescription } from "@/lib/catalog-metadata";
 import { generateBreadcrumbSchema, generateWebPageSchema } from "@/lib/schema";
-import { ACCESSORIES } from "@/shared/catalog";
 import { SITE_CONFIG } from "@/shared/siteConfig";
 
 export const metadata = catalogMetadata(
   "/accessories",
   "Cabinet Accessories",
   catalogDescription(
-    "Pull-out shelves, pantry systems, waste solutions, and lighting from {company}. Interior upgrades for every collection.",
+    "Roll-out trays, trash pull-outs, lazy susans, and corner solutions from {company}. OSC SKU families for interior upgrades.",
   ),
 );
 
@@ -57,7 +56,7 @@ export default function AccessoriesPage() {
                 </>
               }
               description={catalogDescription(
-                "Organize every inch with pull-outs, lazy susans, waste solutions, and integrated lighting, specified during your {company} design consultation.",
+                "OSC accessory SKU families: roll-outs, trash pull-outs, lazy susans, blind corners, and more, specified during your {company} design consultation.",
               )}
             />
             <CatalogPageHero
@@ -76,36 +75,29 @@ export default function AccessoriesPage() {
         <Section variant="greige" divider>
           <div className="container px-4">
             <SectionHeader
-              eyebrow="Catalog"
-              title={<>Interior upgrades</>}
+              eyebrow="OSC families"
+              title={<>Accessory SKU families</>}
               align="center"
               className="mb-10 max-w-xl mx-auto text-center [&_.brc-label]:justify-center"
             />
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
-              {ACCESSORIES.map((item, i) => (
-                <Reveal key={item.id} delay={i * 30}>
-                  <MarketingCard id={item.slug} className="h-full flex flex-col scroll-mt-24 p-0 overflow-hidden">
-                    <CatalogProductImage
-                      slug={item.slug}
-                      name={item.name}
-                      type="accessory"
-                      className="rounded-none"
-                    />
-                    <div className="p-6 flex flex-col flex-1">
-                    <Chip className="mb-3 capitalize w-fit">{item.category}</Chip>
-                    <h2 className="text-lg font-sans font-light tracking-tight mb-2">
-                      {item.name}
-                    </h2>
-                    <p className="text-sm text-muted-foreground flex-1 leading-relaxed">
-                      {item.description}
-                    </p>
-                    {item.minCabinetWidth != null && (
-                      <p className="text-xs text-muted-foreground mt-3">
-                        Min. cabinet width: {item.minCabinetWidth}&quot;
-                      </p>
-                    )}
-                    </div>
-                  </MarketingCard>
+              {ACCESSORY_FAMILIES.map((family, i) => (
+                <Reveal key={family.id} delay={i * 30}>
+                  <CatalogVisualCard
+                    name={family.name}
+                    description={family.description}
+                    imageSrc={getAccessoryImagePath(family.slug)}
+                    imageAlt={`${family.name} cabinet accessory`}
+                    specs={[
+                      { label: "OSC pattern", value: family.oscCodePattern },
+                      { label: "Example SKUs", value: String(family.exampleSkus.length) },
+                      { label: "Category", value: family.category },
+                    ]}
+                    primaryHref={`/products/base?family=${family.slug}`}
+                    primaryLabel="Browse matching SKUs"
+                    secondaryHref={`/products/base?family=${family.slug}`}
+                    secondaryLabel="View configurations"
+                  />
                 </Reveal>
               ))}
             </div>

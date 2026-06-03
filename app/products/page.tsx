@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Section } from "@/components/marketing/Section";
 import { PageHeader } from "@/components/marketing/PageHeader";
-import { MarketingCard } from "@/components/marketing/MarketingCard";
+import { CatalogVisualCard } from "@/components/catalog/visual";
 import { GuidedCatalogWizard } from "@/components/catalog/GuidedCatalogWizard";
 import { CABINET_PRODUCTS_BY_CATEGORY } from "@/shared/catalog";
 import type { CabinetProductCategory } from "@/shared/catalog";
@@ -61,24 +61,31 @@ export default function ProductsHubPage() {
 
       <Section>
         <div className="container px-4">
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {categories.map((cat) => {
               const count = CABINET_PRODUCTS_BY_CATEGORY[cat]?.length ?? 0;
               if (count === 0) return null;
               return (
-                <MarketingCard key={cat}>
-                  <h3 className="font-medium">{CATEGORY_LABELS[cat] ?? cat}</h3>
-                  <p className="text-sm text-muted-foreground mt-1">{count} configurations</p>
-                  <Link
-                    href={`/products/${cat}`}
-                    className="text-sm text-accent mt-3 inline-block hover:underline"
-                  >
-                    Browse {CATEGORY_LABELS[cat]}
-                  </Link>
-                </MarketingCard>
+                <CatalogVisualCard
+                  key={cat}
+                  name={CATEGORY_LABELS[cat] ?? cat}
+                  description={`Browse ${count} One Source ${cat.replace(/-/g, " ")} configurations.`}
+                  specs={[{ label: "Configurations", value: String(count) }]}
+                  primaryHref={`/products/${cat}`}
+                  primaryLabel={`Browse ${CATEGORY_LABELS[cat]}`}
+                  secondaryHref="/accessories"
+                  secondaryLabel="Accessory families"
+                />
               );
             })}
           </div>
+          <p className="text-sm text-muted-foreground mt-8 text-center">
+            Looking for roll-outs, trash pull-outs, or lazy susans?{" "}
+            <Link href="/accessories" className="text-accent hover:underline">
+              Browse accessory families
+            </Link>
+            .
+          </p>
         </div>
       </Section>
     </div>

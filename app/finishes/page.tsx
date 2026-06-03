@@ -17,7 +17,7 @@ export const metadata = catalogMetadata(
   "/finishes",
   "Cabinet Finishes",
   catalogDescription(
-    "Browse 42+ matte, gloss, and woodgrain cabinet finishes from {company}. See swatches and pair with door styles in Design Studio.",
+    "Browse 108 matte, gloss, and woodgrain cabinet finishes from {company}. See swatches and pair with door styles in Design Studio.",
   ),
 );
 

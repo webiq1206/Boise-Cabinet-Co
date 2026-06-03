@@ -9,6 +9,7 @@ import { FINISHES } from "./finishes";
 import { FINISH_BY_SLUG } from "./generated/finishes";
 import { CABINET_PRODUCTS } from "./cabinetProducts";
 import { OSC_CONSTRUCTION } from "./construction";
+import { pickSearchResultImage } from "./entityImages";
 import type {
   CabinetCollection,
   CabinetProduct,
@@ -147,6 +148,7 @@ export interface CatalogSearchResult {
   name: string;
   description: string;
   score: number;
+  imagePath?: string;
 }
 
 export function searchCatalogWithFacets(
@@ -181,7 +183,14 @@ export function searchCatalogWithFacets(
     const text = [c.name, c.tagline, c.description, ...c.features].join(" ");
     const s = score(text, c.slug, c.name);
     if (s > 0 || !q) {
-      results.push({ type: "collection", slug: c.slug, name: c.name, description: c.tagline, score: s || 1 });
+      results.push({
+        type: "collection",
+        slug: c.slug,
+        name: c.name,
+        description: c.tagline,
+        score: s || 1,
+        imagePath: pickSearchResultImage({ type: "collection", slug: c.slug }),
+      });
     }
   }
 
@@ -189,7 +198,14 @@ export function searchCatalogWithFacets(
     const text = [d.name, d.description, d.constructionNotes, d.oscName].join(" ");
     const s = score(text, d.slug, d.name);
     if (s > 0 || !q) {
-      results.push({ type: "doorStyle", slug: d.slug, name: d.name, description: d.description, score: s || 1 });
+      results.push({
+        type: "doorStyle",
+        slug: d.slug,
+        name: d.name,
+        description: d.description,
+        score: s || 1,
+        imagePath: pickSearchResultImage({ type: "doorStyle", slug: d.slug }),
+      });
     }
   }
 
@@ -203,6 +219,7 @@ export function searchCatalogWithFacets(
         name: f.name,
         description: `${f.category} · ${f.panelSeries}`,
         score: s || 1,
+        imagePath: pickSearchResultImage({ type: "finish", slug: f.slug }),
       });
     }
   }

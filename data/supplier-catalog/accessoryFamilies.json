@@ -1,0 +1,95 @@
+[
+  {
+    "id": "rollout-tray",
+    "slug": "rollout-tray",
+    "name": "Roll-Out Tray",
+    "category": "storage",
+    "oscCodePattern": "ROT",
+    "description": "Full-extension roll-out trays on Salice Futura Smove slides.",
+    "exampleSkus": [
+      "B-1D-1BD-1ROT",
+      "B-1D-1BD-2ROT",
+      "B-1D-1TD-1ROT",
+      "B-1D-1TD-2ROT",
+      "B-2D-1BD-1ROT",
+      "B-2D-1BD-2ROT",
+      "B-2D-1TD-1ROT",
+      "B-2D-1TD-2ROT"
+    ]
+  },
+  {
+    "id": "trash-pullout",
+    "slug": "trash-pullout",
+    "name": "Trash Pull-Out",
+    "category": "waste",
+    "oscCodePattern": "TRASH",
+    "description": "Base and full-height configurations with integrated waste bins.",
+    "exampleSkus": [
+      "B-1D-1BD-0S",
+      "B-1D-1BD-1PART",
+      "B-1D-1BD-1ROT",
+      "B-1D-1BD-1S",
+      "B-1D-1BD-2PART",
+      "B-1D-1BD-2ROT",
+      "B-1D-1BD-3PART",
+      "B-2D-1BD-0S"
+    ]
+  },
+  {
+    "id": "lazy-susan",
+    "slug": "lazy-susan",
+    "name": "Lazy Susan",
+    "category": "storage",
+    "oscCodePattern": "LS",
+    "description": "90° corner base lazy susan units (LS3612L / LS3612R).",
+    "exampleSkus": [
+      "LS3612L",
+      "LS3612R"
+    ]
+  },
+  {
+    "id": "blind-corner",
+    "slug": "blind-corner",
+    "name": "Blind Corner Pull-Out",
+    "category": "storage",
+    "oscCodePattern": "BBC",
+    "description": "Blind corner base cabinets with door, drawer, and pull-out access.",
+    "exampleSkus": [
+      "BBCL-1TD-0S",
+      "BBCL-1TD-1S",
+      "BBCL-FHD-0S",
+      "BBCL-FHD-1S",
+      "BBCL-FHD-2S",
+      "BBCR-1TD-0S",
+      "BBCR-1TD-1S",
+      "BBCR-FHD-0S"
+    ]
+  },
+  {
+    "id": "partition",
+    "slug": "partition",
+    "name": "Vertical Partition",
+    "category": "organization",
+    "oscCodePattern": "PART",
+    "description": "Tall cabinet vertical partitions for tray and sheet storage.",
+    "exampleSkus": [
+      "B-1D-1BD-1PART",
+      "B-1D-1BD-2PART",
+      "B-1D-1BD-3PART",
+      "B-1D-1TD-1PART",
+      "B-1D-1TD-2PART",
+      "B-1D-1TD-3PART",
+      "B-2D-1BD-1PART",
+      "B-2D-1BD-2PART"
+    ]
+  },
+  {
+    "id": "floating-shelf",
+    "slug": "floating-shelf",
+    "name": "Floating Shelf",
+    "category": "specialty",
+    "oscCodePattern": "FS",
+    "description": "Wall-mounted floating shelf SKUs.",
+    "exampleSkus": []
+  }
+]

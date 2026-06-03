@@ -33,11 +33,16 @@ export {
   ROOM_BY_ID,
 } from "./roomCategories";
 
-export type { AccessoryCategory, Accessory } from "./accessories";
+export type { AccessoryCategory, Accessory, AccessoryFamily } from "./accessories";
 export {
   ACCESSORIES,
   ACCESSORY_BY_SLUG,
   ACCESSORY_BY_ID,
+  ACCESSORY_FAMILIES,
+  ACCESSORY_FAMILY_BY_SLUG,
+  ACCESSORY_SLUG_TO_FAMILY,
+  getAccessoryFamilyForSlug,
+  filterProductsByAccessoryFamily,
 } from "./accessories";
 
 export type { HardwareCategory, HardwareFinish, HardwareOption } from "./hardware";
@@ -53,6 +58,13 @@ export {
   getCatalogProductAlt,
   HARDWARE_IMAGE_FILES,
 } from "./catalogImages";
+
+export {
+  getDoorStyleImages,
+  getFinishImages,
+  pickSearchResultImage,
+} from "./entityImages";
+export type { DoorStyleImages, FinishImages, SearchResultImageInput } from "./entityImages";
 
 export type {
   CabinetCategory,
@@ -122,6 +134,9 @@ export {
 
 export type { CatalogSearchResult as CatalogSearchResultExtended } from "./queries";
 
+export type { ProjectSelections } from "./projectSelections";
+export { isProjectSelections, toProjectSelections } from "./projectSelections";
+
 import { COLLECTION_BY_SLUG, COLLECTIONS, type CabinetCollection } from "./collections";
 import {
   DOOR_STYLE_BY_SLUG,
@@ -186,6 +201,7 @@ export interface CatalogSearchResult {
   name: string;
   description: string;
   score: number;
+  imagePath?: string;
 }
 
 /**

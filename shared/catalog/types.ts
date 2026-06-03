@@ -96,3 +96,13 @@ export interface CatalogSearchFacets {
   productCategory?: CabinetProductCategory;
   budgetTier?: number;
 }
+
+export interface AccessoryFamily {
+  id: string;
+  slug: string;
+  name: string;
+  category: string;
+  oscCodePattern: string;
+  description: string;
+  exampleSkus: string[];
+}

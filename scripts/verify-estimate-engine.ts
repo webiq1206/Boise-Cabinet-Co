@@ -71,6 +71,7 @@ for (const project of projects) {
     assert(vis.layout && vis.doorStyle, `${project} shows layout and door style`);
     assert(steps.includes("layout"), `${project} has a layout step`);
     assert(steps.includes("doorStyle"), `${project} has a door style step`);
+    assert(steps.includes("finishColor"), `${project} has optional finish color step`);
     assert(getLayoutOptions(project).length > 0, `${project} offers layout options`);
   }
   assert(steps.includes("size") && steps.includes("line"), `${project} has size and line steps`);

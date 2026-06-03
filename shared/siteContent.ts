@@ -16,7 +16,7 @@ export const HERO_SUBHEAD =
   "Design, build, and install premium custom cabinets from first sketch to final walkthrough.";
 
 export const HERO_STATS = [
-  { num: "50+", label: "Finish options" },
+  { num: "108", label: "Finish options" },
   { num: "Free", label: "Design consultation" },
   { num: "Lifetime", label: "Warranty" },
 ] as const;

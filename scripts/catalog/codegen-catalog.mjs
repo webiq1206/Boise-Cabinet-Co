@@ -22,6 +22,7 @@ function bySlugConst(arrayName) {
     DOOR_STYLES: "DOOR_STYLE",
     COLLECTIONS: "COLLECTION",
     CABINET_PRODUCTS: "CABINET_PRODUCT",
+    ACCESSORY_FAMILIES: "ACCESSORY_FAMILY",
   };
   const base = map[arrayName] ?? (arrayName.endsWith("S") ? arrayName.slice(0, -1) : arrayName);
   return `${base}_BY_SLUG`;
@@ -43,6 +44,8 @@ function main() {
   const cabinetProducts = readJson("cabinetProducts.json");
   const construction = readJson("construction.json");
   const panelBrands = readJson("panelBrands.json");
+  const accessoryFamiliesPath = path.join(DATA, "accessoryFamilies.json");
+  const hasAccessoryFamilies = fs.existsSync(accessoryFamiliesPath);
 
   fs.writeFileSync(path.join(OUT, "doorStyles.ts"), emitConst("DOOR_STYLES", "DoorStyle", doorStyles));
   fs.writeFileSync(path.join(OUT, "finishes.ts"), emitConst("FINISHES", "Finish", finishes));
@@ -51,7 +54,18 @@ function main() {
   fs.writeFileSync(path.join(OUT, "construction.ts"), `/** AUTO-GENERATED */\nexport const OSC_CONSTRUCTION = ${JSON.stringify(construction, null, 2)} as const;\n`);
   fs.writeFileSync(path.join(OUT, "panelBrands.ts"), `/** AUTO-GENERATED */\nexport const PANEL_BRANDS = ${JSON.stringify(panelBrands, null, 2)} as const;\n`);
 
-  const index = `/** AUTO-GENERATED barrel */\nexport { DOOR_STYLES, DOOR_STYLE_BY_SLUG } from "./doorStyles";\nexport { FINISHES, FINISH_BY_SLUG } from "./finishes";\nexport { COLLECTIONS, COLLECTION_BY_SLUG } from "./collections";\nexport { CABINET_PRODUCTS, CABINET_PRODUCT_BY_SLUG } from "./cabinetProducts";\nexport { OSC_CONSTRUCTION } from "./construction";\nexport { PANEL_BRANDS } from "./panelBrands";\n`;
+  if (hasAccessoryFamilies) {
+    const accessoryFamilies = readJson("accessoryFamilies.json");
+    fs.writeFileSync(
+      path.join(OUT, "accessoryFamilies.ts"),
+      emitConst("ACCESSORY_FAMILIES", "AccessoryFamily", accessoryFamilies),
+    );
+  }
+
+  const accessoryExport = hasAccessoryFamilies
+    ? `export { ACCESSORY_FAMILIES, ACCESSORY_FAMILY_BY_SLUG } from "./accessoryFamilies";\n`
+    : "";
+  const index = `/** AUTO-GENERATED barrel */\nexport { DOOR_STYLES, DOOR_STYLE_BY_SLUG } from "./doorStyles";\nexport { FINISHES, FINISH_BY_SLUG } from "./finishes";\nexport { COLLECTIONS, COLLECTION_BY_SLUG } from "./collections";\nexport { CABINET_PRODUCTS, CABINET_PRODUCT_BY_SLUG } from "./cabinetProducts";\nexport { OSC_CONSTRUCTION } from "./construction";\nexport { PANEL_BRANDS } from "./panelBrands";\n${accessoryExport}`;
   fs.writeFileSync(path.join(OUT, "index.ts"), index);
 
   console.log(`Generated catalog TS in ${OUT}`);

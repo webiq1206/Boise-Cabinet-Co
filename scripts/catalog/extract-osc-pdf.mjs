@@ -126,12 +126,65 @@ function buildFinishes() {
     return 3;
   };
 
+  /** Curated overrides for OSC finish names (PDF swatches are not machine-readable). */
   const hexApprox = {
     "Vanilla Orchid": "#F5F0E8", "Carte Blanche": "#F0EDE8", "Calm Sea": "#9BB5B0",
     "Eucalyptus": "#8B9A7E", "Morning Dew": "#E8EDE6", "North Wind": "#C5CDD4",
     "Black": "#1A1A1A", "Snow White": "#FAFAFA", "Gloss White": "#FFFFFF",
     "White HG": "#FFFFFF", "Chameleon": "#8A8A82", "Canyon Oak": "#C4A574",
+    "Canyon Walnut": "#6B5344", "Canyon Charcoal": "#4A4540", "Nero Ingo": "#141414",
+    "Bronzo Doha": "#6E5A48", "Piomba Doha": "#7A7A78", "Bianco Malé": "#F2F0EC",
+    "Bianco Kos": "#EEEBE6", "Blue Fes": "#4A6A8A", "Grigio Bromo": "#8A8884",
+    "Grigio Efeso": "#9A9894", "Grigio Londra": "#7E7C78", "Grigio Antrim": "#6E6C68",
+    "Beige Arizona": "#C9B89A", "Bianco Alaska": "#F4F2EE", "Bianco Dover": "#F0EEEA",
+    "Castoro Ottawa": "#9A7A5A", "Bitter": "#5C4A3A", "Breeze Beige": "#D8CFC0",
+    "Forest Green": "#2D4A3E", "Macaron Green": "#A8C4A0", "Pearl Black": "#2A2A2A",
+    "Pebble Grey": "#9A9590", "Glamorous Pacific": "#5A7A8A", "Ice Grey": "#C5CDD4",
+    "London Blues": "#4A5A6A", "Royal Grey": "#8A8680", "Timeless Grey": "#9A9690",
+    "Camera Obscura": "#3A3A3A", "Midnight Sun": "#4A4038", "Urban Vibe": "#7A7570",
+    "Dark Grey": "#5A5A58", "Deep Blue": "#2A3A5A", "White": "#FAFAFA",
+    "Graphite": "#4A4A48", "Jade Green": "#4A6A5A", "Tan": "#C4A880",
+    "Boxcar Blonde": "#D4B890", "Capital Starlit": "#E8E4DC", "Maltese Mist": "#D0CCC6",
+    "Midnight Dash": "#2A2830", "Olive Detour": "#6A6A4A", "Casa Blanca": "#F0ECE6",
+    "Gaslit Alley": "#6A5A4A", "High Low": "#8A8078", "Silver Lake": "#B0ACA6",
+    "Smoke Stack": "#7A7874", "Trench Coat": "#5A5048", "Black HG": "#1A1A1A",
+    "Dark Grey HG": "#5A5A58", "Steampunk": "#6A5A4A", "Iron Horse": "#5A5048",
+    "Light Grey": "#C8C6C2", "Fumo": "#8A8884", "Legno": "#9A7A5A", "Sbiancato": "#E8E4DE",
+    "Nebbia": "#C5C3BE", "Perla": "#E8E6E2", "Piano": "#2A2A2A", "Marmo Nero": "#1E1E1E",
+    "Sabbia": "#C4B8A8", "Zucchero": "#F0ECE8", "Menta": "#A8C8B8", "Bigio": "#8A8884",
+    "Cappuccino": "#8A6A50", "Grafite": "#4A4A48", "Magnolia": "#F0E8E0", "Meringa": "#F5F0E8",
+    "First Class": "#9A8A7A", "Free Spirit": "#A89078", "Rhapsody": "#8A7A6A",
+    "Sheer Beauty": "#D8D0C8", "Fashionista": "#6A5A5A", "Coral Bark": "#B08060",
+    "Epic": "#7A6A5A", "Coral Sand": "#D4B8A0", "Eucalipto Grey": "#9A9A94",
+    "Eucalipto White": "#E8E6E2", "Olmo Miele": "#C4A060", "Panna": "#F5F0E8",
+    "Pecan Scuro": "#6A4A30", "Rockefeller": "#5A5A58", "Evening Notte": "#2A2830",
+    "Kirsche": "#8A3030", "Grey Echo": "#9A9894", "Morning Fog": "#C8C6C2",
+    "Midnight Run": "#2A2830", "Serotina": "#7A5A4A", "Ontano": "#B8A080",
+    "White Zebrine": "#E8E4DE", "Alno": "#C4B8A8",
   };
+
+  function guessHex(name) {
+    const n = name.toLowerCase();
+    if (hexApprox[name]) return hexApprox[name];
+    if (/\b(black|nero|notte|piano|pearl black)\b/.test(n)) return "#1A1A1A";
+    if (/\b(white|bianco|snow|vanilla|orchid|blanche|panna|zucchero|meringa|alaska|dover|male|kos)\b/.test(n)) {
+      return "#F5F0E8";
+    }
+    if (/\b(grey|gray|grigio|pebble|timeless|royal|ice|north wind|fumo|bigio|echo|nebbia)\b/.test(n)) {
+      return "#9A9690";
+    }
+    if (/\b(blue|blues|fes|deep blue)\b/.test(n)) return "#3A5070";
+    if (/\b(green|eucalyptus|forest|jade|menta|macaron)\b/.test(n)) return "#5A7A5A";
+    if (/\b(beige|tan|blonde|arizona|sabbia|cappuccino|breeze)\b/.test(n)) return "#C9B89A";
+    if (/\b(oak|canyon|walnut|pecan|olmo|legno|wood|miele|kirsche|ontano|alno|zebrine)\b/.test(n)) {
+      return "#A67C52";
+    }
+    if (/\b(bronzo|doha|bronze|castoro|bitter|steampunk|iron)\b/.test(n)) return "#6E5A48";
+    if (/\b(gloss|hg|perla|sbiancato)\b/.test(n)) return "#F8F8F8";
+    if (/\b(red|crimson|kirsche)\b/.test(n)) return "#8A3030";
+    if (/\b(sea|calm|pacific|glamorous)\b/.test(n)) return "#7A9AA8";
+    return "#8C8073";
+  }
 
   const finishes = [];
   const addGroup = (names, category, brand, series, sidedness = "double") => {
@@ -146,7 +199,7 @@ function buildFinishes() {
         oscName: name,
         category,
         sheen: category === "gloss" ? "high-gloss" : category === "woodgrain" ? "satin" : "matte",
-        hexColor: hexApprox[name] || "#888888",
+        hexColor: guessHex(name),
         panelBrand: brand,
         panelSeries: series,
         sidedness,
@@ -277,6 +330,99 @@ function buildConstruction() {
   };
 }
 
+/** OSC accessory SKU families (rollout, trash, lazy susan, etc.) */
+function buildAccessoryFamilies(text) {
+  const products = extractCabinetProducts(text);
+  const codes = products.map((p) => p.oscCode);
+
+  const families = [
+    {
+      id: "rollout-tray",
+      slug: "rollout-tray",
+      name: "Roll-Out Tray",
+      category: "storage",
+      oscCodePattern: "ROT",
+      description: "Full-extension roll-out trays on Salice Futura Smove slides.",
+    },
+    {
+      id: "trash-pullout",
+      slug: "trash-pullout",
+      name: "Trash Pull-Out",
+      category: "waste",
+      oscCodePattern: "TRASH",
+      description: "Base and full-height configurations with integrated waste bins.",
+    },
+    {
+      id: "lazy-susan",
+      slug: "lazy-susan",
+      name: "Lazy Susan",
+      category: "storage",
+      oscCodePattern: "LS",
+      description: "90° corner base lazy susan units (LS3612L / LS3612R).",
+    },
+    {
+      id: "blind-corner",
+      slug: "blind-corner",
+      name: "Blind Corner Pull-Out",
+      category: "storage",
+      oscCodePattern: "BBC",
+      description: "Blind corner base cabinets with door, drawer, and pull-out access.",
+    },
+    {
+      id: "partition",
+      slug: "partition",
+      name: "Vertical Partition",
+      category: "organization",
+      oscCodePattern: "PART",
+      description: "Tall cabinet vertical partitions for tray and sheet storage.",
+    },
+    {
+      id: "floating-shelf",
+      slug: "floating-shelf",
+      name: "Floating Shelf",
+      category: "specialty",
+      oscCodePattern: "FS",
+      description: "Wall-mounted floating shelf SKUs.",
+    },
+  ];
+
+  const lazySusanCodes = [...text.matchAll(/\bLS\d+[LR]\b/g)].map((m) => m[0]);
+
+  return families.map((family) => {
+    let exampleSkus;
+    if (family.id === "lazy-susan") {
+      exampleSkus = [...new Set(lazySusanCodes)].sort();
+    } else if (family.id === "trash-pullout") {
+      exampleSkus = codes.filter((c) => /TRASH|1BD|2BD/.test(c)).slice(0, 8);
+    } else {
+      exampleSkus = codes.filter((c) => c.includes(family.oscCodePattern)).slice(0, 8);
+    }
+    return { ...family, exampleSkus };
+  });
+}
+
+function buildHardwareSpec() {
+  return {
+    hinge: {
+      brand: "Salice",
+      description: "Six-way adjustable soft-close hinges",
+      lineBoreMm: 64,
+      adjustmentAxes: 6,
+      softClose: true,
+    },
+    drawerSlide: {
+      brand: "Salice",
+      model: "Futura Smove",
+      extension: "full-extension",
+      softClose: true,
+      loadRatingLbs: 100,
+    },
+    legLevelers: true,
+    adjustableDrawerFronts: true,
+    source: "Custom_Catalog.v1.pdf",
+  };
+}
+
 function buildPanelBrands() {
   return [
     { id: "supramat", name: "Supramat", series: ["Supramat"] },
@@ -314,6 +460,8 @@ function main() {
     "finishes.json": buildFinishes(),
     "construction.json": buildConstruction(),
     "cabinetProducts.json": extractCabinetProducts(text),
+    "accessoryFamilies.json": buildAccessoryFamilies(text),
+    "hardwareSpec.json": buildHardwareSpec(),
     "collections.json": [
       {
         id: "custom",

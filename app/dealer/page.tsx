@@ -1,7 +1,10 @@
 import Link from "next/link";
 import { Section } from "@/components/marketing/Section";
 import { PageHeader } from "@/components/marketing/PageHeader";
+import { SectionHeader } from "@/components/marketing/SectionHeader";
+import { CatalogVisualCard } from "@/components/catalog/visual";
 import { COLLECTIONS, DOOR_STYLES, FINISHES } from "@/shared/catalog";
+import { getDoorStyleImages } from "@/shared/catalog/entityImages";
 import { Button } from "@/components/ui/button";
 
 export const metadata = {
@@ -13,7 +16,7 @@ export default function DealerPortalPage() {
   return (
     <div className="flex flex-col pb-20">
       <Section spacing="sm" className="pt-8">
-        <div className="container px-4 max-w-3xl">
+        <div className="container px-4 max-w-5xl">
           <PageHeader
             align="left"
             eyebrow="Dealer portal"
@@ -30,6 +33,53 @@ export default function DealerPortalPage() {
             <Button variant="outline" asChild>
               <Link href="/search">Search catalog</Link>
             </Button>
+          </div>
+        </div>
+      </Section>
+
+      <Section>
+        <div className="container px-4 max-w-5xl space-y-10">
+          <div>
+            <SectionHeader title="Collections" />
+            <div className="grid gap-6 md:grid-cols-2 mt-6">
+              {COLLECTIONS.map((c) => (
+                <CatalogVisualCard
+                  key={c.slug}
+                  name={c.name}
+                  description={c.tagline}
+                  imageSrc={c.heroImage}
+                  imageAlt={`${c.name} cabinet line`}
+                  specs={[
+                    { label: "Lead time", value: c.leadTime },
+                    { label: "OSC line", value: c.oscLine },
+                  ]}
+                  primaryHref={`/collections/${c.slug}`}
+                  primaryLabel="View collection"
+                />
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <SectionHeader title="Door styles" />
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 mt-6">
+              {DOOR_STYLES.map((d) => {
+                const { primary } = getDoorStyleImages(d.slug, d.imagePath);
+                return (
+                  <CatalogVisualCard
+                    key={d.slug}
+                    name={d.name}
+                    description={d.description}
+                    imageSrc={primary}
+                    imageAlt={`${d.name} door profile`}
+                    primaryHref={`/door-styles#${d.slug}`}
+                    primaryLabel="View profile"
+                    secondaryHref="/finishes"
+                    secondaryLabel="Compatible finishes"
+                  />
+                );
+              })}
+            </div>
           </div>
         </div>
       </Section>

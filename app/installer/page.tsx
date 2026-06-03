@@ -1,7 +1,10 @@
 import Link from "next/link";
 import { Section } from "@/components/marketing/Section";
 import { PageHeader } from "@/components/marketing/PageHeader";
-import { OSC_CONSTRUCTION } from "@/shared/catalog";
+import { SectionHeader } from "@/components/marketing/SectionHeader";
+import { CatalogVisualCard } from "@/components/catalog/visual";
+import { OSC_CONSTRUCTION, COLLECTIONS, DOOR_STYLES } from "@/shared/catalog";
+import { getDoorStyleImages } from "@/shared/catalog/entityImages";
 import { Button } from "@/components/ui/button";
 
 export const metadata = {
@@ -13,7 +16,7 @@ export default function InstallerPortalPage() {
   return (
     <div className="flex flex-col pb-20">
       <Section spacing="sm" className="pt-8">
-        <div className="container px-4 max-w-3xl">
+        <div className="container px-4 max-w-5xl">
           <PageHeader
             align="left"
             eyebrow="Installer portal"
@@ -30,6 +33,51 @@ export default function InstallerPortalPage() {
             <Button variant="outline" asChild>
               <Link href="/partner">Partner dashboard</Link>
             </Button>
+          </div>
+        </div>
+      </Section>
+
+      <Section>
+        <div className="container px-4 max-w-5xl space-y-10">
+          <div>
+            <SectionHeader title="Cabinet lines" />
+            <div className="grid gap-6 md:grid-cols-2 mt-6">
+              {COLLECTIONS.map((c) => (
+                <CatalogVisualCard
+                  key={c.slug}
+                  name={c.name}
+                  description={c.description}
+                  imageSrc={c.heroImage}
+                  imageAlt={`${c.name} cabinets`}
+                  specs={[
+                    { label: "Lead time", value: c.leadTime },
+                    { label: "Price tier", value: c.priceTier },
+                  ]}
+                  primaryHref={`/collections/${c.slug}`}
+                  primaryLabel="Specifications"
+                />
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <SectionHeader title="Door profiles" />
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 mt-6">
+              {DOOR_STYLES.map((d) => {
+                const { primary } = getDoorStyleImages(d.slug, d.imagePath);
+                return (
+                  <CatalogVisualCard
+                    key={d.slug}
+                    name={d.name}
+                    description={d.constructionNotes}
+                    imageSrc={primary}
+                    imageAlt={`${d.name} door construction`}
+                    primaryHref={`/door-styles#${d.slug}`}
+                    primaryLabel="Profile details"
+                  />
+                );
+              })}
+            </div>
           </div>
         </div>
       </Section>

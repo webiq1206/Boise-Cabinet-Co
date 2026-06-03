@@ -6,7 +6,7 @@ export interface HomepageFaq {
 export const HOMEPAGE_FAQS: HomepageFaq[] = [
   {
     q: "What makes Boise Cabinet Co different from other cabinet companies?",
-    a: "We combine a full product catalog (50+ finishes, three door profiles, two collection tiers) with an online Design Studio, a dedicated client portal for project tracking, and frameless Euro construction backed by a lifetime warranty. You get one accountable team from design through installation, with transparent timelines, written scope, and proactive updates at every stage.",
+    a: "We combine a full product catalog (108 finishes, six door styles, two collection tiers) with an online Design Studio, a dedicated client portal for project tracking, and frameless Euro construction backed by a lifetime warranty. You get one accountable team from design through installation, with transparent timelines, written scope, and proactive updates at every stage.",
   },
   {
     q: "What cabinet collections do you offer?",
@@ -42,7 +42,7 @@ export const HOMEPAGE_FAQS: HomepageFaq[] = [
   },
   {
     q: "What door styles and finishes are available?",
-    a: "Three door profiles: Slab, Shaker, and Thin Shaker. Finishes span matte solids, high-gloss, and woodgrain textures, over 50 options total. Browse the full finish library at boisecabinet.co/finishes or explore them in the Design Studio.",
+    a: "Six door styles: Slab, 3 Piece, Modern Shaker, Thin Shaker, Alpha Shaker, and Beta Shaker. Finishes span matte solids, high-gloss, and woodgrain textures, 108 options total. Browse the full finish library at boisecabinet.co/finishes or explore them in the Design Studio.",
   },
   {
     q: "Do you offer closet, laundry, and mudroom cabinets?",

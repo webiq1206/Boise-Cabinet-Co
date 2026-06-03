@@ -13,6 +13,45 @@ import {
   countH2Headings,
 } from '../lib/content-utils';
 import { TREASURE_VALLEY_CITIES } from '../shared/contentHubs';
+import fs from 'node:fs';
+import path from 'node:path';
+
+const ROOT = path.resolve(import.meta.dirname, '..');
+
+/** Marketing/catalog copy files scanned for stale finish/door counts */
+const CATALOG_COPY_FILES = [
+  'shared/homepageFaqs.ts',
+  'shared/siteContent.ts',
+  'shared/contentData.ts',
+  'app/about/page.tsx',
+  'app/finishes/page.tsx',
+  'app/door-styles/page.tsx',
+  'app/compare/page.tsx',
+  'app/accessories/page.tsx',
+];
+
+const STALE_CATALOG_PATTERNS: { label: string; pattern: RegExp }[] = [
+  { label: 'three door profiles', pattern: /three door profiles/i },
+  { label: 'three door styles', pattern: /three door styles/i },
+  { label: '42 finishes', pattern: /42 finishes/i },
+  { label: '42+', pattern: /42\+/ },
+  { label: '50+ finishes', pattern: /50\+ finishes/i },
+];
+
+function verifyCatalogCopy(): string[] {
+  const failures: string[] = [];
+  for (const rel of CATALOG_COPY_FILES) {
+    const filePath = path.join(ROOT, rel);
+    if (!fs.existsSync(filePath)) continue;
+    const text = fs.readFileSync(filePath, 'utf8');
+    for (const { label, pattern } of STALE_CATALOG_PATTERNS) {
+      if (pattern.test(text)) {
+        failures.push(`${rel}: stale phrase "${label}"`);
+      }
+    }
+  }
+  return failures;
+}
 
 const CITIES = [...TREASURE_VALLEY_CITIES];
 
@@ -147,4 +186,16 @@ for (const r of results) {
   );
 }
 console.log(`\n${results.filter((r) => r.passAll).length}/${results.length} passed`);
+
+console.log('\n=== CATALOG COPY ===\n');
+const catalogCopyFailures = verifyCatalogCopy();
+if (catalogCopyFailures.length === 0) {
+  console.log('✅ Catalog marketing copy (108 finishes / 6 door styles)');
+} else {
+  allPass = false;
+  for (const f of catalogCopyFailures) {
+    console.log(`❌ ${f}`);
+  }
+}
+
 process.exit(allPass ? 0 : 1);

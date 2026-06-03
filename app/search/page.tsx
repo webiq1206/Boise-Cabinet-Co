@@ -4,9 +4,9 @@ import { useState, useMemo } from "react";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Section } from "@/components/marketing/Section";
 import { PageHeader } from "@/components/marketing/PageHeader";
+import { VisualSearchResult } from "@/components/catalog/visual";
 import { searchCatalogWithFacets } from "@/shared/catalog";
 import type { FinishCategory, CabinetProductCategory } from "@/shared/catalog";
-import Link from "next/link";
 import { catalogResultHref } from "@/lib/catalog-routes";
 
 export default function SearchPage() {
@@ -56,14 +56,14 @@ export default function SearchPage() {
           <ul className="mt-8 space-y-3">
             {results.slice(0, 40).map((r) => (
               <li key={`${r.type}-${r.slug}`}>
-                <Link
+                <VisualSearchResult
                   href={catalogResultHref(r)}
-                  className="block rounded-lg border p-3 hover:border-primary/50"
-                >
-                  <span className="text-xs text-muted-foreground uppercase">{r.type}</span>
-                  <p className="font-medium">{r.name}</p>
-                  <p className="text-sm text-muted-foreground line-clamp-1">{r.description}</p>
-                </Link>
+                  type={r.type}
+                  name={r.name}
+                  description={r.description}
+                  imagePath={r.imagePath}
+                  testId={`search-result-${r.type}-${r.slug}`}
+                />
               </li>
             ))}
           </ul>
