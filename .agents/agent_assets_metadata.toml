@@ -342,3 +342,105 @@ id = "z5bSbsoCLzFeXdzg9JwYY"
 uri = "file://public/images/city-service/adu__caldwell.png"
 type = "image"
 title = "generated_image"
+
+[[generated]]
+id = "LMfvSEjcD22_3wq7uYUqS"
+uri = "file://public/images/catalog/rooms/kitchen.png"
+type = "image"
+title = "kitchen cabinets"
+
+[[generated]]
+id = "wGJNm4LOUi6wZ07PPmWT-"
+uri = "file://public/images/catalog/rooms/bathroom.png"
+type = "image"
+title = "bathroom cabinets"
+
+[[generated]]
+id = "AqL1VaHz0bjrB-ifUbQi7"
+uri = "file://public/images/catalog/rooms/laundry.png"
+type = "image"
+title = "laundry cabinets"
+
+[[generated]]
+id = "sDVm0OU2xVmgJj7d8H3iO"
+uri = "file://public/images/catalog/rooms/mudroom.png"
+type = "image"
+title = "mudroom cabinets"
+
+[[generated]]
+id = "VjwogFPUfeh51oFE7mLTK"
+uri = "file://public/images/catalog/rooms/home-office.png"
+type = "image"
+title = "home-office cabinets"
+
+[[generated]]
+id = "aVOYo2-c2k-Nkq6KB_c-u"
+uri = "file://public/images/catalog/rooms/entertainment.png"
+type = "image"
+title = "entertainment cabinets"
+
+[[generated]]
+id = "Q9gc61cMsqg24JnnlFmp9"
+uri = "file://public/images/catalog/rooms/built-ins.png"
+type = "image"
+title = "built-ins cabinets"
+
+[[generated]]
+id = "bSXlfjvqmO_NWwbiFB61F"
+uri = "file://public/images/catalog/rooms/pantry.png"
+type = "image"
+title = "pantry cabinets"
+
+[[generated]]
+id = "Ii3gAuexTlr2tEX5LgPsc"
+uri = "file://public/images/catalog/rooms/closet.png"
+type = "image"
+title = "closet cabinets"
+
+[[generated]]
+id = "PNHkevAVOjsRvSjOQsKsR"
+uri = "file://public/images/catalog/rooms/garage.png"
+type = "image"
+title = "garage cabinets"
+
+[[generated]]
+id = "vCOBkf0P5vV9Sl9XHTWtX"
+uri = "file://public/images/catalog/rooms/outdoor.png"
+type = "image"
+title = "outdoor cabinets"
+
+[[generated]]
+id = "DibzJbsd6kwyf-RN3CNMm"
+uri = "file://public/images/catalog/rooms/wet-bar.png"
+type = "image"
+title = "wet-bar cabinets"
+
+[[generated]]
+id = "47xfca2uTRPvhloy2ZKHy"
+uri = "file://public/images/catalog/rooms/bedroom.png"
+type = "image"
+title = "bedroom cabinets"
+
+[[generated]]
+id = "upJiQ8rgEpUHJj1vfxr8j"
+uri = "file://public/images/catalog/collections/full-custom.png"
+type = "image"
+title = "full-custom kitchen"
+
+[[generated]]
+id = "an0OfgCaonZ0bbPhFbDK8"
+uri = "file://public/images/catalog/collections/semi-custom.png"
+type = "image"
+title = "semi-custom kitchen"
+
+[[generated]]
+id = "CHTVjspAz--w0cSrHTqln"
+uri = "file://public/images/catalog/collections/reserve.png"
+type = "image"
+title = "reserve kitchen"
+
+[[generated]]
+id = "JZlLH1qU3ZcML6dpEEIob"
+uri = "file://public/images/catalog/collections/spec-grade.png"
+type = "image"
+title = "spec-grade kitchen"

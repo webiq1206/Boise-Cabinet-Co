@@ -5,12 +5,39 @@
  */
 import fs from "fs";
 import path from "path";
-import sharp from "sharp";
+import { execFileSync } from "child_process";
 import { fileURLToPath } from "url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.join(__dirname, "..");
 const publicDir = path.join(root, "public");
+
+// sharp is declared in package.json but may be absent from this environment.
+// Load it lazily and fall back to the Nix-provided cwebp binary so the seeder
+// still runs (and its skip-if-exists guard stays effective) when sharp is gone.
+let _sharp;
+let _sharpTried = false;
+async function getSharp() {
+  if (!_sharpTried) {
+    _sharpTried = true;
+    try {
+      _sharp = (await import("sharp")).default;
+    } catch {
+      _sharp = null;
+    }
+  }
+  return _sharp;
+}
+
+async function encodeWebp(src, webpDest) {
+  const sharp = await getSharp();
+  if (sharp) {
+    await sharp(src).resize(1200).webp({ quality: 82 }).toFile(webpDest);
+    return;
+  }
+  // cwebp fallback (-resize WIDTH 0 keeps aspect ratio).
+  execFileSync("cwebp", ["-quiet", "-q", "82", "-resize", "1200", "0", src, "-o", webpDest]);
+}
 
 const ROOM_SOURCES = {
   kitchen: "images/city-service/kitchen-remodel__boise.png",
@@ -36,16 +63,24 @@ const COLLECTION_SOURCES = {
 };
 
 async function copyAsWebp(srcRel, destRel) {
+  const webpDest = path.join(publicDir, destRel);
+  const pngDest = path.join(publicDir, destRel.replace(".webp", ".png"));
+  // Only seed placeholders for genuinely missing assets. Never overwrite a real
+  // (AI-generated) catalog image, or this would silently restore the old
+  // mismatched legacy marketing photos. Skip if EITHER the .webp or the .png
+  // already exists.
+  if (fs.existsSync(webpDest) || fs.existsSync(pngDest)) {
+    console.log(`  skip ${destRel} (already present)`);
+    return;
+  }
   const src = path.join(publicDir, srcRel);
   if (!fs.existsSync(src)) {
     console.warn(`Missing source: ${srcRel}`);
     return;
   }
-  const pngDest = path.join(publicDir, destRel.replace(".webp", ".png"));
-  const webpDest = path.join(publicDir, destRel);
   fs.mkdirSync(path.dirname(pngDest), { recursive: true });
   fs.copyFileSync(src, pngDest);
-  await sharp(src).resize(1200).webp({ quality: 82 }).toFile(webpDest);
+  await encodeWebp(src, webpDest);
   console.log(`  ${destRel}`);
 }
 

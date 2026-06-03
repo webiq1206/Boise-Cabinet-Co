@@ -5,11 +5,11 @@
   "entries": [
     {
       "id": "img-0001",
-      "status": "pending",
+      "status": "generated",
       "phase": 2,
       "priority": "critical",
-      "width": 1792,
-      "height": 1024,
+      "width": 1280,
+      "height": 896,
       "formats": [
         "webp",
         "png"
@@ -31,11 +31,11 @@
     },
     {
       "id": "img-0002",
-      "status": "pending",
+      "status": "generated",
       "phase": 2,
       "priority": "critical",
-      "width": 1792,
-      "height": 1024,
+      "width": 1280,
+      "height": 896,
       "formats": [
         "webp",
         "png"
@@ -57,11 +57,11 @@
     },
     {
       "id": "img-0003",
-      "status": "pending",
+      "status": "generated",
       "phase": 2,
       "priority": "critical",
-      "width": 1792,
-      "height": 1024,
+      "width": 1280,
+      "height": 896,
       "formats": [
         "webp",
         "png"
@@ -83,11 +83,11 @@
     },
     {
       "id": "img-0004",
-      "status": "pending",
+      "status": "generated",
       "phase": 2,
       "priority": "critical",
-      "width": 1792,
-      "height": 1024,
+      "width": 1280,
+      "height": 896,
       "formats": [
         "webp",
         "png"
@@ -109,11 +109,11 @@
     },
     {
       "id": "img-0005",
-      "status": "pending",
+      "status": "generated",
       "phase": 2,
       "priority": "critical",
-      "width": 1792,
-      "height": 1024,
+      "width": 1280,
+      "height": 896,
       "formats": [
         "webp",
         "png"
@@ -136,11 +136,11 @@
     },
     {
       "id": "img-0006",
-      "status": "pending",
+      "status": "generated",
       "phase": 2,
       "priority": "critical",
-      "width": 1792,
-      "height": 1024,
+      "width": 1280,
+      "height": 896,
       "formats": [
         "webp",
         "png"
@@ -163,11 +163,11 @@
     },
     {
       "id": "img-0007",
-      "status": "pending",
+      "status": "generated",
       "phase": 2,
       "priority": "critical",
-      "width": 1792,
-      "height": 1024,
+      "width": 1280,
+      "height": 896,
       "formats": [
         "webp",
         "png"
@@ -190,11 +190,11 @@
     },
     {
       "id": "img-0008",
-      "status": "pending",
+      "status": "generated",
       "phase": 2,
       "priority": "critical",
-      "width": 1792,
-      "height": 1024,
+      "width": 1280,
+      "height": 896,
       "formats": [
         "webp",
         "png"
@@ -217,11 +217,11 @@
     },
     {
       "id": "img-0009",
-      "status": "pending",
+      "status": "generated",
       "phase": 2,
       "priority": "critical",
-      "width": 1792,
-      "height": 1024,
+      "width": 1280,
+      "height": 896,
       "formats": [
         "webp",
         "png"
@@ -244,11 +244,11 @@
     },
     {
       "id": "img-0010",
-      "status": "pending",
+      "status": "generated",
       "phase": 2,
       "priority": "critical",
-      "width": 1792,
-      "height": 1024,
+      "width": 1280,
+      "height": 896,
       "formats": [
         "webp",
         "png"
@@ -271,11 +271,11 @@
     },
     {
       "id": "img-0011",
-      "status": "pending",
+      "status": "generated",
       "phase": 2,
       "priority": "critical",
-      "width": 1792,
-      "height": 1024,
+      "width": 1280,
+      "height": 896,
       "formats": [
         "webp",
         "png"
@@ -298,11 +298,11 @@
     },
     {
       "id": "img-0012",
-      "status": "pending",
+      "status": "generated",
       "phase": 2,
       "priority": "critical",
-      "width": 1792,
-      "height": 1024,
+      "width": 1280,
+      "height": 896,
       "formats": [
         "webp",
         "png"
@@ -325,11 +325,11 @@
     },
     {
       "id": "img-0013",
-      "status": "pending",
+      "status": "generated",
       "phase": 2,
       "priority": "critical",
-      "width": 1792,
-      "height": 1024,
+      "width": 1280,
+      "height": 896,
       "formats": [
         "webp",
         "png"
@@ -352,11 +352,11 @@
     },
     {
       "id": "img-0014",
-      "status": "pending",
+      "status": "generated",
       "phase": 2,
       "priority": "critical",
-      "width": 1792,
-      "height": 1024,
+      "width": 1280,
+      "height": 896,
       "formats": [
         "webp",
         "png"
@@ -379,11 +379,11 @@
     },
     {
       "id": "img-0015",
-      "status": "pending",
+      "status": "generated",
       "phase": 2,
       "priority": "critical",
-      "width": 1792,
-      "height": 1024,
+      "width": 1280,
+      "height": 896,
       "formats": [
         "webp",
         "png"
@@ -406,11 +406,11 @@
     },
     {
       "id": "img-0016",
-      "status": "pending",
+      "status": "generated",
       "phase": 2,
       "priority": "critical",
-      "width": 1792,
-      "height": 1024,
+      "width": 1280,
+      "height": 896,
       "formats": [
         "webp",
         "png"
@@ -433,11 +433,11 @@
     },
     {
       "id": "img-0017",
-      "status": "pending",
+      "status": "generated",
       "phase": 2,
       "priority": "critical",
-      "width": 1792,
-      "height": 1024,
+      "width": 1280,
+      "height": 896,
       "formats": [
         "webp",
         "png"
