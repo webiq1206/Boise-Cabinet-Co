@@ -320,22 +320,22 @@ export const FINISH_CATEGORY_OPTIONS: SelectOption<FinishCategory>[] = [
     value: "matte",
     label: "Matte",
     sub: "Soft, low-sheen, fingerprint-friendly",
-    image: "/images/catalog/finishes/slate.webp",
-    imageAlt: "Matte cabinet finish swatch",
+    image: "/images/catalog/finishes/category-matte.webp",
+    imageAlt: "Flat low-sheen matte cabinet finish swatch",
   },
   {
     value: "woodgrain",
     label: "Woodgrain",
     sub: "Natural grain laminates and stains",
-    image: "/images/catalog/finishes/white-oak.webp",
-    imageAlt: "Woodgrain cabinet finish swatch",
+    image: "/images/catalog/finishes/category-woodgrain.webp",
+    imageAlt: "Natural wood grain cabinet finish swatch",
   },
   {
     value: "gloss",
     label: "High-Gloss",
     sub: "Reflective, contemporary brightness",
-    image: "/images/catalog/finishes/obsidian.webp",
-    imageAlt: "High-gloss cabinet finish swatch",
+    image: "/images/catalog/finishes/category-gloss.webp",
+    imageAlt: "Reflective high-gloss cabinet finish swatch",
   },
 ];
 

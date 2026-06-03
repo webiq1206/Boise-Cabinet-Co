@@ -900,3 +900,21 @@ id = "hrierX3Hzkbb5wzhcVjCr"
 uri = "file://attached_assets/generated_images/hero-home-new.png"
 type = "image"
 title = "generated_image"
+
+[[generated]]
+id = "3T5RainRHVyomE6LgnmkX"
+uri = "file://attached_assets/generated_images/category-woodgrain.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "hMN-9PGoGw3GTiEc9IMwM"
+uri = "file://attached_assets/generated_images/category-gloss.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "1O-xb7x_cxpdpQ_m62mOp"
+uri = "file://attached_assets/generated_images/category-matte.png"
+type = "image"
+title = "generated_image"
