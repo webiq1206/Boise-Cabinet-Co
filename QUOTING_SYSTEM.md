@@ -22,9 +22,11 @@ The Boise Remodeling Co website includes a unified **Project Estimator** on the 
 ### Tests
 
 ```bash
-npm run test:e2e:install   # chromium + webkit
+npm run test:e2e:install   # browsers + OS libs (--with-deps; sudo on Linux)
 npm run test:e2e -- e2e/calculator.spec.ts
 ```
+
+See [docs/testing/playwright-e2e.md](docs/testing/playwright-e2e.md) for Linux / cloud workspace setup.
 
 ---
 
@@ -60,5 +62,6 @@ Design Studio (`/design-studio`) uses **planning-grade** room dimensions for lay
 
 ```bash
 npm run verify:room-scan
-npm run test:e2e -- e2e/design-studio-mobile.spec.ts e2e/design-studio-photo.spec.ts
+npm run test:e2e:install
+npm run test:e2e:design-studio
 ```

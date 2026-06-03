@@ -29,16 +29,23 @@
 
 ## Regression tests
 
+**Linux:** browsers alone are not enough — install OS libraries with `npm run test:e2e:install` (uses `--with-deps`, needs `sudo` on Ubuntu). See [docs/testing/playwright-e2e.md](../testing/playwright-e2e.md).
+
 ```bash
 npm run verify:room-scan
-npm run test:e2e:install
-npm run test:e2e -- e2e/design-studio-mobile.spec.ts
-npm run test:e2e -- e2e/design-studio-photo.spec.ts
-npm run test:e2e -- e2e/design-studio-scan.spec.ts
-npm run test:e2e -- e2e/design-studio-save-restore.spec.ts
+npm run test:e2e:install          # playwright install --with-deps (sudo on Linux)
+npm run test:e2e:design-studio     # Design Studio specs, Desktop Chrome only
 ```
 
-CI: `.github/workflows/e2e.yml` (Desktop Chrome + Pixel 7)
+Or explicitly:
+
+```bash
+npm run test:e2e -- e2e/design-studio-mobile.spec.ts e2e/design-studio-photo.spec.ts \
+  e2e/design-studio-save-restore.spec.ts e2e/design-studio-scan.spec.ts \
+  --project="Desktop Chrome"
+```
+
+CI: `.github/workflows/e2e.yml` (Desktop Chrome + Pixel 7, `--with-deps` on Ubuntu)
 
 ## Manual checklist (required before calling “production perfect”)
 
