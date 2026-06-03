@@ -16,8 +16,7 @@ const OUT_DIR = path.join(ROOT, "docs/catalog-audit");
 const DEFAULT_PDF = path.join(ROOT, "docs/supplier/Custom_Catalog.v1.pdf");
 const TMP = path.join(ROOT, ".tmp-osc-catalog.txt");
 
-const SKU_RE =
-  /\b(B[A-Z0-9]*(?:-[A-Z0-9]+)+|W[A-Z0-9]*(?:-[A-Z0-9]+)+|T[A-Z0-9]*(?:-[A-Z0-9]+)+|BFH-[A-Z0-9-]+|V[A-Z0-9]*(?:-[A-Z0-9]+)+|EP[A-Z0-9-]*|FILL[A-Z0-9-]*|HOOD[A-Z0-9-]*|FS[A-Z0-9-]*|LS[0-9]+[LR]|BC45-[A-Z0-9-]+|BBCL?-[A-Z0-9-]+|BBCR?-[A-Z0-9-]+|FL[A-Z0-9-]+|SB[A-Z0-9-]+|SBFH-[A-Z0-9-]+)\b/g;
+import { extractOscSkuCodes } from "./osc-sku-patterns.mjs";
 
 function extractPdfSkus(pdfPath) {
   if (!fs.existsSync(pdfPath)) {
@@ -30,11 +29,7 @@ function extractPdfSkus(pdfPath) {
     execSync(`pdftotext "${pdfPath}" "${TMP}"`, { stdio: "pipe" });
   }
   const text = fs.readFileSync(TMP, "utf8");
-  const seen = new Set();
-  for (const m of text.matchAll(SKU_RE)) {
-    seen.add(m[0].replace(/\s+/g, ""));
-  }
-  return seen;
+  return extractOscSkuCodes(text);
 }
 
 function main() {

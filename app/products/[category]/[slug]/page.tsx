@@ -1,11 +1,14 @@
 import { notFound } from "next/navigation";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { Section } from "@/components/marketing/Section";
 import { ProductConfigurationCard } from "@/components/catalog/ProductConfigurationCard";
 import { getCabinetProductBySlug } from "@/shared/catalog";
 import type { CabinetProductCategory } from "@/shared/catalog";
 import { CABINET_PRODUCTS } from "@/shared/catalog";
+import { getProductImages } from "@/shared/catalog/entityImages";
 import { catalogMetadata } from "@/lib/catalog-metadata";
+import { generateBreadcrumbSchema, generateProductSchema } from "@/lib/schema";
 
 const VALID: CabinetProductCategory[] = [
   "base",
@@ -48,7 +51,27 @@ export default function ProductDetailPage({
   if (!product || product.category !== params.category) notFound();
   if (!VALID.includes(product.category as CabinetProductCategory)) notFound();
 
+  const path = `/products/${product.category}/${product.slug}`;
+  const images = getProductImages(product);
+  const schemas = [
+    generateProductSchema({
+      name: product.oscCode,
+      description: product.description,
+      url: path,
+      sku: product.oscCode,
+      image: images.hero,
+    }),
+    generateBreadcrumbSchema([
+      { name: "Home", url: "/" },
+      { name: "Products", url: "/products" },
+      { name: product.category, url: `/products/${product.category}` },
+      { name: product.oscCode, url: path },
+    ]),
+  ];
+
   return (
+    <>
+      <JsonLd data={schemas} />
     <div className="flex flex-col pb-20 md:pb-0">
       <Section spacing="sm" className="pt-4 md:pt-6">
         <div className="container px-4 max-w-xl">
@@ -67,5 +90,6 @@ export default function ProductDetailPage({
         </div>
       </Section>
     </div>
+    </>
   );
 }

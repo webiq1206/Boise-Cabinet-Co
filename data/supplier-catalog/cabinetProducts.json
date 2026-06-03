@@ -2093,6 +2093,1344 @@
     ]
   },
   {
+    "id": "flb-1d-1bd-0s",
+    "slug": "flb-1d-1bd-0s",
+    "oscCode": "FLB-1D-1BD-0S",
+    "name": "FLB 1D 1BD 0S",
+    "category": "floating-shelf",
+    "description": "One Source floating-shelf cabinet configuration FLB-1D-1BD-0S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 1
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "flb-1d-1bd-1rot",
+    "slug": "flb-1d-1bd-1rot",
+    "oscCode": "FLB-1D-1BD-1ROT",
+    "name": "FLB 1D 1BD 1ROT",
+    "category": "floating-shelf",
+    "description": "One Source floating-shelf cabinet configuration FLB-1D-1BD-1ROT.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 1,
+      "rollouts": 2
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "flb-1d-1bd-1s",
+    "slug": "flb-1d-1bd-1s",
+    "oscCode": "FLB-1D-1BD-1S",
+    "name": "FLB 1D 1BD 1S",
+    "category": "floating-shelf",
+    "description": "One Source floating-shelf cabinet configuration FLB-1D-1BD-1S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 1,
+      "shelves": 1
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "flb-1d-1bd-2rot",
+    "slug": "flb-1d-1bd-2rot",
+    "oscCode": "FLB-1D-1BD-2ROT",
+    "name": "FLB 1D 1BD 2ROT",
+    "category": "floating-shelf",
+    "description": "One Source floating-shelf cabinet configuration FLB-1D-1BD-2ROT.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 1,
+      "rollouts": 2
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "flb-1d-1td-0s",
+    "slug": "flb-1d-1td-0s",
+    "oscCode": "FLB-1D-1TD-0S",
+    "name": "FLB 1D 1TD 0S",
+    "category": "floating-shelf",
+    "description": "One Source floating-shelf cabinet configuration FLB-1D-1TD-0S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 1,
+      "drawers": 1
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "flb-1d-1td-1rot",
+    "slug": "flb-1d-1td-1rot",
+    "oscCode": "FLB-1D-1TD-1ROT",
+    "name": "FLB 1D 1TD 1ROT",
+    "category": "floating-shelf",
+    "description": "One Source floating-shelf cabinet configuration FLB-1D-1TD-1ROT.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 1,
+      "drawers": 1,
+      "rollouts": 2
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "flb-1d-1td-1s",
+    "slug": "flb-1d-1td-1s",
+    "oscCode": "FLB-1D-1TD-1S",
+    "name": "FLB 1D 1TD 1S",
+    "category": "floating-shelf",
+    "description": "One Source floating-shelf cabinet configuration FLB-1D-1TD-1S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 1,
+      "drawers": 1,
+      "shelves": 1
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "flb-1d-1td-2rot",
+    "slug": "flb-1d-1td-2rot",
+    "oscCode": "FLB-1D-1TD-2ROT",
+    "name": "FLB 1D 1TD 2ROT",
+    "category": "floating-shelf",
+    "description": "One Source floating-shelf cabinet configuration FLB-1D-1TD-2ROT.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 1,
+      "drawers": 1,
+      "rollouts": 2
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "flb-2d-1bd-0s",
+    "slug": "flb-2d-1bd-0s",
+    "oscCode": "FLB-2D-1BD-0S",
+    "name": "FLB 2D 1BD 0S",
+    "category": "floating-shelf",
+    "description": "One Source floating-shelf cabinet configuration FLB-2D-1BD-0S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 2
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "flb-2d-1bd-1rot",
+    "slug": "flb-2d-1bd-1rot",
+    "oscCode": "FLB-2D-1BD-1ROT",
+    "name": "FLB 2D 1BD 1ROT",
+    "category": "floating-shelf",
+    "description": "One Source floating-shelf cabinet configuration FLB-2D-1BD-1ROT.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 2,
+      "rollouts": 2
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "flb-2d-1bd-1s",
+    "slug": "flb-2d-1bd-1s",
+    "oscCode": "FLB-2D-1BD-1S",
+    "name": "FLB 2D 1BD 1S",
+    "category": "floating-shelf",
+    "description": "One Source floating-shelf cabinet configuration FLB-2D-1BD-1S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 2,
+      "shelves": 1
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "flb-2d-1bd-2rot",
+    "slug": "flb-2d-1bd-2rot",
+    "oscCode": "FLB-2D-1BD-2ROT",
+    "name": "FLB 2D 1BD 2ROT",
+    "category": "floating-shelf",
+    "description": "One Source floating-shelf cabinet configuration FLB-2D-1BD-2ROT.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 2,
+      "rollouts": 2
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "flb-2d-1td-0s",
+    "slug": "flb-2d-1td-0s",
+    "oscCode": "FLB-2D-1TD-0S",
+    "name": "FLB 2D 1TD 0S",
+    "category": "floating-shelf",
+    "description": "One Source floating-shelf cabinet configuration FLB-2D-1TD-0S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 2,
+      "drawers": 1
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "flb-2d-1td-1rot",
+    "slug": "flb-2d-1td-1rot",
+    "oscCode": "FLB-2D-1TD-1ROT",
+    "name": "FLB 2D 1TD 1ROT",
+    "category": "floating-shelf",
+    "description": "One Source floating-shelf cabinet configuration FLB-2D-1TD-1ROT.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 2,
+      "drawers": 1,
+      "rollouts": 2
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "flb-2d-1td-1s",
+    "slug": "flb-2d-1td-1s",
+    "oscCode": "FLB-2D-1TD-1S",
+    "name": "FLB 2D 1TD 1S",
+    "category": "floating-shelf",
+    "description": "One Source floating-shelf cabinet configuration FLB-2D-1TD-1S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 2,
+      "drawers": 1,
+      "shelves": 1
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "flb-2d-1td-2rot",
+    "slug": "flb-2d-1td-2rot",
+    "oscCode": "FLB-2D-1TD-2ROT",
+    "name": "FLB 2D 1TD 2ROT",
+    "category": "floating-shelf",
+    "description": "One Source floating-shelf cabinet configuration FLB-2D-1TD-2ROT.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 2,
+      "drawers": 1,
+      "rollouts": 2
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "fldb2",
+    "slug": "fldb2",
+    "oscCode": "FLDB2",
+    "name": "FLDB2",
+    "category": "floating-shelf",
+    "description": "One Source floating-shelf cabinet configuration FLDB2.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {},
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "fldb2-1ff",
+    "slug": "fldb2-1ff",
+    "oscCode": "FLDB2-1FF",
+    "name": "FLDB2 1FF",
+    "category": "floating-shelf",
+    "description": "One Source floating-shelf cabinet configuration FLDB2-1FF.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {},
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "fldb3",
+    "slug": "fldb3",
+    "oscCode": "FLDB3",
+    "name": "FLDB3",
+    "category": "floating-shelf",
+    "description": "One Source floating-shelf cabinet configuration FLDB3.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {},
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "fldb3-1ff",
+    "slug": "fldb3-1ff",
+    "oscCode": "FLDB3-1FF",
+    "name": "FLDB3 1FF",
+    "category": "floating-shelf",
+    "description": "One Source floating-shelf cabinet configuration FLDB3-1FF.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {},
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "flfh-1d-0s",
+    "slug": "flfh-1d-0s",
+    "oscCode": "FLFH-1D-0S",
+    "name": "FLFH 1D 0S",
+    "category": "floating-shelf",
+    "description": "One Source floating-shelf cabinet configuration FLFH-1D-0S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 1
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "flfh-1d-1rot",
+    "slug": "flfh-1d-1rot",
+    "oscCode": "FLFH-1D-1ROT",
+    "name": "FLFH 1D 1ROT",
+    "category": "floating-shelf",
+    "description": "One Source floating-shelf cabinet configuration FLFH-1D-1ROT.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 1,
+      "rollouts": 2
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "flfh-1d-1s",
+    "slug": "flfh-1d-1s",
+    "oscCode": "FLFH-1D-1S",
+    "name": "FLFH 1D 1S",
+    "category": "floating-shelf",
+    "description": "One Source floating-shelf cabinet configuration FLFH-1D-1S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 1,
+      "shelves": 1
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "flfh-1d-2",
+    "slug": "flfh-1d-2",
+    "oscCode": "FLFH-1D-2",
+    "name": "FLFH 1D 2",
+    "category": "floating-shelf",
+    "description": "One Source floating-shelf cabinet configuration FLFH-1D-2.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 1
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "flfh-1d-2s",
+    "slug": "flfh-1d-2s",
+    "oscCode": "FLFH-1D-2S",
+    "name": "FLFH 1D 2S",
+    "category": "floating-shelf",
+    "description": "One Source floating-shelf cabinet configuration FLFH-1D-2S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 1,
+      "shelves": 2
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "flfh-1d-3rot",
+    "slug": "flfh-1d-3rot",
+    "oscCode": "FLFH-1D-3ROT",
+    "name": "FLFH 1D 3ROT",
+    "category": "floating-shelf",
+    "description": "One Source floating-shelf cabinet configuration FLFH-1D-3ROT.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 1,
+      "rollouts": 2
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "flfh-2d-0s",
+    "slug": "flfh-2d-0s",
+    "oscCode": "FLFH-2D-0S",
+    "name": "FLFH 2D 0S",
+    "category": "floating-shelf",
+    "description": "One Source floating-shelf cabinet configuration FLFH-2D-0S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 2
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "flfh-2d-1rot",
+    "slug": "flfh-2d-1rot",
+    "oscCode": "FLFH-2D-1ROT",
+    "name": "FLFH 2D 1ROT",
+    "category": "floating-shelf",
+    "description": "One Source floating-shelf cabinet configuration FLFH-2D-1ROT.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 2,
+      "rollouts": 2
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "flfh-2d-1s",
+    "slug": "flfh-2d-1s",
+    "oscCode": "FLFH-2D-1S",
+    "name": "FLFH 2D 1S",
+    "category": "floating-shelf",
+    "description": "One Source floating-shelf cabinet configuration FLFH-2D-1S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 2,
+      "shelves": 1
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "flfh-2d-2",
+    "slug": "flfh-2d-2",
+    "oscCode": "FLFH-2D-2",
+    "name": "FLFH 2D 2",
+    "category": "floating-shelf",
+    "description": "One Source floating-shelf cabinet configuration FLFH-2D-2.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 2
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "flfh-2d-2s",
+    "slug": "flfh-2d-2s",
+    "oscCode": "FLFH-2D-2S",
+    "name": "FLFH 2D 2S",
+    "category": "floating-shelf",
+    "description": "One Source floating-shelf cabinet configuration FLFH-2D-2S.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 2,
+      "shelves": 2
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "flfh-2d-3rot",
+    "slug": "flfh-2d-3rot",
+    "oscCode": "FLFH-2D-3ROT",
+    "name": "FLFH 2D 3ROT",
+    "category": "floating-shelf",
+    "description": "One Source floating-shelf cabinet configuration FLFH-2D-3ROT.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 2,
+      "rollouts": 2
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "fls3l",
+    "slug": "fls3l",
+    "oscCode": "FLS3L",
+    "name": "FLS3L",
+    "category": "floating-shelf",
+    "description": "One Source floating-shelf cabinet configuration FLS3L.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {},
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "fls3oe",
+    "slug": "fls3oe",
+    "oscCode": "FLS3OE",
+    "name": "FLS3OE",
+    "category": "floating-shelf",
+    "description": "One Source floating-shelf cabinet configuration FLS3OE.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {},
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "fls3r",
+    "slug": "fls3r",
+    "oscCode": "FLS3R",
+    "name": "FLS3R",
+    "category": "floating-shelf",
+    "description": "One Source floating-shelf cabinet configuration FLS3R.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {},
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "flsb-1d-1ff",
+    "slug": "flsb-1d-1ff",
+    "oscCode": "FLSB-1D-1FF",
+    "name": "FLSB 1D 1FF",
+    "category": "floating-shelf",
+    "description": "One Source floating-shelf cabinet configuration FLSB-1D-1FF.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 1
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "flsb-1d-1ff-1rot",
+    "slug": "flsb-1d-1ff-1rot",
+    "oscCode": "FLSB-1D-1FF-1ROT",
+    "name": "FLSB 1D 1FF 1ROT",
+    "category": "floating-shelf",
+    "description": "One Source floating-shelf cabinet configuration FLSB-1D-1FF-1ROT.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 1,
+      "rollouts": 2
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "flsb-1d-1ff-2rot",
+    "slug": "flsb-1d-1ff-2rot",
+    "oscCode": "FLSB-1D-1FF-2ROT",
+    "name": "FLSB 1D 1FF 2ROT",
+    "category": "floating-shelf",
+    "description": "One Source floating-shelf cabinet configuration FLSB-1D-1FF-2ROT.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 1,
+      "rollouts": 2
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "flsb-2d-1ff",
+    "slug": "flsb-2d-1ff",
+    "oscCode": "FLSB-2D-1FF",
+    "name": "FLSB 2D 1FF",
+    "category": "floating-shelf",
+    "description": "One Source floating-shelf cabinet configuration FLSB-2D-1FF.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 2
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "flsb-2d-1ff-1rot",
+    "slug": "flsb-2d-1ff-1rot",
+    "oscCode": "FLSB-2D-1FF-1ROT",
+    "name": "FLSB 2D 1FF 1ROT",
+    "category": "floating-shelf",
+    "description": "One Source floating-shelf cabinet configuration FLSB-2D-1FF-1ROT.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 2,
+      "rollouts": 2
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "flsb-2d-1ff-2rot",
+    "slug": "flsb-2d-1ff-2rot",
+    "oscCode": "FLSB-2D-1FF-2ROT",
+    "name": "FLSB 2D 1FF 2ROT",
+    "category": "floating-shelf",
+    "description": "One Source floating-shelf cabinet configuration FLSB-2D-1FF-2ROT.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 2,
+      "rollouts": 2
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "flsbfh-1d",
+    "slug": "flsbfh-1d",
+    "oscCode": "FLSBFH-1D",
+    "name": "FLSBFH 1D",
+    "category": "floating-shelf",
+    "description": "One Source floating-shelf cabinet configuration FLSBFH-1D.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 1
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "flsbfh-1d-1rot",
+    "slug": "flsbfh-1d-1rot",
+    "oscCode": "FLSBFH-1D-1ROT",
+    "name": "FLSBFH 1D 1ROT",
+    "category": "floating-shelf",
+    "description": "One Source floating-shelf cabinet configuration FLSBFH-1D-1ROT.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 1,
+      "rollouts": 2
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "flsbfh-1d-2rot",
+    "slug": "flsbfh-1d-2rot",
+    "oscCode": "FLSBFH-1D-2ROT",
+    "name": "FLSBFH 1D 2ROT",
+    "category": "floating-shelf",
+    "description": "One Source floating-shelf cabinet configuration FLSBFH-1D-2ROT.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 1,
+      "rollouts": 2
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "flsbfh-2d",
+    "slug": "flsbfh-2d",
+    "oscCode": "FLSBFH-2D",
+    "name": "FLSBFH 2D",
+    "category": "floating-shelf",
+    "description": "One Source floating-shelf cabinet configuration FLSBFH-2D.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 2
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "flsbfh-2d-1rot",
+    "slug": "flsbfh-2d-1rot",
+    "oscCode": "FLSBFH-2D-1ROT",
+    "name": "FLSBFH 2D 1ROT",
+    "category": "floating-shelf",
+    "description": "One Source floating-shelf cabinet configuration FLSBFH-2D-1ROT.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 2,
+      "rollouts": 2
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "flsbfh-2d-2rot",
+    "slug": "flsbfh-2d-2rot",
+    "oscCode": "FLSBFH-2D-2ROT",
+    "name": "FLSBFH 2D 2ROT",
+    "category": "floating-shelf",
+    "description": "One Source floating-shelf cabinet configuration FLSBFH-2D-2ROT.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 2,
+      "rollouts": 2
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
     "id": "hoods",
     "slug": "hoods",
     "oscCode": "HOODS",
@@ -2105,6 +3443,488 @@
       "note": "See catalog for exact width increments per code."
     },
     "configuration": {},
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "ls3612l",
+    "slug": "ls3612l",
+    "oscCode": "LS3612L",
+    "name": "LS3612L",
+    "category": "floating-shelf",
+    "description": "One Source floating-shelf cabinet configuration LS3612L.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {},
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "ls3612r",
+    "slug": "ls3612r",
+    "oscCode": "LS3612R",
+    "name": "LS3612R",
+    "category": "floating-shelf",
+    "description": "One Source floating-shelf cabinet configuration LS3612R.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {},
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "sb-1d-1ff",
+    "slug": "sb-1d-1ff",
+    "oscCode": "SB-1D-1FF",
+    "name": "SB 1D 1FF",
+    "category": "floating-shelf",
+    "description": "One Source floating-shelf cabinet configuration SB-1D-1FF.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 1
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "sb-1d-1ff-1rot",
+    "slug": "sb-1d-1ff-1rot",
+    "oscCode": "SB-1D-1FF-1ROT",
+    "name": "SB 1D 1FF 1ROT",
+    "category": "floating-shelf",
+    "description": "One Source floating-shelf cabinet configuration SB-1D-1FF-1ROT.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 1,
+      "rollouts": 2
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "sb-1d-1ff-2rot",
+    "slug": "sb-1d-1ff-2rot",
+    "oscCode": "SB-1D-1FF-2ROT",
+    "name": "SB 1D 1FF 2ROT",
+    "category": "floating-shelf",
+    "description": "One Source floating-shelf cabinet configuration SB-1D-1FF-2ROT.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 1,
+      "rollouts": 2
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "sb-2d-1ff",
+    "slug": "sb-2d-1ff",
+    "oscCode": "SB-2D-1FF",
+    "name": "SB 2D 1FF",
+    "category": "floating-shelf",
+    "description": "One Source floating-shelf cabinet configuration SB-2D-1FF.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 2
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "sb-2d-1ff-1rot",
+    "slug": "sb-2d-1ff-1rot",
+    "oscCode": "SB-2D-1FF-1ROT",
+    "name": "SB 2D 1FF 1ROT",
+    "category": "floating-shelf",
+    "description": "One Source floating-shelf cabinet configuration SB-2D-1FF-1ROT.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 2,
+      "rollouts": 2
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "sb-2d-1ff-2rot",
+    "slug": "sb-2d-1ff-2rot",
+    "oscCode": "SB-2D-1FF-2ROT",
+    "name": "SB 2D 1FF 2ROT",
+    "category": "floating-shelf",
+    "description": "One Source floating-shelf cabinet configuration SB-2D-1FF-2ROT.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 2,
+      "rollouts": 2
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "sb-2d-2ff",
+    "slug": "sb-2d-2ff",
+    "oscCode": "SB-2D-2FF",
+    "name": "SB 2D 2FF",
+    "category": "floating-shelf",
+    "description": "One Source floating-shelf cabinet configuration SB-2D-2FF.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 2
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "sb-2d-2ff-1rot",
+    "slug": "sb-2d-2ff-1rot",
+    "oscCode": "SB-2D-2FF-1ROT",
+    "name": "SB 2D 2FF 1ROT",
+    "category": "floating-shelf",
+    "description": "One Source floating-shelf cabinet configuration SB-2D-2FF-1ROT.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 2,
+      "rollouts": 2
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "sb-2d-2ff-2rot",
+    "slug": "sb-2d-2ff-2rot",
+    "oscCode": "SB-2D-2FF-2ROT",
+    "name": "SB 2D 2FF 2ROT",
+    "category": "floating-shelf",
+    "description": "One Source floating-shelf cabinet configuration SB-2D-2FF-2ROT.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 2,
+      "rollouts": 2
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "sbfh-1d",
+    "slug": "sbfh-1d",
+    "oscCode": "SBFH-1D",
+    "name": "SBFH 1D",
+    "category": "floating-shelf",
+    "description": "One Source floating-shelf cabinet configuration SBFH-1D.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 1
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "sbfh-1d-1rot",
+    "slug": "sbfh-1d-1rot",
+    "oscCode": "SBFH-1D-1ROT",
+    "name": "SBFH 1D 1ROT",
+    "category": "floating-shelf",
+    "description": "One Source floating-shelf cabinet configuration SBFH-1D-1ROT.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 1,
+      "rollouts": 2
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "sbfh-1d-2rot",
+    "slug": "sbfh-1d-2rot",
+    "oscCode": "SBFH-1D-2ROT",
+    "name": "SBFH 1D 2ROT",
+    "category": "floating-shelf",
+    "description": "One Source floating-shelf cabinet configuration SBFH-1D-2ROT.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 1,
+      "rollouts": 2
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "sbfh-2d",
+    "slug": "sbfh-2d",
+    "oscCode": "SBFH-2D",
+    "name": "SBFH 2D",
+    "category": "floating-shelf",
+    "description": "One Source floating-shelf cabinet configuration SBFH-2D.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 2
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "sbfh-2d-1rot",
+    "slug": "sbfh-2d-1rot",
+    "oscCode": "SBFH-2D-1ROT",
+    "name": "SBFH 2D 1ROT",
+    "category": "floating-shelf",
+    "description": "One Source floating-shelf cabinet configuration SBFH-2D-1ROT.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 2,
+      "rollouts": 2
+    },
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
+  },
+  {
+    "id": "sbfh-2d-2rot",
+    "slug": "sbfh-2d-2rot",
+    "oscCode": "SBFH-2D-2ROT",
+    "name": "SBFH 2D 2ROT",
+    "category": "floating-shelf",
+    "description": "One Source floating-shelf cabinet configuration SBFH-2D-2ROT.",
+    "widthRange": {
+      "minInches": 9,
+      "maxInches": 48,
+      "note": "See catalog for exact width increments per code."
+    },
+    "configuration": {
+      "doors": 2,
+      "rollouts": 2
+    },
     "compatibleCollectionIds": [
       "custom",
       "reserve"

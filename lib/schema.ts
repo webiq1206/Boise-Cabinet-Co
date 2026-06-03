@@ -322,6 +322,49 @@ export function generateCollectionPageSchema(page: {
 }
 
 /**
+ * Generate Product schema for OSC cabinet SKU detail pages
+ */
+export function generateProductSchema(product: {
+  name: string;
+  description: string;
+  url: string;
+  image?: string;
+  sku?: string;
+}): SchemaContext {
+  const imageUrl = product.image?.startsWith('http')
+    ? product.image
+    : product.image
+      ? `${baseUrl}${product.image.startsWith('/') ? product.image : `/${product.image}`}`
+      : undefined;
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: product.name,
+    description: product.description,
+    url: `${baseUrl}${product.url}`,
+    sku: product.sku,
+    brand: {
+      '@type': 'Brand',
+      name: 'One Source Cabinets',
+    },
+    manufacturer: {
+      '@type': 'Organization',
+      name: 'One Source Cabinets',
+    },
+    ...(imageUrl ? { image: imageUrl } : {}),
+    offers: {
+      '@type': 'Offer',
+      availability: 'https://schema.org/PreOrder',
+      priceCurrency: 'USD',
+      seller: {
+        '@type': 'Organization',
+        name: BUSINESS_INFO.name,
+      },
+    },
+  };
+}
+
+/**
  * Generate WebPage schema
  */
 export function generateWebPageSchema(page: {

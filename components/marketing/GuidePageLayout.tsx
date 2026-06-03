@@ -34,6 +34,7 @@ import { getHubBySlug, guidePath, getClustersForHub, categoryHubPath } from '@/s
 import { CATEGORY_HUB_MIN_POSTS } from '@/shared/contentHubs';
 import { getResourcesForGuide } from '@/shared/guideResources';
 import { GuideResourceDownloads } from './GuideResourceDownloads';
+import { CatalogExploreStrip } from '@/components/catalog/CatalogExploreStrip';
 
 interface GuidePageLayoutProps {
   guide: GuidePageData;
@@ -195,7 +196,10 @@ export function GuidePageLayout({ guide, formatDate }: GuidePageLayoutProps) {
 
       <Section spacing="sm" divider>
         <div className="container px-4 max-w-6xl mx-auto">
-          <RelatedPostCards path={guideUrl} />
+          <CatalogExploreStrip />
+          <div className="mt-10">
+            <RelatedPostCards path={guideUrl} />
+          </div>
         </div>
       </Section>
 

@@ -1,85 +1,18 @@
 # SKU diff: OSC PDF vs cabinetProducts.json
 
-Generated: 2026-06-03T17:16:11.320Z
+Generated: 2026-06-03T17:18:17.746Z
 
 | Metric | Count |
 |--------|------:|
-| PDF SKUs | 269 |
-| JSON SKUs | 201 |
-| In both | 201 |
-| PDF only | 68 |
+| PDF SKUs | 265 |
+| JSON SKUs | 265 |
+| In both | 265 |
+| PDF only | 0 |
 | JSON only | 0 |
 
-## PDF only (68)
+## PDF only (0)
 
-- `FLAT`
-- `FLB-1D-1BD-0S`
-- `FLB-1D-1BD-1ROT`
-- `FLB-1D-1BD-1S`
-- `FLB-1D-1BD-2ROT`
-- `FLB-1D-1TD-0S`
-- `FLB-1D-1TD-1ROT`
-- `FLB-1D-1TD-1S`
-- `FLB-1D-1TD-2ROT`
-- `FLB-2D-1BD-0S`
-- `FLB-2D-1BD-1ROT`
-- `FLB-2D-1BD-1S`
-- `FLB-2D-1BD-2ROT`
-- `FLB-2D-1TD-0S`
-- `FLB-2D-1TD-1ROT`
-- `FLB-2D-1TD-1S`
-- `FLB-2D-1TD-2ROT`
-- `FLDB2`
-- `FLDB2-1FF`
-- `FLDB3`
-- `FLDB3-1FF`
-- `FLFH-1D-0S`
-- `FLFH-1D-1ROT`
-- `FLFH-1D-1S`
-- `FLFH-1D-2`
-- `FLFH-1D-2S`
-- `FLFH-1D-3ROT`
-- `FLFH-2D-0S`
-- `FLFH-2D-1ROT`
-- `FLFH-2D-1S`
-- `FLFH-2D-2`
-- `FLFH-2D-2S`
-- `FLFH-2D-3ROT`
-- `FLOATING`
-- `FLORAL`
-- `FLS3L`
-- `FLS3OE`
-- `FLS3R`
-- `FLSB-1D-1FF`
-- `FLSB-1D-1FF-1ROT`
-- `FLSB-1D-1FF-2ROT`
-- `FLSB-2D-1FF`
-- `FLSB-2D-1FF-1ROT`
-- `FLSB-2D-1FF-2ROT`
-- `FLSBFH-1D`
-- `FLSBFH-1D-1ROT`
-- `FLSBFH-1D-2ROT`
-- `FLSBFH-2D`
-- `FLSBFH-2D-1ROT`
-- `FLSBFH-2D-2ROT`
-- `LS3612L`
-- `LS3612R`
-- `SB-1D-1FF`
-- `SB-1D-1FF-1ROT`
-- `SB-1D-1FF-2ROT`
-- `SB-2D-1FF`
-- `SB-2D-1FF-1ROT`
-- `SB-2D-1FF-2ROT`
-- `SB-2D-2FF`
-- `SB-2D-2FF-1ROT`
-- `SB-2D-2FF-2ROT`
-- `SBFH-1D`
-- `SBFH-1D-1ROT`
-- `SBFH-1D-2ROT`
-- `SBFH-2D`
-- `SBFH-2D-1ROT`
-- `SBFH-2D-2ROT`
-- `SBIANCATO`
+_None_
 
 ## JSON only (0)
 

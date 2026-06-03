@@ -10,6 +10,10 @@ import { execSync } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import {
+  extractOscSkuCodes,
+  categorizeOscSku,
+} from "./osc-sku-patterns.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, "../..");
@@ -38,26 +42,27 @@ function extractText(pdfPath) {
   return fs.readFileSync(tmp, "utf8");
 }
 
+function inferCompatibleDoorStyles(finish) {
+  const { category, sidedness, panelBrand } = finish;
+  const all = [...ALL_DOOR_STYLE_IDS];
+  if (category === "woodgrain") return all;
+  const out = all.filter((id) => id !== "three-piece");
+  if (category === "gloss" && sidedness === "single") {
+    return out.filter((id) => id !== "alpha-shaker" && id !== "beta-shaker");
+  }
+  if (panelBrand === "FENIX" || finish.name?.includes("Doha")) {
+    return out.filter((id) => ["slab", "modern-shaker", "thin-shaker"].includes(id));
+  }
+  return out;
+}
+
 /** Parse cabinet SKU codes from catalog text */
 function extractCabinetProducts(text) {
-  const codeRe =
-    /\b(B[A-Z0-9]*(?:-[A-Z0-9]+)+|W[A-Z0-9]*(?:-[A-Z0-9]+)+|T[A-Z0-9]*(?:-[A-Z0-9]+)+|BFH-[A-Z0-9-]+|V[A-Z0-9]*(?:-[A-Z0-9]+)+|EP[A-Z0-9-]*|FILL[A-Z0-9-]*|HOOD[A-Z0-9-]*|FS[A-Z0-9-]*)\b/g;
-  const seen = new Set();
+  const seen = extractOscSkuCodes(text);
   const products = [];
 
-  for (const m of text.matchAll(codeRe)) {
-    const code = m[0];
-    if (seen.has(code)) continue;
-    seen.add(code);
-
-    let category = "base";
-    if (code.startsWith("W")) category = "wall";
-    else if (code.startsWith("T") || code.startsWith("BFH")) category = "tall";
-    else if (code.startsWith("V")) category = "vanity";
-    else if (code.startsWith("EP") || code.includes("END")) category = "end-panel";
-    else if (code.startsWith("FILL")) category = "filler";
-    else if (code.startsWith("HOOD")) category = "hood";
-    else if (code.startsWith("FS")) category = "floating-shelf";
+  for (const code of seen) {
+    const category = categorizeOscSku(code);
 
     const doors = (code.match(/(\d)D/g) || []).reduce((s, x) => s + parseInt(x[0], 10), 0);
     const drawers = (code.match(/(\d)TD/g) || []).reduce((s, x) => s + parseInt(x[0], 10), 0);
@@ -204,10 +209,11 @@ function buildFinishes() {
         panelSeries: series,
         sidedness,
         priceTierMarker: tierFor(brand, name),
-        compatibleDoorStyleIds: ALL_DOOR_STYLE_IDS,
         compatibleCollectionIds: ["custom", "reserve"],
         imagePath: `/images/catalog/finishes/${slug}.webp`,
       });
+      const row = finishes[finishes.length - 1];
+      row.compatibleDoorStyleIds = inferCompatibleDoorStyles(row);
     }
   };
 

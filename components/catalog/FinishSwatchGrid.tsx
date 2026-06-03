@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useState } from "react";
 import type { Finish, FinishCategory } from "@/shared/catalog";
 import { FINISHES } from "@/shared/catalog";
-import { getFinishMapping } from "@/shared/supplier/productColorMap";
+import { getFinishImages } from "@/shared/catalog/entityImages";
 import { Chip } from "@/components/marketing/Chip";
 import { MarketingCard } from "@/components/marketing/MarketingCard";
 import { cn } from "@/lib/utils";
@@ -24,8 +24,7 @@ const FILTER_OPTIONS: Array<{ id: "all" | FinishCategory; label: string }> = [
 ];
 
 function FinishSwatch({ finish }: { finish: Finish }) {
-  const mapping = getFinishMapping(finish.slug);
-  const imagePath = finish.imagePath ?? mapping?.imagePath;
+  const imagePath = getFinishImages(finish).swatch ?? finish.imagePath;
   const [useHex, setUseHex] = useState(false);
   const supplierLabel = finish.oscName ?? finish.name;
   const allowHexFallback = process.env.NODE_ENV === "development";
@@ -95,7 +94,6 @@ export function FinishSwatchGrid({
 
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 md:gap-6">
         {filtered.map((finish) => {
-          const mapping = getFinishMapping(finish.slug);
           return (
             <MarketingCard
               key={finish.id}

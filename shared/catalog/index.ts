@@ -116,6 +116,7 @@ export {
 } from "./cabinetProducts";
 
 export { OSC_CONSTRUCTION } from "./construction";
+export { OSC_HARDWARE_SPEC } from "./generated/hardwareSpec";
 
 export {
   getFinishesForDoorStyle,

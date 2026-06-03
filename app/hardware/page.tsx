@@ -11,12 +11,13 @@ import { CatalogSearch } from "@/components/catalog/CatalogSearch";
 import { CatalogPageHero } from "@/components/catalog/CatalogPageHero";
 import { CatalogClosingCTA } from "@/components/catalog/CatalogClosingCTA";
 import { CatalogProductImage } from "@/components/catalog/CatalogProductImage";
+import { CatalogVisualCard } from "@/components/catalog/visual";
 import { MARKETING_IMAGES } from "@/shared/siteImages";
 import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/Reveal";
 import { catalogMetadata, catalogDescription } from "@/lib/catalog-metadata";
 import { generateBreadcrumbSchema, generateWebPageSchema } from "@/lib/schema";
-import { HARDWARE_OPTIONS } from "@/shared/catalog";
+import { HARDWARE_OPTIONS, OSC_HARDWARE_SPEC } from "@/shared/catalog";
 import { SITE_CONFIG } from "@/shared/siteConfig";
 
 const FINISH_LABELS: Record<string, string> = {
@@ -28,11 +29,26 @@ const FINISH_LABELS: Record<string, string> = {
   stainless: "Stainless",
 };
 
+const OSC_SPEC_CARDS = [
+  {
+    title: "Salice soft-close hinges",
+    description: OSC_HARDWARE_SPEC.hinge.description,
+    image: "/images/catalog/hardware/hinge-soft-close.webp",
+    meta: `${OSC_HARDWARE_SPEC.hinge.brand} · ${OSC_HARDWARE_SPEC.hinge.lineBoreMm}mm line bore`,
+  },
+  {
+    title: "Salice Futura Smove slides",
+    description: `${OSC_HARDWARE_SPEC.drawerSlide.model} ${OSC_HARDWARE_SPEC.drawerSlide.extension} slides, ${OSC_HARDWARE_SPEC.drawerSlide.loadRatingLbs} lb rated.`,
+    image: "/images/catalog/hardware/slide-soft-close.webp",
+    meta: `${OSC_HARDWARE_SPEC.drawerSlide.brand} · Soft-close`,
+  },
+] as const;
+
 export const metadata = catalogMetadata(
   "/hardware",
   "Cabinet Hardware",
   catalogDescription(
-    "Pulls, knobs, hinges, and slides from {company}. Soft-close hardware packages for every cabinet collection.",
+    "Salice hinges and drawer slides from the One Source catalog, plus decorative pull samples to discuss with your designer.",
   ),
 );
 
@@ -40,7 +56,7 @@ export default function HardwarePage() {
   const schemas = [
     generateWebPageSchema({
       title: "Cabinet Hardware",
-      description: `Hardware options from ${SITE_CONFIG.name}.`,
+      description: `Hardware from ${SITE_CONFIG.name} and One Source Cabinets.`,
       url: "/hardware",
     }),
     generateBreadcrumbSchema([
@@ -66,7 +82,7 @@ export default function HardwarePage() {
                 </>
               }
               description={catalogDescription(
-                "Bar pulls, cup pulls, integrated channels, hinges, and drawer slides, selected to match your door style and finish during design.",
+                "Standard One Source packages include Salice soft-close hinges and full-extension drawer slides. Decorative pulls are selected during design — samples below are for inspiration, not separate catalog SKUs.",
               )}
             />
             <CatalogPageHero
@@ -85,8 +101,40 @@ export default function HardwarePage() {
         <Section variant="greige" divider>
           <div className="container px-4">
             <SectionHeader
-              eyebrow="Options"
-              title={<>Pulls, hinges &amp; slides</>}
+              eyebrow="One Source catalog"
+              title={<>Included construction hardware</>}
+              align="center"
+              className="mb-10 max-w-xl mx-auto text-center [&_.brc-label]:justify-center"
+            />
+            <div className="grid sm:grid-cols-2 gap-6 max-w-3xl mx-auto mb-6">
+              {OSC_SPEC_CARDS.map((item) => (
+                <CatalogVisualCard
+                  key={item.title}
+                  href="/construction"
+                  title={item.title}
+                  description={item.description}
+                  imageSrc={item.image}
+                  imageAlt={item.title}
+                  meta={item.meta}
+                />
+              ))}
+            </div>
+            <p className="text-sm text-muted-foreground text-center max-w-2xl mx-auto">
+              Leg levelers and adjustable drawer fronts are standard. See{" "}
+              <Link href="/construction" className="underline underline-offset-2">
+                construction details
+              </Link>{" "}
+              for full specifications.
+            </p>
+          </div>
+        </Section>
+
+        <Section divider>
+          <div className="container px-4">
+            <SectionHeader
+              eyebrow="Design consultation"
+              title={<>Decorative pull &amp; knob samples</>}
+              description="These finishes are shown for planning — your designer will confirm availability and sizing with your door style."
               align="center"
               className="mb-10 max-w-xl mx-auto text-center [&_.brc-label]:justify-center"
             />
@@ -101,22 +149,22 @@ export default function HardwarePage() {
                       className="rounded-none"
                     />
                     <div className="p-6 flex flex-col flex-1">
-                    <div className="flex flex-wrap gap-2 mb-3">
-                      <Chip className="capitalize">{item.category}</Chip>
-                      <Chip>{FINISH_LABELS[item.finish] ?? item.finish}</Chip>
-                      {item.isSoftClose && <Chip>Soft-close</Chip>}
-                    </div>
-                    <h2 className="text-lg font-sans font-light tracking-tight mb-2">
-                      {item.name}
-                    </h2>
-                    <p className="text-sm text-muted-foreground flex-1 leading-relaxed">
-                      {item.description}
-                    </p>
-                    {item.centerToCenterMm != null && (
-                      <p className="text-xs text-muted-foreground mt-3">
-                        {item.centerToCenterMm}mm center-to-center
+                      <div className="flex flex-wrap gap-2 mb-3">
+                        <Chip className="capitalize">{item.category}</Chip>
+                        <Chip>{FINISH_LABELS[item.finish] ?? item.finish}</Chip>
+                        {item.isSoftClose && <Chip>Soft-close</Chip>}
+                      </div>
+                      <h2 className="text-lg font-sans font-light tracking-tight mb-2">
+                        {item.name}
+                      </h2>
+                      <p className="text-sm text-muted-foreground flex-1 leading-relaxed">
+                        {item.description}
                       </p>
-                    )}
+                      {item.centerToCenterMm != null && (
+                        <p className="text-xs text-muted-foreground mt-3">
+                          {item.centerToCenterMm}mm center-to-center
+                        </p>
+                      )}
                     </div>
                   </MarketingCard>
                 </Reveal>

@@ -1,4 +1,5 @@
 export { CatalogSearch } from "./CatalogSearch";
+export { CatalogExploreStrip } from "./CatalogExploreStrip";
 export { CollectionLandingTemplate } from "./CollectionLandingTemplate";
 export { FinishSwatchGrid } from "./FinishSwatchGrid";
 export {

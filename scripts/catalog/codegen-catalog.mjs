@@ -62,10 +62,21 @@ function main() {
     );
   }
 
+  const hardwareSpecPath = path.join(DATA, "hardwareSpec.json");
+  let hardwareExport = "";
+  if (fs.existsSync(hardwareSpecPath)) {
+    const hardwareSpec = readJson("hardwareSpec.json");
+    fs.writeFileSync(
+      path.join(OUT, "hardwareSpec.ts"),
+      `/** AUTO-GENERATED */\nexport const OSC_HARDWARE_SPEC = ${JSON.stringify(hardwareSpec, null, 2)} as const;\n`,
+    );
+    hardwareExport = `export { OSC_HARDWARE_SPEC } from "./hardwareSpec";\n`;
+  }
+
   const accessoryExport = hasAccessoryFamilies
     ? `export { ACCESSORY_FAMILIES, ACCESSORY_FAMILY_BY_SLUG } from "./accessoryFamilies";\n`
     : "";
-  const index = `/** AUTO-GENERATED barrel */\nexport { DOOR_STYLES, DOOR_STYLE_BY_SLUG } from "./doorStyles";\nexport { FINISHES, FINISH_BY_SLUG } from "./finishes";\nexport { COLLECTIONS, COLLECTION_BY_SLUG } from "./collections";\nexport { CABINET_PRODUCTS, CABINET_PRODUCT_BY_SLUG } from "./cabinetProducts";\nexport { OSC_CONSTRUCTION } from "./construction";\nexport { PANEL_BRANDS } from "./panelBrands";\n${accessoryExport}`;
+  const index = `/** AUTO-GENERATED barrel */\nexport { DOOR_STYLES, DOOR_STYLE_BY_SLUG } from "./doorStyles";\nexport { FINISHES, FINISH_BY_SLUG } from "./finishes";\nexport { COLLECTIONS, COLLECTION_BY_SLUG } from "./collections";\nexport { CABINET_PRODUCTS, CABINET_PRODUCT_BY_SLUG } from "./cabinetProducts";\nexport { OSC_CONSTRUCTION } from "./construction";\nexport { PANEL_BRANDS } from "./panelBrands";\n${accessoryExport}${hardwareExport}`;
   fs.writeFileSync(path.join(OUT, "index.ts"), index);
 
   console.log(`Generated catalog TS in ${OUT}`);

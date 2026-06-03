@@ -1,5 +1,6 @@
 import Image from "next/image";
-import { DOOR_STYLE_MAP } from "@/shared/supplier/productColorMap";
+import { getDoorStyleBySlug } from "@/shared/catalog";
+import { getDoorStyleImages } from "@/shared/catalog/entityImages";
 
 interface DoorStyleHeroProps {
   slug: string;
@@ -8,8 +9,10 @@ interface DoorStyleHeroProps {
 }
 
 export function DoorStyleHero({ slug, name, className }: DoorStyleHeroProps) {
-  const mapping = DOOR_STYLE_MAP.find((d) => d.brcSlug === slug);
-  const src = mapping?.imagePath ?? `/images/catalog/door-styles/${slug}.webp`;
+  const style = getDoorStyleBySlug(slug);
+  const src =
+    (style ? getDoorStyleImages(style).hero : undefined) ??
+    `/images/catalog/door-styles/${slug}.webp`;
 
   return (
     <div className={`relative aspect-[16/9] overflow-hidden rounded-sm bg-muted ${className ?? ""}`}>

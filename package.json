@@ -40,7 +40,7 @@
     "images:generate": "node scripts/generate-blog-images.mjs",
     "images:placeholders": "node scripts/generate-placeholder-images.mjs",
     "images:catalog": "node scripts/generate-catalog-placeholders.mjs",
-    "prebuild": "npm run catalog:verify && npm run catalog:images:verify && npm run links:generate && npm run audit:links && npm run resources:generate && npm run images:blog && npm run verify:content && npm run verify:images && npm run verify:no-em-dash"
+    "prebuild": "npm run catalog:verify && npm run catalog:visuals:verify && npm run catalog:images:verify && npm run links:generate && npm run audit:links && npm run resources:generate && npm run images:blog && npm run verify:content && npm run verify:images && npm run verify:no-em-dash"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",

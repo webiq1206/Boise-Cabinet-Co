@@ -11,19 +11,18 @@
     "panelSeries": "Supramat",
     "sidedness": "double",
     "priceTierMarker": 3,
-    "compatibleDoorStyleIds": [
-      "slab",
-      "three-piece",
-      "modern-shaker",
-      "thin-shaker",
-      "alpha-shaker",
-      "beta-shaker"
-    ],
     "compatibleCollectionIds": [
       "custom",
       "reserve"
     ],
-    "imagePath": "/images/catalog/finishes/matte-bitter.webp"
+    "imagePath": "/images/catalog/finishes/matte-bitter.webp",
+    "compatibleDoorStyleIds": [
+      "slab",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
   },
   {
     "id": "matte-breeze-beige",
@@ -37,19 +36,18 @@
     "panelSeries": "Supramat",
     "sidedness": "double",
     "priceTierMarker": 3,
-    "compatibleDoorStyleIds": [
-      "slab",
-      "three-piece",
-      "modern-shaker",
-      "thin-shaker",
-      "alpha-shaker",
-      "beta-shaker"
-    ],
     "compatibleCollectionIds": [
       "custom",
       "reserve"
     ],
-    "imagePath": "/images/catalog/finishes/matte-breeze-beige.webp"
+    "imagePath": "/images/catalog/finishes/matte-breeze-beige.webp",
+    "compatibleDoorStyleIds": [
+      "slab",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
   },
   {
     "id": "matte-forest-green",
@@ -63,19 +61,18 @@
     "panelSeries": "Supramat",
     "sidedness": "double",
     "priceTierMarker": 3,
-    "compatibleDoorStyleIds": [
-      "slab",
-      "three-piece",
-      "modern-shaker",
-      "thin-shaker",
-      "alpha-shaker",
-      "beta-shaker"
-    ],
     "compatibleCollectionIds": [
       "custom",
       "reserve"
     ],
-    "imagePath": "/images/catalog/finishes/matte-forest-green.webp"
+    "imagePath": "/images/catalog/finishes/matte-forest-green.webp",
+    "compatibleDoorStyleIds": [
+      "slab",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
   },
   {
     "id": "matte-macaron-green",
@@ -89,19 +86,18 @@
     "panelSeries": "Supramat",
     "sidedness": "double",
     "priceTierMarker": 3,
-    "compatibleDoorStyleIds": [
-      "slab",
-      "three-piece",
-      "modern-shaker",
-      "thin-shaker",
-      "alpha-shaker",
-      "beta-shaker"
-    ],
     "compatibleCollectionIds": [
       "custom",
       "reserve"
     ],
-    "imagePath": "/images/catalog/finishes/matte-macaron-green.webp"
+    "imagePath": "/images/catalog/finishes/matte-macaron-green.webp",
+    "compatibleDoorStyleIds": [
+      "slab",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
   },
   {
     "id": "matte-pearl-black",
@@ -115,19 +111,18 @@
     "panelSeries": "Supramat",
     "sidedness": "double",
     "priceTierMarker": 3,
-    "compatibleDoorStyleIds": [
-      "slab",
-      "three-piece",
-      "modern-shaker",
-      "thin-shaker",
-      "alpha-shaker",
-      "beta-shaker"
-    ],
     "compatibleCollectionIds": [
       "custom",
       "reserve"
     ],
-    "imagePath": "/images/catalog/finishes/matte-pearl-black.webp"
+    "imagePath": "/images/catalog/finishes/matte-pearl-black.webp",
+    "compatibleDoorStyleIds": [
+      "slab",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
   },
   {
     "id": "matte-pebble-grey",
@@ -141,19 +136,18 @@
     "panelSeries": "Supramat",
     "sidedness": "double",
     "priceTierMarker": 3,
-    "compatibleDoorStyleIds": [
-      "slab",
-      "three-piece",
-      "modern-shaker",
-      "thin-shaker",
-      "alpha-shaker",
-      "beta-shaker"
-    ],
     "compatibleCollectionIds": [
       "custom",
       "reserve"
     ],
-    "imagePath": "/images/catalog/finishes/matte-pebble-grey.webp"
+    "imagePath": "/images/catalog/finishes/matte-pebble-grey.webp",
+    "compatibleDoorStyleIds": [
+      "slab",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
   },
   {
     "id": "matte-glamorous-pacific",
@@ -167,19 +161,18 @@
     "panelSeries": "Supramat",
     "sidedness": "double",
     "priceTierMarker": 3,
-    "compatibleDoorStyleIds": [
-      "slab",
-      "three-piece",
-      "modern-shaker",
-      "thin-shaker",
-      "alpha-shaker",
-      "beta-shaker"
-    ],
     "compatibleCollectionIds": [
       "custom",
       "reserve"
     ],
-    "imagePath": "/images/catalog/finishes/matte-glamorous-pacific.webp"
+    "imagePath": "/images/catalog/finishes/matte-glamorous-pacific.webp",
+    "compatibleDoorStyleIds": [
+      "slab",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
   },
   {
     "id": "matte-ice-grey",
@@ -193,19 +186,18 @@
     "panelSeries": "Supramat",
     "sidedness": "double",
     "priceTierMarker": 3,
-    "compatibleDoorStyleIds": [
-      "slab",
-      "three-piece",
-      "modern-shaker",
-      "thin-shaker",
-      "alpha-shaker",
-      "beta-shaker"
-    ],
     "compatibleCollectionIds": [
       "custom",
       "reserve"
     ],
-    "imagePath": "/images/catalog/finishes/matte-ice-grey.webp"
+    "imagePath": "/images/catalog/finishes/matte-ice-grey.webp",
+    "compatibleDoorStyleIds": [
+      "slab",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
   },
   {
     "id": "matte-london-blues",
@@ -219,19 +211,18 @@
     "panelSeries": "Supramat",
     "sidedness": "double",
     "priceTierMarker": 3,
-    "compatibleDoorStyleIds": [
-      "slab",
-      "three-piece",
-      "modern-shaker",
-      "thin-shaker",
-      "alpha-shaker",
-      "beta-shaker"
-    ],
     "compatibleCollectionIds": [
       "custom",
       "reserve"
     ],
-    "imagePath": "/images/catalog/finishes/matte-london-blues.webp"
+    "imagePath": "/images/catalog/finishes/matte-london-blues.webp",
+    "compatibleDoorStyleIds": [
+      "slab",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
   },
   {
     "id": "matte-royal-grey",
@@ -245,19 +236,18 @@
     "panelSeries": "Supramat",
     "sidedness": "double",
     "priceTierMarker": 3,
-    "compatibleDoorStyleIds": [
-      "slab",
-      "three-piece",
-      "modern-shaker",
-      "thin-shaker",
-      "alpha-shaker",
-      "beta-shaker"
-    ],
     "compatibleCollectionIds": [
       "custom",
       "reserve"
     ],
-    "imagePath": "/images/catalog/finishes/matte-royal-grey.webp"
+    "imagePath": "/images/catalog/finishes/matte-royal-grey.webp",
+    "compatibleDoorStyleIds": [
+      "slab",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
   },
   {
     "id": "matte-snow-white",
@@ -271,19 +261,18 @@
     "panelSeries": "Supramat",
     "sidedness": "double",
     "priceTierMarker": 3,
-    "compatibleDoorStyleIds": [
-      "slab",
-      "three-piece",
-      "modern-shaker",
-      "thin-shaker",
-      "alpha-shaker",
-      "beta-shaker"
-    ],
     "compatibleCollectionIds": [
       "custom",
       "reserve"
     ],
-    "imagePath": "/images/catalog/finishes/matte-snow-white.webp"
+    "imagePath": "/images/catalog/finishes/matte-snow-white.webp",
+    "compatibleDoorStyleIds": [
+      "slab",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
   },
   {
     "id": "matte-timeless-grey",
@@ -297,19 +286,18 @@
     "panelSeries": "Supramat",
     "sidedness": "double",
     "priceTierMarker": 3,
-    "compatibleDoorStyleIds": [
-      "slab",
-      "three-piece",
-      "modern-shaker",
-      "thin-shaker",
-      "alpha-shaker",
-      "beta-shaker"
-    ],
     "compatibleCollectionIds": [
       "custom",
       "reserve"
     ],
-    "imagePath": "/images/catalog/finishes/matte-timeless-grey.webp"
+    "imagePath": "/images/catalog/finishes/matte-timeless-grey.webp",
+    "compatibleDoorStyleIds": [
+      "slab",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
   },
   {
     "id": "matte-beige-arizona",
@@ -323,19 +311,18 @@
     "panelSeries": "Supramat",
     "sidedness": "double",
     "priceTierMarker": 3,
-    "compatibleDoorStyleIds": [
-      "slab",
-      "three-piece",
-      "modern-shaker",
-      "thin-shaker",
-      "alpha-shaker",
-      "beta-shaker"
-    ],
     "compatibleCollectionIds": [
       "custom",
       "reserve"
     ],
-    "imagePath": "/images/catalog/finishes/matte-beige-arizona.webp"
+    "imagePath": "/images/catalog/finishes/matte-beige-arizona.webp",
+    "compatibleDoorStyleIds": [
+      "slab",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
   },
   {
     "id": "matte-bianco-alaska",
@@ -349,19 +336,18 @@
     "panelSeries": "Supramat",
     "sidedness": "double",
     "priceTierMarker": 3,
-    "compatibleDoorStyleIds": [
-      "slab",
-      "three-piece",
-      "modern-shaker",
-      "thin-shaker",
-      "alpha-shaker",
-      "beta-shaker"
-    ],
     "compatibleCollectionIds": [
       "custom",
       "reserve"
     ],
-    "imagePath": "/images/catalog/finishes/matte-bianco-alaska.webp"
+    "imagePath": "/images/catalog/finishes/matte-bianco-alaska.webp",
+    "compatibleDoorStyleIds": [
+      "slab",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
   },
   {
     "id": "matte-bianco-dover",
@@ -375,19 +361,18 @@
     "panelSeries": "Supramat",
     "sidedness": "double",
     "priceTierMarker": 3,
-    "compatibleDoorStyleIds": [
-      "slab",
-      "three-piece",
-      "modern-shaker",
-      "thin-shaker",
-      "alpha-shaker",
-      "beta-shaker"
-    ],
     "compatibleCollectionIds": [
       "custom",
       "reserve"
     ],
-    "imagePath": "/images/catalog/finishes/matte-bianco-dover.webp"
+    "imagePath": "/images/catalog/finishes/matte-bianco-dover.webp",
+    "compatibleDoorStyleIds": [
+      "slab",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
   },
   {
     "id": "matte-bronzo-doha",
@@ -401,19 +386,16 @@
     "panelSeries": "Supramat",
     "sidedness": "double",
     "priceTierMarker": 5,
-    "compatibleDoorStyleIds": [
-      "slab",
-      "three-piece",
-      "modern-shaker",
-      "thin-shaker",
-      "alpha-shaker",
-      "beta-shaker"
-    ],
     "compatibleCollectionIds": [
       "custom",
       "reserve"
     ],
-    "imagePath": "/images/catalog/finishes/matte-bronzo-doha.webp"
+    "imagePath": "/images/catalog/finishes/matte-bronzo-doha.webp",
+    "compatibleDoorStyleIds": [
+      "slab",
+      "modern-shaker",
+      "thin-shaker"
+    ]
   },
   {
     "id": "matte-castoro-ottawa",
@@ -427,19 +409,18 @@
     "panelSeries": "Supramat",
     "sidedness": "double",
     "priceTierMarker": 3,
-    "compatibleDoorStyleIds": [
-      "slab",
-      "three-piece",
-      "modern-shaker",
-      "thin-shaker",
-      "alpha-shaker",
-      "beta-shaker"
-    ],
     "compatibleCollectionIds": [
       "custom",
       "reserve"
     ],
-    "imagePath": "/images/catalog/finishes/matte-castoro-ottawa.webp"
+    "imagePath": "/images/catalog/finishes/matte-castoro-ottawa.webp",
+    "compatibleDoorStyleIds": [
+      "slab",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
   },
   {
     "id": "matte-grigio-antrim",
@@ -453,19 +434,18 @@
     "panelSeries": "Supramat",
     "sidedness": "double",
     "priceTierMarker": 3,
-    "compatibleDoorStyleIds": [
-      "slab",
-      "three-piece",
-      "modern-shaker",
-      "thin-shaker",
-      "alpha-shaker",
-      "beta-shaker"
-    ],
     "compatibleCollectionIds": [
       "custom",
       "reserve"
     ],
-    "imagePath": "/images/catalog/finishes/matte-grigio-antrim.webp"
+    "imagePath": "/images/catalog/finishes/matte-grigio-antrim.webp",
+    "compatibleDoorStyleIds": [
+      "slab",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
   },
   {
     "id": "matte-nero-ingo",
@@ -479,19 +459,18 @@
     "panelSeries": "Supramat",
     "sidedness": "double",
     "priceTierMarker": 5,
-    "compatibleDoorStyleIds": [
-      "slab",
-      "three-piece",
-      "modern-shaker",
-      "thin-shaker",
-      "alpha-shaker",
-      "beta-shaker"
-    ],
     "compatibleCollectionIds": [
       "custom",
       "reserve"
     ],
-    "imagePath": "/images/catalog/finishes/matte-nero-ingo.webp"
+    "imagePath": "/images/catalog/finishes/matte-nero-ingo.webp",
+    "compatibleDoorStyleIds": [
+      "slab",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
   },
   {
     "id": "matte-piomba-doha",
@@ -505,19 +484,16 @@
     "panelSeries": "Supramat",
     "sidedness": "double",
     "priceTierMarker": 5,
-    "compatibleDoorStyleIds": [
-      "slab",
-      "three-piece",
-      "modern-shaker",
-      "thin-shaker",
-      "alpha-shaker",
-      "beta-shaker"
-    ],
     "compatibleCollectionIds": [
       "custom",
       "reserve"
     ],
-    "imagePath": "/images/catalog/finishes/matte-piomba-doha.webp"
+    "imagePath": "/images/catalog/finishes/matte-piomba-doha.webp",
+    "compatibleDoorStyleIds": [
+      "slab",
+      "modern-shaker",
+      "thin-shaker"
+    ]
   },
   {
     "id": "matte-bianco-mal",
@@ -531,19 +507,18 @@
     "panelSeries": "Supramat",
     "sidedness": "double",
     "priceTierMarker": 3,
-    "compatibleDoorStyleIds": [
-      "slab",
-      "three-piece",
-      "modern-shaker",
-      "thin-shaker",
-      "alpha-shaker",
-      "beta-shaker"
-    ],
     "compatibleCollectionIds": [
       "custom",
       "reserve"
     ],
-    "imagePath": "/images/catalog/finishes/matte-bianco-mal.webp"
+    "imagePath": "/images/catalog/finishes/matte-bianco-mal.webp",
+    "compatibleDoorStyleIds": [
+      "slab",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
   },
   {
     "id": "matte-bianco-kos",
@@ -557,19 +532,18 @@
     "panelSeries": "Supramat",
     "sidedness": "double",
     "priceTierMarker": 3,
-    "compatibleDoorStyleIds": [
-      "slab",
-      "three-piece",
-      "modern-shaker",
-      "thin-shaker",
-      "alpha-shaker",
-      "beta-shaker"
-    ],
     "compatibleCollectionIds": [
       "custom",
       "reserve"
     ],
-    "imagePath": "/images/catalog/finishes/matte-bianco-kos.webp"
+    "imagePath": "/images/catalog/finishes/matte-bianco-kos.webp",
+    "compatibleDoorStyleIds": [
+      "slab",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
   },
   {
     "id": "matte-blue-fes",
@@ -583,19 +557,18 @@
     "panelSeries": "Supramat",
     "sidedness": "double",
     "priceTierMarker": 3,
-    "compatibleDoorStyleIds": [
-      "slab",
-      "three-piece",
-      "modern-shaker",
-      "thin-shaker",
-      "alpha-shaker",
-      "beta-shaker"
-    ],
     "compatibleCollectionIds": [
       "custom",
       "reserve"
     ],
-    "imagePath": "/images/catalog/finishes/matte-blue-fes.webp"
+    "imagePath": "/images/catalog/finishes/matte-blue-fes.webp",
+    "compatibleDoorStyleIds": [
+      "slab",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
   },
   {
     "id": "matte-grigio-bromo",
@@ -609,19 +582,18 @@
     "panelSeries": "Supramat",
     "sidedness": "double",
     "priceTierMarker": 3,
-    "compatibleDoorStyleIds": [
-      "slab",
-      "three-piece",
-      "modern-shaker",
-      "thin-shaker",
-      "alpha-shaker",
-      "beta-shaker"
-    ],
     "compatibleCollectionIds": [
       "custom",
       "reserve"
     ],
-    "imagePath": "/images/catalog/finishes/matte-grigio-bromo.webp"
+    "imagePath": "/images/catalog/finishes/matte-grigio-bromo.webp",
+    "compatibleDoorStyleIds": [
+      "slab",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
   },
   {
     "id": "matte-grigio-efeso",
@@ -635,19 +607,18 @@
     "panelSeries": "Supramat",
     "sidedness": "double",
     "priceTierMarker": 3,
-    "compatibleDoorStyleIds": [
-      "slab",
-      "three-piece",
-      "modern-shaker",
-      "thin-shaker",
-      "alpha-shaker",
-      "beta-shaker"
-    ],
     "compatibleCollectionIds": [
       "custom",
       "reserve"
     ],
-    "imagePath": "/images/catalog/finishes/matte-grigio-efeso.webp"
+    "imagePath": "/images/catalog/finishes/matte-grigio-efeso.webp",
+    "compatibleDoorStyleIds": [
+      "slab",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
   },
   {
     "id": "matte-grigio-londra",
@@ -661,19 +632,18 @@
     "panelSeries": "Supramat",
     "sidedness": "double",
     "priceTierMarker": 3,
-    "compatibleDoorStyleIds": [
-      "slab",
-      "three-piece",
-      "modern-shaker",
-      "thin-shaker",
-      "alpha-shaker",
-      "beta-shaker"
-    ],
     "compatibleCollectionIds": [
       "custom",
       "reserve"
     ],
-    "imagePath": "/images/catalog/finishes/matte-grigio-londra.webp"
+    "imagePath": "/images/catalog/finishes/matte-grigio-londra.webp",
+    "compatibleDoorStyleIds": [
+      "slab",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
   },
   {
     "id": "matte-black",
@@ -687,19 +657,18 @@
     "panelSeries": "Lummia Perfect Matt",
     "sidedness": "double",
     "priceTierMarker": 3,
-    "compatibleDoorStyleIds": [
-      "slab",
-      "three-piece",
-      "modern-shaker",
-      "thin-shaker",
-      "alpha-shaker",
-      "beta-shaker"
-    ],
     "compatibleCollectionIds": [
       "custom",
       "reserve"
     ],
-    "imagePath": "/images/catalog/finishes/matte-black.webp"
+    "imagePath": "/images/catalog/finishes/matte-black.webp",
+    "compatibleDoorStyleIds": [
+      "slab",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
   },
   {
     "id": "matte-calm-sea",
@@ -713,19 +682,18 @@
     "panelSeries": "Lummia Perfect Matt",
     "sidedness": "double",
     "priceTierMarker": 3,
-    "compatibleDoorStyleIds": [
-      "slab",
-      "three-piece",
-      "modern-shaker",
-      "thin-shaker",
-      "alpha-shaker",
-      "beta-shaker"
-    ],
     "compatibleCollectionIds": [
       "custom",
       "reserve"
     ],
-    "imagePath": "/images/catalog/finishes/matte-calm-sea.webp"
+    "imagePath": "/images/catalog/finishes/matte-calm-sea.webp",
+    "compatibleDoorStyleIds": [
+      "slab",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
   },
   {
     "id": "matte-camera-obscura",
@@ -739,19 +707,18 @@
     "panelSeries": "Lummia Perfect Matt",
     "sidedness": "double",
     "priceTierMarker": 3,
-    "compatibleDoorStyleIds": [
-      "slab",
-      "three-piece",
-      "modern-shaker",
-      "thin-shaker",
-      "alpha-shaker",
-      "beta-shaker"
-    ],
     "compatibleCollectionIds": [
       "custom",
       "reserve"
     ],
-    "imagePath": "/images/catalog/finishes/matte-camera-obscura.webp"
+    "imagePath": "/images/catalog/finishes/matte-camera-obscura.webp",
+    "compatibleDoorStyleIds": [
+      "slab",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
   },
   {
     "id": "matte-morning-dew",
@@ -765,19 +732,18 @@
     "panelSeries": "Lummia Perfect Matt",
     "sidedness": "double",
     "priceTierMarker": 3,
-    "compatibleDoorStyleIds": [
-      "slab",
-      "three-piece",
-      "modern-shaker",
-      "thin-shaker",
-      "alpha-shaker",
-      "beta-shaker"
-    ],
     "compatibleCollectionIds": [
       "custom",
       "reserve"
     ],
-    "imagePath": "/images/catalog/finishes/matte-morning-dew.webp"
+    "imagePath": "/images/catalog/finishes/matte-morning-dew.webp",
+    "compatibleDoorStyleIds": [
+      "slab",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
   },
   {
     "id": "matte-north-wind",
@@ -791,19 +757,18 @@
     "panelSeries": "Lummia Perfect Matt",
     "sidedness": "double",
     "priceTierMarker": 3,
-    "compatibleDoorStyleIds": [
-      "slab",
-      "three-piece",
-      "modern-shaker",
-      "thin-shaker",
-      "alpha-shaker",
-      "beta-shaker"
-    ],
     "compatibleCollectionIds": [
       "custom",
       "reserve"
     ],
-    "imagePath": "/images/catalog/finishes/matte-north-wind.webp"
+    "imagePath": "/images/catalog/finishes/matte-north-wind.webp",
+    "compatibleDoorStyleIds": [
+      "slab",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
   },
   {
     "id": "matte-urban-vibe",
@@ -817,19 +782,18 @@
     "panelSeries": "Lummia Perfect Matt",
     "sidedness": "double",
     "priceTierMarker": 3,
-    "compatibleDoorStyleIds": [
-      "slab",
-      "three-piece",
-      "modern-shaker",
-      "thin-shaker",
-      "alpha-shaker",
-      "beta-shaker"
-    ],
     "compatibleCollectionIds": [
       "custom",
       "reserve"
     ],
-    "imagePath": "/images/catalog/finishes/matte-urban-vibe.webp"
+    "imagePath": "/images/catalog/finishes/matte-urban-vibe.webp",
+    "compatibleDoorStyleIds": [
+      "slab",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
   },
   {
     "id": "matte-carte-blanche",
@@ -843,19 +807,18 @@
     "panelSeries": "Lummia Perfect Matt",
     "sidedness": "double",
     "priceTierMarker": 3,
-    "compatibleDoorStyleIds": [
-      "slab",
-      "three-piece",
-      "modern-shaker",
-      "thin-shaker",
-      "alpha-shaker",
-      "beta-shaker"
-    ],
     "compatibleCollectionIds": [
       "custom",
       "reserve"
     ],
-    "imagePath": "/images/catalog/finishes/matte-carte-blanche.webp"
+    "imagePath": "/images/catalog/finishes/matte-carte-blanche.webp",
+    "compatibleDoorStyleIds": [
+      "slab",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
   },
   {
     "id": "matte-eucalyptus",
@@ -869,19 +832,18 @@
     "panelSeries": "Lummia Perfect Matt",
     "sidedness": "double",
     "priceTierMarker": 3,
-    "compatibleDoorStyleIds": [
-      "slab",
-      "three-piece",
-      "modern-shaker",
-      "thin-shaker",
-      "alpha-shaker",
-      "beta-shaker"
-    ],
     "compatibleCollectionIds": [
       "custom",
       "reserve"
     ],
-    "imagePath": "/images/catalog/finishes/matte-eucalyptus.webp"
+    "imagePath": "/images/catalog/finishes/matte-eucalyptus.webp",
+    "compatibleDoorStyleIds": [
+      "slab",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
   },
   {
     "id": "matte-midnight-sun",
@@ -895,19 +857,18 @@
     "panelSeries": "Lummia Perfect Matt",
     "sidedness": "double",
     "priceTierMarker": 3,
-    "compatibleDoorStyleIds": [
-      "slab",
-      "three-piece",
-      "modern-shaker",
-      "thin-shaker",
-      "alpha-shaker",
-      "beta-shaker"
-    ],
     "compatibleCollectionIds": [
       "custom",
       "reserve"
     ],
-    "imagePath": "/images/catalog/finishes/matte-midnight-sun.webp"
+    "imagePath": "/images/catalog/finishes/matte-midnight-sun.webp",
+    "compatibleDoorStyleIds": [
+      "slab",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
   },
   {
     "id": "matte-vanilla-orchid",
@@ -921,19 +882,18 @@
     "panelSeries": "Lummia Perfect Matt",
     "sidedness": "double",
     "priceTierMarker": 3,
-    "compatibleDoorStyleIds": [
-      "slab",
-      "three-piece",
-      "modern-shaker",
-      "thin-shaker",
-      "alpha-shaker",
-      "beta-shaker"
-    ],
     "compatibleCollectionIds": [
       "custom",
       "reserve"
     ],
-    "imagePath": "/images/catalog/finishes/matte-vanilla-orchid.webp"
+    "imagePath": "/images/catalog/finishes/matte-vanilla-orchid.webp",
+    "compatibleDoorStyleIds": [
+      "slab",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
   },
   {
     "id": "matte-dark-grey",
@@ -947,19 +907,18 @@
     "panelSeries": "OSC Matte",
     "sidedness": "double",
     "priceTierMarker": 3,
-    "compatibleDoorStyleIds": [
-      "slab",
-      "three-piece",
-      "modern-shaker",
-      "thin-shaker",
-      "alpha-shaker",
-      "beta-shaker"
-    ],
     "compatibleCollectionIds": [
       "custom",
       "reserve"
     ],
-    "imagePath": "/images/catalog/finishes/matte-dark-grey.webp"
+    "imagePath": "/images/catalog/finishes/matte-dark-grey.webp",
+    "compatibleDoorStyleIds": [
+      "slab",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
   },
   {
     "id": "matte-deep-blue",
@@ -973,19 +932,18 @@
     "panelSeries": "OSC Matte",
     "sidedness": "double",
     "priceTierMarker": 3,
-    "compatibleDoorStyleIds": [
-      "slab",
-      "three-piece",
-      "modern-shaker",
-      "thin-shaker",
-      "alpha-shaker",
-      "beta-shaker"
-    ],
     "compatibleCollectionIds": [
       "custom",
       "reserve"
     ],
-    "imagePath": "/images/catalog/finishes/matte-deep-blue.webp"
+    "imagePath": "/images/catalog/finishes/matte-deep-blue.webp",
+    "compatibleDoorStyleIds": [
+      "slab",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
   },
   {
     "id": "matte-white",
@@ -999,19 +957,18 @@
     "panelSeries": "OSC Matte",
     "sidedness": "double",
     "priceTierMarker": 3,
-    "compatibleDoorStyleIds": [
-      "slab",
-      "three-piece",
-      "modern-shaker",
-      "thin-shaker",
-      "alpha-shaker",
-      "beta-shaker"
-    ],
     "compatibleCollectionIds": [
       "custom",
       "reserve"
     ],
-    "imagePath": "/images/catalog/finishes/matte-white.webp"
+    "imagePath": "/images/catalog/finishes/matte-white.webp",
+    "compatibleDoorStyleIds": [
+      "slab",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
   },
   {
     "id": "matte-graphite",
@@ -1025,19 +982,18 @@
     "panelSeries": "OSC Matte",
     "sidedness": "double",
     "priceTierMarker": 3,
-    "compatibleDoorStyleIds": [
-      "slab",
-      "three-piece",
-      "modern-shaker",
-      "thin-shaker",
-      "alpha-shaker",
-      "beta-shaker"
-    ],
     "compatibleCollectionIds": [
       "custom",
       "reserve"
     ],
-    "imagePath": "/images/catalog/finishes/matte-graphite.webp"
+    "imagePath": "/images/catalog/finishes/matte-graphite.webp",
+    "compatibleDoorStyleIds": [
+      "slab",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
   },
   {
     "id": "matte-jade-green",
@@ -1051,19 +1007,18 @@
     "panelSeries": "OSC Matte",
     "sidedness": "double",
     "priceTierMarker": 3,
-    "compatibleDoorStyleIds": [
-      "slab",
-      "three-piece",
-      "modern-shaker",
-      "thin-shaker",
-      "alpha-shaker",
-      "beta-shaker"
-    ],
     "compatibleCollectionIds": [
       "custom",
       "reserve"
     ],
-    "imagePath": "/images/catalog/finishes/matte-jade-green.webp"
+    "imagePath": "/images/catalog/finishes/matte-jade-green.webp",
+    "compatibleDoorStyleIds": [
+      "slab",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
   },
   {
     "id": "matte-tan",
@@ -1077,19 +1032,18 @@
     "panelSeries": "OSC Matte",
     "sidedness": "double",
     "priceTierMarker": 3,
-    "compatibleDoorStyleIds": [
-      "slab",
-      "three-piece",
-      "modern-shaker",
-      "thin-shaker",
-      "alpha-shaker",
-      "beta-shaker"
-    ],
     "compatibleCollectionIds": [
       "custom",
       "reserve"
     ],
-    "imagePath": "/images/catalog/finishes/matte-tan.webp"
+    "imagePath": "/images/catalog/finishes/matte-tan.webp",
+    "compatibleDoorStyleIds": [
+      "slab",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
   },
   {
     "id": "matte-boxcar-blonde",
@@ -1103,19 +1057,18 @@
     "panelSeries": "OSC Matte",
     "sidedness": "double",
     "priceTierMarker": 3,
-    "compatibleDoorStyleIds": [
-      "slab",
-      "three-piece",
-      "modern-shaker",
-      "thin-shaker",
-      "alpha-shaker",
-      "beta-shaker"
-    ],
     "compatibleCollectionIds": [
       "custom",
       "reserve"
     ],
-    "imagePath": "/images/catalog/finishes/matte-boxcar-blonde.webp"
+    "imagePath": "/images/catalog/finishes/matte-boxcar-blonde.webp",
+    "compatibleDoorStyleIds": [
+      "slab",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
   },
   {
     "id": "matte-capital-starlit",
@@ -1129,19 +1082,18 @@
     "panelSeries": "OSC Matte",
     "sidedness": "double",
     "priceTierMarker": 3,
-    "compatibleDoorStyleIds": [
-      "slab",
-      "three-piece",
-      "modern-shaker",
-      "thin-shaker",
-      "alpha-shaker",
-      "beta-shaker"
-    ],
     "compatibleCollectionIds": [
       "custom",
       "reserve"
     ],
-    "imagePath": "/images/catalog/finishes/matte-capital-starlit.webp"
+    "imagePath": "/images/catalog/finishes/matte-capital-starlit.webp",
+    "compatibleDoorStyleIds": [
+      "slab",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
   },
   {
     "id": "matte-maltese-mist",
@@ -1155,19 +1107,18 @@
     "panelSeries": "OSC Matte",
     "sidedness": "double",
     "priceTierMarker": 3,
-    "compatibleDoorStyleIds": [
-      "slab",
-      "three-piece",
-      "modern-shaker",
-      "thin-shaker",
-      "alpha-shaker",
-      "beta-shaker"
-    ],
     "compatibleCollectionIds": [
       "custom",
       "reserve"
     ],
-    "imagePath": "/images/catalog/finishes/matte-maltese-mist.webp"
+    "imagePath": "/images/catalog/finishes/matte-maltese-mist.webp",
+    "compatibleDoorStyleIds": [
+      "slab",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
   },
   {
     "id": "matte-midnight-dash",
@@ -1181,19 +1132,18 @@
     "panelSeries": "OSC Matte",
     "sidedness": "double",
     "priceTierMarker": 3,
-    "compatibleDoorStyleIds": [
-      "slab",
-      "three-piece",
-      "modern-shaker",
-      "thin-shaker",
-      "alpha-shaker",
-      "beta-shaker"
-    ],
     "compatibleCollectionIds": [
       "custom",
       "reserve"
     ],
-    "imagePath": "/images/catalog/finishes/matte-midnight-dash.webp"
+    "imagePath": "/images/catalog/finishes/matte-midnight-dash.webp",
+    "compatibleDoorStyleIds": [
+      "slab",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
   },
   {
     "id": "matte-olive-detour",
@@ -1207,19 +1157,18 @@
     "panelSeries": "OSC Matte",
     "sidedness": "double",
     "priceTierMarker": 3,
-    "compatibleDoorStyleIds": [
-      "slab",
-      "three-piece",
-      "modern-shaker",
-      "thin-shaker",
-      "alpha-shaker",
-      "beta-shaker"
-    ],
     "compatibleCollectionIds": [
       "custom",
       "reserve"
     ],
-    "imagePath": "/images/catalog/finishes/matte-olive-detour.webp"
+    "imagePath": "/images/catalog/finishes/matte-olive-detour.webp",
+    "compatibleDoorStyleIds": [
+      "slab",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
   },
   {
     "id": "matte-casa-blanca",
@@ -1233,19 +1182,18 @@
     "panelSeries": "OSC Matte",
     "sidedness": "double",
     "priceTierMarker": 3,
-    "compatibleDoorStyleIds": [
-      "slab",
-      "three-piece",
-      "modern-shaker",
-      "thin-shaker",
-      "alpha-shaker",
-      "beta-shaker"
-    ],
     "compatibleCollectionIds": [
       "custom",
       "reserve"
     ],
-    "imagePath": "/images/catalog/finishes/matte-casa-blanca.webp"
+    "imagePath": "/images/catalog/finishes/matte-casa-blanca.webp",
+    "compatibleDoorStyleIds": [
+      "slab",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
   },
   {
     "id": "matte-gaslit-alley",
@@ -1259,19 +1207,18 @@
     "panelSeries": "OSC Matte",
     "sidedness": "double",
     "priceTierMarker": 3,
-    "compatibleDoorStyleIds": [
-      "slab",
-      "three-piece",
-      "modern-shaker",
-      "thin-shaker",
-      "alpha-shaker",
-      "beta-shaker"
-    ],
     "compatibleCollectionIds": [
       "custom",
       "reserve"
     ],
-    "imagePath": "/images/catalog/finishes/matte-gaslit-alley.webp"
+    "imagePath": "/images/catalog/finishes/matte-gaslit-alley.webp",
+    "compatibleDoorStyleIds": [
+      "slab",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
   },
   {
     "id": "matte-high-low",
@@ -1285,19 +1232,18 @@
     "panelSeries": "OSC Matte",
     "sidedness": "double",
     "priceTierMarker": 3,
-    "compatibleDoorStyleIds": [
-      "slab",
-      "three-piece",
-      "modern-shaker",
-      "thin-shaker",
-      "alpha-shaker",
-      "beta-shaker"
-    ],
     "compatibleCollectionIds": [
       "custom",
       "reserve"
     ],
-    "imagePath": "/images/catalog/finishes/matte-high-low.webp"
+    "imagePath": "/images/catalog/finishes/matte-high-low.webp",
+    "compatibleDoorStyleIds": [
+      "slab",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
   },
   {
     "id": "matte-silver-lake",
@@ -1311,19 +1257,18 @@
     "panelSeries": "OSC Matte",
     "sidedness": "double",
     "priceTierMarker": 3,
-    "compatibleDoorStyleIds": [
-      "slab",
-      "three-piece",
-      "modern-shaker",
-      "thin-shaker",
-      "alpha-shaker",
-      "beta-shaker"
-    ],
     "compatibleCollectionIds": [
       "custom",
       "reserve"
     ],
-    "imagePath": "/images/catalog/finishes/matte-silver-lake.webp"
+    "imagePath": "/images/catalog/finishes/matte-silver-lake.webp",
+    "compatibleDoorStyleIds": [
+      "slab",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
   },
   {
     "id": "matte-smoke-stack",
@@ -1337,19 +1282,18 @@
     "panelSeries": "OSC Matte",
     "sidedness": "double",
     "priceTierMarker": 3,
-    "compatibleDoorStyleIds": [
-      "slab",
-      "three-piece",
-      "modern-shaker",
-      "thin-shaker",
-      "alpha-shaker",
-      "beta-shaker"
-    ],
     "compatibleCollectionIds": [
       "custom",
       "reserve"
     ],
-    "imagePath": "/images/catalog/finishes/matte-smoke-stack.webp"
+    "imagePath": "/images/catalog/finishes/matte-smoke-stack.webp",
+    "compatibleDoorStyleIds": [
+      "slab",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
   },
   {
     "id": "matte-trench-coat",
@@ -1363,19 +1307,18 @@
     "panelSeries": "OSC Matte",
     "sidedness": "double",
     "priceTierMarker": 3,
-    "compatibleDoorStyleIds": [
-      "slab",
-      "three-piece",
-      "modern-shaker",
-      "thin-shaker",
-      "alpha-shaker",
-      "beta-shaker"
-    ],
     "compatibleCollectionIds": [
       "custom",
       "reserve"
     ],
-    "imagePath": "/images/catalog/finishes/matte-trench-coat.webp"
+    "imagePath": "/images/catalog/finishes/matte-trench-coat.webp",
+    "compatibleDoorStyleIds": [
+      "slab",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ]
   },
   {
     "id": "gloss-black-hg",
@@ -1389,19 +1332,16 @@
     "panelSeries": "OSC Gloss",
     "sidedness": "single",
     "priceTierMarker": 3,
-    "compatibleDoorStyleIds": [
-      "slab",
-      "three-piece",
-      "modern-shaker",
-      "thin-shaker",
-      "alpha-shaker",
-      "beta-shaker"
-    ],
     "compatibleCollectionIds": [
       "custom",
       "reserve"
     ],
-    "imagePath": "/images/catalog/finishes/gloss-black-hg.webp"
+    "imagePath": "/images/catalog/finishes/gloss-black-hg.webp",
+    "compatibleDoorStyleIds": [
+      "slab",
+      "modern-shaker",
+      "thin-shaker"
+    ]
   },
   {
     "id": "gloss-dark-grey-hg",
@@ -1415,19 +1355,16 @@
     "panelSeries": "OSC Gloss",
     "sidedness": "single",
     "priceTierMarker": 3,
-    "compatibleDoorStyleIds": [
-      "slab",
-      "three-piece",
-      "modern-shaker",
-      "thin-shaker",
-      "alpha-shaker",
-      "beta-shaker"
-    ],
     "compatibleCollectionIds": [
       "custom",
       "reserve"
     ],
-    "imagePath": "/images/catalog/finishes/gloss-dark-grey-hg.webp"
+    "imagePath": "/images/catalog/finishes/gloss-dark-grey-hg.webp",
+    "compatibleDoorStyleIds": [
+      "slab",
+      "modern-shaker",
+      "thin-shaker"
+    ]
   },
   {
     "id": "gloss-white-hg",
@@ -1441,19 +1378,16 @@
     "panelSeries": "OSC Gloss",
     "sidedness": "single",
     "priceTierMarker": 3,
-    "compatibleDoorStyleIds": [
-      "slab",
-      "three-piece",
-      "modern-shaker",
-      "thin-shaker",
-      "alpha-shaker",
-      "beta-shaker"
-    ],
     "compatibleCollectionIds": [
       "custom",
       "reserve"
     ],
-    "imagePath": "/images/catalog/finishes/gloss-white-hg.webp"
+    "imagePath": "/images/catalog/finishes/gloss-white-hg.webp",
+    "compatibleDoorStyleIds": [
+      "slab",
+      "modern-shaker",
+      "thin-shaker"
+    ]
   },
   {
     "id": "gloss-carte-blanche",
@@ -1467,19 +1401,16 @@
     "panelSeries": "OSC Gloss",
     "sidedness": "single",
     "priceTierMarker": 3,
-    "compatibleDoorStyleIds": [
-      "slab",
-      "three-piece",
-      "modern-shaker",
-      "thin-shaker",
-      "alpha-shaker",
-      "beta-shaker"
-    ],
     "compatibleCollectionIds": [
       "custom",
       "reserve"
     ],
-    "imagePath": "/images/catalog/finishes/gloss-carte-blanche.webp"
+    "imagePath": "/images/catalog/finishes/gloss-carte-blanche.webp",
+    "compatibleDoorStyleIds": [
+      "slab",
+      "modern-shaker",
+      "thin-shaker"
+    ]
   },
   {
     "id": "gloss-steampunk",
@@ -1493,19 +1424,16 @@
     "panelSeries": "OSC Gloss",
     "sidedness": "single",
     "priceTierMarker": 3,
-    "compatibleDoorStyleIds": [
-      "slab",
-      "three-piece",
-      "modern-shaker",
-      "thin-shaker",
-      "alpha-shaker",
-      "beta-shaker"
-    ],
     "compatibleCollectionIds": [
       "custom",
       "reserve"
     ],
-    "imagePath": "/images/catalog/finishes/gloss-steampunk.webp"
+    "imagePath": "/images/catalog/finishes/gloss-steampunk.webp",
+    "compatibleDoorStyleIds": [
+      "slab",
+      "modern-shaker",
+      "thin-shaker"
+    ]
   },
   {
     "id": "gloss-vanilla-orchid",
@@ -1519,19 +1447,16 @@
     "panelSeries": "OSC Gloss",
     "sidedness": "single",
     "priceTierMarker": 3,
-    "compatibleDoorStyleIds": [
-      "slab",
-      "three-piece",
-      "modern-shaker",
-      "thin-shaker",
-      "alpha-shaker",
-      "beta-shaker"
-    ],
     "compatibleCollectionIds": [
       "custom",
       "reserve"
     ],
-    "imagePath": "/images/catalog/finishes/gloss-vanilla-orchid.webp"
+    "imagePath": "/images/catalog/finishes/gloss-vanilla-orchid.webp",
+    "compatibleDoorStyleIds": [
+      "slab",
+      "modern-shaker",
+      "thin-shaker"
+    ]
   },
   {
     "id": "gloss-iron-horse",
@@ -1545,19 +1470,16 @@
     "panelSeries": "OSC Gloss",
     "sidedness": "single",
     "priceTierMarker": 3,
-    "compatibleDoorStyleIds": [
-      "slab",
-      "three-piece",
-      "modern-shaker",
-      "thin-shaker",
-      "alpha-shaker",
-      "beta-shaker"
-    ],
     "compatibleCollectionIds": [
       "custom",
       "reserve"
     ],
-    "imagePath": "/images/catalog/finishes/gloss-iron-horse.webp"
+    "imagePath": "/images/catalog/finishes/gloss-iron-horse.webp",
+    "compatibleDoorStyleIds": [
+      "slab",
+      "modern-shaker",
+      "thin-shaker"
+    ]
   },
   {
     "id": "gloss-morning-dew",
@@ -1571,19 +1493,16 @@
     "panelSeries": "OSC Gloss",
     "sidedness": "single",
     "priceTierMarker": 3,
-    "compatibleDoorStyleIds": [
-      "slab",
-      "three-piece",
-      "modern-shaker",
-      "thin-shaker",
-      "alpha-shaker",
-      "beta-shaker"
-    ],
     "compatibleCollectionIds": [
       "custom",
       "reserve"
     ],
-    "imagePath": "/images/catalog/finishes/gloss-morning-dew.webp"
+    "imagePath": "/images/catalog/finishes/gloss-morning-dew.webp",
+    "compatibleDoorStyleIds": [
+      "slab",
+      "modern-shaker",
+      "thin-shaker"
+    ]
   },
   {
     "id": "gloss-north-wind",
@@ -1597,19 +1516,16 @@
     "panelSeries": "OSC Gloss",
     "sidedness": "single",
     "priceTierMarker": 3,
-    "compatibleDoorStyleIds": [
-      "slab",
-      "three-piece",
-      "modern-shaker",
-      "thin-shaker",
-      "alpha-shaker",
-      "beta-shaker"
-    ],
     "compatibleCollectionIds": [
       "custom",
       "reserve"
     ],
-    "imagePath": "/images/catalog/finishes/gloss-north-wind.webp"
+    "imagePath": "/images/catalog/finishes/gloss-north-wind.webp",
+    "compatibleDoorStyleIds": [
+      "slab",
+      "modern-shaker",
+      "thin-shaker"
+    ]
   },
   {
     "id": "gloss-dark-grey",
@@ -1623,19 +1539,16 @@
     "panelSeries": "OSC Gloss",
     "sidedness": "single",
     "priceTierMarker": 3,
-    "compatibleDoorStyleIds": [
-      "slab",
-      "three-piece",
-      "modern-shaker",
-      "thin-shaker",
-      "alpha-shaker",
-      "beta-shaker"
-    ],
     "compatibleCollectionIds": [
       "custom",
       "reserve"
     ],
-    "imagePath": "/images/catalog/finishes/gloss-dark-grey.webp"
+    "imagePath": "/images/catalog/finishes/gloss-dark-grey.webp",
+    "compatibleDoorStyleIds": [
+      "slab",
+      "modern-shaker",
+      "thin-shaker"
+    ]
   },
   {
     "id": "gloss-deep-blue",
@@ -1649,19 +1562,16 @@
     "panelSeries": "OSC Gloss",
     "sidedness": "single",
     "priceTierMarker": 3,
-    "compatibleDoorStyleIds": [
-      "slab",
-      "three-piece",
-      "modern-shaker",
-      "thin-shaker",
-      "alpha-shaker",
-      "beta-shaker"
-    ],
     "compatibleCollectionIds": [
       "custom",
       "reserve"
     ],
-    "imagePath": "/images/catalog/finishes/gloss-deep-blue.webp"
+    "imagePath": "/images/catalog/finishes/gloss-deep-blue.webp",
+    "compatibleDoorStyleIds": [
+      "slab",
+      "modern-shaker",
+      "thin-shaker"
+    ]
   },
   {
     "id": "gloss-white",
@@ -1675,19 +1585,16 @@
     "panelSeries": "OSC Gloss",
     "sidedness": "single",
     "priceTierMarker": 3,
-    "compatibleDoorStyleIds": [
-      "slab",
-      "three-piece",
-      "modern-shaker",
-      "thin-shaker",
-      "alpha-shaker",
-      "beta-shaker"
-    ],
     "compatibleCollectionIds": [
       "custom",
       "reserve"
     ],
-    "imagePath": "/images/catalog/finishes/gloss-white.webp"
+    "imagePath": "/images/catalog/finishes/gloss-white.webp",
+    "compatibleDoorStyleIds": [
+      "slab",
+      "modern-shaker",
+      "thin-shaker"
+    ]
   },
   {
     "id": "gloss-light-grey",
@@ -1701,19 +1608,16 @@
     "panelSeries": "OSC Gloss",
     "sidedness": "single",
     "priceTierMarker": 3,
-    "compatibleDoorStyleIds": [
-      "slab",
-      "three-piece",
-      "modern-shaker",
-      "thin-shaker",
-      "alpha-shaker",
-      "beta-shaker"
-    ],
     "compatibleCollectionIds": [
       "custom",
       "reserve"
     ],
-    "imagePath": "/images/catalog/finishes/gloss-light-grey.webp"
+    "imagePath": "/images/catalog/finishes/gloss-light-grey.webp",
+    "compatibleDoorStyleIds": [
+      "slab",
+      "modern-shaker",
+      "thin-shaker"
+    ]
   },
   {
     "id": "gloss-fumo",
@@ -1727,19 +1631,16 @@
     "panelSeries": "OSC Gloss",
     "sidedness": "single",
     "priceTierMarker": 3,
-    "compatibleDoorStyleIds": [
-      "slab",
-      "three-piece",
-      "modern-shaker",
-      "thin-shaker",
-      "alpha-shaker",
-      "beta-shaker"
-    ],
     "compatibleCollectionIds": [
       "custom",
       "reserve"
     ],
-    "imagePath": "/images/catalog/finishes/gloss-fumo.webp"
+    "imagePath": "/images/catalog/finishes/gloss-fumo.webp",
+    "compatibleDoorStyleIds": [
+      "slab",
+      "modern-shaker",
+      "thin-shaker"
+    ]
   },
   {
     "id": "gloss-legno",
@@ -1753,19 +1654,16 @@
     "panelSeries": "OSC Gloss",
     "sidedness": "single",
     "priceTierMarker": 3,
-    "compatibleDoorStyleIds": [
-      "slab",
-      "three-piece",
-      "modern-shaker",
-      "thin-shaker",
-      "alpha-shaker",
-      "beta-shaker"
-    ],
     "compatibleCollectionIds": [
       "custom",
       "reserve"
     ],
-    "imagePath": "/images/catalog/finishes/gloss-legno.webp"
+    "imagePath": "/images/catalog/finishes/gloss-legno.webp",
+    "compatibleDoorStyleIds": [
+      "slab",
+      "modern-shaker",
+      "thin-shaker"
+    ]
   },
   {
     "id": "gloss-sbiancato",
@@ -1779,19 +1677,16 @@
     "panelSeries": "OSC Gloss",
     "sidedness": "single",
     "priceTierMarker": 3,
-    "compatibleDoorStyleIds": [
-      "slab",
-      "three-piece",
-      "modern-shaker",
-      "thin-shaker",
-      "alpha-shaker",
-      "beta-shaker"
-    ],
     "compatibleCollectionIds": [
       "custom",
       "reserve"
     ],
-    "imagePath": "/images/catalog/finishes/gloss-sbiancato.webp"
+    "imagePath": "/images/catalog/finishes/gloss-sbiancato.webp",
+    "compatibleDoorStyleIds": [
+      "slab",
+      "modern-shaker",
+      "thin-shaker"
+    ]
   },
   {
     "id": "gloss-nebbia",
@@ -1805,19 +1700,16 @@
     "panelSeries": "OSC Gloss",
     "sidedness": "single",
     "priceTierMarker": 3,
-    "compatibleDoorStyleIds": [
-      "slab",
-      "three-piece",
-      "modern-shaker",
-      "thin-shaker",
-      "alpha-shaker",
-      "beta-shaker"
-    ],
     "compatibleCollectionIds": [
       "custom",
       "reserve"
     ],
-    "imagePath": "/images/catalog/finishes/gloss-nebbia.webp"
+    "imagePath": "/images/catalog/finishes/gloss-nebbia.webp",
+    "compatibleDoorStyleIds": [
+      "slab",
+      "modern-shaker",
+      "thin-shaker"
+    ]
   },
   {
     "id": "gloss-perla",
@@ -1831,19 +1723,16 @@
     "panelSeries": "OSC Gloss",
     "sidedness": "single",
     "priceTierMarker": 3,
-    "compatibleDoorStyleIds": [
-      "slab",
-      "three-piece",
-      "modern-shaker",
-      "thin-shaker",
-      "alpha-shaker",
-      "beta-shaker"
-    ],
     "compatibleCollectionIds": [
       "custom",
       "reserve"
     ],
-    "imagePath": "/images/catalog/finishes/gloss-perla.webp"
+    "imagePath": "/images/catalog/finishes/gloss-perla.webp",
+    "compatibleDoorStyleIds": [
+      "slab",
+      "modern-shaker",
+      "thin-shaker"
+    ]
   },
   {
     "id": "gloss-piano",
@@ -1857,19 +1746,16 @@
     "panelSeries": "OSC Gloss",
     "sidedness": "single",
     "priceTierMarker": 3,
-    "compatibleDoorStyleIds": [
-      "slab",
-      "three-piece",
-      "modern-shaker",
-      "thin-shaker",
-      "alpha-shaker",
-      "beta-shaker"
-    ],
     "compatibleCollectionIds": [
       "custom",
       "reserve"
     ],
-    "imagePath": "/images/catalog/finishes/gloss-piano.webp"
+    "imagePath": "/images/catalog/finishes/gloss-piano.webp",
+    "compatibleDoorStyleIds": [
+      "slab",
+      "modern-shaker",
+      "thin-shaker"
+    ]
   },
   {
     "id": "gloss-marmo-nero",
@@ -1883,19 +1769,16 @@
     "panelSeries": "OSC Gloss",
     "sidedness": "single",
     "priceTierMarker": 3,
-    "compatibleDoorStyleIds": [
-      "slab",
-      "three-piece",
-      "modern-shaker",
-      "thin-shaker",
-      "alpha-shaker",
-      "beta-shaker"
-    ],
     "compatibleCollectionIds": [
       "custom",
       "reserve"
     ],
-    "imagePath": "/images/catalog/finishes/gloss-marmo-nero.webp"
+    "imagePath": "/images/catalog/finishes/gloss-marmo-nero.webp",
+    "compatibleDoorStyleIds": [
+      "slab",
+      "modern-shaker",
+      "thin-shaker"
+    ]
   },
   {
     "id": "gloss-sabbia",
@@ -1909,19 +1792,16 @@
     "panelSeries": "OSC Gloss",
     "sidedness": "single",
     "priceTierMarker": 3,
-    "compatibleDoorStyleIds": [
-      "slab",
-      "three-piece",
-      "modern-shaker",
-      "thin-shaker",
-      "alpha-shaker",
-      "beta-shaker"
-    ],
     "compatibleCollectionIds": [
       "custom",
       "reserve"
     ],
-    "imagePath": "/images/catalog/finishes/gloss-sabbia.webp"
+    "imagePath": "/images/catalog/finishes/gloss-sabbia.webp",
+    "compatibleDoorStyleIds": [
+      "slab",
+      "modern-shaker",
+      "thin-shaker"
+    ]
   },
   {
     "id": "gloss-zucchero",
@@ -1935,19 +1815,16 @@
     "panelSeries": "OSC Gloss",
     "sidedness": "single",
     "priceTierMarker": 3,
-    "compatibleDoorStyleIds": [
-      "slab",
-      "three-piece",
-      "modern-shaker",
-      "thin-shaker",
-      "alpha-shaker",
-      "beta-shaker"
-    ],
     "compatibleCollectionIds": [
       "custom",
       "reserve"
     ],
-    "imagePath": "/images/catalog/finishes/gloss-zucchero.webp"
+    "imagePath": "/images/catalog/finishes/gloss-zucchero.webp",
+    "compatibleDoorStyleIds": [
+      "slab",
+      "modern-shaker",
+      "thin-shaker"
+    ]
   },
   {
     "id": "gloss-menta",
@@ -1961,19 +1838,16 @@
     "panelSeries": "OSC Gloss",
     "sidedness": "single",
     "priceTierMarker": 3,
-    "compatibleDoorStyleIds": [
-      "slab",
-      "three-piece",
-      "modern-shaker",
-      "thin-shaker",
-      "alpha-shaker",
-      "beta-shaker"
-    ],
     "compatibleCollectionIds": [
       "custom",
       "reserve"
     ],
-    "imagePath": "/images/catalog/finishes/gloss-menta.webp"
+    "imagePath": "/images/catalog/finishes/gloss-menta.webp",
+    "compatibleDoorStyleIds": [
+      "slab",
+      "modern-shaker",
+      "thin-shaker"
+    ]
   },
   {
     "id": "gloss-bigio",
@@ -1987,19 +1861,16 @@
     "panelSeries": "OSC Gloss",
     "sidedness": "single",
     "priceTierMarker": 3,
-    "compatibleDoorStyleIds": [
-      "slab",
-      "three-piece",
-      "modern-shaker",
-      "thin-shaker",
-      "alpha-shaker",
-      "beta-shaker"
-    ],
     "compatibleCollectionIds": [
       "custom",
       "reserve"
     ],
-    "imagePath": "/images/catalog/finishes/gloss-bigio.webp"
+    "imagePath": "/images/catalog/finishes/gloss-bigio.webp",
+    "compatibleDoorStyleIds": [
+      "slab",
+      "modern-shaker",
+      "thin-shaker"
+    ]
   },
   {
     "id": "gloss-cappuccino",
@@ -2013,19 +1884,16 @@
     "panelSeries": "OSC Gloss",
     "sidedness": "single",
     "priceTierMarker": 3,
-    "compatibleDoorStyleIds": [
-      "slab",
-      "three-piece",
-      "modern-shaker",
-      "thin-shaker",
-      "alpha-shaker",
-      "beta-shaker"
-    ],
     "compatibleCollectionIds": [
       "custom",
       "reserve"
     ],
-    "imagePath": "/images/catalog/finishes/gloss-cappuccino.webp"
+    "imagePath": "/images/catalog/finishes/gloss-cappuccino.webp",
+    "compatibleDoorStyleIds": [
+      "slab",
+      "modern-shaker",
+      "thin-shaker"
+    ]
   },
   {
     "id": "gloss-grafite",
@@ -2039,19 +1907,16 @@
     "panelSeries": "OSC Gloss",
     "sidedness": "single",
     "priceTierMarker": 3,
-    "compatibleDoorStyleIds": [
-      "slab",
-      "three-piece",
-      "modern-shaker",
-      "thin-shaker",
-      "alpha-shaker",
-      "beta-shaker"
-    ],
     "compatibleCollectionIds": [
       "custom",
       "reserve"
     ],
-    "imagePath": "/images/catalog/finishes/gloss-grafite.webp"
+    "imagePath": "/images/catalog/finishes/gloss-grafite.webp",
+    "compatibleDoorStyleIds": [
+      "slab",
+      "modern-shaker",
+      "thin-shaker"
+    ]
   },
   {
     "id": "gloss-magnolia",
@@ -2065,19 +1930,16 @@
     "panelSeries": "OSC Gloss",
     "sidedness": "single",
     "priceTierMarker": 3,
-    "compatibleDoorStyleIds": [
-      "slab",
-      "three-piece",
-      "modern-shaker",
-      "thin-shaker",
-      "alpha-shaker",
-      "beta-shaker"
-    ],
     "compatibleCollectionIds": [
       "custom",
       "reserve"
     ],
-    "imagePath": "/images/catalog/finishes/gloss-magnolia.webp"
+    "imagePath": "/images/catalog/finishes/gloss-magnolia.webp",
+    "compatibleDoorStyleIds": [
+      "slab",
+      "modern-shaker",
+      "thin-shaker"
+    ]
   },
   {
     "id": "gloss-meringa",
@@ -2091,19 +1953,16 @@
     "panelSeries": "OSC Gloss",
     "sidedness": "single",
     "priceTierMarker": 3,
-    "compatibleDoorStyleIds": [
-      "slab",
-      "three-piece",
-      "modern-shaker",
-      "thin-shaker",
-      "alpha-shaker",
-      "beta-shaker"
-    ],
     "compatibleCollectionIds": [
       "custom",
       "reserve"
     ],
-    "imagePath": "/images/catalog/finishes/gloss-meringa.webp"
+    "imagePath": "/images/catalog/finishes/gloss-meringa.webp",
+    "compatibleDoorStyleIds": [
+      "slab",
+      "modern-shaker",
+      "thin-shaker"
+    ]
   },
   {
     "id": "woodgrain-chameleon",
@@ -2117,6 +1976,11 @@
     "panelSeries": "OSC Woodgrain",
     "sidedness": "double",
     "priceTierMarker": 3,
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "imagePath": "/images/catalog/finishes/woodgrain-chameleon.webp",
     "compatibleDoorStyleIds": [
       "slab",
       "three-piece",
@@ -2124,12 +1988,7 @@
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ],
-    "compatibleCollectionIds": [
-      "custom",
-      "reserve"
-    ],
-    "imagePath": "/images/catalog/finishes/woodgrain-chameleon.webp"
+    ]
   },
   {
     "id": "woodgrain-first-class",
@@ -2143,6 +2002,11 @@
     "panelSeries": "OSC Woodgrain",
     "sidedness": "double",
     "priceTierMarker": 3,
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "imagePath": "/images/catalog/finishes/woodgrain-first-class.webp",
     "compatibleDoorStyleIds": [
       "slab",
       "three-piece",
@@ -2150,12 +2014,7 @@
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ],
-    "compatibleCollectionIds": [
-      "custom",
-      "reserve"
-    ],
-    "imagePath": "/images/catalog/finishes/woodgrain-first-class.webp"
+    ]
   },
   {
     "id": "woodgrain-free-spirit",
@@ -2169,6 +2028,11 @@
     "panelSeries": "OSC Woodgrain",
     "sidedness": "double",
     "priceTierMarker": 3,
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "imagePath": "/images/catalog/finishes/woodgrain-free-spirit.webp",
     "compatibleDoorStyleIds": [
       "slab",
       "three-piece",
@@ -2176,12 +2040,7 @@
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ],
-    "compatibleCollectionIds": [
-      "custom",
-      "reserve"
-    ],
-    "imagePath": "/images/catalog/finishes/woodgrain-free-spirit.webp"
+    ]
   },
   {
     "id": "woodgrain-rhapsody",
@@ -2195,6 +2054,11 @@
     "panelSeries": "OSC Woodgrain",
     "sidedness": "double",
     "priceTierMarker": 3,
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "imagePath": "/images/catalog/finishes/woodgrain-rhapsody.webp",
     "compatibleDoorStyleIds": [
       "slab",
       "three-piece",
@@ -2202,12 +2066,7 @@
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ],
-    "compatibleCollectionIds": [
-      "custom",
-      "reserve"
-    ],
-    "imagePath": "/images/catalog/finishes/woodgrain-rhapsody.webp"
+    ]
   },
   {
     "id": "woodgrain-sheer-beauty",
@@ -2221,6 +2080,11 @@
     "panelSeries": "OSC Woodgrain",
     "sidedness": "double",
     "priceTierMarker": 3,
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "imagePath": "/images/catalog/finishes/woodgrain-sheer-beauty.webp",
     "compatibleDoorStyleIds": [
       "slab",
       "three-piece",
@@ -2228,12 +2092,7 @@
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ],
-    "compatibleCollectionIds": [
-      "custom",
-      "reserve"
-    ],
-    "imagePath": "/images/catalog/finishes/woodgrain-sheer-beauty.webp"
+    ]
   },
   {
     "id": "woodgrain-fashionista",
@@ -2247,6 +2106,11 @@
     "panelSeries": "OSC Woodgrain",
     "sidedness": "double",
     "priceTierMarker": 3,
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "imagePath": "/images/catalog/finishes/woodgrain-fashionista.webp",
     "compatibleDoorStyleIds": [
       "slab",
       "three-piece",
@@ -2254,12 +2118,7 @@
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ],
-    "compatibleCollectionIds": [
-      "custom",
-      "reserve"
-    ],
-    "imagePath": "/images/catalog/finishes/woodgrain-fashionista.webp"
+    ]
   },
   {
     "id": "woodgrain-canyon-oak",
@@ -2273,6 +2132,11 @@
     "panelSeries": "OSC Woodgrain",
     "sidedness": "double",
     "priceTierMarker": 3,
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "imagePath": "/images/catalog/finishes/woodgrain-canyon-oak.webp",
     "compatibleDoorStyleIds": [
       "slab",
       "three-piece",
@@ -2280,12 +2144,7 @@
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ],
-    "compatibleCollectionIds": [
-      "custom",
-      "reserve"
-    ],
-    "imagePath": "/images/catalog/finishes/woodgrain-canyon-oak.webp"
+    ]
   },
   {
     "id": "woodgrain-canyon-walnut",
@@ -2299,6 +2158,11 @@
     "panelSeries": "OSC Woodgrain",
     "sidedness": "double",
     "priceTierMarker": 3,
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "imagePath": "/images/catalog/finishes/woodgrain-canyon-walnut.webp",
     "compatibleDoorStyleIds": [
       "slab",
       "three-piece",
@@ -2306,12 +2170,7 @@
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ],
-    "compatibleCollectionIds": [
-      "custom",
-      "reserve"
-    ],
-    "imagePath": "/images/catalog/finishes/woodgrain-canyon-walnut.webp"
+    ]
   },
   {
     "id": "woodgrain-canyon-charcoal",
@@ -2325,6 +2184,11 @@
     "panelSeries": "OSC Woodgrain",
     "sidedness": "double",
     "priceTierMarker": 3,
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "imagePath": "/images/catalog/finishes/woodgrain-canyon-charcoal.webp",
     "compatibleDoorStyleIds": [
       "slab",
       "three-piece",
@@ -2332,12 +2196,7 @@
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ],
-    "compatibleCollectionIds": [
-      "custom",
-      "reserve"
-    ],
-    "imagePath": "/images/catalog/finishes/woodgrain-canyon-charcoal.webp"
+    ]
   },
   {
     "id": "woodgrain-coral-bark",
@@ -2351,6 +2210,11 @@
     "panelSeries": "OSC Woodgrain",
     "sidedness": "double",
     "priceTierMarker": 3,
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "imagePath": "/images/catalog/finishes/woodgrain-coral-bark.webp",
     "compatibleDoorStyleIds": [
       "slab",
       "three-piece",
@@ -2358,12 +2222,7 @@
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ],
-    "compatibleCollectionIds": [
-      "custom",
-      "reserve"
-    ],
-    "imagePath": "/images/catalog/finishes/woodgrain-coral-bark.webp"
+    ]
   },
   {
     "id": "woodgrain-epic",
@@ -2377,6 +2236,11 @@
     "panelSeries": "OSC Woodgrain",
     "sidedness": "double",
     "priceTierMarker": 3,
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "imagePath": "/images/catalog/finishes/woodgrain-epic.webp",
     "compatibleDoorStyleIds": [
       "slab",
       "three-piece",
@@ -2384,12 +2248,7 @@
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ],
-    "compatibleCollectionIds": [
-      "custom",
-      "reserve"
-    ],
-    "imagePath": "/images/catalog/finishes/woodgrain-epic.webp"
+    ]
   },
   {
     "id": "woodgrain-coral-sand",
@@ -2403,6 +2262,11 @@
     "panelSeries": "OSC Woodgrain",
     "sidedness": "double",
     "priceTierMarker": 3,
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "imagePath": "/images/catalog/finishes/woodgrain-coral-sand.webp",
     "compatibleDoorStyleIds": [
       "slab",
       "three-piece",
@@ -2410,12 +2274,7 @@
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ],
-    "compatibleCollectionIds": [
-      "custom",
-      "reserve"
-    ],
-    "imagePath": "/images/catalog/finishes/woodgrain-coral-sand.webp"
+    ]
   },
   {
     "id": "woodgrain-eucalipto-grey",
@@ -2429,6 +2288,11 @@
     "panelSeries": "OSC Woodgrain",
     "sidedness": "double",
     "priceTierMarker": 3,
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "imagePath": "/images/catalog/finishes/woodgrain-eucalipto-grey.webp",
     "compatibleDoorStyleIds": [
       "slab",
       "three-piece",
@@ -2436,12 +2300,7 @@
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ],
-    "compatibleCollectionIds": [
-      "custom",
-      "reserve"
-    ],
-    "imagePath": "/images/catalog/finishes/woodgrain-eucalipto-grey.webp"
+    ]
   },
   {
     "id": "woodgrain-eucalipto-white",
@@ -2455,6 +2314,11 @@
     "panelSeries": "OSC Woodgrain",
     "sidedness": "double",
     "priceTierMarker": 3,
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "imagePath": "/images/catalog/finishes/woodgrain-eucalipto-white.webp",
     "compatibleDoorStyleIds": [
       "slab",
       "three-piece",
@@ -2462,12 +2326,7 @@
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ],
-    "compatibleCollectionIds": [
-      "custom",
-      "reserve"
-    ],
-    "imagePath": "/images/catalog/finishes/woodgrain-eucalipto-white.webp"
+    ]
   },
   {
     "id": "woodgrain-olmo-miele",
@@ -2481,6 +2340,11 @@
     "panelSeries": "OSC Woodgrain",
     "sidedness": "double",
     "priceTierMarker": 3,
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "imagePath": "/images/catalog/finishes/woodgrain-olmo-miele.webp",
     "compatibleDoorStyleIds": [
       "slab",
       "three-piece",
@@ -2488,12 +2352,7 @@
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ],
-    "compatibleCollectionIds": [
-      "custom",
-      "reserve"
-    ],
-    "imagePath": "/images/catalog/finishes/woodgrain-olmo-miele.webp"
+    ]
   },
   {
     "id": "woodgrain-panna",
@@ -2507,6 +2366,11 @@
     "panelSeries": "OSC Woodgrain",
     "sidedness": "double",
     "priceTierMarker": 3,
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "imagePath": "/images/catalog/finishes/woodgrain-panna.webp",
     "compatibleDoorStyleIds": [
       "slab",
       "three-piece",
@@ -2514,12 +2378,7 @@
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ],
-    "compatibleCollectionIds": [
-      "custom",
-      "reserve"
-    ],
-    "imagePath": "/images/catalog/finishes/woodgrain-panna.webp"
+    ]
   },
   {
     "id": "woodgrain-pecan-scuro",
@@ -2533,6 +2392,11 @@
     "panelSeries": "OSC Woodgrain",
     "sidedness": "double",
     "priceTierMarker": 3,
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "imagePath": "/images/catalog/finishes/woodgrain-pecan-scuro.webp",
     "compatibleDoorStyleIds": [
       "slab",
       "three-piece",
@@ -2540,12 +2404,7 @@
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ],
-    "compatibleCollectionIds": [
-      "custom",
-      "reserve"
-    ],
-    "imagePath": "/images/catalog/finishes/woodgrain-pecan-scuro.webp"
+    ]
   },
   {
     "id": "woodgrain-rockefeller",
@@ -2559,6 +2418,11 @@
     "panelSeries": "OSC Woodgrain",
     "sidedness": "double",
     "priceTierMarker": 3,
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "imagePath": "/images/catalog/finishes/woodgrain-rockefeller.webp",
     "compatibleDoorStyleIds": [
       "slab",
       "three-piece",
@@ -2566,12 +2430,7 @@
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ],
-    "compatibleCollectionIds": [
-      "custom",
-      "reserve"
-    ],
-    "imagePath": "/images/catalog/finishes/woodgrain-rockefeller.webp"
+    ]
   },
   {
     "id": "woodgrain-evening-notte",
@@ -2585,6 +2444,11 @@
     "panelSeries": "OSC Woodgrain",
     "sidedness": "double",
     "priceTierMarker": 3,
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "imagePath": "/images/catalog/finishes/woodgrain-evening-notte.webp",
     "compatibleDoorStyleIds": [
       "slab",
       "three-piece",
@@ -2592,12 +2456,7 @@
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ],
-    "compatibleCollectionIds": [
-      "custom",
-      "reserve"
-    ],
-    "imagePath": "/images/catalog/finishes/woodgrain-evening-notte.webp"
+    ]
   },
   {
     "id": "woodgrain-kirsche",
@@ -2611,6 +2470,11 @@
     "panelSeries": "OSC Woodgrain",
     "sidedness": "double",
     "priceTierMarker": 3,
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "imagePath": "/images/catalog/finishes/woodgrain-kirsche.webp",
     "compatibleDoorStyleIds": [
       "slab",
       "three-piece",
@@ -2618,12 +2482,7 @@
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ],
-    "compatibleCollectionIds": [
-      "custom",
-      "reserve"
-    ],
-    "imagePath": "/images/catalog/finishes/woodgrain-kirsche.webp"
+    ]
   },
   {
     "id": "woodgrain-grey-echo",
@@ -2637,6 +2496,11 @@
     "panelSeries": "OSC Woodgrain",
     "sidedness": "double",
     "priceTierMarker": 3,
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "imagePath": "/images/catalog/finishes/woodgrain-grey-echo.webp",
     "compatibleDoorStyleIds": [
       "slab",
       "three-piece",
@@ -2644,12 +2508,7 @@
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ],
-    "compatibleCollectionIds": [
-      "custom",
-      "reserve"
-    ],
-    "imagePath": "/images/catalog/finishes/woodgrain-grey-echo.webp"
+    ]
   },
   {
     "id": "woodgrain-morning-fog",
@@ -2663,6 +2522,11 @@
     "panelSeries": "OSC Woodgrain",
     "sidedness": "double",
     "priceTierMarker": 3,
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "imagePath": "/images/catalog/finishes/woodgrain-morning-fog.webp",
     "compatibleDoorStyleIds": [
       "slab",
       "three-piece",
@@ -2670,12 +2534,7 @@
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ],
-    "compatibleCollectionIds": [
-      "custom",
-      "reserve"
-    ],
-    "imagePath": "/images/catalog/finishes/woodgrain-morning-fog.webp"
+    ]
   },
   {
     "id": "woodgrain-midnight-run",
@@ -2689,6 +2548,11 @@
     "panelSeries": "OSC Woodgrain",
     "sidedness": "double",
     "priceTierMarker": 3,
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "imagePath": "/images/catalog/finishes/woodgrain-midnight-run.webp",
     "compatibleDoorStyleIds": [
       "slab",
       "three-piece",
@@ -2696,12 +2560,7 @@
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ],
-    "compatibleCollectionIds": [
-      "custom",
-      "reserve"
-    ],
-    "imagePath": "/images/catalog/finishes/woodgrain-midnight-run.webp"
+    ]
   },
   {
     "id": "woodgrain-serotina",
@@ -2715,6 +2574,11 @@
     "panelSeries": "OSC Woodgrain",
     "sidedness": "double",
     "priceTierMarker": 3,
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "imagePath": "/images/catalog/finishes/woodgrain-serotina.webp",
     "compatibleDoorStyleIds": [
       "slab",
       "three-piece",
@@ -2722,12 +2586,7 @@
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ],
-    "compatibleCollectionIds": [
-      "custom",
-      "reserve"
-    ],
-    "imagePath": "/images/catalog/finishes/woodgrain-serotina.webp"
+    ]
   },
   {
     "id": "woodgrain-ontano",
@@ -2741,6 +2600,11 @@
     "panelSeries": "OSC Woodgrain",
     "sidedness": "double",
     "priceTierMarker": 3,
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "imagePath": "/images/catalog/finishes/woodgrain-ontano.webp",
     "compatibleDoorStyleIds": [
       "slab",
       "three-piece",
@@ -2748,12 +2612,7 @@
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ],
-    "compatibleCollectionIds": [
-      "custom",
-      "reserve"
-    ],
-    "imagePath": "/images/catalog/finishes/woodgrain-ontano.webp"
+    ]
   },
   {
     "id": "woodgrain-white-zebrine",
@@ -2767,6 +2626,11 @@
     "panelSeries": "OSC Woodgrain",
     "sidedness": "double",
     "priceTierMarker": 3,
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "imagePath": "/images/catalog/finishes/woodgrain-white-zebrine.webp",
     "compatibleDoorStyleIds": [
       "slab",
       "three-piece",
@@ -2774,12 +2638,7 @@
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ],
-    "compatibleCollectionIds": [
-      "custom",
-      "reserve"
-    ],
-    "imagePath": "/images/catalog/finishes/woodgrain-white-zebrine.webp"
+    ]
   },
   {
     "id": "woodgrain-alno",
@@ -2793,6 +2652,11 @@
     "panelSeries": "OSC Woodgrain",
     "sidedness": "double",
     "priceTierMarker": 3,
+    "compatibleCollectionIds": [
+      "custom",
+      "reserve"
+    ],
+    "imagePath": "/images/catalog/finishes/woodgrain-alno.webp",
     "compatibleDoorStyleIds": [
       "slab",
       "three-piece",
@@ -2800,11 +2664,6 @@
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ],
-    "compatibleCollectionIds": [
-      "custom",
-      "reserve"
-    ],
-    "imagePath": "/images/catalog/finishes/woodgrain-alno.webp"
+    ]
   }
 ]
