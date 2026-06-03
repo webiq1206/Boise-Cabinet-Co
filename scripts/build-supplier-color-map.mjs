@@ -10,50 +10,52 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.join(__dirname, "..");
 const docsDir = path.join(root, "docs");
 
-// Inline export — mirrors shared/supplier/productColorMap.ts for Node without TS compile
+// Inline export — mirrors shared/supplier/productColorMap.ts for Node without TS compile.
+// Columns: [brcSlug, brcName, supplierPanelBrand, supplierColorName, supplierSeries, finishType, verified]
+// Unconfirmed entries carry no supplier fields (empty strings) and verified "false".
 const FINISH_COLOR_MAP = [
-  ["snowcap", "Snowcap", "Tafisa", "Classic White (CR)", "Prélude Crystalite", "matte", "true"],
-  ["glacier", "Glacier", "Tafisa", "Glacier White (CR)", "Prélude Crystalite", "matte", "true"],
-  ["dune", "Dune", "Tafisa", "Daybreak (IS)", "Prélude Isola", "matte", "true"],
-  ["sagebrush", "Sagebrush", "Tafisa", "Force of Nature (KA)", "Prélude Karisma", "matte", "true"],
-  ["slate", "Slate", "Tafisa", "Materia Black (MA)", "Prélude Materia", "matte", "true"],
-  ["midnight", "Midnight", "Tafisa", "Black Tie (BV)", "Sommet Brava", "matte", "true"],
-  ["clay", "Clay", "Tafisa", "Hot Cinnamon (SN)", "Prélude Smoothwood", "matte", "true"],
-  ["fog", "Fog", "Tafisa", "Froth of Sea (CR)", "Prélude Crystalite", "matte", "true"],
-  ["linen", "Linen", "Tafisa", "Materia Cream Puff (MA)", "Prélude Materia", "matte", "true"],
-  ["riverstone", "Riverstone", "Tafisa", "Dark Chocolate (UR)", "Prélude Urbania", "matte", "true"],
-  ["basalt", "Basalt", "Tafisa", "Black (CR)", "Prélude Crystalite", "matte", "true"],
-  ["mist", "Mist", "Tafisa", "Evening Star (IS)", "Prélude Isola", "matte", "true"],
-  ["terracotta", "Terracotta", "Tafisa", "Hot Fudge (CR)", "Prélude Crystalite", "matte", "false"],
-  ["fern", "Fern", "Tafisa", "Force of Nature (KA)", "Prélude Karisma", "matte", "true"],
-  ["pebble", "Pebble", "Salt International", "Reserve Greige (OSC Reserve)", "One Source Reserve", "matte", "true"],
-  ["porcelain", "Porcelain", "Tafisa", "Classic White High Gloss (CR)", "Prélude Crystalite", "gloss", "true"],
-  ["ivory", "Ivory", "Tafisa", "Ivory (CR)", "Prélude Crystalite", "gloss", "true"],
-  ["pearl", "Pearl", "Tafisa", "Crème de la Crème (BV)", "Sommet Brava", "gloss", "true"],
-  ["graphite", "Graphite", "Tafisa", "Black (IS)", "Prélude Isola", "gloss", "true"],
-  ["obsidian", "Obsidian", "Tafisa", "Materia Black High Gloss (MA)", "Prélude Materia", "gloss", "true"],
-  ["seafoam", "Seafoam", "Tafisa", "Copa Cabana (SN)", "Prélude Smoothwood", "gloss", "false"],
-  ["blush", "Blush", "Tafisa", "Fashionista (KA)", "Prélude Karisma", "gloss", "false"],
-  ["cobalt", "Cobalt", "Tafisa", "Latitude East (AT)", "Prélude Alto", "gloss", "false"],
-  ["champagne", "Champagne", "Tafisa", "First Class (KA)", "Prélude Karisma", "gloss", "true"],
-  ["storm", "Storm", "Tafisa", "Brushed Aluminum (CR)", "Prélude Crystalite", "gloss", "true"],
-  ["alabaster", "Alabaster", "Tafisa", "Home Sweet Home (BV)", "Sommet Brava", "gloss", "true"],
-  ["crimson", "Crimson", "Salt International", "Reserve Crimson (OSC Reserve)", "One Source Reserve", "gloss", "false"],
-  ["white-oak", "White Oak", "Tafisa", "Sand Barbera Oak (OSC Custom)", "Prélude Smoothwood EIR", "eir-woodgrain", "true"],
-  ["natural-walnut", "Natural Walnut", "Tafisa", "Hardrock Maple (CR)", "Prélude Crystalite EIR", "eir-woodgrain", "true"],
-  ["espresso-walnut", "Espresso Walnut", "Tafisa", "Dark Rum Cherry (CR)", "Prélude Crystalite EIR", "eir-woodgrain", "true"],
-  ["honey-maple", "Honey Maple", "Tafisa", "Acacia Honey (KA)", "Prélude Karisma EIR", "eir-woodgrain", "true"],
-  ["driftwood", "Driftwood", "Tafisa", "Bora Bora (SN)", "Prélude Smoothwood EIR", "eir-woodgrain", "true"],
-  ["charcoal-oak", "Charcoal Oak", "Tafisa", "Grenada (SN)", "Prélude Smoothwood EIR", "eir-woodgrain", "true"],
-  ["hickory", "Hickory", "Tafisa", "Dolce Vita (SN)", "Prélude Smoothwood EIR", "eir-woodgrain", "true"],
-  ["cherry", "Cherry", "Tafisa", "Dark Rum Cherry (CR)", "Prélude Crystalite EIR", "eir-woodgrain", "true"],
-  ["ash", "Ash", "Tafisa", "Latitude North (AT)", "Prélude Alto EIR", "eir-woodgrain", "true"],
-  ["teak", "Teak", "Tafisa", "Free Spirit (KA)", "Prélude Karisma EIR", "eir-woodgrain", "true"],
-  ["reclaimed-barn", "Reclaimed Barn", "Salt International", "Reserve Wire-Brushed (OSC Reserve)", "One Source Reserve", "eir-woodgrain", "false"],
-  ["ebony", "Ebony", "Tafisa", "Materia Black (MA) EIR", "Prélude Materia EIR", "eir-woodgrain", "true"],
-  ["blonde-oak", "Blonde Oak", "Tafisa", "Sand Barbera Oak Light (OSC)", "Prélude Smoothwood EIR", "eir-woodgrain", "true"],
-  ["pecan", "Pecan", "Tafisa", "Acacia Honey (KA)", "Prélude Karisma EIR", "eir-woodgrain", "true"],
-  ["cedar", "Cedar", "Salt International", "Reserve Cedar (OSC Reserve)", "One Source Reserve", "eir-woodgrain", "true"],
+  ["snowcap", "Snowcap", "Tafisa", "Vanilla Orchid", "Lummia Perfect Matt", "matte", "true"],
+  ["glacier", "Glacier", "Tafisa", "Carte Blanche", "Lummia Perfect Matt", "matte", "true"],
+  ["dune", "Dune", "", "", "", "matte", "false"],
+  ["sagebrush", "Sagebrush", "Tafisa", "Eucalyptus", "Lummia Perfect Matt", "matte", "true"],
+  ["slate", "Slate", "", "", "", "matte", "false"],
+  ["midnight", "Midnight", "", "", "", "matte", "false"],
+  ["clay", "Clay", "", "", "", "matte", "false"],
+  ["fog", "Fog", "", "", "", "matte", "false"],
+  ["linen", "Linen", "", "", "", "matte", "false"],
+  ["riverstone", "Riverstone", "", "", "", "matte", "false"],
+  ["basalt", "Basalt", "", "", "", "matte", "false"],
+  ["mist", "Mist", "", "", "", "matte", "false"],
+  ["terracotta", "Terracotta", "", "", "", "matte", "false"],
+  ["fern", "Fern", "", "", "", "matte", "false"],
+  ["pebble", "Pebble", "", "", "", "matte", "false"],
+  ["porcelain", "Porcelain", "", "Gloss White", "One Source Gloss", "gloss", "true"],
+  ["ivory", "Ivory", "", "", "", "gloss", "false"],
+  ["pearl", "Pearl", "", "Gloss Light Grey", "One Source Gloss", "gloss", "true"],
+  ["graphite", "Graphite", "", "Gloss Graphite", "One Source Gloss", "gloss", "true"],
+  ["obsidian", "Obsidian", "", "Gloss Black", "One Source Gloss", "gloss", "true"],
+  ["seafoam", "Seafoam", "", "", "", "gloss", "false"],
+  ["blush", "Blush", "", "", "", "gloss", "false"],
+  ["cobalt", "Cobalt", "", "Gloss Deep Blue", "One Source Gloss", "gloss", "true"],
+  ["champagne", "Champagne", "", "", "", "gloss", "false"],
+  ["storm", "Storm", "", "Gloss Dark Grey", "One Source Gloss", "gloss", "true"],
+  ["alabaster", "Alabaster", "", "", "", "gloss", "false"],
+  ["crimson", "Crimson", "", "", "", "gloss", "false"],
+  ["white-oak", "White Oak", "Salt International", "Canyon Oak", "Salt TSV", "eir-woodgrain", "true"],
+  ["natural-walnut", "Natural Walnut", "Salt International", "Canyon Walnut", "Salt TSV", "eir-woodgrain", "true"],
+  ["espresso-walnut", "Espresso Walnut", "Salt International", "Pecan Scuro", "Salt TSV", "eir-woodgrain", "true"],
+  ["honey-maple", "Honey Maple", "Salt International", "Olmo Miele", "Salt TSV", "eir-woodgrain", "true"],
+  ["driftwood", "Driftwood", "Tafisa", "Chameleon", "Karisma", "eir-woodgrain", "true"],
+  ["charcoal-oak", "Charcoal Oak", "Salt International", "Canyon Charcoal", "Salt TSV", "eir-woodgrain", "true"],
+  ["hickory", "Hickory", "", "", "", "eir-woodgrain", "false"],
+  ["cherry", "Cherry", "Stevenswood", "Kirsche", "Stevenswood", "eir-woodgrain", "true"],
+  ["ash", "Ash", "", "", "", "eir-woodgrain", "false"],
+  ["teak", "Teak", "", "", "", "eir-woodgrain", "false"],
+  ["reclaimed-barn", "Reclaimed Barn", "", "", "", "eir-woodgrain", "false"],
+  ["ebony", "Ebony", "Salt International", "Rockefeller", "Salt TSV", "eir-woodgrain", "true"],
+  ["blonde-oak", "Blonde Oak", "Tafisa", "Sheer Beauty", "Karisma", "eir-woodgrain", "true"],
+  ["pecan", "Pecan", "", "", "", "eir-woodgrain", "false"],
+  ["cedar", "Cedar", "", "", "", "eir-woodgrain", "false"],
 ];
 
 const DOOR_STYLES = [
@@ -63,7 +65,7 @@ const DOOR_STYLES = [
 ];
 
 const COLLECTIONS = [
-  ["custom", "Custom Cabinets", "One Source Custom Cabinets", "true"],
+  ["custom", "Custom Cabinets", "One Source built-to-order custom line", "true"],
   ["reserve", "Reserve", "One Source Reserve Collection", "true"],
 ];
 
@@ -86,7 +88,7 @@ function toCsv(headers, rows) {
 fs.mkdirSync(docsDir, { recursive: true });
 
 const finishRows = FINISH_COLOR_MAP.map((r) => [
-  r[0], r[1], r[2], r[3], r[4], r[5], "false",
+  r[0], r[1], r[2], r[3], r[4], r[5], r[6],
   `/images/catalog/finishes/${r[0]}.webp`,
 ]);
 

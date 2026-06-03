@@ -27,7 +27,10 @@ function FinishSwatch({ finish }: { finish: Finish }) {
   const mapping = getFinishMapping(finish.slug);
   const imagePath = mapping?.imagePath ?? finish.imagePath;
   const [useHex, setUseHex] = useState(false);
-  const supplierLabel = mapping?.supplierColorName;
+  const supplierLabel =
+    mapping?.verified && mapping.supplierColorName
+      ? mapping.supplierColorName
+      : undefined;
 
   return (
     <div
@@ -103,9 +106,11 @@ export function FinishSwatchGrid({
                 <p className="text-xs text-muted-foreground capitalize">
                   {finish.category} · {finish.sheen}
                 </p>
-                {mapping?.supplierColorName && (
+                {mapping?.verified && mapping.supplierColorName && (
                   <p className="text-xs text-muted-foreground mt-1 line-clamp-2">
-                    {mapping.supplierPanelBrand}: {mapping.supplierColorName}
+                    One Source
+                    {mapping.supplierPanelBrand ? ` (${mapping.supplierPanelBrand})` : ""}:{" "}
+                    {mapping.supplierColorName}
                   </p>
                 )}
                 {finish.tier !== "standard" && (
