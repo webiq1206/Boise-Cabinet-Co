@@ -1,51 +1,54 @@
-import { ROOM_CATEGORIES } from "@/shared/catalog/roomCategories";
-import { COLLECTIONS } from "@/shared/catalog/collections";
+import { ROOM_BY_SLUG } from "@/shared/catalog/roomCategories";
+
+/**
+ * Primary navigation: five homeowner-first entry points (no raw SKU catalog,
+ * no "Collections", no supplier/brand names). The full SKU catalog is demoted
+ * to a "Full catalog" link inside the Shop by Room menu and the footer.
+ */
+
+const SHOP_BY_ROOM_SLUGS = [
+  "kitchen",
+  "bathroom",
+  "laundry",
+  "mudroom",
+  "home-office",
+  "entertainment",
+  "built-ins",
+  "pantry",
+] as const;
+
+const SHOP_BY_ROOM_CHILDREN = SHOP_BY_ROOM_SLUGS.map((slug) => ROOM_BY_SLUG[slug])
+  .filter(Boolean)
+  .map((room) => ({ label: room.name, href: `/cabinets/${room.slug}` }));
 
 export const PRIMARY_NAV = [
   {
-    label: "Cabinets",
+    label: "Shop by Room",
     href: "/cabinets",
-    children: ROOM_CATEGORIES.map((room) => ({
-      label: room.name,
-      href: `/cabinets/${room.slug}`,
-    })),
+    children: SHOP_BY_ROOM_CHILDREN,
+    footerLink: { label: "Full catalog", href: "/products" },
   },
   {
-    label: "Collections",
-    href: "/collections",
-    children: COLLECTIONS.map((c) => ({
-      label: c.name,
-      href: `/collections/${c.slug}`,
-    })),
-  },
-  { label: "Products", href: "/products" },
-  { label: "Finishes", href: "/finishes" },
-  {
-    label: "Explore",
-    href: "/door-styles",
+    label: "Finishes & Doors",
+    href: "/finishes",
     children: [
-      { label: "Door Styles", href: "/door-styles" },
-      { label: "Search Catalog", href: "/search" },
-      { label: "Shop by Room", href: "/products" },
-      { label: "Hardware", href: "/hardware" },
-      { label: "Accessories", href: "/accessories" },
-      { label: "Compare Collections", href: "/compare" },
-      { label: "Blog", href: "/blog" },
-      { label: "Guides", href: "/guides" },
-      { label: "Resources", href: "/resources" },
+      { label: "Finishes by color", href: "/finishes" },
+      { label: "Door styles", href: "/door-styles" },
+      { label: "Not sure? Take the finder", href: "/finder" },
     ],
   },
   { label: "Design Studio", href: "/design-studio" },
-  { label: "About", href: "/about" },
-  { label: "Contact", href: "/contact" },
+  { label: "Get an Estimate", href: "/#calculator" },
+  {
+    label: "How It Works",
+    href: "/about",
+    children: [
+      { label: "About us", href: "/about" },
+      { label: "How we build", href: "/#how-we-build" },
+      { label: "Why choose us", href: "/#why-choose-us" },
+      { label: "Projects & reviews", href: "/testimonials" },
+    ],
+  },
 ] as const;
 
-export const FOOTER_CABINET_LINKS = ROOM_CATEGORIES.slice(0, 8).map((room) => ({
-  label: room.name,
-  href: `/cabinets/${room.slug}`,
-}));
-
-export const FOOTER_COLLECTION_LINKS = COLLECTIONS.map((c) => ({
-  label: c.name,
-  href: `/collections/${c.slug}`,
-}));
+export const FOOTER_CABINET_LINKS = SHOP_BY_ROOM_CHILDREN;

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { FOOTER_CABINET_LINKS, FOOTER_COLLECTION_LINKS } from "@/shared/cabinetNav";
+import { FOOTER_CABINET_LINKS } from "@/shared/cabinetNav";
 import { SITE_TAGLINE } from "@/shared/siteContent";
 import { SITE_CONFIG } from "@/shared/siteConfig";
 import { FooterCTAs } from "@/components/modals/FooterCTAs";
@@ -67,26 +67,22 @@ export function Footer() {
 
           <div>
             <h3 className="font-sans font-medium text-[11px] tracking-[0.12em] uppercase mb-5 text-inverse-muted">
-              Collections
+              Explore
             </h3>
             <ul className="space-y-2.5">
-              {FOOTER_COLLECTION_LINKS.map((link) => (
+              {[
+                { label: "Finishes", href: "/finishes" },
+                { label: "Door Styles", href: "/door-styles" },
+                { label: "Design Studio", href: "/design-studio" },
+                { label: "Full catalog", href: "/products" },
+                { label: "My Project", href: "/portal" },
+              ].map((link) => (
                 <li key={link.href}>
                   <Link href={link.href} className="text-sm text-inverse-muted hover:text-inverse-foreground transition-colors">
                     {link.label}
                   </Link>
                 </li>
               ))}
-              <li>
-                <Link href="/design-studio" className="text-sm text-inverse-muted hover:text-inverse-foreground transition-colors">
-                  Design Studio
-                </Link>
-              </li>
-              <li>
-                <Link href="/portal" className="text-sm text-inverse-muted hover:text-inverse-foreground transition-colors">
-                  My Project
-                </Link>
-              </li>
             </ul>
           </div>
 

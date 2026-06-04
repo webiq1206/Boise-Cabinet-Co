@@ -12,9 +12,9 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { Menu, X, ChevronDown, Search } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { CTA_CONSULT, CTA_DESIGN_STUDIO_SHORT, CTA_PORTAL_SHORT } from "@/shared/ctaCopy";
+import { CTA_CONSULT_SHORT, CTA_DESIGN_STUDIO_SHORT, CTA_PORTAL_SHORT } from "@/shared/ctaCopy";
 import { SITE_CONFIG } from "@/shared/siteConfig";
 import { PRIMARY_NAV } from "@/shared/cabinetNav";
 import { useModals } from "@/components/modals/ModalProvider";
@@ -135,6 +135,15 @@ export function Navigation() {
           : "text-muted-foreground hover:text-foreground",
     );
 
+  const navItemActive = (
+    href: string,
+    children?: readonly { href: string }[],
+  ) => {
+    const match = (h: string) =>
+      !h.startsWith("/#") && (pathname === h || pathname?.startsWith(h + "/"));
+    return match(href) || (children?.some((c) => match(c.href)) ?? false);
+  };
+
   return (
     <>
       <header
@@ -157,9 +166,13 @@ export function Navigation() {
                       <NavigationMenuTrigger
                         className={cn(
                           "bg-transparent h-auto px-3 py-2 text-[13px] font-medium",
-                          isHeroMode
-                            ? "text-inverse-muted hover:text-inverse-foreground data-[state=open]:text-inverse-foreground"
-                            : "text-muted-foreground hover:text-foreground data-[state=open]:text-foreground",
+                          navItemActive(item.href, item.children)
+                            ? isHeroMode
+                              ? "text-inverse-foreground"
+                              : "text-foreground"
+                            : isHeroMode
+                              ? "text-inverse-muted hover:text-inverse-foreground data-[state=open]:text-inverse-foreground"
+                              : "text-muted-foreground hover:text-foreground data-[state=open]:text-foreground",
                         )}
                       >
                         {item.label}
@@ -188,6 +201,18 @@ export function Navigation() {
                               </NavigationMenuLink>
                             </li>
                           ))}
+                          {"footerLink" in item && item.footerLink && (
+                            <li className="col-span-full mt-1 border-t border-border/60 pt-2">
+                              <NavigationMenuLink asChild>
+                                <Link
+                                  href={item.footerLink.href}
+                                  className="block rounded-md px-3 py-2 text-xs font-medium text-muted-foreground hover:bg-muted hover:text-foreground"
+                                >
+                                  {item.footerLink.label}
+                                </Link>
+                              </NavigationMenuLink>
+                            </li>
+                          )}
                         </ul>
                       </NavigationMenuContent>
                     </NavigationMenuItem>
@@ -209,6 +234,17 @@ export function Navigation() {
                 <Link href="/portal">{CTA_PORTAL_SHORT}</Link>
               </Button>
             )}
+            <Button
+              variant="ghost"
+              size="icon"
+              aria-label="Search catalog"
+              asChild
+              className={isHeroMode ? "text-inverse-foreground hover:text-inverse-foreground" : undefined}
+            >
+              <Link href="/search">
+                <Search className="h-4 w-4" />
+              </Link>
+            </Button>
             <a
               href={SITE_CONFIG.phoneHref}
               className={cn(
@@ -224,8 +260,8 @@ export function Navigation() {
               </span>
               {SITE_CONFIG.phone}
             </a>
-            <Button variant="brand" size="sm" asChild>
-              <Link href="/design-studio">{CTA_DESIGN_STUDIO_SHORT}</Link>
+            <Button variant="brand" size="sm" onClick={openConsult}>
+              {CTA_CONSULT_SHORT}
             </Button>
           </div>
 
@@ -259,6 +295,16 @@ export function Navigation() {
         </div>
 
         <nav className="flex-1 overflow-y-auto">
+          <div className="border-b border-border/40">
+            <Link
+              href="/search"
+              onClick={() => setMobileOpen(false)}
+              className="flex items-center gap-3 px-6 py-5 text-xl font-medium text-muted-foreground"
+            >
+              <Search className="h-5 w-5" />
+              Search
+            </Link>
+          </div>
           {PRIMARY_NAV.map((item) => (
             <div key={item.label} className="border-b border-border/40">
               {"children" in item && item.children ? (
@@ -297,6 +343,15 @@ export function Navigation() {
                           {child.label}
                         </Link>
                       ))}
+                      {"footerLink" in item && item.footerLink && (
+                        <Link
+                          href={item.footerLink.href}
+                          onClick={() => setMobileOpen(false)}
+                          className="block py-2 text-sm text-muted-foreground"
+                        >
+                          {item.footerLink.label}
+                        </Link>
+                      )}
                     </div>
                   )}
                 </>
@@ -318,19 +373,14 @@ export function Navigation() {
             {SITE_CONFIG.phone}
           </a>
           <Button
-            variant="brandOutline"
+            variant="brand"
             className="w-full"
             onClick={() => {
               setMobileOpen(false);
               openConsult();
             }}
           >
-            {CTA_CONSULT}
-          </Button>
-          <Button variant="brand" className="w-full" asChild>
-            <Link href="/design-studio" onClick={() => setMobileOpen(false)}>
-              {CTA_DESIGN_STUDIO_SHORT}
-            </Link>
+            {CTA_CONSULT_SHORT}
           </Button>
         </div>
       </div>

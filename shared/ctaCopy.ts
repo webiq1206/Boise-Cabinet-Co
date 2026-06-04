@@ -1,5 +1,6 @@
 /** Sitewide conversion copy; each string matches its destination action. */
 export const CTA_CONSULT = "Start your free design consultation";
+export const CTA_CONSULT_SHORT = "Book free consultation";
 export const CTA_DESIGN_STUDIO = "Open Design Studio";
 export const CTA_DESIGN_STUDIO_SHORT = "Design Studio";
 export const CTA_ESTIMATE = "Get a project estimate";
