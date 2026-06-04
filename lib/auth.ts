@@ -308,15 +308,10 @@ export async function loginUser(email: string, password: string) {
   const ok = await verifyPassword(password, user.passwordHash);
   if (!ok) throw new AuthError("Invalid email or password.", 401);
 
-  // Do NOT auto-promote to admin on password login: email ownership is not
-  // verified here. Admin is granted only via the verified OIDC login flow
-  // (upsertUserFromClaims) or a manual DB promotion. Partner promotion by email
-  // is non-privileged and preserved for the legacy marketplace flow.
-  const designated = getDesignatedRole(user.email ?? undefined, user.role);
-  if (designated === "partner" && user.role !== "partner" && user.role !== "admin" && db) {
-    await db.update(users).set({ role: "partner" }).where(eq(users.id, user.id));
-    return { ...user, role: "partner" };
-  }
+  // Do NOT mutate role on password login: email ownership is not verified here,
+  // so an email match must not grant privileges. Roles are assigned at creation,
+  // via the verified OIDC login flow (upsertUserFromClaims), or by manual
+  // promotion. Return the persisted user as-is.
   return user;
 }
 

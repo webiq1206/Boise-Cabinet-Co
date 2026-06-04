@@ -12,7 +12,7 @@
 - Name: Boise Remodeling Co
 - Legal: Boise Remodeling Co LLC
 - Phone: (208) 352-2011
-- Email: hello@boiseremodeling.co
+- Email: hello@boisecabinet.co
 - Address: 2283 N Coopers Hawk Ave, Kuna, ID 83634
 - Founded: 2017
 - Service Area: Kuna, Boise, Meridian, Eagle, Star, Middleton (Idaho Treasure Valley, USDA Zone 6b-7a)

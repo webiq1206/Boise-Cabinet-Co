@@ -8,4 +8,4 @@
 - [Local next build OOM](local-next-build-oom.md) — `next build` silently OOM-dies in webpack compile (co-resident dev server eats RAM); verify via prebuild gates + dev-server route 200s + redirect checks, not a full local build.
 - [Build-only compile errors](build-only-compile-errors.md) — publish can fail in `next build` (SWC) on duplicate named re-exports even when dev is green; ignoreBuildErrors means tsc errors are noise — only fix the SWC compile error.
 - [Supplier color map verification](supplier-color-map-verification.md) — productColorMap's original Tafisa SKUs were fabricated; real One Source palette listed; only mark verified:true for confident matches, UI gates supplier label on verified.
-- [Admin role assignment paths](admin-role-assignment-paths.md) — admin granted in 3 independent places (lib/auth.ts, both storage.ts upsertUser copies, ADMIN_EMAILS env); keep in sync; existing DB rows need direct UPDATE.
+- [Admin role assignment policy](admin-role-assignment-paths.md) — grant admin only from verified-email (OIDC) or manual DB promotion, never an unverified email match; role logic is duplicated across layers + env, keep in sync.

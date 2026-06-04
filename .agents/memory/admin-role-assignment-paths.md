@@ -1,13 +1,13 @@
 ---
-name: admin role assignment paths
-description: Where the "admin" role is granted on sign-in — multiple independent code paths plus an env var that must stay in sync.
+name: admin role assignment policy
+description: Durable policy/risk for how the "admin" role may be granted in this app.
 ---
 
-Admin role is decided in THREE independent places that must agree:
-- `lib/auth.ts` `getDesignatedRole()` — hardcoded `ADMIN_EMAILS` array (used by the OIDC `upsertUserFromClaims` flow).
-- `server/storage.ts` `upsertUser()` — BOTH the MemStorage class and the DbStorage class have their own copy that reads `process.env.ADMIN_EMAILS` (comma-separated).
-- The `ADMIN_EMAILS` shared env var itself.
+Policy: the admin role must only be granted from a **verified-email** path (OIDC login) or a **manual DB promotion**. Never from an unverified email match.
 
-**Why:** A single canonical admin (`hello@boisecabinet.co` = `SITE_CONFIG.email`) was once admin in the code list but the `ADMIN_EMAILS` env var still pointed at an unrelated account, so the env-driven storage path granted admin to the wrong user. Changing only one place silently leaves another path wrong.
+**Why:** Password signup/login does not prove email ownership, and the privileged admin address is a fixed, well-known value. Auto-promoting on an email match (at register or login) let anyone claim admin by registering that address first. A stale env value also once granted admin to the wrong account.
 
-**How to apply:** When changing who is admin, update all paths. The storage paths now prepend `SITE_CONFIG.email` so the canonical site address is always admin regardless of env. Existing DB rows keep their old role on upsert (role is preserved), so changing an existing user's admin status also requires a direct DB `UPDATE users SET role=...`.
+**How to apply:**
+- When changing who is admin, update every place that decides roles — they are duplicated across the auth layer and the storage upsert layer, plus an env var — or they silently diverge.
+- Beware role-defaulting helpers that map one non-admin role to another (e.g. subcontractor→partner); calling them on a login/promotion path can silently mutate existing users' roles.
+- Existing rows keep their role on upsert, so demoting/promoting an existing user requires a direct DB UPDATE, not just a code change.
