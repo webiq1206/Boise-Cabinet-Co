@@ -132,11 +132,7 @@ export async function getUserFromDb(userId: string) {
 }
 
 const ADMIN_EMAILS = [
-  "webiq.co@gmail.com",
-  "info@webiq.co",
   "hello@boisecabinet.co",
-  "hello@boisecabinet.co",
-  "brostjared@gmail.com",
 ];
 
 /** Partner emails can be extended via env or admin assignment */
@@ -286,7 +282,11 @@ export async function registerUser(input: {
     throw new AuthError("An account with this email already exists.", 409);
   }
   const passwordHash = await hashPassword(input.password);
-  const role = getDesignatedRole(email, null);
+  // Never grant admin via unverified password registration. Email ownership is
+  // not proven here, so an admin-designated email must not self-promote. Admin is
+  // granted only through the verified OIDC login flow or a manual DB promotion.
+  const designated = getDesignatedRole(email, null);
+  const role = designated === "admin" ? "subcontractor" : designated;
   const inserted = await db
     .insert(users)
     .values({
@@ -308,11 +308,14 @@ export async function loginUser(email: string, password: string) {
   const ok = await verifyPassword(password, user.passwordHash);
   if (!ok) throw new AuthError("Invalid email or password.", 401);
 
-  // Keep admin promotion behavior consistent with the previous OIDC flow.
+  // Do NOT auto-promote to admin on password login: email ownership is not
+  // verified here. Admin is granted only via the verified OIDC login flow
+  // (upsertUserFromClaims) or a manual DB promotion. Partner promotion by email
+  // is non-privileged and preserved for the legacy marketplace flow.
   const designated = getDesignatedRole(user.email ?? undefined, user.role);
-  if (designated === "admin" && user.role !== "admin" && db) {
-    await db.update(users).set({ role: "admin" }).where(eq(users.id, user.id));
-    return { ...user, role: "admin" };
+  if (designated === "partner" && user.role !== "partner" && user.role !== "admin" && db) {
+    await db.update(users).set({ role: "partner" }).where(eq(users.id, user.id));
+    return { ...user, role: "partner" };
   }
   return user;
 }

@@ -23,7 +23,7 @@ Preferred communication style: Simple, everyday language.
 - **FAQ Section**: Client component (`FAQSection.tsx`) — Radix Accordion with 9 Q&As.
 - **Lead Distribution System**: B2B lead marketplace with admin dashboard, subcontractor portal, privacy protection, automated lead pricing, legal agreement flow, and in-app notifications. Integrates with Stripe for payments and supports an account credits system.
 - **Blog System**: Infrastructure kept but no posts yet — `shared/blogContent.ts` has empty `BLOG_POSTS` array.
-- **Email**: Resend integration, `hello@boiseremodeling.co` as from address.
+- **Email**: Resend integration, `hello@boisecabinet.co` as from/reply-to address and the sole admin recipient/account for the site and all portals.
 - **Service Areas**: Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton (Ada + Canyon County).
 - **Services**: Kitchen Remodel, Bathroom Remodel, Whole-Home Remodel, Room Addition.
 
