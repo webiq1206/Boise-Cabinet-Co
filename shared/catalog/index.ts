@@ -147,6 +147,20 @@ export type { CatalogSearchResult as CatalogSearchResultExtended } from "./queri
 export type { ProjectSelections } from "./projectSelections";
 export { isProjectSelections, toProjectSelections } from "./projectSelections";
 
+export type { ColorFamily, FinishTone, FinishFilters } from "./finishFilters";
+export {
+  COLOR_FAMILIES,
+  deriveColorFamily,
+  getFinishTone,
+  getMostLovedFinishes,
+  getPopularDoorStyles,
+  finishMatchesFilters,
+  colorFamiliesPresent,
+  priceTiersPresent,
+} from "./finishFilters";
+
+export { getCabinetNeedLabel } from "./cabinetLabels";
+
 import { COLLECTION_BY_SLUG, COLLECTIONS, type CabinetCollection } from "./collections";
 import {
   DOOR_STYLE_BY_SLUG,
@@ -365,12 +379,14 @@ export function searchCatalog(query: string, facets?: import("./types").CatalogS
   }
 
   for (const p of CABINET_PRODUCTS) {
-    const s = score([p.oscCode, p.description].join(" "), p.slug, p.oscCode);
+    // Match on the internal SKU so trade users can still search by code, but
+    // never surface the code as the result name (homeowners see plain English).
+    const s = score([p.oscCode, p.name, p.description].join(" "), p.slug, p.name);
     if (s > 0) {
       results.push({
         type: "cabinetProduct",
         slug: p.slug,
-        name: p.oscCode,
+        name: p.name,
         description: p.description.slice(0, 100),
         score: s,
       });

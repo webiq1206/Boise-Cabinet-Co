@@ -4,7 +4,7 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Section } from "@/components/marketing/Section";
 import { PageHeader } from "@/components/marketing/PageHeader";
-import { FinishSwatchGrid } from "@/components/catalog/FinishSwatchGrid";
+import { FinishOptionsSelector } from "@/components/catalog/OptionsSelector";
 import { CatalogClosingCTA } from "@/components/catalog/CatalogClosingCTA";
 import { CatalogSearch } from "@/components/catalog/CatalogSearch";
 import { Button } from "@/components/ui/button";
@@ -78,7 +78,7 @@ export default function FinishesPage() {
 
         <Section variant="greige" divider>
           <div className="container px-4">
-            <FinishSwatchGrid />
+            <FinishOptionsSelector />
           </div>
         </Section>
 

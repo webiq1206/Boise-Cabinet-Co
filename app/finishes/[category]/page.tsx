@@ -5,7 +5,7 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Section } from "@/components/marketing/Section";
 import { PageHeader } from "@/components/marketing/PageHeader";
-import { FinishSwatchGrid } from "@/components/catalog/FinishSwatchGrid";
+import { FinishOptionsSelector } from "@/components/catalog/OptionsSelector";
 import { Button } from "@/components/ui/button";
 import { catalogMetadata, catalogDescription } from "@/lib/catalog-metadata";
 import { generateBreadcrumbSchema, generateWebPageSchema } from "@/lib/schema";
@@ -97,7 +97,12 @@ export default function FinishCategoryPage({ params }: { params: { category: str
 
         <Section variant="greige" divider>
           <div className="container px-4">
-            <FinishSwatchGrid finishes={finishes} initialCategory={category} showCategoryLinks={false} />
+            <FinishOptionsSelector
+              finishes={finishes}
+              lockCategory
+              initialExpanded
+              showLinks={false}
+            />
           </div>
         </Section>
 

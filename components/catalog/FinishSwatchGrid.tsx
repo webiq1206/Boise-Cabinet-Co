@@ -23,7 +23,7 @@ const FILTER_OPTIONS: Array<{ id: "all" | FinishCategory; label: string }> = [
   { id: "woodgrain", label: "Woodgrain" },
 ];
 
-function FinishSwatch({ finish }: { finish: Finish }) {
+export function FinishSwatch({ finish }: { finish: Finish }) {
   const imagePath = getFinishImages(finish.slug, finish.imagePath).swatch;
   const [useHex, setUseHex] = useState(false);
   const hasHex = Boolean(finish.hexColor);

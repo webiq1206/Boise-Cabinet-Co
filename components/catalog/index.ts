@@ -1,7 +1,18 @@
 export { CatalogSearch } from "./CatalogSearch";
 export { CatalogExploreStrip } from "./CatalogExploreStrip";
 export { CollectionLandingTemplate } from "./CollectionLandingTemplate";
-export { FinishSwatchGrid } from "./FinishSwatchGrid";
+export { FinishSwatchGrid, FinishSwatch } from "./FinishSwatchGrid";
+export {
+  OptionsSelector,
+  FinishOptionsSelector,
+  DoorOptionsSelector,
+} from "./OptionsSelector";
+export type {
+  OptionsFilterGroup,
+  OptionsSelectorProps,
+  FinishOptionsSelectorProps,
+  DoorOptionsSelectorProps,
+} from "./OptionsSelector";
 export {
   CatalogImage,
   VisualOptionTile,

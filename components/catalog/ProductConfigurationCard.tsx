@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { CabinetProduct } from "@/shared/catalog";
-import { formatCabinetDimensions } from "@/shared/catalog";
+import { formatCabinetDimensions, getCabinetNeedLabel } from "@/shared/catalog";
 import { MarketingCard } from "@/components/marketing/MarketingCard";
 import { CatalogActionBar } from "@/components/catalog/CatalogActionBar";
 import { Chip } from "@/components/marketing/Chip";
@@ -31,8 +31,11 @@ export function ProductConfigurationCard({
         </div>
       )}
       <div className="p-6 flex flex-col flex-1">
-        <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">
-          {product.category}
+        <p
+          className="text-xs text-accent uppercase tracking-wider mb-1"
+          data-testid={`text-need-${product.slug}`}
+        >
+          {getCabinetNeedLabel(product)}
         </p>
         <h3 className="text-lg font-medium">{product.name}</h3>
         <p className="text-sm text-muted-foreground mt-2 flex-1">{product.description}</p>
