@@ -60,6 +60,7 @@ export function CatalogExploreStrip() {
               name={finish.name}
               imageSrc={imgs.swatch}
               imageAlt={`${finish.name} finish swatch`}
+              fallbackColor={finish.hexColor}
               specs={[{ label: "Color", value: deriveColorFamily(finish) }]}
               primaryHref={`/finishes/${finish.category}/${finish.slug}`}
             />

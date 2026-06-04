@@ -69,6 +69,7 @@ export function RoomCatalogShowcase({
                 name={finish.name}
                 imageSrc={imgs.swatch}
                 imageAlt={`${finish.name} finish swatch`}
+                fallbackColor={finish.hexColor}
                 specs={[
                   { label: "Color", value: deriveColorFamily(finish) },
                 ]}

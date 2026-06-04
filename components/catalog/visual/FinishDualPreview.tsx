@@ -20,7 +20,7 @@ export function FinishDualPreview({ finish, className }: FinishDualPreviewProps)
     <div className={cn("grid sm:grid-cols-2 gap-4", className)}>
       <figure className="space-y-2">
         <div className="relative aspect-square max-w-[200px] rounded-lg border border-border overflow-hidden bg-muted shadow-sm">
-          {!swatchFailed ? (
+          {swatch && !swatchFailed ? (
             <Image
               src={swatch}
               alt={`${finish.name} finish swatch`}

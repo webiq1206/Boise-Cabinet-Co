@@ -16,6 +16,8 @@ const ROOT = path.resolve(__dirname, "../..");
 const DATA = path.join(ROOT, "data/supplier-catalog");
 const OUT = path.join(ROOT, "shared/catalog/generated");
 const CATALOG_PATH = path.join(ROOT, "data/catalog.json");
+const FINISH_IMG_DIR = path.join(ROOT, "public/images/catalog/finishes");
+const finishImageExists = (file) => fs.existsSync(path.join(FINISH_IMG_DIR, file));
 
 const catalog = JSON.parse(fs.readFileSync(CATALOG_PATH, "utf8"));
 
@@ -101,6 +103,10 @@ const FAMILY_HEX = {
   Wood: "#9C6B43",
 };
 
+// Neutral greige tile for finishes whose family is "Confirm from swatch" /
+// unknown, so every swatch still renders a flat color (family stays unset).
+const FAMILY_HEX_DEFAULT = "#CFC7B8";
+
 function sheenFor(cat) {
   if (cat === "gloss") return "gloss";
   if (cat === "woodgrain") return "satin";
@@ -123,13 +129,17 @@ for (const f of catalog.finishes) {
 const finishSlug = uniqueSlugger();
 const finishes = catalog.finishes.map((f) => {
   const cat = f.category.toLowerCase();
-  const slug = finishSlug(slugify(`${cat}-${f.name}`));
+  const baseSlug = slugify(`${cat}-${f.name}`);
+  const slug = finishSlug(baseSlug);
   const confirm = f.priceTier === "CONFIRM";
   const marker = confirm ? 3 : (f.priceTier.match(/\$/g) || []).length;
   const displayName = finishNameCounts[f.name] > 1 ? `${f.name} - ${f.category}` : f.name;
   const compatibleDoorStyleIds =
     cat === "woodgrain" ? [...DOOR_STYLE_IDS] : DOOR_STYLE_IDS.filter((id) => id !== "three-piece");
   const fam = familyNorm(f.colorFamily);
+  // Only point at a real on-disk swatch; otherwise leave imagePath unset so the
+  // UI renders a flat color tile instead of requesting a missing image.
+  const swatchFile = [`${baseSlug}.webp`, `${slugify(f.name)}.webp`].find(finishImageExists);
   const out = {
     id: slug,
     slug,
@@ -137,16 +147,16 @@ const finishes = catalog.finishes.map((f) => {
     oscName: f.name,
     category: cat,
     sheen: sheenFor(cat),
-    hexColor: FAMILY_HEX[f.colorFamily] ?? "",
+    hexColor: FAMILY_HEX[f.colorFamily] ?? FAMILY_HEX_DEFAULT,
     panelBrand: "",
     panelSeries: "",
     sidedness: "double",
     priceTierMarker: marker,
     compatibleDoorStyleIds,
     compatibleCollectionIds: ["custom"],
-    imagePath: `/images/catalog/${f.image}`,
     onSiteNow: f.onSiteNow === "Yes",
   };
+  if (swatchFile) out.imagePath = `/images/catalog/finishes/${swatchFile}`;
   if (confirm) out.priceConfirm = true;
   if (fam) out.colorFamily = fam;
   return out;

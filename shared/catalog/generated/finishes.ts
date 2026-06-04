@@ -10,7 +10,7 @@ export const FINISHES: Finish[] = [
     "oscName": "Bitter",
     "category": "matte",
     "sheen": "matte",
-    "hexColor": "",
+    "hexColor": "#CFC7B8",
     "panelBrand": "",
     "panelSeries": "",
     "sidedness": "double",
@@ -25,8 +25,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/matte/bitter.webp",
-    "onSiteNow": true
+    "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/matte-bitter.webp"
   },
   {
     "id": "matte-macaron-green",
@@ -50,8 +50,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/matte/macaron-green.webp",
     "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/matte-macaron-green.webp",
     "colorFamily": "Green"
   },
   {
@@ -76,8 +76,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/matte/breeze-beige.webp",
     "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/matte-breeze-beige.webp",
     "colorFamily": "Neutral"
   },
   {
@@ -102,8 +102,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/matte/pearl-black.webp",
     "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/matte-pearl-black.webp",
     "colorFamily": "Black"
   },
   {
@@ -128,8 +128,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/matte/forest-green.webp",
     "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/matte-forest-green.webp",
     "colorFamily": "Green"
   },
   {
@@ -154,8 +154,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/matte/pebble-grey.webp",
     "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/matte-pebble-grey.webp",
     "colorFamily": "Grey"
   },
   {
@@ -180,8 +180,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/matte/glamorous-pacific.webp",
     "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/matte-glamorous-pacific.webp",
     "colorFamily": "Blue"
   },
   {
@@ -206,8 +206,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/matte/royal-grey.webp",
     "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/matte-royal-grey.webp",
     "colorFamily": "Grey"
   },
   {
@@ -232,8 +232,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/matte/ice-grey.webp",
     "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/matte-ice-grey.webp",
     "colorFamily": "Grey"
   },
   {
@@ -258,8 +258,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/matte/snow-white.webp",
     "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/matte-snow-white.webp",
     "colorFamily": "White"
   },
   {
@@ -284,8 +284,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/matte/london-blues.webp",
     "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/matte-london-blues.webp",
     "colorFamily": "Blue"
   },
   {
@@ -310,8 +310,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/matte/timeless-grey.webp",
     "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/matte-timeless-grey.webp",
     "colorFamily": "Grey"
   },
   {
@@ -336,8 +336,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/matte/beige-arizona.webp",
     "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/matte-beige-arizona.webp",
     "colorFamily": "Neutral"
   },
   {
@@ -362,8 +362,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/matte/bronzo-doha.webp",
     "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/matte-bronzo-doha.webp",
     "colorFamily": "Neutral"
   },
   {
@@ -388,8 +388,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/matte/nero-ingo.webp",
     "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/matte-nero-ingo.webp",
     "colorFamily": "Black"
   },
   {
@@ -414,8 +414,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/matte/bianco-alaska.webp",
     "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/matte-bianco-alaska.webp",
     "colorFamily": "White"
   },
   {
@@ -440,8 +440,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/matte/castoro-ottawa.webp",
     "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/matte-castoro-ottawa.webp",
     "colorFamily": "Neutral"
   },
   {
@@ -466,8 +466,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/matte/piomba-doha.webp",
     "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/matte-piomba-doha.webp",
     "colorFamily": "Grey"
   },
   {
@@ -492,8 +492,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/matte/bianco-dover.webp",
     "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/matte-bianco-dover.webp",
     "colorFamily": "White"
   },
   {
@@ -518,8 +518,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/matte/grigio-antrim.webp",
     "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/matte-grigio-antrim.webp",
     "colorFamily": "Grey"
   },
   {
@@ -544,8 +544,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/matte/bianco-male.webp",
     "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/matte-bianco-mal.webp",
     "colorFamily": "White"
   },
   {
@@ -570,8 +570,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/matte/grigio-bromo.webp",
     "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/matte-grigio-bromo.webp",
     "colorFamily": "Grey"
   },
   {
@@ -596,8 +596,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/matte/bianco-kos.webp",
     "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/matte-bianco-kos.webp",
     "colorFamily": "White"
   },
   {
@@ -622,8 +622,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/matte/grigio-efeso.webp",
     "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/matte-grigio-efeso.webp",
     "colorFamily": "Grey"
   },
   {
@@ -648,8 +648,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/matte/blue-fes.webp",
     "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/matte-blue-fes.webp",
     "colorFamily": "Blue"
   },
   {
@@ -674,8 +674,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/matte/grigio-londra.webp",
     "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/matte-grigio-londra.webp",
     "colorFamily": "Grey"
   },
   {
@@ -700,8 +700,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/matte/black.webp",
     "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/matte-black.webp",
     "colorFamily": "Black"
   },
   {
@@ -711,7 +711,7 @@ export const FINISHES: Finish[] = [
     "oscName": "Morning Dew",
     "category": "matte",
     "sheen": "matte",
-    "hexColor": "",
+    "hexColor": "#CFC7B8",
     "panelBrand": "",
     "panelSeries": "",
     "sidedness": "double",
@@ -726,8 +726,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/matte/morning-dew.webp",
-    "onSiteNow": true
+    "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/matte-morning-dew.webp"
   },
   {
     "id": "matte-calm-sea",
@@ -751,8 +751,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/matte/calm-sea.webp",
     "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/matte-calm-sea.webp",
     "colorFamily": "Blue"
   },
   {
@@ -762,7 +762,7 @@ export const FINISHES: Finish[] = [
     "oscName": "North Wind",
     "category": "matte",
     "sheen": "matte",
-    "hexColor": "",
+    "hexColor": "#CFC7B8",
     "panelBrand": "",
     "panelSeries": "",
     "sidedness": "double",
@@ -777,8 +777,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/matte/north-wind.webp",
-    "onSiteNow": true
+    "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/matte-north-wind.webp"
   },
   {
     "id": "matte-camera-obscura",
@@ -802,8 +802,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/matte/camera-obscura.webp",
     "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/matte-camera-obscura.webp",
     "colorFamily": "Black"
   },
   {
@@ -813,7 +813,7 @@ export const FINISHES: Finish[] = [
     "oscName": "Urban Vibe",
     "category": "matte",
     "sheen": "matte",
-    "hexColor": "",
+    "hexColor": "#CFC7B8",
     "panelBrand": "",
     "panelSeries": "",
     "sidedness": "double",
@@ -828,8 +828,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/matte/urban-vibe.webp",
-    "onSiteNow": true
+    "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/matte-urban-vibe.webp"
   },
   {
     "id": "matte-carte-blanche",
@@ -838,7 +838,7 @@ export const FINISHES: Finish[] = [
     "oscName": "Carte Blanche",
     "category": "matte",
     "sheen": "matte",
-    "hexColor": "",
+    "hexColor": "#CFC7B8",
     "panelBrand": "",
     "panelSeries": "",
     "sidedness": "double",
@@ -853,8 +853,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/matte/carte-blanche.webp",
-    "onSiteNow": true
+    "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/matte-carte-blanche.webp"
   },
   {
     "id": "matte-vanilla-orchid",
@@ -863,7 +863,7 @@ export const FINISHES: Finish[] = [
     "oscName": "Vanilla Orchid",
     "category": "matte",
     "sheen": "matte",
-    "hexColor": "",
+    "hexColor": "#CFC7B8",
     "panelBrand": "",
     "panelSeries": "",
     "sidedness": "double",
@@ -878,8 +878,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/matte/vanilla-orchid.webp",
-    "onSiteNow": true
+    "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/matte-vanilla-orchid.webp"
   },
   {
     "id": "matte-eucalyptus",
@@ -903,8 +903,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/matte/eucalyptus.webp",
     "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/matte-eucalyptus.webp",
     "colorFamily": "Green"
   },
   {
@@ -929,8 +929,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/matte/midnight-sun.webp",
     "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/matte-midnight-sun.webp",
     "colorFamily": "Black"
   },
   {
@@ -955,8 +955,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/matte/black.webp",
     "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/matte-black.webp",
     "colorFamily": "Black"
   },
   {
@@ -981,8 +981,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/matte/white.webp",
     "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/matte-white.webp",
     "colorFamily": "White"
   },
   {
@@ -1007,8 +1007,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/matte/dark-grey.webp",
     "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/matte-dark-grey.webp",
     "colorFamily": "Grey"
   },
   {
@@ -1033,8 +1033,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/matte/deep-blue.webp",
     "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/matte-deep-blue.webp",
     "colorFamily": "Blue"
   },
   {
@@ -1059,8 +1059,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/matte/graphite.webp",
     "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/matte-graphite.webp",
     "colorFamily": "Grey"
   },
   {
@@ -1085,8 +1085,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/matte/jade-green.webp",
     "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/matte-jade-green.webp",
     "colorFamily": "Green"
   },
   {
@@ -1111,8 +1111,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/matte/tan.webp",
     "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/matte-tan.webp",
     "colorFamily": "Neutral"
   },
   {
@@ -1137,8 +1137,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/matte/black.webp",
     "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/matte-black.webp",
     "colorFamily": "Black"
   },
   {
@@ -1163,8 +1163,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/matte/maltese-mist.webp",
     "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/matte-maltese-mist.webp",
     "colorFamily": "Grey"
   },
   {
@@ -1174,7 +1174,7 @@ export const FINISHES: Finish[] = [
     "oscName": "Boxcar Blonde",
     "category": "matte",
     "sheen": "matte",
-    "hexColor": "",
+    "hexColor": "#CFC7B8",
     "panelBrand": "",
     "panelSeries": "",
     "sidedness": "double",
@@ -1189,8 +1189,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/matte/boxcar-blonde.webp",
-    "onSiteNow": true
+    "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/matte-boxcar-blonde.webp"
   },
   {
     "id": "matte-midnight-dash",
@@ -1214,8 +1214,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/matte/midnight-dash.webp",
     "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/matte-midnight-dash.webp",
     "colorFamily": "Black"
   },
   {
@@ -1225,7 +1225,7 @@ export const FINISHES: Finish[] = [
     "oscName": "Capital Starlit",
     "category": "matte",
     "sheen": "matte",
-    "hexColor": "",
+    "hexColor": "#CFC7B8",
     "panelBrand": "",
     "panelSeries": "",
     "sidedness": "double",
@@ -1240,8 +1240,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/matte/capital-starlit.webp",
-    "onSiteNow": true
+    "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/matte-capital-starlit.webp"
   },
   {
     "id": "matte-olive-detour",
@@ -1265,8 +1265,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/matte/olive-detour.webp",
     "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/matte-olive-detour.webp",
     "colorFamily": "Green"
   },
   {
@@ -1291,8 +1291,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/matte/casa-blanca.webp",
     "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/matte-casa-blanca.webp",
     "colorFamily": "White"
   },
   {
@@ -1317,8 +1317,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/matte/silver-lake.webp",
     "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/matte-silver-lake.webp",
     "colorFamily": "Grey"
   },
   {
@@ -1343,8 +1343,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/matte/gaslit-alley.webp",
     "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/matte-gaslit-alley.webp",
     "colorFamily": "Grey"
   },
   {
@@ -1369,8 +1369,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/matte/smoke-stack.webp",
     "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/matte-smoke-stack.webp",
     "colorFamily": "Grey"
   },
   {
@@ -1380,7 +1380,7 @@ export const FINISHES: Finish[] = [
     "oscName": "High Low",
     "category": "matte",
     "sheen": "matte",
-    "hexColor": "",
+    "hexColor": "#CFC7B8",
     "panelBrand": "",
     "panelSeries": "",
     "sidedness": "double",
@@ -1395,8 +1395,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/matte/high-low.webp",
-    "onSiteNow": true
+    "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/matte-high-low.webp"
   },
   {
     "id": "matte-trench-coat",
@@ -1405,7 +1405,7 @@ export const FINISHES: Finish[] = [
     "oscName": "Trench Coat",
     "category": "matte",
     "sheen": "matte",
-    "hexColor": "",
+    "hexColor": "#CFC7B8",
     "panelBrand": "",
     "panelSeries": "",
     "sidedness": "double",
@@ -1420,8 +1420,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/matte/trench-coat.webp",
-    "onSiteNow": true
+    "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/matte-trench-coat.webp"
   },
   {
     "id": "gloss-black-hg",
@@ -1445,8 +1445,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/gloss/black-hg.webp",
     "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/gloss-black-hg.webp",
     "colorFamily": "Black"
   },
   {
@@ -1471,8 +1471,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/gloss/dark-grey-hg.webp",
     "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/gloss-dark-grey-hg.webp",
     "colorFamily": "Grey"
   },
   {
@@ -1497,8 +1497,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/gloss/white-hg.webp",
     "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/gloss-white-hg.webp",
     "colorFamily": "White"
   },
   {
@@ -1523,7 +1523,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/gloss/black.webp",
     "onSiteNow": false,
     "colorFamily": "Black"
   },
@@ -1534,7 +1533,7 @@ export const FINISHES: Finish[] = [
     "oscName": "Carte Blanche",
     "category": "gloss",
     "sheen": "gloss",
-    "hexColor": "",
+    "hexColor": "#CFC7B8",
     "panelBrand": "",
     "panelSeries": "",
     "sidedness": "double",
@@ -1549,8 +1548,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/gloss/carte-blanche.webp",
-    "onSiteNow": true
+    "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/gloss-carte-blanche.webp"
   },
   {
     "id": "gloss-iron-horse",
@@ -1559,7 +1558,7 @@ export const FINISHES: Finish[] = [
     "oscName": "Iron Horse",
     "category": "gloss",
     "sheen": "gloss",
-    "hexColor": "",
+    "hexColor": "#CFC7B8",
     "panelBrand": "",
     "panelSeries": "",
     "sidedness": "double",
@@ -1574,8 +1573,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/gloss/iron-horse.webp",
-    "onSiteNow": true
+    "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/gloss-iron-horse.webp"
   },
   {
     "id": "gloss-steampunk",
@@ -1584,7 +1583,7 @@ export const FINISHES: Finish[] = [
     "oscName": "Steampunk",
     "category": "gloss",
     "sheen": "gloss",
-    "hexColor": "",
+    "hexColor": "#CFC7B8",
     "panelBrand": "",
     "panelSeries": "",
     "sidedness": "double",
@@ -1599,8 +1598,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/gloss/steampunk.webp",
-    "onSiteNow": true
+    "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/gloss-steampunk.webp"
   },
   {
     "id": "gloss-vanilla-orchid",
@@ -1609,7 +1608,7 @@ export const FINISHES: Finish[] = [
     "oscName": "Vanilla Orchid",
     "category": "gloss",
     "sheen": "gloss",
-    "hexColor": "",
+    "hexColor": "#CFC7B8",
     "panelBrand": "",
     "panelSeries": "",
     "sidedness": "double",
@@ -1624,8 +1623,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/gloss/vanilla-orchid.webp",
-    "onSiteNow": true
+    "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/gloss-vanilla-orchid.webp"
   },
   {
     "id": "gloss-midnight-sun",
@@ -1649,7 +1648,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/gloss/midnight-sun.webp",
     "onSiteNow": false,
     "colorFamily": "Black"
   },
@@ -1660,7 +1658,7 @@ export const FINISHES: Finish[] = [
     "oscName": "Morning Dew",
     "category": "gloss",
     "sheen": "gloss",
-    "hexColor": "",
+    "hexColor": "#CFC7B8",
     "panelBrand": "",
     "panelSeries": "",
     "sidedness": "double",
@@ -1675,8 +1673,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/gloss/morning-dew.webp",
-    "onSiteNow": true
+    "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/gloss-morning-dew.webp"
   },
   {
     "id": "gloss-north-wind",
@@ -1685,7 +1683,7 @@ export const FINISHES: Finish[] = [
     "oscName": "North Wind",
     "category": "gloss",
     "sheen": "gloss",
-    "hexColor": "",
+    "hexColor": "#CFC7B8",
     "panelBrand": "",
     "panelSeries": "",
     "sidedness": "double",
@@ -1700,8 +1698,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/gloss/north-wind.webp",
-    "onSiteNow": true
+    "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/gloss-north-wind.webp"
   },
   {
     "id": "gloss-black-2",
@@ -1725,7 +1723,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/gloss/black.webp",
     "onSiteNow": false,
     "colorFamily": "Black"
   },
@@ -1751,8 +1748,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/gloss/white.webp",
     "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/gloss-white.webp",
     "colorFamily": "White"
   },
   {
@@ -1777,8 +1774,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/gloss/dark-grey.webp",
     "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/gloss-dark-grey.webp",
     "colorFamily": "Grey"
   },
   {
@@ -1803,8 +1800,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/gloss/deep-blue.webp",
     "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/gloss-deep-blue.webp",
     "colorFamily": "Blue"
   },
   {
@@ -1829,8 +1826,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/gloss/graphite.webp",
     "onSiteNow": false,
+    "imagePath": "/images/catalog/finishes/graphite.webp",
     "colorFamily": "Grey"
   },
   {
@@ -1855,8 +1852,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/gloss/light-grey.webp",
     "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/gloss-light-grey.webp",
     "colorFamily": "Grey"
   },
   {
@@ -1881,7 +1878,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/gloss/tan.webp",
     "onSiteNow": false,
     "colorFamily": "Neutral"
   },
@@ -1907,7 +1903,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/gloss/bianco.webp",
     "onSiteNow": false,
     "colorFamily": "White"
   },
@@ -1933,8 +1928,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/gloss/nebbia.webp",
     "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/gloss-nebbia.webp",
     "colorFamily": "Grey"
   },
   {
@@ -1959,8 +1954,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/gloss/fumo.webp",
     "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/gloss-fumo.webp",
     "colorFamily": "Grey"
   },
   {
@@ -1985,8 +1980,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/gloss/perla.webp",
     "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/gloss-perla.webp",
     "colorFamily": "White"
   },
   {
@@ -2011,7 +2006,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/gloss/legno-sbiancato.webp",
     "onSiteNow": false,
     "colorFamily": "White"
   },
@@ -2037,8 +2031,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/gloss/piano.webp",
     "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/gloss-piano.webp",
     "colorFamily": "Black"
   },
   {
@@ -2063,7 +2057,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/gloss/marmo-bianco.webp",
     "onSiteNow": false,
     "colorFamily": "White"
   },
@@ -2089,8 +2082,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/gloss/sabbia.webp",
     "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/gloss-sabbia.webp",
     "colorFamily": "Neutral"
   },
   {
@@ -2115,8 +2108,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/gloss/marmo-nero.webp",
     "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/gloss-marmo-nero.webp",
     "colorFamily": "Black"
   },
   {
@@ -2141,8 +2134,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/gloss/zucchero.webp",
     "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/gloss-zucchero.webp",
     "colorFamily": "White"
   },
   {
@@ -2167,8 +2160,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/gloss/menta.webp",
     "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/gloss-menta.webp",
     "colorFamily": "Green"
   },
   {
@@ -2193,7 +2186,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/gloss/bianco.webp",
     "onSiteNow": false,
     "colorFamily": "White"
   },
@@ -2219,8 +2211,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/gloss/grafite.webp",
     "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/gloss-grafite.webp",
     "colorFamily": "Grey"
   },
   {
@@ -2245,7 +2237,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/gloss/roccia.webp",
     "onSiteNow": false,
     "colorFamily": "Grey"
   },
@@ -2271,8 +2262,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/gloss/bigio.webp",
     "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/gloss-bigio.webp",
     "colorFamily": "Grey"
   },
   {
@@ -2297,8 +2288,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/gloss/magnolia.webp",
     "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/gloss-magnolia.webp",
     "colorFamily": "White"
   },
   {
@@ -2323,7 +2314,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/gloss/titanio.webp",
     "onSiteNow": false,
     "colorFamily": "Grey"
   },
@@ -2349,8 +2339,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/gloss/cappuccino.webp",
     "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/gloss-cappuccino.webp",
     "colorFamily": "Neutral"
   },
   {
@@ -2375,8 +2365,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/gloss/meringa.webp",
     "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/gloss-meringa.webp",
     "colorFamily": "White"
   },
   {
@@ -2401,7 +2391,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/gloss/cemento.webp",
     "onSiteNow": false,
     "colorFamily": "Grey"
   },
@@ -2427,7 +2416,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/gloss/moro.webp",
     "onSiteNow": false,
     "colorFamily": "Black"
   },
@@ -2453,7 +2441,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/gloss/cubanite.webp",
     "onSiteNow": false,
     "colorFamily": "Grey"
   },
@@ -2479,7 +2466,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/gloss/notte.webp",
     "onSiteNow": false,
     "colorFamily": "Black"
   },
@@ -2505,7 +2491,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/gloss/gabbiano.webp",
     "onSiteNow": false,
     "colorFamily": "Grey"
   },
@@ -2531,7 +2516,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/gloss/prugna.webp",
     "onSiteNow": false,
     "colorFamily": "Blue"
   },
@@ -2542,7 +2526,7 @@ export const FINISHES: Finish[] = [
     "oscName": "Canyon Charcoal",
     "category": "gloss",
     "sheen": "gloss",
-    "hexColor": "",
+    "hexColor": "#CFC7B8",
     "panelBrand": "",
     "panelSeries": "",
     "sidedness": "double",
@@ -2557,7 +2541,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/gloss/canyon-charcoal.webp",
     "onSiteNow": false
   },
   {
@@ -2582,7 +2565,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/gloss/rovere-grigio.webp",
     "onSiteNow": false,
     "colorFamily": "Grey"
   },
@@ -2593,7 +2575,7 @@ export const FINISHES: Finish[] = [
     "oscName": "Carbone",
     "category": "gloss",
     "sheen": "gloss",
-    "hexColor": "",
+    "hexColor": "#CFC7B8",
     "panelBrand": "",
     "panelSeries": "",
     "sidedness": "double",
@@ -2608,7 +2590,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/gloss/carbone.webp",
     "onSiteNow": false
   },
   {
@@ -2618,7 +2599,7 @@ export const FINISHES: Finish[] = [
     "oscName": "Eucalipto Brown",
     "category": "gloss",
     "sheen": "gloss",
-    "hexColor": "",
+    "hexColor": "#CFC7B8",
     "panelBrand": "",
     "panelSeries": "",
     "sidedness": "double",
@@ -2633,7 +2614,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/gloss/eucalipto-brown.webp",
     "onSiteNow": false
   },
   {
@@ -2643,7 +2623,7 @@ export const FINISHES: Finish[] = [
     "oscName": "Anthracite",
     "category": "gloss",
     "sheen": "gloss",
-    "hexColor": "",
+    "hexColor": "#CFC7B8",
     "panelBrand": "",
     "panelSeries": "",
     "sidedness": "double",
@@ -2658,7 +2638,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/gloss/anthracite.webp",
     "onSiteNow": false
   },
   {
@@ -2683,7 +2662,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/gloss/eucalipto-grey.webp",
     "onSiteNow": false,
     "colorFamily": "Grey"
   },
@@ -2709,8 +2687,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/gloss/ash.webp",
     "onSiteNow": false,
+    "imagePath": "/images/catalog/finishes/ash.webp",
     "colorFamily": "Grey"
   },
   {
@@ -2735,7 +2713,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/gloss/nero.webp",
     "onSiteNow": false,
     "colorFamily": "Black"
   },
@@ -2761,7 +2738,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/gloss/bianco.webp",
     "onSiteNow": false,
     "colorFamily": "White"
   },
@@ -2787,7 +2763,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/gloss/palisandro-azuro.webp",
     "onSiteNow": false,
     "colorFamily": "Blue"
   },
@@ -2814,7 +2789,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/amber-pearwood.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -2841,7 +2815,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/chocolate-carini-walnut.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -2868,7 +2841,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/dark-steel.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -2895,7 +2867,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/auburn-carini-walnut.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -2922,7 +2893,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/chocolate-pearwood.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -2949,7 +2919,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/espresso.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -2976,7 +2945,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/beige-textile.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -3003,7 +2971,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/chromix-anthracite.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -3030,7 +2997,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/floral-mahogany.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -3057,7 +3023,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/black.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -3084,7 +3049,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/chromix-silver.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -3111,7 +3075,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/fog-grey-tossini-elm.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -3138,7 +3101,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/brown-tossini-elm.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -3165,7 +3127,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/dark-brown-eucalyptus.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -3192,7 +3153,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/grey-beige-gladstone-oak.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -3219,7 +3179,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/carbon-frozen-wood.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -3246,7 +3205,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/dark-grey-fineline.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -3273,7 +3231,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/grey-frozen-wood.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -3300,7 +3257,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/natural-carini-walnut.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -3327,7 +3283,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/vicenza-oak.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -3354,7 +3309,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/hardrock-maple.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -3381,7 +3335,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/natural-eucalyptus.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -3408,7 +3361,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/warm-grey-eucalyptus.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -3435,7 +3387,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/natural-bardolino-oak.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -3462,7 +3413,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/tobacco-halifax-oak.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -3489,7 +3439,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/grey-beige-tossini-elm.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -3516,7 +3465,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/light-grey-fineline.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -3543,7 +3491,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/shorewood.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -3570,7 +3517,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/white-fineline.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -3597,7 +3543,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/medium-grey-fineline.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -3624,7 +3569,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/tobacco-gladstone-oak.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -3651,7 +3595,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/honey-carini-walnut.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -3678,7 +3621,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/sand-gladstone-oak.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -3705,7 +3647,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/white-chromix.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -3732,7 +3673,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/white-tossini-elm.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -3759,7 +3699,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/white-gladstone-oak.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -3786,7 +3725,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/white-halifax-oak.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -3813,7 +3751,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/white-frozen-wood.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -3840,7 +3777,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/white-levanto-marble.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -3867,7 +3803,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/white-linen.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -3894,7 +3829,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/white-havana-pine.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -3921,7 +3855,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/bianco.webp",
     "onSiteNow": false,
     "priceConfirm": true,
     "colorFamily": "Wood"
@@ -3949,8 +3882,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/canyon-walnut.webp",
     "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/woodgrain-canyon-walnut.webp",
     "priceConfirm": true,
     "colorFamily": "Wood"
   },
@@ -3977,8 +3910,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/coral-sand.webp",
     "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/woodgrain-coral-sand.webp",
     "priceConfirm": true,
     "colorFamily": "Wood"
   },
@@ -4005,7 +3938,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/bruciato.webp",
     "onSiteNow": false,
     "priceConfirm": true,
     "colorFamily": "Wood"
@@ -4033,7 +3965,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/carbone.webp",
     "onSiteNow": false,
     "priceConfirm": true,
     "colorFamily": "Wood"
@@ -4061,7 +3992,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/empire.webp",
     "onSiteNow": false,
     "priceConfirm": true,
     "colorFamily": "Wood"
@@ -4089,7 +4019,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/cafe.webp",
     "onSiteNow": false,
     "priceConfirm": true,
     "colorFamily": "Wood"
@@ -4117,7 +4046,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/cayman.webp",
     "onSiteNow": false,
     "priceConfirm": true,
     "colorFamily": "Wood"
@@ -4145,8 +4073,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/epic.webp",
     "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/woodgrain-epic.webp",
     "priceConfirm": true,
     "colorFamily": "Wood"
   },
@@ -4173,7 +4101,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/canyon-bleach.webp",
     "onSiteNow": false,
     "priceConfirm": true,
     "colorFamily": "Wood"
@@ -4201,7 +4128,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/central.webp",
     "onSiteNow": false,
     "priceConfirm": true,
     "colorFamily": "Wood"
@@ -4229,8 +4155,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/canyon-charcoal.webp",
     "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/woodgrain-canyon-charcoal.webp",
     "priceConfirm": true,
     "colorFamily": "Wood"
   },
@@ -4257,7 +4183,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/chrysler.webp",
     "onSiteNow": false,
     "priceConfirm": true,
     "colorFamily": "Wood"
@@ -4285,8 +4210,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/canyon-oak.webp",
     "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/woodgrain-canyon-oak.webp",
     "priceConfirm": true,
     "colorFamily": "Wood"
   },
@@ -4313,8 +4238,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/coral-bark.webp",
     "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/woodgrain-coral-bark.webp",
     "priceConfirm": true,
     "colorFamily": "Wood"
   },
@@ -4341,8 +4266,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/eucalipto-white.webp",
     "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/woodgrain-eucalipto-white.webp",
     "priceConfirm": true,
     "colorFamily": "Wood"
   },
@@ -4369,7 +4294,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/maranello.webp",
     "onSiteNow": false,
     "priceConfirm": true,
     "colorFamily": "Wood"
@@ -4397,7 +4321,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/palisandro-azuro.webp",
     "onSiteNow": false,
     "priceConfirm": true,
     "colorFamily": "Wood"
@@ -4425,7 +4348,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/lakeshore-oak.webp",
     "onSiteNow": false,
     "priceConfirm": true,
     "colorFamily": "Wood"
@@ -4453,7 +4375,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/olmo-fume.webp",
     "onSiteNow": false,
     "priceConfirm": true,
     "colorFamily": "Wood"
@@ -4481,7 +4402,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/lava.webp",
     "onSiteNow": false,
     "priceConfirm": true,
     "colorFamily": "Wood"
@@ -4509,8 +4429,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/olmo-miele.webp",
     "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/woodgrain-olmo-miele.webp",
     "priceConfirm": true,
     "colorFamily": "Wood"
   },
@@ -4537,7 +4457,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/eucalipto-brown.webp",
     "onSiteNow": false,
     "priceConfirm": true,
     "colorFamily": "Wood"
@@ -4565,8 +4484,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/eucalipto-grey.webp",
     "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/woodgrain-eucalipto-grey.webp",
     "priceConfirm": true,
     "colorFamily": "Wood"
   },
@@ -4593,7 +4512,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/key-west.webp",
     "onSiteNow": false,
     "priceConfirm": true,
     "colorFamily": "Wood"
@@ -4621,7 +4539,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/olmo-cafe.webp",
     "onSiteNow": false,
     "priceConfirm": true,
     "colorFamily": "Wood"
@@ -4649,7 +4566,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/fantasia.webp",
     "onSiteNow": false,
     "priceConfirm": true,
     "colorFamily": "Wood"
@@ -4677,7 +4593,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/moca.webp",
     "onSiteNow": false,
     "priceConfirm": true,
     "colorFamily": "Wood"
@@ -4705,7 +4620,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/palisandro-grigio.webp",
     "onSiteNow": false,
     "priceConfirm": true,
     "colorFamily": "Wood"
@@ -4733,7 +4647,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/fumo.webp",
     "onSiteNow": false,
     "priceConfirm": true,
     "colorFamily": "Wood"
@@ -4761,7 +4674,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/noce-ribera.webp",
     "onSiteNow": false,
     "priceConfirm": true,
     "colorFamily": "Wood"
@@ -4789,7 +4701,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/palisandro-walnut.webp",
     "onSiteNow": false,
     "priceConfirm": true,
     "colorFamily": "Wood"
@@ -4817,8 +4728,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/pecan-gold.webp",
     "onSiteNow": false,
+    "imagePath": "/images/catalog/finishes/pecan-gold.webp",
     "priceConfirm": true,
     "colorFamily": "Wood"
   },
@@ -4845,8 +4756,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/rockefeller.webp",
     "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/woodgrain-rockefeller.webp",
     "priceConfirm": true,
     "colorFamily": "Wood"
   },
@@ -4873,7 +4784,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/rovere-grigio.webp",
     "onSiteNow": false,
     "priceConfirm": true,
     "colorFamily": "Wood"
@@ -4901,7 +4811,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/spiaggia.webp",
     "onSiteNow": false,
     "priceConfirm": true,
     "colorFamily": "Wood"
@@ -4929,7 +4838,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/rovere-agento.webp",
     "onSiteNow": false,
     "priceConfirm": true,
     "colorFamily": "Wood"
@@ -4957,7 +4865,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/pampas.webp",
     "onSiteNow": false,
     "priceConfirm": true,
     "colorFamily": "Wood"
@@ -4985,8 +4892,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/panna.webp",
     "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/woodgrain-panna.webp",
     "priceConfirm": true,
     "colorFamily": "Wood"
   },
@@ -5013,7 +4920,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/rialto.webp",
     "onSiteNow": false,
     "priceConfirm": true,
     "colorFamily": "Wood"
@@ -5041,7 +4947,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/hemlock.webp",
     "onSiteNow": false,
     "priceConfirm": true,
     "colorFamily": "Wood"
@@ -5069,7 +4974,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/rustica.webp",
     "onSiteNow": false,
     "priceConfirm": true,
     "colorFamily": "Wood"
@@ -5097,7 +5001,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/pecan-roast.webp",
     "onSiteNow": false,
     "priceConfirm": true,
     "colorFamily": "Wood"
@@ -5125,7 +5028,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/rovere-sabbia.webp",
     "onSiteNow": false,
     "priceConfirm": true,
     "colorFamily": "Wood"
@@ -5153,8 +5055,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/pecan-scuro.webp",
     "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/woodgrain-pecan-scuro.webp",
     "priceConfirm": true,
     "colorFamily": "Wood"
   },
@@ -5181,7 +5083,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/rustic-oak.webp",
     "onSiteNow": false,
     "priceConfirm": true,
     "colorFamily": "Wood"
@@ -5209,7 +5110,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/teak-scuro.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -5236,7 +5136,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/buff-linen.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -5263,7 +5162,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/tiger-eye.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -5290,7 +5188,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/magnolia-linen.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -5317,7 +5214,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/taiga.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -5344,7 +5240,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/anthracite-linen.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -5371,7 +5266,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/uva.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -5398,7 +5292,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/wildwood.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -5425,7 +5318,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/woolworth.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -5452,7 +5344,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/chalk-ash.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -5479,7 +5370,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/granite-walnut.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -5506,7 +5396,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/raven-oak.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -5533,7 +5422,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/chocolate-oak.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -5560,7 +5448,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/ivory-oak.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -5587,7 +5474,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/smoked-walnut.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -5614,7 +5500,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/cinnamon-triba.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -5641,7 +5526,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/manhattan-oak.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -5668,7 +5552,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/stardust-walnut.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -5695,7 +5578,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/desert-oak.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -5722,7 +5604,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/milk-oak.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -5749,7 +5630,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/stone-triba.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -5776,7 +5656,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/dusk-frake.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -5803,7 +5682,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/mineral-triba.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -5830,7 +5708,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/frozen-walnut.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -5857,7 +5734,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/natural-oak.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -5884,7 +5760,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/aliso.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -5911,7 +5786,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/canella-rustik.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -5938,7 +5812,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/dark-noce.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -5965,7 +5838,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/allaria.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -5992,7 +5864,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/caramel-cherry.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -6019,7 +5890,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/drift-loud.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -6046,8 +5916,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/alno.webp",
     "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/woodgrain-alno.webp",
     "colorFamily": "Wood"
   },
   {
@@ -6073,7 +5943,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/carmelo-mist.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -6100,8 +5969,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/evening-notte.webp",
     "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/woodgrain-evening-notte.webp",
     "colorFamily": "Wood"
   },
   {
@@ -6127,7 +5996,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/arizona-cypress.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -6154,7 +6022,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/coastal.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -6181,7 +6048,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/ashley.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -6208,7 +6074,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/dahat-teak.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -6235,7 +6100,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/black.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -6262,7 +6126,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/dark-elm.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -6289,7 +6152,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/formosa.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -6316,7 +6178,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/gregio-notte.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -6343,7 +6204,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/lara.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -6370,7 +6230,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/natural-marrone.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -6397,7 +6256,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/gregio-pine.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -6424,7 +6282,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/laurel.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -6451,7 +6308,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/natural-rustik.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -6478,8 +6334,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/grey-echo.webp",
     "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/woodgrain-grey-echo.webp",
     "colorFamily": "Wood"
   },
   {
@@ -6505,7 +6361,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/midnight-echo.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -6532,7 +6387,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/natural-teak.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -6559,7 +6413,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/jasper.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -6586,8 +6439,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/midnight-run.webp",
     "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/woodgrain-midnight-run.webp",
     "colorFamily": "Wood"
   },
   {
@@ -6613,8 +6466,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/kirsche.webp",
     "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/woodgrain-kirsche.webp",
     "colorFamily": "Wood"
   },
   {
@@ -6640,8 +6493,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/morning-fog.webp",
     "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/woodgrain-morning-fog.webp",
     "colorFamily": "Wood"
   },
   {
@@ -6667,7 +6520,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/kyushu.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -6694,7 +6546,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/natural-elm.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -6721,8 +6572,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/ontano.webp",
     "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/woodgrain-ontano.webp",
     "colorFamily": "Wood"
   },
   {
@@ -6748,7 +6599,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/parisienne.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -6775,7 +6625,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/shadow-teak.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -6802,7 +6651,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/white-nebbia.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -6829,7 +6677,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/pearl-white.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -6856,7 +6703,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/siberian.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -6883,8 +6729,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/white-zebrine.webp",
     "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/woodgrain-white-zebrine.webp",
     "colorFamily": "Wood"
   },
   {
@@ -6910,7 +6756,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/takase-teak.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -6937,7 +6782,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/richmond-cherry.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -6964,7 +6808,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/sabbia.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -6991,7 +6834,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/timeless.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -7018,7 +6860,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/seppia-walnut.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -7045,7 +6886,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/vina.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -7072,8 +6912,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/serotina.webp",
     "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/woodgrain-serotina.webp",
     "colorFamily": "Wood"
   },
   {
@@ -7099,7 +6939,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/weathered-teak.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -7126,7 +6965,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/after-hours.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -7153,8 +6991,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/first-class.webp",
     "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/woodgrain-first-class.webp",
     "colorFamily": "Wood"
   },
   {
@@ -7180,7 +7018,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/new-wave.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -7207,7 +7044,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/apres-ski.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -7234,7 +7070,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/first-dance.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -7261,7 +7096,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/night-owl.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -7288,7 +7122,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/force-of-nature.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -7315,7 +7148,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/casting-at-first-light.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -7342,8 +7174,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/chameleon.webp",
     "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/woodgrain-chameleon.webp",
     "colorFamily": "Wood"
   },
   {
@@ -7369,8 +7201,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/free-spirit.webp",
     "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/woodgrain-free-spirit.webp",
     "colorFamily": "Wood"
   },
   {
@@ -7396,7 +7228,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/creme-de-la-creme.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -7423,7 +7254,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/golden-light.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -7450,8 +7280,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/fashionista.webp",
     "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/woodgrain-fashionista.webp",
     "colorFamily": "Wood"
   },
   {
@@ -7477,7 +7307,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/home-sweet-home.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -7504,8 +7333,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/rhapsody.webp",
     "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/woodgrain-rhapsody.webp",
     "colorFamily": "Wood"
   },
   {
@@ -7531,7 +7360,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/tete-a-tete.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -7558,7 +7386,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/rock-solid.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -7585,7 +7412,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/viva-black.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -7612,7 +7438,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/weekend-getaway.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -7639,8 +7464,8 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/sheer-beauty.webp",
     "onSiteNow": true,
+    "imagePath": "/images/catalog/finishes/woodgrain-sheer-beauty.webp",
     "colorFamily": "Wood"
   },
   {
@@ -7666,7 +7491,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/summertime-blues.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -7693,7 +7517,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/winter-fun.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -7720,7 +7543,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/sunset-cruise.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -7747,7 +7569,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/tea-for-two.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -7774,7 +7595,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/cannes.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -7801,7 +7621,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/mystic.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -7828,7 +7647,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/cassis.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -7855,7 +7673,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/nizza-riva.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -7882,7 +7699,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/ember.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -7909,7 +7725,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/esterel.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -7936,7 +7751,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/whisper.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -7963,7 +7777,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/mistral.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   },
@@ -7990,7 +7803,6 @@ export const FINISHES: Finish[] = [
     "compatibleCollectionIds": [
       "custom"
     ],
-    "imagePath": "/images/catalog/finishes/woodgrain/monaco.webp",
     "onSiteNow": false,
     "colorFamily": "Wood"
   }

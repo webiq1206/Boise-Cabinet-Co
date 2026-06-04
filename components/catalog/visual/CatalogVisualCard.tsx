@@ -14,6 +14,8 @@ export interface CatalogVisualCardProps {
   description?: string;
   imageSrc?: string;
   imageAlt?: string;
+  /** Flat color tile shown when no imageSrc is available (e.g. finish swatches) */
+  fallbackColor?: string;
   specs?: CatalogVisualSpec[];
   primaryHref?: string;
   primaryLabel?: string;
@@ -27,6 +29,7 @@ export function CatalogVisualCard({
   description,
   imageSrc,
   imageAlt,
+  fallbackColor,
   specs = [],
   primaryHref,
   primaryLabel = "View details",
@@ -36,7 +39,7 @@ export function CatalogVisualCard({
 }: CatalogVisualCardProps) {
   return (
     <article className={cn("flex flex-col overflow-hidden rounded-lg border bg-card", className)}>
-      {imageSrc && (
+      {imageSrc ? (
         <CatalogImage
           src={imageSrc}
           alt={imageAlt ?? name}
@@ -44,7 +47,14 @@ export function CatalogVisualCard({
           className="rounded-none"
           sizes="(max-width: 768px) 100vw, 400px"
         />
-      )}
+      ) : fallbackColor ? (
+        <div
+          className="w-full"
+          style={{ aspectRatio: "16/9", backgroundColor: fallbackColor }}
+          role="img"
+          aria-label={imageAlt ?? name}
+        />
+      ) : null}
       <div className="flex flex-1 flex-col p-6">
         <h3 className="text-lg font-sans font-light tracking-tight">{name}</h3>
         {description && (

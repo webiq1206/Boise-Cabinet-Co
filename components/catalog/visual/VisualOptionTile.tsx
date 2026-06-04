@@ -10,7 +10,7 @@ export interface VisualOptionTileProps {
   meta?: string;
   imageSrc?: string;
   imageAlt?: string;
-  /** Dev-only hex fallback when swatch image is missing */
+  /** Flat color tile shown when no swatch image is available */
   fallbackHex?: string;
   selected?: boolean;
   onSelect: () => void;
@@ -29,8 +29,7 @@ export function VisualOptionTile({
   testId,
 }: VisualOptionTileProps) {
   const [imageFailed, setImageFailed] = useState(false);
-  const useHexFallback =
-    process.env.NODE_ENV === "development" && fallbackHex && (!imageSrc || imageFailed);
+  const useHexFallback = Boolean(fallbackHex) && (!imageSrc || imageFailed);
 
   return (
     <button

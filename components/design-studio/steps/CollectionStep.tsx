@@ -7,7 +7,6 @@ import type { CabinetCollection } from "../DesignStudioProvider";
 
 const COLLECTION_HINTS: Record<string, string> = {
   custom: "Most popular",
-  reserve: "Premium colors",
 };
 
 export function CollectionStep() {

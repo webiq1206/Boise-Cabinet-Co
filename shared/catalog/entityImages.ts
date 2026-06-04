@@ -19,7 +19,7 @@ export interface DoorStyleImages {
 }
 
 export interface FinishImages {
-  swatch: string;
+  swatch?: string;
   inRoom: string;
 }
 
@@ -40,9 +40,10 @@ export function getDoorStyleImages(slug: string, imagePath?: string): DoorStyleI
 
 /** Finish swatch + in-room application preview */
 export function getFinishImages(slug: string, imagePath?: string): FinishImages {
-  const swatch = imagePath ?? `/images/catalog/finishes/${slug}.webp`;
+  // Only a real on-disk imagePath resolves to a swatch; otherwise callers fall
+  // back to a flat colorFamily tile rather than requesting a missing image.
   return {
-    swatch,
+    swatch: imagePath,
     inRoom: `/images/catalog/finishes/in-room/${slug}.webp`,
   };
 }

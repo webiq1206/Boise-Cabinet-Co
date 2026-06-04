@@ -3,9 +3,9 @@
 /**
  * One reusable, three-layer options selector used everywhere options appear
  * (finishes, doors):
- *   1. Curated start — opens on a small "most-loved" / "most popular" set.
- *   2. Filter by how people think — chip filters (color, light/dark, type, price).
- *   3. Reveal on demand — a single "See all N" control expands the full library.
+ *   1. Curated start - opens on a small "most-loved" / "most popular" set.
+ *   2. Filter by how people think - chip filters (color, light/dark, type, price).
+ *   3. Reveal on demand - a single "See all N" control expands the full library.
  *
  * It never renders the full wall up front, and accepts pre-applied filters /
  * expansion so the finder and Design Studio can drive it later.

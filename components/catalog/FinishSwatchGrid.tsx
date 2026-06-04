@@ -5,7 +5,6 @@ import Link from "next/link";
 import { useState } from "react";
 import type { Finish, FinishCategory } from "@/shared/catalog";
 import { FINISHES, formatPriceTier } from "@/shared/catalog";
-import { getFinishImages } from "@/shared/catalog/entityImages";
 import { Chip } from "@/components/marketing/Chip";
 import { MarketingCard } from "@/components/marketing/MarketingCard";
 import { cn } from "@/lib/utils";
@@ -24,11 +23,8 @@ const FILTER_OPTIONS: Array<{ id: "all" | FinishCategory; label: string }> = [
 ];
 
 export function FinishSwatch({ finish }: { finish: Finish }) {
-  const imagePath = getFinishImages(finish.slug, finish.imagePath).swatch;
-  const [useHex, setUseHex] = useState(false);
-  const hasHex = Boolean(finish.hexColor);
-
-  const showImage = Boolean(imagePath && !useHex);
+  const [imageFailed, setImageFailed] = useState(false);
+  const showImage = Boolean(finish.imagePath) && !imageFailed;
 
   return (
     <div
@@ -39,19 +35,21 @@ export function FinishSwatch({ finish }: { finish: Finish }) {
       role="img"
       aria-label={`${finish.name} finish swatch`}
     >
-      {showImage ? (
+      {/* Flat color tile always renders beneath, so there is never a blank or
+          broken swatch; a real image (when one exists) layers on top. */}
+      <div
+        className="absolute inset-0"
+        style={{ backgroundColor: finish.hexColor || "hsl(var(--muted))" }}
+      />
+      {showImage && (
         <Image
-          src={imagePath!}
+          src={finish.imagePath!}
           alt={`${finish.name} cabinet finish swatch`}
           fill
           sizes="120px"
           className="object-cover"
-          onError={() => setUseHex(true)}
+          onError={() => setImageFailed(true)}
         />
-      ) : hasHex ? (
-        <div className="absolute inset-0" style={{ backgroundColor: finish.hexColor }} />
-      ) : (
-        <div className="absolute inset-0 bg-muted" />
       )}
     </div>
   );

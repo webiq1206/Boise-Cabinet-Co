@@ -51,7 +51,8 @@ export interface Finish {
   onSiteNow?: boolean;
   compatibleDoorStyleIds: string[];
   compatibleCollectionIds: string[];
-  imagePath: string;
+  /** Real on-disk swatch image; unset finishes render a flat colorFamily tile. */
+  imagePath?: string;
   description?: string;
   /** @deprecated use priceTierMarker */
   tier?: FinishTier;

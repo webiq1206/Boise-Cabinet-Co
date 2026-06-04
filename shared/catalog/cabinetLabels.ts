@@ -1,6 +1,6 @@
 /**
  * Plain-English, need-based labels for cabinets. The internal SKU (`oscCode`) is
- * never used here — homeowners see what a cabinet is *for*, not its part number.
+ * never used here - homeowners see what a cabinet is *for*, not its part number.
  */
 
 import type { CabinetProduct, CabinetProductCategory } from "./types";
