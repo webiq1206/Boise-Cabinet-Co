@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { getRecommendations } from "@/shared/catalog";
+import { getRecommendations, deriveColorFamily } from "@/shared/catalog";
 import { CatalogVisualCard } from "@/components/catalog/visual";
 import { getDoorStyleImages, getFinishImages } from "@/shared/catalog/entityImages";
 import { SectionHeader } from "@/components/marketing/SectionHeader";
@@ -70,7 +70,7 @@ export function RoomCatalogShowcase({
                 imageSrc={imgs.swatch}
                 imageAlt={`${finish.name} finish swatch`}
                 specs={[
-                  { label: "Category", value: finish.category },
+                  { label: "Color", value: deriveColorFamily(finish) },
                 ]}
                 primaryHref={`/finishes/${finish.category}/${finish.slug}`}
                 primaryLabel="View finish"

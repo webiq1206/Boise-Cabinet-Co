@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { DOOR_STYLES, FINISHES } from "@/shared/catalog";
+import { DOOR_STYLES, FINISHES, deriveColorFamily } from "@/shared/catalog";
 import { CatalogVisualCard } from "@/components/catalog/visual";
 import { getDoorStyleImages, getFinishImages } from "@/shared/catalog/entityImages";
 
@@ -60,7 +60,7 @@ export function CatalogExploreStrip() {
               name={finish.name}
               imageSrc={imgs.swatch}
               imageAlt={`${finish.name} finish swatch`}
-              specs={[{ label: "Category", value: finish.category }]}
+              specs={[{ label: "Color", value: deriveColorFamily(finish) }]}
               primaryHref={`/finishes/${finish.category}/${finish.slug}`}
             />
           );
