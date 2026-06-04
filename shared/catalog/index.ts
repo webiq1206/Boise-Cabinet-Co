@@ -124,6 +124,8 @@ export {
 
 export { OSC_CONSTRUCTION } from "./construction";
 export { OSC_HARDWARE_SPEC } from "./generated/hardwareSpec";
+export { CATALOG_CONTENT } from "./generated/content";
+export type { CatalogContent } from "./types";
 
 export {
   getFinishesForDoorStyle,
@@ -158,6 +160,7 @@ import { ACCESSORIES, type Accessory } from "./accessories";
 import { HARDWARE_OPTIONS, type HardwareOption } from "./hardware";
 import { CABINET_TYPES, type CabinetType } from "./cabinetTypes";
 import { CABINET_PRODUCTS } from "./cabinetProducts";
+import type { CabinetProduct, CabinetDimension } from "./types";
 import { searchCatalogWithFacets } from "./queries";
 
 // ── Lookup helpers ──────────────────────────────────────────────────────────
@@ -193,6 +196,35 @@ export function getCabinetTypeBySlug(slug: string): CabinetType | undefined {
 /** Door styles that accept a given finish category */
 export function getDoorStylesForFinishCategory(category: FinishCategory): DoorStyle[] {
   return DOOR_STYLES.filter((d) => d.compatibleFinishCategories.includes(category));
+}
+
+/** Format one dimension; returns null when the dimension is cut-to-fit / variable. */
+export function formatCabinetDimension(d: CabinetDimension): string | null {
+  if (d.variable || d.min == null) return null;
+  if (d.max == null || d.max === d.min) return `${d.min}"`;
+  return `${d.min}-${d.max}"`;
+}
+
+/** Human-readable W · H · D string; "Cut to fit" when every dimension is variable. */
+export function formatCabinetDimensions(product: CabinetProduct): string {
+  const axes: Array<[ReturnType<typeof formatCabinetDimension>, string]> = [
+    [formatCabinetDimension(product.dimensions.width), "W"],
+    [formatCabinetDimension(product.dimensions.height), "H"],
+    [formatCabinetDimension(product.dimensions.depth), "D"],
+  ];
+  // When every axis is variable, the whole cabinet is cut to fit.
+  if (axes.every(([value]) => !value)) return "Cut to fit";
+  // Show known axes; mark each variable axis as "Cut to fit" so none reads as missing.
+  return axes
+    .map(([value, label]) => (value ? `${value} ${label}` : `Cut to fit ${label}`))
+    .join(" · ");
+}
+
+/** Price tier shown to customers as $-$$$$$ ; "Price on request" when unconfirmed. */
+export function formatPriceTier(finish: { priceTierMarker: number; priceConfirm?: boolean }): string {
+  if (finish.priceConfirm) return "Price on request";
+  const n = Math.min(5, Math.max(1, finish.priceTierMarker || 1));
+  return "$".repeat(n);
 }
 
 export interface CatalogSearchResult {

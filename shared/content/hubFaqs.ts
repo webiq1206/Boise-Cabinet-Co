@@ -29,9 +29,9 @@ export function getHubPillarFaqs(hubSlug: string): Array<{ question: string; ans
           'Yes. Islands, tall pantries, and appliance walls are planned in our Design Studio with clearances verified before order.',
       },
       {
-        question: 'What is the difference between our Custom Cabinets and Reserve Collection?',
+        question: 'What makes your Custom Cabinets different?',
         answer:
-          'Custom Cabinets are built to your exact dimensions, details, and finish specifications. The Reserve Collection pairs curated premium finishes with expedited production.',
+          'Custom Cabinets are built to your exact dimensions, details, and finish specifications, with hundreds of finishes and six door styles to choose from.',
       },
       {
         question: 'When should I order kitchen cabinets?',
@@ -335,7 +335,7 @@ export function getHubPillarFaqs(hubSlug: string): Array<{ question: string; ans
       {
         question: 'Where can I see Treasure Valley cabinet cost ranges?',
         answer:
-          'Our cabinet cost guide breaks down typical ranges by room and collection tier.',
+          'Our cabinet cost guide breaks down typical ranges by room.',
       },
     ],
     'treasure-valley-locations': [],

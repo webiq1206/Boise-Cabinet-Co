@@ -4,6 +4,7 @@ import {
   getDoorStylesForFinish,
   getCollectionsForFinish,
   getSimilarFinishes,
+  formatPriceTier,
 } from "@/shared/catalog";
 import { FinishSwatchGrid } from "@/components/catalog/FinishSwatchGrid";
 import { FinishDualPreview } from "@/components/catalog/visual";
@@ -25,8 +26,8 @@ export function FinishExplorer({ finish }: FinishExplorerProps) {
       <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
         <div>
           <h2 className="text-2xl font-sans font-light tracking-tight">{finish.name}</h2>
-          <p className="text-muted-foreground mt-1">
-            {finish.panelBrand} · {finish.panelSeries} · {finish.category}
+          <p className="text-muted-foreground mt-1 capitalize">
+            {finish.category} · {finish.sheen}
           </p>
           <CatalogAvailabilityStrip
             collections={collections.map((c) => ({
@@ -39,7 +40,7 @@ export function FinishExplorer({ finish }: FinishExplorerProps) {
             }))}
             specs={[
               finish.sidedness === "double" ? "Double-sided" : "Single-sided",
-              `Tier ${finish.priceTierMarker}`,
+              formatPriceTier(finish),
             ]}
           />
         </div>

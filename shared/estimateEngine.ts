@@ -381,7 +381,7 @@ export const FINISH_CATEGORY_OPTIONS: SelectOption<FinishCategory>[] = [
 export const FINISH_TIER_OPTIONS: SelectOption<FinishTier>[] = [
   { value: "standard", label: "Standard", sub: "Core palette colors", icon: "Layers" },
   { value: "premium", label: "Premium", sub: "Designer tones and deeper hues", icon: "Star" },
-  { value: "reserve", label: "Reserve", sub: "Exclusive Reserve-only colors", icon: "Gem" },
+  { value: "reserve", label: "Luxury", sub: "Top-tier designer colors", icon: "Gem" },
 ];
 
 export const CONSTRUCTION_OPTIONS: SelectOption<ConstructionTier>[] = [
@@ -401,7 +401,7 @@ const CONSTRUCTION_LABEL: Record<ConstructionTier, string> = {
   good: "Good", better: "Better", best: "Best",
 };
 const FINISH_TIER_LABEL: Record<FinishTier, string> = {
-  standard: "Standard", premium: "Premium", reserve: "Reserve",
+  standard: "Standard", premium: "Premium", reserve: "Luxury",
 };
 const FINISH_CATEGORY_LABEL: Record<FinishCategory, string> = {
   matte: "matte", woodgrain: "woodgrain", gloss: "high-gloss",

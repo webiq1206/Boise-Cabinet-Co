@@ -3,7 +3,7 @@
   "counts": {
     "blog": 56,
     "guide": 10,
-    "catalog": 21
+    "catalog": 20
   },
   "pages": {
     "/blog/accessible-bathroom-vanity-guide": {
@@ -41,18 +41,18 @@
           "score": 999
         },
         {
+          "url": "/blog/bathroom-vanity-layout-guide",
+          "anchor": "Bathroom Vanity Layout Guide",
+          "title": "Bathroom Vanity Layout Guide",
+          "type": "blog",
+          "score": 1.7
+        },
+        {
           "url": "/blog/luxury-bathroom-vanity-guide",
           "anchor": "Luxury Bathroom Vanity Guide",
           "title": "Luxury Bathroom Vanity Guide",
           "type": "blog",
           "score": 1.7
-        },
-        {
-          "url": "/blog/small-bathroom-vanity-ideas",
-          "anchor": "Small Bathroom Vanity Ideas",
-          "title": "Small Bathroom Vanity Ideas",
-          "type": "blog",
-          "score": 1.617
         }
       ]
     },
@@ -91,18 +91,18 @@
           "score": 999
         },
         {
+          "url": "/blog/cabinet-cost-per-linear-foot",
+          "anchor": "Cabinet Cost Per Linear Foot in Boise",
+          "title": "Cabinet Cost Per Linear Foot in Boise",
+          "type": "blog",
+          "score": 1.011
+        },
+        {
           "url": "/blog/kitchen-cabinet-cost-boise",
           "anchor": "Kitchen Cabinet Cost Boise (2026 Planning Ranges)",
           "title": "Kitchen Cabinet Cost Boise (2026 Planning Ranges)",
           "type": "blog",
           "score": 0.98
-        },
-        {
-          "url": "/blog/luxury-custom-cabinet-cost-boise",
-          "anchor": "Luxury Custom Cabinet Cost Boise & Eagle",
-          "title": "Luxury Custom Cabinet Cost Boise & Eagle",
-          "type": "blog",
-          "score": 0.833
         }
       ]
     },
@@ -198,11 +198,11 @@
           "score": 1.475
         },
         {
-          "url": "/blog/built-in-storage-roi",
-          "anchor": "Built-In Storage ROI",
-          "title": "Built-In Storage ROI",
+          "url": "/blog/cabinets-for-long-term-living",
+          "anchor": "Cabinets for Long-Term Living",
+          "title": "Cabinets for Long-Term Living",
           "type": "blog",
-          "score": 1.406
+          "score": 1.35
         }
       ]
     },
@@ -241,18 +241,18 @@
           "score": 999
         },
         {
-          "url": "/blog/outdoor-cabinet-roi",
-          "anchor": "Outdoor Cabinet ROI",
-          "title": "Outdoor Cabinet ROI",
+          "url": "/blog/kitchen-cabinet-roi-boise",
+          "anchor": "Kitchen Cabinet ROI Boise",
+          "title": "Kitchen Cabinet ROI Boise",
           "type": "blog",
           "score": 1.475
         },
         {
-          "url": "/blog/cabinet-upgrades-before-selling",
-          "anchor": "Cabinet Upgrades Before Selling",
-          "title": "Cabinet Upgrades Before Selling",
+          "url": "/blog/cabinets-for-long-term-living",
+          "anchor": "Cabinets for Long-Term Living",
+          "title": "Cabinets for Long-Term Living",
           "type": "blog",
-          "score": 1.406
+          "score": 1.35
         }
       ]
     },
@@ -341,9 +341,9 @@
           "score": 999
         },
         {
-          "url": "/blog/how-to-compare-cabinet-quotes",
-          "anchor": "How to Compare Cabinet Quotes",
-          "title": "How to Compare Cabinet Quotes",
+          "url": "/blog/questions-to-ask-cabinet-company",
+          "anchor": "Questions to Ask a Cabinet Company",
+          "title": "Questions to Ask a Cabinet Company",
           "type": "blog",
           "score": 1.279
         },
@@ -398,11 +398,11 @@
           "score": 1.041
         },
         {
-          "url": "/blog/custom-vs-reserve-cabinets",
-          "anchor": "Custom Cabinets vs Reserve Collection",
-          "title": "Custom Cabinets vs Reserve Collection",
+          "url": "/blog/what-makes-great-cabinet-company",
+          "anchor": "What Makes a Great Cabinet Company",
+          "title": "What Makes a Great Cabinet Company",
           "type": "blog",
-          "score": 0.9
+          "score": 0.845
         }
       ]
     },
@@ -441,11 +441,11 @@
           "score": 999
         },
         {
-          "url": "/blog/why-cabinet-quotes-vary",
-          "anchor": "Why Cabinet Quotes Vary So Much",
-          "title": "Why Cabinet Quotes Vary So Much",
+          "url": "/blog/how-to-compare-cabinet-quotes",
+          "anchor": "How to Compare Cabinet Quotes",
+          "title": "How to Compare Cabinet Quotes",
           "type": "blog",
-          "score": 1.225
+          "score": 1.279
         },
         {
           "url": "/blog/fixed-price-vs-cost-plus",
@@ -1091,18 +1091,18 @@
           "score": 999
         },
         {
-          "url": "/blog/kitchen-cabinet-roi-boise",
-          "anchor": "Kitchen Cabinet ROI Boise",
-          "title": "Kitchen Cabinet ROI Boise",
-          "type": "blog",
-          "score": 1.475
-        },
-        {
           "url": "/blog/bathroom-vanity-roi-boise",
           "anchor": "Bathroom Vanity ROI Boise",
           "title": "Bathroom Vanity ROI Boise",
           "type": "blog",
           "score": 1.406
+        },
+        {
+          "url": "/blog/cabinets-for-long-term-living",
+          "anchor": "Cabinets for Long-Term Living",
+          "title": "Cabinets for Long-Term Living",
+          "type": "blog",
+          "score": 1.35
         }
       ]
     },
@@ -1148,9 +1148,9 @@
           "score": 1.25
         },
         {
-          "url": "/blog/cabinet-installation-punch-list",
-          "anchor": "Cabinet Installation Punch List",
-          "title": "Cabinet Installation Punch List",
+          "url": "/blog/cabinet-measurement-design-phase",
+          "anchor": "Cabinet Measurement & Design Phase",
+          "title": "Cabinet Measurement & Design Phase",
           "type": "blog",
           "score": 1.183
         }
@@ -1191,16 +1191,16 @@
           "score": 999
         },
         {
+          "url": "/blog/kitchen-cabinet-roi-boise",
+          "anchor": "Kitchen Cabinet ROI Boise",
+          "title": "Kitchen Cabinet ROI Boise",
+          "type": "blog",
+          "score": 1.406
+        },
+        {
           "url": "/blog/bathroom-vanity-roi-boise",
           "anchor": "Bathroom Vanity ROI Boise",
           "title": "Bathroom Vanity ROI Boise",
-          "type": "blog",
-          "score": 1.35
-        },
-        {
-          "url": "/blog/built-in-storage-roi",
-          "anchor": "Built-In Storage ROI",
-          "title": "Built-In Storage ROI",
           "type": "blog",
           "score": 1.35
         }
@@ -1308,8 +1308,8 @@
     },
     "/blog/custom-vs-reserve-cabinets": {
       "type": "blog",
-      "title": "Custom Cabinets vs Reserve Collection",
-      "anchor": "Custom Cabinets vs Reserve Collection",
+      "title": "Custom Cabinets Built to Your Specifications",
+      "anchor": "Custom Cabinets Built to Your Specifications",
       "url": "/blog/custom-vs-reserve-cabinets",
       "links": [
         {
@@ -1345,14 +1345,14 @@
           "anchor": "Stock vs Custom Cabinets in Boise",
           "title": "Stock vs Custom Cabinets in Boise",
           "type": "blog",
-          "score": 1.193
+          "score": 1.244
         },
         {
           "url": "/blog/cabinet-company-red-flags",
           "anchor": "Cabinet Company Red Flags",
           "title": "Cabinet Company Red Flags",
           "type": "blog",
-          "score": 0.827
+          "score": 0.837
         }
       ]
     },
@@ -1448,9 +1448,9 @@
           "score": 1.586
         },
         {
-          "url": "/blog/outdoor-bar-cabinet-storage",
-          "anchor": "Outdoor Bar Cabinet Storage",
-          "title": "Outdoor Bar Cabinet Storage",
+          "url": "/blog/outdoor-kitchen-cabinets-boise",
+          "anchor": "Outdoor Kitchen Cabinets Boise",
+          "title": "Outdoor Kitchen Cabinets Boise",
           "type": "blog",
           "score": 1.586
         }
@@ -1841,11 +1841,11 @@
           "score": 999
         },
         {
-          "url": "/blog/kitchen-island-design-guide",
-          "anchor": "Kitchen Island Design Guide",
-          "title": "Kitchen Island Design Guide",
+          "url": "/blog/walk-in-pantry-design-guide",
+          "anchor": "Walk-In Pantry Design Guide",
+          "title": "Walk-In Pantry Design Guide",
           "type": "blog",
-          "score": 1.061
+          "score": 1.138
         },
         {
           "url": "/blog/open-kitchen-cabinet-storage",
@@ -1948,11 +1948,11 @@
           "score": 1.7
         },
         {
-          "url": "/blog/small-bathroom-vanity-ideas",
-          "anchor": "Small Bathroom Vanity Ideas",
-          "title": "Small Bathroom Vanity Ideas",
+          "url": "/blog/bathroom-vanity-layout-guide",
+          "anchor": "Bathroom Vanity Layout Guide",
+          "title": "Bathroom Vanity Layout Guide",
           "type": "blog",
-          "score": 1.617
+          "score": 1.7
         }
       ]
     },
@@ -2041,9 +2041,9 @@
           "score": 999
         },
         {
-          "url": "/blog/outdoor-kitchen-cabinets-boise",
-          "anchor": "Outdoor Kitchen Cabinets Boise",
-          "title": "Outdoor Kitchen Cabinets Boise",
+          "url": "/blog/garage-storage-cabinet-systems",
+          "anchor": "Garage Storage Cabinet Systems",
+          "title": "Garage Storage Cabinet Systems",
           "type": "blog",
           "score": 1.586
         },
@@ -2191,18 +2191,18 @@
           "score": 999
         },
         {
-          "url": "/blog/kitchen-cabinet-roi-boise",
-          "anchor": "Kitchen Cabinet ROI Boise",
-          "title": "Kitchen Cabinet ROI Boise",
-          "type": "blog",
-          "score": 1.564
-        },
-        {
           "url": "/blog/bathroom-vanity-roi-boise",
           "anchor": "Bathroom Vanity ROI Boise",
           "title": "Bathroom Vanity ROI Boise",
           "type": "blog",
           "score": 1.475
+        },
+        {
+          "url": "/blog/cabinets-for-long-term-living",
+          "anchor": "Cabinets for Long-Term Living",
+          "title": "Cabinets for Long-Term Living",
+          "type": "blog",
+          "score": 1.406
         }
       ]
     },
@@ -2291,11 +2291,11 @@
           "score": 999
         },
         {
-          "url": "/blog/outdoor-kitchen-cabinets-boise",
-          "anchor": "Outdoor Kitchen Cabinets Boise",
-          "title": "Outdoor Kitchen Cabinets Boise",
+          "url": "/blog/garage-storage-cabinet-systems",
+          "anchor": "Garage Storage Cabinet Systems",
+          "title": "Garage Storage Cabinet Systems",
           "type": "blog",
-          "score": 1.677
+          "score": 1.533
         },
         {
           "url": "/blog/multi-room-cabinet-planning",
@@ -2341,16 +2341,16 @@
           "score": 999
         },
         {
-          "url": "/blog/multi-room-cabinet-planning",
-          "anchor": "Multi-Room Cabinet Planning",
-          "title": "Multi-Room Cabinet Planning",
+          "url": "/blog/garage-storage-cabinet-systems",
+          "anchor": "Garage Storage Cabinet Systems",
+          "title": "Garage Storage Cabinet Systems",
           "type": "blog",
           "score": 1.533
         },
         {
-          "url": "/blog/outdoor-bar-cabinet-storage",
-          "anchor": "Outdoor Bar Cabinet Storage",
-          "title": "Outdoor Bar Cabinet Storage",
+          "url": "/blog/outdoor-kitchen-cabinets-boise",
+          "anchor": "Outdoor Kitchen Cabinets Boise",
+          "title": "Outdoor Kitchen Cabinets Boise",
           "type": "blog",
           "score": 1.533
         }
@@ -2492,17 +2492,17 @@
         },
         {
           "url": "/blog/custom-vs-reserve-cabinets",
-          "anchor": "Custom Cabinets vs Reserve Collection",
-          "title": "Custom Cabinets vs Reserve Collection",
+          "anchor": "Custom Cabinets Built to Your Specifications",
+          "title": "Custom Cabinets Built to Your Specifications",
           "type": "blog",
-          "score": 1.093
+          "score": 1.244
         },
         {
-          "url": "/blog/cabinet-company-red-flags",
-          "anchor": "Cabinet Company Red Flags",
-          "title": "Cabinet Company Red Flags",
+          "url": "/blog/cabinet-construction-quality-guide",
+          "anchor": "Cabinet Construction Quality Guide",
+          "title": "Cabinet Construction Quality Guide",
           "type": "blog",
-          "score": 0.85
+          "score": 0.941
         }
       ]
     },
@@ -2691,11 +2691,11 @@
           "score": 999
         },
         {
-          "url": "/blog/cabinet-cost-per-linear-foot",
-          "anchor": "Cabinet Cost Per Linear Foot in Boise",
-          "title": "Cabinet Cost Per Linear Foot in Boise",
+          "url": "/blog/kitchen-cabinet-cost-boise",
+          "anchor": "Kitchen Cabinet Cost Boise (2026 Planning Ranges)",
+          "title": "Kitchen Cabinet Cost Boise (2026 Planning Ranges)",
           "type": "blog",
-          "score": 1.091
+          "score": 1.077
         },
         {
           "url": "/blog/luxury-custom-cabinet-cost-boise",
@@ -2813,6 +2813,13 @@
       "url": "/cabinets",
       "links": [
         {
+          "url": "/collections/custom",
+          "anchor": "Custom Cabinets",
+          "title": "Custom Cabinets",
+          "type": "catalog",
+          "score": 0.4
+        },
+        {
           "url": "/door-styles",
           "anchor": "Door styles",
           "title": "Door Styles",
@@ -2841,18 +2848,11 @@
           "score": 0.283
         },
         {
-          "url": "/blog/accessible-bathroom-vanity-guide",
-          "anchor": "Accessible Bathroom Vanity Guide",
-          "title": "Accessible Bathroom Vanity Guide",
+          "url": "/blog/custom-vs-reserve-cabinets",
+          "anchor": "Custom Cabinets Built to Your Specifications",
+          "title": "Custom Cabinets Built to Your Specifications",
           "type": "blog",
-          "score": 0.1
-        },
-        {
-          "url": "/blog/bathroom-vanity-layout-guide",
-          "anchor": "Bathroom Vanity Layout Guide",
-          "title": "Bathroom Vanity Layout Guide",
-          "type": "blog",
-          "score": 0.1
+          "score": 0.2
         }
       ]
     },
@@ -2866,13 +2866,6 @@
           "url": "/collections/custom",
           "anchor": "Custom Cabinets",
           "title": "Custom Cabinets",
-          "type": "catalog",
-          "score": 0.4
-        },
-        {
-          "url": "/design-studio",
-          "anchor": "Design studio",
-          "title": "Design Studio",
           "type": "catalog",
           "score": 0.4
         },
@@ -2891,18 +2884,25 @@
           "score": 0.36
         },
         {
-          "url": "/collections/reserve",
-          "anchor": "Reserve",
-          "title": "Reserve",
-          "type": "catalog",
-          "score": 0.32
-        },
-        {
           "url": "/door-styles",
           "anchor": "Door styles",
           "title": "Door Styles",
           "type": "catalog",
           "score": 0.32
+        },
+        {
+          "url": "/design-studio",
+          "anchor": "Design studio",
+          "title": "Design Studio",
+          "type": "catalog",
+          "score": 0.28
+        },
+        {
+          "url": "/guides/boise-cabinet-guide",
+          "anchor": "Boise Custom Cabinet Guide",
+          "title": "Boise Custom Cabinet Guide",
+          "type": "guide",
+          "score": 0.12
         }
       ]
     },
@@ -2912,6 +2912,20 @@
       "anchor": "Design studio",
       "url": "/design-studio",
       "links": [
+        {
+          "url": "/door-styles",
+          "anchor": "Door styles",
+          "title": "Door Styles",
+          "type": "catalog",
+          "score": 0.4
+        },
+        {
+          "url": "/hardware",
+          "anchor": "Hardware",
+          "title": "Cabinet Hardware",
+          "type": "catalog",
+          "score": 0.4
+        },
         {
           "url": "/collections",
           "anchor": "Collections",
@@ -2939,20 +2953,6 @@
           "title": "Cabinet Measurement & Design Phase",
           "type": "blog",
           "score": 0.167
-        },
-        {
-          "url": "/blog/garage-storage-cabinet-systems",
-          "anchor": "Garage Storage Cabinet Systems",
-          "title": "Garage Storage Cabinet Systems",
-          "type": "blog",
-          "score": 0.1
-        },
-        {
-          "url": "/blog/walk-in-pantry-design-guide",
-          "anchor": "Walk-In Pantry Design Guide",
-          "title": "Walk-In Pantry Design Guide",
-          "type": "blog",
-          "score": 0.1
         }
       ]
     },
@@ -2963,9 +2963,9 @@
       "url": "/door-styles",
       "links": [
         {
-          "url": "/collections/reserve",
-          "anchor": "Reserve",
-          "title": "Reserve",
+          "url": "/design-studio",
+          "anchor": "Design studio",
+          "title": "Design Studio",
           "type": "catalog",
           "score": 0.4
         },
@@ -2975,13 +2975,6 @@
           "title": "Finishes",
           "type": "catalog",
           "score": 0.4
-        },
-        {
-          "url": "/collections/custom",
-          "anchor": "Custom Cabinets",
-          "title": "Custom Cabinets",
-          "type": "catalog",
-          "score": 0.334
         },
         {
           "url": "/blog/cabinet-finishes-door-styles-guide",
@@ -2996,6 +2989,13 @@
           "title": "Cabinet Hardware",
           "type": "catalog",
           "score": 0.32
+        },
+        {
+          "url": "/collections",
+          "anchor": "Collections",
+          "title": "Cabinet Collections",
+          "type": "catalog",
+          "score": 0.28
         },
         {
           "url": "/blog/kitchen-cabinet-trends",
@@ -3063,9 +3063,16 @@
       "url": "/hardware",
       "links": [
         {
-          "url": "/door-styles",
-          "anchor": "Door styles",
-          "title": "Door Styles",
+          "url": "/collections",
+          "anchor": "Collections",
+          "title": "Cabinet Collections",
+          "type": "catalog",
+          "score": 0.4
+        },
+        {
+          "url": "/collections/custom",
+          "anchor": "Custom Cabinets",
+          "title": "Custom Cabinets",
           "type": "catalog",
           "score": 0.4
         },
@@ -3084,9 +3091,9 @@
           "score": 0.285
         },
         {
-          "url": "/collections",
-          "anchor": "Collections",
-          "title": "Cabinet Collections",
+          "url": "/door-styles",
+          "anchor": "Door styles",
+          "title": "Door Styles",
           "type": "catalog",
           "score": 0.28
         },
@@ -3096,13 +3103,6 @@
           "title": "Cabinet Hardware Guide",
           "type": "blog",
           "score": 0.159
-        },
-        {
-          "url": "/blog/how-to-budget-cabinets-boise",
-          "anchor": "How to Budget for Cabinets in Boise",
-          "title": "How to Budget for Cabinets in Boise",
-          "type": "blog",
-          "score": 0.1
         }
       ]
     },
@@ -3113,96 +3113,46 @@
       "url": "/collections/custom",
       "links": [
         {
-          "url": "/collections/reserve",
-          "anchor": "Reserve",
-          "title": "Reserve",
+          "url": "/door-styles",
+          "anchor": "Door styles",
+          "title": "Door Styles",
           "type": "catalog",
-          "score": 0.47
+          "score": 0.4
+        },
+        {
+          "url": "/cabinets/home-office",
+          "anchor": "Home Office cabinets",
+          "title": "Home Office Cabinets",
+          "type": "catalog",
+          "score": 0.299
         },
         {
           "url": "/finishes",
           "anchor": "Finishes",
           "title": "Finishes",
           "type": "catalog",
-          "score": 0.427
-        },
-        {
-          "url": "/door-styles",
-          "anchor": "Door styles",
-          "title": "Door Styles",
-          "type": "catalog",
-          "score": 0.334
-        },
-        {
-          "url": "/blog/custom-vs-reserve-cabinets",
-          "anchor": "Custom Cabinets vs Reserve Collection",
-          "title": "Custom Cabinets vs Reserve Collection",
-          "type": "blog",
-          "score": 0.191
+          "score": 0.28
         },
         {
           "url": "/blog/stock-vs-custom-cabinets-boise",
           "anchor": "Stock vs Custom Cabinets in Boise",
           "title": "Stock vs Custom Cabinets in Boise",
           "type": "blog",
-          "score": 0.159
+          "score": 0.236
         },
         {
-          "url": "/blog/cabinet-finishes-door-styles-guide",
-          "anchor": "Cabinet Finishes & Door Styles Selection",
-          "title": "Cabinet Finishes & Door Styles Selection",
+          "url": "/blog/custom-cabinet-design-process",
+          "anchor": "Custom Cabinet Design Process",
+          "title": "Custom Cabinet Design Process",
           "type": "blog",
-          "score": 0.075
-        }
-      ]
-    },
-    "/collections/reserve": {
-      "type": "catalog",
-      "title": "Reserve",
-      "anchor": "Reserve",
-      "url": "/collections/reserve",
-      "links": [
-        {
-          "url": "/collections/custom",
-          "anchor": "Custom Cabinets",
-          "title": "Custom Cabinets",
-          "type": "catalog",
-          "score": 0.43
+          "score": 0.214
         },
         {
-          "url": "/collections",
-          "anchor": "Collections",
-          "title": "Cabinet Collections",
-          "type": "catalog",
-          "score": 0.4
-        },
-        {
-          "url": "/door-styles",
-          "anchor": "Door styles",
-          "title": "Door Styles",
-          "type": "catalog",
-          "score": 0.4
-        },
-        {
-          "url": "/hardware",
-          "anchor": "Hardware",
-          "title": "Cabinet Hardware",
-          "type": "catalog",
-          "score": 0.4
-        },
-        {
-          "url": "/design-studio",
-          "anchor": "Design studio",
-          "title": "Design Studio",
-          "type": "catalog",
-          "score": 0.28
-        },
-        {
-          "url": "/blog/custom-vs-reserve-cabinets",
-          "anchor": "Custom Cabinets vs Reserve Collection",
-          "title": "Custom Cabinets vs Reserve Collection",
+          "url": "/blog/built-in-storage-roi",
+          "anchor": "Built-In Storage ROI",
+          "title": "Built-In Storage ROI",
           "type": "blog",
-          "score": 0.133
+          "score": 0.154
         }
       ]
     },
@@ -3212,6 +3162,13 @@
       "anchor": "Bathroom cabinets",
       "url": "/cabinets/bathroom",
       "links": [
+        {
+          "url": "/cabinets/home-office",
+          "anchor": "Home Office cabinets",
+          "title": "Home Office Cabinets",
+          "type": "catalog",
+          "score": 0.619
+        },
         {
           "url": "/cabinets/laundry",
           "anchor": "Laundry cabinets",
@@ -3246,13 +3203,6 @@
           "title": "Bathroom Vanity Layout Guide",
           "type": "blog",
           "score": 0.267
-        },
-        {
-          "url": "/blog/luxury-bathroom-vanity-guide",
-          "anchor": "Luxury Bathroom Vanity Guide",
-          "title": "Luxury Bathroom Vanity Guide",
-          "type": "blog",
-          "score": 0.267
         }
       ]
     },
@@ -3262,6 +3212,13 @@
       "anchor": "Bedroom cabinets",
       "url": "/cabinets/bedroom",
       "links": [
+        {
+          "url": "/cabinets/laundry",
+          "anchor": "Laundry cabinets",
+          "title": "Laundry Cabinets",
+          "type": "catalog",
+          "score": 0.623
+        },
         {
           "url": "/cabinets/closet",
           "anchor": "Closet cabinets",
@@ -3277,13 +3234,6 @@
           "score": 0.513
         },
         {
-          "url": "/collections/reserve",
-          "anchor": "Reserve",
-          "title": "Reserve",
-          "type": "catalog",
-          "score": 0.418
-        },
-        {
           "url": "/blog/primary-suite-closet-cabinets",
           "anchor": "Primary Suite Closet Cabinets",
           "title": "Primary Suite Closet Cabinets",
@@ -3291,18 +3241,18 @@
           "score": 0.211
         },
         {
-          "url": "/blog/built-in-storage-roi",
-          "anchor": "Built-In Storage ROI",
-          "title": "Built-In Storage ROI",
+          "url": "/blog/custom-vs-reserve-cabinets",
+          "anchor": "Custom Cabinets Built to Your Specifications",
+          "title": "Custom Cabinets Built to Your Specifications",
           "type": "blog",
-          "score": 0.138
+          "score": 0.16
         },
         {
-          "url": "/blog/cabinet-planning-checklist",
-          "anchor": "Cabinet Planning Checklist",
-          "title": "Cabinet Planning Checklist",
+          "url": "/blog/cabinet-finishes-door-styles-guide",
+          "anchor": "Cabinet Finishes & Door Styles Selection",
+          "title": "Cabinet Finishes & Door Styles Selection",
           "type": "blog",
-          "score": 0.137
+          "score": 0.14
         }
       ]
     },
@@ -3320,18 +3270,11 @@
           "score": 0.49
         },
         {
-          "url": "/cabinets/home-office",
-          "anchor": "Home Office cabinets",
-          "title": "Home Office Cabinets",
+          "url": "/cabinets/pantry",
+          "anchor": "Pantry cabinets",
+          "title": "Pantry Cabinets",
           "type": "catalog",
-          "score": 0.46
-        },
-        {
-          "url": "/collections/custom",
-          "anchor": "Custom Cabinets",
-          "title": "Custom Cabinets",
-          "type": "catalog",
-          "score": 0.435
+          "score": 0.44
         },
         {
           "url": "/blog/garage-storage-cabinet-systems",
@@ -3344,6 +3287,13 @@
           "url": "/blog/multi-room-cabinet-planning",
           "anchor": "Multi-Room Cabinet Planning",
           "title": "Multi-Room Cabinet Planning",
+          "type": "blog",
+          "score": 0.269
+        },
+        {
+          "url": "/blog/outdoor-bar-cabinet-storage",
+          "anchor": "Outdoor Bar Cabinet Storage",
+          "title": "Outdoor Bar Cabinet Storage",
           "type": "blog",
           "score": 0.269
         },
@@ -3370,11 +3320,11 @@
           "score": 0.623
         },
         {
-          "url": "/cabinets/pantry",
-          "anchor": "Pantry cabinets",
-          "title": "Pantry Cabinets",
+          "url": "/cabinets/home-office",
+          "anchor": "Home Office cabinets",
+          "title": "Home Office Cabinets",
           "type": "catalog",
-          "score": 0.517
+          "score": 0.621
         },
         {
           "url": "/cabinets/bedroom",
@@ -3384,11 +3334,11 @@
           "score": 0.503
         },
         {
-          "url": "/collections/reserve",
-          "anchor": "Reserve",
-          "title": "Reserve",
+          "url": "/cabinets/pantry",
+          "anchor": "Pantry cabinets",
+          "title": "Pantry Cabinets",
           "type": "catalog",
-          "score": 0.418
+          "score": 0.477
         },
         {
           "url": "/blog/walk-in-pantry-design-guide",
@@ -3420,6 +3370,13 @@
           "score": 0.65
         },
         {
+          "url": "/cabinets/closet",
+          "anchor": "Closet cabinets",
+          "title": "Closet Cabinets",
+          "type": "catalog",
+          "score": 0.6
+        },
+        {
           "url": "/cabinets/wet-bar",
           "anchor": "Wet Bar cabinets",
           "title": "Wet Bar Cabinets",
@@ -3441,18 +3398,11 @@
           "score": 0.215
         },
         {
-          "url": "/blog/cabinet-door-styles-guide",
-          "anchor": "Cabinet Door Styles Guide",
-          "title": "Cabinet Door Styles Guide",
+          "url": "/blog/custom-vs-reserve-cabinets",
+          "anchor": "Custom Cabinets Built to Your Specifications",
+          "title": "Custom Cabinets Built to Your Specifications",
           "type": "blog",
-          "score": 0.177
-        },
-        {
-          "url": "/blog/garage-storage-cabinet-systems",
-          "anchor": "Garage Storage Cabinet Systems",
-          "title": "Garage Storage Cabinet Systems",
-          "type": "blog",
-          "score": 0.174
+          "score": 0.201
         }
       ]
     },
@@ -3463,25 +3413,18 @@
       "url": "/cabinets/garage",
       "links": [
         {
-          "url": "/cabinets/wet-bar",
-          "anchor": "Wet Bar cabinets",
-          "title": "Wet Bar Cabinets",
+          "url": "/cabinets/bedroom",
+          "anchor": "Bedroom cabinets",
+          "title": "Bedroom Cabinets",
           "type": "catalog",
-          "score": 0.647
+          "score": 0.651
         },
         {
-          "url": "/cabinets/laundry",
-          "anchor": "Laundry cabinets",
-          "title": "Laundry Cabinets",
+          "url": "/cabinets/pantry",
+          "anchor": "Pantry cabinets",
+          "title": "Pantry Cabinets",
           "type": "catalog",
-          "score": 0.623
-        },
-        {
-          "url": "/cabinets/entertainment",
-          "anchor": "Entertainment cabinets",
-          "title": "Entertainment Cabinets",
-          "type": "catalog",
-          "score": 0.6
+          "score": 0.649
         },
         {
           "url": "/cabinets/mudroom",
@@ -3491,11 +3434,11 @@
           "score": 0.503
         },
         {
-          "url": "/cabinets/pantry",
-          "anchor": "Pantry cabinets",
-          "title": "Pantry Cabinets",
+          "url": "/cabinets/laundry",
+          "anchor": "Laundry cabinets",
+          "title": "Laundry Cabinets",
           "type": "catalog",
-          "score": 0.449
+          "score": 0.423
         },
         {
           "url": "/blog/cabinet-construction-quality-guide",
@@ -3503,6 +3446,13 @@
           "title": "Cabinet Construction Quality Guide",
           "type": "blog",
           "score": 0.181
+        },
+        {
+          "url": "/blog/cabinet-finishes-door-styles-guide",
+          "anchor": "Cabinet Finishes & Door Styles Selection",
+          "title": "Cabinet Finishes & Door Styles Selection",
+          "type": "blog",
+          "score": 0.138
         }
       ]
     },
@@ -3513,11 +3463,18 @@
       "url": "/cabinets/home-office",
       "links": [
         {
-          "url": "/cabinets/bedroom",
-          "anchor": "Bedroom cabinets",
-          "title": "Bedroom Cabinets",
+          "url": "/cabinets/built-ins",
+          "anchor": "Built-Ins cabinets",
+          "title": "Built-Ins Cabinets",
           "type": "catalog",
-          "score": 0.621
+          "score": 0.62
+        },
+        {
+          "url": "/collections/custom",
+          "anchor": "Custom Cabinets",
+          "title": "Custom Cabinets",
+          "type": "catalog",
+          "score": 0.459
         },
         {
           "url": "/cabinets/closet",
@@ -3541,18 +3498,11 @@
           "score": 0.151
         },
         {
-          "url": "/blog/kitchen-cabinet-roi-boise",
-          "anchor": "Kitchen Cabinet ROI Boise",
-          "title": "Kitchen Cabinet ROI Boise",
+          "url": "/blog/cabinet-door-styles-guide",
+          "anchor": "Cabinet Door Styles Guide",
+          "title": "Cabinet Door Styles Guide",
           "type": "blog",
-          "score": 0.13
-        },
-        {
-          "url": "/blog/cabinet-refresh-vs-replace-vs-moving",
-          "anchor": "Cabinet Refresh vs Replace vs Moving",
-          "title": "Cabinet Refresh vs Replace vs Moving",
-          "type": "blog",
-          "score": 0.128
+          "score": 0.142
         }
       ]
     },
@@ -3562,13 +3512,6 @@
       "anchor": "Kitchen cabinets",
       "url": "/cabinets/kitchen",
       "links": [
-        {
-          "url": "/cabinets/built-ins",
-          "anchor": "Built-Ins cabinets",
-          "title": "Built-Ins Cabinets",
-          "type": "catalog",
-          "score": 0.642
-        },
         {
           "url": "/cabinets/garage",
           "anchor": "Garage cabinets",
@@ -3603,6 +3546,13 @@
           "title": "Walk-In Pantry Design Guide",
           "type": "blog",
           "score": 0.281
+        },
+        {
+          "url": "/blog/kitchen-cabinet-trends",
+          "anchor": "Kitchen Cabinet Trends",
+          "title": "Kitchen Cabinet Trends",
+          "type": "blog",
+          "score": 0.261
         }
       ]
     },
@@ -3613,9 +3563,9 @@
       "url": "/cabinets/laundry",
       "links": [
         {
-          "url": "/cabinets/home-office",
-          "anchor": "Home Office cabinets",
-          "title": "Home Office Cabinets",
+          "url": "/cabinets/entertainment",
+          "anchor": "Entertainment cabinets",
+          "title": "Entertainment Cabinets",
           "type": "catalog",
           "score": 0.6
         },
@@ -3624,7 +3574,7 @@
           "anchor": "Custom Cabinets",
           "title": "Custom Cabinets",
           "type": "catalog",
-          "score": 0.434
+          "score": 0.432
         },
         {
           "url": "/cabinets/pantry",
@@ -3648,11 +3598,11 @@
           "score": 0.133
         },
         {
-          "url": "/blog/open-kitchen-cabinet-storage",
-          "anchor": "Open Kitchen Cabinet Storage",
-          "title": "Open Kitchen Cabinet Storage",
+          "url": "/blog/outdoor-kitchen-cabinets-boise",
+          "anchor": "Outdoor Kitchen Cabinets Boise",
+          "title": "Outdoor Kitchen Cabinets Boise",
           "type": "blog",
-          "score": 0.13
+          "score": 0.131
         }
       ]
     },
@@ -3667,19 +3617,12 @@
           "anchor": "Outdoor Kitchen cabinets",
           "title": "Outdoor Kitchen Cabinets",
           "type": "catalog",
-          "score": 0.67
+          "score": 0.671
         },
         {
-          "url": "/cabinets/pantry",
-          "anchor": "Pantry cabinets",
-          "title": "Pantry Cabinets",
-          "type": "catalog",
-          "score": 0.648
-        },
-        {
-          "url": "/cabinets/home-office",
-          "anchor": "Home Office cabinets",
-          "title": "Home Office Cabinets",
+          "url": "/cabinets/entertainment",
+          "anchor": "Entertainment cabinets",
+          "title": "Entertainment Cabinets",
           "type": "catalog",
           "score": 0.6
         },
@@ -3698,11 +3641,18 @@
           "score": 0.445
         },
         {
-          "url": "/cabinets/laundry",
-          "anchor": "Laundry cabinets",
-          "title": "Laundry Cabinets",
+          "url": "/cabinets/wet-bar",
+          "anchor": "Wet Bar cabinets",
+          "title": "Wet Bar Cabinets",
           "type": "catalog",
-          "score": 0.422
+          "score": 0.405
+        },
+        {
+          "url": "/blog/luxury-custom-cabinet-cost-boise",
+          "anchor": "Luxury Custom Cabinet Cost Boise & Eagle",
+          "title": "Luxury Custom Cabinet Cost Boise & Eagle",
+          "type": "blog",
+          "score": 0.159
         }
       ]
     },
@@ -3717,42 +3667,42 @@
           "anchor": "Garage cabinets",
           "title": "Garage Cabinets",
           "type": "catalog",
-          "score": 0.391
+          "score": 0.393
         },
         {
           "url": "/cabinets/mudroom",
           "anchor": "Mudroom cabinets",
           "title": "Mudroom Cabinets",
           "type": "catalog",
-          "score": 0.39
+          "score": 0.391
         },
         {
           "url": "/blog/how-to-budget-cabinets-boise",
           "anchor": "How to Budget for Cabinets in Boise",
           "title": "How to Budget for Cabinets in Boise",
           "type": "blog",
-          "score": 0.163
+          "score": 0.165
+        },
+        {
+          "url": "/blog/premium-outdoor-cabinetry",
+          "anchor": "Premium Outdoor Cabinetry",
+          "title": "Premium Outdoor Cabinetry",
+          "type": "blog",
+          "score": 0.165
         },
         {
           "url": "/blog/kitchen-cabinet-cost-boise",
           "anchor": "Kitchen Cabinet Cost Boise (2026 Planning Ranges)",
           "title": "Kitchen Cabinet Cost Boise (2026 Planning Ranges)",
           "type": "blog",
-          "score": 0.156
-        },
-        {
-          "url": "/blog/outdoor-cabinet-roi",
-          "anchor": "Outdoor Cabinet ROI",
-          "title": "Outdoor Cabinet ROI",
-          "type": "blog",
-          "score": 0.134
+          "score": 0.157
         },
         {
           "url": "/blog/whole-home-cabinet-timeline",
           "anchor": "Whole Home Cabinet Timeline",
           "title": "Whole Home Cabinet Timeline",
           "type": "blog",
-          "score": 0.133
+          "score": 0.134
         }
       ]
     },
@@ -3784,13 +3734,6 @@
           "score": 0.622
         },
         {
-          "url": "/cabinets/entertainment",
-          "anchor": "Entertainment cabinets",
-          "title": "Entertainment Cabinets",
-          "type": "catalog",
-          "score": 0.6
-        },
-        {
           "url": "/cabinets/laundry",
           "anchor": "Laundry cabinets",
           "title": "Laundry Cabinets",
@@ -3803,6 +3746,13 @@
           "title": "Home Office Cabinets",
           "type": "catalog",
           "score": 0.402
+        },
+        {
+          "url": "/blog/garage-storage-cabinet-systems",
+          "anchor": "Garage Storage Cabinet Systems",
+          "title": "Garage Storage Cabinet Systems",
+          "type": "blog",
+          "score": 0.129
         }
       ]
     },
@@ -3827,13 +3777,6 @@
           "score": 0.622
         },
         {
-          "url": "/cabinets/closet",
-          "anchor": "Closet cabinets",
-          "title": "Closet Cabinets",
-          "type": "catalog",
-          "score": 0.6
-        },
-        {
           "url": "/cabinets/entertainment",
           "anchor": "Entertainment cabinets",
           "title": "Entertainment Cabinets",
@@ -3853,6 +3796,13 @@
           "title": "How to Budget for Cabinets in Boise",
           "type": "blog",
           "score": 0.13
+        },
+        {
+          "url": "/blog/outdoor-bar-cabinet-storage",
+          "anchor": "Outdoor Bar Cabinet Storage",
+          "title": "Outdoor Bar Cabinet Storage",
+          "type": "blog",
+          "score": 0.125
         }
       ]
     },
@@ -3912,11 +3862,11 @@
           "score": 1.094
         },
         {
-          "url": "/guides/boise-cabinet-guide",
-          "anchor": "Boise Custom Cabinet Guide",
-          "title": "Boise Custom Cabinet Guide",
-          "type": "guide",
-          "score": 0.22
+          "url": "/blog/cabinet-upgrades-before-selling",
+          "anchor": "Cabinet Upgrades Before Selling",
+          "title": "Cabinet Upgrades Before Selling",
+          "type": "blog",
+          "score": 0.191
         }
       ]
     },
@@ -3959,28 +3909,28 @@
           "anchor": "Kitchen Cabinet Cost Boise (2026 Planning Ranges)",
           "title": "Kitchen Cabinet Cost Boise (2026 Planning Ranges)",
           "type": "blog",
-          "score": 0.827
+          "score": 0.848
         },
         {
           "url": "/blog/cabinet-cost-per-linear-foot",
           "anchor": "Cabinet Cost Per Linear Foot in Boise",
           "title": "Cabinet Cost Per Linear Foot in Boise",
           "type": "blog",
-          "score": 0.767
+          "score": 0.811
         },
         {
           "url": "/blog/what-impacts-cabinet-costs-boise",
           "anchor": "What Impacts Cabinet Costs in Boise?",
           "title": "What Impacts Cabinet Costs in Boise?",
           "type": "blog",
-          "score": 0.765
+          "score": 0.775
         },
         {
           "url": "/blog/bathroom-vanity-cost-boise",
           "anchor": "Bathroom Vanity Cost Boise: Guest vs Master",
           "title": "Bathroom Vanity Cost Boise: Guest vs Master",
           "type": "blog",
-          "score": 0.68
+          "score": 0.693
         }
       ]
     },
@@ -4033,18 +3983,18 @@
           "score": 0.325
         },
         {
-          "url": "/blog/multi-room-cabinet-planning",
-          "anchor": "Multi-Room Cabinet Planning",
-          "title": "Multi-Room Cabinet Planning",
+          "url": "/blog/custom-vs-reserve-cabinets",
+          "anchor": "Custom Cabinets Built to Your Specifications",
+          "title": "Custom Cabinets Built to Your Specifications",
           "type": "blog",
-          "score": 0.25
+          "score": 0.271
         },
         {
-          "url": "/blog/outdoor-kitchen-cabinets-boise",
-          "anchor": "Outdoor Kitchen Cabinets Boise",
-          "title": "Outdoor Kitchen Cabinets Boise",
+          "url": "/blog/cabinet-cost-per-linear-foot",
+          "anchor": "Cabinet Cost Per Linear Foot in Boise",
+          "title": "Cabinet Cost Per Linear Foot in Boise",
           "type": "blog",
-          "score": 0.25
+          "score": 0.26
         }
       ]
     },
@@ -4090,6 +4040,13 @@
           "score": 0.755
         },
         {
+          "url": "/blog/kitchen-island-design-guide",
+          "anchor": "Kitchen Island Design Guide",
+          "title": "Kitchen Island Design Guide",
+          "type": "blog",
+          "score": 0.75
+        },
+        {
           "url": "/blog/kitchen-layout-ideas-boise-homes",
           "anchor": "Kitchen Layout Ideas for Boise Homes",
           "title": "Kitchen Layout Ideas for Boise Homes",
@@ -4102,13 +4059,6 @@
           "title": "Kitchen Cabinet Timeline Boise",
           "type": "blog",
           "score": 0.706
-        },
-        {
-          "url": "/blog/cabinet-hardware-guide",
-          "anchor": "Cabinet Hardware Guide",
-          "title": "Cabinet Hardware Guide",
-          "type": "blog",
-          "score": 0.624
         }
       ]
     },
@@ -4140,6 +4090,27 @@
           "score": 999
         },
         {
+          "url": "/blog/outdoor-bar-cabinet-storage",
+          "anchor": "Outdoor Bar Cabinet Storage",
+          "title": "Outdoor Bar Cabinet Storage",
+          "type": "blog",
+          "score": 0.864
+        },
+        {
+          "url": "/blog/multi-room-cabinet-planning",
+          "anchor": "Multi-Room Cabinet Planning",
+          "title": "Multi-Room Cabinet Planning",
+          "type": "blog",
+          "score": 0.824
+        },
+        {
+          "url": "/blog/outdoor-kitchen-cabinets-boise",
+          "anchor": "Outdoor Kitchen Cabinets Boise",
+          "title": "Outdoor Kitchen Cabinets Boise",
+          "type": "blog",
+          "score": 0.824
+        },
+        {
           "url": "/blog/premium-outdoor-cabinetry",
           "anchor": "Premium Outdoor Cabinetry",
           "title": "Premium Outdoor Cabinetry",
@@ -4147,32 +4118,11 @@
           "score": 0.81
         },
         {
-          "url": "/blog/primary-suite-closet-cabinets",
-          "anchor": "Primary Suite Closet Cabinets",
-          "title": "Primary Suite Closet Cabinets",
-          "type": "blog",
-          "score": 0.81
-        },
-        {
-          "url": "/blog/garage-storage-cabinet-systems",
-          "anchor": "Garage Storage Cabinet Systems",
-          "title": "Garage Storage Cabinet Systems",
-          "type": "blog",
-          "score": 0.784
-        },
-        {
           "url": "/guides/boise-cabinet-guide",
           "anchor": "Boise Custom Cabinet Guide",
           "title": "Boise Custom Cabinet Guide",
           "type": "guide",
           "score": 0.311
-        },
-        {
-          "url": "/blog/how-to-budget-cabinets-boise",
-          "anchor": "How to Budget for Cabinets in Boise",
-          "title": "How to Budget for Cabinets in Boise",
-          "type": "blog",
-          "score": 0.159
         }
       ]
     },
@@ -4275,6 +4225,20 @@
           "score": 0.95
         },
         {
+          "url": "/blog/kitchen-cabinet-roi-boise",
+          "anchor": "Kitchen Cabinet ROI Boise",
+          "title": "Kitchen Cabinet ROI Boise",
+          "type": "blog",
+          "score": 0.85
+        },
+        {
+          "url": "/blog/outdoor-cabinet-roi",
+          "anchor": "Outdoor Cabinet ROI",
+          "title": "Outdoor Cabinet ROI",
+          "type": "blog",
+          "score": 0.85
+        },
+        {
           "url": "/blog/bathroom-vanity-roi-boise",
           "anchor": "Bathroom Vanity ROI Boise",
           "title": "Bathroom Vanity ROI Boise",
@@ -4287,20 +4251,6 @@
           "title": "Built-In Storage ROI",
           "type": "blog",
           "score": 0.823
-        },
-        {
-          "url": "/blog/kitchen-cabinet-roi-boise",
-          "anchor": "Kitchen Cabinet ROI Boise",
-          "title": "Kitchen Cabinet ROI Boise",
-          "type": "blog",
-          "score": 0.81
-        },
-        {
-          "url": "/blog/cabinets-for-long-term-living",
-          "anchor": "Cabinets for Long-Term Living",
-          "title": "Cabinets for Long-Term Living",
-          "type": "blog",
-          "score": 0.8
         }
       ]
     },
@@ -4353,11 +4303,11 @@
           "score": 0.823
         },
         {
-          "url": "/blog/questions-to-ask-cabinet-company",
-          "anchor": "Questions to Ask a Cabinet Company",
-          "title": "Questions to Ask a Cabinet Company",
+          "url": "/blog/custom-cabinet-shop-vs-big-box",
+          "anchor": "Custom Cabinet Shop vs Big Box",
+          "title": "Custom Cabinet Shop vs Big Box",
           "type": "blog",
-          "score": 0.823
+          "score": 0.781
         },
         {
           "url": "/blog/fixed-price-vs-cost-plus",
@@ -4403,6 +4353,13 @@
           "score": 999
         },
         {
+          "url": "/blog/primary-suite-closet-cabinets",
+          "anchor": "Primary Suite Closet Cabinets",
+          "title": "Primary Suite Closet Cabinets",
+          "type": "blog",
+          "score": 0.16
+        },
+        {
           "url": "/blog/cabinet-planning-checklist",
           "anchor": "Cabinet Planning Checklist",
           "title": "Cabinet Planning Checklist",
@@ -4415,13 +4372,6 @@
           "title": "Cabinet Project Planning Guide",
           "type": "blog",
           "score": 0.153
-        },
-        {
-          "url": "/blog/custom-cabinet-design-process",
-          "anchor": "Custom Cabinet Design Process",
-          "title": "Custom Cabinet Design Process",
-          "type": "blog",
-          "score": 0.15
         },
         {
           "url": "/blog/what-impacts-cabinet-costs-boise",
@@ -4498,61 +4448,61 @@
     }
   },
   "incoming": {
-    "/blog/kitchen-cabinet-cost-boise": 4,
+    "/blog/kitchen-cabinet-cost-boise": 5,
     "/blog/bathroom-vanity-cost-boise": 2,
     "/blog/whole-home-cabinet-cost-boise": 5,
     "/blog/luxury-custom-cabinet-cost-boise": 3,
     "/blog/what-impacts-cabinet-costs-boise": 4,
-    "/blog/how-to-budget-cabinets-boise": 4,
+    "/blog/how-to-budget-cabinets-boise": 2,
     "/blog/kitchen-cabinet-timeline-boise": 5,
     "/blog/kitchen-layout-ideas-boise-homes": 5,
-    "/blog/kitchen-cabinet-trends": 3,
-    "/blog/open-kitchen-cabinet-storage": 5,
+    "/blog/kitchen-cabinet-trends": 4,
+    "/blog/open-kitchen-cabinet-storage": 4,
     "/blog/kitchen-island-design-guide": 4,
     "/blog/walk-in-pantry-design-guide": 4,
-    "/blog/luxury-bathroom-vanity-guide": 5,
-    "/blog/small-bathroom-vanity-ideas": 4,
-    "/blog/accessible-bathroom-vanity-guide": 5,
-    "/blog/bathroom-vanity-layout-guide": 3,
+    "/blog/luxury-bathroom-vanity-guide": 4,
+    "/blog/small-bathroom-vanity-ideas": 2,
+    "/blog/accessible-bathroom-vanity-guide": 4,
+    "/blog/bathroom-vanity-layout-guide": 4,
     "/blog/primary-suite-closet-cabinets": 3,
-    "/blog/garage-storage-cabinet-systems": 4,
-    "/blog/multi-room-cabinet-planning": 5,
-    "/blog/outdoor-kitchen-cabinets-boise": 4,
-    "/blog/outdoor-bar-cabinet-storage": 4,
-    "/blog/premium-outdoor-cabinetry": 4,
+    "/blog/garage-storage-cabinet-systems": 5,
+    "/blog/multi-room-cabinet-planning": 4,
+    "/blog/outdoor-kitchen-cabinets-boise": 5,
+    "/blog/outdoor-bar-cabinet-storage": 5,
+    "/blog/premium-outdoor-cabinetry": 5,
     "/blog/cabinet-project-planning-guide": 5,
     "/blog/cabinet-buying-mistakes": 4,
     "/blog/whole-home-cabinet-timeline": 3,
     "/blog/living-through-cabinet-installation": 5,
-    "/blog/cabinet-refresh-vs-replace-vs-moving": 3,
+    "/blog/cabinet-refresh-vs-replace-vs-moving": 2,
     "/blog/custom-cabinet-design-process": 2,
-    "/blog/cabinet-planning-checklist": 3,
+    "/blog/cabinet-planning-checklist": 2,
     "/blog/questions-to-ask-cabinet-company": 5,
-    "/blog/cabinet-company-red-flags": 3,
-    "/blog/what-makes-great-cabinet-company": 1,
+    "/blog/cabinet-company-red-flags": 2,
+    "/blog/what-makes-great-cabinet-company": 2,
     "/blog/how-to-compare-cabinet-quotes": 5,
-    "/blog/why-cabinet-quotes-vary": 5,
+    "/blog/why-cabinet-quotes-vary": 4,
     "/blog/cabinet-consultation-process": 1,
-    "/blog/custom-cabinet-shop-vs-big-box": 1,
+    "/blog/custom-cabinet-shop-vs-big-box": 2,
     "/blog/fixed-price-vs-cost-plus": 3,
-    "/blog/cabinet-finishes-door-styles-guide": 4,
-    "/blog/cabinet-measurement-design-phase": 3,
+    "/blog/cabinet-finishes-door-styles-guide": 5,
+    "/blog/cabinet-measurement-design-phase": 4,
     "/blog/cabinet-design-development": 5,
     "/blog/cabinet-fabrication-installation": 4,
-    "/blog/cabinet-installation-punch-list": 4,
+    "/blog/cabinet-installation-punch-list": 3,
     "/blog/cabinet-warranty-guide": 2,
-    "/blog/kitchen-cabinet-roi-boise": 5,
+    "/blog/kitchen-cabinet-roi-boise": 4,
     "/blog/bathroom-vanity-roi-boise": 5,
-    "/blog/built-in-storage-roi": 4,
-    "/blog/outdoor-cabinet-roi": 2,
+    "/blog/built-in-storage-roi": 2,
+    "/blog/outdoor-cabinet-roi": 1,
     "/blog/cabinet-upgrades-before-selling": 2,
-    "/blog/cabinets-for-long-term-living": 2,
-    "/blog/custom-vs-reserve-cabinets": 4,
+    "/blog/cabinets-for-long-term-living": 5,
+    "/blog/custom-vs-reserve-cabinets": 5,
     "/blog/cabinet-door-styles-guide": 1,
     "/blog/cabinet-finishes-colors-guide": 3,
-    "/blog/cabinet-hardware-guide": 4,
-    "/blog/cabinet-construction-quality-guide": 1,
-    "/blog/cabinet-cost-per-linear-foot": 4,
+    "/blog/cabinet-hardware-guide": 3,
+    "/blog/cabinet-construction-quality-guide": 2,
+    "/blog/cabinet-cost-per-linear-foot": 5,
     "/blog/stock-vs-custom-cabinets-boise": 4,
     "/guides/boise-cabinet-cost-guide": 65,
     "/guides/treasure-valley-cabinet-guide": 15,
@@ -4583,8 +4533,7 @@
     "/cabinets/outdoor": 5,
     "/cabinets/wet-bar": 5,
     "/cabinets/bedroom": 5,
-    "/collections/custom": 5,
-    "/collections/reserve": 5
+    "/collections/custom": 5
   },
   "blogByCategory": {
     "cabinet-costs": [
@@ -4710,7 +4659,7 @@
       },
       {
         "slug": "custom-vs-reserve-cabinets",
-        "title": "Custom Cabinets vs Reserve Collection",
+        "title": "Custom Cabinets Built to Your Specifications",
         "publishedAt": "2026-05-15"
       },
       {

@@ -12,6 +12,7 @@ import { useAdaptiveGlassTheme } from "@/hooks/useAdaptiveGlassTheme";
 import { EstimateCalculatorWizard } from "@/components/estimate/EstimateCalculatorWizard";
 import type { StoredEstimate } from "@/shared/estimateEngine";
 import { formatPlanningCurrency } from "@/shared/estimateEngine";
+import { CATALOG_CONTENT } from "@/shared/catalog";
 
 interface EstimateCalculatorProps {
   inModal?: boolean;
@@ -78,7 +79,7 @@ export function EstimateCalculator({ inModal = false, onBookVisit }: EstimateCal
             at each step.
           </p>
           <p className="text-xs text-muted-foreground/90 max-w-2xl">
-            Planning estimate only, not a binding quote. Final pricing requires an in-home evaluation.
+            {CATALOG_CONTENT.estimateDisclaimer}
           </p>
         </div>
 

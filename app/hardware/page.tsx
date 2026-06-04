@@ -48,7 +48,7 @@ export const metadata = catalogMetadata(
   "/hardware",
   "Cabinet Hardware",
   catalogDescription(
-    "Salice hinges and drawer slides from the One Source catalog, plus decorative pull samples to discuss with your designer.",
+    "Salice hinges and drawer slides from our catalog, plus decorative pull samples to discuss with your designer.",
   ),
 );
 
@@ -56,7 +56,7 @@ export default function HardwarePage() {
   const schemas = [
     generateWebPageSchema({
       title: "Cabinet Hardware",
-      description: `Hardware from ${SITE_CONFIG.name} and One Source Cabinets.`,
+      description: `Hardware from ${SITE_CONFIG.name}.`,
       url: "/hardware",
     }),
     generateBreadcrumbSchema([
@@ -82,12 +82,12 @@ export default function HardwarePage() {
                 </>
               }
               description={catalogDescription(
-                "Standard One Source packages include Salice soft-close hinges and full-extension drawer slides. Decorative pulls are selected during design - samples below are for inspiration, not separate catalog SKUs.",
+                "Standard packages include Salice soft-close hinges and full-extension drawer slides. Decorative pulls are selected during design - samples below are for inspiration, not separate catalog SKUs.",
               )}
             />
             <CatalogPageHero
               src={MARKETING_IMAGES.process}
-              alt="Cabinet hardware samples on One Source shaker doors, Boise Cabinet Co"
+              alt="Cabinet hardware samples on shaker doors, Boise Cabinet Co"
             />
             <CatalogSearch className="mb-8" />
             <Button variant="brand" asChild>
@@ -101,7 +101,7 @@ export default function HardwarePage() {
         <Section variant="greige" divider>
           <div className="container px-4">
             <SectionHeader
-              eyebrow="One Source catalog"
+              eyebrow="Our catalog"
               title={<>Included construction hardware</>}
               align="center"
               className="mb-10 max-w-xl mx-auto text-center [&_.brc-label]:justify-center"

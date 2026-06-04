@@ -10,14 +10,14 @@ import { CatalogSearch } from "@/components/catalog/CatalogSearch";
 import { Button } from "@/components/ui/button";
 import { catalogMetadata, catalogDescription } from "@/lib/catalog-metadata";
 import { generateBreadcrumbSchema, generateWebPageSchema } from "@/lib/schema";
-import { FINISHES_BY_CATEGORY } from "@/shared/catalog";
+import { FINISHES, FINISHES_BY_CATEGORY } from "@/shared/catalog";
 import { SITE_CONFIG } from "@/shared/siteConfig";
 
 export const metadata = catalogMetadata(
   "/finishes",
   "Cabinet Finishes",
   catalogDescription(
-    "Browse 108 matte, gloss, and woodgrain cabinet finishes from {company}. See swatches and pair with door styles in Design Studio.",
+    `Browse ${FINISHES.length} matte, gloss, and woodgrain cabinet finishes from {company}. See swatches and pair with door styles in Design Studio.`,
   ),
 );
 

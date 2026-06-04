@@ -29,7 +29,7 @@ export const metadata = catalogMetadata(
   "/collections",
   "Cabinet Collections",
   catalogDescription(
-    "Compare our Custom Cabinets and Reserve cabinet lines from {company}. Built in Kuna, installed across the Treasure Valley.",
+    "Explore our Custom Cabinets from {company}, built to your exact sizes and finishes. Built in Kuna, installed across the Treasure Valley.",
   ),
 );
 
@@ -37,7 +37,7 @@ export default function CollectionsHubPage() {
   const schemas = [
     generateWebPageSchema({
       title: "Cabinet Collections",
-      description: `Two cabinet lines from ${SITE_CONFIG.name}.`,
+      description: `Custom cabinets from ${SITE_CONFIG.name}.`,
       url: "/collections",
     }),
     generateBreadcrumbSchema([
@@ -59,12 +59,12 @@ export default function CollectionsHubPage() {
               eyebrow="Product catalog"
               title={
                 <>
-                  Two cabinet{" "}
-                  <em className="brc-accent text-accent">collections</em>
+                  Custom{" "}
+                  <em className="brc-accent text-accent">cabinets</em>
                 </>
               }
               description={catalogDescription(
-                "From our built-to-order Custom Cabinets to the curated Reserve Collection, every {company} line includes professional installation and our workmanship guarantee.",
+                "Our built-to-order Custom Cabinets are made to your exact sizes, finishes, and details, and every {company} project includes professional installation and our workmanship guarantee.",
               )}
             />
             <CatalogSearch className="mb-6" />

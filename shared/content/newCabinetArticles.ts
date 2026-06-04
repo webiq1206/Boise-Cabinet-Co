@@ -6,22 +6,22 @@ import { buildClusterPost } from './contentFactory';
 import type { BlogPostData } from '../blogContent';
 
 const catalogLinks =
-  'Explore <a href="/compare">custom vs reserve</a>, <a href="/collections">collections</a>, <a href="/door-styles">door styles</a>, <a href="/finishes">finishes</a>, <a href="/hardware">hardware</a>, and <a href="/construction">construction details</a>.';
+  'Explore <a href="/compare">our cabinets</a>, <a href="/collections">collections</a>, <a href="/door-styles">door styles</a>, <a href="/finishes">finishes</a>, <a href="/hardware">hardware</a>, and <a href="/construction">construction details</a>.';
 
 const tier1Articles = [
   {
     slug: 'custom-vs-reserve-cabinets',
-    title: 'Custom Cabinets vs Reserve Collection',
+    title: 'Custom Cabinets Built to Your Specifications',
     hubSlug: 'choosing-cabinet-company',
     serviceUrl: '/cabinets/kitchen',
     quickAnswer:
-      'Custom Cabinets are built to your exact sizes and specifications; the Reserve Collection pairs curated premium finishes with expedited production, and Reserve often balances lead time and design impact in Treasure Valley kitchens.',
+      'Our Custom Cabinets are built to your exact sizes, dimensions, details, and finish specifications, so they fit odd ceiling lines, tight clearances, and the look you want in Treasure Valley kitchens.',
     takeaways: [
       'Custom fits odd ceiling lines and tight clearances.',
-      'Reserve offers faster lead times on curated finishes.',
+      'Choose from hundreds of finishes and six door styles.',
       'Compare warranty and install scope, not door photos alone.',
     ],
-    tags: ['custom', 'reserve', 'compare'],
+    tags: ['custom', 'cabinets', 'compare'],
     extraParagraph: catalogLinks,
   },
   {

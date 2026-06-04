@@ -82,12 +82,13 @@ export function getProductsByCategory(
 export function getSimilarFinishes(finishSlug: string, limit = 6): Finish[] {
   const finish = getFinishBySlug(finishSlug);
   if (!finish) return [];
-  return FINISHES.filter(
-    (f) =>
-      f.slug !== finish.slug &&
-      f.category === finish.category &&
-      (f.panelBrand === finish.panelBrand || f.panelSeries === finish.panelSeries),
-  ).slice(0, limit);
+  const sameCategory = FINISHES.filter(
+    (f) => f.slug !== finish.slug && f.category === finish.category,
+  );
+  // Prefer the same sheen, then fill with other finishes in the category.
+  const sameSheen = sameCategory.filter((f) => f.sheen === finish.sheen);
+  const otherSheen = sameCategory.filter((f) => f.sheen !== finish.sheen);
+  return [...sameSheen, ...otherSheen].slice(0, limit);
 }
 
 export function getConstructionForCollection(_collectionSlug: string) {
@@ -210,14 +211,14 @@ export function searchCatalogWithFacets(
   }
 
   for (const f of narrowed.finishes) {
-    const text = [f.name, f.oscName, f.category, f.panelBrand, f.panelSeries].join(" ");
+    const text = [f.name, f.oscName, f.category, f.sheen].join(" ");
     const s = score(text, f.slug, f.name);
     if (s > 0 || !q) {
       results.push({
         type: "finish",
         slug: f.slug,
         name: f.name,
-        description: `${f.category} · ${f.panelSeries}`,
+        description: `${f.category} · ${f.sheen}`,
         score: s || 1,
         imagePath: pickSearchResultImage({ type: "finish", slug: f.slug }),
       });
@@ -231,7 +232,7 @@ export function searchCatalogWithFacets(
       results.push({
         type: "cabinetProduct",
         slug: p.slug,
-        name: p.oscCode,
+        name: p.name,
         description: p.description.slice(0, 100),
         score: s || 1,
       });

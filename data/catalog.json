@@ -1,0 +1,5995 @@
+{
+ "meta": {
+  "source": "Boise Cabinet Co product catalog",
+  "doorStyles": 6,
+  "finishes": 299,
+  "finishesByCategory": {
+   "Matte": 55,
+   "Gloss": 53,
+   "Woodgrain": 191
+  },
+  "accessories": 6,
+  "cabinets": 320,
+  "cabinetsByCategory": {
+   "Wall": 136,
+   "Floating Shelf": 18,
+   "Hood": 16,
+   "Base": 101,
+   "Tall": 18,
+   "Vanity": 16,
+   "Filler/Crown": 9,
+   "End Panel": 2,
+   "Panel": 4
+  },
+  "notes": "Dimensions in inches; \"variable\" = trim/panel cut-to-fit (Panel Size / Max Material Height)."
+ },
+ "doorStyles": [
+  {
+   "name": "Slab",
+   "description": "Minimal, streamlined, flat. Pairs with woodgrain or bold color.",
+   "drawerFront": "Slab front",
+   "image": "door-styles/slab.webp"
+  },
+  {
+   "name": "3 Piece",
+   "description": "Center panel runs horizontally to show woodgrain depth.",
+   "drawerFront": "Matches door",
+   "image": "door-styles/three-piece.webp"
+  },
+  {
+   "name": "Modern Shaker",
+   "description": "Classic, timeless, detail without being busy.",
+   "drawerFront": "Matches door",
+   "image": "door-styles/modern-shaker.webp"
+  },
+  {
+   "name": "Thin Shaker",
+   "description": "Transitional modern; softer, understated detail.",
+   "drawerFront": "Matches door",
+   "image": "door-styles/thin-shaker.webp"
+  },
+  {
+   "name": "Alpha Shaker",
+   "altName": "internal alias only: Zeta / Tafisa profile",
+   "description": "Mitered shaker profile, streamlined look.",
+   "drawerFront": "Horizontal-grain slab front",
+   "image": "door-styles/alpha-shaker.webp"
+  },
+  {
+   "name": "Beta Shaker",
+   "description": "Mitered construction, radius center profile, flat panel.",
+   "drawerFront": "Horizontal-grain slab front",
+   "image": "door-styles/beta-shaker.webp"
+  }
+ ],
+ "finishes": [
+  {
+   "name": "Bitter",
+   "category": "Matte",
+   "priceTier": "$$$",
+   "colorFamily": "Confirm from swatch",
+   "onSiteNow": "Yes",
+   "image": "finishes/matte/bitter.webp",
+   "materialLine": "Supramat"
+  },
+  {
+   "name": "Macaron Green",
+   "category": "Matte",
+   "priceTier": "$$$",
+   "colorFamily": "Green",
+   "onSiteNow": "Yes",
+   "image": "finishes/matte/macaron-green.webp",
+   "materialLine": "Supramat"
+  },
+  {
+   "name": "Breeze Beige",
+   "category": "Matte",
+   "priceTier": "$$$",
+   "colorFamily": "Neutral / Beige",
+   "onSiteNow": "Yes",
+   "image": "finishes/matte/breeze-beige.webp",
+   "materialLine": "Supramat"
+  },
+  {
+   "name": "Pearl Black",
+   "category": "Matte",
+   "priceTier": "$$$",
+   "colorFamily": "Black",
+   "onSiteNow": "Yes",
+   "image": "finishes/matte/pearl-black.webp",
+   "materialLine": "Supramat"
+  },
+  {
+   "name": "Forest Green",
+   "category": "Matte",
+   "priceTier": "$$$",
+   "colorFamily": "Green",
+   "onSiteNow": "Yes",
+   "image": "finishes/matte/forest-green.webp",
+   "materialLine": "Supramat"
+  },
+  {
+   "name": "Pebble Grey",
+   "category": "Matte",
+   "priceTier": "$$$",
+   "colorFamily": "Grey",
+   "onSiteNow": "Yes",
+   "image": "finishes/matte/pebble-grey.webp",
+   "materialLine": "Supramat"
+  },
+  {
+   "name": "Glamorous Pacific",
+   "category": "Matte",
+   "priceTier": "$$$",
+   "colorFamily": "Blue",
+   "onSiteNow": "Yes",
+   "image": "finishes/matte/glamorous-pacific.webp",
+   "materialLine": "Supramat"
+  },
+  {
+   "name": "Royal Grey",
+   "category": "Matte",
+   "priceTier": "$$$",
+   "colorFamily": "Grey",
+   "onSiteNow": "Yes",
+   "image": "finishes/matte/royal-grey.webp",
+   "materialLine": "Supramat"
+  },
+  {
+   "name": "Ice Grey",
+   "category": "Matte",
+   "priceTier": "$$$",
+   "colorFamily": "Grey",
+   "onSiteNow": "Yes",
+   "image": "finishes/matte/ice-grey.webp",
+   "materialLine": "Supramat"
+  },
+  {
+   "name": "Snow White",
+   "category": "Matte",
+   "priceTier": "$$$",
+   "colorFamily": "White",
+   "onSiteNow": "Yes",
+   "image": "finishes/matte/snow-white.webp",
+   "materialLine": "Supramat"
+  },
+  {
+   "name": "London Blues",
+   "category": "Matte",
+   "priceTier": "$$$",
+   "colorFamily": "Blue",
+   "onSiteNow": "Yes",
+   "image": "finishes/matte/london-blues.webp",
+   "materialLine": "Supramat"
+  },
+  {
+   "name": "Timeless Grey",
+   "category": "Matte",
+   "priceTier": "$$$",
+   "colorFamily": "Grey",
+   "onSiteNow": "Yes",
+   "image": "finishes/matte/timeless-grey.webp",
+   "materialLine": "Supramat"
+  },
+  {
+   "name": "Beige Arizona",
+   "category": "Matte",
+   "priceTier": "$$$$$",
+   "colorFamily": "Neutral / Beige",
+   "onSiteNow": "Yes",
+   "image": "finishes/matte/beige-arizona.webp",
+   "materialLine": "FENIX"
+  },
+  {
+   "name": "Bronzo Doha",
+   "category": "Matte",
+   "priceTier": "$$$$$",
+   "colorFamily": "Neutral / Beige",
+   "onSiteNow": "Yes",
+   "image": "finishes/matte/bronzo-doha.webp",
+   "materialLine": "FENIX"
+  },
+  {
+   "name": "Nero Ingo",
+   "category": "Matte",
+   "priceTier": "$$$$$",
+   "colorFamily": "Black",
+   "onSiteNow": "Yes",
+   "image": "finishes/matte/nero-ingo.webp",
+   "materialLine": "FENIX"
+  },
+  {
+   "name": "Bianco Alaska",
+   "category": "Matte",
+   "priceTier": "$$$$$",
+   "colorFamily": "White",
+   "onSiteNow": "Yes",
+   "image": "finishes/matte/bianco-alaska.webp",
+   "materialLine": "FENIX"
+  },
+  {
+   "name": "Castoro Ottawa",
+   "category": "Matte",
+   "priceTier": "$$$$$",
+   "colorFamily": "Neutral / Beige",
+   "onSiteNow": "Yes",
+   "image": "finishes/matte/castoro-ottawa.webp",
+   "materialLine": "FENIX"
+  },
+  {
+   "name": "Piomba Doha",
+   "category": "Matte",
+   "priceTier": "$$$$$",
+   "colorFamily": "Grey",
+   "onSiteNow": "Yes",
+   "image": "finishes/matte/piomba-doha.webp",
+   "materialLine": "FENIX"
+  },
+  {
+   "name": "Bianco Dover",
+   "category": "Matte",
+   "priceTier": "$$$$$",
+   "colorFamily": "White",
+   "onSiteNow": "Yes",
+   "image": "finishes/matte/bianco-dover.webp",
+   "materialLine": "FENIX"
+  },
+  {
+   "name": "Grigio Antrim",
+   "category": "Matte",
+   "priceTier": "$$$$$",
+   "colorFamily": "Grey",
+   "onSiteNow": "Yes",
+   "image": "finishes/matte/grigio-antrim.webp",
+   "materialLine": "FENIX"
+  },
+  {
+   "name": "Bianco Malé",
+   "category": "Matte",
+   "priceTier": "$$$$$",
+   "colorFamily": "White",
+   "onSiteNow": "Yes",
+   "image": "finishes/matte/bianco-male.webp",
+   "materialLine": "FENIX"
+  },
+  {
+   "name": "Grigio Bromo",
+   "category": "Matte",
+   "priceTier": "$$$$$",
+   "colorFamily": "Grey",
+   "onSiteNow": "Yes",
+   "image": "finishes/matte/grigio-bromo.webp",
+   "materialLine": "FENIX"
+  },
+  {
+   "name": "Bianco Kos",
+   "category": "Matte",
+   "priceTier": "$$$$$",
+   "colorFamily": "White",
+   "onSiteNow": "Yes",
+   "image": "finishes/matte/bianco-kos.webp",
+   "materialLine": "FENIX"
+  },
+  {
+   "name": "Grigio Efeso",
+   "category": "Matte",
+   "priceTier": "$$$$$",
+   "colorFamily": "Grey",
+   "onSiteNow": "Yes",
+   "image": "finishes/matte/grigio-efeso.webp",
+   "materialLine": "FENIX"
+  },
+  {
+   "name": "Blue Fes",
+   "category": "Matte",
+   "priceTier": "$$$$$",
+   "colorFamily": "Blue",
+   "onSiteNow": "Yes",
+   "image": "finishes/matte/blue-fes.webp",
+   "materialLine": "FENIX"
+  },
+  {
+   "name": "Grigio Londra",
+   "category": "Matte",
+   "priceTier": "$$$$$",
+   "colorFamily": "Grey",
+   "onSiteNow": "Yes",
+   "image": "finishes/matte/grigio-londra.webp",
+   "materialLine": "FENIX"
+  },
+  {
+   "name": "Black",
+   "category": "Matte",
+   "priceTier": "$$$",
+   "colorFamily": "Black",
+   "onSiteNow": "Yes",
+   "image": "finishes/matte/black.webp",
+   "materialLine": "Lummia Perfect Matt"
+  },
+  {
+   "name": "Morning Dew",
+   "category": "Matte",
+   "priceTier": "$$$",
+   "colorFamily": "Confirm from swatch",
+   "onSiteNow": "Yes",
+   "image": "finishes/matte/morning-dew.webp",
+   "materialLine": "Lummia Perfect Matt"
+  },
+  {
+   "name": "Calm Sea",
+   "category": "Matte",
+   "priceTier": "$$$",
+   "colorFamily": "Blue",
+   "onSiteNow": "Yes",
+   "image": "finishes/matte/calm-sea.webp",
+   "materialLine": "Lummia Perfect Matt"
+  },
+  {
+   "name": "North Wind",
+   "category": "Matte",
+   "priceTier": "$$$",
+   "colorFamily": "Confirm from swatch",
+   "onSiteNow": "Yes",
+   "image": "finishes/matte/north-wind.webp",
+   "materialLine": "Lummia Perfect Matt"
+  },
+  {
+   "name": "Camera Obscura",
+   "category": "Matte",
+   "priceTier": "$$$",
+   "colorFamily": "Black",
+   "onSiteNow": "Yes",
+   "image": "finishes/matte/camera-obscura.webp",
+   "materialLine": "Lummia Perfect Matt"
+  },
+  {
+   "name": "Urban Vibe",
+   "category": "Matte",
+   "priceTier": "$$$",
+   "colorFamily": "Confirm from swatch",
+   "onSiteNow": "Yes",
+   "image": "finishes/matte/urban-vibe.webp",
+   "materialLine": "Lummia Perfect Matt"
+  },
+  {
+   "name": "Carte Blanche",
+   "category": "Matte",
+   "priceTier": "$$$",
+   "colorFamily": "Confirm from swatch",
+   "onSiteNow": "Yes",
+   "image": "finishes/matte/carte-blanche.webp",
+   "materialLine": "Lummia Perfect Matt"
+  },
+  {
+   "name": "Vanilla Orchid",
+   "category": "Matte",
+   "priceTier": "$$$",
+   "colorFamily": "Confirm from swatch",
+   "onSiteNow": "Yes",
+   "image": "finishes/matte/vanilla-orchid.webp",
+   "materialLine": "Lummia Perfect Matt"
+  },
+  {
+   "name": "Eucalyptus",
+   "category": "Matte",
+   "priceTier": "$$$",
+   "colorFamily": "Green",
+   "onSiteNow": "Yes",
+   "image": "finishes/matte/eucalyptus.webp",
+   "materialLine": "Lummia Perfect Matt"
+  },
+  {
+   "name": "Midnight Sun",
+   "category": "Matte",
+   "priceTier": "$$$",
+   "colorFamily": "Black",
+   "onSiteNow": "Yes",
+   "image": "finishes/matte/midnight-sun.webp",
+   "materialLine": "Lummia Perfect Matt"
+  },
+  {
+   "name": "Black",
+   "category": "Matte",
+   "priceTier": "$$$",
+   "colorFamily": "Black",
+   "onSiteNow": "Yes",
+   "image": "finishes/matte/black.webp",
+   "materialLine": "Matte panel (48×120, single)"
+  },
+  {
+   "name": "White",
+   "category": "Matte",
+   "priceTier": "$$$",
+   "colorFamily": "White",
+   "onSiteNow": "Yes",
+   "image": "finishes/matte/white.webp",
+   "materialLine": "Matte panel (48×120, single)"
+  },
+  {
+   "name": "Dark Grey",
+   "category": "Matte",
+   "priceTier": "$$$",
+   "colorFamily": "Grey",
+   "onSiteNow": "Yes",
+   "image": "finishes/matte/dark-grey.webp",
+   "materialLine": "Matte panel (48×120, single)"
+  },
+  {
+   "name": "Deep Blue",
+   "category": "Matte",
+   "priceTier": "$$$",
+   "colorFamily": "Blue",
+   "onSiteNow": "Yes",
+   "image": "finishes/matte/deep-blue.webp",
+   "materialLine": "Matte panel (48×120, single)"
+  },
+  {
+   "name": "Graphite",
+   "category": "Matte",
+   "priceTier": "$$$",
+   "colorFamily": "Grey",
+   "onSiteNow": "Yes",
+   "image": "finishes/matte/graphite.webp",
+   "materialLine": "Matte panel (48×120, single)"
+  },
+  {
+   "name": "Jade Green",
+   "category": "Matte",
+   "priceTier": "$$$",
+   "colorFamily": "Green",
+   "onSiteNow": "Yes",
+   "image": "finishes/matte/jade-green.webp",
+   "materialLine": "Matte panel (48×120, single)"
+  },
+  {
+   "name": "Tan",
+   "category": "Matte",
+   "priceTier": "$$$",
+   "colorFamily": "Neutral / Beige",
+   "onSiteNow": "Yes",
+   "image": "finishes/matte/tan.webp",
+   "materialLine": "Matte panel (48×120, single)"
+  },
+  {
+   "name": "Black",
+   "category": "Matte",
+   "priceTier": "$$$$$",
+   "colorFamily": "Black",
+   "onSiteNow": "Yes",
+   "image": "finishes/matte/black.webp",
+   "materialLine": "Matte panel (51×120, double)"
+  },
+  {
+   "name": "Maltese Mist",
+   "category": "Matte",
+   "priceTier": "$$$$$",
+   "colorFamily": "Grey",
+   "onSiteNow": "Yes",
+   "image": "finishes/matte/maltese-mist.webp",
+   "materialLine": "Matte panel (51×120, double)"
+  },
+  {
+   "name": "Boxcar Blonde",
+   "category": "Matte",
+   "priceTier": "$$$$$",
+   "colorFamily": "Confirm from swatch",
+   "onSiteNow": "Yes",
+   "image": "finishes/matte/boxcar-blonde.webp",
+   "materialLine": "Matte panel (51×120, double)"
+  },
+  {
+   "name": "Midnight Dash",
+   "category": "Matte",
+   "priceTier": "$$$$$",
+   "colorFamily": "Black",
+   "onSiteNow": "Yes",
+   "image": "finishes/matte/midnight-dash.webp",
+   "materialLine": "Matte panel (51×120, double)"
+  },
+  {
+   "name": "Capital Starlit",
+   "category": "Matte",
+   "priceTier": "$$$$$",
+   "colorFamily": "Confirm from swatch",
+   "onSiteNow": "Yes",
+   "image": "finishes/matte/capital-starlit.webp",
+   "materialLine": "Matte panel (51×120, double)"
+  },
+  {
+   "name": "Olive Detour",
+   "category": "Matte",
+   "priceTier": "$$$$$",
+   "colorFamily": "Green",
+   "onSiteNow": "Yes",
+   "image": "finishes/matte/olive-detour.webp",
+   "materialLine": "Matte panel (51×120, double)"
+  },
+  {
+   "name": "Casa Blanca",
+   "category": "Matte",
+   "priceTier": "$$$$$",
+   "colorFamily": "White",
+   "onSiteNow": "Yes",
+   "image": "finishes/matte/casa-blanca.webp",
+   "materialLine": "Matte panel (51×120, double)"
+  },
+  {
+   "name": "Silver Lake",
+   "category": "Matte",
+   "priceTier": "$$$$$",
+   "colorFamily": "Grey",
+   "onSiteNow": "Yes",
+   "image": "finishes/matte/silver-lake.webp",
+   "materialLine": "Matte panel (51×120, double)"
+  },
+  {
+   "name": "Gaslit Alley",
+   "category": "Matte",
+   "priceTier": "$$$$$",
+   "colorFamily": "Grey",
+   "onSiteNow": "Yes",
+   "image": "finishes/matte/gaslit-alley.webp",
+   "materialLine": "Matte panel (51×120, double)"
+  },
+  {
+   "name": "Smoke Stack",
+   "category": "Matte",
+   "priceTier": "$$$$$",
+   "colorFamily": "Grey",
+   "onSiteNow": "Yes",
+   "image": "finishes/matte/smoke-stack.webp",
+   "materialLine": "Matte panel (51×120, double)"
+  },
+  {
+   "name": "High Low",
+   "category": "Matte",
+   "priceTier": "$$$$$",
+   "colorFamily": "Confirm from swatch",
+   "onSiteNow": "Yes",
+   "image": "finishes/matte/high-low.webp",
+   "materialLine": "Matte panel (51×120, double)"
+  },
+  {
+   "name": "Trench Coat",
+   "category": "Matte",
+   "priceTier": "$$$$$",
+   "colorFamily": "Confirm from swatch",
+   "onSiteNow": "Yes",
+   "image": "finishes/matte/trench-coat.webp",
+   "materialLine": "Matte panel (51×120, double)"
+  },
+  {
+   "name": "Black HG",
+   "category": "Gloss",
+   "priceTier": "$$$$",
+   "colorFamily": "Black",
+   "onSiteNow": "Yes",
+   "image": "finishes/gloss/black-hg.webp",
+   "materialLine": "AGT High Gloss"
+  },
+  {
+   "name": "Dark Grey HG",
+   "category": "Gloss",
+   "priceTier": "$$$$",
+   "colorFamily": "Grey",
+   "onSiteNow": "Yes",
+   "image": "finishes/gloss/dark-grey-hg.webp",
+   "materialLine": "AGT High Gloss"
+  },
+  {
+   "name": "White HG",
+   "category": "Gloss",
+   "priceTier": "$$$$",
+   "colorFamily": "White",
+   "onSiteNow": "Yes",
+   "image": "finishes/gloss/white-hg.webp",
+   "materialLine": "AGT High Gloss"
+  },
+  {
+   "name": "Black",
+   "category": "Gloss",
+   "priceTier": "$$$$",
+   "colorFamily": "Black",
+   "onSiteNow": "No",
+   "image": "finishes/gloss/black.webp",
+   "materialLine": "Gloss panel (60×108)"
+  },
+  {
+   "name": "Carte Blanche",
+   "category": "Gloss",
+   "priceTier": "$$$$",
+   "colorFamily": "Confirm from swatch",
+   "onSiteNow": "Yes",
+   "image": "finishes/gloss/carte-blanche.webp",
+   "materialLine": "Gloss panel (60×108)"
+  },
+  {
+   "name": "Iron Horse",
+   "category": "Gloss",
+   "priceTier": "$$$$",
+   "colorFamily": "Confirm from swatch",
+   "onSiteNow": "Yes",
+   "image": "finishes/gloss/iron-horse.webp",
+   "materialLine": "Gloss panel (60×108)"
+  },
+  {
+   "name": "Steampunk",
+   "category": "Gloss",
+   "priceTier": "$$$$",
+   "colorFamily": "Confirm from swatch",
+   "onSiteNow": "Yes",
+   "image": "finishes/gloss/steampunk.webp",
+   "materialLine": "Gloss panel (60×108)"
+  },
+  {
+   "name": "Vanilla Orchid",
+   "category": "Gloss",
+   "priceTier": "$$$$",
+   "colorFamily": "Confirm from swatch",
+   "onSiteNow": "Yes",
+   "image": "finishes/gloss/vanilla-orchid.webp",
+   "materialLine": "Gloss panel (60×108)"
+  },
+  {
+   "name": "Midnight Sun",
+   "category": "Gloss",
+   "priceTier": "$$$$",
+   "colorFamily": "Black",
+   "onSiteNow": "No",
+   "image": "finishes/gloss/midnight-sun.webp",
+   "materialLine": "Gloss panel (60×108)"
+  },
+  {
+   "name": "Morning Dew",
+   "category": "Gloss",
+   "priceTier": "$$$$",
+   "colorFamily": "Confirm from swatch",
+   "onSiteNow": "Yes",
+   "image": "finishes/gloss/morning-dew.webp",
+   "materialLine": "Gloss panel (60×108)"
+  },
+  {
+   "name": "North Wind",
+   "category": "Gloss",
+   "priceTier": "$$$$",
+   "colorFamily": "Confirm from swatch",
+   "onSiteNow": "Yes",
+   "image": "finishes/gloss/north-wind.webp",
+   "materialLine": "Gloss panel (60×108)"
+  },
+  {
+   "name": "Black",
+   "category": "Gloss",
+   "priceTier": "$$$$",
+   "colorFamily": "Black",
+   "onSiteNow": "No",
+   "image": "finishes/gloss/black.webp",
+   "materialLine": "Mirlux"
+  },
+  {
+   "name": "White",
+   "category": "Gloss",
+   "priceTier": "$$$$",
+   "colorFamily": "White",
+   "onSiteNow": "Yes",
+   "image": "finishes/gloss/white.webp",
+   "materialLine": "Mirlux"
+  },
+  {
+   "name": "Dark Grey",
+   "category": "Gloss",
+   "priceTier": "$$$$",
+   "colorFamily": "Grey",
+   "onSiteNow": "Yes",
+   "image": "finishes/gloss/dark-grey.webp",
+   "materialLine": "Mirlux"
+  },
+  {
+   "name": "Deep Blue",
+   "category": "Gloss",
+   "priceTier": "$$$$",
+   "colorFamily": "Blue",
+   "onSiteNow": "Yes",
+   "image": "finishes/gloss/deep-blue.webp",
+   "materialLine": "Mirlux"
+  },
+  {
+   "name": "Graphite",
+   "category": "Gloss",
+   "priceTier": "$$$$",
+   "colorFamily": "Grey",
+   "onSiteNow": "No",
+   "image": "finishes/gloss/graphite.webp",
+   "materialLine": "Mirlux"
+  },
+  {
+   "name": "Light Grey",
+   "category": "Gloss",
+   "priceTier": "$$$$",
+   "colorFamily": "Grey",
+   "onSiteNow": "Yes",
+   "image": "finishes/gloss/light-grey.webp",
+   "materialLine": "Mirlux"
+  },
+  {
+   "name": "Tan",
+   "category": "Gloss",
+   "priceTier": "$$$$",
+   "colorFamily": "Neutral / Beige",
+   "onSiteNow": "No",
+   "image": "finishes/gloss/tan.webp",
+   "materialLine": "Mirlux"
+  },
+  {
+   "name": "Bianco",
+   "category": "Gloss",
+   "priceTier": "$$$$",
+   "colorFamily": "White",
+   "onSiteNow": "No",
+   "image": "finishes/gloss/bianco.webp",
+   "materialLine": "RAUVISIO crystal"
+  },
+  {
+   "name": "Nebbia",
+   "category": "Gloss",
+   "priceTier": "$$$$",
+   "colorFamily": "Grey",
+   "onSiteNow": "Yes",
+   "image": "finishes/gloss/nebbia.webp",
+   "materialLine": "RAUVISIO crystal"
+  },
+  {
+   "name": "Fumo",
+   "category": "Gloss",
+   "priceTier": "$$$$",
+   "colorFamily": "Grey",
+   "onSiteNow": "Yes",
+   "image": "finishes/gloss/fumo.webp",
+   "materialLine": "RAUVISIO crystal"
+  },
+  {
+   "name": "Perla",
+   "category": "Gloss",
+   "priceTier": "$$$$",
+   "colorFamily": "White",
+   "onSiteNow": "Yes",
+   "image": "finishes/gloss/perla.webp",
+   "materialLine": "RAUVISIO crystal"
+  },
+  {
+   "name": "Legno Sbiancato",
+   "category": "Gloss",
+   "priceTier": "$$$$",
+   "colorFamily": "White",
+   "onSiteNow": "No",
+   "image": "finishes/gloss/legno-sbiancato.webp",
+   "materialLine": "RAUVISIO crystal"
+  },
+  {
+   "name": "Piano",
+   "category": "Gloss",
+   "priceTier": "$$$$",
+   "colorFamily": "Black",
+   "onSiteNow": "Yes",
+   "image": "finishes/gloss/piano.webp",
+   "materialLine": "RAUVISIO crystal"
+  },
+  {
+   "name": "Marmo Bianco",
+   "category": "Gloss",
+   "priceTier": "$$$$",
+   "colorFamily": "White",
+   "onSiteNow": "No",
+   "image": "finishes/gloss/marmo-bianco.webp",
+   "materialLine": "RAUVISIO crystal"
+  },
+  {
+   "name": "Sabbia",
+   "category": "Gloss",
+   "priceTier": "$$$$",
+   "colorFamily": "Neutral / Beige",
+   "onSiteNow": "Yes",
+   "image": "finishes/gloss/sabbia.webp",
+   "materialLine": "RAUVISIO crystal"
+  },
+  {
+   "name": "Marmo Nero",
+   "category": "Gloss",
+   "priceTier": "$$$$",
+   "colorFamily": "Black",
+   "onSiteNow": "Yes",
+   "image": "finishes/gloss/marmo-nero.webp",
+   "materialLine": "RAUVISIO crystal"
+  },
+  {
+   "name": "Zucchero",
+   "category": "Gloss",
+   "priceTier": "$$$$",
+   "colorFamily": "White",
+   "onSiteNow": "Yes",
+   "image": "finishes/gloss/zucchero.webp",
+   "materialLine": "RAUVISIO crystal"
+  },
+  {
+   "name": "Menta",
+   "category": "Gloss",
+   "priceTier": "$$$$",
+   "colorFamily": "Green",
+   "onSiteNow": "Yes",
+   "image": "finishes/gloss/menta.webp",
+   "materialLine": "RAUVISIO crystal"
+  },
+  {
+   "name": "Bianco",
+   "category": "Gloss",
+   "priceTier": "$$$$",
+   "colorFamily": "White",
+   "onSiteNow": "No",
+   "image": "finishes/gloss/bianco.webp",
+   "materialLine": "RAUVISIO brilliant"
+  },
+  {
+   "name": "Grafite",
+   "category": "Gloss",
+   "priceTier": "$$$$",
+   "colorFamily": "Grey",
+   "onSiteNow": "Yes",
+   "image": "finishes/gloss/grafite.webp",
+   "materialLine": "RAUVISIO brilliant"
+  },
+  {
+   "name": "Roccia",
+   "category": "Gloss",
+   "priceTier": "$$$$",
+   "colorFamily": "Grey",
+   "onSiteNow": "No",
+   "image": "finishes/gloss/roccia.webp",
+   "materialLine": "RAUVISIO brilliant"
+  },
+  {
+   "name": "Bigio",
+   "category": "Gloss",
+   "priceTier": "$$$$",
+   "colorFamily": "Grey",
+   "onSiteNow": "Yes",
+   "image": "finishes/gloss/bigio.webp",
+   "materialLine": "RAUVISIO brilliant"
+  },
+  {
+   "name": "Magnolia",
+   "category": "Gloss",
+   "priceTier": "$$$$",
+   "colorFamily": "White",
+   "onSiteNow": "Yes",
+   "image": "finishes/gloss/magnolia.webp",
+   "materialLine": "RAUVISIO brilliant"
+  },
+  {
+   "name": "Titanio",
+   "category": "Gloss",
+   "priceTier": "$$$$",
+   "colorFamily": "Grey",
+   "onSiteNow": "No",
+   "image": "finishes/gloss/titanio.webp",
+   "materialLine": "RAUVISIO brilliant"
+  },
+  {
+   "name": "Cappuccino",
+   "category": "Gloss",
+   "priceTier": "$$$$",
+   "colorFamily": "Neutral / Beige",
+   "onSiteNow": "Yes",
+   "image": "finishes/gloss/cappuccino.webp",
+   "materialLine": "RAUVISIO brilliant"
+  },
+  {
+   "name": "Meringa",
+   "category": "Gloss",
+   "priceTier": "$$$$",
+   "colorFamily": "White",
+   "onSiteNow": "Yes",
+   "image": "finishes/gloss/meringa.webp",
+   "materialLine": "RAUVISIO brilliant"
+  },
+  {
+   "name": "Cemento",
+   "category": "Gloss",
+   "priceTier": "$$$$",
+   "colorFamily": "Grey",
+   "onSiteNow": "No",
+   "image": "finishes/gloss/cemento.webp",
+   "materialLine": "RAUVISIO brilliant"
+  },
+  {
+   "name": "Moro",
+   "category": "Gloss",
+   "priceTier": "$$$$",
+   "colorFamily": "Black",
+   "onSiteNow": "No",
+   "image": "finishes/gloss/moro.webp",
+   "materialLine": "RAUVISIO brilliant"
+  },
+  {
+   "name": "Cubanite",
+   "category": "Gloss",
+   "priceTier": "$$$$",
+   "colorFamily": "Grey",
+   "onSiteNow": "No",
+   "image": "finishes/gloss/cubanite.webp",
+   "materialLine": "RAUVISIO brilliant"
+  },
+  {
+   "name": "Notte",
+   "category": "Gloss",
+   "priceTier": "$$$$",
+   "colorFamily": "Black",
+   "onSiteNow": "No",
+   "image": "finishes/gloss/notte.webp",
+   "materialLine": "RAUVISIO brilliant"
+  },
+  {
+   "name": "Gabbiano",
+   "category": "Gloss",
+   "priceTier": "$$$$",
+   "colorFamily": "Grey",
+   "onSiteNow": "No",
+   "image": "finishes/gloss/gabbiano.webp",
+   "materialLine": "RAUVISIO brilliant"
+  },
+  {
+   "name": "Prugna",
+   "category": "Gloss",
+   "priceTier": "$$$$",
+   "colorFamily": "Blue",
+   "onSiteNow": "No",
+   "image": "finishes/gloss/prugna.webp",
+   "materialLine": "RAUVISIO brilliant"
+  },
+  {
+   "name": "Canyon Charcoal",
+   "category": "Gloss",
+   "priceTier": "$$$$",
+   "colorFamily": "Confirm from swatch",
+   "onSiteNow": "No",
+   "image": "finishes/gloss/canyon-charcoal.webp",
+   "materialLine": "Salt International"
+  },
+  {
+   "name": "Rovere Grigio",
+   "category": "Gloss",
+   "priceTier": "$$$$",
+   "colorFamily": "Grey",
+   "onSiteNow": "No",
+   "image": "finishes/gloss/rovere-grigio.webp",
+   "materialLine": "Salt International"
+  },
+  {
+   "name": "Carbone",
+   "category": "Gloss",
+   "priceTier": "$$$$",
+   "colorFamily": "Confirm from swatch",
+   "onSiteNow": "No",
+   "image": "finishes/gloss/carbone.webp",
+   "materialLine": "Salt International"
+  },
+  {
+   "name": "Eucalipto Brown",
+   "category": "Gloss",
+   "priceTier": "$$$$",
+   "colorFamily": "Confirm from swatch",
+   "onSiteNow": "No",
+   "image": "finishes/gloss/eucalipto-brown.webp",
+   "materialLine": "Salt International"
+  },
+  {
+   "name": "Anthracite",
+   "category": "Gloss",
+   "priceTier": "$$$$",
+   "colorFamily": "Confirm from swatch",
+   "onSiteNow": "No",
+   "image": "finishes/gloss/anthracite.webp",
+   "materialLine": "Salt International"
+  },
+  {
+   "name": "Eucalipto Grey",
+   "category": "Gloss",
+   "priceTier": "$$$$",
+   "colorFamily": "Grey",
+   "onSiteNow": "No",
+   "image": "finishes/gloss/eucalipto-grey.webp",
+   "materialLine": "Salt International"
+  },
+  {
+   "name": "Ash",
+   "category": "Gloss",
+   "priceTier": "$$$$",
+   "colorFamily": "Grey",
+   "onSiteNow": "No",
+   "image": "finishes/gloss/ash.webp",
+   "materialLine": "Salt International"
+  },
+  {
+   "name": "Nero",
+   "category": "Gloss",
+   "priceTier": "$$$$",
+   "colorFamily": "Black",
+   "onSiteNow": "No",
+   "image": "finishes/gloss/nero.webp",
+   "materialLine": "Salt International"
+  },
+  {
+   "name": "Bianco",
+   "category": "Gloss",
+   "priceTier": "$$$$",
+   "colorFamily": "White",
+   "onSiteNow": "No",
+   "image": "finishes/gloss/bianco.webp",
+   "materialLine": "Salt International"
+  },
+  {
+   "name": "Palisandro Azuro",
+   "category": "Gloss",
+   "priceTier": "$$$$",
+   "colorFamily": "Blue",
+   "onSiteNow": "No",
+   "image": "finishes/gloss/palisandro-azuro.webp",
+   "materialLine": "Salt International"
+  },
+  {
+   "name": "Amber Pearwood",
+   "category": "Woodgrain",
+   "priceTier": "$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/amber-pearwood.webp",
+   "materialLine": "TFL (Tafisa)"
+  },
+  {
+   "name": "Chocolate Carini Walnut",
+   "category": "Woodgrain",
+   "priceTier": "$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/chocolate-carini-walnut.webp",
+   "materialLine": "TFL (Tafisa)"
+  },
+  {
+   "name": "Dark Steel",
+   "category": "Woodgrain",
+   "priceTier": "$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/dark-steel.webp",
+   "materialLine": "TFL (Tafisa)"
+  },
+  {
+   "name": "Auburn Carini Walnut",
+   "category": "Woodgrain",
+   "priceTier": "$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/auburn-carini-walnut.webp",
+   "materialLine": "TFL (Tafisa)"
+  },
+  {
+   "name": "Chocolate Pearwood",
+   "category": "Woodgrain",
+   "priceTier": "$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/chocolate-pearwood.webp",
+   "materialLine": "TFL (Tafisa)"
+  },
+  {
+   "name": "Espresso",
+   "category": "Woodgrain",
+   "priceTier": "$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/espresso.webp",
+   "materialLine": "TFL (Tafisa)"
+  },
+  {
+   "name": "Beige Textile",
+   "category": "Woodgrain",
+   "priceTier": "$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/beige-textile.webp",
+   "materialLine": "TFL (Tafisa)"
+  },
+  {
+   "name": "Chromix Anthracite",
+   "category": "Woodgrain",
+   "priceTier": "$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/chromix-anthracite.webp",
+   "materialLine": "TFL (Tafisa)"
+  },
+  {
+   "name": "Floral Mahogany",
+   "category": "Woodgrain",
+   "priceTier": "$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/floral-mahogany.webp",
+   "materialLine": "TFL (Tafisa)"
+  },
+  {
+   "name": "Black",
+   "category": "Woodgrain",
+   "priceTier": "$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/black.webp",
+   "materialLine": "TFL (Tafisa)"
+  },
+  {
+   "name": "Chromix Silver",
+   "category": "Woodgrain",
+   "priceTier": "$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/chromix-silver.webp",
+   "materialLine": "TFL (Tafisa)"
+  },
+  {
+   "name": "Fog Grey Tossini Elm",
+   "category": "Woodgrain",
+   "priceTier": "$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/fog-grey-tossini-elm.webp",
+   "materialLine": "TFL (Tafisa)"
+  },
+  {
+   "name": "Brown Tossini Elm",
+   "category": "Woodgrain",
+   "priceTier": "$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/brown-tossini-elm.webp",
+   "materialLine": "TFL (Tafisa)"
+  },
+  {
+   "name": "Dark Brown Eucalyptus",
+   "category": "Woodgrain",
+   "priceTier": "$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/dark-brown-eucalyptus.webp",
+   "materialLine": "TFL (Tafisa)"
+  },
+  {
+   "name": "Grey Beige Gladstone Oak",
+   "category": "Woodgrain",
+   "priceTier": "$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/grey-beige-gladstone-oak.webp",
+   "materialLine": "TFL (Tafisa)"
+  },
+  {
+   "name": "Carbon Frozen Wood",
+   "category": "Woodgrain",
+   "priceTier": "$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/carbon-frozen-wood.webp",
+   "materialLine": "TFL (Tafisa)"
+  },
+  {
+   "name": "Dark Grey Fineline",
+   "category": "Woodgrain",
+   "priceTier": "$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/dark-grey-fineline.webp",
+   "materialLine": "TFL (Tafisa)"
+  },
+  {
+   "name": "Grey Frozen Wood",
+   "category": "Woodgrain",
+   "priceTier": "$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/grey-frozen-wood.webp",
+   "materialLine": "TFL (Tafisa)"
+  },
+  {
+   "name": "Natural Carini Walnut",
+   "category": "Woodgrain",
+   "priceTier": "$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/natural-carini-walnut.webp",
+   "materialLine": "TFL (Tafisa)"
+  },
+  {
+   "name": "Vicenza Oak",
+   "category": "Woodgrain",
+   "priceTier": "$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/vicenza-oak.webp",
+   "materialLine": "TFL (Tafisa)"
+  },
+  {
+   "name": "Hardrock Maple",
+   "category": "Woodgrain",
+   "priceTier": "$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/hardrock-maple.webp",
+   "materialLine": "TFL (Tafisa)"
+  },
+  {
+   "name": "Natural Eucalyptus",
+   "category": "Woodgrain",
+   "priceTier": "$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/natural-eucalyptus.webp",
+   "materialLine": "TFL (Tafisa)"
+  },
+  {
+   "name": "Warm Grey Eucalyptus",
+   "category": "Woodgrain",
+   "priceTier": "$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/warm-grey-eucalyptus.webp",
+   "materialLine": "TFL (Tafisa)"
+  },
+  {
+   "name": "Natural Bardolino Oak",
+   "category": "Woodgrain",
+   "priceTier": "$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/natural-bardolino-oak.webp",
+   "materialLine": "TFL (Tafisa)"
+  },
+  {
+   "name": "Tobacco Halifax Oak",
+   "category": "Woodgrain",
+   "priceTier": "$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/tobacco-halifax-oak.webp",
+   "materialLine": "TFL (Tafisa)"
+  },
+  {
+   "name": "Grey Beige Tossini Elm",
+   "category": "Woodgrain",
+   "priceTier": "$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/grey-beige-tossini-elm.webp",
+   "materialLine": "TFL (Tafisa)"
+  },
+  {
+   "name": "Light Grey Fineline",
+   "category": "Woodgrain",
+   "priceTier": "$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/light-grey-fineline.webp",
+   "materialLine": "TFL (Tafisa)"
+  },
+  {
+   "name": "Shorewood",
+   "category": "Woodgrain",
+   "priceTier": "$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/shorewood.webp",
+   "materialLine": "TFL (Tafisa)"
+  },
+  {
+   "name": "White Fineline",
+   "category": "Woodgrain",
+   "priceTier": "$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/white-fineline.webp",
+   "materialLine": "TFL (Tafisa)"
+  },
+  {
+   "name": "Medium Grey Fineline",
+   "category": "Woodgrain",
+   "priceTier": "$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/medium-grey-fineline.webp",
+   "materialLine": "TFL (Tafisa)"
+  },
+  {
+   "name": "Tobacco Gladstone Oak",
+   "category": "Woodgrain",
+   "priceTier": "$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/tobacco-gladstone-oak.webp",
+   "materialLine": "TFL (Tafisa)"
+  },
+  {
+   "name": "Honey Carini Walnut",
+   "category": "Woodgrain",
+   "priceTier": "$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/honey-carini-walnut.webp",
+   "materialLine": "TFL (Tafisa)"
+  },
+  {
+   "name": "Sand Gladstone Oak",
+   "category": "Woodgrain",
+   "priceTier": "$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/sand-gladstone-oak.webp",
+   "materialLine": "TFL (Tafisa)"
+  },
+  {
+   "name": "White Chromix",
+   "category": "Woodgrain",
+   "priceTier": "$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/white-chromix.webp",
+   "materialLine": "TFL (Tafisa)"
+  },
+  {
+   "name": "White Tossini Elm",
+   "category": "Woodgrain",
+   "priceTier": "$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/white-tossini-elm.webp",
+   "materialLine": "TFL (Tafisa)"
+  },
+  {
+   "name": "White Gladstone Oak",
+   "category": "Woodgrain",
+   "priceTier": "$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/white-gladstone-oak.webp",
+   "materialLine": "TFL (Tafisa)"
+  },
+  {
+   "name": "White Halifax Oak",
+   "category": "Woodgrain",
+   "priceTier": "$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/white-halifax-oak.webp",
+   "materialLine": "TFL (Tafisa)"
+  },
+  {
+   "name": "White Frozen Wood",
+   "category": "Woodgrain",
+   "priceTier": "$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/white-frozen-wood.webp",
+   "materialLine": "TFL (Tafisa)"
+  },
+  {
+   "name": "White Levanto Marble",
+   "category": "Woodgrain",
+   "priceTier": "$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/white-levanto-marble.webp",
+   "materialLine": "TFL (Tafisa)"
+  },
+  {
+   "name": "White Linen",
+   "category": "Woodgrain",
+   "priceTier": "$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/white-linen.webp",
+   "materialLine": "TFL (Tafisa)"
+  },
+  {
+   "name": "White Havana Pine",
+   "category": "Woodgrain",
+   "priceTier": "$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/white-havana-pine.webp",
+   "materialLine": "TFL (Tafisa)"
+  },
+  {
+   "name": "Bianco",
+   "category": "Woodgrain",
+   "priceTier": "CONFIRM",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/bianco.webp",
+   "materialLine": "Woodgrain panel (texture)"
+  },
+  {
+   "name": "Canyon Walnut",
+   "category": "Woodgrain",
+   "priceTier": "CONFIRM",
+   "colorFamily": "Wood",
+   "onSiteNow": "Yes",
+   "image": "finishes/woodgrain/canyon-walnut.webp",
+   "materialLine": "Woodgrain panel (texture)"
+  },
+  {
+   "name": "Coral Sand",
+   "category": "Woodgrain",
+   "priceTier": "CONFIRM",
+   "colorFamily": "Wood",
+   "onSiteNow": "Yes",
+   "image": "finishes/woodgrain/coral-sand.webp",
+   "materialLine": "Woodgrain panel (texture)"
+  },
+  {
+   "name": "Bruciato",
+   "category": "Woodgrain",
+   "priceTier": "CONFIRM",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/bruciato.webp",
+   "materialLine": "Woodgrain panel (texture)"
+  },
+  {
+   "name": "Carbone",
+   "category": "Woodgrain",
+   "priceTier": "CONFIRM",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/carbone.webp",
+   "materialLine": "Woodgrain panel (texture)"
+  },
+  {
+   "name": "Empire",
+   "category": "Woodgrain",
+   "priceTier": "CONFIRM",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/empire.webp",
+   "materialLine": "Woodgrain panel (texture)"
+  },
+  {
+   "name": "Cafe",
+   "category": "Woodgrain",
+   "priceTier": "CONFIRM",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/cafe.webp",
+   "materialLine": "Woodgrain panel (texture)"
+  },
+  {
+   "name": "Cayman",
+   "category": "Woodgrain",
+   "priceTier": "CONFIRM",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/cayman.webp",
+   "materialLine": "Woodgrain panel (texture)"
+  },
+  {
+   "name": "Epic",
+   "category": "Woodgrain",
+   "priceTier": "CONFIRM",
+   "colorFamily": "Wood",
+   "onSiteNow": "Yes",
+   "image": "finishes/woodgrain/epic.webp",
+   "materialLine": "Woodgrain panel (texture)"
+  },
+  {
+   "name": "Canyon Bleach",
+   "category": "Woodgrain",
+   "priceTier": "CONFIRM",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/canyon-bleach.webp",
+   "materialLine": "Woodgrain panel (texture)"
+  },
+  {
+   "name": "Central",
+   "category": "Woodgrain",
+   "priceTier": "CONFIRM",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/central.webp",
+   "materialLine": "Woodgrain panel (texture)"
+  },
+  {
+   "name": "Canyon Charcoal",
+   "category": "Woodgrain",
+   "priceTier": "CONFIRM",
+   "colorFamily": "Wood",
+   "onSiteNow": "Yes",
+   "image": "finishes/woodgrain/canyon-charcoal.webp",
+   "materialLine": "Woodgrain panel (texture)"
+  },
+  {
+   "name": "Chrysler",
+   "category": "Woodgrain",
+   "priceTier": "CONFIRM",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/chrysler.webp",
+   "materialLine": "Woodgrain panel (texture)"
+  },
+  {
+   "name": "Canyon Oak",
+   "category": "Woodgrain",
+   "priceTier": "CONFIRM",
+   "colorFamily": "Wood",
+   "onSiteNow": "Yes",
+   "image": "finishes/woodgrain/canyon-oak.webp",
+   "materialLine": "Woodgrain panel (texture)"
+  },
+  {
+   "name": "Coral Bark",
+   "category": "Woodgrain",
+   "priceTier": "CONFIRM",
+   "colorFamily": "Wood",
+   "onSiteNow": "Yes",
+   "image": "finishes/woodgrain/coral-bark.webp",
+   "materialLine": "Woodgrain panel (texture)"
+  },
+  {
+   "name": "Eucalipto White",
+   "category": "Woodgrain",
+   "priceTier": "CONFIRM",
+   "colorFamily": "Wood",
+   "onSiteNow": "Yes",
+   "image": "finishes/woodgrain/eucalipto-white.webp",
+   "materialLine": "Woodgrain panel (texture)"
+  },
+  {
+   "name": "Maranello",
+   "category": "Woodgrain",
+   "priceTier": "CONFIRM",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/maranello.webp",
+   "materialLine": "Woodgrain panel (texture)"
+  },
+  {
+   "name": "Palisandro Azuro",
+   "category": "Woodgrain",
+   "priceTier": "CONFIRM",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/palisandro-azuro.webp",
+   "materialLine": "Woodgrain panel (texture)"
+  },
+  {
+   "name": "Lakeshore Oak",
+   "category": "Woodgrain",
+   "priceTier": "CONFIRM",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/lakeshore-oak.webp",
+   "materialLine": "Woodgrain panel (texture)"
+  },
+  {
+   "name": "Olmo Fume",
+   "category": "Woodgrain",
+   "priceTier": "CONFIRM",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/olmo-fume.webp",
+   "materialLine": "Woodgrain panel (texture)"
+  },
+  {
+   "name": "Lava",
+   "category": "Woodgrain",
+   "priceTier": "CONFIRM",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/lava.webp",
+   "materialLine": "Woodgrain panel (texture)"
+  },
+  {
+   "name": "Olmo Miele",
+   "category": "Woodgrain",
+   "priceTier": "CONFIRM",
+   "colorFamily": "Wood",
+   "onSiteNow": "Yes",
+   "image": "finishes/woodgrain/olmo-miele.webp",
+   "materialLine": "Woodgrain panel (texture)"
+  },
+  {
+   "name": "Eucalipto Brown",
+   "category": "Woodgrain",
+   "priceTier": "CONFIRM",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/eucalipto-brown.webp",
+   "materialLine": "Woodgrain panel (texture)"
+  },
+  {
+   "name": "Eucalipto Grey",
+   "category": "Woodgrain",
+   "priceTier": "CONFIRM",
+   "colorFamily": "Wood",
+   "onSiteNow": "Yes",
+   "image": "finishes/woodgrain/eucalipto-grey.webp",
+   "materialLine": "Woodgrain panel (texture)"
+  },
+  {
+   "name": "Key West",
+   "category": "Woodgrain",
+   "priceTier": "CONFIRM",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/key-west.webp",
+   "materialLine": "Woodgrain panel (texture)"
+  },
+  {
+   "name": "Olmo Cafe",
+   "category": "Woodgrain",
+   "priceTier": "CONFIRM",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/olmo-cafe.webp",
+   "materialLine": "Woodgrain panel (texture)"
+  },
+  {
+   "name": "Fantasia",
+   "category": "Woodgrain",
+   "priceTier": "CONFIRM",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/fantasia.webp",
+   "materialLine": "Woodgrain panel (texture)"
+  },
+  {
+   "name": "Moca",
+   "category": "Woodgrain",
+   "priceTier": "CONFIRM",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/moca.webp",
+   "materialLine": "Woodgrain panel (texture)"
+  },
+  {
+   "name": "Palisandro Grigio",
+   "category": "Woodgrain",
+   "priceTier": "CONFIRM",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/palisandro-grigio.webp",
+   "materialLine": "Woodgrain panel (texture)"
+  },
+  {
+   "name": "Fumo",
+   "category": "Woodgrain",
+   "priceTier": "CONFIRM",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/fumo.webp",
+   "materialLine": "Woodgrain panel (texture)"
+  },
+  {
+   "name": "Noce Ribera",
+   "category": "Woodgrain",
+   "priceTier": "CONFIRM",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/noce-ribera.webp",
+   "materialLine": "Woodgrain panel (texture)"
+  },
+  {
+   "name": "Palisandro Walnut",
+   "category": "Woodgrain",
+   "priceTier": "CONFIRM",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/palisandro-walnut.webp",
+   "materialLine": "Woodgrain panel (texture)"
+  },
+  {
+   "name": "Pecan Gold",
+   "category": "Woodgrain",
+   "priceTier": "CONFIRM",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/pecan-gold.webp",
+   "materialLine": "Woodgrain panel (texture)"
+  },
+  {
+   "name": "Rockefeller",
+   "category": "Woodgrain",
+   "priceTier": "CONFIRM",
+   "colorFamily": "Wood",
+   "onSiteNow": "Yes",
+   "image": "finishes/woodgrain/rockefeller.webp",
+   "materialLine": "Woodgrain panel (texture)"
+  },
+  {
+   "name": "Rovere Grigio",
+   "category": "Woodgrain",
+   "priceTier": "CONFIRM",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/rovere-grigio.webp",
+   "materialLine": "Woodgrain panel (texture)"
+  },
+  {
+   "name": "Spiaggia",
+   "category": "Woodgrain",
+   "priceTier": "CONFIRM",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/spiaggia.webp",
+   "materialLine": "Woodgrain panel (texture)"
+  },
+  {
+   "name": "Rovere Agento",
+   "category": "Woodgrain",
+   "priceTier": "CONFIRM",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/rovere-agento.webp",
+   "materialLine": "Woodgrain panel (texture)"
+  },
+  {
+   "name": "Pampas",
+   "category": "Woodgrain",
+   "priceTier": "CONFIRM",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/pampas.webp",
+   "materialLine": "Woodgrain panel (texture)"
+  },
+  {
+   "name": "Panna",
+   "category": "Woodgrain",
+   "priceTier": "CONFIRM",
+   "colorFamily": "Wood",
+   "onSiteNow": "Yes",
+   "image": "finishes/woodgrain/panna.webp",
+   "materialLine": "Woodgrain panel (texture)"
+  },
+  {
+   "name": "Rialto",
+   "category": "Woodgrain",
+   "priceTier": "CONFIRM",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/rialto.webp",
+   "materialLine": "Woodgrain panel (texture)"
+  },
+  {
+   "name": "Hemlock",
+   "category": "Woodgrain",
+   "priceTier": "CONFIRM",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/hemlock.webp",
+   "materialLine": "Woodgrain panel (texture)"
+  },
+  {
+   "name": "Rustica",
+   "category": "Woodgrain",
+   "priceTier": "CONFIRM",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/rustica.webp",
+   "materialLine": "Woodgrain panel (texture)"
+  },
+  {
+   "name": "Pecan Roast",
+   "category": "Woodgrain",
+   "priceTier": "CONFIRM",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/pecan-roast.webp",
+   "materialLine": "Woodgrain panel (texture)"
+  },
+  {
+   "name": "Rovere Sabbia",
+   "category": "Woodgrain",
+   "priceTier": "CONFIRM",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/rovere-sabbia.webp",
+   "materialLine": "Woodgrain panel (texture)"
+  },
+  {
+   "name": "Pecan Scuro",
+   "category": "Woodgrain",
+   "priceTier": "CONFIRM",
+   "colorFamily": "Wood",
+   "onSiteNow": "Yes",
+   "image": "finishes/woodgrain/pecan-scuro.webp",
+   "materialLine": "Woodgrain panel (texture)"
+  },
+  {
+   "name": "Rustic Oak",
+   "category": "Woodgrain",
+   "priceTier": "CONFIRM",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/rustic-oak.webp",
+   "materialLine": "Woodgrain panel (texture)"
+  },
+  {
+   "name": "Teak Scuro",
+   "category": "Woodgrain",
+   "priceTier": "$$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/teak-scuro.webp",
+   "materialLine": "Saviola"
+  },
+  {
+   "name": "Buff Linen",
+   "category": "Woodgrain",
+   "priceTier": "$$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/buff-linen.webp",
+   "materialLine": "Saviola"
+  },
+  {
+   "name": "Tiger Eye",
+   "category": "Woodgrain",
+   "priceTier": "$$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/tiger-eye.webp",
+   "materialLine": "Saviola"
+  },
+  {
+   "name": "Magnolia Linen",
+   "category": "Woodgrain",
+   "priceTier": "$$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/magnolia-linen.webp",
+   "materialLine": "Saviola"
+  },
+  {
+   "name": "Taiga",
+   "category": "Woodgrain",
+   "priceTier": "$$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/taiga.webp",
+   "materialLine": "Saviola"
+  },
+  {
+   "name": "Anthracite Linen",
+   "category": "Woodgrain",
+   "priceTier": "$$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/anthracite-linen.webp",
+   "materialLine": "Saviola"
+  },
+  {
+   "name": "Uva",
+   "category": "Woodgrain",
+   "priceTier": "$$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/uva.webp",
+   "materialLine": "Saviola"
+  },
+  {
+   "name": "Wildwood",
+   "category": "Woodgrain",
+   "priceTier": "$$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/wildwood.webp",
+   "materialLine": "Saviola"
+  },
+  {
+   "name": "Woolworth",
+   "category": "Woodgrain",
+   "priceTier": "$$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/woolworth.webp",
+   "materialLine": "Saviola"
+  },
+  {
+   "name": "Chalk Ash",
+   "category": "Woodgrain",
+   "priceTier": "$$$$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/chalk-ash.webp",
+   "materialLine": "Woodgrain panel (premium, 48×108)"
+  },
+  {
+   "name": "Granite Walnut",
+   "category": "Woodgrain",
+   "priceTier": "$$$$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/granite-walnut.webp",
+   "materialLine": "Woodgrain panel (premium, 48×108)"
+  },
+  {
+   "name": "Raven Oak",
+   "category": "Woodgrain",
+   "priceTier": "$$$$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/raven-oak.webp",
+   "materialLine": "Woodgrain panel (premium, 48×108)"
+  },
+  {
+   "name": "Chocolate Oak",
+   "category": "Woodgrain",
+   "priceTier": "$$$$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/chocolate-oak.webp",
+   "materialLine": "Woodgrain panel (premium, 48×108)"
+  },
+  {
+   "name": "Ivory Oak",
+   "category": "Woodgrain",
+   "priceTier": "$$$$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/ivory-oak.webp",
+   "materialLine": "Woodgrain panel (premium, 48×108)"
+  },
+  {
+   "name": "Smoked Walnut",
+   "category": "Woodgrain",
+   "priceTier": "$$$$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/smoked-walnut.webp",
+   "materialLine": "Woodgrain panel (premium, 48×108)"
+  },
+  {
+   "name": "Cinnamon Triba",
+   "category": "Woodgrain",
+   "priceTier": "$$$$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/cinnamon-triba.webp",
+   "materialLine": "Woodgrain panel (premium, 48×108)"
+  },
+  {
+   "name": "Manhattan Oak",
+   "category": "Woodgrain",
+   "priceTier": "$$$$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/manhattan-oak.webp",
+   "materialLine": "Woodgrain panel (premium, 48×108)"
+  },
+  {
+   "name": "Stardust Walnut",
+   "category": "Woodgrain",
+   "priceTier": "$$$$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/stardust-walnut.webp",
+   "materialLine": "Woodgrain panel (premium, 48×108)"
+  },
+  {
+   "name": "Desert Oak",
+   "category": "Woodgrain",
+   "priceTier": "$$$$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/desert-oak.webp",
+   "materialLine": "Woodgrain panel (premium, 48×108)"
+  },
+  {
+   "name": "Milk Oak",
+   "category": "Woodgrain",
+   "priceTier": "$$$$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/milk-oak.webp",
+   "materialLine": "Woodgrain panel (premium, 48×108)"
+  },
+  {
+   "name": "Stone Triba",
+   "category": "Woodgrain",
+   "priceTier": "$$$$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/stone-triba.webp",
+   "materialLine": "Woodgrain panel (premium, 48×108)"
+  },
+  {
+   "name": "Dusk Frake",
+   "category": "Woodgrain",
+   "priceTier": "$$$$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/dusk-frake.webp",
+   "materialLine": "Woodgrain panel (premium, 48×108)"
+  },
+  {
+   "name": "Mineral Triba",
+   "category": "Woodgrain",
+   "priceTier": "$$$$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/mineral-triba.webp",
+   "materialLine": "Woodgrain panel (premium, 48×108)"
+  },
+  {
+   "name": "Frozen Walnut",
+   "category": "Woodgrain",
+   "priceTier": "$$$$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/frozen-walnut.webp",
+   "materialLine": "Woodgrain panel (premium, 48×108)"
+  },
+  {
+   "name": "Natural Oak",
+   "category": "Woodgrain",
+   "priceTier": "$$$$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/natural-oak.webp",
+   "materialLine": "Woodgrain panel (premium, 48×108)"
+  },
+  {
+   "name": "Aliso",
+   "category": "Woodgrain",
+   "priceTier": "$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/aliso.webp",
+   "materialLine": "Woodgrain panel (48×96)"
+  },
+  {
+   "name": "Canella Rustik",
+   "category": "Woodgrain",
+   "priceTier": "$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/canella-rustik.webp",
+   "materialLine": "Woodgrain panel (48×96)"
+  },
+  {
+   "name": "Dark Noce",
+   "category": "Woodgrain",
+   "priceTier": "$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/dark-noce.webp",
+   "materialLine": "Woodgrain panel (48×96)"
+  },
+  {
+   "name": "Allaria",
+   "category": "Woodgrain",
+   "priceTier": "$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/allaria.webp",
+   "materialLine": "Woodgrain panel (48×96)"
+  },
+  {
+   "name": "Caramel Cherry",
+   "category": "Woodgrain",
+   "priceTier": "$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/caramel-cherry.webp",
+   "materialLine": "Woodgrain panel (48×96)"
+  },
+  {
+   "name": "Drift Loud",
+   "category": "Woodgrain",
+   "priceTier": "$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/drift-loud.webp",
+   "materialLine": "Woodgrain panel (48×96)"
+  },
+  {
+   "name": "Alno",
+   "category": "Woodgrain",
+   "priceTier": "$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "Yes",
+   "image": "finishes/woodgrain/alno.webp",
+   "materialLine": "Woodgrain panel (48×96)"
+  },
+  {
+   "name": "Carmelo Mist",
+   "category": "Woodgrain",
+   "priceTier": "$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/carmelo-mist.webp",
+   "materialLine": "Woodgrain panel (48×96)"
+  },
+  {
+   "name": "Evening Notte",
+   "category": "Woodgrain",
+   "priceTier": "$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "Yes",
+   "image": "finishes/woodgrain/evening-notte.webp",
+   "materialLine": "Woodgrain panel (48×96)"
+  },
+  {
+   "name": "Arizona Cypress",
+   "category": "Woodgrain",
+   "priceTier": "$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/arizona-cypress.webp",
+   "materialLine": "Woodgrain panel (48×96)"
+  },
+  {
+   "name": "Coastal",
+   "category": "Woodgrain",
+   "priceTier": "$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/coastal.webp",
+   "materialLine": "Woodgrain panel (48×96)"
+  },
+  {
+   "name": "Ashley",
+   "category": "Woodgrain",
+   "priceTier": "$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/ashley.webp",
+   "materialLine": "Woodgrain panel (48×96)"
+  },
+  {
+   "name": "Dahat Teak",
+   "category": "Woodgrain",
+   "priceTier": "$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/dahat-teak.webp",
+   "materialLine": "Woodgrain panel (48×96)"
+  },
+  {
+   "name": "Black",
+   "category": "Woodgrain",
+   "priceTier": "$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/black.webp",
+   "materialLine": "Woodgrain panel (48×96)"
+  },
+  {
+   "name": "Dark Elm",
+   "category": "Woodgrain",
+   "priceTier": "$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/dark-elm.webp",
+   "materialLine": "Woodgrain panel (48×96)"
+  },
+  {
+   "name": "Formosa",
+   "category": "Woodgrain",
+   "priceTier": "$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/formosa.webp",
+   "materialLine": "Woodgrain panel (48×96)"
+  },
+  {
+   "name": "Gregio Notte",
+   "category": "Woodgrain",
+   "priceTier": "$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/gregio-notte.webp",
+   "materialLine": "Woodgrain panel (48×96)"
+  },
+  {
+   "name": "Lara",
+   "category": "Woodgrain",
+   "priceTier": "$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/lara.webp",
+   "materialLine": "Woodgrain panel (48×96)"
+  },
+  {
+   "name": "Natural Marrone",
+   "category": "Woodgrain",
+   "priceTier": "$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/natural-marrone.webp",
+   "materialLine": "Woodgrain panel (48×96)"
+  },
+  {
+   "name": "Gregio Pine",
+   "category": "Woodgrain",
+   "priceTier": "$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/gregio-pine.webp",
+   "materialLine": "Woodgrain panel (48×96)"
+  },
+  {
+   "name": "Laurel",
+   "category": "Woodgrain",
+   "priceTier": "$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/laurel.webp",
+   "materialLine": "Woodgrain panel (48×96)"
+  },
+  {
+   "name": "Natural Rustik",
+   "category": "Woodgrain",
+   "priceTier": "$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/natural-rustik.webp",
+   "materialLine": "Woodgrain panel (48×96)"
+  },
+  {
+   "name": "Grey Echo",
+   "category": "Woodgrain",
+   "priceTier": "$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "Yes",
+   "image": "finishes/woodgrain/grey-echo.webp",
+   "materialLine": "Woodgrain panel (48×96)"
+  },
+  {
+   "name": "Midnight Echo",
+   "category": "Woodgrain",
+   "priceTier": "$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/midnight-echo.webp",
+   "materialLine": "Woodgrain panel (48×96)"
+  },
+  {
+   "name": "Natural Teak",
+   "category": "Woodgrain",
+   "priceTier": "$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/natural-teak.webp",
+   "materialLine": "Woodgrain panel (48×96)"
+  },
+  {
+   "name": "Jasper",
+   "category": "Woodgrain",
+   "priceTier": "$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/jasper.webp",
+   "materialLine": "Woodgrain panel (48×96)"
+  },
+  {
+   "name": "Midnight Run",
+   "category": "Woodgrain",
+   "priceTier": "$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "Yes",
+   "image": "finishes/woodgrain/midnight-run.webp",
+   "materialLine": "Woodgrain panel (48×96)"
+  },
+  {
+   "name": "Kirsche",
+   "category": "Woodgrain",
+   "priceTier": "$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "Yes",
+   "image": "finishes/woodgrain/kirsche.webp",
+   "materialLine": "Woodgrain panel (48×96)"
+  },
+  {
+   "name": "Morning Fog",
+   "category": "Woodgrain",
+   "priceTier": "$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "Yes",
+   "image": "finishes/woodgrain/morning-fog.webp",
+   "materialLine": "Woodgrain panel (48×96)"
+  },
+  {
+   "name": "Kyushu",
+   "category": "Woodgrain",
+   "priceTier": "$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/kyushu.webp",
+   "materialLine": "Woodgrain panel (48×96)"
+  },
+  {
+   "name": "Natural Elm",
+   "category": "Woodgrain",
+   "priceTier": "$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/natural-elm.webp",
+   "materialLine": "Woodgrain panel (48×96)"
+  },
+  {
+   "name": "Ontano",
+   "category": "Woodgrain",
+   "priceTier": "$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "Yes",
+   "image": "finishes/woodgrain/ontano.webp",
+   "materialLine": "Woodgrain panel (48×96)"
+  },
+  {
+   "name": "Parisienne",
+   "category": "Woodgrain",
+   "priceTier": "$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/parisienne.webp",
+   "materialLine": "Woodgrain panel (48×96)"
+  },
+  {
+   "name": "Shadow Teak",
+   "category": "Woodgrain",
+   "priceTier": "$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/shadow-teak.webp",
+   "materialLine": "Woodgrain panel (48×96)"
+  },
+  {
+   "name": "White Nebbia",
+   "category": "Woodgrain",
+   "priceTier": "$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/white-nebbia.webp",
+   "materialLine": "Woodgrain panel (48×96)"
+  },
+  {
+   "name": "Pearl White",
+   "category": "Woodgrain",
+   "priceTier": "$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/pearl-white.webp",
+   "materialLine": "Woodgrain panel (48×96)"
+  },
+  {
+   "name": "Siberian",
+   "category": "Woodgrain",
+   "priceTier": "$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/siberian.webp",
+   "materialLine": "Woodgrain panel (48×96)"
+  },
+  {
+   "name": "White Zebrine",
+   "category": "Woodgrain",
+   "priceTier": "$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "Yes",
+   "image": "finishes/woodgrain/white-zebrine.webp",
+   "materialLine": "Woodgrain panel (48×96)"
+  },
+  {
+   "name": "Takase Teak",
+   "category": "Woodgrain",
+   "priceTier": "$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/takase-teak.webp",
+   "materialLine": "Woodgrain panel (48×96)"
+  },
+  {
+   "name": "Richmond Cherry",
+   "category": "Woodgrain",
+   "priceTier": "$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/richmond-cherry.webp",
+   "materialLine": "Woodgrain panel (48×96)"
+  },
+  {
+   "name": "Sabbia",
+   "category": "Woodgrain",
+   "priceTier": "$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/sabbia.webp",
+   "materialLine": "Woodgrain panel (48×96)"
+  },
+  {
+   "name": "Timeless",
+   "category": "Woodgrain",
+   "priceTier": "$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/timeless.webp",
+   "materialLine": "Woodgrain panel (48×96)"
+  },
+  {
+   "name": "Seppia Walnut",
+   "category": "Woodgrain",
+   "priceTier": "$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/seppia-walnut.webp",
+   "materialLine": "Woodgrain panel (48×96)"
+  },
+  {
+   "name": "Vina",
+   "category": "Woodgrain",
+   "priceTier": "$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/vina.webp",
+   "materialLine": "Woodgrain panel (48×96)"
+  },
+  {
+   "name": "Serotina",
+   "category": "Woodgrain",
+   "priceTier": "$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "Yes",
+   "image": "finishes/woodgrain/serotina.webp",
+   "materialLine": "Woodgrain panel (48×96)"
+  },
+  {
+   "name": "Weathered Teak",
+   "category": "Woodgrain",
+   "priceTier": "$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/weathered-teak.webp",
+   "materialLine": "Woodgrain panel (48×96)"
+  },
+  {
+   "name": "After Hours",
+   "category": "Woodgrain",
+   "priceTier": "$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/after-hours.webp",
+   "materialLine": "Cleaf"
+  },
+  {
+   "name": "First Class",
+   "category": "Woodgrain",
+   "priceTier": "$",
+   "colorFamily": "Wood",
+   "onSiteNow": "Yes",
+   "image": "finishes/woodgrain/first-class.webp",
+   "materialLine": "Cleaf"
+  },
+  {
+   "name": "New Wave",
+   "category": "Woodgrain",
+   "priceTier": "$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/new-wave.webp",
+   "materialLine": "Cleaf"
+  },
+  {
+   "name": "Après-Ski",
+   "category": "Woodgrain",
+   "priceTier": "$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/apres-ski.webp",
+   "materialLine": "Cleaf"
+  },
+  {
+   "name": "First Dance",
+   "category": "Woodgrain",
+   "priceTier": "$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/first-dance.webp",
+   "materialLine": "Cleaf"
+  },
+  {
+   "name": "Night Owl",
+   "category": "Woodgrain",
+   "priceTier": "$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/night-owl.webp",
+   "materialLine": "Cleaf"
+  },
+  {
+   "name": "Force of Nature",
+   "category": "Woodgrain",
+   "priceTier": "$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/force-of-nature.webp",
+   "materialLine": "Cleaf"
+  },
+  {
+   "name": "Casting at First Light",
+   "category": "Woodgrain",
+   "priceTier": "$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/casting-at-first-light.webp",
+   "materialLine": "Cleaf"
+  },
+  {
+   "name": "Chameleon",
+   "category": "Woodgrain",
+   "priceTier": "$",
+   "colorFamily": "Wood",
+   "onSiteNow": "Yes",
+   "image": "finishes/woodgrain/chameleon.webp",
+   "materialLine": "Cleaf"
+  },
+  {
+   "name": "Free Spirit",
+   "category": "Woodgrain",
+   "priceTier": "$",
+   "colorFamily": "Wood",
+   "onSiteNow": "Yes",
+   "image": "finishes/woodgrain/free-spirit.webp",
+   "materialLine": "Cleaf"
+  },
+  {
+   "name": "Crème de la Crème",
+   "category": "Woodgrain",
+   "priceTier": "$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/creme-de-la-creme.webp",
+   "materialLine": "Cleaf"
+  },
+  {
+   "name": "Golden Light",
+   "category": "Woodgrain",
+   "priceTier": "$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/golden-light.webp",
+   "materialLine": "Cleaf"
+  },
+  {
+   "name": "Fashionista",
+   "category": "Woodgrain",
+   "priceTier": "$",
+   "colorFamily": "Wood",
+   "onSiteNow": "Yes",
+   "image": "finishes/woodgrain/fashionista.webp",
+   "materialLine": "Cleaf"
+  },
+  {
+   "name": "Home Sweet Home",
+   "category": "Woodgrain",
+   "priceTier": "$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/home-sweet-home.webp",
+   "materialLine": "Cleaf"
+  },
+  {
+   "name": "Rhapsody",
+   "category": "Woodgrain",
+   "priceTier": "$",
+   "colorFamily": "Wood",
+   "onSiteNow": "Yes",
+   "image": "finishes/woodgrain/rhapsody.webp",
+   "materialLine": "Cleaf"
+  },
+  {
+   "name": "Tête-à-tête",
+   "category": "Woodgrain",
+   "priceTier": "$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/tete-a-tete.webp",
+   "materialLine": "Cleaf"
+  },
+  {
+   "name": "Rock Solid",
+   "category": "Woodgrain",
+   "priceTier": "$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/rock-solid.webp",
+   "materialLine": "Cleaf"
+  },
+  {
+   "name": "Viva Black",
+   "category": "Woodgrain",
+   "priceTier": "$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/viva-black.webp",
+   "materialLine": "Cleaf"
+  },
+  {
+   "name": "Weekend Getaway",
+   "category": "Woodgrain",
+   "priceTier": "$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/weekend-getaway.webp",
+   "materialLine": "Cleaf"
+  },
+  {
+   "name": "Sheer Beauty",
+   "category": "Woodgrain",
+   "priceTier": "$",
+   "colorFamily": "Wood",
+   "onSiteNow": "Yes",
+   "image": "finishes/woodgrain/sheer-beauty.webp",
+   "materialLine": "Cleaf"
+  },
+  {
+   "name": "Summertime Blues",
+   "category": "Woodgrain",
+   "priceTier": "$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/summertime-blues.webp",
+   "materialLine": "Cleaf"
+  },
+  {
+   "name": "Winter Fun",
+   "category": "Woodgrain",
+   "priceTier": "$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/winter-fun.webp",
+   "materialLine": "Cleaf"
+  },
+  {
+   "name": "Sunset Cruise",
+   "category": "Woodgrain",
+   "priceTier": "$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/sunset-cruise.webp",
+   "materialLine": "Cleaf"
+  },
+  {
+   "name": "Tea for Two",
+   "category": "Woodgrain",
+   "priceTier": "$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/tea-for-two.webp",
+   "materialLine": "Cleaf"
+  },
+  {
+   "name": "Cannes",
+   "category": "Woodgrain",
+   "priceTier": "$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/cannes.webp",
+   "materialLine": "Woodgrain panel (60×108)"
+  },
+  {
+   "name": "Mystic",
+   "category": "Woodgrain",
+   "priceTier": "$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/mystic.webp",
+   "materialLine": "Woodgrain panel (60×108)"
+  },
+  {
+   "name": "Cassis",
+   "category": "Woodgrain",
+   "priceTier": "$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/cassis.webp",
+   "materialLine": "Woodgrain panel (60×108)"
+  },
+  {
+   "name": "Nizza Riva",
+   "category": "Woodgrain",
+   "priceTier": "$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/nizza-riva.webp",
+   "materialLine": "Woodgrain panel (60×108)"
+  },
+  {
+   "name": "Ember",
+   "category": "Woodgrain",
+   "priceTier": "$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/ember.webp",
+   "materialLine": "Woodgrain panel (60×108)"
+  },
+  {
+   "name": "Esterel",
+   "category": "Woodgrain",
+   "priceTier": "$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/esterel.webp",
+   "materialLine": "Woodgrain panel (60×108)"
+  },
+  {
+   "name": "Whisper",
+   "category": "Woodgrain",
+   "priceTier": "$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/whisper.webp",
+   "materialLine": "Woodgrain panel (60×108)"
+  },
+  {
+   "name": "Mistral",
+   "category": "Woodgrain",
+   "priceTier": "$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/mistral.webp",
+   "materialLine": "Woodgrain panel (60×108)"
+  },
+  {
+   "name": "Monaco",
+   "category": "Woodgrain",
+   "priceTier": "$$",
+   "colorFamily": "Wood",
+   "onSiteNow": "No",
+   "image": "finishes/woodgrain/monaco.webp",
+   "materialLine": "Woodgrain panel (60×108)"
+  }
+ ],
+ "accessories": [
+  {
+   "name": "Roll-Out Tray",
+   "catalogRef": "Catalog: ROT"
+  },
+  {
+   "name": "Trash Pull-Out",
+   "catalogRef": "Catalog: TB / FHD"
+  },
+  {
+   "name": "Lazy Susan",
+   "catalogRef": "Catalog: LS3612L / R"
+  },
+  {
+   "name": "Blind Corner Pull-Out",
+   "catalogRef": "Catalog: blind corner base"
+  },
+  {
+   "name": "Vertical Partition",
+   "catalogRef": "Catalog: PART"
+  },
+  {
+   "name": "Floating Shelf",
+   "catalogRef": "Catalog: FLS"
+  }
+ ],
+ "cabinets": [
+  {
+   "code": "WDD-1D-0S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 9,
+   "maxH": 30,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "WDD-1D-1S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 9,
+   "maxH": 30,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "WDD-1D-2S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 9,
+   "maxH": 30,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "WDD-1D-3S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 9,
+   "maxH": 30,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "WDD-1D-4S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 9,
+   "maxH": 30,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "WDD-2D-0S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 21,
+   "maxH": 42,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "WDD-2D-1S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 21,
+   "maxH": 42,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "WDD-2D-2S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 21,
+   "maxH": 42,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "WDD-2D-3S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 21,
+   "maxH": 42,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "WDD-2D-4S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 21,
+   "maxH": 42,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "WDD-1D-1PART",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 9,
+   "maxH": 30,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "WDD-1D-2PART",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 9,
+   "maxH": 30,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "WDD-1D-3PART",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 9,
+   "maxH": 30,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "WDD-2D-1PART",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 21,
+   "maxH": 42,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "WDD-2D-2PART",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 21,
+   "maxH": 42,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "WDD-2D-3PART",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 21,
+   "maxH": 42,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "GW-1D-0S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 9,
+   "maxH": 30,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "GW-1D-1S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 9,
+   "maxH": 30,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "GW-1D-2S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 9,
+   "maxH": 30,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "GW-1D-3S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 9,
+   "maxH": 30,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "GW-1D-4S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 9,
+   "maxH": 30,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "GW-2D-0S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 21,
+   "maxH": 42,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "GW-2D-1S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 21,
+   "maxH": 42,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "GW-2D-2S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 21,
+   "maxH": 42,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "GW-2D-3S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 21,
+   "maxH": 42,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "GW-2D-4S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 21,
+   "maxH": 42,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "GWDD-1D-0S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 9,
+   "maxH": 30,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "GWDD-1D-1S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 9,
+   "maxH": 30,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "GWDD-1D-2S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 9,
+   "maxH": 30,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "GWDD-1D-3S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 9,
+   "maxH": 30,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "GWDD-1D-4S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 9,
+   "maxH": 30,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "GWDD-2D-0S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 21,
+   "maxH": 42,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "GWDD-2D-1S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 21,
+   "maxH": 42,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "GWDD-2D-2S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 21,
+   "maxH": 42,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "GWDD-2D-3S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 21,
+   "maxH": 42,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "GWDD-2D-4S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 21,
+   "maxH": 42,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "OW-0S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 9,
+   "maxH": 42,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "OW-1S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 9,
+   "maxH": 42,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "OW-2S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 9,
+   "maxH": 42,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "OW-3S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 9,
+   "maxH": 42,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "OW-4S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 9,
+   "maxH": 42,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "WDC-0S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 24,
+   "maxH": 24,
+   "minD": 24,
+   "maxD": 24
+  },
+  {
+   "code": "WDC-1S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 24,
+   "maxH": 24,
+   "minD": 24,
+   "maxD": 24
+  },
+  {
+   "code": "WDC-2S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 24,
+   "maxH": 24,
+   "minD": 24,
+   "maxD": 24
+  },
+  {
+   "code": "WDC-3S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 24,
+   "maxH": 24,
+   "minD": 24,
+   "maxD": 24
+  },
+  {
+   "code": "WDC-4S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 24,
+   "maxH": 24,
+   "minD": 24,
+   "maxD": 24
+  },
+  {
+   "code": "GWDC-0S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 24,
+   "maxH": 24,
+   "minD": 24,
+   "maxD": 24
+  },
+  {
+   "code": "GWDC-1S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 24,
+   "maxH": 24,
+   "minD": 24,
+   "maxD": 24
+  },
+  {
+   "code": "GWDC-2S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 24,
+   "maxH": 24,
+   "minD": 24,
+   "maxD": 24
+  },
+  {
+   "code": "GWDC-3S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 24,
+   "maxH": 24,
+   "minD": 24,
+   "maxD": 24
+  },
+  {
+   "code": "GWDC-4S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 24,
+   "maxH": 24,
+   "minD": 24,
+   "maxD": 24
+  },
+  {
+   "code": "WDCDD-0S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 24,
+   "maxH": 24,
+   "minD": 24,
+   "maxD": 24
+  },
+  {
+   "code": "WDCDD-1S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 24,
+   "maxH": 24,
+   "minD": 24,
+   "maxD": 24
+  },
+  {
+   "code": "WDCDD-2S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 24,
+   "maxH": 24,
+   "minD": 24,
+   "maxD": 24
+  },
+  {
+   "code": "WDCDD-3S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 24,
+   "maxH": 24,
+   "minD": 24,
+   "maxD": 24
+  },
+  {
+   "code": "WDCDD-4S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 24,
+   "maxH": 24,
+   "minD": 24,
+   "maxD": 24
+  },
+  {
+   "code": "WBCL-0S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 24,
+   "maxH": 39,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "WBCL-1S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 24,
+   "maxH": 39,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "WBCL-2S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 24,
+   "maxH": 39,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "WBCL-3S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 24,
+   "maxH": 39,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "WBCL-4S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 24,
+   "maxH": 39,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "WBCR-0S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 24,
+   "maxH": 39,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "WBCR-1S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 24,
+   "maxH": 39,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "WBCR-2S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 24,
+   "maxH": 39,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "WBCR-3S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 24,
+   "maxH": 39,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "WBCR-4S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 24,
+   "maxH": 39,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "WBCLDD-0S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 24,
+   "maxH": 39,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "WBCLDD-1S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 24,
+   "maxH": 39,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "WBCLDD-2S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 24,
+   "maxH": 39,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "WBCLDD-3S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 24,
+   "maxH": 39,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "WBCLDD-4S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 24,
+   "maxH": 39,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "WBCRDD-0S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 24,
+   "maxH": 39,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "WBCRDD-1S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 24,
+   "maxH": 39,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "WBCRDD-2S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 24,
+   "maxH": 39,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "WBCRDD-3S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 24,
+   "maxH": 39,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "WBCRDD-4S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 24,
+   "maxH": 39,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "GWBCL-0S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 24,
+   "maxH": 39,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "GWBCL-1S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 24,
+   "maxH": 39,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "GWBCL-2S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 24,
+   "maxH": 39,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "GWBCL-3S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 24,
+   "maxH": 39,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "GWBCL-4S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 24,
+   "maxH": 39,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "GWBCR-0S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 24,
+   "maxH": 39,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "GWBCR-1S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 24,
+   "maxH": 39,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "GWBCR-2S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 24,
+   "maxH": 39,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "GWBCR-3S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 24,
+   "maxH": 39,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "GWBCR-4S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 24,
+   "maxH": 39,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "GWBCLDD-0S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 24,
+   "maxH": 39,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "GWBCLDD-1S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 24,
+   "maxH": 39,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "GWBCLDD-2S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 24,
+   "maxH": 39,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "GWBCLDD-3S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 24,
+   "maxH": 39,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "GWBCLDD-4S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 24,
+   "maxH": 39,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "GWBCRDD-0S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 24,
+   "maxH": 39,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "GWBCRDD-1S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 24,
+   "maxH": 39,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "GWBCRDD-2S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 24,
+   "maxH": 39,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "GWBCRDD-3S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 24,
+   "maxH": 39,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "GWBCRDD-4S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 24,
+   "maxH": 39,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "WC90L-0S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 24,
+   "maxH": 27,
+   "minD": 24,
+   "maxD": 27
+  },
+  {
+   "code": "WC90L-1S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 24,
+   "maxH": 27,
+   "minD": 24,
+   "maxD": 27
+  },
+  {
+   "code": "WC90L-2S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 24,
+   "maxH": 27,
+   "minD": 24,
+   "maxD": 27
+  },
+  {
+   "code": "WC90L-3S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 24,
+   "maxH": 27,
+   "minD": 24,
+   "maxD": 27
+  },
+  {
+   "code": "WC90L-4S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 24,
+   "maxH": 27,
+   "minD": 24,
+   "maxD": 27
+  },
+  {
+   "code": "WC90R-0S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 24,
+   "maxH": 27,
+   "minD": 24,
+   "maxD": 27
+  },
+  {
+   "code": "WC90R-1S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 24,
+   "maxH": 27,
+   "minD": 24,
+   "maxD": 27
+  },
+  {
+   "code": "WC90R-2S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 24,
+   "maxH": 27,
+   "minD": 24,
+   "maxD": 27
+  },
+  {
+   "code": "WC90R-3S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 24,
+   "maxH": 27,
+   "minD": 24,
+   "maxD": 27
+  },
+  {
+   "code": "WC90R-4S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 24,
+   "maxH": 27,
+   "minD": 24,
+   "maxD": 27
+  },
+  {
+   "code": "WC90LDD-0S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 24,
+   "maxH": 27,
+   "minD": 24,
+   "maxD": 27
+  },
+  {
+   "code": "WC90LDD-1S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 24,
+   "maxH": 27,
+   "minD": 24,
+   "maxD": 27
+  },
+  {
+   "code": "WC90LDD-2S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 24,
+   "maxH": 27,
+   "minD": 24,
+   "maxD": 27
+  },
+  {
+   "code": "WC90LDD-3S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 24,
+   "maxH": 27,
+   "minD": 24,
+   "maxD": 27
+  },
+  {
+   "code": "WC90LDD-4S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 24,
+   "maxH": 27,
+   "minD": 24,
+   "maxD": 27
+  },
+  {
+   "code": "WC90RDD-0S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 24,
+   "maxH": 27,
+   "minD": 24,
+   "maxD": 27
+  },
+  {
+   "code": "WC90RDD-1S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 24,
+   "maxH": 27,
+   "minD": 24,
+   "maxD": 27
+  },
+  {
+   "code": "WC90RDD-2S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 24,
+   "maxH": 27,
+   "minD": 24,
+   "maxD": 27
+  },
+  {
+   "code": "WC90RDD-3S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 24,
+   "maxH": 27,
+   "minD": 24,
+   "maxD": 27
+  },
+  {
+   "code": "WC90RDD-4S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 24,
+   "maxH": 27,
+   "minD": 24,
+   "maxD": 27
+  },
+  {
+   "code": "GWC90L-0S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 24,
+   "maxH": 27,
+   "minD": 24,
+   "maxD": 27
+  },
+  {
+   "code": "GWC90L-1S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 24,
+   "maxH": 27,
+   "minD": 24,
+   "maxD": 27
+  },
+  {
+   "code": "GWC90L-2S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 24,
+   "maxH": 27,
+   "minD": 24,
+   "maxD": 27
+  },
+  {
+   "code": "GWC90L-3S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 24,
+   "maxH": 27,
+   "minD": 24,
+   "maxD": 27
+  },
+  {
+   "code": "GWC90L-4S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 24,
+   "maxH": 27,
+   "minD": 24,
+   "maxD": 27
+  },
+  {
+   "code": "GWC90R-0S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 24,
+   "maxH": 27,
+   "minD": 24,
+   "maxD": 27
+  },
+  {
+   "code": "GWC90R-1S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 24,
+   "maxH": 27,
+   "minD": 24,
+   "maxD": 27
+  },
+  {
+   "code": "GWC90R-2S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 24,
+   "maxH": 27,
+   "minD": 24,
+   "maxD": 27
+  },
+  {
+   "code": "GWC90R-3S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 24,
+   "maxH": 27,
+   "minD": 24,
+   "maxD": 27
+  },
+  {
+   "code": "GWC90R-4S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 24,
+   "maxH": 27,
+   "minD": 24,
+   "maxD": 27
+  },
+  {
+   "code": "GWC90LDD-0S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 24,
+   "maxH": 27,
+   "minD": 24,
+   "maxD": 27
+  },
+  {
+   "code": "GWC90LDD-1S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 24,
+   "maxH": 27,
+   "minD": 24,
+   "maxD": 27
+  },
+  {
+   "code": "GWC90LDD-2S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 24,
+   "maxH": 27,
+   "minD": 24,
+   "maxD": 27
+  },
+  {
+   "code": "GWC90LDD-3S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 24,
+   "maxH": 27,
+   "minD": 24,
+   "maxD": 27
+  },
+  {
+   "code": "GWC90LDD-4S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 24,
+   "maxH": 27,
+   "minD": 24,
+   "maxD": 27
+  },
+  {
+   "code": "GWC90RDD-0S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 24,
+   "maxH": 27,
+   "minD": 24,
+   "maxD": 27
+  },
+  {
+   "code": "GWC90RDD-1S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 24,
+   "maxH": 27,
+   "minD": 24,
+   "maxD": 27
+  },
+  {
+   "code": "GWC90RDD-2S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 24,
+   "maxH": 27,
+   "minD": 24,
+   "maxD": 27
+  },
+  {
+   "code": "GWC90RDD-3S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 24,
+   "maxH": 27,
+   "minD": 24,
+   "maxD": 27
+  },
+  {
+   "code": "GWC90RDD-4S",
+   "category": "Wall",
+   "minW": 12,
+   "maxW": 54,
+   "minH": 24,
+   "maxH": 27,
+   "minD": 24,
+   "maxD": 27
+  },
+  {
+   "code": "FLS3L",
+   "category": "Floating Shelf",
+   "minW": 1.5,
+   "maxW": 48,
+   "minH": 9,
+   "maxH": 96,
+   "minD": 6,
+   "maxD": 26
+  },
+  {
+   "code": "FLS3R",
+   "category": "Floating Shelf",
+   "minW": 1.5,
+   "maxW": 48,
+   "minH": 9,
+   "maxH": 96,
+   "minD": 6,
+   "maxD": 26
+  },
+  {
+   "code": "FLS3OE",
+   "category": "Floating Shelf",
+   "minW": 1.5,
+   "maxW": 48,
+   "minH": 9,
+   "maxH": 96,
+   "minD": 6,
+   "maxD": 26
+  },
+  {
+   "code": "FLS3L_HOVR",
+   "category": "Floating Shelf",
+   "minW": 2.25,
+   "maxW": 18,
+   "minH": 9,
+   "maxH": 96,
+   "minD": 6,
+   "maxD": 12
+  },
+  {
+   "code": "FLS3R_HOVR",
+   "category": "Floating Shelf",
+   "minW": 2.25,
+   "maxW": 18,
+   "minH": 9,
+   "maxH": 96,
+   "minD": 6,
+   "maxD": 12
+  },
+  {
+   "code": "FLS3B_HOVR",
+   "category": "Floating Shelf",
+   "minW": 2.25,
+   "maxW": 18,
+   "minH": 9,
+   "maxH": 96,
+   "minD": 6,
+   "maxD": 12
+  },
+  {
+   "code": "TPH",
+   "category": "Hood",
+   "minW": 30,
+   "maxW": 96,
+   "minH": 24,
+   "maxH": 58,
+   "minD": 12,
+   "maxD": 30
+  },
+  {
+   "code": "BPH",
+   "category": "Hood",
+   "minW": 18,
+   "maxW": 96,
+   "minH": 24,
+   "maxH": 58,
+   "minD": 12,
+   "maxD": 30
+  },
+  {
+   "code": "BBPH",
+   "category": "Hood",
+   "minW": 18,
+   "maxW": 96,
+   "minH": 24,
+   "maxH": 58,
+   "minD": 12,
+   "maxD": 30
+  },
+  {
+   "code": "BMSPH",
+   "category": "Hood",
+   "minW": 18,
+   "maxW": 96,
+   "minH": 24,
+   "maxH": 58,
+   "minD": 12,
+   "maxD": 30
+  },
+  {
+   "code": "BBMSPH",
+   "category": "Hood",
+   "minW": 18,
+   "maxW": 96,
+   "minH": 24,
+   "maxH": 58,
+   "minD": 12,
+   "maxD": 30
+  },
+  {
+   "code": "BXPH",
+   "category": "Hood",
+   "minW": 24,
+   "maxW": 96,
+   "minH": 24,
+   "maxH": 58,
+   "minD": 12,
+   "maxD": 30
+  },
+  {
+   "code": "BBXPH",
+   "category": "Hood",
+   "minW": 24,
+   "maxW": 96,
+   "minH": 24,
+   "maxH": 58,
+   "minD": 12,
+   "maxD": 30
+  },
+  {
+   "code": "BTSPH",
+   "category": "Hood",
+   "minW": 18,
+   "maxW": 96,
+   "minH": 24,
+   "maxH": 58,
+   "minD": 12,
+   "maxD": 30
+  },
+  {
+   "code": "BBTSPH",
+   "category": "Hood",
+   "minW": 18,
+   "maxW": 96,
+   "minH": 24,
+   "maxH": 58,
+   "minD": 12,
+   "maxD": 30
+  },
+  {
+   "code": "APH",
+   "category": "Hood",
+   "minW": 30,
+   "maxW": 96,
+   "minH": 24,
+   "maxH": 58,
+   "minD": 12,
+   "maxD": 30
+  },
+  {
+   "code": "AMSPH",
+   "category": "Hood",
+   "minW": 30,
+   "maxW": 96,
+   "minH": 24,
+   "maxH": 58,
+   "minD": 12,
+   "maxD": 30
+  },
+  {
+   "code": "ATSPH",
+   "category": "Hood",
+   "minW": 30,
+   "maxW": 96,
+   "minH": 24,
+   "maxH": 58,
+   "minD": 12,
+   "maxD": 30
+  },
+  {
+   "code": "ABPH",
+   "category": "Hood",
+   "minW": 30,
+   "maxW": 96,
+   "minH": 24,
+   "maxH": 58,
+   "minD": 12,
+   "maxD": 30
+  },
+  {
+   "code": "ABMSPH",
+   "category": "Hood",
+   "minW": 30,
+   "maxW": 96,
+   "minH": 24,
+   "maxH": 58,
+   "minD": 12,
+   "maxD": 30
+  },
+  {
+   "code": "ABTSPH",
+   "category": "Hood",
+   "minW": 30,
+   "maxW": 96,
+   "minH": 24,
+   "maxH": 58,
+   "minD": 12,
+   "maxD": 30
+  },
+  {
+   "code": "ABXPH",
+   "category": "Hood",
+   "minW": 30,
+   "maxW": 96,
+   "minH": 24,
+   "maxH": 58,
+   "minD": 12,
+   "maxD": 30
+  },
+  {
+   "code": "BFH-1D-0S",
+   "category": "Base",
+   "minW": 18,
+   "maxW": 66,
+   "minH": 8,
+   "maxH": 26,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "BFH-1D-1S",
+   "category": "Base",
+   "minW": 18,
+   "maxW": 66,
+   "minH": 8,
+   "maxH": 26,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "BFH-1D-2S",
+   "category": "Base",
+   "minW": 18,
+   "maxW": 66,
+   "minH": 8,
+   "maxH": 26,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "BFH-1D-3S",
+   "category": "Base",
+   "minW": 18,
+   "maxW": 66,
+   "minH": 8,
+   "maxH": 26,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "BFH-2D-0S",
+   "category": "Base",
+   "minW": 18,
+   "maxW": 66,
+   "minH": 21,
+   "maxH": 42,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "BFH-2D-1S",
+   "category": "Base",
+   "minW": 18,
+   "maxW": 66,
+   "minH": 21,
+   "maxH": 42,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "BFH-2D-2S",
+   "category": "Base",
+   "minW": 18,
+   "maxW": 66,
+   "minH": 21,
+   "maxH": 42,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "BFH-2D-3S",
+   "category": "Base",
+   "minW": 18,
+   "maxW": 66,
+   "minH": 21,
+   "maxH": 42,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "BFH-1D-1ROT",
+   "category": "Base",
+   "minW": 24,
+   "maxW": 66,
+   "minH": 12,
+   "maxH": 26,
+   "minD": 18,
+   "maxD": 30
+  },
+  {
+   "code": "BFH-1D-2ROT",
+   "category": "Base",
+   "minW": 24,
+   "maxW": 66,
+   "minH": 12,
+   "maxH": 26,
+   "minD": 18,
+   "maxD": 30
+  },
+  {
+   "code": "BFH-1D-3ROT",
+   "category": "Base",
+   "minW": 24,
+   "maxW": 66,
+   "minH": 12,
+   "maxH": 26,
+   "minD": 18,
+   "maxD": 30
+  },
+  {
+   "code": "BFH-2D-1ROT",
+   "category": "Base",
+   "minW": 24,
+   "maxW": 66,
+   "minH": 21,
+   "maxH": 39,
+   "minD": 18,
+   "maxD": 30
+  },
+  {
+   "code": "BFH-2D-2ROT",
+   "category": "Base",
+   "minW": 24,
+   "maxW": 66,
+   "minH": 21,
+   "maxH": 39,
+   "minD": 18,
+   "maxD": 30
+  },
+  {
+   "code": "BFH-2D-3ROT",
+   "category": "Base",
+   "minW": 24,
+   "maxW": 66,
+   "minH": 21,
+   "maxH": 39,
+   "minD": 18,
+   "maxD": 30
+  },
+  {
+   "code": "BFH-1D-1PART",
+   "category": "Base",
+   "minW": 18,
+   "maxW": 66,
+   "minH": 9,
+   "maxH": 26,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "BFH-1D-2PART",
+   "category": "Base",
+   "minW": 18,
+   "maxW": 66,
+   "minH": 10,
+   "maxH": 26,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "BFH-1D-3PART",
+   "category": "Base",
+   "minW": 18,
+   "maxW": 66,
+   "minH": 11,
+   "maxH": 26,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "BFH-2D-1PART",
+   "category": "Base",
+   "minW": 18,
+   "maxW": 66,
+   "minH": 21,
+   "maxH": 42,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "BFH-2D-2PART",
+   "category": "Base",
+   "minW": 18,
+   "maxW": 66,
+   "minH": 21,
+   "maxH": 42,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "BFH-2D-3PART",
+   "category": "Base",
+   "minW": 18,
+   "maxW": 66,
+   "minH": 21,
+   "maxH": 42,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "TB15-TD",
+   "category": "Base",
+   "minW": 32,
+   "maxW": 42,
+   "minH": 15,
+   "maxH": 15,
+   "minD": 24,
+   "maxD": 30
+  },
+  {
+   "code": "TB18-TD",
+   "category": "Base",
+   "minW": 32,
+   "maxW": 42,
+   "minH": 18,
+   "maxH": 18,
+   "minD": 24,
+   "maxD": 30
+  },
+  {
+   "code": "TB21-TD",
+   "category": "Base",
+   "minW": 32,
+   "maxW": 42,
+   "minH": 21,
+   "maxH": 21,
+   "minD": 24,
+   "maxD": 30
+  },
+  {
+   "code": "TB15-FHD",
+   "category": "Base",
+   "minW": 32,
+   "maxW": 42,
+   "minH": 15,
+   "maxH": 15,
+   "minD": 24,
+   "maxD": 30
+  },
+  {
+   "code": "TB18-FHD",
+   "category": "Base",
+   "minW": 32,
+   "maxW": 42,
+   "minH": 18,
+   "maxH": 18,
+   "minD": 24,
+   "maxD": 30
+  },
+  {
+   "code": "TB21-FHD",
+   "category": "Base",
+   "minW": 32,
+   "maxW": 42,
+   "minH": 21,
+   "maxH": 21,
+   "minD": 24,
+   "maxD": 30
+  },
+  {
+   "code": "BIR-1D-1TD",
+   "category": "Base",
+   "minW": 24,
+   "maxW": 42,
+   "minH": 12,
+   "maxH": 26,
+   "minD": 18,
+   "maxD": 30
+  },
+  {
+   "code": "BIRFH-1D",
+   "category": "Base",
+   "minW": 24,
+   "maxW": 42,
+   "minH": 8,
+   "maxH": 26,
+   "minD": 18,
+   "maxD": 30
+  },
+  {
+   "code": "SB-1D-1FF",
+   "category": "Base",
+   "minW": 30,
+   "maxW": 42,
+   "minH": 15,
+   "maxH": 26,
+   "minD": 15,
+   "maxD": 30
+  },
+  {
+   "code": "SB-2D-2FF",
+   "category": "Base",
+   "minW": 30,
+   "maxW": 42,
+   "minH": 21,
+   "maxH": 42,
+   "minD": 15,
+   "maxD": 30
+  },
+  {
+   "code": "SB-2D-1FF",
+   "category": "Base",
+   "minW": 30,
+   "maxW": 42,
+   "minH": 21,
+   "maxH": 42,
+   "minD": 15,
+   "maxD": 30
+  },
+  {
+   "code": "SB-1D-1FF-1ROT",
+   "category": "Base",
+   "minW": 30,
+   "maxW": 42,
+   "minH": 15,
+   "maxH": 26,
+   "minD": 18,
+   "maxD": 30
+  },
+  {
+   "code": "SB-1D-1FF-2ROT",
+   "category": "Base",
+   "minW": 30,
+   "maxW": 42,
+   "minH": 15,
+   "maxH": 26,
+   "minD": 18,
+   "maxD": 30
+  },
+  {
+   "code": "SB-2D-1FF-1ROT",
+   "category": "Base",
+   "minW": 30,
+   "maxW": 42,
+   "minH": 21,
+   "maxH": 39,
+   "minD": 18,
+   "maxD": 30
+  },
+  {
+   "code": "SB-2D-1FF-2ROT",
+   "category": "Base",
+   "minW": 30,
+   "maxW": 42,
+   "minH": 21,
+   "maxH": 39,
+   "minD": 18,
+   "maxD": 30
+  },
+  {
+   "code": "SB-2D-2FF-1ROT",
+   "category": "Base",
+   "minW": 30,
+   "maxW": 42,
+   "minH": 21,
+   "maxH": 39,
+   "minD": 18,
+   "maxD": 30
+  },
+  {
+   "code": "SB-2D-2FF-2ROT",
+   "category": "Base",
+   "minW": 30,
+   "maxW": 42,
+   "minH": 21,
+   "maxH": 39,
+   "minD": 18,
+   "maxD": 30
+  },
+  {
+   "code": "SBFH-1D",
+   "category": "Base",
+   "minW": 30,
+   "maxW": 42,
+   "minH": 15,
+   "maxH": 26,
+   "minD": 15,
+   "maxD": 30
+  },
+  {
+   "code": "SBFH-2D",
+   "category": "Base",
+   "minW": 30,
+   "maxW": 42,
+   "minH": 21,
+   "maxH": 42,
+   "minD": 15,
+   "maxD": 30
+  },
+  {
+   "code": "SBFH-1D-1ROT",
+   "category": "Base",
+   "minW": 30,
+   "maxW": 42,
+   "minH": 15,
+   "maxH": 26,
+   "minD": 18,
+   "maxD": 30
+  },
+  {
+   "code": "SBFH-1D-2ROT",
+   "category": "Base",
+   "minW": 30,
+   "maxW": 42,
+   "minH": 15,
+   "maxH": 26,
+   "minD": 18,
+   "maxD": 30
+  },
+  {
+   "code": "SBFH-2D-1ROT",
+   "category": "Base",
+   "minW": 30,
+   "maxW": 42,
+   "minH": 21,
+   "maxH": 39,
+   "minD": 18,
+   "maxD": 30
+  },
+  {
+   "code": "SBFH-2D-2ROT",
+   "category": "Base",
+   "minW": 30,
+   "maxW": 42,
+   "minH": 21,
+   "maxH": 39,
+   "minD": 18,
+   "maxD": 30
+  },
+  {
+   "code": "DB1",
+   "category": "Base",
+   "minW": 24,
+   "maxW": 12,
+   "minH": 39,
+   "maxH": 15,
+   "minD": 30,
+   "maxD": "variable"
+  },
+  {
+   "code": "DB2",
+   "category": "Base",
+   "minW": 21,
+   "maxW": 36,
+   "minH": 12,
+   "maxH": 39,
+   "minD": 15,
+   "maxD": 30
+  },
+  {
+   "code": "DB3",
+   "category": "Base",
+   "minW": 28,
+   "maxW": 42,
+   "minH": 12,
+   "maxH": 39,
+   "minD": 15,
+   "maxD": 30
+  },
+  {
+   "code": "DB4",
+   "category": "Base",
+   "minW": 34.5,
+   "maxW": 42,
+   "minH": 12,
+   "maxH": 39,
+   "minD": 15,
+   "maxD": 30
+  },
+  {
+   "code": "DB-1PD",
+   "category": "Base",
+   "minW": 7,
+   "maxW": 12,
+   "minH": 12,
+   "maxH": 39,
+   "minD": 15,
+   "maxD": 30
+  },
+  {
+   "code": "DB-2PD",
+   "category": "Base",
+   "minW": 7,
+   "maxW": 12,
+   "minH": 12,
+   "maxH": 39,
+   "minD": 15,
+   "maxD": 30
+  },
+  {
+   "code": "DB2-1FF",
+   "category": "Base",
+   "minW": 30,
+   "maxW": 36,
+   "minH": 12,
+   "maxH": 39,
+   "minD": 15,
+   "maxD": 30
+  },
+  {
+   "code": "DB3-1FF",
+   "category": "Base",
+   "minW": 30,
+   "maxW": 42,
+   "minH": 12,
+   "maxH": 39,
+   "minD": 15,
+   "maxD": 30
+  },
+  {
+   "code": "FLB-1D-1TD-0S",
+   "category": "Base",
+   "minW": 24,
+   "maxW": 30,
+   "minH": 12,
+   "maxH": 26,
+   "minD": 15,
+   "maxD": 30
+  },
+  {
+   "code": "FLB-1D-1TD-1S",
+   "category": "Base",
+   "minW": 24,
+   "maxW": 30,
+   "minH": 12,
+   "maxH": 26,
+   "minD": 15,
+   "maxD": 30
+  },
+  {
+   "code": "FLB-2D-1TD-0S",
+   "category": "Base",
+   "minW": 24,
+   "maxW": 30,
+   "minH": 21,
+   "maxH": 39,
+   "minD": 15,
+   "maxD": 30
+  },
+  {
+   "code": "FLB-2D-1TD-1S",
+   "category": "Base",
+   "minW": 24,
+   "maxW": 30,
+   "minH": 21,
+   "maxH": 39,
+   "minD": 15,
+   "maxD": 30
+  },
+  {
+   "code": "FLB-1D-1TD-1ROT",
+   "category": "Base",
+   "minW": 24,
+   "maxW": 30,
+   "minH": 12,
+   "maxH": 26,
+   "minD": 18,
+   "maxD": 30
+  },
+  {
+   "code": "FLB-1D-1TD-2ROT",
+   "category": "Base",
+   "minW": 24,
+   "maxW": 30,
+   "minH": 12,
+   "maxH": 26,
+   "minD": 18,
+   "maxD": 30
+  },
+  {
+   "code": "FLB-2D-1TD-1ROT",
+   "category": "Base",
+   "minW": 24,
+   "maxW": 30,
+   "minH": 21,
+   "maxH": 39,
+   "minD": 18,
+   "maxD": 30
+  },
+  {
+   "code": "FLB-2D-1TD-2ROT",
+   "category": "Base",
+   "minW": 24,
+   "maxW": 30,
+   "minH": 21,
+   "maxH": 39,
+   "minD": 18,
+   "maxD": 30
+  },
+  {
+   "code": "FLFH-1D-0S",
+   "category": "Base",
+   "minW": 18,
+   "maxW": 30,
+   "minH": 8,
+   "maxH": 26,
+   "minD": 15,
+   "maxD": 30
+  },
+  {
+   "code": "FLFH-1D-1S",
+   "category": "Base",
+   "minW": 18,
+   "maxW": 30,
+   "minH": 8,
+   "maxH": 26,
+   "minD": 15,
+   "maxD": 30
+  },
+  {
+   "code": "FLFH-1D-2S",
+   "category": "Base",
+   "minW": 18,
+   "maxW": 30,
+   "minH": 8,
+   "maxH": 26,
+   "minD": 15,
+   "maxD": 30
+  },
+  {
+   "code": "FLFH-2D-0S",
+   "category": "Base",
+   "minW": 18,
+   "maxW": 30,
+   "minH": 21,
+   "maxH": 42,
+   "minD": 15,
+   "maxD": 30
+  },
+  {
+   "code": "FLFH-2D-1S",
+   "category": "Base",
+   "minW": 18,
+   "maxW": 30,
+   "minH": 21,
+   "maxH": 42,
+   "minD": 15,
+   "maxD": 30
+  },
+  {
+   "code": "FLFH-2D-2S",
+   "category": "Base",
+   "minW": 18,
+   "maxW": 30,
+   "minH": 21,
+   "maxH": 42,
+   "minD": 15,
+   "maxD": 30
+  },
+  {
+   "code": "FLFH-1D-1ROT",
+   "category": "Base",
+   "minW": 18,
+   "maxW": 30,
+   "minH": 8,
+   "maxH": 26,
+   "minD": 18,
+   "maxD": 30
+  },
+  {
+   "code": "FLFH-1D-3ROT",
+   "category": "Base",
+   "minW": 18,
+   "maxW": 30,
+   "minH": 8,
+   "maxH": 26,
+   "minD": 18,
+   "maxD": 30
+  },
+  {
+   "code": "FLFH-2D-1ROT",
+   "category": "Base",
+   "minW": 18,
+   "maxW": 30,
+   "minH": 21,
+   "maxH": 39,
+   "minD": 18,
+   "maxD": 30
+  },
+  {
+   "code": "FLFH-2D-3ROT",
+   "category": "Base",
+   "minW": 18,
+   "maxW": 30,
+   "minH": 21,
+   "maxH": 39,
+   "minD": 18,
+   "maxD": 30
+  },
+  {
+   "code": "FLSB-1D-1FF",
+   "category": "Floating Shelf",
+   "minW": 24,
+   "maxW": 30,
+   "minH": 15,
+   "maxH": 26,
+   "minD": 15,
+   "maxD": 30
+  },
+  {
+   "code": "FLSB-2D-1FF",
+   "category": "Floating Shelf",
+   "minW": 24,
+   "maxW": 30,
+   "minH": 21,
+   "maxH": 42,
+   "minD": 15,
+   "maxD": 30
+  },
+  {
+   "code": "FLSB-1D-1FF-1ROT",
+   "category": "Floating Shelf",
+   "minW": 24,
+   "maxW": 30,
+   "minH": 15,
+   "maxH": 26,
+   "minD": 18,
+   "maxD": 30
+  },
+  {
+   "code": "FLSB-1D-1FF-2ROT",
+   "category": "Floating Shelf",
+   "minW": 24,
+   "maxW": 30,
+   "minH": 15,
+   "maxH": 26,
+   "minD": 18,
+   "maxD": 30
+  },
+  {
+   "code": "FLSB-2D-1FF-1ROT",
+   "category": "Floating Shelf",
+   "minW": 24,
+   "maxW": 30,
+   "minH": 21,
+   "maxH": 39,
+   "minD": 18,
+   "maxD": 30
+  },
+  {
+   "code": "FLSB-2D-1FF-2ROT",
+   "category": "Floating Shelf",
+   "minW": 24,
+   "maxW": 30,
+   "minH": 21,
+   "maxH": 39,
+   "minD": 18,
+   "maxD": 30
+  },
+  {
+   "code": "FLSBFH-1D",
+   "category": "Floating Shelf",
+   "minW": 24,
+   "maxW": 30,
+   "minH": 15,
+   "maxH": 26,
+   "minD": 15,
+   "maxD": 30
+  },
+  {
+   "code": "FLSBFH-2D",
+   "category": "Floating Shelf",
+   "minW": 24,
+   "maxW": 30,
+   "minH": 21,
+   "maxH": 39,
+   "minD": 15,
+   "maxD": 30
+  },
+  {
+   "code": "FLSBFH-1D-1ROT",
+   "category": "Floating Shelf",
+   "minW": 24,
+   "maxW": 30,
+   "minH": 15,
+   "maxH": 26,
+   "minD": 18,
+   "maxD": 30
+  },
+  {
+   "code": "FLSBFH-1D-2ROT",
+   "category": "Floating Shelf",
+   "minW": 24,
+   "maxW": 30,
+   "minH": 15,
+   "maxH": 26,
+   "minD": 18,
+   "maxD": 30
+  },
+  {
+   "code": "FLSBFH-2D-1ROT",
+   "category": "Floating Shelf",
+   "minW": 24,
+   "maxW": 30,
+   "minH": 21,
+   "maxH": 42,
+   "minD": 18,
+   "maxD": 30
+  },
+  {
+   "code": "FLSBFH-2D-2ROT",
+   "category": "Floating Shelf",
+   "minW": 24,
+   "maxW": 30,
+   "minH": 21,
+   "maxH": 42,
+   "minD": 18,
+   "maxD": 30
+  },
+  {
+   "code": "FLB-1D-1BD-0S",
+   "category": "Base",
+   "minW": 24,
+   "maxW": 30,
+   "minH": 12,
+   "maxH": 26,
+   "minD": 15,
+   "maxD": 30
+  },
+  {
+   "code": "FLB-1D-1BD-1S",
+   "category": "Base",
+   "minW": 24,
+   "maxW": 30,
+   "minH": 12,
+   "maxH": 26,
+   "minD": 15,
+   "maxD": 30
+  },
+  {
+   "code": "FLB-2D-1BD-0S",
+   "category": "Base",
+   "minW": 24,
+   "maxW": 30,
+   "minH": 21,
+   "maxH": 39,
+   "minD": 15,
+   "maxD": 30
+  },
+  {
+   "code": "FLB-2D-1BD-1S",
+   "category": "Base",
+   "minW": 24,
+   "maxW": 30,
+   "minH": 21,
+   "maxH": 39,
+   "minD": 15,
+   "maxD": 30
+  },
+  {
+   "code": "FLB-1D-1BD-1ROT",
+   "category": "Base",
+   "minW": 24,
+   "maxW": 30,
+   "minH": 12,
+   "maxH": 26,
+   "minD": 18,
+   "maxD": 30
+  },
+  {
+   "code": "FLB-1D-1BD-2ROT",
+   "category": "Base",
+   "minW": 24,
+   "maxW": 30,
+   "minH": 12,
+   "maxH": 26,
+   "minD": 18,
+   "maxD": 30
+  },
+  {
+   "code": "FLB-2D-1BD-1ROT",
+   "category": "Base",
+   "minW": 24,
+   "maxW": 30,
+   "minH": 21,
+   "maxH": 39,
+   "minD": 18,
+   "maxD": 30
+  },
+  {
+   "code": "FLB-2D-1BD-2ROT",
+   "category": "Base",
+   "minW": 24,
+   "maxW": 30,
+   "minH": 21,
+   "maxH": 39,
+   "minD": 18,
+   "maxD": 30
+  },
+  {
+   "code": "FLDB2",
+   "category": "Base",
+   "minW": 24,
+   "maxW": 30,
+   "minH": 12,
+   "maxH": 39,
+   "minD": 15,
+   "maxD": 30
+  },
+  {
+   "code": "FLDB3",
+   "category": "Base",
+   "minW": 24,
+   "maxW": 30,
+   "minH": 12,
+   "maxH": 39,
+   "minD": 15,
+   "maxD": 30
+  },
+  {
+   "code": "FLDB3-1FF",
+   "category": "Base",
+   "minW": 24,
+   "maxW": 30,
+   "minH": 12,
+   "maxH": 39,
+   "minD": 15,
+   "maxD": 30
+  },
+  {
+   "code": "FLDB2-1FF",
+   "category": "Base",
+   "minW": 24,
+   "maxW": 30,
+   "minH": 12,
+   "maxH": 39,
+   "minD": 15,
+   "maxD": 30
+  },
+  {
+   "code": "OB-0S",
+   "category": "Base",
+   "minW": 15,
+   "maxW": 66,
+   "minH": 8,
+   "maxH": 42,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "OB-1S",
+   "category": "Base",
+   "minW": 15,
+   "maxW": 66,
+   "minH": 8,
+   "maxH": 42,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "OB-2S",
+   "category": "Base",
+   "minW": 15,
+   "maxW": 66,
+   "minH": 8,
+   "maxH": 42,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "OB-3S",
+   "category": "Base",
+   "minW": 15,
+   "maxW": 66,
+   "minH": 8,
+   "maxH": 42,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "OB-4S",
+   "category": "Base",
+   "minW": 15,
+   "maxW": 66,
+   "minH": 8,
+   "maxH": 42,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "LS3612L",
+   "category": "Base",
+   "minW": 24,
+   "maxW": 42,
+   "minH": 36,
+   "maxH": 36,
+   "minD": 36,
+   "maxD": 36
+  },
+  {
+   "code": "LS3612R",
+   "category": "Base",
+   "minW": 24,
+   "maxW": 42,
+   "minH": 36,
+   "maxH": 36,
+   "minD": 36,
+   "maxD": 36
+  },
+  {
+   "code": "BC45-0S",
+   "category": "Base",
+   "minW": 24,
+   "maxW": 66,
+   "minH": 36,
+   "maxH": 45,
+   "minD": 36,
+   "maxD": 45
+  },
+  {
+   "code": "BC45-1S",
+   "category": "Base",
+   "minW": 24,
+   "maxW": 66,
+   "minH": 36,
+   "maxH": 45,
+   "minD": 36,
+   "maxD": 45
+  },
+  {
+   "code": "BC45-LS",
+   "category": "Base",
+   "minW": 24,
+   "maxW": 66,
+   "minH": 36,
+   "maxH": 45,
+   "minD": 36,
+   "maxD": 45
+  },
+  {
+   "code": "BBCL-1TD-0S",
+   "category": "Base",
+   "minW": 24,
+   "maxW": 42,
+   "minH": 39,
+   "maxH": 52,
+   "minD": 15,
+   "maxD": 30
+  },
+  {
+   "code": "BBCL-1TD-1S",
+   "category": "Base",
+   "minW": 24,
+   "maxW": 42,
+   "minH": 39,
+   "maxH": 52,
+   "minD": 15,
+   "maxD": 30
+  },
+  {
+   "code": "BBCR-1TD-0S",
+   "category": "Base",
+   "minW": 24,
+   "maxW": 42,
+   "minH": 39,
+   "maxH": 52,
+   "minD": 15,
+   "maxD": 30
+  },
+  {
+   "code": "BBCR-1TD-1S",
+   "category": "Base",
+   "minW": 24,
+   "maxW": 42,
+   "minH": 39,
+   "maxH": 52,
+   "minD": 15,
+   "maxD": 30
+  },
+  {
+   "code": "BBCL-FHD-0S",
+   "category": "Base",
+   "minW": 24,
+   "maxW": 66,
+   "minH": 39,
+   "maxH": 52,
+   "minD": 15,
+   "maxD": 30
+  },
+  {
+   "code": "BBCL-FHD-1S",
+   "category": "Base",
+   "minW": 24,
+   "maxW": 66,
+   "minH": 39,
+   "maxH": 52,
+   "minD": 15,
+   "maxD": 30
+  },
+  {
+   "code": "BBCL-FHD-2S",
+   "category": "Base",
+   "minW": 24,
+   "maxW": 66,
+   "minH": 39,
+   "maxH": 52,
+   "minD": 15,
+   "maxD": 30
+  },
+  {
+   "code": "BBCR-FHD-0S",
+   "category": "Base",
+   "minW": 24,
+   "maxW": 66,
+   "minH": 39,
+   "maxH": 52,
+   "minD": 15,
+   "maxD": 30
+  },
+  {
+   "code": "BBCR-FHD-1S",
+   "category": "Base",
+   "minW": 24,
+   "maxW": 66,
+   "minH": 39,
+   "maxH": 52,
+   "minD": 15,
+   "maxD": 30
+  },
+  {
+   "code": "BBCR-FHD-2S",
+   "category": "Base",
+   "minW": 24,
+   "maxW": 66,
+   "minH": 39,
+   "maxH": 52,
+   "minD": 15,
+   "maxD": 30
+  },
+  {
+   "code": "TBFH-1D-1S",
+   "category": "Tall",
+   "minW": 30,
+   "maxW": 66,
+   "minH": 9,
+   "maxH": 26,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "TBFH-1D-2S",
+   "category": "Tall",
+   "minW": 30,
+   "maxW": 66,
+   "minH": 9,
+   "maxH": 26,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "TBFH-1D-3S",
+   "category": "Tall",
+   "minW": 30,
+   "maxW": 66,
+   "minH": 9,
+   "maxH": 26,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "TBFH-2D-0S",
+   "category": "Tall",
+   "minW": 30,
+   "maxW": 66,
+   "minH": 21,
+   "maxH": 42,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "TBFH-2D-1S",
+   "category": "Tall",
+   "minW": 30,
+   "maxW": 66,
+   "minH": 21,
+   "maxH": 42,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "TBFH-2D-2S",
+   "category": "Tall",
+   "minW": 30,
+   "maxW": 66,
+   "minH": 21,
+   "maxH": 42,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "TBFH-2D-3S",
+   "category": "Tall",
+   "minW": 30,
+   "maxW": 66,
+   "minH": 21,
+   "maxH": 42,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "TBFH-1D-2ROT-2S",
+   "category": "Tall",
+   "minW": 30,
+   "maxW": 66,
+   "minH": 21,
+   "maxH": 26,
+   "minD": 18,
+   "maxD": 30
+  },
+  {
+   "code": "TBFH-1D-3ROT",
+   "category": "Tall",
+   "minW": 30,
+   "maxW": 66,
+   "minH": 12,
+   "maxH": 26,
+   "minD": 18,
+   "maxD": 30
+  },
+  {
+   "code": "TBFH-1D-4ROT",
+   "category": "Tall",
+   "minW": 30,
+   "maxW": 66,
+   "minH": 12,
+   "maxH": 26,
+   "minD": 18,
+   "maxD": 30
+  },
+  {
+   "code": "TBFH-2D-1ROT-2S",
+   "category": "Tall",
+   "minW": 30,
+   "maxW": 66,
+   "minH": 21,
+   "maxH": 39,
+   "minD": 18,
+   "maxD": 30
+  },
+  {
+   "code": "TBFH-2D-2ROT-2S",
+   "category": "Tall",
+   "minW": 30,
+   "maxW": 66,
+   "minH": 21,
+   "maxH": 39,
+   "minD": 18,
+   "maxD": 30
+  },
+  {
+   "code": "TBFH-2D-3ROT",
+   "category": "Tall",
+   "minW": 30,
+   "maxW": 66,
+   "minH": 21,
+   "maxH": 39,
+   "minD": 18,
+   "maxD": 30
+  },
+  {
+   "code": "TBFH-2D-4ROT",
+   "category": "Tall",
+   "minW": 30,
+   "maxW": 66,
+   "minH": 21,
+   "maxH": 39,
+   "minD": 18,
+   "maxD": 30
+  },
+  {
+   "code": "TA-1D",
+   "category": "Tall",
+   "minW": 30,
+   "maxW": 72,
+   "minH": 12,
+   "maxH": 39,
+   "minD": 18,
+   "maxD": 30
+  },
+  {
+   "code": "TA-2D",
+   "category": "Tall",
+   "minW": 34.5,
+   "maxW": 72,
+   "minH": 12,
+   "maxH": 39,
+   "minD": 18,
+   "maxD": 30
+  },
+  {
+   "code": "TA-3D",
+   "category": "Tall",
+   "minW": 42,
+   "maxW": 72,
+   "minH": 12,
+   "maxH": 39,
+   "minD": 18,
+   "maxD": 30
+  },
+  {
+   "code": "BA-OPEN",
+   "category": "Tall",
+   "minW": 24,
+   "maxW": 72,
+   "minH": 12,
+   "maxH": 39,
+   "minD": 18,
+   "maxD": 30
+  },
+  {
+   "code": "VT-1D-1BD-0S",
+   "category": "Vanity",
+   "minW": 24,
+   "maxW": 54,
+   "minH": 12,
+   "maxH": 26,
+   "minD": 12,
+   "maxD": 27
+  },
+  {
+   "code": "VT-1D-1BD-1S",
+   "category": "Vanity",
+   "minW": 24,
+   "maxW": 54,
+   "minH": 12,
+   "maxH": 26,
+   "minD": 12,
+   "maxD": 27
+  },
+  {
+   "code": "VT-1D-1BD-2S",
+   "category": "Vanity",
+   "minW": 24,
+   "maxW": 54,
+   "minH": 12,
+   "maxH": 26,
+   "minD": 12,
+   "maxD": 27
+  },
+  {
+   "code": "VT-1D-1BD-3S",
+   "category": "Vanity",
+   "minW": 24,
+   "maxW": 54,
+   "minH": 12,
+   "maxH": 26,
+   "minD": 12,
+   "maxD": 27
+  },
+  {
+   "code": "VT-2D-1BD-0S",
+   "category": "Vanity",
+   "minW": 24,
+   "maxW": 54,
+   "minH": 21,
+   "maxH": 39,
+   "minD": 12,
+   "maxD": 27
+  },
+  {
+   "code": "VT-2D-1BD-1S",
+   "category": "Vanity",
+   "minW": 24,
+   "maxW": 54,
+   "minH": 21,
+   "maxH": 39,
+   "minD": 12,
+   "maxD": 27
+  },
+  {
+   "code": "VT-2D-1BD-2S",
+   "category": "Vanity",
+   "minW": 24,
+   "maxW": 54,
+   "minH": 21,
+   "maxH": 39,
+   "minD": 12,
+   "maxD": 27
+  },
+  {
+   "code": "VT-2D-1BD-3S",
+   "category": "Vanity",
+   "minW": 24,
+   "maxW": 54,
+   "minH": 21,
+   "maxH": 39,
+   "minD": 12,
+   "maxD": 27
+  },
+  {
+   "code": "VT-1D-2BD-0S",
+   "category": "Vanity",
+   "minW": 24,
+   "maxW": 54,
+   "minH": 12,
+   "maxH": 26,
+   "minD": 12,
+   "maxD": 27
+  },
+  {
+   "code": "VT-1D-2BD-1S",
+   "category": "Vanity",
+   "minW": 24,
+   "maxW": 54,
+   "minH": 12,
+   "maxH": 26,
+   "minD": 12,
+   "maxD": 27
+  },
+  {
+   "code": "VT-1D-2BD-2S",
+   "category": "Vanity",
+   "minW": 24,
+   "maxW": 54,
+   "minH": 12,
+   "maxH": 26,
+   "minD": 12,
+   "maxD": 27
+  },
+  {
+   "code": "VT-1D-2BD-3S",
+   "category": "Vanity",
+   "minW": 24,
+   "maxW": 54,
+   "minH": 12,
+   "maxH": 26,
+   "minD": 12,
+   "maxD": 27
+  },
+  {
+   "code": "VT-2D-2BD-0S",
+   "category": "Vanity",
+   "minW": 24,
+   "maxW": 54,
+   "minH": 21,
+   "maxH": 39,
+   "minD": 12,
+   "maxD": 27
+  },
+  {
+   "code": "VT-2D-2BD-1S",
+   "category": "Vanity",
+   "minW": 24,
+   "maxW": 54,
+   "minH": 21,
+   "maxH": 39,
+   "minD": 12,
+   "maxD": 27
+  },
+  {
+   "code": "VT-2D-2BD-2S",
+   "category": "Vanity",
+   "minW": 24,
+   "maxW": 54,
+   "minH": 21,
+   "maxH": 39,
+   "minD": 12,
+   "maxD": 27
+  },
+  {
+   "code": "VT-2D-2BD-3S",
+   "category": "Vanity",
+   "minW": 24,
+   "maxW": 54,
+   "minH": 21,
+   "maxH": 39,
+   "minD": 12,
+   "maxD": 27
+  },
+  {
+   "code": "CDF",
+   "category": "Filler/Crown",
+   "minW": 96,
+   "maxW": "variable",
+   "minH": 6,
+   "maxH": 1.5,
+   "minD": 4.875,
+   "maxD": "variable"
+  },
+  {
+   "code": "SCDF",
+   "category": "Filler/Crown",
+   "minW": 96,
+   "maxW": "variable",
+   "minH": 6,
+   "maxH": 1.5,
+   "minD": 4.875,
+   "maxD": "variable"
+  },
+  {
+   "code": "VDF",
+   "category": "Filler/Crown",
+   "minW": 96,
+   "maxW": "variable",
+   "minH": 6,
+   "maxH": 1.5,
+   "minD": 24.875,
+   "maxD": "variable"
+  },
+  {
+   "code": "BDF-L",
+   "category": "Filler/Crown",
+   "minW": 7.875,
+   "maxW": 7.875,
+   "minH": 30,
+   "maxH": 42,
+   "minD": 1.5,
+   "maxD": 4.875
+  },
+  {
+   "code": "BDF-R",
+   "category": "Filler/Crown",
+   "minW": 7.875,
+   "maxW": 7.875,
+   "minH": 30,
+   "maxH": 42,
+   "minD": 1.5,
+   "maxD": 4.875
+  },
+  {
+   "code": "WDF-L",
+   "category": "Filler/Crown",
+   "minW": 7.875,
+   "maxW": 7.875,
+   "minH": 30,
+   "maxH": 72,
+   "minD": 1.5,
+   "maxD": 4.875
+  },
+  {
+   "code": "WDF-R",
+   "category": "Filler/Crown",
+   "minW": 7.875,
+   "maxW": 7.875,
+   "minH": 30,
+   "maxH": 72,
+   "minD": 1.5,
+   "maxD": 4.875
+  },
+  {
+   "code": "TDF-L",
+   "category": "Filler/Crown",
+   "minW": 7.875,
+   "maxW": 7.875,
+   "minH": 72,
+   "maxH": "variable",
+   "minD": 0.5,
+   "maxD": 4.875
+  },
+  {
+   "code": "TDF-R",
+   "category": "Filler/Crown",
+   "minW": 7.875,
+   "maxW": 7.875,
+   "minH": 72,
+   "maxH": "variable",
+   "minD": 0.5,
+   "maxD": 4.875
+  },
+  {
+   "code": "WEP",
+   "category": "End Panel",
+   "minW": 0.75,
+   "maxW": 0.75,
+   "minH": 9,
+   "maxH": 66,
+   "minD": 9,
+   "maxD": 30
+  },
+  {
+   "code": "TEP",
+   "category": "End Panel",
+   "minW": 0.75,
+   "maxW": 0.75,
+   "minH": 66,
+   "maxH": "variable",
+   "minD": 48,
+   "maxD": "variable"
+  },
+  {
+   "code": "FBOT",
+   "category": "Panel",
+   "minW": 12,
+   "maxW": "variable",
+   "minH": 0.75,
+   "maxH": 12,
+   "minD": 48,
+   "maxD": "variable"
+  },
+  {
+   "code": "LTR",
+   "category": "Panel",
+   "minW": 12,
+   "maxW": "variable",
+   "minH": 0.75,
+   "maxH": 3,
+   "minD": 3,
+   "maxD": "variable"
+  },
+  {
+   "code": "TK",
+   "category": "Panel",
+   "minW": 12,
+   "maxW": "variable",
+   "minH": 0.5,
+   "maxH": 4.5,
+   "minD": 0.75,
+   "maxD": 0.75
+  },
+  {
+   "code": "TK_1/4",
+   "category": "Panel",
+   "minW": 12,
+   "maxW": "variable",
+   "minH": 0.5,
+   "maxH": 4.5,
+   "minD": 0.25,
+   "maxD": 0.25
+  }
+ ],
+ "content": {
+  "warrantyHeadline": "Limited lifetime warranty",
+  "warrantySummary": "Boise Cabinet Co stands behind your cabinets with a limited lifetime warranty: we warrant to the original homeowner that cabinet boxes, doors, and hardware are free from defects in materials and workmanship for the lifetime of original home ownership, under normal use. Conditions apply (e.g., door warping is covered only within the first 180 days); damage from moisture, heat, chemicals, improper installation, or normal wear is excluded.",
+  "warrantyNote": "Internal: present this as Boise Cabinet Co's own warranty. Boise must be able to honor and administer these terms; all warranty claims route to Boise Cabinet Co. Legal review recommended before launch.",
+  "leadTime": "4-8 weeks",
+  "leadTimeNote": "Single site-wide value. Reflects the figure most prominent on the current site; keep it equal to Boise actual production + install time.",
+  "estimateDisclaimer": "Planning estimate only, not a binding quote. Final pricing requires an in-home evaluation.",
+  "warrantyFullPage": "Boise-authored /warranty page (do not link or republish any third-party warranty text)."
+ }
+}

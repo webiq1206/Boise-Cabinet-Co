@@ -14,7 +14,8 @@ export type CabinetProductCategory =
   | "end-panel"
   | "filler"
   | "hood"
-  | "floating-shelf";
+  | "floating-shelf"
+  | "panel";
 
 export interface DoorStyle {
   id: string;
@@ -42,6 +43,12 @@ export interface Finish {
   panelSeries: string;
   sidedness: "single" | "double";
   priceTierMarker: number;
+  /** True when the catalog lists price as "confirm" rather than a $ tier */
+  priceConfirm?: boolean;
+  /** Plain color grouping for filtering; unset when the swatch must define it */
+  colorFamily?: string;
+  /** True when this finish is currently stocked/available */
+  onSiteNow?: boolean;
   compatibleDoorStyleIds: string[];
   compatibleCollectionIds: string[];
   imagePath: string;
@@ -71,9 +78,23 @@ export interface CabinetProductConfiguration {
   partitions?: number;
 }
 
+/** A single physical dimension. `variable` means cut-to-fit (trim/panel). */
+export interface CabinetDimension {
+  min: number | null;
+  max: number | null;
+  variable: boolean;
+}
+
+export interface CabinetDimensions {
+  width: CabinetDimension;
+  height: CabinetDimension;
+  depth: CabinetDimension;
+}
+
 export interface CabinetProduct {
   id: string;
   slug: string;
+  /** Internal manufacturing code - never render in customer-facing UI */
   oscCode: string;
   name: string;
   category: CabinetProductCategory;
@@ -83,6 +104,8 @@ export interface CabinetProduct {
     maxInches: number;
     note?: string;
   };
+  /** Real per-SKU width/height/depth ranges from the catalog */
+  dimensions: CabinetDimensions;
   configuration: CabinetProductConfiguration;
   compatibleCollectionIds: string[];
   compatibleDoorStyleIds: string[];
@@ -95,6 +118,14 @@ export interface CatalogSearchFacets {
   collection?: string;
   productCategory?: CabinetProductCategory;
   budgetTier?: number;
+}
+
+/** Site-wide content single-sourced from data/catalog.json `content`. */
+export interface CatalogContent {
+  warrantyHeadline: string;
+  warrantySummary: string;
+  leadTime: string;
+  estimateDisclaimer: string;
 }
 
 export interface AccessoryFamily {

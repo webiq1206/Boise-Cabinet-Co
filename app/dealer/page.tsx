@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 
 export const metadata = {
   title: "Dealer Catalog | Boise Cabinet Co",
-  description: "One Source Cabinets catalog for authorized dealers.",
+  description: "Boise Cabinet Co catalog for authorized dealers.",
 };
 
 export default function DealerPortalPage() {
@@ -21,7 +21,7 @@ export default function DealerPortalPage() {
             align="left"
             eyebrow="Dealer portal"
             title="Product catalog"
-            description={`${COLLECTIONS.length} collections · ${DOOR_STYLES.length} door styles · ${FINISHES.length} finishes · OSC SKU catalog`}
+            description={`${COLLECTIONS.length} collections · ${DOOR_STYLES.length} door styles · ${FINISHES.length} finishes · cabinet catalog`}
           />
           <div className="flex flex-wrap gap-3 mt-6">
             <Button variant="brand" asChild>
@@ -51,7 +51,7 @@ export default function DealerPortalPage() {
                   imageAlt={`${c.name} cabinet line`}
                   specs={[
                     { label: "Lead time", value: c.leadTime },
-                    { label: "OSC line", value: c.oscLine },
+                    { label: "Line", value: c.oscLine },
                   ]}
                   primaryHref={`/collections/${c.slug}`}
                   primaryLabel="View collection"

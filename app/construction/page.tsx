@@ -26,15 +26,15 @@ const STANDARDS = [
   },
   {
     title: "Drawer boxes & slides",
-    body: "Dovetail hardwood or plywood drawer boxes sized to your layout. Soft-close slides are standard on our Custom Cabinets and Reserve lines.",
+    body: "Dovetail hardwood or plywood drawer boxes sized to your layout. Soft-close slides are standard on our Custom Cabinets.",
   },
   {
     title: "Soft-close hinges",
-    body: "Every collection includes soft-close hinges on doors and soft-close drawer slides as standard across our cabinet lines.",
+    body: "Our Custom Cabinets include soft-close hinges on doors and soft-close drawer slides as standard.",
   },
   {
     title: "Installation & warranty",
-    body: "Treasure Valley installation by our crew, not outsourced day labor. Workmanship warranties run up to 5 years on our cabinet lines, documented in your contract.",
+    body: "Treasure Valley installation by our crew, not outsourced day labor. Workmanship warranties run up to 5 years on our Custom Cabinets, documented in your contract.",
   },
   {
     title: "Written scope before build",
@@ -132,10 +132,10 @@ export default function ConstructionPage() {
         <Section variant="inverse">
           <div className="container px-4 text-center max-w-lg mx-auto">
             <p className="text-inverse-muted mb-4">
-              See how construction details differ by collection line.
+              See the construction details behind every cabinet we build.
             </p>
             <Button variant="brand" asChild>
-              <Link href="/compare">Collection comparison</Link>
+              <Link href="/compare">See our cabinets</Link>
             </Button>
           </div>
         </Section>

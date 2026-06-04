@@ -71,7 +71,7 @@ export default function ProjectDesignPage() {
             Design <em className="brc-accent text-accent">selections</em>
           </h2>
           <p className="text-muted-foreground text-sm mt-1">
-            {project?.title ?? "Project"}, selections use the same One Source catalog as our website
+            {project?.title ?? "Project"}, selections use the same catalog as our website
           </p>
         </div>
 
@@ -96,7 +96,7 @@ export default function ProjectDesignPage() {
                 {data?.design?.designName ?? "Current selections"}
               </CardTitle>
               <CardDescription>
-                Save designs in Design Studio. Names match OSC catalog entries ({DOOR_STYLES.length}{" "}
+                Save designs in Design Studio. Names match our catalog entries ({DOOR_STYLES.length}{" "}
                 door styles, {FINISHES.length} finishes).
                 {data?.design?.source === "demo" && (
                   <span className="block mt-1 text-xs">

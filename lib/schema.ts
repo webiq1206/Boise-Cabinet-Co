@@ -345,11 +345,11 @@ export function generateProductSchema(product: {
     sku: product.sku,
     brand: {
       '@type': 'Brand',
-      name: 'One Source Cabinets',
+      name: 'Boise Cabinet Co',
     },
     manufacturer: {
       '@type': 'Organization',
-      name: 'One Source Cabinets',
+      name: 'Boise Cabinet Co',
     },
     ...(imageUrl ? { image: imageUrl } : {}),
     offers: {

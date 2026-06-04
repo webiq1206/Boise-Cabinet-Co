@@ -32,7 +32,7 @@ const sections: ContentSection[] = [
     h2: 'How much do kitchen cabinets cost in Boise?',
     paragraphs: [
       'Kitchen cabinets are the most common inquiry in Boise and Meridian. Layout changes, adding an island, extending uppers, or reworking the sink wall, drive both design time and field measure complexity. Cabinet line (stock, value, custom), door style, and interior organizers compound quickly.',
-      'Preview a common OSC door and finish pairing from our catalog:',
+      'Preview a common door and finish pairing from our catalog:',
       '[[catalog door modern-shaker]]',
       '[[catalog finish woodgrain-canyon-oak]]',
       'Countertops, appliances, and plumbing are typically coordinated separately; we guide rough-in and cabinet openings but do not supply stone or appliances. Budget those separately, often $8,000–$25,000 for a full appliance suite.',

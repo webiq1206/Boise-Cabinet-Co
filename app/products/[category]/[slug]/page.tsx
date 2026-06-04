@@ -3,7 +3,7 @@ import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Section } from "@/components/marketing/Section";
 import { ProductConfigurationCard } from "@/components/catalog/ProductConfigurationCard";
-import { getCabinetProductBySlug } from "@/shared/catalog";
+import { getCabinetProductBySlug, formatCabinetDimensions } from "@/shared/catalog";
 import type { CabinetProductCategory } from "@/shared/catalog";
 import { CABINET_PRODUCTS } from "@/shared/catalog";
 import { getProductImages } from "@/shared/catalog/entityImages";
@@ -20,6 +20,7 @@ const VALID: CabinetProductCategory[] = [
   "filler",
   "hood",
   "floating-shelf",
+  "panel",
 ];
 
 export function generateStaticParams() {
@@ -38,7 +39,7 @@ export async function generateMetadata({
   if (!p) return {};
   return catalogMetadata(
     `/products/${params.category}/${params.slug}`,
-    p.oscCode,
+    p.name,
     p.description,
   );
 }
@@ -56,7 +57,7 @@ export default function ProductDetailPage({
   const images = getProductImages(product);
   const schemas = [
     generateProductSchema({
-      name: product.oscCode,
+      name: product.name,
       description: product.description,
       url: path,
       sku: product.oscCode,
@@ -66,7 +67,7 @@ export default function ProductDetailPage({
       { name: "Home", url: "/" },
       { name: "Products", url: "/products" },
       { name: product.category, url: `/products/${product.category}` },
-      { name: product.oscCode, url: path },
+      { name: product.name, url: path },
     ]),
   ];
 
@@ -81,14 +82,14 @@ export default function ProductDetailPage({
               { name: "Home", href: "/" },
               { name: "Products", href: "/products" },
               { name: product.category, href: `/products/${product.category}` },
-              { name: product.oscCode },
+              { name: product.name },
             ]}
           />
           <div className="mt-8 max-w-xl">
             <ProductConfigGallery product={product} className="mb-8" />
             <ProductConfigurationCard product={product} showGallery={false} />
           </div>
-          <p className="text-sm text-muted-foreground mt-6">{product.widthRange.note}</p>
+          <p className="text-sm text-muted-foreground mt-6">{formatCabinetDimensions(product)}</p>
         </div>
       </Section>
     </div>

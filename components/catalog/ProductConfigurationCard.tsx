@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { CabinetProduct } from "@/shared/catalog";
+import { formatCabinetDimensions } from "@/shared/catalog";
 import { MarketingCard } from "@/components/marketing/MarketingCard";
 import { CatalogActionBar } from "@/components/catalog/CatalogActionBar";
 import { Chip } from "@/components/marketing/Chip";
@@ -33,7 +34,7 @@ export function ProductConfigurationCard({
         <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">
           {product.category}
         </p>
-        <h3 className="font-mono text-lg font-medium">{product.oscCode}</h3>
+        <h3 className="text-lg font-medium">{product.name}</h3>
         <p className="text-sm text-muted-foreground mt-2 flex-1">{product.description}</p>
         <div className="flex flex-wrap gap-1 mt-3">
           {tags.map((t) => (
@@ -41,9 +42,7 @@ export function ProductConfigurationCard({
               {t}
             </Chip>
           ))}
-          <Chip className="text-xs">
-            {product.widthRange.minInches}"–{product.widthRange.maxInches}" wide
-          </Chip>
+          <Chip className="text-xs">{formatCabinetDimensions(product)}</Chip>
         </div>
         <CatalogActionBar
           className="mt-4"

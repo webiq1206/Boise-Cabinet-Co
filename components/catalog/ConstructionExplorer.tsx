@@ -7,7 +7,7 @@ export function ConstructionExplorer() {
     <div className="space-y-8">
       <SectionHeader
         eyebrow="Cabinet construction"
-        title={<>How One Source cabinets are built</>}
+        title={<>How our cabinets are built</>}
         description={`${c.boxStyle}. Manufactured in ${c.facilities.join(" and ")}.`}
         align="left"
       />

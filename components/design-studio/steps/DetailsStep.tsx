@@ -58,7 +58,7 @@ export function DetailsStep({ embedded = false }: { embedded?: boolean }) {
       </div>
 
       <div className="space-y-3">
-        <Label className="text-sm font-medium">OSC accessory families (optional)</Label>
+        <Label className="text-sm font-medium">Accessory families (optional)</Label>
         <VisualOptionGrid
           columns={3}
           className="gap-3"

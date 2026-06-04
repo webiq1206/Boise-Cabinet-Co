@@ -27,7 +27,7 @@ export const metadata = catalogMetadata(
   "/compare",
   "Compare Collections",
   catalogDescription(
-    "Side-by-side comparison of our Custom Cabinets and Reserve cabinet lines from {company}.",
+    "How {company} builds Custom Cabinets to your exact sizes, finishes, and details.",
   ),
 );
 
@@ -35,7 +35,6 @@ const FINISH_ROW_IMAGES: Record<string, string> = {
   "matte-finishes": "/images/catalog/finishes/category-matte.webp",
   "gloss-finishes": "/images/catalog/finishes/category-gloss.webp",
   "woodgrain-finishes": "/images/catalog/finishes/category-woodgrain.webp",
-  "reserve-colors": "/images/catalog/collections/reserve.webp",
 };
 
 function ComparisonCell({ value }: { value: ComparisonValue | undefined }) {
@@ -196,7 +195,7 @@ export default function ComparePage() {
             />
             <CatalogPageHero
               src="/images/catalog/collections/custom.webp"
-              alt="Compare Custom Cabinets and Reserve cabinet collections"
+              alt="Custom Cabinets built to your exact sizes and finishes by Boise Cabinet Co"
               title="Compare Cabinet Collections | Boise Cabinet Co"
             />
             <Button variant="brand" asChild className="mt-4">
@@ -241,7 +240,7 @@ export default function ComparePage() {
           <div className="container px-4">
             <SectionHeader
               eyebrow={FINISH_TIER_COMPARISON.title}
-              title={<>108 finishes</>}
+              title={<>299 finishes</>}
               description={FINISH_TIER_COMPARISON.description}
               align="center"
               className="mb-8 max-w-2xl mx-auto text-center [&_.brc-label]:justify-center"

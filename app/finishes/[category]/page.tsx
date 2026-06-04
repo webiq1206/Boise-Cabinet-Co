@@ -25,7 +25,7 @@ const CATEGORY_DESCRIPTIONS: Record<FinishCategory, string> = {
   gloss:
     "Gloss and high-gloss lacquers for contemporary slab kitchens and statement islands.",
   woodgrain:
-    "Stained woodgrains with satin or matte topcoats, from white oak to Reserve-exclusive textures.",
+    "Stained woodgrains with satin or matte topcoats, from white oak to deep, richly textured grains.",
 };
 
 export function generateStaticParams() {

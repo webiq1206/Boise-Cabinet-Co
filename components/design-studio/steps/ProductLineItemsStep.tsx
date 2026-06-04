@@ -24,6 +24,7 @@ const CATEGORY_LABELS: Record<CabinetProductCategory, string> = {
   filler: "Filler",
   hood: "Hood",
   "floating-shelf": "Floating shelf",
+  panel: "Panel",
 };
 
 export function ProductLineItemsStep() {
@@ -44,7 +45,7 @@ export function ProductLineItemsStep() {
           Cabinet <em className="brc-accent text-accent">configurations</em>
         </h2>
         <p className="text-muted-foreground mt-2">
-          Select One Source SKU configurations for your layout. Tap a card to add or remove it from your project.
+          Select cabinet configurations for your layout. Tap a card to add or remove it from your project.
         </p>
         {selected.length > 0 && (
           <p className="text-xs text-muted-foreground mt-2">
@@ -73,10 +74,10 @@ export function ProductLineItemsStep() {
                   .join(" · ");
                 return {
                   id: p.slug,
-                  label: p.oscCode,
+                  label: p.name,
                   description: tags || undefined,
                   imageSrc: imgs.thumb,
-                  imageAlt: `${p.oscCode} configuration`,
+                  imageAlt: `${p.name} configuration`,
                 };
               })}
               selectedIds={selected}

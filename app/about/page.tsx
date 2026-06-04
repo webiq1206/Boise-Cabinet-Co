@@ -25,7 +25,7 @@ import { SITE_CONFIG } from '@/shared/siteConfig';
 const GRAIN_URL = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.45'/%3E%3C/svg%3E")`;
 
 const SPEAKABLE_SUMMARY =
-  'Boise Cabinet Co is Idaho\'s premier custom cabinet company serving the Treasure Valley. We offer frameless Euro cabinetry, 108 finishes, six door styles, an online Design Studio, and a client portal to track your project from design through installation.';
+  'Boise Cabinet Co is Idaho\'s premier custom cabinet company serving the Treasure Valley. We offer frameless Euro cabinetry, 299 finishes, six door styles, an online Design Studio, and a client portal to track your project from design through installation.';
 
 function HeroBreadcrumbs() {
   const items = [

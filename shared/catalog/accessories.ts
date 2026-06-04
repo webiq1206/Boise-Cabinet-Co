@@ -1,5 +1,5 @@
 /**
- * Interior cabinet accessories - OSC families (generated) plus legacy marketing entries.
+ * Interior cabinet accessories - exactly the catalog accessory families.
  */
 
 import {
@@ -28,7 +28,7 @@ export interface Accessory {
   minCabinetWidth?: number;
   compatibleCabinetTypes: string[];
   compatibleCollectionIds: string[];
-  /** When sourced from OSC catalog extraction */
+  /** When sourced from supplier catalog extraction */
   oscCodePattern?: string;
   exampleSkus?: string[];
 }
@@ -50,149 +50,16 @@ function familyToAccessory(family: AccessoryFamily): Accessory {
     category: family.category as AccessoryCategory,
     description: family.description,
     compatibleCabinetTypes: ["base", "tall", "wall"],
-    compatibleCollectionIds: ["custom", "reserve"],
+    compatibleCollectionIds: ["custom"],
     oscCodePattern: family.oscCodePattern,
     exampleSkus: [...family.exampleSkus],
   };
 }
 
-/** Legacy accessories not represented as OSC SKU families */
-const LEGACY_ACCESSORIES: Accessory[] = [
-  {
-    id: "pull-out-pantry",
-    slug: "pull-out-pantry",
-    name: "Pantry Pull-Out System",
-    category: "storage",
-    description:
-      "Multi-tier pull-out columns for tall cabinets with adjustable shelves and soft-close slides.",
-    minCabinetWidth: 18,
-    compatibleCabinetTypes: ["tall", "pantry-base"],
-    compatibleCollectionIds: ["custom", "reserve"],
-  },
-  {
-    id: "spice-rack-pullout",
-    slug: "spice-rack-pullout",
-    name: "Spice Rack Pull-Out",
-    category: "organization",
-    description:
-      "Narrow pull-out rack sized for 3-inch or 9-inch base fillers beside ranges and refrigerators.",
-    minCabinetWidth: 3,
-    compatibleCabinetTypes: ["base", "filler-base"],
-    compatibleCollectionIds: ["custom", "reserve"],
-  },
-  {
-    id: "utensil-divider",
-    slug: "utensil-divider",
-    name: "Drawer Utensil Divider",
-    category: "organization",
-    description:
-      "Adjustable maple or bamboo dividers for wide utensil drawers on soft-close slides.",
-    compatibleCabinetTypes: ["base", "drawer-base"],
-    compatibleCollectionIds: ["custom", "reserve"],
-  },
-  {
-    id: "peg-board-drawer",
-    slug: "peg-board-drawer",
-    name: "Peg Board Drawer Organizer",
-    category: "organization",
-    description: "Customizable peg system for plate and bowl storage in deep drawers.",
-    compatibleCabinetTypes: ["base", "drawer-base"],
-    compatibleCollectionIds: ["custom", "reserve"],
-  },
-  {
-    id: "cutting-board-insert",
-    slug: "cutting-board-insert",
-    name: "Cutting Board Insert",
-    category: "specialty",
-    description:
-      "Sliding cutting board that stores above a base drawer or pull-out trash.",
-    minCabinetWidth: 18,
-    compatibleCabinetTypes: ["base"],
-    compatibleCollectionIds: ["custom", "reserve"],
-  },
-  {
-    id: "mixer-lift",
-    slug: "mixer-lift",
-    name: "Mixer Lift",
-    category: "specialty",
-    description:
-      "Spring-assisted platform that raises stand mixers to counter height and lowers them for storage.",
-    minCabinetWidth: 24,
-    compatibleCabinetTypes: ["base", "appliance-base"],
-    compatibleCollectionIds: ["custom", "reserve"],
-  },
-  {
-    id: "tip-out-tray",
-    slug: "tip-out-tray",
-    name: "Tip-Out Tray",
-    category: "organization",
-    description:
-      "Hinged tray behind false drawer fronts at sinks for sponges and cleaning supplies.",
-    compatibleCabinetTypes: ["sink-base"],
-    compatibleCollectionIds: ["custom", "reserve"],
-  },
-  {
-    id: "drawer-organizer-kit",
-    slug: "drawer-organizer-kit",
-    name: "Drawer Organizer Kit",
-    category: "organization",
-    description:
-      "Modular bins and dividers for junk drawers, office supplies, and vanity grooming storage.",
-    compatibleCabinetTypes: ["base", "vanity", "drawer-base"],
-    compatibleCollectionIds: ["custom", "reserve"],
-  },
-  {
-    id: "led-strip-channel",
-    slug: "led-strip-channel",
-    name: "LED Strip Channel",
-    category: "lighting",
-    description:
-      "Routed aluminum channel in upper cabinets for integrated LED tape with dimmable drivers.",
-    compatibleCabinetTypes: ["wall", "tall", "vanity"],
-    compatibleCollectionIds: ["custom", "reserve"],
-  },
-  {
-    id: "pull-out-hamper",
-    slug: "pull-out-hamper",
-    name: "Pull-Out Hamper",
-    category: "waste",
-    description:
-      "Canvas or wire hamper on full-extension slides for laundry rooms and bath vanities.",
-    minCabinetWidth: 18,
-    compatibleCabinetTypes: ["base", "vanity", "tall"],
-    compatibleCollectionIds: ["custom", "reserve"],
-  },
-  {
-    id: "wine-rack-insert",
-    slug: "wine-rack-insert",
-    name: "Wine Rack Insert",
-    category: "specialty",
-    description:
-      "Horizontal or X-style wine storage for base or tall cabinets.",
-    minCabinetWidth: 15,
-    compatibleCabinetTypes: ["base", "tall", "wine-tall"],
-    compatibleCollectionIds: ["custom", "reserve"],
-  },
-  {
-    id: "appliance-garage",
-    slug: "appliance-garage",
-    name: "Appliance Garage",
-    category: "specialty",
-    description:
-      "Lift-up or tambour door enclosure on the counter for small appliances.",
-    minCabinetWidth: 24,
-    compatibleCabinetTypes: ["wall", "counter-wall"],
-    compatibleCollectionIds: ["custom", "reserve"],
-  },
-];
-
 const familyAccessories = ACCESSORY_FAMILIES.map(familyToAccessory);
-const familySlugs = new Set(familyAccessories.map((a) => a.slug));
 
-export const ACCESSORIES: Accessory[] = [
-  ...familyAccessories,
-  ...LEGACY_ACCESSORIES.filter((a) => !familySlugs.has(a.slug)),
-];
+/** Exactly the catalog accessory families - no legacy marketing extras. */
+export const ACCESSORIES: Accessory[] = [...familyAccessories];
 
 function buildAccessoryMaps() {
   const bySlug: Record<string, Accessory> = Object.fromEntries(
@@ -218,13 +85,13 @@ const { bySlug, byId } = buildAccessoryMaps();
 export const ACCESSORY_BY_SLUG = bySlug as Record<string, Accessory>;
 export const ACCESSORY_BY_ID = byId as Record<string, Accessory>;
 
-/** Resolve legacy slug aliases to OSC accessory families */
+/** Resolve legacy slug aliases to supplier accessory families */
 export function getAccessoryFamilyForSlug(slug: string): AccessoryFamily | undefined {
   const familyId = ACCESSORY_SLUG_TO_FAMILY[slug] ?? slug;
   return ACCESSORY_FAMILY_BY_SLUG[familyId];
 }
 
-/** Filter cabinet products to those matching an OSC accessory family slug */
+/** Filter cabinet products to those matching an accessory family slug */
 export function filterProductsByAccessoryFamily(
   products: CabinetProduct[],
   familySlug: string,

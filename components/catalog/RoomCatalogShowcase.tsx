@@ -28,14 +28,14 @@ export function RoomCatalogShowcase({
   return (
     <div className="space-y-10">
       <SectionHeader
-        eyebrow="OSC catalog"
+        eyebrow="Our catalog"
         title={
           <>
             Popular styles for {roomName.toLowerCase()}{" "}
             <em className="brc-accent text-accent">cabinets</em>
           </>
         }
-        description="Door profiles and finishes from our One Source catalog, the same library used in Design Studio and your client portal."
+        description="Door profiles and finishes from our catalog, the same library used in Design Studio and your client portal."
         align="left"
         className="mb-6"
       />
@@ -71,7 +71,6 @@ export function RoomCatalogShowcase({
                 imageAlt={`${finish.name} finish swatch`}
                 specs={[
                   { label: "Category", value: finish.category },
-                  { label: "Series", value: finish.panelSeries },
                 ]}
                 primaryHref={`/finishes/${finish.category}/${finish.slug}`}
                 primaryLabel="View finish"

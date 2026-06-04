@@ -18,12 +18,13 @@ const CATEGORY_LABELS: Record<CabinetProductCategory, string> = {
   filler: "Fillers",
   hood: "Hoods",
   "floating-shelf": "Floating Shelves",
+  panel: "Panels",
 };
 
 export const metadata = catalogMetadata(
   "/products",
   "Cabinet Products",
-  "Browse the full One Source Cabinets SKU catalog: base, wall, tall, vanity, and specialty configurations.",
+  "Browse our full cabinet catalog: base, wall, tall, vanity, and specialty configurations.",
 );
 
 export default function ProductsHubPage() {
@@ -45,7 +46,7 @@ export default function ProductsHubPage() {
             eyebrow="Product catalog"
             title={
               <>
-                One Source <em className="brc-accent text-accent">configurations</em>
+                Cabinet <em className="brc-accent text-accent">configurations</em>
               </>
             }
             description="Every cabinet code from our supplier catalog. Filter by category or use the guided wizard to narrow your project."
@@ -73,7 +74,7 @@ export default function ProductsHubPage() {
                 <CatalogVisualCard
                   key={cat}
                   name={CATEGORY_LABELS[cat] ?? cat}
-                  description={`Browse ${count} One Source ${cat.replace(/-/g, " ")} configurations.`}
+                  description={`Browse ${count} ${cat.replace(/-/g, " ")} cabinet configurations.`}
                   imageSrc={imageSrc}
                   imageAlt={`${CATEGORY_LABELS[cat]} example configuration`}
                   specs={[{ label: "Configurations", value: String(count) }]}

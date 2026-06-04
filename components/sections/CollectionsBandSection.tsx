@@ -12,17 +12,17 @@ export function CollectionsBandSection() {
     <Section variant="greige" divider>
       <div className="container px-4">
         <SectionHeader
-          eyebrow="Our collections"
+          eyebrow="Our cabinets"
           title={
             <>
-              Four paths to your perfect{" "}
-              <em className="brc-accent text-accent">cabinets</em>
+              Custom cabinets,{" "}
+              <em className="brc-accent text-accent">built your way</em>
             </>
           }
-          description="From fully bespoke to fast-track reserve finishes, every collection shares the same frameless construction and lifetime warranty."
+          description="One custom line, built to order for your space, with the same frameless construction and lifetime warranty on every cabinet."
         />
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+        <div className="grid gap-6 max-w-sm mx-auto">
           {COLLECTIONS.map((collection, i) => (
             <Reveal key={collection.slug} delay={i * 50}>
               <Link

@@ -23,9 +23,7 @@ export function getCollectionFaqs(collection: CabinetCollection): CollectionFaq[
     {
       question: "Can I see finishes before ordering?",
       answer:
-        collection.id === "reserve"
-          ? "Reserve orders include a complimentary finish sample kit for Reserve-exclusive palettes. All collections support in-home or showroom sample review during your design consultation."
-          : "We provide finish samples during your design consultation so you can evaluate color and sheen in your home's natural light before production begins.",
+        "We provide finish samples during your design consultation so you can evaluate color and sheen in your home's natural light before production begins.",
     },
     {
       question: "How do I get a quote for this collection?",

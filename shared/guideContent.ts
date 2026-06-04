@@ -127,7 +127,7 @@ export const GUIDE_PAGES: GuidePageData[] = [
     metaDescription:
       '2026 cabinet cost guide for Boise and the Treasure Valley: kitchen, bath, whole-home packages, linear-foot planning, collections, lead times, and budgeting.',
     excerpt:
-      'Planning ranges for custom and value cabinets in Boise, Meridian, Eagle, Nampa, and the Treasure Valley, with collection tiers and budgeting tips.',
+      'Planning ranges for custom and value cabinets in Boise, Meridian, Eagle, Nampa, and the Treasure Valley, with budgeting tips.',
     content: expandPillar(BOISE_REMODELING_COST_GUIDE_HTML, 'boise-cabinet-cost-guide', 'cabinet-costs'),
     author: 'Boise Cabinet Co',
     hubSlug: 'cabinet-costs',
@@ -206,7 +206,7 @@ export const GUIDE_PAGES: GuidePageData[] = [
       {
         question: 'What collections do you offer?',
         answer:
-          'Value cabinetry, our Custom Cabinets, and the Reserve Collection, compare tiers on our collections pages or during a consultation.',
+          'Value cabinetry and our Custom Cabinets built to your exact specs, compare options on our collections page or during a consultation.',
       },
       {
         question: 'How do I compare cabinet companies in the valley?',

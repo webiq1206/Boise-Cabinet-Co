@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import type { Finish, FinishCategory } from "@/shared/catalog";
-import { FINISHES } from "@/shared/catalog";
+import { FINISHES, formatPriceTier } from "@/shared/catalog";
 import { getFinishImages } from "@/shared/catalog/entityImages";
 import { Chip } from "@/components/marketing/Chip";
 import { MarketingCard } from "@/components/marketing/MarketingCard";
@@ -24,10 +24,9 @@ const FILTER_OPTIONS: Array<{ id: "all" | FinishCategory; label: string }> = [
 ];
 
 function FinishSwatch({ finish }: { finish: Finish }) {
-  const imagePath = getFinishImages(finish).swatch ?? finish.imagePath;
+  const imagePath = getFinishImages(finish.slug, finish.imagePath).swatch;
   const [useHex, setUseHex] = useState(false);
-  const supplierLabel = finish.oscName ?? finish.name;
-  const allowHexFallback = process.env.NODE_ENV === "development";
+  const hasHex = Boolean(finish.hexColor);
 
   const showImage = Boolean(imagePath && !useHex);
 
@@ -38,7 +37,7 @@ function FinishSwatch({ finish }: { finish: Finish }) {
         finish.category === "woodgrain" && "ring-1 ring-inset ring-black/5",
       )}
       role="img"
-      aria-label={`${finish.name} finish swatch${supplierLabel ? `, One Source ${supplierLabel}` : ""}`}
+      aria-label={`${finish.name} finish swatch`}
     >
       {showImage ? (
         <Image
@@ -49,7 +48,7 @@ function FinishSwatch({ finish }: { finish: Finish }) {
           className="object-cover"
           onError={() => setUseHex(true)}
         />
-      ) : allowHexFallback ? (
+      ) : hasHex ? (
         <div className="absolute inset-0" style={{ backgroundColor: finish.hexColor }} />
       ) : (
         <div className="absolute inset-0 bg-muted" />
@@ -106,12 +105,12 @@ export function FinishSwatchGrid({
                 <p className="text-xs text-muted-foreground capitalize">
                   {finish.category} · {finish.sheen}
                 </p>
-                <p className="text-xs text-muted-foreground mt-1 line-clamp-2">
-                  {finish.panelBrand} · {finish.panelSeries}
+                <p
+                  className="text-xs text-accent mt-1"
+                  data-testid={`text-pricetier-${finish.slug}`}
+                >
+                  {formatPriceTier(finish)}
                 </p>
-                {finish.priceTierMarker >= 4 && (
-                  <p className="text-xs text-accent mt-1">Premium tier</p>
-                )}
               </div>
               {showCategoryLinks && (
                 <Link

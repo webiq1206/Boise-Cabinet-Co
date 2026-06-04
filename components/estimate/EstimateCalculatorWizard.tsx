@@ -453,7 +453,7 @@ export function EstimateCalculatorWizard({
       case "line":
         return (
           <div>
-            <p className="text-sm text-muted-foreground mb-4">Custom or Reserve cabinet lines.</p>
+            <p className="text-sm text-muted-foreground mb-4">Choose your cabinet line.</p>
             <SelectButton
               value={selections.cabinetLine}
               options={lineOptions}

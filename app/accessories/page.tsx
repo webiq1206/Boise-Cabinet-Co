@@ -22,7 +22,7 @@ export const metadata = catalogMetadata(
   "/accessories",
   "Cabinet Accessories",
   catalogDescription(
-    "Roll-out trays, trash pull-outs, lazy susans, and corner solutions from {company}. OSC SKU families for interior upgrades.",
+    "Roll-out trays, trash pull-outs, lazy susans, and corner solutions from {company}. Accessory families for interior upgrades.",
   ),
 );
 
@@ -56,7 +56,7 @@ export default function AccessoriesPage() {
                 </>
               }
               description={catalogDescription(
-                "OSC accessory SKU families: roll-outs, trash pull-outs, lazy susans, blind corners, and more, specified during your {company} design consultation.",
+                "Accessory families: roll-outs, trash pull-outs, lazy susans, blind corners, and more, specified during your {company} design consultation.",
               )}
             />
             <CatalogPageHero
@@ -75,8 +75,8 @@ export default function AccessoriesPage() {
         <Section variant="greige" divider>
           <div className="container px-4">
             <SectionHeader
-              eyebrow="OSC families"
-              title={<>Accessory SKU families</>}
+              eyebrow="Accessory families"
+              title={<>Accessory families</>}
               align="center"
               className="mb-10 max-w-xl mx-auto text-center [&_.brc-label]:justify-center"
             />
@@ -89,8 +89,7 @@ export default function AccessoriesPage() {
                     imageSrc={getAccessoryImagePath(family.slug)}
                     imageAlt={`${family.name} cabinet accessory`}
                     specs={[
-                      { label: "OSC pattern", value: family.oscCodePattern },
-                      { label: "Example SKUs", value: String(family.exampleSkus.length) },
+                      { label: "Configurations", value: String(family.exampleSkus.length) },
                       { label: "Category", value: family.category },
                     ]}
                     primaryHref={`/products/base?family=${family.slug}`}

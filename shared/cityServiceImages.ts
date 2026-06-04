@@ -126,7 +126,7 @@ const SERVICE_LABELS: Record<string, string> = {
 function cityServiceHeroAlt(serviceSlug: string, citySlug: string): string {
   const service = SERVICE_LABELS[serviceSlug] ?? "Custom cabinets";
   const city = CITY_DISPLAY[citySlug] ?? citySlug;
-  return `${service} in ${city}, Idaho, Boise Cabinet Co One Source cabinetry`;
+  return `${service} in ${city}, Idaho, Boise Cabinet Co cabinetry`;
 }
 
 function cityServiceProcessAlt(serviceSlug: string): string {

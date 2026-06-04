@@ -19,8 +19,8 @@ export function ProductConfigGallery({ product, className }: ProductConfigGaller
   const src = active === "hero" ? images.hero : images.diagram;
   const alt =
     active === "hero"
-      ? `${product.oscCode} cabinet configuration`
-      : `${product.oscCode} elevation diagram`;
+      ? `${product.name} cabinet configuration`
+      : `${product.name} elevation diagram`;
 
   return (
     <div className={cn("space-y-3", className)}>
@@ -36,8 +36,8 @@ export function ProductConfigGallery({ product, className }: ProductConfigGaller
             onError={() => setFailed(true)}
           />
         ) : (
-          <div className="absolute inset-0 flex items-center justify-center text-sm text-muted-foreground font-mono">
-            {product.oscCode}
+          <div className="absolute inset-0 flex items-center justify-center text-sm text-muted-foreground">
+            {product.name}
           </div>
         )}
       </div>

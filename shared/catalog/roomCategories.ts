@@ -51,7 +51,7 @@ export const ROOM_CATEGORIES: RoomCategory[] = [
     description:
       "Bench seating with boot storage, coat cubbies, and locker systems that handle Idaho winters. Durable finishes and heavy-duty hardware stand up to skis, cleats, and daily family traffic.",
     heroImage: "/images/catalog/rooms/mudroom.webp",
-    defaultCollectionId: "reserve",
+    defaultCollectionId: "custom",
     typicalCabinetTypes: ["base", "locker-tall", "bench-base"],
   },
   {
@@ -71,7 +71,7 @@ export const ROOM_CATEGORIES: RoomCategory[] = [
     description:
       "Media centers, fireplace surrounds, and bar areas with integrated wire management and ventilation clearances. We coordinate with AV installers so your Boise Cabinet Co built-ins fit equipment specs from day one.",
     heroImage: "/images/catalog/rooms/entertainment.webp",
-    defaultCollectionId: "reserve",
+    defaultCollectionId: "custom",
     typicalCabinetTypes: ["base", "wall", "tall"],
   },
   {
@@ -119,9 +119,9 @@ export const ROOM_CATEGORIES: RoomCategory[] = [
     slug: "outdoor",
     name: "Outdoor Kitchen",
     description:
-      "Weather-rated cabinetry for covered patios and outdoor kitchens. Marine-grade plywood boxes, stainless hardware, and Reserve cedar or teak finishes handle Idaho sun and occasional rain under roof overhangs.",
+      "Weather-rated cabinetry for covered patios and outdoor kitchens. Marine-grade plywood boxes, stainless hardware, and cedar or teak finishes handle Idaho sun and occasional rain under roof overhangs.",
     heroImage: "/images/catalog/rooms/outdoor.webp",
-    defaultCollectionId: "reserve",
+    defaultCollectionId: "custom",
     typicalCabinetTypes: ["base", "wall", "grill-base"],
   },
   {
@@ -131,7 +131,7 @@ export const ROOM_CATEGORIES: RoomCategory[] = [
     description:
       "Beverage centers with wine storage, glassware dividers, and optional sink bases. Compact footprints fit basement finishes and main-floor entertaining nooks in newer Star and Middleton builds.",
     heroImage: "/images/catalog/rooms/wet-bar.webp",
-    defaultCollectionId: "reserve",
+    defaultCollectionId: "custom",
     typicalCabinetTypes: ["base", "wall", "wine-tall"],
   },
   {

@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils";
 import type { EstimateResult, ProjectType } from "@/shared/estimateEngine";
 import { INCLUDED_SCOPE_NOTE, APPLIANCE_DISCLAIMER, formatPlanningCurrency } from "@/shared/estimateEngine";
 import { CTA_PRIMARY } from "@/shared/ctaCopy";
+import { CATALOG_CONTENT } from "@/shared/catalog";
 
 const ANIM_DURATION = 320;
 const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3);
@@ -262,7 +263,7 @@ export function EstimateResultPanel({
 
       {isCompact && (
         <p className="text-[10px] leading-snug mt-2 text-inverse-muted">
-          Planning estimate only, not a binding quote.
+          {CATALOG_CONTENT.estimateDisclaimer}
         </p>
       )}
     </div>

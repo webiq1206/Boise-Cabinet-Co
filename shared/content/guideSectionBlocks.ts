@@ -50,7 +50,7 @@ export function hubTopicSections(hubSlug: string, topic: string): ContentSection
         {
           h2: 'Door styles and finishes from our catalog',
           paragraphs: [
-            'These OSC profiles and finishes are the same options shown in Design Studio and your client portal:',
+            'These door profiles and finishes are the same options shown in Design Studio and your client portal:',
             '[[catalog door modern-shaker]]',
             '[[catalog finish woodgrain-canyon-oak]]',
           ],

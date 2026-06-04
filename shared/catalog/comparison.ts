@@ -1,8 +1,8 @@
 /**
- * Side-by-side feature comparison matrices for Boise Cabinet Co collections.
+ * Side-by-side feature comparison matrices for Boise Cabinet Co cabinets.
  *
- * Two collections: Custom Cabinets and the premium Reserve color collection.
- * Six OSC door styles: Slab, 3 Piece, Modern Shaker, Thin Shaker, Alpha Shaker, Beta Shaker.
+ * Single line: Custom Cabinets, built to order.
+ * Six door styles: Slab, 3 Piece, Modern Shaker, Thin Shaker, Alpha Shaker, Beta Shaker.
  */
 
 import type { PriceTier } from "./collections";
@@ -34,9 +34,9 @@ export const PRICE_TIER_ORDER: Record<PriceTier, number> = {
 
 export const COLLECTION_COMPARISON: CollectionComparisonMatrix = {
   id: "collection-overview",
-  title: "Collection Comparison",
+  title: "What's Included",
   description:
-    "Compare our two cabinet lines at a glance. Both are built to order with professional installation, soft-close hinges on doors, and our written workmanship guarantee. Reserve adds an exclusive premium color palette.",
+    "What comes standard on every cabinet we build. Each one is made to order with professional installation, soft-close hinges on doors, and our written workmanship guarantee.",
   features: [
     {
       id: "custom-sizing",
@@ -141,8 +141,8 @@ export const COLLECTION_COMPARISON: CollectionComparisonMatrix = {
 
 export const DOOR_STYLE_COMPARISON: CollectionComparisonMatrix = {
   id: "door-style-fit",
-  title: "Door Style by Collection",
-  description: "Every door profile is available in both cabinet lines.",
+  title: "Door Styles",
+  description: "Every door profile is available on every cabinet we build.",
   features: [
     {
       id: "slab",
@@ -183,7 +183,7 @@ export const DOOR_STYLE_COMPARISON: CollectionComparisonMatrix = {
 export const FINISH_TIER_COMPARISON: CollectionComparisonMatrix = {
   id: "finish-tier-access",
   title: "Finish Access",
-  description: "Which finishes are included per collection.",
+  description: "Every finish category is available on every cabinet we build.",
   features: [
     {
       id: "matte-finishes",
@@ -206,14 +206,6 @@ export const FINISH_TIER_COMPARISON: CollectionComparisonMatrix = {
       label: "Woodgrain finishes",
       values: {
         custom: true,
-        reserve: true,
-      },
-    },
-    {
-      id: "reserve-colors",
-      label: "Exclusive Reserve color palette",
-      values: {
-        custom: false,
         reserve: true,
       },
     },

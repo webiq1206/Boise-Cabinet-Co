@@ -147,7 +147,7 @@ export function CollectionLandingTemplate({ collection }: CollectionLandingTempl
           <SectionHeader
             eyebrow="Construction"
             title={<>How {collection.name} is built</>}
-            description={`${SITE_CONFIG.name} cabinets are engineered in our Kuna shop with plywood box construction, precision door machining, and hardware matched to your collection tier.`}
+            description={`${SITE_CONFIG.name} cabinets are engineered in our Kuna shop with plywood box construction, precision door machining, and hardware matched to your project.`}
             align="left"
             className="mb-8"
           />
@@ -155,15 +155,13 @@ export function CollectionLandingTemplate({ collection }: CollectionLandingTempl
             <MarketingCard>
               <h3 className="text-base font-medium mb-2">Box &amp; drawers</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
-                {collection.id === "reserve"
-                  ? "Premium plywood construction with dovetail drawer boxes on base and vanity units, finished in the exclusive Reserve palette."
-                  : "Plywood box construction with dovetail drawer boxes sized to your layout and soft-close hardware throughout."}
+                Plywood box construction with dovetail drawer boxes sized to your layout and soft-close hardware throughout.
               </p>
             </MarketingCard>
             <MarketingCard>
               <h3 className="text-base font-medium mb-2">Hardware &amp; quality</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
-                Soft-close hinges included on every door. Drawer slides and pulls are selected during design , 
+                Soft-close hinges included on every door. Drawer slides and pulls are selected during design,
                 and our cabinets include premium soft-close slides rated for heavy daily use.
               </p>
             </MarketingCard>

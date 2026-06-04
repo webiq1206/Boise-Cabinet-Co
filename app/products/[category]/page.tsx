@@ -8,6 +8,7 @@ import { getProductImages } from "@/shared/catalog/entityImages";
 import {
   ACCESSORY_FAMILY_BY_SLUG,
   filterProductsByAccessoryFamily,
+  formatCabinetDimensions,
   getCabinetProductsByCategory,
 } from "@/shared/catalog";
 import type { CabinetProduct, CabinetProductCategory } from "@/shared/catalog";
@@ -22,6 +23,7 @@ const VALID: CabinetProductCategory[] = [
   "filler",
   "hood",
   "floating-shelf",
+  "panel",
 ];
 
 const CATEGORY_LABELS: Record<CabinetProductCategory, string> = {
@@ -33,6 +35,7 @@ const CATEGORY_LABELS: Record<CabinetProductCategory, string> = {
   filler: "Filler",
   hood: "Hood",
   "floating-shelf": "Floating shelf",
+  panel: "Panel",
 };
 
 function productSpecs(product: CabinetProduct) {
@@ -42,10 +45,7 @@ function productSpecs(product: CabinetProduct) {
   if (cfg.drawers) specs.push({ label: "Drawers", value: String(cfg.drawers) });
   if (cfg.shelves) specs.push({ label: "Shelves", value: String(cfg.shelves) });
   if (cfg.rollouts) specs.push({ label: "Roll-outs", value: String(cfg.rollouts) });
-  specs.push({
-    label: "Width range",
-    value: `${product.widthRange.minInches}"–${product.widthRange.maxInches}"`,
-  });
+  specs.push({ label: "Dimensions", value: formatCabinetDimensions(product) });
   return specs;
 }
 
@@ -91,8 +91,8 @@ export default function ProductCategoryPage({
             }
             description={
               family
-                ? `${products.length} One Source configurations with ${family.oscCodePattern} accessory options.`
-                : `${products.length} One Source configurations in this category.`
+                ? `${products.length} cabinet configurations with ${family.name} accessory options.`
+                : `${products.length} cabinet configurations in this category.`
             }
           />
           {family && (
@@ -116,10 +116,10 @@ export default function ProductCategoryPage({
             return (
               <CatalogVisualCard
                 key={p.id}
-                name={p.oscCode}
+                name={p.name}
                 description={p.description}
                 imageSrc={imgs.thumb}
-                imageAlt={`${p.oscCode} cabinet configuration`}
+                imageAlt={`${p.name} cabinet configuration`}
                 specs={productSpecs(p)}
                 primaryHref={`/products/${p.category}/${p.slug}`}
                 primaryLabel="Specifications"
