@@ -1,16 +1,23 @@
 /**
- * Verifies customer-facing catalog imagery on disk.
+ * Verifies customer-facing catalog imagery on disk against the generated catalog
+ * (single source of truth). Every cabinet, finish, door style, and collection
+ * must resolve to a real asset so nothing renders broken.
  * Run: npm run catalog:visuals:verify
  */
 
 import fs from "node:fs";
 import path from "node:path";
+import { CABINET_PRODUCTS } from "../../shared/catalog/generated/cabinetProducts";
+import { FINISHES } from "../../shared/catalog/generated/finishes";
+import { DOOR_STYLES } from "../../shared/catalog/generated/doorStyles";
+import { COLLECTIONS } from "../../shared/catalog/generated/collections";
+import { getDoorStyleImages } from "../../shared/catalog/entityImages";
 
 const ROOT = path.resolve(import.meta.dirname, "../..");
-const DATA = path.join(ROOT, "data/supplier-catalog");
 const PUBLIC = path.join(ROOT, "public");
 
 function exists(rel: string): boolean {
+  if (!rel) return false;
   return fs.existsSync(path.join(PUBLIC, rel.replace(/^\//, "")));
 }
 
@@ -20,78 +27,50 @@ function fail(msg: string): never {
 }
 
 function main() {
-  const doorStyles = JSON.parse(
-    fs.readFileSync(path.join(DATA, "doorStyles.json"), "utf8"),
-  ) as { slug: string; imagePath?: string }[];
-  const finishes = JSON.parse(
-    fs.readFileSync(path.join(DATA, "finishes.json"), "utf8"),
-  ) as { slug: string; imagePath?: string; hexColor: string }[];
-  const collections = JSON.parse(
-    fs.readFileSync(path.join(DATA, "collections.json"), "utf8"),
-  ) as { slug: string; heroImage?: string }[];
-  const products = JSON.parse(
-    fs.readFileSync(path.join(DATA, "cabinetProducts.json"), "utf8"),
-  ) as { slug: string }[];
-  const familiesPath = path.join(DATA, "accessoryFamilies.json");
-  const families = fs.existsSync(familiesPath)
-    ? (JSON.parse(fs.readFileSync(familiesPath, "utf8")) as { slug: string }[])
-    : [];
-
   const errors: string[] = [];
 
-  for (const f of finishes) {
-    if (f.hexColor === "#888888") {
-      errors.push(`Finish ${f.slug} uses placeholder hex #888888`);
-    }
-    if (f.imagePath && !exists(f.imagePath)) {
-      errors.push(`Missing finish swatch: ${f.imagePath} (${f.slug})`);
-    }
-    const inRoom = `/images/catalog/finishes/in-room/${f.slug}.webp`;
-    if (!exists(inRoom)) {
-      errors.push(`Missing in-room finish: ${inRoom}`);
-    }
+  // Cabinets: every SKU must have its generated box diagram.
+  for (const p of CABINET_PRODUCTS) {
+    const box = p.boxImage ?? `/generated/cabinets/${p.slug}.svg`;
+    if (!exists(box)) errors.push(`Missing cabinet box diagram: ${box} (${p.slug})`);
   }
 
-  for (const d of doorStyles) {
-    if (d.imagePath && !exists(d.imagePath)) {
-      errors.push(`Missing door style image: ${d.imagePath} (${d.slug})`);
+  // Finishes: every finish binds to a real swatch or a generated color tile.
+  for (const f of FINISHES) {
+    if (!f.imagePath) {
+      errors.push(`Finish ${f.slug} has no imagePath`);
+    } else if (!exists(f.imagePath)) {
+      errors.push(`Missing finish image: ${f.imagePath} (${f.slug})`);
     }
+    if (f.hexColor === "#888888") errors.push(`Finish ${f.slug} uses placeholder hex #888888`);
   }
 
-  for (const c of collections) {
+  // Door styles: real image or generated profile diagram.
+  for (const d of DOOR_STYLES) {
+    const { primary } = getDoorStyleImages(d.slug, d.imagePath);
+    if (!exists(primary)) errors.push(`Missing door style image: ${primary} (${d.slug})`);
+  }
+
+  // Collections hero.
+  for (const c of COLLECTIONS) {
     if (c.heroImage && !exists(c.heroImage)) {
       errors.push(`Missing collection hero: ${c.heroImage} (${c.slug})`);
     }
   }
 
-  for (const p of products) {
-    const hero = `/images/catalog/products/${p.slug}.webp`;
-    const thumb = `/images/catalog/products/${p.slug}-thumb.webp`;
-    const diagram = `/images/catalog/products/${p.slug}-diagram.webp`;
-    if (!exists(hero)) errors.push(`Missing product hero: ${hero}`);
-    if (!exists(thumb)) errors.push(`Missing product thumb: ${thumb}`);
-    if (!exists(diagram)) errors.push(`Missing product diagram: ${diagram}`);
-  }
-
-  for (const family of families) {
-    const img = `/images/catalog/accessories/${family.slug}.webp`;
-    if (!exists(img)) {
-      errors.push(`Missing accessory family image: ${img}`);
-    }
+  // Construction diagram.
+  if (!exists("/generated/construction.svg")) {
+    errors.push("Missing construction diagram: /generated/construction.svg");
   }
 
   if (errors.length > 0) {
-    for (const e of errors.slice(0, 30)) {
-      console.error(`  • ${e}`);
-    }
-    if (errors.length > 30) {
-      console.error(`  …and ${errors.length - 30} more`);
-    }
+    for (const e of errors.slice(0, 30)) console.error(`  • ${e}`);
+    if (errors.length > 30) console.error(`  …and ${errors.length - 30} more`);
     fail(`${errors.length} visual issue(s)`);
   }
 
   console.log(
-    `catalog:visuals:verify OK — ${finishes.length} finishes (swatch+in-room), ${doorStyles.length} doors, ${products.length} products, ${families.length} accessory families`,
+    `catalog:visuals:verify OK — ${CABINET_PRODUCTS.length} cabinet diagrams, ${FINISHES.length} finishes, ${DOOR_STYLES.length} doors, ${COLLECTIONS.length} collection(s)`,
   );
 }
 

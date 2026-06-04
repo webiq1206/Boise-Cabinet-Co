@@ -7,18 +7,15 @@ import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Section } from "@/components/marketing/Section";
 import { PageHeader } from "@/components/marketing/PageHeader";
 import { SectionHeader } from "@/components/marketing/SectionHeader";
-import { MarketingCard } from "@/components/marketing/MarketingCard";
-import { TextLink } from "@/components/marketing/TextLink";
-import { Chip } from "@/components/marketing/Chip";
 import { Button } from "@/components/ui/button";
 import { catalogMetadata, catalogDescription } from "@/lib/catalog-metadata";
 import { generateBreadcrumbSchema, generateWebPageSchema } from "@/lib/schema";
 import {
   ROOM_CATEGORIES,
   getRoomBySlug,
-  getCollectionBySlug,
-  COLLECTIONS,
+  CABINET_PRODUCTS,
 } from "@/shared/catalog";
+import { CabinetOptionsSelector } from "@/components/catalog/OptionsSelector";
 import { SITE_CONFIG } from "@/shared/siteConfig";
 import { RoomCatalogShowcase } from "@/components/catalog/RoomCatalogShowcase";
 
@@ -42,7 +39,17 @@ export default function RoomCabinetPage({ params }: { params: { room: string } }
   const room = getRoomBySlug(params.room);
   if (!room) notFound();
 
-  const defaultCollection = getCollectionBySlug(room.defaultCollectionId);
+  // Pre-filter the catalog to the cabinet types this room uses, so the grid
+  // leads with relevant options (homeowner-first) rather than the full 320.
+  const roomCats = new Set<string>();
+  for (const t of room.typicalCabinetTypes) {
+    if (t.includes("vanity")) roomCats.add("vanity");
+    else if (t.includes("wall")) roomCats.add("wall");
+    else if (t.includes("tall")) roomCats.add("tall");
+    else if (t.includes("base")) roomCats.add("base");
+  }
+  if (roomCats.size === 0) ["base", "wall", "tall"].forEach((c) => roomCats.add(c));
+  const roomCabinets = CABINET_PRODUCTS.filter((c) => roomCats.has(c.category));
 
   const schemas = [
     generateWebPageSchema({
@@ -92,13 +99,6 @@ export default function RoomCabinetPage({ params }: { params: { room: string } }
                 </>
               }
               description={room.description}
-              meta={
-                defaultCollection ? (
-                  <Chip>
-                    Suggested collection: {defaultCollection.name}
-                  </Chip>
-                ) : undefined
-              }
             />
             <Button variant="brand" asChild className="mt-4">
               <Link href="/design-studio">
@@ -120,50 +120,15 @@ export default function RoomCabinetPage({ params }: { params: { room: string } }
         </Section>
 
         <Section variant="greige" divider>
-          <div className="container px-4 max-w-3xl">
+          <div className="container px-4 max-w-5xl">
             <SectionHeader
-              eyebrow="Typical cabinet types"
+              eyebrow="Cabinets for this room"
               title={<>What we build for {room.name.toLowerCase()}</>}
-              description={`${SITE_CONFIG.name} sizes base, wall, tall, and specialty units for ${room.name.toLowerCase()} layouts common in Ada and Canyon County homes.`}
+              description={`${SITE_CONFIG.name} sizes these cabinets to fit ${room.name.toLowerCase()} layouts common in Ada and Canyon County homes. Filter by what you need or see the full range.`}
               align="left"
               className="mb-6"
             />
-            <ul className="flex flex-wrap gap-2">
-              {room.typicalCabinetTypes.map((type) => (
-                <li key={type}>
-                  <Chip className="capitalize">{type.replace(/-/g, " ")}</Chip>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </Section>
-
-        <Section divider>
-          <div className="container px-4">
-            <SectionHeader
-              eyebrow="Collections"
-              title={<>Choose your cabinet line</>}
-              description="Compare our four collections or start with the line we recommend for this room."
-              align="center"
-              className="mb-10 max-w-2xl mx-auto text-center [&_.brc-label]:justify-center"
-            />
-            <div className="grid sm:grid-cols-2 gap-6 max-w-4xl mx-auto">
-              {COLLECTIONS.map((c) => (
-                <MarketingCard
-                  key={c.id}
-                  className={c.id === room.defaultCollectionId ? "ring-1 ring-accent/40" : ""}
-                >
-                  <h3 className="text-lg font-sans font-light mb-1">{c.name}</h3>
-                  <p className="text-sm text-muted-foreground mb-3">{c.tagline}</p>
-                  {c.id === room.defaultCollectionId && (
-                    <p className="text-xs text-accent mb-2">Recommended for {room.name}</p>
-                  )}
-                  <TextLink href={`/collections/${c.slug}`} showArrow>
-                    View {c.name}
-                  </TextLink>
-                </MarketingCard>
-              ))}
-            </div>
+            <CabinetOptionsSelector cabinets={roomCabinets} />
           </div>
         </Section>
 

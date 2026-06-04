@@ -18,15 +18,12 @@ test.describe("Project Estimator wizard", () => {
     await page.getByTestId("button-layout-island").click();
     await page.getByRole("button", { name: "Continue" }).click();
 
-    await page.getByTestId("button-line-custom").or(page.getByTestId(/^button-line-/).first()).click();
-    await page.getByRole("button", { name: "Continue" }).click();
-
     await page.getByTestId("button-door-modern-shaker").click();
     await page.getByTestId("button-finish-tier-standard").click();
     await page.getByRole("button", { name: "Continue" }).click();
 
     await page.getByTestId("button-construction-better").click();
-    await page.getByTestId("button-storage-essential").click();
+    await page.getByTestId("button-accessory-rollout-tray").click();
     await page.getByRole("button", { name: "Continue" }).click();
 
     await expect(page.getByTestId("estimate-result-panel")).toBeVisible({

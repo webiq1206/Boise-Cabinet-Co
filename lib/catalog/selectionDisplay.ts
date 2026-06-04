@@ -13,6 +13,7 @@ import {
 } from "@/shared/catalog";
 import { getAccessoryFamilyImagePath, getHardwareImagePath } from "@/shared/catalog/catalogImages";
 import { getDoorStyleImages, getFinishImages, getProductImages } from "@/shared/catalog/entityImages";
+import { getCabinetNeedLabel } from "@/shared/catalog/cabinetLabels";
 import type { ProjectSelections } from "@/shared/catalog/projectSelections";
 
 export interface SelectionDisplayRow {
@@ -128,12 +129,14 @@ export function projectSelectionsToDisplayRows(
   if (selections.lineItemSlugs.length > 0) {
     const first = CABINET_PRODUCT_BY_SLUG[selections.lineItemSlugs[0]];
     const imgs = first ? getProductImages(first) : null;
+    // Plain-English cabinet name + diagram - never the raw SKU/oscCode.
+    const firstLabel = first ? getCabinetNeedLabel(first) : selections.lineItemSlugs[0].replace(/-/g, " ");
     rows.push({
-      category: "Configurations",
+      category: "Cabinets",
       value:
         selections.lineItemSlugs.length === 1
-          ? (first?.oscCode ?? selections.lineItemSlugs[0])
-          : `${first?.oscCode ?? selections.lineItemSlugs[0]} +${selections.lineItemSlugs.length - 1} more`,
+          ? firstLabel
+          : `${firstLabel} +${selections.lineItemSlugs.length - 1} more`,
       status: "selected",
       slug: first?.slug,
       imageSrc: imgs?.thumb,

@@ -24,7 +24,7 @@ export function ProductConfigGallery({ product, className }: ProductConfigGaller
 
   return (
     <div className={cn("space-y-3", className)}>
-      <div className="relative aspect-[4/3] w-full overflow-hidden rounded-lg border border-border bg-muted">
+      <div className="relative aspect-[3/4] w-full overflow-hidden rounded-lg border border-border bg-muted">
         {!failed ? (
           <Image
             src={src}

@@ -6,6 +6,7 @@
  */
 
 import type { PriceTier } from "./collections";
+import { CATALOG_CONTENT } from "./generated/content";
 
 export type ComparisonValue = boolean | string | number;
 
@@ -44,7 +45,6 @@ export const COLLECTION_COMPARISON: CollectionComparisonMatrix = {
       description: "Cabinets built to your room's exact widths, heights, and depths.",
       values: {
         custom: "Built to order for your space",
-        reserve: "Built to order for your space",
       },
     },
     {
@@ -52,7 +52,6 @@ export const COLLECTION_COMPARISON: CollectionComparisonMatrix = {
       label: "Door styles available",
       values: {
         custom: "Slab, 3 Piece, Modern Shaker, Thin Shaker, Alpha Shaker, Beta Shaker",
-        reserve: "Slab, 3 Piece, Modern Shaker, Thin Shaker, Alpha Shaker, Beta Shaker",
       },
     },
     {
@@ -60,7 +59,6 @@ export const COLLECTION_COMPARISON: CollectionComparisonMatrix = {
       label: "Finish palette",
       values: {
         custom: "Full matte, gloss, and woodgrain library",
-        reserve: "Exclusive Reserve premium colors",
       },
     },
     {
@@ -68,7 +66,6 @@ export const COLLECTION_COMPARISON: CollectionComparisonMatrix = {
       label: "Box construction",
       values: {
         custom: "Plywood boxes",
-        reserve: "Plywood boxes",
       },
     },
     {
@@ -76,7 +73,6 @@ export const COLLECTION_COMPARISON: CollectionComparisonMatrix = {
       label: "Soft-close hinges",
       values: {
         custom: true,
-        reserve: true,
       },
     },
     {
@@ -84,16 +80,14 @@ export const COLLECTION_COMPARISON: CollectionComparisonMatrix = {
       label: "Soft-close drawer slides",
       values: {
         custom: true,
-        reserve: true,
       },
     },
     {
       id: "smart-storage",
       label: "Smart Storage accessories",
-      description: "Pull-outs, organizers, spice racks, and corner solutions.",
+      description: "Roll-out trays, trash pull-outs, lazy susans, and corner solutions.",
       values: {
         custom: true,
-        reserve: true,
       },
     },
     {
@@ -101,7 +95,6 @@ export const COLLECTION_COMPARISON: CollectionComparisonMatrix = {
       label: "In-home design consultation",
       values: {
         custom: "Included",
-        reserve: "Included with sample kit",
       },
     },
     {
@@ -109,7 +102,6 @@ export const COLLECTION_COMPARISON: CollectionComparisonMatrix = {
       label: "Shop drawings for approval",
       values: {
         custom: true,
-        reserve: true,
       },
     },
     {
@@ -117,23 +109,20 @@ export const COLLECTION_COMPARISON: CollectionComparisonMatrix = {
       label: "Complimentary finish sample kit",
       values: {
         custom: "On request",
-        reserve: true,
       },
     },
     {
       id: "lead-time",
       label: "Typical lead time",
       values: {
-        custom: "6–10 weeks",
-        reserve: "6–10 weeks",
+        custom: CATALOG_CONTENT.leadTime,
       },
     },
     {
       id: "warranty",
-      label: "Workmanship warranty",
+      label: "Warranty",
       values: {
-        custom: "5 years",
-        reserve: "5 years",
+        custom: CATALOG_CONTENT.warrantyHeadline,
       },
     },
   ],
@@ -149,33 +138,32 @@ export const DOOR_STYLE_COMPARISON: CollectionComparisonMatrix = {
       label: "Slab",
       values: {
         custom: true,
-        reserve: true,
       },
     },
     {
       id: "three-piece",
       label: "3 Piece",
-      values: { custom: true, reserve: true },
+      values: { custom: true },
     },
     {
       id: "modern-shaker",
       label: "Modern Shaker",
-      values: { custom: true, reserve: true },
+      values: { custom: true },
     },
     {
       id: "thin-shaker",
       label: "Thin Shaker",
-      values: { custom: true, reserve: true },
+      values: { custom: true },
     },
     {
       id: "alpha-shaker",
       label: "Alpha Shaker",
-      values: { custom: true, reserve: true },
+      values: { custom: true },
     },
     {
       id: "beta-shaker",
       label: "Beta Shaker",
-      values: { custom: true, reserve: true },
+      values: { custom: true },
     },
   ],
 };
@@ -190,7 +178,6 @@ export const FINISH_TIER_COMPARISON: CollectionComparisonMatrix = {
       label: "Matte finishes",
       values: {
         custom: true,
-        reserve: true,
       },
     },
     {
@@ -198,7 +185,6 @@ export const FINISH_TIER_COMPARISON: CollectionComparisonMatrix = {
       label: "High-gloss finishes",
       values: {
         custom: true,
-        reserve: true,
       },
     },
     {
@@ -206,7 +192,6 @@ export const FINISH_TIER_COMPARISON: CollectionComparisonMatrix = {
       label: "Woodgrain finishes",
       values: {
         custom: true,
-        reserve: true,
       },
     },
   ],

@@ -6,7 +6,6 @@ import { Reveal } from "@/components/Reveal";
 import { HeroSection } from "@/components/sections/HeroSection";
 import { WhyChooseUsSection } from "@/components/sections/WhyChooseUsSection";
 import { RoomCategoriesGrid } from "@/components/sections/RoomCategoriesGrid";
-import { CollectionsBandSection } from "@/components/sections/CollectionsBandSection";
 import { DesignStudioSection } from "@/components/sections/DesignStudioSection";
 import { StatementBandSection } from "@/components/sections/StatementBandSection";
 import { ProcessSection } from "@/components/sections/ProcessSection";
@@ -40,7 +39,6 @@ export default function HomePage() {
       <HomePageSchema />
       <HeroSection />
       <RoomCategoriesGrid />
-      <CollectionsBandSection />
       <DesignStudioSection />
       <StatementBandSection />
       <ProcessSection />

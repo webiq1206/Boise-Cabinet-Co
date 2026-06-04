@@ -20,14 +20,10 @@ const FINISH_WEIGHT: Record<FinishTier, number> = {
   reserve: 2,
 };
 
-const TIER_LABELS = [
-  "Value",
-  "Smart",
-  "Mid-range",
-  "Premium",
-  "Luxury",
-  "Signature",
-];
+// Customer-facing price indicator. We use $ markers (matching the estimator's
+// finish tiers) rather than words like "Premium" / "Luxury" so the two tools
+// speak the same language. Index by combined collection+finish weight.
+const TIER_LABELS = ["$", "$", "$$", "$$", "$$$", "$$$"];
 
 /**
  * Derive a single estimated price tier from the chosen collection and finish.

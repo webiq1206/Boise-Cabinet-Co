@@ -31,6 +31,47 @@ import {
 } from "@/lib/design/designSerialization";
 import { trackDesignEvent } from "@/lib/design/designAnalytics";
 import type { PhotoOverlayTransform } from "@/lib/design/photoOverlayTransform";
+import {
+  ACCESSORY_FAMILY_BY_SLUG,
+  CABINET_PRODUCT_BY_SLUG,
+  HARDWARE_OPTIONS,
+  getDoorStyleBySlug,
+  getFinishBySlug,
+  resolveDoorStyleSlug,
+  resolveFinishSlug,
+} from "@/shared/catalog";
+import { getCabinetNeedLabel } from "@/shared/catalog/cabinetLabels";
+
+/** Plain-English recap of every catalog selection, for the pricing/consultation payload. */
+function buildSelectionsSummary(d: DesignState): string {
+  const lines: string[] = [];
+  if (d.doorStyle) {
+    const door = getDoorStyleBySlug(resolveDoorStyleSlug(d.doorStyle));
+    lines.push(`Door style: ${door?.name ?? d.doorStyle}`);
+  }
+  if (d.finish) {
+    const finish = getFinishBySlug(resolveFinishSlug(d.finish)) ?? getFinishBySlug(d.finish);
+    lines.push(`Finish: ${finish?.name ?? d.finish}`);
+  }
+  if (d.hardware) {
+    const hw = HARDWARE_OPTIONS.find((h) => h.slug === d.hardware);
+    lines.push(`Hardware: ${hw?.name ?? d.hardware}`);
+  }
+  if (d.accessories.length > 0) {
+    const names = d.accessories.map(
+      (slug) => ACCESSORY_FAMILY_BY_SLUG[slug]?.name ?? slug.replace(/-/g, " "),
+    );
+    lines.push(`Accessories: ${names.join(", ")}`);
+  }
+  if (d.lineItemSlugs.length > 0) {
+    const names = d.lineItemSlugs.map((slug) => {
+      const product = CABINET_PRODUCT_BY_SLUG[slug];
+      return product ? `${product.name} (${getCabinetNeedLabel(product)})` : slug.replace(/-/g, " ");
+    });
+    lines.push(`Cabinets: ${names.join("; ")}`);
+  }
+  return lines.join("\n");
+}
 
 const VERSION_GROUP_STORAGE_KEY = "brc-design-version-group";
 export const PORTAL_PROJECT_STORAGE_KEY = "brc-portal-project-id";
@@ -85,7 +126,9 @@ export interface DesignState {
 
 const initialState: DesignState = {
   roomType: null,
-  collection: null,
+  // Single custom-built offering; auto-selected so the wizard never asks the
+  // visitor to "choose a line" when there is only one.
+  collection: "custom",
   layout: null,
   doorStyle: null,
   finish: null,
@@ -349,16 +392,13 @@ export function DesignStudioProvider({
         case 1:
           return design.layout !== null;
         case 2:
-          return design.collection !== null;
-        case 3:
           return design.doorStyle !== null && design.finish !== null;
+        case 3:
         case 4:
-        case 5:
           return (
             design.roomType !== null &&
             isScannedRoom(design.roomMeta) &&
             design.layout !== null &&
-            design.collection !== null &&
             design.doorStyle !== null &&
             design.finish !== null
           );
@@ -565,7 +605,7 @@ export function DesignStudioProvider({
       setDesign({
         ...initialState,
         roomType: s.roomType,
-        collection: s.collection,
+        collection: s.collection ?? "custom",
         layout: s.layout as LayoutType | null,
         doorStyle: s.doorStyle,
         finish: s.finish,
@@ -617,7 +657,11 @@ export function DesignStudioProvider({
               doorStyle: design.doorStyle,
               finish: design.finish,
               layout: design.layout,
+              hardware: design.hardware,
+              accessories: design.accessories,
+              cabinets: design.lineItemSlugs,
             },
+            selectionsSummary: buildSelectionsSummary(design),
             layoutSummary: buildLayoutSummary({
               modules: design.modules,
               roomBounds: design.roomBounds,

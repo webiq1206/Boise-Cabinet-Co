@@ -43,7 +43,7 @@ export function VisualOptionTile({
           : "border-border hover:border-primary/40",
       )}
     >
-      <div className="relative h-16 w-12 shrink-0 self-start overflow-hidden rounded-sm border border-border/50 bg-muted">
+      <div className="relative h-14 w-14 shrink-0 self-start overflow-hidden rounded-sm border border-border/50 bg-muted">
         {useHexFallback ? (
           <div
             className="absolute inset-0"

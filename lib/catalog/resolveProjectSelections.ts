@@ -15,7 +15,7 @@ export const DEMO_PROJECT_SELECTIONS: ProjectSelections = {
   finish: "woodgrain-canyon-oak",
   hardware: "bar-pull-160-nickel",
   accessories: ["rollout-tray"],
-  lineItemSlugs: ["b-1d-1bd-1rot"],
+  lineItemSlugs: ["bfh-1d-1rot"],
 };
 
 export interface ResolvedProjectDesign {

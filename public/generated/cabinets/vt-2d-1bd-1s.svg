@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="420" viewBox="0 0 360 420" role="img" aria-label="VT-2D-1BD-1S cabinet front elevation">
+  <rect width="360" height="420" fill="#F7F3EC"/>
+  <rect x="40.0" y="102.3" width="280.0" height="198.2" rx="3" fill="#FBFAF6" stroke="#5E564A" stroke-width="1.8"/>
+  <rect x="48.0" y="263.3" width="264.0" height="27.1" rx="1" fill="#ECE6DB" stroke="#8C8170" stroke-width="1.2"/><line x1="140.4" y1="276.9" x2="219.6" y2="276.9" stroke="#6E6555" stroke-width="2"/><rect x="48.0" y="110.3" width="130.0" height="151.0" rx="2" fill="#ECE6DB" stroke="#8C8170" stroke-width="1.4"/><rect x="54.0" y="116.3" width="118.0" height="139.0" rx="1" fill="none" stroke="#8C8170" stroke-width="0.8"/><line x1="170.0" y1="163.2" x2="170.0" y2="208.5" stroke="#6E6555" stroke-width="2.2"/><rect x="182.0" y="110.3" width="130.0" height="151.0" rx="2" fill="#ECE6DB" stroke="#8C8170" stroke-width="1.4"/><rect x="188.0" y="116.3" width="118.0" height="139.0" rx="1" fill="none" stroke="#8C8170" stroke-width="0.8"/><line x1="190.0" y1="163.2" x2="190.0" y2="208.5" stroke="#6E6555" stroke-width="2.2"/>
+  <rect x="54.0" y="300.5" width="252.0" height="17.2" rx="1" fill="#F7F3EC" stroke="#8C8170" stroke-width="1"/>
+</svg>

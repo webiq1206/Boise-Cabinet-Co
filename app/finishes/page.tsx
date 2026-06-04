@@ -21,7 +21,23 @@ export const metadata = catalogMetadata(
   ),
 );
 
-export default function FinishesPage() {
+export default function FinishesPage({
+  searchParams,
+}: {
+  searchParams?: Record<string, string | string[] | undefined>;
+}) {
+  // URL params let the guided finder (Phase 5) hand off pre-applied filters,
+  // e.g. /finishes?color=Green&tone=dark
+  const sp = searchParams ?? {};
+  const one = (k: string) => (typeof sp[k] === "string" ? (sp[k] as string) : undefined);
+  const initialFilters = {
+    colorFamily: one("color") ?? one("colorFamily"),
+    tone: one("tone") as "light" | "dark" | undefined,
+    category: one("category") as "matte" | "gloss" | "woodgrain" | undefined,
+    priceTier: one("price") ? Number(one("price")) : undefined,
+  };
+  const hasInitialFilter = Object.values(initialFilters).some((v) => v != null && v !== "");
+
   const schemas = [
     generateWebPageSchema({
       title: "Cabinet Finishes",
@@ -72,13 +88,18 @@ export default function FinishesPage() {
               <Button variant="brandOutline" size="sm" asChild>
                 <Link href="/finishes/woodgrain">Woodgrain</Link>
               </Button>
+              <Button variant="brandGhost" size="sm" asChild>
+                <Link href="/finder">Not sure? Find your look</Link>
+              </Button>
             </div>
           </div>
         </Section>
 
         <Section variant="greige" divider>
           <div className="container px-4">
-            <FinishOptionsSelector />
+            <FinishOptionsSelector
+              initialFilters={hasInitialFilter ? initialFilters : undefined}
+            />
           </div>
         </Section>
 

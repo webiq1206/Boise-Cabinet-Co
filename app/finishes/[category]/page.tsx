@@ -100,7 +100,6 @@ export default function FinishCategoryPage({ params }: { params: { category: str
             <FinishOptionsSelector
               finishes={finishes}
               lockCategory
-              initialExpanded
               showLinks={false}
             />
           </div>

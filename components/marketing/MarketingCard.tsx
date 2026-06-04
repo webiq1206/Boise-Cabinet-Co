@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 
 export interface MarketingCardProps extends React.HTMLAttributes<HTMLDivElement> {
-  padding?: "default" | "lg";
+  padding?: "default" | "lg" | "none";
 }
 
 export function MarketingCard({

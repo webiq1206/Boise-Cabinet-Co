@@ -33,7 +33,7 @@ export function RoomCategoriesGrid() {
                 href={`/cabinets/${room.slug}`}
                 className="group block rounded-sm border border-border bg-card overflow-hidden hover-elevate transition-shadow"
               >
-                <div className="relative aspect-[4/3] bg-surface-greige overflow-hidden">
+                <div className="relative aspect-[3/2] bg-surface-greige overflow-hidden">
                   <Image
                     src={room.heroImage}
                     alt={`${room.name} custom cabinets`}

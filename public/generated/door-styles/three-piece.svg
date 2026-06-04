@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300" role="img" aria-label="3 Piece door style">
+  <rect width="400" height="300" fill="#F7F3EC"/>
+  <rect x="125" y="25" width="150" height="250" rx="4" fill="#ECE6DB" stroke="#5E564A" stroke-width="2"/>
+  <rect x="141" y="65" width="118" height="170" rx="1" fill="#FBFAF6" stroke="#8C8170" stroke-width="1.4"/>
+  <line x1="147" y1="89.28571428571428" x2="253" y2="89.28571428571428" stroke="#B7AD9B" stroke-width="0.9"/>
+  <line x1="147" y1="113.57142857142857" x2="253" y2="113.57142857142857" stroke="#B7AD9B" stroke-width="0.9"/>
+  <line x1="147" y1="137.85714285714286" x2="253" y2="137.85714285714286" stroke="#B7AD9B" stroke-width="0.9"/>
+  <line x1="147" y1="162.14285714285714" x2="253" y2="162.14285714285714" stroke="#B7AD9B" stroke-width="0.9"/>
+  <line x1="147" y1="186.42857142857144" x2="253" y2="186.42857142857144" stroke="#B7AD9B" stroke-width="0.9"/>
+  <line x1="147" y1="210.71428571428572" x2="253" y2="210.71428571428572" stroke="#B7AD9B" stroke-width="0.9"/>
+  <circle cx="259" cy="150" r="3" fill="#5E564A"/>
+</svg>

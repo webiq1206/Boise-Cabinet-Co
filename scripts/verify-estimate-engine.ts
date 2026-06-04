@@ -6,19 +6,18 @@ import {
   getVisibleSteps,
   getTotalSteps,
   getLayoutOptions,
-  CABINET_LINE_MULTIPLIER,
+  ACCESSORY_OPTIONS,
+  ACCESSORY_PREMIUM_PER,
   DOOR_STYLE_MULTIPLIER,
   FINISH_CATEGORY_MULTIPLIER,
   FINISH_TIER_MULTIPLIER,
   CONSTRUCTION_MULTIPLIER,
-  STORAGE_MULTIPLIER,
   LAYOUT_COMPLEXITY_MULTIPLIER,
   type EstimateSelections,
   type ProjectType,
   type FinishCategory,
   type FinishTier,
   type ConstructionTier,
-  type StorageTier,
 } from "../shared/estimateEngine";
 
 function assert(condition: boolean, message: string) {
@@ -28,7 +27,16 @@ function assert(condition: boolean, message: string) {
   }
 }
 
-const projects: ProjectType[] = ["kitchen", "bathroom", "whole-home", "addition", "adu"];
+const projects: ProjectType[] = [
+  "kitchen",
+  "bathroom",
+  "laundry",
+  "mudroom",
+  "home-office",
+  "entertainment",
+  "built-ins",
+  "pantry",
+];
 
 /** Order option keys ascending by their multiplier so we can assert monotonicity. */
 function sortByMultiplier<T extends string>(map: Record<T, number>): T[] {
@@ -52,6 +60,14 @@ for (const project of projects) {
     `${project}: scope summary names products`,
   );
 
+  // No supplier/brand or removed-tier language should ever surface in the scope.
+  for (const banned of ["Reserve", "OSC", "Standard", "Premium", "Luxury", "Cabinet line", " line"]) {
+    assert(
+      !result.scopeSummary.includes(banned),
+      `${project}: scope summary must not contain "${banned}"`,
+    );
+  }
+
   // Size scales the range up monotonically.
   const small = calculateEstimate({ ...base, size: cfg.min }, total);
   const large = calculateEstimate({ ...base, size: cfg.max }, total);
@@ -63,27 +79,25 @@ for (const project of projects) {
 for (const project of projects) {
   const vis = getStepVisibility(project);
   const steps = getVisibleSteps(project);
-  if (project === "whole-home") {
-    assert(!vis.layout && !vis.doorStyle, "whole-home hides layout and door style");
-    assert(!steps.includes("layout"), "whole-home has no layout step");
-    assert(!steps.includes("doorStyle"), "whole-home has no door style step");
-  } else {
-    assert(vis.layout && vis.doorStyle, `${project} shows layout and door style`);
+  assert(vis.doorStyle, `${project} shows door style`);
+  assert(steps.includes("doorStyle"), `${project} has a door style step`);
+  if (vis.layout) {
     assert(steps.includes("layout"), `${project} has a layout step`);
-    assert(steps.includes("doorStyle"), `${project} has a door style step`);
-    assert(steps.includes("finishColor"), `${project} has optional finish color step`);
     assert(getLayoutOptions(project).length > 0, `${project} offers layout options`);
   }
-  assert(steps.includes("size") && steps.includes("line"), `${project} has size and line steps`);
+  assert(steps.includes("size"), `${project} has a size step`);
+  assert(!steps.includes("line" as never), `${project} has no cabinet line step`);
   assert(
-    steps.includes("finish") && steps.includes("construction") && steps.includes("storage"),
-    `${project} has finish, construction, and storage steps`,
+    steps.includes("finish") && steps.includes("construction") && steps.includes("accessories"),
+    `${project} has finish, construction, and accessories steps`,
   );
 }
 
+// ── Exactly the six catalog accessory families are offered ───────────────────
+assert(ACCESSORY_OPTIONS.length === 6, `estimator offers exactly 6 catalog accessories (got ${ACCESSORY_OPTIONS.length})`);
+assert(ACCESSORY_PREMIUM_PER > 0, "each accessory adds a positive premium");
+
 // ── Monotonicity: every upgrade can only raise (never lower) the range ───────
-// Use the largest size so each multiplier step clears the $100 rounding band and
-// the strict end-to-end increase is unambiguous.
 function monotonicUpgrade<T extends string>(
   project: ProjectType,
   field: keyof EstimateSelections,
@@ -101,7 +115,6 @@ function monotonicUpgrade<T extends string>(
     prevLow = r.priceLow;
     prevHigh = r.priceHigh;
   }
-  // End-to-end the top option must cost strictly more than the bottom option.
   const lowest = calculateEstimate({ ...base, [field]: order[0] } as EstimateSelections, 0);
   const highest = calculateEstimate(
     { ...base, [field]: order[order.length - 1] } as EstimateSelections,
@@ -115,20 +128,16 @@ function monotonicUpgrade<T extends string>(
   }
 }
 
-const lineOrder = sortByMultiplier(CABINET_LINE_MULTIPLIER);
 const doorOrder = sortByMultiplier(DOOR_STYLE_MULTIPLIER);
 const finishCategoryOrder = sortByMultiplier(FINISH_CATEGORY_MULTIPLIER) as FinishCategory[];
 const finishTierOrder = sortByMultiplier(FINISH_TIER_MULTIPLIER) as FinishTier[];
 const constructionOrder = sortByMultiplier(CONSTRUCTION_MULTIPLIER) as ConstructionTier[];
-const storageOrder = sortByMultiplier(STORAGE_MULTIPLIER) as StorageTier[];
 
 for (const project of projects) {
   const vis = getStepVisibility(project);
-  monotonicUpgrade(project, "cabinetLine", lineOrder, "cabinet line");
   monotonicUpgrade(project, "finishCategory", finishCategoryOrder, "finish category");
   monotonicUpgrade(project, "finishTier", finishTierOrder, "finish tier");
   monotonicUpgrade(project, "construction", constructionOrder, "construction");
-  monotonicUpgrade(project, "storage", storageOrder, "storage");
 
   if (vis.doorStyle) {
     monotonicUpgrade(project, "doorStyle", doorOrder, "door style");
@@ -139,6 +148,20 @@ for (const project of projects) {
       .sort((a, b) => (LAYOUT_COMPLEXITY_MULTIPLIER[a] ?? 1) - (LAYOUT_COMPLEXITY_MULTIPLIER[b] ?? 1));
     monotonicUpgrade(project, "layout", layoutOrder, "layout complexity");
   }
+
+  // Adding more accessories raises the range.
+  const cfg = getProjectSizeConfig(project);
+  const base = { ...getDefaultSelectionsForProject(project), size: cfg.max };
+  const slugs = ACCESSORY_OPTIONS.map((o) => o.value);
+  let prevHigh = -1;
+  for (let i = 0; i <= slugs.length; i++) {
+    const r = calculateEstimate({ ...base, accessories: slugs.slice(0, i) }, 0);
+    assert(r.priceHigh >= prevHigh, `${project} accessories: priceHigh non-decreasing at ${i} add-ons`);
+    prevHigh = r.priceHigh;
+  }
+  const none = calculateEstimate({ ...base, accessories: [] }, 0);
+  const all = calculateEstimate({ ...base, accessories: slugs }, 0);
+  assert(all.priceHigh > none.priceHigh, `${project} accessories: selecting add-ons raises the range`);
 }
 
 // ── Confidence climbs as more steps are touched ─────────────────────────────

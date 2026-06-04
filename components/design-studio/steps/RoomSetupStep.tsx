@@ -6,6 +6,7 @@ import { RoomStep } from "./RoomStep";
 import { RoomScanPanel } from "../RoomScanPanel";
 import { useDesignStudio } from "../DesignStudioProvider";
 import { wizardCopy } from "@/shared/designStudioCopy";
+import { presetsForRoomType } from "@/shared/roomSizePresets";
 
 function applyFixtureRoom(
   updateDesign: ReturnType<typeof useDesignStudio>["updateDesign"],
@@ -43,11 +44,32 @@ function RoomTypeFromQuery() {
   useEffect(() => {
     const rt = params.get("roomType");
     if (!rt || design.roomType) return;
-    const allowed = ["kitchen", "bathroom", "laundry", "home-office", "closet", "mudroom"];
-    if (allowed.includes(rt)) {
-      updateDesign({ roomType: rt });
+    // Keep in lockstep with the room picker (nav + estimator rooms).
+    const allowed = [
+      "kitchen",
+      "bathroom",
+      "laundry",
+      "mudroom",
+      "home-office",
+      "entertainment",
+      "built-ins",
+      "pantry",
+    ];
+    if (!allowed.includes(rt)) return;
+    updateDesign({ roomType: rt });
+
+    // Pre-size the room from the estimator's linear feet of cabinetry (the wall
+    // run is the dimension that drives how many cabinets fit). Depth falls back
+    // to a typical size for the room. Marked as a planning estimate the visitor
+    // can refine.
+    const lfRaw = params.get("lf");
+    const lf = lfRaw ? parseInt(lfRaw, 10) : NaN;
+    if (!design.roomMeta && Number.isFinite(lf) && lf > 0) {
+      const widthIn = Math.min(360, Math.max(72, lf * 12));
+      const depthIn = presetsForRoomType(rt)[0]?.depthIn ?? 120;
+      applyFixtureRoom(updateDesign, widthIn, depthIn, "manual");
     }
-  }, [params, design.roomType, updateDesign]);
+  }, [params, design.roomType, design.roomMeta, updateDesign]);
 
   return null;
 }

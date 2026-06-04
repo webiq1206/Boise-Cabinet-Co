@@ -2,7 +2,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import type { CabinetCollection } from "@/shared/catalog";
-import { COLLECTIONS, DOOR_STYLES, FINISHES, ACCESSORIES } from "@/shared/catalog";
+import {
+  COLLECTIONS,
+  DOOR_STYLES,
+  FINISHES,
+  ACCESSORIES,
+  getMostLovedFinishes,
+} from "@/shared/catalog";
 import { Section } from "@/components/marketing/Section";
 import { SectionHeader } from "@/components/marketing/SectionHeader";
 import { MarketingCard } from "@/components/marketing/MarketingCard";
@@ -39,6 +45,10 @@ export function CollectionLandingTemplate({ collection }: CollectionLandingTempl
   const finishes = FINISHES.filter((f) =>
     f.compatibleDoorStyleIds.some((id) => doorStyleIds.has(id)),
   );
+  // Curated sample (never the full library) for the collection finish section.
+  const finishIds = new Set(finishes.map((f) => f.id));
+  const lovedSample = getMostLovedFinishes(8).filter((f) => finishIds.has(f.id));
+  const finishSample = lovedSample.length >= 6 ? lovedSample : finishes.slice(0, 8);
   const accessories = ACCESSORIES.filter((a) =>
     a.compatibleCollectionIds.includes(collection.id),
   );
@@ -87,7 +97,7 @@ export function CollectionLandingTemplate({ collection }: CollectionLandingTempl
                 key={feature}
                 className="flex gap-2 text-sm text-muted-foreground leading-relaxed"
               >
-                <span className="text-accent shrink-0">, </span>
+                <span className="text-accent shrink-0" aria-hidden>&bull;</span>
                 {feature}
               </li>
             ))}
@@ -133,7 +143,7 @@ export function CollectionLandingTemplate({ collection }: CollectionLandingTempl
             align="center"
             className="mb-10 max-w-2xl mx-auto text-center [&_.brc-label]:justify-center"
           />
-          <FinishSwatchGrid finishes={finishes} showCategoryLinks />
+          <FinishSwatchGrid finishes={finishSample} showCategoryLinks />
           <div className="text-center mt-8">
             <Button variant="brandOutline" asChild>
               <Link href="/finishes">Browse all finishes</Link>
@@ -259,7 +269,7 @@ export function CollectionLandingTemplate({ collection }: CollectionLandingTempl
             Ready to design your cabinets?
           </h2>
           <p className="text-inverse-muted mb-6 leading-relaxed">
-            Use Design Studio to explore {collection.name} layouts, finishes, and room configurations , 
+            Use Design Studio to explore {collection.name} layouts, finishes, and room configurations,
             then save your design to your {SITE_CONFIG.name} project.
           </p>
           <Button variant="brand" asChild>

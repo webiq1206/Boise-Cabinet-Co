@@ -60,7 +60,7 @@ export default function ProductDetailPage({
       name: product.name,
       description: product.description,
       url: path,
-      sku: product.oscCode,
+      sku: product.slug,
       image: images.hero,
     }),
     generateBreadcrumbSchema([

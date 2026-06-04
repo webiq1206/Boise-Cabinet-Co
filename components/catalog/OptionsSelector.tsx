@@ -11,13 +11,18 @@
  * expansion so the finder and Design Studio can drive it later.
  */
 
+import Image from "next/image";
 import Link from "next/link";
 import { useMemo, useState } from "react";
-import type { Finish, FinishCategory, FinishFilters } from "@/shared/catalog";
+import type { Finish, FinishCategory, FinishFilters, CabinetProduct, Accessory } from "@/shared/catalog";
 import {
   FINISHES,
   DOOR_STYLES,
+  CABINET_PRODUCTS,
+  ACCESSORIES,
   formatPriceTier,
+  formatCabinetDimensions,
+  getCabinetNeedLabel,
   getMostLovedFinishes,
   getPopularDoorStyles,
   deriveColorFamily,
@@ -26,6 +31,8 @@ import {
   priceTiersPresent,
   type DoorStyle,
 } from "@/shared/catalog";
+import { getProductImages } from "@/shared/catalog/entityImages";
+import { getAccessoryImagePath } from "@/shared/catalog/catalogImages";
 import { Chip } from "@/components/marketing/Chip";
 import { MarketingCard } from "@/components/marketing/MarketingCard";
 import { Button } from "@/components/ui/button";
@@ -369,6 +376,172 @@ export function DoorOptionsSelector({
       nounPlural="door styles"
       initialExpanded={initialExpanded}
       gridClassName="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"
+    />
+  );
+}
+
+// ── Cabinet selector ──────────────────────────────────────────────────────────
+
+function CabinetCard({ product }: { product: CabinetProduct }) {
+  const diagram = getProductImages(product).diagram;
+  const need = getCabinetNeedLabel(product);
+  const dims = formatCabinetDimensions(product);
+  return (
+    <MarketingCard className="p-0 flex flex-col h-full overflow-hidden" padding="none">
+      <div className="relative aspect-[3/4] bg-muted">
+        {/* Generated front-elevation box diagram; never shows the SKU code. */}
+        <Image
+          src={diagram}
+          alt={`${product.name} front elevation`}
+          fill
+          sizes="(max-width: 640px) 50vw, 240px"
+          className="object-contain"
+        />
+      </div>
+      <div className="p-4 flex flex-col gap-1">
+        <Chip className="self-start mb-1">{need}</Chip>
+        <p className="text-sm font-medium text-foreground">{product.name}</p>
+        <p className="text-xs text-muted-foreground">{dims}</p>
+      </div>
+    </MarketingCard>
+  );
+}
+
+export interface CabinetOptionsSelectorProps {
+  cabinets?: CabinetProduct[];
+  curated?: CabinetProduct[];
+  initialFilters?: Record<string, string>;
+  initialExpanded?: boolean;
+  className?: string;
+}
+
+export function CabinetOptionsSelector({
+  cabinets = CABINET_PRODUCTS,
+  curated,
+  initialFilters,
+  initialExpanded = false,
+  className,
+}: CabinetOptionsSelectorProps) {
+  let curatedList = curated ?? cabinets.slice(0, 6);
+  if (curatedList.length === 0) curatedList = cabinets.slice(0, 6);
+
+  const groups: OptionsFilterGroup<CabinetProduct>[] = [];
+
+  // Need-based filter (homeowner-first): "Pots & pans", "Corner storage", etc.
+  const needs = Array.from(new Set(cabinets.map((c) => getCabinetNeedLabel(c)))).sort();
+  if (needs.length > 1) {
+    groups.push({
+      id: "need",
+      label: "What it's for",
+      options: needs.map((n) => ({ value: n, label: n })),
+      match: (it, v) => getCabinetNeedLabel(it) === v,
+    });
+  }
+
+  // Cabinet type filter.
+  const CAT_LABELS: Record<string, string> = {
+    base: "Base",
+    wall: "Wall",
+    tall: "Tall",
+    vanity: "Vanity",
+    "floating-shelf": "Open shelf",
+    hood: "Range hood",
+    filler: "Trim",
+    "end-panel": "End panel",
+    panel: "Panel",
+  };
+  const cats = Array.from(new Set(cabinets.map((c) => c.category)));
+  if (cats.length > 1) {
+    groups.push({
+      id: "category",
+      label: "Cabinet type",
+      options: cats.map((c) => ({ value: c, label: CAT_LABELS[c] ?? c })),
+      match: (it, v) => it.category === v,
+    });
+  }
+
+  return (
+    <OptionsSelector<CabinetProduct>
+      className={className}
+      items={cabinets}
+      curated={curatedList}
+      filterGroups={groups}
+      getId={(c) => c.slug}
+      renderItem={(c) => <CabinetCard product={c} />}
+      curatedLabel="Popular cabinets"
+      nounSingular="cabinet"
+      nounPlural="cabinets"
+      initialFilters={initialFilters}
+      initialExpanded={initialExpanded}
+      gridClassName="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6"
+    />
+  );
+}
+
+// ── Accessory selector ────────────────────────────────────────────────────────
+
+function AccessoryCard({ accessory }: { accessory: Accessory }) {
+  const img = getAccessoryImagePath(accessory.slug);
+  return (
+    <MarketingCard className="p-0 flex flex-col h-full overflow-hidden" padding="none">
+      <div className="relative aspect-square bg-muted">
+        {img ? (
+          <Image
+            src={img}
+            alt={accessory.name}
+            fill
+            sizes="(max-width: 640px) 50vw, 240px"
+            className="object-cover"
+          />
+        ) : null}
+      </div>
+      <div className="p-4 flex flex-col gap-1">
+        <Chip className="self-start mb-1 capitalize">{accessory.category}</Chip>
+        <p className="text-sm font-medium text-foreground">{accessory.name}</p>
+        <p className="text-xs text-muted-foreground line-clamp-3">{accessory.description}</p>
+      </div>
+    </MarketingCard>
+  );
+}
+
+export interface AccessoryOptionsSelectorProps {
+  accessories?: Accessory[];
+  initialFilters?: Record<string, string>;
+  initialExpanded?: boolean;
+  className?: string;
+}
+
+export function AccessoryOptionsSelector({
+  accessories = ACCESSORIES,
+  initialFilters,
+  initialExpanded = true,
+  className,
+}: AccessoryOptionsSelectorProps) {
+  const groups: OptionsFilterGroup<Accessory>[] = [];
+  const cats = Array.from(new Set(accessories.map((a) => a.category)));
+  if (cats.length > 1) {
+    groups.push({
+      id: "category",
+      label: "Type",
+      options: cats.map((c) => ({ value: c, label: c.charAt(0).toUpperCase() + c.slice(1) })),
+      match: (it, v) => it.category === v,
+    });
+  }
+
+  return (
+    <OptionsSelector<Accessory>
+      className={className}
+      items={accessories}
+      curated={accessories}
+      filterGroups={groups}
+      getId={(a) => a.slug}
+      renderItem={(a) => <AccessoryCard accessory={a} />}
+      curatedLabel="All accessories"
+      nounSingular="accessory"
+      nounPlural="accessories"
+      initialFilters={initialFilters}
+      initialExpanded={initialExpanded}
+      gridClassName="grid grid-cols-2 sm:grid-cols-3 gap-4 md:gap-6"
     />
   );
 }

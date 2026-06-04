@@ -6,5 +6,8 @@ export const CATALOG_CONTENT: CatalogContent = {
   "warrantyHeadline": "Limited lifetime warranty",
   "warrantySummary": "Boise Cabinet Co stands behind your cabinets with a limited lifetime warranty: we warrant to the original homeowner that cabinet boxes, doors, and hardware are free from defects in materials and workmanship for the lifetime of original home ownership, under normal use. Conditions apply (e.g., door warping is covered only within the first 180 days); damage from moisture, heat, chemicals, improper installation, or normal wear is excluded.",
   "leadTime": "4-8 weeks",
-  "estimateDisclaimer": "Planning estimate only, not a binding quote. Final pricing requires an in-home evaluation."
+  "estimateDisclaimer": "Planning estimate only, not a binding quote. Final pricing requires an in-home evaluation.",
+  "warrantyNote": "Internal: present this as Boise Cabinet Co's own warranty. Boise must be able to honor and administer these terms; all warranty claims route to Boise Cabinet Co. Legal review recommended before launch.",
+  "leadTimeNote": "Single site-wide value. Reflects the figure most prominent on the current site; keep it equal to Boise actual production + install time.",
+  "warrantyFullPage": "Boise-authored /warranty page (do not link or republish any third-party warranty text)."
 };

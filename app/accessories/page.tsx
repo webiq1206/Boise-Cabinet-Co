@@ -88,14 +88,10 @@ export default function AccessoriesPage() {
                     description={family.description}
                     imageSrc={getAccessoryImagePath(family.slug)}
                     imageAlt={`${family.name} cabinet accessory`}
-                    specs={[
-                      { label: "Configurations", value: String(family.exampleSkus.length) },
-                      { label: "Category", value: family.category },
-                    ]}
+                    aspectRatio="1/1"
+                    specs={[{ label: "Type", value: family.category }]}
                     primaryHref={`/products/base?family=${family.slug}`}
-                    primaryLabel="Browse matching SKUs"
-                    secondaryHref={`/products/base?family=${family.slug}`}
-                    secondaryLabel="View configurations"
+                    primaryLabel="See cabinets that fit"
                   />
                 </Reveal>
               ))}

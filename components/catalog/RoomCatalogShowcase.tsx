@@ -51,6 +51,7 @@ export function RoomCatalogShowcase({
                 description={door.description.slice(0, 120)}
                 imageSrc={imgs.thumb640}
                 imageAlt={`${door.name} door profile`}
+                aspectRatio="4/3"
                 primaryHref={`/door-styles/${door.slug}`}
                 primaryLabel="View door style"
               />
@@ -70,6 +71,7 @@ export function RoomCatalogShowcase({
                 imageSrc={imgs.swatch}
                 imageAlt={`${finish.name} finish swatch`}
                 fallbackColor={finish.hexColor}
+                aspectRatio="1/1"
                 specs={[
                   { label: "Color", value: deriveColorFamily(finish) },
                 ]}

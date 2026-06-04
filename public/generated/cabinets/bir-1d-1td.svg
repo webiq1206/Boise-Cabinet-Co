@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="420" viewBox="0 0 360 420" role="img" aria-label="BIR-1D-1TD cabinet front elevation">
+  <rect width="360" height="420" fill="#F7F3EC"/>
+  <rect x="40.0" y="129.4" width="280.0" height="148.3" rx="3" fill="#FBFAF6" stroke="#5E564A" stroke-width="1.8"/>
+  <rect x="48.0" y="137.4" width="264.0" height="19.2" rx="1" fill="#ECE6DB" stroke="#8C8170" stroke-width="1.2"/><line x1="140.4" y1="147.0" x2="219.6" y2="147.0" stroke="#6E6555" stroke-width="2"/><rect x="48.0" y="160.6" width="264.0" height="109.1" rx="2" fill="#ECE6DB" stroke="#8C8170" stroke-width="1.4"/><rect x="54.0" y="166.6" width="252.0" height="97.1" rx="1" fill="none" stroke="#8C8170" stroke-width="0.8"/><line x1="302.0" y1="198.8" x2="302.0" y2="231.5" stroke="#6E6555" stroke-width="2.2"/>
+  <rect x="54.0" y="277.7" width="252.0" height="12.9" rx="1" fill="#F7F3EC" stroke="#8C8170" stroke-width="1"/>
+</svg>

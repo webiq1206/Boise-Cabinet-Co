@@ -1,5 +1,6 @@
 /**
- * Validates data/supplier-catalog JSON integrity.
+ * Validates data/catalog.json integrity (the single source of truth) and that
+ * the generated TS catalog is in sync with it.
  * Run: npm run catalog:verify
  */
 
@@ -7,57 +8,124 @@ import fs from "node:fs";
 import path from "node:path";
 
 const ROOT = path.resolve(import.meta.dirname, "../..");
-const DATA = path.join(ROOT, "data/supplier-catalog");
-
-function read<T>(name: string): T {
-  return JSON.parse(fs.readFileSync(path.join(DATA, name), "utf8"));
-}
+const CATALOG_PATH = path.join(ROOT, "data/catalog.json");
+const GEN = path.join(ROOT, "shared/catalog/generated");
 
 function fail(msg: string): never {
   console.error(`catalog:verify FAIL — ${msg}`);
   process.exit(1);
 }
 
+interface Catalog {
+  doorStyles: { name: string }[];
+  finishes: { name: string; category: string; priceTier: string }[];
+  accessories: { name: string }[];
+  cabinets: {
+    code: string;
+    category: string;
+    attrs?: Record<string, unknown>;
+    boxImage?: string;
+  }[];
+  content: Record<string, string>;
+  nomenclature?: { tokens: Record<string, string> };
+}
+
+// The exact set the build plan locks in; nothing invented, nothing missing.
+const ALLOWED_DOOR_STYLES = new Set([
+  "Slab",
+  "3 Piece",
+  "Modern Shaker",
+  "Thin Shaker",
+  "Alpha Shaker",
+  "Beta Shaker",
+]);
+
+const ALLOWED_ACCESSORIES = new Set([
+  "Roll-Out Tray",
+  "Trash Pull-Out",
+  "Lazy Susan",
+  "Blind Corner Pull-Out",
+  "Vertical Partition",
+  "Floating Shelf",
+]);
+
+// Supplier / material brand strings that must never appear in the data the app
+// renders (catalog.json keeps materialLine internal; it is stripped at codegen).
+const BANNED_STRINGS = ["OSC", "One Source", "Reserve"];
+
+function countConsts(file: string, token: string): number {
+  const src = fs.readFileSync(path.join(GEN, file), "utf8");
+  return (src.match(new RegExp(`"${token}":`, "g")) || []).length;
+}
+
 function main() {
-  const doorStyles = read<{ id: string; slug: string }[]>("doorStyles.json");
-  const finishes = read<{ id: string; slug: string; compatibleDoorStyleIds: string[] }[]>("finishes.json");
-  const products = read<{ id: string; slug: string; oscCode: string }[]>("cabinetProducts.json");
-  const collections = read<{ id: string }[]>("collections.json");
+  const catalog: Catalog = JSON.parse(fs.readFileSync(CATALOG_PATH, "utf8"));
 
-  const doorIds = new Set(doorStyles.map((d) => d.id));
-  if (doorIds.size !== 6) fail(`Expected 6 door styles, got ${doorIds.size}`);
-  if (finishes.length < 50) fail(`Expected 50+ finishes, got ${finishes.length}`);
-  if (products.length < 100) fail(`Expected 100+ cabinet products, got ${products.length}`);
+  // ── Door styles ─────────────────────────────────────────────────────────
+  if (catalog.doorStyles.length !== 6) {
+    fail(`Expected 6 door styles, got ${catalog.doorStyles.length}`);
+  }
+  for (const d of catalog.doorStyles) {
+    if (!ALLOWED_DOOR_STYLES.has(d.name)) fail(`Unexpected door style: ${d.name}`);
+  }
 
-  const slugs = new Set<string>();
-  for (const f of finishes) {
-    if (slugs.has(f.slug)) fail(`Duplicate finish slug: ${f.slug}`);
-    slugs.add(f.slug);
-    for (const ds of f.compatibleDoorStyleIds) {
-      if (!doorIds.has(ds)) fail(`Finish ${f.slug} references unknown door style ${ds}`);
+  // ── Finishes ────────────────────────────────────────────────────────────
+  if (catalog.finishes.length !== 299) {
+    fail(`Expected 299 finishes, got ${catalog.finishes.length}`);
+  }
+
+  // ── Accessories (exactly the 6 kept) ──────────────────────────────────────
+  if (catalog.accessories.length !== 6) {
+    fail(`Expected 6 accessories, got ${catalog.accessories.length}`);
+  }
+  for (const a of catalog.accessories) {
+    if (!ALLOWED_ACCESSORIES.has(a.name)) fail(`Removed/unknown accessory present: ${a.name}`);
+  }
+
+  // ── Cabinets ──────────────────────────────────────────────────────────────
+  if (catalog.cabinets.length !== 320) {
+    fail(`Expected 320 cabinets, got ${catalog.cabinets.length}`);
+  }
+  const codes = new Set<string>();
+  for (const c of catalog.cabinets) {
+    if (!c.code) fail("Cabinet missing code");
+    if (codes.has(c.code)) fail(`Duplicate cabinet code: ${c.code}`);
+    codes.add(c.code);
+    if (!c.attrs) fail(`Cabinet ${c.code} missing attrs (needed for box diagram)`);
+    if (!c.boxImage) fail(`Cabinet ${c.code} missing boxImage path`);
+  }
+
+  // ── Content ───────────────────────────────────────────────────────────────
+  for (const key of ["warrantyHeadline", "warrantySummary", "leadTime", "estimateDisclaimer"]) {
+    if (!catalog.content?.[key]) fail(`content.${key} missing`);
+  }
+
+  // ── Nomenclature ──────────────────────────────────────────────────────────
+  if (!catalog.nomenclature?.tokens) fail("nomenclature.tokens missing");
+
+  // ── No supplier/brand strings in customer-facing finish/door/accessory names ─
+  const customerStrings = [
+    ...catalog.finishes.map((f) => f.name),
+    ...catalog.doorStyles.map((d) => d.name),
+    ...catalog.accessories.map((a) => a.name),
+  ].join(" ");
+  for (const banned of BANNED_STRINGS) {
+    if (customerStrings.includes(banned)) {
+      fail(`Banned supplier/brand string "${banned}" found in customer-facing names`);
     }
   }
 
-  const productSlugs = new Set<string>();
-  for (const p of products) {
-    if (productSlugs.has(p.slug)) fail(`Duplicate product slug: ${p.slug}`);
-    productSlugs.add(p.slug);
-    if (!p.oscCode) fail(`Product ${p.slug} missing oscCode`);
+  // ── Generated TS in sync ──────────────────────────────────────────────────
+  for (const f of ["doorStyles.ts", "finishes.ts", "cabinetProducts.ts", "content.ts", "nomenclature.ts"]) {
+    if (!fs.existsSync(path.join(GEN, f))) fail(`Missing generated ${f} — run: npm run catalog:codegen`);
   }
-
-  const collectionIds = new Set(collections.map((c) => c.id));
-  if (!collectionIds.has("custom") || !collectionIds.has("reserve")) {
-    fail("Missing custom or reserve collection");
-  }
-
-  // Ensure generated TS is in sync
-  const genDoor = path.join(ROOT, "shared/catalog/generated/doorStyles.ts");
-  if (!fs.existsSync(genDoor)) {
-    fail("Run: npm run catalog:codegen");
-  }
+  const genFinishes = countConsts("finishes.ts", "slug");
+  const genCabinets = countConsts("cabinetProducts.ts", "slug");
+  if (genFinishes !== 299) fail(`Generated finishes out of sync (${genFinishes}); run npm run catalog:codegen`);
+  if (genCabinets !== 320) fail(`Generated cabinets out of sync (${genCabinets}); run npm run catalog:codegen`);
 
   console.log(
-    `catalog:verify OK — ${doorStyles.length} door styles, ${finishes.length} finishes, ${products.length} products`,
+    `catalog:verify OK — ${catalog.doorStyles.length} door styles, ${catalog.finishes.length} finishes, ${catalog.cabinets.length} cabinets, ${catalog.accessories.length} accessories`,
   );
 }
 

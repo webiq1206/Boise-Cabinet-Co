@@ -7,7 +7,6 @@ import { useIsDesktop } from "@/hooks/use-media-query";
 import { isScannedRoom } from "@/lib/design/roomScanGeometry";
 import { RoomSetupStep } from "./steps/RoomSetupStep";
 import { LayoutStep } from "./steps/LayoutStep";
-import { CollectionStep } from "./steps/CollectionStep";
 import { LookStep } from "./steps/LookStep";
 import { PreviewStep } from "./steps/PreviewStep";
 import { QuoteStep } from "./steps/QuoteStep";
@@ -17,20 +16,32 @@ import { ChevronUp, Eye } from "lucide-react";
 import { wizardCopy } from "@/shared/designStudioCopy";
 import { GuidedFlowShell } from "@/components/guided-flow";
 import type { GuidedStep } from "@/components/guided-flow";
+import { ROOM_BY_SLUG } from "@/shared/catalog/roomCategories";
 
-export const WIZARD_STEPS: readonly GuidedStep[] = [
-  { id: "room", label: "Your room", shortLabel: "Room" },
-  { id: "layout", label: "Kitchen shape", shortLabel: "Layout" },
-  { id: "collection", label: "Cabinet line", shortLabel: "Line" },
-  { id: "look", label: "Colors & hardware", shortLabel: "Look" },
-  { id: "preview", label: "3D preview", shortLabel: "Preview" },
-  { id: "quote", label: "Save & quote", shortLabel: "Quote" },
-] as const;
+/** The layout step name adapts to the chosen room (no hard-coded "Kitchen"). */
+function layoutStepLabel(roomType: string | null): string {
+  if (!roomType) return "Layout";
+  if (roomType === "kitchen") return "Kitchen shape";
+  if (roomType === "bathroom") return "Vanity layout";
+  const name = ROOM_BY_SLUG[roomType]?.name;
+  return name ? `${name} layout` : "Layout";
+}
+
+function buildWizardSteps(roomType: string | null): readonly GuidedStep[] {
+  return [
+    { id: "room", label: "Your room", shortLabel: "Room" },
+    { id: "layout", label: layoutStepLabel(roomType), shortLabel: "Layout" },
+    { id: "look", label: "Colors & hardware", shortLabel: "Look" },
+    { id: "preview", label: "3D preview", shortLabel: "Preview" },
+    { id: "quote", label: "Save & quote", shortLabel: "Quote" },
+  ];
+}
+
+export const WIZARD_STEPS: readonly GuidedStep[] = buildWizardSteps(null);
 
 const STEP_COMPONENTS = [
   RoomSetupStep,
   LayoutStep,
-  CollectionStep,
   LookStep,
   PreviewStep,
   QuoteStep,
@@ -49,6 +60,16 @@ export function DesignWizard({ className }: DesignWizardProps) {
 
   useEffect(() => setMounted(true), []);
 
+  // "Browse styles without measuring" jumps straight to the Look step (index 2)
+  // after the room step seeds a typical size.
+  useEffect(() => {
+    const handler = () => setCurrentStep(2);
+    window.addEventListener("brc-studio-goto-look", handler);
+    return () => window.removeEventListener("brc-studio-goto-look", handler);
+  }, []);
+
+  const steps = buildWizardSteps(design.roomType);
+
   const previewReady =
     isScannedRoom(design.roomMeta) ||
     design.layout !== null ||
@@ -56,7 +77,7 @@ export function DesignWizard({ className }: DesignWizardProps) {
 
   const StepComponent = STEP_COMPONENTS[currentStep];
   const isFirst = currentStep === 0;
-  const isLast = currentStep === WIZARD_STEPS.length - 1;
+  const isLast = currentStep === steps.length - 1;
   const canAdvance = isStepComplete(currentStep);
 
   const goNext = () => {
@@ -105,7 +126,7 @@ export function DesignWizard({ className }: DesignWizardProps) {
 
   const shell = (
     <GuidedFlowShell
-      steps={WIZARD_STEPS}
+      steps={steps}
       currentIndex={currentStep}
       isStepComplete={isStepComplete}
       onStepClick={(index) => index <= currentStep && setCurrentStep(index)}

@@ -33,6 +33,7 @@ import { cn } from "@/lib/utils";
 import { DisplayNum } from "@/components/marketing";
 import { EstimateResultPanel } from "@/components/estimate/EstimateResultPanel";
 import { VisualOptionGrid } from "@/components/catalog/visual";
+import { getMostLovedFinishes } from "@/shared/catalog/finishFilters";
 import { GuidedFlowShell, type GuidedStep } from "@/components/guided-flow";
 import { trackEstimatorEvent } from "@/lib/design/designAnalytics";
 import {
@@ -46,7 +47,6 @@ import {
   getStepVisibility,
   getVisibleSteps,
   getLayoutOptions,
-  getCabinetLineOptions,
   getDoorStyleOptions,
   getFinishColorOptions,
   applyFinishSlug,
@@ -54,7 +54,7 @@ import {
   FINISH_CATEGORY_OPTIONS,
   FINISH_TIER_OPTIONS,
   CONSTRUCTION_OPTIONS,
-  STORAGE_OPTIONS,
+  ACCESSORY_OPTIONS,
   getDefaultSelectionsForProject,
   calculateEstimate,
   buildStoredEstimate,
@@ -86,13 +86,12 @@ const OPTION_ICONS: Record<string, LucideIcon> = {
   Sparkles,
 };
 
-type WizardStepId = "project" | "size" | "layout" | "line" | "style" | "quality" | "result";
+type WizardStepId = "project" | "size" | "layout" | "style" | "quality" | "result";
 
 const WIZARD_META: Record<WizardStepId, GuidedStep> = {
   project: { id: "project", label: "Your project", shortLabel: "Project" },
   size: { id: "size", label: "How big?", shortLabel: "Size" },
   layout: { id: "layout", label: "Layout", shortLabel: "Layout" },
-  line: { id: "line", label: "Cabinet line", shortLabel: "Line" },
   style: { id: "style", label: "Door & finish", shortLabel: "Style" },
   quality: { id: "quality", label: "Quality & storage", shortLabel: "Quality" },
   result: { id: "result", label: "Your range", shortLabel: "Range" },
@@ -102,7 +101,7 @@ function getWizardStepIds(project: ProjectType): WizardStepId[] {
   const vis = getStepVisibility(project);
   const ids: WizardStepId[] = ["project", "size"];
   if (vis.layout) ids.push("layout");
-  ids.push("line", "style", "quality", "result");
+  ids.push("style", "quality", "result");
   return ids;
 }
 
@@ -207,6 +206,48 @@ function SelectButton<T extends string>({
   );
 }
 
+function MultiSelectButton({
+  values,
+  options,
+  onToggle,
+  testIdPrefix,
+}: {
+  values: string[];
+  options: SelectOption[];
+  onToggle: (v: string) => void;
+  testIdPrefix: string;
+}) {
+  return (
+    <div className="grid grid-cols-2 gap-2">
+      {options.map((opt) => {
+        const active = values.includes(opt.value);
+        return (
+          <button
+            key={opt.value}
+            type="button"
+            onClick={() => onToggle(opt.value)}
+            data-testid={`${testIdPrefix}-${opt.value}`}
+            aria-pressed={active}
+            className={cn(
+              "relative flex flex-col items-start gap-1 p-4 min-h-[44px] rounded-sm text-left transition-all border bg-card",
+              active ? "border-foreground/40 border-[1.5px] bg-muted/40" : "border-border",
+            )}
+          >
+            {active && (
+              <Check className="absolute top-2.5 right-2.5 h-3.5 w-3.5 text-foreground z-10" />
+            )}
+            <OptionVisual image={opt.image} imageAlt={opt.imageAlt} icon={opt.icon} />
+            <span className="font-medium text-xs text-foreground pr-5">{opt.label}</span>
+            {opt.sub && (
+              <span className="text-[11px] leading-snug text-muted-foreground line-clamp-2">{opt.sub}</span>
+            )}
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
 interface EstimateCalculatorWizardProps {
   inModal?: boolean;
   onBookVisit?: () => void;
@@ -219,6 +260,7 @@ export function EstimateCalculatorWizard({
   const [selections, setSelections] = useState<EstimateSelections>(DEFAULT_SELECTIONS);
   const [touched, setTouched] = useState<Set<SelectionStepKey>>(new Set());
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [showAllColors, setShowAllColors] = useState(false);
 
   const { project } = selections;
   const stepIds = useMemo(() => getWizardStepIds(project), [project]);
@@ -287,11 +329,34 @@ export function EstimateCalculatorWizard({
   }
 
   const layoutOptions = getLayoutOptions(project);
-  const lineOptions = getCabinetLineOptions();
   const doorOptions = getDoorStyleOptions();
   const finishColorOptions = visibility.doorStyle
     ? getFinishColorOptions(selections.doorStyle)
     : [];
+
+  // Progressive disclosure: lead with a small curated set of colors, not the
+  // full compatible palette (which is the whole 299-finish catalog).
+  const CURATED_COLOR_COUNT = 9;
+  const curatedColorOptions = (() => {
+    if (finishColorOptions.length <= CURATED_COLOR_COUNT) return finishColorOptions;
+    const order = new Map(finishColorOptions.map((o, i) => [o.value, i] as const));
+    const lovedSlugs = getMostLovedFinishes(CURATED_COLOR_COUNT)
+      .map((f) => f.slug)
+      .filter((slug) => order.has(slug));
+    const picked = new Set(lovedSlugs);
+    // Keep whatever the visitor already chose visible in the curated set.
+    if (selections.finishSlug && order.has(selections.finishSlug)) {
+      picked.add(selections.finishSlug);
+    }
+    const curated = finishColorOptions.filter((o) => picked.has(o.value));
+    for (const o of finishColorOptions) {
+      if (curated.length >= CURATED_COLOR_COUNT) break;
+      if (!picked.has(o.value)) curated.push(o);
+    }
+    return curated.slice(0, CURATED_COLOR_COUNT);
+  })();
+  const visibleColorOptions = showAllColors ? finishColorOptions : curatedColorOptions;
+  const hasMoreColors = finishColorOptions.length > visibleColorOptions.length;
 
   const layoutTintStyle = touched.has("finish")
     ? (() => {
@@ -317,14 +382,12 @@ export function EstimateCalculatorWizard({
         return selections.size >= sizeConfig.min;
       case "layout":
         return !!selections.layout;
-      case "line":
-        return !!selections.cabinetLine;
       case "style":
         return visibility.doorStyle
           ? !!selections.doorStyle && !!selections.finishCategory
           : !!selections.finishCategory;
       case "quality":
-        return !!selections.construction && !!selections.storage;
+        return !!selections.construction;
       case "result":
         return true;
       default:
@@ -340,16 +403,13 @@ export function EstimateCalculatorWizard({
       case "layout":
         markTouched("layout");
         break;
-      case "line":
-        markTouched("line");
-        break;
       case "style":
         if (visibility.doorStyle) markTouched("doorStyle");
         markTouched("finish");
         break;
       case "quality":
         markTouched("construction");
-        markTouched("storage");
+        markTouched("accessories");
         break;
       case "result":
         trackEstimatorEvent("estimator_complete");
@@ -398,7 +458,7 @@ export function EstimateCalculatorWizard({
                     {active && (
                       <Check className="absolute top-3 right-3 h-4 w-4 text-foreground z-10" />
                     )}
-                    <OptionVisual icon={info.icon} />
+                    <OptionVisual image={info.image} imageAlt={`${info.label} cabinetry`} icon={info.icon} />
                     <span className="font-medium text-sm text-foreground pr-5">{info.label}</span>
                     <span className="text-xs text-muted-foreground">{info.sub}</span>
                   </button>
@@ -450,18 +510,6 @@ export function EstimateCalculatorWizard({
             />
           </div>
         );
-      case "line":
-        return (
-          <div>
-            <p className="text-sm text-muted-foreground mb-4">Choose your cabinet line.</p>
-            <SelectButton
-              value={selections.cabinetLine}
-              options={lineOptions}
-              onChange={(v) => updateField("cabinetLine", v, "line")}
-              testIdPrefix="button-line"
-            />
-          </div>
-        );
       case "style":
         return (
           <div className="space-y-6">
@@ -475,6 +523,7 @@ export function EstimateCalculatorWizard({
                     setSelections((prev) =>
                       applyFinishSlug({ ...prev, doorStyle: v }, prev.finishSlug),
                     );
+                    setShowAllColors(false);
                     markTouched("doorStyle");
                   }}
                   testIdPrefix="button-door"
@@ -485,9 +534,9 @@ export function EstimateCalculatorWizard({
               <div>
                 <label className="brc-label mb-3 block">Finish color (optional)</label>
                 <VisualOptionGrid
-                  className="max-h-[280px] overflow-y-auto pr-1 gap-3"
+                  className={cn("gap-3", showAllColors && "max-h-[280px] overflow-y-auto pr-1")}
                   columns={3}
-                  items={finishColorOptions.map((opt) => ({
+                  items={visibleColorOptions.map((opt) => ({
                     id: opt.value,
                     label: opt.label,
                     meta: opt.sub,
@@ -501,6 +550,28 @@ export function EstimateCalculatorWizard({
                   }}
                   testIdPrefix="button-finish-color"
                 />
+                {hasMoreColors && !showAllColors && (
+                  <button
+                    type="button"
+                    onClick={() => setShowAllColors(true)}
+                    className="mt-3 text-xs font-medium text-accent underline underline-offset-2"
+                    data-testid="button-show-all-finish-colors"
+                  >
+                    See all {finishColorOptions.length} colors
+                  </button>
+                )}
+                {showAllColors && (
+                  <button
+                    type="button"
+                    onClick={() => setShowAllColors(false)}
+                    className="mt-3 text-xs font-medium text-muted-foreground underline underline-offset-2"
+                  >
+                    Show fewer
+                  </button>
+                )}
+                <p className="mt-2 text-[11px] text-muted-foreground">
+                  Pick a color now or explore the full palette later - your planning range doesn&apos;t depend on the exact color.
+                </p>
               </div>
             )}
             <div>
@@ -536,12 +607,25 @@ export function EstimateCalculatorWizard({
               />
             </div>
             <div>
-              <label className="brc-label mb-3 block">Smart Storage</label>
-              <SelectButton
-                value={selections.storage}
-                options={STORAGE_OPTIONS}
-                onChange={(v) => updateField("storage", v, "storage")}
-                testIdPrefix="button-storage"
+              <label className="brc-label mb-3 block">
+                Smart storage <span className="text-muted-foreground font-normal">(optional, pick any)</span>
+              </label>
+              <MultiSelectButton
+                values={selections.accessories}
+                options={ACCESSORY_OPTIONS}
+                onToggle={(slug) => {
+                  setSelections((prev) => {
+                    const has = prev.accessories.includes(slug);
+                    return {
+                      ...prev,
+                      accessories: has
+                        ? prev.accessories.filter((s) => s !== slug)
+                        : [...prev.accessories, slug],
+                    };
+                  });
+                  markTouched("accessories");
+                }}
+                testIdPrefix="button-accessory"
               />
             </div>
           </div>
@@ -554,6 +638,9 @@ export function EstimateCalculatorWizard({
             scopeSummary={result.scopeSummary}
             onBookVisit={handleBookVisit}
             project={project}
+            doorStyle={visibility.doorStyle ? selections.doorStyle : undefined}
+            finishSlug={selections.finishSlug || undefined}
+            size={selections.size}
             variant="full"
           />
         );

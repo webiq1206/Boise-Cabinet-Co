@@ -14,6 +14,9 @@ const ROOM_DEFAULTS: Record<string, { widthIn: number; depthIn: number }> = {
   bathroom: { widthIn: 96, depthIn: 84 },
   laundry: { widthIn: 108, depthIn: 96 },
   mudroom: { widthIn: 108, depthIn: 96 },
+  "home-office": { widthIn: 120, depthIn: 132 },
+  entertainment: { widthIn: 168, depthIn: 168 },
+  "built-ins": { widthIn: 120, depthIn: 120 },
   closet: { widthIn: 120, depthIn: 96 },
   garage: { widthIn: 240, depthIn: 168 },
   office: { widthIn: 120, depthIn: 108 },
@@ -75,6 +78,36 @@ export const ROOM_SIZE_BUCKETS: Record<
       widthIn: 120,
       depthIn: 96,
     },
+  ],
+  laundry: [
+    { id: "laundry-compact", label: "Compact", hint: "Closet or hall laundry", widthIn: 96, depthIn: 84 },
+    { id: "laundry-average", label: "Average", hint: "Dedicated laundry room", widthIn: 120, depthIn: 96 },
+    { id: "laundry-large", label: "Large", hint: "Laundry + mud combo", widthIn: 156, depthIn: 120 },
+  ],
+  mudroom: [
+    { id: "mudroom-compact", label: "Compact", hint: "Entry drop zone", widthIn: 84, depthIn: 60 },
+    { id: "mudroom-average", label: "Average", hint: "Lockers + bench", widthIn: 120, depthIn: 96 },
+    { id: "mudroom-large", label: "Large", hint: "Full locker wall", widthIn: 168, depthIn: 120 },
+  ],
+  "home-office": [
+    { id: "office-compact", label: "Compact", hint: "Nook or small office", widthIn: 96, depthIn: 96 },
+    { id: "office-average", label: "Average", hint: "Spare-bedroom office", widthIn: 120, depthIn: 132 },
+    { id: "office-large", label: "Large", hint: "Shared or large office", widthIn: 168, depthIn: 156 },
+  ],
+  entertainment: [
+    { id: "entertainment-compact", label: "Compact", hint: "Media wall", widthIn: 120, depthIn: 132 },
+    { id: "entertainment-average", label: "Average", hint: "Great room", widthIn: 168, depthIn: 168 },
+    { id: "entertainment-large", label: "Large", hint: "Large great room", widthIn: 216, depthIn: 192 },
+  ],
+  "built-ins": [
+    { id: "built-ins-compact", label: "Compact", hint: "Single alcove", widthIn: 72, depthIn: 96 },
+    { id: "built-ins-average", label: "Average", hint: "Living-room wall", widthIn: 120, depthIn: 120 },
+    { id: "built-ins-large", label: "Large", hint: "Full wall of built-ins", widthIn: 168, depthIn: 144 },
+  ],
+  pantry: [
+    { id: "pantry-reach", label: "Reach-in", hint: "Shallow closet", widthIn: 60, depthIn: 48 },
+    { id: "pantry-walkin", label: "Walk-in", hint: "Most walk-in pantries", widthIn: 84, depthIn: 72 },
+    { id: "pantry-large", label: "Large", hint: "Big walk-in", widthIn: 120, depthIn: 96 },
   ],
 };
 

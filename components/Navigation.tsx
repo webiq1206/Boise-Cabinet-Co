@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/navigation-menu";
 import { Menu, X, ChevronDown, Search } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { CTA_CONSULT_SHORT, CTA_DESIGN_STUDIO_SHORT, CTA_PORTAL_SHORT } from "@/shared/ctaCopy";
+import { CTA_CONSULT_SHORT, CTA_PORTAL_SHORT } from "@/shared/ctaCopy";
 import { SITE_CONFIG } from "@/shared/siteConfig";
 import { PRIMARY_NAV } from "@/shared/cabinetNav";
 import { useModals } from "@/components/modals/ModalProvider";
@@ -314,7 +314,12 @@ export function Navigation() {
                     onClick={() =>
                       setExpandedMobile(expandedMobile === item.label ? null : item.label)
                     }
-                    className="flex w-full items-center justify-between px-6 py-5 text-xl font-medium text-muted-foreground"
+                    className={cn(
+                      "flex w-full items-center justify-between px-6 py-5 text-xl font-medium",
+                      navItemActive(item.href, item.children)
+                        ? "text-foreground"
+                        : "text-muted-foreground",
+                    )}
                   >
                     {item.label}
                     <ChevronDown
@@ -338,7 +343,12 @@ export function Navigation() {
                           key={child.href}
                           href={child.href}
                           onClick={() => setMobileOpen(false)}
-                          className="block py-2 text-sm text-muted-foreground"
+                          className={cn(
+                            "block py-2 text-sm",
+                            pathname === child.href
+                              ? "text-foreground font-medium"
+                              : "text-muted-foreground",
+                          )}
                         >
                           {child.label}
                         </Link>
@@ -359,7 +369,12 @@ export function Navigation() {
                 <Link
                   href={item.href}
                   onClick={() => setMobileOpen(false)}
-                  className="block px-6 py-5 text-xl font-medium text-muted-foreground"
+                  className={cn(
+                    "block px-6 py-5 text-xl font-medium",
+                    navItemActive(item.href)
+                      ? "text-foreground"
+                      : "text-muted-foreground",
+                  )}
                 >
                   {item.label}
                 </Link>
@@ -397,12 +412,14 @@ export function Navigation() {
           >
             Call
           </a>
-          <Link
-            href="/design-studio"
+          <button
+            type="button"
+            onClick={openConsult}
+            aria-label={CTA_CONSULT_SHORT}
             className={cn("flex items-center justify-center gap-2 py-4 text-sm font-medium", bottomBarClasses.text)}
           >
-            {CTA_DESIGN_STUDIO_SHORT}
-          </Link>
+            {CTA_CONSULT_SHORT}
+          </button>
         </div>
       </div>
     </>

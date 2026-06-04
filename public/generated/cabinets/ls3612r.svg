@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="420" viewBox="0 0 360 420" role="img" aria-label="LS3612R cabinet front elevation">
+  <rect width="360" height="420" fill="#F7F3EC"/>
+  <rect x="40.0" y="57.3" width="280.0" height="287.5" rx="2" fill="#FBFAF6" stroke="#5E564A" stroke-width="1.8"/>
+  <rect x="48.0" y="65.3" width="130.0" height="271.5" rx="2" fill="#ECE6DB" stroke="#8C8170" stroke-width="1.4"/><rect x="54.0" y="71.3" width="118.0" height="259.5" rx="1" fill="none" stroke="#8C8170" stroke-width="0.8"/><line x1="170.0" y1="160.3" x2="170.0" y2="241.7" stroke="#6E6555" stroke-width="2.2"/><rect x="182.0" y="65.3" width="130.0" height="271.5" rx="2" fill="#ECE6DB" stroke="#8C8170" stroke-width="1.4"/><rect x="188.0" y="71.3" width="118.0" height="259.5" rx="1" fill="none" stroke="#8C8170" stroke-width="0.8"/><line x1="190.0" y1="160.3" x2="190.0" y2="241.7" stroke="#6E6555" stroke-width="2.2"/>
+  <circle cx="180.0" cy="201.0" r="50.4" fill="none" stroke="#B7AD9B" stroke-width="1.2" stroke-dasharray="4 3"/>
+  <line x1="129.6" y1="201.0" x2="230.4" y2="201.0" stroke="#B7AD9B" stroke-width="0.8"/>
+  <line x1="180.0" y1="150.6" x2="180.0" y2="251.4" stroke="#B7AD9B" stroke-width="0.8"/>
+  <rect x="50.0" y="344.7" width="260.0" height="18.0" rx="1" fill="#FBFAF6" stroke="#8C8170" stroke-width="1"/>
+</svg>

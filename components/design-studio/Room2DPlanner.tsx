@@ -57,6 +57,20 @@ const APPLIANCE_LABEL: Record<ApplianceType, string> = {
   dishwasher: "Dishwasher",
 };
 
+// Only offer appliances that make sense for the room. Rooms like an office,
+// pantry, or built-ins have no appliances, so the picker is hidden entirely.
+const APPLIANCE_OPTIONS_BY_ROOM: Record<string, ApplianceType[]> = {
+  kitchen: ["sink", "range", "refrigerator", "dishwasher"],
+  bathroom: ["sink"],
+  laundry: ["sink"],
+  "wet-bar": ["sink", "refrigerator"],
+};
+
+function applianceOptionsForRoom(roomType: string | null): ApplianceType[] {
+  if (!roomType) return ["sink", "range", "refrigerator", "dishwasher"];
+  return APPLIANCE_OPTIONS_BY_ROOM[roomType] ?? [];
+}
+
 export function Room2DPlanner({ className }: { className?: string }) {
   const {
     design,
@@ -68,6 +82,7 @@ export function Room2DPlanner({ className }: { className?: string }) {
   } = useDesignStudio();
 
   const modules = design.modules;
+  const applianceOptions = applianceOptionsForRoom(design.roomType);
   const bounds = resolveRoomBounds(
     modules,
     design.roomBounds,
@@ -717,7 +732,7 @@ export function Room2DPlanner({ className }: { className?: string }) {
             </div>
           )}
 
-          {!selected.isWall && (
+          {!selected.isWall && applianceOptions.length > 0 && (
             <select
               className="h-8 rounded-md border bg-background px-2 text-sm"
               value={selected.appliance ?? "none"}
@@ -727,10 +742,11 @@ export function Room2DPlanner({ className }: { className?: string }) {
               data-testid="select-appliance"
             >
               <option value="none">No appliance</option>
-              <option value="sink">Sink</option>
-              <option value="range">Range</option>
-              <option value="refrigerator">Fridge</option>
-              <option value="dishwasher">Dishwasher</option>
+              {applianceOptions.map((opt) => (
+                <option key={opt} value={opt}>
+                  {APPLIANCE_LABEL[opt]}
+                </option>
+              ))}
             </select>
           )}
 

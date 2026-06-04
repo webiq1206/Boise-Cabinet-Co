@@ -14,10 +14,7 @@ test.describe("Catalog visuals", () => {
     }
     await page.getByRole("button", { name: "Continue" }).click();
 
-    await page.getByRole("button", { name: /Custom Cabinets|Reserve/i }).first().click();
-    await page.getByRole("button", { name: "Continue" }).click();
-
-    await expect(page.getByText(/Door style/i)).toBeVisible({ timeout: 10_000 });
+    await expect(page.getByText("Door style", { exact: true })).toBeVisible({ timeout: 10_000 });
     const doorTiles = page.locator('[data-testid^="button-door-style-"] img');
     await expect(doorTiles).toHaveCount(6, { timeout: 10_000 });
   });

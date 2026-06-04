@@ -123,6 +123,10 @@ export interface EstimateResultPanelProps {
   scopeSummary?: string;
   onBookVisit: () => void;
   project?: ProjectType;
+  doorStyle?: string;
+  finishSlug?: string;
+  /** Linear feet of cabinetry from the estimator, used to pre-size the studio. */
+  size?: number;
   variant?: "full" | "compact";
   className?: string;
 }
@@ -133,11 +137,23 @@ export function EstimateResultPanel({
   scopeSummary,
   onBookVisit,
   project,
+  doorStyle,
+  finishSlug,
+  size,
   variant = "full",
   className,
 }: EstimateResultPanelProps) {
   const isCompact = variant === "compact";
   const rangeAnnouncement = `${formatPlanningCurrency(result.priceLow)} to ${formatPlanningCurrency(result.priceHigh)} planning range`;
+  const designStudioHref = (() => {
+    const params = new URLSearchParams();
+    if (project) params.set("roomType", project);
+    if (doorStyle) params.set("doorStyle", doorStyle);
+    if (finishSlug) params.set("finish", finishSlug);
+    if (size && size > 0) params.set("lf", String(size));
+    const qs = params.toString();
+    return qs ? `/design-studio?${qs}` : "/design-studio";
+  })();
 
   return (
     <div
@@ -188,7 +204,8 @@ export function EstimateResultPanel({
 
       {!isCompact && (
         <p className="text-xs text-inverse-muted mb-4">
-          Based on your inputs. Your exact investment is confirmed at your in-home visit.
+          Based on your inputs. Your exact investment is confirmed at your in-home visit. Typical
+          lead time is {CATALOG_CONTENT.leadTime} after your selections are finalized.
         </p>
       )}
 
@@ -232,10 +249,10 @@ export function EstimateResultPanel({
         <ArrowRight className="h-4 w-4" />
       </Button>
 
-      {!isCompact && project && (project === "kitchen" || project === "bathroom") && (
+      {!isCompact && project && (
         <p className="text-center text-sm mb-4">
           <Link
-            href={`/design-studio?roomType=${project}`}
+            href={designStudioHref}
             className="text-accent hover:underline underline-offset-2"
             data-testid="link-estimator-design-studio"
           >
@@ -252,10 +269,8 @@ export function EstimateResultPanel({
 
           <div className="rounded-sm p-4 flex gap-3 bg-inverse-foreground/6 border border-inverse-foreground/10">
             <Info className="h-4 w-4 flex-shrink-0 mt-0.5 text-inverse-muted" />
-            <p className="text-[11px] leading-relaxed text-inverse-muted">
-              This estimate is for planning purposes only. It is not a proposal, bid, or guaranteed project cost.
-              Ranges are based on market conditions, project type, project size, location, finish level, and other
-              assumptions. Schedule a consultation for a detailed project evaluation tailored to your home.
+            <p className="text-[11px] leading-relaxed text-inverse-muted" data-testid="estimate-disclaimer">
+              {CATALOG_CONTENT.estimateDisclaimer}
             </p>
           </div>
         </>

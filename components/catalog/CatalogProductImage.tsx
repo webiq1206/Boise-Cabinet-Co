@@ -21,10 +21,11 @@ export function CatalogProductImage({
   const src =
     type === "hardware" ? getHardwareImagePath(slug) : getAccessoryImagePath(slug);
   const alt = getCatalogProductAlt(name, type === "hardware" ? "hardware" : "accessory");
+  const ratio = type === "accessory" ? "aspect-square" : "aspect-[4/3]";
 
   return (
     <div
-      className={`relative aspect-[4/3] overflow-hidden rounded-sm bg-muted ${className ?? ""}`}
+      className={`relative ${ratio} overflow-hidden rounded-sm bg-muted ${className ?? ""}`}
     >
       <Image
         src={src}

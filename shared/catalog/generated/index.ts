@@ -8,4 +8,6 @@ export { PANEL_BRANDS } from "./panelBrands";
 export { ACCESSORY_FAMILIES, ACCESSORY_FAMILY_BY_SLUG } from "./accessoryFamilies";
 export { CATALOG_CONTENT } from "./content";
 export type { CatalogContent } from "./content";
+export { CATALOG_NOMENCLATURE } from "./nomenclature";
+export type { CatalogNomenclature } from "./nomenclature";
 export { OSC_HARDWARE_SPEC } from "./hardwareSpec";

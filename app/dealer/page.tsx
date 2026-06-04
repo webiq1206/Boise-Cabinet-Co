@@ -51,7 +51,6 @@ export default function DealerPortalPage() {
                   imageAlt={`${c.name} cabinet line`}
                   specs={[
                     { label: "Lead time", value: c.leadTime },
-                    { label: "Line", value: c.oscLine },
                   ]}
                   primaryHref={`/collections/${c.slug}`}
                   primaryLabel="View collection"

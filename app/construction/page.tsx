@@ -34,7 +34,7 @@ const STANDARDS = [
   },
   {
     title: "Installation & warranty",
-    body: "Treasure Valley installation by our crew, not outsourced day labor. Workmanship warranties run up to 5 years on our Custom Cabinets, documented in your contract.",
+    body: "Treasure Valley installation by our crew, not outsourced day labor. Our Custom Cabinets carry a limited lifetime warranty to the original homeowner, documented in your contract.",
   },
   {
     title: "Written scope before build",

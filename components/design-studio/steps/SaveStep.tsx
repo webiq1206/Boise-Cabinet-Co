@@ -45,6 +45,7 @@ import {
   Tag,
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { ROOM_BY_SLUG } from "@/shared/catalog/roomCategories";
 import { SnapshotPreview3D } from "../SnapshotPreview3D";
 import { snapshotSpecRows } from "@/lib/design/snapshotSpecs";
 import type { SavedVersion } from "@/lib/design/designSerialization";
@@ -229,7 +230,9 @@ export function SaveStep({ embedded = false }: { embedded?: boolean }) {
               id="designName"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              placeholder="e.g. Kitchen v1, White Oak"
+              placeholder={`e.g. ${
+                (design.roomType && ROOM_BY_SLUG[design.roomType]?.name) || "Cabinet"
+              } v1, White Oak`}
             />
           </div>
           <div className="flex flex-wrap gap-3">

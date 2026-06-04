@@ -340,6 +340,25 @@ export function RoomScanPanel() {
     });
   }
 
+  function skipSizingBrowse() {
+    if (!roomSelected) {
+      toast({
+        title: "Pick a room first",
+        description: "Choose which room you're designing above.",
+        variant: "destructive",
+      });
+      return;
+    }
+    const p = presetsForRoomType(design.roomType);
+    const w = p[0]?.widthIn ?? 144;
+    const d = p[0]?.depthIn ?? 132;
+    applyPreset(w, d, "skip-browse");
+    trackDesignEvent("skip_sizing_browse");
+    if (typeof window !== "undefined") {
+      window.dispatchEvent(new CustomEvent("brc-studio-goto-look"));
+    }
+  }
+
   function startEditing() {
     setEditing(true);
     if (meta) {
@@ -638,6 +657,22 @@ export function RoomScanPanel() {
               />
             </CollapsibleContent>
           </Collapsible>
+
+          <div className="pt-1 text-center">
+            <Button
+              type="button"
+              variant="ghost"
+              className="text-sm text-muted-foreground"
+              disabled={!roomSelected}
+              onClick={skipSizingBrowse}
+              data-testid="button-skip-sizing"
+            >
+              Skip for now - just browse door &amp; color styles
+            </Button>
+            <p className="mt-1 text-xs text-muted-foreground">
+              We&apos;ll use a typical size so you can preview styles - refine it anytime.
+            </p>
+          </div>
         </div>
       )}
 

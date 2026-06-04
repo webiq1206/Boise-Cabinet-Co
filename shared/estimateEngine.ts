@@ -1,60 +1,69 @@
-import { COLLECTIONS } from "./catalog/collections";
 import { DOOR_STYLES } from "./catalog/doorStyles";
 import { FINISH_BY_SLUG } from "./catalog/finishes";
 import { getDoorStyleImages, getFinishImages } from "./catalog/entityImages";
+import { getAccessoryImagePath } from "./catalog/catalogImages";
 import { getFinishesForDoorStyle } from "./catalog/queries";
-import { ACCESSORY_BY_ID } from "./catalog/accessories";
+import { ACCESSORIES, ACCESSORY_BY_SLUG } from "./catalog/accessories";
 import { LAYOUT_BY_SLUG } from "./catalog/layouts";
 
 /**
  * Cabinet-specific Project Estimator engine.
  *
- * Pricing is grounded in the real Boise Cabinet Co catalog: the Custom and
- * Reserve cabinet lines, the Slab / Shaker / Thin Shaker door styles, the
- * matte / gloss / woodgrain finish categories and standard / premium / reserve
- * finish tiers, Good / Better / Best box construction, and the Smart Storage
- * add-on accessories. Option lists are pulled from `shared/catalog/*` so the
- * estimator and catalog never drift.
+ * Pricing is grounded in the real Boise Cabinet Co catalog: the single custom
+ * cabinet offering, the six catalog door styles, the matte / woodgrain / gloss
+ * finish categories and the catalog finish price tiers, Good / Better / Best box
+ * construction, and the six real catalog accessory families. Option lists are
+ * pulled from `shared/catalog/*` so the estimator and catalog never drift.
  *
- * The model composes a base from layout + size (linear-foot or per-room
- * driven), then applies multipliers for cabinet line, door style, finish
- * category, finish tier, construction quality, and Smart Storage. Every upgrade
- * raises the range monotonically; every downgrade lowers it.
+ * The model composes a base from layout + size (linear-foot driven), then
+ * applies multipliers for door style, finish category, finish tier,
+ * construction quality, and the chosen catalog accessories. Every upgrade raises
+ * the range monotonically; every downgrade lowers it.
+ *
+ * There is exactly one cabinet line (custom), so there is no "line" step and no
+ * "Reserve" multiplier. Finish price is communicated with `$` tiers, never
+ * "Standard / Premium / Luxury" or supplier/brand names.
  */
 
-export type ProjectType = "kitchen" | "bathroom" | "whole-home" | "addition" | "adu";
+export type ProjectType =
+  | "kitchen"
+  | "bathroom"
+  | "laundry"
+  | "mudroom"
+  | "home-office"
+  | "entertainment"
+  | "built-ins"
+  | "pantry";
 export type FinishCategory = "matte" | "woodgrain" | "gloss";
+/** Internal pricing tier; never rendered as a word - shown as `$` tiers only. */
 export type FinishTier = "standard" | "premium" | "reserve";
 export type ConstructionTier = "good" | "better" | "best";
-export type StorageTier = "none" | "essential" | "upgraded" | "premium";
 export type ConfidenceLevel = "starting" | "refined" | "detailed";
 
 export type SelectionStepKey =
   | "layout"
   | "size"
-  | "line"
   | "doorStyle"
   | "finishColor"
   | "finish"
   | "construction"
-  | "storage";
+  | "accessories";
 
 export interface EstimateSelections {
   project: ProjectType;
   /** Layout slug from the catalog; "" when the project has no layout step. */
   layout: string;
-  /** Size in the project's size unit: linear feet, vanity feet, or room count. */
+  /** Size in linear feet of cabinetry. */
   size: number;
-  /** Cabinet line = catalog collection id ("custom" | "reserve"). */
-  cabinetLine: string;
-  /** Door style = OSC door style id (slab, modern-shaker, thin-shaker, etc.). */
+  /** Door style id (slab, modern-shaker, thin-shaker, etc.). */
   doorStyle: string;
-  /** Optional OSC finish slug; empty string skips named-color selection. */
+  /** Optional catalog finish slug; empty string skips named-color selection. */
   finishSlug: string;
   finishCategory: FinishCategory;
   finishTier: FinishTier;
   construction: ConstructionTier;
-  storage: StorageTier;
+  /** Selected catalog accessory family slugs. */
+  accessories: string[];
 }
 
 export interface EstimateResult {
@@ -65,7 +74,7 @@ export interface EstimateResult {
   confidence: ConfidenceLevel;
   confidenceLabel: string;
   confidencePercent: number;
-  /** Product-named scope line, e.g. "Reserve line · Thin Shaker · Premium matte finish · Best construction · Upgraded storage". */
+  /** Product-named scope line, e.g. "Thin Shaker · Matte finish ($$$) · Best construction · 2 add-ons". */
   scopeSummary: string;
   selectionsMade: number;
   totalSteps: number;
@@ -74,39 +83,34 @@ export interface EstimateResult {
 // ============================================================================
 // MODELED TREASURE VALLEY PRICING - EDIT HERE
 // ----------------------------------------------------------------------------
-// These are PLANNING figures modeled on Boise Cabinet Co's tier structure and
-// typical Treasure Valley installed-cabinetry rates. They are NOT a supplier
-// price sheet and not a per-cabinet quote. Every dollar figure the estimator
-// uses lives in this block - tune these numbers to refine the estimator.
+// These are PLANNING figures modeled on Boise Cabinet Co's offering and typical
+// Treasure Valley installed-cabinetry rates. They are NOT a supplier price sheet
+// and not a per-cabinet quote. Every dollar figure the estimator uses lives in
+// this block - tune these numbers to refine the estimator.
 //
 // How the math works:
 //   priceLow  = round( perUnitLow  × size × multiplier )
 //   priceHigh = round( perUnitHigh × size × multiplier )
-//   multiplier = layout × cabinetLine × doorStyle × finishCategory
-//              × finishTier × construction × storage
+//   multiplier = layout × doorStyle × finishCategory × finishTier
+//              × construction × accessories
 // ============================================================================
 
-/** Base installed price per size unit (low/high band) and resale ROI per project. */
+/** Base installed price per linear foot (low/high band) and resale ROI per room. */
 export const PROJECT_PRICING: Record<
   ProjectType,
   { perUnitLow: number; perUnitHigh: number; roi: number }
 > = {
-  // kitchen / bathroom / built-ins / closet are priced per linear foot of cabinetry.
   kitchen: { perUnitLow: 520, perUnitHigh: 880, roi: 72 },
   bathroom: { perUnitLow: 460, perUnitHigh: 820, roi: 68 },
-  // whole-home is priced per room of cabinetry applied house-wide.
-  "whole-home": { perUnitLow: 10000, perUnitHigh: 22000, roi: 65 },
-  addition: { perUnitLow: 360, perUnitHigh: 640, roi: 60 },
-  adu: { perUnitLow: 220, perUnitHigh: 460, roi: 58 },
+  laundry: { perUnitLow: 380, perUnitHigh: 680, roi: 62 },
+  mudroom: { perUnitLow: 360, perUnitHigh: 640, roi: 58 },
+  "home-office": { perUnitLow: 400, perUnitHigh: 720, roi: 55 },
+  entertainment: { perUnitLow: 420, perUnitHigh: 760, roi: 58 },
+  "built-ins": { perUnitLow: 380, perUnitHigh: 700, roi: 60 },
+  pantry: { perUnitLow: 320, perUnitHigh: 600, roi: 56 },
 };
 
-/** Cabinet line premium, keyed by catalog collection id. */
-export const CABINET_LINE_MULTIPLIER: Record<string, number> = {
-  custom: 1.0,
-  reserve: 1.18,
-};
-
-/** Door style premium, keyed by OSC door style id. */
+/** Door style premium, keyed by door style id. */
 export const DOOR_STYLE_MULTIPLIER: Record<string, number> = {
   slab: 1.0,
   "three-piece": 1.08,
@@ -125,7 +129,7 @@ export const FINISH_CATEGORY_MULTIPLIER: Record<FinishCategory, number> = {
   gloss: 1.18,
 };
 
-/** Finish tier premium across standard / premium / reserve colors. */
+/** Finish price-tier premium across the catalog color tiers ($ -> $$$). */
 export const FINISH_TIER_MULTIPLIER: Record<FinishTier, number> = {
   standard: 1.0,
   premium: 1.12,
@@ -139,13 +143,8 @@ export const CONSTRUCTION_MULTIPLIER: Record<ConstructionTier, number> = {
   best: 1.3,
 };
 
-/** Smart Storage add-on premium. */
-export const STORAGE_MULTIPLIER: Record<StorageTier, number> = {
-  none: 1.0,
-  essential: 1.06,
-  upgraded: 1.15,
-  premium: 1.26,
-};
+/** Each selected catalog accessory adds this fraction to the range. */
+export const ACCESSORY_PREMIUM_PER = 0.04;
 
 /** Layout complexity premium, keyed by catalog layout slug. More corners cost more. */
 export const LAYOUT_COMPLEXITY_MULTIPLIER: Record<string, number> = {
@@ -156,8 +155,6 @@ export const LAYOUT_COMPLEXITY_MULTIPLIER: Record<string, number> = {
   peninsula: 1.08,
   "single-vanity": 1.0,
   "double-vanity": 1.12,
-  "wall-run": 1.0,
-  "floor-to-ceiling": 1.12,
 };
 
 /** Rounding increment for the displayed planning range, in dollars. */
@@ -175,7 +172,7 @@ export interface ProjectSizeConfig {
   unit: "linear-ft" | "rooms";
   unitNoun: string;
   unitNounSingular: string;
-  /** Short noun for the slider end labels, e.g. "lf" or "rooms". */
+  /** Short noun for the slider end labels, e.g. "lf" or "ft". */
   unitShort: string;
   /** Step header for the size selector. */
   sizeStepLabel: string;
@@ -192,18 +189,33 @@ export const PROJECT_SIZE_CONFIG: Record<ProjectType, ProjectSizeConfig> = {
     unit: "linear-ft", unitNoun: "vanity feet", unitNounSingular: "vanity foot",
     unitShort: "ft", sizeStepLabel: "Vanity size",
   },
-  "whole-home": {
-    min: 2, max: 10, step: 1, default: 4,
-    unit: "rooms", unitNoun: "rooms", unitNounSingular: "room",
-    unitShort: "rooms", sizeStepLabel: "Rooms in scope",
-  },
-  addition: {
-    min: 4, max: 40, step: 1, default: 12,
+  laundry: {
+    min: 4, max: 20, step: 1, default: 8,
     unit: "linear-ft", unitNoun: "linear feet", unitNounSingular: "linear foot",
     unitShort: "lf", sizeStepLabel: "Run of cabinetry",
   },
-  adu: {
-    min: 4, max: 60, step: 1, default: 16,
+  mudroom: {
+    min: 4, max: 20, step: 1, default: 8,
+    unit: "linear-ft", unitNoun: "linear feet", unitNounSingular: "linear foot",
+    unitShort: "lf", sizeStepLabel: "Run of cabinetry",
+  },
+  "home-office": {
+    min: 4, max: 24, step: 1, default: 10,
+    unit: "linear-ft", unitNoun: "linear feet", unitNounSingular: "linear foot",
+    unitShort: "lf", sizeStepLabel: "Run of cabinetry",
+  },
+  entertainment: {
+    min: 4, max: 30, step: 1, default: 12,
+    unit: "linear-ft", unitNoun: "linear feet", unitNounSingular: "linear foot",
+    unitShort: "lf", sizeStepLabel: "Run of cabinetry",
+  },
+  "built-ins": {
+    min: 3, max: 30, step: 1, default: 10,
+    unit: "linear-ft", unitNoun: "linear feet", unitNounSingular: "linear foot",
+    unitShort: "lf", sizeStepLabel: "Run of cabinetry",
+  },
+  pantry: {
+    min: 3, max: 16, step: 1, default: 8,
     unit: "linear-ft", unitNoun: "linear feet", unitNounSingular: "linear foot",
     unitShort: "lf", sizeStepLabel: "Run of cabinetry",
   },
@@ -213,21 +225,54 @@ export function getProjectSizeConfig(project: ProjectType): ProjectSizeConfig {
   return PROJECT_SIZE_CONFIG[project];
 }
 
-export const PROJECT_LABELS: Record<ProjectType, { label: string; sub: string; icon: string }> = {
-  kitchen: { label: "Kitchen Cabinets", sub: "Layout, line, and installation", icon: "ChefHat" },
-  bathroom: { label: "Bathroom Vanities", sub: "Vanity, towers, storage", icon: "Bath" },
-  "whole-home": { label: "Whole-Home Cabinetry", sub: "Multiple rooms, one program", icon: "House" },
-  addition: { label: "Built-Ins & Storage", sub: "Mudroom, pantry, office, media", icon: "Boxes" },
-  adu: { label: "Closet & Garage", sub: "Closet systems and garage storage", icon: "Warehouse" },
+export const PROJECT_LABELS: Record<
+  ProjectType,
+  { label: string; sub: string; icon: string; image: string }
+> = {
+  kitchen: {
+    label: "Kitchen", sub: "Bases, uppers, pantries, islands", icon: "ChefHat",
+    image: "/images/catalog/rooms/kitchen.webp",
+  },
+  bathroom: {
+    label: "Bathroom", sub: "Vanities, towers, linen storage", icon: "Bath",
+    image: "/images/catalog/rooms/bathroom.webp",
+  },
+  laundry: {
+    label: "Laundry", sub: "Folding, hampers, upper storage", icon: "Boxes",
+    image: "/images/catalog/rooms/laundry.webp",
+  },
+  mudroom: {
+    label: "Mudroom", sub: "Benches, lockers, cubbies", icon: "Warehouse",
+    image: "/images/catalog/rooms/mudroom.webp",
+  },
+  "home-office": {
+    label: "Home Office", sub: "Desks, file drawers, shelving", icon: "LayoutDashboard",
+    image: "/images/catalog/rooms/home-office.webp",
+  },
+  entertainment: {
+    label: "Entertainment", sub: "Media centers and bar areas", icon: "LayoutPanelLeft",
+    image: "/images/catalog/rooms/entertainment.webp",
+  },
+  "built-ins": {
+    label: "Built-Ins", sub: "Bookcases, benches, millwork", icon: "Boxes",
+    image: "/images/catalog/rooms/built-ins.webp",
+  },
+  pantry: {
+    label: "Pantry", sub: "Walk-in and reach-in storage", icon: "Container",
+    image: "/images/catalog/rooms/pantry.webp",
+  },
 };
 
 /** Which layout slugs each project type offers (membership defined here, names pulled from catalog). */
 export const PROJECT_LAYOUT_SLUGS: Record<ProjectType, string[]> = {
   kitchen: ["galley", "l-shape", "u-shape", "island", "peninsula"],
   bathroom: ["single-vanity", "double-vanity"],
-  "whole-home": [],
-  addition: ["wall-run", "floor-to-ceiling"],
-  adu: ["wall-run", "floor-to-ceiling"],
+  laundry: [],
+  mudroom: [],
+  "home-office": [],
+  entertainment: [],
+  "built-ins": [],
+  pantry: [],
 };
 
 export interface StepVisibility {
@@ -235,10 +280,10 @@ export interface StepVisibility {
   doorStyle: boolean;
 }
 
-/** Per-project step visibility. Whole-home applies one finish program house-wide, so it skips layout and door style. */
+/** Per-project step visibility. Only kitchen and bathroom carry a layout step. */
 export function getStepVisibility(project: ProjectType): StepVisibility {
-  if (project === "whole-home") return { layout: false, doorStyle: false };
-  return { layout: true, doorStyle: true };
+  const hasLayout = PROJECT_LAYOUT_SLUGS[project].length > 0;
+  return { layout: hasLayout, doorStyle: true };
 }
 
 /** The ordered list of selection steps that appear for a project type. */
@@ -246,9 +291,9 @@ export function getVisibleSteps(project: ProjectType): SelectionStepKey[] {
   const vis = getStepVisibility(project);
   const steps: SelectionStepKey[] = [];
   if (vis.layout) steps.push("layout");
-  steps.push("size", "line");
+  steps.push("size");
   if (vis.doorStyle) steps.push("doorStyle");
-  steps.push("finish", "construction", "storage");
+  steps.push("finish", "construction", "accessories");
   return steps;
 }
 
@@ -283,16 +328,6 @@ export function getLayoutOptions(project: ProjectType): SelectOption[] {
     }));
 }
 
-export function getCabinetLineOptions(): SelectOption[] {
-  return COLLECTIONS.map((c) => ({
-    value: c.id,
-    label: c.name,
-    sub: c.tagline,
-    image: `/images/catalog/collections/${c.slug}-640.webp`,
-    imageAlt: `${c.name} cabinets, Boise Cabinet Co`,
-  }));
-}
-
 const DOOR_STYLE_SUB: Record<string, string> = {
   slab: "Flat, handleless-ready contemporary face",
   "three-piece": "Horizontal grain center panel",
@@ -316,7 +351,7 @@ export function getDoorStyleOptions(): SelectOption[] {
   });
 }
 
-/** Map OSC price tier marker to estimator finish tier. */
+/** Map catalog price tier marker to estimator finish tier. */
 export function finishMarkerToTier(marker: number): FinishTier {
   if (marker >= 5) return "reserve";
   if (marker >= 4) return "premium";
@@ -378,10 +413,11 @@ export const FINISH_CATEGORY_OPTIONS: SelectOption<FinishCategory>[] = [
   },
 ];
 
+/** Finish price tiers shown as `$` markers - never "Standard / Premium / Luxury". */
 export const FINISH_TIER_OPTIONS: SelectOption<FinishTier>[] = [
-  { value: "standard", label: "Standard", sub: "Core palette colors", icon: "Layers" },
-  { value: "premium", label: "Premium", sub: "Designer tones and deeper hues", icon: "Star" },
-  { value: "reserve", label: "Luxury", sub: "Top-tier designer colors", icon: "Gem" },
+  { value: "standard", label: "$", sub: "Core palette colors" },
+  { value: "premium", label: "$$", sub: "Designer tones and deeper hues" },
+  { value: "reserve", label: "$$$", sub: "Top-tier designer colors" },
 ];
 
 export const CONSTRUCTION_OPTIONS: SelectOption<ConstructionTier>[] = [
@@ -390,18 +426,20 @@ export const CONSTRUCTION_OPTIONS: SelectOption<ConstructionTier>[] = [
   { value: "best", label: "Best", sub: "All-plywood, dovetail drawer boxes, reinforced", icon: "Crown" },
 ];
 
-export const STORAGE_OPTIONS: SelectOption<StorageTier>[] = [
-  { value: "none", label: "None", sub: "Standard adjustable shelving", icon: "Box" },
-  { value: "essential", label: "Essential", sub: "Pull-out shelves and trash pull-out", icon: "Package" },
-  { value: "upgraded", label: "Upgraded", sub: "Organizers, lazy susan, spice pull-out", icon: "Boxes" },
-  { value: "premium", label: "Premium", sub: "Full Smart Storage: pantry pull-outs, mixer lift, LED", icon: "Sparkles" },
-];
+/** The six real catalog accessory families, as multi-select options. */
+export const ACCESSORY_OPTIONS: SelectOption[] = ACCESSORIES.map((a) => ({
+  value: a.slug,
+  label: a.name,
+  sub: a.description,
+  image: getAccessoryImagePath(a.slug),
+  imageAlt: `${a.name} cabinet accessory`,
+}));
 
 const CONSTRUCTION_LABEL: Record<ConstructionTier, string> = {
   good: "Good", better: "Better", best: "Best",
 };
-const FINISH_TIER_LABEL: Record<FinishTier, string> = {
-  standard: "Standard", premium: "Premium", reserve: "Luxury",
+const FINISH_TIER_DOLLAR: Record<FinishTier, string> = {
+  standard: "$", premium: "$$", reserve: "$$$",
 };
 const FINISH_CATEGORY_LABEL: Record<FinishCategory, string> = {
   matte: "matte", woodgrain: "woodgrain", gloss: "high-gloss",
@@ -427,7 +465,7 @@ const FINISH_TINT_BASE: Record<FinishCategory, string> = {
   gloss: "#34343A", // deep reflective charcoal
 };
 
-// Reserve colors read deeper/richer; premium slightly deeper than standard.
+// Higher tiers read deeper/richer; mid tier slightly deeper than base.
 const FINISH_TIER_SHADE: Record<FinishTier, number> = {
   standard: 0,
   premium: -0.06,
@@ -459,26 +497,11 @@ export function getFinishTint(
   };
 }
 
-const STORAGE_SUMMARY_LABEL: Record<StorageTier, string> = {
-  none: "Standard storage",
-  essential: "Essential storage",
-  upgraded: "Upgraded storage",
-  premium: "Premium storage",
-};
-
 /** Construction story shown in the included scope. */
 const CONSTRUCTION_INCLUDED: Record<ConstructionTier, string> = {
   good: "Furniture-board box with soft-close doors and drawers",
   better: "Plywood box construction with full-extension soft-close slides",
   best: "All-plywood box with dovetail drawer boxes and reinforced shelves",
-};
-
-/** Smart Storage accessory ids per tier (names resolved from the catalog). */
-const STORAGE_ACCESSORY_IDS: Record<StorageTier, string[]> = {
-  none: [],
-  essential: ["pull-out-shelf", "trash-pullout"],
-  upgraded: ["pull-out-shelf", "trash-pullout", "drawer-organizer-kit", "lazy-susan", "spice-rack-pullout"],
-  premium: ["pull-out-pantry", "drawer-organizer-kit", "lazy-susan", "mixer-lift", "led-strip-channel", "trash-pullout"],
 };
 
 export const INCLUDED_SCOPE_NOTE =
@@ -500,12 +523,14 @@ export function mapEstimateProjectToConsultType(project: ProjectType): string {
       return "kitchen";
     case "bathroom":
       return "bathroom";
-    case "whole-home":
-      return "other";
-    case "addition":
-      return "closet";
-    case "adu":
+    case "laundry":
+    case "mudroom":
       return "laundry";
+    case "home-office":
+    case "entertainment":
+    case "built-ins":
+    case "pantry":
+      return "other";
     default:
       return "other";
   }
@@ -515,7 +540,6 @@ export function mapEstimateProjectToConsultType(project: ProjectType): string {
 
 export function getDefaultLayout(project: ProjectType): string {
   const slugs = PROJECT_LAYOUT_SLUGS[project];
-  // Kitchen defaults to its most-requested layout; others use the first.
   if (project === "kitchen") return "island";
   return slugs[0] ?? "";
 }
@@ -525,13 +549,12 @@ export function getDefaultSelectionsForProject(project: ProjectType): EstimateSe
     project,
     layout: getDefaultLayout(project),
     size: PROJECT_SIZE_CONFIG[project].default,
-    cabinetLine: "custom",
     doorStyle: "modern-shaker",
     finishSlug: "",
     finishCategory: "matte",
     finishTier: "standard",
     construction: "better",
-    storage: "essential",
+    accessories: [],
   };
 }
 
@@ -551,29 +574,34 @@ function clampSize(project: ProjectType, size: number): number {
   return Math.max(cfg.min, Math.min(cfg.max, Math.round(size)));
 }
 
+/** Only keep accessory slugs that exist in the catalog. */
+function normalizeAccessories(slugs: string[]): string[] {
+  const seen = new Set<string>();
+  const out: string[] = [];
+  for (const slug of slugs) {
+    if (seen.has(slug)) continue;
+    if (!ACCESSORY_BY_SLUG[slug]) continue;
+    seen.add(slug);
+    out.push(slug);
+  }
+  return out;
+}
+
 /** Combined upgrade multiplier for the current selections. */
 export function getSelectionMultiplier(sel: EstimateSelections): number {
   const vis = getStepVisibility(sel.project);
   let m = 1;
   if (vis.layout) m *= LAYOUT_COMPLEXITY_MULTIPLIER[sel.layout] ?? 1;
   if (vis.doorStyle) m *= DOOR_STYLE_MULTIPLIER[sel.doorStyle] ?? 1;
-  m *= CABINET_LINE_MULTIPLIER[sel.cabinetLine] ?? 1;
   m *= FINISH_CATEGORY_MULTIPLIER[sel.finishCategory] ?? 1;
   m *= FINISH_TIER_MULTIPLIER[sel.finishTier] ?? 1;
   m *= CONSTRUCTION_MULTIPLIER[sel.construction] ?? 1;
-  m *= STORAGE_MULTIPLIER[sel.storage] ?? 1;
+  m *= 1 + ACCESSORY_PREMIUM_PER * normalizeAccessories(sel.accessories).length;
   return m;
 }
 
 function roundPrice(n: number): number {
   return Math.round(n / PRICE_ROUND_TO) * PRICE_ROUND_TO;
-}
-
-/** Short cabinet-line name for scope copy, e.g. "Custom Cabinets" -> "Custom". */
-function lineDisplayName(id: string): string {
-  const c = COLLECTIONS.find((x) => x.id === id);
-  if (!c) return "Custom";
-  return c.name.replace(/\s+Cabinets$/i, "");
 }
 
 export function getSizeLabel(project: ProjectType, size: number): string {
@@ -585,19 +613,24 @@ export function getSizeLabel(project: ProjectType, size: number): string {
 export function buildScopeSummary(sel: EstimateSelections): string {
   const vis = getStepVisibility(sel.project);
   const parts: string[] = [];
-  parts.push(`${lineDisplayName(sel.cabinetLine)} line`);
   if (vis.doorStyle) {
     const door = DOOR_STYLES.find((d) => d.id === sel.doorStyle);
     if (door) parts.push(door.name);
   }
   const namedFinish = sel.finishSlug ? FINISH_BY_SLUG[sel.finishSlug]?.name : undefined;
+  const tierDollar = FINISH_TIER_DOLLAR[sel.finishTier];
   parts.push(
     namedFinish
-      ? `${namedFinish} (${FINISH_TIER_LABEL[sel.finishTier]} ${FINISH_CATEGORY_LABEL[sel.finishCategory]})`
-      : `${FINISH_TIER_LABEL[sel.finishTier]} ${FINISH_CATEGORY_LABEL[sel.finishCategory]} finish`,
+      ? `${namedFinish} (${tierDollar})`
+      : `${FINISH_CATEGORY_LABEL[sel.finishCategory]} finish (${tierDollar})`,
   );
   parts.push(`${CONSTRUCTION_LABEL[sel.construction]} construction`);
-  parts.push(STORAGE_SUMMARY_LABEL[sel.storage]);
+  const accCount = normalizeAccessories(sel.accessories).length;
+  if (accCount > 0) {
+    parts.push(`${accCount} add-on${accCount === 1 ? "" : "s"}`);
+  }
+  // Guarantee a multi-part summary so downstream UI always has a separator.
+  if (parts.length < 2) parts.push("built to order");
   return parts.join(" · ");
 }
 
@@ -609,13 +642,11 @@ export function buildSelectionSummary(sel: EstimateSelections): string {
 function buildIncluded(sel: EstimateSelections): string[] {
   const vis = getStepVisibility(sel.project);
   const list: string[] = [];
-  list.push(`${lineDisplayName(sel.cabinetLine)} line cabinets, built to order`);
+  list.push("Custom cabinets, built to order");
 
   if (vis.layout) {
     const layout = LAYOUT_BY_SLUG[sel.layout];
     if (layout) list.push(`${layout.name} layout`);
-  } else if (sel.project === "whole-home") {
-    list.push(`Coordinated cabinetry across ${getSizeLabel(sel.project, sel.size)}`);
   }
 
   if (vis.doorStyle) {
@@ -627,15 +658,15 @@ function buildIncluded(sel: EstimateSelections): string[] {
   list.push(
     namedFinish
       ? `${namedFinish} finish`
-      : `${FINISH_TIER_LABEL[sel.finishTier]} ${FINISH_CATEGORY_LABEL[sel.finishCategory]} finish`,
+      : `${FINISH_CATEGORY_LABEL[sel.finishCategory]} finish`,
   );
   list.push(CONSTRUCTION_INCLUDED[sel.construction]);
 
-  const storageNames = STORAGE_ACCESSORY_IDS[sel.storage]
-    .map((id) => ACCESSORY_BY_ID[id]?.name)
+  const accessoryNames = normalizeAccessories(sel.accessories)
+    .map((slug) => ACCESSORY_BY_SLUG[slug]?.name)
     .filter(Boolean) as string[];
-  if (storageNames.length > 0) {
-    list.push(`Smart Storage: ${storageNames.join(", ")}`);
+  if (accessoryNames.length > 0) {
+    list.push(`Smart storage: ${accessoryNames.join(", ")}`);
   }
 
   list.push("Soft-close hinges and full-extension drawer slides");
@@ -665,7 +696,12 @@ export function normalizeSelections(sel: EstimateSelections): EstimateSelections
   const layout = vis.layout && !layoutSlugs.includes(sel.layout)
     ? getDefaultLayout(sel.project)
     : sel.layout;
-  let next = { ...sel, layout, size: clampSize(sel.project, sel.size) };
+  let next = {
+    ...sel,
+    layout,
+    size: clampSize(sel.project, sel.size),
+    accessories: normalizeAccessories(sel.accessories),
+  };
   if (next.finishSlug) {
     const doorSlug = DOOR_STYLES.find((d) => d.id === next.doorStyle)?.slug ?? next.doorStyle;
     const allowed = new Set(getFinishesForDoorStyle(doorSlug).map((f) => f.slug));

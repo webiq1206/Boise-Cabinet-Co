@@ -25,8 +25,6 @@ test.describe("Design Studio save payload", () => {
     await page.getByRole("button", { name: "Continue" }).click();
     await page.getByTestId(/^button-layout-/).first().click();
     await page.getByRole("button", { name: "Continue" }).click();
-    await page.getByTestId("button-collection-custom").click();
-    await page.getByRole("button", { name: "Continue" }).click();
     await page.getByTestId(/^button-door-style-/).first().click();
     await page.getByTestId(/^button-finish-/).first().click();
     await page.getByRole("button", { name: "Continue" }).click();

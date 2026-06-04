@@ -42,8 +42,8 @@ export const DOOR_STYLES: DoorStyle[] = [
     "slug": "modern-shaker",
     "name": "Modern Shaker",
     "oscName": "Modern Shaker",
-    "description": "Classic, timeless, detail without being busy.",
-    "constructionNotes": "Classic, timeless, detail without being busy. Drawer fronts: Matches door.",
+    "description": "Classic, timeless — detail without being busy.",
+    "constructionNotes": "Classic, timeless — detail without being busy. Drawer fronts: Matches door.",
     "compatibleFinishCategories": [
       "matte",
       "gloss",

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="420" viewBox="0 0 360 420" role="img" aria-label="GW-1D-4S cabinet front elevation">
+  <rect width="360" height="420" fill="#F7F3EC"/>
+  <rect x="40.0" y="127.3" width="280.0" height="165.5" rx="3" fill="#FBFAF6" stroke="#5E564A" stroke-width="1.8"/>
+  <rect x="48.0" y="135.3" width="264.0" height="149.5" rx="2" fill="#E3ECEE" stroke="#8C8170" stroke-width="1.4"/><line x1="54.0" y1="278.7" x2="306.0" y2="141.3" stroke="#B7AD9B" stroke-width="1"/><line x1="302.0" y1="187.6" x2="302.0" y2="232.4" stroke="#6E6555" stroke-width="2.2"/><line x1="51.0" y1="165.2" x2="309.0" y2="165.2" stroke="#8C8170" stroke-width="1.1"/><line x1="51.0" y1="195.1" x2="309.0" y2="195.1" stroke="#8C8170" stroke-width="1.1"/><line x1="51.0" y1="224.9" x2="309.0" y2="224.9" stroke="#8C8170" stroke-width="1.1"/><line x1="51.0" y1="254.8" x2="309.0" y2="254.8" stroke="#8C8170" stroke-width="1.1"/>
+</svg>

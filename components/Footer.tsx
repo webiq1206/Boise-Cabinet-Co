@@ -134,7 +134,8 @@ export function Footer() {
                 { label: "Projects & Reviews", href: "/testimonials" },
                 { label: "Contact", href: "/contact" },
                 { label: "Why Choose Us", href: "/#why-choose-us" },
-                { label: "How We Build", href: "/#how-we-build" },
+                { label: "How We Build", href: "/construction" },
+                { label: "Warranty", href: "/warranty" },
                 { label: "Blog", href: "/blog" },
               ].map((link) => (
                 <li key={link.label}>

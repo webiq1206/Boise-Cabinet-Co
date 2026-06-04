@@ -11,7 +11,7 @@ export function getHubPillarFaqs(hubSlug: string): Array<{ question: string; ans
       {
         question: 'How long does a kitchen cabinet project take?',
         answer:
-          'Expect 2 to 6 weeks for design and selections, then 6 to 14 weeks for shop fabrication and installation. Lead times vary by collection and finish.',
+          'Expect 2 to 6 weeks for design and selections, then a 4-8 week cabinet lead time for fabrication, followed by installation. Lead times vary by finish and scope.',
       },
       {
         question: 'Do I need permits for new kitchen cabinets in Ada County?',

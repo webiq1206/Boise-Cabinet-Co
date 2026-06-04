@@ -42,7 +42,7 @@ export default function NotFound() {
               {[
                 { href: "/cabinets", label: "Cabinet Catalog" },
                 { href: "/design-studio", label: "Design Studio" },
-                { href: "/collections", label: "Collections" },
+                { href: "/finishes", label: "Finishes & Doors" },
                 { href: "/contact", label: "Free Consultation" },
               ].map((item) => (
                 <Link

@@ -65,7 +65,7 @@ const costPillarFaqs = [
   {
     question: 'How long from cabinet order to installation?',
     answer:
-      'Lead times vary by collection, often 6–14 weeks from approved design to delivery. Measure early in your project so cabinets do not delay other trades.',
+      'Cabinet lead time is typically 4-8 weeks from approved design to delivery. Measure early in your project so cabinets do not delay other trades.',
   },
   {
     question: 'Should I budget by linear foot or per cabinet?',
@@ -221,7 +221,7 @@ export const GUIDE_PAGES: GuidePageData[] = [
       {
         question: 'How long do custom cabinets take to receive?',
         answer:
-          'Lead times depend on collection and shop schedule, often 6–14 weeks from approved design. Plan measurements early.',
+          'Custom cabinet lead time is typically 4-8 weeks from approved design. Plan measurements early.',
       },
       {
         question: 'Do you offer free consultations?',

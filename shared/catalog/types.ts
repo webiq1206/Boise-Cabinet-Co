@@ -79,6 +79,35 @@ export interface CabinetProductConfiguration {
   partitions?: number;
 }
 
+/**
+ * Full parsed front-elevation attributes from catalog.json, used to draw the
+ * parametric box diagram. Authoritative over the legacy `configuration` shape.
+ */
+export interface CabinetAttrs {
+  doors: number;
+  topDrawers: number;
+  bottomDrawers: number;
+  drawers: number;
+  falseFronts: number;
+  shelves: number;
+  rollouts: number;
+  partitions: number;
+  glass: boolean;
+  open: boolean;
+  fullHeight: boolean;
+  doorDown: boolean;
+  floating: boolean;
+  sink: boolean;
+  trash: boolean;
+  appliance: number;
+  lazySusan: boolean;
+  corner: string | null;
+  lift: string | null;
+  hand: string | null;
+  insertReady: boolean;
+  pencilDrawers: number;
+}
+
 /** A single physical dimension. `variable` means cut-to-fit (trim/panel). */
 export interface CabinetDimension {
   min: number | null;
@@ -108,6 +137,10 @@ export interface CabinetProduct {
   /** Real per-SKU width/height/depth ranges from the catalog */
   dimensions: CabinetDimensions;
   configuration: CabinetProductConfiguration;
+  /** Full parsed attributes used to render the parametric box diagram. */
+  attrs?: CabinetAttrs;
+  /** Public path to the generated front-elevation SVG box diagram. */
+  boxImage?: string;
   compatibleCollectionIds: string[];
   compatibleDoorStyleIds: string[];
 }
@@ -127,6 +160,16 @@ export interface CatalogContent {
   warrantySummary: string;
   leadTime: string;
   estimateDisclaimer: string;
+  /** Internal-only notes (never rendered customer-facing). */
+  warrantyNote?: string;
+  leadTimeNote?: string;
+  warrantyFullPage?: string;
+}
+
+/** Decodes internal SKU tokens into drawable attributes (internal reference). */
+export interface CatalogNomenclature {
+  purpose: string;
+  tokens: Record<string, string>;
 }
 
 export interface AccessoryFamily {

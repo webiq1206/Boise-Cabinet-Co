@@ -21,6 +21,8 @@ export interface CatalogVisualCardProps {
   primaryLabel?: string;
   secondaryHref?: string;
   secondaryLabel?: string;
+  /** CSS aspect-ratio for the image (doors 4/3, finishes/accessories 1/1, rooms 3/2). */
+  aspectRatio?: string;
   className?: string;
 }
 
@@ -35,6 +37,7 @@ export function CatalogVisualCard({
   primaryLabel = "View details",
   secondaryHref,
   secondaryLabel,
+  aspectRatio = "16/9",
   className,
 }: CatalogVisualCardProps) {
   return (
@@ -43,14 +46,14 @@ export function CatalogVisualCard({
         <CatalogImage
           src={imageSrc}
           alt={imageAlt ?? name}
-          aspectRatio="16/9"
+          aspectRatio={aspectRatio}
           className="rounded-none"
           sizes="(max-width: 768px) 100vw, 400px"
         />
       ) : fallbackColor ? (
         <div
           className="w-full"
-          style={{ aspectRatio: "16/9", backgroundColor: fallbackColor }}
+          style={{ aspectRatio, backgroundColor: fallbackColor }}
           role="img"
           aria-label={imageAlt ?? name}
         />

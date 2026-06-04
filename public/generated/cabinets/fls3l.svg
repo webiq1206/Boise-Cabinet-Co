@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="420" viewBox="0 0 360 420" role="img" aria-label="FLS3L cabinet front elevation">
+  <rect width="360" height="420" fill="#F7F3EC"/>
+  <rect x="104.6" y="200.9" width="150.9" height="18.1" rx="2" fill="#ECE6DB" stroke="#5E564A" stroke-width="1.6"/>
+  <line x1="104.6" y1="219.1" x2="255.4" y2="219.1" stroke="#B7AD9B" stroke-width="1"/>
+</svg>

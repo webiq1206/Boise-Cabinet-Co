@@ -15,7 +15,7 @@ export function DoorStyleHero({ slug, name, className }: DoorStyleHeroProps) {
     `/images/catalog/door-styles/${slug}.webp`;
 
   return (
-    <div className={`relative aspect-[16/9] overflow-hidden rounded-sm bg-muted ${className ?? ""}`}>
+    <div className={`relative aspect-[4/3] overflow-hidden rounded-sm bg-muted ${className ?? ""}`}>
       <Image
         src={src}
         alt={`${name} cabinet door profile, Boise Cabinet Co`}

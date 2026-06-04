@@ -1,34 +1,26 @@
 "use client";
 
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { useDesignStudio } from "../DesignStudioProvider";
-import { ROOM_CATEGORIES } from "@/shared/catalog/roomCategories";
-import {
-  ChefHat,
-  Bath,
-  Shirt,
-  Briefcase,
-  Home,
-  Archive,
-  Tv,
-  Car,
-  type LucideIcon,
-} from "lucide-react";
+import { ROOM_BY_SLUG } from "@/shared/catalog/roomCategories";
 
-const DESIGN_STUDIO_ROOMS = ROOM_CATEGORIES.filter((r) =>
-  ["kitchen", "bathroom", "laundry", "home-office", "closet", "mudroom"].includes(r.slug),
+// Keep in lockstep with the primary navigation + estimator project types so
+// every surface offers the same eight rooms.
+const DESIGN_STUDIO_ROOM_SLUGS = [
+  "kitchen",
+  "bathroom",
+  "laundry",
+  "mudroom",
+  "home-office",
+  "entertainment",
+  "built-ins",
+  "pantry",
+] as const;
+
+const DESIGN_STUDIO_ROOMS = DESIGN_STUDIO_ROOM_SLUGS.map((slug) => ROOM_BY_SLUG[slug]).filter(
+  Boolean,
 );
-
-const ROOM_ICONS: Record<string, LucideIcon> = {
-  kitchen: ChefHat,
-  bathroom: Bath,
-  laundry: Shirt,
-  "home-office": Briefcase,
-  closet: Archive,
-  mudroom: Home,
-  entertainment: Tv,
-  garage: Car,
-};
 
 export function RoomStep({ showHeader = true }: { showHeader?: boolean }) {
   const { design, updateDesign } = useDesignStudio();
@@ -48,7 +40,6 @@ export function RoomStep({ showHeader = true }: { showHeader?: boolean }) {
 
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {DESIGN_STUDIO_ROOMS.map((room) => {
-          const Icon = ROOM_ICONS[room.slug] ?? Home;
           const selected = design.roomType === room.slug;
 
           return (
@@ -62,22 +53,23 @@ export function RoomStep({ showHeader = true }: { showHeader?: boolean }) {
                 })
               }
               className={cn(
-                "flex flex-col items-start gap-3 rounded-lg border-2 p-5 text-left transition-colors",
+                "group flex flex-col overflow-hidden rounded-lg border-2 text-left transition-colors",
                 selected
                   ? "border-primary bg-primary/5"
                   : "border-border hover:border-primary/40 hover:bg-muted/50",
               )}
               data-testid={`button-room-${room.slug}`}
             >
-              <div
-                className={cn(
-                  "flex h-10 w-10 items-center justify-center rounded-md",
-                  selected ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground",
-                )}
-              >
-                <Icon className="h-5 w-5" />
+              <div className="relative aspect-[3/2] w-full overflow-hidden bg-surface-greige">
+                <Image
+                  src={room.heroImage}
+                  alt={`${room.name} custom cabinets`}
+                  fill
+                  className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                />
               </div>
-              <div>
+              <div className="p-4">
                 <p className="font-medium">{room.name}</p>
                 <p className="text-sm text-muted-foreground mt-0.5 line-clamp-2">
                   {room.description.split(".")[0]}.

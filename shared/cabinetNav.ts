@@ -32,19 +32,19 @@ export const PRIMARY_NAV = [
     label: "Finishes & Doors",
     href: "/finishes",
     children: [
-      { label: "Finishes by color", href: "/finishes" },
+      { label: "Finishes by color family", href: "/finishes" },
       { label: "Door styles", href: "/door-styles" },
       { label: "Not sure? Take the finder", href: "/finder" },
     ],
   },
   { label: "Design Studio", href: "/design-studio" },
-  { label: "Get an Estimate", href: "/#calculator" },
+  { label: "Get an Estimate", href: "/estimate" },
   {
     label: "How It Works",
     href: "/about",
     children: [
       { label: "About us", href: "/about" },
-      { label: "How we build", href: "/#how-we-build" },
+      { label: "How we build", href: "/construction" },
       { label: "Why choose us", href: "/#why-choose-us" },
       { label: "Projects & reviews", href: "/testimonials" },
     ],

@@ -7,6 +7,7 @@ import type { CatalogSearchResultType } from "./queries";
 import { DOOR_STYLE_BY_SLUG } from "./generated/doorStyles";
 import { FINISH_BY_SLUG } from "./generated/finishes";
 import { COLLECTION_BY_SLUG } from "./generated/collections";
+import { CABINET_PRODUCT_BY_SLUG } from "./generated/cabinetProducts";
 import {
   getHardwareImagePath,
   getAccessoryImagePath,
@@ -31,30 +32,37 @@ export interface ProductImages {
 
 /** Door style hero + 640px thumbnail paths with sensible fallbacks */
 export function getDoorStyleImages(slug: string, imagePath?: string): DoorStyleImages {
-  const primary = imagePath ?? `/images/catalog/door-styles/${slug}.webp`;
-  const thumb640 = primary.endsWith(".webp")
-    ? primary.replace(/\.webp$/, "-640.webp")
-    : `/images/catalog/door-styles/${slug}-640.webp`;
+  // Real photo/render when available, otherwise the generated profile diagram.
+  const primary = imagePath ?? `/generated/door-styles/${slug}.svg`;
+  const thumb640 = primary;
   return { primary, thumb640 };
 }
 
 /** Finish swatch + in-room application preview */
 export function getFinishImages(slug: string, imagePath?: string): FinishImages {
-  // Only a real on-disk imagePath resolves to a swatch; otherwise callers fall
-  // back to a flat colorFamily tile rather than requesting a missing image.
+  // imagePath is always set in generated data (real swatch or generated tile),
+  // so the swatch never resolves to a broken/missing image.
   return {
-    swatch: imagePath,
+    swatch: imagePath ?? `/generated/finishes/${slug}.svg`,
     inRoom: `/images/catalog/finishes/in-room/${slug}.webp`,
   };
 }
 
-/** Product hero, elevation diagram, and list thumbnail */
-export function getProductImages(product: Pick<CabinetProduct, "slug">): ProductImages {
-  const base = `/images/catalog/products/${product.slug}`;
+/**
+ * Product imagery. Cabinets always have a generated front-elevation box SVG
+ * (`boxImage`); real product photography (Phase 9) drops into the same slot.
+ */
+export function getProductImages(
+  product: Pick<CabinetProduct, "slug"> & { boxImage?: string },
+): ProductImages {
+  const boxImage =
+    product.boxImage ??
+    CABINET_PRODUCT_BY_SLUG[product.slug]?.boxImage ??
+    `/generated/cabinets/${product.slug}.svg`;
   return {
-    hero: `${base}.webp`,
-    diagram: `${base}-diagram.webp`,
-    thumb: `${base}-thumb.webp`,
+    hero: boxImage,
+    diagram: boxImage,
+    thumb: boxImage,
   };
 }
 

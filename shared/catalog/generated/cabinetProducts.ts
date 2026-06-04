@@ -32,8 +32,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       }
     },
     "configuration": {
-      "doors": 1,
-      "shelves": 0
+      "doors": 1
     },
     "compatibleCollectionIds": [
       "custom"
@@ -45,7 +44,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": true,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/wdd-1d-0s.svg"
   },
   {
     "id": "wdd-1d-1s",
@@ -89,7 +113,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 1,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": true,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/wdd-1d-1s.svg"
   },
   {
     "id": "wdd-1d-2s",
@@ -133,7 +182,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 2,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": true,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/wdd-1d-2s.svg"
   },
   {
     "id": "wdd-1d-3s",
@@ -177,7 +251,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 3,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": true,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/wdd-1d-3s.svg"
   },
   {
     "id": "wdd-1d-4s",
@@ -221,7 +320,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 4,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": true,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/wdd-1d-4s.svg"
   },
   {
     "id": "wdd-2d-0s",
@@ -252,8 +376,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       }
     },
     "configuration": {
-      "doors": 2,
-      "shelves": 0
+      "doors": 2
     },
     "compatibleCollectionIds": [
       "custom"
@@ -265,7 +388,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": true,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/wdd-2d-0s.svg"
   },
   {
     "id": "wdd-2d-1s",
@@ -309,7 +457,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 1,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": true,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/wdd-2d-1s.svg"
   },
   {
     "id": "wdd-2d-2s",
@@ -353,7 +526,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 2,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": true,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/wdd-2d-2s.svg"
   },
   {
     "id": "wdd-2d-3s",
@@ -397,7 +595,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 3,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": true,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/wdd-2d-3s.svg"
   },
   {
     "id": "wdd-2d-4s",
@@ -441,7 +664,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 4,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": true,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/wdd-2d-4s.svg"
   },
   {
     "id": "wdd-1d-1part",
@@ -485,7 +733,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 1,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": true,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/wdd-1d-1part.svg"
   },
   {
     "id": "wdd-1d-2part",
@@ -529,7 +802,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 2,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": true,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/wdd-1d-2part.svg"
   },
   {
     "id": "wdd-1d-3part",
@@ -573,7 +871,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 3,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": true,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/wdd-1d-3part.svg"
   },
   {
     "id": "wdd-2d-1part",
@@ -617,7 +940,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 1,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": true,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/wdd-2d-1part.svg"
   },
   {
     "id": "wdd-2d-2part",
@@ -661,7 +1009,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 2,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": true,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/wdd-2d-2part.svg"
   },
   {
     "id": "wdd-2d-3part",
@@ -705,7 +1078,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 3,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": true,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/wdd-2d-3part.svg"
   },
   {
     "id": "gw-1d-0s",
@@ -736,8 +1134,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       }
     },
     "configuration": {
-      "doors": 1,
-      "shelves": 0
+      "doors": 1
     },
     "compatibleCollectionIds": [
       "custom"
@@ -749,7 +1146,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": true,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/gw-1d-0s.svg"
   },
   {
     "id": "gw-1d-1s",
@@ -793,7 +1215,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 1,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": true,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/gw-1d-1s.svg"
   },
   {
     "id": "gw-1d-2s",
@@ -837,7 +1284,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 2,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": true,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/gw-1d-2s.svg"
   },
   {
     "id": "gw-1d-3s",
@@ -881,7 +1353,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 3,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": true,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/gw-1d-3s.svg"
   },
   {
     "id": "gw-1d-4s",
@@ -925,7 +1422,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 4,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": true,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/gw-1d-4s.svg"
   },
   {
     "id": "gw-2d-0s",
@@ -956,8 +1478,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       }
     },
     "configuration": {
-      "doors": 2,
-      "shelves": 0
+      "doors": 2
     },
     "compatibleCollectionIds": [
       "custom"
@@ -969,7 +1490,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": true,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/gw-2d-0s.svg"
   },
   {
     "id": "gw-2d-1s",
@@ -1013,7 +1559,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 1,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": true,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/gw-2d-1s.svg"
   },
   {
     "id": "gw-2d-2s",
@@ -1057,7 +1628,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 2,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": true,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/gw-2d-2s.svg"
   },
   {
     "id": "gw-2d-3s",
@@ -1101,7 +1697,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 3,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": true,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/gw-2d-3s.svg"
   },
   {
     "id": "gw-2d-4s",
@@ -1145,7 +1766,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 4,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": true,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/gw-2d-4s.svg"
   },
   {
     "id": "gwdd-1d-0s",
@@ -1176,8 +1822,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       }
     },
     "configuration": {
-      "doors": 1,
-      "shelves": 0
+      "doors": 1
     },
     "compatibleCollectionIds": [
       "custom"
@@ -1189,7 +1834,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": true,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": true,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/gwdd-1d-0s.svg"
   },
   {
     "id": "gwdd-1d-1s",
@@ -1233,7 +1903,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 1,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": true,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": true,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/gwdd-1d-1s.svg"
   },
   {
     "id": "gwdd-1d-2s",
@@ -1277,7 +1972,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 2,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": true,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": true,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/gwdd-1d-2s.svg"
   },
   {
     "id": "gwdd-1d-3s",
@@ -1321,7 +2041,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 3,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": true,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": true,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/gwdd-1d-3s.svg"
   },
   {
     "id": "gwdd-1d-4s",
@@ -1365,7 +2110,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 4,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": true,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": true,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/gwdd-1d-4s.svg"
   },
   {
     "id": "gwdd-2d-0s",
@@ -1396,8 +2166,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       }
     },
     "configuration": {
-      "doors": 2,
-      "shelves": 0
+      "doors": 2
     },
     "compatibleCollectionIds": [
       "custom"
@@ -1409,7 +2178,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": true,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": true,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/gwdd-2d-0s.svg"
   },
   {
     "id": "gwdd-2d-1s",
@@ -1453,7 +2247,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 1,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": true,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": true,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/gwdd-2d-1s.svg"
   },
   {
     "id": "gwdd-2d-2s",
@@ -1497,7 +2316,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 2,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": true,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": true,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/gwdd-2d-2s.svg"
   },
   {
     "id": "gwdd-2d-3s",
@@ -1541,7 +2385,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 3,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": true,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": true,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/gwdd-2d-3s.svg"
   },
   {
     "id": "gwdd-2d-4s",
@@ -1585,7 +2454,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 4,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": true,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": true,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/gwdd-2d-4s.svg"
   },
   {
     "id": "ow-0s",
@@ -1615,9 +2509,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
         "variable": false
       }
     },
-    "configuration": {
-      "shelves": 0
-    },
+    "configuration": {},
     "compatibleCollectionIds": [
       "custom"
     ],
@@ -1628,7 +2520,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": true,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/ow-0s.svg"
   },
   {
     "id": "ow-1s",
@@ -1671,7 +2588,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 1,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": true,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/ow-1s.svg"
   },
   {
     "id": "ow-2s",
@@ -1714,7 +2656,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 2,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": true,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/ow-2s.svg"
   },
   {
     "id": "ow-3s",
@@ -1757,7 +2724,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 3,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": true,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/ow-3s.svg"
   },
   {
     "id": "ow-4s",
@@ -1800,7 +2792,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 4,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": true,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/ow-4s.svg"
   },
   {
     "id": "wdc-0s",
@@ -1830,9 +2847,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
         "variable": false
       }
     },
-    "configuration": {
-      "shelves": 0
-    },
+    "configuration": {},
     "compatibleCollectionIds": [
       "custom"
     ],
@@ -1843,7 +2858,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "diagonal corner",
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/wdc-0s.svg"
   },
   {
     "id": "wdc-1s",
@@ -1886,7 +2926,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 1,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "diagonal corner",
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/wdc-1s.svg"
   },
   {
     "id": "wdc-2s",
@@ -1929,7 +2994,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 2,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "diagonal corner",
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/wdc-2s.svg"
   },
   {
     "id": "wdc-3s",
@@ -1972,7 +3062,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 3,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "diagonal corner",
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/wdc-3s.svg"
   },
   {
     "id": "wdc-4s",
@@ -2015,7 +3130,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 4,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "diagonal corner",
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/wdc-4s.svg"
   },
   {
     "id": "gwdc-0s",
@@ -2045,9 +3185,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
         "variable": false
       }
     },
-    "configuration": {
-      "shelves": 0
-    },
+    "configuration": {},
     "compatibleCollectionIds": [
       "custom"
     ],
@@ -2058,7 +3196,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": true,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "diagonal corner",
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/gwdc-0s.svg"
   },
   {
     "id": "gwdc-1s",
@@ -2101,7 +3264,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 1,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": true,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "diagonal corner",
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/gwdc-1s.svg"
   },
   {
     "id": "gwdc-2s",
@@ -2144,7 +3332,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 2,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": true,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "diagonal corner",
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/gwdc-2s.svg"
   },
   {
     "id": "gwdc-3s",
@@ -2187,7 +3400,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 3,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": true,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "diagonal corner",
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/gwdc-3s.svg"
   },
   {
     "id": "gwdc-4s",
@@ -2230,7 +3468,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 4,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": true,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "diagonal corner",
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/gwdc-4s.svg"
   },
   {
     "id": "wdcdd-0s",
@@ -2260,9 +3523,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
         "variable": false
       }
     },
-    "configuration": {
-      "shelves": 0
-    },
+    "configuration": {},
     "compatibleCollectionIds": [
       "custom"
     ],
@@ -2273,7 +3534,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": true,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "diagonal corner",
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/wdcdd-0s.svg"
   },
   {
     "id": "wdcdd-1s",
@@ -2316,7 +3602,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 1,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": true,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "diagonal corner",
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/wdcdd-1s.svg"
   },
   {
     "id": "wdcdd-2s",
@@ -2359,7 +3670,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 2,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": true,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "diagonal corner",
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/wdcdd-2s.svg"
   },
   {
     "id": "wdcdd-3s",
@@ -2402,7 +3738,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 3,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": true,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "diagonal corner",
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/wdcdd-3s.svg"
   },
   {
     "id": "wdcdd-4s",
@@ -2445,7 +3806,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 4,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": true,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "diagonal corner",
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/wdcdd-4s.svg"
   },
   {
     "id": "wbcl-0s",
@@ -2475,9 +3861,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
         "variable": false
       }
     },
-    "configuration": {
-      "shelves": 0
-    },
+    "configuration": {},
     "compatibleCollectionIds": [
       "custom"
     ],
@@ -2488,7 +3872,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "blind corner",
+      "lift": null,
+      "hand": "L",
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/wbcl-0s.svg"
   },
   {
     "id": "wbcl-1s",
@@ -2531,7 +3940,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 1,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "blind corner",
+      "lift": null,
+      "hand": "L",
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/wbcl-1s.svg"
   },
   {
     "id": "wbcl-2s",
@@ -2574,7 +4008,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 2,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "blind corner",
+      "lift": null,
+      "hand": "L",
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/wbcl-2s.svg"
   },
   {
     "id": "wbcl-3s",
@@ -2617,7 +4076,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 3,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "blind corner",
+      "lift": null,
+      "hand": "L",
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/wbcl-3s.svg"
   },
   {
     "id": "wbcl-4s",
@@ -2660,7 +4144,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 4,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "blind corner",
+      "lift": null,
+      "hand": "L",
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/wbcl-4s.svg"
   },
   {
     "id": "wbcr-0s",
@@ -2690,9 +4199,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
         "variable": false
       }
     },
-    "configuration": {
-      "shelves": 0
-    },
+    "configuration": {},
     "compatibleCollectionIds": [
       "custom"
     ],
@@ -2703,7 +4210,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "blind corner",
+      "lift": null,
+      "hand": "R",
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/wbcr-0s.svg"
   },
   {
     "id": "wbcr-1s",
@@ -2746,7 +4278,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 1,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "blind corner",
+      "lift": null,
+      "hand": "R",
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/wbcr-1s.svg"
   },
   {
     "id": "wbcr-2s",
@@ -2789,7 +4346,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 2,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "blind corner",
+      "lift": null,
+      "hand": "R",
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/wbcr-2s.svg"
   },
   {
     "id": "wbcr-3s",
@@ -2832,7 +4414,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 3,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "blind corner",
+      "lift": null,
+      "hand": "R",
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/wbcr-3s.svg"
   },
   {
     "id": "wbcr-4s",
@@ -2875,7 +4482,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 4,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "blind corner",
+      "lift": null,
+      "hand": "R",
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/wbcr-4s.svg"
   },
   {
     "id": "wbcldd-0s",
@@ -2905,9 +4537,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
         "variable": false
       }
     },
-    "configuration": {
-      "shelves": 0
-    },
+    "configuration": {},
     "compatibleCollectionIds": [
       "custom"
     ],
@@ -2918,7 +4548,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": true,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "blind corner",
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/wbcldd-0s.svg"
   },
   {
     "id": "wbcldd-1s",
@@ -2961,7 +4616,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 1,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": true,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "blind corner",
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/wbcldd-1s.svg"
   },
   {
     "id": "wbcldd-2s",
@@ -3004,7 +4684,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 2,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": true,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "blind corner",
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/wbcldd-2s.svg"
   },
   {
     "id": "wbcldd-3s",
@@ -3047,7 +4752,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 3,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": true,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "blind corner",
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/wbcldd-3s.svg"
   },
   {
     "id": "wbcldd-4s",
@@ -3090,7 +4820,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 4,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": true,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "blind corner",
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/wbcldd-4s.svg"
   },
   {
     "id": "wbcrdd-0s",
@@ -3120,9 +4875,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
         "variable": false
       }
     },
-    "configuration": {
-      "shelves": 0
-    },
+    "configuration": {},
     "compatibleCollectionIds": [
       "custom"
     ],
@@ -3133,7 +4886,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": true,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "blind corner",
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/wbcrdd-0s.svg"
   },
   {
     "id": "wbcrdd-1s",
@@ -3176,7 +4954,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 1,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": true,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "blind corner",
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/wbcrdd-1s.svg"
   },
   {
     "id": "wbcrdd-2s",
@@ -3219,7 +5022,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 2,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": true,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "blind corner",
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/wbcrdd-2s.svg"
   },
   {
     "id": "wbcrdd-3s",
@@ -3262,7 +5090,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 3,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": true,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "blind corner",
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/wbcrdd-3s.svg"
   },
   {
     "id": "wbcrdd-4s",
@@ -3305,7 +5158,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 4,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": true,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "blind corner",
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/wbcrdd-4s.svg"
   },
   {
     "id": "gwbcl-0s",
@@ -3335,9 +5213,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
         "variable": false
       }
     },
-    "configuration": {
-      "shelves": 0
-    },
+    "configuration": {},
     "compatibleCollectionIds": [
       "custom"
     ],
@@ -3348,7 +5224,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": true,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "blind corner",
+      "lift": null,
+      "hand": "L",
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/gwbcl-0s.svg"
   },
   {
     "id": "gwbcl-1s",
@@ -3391,7 +5292,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 1,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": true,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "blind corner",
+      "lift": null,
+      "hand": "L",
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/gwbcl-1s.svg"
   },
   {
     "id": "gwbcl-2s",
@@ -3434,7 +5360,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 2,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": true,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "blind corner",
+      "lift": null,
+      "hand": "L",
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/gwbcl-2s.svg"
   },
   {
     "id": "gwbcl-3s",
@@ -3477,7 +5428,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 3,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": true,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "blind corner",
+      "lift": null,
+      "hand": "L",
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/gwbcl-3s.svg"
   },
   {
     "id": "gwbcl-4s",
@@ -3520,7 +5496,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 4,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": true,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "blind corner",
+      "lift": null,
+      "hand": "L",
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/gwbcl-4s.svg"
   },
   {
     "id": "gwbcr-0s",
@@ -3550,9 +5551,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
         "variable": false
       }
     },
-    "configuration": {
-      "shelves": 0
-    },
+    "configuration": {},
     "compatibleCollectionIds": [
       "custom"
     ],
@@ -3563,7 +5562,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": true,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "blind corner",
+      "lift": null,
+      "hand": "R",
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/gwbcr-0s.svg"
   },
   {
     "id": "gwbcr-1s",
@@ -3606,7 +5630,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 1,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": true,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "blind corner",
+      "lift": null,
+      "hand": "R",
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/gwbcr-1s.svg"
   },
   {
     "id": "gwbcr-2s",
@@ -3649,7 +5698,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 2,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": true,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "blind corner",
+      "lift": null,
+      "hand": "R",
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/gwbcr-2s.svg"
   },
   {
     "id": "gwbcr-3s",
@@ -3692,7 +5766,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 3,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": true,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "blind corner",
+      "lift": null,
+      "hand": "R",
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/gwbcr-3s.svg"
   },
   {
     "id": "gwbcr-4s",
@@ -3735,7 +5834,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 4,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": true,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "blind corner",
+      "lift": null,
+      "hand": "R",
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/gwbcr-4s.svg"
   },
   {
     "id": "gwbcldd-0s",
@@ -3765,9 +5889,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
         "variable": false
       }
     },
-    "configuration": {
-      "shelves": 0
-    },
+    "configuration": {},
     "compatibleCollectionIds": [
       "custom"
     ],
@@ -3778,7 +5900,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": true,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": true,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "blind corner",
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/gwbcldd-0s.svg"
   },
   {
     "id": "gwbcldd-1s",
@@ -3821,7 +5968,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 1,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": true,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": true,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "blind corner",
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/gwbcldd-1s.svg"
   },
   {
     "id": "gwbcldd-2s",
@@ -3864,7 +6036,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 2,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": true,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": true,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "blind corner",
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/gwbcldd-2s.svg"
   },
   {
     "id": "gwbcldd-3s",
@@ -3907,7 +6104,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 3,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": true,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": true,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "blind corner",
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/gwbcldd-3s.svg"
   },
   {
     "id": "gwbcldd-4s",
@@ -3950,7 +6172,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 4,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": true,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": true,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "blind corner",
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/gwbcldd-4s.svg"
   },
   {
     "id": "gwbcrdd-0s",
@@ -3980,9 +6227,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
         "variable": false
       }
     },
-    "configuration": {
-      "shelves": 0
-    },
+    "configuration": {},
     "compatibleCollectionIds": [
       "custom"
     ],
@@ -3993,7 +6238,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": true,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": true,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "blind corner",
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/gwbcrdd-0s.svg"
   },
   {
     "id": "gwbcrdd-1s",
@@ -4036,7 +6306,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 1,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": true,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": true,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "blind corner",
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/gwbcrdd-1s.svg"
   },
   {
     "id": "gwbcrdd-2s",
@@ -4079,7 +6374,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 2,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": true,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": true,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "blind corner",
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/gwbcrdd-2s.svg"
   },
   {
     "id": "gwbcrdd-3s",
@@ -4122,7 +6442,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 3,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": true,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": true,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "blind corner",
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/gwbcrdd-3s.svg"
   },
   {
     "id": "gwbcrdd-4s",
@@ -4165,7 +6510,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 4,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": true,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": true,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "blind corner",
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/gwbcrdd-4s.svg"
   },
   {
     "id": "wc90l-0s",
@@ -4195,9 +6565,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
         "variable": false
       }
     },
-    "configuration": {
-      "shelves": 0
-    },
+    "configuration": {},
     "compatibleCollectionIds": [
       "custom"
     ],
@@ -4208,7 +6576,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "90 corner",
+      "lift": null,
+      "hand": "L",
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/wc90l-0s.svg"
   },
   {
     "id": "wc90l-1s",
@@ -4251,7 +6644,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 1,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "90 corner",
+      "lift": null,
+      "hand": "L",
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/wc90l-1s.svg"
   },
   {
     "id": "wc90l-2s",
@@ -4294,7 +6712,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 2,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "90 corner",
+      "lift": null,
+      "hand": "L",
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/wc90l-2s.svg"
   },
   {
     "id": "wc90l-3s",
@@ -4337,7 +6780,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 3,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "90 corner",
+      "lift": null,
+      "hand": "L",
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/wc90l-3s.svg"
   },
   {
     "id": "wc90l-4s",
@@ -4380,7 +6848,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 4,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "90 corner",
+      "lift": null,
+      "hand": "L",
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/wc90l-4s.svg"
   },
   {
     "id": "wc90r-0s",
@@ -4410,9 +6903,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
         "variable": false
       }
     },
-    "configuration": {
-      "shelves": 0
-    },
+    "configuration": {},
     "compatibleCollectionIds": [
       "custom"
     ],
@@ -4423,7 +6914,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "90 corner",
+      "lift": null,
+      "hand": "R",
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/wc90r-0s.svg"
   },
   {
     "id": "wc90r-1s",
@@ -4466,7 +6982,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 1,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "90 corner",
+      "lift": null,
+      "hand": "R",
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/wc90r-1s.svg"
   },
   {
     "id": "wc90r-2s",
@@ -4509,7 +7050,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 2,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "90 corner",
+      "lift": null,
+      "hand": "R",
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/wc90r-2s.svg"
   },
   {
     "id": "wc90r-3s",
@@ -4552,7 +7118,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 3,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "90 corner",
+      "lift": null,
+      "hand": "R",
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/wc90r-3s.svg"
   },
   {
     "id": "wc90r-4s",
@@ -4595,7 +7186,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 4,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "90 corner",
+      "lift": null,
+      "hand": "R",
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/wc90r-4s.svg"
   },
   {
     "id": "wc90ldd-0s",
@@ -4625,9 +7241,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
         "variable": false
       }
     },
-    "configuration": {
-      "shelves": 0
-    },
+    "configuration": {},
     "compatibleCollectionIds": [
       "custom"
     ],
@@ -4638,7 +7252,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": true,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "90 corner",
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/wc90ldd-0s.svg"
   },
   {
     "id": "wc90ldd-1s",
@@ -4681,7 +7320,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 1,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": true,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "90 corner",
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/wc90ldd-1s.svg"
   },
   {
     "id": "wc90ldd-2s",
@@ -4724,7 +7388,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 2,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": true,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "90 corner",
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/wc90ldd-2s.svg"
   },
   {
     "id": "wc90ldd-3s",
@@ -4767,7 +7456,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 3,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": true,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "90 corner",
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/wc90ldd-3s.svg"
   },
   {
     "id": "wc90ldd-4s",
@@ -4810,7 +7524,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 4,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": true,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "90 corner",
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/wc90ldd-4s.svg"
   },
   {
     "id": "wc90rdd-0s",
@@ -4840,9 +7579,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
         "variable": false
       }
     },
-    "configuration": {
-      "shelves": 0
-    },
+    "configuration": {},
     "compatibleCollectionIds": [
       "custom"
     ],
@@ -4853,7 +7590,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": true,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "90 corner",
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/wc90rdd-0s.svg"
   },
   {
     "id": "wc90rdd-1s",
@@ -4896,7 +7658,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 1,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": true,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "90 corner",
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/wc90rdd-1s.svg"
   },
   {
     "id": "wc90rdd-2s",
@@ -4939,7 +7726,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 2,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": true,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "90 corner",
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/wc90rdd-2s.svg"
   },
   {
     "id": "wc90rdd-3s",
@@ -4982,7 +7794,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 3,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": true,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "90 corner",
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/wc90rdd-3s.svg"
   },
   {
     "id": "wc90rdd-4s",
@@ -5025,7 +7862,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 4,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": true,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "90 corner",
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/wc90rdd-4s.svg"
   },
   {
     "id": "gwc90l-0s",
@@ -5055,9 +7917,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
         "variable": false
       }
     },
-    "configuration": {
-      "shelves": 0
-    },
+    "configuration": {},
     "compatibleCollectionIds": [
       "custom"
     ],
@@ -5068,7 +7928,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": true,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "90 corner",
+      "lift": null,
+      "hand": "L",
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/gwc90l-0s.svg"
   },
   {
     "id": "gwc90l-1s",
@@ -5111,7 +7996,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 1,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": true,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "90 corner",
+      "lift": null,
+      "hand": "L",
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/gwc90l-1s.svg"
   },
   {
     "id": "gwc90l-2s",
@@ -5154,7 +8064,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 2,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": true,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "90 corner",
+      "lift": null,
+      "hand": "L",
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/gwc90l-2s.svg"
   },
   {
     "id": "gwc90l-3s",
@@ -5197,7 +8132,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 3,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": true,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "90 corner",
+      "lift": null,
+      "hand": "L",
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/gwc90l-3s.svg"
   },
   {
     "id": "gwc90l-4s",
@@ -5240,7 +8200,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 4,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": true,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "90 corner",
+      "lift": null,
+      "hand": "L",
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/gwc90l-4s.svg"
   },
   {
     "id": "gwc90r-0s",
@@ -5270,9 +8255,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
         "variable": false
       }
     },
-    "configuration": {
-      "shelves": 0
-    },
+    "configuration": {},
     "compatibleCollectionIds": [
       "custom"
     ],
@@ -5283,7 +8266,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": true,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "90 corner",
+      "lift": null,
+      "hand": "R",
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/gwc90r-0s.svg"
   },
   {
     "id": "gwc90r-1s",
@@ -5326,7 +8334,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 1,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": true,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "90 corner",
+      "lift": null,
+      "hand": "R",
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/gwc90r-1s.svg"
   },
   {
     "id": "gwc90r-2s",
@@ -5369,7 +8402,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 2,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": true,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "90 corner",
+      "lift": null,
+      "hand": "R",
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/gwc90r-2s.svg"
   },
   {
     "id": "gwc90r-3s",
@@ -5412,7 +8470,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 3,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": true,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "90 corner",
+      "lift": null,
+      "hand": "R",
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/gwc90r-3s.svg"
   },
   {
     "id": "gwc90r-4s",
@@ -5455,7 +8538,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 4,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": true,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "90 corner",
+      "lift": null,
+      "hand": "R",
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/gwc90r-4s.svg"
   },
   {
     "id": "gwc90ldd-0s",
@@ -5485,9 +8593,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
         "variable": false
       }
     },
-    "configuration": {
-      "shelves": 0
-    },
+    "configuration": {},
     "compatibleCollectionIds": [
       "custom"
     ],
@@ -5498,7 +8604,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": true,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": true,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "90 corner",
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/gwc90ldd-0s.svg"
   },
   {
     "id": "gwc90ldd-1s",
@@ -5541,7 +8672,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 1,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": true,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": true,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "90 corner",
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/gwc90ldd-1s.svg"
   },
   {
     "id": "gwc90ldd-2s",
@@ -5584,7 +8740,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 2,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": true,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": true,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "90 corner",
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/gwc90ldd-2s.svg"
   },
   {
     "id": "gwc90ldd-3s",
@@ -5627,7 +8808,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 3,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": true,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": true,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "90 corner",
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/gwc90ldd-3s.svg"
   },
   {
     "id": "gwc90ldd-4s",
@@ -5670,7 +8876,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 4,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": true,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": true,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "90 corner",
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/gwc90ldd-4s.svg"
   },
   {
     "id": "gwc90rdd-0s",
@@ -5700,9 +8931,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
         "variable": false
       }
     },
-    "configuration": {
-      "shelves": 0
-    },
+    "configuration": {},
     "compatibleCollectionIds": [
       "custom"
     ],
@@ -5713,7 +8942,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": true,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": true,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "90 corner",
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/gwc90rdd-0s.svg"
   },
   {
     "id": "gwc90rdd-1s",
@@ -5756,7 +9010,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 1,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": true,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": true,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "90 corner",
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/gwc90rdd-1s.svg"
   },
   {
     "id": "gwc90rdd-2s",
@@ -5799,7 +9078,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 2,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": true,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": true,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "90 corner",
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/gwc90rdd-2s.svg"
   },
   {
     "id": "gwc90rdd-3s",
@@ -5842,7 +9146,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 3,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": true,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": true,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "90 corner",
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/gwc90rdd-3s.svg"
   },
   {
     "id": "gwc90rdd-4s",
@@ -5885,7 +9214,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 4,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": true,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": true,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "90 corner",
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/gwc90rdd-4s.svg"
   },
   {
     "id": "fls3l",
@@ -5926,7 +9280,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": true,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": true,
+      "corner": "lazy susan",
+      "lift": null,
+      "hand": "L",
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/fls3l.svg"
   },
   {
     "id": "fls3r",
@@ -5967,7 +9346,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": true,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": true,
+      "corner": "lazy susan",
+      "lift": null,
+      "hand": "R",
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/fls3r.svg"
   },
   {
     "id": "fls3oe",
@@ -6008,7 +9412,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": true,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": true,
+      "corner": "lazy susan",
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/fls3oe.svg"
   },
   {
     "id": "fls3l-hovr",
@@ -6049,7 +9478,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": true,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": true,
+      "corner": "lazy susan",
+      "lift": null,
+      "hand": "R",
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/fls3l_hovr.svg"
   },
   {
     "id": "fls3r-hovr",
@@ -6090,7 +9544,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": true,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": true,
+      "corner": "lazy susan",
+      "lift": null,
+      "hand": "R",
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/fls3r_hovr.svg"
   },
   {
     "id": "fls3b-hovr",
@@ -6131,7 +9610,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": true,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": true,
+      "corner": "lazy susan",
+      "lift": null,
+      "hand": "R",
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/fls3b_hovr.svg"
   },
   {
     "id": "tph",
@@ -6172,7 +9676,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/tph.svg"
   },
   {
     "id": "bph",
@@ -6213,7 +9742,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/bph.svg"
   },
   {
     "id": "bbph",
@@ -6254,7 +9808,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/bbph.svg"
   },
   {
     "id": "bmsph",
@@ -6295,7 +9874,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/bmsph.svg"
   },
   {
     "id": "bbmsph",
@@ -6336,7 +9940,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/bbmsph.svg"
   },
   {
     "id": "bxph",
@@ -6377,7 +10006,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/bxph.svg"
   },
   {
     "id": "bbxph",
@@ -6418,7 +10072,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/bbxph.svg"
   },
   {
     "id": "btsph",
@@ -6459,7 +10138,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/btsph.svg"
   },
   {
     "id": "bbtsph",
@@ -6500,7 +10204,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/bbtsph.svg"
   },
   {
     "id": "aph",
@@ -6541,7 +10270,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/aph.svg"
   },
   {
     "id": "amsph",
@@ -6582,7 +10336,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/amsph.svg"
   },
   {
     "id": "atsph",
@@ -6623,7 +10402,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/atsph.svg"
   },
   {
     "id": "abph",
@@ -6664,7 +10468,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/abph.svg"
   },
   {
     "id": "abmsph",
@@ -6705,7 +10534,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/abmsph.svg"
   },
   {
     "id": "abtsph",
@@ -6746,7 +10600,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/abtsph.svg"
   },
   {
     "id": "abxph",
@@ -6787,7 +10666,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/abxph.svg"
   },
   {
     "id": "bfh-1d-0s",
@@ -6818,8 +10722,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       }
     },
     "configuration": {
-      "doors": 1,
-      "shelves": 0
+      "doors": 1
     },
     "compatibleCollectionIds": [
       "custom"
@@ -6831,7 +10734,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": true,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/bfh-1d-0s.svg"
   },
   {
     "id": "bfh-1d-1s",
@@ -6875,7 +10803,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 1,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": true,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/bfh-1d-1s.svg"
   },
   {
     "id": "bfh-1d-2s",
@@ -6919,7 +10872,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 2,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": true,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/bfh-1d-2s.svg"
   },
   {
     "id": "bfh-1d-3s",
@@ -6963,7 +10941,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 3,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": true,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/bfh-1d-3s.svg"
   },
   {
     "id": "bfh-2d-0s",
@@ -6994,8 +10997,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       }
     },
     "configuration": {
-      "doors": 2,
-      "shelves": 0
+      "doors": 2
     },
     "compatibleCollectionIds": [
       "custom"
@@ -7007,7 +11009,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": true,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/bfh-2d-0s.svg"
   },
   {
     "id": "bfh-2d-1s",
@@ -7051,7 +11078,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 1,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": true,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/bfh-2d-1s.svg"
   },
   {
     "id": "bfh-2d-2s",
@@ -7095,7 +11147,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 2,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": true,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/bfh-2d-2s.svg"
   },
   {
     "id": "bfh-2d-3s",
@@ -7139,7 +11216,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 3,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": true,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/bfh-2d-3s.svg"
   },
   {
     "id": "bfh-1d-1rot",
@@ -7183,7 +11285,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 1,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": true,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/bfh-1d-1rot.svg"
   },
   {
     "id": "bfh-1d-2rot",
@@ -7227,7 +11354,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 2,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": true,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/bfh-1d-2rot.svg"
   },
   {
     "id": "bfh-1d-3rot",
@@ -7271,7 +11423,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 3,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": true,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/bfh-1d-3rot.svg"
   },
   {
     "id": "bfh-2d-1rot",
@@ -7315,7 +11492,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 1,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": true,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/bfh-2d-1rot.svg"
   },
   {
     "id": "bfh-2d-2rot",
@@ -7359,7 +11561,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 2,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": true,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/bfh-2d-2rot.svg"
   },
   {
     "id": "bfh-2d-3rot",
@@ -7403,7 +11630,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 3,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": true,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/bfh-2d-3rot.svg"
   },
   {
     "id": "bfh-1d-1part",
@@ -7447,7 +11699,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 1,
+      "glass": false,
+      "open": false,
+      "fullHeight": true,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/bfh-1d-1part.svg"
   },
   {
     "id": "bfh-1d-2part",
@@ -7491,7 +11768,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 2,
+      "glass": false,
+      "open": false,
+      "fullHeight": true,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/bfh-1d-2part.svg"
   },
   {
     "id": "bfh-1d-3part",
@@ -7535,7 +11837,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 3,
+      "glass": false,
+      "open": false,
+      "fullHeight": true,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/bfh-1d-3part.svg"
   },
   {
     "id": "bfh-2d-1part",
@@ -7579,7 +11906,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 1,
+      "glass": false,
+      "open": false,
+      "fullHeight": true,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/bfh-2d-1part.svg"
   },
   {
     "id": "bfh-2d-2part",
@@ -7623,7 +11975,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 2,
+      "glass": false,
+      "open": false,
+      "fullHeight": true,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/bfh-2d-2part.svg"
   },
   {
     "id": "bfh-2d-3part",
@@ -7667,7 +12044,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 3,
+      "glass": false,
+      "open": false,
+      "fullHeight": true,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/bfh-2d-3part.svg"
   },
   {
     "id": "tb15-td",
@@ -7708,7 +12110,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": true,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/tb15-td.svg"
   },
   {
     "id": "tb18-td",
@@ -7749,7 +12176,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": true,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/tb18-td.svg"
   },
   {
     "id": "tb21-td",
@@ -7790,13 +12242,38 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": true,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/tb21-td.svg"
   },
   {
     "id": "tb15-fhd",
     "slug": "tb15-fhd",
     "oscCode": "TB15-FHD",
-    "name": "Base Cabinet, 1 Door",
+    "name": "Base Cabinet",
     "category": "base",
     "description": "Custom base cabinet built to fit your space.",
     "widthRange": {
@@ -7820,9 +12297,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
         "variable": false
       }
     },
-    "configuration": {
-      "doors": 1
-    },
+    "configuration": {},
     "compatibleCollectionIds": [
       "custom"
     ],
@@ -7833,13 +12308,38 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": true,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": true,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/tb15-fhd.svg"
   },
   {
     "id": "tb18-fhd",
     "slug": "tb18-fhd",
     "oscCode": "TB18-FHD",
-    "name": "Base Cabinet, 1 Door",
+    "name": "Base Cabinet",
     "category": "base",
     "description": "Custom base cabinet built to fit your space.",
     "widthRange": {
@@ -7863,9 +12363,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
         "variable": false
       }
     },
-    "configuration": {
-      "doors": 1
-    },
+    "configuration": {},
     "compatibleCollectionIds": [
       "custom"
     ],
@@ -7876,13 +12374,38 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": true,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": true,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/tb18-fhd.svg"
   },
   {
     "id": "tb21-fhd",
     "slug": "tb21-fhd",
     "oscCode": "TB21-FHD",
-    "name": "Base Cabinet, 1 Door",
+    "name": "Base Cabinet",
     "category": "base",
     "description": "Custom base cabinet built to fit your space.",
     "widthRange": {
@@ -7906,9 +12429,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
         "variable": false
       }
     },
-    "configuration": {
-      "doors": 1
-    },
+    "configuration": {},
     "compatibleCollectionIds": [
       "custom"
     ],
@@ -7919,7 +12440,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": true,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": true,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/tb21-fhd.svg"
   },
   {
     "id": "bir-1d-1td",
@@ -7963,7 +12509,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 1,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": "R",
+      "insertReady": true,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/bir-1d-1td.svg"
   },
   {
     "id": "birfh-1d",
@@ -8006,7 +12577,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": true,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": true,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/birfh-1d.svg"
   },
   {
     "id": "sb-1d-1ff",
@@ -8049,7 +12645,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 1,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": true,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/sb-1d-1ff.svg"
   },
   {
     "id": "sb-2d-2ff",
@@ -8092,7 +12713,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 2,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": true,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/sb-2d-2ff.svg"
   },
   {
     "id": "sb-2d-1ff",
@@ -8135,7 +12781,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 1,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": true,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/sb-2d-1ff.svg"
   },
   {
     "id": "sb-1d-1ff-1rot",
@@ -8179,7 +12850,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 1,
+      "shelves": 0,
+      "rollouts": 1,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": true,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/sb-1d-1ff-1rot.svg"
   },
   {
     "id": "sb-1d-1ff-2rot",
@@ -8223,7 +12919,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 1,
+      "shelves": 0,
+      "rollouts": 2,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": true,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/sb-1d-1ff-2rot.svg"
   },
   {
     "id": "sb-2d-1ff-1rot",
@@ -8267,7 +12988,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 1,
+      "shelves": 0,
+      "rollouts": 1,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": true,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/sb-2d-1ff-1rot.svg"
   },
   {
     "id": "sb-2d-1ff-2rot",
@@ -8311,7 +13057,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 1,
+      "shelves": 0,
+      "rollouts": 2,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": true,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/sb-2d-1ff-2rot.svg"
   },
   {
     "id": "sb-2d-2ff-1rot",
@@ -8355,7 +13126,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 2,
+      "shelves": 0,
+      "rollouts": 1,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": true,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/sb-2d-2ff-1rot.svg"
   },
   {
     "id": "sb-2d-2ff-2rot",
@@ -8399,7 +13195,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 2,
+      "shelves": 0,
+      "rollouts": 2,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": true,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/sb-2d-2ff-2rot.svg"
   },
   {
     "id": "sbfh-1d",
@@ -8442,7 +13263,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": true,
+      "doorDown": false,
+      "floating": false,
+      "sink": true,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/sbfh-1d.svg"
   },
   {
     "id": "sbfh-2d",
@@ -8485,7 +13331,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": true,
+      "doorDown": false,
+      "floating": false,
+      "sink": true,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/sbfh-2d.svg"
   },
   {
     "id": "sbfh-1d-1rot",
@@ -8529,7 +13400,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 1,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": true,
+      "doorDown": false,
+      "floating": false,
+      "sink": true,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/sbfh-1d-1rot.svg"
   },
   {
     "id": "sbfh-1d-2rot",
@@ -8573,7 +13469,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 2,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": true,
+      "doorDown": false,
+      "floating": false,
+      "sink": true,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/sbfh-1d-2rot.svg"
   },
   {
     "id": "sbfh-2d-1rot",
@@ -8617,7 +13538,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 1,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": true,
+      "doorDown": false,
+      "floating": false,
+      "sink": true,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/sbfh-2d-1rot.svg"
   },
   {
     "id": "sbfh-2d-2rot",
@@ -8661,13 +13607,38 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 2,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": true,
+      "doorDown": false,
+      "floating": false,
+      "sink": true,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/sbfh-2d-2rot.svg"
   },
   {
     "id": "db1",
     "slug": "db1",
     "oscCode": "DB1",
-    "name": "Base Cabinet",
+    "name": "Base Cabinet, 1 Drawer",
     "category": "base",
     "description": "Custom base cabinet built to fit your space.",
     "widthRange": {
@@ -8691,7 +13662,9 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
         "variable": true
       }
     },
-    "configuration": {},
+    "configuration": {
+      "drawers": 1
+    },
     "compatibleCollectionIds": [
       "custom"
     ],
@@ -8702,13 +13675,38 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 1,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/db1.svg"
   },
   {
     "id": "db2",
     "slug": "db2",
     "oscCode": "DB2",
-    "name": "Base Cabinet",
+    "name": "Base Cabinet, 2 Drawers",
     "category": "base",
     "description": "Custom base cabinet built to fit your space.",
     "widthRange": {
@@ -8732,7 +13730,9 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
         "variable": false
       }
     },
-    "configuration": {},
+    "configuration": {
+      "drawers": 2
+    },
     "compatibleCollectionIds": [
       "custom"
     ],
@@ -8743,13 +13743,38 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 2,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/db2.svg"
   },
   {
     "id": "db3",
     "slug": "db3",
     "oscCode": "DB3",
-    "name": "Base Cabinet",
+    "name": "Base Cabinet, 3 Drawers",
     "category": "base",
     "description": "Custom base cabinet built to fit your space.",
     "widthRange": {
@@ -8773,7 +13798,9 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
         "variable": false
       }
     },
-    "configuration": {},
+    "configuration": {
+      "drawers": 3
+    },
     "compatibleCollectionIds": [
       "custom"
     ],
@@ -8784,13 +13811,38 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 3,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/db3.svg"
   },
   {
     "id": "db4",
     "slug": "db4",
     "oscCode": "DB4",
-    "name": "Base Cabinet",
+    "name": "Base Cabinet, 4 Drawers",
     "category": "base",
     "description": "Custom base cabinet built to fit your space.",
     "widthRange": {
@@ -8814,7 +13866,9 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
         "variable": false
       }
     },
-    "configuration": {},
+    "configuration": {
+      "drawers": 4
+    },
     "compatibleCollectionIds": [
       "custom"
     ],
@@ -8825,7 +13879,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 4,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/db4.svg"
   },
   {
     "id": "db-1pd",
@@ -8866,7 +13945,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 1
+    },
+    "boxImage": "/generated/cabinets/db-1pd.svg"
   },
   {
     "id": "db-2pd",
@@ -8907,13 +14011,38 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 2
+    },
+    "boxImage": "/generated/cabinets/db-2pd.svg"
   },
   {
     "id": "db2-1ff",
     "slug": "db2-1ff",
     "oscCode": "DB2-1FF",
-    "name": "Base Cabinet",
+    "name": "Base Cabinet, 2 Drawers",
     "category": "base",
     "description": "Custom base cabinet built to fit your space.",
     "widthRange": {
@@ -8937,7 +14066,9 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
         "variable": false
       }
     },
-    "configuration": {},
+    "configuration": {
+      "drawers": 2
+    },
     "compatibleCollectionIds": [
       "custom"
     ],
@@ -8948,13 +14079,38 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 2,
+      "falseFronts": 1,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/db2-1ff.svg"
   },
   {
     "id": "db3-1ff",
     "slug": "db3-1ff",
     "oscCode": "DB3-1FF",
-    "name": "Base Cabinet",
+    "name": "Base Cabinet, 3 Drawers",
     "category": "base",
     "description": "Custom base cabinet built to fit your space.",
     "widthRange": {
@@ -8978,7 +14134,9 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
         "variable": false
       }
     },
-    "configuration": {},
+    "configuration": {
+      "drawers": 3
+    },
     "compatibleCollectionIds": [
       "custom"
     ],
@@ -8989,7 +14147,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 3,
+      "falseFronts": 1,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/db3-1ff.svg"
   },
   {
     "id": "flb-1d-1td-0s",
@@ -9021,8 +14204,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     },
     "configuration": {
       "doors": 1,
-      "drawers": 1,
-      "shelves": 0
+      "drawers": 1
     },
     "compatibleCollectionIds": [
       "custom"
@@ -9034,7 +14216,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 1,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": true,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/flb-1d-1td-0s.svg"
   },
   {
     "id": "flb-1d-1td-1s",
@@ -9079,7 +14286,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 1,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 1,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": true,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/flb-1d-1td-1s.svg"
   },
   {
     "id": "flb-2d-1td-0s",
@@ -9111,8 +14343,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     },
     "configuration": {
       "doors": 2,
-      "drawers": 1,
-      "shelves": 0
+      "drawers": 1
     },
     "compatibleCollectionIds": [
       "custom"
@@ -9124,7 +14355,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 1,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": true,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/flb-2d-1td-0s.svg"
   },
   {
     "id": "flb-2d-1td-1s",
@@ -9169,7 +14425,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 1,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 1,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": true,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/flb-2d-1td-1s.svg"
   },
   {
     "id": "flb-1d-1td-1rot",
@@ -9214,7 +14495,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 1,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 1,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": true,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/flb-1d-1td-1rot.svg"
   },
   {
     "id": "flb-1d-1td-2rot",
@@ -9259,7 +14565,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 1,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 2,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": true,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/flb-1d-1td-2rot.svg"
   },
   {
     "id": "flb-2d-1td-1rot",
@@ -9304,7 +14635,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 1,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 1,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": true,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/flb-2d-1td-1rot.svg"
   },
   {
     "id": "flb-2d-1td-2rot",
@@ -9349,7 +14705,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 1,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 2,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": true,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/flb-2d-1td-2rot.svg"
   },
   {
     "id": "flfh-1d-0s",
@@ -9380,8 +14761,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       }
     },
     "configuration": {
-      "doors": 1,
-      "shelves": 0
+      "doors": 1
     },
     "compatibleCollectionIds": [
       "custom"
@@ -9393,7 +14773,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": true,
+      "doorDown": false,
+      "floating": true,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/flfh-1d-0s.svg"
   },
   {
     "id": "flfh-1d-1s",
@@ -9437,7 +14842,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 1,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": true,
+      "doorDown": false,
+      "floating": true,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/flfh-1d-1s.svg"
   },
   {
     "id": "flfh-1d-2s",
@@ -9481,7 +14911,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 2,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": true,
+      "doorDown": false,
+      "floating": true,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/flfh-1d-2s.svg"
   },
   {
     "id": "flfh-2d-0s",
@@ -9512,8 +14967,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       }
     },
     "configuration": {
-      "doors": 2,
-      "shelves": 0
+      "doors": 2
     },
     "compatibleCollectionIds": [
       "custom"
@@ -9525,7 +14979,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": true,
+      "doorDown": false,
+      "floating": true,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/flfh-2d-0s.svg"
   },
   {
     "id": "flfh-2d-1s",
@@ -9569,7 +15048,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 1,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": true,
+      "doorDown": false,
+      "floating": true,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/flfh-2d-1s.svg"
   },
   {
     "id": "flfh-2d-2s",
@@ -9613,7 +15117,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 2,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": true,
+      "doorDown": false,
+      "floating": true,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/flfh-2d-2s.svg"
   },
   {
     "id": "flfh-1d-1rot",
@@ -9657,7 +15186,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 1,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": true,
+      "doorDown": false,
+      "floating": true,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/flfh-1d-1rot.svg"
   },
   {
     "id": "flfh-1d-3rot",
@@ -9701,7 +15255,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 3,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": true,
+      "doorDown": false,
+      "floating": true,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/flfh-1d-3rot.svg"
   },
   {
     "id": "flfh-2d-1rot",
@@ -9745,7 +15324,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 1,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": true,
+      "doorDown": false,
+      "floating": true,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/flfh-2d-1rot.svg"
   },
   {
     "id": "flfh-2d-3rot",
@@ -9789,7 +15393,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 3,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": true,
+      "doorDown": false,
+      "floating": true,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/flfh-2d-3rot.svg"
   },
   {
     "id": "flsb-1d-1ff",
@@ -9832,7 +15461,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 1,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": true,
+      "sink": true,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": true,
+      "corner": "lazy susan",
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/flsb-1d-1ff.svg"
   },
   {
     "id": "flsb-2d-1ff",
@@ -9875,7 +15529,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 1,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": true,
+      "sink": true,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": true,
+      "corner": "lazy susan",
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/flsb-2d-1ff.svg"
   },
   {
     "id": "flsb-1d-1ff-1rot",
@@ -9919,7 +15598,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 1,
+      "shelves": 0,
+      "rollouts": 1,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": true,
+      "sink": true,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": true,
+      "corner": "lazy susan",
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/flsb-1d-1ff-1rot.svg"
   },
   {
     "id": "flsb-1d-1ff-2rot",
@@ -9963,7 +15667,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 1,
+      "shelves": 0,
+      "rollouts": 2,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": true,
+      "sink": true,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": true,
+      "corner": "lazy susan",
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/flsb-1d-1ff-2rot.svg"
   },
   {
     "id": "flsb-2d-1ff-1rot",
@@ -10007,7 +15736,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 1,
+      "shelves": 0,
+      "rollouts": 1,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": true,
+      "sink": true,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": true,
+      "corner": "lazy susan",
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/flsb-2d-1ff-1rot.svg"
   },
   {
     "id": "flsb-2d-1ff-2rot",
@@ -10051,7 +15805,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 1,
+      "shelves": 0,
+      "rollouts": 2,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": true,
+      "sink": true,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": true,
+      "corner": "lazy susan",
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/flsb-2d-1ff-2rot.svg"
   },
   {
     "id": "flsbfh-1d",
@@ -10094,7 +15873,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": true,
+      "doorDown": false,
+      "floating": true,
+      "sink": true,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": true,
+      "corner": "lazy susan",
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/flsbfh-1d.svg"
   },
   {
     "id": "flsbfh-2d",
@@ -10137,7 +15941,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": true,
+      "doorDown": false,
+      "floating": true,
+      "sink": true,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": true,
+      "corner": "lazy susan",
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/flsbfh-2d.svg"
   },
   {
     "id": "flsbfh-1d-1rot",
@@ -10181,7 +16010,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 1,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": true,
+      "doorDown": false,
+      "floating": true,
+      "sink": true,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": true,
+      "corner": "lazy susan",
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/flsbfh-1d-1rot.svg"
   },
   {
     "id": "flsbfh-1d-2rot",
@@ -10225,7 +16079,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 2,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": true,
+      "doorDown": false,
+      "floating": true,
+      "sink": true,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": true,
+      "corner": "lazy susan",
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/flsbfh-1d-2rot.svg"
   },
   {
     "id": "flsbfh-2d-1rot",
@@ -10269,7 +16148,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 1,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": true,
+      "doorDown": false,
+      "floating": true,
+      "sink": true,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": true,
+      "corner": "lazy susan",
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/flsbfh-2d-1rot.svg"
   },
   {
     "id": "flsbfh-2d-2rot",
@@ -10313,7 +16217,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 2,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": true,
+      "doorDown": false,
+      "floating": true,
+      "sink": true,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": true,
+      "corner": "lazy susan",
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/flsbfh-2d-2rot.svg"
   },
   {
     "id": "flb-1d-1bd-0s",
@@ -10345,8 +16274,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     },
     "configuration": {
       "doors": 1,
-      "drawers": 1,
-      "shelves": 0
+      "drawers": 1
     },
     "compatibleCollectionIds": [
       "custom"
@@ -10358,7 +16286,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 0,
+      "bottomDrawers": 1,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": true,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/flb-1d-1bd-0s.svg"
   },
   {
     "id": "flb-1d-1bd-1s",
@@ -10403,7 +16356,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 0,
+      "bottomDrawers": 1,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 1,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": true,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/flb-1d-1bd-1s.svg"
   },
   {
     "id": "flb-2d-1bd-0s",
@@ -10435,8 +16413,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     },
     "configuration": {
       "doors": 2,
-      "drawers": 1,
-      "shelves": 0
+      "drawers": 1
     },
     "compatibleCollectionIds": [
       "custom"
@@ -10448,7 +16425,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 0,
+      "bottomDrawers": 1,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": true,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/flb-2d-1bd-0s.svg"
   },
   {
     "id": "flb-2d-1bd-1s",
@@ -10493,7 +16495,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 0,
+      "bottomDrawers": 1,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 1,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": true,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/flb-2d-1bd-1s.svg"
   },
   {
     "id": "flb-1d-1bd-1rot",
@@ -10538,7 +16565,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 0,
+      "bottomDrawers": 1,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 1,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": true,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/flb-1d-1bd-1rot.svg"
   },
   {
     "id": "flb-1d-1bd-2rot",
@@ -10583,7 +16635,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 0,
+      "bottomDrawers": 1,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 2,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": true,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/flb-1d-1bd-2rot.svg"
   },
   {
     "id": "flb-2d-1bd-1rot",
@@ -10628,7 +16705,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 0,
+      "bottomDrawers": 1,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 1,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": true,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/flb-2d-1bd-1rot.svg"
   },
   {
     "id": "flb-2d-1bd-2rot",
@@ -10673,7 +16775,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 0,
+      "bottomDrawers": 1,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 2,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": true,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/flb-2d-1bd-2rot.svg"
   },
   {
     "id": "fldb2",
@@ -10714,7 +16841,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": true,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/fldb2.svg"
   },
   {
     "id": "fldb3",
@@ -10755,7 +16907,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": true,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/fldb3.svg"
   },
   {
     "id": "fldb3-1ff",
@@ -10796,7 +16973,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 1,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": true,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/fldb3-1ff.svg"
   },
   {
     "id": "fldb2-1ff",
@@ -10837,7 +17039,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 1,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": true,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/fldb2-1ff.svg"
   },
   {
     "id": "ob-0s",
@@ -10867,9 +17094,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
         "variable": false
       }
     },
-    "configuration": {
-      "shelves": 0
-    },
+    "configuration": {},
     "compatibleCollectionIds": [
       "custom"
     ],
@@ -10880,7 +17105,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": true,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/ob-0s.svg"
   },
   {
     "id": "ob-1s",
@@ -10923,7 +17173,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 1,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": true,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/ob-1s.svg"
   },
   {
     "id": "ob-2s",
@@ -10966,7 +17241,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 2,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": true,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/ob-2s.svg"
   },
   {
     "id": "ob-3s",
@@ -11009,7 +17309,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 3,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": true,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/ob-3s.svg"
   },
   {
     "id": "ob-4s",
@@ -11052,7 +17377,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 4,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": true,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/ob-4s.svg"
   },
   {
     "id": "ls3612l",
@@ -11093,7 +17443,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": true,
+      "corner": "lazy susan",
+      "lift": null,
+      "hand": "L",
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/ls3612l.svg"
   },
   {
     "id": "ls3612r",
@@ -11134,7 +17509,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": true,
+      "corner": "lazy susan",
+      "lift": null,
+      "hand": "R",
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/ls3612r.svg"
   },
   {
     "id": "bc45-0s",
@@ -11164,9 +17564,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
         "variable": false
       }
     },
-    "configuration": {
-      "shelves": 0
-    },
+    "configuration": {},
     "compatibleCollectionIds": [
       "custom"
     ],
@@ -11177,7 +17575,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "blind corner",
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/bc45-0s.svg"
   },
   {
     "id": "bc45-1s",
@@ -11220,7 +17643,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 1,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "blind corner",
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/bc45-1s.svg"
   },
   {
     "id": "bc45-ls",
@@ -11261,7 +17709,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "blind corner",
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/bc45-ls.svg"
   },
   {
     "id": "bbcl-1td-0s",
@@ -11292,8 +17765,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       }
     },
     "configuration": {
-      "drawers": 1,
-      "shelves": 0
+      "drawers": 1
     },
     "compatibleCollectionIds": [
       "custom"
@@ -11305,7 +17777,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 1,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "blind corner",
+      "lift": null,
+      "hand": "L",
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/bbcl-1td-0s.svg"
   },
   {
     "id": "bbcl-1td-1s",
@@ -11349,7 +17846,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 1,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 1,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "blind corner",
+      "lift": null,
+      "hand": "L",
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/bbcl-1td-1s.svg"
   },
   {
     "id": "bbcr-1td-0s",
@@ -11380,8 +17902,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       }
     },
     "configuration": {
-      "drawers": 1,
-      "shelves": 0
+      "drawers": 1
     },
     "compatibleCollectionIds": [
       "custom"
@@ -11393,7 +17914,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 1,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "blind corner",
+      "lift": null,
+      "hand": "R",
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/bbcr-1td-0s.svg"
   },
   {
     "id": "bbcr-1td-1s",
@@ -11437,13 +17983,38 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 1,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 1,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "blind corner",
+      "lift": null,
+      "hand": "R",
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/bbcr-1td-1s.svg"
   },
   {
     "id": "bbcl-fhd-0s",
     "slug": "bbcl-fhd-0s",
     "oscCode": "BBCL-FHD-0S",
-    "name": "Base Cabinet, 1 Door",
+    "name": "Base Cabinet",
     "category": "base",
     "description": "Custom base cabinet built to fit your space.",
     "widthRange": {
@@ -11467,10 +18038,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
         "variable": false
       }
     },
-    "configuration": {
-      "doors": 1,
-      "shelves": 0
-    },
+    "configuration": {},
     "compatibleCollectionIds": [
       "custom"
     ],
@@ -11481,13 +18049,38 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": true,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "blind corner",
+      "lift": null,
+      "hand": "L",
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/bbcl-fhd-0s.svg"
   },
   {
     "id": "bbcl-fhd-1s",
     "slug": "bbcl-fhd-1s",
     "oscCode": "BBCL-FHD-1S",
-    "name": "Base Cabinet, 1 Door",
+    "name": "Base Cabinet",
     "category": "base",
     "description": "Custom base cabinet built to fit your space.",
     "widthRange": {
@@ -11512,7 +18105,6 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       }
     },
     "configuration": {
-      "doors": 1,
       "shelves": 1
     },
     "compatibleCollectionIds": [
@@ -11525,13 +18117,38 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 1,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": true,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "blind corner",
+      "lift": null,
+      "hand": "L",
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/bbcl-fhd-1s.svg"
   },
   {
     "id": "bbcl-fhd-2s",
     "slug": "bbcl-fhd-2s",
     "oscCode": "BBCL-FHD-2S",
-    "name": "Base Cabinet, 1 Door",
+    "name": "Base Cabinet",
     "category": "base",
     "description": "Custom base cabinet built to fit your space.",
     "widthRange": {
@@ -11556,7 +18173,6 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       }
     },
     "configuration": {
-      "doors": 1,
       "shelves": 2
     },
     "compatibleCollectionIds": [
@@ -11569,13 +18185,38 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 2,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": true,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "blind corner",
+      "lift": null,
+      "hand": "L",
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/bbcl-fhd-2s.svg"
   },
   {
     "id": "bbcr-fhd-0s",
     "slug": "bbcr-fhd-0s",
     "oscCode": "BBCR-FHD-0S",
-    "name": "Base Cabinet, 1 Door",
+    "name": "Base Cabinet",
     "category": "base",
     "description": "Custom base cabinet built to fit your space.",
     "widthRange": {
@@ -11599,10 +18240,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
         "variable": false
       }
     },
-    "configuration": {
-      "doors": 1,
-      "shelves": 0
-    },
+    "configuration": {},
     "compatibleCollectionIds": [
       "custom"
     ],
@@ -11613,13 +18251,38 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": true,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "blind corner",
+      "lift": null,
+      "hand": "R",
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/bbcr-fhd-0s.svg"
   },
   {
     "id": "bbcr-fhd-1s",
     "slug": "bbcr-fhd-1s",
     "oscCode": "BBCR-FHD-1S",
-    "name": "Base Cabinet, 1 Door",
+    "name": "Base Cabinet",
     "category": "base",
     "description": "Custom base cabinet built to fit your space.",
     "widthRange": {
@@ -11644,7 +18307,6 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       }
     },
     "configuration": {
-      "doors": 1,
       "shelves": 1
     },
     "compatibleCollectionIds": [
@@ -11657,13 +18319,38 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 1,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": true,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "blind corner",
+      "lift": null,
+      "hand": "R",
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/bbcr-fhd-1s.svg"
   },
   {
     "id": "bbcr-fhd-2s",
     "slug": "bbcr-fhd-2s",
     "oscCode": "BBCR-FHD-2S",
-    "name": "Base Cabinet, 1 Door",
+    "name": "Base Cabinet",
     "category": "base",
     "description": "Custom base cabinet built to fit your space.",
     "widthRange": {
@@ -11688,7 +18375,6 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       }
     },
     "configuration": {
-      "doors": 1,
       "shelves": 2
     },
     "compatibleCollectionIds": [
@@ -11701,7 +18387,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 2,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": true,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "blind corner",
+      "lift": null,
+      "hand": "R",
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/bbcr-fhd-2s.svg"
   },
   {
     "id": "tbfh-1d-1s",
@@ -11745,7 +18456,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 1,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": true,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": true,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/tbfh-1d-1s.svg"
   },
   {
     "id": "tbfh-1d-2s",
@@ -11789,7 +18525,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 2,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": true,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": true,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/tbfh-1d-2s.svg"
   },
   {
     "id": "tbfh-1d-3s",
@@ -11833,7 +18594,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 3,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": true,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": true,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/tbfh-1d-3s.svg"
   },
   {
     "id": "tbfh-2d-0s",
@@ -11864,8 +18650,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       }
     },
     "configuration": {
-      "doors": 2,
-      "shelves": 0
+      "doors": 2
     },
     "compatibleCollectionIds": [
       "custom"
@@ -11877,7 +18662,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": true,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": true,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/tbfh-2d-0s.svg"
   },
   {
     "id": "tbfh-2d-1s",
@@ -11921,7 +18731,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 1,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": true,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": true,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/tbfh-2d-1s.svg"
   },
   {
     "id": "tbfh-2d-2s",
@@ -11965,7 +18800,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 2,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": true,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": true,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/tbfh-2d-2s.svg"
   },
   {
     "id": "tbfh-2d-3s",
@@ -12009,7 +18869,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 3,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": true,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": true,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/tbfh-2d-3s.svg"
   },
   {
     "id": "tbfh-1d-2rot-2s",
@@ -12054,7 +18939,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 2,
+      "rollouts": 2,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": true,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": true,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/tbfh-1d-2rot-2s.svg"
   },
   {
     "id": "tbfh-1d-3rot",
@@ -12098,7 +19008,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 3,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": true,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": true,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/tbfh-1d-3rot.svg"
   },
   {
     "id": "tbfh-1d-4rot",
@@ -12142,7 +19077,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 4,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": true,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": true,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/tbfh-1d-4rot.svg"
   },
   {
     "id": "tbfh-2d-1rot-2s",
@@ -12187,7 +19147,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 2,
+      "rollouts": 1,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": true,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": true,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/tbfh-2d-1rot-2s.svg"
   },
   {
     "id": "tbfh-2d-2rot-2s",
@@ -12232,7 +19217,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 2,
+      "rollouts": 2,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": true,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": true,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/tbfh-2d-2rot-2s.svg"
   },
   {
     "id": "tbfh-2d-3rot",
@@ -12276,7 +19286,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 3,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": true,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": true,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/tbfh-2d-3rot.svg"
   },
   {
     "id": "tbfh-2d-4rot",
@@ -12320,7 +19355,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 4,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": true,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": true,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/tbfh-2d-4rot.svg"
   },
   {
     "id": "ta-1d",
@@ -12363,7 +19423,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 1,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/ta-1d.svg"
   },
   {
     "id": "ta-2d",
@@ -12406,7 +19491,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 1,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/ta-2d.svg"
   },
   {
     "id": "ta-3d",
@@ -12449,7 +19559,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 3,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 1,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/ta-3d.svg"
   },
   {
     "id": "ba-open",
@@ -12490,7 +19625,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": true,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/ba-open.svg"
   },
   {
     "id": "vt-1d-1bd-0s",
@@ -12522,8 +19682,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     },
     "configuration": {
       "doors": 1,
-      "drawers": 1,
-      "shelves": 0
+      "drawers": 1
     },
     "compatibleCollectionIds": [
       "custom"
@@ -12535,7 +19694,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 0,
+      "bottomDrawers": 1,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/vt-1d-1bd-0s.svg"
   },
   {
     "id": "vt-1d-1bd-1s",
@@ -12580,7 +19764,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 0,
+      "bottomDrawers": 1,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 1,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/vt-1d-1bd-1s.svg"
   },
   {
     "id": "vt-1d-1bd-2s",
@@ -12625,7 +19834,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 0,
+      "bottomDrawers": 1,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 2,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/vt-1d-1bd-2s.svg"
   },
   {
     "id": "vt-1d-1bd-3s",
@@ -12670,7 +19904,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 0,
+      "bottomDrawers": 1,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 3,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/vt-1d-1bd-3s.svg"
   },
   {
     "id": "vt-2d-1bd-0s",
@@ -12702,8 +19961,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     },
     "configuration": {
       "doors": 2,
-      "drawers": 1,
-      "shelves": 0
+      "drawers": 1
     },
     "compatibleCollectionIds": [
       "custom"
@@ -12715,7 +19973,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 0,
+      "bottomDrawers": 1,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/vt-2d-1bd-0s.svg"
   },
   {
     "id": "vt-2d-1bd-1s",
@@ -12760,7 +20043,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 0,
+      "bottomDrawers": 1,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 1,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/vt-2d-1bd-1s.svg"
   },
   {
     "id": "vt-2d-1bd-2s",
@@ -12805,7 +20113,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 0,
+      "bottomDrawers": 1,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 2,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/vt-2d-1bd-2s.svg"
   },
   {
     "id": "vt-2d-1bd-3s",
@@ -12850,7 +20183,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 0,
+      "bottomDrawers": 1,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 3,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/vt-2d-1bd-3s.svg"
   },
   {
     "id": "vt-1d-2bd-0s",
@@ -12882,8 +20240,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     },
     "configuration": {
       "doors": 1,
-      "drawers": 2,
-      "shelves": 0
+      "drawers": 2
     },
     "compatibleCollectionIds": [
       "custom"
@@ -12895,7 +20252,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 0,
+      "bottomDrawers": 2,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/vt-1d-2bd-0s.svg"
   },
   {
     "id": "vt-1d-2bd-1s",
@@ -12940,7 +20322,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 0,
+      "bottomDrawers": 2,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 1,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/vt-1d-2bd-1s.svg"
   },
   {
     "id": "vt-1d-2bd-2s",
@@ -12985,7 +20392,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 0,
+      "bottomDrawers": 2,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 2,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/vt-1d-2bd-2s.svg"
   },
   {
     "id": "vt-1d-2bd-3s",
@@ -13030,7 +20462,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 0,
+      "bottomDrawers": 2,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 3,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/vt-1d-2bd-3s.svg"
   },
   {
     "id": "vt-2d-2bd-0s",
@@ -13062,8 +20519,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     },
     "configuration": {
       "doors": 2,
-      "drawers": 2,
-      "shelves": 0
+      "drawers": 2
     },
     "compatibleCollectionIds": [
       "custom"
@@ -13075,7 +20531,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 0,
+      "bottomDrawers": 2,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/vt-2d-2bd-0s.svg"
   },
   {
     "id": "vt-2d-2bd-1s",
@@ -13120,7 +20601,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 0,
+      "bottomDrawers": 2,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 1,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/vt-2d-2bd-1s.svg"
   },
   {
     "id": "vt-2d-2bd-2s",
@@ -13165,7 +20671,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 0,
+      "bottomDrawers": 2,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 2,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/vt-2d-2bd-2s.svg"
   },
   {
     "id": "vt-2d-2bd-3s",
@@ -13210,7 +20741,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 0,
+      "bottomDrawers": 2,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 3,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/vt-2d-2bd-3s.svg"
   },
   {
     "id": "cdf",
@@ -13252,7 +20808,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/cdf.svg"
   },
   {
     "id": "scdf",
@@ -13294,7 +20875,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/scdf.svg"
   },
   {
     "id": "vdf",
@@ -13336,7 +20942,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/vdf.svg"
   },
   {
     "id": "bdf-l",
@@ -13377,7 +21008,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/bdf-l.svg"
   },
   {
     "id": "bdf-r",
@@ -13418,7 +21074,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/bdf-r.svg"
   },
   {
     "id": "wdf-l",
@@ -13459,7 +21140,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/wdf-l.svg"
   },
   {
     "id": "wdf-r",
@@ -13500,7 +21206,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/wdf-r.svg"
   },
   {
     "id": "tdf-l",
@@ -13541,7 +21272,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/tdf-l.svg"
   },
   {
     "id": "tdf-r",
@@ -13582,7 +21338,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/tdf-r.svg"
   },
   {
     "id": "wep",
@@ -13623,7 +21404,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/wep.svg"
   },
   {
     "id": "tep",
@@ -13664,7 +21470,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/tep.svg"
   },
   {
     "id": "fbot",
@@ -13706,7 +21537,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/fbot.svg"
   },
   {
     "id": "ltr",
@@ -13748,7 +21604,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": "R",
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/ltr.svg"
   },
   {
     "id": "tk",
@@ -13790,7 +21671,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/tk.svg"
   },
   {
     "id": "tk-1-4",
@@ -13832,7 +21738,32 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "thin-shaker",
       "alpha-shaker",
       "beta-shaker"
-    ]
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/tk_1-4.svg"
   }
 ];
 

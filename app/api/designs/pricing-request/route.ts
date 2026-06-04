@@ -14,6 +14,8 @@ const pricingRequestSchema = z.object({
   collectionId: z.string().optional(),
   styleJson: z.record(z.unknown()).optional(),
   layoutSummary: z.record(z.unknown()).optional(),
+  /** Plain-English recap of the homeowner's full selections (door, finish, cabinets, accessories). */
+  selectionsSummary: z.string().optional(),
 });
 
 export async function POST(request: NextRequest) {
@@ -34,6 +36,9 @@ export async function POST(request: NextRequest) {
         phone: data.phone,
         message: [
           data.message,
+          data.selectionsSummary
+            ? `[Selections]\n${data.selectionsSummary}`
+            : null,
           data.layoutSummary
             ? `[Layout summary, planning only]\n${JSON.stringify(data.layoutSummary, null, 2)}`
             : null,

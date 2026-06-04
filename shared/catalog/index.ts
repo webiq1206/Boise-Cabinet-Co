@@ -112,6 +112,7 @@ export {
 export type {
   CabinetProduct,
   CabinetProductCategory,
+  CabinetAttrs,
   CatalogSearchFacets,
 } from "./types";
 export {
@@ -126,6 +127,8 @@ export { OSC_CONSTRUCTION } from "./construction";
 export { OSC_HARDWARE_SPEC } from "./generated/hardwareSpec";
 export { CATALOG_CONTENT } from "./generated/content";
 export type { CatalogContent } from "./types";
+export { CATALOG_NOMENCLATURE } from "./generated/nomenclature";
+export type { CatalogNomenclature } from "./types";
 
 export {
   getFinishesForDoorStyle,

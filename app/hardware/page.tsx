@@ -110,12 +110,14 @@ export default function HardwarePage() {
               {OSC_SPEC_CARDS.map((item) => (
                 <CatalogVisualCard
                   key={item.title}
-                  href="/construction"
-                  title={item.title}
+                  name={item.title}
                   description={item.description}
                   imageSrc={item.image}
                   imageAlt={item.title}
-                  meta={item.meta}
+                  aspectRatio="4/3"
+                  specs={[{ label: "Spec", value: item.meta }]}
+                  primaryHref="/construction"
+                  primaryLabel="How we build"
                 />
               ))}
             </div>

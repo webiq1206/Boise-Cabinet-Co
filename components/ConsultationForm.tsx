@@ -114,6 +114,45 @@ export function ConsultationForm({ onRevise }: ConsultationFormProps = {}) {
     return () => window.removeEventListener("brc_estimate_updated", loadEstimate);
   }, [form]);
 
+  // Pre-fill from the guided finder ("Find your look"), if the visitor used it.
+  useEffect(() => {
+    try {
+      const raw = sessionStorage.getItem("brc_finder");
+      if (!raw) return;
+      const f = JSON.parse(raw) as {
+        room?: string;
+        look?: string;
+        mood?: string;
+        recommendedDoor?: string;
+        finishNames?: string[];
+      };
+      const roomMap: Record<string, string> = {
+        kitchen: "kitchen",
+        bathroom: "bathroom",
+        laundry: "laundry",
+        mudroom: "laundry",
+        pantry: "kitchen",
+      };
+      if (f.room && roomMap[f.room] && !form.getValues("projectType")) {
+        form.setValue("projectType", roomMap[f.room], { shouldValidate: false });
+      }
+      if (!form.getValues("message")) {
+        const parts: string[] = [];
+        if (f.look) parts.push(`Style: ${f.look}`);
+        if (f.mood) parts.push(`Color mood: ${f.mood}`);
+        if (f.recommendedDoor) parts.push(`Door: ${f.recommendedDoor}`);
+        if (f.finishNames?.length) parts.push(`Finishes I like: ${f.finishNames.slice(0, 4).join(", ")}`);
+        if (parts.length) {
+          form.setValue("message", `From the finder - ${parts.join(". ")}.`, {
+            shouldValidate: false,
+          });
+        }
+      }
+    } catch {
+      /* sessionStorage unavailable; non-fatal */
+    }
+  }, [form]);
+
   function handleRevise() {
     setDecision("deciding");
     if (onRevise) {
