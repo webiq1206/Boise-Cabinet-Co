@@ -1,11 +1,12 @@
 "use client";
 
-import { Suspense, useEffect } from "react";
+import { Suspense, useEffect, useRef } from "react";
 import { useSearchParams } from "next/navigation";
 import { RoomStep } from "./RoomStep";
 import { RoomScanPanel } from "../RoomScanPanel";
 import { useDesignStudio } from "../DesignStudioProvider";
 import { presetsForRoomType } from "@/shared/roomSizePresets";
+import { isScannedRoom } from "@/lib/design/roomScanGeometry";
 
 function applyFixtureRoom(
   updateDesign: ReturnType<typeof useDesignStudio>["updateDesign"],
@@ -97,6 +98,28 @@ function ScanFixtureLoader() {
 }
 
 export function RoomSetupStep() {
+  const { design } = useDesignStudio();
+  const sizeRef = useRef<HTMLDivElement>(null);
+  const prevRoomRef = useRef(design.roomType);
+
+  // The Room step needs both a room type and a size before it can advance, so
+  // picking a room can't auto-advance on its own. Instead, the moment a room is
+  // chosen we smooth-scroll down to the size panel so the next action is obvious
+  // (this is what makes clicking "Kitchen" visibly do something).
+  useEffect(() => {
+    const prev = prevRoomRef.current;
+    prevRoomRef.current = design.roomType;
+    if (prev === design.roomType || !design.roomType) return;
+    if (isScannedRoom(design.roomMeta)) return;
+    const prefersReduced =
+      typeof window !== "undefined" &&
+      window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+    sizeRef.current?.scrollIntoView({
+      behavior: prefersReduced ? "auto" : "smooth",
+      block: "start",
+    });
+  }, [design.roomType, design.roomMeta]);
+
   return (
     <div className="space-y-8">
       <Suspense fallback={null}>
@@ -104,7 +127,9 @@ export function RoomSetupStep() {
         <ScanFixtureLoader />
       </Suspense>
       <RoomStep showHeader={false} />
-      <RoomScanPanel />
+      <div ref={sizeRef} className="scroll-mt-4">
+        <RoomScanPanel />
+      </div>
     </div>
   );
 }

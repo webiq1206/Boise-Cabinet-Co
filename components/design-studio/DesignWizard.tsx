@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { useDesignStudio } from "./DesignStudioProvider";
 import { useIsDesktop } from "@/hooks/use-media-query";
@@ -47,6 +47,13 @@ const STEP_COMPONENTS = [
   QuoteStep,
 ] as const;
 
+// Steps that auto-advance the moment their required selection is satisfied, so
+// the visitor is carried straight to the next step without hunting for a button.
+// The 3D preview is intentionally excluded (it is the payoff, not a step to skip
+// past) and the final quote step has nowhere to advance to.
+const AUTO_ADVANCE_STEP_IDS = new Set<string>(["room", "layout", "look"]);
+const AUTO_ADVANCE_DELAY_MS = 650;
+
 interface DesignWizardProps {
   className?: string;
 }
@@ -86,7 +93,8 @@ export function DesignWizard({ className }: DesignWizardProps) {
   const StepComponent = STEP_COMPONENTS[currentStep];
   const isFirst = currentStep === 0;
   const isLast = currentStep === steps.length - 1;
-  const isPreviewStep = steps[currentStep]?.id === "preview";
+  const currentStepId = steps[currentStep]?.id ?? "";
+  const isPreviewStep = currentStepId === "preview";
   const canAdvance = isStepComplete(currentStep);
 
   const goNext = () => {
@@ -98,6 +106,35 @@ export function DesignWizard({ className }: DesignWizardProps) {
     if (isFirst) return;
     setCurrentStep((s) => s - 1);
   };
+
+  // Guided auto-advance: when the current step's required selection becomes
+  // complete, carry the visitor to the next step automatically. We only fire on
+  // a fresh false -> true transition while staying on the same step, so arriving
+  // at an already-complete step (e.g. navigating Back, or a pre-selected layout)
+  // never bounces the user forward and they keep full control.
+  const wasCompleteRef = useRef(false);
+  const advancingFromStepRef = useRef(currentStep);
+  useEffect(() => {
+    // Re-baseline whenever the step changes; never auto-advance on arrival.
+    if (advancingFromStepRef.current !== currentStep) {
+      advancingFromStepRef.current = currentStep;
+      wasCompleteRef.current = canAdvance;
+      return;
+    }
+    const justCompleted = canAdvance && !wasCompleteRef.current;
+    wasCompleteRef.current = canAdvance;
+    if (!justCompleted || isLast || !AUTO_ADVANCE_STEP_IDS.has(currentStepId)) {
+      return;
+    }
+    const prefersReduced =
+      typeof window !== "undefined" &&
+      window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+    const timer = window.setTimeout(
+      () => setCurrentStep((s) => (s === currentStep ? s + 1 : s)),
+      prefersReduced ? 0 : AUTO_ADVANCE_DELAY_MS,
+    );
+    return () => window.clearTimeout(timer);
+  }, [canAdvance, currentStep, currentStepId, isLast]);
 
   const previewPanel = previewReady ? (
     <RoomStepLivePreview
