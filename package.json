@@ -40,14 +40,15 @@
     "catalog:images:generate": "node scripts/catalog/generate-catalog-product-images.mjs && node scripts/catalog/generate-finish-in-room-images.mjs && node scripts/catalog/generate-accessory-family-images.mjs",
     "catalog:integrate-ai": "node scripts/catalog/integrate-ai-assets.mjs",
     "catalog:finish-swatches": "node scripts/catalog/generate-finish-swatches.mjs",
-    "catalog:build": "npm run catalog:finish-swatches && npm run catalog:codegen && npm run catalog:svgs && npm run catalog:verify",
+    "catalog:pdf": "tsx scripts/catalog/generate-catalog-pdf.ts",
+    "catalog:build": "npm run catalog:finish-swatches && npm run catalog:codegen && npm run catalog:svgs && npm run catalog:verify && npm run catalog:pdf",
     "catalog:images:verify": "npx tsx scripts/catalog/verify-catalog-images.ts",
     "verify:room-scan": "tsx scripts/verify-room-scan.ts",
     "images:blog": "node scripts/generate-blog-image-registry.mjs && node scripts/setup-blog-images.mjs",
     "images:generate": "node scripts/generate-blog-images.mjs",
     "images:placeholders": "node scripts/generate-placeholder-images.mjs",
     "images:catalog": "node scripts/generate-catalog-placeholders.mjs",
-    "prebuild": "npm run catalog:verify && npm run catalog:visuals:verify && npm run catalog:images:verify && npm run links:generate && npm run audit:links && npm run resources:generate && npm run images:blog && npm run verify:content && npm run verify:images && npm run verify:no-em-dash"
+    "prebuild": "npm run catalog:verify && npm run catalog:visuals:verify && npm run catalog:images:verify && npm run links:generate && npm run audit:links && npm run resources:generate && npm run catalog:pdf && npm run images:blog && npm run verify:content && npm run verify:images && npm run verify:no-em-dash"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",

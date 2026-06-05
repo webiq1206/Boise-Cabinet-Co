@@ -1,9 +1,11 @@
 import { ROOM_BY_SLUG } from "@/shared/catalog/roomCategories";
 
 /**
- * Primary navigation: five homeowner-first entry points (no raw SKU catalog,
- * no "Collections", no supplier/brand names). The full SKU catalog is demoted
- * to a "Full catalog" link inside the Shop by Room menu and the footer.
+ * Primary navigation: homeowner-first entry points (no supplier/brand names).
+ * A top-level "Catalog" link opens the unified browse-everything page at
+ * /catalog, which also hosts the downloadable full-catalog PDF. The same page
+ * is surfaced as the "Full catalog" link inside the Shop by Room menu and the
+ * footer.
  */
 
 const SHOP_BY_ROOM_SLUGS = [
@@ -26,7 +28,7 @@ export const PRIMARY_NAV = [
     label: "Shop by Room",
     href: "/cabinets",
     children: SHOP_BY_ROOM_CHILDREN,
-    footerLink: { label: "Full catalog", href: "/products" },
+    footerLink: { label: "Full catalog", href: "/catalog" },
   },
   {
     label: "Finishes & Doors",
@@ -37,6 +39,7 @@ export const PRIMARY_NAV = [
       { label: "Not sure? Take the finder", href: "/finder" },
     ],
   },
+  { label: "Catalog", href: "/catalog" },
   { label: "Design Studio", href: "/design-studio" },
   { label: "Get an Estimate", href: "/estimate" },
   {
