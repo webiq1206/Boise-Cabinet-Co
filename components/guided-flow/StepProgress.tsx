@@ -40,14 +40,21 @@ export function StepProgress({
   return (
     <nav aria-label="Progress" className={cn("mb-8", className)}>
       {typeof percent === "number" && (
-        <div className="mb-3" aria-hidden>
-          <div className="h-1.5 w-full overflow-hidden rounded-full bg-muted">
-            <div
-              className="h-full rounded-full bg-primary transition-all duration-500"
-              style={{ width: `${Math.max(0, Math.min(100, percent))}%` }}
-              data-testid="step-progress-bar"
-            />
-          </div>
+        <div
+          className="mb-3 h-1.5 w-full overflow-hidden rounded-full bg-muted"
+          role="progressbar"
+          aria-valuenow={Math.round(Math.max(0, Math.min(100, percent)))}
+          aria-valuemin={0}
+          aria-valuemax={100}
+          aria-label={`Design progress: ${Math.round(
+            Math.max(0, Math.min(100, percent)),
+          )}% complete`}
+        >
+          <div
+            className="h-full rounded-full bg-primary transition-all duration-500"
+            style={{ width: `${Math.max(0, Math.min(100, percent))}%` }}
+            data-testid="step-progress-bar"
+          />
         </div>
       )}
 
@@ -65,7 +72,12 @@ export function StepProgress({
                   <span className="flex h-7 w-7 items-center justify-center rounded-full bg-primary text-xs font-medium text-primary-foreground">
                     {currentIndex + 1}
                   </span>
-                  <span className="font-medium">{current?.label}</span>
+                  <span className="flex flex-col leading-tight">
+                    <span className="text-[11px] uppercase tracking-wide text-muted-foreground">
+                      Step {currentIndex + 1} of {steps.length}
+                    </span>
+                    <span className="font-medium">{current?.label}</span>
+                  </span>
                 </span>
                 <ChevronDown className="h-4 w-4 text-muted-foreground" />
               </button>

@@ -8,10 +8,8 @@ export type DesignStepId =
   | "layout"
   | "door"
   | "finish"
-  | "hardware"
-  | "addons"
-  | "review"
-  | "quote";
+  | "extras"
+  | "review";
 
 export interface DesignStepDef {
   id: DesignStepId;
@@ -29,10 +27,8 @@ export const DESIGN_STEPS: readonly DesignStepDef[] = [
   { id: "layout", label: "Layout", shortLabel: "Layout", optional: false, minutes: 1 },
   { id: "door", label: "Cabinet style", shortLabel: "Style", optional: false, minutes: 1 },
   { id: "finish", label: "Finish & color", shortLabel: "Finish", optional: false, minutes: 1 },
-  { id: "hardware", label: "Hardware", shortLabel: "Hardware", optional: true, minutes: 1 },
-  { id: "addons", label: "Add-ons", shortLabel: "Add-ons", optional: true, minutes: 1 },
-  { id: "review", label: "Review design", shortLabel: "Review", optional: false, minutes: 1 },
-  { id: "quote", label: "Estimate & consult", shortLabel: "Quote", optional: false, minutes: 2 },
+  { id: "extras", label: "Finishing touches", shortLabel: "Extras", optional: true, minutes: 1 },
+  { id: "review", label: "Review & estimate", shortLabel: "Review", optional: false, minutes: 2 },
 ] as const;
 
 export const DESIGN_STEP_IDS: readonly DesignStepId[] = DESIGN_STEPS.map(
@@ -78,6 +74,17 @@ export function designStepLabel(
   return DESIGN_STEPS.find((s) => s.id === id)?.label ?? id;
 }
 
+/** Whether the four required design choices have all been made. */
+export function isCoreDesignComplete(d: DesignStepInput): boolean {
+  return (
+    d.roomType !== null &&
+    isScannedRoom(d.roomMeta) &&
+    d.layout !== null &&
+    d.doorStyle !== null &&
+    d.finish !== null
+  );
+}
+
 /** Whether a concrete selection has been made for a step (drives check marks). */
 export function stepHasSelection(d: DesignStepInput, id: DesignStepId): boolean {
   switch (id) {
@@ -89,19 +96,13 @@ export function stepHasSelection(d: DesignStepInput, id: DesignStepId): boolean 
       return d.doorStyle !== null;
     case "finish":
       return d.finish !== null;
-    case "hardware":
-      return d.hardware !== null;
-    case "addons":
-      return d.accessories.length > 0 || d.lineItemSlugs.length > 0;
-    case "review":
+    case "extras":
       return (
-        d.roomType !== null &&
-        isScannedRoom(d.roomMeta) &&
-        d.layout !== null &&
-        d.doorStyle !== null &&
-        d.finish !== null
+        d.hardware !== null ||
+        d.accessories.length > 0 ||
+        d.lineItemSlugs.length > 0
       );
-    case "quote":
+    case "review":
       return d.pricingSubmitted;
     default:
       return false;
@@ -112,7 +113,9 @@ export function stepHasSelection(d: DesignStepInput, id: DesignStepId): boolean 
 export function canAdvanceStep(d: DesignStepInput, id: DesignStepId): boolean {
   const def = DESIGN_STEPS.find((s) => s.id === id);
   if (def?.optional) return true;
-  if (id === "quote") return d.pricingSubmitted;
+  // The merged review step is the final screen; its prerequisites are the core
+  // design choices (the contact form owns its own submit CTA).
+  if (id === "review") return isCoreDesignComplete(d);
   return stepHasSelection(d, id);
 }
 
@@ -127,7 +130,7 @@ export interface DesignProgress {
 
 /** Required-step completion percentage + rough time remaining. */
 export function getDesignProgress(d: DesignStepInput): DesignProgress {
-  const required = DESIGN_STEPS.filter((s) => !s.optional && s.id !== "quote");
+  const required = DESIGN_STEPS.filter((s) => !s.optional && s.id !== "review");
   const completedRequired = required.filter((s) =>
     stepHasSelection(d, s.id),
   ).length;

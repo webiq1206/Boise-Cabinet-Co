@@ -32,10 +32,18 @@ export function DesignAutosaveStatus({ className }: { className?: string }) {
     return () => window.clearInterval(t);
   }, [autosaveState]);
 
-  if (autosaveState === "idle" && !autosaveLastSavedAt) return null;
-
   const base =
     "inline-flex items-center gap-1.5 text-xs text-muted-foreground";
+
+  // Reassure from the very start, before the first edit triggers a save.
+  if (autosaveState === "idle" && !autosaveLastSavedAt) {
+    return (
+      <span className={cn(base, className)} data-testid="autosave-status">
+        <Check className="h-3.5 w-3.5 text-primary" />
+        Changes save automatically
+      </span>
+    );
+  }
 
   if (autosaveState === "saving") {
     return (

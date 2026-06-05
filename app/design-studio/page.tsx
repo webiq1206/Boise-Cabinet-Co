@@ -9,10 +9,7 @@ import { CatalogHandoffFromQuery } from "@/components/design-studio/CatalogHando
 import { DesignAutosaveStatus } from "@/components/design-studio/DesignAutosaveStatus";
 import { DesignResumeHandoff } from "@/components/design-studio/DesignResumeHandoff";
 import { ShareView } from "@/components/design-studio/ShareView";
-import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Button } from "@/components/ui/button";
-import Image from "next/image";
-import { MARKETING_IMAGES } from "@/shared/siteImages";
 import { SITE_CONFIG } from "@/shared/siteConfig";
 import { ArrowLeft, Loader2 } from "lucide-react";
 
@@ -46,27 +43,16 @@ function DesignStudioContent() {
         </div>
       </header>
 
-      <main className="flex-1 container px-4 py-8 md:py-12 max-w-6xl mx-auto w-full">
-        <Breadcrumbs items={[{ name: "Home", href: "/" }, { name: "Design Studio" }]} />
-        <div className="mb-8">
-          <div className="relative aspect-[21/9] max-h-[280px] overflow-hidden rounded-sm mb-6">
-            <Image
-              src={MARKETING_IMAGES.designStudio}
-              alt="Boise Cabinet Co Design Studio 3D cabinet preview and finish selection"
-              title="Design Studio | Boise Cabinet Co"
-              fill
-              sizes="100vw"
-              className="object-cover img-brand-grade"
-              priority
-            />
-          </div>
-          <p className="brc-label mb-2">Design Studio</p>
-          <h1 className="text-3xl md:text-4xl font-sans font-light tracking-tight">
+      <main className="flex-1 container px-4 py-5 md:py-6 max-w-6xl mx-auto w-full">
+        {/* Slim, app-style intro so the wizard sits near the top of the screen. */}
+        <div className="mb-5">
+          <p className="brc-label mb-1">Design Studio</p>
+          <h1 className="text-2xl md:text-3xl font-sans font-light tracking-tight">
             Build your dream <em className="brc-accent text-accent">cabinets</em>
           </h1>
-          <p className="text-muted-foreground mt-2 max-w-xl">
-            Add a room photo or rough size, pick a layout, visualize cabinets in your
-            space, then save and share with our team for pricing.
+          <p className="text-muted-foreground mt-1 text-sm max-w-xl">
+            Room, layout, style, finish, then send it to us for pricing. Everything
+            saves automatically as you go.
           </p>
         </div>
 
@@ -78,14 +64,13 @@ function DesignStudioContent() {
 
 function DesignStudioLoading() {
   return (
-    <main className="flex-1 container px-4 py-8 md:py-12 max-w-6xl mx-auto w-full">
-      <div className="mb-8">
-        <div className="relative aspect-[21/9] max-h-[280px] overflow-hidden rounded-sm mb-6 bg-muted animate-pulse" />
-        <p className="brc-label mb-2">Design Studio</p>
-        <h1 className="text-3xl md:text-4xl font-sans font-light tracking-tight">
+    <main className="flex-1 container px-4 py-5 md:py-6 max-w-6xl mx-auto w-full">
+      <div className="mb-5">
+        <p className="brc-label mb-1">Design Studio</p>
+        <h1 className="text-2xl md:text-3xl font-sans font-light tracking-tight">
           Build your dream <em className="brc-accent text-accent">cabinets</em>
         </h1>
-        <p className="text-muted-foreground mt-2 max-w-xl">
+        <p className="text-muted-foreground mt-1 text-sm max-w-xl">
           Loading your design workspace…
         </p>
       </div>

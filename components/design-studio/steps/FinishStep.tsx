@@ -8,8 +8,8 @@ export function FinishStep() {
     <div className="space-y-5">
       <div className="flex items-start gap-2">
         <p className="text-sm text-muted-foreground">
-          Choose your color and sheen. Swatches are grouped by matte, woodgrain,
-          and high-gloss. Your 3D preview updates instantly.
+          Choose your color. Filter by color family or tone, or search by name.
+          Your 3D preview updates instantly.
         </p>
         <HelpHint label="How finish affects cost">
           Matte tones are core-priced; woodgrain and high-gloss, and deeper

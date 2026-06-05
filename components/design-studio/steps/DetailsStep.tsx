@@ -60,7 +60,7 @@ export function DetailsStep({
           items={HARDWARE_OPTIONS.map((item) => ({
             id: item.slug,
             label: item.name,
-            meta: item.category,
+            description: item.description,
             imageSrc: getHardwareImagePath(item.slug),
             imageAlt: item.name,
           }))}

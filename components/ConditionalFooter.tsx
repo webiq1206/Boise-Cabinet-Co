@@ -9,7 +9,8 @@ export function ConditionalFooter() {
     pathname?.startsWith("/admin") ||
     pathname?.startsWith("/portal") ||
     pathname?.startsWith("/partner") ||
-    pathname?.startsWith("/subcontractor");
+    pathname?.startsWith("/subcontractor") ||
+    pathname?.startsWith("/design-studio");
 
   if (hideFooter) return null;
   return <Footer />;

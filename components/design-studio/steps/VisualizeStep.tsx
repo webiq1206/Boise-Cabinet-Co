@@ -122,8 +122,8 @@ export function VisualizeStep({ embedded = false }: { embedded?: boolean }) {
             <p className="text-sm font-medium">See it in your space (AR)</p>
             <p className="text-sm text-muted-foreground mt-1 max-w-lg">
               Cabinets export at <strong>true scale</strong> (same sizes as the
-              2D planner). AR places them on your floor for visualization only , 
-              it does not map walls, windows, or room size. A small 12&quot;
+              layout you built). AR places them on your floor for visualization
+              only, it does not map walls, windows, or room size. A small 12&quot;
               reference square is included so you can sanity-check scale on your
               phone.
             </p>
@@ -169,7 +169,7 @@ export function VisualizeStep({ embedded = false }: { embedded?: boolean }) {
         <p className="text-sm font-medium mb-1">Room photo overlay</p>
         <p className="text-sm text-muted-foreground mb-3">
           Drag cabinets on your photo to match your walls. Sliders adjust tilt and
-          opacity; the 2D planner offers precise placement.
+          opacity; use the Layout step for precise placement.
         </p>
         <RoomPhotoOverlay
           photoUrl={design.photoUrl}

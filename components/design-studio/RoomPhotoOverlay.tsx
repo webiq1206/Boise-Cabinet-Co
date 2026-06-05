@@ -608,6 +608,7 @@ function SliderRow({
         value={[value]}
         onValueChange={(v) => onChange(v[0])}
         className="flex-1"
+        aria-label={label}
         data-testid={testId}
       />
     </div>

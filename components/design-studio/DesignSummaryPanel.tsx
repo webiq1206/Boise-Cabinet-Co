@@ -109,6 +109,9 @@ export function DesignSummaryPanel({
     .map((slug) => ACCESSORY_FAMILY_BY_SLUG[slug]?.name ?? null)
     .filter(Boolean) as string[];
 
+  const extrasValue =
+    [hardware?.name, ...accessoryNames].filter(Boolean).join(", ") || null;
+
   const rows: SummaryRow[] = [
     { step: "room", label: "Room", value: roomValue },
     { step: "layout", label: "Layout", value: layout?.name ?? null },
@@ -122,12 +125,7 @@ export function DesignSummaryPanel({
         : undefined,
       isSwatch: true,
     },
-    { step: "hardware", label: "Hardware", value: hardware?.name ?? null },
-    {
-      step: "addons",
-      label: "Add-ons",
-      value: accessoryNames.length ? accessoryNames.join(", ") : null,
-    },
+    { step: "extras", label: "Finishing touches", value: extrasValue },
   ];
 
   const decSize = () =>
@@ -178,7 +176,7 @@ export function DesignSummaryPanel({
             <Button
               variant="outline"
               size="icon"
-              className="h-10 w-10"
+              className="h-11 w-11"
               onClick={decSize}
               aria-label="Decrease size"
               data-testid="summary-size-dec"
@@ -194,7 +192,7 @@ export function DesignSummaryPanel({
             <Button
               variant="outline"
               size="icon"
-              className="h-10 w-10"
+              className="h-11 w-11"
               onClick={incSize}
               aria-label="Increase size"
               data-testid="summary-size-inc"
@@ -223,7 +221,7 @@ export function DesignSummaryPanel({
                 onClick={() => onTunerChange({ construction: opt.value })}
                 aria-pressed={tuner.construction === opt.value}
                 className={cn(
-                  "min-h-10 rounded-sm px-2 text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                  "min-h-11 rounded-sm px-2 text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
                   tuner.construction === opt.value
                     ? "bg-primary text-primary-foreground font-medium"
                     : "text-muted-foreground hover:bg-muted",

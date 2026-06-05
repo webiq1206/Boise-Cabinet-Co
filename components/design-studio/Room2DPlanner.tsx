@@ -13,6 +13,17 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import { cn } from "@/lib/utils";
 import { useDesignStudio } from "./DesignStudioProvider";
 import {
@@ -98,6 +109,32 @@ export function Room2DPlanner({ className }: { className?: string }) {
 
   const svgRef = useRef<SVGSVGElement | null>(null);
   const dragRef = useRef<DragState | null>(null);
+  // Coalesce drag updates to one per animation frame so the room-sync on every
+  // module change doesn't run dozens of times per second while dragging.
+  const rafRef = useRef<number | null>(null);
+  const pendingRef = useRef<{ id: string; patch: Partial<CabinetModule> } | null>(
+    null,
+  );
+
+  function flushPending() {
+    rafRef.current = null;
+    const p = pendingRef.current;
+    pendingRef.current = null;
+    if (p) updateModule(p.id, p.patch);
+  }
+
+  function scheduleUpdate(id: string, patch: Partial<CabinetModule>) {
+    pendingRef.current = { id, patch };
+    if (rafRef.current == null) {
+      rafRef.current = requestAnimationFrame(flushPending);
+    }
+  }
+
+  useEffect(() => {
+    return () => {
+      if (rafRef.current != null) cancelAnimationFrame(rafRef.current);
+    };
+  }, []);
 
   const roomW = bounds.maxX - bounds.minX;
   const roomD = bounds.maxZ - bounds.minZ;
@@ -211,7 +248,7 @@ export function Room2DPlanner({ className }: { className?: string }) {
 
     if (d.mode === "move") {
       const next = snapMove(m, w.x - d.offX, w.z - d.offZ);
-      updateModule(d.id, next);
+      scheduleUpdate(d.id, next);
       return;
     }
 
@@ -222,13 +259,21 @@ export function Room2DPlanner({ className }: { className?: string }) {
     width = snapWidthInches(width);
     const center =
       d.mode === "start" ? d.fixed - width / 2 : d.fixed + width / 2;
-    updateModule(d.id, d.runHorizontal ? { width, x: center } : { width, z: center });
+    scheduleUpdate(
+      d.id,
+      d.runHorizontal ? { width, x: center } : { width, z: center },
+    );
   }
 
   function onPointerUp(e: React.PointerEvent) {
     if (dragRef.current) {
       svgRef.current?.releasePointerCapture?.(e.pointerId);
       dragRef.current = null;
+      // Commit the final drag position immediately (don't wait for the frame).
+      if (rafRef.current != null) {
+        cancelAnimationFrame(rafRef.current);
+        flushPending();
+      }
     }
   }
 
@@ -327,14 +372,43 @@ export function Room2DPlanner({ className }: { className?: string }) {
           <Plus className="h-4 w-4" /> Wall
         </Button>
         <div className="ml-auto">
-          <Button
-            type="button"
-            size="sm"
-            onClick={() => setModules(optimizeLayout(modules, bounds))}
-            data-testid="button-optimize"
-          >
-            <Sparkles className="h-4 w-4" /> Auto-arrange
-          </Button>
+          {modules.length > 0 ? (
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <Button type="button" size="sm" data-testid="button-optimize">
+                  <Sparkles className="h-4 w-4" /> Auto-arrange
+                </Button>
+              </AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>Auto-arrange this layout?</AlertDialogTitle>
+                  <AlertDialogDescription>
+                    This re-positions every cabinet along your walls and will
+                    overwrite any manual placement. You can keep editing
+                    afterward.
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel>Keep my layout</AlertDialogCancel>
+                  <AlertDialogAction
+                    onClick={() => setModules(optimizeLayout(modules, bounds))}
+                    data-testid="button-optimize-confirm"
+                  >
+                    Auto-arrange
+                  </AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
+          ) : (
+            <Button
+              type="button"
+              size="sm"
+              onClick={() => setModules(optimizeLayout(modules, bounds))}
+              data-testid="button-optimize"
+            >
+              <Sparkles className="h-4 w-4" /> Auto-arrange
+            </Button>
+          )}
         </div>
       </div>
 
@@ -352,8 +426,29 @@ export function Room2DPlanner({ className }: { className?: string }) {
           viewBox={`0 0 ${W} ${H}`}
           width={W}
           height={H}
-          className="block max-w-full touch-none select-none"
+          className="block max-w-full touch-none select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
           style={{ touchAction: "none" }}
+          role="group"
+          tabIndex={0}
+          aria-label={
+            selected
+              ? `Floor plan. ${cabinetCode(selected)} selected. Use arrow keys to move it, Delete to remove.`
+              : "Floor plan editor. Tap a cabinet to select it, then use arrow keys to move it."
+          }
+          onKeyDown={(e) => {
+            if (!selected) return;
+            const moves: Record<string, [number, number]> = {
+              ArrowLeft: [-NUDGE, 0],
+              ArrowRight: [NUDGE, 0],
+              ArrowUp: [0, -NUDGE],
+              ArrowDown: [0, NUDGE],
+            };
+            const mv = moves[e.key];
+            if (mv) {
+              e.preventDefault();
+              nudge(mv[0], mv[1]);
+            }
+          }}
           onPointerMove={onPointerMove}
           onPointerUp={onPointerUp}
           onPointerDown={() => setSelectedModuleId(null)}
@@ -536,6 +631,22 @@ export function Room2DPlanner({ className }: { className?: string }) {
               <g
                 key={m.id}
                 onPointerDown={(e) => onModuleDown(e, m)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    setSelectedModuleId(m.id);
+                  }
+                }}
+                role="button"
+                tabIndex={0}
+                aria-label={`${
+                  m.isWall
+                    ? "Wall cabinet"
+                    : m.appliance
+                      ? APPLIANCE_LABEL[m.appliance]
+                      : "Base cabinet"
+                } ${moduleFootprintInches(m)}${isSel ? ", selected" : ""}`}
+                aria-pressed={isSel}
                 style={{ cursor: "grab" }}
                 data-testid={`module-${m.id}`}
               >
@@ -612,7 +723,7 @@ export function Room2DPlanner({ className }: { className?: string }) {
                               <circle
                                 cx={p.hx}
                                 cy={p.hy}
-                                r={13}
+                                r={22}
                                 fill="transparent"
                                 onPointerDown={(e) => onHandleDown(e, m, which)}
                                 style={{
@@ -625,10 +736,10 @@ export function Room2DPlanner({ className }: { className?: string }) {
                               <circle
                                 cx={p.hx}
                                 cy={p.hy}
-                                r={5}
+                                r={7}
                                 fill="hsl(var(--background))"
                                 stroke="hsl(var(--primary))"
-                                strokeWidth={2}
+                                strokeWidth={2.5}
                                 style={{ pointerEvents: "none" }}
                               />
                             </g>
@@ -734,7 +845,8 @@ export function Room2DPlanner({ className }: { className?: string }) {
 
           {!selected.isWall && applianceOptions.length > 0 && (
             <select
-              className="h-8 rounded-md border bg-background px-2 text-sm"
+              className="h-9 rounded-md border bg-background px-2 text-sm"
+              aria-label="Appliance for the selected cabinet"
               value={selected.appliance ?? "none"}
               onChange={(e) =>
                 setAppliance(e.target.value as ApplianceType | "none")

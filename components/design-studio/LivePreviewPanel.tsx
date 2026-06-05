@@ -174,7 +174,7 @@ export function LivePreviewPanel({ className, compact, deferMount }: LivePreview
         data-testid="panel-live-preview-deferred"
       >
         <p className="text-sm text-muted-foreground">
-          Tap &quot;Show live preview&quot; above to load the 3D view.
+          Open this panel to load the 3D preview.
         </p>
       </div>
     );

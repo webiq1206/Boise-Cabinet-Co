@@ -15,7 +15,6 @@ export const scanCopy = {
   depthLabel: "Depth - into the room",
   typicalKitchen: "12×14 ft typical",
   typeSizeAdvanced: "Advanced options",
-  presetLabel: "Quick sizes",
   changeSize: "Change size",
   photoPrimaryTitle: "Start with a room photo",
   photoPrimaryHint:

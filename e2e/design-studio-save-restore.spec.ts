@@ -21,30 +21,28 @@ test.describe("Design Studio save payload", () => {
     });
 
     await page.goto("/design-studio?fixtureManual=1");
+    // 6-step flow: room -> layout -> door -> finish -> extras -> review.
+    // Each required step needs a selection, then an explicit Continue (no more
+    // silent auto-advance).
+    const next = page.getByTestId("wizard-next").first();
+
     // Room
     await page.getByTestId("button-room-kitchen").click();
-    await page.getByTestId("wizard-next").first().click();
+    await next.click();
     // Layout
     await page.getByTestId(/^button-layout-/).first().click();
-    await page.getByTestId("wizard-next").first().click();
-    // Door style (auto-advances to the finish step)
+    await next.click();
+    // Door style
     await page.getByTestId(/^button-door-style-/).first().click();
-    // Finish (auto-advances to the hardware step)
+    await next.click();
+    // Finish (Continue is labelled "Review & estimate" here)
     await page.getByTestId(/^button-finish-/).first().click();
+    await next.click();
+    // Finishing touches (optional) -> Review & estimate
+    await next.click();
 
-    // Advance through the optional hardware/add-ons and review steps to the
-    // pricing CTA. Loop on the button label so the auto-advance behaviour on the
-    // door/finish steps cannot make the click count flaky.
-    const nextBtn = page.getByTestId("wizard-next").first();
-    for (let i = 0; i < 8; i += 1) {
-      await expect(nextBtn).toBeVisible();
-      const label = ((await nextBtn.textContent()) ?? "").trim();
-      await nextBtn.click();
-      if (/Go to pricing form/i.test(label)) break;
-      await page.waitForTimeout(250);
-    }
-
-    // Save is now behind the optional "manage versions" disclosure.
+    // The merged review step owns the contact + save UI. Save is behind the
+    // optional "manage versions" disclosure.
     await page
       .getByRole("button", { name: /Save, name & manage versions/i })
       .click();
@@ -55,5 +53,21 @@ test.describe("Design Studio save payload", () => {
     const roomMeta = layoutJson.roomMeta as { widthIn: number; userConfirmed: boolean };
     expect(roomMeta.widthIn).toBeGreaterThanOrEqual(48);
     expect(roomMeta.userConfirmed).toBe(true);
+  });
+});
+
+test.describe("Design Studio tablet CTA", () => {
+  test("sticky Continue bar is reachable at tablet widths", async ({ page }) => {
+    // Tablet portrait sits in the old "dead zone" (>=768, <1024). The sticky CTA
+    // must remain visible there instead of only on phones.
+    await page.setViewportSize({ width: 834, height: 1112 });
+    await page.goto("/design-studio?fixtureManual=1");
+    await page.getByTestId("button-room-kitchen").click();
+    await expect(page.getByTestId("wizard-mobile-bar")).toBeVisible({
+      timeout: 15_000,
+    });
+    await expect(
+      page.getByTestId("wizard-mobile-bar").getByTestId("wizard-next"),
+    ).toBeVisible();
   });
 });

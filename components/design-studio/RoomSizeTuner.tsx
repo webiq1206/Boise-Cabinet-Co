@@ -45,7 +45,7 @@ export function RoomSizeTuner({
           type="button"
           variant="outline"
           size="sm"
-          className="min-h-10"
+          className="min-h-11"
           onClick={() => scaleRoom(0.92)}
           data-testid="button-room-smaller"
         >
@@ -55,7 +55,7 @@ export function RoomSizeTuner({
           type="button"
           variant="outline"
           size="sm"
-          className="min-h-10"
+          className="min-h-11"
           onClick={() => scaleRoom(1.08)}
           data-testid="button-room-larger"
         >

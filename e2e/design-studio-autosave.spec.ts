@@ -50,12 +50,13 @@ test.describe("Design Studio autosave & summary", () => {
     await page.getByTestId(/^button-layout-/).first().click();
     await page.getByRole("button", { name: "Continue" }).click();
     await page.getByTestId(/^button-door-style-/).first().click();
+    await page.getByRole("button", { name: "Continue" }).click();
     await page.getByTestId(/^button-finish-/).first().click();
 
+    // Mobile keeps the summary in a bottom sheet; desktop now shows the summary
+    // panel inline (no Preview|Summary tab), so the range is already visible.
     if (isMobile) {
       await page.getByTestId("button-open-summary-sheet").click();
-    } else {
-      await page.getByRole("tab", { name: "Summary" }).click();
     }
 
     const range = page.getByTestId("summary-estimate-range").first();

@@ -8,10 +8,8 @@ import { RoomSetupStep } from "./steps/RoomSetupStep";
 import { LayoutStep } from "./steps/LayoutStep";
 import { DoorStep } from "./steps/DoorStep";
 import { FinishStep } from "./steps/FinishStep";
-import { HardwareStep } from "./steps/HardwareStep";
-import { AddonsStep } from "./steps/AddonsStep";
+import { ExtrasStep } from "./steps/ExtrasStep";
 import { ReviewStep } from "./steps/ReviewStep";
-import { QuoteStep } from "./steps/QuoteStep";
 import { RoomStepLivePreview } from "./RoomStepLivePreview";
 import { DesignSummaryPanel } from "./DesignSummaryPanel";
 import {
@@ -56,29 +54,22 @@ const STEP_COMPONENTS: Record<DesignStepId, () => JSX.Element> = {
   layout: LayoutStep,
   door: DoorStep,
   finish: FinishStep,
-  hardware: HardwareStep,
-  addons: AddonsStep,
+  extras: ExtrasStep,
   review: ReviewStep,
-  quote: QuoteStep,
 };
 
-// Pure single-select steps auto-advance the instant their choice is made, so
-// the visitor is carried forward without hunting for a button. Room (needs a
-// measurement + has a "browse" escape hatch) and layout (inline 2D planner the
-// visitor may want to arrange) advance only via the explicit Continue button.
-// Optional and review/quote steps never auto-advance.
-const AUTO_ADVANCE_STEP_IDS = new Set<DesignStepId>(["door", "finish"]);
-const AUTO_ADVANCE_DELAY_MS = 650;
+// Single-select steps no longer auto-advance (silent jumps confused visitors).
+// Instead, once a choice is made we announce it and move focus to the now-enabled
+// Continue button so progressing is one obvious tap, but always under user control.
+const FOCUS_CUE_STEP_IDS = new Set<DesignStepId>(["door", "finish"]);
 
 const STEP_DESCRIPTIONS: Record<DesignStepId, string> = {
   room: "Tell us the room and its size, or skip ahead to browse styles.",
   layout: "Choose the layout that best matches your space.",
   door: "Pick the cabinet door profile you love.",
   finish: "Choose your color and sheen.",
-  hardware: "Optional: pick handles, or keep our default.",
-  addons: "Optional: add smart storage and specialty cabinets.",
-  review: "Review everything and see your live estimate.",
-  quote: "Get your estimate and book a free consultation.",
+  extras: "Optional: pick hardware and smart storage, or just continue.",
+  review: "Review everything, then send it for your estimate and free consultation.",
 };
 
 interface DesignWizardProps {
@@ -92,6 +83,8 @@ function DesignWizardInner({ className }: DesignWizardProps) {
   const [mounted, setMounted] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
   const [summaryOpen, setSummaryOpen] = useState(false);
+  const [focusToken, setFocusToken] = useState(0);
+  const [announce, setAnnounce] = useState("");
 
   useEffect(() => setMounted(true), []);
 
@@ -132,7 +125,6 @@ function DesignWizardInner({ className }: DesignWizardProps) {
   const StepComponent = STEP_COMPONENTS[currentStepId];
   const isFirst = currentStep === 0;
   const isLast = currentStep === steps.length - 1;
-  const isReview = currentStepId === "review";
   const canAdvance = isStepComplete(currentStep);
 
   const goNext = () => {
@@ -145,7 +137,8 @@ function DesignWizardInner({ className }: DesignWizardProps) {
     setCurrentStep((s) => s - 1);
   };
 
-  // Guided auto-advance on single-select steps (fresh false -> true only).
+  // On a fresh selection of a single-select step, announce it and pull focus to
+  // the now-enabled Continue (fresh false -> true only; never auto-advance).
   const wasCompleteRef = useRef(false);
   const advancingFromStepRef = useRef(currentStep);
   useEffect(() => {
@@ -156,18 +149,15 @@ function DesignWizardInner({ className }: DesignWizardProps) {
     }
     const justCompleted = canAdvance && !wasCompleteRef.current;
     wasCompleteRef.current = canAdvance;
-    if (!justCompleted || isLast || !AUTO_ADVANCE_STEP_IDS.has(currentStepId)) {
+    if (!justCompleted || isLast || !FOCUS_CUE_STEP_IDS.has(currentStepId)) {
       return;
     }
-    const prefersReduced =
-      typeof window !== "undefined" &&
-      window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
-    const timer = window.setTimeout(
-      () => setCurrentStep((s) => (s === currentStep ? s + 1 : s)),
-      prefersReduced ? 0 : AUTO_ADVANCE_DELAY_MS,
+    const nextLabel = steps[currentStep + 1]?.label ?? "the next step";
+    setAnnounce(
+      `${steps[currentStep]?.label ?? "Selection"} chosen. Continue to ${nextLabel}.`,
     );
-    return () => window.clearTimeout(timer);
-  }, [canAdvance, currentStep, currentStepId, isLast]);
+    setFocusToken((t) => t + 1);
+  }, [canAdvance, currentStep, currentStepId, isLast, steps]);
 
   const previewPanel = previewReady ? (
     <RoomStepLivePreview deferMount={!isDesktop && !summaryOpen} />
@@ -234,11 +224,7 @@ function DesignWizardInner({ className }: DesignWizardProps) {
     </Drawer>
   ) : null;
 
-  const continueLabel = isLast
-    ? "Go to pricing form"
-    : isReview
-      ? "Continue to estimate"
-      : "Continue";
+  const continueLabel = currentStepId === "finish" ? "Review & estimate" : "Continue";
 
   const progress = getDesignProgress(design);
   const minutesLeftLabel =
@@ -253,25 +239,22 @@ function DesignWizardInner({ className }: DesignWizardProps) {
       isStepComplete={isStepComplete}
       onStepClick={(index) => index <= currentStep && setCurrentStep(index)}
       onBack={goBack}
-      onNext={
-        isLast
-          ? () => {
-              document
-                .getElementById("request-pricing")
-                ?.scrollIntoView({ behavior: "smooth" });
-            }
-          : goNext
-      }
+      onNext={goNext}
       isFirst={isFirst}
       isLast={isLast}
-      canAdvance={canAdvance || isLast}
+      canAdvance={canAdvance}
+      hidePrimaryOnLast
       continueLabel={continueLabel}
       stepDescription={STEP_DESCRIPTIONS[currentStepId]}
       mobileSummary={mobileSummaryNode}
       progressPercent={progress.percent}
       minutesLeftLabel={minutesLeftLabel}
       compactMobileSteps
+      focusPrimaryToken={focusToken}
     >
+      <p className="sr-only" aria-live="polite" role="status">
+        {announce}
+      </p>
       <StepComponent />
     </GuidedFlowShell>
   );
@@ -289,19 +272,11 @@ function DesignWizardInner({ className }: DesignWizardProps) {
         )}
       >
         <div className="flex flex-col min-w-0">{shell}</div>
-        <div className="sticky top-20">
-          <Tabs defaultValue="preview">
-            <TabsList className="grid w-full grid-cols-2">
-              <TabsTrigger value="preview">Preview</TabsTrigger>
-              <TabsTrigger value="summary">Summary</TabsTrigger>
-            </TabsList>
-            <TabsContent value="preview" className="mt-4">
-              {previewPanel}
-            </TabsContent>
-            <TabsContent value="summary" className="mt-4">
-              {summaryPanel}
-            </TabsContent>
-          </Tabs>
+        {/* Preview and summary are both always visible (stacked, sticky) so the
+            estimate and selections are never hidden behind a tab. */}
+        <div className="sticky top-20 max-h-[calc(100vh-6rem)] space-y-4 overflow-y-auto pr-1">
+          {previewPanel}
+          {summaryPanel}
         </div>
       </div>
     );

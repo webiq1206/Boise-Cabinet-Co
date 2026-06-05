@@ -13,6 +13,8 @@ export interface VisualOptionItem {
   fallbackHex?: string;
   /** Optional recommendation badge, e.g. "Popular" or "Most loved". */
   badge?: string;
+  /** Larger/alternate image for the lightbox (falls back to imageSrc). */
+  zoomSrc?: string;
 }
 
 export interface VisualOptionGridProps {
@@ -27,6 +29,8 @@ export interface VisualOptionGridProps {
   columns?: "auto" | 2 | 3 | 4;
   /** Tile layout - "media" (image-forward) or "swatch" (compact square) */
   variant?: VisualOptionVariant;
+  /** Show a zoom/lightbox control on each tile. */
+  enableZoom?: boolean;
 }
 
 const COLUMN_CLASS: Record<NonNullable<VisualOptionGridProps["columns"]>, string> = {
@@ -45,6 +49,7 @@ export function VisualOptionGrid({
   className,
   columns = "auto",
   variant = "media",
+  enableZoom = false,
 }: VisualOptionGridProps) {
   const isSelected = (id: string) =>
     selectedIds ? selectedIds.includes(id) : selectedId === id;
@@ -61,6 +66,8 @@ export function VisualOptionGrid({
           imageAlt={item.imageAlt}
           fallbackHex={item.fallbackHex}
           badge={item.badge}
+          enableZoom={enableZoom}
+          zoomSrc={item.zoomSrc}
           selected={isSelected(item.id)}
           variant={variant}
           onSelect={() => onSelect(item.id)}

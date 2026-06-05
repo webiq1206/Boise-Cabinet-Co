@@ -102,12 +102,10 @@ export function RoomScanPanel() {
   } | null>(null);
   const [lowConfAck, setLowConfAck] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
-  const handoffRef = useRef<HTMLDivElement>(null);
 
   const scanned = isScannedRoom(design.roomMeta) && !editing;
   const meta = design.roomMeta;
   const roomSelected = design.roomType !== null;
-  const presets = presetsForRoomType(design.roomType);
   const buckets = sizeBucketsForRoom(design.roomType);
   const hasPhoto = Boolean(design.photoUrl);
 
@@ -209,14 +207,9 @@ export function RoomScanPanel() {
       });
       return;
     }
-    if (isDesktop) {
-      handoffRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
-      toast({
-        title: scanCopy.desktopScanHint,
-        description: "Use your phone camera for the best room photo.",
-      });
-      return;
-    }
+    // Open the in-browser file picker on every device. On desktop this is an
+    // upload dialog; on phones it offers camera or library. The QR handoff is
+    // still available below for people who'd rather shoot on their phone.
     fileRef.current?.click();
   }
 
@@ -226,7 +219,9 @@ export function RoomScanPanel() {
     roomBounds: RoomBounds,
     method: string,
   ) {
-    updateDesign({ photoUrl: image });
+    // Don't commit the photo until the size is actually applied. Otherwise
+    // cancelling the low-confidence dialog would leave a photo on screen with
+    // no measured room (an orphaned, un-advanceable state).
     if (roomMeta.scanConfidence === "low" || !roomMeta.userConfirmed) {
       trackDesignEvent("vision_scan_low_confidence");
       setPendingVision({
@@ -238,6 +233,7 @@ export function RoomScanPanel() {
       });
       return;
     }
+    updateDesign({ photoUrl: image });
     applyScan(roomMeta, roomBounds);
     trackDesignEvent("scan_completed", { method });
     toast({
@@ -360,11 +356,15 @@ export function RoomScanPanel() {
   }
 
   function startEditing() {
-    setEditing(true);
+    // Prefill the manual inputs from the prior size, then clear the measured
+    // room so Continue is re-gated until a new size is chosen (no stale "done").
     if (meta) {
       setWidthIn(String(meta.widthIn));
       setDepthIn(String(meta.depthIn));
     }
+    setEditing(true);
+    setManualOpen(true);
+    updateDesign({ roomMeta: null, roomBounds: null });
   }
 
   const parsedW = parseInt(widthIn, 10) || 0;
@@ -373,15 +373,10 @@ export function RoomScanPanel() {
 
   return (
     <div className="space-y-4" data-testid="room-scan-panel">
-      <div ref={handoffRef}>
-        <DesktopScanHandoff />
-      </div>
-
       <input
         ref={fileRef}
         type="file"
         accept="image/*"
-        capture="environment"
         className="hidden"
         onChange={(e) => {
           const f = e.target.files?.[0];
@@ -419,7 +414,12 @@ export function RoomScanPanel() {
             </div>
           </div>
 
-          {hasPhoto && meta && (
+          {/* The +/- nudge is available for every source, not just photos. */}
+          <div className="rounded-md border bg-card p-4">
+            <RoomSizeTuner roomMeta={meta} onApply={applyScan} />
+          </div>
+
+          {hasPhoto && (
             <div className="rounded-md border bg-card p-4 space-y-4" data-testid="room-photo-review">
               <div>
                 <p className="text-sm font-medium">{scanCopy.photoReviewTitle}</p>
@@ -428,12 +428,11 @@ export function RoomScanPanel() {
                 </p>
               </div>
               <RoomPhotoQuickMeasure />
-              <RoomSizeTuner roomMeta={meta} onApply={applyScan} />
               <Button
                 type="button"
                 variant="outline"
                 size="sm"
-                className="w-full"
+                className="w-full min-h-11"
                 onClick={triggerPhotoPicker}
               >
                 <Camera className="h-4 w-4" />
@@ -474,9 +473,12 @@ export function RoomScanPanel() {
             )}
           </div>
 
+          {/* Secondary path on desktop: shoot the photo on a phone instead. */}
+          {isDesktop && <DesktopScanHandoff />}
+
           {buckets.length > 0 && (
             <div className="rounded-md border bg-card p-4 space-y-3">
-              <p className="text-sm font-medium">{scanCopy.bucketLabel}</p>
+              <p className="text-sm font-medium">Pick a rough size</p>
               <p className="text-xs text-muted-foreground">{scanCopy.bucketHint}</p>
               <div className="grid gap-2 sm:grid-cols-3">
                 {buckets.map((b) => (
@@ -514,32 +516,6 @@ export function RoomScanPanel() {
             </CollapsibleTrigger>
             <CollapsibleContent className="rounded-md border bg-card p-4 mt-2 space-y-4">
               <p className="text-xs text-muted-foreground">{scanCopy.typeSizeHint}</p>
-
-              {presets.length > 0 && (
-                <div className="space-y-2">
-                  <p className="text-sm font-medium">{scanCopy.presetLabel}</p>
-                  <div className="flex flex-wrap gap-2">
-                    {presets.map((p) => (
-                      <Button
-                        key={p.id}
-                        type="button"
-                        variant="outline"
-                        size="sm"
-                        className="min-h-10"
-                        disabled={!roomSelected}
-                        onClick={() => {
-                          setWidthIn(String(p.widthIn));
-                          setDepthIn(String(p.depthIn));
-                          applyPreset(p.widthIn, p.depthIn, `preset-${p.id}`);
-                        }}
-                        data-testid={`button-preset-${p.id}`}
-                      >
-                        {p.label}
-                      </Button>
-                    ))}
-                  </div>
-                </div>
-              )}
 
               <div className="grid grid-cols-1 sm:grid-cols-[1fr_auto] gap-4 items-start">
                 <div className="grid grid-cols-2 gap-3">

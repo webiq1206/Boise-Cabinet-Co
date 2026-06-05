@@ -71,7 +71,10 @@ export function RoomPhotoQuickMeasure() {
       </p>
       <div
         ref={containerRef}
-        className="relative rounded-md overflow-hidden border cursor-crosshair max-h-48"
+        role="application"
+        aria-label="Tap two points along your back wall to refine room width. Prefer the keyboard? Type exact sizes under 'I know my wall measurements'."
+        tabIndex={0}
+        className="relative rounded-md overflow-hidden border cursor-crosshair max-h-48 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
         onClick={onImageClick}
         data-testid="photo-measure-target"
       >
@@ -84,7 +87,7 @@ export function RoomPhotoQuickMeasure() {
         {tapPoints.map((p, i) => (
           <span
             key={i}
-            className="absolute w-3 h-3 -ml-1.5 -mt-1.5 rounded-full bg-accent border-2 border-background"
+            className="absolute h-5 w-5 -ml-2.5 -mt-2.5 rounded-full bg-accent border-2 border-background shadow"
             style={{ left: p.x, top: p.y }}
           />
         ))}

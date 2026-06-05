@@ -36,6 +36,8 @@ interface GuidedFlowShellProps {
   minutesLeftLabel?: string;
   /** Collapse the step rail into a compact menu on small screens. */
   compactMobileSteps?: boolean;
+  /** When this number changes, move focus to the visible primary CTA. */
+  focusPrimaryToken?: number;
 }
 
 export function GuidedFlowShell({
@@ -60,6 +62,7 @@ export function GuidedFlowShell({
   progressPercent,
   minutesLeftLabel,
   compactMobileSteps,
+  focusPrimaryToken,
 }: GuidedFlowShellProps) {
   const step = steps[currentIndex];
   const rootRef = useRef<HTMLDivElement>(null);
@@ -115,6 +118,25 @@ export function GuidedFlowShell({
     // Focus without a second scroll jump; the smooth scroll above handles it.
     headingRef.current?.focus({ preventScroll: true });
   }, [currentIndex]);
+
+  // When a step's choice is made we surface the now-enabled Continue by moving
+  // focus to it (predictable, replaces silent auto-advance). Only fires when the
+  // parent bumps the token, never on first paint.
+  const focusInit = useRef(false);
+  useEffect(() => {
+    if (!focusInit.current) {
+      focusInit.current = true;
+      return;
+    }
+    if (focusPrimaryToken === undefined) return;
+    const buttons = rootRef.current?.querySelectorAll<HTMLButtonElement>(
+      '[data-testid="wizard-next"]',
+    );
+    const visible = Array.from(buttons ?? []).find(
+      (b) => !b.disabled && b.offsetParent !== null,
+    );
+    visible?.focus({ preventScroll: true });
+  }, [focusPrimaryToken]);
 
   const renderPrimary = (fullWidth?: boolean) => {
     if (isLast && hidePrimaryOnLast) return null;
@@ -172,8 +194,8 @@ export function GuidedFlowShell({
 
       <div className={cn("flex-1 min-h-[280px]", stepClassName)}>{children}</div>
 
-      {/* Desktop / tablet in-flow controls */}
-      <div className="hidden md:flex items-center justify-between gap-4 mt-8 pt-6 border-t">
+      {/* Desktop in-flow controls (lg and up; the two-column layout starts here) */}
+      <div className="hidden lg:flex items-center justify-between gap-4 mt-8 pt-6 border-t">
         <Button variant="outline" onClick={onBack} disabled={isFirst} className="min-h-11">
           <ChevronLeft className="h-4 w-4" />
           Back
@@ -181,13 +203,13 @@ export function GuidedFlowShell({
         {renderPrimary()}
       </div>
 
-      {/* Spacer so content is never hidden behind the sticky mobile bar */}
-      <div className="h-24 md:hidden" aria-hidden />
+      {/* Spacer so content is never hidden behind the sticky bar (mobile + tablet) */}
+      <div className="h-32 lg:hidden" aria-hidden />
 
-      {/* Sticky mobile CTA - keeps Continue reachable without scrolling */}
+      {/* Sticky CTA through tablet - keeps Continue reachable without scrolling */}
       {barVisible && (
         <div
-          className="fixed bottom-0 inset-x-0 z-30 border-t bg-background/95 backdrop-blur md:hidden pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-3 px-4"
+          className="fixed bottom-0 inset-x-0 z-30 border-t bg-background/95 backdrop-blur lg:hidden pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-3 px-4"
           data-testid="wizard-mobile-bar"
         >
           {mobileSummary && (

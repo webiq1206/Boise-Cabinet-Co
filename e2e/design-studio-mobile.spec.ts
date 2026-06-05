@@ -38,14 +38,20 @@ test.describe("Design Studio mobile paths", () => {
     });
   });
 
-  test("kitchen quick preset enables continue", async ({ page }) => {
+  test("change size re-gates Continue until a new size is set", async ({ page }) => {
+    // No fixture here: the fixture loader would re-apply a size as soon as it is
+    // cleared, masking the re-gate behaviour we want to verify.
     await page.goto("/design-studio");
     await page.getByTestId("button-room-kitchen").click();
-    await page.getByRole("button", { name: /I know my wall measurements/i }).click();
-    await page.getByTestId("button-preset-kitchen-12x14").click();
-    await expect(page.getByTestId("room-scan-panel").getByText(/Room size saved/i)).toBeVisible({
+    await page.getByTestId("button-bucket-kitchen-average").click();
+    await expect(page.getByRole("button", { name: "Continue" })).toBeEnabled({
       timeout: 10_000,
     });
+    // Changing the size clears the measurement, so Continue is disabled again.
+    await page.getByTestId("button-change-room-size").click();
+    await expect(page.getByRole("button", { name: "Continue" })).toBeDisabled();
+    // Re-pick a rough size and Continue comes back.
+    await page.getByTestId("button-bucket-kitchen-average").click();
     await expect(page.getByRole("button", { name: "Continue" })).toBeEnabled({
       timeout: 10_000,
     });

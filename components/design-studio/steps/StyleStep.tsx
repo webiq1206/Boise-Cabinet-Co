@@ -1,19 +1,56 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
+import { Search } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useDesignStudio } from "../DesignStudioProvider";
 import { DOOR_STYLES } from "@/shared/catalog/doorStyles";
 import { FINISH_BY_SLUG } from "@/shared/catalog/finishes";
-import { getFinishesForDoorStyle, getDoorStyleImages, getFinishImages } from "@/shared/catalog";
-import { getMostLovedFinishes } from "@/shared/catalog/finishFilters";
+import {
+  getFinishesForDoorStyle,
+  getDoorStyleImages,
+  getFinishImages,
+} from "@/shared/catalog";
+import {
+  getMostLovedFinishes,
+  deriveColorFamily,
+  getFinishTone,
+  colorFamiliesPresent,
+  type ColorFamily,
+  type FinishTone,
+} from "@/shared/catalog/finishFilters";
 import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
 import { VisualOptionGrid } from "@/components/catalog/visual";
-
-const DEFAULT_FINISH = FINISH_BY_SLUG["woodgrain-canyon-oak"] ?? FINISH_BY_SLUG["matte-vanilla-orchid"];
 
 /** Curated subset shown before the homeowner asks to see every compatible color. */
 const CURATED_FINISH_COUNT = 12;
+
+function FilterChip({
+  active,
+  onClick,
+  children,
+}: {
+  active: boolean;
+  onClick: () => void;
+  children: React.ReactNode;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-pressed={active}
+      className={cn(
+        "rounded-full px-3 py-1 text-xs transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring min-h-8",
+        active
+          ? "bg-primary text-primary-foreground"
+          : "bg-muted text-muted-foreground hover:text-foreground",
+      )}
+    >
+      {children}
+    </button>
+  );
+}
 
 export function StyleStep({
   embedded = false,
@@ -27,39 +64,57 @@ export function StyleStep({
   const showDoor = section === "door" || section === "both";
   const showFinish = section === "finish" || section === "both";
 
-  const [finishCategory, setFinishCategory] = useState<"all" | "matte" | "gloss" | "woodgrain">("all");
-  const [showAllFinishes, setShowAllFinishes] = useState(false);
+  const [family, setFamily] = useState<ColorFamily | "all">("all");
+  const [tone, setTone] = useState<FinishTone | "all">("all");
+  const [query, setQuery] = useState("");
+  const [showAll, setShowAll] = useState(false);
 
   const doorFinishes = design.doorStyle
     ? getFinishesForDoorStyle(design.doorStyle)
     : getFinishesForDoorStyle("modern-shaker");
 
-  const categoryFinishes =
-    finishCategory === "all"
-      ? doorFinishes
-      : doorFinishes.filter((f) => f.category === finishCategory);
+  const families = useMemo(
+    () => colorFamiliesPresent(doorFinishes),
+    [doorFinishes],
+  );
+
+  const q = query.trim().toLowerCase();
+  const filtered = useMemo(
+    () =>
+      doorFinishes.filter((f) => {
+        if (family !== "all" && deriveColorFamily(f) !== family) return false;
+        if (tone !== "all" && getFinishTone(f) !== tone) return false;
+        if (q && !f.name.toLowerCase().includes(q)) return false;
+        return true;
+      }),
+    [doorFinishes, family, tone, q],
+  );
+  const filtersActive = family !== "all" || tone !== "all" || q !== "";
 
   // Progressive disclosure: lead with a curated, most-loved subset, then let the
-  // homeowner expand to the full compatible palette - never a wall of 299.
-  const inScope = new Set(categoryFinishes.map((f) => f.id));
-  const curatedFinishes = (() => {
-    const loved = getMostLovedFinishes(CURATED_FINISH_COUNT).filter((f) => inScope.has(f.id));
+  // homeowner filter or expand - never a wall of 299 swatches.
+  const inScope = useMemo(() => new Set(filtered.map((f) => f.id)), [filtered]);
+  const curatedFinishes = useMemo(() => {
+    const loved = getMostLovedFinishes(CURATED_FINISH_COUNT).filter((f) =>
+      inScope.has(f.id),
+    );
     const seen = new Set(loved.map((f) => f.id));
-    const filler = categoryFinishes.filter((f) => !seen.has(f.id));
-    return [...loved, ...filler].slice(0, CURATED_FINISH_COUNT);
-  })();
-  // Always surface the selected finish even if it is outside the curated subset.
-  const selectedFinishObj = design.finish ? FINISH_BY_SLUG[design.finish] : undefined;
-  if (
-    selectedFinishObj &&
-    inScope.has(selectedFinishObj.id) &&
-    !curatedFinishes.some((f) => f.id === selectedFinishObj.id)
-  ) {
-    curatedFinishes[curatedFinishes.length - 1] = selectedFinishObj;
-  }
+    const filler = filtered.filter((f) => !seen.has(f.id));
+    const list = [...loved, ...filler].slice(0, CURATED_FINISH_COUNT);
+    const selected = design.finish ? FINISH_BY_SLUG[design.finish] : undefined;
+    if (
+      selected &&
+      inScope.has(selected.id) &&
+      !list.some((f) => f.id === selected.id) &&
+      list.length > 0
+    ) {
+      list[list.length - 1] = selected;
+    }
+    return list;
+  }, [filtered, inScope, design.finish]);
 
-  const hasMoreFinishes = categoryFinishes.length > curatedFinishes.length;
-  const filteredFinishes = showAllFinishes ? categoryFinishes : curatedFinishes;
+  const hasMoreFinishes = !filtersActive && filtered.length > curatedFinishes.length;
+  const visibleFinishes = filtersActive || showAll ? filtered : curatedFinishes;
 
   // Surface a "Most loved" badge on the top few crowd favorites in scope.
   const lovedSet = new Set(
@@ -67,8 +122,6 @@ export function StyleStep({
       .filter((f) => inScope.has(f.id))
       .map((f) => f.slug),
   );
-
-  const previewFinish = selectedFinishObj ?? DEFAULT_FINISH;
 
   return (
     <div className="space-y-8">
@@ -84,95 +137,139 @@ export function StyleStep({
       )}
 
       {showDoor && (
-      <div className="space-y-4">
-        <div className="flex flex-wrap items-center justify-between gap-2">
+        <div className="space-y-4">
           <Label className="text-sm font-medium">Door style</Label>
-          <p className="text-xs text-muted-foreground">
-            Previews shown in{" "}
-            <span className="font-medium text-foreground">{previewFinish.name}</span>
-          </p>
+          <VisualOptionGrid
+            enableZoom
+            items={DOOR_STYLES.map((item) => {
+              const images = getDoorStyleImages(item.slug, item.imagePath);
+              return {
+                id: item.slug,
+                label: item.name,
+                description: item.description,
+                imageSrc: images.primary,
+                imageAlt: `${item.name} door profile`,
+                badge: item.slug === "modern-shaker" ? "Popular" : undefined,
+              };
+            })}
+            selectedId={design.doorStyle ?? undefined}
+            onSelect={(slug) => updateDesign({ doorStyle: slug as never })}
+            testIdPrefix="button-door-style"
+          />
         </div>
-        <VisualOptionGrid
-          items={DOOR_STYLES.map((item) => {
-            const images = getDoorStyleImages(item.slug, item.imagePath);
-            return {
-              id: item.slug,
-              label: item.name,
-              description: item.description,
-              imageSrc: images.primary,
-              imageAlt: `${item.name} door profile`,
-              badge: item.slug === "modern-shaker" ? "Popular" : undefined,
-            };
-          })}
-          selectedId={design.doorStyle ?? undefined}
-          onSelect={(slug) => updateDesign({ doorStyle: slug as never })}
-          testIdPrefix="button-door-style"
-        />
-      </div>
       )}
 
       {showFinish && (
-      <div className="space-y-4">
-        <div className="flex flex-wrap items-center justify-between gap-2">
-          <Label className="text-sm font-medium">Finish</Label>
-          <div className="flex flex-wrap gap-1">
-            {(["all", "matte", "gloss", "woodgrain"] as const).map((cat) => (
-              <button
-                key={cat}
-                type="button"
+        <div className="space-y-3">
+          <div className="flex items-center justify-between gap-2">
+            <Label htmlFor="finish-search" className="text-sm font-medium">
+              Finish
+            </Label>
+            <span className="text-xs text-muted-foreground" aria-live="polite">
+              {filtered.length} color{filtered.length === 1 ? "" : "s"}
+            </span>
+          </div>
+
+          <div className="relative">
+            <Search className="pointer-events-none absolute left-2.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+            <Input
+              id="finish-search"
+              type="search"
+              placeholder="Search colors (e.g. white, oak, grey)"
+              value={query}
+              onChange={(e) => {
+                setQuery(e.target.value);
+                setShowAll(false);
+              }}
+              className="h-10 pl-8"
+              data-testid="input-finish-search"
+            />
+          </div>
+
+          <div className="flex flex-wrap gap-1" role="group" aria-label="Color family">
+            <FilterChip active={family === "all"} onClick={() => setFamily("all")}>
+              All colors
+            </FilterChip>
+            {families.map((fam) => (
+              <FilterChip
+                key={fam}
+                active={family === fam}
                 onClick={() => {
-                  setFinishCategory(cat);
-                  setShowAllFinishes(false);
+                  setFamily(fam);
+                  setShowAll(false);
                 }}
-                className={cn(
-                  "rounded-full px-3 py-1 text-xs capitalize transition-colors",
-                  finishCategory === cat
-                    ? "bg-primary text-primary-foreground"
-                    : "bg-muted text-muted-foreground hover:text-foreground",
-                )}
               >
-                {cat === "all" ? "All" : cat}
-              </button>
+                {fam}
+              </FilterChip>
             ))}
           </div>
+
+          <div className="flex flex-wrap gap-1" role="group" aria-label="Tone">
+            {(["all", "light", "dark"] as const).map((t) => (
+              <FilterChip
+                key={t}
+                active={tone === t}
+                onClick={() => {
+                  setTone(t);
+                  setShowAll(false);
+                }}
+              >
+                {t === "all" ? "Any tone" : t === "light" ? "Light" : "Dark"}
+              </FilterChip>
+            ))}
+          </div>
+
+          {visibleFinishes.length === 0 ? (
+            <p className="rounded-md border border-dashed p-4 text-center text-sm text-muted-foreground">
+              No colors match those filters. Try clearing the search or picking
+              another family.
+            </p>
+          ) : (
+            <VisualOptionGrid
+              className="max-h-[420px] overflow-y-auto pr-1 gap-3"
+              columns={4}
+              variant="swatch"
+              enableZoom
+              items={visibleFinishes.map((item) => {
+                const images = getFinishImages(item.slug, item.imagePath);
+                return {
+                  id: item.slug,
+                  label: item.name,
+                  meta: item.category,
+                  imageSrc: images.swatch,
+                  imageAlt: `${item.name} finish swatch`,
+                  fallbackHex: item.hexColor,
+                  badge: lovedSet.has(item.slug) ? "Loved" : undefined,
+                  // Lightbox prefers an in-room render, falling back to the swatch.
+                  zoomSrc: images.inRoom,
+                };
+              })}
+              selectedId={design.finish ?? undefined}
+              onSelect={(slug) => updateDesign({ finish: slug })}
+              testIdPrefix="button-finish"
+            />
+          )}
+
+          {hasMoreFinishes && !showAll && (
+            <button
+              type="button"
+              onClick={() => setShowAll(true)}
+              className="text-xs font-medium text-primary underline underline-offset-2 hover:text-primary/80"
+              data-testid="button-show-all-finishes"
+            >
+              See all {filtered.length} compatible colors
+            </button>
+          )}
+          {showAll && !filtersActive && (
+            <button
+              type="button"
+              onClick={() => setShowAll(false)}
+              className="text-xs font-medium text-muted-foreground underline underline-offset-2 hover:text-foreground"
+            >
+              Show fewer
+            </button>
+          )}
         </div>
-        <VisualOptionGrid
-          className="max-h-[420px] overflow-y-auto pr-1 gap-3"
-          columns={4}
-          variant="swatch"
-          items={filteredFinishes.map((item) => ({
-            id: item.slug,
-            label: item.name,
-            meta: item.category,
-            imageSrc: getFinishImages(item.slug, item.imagePath).swatch,
-            imageAlt: `${item.name} finish swatch`,
-            fallbackHex: item.hexColor,
-            badge: lovedSet.has(item.slug) ? "Loved" : undefined,
-          }))}
-          selectedId={design.finish ?? undefined}
-          onSelect={(slug) => updateDesign({ finish: slug })}
-          testIdPrefix="button-finish"
-        />
-        {hasMoreFinishes && !showAllFinishes && (
-          <button
-            type="button"
-            onClick={() => setShowAllFinishes(true)}
-            className="text-xs font-medium text-primary underline underline-offset-2 hover:text-primary/80"
-            data-testid="button-show-all-finishes"
-          >
-            See all {categoryFinishes.length} compatible colors
-          </button>
-        )}
-        {showAllFinishes && (
-          <button
-            type="button"
-            onClick={() => setShowAllFinishes(false)}
-            className="text-xs font-medium text-muted-foreground underline underline-offset-2 hover:text-foreground"
-          >
-            Show fewer
-          </button>
-        )}
-      </div>
       )}
     </div>
   );

@@ -88,6 +88,7 @@ export function Navigation() {
     pathname?.startsWith("/subcontractor");
 
   const isPortalAppShell =
+    pathname?.startsWith("/design-studio") ||
     pathname?.startsWith("/portal") ||
     pathname?.startsWith("/admin/dashboard") ||
     pathname?.startsWith("/admin/projects") ||
