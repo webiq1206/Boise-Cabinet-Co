@@ -24,13 +24,15 @@ export const SITE_CONFIG = {
   phoneHref: `tel:${process.env.NEXT_PUBLIC_PHONE_TEL ?? DEFAULT_PHONE_TEL}`,
   email: process.env.NEXT_PUBLIC_EMAIL ?? DEFAULT_EMAIL,
   siteUrl: process.env.NEXT_PUBLIC_SITE_URL ?? DEFAULT_SITE_URL,
+  // Service-area business: no public showroom or street address is published.
+  // Only the base city/region is shown for local SEO (NAP) consistency.
   address: {
-    street: "4031 W Wapoot St",
     city: "Meridian",
     state: "ID",
-    zip: "83646",
-    full: "4031 W Wapoot St, Meridian, ID 83646",
+    country: "United States",
+    region: "Treasure Valley",
   },
+  serviceAreaLabel: "Serving Boise & the Treasure Valley",
   /**
    * Trust / credential signals. All env-driven so real values can be set
    * without code changes. Until set, schema omits ratings and the UI shows

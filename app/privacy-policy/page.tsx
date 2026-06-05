@@ -108,7 +108,7 @@ export default function PrivacyPolicyPage() {
             <ul>
               <li>Email: <ObfuscatedEmail user="hello" domain="boisecabinet.co" className="text-primary hover:underline inline-flex items-center gap-1" showIcon={false} /></li>
               <li>Phone: <a href={SITE_CONFIG.phoneHref} className="text-primary hover:underline">{SITE_CONFIG.phone}</a></li>
-              <li>Address: {SITE_CONFIG.address.full}</li>
+              <li>{SITE_CONFIG.name}, {SITE_CONFIG.address.city}, {SITE_CONFIG.address.state}</li>
             </ul>
           </div>
         </div>

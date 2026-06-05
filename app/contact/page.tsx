@@ -28,8 +28,6 @@ const GRAIN_URL = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/
 const SPEAKABLE_SUMMARY =
   'Contact Boise Cabinet Co for a free design consultation. Call our team, schedule a visit, or use the Design Studio to explore cabinet options for your Treasure Valley home.';
 
-const MAPS_URL = `https://maps.google.com/?q=${encodeURIComponent(SITE_CONFIG.address.full)}`;
-
 function HeroBreadcrumbs() {
   const items = [
     { name: 'Home', href: '/' },
@@ -262,16 +260,14 @@ export default function ContactPage() {
               <Reveal delay={120}>
                 <ContactChannel
                   icon={<MapPin className="h-5 w-5" strokeWidth={1.5} />}
-                  label="Visit us"
-                  href={MAPS_URL}
-                  external
+                  label="Where we work"
                   subtext="Treasure Valley · Ada and Canyon County"
                 >
                   <address className="not-italic leading-relaxed">
-                    {BUSINESS_INFO.address.street}
+                    {BUSINESS_INFO.address.city}, {BUSINESS_INFO.address.state}
                     <br />
-                    {BUSINESS_INFO.address.city}, {BUSINESS_INFO.address.state}{' '}
-                    {BUSINESS_INFO.address.zip}
+                    We come to you - free in-home consultations by appointment.
+                    No public showroom.
                   </address>
                 </ContactChannel>
               </Reveal>

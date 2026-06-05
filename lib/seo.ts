@@ -400,11 +400,11 @@ export const BUSINESS_INFO = {
   legalName: SITE_CONFIG.legalName,
   phone: SITE_CONFIG.phone,
   email: SITE_CONFIG.email,
+  // Service-area business: no street address or ZIP is published. Locality +
+  // region + country only, for clean NAP / local SEO.
   address: {
-    street: SITE_CONFIG.address.street,
     city: SITE_CONFIG.address.city,
-    state: 'Idaho',
-    zip: SITE_CONFIG.address.zip,
+    state: 'ID',
     country: 'United States',
   },
   hours: {

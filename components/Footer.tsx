@@ -40,10 +40,7 @@ export function Footer() {
                 {SITE_CONFIG.email}
               </a>
               <address className="not-italic text-sm text-inverse-muted">
-                {SITE_CONFIG.address.street}
-                <br />
-                {SITE_CONFIG.address.city}, {SITE_CONFIG.address.state}{" "}
-                {SITE_CONFIG.address.zip}
+                {SITE_CONFIG.address.city}, {SITE_CONFIG.address.state}
               </address>
               <p className="text-sm text-inverse-muted">
                 Serving Boise &amp; the Treasure Valley

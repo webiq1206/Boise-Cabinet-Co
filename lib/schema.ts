@@ -33,13 +33,12 @@ export function generateLocalBusinessSchema(city?: string): SchemaContext {
     url: baseUrl,
     telephone: BUSINESS_INFO.phone,
     email: BUSINESS_INFO.email,
+    // Service-area business: no streetAddress/postalCode published.
     address: {
       '@type': 'PostalAddress',
-      streetAddress: BUSINESS_INFO.address.street,
       addressLocality: BUSINESS_INFO.address.city,
-      addressRegion: BUSINESS_INFO.address.state,
-      postalCode: BUSINESS_INFO.address.zip,
-      addressCountry: BUSINESS_INFO.address.country,
+      addressRegion: 'ID',
+      addressCountry: 'US',
     },
     geo: {
       '@type': 'GeoCoordinates',
@@ -124,8 +123,8 @@ export function generateServiceSchema(serviceName: string, serviceDescription: s
       address: {
         '@type': 'PostalAddress',
         addressLocality: city || BUSINESS_INFO.address.city,
-        addressRegion: BUSINESS_INFO.address.state,
-        addressCountry: BUSINESS_INFO.address.country,
+        addressRegion: 'ID',
+        addressCountry: 'US',
       },
     },
     areaServed: city ? {
@@ -177,13 +176,12 @@ export function generateOrganizationSchema(): SchemaContext {
     foundingDate: BUSINESS_INFO.founded,
     telephone: BUSINESS_INFO.phone,
     email: BUSINESS_INFO.email,
+    // Service-area business: no streetAddress/postalCode published.
     address: {
       '@type': 'PostalAddress',
-      streetAddress: BUSINESS_INFO.address.street,
       addressLocality: BUSINESS_INFO.address.city,
-      addressRegion: BUSINESS_INFO.address.state,
-      postalCode: BUSINESS_INFO.address.zip,
-      addressCountry: BUSINESS_INFO.address.country,
+      addressRegion: 'ID',
+      addressCountry: 'US',
     },
     slogan: "Idaho's Premier Custom Cabinet Company",
     knowsAbout: [
