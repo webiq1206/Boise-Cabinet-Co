@@ -171,7 +171,7 @@ export function GuidedFlowShell({
       {/* Spacer so content is never hidden behind the sticky mobile bar */}
       <div className="h-24 md:hidden" aria-hidden />
 
-      {/* Sticky mobile CTA — keeps Continue reachable without scrolling */}
+      {/* Sticky mobile CTA - keeps Continue reachable without scrolling */}
       {barVisible && (
         <div
           className="fixed bottom-0 inset-x-0 z-30 border-t bg-background/95 backdrop-blur md:hidden pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-3 px-4"

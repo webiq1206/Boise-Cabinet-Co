@@ -23,7 +23,7 @@ export interface VisualOptionGridProps {
   testIdPrefix?: string;
   className?: string;
   columns?: "auto" | 2 | 3 | 4;
-  /** Tile layout — "media" (image-forward) or "swatch" (compact square) */
+  /** Tile layout - "media" (image-forward) or "swatch" (compact square) */
   variant?: VisualOptionVariant;
 }
 
