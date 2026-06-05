@@ -1,12 +1,13 @@
-import type { Metadata } from "next";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { FinderFlow } from "@/components/catalog/FinderFlow";
+import { catalogMetadata } from "@/lib/catalog-metadata";
 
-export const metadata: Metadata = {
-  title: "Find Your Look | Boise Cabinet Co",
-  description:
-    "Answer a few quick taps - room, look, color mood, and budget - and we'll show you a curated shortlist of finishes and a recommended door style. Skippable any time.",
-};
+export const metadata = catalogMetadata(
+  "/finder",
+  "Find Your Look | {company}",
+  "Answer a few quick taps (room, look, color mood, and budget) and we'll show you a curated shortlist of finishes and a recommended door style. Skippable any time.",
+  { noindex: true },
+);
 
 export default function FinderPage() {
   return (

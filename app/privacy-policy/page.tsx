@@ -2,17 +2,18 @@ import { Metadata } from "next";
 import { ObfuscatedEmail } from "@/components/ObfuscatedEmail";
 import { SITE_CONFIG } from "@/shared/siteConfig";
 import { generateBreadcrumbSchema, generateWebPageSchema } from "@/lib/schema";
+import { buildCanonical } from "@/lib/page-metadata";
 
 export const metadata: Metadata = {
   title: "Privacy Policy | Boise Cabinet Co",
   description: "Boise Cabinet Co privacy policy. How we protect your data when you request custom cabinet services in Kuna & Boise, Idaho.",
   alternates: {
-    canonical: "https://boisecabinet.co/privacy-policy",
+    canonical: buildCanonical("/privacy-policy"),
   },
   openGraph: {
     title: "Privacy Policy | Boise Cabinet Co",
     description: "How we protect your data when you use Boise Cabinet Co custom cabinet services in Idaho.",
-    url: "https://boisecabinet.co/privacy-policy",
+    url: buildCanonical("/privacy-policy"),
     type: "website",
   },
   twitter: {

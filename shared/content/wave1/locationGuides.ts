@@ -16,16 +16,11 @@ const tvSections: ContentSection[] = [
   {
     h2: 'City and neighborhood context',
     list: [
-      `<a href="${PILLAR_BOISE}">Boise</a>`,
-      '<a href="/guides/meridian-remodeling-guide">Meridian</a>',
-      '<a href="/guides/eagle-remodeling-guide">Eagle</a>',
-      '<a href="/guides/kuna-remodeling-guide">Kuna</a>',
-      '<a href="/guides/nampa-remodeling-guide">Nampa</a>',
-      '<a href="/guides/star-remodeling-guide">Star</a>',
-      '<a href="/guides/middleton-remodeling-guide">Middleton</a>',
-      'Caldwell and Canyon County homes (see cost and catalog links below)',
+      `<a href="${PILLAR_BOISE}">Boise cabinet guide</a>`,
+      'Meridian, Eagle, Kuna, and Star homes (Ada County)',
+      'Nampa, Middleton, and Caldwell homes (Canyon County)',
     ],
-    paragraphs: ['Removed city guides redirect here, local notes live in Boise and valley-wide articles.'],
+    paragraphs: ['Local notes live in our Boise cabinet guide and the cost guide; we build and install valley-wide.'],
   },
   {
     h2: 'Ada County vs Canyon County',
@@ -51,15 +46,15 @@ const tvSections: ContentSection[] = [
   {
     h2: 'Cabinet guides by topic',
     list: [
-      '<a href="/guides/boise-kitchen-cabinets-guide">Kitchen cabinets</a>',
-      '<a href="/guides/boise-bathroom-vanities-guide">Bathroom vanities</a>',
-      '<a href="/guides/boise-home-addition-guide">Built-ins & storage</a>',
+      '<a href="/guides/boise-kitchen-cabinet-guide">Kitchen cabinets</a>',
+      '<a href="/guides/boise-bathroom-vanity-guide">Bathroom vanities</a>',
+      '<a href="/guides/built-in-cabinet-guide">Built-ins & storage</a>',
       '<a href="/guides/whole-home-cabinetry-guide">Whole-home cabinetry</a>',
       '<a href="/guides/choose-cabinet-company-boise">Choosing a cabinet company</a>',
-      '<a href="/guides/boise-cabinet-project-process-guide">Cabinet project process</a>',
-      '<a href="/guides/best-cabinet-roi-boise">Cabinet ROI</a>',
+      '<a href="/guides/cabinet-project-process-guide">Cabinet project process</a>',
+      '<a href="/guides/cabinet-roi-guide-boise">Cabinet ROI</a>',
     ],
-    paragraphs: ['Legacy guide URLs redirect to updated cabinet pillar slugs.'],
+    paragraphs: ['Each topic guide links to the matching room catalog and cost bands.'],
   },
   {
     h2: 'Explore the catalog',
@@ -93,14 +88,14 @@ const boiseSections: ContentSection[] = [
     h2: 'North End and Bench',
     paragraphs: [
       'Smaller footprints and galley kitchens are common, tall pantry cabinets, pull-out bases, and custom widths maximize storage.',
-      '<a href="/guides/north-end-remodeling-guide">North End notes</a> · <a href="/guides/boise-bench-remodeling-guide">Bench notes</a> (redirect to this guide).',
+      'North End and Bench homes benefit most from tall storage and custom filler widths; see the kitchen catalog below.',
     ],
   },
   {
     h2: 'Harris Ranch and East Boise',
     paragraphs: [
       'Larger kitchens, mudrooms, and butler pantries are frequent. HOAs may review visible exterior cabinetry.',
-      '<a href="/guides/harris-ranch-remodeling-guide">Harris Ranch</a> · <a href="/guides/east-boise-remodeling-guide">East Boise</a> (redirect here).',
+      'Harris Ranch and East Boise projects often add mudroom lockers and butler pantries; explore the built-ins and mudroom catalog.',
     ],
   },
   {

@@ -78,6 +78,82 @@ export interface ClusterConfig {
   publishedAt?: string;
 }
 
+/** Stable small hash so each cluster rotates into a different slice of hub FAQs. */
+function slugHash(slug: string): number {
+  let h = 0;
+  for (let i = 0; i < slug.length; i++) {
+    h = (h * 31 + slug.charCodeAt(i)) >>> 0;
+  }
+  return h;
+}
+
+/**
+ * Cluster FAQs: lead with FAQs unique to THIS cluster (derived from its title,
+ * quick answer, and takeaways), then top up with a rotated slice of hub FAQs so
+ * clusters in the same hub no longer share an identical FAQ block. Keeps the
+ * 6-15 FAQ count required by verify-content.
+ */
+function buildClusterFaqs(
+  config: ClusterConfig,
+  hubTitle: string,
+  pillarUrl: string,
+): Array<{ question: string; answer: string }> {
+  const topic = config.title.toLowerCase();
+  const unique: Array<{ question: string; answer: string }> = [
+    {
+      question: `${config.title}: what should Treasure Valley homeowners know?`,
+      answer: config.quickAnswer,
+    },
+  ];
+  const tk = config.takeaways ?? [];
+  if (tk[0]) {
+    unique.push({
+      question: `What matters most when planning ${topic}?`,
+      answer: tk[0],
+    });
+  }
+  if (tk.length > 1) {
+    unique.push({
+      question: `What else should I plan for with ${topic}?`,
+      answer: tk.slice(1).join(' '),
+    });
+  }
+
+  const hubFaqs = getHubPillarFaqs(config.hubSlug);
+  let rotated: Array<{ question: string; answer: string }> = [];
+  if (hubFaqs.length > 0) {
+    const offset = slugHash(config.slug) % hubFaqs.length;
+    rotated = [...hubFaqs.slice(offset), ...hubFaqs.slice(0, offset)];
+  }
+
+  const fallback = [
+    {
+      question: 'Do you serve Ada and Canyon County?',
+      answer: `Yes, we design, build, and install custom cabinets across ${CITIES_LIST}.`,
+    },
+    {
+      question: 'How do I get a planning range?',
+      answer:
+        'Use our online estimator for a planning range, then schedule a free in-home consultation for a written scope.',
+    },
+    {
+      question: 'What should I read next?',
+      answer: `See our <a href="${pillarUrl}">${hubTitle}</a> and the <a href="/guides/boise-cabinet-cost-guide">cabinet cost guide</a>.`,
+    },
+  ];
+
+  const combined = [...unique, ...rotated, ...fallback];
+  // De-dupe by question, keep first occurrence, cap at 8.
+  const seen = new Set<string>();
+  const deduped = combined.filter((f) => {
+    const key = f.question.toLowerCase();
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+  return deduped.slice(0, Math.max(6, Math.min(8, deduped.length)));
+}
+
 export function buildClusterPost(config: ClusterConfig): BlogPostData {
   const hub = getHubBySlug(config.hubSlug)!;
   const pillarUrl = guidePath(hub.pillarSlug);
@@ -95,38 +171,7 @@ export function buildClusterPost(config: ClusterConfig): BlogPostData {
     }),
   );
 
-  const hubFaqs = getHubPillarFaqs(config.hubSlug);
-  const faqs =
-    hubFaqs.length > 0
-      ? hubFaqs.slice(0, 6)
-      : [
-          {
-            question: `How does ${config.title} apply in the Treasure Valley?`,
-            answer: config.quickAnswer,
-          },
-          {
-            question: 'Where is the full guide?',
-            answer: `See our ${hub.title} at ${pillarUrl} for the complete overview.`,
-          },
-          {
-            question: 'How do I get a planning range?',
-            answer:
-              'Use our estimator, then schedule an in-home consultation for written scope.',
-          },
-          {
-            question: 'Do you serve Ada and Canyon County?',
-            answer: `Yes, we install custom cabinets across ${CITIES_LIST}.`,
-          },
-          {
-            question: 'What lead times should I expect?',
-            answer:
-              'Cabinet lead times depend on line, finish, and scope, typically several weeks after design lock.',
-          },
-          {
-            question: 'What should I read next?',
-            answer: `Start with the <a href="${pillarUrl}">pillar guide</a> and <a href="/guides/boise-cabinet-cost-guide">cost guide</a>.`,
-          },
-        ];
+  const faqs = buildClusterFaqs(config, hub.title, pillarUrl);
 
   return {
     slug: config.slug,

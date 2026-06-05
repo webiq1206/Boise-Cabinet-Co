@@ -52,6 +52,7 @@ export const PRIMARY_NAV = [
       { label: "Projects & reviews", href: "/testimonials" },
     ],
   },
+  { label: "Contact", href: "/contact" },
 ] as const;
 
 export const FOOTER_CABINET_LINKS = SHOP_BY_ROOM_CHILDREN;

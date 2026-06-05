@@ -16,6 +16,7 @@ import {
 } from "@/shared/blogImages";
 import { getBaseUrl } from "@/lib/seo";
 import { SITE_CONFIG } from "@/shared/siteConfig";
+import { CONTENT_HUBS, categoryHubPath } from "@/shared/contentHubs";
 
 export async function generateStaticParams() {
   return BLOG_POSTS.map((post) => ({
@@ -90,9 +91,13 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
     image: getAbsoluteImageUrl(getBlogHeroImage(post.slug, post.heroImage), getBaseUrl()),
   });
 
+  const hub = post.hubSlug
+    ? CONTENT_HUBS.find((h) => h.hubSlug === post.hubSlug)
+    : undefined;
   const breadcrumbSchema = generateBreadcrumbSchema([
     { name: "Home", url: "/" },
     { name: "Blog", url: "/blog" },
+    ...(hub ? [{ name: hub.title, url: categoryHubPath(hub.hubSlug) }] : []),
     { name: post.title, url: `/blog/${post.slug}` },
   ]);
 

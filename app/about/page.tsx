@@ -16,7 +16,7 @@ import {
   generateOrganizationSchema,
   generateWebPageSchema,
 } from '@/lib/schema';
-import { HERO_STATS, PRINCIPLES, TRUST_ITEMS } from '@/shared/siteContent';
+import { HERO_STATS, PRINCIPLES, TRUST_ITEMS, TEAM } from '@/shared/siteContent';
 import { CTA_PRIMARY, CTA_SECONDARY } from '@/shared/ctaCopy';
 import { ConsultCTA } from '@/components/modals/ConsultCTA';
 import { EstimateCTA } from '@/components/modals/EstimateCTA';
@@ -82,6 +82,18 @@ export const metadata = buildPageMetadata({
 });
 
 export default function AboutPage() {
+  // Person schema only for confirmed (non-placeholder) team members so we never
+  // publish structured data for fabricated names.
+  const confirmedTeam = TEAM.filter((m) => !m.isPlaceholder);
+  const personSchemas = confirmedTeam.map((m) => ({
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: m.name,
+    jobTitle: m.role,
+    description: m.bio,
+    worksFor: { '@type': 'Organization', name: SITE_CONFIG.name },
+  }));
+
   const schemas = [
     generateOrganizationSchema(),
     generateWebPageSchema({
@@ -94,6 +106,7 @@ export default function AboutPage() {
       { name: 'Home', url: '/' },
       { name: 'About', url: '/about' },
     ]),
+    ...personSchemas,
   ];
 
   return (
@@ -197,8 +210,11 @@ export default function AboutPage() {
                   className="mb-8 max-w-none"
                 />
                 <p className="text-sm text-muted-foreground leading-relaxed mb-8">
-                  Idaho contractor license information is available upon request. We are bonded and
-                  insured for residential cabinet design and installation across the Treasure Valley.
+                  {SITE_CONFIG.trust.licenseNumber
+                    ? `Idaho contractor license #${SITE_CONFIG.trust.licenseNumber}. `
+                    : 'Idaho contractor license information is available upon request. '}
+                  We are bonded and insured for residential cabinet design and installation across
+                  the Treasure Valley.
                 </p>
                 <ul className="grid sm:grid-cols-2 gap-3">
                   {TRUST_ITEMS.map((item) => (
@@ -214,6 +230,37 @@ export default function AboutPage() {
         </Section>
 
         <WhyChooseUsSection />
+
+        {/* ─── Team ─── */}
+        <Section divider>
+          <div className="container px-4 max-w-5xl">
+            <SectionHeader
+              eyebrow="The team"
+              title={
+                <>
+                  One accountable{' '}
+                  <em className="brc-accent text-accent">team</em>
+                </>
+              }
+              description="The same people guide your project from first design conversation through final walkthrough."
+              align="left"
+              className="mb-10"
+            />
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {TEAM.map((member, i) => (
+                <Reveal key={member.role} delay={Math.min(i, 3) * 60}>
+                  <MarketingCard className="h-full p-6">
+                    <h3 className="font-sans font-medium text-base mb-1">{member.name}</h3>
+                    <p className="text-xs tracking-[0.1em] uppercase text-accent mb-3">
+                      {member.role}
+                    </p>
+                    <p className="text-sm text-muted-foreground leading-relaxed">{member.bio}</p>
+                  </MarketingCard>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </Section>
 
         <StatementBandSection />
 

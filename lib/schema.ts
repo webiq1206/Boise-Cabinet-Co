@@ -77,7 +77,7 @@ export function generateLocalBusinessSchema(city?: string): SchemaContext {
       name: 'Cabinet Products & Services',
       itemListElement: SERVICES.map((s) => ({
         '@type': 'Offer',
-        url: `${baseUrl}/services/${s.slug}`,
+        url: `${baseUrl}${s.url}`,
         itemOffered: {
           '@type': 'Service',
           name: s.name,
@@ -185,6 +185,21 @@ export function generateOrganizationSchema(): SchemaContext {
       postalCode: BUSINESS_INFO.address.zip,
       addressCountry: BUSINESS_INFO.address.country,
     },
+    slogan: "Idaho's Premier Custom Cabinet Company",
+    knowsAbout: [
+      'Custom kitchen cabinets',
+      'Bathroom vanities',
+      'Frameless Euro cabinet construction',
+      'Cabinet door styles',
+      'Cabinet finishes',
+      'Soft-close cabinet hardware',
+      'Built-in storage and closets',
+      'Treasure Valley, Idaho',
+    ],
+    areaServed: BUSINESS_INFO.serviceArea.map((area) => ({
+      '@type': 'City',
+      name: area,
+    })),
     sameAs: BUSINESS_INFO.sameAs,
     contactPoint: {
       '@type': 'ContactPoint',

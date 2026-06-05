@@ -6,7 +6,7 @@ import { PageHeader } from '@/components/marketing/PageHeader';
 import { ProjectGallerySection } from '@/components/sections/ProjectGallerySection';
 import { TestimonialsSection } from '@/components/sections/TestimonialsSection';
 import { buildPageMetadata } from '@/lib/page-metadata';
-import { generateImageGallerySchema } from '@/lib/schema';
+import { generateImageGallerySchema, generateLocalBusinessSchema } from '@/lib/schema';
 import { CTA_CONSULT, CTA_ESTIMATE } from '@/shared/ctaCopy';
 import { GALLERY_PROJECTS } from '@/shared/galleryData';
 import { ConsultCTA } from '@/components/modals/ConsultCTA';
@@ -40,9 +40,15 @@ export default function TestimonialsPage() {
     ]),
   });
 
+  // LocalBusiness schema carries aggregateRating, but only once real review
+  // data is provided (NEXT_PUBLIC_REVIEW_COUNT/RATING). Individual Review
+  // markup is intentionally NOT fabricated from marketing testimonials.
+  // TODO(client): wire verified Review objects from your GBP/Houzz feed.
+  const schemas = [gallerySchema, generateLocalBusinessSchema()];
+
   return (
     <>
-      <JsonLd data={gallerySchema} />
+      <JsonLd data={schemas} />
     <div className="flex flex-col pb-20 md:pb-0">
       <Section spacing="sm" className="pt-4 md:pt-6">
         <div className="container px-4 max-w-3xl">

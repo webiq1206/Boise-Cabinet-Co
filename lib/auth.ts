@@ -47,6 +47,28 @@ function getSessionOptions(): SessionOptions {
   };
 }
 
+// Non-httpOnly companion cookie. The real session cookie is httpOnly, so client
+// JS cannot tell whether a visitor is logged in without hitting /api/auth/user.
+// This readable hint lets the global Navigation skip that fetch entirely for the
+// large majority of anonymous marketing visitors (it only fetches when set).
+export const AUTH_HINT_COOKIE = "brc_auth";
+
+export async function setAuthHint(): Promise<void> {
+  const cookieStore = await cookies();
+  cookieStore.set(AUTH_HINT_COOKIE, "1", {
+    httpOnly: false,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+    maxAge: SESSION_TTL_SECONDS,
+    path: "/",
+  });
+}
+
+export async function clearAuthHint(): Promise<void> {
+  const cookieStore = await cookies();
+  cookieStore.delete(AUTH_HINT_COOKIE);
+}
+
 export async function getSession(): Promise<IronSession<SessionData>> {
   const cookieStore = await cookies();
   return getIronSession<SessionData>(cookieStore, getSessionOptions());
@@ -267,6 +289,7 @@ export async function establishSession(
   delete session.accessToken;
   delete session.refreshToken;
   await session.save();
+  await setAuthHint();
 }
 
 export async function registerUser(input: {

@@ -120,7 +120,7 @@ export function GuidePageLayout({ guide, formatDate }: GuidePageLayoutProps) {
                       {publishedClusters.slice(0, 8).map((c) => (
                         <li key={c.slug}>
                           <Link
-                            href={`/blog/${c.replacesSlug ?? c.slug}`}
+                            href={`/blog/${c.slug}`}
                             className="text-sm text-accent hover:underline inline-flex items-center"
                           >
                             {c.title}

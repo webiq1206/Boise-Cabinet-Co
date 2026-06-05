@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { FAQSection } from "@/components/FAQSection";
-import { EstimateCalculator } from "@/components/EstimateCalculator";
+import { LazyEstimateCalculator } from "@/components/estimate/LazyEstimateCalculator";
 import { ConsultationForm } from "@/components/ConsultationForm";
 import { Reveal } from "@/components/Reveal";
 import { HeroSection } from "@/components/sections/HeroSection";
@@ -37,6 +37,13 @@ export default function HomePage() {
   return (
     <div className="flex flex-col pb-20 md:pb-0 bg-background">
       <HomePageSchema />
+      <h2 data-speakable="summary" className="sr-only">
+        Boise Cabinet Co is a custom cabinet company serving Boise, Meridian, Eagle,
+        Nampa, Kuna, Star, Middleton, and Caldwell across Idaho&apos;s Treasure Valley.
+        We design, build, and install frameless custom kitchen cabinets, bathroom
+        vanities, and built-in storage, with 299 finishes, six door styles, a free
+        design consultation, and a lifetime workmanship warranty.
+      </h2>
       <HeroSection />
       <RoomCategoriesGrid />
       <DesignStudioSection />
@@ -46,7 +53,7 @@ export default function HomePage() {
       <TestimonialsSection limit={3} showViewAll={true} />
       <WhyChooseUsSection limit={5} />
       <FAQSection />
-      <EstimateCalculator />
+      <LazyEstimateCalculator />
       <Section id="consult" divider className="pb-28 md:pb-28">
         <div className="container px-4">
           <div className="max-w-5xl mx-auto grid md:grid-cols-5 gap-12 items-start">

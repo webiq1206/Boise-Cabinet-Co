@@ -137,9 +137,9 @@ export const KITCHEN_BATH_CHECKLIST_BLOCKS: PdfBlock[] = [
   {
     type: 'bullets',
     items: [
-      `${SITE_CONFIG.siteUrl}/guides/boise-kitchen-cabinets-guide`,
-      `${SITE_CONFIG.siteUrl}/guides/boise-bathroom-vanities-guide`,
-      `${SITE_CONFIG.siteUrl}/guides/boise-cabinet-project-process-guide`,
+      `${SITE_CONFIG.siteUrl}/guides/boise-kitchen-cabinet-guide`,
+      `${SITE_CONFIG.siteUrl}/guides/boise-bathroom-vanity-guide`,
+      `${SITE_CONFIG.siteUrl}/guides/cabinet-project-process-guide`,
     ],
   },
 ];
@@ -210,7 +210,7 @@ export const ADA_CANYON_PERMIT_BLOCKS: PdfBlock[] = [
     items: [
       `Visual flowchart: ${SITE_CONFIG.siteUrl}/resources/ada-canyon-permit-flow`,
       `Article: ${SITE_CONFIG.siteUrl}/blog/ada-vs-canyon-county-permit-timelines`,
-      `Process guide: ${SITE_CONFIG.siteUrl}/guides/boise-cabinet-project-process-guide`,
+      `Process guide: ${SITE_CONFIG.siteUrl}/guides/cabinet-project-process-guide`,
     ],
   },
 ];

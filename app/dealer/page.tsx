@@ -6,11 +6,14 @@ import { CatalogVisualCard } from "@/components/catalog/visual";
 import { COLLECTIONS, DOOR_STYLES, FINISHES } from "@/shared/catalog";
 import { getDoorStyleImages } from "@/shared/catalog/entityImages";
 import { Button } from "@/components/ui/button";
+import { catalogMetadata } from "@/lib/catalog-metadata";
 
-export const metadata = {
-  title: "Dealer Catalog | Boise Cabinet Co",
-  description: "Boise Cabinet Co catalog for authorized dealers.",
-};
+export const metadata = catalogMetadata(
+  "/dealer",
+  "Dealer Catalog | {company}",
+  "{company} catalog reference for authorized dealers.",
+  { noindex: true },
+);
 
 export default function DealerPortalPage() {
   return (

@@ -4,7 +4,6 @@ import { GUIDE_PAGES } from '@/shared/guideContent';
 import { ROOM_CATEGORIES } from '@/shared/catalog/roomCategories';
 import { COLLECTIONS } from '@/shared/catalog/collections';
 import { DOOR_STYLES } from '@/shared/catalog/doorStyles';
-import { FINISHES } from '@/shared/catalog/finishes';
 import { CABINET_PRODUCTS } from '@/shared/catalog/cabinetProducts';
 import {
   CONTENT_HUBS,
@@ -13,6 +12,7 @@ import {
   isCategoryHubIndexable,
 } from '@/shared/contentHubs';
 import { getBaseUrl } from '@/lib/seo';
+import { indexableFinishes } from '@/lib/catalog/indexation';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = getBaseUrl().replace(/\/$/, '');
@@ -35,8 +35,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/construction`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${baseUrl}/compare`, lastModified: now, changeFrequency: 'monthly', priority: 0.75 },
     { url: `${baseUrl}/products`, lastModified: now, changeFrequency: 'weekly', priority: 0.9 },
-    { url: `${baseUrl}/search`, lastModified: now, changeFrequency: 'weekly', priority: 0.75 },
-    { url: `${baseUrl}/design-studio`, lastModified: now, changeFrequency: 'weekly', priority: 0.9 },
+    { url: `${baseUrl}/catalog`, lastModified: now, changeFrequency: 'weekly', priority: 0.85 },
+    { url: `${baseUrl}/warranty`, lastModified: now, changeFrequency: 'yearly', priority: 0.55 },
     {
       url: `${baseUrl}/resources/ada-canyon-permit-flow`,
       lastModified: now,
@@ -75,19 +75,28 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.85,
   }));
 
-  const finishDetailPages: MetadataRoute.Sitemap = FINISHES.map((f) => ({
+  // Only the curated, indexable finish subset is sitemapped. Long-tail
+  // woodgrain SKUs are noindex,follow. See lib/catalog/indexation.ts.
+  const finishDetailPages: MetadataRoute.Sitemap = indexableFinishes().map((f) => ({
     url: `${baseUrl}/finishes/${f.category}/${f.slug}`,
     lastModified: now,
     changeFrequency: 'monthly' as const,
-    priority: 0.7,
+    priority: 0.6,
   }));
 
-  const productPages: MetadataRoute.Sitemap = CABINET_PRODUCTS.map((p) => ({
-    url: `${baseUrl}/products/${p.category}/${p.slug}`,
+  const productCategorySlugs = Array.from(
+    new Set(CABINET_PRODUCTS.map((p) => p.category)),
+  );
+  const productCategoryPages: MetadataRoute.Sitemap = productCategorySlugs.map((category) => ({
+    url: `${baseUrl}/products/${category}`,
     lastModified: now,
     changeFrequency: 'monthly' as const,
-    priority: 0.65,
+    priority: 0.8,
   }));
+
+  // Individual cabinet SKU pages are intentionally excluded from the sitemap:
+  // they are noindex,follow (near-duplicate spec/configurator pages). See
+  // seo-audit/doorway-page-analysis.md and lib/catalog/indexation.ts.
 
   const blogPages: MetadataRoute.Sitemap = BLOG_POSTS.map((post) => ({
     url: `${baseUrl}/blog/${post.slug}`,
@@ -123,7 +132,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...finishCategoryPages,
     ...finishDetailPages,
     ...doorStylePages,
-    ...productPages,
+    ...productCategoryPages,
     ...guidePages,
     ...blogPages,
     ...categoryHubPages,

@@ -29,6 +29,8 @@ export interface PageMetaInput {
   titleOverride?: string;
   descriptionOverride?: string;
   path: string;
+  /** When true, emit noindex,follow for tool / utility / B2B pages. */
+  noindex?: boolean;
 }
 
 export function buildCanonical(path: string): string {
@@ -102,6 +104,9 @@ export function buildPageMetadata(input: PageMetaInput): Metadata {
     title,
     description,
     alternates: { canonical },
+    ...(input.noindex
+      ? { robots: { index: false, follow: true } }
+      : {}),
     openGraph: {
       title,
       description,

@@ -77,7 +77,7 @@ export default function AdaCanyonPermitFlowPage() {
               <ArrowRight className="ml-2 h-4 w-4" />
             </ConsultCTA>
             <Link
-              href="/guides/boise-cabinet-project-process-guide"
+              href="/guides/cabinet-project-process-guide"
               className="inline-flex items-center text-sm text-accent hover:underline"
             >
               cabinet project process guide

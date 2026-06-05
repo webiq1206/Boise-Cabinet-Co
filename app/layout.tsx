@@ -16,8 +16,11 @@ const montserrat = Montserrat({
 })
 
 const fraunces = Fraunces({
+  // Only 300 (display numerals, .brc-display-num) and 400 italic (.brc-accent /
+  // pull-quotes) are used in the design system, so weight 500 is intentionally
+  // dropped to cut two font files from the critical download.
   subsets: ['latin'],
-  weight: ['300', '400', '500'],
+  weight: ['300', '400'],
   style: ['normal', 'italic'],
   variable: '--font-fraunces',
   display: 'swap',
@@ -74,12 +77,13 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${montserrat.variable} ${fraunces.variable}`} suppressHydrationWarning>
       <head>
-        <link
-          rel="preload"
-          as="image"
-          href="/images/marketing/hero-home.webp"
-          fetchPriority="high"
-        />
+        {/*
+          The hero LCP image is preloaded by next/image's `priority` prop in
+          HeroSection, which emits a preload whose imagesrcset/imagesizes match
+          the custom variant loader's output. A manual <link rel="preload"> for
+          the raw .webp would point at a URL the rendered srcset never requests,
+          causing a wasted duplicate download, so it is intentionally omitted.
+        */}
         <script
           dangerouslySetInnerHTML={{
             __html: `document.documentElement.classList.add('js')`,

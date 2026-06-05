@@ -216,9 +216,12 @@ function similarity(from: PageNode, to: PageNode): number {
 }
 
 function targetLimit(from: PageNode): number {
-  if (from.type === "blog") return 6;
-  if (from.type === "guide") return 8;
-  return 6;
+  // Manifest depth (not render depth). More candidates per source spreads
+  // incoming links so every page clears the >=5 incoming floor. Display is
+  // still capped by renderLimit().
+  if (from.type === "blog") return 8;
+  if (from.type === "guide") return 10;
+  return 8;
 }
 
 export function renderLimit(type: PageType): number {
@@ -331,43 +334,64 @@ export function buildManifest(pages: PageNode[]): Manifest {
     for (const link of top) incoming[link.url] = (incoming[link.url] ?? 0) + 1;
   }
 
+  // Raise every page to >= minIncomingFloor incoming links. We repeat full
+  // sweeps because a single pass can create new violations (a donor's popped
+  // link may drop another page below the floor). To avoid churn, we only steal
+  // a link from a donor whose weakest link points to an over-supplied target
+  // (incoming > floor), so stealing never creates a new violation.
   const minIncomingFloor = 5;
-  for (const targetUrl of Object.keys(incoming).sort((a, b) => incoming[a] - incoming[b])) {
-    while ((incoming[targetUrl] ?? 0) < minIncomingFloor) {
-      const target = pageById.get(targetUrl)!;
-      let bestFrom: PageNode | null = null;
-      let bestScore = -Infinity;
-      for (const from of pages) {
-        if (from.url === targetUrl) continue;
-        if (!eligible(from, target)) continue;
-        const page = out[from.url];
-        if (!page) continue;
-        if (page.links.some((l) => l.url === targetUrl)) continue;
-        if (page.links.length === 0) continue;
-        const weakest = page.links[page.links.length - 1];
-        if (weakest.score >= 999) continue;
-        const s = similarity(from, target);
-        const margin = s - weakest.score;
-        if (margin > bestScore) {
-          bestScore = margin;
-          bestFrom = from;
+  const MAX_SWEEPS = 25;
+  for (let sweep = 0; sweep < MAX_SWEEPS; sweep++) {
+    const weak = Object.keys(incoming)
+      .filter((u) => (incoming[u] ?? 0) < minIncomingFloor)
+      .sort((a, b) => incoming[a] - incoming[b]);
+    if (weak.length === 0) break;
+    let progressed = false;
+
+    for (const targetUrl of weak) {
+      while ((incoming[targetUrl] ?? 0) < minIncomingFloor) {
+        const target = pageById.get(targetUrl)!;
+        let bestFrom: PageNode | null = null;
+        let bestScore = -Infinity;
+        for (const from of pages) {
+          if (from.url === targetUrl) continue;
+          if (!eligible(from, target)) continue;
+          const page = out[from.url];
+          if (!page) continue;
+          if (page.links.some((l) => l.url === targetUrl)) continue;
+          if (page.links.length === 0) continue;
+          const weakest = page.links[page.links.length - 1];
+          if (weakest.score >= 999) continue;
+          // Prefer not to steal a link whose removal would create a new
+          // violation; with the raised targetLimit there is normally enough
+          // slack that donors point at over-supplied targets.
+          if ((incoming[weakest.url] ?? 0) <= minIncomingFloor) continue;
+          const s = similarity(from, target);
+          const margin = s - weakest.score;
+          if (margin > bestScore) {
+            bestScore = margin;
+            bestFrom = from;
+          }
         }
+        if (!bestFrom) break;
+        const page = out[bestFrom.url];
+        const removed = page.links.pop()!;
+        incoming[removed.url] = Math.max(0, (incoming[removed.url] ?? 0) - 1);
+        const insertScore = similarity(bestFrom, target);
+        page.links.push({
+          url: target.url,
+          anchor: target.anchor,
+          title: target.title,
+          type: target.type,
+          score: Math.round(insertScore * 1000) / 1000,
+        });
+        page.links.sort((a, b) => b.score - a.score || a.url.localeCompare(b.url));
+        incoming[targetUrl] = (incoming[targetUrl] ?? 0) + 1;
+        progressed = true;
       }
-      if (!bestFrom) break;
-      const page = out[bestFrom.url];
-      const removed = page.links.pop()!;
-      incoming[removed.url] = Math.max(0, (incoming[removed.url] ?? 0) - 1);
-      const insertScore = similarity(bestFrom, target);
-      page.links.push({
-        url: target.url,
-        anchor: target.anchor,
-        title: target.title,
-        type: target.type,
-        score: Math.round(insertScore * 1000) / 1000,
-      });
-      page.links.sort((a, b) => b.score - a.score || a.url.localeCompare(b.url));
-      incoming[targetUrl] = (incoming[targetUrl] ?? 0) + 1;
     }
+
+    if (!progressed) break;
   }
 
   const blogByCategory: Manifest["blogByCategory"] = {};

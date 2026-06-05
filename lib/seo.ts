@@ -419,16 +419,25 @@ export const BUSINESS_INFO = {
   founded: '2017',
   serviceArea: ['Boise', 'Meridian', 'Eagle', 'Nampa', 'Kuna', 'Star', 'Middleton', 'Caldwell'],
   serviceRadius: '35 miles',
-  licenses: ['License details available upon request'],
+  // TODO(client): set NEXT_PUBLIC_LICENSE_NUMBER to surface the real license #.
+  licenses: SITE_CONFIG.trust.licenseNumber
+    ? [`Idaho license #${SITE_CONFIG.trust.licenseNumber}`]
+    : ['License details available upon request'],
   certifications: ['Custom Cabinetry', 'Frameless Euro Construction', 'Bonded & Insured'],
   insurance: 'Fully Licensed & Insured',
-  rating: 0,
-  reviewCount: 0,
+  // Driven by env (NEXT_PUBLIC_REVIEW_*). 0 means schema omits aggregateRating.
+  rating: SITE_CONFIG.trust.ratingValue,
+  reviewCount: SITE_CONFIG.trust.reviewCount,
   yearlyServicesCompleted: 0,
+  // TODO(client): add real GBP / Houzz / BBB / Yelp profile URLs via env.
   sameAs: [
     'https://www.facebook.com/boisecabinetco',
     'https://www.instagram.com/boisecabinetco',
-  ],
+    SITE_CONFIG.trust.gbpUrl,
+    SITE_CONFIG.trust.houzzUrl,
+    SITE_CONFIG.trust.bbbUrl,
+    SITE_CONFIG.trust.yelpUrl,
+  ].filter(Boolean),
 };
 
 export type { SEOMetaData, ServiceSEOParams };

@@ -387,23 +387,30 @@ function CabinetCard({ product }: { product: CabinetProduct }) {
   const need = getCabinetNeedLabel(product);
   const dims = formatCabinetDimensions(product);
   return (
-    <MarketingCard className="p-0 flex flex-col h-full overflow-hidden" padding="none">
-      <div className="relative aspect-[3/4] bg-muted">
-        {/* Generated front-elevation box diagram; never shows the SKU code. */}
-        <Image
-          src={diagram}
-          alt={`${product.name} front elevation`}
-          fill
-          sizes="(max-width: 640px) 50vw, 240px"
-          className="object-contain"
-        />
-      </div>
-      <div className="p-4 flex flex-col gap-1">
-        <Chip className="self-start mb-1">{need}</Chip>
-        <p className="text-sm font-medium text-foreground">{product.name}</p>
-        <p className="text-xs text-muted-foreground">{dims}</p>
-      </div>
-    </MarketingCard>
+    <Link
+      href={`/products/${product.category}/${product.slug}`}
+      className="group block h-full"
+    >
+      <MarketingCard className="p-0 flex flex-col h-full overflow-hidden" padding="none">
+        <div className="relative aspect-[3/4] bg-muted">
+          {/* Generated front-elevation box diagram; never shows the SKU code. */}
+          <Image
+            src={diagram}
+            alt={`${product.name} front elevation`}
+            fill
+            sizes="(max-width: 640px) 50vw, 240px"
+            className="object-contain"
+          />
+        </div>
+        <div className="p-4 flex flex-col gap-1">
+          <Chip className="self-start mb-1">{need}</Chip>
+          <p className="text-sm font-medium text-foreground group-hover:text-primary transition-colors">
+            {product.name}
+          </p>
+          <p className="text-xs text-muted-foreground">{dims}</p>
+        </div>
+      </MarketingCard>
+    </Link>
   );
 }
 

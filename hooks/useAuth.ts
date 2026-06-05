@@ -3,6 +3,14 @@
 import { useQuery } from "@tanstack/react-query";
 import { isAdmin, isCustomer, isPartner, normalizeRole } from "@/lib/auth/roles";
 
+// Readable companion to the httpOnly session cookie (set in lib/auth.ts). When
+// absent, the visitor is anonymous and we skip the /api/auth/user request that
+// would otherwise run on every page load behind the global Navigation.
+function hasAuthHint(): boolean {
+  if (typeof document === "undefined") return false;
+  return document.cookie.split("; ").some((c) => c.startsWith("brc_auth="));
+}
+
 export interface User {
   id: string;
   email?: string | null;
@@ -35,6 +43,10 @@ export function useAuth() {
     },
     retry: false,
     staleTime: 5 * 60 * 1000,
+    // Only query when a session hint cookie is present. Anonymous visitors (most
+    // marketing traffic) never trigger the request. Authenticated areas (portal,
+    // login) can call refetch() after establishing a session.
+    enabled: hasAuthHint(),
   });
 
   const role = normalizeRole(user?.role);

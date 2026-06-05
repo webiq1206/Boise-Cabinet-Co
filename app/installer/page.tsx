@@ -6,11 +6,14 @@ import { CatalogVisualCard } from "@/components/catalog/visual";
 import { OSC_CONSTRUCTION, COLLECTIONS, DOOR_STYLES } from "@/shared/catalog";
 import { getDoorStyleImages } from "@/shared/catalog/entityImages";
 import { Button } from "@/components/ui/button";
+import { catalogMetadata } from "@/lib/catalog-metadata";
 
-export const metadata = {
-  title: "Installer Resources | Boise Cabinet Co",
-  description: "Construction specs and catalog reference for installation partners.",
-};
+export const metadata = catalogMetadata(
+  "/installer",
+  "Installer Resources | {company}",
+  "Construction specs and catalog reference for installation partners.",
+  { noindex: true },
+);
 
 export default function InstallerPortalPage() {
   return (

@@ -29,7 +29,7 @@ const bodySchema = z.object({
   name: z.string().min(2),
   phone: z.string().min(10),
   email: z.string().email(),
-  address: z.string().min(5),
+  address: z.string().optional().default(""),
   zip: z.string().min(5),
   projectType: z.string().min(1),
   message: z.string().optional(),
@@ -68,7 +68,7 @@ export async function POST(request: NextRequest) {
           phone: data.phone,
           email: data.email,
           zip: data.zip,
-          address: data.address,
+          address: data.address || null,
           city: (profile?.city as string) || null,
           propertyProfile: (data.propertyProfile as PropertyProfile | null) ?? null,
           projectType: data.projectType,
@@ -107,7 +107,9 @@ export async function POST(request: NextRequest) {
             ${profile.lotSizeSqFt ? `<p>Lot: ${profile.lotSizeSqFt.toLocaleString()} sq ft</p>` : ""}
             ${profile.permittingAuthority ? `<p>Permits: ${escapeHtml(profile.permittingAuthority)}</p>` : ""}
           </div>`
-        : `<p><strong>Address:</strong> ${escapeHtml(data.address)}</p>`;
+        : data.address
+          ? `<p><strong>Address:</strong> ${escapeHtml(data.address)}</p>`
+          : `<p><strong>Address:</strong> Not provided (ZIP ${escapeHtml(data.zip)})</p>`;
 
       const adminHtml = wrapEmailHtml({
         title: "New Consultation Request",

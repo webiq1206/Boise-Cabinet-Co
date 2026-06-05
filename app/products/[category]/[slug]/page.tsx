@@ -23,6 +23,18 @@ const VALID: CabinetProductCategory[] = [
   "panel",
 ];
 
+const CATEGORY_USE: Record<CabinetProductCategory, string> = {
+  base: "Base cabinets sit on the floor and carry your countertop. This configuration is sized to drop into a custom run and pairs with any of our 299 finishes and six door styles.",
+  wall: "Wall cabinets mount above the counter for everyday upper storage. This configuration is built to your ceiling line and finished to match your base cabinets.",
+  tall: "Tall cabinets provide full-height pantry or utility storage. This configuration maximizes vertical space in kitchens, pantries, and mudrooms.",
+  vanity: "Vanity cabinets organize the bathroom around your sink and plumbing. This configuration balances drawer and door storage for daily grooming items.",
+  "end-panel": "Finished end panels close an exposed cabinet run for a built-in, furniture-grade look.",
+  filler: "Filler strips close the gap between cabinets and walls so your run fits the room cleanly.",
+  hood: "Hood cabinets and liners frame your range ventilation as a finished design feature.",
+  "floating-shelf": "Floating shelves add open, finish-matched display storage between or beside cabinets.",
+  panel: "Decorative panels finish islands, cabinet backs, and exposed surfaces to match your doors.",
+};
+
 export function generateStaticParams() {
   return CABINET_PRODUCTS.map((p) => ({
     category: p.category,
@@ -37,10 +49,12 @@ export async function generateMetadata({
 }) {
   const p = getCabinetProductBySlug(params.slug);
   if (!p) return {};
+  const dims = formatCabinetDimensions(p);
   return catalogMetadata(
     `/products/${params.category}/${params.slug}`,
-    p.name,
-    p.description,
+    `${p.name} (${dims})`,
+    `${p.description} ${dims}. Built to order by Boise Cabinet Co for Treasure Valley homes.`,
+    { noindex: true },
   );
 }
 
@@ -90,6 +104,9 @@ export default function ProductDetailPage({
             <ProductConfigurationCard product={product} showGallery={false} />
           </div>
           <p className="text-sm text-muted-foreground mt-6">{formatCabinetDimensions(product)}</p>
+          <p className="text-muted-foreground mt-4 max-w-xl leading-relaxed">
+            {CATEGORY_USE[product.category as CabinetProductCategory]}
+          </p>
         </div>
       </Section>
     </div>

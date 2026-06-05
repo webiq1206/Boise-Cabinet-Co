@@ -5,6 +5,8 @@ export interface ServiceData {
   slug: string;
   name: string;
   shortDescription: string;
+  /** Canonical live route for this offering (used by Organization/Offer schema). */
+  url: string;
 }
 
 export interface CityData {
@@ -20,26 +22,31 @@ export const SERVICES: ServiceData[] = [
     slug: 'kitchen-remodel',
     name: 'Kitchen Cabinets',
     shortDescription: 'Custom kitchen cabinets from layout design through installation, frameless Euro construction, 299 finishes.',
+    url: '/cabinets/kitchen',
   },
   {
     slug: 'bathroom-remodel',
     name: 'Bathroom Vanities',
     shortDescription: 'Vanity cabinets, linen towers, and bath storage designed for your space and style.',
+    url: '/cabinets/bathroom',
   },
   {
     slug: 'whole-home-remodel',
     name: 'Whole-Home Cabinetry',
     shortDescription: 'Coordinated cabinet packages across kitchen, bath, laundry, mudroom, and built-ins.',
+    url: '/collections/custom',
   },
   {
     slug: 'room-addition',
     name: 'Built-In Storage',
     shortDescription: 'Custom built-ins, entertainment centers, and specialty storage for any room.',
+    url: '/cabinets/built-ins',
   },
   {
     slug: 'adu',
     name: 'Closet & Garage Storage',
     shortDescription: 'Closet systems, garage storage, and organizational solutions built to last.',
+    url: '/cabinets/closet',
   },
 ];
 

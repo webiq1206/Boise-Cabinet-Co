@@ -1,30 +1,48 @@
 # Boise Cabinet Co
 
-> Idaho's premier custom cabinet company — kitchen, bathroom, laundry, mudroom, closet, garage, and built-in cabinetry for Boise and the Treasure Valley.
+> Idaho's premier custom cabinet company. We design, build, and install frameless, built-to-order kitchen cabinets, bathroom vanities, and built-in storage for Boise and the Treasure Valley.
 
-## Product Catalog
+## Business facts
 
-- Cabinet rooms: /cabinets (kitchen, bathroom, laundry, mudroom, home-office, entertainment, built-ins, pantry, closet, garage, outdoor)
-- Collections: /collections (custom, reserve)
-- Finishes: /finishes (matte, gloss, woodgrain)
-- Door styles: /door-styles (slab, shaker, thin-shaker)
-- Accessories: /accessories
-- Hardware: /hardware
-- Construction standards: /construction
-- Compare collections: /compare
+- Company: Boise Cabinet Co (Boise Cabinet Co LLC)
+- Founded: 2017
+- Headquarters: Kuna, Idaho
+- Service area: Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell (Ada and Canyon Counties, Treasure Valley)
+- Construction: frameless (European-style) cabinet boxes, soft-close hardware
+- Warranty: written workmanship guarantee
+- Free in-home design consultation
 
-## Design Studio
+## Catalog at a glance
 
-- Online cabinet design tool: /design-studio
-- Customer project portal: /portal
+- 13 room categories: kitchen, bathroom, laundry, mudroom, home-office, entertainment, built-ins, pantry, closet, garage, outdoor, wet-bar, bedroom (/cabinets)
+- 1 collection: Custom, built-to-order (/collections/custom)
+- 6 door styles: Slab, Three-Piece, Modern Shaker, Thin Shaker, Alpha Shaker, Beta Shaker (/door-styles)
+- 299 cabinet finishes across matte, gloss, and woodgrain categories (/finishes)
+- 9 cabinet product categories (base, wall, tall, vanity, end-panel, filler, hood, floating-shelf, panel) with built-to-order configurations (/products)
+- Hardware options (/hardware), accessories (/accessories), construction standards (/construction), and a collection/feature comparison (/compare)
+- Full browsable catalog with downloadable PDF (/catalog)
 
-## Guides & Resources
+## Tools
 
-- Cabinet design guides: /guides (costs, kitchen and bath cabinetry, built-ins, company selection, project process, ROI, Treasure Valley local guides)
-- Blog: /blog (cabinet planning, costs, timelines, and selection advice)
-- Planning downloads: /resources
+- Design Studio, online cabinet configurator: /design-studio
+- Project estimate planner: /estimate
+- Guided finish finder: /finder
+
+## Guides and content
+
+- Cabinet guides: /guides (cabinet cost, kitchen cabinets, bathroom vanities, built-ins, whole-home cabinetry, choosing a cabinet company, project process, ROI, plus Treasure Valley and Boise local guides)
+- Blog: /blog (cabinet planning, costs, timelines, finishes, and selection advice, organized into topic hubs at /blog/category/...)
+- Planning downloads and checklists: /resources
+
+## Trust and company
+
+- About the company and team: /about
+- Projects and reviews: /testimonials
+- Warranty details: /warranty
+- Contact (full name, address, phone, email): /contact
 
 ## Contact
 
-- https://boisecabinet.co/contact
-- Phone and email on every page footer
+- Website: https://boisecabinet.co
+- Contact page: https://boisecabinet.co/contact
+- Address, phone, and email appear on the site footer and contact page.

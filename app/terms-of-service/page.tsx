@@ -2,17 +2,18 @@ import { Metadata } from "next";
 import { ObfuscatedEmail } from "@/components/ObfuscatedEmail";
 import { SITE_CONFIG } from "@/shared/siteConfig";
 import { generateBreadcrumbSchema, generateWebPageSchema } from "@/lib/schema";
+import { buildCanonical } from "@/lib/page-metadata";
 
 export const metadata: Metadata = {
   title: "Terms of Service | Boise Cabinet Co",
   description: "Terms of service for Boise Cabinet Co. Your rights when using our custom cabinet design, fabrication, and installation services in Kuna & Boise, Idaho.",
   alternates: {
-    canonical: "https://boisecabinet.co/terms-of-service",
+    canonical: buildCanonical("/terms-of-service"),
   },
   openGraph: {
     title: "Terms of Service | Boise Cabinet Co",
     description: "Your rights when using Boise Cabinet Co custom cabinet services in Idaho's Treasure Valley.",
-    url: "https://boisecabinet.co/terms-of-service",
+    url: buildCanonical("/terms-of-service"),
     type: "website",
   },
   twitter: {

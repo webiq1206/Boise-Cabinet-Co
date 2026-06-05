@@ -17,16 +17,15 @@ import { useIsMobile } from "@/hooks/use-media-query";
 import { DisplayNum } from "@/components/marketing";
 import { AddressAutocomplete } from "@/components/AddressAutocomplete";
 import type { PropertyProfile } from "@/shared/propertyProfile";
-import { HOUSE_NUMBER_REGEX, HOUSE_NUMBER_ERROR_MESSAGE } from "@/shared/addressValidation";
 
+// Address is optional to reduce top-of-funnel friction; ZIP is enough to route
+// the lead to a service area. A full address (when provided) still enriches the
+// lead via the property profile lookup.
 const formSchema = z.object({
   name: z.string().min(2, "Please enter your full name"),
   phone: z.string().min(10, "Please enter a valid phone number"),
   email: z.string().email("Please enter a valid email"),
-  address: z
-    .string()
-    .min(5, "Please enter your property address")
-    .refine((v) => HOUSE_NUMBER_REGEX.test(v.trim()), HOUSE_NUMBER_ERROR_MESSAGE),
+  address: z.string().optional(),
   zip: z.string().min(5, "ZIP code is required"),
   projectType: z.string().min(1, "Please select a project type"),
   message: z.string().optional(),
@@ -237,10 +236,10 @@ export function ConsultationForm({ onRevise }: ConsultationFormProps = {}) {
       ["Name", pendingData.name],
       ["Phone", pendingData.phone],
       ["Email", pendingData.email],
-      ["Address", pendingData.address],
-      ["ZIP code", pendingData.zip],
-      ["Project", pendingProjectLabel],
     ];
+    if (pendingData.address) rows.push(["Address", pendingData.address]);
+    rows.push(["ZIP code", pendingData.zip]);
+    rows.push(["Project", pendingProjectLabel]);
     if (pendingData.message) rows.push(["Notes", pendingData.message]);
 
     return (
@@ -495,10 +494,13 @@ export function ConsultationForm({ onRevise }: ConsultationFormProps = {}) {
           name="address"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className={labelClass}>Property address</FormLabel>
+              <FormLabel className={labelClass}>
+                Property address{" "}
+                <span className="normal-case text-muted-foreground/70">(optional)</span>
+              </FormLabel>
               <FormControl>
                 <AddressAutocomplete
-                  value={addressInput || field.value}
+                  value={addressInput || field.value || ""}
                   onChange={(v) => {
                     setAddressInput(v);
                     field.onChange(v);

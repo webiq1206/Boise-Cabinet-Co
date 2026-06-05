@@ -11,6 +11,7 @@ export const metadata = catalogMetadata(
   catalogDescription(
     "Get an instant cabinet planning range for your {company} project - pick your room, size, door style, and finish in a short guided flow.",
   ),
+  { noindex: true },
 );
 
 export default function EstimatePage() {

@@ -39,6 +39,8 @@ const STALE_CATALOG_PATTERNS: { label: string; pattern: RegExp }[] = [
   { label: '42 finishes', pattern: /42 finishes/i },
   { label: '42+', pattern: /42\+/ },
   { label: '50+ finishes', pattern: /50\+ finishes/i },
+  { label: '108 finishes', pattern: /108 finishes/i },
+  { label: '108 finish options', pattern: /108 finish options/i },
 ];
 
 function verifyCatalogCopy(): string[] {
@@ -193,7 +195,7 @@ console.log(`\n${results.filter((r) => r.passAll).length}/${results.length} pass
 console.log('\n=== CATALOG COPY ===\n');
 const catalogCopyFailures = verifyCatalogCopy();
 if (catalogCopyFailures.length === 0) {
-  console.log('✅ Catalog marketing copy (108 finishes / 6 door styles)');
+  console.log('✅ Catalog marketing copy (299 finishes / 6 door styles)');
 } else {
   allPass = false;
   for (const f of catalogCopyFailures) {

@@ -39,8 +39,14 @@ export function Footer() {
               >
                 {SITE_CONFIG.email}
               </a>
+              <address className="not-italic text-sm text-inverse-muted">
+                {SITE_CONFIG.address.street}
+                <br />
+                {SITE_CONFIG.address.city}, {SITE_CONFIG.address.state}{" "}
+                {SITE_CONFIG.address.zip}
+              </address>
               <p className="text-sm text-inverse-muted">
-                Boise, Idaho · Treasure Valley
+                Serving Boise &amp; the Treasure Valley
               </p>
             </div>
           </div>
@@ -232,7 +238,11 @@ export function Footer() {
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 text-xs text-inverse-muted pt-5 border-t border-inverse-foreground/10">
           <div className="flex flex-wrap gap-4">
             <span>&copy; {currentYear} {SITE_CONFIG.name}. All rights reserved.</span>
-            <span>License details available upon request</span>
+            <span>
+              {SITE_CONFIG.trust.licenseNumber
+                ? `Idaho license #${SITE_CONFIG.trust.licenseNumber}`
+                : "License details available upon request"}
+            </span>
           </div>
           <div className="flex gap-4">
             <Link href="/privacy-policy" className="transition-colors hover:text-inverse-foreground">

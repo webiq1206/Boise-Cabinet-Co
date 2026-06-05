@@ -3,8 +3,13 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Section } from "@/components/marketing/Section";
 import { CollectionLandingTemplate } from "@/components/catalog/CollectionLandingTemplate";
+import { getCollectionFaqs } from "@/components/catalog/collectionFaqs";
 import { catalogMetadata, catalogDescription } from "@/lib/catalog-metadata";
-import { generateBreadcrumbSchema, generateWebPageSchema } from "@/lib/schema";
+import {
+  generateBreadcrumbSchema,
+  generateFAQSchema,
+  generateWebPageSchema,
+} from "@/lib/schema";
 import { COLLECTIONS, getCollectionBySlug } from "@/shared/catalog";
 
 export function generateStaticParams() {
@@ -36,6 +41,7 @@ export default function CollectionDetailPage({ params }: { params: { slug: strin
       { name: "Collections", url: "/collections" },
       { name: collection.name, url: `/collections/${collection.slug}` },
     ]),
+    generateFAQSchema(getCollectionFaqs(collection)),
   ];
 
   return (

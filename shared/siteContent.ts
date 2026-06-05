@@ -16,7 +16,7 @@ export const HERO_SUBHEAD =
   "Design, build, and install premium custom cabinets from first sketch to final walkthrough.";
 
 export const HERO_STATS = [
-  { num: "108", label: "Finish options" },
+  { num: "299", label: "Finish options" },
   { num: "Free", label: "Design consultation" },
   { num: "Lifetime", label: "Warranty" },
 ] as const;
@@ -88,6 +88,41 @@ export const TRUST_ITEMS = [
   "Liability Coverage",
   "Built to Order",
   "Workmanship Guarantee",
+];
+
+export interface TeamMember {
+  name: string;
+  role: string;
+  bio: string;
+  /** True until the client confirms a real, named team member. */
+  isPlaceholder: boolean;
+}
+
+/**
+ * Founder + key team. E-E-A-T signal (named people with roles/experience).
+ * TODO(client): replace placeholder names, roles, and bios with real team
+ * members before launch. Set `isPlaceholder: false` once confirmed. Person
+ * schema is emitted only for confirmed (non-placeholder) members.
+ */
+export const TEAM: TeamMember[] = [
+  {
+    name: "Founder & Owner",
+    role: "Founder & Owner",
+    bio: "Founded Boise Cabinet Co in 2017 to bring frameless, built-to-order cabinetry and clear, accountable project management to Treasure Valley homeowners.",
+    isPlaceholder: true,
+  },
+  {
+    name: "Lead Designer",
+    role: "Lead Cabinet Designer",
+    bio: "Guides homeowners through layout, door style, and finish selection, translating each kitchen, bath, and built-in into a buildable, written design.",
+    isPlaceholder: true,
+  },
+  {
+    name: "Installation Lead",
+    role: "Installation Lead",
+    bio: "Runs on-site installation across Ada and Canyon County with daily floor protection, careful fitting, and a final walkthrough on every project.",
+    isPlaceholder: true,
+  },
 ];
 
 export const PROMISE_ITEMS = [

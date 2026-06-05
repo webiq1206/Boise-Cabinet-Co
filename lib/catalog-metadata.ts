@@ -7,6 +7,7 @@ export function catalogMetadata(
   path: string,
   title: string,
   description: string,
+  opts?: { noindex?: boolean },
 ): Metadata {
   return buildPageMetadata({
     kind: "about",
@@ -16,6 +17,7 @@ export function catalogMetadata(
       /\{company\}/g,
       SITE_CONFIG.name,
     ),
+    noindex: opts?.noindex,
   });
 }
 
