@@ -6,6 +6,7 @@ import {
   useContext,
   useEffect,
   useMemo,
+  useRef,
   useState,
   type ReactNode,
 } from "react";
@@ -16,6 +17,7 @@ import {
   type RoomBounds,
 } from "@/lib/design/previewConfig";
 import { hasUserRoomDimensions, type RoomMeta } from "@/lib/design/roomMeta";
+import { DESIGN_STEP_IDS, canAdvanceStep } from "@/lib/design/designSteps";
 import { syncRoomForModules } from "@/lib/design/syncDesignRoom";
 import { estimateRoomFromPhotoAspect } from "@/lib/design/photoRoomEstimate";
 import { isScannedRoom } from "@/lib/design/roomScanGeometry";
@@ -30,6 +32,14 @@ import {
   type SavedVersion,
 } from "@/lib/design/designSerialization";
 import { trackDesignEvent } from "@/lib/design/designAnalytics";
+import {
+  useDesignDraftAutosave,
+  readLocalDraft,
+  clearLocalDraft,
+  DRAFT_ID_STORAGE_KEY,
+  type DraftSaveState,
+} from "@/hooks/use-design-draft-autosave";
+import { useToast } from "@/hooks/use-toast";
 import type { PhotoOverlayTransform } from "@/lib/design/photoOverlayTransform";
 import {
   ACCESSORY_FAMILY_BY_SLUG,
@@ -149,6 +159,34 @@ const initialState: DesignState = {
   photoOverlayTransform: null,
 };
 
+/** Rebuild a full editor state from a persisted/autosaved snapshot. */
+function stateFromSnapshot(
+  s: DesignSnapshot,
+  extra?: Partial<DesignState>,
+): DesignState {
+  return {
+    ...initialState,
+    roomType: s.roomType,
+    collection: s.collection ?? "custom",
+    layout: (s.layout as LayoutType | null) ?? null,
+    doorStyle: s.doorStyle,
+    finish: s.finish,
+    hardware: s.hardware,
+    accessories: s.accessories ?? [],
+    notes: s.notes ?? "",
+    photoUrl: s.photoUrl,
+    designName: s.designName ?? "",
+    moduleOverrides: s.moduleOverrides ?? {},
+    modules: s.modules ?? [],
+    roomBounds: s.roomBounds ?? null,
+    roomMeta: s.roomMeta ?? null,
+    selectedModuleId: null,
+    lineItemSlugs: s.lineItemSlugs ?? [],
+    photoOverlayTransform: s.photoOverlayTransform ?? null,
+    ...extra,
+  };
+}
+
 interface DesignStudioContextValue {
   design: DesignState;
   updateDesign: (patch: Partial<DesignState>) => void;
@@ -185,6 +223,16 @@ interface DesignStudioContextValue {
   deleteVersion: (id: string) => void;
   /** Portal project id from ?projectId= (persisted for saves). */
   portalProjectId: string | null;
+  /** Current autosave status for the in-progress draft. */
+  autosaveState: DraftSaveState;
+  /** Epoch ms of the last successful autosave, or null. */
+  autosaveLastSavedAt: number | null;
+  /** Stable anonymous draft id for cross-device resume. */
+  draftId: string | null;
+  /** Resume URL (`/design-studio?draft=...`) for QR / share, or null. */
+  resumeUrl: string | null;
+  /** True while an existing draft is being loaded (suppresses autosave). */
+  isHydrating: boolean;
 }
 
 const DesignStudioContext = createContext<DesignStudioContextValue | null>(null);
@@ -203,6 +251,9 @@ export function DesignStudioProvider({
   const [portalProjectId, setPortalProjectId] = useState<string | null>(
     projectIdFromUrl ?? null,
   );
+  const [isHydrating, setIsHydrating] = useState(true);
+  const [resumeUrl, setResumeUrl] = useState<string | null>(null);
+  const { toast } = useToast();
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -214,6 +265,51 @@ export function DesignStudioProvider({
     const stored = window.localStorage.getItem(PORTAL_PROJECT_STORAGE_KEY);
     if (stored) setPortalProjectId(stored);
   }, [projectIdFromUrl]);
+
+  // One-time hydration: resume an explicit cloud draft (?draft=/?resume=), or
+  // silently restore the local autosave mirror so a refresh never loses work.
+  const hydrationRan = useRef(false);
+  useEffect(() => {
+    if (hydrationRan.current || typeof window === "undefined") return;
+    hydrationRan.current = true;
+
+    const params = new URLSearchParams(window.location.search);
+    const remoteDraftId = params.get("draft") || params.get("resume");
+
+    const finish = () => setIsHydrating(false);
+
+    if (remoteDraftId) {
+      // Adopt the incoming draft id so further edits continue the same draft.
+      window.localStorage.setItem(DRAFT_ID_STORAGE_KEY, remoteDraftId);
+      fetch(`/api/designs/draft?draftId=${encodeURIComponent(remoteDraftId)}`)
+        .then((res) => (res.ok ? res.json() : null))
+        .then((data) => {
+          const snapshot = data?.snapshot as DesignSnapshot | undefined;
+          if (snapshot) {
+            setDesign(stateFromSnapshot(snapshot));
+            toast({
+              title: "Design resumed",
+              description: "Picked up right where you left off.",
+            });
+          }
+        })
+        .catch(() => {
+          /* fall back to a fresh studio */
+        })
+        .finally(finish);
+      return;
+    }
+
+    const { snapshot } = readLocalDraft();
+    if (snapshot && (snapshot.roomType || snapshot.layout || snapshot.photoUrl)) {
+      setDesign(stateFromSnapshot(snapshot));
+      toast({
+        title: "Welcome back",
+        description: "We restored your in-progress design.",
+      });
+    }
+    finish();
+  }, [toast]);
 
   const updateDesign = useCallback((patch: Partial<DesignState>) => {
     setDesign((prev) => {
@@ -257,6 +353,7 @@ export function DesignStudioProvider({
 
   const resetDesign = useCallback(() => {
     setDesign(initialState);
+    clearLocalDraft();
   }, []);
 
   const updateModuleOverride = useCallback(
@@ -384,27 +481,9 @@ export function DesignStudioProvider({
 
   const isStepComplete = useCallback(
     (step: number) => {
-      switch (step) {
-        case 0:
-          return (
-            design.roomType !== null && isScannedRoom(design.roomMeta)
-          );
-        case 1:
-          return design.layout !== null;
-        case 2:
-          return design.doorStyle !== null && design.finish !== null;
-        case 3:
-        case 4:
-          return (
-            design.roomType !== null &&
-            isScannedRoom(design.roomMeta) &&
-            design.layout !== null &&
-            design.doorStyle !== null &&
-            design.finish !== null
-          );
-        default:
-          return false;
-      }
+      const id = DESIGN_STEP_IDS[step];
+      if (!id) return false;
+      return canAdvanceStep(design, id);
     },
     [design],
   );
@@ -429,6 +508,23 @@ export function DesignStudioProvider({
       photoOverlayTransform: d.photoOverlayTransform,
     };
   }, []);
+
+  // Debounced anonymous autosave (cloud + localStorage mirror). Paused while an
+  // existing draft is hydrating so we never overwrite it with the empty default.
+  const autosaveSnapshot = useMemo(() => toSnapshot(design), [design, toSnapshot]);
+  const { draftId, saveState: autosaveState, lastSavedAt: autosaveLastSavedAt } =
+    useDesignDraftAutosave(autosaveSnapshot, {
+      enabled: !isHydrating,
+      projectId: portalProjectId,
+    });
+
+  useEffect(() => {
+    if (typeof window === "undefined" || !draftId) return;
+    const url = new URL(window.location.href);
+    url.searchParams.set("draft", draftId);
+    url.hash = "";
+    setResumeUrl(url.toString());
+  }, [draftId]);
 
   const saveDesign = useCallback(async () => {
     const payload = designToPayload(toSnapshot(design), {
@@ -601,30 +697,13 @@ export function DesignStudioProvider({
     (id: string) => {
       const version = versions.find((v) => v.id === id);
       if (!version) return;
-      const s = version.snapshot;
-      setDesign({
-        ...initialState,
-        roomType: s.roomType,
-        collection: s.collection ?? "custom",
-        layout: s.layout as LayoutType | null,
-        doorStyle: s.doorStyle,
-        finish: s.finish,
-        hardware: s.hardware,
-        accessories: s.accessories ?? [],
-        notes: s.notes ?? "",
-        photoUrl: s.photoUrl,
-        designName: version.name,
-        moduleOverrides: s.moduleOverrides ?? {},
-        modules: s.modules ?? [],
-        roomBounds: s.roomBounds ?? null,
-        roomMeta: s.roomMeta ?? null,
-        savedDesignId: version.id,
-        shareToken: version.shareToken,
-        pricingSubmitted: false,
-        selectedModuleId: null,
-        lineItemSlugs: s.lineItemSlugs ?? [],
-        photoOverlayTransform: s.photoOverlayTransform ?? null,
-      });
+      setDesign(
+        stateFromSnapshot(version.snapshot, {
+          designName: version.name,
+          savedDesignId: version.id,
+          shareToken: version.shareToken,
+        }),
+      );
     },
     [versions],
   );
@@ -705,10 +784,20 @@ export function DesignStudioProvider({
       loadVersion,
       deleteVersion,
       portalProjectId,
+      autosaveState,
+      autosaveLastSavedAt,
+      draftId,
+      resumeUrl,
+      isHydrating,
     }),
     [
       design,
       portalProjectId,
+      autosaveState,
+      autosaveLastSavedAt,
+      draftId,
+      resumeUrl,
+      isHydrating,
       updateDesign,
       resetDesign,
       updateModuleOverride,

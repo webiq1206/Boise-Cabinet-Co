@@ -11,6 +11,8 @@ export interface VisualOptionItem {
   imageSrc?: string;
   imageAlt?: string;
   fallbackHex?: string;
+  /** Optional recommendation badge, e.g. "Popular" or "Most loved". */
+  badge?: string;
 }
 
 export interface VisualOptionGridProps {
@@ -58,6 +60,7 @@ export function VisualOptionGrid({
           imageSrc={item.imageSrc}
           imageAlt={item.imageAlt}
           fallbackHex={item.fallbackHex}
+          badge={item.badge}
           selected={isSelected(item.id)}
           variant={variant}
           onSelect={() => onSelect(item.id)}

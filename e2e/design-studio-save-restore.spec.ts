@@ -21,15 +21,33 @@ test.describe("Design Studio save payload", () => {
     });
 
     await page.goto("/design-studio?fixtureManual=1");
+    // Room
     await page.getByTestId("button-room-kitchen").click();
-    await page.getByRole("button", { name: "Continue" }).click();
+    await page.getByTestId("wizard-next").first().click();
+    // Layout
     await page.getByTestId(/^button-layout-/).first().click();
-    await page.getByRole("button", { name: "Continue" }).click();
+    await page.getByTestId("wizard-next").first().click();
+    // Door style (auto-advances to the finish step)
     await page.getByTestId(/^button-door-style-/).first().click();
+    // Finish (auto-advances to the hardware step)
     await page.getByTestId(/^button-finish-/).first().click();
-    await page.getByRole("button", { name: "Continue" }).click();
-    await page.getByRole("button", { name: "Continue" }).click();
-    await page.getByRole("button", { name: "Go to pricing form" }).click();
+
+    // Advance through the optional hardware/add-ons and review steps to the
+    // pricing CTA. Loop on the button label so the auto-advance behaviour on the
+    // door/finish steps cannot make the click count flaky.
+    const nextBtn = page.getByTestId("wizard-next").first();
+    for (let i = 0; i < 8; i += 1) {
+      await expect(nextBtn).toBeVisible();
+      const label = ((await nextBtn.textContent()) ?? "").trim();
+      await nextBtn.click();
+      if (/Go to pricing form/i.test(label)) break;
+      await page.waitForTimeout(250);
+    }
+
+    // Save is now behind the optional "manage versions" disclosure.
+    await page
+      .getByRole("button", { name: /Save, name & manage versions/i })
+      .click();
     await page.getByRole("button", { name: "Save design" }).click();
 
     await expect.poll(() => savedBody !== null, { timeout: 15_000 }).toBe(true);

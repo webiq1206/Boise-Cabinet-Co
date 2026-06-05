@@ -126,17 +126,17 @@ export function LayoutStep() {
               disabled={disabled}
               onClick={() => updateDesign({ layout: item.slug as LayoutSlug })}
               className={cn(
-                "relative rounded-md border p-5 text-left transition-all",
+                "relative rounded-md border p-5 text-left transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
                 disabled && "opacity-45 cursor-not-allowed",
                 selected
-                  ? "border-[1.5px] border-foreground/40 bg-muted/40"
+                  ? "border-primary ring-2 ring-primary/40 bg-primary/5 shadow-sm"
                   : !disabled &&
-                      "border-border hover:border-foreground/30 hover:bg-muted/40",
+                      "border-border hover:border-foreground/30 hover:bg-muted/40 hover:shadow-sm",
               )}
               data-testid={`button-layout-${item.slug}`}
             >
               {selected && (
-                <span className="absolute right-3 top-3 z-10 flex h-5 w-5 items-center justify-center rounded-full bg-foreground text-background shadow-sm">
+                <span className="absolute right-3 top-3 z-10 flex h-5 w-5 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-sm">
                   <Check className="h-3 w-3" strokeWidth={3} />
                 </span>
               )}

@@ -32,6 +32,11 @@ import {
   DialogTitle,
   DialogDescription,
 } from "@/components/ui/dialog";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
 import { SITE_CONFIG } from "@/shared/siteConfig";
 import {
   CheckCircle2,
@@ -43,6 +48,7 @@ import {
   Trash2,
   GitCompare,
   Tag,
+  ChevronDown,
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { ROOM_BY_SLUG } from "@/shared/catalog/roomCategories";
@@ -74,6 +80,7 @@ export function SaveStep({ embedded = false }: { embedded?: boolean }) {
   const [saved, setSaved] = useState(!!design.savedDesignId);
   const [compareIds, setCompareIds] = useState<string[]>([]);
   const [compareOpen, setCompareOpen] = useState(false);
+  const [manageOpen, setManageOpen] = useState(false);
 
   const handleSave = async () => {
     updateDesign({ designName: name });
@@ -260,6 +267,53 @@ export function SaveStep({ embedded = false }: { embedded?: boolean }) {
         </div>
       )}
 
+      <Card id="request-pricing" className="border-primary/30">
+        <CardHeader>
+          <CardTitle className="text-base">Get your estimate &amp; book a free consultation</CardTitle>
+          <CardDescription>
+            Send us your design and we&apos;ll confirm exact pricing and schedule
+            your free consultation, usually within one business day.
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="grid gap-4 sm:grid-cols-2">
+            <div className="space-y-2">
+              <Label htmlFor="contactName">Name</Label>
+              <Input id="contactName" value={contactName} onChange={(e) => setContactName(e.target.value)} autoComplete="name" />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="contactPhone">Phone</Label>
+              <Input id="contactPhone" type="tel" inputMode="tel" value={contactPhone} onChange={(e) => setContactPhone(e.target.value)} autoComplete="tel" />
+            </div>
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="contactEmail">Email</Label>
+            <Input id="contactEmail" type="email" inputMode="email" value={contactEmail} onChange={(e) => setContactEmail(e.target.value)} autoComplete="email" />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="contactMessage">Notes (optional)</Label>
+            <Textarea id="contactMessage" value={contactMessage} onChange={(e) => setContactMessage(e.target.value)} rows={3} />
+          </div>
+          <Button variant="brand" size="lg" className="w-full sm:w-auto" onClick={handlePricing} disabled={isSaving || design.pricingSubmitted}>
+            {isSaving ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
+            {design.pricingSubmitted ? "Request submitted" : "Get my estimate"}
+          </Button>
+          <p className="text-xs text-muted-foreground">
+            No obligation. We&apos;ll save your design so you can revisit it anytime.
+          </p>
+        </CardContent>
+      </Card>
+
+      <Collapsible open={manageOpen} onOpenChange={setManageOpen}>
+        <CollapsibleTrigger asChild>
+          <Button variant="outline" className="w-full justify-between min-h-11">
+            Save, name &amp; manage versions (optional)
+            <ChevronDown
+              className={`h-4 w-4 transition-transform ${manageOpen ? "rotate-180" : ""}`}
+            />
+          </Button>
+        </CollapsibleTrigger>
+        <CollapsibleContent className="space-y-6 pt-6">
       <Card>
         <CardHeader>
           <CardTitle className="text-base flex items-center gap-2">
@@ -497,38 +551,8 @@ export function SaveStep({ embedded = false }: { embedded?: boolean }) {
           </CardContent>
         </Card>
       )}
-
-      <Card id="request-pricing">
-        <CardHeader>
-          <CardTitle className="text-base">Request pricing</CardTitle>
-          <CardDescription>
-            We&apos;ll review your design and schedule a free consultation.
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="grid gap-4 sm:grid-cols-2">
-            <div className="space-y-2">
-              <Label htmlFor="contactName">Name</Label>
-              <Input id="contactName" value={contactName} onChange={(e) => setContactName(e.target.value)} />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="contactPhone">Phone</Label>
-              <Input id="contactPhone" value={contactPhone} onChange={(e) => setContactPhone(e.target.value)} />
-            </div>
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="contactEmail">Email</Label>
-            <Input id="contactEmail" type="email" value={contactEmail} onChange={(e) => setContactEmail(e.target.value)} />
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="contactMessage">Notes (optional)</Label>
-            <Textarea id="contactMessage" value={contactMessage} onChange={(e) => setContactMessage(e.target.value)} rows={3} />
-          </div>
-          <Button variant="brand" onClick={handlePricing} disabled={isSaving || design.pricingSubmitted}>
-            {design.pricingSubmitted ? "Request submitted" : "Request pricing"}
-          </Button>
-        </CardContent>
-      </Card>
+        </CollapsibleContent>
+      </Collapsible>
 
       {!design.pricingSubmitted && (
         <Card className="border-dashed">

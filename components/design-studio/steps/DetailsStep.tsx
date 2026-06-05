@@ -16,7 +16,19 @@ const HARDWARE_OPTIONS = CATALOG_HARDWARE.filter((h) =>
   SELECTABLE_HARDWARE_CATEGORIES.has(h.category),
 );
 
-export function DetailsStep({ embedded = false }: { embedded?: boolean }) {
+interface DetailsStepShow {
+  hardware?: boolean;
+  accessories?: boolean;
+  notes?: boolean;
+}
+
+export function DetailsStep({
+  embedded = false,
+  show = { hardware: true, accessories: true, notes: true },
+}: {
+  embedded?: boolean;
+  show?: DetailsStepShow;
+}) {
   const { design, updateDesign } = useDesignStudio();
 
   const toggleAccessoryFamily = (slug: string) => {
@@ -39,6 +51,7 @@ export function DetailsStep({ embedded = false }: { embedded?: boolean }) {
         </div>
       )}
 
+      {show.hardware && (
       <div className="space-y-3">
         <Label className="text-sm font-medium">Decorative hardware (consultation)</Label>
         <VisualOptionGrid
@@ -51,12 +64,14 @@ export function DetailsStep({ embedded = false }: { embedded?: boolean }) {
             imageSrc: getHardwareImagePath(item.slug),
             imageAlt: item.name,
           }))}
-          selectedId={design.hardware}
+          selectedId={design.hardware ?? undefined}
           onSelect={(slug) => updateDesign({ hardware: slug })}
           testIdPrefix="button-hardware"
         />
       </div>
+      )}
 
+      {show.accessories && (
       <div className="space-y-3">
         <Label className="text-sm font-medium">Accessory families (optional)</Label>
         <VisualOptionGrid
@@ -74,7 +89,9 @@ export function DetailsStep({ embedded = false }: { embedded?: boolean }) {
           testIdPrefix="button-accessory-family"
         />
       </div>
+      )}
 
+      {show.notes && (
       <div className="space-y-2">
         <Label htmlFor="notes">Notes for your designer</Label>
         <Textarea
@@ -85,6 +102,7 @@ export function DetailsStep({ embedded = false }: { embedded?: boolean }) {
           rows={4}
         />
       </div>
+      )}
     </div>
   );
 }

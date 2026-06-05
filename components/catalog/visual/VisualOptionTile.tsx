@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { Check } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { getBlurDataURL } from "@/shared/generated/imageBlur";
 
 export type VisualOptionVariant = "media" | "swatch";
 
@@ -18,6 +19,8 @@ export interface VisualOptionTileProps {
   selected?: boolean;
   /** "media" = image-forward 4:3 card, "swatch" = compact square tile */
   variant?: VisualOptionVariant;
+  /** Optional recommendation badge, e.g. "Popular" or "Most loved". */
+  badge?: string;
   onSelect: () => void;
   testId?: string;
 }
@@ -31,6 +34,7 @@ export function VisualOptionTile({
   fallbackHex,
   selected,
   variant = "media",
+  badge,
   onSelect,
   testId,
 }: VisualOptionTileProps) {
@@ -45,15 +49,20 @@ export function VisualOptionTile({
       data-testid={testId}
       aria-pressed={selected}
       className={cn(
-        "group relative flex w-full flex-col gap-2 rounded-md border bg-card p-2 text-left transition-all",
+        "group relative flex w-full flex-col gap-2 rounded-md border bg-card p-2 text-left transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1",
         selected
-          ? "border-[1.5px] border-foreground/40 bg-muted/40"
-          : "border-border hover:border-foreground/30",
+          ? "border-primary ring-2 ring-primary/40 bg-primary/5 shadow-sm"
+          : "border-border hover:border-foreground/30 hover:shadow-sm",
       )}
     >
       {selected && (
-        <span className="absolute right-2 top-2 z-10 flex h-5 w-5 items-center justify-center rounded-full bg-foreground text-background shadow-sm">
+        <span className="absolute right-2 top-2 z-10 flex h-5 w-5 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-sm">
           <Check className="h-3 w-3" strokeWidth={3} />
+        </span>
+      )}
+      {badge && !selected && (
+        <span className="absolute left-2 top-2 z-10 rounded-full bg-accent px-2 py-0.5 text-[10px] font-medium text-accent-foreground shadow-sm">
+          {badge}
         </span>
       )}
       <div
@@ -75,6 +84,8 @@ export function VisualOptionTile({
             alt={imageAlt ?? label}
             fill
             sizes="(max-width: 640px) 50vw, 220px"
+            placeholder={getBlurDataURL(imageSrc as string) ? "blur" : undefined}
+            blurDataURL={getBlurDataURL(imageSrc as string)}
             className="object-cover img-brand-grade"
             onError={() => setImageFailed(true)}
           />

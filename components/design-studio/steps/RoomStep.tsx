@@ -1,9 +1,11 @@
 "use client";
 
 import Image from "next/image";
+import { Check } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useDesignStudio } from "../DesignStudioProvider";
 import { ROOM_BY_SLUG } from "@/shared/catalog/roomCategories";
+import { getBlurDataURL } from "@/shared/generated/imageBlur";
 
 // Keep in lockstep with the primary navigation + estimator project types so
 // every surface offers the same eight rooms.
@@ -53,18 +55,25 @@ export function RoomStep({ showHeader = true }: { showHeader?: boolean }) {
                 })
               }
               className={cn(
-                "group flex flex-col overflow-hidden rounded-lg border-2 text-left transition-colors",
+                "group relative flex flex-col overflow-hidden rounded-lg border-2 text-left transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
                 selected
-                  ? "border-primary bg-primary/5"
-                  : "border-border hover:border-primary/40 hover:bg-muted/50",
+                  ? "border-primary ring-2 ring-primary/30 bg-primary/5 shadow-sm"
+                  : "border-border hover:border-primary/40 hover:bg-muted/50 hover:shadow-sm",
               )}
               data-testid={`button-room-${room.slug}`}
             >
+              {selected && (
+                <span className="absolute right-2 top-2 z-10 flex h-6 w-6 items-center justify-center rounded-full bg-primary text-primary-foreground shadow">
+                  <Check className="h-3.5 w-3.5" strokeWidth={3} />
+                </span>
+              )}
               <div className="relative aspect-[3/2] w-full overflow-hidden bg-surface-greige">
                 <Image
                   src={room.heroImage}
                   alt={`${room.name} custom cabinets`}
                   fill
+                  placeholder={getBlurDataURL(room.heroImage) ? "blur" : undefined}
+                  blurDataURL={getBlurDataURL(room.heroImage)}
                   className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                 />

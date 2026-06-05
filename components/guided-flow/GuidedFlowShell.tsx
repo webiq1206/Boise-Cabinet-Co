@@ -30,6 +30,12 @@ interface GuidedFlowShellProps {
   headerExtra?: ReactNode;
   className?: string;
   stepClassName?: string;
+  /** Optional 0-100 completion bar in the step rail. */
+  progressPercent?: number;
+  /** Optional "time left" hint shown by the step counter. */
+  minutesLeftLabel?: string;
+  /** Collapse the step rail into a compact menu on small screens. */
+  compactMobileSteps?: boolean;
 }
 
 export function GuidedFlowShell({
@@ -51,6 +57,9 @@ export function GuidedFlowShell({
   headerExtra,
   className,
   stepClassName,
+  progressPercent,
+  minutesLeftLabel,
+  compactMobileSteps,
 }: GuidedFlowShellProps) {
   const step = steps[currentIndex];
   const rootRef = useRef<HTMLDivElement>(null);
@@ -116,6 +125,7 @@ export function GuidedFlowShell({
         onClick={onNext}
         disabled={!canAdvance}
         className={cn("min-h-11", fullWidth && "w-full")}
+        data-testid="wizard-next"
       >
         {continueLabel}
         <ChevronRight className="h-4 w-4" />
@@ -129,6 +139,7 @@ export function GuidedFlowShell({
         <div className="mb-4">
           <p className="text-xs uppercase tracking-wide text-muted-foreground">
             Step {currentIndex + 1} of {steps.length}
+            {minutesLeftLabel ? ` · ${minutesLeftLabel}` : ""}
           </p>
           <h2
             ref={headingRef}
@@ -147,6 +158,8 @@ export function GuidedFlowShell({
           currentIndex={currentIndex}
           isStepComplete={isStepComplete}
           onStepClick={onStepClick}
+          percent={progressPercent}
+          compactMobile={compactMobileSteps}
         />
       </div>
 

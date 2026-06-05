@@ -4,15 +4,23 @@ import { useEffect, useState } from "react";
 import { QRCodeSVG } from "qrcode.react";
 import { Smartphone } from "lucide-react";
 import { useIsDesktop } from "@/hooks/use-media-query";
+import { useDesignStudio } from "./DesignStudioProvider";
 
 const VERSION_GROUP_STORAGE_KEY = "brc-design-version-group";
 
 export function DesktopScanHandoff() {
   const isDesktop = useIsDesktop();
+  const { resumeUrl } = useDesignStudio();
   const [url, setUrl] = useState("");
 
   useEffect(() => {
     if (typeof window === "undefined") return;
+    // Prefer the autosave draft resume URL so the phone opens the exact same
+    // in-progress design; fall back to the version-group handoff.
+    if (resumeUrl) {
+      setUrl(resumeUrl);
+      return;
+    }
     setUrl(window.location.href);
     const gid = window.localStorage.getItem(VERSION_GROUP_STORAGE_KEY);
     if (gid) {
@@ -20,7 +28,7 @@ export function DesktopScanHandoff() {
       u.searchParams.set("vg", gid);
       setUrl(u.toString());
     }
-  }, []);
+  }, [resumeUrl]);
 
   if (!isDesktop) return null;
 

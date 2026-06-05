@@ -6,6 +6,8 @@ import { useSearchParams } from "next/navigation";
 import { DesignStudioProvider } from "@/components/design-studio/DesignStudioProvider";
 import { DesignWizard } from "@/components/design-studio/DesignWizard";
 import { CatalogHandoffFromQuery } from "@/components/design-studio/CatalogHandoffFromQuery";
+import { DesignAutosaveStatus } from "@/components/design-studio/DesignAutosaveStatus";
+import { DesignResumeHandoff } from "@/components/design-studio/DesignResumeHandoff";
 import { ShareView } from "@/components/design-studio/ShareView";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Button } from "@/components/ui/button";
@@ -27,17 +29,20 @@ function DesignStudioContent() {
     <DesignStudioProvider projectId={projectId}>
       <CatalogHandoffFromQuery />
       <header className="sticky top-0 z-40 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="container flex h-14 items-center justify-between px-4">
+        <div className="container flex h-14 items-center justify-between gap-2 px-4">
           <Link href="/" className="font-semibold text-sm shrink-0">
             {SITE_CONFIG.name}
           </Link>
-          <p className="text-sm text-muted-foreground hidden sm:block">Design Studio</p>
-          <Button variant="ghost" size="sm" asChild>
-            <Link href="/">
-              <ArrowLeft className="h-4 w-4" />
-              <span className="hidden sm:inline">Back to site</span>
-            </Link>
-          </Button>
+          <div className="flex items-center gap-1 sm:gap-3">
+            <DesignAutosaveStatus />
+            <DesignResumeHandoff />
+            <Button variant="ghost" size="sm" asChild>
+              <Link href="/">
+                <ArrowLeft className="h-4 w-4" />
+                <span className="hidden sm:inline">Back to site</span>
+              </Link>
+            </Button>
+          </div>
         </div>
       </header>
 

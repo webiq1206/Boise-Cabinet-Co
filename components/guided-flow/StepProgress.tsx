@@ -1,7 +1,12 @@
 "use client";
 
-import { Check } from "lucide-react";
+import { Check, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 
 export interface GuidedStep {
   id: string;
@@ -15,6 +20,10 @@ interface StepProgressProps {
   isStepComplete: (index: number) => boolean;
   onStepClick?: (index: number) => void;
   className?: string;
+  /** Optional 0-100 completion bar shown above the stepper. */
+  percent?: number;
+  /** On small screens, collapse the rail into a compact step menu. */
+  compactMobile?: boolean;
 }
 
 export function StepProgress({
@@ -23,10 +32,93 @@ export function StepProgress({
   isStepComplete,
   onStepClick,
   className,
+  percent,
+  compactMobile = false,
 }: StepProgressProps) {
+  const current = steps[currentIndex];
+
   return (
     <nav aria-label="Progress" className={cn("mb-8", className)}>
-      <ol className="flex items-center justify-between gap-1 overflow-x-auto pb-2">
+      {typeof percent === "number" && (
+        <div className="mb-3" aria-hidden>
+          <div className="h-1.5 w-full overflow-hidden rounded-full bg-muted">
+            <div
+              className="h-full rounded-full bg-primary transition-all duration-500"
+              style={{ width: `${Math.max(0, Math.min(100, percent))}%` }}
+              data-testid="step-progress-bar"
+            />
+          </div>
+        </div>
+      )}
+
+      {/* Compact mobile control: a single chip that opens a jump menu. */}
+      {compactMobile && (
+        <div className="sm:hidden">
+          <Popover>
+            <PopoverTrigger asChild>
+              <button
+                type="button"
+                className="flex w-full items-center justify-between rounded-md border bg-card px-3 py-2 min-h-11 text-left"
+                data-testid="step-progress-compact"
+              >
+                <span className="flex items-center gap-2 text-sm">
+                  <span className="flex h-7 w-7 items-center justify-center rounded-full bg-primary text-xs font-medium text-primary-foreground">
+                    {currentIndex + 1}
+                  </span>
+                  <span className="font-medium">{current?.label}</span>
+                </span>
+                <ChevronDown className="h-4 w-4 text-muted-foreground" />
+              </button>
+            </PopoverTrigger>
+            <PopoverContent align="start" className="w-64 p-1">
+              <ol>
+                {steps.map((step, index) => {
+                  const done =
+                    index < currentIndex ||
+                    (index === currentIndex && isStepComplete(index));
+                  const canNavigate = index <= currentIndex && onStepClick;
+                  return (
+                    <li key={step.id}>
+                      <button
+                        type="button"
+                        onClick={() => canNavigate && onStepClick?.(index)}
+                        disabled={!canNavigate}
+                        aria-current={index === currentIndex ? "step" : undefined}
+                        className={cn(
+                          "flex w-full items-center gap-2 rounded-sm px-2 py-2 text-left text-sm min-h-10",
+                          index === currentIndex && "bg-muted font-medium",
+                          !canNavigate
+                            ? "cursor-not-allowed text-muted-foreground"
+                            : "hover:bg-muted",
+                        )}
+                      >
+                        <span
+                          className={cn(
+                            "flex h-6 w-6 shrink-0 items-center justify-center rounded-full border text-xs",
+                            done
+                              ? "border-primary bg-primary/10 text-primary"
+                              : "border-border text-muted-foreground",
+                          )}
+                        >
+                          {done ? <Check className="h-3 w-3" /> : index + 1}
+                        </span>
+                        {step.label}
+                      </button>
+                    </li>
+                  );
+                })}
+              </ol>
+            </PopoverContent>
+          </Popover>
+        </div>
+      )}
+
+      <ol
+        className={cn(
+          "flex items-center justify-between gap-1 overflow-x-auto pb-2",
+          compactMobile && "hidden sm:flex",
+        )}
+      >
         {steps.map((step, index) => {
           const done =
             index < currentIndex || (index === currentIndex && isStepComplete(index));

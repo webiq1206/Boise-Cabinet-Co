@@ -4,97 +4,135 @@ import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { useDesignStudio } from "./DesignStudioProvider";
 import { useIsDesktop } from "@/hooks/use-media-query";
-import { isScannedRoom } from "@/lib/design/roomScanGeometry";
 import { RoomSetupStep } from "./steps/RoomSetupStep";
 import { LayoutStep } from "./steps/LayoutStep";
-import { LookStep } from "./steps/LookStep";
-import { PreviewStep } from "./steps/PreviewStep";
+import { DoorStep } from "./steps/DoorStep";
+import { FinishStep } from "./steps/FinishStep";
+import { HardwareStep } from "./steps/HardwareStep";
+import { AddonsStep } from "./steps/AddonsStep";
+import { ReviewStep } from "./steps/ReviewStep";
 import { QuoteStep } from "./steps/QuoteStep";
 import { RoomStepLivePreview } from "./RoomStepLivePreview";
-import { Button } from "@/components/ui/button";
-import { ChevronUp, Eye } from "lucide-react";
+import { DesignSummaryPanel } from "./DesignSummaryPanel";
+import {
+  EstimateTunerProvider,
+  useEstimateTuner,
+} from "./EstimateTunerContext";
+import { ChevronUp } from "lucide-react";
 import { wizardCopy } from "@/shared/designStudioCopy";
 import { GuidedFlowShell } from "@/components/guided-flow";
 import type { GuidedStep } from "@/components/guided-flow";
-import { ROOM_BY_SLUG } from "@/shared/catalog/roomCategories";
+import {
+  Drawer,
+  DrawerContent,
+  DrawerTrigger,
+  DrawerTitle,
+} from "@/components/ui/drawer";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  DESIGN_STEPS,
+  DESIGN_STEP_IDS,
+  GOTO_STEP_EVENT,
+  designStepLabel,
+  getDesignProgress,
+  gotoDesignStep,
+  type DesignStepId,
+} from "@/lib/design/designSteps";
+import { getDesignEstimate } from "@/lib/design/designToEstimate";
+import { isScannedRoom } from "@/lib/design/roomScanGeometry";
 
-/** The layout step name adapts to the chosen room (no hard-coded "Kitchen"). */
-function layoutStepLabel(roomType: string | null): string {
-  if (!roomType) return "Layout";
-  if (roomType === "kitchen") return "Kitchen shape";
-  if (roomType === "bathroom") return "Vanity layout";
-  const name = ROOM_BY_SLUG[roomType]?.name;
-  return name ? `${name} layout` : "Layout";
-}
-
-function buildWizardSteps(roomType: string | null): readonly GuidedStep[] {
-  return [
-    { id: "room", label: "Your room", shortLabel: "Room" },
-    { id: "layout", label: layoutStepLabel(roomType), shortLabel: "Layout" },
-    { id: "look", label: "Colors & hardware", shortLabel: "Look" },
-    { id: "preview", label: "3D preview", shortLabel: "Preview" },
-    { id: "quote", label: "Save & quote", shortLabel: "Quote" },
-  ];
+function buildWizardSteps(roomType: string | null): GuidedStep[] {
+  return DESIGN_STEPS.map((s) => ({
+    id: s.id,
+    label: designStepLabel(s.id, roomType),
+    shortLabel: s.shortLabel,
+  }));
 }
 
 export const WIZARD_STEPS: readonly GuidedStep[] = buildWizardSteps(null);
 
-const STEP_COMPONENTS = [
-  RoomSetupStep,
-  LayoutStep,
-  LookStep,
-  PreviewStep,
-  QuoteStep,
-] as const;
+const STEP_COMPONENTS: Record<DesignStepId, () => JSX.Element> = {
+  room: RoomSetupStep,
+  layout: LayoutStep,
+  door: DoorStep,
+  finish: FinishStep,
+  hardware: HardwareStep,
+  addons: AddonsStep,
+  review: ReviewStep,
+  quote: QuoteStep,
+};
 
-// Steps that auto-advance the moment their required selection is satisfied, so
-// the visitor is carried straight to the next step without hunting for a button.
-// The 3D preview is intentionally excluded (it is the payoff, not a step to skip
-// past) and the final quote step has nowhere to advance to.
-const AUTO_ADVANCE_STEP_IDS = new Set<string>(["room", "layout", "look"]);
+// Pure single-select steps auto-advance the instant their choice is made, so
+// the visitor is carried forward without hunting for a button. Room (needs a
+// measurement + has a "browse" escape hatch) and layout (inline 2D planner the
+// visitor may want to arrange) advance only via the explicit Continue button.
+// Optional and review/quote steps never auto-advance.
+const AUTO_ADVANCE_STEP_IDS = new Set<DesignStepId>(["door", "finish"]);
 const AUTO_ADVANCE_DELAY_MS = 650;
+
+const STEP_DESCRIPTIONS: Record<DesignStepId, string> = {
+  room: "Tell us the room and its size, or skip ahead to browse styles.",
+  layout: "Choose the layout that best matches your space.",
+  door: "Pick the cabinet door profile you love.",
+  finish: "Choose your color and sheen.",
+  hardware: "Optional: pick handles, or keep our default.",
+  addons: "Optional: add smart storage and specialty cabinets.",
+  review: "Review everything and see your live estimate.",
+  quote: "Get your estimate and book a free consultation.",
+};
 
 interface DesignWizardProps {
   className?: string;
 }
 
-export function DesignWizard({ className }: DesignWizardProps) {
+function DesignWizardInner({ className }: DesignWizardProps) {
   const { isStepComplete, design } = useDesignStudio();
+  const { tuner, onTunerChange } = useEstimateTuner();
   const isDesktop = useIsDesktop();
   const [mounted, setMounted] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
-  const [mobilePreviewOpen, setMobilePreviewOpen] = useState(false);
+  const [summaryOpen, setSummaryOpen] = useState(false);
 
   useEffect(() => setMounted(true), []);
 
-  // "Browse styles without measuring" jumps straight to the Look step (index 2)
-  // after the room step seeds a typical size.
+  const steps = buildWizardSteps(design.roomType);
+  const currentStepId = (steps[currentStep]?.id ?? "room") as DesignStepId;
+
+  // Jump-to-step requests from the summary panel "Edit" links (and the legacy
+  // "browse styles" handoff). Only honor a jump when its prerequisites are met.
   useEffect(() => {
-    const handler = () => setCurrentStep(2);
+    const handler = (e: Event) => {
+      const id = (e as CustomEvent).detail as DesignStepId;
+      const target = DESIGN_STEP_IDS.indexOf(id);
+      if (target < 0) return;
+      const prereqsMet = Array.from({ length: target }).every((_, i) =>
+        isStepComplete(i),
+      );
+      if (target <= currentStep || prereqsMet) {
+        setCurrentStep(target);
+        setSummaryOpen(false);
+      }
+    };
+    window.addEventListener(GOTO_STEP_EVENT, handler);
+    return () => window.removeEventListener(GOTO_STEP_EVENT, handler);
+  }, [currentStep, isStepComplete]);
+
+  // "Browse styles without measuring" jumps straight to the door step.
+  useEffect(() => {
+    const handler = () => setCurrentStep(DESIGN_STEP_IDS.indexOf("door"));
     window.addEventListener("brc-studio-goto-look", handler);
     return () => window.removeEventListener("brc-studio-goto-look", handler);
   }, []);
-
-  const steps = buildWizardSteps(design.roomType);
-
-  const STEP_DESCRIPTIONS: Record<string, string> = {
-    room: "Tell us the room and its size - or skip ahead to browse styles.",
-    layout: "Choose the layout that best matches your space.",
-    look: "Pick your finish color, door style, and hardware.",
-    preview: "See your design come together in 3D - rotate and explore.",
-    quote: "Name your design, then save and request pricing.",
-  };
 
   const previewReady =
     isScannedRoom(design.roomMeta) ||
     design.layout !== null ||
     Boolean(design.photoUrl);
 
-  const StepComponent = STEP_COMPONENTS[currentStep];
+  const StepComponent = STEP_COMPONENTS[currentStepId];
   const isFirst = currentStep === 0;
   const isLast = currentStep === steps.length - 1;
-  const currentStepId = steps[currentStep]?.id ?? "";
-  const isPreviewStep = currentStepId === "preview";
+  const isReview = currentStepId === "review";
   const canAdvance = isStepComplete(currentStep);
 
   const goNext = () => {
@@ -107,15 +145,10 @@ export function DesignWizard({ className }: DesignWizardProps) {
     setCurrentStep((s) => s - 1);
   };
 
-  // Guided auto-advance: when the current step's required selection becomes
-  // complete, carry the visitor to the next step automatically. We only fire on
-  // a fresh false -> true transition while staying on the same step, so arriving
-  // at an already-complete step (e.g. navigating Back, or a pre-selected layout)
-  // never bounces the user forward and they keep full control.
+  // Guided auto-advance on single-select steps (fresh false -> true only).
   const wasCompleteRef = useRef(false);
   const advancingFromStepRef = useRef(currentStep);
   useEffect(() => {
-    // Re-baseline whenever the step changes; never auto-advance on arrival.
     if (advancingFromStepRef.current !== currentStep) {
       advancingFromStepRef.current = currentStep;
       wasCompleteRef.current = canAdvance;
@@ -137,54 +170,81 @@ export function DesignWizard({ className }: DesignWizardProps) {
   }, [canAdvance, currentStep, currentStepId, isLast]);
 
   const previewPanel = previewReady ? (
-    <RoomStepLivePreview
-      deferMount={!isDesktop && !mobilePreviewOpen}
-    />
+    <RoomStepLivePreview deferMount={!isDesktop && !summaryOpen} />
   ) : (
     <div className="rounded-md border bg-card aspect-[4/3] flex items-center justify-center p-6 text-center">
       <p className="text-sm text-muted-foreground">{wizardCopy.previewPlaceholder}</p>
     </div>
   );
 
-  // On the dedicated 3D preview step, the live render is the whole point, so on
-  // mobile it is embedded directly in the step body (always mounted) rather than
-  // hidden behind a toggle.
-  const inlineMobilePreview =
-    !isDesktop && isPreviewStep ? (
-      <div className="mb-6">
-        {previewReady ? (
-          <RoomStepLivePreview />
-        ) : (
-          <div className="rounded-md border bg-card aspect-[4/3] flex items-center justify-center p-6 text-center">
-            <p className="text-sm text-muted-foreground">{wizardCopy.previewPlaceholder}</p>
-          </div>
-        )}
-      </div>
-    ) : null;
+  const summaryPanel = (
+    <DesignSummaryPanel
+      variant={isDesktop ? "sidebar" : "sheet"}
+      tuner={tuner}
+      onTunerChange={onTunerChange}
+      onNavigate={gotoDesignStep}
+    />
+  );
 
-  const mobilePreviewToggle =
-    !isDesktop && !isPreviewStep && previewReady ? (
-      <div className="mb-6">
-        <Button
-          variant="outline"
-          className="w-full justify-between min-h-11"
-          onClick={() => setMobilePreviewOpen((o) => !o)}
-          data-testid="button-toggle-mobile-preview"
+  // Live estimate shown in the mobile sticky bar; opens the summary sheet.
+  const estimate = design.roomType
+    ? getDesignEstimate(design, {
+        size: tuner.size,
+        construction: tuner.construction,
+      })
+    : null;
+
+  const mobileSummaryNode = estimate ? (
+    <Drawer open={summaryOpen} onOpenChange={setSummaryOpen}>
+      <DrawerTrigger asChild>
+        <button
+          type="button"
+          className="flex w-full items-center justify-between rounded-md border bg-background px-3 py-2 text-left min-h-11"
+          data-testid="button-open-summary-sheet"
         >
-          <span className="flex items-center gap-2">
-            <Eye className="h-4 w-4" />
-            {mobilePreviewOpen ? "Hide live preview" : "Show live preview"}
+          <span className="text-sm">
+            <span className="font-semibold text-foreground">
+              {estimate.rangeLabel}
+            </span>{" "}
+            <span className="text-muted-foreground">est.</span>
           </span>
-          <ChevronUp
-            className={cn(
-              "h-4 w-4 transition-transform",
-              mobilePreviewOpen ? "" : "rotate-180",
-            )}
-          />
-        </Button>
-        {mobilePreviewOpen && <div className="mt-3">{previewPanel}</div>}
-      </div>
-    ) : null;
+          <span className="flex items-center gap-1 text-xs text-muted-foreground">
+            View summary
+            <ChevronUp className="h-4 w-4" />
+          </span>
+        </button>
+      </DrawerTrigger>
+      <DrawerContent>
+        <DrawerTitle className="sr-only">Design summary</DrawerTitle>
+        <div className="max-h-[82vh] overflow-y-auto p-4 pt-2">
+          <Tabs defaultValue="summary">
+            <TabsList className="grid w-full grid-cols-2">
+              <TabsTrigger value="summary">Summary</TabsTrigger>
+              <TabsTrigger value="preview">Preview</TabsTrigger>
+            </TabsList>
+            <TabsContent value="summary" className="mt-4">
+              {summaryPanel}
+            </TabsContent>
+            <TabsContent value="preview" className="mt-4">
+              {previewPanel}
+            </TabsContent>
+          </Tabs>
+        </div>
+      </DrawerContent>
+    </Drawer>
+  ) : null;
+
+  const continueLabel = isLast
+    ? "Go to pricing form"
+    : isReview
+      ? "Continue to estimate"
+      : "Continue";
+
+  const progress = getDesignProgress(design);
+  const minutesLeftLabel =
+    progress.percent < 100 && progress.minutesLeft > 0
+      ? `about ${progress.minutesLeft} min left`
+      : undefined;
 
   const shell = (
     <GuidedFlowShell
@@ -196,18 +256,22 @@ export function DesignWizard({ className }: DesignWizardProps) {
       onNext={
         isLast
           ? () => {
-              document.getElementById("request-pricing")?.scrollIntoView({ behavior: "smooth" });
+              document
+                .getElementById("request-pricing")
+                ?.scrollIntoView({ behavior: "smooth" });
             }
           : goNext
       }
       isFirst={isFirst}
       isLast={isLast}
       canAdvance={canAdvance || isLast}
-      continueLabel={isLast ? "Go to pricing form" : "Continue"}
-      stepDescription={STEP_DESCRIPTIONS[steps[currentStep]?.id ?? ""]}
-      headerExtra={mobilePreviewToggle}
+      continueLabel={continueLabel}
+      stepDescription={STEP_DESCRIPTIONS[currentStepId]}
+      mobileSummary={mobileSummaryNode}
+      progressPercent={progress.percent}
+      minutesLeftLabel={minutesLeftLabel}
+      compactMobileSteps
     >
-      {inlineMobilePreview}
       <StepComponent />
     </GuidedFlowShell>
   );
@@ -225,10 +289,31 @@ export function DesignWizard({ className }: DesignWizardProps) {
         )}
       >
         <div className="flex flex-col min-w-0">{shell}</div>
-        <div className="sticky top-20">{previewPanel}</div>
+        <div className="sticky top-20">
+          <Tabs defaultValue="preview">
+            <TabsList className="grid w-full grid-cols-2">
+              <TabsTrigger value="preview">Preview</TabsTrigger>
+              <TabsTrigger value="summary">Summary</TabsTrigger>
+            </TabsList>
+            <TabsContent value="preview" className="mt-4">
+              {previewPanel}
+            </TabsContent>
+            <TabsContent value="summary" className="mt-4">
+              {summaryPanel}
+            </TabsContent>
+          </Tabs>
+        </div>
       </div>
     );
   }
 
   return <div className={cn("flex flex-col", className)}>{shell}</div>;
+}
+
+export function DesignWizard(props: DesignWizardProps) {
+  return (
+    <EstimateTunerProvider>
+      <DesignWizardInner {...props} />
+    </EstimateTunerProvider>
+  );
 }

@@ -15,8 +15,17 @@ const DEFAULT_FINISH = FINISH_BY_SLUG["woodgrain-canyon-oak"] ?? FINISH_BY_SLUG[
 /** Curated subset shown before the homeowner asks to see every compatible color. */
 const CURATED_FINISH_COUNT = 12;
 
-export function StyleStep({ embedded = false }: { embedded?: boolean }) {
+export function StyleStep({
+  embedded = false,
+  section = "both",
+}: {
+  embedded?: boolean;
+  /** Render only the door grid, only the finish grid, or both. */
+  section?: "door" | "finish" | "both";
+}) {
   const { design, updateDesign } = useDesignStudio();
+  const showDoor = section === "door" || section === "both";
+  const showFinish = section === "finish" || section === "both";
 
   const [finishCategory, setFinishCategory] = useState<"all" | "matte" | "gloss" | "woodgrain">("all");
   const [showAllFinishes, setShowAllFinishes] = useState(false);
@@ -52,6 +61,13 @@ export function StyleStep({ embedded = false }: { embedded?: boolean }) {
   const hasMoreFinishes = categoryFinishes.length > curatedFinishes.length;
   const filteredFinishes = showAllFinishes ? categoryFinishes : curatedFinishes;
 
+  // Surface a "Most loved" badge on the top few crowd favorites in scope.
+  const lovedSet = new Set(
+    getMostLovedFinishes(3)
+      .filter((f) => inScope.has(f.id))
+      .map((f) => f.slug),
+  );
+
   const previewFinish = selectedFinishObj ?? DEFAULT_FINISH;
 
   return (
@@ -67,6 +83,7 @@ export function StyleStep({ embedded = false }: { embedded?: boolean }) {
         </div>
       )}
 
+      {showDoor && (
       <div className="space-y-4">
         <div className="flex flex-wrap items-center justify-between gap-2">
           <Label className="text-sm font-medium">Door style</Label>
@@ -84,6 +101,7 @@ export function StyleStep({ embedded = false }: { embedded?: boolean }) {
               description: item.description,
               imageSrc: images.primary,
               imageAlt: `${item.name} door profile`,
+              badge: item.slug === "modern-shaker" ? "Popular" : undefined,
             };
           })}
           selectedId={design.doorStyle ?? undefined}
@@ -91,7 +109,9 @@ export function StyleStep({ embedded = false }: { embedded?: boolean }) {
           testIdPrefix="button-door-style"
         />
       </div>
+      )}
 
+      {showFinish && (
       <div className="space-y-4">
         <div className="flex flex-wrap items-center justify-between gap-2">
           <Label className="text-sm font-medium">Finish</Label>
@@ -127,6 +147,7 @@ export function StyleStep({ embedded = false }: { embedded?: boolean }) {
             imageSrc: getFinishImages(item.slug, item.imagePath).swatch,
             imageAlt: `${item.name} finish swatch`,
             fallbackHex: item.hexColor,
+            badge: lovedSet.has(item.slug) ? "Loved" : undefined,
           }))}
           selectedId={design.finish ?? undefined}
           onSelect={(slug) => updateDesign({ finish: slug })}
@@ -152,6 +173,7 @@ export function StyleStep({ embedded = false }: { embedded?: boolean }) {
           </button>
         )}
       </div>
+      )}
     </div>
   );
 }
