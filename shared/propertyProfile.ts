@@ -51,6 +51,19 @@ export type PropertyProfileInput = Pick<
   | "placeId"
 >;
 
+/**
+ * Pull a 5-digit US ZIP from a free-form address string. Matches a ZIP at the
+ * end of the address (optionally followed by a +4) and returns just the 5
+ * digits, or "" when none is found. Used to derive a ZIP from an autocompleted
+ * or typed property address so we no longer ask for it separately.
+ */
+export function extractZipFromAddress(address: string | null | undefined): string {
+  const raw = (address || "").trim();
+  if (!raw) return "";
+  const match = raw.match(/\b(\d{5})(?:-\d{4})?\b\s*$/);
+  return match ? match[1] : "";
+}
+
 /** Merge admin overrides onto the base profile for display and downstream use. */
 export function resolvePropertyProfile(
   base: PropertyProfile | null | undefined

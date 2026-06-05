@@ -17,16 +17,18 @@ import { useIsMobile } from "@/hooks/use-media-query";
 import { DisplayNum } from "@/components/marketing";
 import { AddressAutocomplete } from "@/components/AddressAutocomplete";
 import type { PropertyProfile } from "@/shared/propertyProfile";
+import { extractZipFromAddress } from "@/shared/propertyProfile";
 
-// Address is optional to reduce top-of-funnel friction; ZIP is enough to route
-// the lead to a service area. A full address (when provided) still enriches the
-// lead via the property profile lookup.
+// Address is optional to reduce top-of-funnel friction. We derive the ZIP from
+// the property address (autocomplete profile, or the typed address) instead of
+// asking for it separately, so it is never required as its own field. A full
+// address (when provided) still enriches the lead via the property profile.
 const formSchema = z.object({
   name: z.string().min(2, "Please enter your full name"),
   phone: z.string().min(10, "Please enter a valid phone number"),
   email: z.string().email("Please enter a valid email"),
   address: z.string().optional(),
-  zip: z.string().min(5, "ZIP code is required"),
+  zip: z.string().optional(),
   projectType: z.string().min(1, "Please select a project type"),
   message: z.string().optional(),
 });
@@ -82,6 +84,11 @@ export function ConsultationForm({ onRevise }: ConsultationFormProps = {}) {
     setPropertyProfile(profile);
     if (profile?.zip) {
       form.setValue("zip", profile.zip.slice(0, 5), { shouldValidate: true });
+    } else {
+      // Address was cleared or edited (AddressAutocomplete resolves null on every
+      // manual change). Drop any previously derived ZIP so it never goes stale -
+      // it is re-derived from the current address on submit.
+      form.setValue("zip", "", { shouldValidate: true });
     }
     if (profile?.formattedAddress) {
       form.setValue("address", profile.formattedAddress, { shouldValidate: true });
@@ -238,7 +245,7 @@ export function ConsultationForm({ onRevise }: ConsultationFormProps = {}) {
       ["Email", pendingData.email],
     ];
     if (pendingData.address) rows.push(["Address", pendingData.address]);
-    rows.push(["ZIP code", pendingData.zip]);
+    if (pendingData.zip) rows.push(["ZIP code", pendingData.zip]);
     rows.push(["Project", pendingProjectLabel]);
     if (pendingData.message) rows.push(["Notes", pendingData.message]);
 
@@ -320,14 +327,19 @@ export function ConsultationForm({ onRevise }: ConsultationFormProps = {}) {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit((data) => {
+          // Derive the ZIP from the property address (it is no longer a field).
+          const enriched = {
+            ...data,
+            zip: data.zip || extractZipFromAddress(data.address),
+          };
           if (isMobile) {
             mutation.mutate({
-              data,
+              data: enriched,
               confirmEstimate: !!estimate && decision !== "dropped",
             });
             return;
           }
-          setPendingData(data);
+          setPendingData(enriched);
         })}
         className="space-y-5"
       >
@@ -514,44 +526,24 @@ export function ConsultationForm({ onRevise }: ConsultationFormProps = {}) {
           )}
         />
 
-        <div className="grid sm:grid-cols-2 gap-4">
-          <FormField
-            control={form.control}
-            name="email"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className={labelClass}>Email</FormLabel>
-                <FormControl>
-                  <Input
-                    type="email"
-                    placeholder="jane@example.com"
-                    data-testid="input-email"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="zip"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className={labelClass}>ZIP code</FormLabel>
-                <FormControl>
-                  <Input
-                    placeholder="83706"
-                    maxLength={5}
-                    data-testid="input-zip"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </div>
+        <FormField
+          control={form.control}
+          name="email"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel className={labelClass}>Email</FormLabel>
+              <FormControl>
+                <Input
+                  type="email"
+                  placeholder="jane@example.com"
+                  data-testid="input-email"
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
 
         {(!estimate || decision === "dropped") && (
           <FormField
