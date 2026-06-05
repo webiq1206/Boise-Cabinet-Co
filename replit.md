@@ -33,6 +33,11 @@ Preferred communication style: Simple, everyday language.
 - **Content Management**: Services and cities centralized in `shared/contentData.ts`. `FOUNDING_SPOTS_REMAINING` constant also lives there.
 - **Build System**: Next.js with TypeScript.
 
+## Image performance & compression
+- **Static image variants (no runtime optimizer)**: Catalog/marketing images are pre-rendered into fixed-width WebP variants by `scripts/images/build-image-variants.mjs` (manifest: `shared/generated/imageVariants.ts`) and served by a custom `next/image` loader (`lib/images/staticVariantLoader.ts`, wired via `images.loaderFile` in `next.config.js`). This bypasses Next's on-demand optimizer, whose cache is per-instance/ephemeral on autoscale and caused slow image loads after each deploy. Regenerated automatically in `catalog:build` and `prebuild`.
+- **Instant placeholders**: Non-hero catalog photos use tiny base64 LQIP blur placeholders (`scripts/images/build-blur-manifest.mjs` -> `shared/generated/imageBlur.ts`, applied in `CatalogImage`). Heroes render real pixels with `priority` and no blur; finish swatches paint their hex color instantly.
+- **Compression**: `compress: true` in `next.config.js` makes the standalone Node server gzip text responses (HTML/JS/CSS/JSON and the SVG cabinet/door diagrams in `public/generated`). This does NOT shrink already-compressed WebP/PNG/JPEG. For better text compression, enable **brotli at the Replit autoscale edge** if available; gzip is the in-app floor. Static images carry long-lived `Cache-Control: public, max-age=31536000, immutable` via `headers()`.
+
 ## External Dependencies
 - **Radix UI**: Headless accessible components (via shadcn/ui).
 - **react-hook-form** + **@hookform/resolvers**: Form state and Zod validation.

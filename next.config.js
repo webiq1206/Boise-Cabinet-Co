@@ -30,21 +30,21 @@ const nextConfig = {
     memoryBasedWorkersCount: true,
     cpus: 2,
   },
+  // Pre-generated static WebP variants are served by a custom loader, bypassing
+  // the runtime image optimizer entirely. On Replit autoscale the optimizer
+  // cache is per-instance/ephemeral, so on-demand (re)encoding made images slow
+  // to appear after every deploy/scale event. Serving static variants makes them
+  // instant and edge/browser-cacheable. See lib/images/staticVariantLoader.ts
+  // and scripts/images/build-image-variants.mjs.
   images: {
-    unoptimized: false,
-    formats: ["image/avif", "image/webp"],
-    // Layout floor-plan diagrams in /public are first-party static SVGs. The CSP
-    // below sandboxes them and blocks any scripting when served by the optimizer.
-    dangerouslyAllowSVG: true,
-    contentDispositionType: 'attachment',
-    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: '**',
-      },
-    ],
+    loader: 'custom',
+    loaderFile: './lib/images/staticVariantLoader.ts',
+    // device/image sizes still drive which widths next/image requests from the
+    // custom loader (which maps each to the nearest pre-generated variant).
+    deviceSizes: [320, 640, 768, 1080, 1280, 1920],
+    imageSizes: [160, 320],
   },
+  compress: true,
   trailingSlash: false,
   output: 'standalone',
   webpack: (config) => {
@@ -54,6 +54,17 @@ const nextConfig = {
       '@shared': path.resolve(__dirname, 'shared'),
     };
     return config;
+  },
+
+  async headers() {
+    const immutable = [
+      { key: 'Cache-Control', value: 'public, max-age=31536000, immutable' },
+    ];
+    return [
+      { source: '/images/:path*', headers: immutable },
+      { source: '/generated/:path*', headers: immutable },
+      { source: '/downloads/:path*', headers: immutable },
+    ];
   },
 
   async redirects() {

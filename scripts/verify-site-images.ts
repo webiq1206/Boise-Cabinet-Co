@@ -23,9 +23,30 @@ if (!fs.existsSync(manifestPath)) {
   errors.push("Missing scripts/site-image-manifest.json — run node scripts/build-site-image-manifest.mjs");
 } else {
   const manifest = JSON.parse(fs.readFileSync(manifestPath, "utf8"));
+
+  // Alt-quality audit: every non-decorative image must localize us and contain
+  // the business name. Locale is checked with the brand removed so "Boise"
+  // inside "Boise Cabinet Co" does not satisfy the requirement on its own.
+  const BRAND = "Boise Cabinet Co";
+  const LOCALE_TOKENS = [
+    "Treasure Valley", "Idaho", "Boise", "Meridian", "Eagle", "Nampa",
+    "Kuna", "Star", "Middleton", "Caldwell", "Ada County", "Canyon County",
+  ];
+  const altCounts = new Map<string, number>();
+
   for (const entry of manifest.entries) {
     if (!entry.alt || entry.alt.length < 20) {
       errors.push(`Manifest alt too short: ${entry.id}`);
+    }
+    if (entry.alt && !entry.decorative) {
+      if (!entry.alt.includes(BRAND)) {
+        errors.push(`Alt missing business name "${BRAND}": ${entry.id}`);
+      }
+      const sansBrand = entry.alt.split(BRAND).join(" ");
+      if (!LOCALE_TOKENS.some((t) => sansBrand.includes(t))) {
+        errors.push(`Alt missing a locale token: ${entry.id} ("${entry.alt}")`);
+      }
+      altCounts.set(entry.alt, (altCounts.get(entry.alt) ?? 0) + 1);
     }
     const filePath = path.join(root, "public", entry.outputPath.replace(/^\//, ""));
     const pngFallback = filePath.replace(/\.webp$/, ".png");
@@ -39,6 +60,14 @@ if (!fs.existsSync(manifestPath)) {
       if (head.includes("<?xml") || head.includes("<svg")) {
         errors.push(`Placeholder SVG content in ${entry.outputPath}`);
       }
+    }
+  }
+
+  // Flag alts reused across many images (thin/duplicate alt text hurts SEO).
+  const MAX_ALT_REUSE = 3;
+  for (const [alt, n] of altCounts) {
+    if (n > MAX_ALT_REUSE) {
+      errors.push(`Alt reused ${n} times (max ${MAX_ALT_REUSE}): "${alt}"`);
     }
   }
 }

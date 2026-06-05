@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { cn } from "@/lib/utils";
+import { getBlurDataURL } from "@/shared/generated/imageBlur";
 
 export interface CatalogImageProps {
   src: string;
@@ -21,6 +22,10 @@ export function CatalogImage({
   sizes = "(max-width: 768px) 100vw, 33vw",
   priority,
 }: CatalogImageProps) {
+  // Priority/hero images render real pixels immediately (no blur). Everything
+  // else gets an instant LQIP placeholder while the static variant loads.
+  const blurDataURL = priority ? undefined : getBlurDataURL(src);
+
   return (
     <div
       className={cn("relative overflow-hidden rounded-sm bg-muted", className)}
@@ -32,6 +37,8 @@ export function CatalogImage({
         fill
         sizes={sizes}
         priority={priority}
+        placeholder={blurDataURL ? "blur" : undefined}
+        blurDataURL={blurDataURL}
         className={cn("object-cover img-brand-grade", imageClassName)}
       />
     </div>

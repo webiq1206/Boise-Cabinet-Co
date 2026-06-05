@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import type { Finish, FinishCategory } from "@/shared/catalog";
-import { FINISHES, formatPriceTier } from "@/shared/catalog";
+import { FINISHES, formatPriceTier, finishAlt } from "@/shared/catalog";
 import { Chip } from "@/components/marketing/Chip";
 import { MarketingCard } from "@/components/marketing/MarketingCard";
 import { cn } from "@/lib/utils";
@@ -25,6 +25,7 @@ const FILTER_OPTIONS: Array<{ id: "all" | FinishCategory; label: string }> = [
 export function FinishSwatch({ finish }: { finish: Finish }) {
   const [imageFailed, setImageFailed] = useState(false);
   const showImage = Boolean(finish.imagePath) && !imageFailed;
+  const alt = finishAlt(finish);
 
   return (
     <div
@@ -33,7 +34,7 @@ export function FinishSwatch({ finish }: { finish: Finish }) {
         finish.category === "woodgrain" && "ring-1 ring-inset ring-black/5",
       )}
       role="img"
-      aria-label={`${finish.name} finish swatch`}
+      aria-label={alt}
     >
       {/* Flat color tile always renders beneath, so there is never a blank or
           broken swatch; a real image (when one exists) layers on top. */}
@@ -44,7 +45,7 @@ export function FinishSwatch({ finish }: { finish: Finish }) {
       {showImage && (
         <Image
           src={finish.imagePath!}
-          alt={`${finish.name} cabinet finish swatch`}
+          alt={alt}
           fill
           sizes="120px"
           className="object-cover"

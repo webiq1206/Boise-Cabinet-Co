@@ -164,6 +164,17 @@ export {
 
 export { getCabinetNeedLabel } from "./cabinetLabels";
 
+export {
+  seoAlt,
+  finishAlt,
+  doorStyleAlt,
+  cabinetAlt,
+  collectionAlt,
+  roomAlt,
+  hardwareAlt,
+  accessoryAlt,
+} from "./altText";
+
 import { COLLECTION_BY_SLUG, COLLECTIONS, type CabinetCollection } from "./collections";
 import {
   DOOR_STYLE_BY_SLUG,

@@ -26,6 +26,7 @@ export function CatalogEntityHero({
             src={imageSrc}
             alt={imageAlt ?? title}
             fill
+            priority
             className="object-cover img-brand-grade"
             sizes="(max-width: 768px) 100vw, 50vw"
           />

@@ -23,6 +23,7 @@ import {
   getFinishImages,
   getHardwareImagePath,
   getAccessoryFamilyImagePath,
+  seoAlt,
 } from "@/shared/catalog";
 import { SITE_CONFIG } from "@/shared/siteConfig";
 
@@ -169,7 +170,7 @@ export default function CatalogPage() {
                   name={card.name}
                   description={card.description}
                   imageSrc={card.imageSrc}
-                  imageAlt={`${card.name} catalog category`}
+                  imageAlt={seoAlt(card.name, "custom cabinet catalog", card.name)}
                   aspectRatio={card.aspectRatio}
                   specs={[{ label: "Options", value: String(card.count) }]}
                   primaryHref={card.href}

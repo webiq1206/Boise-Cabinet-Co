@@ -310,6 +310,27 @@ for (const a of ACCESSORIES) {
   });
 }
 
+// Guarantee every non-decorative alt localizes us AND contains the business
+// name, without hand-editing each string. Locale tokens are checked with the
+// brand removed first so "Boise" inside "Boise Cabinet Co" never counts.
+const BRAND = "Boise Cabinet Co";
+const LOCALE_TOKENS = [
+  "Treasure Valley", "Idaho", "Boise", "Meridian", "Eagle", "Nampa",
+  "Kuna", "Star", "Middleton", "Caldwell", "Ada County", "Canyon County",
+];
+function ensureSeoAlt(alt, decorative) {
+  let a = (alt || "").trim();
+  if (decorative) return a;
+  const sansBrand = a.split(BRAND).join(" ");
+  const hasLocale = LOCALE_TOKENS.some((t) => sansBrand.includes(t));
+  if (!hasLocale) a = `${a} in the Treasure Valley, Idaho`;
+  if (!a.includes(BRAND)) a = `${a} | ${BRAND}`;
+  return a;
+}
+for (const e of entries) {
+  e.alt = ensureSeoAlt(e.alt, e.decorative);
+}
+
 const manifest = {
   version: 1,
   generatedAt: new Date().toISOString(),

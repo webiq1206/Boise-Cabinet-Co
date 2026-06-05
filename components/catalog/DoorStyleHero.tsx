@@ -21,6 +21,7 @@ export function DoorStyleHero({ slug, name, className }: DoorStyleHeroProps) {
         alt={`${name} cabinet door profile, Boise Cabinet Co`}
         title={`${name} Door Style | Boise Cabinet Co`}
         fill
+        priority
         sizes="(max-width: 768px) 100vw, 50vw"
         className="object-cover img-brand-grade"
       />

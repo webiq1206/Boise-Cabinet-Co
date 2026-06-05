@@ -26,6 +26,13 @@ import {
   deriveColorFamily,
   getFinishTone,
   finishMatchesFilters,
+  doorStyleAlt,
+  finishAlt,
+  cabinetAlt,
+  collectionAlt,
+  hardwareAlt,
+  accessoryAlt,
+  seoAlt,
   type ColorFamily,
   type FinishTone,
   type FinishCategory,
@@ -47,6 +54,7 @@ interface BrowseItem {
   key: string;
   href: string;
   name: string;
+  alt: string;
   meta?: string;
   imageSrc?: string;
   fallbackColor?: string;
@@ -92,6 +100,7 @@ function doorItem(d: (typeof DOOR_STYLES)[number]): BrowseItem {
     key: `doorStyle-${d.slug}`,
     href: `/door-styles/${d.slug}`,
     name: d.name,
+    alt: doorStyleAlt(d),
     meta: "Door style",
     imageSrc: getDoorStyleImages(d.slug, d.imagePath).primary,
     variant: "media",
@@ -103,6 +112,7 @@ function finishItem(f: Finish): BrowseItem {
     key: `finish-${f.slug}`,
     href: `/finishes/${f.category}/${f.slug}`,
     name: f.name,
+    alt: finishAlt(f),
     meta: `${f.category} · ${f.sheen}`,
     variant: "swatch",
     finish: f,
@@ -114,6 +124,7 @@ function cabinetItem(p: (typeof CABINET_PRODUCTS)[number]): BrowseItem {
     key: `cabinetProduct-${p.slug}`,
     href: `/products/${p.category}/${p.slug}`,
     name: p.name,
+    alt: cabinetAlt(p),
     meta: p.category.replace(/-/g, " "),
     imageSrc: getProductImages(p).thumb,
     variant: "media",
@@ -126,6 +137,7 @@ function collectionItem(c: (typeof COLLECTIONS)[number]): BrowseItem {
     key: `collection-${c.slug}`,
     href: `/collections/${c.slug}`,
     name: c.name,
+    alt: collectionAlt(c),
     meta: c.tagline,
     imageSrc: c.heroImage,
     variant: "media",
@@ -137,6 +149,7 @@ function hardwareItem(h: (typeof HARDWARE_OPTIONS)[number]): BrowseItem {
     key: `hardware-${h.slug}`,
     href: "/hardware",
     name: h.name,
+    alt: hardwareAlt(h),
     meta: h.category,
     imageSrc: getHardwareImagePath(h.slug),
     variant: "swatch",
@@ -148,6 +161,7 @@ function accessoryItem(a: (typeof ACCESSORY_FAMILIES)[number]): BrowseItem {
     key: `accessory-${a.slug}`,
     href: `/products/base?family=${a.slug}`,
     name: a.name,
+    alt: accessoryAlt(a),
     meta: "Accessory family",
     imageSrc: getAccessoryFamilyImagePath(a.slug),
     variant: "swatch",
@@ -209,6 +223,7 @@ export function CatalogBrowser({ className }: { className?: string }) {
           key: `${r.type}-${r.slug}`,
           href: catalogResultHref(r),
           name: r.name,
+          alt: seoAlt(r.name, "custom cabinetry", r.slug),
           meta: r.type.replace(/([A-Z])/g, " $1").toLowerCase(),
           imageSrc: pickSearchResultImage({ type: r.type, slug: r.slug, imagePath: r.imagePath }),
           variant: swatch ? "swatch" : "media",
@@ -440,7 +455,7 @@ function BrowseTileLink({ item }: { item: BrowseItem }) {
           {item.imageSrc ? (
             <Image
               src={item.imageSrc}
-              alt={item.name}
+              alt={item.alt}
               fill
               sizes="(max-width: 640px) 50vw, 220px"
               className={cn(
