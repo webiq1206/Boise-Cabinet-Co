@@ -11,7 +11,7 @@ export function CatalogPageHero({ src, alt, title }: CatalogPageHeroProps) {
   return (
     <div className="relative aspect-[21/9] max-h-[320px] overflow-hidden rounded-sm mb-8 bg-muted">
       <Image
-        src={src ?? MARKETING_IMAGES.process}
+        src={src ?? MARKETING_IMAGES.catalogDefault}
         alt={alt}
         title={title ?? alt}
         fill

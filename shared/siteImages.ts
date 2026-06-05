@@ -7,7 +7,12 @@ export const MARKETING_IMAGES = {
   heroAbout: "/images/marketing/hero-about.webp",
   heroContact: "/images/marketing/hero-contact.webp",
   designStudio: "/images/marketing/hero-design-studio.webp",
-  process: "/images/marketing/process-design-review.webp",
+  processHome: "/images/marketing/process-home.webp",
+  processAbout: "/images/marketing/process-about.webp",
+  processContact: "/images/marketing/process-contact.webp",
+  hardware: "/images/marketing/hero-hardware.webp",
+  construction: "/images/marketing/hero-construction.webp",
+  catalogDefault: "/images/marketing/catalog-default.webp",
   statementBand: "/images/marketing/statement-whole-home.webp",
   ogDefault: "/images/marketing/og-default.webp",
 } as const;
@@ -15,7 +20,9 @@ export const MARKETING_IMAGES = {
 /** @deprecated Use MARKETING_IMAGES, kept for gradual migration */
 export const SITE_IMAGES = {
   hero: MARKETING_IMAGES.heroHome,
-  process: MARKETING_IMAGES.process,
+  processHome: MARKETING_IMAGES.processHome,
+  processAbout: MARKETING_IMAGES.processAbout,
+  processContact: MARKETING_IMAGES.processContact,
   statementBand: MARKETING_IMAGES.statementBand,
   leadership: MARKETING_IMAGES.heroAbout,
   contactHero: MARKETING_IMAGES.heroContact,

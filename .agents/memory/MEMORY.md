@@ -5,6 +5,7 @@
 - [iOS fixed bars + overflow-x](ios-fixed-overflow-clip.md) — never use `overflow-x: hidden` on html/body (breaks `position: fixed` on iOS); use `overflow-x: clip`.
 - [Deploy prebuild verify gates](deploy-prebuild-verify-gates.md) — publish can fail FAST in prebuild (before next build) via verify:no-em-dash etc; generated files are regenerated each build, so fix the generator template not the committed file.
 - [Catalog image pipeline](catalog-image-pipeline.md) — the catalog image seeder fills hero images with wrong-room placeholders; generate real images instead, never re-seed to "restore"; sharp missing in env, use cwebp.
+- [Duplicate/reused image detection](duplicate-image-detection.md) — find a reused photo by CONTENT not filename: re-encode pngs to webp before comparing, resolve copyFrom copies, check registry + hub heroes.
 - [Local next build OOM](local-next-build-oom.md) — `next build` silently OOM-dies in webpack compile (co-resident dev server eats RAM); verify via prebuild gates + dev-server route 200s + redirect checks, not a full local build.
 - [Build-only compile errors](build-only-compile-errors.md) — publish can fail in `next build` (SWC) on duplicate named re-exports even when dev is green; ignoreBuildErrors means tsc errors are noise — only fix the SWC compile error.
 - [Supplier color map verification](supplier-color-map-verification.md) — productColorMap's original Tafisa SKUs were fabricated; real One Source palette listed; only mark verified:true for confident matches, UI gates supplier label on verified.

@@ -175,8 +175,8 @@ export default function AboutPage() {
           <div className="grid md:grid-cols-2 overflow-hidden">
             <div className="relative min-h-[260px] md:min-h-[520px] overflow-hidden bg-inverse">
               <Image
-                src={SITE_IMAGES.process}
-                alt="Cabinet design review with finish samples and layout plans"
+                src={SITE_IMAGES.processAbout}
+                alt="Boise Cabinet Co cabinetmaker assembling a frameless cabinet box in the Kuna Idaho shop"
                 fill
                 sizes="(max-width: 768px) 100vw, 50vw"
                 className="object-cover img-brand-grade"

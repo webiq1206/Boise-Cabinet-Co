@@ -12,8 +12,8 @@ export function ProcessSection() {
       <div className="grid md:grid-cols-2 overflow-hidden">
         <div className="hidden md:block relative min-h-[380px] md:min-h-[560px] overflow-hidden">
           <Image
-            src={SITE_IMAGES.process}
-            alt="Cabinet design review with finish samples and layout plans"
+            src={SITE_IMAGES.processHome}
+            alt="Boise Cabinet Co designer reviewing custom kitchen cabinet layouts and finish samples with homeowners in the Treasure Valley"
             fill
             sizes="(max-width: 768px) 100vw, 50vw"
             className="object-cover img-brand-grade"

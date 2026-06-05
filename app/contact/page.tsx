@@ -284,8 +284,8 @@ export default function ContactPage() {
           <div className="grid md:grid-cols-2 overflow-hidden">
             <div className="relative min-h-[260px] md:min-h-[520px] overflow-hidden bg-inverse order-2 md:order-1">
               <Image
-                src={SITE_IMAGES.process}
-                alt="Cabinet finish samples and design plans during a Boise Cabinet Co consultation"
+                src={SITE_IMAGES.processContact}
+                alt="Boise Cabinet Co designer measuring a kitchen and reviewing cabinet door samples during an in-home consultation"
                 title="Design consultation | Boise Cabinet Co"
                 fill
                 sizes="(max-width: 768px) 100vw, 50vw"

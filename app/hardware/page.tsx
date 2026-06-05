@@ -86,8 +86,8 @@ export default function HardwarePage() {
               )}
             />
             <CatalogPageHero
-              src={MARKETING_IMAGES.process}
-              alt="Cabinet hardware samples on shaker doors, Boise Cabinet Co"
+              src={MARKETING_IMAGES.hardware}
+              alt="Brushed nickel cabinet pulls and knobs on white shaker doors, Boise Cabinet Co"
             />
             <CatalogSearch className="mb-8" />
             <Button variant="brand" asChild>

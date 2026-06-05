@@ -46,10 +46,10 @@ export const BLOG_IMAGE_REGISTRY: Record<string, BlogImageEntry> = {
     source: 'city-service',
   },
   'what-impacts-cabinet-costs-boise': {
-    hero: '/images/marketing/process-design-review.webp',
-    alt: 'Design team reviewing cabinet layouts, finishes, and Treasure Valley project scope with homeowners',
+    hero: '/images/blog/what-impacts-cabinet-costs-boise.png',
+    alt: 'Homeowner and designer comparing cabinet door samples beside an itemized cabinet estimate in a Treasure Valley kitchen',
     topicTags: ["cost","planning","process"],
-    source: 'services',
+    source: 'blog',
   },
   'how-to-budget-cabinets-boise': {
     hero: '/images/marketing/hero-home.webp',
@@ -370,10 +370,10 @@ export const BLOG_IMAGE_REGISTRY: Record<string, BlogImageEntry> = {
     source: 'blog',
   },
   'boise-kitchen-cabinet-guide': {
-    hero: '/images/marketing/hero-design-studio.webp',
-    alt: 'Boise kitchen cabinet guide with layouts, door styles, finishes, and lead times',
+    hero: '/images/blog/boise-kitchen-cabinet-guide.png',
+    alt: 'Custom white shaker kitchen cabinets with island and quartz counters in a bright Boise Idaho home',
     topicTags: ["kitchen","guide","pillar"],
-    source: 'services',
+    source: 'blog',
   },
   'boise-bathroom-vanity-guide': {
     hero: '/images/catalog/rooms/bathroom.webp',
@@ -441,7 +441,6 @@ export const BLOG_ASSET_COPY_MAP: Record<string, string> = {
   'bathroom-vanity-roi-boise': '/images/gallery/gallery-bathroom-after.webp',
   'outdoor-cabinet-roi': '/images/gallery/gallery-outdoor-after.webp',
   'boise-cabinet-guide': '/images/areas/meridian.webp',
-  'choose-cabinet-company-boise': '/images/marketing/process-design-review.webp',
   'cabinet-project-process-guide': '/images/gallery/gallery-whole-home-before.webp',
   'cabinet-roi-guide-boise': '/images/gallery/gallery-kitchen-after.webp',
 };

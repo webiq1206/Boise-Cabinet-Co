@@ -50,10 +50,10 @@ const ENTRIES = {
     source: "city-service",
   },
   "what-impacts-cabinet-costs-boise": {
-    hero: "/images/marketing/process-design-review.webp",
-    alt: "Design team reviewing cabinet layouts, finishes, and Treasure Valley project scope with homeowners",
+    hero: blog("what-impacts-cabinet-costs-boise"),
+    alt: "Homeowner and designer comparing cabinet door samples beside an itemized cabinet estimate in a Treasure Valley kitchen",
     topicTags: ["cost", "planning", "process"],
-    source: "services",
+    source: "blog",
   },
   "how-to-budget-cabinets-boise": {
     hero: "/images/marketing/hero-home.webp",
@@ -408,10 +408,10 @@ const ENTRIES = {
     copyFrom: area("meridian"),
   },
   "boise-kitchen-cabinet-guide": {
-    hero: "/images/marketing/hero-design-studio.webp",
-    alt: "Boise kitchen cabinet guide with layouts, door styles, finishes, and lead times",
+    hero: blog("boise-kitchen-cabinet-guide"),
+    alt: "Custom white shaker kitchen cabinets with island and quartz counters in a bright Boise Idaho home",
     topicTags: ["kitchen", "guide", "pillar"],
-    source: "services",
+    source: "blog",
   },
   "boise-bathroom-vanity-guide": {
     hero: cat("bathroom"),
@@ -436,7 +436,6 @@ const ENTRIES = {
     alt: "Choosing a custom cabinet company in Boise and the Treasure Valley",
     topicTags: ["contractor", "guide", "pillar"],
     source: "blog",
-    copyFrom: "/images/marketing/process-design-review.webp",
   },
   "cabinet-project-process-guide": {
     hero: blog("boise-remodeling-process-guide"),

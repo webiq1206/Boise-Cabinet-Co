@@ -85,7 +85,7 @@ export default function ConstructionPage() {
               )}
             />
             <CatalogPageHero
-              src={MARKETING_IMAGES.process}
+              src={MARKETING_IMAGES.construction}
               alt="CNC cabinet door machining and quality inspection at Boise Cabinet Co Kuna shop"
               title="Cabinet Construction Standards | Boise Cabinet Co"
             />

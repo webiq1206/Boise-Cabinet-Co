@@ -91,10 +91,10 @@ async function main() {
   for (const [col, src] of Object.entries(COLLECTION_SOURCES)) {
     await copyAsWebp(src, `images/catalog/collections/${col}.webp`);
   }
-  console.log("Door style profiles (from process photo):");
+  console.log("Door style profiles (fallback for missing files only):");
   const doorStyles = ["slab", "shaker", "thin-shaker"];
   for (const d of doorStyles) {
-    await copyAsWebp("images/marketing/process-design-review.webp", `images/catalog/door-styles/${d}.webp`);
+    await copyAsWebp("images/marketing/catalog-default.webp", `images/catalog/door-styles/${d}.webp`);
   }
 
   console.log("Hardware product shots:");
@@ -114,8 +114,7 @@ async function main() {
     "outdoor-bar-pull-stainless",
   ];
   const hardwareSources = [
-    "images/marketing/process-design-review.webp",
-    "images/marketing/hero-design-studio.webp",
+    "images/marketing/hero-hardware.webp",
     "images/gallery/gallery-kitchen-after.webp",
     "images/city-service/kitchen-remodel__boise.webp",
     "images/city-service/kitchen-remodel__eagle.webp",

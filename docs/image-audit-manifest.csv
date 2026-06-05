@@ -63,101 +63,106 @@ img-0061,/images/marketing/hero-home.webp,/,hero,critical,2,pending,"Custom kitc
 img-0062,/images/marketing/hero-about.webp,/about,hero,critical,2,pending,"Boise Cabinet Co design team reviewing custom cabinet plans with homeowners in the Treasure Valley, Idaho",shaker,white-oak
 img-0063,/images/marketing/hero-contact.webp,/contact,hero,critical,2,pending,"Custom bathroom vanity cabinets installed in a Meridian Idaho home | Boise Cabinet Co",shaker,white-oak
 img-0064,/images/marketing/hero-design-studio.webp,/design-studio,hero,critical,2,pending,"Boise Cabinet Co Design Studio 3D cabinet preview on laptop in kitchen in the Treasure Valley, Idaho",shaker,white-oak
-img-0065,/images/marketing/process-design-review.webp,/|/about,hero,high,2,pending,"Cabinet finish samples and layout plans during Boise Cabinet Co design consultation in the Treasure Valley, Idaho",shaker,white-oak
-img-0066,/images/marketing/statement-whole-home.webp,/|/about|/contact,hero,high,2,pending,"Whole-home custom cabinet installation in an Eagle Idaho residence | Boise Cabinet Co",shaker,white-oak
-img-0067,/images/marketing/og-default.webp,og,hero,high,2,pending,"Boise Cabinet Co custom kitchen cabinets Treasure Valley Idaho",shaker,white-oak
-img-0068,/images/areas/boise.webp,/areas|/areas/boise,hero,high,2,pending,"Custom cabinets installed in Boise, Idaho by Boise Cabinet Co",,
-img-0069,/images/areas/meridian.webp,/areas|/areas/meridian,hero,high,2,pending,"Custom cabinets installed in Meridian, Idaho by Boise Cabinet Co",,
-img-0070,/images/areas/eagle.webp,/areas|/areas/eagle,hero,high,2,pending,"Custom cabinets installed in Eagle, Idaho by Boise Cabinet Co",,
-img-0071,/images/areas/nampa.webp,/areas|/areas/nampa,hero,high,2,pending,"Custom cabinets installed in Nampa, Idaho by Boise Cabinet Co",,
-img-0072,/images/areas/kuna.webp,/areas|/areas/kuna,hero,high,2,pending,"Custom cabinets installed in Kuna, Idaho by Boise Cabinet Co",,
-img-0073,/images/areas/star.webp,/areas|/areas/star,hero,high,2,pending,"Custom cabinets installed in Star, Idaho by Boise Cabinet Co",,
-img-0074,/images/areas/middleton.webp,/areas|/areas/middleton,hero,high,2,pending,"Custom cabinets installed in Middleton, Idaho by Boise Cabinet Co",,
-img-0075,/images/areas/caldwell.webp,/areas|/areas/caldwell,hero,high,2,pending,"Custom cabinets installed in Caldwell, Idaho by Boise Cabinet Co",,
-img-0076,/images/city-service/kitchen-cabinets__boise.webp,/services/kitchen-cabinets/boise,hero,medium,2,pending,"Kitchen cabinets in Boise, Idaho — Boise Cabinet Co One Source cabinets",shaker,white-oak
-img-0077,/images/city-service/kitchen-cabinets__meridian.webp,/services/kitchen-cabinets/meridian,hero,medium,2,pending,"Kitchen cabinets in Meridian, Idaho — Boise Cabinet Co One Source cabinets",shaker,white-oak
-img-0078,/images/city-service/kitchen-cabinets__eagle.webp,/services/kitchen-cabinets/eagle,hero,medium,2,pending,"Kitchen cabinets in Eagle, Idaho — Boise Cabinet Co One Source cabinets",shaker,white-oak
-img-0079,/images/city-service/kitchen-cabinets__nampa.webp,/services/kitchen-cabinets/nampa,hero,medium,2,pending,"Kitchen cabinets in Nampa, Idaho — Boise Cabinet Co One Source cabinets",shaker,white-oak
-img-0080,/images/city-service/kitchen-cabinets__kuna.webp,/services/kitchen-cabinets/kuna,hero,medium,2,pending,"Kitchen cabinets in Kuna, Idaho — Boise Cabinet Co One Source cabinets",shaker,white-oak
-img-0081,/images/city-service/kitchen-cabinets__star.webp,/services/kitchen-cabinets/star,hero,medium,2,pending,"Kitchen cabinets in Star, Idaho — Boise Cabinet Co One Source cabinets",shaker,white-oak
-img-0082,/images/city-service/kitchen-cabinets__middleton.webp,/services/kitchen-cabinets/middleton,hero,medium,2,pending,"Kitchen cabinets in Middleton, Idaho — Boise Cabinet Co One Source cabinets",shaker,white-oak
-img-0083,/images/city-service/kitchen-cabinets__caldwell.webp,/services/kitchen-cabinets/caldwell,hero,medium,2,pending,"Kitchen cabinets in Caldwell, Idaho — Boise Cabinet Co One Source cabinets",shaker,white-oak
-img-0084,/images/city-service/bathroom-cabinets__boise.webp,/services/bathroom-cabinets/boise,hero,medium,2,pending,"Bathroom vanity cabinets in Boise, Idaho — Boise Cabinet Co One Source cabinets",thin-shaker,glacier
-img-0085,/images/city-service/bathroom-cabinets__meridian.webp,/services/bathroom-cabinets/meridian,hero,medium,2,pending,"Bathroom vanity cabinets in Meridian, Idaho — Boise Cabinet Co One Source cabinets",thin-shaker,glacier
-img-0086,/images/city-service/bathroom-cabinets__eagle.webp,/services/bathroom-cabinets/eagle,hero,medium,2,pending,"Bathroom vanity cabinets in Eagle, Idaho — Boise Cabinet Co One Source cabinets",thin-shaker,glacier
-img-0087,/images/city-service/bathroom-cabinets__nampa.webp,/services/bathroom-cabinets/nampa,hero,medium,2,pending,"Bathroom vanity cabinets in Nampa, Idaho — Boise Cabinet Co One Source cabinets",thin-shaker,glacier
-img-0088,/images/city-service/bathroom-cabinets__kuna.webp,/services/bathroom-cabinets/kuna,hero,medium,2,pending,"Bathroom vanity cabinets in Kuna, Idaho — Boise Cabinet Co One Source cabinets",thin-shaker,glacier
-img-0089,/images/city-service/bathroom-cabinets__star.webp,/services/bathroom-cabinets/star,hero,medium,2,pending,"Bathroom vanity cabinets in Star, Idaho — Boise Cabinet Co One Source cabinets",thin-shaker,glacier
-img-0090,/images/city-service/bathroom-cabinets__middleton.webp,/services/bathroom-cabinets/middleton,hero,medium,2,pending,"Bathroom vanity cabinets in Middleton, Idaho — Boise Cabinet Co One Source cabinets",thin-shaker,glacier
-img-0091,/images/city-service/bathroom-cabinets__caldwell.webp,/services/bathroom-cabinets/caldwell,hero,medium,2,pending,"Bathroom vanity cabinets in Caldwell, Idaho — Boise Cabinet Co One Source cabinets",thin-shaker,glacier
-img-0092,/images/city-service/custom-built-ins__boise.webp,/services/custom-built-ins/boise,hero,medium,2,pending,"Custom built-in cabinets in Boise, Idaho — Boise Cabinet Co One Source cabinets",shaker,natural-walnut
-img-0093,/images/city-service/custom-built-ins__meridian.webp,/services/custom-built-ins/meridian,hero,medium,2,pending,"Custom built-in cabinets in Meridian, Idaho — Boise Cabinet Co One Source cabinets",shaker,natural-walnut
-img-0094,/images/city-service/custom-built-ins__eagle.webp,/services/custom-built-ins/eagle,hero,medium,2,pending,"Custom built-in cabinets in Eagle, Idaho — Boise Cabinet Co One Source cabinets",shaker,natural-walnut
-img-0095,/images/city-service/custom-built-ins__nampa.webp,/services/custom-built-ins/nampa,hero,medium,2,pending,"Custom built-in cabinets in Nampa, Idaho — Boise Cabinet Co One Source cabinets",shaker,natural-walnut
-img-0096,/images/city-service/custom-built-ins__kuna.webp,/services/custom-built-ins/kuna,hero,medium,2,pending,"Custom built-in cabinets in Kuna, Idaho — Boise Cabinet Co One Source cabinets",shaker,natural-walnut
-img-0097,/images/city-service/custom-built-ins__star.webp,/services/custom-built-ins/star,hero,medium,2,pending,"Custom built-in cabinets in Star, Idaho — Boise Cabinet Co One Source cabinets",shaker,natural-walnut
-img-0098,/images/city-service/custom-built-ins__middleton.webp,/services/custom-built-ins/middleton,hero,medium,2,pending,"Custom built-in cabinets in Middleton, Idaho — Boise Cabinet Co One Source cabinets",shaker,natural-walnut
-img-0099,/images/city-service/custom-built-ins__caldwell.webp,/services/custom-built-ins/caldwell,hero,medium,2,pending,"Custom built-in cabinets in Caldwell, Idaho — Boise Cabinet Co One Source cabinets",shaker,natural-walnut
-img-0100,/images/city-service/closet-cabinets__boise.webp,/services/closet-cabinets/boise,hero,medium,2,pending,"Closet cabinet systems in Boise, Idaho — Boise Cabinet Co One Source cabinets",slab,white-oak
-img-0101,/images/city-service/closet-cabinets__meridian.webp,/services/closet-cabinets/meridian,hero,medium,2,pending,"Closet cabinet systems in Meridian, Idaho — Boise Cabinet Co One Source cabinets",slab,white-oak
-img-0102,/images/city-service/closet-cabinets__eagle.webp,/services/closet-cabinets/eagle,hero,medium,2,pending,"Closet cabinet systems in Eagle, Idaho — Boise Cabinet Co One Source cabinets",slab,white-oak
-img-0103,/images/city-service/closet-cabinets__nampa.webp,/services/closet-cabinets/nampa,hero,medium,2,pending,"Closet cabinet systems in Nampa, Idaho — Boise Cabinet Co One Source cabinets",slab,white-oak
-img-0104,/images/city-service/closet-cabinets__kuna.webp,/services/closet-cabinets/kuna,hero,medium,2,pending,"Closet cabinet systems in Kuna, Idaho — Boise Cabinet Co One Source cabinets",slab,white-oak
-img-0105,/images/city-service/closet-cabinets__star.webp,/services/closet-cabinets/star,hero,medium,2,pending,"Closet cabinet systems in Star, Idaho — Boise Cabinet Co One Source cabinets",slab,white-oak
-img-0106,/images/city-service/closet-cabinets__middleton.webp,/services/closet-cabinets/middleton,hero,medium,2,pending,"Closet cabinet systems in Middleton, Idaho — Boise Cabinet Co One Source cabinets",slab,white-oak
-img-0107,/images/city-service/closet-cabinets__caldwell.webp,/services/closet-cabinets/caldwell,hero,medium,2,pending,"Closet cabinet systems in Caldwell, Idaho — Boise Cabinet Co One Source cabinets",slab,white-oak
-img-0108,/images/city-service/whole-home-cabinets__boise.webp,/services/whole-home-cabinets/boise,hero,medium,2,pending,"Whole-home cabinet packages in Boise, Idaho — Boise Cabinet Co One Source cabinets",shaker,snowcap
-img-0109,/images/city-service/whole-home-cabinets__meridian.webp,/services/whole-home-cabinets/meridian,hero,medium,2,pending,"Whole-home cabinet packages in Meridian, Idaho — Boise Cabinet Co One Source cabinets",shaker,snowcap
-img-0110,/images/city-service/whole-home-cabinets__eagle.webp,/services/whole-home-cabinets/eagle,hero,medium,2,pending,"Whole-home cabinet packages in Eagle, Idaho — Boise Cabinet Co One Source cabinets",shaker,snowcap
-img-0111,/images/city-service/whole-home-cabinets__nampa.webp,/services/whole-home-cabinets/nampa,hero,medium,2,pending,"Whole-home cabinet packages in Nampa, Idaho — Boise Cabinet Co One Source cabinets",shaker,snowcap
-img-0112,/images/city-service/whole-home-cabinets__kuna.webp,/services/whole-home-cabinets/kuna,hero,medium,2,pending,"Whole-home cabinet packages in Kuna, Idaho — Boise Cabinet Co One Source cabinets",shaker,snowcap
-img-0113,/images/city-service/whole-home-cabinets__star.webp,/services/whole-home-cabinets/star,hero,medium,2,pending,"Whole-home cabinet packages in Star, Idaho — Boise Cabinet Co One Source cabinets",shaker,snowcap
-img-0114,/images/city-service/whole-home-cabinets__middleton.webp,/services/whole-home-cabinets/middleton,hero,medium,2,pending,"Whole-home cabinet packages in Middleton, Idaho — Boise Cabinet Co One Source cabinets",shaker,snowcap
-img-0115,/images/city-service/whole-home-cabinets__caldwell.webp,/services/whole-home-cabinets/caldwell,hero,medium,2,pending,"Whole-home cabinet packages in Caldwell, Idaho — Boise Cabinet Co One Source cabinets",shaker,snowcap
-img-0116,/images/services/kitchen-cabinets.webp,/services/kitchen-cabinets,hero,medium,2,pending,"Kitchen cabinets by Boise Cabinet Co using One Source panel products in the Treasure Valley, Idaho",shaker,white-oak
-img-0117,/images/services/bathroom-cabinets.webp,/services/bathroom-cabinets,hero,medium,2,pending,"Bathroom vanity cabinets by Boise Cabinet Co using One Source panel products in the Treasure Valley, Idaho",thin-shaker,glacier
-img-0118,/images/services/custom-built-ins.webp,/services/custom-built-ins,hero,medium,2,pending,"Custom built-in cabinets by Boise Cabinet Co using One Source panel products in the Treasure Valley, Idaho",shaker,natural-walnut
-img-0119,/images/services/closet-cabinets.webp,/services/closet-cabinets,hero,medium,2,pending,"Closet cabinet systems by Boise Cabinet Co using One Source panel products in the Treasure Valley, Idaho",slab,white-oak
-img-0120,/images/services/whole-home-cabinets.webp,/services/whole-home-cabinets,hero,medium,2,pending,"Whole-home cabinet packages by Boise Cabinet Co using One Source panel products in the Treasure Valley, Idaho",shaker,snowcap
-img-0121,/images/gallery/gallery-kitchen-before.webp,/|/testimonials,gallery-before,medium,2,pending,"Before: Kitchen cabinet transformation in Treasure Valley Idaho | Boise Cabinet Co",,
-img-0122,/images/gallery/gallery-kitchen-after.webp,/|/testimonials,gallery-after,medium,2,pending,"After: Kitchen cabinet transformation in Treasure Valley Idaho | Boise Cabinet Co",,
-img-0123,/images/gallery/gallery-bathroom-before.webp,/|/testimonials,gallery-before,medium,2,pending,"Before: Bathroom vanity cabinet renovation in Treasure Valley Idaho | Boise Cabinet Co",,
-img-0124,/images/gallery/gallery-bathroom-after.webp,/|/testimonials,gallery-after,medium,2,pending,"After: Bathroom vanity cabinet renovation in Treasure Valley Idaho | Boise Cabinet Co",,
-img-0125,/images/gallery/gallery-whole-home-before.webp,/|/testimonials,gallery-before,medium,2,pending,"Before: Whole-home custom cabinets in Treasure Valley Idaho | Boise Cabinet Co",,
-img-0126,/images/gallery/gallery-whole-home-after.webp,/|/testimonials,gallery-after,medium,2,pending,"After: Whole-home custom cabinets in Treasure Valley Idaho | Boise Cabinet Co",,
-img-0127,/images/gallery/gallery-addition-before.webp,/|/testimonials,gallery-before,medium,2,pending,"Before: Built-in cabinet addition in Treasure Valley Idaho | Boise Cabinet Co",,
-img-0128,/images/gallery/gallery-addition-after.webp,/|/testimonials,gallery-after,medium,2,pending,"After: Built-in cabinet addition in Treasure Valley Idaho | Boise Cabinet Co",,
-img-0129,/images/gallery/gallery-basement-before.webp,/|/testimonials,gallery-before,medium,2,pending,"Before: Basement wet bar cabinets in Treasure Valley Idaho | Boise Cabinet Co",,
-img-0130,/images/gallery/gallery-basement-after.webp,/|/testimonials,gallery-after,medium,2,pending,"After: Basement wet bar cabinets in Treasure Valley Idaho | Boise Cabinet Co",,
-img-0131,/images/gallery/gallery-outdoor-before.webp,/|/testimonials,gallery-before,medium,2,pending,"Before: Outdoor kitchen cabinets in Treasure Valley Idaho | Boise Cabinet Co",,
-img-0132,/images/gallery/gallery-outdoor-after.webp,/|/testimonials,gallery-after,medium,2,pending,"After: Outdoor kitchen cabinets in Treasure Valley Idaho | Boise Cabinet Co",,
-img-0133,/images/catalog/hardware/bar-pull-128-black.webp,/hardware,product,low,3,pending,"Cabinet bar pull 128 black hardware option — Boise Cabinet Co in the Treasure Valley, Idaho",,
-img-0134,/images/catalog/hardware/bar-pull-160-nickel.webp,/hardware,product,low,3,pending,"Cabinet bar pull 160 nickel hardware option — Boise Cabinet Co in the Treasure Valley, Idaho",,
-img-0135,/images/catalog/hardware/cup-pull-gold.webp,/hardware,product,low,3,pending,"Cabinet cup pull gold hardware option — Boise Cabinet Co in the Treasure Valley, Idaho",,
-img-0136,/images/catalog/hardware/finger-edge-pull.webp,/hardware,product,low,3,pending,"Cabinet finger edge pull hardware option — Boise Cabinet Co in the Treasure Valley, Idaho",,
-img-0137,/images/catalog/hardware/j-channel-pull.webp,/hardware,product,low,3,pending,"Cabinet j channel pull hardware option — Boise Cabinet Co in the Treasure Valley, Idaho",,
-img-0138,/images/catalog/hardware/knob-round-nickel.webp,/hardware,product,low,3,pending,"Cabinet knob round nickel hardware option — Boise Cabinet Co in the Treasure Valley, Idaho",,
-img-0139,/images/catalog/hardware/knob-square-black.webp,/hardware,product,low,3,pending,"Cabinet knob square black hardware option — Boise Cabinet Co in the Treasure Valley, Idaho",,
-img-0140,/images/catalog/hardware/glass-knob-chrome.webp,/hardware,product,low,3,pending,"Cabinet glass knob chrome hardware option — Boise Cabinet Co in the Treasure Valley, Idaho",,
-img-0141,/images/catalog/hardware/hinge-soft-close.webp,/hardware,product,low,3,pending,"Cabinet hinge soft close hardware option — Boise Cabinet Co in the Treasure Valley, Idaho",,
-img-0142,/images/catalog/hardware/push-to-open-hinge.webp,/hardware,product,low,3,pending,"Cabinet push to open hinge hardware option — Boise Cabinet Co in the Treasure Valley, Idaho",,
-img-0143,/images/catalog/hardware/slide-soft-close.webp,/hardware,product,low,3,pending,"Cabinet slide soft close hardware option — Boise Cabinet Co in the Treasure Valley, Idaho",,
-img-0144,/images/catalog/hardware/slide-heavy-duty.webp,/hardware,product,low,3,pending,"Cabinet slide heavy duty hardware option — Boise Cabinet Co in the Treasure Valley, Idaho",,
-img-0145,/images/catalog/hardware/outdoor-bar-pull-stainless.webp,/hardware,product,low,3,pending,"Cabinet outdoor bar pull stainless hardware option — Boise Cabinet Co in the Treasure Valley, Idaho",,
-img-0146,/images/catalog/accessories/pull-out-shelf.webp,/accessories,product,low,3,pending,"Cabinet pull out shelf interior accessory — Boise Cabinet Co in the Treasure Valley, Idaho",,
-img-0147,/images/catalog/accessories/pull-out-pantry.webp,/accessories,product,low,3,pending,"Cabinet pull out pantry interior accessory — Boise Cabinet Co in the Treasure Valley, Idaho",,
-img-0148,/images/catalog/accessories/lazy-susan.webp,/accessories,product,low,3,pending,"Cabinet lazy susan interior accessory — Boise Cabinet Co in the Treasure Valley, Idaho",,
-img-0149,/images/catalog/accessories/blind-corner-pullout.webp,/accessories,product,low,3,pending,"Cabinet blind corner pullout interior accessory — Boise Cabinet Co in the Treasure Valley, Idaho",,
-img-0150,/images/catalog/accessories/spice-rack-pullout.webp,/accessories,product,low,3,pending,"Cabinet spice rack pullout interior accessory — Boise Cabinet Co in the Treasure Valley, Idaho",,
-img-0151,/images/catalog/accessories/utensil-divider.webp,/accessories,product,low,3,pending,"Cabinet utensil divider interior accessory — Boise Cabinet Co in the Treasure Valley, Idaho",,
-img-0152,/images/catalog/accessories/peg-board-drawer.webp,/accessories,product,low,3,pending,"Cabinet peg board drawer interior accessory — Boise Cabinet Co in the Treasure Valley, Idaho",,
-img-0153,/images/catalog/accessories/trash-pullout.webp,/accessories,product,low,3,pending,"Cabinet trash pullout interior accessory — Boise Cabinet Co in the Treasure Valley, Idaho",,
-img-0154,/images/catalog/accessories/cutting-board-insert.webp,/accessories,product,low,3,pending,"Cabinet cutting board insert interior accessory — Boise Cabinet Co in the Treasure Valley, Idaho",,
-img-0155,/images/catalog/accessories/mixer-lift.webp,/accessories,product,low,3,pending,"Cabinet mixer lift interior accessory — Boise Cabinet Co in the Treasure Valley, Idaho",,
-img-0156,/images/catalog/accessories/tip-out-tray.webp,/accessories,product,low,3,pending,"Cabinet tip out tray interior accessory — Boise Cabinet Co in the Treasure Valley, Idaho",,
-img-0157,/images/catalog/accessories/vertical-divider.webp,/accessories,product,low,3,pending,"Cabinet vertical divider interior accessory — Boise Cabinet Co in the Treasure Valley, Idaho",,
-img-0158,/images/catalog/accessories/drawer-organizer-kit.webp,/accessories,product,low,3,pending,"Cabinet drawer organizer kit interior accessory — Boise Cabinet Co in the Treasure Valley, Idaho",,
-img-0159,/images/catalog/accessories/led-strip-channel.webp,/accessories,product,low,3,pending,"Cabinet led strip channel interior accessory — Boise Cabinet Co in the Treasure Valley, Idaho",,
-img-0160,/images/catalog/accessories/pull-out-hamper.webp,/accessories,product,low,3,pending,"Cabinet pull out hamper interior accessory — Boise Cabinet Co in the Treasure Valley, Idaho",,
-img-0161,/images/catalog/accessories/wine-rack-insert.webp,/accessories,product,low,3,pending,"Cabinet wine rack insert interior accessory — Boise Cabinet Co in the Treasure Valley, Idaho",,
-img-0162,/images/catalog/accessories/appliance-garage.webp,/accessories,product,low,3,pending,"Cabinet appliance garage interior accessory — Boise Cabinet Co in the Treasure Valley, Idaho",,
+img-0065,/images/marketing/process-home.webp,/,hero,high,2,pending,"Boise Cabinet Co designer reviewing custom kitchen cabinet layouts and finish samples with Treasure Valley homeowners",shaker,white-oak
+img-0066,/images/marketing/process-about.webp,/about,hero,high,2,pending,"Boise Cabinet Co cabinetmaker assembling a frameless cabinet box in the Kuna Idaho shop",shaker,white-oak
+img-0067,/images/marketing/process-contact.webp,/contact,hero,high,2,pending,"Boise Cabinet Co designer measuring a kitchen during an in-home consultation in the Treasure Valley",shaker,white-oak
+img-0068,/images/marketing/hero-hardware.webp,/hardware,hero,critical,2,pending,"Brushed nickel cabinet pulls and knobs on white shaker doors by Boise Cabinet Co in Idaho",shaker,white-oak
+img-0069,/images/marketing/hero-construction.webp,/construction,hero,critical,2,pending,"CNC cabinet door machining at the Boise Cabinet Co Kuna Idaho shop",shaker,white-oak
+img-0070,/images/marketing/catalog-default.webp,/catalog,hero,high,2,pending,"Boise Cabinet Co cabinet door style samples and finish swatches for Treasure Valley homes",shaker,white-oak
+img-0071,/images/marketing/statement-whole-home.webp,/|/about|/contact,hero,high,2,pending,"Whole-home custom cabinet installation in an Eagle Idaho residence | Boise Cabinet Co",shaker,white-oak
+img-0072,/images/marketing/og-default.webp,og,hero,high,2,pending,"Boise Cabinet Co custom kitchen cabinets Treasure Valley Idaho",shaker,white-oak
+img-0073,/images/areas/boise.webp,/areas|/areas/boise,hero,high,2,pending,"Custom cabinets installed in Boise, Idaho by Boise Cabinet Co",,
+img-0074,/images/areas/meridian.webp,/areas|/areas/meridian,hero,high,2,pending,"Custom cabinets installed in Meridian, Idaho by Boise Cabinet Co",,
+img-0075,/images/areas/eagle.webp,/areas|/areas/eagle,hero,high,2,pending,"Custom cabinets installed in Eagle, Idaho by Boise Cabinet Co",,
+img-0076,/images/areas/nampa.webp,/areas|/areas/nampa,hero,high,2,pending,"Custom cabinets installed in Nampa, Idaho by Boise Cabinet Co",,
+img-0077,/images/areas/kuna.webp,/areas|/areas/kuna,hero,high,2,pending,"Custom cabinets installed in Kuna, Idaho by Boise Cabinet Co",,
+img-0078,/images/areas/star.webp,/areas|/areas/star,hero,high,2,pending,"Custom cabinets installed in Star, Idaho by Boise Cabinet Co",,
+img-0079,/images/areas/middleton.webp,/areas|/areas/middleton,hero,high,2,pending,"Custom cabinets installed in Middleton, Idaho by Boise Cabinet Co",,
+img-0080,/images/areas/caldwell.webp,/areas|/areas/caldwell,hero,high,2,pending,"Custom cabinets installed in Caldwell, Idaho by Boise Cabinet Co",,
+img-0081,/images/city-service/kitchen-cabinets__boise.webp,/services/kitchen-cabinets/boise,hero,medium,2,pending,"Kitchen cabinets in Boise, Idaho — Boise Cabinet Co One Source cabinets",shaker,white-oak
+img-0082,/images/city-service/kitchen-cabinets__meridian.webp,/services/kitchen-cabinets/meridian,hero,medium,2,pending,"Kitchen cabinets in Meridian, Idaho — Boise Cabinet Co One Source cabinets",shaker,white-oak
+img-0083,/images/city-service/kitchen-cabinets__eagle.webp,/services/kitchen-cabinets/eagle,hero,medium,2,pending,"Kitchen cabinets in Eagle, Idaho — Boise Cabinet Co One Source cabinets",shaker,white-oak
+img-0084,/images/city-service/kitchen-cabinets__nampa.webp,/services/kitchen-cabinets/nampa,hero,medium,2,pending,"Kitchen cabinets in Nampa, Idaho — Boise Cabinet Co One Source cabinets",shaker,white-oak
+img-0085,/images/city-service/kitchen-cabinets__kuna.webp,/services/kitchen-cabinets/kuna,hero,medium,2,pending,"Kitchen cabinets in Kuna, Idaho — Boise Cabinet Co One Source cabinets",shaker,white-oak
+img-0086,/images/city-service/kitchen-cabinets__star.webp,/services/kitchen-cabinets/star,hero,medium,2,pending,"Kitchen cabinets in Star, Idaho — Boise Cabinet Co One Source cabinets",shaker,white-oak
+img-0087,/images/city-service/kitchen-cabinets__middleton.webp,/services/kitchen-cabinets/middleton,hero,medium,2,pending,"Kitchen cabinets in Middleton, Idaho — Boise Cabinet Co One Source cabinets",shaker,white-oak
+img-0088,/images/city-service/kitchen-cabinets__caldwell.webp,/services/kitchen-cabinets/caldwell,hero,medium,2,pending,"Kitchen cabinets in Caldwell, Idaho — Boise Cabinet Co One Source cabinets",shaker,white-oak
+img-0089,/images/city-service/bathroom-cabinets__boise.webp,/services/bathroom-cabinets/boise,hero,medium,2,pending,"Bathroom vanity cabinets in Boise, Idaho — Boise Cabinet Co One Source cabinets",thin-shaker,glacier
+img-0090,/images/city-service/bathroom-cabinets__meridian.webp,/services/bathroom-cabinets/meridian,hero,medium,2,pending,"Bathroom vanity cabinets in Meridian, Idaho — Boise Cabinet Co One Source cabinets",thin-shaker,glacier
+img-0091,/images/city-service/bathroom-cabinets__eagle.webp,/services/bathroom-cabinets/eagle,hero,medium,2,pending,"Bathroom vanity cabinets in Eagle, Idaho — Boise Cabinet Co One Source cabinets",thin-shaker,glacier
+img-0092,/images/city-service/bathroom-cabinets__nampa.webp,/services/bathroom-cabinets/nampa,hero,medium,2,pending,"Bathroom vanity cabinets in Nampa, Idaho — Boise Cabinet Co One Source cabinets",thin-shaker,glacier
+img-0093,/images/city-service/bathroom-cabinets__kuna.webp,/services/bathroom-cabinets/kuna,hero,medium,2,pending,"Bathroom vanity cabinets in Kuna, Idaho — Boise Cabinet Co One Source cabinets",thin-shaker,glacier
+img-0094,/images/city-service/bathroom-cabinets__star.webp,/services/bathroom-cabinets/star,hero,medium,2,pending,"Bathroom vanity cabinets in Star, Idaho — Boise Cabinet Co One Source cabinets",thin-shaker,glacier
+img-0095,/images/city-service/bathroom-cabinets__middleton.webp,/services/bathroom-cabinets/middleton,hero,medium,2,pending,"Bathroom vanity cabinets in Middleton, Idaho — Boise Cabinet Co One Source cabinets",thin-shaker,glacier
+img-0096,/images/city-service/bathroom-cabinets__caldwell.webp,/services/bathroom-cabinets/caldwell,hero,medium,2,pending,"Bathroom vanity cabinets in Caldwell, Idaho — Boise Cabinet Co One Source cabinets",thin-shaker,glacier
+img-0097,/images/city-service/custom-built-ins__boise.webp,/services/custom-built-ins/boise,hero,medium,2,pending,"Custom built-in cabinets in Boise, Idaho — Boise Cabinet Co One Source cabinets",shaker,natural-walnut
+img-0098,/images/city-service/custom-built-ins__meridian.webp,/services/custom-built-ins/meridian,hero,medium,2,pending,"Custom built-in cabinets in Meridian, Idaho — Boise Cabinet Co One Source cabinets",shaker,natural-walnut
+img-0099,/images/city-service/custom-built-ins__eagle.webp,/services/custom-built-ins/eagle,hero,medium,2,pending,"Custom built-in cabinets in Eagle, Idaho — Boise Cabinet Co One Source cabinets",shaker,natural-walnut
+img-0100,/images/city-service/custom-built-ins__nampa.webp,/services/custom-built-ins/nampa,hero,medium,2,pending,"Custom built-in cabinets in Nampa, Idaho — Boise Cabinet Co One Source cabinets",shaker,natural-walnut
+img-0101,/images/city-service/custom-built-ins__kuna.webp,/services/custom-built-ins/kuna,hero,medium,2,pending,"Custom built-in cabinets in Kuna, Idaho — Boise Cabinet Co One Source cabinets",shaker,natural-walnut
+img-0102,/images/city-service/custom-built-ins__star.webp,/services/custom-built-ins/star,hero,medium,2,pending,"Custom built-in cabinets in Star, Idaho — Boise Cabinet Co One Source cabinets",shaker,natural-walnut
+img-0103,/images/city-service/custom-built-ins__middleton.webp,/services/custom-built-ins/middleton,hero,medium,2,pending,"Custom built-in cabinets in Middleton, Idaho — Boise Cabinet Co One Source cabinets",shaker,natural-walnut
+img-0104,/images/city-service/custom-built-ins__caldwell.webp,/services/custom-built-ins/caldwell,hero,medium,2,pending,"Custom built-in cabinets in Caldwell, Idaho — Boise Cabinet Co One Source cabinets",shaker,natural-walnut
+img-0105,/images/city-service/closet-cabinets__boise.webp,/services/closet-cabinets/boise,hero,medium,2,pending,"Closet cabinet systems in Boise, Idaho — Boise Cabinet Co One Source cabinets",slab,white-oak
+img-0106,/images/city-service/closet-cabinets__meridian.webp,/services/closet-cabinets/meridian,hero,medium,2,pending,"Closet cabinet systems in Meridian, Idaho — Boise Cabinet Co One Source cabinets",slab,white-oak
+img-0107,/images/city-service/closet-cabinets__eagle.webp,/services/closet-cabinets/eagle,hero,medium,2,pending,"Closet cabinet systems in Eagle, Idaho — Boise Cabinet Co One Source cabinets",slab,white-oak
+img-0108,/images/city-service/closet-cabinets__nampa.webp,/services/closet-cabinets/nampa,hero,medium,2,pending,"Closet cabinet systems in Nampa, Idaho — Boise Cabinet Co One Source cabinets",slab,white-oak
+img-0109,/images/city-service/closet-cabinets__kuna.webp,/services/closet-cabinets/kuna,hero,medium,2,pending,"Closet cabinet systems in Kuna, Idaho — Boise Cabinet Co One Source cabinets",slab,white-oak
+img-0110,/images/city-service/closet-cabinets__star.webp,/services/closet-cabinets/star,hero,medium,2,pending,"Closet cabinet systems in Star, Idaho — Boise Cabinet Co One Source cabinets",slab,white-oak
+img-0111,/images/city-service/closet-cabinets__middleton.webp,/services/closet-cabinets/middleton,hero,medium,2,pending,"Closet cabinet systems in Middleton, Idaho — Boise Cabinet Co One Source cabinets",slab,white-oak
+img-0112,/images/city-service/closet-cabinets__caldwell.webp,/services/closet-cabinets/caldwell,hero,medium,2,pending,"Closet cabinet systems in Caldwell, Idaho — Boise Cabinet Co One Source cabinets",slab,white-oak
+img-0113,/images/city-service/whole-home-cabinets__boise.webp,/services/whole-home-cabinets/boise,hero,medium,2,pending,"Whole-home cabinet packages in Boise, Idaho — Boise Cabinet Co One Source cabinets",shaker,snowcap
+img-0114,/images/city-service/whole-home-cabinets__meridian.webp,/services/whole-home-cabinets/meridian,hero,medium,2,pending,"Whole-home cabinet packages in Meridian, Idaho — Boise Cabinet Co One Source cabinets",shaker,snowcap
+img-0115,/images/city-service/whole-home-cabinets__eagle.webp,/services/whole-home-cabinets/eagle,hero,medium,2,pending,"Whole-home cabinet packages in Eagle, Idaho — Boise Cabinet Co One Source cabinets",shaker,snowcap
+img-0116,/images/city-service/whole-home-cabinets__nampa.webp,/services/whole-home-cabinets/nampa,hero,medium,2,pending,"Whole-home cabinet packages in Nampa, Idaho — Boise Cabinet Co One Source cabinets",shaker,snowcap
+img-0117,/images/city-service/whole-home-cabinets__kuna.webp,/services/whole-home-cabinets/kuna,hero,medium,2,pending,"Whole-home cabinet packages in Kuna, Idaho — Boise Cabinet Co One Source cabinets",shaker,snowcap
+img-0118,/images/city-service/whole-home-cabinets__star.webp,/services/whole-home-cabinets/star,hero,medium,2,pending,"Whole-home cabinet packages in Star, Idaho — Boise Cabinet Co One Source cabinets",shaker,snowcap
+img-0119,/images/city-service/whole-home-cabinets__middleton.webp,/services/whole-home-cabinets/middleton,hero,medium,2,pending,"Whole-home cabinet packages in Middleton, Idaho — Boise Cabinet Co One Source cabinets",shaker,snowcap
+img-0120,/images/city-service/whole-home-cabinets__caldwell.webp,/services/whole-home-cabinets/caldwell,hero,medium,2,pending,"Whole-home cabinet packages in Caldwell, Idaho — Boise Cabinet Co One Source cabinets",shaker,snowcap
+img-0121,/images/services/kitchen-cabinets.webp,/services/kitchen-cabinets,hero,medium,2,pending,"Kitchen cabinets by Boise Cabinet Co using One Source panel products in the Treasure Valley, Idaho",shaker,white-oak
+img-0122,/images/services/bathroom-cabinets.webp,/services/bathroom-cabinets,hero,medium,2,pending,"Bathroom vanity cabinets by Boise Cabinet Co using One Source panel products in the Treasure Valley, Idaho",thin-shaker,glacier
+img-0123,/images/services/custom-built-ins.webp,/services/custom-built-ins,hero,medium,2,pending,"Custom built-in cabinets by Boise Cabinet Co using One Source panel products in the Treasure Valley, Idaho",shaker,natural-walnut
+img-0124,/images/services/closet-cabinets.webp,/services/closet-cabinets,hero,medium,2,pending,"Closet cabinet systems by Boise Cabinet Co using One Source panel products in the Treasure Valley, Idaho",slab,white-oak
+img-0125,/images/services/whole-home-cabinets.webp,/services/whole-home-cabinets,hero,medium,2,pending,"Whole-home cabinet packages by Boise Cabinet Co using One Source panel products in the Treasure Valley, Idaho",shaker,snowcap
+img-0126,/images/gallery/gallery-kitchen-before.webp,/|/testimonials,gallery-before,medium,2,pending,"Before: Kitchen cabinet transformation in Treasure Valley Idaho | Boise Cabinet Co",,
+img-0127,/images/gallery/gallery-kitchen-after.webp,/|/testimonials,gallery-after,medium,2,pending,"After: Kitchen cabinet transformation in Treasure Valley Idaho | Boise Cabinet Co",,
+img-0128,/images/gallery/gallery-bathroom-before.webp,/|/testimonials,gallery-before,medium,2,pending,"Before: Bathroom vanity cabinet renovation in Treasure Valley Idaho | Boise Cabinet Co",,
+img-0129,/images/gallery/gallery-bathroom-after.webp,/|/testimonials,gallery-after,medium,2,pending,"After: Bathroom vanity cabinet renovation in Treasure Valley Idaho | Boise Cabinet Co",,
+img-0130,/images/gallery/gallery-whole-home-before.webp,/|/testimonials,gallery-before,medium,2,pending,"Before: Whole-home custom cabinets in Treasure Valley Idaho | Boise Cabinet Co",,
+img-0131,/images/gallery/gallery-whole-home-after.webp,/|/testimonials,gallery-after,medium,2,pending,"After: Whole-home custom cabinets in Treasure Valley Idaho | Boise Cabinet Co",,
+img-0132,/images/gallery/gallery-addition-before.webp,/|/testimonials,gallery-before,medium,2,pending,"Before: Built-in cabinet addition in Treasure Valley Idaho | Boise Cabinet Co",,
+img-0133,/images/gallery/gallery-addition-after.webp,/|/testimonials,gallery-after,medium,2,pending,"After: Built-in cabinet addition in Treasure Valley Idaho | Boise Cabinet Co",,
+img-0134,/images/gallery/gallery-basement-before.webp,/|/testimonials,gallery-before,medium,2,pending,"Before: Basement wet bar cabinets in Treasure Valley Idaho | Boise Cabinet Co",,
+img-0135,/images/gallery/gallery-basement-after.webp,/|/testimonials,gallery-after,medium,2,pending,"After: Basement wet bar cabinets in Treasure Valley Idaho | Boise Cabinet Co",,
+img-0136,/images/gallery/gallery-outdoor-before.webp,/|/testimonials,gallery-before,medium,2,pending,"Before: Outdoor kitchen cabinets in Treasure Valley Idaho | Boise Cabinet Co",,
+img-0137,/images/gallery/gallery-outdoor-after.webp,/|/testimonials,gallery-after,medium,2,pending,"After: Outdoor kitchen cabinets in Treasure Valley Idaho | Boise Cabinet Co",,
+img-0138,/images/catalog/hardware/bar-pull-128-black.webp,/hardware,product,low,3,pending,"Cabinet bar pull 128 black hardware option — Boise Cabinet Co in the Treasure Valley, Idaho",,
+img-0139,/images/catalog/hardware/bar-pull-160-nickel.webp,/hardware,product,low,3,pending,"Cabinet bar pull 160 nickel hardware option — Boise Cabinet Co in the Treasure Valley, Idaho",,
+img-0140,/images/catalog/hardware/cup-pull-gold.webp,/hardware,product,low,3,pending,"Cabinet cup pull gold hardware option — Boise Cabinet Co in the Treasure Valley, Idaho",,
+img-0141,/images/catalog/hardware/finger-edge-pull.webp,/hardware,product,low,3,pending,"Cabinet finger edge pull hardware option — Boise Cabinet Co in the Treasure Valley, Idaho",,
+img-0142,/images/catalog/hardware/j-channel-pull.webp,/hardware,product,low,3,pending,"Cabinet j channel pull hardware option — Boise Cabinet Co in the Treasure Valley, Idaho",,
+img-0143,/images/catalog/hardware/knob-round-nickel.webp,/hardware,product,low,3,pending,"Cabinet knob round nickel hardware option — Boise Cabinet Co in the Treasure Valley, Idaho",,
+img-0144,/images/catalog/hardware/knob-square-black.webp,/hardware,product,low,3,pending,"Cabinet knob square black hardware option — Boise Cabinet Co in the Treasure Valley, Idaho",,
+img-0145,/images/catalog/hardware/glass-knob-chrome.webp,/hardware,product,low,3,pending,"Cabinet glass knob chrome hardware option — Boise Cabinet Co in the Treasure Valley, Idaho",,
+img-0146,/images/catalog/hardware/hinge-soft-close.webp,/hardware,product,low,3,pending,"Cabinet hinge soft close hardware option — Boise Cabinet Co in the Treasure Valley, Idaho",,
+img-0147,/images/catalog/hardware/push-to-open-hinge.webp,/hardware,product,low,3,pending,"Cabinet push to open hinge hardware option — Boise Cabinet Co in the Treasure Valley, Idaho",,
+img-0148,/images/catalog/hardware/slide-soft-close.webp,/hardware,product,low,3,pending,"Cabinet slide soft close hardware option — Boise Cabinet Co in the Treasure Valley, Idaho",,
+img-0149,/images/catalog/hardware/slide-heavy-duty.webp,/hardware,product,low,3,pending,"Cabinet slide heavy duty hardware option — Boise Cabinet Co in the Treasure Valley, Idaho",,
+img-0150,/images/catalog/hardware/outdoor-bar-pull-stainless.webp,/hardware,product,low,3,pending,"Cabinet outdoor bar pull stainless hardware option — Boise Cabinet Co in the Treasure Valley, Idaho",,
+img-0151,/images/catalog/accessories/pull-out-shelf.webp,/accessories,product,low,3,pending,"Cabinet pull out shelf interior accessory — Boise Cabinet Co in the Treasure Valley, Idaho",,
+img-0152,/images/catalog/accessories/pull-out-pantry.webp,/accessories,product,low,3,pending,"Cabinet pull out pantry interior accessory — Boise Cabinet Co in the Treasure Valley, Idaho",,
+img-0153,/images/catalog/accessories/lazy-susan.webp,/accessories,product,low,3,pending,"Cabinet lazy susan interior accessory — Boise Cabinet Co in the Treasure Valley, Idaho",,
+img-0154,/images/catalog/accessories/blind-corner-pullout.webp,/accessories,product,low,3,pending,"Cabinet blind corner pullout interior accessory — Boise Cabinet Co in the Treasure Valley, Idaho",,
+img-0155,/images/catalog/accessories/spice-rack-pullout.webp,/accessories,product,low,3,pending,"Cabinet spice rack pullout interior accessory — Boise Cabinet Co in the Treasure Valley, Idaho",,
+img-0156,/images/catalog/accessories/utensil-divider.webp,/accessories,product,low,3,pending,"Cabinet utensil divider interior accessory — Boise Cabinet Co in the Treasure Valley, Idaho",,
+img-0157,/images/catalog/accessories/peg-board-drawer.webp,/accessories,product,low,3,pending,"Cabinet peg board drawer interior accessory — Boise Cabinet Co in the Treasure Valley, Idaho",,
+img-0158,/images/catalog/accessories/trash-pullout.webp,/accessories,product,low,3,pending,"Cabinet trash pullout interior accessory — Boise Cabinet Co in the Treasure Valley, Idaho",,
+img-0159,/images/catalog/accessories/cutting-board-insert.webp,/accessories,product,low,3,pending,"Cabinet cutting board insert interior accessory — Boise Cabinet Co in the Treasure Valley, Idaho",,
+img-0160,/images/catalog/accessories/mixer-lift.webp,/accessories,product,low,3,pending,"Cabinet mixer lift interior accessory — Boise Cabinet Co in the Treasure Valley, Idaho",,
+img-0161,/images/catalog/accessories/tip-out-tray.webp,/accessories,product,low,3,pending,"Cabinet tip out tray interior accessory — Boise Cabinet Co in the Treasure Valley, Idaho",,
+img-0162,/images/catalog/accessories/vertical-divider.webp,/accessories,product,low,3,pending,"Cabinet vertical divider interior accessory — Boise Cabinet Co in the Treasure Valley, Idaho",,
+img-0163,/images/catalog/accessories/drawer-organizer-kit.webp,/accessories,product,low,3,pending,"Cabinet drawer organizer kit interior accessory — Boise Cabinet Co in the Treasure Valley, Idaho",,
+img-0164,/images/catalog/accessories/led-strip-channel.webp,/accessories,product,low,3,pending,"Cabinet led strip channel interior accessory — Boise Cabinet Co in the Treasure Valley, Idaho",,
+img-0165,/images/catalog/accessories/pull-out-hamper.webp,/accessories,product,low,3,pending,"Cabinet pull out hamper interior accessory — Boise Cabinet Co in the Treasure Valley, Idaho",,
+img-0166,/images/catalog/accessories/wine-rack-insert.webp,/accessories,product,low,3,pending,"Cabinet wine rack insert interior accessory — Boise Cabinet Co in the Treasure Valley, Idaho",,
+img-0167,/images/catalog/accessories/appliance-garage.webp,/accessories,product,low,3,pending,"Cabinet appliance garage interior accessory — Boise Cabinet Co in the Treasure Valley, Idaho",,

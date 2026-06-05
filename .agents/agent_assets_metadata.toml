@@ -449,7 +449,7 @@ title = "spec-grade kitchen"
 id = "yULseY1JYR-sNnD0sYbJx"
 uri = "file://public/images/catalog/door-styles/slab.png"
 type = "image"
-title = "generated_image"
+title = "slab door style"
 
 [[generated]]
 id = "n6bu2V5yNrybiULIUkJtl"
@@ -461,7 +461,7 @@ title = "generated_image"
 id = "R1dPM4nFIbg74AYNiMpt_"
 uri = "file://public/images/catalog/door-styles/thin-shaker.png"
 type = "image"
-title = "generated_image"
+title = "thin shaker door style"
 
 [[generated]]
 id = "VIIzzM8Pa9F7haKSlraoX"
@@ -485,13 +485,13 @@ title = "generated_image"
 id = "Loq-Zw2y0j7xQ9aSwhThk"
 uri = "file://public/images/catalog/hardware/bar-pull-128-black.png"
 type = "image"
-title = "generated_image"
+title = "black bar pull"
 
 [[generated]]
 id = "qWox_VzTLSsbCYeL6mmaD"
 uri = "file://public/images/catalog/hardware/bar-pull-160-nickel.png"
 type = "image"
-title = "generated_image"
+title = "nickel bar pull"
 
 [[generated]]
 id = "BF5Fd8Vl2u3TQ7NxdMmEH"
@@ -515,13 +515,13 @@ title = "generated_image"
 id = "I3jVMLzzcjXj-zD9xakjS"
 uri = "file://public/images/catalog/hardware/knob-round-nickel.png"
 type = "image"
-title = "generated_image"
+title = "round nickel knob"
 
 [[generated]]
 id = "UZ9QmeacPLTFKwd09Tlat"
 uri = "file://public/images/catalog/hardware/knob-square-black.png"
 type = "image"
-title = "generated_image"
+title = "square black knob"
 
 [[generated]]
 id = "OJYCimGE3GnUPwpUd6Uzc"
@@ -545,13 +545,13 @@ title = "generated_image"
 id = "QfimWNgJ9JZC6daC5IhFj"
 uri = "file://public/images/catalog/hardware/slide-soft-close.png"
 type = "image"
-title = "generated_image"
+title = "soft close drawer slide"
 
 [[generated]]
 id = "H5p9UTljnVl16IK6Vc5Ed"
 uri = "file://public/images/catalog/hardware/slide-heavy-duty.png"
 type = "image"
-title = "generated_image"
+title = "heavy duty drawer slide"
 
 [[generated]]
 id = "ZlXLXZRLwz-pSFrD0QwSS"
@@ -918,3 +918,69 @@ id = "1O-xb7x_cxpdpQ_m62mOp"
 uri = "file://attached_assets/generated_images/category-matte.png"
 type = "image"
 title = "generated_image"
+
+[[generated]]
+id = "o3S0BDw6DdORVoSagDC1b"
+uri = "file://public/images/process-home.png"
+type = "image"
+title = "process home design review"
+
+[[generated]]
+id = "3znYHzCbz0my8ekfGzInU"
+uri = "file://public/images/process-about.png"
+type = "image"
+title = "cabinet shop craftsmanship"
+
+[[generated]]
+id = "LyqXCYvuAShYSb8VBtvgB"
+uri = "file://public/images/process-contact.png"
+type = "image"
+title = "in home consultation"
+
+[[generated]]
+id = "6HDTLu8HodJCkgVGtkwrt"
+uri = "file://public/images/design-studio.png"
+type = "image"
+title = "design studio 3d preview"
+
+[[generated]]
+id = "PcF7IcG6YVaabaePIvnSh"
+uri = "file://public/images/hardware-hero.png"
+type = "image"
+title = "cabinet hardware detail"
+
+[[generated]]
+id = "VjiCmz7cey037lpiraEsZ"
+uri = "file://public/images/construction-hero.png"
+type = "image"
+title = "cnc cabinet construction"
+
+[[generated]]
+id = "ZMYdNM9llm72Q_hhqy4vL"
+uri = "file://public/images/catalog-default.png"
+type = "image"
+title = "catalog door style overview"
+
+[[generated]]
+id = "TRkab-MsAnh1T3Y9mTzem"
+uri = "file://public/images/catalog/door-styles/shaker.png"
+type = "image"
+title = "shaker door style"
+
+[[generated]]
+id = "KLrpoLJB8BDgT-IOSreHv"
+uri = "file://public/images/blog/what-impacts-cabinet-costs-boise.png"
+type = "image"
+title = "cabinet cost factors"
+
+[[generated]]
+id = "H4O8_aGPoLc7-afvHEXnF"
+uri = "file://public/images/blog/boise-kitchen-cabinet-guide.png"
+type = "image"
+title = "boise kitchen guide"
+
+[[generated]]
+id = "E7NBtKqqPMfPXxiWpjKfj"
+uri = "file://public/images/blog/choose-remodeling-contractor-boise.png"
+type = "image"
+title = "choosing a cabinet company"

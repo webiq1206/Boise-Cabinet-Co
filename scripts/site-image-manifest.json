@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-06-05T13:41:41.082Z",
+  "generatedAt": "2026-06-05T16:48:39.770Z",
   "styleSuffix": "Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
   "entries": [
     {
@@ -1631,21 +1631,135 @@
         "webp",
         "png"
       ],
-      "outputPath": "/images/marketing/process-design-review.webp",
+      "outputPath": "/images/marketing/process-home.webp",
       "pages": [
-        "/",
+        "/"
+      ],
+      "placement": "hero",
+      "doorStyleId": "shaker",
+      "finishId": "white-oak",
+      "promptScene": "Boise Cabinet Co designer reviewing custom kitchen cabinet layouts and finish samples with Treasure Valley homeowners, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "alt": "Boise Cabinet Co designer reviewing custom kitchen cabinet layouts and finish samples with Treasure Valley homeowners",
+      "title": "Boise Cabinet Co Custom Cabinets",
+      "caption": "Boise Cabinet Co designer reviewing custom kitchen cabinet layouts and finish samples with Treasure Valley homeowners"
+    },
+    {
+      "id": "img-0066",
+      "status": "pending",
+      "phase": 2,
+      "priority": "high",
+      "width": 1792,
+      "height": 1024,
+      "formats": [
+        "webp",
+        "png"
+      ],
+      "outputPath": "/images/marketing/process-about.webp",
+      "pages": [
         "/about"
       ],
       "placement": "hero",
       "doorStyleId": "shaker",
       "finishId": "white-oak",
-      "promptScene": "Cabinet finish samples and layout plans during Boise Cabinet Co design consultation, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
-      "alt": "Cabinet finish samples and layout plans during Boise Cabinet Co design consultation in the Treasure Valley, Idaho",
+      "promptScene": "Boise Cabinet Co cabinetmaker assembling a frameless cabinet box in the Kuna Idaho shop, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "alt": "Boise Cabinet Co cabinetmaker assembling a frameless cabinet box in the Kuna Idaho shop",
       "title": "Boise Cabinet Co Custom Cabinets",
-      "caption": "Cabinet finish samples and layout plans during Boise Cabinet Co design consultation"
+      "caption": "Boise Cabinet Co cabinetmaker assembling a frameless cabinet box in the Kuna Idaho shop"
     },
     {
-      "id": "img-0066",
+      "id": "img-0067",
+      "status": "pending",
+      "phase": 2,
+      "priority": "high",
+      "width": 1792,
+      "height": 1024,
+      "formats": [
+        "webp",
+        "png"
+      ],
+      "outputPath": "/images/marketing/process-contact.webp",
+      "pages": [
+        "/contact"
+      ],
+      "placement": "hero",
+      "doorStyleId": "shaker",
+      "finishId": "white-oak",
+      "promptScene": "Boise Cabinet Co designer measuring a kitchen during an in-home consultation in the Treasure Valley, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "alt": "Boise Cabinet Co designer measuring a kitchen during an in-home consultation in the Treasure Valley",
+      "title": "Boise Cabinet Co Custom Cabinets",
+      "caption": "Boise Cabinet Co designer measuring a kitchen during an in-home consultation in the Treasure Valley"
+    },
+    {
+      "id": "img-0068",
+      "status": "pending",
+      "phase": 2,
+      "priority": "critical",
+      "width": 1792,
+      "height": 1024,
+      "formats": [
+        "webp",
+        "png"
+      ],
+      "outputPath": "/images/marketing/hero-hardware.webp",
+      "pages": [
+        "/hardware"
+      ],
+      "placement": "hero",
+      "doorStyleId": "shaker",
+      "finishId": "white-oak",
+      "promptScene": "Brushed nickel cabinet pulls and knobs on white shaker doors by Boise Cabinet Co in Idaho, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "alt": "Brushed nickel cabinet pulls and knobs on white shaker doors by Boise Cabinet Co in Idaho",
+      "title": "Boise Cabinet Co Custom Cabinets",
+      "caption": "Brushed nickel cabinet pulls and knobs on white shaker doors by Boise Cabinet Co in Idaho"
+    },
+    {
+      "id": "img-0069",
+      "status": "pending",
+      "phase": 2,
+      "priority": "critical",
+      "width": 1792,
+      "height": 1024,
+      "formats": [
+        "webp",
+        "png"
+      ],
+      "outputPath": "/images/marketing/hero-construction.webp",
+      "pages": [
+        "/construction"
+      ],
+      "placement": "hero",
+      "doorStyleId": "shaker",
+      "finishId": "white-oak",
+      "promptScene": "CNC cabinet door machining at the Boise Cabinet Co Kuna Idaho shop, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "alt": "CNC cabinet door machining at the Boise Cabinet Co Kuna Idaho shop",
+      "title": "Boise Cabinet Co Custom Cabinets",
+      "caption": "CNC cabinet door machining at the Boise Cabinet Co Kuna Idaho shop"
+    },
+    {
+      "id": "img-0070",
+      "status": "pending",
+      "phase": 2,
+      "priority": "high",
+      "width": 1792,
+      "height": 1024,
+      "formats": [
+        "webp",
+        "png"
+      ],
+      "outputPath": "/images/marketing/catalog-default.webp",
+      "pages": [
+        "/catalog"
+      ],
+      "placement": "hero",
+      "doorStyleId": "shaker",
+      "finishId": "white-oak",
+      "promptScene": "Boise Cabinet Co cabinet door style samples and finish swatches for Treasure Valley homes, Photorealistic architectural interior in Treasure Valley Idaho, natural window light, no people, no text, no watermarks",
+      "alt": "Boise Cabinet Co cabinet door style samples and finish swatches for Treasure Valley homes",
+      "title": "Boise Cabinet Co Custom Cabinets",
+      "caption": "Boise Cabinet Co cabinet door style samples and finish swatches for Treasure Valley homes"
+    },
+    {
+      "id": "img-0071",
       "status": "pending",
       "phase": 2,
       "priority": "high",
@@ -1670,7 +1784,7 @@
       "caption": "Whole-home custom cabinet installation in an Eagle Idaho residence"
     },
     {
-      "id": "img-0067",
+      "id": "img-0072",
       "status": "pending",
       "phase": 2,
       "priority": "high",
@@ -1693,7 +1807,7 @@
       "caption": "Boise Cabinet Co custom kitchen cabinets Treasure Valley Idaho"
     },
     {
-      "id": "img-0068",
+      "id": "img-0073",
       "status": "pending",
       "phase": 2,
       "priority": "high",
@@ -1715,7 +1829,7 @@
       "caption": "Boise Cabinet Co custom cabinet projects serving Boise and the Treasure Valley."
     },
     {
-      "id": "img-0069",
+      "id": "img-0074",
       "status": "pending",
       "phase": 2,
       "priority": "high",
@@ -1737,7 +1851,7 @@
       "caption": "Boise Cabinet Co custom cabinet projects serving Meridian and the Treasure Valley."
     },
     {
-      "id": "img-0070",
+      "id": "img-0075",
       "status": "pending",
       "phase": 2,
       "priority": "high",
@@ -1759,7 +1873,7 @@
       "caption": "Boise Cabinet Co custom cabinet projects serving Eagle and the Treasure Valley."
     },
     {
-      "id": "img-0071",
+      "id": "img-0076",
       "status": "pending",
       "phase": 2,
       "priority": "high",
@@ -1781,7 +1895,7 @@
       "caption": "Boise Cabinet Co custom cabinet projects serving Nampa and the Treasure Valley."
     },
     {
-      "id": "img-0072",
+      "id": "img-0077",
       "status": "pending",
       "phase": 2,
       "priority": "high",
@@ -1803,7 +1917,7 @@
       "caption": "Boise Cabinet Co custom cabinet projects serving Kuna and the Treasure Valley."
     },
     {
-      "id": "img-0073",
+      "id": "img-0078",
       "status": "pending",
       "phase": 2,
       "priority": "high",
@@ -1825,7 +1939,7 @@
       "caption": "Boise Cabinet Co custom cabinet projects serving Star and the Treasure Valley."
     },
     {
-      "id": "img-0074",
+      "id": "img-0079",
       "status": "pending",
       "phase": 2,
       "priority": "high",
@@ -1847,7 +1961,7 @@
       "caption": "Boise Cabinet Co custom cabinet projects serving Middleton and the Treasure Valley."
     },
     {
-      "id": "img-0075",
+      "id": "img-0080",
       "status": "pending",
       "phase": 2,
       "priority": "high",
@@ -1869,7 +1983,7 @@
       "caption": "Boise Cabinet Co custom cabinet projects serving Caldwell and the Treasure Valley."
     },
     {
-      "id": "img-0076",
+      "id": "img-0081",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -1892,7 +2006,7 @@
       "caption": "Custom kitchen cabinets for Boise homeowners by Boise Cabinet Co."
     },
     {
-      "id": "img-0077",
+      "id": "img-0082",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -1915,7 +2029,7 @@
       "caption": "Custom kitchen cabinets for Meridian homeowners by Boise Cabinet Co."
     },
     {
-      "id": "img-0078",
+      "id": "img-0083",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -1938,7 +2052,7 @@
       "caption": "Custom kitchen cabinets for Eagle homeowners by Boise Cabinet Co."
     },
     {
-      "id": "img-0079",
+      "id": "img-0084",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -1961,7 +2075,7 @@
       "caption": "Custom kitchen cabinets for Nampa homeowners by Boise Cabinet Co."
     },
     {
-      "id": "img-0080",
+      "id": "img-0085",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -1984,7 +2098,7 @@
       "caption": "Custom kitchen cabinets for Kuna homeowners by Boise Cabinet Co."
     },
     {
-      "id": "img-0081",
+      "id": "img-0086",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -2007,7 +2121,7 @@
       "caption": "Custom kitchen cabinets for Star homeowners by Boise Cabinet Co."
     },
     {
-      "id": "img-0082",
+      "id": "img-0087",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -2030,7 +2144,7 @@
       "caption": "Custom kitchen cabinets for Middleton homeowners by Boise Cabinet Co."
     },
     {
-      "id": "img-0083",
+      "id": "img-0088",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -2053,7 +2167,7 @@
       "caption": "Custom kitchen cabinets for Caldwell homeowners by Boise Cabinet Co."
     },
     {
-      "id": "img-0084",
+      "id": "img-0089",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -2076,7 +2190,7 @@
       "caption": "Custom bathroom vanity cabinets for Boise homeowners by Boise Cabinet Co."
     },
     {
-      "id": "img-0085",
+      "id": "img-0090",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -2099,7 +2213,7 @@
       "caption": "Custom bathroom vanity cabinets for Meridian homeowners by Boise Cabinet Co."
     },
     {
-      "id": "img-0086",
+      "id": "img-0091",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -2122,7 +2236,7 @@
       "caption": "Custom bathroom vanity cabinets for Eagle homeowners by Boise Cabinet Co."
     },
     {
-      "id": "img-0087",
+      "id": "img-0092",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -2145,7 +2259,7 @@
       "caption": "Custom bathroom vanity cabinets for Nampa homeowners by Boise Cabinet Co."
     },
     {
-      "id": "img-0088",
+      "id": "img-0093",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -2168,7 +2282,7 @@
       "caption": "Custom bathroom vanity cabinets for Kuna homeowners by Boise Cabinet Co."
     },
     {
-      "id": "img-0089",
+      "id": "img-0094",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -2191,7 +2305,7 @@
       "caption": "Custom bathroom vanity cabinets for Star homeowners by Boise Cabinet Co."
     },
     {
-      "id": "img-0090",
+      "id": "img-0095",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -2214,7 +2328,7 @@
       "caption": "Custom bathroom vanity cabinets for Middleton homeowners by Boise Cabinet Co."
     },
     {
-      "id": "img-0091",
+      "id": "img-0096",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -2237,7 +2351,7 @@
       "caption": "Custom bathroom vanity cabinets for Caldwell homeowners by Boise Cabinet Co."
     },
     {
-      "id": "img-0092",
+      "id": "img-0097",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -2260,7 +2374,7 @@
       "caption": "Custom custom built-in cabinets for Boise homeowners by Boise Cabinet Co."
     },
     {
-      "id": "img-0093",
+      "id": "img-0098",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -2283,7 +2397,7 @@
       "caption": "Custom custom built-in cabinets for Meridian homeowners by Boise Cabinet Co."
     },
     {
-      "id": "img-0094",
+      "id": "img-0099",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -2306,7 +2420,7 @@
       "caption": "Custom custom built-in cabinets for Eagle homeowners by Boise Cabinet Co."
     },
     {
-      "id": "img-0095",
+      "id": "img-0100",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -2329,7 +2443,7 @@
       "caption": "Custom custom built-in cabinets for Nampa homeowners by Boise Cabinet Co."
     },
     {
-      "id": "img-0096",
+      "id": "img-0101",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -2352,7 +2466,7 @@
       "caption": "Custom custom built-in cabinets for Kuna homeowners by Boise Cabinet Co."
     },
     {
-      "id": "img-0097",
+      "id": "img-0102",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -2375,7 +2489,7 @@
       "caption": "Custom custom built-in cabinets for Star homeowners by Boise Cabinet Co."
     },
     {
-      "id": "img-0098",
+      "id": "img-0103",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -2398,7 +2512,7 @@
       "caption": "Custom custom built-in cabinets for Middleton homeowners by Boise Cabinet Co."
     },
     {
-      "id": "img-0099",
+      "id": "img-0104",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -2421,7 +2535,7 @@
       "caption": "Custom custom built-in cabinets for Caldwell homeowners by Boise Cabinet Co."
     },
     {
-      "id": "img-0100",
+      "id": "img-0105",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -2444,7 +2558,7 @@
       "caption": "Custom closet cabinet systems for Boise homeowners by Boise Cabinet Co."
     },
     {
-      "id": "img-0101",
+      "id": "img-0106",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -2467,7 +2581,7 @@
       "caption": "Custom closet cabinet systems for Meridian homeowners by Boise Cabinet Co."
     },
     {
-      "id": "img-0102",
+      "id": "img-0107",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -2490,7 +2604,7 @@
       "caption": "Custom closet cabinet systems for Eagle homeowners by Boise Cabinet Co."
     },
     {
-      "id": "img-0103",
+      "id": "img-0108",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -2513,7 +2627,7 @@
       "caption": "Custom closet cabinet systems for Nampa homeowners by Boise Cabinet Co."
     },
     {
-      "id": "img-0104",
+      "id": "img-0109",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -2536,7 +2650,7 @@
       "caption": "Custom closet cabinet systems for Kuna homeowners by Boise Cabinet Co."
     },
     {
-      "id": "img-0105",
+      "id": "img-0110",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -2559,7 +2673,7 @@
       "caption": "Custom closet cabinet systems for Star homeowners by Boise Cabinet Co."
     },
     {
-      "id": "img-0106",
+      "id": "img-0111",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -2582,7 +2696,7 @@
       "caption": "Custom closet cabinet systems for Middleton homeowners by Boise Cabinet Co."
     },
     {
-      "id": "img-0107",
+      "id": "img-0112",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -2605,7 +2719,7 @@
       "caption": "Custom closet cabinet systems for Caldwell homeowners by Boise Cabinet Co."
     },
     {
-      "id": "img-0108",
+      "id": "img-0113",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -2628,7 +2742,7 @@
       "caption": "Custom whole-home cabinet packages for Boise homeowners by Boise Cabinet Co."
     },
     {
-      "id": "img-0109",
+      "id": "img-0114",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -2651,7 +2765,7 @@
       "caption": "Custom whole-home cabinet packages for Meridian homeowners by Boise Cabinet Co."
     },
     {
-      "id": "img-0110",
+      "id": "img-0115",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -2674,7 +2788,7 @@
       "caption": "Custom whole-home cabinet packages for Eagle homeowners by Boise Cabinet Co."
     },
     {
-      "id": "img-0111",
+      "id": "img-0116",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -2697,7 +2811,7 @@
       "caption": "Custom whole-home cabinet packages for Nampa homeowners by Boise Cabinet Co."
     },
     {
-      "id": "img-0112",
+      "id": "img-0117",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -2720,7 +2834,7 @@
       "caption": "Custom whole-home cabinet packages for Kuna homeowners by Boise Cabinet Co."
     },
     {
-      "id": "img-0113",
+      "id": "img-0118",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -2743,7 +2857,7 @@
       "caption": "Custom whole-home cabinet packages for Star homeowners by Boise Cabinet Co."
     },
     {
-      "id": "img-0114",
+      "id": "img-0119",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -2766,7 +2880,7 @@
       "caption": "Custom whole-home cabinet packages for Middleton homeowners by Boise Cabinet Co."
     },
     {
-      "id": "img-0115",
+      "id": "img-0120",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -2789,7 +2903,7 @@
       "caption": "Custom whole-home cabinet packages for Caldwell homeowners by Boise Cabinet Co."
     },
     {
-      "id": "img-0116",
+      "id": "img-0121",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -2812,7 +2926,7 @@
       "caption": "Kitchen cabinets throughout the Treasure Valley."
     },
     {
-      "id": "img-0117",
+      "id": "img-0122",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -2835,7 +2949,7 @@
       "caption": "Bathroom vanity cabinets throughout the Treasure Valley."
     },
     {
-      "id": "img-0118",
+      "id": "img-0123",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -2858,7 +2972,7 @@
       "caption": "Custom built-in cabinets throughout the Treasure Valley."
     },
     {
-      "id": "img-0119",
+      "id": "img-0124",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -2881,7 +2995,7 @@
       "caption": "Closet cabinet systems throughout the Treasure Valley."
     },
     {
-      "id": "img-0120",
+      "id": "img-0125",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -2904,7 +3018,7 @@
       "caption": "Whole-home cabinet packages throughout the Treasure Valley."
     },
     {
-      "id": "img-0121",
+      "id": "img-0126",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -2926,7 +3040,7 @@
       "caption": "Kitchen cabinet transformation cabinet project by Boise Cabinet Co."
     },
     {
-      "id": "img-0122",
+      "id": "img-0127",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -2948,7 +3062,7 @@
       "caption": "Kitchen cabinet transformation cabinet project by Boise Cabinet Co."
     },
     {
-      "id": "img-0123",
+      "id": "img-0128",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -2970,7 +3084,7 @@
       "caption": "Bathroom vanity cabinet renovation cabinet project by Boise Cabinet Co."
     },
     {
-      "id": "img-0124",
+      "id": "img-0129",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -2992,7 +3106,7 @@
       "caption": "Bathroom vanity cabinet renovation cabinet project by Boise Cabinet Co."
     },
     {
-      "id": "img-0125",
+      "id": "img-0130",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -3014,7 +3128,7 @@
       "caption": "Whole-home custom cabinets cabinet project by Boise Cabinet Co."
     },
     {
-      "id": "img-0126",
+      "id": "img-0131",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -3036,7 +3150,7 @@
       "caption": "Whole-home custom cabinets cabinet project by Boise Cabinet Co."
     },
     {
-      "id": "img-0127",
+      "id": "img-0132",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -3058,7 +3172,7 @@
       "caption": "Built-in cabinet addition cabinet project by Boise Cabinet Co."
     },
     {
-      "id": "img-0128",
+      "id": "img-0133",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -3080,7 +3194,7 @@
       "caption": "Built-in cabinet addition cabinet project by Boise Cabinet Co."
     },
     {
-      "id": "img-0129",
+      "id": "img-0134",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -3102,7 +3216,7 @@
       "caption": "Basement wet bar cabinets cabinet project by Boise Cabinet Co."
     },
     {
-      "id": "img-0130",
+      "id": "img-0135",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -3124,7 +3238,7 @@
       "caption": "Basement wet bar cabinets cabinet project by Boise Cabinet Co."
     },
     {
-      "id": "img-0131",
+      "id": "img-0136",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -3146,7 +3260,7 @@
       "caption": "Outdoor kitchen cabinets cabinet project by Boise Cabinet Co."
     },
     {
-      "id": "img-0132",
+      "id": "img-0137",
       "status": "pending",
       "phase": 2,
       "priority": "medium",
@@ -3168,7 +3282,7 @@
       "caption": "Outdoor kitchen cabinets cabinet project by Boise Cabinet Co."
     },
     {
-      "id": "img-0133",
+      "id": "img-0138",
       "status": "pending",
       "phase": 3,
       "priority": "low",
@@ -3188,7 +3302,7 @@
       "title": "bar pull 128 black"
     },
     {
-      "id": "img-0134",
+      "id": "img-0139",
       "status": "pending",
       "phase": 3,
       "priority": "low",
@@ -3208,7 +3322,7 @@
       "title": "bar pull 160 nickel"
     },
     {
-      "id": "img-0135",
+      "id": "img-0140",
       "status": "pending",
       "phase": 3,
       "priority": "low",
@@ -3228,7 +3342,7 @@
       "title": "cup pull gold"
     },
     {
-      "id": "img-0136",
+      "id": "img-0141",
       "status": "pending",
       "phase": 3,
       "priority": "low",
@@ -3248,7 +3362,7 @@
       "title": "finger edge pull"
     },
     {
-      "id": "img-0137",
+      "id": "img-0142",
       "status": "pending",
       "phase": 3,
       "priority": "low",
@@ -3268,7 +3382,7 @@
       "title": "j channel pull"
     },
     {
-      "id": "img-0138",
+      "id": "img-0143",
       "status": "pending",
       "phase": 3,
       "priority": "low",
@@ -3288,7 +3402,7 @@
       "title": "knob round nickel"
     },
     {
-      "id": "img-0139",
+      "id": "img-0144",
       "status": "pending",
       "phase": 3,
       "priority": "low",
@@ -3308,7 +3422,7 @@
       "title": "knob square black"
     },
     {
-      "id": "img-0140",
+      "id": "img-0145",
       "status": "pending",
       "phase": 3,
       "priority": "low",
@@ -3328,7 +3442,7 @@
       "title": "glass knob chrome"
     },
     {
-      "id": "img-0141",
+      "id": "img-0146",
       "status": "pending",
       "phase": 3,
       "priority": "low",
@@ -3348,7 +3462,7 @@
       "title": "hinge soft close"
     },
     {
-      "id": "img-0142",
+      "id": "img-0147",
       "status": "pending",
       "phase": 3,
       "priority": "low",
@@ -3368,7 +3482,7 @@
       "title": "push to open hinge"
     },
     {
-      "id": "img-0143",
+      "id": "img-0148",
       "status": "pending",
       "phase": 3,
       "priority": "low",
@@ -3388,7 +3502,7 @@
       "title": "slide soft close"
     },
     {
-      "id": "img-0144",
+      "id": "img-0149",
       "status": "pending",
       "phase": 3,
       "priority": "low",
@@ -3408,7 +3522,7 @@
       "title": "slide heavy duty"
     },
     {
-      "id": "img-0145",
+      "id": "img-0150",
       "status": "pending",
       "phase": 3,
       "priority": "low",
@@ -3428,7 +3542,7 @@
       "title": "outdoor bar pull stainless"
     },
     {
-      "id": "img-0146",
+      "id": "img-0151",
       "status": "pending",
       "phase": 3,
       "priority": "low",
@@ -3448,7 +3562,7 @@
       "title": "pull out shelf"
     },
     {
-      "id": "img-0147",
+      "id": "img-0152",
       "status": "pending",
       "phase": 3,
       "priority": "low",
@@ -3468,7 +3582,7 @@
       "title": "pull out pantry"
     },
     {
-      "id": "img-0148",
+      "id": "img-0153",
       "status": "pending",
       "phase": 3,
       "priority": "low",
@@ -3488,7 +3602,7 @@
       "title": "lazy susan"
     },
     {
-      "id": "img-0149",
+      "id": "img-0154",
       "status": "pending",
       "phase": 3,
       "priority": "low",
@@ -3508,7 +3622,7 @@
       "title": "blind corner pullout"
     },
     {
-      "id": "img-0150",
+      "id": "img-0155",
       "status": "pending",
       "phase": 3,
       "priority": "low",
@@ -3528,7 +3642,7 @@
       "title": "spice rack pullout"
     },
     {
-      "id": "img-0151",
+      "id": "img-0156",
       "status": "pending",
       "phase": 3,
       "priority": "low",
@@ -3548,7 +3662,7 @@
       "title": "utensil divider"
     },
     {
-      "id": "img-0152",
+      "id": "img-0157",
       "status": "pending",
       "phase": 3,
       "priority": "low",
@@ -3568,7 +3682,7 @@
       "title": "peg board drawer"
     },
     {
-      "id": "img-0153",
+      "id": "img-0158",
       "status": "pending",
       "phase": 3,
       "priority": "low",
@@ -3588,7 +3702,7 @@
       "title": "trash pullout"
     },
     {
-      "id": "img-0154",
+      "id": "img-0159",
       "status": "pending",
       "phase": 3,
       "priority": "low",
@@ -3608,7 +3722,7 @@
       "title": "cutting board insert"
     },
     {
-      "id": "img-0155",
+      "id": "img-0160",
       "status": "pending",
       "phase": 3,
       "priority": "low",
@@ -3628,7 +3742,7 @@
       "title": "mixer lift"
     },
     {
-      "id": "img-0156",
+      "id": "img-0161",
       "status": "pending",
       "phase": 3,
       "priority": "low",
@@ -3648,7 +3762,7 @@
       "title": "tip out tray"
     },
     {
-      "id": "img-0157",
+      "id": "img-0162",
       "status": "pending",
       "phase": 3,
       "priority": "low",
@@ -3668,7 +3782,7 @@
       "title": "vertical divider"
     },
     {
-      "id": "img-0158",
+      "id": "img-0163",
       "status": "pending",
       "phase": 3,
       "priority": "low",
@@ -3688,7 +3802,7 @@
       "title": "drawer organizer kit"
     },
     {
-      "id": "img-0159",
+      "id": "img-0164",
       "status": "pending",
       "phase": 3,
       "priority": "low",
@@ -3708,7 +3822,7 @@
       "title": "led strip channel"
     },
     {
-      "id": "img-0160",
+      "id": "img-0165",
       "status": "pending",
       "phase": 3,
       "priority": "low",
@@ -3728,7 +3842,7 @@
       "title": "pull out hamper"
     },
     {
-      "id": "img-0161",
+      "id": "img-0166",
       "status": "pending",
       "phase": 3,
       "priority": "low",
@@ -3748,7 +3862,7 @@
       "title": "wine rack insert"
     },
     {
-      "id": "img-0162",
+      "id": "img-0167",
       "status": "pending",
       "phase": 3,
       "priority": "low",
