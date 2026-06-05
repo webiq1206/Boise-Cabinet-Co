@@ -118,7 +118,8 @@ export function StyleStep({ embedded = false }: { embedded?: boolean }) {
         </div>
         <VisualOptionGrid
           className="max-h-[420px] overflow-y-auto pr-1 gap-3"
-          columns={3}
+          columns={4}
+          variant="swatch"
           items={filteredFinishes.map((item) => ({
             id: item.slug,
             label: item.name,

@@ -8,7 +8,7 @@ async function openCalculator(page: import("@playwright/test").Page) {
 test.describe("Project Estimator wizard", () => {
   test("completes wizard and stores estimate", async ({ page }) => {
     await openCalculator(page);
-    await expect(page.getByText(/Step 1 of/i)).toBeVisible();
+    await expect(page.getByText(/Step 1 of/i).first()).toBeVisible();
 
     await page.getByTestId("button-project-kitchen").click();
     await page.getByRole("button", { name: "Continue" }).click();

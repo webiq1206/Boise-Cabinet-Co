@@ -67,6 +67,19 @@ export function Navigation() {
   const bottomBarRef = useRef<HTMLDivElement>(null);
   const bottomBarTheme = useAdaptiveGlassTheme(bottomBarRef);
   const bottomBarClasses = getAdaptiveGlassClasses(bottomBarTheme);
+  // While a guided-flow wizard shows its own contextual mobile bar, the generic
+  // Call / Book-consult bar steps aside so the two never stack on phones.
+  const [wizardBarActive, setWizardBarActive] = useState(false);
+
+  useEffect(() => {
+    const sync = () =>
+      setWizardBarActive(
+        ((window as unknown as { __wizardMobileBars?: number }).__wizardMobileBars ?? 0) > 0,
+      );
+    sync();
+    window.addEventListener("wizardmobilebar", sync);
+    return () => window.removeEventListener("wizardmobilebar", sync);
+  }, []);
 
   const isPortalRoute =
     pathname?.startsWith("/admin") ||
@@ -403,7 +416,12 @@ export function Navigation() {
       <div
         ref={bottomBarRef}
         {...{ [ADAPTIVE_GLASS_ATTR]: "" }}
-        className={cn(ADAPTIVE_GLASS_BAR_BASE, "bottom-0 z-[100] lg:hidden", bottomBarClasses.bar)}
+        className={cn(
+          ADAPTIVE_GLASS_BAR_BASE,
+          "bottom-0 z-[100] lg:hidden transition-opacity duration-200",
+          wizardBarActive && "pointer-events-none opacity-0",
+          bottomBarClasses.bar,
+        )}
       >
         <div className={cn("grid grid-cols-2 divide-x", bottomBarClasses.divide)}>
           <a

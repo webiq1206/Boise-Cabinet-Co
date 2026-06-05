@@ -35,6 +35,7 @@ import { EstimateResultPanel } from "@/components/estimate/EstimateResultPanel";
 import { VisualOptionGrid } from "@/components/catalog/visual";
 import { getMostLovedFinishes } from "@/shared/catalog/finishFilters";
 import { GuidedFlowShell, type GuidedStep } from "@/components/guided-flow";
+import { useModals } from "@/components/modals/ModalProvider";
 import { trackEstimatorEvent } from "@/lib/design/designAnalytics";
 import {
   type ProjectType,
@@ -59,6 +60,7 @@ import {
   calculateEstimate,
   buildStoredEstimate,
   buildSelectionSummary,
+  formatPlanningCurrency,
 } from "@/shared/estimateEngine";
 
 const OPTION_ICONS: Record<string, LucideIcon> = {
@@ -181,12 +183,16 @@ function SelectButton<T extends string>({
             data-testid={`${testIdPrefix}-${opt.value}`}
             aria-pressed={active}
             className={cn(
-              "relative flex flex-col items-start gap-1 p-4 min-h-[44px] rounded-sm text-left transition-all border bg-card",
-              active ? "border-foreground/40 border-[1.5px] bg-muted/40" : "border-border",
+              "relative flex flex-col items-start gap-1 p-4 min-h-[44px] rounded-md text-left transition-all border bg-card",
+              active
+                ? "border-foreground/40 border-[1.5px] bg-muted/40"
+                : "border-border hover:border-foreground/30",
             )}
           >
             {active && (
-              <Check className="absolute top-2.5 right-2.5 h-3.5 w-3.5 text-foreground z-10" />
+              <span className="absolute right-2 top-2 z-10 flex h-5 w-5 items-center justify-center rounded-full bg-foreground text-background shadow-sm">
+                <Check className="h-3 w-3" strokeWidth={3} />
+              </span>
             )}
             <OptionVisual
               image={opt.image}
@@ -229,12 +235,16 @@ function MultiSelectButton({
             data-testid={`${testIdPrefix}-${opt.value}`}
             aria-pressed={active}
             className={cn(
-              "relative flex flex-col items-start gap-1 p-4 min-h-[44px] rounded-sm text-left transition-all border bg-card",
-              active ? "border-foreground/40 border-[1.5px] bg-muted/40" : "border-border",
+              "relative flex flex-col items-start gap-1 p-4 min-h-[44px] rounded-md text-left transition-all border bg-card",
+              active
+                ? "border-foreground/40 border-[1.5px] bg-muted/40"
+                : "border-border hover:border-foreground/30",
             )}
           >
             {active && (
-              <Check className="absolute top-2.5 right-2.5 h-3.5 w-3.5 text-foreground z-10" />
+              <span className="absolute right-2 top-2 z-10 flex h-5 w-5 items-center justify-center rounded-full bg-foreground text-background shadow-sm">
+                <Check className="h-3 w-3" strokeWidth={3} />
+              </span>
             )}
             <OptionVisual image={opt.image} imageAlt={opt.imageAlt} icon={opt.icon} />
             <span className="font-medium text-xs text-foreground pr-5">{opt.label}</span>
@@ -261,6 +271,7 @@ export function EstimateCalculatorWizard({
   const [touched, setTouched] = useState<Set<SelectionStepKey>>(new Set());
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showAllColors, setShowAllColors] = useState(false);
+  const { openConsult } = useModals();
 
   const { project } = selections;
   const stepIds = useMemo(() => getWizardStepIds(project), [project]);
@@ -308,6 +319,18 @@ export function EstimateCalculatorWizard({
 
   function handleSelectProject(type: ProjectType) {
     if (type === project) return;
+    // Error prevention: switching projects resets the other choices, so confirm
+    // once the visitor has actually made some.
+    const hasProgress = ["size", "layout", "doorStyle", "finish", "construction", "accessories"].some(
+      (k) => touched.has(k as SelectionStepKey),
+    );
+    if (
+      hasProgress &&
+      typeof window !== "undefined" &&
+      !window.confirm("Switching projects will reset your other selections. Continue?")
+    ) {
+      return;
+    }
     setSelections(getDefaultSelectionsForProject(type));
     setTouched(new Set());
     setCurrentIndex(0);
@@ -323,8 +346,15 @@ export function EstimateCalculatorWizard({
     trackEstimatorEvent("estimator_book_visit");
     if (onBookVisitProp) {
       onBookVisitProp();
+      return;
+    }
+    // Prefer an on-page consult section (homepage); otherwise open the consult
+    // modal so the CTA always works (e.g. the dedicated /estimate page).
+    const consultEl = document.getElementById("consult");
+    if (consultEl) {
+      consultEl.scrollIntoView({ behavior: "smooth" });
     } else {
-      document.getElementById("consult")?.scrollIntoView({ behavior: "smooth" });
+      openConsult();
     }
   }
 
@@ -372,6 +402,15 @@ export function EstimateCalculatorWizard({
   const currentStepId = stepIds[currentIndex] ?? "project";
   const isFirst = currentIndex === 0;
   const isLast = currentIndex === stepIds.length - 1;
+
+  const stepDescription: Record<WizardStepId, string | undefined> = {
+    project: "Choose what you're planning - we'll guide you from here.",
+    size: sizeConfig.sizeStepLabel,
+    layout: "Pick the shape closest to your space.",
+    style: "Choose your door style and finish. Color is optional - your range won't change.",
+    quality: "Pick construction quality and any smart storage you'd like.",
+    result: undefined,
+  };
 
   function isStepComplete(index: number): boolean {
     const id = stepIds[index];
@@ -436,9 +475,6 @@ export function EstimateCalculatorWizard({
       case "project":
         return (
           <div className="space-y-4">
-            <p className="text-sm text-muted-foreground">
-              Choose what you&apos;re planning. We&apos;ll guide you through size, style, and quality.
-            </p>
             <div className="grid grid-cols-2 gap-2">
               {(Object.keys(PROJECT_LABELS) as ProjectType[]).map((type) => {
                 const info = PROJECT_LABELS[type];
@@ -470,7 +506,6 @@ export function EstimateCalculatorWizard({
       case "size":
         return (
           <div className="space-y-4">
-            <p className="text-sm text-muted-foreground">{sizeConfig.sizeStepLabel}</p>
             <DisplayNum className="text-3xl leading-none text-foreground">
               {selections.size.toLocaleString()}{" "}
               <span className="text-sm font-sans text-muted-foreground">{sizeConfig.unitShort}</span>
@@ -499,7 +534,6 @@ export function EstimateCalculatorWizard({
       case "layout":
         return (
           <div>
-            <p className="text-sm text-muted-foreground mb-4">Pick the shape closest to your space.</p>
             <SelectButton
               value={selections.layout}
               options={layoutOptions}
@@ -535,7 +569,8 @@ export function EstimateCalculatorWizard({
                 <label className="brc-label mb-3 block">Finish color (optional)</label>
                 <VisualOptionGrid
                   className={cn("gap-3", showAllColors && "max-h-[280px] overflow-y-auto pr-1")}
-                  columns={3}
+                  columns={4}
+                  variant="swatch"
                   items={visibleColorOptions.map((opt) => ({
                     id: opt.value,
                     label: opt.label,
@@ -660,13 +695,13 @@ export function EstimateCalculatorWizard({
       isFirst={isFirst}
       isLast={isLast}
       canAdvance={isStepComplete(currentIndex)}
-      continueLabel={isLast ? "Book a design visit" : "Continue"}
-      mobileStickyFooter={
-        !isLast ? (
-          <div className="text-center text-xs text-muted-foreground mb-2">
-            {selectionSummary} · planning range updates as you go
-          </div>
-        ) : undefined
+      continueLabel="Continue"
+      hidePrimaryOnLast
+      stepDescription={stepDescription[currentStepId]}
+      mobileSummary={
+        !isLast
+          ? `${formatPlanningCurrency(result.priceLow)}–${formatPlanningCurrency(result.priceHigh)} · updates as you go`
+          : undefined
       }
     >
       {stepBody}

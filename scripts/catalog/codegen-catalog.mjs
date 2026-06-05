@@ -156,11 +156,15 @@ const finishes = catalog.finishes.map((f) => {
     compatibleCollectionIds: ["custom"],
     onSiteNow: f.onSiteNow === "Yes",
   };
-  // Always bind an image: a real on-disk swatch when present, otherwise the
-  // generated flat color tile (Phase 2C) so no finish ever renders broken.
+  // Always bind an image, in priority order: a real on-disk photo, then the
+  // generated raster swatch (woodgrain composite / matte+gloss tile), then the
+  // flat SVG tile as a last resort — so no finish ever renders broken or flat.
+  const generatedWebp = path.join(ROOT, "public/generated/finishes", `${slug}.webp`);
   out.imagePath = swatchFile
     ? `/images/catalog/finishes/${swatchFile}`
-    : `/generated/finishes/${slug}.svg`;
+    : fs.existsSync(generatedWebp)
+      ? `/generated/finishes/${slug}.webp`
+      : `/generated/finishes/${slug}.svg`;
   if (confirm) out.priceConfirm = true;
   if (fam) out.colorFamily = fam;
   return out;

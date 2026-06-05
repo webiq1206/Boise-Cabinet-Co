@@ -1,7 +1,7 @@
 export { CatalogImage } from "./CatalogImage";
 export type { CatalogImageProps } from "./CatalogImage";
 export { VisualOptionTile } from "./VisualOptionTile";
-export type { VisualOptionTileProps } from "./VisualOptionTile";
+export type { VisualOptionTileProps, VisualOptionVariant } from "./VisualOptionTile";
 export { VisualOptionGrid } from "./VisualOptionGrid";
 export type { VisualOptionGridProps, VisualOptionItem } from "./VisualOptionGrid";
 // VisualOptionGrid supports selectedId (single) or selectedIds (multi)

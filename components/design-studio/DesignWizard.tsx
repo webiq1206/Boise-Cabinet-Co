@@ -70,6 +70,14 @@ export function DesignWizard({ className }: DesignWizardProps) {
 
   const steps = buildWizardSteps(design.roomType);
 
+  const STEP_DESCRIPTIONS: Record<string, string> = {
+    room: "Tell us the room and its size - or skip ahead to browse styles.",
+    layout: "Choose the layout that best matches your space.",
+    look: "Pick your finish color, door style, and hardware.",
+    preview: "See your design come together in 3D - rotate and explore.",
+    quote: "Name your design, then save and request pricing.",
+  };
+
   const previewReady =
     isScannedRoom(design.roomMeta) ||
     design.layout !== null ||
@@ -78,6 +86,7 @@ export function DesignWizard({ className }: DesignWizardProps) {
   const StepComponent = STEP_COMPONENTS[currentStep];
   const isFirst = currentStep === 0;
   const isLast = currentStep === steps.length - 1;
+  const isPreviewStep = steps[currentStep]?.id === "preview";
   const canAdvance = isStepComplete(currentStep);
 
   const goNext = () => {
@@ -100,8 +109,24 @@ export function DesignWizard({ className }: DesignWizardProps) {
     </div>
   );
 
+  // On the dedicated 3D preview step, the live render is the whole point, so on
+  // mobile it is embedded directly in the step body (always mounted) rather than
+  // hidden behind a toggle.
+  const inlineMobilePreview =
+    !isDesktop && isPreviewStep ? (
+      <div className="mb-6">
+        {previewReady ? (
+          <RoomStepLivePreview />
+        ) : (
+          <div className="rounded-md border bg-card aspect-[4/3] flex items-center justify-center p-6 text-center">
+            <p className="text-sm text-muted-foreground">{wizardCopy.previewPlaceholder}</p>
+          </div>
+        )}
+      </div>
+    ) : null;
+
   const mobilePreviewToggle =
-    !isDesktop && previewReady ? (
+    !isDesktop && !isPreviewStep && previewReady ? (
       <div className="mb-6">
         <Button
           variant="outline"
@@ -142,21 +167,10 @@ export function DesignWizard({ className }: DesignWizardProps) {
       isLast={isLast}
       canAdvance={canAdvance || isLast}
       continueLabel={isLast ? "Go to pricing form" : "Continue"}
+      stepDescription={STEP_DESCRIPTIONS[steps[currentStep]?.id ?? ""]}
       headerExtra={mobilePreviewToggle}
-      mobileStickyFooter={
-        isLast ? (
-          <Button
-            variant="brand"
-            className="w-full min-h-11"
-            onClick={() => {
-              document.getElementById("request-pricing")?.scrollIntoView({ behavior: "smooth" });
-            }}
-          >
-            Save & request quote
-          </Button>
-        ) : undefined
-      }
     >
+      {inlineMobilePreview}
       <StepComponent />
     </GuidedFlowShell>
   );

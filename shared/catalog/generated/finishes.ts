@@ -1524,7 +1524,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/gloss-black.svg",
+    "imagePath": "/generated/finishes/gloss-black.webp",
     "colorFamily": "Black"
   },
   {
@@ -1650,7 +1650,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/gloss-midnight-sun.svg",
+    "imagePath": "/generated/finishes/gloss-midnight-sun.webp",
     "colorFamily": "Black"
   },
   {
@@ -1726,7 +1726,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/gloss-black-2.svg",
+    "imagePath": "/generated/finishes/gloss-black-2.webp",
     "colorFamily": "Black"
   },
   {
@@ -1882,7 +1882,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/gloss-tan.svg",
+    "imagePath": "/generated/finishes/gloss-tan.webp",
     "colorFamily": "Neutral"
   },
   {
@@ -1908,7 +1908,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/gloss-bianco.svg",
+    "imagePath": "/generated/finishes/gloss-bianco.webp",
     "colorFamily": "White"
   },
   {
@@ -2012,7 +2012,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/gloss-legno-sbiancato.svg",
+    "imagePath": "/generated/finishes/gloss-legno-sbiancato.webp",
     "colorFamily": "White"
   },
   {
@@ -2064,7 +2064,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/gloss-marmo-bianco.svg",
+    "imagePath": "/generated/finishes/gloss-marmo-bianco.webp",
     "colorFamily": "White"
   },
   {
@@ -2194,7 +2194,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/gloss-bianco-2.svg",
+    "imagePath": "/generated/finishes/gloss-bianco-2.webp",
     "colorFamily": "White"
   },
   {
@@ -2246,7 +2246,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/gloss-roccia.svg",
+    "imagePath": "/generated/finishes/gloss-roccia.webp",
     "colorFamily": "Grey"
   },
   {
@@ -2324,7 +2324,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/gloss-titanio.svg",
+    "imagePath": "/generated/finishes/gloss-titanio.webp",
     "colorFamily": "Grey"
   },
   {
@@ -2402,7 +2402,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/gloss-cemento.svg",
+    "imagePath": "/generated/finishes/gloss-cemento.webp",
     "colorFamily": "Grey"
   },
   {
@@ -2428,7 +2428,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/gloss-moro.svg",
+    "imagePath": "/generated/finishes/gloss-moro.webp",
     "colorFamily": "Black"
   },
   {
@@ -2454,7 +2454,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/gloss-cubanite.svg",
+    "imagePath": "/generated/finishes/gloss-cubanite.webp",
     "colorFamily": "Grey"
   },
   {
@@ -2480,7 +2480,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/gloss-notte.svg",
+    "imagePath": "/generated/finishes/gloss-notte.webp",
     "colorFamily": "Black"
   },
   {
@@ -2506,7 +2506,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/gloss-gabbiano.svg",
+    "imagePath": "/generated/finishes/gloss-gabbiano.webp",
     "colorFamily": "Grey"
   },
   {
@@ -2532,7 +2532,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/gloss-prugna.svg",
+    "imagePath": "/generated/finishes/gloss-prugna.webp",
     "colorFamily": "Blue"
   },
   {
@@ -2558,7 +2558,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/gloss-canyon-charcoal.svg"
+    "imagePath": "/generated/finishes/gloss-canyon-charcoal.webp"
   },
   {
     "id": "gloss-rovere-grigio",
@@ -2583,7 +2583,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/gloss-rovere-grigio.svg",
+    "imagePath": "/generated/finishes/gloss-rovere-grigio.webp",
     "colorFamily": "Grey"
   },
   {
@@ -2609,7 +2609,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/gloss-carbone.svg"
+    "imagePath": "/generated/finishes/gloss-carbone.webp"
   },
   {
     "id": "gloss-eucalipto-brown",
@@ -2634,7 +2634,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/gloss-eucalipto-brown.svg"
+    "imagePath": "/generated/finishes/gloss-eucalipto-brown.webp"
   },
   {
     "id": "gloss-anthracite",
@@ -2659,7 +2659,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/gloss-anthracite.svg"
+    "imagePath": "/generated/finishes/gloss-anthracite.webp"
   },
   {
     "id": "gloss-eucalipto-grey",
@@ -2684,7 +2684,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/gloss-eucalipto-grey.svg",
+    "imagePath": "/generated/finishes/gloss-eucalipto-grey.webp",
     "colorFamily": "Grey"
   },
   {
@@ -2736,7 +2736,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/gloss-nero.svg",
+    "imagePath": "/generated/finishes/gloss-nero.webp",
     "colorFamily": "Black"
   },
   {
@@ -2762,7 +2762,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/gloss-bianco-3.svg",
+    "imagePath": "/generated/finishes/gloss-bianco-3.webp",
     "colorFamily": "White"
   },
   {
@@ -2788,7 +2788,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/gloss-palisandro-azuro.svg",
+    "imagePath": "/generated/finishes/gloss-palisandro-azuro.webp",
     "colorFamily": "Blue"
   },
   {
@@ -2815,7 +2815,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-amber-pearwood.svg",
+    "imagePath": "/generated/finishes/woodgrain-amber-pearwood.webp",
     "colorFamily": "Wood"
   },
   {
@@ -2842,7 +2842,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-chocolate-carini-walnut.svg",
+    "imagePath": "/generated/finishes/woodgrain-chocolate-carini-walnut.webp",
     "colorFamily": "Wood"
   },
   {
@@ -2869,7 +2869,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-dark-steel.svg",
+    "imagePath": "/generated/finishes/woodgrain-dark-steel.webp",
     "colorFamily": "Wood"
   },
   {
@@ -2896,7 +2896,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-auburn-carini-walnut.svg",
+    "imagePath": "/generated/finishes/woodgrain-auburn-carini-walnut.webp",
     "colorFamily": "Wood"
   },
   {
@@ -2923,7 +2923,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-chocolate-pearwood.svg",
+    "imagePath": "/generated/finishes/woodgrain-chocolate-pearwood.webp",
     "colorFamily": "Wood"
   },
   {
@@ -2950,7 +2950,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-espresso.svg",
+    "imagePath": "/generated/finishes/woodgrain-espresso.webp",
     "colorFamily": "Wood"
   },
   {
@@ -2977,7 +2977,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-beige-textile.svg",
+    "imagePath": "/generated/finishes/woodgrain-beige-textile.webp",
     "colorFamily": "Wood"
   },
   {
@@ -3004,7 +3004,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-chromix-anthracite.svg",
+    "imagePath": "/generated/finishes/woodgrain-chromix-anthracite.webp",
     "colorFamily": "Wood"
   },
   {
@@ -3031,7 +3031,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-floral-mahogany.svg",
+    "imagePath": "/generated/finishes/woodgrain-floral-mahogany.webp",
     "colorFamily": "Wood"
   },
   {
@@ -3058,7 +3058,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-black.svg",
+    "imagePath": "/generated/finishes/woodgrain-black.webp",
     "colorFamily": "Wood"
   },
   {
@@ -3085,7 +3085,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-chromix-silver.svg",
+    "imagePath": "/generated/finishes/woodgrain-chromix-silver.webp",
     "colorFamily": "Wood"
   },
   {
@@ -3112,7 +3112,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-fog-grey-tossini-elm.svg",
+    "imagePath": "/generated/finishes/woodgrain-fog-grey-tossini-elm.webp",
     "colorFamily": "Wood"
   },
   {
@@ -3139,7 +3139,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-brown-tossini-elm.svg",
+    "imagePath": "/generated/finishes/woodgrain-brown-tossini-elm.webp",
     "colorFamily": "Wood"
   },
   {
@@ -3166,7 +3166,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-dark-brown-eucalyptus.svg",
+    "imagePath": "/generated/finishes/woodgrain-dark-brown-eucalyptus.webp",
     "colorFamily": "Wood"
   },
   {
@@ -3193,7 +3193,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-grey-beige-gladstone-oak.svg",
+    "imagePath": "/generated/finishes/woodgrain-grey-beige-gladstone-oak.webp",
     "colorFamily": "Wood"
   },
   {
@@ -3220,7 +3220,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-carbon-frozen-wood.svg",
+    "imagePath": "/generated/finishes/woodgrain-carbon-frozen-wood.webp",
     "colorFamily": "Wood"
   },
   {
@@ -3247,7 +3247,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-dark-grey-fineline.svg",
+    "imagePath": "/generated/finishes/woodgrain-dark-grey-fineline.webp",
     "colorFamily": "Wood"
   },
   {
@@ -3274,7 +3274,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-grey-frozen-wood.svg",
+    "imagePath": "/generated/finishes/woodgrain-grey-frozen-wood.webp",
     "colorFamily": "Wood"
   },
   {
@@ -3301,7 +3301,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-natural-carini-walnut.svg",
+    "imagePath": "/generated/finishes/woodgrain-natural-carini-walnut.webp",
     "colorFamily": "Wood"
   },
   {
@@ -3328,7 +3328,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-vicenza-oak.svg",
+    "imagePath": "/generated/finishes/woodgrain-vicenza-oak.webp",
     "colorFamily": "Wood"
   },
   {
@@ -3355,7 +3355,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-hardrock-maple.svg",
+    "imagePath": "/generated/finishes/woodgrain-hardrock-maple.webp",
     "colorFamily": "Wood"
   },
   {
@@ -3382,7 +3382,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-natural-eucalyptus.svg",
+    "imagePath": "/generated/finishes/woodgrain-natural-eucalyptus.webp",
     "colorFamily": "Wood"
   },
   {
@@ -3409,7 +3409,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-warm-grey-eucalyptus.svg",
+    "imagePath": "/generated/finishes/woodgrain-warm-grey-eucalyptus.webp",
     "colorFamily": "Wood"
   },
   {
@@ -3436,7 +3436,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-natural-bardolino-oak.svg",
+    "imagePath": "/generated/finishes/woodgrain-natural-bardolino-oak.webp",
     "colorFamily": "Wood"
   },
   {
@@ -3463,7 +3463,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-tobacco-halifax-oak.svg",
+    "imagePath": "/generated/finishes/woodgrain-tobacco-halifax-oak.webp",
     "colorFamily": "Wood"
   },
   {
@@ -3490,7 +3490,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-grey-beige-tossini-elm.svg",
+    "imagePath": "/generated/finishes/woodgrain-grey-beige-tossini-elm.webp",
     "colorFamily": "Wood"
   },
   {
@@ -3517,7 +3517,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-light-grey-fineline.svg",
+    "imagePath": "/generated/finishes/woodgrain-light-grey-fineline.webp",
     "colorFamily": "Wood"
   },
   {
@@ -3544,7 +3544,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-shorewood.svg",
+    "imagePath": "/generated/finishes/woodgrain-shorewood.webp",
     "colorFamily": "Wood"
   },
   {
@@ -3571,7 +3571,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-white-fineline.svg",
+    "imagePath": "/generated/finishes/woodgrain-white-fineline.webp",
     "colorFamily": "Wood"
   },
   {
@@ -3598,7 +3598,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-medium-grey-fineline.svg",
+    "imagePath": "/generated/finishes/woodgrain-medium-grey-fineline.webp",
     "colorFamily": "Wood"
   },
   {
@@ -3625,7 +3625,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-tobacco-gladstone-oak.svg",
+    "imagePath": "/generated/finishes/woodgrain-tobacco-gladstone-oak.webp",
     "colorFamily": "Wood"
   },
   {
@@ -3652,7 +3652,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-honey-carini-walnut.svg",
+    "imagePath": "/generated/finishes/woodgrain-honey-carini-walnut.webp",
     "colorFamily": "Wood"
   },
   {
@@ -3679,7 +3679,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-sand-gladstone-oak.svg",
+    "imagePath": "/generated/finishes/woodgrain-sand-gladstone-oak.webp",
     "colorFamily": "Wood"
   },
   {
@@ -3706,7 +3706,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-white-chromix.svg",
+    "imagePath": "/generated/finishes/woodgrain-white-chromix.webp",
     "colorFamily": "Wood"
   },
   {
@@ -3733,7 +3733,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-white-tossini-elm.svg",
+    "imagePath": "/generated/finishes/woodgrain-white-tossini-elm.webp",
     "colorFamily": "Wood"
   },
   {
@@ -3760,7 +3760,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-white-gladstone-oak.svg",
+    "imagePath": "/generated/finishes/woodgrain-white-gladstone-oak.webp",
     "colorFamily": "Wood"
   },
   {
@@ -3787,7 +3787,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-white-halifax-oak.svg",
+    "imagePath": "/generated/finishes/woodgrain-white-halifax-oak.webp",
     "colorFamily": "Wood"
   },
   {
@@ -3814,7 +3814,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-white-frozen-wood.svg",
+    "imagePath": "/generated/finishes/woodgrain-white-frozen-wood.webp",
     "colorFamily": "Wood"
   },
   {
@@ -3841,7 +3841,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-white-levanto-marble.svg",
+    "imagePath": "/generated/finishes/woodgrain-white-levanto-marble.webp",
     "colorFamily": "Wood"
   },
   {
@@ -3868,7 +3868,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-white-linen.svg",
+    "imagePath": "/generated/finishes/woodgrain-white-linen.webp",
     "colorFamily": "Wood"
   },
   {
@@ -3895,7 +3895,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-white-havana-pine.svg",
+    "imagePath": "/generated/finishes/woodgrain-white-havana-pine.webp",
     "colorFamily": "Wood"
   },
   {
@@ -3922,7 +3922,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-bianco.svg",
+    "imagePath": "/generated/finishes/woodgrain-bianco.webp",
     "priceConfirm": true,
     "colorFamily": "Wood"
   },
@@ -4006,7 +4006,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-bruciato.svg",
+    "imagePath": "/generated/finishes/woodgrain-bruciato.webp",
     "priceConfirm": true,
     "colorFamily": "Wood"
   },
@@ -4034,7 +4034,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-carbone.svg",
+    "imagePath": "/generated/finishes/woodgrain-carbone.webp",
     "priceConfirm": true,
     "colorFamily": "Wood"
   },
@@ -4062,7 +4062,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-empire.svg",
+    "imagePath": "/generated/finishes/woodgrain-empire.webp",
     "priceConfirm": true,
     "colorFamily": "Wood"
   },
@@ -4090,7 +4090,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-cafe.svg",
+    "imagePath": "/generated/finishes/woodgrain-cafe.webp",
     "priceConfirm": true,
     "colorFamily": "Wood"
   },
@@ -4118,7 +4118,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-cayman.svg",
+    "imagePath": "/generated/finishes/woodgrain-cayman.webp",
     "priceConfirm": true,
     "colorFamily": "Wood"
   },
@@ -4174,7 +4174,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-canyon-bleach.svg",
+    "imagePath": "/generated/finishes/woodgrain-canyon-bleach.webp",
     "priceConfirm": true,
     "colorFamily": "Wood"
   },
@@ -4202,7 +4202,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-central.svg",
+    "imagePath": "/generated/finishes/woodgrain-central.webp",
     "priceConfirm": true,
     "colorFamily": "Wood"
   },
@@ -4258,7 +4258,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-chrysler.svg",
+    "imagePath": "/generated/finishes/woodgrain-chrysler.webp",
     "priceConfirm": true,
     "colorFamily": "Wood"
   },
@@ -4370,7 +4370,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-maranello.svg",
+    "imagePath": "/generated/finishes/woodgrain-maranello.webp",
     "priceConfirm": true,
     "colorFamily": "Wood"
   },
@@ -4398,7 +4398,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-palisandro-azuro.svg",
+    "imagePath": "/generated/finishes/woodgrain-palisandro-azuro.webp",
     "priceConfirm": true,
     "colorFamily": "Wood"
   },
@@ -4426,7 +4426,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-lakeshore-oak.svg",
+    "imagePath": "/generated/finishes/woodgrain-lakeshore-oak.webp",
     "priceConfirm": true,
     "colorFamily": "Wood"
   },
@@ -4454,7 +4454,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-olmo-fume.svg",
+    "imagePath": "/generated/finishes/woodgrain-olmo-fume.webp",
     "priceConfirm": true,
     "colorFamily": "Wood"
   },
@@ -4482,7 +4482,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-lava.svg",
+    "imagePath": "/generated/finishes/woodgrain-lava.webp",
     "priceConfirm": true,
     "colorFamily": "Wood"
   },
@@ -4538,7 +4538,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-eucalipto-brown.svg",
+    "imagePath": "/generated/finishes/woodgrain-eucalipto-brown.webp",
     "priceConfirm": true,
     "colorFamily": "Wood"
   },
@@ -4594,7 +4594,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-key-west.svg",
+    "imagePath": "/generated/finishes/woodgrain-key-west.webp",
     "priceConfirm": true,
     "colorFamily": "Wood"
   },
@@ -4622,7 +4622,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-olmo-cafe.svg",
+    "imagePath": "/generated/finishes/woodgrain-olmo-cafe.webp",
     "priceConfirm": true,
     "colorFamily": "Wood"
   },
@@ -4650,7 +4650,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-fantasia.svg",
+    "imagePath": "/generated/finishes/woodgrain-fantasia.webp",
     "priceConfirm": true,
     "colorFamily": "Wood"
   },
@@ -4678,7 +4678,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-moca.svg",
+    "imagePath": "/generated/finishes/woodgrain-moca.webp",
     "priceConfirm": true,
     "colorFamily": "Wood"
   },
@@ -4706,7 +4706,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-palisandro-grigio.svg",
+    "imagePath": "/generated/finishes/woodgrain-palisandro-grigio.webp",
     "priceConfirm": true,
     "colorFamily": "Wood"
   },
@@ -4734,7 +4734,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-fumo.svg",
+    "imagePath": "/generated/finishes/woodgrain-fumo.webp",
     "priceConfirm": true,
     "colorFamily": "Wood"
   },
@@ -4762,7 +4762,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-noce-ribera.svg",
+    "imagePath": "/generated/finishes/woodgrain-noce-ribera.webp",
     "priceConfirm": true,
     "colorFamily": "Wood"
   },
@@ -4790,7 +4790,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-palisandro-walnut.svg",
+    "imagePath": "/generated/finishes/woodgrain-palisandro-walnut.webp",
     "priceConfirm": true,
     "colorFamily": "Wood"
   },
@@ -4874,7 +4874,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-rovere-grigio.svg",
+    "imagePath": "/generated/finishes/woodgrain-rovere-grigio.webp",
     "priceConfirm": true,
     "colorFamily": "Wood"
   },
@@ -4902,7 +4902,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-spiaggia.svg",
+    "imagePath": "/generated/finishes/woodgrain-spiaggia.webp",
     "priceConfirm": true,
     "colorFamily": "Wood"
   },
@@ -4930,7 +4930,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-rovere-agento.svg",
+    "imagePath": "/generated/finishes/woodgrain-rovere-agento.webp",
     "priceConfirm": true,
     "colorFamily": "Wood"
   },
@@ -4958,7 +4958,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-pampas.svg",
+    "imagePath": "/generated/finishes/woodgrain-pampas.webp",
     "priceConfirm": true,
     "colorFamily": "Wood"
   },
@@ -5014,7 +5014,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-rialto.svg",
+    "imagePath": "/generated/finishes/woodgrain-rialto.webp",
     "priceConfirm": true,
     "colorFamily": "Wood"
   },
@@ -5042,7 +5042,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-hemlock.svg",
+    "imagePath": "/generated/finishes/woodgrain-hemlock.webp",
     "priceConfirm": true,
     "colorFamily": "Wood"
   },
@@ -5070,7 +5070,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-rustica.svg",
+    "imagePath": "/generated/finishes/woodgrain-rustica.webp",
     "priceConfirm": true,
     "colorFamily": "Wood"
   },
@@ -5098,7 +5098,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-pecan-roast.svg",
+    "imagePath": "/generated/finishes/woodgrain-pecan-roast.webp",
     "priceConfirm": true,
     "colorFamily": "Wood"
   },
@@ -5126,7 +5126,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-rovere-sabbia.svg",
+    "imagePath": "/generated/finishes/woodgrain-rovere-sabbia.webp",
     "priceConfirm": true,
     "colorFamily": "Wood"
   },
@@ -5182,7 +5182,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-rustic-oak.svg",
+    "imagePath": "/generated/finishes/woodgrain-rustic-oak.webp",
     "priceConfirm": true,
     "colorFamily": "Wood"
   },
@@ -5210,7 +5210,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-teak-scuro.svg",
+    "imagePath": "/generated/finishes/woodgrain-teak-scuro.webp",
     "colorFamily": "Wood"
   },
   {
@@ -5237,7 +5237,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-buff-linen.svg",
+    "imagePath": "/generated/finishes/woodgrain-buff-linen.webp",
     "colorFamily": "Wood"
   },
   {
@@ -5264,7 +5264,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-tiger-eye.svg",
+    "imagePath": "/generated/finishes/woodgrain-tiger-eye.webp",
     "colorFamily": "Wood"
   },
   {
@@ -5291,7 +5291,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-magnolia-linen.svg",
+    "imagePath": "/generated/finishes/woodgrain-magnolia-linen.webp",
     "colorFamily": "Wood"
   },
   {
@@ -5318,7 +5318,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-taiga.svg",
+    "imagePath": "/generated/finishes/woodgrain-taiga.webp",
     "colorFamily": "Wood"
   },
   {
@@ -5345,7 +5345,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-anthracite-linen.svg",
+    "imagePath": "/generated/finishes/woodgrain-anthracite-linen.webp",
     "colorFamily": "Wood"
   },
   {
@@ -5372,7 +5372,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-uva.svg",
+    "imagePath": "/generated/finishes/woodgrain-uva.webp",
     "colorFamily": "Wood"
   },
   {
@@ -5399,7 +5399,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-wildwood.svg",
+    "imagePath": "/generated/finishes/woodgrain-wildwood.webp",
     "colorFamily": "Wood"
   },
   {
@@ -5426,7 +5426,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-woolworth.svg",
+    "imagePath": "/generated/finishes/woodgrain-woolworth.webp",
     "colorFamily": "Wood"
   },
   {
@@ -5453,7 +5453,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-chalk-ash.svg",
+    "imagePath": "/generated/finishes/woodgrain-chalk-ash.webp",
     "colorFamily": "Wood"
   },
   {
@@ -5480,7 +5480,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-granite-walnut.svg",
+    "imagePath": "/generated/finishes/woodgrain-granite-walnut.webp",
     "colorFamily": "Wood"
   },
   {
@@ -5507,7 +5507,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-raven-oak.svg",
+    "imagePath": "/generated/finishes/woodgrain-raven-oak.webp",
     "colorFamily": "Wood"
   },
   {
@@ -5534,7 +5534,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-chocolate-oak.svg",
+    "imagePath": "/generated/finishes/woodgrain-chocolate-oak.webp",
     "colorFamily": "Wood"
   },
   {
@@ -5561,7 +5561,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-ivory-oak.svg",
+    "imagePath": "/generated/finishes/woodgrain-ivory-oak.webp",
     "colorFamily": "Wood"
   },
   {
@@ -5588,7 +5588,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-smoked-walnut.svg",
+    "imagePath": "/generated/finishes/woodgrain-smoked-walnut.webp",
     "colorFamily": "Wood"
   },
   {
@@ -5615,7 +5615,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-cinnamon-triba.svg",
+    "imagePath": "/generated/finishes/woodgrain-cinnamon-triba.webp",
     "colorFamily": "Wood"
   },
   {
@@ -5642,7 +5642,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-manhattan-oak.svg",
+    "imagePath": "/generated/finishes/woodgrain-manhattan-oak.webp",
     "colorFamily": "Wood"
   },
   {
@@ -5669,7 +5669,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-stardust-walnut.svg",
+    "imagePath": "/generated/finishes/woodgrain-stardust-walnut.webp",
     "colorFamily": "Wood"
   },
   {
@@ -5696,7 +5696,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-desert-oak.svg",
+    "imagePath": "/generated/finishes/woodgrain-desert-oak.webp",
     "colorFamily": "Wood"
   },
   {
@@ -5723,7 +5723,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-milk-oak.svg",
+    "imagePath": "/generated/finishes/woodgrain-milk-oak.webp",
     "colorFamily": "Wood"
   },
   {
@@ -5750,7 +5750,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-stone-triba.svg",
+    "imagePath": "/generated/finishes/woodgrain-stone-triba.webp",
     "colorFamily": "Wood"
   },
   {
@@ -5777,7 +5777,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-dusk-frake.svg",
+    "imagePath": "/generated/finishes/woodgrain-dusk-frake.webp",
     "colorFamily": "Wood"
   },
   {
@@ -5804,7 +5804,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-mineral-triba.svg",
+    "imagePath": "/generated/finishes/woodgrain-mineral-triba.webp",
     "colorFamily": "Wood"
   },
   {
@@ -5831,7 +5831,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-frozen-walnut.svg",
+    "imagePath": "/generated/finishes/woodgrain-frozen-walnut.webp",
     "colorFamily": "Wood"
   },
   {
@@ -5858,7 +5858,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-natural-oak.svg",
+    "imagePath": "/generated/finishes/woodgrain-natural-oak.webp",
     "colorFamily": "Wood"
   },
   {
@@ -5885,7 +5885,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-aliso.svg",
+    "imagePath": "/generated/finishes/woodgrain-aliso.webp",
     "colorFamily": "Wood"
   },
   {
@@ -5912,7 +5912,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-canella-rustik.svg",
+    "imagePath": "/generated/finishes/woodgrain-canella-rustik.webp",
     "colorFamily": "Wood"
   },
   {
@@ -5939,7 +5939,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-dark-noce.svg",
+    "imagePath": "/generated/finishes/woodgrain-dark-noce.webp",
     "colorFamily": "Wood"
   },
   {
@@ -5966,7 +5966,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-allaria.svg",
+    "imagePath": "/generated/finishes/woodgrain-allaria.webp",
     "colorFamily": "Wood"
   },
   {
@@ -5993,7 +5993,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-caramel-cherry.svg",
+    "imagePath": "/generated/finishes/woodgrain-caramel-cherry.webp",
     "colorFamily": "Wood"
   },
   {
@@ -6020,7 +6020,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-drift-loud.svg",
+    "imagePath": "/generated/finishes/woodgrain-drift-loud.webp",
     "colorFamily": "Wood"
   },
   {
@@ -6074,7 +6074,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-carmelo-mist.svg",
+    "imagePath": "/generated/finishes/woodgrain-carmelo-mist.webp",
     "colorFamily": "Wood"
   },
   {
@@ -6128,7 +6128,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-arizona-cypress.svg",
+    "imagePath": "/generated/finishes/woodgrain-arizona-cypress.webp",
     "colorFamily": "Wood"
   },
   {
@@ -6155,7 +6155,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-coastal.svg",
+    "imagePath": "/generated/finishes/woodgrain-coastal.webp",
     "colorFamily": "Wood"
   },
   {
@@ -6182,7 +6182,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-ashley.svg",
+    "imagePath": "/generated/finishes/woodgrain-ashley.webp",
     "colorFamily": "Wood"
   },
   {
@@ -6209,7 +6209,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-dahat-teak.svg",
+    "imagePath": "/generated/finishes/woodgrain-dahat-teak.webp",
     "colorFamily": "Wood"
   },
   {
@@ -6236,7 +6236,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-black-2.svg",
+    "imagePath": "/generated/finishes/woodgrain-black-2.webp",
     "colorFamily": "Wood"
   },
   {
@@ -6263,7 +6263,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-dark-elm.svg",
+    "imagePath": "/generated/finishes/woodgrain-dark-elm.webp",
     "colorFamily": "Wood"
   },
   {
@@ -6290,7 +6290,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-formosa.svg",
+    "imagePath": "/generated/finishes/woodgrain-formosa.webp",
     "colorFamily": "Wood"
   },
   {
@@ -6317,7 +6317,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-gregio-notte.svg",
+    "imagePath": "/generated/finishes/woodgrain-gregio-notte.webp",
     "colorFamily": "Wood"
   },
   {
@@ -6344,7 +6344,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-lara.svg",
+    "imagePath": "/generated/finishes/woodgrain-lara.webp",
     "colorFamily": "Wood"
   },
   {
@@ -6371,7 +6371,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-natural-marrone.svg",
+    "imagePath": "/generated/finishes/woodgrain-natural-marrone.webp",
     "colorFamily": "Wood"
   },
   {
@@ -6398,7 +6398,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-gregio-pine.svg",
+    "imagePath": "/generated/finishes/woodgrain-gregio-pine.webp",
     "colorFamily": "Wood"
   },
   {
@@ -6425,7 +6425,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-laurel.svg",
+    "imagePath": "/generated/finishes/woodgrain-laurel.webp",
     "colorFamily": "Wood"
   },
   {
@@ -6452,7 +6452,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-natural-rustik.svg",
+    "imagePath": "/generated/finishes/woodgrain-natural-rustik.webp",
     "colorFamily": "Wood"
   },
   {
@@ -6506,7 +6506,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-midnight-echo.svg",
+    "imagePath": "/generated/finishes/woodgrain-midnight-echo.webp",
     "colorFamily": "Wood"
   },
   {
@@ -6533,7 +6533,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-natural-teak.svg",
+    "imagePath": "/generated/finishes/woodgrain-natural-teak.webp",
     "colorFamily": "Wood"
   },
   {
@@ -6560,7 +6560,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-jasper.svg",
+    "imagePath": "/generated/finishes/woodgrain-jasper.webp",
     "colorFamily": "Wood"
   },
   {
@@ -6668,7 +6668,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-kyushu.svg",
+    "imagePath": "/generated/finishes/woodgrain-kyushu.webp",
     "colorFamily": "Wood"
   },
   {
@@ -6695,7 +6695,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-natural-elm.svg",
+    "imagePath": "/generated/finishes/woodgrain-natural-elm.webp",
     "colorFamily": "Wood"
   },
   {
@@ -6749,7 +6749,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-parisienne.svg",
+    "imagePath": "/generated/finishes/woodgrain-parisienne.webp",
     "colorFamily": "Wood"
   },
   {
@@ -6776,7 +6776,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-shadow-teak.svg",
+    "imagePath": "/generated/finishes/woodgrain-shadow-teak.webp",
     "colorFamily": "Wood"
   },
   {
@@ -6803,7 +6803,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-white-nebbia.svg",
+    "imagePath": "/generated/finishes/woodgrain-white-nebbia.webp",
     "colorFamily": "Wood"
   },
   {
@@ -6830,7 +6830,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-pearl-white.svg",
+    "imagePath": "/generated/finishes/woodgrain-pearl-white.webp",
     "colorFamily": "Wood"
   },
   {
@@ -6857,7 +6857,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-siberian.svg",
+    "imagePath": "/generated/finishes/woodgrain-siberian.webp",
     "colorFamily": "Wood"
   },
   {
@@ -6911,7 +6911,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-takase-teak.svg",
+    "imagePath": "/generated/finishes/woodgrain-takase-teak.webp",
     "colorFamily": "Wood"
   },
   {
@@ -6938,7 +6938,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-richmond-cherry.svg",
+    "imagePath": "/generated/finishes/woodgrain-richmond-cherry.webp",
     "colorFamily": "Wood"
   },
   {
@@ -6965,7 +6965,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-sabbia.svg",
+    "imagePath": "/generated/finishes/woodgrain-sabbia.webp",
     "colorFamily": "Wood"
   },
   {
@@ -6992,7 +6992,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-timeless.svg",
+    "imagePath": "/generated/finishes/woodgrain-timeless.webp",
     "colorFamily": "Wood"
   },
   {
@@ -7019,7 +7019,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-seppia-walnut.svg",
+    "imagePath": "/generated/finishes/woodgrain-seppia-walnut.webp",
     "colorFamily": "Wood"
   },
   {
@@ -7046,7 +7046,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-vina.svg",
+    "imagePath": "/generated/finishes/woodgrain-vina.webp",
     "colorFamily": "Wood"
   },
   {
@@ -7100,7 +7100,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-weathered-teak.svg",
+    "imagePath": "/generated/finishes/woodgrain-weathered-teak.webp",
     "colorFamily": "Wood"
   },
   {
@@ -7127,7 +7127,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-after-hours.svg",
+    "imagePath": "/generated/finishes/woodgrain-after-hours.webp",
     "colorFamily": "Wood"
   },
   {
@@ -7181,7 +7181,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-new-wave.svg",
+    "imagePath": "/generated/finishes/woodgrain-new-wave.webp",
     "colorFamily": "Wood"
   },
   {
@@ -7208,7 +7208,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-apr-s-ski.svg",
+    "imagePath": "/generated/finishes/woodgrain-apr-s-ski.webp",
     "colorFamily": "Wood"
   },
   {
@@ -7235,7 +7235,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-first-dance.svg",
+    "imagePath": "/generated/finishes/woodgrain-first-dance.webp",
     "colorFamily": "Wood"
   },
   {
@@ -7262,7 +7262,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-night-owl.svg",
+    "imagePath": "/generated/finishes/woodgrain-night-owl.webp",
     "colorFamily": "Wood"
   },
   {
@@ -7289,7 +7289,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-force-of-nature.svg",
+    "imagePath": "/generated/finishes/woodgrain-force-of-nature.webp",
     "colorFamily": "Wood"
   },
   {
@@ -7316,7 +7316,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-casting-at-first-light.svg",
+    "imagePath": "/generated/finishes/woodgrain-casting-at-first-light.webp",
     "colorFamily": "Wood"
   },
   {
@@ -7397,7 +7397,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-cr-me-de-la-cr-me.svg",
+    "imagePath": "/generated/finishes/woodgrain-cr-me-de-la-cr-me.webp",
     "colorFamily": "Wood"
   },
   {
@@ -7424,7 +7424,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-golden-light.svg",
+    "imagePath": "/generated/finishes/woodgrain-golden-light.webp",
     "colorFamily": "Wood"
   },
   {
@@ -7478,7 +7478,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-home-sweet-home.svg",
+    "imagePath": "/generated/finishes/woodgrain-home-sweet-home.webp",
     "colorFamily": "Wood"
   },
   {
@@ -7532,7 +7532,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-t-te-t-te.svg",
+    "imagePath": "/generated/finishes/woodgrain-t-te-t-te.webp",
     "colorFamily": "Wood"
   },
   {
@@ -7559,7 +7559,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-rock-solid.svg",
+    "imagePath": "/generated/finishes/woodgrain-rock-solid.webp",
     "colorFamily": "Wood"
   },
   {
@@ -7586,7 +7586,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-viva-black.svg",
+    "imagePath": "/generated/finishes/woodgrain-viva-black.webp",
     "colorFamily": "Wood"
   },
   {
@@ -7613,7 +7613,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-weekend-getaway.svg",
+    "imagePath": "/generated/finishes/woodgrain-weekend-getaway.webp",
     "colorFamily": "Wood"
   },
   {
@@ -7667,7 +7667,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-summertime-blues.svg",
+    "imagePath": "/generated/finishes/woodgrain-summertime-blues.webp",
     "colorFamily": "Wood"
   },
   {
@@ -7694,7 +7694,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-winter-fun.svg",
+    "imagePath": "/generated/finishes/woodgrain-winter-fun.webp",
     "colorFamily": "Wood"
   },
   {
@@ -7721,7 +7721,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-sunset-cruise.svg",
+    "imagePath": "/generated/finishes/woodgrain-sunset-cruise.webp",
     "colorFamily": "Wood"
   },
   {
@@ -7748,7 +7748,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-tea-for-two.svg",
+    "imagePath": "/generated/finishes/woodgrain-tea-for-two.webp",
     "colorFamily": "Wood"
   },
   {
@@ -7775,7 +7775,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-cannes.svg",
+    "imagePath": "/generated/finishes/woodgrain-cannes.webp",
     "colorFamily": "Wood"
   },
   {
@@ -7802,7 +7802,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-mystic.svg",
+    "imagePath": "/generated/finishes/woodgrain-mystic.webp",
     "colorFamily": "Wood"
   },
   {
@@ -7829,7 +7829,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-cassis.svg",
+    "imagePath": "/generated/finishes/woodgrain-cassis.webp",
     "colorFamily": "Wood"
   },
   {
@@ -7856,7 +7856,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-nizza-riva.svg",
+    "imagePath": "/generated/finishes/woodgrain-nizza-riva.webp",
     "colorFamily": "Wood"
   },
   {
@@ -7883,7 +7883,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-ember.svg",
+    "imagePath": "/generated/finishes/woodgrain-ember.webp",
     "colorFamily": "Wood"
   },
   {
@@ -7910,7 +7910,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-esterel.svg",
+    "imagePath": "/generated/finishes/woodgrain-esterel.webp",
     "colorFamily": "Wood"
   },
   {
@@ -7937,7 +7937,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-whisper.svg",
+    "imagePath": "/generated/finishes/woodgrain-whisper.webp",
     "colorFamily": "Wood"
   },
   {
@@ -7964,7 +7964,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-mistral.svg",
+    "imagePath": "/generated/finishes/woodgrain-mistral.webp",
     "colorFamily": "Wood"
   },
   {
@@ -7991,7 +7991,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-monaco.svg",
+    "imagePath": "/generated/finishes/woodgrain-monaco.webp",
     "colorFamily": "Wood"
   }
 ];

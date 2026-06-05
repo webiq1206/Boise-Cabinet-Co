@@ -25,7 +25,7 @@ import {
   buildFloorPlanSvg,
   downloadFloorPlanSvg,
 } from "@/lib/design/floorPlanExport";
-import { Download, ScanLine } from "lucide-react";
+import { Check, Download, ScanLine } from "lucide-react";
 import { trackDesignEvent } from "@/lib/design/designAnalytics";
 import { wizardCopy } from "@/shared/designStudioCopy";
 
@@ -106,17 +106,12 @@ export function LayoutStep() {
     <div className="space-y-6">
       <RoomAccuracyNotice meta={design.roomMeta} />
 
-      <div>
-        <h2 className="text-2xl font-sans font-light tracking-tight">
-          Pick a <em className="brc-accent text-accent">layout</em>
-        </h2>
-        <p className="text-muted-foreground mt-2">
-          {wizardCopy.layoutHint(
-            design.roomMeta!.widthIn,
-            design.roomMeta!.depthIn,
-          )}
-        </p>
-      </div>
+      <p className="text-sm text-muted-foreground">
+        {wizardCopy.layoutHint(
+          design.roomMeta!.widthIn,
+          design.roomMeta!.depthIn,
+        )}
+      </p>
 
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {ranked.map((fit, index) => {
@@ -131,19 +126,24 @@ export function LayoutStep() {
               disabled={disabled}
               onClick={() => updateDesign({ layout: item.slug as LayoutSlug })}
               className={cn(
-                "relative rounded-lg border-2 p-5 text-left transition-colors",
+                "relative rounded-md border p-5 text-left transition-all",
                 disabled && "opacity-45 cursor-not-allowed",
                 selected
-                  ? "border-primary bg-primary/5"
+                  ? "border-[1.5px] border-foreground/40 bg-muted/40"
                   : !disabled &&
-                      "border-border hover:border-primary/40 hover:bg-muted/50",
+                      "border-border hover:border-foreground/30 hover:bg-muted/40",
               )}
               data-testid={`button-layout-${item.slug}`}
             >
-              {index === 0 && fit.fits && (
+              {selected && (
+                <span className="absolute right-3 top-3 z-10 flex h-5 w-5 items-center justify-center rounded-full bg-foreground text-background shadow-sm">
+                  <Check className="h-3 w-3" strokeWidth={3} />
+                </span>
+              )}
+              {!selected && index === 0 && fit.fits && (
                 <Badge className="absolute right-3 top-3">Best fit</Badge>
               )}
-              {!fit.fits && (
+              {!selected && !fit.fits && (
                 <Badge variant="destructive" className="absolute right-3 top-3">
                   Too large
                 </Badge>

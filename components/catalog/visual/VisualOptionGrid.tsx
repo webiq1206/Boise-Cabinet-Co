@@ -1,6 +1,6 @@
 "use client";
 
-import { VisualOptionTile } from "./VisualOptionTile";
+import { VisualOptionTile, type VisualOptionVariant } from "./VisualOptionTile";
 import { cn } from "@/lib/utils";
 
 export interface VisualOptionItem {
@@ -23,6 +23,8 @@ export interface VisualOptionGridProps {
   testIdPrefix?: string;
   className?: string;
   columns?: "auto" | 2 | 3 | 4;
+  /** Tile layout — "media" (image-forward) or "swatch" (compact square) */
+  variant?: VisualOptionVariant;
 }
 
 const COLUMN_CLASS: Record<NonNullable<VisualOptionGridProps["columns"]>, string> = {
@@ -40,6 +42,7 @@ export function VisualOptionGrid({
   testIdPrefix = "option",
   className,
   columns = "auto",
+  variant = "media",
 }: VisualOptionGridProps) {
   const isSelected = (id: string) =>
     selectedIds ? selectedIds.includes(id) : selectedId === id;
@@ -56,6 +59,7 @@ export function VisualOptionGrid({
           imageAlt={item.imageAlt}
           fallbackHex={item.fallbackHex}
           selected={isSelected(item.id)}
+          variant={variant}
           onSelect={() => onSelect(item.id)}
           testId={`${testIdPrefix}-${item.id}`}
         />

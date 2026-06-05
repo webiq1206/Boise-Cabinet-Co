@@ -3,7 +3,7 @@ import { expect, test } from "@playwright/test";
 async function openCalculator(page: import("@playwright/test").Page) {
   await page.goto("/#calculator");
   await page.locator("#calculator").scrollIntoViewIfNeeded();
-  await expect(page.getByText(/Step 1 of/i)).toBeVisible();
+  await expect(page.getByText(/Step 1 of/i).first()).toBeVisible();
 }
 
 test.describe("Project Estimator", () => {
@@ -40,19 +40,15 @@ test.describe("Project Estimator", () => {
     await expect(page.getByTestId("estimate-result-panel")).toBeVisible();
   });
 
-  test("mobile estimate bar appears while scrolling", async ({ page }) => {
+  test("sticky mobile bar appears with live range", async ({ page }) => {
     await page.setViewportSize({ width: 375, height: 812 });
     await page.goto("/#calculator");
     await page.locator("#calculator").scrollIntoViewIfNeeded();
     await page.getByTestId("button-project-bathroom").click();
     await page.getByRole("button", { name: "Continue" }).click();
-    // Force a real intersection transition so the IntersectionObserver driving
-    // the sticky mobile bar fires (Chromium doesn't emit the initial entry, and
-    // mouse.wheel isn't supported on mobile WebKit, so scroll the document).
-    await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
-    await page.evaluate(() =>
-      document.getElementById("calculator")?.scrollIntoView({ block: "center" }),
-    );
-    await expect(page.getByTestId("mobile-estimate-bar")).toBeVisible({ timeout: 15_000 });
+    // The shell's sticky mobile bar shows the live planning range + Continue
+    // while the wizard is on screen.
+    await expect(page.getByTestId("wizard-mobile-bar")).toBeVisible({ timeout: 15_000 });
+    await expect(page.getByTestId("wizard-mobile-summary")).toBeVisible();
   });
 });

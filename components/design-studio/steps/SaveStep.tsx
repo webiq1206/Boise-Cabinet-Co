@@ -213,6 +213,53 @@ export function SaveStep({ embedded = false }: { embedded?: boolean }) {
         </div>
       )}
 
+      {design.pricingSubmitted && (
+        <div
+          className="rounded-md border border-primary/30 bg-primary/5 p-5"
+          data-testid="pricing-success"
+          role="status"
+        >
+          <div className="flex items-start gap-3">
+            <CheckCircle2 className="h-6 w-6 flex-shrink-0 text-primary" />
+            <div className="space-y-2">
+              <p className="font-medium text-foreground">Your pricing request is in.</p>
+              <p className="text-sm text-muted-foreground">
+                {SITE_CONFIG.name} will review your design and reach out within one business
+                day to schedule a free consultation. We&apos;ve saved your design so you can
+                revisit or tweak it anytime.
+              </p>
+              <div className="flex flex-wrap gap-3 pt-1">
+                <Button variant="brandOutline" size="sm" asChild>
+                  <Link
+                    href={
+                      portalProjectId
+                        ? `/portal/projects/${portalProjectId}/design`
+                        : "/portal"
+                    }
+                  >
+                    <FolderOpen className="h-4 w-4" />
+                    {portalProjectId ? "View in My Project" : "Go to My Project"}
+                  </Link>
+                </Button>
+                {shareUrl && (
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => {
+                      navigator.clipboard.writeText(shareUrl);
+                      toast({ title: "Link copied" });
+                    }}
+                  >
+                    <Copy className="h-4 w-4" />
+                    Copy share link
+                  </Button>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       <Card>
         <CardHeader>
           <CardTitle className="text-base flex items-center gap-2">
@@ -483,24 +530,26 @@ export function SaveStep({ embedded = false }: { embedded?: boolean }) {
         </CardContent>
       </Card>
 
-      <Card className="border-dashed">
-        <CardContent className="py-8 text-center space-y-4">
-          <p className="text-sm text-muted-foreground">
-            Track your project in the client portal after we create your project file.
-          </p>
-          <Button variant="brandOutline" asChild>
-            <Link
-              href={
-                portalProjectId
-                  ? `/portal/projects/${portalProjectId}/design`
-                  : "/portal"
-              }
-            >
-              {portalProjectId ? "View project selections" : "Go to My Project"}
-            </Link>
-          </Button>
-        </CardContent>
-      </Card>
+      {!design.pricingSubmitted && (
+        <Card className="border-dashed">
+          <CardContent className="py-8 text-center space-y-4">
+            <p className="text-sm text-muted-foreground">
+              Track your project in the client portal after we create your project file.
+            </p>
+            <Button variant="brandOutline" asChild>
+              <Link
+                href={
+                  portalProjectId
+                    ? `/portal/projects/${portalProjectId}/design`
+                    : "/portal"
+                }
+              >
+                {portalProjectId ? "View project selections" : "Go to My Project"}
+              </Link>
+            </Button>
+          </CardContent>
+        </Card>
+      )}
 
       <Dialog open={compareOpen} onOpenChange={setCompareOpen}>
         <DialogContent className="max-w-5xl">

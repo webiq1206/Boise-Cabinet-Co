@@ -5,7 +5,6 @@ import { useSearchParams } from "next/navigation";
 import { RoomStep } from "./RoomStep";
 import { RoomScanPanel } from "../RoomScanPanel";
 import { useDesignStudio } from "../DesignStudioProvider";
-import { wizardCopy } from "@/shared/designStudioCopy";
 import { presetsForRoomType } from "@/shared/roomSizePresets";
 
 function applyFixtureRoom(
@@ -104,13 +103,6 @@ export function RoomSetupStep() {
         <RoomTypeFromQuery />
         <ScanFixtureLoader />
       </Suspense>
-      <div>
-        <h2 className="text-2xl font-sans font-light tracking-tight">
-          {wizardCopy.roomSetupTitle.split(" ")[0]}{" "}
-          <em className="brc-accent text-accent">room</em>
-        </h2>
-        <p className="text-muted-foreground mt-2">{wizardCopy.roomSetupHint}</p>
-      </div>
       <RoomStep showHeader={false} />
       <RoomScanPanel />
     </div>
