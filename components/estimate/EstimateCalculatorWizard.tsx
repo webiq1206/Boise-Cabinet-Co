@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { LucideIcon } from "lucide-react";
 import {
   Check,
@@ -37,6 +37,7 @@ import { getMostLovedFinishes } from "@/shared/catalog/finishFilters";
 import { GuidedFlowShell, type GuidedStep } from "@/components/guided-flow";
 import { useModals } from "@/components/modals/ModalProvider";
 import { trackEstimatorEvent } from "@/lib/design/designAnalytics";
+import { loadWizardState, saveWizardState } from "@/lib/estimate/wizardPersistence";
 import {
   type ProjectType,
   type EstimateSelections,
@@ -392,6 +393,10 @@ export function EstimateCalculatorWizard({
   const [showAllColors, setShowAllColors] = useState(false);
   const { openConsult } = useModals();
 
+  // Guards the persistence effect so the initial EMPTY_SELECTIONS render does
+  // not clobber stored progress before the hydration effect has run.
+  const hydratedRef = useRef(false);
+
   const { project } = selections;
   const stepIds = useMemo(() => getWizardStepIds(project), [project]);
   const wizardSteps = useMemo(() => stepIds.map((id) => WIZARD_META[id]), [stepIds]);
@@ -430,6 +435,32 @@ export function EstimateCalculatorWizard({
     }
     window.dispatchEvent(new CustomEvent("brc_estimate_updated"));
   }, [selections, selectionsMade]);
+
+  // Persist full progress (selections, touched steps, current step) so it can
+  // be restored across navigations and return visits. Declared before the
+  // hydration effect so that on mount it runs first and the `hydratedRef`
+  // guard skips the initial EMPTY_SELECTIONS render, never clobbering stored
+  // progress before hydration has applied it.
+  useEffect(() => {
+    if (!hydratedRef.current) return;
+    saveWizardState({ selections, touched: [...touched], currentIndex });
+  }, [selections, touched, currentIndex]);
+
+  // Hydrate in-progress wizard state on mount so a visitor who started an
+  // estimate anywhere (home, /estimate, the modal) sees it again here. Runs
+  // after first paint to avoid an SSR hydration mismatch.
+  useEffect(() => {
+    const stored = loadWizardState();
+    if (stored) {
+      setSelections(stored.selections);
+      setTouched(new Set(stored.touched));
+      const maxIndex = getWizardStepIds(stored.selections.project).length - 1;
+      setCurrentIndex(Math.min(Math.max(stored.currentIndex, 0), maxIndex));
+    }
+    hydratedRef.current = true;
+    // Intentionally run only once on mount.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const markTouched = useCallback((key: SelectionStepKey) => {
     setTouched((prev) => (prev.has(key) ? prev : new Set(prev).add(key)));

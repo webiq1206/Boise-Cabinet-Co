@@ -37,6 +37,7 @@ export function FeaturedProjectSection() {
           beforeAlt={`Before: ${project.title} in ${cityName}, Idaho`}
           afterAlt={`After: ${project.title} in ${cityName}, Idaho`}
           aspectClass="aspect-[16/10] md:aspect-[16/9]"
+          sizes="100vw"
           caption={
             <>
               <p className="font-sans font-medium text-sm text-inverse-foreground mb-1">

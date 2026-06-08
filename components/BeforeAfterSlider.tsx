@@ -12,6 +12,12 @@ interface BeforeAfterSliderProps {
   caption?: React.ReactNode;
   className?: string;
   aspectClass?: string;
+  /**
+   * `sizes` hint for next/image. Defaults to the 3-up gallery grid layout.
+   * Full-bleed usages (e.g. the featured project) must pass `"100vw"` so the
+   * loader serves a high-resolution variant instead of a small grid one.
+   */
+  sizes?: string;
 }
 
 export function BeforeAfterSlider({
@@ -22,6 +28,7 @@ export function BeforeAfterSlider({
   caption,
   className = "",
   aspectClass = "aspect-[4/3]",
+  sizes = "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",
 }: BeforeAfterSliderProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const draggingRef = useRef(false);
@@ -72,7 +79,7 @@ export function BeforeAfterSlider({
         src={afterSrc}
         alt={afterAlt}
         fill
-        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+        sizes={sizes}
         className="object-cover pointer-events-none"
       />
 
@@ -86,7 +93,7 @@ export function BeforeAfterSlider({
           src={beforeSrc}
           alt=""
           fill
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          sizes={sizes}
           className="object-cover"
         />
       </div>

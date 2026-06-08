@@ -13,6 +13,7 @@ import { Button } from "@/components/ui/button";
 import { CheckCircle2, ArrowRight } from "lucide-react";
 import type { StoredEstimate } from "@/shared/estimateEngine";
 import { PROJECT_LABELS, mapEstimateProjectToConsultType } from "@/shared/estimateEngine";
+import { clearWizardState } from "@/lib/estimate/wizardPersistence";
 import { useIsMobile } from "@/hooks/use-media-query";
 import { DisplayNum } from "@/components/marketing";
 import { AddressAutocomplete } from "@/components/AddressAutocomplete";
@@ -205,6 +206,7 @@ export function ConsultationForm({ onRevise }: ConsultationFormProps = {}) {
     onSuccess: () => {
       setSuccess(true);
       sessionStorage.removeItem("brc_estimate");
+      clearWizardState();
     },
   });
 

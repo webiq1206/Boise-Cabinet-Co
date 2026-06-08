@@ -7,7 +7,6 @@ import { Search, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Chip } from "@/components/marketing/Chip";
 import { Button } from "@/components/ui/button";
-import { FinishSwatch } from "@/components/catalog/FinishSwatchGrid";
 import {
   CABINET_PRODUCTS,
   COLLECTIONS,
@@ -443,30 +442,35 @@ function BrowseTileLink({ item }: { item: BrowseItem }) {
       data-testid={`catalog-item-${item.key}`}
       className="group flex flex-col gap-2 rounded-md border border-border bg-card p-2 transition-colors hover:border-foreground/30"
     >
-      {item.finish ? (
-        <FinishSwatch finish={item.finish} />
-      ) : (
-        <div
-          className={cn(
-            "relative w-full overflow-hidden rounded-sm border border-border/50 bg-muted",
-            item.variant === "swatch" ? "aspect-square" : "aspect-[4/3]",
-          )}
-        >
-          {item.imageSrc ? (
-            <Image
-              src={item.imageSrc}
-              alt={item.alt}
-              fill
-              sizes="(max-width: 640px) 50vw, 220px"
-              className={cn(
-                item.contain ? "object-contain p-2" : "object-cover img-brand-grade",
-              )}
+      <div className="relative aspect-[4/3] w-full overflow-hidden rounded-sm border border-border/50 bg-muted">
+        {item.finish ? (
+          <>
+            <div
+              className="absolute inset-0"
+              style={{ backgroundColor: item.finish.hexColor || "hsl(var(--muted))" }}
             />
-          ) : item.fallbackColor ? (
-            <div className="absolute inset-0" style={{ backgroundColor: item.fallbackColor }} />
-          ) : null}
-        </div>
-      )}
+            {item.finish.imagePath && (
+              <Image
+                src={item.finish.imagePath}
+                alt={item.alt}
+                fill
+                sizes="(max-width: 640px) 50vw, 220px"
+                className="object-cover"
+              />
+            )}
+          </>
+        ) : item.imageSrc ? (
+          <Image
+            src={item.imageSrc}
+            alt={item.alt}
+            fill
+            sizes="(max-width: 640px) 50vw, 220px"
+            className={cn(item.contain ? "object-contain p-2" : "object-cover img-brand-grade")}
+          />
+        ) : item.fallbackColor ? (
+          <div className="absolute inset-0" style={{ backgroundColor: item.fallbackColor }} />
+        ) : null}
+      </div>
       <div className="min-w-0 px-0.5 pb-0.5">
         <p className="truncate text-sm font-medium text-foreground">{item.name}</p>
         {item.meta && (

@@ -48,7 +48,6 @@ export default function CatalogPage() {
       name: "Door Styles",
       description: "Shaker, slab, and specialty profiles that define your cabinet look.",
       imageSrc: getDoorStyleImages(DOOR_STYLES[0]?.slug ?? "", DOOR_STYLES[0]?.imagePath).primary,
-      aspectRatio: "4/3",
       count: DOOR_STYLES.length,
       href: "/door-styles",
     },
@@ -56,7 +55,6 @@ export default function CatalogPage() {
       name: "Finishes",
       description: "Matte paints, gloss lacquers, and woodgrain stains in every color family.",
       imageSrc: representativeFinishSwatch(),
-      aspectRatio: "1/1",
       count: FINISHES.length,
       href: "/finishes",
     },
@@ -64,7 +62,6 @@ export default function CatalogPage() {
       name: "Cabinets",
       description: "Base, wall, tall, vanity, and specialty cabinet configurations.",
       imageSrc: ROOM_CATEGORIES.find((r) => r.slug === "kitchen")?.heroImage,
-      aspectRatio: "3/2",
       count: CABINET_PRODUCTS.length,
       href: "/products",
     },
@@ -72,7 +69,6 @@ export default function CatalogPage() {
       name: "Collections",
       description: "Curated cabinet lines that bundle doors, finishes, and construction.",
       imageSrc: COLLECTIONS[0]?.heroImage,
-      aspectRatio: "3/2",
       count: COLLECTIONS.length,
       href: "/collections",
     },
@@ -80,7 +76,6 @@ export default function CatalogPage() {
       name: "Hardware",
       description: "Pulls, knobs, hinges, and slides to complete every cabinet.",
       imageSrc: HARDWARE_OPTIONS[0] ? getHardwareImagePath(HARDWARE_OPTIONS[0].slug) : undefined,
-      aspectRatio: "1/1",
       count: HARDWARE_OPTIONS.length,
       href: "/hardware",
     },
@@ -90,7 +85,6 @@ export default function CatalogPage() {
       imageSrc: ACCESSORY_FAMILIES[0]
         ? getAccessoryFamilyImagePath(ACCESSORY_FAMILIES[0].slug)
         : undefined,
-      aspectRatio: "1/1",
       count: ACCESSORY_FAMILIES.length,
       href: "/accessories",
     },
@@ -98,7 +92,6 @@ export default function CatalogPage() {
       name: "Shop by Room",
       description: "See cabinetry organized by kitchen, bath, laundry, and more.",
       imageSrc: ROOM_CATEGORIES.find((r) => r.slug === "built-ins")?.heroImage,
-      aspectRatio: "3/2",
       count: ROOM_CATEGORIES.length,
       href: "/cabinets",
     },
@@ -171,7 +164,7 @@ export default function CatalogPage() {
                   description={card.description}
                   imageSrc={card.imageSrc}
                   imageAlt={seoAlt(card.name, "custom cabinet catalog", card.name)}
-                  aspectRatio={card.aspectRatio}
+                  aspectRatio="4/3"
                   specs={[{ label: "Options", value: String(card.count) }]}
                   primaryHref={card.href}
                   primaryLabel={`Browse ${card.name}`}
