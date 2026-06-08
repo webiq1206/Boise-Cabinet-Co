@@ -46,7 +46,7 @@ export function FinishExplorer({ finish }: FinishExplorerProps) {
         </div>
       </div>
       <CatalogActionBar
-        designStudioHref={`/design-studio?finish=${finish.slug}`}
+        primaryHref="/estimate"
         compareHref={`/compare?finishes=${finish.slug}`}
       />
       {similar.length > 0 && (

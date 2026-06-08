@@ -74,8 +74,8 @@ export function CatalogExploreStrip() {
         <Link href="/finishes" className="text-accent hover:underline underline-offset-2">
           All finishes
         </Link>
-        <Link href="/design-studio" className="text-accent hover:underline underline-offset-2">
-          Design Studio
+        <Link href="/estimate" className="text-accent hover:underline underline-offset-2">
+          Get an estimate
         </Link>
       </div>
     </div>

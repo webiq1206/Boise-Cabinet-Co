@@ -13,7 +13,7 @@ import type { BlogPostData } from '../blogContent';
 import type { GuidePageData, GuideType } from '../guideContent';
 
 const PILLAR_FOOTER =
-  `<p class="text-sm text-muted-foreground">Explore <a href="/guides/treasure-valley-cabinet-guide">local guides</a>, <a href="/guides/boise-cabinet-cost-guide">cost planning</a>, <a href="/cabinets">cabinet catalog</a>, and <a href="/design-studio">Design Studio</a>.</p>`;
+  `<p class="text-sm text-muted-foreground">Explore <a href="/guides/treasure-valley-cabinet-guide">local guides</a>, <a href="/guides/boise-cabinet-cost-guide">cost planning</a>, <a href="/cabinets">cabinet catalog</a>, and <a href="/estimate">get an estimate</a>.</p>`;
 
 export function expandPillar(html: string, _slug: string, _hubSlug: string): string {
   return html + PILLAR_FOOTER;
@@ -55,7 +55,7 @@ function buildPillarSections(
     {
       h2: 'Next steps',
       paragraphs: [
-        '<a href="/design-studio">Design Studio</a> · <a href="/contact">Schedule consultation</a> · <a href="/guides">All guides</a>.',
+        '<a href="/estimate">Get an estimate</a> · <a href="/contact">Schedule consultation</a> · <a href="/guides">All guides</a>.',
         `Back to <a href="${pillarUrl}">this guide</a> anytime for the overview.`,
       ],
     },

@@ -106,11 +106,11 @@ export default function FinishesPage({
         <Section>
           <div className="container px-4 text-center max-w-lg mx-auto">
             <p className="text-muted-foreground mb-4">
-              Pair finishes with door styles and collections in Design Studio.
+              Pair finishes with door styles and collections, then get a planning estimate.
             </p>
             <Button variant="brand" asChild>
-              <Link href="/design-studio">
-                Open Design Studio <ArrowRight className="h-4 w-4" />
+              <Link href="/estimate">
+                Get an estimate <ArrowRight className="h-4 w-4" />
               </Link>
             </Button>
           </div>

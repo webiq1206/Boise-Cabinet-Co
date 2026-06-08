@@ -18,6 +18,7 @@ export default function robots(): MetadataRoute.Robots {
           '/dealer',
           '/installer',
           '/search',
+          '/design-studio',
         ],
       },
     ],

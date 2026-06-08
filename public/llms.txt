@@ -24,7 +24,6 @@
 
 ## Tools
 
-- Design Studio, online cabinet configurator: /design-studio
 - Project estimate planner: /estimate
 - Guided finish finder: /finder
 

@@ -171,7 +171,7 @@ export function Navigation() {
         <nav className="container flex h-[60px] items-center justify-between gap-4 px-4 md:px-6">
           <Logo hero={isHeroMode} />
 
-          <div className="hidden lg:flex items-center">
+          <div className="hidden xl:flex items-center">
             <NavigationMenu>
               <NavigationMenuList>
                 {PRIMARY_NAV.map((item) =>
@@ -242,7 +242,7 @@ export function Navigation() {
             </NavigationMenu>
           </div>
 
-          <div className="hidden lg:flex items-center gap-3">
+          <div className="hidden xl:flex items-center gap-3 shrink-0">
             {isAuthenticated && isCustomer && (
               <Button variant="brandOutline" size="sm" asChild>
                 <Link href="/portal">{CTA_PORTAL_SHORT}</Link>
@@ -262,7 +262,7 @@ export function Navigation() {
             <a
               href={SITE_CONFIG.phoneHref}
               className={cn(
-                "flex items-center gap-2 text-[13px] font-medium transition-colors",
+                "flex items-center gap-2 text-[13px] font-medium transition-colors whitespace-nowrap",
                 isHeroMode
                   ? "text-inverse-muted hover:text-inverse-foreground"
                   : "text-muted-foreground hover:text-foreground",
@@ -278,7 +278,7 @@ export function Navigation() {
               href={SITE_CONFIG.phoneSmsHref}
               aria-label={`Text us at ${SITE_CONFIG.phone}`}
               className={cn(
-                "flex items-center gap-1.5 text-[13px] font-medium transition-colors",
+                "flex items-center gap-1.5 text-[13px] font-medium transition-colors whitespace-nowrap",
                 isHeroMode
                   ? "text-inverse-muted hover:text-inverse-foreground"
                   : "text-muted-foreground hover:text-foreground",
@@ -292,7 +292,7 @@ export function Navigation() {
             </Button>
           </div>
 
-          <div className="flex lg:hidden items-center gap-2">
+          <div className="flex xl:hidden items-center gap-2">
             <Button
               variant="ghost"
               size="icon"
@@ -308,7 +308,7 @@ export function Navigation() {
 
       <div
         className={cn(
-          "fixed inset-0 z-[200] bg-background flex flex-col lg:hidden",
+          "fixed inset-0 z-[200] bg-background flex flex-col xl:hidden",
           "transition-opacity duration-200",
           mobileOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none",
         )}
@@ -437,7 +437,7 @@ export function Navigation() {
         {...{ [ADAPTIVE_GLASS_ATTR]: "" }}
         className={cn(
           ADAPTIVE_GLASS_BAR_BASE,
-          "bottom-0 z-[100] lg:hidden transition-opacity duration-200",
+          "bottom-0 z-[100] xl:hidden transition-opacity duration-200",
           wizardBarActive && "pointer-events-none opacity-0",
           bottomBarClasses.bar,
         )}

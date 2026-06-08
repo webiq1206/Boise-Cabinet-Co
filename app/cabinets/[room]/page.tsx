@@ -101,8 +101,8 @@ export default function RoomCabinetPage({ params }: { params: { room: string } }
               description={room.description}
             />
             <Button variant="brand" asChild className="mt-4">
-              <Link href="/design-studio">
-                Design {room.name.toLowerCase()} cabinets{" "}
+              <Link href="/estimate">
+                Get a {room.name.toLowerCase()} cabinet estimate{" "}
                 <ArrowRight className="h-4 w-4" />
               </Link>
             </Button>
@@ -135,10 +135,10 @@ export default function RoomCabinetPage({ params }: { params: { room: string } }
         <Section variant="inverse">
           <div className="container px-4 text-center max-w-lg mx-auto">
             <p className="text-inverse-muted mb-4">
-              Configure layouts and finishes in Design Studio, then schedule a consultation.
+              Tell us about your layout and finishes to get a planning estimate, then schedule a consultation.
             </p>
             <Button variant="brand" asChild>
-              <Link href="/design-studio">Open Design Studio</Link>
+              <Link href="/estimate">Get an estimate</Link>
             </Button>
           </div>
         </Section>

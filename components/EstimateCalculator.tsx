@@ -2,7 +2,7 @@
 
 import { Section } from "@/components/marketing";
 import { EstimateCalculatorWizard } from "@/components/estimate/EstimateCalculatorWizard";
-import { CATALOG_CONTENT } from "@/shared/catalog";
+import { ESTIMATE_VALUE_PROP } from "@/shared/estimateEngine";
 
 interface EstimateCalculatorProps {
   inModal?: boolean;
@@ -24,15 +24,15 @@ export function EstimateCalculator({ inModal = false, onBookVisit }: EstimateCal
             <em className="brc-accent text-accent">investment</em>
           </h2>
           <p className="text-base max-w-2xl leading-relaxed text-muted-foreground mb-3">
-            A short guided flow - pick your project, size, and style. Your planning range updates
-            at each step.
+            A short guided flow - pick your project, size, and style. Your planning range stays
+            in view and updates at each step.
           </p>
-          <p className="text-xs text-muted-foreground/90 max-w-2xl">
-            {CATALOG_CONTENT.estimateDisclaimer}
+          <p className="text-sm max-w-2xl leading-relaxed text-foreground/80">
+            {ESTIMATE_VALUE_PROP}
           </p>
         </div>
 
-        <div className="max-w-3xl mx-auto">
+        <div className="max-w-5xl mx-auto">
           <EstimateCalculatorWizard onBookVisit={onBookVisit} />
         </div>
       </div>

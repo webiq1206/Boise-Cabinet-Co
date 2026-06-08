@@ -83,7 +83,7 @@ export function Footer() {
                 { label: "Full catalog", href: "/catalog" },
                 { label: "Finishes", href: "/finishes" },
                 { label: "Door Styles", href: "/door-styles" },
-                { label: "Design Studio", href: "/design-studio" },
+                { label: "Get an Estimate", href: "/estimate" },
                 { label: "My Project", href: "/portal" },
               ].map((link) => (
                 <li key={link.href}>

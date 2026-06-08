@@ -49,7 +49,7 @@ export function ProductConfigurationCard({
         </div>
         <CatalogActionBar
           className="mt-4"
-          designStudioHref={`/design-studio?product=${product.slug}`}
+          primaryHref="/estimate"
           productsHref={`/products/${product.category}/${product.slug}`}
         />
         <Link

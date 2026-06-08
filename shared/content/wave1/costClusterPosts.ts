@@ -312,7 +312,7 @@ const budgetExtra: ContentSection[] = [
     h2: 'Work with a local cabinet team',
     paragraphs: [
       '<a href="/contact">Contact Boise Cabinet Co</a> for a consultation across Boise, Meridian, Eagle, Kuna, Star, Middleton, Nampa, and Caldwell.',
-      '<a href="/cabinets">Cabinet catalog</a> · <a href="/design-studio">Design Studio</a> · <a href="/guides/boise-cabinet-cost-guide">Cost guide</a>.',
+      '<a href="/cabinets">Cabinet catalog</a> · <a href="/estimate">Get an estimate</a> · <a href="/guides/boise-cabinet-cost-guide">Cost guide</a>.',
     ],
   },
 ];
@@ -386,7 +386,7 @@ export const COST_CLUSTER_CONTENT: Record<
 
 const CLUSTER_LINK_FOOTER = `
 <h2>More planning resources</h2>
-<p>Explore our <a href="/guides/boise-cabinet-cost-guide">Boise Cabinet Cost Guide</a>, <a href="/guides/treasure-valley-cabinet-guide">Treasure Valley guide</a>, <a href="/guides/boise-cabinet-guide">Boise cabinet guide</a>, <a href="/cabinets">cabinet catalog</a>, <a href="/cabinets/kitchen">kitchen cabinets</a>, <a href="/cabinets/bathroom">bathroom vanities</a>, <a href="/design-studio">Design Studio</a>, <a href="/contact">schedule a consultation</a>, and <a href="/#calculator">project estimator</a>.</p>`;
+<p>Explore our <a href="/guides/boise-cabinet-cost-guide">Boise Cabinet Cost Guide</a>, <a href="/guides/treasure-valley-cabinet-guide">Treasure Valley guide</a>, <a href="/guides/boise-cabinet-guide">Boise cabinet guide</a>, <a href="/cabinets">cabinet catalog</a>, <a href="/cabinets/kitchen">kitchen cabinets</a>, <a href="/cabinets/bathroom">bathroom vanities</a>, <a href="/estimate">get an estimate</a>, <a href="/contact">schedule a consultation</a>, and <a href="/#calculator">project estimator</a>.</p>`;
 
 export function getExpandedClusterHtml(slug: string): string {
   const base = COST_CLUSTER_CONTENT[slug]?.html ?? '';

@@ -1,9 +1,7 @@
 import { DOOR_STYLES } from "./catalog/doorStyles";
 import { FINISH_BY_SLUG } from "./catalog/finishes";
 import { getDoorStyleImages, getFinishImages } from "./catalog/entityImages";
-import { getAccessoryImagePath } from "./catalog/catalogImages";
 import { getFinishesForDoorStyle } from "./catalog/queries";
-import { ACCESSORIES, ACCESSORY_BY_SLUG } from "./catalog/accessories";
 import { LAYOUT_BY_SLUG } from "./catalog/layouts";
 
 /**
@@ -11,14 +9,14 @@ import { LAYOUT_BY_SLUG } from "./catalog/layouts";
  *
  * Pricing is grounded in the real Boise Cabinet Co catalog: the single custom
  * cabinet offering, the six catalog door styles, the matte / woodgrain / gloss
- * finish categories and the catalog finish price tiers, Good / Better / Best box
- * construction, and the six real catalog accessory families. Option lists are
- * pulled from `shared/catalog/*` so the estimator and catalog never drift.
+ * finish categories and the catalog finish price tiers, and Good / Better / Best
+ * box construction. Option lists are pulled from `shared/catalog/*` so the
+ * estimator and catalog never drift.
  *
  * The model composes a base from layout + size (linear-foot driven), then
- * applies multipliers for door style, finish category, finish tier,
- * construction quality, and the chosen catalog accessories. Every upgrade raises
- * the range monotonically; every downgrade lowers it.
+ * applies multipliers for door style, finish category, finish tier, and
+ * construction quality. Every upgrade raises the range monotonically; every
+ * downgrade lowers it.
  *
  * There is exactly one cabinet line (custom), so there is no "line" step and no
  * "Reserve" multiplier. Finish price is communicated with `$` tiers, never
@@ -46,24 +44,41 @@ export type SelectionStepKey =
   | "doorStyle"
   | "finishColor"
   | "finish"
-  | "construction"
-  | "accessories";
+  | "construction";
 
 export interface EstimateSelections {
-  project: ProjectType;
+  /** Chosen project, or null until the visitor picks one (nothing is pre-selected). */
+  project: ProjectType | null;
   /** Layout slug from the catalog; "" when the project has no layout step. */
   layout: string;
-  /** Size in linear feet of cabinetry. */
-  size: number;
-  /** Door style id (slab, modern-shaker, thin-shaker, etc.). */
+  /** Base (lower) run in linear feet, or null until the visitor sets the slider. */
+  size: number | null;
+  /**
+   * Wall (upper) cabinet run in linear feet, for projects that have uppers.
+   * Null until set; 0 means few/no uppers. Always null for projects without
+   * a separate upper run (vanities, full-height pantries).
+   */
+  sizeUpper: number | null;
+  /** Door style id (slab, modern-shaker, thin-shaker, etc.); "" until chosen. */
   doorStyle: string;
   /** Optional catalog finish slug; empty string skips named-color selection. */
   finishSlug: string;
-  finishCategory: FinishCategory;
-  finishTier: FinishTier;
-  construction: ConstructionTier;
-  /** Selected catalog accessory family slugs. */
-  accessories: string[];
+  /** Finish style; "" until chosen. */
+  finishCategory: FinishCategory | "";
+  /** Color tier; "" until chosen (no longer surfaced as its own step). */
+  finishTier: FinishTier | "";
+  /** Construction quality; "" until chosen. */
+  construction: ConstructionTier | "";
+}
+
+/**
+ * An estimate can only be priced once the visitor has intentionally chosen a
+ * project and a size. Nothing is assumed from defaults: if these are missing we
+ * show the "make your selections" prompt instead of a number, and we never
+ * store an estimate for the consultation form.
+ */
+export function isPriceable(sel: EstimateSelections): boolean {
+  return sel.project != null && sel.size != null && sel.size > 0;
 }
 
 export interface EstimateResult {
@@ -74,7 +89,7 @@ export interface EstimateResult {
   confidence: ConfidenceLevel;
   confidenceLabel: string;
   confidencePercent: number;
-  /** Product-named scope line, e.g. "Thin Shaker · Matte finish ($$$) · Best construction · 2 add-ons". */
+  /** Product-named scope line, e.g. "Thin Shaker · Matte finish ($$$) · Best construction". */
   scopeSummary: string;
   selectionsMade: number;
   totalSteps: number;
@@ -89,25 +104,42 @@ export interface EstimateResult {
 // this block - tune these numbers to refine the estimator.
 //
 // How the math works:
-//   priceLow  = round( perUnitLow  × size × multiplier )
-//   priceHigh = round( perUnitHigh × size × multiplier )
+//   priceLow  = round( (perUnitLow  × baseLF + upperPerUnitLow  × upperLF) × mult )
+//   priceHigh = round( (perUnitHigh × baseLF + upperPerUnitHigh × upperLF) × mult )
 //   multiplier = layout × doorStyle × finishCategory × finishTier
-//              × construction × accessories
+//              × construction
+//
+// For projects with wall (upper) cabinets, the base (lower) and upper runs are
+// priced separately: uppers cost less per linear foot than base cabinets. The
+// lower-run rate is scaled (~0.69) and the upper-run rate (~0.41) is set so that
+// a typical mix (uppers ≈ 0.75 × base run) lands close to the previous single-
+// run pricing. Projects without uppers (bathroom vanities, full-height pantries)
+// keep the full per-LF rate and an upper rate of 0.
 // ============================================================================
 
-/** Base installed price per linear foot (low/high band) and resale ROI per room. */
+/**
+ * Installed price per linear foot, low/high band, plus resale ROI per room.
+ * `perUnit*` price the base (lower) run; `upperPerUnit*` price the wall (upper)
+ * run. Upper rates are 0 for projects that have no separate upper cabinets.
+ */
 export const PROJECT_PRICING: Record<
   ProjectType,
-  { perUnitLow: number; perUnitHigh: number; roi: number }
+  {
+    perUnitLow: number;
+    perUnitHigh: number;
+    upperPerUnitLow: number;
+    upperPerUnitHigh: number;
+    roi: number;
+  }
 > = {
-  kitchen: { perUnitLow: 520, perUnitHigh: 880, roi: 72 },
-  bathroom: { perUnitLow: 460, perUnitHigh: 820, roi: 68 },
-  laundry: { perUnitLow: 380, perUnitHigh: 680, roi: 62 },
-  mudroom: { perUnitLow: 360, perUnitHigh: 640, roi: 58 },
-  "home-office": { perUnitLow: 400, perUnitHigh: 720, roi: 55 },
-  entertainment: { perUnitLow: 420, perUnitHigh: 760, roi: 58 },
-  "built-ins": { perUnitLow: 380, perUnitHigh: 700, roi: 60 },
-  pantry: { perUnitLow: 320, perUnitHigh: 600, roi: 56 },
+  kitchen: { perUnitLow: 360, perUnitHigh: 605, upperPerUnitLow: 215, upperPerUnitHigh: 360, roi: 72 },
+  bathroom: { perUnitLow: 460, perUnitHigh: 820, upperPerUnitLow: 0, upperPerUnitHigh: 0, roi: 68 },
+  laundry: { perUnitLow: 260, perUnitHigh: 470, upperPerUnitLow: 155, upperPerUnitHigh: 280, roi: 62 },
+  mudroom: { perUnitLow: 250, perUnitHigh: 440, upperPerUnitLow: 150, upperPerUnitHigh: 260, roi: 58 },
+  "home-office": { perUnitLow: 275, perUnitHigh: 495, upperPerUnitLow: 165, upperPerUnitHigh: 295, roi: 55 },
+  entertainment: { perUnitLow: 290, perUnitHigh: 525, upperPerUnitLow: 170, upperPerUnitHigh: 310, roi: 58 },
+  "built-ins": { perUnitLow: 260, perUnitHigh: 485, upperPerUnitLow: 155, upperPerUnitHigh: 285, roi: 60 },
+  pantry: { perUnitLow: 320, perUnitHigh: 600, upperPerUnitLow: 0, upperPerUnitHigh: 0, roi: 56 },
 };
 
 /** Door style premium, keyed by door style id. */
@@ -143,9 +175,6 @@ export const CONSTRUCTION_MULTIPLIER: Record<ConstructionTier, number> = {
   best: 1.3,
 };
 
-/** Each selected catalog accessory adds this fraction to the range. */
-export const ACCESSORY_PREMIUM_PER = 0.04;
-
 /** Layout complexity premium, keyed by catalog layout slug. More corners cost more. */
 export const LAYOUT_COMPLEXITY_MULTIPLIER: Record<string, number> = {
   galley: 1.0,
@@ -176,13 +205,27 @@ export interface ProjectSizeConfig {
   unitShort: string;
   /** Step header for the size selector. */
   sizeStepLabel: string;
+  /**
+   * Present when the project has separate wall (upper) cabinets, priced apart
+   * from the base run. Absent for vanities and full-height pantries.
+   */
+  uppers?: {
+    /** Upper run can be 0 (few/no uppers) up to this many linear feet. */
+    max: number;
+    step: number;
+    /** Typical upper run, used for design-derived and default selections. */
+    default: number;
+    /** Slider header, e.g. "Wall cabinets (uppers)". */
+    label: string;
+  };
 }
 
 export const PROJECT_SIZE_CONFIG: Record<ProjectType, ProjectSizeConfig> = {
   kitchen: {
     min: 10, max: 60, step: 2, default: 24,
     unit: "linear-ft", unitNoun: "linear feet", unitNounSingular: "linear foot",
-    unitShort: "lf", sizeStepLabel: "Run of cabinetry",
+    unitShort: "lf", sizeStepLabel: "Base cabinets (floor run)",
+    uppers: { max: 50, step: 2, default: 18, label: "Wall cabinets (uppers)" },
   },
   bathroom: {
     min: 3, max: 16, step: 1, default: 6,
@@ -192,27 +235,32 @@ export const PROJECT_SIZE_CONFIG: Record<ProjectType, ProjectSizeConfig> = {
   laundry: {
     min: 4, max: 20, step: 1, default: 8,
     unit: "linear-ft", unitNoun: "linear feet", unitNounSingular: "linear foot",
-    unitShort: "lf", sizeStepLabel: "Run of cabinetry",
+    unitShort: "lf", sizeStepLabel: "Base cabinets (floor run)",
+    uppers: { max: 16, step: 1, default: 6, label: "Wall cabinets (uppers)" },
   },
   mudroom: {
     min: 4, max: 20, step: 1, default: 8,
     unit: "linear-ft", unitNoun: "linear feet", unitNounSingular: "linear foot",
-    unitShort: "lf", sizeStepLabel: "Run of cabinetry",
+    unitShort: "lf", sizeStepLabel: "Base cabinets (floor run)",
+    uppers: { max: 16, step: 1, default: 6, label: "Wall cabinets (uppers)" },
   },
   "home-office": {
     min: 4, max: 24, step: 1, default: 10,
     unit: "linear-ft", unitNoun: "linear feet", unitNounSingular: "linear foot",
-    unitShort: "lf", sizeStepLabel: "Run of cabinetry",
+    unitShort: "lf", sizeStepLabel: "Base cabinets (floor run)",
+    uppers: { max: 20, step: 1, default: 7, label: "Wall cabinets (uppers)" },
   },
   entertainment: {
     min: 4, max: 30, step: 1, default: 12,
     unit: "linear-ft", unitNoun: "linear feet", unitNounSingular: "linear foot",
-    unitShort: "lf", sizeStepLabel: "Run of cabinetry",
+    unitShort: "lf", sizeStepLabel: "Base cabinets (floor run)",
+    uppers: { max: 26, step: 1, default: 9, label: "Wall/upper cabinets" },
   },
   "built-ins": {
     min: 3, max: 30, step: 1, default: 10,
     unit: "linear-ft", unitNoun: "linear feet", unitNounSingular: "linear foot",
-    unitShort: "lf", sizeStepLabel: "Run of cabinetry",
+    unitShort: "lf", sizeStepLabel: "Base cabinets (floor run)",
+    uppers: { max: 26, step: 1, default: 7, label: "Wall/upper cabinets" },
   },
   pantry: {
     min: 3, max: 16, step: 1, default: 8,
@@ -263,16 +311,40 @@ export const PROJECT_LABELS: Record<
   },
 };
 
-/** Which layout slugs each project type offers (membership defined here, names pulled from catalog). */
+/**
+ * Which layout slugs each project type offers (membership defined here, names pulled from catalog).
+ *
+ * The Layout step is disabled for now: picking a shape is hard for visitors and
+ * means little without upper-cabinet input, so we skip it and apply a neutral
+ * complexity factor (see PROJECT_NO_LAYOUT_COMPLEXITY) instead. To re-enable a
+ * project's layout step, restore its slug list below.
+ */
 export const PROJECT_LAYOUT_SLUGS: Record<ProjectType, string[]> = {
-  kitchen: ["galley", "l-shape", "u-shape", "island", "peninsula"],
-  bathroom: ["single-vanity", "double-vanity"],
+  kitchen: [],
+  bathroom: [],
   laundry: [],
   mudroom: [],
   "home-office": [],
   entertainment: [],
   "built-ins": [],
   pantry: [],
+};
+
+/**
+ * Neutral complexity premium applied when a project has no Layout step. This
+ * stands in for the average shape's LAYOUT_COMPLEXITY_MULTIPLIER so estimates
+ * stay reasonable without asking the visitor to pick a layout. Kitchens assume
+ * a midpoint between galley and island; bathrooms a midpoint of the two vanities.
+ */
+export const PROJECT_NO_LAYOUT_COMPLEXITY: Record<ProjectType, number> = {
+  kitchen: 1.08,
+  bathroom: 1.06,
+  laundry: 1.0,
+  mudroom: 1.0,
+  "home-office": 1.0,
+  entertainment: 1.0,
+  "built-ins": 1.0,
+  pantry: 1.0,
 };
 
 export interface StepVisibility {
@@ -293,7 +365,7 @@ export function getVisibleSteps(project: ProjectType): SelectionStepKey[] {
   if (vis.layout) steps.push("layout");
   steps.push("size");
   if (vis.doorStyle) steps.push("doorStyle");
-  steps.push("finish", "construction", "accessories");
+  steps.push("finish", "construction");
   return steps;
 }
 
@@ -426,15 +498,6 @@ export const CONSTRUCTION_OPTIONS: SelectOption<ConstructionTier>[] = [
   { value: "best", label: "Best", sub: "All-plywood, dovetail drawer boxes, reinforced", icon: "Crown" },
 ];
 
-/** The six real catalog accessory families, as multi-select options. */
-export const ACCESSORY_OPTIONS: SelectOption[] = ACCESSORIES.map((a) => ({
-  value: a.slug,
-  label: a.name,
-  sub: a.description,
-  image: getAccessoryImagePath(a.slug),
-  imageAlt: `${a.name} cabinet accessory`,
-}));
-
 const CONSTRUCTION_LABEL: Record<ConstructionTier, string> = {
   good: "Good", better: "Better", best: "Best",
 };
@@ -510,6 +573,20 @@ export const INCLUDED_SCOPE_NOTE =
 export const APPLIANCE_DISCLAIMER =
   "Appliances are client-supplied; we'll guide your selection but do not purchase or install them.";
 
+/**
+ * Professionally worded range disclaimer shown wherever the estimator surfaces a
+ * planning range. Sets expectations without discouraging the visitor.
+ */
+export const ESTIMATE_RANGE_DISCLAIMER =
+  "This estimate is intended to provide a general investment range based on your selections. Final pricing may vary based on measurements, project details, installation requirements, and product choices. Most projects move into production within 4-8 weeks after selections and project details are finalized.";
+
+/**
+ * Subtle, credible value-proposition line reinforced throughout the estimator:
+ * premium quality and craftsmanship at competitive pricing, without hard selling.
+ */
+export const ESTIMATE_VALUE_PROP =
+  "Designed to provide exceptional value, premium-quality materials, and expert craftsmanship at highly competitive pricing.";
+
 export const PLANNING_DETAIL_LABELS: Record<ConfidenceLevel, string> = {
   starting: "Example range - personalize below",
   refined: "Refined guidance",
@@ -545,20 +622,45 @@ export function getDefaultLayout(project: ProjectType): string {
 }
 
 export function getDefaultSelectionsForProject(project: ProjectType): EstimateSelections {
+  const cfg = PROJECT_SIZE_CONFIG[project];
   return {
     project,
     layout: getDefaultLayout(project),
-    size: PROJECT_SIZE_CONFIG[project].default,
+    size: cfg.default,
+    sizeUpper: cfg.uppers ? cfg.uppers.default : null,
     doorStyle: "modern-shaker",
     finishSlug: "",
     finishCategory: "matte",
     finishTier: "standard",
     construction: "better",
-    accessories: [],
   };
 }
 
 export const DEFAULT_SELECTIONS: EstimateSelections = getDefaultSelectionsForProject("kitchen");
+
+/**
+ * Fully unselected state for the estimator: nothing is pre-chosen. Used as the
+ * wizard's initial state so a visitor who skips it never produces an estimate.
+ */
+export const EMPTY_SELECTIONS: EstimateSelections = {
+  project: null,
+  layout: "",
+  size: null,
+  sizeUpper: null,
+  doorStyle: "",
+  finishSlug: "",
+  finishCategory: "",
+  finishTier: "",
+  construction: "",
+};
+
+/**
+ * When a visitor picks a project, set only the project. Size, door, finish, and
+ * construction stay unselected so the estimate reflects just what they choose.
+ */
+export function emptySelectionsForProject(project: ProjectType): EstimateSelections {
+  return { ...EMPTY_SELECTIONS, project };
+}
 
 // ── Pricing ──────────────────────────────────────────────────────────────────
 
@@ -568,35 +670,38 @@ export function formatPlanningCurrency(n: number): string {
   return `$${n.toLocaleString()}`;
 }
 
-function clampSize(project: ProjectType, size: number): number {
+function clampSize(project: ProjectType, size: number | null): number {
   const cfg = PROJECT_SIZE_CONFIG[project];
-  if (!Number.isFinite(size)) return cfg.default;
+  if (size == null || !Number.isFinite(size)) return cfg.default;
   return Math.max(cfg.min, Math.min(cfg.max, Math.round(size)));
 }
 
-/** Only keep accessory slugs that exist in the catalog. */
-function normalizeAccessories(slugs: string[]): string[] {
-  const seen = new Set<string>();
-  const out: string[] = [];
-  for (const slug of slugs) {
-    if (seen.has(slug)) continue;
-    if (!ACCESSORY_BY_SLUG[slug]) continue;
-    seen.add(slug);
-    out.push(slug);
-  }
-  return out;
+/** Clamp the upper (wall) run; null for projects without a separate upper run. */
+function clampUpperSize(project: ProjectType, size: number | null): number | null {
+  const cfg = PROJECT_SIZE_CONFIG[project];
+  if (!cfg.uppers) return null;
+  if (size == null || !Number.isFinite(size)) return null;
+  return Math.max(0, Math.min(cfg.uppers.max, Math.round(size)));
 }
 
-/** Combined upgrade multiplier for the current selections. */
+/**
+ * Combined upgrade multiplier for the current selections. Any dimension the
+ * visitor has not chosen contributes no premium (multiplier 1), so the range
+ * reflects only the selections actually made.
+ */
 export function getSelectionMultiplier(sel: EstimateSelections): number {
+  if (!sel.project) return 1;
   const vis = getStepVisibility(sel.project);
   let m = 1;
-  if (vis.layout) m *= LAYOUT_COMPLEXITY_MULTIPLIER[sel.layout] ?? 1;
+  if (vis.layout) {
+    m *= LAYOUT_COMPLEXITY_MULTIPLIER[sel.layout] ?? 1;
+  } else {
+    m *= PROJECT_NO_LAYOUT_COMPLEXITY[sel.project] ?? 1;
+  }
   if (vis.doorStyle) m *= DOOR_STYLE_MULTIPLIER[sel.doorStyle] ?? 1;
-  m *= FINISH_CATEGORY_MULTIPLIER[sel.finishCategory] ?? 1;
-  m *= FINISH_TIER_MULTIPLIER[sel.finishTier] ?? 1;
-  m *= CONSTRUCTION_MULTIPLIER[sel.construction] ?? 1;
-  m *= 1 + ACCESSORY_PREMIUM_PER * normalizeAccessories(sel.accessories).length;
+  m *= FINISH_CATEGORY_MULTIPLIER[sel.finishCategory as FinishCategory] ?? 1;
+  m *= FINISH_TIER_MULTIPLIER[sel.finishTier as FinishTier] ?? 1;
+  m *= CONSTRUCTION_MULTIPLIER[sel.construction as ConstructionTier] ?? 1;
   return m;
 }
 
@@ -604,13 +709,23 @@ function roundPrice(n: number): number {
   return Math.round(n / PRICE_ROUND_TO) * PRICE_ROUND_TO;
 }
 
-export function getSizeLabel(project: ProjectType, size: number): string {
+export function getSizeLabel(
+  project: ProjectType,
+  size: number,
+  sizeUpper: number | null = null,
+): string {
   const cfg = PROJECT_SIZE_CONFIG[project];
   const noun = size === 1 ? cfg.unitNounSingular : cfg.unitNoun;
+  if (cfg.uppers) {
+    // Before the upper run is set, show just the base run; once set, show both.
+    if (sizeUpper == null) return `${size.toLocaleString()} ${noun} base`;
+    return `${size.toLocaleString()} ${cfg.unitShort} base · ${sizeUpper.toLocaleString()} ${cfg.unitShort} uppers`;
+  }
   return `${size.toLocaleString()} ${noun}`;
 }
 
 export function buildScopeSummary(sel: EstimateSelections): string {
+  if (!sel.project) return "";
   const vis = getStepVisibility(sel.project);
   const parts: string[] = [];
   if (vis.doorStyle) {
@@ -618,29 +733,29 @@ export function buildScopeSummary(sel: EstimateSelections): string {
     if (door) parts.push(door.name);
   }
   const namedFinish = sel.finishSlug ? FINISH_BY_SLUG[sel.finishSlug]?.name : undefined;
-  const tierDollar = FINISH_TIER_DOLLAR[sel.finishTier];
-  parts.push(
-    namedFinish
-      ? `${namedFinish} (${tierDollar})`
-      : `${FINISH_CATEGORY_LABEL[sel.finishCategory]} finish (${tierDollar})`,
-  );
-  parts.push(`${CONSTRUCTION_LABEL[sel.construction]} construction`);
-  const accCount = normalizeAccessories(sel.accessories).length;
-  if (accCount > 0) {
-    parts.push(`${accCount} add-on${accCount === 1 ? "" : "s"}`);
+  const tierDollar = sel.finishTier ? FINISH_TIER_DOLLAR[sel.finishTier] : "";
+  if (namedFinish) {
+    parts.push(tierDollar ? `${namedFinish} (${tierDollar})` : namedFinish);
+  } else if (sel.finishCategory) {
+    const label = FINISH_CATEGORY_LABEL[sel.finishCategory];
+    parts.push(tierDollar ? `${label} finish (${tierDollar})` : `${label} finish`);
+  }
+  if (sel.construction) {
+    parts.push(`${CONSTRUCTION_LABEL[sel.construction]} construction`);
   }
   // Guarantee a multi-part summary so downstream UI always has a separator.
   if (parts.length < 2) parts.push("built to order");
   return parts.join(" · ");
 }
 
-/** Short header line for the result panel: project + size. */
+/** Short header line for the result panel: project + size. Empty until both are set. */
 export function buildSelectionSummary(sel: EstimateSelections): string {
-  return `${PROJECT_LABELS[sel.project].label} · ${getSizeLabel(sel.project, sel.size)}`;
+  if (!sel.project || sel.size == null) return "";
+  return `${PROJECT_LABELS[sel.project].label} · ${getSizeLabel(sel.project, sel.size, sel.sizeUpper)}`;
 }
 
 function buildIncluded(sel: EstimateSelections): string[] {
-  const vis = getStepVisibility(sel.project);
+  const vis = sel.project ? getStepVisibility(sel.project) : { layout: false, doorStyle: true };
   const list: string[] = [];
   list.push("Custom cabinets, built to order");
 
@@ -655,18 +770,13 @@ function buildIncluded(sel: EstimateSelections): string[] {
   }
 
   const namedFinish = sel.finishSlug ? FINISH_BY_SLUG[sel.finishSlug]?.name : undefined;
-  list.push(
-    namedFinish
-      ? `${namedFinish} finish`
-      : `${FINISH_CATEGORY_LABEL[sel.finishCategory]} finish`,
-  );
-  list.push(CONSTRUCTION_INCLUDED[sel.construction]);
-
-  const accessoryNames = normalizeAccessories(sel.accessories)
-    .map((slug) => ACCESSORY_BY_SLUG[slug]?.name)
-    .filter(Boolean) as string[];
-  if (accessoryNames.length > 0) {
-    list.push(`Smart storage: ${accessoryNames.join(", ")}`);
+  if (namedFinish) {
+    list.push(`${namedFinish} finish`);
+  } else if (sel.finishCategory) {
+    list.push(`${FINISH_CATEGORY_LABEL[sel.finishCategory]} finish`);
+  }
+  if (sel.construction) {
+    list.push(CONSTRUCTION_INCLUDED[sel.construction]);
   }
 
   list.push("Soft-close hinges and full-extension drawer slides");
@@ -691,6 +801,7 @@ function getConfidence(count: number, total: number): { level: ConfidenceLevel; 
 
 /** Normalizes selections so out-of-range sizes / unknown layouts can't break pricing. */
 export function normalizeSelections(sel: EstimateSelections): EstimateSelections {
+  if (!sel.project) return sel;
   const vis = getStepVisibility(sel.project);
   const layoutSlugs = PROJECT_LAYOUT_SLUGS[sel.project];
   const layout = vis.layout && !layoutSlugs.includes(sel.layout)
@@ -700,7 +811,7 @@ export function normalizeSelections(sel: EstimateSelections): EstimateSelections
     ...sel,
     layout,
     size: clampSize(sel.project, sel.size),
-    accessories: normalizeAccessories(sel.accessories),
+    sizeUpper: clampUpperSize(sel.project, sel.sizeUpper),
   };
   if (next.finishSlug) {
     const doorSlug = DOOR_STYLES.find((d) => d.id === next.doorStyle)?.slug ?? next.doorStyle;
@@ -717,15 +828,25 @@ export function normalizeSelections(sel: EstimateSelections): EstimateSelections
 export function calculateEstimate(
   selections: EstimateSelections,
   selectionsMade = 0,
-): EstimateResult {
+): EstimateResult | null {
+  // No project or size means the visitor has not made a priceable selection yet.
+  // Return null so the UI shows the "make your selections" prompt instead of a
+  // fabricated range, and nothing is stored for the consultation form.
+  if (!isPriceable(selections)) return null;
   const sel = normalizeSelections(selections);
-  const pricing = PROJECT_PRICING[sel.project];
+  const project = sel.project as ProjectType;
+  const pricing = PROJECT_PRICING[project];
+  const cfg = PROJECT_SIZE_CONFIG[project];
   const mult = getSelectionMultiplier(sel);
 
-  const priceLow = roundPrice(pricing.perUnitLow * sel.size * mult);
-  const priceHigh = roundPrice(pricing.perUnitHigh * sel.size * mult);
+  // Uppers only apply (and are only charged) for projects with a wall run.
+  const upperLF = cfg.uppers ? sel.sizeUpper ?? 0 : 0;
+  const baseLow = pricing.perUnitLow * sel.size! + pricing.upperPerUnitLow * upperLF;
+  const baseHigh = pricing.perUnitHigh * sel.size! + pricing.upperPerUnitHigh * upperLF;
+  const priceLow = roundPrice(baseLow * mult);
+  const priceHigh = roundPrice(baseHigh * mult);
 
-  const total = getTotalSteps(sel.project);
+  const total = getTotalSteps(project);
   const { level, percent } = getConfidence(selectionsMade, total);
 
   return {
@@ -758,9 +879,11 @@ export interface StoredEstimate extends EstimateSelections {
 export function buildStoredEstimate(
   selections: EstimateSelections,
   selectionsMade = 0,
-): StoredEstimate {
+): StoredEstimate | null {
+  const result = calculateEstimate(selections, selectionsMade);
+  if (!result) return null;
   const sel = normalizeSelections(selections);
-  const result = calculateEstimate(sel, selectionsMade);
+  const project = sel.project as ProjectType;
   return {
     ...sel,
     priceLow: result.priceLow,
@@ -769,7 +892,7 @@ export function buildStoredEstimate(
     confidence: result.confidence,
     confidenceLabel: result.confidenceLabel,
     scopeSummary: result.scopeSummary,
-    sizeLabel: getSizeLabel(sel.project, sel.size),
-    projectLabel: PROJECT_LABELS[sel.project].label,
+    sizeLabel: getSizeLabel(project, sel.size!, sel.sizeUpper),
+    projectLabel: PROJECT_LABELS[project].label,
   };
 }

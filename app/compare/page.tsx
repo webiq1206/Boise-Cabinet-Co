@@ -199,8 +199,8 @@ export default function ComparePage() {
               title="Compare Cabinet Collections | Boise Cabinet Co"
             />
             <Button variant="brand" asChild className="mt-4">
-              <Link href="/design-studio">
-                Start in Design Studio <ArrowRight className="h-4 w-4" />
+              <Link href="/estimate">
+                Get an estimate <ArrowRight className="h-4 w-4" />
               </Link>
             </Button>
           </div>

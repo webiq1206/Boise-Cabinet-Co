@@ -39,7 +39,7 @@ export function DoorStyleExplorer({
       />
       <p className="text-sm text-muted-foreground">{style.constructionNotes}</p>
       <CatalogActionBar
-        designStudioHref={`/design-studio?doorStyle=${style.slug}`}
+        primaryHref="/estimate"
         compareHref="/compare"
         productsHref={`/products?doorStyle=${style.slug}`}
       />

@@ -13,17 +13,14 @@ test.describe("Project Estimator wizard", () => {
     await page.getByTestId("button-project-kitchen").click();
     await page.getByRole("button", { name: "Continue" }).click();
 
-    await page.getByRole("button", { name: "Continue" }).click();
-
-    await page.getByTestId("button-layout-island").click();
+    // Size starts unset; move both the base and wall (upper) sliders before the
+    // step can be completed (kitchen has uppers).
+    await page.getByTestId("slider-size").fill("24");
+    await page.getByTestId("slider-size-upper").fill("18");
+    await page.getByTestId("button-construction-better").click();
     await page.getByRole("button", { name: "Continue" }).click();
 
     await page.getByTestId("button-door-modern-shaker").click();
-    await page.getByTestId("button-finish-tier-standard").click();
-    await page.getByRole("button", { name: "Continue" }).click();
-
-    await page.getByTestId("button-construction-better").click();
-    await page.getByTestId("button-accessory-rollout-tray").click();
     await page.getByRole("button", { name: "Continue" }).click();
 
     await expect(page.getByTestId("estimate-result-panel")).toBeVisible({

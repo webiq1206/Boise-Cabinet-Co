@@ -100,10 +100,8 @@ export function GuidedCatalogWizard() {
             {rec.topProducts.length} cabinet configurations match your choices.
           </p>
           <Button variant="brand" asChild>
-            <Link
-              href={`/design-studio?collection=${collection}&doorStyle=${doorStyle}&finish=${rec.topFinishes[0]?.slug ?? ""}`}
-            >
-              Open Design Studio
+            <Link href="/estimate">
+              Get an estimate
             </Link>
           </Button>
         </div>

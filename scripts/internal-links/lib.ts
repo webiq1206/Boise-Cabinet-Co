@@ -79,7 +79,6 @@ const CATALOG_HUB_PAGES: Array<{ url: string; title: string; anchor: string; tag
   { url: "/door-styles", title: "Door Styles", anchor: "Door styles", tags: ["door", "styles"] },
   { url: "/finishes", title: "Finishes", anchor: "Finishes", tags: ["finishes"] },
   { url: "/hardware", title: "Cabinet Hardware", anchor: "Hardware", tags: ["hardware"] },
-  { url: "/design-studio", title: "Design Studio", anchor: "Design studio", tags: ["design"] },
 ];
 
 export function buildCanonicalRoutes(): string[] {

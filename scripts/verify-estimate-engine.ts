@@ -6,8 +6,6 @@ import {
   getVisibleSteps,
   getTotalSteps,
   getLayoutOptions,
-  ACCESSORY_OPTIONS,
-  ACCESSORY_PREMIUM_PER,
   DOOR_STYLE_MULTIPLIER,
   FINISH_CATEGORY_MULTIPLIER,
   FINISH_TIER_MULTIPLIER,
@@ -25,6 +23,15 @@ function assert(condition: boolean, message: string) {
     console.error(`FAIL: ${message}`);
     process.exit(1);
   }
+}
+
+// calculateEstimate now returns null for unpriceable selections. Every check
+// below feeds a fully-built (priceable) selection, so assert non-null here.
+const calc = calculateEstimate;
+function priced(sel: EstimateSelections, made = 0) {
+  const r = calc(sel, made);
+  if (!r) throw new Error("verification expected a priceable selection");
+  return r;
 }
 
 const projects: ProjectType[] = [
@@ -49,7 +56,7 @@ for (const project of projects) {
   const cfg = getProjectSizeConfig(project);
   const total = getTotalSteps(project);
 
-  const result = calculateEstimate(base, total);
+  const result = priced(base, total);
   assert(result.priceLow > 0, `${project}: priceLow is positive`);
   assert(result.priceHigh > result.priceLow, `${project}: priceHigh exceeds priceLow`);
   assert(result.roi > 0 && result.roi <= 100, `${project}: roi within (0, 100]`);
@@ -69,8 +76,8 @@ for (const project of projects) {
   }
 
   // Size scales the range up monotonically.
-  const small = calculateEstimate({ ...base, size: cfg.min }, total);
-  const large = calculateEstimate({ ...base, size: cfg.max }, total);
+  const small = priced({ ...base, size: cfg.min }, total);
+  const large = priced({ ...base, size: cfg.max }, total);
   assert(large.priceLow > small.priceLow, `${project}: larger size raises priceLow`);
   assert(large.priceHigh > small.priceHigh, `${project}: larger size raises priceHigh`);
 }
@@ -88,14 +95,11 @@ for (const project of projects) {
   assert(steps.includes("size"), `${project} has a size step`);
   assert(!steps.includes("line" as never), `${project} has no cabinet line step`);
   assert(
-    steps.includes("finish") && steps.includes("construction") && steps.includes("accessories"),
-    `${project} has finish, construction, and accessories steps`,
+    steps.includes("finish") && steps.includes("construction"),
+    `${project} has finish and construction steps`,
   );
+  assert(!steps.includes("accessories" as never), `${project} no longer surfaces a smart-storage step`);
 }
-
-// ── Exactly the six catalog accessory families are offered ───────────────────
-assert(ACCESSORY_OPTIONS.length === 6, `estimator offers exactly 6 catalog accessories (got ${ACCESSORY_OPTIONS.length})`);
-assert(ACCESSORY_PREMIUM_PER > 0, "each accessory adds a positive premium");
 
 // ── Monotonicity: every upgrade can only raise (never lower) the range ───────
 function monotonicUpgrade<T extends string>(
@@ -109,14 +113,14 @@ function monotonicUpgrade<T extends string>(
   let prevLow = -1;
   let prevHigh = -1;
   for (const value of order) {
-    const r = calculateEstimate({ ...base, [field]: value } as EstimateSelections, 0);
+    const r = priced({ ...base, [field]: value } as EstimateSelections, 0);
     assert(r.priceLow >= prevLow, `${project} ${label}: priceLow non-decreasing at "${value}"`);
     assert(r.priceHigh >= prevHigh, `${project} ${label}: priceHigh non-decreasing at "${value}"`);
     prevLow = r.priceLow;
     prevHigh = r.priceHigh;
   }
-  const lowest = calculateEstimate({ ...base, [field]: order[0] } as EstimateSelections, 0);
-  const highest = calculateEstimate(
+  const lowest = priced({ ...base, [field]: order[0] } as EstimateSelections, 0);
+  const highest = priced(
     { ...base, [field]: order[order.length - 1] } as EstimateSelections,
     0,
   );
@@ -149,27 +153,25 @@ for (const project of projects) {
     monotonicUpgrade(project, "layout", layoutOrder, "layout complexity");
   }
 
-  // Adding more accessories raises the range.
-  const cfg = getProjectSizeConfig(project);
-  const base = { ...getDefaultSelectionsForProject(project), size: cfg.max };
-  const slugs = ACCESSORY_OPTIONS.map((o) => o.value);
-  let prevHigh = -1;
-  for (let i = 0; i <= slugs.length; i++) {
-    const r = calculateEstimate({ ...base, accessories: slugs.slice(0, i) }, 0);
-    assert(r.priceHigh >= prevHigh, `${project} accessories: priceHigh non-decreasing at ${i} add-ons`);
-    prevHigh = r.priceHigh;
+  // Projects with wall cabinets: a larger upper run raises the range.
+  const sizeCfg = getProjectSizeConfig(project);
+  if (sizeCfg.uppers) {
+    const b = { ...getDefaultSelectionsForProject(project), size: sizeCfg.max };
+    const noUppers = priced({ ...b, sizeUpper: 0 }, 0);
+    const maxUppers = priced({ ...b, sizeUpper: sizeCfg.uppers.max }, 0);
+    assert(
+      maxUppers.priceHigh > noUppers.priceHigh,
+      `${project} uppers: more wall cabinets raise the range`,
+    );
   }
-  const none = calculateEstimate({ ...base, accessories: [] }, 0);
-  const all = calculateEstimate({ ...base, accessories: slugs }, 0);
-  assert(all.priceHigh > none.priceHigh, `${project} accessories: selecting add-ons raises the range`);
 }
 
 // ── Confidence climbs as more steps are touched ─────────────────────────────
 for (const project of projects) {
   const base = getDefaultSelectionsForProject(project);
   const total = getTotalSteps(project);
-  const starting = calculateEstimate(base, 0);
-  const detailed = calculateEstimate(base, total);
+  const starting = priced(base, 0);
+  const detailed = priced(base, total);
   assert(starting.confidence === "starting", `${project}: zero selections is "starting"`);
   assert(detailed.confidence === "detailed", `${project}: all selections reaches "detailed"`);
   assert(

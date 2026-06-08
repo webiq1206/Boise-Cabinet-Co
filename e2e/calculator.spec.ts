@@ -7,9 +7,11 @@ async function openCalculator(page: import("@playwright/test").Page) {
 }
 
 test.describe("Project Estimator", () => {
-  test("shows wizard on load", async ({ page }) => {
+  test("starts fully unselected with a prompt instead of a price", async ({ page }) => {
     await openCalculator(page);
-    await expect(page.getByTestId("button-project-kitchen")).toHaveAttribute("aria-pressed", "true");
+    // Nothing is pre-selected: no project highlighted, no fabricated range.
+    await expect(page.getByTestId("button-project-kitchen")).toHaveAttribute("aria-pressed", "false");
+    await expect(page.getByTestId("estimate-empty-message").first()).toBeVisible();
   });
 
   test("updates range when project type changes", async ({ page }) => {
@@ -25,16 +27,19 @@ test.describe("Project Estimator", () => {
 
   test("guided selections reach detailed planning range", async ({ page }) => {
     await openCalculator(page);
-    // project -> size -> layout (kitchen) -> style -> quality -> result
+    // project -> size (+ construction quality) -> style -> result
+    await page.getByTestId("button-project-kitchen").click();
     await page.getByRole("button", { name: "Continue" }).click();
-    await page.getByRole("button", { name: "Continue" }).click();
-    await page.getByTestId("button-layout-island").click();
+    // Size starts unset; both the base and wall (upper) sliders must be moved
+    // before continuing (kitchen has uppers).
+    await page.getByTestId("slider-size").fill("24");
+    await page.getByTestId("slider-size-upper").fill("18");
+    await page.getByTestId("button-construction-best").click();
     await page.getByRole("button", { name: "Continue" }).click();
     await page.getByTestId("button-door-modern-shaker").click();
-    await page.getByTestId("button-finish-tier-premium").click();
-    await page.getByRole("button", { name: "Continue" }).click();
-    await page.getByTestId("button-construction-best").click();
-    await page.getByTestId("button-accessory-rollout-tray").click();
+    // Finish is optional, but choosing one completes every detail for the
+    // "detailed" planning range.
+    await page.getByTestId("button-finish-category-matte").click();
     await page.getByRole("button", { name: "Continue" }).click();
     await expect(page.getByTestId("estimate-result-panel").getByText("Detailed planning range")).toBeVisible();
     await expect(page.getByTestId("estimate-result-panel")).toBeVisible();

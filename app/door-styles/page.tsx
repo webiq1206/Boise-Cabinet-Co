@@ -56,8 +56,8 @@ export default function DoorStylesPage() {
             />
             <CatalogSearch className="mb-8" />
             <Button variant="brand" asChild>
-              <Link href="/design-studio">
-                Design Studio <ArrowRight className="h-4 w-4" />
+              <Link href="/estimate">
+                Get an estimate <ArrowRight className="h-4 w-4" />
               </Link>
             </Button>
           </div>

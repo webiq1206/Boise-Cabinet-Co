@@ -38,6 +38,12 @@ interface GuidedFlowShellProps {
   compactMobileSteps?: boolean;
   /** When this number changes, move focus to the visible primary CTA. */
   focusPrimaryToken?: number;
+  /**
+   * Optional persistent panel (e.g. a live estimate summary). On desktop it
+   * renders as a sticky right column beside the step; on mobile it stacks
+   * directly below the step content. Other flows can omit it entirely.
+   */
+  sidePanel?: ReactNode;
 }
 
 export function GuidedFlowShell({
@@ -63,6 +69,7 @@ export function GuidedFlowShell({
   minutesLeftLabel,
   compactMobileSteps,
   focusPrimaryToken,
+  sidePanel,
 }: GuidedFlowShellProps) {
   const step = steps[currentIndex];
   const rootRef = useRef<HTMLDivElement>(null);
@@ -192,15 +199,29 @@ export function GuidedFlowShell({
 
       {headerExtra}
 
-      <div className={cn("flex-1 min-h-[280px]", stepClassName)}>{children}</div>
+      <div
+        className={cn(
+          sidePanel && "lg:grid lg:grid-cols-[minmax(0,1fr)_340px] lg:gap-8 lg:items-start",
+        )}
+      >
+        <div className="min-w-0">
+          <div className={cn("flex-1 min-h-[280px]", stepClassName)}>{children}</div>
 
-      {/* Desktop in-flow controls (lg and up; the two-column layout starts here) */}
-      <div className="hidden lg:flex items-center justify-between gap-4 mt-8 pt-6 border-t">
-        <Button variant="outline" onClick={onBack} disabled={isFirst} className="min-h-11">
-          <ChevronLeft className="h-4 w-4" />
-          Back
-        </Button>
-        {renderPrimary()}
+          {/* Desktop in-flow controls (lg and up; the two-column layout starts here) */}
+          <div className="hidden lg:flex items-center justify-between gap-4 mt-8 pt-6 border-t">
+            <Button variant="outline" onClick={onBack} disabled={isFirst} className="min-h-11">
+              <ChevronLeft className="h-4 w-4" />
+              Back
+            </Button>
+            {renderPrimary()}
+          </div>
+        </div>
+
+        {sidePanel && (
+          <aside className="mt-6 lg:mt-0 lg:sticky lg:top-24" data-testid="guided-flow-side-panel">
+            {sidePanel}
+          </aside>
+        )}
       </div>
 
       {/* Spacer so content is never hidden behind the sticky bar (mobile + tablet) */}

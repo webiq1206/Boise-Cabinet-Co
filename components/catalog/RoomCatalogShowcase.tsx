@@ -94,8 +94,8 @@ export function RoomCatalogShowcase({
         <Link href="/products" className="text-accent hover:underline underline-offset-2">
           Product catalog
         </Link>
-        <Link href="/design-studio" className="text-accent hover:underline underline-offset-2">
-          Design Studio
+        <Link href="/estimate" className="text-accent hover:underline underline-offset-2">
+          Get an estimate
         </Link>
       </div>
     </div>

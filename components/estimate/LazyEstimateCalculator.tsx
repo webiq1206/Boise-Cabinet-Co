@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import { Section } from "@/components/marketing";
+import { ESTIMATE_VALUE_PROP } from "@/shared/estimateEngine";
 
 const EstimateCalculator = dynamic(
   () => import("@/components/EstimateCalculator").then((m) => m.EstimateCalculator),
@@ -47,11 +48,14 @@ export function LazyEstimateCalculator() {
             <em className="brc-accent text-accent">investment</em>
           </h2>
           <p className="text-base max-w-2xl leading-relaxed text-muted-foreground mb-3">
-            A short guided flow - pick your project, size, and style. Your planning range updates
-            at each step.
+            A short guided flow - pick your project, size, and style. Your planning range stays
+            in view and updates at each step.
+          </p>
+          <p className="text-sm max-w-2xl leading-relaxed text-foreground/80">
+            {ESTIMATE_VALUE_PROP}
           </p>
         </div>
-        <div className="max-w-3xl mx-auto min-h-[420px]" aria-hidden />
+        <div className="max-w-5xl mx-auto min-h-[420px]" aria-hidden />
       </div>
     </Section>
   );

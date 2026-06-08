@@ -42,7 +42,7 @@ import {
   type EstimateSelections,
   type SelectionStepKey,
   type SelectOption,
-  DEFAULT_SELECTIONS,
+  EMPTY_SELECTIONS,
   PROJECT_LABELS,
   getProjectSizeConfig,
   getStepVisibility,
@@ -53,10 +53,9 @@ import {
   applyFinishSlug,
   getFinishTint,
   FINISH_CATEGORY_OPTIONS,
-  FINISH_TIER_OPTIONS,
   CONSTRUCTION_OPTIONS,
-  ACCESSORY_OPTIONS,
-  getDefaultSelectionsForProject,
+  emptySelectionsForProject,
+  isPriceable,
   calculateEstimate,
   buildStoredEstimate,
   buildSelectionSummary,
@@ -88,22 +87,20 @@ const OPTION_ICONS: Record<string, LucideIcon> = {
   Sparkles,
 };
 
-type WizardStepId = "project" | "size" | "layout" | "style" | "quality" | "result";
+type WizardStepId = "project" | "size" | "layout" | "style" | "result";
 
 const WIZARD_META: Record<WizardStepId, GuidedStep> = {
   project: { id: "project", label: "Your project", shortLabel: "Project" },
-  size: { id: "size", label: "How big?", shortLabel: "Size" },
+  size: { id: "size", label: "Size & quality", shortLabel: "Size" },
   layout: { id: "layout", label: "Layout", shortLabel: "Layout" },
   style: { id: "style", label: "Door & finish", shortLabel: "Style" },
-  quality: { id: "quality", label: "Quality & storage", shortLabel: "Quality" },
   result: { id: "result", label: "Your range", shortLabel: "Range" },
 };
 
-function getWizardStepIds(project: ProjectType): WizardStepId[] {
-  const vis = getStepVisibility(project);
+function getWizardStepIds(project: ProjectType | null): WizardStepId[] {
   const ids: WizardStepId[] = ["project", "size"];
-  if (vis.layout) ids.push("layout");
-  ids.push("style", "quality", "result");
+  if (project && getStepVisibility(project).layout) ids.push("layout");
+  ids.push("style", "result");
   return ids;
 }
 
@@ -164,7 +161,7 @@ function SelectButton<T extends string>({
   svgByValue,
   svgStyle,
 }: {
-  value: T;
+  value: T | "";
   options: SelectOption<T>[];
   onChange: (v: T) => void;
   testIdPrefix: string;
@@ -212,48 +209,170 @@ function SelectButton<T extends string>({
   );
 }
 
-function MultiSelectButton({
-  values,
+/** Good / Better / Best rank, used to fill the tier-strength meter. */
+const CONSTRUCTION_TIER_RANK: Record<string, number> = { good: 1, better: 2, best: 3 };
+
+/** Three ascending bars filled up to the tier's rank, signalling the ladder. */
+function TierStrength({ rank }: { rank: number }) {
+  return (
+    <span className="flex items-end gap-0.5" aria-hidden="true">
+      {[1, 2, 3].map((i) => (
+        <span
+          key={i}
+          className={cn(
+            "w-1 rounded-full transition-colors",
+            i === 1 ? "h-1.5" : i === 2 ? "h-2.5" : "h-3.5",
+            i <= rank ? "bg-foreground" : "bg-border",
+          )}
+        />
+      ))}
+    </span>
+  );
+}
+
+/**
+ * Dedicated Good / Better / Best selector. Full-width stacked cards read as an
+ * ascending quality ladder far better than a wrapping 2-up grid. Keeps the same
+ * `${testIdPrefix}-${value}` hooks and aria-pressed semantics as SelectButton.
+ */
+function ConstructionTierSelect({
+  value,
   options,
-  onToggle,
+  onChange,
   testIdPrefix,
 }: {
-  values: string[];
+  value: string;
   options: SelectOption[];
-  onToggle: (v: string) => void;
+  onChange: (v: string) => void;
   testIdPrefix: string;
 }) {
   return (
-    <div className="grid grid-cols-2 gap-2">
+    <div className="space-y-2.5">
       {options.map((opt) => {
-        const active = values.includes(opt.value);
+        const active = value === opt.value;
+        const rank = CONSTRUCTION_TIER_RANK[opt.value] ?? 1;
+        const Icon = opt.icon ? OPTION_ICONS[opt.icon] : undefined;
+        const popular = opt.value === "better";
         return (
           <button
             key={opt.value}
             type="button"
-            onClick={() => onToggle(opt.value)}
+            onClick={() => onChange(opt.value)}
             data-testid={`${testIdPrefix}-${opt.value}`}
             aria-pressed={active}
             className={cn(
-              "relative flex flex-col items-start gap-1 p-4 min-h-[44px] rounded-md text-left transition-all border bg-card",
+              "group relative flex w-full items-center gap-4 rounded-lg border p-4 text-left transition-all",
               active
-                ? "border-foreground/40 border-[1.5px] bg-muted/40"
-                : "border-border hover:border-foreground/30",
+                ? "border-foreground/40 border-[1.5px] bg-muted/40 shadow-sm"
+                : "border-border bg-card hover:border-foreground/30 hover:bg-muted/20",
             )}
           >
-            {active && (
-              <span className="absolute right-2 top-2 z-10 flex h-5 w-5 items-center justify-center rounded-full bg-foreground text-background shadow-sm">
-                <Check className="h-3 w-3" strokeWidth={3} />
+            <span
+              className={cn(
+                "flex h-11 w-11 shrink-0 items-center justify-center rounded-md border transition-colors",
+                active
+                  ? "border-foreground/30 bg-background text-foreground"
+                  : "border-border bg-muted/40 text-foreground/70 group-hover:text-foreground",
+              )}
+            >
+              {Icon ? <Icon className="h-5 w-5" /> : null}
+            </span>
+            <span className="min-w-0 flex-1">
+              <span className="flex flex-wrap items-center gap-x-2 gap-y-1">
+                <span className="font-medium text-sm text-foreground">{opt.label}</span>
+                <TierStrength rank={rank} />
+                {popular && (
+                  <span className="rounded-full bg-accent/15 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-accent">
+                    Most popular
+                  </span>
+                )}
               </span>
-            )}
-            <OptionVisual image={opt.image} imageAlt={opt.imageAlt} icon={opt.icon} />
-            <span className="font-medium text-xs text-foreground pr-5">{opt.label}</span>
-            {opt.sub && (
-              <span className="text-[11px] leading-snug text-muted-foreground line-clamp-2">{opt.sub}</span>
-            )}
+              {opt.sub && (
+                <span className="mt-1 block text-[12px] leading-snug text-muted-foreground">
+                  {opt.sub}
+                </span>
+              )}
+            </span>
+            <span
+              className={cn(
+                "flex h-5 w-5 shrink-0 items-center justify-center rounded-full border transition-all",
+                active ? "border-foreground bg-foreground text-background" : "border-border bg-transparent",
+              )}
+            >
+              {active && <Check className="h-3 w-3" strokeWidth={3} />}
+            </span>
           </button>
         );
       })}
+    </div>
+  );
+}
+
+/**
+ * A single labelled linear-foot slider. Starts visually unset (no number, grey
+ * track) until the visitor drags it, so nothing is pre-selected.
+ */
+function SizeSlider({
+  label,
+  value,
+  min,
+  max,
+  step,
+  unitNoun,
+  unitShort,
+  testId,
+  hint,
+  onChange,
+}: {
+  label: string;
+  value: number | null;
+  min: number;
+  max: number;
+  step: number;
+  unitNoun: string;
+  unitShort: string;
+  testId: string;
+  hint: string;
+  onChange: (v: number) => void;
+}) {
+  const pct = value != null ? Math.round(((value - min) / (max - min)) * 100) : 0;
+  const background = `linear-gradient(to right, hsl(var(--accent)) 0%, hsl(var(--accent)) ${pct}%, hsl(var(--border)) ${pct}%, hsl(var(--border)) 100%)`;
+  return (
+    <div>
+      <label className="brc-label mb-3 block">{label}</label>
+      <div className="space-y-4">
+        {value != null ? (
+          <DisplayNum className="text-3xl leading-none text-foreground">
+            {value.toLocaleString()}{" "}
+            <span className="text-sm font-sans text-muted-foreground">{unitNoun}</span>
+          </DisplayNum>
+        ) : (
+          <p className="text-sm text-muted-foreground" data-testid={`${testId}-unset-hint`}>
+            {hint}
+          </p>
+        )}
+        <input
+          type="range"
+          className="brc-slider w-full min-h-[44px]"
+          min={min}
+          max={max}
+          step={step}
+          value={value ?? min}
+          aria-label={label}
+          aria-valuetext={value != null ? `${value} ${unitNoun}` : "Not set"}
+          onChange={(e) => onChange(Number(e.target.value))}
+          style={{ background }}
+          data-testid={testId}
+        />
+        <div className="flex justify-between text-xs text-muted-foreground">
+          <span>
+            <DisplayNum>{min.toLocaleString()}</DisplayNum> {unitShort}
+          </span>
+          <span>
+            <DisplayNum>{max.toLocaleString()}</DisplayNum> {unitShort}
+          </span>
+        </div>
+      </div>
     </div>
   );
 }
@@ -267,7 +386,7 @@ export function EstimateCalculatorWizard({
   inModal = false,
   onBookVisit: onBookVisitProp,
 }: EstimateCalculatorWizardProps) {
-  const [selections, setSelections] = useState<EstimateSelections>(DEFAULT_SELECTIONS);
+  const [selections, setSelections] = useState<EstimateSelections>(EMPTY_SELECTIONS);
   const [touched, setTouched] = useState<Set<SelectionStepKey>>(new Set());
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showAllColors, setShowAllColors] = useState(false);
@@ -276,15 +395,22 @@ export function EstimateCalculatorWizard({
   const { project } = selections;
   const stepIds = useMemo(() => getWizardStepIds(project), [project]);
   const wizardSteps = useMemo(() => stepIds.map((id) => WIZARD_META[id]), [stepIds]);
-  const sizeConfig = getProjectSizeConfig(project);
-  const visibility = getStepVisibility(project);
-  const visibleSteps = useMemo(() => getVisibleSteps(project), [project]);
+  const sizeConfig = project ? getProjectSizeConfig(project) : null;
+  const visibility = project
+    ? getStepVisibility(project)
+    : { layout: false, doorStyle: true };
+  const visibleSteps = useMemo(
+    () => (project ? getVisibleSteps(project) : []),
+    [project],
+  );
 
   const selectionsMade = useMemo(
     () => visibleSteps.filter((s) => touched.has(s)).length,
     [visibleSteps, touched],
   );
 
+  // Null until the visitor has chosen a project and size; the UI then shows the
+  // "make your selections" prompt instead of a fabricated range.
   const result = useMemo(
     () => calculateEstimate(selections, selectionsMade),
     [selections, selectionsMade],
@@ -292,18 +418,18 @@ export function EstimateCalculatorWizard({
 
   const selectionSummary = buildSelectionSummary(selections);
 
+  // Only persist an estimate once it is priceable. A visitor who skips the
+  // estimator (or hasn't picked a project + size) leaves nothing behind, so the
+  // consultation form never shows pricing they didn't intentionally create.
   useEffect(() => {
-    sessionStorage.setItem(
-      "brc_estimate",
-      JSON.stringify(buildStoredEstimate(selections, selectionsMade)),
-    );
+    const stored = buildStoredEstimate(selections, selectionsMade);
+    if (stored) {
+      sessionStorage.setItem("brc_estimate", JSON.stringify(stored));
+    } else {
+      sessionStorage.removeItem("brc_estimate");
+    }
     window.dispatchEvent(new CustomEvent("brc_estimate_updated"));
   }, [selections, selectionsMade]);
-
-  const sliderPct = Math.round(
-    ((selections.size - sizeConfig.min) / (sizeConfig.max - sizeConfig.min)) * 100,
-  );
-  const sliderBackground = `linear-gradient(to right, hsl(var(--accent)) 0%, hsl(var(--accent)) ${sliderPct}%, hsl(var(--border)) ${sliderPct}%, hsl(var(--border)) 100%)`;
 
   const markTouched = useCallback((key: SelectionStepKey) => {
     setTouched((prev) => (prev.has(key) ? prev : new Set(prev).add(key)));
@@ -321,7 +447,7 @@ export function EstimateCalculatorWizard({
     if (type === project) return;
     // Error prevention: switching projects resets the other choices, so confirm
     // once the visitor has actually made some.
-    const hasProgress = ["size", "layout", "doorStyle", "finish", "construction", "accessories"].some(
+    const hasProgress = ["size", "layout", "doorStyle", "finish", "construction"].some(
       (k) => touched.has(k as SelectionStepKey),
     );
     if (
@@ -331,17 +457,19 @@ export function EstimateCalculatorWizard({
     ) {
       return;
     }
-    setSelections(getDefaultSelectionsForProject(type));
+    setSelections(emptySelectionsForProject(type));
     setTouched(new Set());
     setCurrentIndex(0);
     trackEstimatorEvent("estimator_step_view", { step: "project" });
   }
 
   function handleBookVisit() {
-    sessionStorage.setItem(
-      "brc_estimate",
-      JSON.stringify(buildStoredEstimate(selections, selectionsMade)),
-    );
+    const stored = buildStoredEstimate(selections, selectionsMade);
+    if (stored) {
+      sessionStorage.setItem("brc_estimate", JSON.stringify(stored));
+    } else {
+      sessionStorage.removeItem("brc_estimate");
+    }
     window.dispatchEvent(new CustomEvent("brc_estimate_updated"));
     trackEstimatorEvent("estimator_book_visit");
     if (onBookVisitProp) {
@@ -358,7 +486,7 @@ export function EstimateCalculatorWizard({
     }
   }
 
-  const layoutOptions = getLayoutOptions(project);
+  const layoutOptions = project ? getLayoutOptions(project) : [];
   const doorOptions = getDoorStyleOptions();
   const finishColorOptions = visibility.doorStyle
     ? getFinishColorOptions(selections.doorStyle)
@@ -388,9 +516,12 @@ export function EstimateCalculatorWizard({
   const visibleColorOptions = showAllColors ? finishColorOptions : curatedColorOptions;
   const hasMoreColors = finishColorOptions.length > visibleColorOptions.length;
 
-  const layoutTintStyle = touched.has("finish")
+  const layoutTintStyle = touched.has("finish") && selections.finishCategory
     ? (() => {
-        const tint = getFinishTint(selections.finishCategory, selections.finishTier);
+        const tint = getFinishTint(
+          selections.finishCategory,
+          selections.finishTier || "standard",
+        );
         return {
           "--cab-fill": tint.fill,
           "--cab-stroke": tint.stroke,
@@ -405,10 +536,9 @@ export function EstimateCalculatorWizard({
 
   const stepDescription: Record<WizardStepId, string | undefined> = {
     project: "Choose what you're planning - we'll guide you from here.",
-    size: sizeConfig.sizeStepLabel,
+    size: "Set your cabinet run - base and wall cabinets - then pick a construction quality.",
     layout: "Pick the shape closest to your space.",
     style: "Choose your door style and finish. Color is optional - your range won't change.",
-    quality: "Pick construction quality and any smart storage you'd like.",
     result: undefined,
   };
 
@@ -416,17 +546,18 @@ export function EstimateCalculatorWizard({
     const id = stepIds[index];
     switch (id) {
       case "project":
-        return true;
-      case "size":
-        return selections.size >= sizeConfig.min;
+        return !!selections.project;
+      case "size": {
+        // Base run must be set; for projects with uppers, the wall run must be
+        // set too (it can be 0). Construction stays optional and refines.
+        const upperSet = !sizeConfig?.uppers || selections.sizeUpper != null;
+        return selections.size != null && upperSet;
+      }
       case "layout":
         return !!selections.layout;
       case "style":
-        return visibility.doorStyle
-          ? !!selections.doorStyle && !!selections.finishCategory
-          : !!selections.finishCategory;
-      case "quality":
-        return !!selections.construction;
+        // Door style is the headline pick; finish color/style stay optional.
+        return visibility.doorStyle ? !!selections.doorStyle : true;
       case "result":
         return true;
       default:
@@ -438,17 +569,16 @@ export function EstimateCalculatorWizard({
     switch (id) {
       case "size":
         markTouched("size");
+        // Construction is optional; only count it once intentionally chosen.
+        if (selections.construction) markTouched("construction");
         break;
       case "layout":
         markTouched("layout");
         break;
       case "style":
-        if (visibility.doorStyle) markTouched("doorStyle");
-        markTouched("finish");
-        break;
-      case "quality":
-        markTouched("construction");
-        markTouched("accessories");
+        if (visibility.doorStyle && selections.doorStyle) markTouched("doorStyle");
+        // Finish is optional; only count it once a style/color is chosen.
+        if (selections.finishCategory || selections.finishSlug) markTouched("finish");
         break;
       case "result":
         trackEstimatorEvent("estimator_complete");
@@ -504,30 +634,45 @@ export function EstimateCalculatorWizard({
           </div>
         );
       case "size":
+        if (!sizeConfig) return null;
         return (
-          <div className="space-y-4">
-            <DisplayNum className="text-3xl leading-none text-foreground">
-              {selections.size.toLocaleString()}{" "}
-              <span className="text-sm font-sans text-muted-foreground">{sizeConfig.unitShort}</span>
-            </DisplayNum>
-            <input
-              type="range"
-              className="brc-slider w-full min-h-[44px]"
-              min={sizeConfig.min}
-              max={sizeConfig.max}
-              step={sizeConfig.step}
-              value={selections.size}
-              onChange={(e) => updateField("size", Number(e.target.value), "size")}
-              style={{ background: sliderBackground }}
-              data-testid="slider-size"
-            />
-            <div className="flex justify-between text-xs text-muted-foreground">
-              <span>
-                <DisplayNum>{sizeConfig.min.toLocaleString()}</DisplayNum> {sizeConfig.unitShort}
-              </span>
-              <span>
-                <DisplayNum>{sizeConfig.max.toLocaleString()}</DisplayNum> {sizeConfig.unitShort}
-              </span>
+          <div className="space-y-8">
+            <div className="space-y-6">
+              <SizeSlider
+                label={sizeConfig.sizeStepLabel}
+                value={selections.size}
+                min={sizeConfig.min}
+                max={sizeConfig.max}
+                step={sizeConfig.step}
+                unitNoun={sizeConfig.unitNoun}
+                unitShort={sizeConfig.unitShort}
+                testId="slider-size"
+                hint={`Drag to set your ${sizeConfig.uppers ? "base cabinet run" : "project size"} in ${sizeConfig.unitNoun}.`}
+                onChange={(v) => updateField("size", v, "size")}
+              />
+              {sizeConfig.uppers && (
+                <SizeSlider
+                  label={sizeConfig.uppers.label}
+                  value={selections.sizeUpper}
+                  min={0}
+                  max={sizeConfig.uppers.max}
+                  step={sizeConfig.uppers.step}
+                  unitNoun={sizeConfig.unitNoun}
+                  unitShort={sizeConfig.unitShort}
+                  testId="slider-size-upper"
+                  hint="Drag to set your wall cabinet run, or set it to 0 if there are few or none."
+                  onChange={(v) => updateField("sizeUpper", v, "size")}
+                />
+              )}
+            </div>
+            <div>
+              <label className="brc-label mb-3 block">Construction quality</label>
+              <ConstructionTierSelect
+                value={selections.construction}
+                options={CONSTRUCTION_OPTIONS}
+                onChange={(v) => updateField("construction", v as typeof selections.construction, "construction")}
+                testIdPrefix="button-construction"
+              />
             </div>
           </div>
         );
@@ -618,71 +763,40 @@ export function EstimateCalculatorWizard({
                 testIdPrefix="button-finish-category"
               />
             </div>
-            <div>
-              <label className="brc-label mb-3 block">Color tier</label>
-              <SelectButton
-                value={selections.finishTier}
-                options={FINISH_TIER_OPTIONS}
-                onChange={(v) => updateField("finishTier", v, "finish")}
-                testIdPrefix="button-finish-tier"
-              />
-            </div>
-          </div>
-        );
-      case "quality":
-        return (
-          <div className="space-y-6">
-            <div>
-              <label className="brc-label mb-3 block">Construction quality</label>
-              <SelectButton
-                value={selections.construction}
-                options={CONSTRUCTION_OPTIONS}
-                onChange={(v) => updateField("construction", v, "construction")}
-                testIdPrefix="button-construction"
-              />
-            </div>
-            <div>
-              <label className="brc-label mb-3 block">
-                Smart storage <span className="text-muted-foreground font-normal">(optional, pick any)</span>
-              </label>
-              <MultiSelectButton
-                values={selections.accessories}
-                options={ACCESSORY_OPTIONS}
-                onToggle={(slug) => {
-                  setSelections((prev) => {
-                    const has = prev.accessories.includes(slug);
-                    return {
-                      ...prev,
-                      accessories: has
-                        ? prev.accessories.filter((s) => s !== slug)
-                        : [...prev.accessories, slug],
-                    };
-                  });
-                  markTouched("accessories");
-                }}
-                testIdPrefix="button-accessory"
-              />
-            </div>
           </div>
         );
       case "result":
         return (
-          <EstimateResultPanel
-            result={result}
-            selectionSummary={selectionSummary}
-            scopeSummary={result.scopeSummary}
-            onBookVisit={handleBookVisit}
-            project={project}
-            doorStyle={visibility.doorStyle ? selections.doorStyle : undefined}
-            finishSlug={selections.finishSlug || undefined}
-            size={selections.size}
-            variant="full"
-          />
+          <div className="mx-auto max-w-xl">
+            <EstimateResultPanel
+              result={result}
+              selectionSummary={selectionSummary}
+              scopeSummary={result?.scopeSummary}
+              onBookVisit={handleBookVisit}
+              project={project ?? undefined}
+              variant="full"
+            />
+          </div>
         );
       default:
         return null;
     }
   })();
+
+  // Persistent live estimate: sticky right column on desktop, stacked below the
+  // step on mobile. Shown on every step except the final review (where the full
+  // result panel is already the step body, so a sidebar would duplicate it).
+  const estimateSidePanel =
+    currentStepId !== "result" ? (
+      <EstimateResultPanel
+        result={result}
+        selectionSummary={selectionSummary}
+        scopeSummary={result?.scopeSummary}
+        onBookVisit={handleBookVisit}
+        project={project ?? undefined}
+        variant="sidebar"
+      />
+    ) : undefined;
 
   const shell = (
     <GuidedFlowShell
@@ -698,9 +812,12 @@ export function EstimateCalculatorWizard({
       continueLabel="Continue"
       hidePrimaryOnLast
       stepDescription={stepDescription[currentStepId]}
+      sidePanel={estimateSidePanel}
       mobileSummary={
         !isLast
-          ? `${formatPlanningCurrency(result.priceLow)}–${formatPlanningCurrency(result.priceHigh)} · updates as you go`
+          ? result
+            ? `${formatPlanningCurrency(result.priceLow)}–${formatPlanningCurrency(result.priceHigh)} · updates as you go`
+            : "Make your selections to see your range"
           : undefined
       }
     >

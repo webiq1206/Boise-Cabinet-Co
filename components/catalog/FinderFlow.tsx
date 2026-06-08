@@ -209,11 +209,7 @@ export function FinderFlow() {
     return qs ? `/finishes?${qs}` : "/finishes";
   })();
 
-  const studioHref = result
-    ? `/design-studio?doorStyle=${result.door?.slug ?? ""}&finish=${
-        result.shortlist[0]?.slug ?? ""
-      }${answers.room ? `&roomType=${answers.room}` : ""}`
-    : "/design-studio";
+  const estimateHref = "/estimate";
 
   return (
     <div>
@@ -353,8 +349,8 @@ export function FinderFlow() {
 
             <div className="flex flex-wrap gap-3">
               <Button variant="brand" asChild>
-                <Link href={studioHref} onClick={persist}>
-                  Open in Design Studio <ArrowRight className="h-4 w-4" />
+                <Link href={estimateHref} onClick={persist}>
+                  Get an estimate <ArrowRight className="h-4 w-4" />
                 </Link>
               </Button>
               <Button variant="brandOutline" asChild>
@@ -369,8 +365,8 @@ export function FinderFlow() {
               </Button>
             </div>
             <p className="text-xs text-muted-foreground">
-              This is a starting point, not a final selection. You can change anything in Design
-              Studio or with our team.
+              This is a starting point, not a final selection. You can change anything
+              with our team.
             </p>
           </div>
         )}

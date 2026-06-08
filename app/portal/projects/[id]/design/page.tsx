@@ -96,7 +96,7 @@ export default function ProjectDesignPage() {
                 {data?.design?.designName ?? "Current selections"}
               </CardTitle>
               <CardDescription>
-                Save designs in Design Studio. Names match our catalog entries ({DOOR_STYLES.length}{" "}
+                Names match our catalog entries ({DOOR_STYLES.length}{" "}
                 door styles, {FINISHES.length} finishes).
                 {data?.design?.source === "demo" && (
                   <span className="block mt-1 text-xs">
@@ -137,9 +137,6 @@ export default function ProjectDesignPage() {
         )}
 
         <div className="flex gap-3">
-          <Button variant="brand" asChild>
-            <Link href={`/design-studio?projectId=${projectId}`}>Open Design Studio</Link>
-          </Button>
           <Button variant="outline" asChild>
             <Link href={`/portal/projects/${projectId}`}>
               <ArrowLeft className="h-4 w-4 mr-1" />

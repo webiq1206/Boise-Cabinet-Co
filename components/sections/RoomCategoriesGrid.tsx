@@ -6,7 +6,7 @@ import { SectionHeader } from "@/components/marketing/SectionHeader";
 import { TextLink } from "@/components/marketing/TextLink";
 import { Button } from "@/components/ui/button";
 import { ROOM_CATEGORIES } from "@/shared/catalog/roomCategories";
-import { CTA_PRIMARY_SHORT } from "@/shared/ctaCopy";
+import { CTA_ESTIMATE } from "@/shared/ctaCopy";
 
 export function RoomCategoriesGrid() {
   const featured = ROOM_CATEGORIES.slice(0, 8);
@@ -60,7 +60,7 @@ export function RoomCategoriesGrid() {
             <Link href="/cabinets">View all rooms</Link>
           </Button>
           <Button variant="brand" asChild>
-            <Link href="/design-studio">{CTA_PRIMARY_SHORT}</Link>
+            <Link href="/estimate">{CTA_ESTIMATE}</Link>
           </Button>
         </div>
       </div>

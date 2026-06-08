@@ -71,10 +71,12 @@ export function designToEstimateSelections(
     project,
     layout: design.layout ?? base.layout,
     size,
+    // Designs don't separate base vs. wall runs, so model a typical upper run
+    // (~0.75 × base) for projects that have uppers; null otherwise.
+    sizeUpper: cfg.uppers ? Math.round(size * 0.75) : null,
     doorStyle: design.doorStyle
       ? resolveDoorStyleSlug(design.doorStyle)
       : base.doorStyle,
-    accessories: design.accessories ?? [],
     construction: opts.construction ?? base.construction,
   };
 
@@ -92,7 +94,6 @@ function countSelections(design: DesignState): number {
   if (design.roomMeta) n += 1; // size
   if (design.doorStyle) n += 1;
   if (design.finish) n += 2; // finish color + tier
-  if (design.accessories.length > 0) n += 1;
   return n;
 }
 
@@ -122,7 +123,11 @@ export function getDesignEstimate(
   opts: DesignEstimateOptions = {},
 ): DesignEstimate {
   const selections = designToEstimateSelections(design, opts);
-  const result = calculateEstimate(selections, countSelections(design));
+  // designToEstimateSelections always yields a project + size, so this is
+  // priceable; the fallback keeps the design flow type-safe regardless.
+  const result =
+    calculateEstimate(selections, countSelections(design)) ??
+    calculateEstimate(getDefaultSelectionsForProject(toProjectType(design.roomType)), 0)!;
   const project = toProjectType(design.roomType);
   const [wkLow, wkHigh] = TIMELINE_WEEKS[project];
 

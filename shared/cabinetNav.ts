@@ -40,7 +40,6 @@ export const PRIMARY_NAV = [
     ],
   },
   { label: "Catalog", href: "/catalog" },
-  { label: "Design Studio", href: "/design-studio" },
   { label: "Get an Estimate", href: "/estimate" },
   {
     label: "How It Works",

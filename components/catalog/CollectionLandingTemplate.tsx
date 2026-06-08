@@ -266,15 +266,15 @@ export function CollectionLandingTemplate({ collection }: CollectionLandingTempl
       <Section variant="inverse">
         <div className="container px-4 text-center max-w-xl mx-auto">
           <h2 className="font-sans font-light text-section-title text-inverse-foreground mb-3">
-            Ready to design your cabinets?
+            Ready to price your cabinets?
           </h2>
           <p className="text-inverse-muted mb-6 leading-relaxed">
-            Use Design Studio to explore {collection.name} layouts, finishes, and room configurations,
-            then save your design to your {SITE_CONFIG.name} project.
+            Tell us about your {collection.name} project, layout, finishes, and room
+            configurations, and the {SITE_CONFIG.name} team will put together your estimate.
           </p>
           <Button variant="brand" asChild>
-            <Link href="/design-studio">
-              Open Design Studio <ArrowRight className="h-4 w-4" />
+            <Link href="/estimate">
+              Get an estimate <ArrowRight className="h-4 w-4" />
             </Link>
           </Button>
         </div>

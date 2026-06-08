@@ -1,12 +1,17 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Link from "next/link";
 import { ArrowRight, Check, Info } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import type { EstimateResult, ProjectType } from "@/shared/estimateEngine";
-import { INCLUDED_SCOPE_NOTE, APPLIANCE_DISCLAIMER, formatPlanningCurrency } from "@/shared/estimateEngine";
+import {
+  INCLUDED_SCOPE_NOTE,
+  APPLIANCE_DISCLAIMER,
+  ESTIMATE_RANGE_DISCLAIMER,
+  ESTIMATE_VALUE_PROP,
+  formatPlanningCurrency,
+} from "@/shared/estimateEngine";
 import { CTA_PRIMARY } from "@/shared/ctaCopy";
 import { CATALOG_CONTENT } from "@/shared/catalog";
 
@@ -117,17 +122,18 @@ function IncludedSection({ included, project }: { included: string[]; project?: 
   );
 }
 
+/** Shown wherever the estimator has no priceable selections yet. */
+export const ESTIMATE_EMPTY_MESSAGE =
+  "Make your selections to see an estimated investment range.";
+
 export interface EstimateResultPanelProps {
-  result: EstimateResult;
+  /** Null until the visitor has made priceable selections (project + size). */
+  result: EstimateResult | null;
   selectionSummary: string;
   scopeSummary?: string;
   onBookVisit: () => void;
   project?: ProjectType;
-  doorStyle?: string;
-  finishSlug?: string;
-  /** Linear feet of cabinetry from the estimator, used to pre-size the studio. */
-  size?: number;
-  variant?: "full" | "compact";
+  variant?: "full" | "compact" | "sidebar";
   className?: string;
 }
 
@@ -137,32 +143,66 @@ export function EstimateResultPanel({
   scopeSummary,
   onBookVisit,
   project,
-  doorStyle,
-  finishSlug,
-  size,
   variant = "full",
   className,
 }: EstimateResultPanelProps) {
   const isCompact = variant === "compact";
+  const isSidebar = variant === "sidebar";
+  const isFull = variant === "full";
+
+  // Nothing priceable yet: show a neutral prompt instead of a fabricated range
+  // so we never imply pricing the visitor didn't intentionally create.
+  if (!result) {
+    return (
+      <div
+        className={cn(
+          "rounded-sm bg-inverse text-inverse-foreground shadow-xl",
+          isCompact ? "p-4" : isSidebar ? "p-6" : "p-8",
+          className,
+        )}
+        data-testid={
+          isCompact
+            ? "mobile-estimate-bar-panel"
+            : isSidebar
+              ? "estimate-side-panel"
+              : "estimate-result-panel"
+        }
+      >
+        <div className="brc-label text-inverse-muted mb-3">Planning range</div>
+        <p
+          className={cn(
+            "text-inverse-foreground/90 leading-relaxed",
+            isCompact ? "text-sm" : "text-base",
+          )}
+          data-testid="estimate-empty-message"
+        >
+          {ESTIMATE_EMPTY_MESSAGE}
+        </p>
+        {(isFull || isSidebar) && (
+          <p className="text-[11px] leading-relaxed mt-4 text-inverse-foreground/85">
+            {ESTIMATE_VALUE_PROP}
+          </p>
+        )}
+      </div>
+    );
+  }
+
   const rangeAnnouncement = `${formatPlanningCurrency(result.priceLow)} to ${formatPlanningCurrency(result.priceHigh)} planning range`;
-  const designStudioHref = (() => {
-    const params = new URLSearchParams();
-    if (project) params.set("roomType", project);
-    if (doorStyle) params.set("doorStyle", doorStyle);
-    if (finishSlug) params.set("finish", finishSlug);
-    if (size && size > 0) params.set("lf", String(size));
-    const qs = params.toString();
-    return qs ? `/design-studio?${qs}` : "/design-studio";
-  })();
 
   return (
     <div
       className={cn(
         "rounded-sm bg-inverse text-inverse-foreground shadow-xl",
-        isCompact ? "p-4" : "p-8",
+        isCompact ? "p-4" : isSidebar ? "p-6" : "p-8",
         className
       )}
-      data-testid={isCompact ? "mobile-estimate-bar-panel" : "estimate-result-panel"}
+      data-testid={
+        isCompact
+          ? "mobile-estimate-bar-panel"
+          : isSidebar
+            ? "estimate-side-panel"
+            : "estimate-result-panel"
+      }
     >
       <div className={cn("flex items-center justify-between", isCompact ? "mb-2" : "mb-5")}>
         <div className="brc-label text-inverse-muted">Planning range</div>
@@ -183,7 +223,11 @@ export function EstimateResultPanel({
       <div
         className={cn(
           "leading-none text-inverse-foreground",
-          isCompact ? "text-2xl mb-2" : "text-[clamp(28px,3.5vw,44px)] mb-4"
+          isCompact
+            ? "text-2xl mb-2"
+            : isSidebar
+              ? "text-[clamp(26px,2.4vw,34px)] mb-4"
+              : "text-[clamp(28px,3.5vw,44px)] mb-4"
         )}
         data-testid="estimate-range"
         aria-live="polite"
@@ -202,19 +246,19 @@ export function EstimateResultPanel({
         </div>
       )}
 
-      {!isCompact && (
+      {isFull && (
         <p className="text-xs text-inverse-muted mb-4">
           Based on your inputs. Your exact investment is confirmed at your in-home visit. Typical
           lead time is {CATALOG_CONTENT.leadTime} after your selections are finalized.
         </p>
       )}
 
-      {!isCompact && (
+      {isFull && (
         <IncludedSection included={result.included} project={project} />
       )}
 
-      {!isCompact && (
-        <div className="mb-6">
+      {(isFull || isSidebar) && (
+        <div className={cn(isSidebar ? "mb-4" : "mb-6")}>
           <div className="flex justify-between text-[11px] mb-1.5 text-inverse-muted">
             <span>Details provided</span>
             <span>{result.confidencePercent}%</span>
@@ -238,42 +282,42 @@ export function EstimateResultPanel({
         </div>
       )}
 
-      <Button
-        variant="brand"
-        onClick={onBookVisit}
-        className={cn("w-full", isCompact ? "mb-0" : "mb-3")}
-        data-testid="button-book-visit"
-        size={isCompact ? "sm" : "default"}
-      >
-        {CTA_PRIMARY}
-        <ArrowRight className="h-4 w-4" />
-      </Button>
-
-      {!isCompact && project && (
-        <p className="text-center text-sm mb-4">
-          <Link
-            href={designStudioHref}
-            className="text-accent hover:underline underline-offset-2"
-            data-testid="link-estimator-design-studio"
-          >
-            Visualize cabinets in Design Studio
-          </Link>
+      {/* Subtle, credible value proposition reinforced throughout the estimator. */}
+      {(isFull || isSidebar) && (
+        <p
+          className="text-[11px] leading-relaxed mb-4 text-inverse-foreground/85"
+          data-testid="estimate-value-prop"
+        >
+          {ESTIMATE_VALUE_PROP}
         </p>
       )}
 
-      {!isCompact && (
-        <>
-          <p className="text-[11px] text-center mb-5 mt-3 text-inverse-muted">
-            Your in-home visit includes a detailed project evaluation and personalized planning guidance.
-          </p>
+      {!isSidebar && (
+        <Button
+          variant="brand"
+          onClick={onBookVisit}
+          className={cn("w-full", isCompact ? "mb-0" : "mb-3")}
+          data-testid="button-book-visit"
+          size={isCompact ? "sm" : "default"}
+        >
+          {CTA_PRIMARY}
+          <ArrowRight className="h-4 w-4" />
+        </Button>
+      )}
 
-          <div className="rounded-sm p-4 flex gap-3 bg-inverse-foreground/6 border border-inverse-foreground/10">
-            <Info className="h-4 w-4 flex-shrink-0 mt-0.5 text-inverse-muted" />
-            <p className="text-[11px] leading-relaxed text-inverse-muted" data-testid="estimate-disclaimer">
-              {CATALOG_CONTENT.estimateDisclaimer}
-            </p>
-          </div>
-        </>
+      {isFull && (
+        <p className="text-[11px] text-center mb-5 mt-3 text-inverse-muted">
+          Your in-home visit includes a detailed project evaluation and personalized planning guidance.
+        </p>
+      )}
+
+      {(isFull || isSidebar) && (
+        <div className="rounded-sm p-4 flex gap-3 bg-inverse-foreground/6 border border-inverse-foreground/10">
+          <Info className="h-4 w-4 flex-shrink-0 mt-0.5 text-inverse-muted" />
+          <p className="text-[11px] leading-relaxed text-inverse-muted" data-testid="estimate-disclaimer">
+            {ESTIMATE_RANGE_DISCLAIMER}
+          </p>
+        </div>
       )}
 
       {isCompact && (

@@ -183,8 +183,8 @@ export default function ProductCategoryPage({
                 specs={productSpecs(p)}
                 primaryHref={`/products/${p.category}/${p.slug}`}
                 primaryLabel="Specifications"
-                secondaryHref={`/design-studio?product=${p.slug}`}
-                secondaryLabel="Design Studio"
+                secondaryHref="/estimate"
+                secondaryLabel="Get an estimate"
               />
             );
           })}
