@@ -12,7 +12,7 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
-import { Menu, X, ChevronDown, Search } from "lucide-react";
+import { Menu, X, ChevronDown, Search, Phone, MessageSquare } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { CTA_CONSULT_SHORT, CTA_PORTAL_SHORT } from "@/shared/ctaCopy";
 import { SITE_CONFIG } from "@/shared/siteConfig";
@@ -274,6 +274,19 @@ export function Navigation() {
               </span>
               {SITE_CONFIG.phone}
             </a>
+            <a
+              href={SITE_CONFIG.phoneSmsHref}
+              aria-label={`Text us at ${SITE_CONFIG.phone}`}
+              className={cn(
+                "flex items-center gap-1.5 text-[13px] font-medium transition-colors",
+                isHeroMode
+                  ? "text-inverse-muted hover:text-inverse-foreground"
+                  : "text-muted-foreground hover:text-foreground",
+              )}
+            >
+              <MessageSquare className="h-4 w-4" strokeWidth={1.5} />
+              Text
+            </a>
             <Button variant="brand" size="sm" onClick={openConsult}>
               {CTA_CONSULT_SHORT}
             </Button>
@@ -399,7 +412,12 @@ export function Navigation() {
 
         <div className="shrink-0 border-t border-border/40 px-6 py-6 space-y-3">
           <a href={SITE_CONFIG.phoneHref} className="flex items-center gap-3 text-base font-medium">
-            {SITE_CONFIG.phone}
+            <Phone className="h-5 w-5" strokeWidth={1.5} />
+            Call {SITE_CONFIG.phone}
+          </a>
+          <a href={SITE_CONFIG.phoneSmsHref} className="flex items-center gap-3 text-base font-medium">
+            <MessageSquare className="h-5 w-5" strokeWidth={1.5} />
+            Text {SITE_CONFIG.phone}
           </a>
           <Button
             variant="brand"
@@ -424,12 +442,22 @@ export function Navigation() {
           bottomBarClasses.bar,
         )}
       >
-        <div className={cn("grid grid-cols-2 divide-x", bottomBarClasses.divide)}>
+        <div className={cn("grid grid-cols-3 divide-x", bottomBarClasses.divide)}>
           <a
             href={SITE_CONFIG.phoneHref}
+            aria-label={`Call us at ${SITE_CONFIG.phone}`}
             className={cn("flex items-center justify-center gap-2 py-4 text-sm font-medium", bottomBarClasses.text)}
           >
+            <Phone className="h-4 w-4" strokeWidth={1.5} />
             Call
+          </a>
+          <a
+            href={SITE_CONFIG.phoneSmsHref}
+            aria-label={`Text us at ${SITE_CONFIG.phone}`}
+            className={cn("flex items-center justify-center gap-2 py-4 text-sm font-medium", bottomBarClasses.text)}
+          >
+            <MessageSquare className="h-4 w-4" strokeWidth={1.5} />
+            Text
           </a>
           <button
             type="button"

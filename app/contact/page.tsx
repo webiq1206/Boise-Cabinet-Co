@@ -1,4 +1,4 @@
-import { ArrowRight, Check, ChevronRight, Mail, MapPin, Phone } from 'lucide-react';
+import { ArrowRight, Check, ChevronRight, Mail, MapPin, MessageSquare, Phone } from 'lucide-react';
 import Link from 'next/link';
 import { JsonLd } from '@/components/seo/JsonLd';
 import Image from 'next/image';
@@ -249,6 +249,16 @@ export default function ContactPage() {
               </Reveal>
               <Reveal delay={60}>
                 <ContactChannel
+                  icon={<MessageSquare className="h-5 w-5" strokeWidth={1.5} />}
+                  label="Text us"
+                  href={SITE_CONFIG.phoneSmsHref}
+                  subtext="Quick questions, fast replies"
+                >
+                  <span className="brc-display-num tabular-nums">{BUSINESS_INFO.phone}</span>
+                </ContactChannel>
+              </Reveal>
+              <Reveal delay={120}>
+                <ContactChannel
                   icon={<Mail className="h-5 w-5" strokeWidth={1.5} />}
                   label="Email us"
                   href={`mailto:${BUSINESS_INFO.email}`}
@@ -257,7 +267,7 @@ export default function ContactPage() {
                   {BUSINESS_INFO.email}
                 </ContactChannel>
               </Reveal>
-              <Reveal delay={120}>
+              <Reveal delay={180}>
                 <ContactChannel
                   icon={<MapPin className="h-5 w-5" strokeWidth={1.5} />}
                   label="Where we work"

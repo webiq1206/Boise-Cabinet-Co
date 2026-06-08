@@ -3,10 +3,9 @@
  * Override via env for staging; replace placeholder values before launch.
  */
 
-// TODO(client): replace the placeholder phone before launch via env
-// NEXT_PUBLIC_PHONE / NEXT_PUBLIC_PHONE_TEL. (208) 555-0100 is a placeholder.
-const DEFAULT_PHONE = "(208) 555-0100";
-const DEFAULT_PHONE_TEL = "2085550100";
+// Business phone (NAP). Override via env NEXT_PUBLIC_PHONE / NEXT_PUBLIC_PHONE_TEL.
+const DEFAULT_PHONE = "(208) 477-1169";
+const DEFAULT_PHONE_TEL = "2084771169";
 const DEFAULT_EMAIL = "hello@boisecabinet.co";
 const DEFAULT_SITE_URL = "https://boisecabinet.co";
 
@@ -15,13 +14,18 @@ function numFromEnv(value: string | undefined): number {
   return Number.isFinite(n) ? n : 0;
 }
 
+const PHONE_TEL = process.env.NEXT_PUBLIC_PHONE_TEL ?? DEFAULT_PHONE_TEL;
+// E.164 (+1) form for tel:/sms: links - most reliable across carriers and devices.
+const PHONE_E164 = `+1${PHONE_TEL.replace(/\D/g, "")}`;
+
 export const SITE_CONFIG = {
   name: "Boise Cabinet Co",
   legalName: "Boise Cabinet Co LLC",
   tagline: "Idaho's premier custom cabinet company",
   phone: process.env.NEXT_PUBLIC_PHONE ?? DEFAULT_PHONE,
-  phoneTel: process.env.NEXT_PUBLIC_PHONE_TEL ?? DEFAULT_PHONE_TEL,
-  phoneHref: `tel:${process.env.NEXT_PUBLIC_PHONE_TEL ?? DEFAULT_PHONE_TEL}`,
+  phoneTel: PHONE_TEL,
+  phoneHref: `tel:${PHONE_E164}`,
+  phoneSmsHref: `sms:${PHONE_E164}`,
   email: process.env.NEXT_PUBLIC_EMAIL ?? DEFAULT_EMAIL,
   siteUrl: process.env.NEXT_PUBLIC_SITE_URL ?? DEFAULT_SITE_URL,
   // Service-area business: no public showroom or street address is published.

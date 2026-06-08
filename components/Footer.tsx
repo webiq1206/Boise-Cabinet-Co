@@ -31,7 +31,13 @@ export function Footer() {
                 href={SITE_CONFIG.phoneHref}
                 className="block text-sm text-inverse-muted hover:text-inverse-foreground transition-colors"
               >
-                {SITE_CONFIG.phone}
+                Call {SITE_CONFIG.phone}
+              </a>
+              <a
+                href={SITE_CONFIG.phoneSmsHref}
+                className="block text-sm text-inverse-muted hover:text-inverse-foreground transition-colors"
+              >
+                Text {SITE_CONFIG.phone}
               </a>
               <a
                 href={`mailto:${SITE_CONFIG.email}`}
@@ -208,7 +214,8 @@ export function Footer() {
             <ul className="space-y-2.5">
               <FooterCTAs />
               {[
-                { label: SITE_CONFIG.phone, href: SITE_CONFIG.phoneHref },
+                { label: `Call ${SITE_CONFIG.phone}`, href: SITE_CONFIG.phoneHref },
+                { label: `Text ${SITE_CONFIG.phone}`, href: SITE_CONFIG.phoneSmsHref },
                 { label: SITE_CONFIG.email, href: `mailto:${SITE_CONFIG.email}` },
               ].map((link) => (
                 <li key={link.label}>
