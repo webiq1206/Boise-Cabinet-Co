@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { SiteEmailLink } from "@/components/SiteEmailLink";
 import { FOOTER_CABINET_LINKS } from "@/shared/cabinetNav";
 import { SITE_TAGLINE } from "@/shared/siteContent";
 import { SITE_CONFIG } from "@/shared/siteConfig";
@@ -39,12 +40,7 @@ export function Footer() {
               >
                 Text {SITE_CONFIG.phone}
               </a>
-              <a
-                href={`mailto:${SITE_CONFIG.email}`}
-                className="block text-sm text-inverse-muted hover:text-inverse-foreground transition-colors"
-              >
-                {SITE_CONFIG.email}
-              </a>
+              <SiteEmailLink className="block text-sm text-inverse-muted hover:text-inverse-foreground transition-colors text-left bg-transparent border-0 p-0 cursor-pointer font-inherit" />
               <address className="not-italic text-sm text-inverse-muted">
                 {SITE_CONFIG.address.city}, {SITE_CONFIG.address.state}
               </address>
@@ -244,7 +240,6 @@ export function Footer() {
               {[
                 { label: `Call ${SITE_CONFIG.phone}`, href: SITE_CONFIG.phoneHref },
                 { label: `Text ${SITE_CONFIG.phone}`, href: SITE_CONFIG.phoneSmsHref },
-                { label: SITE_CONFIG.email, href: `mailto:${SITE_CONFIG.email}` },
               ].map((link) => (
                 <li key={link.label}>
                   <a
@@ -255,6 +250,9 @@ export function Footer() {
                   </a>
                 </li>
               ))}
+              <li>
+                <SiteEmailLink className="text-sm text-inverse-muted hover:text-inverse-foreground transition-colors text-left bg-transparent border-0 p-0 cursor-pointer font-inherit" />
+              </li>
             </ul>
             <div className="mt-6 pt-6 border-t border-inverse-foreground/10">
               <a

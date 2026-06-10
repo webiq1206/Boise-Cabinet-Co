@@ -91,7 +91,7 @@ export function BeforeAfterSlider({
       >
         <Image
           src={beforeSrc}
-          alt=""
+          alt={beforeAlt}
           fill
           sizes={sizes}
           className="object-cover"

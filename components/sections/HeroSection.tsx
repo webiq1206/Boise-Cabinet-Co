@@ -28,9 +28,10 @@ export function HeroSection() {
       <section className="relative -mt-[60px] pt-[60px] min-h-[85vh] md:min-h-screen flex items-center overflow-hidden bg-inverse">
         <Image
           src={SITE_IMAGES.hero}
-            alt="Custom kitchen cabinets in a Treasure Valley home"
+          alt="Custom kitchen cabinets in a Treasure Valley home"
           fill
           priority
+          fetchPriority="high"
           sizes="100vw"
           className="object-cover opacity-[0.72] img-brand-grade"
         />

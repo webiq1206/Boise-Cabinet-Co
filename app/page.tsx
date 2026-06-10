@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import { FAQSection } from "@/components/FAQSection";
 import { LazyEstimateCalculator } from "@/components/estimate/LazyEstimateCalculator";
 import { ConsultationForm } from "@/components/ConsultationForm";
@@ -13,24 +12,11 @@ import { TestimonialsSection } from "@/components/sections/TestimonialsSection";
 import { Section } from "@/components/marketing/Section";
 import { MarketingCard } from "@/components/marketing/MarketingCard";
 import { Check } from "lucide-react";
-import { CONSULT_BULLETS, SITE_TAGLINE } from "@/shared/siteContent";
-import { CTA_PRIMARY } from "@/shared/ctaCopy";
+import { CONSULT_BULLETS } from "@/shared/siteContent";
 import { HomePageSchema } from "@/components/seo/HomePageSchema";
-import { buildCanonical } from "@/lib/page-metadata";
+import { buildPageMetadata } from "@/lib/page-metadata";
 
-export const metadata: Metadata = {
-  title: "Boise Cabinet Co | Custom Cabinets Idaho",
-  description:
-    "Custom kitchen, bathroom, and storage cabinets serving Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell, Idaho. Design online or schedule a free consultation.",
-  alternates: {
-    canonical: buildCanonical("/"),
-  },
-  openGraph: {
-    title: "Boise Cabinet Co | Custom Cabinets Idaho",
-    description: `${SITE_TAGLINE}. Premium custom cabinetry across the Treasure Valley.`,
-    type: "website",
-  },
-};
+export const metadata = buildPageMetadata({ kind: "home", path: "/" });
 
 export default function HomePage() {
   return (

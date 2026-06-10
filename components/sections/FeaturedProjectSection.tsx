@@ -1,5 +1,3 @@
-"use client";
-
 import Link from "next/link";
 import { Reveal } from "@/components/Reveal";
 import { Button } from "@/components/ui/button";

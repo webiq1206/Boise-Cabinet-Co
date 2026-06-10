@@ -1,6 +1,5 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import { Mail } from "lucide-react";
 
 interface ObfuscatedEmailProps {
@@ -18,19 +17,11 @@ export function ObfuscatedEmail({
   className = "",
   iconClassName = "h-4 w-4",
   showIcon = true,
-  label,
+  label = "Email us",
 }: ObfuscatedEmailProps) {
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
   const handleClick = () => {
     window.location.href = `mailto:${user}@${domain}`;
   };
-
-  const displayText = label || (mounted ? `${user}@${domain}` : "Contact us by email");
 
   return (
     <button
@@ -40,7 +31,7 @@ export function ObfuscatedEmail({
       aria-label="Send us an email"
     >
       {showIcon && <Mail className={iconClassName} />}
-      <span>{displayText}</span>
+      <span>{label}</span>
     </button>
   );
 }

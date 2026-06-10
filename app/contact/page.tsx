@@ -18,6 +18,7 @@ import {
 import { BUSINESS_INFO } from '@/lib/seo';
 import { SITE_CONFIG } from '@/shared/siteConfig';
 import { ConsultationForm } from '@/components/ConsultationForm';
+import { SiteEmailLink } from '@/components/SiteEmailLink';
 import { CTA_CONSULT, CTA_ESTIMATE } from '@/shared/ctaCopy';
 import { CONSULT_BULLETS, HERO_STATS } from '@/shared/siteContent';
 import { ConsultCTA } from '@/components/modals/ConsultCTA';
@@ -261,10 +262,9 @@ export default function ContactPage() {
                 <ContactChannel
                   icon={<Mail className="h-5 w-5" strokeWidth={1.5} />}
                   label="Email us"
-                  href={`mailto:${BUSINESS_INFO.email}`}
                   subtext="Response within one business day"
                 >
-                  {BUSINESS_INFO.email}
+                  <SiteEmailLink className="text-inherit hover:text-foreground/70 transition-colors text-left bg-transparent border-0 p-0 cursor-pointer font-inherit text-xl md:text-2xl" />
                 </ContactChannel>
               </Reveal>
               <Reveal delay={180}>

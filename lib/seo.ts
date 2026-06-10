@@ -8,6 +8,11 @@ import { SITE_CONFIG } from '@/shared/siteConfig';
 
 const BRAND = SITE_CONFIG.name;
 
+/** Homepage title (50–60 chars) and meta description (120–160 chars). */
+export const HOMEPAGE_TITLE = `${BRAND} | Custom Cabinets in Treasure Valley`;
+export const HOMEPAGE_DESCRIPTION =
+  'Custom kitchen, bath, and storage cabinets for Boise, Meridian, Eagle & the Treasure Valley. Licensed & insured. Free design consultation.';
+
 interface SEOMetaData {
   title: string;
   description: string;
@@ -68,7 +73,7 @@ export function generatePageTitle(params: ServiceSEOParams): string {
   const { serviceName, city, isHomePage } = params;
   
   if (isHomePage) {
-    return `${BRAND} | Custom Cabinets Idaho`;
+    return HOMEPAGE_TITLE;
   }
   
   if (city && serviceName) {
@@ -152,7 +157,7 @@ export function generateMetaDescription(params: ServiceSEOParams): string {
   const phone = SITE_CONFIG.phone;
   
   if (params.isHomePage) {
-    return `Custom kitchen cabinets, bathroom vanities, and built-in storage for Boise, Meridian, Eagle & the Treasure Valley. Licensed, insured. Call ${phone} for a free design consultation!`;
+    return HOMEPAGE_DESCRIPTION;
   }
   
   if (city && serviceName) {

@@ -8,7 +8,6 @@ import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
-import { SITE_CONFIG } from "@/shared/siteConfig";
 import { useAuth } from "@/hooks/useAuth";
 import { Skeleton } from "@/components/ui/skeleton";
 
@@ -102,8 +101,8 @@ export default function PortalAccountPage() {
           </CardHeader>
           <CardContent>
             <p className="text-sm text-muted-foreground mb-4">
-              You sign in with a secure link sent to your email. Contact {SITE_CONFIG.email} if
-              you need to update your login address.
+              You sign in with a secure link sent to your email. Contact us if you need to
+              update your login address.
             </p>
             <Button variant="outline" asChild>
               <a href="/api/logout">Sign out</a>

@@ -24,7 +24,8 @@ export function generateLocalBusinessSchema(city?: string): SchemaContext {
   
   return {
     '@context': 'https://schema.org',
-    '@type': ['LocalBusiness', 'FurnitureStore', 'HomeAndConstructionBusiness'],
+    '@type': 'LocalBusiness',
+    additionalType: ['FurnitureStore', 'HomeAndConstructionBusiness'],
     name: BUSINESS_INFO.name,
     legalName: BUSINESS_INFO.legalName,
     description: `Custom cabinet company serving ${city || 'Boise'} and the Treasure Valley, Idaho. Kitchen cabinets, bathroom vanities, closet systems, and built-in storage.`,

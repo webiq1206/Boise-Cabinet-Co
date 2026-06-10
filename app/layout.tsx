@@ -6,7 +6,7 @@ import { ConditionalFooter } from '@/components/ConditionalFooter'
 import { Toaster } from '@/components/ui/toaster'
 import { Providers } from '@/components/Providers'
 import { ScrollToTop } from '@/components/ScrollToTop'
-import { SITE_TAGLINE } from '@/shared/siteContent'
+import { HOMEPAGE_DESCRIPTION, HOMEPAGE_TITLE } from '@/lib/seo'
 import './globals.css'
 
 const montserrat = Montserrat({
@@ -29,10 +29,10 @@ const fraunces = Fraunces({
 
 export const metadata: Metadata = {
   title: {
-    default: 'Boise Cabinet Co | Custom Cabinets Idaho',
+    default: HOMEPAGE_TITLE,
     template: '%s | Boise Cabinet Co',
   },
-  description: `Custom kitchen, bathroom, and storage cabinets serving Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell. ${SITE_TAGLINE}. Design your cabinets online or schedule a free consultation.`,
+  description: HOMEPAGE_DESCRIPTION,
   manifest: '/site.webmanifest',
   icons: {
     icon: [
@@ -53,14 +53,14 @@ export const metadata: Metadata = {
     locale: 'en_US',
     url: '/',
     siteName: 'Boise Cabinet Co',
-    title: 'Boise Cabinet Co | Custom Cabinets Idaho',
-    description: `${SITE_TAGLINE}. Premium custom cabinetry across the Treasure Valley.`,
+    title: HOMEPAGE_TITLE,
+    description: HOMEPAGE_DESCRIPTION,
     images: [{ url: '/images/marketing/og-default.webp', width: 1792, height: 1024, alt: 'Boise Cabinet Co custom kitchen cabinets' }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Boise Cabinet Co | Custom Cabinets Idaho',
-    description: `${SITE_TAGLINE}. Idaho's premier custom cabinet company.`,
+    title: HOMEPAGE_TITLE,
+    description: HOMEPAGE_DESCRIPTION,
     images: ['/images/marketing/og-default.webp'],
   },
   robots: {
