@@ -417,7 +417,7 @@ export const BUSINESS_INFO = {
     sunday: 'Closed',
   },
   founded: '2017',
-  serviceArea: ['Boise', 'Meridian', 'Eagle', 'Nampa', 'Kuna', 'Star', 'Middleton', 'Caldwell'],
+  serviceArea: ['Boise', 'Meridian', 'Eagle', 'Nampa', 'Kuna', 'Star', 'Middleton', 'Caldwell', 'Garden City'],
   serviceRadius: '35 miles',
   // TODO(client): set NEXT_PUBLIC_LICENSE_NUMBER to surface the real license #.
   licenses: SITE_CONFIG.trust.licenseNumber

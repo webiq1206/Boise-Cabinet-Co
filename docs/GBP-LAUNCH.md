@@ -1,17 +1,22 @@
 # Google Business Profile Launch Kit - Boise Cabinet Co
 
-Implementation-ready copy and settings for creating the GBP. After verification,
-set `NEXT_PUBLIC_GBP_URL` so the site emits the profile in `sameAs` schema and UI
-trust badges (`shared/siteConfig.ts`).
+Quick copy-paste reference. Full step-by-step workflow: [GBP-PLAYBOOK.md](./GBP-PLAYBOOK.md)
+
+> Auto-generated from [`shared/gbpConfig.ts`](../shared/gbpConfig.ts). Regenerate: `npm run gbp:docs`
+
+## Before you start
+
+1. [GBP-LEGACY-AUDIT.md](./GBP-LEGACY-AUDIT.md)
+2. `npm run gbp:photos` → upload from `public/gbp-upload/`
 
 ## Profile settings
 
 | Field | Value |
 |---|---|
-| Business name | `Boise Cabinet Co` (exactly; matches LLC and site - no keywords appended) |
+| Business name | `Boise Cabinet Co` |
 | Business type | Service-Area Business (hide address) |
-| Address on file | Meridian, ID (for verification only; do not display) |
-| Service areas | Boise ID, Meridian ID, Eagle ID, Nampa ID, Kuna ID, Star ID, Middleton ID, Caldwell ID, Garden City ID |
+| Address on file | Meridian, ID (verification only; do not display publicly) |
+| Service areas | Boise, ID, Meridian, ID, Eagle, ID, Nampa, ID, Kuna, ID, Star, ID, Middleton, ID, Caldwell, ID, Garden City, ID |
 | Phone | (208) 477-1169 |
 | Website | `https://boisecabinet.co/?utm_source=gbp&utm_medium=organic&utm_campaign=profile` |
 | Appointment link | `https://boisecabinet.co/contact?utm_source=gbp&utm_medium=organic&utm_campaign=appointment` |
@@ -23,49 +28,38 @@ trust badges (`shared/siteConfig.ts`).
 - Primary: **Cabinet maker**
 - Secondary: Cabinet store, Kitchen remodeler, Bathroom remodeler, Carpenter
 
-## Business description (744 chars, fits the 750 limit)
+## Business description (744 chars)
 
-> Boise Cabinet Co designs, builds, and installs custom frameless (European-style)
-> kitchen cabinets, bathroom vanities, and built-in storage for Boise, Meridian,
-> Eagle, Nampa, Kuna, Star, Middleton, and Caldwell. Founded in 2017, we offer
-> 299 cabinet finishes and six door styles, all built to order with soft-close
-> hardware and backed by a limited lifetime workmanship warranty. Every project
-> starts with a free in-home design consultation, a written scope before
-> fabrication, and one accountable team from first sketch to final walkthrough.
-> Homeowners track design approvals, timelines, and installation through a
-> dedicated client portal. We handle Ada and Canyon County projects with local
-> permit and schedule expertise. Request your free consultation today.
+> Boise Cabinet Co designs, builds, and installs custom frameless (European-style) kitchen cabinets, bathroom vanities, and built-in storage for Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell. Founded in 2017, we offer 299 cabinet finishes and six door styles, all built to order with soft-close hardware and backed by a limited lifetime workmanship warranty. Every project starts with a free in-home design consultation, a written scope before fabrication, and one accountable team from first sketch to final walkthrough. Homeowners track approvals, timelines, and installation through our client portal. We handle Ada and Canyon County projects with local permit and schedule expertise. Request your free consultation today.
 
-## Services (map 1:1 to site URLs)
+## Services (core)
 
-| GBP service | Description (300 char max) | Landing URL |
+| GBP service | Description | Link |
 |---|---|---|
-| Custom kitchen cabinets | Built-to-order frameless kitchen cabinets: base runs, uppers, pantries, islands, and appliance panels designed as one coordinated system for Treasure Valley homes. | /cabinets/kitchen |
-| Bathroom vanities | Custom vanity cabinets engineered for moisture resistance, with grooming drawer storage and hamper pull-outs, matched to your tile and stone selections. | /cabinets/bathroom |
-| Closet systems | Custom closet cabinets and organizers sized to your space, from reach-in upgrades to full primary suite systems. | /cabinets/closet |
-| Pantry cabinets | Walk-in and reach-in pantry systems with adjustable shelving, appliance garages, and pull-out storage. | /cabinets/pantry |
-| Garage storage cabinets | Durable garage cabinet systems that stand up to tools, gear, and Idaho temperature swings. | /cabinets/garage |
-| Laundry & mudroom cabinets | Folding surfaces, pull-out hampers, bench seating, boot storage, and locker systems built for daily family traffic. | /cabinets/laundry |
-| Built-ins & entertainment centers | Window seats, bookcases, media centers, fireplace surrounds, and architectural millwork built to order. | /cabinets/built-ins |
-| Home office cabinets | Built-in desks, file drawers, and shelving with integrated cable management. | /cabinets/home-office |
-| Outdoor kitchen cabinets | Weather-resistant outdoor kitchen and bar cabinetry for Treasure Valley patios. | /cabinets/outdoor |
-| Cabinet installation | Professional installation by our own team, with final walkthrough and lifetime workmanship warranty. | /construction |
-| Free design consultation | A 60-90 minute in-home consultation: explore finishes and door styles, get planning guidance and an honest investment range. No pressure. | /contact |
+| Custom kitchen cabinets | Built-to-order frameless kitchen cabinets: base runs, uppers, pantries, islands, and appliance panels designed as one coordinated system for Treasure Valley homes. | https://boisecabinet.co/cabinets/kitchen?utm_source=gbp&utm_medium=organic&utm_campaign=service-kitchen |
+| Bathroom vanities | Custom vanity cabinets engineered for moisture resistance, with grooming drawer storage and hamper pull-outs, matched to your tile and stone selections. | https://boisecabinet.co/cabinets/bathroom?utm_source=gbp&utm_medium=organic&utm_campaign=service-bathroom |
+| Closet systems | Custom closet cabinets and organizers sized to your space, from reach-in upgrades to full primary suite systems. | https://boisecabinet.co/cabinets/closet?utm_source=gbp&utm_medium=organic&utm_campaign=service-closet |
+| Pantry cabinets | Walk-in and reach-in pantry systems with adjustable shelving, appliance garages, and pull-out storage. | https://boisecabinet.co/cabinets/pantry?utm_source=gbp&utm_medium=organic&utm_campaign=service-pantry |
+| Garage storage cabinets | Durable garage cabinet systems that stand up to tools, gear, and Idaho temperature swings. | https://boisecabinet.co/cabinets/garage?utm_source=gbp&utm_medium=organic&utm_campaign=service-garage |
+| Laundry & mudroom cabinets | Folding surfaces, pull-out hampers, bench seating, boot storage, and locker systems built for daily family traffic. | https://boisecabinet.co/cabinets/laundry?utm_source=gbp&utm_medium=organic&utm_campaign=service-laundry |
+| Built-ins & entertainment centers | Window seats, bookcases, media centers, fireplace surrounds, and architectural millwork built to order. | https://boisecabinet.co/cabinets/built-ins?utm_source=gbp&utm_medium=organic&utm_campaign=service-built-ins |
+| Home office cabinets | Built-in desks, file drawers, and shelving with integrated cable management. | https://boisecabinet.co/cabinets/home-office?utm_source=gbp&utm_medium=organic&utm_campaign=service-home-office |
+| Outdoor kitchen cabinets | Weather-resistant outdoor kitchen and bar cabinetry for Treasure Valley patios. | https://boisecabinet.co/cabinets/outdoor?utm_source=gbp&utm_medium=organic&utm_campaign=service-outdoor |
+| Cabinet installation | Professional installation by our own team, with final walkthrough and lifetime workmanship warranty. | https://boisecabinet.co/construction?utm_source=gbp&utm_medium=organic&utm_campaign=service-installation |
+| Free design consultation | A 60-90 minute in-home consultation: explore finishes and door styles, get planning guidance and an honest investment range. No pressure. | https://boisecabinet.co/contact?utm_source=gbp&utm_medium=organic&utm_campaign=service-consultation |
 
-## Products (one per door style, photo + link)
+## Products (door styles)
 
 | Product | Link |
 |---|---|
-| Slab cabinet doors | /door-styles/slab |
-| 3 Piece cabinet doors | /door-styles/three-piece |
-| Modern Shaker cabinet doors | /door-styles/modern-shaker |
-| Thin Shaker cabinet doors | /door-styles/thin-shaker |
-| Alpha Shaker cabinet doors | /door-styles/alpha-shaker |
-| Beta Shaker cabinet doors | /door-styles/beta-shaker |
+| Slab cabinet doors | https://boisecabinet.co/door-styles/slab?utm_source=gbp&utm_medium=organic&utm_campaign=product-slab |
+| 3 Piece cabinet doors | https://boisecabinet.co/door-styles/three-piece?utm_source=gbp&utm_medium=organic&utm_campaign=product-three-piece |
+| Modern Shaker cabinet doors | https://boisecabinet.co/door-styles/modern-shaker?utm_source=gbp&utm_medium=organic&utm_campaign=product-modern-shaker |
+| Thin Shaker cabinet doors | https://boisecabinet.co/door-styles/thin-shaker?utm_source=gbp&utm_medium=organic&utm_campaign=product-thin-shaker |
+| Alpha Shaker cabinet doors | https://boisecabinet.co/door-styles/alpha-shaker?utm_source=gbp&utm_medium=organic&utm_campaign=product-alpha-shaker |
+| Beta Shaker cabinet doors | https://boisecabinet.co/door-styles/beta-shaker?utm_source=gbp&utm_medium=organic&utm_campaign=product-beta-shaker |
 
-## Q&A seeds (post as the business, then answer as the business)
-
-Reuse the homepage FAQ copy verbatim from `shared/homepageFaqs.ts`:
+## Q&A seeds
 
 1. What makes Boise Cabinet Co different from other cabinet companies?
 2. What kind of cabinets do you build?
@@ -76,33 +70,15 @@ Reuse the homepage FAQ copy verbatim from `shared/homepageFaqs.ts`:
 7. What does the free design consultation include?
 8. How does pricing work?
 
-## Photos at launch (20+ minimum)
+Full answers: [GBP-PLAYBOOK.md#phase-8-qa-seed-8-questions](./GBP-PLAYBOOK.md)
 
-- Before/after kitchen sets from `public/images/gallery/`
-- Team photo from the About page
-- 6 door style photos (reuse product images above)
-- 6-8 finish detail shots (matte, gloss, woodgrain examples)
-- Logo (`public/icon-512.png`) and cover image (`public/images/marketing/og-default.webp`)
+## Messaging welcome
 
-Name files descriptively before upload, e.g. `custom-kitchen-cabinets-boise-idaho-shaker.jpg`.
+> Hi! Thanks for reaching out to Boise Cabinet Co. We design, build, and install custom cabinets across the Treasure Valley. How can we help with your project? You can also book a free consultation at boisecabinet.co/contact
 
-## Attributes
+## Post-launch
 
-- Online estimates: yes
-- Onsite services: yes
-- Identifies as family-owned / veteran-owned: set only if true
-
-## Post-launch cadence
-
-- 1 GBP post per week: alternate project showcases (city named), guide links, and seasonal tips
-- Respond to every review within 48 hours, naturally mentioning service + city
-- At 5+ reviews: set `NEXT_PUBLIC_REVIEW_RATING` and `NEXT_PUBLIC_REVIEW_COUNT` so aggregateRating schema emits
-- Replicate to Bing Places (import from GBP) and Apple Business Connect with identical NAP
-
-## Legacy listing audit
-
-Before/while creating the GBP, search Google, Yelp, and YellowPages for the
-pre-rebrand identity (Boise Remodeling Co, (208) 352-2011, Kuna address). Claim
-and correct or remove anything found so the old NAP never conflicts with the
-new entity. Note the unrelated "Boise Cabinet Inc" (Garden City, (208) 323-0010)
-is a different company; never merge or claim its listings.
+- 1 GBP post/week · respond to reviews within 48h
+- At 5+ reviews: `NEXT_PUBLIC_REVIEW_RATING` + `NEXT_PUBLIC_REVIEW_COUNT`
+- Set `NEXT_PUBLIC_GBP_URL` after verification
+- Import to Bing Places + Apple Business Connect

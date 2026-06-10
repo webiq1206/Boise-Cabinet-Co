@@ -36,7 +36,7 @@ export const HOMEPAGE_FAQS: HomepageFaq[] = [
   },
   {
     q: "What does the free design consultation include?",
-    a: "A 60 to 90 minute consultation at your home or our showroom. We review your space, discuss goals, walk through finish and door style options, and provide a planning investment range. No pressure, you leave with clarity, not a sales pitch.",
+    a: "A 60 to 90 minute consultation at your home. We review your space, discuss goals, walk through finish and door style options, and provide a planning investment range. No pressure, you leave with clarity, not a sales pitch.",
   },
   {
     q: "How do I track my project after I order?",
