@@ -1,5 +1,5 @@
 /**
- * Generates docs/GBP-PLAYBOOK.md and refreshes docs/GBP-LAUNCH.md from shared/gbpConfig.ts.
+ * Regenerates docs/GBP-SETUP-GUIDE.md from shared/gbpConfig.ts (plain-language, no code).
  * Run: npx tsx scripts/gbp/generate-playbook.mjs
  */
 import fs from "fs";
@@ -7,10 +7,8 @@ import path from "path";
 import { fileURLToPath } from "url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const root = path.join(__dirname, "../..");
-const docsDir = path.join(root, "docs");
+const docsDir = path.join(__dirname, "../../docs");
 
-// Dynamic import of TS config via tsx when run with npx tsx
 const {
   GBP_PROFILE,
   GBP_BUSINESS_DESCRIPTION,
@@ -19,85 +17,170 @@ const {
   GBP_DOOR_PRODUCTS,
   GBP_BONUS_PRODUCTS,
   GBP_QA_SEEDS,
-  GBP_NAP_BLOCK,
   GBP_COMPLETENESS_CHECKLIST,
-  gbpUrl,
 } = await import("../../shared/gbpConfig.ts");
 
-function serviceTable(services) {
-  return services
-    .map(
-      (s) =>
-        `| ${s.name} | ${s.description} | ${gbpUrl(s.path, s.campaign)} |`,
-    )
-    .join("\n");
+const site = "https://boisecabinet.co";
+
+function page(path) {
+  return `${site}${path}`;
 }
 
-function productTable(products) {
-  return products
-    .map(
-      (p) =>
-        `| ${p.name} | ${p.description} | ${gbpUrl(p.path, p.campaign)} | ${p.imagePath} |`,
-    )
-    .join("\n");
+function serviceBlock(s, index) {
+  return `---
+
+**Service ${index}: ${s.name}**
+
+Description:
+${s.description}
+
+Link: ${page(s.path)}
+
+`;
 }
 
-function qaSection() {
-  return GBP_QA_SEEDS.map(
-    (qa, i) => `### Q${i + 1}: ${qa.question}\n\n> ${qa.answer}`,
-  ).join("\n\n");
+function productBlock(p, index) {
+  return `---
+
+**Product ${index}: ${p.name}**
+
+Description:
+${p.description}
+
+Link: ${page(p.path)}
+
+`;
 }
 
-const PLAYBOOK = `# Boise Cabinet Co: Complete GBP Optimization Playbook
+const qaBlocks = GBP_QA_SEEDS.map(
+  (qa, i) => `---
 
-> Auto-generated from [\`shared/gbpConfig.ts\`](../shared/gbpConfig.ts). Regenerate: \`npm run gbp:docs\`
+**Question ${i + 1}:** ${qa.question}
 
-End-to-end Google Business Profile setup. Copy values exactly to keep NAP aligned with the website.
+**Answer:**
+${qa.answer}
 
-**Related docs:** [GBP-LEGACY-AUDIT.md](./GBP-LEGACY-AUDIT.md) (run first) · [GBP-LAUNCH.md](./GBP-LAUNCH.md) (quick copy-paste reference)
+`,
+).join("");
+
+const GUIDE = `# Boise Cabinet Co — Google Business Profile Setup Guide
+
+Your complete, step-by-step guide to creating and optimizing your Google Business Profile. Work through each section in order. Copy the text exactly as written so your profile matches your website and all other listings.
 
 ---
 
-## Phase 0: Pre-Launch Audit
+## Before You Begin
 
-1. Complete [GBP-LEGACY-AUDIT.md](./GBP-LEGACY-AUDIT.md)
-2. Gather assets: run \`npm run gbp:photos\` → uploads from \`public/gbp-upload/\`
-3. Go to [business.google.com](https://business.google.com) and claim or create your profile
+### Step 1: Check for conflicting listings
+
+Search Google Maps and Google for each of these before creating anything new:
+
+1. **Boise Remodeling Co** — This is your old business name. If you find it, claim the listing and update it, or request removal. The old phone number was (208) 352-2011. Your correct number is ${GBP_PROFILE.phone}.
+2. **Boise Cabinet Co** — If a profile already exists, claim it. If not, you will create a new one.
+3. **Boise Cabinet Inc** in Garden City — This is a **different company** with phone (208) 323-0010. Never claim or merge their listing.
+
+Also search Yelp and YellowPages for "Boise Remodeling Co" and correct anything you find.
+
+### Step 2: Gather your photos
+
+Collect these before you open Google Business Profile:
+
+- Your company logo
+- Your best wide kitchen photo (for the cover image)
+- At least 10 kitchen project photos (before/after if possible)
+- At least 4 bathroom vanity photos
+- One photo per door style (Slab, 3 Piece, Modern Shaker, Thin Shaker, Alpha Shaker, Beta Shaker)
+- 6–8 finish close-ups (matte, gloss, and woodgrain examples)
+- Team photo and installation/shop photos
+
+Rename every photo before uploading. Use this pattern: what it shows, then city, then Idaho.
+
+Examples:
+- custom-kitchen-cabinets-boise-idaho-modern-shaker.jpg
+- bathroom-vanity-cabinets-meridian-idaho.jpg
+- frameless-cabinet-installation-eagle-idaho.jpg
+
+### Step 3: Sign in to Google Business Profile
+
+1. Go to business.google.com
+2. Sign in with the Google account you will use long-term (prefer a business account you will not lose access to)
+3. Click **Add your business to Google**, or **Manage now** if a listing already exists
 
 ---
 
-## Phase 1: Core Profile Setup
+## Section 1: Create Your Profile
 
-| Field | Value |
+### Step 4: Enter your business name
+
+Type exactly:
+
+**${GBP_PROFILE.businessName}**
+
+Rules:
+- Do not add keywords (wrong example: "Boise Cabinet Co | Custom Kitchen Cabinets Boise")
+- Must match your LLC: ${GBP_PROFILE.legalName}
+- Must match your website branding
+
+### Step 5: Choose your business type
+
+You do not have a public showroom. Customers visit their homes for consultations.
+
+1. When asked "Do you have a location customers can visit?" — select **No**
+2. Choose **Service-area business**
+3. **Hide your street address** from the public profile
+4. Keep Meridian, ID on file internally for verification only — do not show it publicly on the profile
+
+### Step 6: Set your primary category
+
+**${GBP_PROFILE.primaryCategory}**
+
+Do not use General contractor or Home improvement store as your primary category.
+
+### Step 7: Add secondary categories
+
+Add all four of these:
+
+${GBP_PROFILE.secondaryCategories.map((c, i) => `${i + 1}. ${c}`).join("\n")}
+
+### Step 8: Enter your phone number
+
+**${GBP_PROFILE.phone}**
+
+Use this exact number on your website, Google profile, invoices, and every other listing.
+
+### Step 9: Enter your website
+
+**${site}**
+
+### Step 10: Set your appointment link
+
+**${page("/contact")}**
+
+This is the Book button on your profile. It should go to your consultation request page.
+
+### Step 11: Enter your opening date
+
+**${GBP_PROFILE.openingDate}**
+
+---
+
+## Section 2: Service Areas
+
+### Step 12: Add all nine service areas
+
+In your profile, go to Edit profile → Location → Service area. Add each city:
+
+| City | Add as |
 |---|---|
-| Business name | \`${GBP_PROFILE.businessName}\` |
-| Legal name | \`${GBP_PROFILE.legalName}\` |
-| Business type | ${GBP_PROFILE.businessType} |
-| Address on file | ${GBP_PROFILE.addressOnFile} |
-| Phone | ${GBP_PROFILE.phone} |
-| Email | ${GBP_PROFILE.email} |
-| Website | \`${GBP_PROFILE.websiteUrl}\` |
-| Appointment link | \`${GBP_PROFILE.appointmentUrl}\` |
-| Opening date | ${GBP_PROFILE.openingDate} |
+${GBP_SERVICE_AREAS.map((a) => `| ${a.name} | ${a.gbpLabel} |`).join("\n")}
 
-### Categories
-
-- **Primary:** ${GBP_PROFILE.primaryCategory}
-- **Secondary:** ${GBP_PROFILE.secondaryCategories.join(", ")}
+You serve within roughly ${GBP_PROFILE.serviceRadiusMiles} miles of the Treasure Valley. Listing each city is better than only writing "Treasure Valley."
 
 ---
 
-## Phase 2: Service Areas (9 cities)
+## Section 3: Hours, Attributes, and Payment
 
-| City | County | GBP label | Guide URL |
-|---|---|---|---|
-${GBP_SERVICE_AREAS.map((a) => `| ${a.name} | ${a.county} | ${a.gbpLabel} | \`${gbpUrl(a.guidePath, `guide-${a.name.toLowerCase().replace(/\s+/g, "-")}`)}\` |`).join("\n")}
-
-Service radius: **${GBP_PROFILE.serviceRadiusMiles} miles** (city list is preferred over a vague region label).
-
----
-
-## Phase 3: Hours and Attributes
+### Step 13: Set your regular hours
 
 | Day | Hours |
 |---|---|
@@ -109,218 +192,243 @@ Service radius: **${GBP_PROFILE.serviceRadiusMiles} miles** (city list is prefer
 | Saturday | ${GBP_PROFILE.hours.saturday} |
 | Sunday | ${GBP_PROFILE.hours.sunday} |
 
-**Attributes:** Online estimates → \`${GBP_PROFILE.estimateUrl}\` · Onsite services → Yes
+Update special hours for holidays and any days your shop or office is closed.
 
-**Payment methods:** ${GBP_PROFILE.paymentMethods.join(", ")}
+### Step 14: Turn on business attributes
+
+| Attribute | Setting |
+|---|---|
+| Online estimates | Yes |
+| Onsite services | Yes |
+| Identifies as family-owned | Only if true |
+| Identifies as veteran-owned | Only if true |
+
+Do not claim anything you cannot back up.
+
+### Step 15: Add payment methods (if prompted)
+
+${GBP_PROFILE.paymentMethods.join(", ")}
 
 ---
 
-## Phase 4: Business Description (${GBP_BUSINESS_DESCRIPTION.length} chars)
+## Section 4: Business Description
 
-> ${GBP_BUSINESS_DESCRIPTION}
+### Step 16: Paste your business description
+
+Google allows up to 750 characters. Copy this entire paragraph into your profile description:
+
+${GBP_BUSINESS_DESCRIPTION}
+
+Do not put your phone number or website URL inside the description. Google has separate fields for those.
 
 ---
 
-## Phase 5: Services (11 core + bonus)
+## Section 5: Services
 
-Paste each description into GBP **Edit profile → Services** and add the full URL.
+### Step 17: Add your services
 
-### Core services
+Go to Edit profile → Services. For each service below, click Add a custom service, paste the description, and add the website link.
 
-| GBP service | Description | Link |
+${GBP_SERVICES.filter((s) => s.priority === "core").map((s, i) => serviceBlock(s, i + 1)).join("")}
+
+### Optional bonus services (add if Google allows more)
+
+| Service | Link |
+|---|---|
+${GBP_SERVICES.filter((s) => s.priority === "bonus").map((s) => `| ${s.name} | ${page(s.path)} |`).join("\n")}
+
+---
+
+## Section 6: Products
+
+### Step 18: Add your door style products
+
+Go to Edit profile → Products → Add product. Each product needs a name, description, photo, and link. Leave price blank or use "Contact for quote."
+
+${GBP_DOOR_PRODUCTS.map((p, i) => productBlock(p, i + 1)).join("")}
+
+### Optional bonus products
+
+| Product | Description | Link |
 |---|---|---|
-${serviceTable(GBP_SERVICES.filter((s) => s.priority === "core"))}
-
-### Bonus services (if GBP allows more slots)
-
-| GBP service | Description | Link |
-|---|---|---|
-${serviceTable(GBP_SERVICES.filter((s) => s.priority === "bonus"))}
+${GBP_BONUS_PRODUCTS.map((p) => `| ${p.name} | ${p.description} | ${page(p.path)} |`).join("\n")}
 
 ---
 
-## Phase 6: Products
+## Section 7: Photos and Video
 
-### Core products (6 door styles)
+### Step 19: Upload at least 20 photos
 
-| Product | Description | Link | Photo source |
-|---|---|---|---|
-${productTable(GBP_DOOR_PRODUCTS)}
+Upload photos from your owner account so they show as "By owner."
 
-### Bonus products
+| What to upload | How many |
+|---|---|
+| Logo | 1 |
+| Cover photo (best wide kitchen shot) | 1 |
+| Kitchen project photos | 8 or more |
+| Bathroom vanity photos | 4 or more |
+| Installation and shop photos | 3 or more |
+| Team photo | 1–2 |
+| Door style photos | 6 (one per style) |
+| Finish swatch close-ups | 6–8 |
 
-| Product | Description | Link | Photo source |
-|---|---|---|---|
-${productTable(GBP_BONUS_PRODUCTS)}
+Name every file descriptively before uploading (see Step 2).
 
-**Pricing:** Leave blank or "Contact for quote". Do not publish misleading fixed prices.
+### Step 20: Optional video
 
----
+Upload one or two short videos (30–60 seconds):
+- Walkthrough of a completed kitchen (name the city in the title)
+- Door style and finish comparison
 
-## Phase 7: Photos
-
-1. Run \`npm run gbp:photos\` to build \`public/gbp-upload/\` (${GBP_COMPLETENESS_CHECKLIST.find((c) => c.includes("20+")) ? "20+" : "20"} files minimum)
-2. Upload as **owner** photos in GBP
-3. Add your own before/after install photos with city names in filenames
-4. Set logo (\`logo-boise-cabinet-co-idaho.png\`) and cover (\`cover-custom-kitchen-cabinets-treasure-valley-idaho.webp\`)
-
----
-
-## Phase 8: Q&A (seed 8 questions)
-
-Post each question as a customer, then answer as the business:
-
-${qaSection()}
+Example title: Custom Kitchen Cabinet Install – Eagle, Idaho – Boise Cabinet Co
 
 ---
 
-## Phase 9: Social Profiles
+## Section 8: Questions and Answers
+
+### Step 21: Seed your Q&A section
+
+Have a friend post each question below as a customer. Then answer as the business, copying your answer exactly.
+
+${qaBlocks}
+
+### Bonus questions to add after launch
+
+- Do you offer closet, laundry, and mudroom cabinets? (Yes — link to ${page("/cabinets")})
+- Can I design my cabinets online before committing? (Yes — link to ${page("/design-studio")})
+- What door styles and finishes are available? (Six styles, 299 finishes — link to ${page("/finishes")})
+
+---
+
+## Section 9: Social Profiles and Messaging
+
+### Step 22: Link your social accounts
 
 | Platform | URL |
 |---|---|
 | Facebook | ${GBP_PROFILE.social.facebook} |
 | Instagram | ${GBP_PROFILE.social.instagram} |
 
----
+Make sure both pages use the same business name, phone, and website before linking.
 
-## Phase 10: Messaging
+### Step 23: Enable messaging
 
-Enable **Chat** in GBP. Welcome message:
+Turn on Chat in your Google profile. Set this automated welcome message:
 
-> ${GBP_PROFILE.messagingWelcome}
+${GBP_PROFILE.messagingWelcome}
 
-Appointment button: \`${GBP_PROFILE.appointmentUrl}\`
+Respond to messages within 24 hours (same business day is ideal).
 
----
+### Step 24: Confirm your appointment button
 
-## Phase 11: Verification
-
-1. Complete Google verification (postcard, phone, email, or video)
-2. Search \`Boise Cabinet Co\` in Google Maps to confirm
-3. Copy your public GBP URL
-4. Set \`NEXT_PUBLIC_GBP_URL\` in production (see Phase 14)
+Your Book button should link to: ${page("/contact")}
 
 ---
 
-## Phase 12: Post-Launch Cadence
+## Section 10: Verification
 
-- **1 GBP post per week:** rotate project showcases (name the city), guide links, door/finish highlights, seasonal tips
-- **Reviews:** request after every install; respond within 48 hours mentioning service + city
-- **Photos:** add 2-4 new owner photos per month from active projects
-- At **5+ reviews:** set \`NEXT_PUBLIC_REVIEW_RATING\` and \`NEXT_PUBLIC_REVIEW_COUNT\`
+### Step 25: Complete Google verification
 
-### Post CTA URLs
+Google will verify your business by postcard, phone, email, or video. Use your Meridian address on file. Do not change your business name or address during verification.
 
-| CTA | URL |
-|---|---|
-| Book consultation | \`${GBP_PROFILE.appointmentUrl}\` |
-| Cost guide | \`${gbpUrl("/guides/boise-cabinet-cost-guide", "post-cost-guide")}\` |
-| Kitchen guide | \`${gbpUrl("/guides/boise-kitchen-cabinet-guide", "post-kitchen-guide")}\` |
-| ROI guide | \`${gbpUrl("/guides/cabinet-roi-guide-boise", "post-roi-guide")}\` |
+### Step 26: Confirm your profile is live
+
+1. Search "Boise Cabinet Co" in Google Maps
+2. Check that your name, phone, hours, and service areas look correct
+3. Confirm your street address is hidden
+4. Save your public Google profile link — you will need it for citations and review requests
 
 ---
 
-## Phase 13: NAP Consistency
+## Section 11: After You Go Live
 
-\`\`\`
-${GBP_NAP_BLOCK}
-\`\`\`
+### Step 27: Replicate your listing elsewhere
 
-**Citation priority:** Google Business Profile → Bing Places (import from GBP) → Apple Business Connect → Facebook → Instagram → Yelp → Houzz → BBB → Nextdoor
+Import or manually create matching listings on:
+
+1. Bing Places (import from Google)
+2. Apple Business Connect (import from Google)
+3. Facebook Business Page
+4. Instagram business profile
+5. Yelp
+6. Houzz
+7. BBB
+8. Nextdoor Business
+
+Use this exact information everywhere:
+
+- **Business name:** ${GBP_PROFILE.businessName}
+- **Phone:** ${GBP_PROFILE.phone}
+- **Email:** ${GBP_PROFILE.email}
+- **Website:** ${site}
+- **Location:** Meridian, ID (service-area business; no street address published)
+
+### Step 28: Publish your first Google post
+
+Post a completed project photo with the city named. Example text:
+
+Custom Modern Shaker kitchen cabinets installed in Meridian, Idaho. Frameless construction, soft-close hardware, white oak finish. Ready to plan your project?
+
+Set the button to **Book** and link to ${page("/contact")}
+
+### Step 29: Set up your weekly posting rhythm
+
+Post once per week. Rotate through these four types:
+
+**Week A — Project showcase**
+Photo of a completed kitchen or bath. Name the city. Button: Book → ${page("/contact")}
+
+Rotate cities: Boise → Meridian → Eagle → Nampa → Kuna → Star → Middleton → Caldwell
+
+**Week B — Helpful guide**
+Example: "Planning a kitchen remodel in Boise? Our cost guide covers timelines and what to expect."
+Link to: ${page("/guides/boise-cabinet-cost-guide")}
+
+**Week C — Product highlight**
+Feature a door style or finish with a photo. Link to the matching page on boisecabinet.co
+
+**Week D — Seasonal tip**
+Examples: spring kitchen planning, holiday pantry organization, outdoor kitchen season in Idaho.
+Button: Book → ${page("/contact")}
+
+### Step 30: Start collecting reviews
+
+After every completed install:
+1. Send the homeowner a direct link to leave a Google review
+2. Respond to every review within 48 hours
+3. Mention the service type and city in your response
+
+Review response template:
+
+Thank you, [Name]! It was a pleasure designing and installing your [kitchen/vanity] cabinets in [City]. We appreciate you trusting Boise Cabinet Co with your home.
+
+### Step 31: Keep adding photos
+
+Upload 2–4 new owner photos every month from active projects. Fresh photos signal an active, trustworthy business.
 
 ---
 
-## Phase 14: Website Integration (after GBP is live)
+## Section 12: What Not to Do
 
-| Task | Env variable |
-|---|---|
-| GBP profile URL | \`NEXT_PUBLIC_GBP_URL\` |
-| Idaho license # | \`NEXT_PUBLIC_LICENSE_NUMBER\` |
-| Review rating (5+ reviews) | \`NEXT_PUBLIC_REVIEW_RATING\` |
-| Review count (5+ reviews) | \`NEXT_PUBLIC_REVIEW_COUNT\` |
-| Houzz / BBB / Yelp | \`NEXT_PUBLIC_HOUZZ_URL\`, etc. |
-
----
-
-## Phase 15: What NOT to Do
-
-- Do not keyword-stuff the business name
-- Do not publish a street address (SAB, no public showroom)
-- Do not claim Boise Cabinet Inc listings
-- Do not leave Boise Remodeling Co NAP live
-- Do not use fake reviews or fabricated schema ratings
+- Do not add keywords to your business name
+- Do not publish a street address (you are a service-area business with no public showroom)
+- Do not claim Boise Cabinet Inc's listings
+- Do not leave old Boise Remodeling Co listings live with the wrong phone or name
+- Do not buy or fake reviews
+- Do not use a different phone number on Google than on your website
 
 ---
 
-## Profile Completeness Checklist
+## Final Checklist
 
-${GBP_COMPLETENESS_CHECKLIST.map((item) => `- [ ] ${item}`).join("\n")}
+Work through this list before you consider your profile complete.
+
+${GBP_COMPLETENESS_CHECKLIST.map((item) => `- [ ] ${item.replace(/NEXT_PUBLIC_GBP_URL/g, "Google profile link saved for website team")}`).join("\n")}
+
+---
+
+*${GBP_PROFILE.businessName} · ${GBP_PROFILE.phone} · ${GBP_PROFILE.email} · boisecabinet.co*
 `;
 
-const LAUNCH = `# Google Business Profile Launch Kit - Boise Cabinet Co
-
-Quick copy-paste reference. Full step-by-step workflow: [GBP-PLAYBOOK.md](./GBP-PLAYBOOK.md)
-
-> Auto-generated from [\`shared/gbpConfig.ts\`](../shared/gbpConfig.ts). Regenerate: \`npm run gbp:docs\`
-
-## Before you start
-
-1. [GBP-LEGACY-AUDIT.md](./GBP-LEGACY-AUDIT.md)
-2. \`npm run gbp:photos\` → upload from \`public/gbp-upload/\`
-
-## Profile settings
-
-| Field | Value |
-|---|---|
-| Business name | \`${GBP_PROFILE.businessName}\` |
-| Business type | ${GBP_PROFILE.businessType} |
-| Address on file | ${GBP_PROFILE.addressOnFile} |
-| Service areas | ${GBP_SERVICE_AREAS.map((a) => a.gbpLabel).join(", ")} |
-| Phone | ${GBP_PROFILE.phone} |
-| Website | \`${GBP_PROFILE.websiteUrl}\` |
-| Appointment link | \`${GBP_PROFILE.appointmentUrl}\` |
-| Hours | Mon-Fri 7:00 AM - 6:00 PM, Sat 8:00 AM - 4:00 PM, Sun closed |
-| Opening date | ${GBP_PROFILE.openingDate} |
-
-## Categories
-
-- Primary: **${GBP_PROFILE.primaryCategory}**
-- Secondary: ${GBP_PROFILE.secondaryCategories.join(", ")}
-
-## Business description (${GBP_BUSINESS_DESCRIPTION.length} chars)
-
-> ${GBP_BUSINESS_DESCRIPTION}
-
-## Services (core)
-
-| GBP service | Description | Link |
-|---|---|---|
-${serviceTable(GBP_SERVICES.filter((s) => s.priority === "core"))}
-
-## Products (door styles)
-
-| Product | Link |
-|---|---|
-${GBP_DOOR_PRODUCTS.map((p) => `| ${p.name} | ${gbpUrl(p.path, p.campaign)} |`).join("\n")}
-
-## Q&A seeds
-
-${GBP_QA_SEEDS.map((qa, i) => `${i + 1}. ${qa.question}`).join("\n")}
-
-Full answers: [GBP-PLAYBOOK.md#phase-8-qa-seed-8-questions](./GBP-PLAYBOOK.md)
-
-## Messaging welcome
-
-> ${GBP_PROFILE.messagingWelcome}
-
-## Post-launch
-
-- 1 GBP post/week · respond to reviews within 48h
-- At 5+ reviews: \`NEXT_PUBLIC_REVIEW_RATING\` + \`NEXT_PUBLIC_REVIEW_COUNT\`
-- Set \`NEXT_PUBLIC_GBP_URL\` after verification
-- Import to Bing Places + Apple Business Connect
-`;
-
-fs.writeFileSync(path.join(docsDir, "GBP-PLAYBOOK.md"), PLAYBOOK);
-fs.writeFileSync(path.join(docsDir, "GBP-LAUNCH.md"), LAUNCH);
-console.log("Wrote docs/GBP-PLAYBOOK.md and docs/GBP-LAUNCH.md");
+fs.writeFileSync(path.join(docsDir, "GBP-SETUP-GUIDE.md"), GUIDE);
+console.log("Wrote docs/GBP-SETUP-GUIDE.md");
