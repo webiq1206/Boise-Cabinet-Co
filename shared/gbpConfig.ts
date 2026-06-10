@@ -1,5 +1,5 @@
 /**
- * Google Business Profile launch data — single source of truth for copy, URLs,
+ * Google Business Profile launch data - single source of truth for copy, URLs,
  * services, products, Q&A, and UTM-tagged links. Consumed by docs generators
  * and verification scripts under scripts/gbp/.
  */
@@ -339,7 +339,7 @@ export const GBP_QA_SEEDS: GbpQaPair[] = [
   {
     question: "What does the free design consultation include?",
     answer:
-      "A 60-90 minute consultation at your home. We review your space, discuss goals, walk through finish and door style options, and provide a planning investment range. No pressure — you leave with clarity, not a sales pitch. Schedule at boisecabinet.co/contact",
+      "A 60-90 minute consultation at your home. We review your space, discuss goals, walk through finish and door style options, and provide a planning investment range. No pressure - you leave with clarity, not a sales pitch. Schedule at boisecabinet.co/contact",
   },
   {
     question: "How does pricing work?",
@@ -362,7 +362,7 @@ export const GBP_LEGACY_AUDIT_SEARCHES = [
   },
   {
     term: "Boise Cabinet Inc Garden City",
-    reason: "Different company — (208) 323-0010",
+    reason: "Different company - (208) 323-0010",
     action: "Never claim or merge",
   },
 ] as const;

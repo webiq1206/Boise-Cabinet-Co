@@ -13,7 +13,7 @@ interface SiteEmailLinkProps {
   label?: string;
 }
 
-/** Obfuscated site contact email — no plaintext address in SSR HTML. */
+/** Obfuscated site contact email - no plaintext address in SSR HTML. */
 export function SiteEmailLink({
   className = "",
   showIcon = false,
