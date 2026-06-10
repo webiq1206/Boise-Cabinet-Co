@@ -112,6 +112,8 @@ function getWizardStepIds(project: ProjectType | null): WizardStepId[] {
   return ids;
 }
 
+const DEFAULT_OPTION_VISUAL_ALT = "Cabinet project option illustration";
+
 function OptionVisual({
   image,
   imageAlt,
@@ -125,11 +127,13 @@ function OptionVisual({
   svg?: string;
   svgStyle?: React.CSSProperties;
 }) {
+  const alt = imageAlt?.trim() || DEFAULT_OPTION_VISUAL_ALT;
+
   if (svg) {
     return (
       <div
         role="img"
-        aria-label={imageAlt ?? ""}
+        aria-label={alt}
         style={svgStyle}
         className="relative w-full aspect-[4/3] mb-2.5 overflow-hidden rounded-sm bg-muted [&>svg]:h-full [&>svg]:w-full [&>svg]:object-cover"
         dangerouslySetInnerHTML={{ __html: svg }}
@@ -141,7 +145,7 @@ function OptionVisual({
       <div className="relative w-full aspect-[4/3] mb-2.5 overflow-hidden rounded-sm bg-muted">
         <Image
           src={image}
-          alt={imageAlt ?? ""}
+          alt={alt}
           fill
           sizes="(max-width: 1024px) 50vw, 200px"
           className="object-cover img-brand-grade"

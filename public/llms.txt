@@ -11,6 +11,32 @@
 - Construction: frameless (European-style) cabinet boxes, soft-close hardware
 - Warranty: written workmanship guarantee
 - Free in-home design consultation
+- Phone: (208) 477-1169
+- Email: hello@boisecabinet.co
+
+## 2026 cabinet cost planning bands (Treasure Valley, installed midpoints)
+
+Updated June 2026 for budgeting only; firm quotes require approved drawings.
+
+- Full kitchen cabinets: ~$28,000 midpoint ($15,000–$45,000+ typical band; $450–$900/LF planning)
+- Guest bathroom vanity: ~$6,500 midpoint
+- Master bathroom vanity: ~$14,000 midpoint
+- Whole-home cabinet program: ~$72,000 midpoint
+- Single-room built-ins / closet: ~$12,000 midpoint
+- Outdoor kitchen cabinets: ~$16,000 midpoint
+- Full cost guide: https://boisecabinet.co/guides/boise-cabinet-cost-guide
+
+## City cabinet guides
+
+- Treasure Valley overview: /guides/treasure-valley-cabinet-guide
+- Boise: /guides/boise-cabinet-guide
+- Meridian: /guides/meridian-cabinet-guide
+- Eagle: /guides/eagle-cabinet-guide
+- Nampa: /guides/nampa-cabinet-guide
+- Kuna: /guides/kuna-cabinet-guide
+- Star: /guides/star-cabinet-guide
+- Caldwell: /guides/caldwell-cabinet-guide
+- Middleton: /guides/middleton-cabinet-guide
 
 ## Catalog at a glance
 
@@ -29,7 +55,7 @@
 
 ## Guides and content
 
-- Cabinet guides: /guides (cabinet cost, kitchen cabinets, bathroom vanities, built-ins, whole-home cabinetry, choosing a cabinet company, project process, ROI, plus Treasure Valley and Boise local guides)
+- Cabinet guides: /guides (cost, kitchen, bath, built-ins, whole-home, choosing a company, process, ROI, plus 8 city guides and Treasure Valley overview)
 - Blog: /blog (cabinet planning, costs, timelines, finishes, and selection advice, organized into topic hubs at /blog/category/...)
 - Planning downloads and checklists: /resources
 

@@ -16,7 +16,7 @@ export function Footer() {
   return (
     <footer className="bg-inverse text-inverse-foreground">
       <div className="container px-4 py-16 md:py-20">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-7 gap-10 mb-12 lg:gap-0 lg:divide-x lg:divide-inverse-foreground/10 [&>*]:lg:px-6 [&>*:first-child]:lg:pl-0 [&>*:last-child]:lg:pr-0">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-8 gap-10 mb-12 lg:gap-0 lg:divide-x lg:divide-inverse-foreground/10 [&>*]:lg:px-6 [&>*:first-child]:lg:pl-0 [&>*:last-child]:lg:pr-0">
           <div>
             <div className="mb-4">
               <span className="font-sans font-light text-lg tracking-tight text-inverse-foreground">
@@ -130,6 +130,34 @@ export function Footer() {
                     </Link>
                   </li>
                 ))}
+            </ul>
+          </div>
+
+          <div>
+            <h3 className="font-sans font-medium text-[11px] tracking-[0.12em] uppercase mb-5 text-inverse-muted">
+              Service Areas
+            </h3>
+            <ul className="space-y-2.5">
+              {GUIDE_PAGES.filter((g) => g.guideType === "location")
+                .sort((a, b) => a.title.localeCompare(b.title))
+                .map((guide) => (
+                  <li key={guide.slug}>
+                    <Link
+                      href={guidePath(guide.slug)}
+                      className="text-sm text-inverse-muted hover:text-inverse-foreground transition-colors"
+                    >
+                      {guide.title.replace(" Custom Cabinet Guide", "")}
+                    </Link>
+                  </li>
+                ))}
+              <li>
+                <Link
+                  href={guidePath("treasure-valley-cabinet-guide")}
+                  className="text-sm text-inverse-muted hover:text-inverse-foreground transition-colors"
+                >
+                  Treasure Valley overview
+                </Link>
+              </li>
             </ul>
           </div>
 

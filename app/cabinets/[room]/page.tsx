@@ -21,6 +21,7 @@ import {
   CABINET_PRODUCTS,
 } from "@/shared/catalog";
 import { getRoomFaqs } from "@/shared/catalog/roomFaqs";
+import { ROOM_PILLAR_GUIDES } from "@/shared/catalog/roomPillarGuides";
 import {
   Accordion,
   AccordionContent,
@@ -64,6 +65,7 @@ export default function RoomCabinetPage({ params }: { params: { room: string } }
   const roomCabinets = CABINET_PRODUCTS.filter((c) => roomCats.has(c.category));
 
   const faqs = getRoomFaqs(room);
+  const pillarGuide = ROOM_PILLAR_GUIDES[room.slug];
 
   const schemas = [
     generateWebPageSchema({
@@ -148,6 +150,41 @@ export default function RoomCabinetPage({ params }: { params: { room: string } }
               className="mb-6"
             />
             <CabinetOptionsSelector cabinets={roomCabinets} />
+            {pillarGuide && (
+              <p className="mt-6 text-sm text-muted-foreground">
+                Planning a {room.name.toLowerCase()} project? Read our{" "}
+                <Link
+                  href={pillarGuide.href}
+                  className="text-foreground underline underline-offset-2 hover:text-accent"
+                >
+                  {pillarGuide.label}
+                </Link>{" "}
+                for Treasure Valley layouts, costs, and timelines.
+              </p>
+            )}
+          </div>
+        </Section>
+
+        <Section divider>
+          <div className="container px-4 max-w-3xl">
+            <SectionHeader
+              eyebrow="Common questions"
+              title={<>{room.name} cabinet questions</>}
+              align="left"
+              className="mb-6"
+            />
+            <Accordion type="single" collapsible className="w-full">
+              {faqs.map((faq, i) => (
+                <AccordionItem key={faq.question} value={`faq-${i}`}>
+                  <AccordionTrigger className="text-left">
+                    {faq.question}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground leading-relaxed">
+                    {faq.answer}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
           </div>
         </Section>
 

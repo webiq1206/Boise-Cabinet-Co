@@ -3,6 +3,7 @@ import { JsonLd } from '@/components/seo/JsonLd';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { Section } from '@/components/marketing/Section';
 import { PageHeader } from '@/components/marketing/PageHeader';
+import { CaseStudiesSection } from '@/components/sections/CaseStudiesSection';
 import { ProjectGallerySection } from '@/components/sections/ProjectGallerySection';
 import { TestimonialsSection } from '@/components/sections/TestimonialsSection';
 import { buildPageMetadata } from '@/lib/page-metadata';
@@ -82,6 +83,7 @@ export default function TestimonialsPage() {
       </Section>
 
       <ProjectGallerySection limit={6} showViewAll={false} />
+      <CaseStudiesSection />
       <TestimonialsSection limit={4} showViewAll={false} />
 
       <Section divider spacing="sm">

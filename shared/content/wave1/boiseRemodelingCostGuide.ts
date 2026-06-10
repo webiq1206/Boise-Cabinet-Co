@@ -29,6 +29,28 @@ const sections: ContentSection[] = [
     },
   },
   {
+    h2: 'Boise Cabinet Cost Index (June 2026 planning bands)',
+    paragraphs: [
+      'This index summarizes midpoint planning bands from Treasure Valley consultations. Figures are updated quarterly for budgeting and comparison, not contract pricing. Firm numbers require approved shop drawings and finish selections.',
+      'Source: Boise Cabinet Co planning ranges across Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell. Last updated June 2026.',
+    ],
+    table: {
+      className: 'cost-table',
+      headers: ['Project type', 'Midpoint installed (2026)', 'Per linear foot note'],
+      rows: [
+        ['Kitchen cabinets (full)', '~$28,000', '$450–$900/LF for base + wall runs'],
+        ['Bathroom vanity (guest)', '~$6,500', 'Per vanity, not LF'],
+        ['Bathroom vanity (master)', '~$14,000', 'Double vanity + tower common'],
+        ['Whole-home cabinet package', '~$72,000', 'Coordinated finish program'],
+        ['Built-ins / closet (single room)', '~$12,000', 'Varies by wall length'],
+        ['Outdoor kitchen cabinets', '~$16,000', 'Weather-rated construction'],
+      ],
+    },
+    paragraphs: [
+      'Eagle and foothills projects often exceed these midpoints on finish tier and scale; Nampa and Caldwell projects at value finish levels often land below. Use the <a href="/estimate">project estimator</a> for a room-specific planning range.',
+    ],
+  },
+  {
     h2: 'How much do kitchen cabinets cost in Boise?',
     paragraphs: [
       'Kitchen cabinets are the most common inquiry in Boise and Meridian. Layout changes, adding an island, extending uppers, or reworking the sink wall, drive both design time and field measure complexity. Cabinet line (stock, value, custom), door style, and interior organizers compound quickly.',

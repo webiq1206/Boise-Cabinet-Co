@@ -89,6 +89,11 @@ export function GuidePageLayout({ guide, formatDate }: GuidePageLayoutProps) {
                 <span className="flex items-center gap-2">
                   <User className="h-4 w-4" />
                   {guide.author}
+                  {guide.author === 'Boise Cabinet Co' && (
+                    <span className="text-muted-foreground/80">
+                      · Treasure Valley cabinet designers since 2017
+                    </span>
+                  )}
                 </span>
               )}
             </div>

@@ -1,21 +1,24 @@
-# SEO Audit Context - Boise Remodeling Co
+# SEO Audit Context - Boise Cabinet Co
 
-**Domain:** boiseremodeling.co
+**Domain:** boisecabinet.co
 **Stack:** Next.js 14.2 App Router, React 18, TypeScript, Tailwind, shadcn/ui
 **Rendering:** Static (SSG via `generateStaticParams`) for all public pages
 **Database:** Neon PostgreSQL (Drizzle ORM), non-SEO surface
-**Analytics:** Google Analytics 4 (`G-1HD7RT8PKJ`) loaded in root layout via `next/script` (afterInteractive)
+**Analytics:** Google Analytics 4 (`G-1HD7RT8PKJ`) via `components/seo/GoogleAnalytics.tsx` in root layout (`next/script` afterInteractive)
 **Integrations (do NOT break):** GA4, Stripe, Resend, Replit Auth, Nominatim geocoding, Google Mail
 **Image hosting:** local `/public/images/*` only (no CDN)
 
-## Business NAP
-- Name: Boise Remodeling Co
-- Legal: Boise Remodeling Co LLC
-- Phone: (208) 352-2011
+## Business NAP (canonical)
+- Name: Boise Cabinet Co
+- Legal: Boise Cabinet Co LLC
+- Phone: (208) 477-1169
 - Email: hello@boisecabinet.co
-- Address: 2283 N Coopers Hawk Ave, Kuna, ID 83634
+- Address: Service-area business; base city Meridian, ID (no public street address)
 - Founded: 2017
-- Service Area: Kuna, Boise, Meridian, Eagle, Star, Middleton (Idaho Treasure Valley, USDA Zone 6b-7a)
+- Service Area: Boise, Meridian, Eagle, Kuna, Star, Nampa, Middleton, Caldwell (Treasure Valley)
+- Source of truth: `shared/siteConfig.ts`
+
+> Obsolete identity: "Boise Remodeling Co" / (208) 352-2011 / Kuna street address must not be used in new citations.
 
 ## Existing SEO Infrastructure
 | Asset | Location | Status |

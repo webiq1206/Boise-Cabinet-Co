@@ -5,6 +5,7 @@ import {
   generateArticleSchema,
   generateBreadcrumbSchema,
   generateFAQSchema,
+  generateServiceSchema,
   generateSpeakableSchema,
 } from '@/lib/schema';
 import { buildCanonical } from '@/lib/page-metadata';
@@ -101,6 +102,18 @@ export default function GuidePage({ params }: { params: { slug: string } }) {
     ? generateSpeakableSchema({ name: guide.title, path })
     : null;
 
+  const locationCity =
+    guide.guideType === 'location' && guide.linkedCities?.[0]
+      ? guide.linkedCities[0].charAt(0).toUpperCase() + guide.linkedCities[0].slice(1)
+      : null;
+  const serviceSchema = locationCity
+    ? generateServiceSchema(
+        `Custom Cabinets in ${locationCity}, Idaho`,
+        `Custom kitchen cabinets, bathroom vanities, and built-in storage designed, built, and installed for ${locationCity} homes by Boise Cabinet Co.`,
+        locationCity,
+      )
+    : null;
+
   return (
     <>
       <script
@@ -121,6 +134,12 @@ export default function GuidePage({ params }: { params: { slug: string } }) {
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(speakableSchema) }}
+        />
+      )}
+      {serviceSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
         />
       )}
       <GuidePageLayout guide={guide} formatDate={formatDate} />

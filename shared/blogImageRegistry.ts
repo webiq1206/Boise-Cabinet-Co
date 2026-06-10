@@ -411,6 +411,48 @@ export const BLOG_IMAGE_REGISTRY: Record<string, BlogImageEntry> = {
     topicTags: ["roi","guide","pillar"],
     source: 'blog',
   },
+  'meridian-cabinet-guide': {
+    hero: '/images/areas/meridian.webp',
+    alt: 'Custom kitchen cabinets and storage for Meridian Idaho subdivision homes',
+    topicTags: ["location","meridian","guide"],
+    source: 'areas',
+  },
+  'eagle-cabinet-guide': {
+    hero: '/images/areas/eagle.webp',
+    alt: 'Luxury custom cabinets and built-ins for Eagle Idaho estate homes',
+    topicTags: ["location","eagle","guide"],
+    source: 'areas',
+  },
+  'nampa-cabinet-guide': {
+    hero: '/images/areas/nampa.webp',
+    alt: 'Custom kitchen cabinets and vanities for Nampa Idaho homes in Canyon County',
+    topicTags: ["location","nampa","guide"],
+    source: 'areas',
+  },
+  'kuna-cabinet-guide': {
+    hero: '/images/areas/kuna.webp',
+    alt: 'Custom kitchen and garage storage cabinets for Kuna Idaho family homes',
+    topicTags: ["location","kuna","guide"],
+    source: 'areas',
+  },
+  'star-cabinet-guide': {
+    hero: '/images/areas/star.webp',
+    alt: 'Custom cabinets and walk-in pantries for Star Idaho new builds and acreage homes',
+    topicTags: ["location","star","guide"],
+    source: 'areas',
+  },
+  'caldwell-cabinet-guide': {
+    hero: '/images/areas/caldwell.webp',
+    alt: 'Custom kitchen cabinets for historic and new Caldwell Idaho homes',
+    topicTags: ["location","caldwell","guide"],
+    source: 'areas',
+  },
+  'middleton-cabinet-guide': {
+    hero: '/images/areas/middleton.webp',
+    alt: 'Custom cabinets, mudrooms, and shop storage for Middleton Idaho acreage properties',
+    topicTags: ["location","middleton","guide"],
+    source: 'areas',
+  },
 };
 
 export const HUB_HERO_IMAGES: Record<string, string> = {

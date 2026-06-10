@@ -1,0 +1,83 @@
+import Image from "next/image";
+import Link from "next/link";
+import { Section } from "@/components/marketing/Section";
+import { SectionHeader } from "@/components/marketing/SectionHeader";
+import { CASE_STUDIES } from "@/shared/caseStudies";
+
+export function CaseStudiesSection() {
+  return (
+    <Section divider>
+      <div className="container px-4 max-w-5xl">
+        <SectionHeader
+          eyebrow="Project case studies"
+          title={
+            <>
+              Detailed looks at{" "}
+              <em className="brc-accent text-accent">Treasure Valley</em> cabinet
+              work
+            </>
+          }
+          description="City, scope, timeline, and finish details from representative kitchen, bath, and whole-home programs."
+          align="left"
+          className="mb-10"
+        />
+        <div className="space-y-12">
+          {CASE_STUDIES.map((study) => (
+            <article
+              key={study.slug}
+              className="grid gap-8 md:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] md:items-start"
+            >
+              <div className="relative aspect-[4/3] overflow-hidden rounded-sm bg-muted">
+                <Image
+                  src={study.imageUrl}
+                  alt={study.imageAlt}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="object-cover img-brand-grade"
+                />
+              </div>
+              <div>
+                <p className="text-xs uppercase tracking-[0.12em] text-muted-foreground mb-2">
+                  {study.city}, Idaho · {study.serviceType}
+                </p>
+                <h3 className="text-xl font-sans font-medium text-foreground mb-2">
+                  {study.title}
+                </h3>
+                <p className="text-sm text-muted-foreground mb-4">{study.scope}</p>
+                <p className="text-sm text-foreground/90 mb-3">
+                  <strong>Challenge:</strong> {study.challenge}
+                </p>
+                <p className="text-sm text-foreground/90 mb-3">
+                  <strong>Approach:</strong> {study.approach}
+                </p>
+                <p className="text-sm text-foreground/90 mb-4">
+                  <strong>Outcome:</strong> {study.outcome}
+                </p>
+                <dl className="grid grid-cols-2 gap-x-4 gap-y-2 text-sm mb-4">
+                  {study.details.map((d) => (
+                    <div key={d.label}>
+                      <dt className="text-muted-foreground">{d.label}</dt>
+                      <dd className="text-foreground">{d.value}</dd>
+                    </div>
+                  ))}
+                </dl>
+                <ul className="flex flex-wrap gap-x-4 gap-y-1 text-sm">
+                  {study.links.map((link) => (
+                    <li key={link.href}>
+                      <Link
+                        href={link.href}
+                        className="text-accent hover:underline underline-offset-2"
+                      >
+                        {link.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </Section>
+  );
+}

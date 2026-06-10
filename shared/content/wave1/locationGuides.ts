@@ -14,13 +14,20 @@ const tvSections: ContentSection[] = [
     ],
   },
   {
-    h2: 'City and neighborhood context',
+    h2: 'City cabinet guides across the Treasure Valley',
     list: [
       `<a href="${PILLAR_BOISE}">Boise cabinet guide</a>`,
-      'Meridian, Eagle, Kuna, and Star homes (Ada County)',
-      'Nampa, Middleton, and Caldwell homes (Canyon County)',
+      '<a href="/guides/meridian-cabinet-guide">Meridian cabinet guide</a>',
+      '<a href="/guides/eagle-cabinet-guide">Eagle cabinet guide</a>',
+      '<a href="/guides/kuna-cabinet-guide">Kuna cabinet guide</a>',
+      '<a href="/guides/star-cabinet-guide">Star cabinet guide</a>',
+      '<a href="/guides/nampa-cabinet-guide">Nampa cabinet guide</a>',
+      '<a href="/guides/middleton-cabinet-guide">Middleton cabinet guide</a>',
+      '<a href="/guides/caldwell-cabinet-guide">Caldwell cabinet guide</a>',
     ],
-    paragraphs: ['Local notes live in our Boise cabinet guide and the cost guide; we build and install valley-wide.'],
+    paragraphs: [
+      'Each city guide covers local housing stock, common cabinet projects, permits, and planning ranges. Ada County cities: Boise, Meridian, Eagle, Kuna, and Star. Canyon County: Nampa, Middleton, and Caldwell.',
+    ],
   },
   {
     h2: 'Ada County vs Canyon County',
@@ -80,22 +87,35 @@ const boiseSections: ContentSection[] = [
   {
     h2: 'Boise neighborhoods at a glance',
     paragraphs: [
-      'North End bungalows, Bench ranches, Harris Ranch, and East Boise infill each need different cabinet sizing and filler strategies.',
-      'We measure on site and build to your room, not catalog-only stock widths.',
+      'Boise is not one cabinet market, it is half a dozen. North End bungalows, Bench ranches, Harris Ranch and East Boise newer builds, Southeast Boise family subdivisions, and foothills view homes each bring different ceiling heights, wall conditions, and storage needs.',
+      'We measure on site and build every box to your room, not catalog-only stock widths. That matters more in Boise than anywhere else in the valley because so much of the housing stock predates 1980.',
     ],
   },
   {
-    h2: 'North End and Bench',
+    h2: 'North End and Hyde Park: bungalow kitchens',
     paragraphs: [
-      'Smaller footprints and galley kitchens are common, tall pantry cabinets, pull-out bases, and custom widths maximize storage.',
-      'North End and Bench homes benefit most from tall storage and custom filler widths; see the kitchen catalog below.',
+      'Craftsman bungalows and early-1900s cottages around Hyde Park have compact galley kitchens with plaster walls and original soffits. Tall pantry cabinets, pull-out bases, and custom widths recover storage stock sizing wastes.',
+      'Historic district character matters: simpler door profiles like <a href="/door-styles/thin-shaker">Thin Shaker</a> and painted matte finishes tend to suit these homes better than heavy ornamentation.',
+    ],
+  },
+  {
+    h2: 'Boise Bench: mid-century ranches',
+    paragraphs: [
+      'Bench ranches from the 1950s through 1970s are prime candidates for opening the kitchen to the living space, and for cabinet runs that work with lower 8-foot ceilings. Full-height pantry units and drawer bases do the storage work shallow original cabinets never could.',
+      'When walls open during a Bench project, panel and insulation surprises are common; our written scope and change-order process keep those discoveries from derailing the cabinet schedule.',
     ],
   },
   {
     h2: 'Harris Ranch and East Boise',
     paragraphs: [
-      'Larger kitchens, mudrooms, and butler pantries are frequent. HOAs may review visible exterior cabinetry.',
-      'Harris Ranch and East Boise projects often add mudroom lockers and butler pantries; explore the built-ins and mudroom catalog.',
+      'Harris Ranch, Barber Valley, and East Boise infill bring larger kitchens, butler pantries, and mudroom lockers. Many homes are under 25 years old, so projects are upgrade-driven: taller uppers, working islands with seating, and <a href="/cabinets/mudroom">mudroom systems</a> where garage traffic enters.',
+      'Harris Ranch HOAs may review exterior-visible work such as outdoor kitchens; interior cabinetry is normally exempt. We build review time into the plan when it applies.',
+    ],
+  },
+  {
+    h2: 'Southeast Boise and the foothills',
+    paragraphs: [
+      'Southeast Boise subdivisions near Bown Crossing favor family storage: pantry walls, <a href="/cabinets/laundry">laundry rooms</a> with folding counters, and <a href="/cabinets/home-office">home office built-ins</a>. Foothills and view homes trend toward entertaining spaces, wet bars, media walls, and kitchens with paneled appliances.',
     ],
   },
   {
@@ -112,6 +132,7 @@ const boiseSections: ContentSection[] = [
       'Confirm appliance specs for panel-ready units',
       'Select door style and finish early for lead time',
       'Compare quotes with identical scope and hardware tier',
+      'Check historic district or HOA rules before exterior-visible work',
     ],
     paragraphs: [],
   },
