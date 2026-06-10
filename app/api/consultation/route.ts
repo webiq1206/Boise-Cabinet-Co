@@ -50,7 +50,7 @@ const bodySchema = z.object({
     })
     .optional()
     .nullable(),
-  /** Honeypot — must be empty; bots often fill hidden fields. */
+  /** Honeypot - must be empty; bots often fill hidden fields. */
   companyWebsite: z.string().optional().default(""),
 });
 

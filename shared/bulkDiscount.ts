@@ -1,6 +1,6 @@
 /**
  * Bulk lead purchase discount tiers. Single source of truth for UI display and
- * API charge calculations — thresholds and percentages must stay in sync.
+ * API charge calculations - thresholds and percentages must stay in sync.
  */
 export const BULK_DISCOUNT_TIERS = [
   { minCount: 10, percent: 20, label: "10+" },

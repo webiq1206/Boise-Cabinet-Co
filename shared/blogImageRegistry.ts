@@ -340,10 +340,10 @@ export const BLOG_IMAGE_REGISTRY: Record<string, BlogImageEntry> = {
     source: 'city-service',
   },
   'cabinet-finishes-colors-guide': {
-    hero: '/images/areas/caldwell.webp',
+    hero: '/images/catalog/rooms/wet-bar.webp',
     alt: 'Cabinet finish and color samples for wet bar and entertainment built-ins',
     topicTags: ["cabinets","finishes","guide"],
-    source: 'areas',
+    source: 'services',
   },
   'cabinet-hardware-guide': {
     hero: '/images/catalog/rooms/entertainment.webp',

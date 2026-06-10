@@ -274,7 +274,7 @@ export function isPriceable(sel: EstimateSelections): boolean {
   if (!sel.project || sel.size == null || sel.size <= 0) return false;
   const cfg = PROJECT_SIZE_CONFIG[sel.project];
   // Projects with wall cabinets require both base and upper runs before showing
-  // a live range — treating unset uppers as 0 would jump the price prematurely.
+  // a live range - treating unset uppers as 0 would jump the price prematurely.
   if (cfg.uppers && sel.sizeUpper == null) return false;
   return true;
 }

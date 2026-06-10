@@ -375,10 +375,10 @@ const ENTRIES = {
 
   // —— Cabinet specs & finishes (4) ——
   "cabinet-finishes-colors-guide": {
-    hero: area("caldwell"),
+    hero: cat("wet-bar"),
     alt: "Cabinet finish and color samples for wet bar and entertainment built-ins",
     topicTags: ["cabinets", "finishes", "guide"],
-    source: "areas",
+    source: "services",
   },
   "cabinet-hardware-guide": {
     hero: cat("entertainment"),
@@ -451,6 +451,50 @@ const ENTRIES = {
     source: "blog",
     copyFrom: gal("kitchen-after"),
   },
+
+  // —— City cabinet guides (7) ——
+  "meridian-cabinet-guide": {
+    hero: area("meridian"),
+    alt: "Custom kitchen cabinets and storage for Meridian Idaho subdivision homes",
+    topicTags: ["location", "meridian", "guide"],
+    source: "areas",
+  },
+  "eagle-cabinet-guide": {
+    hero: area("eagle"),
+    alt: "Luxury custom cabinets and built-ins for Eagle Idaho estate homes",
+    topicTags: ["location", "eagle", "guide"],
+    source: "areas",
+  },
+  "nampa-cabinet-guide": {
+    hero: area("nampa"),
+    alt: "Custom kitchen cabinets and vanities for Nampa Idaho homes in Canyon County",
+    topicTags: ["location", "nampa", "guide"],
+    source: "areas",
+  },
+  "kuna-cabinet-guide": {
+    hero: area("kuna"),
+    alt: "Custom kitchen and garage storage cabinets for Kuna Idaho family homes",
+    topicTags: ["location", "kuna", "guide"],
+    source: "areas",
+  },
+  "star-cabinet-guide": {
+    hero: area("star"),
+    alt: "Custom cabinets and walk-in pantries for Star Idaho new builds and acreage homes",
+    topicTags: ["location", "star", "guide"],
+    source: "areas",
+  },
+  "caldwell-cabinet-guide": {
+    hero: area("caldwell"),
+    alt: "Custom kitchen cabinets for historic and new Caldwell Idaho homes",
+    topicTags: ["location", "caldwell", "guide"],
+    source: "areas",
+  },
+  "middleton-cabinet-guide": {
+    hero: area("middleton"),
+    alt: "Custom cabinets, mudrooms, and shop storage for Middleton Idaho acreage properties",
+    topicTags: ["location", "middleton", "guide"],
+    source: "areas",
+  },
 };
 
 const HUB_HEROES = {
@@ -468,7 +512,7 @@ const HUB_HEROES = {
 const GUIDE_START = "boise-cabinet-cost-guide";
 const blogSlugsFromEntries = Object.keys(ENTRIES).slice(0, Object.keys(ENTRIES).indexOf(GUIDE_START));
 const EXPECTED_BLOG = 56;
-const EXPECTED_GUIDES = 10;
+const EXPECTED_GUIDES = 17;
 
 if (blogSlugsFromEntries.length !== EXPECTED_BLOG) {
   console.error(`Expected ${EXPECTED_BLOG} blog slugs before guides, got ${blogSlugsFromEntries.length}`);

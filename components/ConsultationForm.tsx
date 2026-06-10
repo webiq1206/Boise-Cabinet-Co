@@ -505,7 +505,7 @@ export function ConsultationForm({ onRevise }: ConsultationFormProps = {}) {
           </div>
         )}
 
-        {/* Honeypot — hidden from users and assistive tech */}
+        {/* Honeypot - hidden from users and assistive tech */}
         <FormField
           control={form.control}
           name="companyWebsite"
