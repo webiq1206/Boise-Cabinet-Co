@@ -107,6 +107,7 @@ function TileButton({
     <button
       type="button"
       onClick={onClick}
+      aria-pressed={active}
       className={cn(
         "text-left rounded-lg border bg-card overflow-hidden transition-all hover-elevate",
         active ? "ring-2 ring-accent border-accent" : "border-border",
@@ -230,6 +231,7 @@ export function FinderFlow() {
         isLast={index === STEPS.length - 1}
         canAdvance={Boolean(canAdvance)}
         continueLabel="Continue"
+        hidePrimaryOnLast
       >
         {/* Step 1: Room */}
         {index === 0 && (

@@ -9,12 +9,24 @@ import { PageHeader } from "@/components/marketing/PageHeader";
 import { SectionHeader } from "@/components/marketing/SectionHeader";
 import { Button } from "@/components/ui/button";
 import { catalogMetadata, catalogDescription } from "@/lib/catalog-metadata";
-import { generateBreadcrumbSchema, generateWebPageSchema } from "@/lib/schema";
+import {
+  generateBreadcrumbSchema,
+  generateFAQSchema,
+  generateServiceSchema,
+  generateWebPageSchema,
+} from "@/lib/schema";
 import {
   ROOM_CATEGORIES,
   getRoomBySlug,
   CABINET_PRODUCTS,
 } from "@/shared/catalog";
+import { getRoomFaqs } from "@/shared/catalog/roomFaqs";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { CabinetOptionsSelector } from "@/components/catalog/OptionsSelector";
 import { SITE_CONFIG } from "@/shared/siteConfig";
 import { RoomCatalogShowcase } from "@/components/catalog/RoomCatalogShowcase";
@@ -51,6 +63,8 @@ export default function RoomCabinetPage({ params }: { params: { room: string } }
   if (roomCats.size === 0) ["base", "wall", "tall"].forEach((c) => roomCats.add(c));
   const roomCabinets = CABINET_PRODUCTS.filter((c) => roomCats.has(c.category));
 
+  const faqs = getRoomFaqs(room);
+
   const schemas = [
     generateWebPageSchema({
       title: `${room.name} Cabinets`,
@@ -62,6 +76,11 @@ export default function RoomCabinetPage({ params }: { params: { room: string } }
       { name: "Cabinets", url: "/cabinets" },
       { name: room.name, url: `/cabinets/${room.slug}` },
     ]),
+    generateServiceSchema(
+      `Custom ${room.name} Cabinets`,
+      `${room.description} Designed, built, and installed by ${SITE_CONFIG.name} for Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell.`,
+    ),
+    generateFAQSchema(faqs),
   ];
 
   return (

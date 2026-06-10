@@ -150,6 +150,10 @@ export function AddressAutocomplete({
           placeholder="Start typing your street address…"
           disabled={disabled || enriching}
           autoComplete="street-address"
+          role="combobox"
+          aria-expanded={open && suggestions.length > 0}
+          aria-controls="address-suggestions-list"
+          aria-autocomplete="list"
           data-testid={testId}
         />
         {(loadingSuggestions || enriching) && (
@@ -158,15 +162,17 @@ export function AddressAutocomplete({
 
         {open && suggestions.length > 0 && (
           <ul
+            id="address-suggestions-list"
             className="absolute z-50 mt-1 w-full rounded-sm border border-border bg-background shadow-md max-h-56 overflow-auto"
             role="listbox"
+            aria-label="Address suggestions"
             data-testid="address-suggestions"
           >
             {suggestions.map((s) => (
-              <li key={s.placeId}>
+              <li key={s.placeId} role="option" aria-selected={false}>
                 <button
                   type="button"
-                  className="w-full text-left px-3 py-2 text-sm hover:bg-muted/60 flex gap-2 items-start"
+                  className="w-full text-left px-3 py-2 min-h-11 text-sm hover:bg-muted/60 flex gap-2 items-start"
                   onMouseDown={(e) => e.preventDefault()}
                   onClick={() => selectSuggestion(s)}
                   data-testid={`address-suggestion-${s.placeId}`}
@@ -195,7 +201,7 @@ export function AddressAutocomplete({
 
       <button
         type="button"
-        className="text-xs text-primary underline-offset-2 hover:underline disabled:opacity-50"
+        className="inline-flex min-h-11 items-center text-sm text-primary underline-offset-2 hover:underline disabled:opacity-50"
         onClick={useTypedAddress}
         disabled={disabled || enriching || value.trim().length < 5}
         data-testid="button-use-typed-address"
@@ -226,8 +232,8 @@ export function AddressAutocomplete({
                 <span
                   className={cn(
                     "inline-block mt-1 text-xs px-2 py-0.5 rounded-sm",
-                    confidence.color === "green" && "bg-green-500/10 text-green-700",
-                    confidence.color === "yellow" && "bg-amber-500/10 text-amber-800",
+                    confidence.color === "green" && "bg-primary/10 text-primary",
+                    confidence.color === "yellow" && "bg-accent/15 text-accent-foreground",
                     confidence.color === "gray" && "bg-muted text-muted-foreground"
                   )}
                 >

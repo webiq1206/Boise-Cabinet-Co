@@ -185,8 +185,18 @@ export function SaveStep({ embedded = false }: { embedded?: boolean }) {
       toast({ title: "Contact info required", variant: "destructive" });
       return;
     }
-    if (!saved && !design.savedDesignId) {
-      await handleSave();
+    if (!design.savedDesignId) {
+      updateDesign({ designName: name });
+      const saveResult = await saveDesign();
+      if (!saveResult?.id) {
+        toast({
+          title: "Save your design first",
+          description: "We need a saved design before sending a pricing request.",
+          variant: "destructive",
+        });
+        return;
+      }
+      setSaved(true);
     }
     const ok = await submitPricingRequest({
       name: contactName,

@@ -17,6 +17,7 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/hooks/useAuth";
 import { AdminAnalyticsPanel } from "@/components/admin/AdminAnalyticsPanel";
+import { AdminConsultationsPanel } from "@/components/admin/AdminConsultationsPanel";
 import { AdminSubcontractorPanel } from "@/components/admin/AdminSubcontractorPanel";
 import { NotificationsBell } from "@/components/NotificationsBell";
 import { 
@@ -381,8 +382,18 @@ function AdminDashboardContent({ embedded = false }: { embedded?: boolean }) {
   const tabParam = searchParams.get("tab");
   const queryClient = useQueryClient();
   
-  const [activeTab, setActiveTab] = useState<"pending" | "accepted" | "available" | "all" | "archived" | "subcontractors">(() => {
-    if (tabParam === "pending" || tabParam === "accepted" || tabParam === "available" || tabParam === "all" || tabParam === "archived" || tabParam === "subcontractors") return tabParam;
+  const [activeTab, setActiveTab] = useState<"pending" | "accepted" | "available" | "all" | "archived" | "subcontractors" | "consultations">(() => {
+    if (
+      tabParam === "pending" ||
+      tabParam === "accepted" ||
+      tabParam === "available" ||
+      tabParam === "all" ||
+      tabParam === "archived" ||
+      tabParam === "subcontractors" ||
+      tabParam === "consultations"
+    ) {
+      return tabParam;
+    }
     return "pending";
   });
   
@@ -1954,6 +1965,9 @@ function AdminDashboardContent({ embedded = false }: { embedded?: boolean }) {
               <TabsTrigger value="subcontractors" data-testid="tab-subcontractors" className="text-xs md:text-sm">
                 Subs
               </TabsTrigger>
+              <TabsTrigger value="consultations" data-testid="tab-consultations" className="text-xs md:text-sm">
+                Consults
+              </TabsTrigger>
             </TabsList>
           </div>
 
@@ -2019,6 +2033,10 @@ function AdminDashboardContent({ embedded = false }: { embedded?: boolean }) {
 
           <TabsContent value="subcontractors" className="space-y-4">
             <AdminSubcontractorPanel />
+          </TabsContent>
+
+          <TabsContent value="consultations" className="space-y-4">
+            <AdminConsultationsPanel />
           </TabsContent>
         </Tabs>
       </div>

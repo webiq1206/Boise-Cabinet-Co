@@ -164,7 +164,7 @@ const PARTNER_EMAILS: string[] = (
 
 export type AppRole = "admin" | "partner" | "customer" | "subcontractor";
 
-function getDesignatedRole(
+export function getDesignatedRole(
   email: string | undefined,
   existingRole?: string | null,
 ): AppRole {
@@ -309,7 +309,14 @@ export async function registerUser(input: {
   // not proven here, so an admin-designated email must not self-promote. Admin is
   // granted only through the verified OIDC login flow or a manual DB promotion.
   const designated = getDesignatedRole(email, null);
-  const role = designated === "admin" ? "subcontractor" : designated;
+  // Password self-signup defaults to customer (homeowner portal). Partner/admin
+  // emails are designated explicitly; never grant admin via unverified registration.
+  const role: AppRole =
+    designated === "admin"
+      ? "subcontractor"
+      : designated === "partner"
+        ? "partner"
+        : "customer";
   const inserted = await db
     .insert(users)
     .values({

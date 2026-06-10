@@ -24,7 +24,7 @@ const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3);
  * it. An interrupting value change picks up smoothly from the live displayed
  * number, and the tween always settles exactly on the target.
  */
-function AnimatedPrice({ value }: { value: number }) {
+export function AnimatedPrice({ value }: { value: number }) {
   const [display, setDisplay] = useState(value);
   const displayRef = useRef(value);
   const rafRef = useRef<number | null>(null);
@@ -133,7 +133,7 @@ export interface EstimateResultPanelProps {
   scopeSummary?: string;
   onBookVisit: () => void;
   project?: ProjectType;
-  variant?: "full" | "compact" | "sidebar";
+  variant?: "full" | "sidebar";
   className?: string;
 }
 
@@ -146,7 +146,6 @@ export function EstimateResultPanel({
   variant = "full",
   className,
 }: EstimateResultPanelProps) {
-  const isCompact = variant === "compact";
   const isSidebar = variant === "sidebar";
   const isFull = variant === "full";
 
@@ -157,23 +156,14 @@ export function EstimateResultPanel({
       <div
         className={cn(
           "rounded-sm bg-inverse text-inverse-foreground shadow-xl",
-          isCompact ? "p-4" : isSidebar ? "p-6" : "p-8",
+          isSidebar ? "p-6" : "p-8",
           className,
         )}
-        data-testid={
-          isCompact
-            ? "mobile-estimate-bar-panel"
-            : isSidebar
-              ? "estimate-side-panel"
-              : "estimate-result-panel"
-        }
+        data-testid={isSidebar ? "estimate-side-panel" : "estimate-result-panel"}
       >
         <div className="brc-label text-inverse-muted mb-3">Planning range</div>
         <p
-          className={cn(
-            "text-inverse-foreground/90 leading-relaxed",
-            isCompact ? "text-sm" : "text-base",
-          )}
+          className="text-inverse-foreground/90 leading-relaxed text-base"
           data-testid="estimate-empty-message"
         >
           {ESTIMATE_EMPTY_MESSAGE}
@@ -193,18 +183,12 @@ export function EstimateResultPanel({
     <div
       className={cn(
         "rounded-sm bg-inverse text-inverse-foreground shadow-xl",
-        isCompact ? "p-4" : isSidebar ? "p-6" : "p-8",
+        isSidebar ? "p-6" : "p-8",
         className
       )}
-      data-testid={
-        isCompact
-          ? "mobile-estimate-bar-panel"
-          : isSidebar
-            ? "estimate-side-panel"
-            : "estimate-result-panel"
-      }
+      data-testid={isSidebar ? "estimate-side-panel" : "estimate-result-panel"}
     >
-      <div className={cn("flex items-center justify-between", isCompact ? "mb-2" : "mb-5")}>
+      <div className={cn("flex items-center justify-between", "mb-5")}>
         <div className="brc-label text-inverse-muted">Planning range</div>
         <div className="text-[10px] tracking-wide uppercase px-2 py-1 rounded-sm bg-inverse-foreground/15 text-inverse-foreground/90">
           {result.confidenceLabel}
@@ -212,10 +196,7 @@ export function EstimateResultPanel({
       </div>
 
       <p
-        className={cn(
-          "text-inverse-muted",
-          isCompact ? "text-[11px] mb-2" : "text-xs mb-3"
-        )}
+        className="text-inverse-muted text-xs mb-3"
       >
         {selectionSummary}
       </p>
@@ -223,11 +204,9 @@ export function EstimateResultPanel({
       <div
         className={cn(
           "leading-none text-inverse-foreground",
-          isCompact
-            ? "text-2xl mb-2"
-            : isSidebar
-              ? "text-[clamp(26px,2.4vw,34px)] mb-4"
-              : "text-[clamp(28px,3.5vw,44px)] mb-4"
+          isSidebar
+            ? "text-[clamp(26px,2.4vw,34px)] mb-4"
+            : "text-[clamp(28px,3.5vw,44px)] mb-4"
         )}
         data-testid="estimate-range"
         aria-live="polite"
@@ -239,7 +218,7 @@ export function EstimateResultPanel({
         <AnimatedPrice value={result.priceHigh} />
       </div>
 
-      {!isCompact && scopeSummary && (
+      {scopeSummary && (
         <div className="mb-4 rounded-sm p-3 bg-inverse-foreground/6 border border-inverse-foreground/10" data-testid="text-scope-summary">
           <div className="brc-label text-inverse-muted mb-1">Your selections</div>
           <p className="text-xs leading-relaxed text-inverse-foreground/90">{scopeSummary}</p>
@@ -296,9 +275,8 @@ export function EstimateResultPanel({
         <Button
           variant="brand"
           onClick={onBookVisit}
-          className={cn("w-full", isCompact ? "mb-0" : "mb-3")}
+          className="w-full mb-3"
           data-testid="button-book-visit"
-          size={isCompact ? "sm" : "default"}
         >
           {CTA_PRIMARY}
           <ArrowRight className="h-4 w-4" />
@@ -320,11 +298,6 @@ export function EstimateResultPanel({
         </div>
       )}
 
-      {isCompact && (
-        <p className="text-[10px] leading-snug mt-2 text-inverse-muted">
-          {CATALOG_CONTENT.estimateDisclaimer}
-        </p>
-      )}
     </div>
   );
 }

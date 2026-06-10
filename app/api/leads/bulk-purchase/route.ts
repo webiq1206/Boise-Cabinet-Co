@@ -4,15 +4,9 @@ import { db } from "@/lib/db";
 import { leads, users, leadPurchases, creditTransactions } from "@/shared/schema";
 import { eq, and, sql } from "drizzle-orm";
 import { getSession, getUserFromDb } from "@/lib/auth";
+import { getBulkDiscountFraction } from "@/shared/bulkDiscount";
 
 const stripe = process.env.STRIPE_SECRET_KEY ? new Stripe(process.env.STRIPE_SECRET_KEY) : null;
-
-function calculateBulkDiscount(count: number): number {
-  if (count > 20) return 0.20;
-  if (count >= 6) return 0.10;
-  if (count >= 2) return 0.05;
-  return 0;
-}
 
 function distributeCreditsProportionally(fetchedLeads: Array<{ id: string; currentLeadPrice: string | null }>, totalCredits: number): Map<string, number> {
   const result = new Map<string, number>();
@@ -60,7 +54,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "User not found" }, { status: 401 });
     }
 
-    if (user.role !== "subcontractor") {
+    if (user.role !== "subcontractor" && user.role !== "partner") {
       return NextResponse.json({ error: "Forbidden" }, { status: 403 });
     }
 
@@ -130,7 +124,7 @@ export async function POST(request: NextRequest) {
     }
 
     const subtotal = fetchedLeads.reduce((sum, l) => sum + parseFloat(l.currentLeadPrice || "0"), 0);
-    const discountPercent = calculateBulkDiscount(fetchedLeads.length);
+    const discountPercent = getBulkDiscountFraction(fetchedLeads.length);
     const discountAmount = subtotal * discountPercent;
     const totalPrice = Math.round((subtotal - discountAmount) * 100) / 100;
 

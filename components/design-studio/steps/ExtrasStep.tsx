@@ -1,29 +1,15 @@
 "use client";
 
-import { useEffect } from "react";
 import { DetailsStep } from "./DetailsStep";
 import { HelpHint } from "../HelpHint";
-import { useDesignStudio } from "../DesignStudioProvider";
-import { HARDWARE_OPTIONS as CATALOG_HARDWARE } from "@/shared/catalog/hardware";
-
-const DEFAULT_HARDWARE = CATALOG_HARDWARE.find((h) =>
-  ["pull", "knob", "handleless"].includes(h.category),
-);
 
 /**
  * Optional "Finishing touches" step: hardware + storage accessories + notes,
- * merged into one screen. Nothing here is required - Continue is always enabled.
+ * merged into one screen. Nothing here is required - Continue is always
+ * enabled and nothing is pre-selected (hardware adds a premium, so an
+ * auto-pick would silently inflate the planning range).
  */
 export function ExtrasStep() {
-  const { design, updateDesign } = useDesignStudio();
-
-  // Start with a popular hardware default so the recap is never empty.
-  useEffect(() => {
-    if (!design.hardware && DEFAULT_HARDWARE) {
-      updateDesign({ hardware: DEFAULT_HARDWARE.slug });
-    }
-  }, [design.hardware, updateDesign]);
-
   return (
     <div className="space-y-6">
       <div className="flex items-start gap-2 rounded-md border border-dashed bg-muted/40 p-3">

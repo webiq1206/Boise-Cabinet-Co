@@ -12,6 +12,7 @@ import {
   BOISE_TAKEAWAYS,
 } from './content/wave1/locationGuides';
 import { ALL_HUB_PILLARS } from './content/allHubsContent';
+import { CITY_CABINET_GUIDES } from './content/cityCabinetGuides';
 import { expandPillar } from './content/contentFactory';
 import { SITE_CONFIG } from './siteConfig';
 
@@ -321,6 +322,7 @@ export const GUIDE_PAGES: GuidePageData[] = [
     ],
     primaryKeyword: 'Boise custom cabinets',
   },
+  ...CITY_CABINET_GUIDES,
   ...ALL_HUB_PILLARS,
 ];
 

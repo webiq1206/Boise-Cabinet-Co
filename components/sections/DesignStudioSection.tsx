@@ -5,6 +5,7 @@ import { Section } from "@/components/marketing/Section";
 import { Button } from "@/components/ui/button";
 import { MARKETING_IMAGES } from "@/shared/siteImages";
 import { CTA_DESIGN_STUDIO } from "@/shared/ctaCopy";
+import { DESIGN_STUDIO_ENABLED } from "@/shared/featureFlags";
 import { Palette, LayoutGrid, Box, Share2 } from "lucide-react";
 
 const FEATURES = [
@@ -15,6 +16,8 @@ const FEATURES = [
 ];
 
 export function DesignStudioSection() {
+  if (!DESIGN_STUDIO_ENABLED) return null;
+
   return (
     <Section variant="inverse" divider>
       <div className="container px-4">

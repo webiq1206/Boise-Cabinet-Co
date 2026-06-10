@@ -14,6 +14,11 @@ import {
 } from "@/server/services/emailLayout";
 import type { PropertyProfile } from "@/shared/propertyProfile";
 import { extractZipFromAddress } from "@/shared/propertyProfile";
+import { rateLimit, getClientIp } from "@/lib/rateLimit";
+import { phoneHasEnoughDigits, PHONE_VALIDATION_MESSAGE } from "@/shared/phoneValidation";
+
+const PER_IP_LIMIT = 8;
+const PER_IP_WINDOW_MS = 15 * 60 * 1000;
 
 const propertyProfileSchema = z
   .object({
@@ -28,7 +33,7 @@ const propertyProfileSchema = z
 
 const bodySchema = z.object({
   name: z.string().min(2),
-  phone: z.string().min(10),
+  phone: z.string().refine(phoneHasEnoughDigits, PHONE_VALIDATION_MESSAGE),
   email: z.string().email(),
   address: z.string().optional().default(""),
   zip: z.string().optional().default(""),
@@ -45,25 +50,41 @@ const bodySchema = z.object({
     })
     .optional()
     .nullable(),
+  /** Honeypot — must be empty; bots often fill hidden fields. */
+  companyWebsite: z.string().optional().default(""),
 });
 
 export async function POST(request: NextRequest) {
   try {
+    const ip = getClientIp(request);
+    const limited = rateLimit(`consultation:${ip}`, PER_IP_LIMIT, PER_IP_WINDOW_MS);
+    if (!limited.ok) {
+      return NextResponse.json(
+        { message: "Too many requests. Please wait a moment and try again." },
+        { status: 429, headers: { "Retry-After": String(limited.retryAfter) } },
+      );
+    }
+
     const raw = await request.json();
     const parsed = bodySchema.safeParse(raw);
 
     if (!parsed.success) {
       return NextResponse.json(
         { message: "Invalid request", errors: parsed.error.flatten() },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
     const data = parsed.data;
-    // ZIP is no longer a separate field; derive it from the property address as a
-    // safety net so lead routing, exports, and the admin email still carry it.
+
+    if (data.companyWebsite.trim().length > 0) {
+      // Silently accept honeypot hits so bots don't adapt.
+      return NextResponse.json({ success: true });
+    }
+
     const zip = data.zip || extractZipFromAddress(data.address) || "";
 
+    let dbSaved = false;
     if (db) {
       try {
         const profile = data.propertyProfile as Record<string, unknown> | null | undefined;
@@ -82,11 +103,13 @@ export async function POST(request: NextRequest) {
           estimateLow: data.estimate?.priceLow?.toString() || null,
           estimateHigh: data.estimate?.priceHigh?.toString() || null,
         });
+        dbSaved = true;
       } catch (dbErr) {
         console.error("[consultation] DB insert failed:", dbErr);
       }
     }
 
+    let emailSent = false;
     try {
       const { client, fromEmail } = await getUncachableResendClient();
       const from = formatFromAddress(fromEmail);
@@ -170,8 +193,19 @@ export async function POST(request: NextRequest) {
         html: customerHtml,
         text: htmlToPlainText(customerHtml),
       });
+      emailSent = true;
     } catch (emailErr) {
       console.error("[consultation] Email send failed:", emailErr);
+    }
+
+    if (!dbSaved && !emailSent) {
+      return NextResponse.json(
+        {
+          message:
+            "We couldn't save your request right now. Please try again in a moment or call us directly.",
+        },
+        { status: 503 },
+      );
     }
 
     return NextResponse.json({ success: true });

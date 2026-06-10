@@ -77,9 +77,6 @@ export interface EstimateSelections {
  * show the "make your selections" prompt instead of a number, and we never
  * store an estimate for the consultation form.
  */
-export function isPriceable(sel: EstimateSelections): boolean {
-  return sel.project != null && sel.size != null && sel.size > 0;
-}
 
 export interface EstimateResult {
   priceLow: number;
@@ -271,6 +268,15 @@ export const PROJECT_SIZE_CONFIG: Record<ProjectType, ProjectSizeConfig> = {
 
 export function getProjectSizeConfig(project: ProjectType): ProjectSizeConfig {
   return PROJECT_SIZE_CONFIG[project];
+}
+
+export function isPriceable(sel: EstimateSelections): boolean {
+  if (!sel.project || sel.size == null || sel.size <= 0) return false;
+  const cfg = PROJECT_SIZE_CONFIG[sel.project];
+  // Projects with wall cabinets require both base and upper runs before showing
+  // a live range — treating unset uppers as 0 would jump the price prematurely.
+  if (cfg.uppers && sel.sizeUpper == null) return false;
+  return true;
 }
 
 export const PROJECT_LABELS: Record<
@@ -807,7 +813,7 @@ export function normalizeSelections(sel: EstimateSelections): EstimateSelections
   const layout = vis.layout && !layoutSlugs.includes(sel.layout)
     ? getDefaultLayout(sel.project)
     : sel.layout;
-  let next = {
+  let next: EstimateSelections = {
     ...sel,
     layout,
     size: clampSize(sel.project, sel.size),
@@ -840,7 +846,7 @@ export function calculateEstimate(
   const mult = getSelectionMultiplier(sel);
 
   // Uppers only apply (and are only charged) for projects with a wall run.
-  const upperLF = cfg.uppers ? sel.sizeUpper ?? 0 : 0;
+  const upperLF = cfg.uppers ? (sel.sizeUpper ?? 0) : 0;
   const baseLow = pricing.perUnitLow * sel.size! + pricing.upperPerUnitLow * upperLF;
   const baseHigh = pricing.perUnitHigh * sel.size! + pricing.upperPerUnitHigh * upperLF;
   const priceLow = roundPrice(baseLow * mult);

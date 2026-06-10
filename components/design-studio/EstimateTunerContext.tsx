@@ -25,8 +25,10 @@ const EstimateTunerContext = createContext<EstimateTunerContextValue | null>(
  * one place is reflected everywhere instantly.
  */
 export function EstimateTunerProvider({ children }: { children: ReactNode }) {
+  // Nothing pre-selected: construction stays unset (neutral multiplier) until
+  // the visitor explicitly picks a tier, matching the estimator's brand rule.
   const [tuner, setTuner] = useState<EstimateTuner>({
-    construction: "better",
+    construction: "",
   });
   const onTunerChange = useCallback((patch: Partial<EstimateTuner>) => {
     setTuner((prev) => ({ ...prev, ...patch }));

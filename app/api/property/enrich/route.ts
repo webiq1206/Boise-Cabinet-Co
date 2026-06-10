@@ -1,9 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
+import { rateLimit, getClientIp } from "@/lib/rateLimit";
 import {
   enrichPropertyFromFormattedAddress,
   enrichPropertyFromPlaceId,
 } from "@/server/services/propertyEnrichment";
+
+const PER_IP_LIMIT = 30;
+const PER_IP_WINDOW_MS = 10 * 60 * 1000;
 
 const bodySchema = z.object({
   placeId: z.string().min(1).optional(),
@@ -14,6 +18,15 @@ const bodySchema = z.object({
 
 export async function POST(request: NextRequest) {
   try {
+    const ip = getClientIp(request);
+    const limited = rateLimit(`property-enrich:${ip}`, PER_IP_LIMIT, PER_IP_WINDOW_MS);
+    if (!limited.ok) {
+      return NextResponse.json(
+        { message: "Too many property lookups. Please wait a moment and try again." },
+        { status: 429, headers: { "Retry-After": String(limited.retryAfter) } },
+      );
+    }
+
     const raw = await request.json();
     const parsed = bodySchema.safeParse(raw);
     if (!parsed.success) {

@@ -177,6 +177,7 @@ function DesignWizardInner({ className }: DesignWizardProps) {
   );
 
   // Live estimate shown in the mobile sticky bar; opens the summary sheet.
+  // Null until the design has a size source (layout, scan, or tuner).
   const estimate = design.roomType
     ? getDesignEstimate(design, {
         size: tuner.size,
@@ -184,7 +185,7 @@ function DesignWizardInner({ className }: DesignWizardProps) {
       })
     : null;
 
-  const mobileSummaryNode = estimate ? (
+  const mobileSummaryNode = design.roomType ? (
     <Drawer open={summaryOpen} onOpenChange={setSummaryOpen}>
       <DrawerTrigger asChild>
         <button
@@ -193,10 +194,18 @@ function DesignWizardInner({ className }: DesignWizardProps) {
           data-testid="button-open-summary-sheet"
         >
           <span className="text-sm">
-            <span className="font-semibold text-foreground">
-              {estimate.rangeLabel}
-            </span>{" "}
-            <span className="text-muted-foreground">est.</span>
+            {estimate ? (
+              <>
+                <span className="font-semibold text-foreground">
+                  {estimate.rangeLabel}
+                </span>{" "}
+                <span className="text-muted-foreground">est.</span>
+              </>
+            ) : (
+              <span className="text-muted-foreground">
+                Complete your room to see a range
+              </span>
+            )}
           </span>
           <span className="flex items-center gap-1 text-xs text-muted-foreground">
             View summary

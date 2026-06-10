@@ -15,6 +15,7 @@ import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/h
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Switch } from "@/components/ui/switch";
 import { useToast } from "@/hooks/use-toast";
+import { getBulkDiscountPercent } from "@/shared/bulkDiscount";
 import { useAuth, User } from "@/hooks/useAuth";
 import { NotificationsBell } from "@/components/NotificationsBell";
 import { StripePaymentForm, StripePaymentFormSkeleton, PaymentSuccess } from "@/components/StripePaymentForm";
@@ -987,13 +988,7 @@ function SubcontractorPortalContent({ embedded = false }: { embedded?: boolean }
     filterPriceMax || filterQuoteMin || filterPropertyType !== "all" || filterFrequency !== "all" || 
     filterAge !== "all" || sortBy !== "date" || sortOrder !== "desc";
 
-  // Calculate bulk discount
-  const getBulkDiscount = (count: number) => {
-    if (count >= 10) return 20;
-    if (count >= 5) return 10;
-    if (count >= 3) return 5;
-    return 0;
-  };
+  const getBulkDiscount = (count: number) => getBulkDiscountPercent(count);
 
   const selectedLeadsTotal = useMemo(() => {
     const selectedLeads = leads.filter(l => selectedLeadIds.includes(l.id));

@@ -89,8 +89,18 @@ export function ShareView({ shareToken }: ShareViewProps) {
           styleJson: {
             doorStyle: snapshot?.doorStyle,
             finish: snapshot?.finish,
+            layout: snapshot?.layout,
             hardware: snapshot?.hardware,
+            accessories: snapshot?.accessories,
           },
+          selectionsSummary: rows.map((r) => `${r.label}: ${r.value}`).join("\n"),
+          layoutSummary: snapshot
+            ? {
+                layout: snapshot.layout,
+                moduleCount: snapshot.modules?.length ?? 0,
+                roomWidthIn: snapshot.roomMeta?.widthIn,
+              }
+            : undefined,
         }),
       });
       if (!res.ok) throw new Error();

@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next'
 import { Montserrat, Fraunces } from 'next/font/google'
+import { GoogleAnalytics } from '@/components/seo/GoogleAnalytics'
 import { Navigation } from '@/components/Navigation'
 import { ConditionalFooter } from '@/components/ConditionalFooter'
 import { Toaster } from '@/components/ui/toaster'
@@ -33,6 +34,17 @@ export const metadata: Metadata = {
   },
   description: `Custom kitchen, bathroom, and storage cabinets serving Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell. ${SITE_TAGLINE}. Design your cabinets online or schedule a free consultation.`,
   manifest: '/site.webmanifest',
+  icons: {
+    icon: [
+      { url: '/icon-192.png', sizes: '192x192', type: 'image/png' },
+      { url: '/icon-512.png', sizes: '512x512', type: 'image/png' },
+    ],
+    shortcut: '/icon-192.png',
+    apple: '/apple-touch-icon.png',
+  },
+  ...(process.env.NEXT_PUBLIC_GSC_VERIFICATION
+    ? { verification: { google: process.env.NEXT_PUBLIC_GSC_VERIFICATION } }
+    : {}),
   authors: [{ name: 'Boise Cabinet Co' }],
   creator: 'Boise Cabinet Co',
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://boisecabinet.co'),
@@ -49,6 +61,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Boise Cabinet Co | Custom Cabinets Idaho',
     description: `${SITE_TAGLINE}. Idaho's premier custom cabinet company.`,
+    images: ['/images/marketing/og-default.webp'],
   },
   robots: {
     index: true,
@@ -67,6 +80,7 @@ export const viewport: Viewport = {
   themeColor: '#3A3E3D',
   width: 'device-width',
   initialScale: 1,
+  viewportFit: 'cover',
 }
 
 export default function RootLayout({
@@ -89,16 +103,23 @@ export default function RootLayout({
             __html: `document.documentElement.classList.add('js')`,
           }}
         />
+        <GoogleAnalytics />
       </head>
       <body className="min-h-screen bg-background font-sans antialiased">
         <noscript>
           <style>{`.reveal-init{opacity:1!important;transform:none!important}`}</style>
         </noscript>
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[200] focus:rounded-sm focus:bg-background focus:px-4 focus:py-2 focus:text-sm focus:text-foreground focus:shadow-lg"
+        >
+          Skip to main content
+        </a>
         <Providers>
           <ScrollToTop />
           <div className="flex flex-col min-h-screen">
             <Navigation />
-            <main className="flex-1">
+            <main id="main-content" className="flex-1">
               {children}
             </main>
             <ConditionalFooter />

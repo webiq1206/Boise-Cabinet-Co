@@ -26,7 +26,7 @@ export async function POST(
       return NextResponse.json({ error: "User not found" }, { status: 401 });
     }
 
-    if (user.role !== "subcontractor") {
+    if (user.role !== "subcontractor" && user.role !== "partner") {
       return NextResponse.json({ error: "Forbidden" }, { status: 403 });
     }
 

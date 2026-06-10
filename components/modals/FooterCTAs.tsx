@@ -19,7 +19,7 @@ export function FooterCTAs() {
             {CTA_CONSULT}
           </a>
         ) : (
-          <button onClick={openConsult} className={cls}>
+          <button type="button" onClick={openConsult} className={cls}>
             {CTA_CONSULT}
           </button>
         )}
@@ -30,7 +30,7 @@ export function FooterCTAs() {
             {CTA_ESTIMATE}
           </a>
         ) : (
-          <button onClick={openEstimate} className={cls}>
+          <button type="button" onClick={openEstimate} className={cls}>
             {CTA_ESTIMATE}
           </button>
         )}

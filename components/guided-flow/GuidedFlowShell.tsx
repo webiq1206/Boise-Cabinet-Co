@@ -93,10 +93,23 @@ export function GuidedFlowShell({
     return () => ob.disconnect();
   }, []);
 
+  // The wizard bar itself is lg:hidden, but the global nav bottom bar shows
+  // until xl. Track the lg breakpoint so we only ask the nav bar to step aside
+  // when our bar is actually rendered (otherwise 1024-1279px viewports would
+  // have no bottom bar at all).
+  const [belowLg, setBelowLg] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 1023px)");
+    const sync = () => setBelowLg(mq.matches);
+    sync();
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
+  }, []);
+
   // Ref-count active wizard mobile bars on the window so the global navigation
   // bottom bar can step aside while a guided flow is on screen (no stacked bars).
   useEffect(() => {
-    if (!barVisible || typeof window === "undefined") return;
+    if (!barVisible || !belowLg || typeof window === "undefined") return;
     const w = window as unknown as { __wizardMobileBars?: number };
     w.__wizardMobileBars = (w.__wizardMobileBars ?? 0) + 1;
     window.dispatchEvent(new Event("wizardmobilebar"));
@@ -104,7 +117,7 @@ export function GuidedFlowShell({
       w.__wizardMobileBars = Math.max(0, (w.__wizardMobileBars ?? 1) - 1);
       window.dispatchEvent(new Event("wizardmobilebar"));
     };
-  }, [barVisible]);
+  }, [barVisible, belowLg]);
 
   // On every step change: bring the step header into view and move focus to the
   // heading. This is the core "always return me to the top and show the next
@@ -225,33 +238,41 @@ export function GuidedFlowShell({
       </div>
 
       {/* Spacer so content is never hidden behind the sticky bar (mobile + tablet) */}
-      <div className="h-32 lg:hidden" aria-hidden />
+      <div
+        className={cn("lg:hidden", mobileSummary ? "h-44" : "h-32")}
+        aria-hidden
+      />
 
       {/* Sticky CTA through tablet - keeps Continue reachable without scrolling */}
       {barVisible && (
         <div
-          className="fixed bottom-0 inset-x-0 z-30 border-t bg-background/95 backdrop-blur lg:hidden pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-3 px-4"
+          className="fixed bottom-0 inset-x-0 z-30 border-t bg-background/95 backdrop-blur lg:hidden pb-safe pt-3 px-4"
           data-testid="wizard-mobile-bar"
         >
           {mobileSummary && (
-            <div
-              className="mb-2 text-center text-xs text-muted-foreground"
-              data-testid="wizard-mobile-summary"
-            >
+            <div className="mb-2" data-testid="wizard-mobile-summary">
               {mobileSummary}
             </div>
           )}
-          <div className="flex items-center justify-between gap-3">
+          <div className="flex items-center gap-2">
             <Button
               variant="outline"
+              size="icon"
               onClick={onBack}
               disabled={isFirst}
-              className={cn("min-h-11", renderPrimary(true) ? "flex-1" : "w-full")}
+              className="min-h-11 min-w-11 shrink-0"
+              aria-label="Back"
             >
               <ChevronLeft className="h-4 w-4" />
-              Back
             </Button>
-            {renderPrimary(true) && <div className="flex-[2]">{renderPrimary(true)}</div>}
+            {(() => {
+              const primary = renderPrimary(true);
+              return primary ? (
+                <div className="flex-1 min-w-0">{primary}</div>
+              ) : (
+                !isFirst && <div className="flex-1" />
+              );
+            })()}
           </div>
         </div>
       )}

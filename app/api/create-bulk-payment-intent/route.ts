@@ -4,17 +4,11 @@ import { db, isDbAvailable } from '@/lib/db';
 import { leads, users } from '@/shared/schema';
 import { eq, inArray } from 'drizzle-orm';
 import { getValidatedSession } from '@/lib/auth';
+import { getBulkDiscountFraction } from '@/shared/bulkDiscount';
 
 const stripe = process.env.STRIPE_SECRET_KEY && process.env.STRIPE_SECRET_KEY.trim().length > 0
   ? new Stripe(process.env.STRIPE_SECRET_KEY)
   : null;
-
-function calculateBulkDiscount(count: number): number {
-  if (count > 20) return 0.20;
-  if (count >= 6) return 0.10;
-  if (count >= 2) return 0.05;
-  return 0;
-}
 
 export async function POST(request: NextRequest) {
   try {
@@ -80,7 +74,7 @@ export async function POST(request: NextRequest) {
     }
 
     const subtotal = leadResults.reduce((sum, l) => sum + parseFloat(l.currentLeadPrice || '0'), 0);
-    const discountPercent = calculateBulkDiscount(leadResults.length);
+    const discountPercent = getBulkDiscountFraction(leadResults.length);
     const discountAmount = subtotal * discountPercent;
     const total = Math.round((subtotal - discountAmount) * 100) / 100;
 

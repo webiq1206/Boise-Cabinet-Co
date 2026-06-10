@@ -2,7 +2,6 @@ import {
   applyFinishSlug,
   calculateEstimate,
   formatPlanningCurrency,
-  getDefaultSelectionsForProject,
   getProjectSizeConfig,
   type ConstructionTier,
   type EstimateResult,
@@ -34,8 +33,8 @@ function toProjectType(roomType: string | null): ProjectType {
 export interface DesignEstimateOptions {
   /** Overrides the linear-foot size derived from the placed layout. */
   size?: number;
-  /** Box construction quality tuner (defaults to "better"). */
-  construction?: ConstructionTier;
+  /** Box construction quality tuner ("" until the visitor picks one). */
+  construction?: ConstructionTier | "";
 }
 
 /** Build estimator selections from the current design + optional tuners. */
@@ -44,12 +43,12 @@ export function designToEstimateSelections(
   opts: DesignEstimateOptions = {},
 ): EstimateSelections {
   const project = toProjectType(design.roomType);
-  const base = getDefaultSelectionsForProject(project);
   const cfg = getProjectSizeConfig(project);
 
   // Size: prefer an explicit tuner, then the placed layout's linear feet, then
-  // the room width, then the project default.
-  let size = opts.size;
+  // the room width. No project-default fallback - the brand rule is "nothing
+  // selected by default", so a design with no size source is not priceable yet.
+  let size: number | null = opts.size ?? null;
   if (size == null) {
     const summary = buildLayoutSummary({
       modules: design.modules,
@@ -61,23 +60,21 @@ export function designToEstimateSelections(
       size = summary.approximateLinearFeet;
     } else if (design.roomMeta?.widthIn) {
       size = Math.round(design.roomMeta.widthIn / 12);
-    } else {
-      size = cfg.default;
     }
   }
 
   let selections: EstimateSelections = {
-    ...base,
     project,
-    layout: design.layout ?? base.layout,
+    layout: design.layout ?? "",
     size,
     // Designs don't separate base vs. wall runs, so model a typical upper run
     // (~0.75 × base) for projects that have uppers; null otherwise.
-    sizeUpper: cfg.uppers ? Math.round(size * 0.75) : null,
-    doorStyle: design.doorStyle
-      ? resolveDoorStyleSlug(design.doorStyle)
-      : base.doorStyle,
-    construction: opts.construction ?? base.construction,
+    sizeUpper: cfg.uppers && size != null ? Math.round(size * 0.75) : null,
+    doorStyle: design.doorStyle ? resolveDoorStyleSlug(design.doorStyle) : "",
+    finishSlug: "",
+    finishCategory: "",
+    finishTier: "",
+    construction: opts.construction ?? "",
   };
 
   if (design.finish) {
@@ -118,16 +115,19 @@ const TIMELINE_WEEKS: Record<ProjectType, [number, number]> = {
   pantry: [4, 6],
 };
 
+/**
+ * Live planning estimate for a design, or null while the design lacks a size
+ * source (no layout, room scan, or size tuner yet). Callers show a
+ * "complete your room to see a range" prompt for the null case instead of a
+ * fabricated default-filled price.
+ */
 export function getDesignEstimate(
   design: DesignState,
   opts: DesignEstimateOptions = {},
-): DesignEstimate {
+): DesignEstimate | null {
   const selections = designToEstimateSelections(design, opts);
-  // designToEstimateSelections always yields a project + size, so this is
-  // priceable; the fallback keeps the design flow type-safe regardless.
-  const result =
-    calculateEstimate(selections, countSelections(design)) ??
-    calculateEstimate(getDefaultSelectionsForProject(toProjectType(design.roomType)), 0)!;
+  const result = calculateEstimate(selections, countSelections(design));
+  if (!result) return null;
   const project = toProjectType(design.roomType);
   const [wkLow, wkHigh] = TIMELINE_WEEKS[project];
 

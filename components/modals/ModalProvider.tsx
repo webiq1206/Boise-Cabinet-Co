@@ -10,6 +10,8 @@ import {
 } from "@/components/ui/dialog";
 import { ConsultationForm } from "@/components/ConsultationForm";
 import { EstimateCalculator } from "@/components/EstimateCalculator";
+import { CONSULT_BULLETS } from "@/shared/siteContent";
+import { Check } from "lucide-react";
 
 type ModalType = "consult" | "estimate" | null;
 
@@ -50,6 +52,17 @@ export function ModalProvider({ children }: { children: React.ReactNode }) {
               No obligation, we&apos;ll walk your space and give you an honest planning range.
             </DialogDescription>
           </DialogHeader>
+          <ul className="space-y-2 mb-4">
+            {CONSULT_BULLETS.map((bullet) => (
+              <li key={bullet} className="flex items-start gap-2 text-sm text-muted-foreground">
+                <Check className="h-4 w-4 text-accent shrink-0 mt-0.5" />
+                {bullet}
+              </li>
+            ))}
+          </ul>
+          <p className="text-xs text-muted-foreground mb-4">
+            No spam. Response within one business day.
+          </p>
           <ConsultationForm onRevise={() => setOpen("estimate")} />
         </DialogContent>
       </Dialog>

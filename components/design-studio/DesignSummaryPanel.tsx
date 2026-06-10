@@ -35,7 +35,8 @@ import {
 
 export interface EstimateTuner {
   size?: number;
-  construction: ConstructionTier;
+  /** "" until the visitor explicitly picks a tier. */
+  construction: ConstructionTier | "";
 }
 
 interface SummaryRow {
@@ -128,13 +129,21 @@ export function DesignSummaryPanel({
     { step: "extras", label: "Finishing touches", value: extrasValue },
   ];
 
+  // When the design has no size source yet, the first tap seeds the tuner at
+  // the project's typical size so the visitor can dial in from a sane start.
   const decSize = () =>
     onTunerChange({
-      size: Math.max(sizeCfg.min, effectiveSize - sizeCfg.step),
+      size:
+        effectiveSize == null
+          ? sizeCfg.default
+          : Math.max(sizeCfg.min, effectiveSize - sizeCfg.step),
     });
   const incSize = () =>
     onTunerChange({
-      size: Math.min(sizeCfg.max, effectiveSize + sizeCfg.step),
+      size:
+        effectiveSize == null
+          ? sizeCfg.default
+          : Math.min(sizeCfg.max, effectiveSize + sizeCfg.step),
     });
 
   return (
@@ -157,15 +166,26 @@ export function DesignSummaryPanel({
             selections. Your exact quote is confirmed at your free consultation.
           </HelpHint>
         </div>
-        <p
-          className="text-2xl font-semibold tracking-tight"
-          data-testid="summary-estimate-range"
-        >
-          {estimate.rangeLabel}
-        </p>
-        <p className="text-xs text-muted-foreground">
-          Planning estimate · about {estimate.timelineLabel} · {estimate.confidencePercent}% confidence
-        </p>
+        {estimate ? (
+          <>
+            <p
+              className="text-2xl font-semibold tracking-tight"
+              data-testid="summary-estimate-range"
+            >
+              {estimate.rangeLabel}
+            </p>
+            <p className="text-xs text-muted-foreground">
+              Planning estimate · about {estimate.timelineLabel} · {estimate.confidencePercent}% confidence
+            </p>
+          </>
+        ) : (
+          <p
+            className="text-sm text-muted-foreground"
+            data-testid="summary-estimate-range"
+          >
+            Complete your room to see a planning range.
+          </p>
+        )}
       </div>
 
       {/* Tuners */}
@@ -187,7 +207,9 @@ export function DesignSummaryPanel({
               className="min-w-[4.5rem] text-center text-sm tabular-nums"
               aria-live="polite"
             >
-              {effectiveSize} {sizeCfg.unitShort}
+              {effectiveSize == null
+                ? "Not set"
+                : `${effectiveSize} ${sizeCfg.unitShort}`}
             </span>
             <Button
               variant="outline"

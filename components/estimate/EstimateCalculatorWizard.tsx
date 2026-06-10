@@ -26,12 +26,19 @@ import {
   Box,
   Package,
   Sparkles,
+  ChevronUp,
 } from "lucide-react";
 import Image from "next/image";
 import { LAYOUT_DIAGRAM_SVG } from "@/shared/catalog/generated/layoutDiagrams";
 import { cn } from "@/lib/utils";
 import { DisplayNum } from "@/components/marketing";
-import { EstimateResultPanel } from "@/components/estimate/EstimateResultPanel";
+import { AnimatedPrice, EstimateResultPanel } from "@/components/estimate/EstimateResultPanel";
+import {
+  Drawer,
+  DrawerContent,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/ui/drawer";
 import { VisualOptionGrid } from "@/components/catalog/visual";
 import { getMostLovedFinishes } from "@/shared/catalog/finishFilters";
 import { GuidedFlowShell, type GuidedStep } from "@/components/guided-flow";
@@ -391,6 +398,7 @@ export function EstimateCalculatorWizard({
   const [touched, setTouched] = useState<Set<SelectionStepKey>>(new Set());
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showAllColors, setShowAllColors] = useState(false);
+  const [summaryOpen, setSummaryOpen] = useState(false);
   const { openConsult } = useModals();
 
   // Guards the persistence effect so the initial EMPTY_SELECTIONS render does
@@ -569,7 +577,7 @@ export function EstimateCalculatorWizard({
     project: "Choose what you're planning - we'll guide you from here.",
     size: "Set your cabinet run - base and wall cabinets - then pick a construction quality.",
     layout: "Pick the shape closest to your space.",
-    style: "Choose your door style and finish. Color is optional - your range won't change.",
+    style: "Choose your door style and finish. Finish style and color can refine your planning range.",
     result: undefined,
   };
 
@@ -781,7 +789,7 @@ export function EstimateCalculatorWizard({
                   </button>
                 )}
                 <p className="mt-2 text-[11px] text-muted-foreground">
-                  Pick a color now or explore the full palette later - your planning range doesn&apos;t depend on the exact color.
+                  Pick a color now or explore the full palette later - finish style can refine your planning range.
                 </p>
               </div>
             )}
@@ -829,6 +837,58 @@ export function EstimateCalculatorWizard({
       />
     ) : undefined;
 
+  const stepContinueLabels: Record<WizardStepId, string> = {
+    project: "Continue",
+    size: "Continue",
+    layout: "Continue",
+    style: "See your range",
+    result: "Book free visit",
+  };
+
+  const mobileSummaryNode =
+    !isLast ? (
+      <Drawer open={summaryOpen} onOpenChange={setSummaryOpen}>
+        <DrawerTrigger asChild>
+          <button
+            type="button"
+            className="flex w-full items-center justify-between rounded-sm border bg-background px-3 py-2 text-left min-h-11 transition-transform active:scale-[0.99]"
+            data-testid="button-open-estimate-sheet"
+          >
+            <span className="text-sm min-w-0 tabular-nums">
+              {result ? (
+                <>
+                  <AnimatedPrice value={result.priceLow} />
+                  <span className="text-muted-foreground"> to </span>
+                  <AnimatedPrice value={result.priceHigh} />
+                </>
+              ) : (
+                <span className="text-muted-foreground">
+                  Make your selections to see your range
+                </span>
+              )}
+            </span>
+            <span className="flex items-center gap-1 text-xs text-muted-foreground shrink-0 ml-2">
+              Details
+              <ChevronUp className="h-4 w-4" />
+            </span>
+          </button>
+        </DrawerTrigger>
+        <DrawerContent>
+          <DrawerTitle className="sr-only">Planning range summary</DrawerTitle>
+          <div className="max-h-[82vh] overflow-y-auto p-4 pt-2">
+            <EstimateResultPanel
+              result={result}
+              selectionSummary={selectionSummary}
+              scopeSummary={result?.scopeSummary}
+              onBookVisit={handleBookVisit}
+              project={project ?? undefined}
+              variant="sidebar"
+            />
+          </div>
+        </DrawerContent>
+      </Drawer>
+    ) : undefined;
+
   const shell = (
     <GuidedFlowShell
       steps={wizardSteps}
@@ -840,17 +900,11 @@ export function EstimateCalculatorWizard({
       isFirst={isFirst}
       isLast={isLast}
       canAdvance={isStepComplete(currentIndex)}
-      continueLabel="Continue"
+      continueLabel={stepContinueLabels[currentStepId]}
       hidePrimaryOnLast
       stepDescription={stepDescription[currentStepId]}
       sidePanel={estimateSidePanel}
-      mobileSummary={
-        !isLast
-          ? result
-            ? `${formatPlanningCurrency(result.priceLow)}–${formatPlanningCurrency(result.priceHigh)} · updates as you go`
-            : "Make your selections to see your range"
-          : undefined
-      }
+      mobileSummary={mobileSummaryNode}
     >
       {stepBody}
     </GuidedFlowShell>

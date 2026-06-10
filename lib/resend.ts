@@ -1,3 +1,7 @@
+/**
+ * @deprecated Legacy quote-form email helpers. New flows use `@/server/resend`
+ * and `@/server/services/emailLayout`. Kept for the legacy `/api/quotes` pipeline only.
+ */
 import { Resend } from 'resend';
 import { SITE_CONFIG } from '@/shared/siteConfig';
 import {

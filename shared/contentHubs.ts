@@ -266,6 +266,13 @@ export const CONTENT_MANIFEST: ContentManifestEntry[] = [
   // Local guides (no pillar)
   guide('treasure-valley-cabinet-guide', 'Treasure Valley Cabinet Guide', 'local-guides', 'master', PUBLISHED, 'treasure-valley-cabinet-guide'),
   guide('boise-cabinet-guide', 'Boise Custom Cabinet Guide', 'local-guides', 'location', PUBLISHED, 'boise-remodeling-guide'),
+  guide('meridian-cabinet-guide', 'Meridian Custom Cabinet Guide', 'local-guides', 'location', PUBLISHED, 'meridian-remodeling-guide'),
+  guide('eagle-cabinet-guide', 'Eagle Custom Cabinet Guide', 'local-guides', 'location', PUBLISHED, 'eagle-remodeling-guide'),
+  guide('nampa-cabinet-guide', 'Nampa Custom Cabinet Guide', 'local-guides', 'location', PUBLISHED, 'nampa-remodeling-guide'),
+  guide('kuna-cabinet-guide', 'Kuna Custom Cabinet Guide', 'local-guides', 'location', PUBLISHED, 'kuna-remodeling-guide'),
+  guide('star-cabinet-guide', 'Star Custom Cabinet Guide', 'local-guides', 'location', PUBLISHED, 'star-remodeling-guide'),
+  guide('caldwell-cabinet-guide', 'Caldwell Custom Cabinet Guide', 'local-guides', 'location', PUBLISHED),
+  guide('middleton-cabinet-guide', 'Middleton Custom Cabinet Guide', 'local-guides', 'location', PUBLISHED, 'middleton-remodeling-guide'),
 ];
 
 export function getHubBySlug(hubSlug: string): ContentHub | undefined {

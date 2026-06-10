@@ -14,11 +14,13 @@ import { CheckCircle2, ArrowRight } from "lucide-react";
 import type { StoredEstimate } from "@/shared/estimateEngine";
 import { PROJECT_LABELS, mapEstimateProjectToConsultType } from "@/shared/estimateEngine";
 import { clearWizardState } from "@/lib/estimate/wizardPersistence";
-import { useIsMobile } from "@/hooks/use-media-query";
 import { DisplayNum } from "@/components/marketing";
 import { AddressAutocomplete } from "@/components/AddressAutocomplete";
 import type { PropertyProfile } from "@/shared/propertyProfile";
 import { extractZipFromAddress } from "@/shared/propertyProfile";
+import { phoneHasEnoughDigits, PHONE_VALIDATION_MESSAGE } from "@/shared/phoneValidation";
+import { SITE_CONFIG } from "@/shared/siteConfig";
+import { useModals } from "@/components/modals/ModalProvider";
 
 // Address is optional to reduce top-of-funnel friction. We derive the ZIP from
 // the property address (autocomplete profile, or the typed address) instead of
@@ -26,12 +28,13 @@ import { extractZipFromAddress } from "@/shared/propertyProfile";
 // address (when provided) still enriches the lead via the property profile.
 const formSchema = z.object({
   name: z.string().min(2, "Please enter your full name"),
-  phone: z.string().min(10, "Please enter a valid phone number"),
+  phone: z.string().refine(phoneHasEnoughDigits, PHONE_VALIDATION_MESSAGE),
   email: z.string().email("Please enter a valid email"),
   address: z.string().optional(),
   zip: z.string().optional(),
   projectType: z.string().min(1, "Please select a project type"),
   message: z.string().optional(),
+  companyWebsite: z.string().optional(),
 });
 
 type FormData = z.infer<typeof formSchema>;
@@ -59,7 +62,7 @@ interface ConsultationFormProps {
 }
 
 export function ConsultationForm({ onRevise }: ConsultationFormProps = {}) {
-  const isMobile = useIsMobile();
+  const { close: closeModal } = useModals();
   const [estimate, setEstimate] = useState<StoredEstimate | null>(null);
   const [decision, setDecision] = useState<EstimateDecision>("pending");
   const [success, setSuccess] = useState(false);
@@ -78,8 +81,11 @@ export function ConsultationForm({ onRevise }: ConsultationFormProps = {}) {
       zip: "",
       projectType: "",
       message: "",
+      companyWebsite: "",
     },
   });
+
+  const projectTypeValue = form.watch("projectType");
 
   function handleProfileResolved(profile: PropertyProfile | null) {
     setPropertyProfile(profile);
@@ -198,21 +204,48 @@ export function ConsultationForm({ onRevise }: ConsultationFormProps = {}) {
         body: JSON.stringify(payload),
       });
       if (!res.ok) {
-        const err = await res.json().catch(() => ({}));
-        throw new Error(err.message || "Something went wrong");
+        const err = await res.json().catch(() => ({})) as {
+          message?: string;
+          errors?: { fieldErrors?: Record<string, string[]> };
+        };
+        const fieldErrors = err.errors?.fieldErrors;
+        if (fieldErrors) {
+          const fieldMap: Record<string, keyof FormData> = {
+            name: "name",
+            phone: "phone",
+            email: "email",
+            address: "address",
+            projectType: "projectType",
+            message: "message",
+          };
+          for (const [key, messages] of Object.entries(fieldErrors)) {
+            const field = fieldMap[key];
+            if (field && messages?.[0]) {
+              form.setError(field, { message: messages[0] });
+            }
+          }
+        }
+        throw new Error(err.message || "Something went wrong. Please try again.");
       }
       return res.json();
     },
     onSuccess: () => {
       setSuccess(true);
+      setPendingData(null);
       sessionStorage.removeItem("brc_estimate");
       clearWizardState();
+      window.setTimeout(() => closeModal(), 4000);
     },
   });
 
   if (success) {
     return (
-      <div className="flex flex-col items-start py-8 space-y-4">
+      <div
+        className="flex flex-col items-start py-8 space-y-5"
+        data-testid="consultation-success"
+        aria-live="polite"
+        role="status"
+      >
         <div className="w-10 h-10 rounded-sm flex items-center justify-center bg-accent/10">
           <CheckCircle2 className="h-5 w-5 text-accent" />
         </div>
@@ -220,8 +253,19 @@ export function ConsultationForm({ onRevise }: ConsultationFormProps = {}) {
           We&apos;ll be in touch shortly.
         </h3>
         <p className="text-sm leading-relaxed text-muted-foreground">
-          Thank you for reaching out. We typically respond within one business day to
-          schedule your free in-home visit.
+          Thank you for reaching out. We sent a confirmation to your email and typically
+          respond within one business day.
+        </p>
+        <ol className="text-sm text-muted-foreground space-y-2 list-decimal pl-5">
+          <li>We call or text to confirm your details</li>
+          <li>We schedule your free in-home design visit</li>
+          <li>You get a planning range and next steps at your home</li>
+        </ol>
+        <p className="text-sm text-muted-foreground">
+          Need us sooner?{" "}
+          <a href={SITE_CONFIG.phoneHref} className="text-primary font-medium hover:underline">
+            Call {SITE_CONFIG.phone}
+          </a>
         </p>
       </div>
     );
@@ -329,18 +373,10 @@ export function ConsultationForm({ onRevise }: ConsultationFormProps = {}) {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit((data) => {
-          // Derive the ZIP from the property address (it is no longer a field).
           const enriched = {
             ...data,
             zip: data.zip || extractZipFromAddress(data.address),
           };
-          if (isMobile) {
-            mutation.mutate({
-              data: enriched,
-              confirmEstimate: !!estimate && decision !== "dropped",
-            });
-            return;
-          }
           setPendingData(enriched);
         })}
         className="space-y-5"
@@ -469,6 +505,23 @@ export function ConsultationForm({ onRevise }: ConsultationFormProps = {}) {
           </div>
         )}
 
+        {/* Honeypot — hidden from users and assistive tech */}
+        <FormField
+          control={form.control}
+          name="companyWebsite"
+          render={({ field }) => (
+            <FormItem className="absolute -left-[9999px] h-0 w-0 overflow-hidden" aria-hidden="true">
+              <FormControl>
+                <Input
+                  tabIndex={-1}
+                  autoComplete="off"
+                  {...field}
+                />
+              </FormControl>
+            </FormItem>
+          )}
+        />
+
         <div className="grid sm:grid-cols-2 gap-4">
           <FormField
             control={form.control}
@@ -477,7 +530,12 @@ export function ConsultationForm({ onRevise }: ConsultationFormProps = {}) {
               <FormItem>
                 <FormLabel className={labelClass}>Full name</FormLabel>
                 <FormControl>
-                  <Input placeholder="Jane Smith" data-testid="input-name" {...field} />
+                  <Input
+                    placeholder="Jane Smith"
+                    autoComplete="name"
+                    data-testid="input-name"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -493,6 +551,8 @@ export function ConsultationForm({ onRevise }: ConsultationFormProps = {}) {
                   <Input
                     type="tel"
                     placeholder="(208) 555-0000"
+                    autoComplete="tel"
+                    inputMode="tel"
                     data-testid="input-phone"
                     {...field}
                   />
@@ -502,6 +562,26 @@ export function ConsultationForm({ onRevise }: ConsultationFormProps = {}) {
             )}
           />
         </div>
+
+        <FormField
+          control={form.control}
+          name="email"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel className={labelClass}>Email</FormLabel>
+              <FormControl>
+                <Input
+                  type="email"
+                  placeholder="jane@example.com"
+                  autoComplete="email"
+                  data-testid="input-email"
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
 
         <FormField
           control={form.control}
@@ -528,26 +608,7 @@ export function ConsultationForm({ onRevise }: ConsultationFormProps = {}) {
           )}
         />
 
-        <FormField
-          control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel className={labelClass}>Email</FormLabel>
-              <FormControl>
-                <Input
-                  type="email"
-                  placeholder="jane@example.com"
-                  data-testid="input-email"
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        {(!estimate || decision === "dropped") && (
+        {(!estimate || decision === "dropped" || !projectTypeValue) && (
           <FormField
             control={form.control}
             name="projectType"
@@ -608,7 +669,7 @@ export function ConsultationForm({ onRevise }: ConsultationFormProps = {}) {
             {mutation.isPending ? "Sending…" : "Send my request"}
             {!mutation.isPending && <ArrowRight className="h-4 w-4" />}
           </Button>
-          <p className="text-xs text-muted-foreground">
+          <p className="text-xs text-muted-foreground" aria-live="polite">
             {canSubmit
               ? "No spam. Response within one business day."
               : "Please confirm your planning range above before sending."}

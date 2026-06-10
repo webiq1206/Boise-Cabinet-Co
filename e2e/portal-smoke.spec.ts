@@ -28,24 +28,18 @@ test("portal smoke: quote → admin → subcontractor (no Stripe)", async ({ pag
   await expect(page.getByTestId("count-available")).toHaveText((availableCountBefore || "").trim());
   await expect(page.getByTestId("count-purchased")).toHaveText((purchasedCountBefore || "").trim());
 
-  // Quote wizard: submit quote and show quote reference
-  await page.goto("/get-quote");
-  await page.getByTestId("city-kuna").click();
-  await page.getByTestId("input-address").fill("123 Test St");
-  await page.getByTestId("button-use-address").click();
-  await page.getByTestId("button-residential").click();
-  await page.getByTestId("button-continue-to-services").click();
-
-  await page.getByTestId("intent-lawn-mowing").click();
-  await page.getByTestId("button-continue-to-review").click();
-
+  // Consultation form on contact page (replaces legacy /get-quote redirect)
+  await page.goto("/contact#consult");
   await page.getByTestId("input-name").fill("Playwright Test");
+  await page.getByTestId("input-phone").fill("(208) 555-0101");
   await page.getByTestId("input-email").fill("playwright@example.com");
-  await page.getByTestId("input-phone").fill("2085550101");
-  await page.getByTestId("button-submit-quote").click();
-
-  await expect(page.getByText(/Quote Submitted!/i)).toBeVisible();
-  await expect(page.getByText(/Quote Reference:/i)).toBeVisible();
+  await page.getByTestId("select-project-type").click();
+  await page.getByRole("option", { name: /Kitchen Cabinets/i }).click();
+  await page.getByTestId("button-submit-consultation").click();
+  await page.getByTestId("button-confirm-consultation").click();
+  await expect(page.getByTestId("consultation-success")).toBeVisible({
+    timeout: 15000,
+  });
 
   // Subcontractor portal: loads lead marketplace and shows masked leads (no Stripe required)
   await page.goto("/__dev__/login");

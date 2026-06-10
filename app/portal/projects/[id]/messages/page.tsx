@@ -35,17 +35,26 @@ export default function ProjectMessagesPage() {
 
   const messages = data?.messages ?? [];
 
+  const [sendError, setSendError] = useState<string | null>(null);
+
   const sendMessage = async () => {
     if (!draft.trim()) return;
     setSending(true);
+    setSendError(null);
     try {
-      await fetch("/api/portal/messages", {
+      const res = await fetch("/api/portal/messages", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ projectId, body: draft.trim() }),
       });
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({})) as { error?: string };
+        throw new Error(err.error || "Could not send message");
+      }
       setDraft("");
       queryClient.invalidateQueries({ queryKey: [`/api/portal/projects/${projectId}`] });
+    } catch (e) {
+      setSendError(e instanceof Error ? e.message : "Could not send message");
     } finally {
       setSending(false);
     }
@@ -101,6 +110,11 @@ export default function ProjectMessagesPage() {
               ))
             )}
           </CardContent>
+          {sendError && (
+            <p className="px-4 pb-2 text-sm text-destructive" role="alert">
+              {sendError}
+            </p>
+          )}
           <div className="border-t p-4 flex gap-2">
             <Input
               placeholder="Type a message…"

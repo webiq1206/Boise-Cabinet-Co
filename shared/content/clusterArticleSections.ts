@@ -1,4 +1,6 @@
 import { CITIES_LIST, PILLAR_COST, type ContentSection } from './wave1/snippets';
+import { COMPANY_TOPIC_SECTIONS } from './clusterTopicSectionsCompany';
+import { ROOM_TOPIC_SECTIONS } from './clusterTopicSectionsRooms';
 import { getHubBySlug, guidePath } from '../contentHubs';
 export interface ClusterArticleConfig {
   slug: string;
@@ -103,7 +105,11 @@ function defaultTopicSections(title: string, hubSlug: string): ContentSection[] 
 export function buildClusterArticleSections(config: ClusterArticleConfig): ContentSection[] {
   const hub = getHubBySlug(config.hubSlug)!;
   const pillarUrl = guidePath(hub.pillarSlug);
-  const topicSections = SLUG_SECTIONS[config.slug] ?? defaultTopicSections(config.title, config.hubSlug);
+  const topicSections =
+    SLUG_SECTIONS[config.slug] ??
+    ROOM_TOPIC_SECTIONS[config.slug] ??
+    COMPANY_TOPIC_SECTIONS[config.slug] ??
+    defaultTopicSections(config.title, config.hubSlug);
 
   return [
     {

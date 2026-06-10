@@ -13,10 +13,11 @@ export function ConsultCTA({ onExtraClick, children, ...props }: ConsultCTAProps
   const { openConsult } = useModals();
   const pathname = usePathname();
 
-  if (pathname === "/") {
+  if (pathname === "/" || pathname === "/contact") {
+    const href = pathname === "/" ? "/#consult" : "/contact#consult";
     return (
       <Button {...props} asChild>
-        <a href="/#consult" onClick={onExtraClick}>
+        <a href={href} onClick={onExtraClick}>
           {children}
         </a>
       </Button>

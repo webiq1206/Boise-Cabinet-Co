@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getSession, getUserFromDb, sanitizeUser } from "@/lib/auth";
+import { getSession, getUserFromDb, sanitizeUser, getDesignatedRole, type AppRole } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { users } from "@/shared/schema";
 import { eq } from "drizzle-orm";
@@ -45,13 +45,17 @@ export async function POST(request: NextRequest) {
     };
 
     if (!user) {
+      const email = session.claims?.email ?? undefined;
+      const designated = getDesignatedRole(email, null);
+      const role: AppRole =
+        designated === "admin" ? "subcontractor" : designated;
       await db.insert(users).values({
         id: userId,
         email: session.claims?.email || null,
         firstName: session.claims?.first_name || null,
         lastName: session.claims?.last_name || null,
         profileImageUrl: session.claims?.profile_image_url || null,
-        role: "customer",
+        role,
         ...agreementData,
       });
     } else {
