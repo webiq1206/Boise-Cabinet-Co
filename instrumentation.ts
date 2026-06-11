@@ -111,5 +111,21 @@ export async function register() {
         await pool.end();
       }
     })();
+
+    // Submit sitemap to IndexNow on production startup.
+    // The key file is already live (deployed via public/), so the
+    // verification should pass immediately after server boots.
+    void (async () => {
+      try {
+        const { exec } = await import("child_process");
+        const { promisify } = await import("util");
+        const execAsync = promisify(exec);
+        const { stdout, stderr } = await execAsync("node scripts/submit-indexnow.mjs");
+        if (stdout) console.log("[startup] IndexNow output:", stdout.trim());
+        if (stderr) console.error("[startup] IndexNow stderr:", stderr.trim());
+      } catch (e) {
+        console.error("[startup] IndexNow submission failed:", e);
+      }
+    })();
   }
 }

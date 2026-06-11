@@ -52,6 +52,7 @@
     "gbp:verify": "npx tsx scripts/gbp/verify-config.mjs",
     "gbp:prepare": "npm run gbp:verify && npm run gbp:photos && npm run gbp:docs",
     "images:blog": "node scripts/generate-blog-image-registry.mjs && node scripts/setup-blog-images.mjs",
+    "indexnow": "node scripts/submit-indexnow.mjs",
     "images:generate": "node scripts/generate-blog-images.mjs",
     "images:placeholders": "node scripts/generate-placeholder-images.mjs",
     "images:catalog": "node scripts/generate-catalog-placeholders.mjs",
