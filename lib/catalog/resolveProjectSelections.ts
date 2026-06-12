@@ -2,7 +2,8 @@ import { eq, desc } from "drizzle-orm";
 import { db } from "@/lib/db";
 import { cabinetDesigns, projects } from "@/shared/schema";
 import { rowToSnapshot } from "@/lib/design/designSerialization";
-import { snapshotToProjectSelections, toProjectSelections } from "@/shared/catalog/projectSelections";
+import { snapshotToProjectSelections } from "@/lib/design/designSerialization";
+import { toProjectSelections } from "@/shared/catalog/projectSelections";
 import type { ProjectSelections } from "@/shared/catalog/projectSelections";
 import { PLACEHOLDER_PROJECT_ID } from "@/shared/portalPlaceholder";
 
