@@ -6,7 +6,7 @@ import Script from 'next/script'
  * Loaded afterInteractive so it never blocks LCP.
  */
 const GA_MEASUREMENT_ID =
-  process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || 'G-1HD7RT8PKJ'
+  process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || 'G-7VW3996ZLD'
 
 export function GoogleAnalytics() {
   if (!GA_MEASUREMENT_ID) return null
