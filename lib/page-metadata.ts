@@ -9,6 +9,12 @@ import {
   getBaseUrl,
 } from './seo';
 
+const OG_DEFAULT_IMAGE = {
+  url: '/images/marketing/og-default.webp',
+  width: 1792,
+  height: 1024,
+  alt: `${SITE_CONFIG.name} custom cabinets`,
+};
 
 export type PageMetaKind =
   | 'home'
@@ -100,8 +106,11 @@ export function buildPageMetadata(input: PageMetaInput): Metadata {
   if (input.titleOverride) title = input.titleOverride;
   if (input.descriptionOverride) description = input.descriptionOverride;
 
+  const resolvedTitle: Metadata['title'] =
+    input.kind === 'home' ? { absolute: title } : title;
+
   return {
-    title,
+    title: resolvedTitle,
     description,
     alternates: { canonical },
     ...(input.noindex
@@ -112,11 +121,15 @@ export function buildPageMetadata(input: PageMetaInput): Metadata {
       description,
       url: canonical,
       type: 'website',
+      siteName: SITE_CONFIG.name,
+      locale: 'en_US',
+      images: [OG_DEFAULT_IMAGE],
     },
     twitter: {
       card: 'summary_large_image',
       title,
       description,
+      images: [OG_DEFAULT_IMAGE.url],
     },
   };
 }

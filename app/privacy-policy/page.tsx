@@ -5,7 +5,7 @@ import { generateBreadcrumbSchema, generateWebPageSchema } from "@/lib/schema";
 import { buildCanonical } from "@/lib/page-metadata";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy | Boise Cabinet Co",
+  title: { absolute: "Privacy Policy | Boise Cabinet Co" },
   description: "Boise Cabinet Co privacy policy. How we protect your data when you request custom cabinet services in Kuna & Boise, Idaho.",
   alternates: {
     canonical: buildCanonical("/privacy-policy"),
@@ -15,11 +15,15 @@ export const metadata: Metadata = {
     description: "How we protect your data when you use Boise Cabinet Co custom cabinet services in Idaho.",
     url: buildCanonical("/privacy-policy"),
     type: "website",
+    siteName: "Boise Cabinet Co",
+    locale: "en_US",
+    images: [{ url: "/images/marketing/og-default.webp", width: 1792, height: 1024, alt: "Boise Cabinet Co custom cabinets" }],
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: "Privacy Policy | Boise Cabinet Co",
     description: "How we protect your data when you use Boise Cabinet Co custom cabinet services in Idaho.",
+    images: ["/images/marketing/og-default.webp"],
   },
 };
 

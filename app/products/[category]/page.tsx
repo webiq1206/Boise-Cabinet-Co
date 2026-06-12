@@ -74,7 +74,7 @@ export function generateMetadata({
   const count = getCabinetProductsByCategory(category).length;
   return catalogMetadata(
     `/products/${category}`,
-    `${label} Cabinets | Sizes & Specs | {company}`,
+    `${label} Cabinets | Sizes & Specs`,
     `Compare ${count} ${label.toLowerCase()} cabinet sizes and configurations from {company}, custom-built for Boise and the Treasure Valley. Frameless construction, soft-close hardware, 299 finishes.`,
   );
 }

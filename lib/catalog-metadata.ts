@@ -12,7 +12,7 @@ export function catalogMetadata(
   return buildPageMetadata({
     kind: "about",
     path,
-    titleOverride: title,
+    titleOverride: title.replace(/\s*[|–-]\s*\{company\}/g, '').replace(/\{company\}/g, SITE_CONFIG.name).trim(),
     descriptionOverride: description.replace(
       /\{company\}/g,
       SITE_CONFIG.name,

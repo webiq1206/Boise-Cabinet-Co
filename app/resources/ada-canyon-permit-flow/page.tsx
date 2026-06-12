@@ -10,7 +10,7 @@ import { CTA_PRIMARY } from '@/shared/ctaCopy';
 export const metadata: Metadata = buildPageMetadata({
   kind: 'blog',
   path: '/resources/ada-canyon-permit-flow',
-  titleOverride: 'Ada vs Canyon County Permit Flow | Boise Cabinet Co',
+  titleOverride: 'Ada vs Canyon County Permit Flow',
   descriptionOverride:
     'Visual guide to cabinet and trade permits in Ada and Canyon County, jurisdiction, review steps, and inspections for Treasure Valley homeowners.',
 });

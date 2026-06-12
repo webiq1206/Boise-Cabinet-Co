@@ -34,7 +34,7 @@ function GuideCardStats({ guide }: { guide: GuidePageData }) {
 export const metadata: Metadata = buildPageMetadata({
   kind: 'blog',
   path: '/guides',
-  titleOverride: 'Cabinet Design Guides | Boise Cabinet Co',
+  titleOverride: 'Cabinet Design Guides',
   descriptionOverride:
     'Treasure Valley cabinet guides: costs, kitchen and bath cabinetry, built-ins, company selection, project process, ROI, and local city resources.',
 });

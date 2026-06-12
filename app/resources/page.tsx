@@ -9,7 +9,7 @@ import { ALL_RESOURCES_LIST } from '@/shared/guideResources';
 export const metadata: Metadata = buildPageMetadata({
   kind: 'blog',
   path: '/resources',
-  titleOverride: 'Cabinet Planning Resources | Boise Cabinet Co',
+  titleOverride: 'Cabinet Planning Resources',
   descriptionOverride:
     'Free PDF worksheets and visual guides for Treasure Valley cabinet planning: budget worksheet, kitchen and bath checklist, Ada vs Canyon permits.',
 });

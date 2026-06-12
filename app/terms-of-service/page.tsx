@@ -5,7 +5,7 @@ import { generateBreadcrumbSchema, generateWebPageSchema } from "@/lib/schema";
 import { buildCanonical } from "@/lib/page-metadata";
 
 export const metadata: Metadata = {
-  title: "Terms of Service | Boise Cabinet Co",
+  title: { absolute: "Terms of Service | Boise Cabinet Co" },
   description: "Terms of service for Boise Cabinet Co. Your rights when using our custom cabinet design, fabrication, and installation services in Kuna & Boise, Idaho.",
   alternates: {
     canonical: buildCanonical("/terms-of-service"),
@@ -15,11 +15,15 @@ export const metadata: Metadata = {
     description: "Your rights when using Boise Cabinet Co custom cabinet services in Idaho's Treasure Valley.",
     url: buildCanonical("/terms-of-service"),
     type: "website",
+    siteName: "Boise Cabinet Co",
+    locale: "en_US",
+    images: [{ url: "/images/marketing/og-default.webp", width: 1792, height: 1024, alt: "Boise Cabinet Co custom cabinets" }],
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: "Terms of Service | Boise Cabinet Co",
     description: "Your rights when using Boise Cabinet Co custom cabinet services in Idaho's Treasure Valley.",
+    images: ["/images/marketing/og-default.webp"],
   },
 };
 
