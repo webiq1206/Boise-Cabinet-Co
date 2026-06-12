@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next'
 import { Montserrat, Fraunces } from 'next/font/google'
 import { GoogleAnalytics } from '@/components/seo/GoogleAnalytics'
+import { MicrosoftClarity } from '@/components/seo/MicrosoftClarity'
 import { Navigation } from '@/components/Navigation'
 import { ConditionalFooter } from '@/components/ConditionalFooter'
 import { Toaster } from '@/components/ui/toaster'
@@ -104,6 +105,7 @@ export default function RootLayout({
           }}
         />
         <GoogleAnalytics />
+        <MicrosoftClarity />
       </head>
       <body className="min-h-screen bg-background font-sans antialiased">
         <noscript>
