@@ -16,61 +16,59 @@ import { indexableFinishes } from '@/lib/catalog/indexation';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = getBaseUrl().replace(/\/$/, '');
-  const now = new Date();
 
+  // Static pages: no reliable per-page modified timestamp, so omit lastModified
+  // rather than stamping every build with `new Date()`.
   const staticPages: MetadataRoute.Sitemap = [
-    { url: baseUrl, lastModified: now, changeFrequency: 'weekly', priority: 1 },
-    { url: `${baseUrl}/about`, lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
-    { url: `${baseUrl}/contact`, lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
-    { url: `${baseUrl}/testimonials`, lastModified: now, changeFrequency: 'monthly', priority: 0.65 },
-    { url: `${baseUrl}/blog`, lastModified: now, changeFrequency: 'weekly', priority: 0.6 },
-    { url: `${baseUrl}/guides`, lastModified: now, changeFrequency: 'weekly', priority: 0.85 },
-    { url: `${baseUrl}/resources`, lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
-    { url: `${baseUrl}/cabinets`, lastModified: now, changeFrequency: 'weekly', priority: 0.95 },
-    { url: `${baseUrl}/collections`, lastModified: now, changeFrequency: 'weekly', priority: 0.95 },
-    { url: `${baseUrl}/finishes`, lastModified: now, changeFrequency: 'weekly', priority: 0.9 },
-    { url: `${baseUrl}/door-styles`, lastModified: now, changeFrequency: 'monthly', priority: 0.85 },
-    { url: `${baseUrl}/accessories`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
-    { url: `${baseUrl}/hardware`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
-    { url: `${baseUrl}/construction`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
-    { url: `${baseUrl}/compare`, lastModified: now, changeFrequency: 'monthly', priority: 0.75 },
-    { url: `${baseUrl}/products`, lastModified: now, changeFrequency: 'weekly', priority: 0.9 },
-    { url: `${baseUrl}/catalog`, lastModified: now, changeFrequency: 'weekly', priority: 0.85 },
-    { url: `${baseUrl}/warranty`, lastModified: now, changeFrequency: 'yearly', priority: 0.55 },
+    { url: baseUrl, changeFrequency: 'weekly', priority: 1 },
+    { url: `${baseUrl}/about`, changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${baseUrl}/contact`, changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${baseUrl}/testimonials`, changeFrequency: 'monthly', priority: 0.65 },
+    { url: `${baseUrl}/blog`, changeFrequency: 'weekly', priority: 0.6 },
+    { url: `${baseUrl}/guides`, changeFrequency: 'weekly', priority: 0.85 },
+    { url: `${baseUrl}/resources`, changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${baseUrl}/cabinets`, changeFrequency: 'weekly', priority: 0.95 },
+    { url: `${baseUrl}/collections`, changeFrequency: 'weekly', priority: 0.95 },
+    { url: `${baseUrl}/finishes`, changeFrequency: 'weekly', priority: 0.9 },
+    { url: `${baseUrl}/door-styles`, changeFrequency: 'monthly', priority: 0.85 },
+    { url: `${baseUrl}/accessories`, changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${baseUrl}/hardware`, changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${baseUrl}/construction`, changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${baseUrl}/compare`, changeFrequency: 'monthly', priority: 0.75 },
+    { url: `${baseUrl}/products`, changeFrequency: 'weekly', priority: 0.9 },
+    { url: `${baseUrl}/catalog`, changeFrequency: 'weekly', priority: 0.85 },
+    { url: `${baseUrl}/estimate`, changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${baseUrl}/finder`, changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${baseUrl}/warranty`, changeFrequency: 'yearly', priority: 0.55 },
     {
       url: `${baseUrl}/resources/ada-canyon-permit-flow`,
-      lastModified: now,
       changeFrequency: 'monthly',
       priority: 0.65,
     },
-    { url: `${baseUrl}/privacy-policy`, lastModified: now, changeFrequency: 'yearly', priority: 0.3 },
-    { url: `${baseUrl}/terms-of-service`, lastModified: now, changeFrequency: 'yearly', priority: 0.3 },
+    { url: `${baseUrl}/privacy-policy`, changeFrequency: 'yearly', priority: 0.3 },
+    { url: `${baseUrl}/terms-of-service`, changeFrequency: 'yearly', priority: 0.3 },
   ];
 
   const cabinetRoomPages: MetadataRoute.Sitemap = ROOM_CATEGORIES.map((room) => ({
     url: `${baseUrl}/cabinets/${room.slug}`,
-    lastModified: now,
     changeFrequency: 'monthly' as const,
     priority: 0.9,
   }));
 
   const collectionPages: MetadataRoute.Sitemap = COLLECTIONS.map((c) => ({
     url: `${baseUrl}/collections/${c.slug}`,
-    lastModified: now,
     changeFrequency: 'monthly' as const,
     priority: 0.9,
   }));
 
   const finishCategoryPages: MetadataRoute.Sitemap = ['matte', 'gloss', 'woodgrain'].map((cat) => ({
     url: `${baseUrl}/finishes/${cat}`,
-    lastModified: now,
     changeFrequency: 'monthly' as const,
     priority: 0.85,
   }));
 
   const doorStylePages: MetadataRoute.Sitemap = DOOR_STYLES.map((d) => ({
     url: `${baseUrl}/door-styles/${d.slug}`,
-    lastModified: now,
     changeFrequency: 'monthly' as const,
     priority: 0.85,
   }));
@@ -79,7 +77,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // woodgrain SKUs are noindex,follow. See lib/catalog/indexation.ts.
   const finishDetailPages: MetadataRoute.Sitemap = indexableFinishes().map((f) => ({
     url: `${baseUrl}/finishes/${f.category}/${f.slug}`,
-    lastModified: now,
     changeFrequency: 'monthly' as const,
     priority: 0.6,
   }));
@@ -89,7 +86,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
   );
   const productCategoryPages: MetadataRoute.Sitemap = productCategorySlugs.map((category) => ({
     url: `${baseUrl}/products/${category}`,
-    lastModified: now,
     changeFrequency: 'monthly' as const,
     priority: 0.8,
   }));
@@ -98,16 +94,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // they are noindex,follow (near-duplicate spec/configurator pages). See
   // seo-audit/doorway-page-analysis.md and lib/catalog/indexation.ts.
 
+  // Use updatedAt when available so edits are reflected; fall back to publishedAt.
   const blogPages: MetadataRoute.Sitemap = BLOG_POSTS.map((post) => ({
     url: `${baseUrl}/blog/${post.slug}`,
-    lastModified: new Date(post.publishedAt),
+    lastModified: new Date(post.updatedAt ?? post.publishedAt),
     changeFrequency: 'yearly' as const,
     priority: 0.6,
   }));
 
   const guidePages: MetadataRoute.Sitemap = GUIDE_PAGES.map((guide) => ({
     url: `${baseUrl}${guidePath(guide.slug)}`,
-    lastModified: new Date(guide.publishedAt),
+    lastModified: new Date(guide.updatedAt ?? guide.publishedAt),
     changeFrequency: 'monthly' as const,
     priority: 0.9,
   }));
@@ -118,7 +115,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     return [
       {
         url: `${baseUrl}${categoryHubPath(hub.hubSlug)}`,
-        lastModified: now,
         changeFrequency: 'weekly' as const,
         priority: 0.55,
       },
