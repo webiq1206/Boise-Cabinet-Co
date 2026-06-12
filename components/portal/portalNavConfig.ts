@@ -10,6 +10,7 @@ import {
   FileSignature,
   History,
   Users,
+  Send,
 } from "lucide-react";
 
 export type PortalShellVariant = "admin" | "subcontractor" | "customer" | "partner";
@@ -42,6 +43,7 @@ export const ADMIN_MOBILE_TABS: PortalNavLink[] = [
 export const ADMIN_MOBILE_MORE: PortalNavLink[] = [
   { href: "/admin/contracts", label: "Contracts", icon: FileSignature },
   { href: "/admin/contractors", label: "Contractors", icon: Users },
+  { href: "/admin/outreach", label: "Outreach", icon: Send },
   { href: "/partner", label: "Partner Portal", icon: ShieldCheck },
 ];
 

@@ -112,6 +112,28 @@ export async function register() {
       }
     })();
 
+    // Contractor outreach background runner. Trickles approved cold emails out
+    // on a fixed interval, but only ever attempts ONE at a time and defers all
+    // gating (master on/off switch, dry-run, rolling daily cap, minimum gap,
+    // suppression list) to processOutreachBatch. Kept inside the nodejs +
+    // production guard so it never runs in dev or the edge bundle.
+    void (async () => {
+      try {
+        const { processOutreachBatch } = await import("./lib/outreach/sender");
+        const TICK_MS = 10 * 60 * 1000; // check every 10 minutes
+        const tick = async () => {
+          try {
+            await processOutreachBatch({ limit: 1, respectGap: true, source: "auto" });
+          } catch (e) {
+            console.error("[outreach] background tick failed:", e);
+          }
+        };
+        setInterval(() => void tick(), TICK_MS);
+      } catch (e) {
+        console.error("[outreach] background runner failed to start:", e);
+      }
+    })();
+
     // Submit sitemap to IndexNow on production startup.
     // The key file is already live (deployed via public/), so the
     // verification should pass immediately after server boots.

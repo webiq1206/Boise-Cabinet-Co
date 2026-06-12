@@ -805,3 +805,66 @@ export const customerContracts = pgTable("customer_contracts", {
   signatureName: text("signature_name"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
+
+// --- Contractor Outreach System (admin-only B2B cold outreach) ---
+// Discovers general contractors via the official Google Places API, stores only
+// publicly-listed emails scraped from each contractor's own website (never
+// guessed or fabricated), and sends throttled, CAN-SPAM-compliant outreach.
+export const outreachProspects = pgTable("outreach_prospects", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  // Stable identifier from Google Places so re-running discovery dedupes.
+  googlePlaceId: varchar("google_place_id").notNull(),
+  businessName: text("business_name").notNull(),
+  // Service-area city used for the discovery query (e.g. "Boise").
+  city: text("city").notNull(),
+  website: text("website"),
+  phone: text("phone"),
+  formattedAddress: text("formatted_address"),
+  // The single publicly-listed email we will contact. Null until scraped.
+  email: text("email"),
+  // The exact page URL the email was published on (audit trail; proves it was
+  // public and not fabricated).
+  emailSourceUrl: text("email_source_url"),
+  // discovered -> needs_email | ready -> approved -> sent | replied | bounced |
+  // skipped | unsubscribed
+  status: text("status").notNull().default("discovered"),
+  // Short human note used to personalize the opener (e.g. a service they list).
+  personalizationNote: text("personalization_note"),
+  // Per-prospect token embedded in the unsubscribe link.
+  unsubscribeToken: varchar("unsubscribe_token").notNull().default(sql`gen_random_uuid()`),
+  // Sending bookkeeping for throttling + auditing.
+  approvedAt: timestamp("approved_at"),
+  sentAt: timestamp("sent_at"),
+  providerMessageId: text("provider_message_id"),
+  openedAt: timestamp("opened_at"),
+  repliedAt: timestamp("replied_at"),
+  unsubscribedAt: timestamp("unsubscribed_at"),
+  bouncedAt: timestamp("bounced_at"),
+  lastError: text("last_error"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+}, (table) => ({
+  placeIdx: uniqueIndex("outreach_prospects_place_id_idx").on(table.googlePlaceId),
+  statusIdx: index("outreach_prospects_status_idx").on(table.status),
+  tokenIdx: index("outreach_prospects_token_idx").on(table.unsubscribeToken),
+}));
+
+export const insertOutreachProspectSchema = createInsertSchema(outreachProspects).omit({
+  id: true,
+  unsubscribeToken: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export type OutreachProspect = typeof outreachProspects.$inferSelect;
+export type InsertOutreachProspect = z.infer<typeof insertOutreachProspectSchema>;
+
+// Permanent do-not-email list. Populated by unsubscribes, bounces, complaints,
+// or manual admin entry. Checked before every send so we never re-contact.
+export const outreachSuppressions = pgTable("outreach_suppressions", {
+  email: varchar("email").primaryKey(),
+  reason: text("reason").notNull().default("unsubscribe"), // unsubscribe | bounce | complaint | manual
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+export type OutreachSuppression = typeof outreachSuppressions.$inferSelect;

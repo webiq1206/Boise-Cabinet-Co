@@ -10,6 +10,7 @@ import {
   Users,
   ShoppingBag,
   Shield,
+  Send,
 } from "lucide-react";
 
 const primaryNav = [
@@ -17,6 +18,7 @@ const primaryNav = [
   { href: "/admin/projects", label: "Projects", icon: FolderKanban },
   { href: "/admin/contracts", label: "Contracts", icon: FileSignature },
   { href: "/admin/contractors", label: "Contractors", icon: Users },
+  { href: "/admin/outreach", label: "Outreach", icon: Send },
 ];
 
 const secondaryNav = [
