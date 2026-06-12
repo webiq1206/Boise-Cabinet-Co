@@ -14,8 +14,8 @@ export async function POST(request: Request) {
   const parsed = bodySchema.safeParse(await request.json().catch(() => ({})));
   const limit = parsed.success ? parsed.data.limit ?? 1 : 1;
 
-  // Manual admin send: bypasses the master on/off switch (admin clicked send)
-  // but still honors dry-run, the rolling daily cap, and the suppression list.
+  // Manual admin send respects the master on/off switch (owner can pause all
+  // sends instantly), plus dry-run, the rolling daily cap, and suppression.
   const result = await processOutreachBatch({ limit, respectGap: false, source: "manual" });
 
   return NextResponse.json(result);

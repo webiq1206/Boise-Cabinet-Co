@@ -243,10 +243,9 @@ export async function processOutreachBatch(options: BatchOptions): Promise<Batch
 
   const config = await getOutreachConfig();
 
-  // The automatic runner only acts when outreach is globally enabled. Manual
-  // admin sends bypass the master switch (an admin explicitly clicked send) but
-  // still honor dry-run, the daily cap, and the suppression list.
-  if (options.source === "auto" && !config.enabled) {
+  // All sends respect the master on/off switch. If an owner disables outreach,
+  // nothing goes out (auto or manual). This gives an instant emergency pause.
+  if (!config.enabled) {
     result.stoppedReason = "disabled";
     return result;
   }
