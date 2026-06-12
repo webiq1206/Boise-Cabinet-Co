@@ -5,6 +5,7 @@ import { buildPageMetadata } from '@/lib/page-metadata';
 import { Section } from '@/components/marketing/Section';
 import { MarketingCard } from '@/components/marketing/MarketingCard';
 import { ALL_RESOURCES_LIST } from '@/shared/guideResources';
+import { generateWebPageSchema, generateBreadcrumbSchema, generateCollectionPageSchema } from '@/lib/schema';
 
 export const metadata: Metadata = buildPageMetadata({
   kind: 'blog',
@@ -18,8 +19,41 @@ export default function ResourcesIndexPage() {
   const pdfs = ALL_RESOURCES_LIST.filter((r) => r.kind === 'pdf');
   const visuals = ALL_RESOURCES_LIST.filter((r) => r.kind === 'visual');
 
+  const webPageSchema = generateWebPageSchema({
+    title: 'Cabinet Planning Resources',
+    description:
+      'Free PDF worksheets and visual guides for Treasure Valley cabinet planning: budget worksheet, kitchen and bath checklist, Ada vs Canyon permits.',
+    url: '/resources',
+  });
+
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: 'Home', url: '/' },
+    { name: 'Resources', url: '/resources' },
+  ]);
+
+  const collectionSchema = generateCollectionPageSchema({
+    title: 'Cabinet Planning Resources',
+    description:
+      'Free PDF worksheets and visual guides for Treasure Valley cabinet planning.',
+    url: '/resources',
+    items: ALL_RESOURCES_LIST.map((r) => ({ name: r.title, url: r.href })),
+  });
+
   return (
-    <Section spacing="lg" className="pt-28 md:pt-32">
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }}
+      />
+      <Section spacing="lg" className="pt-28 md:pt-32">
       <div className="container px-4 max-w-4xl mx-auto">
         <p className="text-xs font-medium uppercase tracking-wider text-accent mb-3">
           Free downloads
@@ -86,6 +120,7 @@ export default function ResourcesIndexPage() {
           </Link>
         </p>
       </div>
-    </Section>
+      </Section>
+    </>
   );
 }

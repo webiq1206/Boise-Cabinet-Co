@@ -8,6 +8,7 @@ import { CABINET_PRODUCTS_BY_CATEGORY } from "@/shared/catalog";
 import type { CabinetProductCategory } from "@/shared/catalog";
 import { getProductImages } from "@/shared/catalog/entityImages";
 import { catalogMetadata } from "@/lib/catalog-metadata";
+import { generateWebPageSchema, generateBreadcrumbSchema, generateCollectionPageSchema } from "@/lib/schema";
 
 const CATEGORY_LABELS: Record<CabinetProductCategory, string> = {
   base: "Base Cabinets",
@@ -30,8 +31,44 @@ export const metadata = catalogMetadata(
 export default function ProductsHubPage() {
   const categories = Object.keys(CABINET_PRODUCTS_BY_CATEGORY) as CabinetProductCategory[];
 
+  const webPageSchema = generateWebPageSchema({
+    title: "Cabinet Products",
+    description: "Browse our full cabinet catalog: base, wall, tall, vanity, and specialty configurations.",
+    url: "/products",
+  });
+
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: "Home", url: "/" },
+    { name: "Products", url: "/products" },
+  ]);
+
+  const collectionSchema = generateCollectionPageSchema({
+    title: "Cabinet Products",
+    description: "Browse our full cabinet catalog: base, wall, tall, vanity, and specialty configurations.",
+    url: "/products",
+    items: (Object.keys(CABINET_PRODUCTS_BY_CATEGORY) as CabinetProductCategory[])
+      .filter((cat) => (CABINET_PRODUCTS_BY_CATEGORY[cat] ?? []).length > 0)
+      .map((cat) => ({
+        name: CATEGORY_LABELS[cat] ?? cat,
+        url: `/products/${cat}`,
+      })),
+  });
+
   return (
-    <div className="flex flex-col pb-20 md:pb-0">
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }}
+      />
+      <div className="flex flex-col pb-20 md:pb-0">
       <Section spacing="sm" className="pt-4 md:pt-6">
         <div className="container px-4">
           <Breadcrumbs
@@ -95,6 +132,7 @@ export default function ProductsHubPage() {
           </p>
         </div>
       </Section>
-    </div>
+      </div>
+    </>
   );
 }

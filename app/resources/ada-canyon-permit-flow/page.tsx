@@ -6,6 +6,7 @@ import { Section } from '@/components/marketing/Section';
 import { PermitFlowGraphic } from './PermitFlowGraphic';
 import { ConsultCTA } from '@/components/modals/ConsultCTA';
 import { CTA_PRIMARY } from '@/shared/ctaCopy';
+import { generateWebPageSchema, generateBreadcrumbSchema, generateArticleSchema } from '@/lib/schema';
 
 export const metadata: Metadata = buildPageMetadata({
   kind: 'blog',
@@ -16,8 +17,43 @@ export const metadata: Metadata = buildPageMetadata({
 });
 
 export default function AdaCanyonPermitFlowPage() {
+  const webPageSchema = generateWebPageSchema({
+    title: 'Ada vs Canyon County Permit Flow',
+    description:
+      'Visual guide to cabinet and trade permits in Ada and Canyon County, jurisdiction, review steps, and inspections for Treasure Valley homeowners.',
+    url: '/resources/ada-canyon-permit-flow',
+  });
+
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: 'Home', url: '/' },
+    { name: 'Resources', url: '/resources' },
+    { name: 'Ada vs Canyon County Permit Flow', url: '/resources/ada-canyon-permit-flow' },
+  ]);
+
+  const articleSchema = generateArticleSchema({
+    title: 'Ada vs Canyon County Permit Flow',
+    description:
+      'A step-by-step view of how cabinet and trade permits move through review and inspections in the Treasure Valley. Timelines vary by project scope.',
+    publishedAt: '2025-01-01',
+    slug: 'ada-canyon-permit-flow',
+    pathPrefix: 'blog',
+  });
+
   return (
-    <div className="flex flex-col pb-20">
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+      />
+      <div className="flex flex-col pb-20">
       <Section spacing="lg" className="pt-28 md:pt-32">
         <div className="container px-4 max-w-4xl mx-auto">
           <Link
@@ -85,6 +121,7 @@ export default function AdaCanyonPermitFlowPage() {
           </div>
         </div>
       </Section>
-    </div>
+      </div>
+    </>
   );
 }

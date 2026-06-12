@@ -24,8 +24,7 @@ export function generateLocalBusinessSchema(city?: string): SchemaContext {
   
   return {
     '@context': 'https://schema.org',
-    '@type': 'LocalBusiness',
-    additionalType: ['FurnitureStore', 'HomeAndConstructionBusiness'],
+    '@type': ['LocalBusiness', 'FurnitureStore', 'HomeAndConstructionBusiness'],
     name: BUSINESS_INFO.name,
     legalName: BUSINESS_INFO.legalName,
     description: `Custom cabinet company serving ${city || 'Boise'} and the Treasure Valley, Idaho. Kitchen cabinets, bathroom vanities, closet systems, and built-in storage.`,
@@ -142,7 +141,6 @@ export function generateServiceSchema(serviceName: string, serviceDescription: s
       '@type': 'Offer',
       availability: 'https://schema.org/InStock',
       priceCurrency: 'USD',
-      priceRange: '$$',
     },
   };
 }
