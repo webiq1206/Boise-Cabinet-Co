@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
@@ -19,38 +19,15 @@ import { SITE_CONFIG } from "@/shared/siteConfig";
 import { PRIMARY_NAV } from "@/shared/cabinetNav";
 import { useModals } from "@/components/modals/ModalProvider";
 import { useAuth } from "@/hooks/useAuth";
-import { useAdaptiveGlassTheme } from "@/hooks/useAdaptiveGlassTheme";
-import {
-  ADAPTIVE_GLASS_ATTR,
-  ADAPTIVE_GLASS_BAR_BASE,
-  getAdaptiveGlassClasses,
-} from "@/components/marketing/adaptiveGlassTheme";
 
-function Logo({ hero }: { hero: boolean }) {
+function Logo() {
   return (
     <Link href="/" className="flex flex-col leading-none">
-      <span
-        className={cn(
-          "font-sans text-[1.05rem] font-light tracking-tight transition-colors duration-300",
-          hero ? "text-inverse-foreground" : "text-foreground",
-        )}
-      >
+      <span className="font-sans text-[1.05rem] font-light tracking-tight text-foreground">
         Boise Cabinet{" "}
-        <em
-          className={cn(
-            "brc-accent transition-colors duration-300",
-            hero ? "text-inverse-muted" : "text-accent",
-          )}
-        >
-          Co
-        </em>
+        <em className="brc-accent text-accent">Co</em>
       </span>
-      <span
-        className={cn(
-          "text-[9px] tracking-[0.15em] uppercase font-sans font-medium mt-0.5 transition-colors duration-300",
-          hero ? "text-inverse-muted/80" : "text-muted-foreground",
-        )}
-      >
+      <span className="text-[9px] tracking-[0.15em] uppercase font-sans font-medium mt-0.5 text-muted-foreground">
         Custom Cabinetry
       </span>
     </Link>
@@ -60,13 +37,9 @@ function Logo({ hero }: { hero: boolean }) {
 export function Navigation() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
   const [expandedMobile, setExpandedMobile] = useState<string | null>(null);
   const { openConsult } = useModals();
   const { isAuthenticated, isCustomer, isSubcontractor, isAdmin } = useAuth();
-  const bottomBarRef = useRef<HTMLDivElement>(null);
-  const bottomBarTheme = useAdaptiveGlassTheme(bottomBarRef);
-  const bottomBarClasses = getAdaptiveGlassClasses(bottomBarTheme);
   // While a guided-flow wizard shows its own contextual mobile bar, the generic
   // Call / Book-consult bar steps aside so the two never stack on phones.
   const [wizardBarActive, setWizardBarActive] = useState(false);
@@ -104,16 +77,6 @@ export function Navigation() {
     (pathname === "/subcontractor" && isAuthenticated && isSubcontractor) ||
     (pathname === "/partner" && isAuthenticated && (isSubcontractor || isAdmin));
 
-  const isHome = pathname === "/";
-  const isHeroMode = isHome && !scrolled && !isPortalRoute;
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 72);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
   useEffect(() => {
     if (mobileOpen) {
       document.body.style.overflow = "hidden";
@@ -131,7 +94,7 @@ export function Navigation() {
     return (
       <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/90">
         <nav className="container flex h-16 items-center justify-between gap-4 px-6">
-          <Logo hero={false} />
+          <Logo />
         </nav>
       </header>
     );
@@ -141,12 +104,8 @@ export function Navigation() {
     cn(
       "px-3 py-2 text-[13px] font-medium transition-colors rounded-sm hover-elevate",
       pathname === href || pathname?.startsWith(href + "/")
-        ? isHeroMode
-          ? "text-inverse-foreground"
-          : "text-foreground"
-        : isHeroMode
-          ? "text-inverse-muted hover:text-inverse-foreground"
-          : "text-muted-foreground hover:text-foreground",
+        ? "text-foreground"
+        : "text-muted-foreground hover:text-foreground",
     );
 
   const navItemActive = (
@@ -160,16 +119,9 @@ export function Navigation() {
 
   return (
     <>
-      <header
-        className={cn(
-          "sticky top-0 z-[100] w-full transition-all duration-300",
-          isHeroMode
-            ? "bg-transparent border-b border-transparent"
-            : "bg-background/97 backdrop-blur border-b border-border",
-        )}
-      >
+      <header className="sticky top-0 z-[100] w-full bg-background border-b border-border">
         <nav className="container flex h-[60px] items-center justify-between gap-4 px-4 md:px-6">
-          <Logo hero={isHeroMode} />
+          <Logo />
 
           <div className="hidden xl:flex items-center">
             <NavigationMenu>
@@ -181,12 +133,8 @@ export function Navigation() {
                         className={cn(
                           "bg-transparent h-auto px-3 py-2 text-[13px] font-medium",
                           navItemActive(item.href, item.children)
-                            ? isHeroMode
-                              ? "text-inverse-foreground"
-                              : "text-foreground"
-                            : isHeroMode
-                              ? "text-inverse-muted hover:text-inverse-foreground data-[state=open]:text-inverse-foreground"
-                              : "text-muted-foreground hover:text-foreground data-[state=open]:text-foreground",
+                            ? "text-foreground"
+                            : "text-muted-foreground hover:text-foreground data-[state=open]:text-foreground",
                         )}
                       >
                         {item.label}
@@ -253,7 +201,6 @@ export function Navigation() {
               size="icon"
               aria-label="Search catalog"
               asChild
-              className={isHeroMode ? "text-inverse-foreground hover:text-inverse-foreground" : undefined}
             >
               <Link href="/search">
                 <Search className="h-4 w-4" />
@@ -261,12 +208,7 @@ export function Navigation() {
             </Button>
             <a
               href={SITE_CONFIG.phoneHref}
-              className={cn(
-                "flex items-center gap-2 text-[13px] font-medium transition-colors whitespace-nowrap",
-                isHeroMode
-                  ? "text-inverse-muted hover:text-inverse-foreground"
-                  : "text-muted-foreground hover:text-foreground",
-              )}
+              className="flex items-center gap-2 text-[13px] font-medium transition-colors whitespace-nowrap text-muted-foreground hover:text-foreground"
             >
               <span className="relative flex h-2 w-2">
                 <span className="pulse-accent absolute inline-flex h-full w-full rounded-full bg-accent opacity-75" />
@@ -277,12 +219,7 @@ export function Navigation() {
             <a
               href={SITE_CONFIG.phoneSmsHref}
               aria-label={`Text us at ${SITE_CONFIG.phone}`}
-              className={cn(
-                "flex items-center gap-1.5 text-[13px] font-medium transition-colors whitespace-nowrap",
-                isHeroMode
-                  ? "text-inverse-muted hover:text-inverse-foreground"
-                  : "text-muted-foreground hover:text-foreground",
-              )}
+              className="flex items-center gap-1.5 text-[13px] font-medium transition-colors whitespace-nowrap text-muted-foreground hover:text-foreground"
             >
               <MessageSquare className="h-4 w-4" strokeWidth={1.5} />
               Text
@@ -297,7 +234,6 @@ export function Navigation() {
               variant="ghost"
               size="icon"
               aria-label="Open navigation menu"
-              className={isHeroMode ? "text-inverse-foreground" : undefined}
               onClick={() => setMobileOpen(true)}
             >
               <Menu className="h-5 w-5" />
@@ -315,7 +251,7 @@ export function Navigation() {
         aria-hidden={!mobileOpen}
       >
         <div className="flex items-center justify-between px-6 h-[60px] border-b border-border/40 shrink-0">
-          <Logo hero={false} />
+          <Logo />
           <Button variant="ghost" size="icon" onClick={() => setMobileOpen(false)} aria-label="Close menu">
             <X className="h-5 w-5" />
           </Button>
@@ -433,20 +369,17 @@ export function Navigation() {
       </div>
 
       <div
-        ref={bottomBarRef}
-        {...{ [ADAPTIVE_GLASS_ATTR]: "" }}
         className={cn(
-          ADAPTIVE_GLASS_BAR_BASE,
-          "bottom-0 z-[100] xl:hidden transition-opacity duration-200",
+          "fixed left-0 right-0 bottom-0 z-[100] xl:hidden pb-safe border-t",
+          "bg-background border-border transition-opacity duration-200",
           wizardBarActive && "pointer-events-none opacity-0",
-          bottomBarClasses.bar,
         )}
       >
-        <div className={cn("grid grid-cols-3 divide-x", bottomBarClasses.divide)}>
+        <div className="grid grid-cols-3 divide-x divide-border">
           <a
             href={SITE_CONFIG.phoneHref}
             aria-label={`Call us at ${SITE_CONFIG.phone}`}
-            className={cn("flex items-center justify-center gap-2 py-4 text-sm font-medium", bottomBarClasses.text)}
+            className="flex items-center justify-center gap-2 py-4 text-sm font-medium text-foreground"
           >
             <Phone className="h-4 w-4" strokeWidth={1.5} />
             Call
@@ -454,7 +387,7 @@ export function Navigation() {
           <a
             href={SITE_CONFIG.phoneSmsHref}
             aria-label={`Text us at ${SITE_CONFIG.phone}`}
-            className={cn("flex items-center justify-center gap-2 py-4 text-sm font-medium", bottomBarClasses.text)}
+            className="flex items-center justify-center gap-2 py-4 text-sm font-medium text-foreground"
           >
             <MessageSquare className="h-4 w-4" strokeWidth={1.5} />
             Text
@@ -463,7 +396,7 @@ export function Navigation() {
             type="button"
             onClick={openConsult}
             aria-label={CTA_CONSULT_SHORT}
-            className={cn("flex items-center justify-center gap-2 py-4 text-sm font-medium", bottomBarClasses.text)}
+            className="flex items-center justify-center gap-2 py-4 text-sm font-medium text-foreground"
           >
             {CTA_CONSULT_SHORT}
           </button>
