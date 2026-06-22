@@ -1,64 +1,49 @@
 ---
-name: Outreach throttle source of truth
-description: Why send cap/gap guards must key off sentAt timestamp, not the mutable prospect status.
+name: Outreach throttle rules
+description: How cold-outreach send cadence (cap/gap) must be measured and enforced, and what must never bypass it.
 ---
 
-# Outreach throttling must be timestamp-based, not status-based
+# Cadence is measured by the durable send timestamp, never by status
 
-The cold-outreach daily cap (`countSentLast24h`) and minimum-spacing
-(`minutesSinceLastSend`) guards in `lib/outreach/sender.ts` must filter on
-`sentAt IS NOT NULL` (a durable send event), NOT on `status = 'sent'`.
+The daily cap and minimum-gap guards must key off the durable "sent at"
+timestamp, not the prospect's `status`.
 
-**Why:** The prospect `status` is a mutable lifecycle label. After a send,
-open-tracking flips `sent -> opened`, and later transitions can move it to
-`replied`, `bounced`, or `unsubscribed`. If the throttle queries filter on
-`status = 'sent'`, every such transition silently drops the record out of the
-cap/gap window, letting real sends leak past the daily cap and bypass the
-min-gap spacing. This was caught as a blocking regression when open-tracking
-was added.
+**Why:** Status is a mutable lifecycle label — after a send it flips to opened,
+then replied/bounced/unsubscribed. Throttle queries filtered on `status='sent'`
+let every such transition silently drop the record out of the cap/gap window,
+leaking real sends past the cap and bypassing the gap. Caught as a blocking
+regression when open-tracking was added.
 
-**How to apply:** Treat `sentAt` as the single source of truth for send
-cadence — it is only ever set at actual send time and never cleared. Any new
-throttling/cadence/rate-limit logic for outreach must key off `sentAt`, not the
-status string. Status is for UI/filtering only.
+**How to apply:** Treat the send timestamp as the single source of truth for
+cadence (only ever set at send time, never cleared). Status is for UI/filtering.
 
-## The throttle must have no bypass
+# Cadence has no bypass and is enforced atomically
 
-All cold-outreach send paths (the automated background tick and the manual admin
-"send" button) must funnel through the single batch function and be subject to
-the same gating: master on/off, daily cap, minimum gap, and in-flight guard.
+Every send path (automated tick and manual admin send) funnels through one
+batch function under identical gating: master on/off, daily cap, min-gap,
+in-flight guard. Manual send = one message per run.
 
-**Why:** A review rejected the feature because the manual path had a
-skip-the-gap flag and a multi-per-request limit, allowing bursty back-to-back
-sends. Cold outreach must always drip out.
+The cap/gap/in-flight checks and the prospect claim are HARD guarantees, so they
+must be serialized across all autoscale instances: do them inside ONE DB
+transaction guarded by a Postgres transaction-level advisory lock. Reserve the
+slot (stamp the send timestamp) for real sends inside that lock so a concurrent
+tick immediately counts it; do the email network call AFTER the transaction
+commits so the lock is never held during slow I/O.
 
-**How to apply:** Do not add a "respect gap" / skip-throttle option or a
-batch-size knob to any send entrypoint. Manual send = one message per run,
-identical gating to auto.
+**Why:** Best-effort pre-checks (separate count/gap queries, then a claim) let
+two instances both pass and send too close together; a per-row claim alone only
+prevents double-sending the same prospect, not cadence violations. A manual path
+with a skip-gap flag or multi-per-request limit allowed bursty sends.
 
-## Cap/gap must be atomic across instances, not pre-checks
+**How to apply:** Never add a skip-throttle/respect-gap flag or batch-size knob
+to any send entrypoint. Any new rate/cadence rule goes inside the same
+advisory-locked critical section, evaluated against committed state. A hard
+in-flight gate needs a stale-reservation lease so a crashed send can't deadlock
+the queue forever (if already stamped sent, retire it — never re-send).
 
-The daily cap and min-gap are HARD guarantees, so the decide-and-claim must be
-serialized across all autoscale instances. Do the in-flight check, cap count,
-gap check, suppression filter, and the prospect claim inside ONE transaction
-guarded by a Postgres transaction-level advisory lock (`pg_advisory_xact_lock`).
-Reserve the slot (stamp `sentAt`) for real sends inside that locked txn so a
-concurrent tick immediately counts it; perform the Resend network call AFTER the
-txn commits so the lock is never held during slow I/O.
-
-**Why:** A review rejected best-effort pre-checks (separate count/gap queries
-then a claim) because two instances could both pass the checks and send too
-close together. The per-row claim alone only prevents double-sending the same
-prospect, not cadence violations.
-
-**How to apply:** Any new outreach rate/cadence rule belongs inside that same
-advisory-locked critical section, evaluated against committed state — never as a
-standalone pre-check before the claim.
-
-## Manual email entry is provenance-gated
+# Manual email entry is provenance-gated
 
 An admin may only save/approve a prospect email that is provably on the
-contractor's own website domain — the same on-domain rule the scraper uses.
-Guessed (`info@theircompany.com`) or third-party addresses, and prospects with
-no parseable website, must be rejected, not contacted.
-
+contractor's own website domain (same on-domain rule the scraper uses). Guessed
+(`info@theircompany.com`) or third-party addresses, and prospects with no
+parseable website, must be rejected, not contacted.

@@ -79,12 +79,16 @@ export function getOutreachFromEmail(): string | null {
 
   const outreachDomain = email.split("@")[1] ?? "";
   const primaryDomain = (SITE_CONFIG.email.split("@")[1] ?? "").toLowerCase();
-  if (!outreachDomain) return null;
+  if (!outreachDomain || !primaryDomain) return null;
 
-  // ...and refuse to send from the bare primary domain. Cold outreach MUST go
-  // out on a separate, isolated subdomain (e.g. jordan@outreach.boisecabinet.co)
-  // so its reputation never affects transactional mail on the root domain.
-  if (primaryDomain && outreachDomain === primaryDomain) return null;
+  // Cold outreach MUST go out on a dedicated subdomain OF the business domain
+  // (e.g. jordan@outreach.boisecabinet.co) so its sending reputation is isolated
+  // from, and can never harm, transactional mail on the root domain. We reject:
+  //   - the bare root domain itself (no isolation), and
+  //   - any unrelated external domain (gmail.com, a random vendor, etc.), which
+  //     would not be the business's domain at all and breaks the policy.
+  if (outreachDomain === primaryDomain) return null;
+  if (!outreachDomain.endsWith(`.${primaryDomain}`)) return null;
 
   return process.env.OUTREACH_FROM_EMAIL?.trim() ?? null;
 }

@@ -65,12 +65,17 @@ export function buildOutreachCopy(input: OutreachCopyInput): OutreachCopy {
     ? `${stripDashes(personalizationNote.trim())} `
     : "";
 
+  // The core pitch: a cabinet bid partner, with a brief, natural mention of the
+  // two things contractors actually weigh, price and quality, kept low key so it
+  // reads like a person and not a sales blast.
+  const pitch = `We build custom cabinets here in the valley, and we work with contractors who would rather hand off the cabinet part of a job than manage it in house. Our pricing is fair and competitive, and the work is solid, well built cabinets your clients will be happy with, so you can keep both the budget and the quality where they need to be. If it is ever helpful, I am happy to put together a bid on your next kitchen, bath, or built in and handle the design and build so you can stay focused on the rest of the project.`;
+
   const bodyLines = [
     `Hi there,`,
     ``,
     opener,
     ``,
-    `${noteLine}We build custom cabinets here in the valley, and we work with contractors who would rather hand off the cabinet part of a job than manage it in house. If it is ever helpful, I am happy to put together a bid on your next kitchen, bath, or built in and handle the design and build so you can stay focused on the rest of the project.`,
+    `${noteLine}${pitch}`,
     ``,
     `No pressure at all. If you ever have a job coming up where cabinets would be useful to price out, just reply to this email or give me a call at ${SITE_CONFIG.phone} and I will take care of it.`,
     ``,
@@ -102,7 +107,7 @@ export function buildOutreachCopy(input: OutreachCopyInput): OutreachCopy {
   // spam signals low.
   const paragraphs = [
     esc(opener),
-    `${noteLine ? esc(noteLine) : ""}We build custom cabinets here in the valley, and we work with contractors who would rather hand off the cabinet part of a job than manage it in house. If it is ever helpful, I am happy to put together a bid on your next kitchen, bath, or built in and handle the design and build so you can stay focused on the rest of the project.`,
+    `${noteLine ? esc(noteLine) : ""}${pitch}`,
     `No pressure at all. If you ever have a job coming up where cabinets would be useful to price out, just reply to this email or give me a call at ${esc(SITE_CONFIG.phone)} and I will take care of it.`,
   ];
 
