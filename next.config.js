@@ -14,7 +14,14 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
+  // Keep the WebSocket + Neon serverless packages out of the webpack bundle.
+  // When `output: 'standalone'` bundles and minifies `ws` into the server
+  // chunks, its `bufferUtil.mask` export gets mangled, producing
+  // "TypeError: t.mask is not a function" at runtime and killing the Neon
+  // WebSocket connection ("Connection terminated unexpectedly"). Loading these
+  // from real node_modules at runtime preserves the unminified module.
   experimental: {
+    serverComponentsExternalPackages: ['ws', '@neondatabase/serverless', 'bufferutil', 'utf-8-validate'],
     instrumentationHook: true,
     // Run the webpack compile in a separate worker process so its heap is
     // isolated from (and freed before) the static-page-generation phase. This
