@@ -830,6 +830,9 @@ export const outreachProspects = pgTable("outreach_prospects", {
   status: text("status").notNull().default("discovered"),
   // Short human note used to personalize the opener (e.g. a service they list).
   personalizationNote: text("personalization_note"),
+  // Optional per-prospect template/voice override. Null falls back to the
+  // batch-wide default template chosen in the outreach config.
+  templateKey: text("template_key"),
   // Per-prospect token embedded in the unsubscribe link.
   unsubscribeToken: varchar("unsubscribe_token").notNull().default(sql`gen_random_uuid()`),
   // Sending bookkeeping for throttling + auditing.

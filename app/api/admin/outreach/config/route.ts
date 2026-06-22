@@ -6,9 +6,14 @@ import { eq } from "drizzle-orm";
 import { requireAdmin } from "@/lib/outreach/requireAdmin";
 import {
   OUTREACH_SETTING_KEYS,
+  OUTREACH_MAX_BATCH_SIZE,
   getOutreachConfig,
   isOutreachSendable,
 } from "@/lib/outreach/config";
+import {
+  OUTREACH_TEMPLATE_KEYS,
+  OUTREACH_TEMPLATE_OPTIONS,
+} from "@/lib/outreach/template";
 import { isDiscoveryConfigured } from "@/lib/outreach/discovery";
 
 export async function GET() {
@@ -18,6 +23,7 @@ export async function GET() {
   const config = await getOutreachConfig();
   return NextResponse.json({
     config,
+    templates: OUTREACH_TEMPLATE_OPTIONS,
     readiness: {
       discoveryConfigured: isDiscoveryConfigured(),
       sendable: isOutreachSendable(),
@@ -30,6 +36,8 @@ const patchSchema = z.object({
   dryRun: z.boolean().optional(),
   dailyCap: z.number().int().min(1).max(50).optional(),
   minGapMinutes: z.number().int().min(5).max(240).optional(),
+  batchSize: z.number().int().min(1).max(OUTREACH_MAX_BATCH_SIZE).optional(),
+  defaultTemplate: z.enum(OUTREACH_TEMPLATE_KEYS as [string, ...string[]]).optional(),
 });
 
 async function setSetting(key: string, value: string, userId: string) {
@@ -66,6 +74,10 @@ export async function PATCH(request: Request) {
     await setSetting(OUTREACH_SETTING_KEYS.dailyCap, String(d.dailyCap), userId);
   if (d.minGapMinutes !== undefined)
     await setSetting(OUTREACH_SETTING_KEYS.minGapMinutes, String(d.minGapMinutes), userId);
+  if (d.batchSize !== undefined)
+    await setSetting(OUTREACH_SETTING_KEYS.batchSize, String(d.batchSize), userId);
+  if (d.defaultTemplate !== undefined)
+    await setSetting(OUTREACH_SETTING_KEYS.defaultTemplate, d.defaultTemplate, userId);
 
   const config = await getOutreachConfig();
   return NextResponse.json({ config });

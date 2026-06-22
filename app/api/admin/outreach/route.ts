@@ -4,6 +4,7 @@ import { outreachProspects } from "@/shared/schema";
 import { desc, sql } from "drizzle-orm";
 import { requireAdmin } from "@/lib/outreach/requireAdmin";
 import { getOutreachConfig, isOutreachSendable } from "@/lib/outreach/config";
+import { OUTREACH_TEMPLATE_OPTIONS } from "@/lib/outreach/template";
 import { isDiscoveryConfigured } from "@/lib/outreach/discovery";
 
 export async function GET() {
@@ -34,6 +35,7 @@ export async function GET() {
     prospects: rows,
     counts,
     config,
+    templates: OUTREACH_TEMPLATE_OPTIONS,
     readiness: {
       discoveryConfigured: isDiscoveryConfigured(),
       sendable: isOutreachSendable(),

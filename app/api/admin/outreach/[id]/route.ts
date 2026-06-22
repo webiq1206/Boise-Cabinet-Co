@@ -6,11 +6,14 @@ import { eq } from "drizzle-orm";
 import { requireAdmin } from "@/lib/outreach/requireAdmin";
 import { hasEmDash } from "@/lib/outreach/text";
 import { isEmailOnDomain } from "@/lib/outreach/emailScraper";
+import { isValidTemplateKey } from "@/lib/outreach/template";
 
 const patchSchema = z.object({
   action: z.enum(["approve", "skip", "reset", "edit"]),
   email: z.string().email().optional(),
   personalizationNote: z.string().max(400).optional(),
+  // "" clears the override (fall back to the batch default); a valid key sets it.
+  templateKey: z.string().optional(),
 });
 
 export async function PATCH(
@@ -45,6 +48,21 @@ export async function PATCH(
       );
     }
     updates.personalizationNote = parsed.data.personalizationNote.trim() || null;
+  }
+
+  if (parsed.data.templateKey !== undefined) {
+    const raw = parsed.data.templateKey.trim();
+    if (raw === "") {
+      // Clear the override so this prospect follows the batch default template.
+      updates.templateKey = null;
+    } else if (isValidTemplateKey(raw)) {
+      updates.templateKey = raw;
+    } else {
+      return NextResponse.json(
+        { error: "Unknown template." },
+        { status: 400 },
+      );
+    }
   }
 
   if (parsed.data.email !== undefined) {

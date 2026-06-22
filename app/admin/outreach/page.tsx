@@ -11,6 +11,13 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
@@ -28,6 +35,7 @@ interface Prospect {
   emailSourceUrl: string | null;
   status: string;
   personalizationNote: string | null;
+  templateKey: string | null;
   sentAt: string | null;
   openedAt: string | null;
   lastError: string | null;
@@ -38,12 +46,25 @@ interface OutreachConfig {
   dryRun: boolean;
   dailyCap: number;
   minGapMinutes: number;
+  batchSize: number;
+  defaultTemplate: string;
 }
+
+interface TemplateOption {
+  key: string;
+  label: string;
+  description: string;
+}
+
+// Sentinel value for "no override, follow the batch default" in the per-prospect
+// template select (Radix SelectItem cannot use an empty string value).
+const DEFAULT_TEMPLATE_SENTINEL = "__default__";
 
 interface OutreachData {
   prospects: Prospect[];
   counts: Record<string, number>;
   config: OutreachConfig;
+  templates: TemplateOption[];
   readiness: { discoveryConfigured: boolean; sendable: boolean };
 }
 
@@ -70,6 +91,15 @@ const STATUS_LABELS: Record<string, string> = {
   skipped: "Skipped",
   unsubscribed: "Unsubscribed",
   error: "Error",
+};
+
+const STOP_REASONS: Record<string, string> = {
+  limit: "reached the batch size",
+  daily_cap: "hit the daily cap",
+  throttled: "minimum gap not elapsed yet",
+  empty: "no more approved prospects",
+  disabled: "sending is turned off",
+  not_configured: "sending not configured",
 };
 
 const FILTER_TABS: { key: string; label: string; statuses: string[] }[] = [
@@ -109,6 +139,8 @@ function ProspectCard({
   setNoteEdits,
   emailEdits,
   setEmailEdits,
+  templates,
+  defaultTemplateLabel,
   onMutate,
   onDelete,
   onPreview,
@@ -119,6 +151,8 @@ function ProspectCard({
   setNoteEdits: (v: Record<string, string>) => void;
   emailEdits: Record<string, string>;
   setEmailEdits: (v: Record<string, string>) => void;
+  templates: TemplateOption[];
+  defaultTemplateLabel: string;
   onMutate: (id: string, body: unknown) => void;
   onDelete: (id: string) => void;
   onPreview: (id: string) => void;
@@ -182,6 +216,33 @@ function ProspectCard({
             onChange={(e) => setNoteEdits({ ...noteEdits, [p.id]: e.target.value })}
             data-testid={`input-note-${p.id}`}
           />
+        </div>
+
+        <div className="space-y-1">
+          <Label className="text-xs">Template (overrides the default for this prospect)</Label>
+          <Select
+            value={p.templateKey ?? DEFAULT_TEMPLATE_SENTINEL}
+            onValueChange={(v) =>
+              onMutate(p.id, {
+                action: "edit",
+                templateKey: v === DEFAULT_TEMPLATE_SENTINEL ? "" : v,
+              })
+            }
+          >
+            <SelectTrigger className="max-w-sm" data-testid={`select-template-${p.id}`}>
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value={DEFAULT_TEMPLATE_SENTINEL}>
+                Use default ({defaultTemplateLabel})
+              </SelectItem>
+              {templates.map((t) => (
+                <SelectItem key={t.key} value={t.key}>
+                  {t.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
 
         {p.lastError && (
@@ -319,6 +380,9 @@ function OutreachPanel() {
     queryClient.invalidateQueries({ queryKey: ["/api/admin/outreach"] });
 
   const config = draftConfig ?? data?.config ?? null;
+  const templates = data?.templates ?? [];
+  const defaultTemplateLabel =
+    templates.find((t) => t.key === (config?.defaultTemplate ?? ""))?.label ?? "default";
 
   const discoverMutation = useMutation({
     mutationFn: () => postJson("/api/admin/outreach/discover", {}),
@@ -341,11 +405,14 @@ function OutreachPanel() {
   const sendMutation = useMutation({
     mutationFn: () => postJson("/api/admin/outreach/send", {}),
     onSuccess: (r) => {
-      const first = r.results?.[0];
-      const desc = first
-        ? `${first.businessName}: ${first.status}${first.error ? ` (${first.error})` : ""}`
-        : `Nothing to send (${r.stoppedReason}).`;
-      toast({ title: "Send batch processed", description: desc });
+      const parts: string[] = [];
+      if (r.sent) parts.push(`${r.sent} sent`);
+      if (r.dryRun) parts.push(`${r.dryRun} previewed (dry run)`);
+      if (r.skipped) parts.push(`${r.skipped} skipped`);
+      if (r.errors) parts.push(`${r.errors} failed`);
+      const summary = parts.length ? parts.join(", ") : "nothing sent";
+      const desc = `${summary}. Stopped: ${STOP_REASONS[r.stoppedReason] ?? r.stoppedReason}.`;
+      toast({ title: "Send run complete", description: desc });
       invalidate();
     },
     onError: (e: Error) => toast({ title: "Send failed", description: e.message, variant: "destructive" }),
@@ -479,6 +546,37 @@ function OutreachPanel() {
                 onChange={(e) => setDraftConfig({ ...config, minGapMinutes: Number(e.target.value) })}
                 data-testid="input-outreach-min-gap" />
             </div>
+            <div className="space-y-1">
+              <Label className="text-xs" htmlFor="batchSize">Batch size (per manual run)</Label>
+              <Input id="batchSize" type="number" className="w-32" value={config.batchSize} min={1} max={10}
+                onChange={(e) => setDraftConfig({ ...config, batchSize: Number(e.target.value) })}
+                data-testid="input-outreach-batch-size" />
+              <p className="text-xs text-muted-foreground">Max 10. The cap and gap still apply.</p>
+            </div>
+          </div>
+
+          <div className="space-y-1 max-w-sm">
+            <Label className="text-xs">Default template (voice for new sends)</Label>
+            <Select
+              value={config.defaultTemplate}
+              onValueChange={(v) => setDraftConfig({ ...config, defaultTemplate: v })}
+            >
+              <SelectTrigger data-testid="select-outreach-default-template">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {templates.map((t) => (
+                  <SelectItem key={t.key} value={t.key}>
+                    {t.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            {templates.find((t) => t.key === config.defaultTemplate)?.description && (
+              <p className="text-xs text-muted-foreground">
+                {templates.find((t) => t.key === config.defaultTemplate)?.description}
+              </p>
+            )}
           </div>
 
           <Button onClick={() => configMutation.mutate(config)} disabled={configMutation.isPending} data-testid="button-save-outreach-config">
@@ -566,6 +664,8 @@ function OutreachPanel() {
             setNoteEdits={setNoteEdits}
             emailEdits={emailEdits}
             setEmailEdits={setEmailEdits}
+            templates={templates}
+            defaultTemplateLabel={defaultTemplateLabel}
             onMutate={(id, body) => prospectMutation.mutate({ id, body })}
             onDelete={(id) => deleteMutation.mutate(id)}
             onPreview={(id) => setPreviewId(id)}

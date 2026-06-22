@@ -5,7 +5,7 @@ import { eq } from "drizzle-orm";
 import { requireAdmin } from "@/lib/outreach/requireAdmin";
 import { buildOutreachCopy } from "@/lib/outreach/template";
 import { buildUnsubscribeUrl } from "@/lib/outreach/sender";
-import { getOutreachFromEmail, getOutreachSenderName } from "@/lib/outreach/config";
+import { getOutreachConfig, getOutreachFromEmail, getOutreachSenderName } from "@/lib/outreach/config";
 
 export async function GET(request: NextRequest) {
   const auth = await requireAdmin();
@@ -15,6 +15,11 @@ export async function GET(request: NextRequest) {
   const id = request.nextUrl.searchParams.get("id");
   if (!id) return NextResponse.json({ error: "Missing id" }, { status: 400 });
 
+  // Optional override so the admin can preview a template before saving it. When
+  // absent, the effective template is the prospect override else the batch
+  // default, matching exactly what a real send would build.
+  const templateParam = request.nextUrl.searchParams.get("template");
+
   const rows = await db
     .select()
     .from(outreachProspects)
@@ -23,12 +28,16 @@ export async function GET(request: NextRequest) {
   const prospect = rows[0];
   if (!prospect) return NextResponse.json({ error: "Not found" }, { status: 404 });
 
+  const config = await getOutreachConfig();
+  const templateKey = templateParam ?? prospect.templateKey ?? config.defaultTemplate;
+
   const copy = buildOutreachCopy({
     businessName: prospect.businessName,
     city: prospect.city,
     personalizationNote: prospect.personalizationNote,
     unsubscribeUrl: buildUnsubscribeUrl(prospect.unsubscribeToken),
     seed: prospect.id,
+    templateKey,
   });
 
   // Show the address the email will actually be sent FROM (the configured

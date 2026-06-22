@@ -2,6 +2,7 @@ import { db } from "@/lib/db";
 import { siteSettings } from "@/shared/schema";
 import { inArray } from "drizzle-orm";
 import { SITE_CONFIG } from "@/shared/siteConfig";
+import { resolveTemplateKey } from "@/lib/outreach/template";
 
 /**
  * Outreach configuration. Safety-first defaults: the system is OFF and in
@@ -15,13 +16,21 @@ export const OUTREACH_SETTING_KEYS = {
   dryRun: "outreach_dry_run",
   dailyCap: "outreach_daily_cap",
   minGapMinutes: "outreach_min_gap_minutes",
+  batchSize: "outreach_batch_size",
+  defaultTemplate: "outreach_default_template",
 } as const;
+
+// Hard ceiling on how many emails a single manual run may attempt. Mirrors the
+// clamp inside processOutreachBatch so the UI, config, and sender all agree.
+export const OUTREACH_MAX_BATCH_SIZE = 10;
 
 export interface OutreachRuntimeConfig {
   enabled: boolean;
   dryRun: boolean;
   dailyCap: number;
   minGapMinutes: number;
+  batchSize: number;
+  defaultTemplate: string;
 }
 
 const DEFAULTS: OutreachRuntimeConfig = {
@@ -29,6 +38,10 @@ const DEFAULTS: OutreachRuntimeConfig = {
   dryRun: true,
   dailyCap: 12,
   minGapMinutes: 25,
+  batchSize: 1,
+  // Kept as a literal (not imported) so config module init never depends on the
+  // template module, which imports back from here. Validated at runtime below.
+  defaultTemplate: "personal",
 };
 
 function clampInt(value: string | undefined, fallback: number, min: number, max: number): number {
@@ -58,6 +71,14 @@ export async function getOutreachConfig(): Promise<OutreachRuntimeConfig> {
         5,
         240,
       ),
+      batchSize: clampInt(
+        map[OUTREACH_SETTING_KEYS.batchSize],
+        DEFAULTS.batchSize,
+        1,
+        OUTREACH_MAX_BATCH_SIZE,
+      ),
+      // Unknown/legacy keys fall back to the default template so nothing breaks.
+      defaultTemplate: resolveTemplateKey(map[OUTREACH_SETTING_KEYS.defaultTemplate]),
     };
   } catch {
     return { ...DEFAULTS };

@@ -15,3 +15,4 @@
 - [Admin role assignment policy](admin-role-assignment-paths.md) — grant admin only from verified-email (OIDC) or manual DB promotion, never an unverified email match; role logic is duplicated across layers + env, keep in sync.
 - [Outreach throttle source of truth](outreach-throttle-source-of-truth.md) — cold-outreach cap/gap guards must key off `sentAt` timestamp, not mutable `status`; open-tracking flips status and would leak past the cap.
 - [Catalog parity verification](catalog-parity-verification.md) — prove 1:1 by diffing PDF vs data/catalog.json (true source) + exact golden-manifest membership; pdftotext splits "2ROT" into "2 ROT" hiding real middle-of-series SKUs.
+- [Outreach config/template module cycle](outreach-config-template-cycle.md) — config.ts and template.ts import each other; keep config DEFAULTS values as literals (not imported consts) and only call template fns at runtime to avoid TDZ on init.

@@ -205,6 +205,8 @@ async function sendToProspect(
     personalizationNote: prospect.personalizationNote,
     unsubscribeUrl: buildUnsubscribeUrl(prospect.unsubscribeToken),
     seed: prospect.id,
+    // Effective template: per-prospect override first, else the batch default.
+    templateKey: prospect.templateKey ?? config.defaultTemplate,
     // Only embed the open-tracking pixel in a real send, never in a dry run.
     openTrackingUrl: config.dryRun ? null : buildOpenTrackingUrl(prospect.unsubscribeToken),
   });
@@ -305,8 +307,6 @@ export interface BatchResult {
  * 24h daily cap and a minimum gap between sends so nothing is ever blasted.
  */
 export async function processOutreachBatch(options: BatchOptions): Promise<BatchResult> {
-  const limit = Math.max(1, Math.min(options.limit ?? 1, 10));
-
   const result: BatchResult = {
     attempted: 0,
     sent: 0,
@@ -323,6 +323,12 @@ export async function processOutreachBatch(options: BatchOptions): Promise<Batch
   }
 
   const config = await getOutreachConfig();
+
+  // When the caller does not pin an explicit limit, a manual run uses the
+  // admin-chosen batch size; the background runner stays at one per tick. Always
+  // clamped to the hard ceiling so the UI can never burst past the throttle.
+  const requested = options.limit ?? (options.source === "manual" ? config.batchSize : 1);
+  const limit = Math.max(1, Math.min(requested, 10));
 
   // All sends respect the master on/off switch. If an owner disables outreach,
   // nothing goes out (auto or manual). This gives an instant emergency pause.
