@@ -96,7 +96,7 @@ function extractCabinetProducts(text) {
 /** Known finish names from OSC 2023 catalog (curated from PDF sections) */
 function buildFinishes() {
   const matteSupramat = [
-    "Bitter", "Breeze Beige", "Forest Green", "Macaron Green", "Pearl Black", "Pebble Grey",
+    "Bitter", "Brezee Beige", "Forest Green", "Macaron Green", "Pearl Black", "Pebble Grey",
     "Glamorous Pacific", "Ice Grey", "London Blues", "Royal Grey", "Snow White", "Timeless Grey",
     "Beige Arizona", "Bianco Alaska", "Bianco Dover", "Bronzo Doha", "Castoro Ottawa", "Grigio Antrim",
     "Nero Ingo", "Piomba Doha", "Bianco Malé", "Bianco Kos", "Blue Fes", "Grigio Bromo", "Grigio Efeso",
@@ -142,7 +142,7 @@ function buildFinishes() {
     "Bianco Kos": "#EEEBE6", "Blue Fes": "#4A6A8A", "Grigio Bromo": "#8A8884",
     "Grigio Efeso": "#9A9894", "Grigio Londra": "#7E7C78", "Grigio Antrim": "#6E6C68",
     "Beige Arizona": "#C9B89A", "Bianco Alaska": "#F4F2EE", "Bianco Dover": "#F0EEEA",
-    "Castoro Ottawa": "#9A7A5A", "Bitter": "#5C4A3A", "Breeze Beige": "#D8CFC0",
+    "Castoro Ottawa": "#9A7A5A", "Bitter": "#5C4A3A", "Brezee Beige": "#D8CFC0",
     "Forest Green": "#2D4A3E", "Macaron Green": "#A8C4A0", "Pearl Black": "#2A2A2A",
     "Pebble Grey": "#9A9590", "Glamorous Pacific": "#5A7A8A", "Ice Grey": "#C5CDD4",
     "London Blues": "#4A5A6A", "Royal Grey": "#8A8680", "Timeless Grey": "#9A9690",

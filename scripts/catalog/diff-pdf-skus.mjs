@@ -1,7 +1,12 @@
 #!/usr/bin/env node
 /**
- * Diff OSC PDF SKU codes vs data/supplier-catalog/cabinetProducts.json
- * Writes docs/catalog-audit/sku-diff.md and sku-diff.csv
+ * Diff OSC PDF SKU codes vs data/catalog.json (the single source of truth).
+ * Writes docs/catalog-audit/sku-diff.md and sku-diff.csv.
+ *
+ * The meaningful parity signal is `pdf_only`: any SKU the PDF mentions that is
+ * absent from the catalog. `json_only` is expected and benign — the catalog
+ * carries spec-table / variant SKUs that the conservative PDF token extractor
+ * (osc-sku-patterns.mjs) does not emit as standalone tokens.
  */
 
 import { execSync } from "node:child_process";
@@ -11,7 +16,7 @@ import { fileURLToPath } from "node:url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, "../..");
-const DATA = path.join(ROOT, "data/supplier-catalog");
+const CATALOG_PATH = path.join(ROOT, "data/catalog.json");
 const OUT_DIR = path.join(ROOT, "docs/catalog-audit");
 const DEFAULT_PDF = path.join(ROOT, "docs/supplier/Custom_Catalog.v1.pdf");
 const TMP = path.join(ROOT, ".tmp-osc-catalog.txt");
@@ -35,8 +40,8 @@ function extractPdfSkus(pdfPath) {
 function main() {
   const pdfPath = process.argv[2] || DEFAULT_PDF;
   const pdfSkus = extractPdfSkus(pdfPath);
-  const products = JSON.parse(fs.readFileSync(path.join(DATA, "cabinetProducts.json"), "utf8"));
-  const jsonSkus = new Set(products.map((p) => p.oscCode));
+  const catalog = JSON.parse(fs.readFileSync(CATALOG_PATH, "utf8"));
+  const jsonSkus = new Set(catalog.cabinets.map((c) => c.code));
 
   const inPdfOnly = [...pdfSkus].filter((s) => !jsonSkus.has(s)).sort();
   const inJsonOnly = [...jsonSkus].filter((s) => !pdfSkus.has(s)).sort();
@@ -44,7 +49,7 @@ function main() {
 
   fs.mkdirSync(OUT_DIR, { recursive: true });
 
-  const md = `# SKU diff: OSC PDF vs cabinetProducts.json
+  const md = `# SKU diff: OSC PDF vs data/catalog.json
 
 Generated: ${new Date().toISOString()}
 

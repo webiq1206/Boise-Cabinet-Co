@@ -9,6 +9,7 @@ import path from "node:path";
 
 const ROOT = path.resolve(import.meta.dirname, "../..");
 const CATALOG_PATH = path.join(ROOT, "data/catalog.json");
+const EXPECTED_CODES_PATH = path.join(ROOT, "data/catalog-expected-cabinet-codes.json");
 const GEN = path.join(ROOT, "shared/catalog/generated");
 
 function fail(msg: string): never {
@@ -83,8 +84,17 @@ function main() {
   }
 
   // ── Cabinets ──────────────────────────────────────────────────────────────
-  if (catalog.cabinets.length !== 320) {
-    fail(`Expected 320 cabinets, got ${catalog.cabinets.length}`);
+  // The expected code set is locked in a committed golden manifest so parity is
+  // proven by exact membership, not just total count (count-only checks pass
+  // even when a code is silently substituted). Update the manifest deliberately
+  // when the supplier catalog genuinely changes.
+  const expectedCodes: string[] = JSON.parse(fs.readFileSync(EXPECTED_CODES_PATH, "utf8"));
+  const expectedSet = new Set(expectedCodes);
+  if (expectedSet.size !== expectedCodes.length) {
+    fail("catalog-expected-cabinet-codes.json contains duplicate codes");
+  }
+  if (catalog.cabinets.length !== expectedCodes.length) {
+    fail(`Expected ${expectedCodes.length} cabinets, got ${catalog.cabinets.length}`);
   }
   const codes = new Set<string>();
   for (const c of catalog.cabinets) {
@@ -93,6 +103,15 @@ function main() {
     codes.add(c.code);
     if (!c.attrs) fail(`Cabinet ${c.code} missing attrs (needed for box diagram)`);
     if (!c.boxImage) fail(`Cabinet ${c.code} missing boxImage path`);
+  }
+  // Exact set equality against the golden manifest.
+  const missing = expectedCodes.filter((c) => !codes.has(c));
+  const unexpected = [...codes].filter((c) => !expectedSet.has(c)).sort();
+  if (missing.length) {
+    fail(`Cabinet codes missing vs manifest (${missing.length}): ${missing.slice(0, 10).join(", ")}${missing.length > 10 ? " ..." : ""}`);
+  }
+  if (unexpected.length) {
+    fail(`Unexpected cabinet codes not in manifest (${unexpected.length}): ${unexpected.slice(0, 10).join(", ")}${unexpected.length > 10 ? " ..." : ""}`);
   }
 
   // ── Content ───────────────────────────────────────────────────────────────
@@ -122,7 +141,9 @@ function main() {
   const genFinishes = countConsts("finishes.ts", "slug");
   const genCabinets = countConsts("cabinetProducts.ts", "slug");
   if (genFinishes !== 299) fail(`Generated finishes out of sync (${genFinishes}); run npm run catalog:codegen`);
-  if (genCabinets !== 320) fail(`Generated cabinets out of sync (${genCabinets}); run npm run catalog:codegen`);
+  if (genCabinets !== expectedCodes.length) {
+    fail(`Generated cabinets out of sync (${genCabinets} vs ${expectedCodes.length}); run npm run catalog:codegen`);
+  }
 
   console.log(
     `catalog:verify OK — ${catalog.doorStyles.length} door styles, ${catalog.finishes.length} finishes, ${catalog.cabinets.length} cabinets, ${catalog.accessories.length} accessories`,

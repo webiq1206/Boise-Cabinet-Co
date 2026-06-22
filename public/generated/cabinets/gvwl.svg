@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="420" viewBox="0 0 360 420" role="img" aria-label="GVWL cabinet front elevation">
+  <rect width="360" height="420" fill="#F7F3EC"/>
+  <rect x="73.3" y="50.0" width="213.3" height="320.0" rx="3" fill="#FBFAF6" stroke="#5E564A" stroke-width="1.8"/>
+  <rect x="81.3" y="58.0" width="197.3" height="304.0" rx="2" fill="#E3ECEE" stroke="#8C8170" stroke-width="1.4"/><line x1="87.3" y1="356.0" x2="272.7" y2="64.0" stroke="#B7AD9B" stroke-width="1"/><line x1="268.7" y1="164.4" x2="268.7" y2="255.6" stroke="#6E6555" stroke-width="2.2"/><line x1="84.3" y1="210.0" x2="275.7" y2="210.0" stroke="#8C8170" stroke-width="1.1"/>
+</svg>

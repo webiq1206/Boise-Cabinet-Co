@@ -55,10 +55,10 @@ export const FINISHES: Finish[] = [
     "colorFamily": "Green"
   },
   {
-    "id": "matte-breeze-beige",
-    "slug": "matte-breeze-beige",
-    "name": "Breeze Beige",
-    "oscName": "Breeze Beige",
+    "id": "matte-brezee-beige",
+    "slug": "matte-brezee-beige",
+    "name": "Brezee Beige",
+    "oscName": "Brezee Beige",
     "category": "matte",
     "sheen": "matte",
     "hexColor": "#D8CFC0",
@@ -77,7 +77,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": true,
-    "imagePath": "/images/catalog/finishes/matte-breeze-beige.webp",
+    "imagePath": "/generated/finishes/matte-brezee-beige.svg",
     "colorFamily": "Neutral"
   },
   {
@@ -5268,10 +5268,10 @@ export const FINISHES: Finish[] = [
     "colorFamily": "Wood"
   },
   {
-    "id": "woodgrain-magnolia-linen",
-    "slug": "woodgrain-magnolia-linen",
-    "name": "Magnolia Linen",
-    "oscName": "Magnolia Linen",
+    "id": "woodgrain-mahnolia-linen",
+    "slug": "woodgrain-mahnolia-linen",
+    "name": "Mahnolia Linen",
+    "oscName": "Mahnolia Linen",
     "category": "woodgrain",
     "sheen": "satin",
     "hexColor": "#9C6B43",
@@ -5291,7 +5291,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-magnolia-linen.webp",
+    "imagePath": "/generated/finishes/woodgrain-mahnolia-linen.svg",
     "colorFamily": "Wood"
   },
   {
@@ -7644,10 +7644,10 @@ export const FINISHES: Finish[] = [
     "colorFamily": "Wood"
   },
   {
-    "id": "woodgrain-summertime-blues",
-    "slug": "woodgrain-summertime-blues",
-    "name": "Summertime Blues",
-    "oscName": "Summertime Blues",
+    "id": "woodgrain-sumertime-blues",
+    "slug": "woodgrain-sumertime-blues",
+    "name": "Sumertime Blues",
+    "oscName": "Sumertime Blues",
     "category": "woodgrain",
     "sheen": "satin",
     "hexColor": "#9C6B43",
@@ -7667,7 +7667,7 @@ export const FINISHES: Finish[] = [
       "custom"
     ],
     "onSiteNow": false,
-    "imagePath": "/generated/finishes/woodgrain-summertime-blues.webp",
+    "imagePath": "/generated/finishes/woodgrain-sumertime-blues.svg",
     "colorFamily": "Wood"
   },
   {

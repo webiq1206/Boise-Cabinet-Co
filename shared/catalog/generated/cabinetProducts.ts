@@ -4,6 +4,1452 @@ export type { CabinetProduct } from "../types";
 
 export const CABINET_PRODUCTS: CabinetProduct[] = [
   {
+    "id": "w-1d-0s",
+    "slug": "w-1d-0s",
+    "oscCode": "W-1D-0S",
+    "name": "Wall Cabinet, 1 Door",
+    "category": "wall",
+    "description": "Custom wall cabinet built to fit your space.",
+    "widthRange": {
+      "minInches": 12,
+      "maxInches": 54
+    },
+    "dimensions": {
+      "width": {
+        "min": 12,
+        "max": 54,
+        "variable": false
+      },
+      "height": {
+        "min": 9,
+        "max": 30,
+        "variable": false
+      },
+      "depth": {
+        "min": 9,
+        "max": 30,
+        "variable": false
+      }
+    },
+    "configuration": {
+      "doors": 1
+    },
+    "compatibleCollectionIds": [
+      "custom"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/w-1d-0s.svg"
+  },
+  {
+    "id": "w-1d-1s",
+    "slug": "w-1d-1s",
+    "oscCode": "W-1D-1S",
+    "name": "Wall Cabinet, 1 Door",
+    "category": "wall",
+    "description": "Custom wall cabinet built to fit your space.",
+    "widthRange": {
+      "minInches": 12,
+      "maxInches": 54
+    },
+    "dimensions": {
+      "width": {
+        "min": 12,
+        "max": 54,
+        "variable": false
+      },
+      "height": {
+        "min": 9,
+        "max": 30,
+        "variable": false
+      },
+      "depth": {
+        "min": 9,
+        "max": 30,
+        "variable": false
+      }
+    },
+    "configuration": {
+      "doors": 1,
+      "shelves": 1
+    },
+    "compatibleCollectionIds": [
+      "custom"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 1,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/w-1d-1s.svg"
+  },
+  {
+    "id": "w-1d-2s",
+    "slug": "w-1d-2s",
+    "oscCode": "W-1D-2S",
+    "name": "Wall Cabinet, 1 Door",
+    "category": "wall",
+    "description": "Custom wall cabinet built to fit your space.",
+    "widthRange": {
+      "minInches": 12,
+      "maxInches": 54
+    },
+    "dimensions": {
+      "width": {
+        "min": 12,
+        "max": 54,
+        "variable": false
+      },
+      "height": {
+        "min": 9,
+        "max": 30,
+        "variable": false
+      },
+      "depth": {
+        "min": 9,
+        "max": 30,
+        "variable": false
+      }
+    },
+    "configuration": {
+      "doors": 1,
+      "shelves": 2
+    },
+    "compatibleCollectionIds": [
+      "custom"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 2,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/w-1d-2s.svg"
+  },
+  {
+    "id": "w-1d-3s",
+    "slug": "w-1d-3s",
+    "oscCode": "W-1D-3S",
+    "name": "Wall Cabinet, 1 Door",
+    "category": "wall",
+    "description": "Custom wall cabinet built to fit your space.",
+    "widthRange": {
+      "minInches": 12,
+      "maxInches": 54
+    },
+    "dimensions": {
+      "width": {
+        "min": 12,
+        "max": 54,
+        "variable": false
+      },
+      "height": {
+        "min": 9,
+        "max": 30,
+        "variable": false
+      },
+      "depth": {
+        "min": 9,
+        "max": 30,
+        "variable": false
+      }
+    },
+    "configuration": {
+      "doors": 1,
+      "shelves": 3
+    },
+    "compatibleCollectionIds": [
+      "custom"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 3,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/w-1d-3s.svg"
+  },
+  {
+    "id": "w-1d-4s",
+    "slug": "w-1d-4s",
+    "oscCode": "W-1D-4S",
+    "name": "Wall Cabinet, 1 Door",
+    "category": "wall",
+    "description": "Custom wall cabinet built to fit your space.",
+    "widthRange": {
+      "minInches": 12,
+      "maxInches": 54
+    },
+    "dimensions": {
+      "width": {
+        "min": 12,
+        "max": 54,
+        "variable": false
+      },
+      "height": {
+        "min": 9,
+        "max": 30,
+        "variable": false
+      },
+      "depth": {
+        "min": 9,
+        "max": 30,
+        "variable": false
+      }
+    },
+    "configuration": {
+      "doors": 1,
+      "shelves": 4
+    },
+    "compatibleCollectionIds": [
+      "custom"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 4,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/w-1d-4s.svg"
+  },
+  {
+    "id": "w-1d-1part",
+    "slug": "w-1d-1part",
+    "oscCode": "W-1D-1PART",
+    "name": "Wall Cabinet, 1 Door",
+    "category": "wall",
+    "description": "Custom wall cabinet built to fit your space.",
+    "widthRange": {
+      "minInches": 12,
+      "maxInches": 54
+    },
+    "dimensions": {
+      "width": {
+        "min": 12,
+        "max": 54,
+        "variable": false
+      },
+      "height": {
+        "min": 9,
+        "max": 26,
+        "variable": false
+      },
+      "depth": {
+        "min": 9,
+        "max": 30,
+        "variable": false
+      }
+    },
+    "configuration": {
+      "doors": 1,
+      "partitions": 1
+    },
+    "compatibleCollectionIds": [
+      "custom"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 1,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/w-1d-1part.svg"
+  },
+  {
+    "id": "w-1d-2part",
+    "slug": "w-1d-2part",
+    "oscCode": "W-1D-2PART",
+    "name": "Wall Cabinet, 1 Door",
+    "category": "wall",
+    "description": "Custom wall cabinet built to fit your space.",
+    "widthRange": {
+      "minInches": 12,
+      "maxInches": 54
+    },
+    "dimensions": {
+      "width": {
+        "min": 12,
+        "max": 54,
+        "variable": false
+      },
+      "height": {
+        "min": 9,
+        "max": 26,
+        "variable": false
+      },
+      "depth": {
+        "min": 9,
+        "max": 30,
+        "variable": false
+      }
+    },
+    "configuration": {
+      "doors": 1,
+      "partitions": 2
+    },
+    "compatibleCollectionIds": [
+      "custom"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 2,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/w-1d-2part.svg"
+  },
+  {
+    "id": "w-1d-3part",
+    "slug": "w-1d-3part",
+    "oscCode": "W-1D-3PART",
+    "name": "Wall Cabinet, 1 Door",
+    "category": "wall",
+    "description": "Custom wall cabinet built to fit your space.",
+    "widthRange": {
+      "minInches": 12,
+      "maxInches": 54
+    },
+    "dimensions": {
+      "width": {
+        "min": 12,
+        "max": 54,
+        "variable": false
+      },
+      "height": {
+        "min": 9,
+        "max": 26,
+        "variable": false
+      },
+      "depth": {
+        "min": 9,
+        "max": 30,
+        "variable": false
+      }
+    },
+    "configuration": {
+      "doors": 1,
+      "partitions": 3
+    },
+    "compatibleCollectionIds": [
+      "custom"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 3,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/w-1d-3part.svg"
+  },
+  {
+    "id": "w-2d-0s",
+    "slug": "w-2d-0s",
+    "oscCode": "W-2D-0S",
+    "name": "Wall Cabinet, 2 Doors",
+    "category": "wall",
+    "description": "Custom wall cabinet built to fit your space.",
+    "widthRange": {
+      "minInches": 12,
+      "maxInches": 54
+    },
+    "dimensions": {
+      "width": {
+        "min": 12,
+        "max": 54,
+        "variable": false
+      },
+      "height": {
+        "min": 21,
+        "max": 42,
+        "variable": false
+      },
+      "depth": {
+        "min": 9,
+        "max": 30,
+        "variable": false
+      }
+    },
+    "configuration": {
+      "doors": 2
+    },
+    "compatibleCollectionIds": [
+      "custom"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/w-2d-0s.svg"
+  },
+  {
+    "id": "w-2d-1s",
+    "slug": "w-2d-1s",
+    "oscCode": "W-2D-1S",
+    "name": "Wall Cabinet, 2 Doors",
+    "category": "wall",
+    "description": "Custom wall cabinet built to fit your space.",
+    "widthRange": {
+      "minInches": 12,
+      "maxInches": 54
+    },
+    "dimensions": {
+      "width": {
+        "min": 12,
+        "max": 54,
+        "variable": false
+      },
+      "height": {
+        "min": 21,
+        "max": 42,
+        "variable": false
+      },
+      "depth": {
+        "min": 9,
+        "max": 30,
+        "variable": false
+      }
+    },
+    "configuration": {
+      "doors": 2,
+      "shelves": 1
+    },
+    "compatibleCollectionIds": [
+      "custom"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 1,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/w-2d-1s.svg"
+  },
+  {
+    "id": "w-2d-2s",
+    "slug": "w-2d-2s",
+    "oscCode": "W-2D-2S",
+    "name": "Wall Cabinet, 2 Doors",
+    "category": "wall",
+    "description": "Custom wall cabinet built to fit your space.",
+    "widthRange": {
+      "minInches": 12,
+      "maxInches": 54
+    },
+    "dimensions": {
+      "width": {
+        "min": 12,
+        "max": 54,
+        "variable": false
+      },
+      "height": {
+        "min": 21,
+        "max": 42,
+        "variable": false
+      },
+      "depth": {
+        "min": 9,
+        "max": 30,
+        "variable": false
+      }
+    },
+    "configuration": {
+      "doors": 2,
+      "shelves": 2
+    },
+    "compatibleCollectionIds": [
+      "custom"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 2,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/w-2d-2s.svg"
+  },
+  {
+    "id": "w-2d-3s",
+    "slug": "w-2d-3s",
+    "oscCode": "W-2D-3S",
+    "name": "Wall Cabinet, 2 Doors",
+    "category": "wall",
+    "description": "Custom wall cabinet built to fit your space.",
+    "widthRange": {
+      "minInches": 12,
+      "maxInches": 54
+    },
+    "dimensions": {
+      "width": {
+        "min": 12,
+        "max": 54,
+        "variable": false
+      },
+      "height": {
+        "min": 21,
+        "max": 42,
+        "variable": false
+      },
+      "depth": {
+        "min": 9,
+        "max": 30,
+        "variable": false
+      }
+    },
+    "configuration": {
+      "doors": 2,
+      "shelves": 3
+    },
+    "compatibleCollectionIds": [
+      "custom"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 3,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/w-2d-3s.svg"
+  },
+  {
+    "id": "w-2d-4s",
+    "slug": "w-2d-4s",
+    "oscCode": "W-2D-4S",
+    "name": "Wall Cabinet, 2 Doors",
+    "category": "wall",
+    "description": "Custom wall cabinet built to fit your space.",
+    "widthRange": {
+      "minInches": 12,
+      "maxInches": 54
+    },
+    "dimensions": {
+      "width": {
+        "min": 12,
+        "max": 54,
+        "variable": false
+      },
+      "height": {
+        "min": 21,
+        "max": 42,
+        "variable": false
+      },
+      "depth": {
+        "min": 9,
+        "max": 30,
+        "variable": false
+      }
+    },
+    "configuration": {
+      "doors": 2,
+      "shelves": 4
+    },
+    "compatibleCollectionIds": [
+      "custom"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 4,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/w-2d-4s.svg"
+  },
+  {
+    "id": "w-2d-1part",
+    "slug": "w-2d-1part",
+    "oscCode": "W-2D-1PART",
+    "name": "Wall Cabinet, 2 Doors",
+    "category": "wall",
+    "description": "Custom wall cabinet built to fit your space.",
+    "widthRange": {
+      "minInches": 12,
+      "maxInches": 54
+    },
+    "dimensions": {
+      "width": {
+        "min": 12,
+        "max": 54,
+        "variable": false
+      },
+      "height": {
+        "min": 21,
+        "max": 42,
+        "variable": false
+      },
+      "depth": {
+        "min": 9,
+        "max": 30,
+        "variable": false
+      }
+    },
+    "configuration": {
+      "doors": 2,
+      "partitions": 1
+    },
+    "compatibleCollectionIds": [
+      "custom"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 1,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/w-2d-1part.svg"
+  },
+  {
+    "id": "w-2d-2part",
+    "slug": "w-2d-2part",
+    "oscCode": "W-2D-2PART",
+    "name": "Wall Cabinet, 2 Doors",
+    "category": "wall",
+    "description": "Custom wall cabinet built to fit your space.",
+    "widthRange": {
+      "minInches": 12,
+      "maxInches": 54
+    },
+    "dimensions": {
+      "width": {
+        "min": 12,
+        "max": 54,
+        "variable": false
+      },
+      "height": {
+        "min": 21,
+        "max": 42,
+        "variable": false
+      },
+      "depth": {
+        "min": 9,
+        "max": 30,
+        "variable": false
+      }
+    },
+    "configuration": {
+      "doors": 2,
+      "partitions": 2
+    },
+    "compatibleCollectionIds": [
+      "custom"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 2,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/w-2d-2part.svg"
+  },
+  {
+    "id": "w-2d-3part",
+    "slug": "w-2d-3part",
+    "oscCode": "W-2D-3PART",
+    "name": "Wall Cabinet, 2 Doors",
+    "category": "wall",
+    "description": "Custom wall cabinet built to fit your space.",
+    "widthRange": {
+      "minInches": 12,
+      "maxInches": 54
+    },
+    "dimensions": {
+      "width": {
+        "min": 12,
+        "max": 54,
+        "variable": false
+      },
+      "height": {
+        "min": 21,
+        "max": 42,
+        "variable": false
+      },
+      "depth": {
+        "min": 9,
+        "max": 30,
+        "variable": false
+      }
+    },
+    "configuration": {
+      "doors": 2,
+      "partitions": 3
+    },
+    "compatibleCollectionIds": [
+      "custom"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 3,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/w-2d-3part.svg"
+  },
+  {
+    "id": "vwl",
+    "slug": "vwl",
+    "oscCode": "VWL",
+    "name": "Wall Cabinet, 1 Door",
+    "category": "wall",
+    "description": "Custom wall cabinet built to fit your space.",
+    "widthRange": {
+      "minInches": 12,
+      "maxInches": 24
+    },
+    "dimensions": {
+      "width": {
+        "min": 12,
+        "max": 24,
+        "variable": false
+      },
+      "height": {
+        "min": 12,
+        "max": 60,
+        "variable": false
+      },
+      "depth": {
+        "min": 9,
+        "max": 30,
+        "variable": false
+      }
+    },
+    "configuration": {
+      "doors": 1,
+      "shelves": 1
+    },
+    "compatibleCollectionIds": [
+      "custom"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 1,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": "vertical",
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/vwl.svg"
+  },
+  {
+    "id": "gvwl",
+    "slug": "gvwl",
+    "oscCode": "GVWL",
+    "name": "Wall Cabinet, 1 Door",
+    "category": "wall",
+    "description": "Custom wall cabinet built to fit your space.",
+    "widthRange": {
+      "minInches": 12,
+      "maxInches": 24
+    },
+    "dimensions": {
+      "width": {
+        "min": 12,
+        "max": 24,
+        "variable": false
+      },
+      "height": {
+        "min": 12,
+        "max": 42,
+        "variable": false
+      },
+      "depth": {
+        "min": 9,
+        "max": 30,
+        "variable": false
+      }
+    },
+    "configuration": {
+      "doors": 1,
+      "shelves": 1
+    },
+    "compatibleCollectionIds": [
+      "custom"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 1,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": true,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": "vertical",
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/gvwl.svg"
+  },
+  {
+    "id": "whl",
+    "slug": "whl",
+    "oscCode": "WHL",
+    "name": "Wall Cabinet, 1 Door",
+    "category": "wall",
+    "description": "Custom wall cabinet built to fit your space.",
+    "widthRange": {
+      "minInches": 12,
+      "maxInches": 21
+    },
+    "dimensions": {
+      "width": {
+        "min": 12,
+        "max": 21,
+        "variable": false
+      },
+      "height": {
+        "min": 15,
+        "max": 39,
+        "variable": false
+      },
+      "depth": {
+        "min": 12,
+        "max": 30,
+        "variable": false
+      }
+    },
+    "configuration": {
+      "doors": 1
+    },
+    "compatibleCollectionIds": [
+      "custom"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": "high",
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/whl.svg"
+  },
+  {
+    "id": "whf",
+    "slug": "whf",
+    "oscCode": "WHF",
+    "name": "Wall Cabinet, 1 Door",
+    "category": "wall",
+    "description": "Custom wall cabinet built to fit your space.",
+    "widthRange": {
+      "minInches": 30,
+      "maxInches": 42
+    },
+    "dimensions": {
+      "width": {
+        "min": 30,
+        "max": 42,
+        "variable": false
+      },
+      "height": {
+        "min": 15,
+        "max": 42,
+        "variable": false
+      },
+      "depth": {
+        "min": 9,
+        "max": 30,
+        "variable": false
+      }
+    },
+    "configuration": {
+      "doors": 1,
+      "shelves": 2
+    },
+    "compatibleCollectionIds": [
+      "custom"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 2,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": "fold",
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/whf.svg"
+  },
+  {
+    "id": "gwhf",
+    "slug": "gwhf",
+    "oscCode": "GWHF",
+    "name": "Wall Cabinet, 1 Door",
+    "category": "wall",
+    "description": "Custom wall cabinet built to fit your space.",
+    "widthRange": {
+      "minInches": 30,
+      "maxInches": 42
+    },
+    "dimensions": {
+      "width": {
+        "min": 30,
+        "max": 42,
+        "variable": false
+      },
+      "height": {
+        "min": 15,
+        "max": 42,
+        "variable": false
+      },
+      "depth": {
+        "min": 9,
+        "max": 30,
+        "variable": false
+      }
+    },
+    "configuration": {
+      "doors": 1,
+      "shelves": 2
+    },
+    "compatibleCollectionIds": [
+      "custom"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 2,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": true,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": "fold",
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/gwhf.svg"
+  },
+  {
     "id": "wdd-1d-0s",
     "slug": "wdd-1d-0s",
     "oscCode": "WDD-1D-0S",
@@ -3832,6 +5278,344 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "pencilDrawers": 0
     },
     "boxImage": "/generated/cabinets/wdcdd-4s.svg"
+  },
+  {
+    "id": "gwdcdd-0s",
+    "slug": "gwdcdd-0s",
+    "oscCode": "GWDCDD-0S",
+    "name": "Wall Cabinet",
+    "category": "wall",
+    "description": "Custom wall cabinet built to fit your space.",
+    "widthRange": {
+      "minInches": 12,
+      "maxInches": 54
+    },
+    "dimensions": {
+      "width": {
+        "min": 12,
+        "max": 54,
+        "variable": false
+      },
+      "height": {
+        "min": 24,
+        "max": 24,
+        "variable": false
+      },
+      "depth": {
+        "min": 24,
+        "max": 24,
+        "variable": false
+      }
+    },
+    "configuration": {},
+    "compatibleCollectionIds": [
+      "custom"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": true,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": true,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "diagonal corner",
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/gwdcdd-0s.svg"
+  },
+  {
+    "id": "gwdcdd-1s",
+    "slug": "gwdcdd-1s",
+    "oscCode": "GWDCDD-1S",
+    "name": "Wall Cabinet",
+    "category": "wall",
+    "description": "Custom wall cabinet built to fit your space.",
+    "widthRange": {
+      "minInches": 12,
+      "maxInches": 54
+    },
+    "dimensions": {
+      "width": {
+        "min": 12,
+        "max": 54,
+        "variable": false
+      },
+      "height": {
+        "min": 24,
+        "max": 24,
+        "variable": false
+      },
+      "depth": {
+        "min": 24,
+        "max": 24,
+        "variable": false
+      }
+    },
+    "configuration": {
+      "shelves": 1
+    },
+    "compatibleCollectionIds": [
+      "custom"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 1,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": true,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": true,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "diagonal corner",
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/gwdcdd-1s.svg"
+  },
+  {
+    "id": "gwdcdd-2s",
+    "slug": "gwdcdd-2s",
+    "oscCode": "GWDCDD-2S",
+    "name": "Wall Cabinet",
+    "category": "wall",
+    "description": "Custom wall cabinet built to fit your space.",
+    "widthRange": {
+      "minInches": 12,
+      "maxInches": 54
+    },
+    "dimensions": {
+      "width": {
+        "min": 12,
+        "max": 54,
+        "variable": false
+      },
+      "height": {
+        "min": 24,
+        "max": 24,
+        "variable": false
+      },
+      "depth": {
+        "min": 24,
+        "max": 24,
+        "variable": false
+      }
+    },
+    "configuration": {
+      "shelves": 2
+    },
+    "compatibleCollectionIds": [
+      "custom"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 2,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": true,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": true,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "diagonal corner",
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/gwdcdd-2s.svg"
+  },
+  {
+    "id": "gwdcdd-3s",
+    "slug": "gwdcdd-3s",
+    "oscCode": "GWDCDD-3S",
+    "name": "Wall Cabinet",
+    "category": "wall",
+    "description": "Custom wall cabinet built to fit your space.",
+    "widthRange": {
+      "minInches": 12,
+      "maxInches": 54
+    },
+    "dimensions": {
+      "width": {
+        "min": 12,
+        "max": 54,
+        "variable": false
+      },
+      "height": {
+        "min": 24,
+        "max": 24,
+        "variable": false
+      },
+      "depth": {
+        "min": 24,
+        "max": 24,
+        "variable": false
+      }
+    },
+    "configuration": {
+      "shelves": 3
+    },
+    "compatibleCollectionIds": [
+      "custom"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 3,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": true,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": true,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "diagonal corner",
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/gwdcdd-3s.svg"
+  },
+  {
+    "id": "gwdcdd-4s",
+    "slug": "gwdcdd-4s",
+    "oscCode": "GWDCDD-4S",
+    "name": "Wall Cabinet",
+    "category": "wall",
+    "description": "Custom wall cabinet built to fit your space.",
+    "widthRange": {
+      "minInches": 12,
+      "maxInches": 54
+    },
+    "dimensions": {
+      "width": {
+        "min": 12,
+        "max": 54,
+        "variable": false
+      },
+      "height": {
+        "min": 24,
+        "max": 24,
+        "variable": false
+      },
+      "depth": {
+        "min": 24,
+        "max": 24,
+        "variable": false
+      }
+    },
+    "configuration": {
+      "shelves": 4
+    },
+    "compatibleCollectionIds": [
+      "custom"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ],
+    "attrs": {
+      "doors": 0,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 4,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": true,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": true,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": "diagonal corner",
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/gwdcdd-4s.svg"
   },
   {
     "id": "wbcl-0s",
@@ -10694,6 +12478,2244 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "boxImage": "/generated/cabinets/abxph.svg"
   },
   {
+    "id": "b-1d-1td-1s",
+    "slug": "b-1d-1td-1s",
+    "oscCode": "B-1D-1TD-1S",
+    "name": "Base Cabinet, 1 Door + 1 Drawer",
+    "category": "base",
+    "description": "Custom base cabinet built to fit your space.",
+    "widthRange": {
+      "minInches": 24,
+      "maxInches": 42
+    },
+    "dimensions": {
+      "width": {
+        "min": 24,
+        "max": 42,
+        "variable": false
+      },
+      "height": {
+        "min": 12,
+        "max": 26,
+        "variable": false
+      },
+      "depth": {
+        "min": 15,
+        "max": 30,
+        "variable": false
+      }
+    },
+    "configuration": {
+      "doors": 1,
+      "drawers": 1,
+      "shelves": 1
+    },
+    "compatibleCollectionIds": [
+      "custom"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 1,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 1,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/b-1d-1td-1s.svg"
+  },
+  {
+    "id": "b-1d-1td-1rot",
+    "slug": "b-1d-1td-1rot",
+    "oscCode": "B-1D-1TD-1ROT",
+    "name": "Base Cabinet, 1 Door + 1 Drawer",
+    "category": "base",
+    "description": "Custom base cabinet built to fit your space.",
+    "widthRange": {
+      "minInches": 24,
+      "maxInches": 42
+    },
+    "dimensions": {
+      "width": {
+        "min": 24,
+        "max": 42,
+        "variable": false
+      },
+      "height": {
+        "min": 12,
+        "max": 26,
+        "variable": false
+      },
+      "depth": {
+        "min": 18,
+        "max": 30,
+        "variable": false
+      }
+    },
+    "configuration": {
+      "doors": 1,
+      "drawers": 1,
+      "rollouts": 1
+    },
+    "compatibleCollectionIds": [
+      "custom"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 1,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 1,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/b-1d-1td-1rot.svg"
+  },
+  {
+    "id": "b-1d-1td-2rot",
+    "slug": "b-1d-1td-2rot",
+    "oscCode": "B-1D-1TD-2ROT",
+    "name": "Base Cabinet, 1 Door + 1 Drawer",
+    "category": "base",
+    "description": "Custom base cabinet built to fit your space.",
+    "widthRange": {
+      "minInches": 24,
+      "maxInches": 42
+    },
+    "dimensions": {
+      "width": {
+        "min": 24,
+        "max": 42,
+        "variable": false
+      },
+      "height": {
+        "min": 12,
+        "max": 26,
+        "variable": false
+      },
+      "depth": {
+        "min": 18,
+        "max": 30,
+        "variable": false
+      }
+    },
+    "configuration": {
+      "doors": 1,
+      "drawers": 1,
+      "rollouts": 2
+    },
+    "compatibleCollectionIds": [
+      "custom"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 1,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 2,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/b-1d-1td-2rot.svg"
+  },
+  {
+    "id": "b-1d-1td-1part",
+    "slug": "b-1d-1td-1part",
+    "oscCode": "B-1D-1TD-1PART",
+    "name": "Base Cabinet, 1 Door + 1 Drawer",
+    "category": "base",
+    "description": "Custom base cabinet built to fit your space.",
+    "widthRange": {
+      "minInches": 24,
+      "maxInches": 42
+    },
+    "dimensions": {
+      "width": {
+        "min": 24,
+        "max": 42,
+        "variable": false
+      },
+      "height": {
+        "min": 12,
+        "max": 26,
+        "variable": false
+      },
+      "depth": {
+        "min": 15,
+        "max": 30,
+        "variable": false
+      }
+    },
+    "configuration": {
+      "doors": 1,
+      "drawers": 1,
+      "partitions": 1
+    },
+    "compatibleCollectionIds": [
+      "custom"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 1,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 1,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/b-1d-1td-1part.svg"
+  },
+  {
+    "id": "b-1d-1td-2part",
+    "slug": "b-1d-1td-2part",
+    "oscCode": "B-1D-1TD-2PART",
+    "name": "Base Cabinet, 1 Door + 1 Drawer",
+    "category": "base",
+    "description": "Custom base cabinet built to fit your space.",
+    "widthRange": {
+      "minInches": 24,
+      "maxInches": 42
+    },
+    "dimensions": {
+      "width": {
+        "min": 24,
+        "max": 42,
+        "variable": false
+      },
+      "height": {
+        "min": 12,
+        "max": 26,
+        "variable": false
+      },
+      "depth": {
+        "min": 15,
+        "max": 30,
+        "variable": false
+      }
+    },
+    "configuration": {
+      "doors": 1,
+      "drawers": 1,
+      "partitions": 2
+    },
+    "compatibleCollectionIds": [
+      "custom"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 1,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 2,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/b-1d-1td-2part.svg"
+  },
+  {
+    "id": "b-1d-1td-3part",
+    "slug": "b-1d-1td-3part",
+    "oscCode": "B-1D-1TD-3PART",
+    "name": "Base Cabinet, 1 Door + 1 Drawer",
+    "category": "base",
+    "description": "Custom base cabinet built to fit your space.",
+    "widthRange": {
+      "minInches": 24,
+      "maxInches": 42
+    },
+    "dimensions": {
+      "width": {
+        "min": 24,
+        "max": 42,
+        "variable": false
+      },
+      "height": {
+        "min": 12,
+        "max": 26,
+        "variable": false
+      },
+      "depth": {
+        "min": 15,
+        "max": 30,
+        "variable": false
+      }
+    },
+    "configuration": {
+      "doors": 1,
+      "drawers": 1,
+      "partitions": 3
+    },
+    "compatibleCollectionIds": [
+      "custom"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 1,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 3,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/b-1d-1td-3part.svg"
+  },
+  {
+    "id": "b-2d-1td-1s",
+    "slug": "b-2d-1td-1s",
+    "oscCode": "B-2D-1TD-1S",
+    "name": "Base Cabinet, 2 Doors + 1 Drawer",
+    "category": "base",
+    "description": "Custom base cabinet built to fit your space.",
+    "widthRange": {
+      "minInches": 24,
+      "maxInches": 42
+    },
+    "dimensions": {
+      "width": {
+        "min": 24,
+        "max": 42,
+        "variable": false
+      },
+      "height": {
+        "min": 21,
+        "max": 39,
+        "variable": false
+      },
+      "depth": {
+        "min": 15,
+        "max": 30,
+        "variable": false
+      }
+    },
+    "configuration": {
+      "doors": 2,
+      "drawers": 1,
+      "shelves": 1
+    },
+    "compatibleCollectionIds": [
+      "custom"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 1,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 1,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/b-2d-1td-1s.svg"
+  },
+  {
+    "id": "b-2d-1td-1rot",
+    "slug": "b-2d-1td-1rot",
+    "oscCode": "B-2D-1TD-1ROT",
+    "name": "Base Cabinet, 2 Doors + 1 Drawer",
+    "category": "base",
+    "description": "Custom base cabinet built to fit your space.",
+    "widthRange": {
+      "minInches": 24,
+      "maxInches": 42
+    },
+    "dimensions": {
+      "width": {
+        "min": 24,
+        "max": 42,
+        "variable": false
+      },
+      "height": {
+        "min": 21,
+        "max": 39,
+        "variable": false
+      },
+      "depth": {
+        "min": 18,
+        "max": 30,
+        "variable": false
+      }
+    },
+    "configuration": {
+      "doors": 2,
+      "drawers": 1,
+      "rollouts": 1
+    },
+    "compatibleCollectionIds": [
+      "custom"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 1,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 1,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/b-2d-1td-1rot.svg"
+  },
+  {
+    "id": "b-2d-1td-2rot",
+    "slug": "b-2d-1td-2rot",
+    "oscCode": "B-2D-1TD-2ROT",
+    "name": "Base Cabinet, 2 Doors + 1 Drawer",
+    "category": "base",
+    "description": "Custom base cabinet built to fit your space.",
+    "widthRange": {
+      "minInches": 24,
+      "maxInches": 42
+    },
+    "dimensions": {
+      "width": {
+        "min": 24,
+        "max": 42,
+        "variable": false
+      },
+      "height": {
+        "min": 21,
+        "max": 39,
+        "variable": false
+      },
+      "depth": {
+        "min": 18,
+        "max": 30,
+        "variable": false
+      }
+    },
+    "configuration": {
+      "doors": 2,
+      "drawers": 1,
+      "rollouts": 2
+    },
+    "compatibleCollectionIds": [
+      "custom"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 1,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 2,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/b-2d-1td-2rot.svg"
+  },
+  {
+    "id": "b-2d-1td-1part",
+    "slug": "b-2d-1td-1part",
+    "oscCode": "B-2D-1TD-1PART",
+    "name": "Base Cabinet, 2 Doors + 1 Drawer",
+    "category": "base",
+    "description": "Custom base cabinet built to fit your space.",
+    "widthRange": {
+      "minInches": 24,
+      "maxInches": 42
+    },
+    "dimensions": {
+      "width": {
+        "min": 24,
+        "max": 42,
+        "variable": false
+      },
+      "height": {
+        "min": 21,
+        "max": 39,
+        "variable": false
+      },
+      "depth": {
+        "min": 15,
+        "max": 30,
+        "variable": false
+      }
+    },
+    "configuration": {
+      "doors": 2,
+      "drawers": 1,
+      "partitions": 1
+    },
+    "compatibleCollectionIds": [
+      "custom"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 1,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 1,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/b-2d-1td-1part.svg"
+  },
+  {
+    "id": "b-2d-1td-2part",
+    "slug": "b-2d-1td-2part",
+    "oscCode": "B-2D-1TD-2PART",
+    "name": "Base Cabinet, 2 Doors + 1 Drawer",
+    "category": "base",
+    "description": "Custom base cabinet built to fit your space.",
+    "widthRange": {
+      "minInches": 24,
+      "maxInches": 42
+    },
+    "dimensions": {
+      "width": {
+        "min": 24,
+        "max": 42,
+        "variable": false
+      },
+      "height": {
+        "min": 21,
+        "max": 39,
+        "variable": false
+      },
+      "depth": {
+        "min": 15,
+        "max": 30,
+        "variable": false
+      }
+    },
+    "configuration": {
+      "doors": 2,
+      "drawers": 1,
+      "partitions": 2
+    },
+    "compatibleCollectionIds": [
+      "custom"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 1,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 2,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/b-2d-1td-2part.svg"
+  },
+  {
+    "id": "b-2d-1td-3part",
+    "slug": "b-2d-1td-3part",
+    "oscCode": "B-2D-1TD-3PART",
+    "name": "Base Cabinet, 2 Doors + 1 Drawer",
+    "category": "base",
+    "description": "Custom base cabinet built to fit your space.",
+    "widthRange": {
+      "minInches": 24,
+      "maxInches": 42
+    },
+    "dimensions": {
+      "width": {
+        "min": 24,
+        "max": 42,
+        "variable": false
+      },
+      "height": {
+        "min": 21,
+        "max": 39,
+        "variable": false
+      },
+      "depth": {
+        "min": 15,
+        "max": 30,
+        "variable": false
+      }
+    },
+    "configuration": {
+      "doors": 2,
+      "drawers": 1,
+      "partitions": 3
+    },
+    "compatibleCollectionIds": [
+      "custom"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 1,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 3,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/b-2d-1td-3part.svg"
+  },
+  {
+    "id": "b-2d-2td-1s",
+    "slug": "b-2d-2td-1s",
+    "oscCode": "B-2D-2TD-1S",
+    "name": "Base Cabinet, 2 Doors + 2 Drawers",
+    "category": "base",
+    "description": "Custom base cabinet built to fit your space.",
+    "widthRange": {
+      "minInches": 24,
+      "maxInches": 42
+    },
+    "dimensions": {
+      "width": {
+        "min": 24,
+        "max": 42,
+        "variable": false
+      },
+      "height": {
+        "min": 30,
+        "max": 42,
+        "variable": false
+      },
+      "depth": {
+        "min": 15,
+        "max": 30,
+        "variable": false
+      }
+    },
+    "configuration": {
+      "doors": 2,
+      "drawers": 2,
+      "shelves": 1
+    },
+    "compatibleCollectionIds": [
+      "custom"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 2,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 1,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/b-2d-2td-1s.svg"
+  },
+  {
+    "id": "b-2d-2td-1rot",
+    "slug": "b-2d-2td-1rot",
+    "oscCode": "B-2D-2TD-1ROT",
+    "name": "Base Cabinet, 2 Doors + 2 Drawers",
+    "category": "base",
+    "description": "Custom base cabinet built to fit your space.",
+    "widthRange": {
+      "minInches": 24,
+      "maxInches": 42
+    },
+    "dimensions": {
+      "width": {
+        "min": 24,
+        "max": 42,
+        "variable": false
+      },
+      "height": {
+        "min": 21,
+        "max": 39,
+        "variable": false
+      },
+      "depth": {
+        "min": 18,
+        "max": 30,
+        "variable": false
+      }
+    },
+    "configuration": {
+      "doors": 2,
+      "drawers": 2,
+      "rollouts": 1
+    },
+    "compatibleCollectionIds": [
+      "custom"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 2,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 1,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/b-2d-2td-1rot.svg"
+  },
+  {
+    "id": "b-2d-2td-2rot",
+    "slug": "b-2d-2td-2rot",
+    "oscCode": "B-2D-2TD-2ROT",
+    "name": "Base Cabinet, 2 Doors + 2 Drawers",
+    "category": "base",
+    "description": "Custom base cabinet built to fit your space.",
+    "widthRange": {
+      "minInches": 24,
+      "maxInches": 42
+    },
+    "dimensions": {
+      "width": {
+        "min": 24,
+        "max": 42,
+        "variable": false
+      },
+      "height": {
+        "min": 21,
+        "max": 39,
+        "variable": false
+      },
+      "depth": {
+        "min": 18,
+        "max": 30,
+        "variable": false
+      }
+    },
+    "configuration": {
+      "doors": 2,
+      "drawers": 2,
+      "rollouts": 2
+    },
+    "compatibleCollectionIds": [
+      "custom"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 2,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 2,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/b-2d-2td-2rot.svg"
+  },
+  {
+    "id": "b-2d-2td-1part",
+    "slug": "b-2d-2td-1part",
+    "oscCode": "B-2D-2TD-1PART",
+    "name": "Base Cabinet, 2 Doors + 2 Drawers",
+    "category": "base",
+    "description": "Custom base cabinet built to fit your space.",
+    "widthRange": {
+      "minInches": 24,
+      "maxInches": 42
+    },
+    "dimensions": {
+      "width": {
+        "min": 24,
+        "max": 42,
+        "variable": false
+      },
+      "height": {
+        "min": 30,
+        "max": 42,
+        "variable": false
+      },
+      "depth": {
+        "min": 15,
+        "max": 30,
+        "variable": false
+      }
+    },
+    "configuration": {
+      "doors": 2,
+      "drawers": 2,
+      "partitions": 1
+    },
+    "compatibleCollectionIds": [
+      "custom"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 2,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 1,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/b-2d-2td-1part.svg"
+  },
+  {
+    "id": "b-2d-2td-2part",
+    "slug": "b-2d-2td-2part",
+    "oscCode": "B-2D-2TD-2PART",
+    "name": "Base Cabinet, 2 Doors + 2 Drawers",
+    "category": "base",
+    "description": "Custom base cabinet built to fit your space.",
+    "widthRange": {
+      "minInches": 24,
+      "maxInches": 42
+    },
+    "dimensions": {
+      "width": {
+        "min": 24,
+        "max": 42,
+        "variable": false
+      },
+      "height": {
+        "min": 30,
+        "max": 42,
+        "variable": false
+      },
+      "depth": {
+        "min": 15,
+        "max": 30,
+        "variable": false
+      }
+    },
+    "configuration": {
+      "doors": 2,
+      "drawers": 2,
+      "partitions": 2
+    },
+    "compatibleCollectionIds": [
+      "custom"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 2,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 2,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/b-2d-2td-2part.svg"
+  },
+  {
+    "id": "b-2d-2td-3part",
+    "slug": "b-2d-2td-3part",
+    "oscCode": "B-2D-2TD-3PART",
+    "name": "Base Cabinet, 2 Doors + 2 Drawers",
+    "category": "base",
+    "description": "Custom base cabinet built to fit your space.",
+    "widthRange": {
+      "minInches": 24,
+      "maxInches": 42
+    },
+    "dimensions": {
+      "width": {
+        "min": 24,
+        "max": 42,
+        "variable": false
+      },
+      "height": {
+        "min": 30,
+        "max": 42,
+        "variable": false
+      },
+      "depth": {
+        "min": 15,
+        "max": 30,
+        "variable": false
+      }
+    },
+    "configuration": {
+      "doors": 2,
+      "drawers": 2,
+      "partitions": 3
+    },
+    "compatibleCollectionIds": [
+      "custom"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 2,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 3,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/b-2d-2td-3part.svg"
+  },
+  {
+    "id": "b-1d-1bd-0s",
+    "slug": "b-1d-1bd-0s",
+    "oscCode": "B-1D-1BD-0S",
+    "name": "Base Cabinet, 1 Door + 1 Drawer",
+    "category": "base",
+    "description": "Custom base cabinet built to fit your space.",
+    "widthRange": {
+      "minInches": 24,
+      "maxInches": 66
+    },
+    "dimensions": {
+      "width": {
+        "min": 24,
+        "max": 66,
+        "variable": false
+      },
+      "height": {
+        "min": 12,
+        "max": 26,
+        "variable": false
+      },
+      "depth": {
+        "min": 15,
+        "max": 30,
+        "variable": false
+      }
+    },
+    "configuration": {
+      "doors": 1,
+      "drawers": 1
+    },
+    "compatibleCollectionIds": [
+      "custom"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 0,
+      "bottomDrawers": 1,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/b-1d-1bd-0s.svg"
+  },
+  {
+    "id": "b-1d-1bd-1s",
+    "slug": "b-1d-1bd-1s",
+    "oscCode": "B-1D-1BD-1S",
+    "name": "Base Cabinet, 1 Door + 1 Drawer",
+    "category": "base",
+    "description": "Custom base cabinet built to fit your space.",
+    "widthRange": {
+      "minInches": 24,
+      "maxInches": 66
+    },
+    "dimensions": {
+      "width": {
+        "min": 24,
+        "max": 66,
+        "variable": false
+      },
+      "height": {
+        "min": 12,
+        "max": 26,
+        "variable": false
+      },
+      "depth": {
+        "min": 15,
+        "max": 30,
+        "variable": false
+      }
+    },
+    "configuration": {
+      "doors": 1,
+      "drawers": 1,
+      "shelves": 1
+    },
+    "compatibleCollectionIds": [
+      "custom"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 0,
+      "bottomDrawers": 1,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 1,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/b-1d-1bd-1s.svg"
+  },
+  {
+    "id": "b-1d-1bd-1rot",
+    "slug": "b-1d-1bd-1rot",
+    "oscCode": "B-1D-1BD-1ROT",
+    "name": "Base Cabinet, 1 Door + 1 Drawer",
+    "category": "base",
+    "description": "Custom base cabinet built to fit your space.",
+    "widthRange": {
+      "minInches": 24,
+      "maxInches": 66
+    },
+    "dimensions": {
+      "width": {
+        "min": 24,
+        "max": 66,
+        "variable": false
+      },
+      "height": {
+        "min": 12,
+        "max": 26,
+        "variable": false
+      },
+      "depth": {
+        "min": 18,
+        "max": 30,
+        "variable": false
+      }
+    },
+    "configuration": {
+      "doors": 1,
+      "drawers": 1,
+      "rollouts": 1
+    },
+    "compatibleCollectionIds": [
+      "custom"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 0,
+      "bottomDrawers": 1,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 1,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/b-1d-1bd-1rot.svg"
+  },
+  {
+    "id": "b-1d-1bd-2rot",
+    "slug": "b-1d-1bd-2rot",
+    "oscCode": "B-1D-1BD-2ROT",
+    "name": "Base Cabinet, 1 Door + 1 Drawer",
+    "category": "base",
+    "description": "Custom base cabinet built to fit your space.",
+    "widthRange": {
+      "minInches": 24,
+      "maxInches": 66
+    },
+    "dimensions": {
+      "width": {
+        "min": 24,
+        "max": 66,
+        "variable": false
+      },
+      "height": {
+        "min": 12,
+        "max": 26,
+        "variable": false
+      },
+      "depth": {
+        "min": 18,
+        "max": 30,
+        "variable": false
+      }
+    },
+    "configuration": {
+      "doors": 1,
+      "drawers": 1,
+      "rollouts": 2
+    },
+    "compatibleCollectionIds": [
+      "custom"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 0,
+      "bottomDrawers": 1,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 2,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/b-1d-1bd-2rot.svg"
+  },
+  {
+    "id": "b-1d-1bd-1part",
+    "slug": "b-1d-1bd-1part",
+    "oscCode": "B-1D-1BD-1PART",
+    "name": "Base Cabinet, 1 Door + 1 Drawer",
+    "category": "base",
+    "description": "Custom base cabinet built to fit your space.",
+    "widthRange": {
+      "minInches": 24,
+      "maxInches": 66
+    },
+    "dimensions": {
+      "width": {
+        "min": 24,
+        "max": 66,
+        "variable": false
+      },
+      "height": {
+        "min": 12,
+        "max": 26,
+        "variable": false
+      },
+      "depth": {
+        "min": 15,
+        "max": 30,
+        "variable": false
+      }
+    },
+    "configuration": {
+      "doors": 1,
+      "drawers": 1,
+      "partitions": 1
+    },
+    "compatibleCollectionIds": [
+      "custom"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 0,
+      "bottomDrawers": 1,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 1,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/b-1d-1bd-1part.svg"
+  },
+  {
+    "id": "b-1d-1bd-2part",
+    "slug": "b-1d-1bd-2part",
+    "oscCode": "B-1D-1BD-2PART",
+    "name": "Base Cabinet, 1 Door + 1 Drawer",
+    "category": "base",
+    "description": "Custom base cabinet built to fit your space.",
+    "widthRange": {
+      "minInches": 24,
+      "maxInches": 66
+    },
+    "dimensions": {
+      "width": {
+        "min": 24,
+        "max": 66,
+        "variable": false
+      },
+      "height": {
+        "min": 12,
+        "max": 26,
+        "variable": false
+      },
+      "depth": {
+        "min": 15,
+        "max": 30,
+        "variable": false
+      }
+    },
+    "configuration": {
+      "doors": 1,
+      "drawers": 1,
+      "partitions": 2
+    },
+    "compatibleCollectionIds": [
+      "custom"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 0,
+      "bottomDrawers": 1,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 2,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/b-1d-1bd-2part.svg"
+  },
+  {
+    "id": "b-1d-1bd-3part",
+    "slug": "b-1d-1bd-3part",
+    "oscCode": "B-1D-1BD-3PART",
+    "name": "Base Cabinet, 1 Door + 1 Drawer",
+    "category": "base",
+    "description": "Custom base cabinet built to fit your space.",
+    "widthRange": {
+      "minInches": 24,
+      "maxInches": 66
+    },
+    "dimensions": {
+      "width": {
+        "min": 24,
+        "max": 66,
+        "variable": false
+      },
+      "height": {
+        "min": 12,
+        "max": 26,
+        "variable": false
+      },
+      "depth": {
+        "min": 15,
+        "max": 30,
+        "variable": false
+      }
+    },
+    "configuration": {
+      "doors": 1,
+      "drawers": 1,
+      "partitions": 3
+    },
+    "compatibleCollectionIds": [
+      "custom"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 0,
+      "bottomDrawers": 1,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 3,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/b-1d-1bd-3part.svg"
+  },
+  {
+    "id": "b-2d-1bd-0s",
+    "slug": "b-2d-1bd-0s",
+    "oscCode": "B-2D-1BD-0S",
+    "name": "Base Cabinet, 2 Doors + 1 Drawer",
+    "category": "base",
+    "description": "Custom base cabinet built to fit your space.",
+    "widthRange": {
+      "minInches": 24,
+      "maxInches": 66
+    },
+    "dimensions": {
+      "width": {
+        "min": 24,
+        "max": 66,
+        "variable": false
+      },
+      "height": {
+        "min": 21,
+        "max": 39,
+        "variable": false
+      },
+      "depth": {
+        "min": 15,
+        "max": 30,
+        "variable": false
+      }
+    },
+    "configuration": {
+      "doors": 2,
+      "drawers": 1
+    },
+    "compatibleCollectionIds": [
+      "custom"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 0,
+      "bottomDrawers": 1,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/b-2d-1bd-0s.svg"
+  },
+  {
+    "id": "b-2d-1bd-1s",
+    "slug": "b-2d-1bd-1s",
+    "oscCode": "B-2D-1BD-1S",
+    "name": "Base Cabinet, 2 Doors + 1 Drawer",
+    "category": "base",
+    "description": "Custom base cabinet built to fit your space.",
+    "widthRange": {
+      "minInches": 24,
+      "maxInches": 66
+    },
+    "dimensions": {
+      "width": {
+        "min": 24,
+        "max": 66,
+        "variable": false
+      },
+      "height": {
+        "min": 21,
+        "max": 39,
+        "variable": false
+      },
+      "depth": {
+        "min": 15,
+        "max": 30,
+        "variable": false
+      }
+    },
+    "configuration": {
+      "doors": 2,
+      "drawers": 1,
+      "shelves": 1
+    },
+    "compatibleCollectionIds": [
+      "custom"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 0,
+      "bottomDrawers": 1,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 1,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/b-2d-1bd-1s.svg"
+  },
+  {
+    "id": "b-2d-1bd-1rot",
+    "slug": "b-2d-1bd-1rot",
+    "oscCode": "B-2D-1BD-1ROT",
+    "name": "Base Cabinet, 2 Doors + 1 Drawer",
+    "category": "base",
+    "description": "Custom base cabinet built to fit your space.",
+    "widthRange": {
+      "minInches": 24,
+      "maxInches": 66
+    },
+    "dimensions": {
+      "width": {
+        "min": 24,
+        "max": 66,
+        "variable": false
+      },
+      "height": {
+        "min": 21,
+        "max": 39,
+        "variable": false
+      },
+      "depth": {
+        "min": 18,
+        "max": 30,
+        "variable": false
+      }
+    },
+    "configuration": {
+      "doors": 2,
+      "drawers": 1,
+      "rollouts": 1
+    },
+    "compatibleCollectionIds": [
+      "custom"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 0,
+      "bottomDrawers": 1,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 1,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/b-2d-1bd-1rot.svg"
+  },
+  {
+    "id": "b-2d-1bd-2rot",
+    "slug": "b-2d-1bd-2rot",
+    "oscCode": "B-2D-1BD-2ROT",
+    "name": "Base Cabinet, 2 Doors + 1 Drawer",
+    "category": "base",
+    "description": "Custom base cabinet built to fit your space.",
+    "widthRange": {
+      "minInches": 24,
+      "maxInches": 66
+    },
+    "dimensions": {
+      "width": {
+        "min": 24,
+        "max": 66,
+        "variable": false
+      },
+      "height": {
+        "min": 21,
+        "max": 39,
+        "variable": false
+      },
+      "depth": {
+        "min": 18,
+        "max": 30,
+        "variable": false
+      }
+    },
+    "configuration": {
+      "doors": 2,
+      "drawers": 1,
+      "rollouts": 2
+    },
+    "compatibleCollectionIds": [
+      "custom"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 0,
+      "bottomDrawers": 1,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 2,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/b-2d-1bd-2rot.svg"
+  },
+  {
+    "id": "b-2d-1bd-1part",
+    "slug": "b-2d-1bd-1part",
+    "oscCode": "B-2D-1BD-1PART",
+    "name": "Base Cabinet, 2 Doors + 1 Drawer",
+    "category": "base",
+    "description": "Custom base cabinet built to fit your space.",
+    "widthRange": {
+      "minInches": 24,
+      "maxInches": 66
+    },
+    "dimensions": {
+      "width": {
+        "min": 24,
+        "max": 66,
+        "variable": false
+      },
+      "height": {
+        "min": 21,
+        "max": 39,
+        "variable": false
+      },
+      "depth": {
+        "min": 15,
+        "max": 30,
+        "variable": false
+      }
+    },
+    "configuration": {
+      "doors": 2,
+      "drawers": 1,
+      "partitions": 1
+    },
+    "compatibleCollectionIds": [
+      "custom"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 0,
+      "bottomDrawers": 1,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 1,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/b-2d-1bd-1part.svg"
+  },
+  {
+    "id": "b-2d-1bd-2part",
+    "slug": "b-2d-1bd-2part",
+    "oscCode": "B-2D-1BD-2PART",
+    "name": "Base Cabinet, 2 Doors + 1 Drawer",
+    "category": "base",
+    "description": "Custom base cabinet built to fit your space.",
+    "widthRange": {
+      "minInches": 24,
+      "maxInches": 66
+    },
+    "dimensions": {
+      "width": {
+        "min": 24,
+        "max": 66,
+        "variable": false
+      },
+      "height": {
+        "min": 21,
+        "max": 39,
+        "variable": false
+      },
+      "depth": {
+        "min": 15,
+        "max": 30,
+        "variable": false
+      }
+    },
+    "configuration": {
+      "doors": 2,
+      "drawers": 1,
+      "partitions": 2
+    },
+    "compatibleCollectionIds": [
+      "custom"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 0,
+      "bottomDrawers": 1,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 2,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/b-2d-1bd-2part.svg"
+  },
+  {
+    "id": "b-2d-1bd-3part",
+    "slug": "b-2d-1bd-3part",
+    "oscCode": "B-2D-1BD-3PART",
+    "name": "Base Cabinet, 2 Doors + 1 Drawer",
+    "category": "base",
+    "description": "Custom base cabinet built to fit your space.",
+    "widthRange": {
+      "minInches": 24,
+      "maxInches": 66
+    },
+    "dimensions": {
+      "width": {
+        "min": 24,
+        "max": 66,
+        "variable": false
+      },
+      "height": {
+        "min": 21,
+        "max": 39,
+        "variable": false
+      },
+      "depth": {
+        "min": 15,
+        "max": 30,
+        "variable": false
+      }
+    },
+    "configuration": {
+      "doors": 2,
+      "drawers": 1,
+      "partitions": 3
+    },
+    "compatibleCollectionIds": [
+      "custom"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 0,
+      "bottomDrawers": 1,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 3,
+      "glass": false,
+      "open": false,
+      "fullHeight": false,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/b-2d-1bd-3part.svg"
+  },
+  {
     "id": "bfh-1d-0s",
     "slug": "bfh-1d-0s",
     "oscCode": "BFH-1D-0S",
@@ -15214,6 +19236,75 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "boxImage": "/generated/cabinets/flfh-1d-1rot.svg"
   },
   {
+    "id": "flfh-1d-2rot",
+    "slug": "flfh-1d-2rot",
+    "oscCode": "FLFH-1D-2ROT",
+    "name": "Base Cabinet, 1 Door",
+    "category": "base",
+    "description": "Custom base cabinet built to fit your space.",
+    "widthRange": {
+      "minInches": 18,
+      "maxInches": 30
+    },
+    "dimensions": {
+      "width": {
+        "min": 18,
+        "max": 30,
+        "variable": false
+      },
+      "height": {
+        "min": 8,
+        "max": 26,
+        "variable": false
+      },
+      "depth": {
+        "min": 18,
+        "max": 30,
+        "variable": false
+      }
+    },
+    "configuration": {
+      "doors": 1,
+      "rollouts": 2
+    },
+    "compatibleCollectionIds": [
+      "custom"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 2,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": true,
+      "doorDown": false,
+      "floating": true,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/flfh-1d-2rot.svg"
+  },
+  {
     "id": "flfh-1d-3rot",
     "slug": "flfh-1d-3rot",
     "oscCode": "FLFH-1D-3ROT",
@@ -15350,6 +19441,75 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "pencilDrawers": 0
     },
     "boxImage": "/generated/cabinets/flfh-2d-1rot.svg"
+  },
+  {
+    "id": "flfh-2d-2rot",
+    "slug": "flfh-2d-2rot",
+    "oscCode": "FLFH-2D-2ROT",
+    "name": "Base Cabinet, 2 Doors",
+    "category": "base",
+    "description": "Custom base cabinet built to fit your space.",
+    "widthRange": {
+      "minInches": 18,
+      "maxInches": 30
+    },
+    "dimensions": {
+      "width": {
+        "min": 18,
+        "max": 30,
+        "variable": false
+      },
+      "height": {
+        "min": 21,
+        "max": 39,
+        "variable": false
+      },
+      "depth": {
+        "min": 18,
+        "max": 30,
+        "variable": false
+      }
+    },
+    "configuration": {
+      "doors": 2,
+      "rollouts": 2
+    },
+    "compatibleCollectionIds": [
+      "custom"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ],
+    "attrs": {
+      "doors": 2,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 2,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": true,
+      "doorDown": false,
+      "floating": true,
+      "sink": false,
+      "trash": false,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/flfh-2d-2rot.svg"
   },
   {
     "id": "flfh-2d-3rot",
@@ -18415,6 +22575,74 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
     "boxImage": "/generated/cabinets/bbcr-fhd-2s.svg"
   },
   {
+    "id": "tbfh-1d-0s",
+    "slug": "tbfh-1d-0s",
+    "oscCode": "TBFH-1D-0S",
+    "name": "Tall Cabinet, 1 Door",
+    "category": "tall",
+    "description": "Custom tall cabinet built to fit your space.",
+    "widthRange": {
+      "minInches": 30,
+      "maxInches": 66
+    },
+    "dimensions": {
+      "width": {
+        "min": 30,
+        "max": 66,
+        "variable": false
+      },
+      "height": {
+        "min": 9,
+        "max": 26,
+        "variable": false
+      },
+      "depth": {
+        "min": 9,
+        "max": 30,
+        "variable": false
+      }
+    },
+    "configuration": {
+      "doors": 1
+    },
+    "compatibleCollectionIds": [
+      "custom"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 0,
+      "rollouts": 0,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": true,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": true,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/tbfh-1d-0s.svg"
+  },
+  {
     "id": "tbfh-1d-1s",
     "slug": "tbfh-1d-1s",
     "oscCode": "TBFH-1D-1S",
@@ -18895,6 +23123,76 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "pencilDrawers": 0
     },
     "boxImage": "/generated/cabinets/tbfh-2d-3s.svg"
+  },
+  {
+    "id": "tbfh-1d-1rot-2s",
+    "slug": "tbfh-1d-1rot-2s",
+    "oscCode": "TBFH-1D-1ROT-2S",
+    "name": "Tall Cabinet, 1 Door",
+    "category": "tall",
+    "description": "Custom tall cabinet built to fit your space.",
+    "widthRange": {
+      "minInches": 30,
+      "maxInches": 66
+    },
+    "dimensions": {
+      "width": {
+        "min": 30,
+        "max": 66,
+        "variable": false
+      },
+      "height": {
+        "min": 21,
+        "max": 26,
+        "variable": false
+      },
+      "depth": {
+        "min": 18,
+        "max": 30,
+        "variable": false
+      }
+    },
+    "configuration": {
+      "doors": 1,
+      "shelves": 2,
+      "rollouts": 1
+    },
+    "compatibleCollectionIds": [
+      "custom"
+    ],
+    "compatibleDoorStyleIds": [
+      "slab",
+      "three-piece",
+      "modern-shaker",
+      "thin-shaker",
+      "alpha-shaker",
+      "beta-shaker"
+    ],
+    "attrs": {
+      "doors": 1,
+      "topDrawers": 0,
+      "bottomDrawers": 0,
+      "drawers": 0,
+      "falseFronts": 0,
+      "shelves": 2,
+      "rollouts": 1,
+      "partitions": 0,
+      "glass": false,
+      "open": false,
+      "fullHeight": true,
+      "doorDown": false,
+      "floating": false,
+      "sink": false,
+      "trash": true,
+      "appliance": 0,
+      "lazySusan": false,
+      "corner": null,
+      "lift": null,
+      "hand": null,
+      "insertReady": false,
+      "pencilDrawers": 0
+    },
+    "boxImage": "/generated/cabinets/tbfh-1d-1rot-2s.svg"
   },
   {
     "id": "tbfh-1d-2rot-2s",

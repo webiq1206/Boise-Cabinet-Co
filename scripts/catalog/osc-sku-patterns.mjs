@@ -7,6 +7,15 @@ export const OSC_SKU_DENYLIST = new Set([
   "FLAT",
   "FLOATING",
   "FLORAL",
+  // Category / marketing words the patterns over-match (not product SKUs).
+  "EPIC",
+  "FILLER",
+  "FILLERS",
+  "HOODS",
+  // pdftotext splits "FLFH-?D-2ROT" into "FLFH-?D-2 ROT"; the bare prefix is an
+  // artifact, not a SKU (the real codes FLFH-1D-2ROT / FLFH-2D-2ROT are in catalog).
+  "FLFH-1D-2",
+  "FLFH-2D-2",
 ]);
 
 export const OSC_SKU_PATTERN =
