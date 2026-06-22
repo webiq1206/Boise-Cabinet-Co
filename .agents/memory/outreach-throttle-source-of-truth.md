@@ -21,3 +21,22 @@ was added.
 cadence — it is only ever set at actual send time and never cleared. Any new
 throttling/cadence/rate-limit logic for outreach must key off `sentAt`, not the
 status string. Status is for UI/filtering only.
+
+## The throttle must have no bypass
+
+`processOutreachBatch` enforces the in-flight guard, rolling daily cap, and
+minimum gap on EVERY path. Do not reintroduce a `respectGap`/skip-throttle
+option. The manual admin "send" endpoint sends exactly one message per run and
+goes through the identical gating as the automated `instrumentation.ts` tick.
+
+**Why:** A previous review rejected the feature because the manual send route
+called the batch with the gap check disabled and a per-request limit up to 5,
+allowing bursty back-to-back sends. Cold outreach must always be dripped out.
+
+## Manual email entry is provenance-gated
+
+Admin-entered prospect emails go through `isEmailOnDomain()` (in
+`lib/outreach/emailScraper.ts`) — same on-domain rule as the scraper. An admin
+can never approve a guessed (`info@theircompany.com`) or third-party address;
+if the prospect has no parseable website, manual email entry is rejected.
+

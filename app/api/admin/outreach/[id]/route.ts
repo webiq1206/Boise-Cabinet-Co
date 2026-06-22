@@ -5,6 +5,7 @@ import { outreachProspects } from "@/shared/schema";
 import { eq } from "drizzle-orm";
 import { requireAdmin } from "@/lib/outreach/requireAdmin";
 import { hasEmDash } from "@/lib/outreach/text";
+import { isEmailOnDomain } from "@/lib/outreach/emailScraper";
 
 const patchSchema = z.object({
   action: z.enum(["approve", "skip", "reset", "edit"]),
@@ -47,8 +48,21 @@ export async function PATCH(
   }
 
   if (parsed.data.email !== undefined) {
+    // Provenance guard: an admin may only enter an address that provably lives
+    // on the contractor's own website domain. This blocks guessing/fabricating
+    // (e.g. info@theircompany.com) or pasting a third-party address. Mirrors the
+    // scraper's on-domain rule so manual entry can't bypass it.
+    if (!isEmailOnDomain(parsed.data.email, prospect.website)) {
+      return NextResponse.json(
+        {
+          error:
+            "Email must be on the contractor's own website domain. We never guess or use third-party addresses.",
+        },
+        { status: 400 },
+      );
+    }
     updates.email = parsed.data.email.toLowerCase();
-    updates.emailSourceUrl = "manual: entered by admin";
+    updates.emailSourceUrl = "manual: entered by admin (on-domain verified)";
   }
 
   switch (parsed.data.action) {

@@ -338,7 +338,7 @@ function OutreachPanel() {
   });
 
   const sendMutation = useMutation({
-    mutationFn: () => postJson("/api/admin/outreach/send", { limit: 1 }),
+    mutationFn: () => postJson("/api/admin/outreach/send", {}),
     onSuccess: (r) => {
       const first = r.results?.[0];
       const desc = first

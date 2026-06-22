@@ -136,6 +136,46 @@ function extractEmails(html: string): string[] {
   return Array.from(found);
 }
 
+/** Extract the registrable host of a website, stripping protocol and `www.`. */
+function hostFromWebsite(website: string | null | undefined): string | null {
+  if (!website) return null;
+  const base = normalizeBase(website);
+  if (!base) return null;
+  try {
+    return new URL(base).host.replace(/^www\./, "").toLowerCase();
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Does this email live on the given host (exact host or a subdomain of it)?
+ * This is the single rule that decides whether an address provably belongs to
+ * the business, used both by the scraper and by manual admin entry.
+ */
+function emailHostMatches(email: string, host: string): boolean {
+  const at = email.lastIndexOf("@");
+  if (at < 0) return false;
+  const emailHost = email.slice(at + 1).replace(/^www\./, "").toLowerCase();
+  return emailHost === host || emailHost.endsWith(`.${host}`);
+}
+
+/**
+ * True only when `email` is provably on the contractor's own website domain.
+ * Used to gate manual admin email entry so an admin can never approve a guessed
+ * or third-party address. Returns false when the website is missing/unparseable
+ * (we cannot prove provenance) or the email is implausible.
+ */
+export function isEmailOnDomain(
+  email: string,
+  website: string | null | undefined,
+): boolean {
+  const host = hostFromWebsite(website);
+  if (!host) return false;
+  if (!isPlausibleEmail(email)) return false;
+  return emailHostMatches(email.toLowerCase(), host);
+}
+
 function pickBestEmail(emails: string[], domainHost: string | null): string | null {
   if (emails.length === 0) return null;
   // We ONLY contact an address that lives on the contractor's own domain. If a
@@ -146,13 +186,7 @@ function pickBestEmail(emails: string[], domainHost: string | null): string | nu
   if (!host) return null;
   // Accept the exact registrable host or any subdomain of it (e.g. an address
   // at mail.theirdomain.com), but nothing on an unrelated domain.
-  const onDomain = (e: string) => {
-    const at = e.lastIndexOf("@");
-    if (at < 0) return false;
-    const emailHost = e.slice(at + 1).replace(/^www\./, "");
-    return emailHost === host || emailHost.endsWith(`.${host}`);
-  };
-  const pool = emails.filter(onDomain);
+  const pool = emails.filter((e) => emailHostMatches(e, host));
   if (pool.length === 0) return null;
   const preferredPrefixes = ["info", "office", "contact", "hello", "sales", "estimating", "estimates"];
   for (const prefix of preferredPrefixes) {

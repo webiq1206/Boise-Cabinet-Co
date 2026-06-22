@@ -123,7 +123,7 @@ export async function register() {
         const TICK_MS = 10 * 60 * 1000; // check every 10 minutes
         const tick = async () => {
           try {
-            await processOutreachBatch({ limit: 1, respectGap: true, source: "auto" });
+            await processOutreachBatch({ limit: 1, source: "auto" });
           } catch (e) {
             console.error("[outreach] background tick failed:", e);
           }

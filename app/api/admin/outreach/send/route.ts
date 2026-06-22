@@ -1,22 +1,17 @@
 import { NextResponse } from "next/server";
-import { z } from "zod";
 import { requireAdmin } from "@/lib/outreach/requireAdmin";
 import { processOutreachBatch } from "@/lib/outreach/sender";
 
-const bodySchema = z.object({
-  limit: z.number().int().min(1).max(5).optional(),
-});
-
-export async function POST(request: Request) {
+export async function POST() {
   const auth = await requireAdmin();
   if (auth.error) return auth.error;
 
-  const parsed = bodySchema.safeParse(await request.json().catch(() => ({})));
-  const limit = parsed.success ? parsed.data.limit ?? 1 : 1;
-
-  // Manual admin send respects the master on/off switch (owner can pause all
-  // sends instantly), plus dry-run, the rolling daily cap, and suppression.
-  const result = await processOutreachBatch({ limit, respectGap: false, source: "manual" });
+  // Manual admin "send next" dispatches exactly ONE message per run and is
+  // subject to the same non-bypassable throttle as the automated path: the
+  // master on/off switch, dry-run, rolling daily cap, minimum gap between
+  // sends, in-flight guard, and suppression. There is intentionally no way to
+  // burst-send a batch from the UI.
+  const result = await processOutreachBatch({ limit: 1, source: "manual" });
 
   return NextResponse.json(result);
 }

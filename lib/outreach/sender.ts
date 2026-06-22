@@ -217,7 +217,6 @@ async function sendToProspect(
 
 export interface BatchOptions {
   limit?: number;
-  respectGap?: boolean;
   source: "auto" | "manual";
 }
 
@@ -237,7 +236,6 @@ export interface BatchResult {
  */
 export async function processOutreachBatch(options: BatchOptions): Promise<BatchResult> {
   const limit = Math.max(1, Math.min(options.limit ?? 1, 10));
-  const respectGap = options.respectGap ?? options.source === "auto";
 
   const result: BatchResult = {
     attempted: 0,
@@ -274,7 +272,8 @@ export async function processOutreachBatch(options: BatchOptions): Promise<Batch
     // back off rather than racing it. NOTE: with multiple autoscale instances
     // the cap/gap remain best-effort (the atomic per-row claim still prevents
     // any double-send); this guard plus a small daily cap keeps cadence sane.
-    if (respectGap && (await inFlightCount()) > 0) {
+    // Enforced for EVERY send path (auto and manual) — there is no bypass.
+    if ((await inFlightCount()) > 0) {
       result.stoppedReason = "throttled";
       break;
     }
@@ -285,7 +284,9 @@ export async function processOutreachBatch(options: BatchOptions): Promise<Batch
       break;
     }
 
-    if (respectGap && !config.dryRun) {
+    // Minimum spacing between real sends is always enforced so outreach is
+    // dripped out, never bursted. Dry runs never set sentAt, so they are exempt.
+    if (!config.dryRun) {
       const gap = await minutesSinceLastSend();
       if (gap !== null && gap < config.minGapMinutes) {
         result.stoppedReason = "throttled";

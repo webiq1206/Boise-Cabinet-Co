@@ -14,4 +14,3 @@
 - [Supplier color map verification](supplier-color-map-verification.md) — productColorMap's original Tafisa SKUs were fabricated; real One Source palette listed; only mark verified:true for confident matches, UI gates supplier label on verified.
 - [Admin role assignment policy](admin-role-assignment-paths.md) — grant admin only from verified-email (OIDC) or manual DB promotion, never an unverified email match; role logic is duplicated across layers + env, keep in sync.
 - [Outreach throttle source of truth](outreach-throttle-source-of-truth.md) — cold-outreach cap/gap guards must key off `sentAt` timestamp, not mutable `status`; open-tracking flips status and would leak past the cap.
-- [ws standalone bundling](ws-standalone-bundling.md) — Neon over `ws` breaks in standalone build (t.mask not a function); keep ws/@neondatabase/serverless/bufferutil/utf-8-validate in serverComponentsExternalPackages.
