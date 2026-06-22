@@ -1,6 +1,6 @@
 import { db } from "@/lib/db";
 import { outreachProspects, outreachSuppressions, type OutreachProspect } from "@/shared/schema";
-import { and, desc, eq, gte, isNotNull, sql } from "drizzle-orm";
+import { and, desc, eq, gte, isNotNull, isNull, lt, sql } from "drizzle-orm";
 import { getUncachableResendClient } from "@/server/resend";
 import { SITE_CONFIG } from "@/shared/siteConfig";
 import {
@@ -33,67 +33,137 @@ async function isSuppressed(email: string): Promise<boolean> {
   return rows.length > 0;
 }
 
-async function countSentLast24h(): Promise<number> {
-  if (!db) return 0;
-  const since = new Date(Date.now() - 24 * 60 * 60 * 1000);
-  // Count by sentAt timestamp, NOT by status: once an email is delivered its
-  // status can move on (opened, replied, bounced, unsubscribed), but it still
-  // counts against the rolling 24h daily cap. A status filter here would let
-  // post-send transitions silently leak past the cap.
-  const rows = await db
-    .select({ n: sql<number>`count(*)::int` })
-    .from(outreachProspects)
-    .where(and(isNotNull(outreachProspects.sentAt), gte(outreachProspects.sentAt, since)));
-  return rows[0]?.n ?? 0;
-}
+// A single fixed key for the Postgres transaction-level advisory lock that
+// serializes the "decide + reserve the next send" critical section across ALL
+// app instances. Only one instance can hold it at a time, so the daily-cap and
+// min-gap checks are evaluated against committed state and cannot be raced.
+const OUTREACH_RESERVE_LOCK_KEY = 4815162342;
 
-async function inFlightCount(): Promise<number> {
-  if (!db) return 0;
-  const rows = await db
-    .select({ n: sql<number>`count(*)::int` })
-    .from(outreachProspects)
-    .where(eq(outreachProspects.status, "sending"));
-  return rows[0]?.n ?? 0;
-}
+// How long a row may sit in "sending" before it is treated as a crashed,
+// abandoned reservation and reclaimed. Comfortably longer than any real send.
+const SENDING_LEASE_MINUTES = 15;
 
-async function minutesSinceLastSend(): Promise<number | null> {
-  if (!db) return null;
-  // Spacing is based on the most recent actual send time, regardless of the
-  // prospect's current status (it may have since moved to opened/replied/etc).
-  const rows = await db
-    .select({ sentAt: outreachProspects.sentAt })
-    .from(outreachProspects)
-    .where(isNotNull(outreachProspects.sentAt))
-    .orderBy(desc(outreachProspects.sentAt))
-    .limit(1);
-  const last = rows[0]?.sentAt;
-  if (!last) return null;
-  return (Date.now() - new Date(last).getTime()) / 60000;
+interface Reservation {
+  prospect: OutreachProspect | null;
+  reason?: BatchResult["stoppedReason"];
 }
 
 /**
- * Atomically claim the next approved, emailable prospect. The conditional
- * UPDATE ensures that if two instances race, only one wins the row, preventing
- * a double-send.
+ * Atomically reserve the next email to send. Everything that must be globally
+ * consistent — the in-flight guard, the rolling 24h daily cap, the minimum gap
+ * between sends, and claiming the prospect row — happens inside ONE transaction
+ * guarded by a Postgres advisory lock. For a real send we stamp `sentAt` at
+ * reserve time so a concurrent instance immediately sees this send when it
+ * evaluates the cap/gap, making both hard guarantees rather than best-effort.
+ * The actual network send happens AFTER this returns, so the lock is never held
+ * during slow I/O.
  */
-async function claimNextProspect(): Promise<OutreachProspect | null> {
-  if (!db) return null;
-  const candidates = await db
-    .select()
-    .from(outreachProspects)
-    .where(and(eq(outreachProspects.status, "approved"), isNotNull(outreachProspects.email)))
-    .orderBy(outreachProspects.approvedAt)
-    .limit(5);
+async function reserveNextProspect(config: OutreachRuntimeConfig): Promise<Reservation> {
+  if (!db) return { prospect: null, reason: "not_configured" };
 
-  for (const candidate of candidates) {
-    const claimed = await db
+  return db.transaction(async (tx) => {
+    // Serialize this whole section across instances. Auto-released on commit.
+    await tx.execute(sql`SELECT pg_advisory_xact_lock(${OUTREACH_RESERVE_LOCK_KEY}::bigint)`);
+
+    // Recover stale reservations: if a process crashed mid-send a row can be
+    // stuck in "sending" forever, which (because the in-flight guard below is a
+    // hard gate) would permanently halt all outreach. Reclaim anything held
+    // longer than the lease. If sentAt was already stamped we assume the email
+    // went out and mark it "sent" (never re-send → no duplicate spam); if not
+    // (an interrupted dry run) we return it to the queue.
+    const leaseCutoff = new Date(Date.now() - SENDING_LEASE_MINUTES * 60 * 1000);
+    await tx
       .update(outreachProspects)
-      .set({ status: "sending", updatedAt: new Date() })
-      .where(and(eq(outreachProspects.id, candidate.id), eq(outreachProspects.status, "approved")))
+      .set({ status: "sent", updatedAt: new Date() })
+      .where(
+        and(
+          eq(outreachProspects.status, "sending"),
+          lt(outreachProspects.updatedAt, leaseCutoff),
+          isNotNull(outreachProspects.sentAt),
+        ),
+      );
+    await tx
+      .update(outreachProspects)
+      .set({ status: "approved", updatedAt: new Date() })
+      .where(
+        and(
+          eq(outreachProspects.status, "sending"),
+          lt(outreachProspects.updatedAt, leaseCutoff),
+          isNull(outreachProspects.sentAt),
+        ),
+      );
+
+    // In-flight guard: never have two sends overlapping.
+    const inflight = await tx
+      .select({ n: sql<number>`count(*)::int` })
+      .from(outreachProspects)
+      .where(eq(outreachProspects.status, "sending"));
+    if ((inflight[0]?.n ?? 0) > 0) return { prospect: null, reason: "throttled" };
+
+    // Rolling 24h daily cap, counted by durable sentAt (not mutable status).
+    const since = new Date(Date.now() - 24 * 60 * 60 * 1000);
+    const capRows = await tx
+      .select({ n: sql<number>`count(*)::int` })
+      .from(outreachProspects)
+      .where(and(isNotNull(outreachProspects.sentAt), gte(outreachProspects.sentAt, since)));
+    if ((capRows[0]?.n ?? 0) >= config.dailyCap) return { prospect: null, reason: "daily_cap" };
+
+    // Minimum spacing between real sends. Dry runs never set sentAt, so exempt.
+    if (!config.dryRun) {
+      const lastRows = await tx
+        .select({ sentAt: outreachProspects.sentAt })
+        .from(outreachProspects)
+        .where(isNotNull(outreachProspects.sentAt))
+        .orderBy(desc(outreachProspects.sentAt))
+        .limit(1);
+      const last = lastRows[0]?.sentAt;
+      if (last) {
+        const gapMin = (Date.now() - new Date(last).getTime()) / 60000;
+        if (gapMin < config.minGapMinutes) return { prospect: null, reason: "throttled" };
+      }
+    }
+
+    // Find the oldest approved, emailable prospect that is not suppressed.
+    const candidates = await tx
+      .select()
+      .from(outreachProspects)
+      .where(and(eq(outreachProspects.status, "approved"), isNotNull(outreachProspects.email)))
+      .orderBy(outreachProspects.approvedAt)
+      .limit(10);
+
+    let chosen: OutreachProspect | null = null;
+    for (const candidate of candidates) {
+      if (!candidate.email) continue;
+      const supp = await tx
+        .select({ email: outreachSuppressions.email })
+        .from(outreachSuppressions)
+        .where(eq(outreachSuppressions.email, candidate.email.toLowerCase()))
+        .limit(1);
+      if (supp.length > 0) {
+        // Retire suppressed prospects without consuming a send slot.
+        await tx
+          .update(outreachProspects)
+          .set({ status: "unsubscribed", unsubscribedAt: new Date(), updatedAt: new Date() })
+          .where(eq(outreachProspects.id, candidate.id));
+        continue;
+      }
+      chosen = candidate;
+      break;
+    }
+    if (!chosen) return { prospect: null, reason: "empty" };
+
+    // Reserve the slot. status -> sending blocks the in-flight guard for others;
+    // for a real send we also stamp sentAt now so it immediately counts toward
+    // cap and gap even before the network send resolves.
+    const reserveUpdates: Record<string, unknown> = { status: "sending", updatedAt: new Date() };
+    if (!config.dryRun) reserveUpdates.sentAt = new Date();
+    const claimed = await tx
+      .update(outreachProspects)
+      .set(reserveUpdates)
+      .where(and(eq(outreachProspects.id, chosen.id), eq(outreachProspects.status, "approved")))
       .returning();
-    if (claimed.length > 0) return claimed[0];
-  }
-  return null;
+    return { prospect: claimed[0] ?? null, reason: claimed[0] ? undefined : "empty" };
+  });
 }
 
 export interface SendOneResult {
@@ -268,40 +338,18 @@ export async function processOutreachBatch(options: BatchOptions): Promise<Batch
   }
 
   for (let i = 0; i < limit; i++) {
-    // Soft mutual-exclusion across instances: if another runner is mid-send,
-    // back off rather than racing it. NOTE: with multiple autoscale instances
-    // the cap/gap remain best-effort (the atomic per-row claim still prevents
-    // any double-send); this guard plus a small daily cap keeps cadence sane.
-    // Enforced for EVERY send path (auto and manual) — there is no bypass.
-    if ((await inFlightCount()) > 0) {
-      result.stoppedReason = "throttled";
-      break;
-    }
-
-    const sentToday = await countSentLast24h();
-    if (sentToday >= config.dailyCap) {
-      result.stoppedReason = "daily_cap";
-      break;
-    }
-
-    // Minimum spacing between real sends is always enforced so outreach is
-    // dripped out, never bursted. Dry runs never set sentAt, so they are exempt.
-    if (!config.dryRun) {
-      const gap = await minutesSinceLastSend();
-      if (gap !== null && gap < config.minGapMinutes) {
-        result.stoppedReason = "throttled";
-        break;
-      }
-    }
-
-    const prospect = await claimNextProspect();
-    if (!prospect) {
-      result.stoppedReason = "empty";
+    // The in-flight guard, daily cap, min-gap, and prospect claim are ALL decided
+    // inside reserveNextProspect's advisory-locked transaction, so they are hard
+    // guarantees even with multiple autoscale instances racing — not best-effort.
+    // Enforced for EVERY send path (auto and manual); there is no bypass.
+    const reservation = await reserveNextProspect(config);
+    if (!reservation.prospect) {
+      result.stoppedReason = reservation.reason ?? "empty";
       break;
     }
 
     result.attempted++;
-    const one = await sendToProspect(prospect, config);
+    const one = await sendToProspect(reservation.prospect, config);
     result.results.push(one);
 
     if (one.status === "sent") result.sent++;

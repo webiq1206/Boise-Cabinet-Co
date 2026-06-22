@@ -23,6 +23,7 @@ interface Prospect {
   city: string;
   website: string | null;
   phone: string | null;
+  formattedAddress: string | null;
   email: string | null;
   emailSourceUrl: string | null;
   status: string;
@@ -131,8 +132,8 @@ function ProspectCard({
             <p className="font-medium text-sm" data-testid={`text-name-${p.id}`}>
               {p.businessName}
             </p>
-            <p className="text-xs text-muted-foreground">
-              {p.city}
+            <p className="text-xs text-muted-foreground" data-testid={`text-address-${p.id}`}>
+              {p.formattedAddress ?? p.city}
               {p.phone ? ` · ${p.phone}` : ""}
               {p.website ? (
                 <>
