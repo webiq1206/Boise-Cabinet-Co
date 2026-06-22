@@ -55,8 +55,19 @@ lines. If `[deployment].run`, modules (`nodejs-20`), `[nix]`, AND the (content-a
 platform-provided runtime — is missing from the run container through no fault of app code
 (content/data merges cannot remove a nix binary from PATH). Treat as a Replit deploy-env /
 transient issue: **retry the publish first** (fresh build often re-materializes node); if it
-recurs identically, force a fresh nix layer (re-add the Node module / tweak `[nix]` to bust
-the cache) or contact support. Do NOT hack the run command to absolute nix-store node paths.
+recurs identically across a plain retry (CONFIRMED here: builds 9f45f791 + 30cea2a4 both
+crash-looped with node-not-found, config byte-identical to success 1d84646e), the highest-value
+in-our-control fix is to make `[deployment].run` resolve node ROBUSTLY instead of relying on a
+bare `node` on PATH: try PATH first, then DISCOVER node via a glob of the image nix store, log
+what resolved, then exec. Set it with `deployConfig({deploymentTarget:"autoscale", build:[...],
+run:["bash","-c", <script>]})`. The script used:
+`NODE_BIN="$(command -v node 2>/dev/null || true)"; [ -z "$NODE_BIN" ] && NODE_BIN="$(ls -1 /nix/store/*nodejs*-wrapped/bin/node 2>/dev/null | head -n1)"; [ -z "$NODE_BIN" ] && NODE_BIN="$(ls -1 /nix/store/*nodejs*/bin/node 2>/dev/null | head -n1)"; echo "[run] node resolved to: ${NODE_BIN:-NOT_FOUND}"; HOSTNAME=0.0.0.0 exec "${NODE_BIN:-node}" .next/standalone/server.js`
+**Why glob, not a hardcoded path:** a fixed `/nix/store/<hash>-nodejs.../bin/node` is brittle
+(hash changes across channel/version bumps); the glob is version-agnostic and self-heals. It is
+ALSO diagnostic: if node truly isn't in the run image, runtime logs print
+`[run] node resolved to: NOT_FOUND`, which is hard evidence to escalate to Replit support.
+If even that prints NOT_FOUND, then the deploy image lacks the node MODULE entirely — fix by
+adding nodejs to `[nix].packages` / re-adding the module to force a fresh nix layer, or support.
 
 **Why:** image bloat at assembly time is the most plausible code-correlated cause of a
 promote failure after a successful push, and shrinking the image is a high-value, low-risk

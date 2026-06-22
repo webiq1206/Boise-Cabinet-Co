@@ -9,7 +9,7 @@ packages = ["imagemagick", "libwebp"]
 [deployment]
 deploymentTarget = "autoscale"
 build = ["bash", "build.sh"]
-run = ["bash", "-c", "HOSTNAME=0.0.0.0 node .next/standalone/server.js"]
+run = ["bash", "-c", "NODE_BIN=\"$(command -v node 2>/dev/null || true)\"; [ -z \"$NODE_BIN\" ] && NODE_BIN=\"$(ls -1 /nix/store/*nodejs*-wrapped/bin/node 2>/dev/null | head -n1)\"; [ -z \"$NODE_BIN\" ] && NODE_BIN=\"$(ls -1 /nix/store/*nodejs*/bin/node 2>/dev/null | head -n1)\"; echo \"[run] node resolved to: ${NODE_BIN:-NOT_FOUND}\"; HOSTNAME=0.0.0.0 exec \"${NODE_BIN:-node}\" .next/standalone/server.js"]
 
 [[ports]]
 localPort = 3011
