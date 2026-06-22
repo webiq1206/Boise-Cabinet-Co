@@ -69,6 +69,21 @@ ALSO diagnostic: if node truly isn't in the run image, runtime logs print
 If even that prints NOT_FOUND, then the deploy image lacks the node MODULE entirely — fix by
 adding nodejs to `[nix].packages` / re-adding the module to force a fresh nix layer, or support.
 
+**CONFIRMED ROOT CAUSE + FIX (2026-06-22):** the glob run cmd printed `[run] node resolved to:
+NOT_FOUND` AND `bash: exec: node: not found` — proving node was absent from the run container
+ENTIRELY (not on PATH and not anywhere in /nix/store). On Replit autoscale deploys the run
+container's nix layer is built from SYSTEM NIX PACKAGES (`.replit [nix].packages` + `replit.nix`
+deps), NOT from language `modules`. The `nodejs-20` MODULE provides node at BUILD time only, so an
+app whose node comes solely from the module builds fine but crash-loops at runtime with
+node-not-found. **Fix = add node as a SYSTEM dependency** via `installSystemDependencies({packages:
+["nodejs_20"]})` (this writes `replit.nix` with `pkgs.nodejs_20`), which bakes node into the deploy
+nix layer (same layer that ships imagemagick/libwebp). The new/changed `replit.nix` also busts the
+nix-layer cache so the next deploy rebuilds with node included. NOTE: `.replit` and `replit.nix` are
+TOOL-OWNED — you CANNOT hand-edit them; use `installSystemDependencies` / `deployConfig`. Dev keeps
+working because its nix env reads module + `[nix].packages` + `replit.nix` together. **Why this beats
+hand-tweaking the run cmd:** node literally isn't in the image, so no run-cmd trick can find it; it
+must be added to the image via nix packages.
+
 **Why:** image bloat at assembly time is the most plausible code-correlated cause of a
 promote failure after a successful push, and shrinking the image is a high-value, low-risk
 mitigation — but it is NOT proven causality. Other pre-service-creation blockers exist
