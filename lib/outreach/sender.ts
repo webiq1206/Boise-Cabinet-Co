@@ -50,8 +50,8 @@ interface Reservation {
 
 /**
  * Atomically reserve the next email to send. Everything that must be globally
- * consistent — the in-flight guard, the rolling 24h daily cap, the minimum gap
- * between sends, and claiming the prospect row — happens inside ONE transaction
+ * consistent - the in-flight guard, the rolling 24h daily cap, the minimum gap
+ * between sends, and claiming the prospect row - happens inside ONE transaction
  * guarded by a Postgres advisory lock. For a real send we stamp `sentAt` at
  * reserve time so a concurrent instance immediately sees this send when it
  * evaluates the cap/gap, making both hard guarantees rather than best-effort.
@@ -346,7 +346,7 @@ export async function processOutreachBatch(options: BatchOptions): Promise<Batch
   for (let i = 0; i < limit; i++) {
     // The in-flight guard, daily cap, min-gap, and prospect claim are ALL decided
     // inside reserveNextProspect's advisory-locked transaction, so they are hard
-    // guarantees even with multiple autoscale instances racing — not best-effort.
+    // guarantees even with multiple autoscale instances racing - not best-effort.
     // Enforced for EVERY send path (auto and manual); there is no bypass.
     const reservation = await reserveNextProspect(config);
     if (!reservation.prospect) {

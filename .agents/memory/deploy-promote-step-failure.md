@@ -26,12 +26,20 @@ irrelevant to this class of failure (the container is never run; no startup prob
   they're system-managed.)
 
 # Most actionable lever: shrink the deployment image
-The Repl layer ships the ENTIRE workspace, including `.next/cache` (webpack build cache,
-hundreds of MB, regenerable, never read by `.next/standalone/server.js` at runtime). It then
+The Repl layer ships the ENTIRE workspace **regardless of `.gitignore`** (proof: `.next` is
+gitignored yet `.next/cache` still ships, which is why `build.sh` must delete it). It then
 gets duplicated into the "Repl (cache) layer", doubling disk/memory pressure during final
 image assembly on the small `cr-2-4` (2 vCPU / 4 GB) build machine.
-**Fix:** add `rm -rf .next/cache` at the end of `build.sh` (after copying static/public into
-standalone). Safe — pure build cache.
+So enumerate the LARGEST on-disk dirs (`du -sh *` incl. dotfiles) and delete every
+regenerable/runtime-irrelevant one at the end of `build.sh`. Confirmed big offenders here:
+- `.next/cache` — webpack build cache (hundreds of MB).
+- `.cache` — **~1.3GB**: Playwright/Chromium+WebKit browsers (`.cache/ms-playwright`, ~800MB)
+  + bun/npm tooling caches. Gitignored but still shipped; never read by the standalone
+  runtime. Installing Playwright (e.g. during catalog/PDF or test tooling work) silently
+  balloons the image and can flip a previously-green publish into a promote-step failure.
+**Fix:** `rm -rf .next/cache .cache` at the end of `build.sh` (after copying static/public
+into standalone). Safe — all regenerable. Do NOT `rm` source dirs like `attached_assets` in
+build.sh: the rm may hit the live repl FS and would destroy user uploads.
 
 **Why:** image bloat at assembly time is the most plausible code-correlated cause of a
 promote failure after a successful push, and shrinking the image is a high-value, low-risk

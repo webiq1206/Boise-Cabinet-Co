@@ -14,8 +14,14 @@ cp -r public .next/standalone/public
 if command -v node &>/dev/null; then
   node scripts/submit-indexnow.mjs || echo "IndexNow submission skipped (non-fatal)"
 fi
-# Remove regenerable build cache so it is not shipped in the deployment image.
-# .next/cache is webpack/build incremental cache only; the standalone runtime
-# (.next/standalone/server.js) never reads it. Shipping it (hundreds of MB)
-# bloats the Repl layer and its duplicate cache layer during image assembly.
-rm -rf .next/cache
+# Remove regenerable build/tooling caches so they are not shipped in the deployment
+# image. The standalone runtime (.next/standalone/server.js) reads none of them, but
+# Replit's Repl layer ships the whole workspace regardless of .gitignore, so anything
+# left on disk bloats that layer AND its duplicate cache layer during image assembly
+# on the small cr-2-4 (2 vCPU / 4 GB) build machine.
+#   .next/cache : webpack/build incremental cache (hundreds of MB).
+#   .cache      : Playwright browsers + bun/npm tooling caches (~1GB+).
+# Both regenerate on demand, so removing them here is safe. Also drop the small
+# catalog-verification scratch files left in the repo root.
+rm -rf .next/cache .cache
+rm -f .tmp-osc-*.txt
