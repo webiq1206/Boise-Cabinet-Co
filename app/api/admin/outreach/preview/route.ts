@@ -5,6 +5,7 @@ import { eq } from "drizzle-orm";
 import { requireAdmin } from "@/lib/outreach/requireAdmin";
 import { buildOutreachCopy } from "@/lib/outreach/template";
 import { buildUnsubscribeUrl } from "@/lib/outreach/sender";
+import { getOutreachFromEmail, getOutreachSenderName } from "@/lib/outreach/config";
 
 export async function GET(request: NextRequest) {
   const auth = await requireAdmin();
@@ -30,11 +31,18 @@ export async function GET(request: NextRequest) {
     seed: prospect.id,
   });
 
+  // Show the address the email will actually be sent FROM (the configured
+  // outreach sender), not the recipient's address. Falls back to a clear
+  // placeholder until the sender is configured.
+  const fromEmail = getOutreachFromEmail();
+  const from = fromEmail ? `${getOutreachSenderName()} <${fromEmail}>` : null;
+
   return NextResponse.json({
     subject: copy.subject,
     text: copy.text,
     html: copy.html,
-    from: prospect.email,
+    from,
+    to: prospect.email,
     businessName: prospect.businessName,
     status: prospect.status,
   });

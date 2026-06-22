@@ -18,6 +18,11 @@ export function buildUnsubscribeUrl(token: string): string {
   return `${base}/api/outreach/unsubscribe?token=${encodeURIComponent(token)}`;
 }
 
+export function buildOpenTrackingUrl(token: string): string {
+  const base = SITE_CONFIG.siteUrl.replace(/\/$/, "");
+  return `${base}/api/outreach/open?token=${encodeURIComponent(token)}`;
+}
+
 async function isSuppressed(email: string): Promise<boolean> {
   if (!db) return false;
   const rows = await db
@@ -31,10 +36,14 @@ async function isSuppressed(email: string): Promise<boolean> {
 async function countSentLast24h(): Promise<number> {
   if (!db) return 0;
   const since = new Date(Date.now() - 24 * 60 * 60 * 1000);
+  // Count by sentAt timestamp, NOT by status: once an email is delivered its
+  // status can move on (opened, replied, bounced, unsubscribed), but it still
+  // counts against the rolling 24h daily cap. A status filter here would let
+  // post-send transitions silently leak past the cap.
   const rows = await db
     .select({ n: sql<number>`count(*)::int` })
     .from(outreachProspects)
-    .where(and(eq(outreachProspects.status, "sent"), gte(outreachProspects.sentAt, since)));
+    .where(and(isNotNull(outreachProspects.sentAt), gte(outreachProspects.sentAt, since)));
   return rows[0]?.n ?? 0;
 }
 
@@ -49,10 +58,12 @@ async function inFlightCount(): Promise<number> {
 
 async function minutesSinceLastSend(): Promise<number | null> {
   if (!db) return null;
+  // Spacing is based on the most recent actual send time, regardless of the
+  // prospect's current status (it may have since moved to opened/replied/etc).
   const rows = await db
     .select({ sentAt: outreachProspects.sentAt })
     .from(outreachProspects)
-    .where(and(eq(outreachProspects.status, "sent"), isNotNull(outreachProspects.sentAt)))
+    .where(isNotNull(outreachProspects.sentAt))
     .orderBy(desc(outreachProspects.sentAt))
     .limit(1);
   const last = rows[0]?.sentAt;
@@ -124,6 +135,8 @@ async function sendToProspect(
     personalizationNote: prospect.personalizationNote,
     unsubscribeUrl: buildUnsubscribeUrl(prospect.unsubscribeToken),
     seed: prospect.id,
+    // Only embed the open-tracking pixel in a real send, never in a dry run.
+    openTrackingUrl: config.dryRun ? null : buildOpenTrackingUrl(prospect.unsubscribeToken),
   });
 
   // Dry run: compose and preview only. Do not call Resend, do not mark sent,

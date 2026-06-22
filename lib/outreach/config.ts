@@ -100,8 +100,8 @@ export function getOutreachReplyTo(): string {
 /**
  * Valid physical postal address for the CAN-SPAM footer. A real street or PO
  * box address is legally required on commercial email. Falls back to the
- * city/region NAP if the dedicated env is unset (set OUTREACH_MAILING_ADDRESS
- * before enabling real sends).
+ * city/region NAP ONLY for previews; real sends are hard-gated on a valid
+ * OUTREACH_MAILING_ADDRESS (see isOutreachMailingAddressValid / isOutreachSendable).
  */
 export function getOutreachPostalAddress(): string {
   const explicit = process.env.OUTREACH_MAILING_ADDRESS?.trim();
@@ -109,7 +109,27 @@ export function getOutreachPostalAddress(): string {
   return `${SITE_CONFIG.address.city}, ${SITE_CONFIG.address.state}, ${SITE_CONFIG.address.country}`;
 }
 
-/** True when real sends are fully configured (verified sender present). */
+/**
+ * CAN-SPAM requires a real physical postal address (street or registered PO
+ * box) on every commercial email. The city/state NAP fallback is NOT a valid
+ * postal address, so we require an explicit OUTREACH_MAILING_ADDRESS that looks
+ * like a real address before any real send is permitted: it must contain a
+ * street/box number, a comma separating address lines, and have real length.
+ */
+export function isOutreachMailingAddressValid(): boolean {
+  const explicit = process.env.OUTREACH_MAILING_ADDRESS?.trim();
+  if (!explicit) return false;
+  if (explicit.length < 10) return false;
+  if (!/\d/.test(explicit)) return false;
+  if (!explicit.includes(",")) return false;
+  return true;
+}
+
+/**
+ * True when real sends are fully configured: a verified outreach sender on an
+ * isolated subdomain AND a valid physical mailing address for the legally
+ * required CAN-SPAM footer.
+ */
 export function isOutreachSendable(): boolean {
-  return getOutreachFromEmail() !== null;
+  return getOutreachFromEmail() !== null && isOutreachMailingAddressValid();
 }

@@ -28,6 +28,7 @@ interface Prospect {
   status: string;
   personalizationNote: string | null;
   sentAt: string | null;
+  openedAt: string | null;
   lastError: string | null;
 }
 
@@ -50,6 +51,7 @@ interface PreviewData {
   text: string;
   html: string;
   from: string | null;
+  to: string | null;
   businessName: string;
   status: string;
 }
@@ -61,6 +63,7 @@ const STATUS_LABELS: Record<string, string> = {
   approved: "Approved (queued)",
   sending: "Sending",
   sent: "Sent",
+  opened: "Opened",
   replied: "Replied",
   bounced: "Bounced",
   skipped: "Skipped",
@@ -71,7 +74,7 @@ const STATUS_LABELS: Record<string, string> = {
 const FILTER_TABS: { key: string; label: string; statuses: string[] }[] = [
   { key: "ready", label: "Ready", statuses: ["ready"] },
   { key: "approved", label: "Queued", statuses: ["approved", "sending"] },
-  { key: "sent", label: "Sent", statuses: ["sent", "replied"] },
+  { key: "sent", label: "Sent", statuses: ["sent", "opened", "replied"] },
   { key: "discovered", label: "Discovered", statuses: ["discovered"] },
   { key: "no_email", label: "No email", statuses: ["needs_email"] },
   { key: "other", label: "Other", statuses: ["skipped", "unsubscribed", "bounced", "error"] },
@@ -245,7 +248,7 @@ function ProspectCard({
             </Button>
           )}
 
-          {(p.status === "sent" || p.status === "replied" || p.status === "bounced") && (
+          {(p.status === "sent" || p.status === "opened" || p.status === "replied" || p.status === "bounced") && (
             <>
               {p.status !== "replied" && (
                 <Button
@@ -420,9 +423,11 @@ function OutreachPanel() {
       {!data.readiness.sendable && (
         <Alert>
           <AlertTriangle className="h-4 w-4" />
-          <AlertTitle>Sending address not set</AlertTitle>
+          <AlertTitle>Real sending not fully configured</AlertTitle>
           <AlertDescription>
-            Set OUTREACH_FROM_EMAIL to a Resend-verified subdomain address. Until then, sends stay in preview only.
+            Real sends require two things: OUTREACH_FROM_EMAIL set to a Resend-verified subdomain address,
+            and OUTREACH_MAILING_ADDRESS set to a real physical postal address (legally required in the email
+            footer). Until both are set, sends stay in preview only.
           </AlertDescription>
         </Alert>
       )}
@@ -595,7 +600,8 @@ function OutreachPanel() {
                 </div>
               </div>
               <div className="text-xs text-muted-foreground">
-                From: {previewData.from ?? "unknown"} · Status: {previewData.status}
+                From: {previewData.from ?? "(sending address not set)"} · To:{" "}
+                {previewData.to ?? "(no email)"} · Status: {previewData.status}
               </div>
             </div>
           )}

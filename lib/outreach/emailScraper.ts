@@ -138,9 +138,22 @@ function extractEmails(html: string): string[] {
 
 function pickBestEmail(emails: string[], domainHost: string | null): string | null {
   if (emails.length === 0) return null;
+  // We ONLY contact an address that lives on the contractor's own domain. If a
+  // page lists a third-party/vendor address (a marketing agency, a webmaster, a
+  // form provider, etc.), we must NOT use it. Without a host we cannot prove the
+  // address belongs to the business, so we skip rather than guess.
   const host = domainHost?.replace(/^www\./, "").toLowerCase() ?? "";
-  const sameDomain = emails.filter((e) => (host ? e.endsWith(`@${host}`) || e.includes(host) : true));
-  const pool = sameDomain.length > 0 ? sameDomain : emails;
+  if (!host) return null;
+  // Accept the exact registrable host or any subdomain of it (e.g. an address
+  // at mail.theirdomain.com), but nothing on an unrelated domain.
+  const onDomain = (e: string) => {
+    const at = e.lastIndexOf("@");
+    if (at < 0) return false;
+    const emailHost = e.slice(at + 1).replace(/^www\./, "");
+    return emailHost === host || emailHost.endsWith(`.${host}`);
+  };
+  const pool = emails.filter(onDomain);
+  if (pool.length === 0) return null;
   const preferredPrefixes = ["info", "office", "contact", "hello", "sales", "estimating", "estimates"];
   for (const prefix of preferredPrefixes) {
     const hit = pool.find((e) => e.startsWith(`${prefix}@`));

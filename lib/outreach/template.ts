@@ -41,6 +41,10 @@ export interface OutreachCopyInput {
   personalizationNote?: string | null;
   unsubscribeUrl: string;
   seed: string;
+  // When provided, a 1x1 tracking pixel pointing at this URL is embedded in the
+  // HTML body so we can record opens where the recipient's mail client loads
+  // remote images. Omitted for previews.
+  openTrackingUrl?: string | null;
 }
 
 export interface OutreachCopy {
@@ -50,7 +54,7 @@ export interface OutreachCopy {
 }
 
 export function buildOutreachCopy(input: OutreachCopyInput): OutreachCopy {
-  const { businessName, city, personalizationNote, unsubscribeUrl, seed } = input;
+  const { businessName, city, personalizationNote, unsubscribeUrl, seed, openTrackingUrl } = input;
   const senderName = getOutreachSenderName();
   const postal = getOutreachPostalAddress();
 
@@ -114,7 +118,11 @@ export function buildOutreachCopy(input: OutreachCopyInput): OutreachCopy {
     You received this note because ${esc(businessName)} is publicly listed as a general contractor in ${esc(city)}, Idaho. This is a one time business introduction from ${esc(SITE_CONFIG.name)}.<br>
     Our mailing address: ${esc(postal)}<br>
     If you would rather not hear from us, <a href="${esc(unsubscribeUrl)}" style="color:#888;">unsubscribe here</a>.
-  </p>
+  </p>${
+    openTrackingUrl
+      ? `\n  <img src="${esc(openTrackingUrl)}" width="1" height="1" alt="" style="display:none;width:1px;height:1px;border:0;" />`
+      : ""
+  }
 </div>`);
 
   return { subject, html, text };
