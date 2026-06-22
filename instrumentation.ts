@@ -105,6 +105,64 @@ export async function register() {
         } catch (addrErr) {
           console.error("[startup] Address backfill failed:", addrErr);
         }
+
+        // Ensure the designated admin account exists in production. Publishing
+        // migrates schema only, not data, so the admin account created in the
+        // workspace does not exist in the production database. This is gated by
+        // the ADMIN_BOOTSTRAP_PASSWORD secret, which only the Repl owner can
+        // set — proving ownership and serving as the sanctioned "manual
+        // promotion" path now that the verified OIDC login flow is gone.
+        // Idempotent: creates the account if missing, sets a password only when
+        // one is absent, and always ensures the admin role. It never overwrites
+        // a password the admin later changes.
+        try {
+          const adminEmail = "hello@boisecabinet.co";
+          const bootstrapPw = process.env.ADMIN_BOOTSTRAP_PASSWORD;
+          if (bootstrapPw && bootstrapPw.length >= 8) {
+            const { randomBytes, scrypt: scryptCb } = await import("crypto");
+            const { promisify } = await import("util");
+            const scrypt = promisify(scryptCb) as (
+              pw: string,
+              salt: string,
+              keylen: number,
+            ) => Promise<Buffer>;
+            const makeHash = async (pw: string) => {
+              const salt = randomBytes(16).toString("hex");
+              const derived = await scrypt(pw, salt, 64);
+              return `${salt}:${derived.toString("hex")}`;
+            };
+            const existing = await pool.query(
+              "SELECT id, role, password_hash FROM users WHERE lower(email) = $1",
+              [adminEmail],
+            );
+            if (existing.rows.length === 0) {
+              await pool.query(
+                "INSERT INTO users (email, role, password_hash) VALUES ($1, 'admin', $2)",
+                [adminEmail, await makeHash(bootstrapPw)],
+              );
+              console.log("[startup] Created admin account " + adminEmail);
+            } else {
+              const row = existing.rows[0];
+              if (!row.password_hash) {
+                await pool.query(
+                  "UPDATE users SET password_hash = $1, role = 'admin' WHERE id = $2",
+                  [await makeHash(bootstrapPw), row.id],
+                );
+                console.log(
+                  "[startup] Set admin password + role for " + adminEmail,
+                );
+              } else if (row.role !== "admin") {
+                await pool.query(
+                  "UPDATE users SET role = 'admin' WHERE id = $1",
+                  [row.id],
+                );
+                console.log("[startup] Promoted " + adminEmail + " to admin");
+              }
+            }
+          }
+        } catch (adminErr) {
+          console.error("[startup] Admin bootstrap failed:", adminErr);
+        }
       } catch (e) {
         console.error("[startup] Error during startup tasks:", e);
       } finally {
