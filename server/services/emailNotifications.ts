@@ -923,6 +923,7 @@ export async function sendAdminReminder(
 ): Promise<void> {
   const subject = `Reminder - Lead pending ${Math.floor(leadData.hoursPending)} hours - ${leadData.city}`;
   const dashboardUrl = adminLeadUrl('pending', leadData.id);
+  const leadValue = formatLeadValueRange(leadData.finalQuote);
   const htmlBody = `
     <!DOCTYPE html>
     <html lang="en">
@@ -942,8 +943,10 @@ export async function sendAdminReminder(
           <p class="greeting">A lead is still pending review.</p>
           <table class="info-table">
             <tr><td class="label">Lead ID:</td><td class="value">${leadData.id}</td></tr>
+            <tr><td class="label">Customer Name:</td><td class="value">${escapeHtml(leadData.name)}</td></tr>
             <tr><td class="label">City:</td><td class="value">${leadData.city}</td></tr>
             <tr><td class="label">Service:</td><td class="value">${leadData.serviceType}</td></tr>
+            <tr><td class="label">Estimated Value:</td><td class="value" style="font-weight: 600; color: ${EMAIL_BRAND.charcoal};">${leadValue.display}</td></tr>
             <tr><td class="label">Pending:</td><td class="value">${Math.floor(leadData.hoursPending)} hours</td></tr>
           </table>
           <div style="text-align:center; margin: 30px 0;">

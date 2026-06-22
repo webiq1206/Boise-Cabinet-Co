@@ -47,7 +47,7 @@ export function buildTextLogo(): string {
         Boise Cabinet <span style="color: ${EMAIL_BRAND.sage}; font-style: italic;">Co</span>
       </div>
       <div style="font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: ${EMAIL_BRAND.charcoalLight}; margin-top: 4px;">
-        Design &amp; Build
+        Custom Cabinetry
       </div>
     </div>
   `;
@@ -161,12 +161,6 @@ export const emailStyles = `
     text-align: center;
     border-top: 1px solid ${EMAIL_BRAND.border};
   }
-  .footer-brand {
-    font-size: 18px;
-    font-weight: 600;
-    color: ${EMAIL_BRAND.charcoal};
-    margin: 0 0 8px 0;
-  }
   .footer-tagline {
     font-size: 13px;
     color: ${EMAIL_BRAND.charcoalLight};
@@ -198,11 +192,10 @@ export const emailStyles = `
   }
 `;
 
-export function buildEmailFooter(tagline = "Design & Build"): string {
+export function buildEmailFooter(tagline = "Custom Cabinetry"): string {
   return `
     <div class="footer">
       ${buildTextLogo()}
-      <p class="footer-brand">${escapeHtml(SITE_CONFIG.name)}</p>
       <p class="footer-tagline">${escapeHtml(tagline)}</p>
       <p class="footer-contact">${escapeHtml(`${SITE_CONFIG.address.city}, ${SITE_CONFIG.address.state} · ${SITE_CONFIG.serviceAreaLabel}`)}</p>
       <p class="footer-contact">Phone: <a href="${SITE_CONFIG.phoneHref}">${escapeHtml(SITE_CONFIG.phone)}</a></p>
@@ -218,7 +211,7 @@ export function wrapEmailHtml(options: {
   tagline?: string;
   content: string;
 }): string {
-  const { title, subtitle, tagline = "Design & Build", content } = options;
+  const { title, subtitle, tagline = "Custom Cabinetry", content } = options;
   return `<!DOCTYPE html>
 <html lang="en">
 <head>

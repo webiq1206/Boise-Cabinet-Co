@@ -158,7 +158,7 @@ export async function sendQuoteConfirmationEmail(data: {
   const html = wrapEmailHtml({
     title: 'Thank You for Your Quote Request!',
     subtitle: `Reference: ${data.quoteId.slice(0, 8)}`,
-    tagline: 'Design & Build',
+    tagline: 'Custom Cabinetry',
     content: `
       <p class="greeting">Hi ${escapeHtml(data.customerName)},</p>
       <p>Thank you for contacting Boise Cabinet Co! We've received your request and will be in touch within one business day to schedule your free design consultation.</p>

@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { SiteEmailLink } from "@/components/SiteEmailLink";
 import { FOOTER_CABINET_LINKS } from "@/shared/cabinetNav";
-import { SITE_TAGLINE } from "@/shared/siteContent";
 import { SITE_CONFIG } from "@/shared/siteConfig";
 import { FooterCTAs } from "@/components/modals/FooterCTAs";
 import { CONTENT_HUBS, categoryHubPath, guidePath } from "@/shared/contentHubs";
@@ -19,14 +18,14 @@ export function Footer() {
       <div className="container px-4 py-16 md:py-20">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-8 gap-10 mb-12 lg:gap-0 lg:divide-x lg:divide-inverse-foreground/10 [&>*]:lg:px-6 [&>*:first-child]:lg:pl-0 [&>*:last-child]:lg:pr-0">
           <div>
-            <div className="mb-4">
-              <span className="font-sans font-light text-lg tracking-tight text-inverse-foreground">
-                Boise <em className="brc-accent text-accent">Cabinet</em> Co
+            <div className="mb-6">
+              <span className="block font-sans font-light text-lg tracking-tight text-inverse-foreground">
+                Boise Cabinet <em className="brc-accent text-accent">Co</em>
+              </span>
+              <span className="block text-[9px] tracking-[0.15em] uppercase font-sans font-medium mt-0.5 text-inverse-muted">
+                Custom Cabinetry
               </span>
             </div>
-            <p className="text-sm mb-6 text-inverse-muted font-sans">
-              {SITE_TAGLINE}.
-            </p>
             <div className="space-y-2">
               <a
                 href={SITE_CONFIG.phoneHref}
