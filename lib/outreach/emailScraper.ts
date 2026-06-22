@@ -196,41 +196,81 @@ function pickBestEmail(emails: string[], domainHost: string | null): string | nu
   return pool[0];
 }
 
-/** Minimal robots.txt parser: check if our user-agent is allowed for a path. */
+interface RobotsGroup {
+  agents: string[];
+  disallows: string[];
+}
+
+/**
+ * Parse robots.txt into user-agent groups. Consecutive `User-agent` lines share
+ * the following rule block; a `Disallow`/`Allow` rule after a group's rules
+ * starts a fresh group on the next `User-agent`. Comments and unknown fields
+ * are ignored.
+ */
+function parseRobotsGroups(robotsTxt: string): RobotsGroup[] {
+  const groups: RobotsGroup[] = [];
+  let current: RobotsGroup | null = null;
+  let lastWasRule = false;
+
+  for (const raw of robotsTxt.split(/\r?\n/)) {
+    const line = raw.replace(/#.*$/, "").trim();
+    if (!line) continue;
+    const idx = line.indexOf(":");
+    if (idx < 0) continue;
+    const field = line.slice(0, idx).trim().toLowerCase();
+    const value = line.slice(idx + 1).trim();
+
+    if (field === "user-agent") {
+      // A user-agent line that follows rules begins a new group.
+      if (current && lastWasRule) current = null;
+      if (!current) {
+        current = { agents: [], disallows: [] };
+        groups.push(current);
+      }
+      current.agents.push(value.toLowerCase());
+      lastWasRule = false;
+    } else if (field === "disallow") {
+      if (!current) continue; // rule before any user-agent: ignore
+      current.disallows.push(value);
+      lastWasRule = true;
+    } else {
+      // allow / crawl-delay / sitemap etc: ignored, but still count as a rule
+      // so the next user-agent starts a new group.
+      if (current) lastWasRule = true;
+    }
+  }
+  return groups;
+}
+
+/**
+ * Decide whether `path` is crawlable for our user-agent. Precedence: a group
+ * naming our specific user-agent wins over the wildcard `*` group. Within the
+ * applicable group, any non-empty `Disallow` prefix that matches the path
+ * blocks it (an empty `Disallow` means "allow all"). If no group applies, the
+ * path is allowed.
+ */
 function isAllowedByRobotsTxt(robotsTxt: string, userAgent: string, path: string): boolean {
-  const lines = robotsTxt.split(/\r?\n/);
-  let ourBlock = false;
-  let genericBlock = false;
-  let matched = false;
-  for (const raw of lines) {
-    const line = raw.trim().toLowerCase();
-    if (line.startsWith("user-agent:")) {
-      const ua = line.slice("user-agent:".length).trim();
-      if (ua === "*") {
-        ourBlock = false;
-        genericBlock = true;
-        matched = true;
-      } else if (userAgent.toLowerCase().includes(ua)) {
-        ourBlock = true;
-        genericBlock = false;
-        matched = true;
-      } else {
-        ourBlock = false;
-        genericBlock = false;
-        matched = false;
+  const ua = userAgent.toLowerCase();
+  const groups = parseRobotsGroups(robotsTxt);
+
+  let specific: RobotsGroup | null = null;
+  let wildcard: RobotsGroup | null = null;
+  for (const g of groups) {
+    for (const a of g.agents) {
+      if (a === "*") {
+        wildcard = wildcard ?? g;
+      } else if (a && ua.includes(a)) {
+        specific = specific ?? g;
       }
     }
-    if (line.startsWith("disallow:")) {
-      const dis = line.slice("disallow:".length).trim();
-      if (!dis) continue;
-      const blocked = dis.endsWith("/")
-        ? path.startsWith(dis) || path === dis.slice(0, -1)
-        : path.startsWith(dis);
-      if (blocked) {
-        if (ourBlock) return false;
-        if (genericBlock && !matched) return false;
-      }
-    }
+  }
+
+  const applicable = specific ?? wildcard;
+  if (!applicable) return true;
+
+  for (const dis of applicable.disallows) {
+    if (!dis) continue; // empty Disallow => allow everything
+    if (path.startsWith(dis)) return false;
   }
   return true;
 }

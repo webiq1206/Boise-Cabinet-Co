@@ -24,19 +24,22 @@ status string. Status is for UI/filtering only.
 
 ## The throttle must have no bypass
 
-`processOutreachBatch` enforces the in-flight guard, rolling daily cap, and
-minimum gap on EVERY path. Do not reintroduce a `respectGap`/skip-throttle
-option. The manual admin "send" endpoint sends exactly one message per run and
-goes through the identical gating as the automated `instrumentation.ts` tick.
+All cold-outreach send paths (the automated background tick and the manual admin
+"send" button) must funnel through the single batch function and be subject to
+the same gating: master on/off, daily cap, minimum gap, and in-flight guard.
 
-**Why:** A previous review rejected the feature because the manual send route
-called the batch with the gap check disabled and a per-request limit up to 5,
-allowing bursty back-to-back sends. Cold outreach must always be dripped out.
+**Why:** A review rejected the feature because the manual path had a
+skip-the-gap flag and a multi-per-request limit, allowing bursty back-to-back
+sends. Cold outreach must always drip out.
+
+**How to apply:** Do not add a "respect gap" / skip-throttle option or a
+batch-size knob to any send entrypoint. Manual send = one message per run,
+identical gating to auto.
 
 ## Manual email entry is provenance-gated
 
-Admin-entered prospect emails go through `isEmailOnDomain()` (in
-`lib/outreach/emailScraper.ts`) — same on-domain rule as the scraper. An admin
-can never approve a guessed (`info@theircompany.com`) or third-party address;
-if the prospect has no parseable website, manual email entry is rejected.
+An admin may only save/approve a prospect email that is provably on the
+contractor's own website domain — the same on-domain rule the scraper uses.
+Guessed (`info@theircompany.com`) or third-party addresses, and prospects with
+no parseable website, must be rejected, not contacted.
 
