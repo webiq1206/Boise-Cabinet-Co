@@ -106,7 +106,7 @@ export async function register() {
           console.error("[startup] Address backfill failed:", addrErr);
         }
 
-        // Ensure the designated admin account exists in production. Publishing
+        // Ensure the designated admin accounts exist in production. Publishing
         // migrates schema only, not data, so the admin account created in the
         // workspace does not exist in the production database. This is gated by
         // the ADMIN_BOOTSTRAP_PASSWORD secret, which only the Repl owner can
@@ -116,7 +116,7 @@ export async function register() {
         // one is absent, and always ensures the admin role. It never overwrites
         // a password the admin later changes.
         try {
-          const adminEmail = "hello@boisecabinet.co";
+          const { ADMIN_EMAILS } = await import("./shared/adminEmails");
           const bootstrapPw = process.env.ADMIN_BOOTSTRAP_PASSWORD;
           if (bootstrapPw && bootstrapPw.length >= 8) {
             const { randomBytes, scrypt: scryptCb } = await import("crypto");
@@ -131,32 +131,36 @@ export async function register() {
               const derived = await scrypt(pw, salt, 64);
               return `${salt}:${derived.toString("hex")}`;
             };
-            const existing = await pool.query(
-              "SELECT id, role, password_hash FROM users WHERE lower(email) = $1",
-              [adminEmail],
-            );
-            if (existing.rows.length === 0) {
-              await pool.query(
-                "INSERT INTO users (email, role, password_hash) VALUES ($1, 'admin', $2)",
-                [adminEmail, await makeHash(bootstrapPw)],
+            for (const rawEmail of ADMIN_EMAILS) {
+              const adminEmail = rawEmail.trim().toLowerCase();
+              if (!adminEmail) continue;
+              const existing = await pool.query(
+                "SELECT id, role, password_hash FROM users WHERE lower(email) = $1",
+                [adminEmail],
               );
-              console.log("[startup] Created admin account " + adminEmail);
-            } else {
-              const row = existing.rows[0];
-              if (!row.password_hash) {
+              if (existing.rows.length === 0) {
                 await pool.query(
-                  "UPDATE users SET password_hash = $1, role = 'admin' WHERE id = $2",
-                  [await makeHash(bootstrapPw), row.id],
+                  "INSERT INTO users (email, role, password_hash) VALUES ($1, 'admin', $2)",
+                  [adminEmail, await makeHash(bootstrapPw)],
                 );
-                console.log(
-                  "[startup] Set admin password + role for " + adminEmail,
-                );
-              } else if (row.role !== "admin") {
-                await pool.query(
-                  "UPDATE users SET role = 'admin' WHERE id = $1",
-                  [row.id],
-                );
-                console.log("[startup] Promoted " + adminEmail + " to admin");
+                console.log("[startup] Created admin account " + adminEmail);
+              } else {
+                const row = existing.rows[0];
+                if (!row.password_hash) {
+                  await pool.query(
+                    "UPDATE users SET password_hash = $1, role = 'admin' WHERE id = $2",
+                    [await makeHash(bootstrapPw), row.id],
+                  );
+                  console.log(
+                    "[startup] Set admin password + role for " + adminEmail,
+                  );
+                } else if (row.role !== "admin") {
+                  await pool.query(
+                    "UPDATE users SET role = 'admin' WHERE id = $1",
+                    [row.id],
+                  );
+                  console.log("[startup] Promoted " + adminEmail + " to admin");
+                }
               }
             }
           }

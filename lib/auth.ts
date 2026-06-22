@@ -6,6 +6,7 @@ import { db } from "./db";
 import { users } from "@/shared/schema";
 import { eq } from "drizzle-orm";
 import { normalizeRole, getPortalHomePath } from "@/lib/auth/roles";
+import { ADMIN_EMAILS } from "@/shared/adminEmails";
 
 const scrypt = promisify(scryptCb);
 
@@ -152,10 +153,6 @@ export async function getUserFromDb(userId: string) {
   const result = await db.select().from(users).where(eq(users.id, userId)).limit(1);
   return result[0] || null;
 }
-
-const ADMIN_EMAILS = [
-  "hello@boisecabinet.co",
-];
 
 /** Partner emails can be extended via env or admin assignment */
 const PARTNER_EMAILS: string[] = (

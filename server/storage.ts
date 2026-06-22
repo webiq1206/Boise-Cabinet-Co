@@ -4,6 +4,7 @@ import { BLOG_POSTS } from "@shared/blogContent";
 import { db } from "./db";
 import { eq, and, or, desc, lte } from "drizzle-orm";
 import { SITE_CONFIG } from "@shared/siteConfig";
+import { ADMIN_EMAILS } from "@shared/adminEmails";
 
 export interface IStorage {
   createQuote(quote: InsertQuote): Promise<Quote>;
@@ -407,7 +408,7 @@ export class MemStorage implements IStorage {
     const existing = this.users.get(id);
     
     // Check if email is in admin list (canonical site email is always admin)
-    const adminEmails = [SITE_CONFIG.email.toLowerCase(), ...(process.env.ADMIN_EMAILS || "").split(",").map(e => e.trim().toLowerCase())].filter(Boolean);
+    const adminEmails = [...ADMIN_EMAILS, SITE_CONFIG.email].map(e => e.trim().toLowerCase()).filter(Boolean);
     const isAdminEmail = userData.email && adminEmails.includes(userData.email.toLowerCase());
     const role = userData.role ?? (isAdminEmail ? "admin" : "subcontractor");
     
@@ -1089,7 +1090,7 @@ export class DBStorage implements IStorage {
     const existing = await this.getUser(id);
     
     // Check if email is in admin list (canonical site email is always admin)
-    const adminEmails = [SITE_CONFIG.email.toLowerCase(), ...(process.env.ADMIN_EMAILS || "").split(",").map(e => e.trim().toLowerCase())].filter(Boolean);
+    const adminEmails = [...ADMIN_EMAILS, SITE_CONFIG.email].map(e => e.trim().toLowerCase()).filter(Boolean);
     const isAdminEmail = userData.email && adminEmails.includes(userData.email.toLowerCase());
     const defaultRole = isAdminEmail ? "admin" : "subcontractor";
 
