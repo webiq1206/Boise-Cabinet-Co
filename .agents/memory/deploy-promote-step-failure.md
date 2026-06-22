@@ -41,6 +41,23 @@ regenerable/runtime-irrelevant one at the end of `build.sh`. Confirmed big offen
 into standalone). Safe — all regenerable. Do NOT `rm` source dirs like `attached_assets` in
 build.sh: the rm may hit the live repl FS and would destroy user uploads.
 
+# After shrinking: a SEPARATE failure can surface — `node: command not found` (exit 127)
+Once the image is small enough to push and the build progresses PAST `Creating Autoscale
+service`, watch the RUNTIME logs (`fetchDeploymentLogs` for the service-creation window), not
+just the build log. Seen here: build reaches `Creating Autoscale service` then the container
+crash-loops with `bash: line 1: node: command not found` / `command finished with error
+[bash -c HOSTNAME=0.0.0.0 node .next/standalone/server.js]: exit status 127` and every
+healthcheck fails (the `returned status 500` lines are the health proxy reporting the dead
+upstream, not an app 500).
+Diagnosis when this appears: compare the failed build against the last SUCCESS build's layer
+lines. If `[deployment].run`, modules (`nodejs-20`), `[nix]`, AND the (content-addressed)
+"Retrieved cached nix layer" are all identical to a deploy that worked, then `node` — a
+platform-provided runtime — is missing from the run container through no fault of app code
+(content/data merges cannot remove a nix binary from PATH). Treat as a Replit deploy-env /
+transient issue: **retry the publish first** (fresh build often re-materializes node); if it
+recurs identically, force a fresh nix layer (re-add the Node module / tweak `[nix]` to bust
+the cache) or contact support. Do NOT hack the run command to absolute nix-store node paths.
+
 **Why:** image bloat at assembly time is the most plausible code-correlated cause of a
 promote failure after a successful push, and shrinking the image is a high-value, low-risk
 mitigation — but it is NOT proven causality. Other pre-service-creation blockers exist
