@@ -46,65 +46,10 @@ interface LineItem {
   basePrice?: number;
   adjustedPrice?: number;
   calculationExplanation?: string;
-  isRecurring?: boolean;
-}
-
-const RECURRING_ELIGIBLE_SERVICE_IDS = new Set<string>();
-
-function isServiceRecurring(serviceId: string, frequency: string | null | undefined): boolean {
-  if (!frequency || frequency === "one-time") return false;
-  return RECURRING_ELIGIBLE_SERVICE_IDS.has(serviceId);
-}
-
-function formatFreqLabel(f: string): string {
-  const map: Record<string, string> = { 'one-time': 'One-time', 'weekly': 'Weekly', 'bi-weekly': 'Bi-weekly', 'monthly': 'Monthly' };
-  return map[f] || f;
-}
-
-function getLeadFrequencyDisplay(lead: { frequency?: string | null; selectedServices?: string[] | null; serviceData?: any }): string {
-  const freq = lead.frequency || "one-time";
-  const services = lead.selectedServices;
-  if (!services || services.length === 0) {
-    return formatFreqLabel(freq);
-  }
-  const svcData = lead.serviceData && typeof lead.serviceData === 'string'
-    ? (() => { try { return JSON.parse(lead.serviceData); } catch { return {}; } })()
-    : (lead.serviceData || {});
-
-  const recurringCount = services.filter(sid => {
-    if (!RECURRING_ELIGIBLE_SERVICE_IDS.has(sid)) return false;
-    const svcFreq = svcData[sid]?.frequency || freq;
-    return svcFreq !== "one-time";
-  }).length;
-  const totalCount = services.length;
-
-  if (recurringCount === 0) return "One-time";
-  if (recurringCount === totalCount) {
-    const firstRecurringFreq = services
-      .map(sid => svcData[sid]?.frequency || freq)
-      .find(f => f !== "one-time") || freq;
-    return formatFreqLabel(firstRecurringFreq);
-  }
-  return `Mixed (${recurringCount} recurring)`;
-}
-
-function getSeasonMultiplier(frequency: string | null | undefined): { multiplier: number; label: string } | null {
-  if (!frequency || frequency === "one-time") return null;
-  switch (frequency) {
-    case "weekly": return { multiplier: 30, label: "30 weeks" };
-    case "bi-weekly": return { multiplier: 15, label: "15 visits" };
-    case "monthly": return { multiplier: 7, label: "7 months" };
-    default: return null;
-  }
 }
 
 interface ServiceDataEntry {
   propertySize?: number;
-  linearFeet?: number;
-  zones?: number;
-  treeCount?: number;
-  quantity?: number;
-  frequency?: string;
   [key: string]: unknown;
 }
 
@@ -158,25 +103,10 @@ const PRIORITY_SERVICES = [
 
 function formatMeasurement(serviceId: string, data: ServiceDataEntry | undefined): string {
   if (!data) return '';
-  
   const parts: string[] = [];
-  
   if (data.propertySize) {
     parts.push(`${data.propertySize.toLocaleString()} sq ft`);
   }
-  if (data.linearFeet) {
-    parts.push(`${data.linearFeet.toLocaleString()} linear ft`);
-  }
-  if (data.zones) {
-    parts.push(`${data.zones} zone${data.zones > 1 ? 's' : ''}`);
-  }
-  if (data.treeCount) {
-    parts.push(`${data.treeCount} tree${data.treeCount > 1 ? 's' : ''}`);
-  }
-  if (data.quantity) {
-    parts.push(`${data.quantity} unit${data.quantity > 1 ? 's' : ''}`);
-  }
-  
   return parts.join(', ');
 }
 
@@ -223,23 +153,6 @@ function QuoteBreakdownSection({ lead }: { lead: Lead }) {
     return `$${price.toLocaleString()}`;
   };
 
-  const seasonInfo = getSeasonMultiplier(lead.frequency);
-  const hasAnyRecurring = lineItems.some(item => {
-    const sid = item.serviceId || item.service || "";
-    return item.isRecurring || isServiceRecurring(sid, lead.frequency);
-  });
-
-  const recurringTotal = lineItems.reduce((sum, item) => {
-    const sid = item.serviceId || item.service || "";
-    const recurring = item.isRecurring ?? isServiceRecurring(sid, lead.frequency);
-    return sum + (recurring ? (item.price || item.adjustedPrice || 0) : 0);
-  }, 0);
-  const oneTimeTotal = lineItems.reduce((sum, item) => {
-    const sid = item.serviceId || item.service || "";
-    const recurring = item.isRecurring ?? isServiceRecurring(sid, lead.frequency);
-    return sum + (!recurring ? (item.price || item.adjustedPrice || 0) : 0);
-  }, 0);
-  
   return (
     <Collapsible open={isOpen} onOpenChange={setIsOpen}>
       <div className="border-t pt-2">
@@ -266,8 +179,6 @@ function QuoteBreakdownSection({ lead }: { lead: Lead }) {
                 const serviceName = item.serviceName || item.service || 'Service';
                 const price = item.price || item.adjustedPrice || 0;
                 const measurement = serviceData[serviceId] ? formatMeasurement(serviceId, serviceData[serviceId]) : '';
-                const svcFreq = serviceData[serviceId]?.frequency || lead.frequency || "one-time";
-                const recurring = item.isRecurring ?? isServiceRecurring(serviceId, svcFreq);
                 
                 return (
                   <div 
@@ -280,11 +191,6 @@ function QuoteBreakdownSection({ lead }: { lead: Lead }) {
                         <span className="font-medium text-xs" data-testid={`text-service-name-${lead.id}-${index}`}>
                           {serviceName}
                         </span>
-                        {(svcFreq !== "one-time" || (lead.frequency && lead.frequency !== "one-time")) && (
-                          <Badge variant={recurring ? "default" : "secondary"} className="text-[9px] px-1 py-0">
-                            {recurring ? `Recurring (${formatFreqLabel(svcFreq)})` : "One-time"}
-                          </Badge>
-                        )}
                       </div>
                       <span className="font-semibold text-xs text-primary flex-shrink-0" data-testid={`text-service-price-${lead.id}-${index}`}>
                         {formatPrice(price)}
@@ -319,17 +225,6 @@ function QuoteBreakdownSection({ lead }: { lead: Lead }) {
                       {formatQuoteRangeWholeFromValue(lead.finalQuote, 0.15)}
                     </span>
                   </div>
-                  {hasAnyRecurring && seasonInfo && (
-                    <div className="flex justify-between items-center text-xs">
-                      <span className="text-muted-foreground">Est. seasonal value ({seasonInfo.label})</span>
-                      <span className="font-semibold text-primary">
-                        {formatQuoteRangeWholeFromValue(
-                          (recurringTotal > 0 ? recurringTotal * seasonInfo.multiplier : parseFloat(lead.finalQuote) * seasonInfo.multiplier) + oneTimeTotal,
-                          0.15
-                        )}
-                      </span>
-                    </div>
-                  )}
                 </>
               )}
             </div>
@@ -356,14 +251,6 @@ function QuoteBreakdownSection({ lead }: { lead: Lead }) {
                       {formatQuoteRangeWholeFromValue(lead.finalQuote, 0.15)}
                     </span>
                   </div>
-                  {hasAnyRecurring && seasonInfo && (
-                    <div className="flex justify-between items-center text-xs">
-                      <span className="text-muted-foreground">Est. seasonal value ({seasonInfo.label})</span>
-                      <span className="font-semibold text-primary">
-                        {formatQuoteRangeWholeFromValue(parseFloat(lead.finalQuote) * seasonInfo.multiplier, 0.15)}
-                      </span>
-                    </div>
-                  )}
                 </>
               )}
             </div>
@@ -1272,7 +1159,7 @@ function AdminDashboardContent({ embedded = false }: { embedded?: boolean }) {
             <div>
               <p className="font-medium text-sm leading-tight">{formatDate(lead.createdAt)}</p>
               <p className="text-muted-foreground text-[11px] leading-tight">
-                {formatLeadAge(lead.createdAt)}, {getLeadFrequencyDisplay(lead)}
+                {formatLeadAge(lead.createdAt)}
               </p>
             </div>
           </div>

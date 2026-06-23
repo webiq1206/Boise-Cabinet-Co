@@ -560,13 +560,6 @@ export default function PurchaseHistoryPage() {
                 <p className="text-muted-foreground text-xs">Estimated value</p>
               </div>
             </div>
-            <div className="flex items-center gap-2">
-              <Clock className="h-4 w-4 text-muted-foreground" />
-              <div>
-                <p className="font-medium">{lead.frequency || "One-time"}</p>
-                <p className="text-muted-foreground text-xs">Service frequency</p>
-              </div>
-            </div>
           </div>
 
           {lead.selectedServices && lead.selectedServices.length > 0 && (

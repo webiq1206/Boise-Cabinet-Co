@@ -4,12 +4,9 @@ import { db } from "@/lib/db";
 import { quotes, leads, users, notifications } from "@/shared/schema";
 import { and, desc, eq, gte } from "drizzle-orm";
 import { verifyEditToken } from "@/lib/leadDedupe";
-import { getRecurringEligibleServices } from "@shared/serviceSeasonality";
 import { HOUSE_NUMBER_REGEX, HOUSE_NUMBER_ERROR_MESSAGE } from "@/shared/addressValidation";
 
-const RECURRING_ELIGIBLE_SERVICE_IDS = getRecurringEligibleServices();
-
-const SERVICE_PRICING_RATES: Record<string, { lowRate: number; highRate: number; unit: string; minimum: number; includedZones?: number }> = {
+const SERVICE_PRICING_RATES: Record<string, { lowRate: number; highRate: number; unit: string; minimum: number }> = {
   "kitchen-remodel": { lowRate: 25000, highRate: 75000, unit: "base_project", minimum: 15000 },
   "bathroom-remodel": { lowRate: 8000, highRate: 35000, unit: "base_project", minimum: 5000 },
   "whole-home-remodel": { lowRate: 80000, highRate: 300000, unit: "base_project", minimum: 50000 },
@@ -21,8 +18,6 @@ const SERVICE_PRICING_RATES: Record<string, { lowRate: number; highRate: number;
 const PROPERTY_MULTIPLIERS: Record<string, number> = {
   residential: 1.0,
   commercial: 1.3,
-  hoa: 1.2,
-  "property-management": 1.25,
 };
 
 function roundToNearestFive(price: number): number {
@@ -35,12 +30,6 @@ function roundToNearestDollar(price: number): number {
 
 interface ServiceMeasurement {
   propertySize?: number;
-  linearFeet?: number;
-  perimeterFt?: number;
-  zones?: number;
-  treeCount?: number;
-  fixtureCount?: number;
-  frequency?: string;
   [key: string]: unknown;
 }
 
@@ -53,26 +42,12 @@ function calculateServicePrice(
   const config = SERVICE_PRICING_RATES[serviceId];
   if (!config) return 200;
   const typicalRate = (config.lowRate + config.highRate) / 2;
-  const sqft = serviceData?.propertySize || fallbackSqFt || 5000;
-  const linearFeet = serviceData?.linearFeet || serviceData?.perimeterFt || Math.round(Math.sqrt(Math.max(1, sqft)) * 4 * 0.6);
-  const zones = serviceData?.zones || 6;
+  const sqft = serviceData?.propertySize || fallbackSqFt || 2000;
   let cost = 0;
   switch (config.unit) {
     case "sqft": cost = sqft * typicalRate; break;
-    case "linear_ft": cost = linearFeet * typicalRate; break;
-    case "per_zone": {
-      const included = config.includedZones || 5;
-      cost = Math.max(included, zones) * typicalRate;
-      break;
-    }
-    case "per_tree": cost = (serviceData?.treeCount || 1) * typicalRate; break;
-    case "per_fixture": cost = (serviceData?.fixtureCount || 10) * typicalRate; break;
-    case "per_cubic_yard": cost = 3 * typicalRate; break;
-    case "per_sqft": cost = (sqft * 0.02) * typicalRate; break;
-    case "per_inch": cost = 12 * typicalRate; break;
-    case "base_service":
-    case "base_project": cost = typicalRate; break;
-    default: cost = config.minimum;
+    case "base_project":
+    default: cost = typicalRate;
   }
   cost = Math.max(config.minimum, cost);
   cost *= propertyMultiplier;
@@ -90,7 +65,6 @@ function calculateLeadPrice(finalQuote: number): { basePrice: number; currentPri
 const updateSchema = z.object({
   token: z.string().min(10),
   selectedServices: z.array(z.string()).min(1, "Please select at least one service"),
-  serviceFrequencies: z.record(z.string(), z.string()).optional(),
   // Optional defensively. The current customer self-service flow doesn't
   // resubmit address, but if it ever starts to (or an admin uses this
   // endpoint), the leading-house-number rule must hold for parity with
@@ -137,7 +111,6 @@ export async function GET(request: Request) {
     city: lead.city,
     propertyType: lead.propertyType,
     selectedServices: lead.selectedServices || [],
-    frequency: lead.frequency,
     serviceData: lead.serviceData || {},
     finalQuote: lead.finalQuote,
     lineItems: lead.lineItems || [],
@@ -172,20 +145,17 @@ export async function POST(request: Request) {
     const existingServiceData =
       (lead.serviceData as Record<string, ServiceMeasurement> | null) || {};
     const fallbackSqFt =
-      Number(existingServiceData[lead.serviceType]?.propertySize) || 5000;
+      Number(existingServiceData[lead.serviceType]?.propertySize) || 2000;
 
-    const serviceFrequencies = data.serviceFrequencies || {};
     const newServiceData: Record<string, ServiceMeasurement> = {};
     const lineItems = data.selectedServices.map((sid) => {
       const sd = existingServiceData[sid] || existingServiceData[lead.serviceType] || {};
-      const svcFreq = serviceFrequencies[sid] || sd?.frequency || lead.frequency || "one-time";
-      newServiceData[sid] = { ...sd, frequency: svcFreq };
+      newServiceData[sid] = { ...sd };
       const price = calculateServicePrice(sid, sd, fallbackSqFt, propertyMultiplier);
       return {
         serviceId: sid,
         serviceName: sid.replace(/-/g, " ").replace(/\b\w/g, (l) => l.toUpperCase()),
         price,
-        isRecurring: svcFreq !== "one-time" && RECURRING_ELIGIBLE_SERVICE_IDS.has(sid),
       };
     });
 

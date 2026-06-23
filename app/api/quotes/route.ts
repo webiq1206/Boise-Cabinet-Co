@@ -4,7 +4,6 @@ import { db } from "@/lib/db";
 import { quotes, leads, users, notifications, siteSettings } from "@/shared/schema";
 import { eq } from "drizzle-orm";
 import { sendQuoteConfirmationEmail, sendAdminNotificationEmail } from "@/lib/resend";
-import { getRecurringEligibleServices } from "@shared/serviceSeasonality";
 import { findActiveDuplicate, signEditToken, type DedupeCandidate } from "@/lib/leadDedupe";
 import { HOUSE_NUMBER_REGEX, HOUSE_NUMBER_ERROR_MESSAGE } from "@/shared/addressValidation";
 import { SITE_CONFIG } from "@/shared/siteConfig";
@@ -24,23 +23,14 @@ const quoteSubmissionSchema = z.object({
       HOUSE_NUMBER_ERROR_MESSAGE
     ),
   city: z.string().min(2, "Please enter a valid city"),
-  propertyType: z.enum(["residential", "commercial", "hoa", "property-management"]).optional(),
+  propertyType: z.enum(["residential", "commercial"]).optional(),
   propertySize: z.number().optional(),
   serviceType: z.string().optional(),
   services: z.array(z.string()).optional(),
   selectedServices: z.array(z.string()).optional(),
-  frequency: z.enum(["one-time", "weekly", "bi-weekly", "monthly"]).optional(),
   estimatedTotal: z.number().optional(),
-  serviceFrequencies: z.record(z.string(), z.string()).optional(),
   serviceData: z.record(z.string(), z.object({
     propertySize: z.number().optional(),
-    linearFeet: z.number().optional(),
-    zones: z.number().optional(),
-    perimeterFt: z.number().optional(),
-    linearLengthFt: z.number().optional(),
-    treeCount: z.number().optional(),
-    fixtureCount: z.number().optional(),
-    frequency: z.string().optional(),
   })).optional(),
   propertyProfile: z.record(z.unknown()).optional(),
 });
@@ -53,9 +43,7 @@ function roundToNearestDollar(price: number): number {
   return Math.round(price);
 }
 
-const RECURRING_ELIGIBLE_SERVICE_IDS = getRecurringEligibleServices();
-
-const SERVICE_PRICING_RATES: Record<string, { lowRate: number; highRate: number; unit: string; minimum: number; includedZones?: number }> = {
+const SERVICE_PRICING_RATES: Record<string, { lowRate: number; highRate: number; unit: string; minimum: number }> = {
   "kitchen-remodel": { lowRate: 25000, highRate: 75000, unit: "base_project", minimum: 15000 },
   "bathroom-remodel": { lowRate: 8000, highRate: 35000, unit: "base_project", minimum: 5000 },
   "whole-home-remodel": { lowRate: 80000, highRate: 300000, unit: "base_project", minimum: 50000 },
@@ -67,13 +55,11 @@ const SERVICE_PRICING_RATES: Record<string, { lowRate: number; highRate: number;
 const PROPERTY_MULTIPLIERS: Record<string, number> = {
   residential: 1.0,
   commercial: 1.3,
-  hoa: 1.2,
-  "property-management": 1.25,
 };
 
 function calculateServicePrice(
   serviceId: string,
-  serviceData: { propertySize?: number; linearFeet?: number; zones?: number; perimeterFt?: number; linearLengthFt?: number; treeCount?: number; fixtureCount?: number } | undefined,
+  serviceData: { propertySize?: number } | undefined,
   fallbackSqFt: number,
   propertyMultiplier: number
 ): number {
@@ -81,49 +67,16 @@ function calculateServicePrice(
   if (!config) return 200;
 
   const typicalRate = (config.lowRate + config.highRate) / 2;
-  const sqft = serviceData?.propertySize || fallbackSqFt || 5000;
-  const linearFeet = serviceData?.linearFeet || serviceData?.perimeterFt || Math.round(Math.sqrt(Math.max(1, sqft)) * 4 * 0.6);
-  const zones = serviceData?.zones || 6;
+  const sqft = serviceData?.propertySize || fallbackSqFt || 2000;
 
   let cost = 0;
   switch (config.unit) {
     case "sqft":
       cost = sqft * typicalRate;
       break;
-    case "linear_ft":
-      cost = linearFeet * typicalRate;
-      break;
-    case "per_zone": {
-      const included = config.includedZones || 5;
-      cost = Math.max(included, zones) * typicalRate;
-      break;
-    }
-    case "per_tree":
-      cost = (serviceData?.treeCount || 1) * typicalRate;
-      break;
-    case "per_shrub": {
-      const unitEstimate = serviceData?.linearLengthFt ? Math.max(1, Math.round(serviceData.linearLengthFt / 4)) : 5;
-      cost = unitEstimate * typicalRate;
-      break;
-    }
-    case "per_fixture":
-      cost = (serviceData?.fixtureCount || 10) * typicalRate;
-      break;
-    case "per_cubic_yard":
-      cost = 3 * typicalRate;
-      break;
-    case "per_sqft":
-      cost = (sqft * 0.02) * typicalRate;
-      break;
-    case "per_inch":
-      cost = 12 * typicalRate;
-      break;
-    case "base_service":
     case "base_project":
-      cost = typicalRate;
-      break;
     default:
-      cost = config.minimum;
+      cost = typicalRate;
   }
 
   cost = Math.max(config.minimum, cost);
@@ -152,8 +105,6 @@ export async function POST(request: Request) {
 
     const services = validatedData.selectedServices || validatedData.services || [];
     const primaryService = validatedData.serviceType || services[0] || "kitchen-remodel";
-    const frequency = validatedData.frequency || "one-time";
-    const serviceFrequencies = validatedData.serviceFrequencies || {};
     const propertyType = validatedData.propertyType || "residential";
 
     let propertyProfile: PropertyProfile | null =
@@ -271,7 +222,6 @@ export async function POST(request: Request) {
           propertySize: enrichedPropertySize?.toString(),
           serviceType: primaryService,
           selectedServices: services,
-          frequency,
           serviceData: validatedData.serviceData || null,
           message: validatedData.message || null,
           status: "pending",
@@ -281,18 +231,16 @@ export async function POST(request: Request) {
         console.log("[QUOTE] Quote saved to database:", quoteId);
 
         const propertyMultiplier = PROPERTY_MULTIPLIERS[propertyType] || 1.0;
-        const fallbackSqFt = enrichedPropertySize || 5000;
+        const fallbackSqFt = enrichedPropertySize || 2000;
         const svcData = validatedData.serviceData || {};
 
         const serviceList = services.length > 0 ? services : [primaryService];
         const enrichedLineItems = serviceList.map(sid => {
           const price = calculateServicePrice(sid, svcData[sid], fallbackSqFt, propertyMultiplier);
-          const svcFreq = serviceFrequencies[sid] || svcData[sid]?.frequency || frequency;
           return {
             serviceId: sid,
             serviceName: sid.replace(/-/g, " ").replace(/\b\w/g, (l: string) => l.toUpperCase()),
             price,
-            isRecurring: svcFreq !== "one-time" && RECURRING_ELIGIBLE_SERVICE_IDS.has(sid),
           };
         });
 
@@ -329,7 +277,6 @@ export async function POST(request: Request) {
           propertyType,
           serviceType: primaryService,
           selectedServices: services,
-          frequency,
           finalQuote: estimatedTotal.toFixed(2),
           lineItems: enrichedLineItems,
           serviceData: validatedData.serviceData || null,
@@ -402,8 +349,6 @@ export async function POST(request: Request) {
         address: validatedData.address,
         city: validatedData.city,
         services,
-        frequency,
-        serviceFrequencies,
       });
       customerEmailSent = true;
       console.log("[QUOTE] Customer email sent successfully");
@@ -424,10 +369,8 @@ export async function POST(request: Request) {
         address: validatedData.address,
         city: validatedData.city,
         services,
-        frequency,
         message: validatedData.message,
         propertySize: validatedData.propertySize,
-        serviceFrequencies,
       });
       adminEmailSent = true;
       console.log("[QUOTE] Admin email sent successfully");

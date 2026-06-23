@@ -154,7 +154,6 @@ function buildNotes(
       `All services: ${lead.selectedServices.map(getServiceName).join(", ")}`,
     );
   }
-  if (lead.frequency) lines.push(`Frequency: ${lead.frequency}`);
   const range = calcQuoteRange(lead.finalQuote);
   if (range) lines.push(`Estimated quote: ${range}`);
   if (lead.propertySize) lines.push(`Property size: ${lead.propertySize}`);
@@ -196,7 +195,6 @@ const FULL_HEADERS = [
   "Service Type (raw)",
   "All Services",
   "Selected Services (raw)",
-  "Frequency",
   "Estimated Quote Range",
   "Estimated Quote (raw)",
   "Lead Price Paid",
@@ -259,7 +257,6 @@ export function buildLeadCsv(leads: ExportableLead[], opts: CsvBuildOptions): st
       "Service Type (raw)": lead.serviceType || "",
       "All Services": allServices,
       "Selected Services (raw)": (lead.selectedServices || []).join(", "),
-      Frequency: lead.frequency || "",
       "Estimated Quote Range": calcQuoteRange(lead.finalQuote),
       "Estimated Quote (raw)": lead.finalQuote || "",
       "Lead Price Paid": lead.purchasePrice || lead.currentLeadPrice || "",

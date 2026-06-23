@@ -190,18 +190,13 @@ async function main() {
       phone: "2085550199",
       city: "Kuna",
       propertyType: "residential",
-      serviceType: "lawn-mowing",
-      frequency: "one-time",
-      selectedServices: ["lawn-mowing"],
+      serviceType: "kitchen-remodel",
+      selectedServices: ["kitchen-remodel"],
       address: "123 Test St",
-      propertySize: 5000,
+      propertySize: 2000,
       serviceData: {
-        "lawn-mowing": {
-          propertySize: 5000,
-          zones: 6,
-          linearFeet: 200,
-          perimeterFt: 350,
-          hedgeLengthFt: 140,
+        "kitchen-remodel": {
+          propertySize: 2000,
         },
       },
       // intentionally omit finalQuote/lineItems to ensure server auto-calculates

@@ -22,7 +22,7 @@ import { StripePaymentForm, StripePaymentFormSkeleton, PaymentSuccess } from "@/
 import {
   Leaf, MapPin, Clock, DollarSign, Building, Search, Filter, X, ArrowUpDown, Eye,
   EyeOff, ShoppingCart, History, CheckCircle2, Info, AlertTriangle, ChevronDown,
-  Receipt, Bookmark, BookmarkCheck, Bell, LogOut, Mail, Shield, Flame, RefreshCw,
+  Receipt, Bookmark, BookmarkCheck, Bell, LogOut, Mail, Shield, Flame,
   TrendingUp, HelpCircle, FileSignature, Users, TrendingDown, ShieldCheck, Percent,
   Phone, User as UserIcon, Download
 } from "lucide-react";
@@ -48,68 +48,10 @@ interface LineItem {
   basePrice?: number;
   adjustedPrice?: number;
   calculationExplanation?: string;
-  isRecurring?: boolean;
-}
-
-const RECURRING_ELIGIBLE_SERVICE_IDS = new Set<string>();
-
-function isServiceRecurring(serviceId: string, frequency: string | null | undefined): boolean {
-  if (!frequency || frequency === "one-time") return false;
-  return RECURRING_ELIGIBLE_SERVICE_IDS.has(serviceId);
-}
-
-function formatFreqLabel(f: string): string {
-  const map: Record<string, string> = { 'one-time': 'One-time', 'weekly': 'Weekly', 'bi-weekly': 'Bi-weekly', 'monthly': 'Monthly' };
-  return map[f] || f;
-}
-
-function getLeadFrequencyDisplay(lead: { frequency?: string | null; selectedServices?: string[] | null; serviceData?: any }): string {
-  const freq = lead.frequency || "one-time";
-  const services = lead.selectedServices;
-  if (!services || services.length === 0) {
-    return formatFreqLabel(freq);
-  }
-  const svcData = lead.serviceData && typeof lead.serviceData === 'string'
-    ? (() => { try { return JSON.parse(lead.serviceData); } catch { return {}; } })()
-    : (lead.serviceData || {});
-
-  const recurringCount = services.filter(sid => {
-    if (!RECURRING_ELIGIBLE_SERVICE_IDS.has(sid)) return false;
-    const svcFreq = svcData[sid]?.frequency || freq;
-    return svcFreq !== "one-time";
-  }).length;
-  const totalCount = services.length;
-
-  if (recurringCount === 0) return "One-time";
-  if (recurringCount === totalCount) {
-    const firstRecurringFreq = services
-      .map(sid => svcData[sid]?.frequency || freq)
-      .find(f => f !== "one-time") || freq;
-    return formatFreqLabel(firstRecurringFreq);
-  }
-  return `Mixed (${recurringCount} recurring)`;
-}
-
-function getSeasonMultiplier(frequency: string | null | undefined): { multiplier: number; label: string } | null {
-  if (!frequency || frequency === "one-time") return null;
-  switch (frequency) {
-    case "weekly": return { multiplier: 30, label: "30 weeks" };
-    case "bi-weekly": return { multiplier: 15, label: "15 visits" };
-    case "monthly": return { multiplier: 7, label: "7 months" };
-    default: return null;
-  }
 }
 
 interface ServiceDataEntry {
   propertySize?: number;
-  linearFeet?: number;
-  zones?: number;
-  treeCount?: number;
-  quantity?: number;
-  linearLengthFt?: number;
-  perimeterFt?: number;
-  fixtureCount?: number;
-  frequency?: string;
   [key: string]: unknown;
 }
 
@@ -216,49 +158,10 @@ const SERVICE_UNITS: Record<string, string> = {
 
 function getServiceMeasurement(serviceId: string, svcEntry?: ServiceDataEntry, fallbackSize?: number): string | null {
   const unit = SERVICE_UNITS[serviceId];
-  if (!unit) return null;
-
-  switch (unit) {
-    case "sqft":
-    case "per_sqft": {
-      const size = svcEntry?.propertySize || fallbackSize;
-      if (size && size > 0) return `${Number(size).toLocaleString()} SF`;
-      return null;
-    }
-    case "linear_ft": {
-      const lf = svcEntry?.linearFeet || svcEntry?.perimeterFt;
-      if (lf && lf > 0) return `${Number(lf).toLocaleString()} LF`;
-      return null;
-    }
-    case "per_zone": {
-      const z = svcEntry?.zones;
-      if (z && z > 0) return `${z} zone${z !== 1 ? "s" : ""}`;
-      return null;
-    }
-    case "per_tree": {
-      const t = svcEntry?.treeCount;
-      if (t && t > 0) return `${t} tree${t !== 1 ? "s" : ""}`;
-      return null;
-    }
-    case "per_shrub": {
-      const h = svcEntry?.linearLengthFt;
-      if (h && h > 0) return `${Number(h).toLocaleString()} linear ft`;
-      const qty = svcEntry?.quantity;
-      if (qty && qty > 0) return `${qty} shrub${qty !== 1 ? "s" : ""}`;
-      return null;
-    }
-    case "per_fixture": {
-      const f = svcEntry?.fixtureCount;
-      if (f && f > 0) return `${f} fixture${f !== 1 ? "s" : ""}`;
-      return null;
-    }
-    case "per_cubic_yard":
-    case "per_inch":
-    case "base_service":
-    case "base_project":
-    default:
-      return null;
-  }
+  if (unit !== "sqft") return null;
+  const size = svcEntry?.propertySize || fallbackSize;
+  if (size && size > 0) return `${Number(size).toLocaleString()} SF`;
+  return null;
 }
 
 function QuoteBreakdownSection({ lead }: { lead: Lead }) {
@@ -283,23 +186,6 @@ function QuoteBreakdownSection({ lead }: { lead: Lead }) {
     return `$${low.toLocaleString()} - $${high.toLocaleString()}`;
   };
 
-  const seasonInfo = getSeasonMultiplier(lead.frequency);
-  const hasAnyRecurring = lineItems.some(item => {
-    const sid = item.serviceId || item.service || "";
-    return item.isRecurring || isServiceRecurring(sid, lead.frequency);
-  });
-
-  const recurringTotal = lineItems.reduce((sum, item) => {
-    const sid = item.serviceId || item.service || "";
-    const recurring = item.isRecurring ?? isServiceRecurring(sid, lead.frequency);
-    return sum + (recurring ? (item.price || item.adjustedPrice || 0) : 0);
-  }, 0);
-  const oneTimeTotal = lineItems.reduce((sum, item) => {
-    const sid = item.serviceId || item.service || "";
-    const recurring = item.isRecurring ?? isServiceRecurring(sid, lead.frequency);
-    return sum + (!recurring ? (item.price || item.adjustedPrice || 0) : 0);
-  }, 0);
-  
   return (
     <Collapsible open={isOpen} onOpenChange={setIsOpen}>
       <div className="border-t pt-2 mt-1">
@@ -329,8 +215,6 @@ function QuoteBreakdownSection({ lead }: { lead: Lead }) {
                   const sid = item.serviceId || item.service || "";
                   const serviceName = item.serviceName || item.service || 'Service';
                   const price = item.price || item.adjustedPrice || 0;
-                  const svcFreq = svcData[sid]?.frequency || lead.frequency || "one-time";
-                  const recurring = item.isRecurring ?? isServiceRecurring(sid, svcFreq);
                   const measurement = getServiceMeasurement(sid, svcData[sid]);
                   
                   return (
@@ -338,11 +222,6 @@ function QuoteBreakdownSection({ lead }: { lead: Lead }) {
                       <div className="flex justify-between items-center gap-2">
                         <div className="flex items-center gap-1.5 flex-wrap min-w-0">
                           <span className="font-medium text-xs">{serviceName}</span>
-                          {(svcFreq !== "one-time" || (lead.frequency && lead.frequency !== "one-time")) && (
-                            <Badge variant={recurring ? "default" : "secondary"} className="text-[9px] px-1 py-0">
-                              {recurring ? `Recurring (${formatFreqLabel(svcFreq)})` : "One-time"}
-                            </Badge>
-                          )}
                         </div>
                         <span className="font-semibold text-xs text-primary flex-shrink-0">{formatPriceRange(price)}</span>
                       </div>
@@ -367,17 +246,6 @@ function QuoteBreakdownSection({ lead }: { lead: Lead }) {
                       {formatQuoteRangeWholeFromValue(lead.finalQuote, 0.15)}
                     </span>
                   </div>
-                  {hasAnyRecurring && seasonInfo && (
-                    <div className="flex justify-between items-center text-xs">
-                      <span className="text-muted-foreground">Est. seasonal value ({seasonInfo.label})</span>
-                      <span className="font-semibold text-primary">
-                        {formatQuoteRangeWholeFromValue(
-                          (recurringTotal > 0 ? recurringTotal * seasonInfo.multiplier : parseFloat(lead.finalQuote) * seasonInfo.multiplier) + oneTimeTotal,
-                          0.15
-                        )}
-                      </span>
-                    </div>
-                  )}
                 </>
               )}
             </div>
@@ -391,14 +259,6 @@ function QuoteBreakdownSection({ lead }: { lead: Lead }) {
                   {lead.finalQuote ? formatQuoteRangeWholeFromValue(lead.finalQuote, 0.15) : "Contact for quote"}
                 </span>
               </div>
-              {lead.finalQuote && hasAnyRecurring && seasonInfo && (
-                <div className="flex justify-between items-center text-xs">
-                  <span className="text-muted-foreground">Est. seasonal value ({seasonInfo.label})</span>
-                  <span className="font-semibold text-primary">
-                    {formatQuoteRangeWholeFromValue(parseFloat(lead.finalQuote) * seasonInfo.multiplier, 0.15)}
-                  </span>
-                </div>
-              )}
             </div>
           )}
         </CollapsibleContent>
@@ -414,19 +274,6 @@ function LeadPricingSection({ lead, discount = 0 }: { lead: Lead; discount?: num
   const hasDiscount = currentPrice < basePrice;
   const discountedPrice = discount > 0 ? currentPrice * (1 - discount / 100) : currentPrice;
 
-  const lineItems = lead.lineItems || [];
-  const isRecurringLead = lead.frequency && lead.frequency !== "one-time";
-  const hasAnyRecurring = lineItems.some(item => {
-    const sid = item.serviceId || item.service || "";
-    return item.isRecurring || isServiceRecurring(sid, lead.frequency);
-  });
-  const hasAnyOneTime = lineItems.some(item => {
-    const sid = item.serviceId || item.service || "";
-    return !(item.isRecurring || isServiceRecurring(sid, lead.frequency));
-  });
-  const isMixed = hasAnyRecurring && hasAnyOneTime;
-  const seasonInfo = getSeasonMultiplier(lead.frequency);
-  
   const pricingExplanation = "Lead prices are calculated as approximately 10% of the total estimate, with a $15 minimum, rounded to the nearest $5.";
   
   return (
@@ -457,33 +304,6 @@ function LeadPricingSection({ lead, discount = 0 }: { lead: Lead; discount?: num
             </AlertDescription>
           </Alert>
 
-          {hasAnyRecurring && seasonInfo && lead.finalQuote && (() => {
-            const items = lead.lineItems || [];
-            const recTotal = items.reduce((s, item) => {
-              const sid = item.serviceId || item.service || "";
-              const rec = item.isRecurring ?? isServiceRecurring(sid, lead.frequency);
-              return s + (rec ? (item.price || item.adjustedPrice || 0) : 0);
-            }, 0);
-            const otTotal = items.reduce((s, item) => {
-              const sid = item.serviceId || item.service || "";
-              const rec = item.isRecurring ?? isServiceRecurring(sid, lead.frequency);
-              return s + (!rec ? (item.price || item.adjustedPrice || 0) : 0);
-            }, 0);
-            const seasonalValue = (recTotal > 0 ? recTotal * seasonInfo.multiplier : parseFloat(lead.finalQuote) * seasonInfo.multiplier) + otTotal;
-            return (
-              <div className="bg-muted/50 rounded-md px-2 py-1.5 space-y-0.5">
-                <div className="flex justify-between text-xs">
-                  <span className="text-muted-foreground">Total estimate</span>
-                  <span>{formatQuoteRangeWholeFromValue(lead.finalQuote, 0.15)}</span>
-                </div>
-                <div className="flex justify-between text-xs font-medium">
-                  <span>Est. seasonal value ({seasonInfo.label})</span>
-                  <span className="text-primary">{formatQuoteRangeWholeFromValue(seasonalValue, 0.15)}</span>
-                </div>
-              </div>
-            );
-          })()}
-          
           <div className="space-y-1.5 text-xs">
             <div className="flex justify-between">
               <span className="text-muted-foreground">Base lead price</span>
@@ -536,7 +356,6 @@ function SubcontractorPortalContent({ embedded = false }: { embedded?: boolean }
   const [filterPriceMax, setFilterPriceMax] = useState<string>("");
   const [filterQuoteMin, setFilterQuoteMin] = useState<string>("");
   const [filterPropertyType, setFilterPropertyType] = useState<string>("all");
-  const [filterFrequency, setFilterFrequency] = useState<string>("all");
   const [filterAge, setFilterAge] = useState<string>("all");
   const [sortBy, setSortBy] = useState<"date" | "price" | "quote">("date");
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc");
@@ -925,16 +744,6 @@ function SubcontractorPortalContent({ embedded = false }: { embedded?: boolean }
       filtered = filtered.filter(l => l.propertyType === filterPropertyType);
     }
     
-    if (filterFrequency !== "all") {
-      if (filterFrequency === "recurring") {
-        filtered = filtered.filter(l => l.frequency && l.frequency !== "one-time");
-      } else if (filterFrequency === "one-time") {
-        filtered = filtered.filter(l => !l.frequency || l.frequency === "one-time");
-      } else {
-        filtered = filtered.filter(l => (l.frequency || "one-time") === filterFrequency);
-      }
-    }
-    
     if (filterAge !== "all") {
       const now = new Date();
       filtered = filtered.filter(l => {
@@ -969,7 +778,7 @@ function SubcontractorPortalContent({ embedded = false }: { embedded?: boolean }
     });
     
     return filtered;
-  }, [leads, searchQuery, filterCity, filterServiceType, filterPriceMax, filterQuoteMin, filterPropertyType, filterFrequency, filterAge, sortBy, sortOrder]);
+  }, [leads, searchQuery, filterCity, filterServiceType, filterPriceMax, filterQuoteMin, filterPropertyType, filterAge, sortBy, sortOrder]);
 
   const clearFilters = () => {
     setSearchQuery("");
@@ -978,14 +787,13 @@ function SubcontractorPortalContent({ embedded = false }: { embedded?: boolean }
     setFilterPriceMax("");
     setFilterQuoteMin("");
     setFilterPropertyType("all");
-    setFilterFrequency("all");
     setFilterAge("all");
     setSortBy("date");
     setSortOrder("desc");
   };
 
   const hasActiveFilters = searchQuery || filterCity !== "all" || filterServiceType !== "all" || 
-    filterPriceMax || filterQuoteMin || filterPropertyType !== "all" || filterFrequency !== "all" || 
+    filterPriceMax || filterQuoteMin || filterPropertyType !== "all" || 
     filterAge !== "all" || sortBy !== "date" || sortOrder !== "desc";
 
   const getBulkDiscount = (count: number) => getBulkDiscountPercent(count);
@@ -1317,7 +1125,6 @@ function SubcontractorPortalContent({ embedded = false }: { embedded?: boolean }
                 <p className="font-medium leading-tight">
                   {formatLeadAge(lead.createdAt)}
                 </p>
-                <p className="text-muted-foreground text-[10px] leading-tight">{getLeadFrequencyDisplay(lead)} service</p>
               </div>
             </div>
           </div>
@@ -1714,13 +1521,6 @@ function SubcontractorPortalContent({ embedded = false }: { embedded?: boolean }
                 <Flame className="w-4 h-4" /> New Today
               </Button>
               <Button 
-                variant={filterFrequency === "recurring" ? "default" : "outline"} 
-                size="sm"
-                onClick={() => setFilterFrequency(filterFrequency === "recurring" ? "all" : "recurring")}
-              >
-                <RefreshCw className="w-4 h-4" /> Recurring
-              </Button>
-              <Button 
                 variant={sortBy === "price" && sortOrder === "asc" ? "default" : "outline"} 
                 size="sm"
                 onClick={() => { setSortBy("price"); setSortOrder("asc"); }}
@@ -1778,20 +1578,6 @@ function SubcontractorPortalContent({ embedded = false }: { embedded?: boolean }
                       <SelectItem value="all">All Properties</SelectItem>
                       <SelectItem value="residential">Residential</SelectItem>
                       <SelectItem value="commercial">Commercial</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                <div>
-                  <Label className="mb-2 block">Frequency</Label>
-                  <Select value={filterFrequency} onValueChange={setFilterFrequency}>
-                    <SelectTrigger>
-                      <SelectValue placeholder="All Frequencies" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="all">All Frequencies</SelectItem>
-                      <SelectItem value="one-time">One-time</SelectItem>
-                      <SelectItem value="recurring">Recurring</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>

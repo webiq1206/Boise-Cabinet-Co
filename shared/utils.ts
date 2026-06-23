@@ -161,7 +161,7 @@ export function normalizeLineItemsForEmail(
     // Get service name from SERVICE_RATES map
     const serviceName = serviceRatesMap[serviceId] || item.serviceName || serviceId;
     
-    // Use the detailed description from the line item (includes measurements like "Lawn Mowing (5,000 sq ft)")
+    // Use the detailed description from the line item (includes measurements like "Kitchen Remodel (2,000 sq ft)")
     // Fall back to service data description if no detailed description available
     const serviceData = servicesDataMap[serviceId];
     const description = item.description || serviceData?.shortDescription || '';

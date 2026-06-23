@@ -20,9 +20,9 @@ export const quotes = pgTable("quotes", {
   
   // Service details
   serviceType: text("service_type").notNull(),
-  frequency: text("frequency"), // one-time, weekly, bi-weekly, monthly
+  frequency: text("frequency"), // legacy column; remodel projects are one-time
   selectedServices: text("selected_services").array(), // array of service IDs
-  serviceData: jsonb("service_data"), // service-specific measurements {serviceId: {linearFeet: 200, zones: 6, etc.}}
+  serviceData: jsonb("service_data"), // service-specific measurements {serviceId: {propertySize: 2000}}
   
   // AI Analysis
   aiAnalysis: jsonb("ai_analysis"), // terrain, obstacles, complexity assessment
@@ -241,7 +241,7 @@ export const leads = pgTable("leads", {
   propertyType: text("property_type").notNull(),
   serviceType: text("service_type").notNull(),
   selectedServices: text("selected_services").array(),
-  frequency: text("frequency"), // one-time or recurring
+  frequency: text("frequency"), // legacy column; remodel projects are one-time
   finalQuote: decimal("final_quote", { precision: 10, scale: 2 }),
   lineItems: jsonb("line_items"),
   serviceData: jsonb("service_data"),

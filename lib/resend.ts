@@ -146,8 +146,6 @@ export async function sendQuoteConfirmationEmail(data: {
   address: string;
   city: string;
   services: string[];
-  frequency: string;
-  serviceFrequencies?: Record<string, string>;
 }) {
   const { client, fromEmail } = await getUncachableResendClient();
   
@@ -166,7 +164,6 @@ export async function sendQuoteConfirmationEmail(data: {
         <h3 style="margin: 0 0 15px 0; color: inherit;">Quote Details</h3>
         <p style="margin: 0 0 8px 0;"><strong>Reference:</strong> ${escapeHtml(data.quoteId.slice(0, 8))}</p>
         <p style="margin: 0 0 8px 0;"><strong>Property:</strong> ${escapeHtml(data.address)}, ${escapeHtml(data.city)}, Idaho</p>
-        ${buildResendFrequencyHtml(data.services, data.frequency, data.serviceFrequencies)}
         <p style="margin: 0 0 8px 0;"><strong>Services:</strong></p>
         <ul style="margin: 0; padding-left: 20px;">${servicesHtml}</ul>
       </div>
@@ -196,10 +193,8 @@ export async function sendAdminNotificationEmail(data: {
   address: string;
   city: string;
   services: string[];
-  frequency: string;
   message?: string;
   propertySize?: number;
-  serviceFrequencies?: Record<string, string>;
 }) {
   const { client, fromEmail } = await getUncachableResendClient();
   
@@ -229,7 +224,6 @@ export async function sendAdminNotificationEmail(data: {
         <h2 class="section-title">Quote Details</h2>
         <table class="info-table">
           <tr><td class="label">Reference:</td><td class="value">${escapeHtml(data.quoteId)}</td></tr>
-          ${buildResendFrequencyTableRow(data.services, data.frequency, data.serviceFrequencies)}
           <tr>
             <td class="label" style="vertical-align: top;">Services:</td>
             <td class="value"><ul style="margin: 0; padding-left: 20px;">${servicesHtml}</ul></td>
@@ -277,64 +271,3 @@ function formatServiceName(slug: string): string {
     .join(' ');
 }
 
-function formatFrequency(freq: string): string {
-  const frequencies: Record<string, string> = {
-    'one-time': 'One-time',
-    'weekly': 'Weekly',
-    'bi-weekly': 'Every 2 weeks',
-    'monthly': 'Monthly'
-  };
-  return frequencies[freq] || freq;
-}
-
-const RESEND_RECURRING_ELIGIBLE = new Set<string>([]);
-
-function getPerServiceFrequencies(
-  services: string[],
-  frequency: string,
-  serviceFrequencies?: Record<string, string>,
-): Array<{ name: string; freq: string }> {
-  return services.map(sid => {
-    let svcFreq = serviceFrequencies?.[sid] || frequency || "one-time";
-    if (svcFreq !== "one-time" && !RESEND_RECURRING_ELIGIBLE.has(sid)) {
-      svcFreq = "one-time";
-    }
-    return { name: formatServiceName(sid), freq: svcFreq };
-  });
-}
-
-function buildResendFrequencyHtml(
-  services: string[],
-  frequency: string,
-  serviceFrequencies?: Record<string, string>,
-): string {
-  const perService = getPerServiceFrequencies(services, frequency, serviceFrequencies);
-  const uniqueFreqs = new Set(perService.map(s => s.freq));
-
-  if (uniqueFreqs.size <= 1) {
-    return `<p style="margin: 0 0 8px 0;"><strong>Frequency:</strong> ${escapeHtml(formatFrequency(perService[0]?.freq || frequency))}</p>`;
-  }
-
-  const lines = perService.map(s =>
-    `<li style="padding: 2px 0;">${escapeHtml(s.name)}: <strong>${escapeHtml(formatFrequency(s.freq))}</strong></li>`
-  ).join('');
-  return `<p style="margin: 0 0 4px 0;"><strong>Frequency:</strong></p><ul style="margin: 0 0 8px 0; padding-left: 20px;">${lines}</ul>`;
-}
-
-function buildResendFrequencyTableRow(
-  services: string[],
-  frequency: string,
-  serviceFrequencies?: Record<string, string>,
-): string {
-  const perService = getPerServiceFrequencies(services, frequency, serviceFrequencies);
-  const uniqueFreqs = new Set(perService.map(s => s.freq));
-
-  if (uniqueFreqs.size <= 1) {
-    return `<tr><td class="label">Frequency:</td><td class="value">${escapeHtml(formatFrequency(perService[0]?.freq || frequency))}</td></tr>`;
-  }
-
-  const lines = perService.map(s =>
-    `<li style="padding: 2px 0;">${escapeHtml(s.name)}: <strong>${escapeHtml(formatFrequency(s.freq))}</strong></li>`
-  ).join('');
-  return `<tr><td class="label" style="vertical-align: top;">Frequency:</td><td class="value"><ul style="margin: 0; padding-left: 20px;">${lines}</ul></td></tr>`;
-}
