@@ -214,3 +214,12 @@ export const SERVICE_FIELD_CONFIGS: ServiceFieldConfig[] = [
 export function getServiceFieldConfig(serviceId: string): ServiceFieldConfig | undefined {
   return SERVICE_FIELD_CONFIGS.find(c => c.serviceId === serviceId);
 }
+
+/** Canonical list of service IDs Boise Cabinet Co actually offers. Single source of truth for API + UI validation. */
+export const ALLOWED_SERVICE_IDS: readonly string[] = SERVICE_FIELD_CONFIGS.map(
+  (c) => c.serviceId
+);
+
+export function isValidServiceId(id: string): boolean {
+  return ALLOWED_SERVICE_IDS.includes(id);
+}

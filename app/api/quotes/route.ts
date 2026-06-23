@@ -9,6 +9,7 @@ import { HOUSE_NUMBER_REGEX, HOUSE_NUMBER_ERROR_MESSAGE } from "@/shared/address
 import { SITE_CONFIG } from "@/shared/siteConfig";
 import { enrichPropertyFromFormattedAddress } from "@/server/services/propertyEnrichment";
 import type { PropertyProfile } from "@/shared/propertyProfile";
+import { isValidServiceId, ALLOWED_SERVICE_IDS } from "@/shared/serviceFieldConfig";
 
 const quoteSubmissionSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -48,6 +49,7 @@ const SERVICE_PRICING_RATES: Record<string, { lowRate: number; highRate: number;
   "bathroom-remodel": { lowRate: 8000, highRate: 35000, unit: "base_project", minimum: 5000 },
   "whole-home-remodel": { lowRate: 80000, highRate: 300000, unit: "base_project", minimum: 50000 },
   "room-addition": { lowRate: 50000, highRate: 150000, unit: "base_project", minimum: 30000 },
+  "adu": { lowRate: 100000, highRate: 250000, unit: "base_project", minimum: 80000 },
   "basement-finish": { lowRate: 30, highRate: 65, unit: "sqft", minimum: 10000 },
   "outdoor-living": { lowRate: 15000, highRate: 60000, unit: "base_project", minimum: 8000 },
 };
@@ -64,7 +66,9 @@ function calculateServicePrice(
   propertyMultiplier: number
 ): number {
   const config = SERVICE_PRICING_RATES[serviceId];
-  if (!config) return 200;
+  if (!config) {
+    throw new Error(`No pricing configured for service "${serviceId}"`);
+  }
 
   const typicalRate = (config.lowRate + config.highRate) / 2;
   const sqft = serviceData?.propertySize || fallbackSqFt || 2000;
@@ -106,6 +110,19 @@ export async function POST(request: Request) {
     const services = validatedData.selectedServices || validatedData.services || [];
     const primaryService = validatedData.serviceType || services[0] || "kitchen-remodel";
     const propertyType = validatedData.propertyType || "residential";
+
+    const requestedServiceIds = [primaryService, ...services];
+    const unknownServices = requestedServiceIds.filter(
+      (sid) => !isValidServiceId(sid)
+    );
+    if (unknownServices.length > 0) {
+      return NextResponse.json(
+        {
+          error: `Unsupported service(s): ${Array.from(new Set(unknownServices)).join(", ")}. We offer: ${ALLOWED_SERVICE_IDS.join(", ")}.`,
+        },
+        { status: 400 }
+      );
+    }
 
     let propertyProfile: PropertyProfile | null =
       (validatedData.propertyProfile as PropertyProfile | undefined) ?? null;

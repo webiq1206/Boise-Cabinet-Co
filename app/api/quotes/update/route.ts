@@ -5,12 +5,14 @@ import { quotes, leads, users, notifications } from "@/shared/schema";
 import { and, desc, eq, gte } from "drizzle-orm";
 import { verifyEditToken } from "@/lib/leadDedupe";
 import { HOUSE_NUMBER_REGEX, HOUSE_NUMBER_ERROR_MESSAGE } from "@/shared/addressValidation";
+import { isValidServiceId, ALLOWED_SERVICE_IDS } from "@/shared/serviceFieldConfig";
 
 const SERVICE_PRICING_RATES: Record<string, { lowRate: number; highRate: number; unit: string; minimum: number }> = {
   "kitchen-remodel": { lowRate: 25000, highRate: 75000, unit: "base_project", minimum: 15000 },
   "bathroom-remodel": { lowRate: 8000, highRate: 35000, unit: "base_project", minimum: 5000 },
   "whole-home-remodel": { lowRate: 80000, highRate: 300000, unit: "base_project", minimum: 50000 },
   "room-addition": { lowRate: 50000, highRate: 150000, unit: "base_project", minimum: 30000 },
+  "adu": { lowRate: 100000, highRate: 250000, unit: "base_project", minimum: 80000 },
   "basement-finish": { lowRate: 30, highRate: 65, unit: "sqft", minimum: 10000 },
   "outdoor-living": { lowRate: 15000, highRate: 60000, unit: "base_project", minimum: 8000 },
 };
@@ -40,7 +42,9 @@ function calculateServicePrice(
   propertyMultiplier: number
 ): number {
   const config = SERVICE_PRICING_RATES[serviceId];
-  if (!config) return 200;
+  if (!config) {
+    throw new Error(`No pricing configured for service "${serviceId}"`);
+  }
   const typicalRate = (config.lowRate + config.highRate) / 2;
   const sqft = serviceData?.propertySize || fallbackSqFt || 2000;
   let cost = 0;
@@ -122,6 +126,19 @@ export async function POST(request: Request) {
   try {
     const body = await request.json();
     const data = updateSchema.parse(body);
+
+    const unknownServices = (data.selectedServices || []).filter(
+      (sid) => !isValidServiceId(sid)
+    );
+    if (unknownServices.length > 0) {
+      return NextResponse.json(
+        {
+          error: `Unsupported service(s): ${Array.from(new Set(unknownServices)).join(", ")}. We offer: ${ALLOWED_SERVICE_IDS.join(", ")}.`,
+        },
+        { status: 400 }
+      );
+    }
+
     const decoded = verifyEditToken(data.token);
     if (!decoded) {
       return NextResponse.json({ error: "Invalid or expired link" }, { status: 401 });
