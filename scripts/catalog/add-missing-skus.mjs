@@ -6,9 +6,9 @@
  * Every SKU below is a real product page in the supplier catalog. Dimensions
  * are taken verbatim from the catalog's specification appendix (Min/Max W,
  * Min/Max H, Min/Max D). For the handful of variants the appendix does not
- * tabulate (partition variants, the glass diagonal-corner door-down family,
- * and TBFH-1D-1ROT-2S), dimensions are inherited from the same-configuration
- * sibling that the appendix DOES list (same footprint, documented in-line).
+ * tabulate (the glass diagonal-corner door-down family and a few partition
+ * variants whose box is identical to the tabulated sibling), dimensions are
+ * inherited from the same-configuration sibling the appendix DOES list.
  *
  * `attrs` are constructed from the SKU code semantics following the exact
  * conventions already used in data/catalog.json:
@@ -140,7 +140,7 @@ baseStandard.push(mk("B-2D-2TD-1S", "Base", [24, 42, 30, 42, 15, 30], { doors: 2
 for (const r of [1, 2])
   baseStandard.push(mk(`B-2D-2TD-${r}ROT`, "Base", [24, 42, 21, 39, 18, 30], { doors: 2, topDrawers: 2, rollouts: r }));
 for (const p of [1, 2, 3])
-  baseStandard.push(mk(`B-2D-2TD-${p}PART`, "Base", [24, 42, 30, 42, 15, 30], { doors: 2, topDrawers: 2, partitions: p }));
+  baseStandard.push(mk(`B-2D-2TD-${p}PART`, "Base", [24, 42, 21, 42, 15, 30], { doors: 2, topDrawers: 2, partitions: p }));
 // B-1D-1BD (1 door + 1 bottom drawer)
 for (const s of [0, 1])
   baseStandard.push(mk(`B-1D-1BD-${s}S`, "Base", [24, 66, 12, 26, 15, 30], { doors: 1, bottomDrawers: 1, shelves: s }));
@@ -159,8 +159,8 @@ for (const p of [1, 2, 3])
 // ── TALL ─────────────────────────────────────────────────────────────────────
 const tallNew = [
   mk("TBFH-1D-0S", "Tall", [30, 66, 9, 26, 9, 30], { doors: 1, shelves: 0, fullHeight: true, trash: true }),
-  // TBFH-1D-1ROT-2S: footprint inherited from TBFH-1D-2ROT-2S (appendix).
-  mk("TBFH-1D-1ROT-2S", "Tall", [30, 66, 21, 26, 18, 30], { doors: 1, shelves: 2, rollouts: 1, fullHeight: true, trash: true }),
+  // TBFH-1D-1ROT-2S: dims taken verbatim from the appendix (30-66 x 12-26 x 18-30).
+  mk("TBFH-1D-1ROT-2S", "Tall", [30, 66, 12, 26, 18, 30], { doors: 1, shelves: 2, rollouts: 1, fullHeight: true, trash: true }),
 ];
 
 // ── FLOATING SHELF FULL-HEIGHT (FLFH) ────────────────────────────────────────

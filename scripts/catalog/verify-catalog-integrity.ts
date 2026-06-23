@@ -10,6 +10,8 @@ import path from "node:path";
 const ROOT = path.resolve(import.meta.dirname, "../..");
 const CATALOG_PATH = path.join(ROOT, "data/catalog.json");
 const EXPECTED_CODES_PATH = path.join(ROOT, "data/catalog-expected-cabinet-codes.json");
+const EXPECTED_DIMS_PATH = path.join(ROOT, "data/catalog-expected-cabinet-dims.json");
+const NONTABULATED_PATH = path.join(ROOT, "data/catalog-nontabulated-cabinet-codes.json");
 const GEN = path.join(ROOT, "shared/catalog/generated");
 
 function fail(msg: string): never {
@@ -17,16 +19,32 @@ function fail(msg: string): never {
   process.exit(1);
 }
 
+interface Cabinet {
+  code: string;
+  category: string;
+  minW: number;
+  maxW: number;
+  minH: number;
+  maxH: number;
+  minD: number;
+  maxD: number;
+  attrs?: Record<string, unknown>;
+  boxImage?: string;
+}
+
 interface Catalog {
+  meta?: {
+    doorStyles?: number;
+    finishes?: number;
+    finishesByCategory?: Record<string, number>;
+    accessories?: number;
+    cabinets?: number;
+    cabinetsByCategory?: Record<string, number>;
+  };
   doorStyles: { name: string }[];
   finishes: { name: string; category: string; priceTier: string }[];
   accessories: { name: string }[];
-  cabinets: {
-    code: string;
-    category: string;
-    attrs?: Record<string, unknown>;
-    boxImage?: string;
-  }[];
+  cabinets: Cabinet[];
   content: Record<string, string>;
   nomenclature?: { tokens: Record<string, string> };
 }
@@ -112,6 +130,85 @@ function main() {
   }
   if (unexpected.length) {
     fail(`Unexpected cabinet codes not in manifest (${unexpected.length}): ${unexpected.slice(0, 10).join(", ")}${unexpected.length > 10 ? " ..." : ""}`);
+  }
+
+  // ── Cabinet dimensions match the supplier PDF spec appendix ───────────────
+  // Golden dims are extracted verbatim from the PDF (build-expected-dims.mjs).
+  // The appendix tabulates six dims for most codes; a fixed set of box-sharing
+  // fronts/panels/fillers/variants is not separately tabulated and is listed in
+  // catalog-nontabulated-cabinet-codes.json.
+  const expectedDims: Record<string, number[]> = JSON.parse(fs.readFileSync(EXPECTED_DIMS_PATH, "utf8"));
+  const nonTabulated: string[] = JSON.parse(fs.readFileSync(NONTABULATED_PATH, "utf8")).codes;
+  const dimCodes = new Set(Object.keys(expectedDims));
+  const nonTabSet = new Set(nonTabulated);
+
+  // Every golden dim row must be a 6-number tuple and refer to a real catalog code.
+  const cabByCode = new Map(catalog.cabinets.map((c) => [c.code, c]));
+  for (const [code, t] of Object.entries(expectedDims)) {
+    if (!Array.isArray(t) || t.length !== 6 || !t.every((n) => Number.isInteger(n))) {
+      fail(`Golden dims for ${code} is not a 6-integer tuple: ${JSON.stringify(t)}`);
+    }
+    if (!cabByCode.has(code)) fail(`Golden dims contains code not in catalog: ${code}`);
+  }
+
+  // Coverage invariant: tabulated ∪ non-tabulated must EXACTLY partition the full
+  // cabinet code set. This makes it impossible for dimension coverage to silently
+  // shrink (e.g. a PDF re-extraction under-matching) without a loud failure.
+  const overlap = [...dimCodes].filter((c) => nonTabSet.has(c));
+  if (overlap.length) {
+    fail(`Codes in BOTH dims manifest and non-tabulated list (${overlap.length}): ${overlap.slice(0, 10).join(", ")}`);
+  }
+  const uncovered = [...codes].filter((c) => !dimCodes.has(c) && !nonTabSet.has(c)).sort();
+  if (uncovered.length) {
+    fail(`Cabinet codes with no dimension coverage (not in dims manifest nor non-tabulated list) (${uncovered.length}): ${uncovered.slice(0, 10).join(", ")}${uncovered.length > 10 ? " ..." : ""}`);
+  }
+  const staleNonTab = [...nonTabSet].filter((c) => !codes.has(c)).sort();
+  if (staleNonTab.length) {
+    fail(`Non-tabulated list has codes not in catalog (${staleNonTab.length}): ${staleNonTab.slice(0, 10).join(", ")}`);
+  }
+
+  const dimKeys: (keyof Cabinet)[] = ["minW", "maxW", "minH", "maxH", "minD", "maxD"];
+  const dimMismatches: string[] = [];
+  for (const [code, want] of Object.entries(expectedDims)) {
+    const c = cabByCode.get(code)!;
+    const have = dimKeys.map((k) => c[k] as number);
+    if (have.join(",") !== want.join(",")) {
+      dimMismatches.push(`${code} [${have.join(",")}] != PDF [${want.join(",")}]`);
+    }
+  }
+  if (dimMismatches.length) {
+    fail(`Cabinet dimensions diverge from supplier PDF (${dimMismatches.length}): ${dimMismatches.slice(0, 8).join("; ")}${dimMismatches.length > 8 ? " ..." : ""}`);
+  }
+
+  // ── meta summary counts are derived, never stale ──────────────────────────
+  // Guards against meta drifting from the real arrays (run recompute-meta.mjs).
+  const meta = catalog.meta ?? {};
+  const countBy = (items: { category: string }[]) =>
+    items.reduce<Record<string, number>>((acc, it) => {
+      acc[it.category] = (acc[it.category] || 0) + 1;
+      return acc;
+    }, {});
+  const eqMap = (a: Record<string, number> = {}, b: Record<string, number> = {}) => {
+    const keys = new Set([...Object.keys(a), ...Object.keys(b)]);
+    return [...keys].every((k) => a[k] === b[k]);
+  };
+  if (meta.cabinets !== catalog.cabinets.length) {
+    fail(`meta.cabinets (${meta.cabinets}) != cabinets.length (${catalog.cabinets.length}); run node scripts/catalog/recompute-meta.mjs`);
+  }
+  if (meta.finishes !== catalog.finishes.length) {
+    fail(`meta.finishes (${meta.finishes}) != finishes.length (${catalog.finishes.length}); run node scripts/catalog/recompute-meta.mjs`);
+  }
+  if (meta.doorStyles !== catalog.doorStyles.length) {
+    fail(`meta.doorStyles (${meta.doorStyles}) != doorStyles.length (${catalog.doorStyles.length})`);
+  }
+  if (meta.accessories !== catalog.accessories.length) {
+    fail(`meta.accessories (${meta.accessories}) != accessories.length (${catalog.accessories.length})`);
+  }
+  if (!eqMap(meta.cabinetsByCategory, countBy(catalog.cabinets))) {
+    fail("meta.cabinetsByCategory is stale; run node scripts/catalog/recompute-meta.mjs");
+  }
+  if (!eqMap(meta.finishesByCategory, countBy(catalog.finishes))) {
+    fail("meta.finishesByCategory is stale; run node scripts/catalog/recompute-meta.mjs");
   }
 
   // ── Content ───────────────────────────────────────────────────────────────

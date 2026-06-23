@@ -1,6 +1,6 @@
 # SKU diff: OSC PDF vs data/catalog.json
 
-Generated: 2026-06-22T17:51:23.071Z
+Generated: 2026-06-23T12:49:01.140Z
 
 | Metric | Count |
 |--------|------:|

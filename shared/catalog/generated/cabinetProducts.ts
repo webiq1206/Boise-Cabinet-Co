@@ -13545,7 +13545,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
         "variable": false
       },
       "height": {
-        "min": 30,
+        "min": 21,
         "max": 42,
         "variable": false
       },
@@ -13615,7 +13615,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
         "variable": false
       },
       "height": {
-        "min": 30,
+        "min": 21,
         "max": 42,
         "variable": false
       },
@@ -13685,7 +13685,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
         "variable": false
       },
       "height": {
-        "min": 30,
+        "min": 21,
         "max": 42,
         "variable": false
       },
@@ -23142,7 +23142,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
         "variable": false
       },
       "height": {
-        "min": 21,
+        "min": 12,
         "max": 26,
         "variable": false
       },
