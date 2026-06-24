@@ -1,5 +1,5 @@
 import { SITE_CONFIG } from "@/shared/siteConfig";
-import { getOutreachPostalAddress, getOutreachSenderName } from "@/lib/outreach/config";
+import { getOutreachPostalAddress } from "@/lib/outreach/config";
 
 /**
  * Outreach email copy. Goals: sounds like a real person wrote it, warm and
@@ -151,7 +151,6 @@ function trackingPixel(openTrackingUrl?: string | null): string {
  */
 function buildPersonalCopy(input: OutreachCopyInput): OutreachCopy {
   const { businessName, city, personalizationNote, unsubscribeUrl, seed, openTrackingUrl } = input;
-  const senderName = getOutreachSenderName();
   const postal = getOutreachPostalAddress();
 
   const subject = stripDashes(pick(SUBJECT_VARIANTS, seed)(businessName));
@@ -161,7 +160,7 @@ function buildPersonalCopy(input: OutreachCopyInput): OutreachCopy {
     ? `${stripDashes(personalizationNote.trim())} `
     : "";
 
-  const pitch = `We build custom cabinets here in the valley, and we work with contractors who would rather hand off the cabinet part of a job than manage it in house. Our pricing is fair and competitive, and the work is solid, well built cabinets your clients will be happy with, so you can keep both the budget and the quality where they need to be. If it is ever helpful, I am happy to put together a bid on your next kitchen, bath, or built in and handle the design and build so you can stay focused on the rest of the project.`;
+  const pitch = `I ran a remodeling business in Colorado for several years before my family moved out to Boise, where I opened a custom cabinet shop. We build custom cabinets right here in the valley and work with contractors who would rather hand off the cabinet part of a job than manage it in house. My pricing is fair and about as competitive as you will find around here, and the work is solid, well built cabinets your clients will be happy with, so you can keep both the budget and the quality where they need to be. If it is ever helpful, I would be glad to put together a bid on your next kitchen, bath, or built in and handle the design and build so you can stay focused on the rest of the project.`;
 
   const bodyLines = [
     `Hi there,`,
@@ -172,9 +171,9 @@ function buildPersonalCopy(input: OutreachCopyInput): OutreachCopy {
     ``,
     `No pressure at all. If you ever have a job coming up where cabinets would be useful to price out, just reply to this email or give me a call at ${SITE_CONFIG.phone} and I will take care of it.`,
     ``,
-    `Thanks for your time,`,
-    senderName,
-    SITE_CONFIG.name,
+    `Warmly,`,
+    SITE_CONFIG.owner.name,
+    `${SITE_CONFIG.owner.title}, ${SITE_CONFIG.name}`,
     SITE_CONFIG.phone,
   ];
 
@@ -191,9 +190,9 @@ function buildPersonalCopy(input: OutreachCopyInput): OutreachCopy {
   const html = stripDashes(`<div style="font-family: Arial, Helvetica, sans-serif; font-size: 15px; line-height: 1.6; color: #222;">
   <p>Hi there,</p>
   ${paragraphs.map((p) => `<p>${p}</p>`).join("\n  ")}
-  <p>Thanks for your time,<br>
-  ${esc(senderName)}<br>
-  ${esc(SITE_CONFIG.name)}<br>
+  <p>Warmly,<br>
+  ${esc(SITE_CONFIG.owner.name)}<br>
+  ${esc(SITE_CONFIG.owner.title)}, ${esc(SITE_CONFIG.name)}<br>
   ${esc(SITE_CONFIG.phone)}</p>
   ${footerHtml({ businessName, city, postal, unsubscribeUrl })}${trackingPixel(openTrackingUrl)}
 </div>`);
@@ -208,7 +207,6 @@ function buildPersonalCopy(input: OutreachCopyInput): OutreachCopy {
  */
 function buildBrandedCopy(input: OutreachCopyInput): OutreachCopy {
   const { businessName, city, personalizationNote, unsubscribeUrl, seed, openTrackingUrl } = input;
-  const senderName = getOutreachSenderName();
   const postal = getOutreachPostalAddress();
 
   const subject = stripDashes(pick(BRANDED_SUBJECT_VARIANTS, seed)(businessName));
@@ -218,7 +216,7 @@ function buildBrandedCopy(input: OutreachCopyInput): OutreachCopy {
     ? `${stripDashes(personalizationNote.trim())} `
     : "";
 
-  const intro = `${noteLine}I am with ${SITE_CONFIG.name}, a local custom cabinet shop. We partner with general contractors who would rather hand off the cabinet portion of a remodel than manage it in house.`;
+  const intro = `${noteLine}I am ${SITE_CONFIG.owner.name} with ${SITE_CONFIG.name}. I ran a remodeling business in Colorado for several years, then my family moved out to Boise and I opened this local custom cabinet shop. I partner with general contractors who would rather hand off the cabinet portion of a remodel than manage it in house.`;
 
   const bullets = [
     `Custom kitchens, baths, and built ins designed and built here in the valley.`,
@@ -242,9 +240,9 @@ function buildBrandedCopy(input: OutreachCopyInput): OutreachCopy {
       ``,
       close,
       ``,
-      `Thanks for your time,`,
-      senderName,
-      SITE_CONFIG.name,
+      `Warmly,`,
+      SITE_CONFIG.owner.name,
+      `${SITE_CONFIG.owner.title}, ${SITE_CONFIG.name}`,
       SITE_CONFIG.phone,
       ``,
       ...footerTextLines({ businessName, city, postal, unsubscribeUrl }),
@@ -262,9 +260,9 @@ function buildBrandedCopy(input: OutreachCopyInput): OutreachCopy {
   ${bullets.map((b) => `  <li>${esc(b)}</li>`).join("\n  ")}
   </ul>
   <p>${esc(close)}</p>
-  <p>Thanks for your time,<br>
-  ${esc(senderName)}<br>
-  ${esc(SITE_CONFIG.name)}<br>
+  <p>Warmly,<br>
+  ${esc(SITE_CONFIG.owner.name)}<br>
+  ${esc(SITE_CONFIG.owner.title)}, ${esc(SITE_CONFIG.name)}<br>
   ${esc(SITE_CONFIG.phone)}</p>
   ${footerHtml({ businessName, city, postal, unsubscribeUrl })}${trackingPixel(openTrackingUrl)}
 </div>`);

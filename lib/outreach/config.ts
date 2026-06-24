@@ -115,7 +115,9 @@ export function getOutreachFromEmail(): string | null {
 }
 
 export function getOutreachSenderName(): string {
-  return process.env.OUTREACH_SENDER_NAME?.trim() || SITE_CONFIG.name;
+  // Outreach shows Nick as the sender too, matching transactional mail. An
+  // explicit OUTREACH_SENDER_NAME still wins when set.
+  return process.env.OUTREACH_SENDER_NAME?.trim() || SITE_CONFIG.senderDisplayName;
 }
 
 export function getOutreachReplyTo(): string {

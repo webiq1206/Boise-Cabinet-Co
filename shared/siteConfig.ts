@@ -28,6 +28,15 @@ export const SITE_CONFIG = {
   phoneSmsHref: `sms:${PHONE_E164}`,
   email: process.env.NEXT_PUBLIC_EMAIL ?? DEFAULT_EMAIL,
   siteUrl: process.env.NEXT_PUBLIC_SITE_URL ?? DEFAULT_SITE_URL,
+  // The owner who personally signs every outgoing email. The sender display
+  // name shows Nick (not the bare company name) while the underlying address,
+  // domain, and reply-to stay unchanged.
+  owner: {
+    name: process.env.NEXT_PUBLIC_OWNER_NAME ?? "Nick",
+    title: "Owner",
+  },
+  senderDisplayName:
+    process.env.EMAIL_SENDER_NAME ?? "Nick from Boise Cabinet Co",
   // Service-area business: no public showroom or street address is published.
   // Only the base city/region is shown for local SEO (NAP) consistency.
   address: {

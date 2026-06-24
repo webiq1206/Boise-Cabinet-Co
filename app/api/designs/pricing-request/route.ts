@@ -12,6 +12,7 @@ import {
   getAdminRecipientEmails,
   formatFromAddress,
   getReplyToAddress,
+  buildOwnerSignatureHtml,
 } from "@/server/services/emailLayout";
 import { phoneHasEnoughDigits, PHONE_VALIDATION_MESSAGE } from "@/shared/phoneValidation";
 import { rateLimit, getClientIp } from "@/lib/rateLimit";
@@ -95,6 +96,7 @@ export async function POST(request: NextRequest) {
             ${data.designId ? `<tr><td class="label">Design ID:</td><td class="value">${escapeHtml(data.designId)}</td></tr>` : ""}
           </table>
           ${composedMessage ? `<div class="highlight-box"><p><strong>Details:</strong></p><p style="margin-top:8px;white-space:pre-wrap;">${escapeHtml(composedMessage)}</p></div>` : ""}
+          ${buildOwnerSignatureHtml("Thanks,")}
         `,
       });
       const adminEmails = await getAdminRecipientEmails(SITE_CONFIG.email);

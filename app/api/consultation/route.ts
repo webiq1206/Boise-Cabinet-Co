@@ -13,6 +13,8 @@ import {
   getAdminRecipientEmails,
   formatFromAddress,
   getReplyToAddress,
+  buildOwnerSignatureHtml,
+  buildHomeownerStoryHtml,
 } from "@/server/services/emailLayout";
 import type { PropertyProfile } from "@/shared/propertyProfile";
 import { extractZipFromAddress } from "@/shared/propertyProfile";
@@ -291,6 +293,7 @@ export async function POST(request: NextRequest) {
             <p style="margin-top:8px;">${escapeHtml(data.message || "(none)")}</p>
           </div>
           <p style="font-size:12px;color:#888;margin-top:16px;">Submitted via ${escapeHtml(SITE_CONFIG.siteUrl)}</p>
+          ${buildOwnerSignatureHtml("Thanks,")}
         `,
       });
 
@@ -308,13 +311,15 @@ export async function POST(request: NextRequest) {
 
       const customerHtml = wrapEmailHtml({
         title: `Thanks, ${escapeHtml(data.name)}!`,
-        subtitle: "We received your consultation request",
+        subtitle: "I got your request",
         tagline: "Custom Cabinets",
         content: `
-          <p class="greeting">We received your cabinet consultation request and will reach out within one business day to schedule your free design visit.</p>
+          <p class="greeting">Hi ${escapeHtml(data.name)},</p>
+          <p>Thanks so much for reaching out. I got your request and I will personally be in touch within one business day to set up your free design visit and learn more about what you have in mind.</p>
           ${customerEstimateBlock}
-          <p>In the meantime, feel free to call us at <a href="${SITE_CONFIG.phoneHref}">${escapeHtml(SITE_CONFIG.phone)}</a> or reply to this email with any questions.</p>
-          <p style="margin-top:24px;">The Boise Cabinet Co team</p>
+          ${buildHomeownerStoryHtml()}
+          <p>In the meantime, feel free to call or text me at <a href="${SITE_CONFIG.phoneHref}">${escapeHtml(SITE_CONFIG.phone)}</a>, or just reply to this email with any questions at all.</p>
+          ${buildOwnerSignatureHtml()}
         `,
       });
 

@@ -13,6 +13,8 @@ import {
   getAdminRecipientEmails,
   formatFromAddress,
   getReplyToAddress,
+  buildOwnerSignatureHtml,
+  buildHomeownerStoryHtml,
 } from './emailLayout';
 import { SITE_CONFIG } from '@/shared/siteConfig';
 
@@ -275,7 +277,7 @@ export async function sendLeadPurchasedNotification(leadData: {
         </div>
         
         <div class="content">
-          <p class="greeting">A lead has been successfully purchased from your marketplace.</p>
+          <p class="greeting">Good news, a lead just sold on the marketplace.</p>
 
           <div class="section">
             <h2 class="section-title">Subcontractor Details</h2>
@@ -338,6 +340,7 @@ export async function sendLeadPurchasedNotification(leadData: {
           <div style="text-align: center; margin: 30px 0;">
             <a href="${dashboardUrl}" class="cta-button">View Lead Details →</a>
           </div>
+          ${buildOwnerSignatureHtml("Thanks,")}
         </div>
 
         ${buildEmailFooter('Lead Marketplace')}
@@ -380,9 +383,9 @@ export async function sendLeadPurchaseConfirmation(purchaserEmail: string, leadD
         </div>
         
         <div class="content">
-          <p class="greeting">Congratulations! Your lead purchase was successful.</p>
+          <p class="greeting">Congratulations, the lead is yours.</p>
           
-          <p style="color: #4b5563; margin: 0 0 20px 0;">You now have complete access to this customer's contact information. We recommend reaching out within the next 2-4 hours for the best conversion rates.</p>
+          <p style="color: #4b5563; margin: 0 0 20px 0;">You now have full access to this customer's contact information. I would reach out within the next 2 to 4 hours while they are actively looking, that is when you will have the best shot at winning the job.</p>
 
           <div class="section">
             <h2 class="section-title">Customer Contact Information</h2>
@@ -422,23 +425,24 @@ export async function sendLeadPurchaseConfirmation(purchaserEmail: string, leadD
           </div>
 
           <div class="highlight-box">
-            <p><strong>💡 Tips for Success:</strong></p>
+            <p><strong>A few tips that help:</strong></p>
             <ul style="margin: 10px 0 0 0; padding-left: 20px; color: #4b5563;">
-              <li>Contact the customer within 2-4 hours while they're actively searching</li>
-              <li>Reference their specific service request to show you've reviewed their needs</li>
-              <li>Offer to schedule a free property assessment at their convenience</li>
-              <li>Be professional, friendly, and responsive to build trust quickly</li>
+              <li>Reach out within 2 to 4 hours while they are actively searching</li>
+              <li>Mention their specific request so they know you read their needs</li>
+              <li>Offer a free property visit at a time that is easy for them</li>
+              <li>Be friendly and responsive, it builds trust fast</li>
             </ul>
           </div>
 
           <div class="warning-box">
-            <p><strong>⚠️ Important Purchase Terms:</strong></p>
-            <p style="margin: 10px 0 0 0;">This lead purchase is non-refundable. Once purchased, you own exclusive access to this customer's contact information. Please reach out promptly to maximize your conversion opportunity.</p>
+            <p><strong>One thing to keep in mind:</strong></p>
+            <p style="margin: 10px 0 0 0;">This lead purchase is non-refundable. Once you buy it, the customer's contact info is exclusively yours, so reach out promptly to make the most of it.</p>
           </div>
 
           <div style="text-align: center; margin: 30px 0;">
             <a href="${portalUrl}" class="cta-button">Open Contractor Portal →</a>
           </div>
+          ${buildOwnerSignatureHtml()}
         </div>
 
         ${buildEmailFooter('Lead Marketplace')}
@@ -489,8 +493,8 @@ export async function sendAdminAutoDeclineNotification(leadData: {
           <p class="greeting">A lead has been automatically declined and made available to subcontractors.</p>
           
           <div class="warning-box">
-            <p><strong>⚠️ Automatic Decline</strong></p>
-            <p style="margin: 10px 0 0 0;">This lead was pending for ${hoursText} without admin review. It has been automatically declined and is now available in the subcontractor portal.</p>
+            <p><strong>Automatic Decline</strong></p>
+            <p style="margin: 10px 0 0 0;">This lead sat pending for ${hoursText} without admin review, so it was automatically declined and is now available in the subcontractor portal.</p>
           </div>
 
           <div class="section">
@@ -542,6 +546,7 @@ export async function sendAdminAutoDeclineNotification(leadData: {
           <div style="text-align: center; margin: 30px 0;">
             <a href="${dashboardUrl}" class="cta-button">View Lead in Dashboard →</a>
           </div>
+          ${buildOwnerSignatureHtml("Thanks,")}
         </div>
 
         ${buildEmailFooter('Lead Marketplace')}
@@ -559,13 +564,21 @@ export async function sendCustomerStatusUpdate(
   update: { status: 'received' | 'under_review' | 'contact_soon' | 'quote_ready'; message: string }
 ): Promise<void> {
   const subjectMap: Record<string, string> = {
-    received: "We received your quote request",
-    under_review: "Your quote is under review",
-    contact_soon: "We’ll be contacting you soon",
+    received: "I got your request",
+    under_review: "I am looking over your project",
+    contact_soon: "I will be in touch very soon",
     quote_ready: "Your quote is ready",
   };
 
-  const subject = subjectMap[update.status] || "Quote status update";
+  const introMap: Record<string, string> = {
+    received: "Thanks for reaching out. I wanted to let you know I got your request and I am on it.",
+    under_review: "Just a quick note to let you know I am looking over the details of your project right now.",
+    contact_soon: "I wanted to give you a heads up that I will be reaching out very soon to talk through your project.",
+    quote_ready: "Good news, your quote is ready and I would love to walk you through it whenever works for you.",
+  };
+
+  const subject = subjectMap[update.status] || "An update on your project";
+  const intro = introMap[update.status] || "I wanted to share a quick update on your project.";
   const statusUrl = `${SITE_BASE_URL}/quote-status/${quoteId}`;
 
   const htmlBody = `
@@ -580,19 +593,19 @@ export async function sendCustomerStatusUpdate(
       <div class="email-wrapper">
         <div class="header">
           ${buildTextLogo()}
-          <h1>Quote Status Update</h1>
-          <p>${subject}</p>
+          <h1>An Update On Your Project</h1>
+          <p>${escapeHtml(subject)}</p>
         </div>
         <div class="content">
-          <p class="greeting">Here’s the latest update on your quote request:</p>
-          <div class="highlight-box">
-            <p style="margin: 0;"><strong>Status:</strong> ${escapeHtml(update.status.replace(/_/g, ' '))}</p>
-            <p style="margin: 10px 0 0 0;">${escapeHtml(update.message)}</p>
-          </div>
+          <p class="greeting">Hi there,</p>
+          <p>${escapeHtml(intro)}</p>
+          ${update.message ? `<div class="highlight-box"><p style="margin: 0;">${escapeHtml(update.message)}</p></div>` : ""}
+          ${buildHomeownerStoryHtml()}
           <div style="text-align:center; margin: 30px 0;">
-            <a href="${statusUrl}" class="cta-button">View Quote Status →</a>
+            <a href="${statusUrl}" class="cta-button">View Your Project Status →</a>
           </div>
-          <p style="font-size: 14px; color: ${EMAIL_BRAND.charcoalLight};">Questions? Call us at <a href="${SITE_CONFIG.phoneHref}">${escapeHtml(SITE_CONFIG.phone)}</a>.</p>
+          <p style="font-size: 14px; color: ${EMAIL_BRAND.charcoalLight};">Any questions at all, just call or text me at <a href="${SITE_CONFIG.phoneHref}">${escapeHtml(SITE_CONFIG.phone)}</a> or reply to this email.</p>
+          ${buildOwnerSignatureHtml()}
         </div>
         ${buildEmailFooter('Customer Updates')}
       </div>
@@ -700,6 +713,7 @@ export async function sendContractorNewLeadAvailable(
           <div style="text-align:center; margin: 30px 0;">
             <a href="${portalUrl}" class="cta-button">View Lead Details</a>
           </div>
+          ${buildOwnerSignatureHtml()}
         </div>
         ${buildEmailFooter('Lead Marketplace')}
       </div>
@@ -800,7 +814,8 @@ export async function sendLeadMergeRefundNotification(
             <a href="${targetUrl}" class="cta-button">View Merged Lead →</a>
           </div>
 
-          <p style="font-size: 13px; color: #6b7280;">If anything looks off about this refund, just reply to this email and we'll take a look.</p>
+          <p style="font-size: 13px; color: #6b7280;">If anything looks off about this refund, just reply to this email and I will take a look.</p>
+          ${buildOwnerSignatureHtml()}
         </div>
         ${buildEmailFooter('Lead Marketplace')}
       </div>
@@ -842,15 +857,16 @@ export async function sendAdminDailyDigest(
         <div class="content">
           <div class="highlight-box">
             <p><strong>Total pending:</strong> ${data.totalPending}</p>
-            <p style="margin-top:10px;"><strong>24–48 hours:</strong> ${data.leads24h}</p>
+            <p style="margin-top:10px;"><strong>24 to 48 hours:</strong> ${data.leads24h}</p>
             <p><strong>48+ hours:</strong> ${data.leads48h}</p>
           </div>
           ${formatDigestLeadList("Pending review", data.pendingLeads)}
-          ${formatDigestLeadList("24–48 hours pending", data.leads24hList)}
+          ${formatDigestLeadList("24 to 48 hours pending", data.leads24hList)}
           ${formatDigestLeadList("48+ hours pending", data.leads48hList)}
           <div style="text-align:center; margin: 30px 0;">
             <a href="${dashboardUrl}" class="cta-button">Open Dashboard →</a>
           </div>
+          ${buildOwnerSignatureHtml("Thanks,")}
         </div>
         ${buildEmailFooter('Lead Marketplace')}
       </div>
@@ -905,6 +921,7 @@ export async function sendAdminReminder(
           <div style="text-align:center; margin: 30px 0;">
             <a href="${dashboardUrl}" class="cta-button">Review Now →</a>
           </div>
+          ${buildOwnerSignatureHtml("Thanks,")}
         </div>
         ${buildEmailFooter('Lead Marketplace')}
       </div>
@@ -963,7 +980,7 @@ export async function sendWatchedLeadUpdatedEmail(
     subtitle: data.city,
     tagline: "Lead Marketplace",
     content: `
-      <p class="greeting">A lead you're watching has been updated by the customer.</p>
+      <p class="greeting">A lead you're watching was just updated by the customer.</p>
       <div class="highlight-box">
         <p><strong>City:</strong> ${escapeHtml(data.city)}</p>
         <p style="margin-top:10px;"><strong>New estimated value:</strong> $${data.estimatedTotal.toLocaleString()}</p>
@@ -971,6 +988,7 @@ export async function sendWatchedLeadUpdatedEmail(
       <div style="text-align:center; margin: 30px 0;">
         <a href="${url}" class="cta-button">View Lead →</a>
       </div>
+      ${buildOwnerSignatureHtml()}
     `,
   });
   await sendEmail(contractorEmail, subject, htmlBody);
@@ -1001,6 +1019,7 @@ export async function sendLeadPriceDropEmail(
       <div style="text-align:center; margin: 30px 0;">
         <a href="${url}" class="cta-button">View Lead →</a>
       </div>
+      ${buildOwnerSignatureHtml()}
     `,
   });
   await sendEmail(contractorEmail, subject, htmlBody);
@@ -1020,10 +1039,11 @@ export async function sendContractSignedNotification(
     subtitle: data.contractTitle,
     tagline: "Admin Notifications",
     content: `
-      <p class="greeting">${escapeHtml(data.signerName)} signed <strong>${escapeHtml(data.contractTitle)}</strong>.</p>
+      <p class="greeting">${escapeHtml(data.signerName)} just signed <strong>${escapeHtml(data.contractTitle)}</strong>.</p>
       <div style="text-align:center; margin: 30px 0;">
         <a href="${SITE_BASE_URL}/admin/dashboard" class="cta-button">Open Admin Dashboard →</a>
       </div>
+      ${buildOwnerSignatureHtml("Thanks,")}
     `,
   });
   for (const email of adminEmails) {
@@ -1041,11 +1061,12 @@ export async function sendContractSignedConfirmation(
     subtitle: "Thank you for signing",
     tagline: "Contractor Portal",
     content: `
-      <p class="greeting">We've received your signature for <strong>${escapeHtml(data.contractTitle)}</strong>.</p>
-      <p>Our team has been notified and will follow up if anything else is needed.</p>
+      <p class="greeting">Thanks for signing <strong>${escapeHtml(data.contractTitle)}</strong>.</p>
+      <p>I have your signature on file and will follow up if there is anything else you need.</p>
       <div style="text-align:center; margin: 30px 0;">
         <a href="${SITE_BASE_URL}/subcontractor/contracts" class="cta-button">View Contracts →</a>
       </div>
+      ${buildOwnerSignatureHtml()}
     `,
   });
   await sendEmail(subcontractorEmail, subject, htmlBody);

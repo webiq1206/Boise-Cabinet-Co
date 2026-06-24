@@ -245,9 +245,40 @@ export async function getAdminRecipientEmails(
 }
 
 export function formatFromAddress(_fromEmail?: string): string {
-  return `${SITE_CONFIG.name} <${PLATFORM_EMAIL}>`;
+  // Show Nick as the sender so every email reads like a note from the owner.
+  // The underlying address, domain, and reply-to are intentionally unchanged.
+  return `${SITE_CONFIG.senderDisplayName} <${PLATFORM_EMAIL}>`;
 }
 
 export function getReplyToAddress(): string {
   return PLATFORM_EMAIL;
+}
+
+/**
+ * Nick's personal sign-off, shared by every template so the whole system
+ * speaks in one consistent, warm voice. Pass a different closing line when a
+ * lighter or more internal tone fits (e.g. "Thanks," on admin notifications).
+ */
+export function buildOwnerSignatureHtml(closing = "Warmly,"): string {
+  return `
+    <p style="margin: 28px 0 0 0; color: ${EMAIL_BRAND.charcoal}; line-height: 1.5;">
+      ${escapeHtml(closing)}<br>
+      <strong>${escapeHtml(SITE_CONFIG.owner.name)}</strong><br>
+      ${escapeHtml(SITE_CONFIG.owner.title)}, ${escapeHtml(SITE_CONFIG.name)}<br>
+      <a href="${SITE_CONFIG.phoneHref}" style="color: ${EMAIL_BRAND.charcoal}; text-decoration: none;">${escapeHtml(SITE_CONFIG.phone)}</a>
+    </p>
+  `;
+}
+
+/**
+ * The Colorado-to-Boise brand story plus a low-pressure invitation to talk or
+ * bid. For HOMEOWNER-facing mail only. Contractor and admin emails keep Nick's
+ * voice and signature but never get this homeowner pitch.
+ */
+export function buildHomeownerStoryHtml(): string {
+  return `
+    <div class="highlight-box">
+      <p style="margin: 0;">A little about me: I spent several years running a remodeling business in Colorado before my family moved out to Boise and I opened ${escapeHtml(SITE_CONFIG.name)}. I brought that same care for craftsmanship with me, I use genuinely high quality materials, and I keep my pricing about as competitive as you will find anywhere in the Treasure Valley. If it is ever helpful, I would be glad to bid on your project or simply talk through your ideas. No pressure at all.</p>
+    </div>
+  `;
 }

@@ -3,6 +3,7 @@ import {
   escapeHtml,
   wrapEmailHtml,
   SITE_BASE_URL,
+  buildOwnerSignatureHtml,
 } from "./emailLayout";
 import { sendEmail } from "./emailNotifications";
 
@@ -25,10 +26,11 @@ export async function sendComplianceReminderEmail(
       <div class="highlight-box">
         <p>${escapeHtml(message)}</p>
       </div>
-      <p>You will continue to receive reminders until this issue is resolved.</p>
+      <p>I will keep nudging you until this is squared away, just so nothing slips through the cracks.</p>
       <div style="text-align:center; margin: 30px 0;">
         <a href="${SITE_BASE_URL}/subcontractor/compliance" class="cta-button">Update Compliance Documents →</a>
       </div>
+      ${buildOwnerSignatureHtml()}
     `,
   });
 
@@ -54,10 +56,11 @@ export async function sendContractSentEmail(
     tagline: "Contractor Portal",
     content: `
       <p class="greeting">Hi ${escapeHtml(contractorName(user))},</p>
-      <p>A new contract is ready for your review and signature: <strong>${escapeHtml(contractTitle)}</strong></p>
+      <p>I have a new contract ready for you to look over and sign: <strong>${escapeHtml(contractTitle)}</strong>. Whenever you get a chance is fine.</p>
       <div style="text-align:center; margin: 30px 0;">
         <a href="${SITE_BASE_URL}/subcontractor/contracts" class="cta-button">Review &amp; Sign Contract →</a>
       </div>
+      ${buildOwnerSignatureHtml()}
     `,
   });
 
@@ -80,10 +83,11 @@ export async function sendProjectAssignedEmail(
     tagline: "Contractor Portal",
     content: `
       <p class="greeting">Hi ${escapeHtml(contractorName(user))},</p>
-      <p>You have been assigned to project: <strong>${escapeHtml(projectTitle)}</strong></p>
+      <p>Good news, I have lined you up for a project: <strong>${escapeHtml(projectTitle)}</strong>. Take a look when you can and reach out if you have any questions.</p>
       <div style="text-align:center; margin: 30px 0;">
         <a href="${SITE_BASE_URL}/subcontractor/projects" class="cta-button">View Project →</a>
       </div>
+      ${buildOwnerSignatureHtml()}
     `,
   });
 
