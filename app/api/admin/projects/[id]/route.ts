@@ -116,7 +116,7 @@ export async function POST(
             projectId: params.id,
           });
           if (sub.emailNotificationsEnabled !== false) {
-            const { sendProjectAssignedEmail } = await import("@/server/services/complianceEmails");
+            const { sendProjectAssignedEmail } = await import("@/server/services/emailNotifications");
             await sendProjectAssignedEmail(sub, project.title);
           }
         }

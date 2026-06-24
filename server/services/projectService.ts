@@ -20,8 +20,6 @@ import {
 } from "@shared/schema";
 import { recordLeadActivity, actorNameFromUser } from "@/server/services/leadActivity";
 import { and, desc, eq, sql } from "drizzle-orm";
-import { canBeAssignedToProject } from "@/lib/compliance/complianceStatus";
-import { getComplianceDocsForUser } from "./complianceService";
 
 export async function getAllProjects(filters?: {
   status?: string;
@@ -193,11 +191,6 @@ export async function assignSubcontractorToProject(
   role: "primary" | "sub" = "primary"
 ): Promise<ProjectAssignment> {
   if (!db) throw new Error("Database not available");
-
-  const docs = await getComplianceDocsForUser(subcontractorId);
-  if (!canBeAssignedToProject(docs)) {
-    throw new Error("Subcontractor is not compliant and cannot be assigned");
-  }
 
   const [assignment] = await db
     .insert(projectAssignments)
@@ -383,24 +376,6 @@ export async function getEntityDocumentById(id: string): Promise<EntityDocument 
     .select()
     .from(entityDocuments)
     .where(eq(entityDocuments.id, id))
-    .limit(1);
-  return doc ?? null;
-}
-
-export async function deleteEntityDocument(id: string): Promise<void> {
-  if (!db) throw new Error("Database not available");
-  await db.delete(entityDocuments).where(eq(entityDocuments.id, id));
-}
-
-export async function getComplianceDocumentById(
-  id: string
-): Promise<import("@shared/schema").ComplianceDocument | null> {
-  if (!db) return null;
-  const { complianceDocuments } = await import("@shared/schema");
-  const [doc] = await db
-    .select()
-    .from(complianceDocuments)
-    .where(eq(complianceDocuments.id, id))
     .limit(1);
   return doc ?? null;
 }

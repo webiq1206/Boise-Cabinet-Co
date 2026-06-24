@@ -1,10 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getSession, getUserFromDb } from "@/lib/auth";
-import {
-  getComplianceDocumentById,
-  getEntityDocumentById,
-} from "@/server/services/projectService";
-import { getContractById } from "@/server/services/contractService";
+import { getEntityDocumentById } from "@/server/services/projectService";
 
 export async function GET(
   _request: NextRequest,
@@ -21,38 +17,16 @@ export async function GET(
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
-    const source = new URL(_request.url).searchParams.get("source") ?? "entity";
     let fileUrl: string | null = null;
     let fileName = "document";
 
-    if (source === "compliance") {
-      const doc = await getComplianceDocumentById(params.id);
-      if (!doc) return NextResponse.json({ error: "Not found" }, { status: 404 });
-      if (user.role !== "admin" && doc.userId !== session.userId) {
-        return NextResponse.json({ error: "Forbidden" }, { status: 403 });
-      }
-      fileUrl = doc.fileUrl;
-      fileName = doc.fileName;
-    } else if (source === "contract") {
-      const contract = await getContractById(params.id);
-      if (!contract) return NextResponse.json({ error: "Not found" }, { status: 404 });
-      if (
-        user.role !== "admin" &&
-        contract.subcontractorId !== session.userId
-      ) {
-        return NextResponse.json({ error: "Forbidden" }, { status: 403 });
-      }
-      fileUrl = contract.signedPdfUrl;
-      fileName = `${contract.title}.pdf`;
-    } else {
-      const doc = await getEntityDocumentById(params.id);
-      if (!doc) return NextResponse.json({ error: "Not found" }, { status: 404 });
-      if (user.role !== "admin") {
-        return NextResponse.json({ error: "Forbidden" }, { status: 403 });
-      }
-      fileUrl = doc.fileUrl;
-      fileName = doc.fileName;
+    const doc = await getEntityDocumentById(params.id);
+    if (!doc) return NextResponse.json({ error: "Not found" }, { status: 404 });
+    if (user.role !== "admin") {
+      return NextResponse.json({ error: "Forbidden" }, { status: 403 });
     }
+    fileUrl = doc.fileUrl;
+    fileName = doc.fileName;
 
     if (!fileUrl) {
       return NextResponse.json({ error: "File not available" }, { status: 404 });

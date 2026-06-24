@@ -21,8 +21,6 @@ interface Notification {
   message: string;
   leadId?: string | null;
   projectId?: string | null;
-  contractId?: string | null;
-  complianceDocumentId?: string | null;
   read: boolean;
   createdAt: string;
 }
@@ -179,10 +177,7 @@ export function NotificationsBell() {
                       {formatTimeAgo(notification.createdAt)}
                     </p>
                   </div>
-                  {(notification.leadId ||
-                    notification.projectId ||
-                    notification.contractId ||
-                    notification.type.startsWith("compliance")) && (
+                  {(notification.leadId || notification.projectId) && (
                     <ExternalLink className="h-4 w-4 text-muted-foreground flex-shrink-0" />
                   )}
                 </div>

@@ -174,14 +174,6 @@ export const users = pgTable("users", {
   licenseNumber: text("license_number"),
   insuranceExpiry: timestamp("insurance_expiry"),
   
-  // Agreement acceptance and e-signature
-  agreementAccepted: boolean("agreement_accepted").default(false),
-  agreementAcceptedAt: timestamp("agreement_accepted_at"),
-  agreementSignature: text("agreement_signature"), // Typed name as signature
-  agreementSignatureIp: text("agreement_signature_ip"), // IP address when signing
-  agreementSignatureUserAgent: text("agreement_signature_user_agent"), // Browser info
-  agreementVersion: text("agreement_version"), // Version of agreement signed
-  
   // Stripe
   stripeCustomerId: text("stripe_customer_id"),
   
@@ -197,17 +189,10 @@ export const users = pgTable("users", {
   // Notification preferences
   // Subcontractors can disable email notifications from the portal.
   emailNotificationsEnabled: boolean("email_notifications_enabled").notNull().default(true),
-  complianceNotificationsEnabled: boolean("compliance_notifications_enabled").notNull().default(true),
   notificationPreferences: jsonb("notification_preferences").$type<{
-    coiReminders?: boolean;
-    w9Reminders?: boolean;
-    contractReminders?: boolean;
     leadEmails?: boolean;
     notifyPriceDrops?: boolean;
-  }>().default(sql`'{"coiReminders":true,"w9Reminders":true,"contractReminders":true,"leadEmails":true,"notifyPriceDrops":true}'::jsonb`),
-
-  // Cached compliance status (updated on doc changes)
-  complianceStatus: text("compliance_status").default("non_compliant"), // compliant, non_compliant, expiring_soon
+  }>().default(sql`'{"leadEmails":true,"notifyPriceDrops":true}'::jsonb`),
   
   // Status
   isActive: boolean("is_active").default(true),
@@ -506,44 +491,10 @@ export const insertConsultationRequestSchema = createInsertSchema(consultationRe
 export type ConsultationRequest = typeof consultationRequests.$inferSelect;
 export type InsertConsultationRequest = z.infer<typeof insertConsultationRequestSchema>;
 
-// --- Compliance & Project Management ---
+// --- Project Management ---
 
-export type ComplianceDocType = "coi" | "w9";
-export type ComplianceDocStatus = "pending_review" | "approved" | "rejected" | "expired";
 export type ProjectStatus = "draft" | "active" | "on_hold" | "completed" | "cancelled";
-export type ContractStatus = "draft" | "sent" | "signed" | "void";
 export type ChangeOrderStatus = "draft" | "pending_signature" | "approved" | "rejected";
-
-export const complianceDocuments = pgTable("compliance_documents", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  userId: varchar("user_id").notNull().references(() => users.id),
-  type: text("type").notNull(), // coi | w9
-  fileUrl: text("file_url").notNull(),
-  fileName: text("file_name").notNull(),
-  mimeType: text("mime_type").notNull(),
-  fileSize: integer("file_size"),
-  status: text("status").notNull().default("pending_review"),
-  expiresAt: timestamp("expires_at"),
-  uploadedAt: timestamp("uploaded_at").defaultNow().notNull(),
-  reviewedBy: varchar("reviewed_by").references(() => users.id),
-  reviewedAt: timestamp("reviewed_at"),
-  rejectionReason: text("rejection_reason"),
-  version: integer("version").notNull().default(1),
-  isCurrent: boolean("is_current").notNull().default(true),
-  createdAt: timestamp("created_at").defaultNow().notNull(),
-}, (table) => ({
-  userIdIdx: index("compliance_documents_user_id_idx").on(table.userId),
-  userTypeCurrentIdx: index("compliance_documents_user_type_current_idx").on(table.userId, table.type, table.isCurrent),
-}));
-
-export const insertComplianceDocumentSchema = createInsertSchema(complianceDocuments).omit({
-  id: true,
-  createdAt: true,
-  uploadedAt: true,
-});
-
-export type ComplianceDocument = typeof complianceDocuments.$inferSelect;
-export type InsertComplianceDocument = z.infer<typeof insertComplianceDocumentSchema>;
 
 export const projects = pgTable("projects", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
@@ -640,58 +591,6 @@ export const insertChangeOrderSchema = createInsertSchema(changeOrders).omit({
 export type ChangeOrder = typeof changeOrders.$inferSelect;
 export type InsertChangeOrder = z.infer<typeof insertChangeOrderSchema>;
 
-export const contractTemplates = pgTable("contract_templates", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  name: text("name").notNull(),
-  bodyHtml: text("body_html").notNull(),
-  version: text("version").notNull().default("1.0"),
-  isActive: boolean("is_active").notNull().default(true),
-  createdAt: timestamp("created_at").defaultNow().notNull(),
-  updatedAt: timestamp("updated_at").defaultNow().notNull(),
-});
-
-export const insertContractTemplateSchema = createInsertSchema(contractTemplates).omit({
-  id: true,
-  createdAt: true,
-  updatedAt: true,
-});
-
-export type ContractTemplate = typeof contractTemplates.$inferSelect;
-export type InsertContractTemplate = z.infer<typeof insertContractTemplateSchema>;
-
-export const contracts = pgTable("contracts", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  projectId: varchar("project_id").notNull().references(() => projects.id),
-  subcontractorId: varchar("subcontractor_id").notNull().references(() => users.id),
-  templateId: varchar("template_id").references(() => contractTemplates.id),
-  title: text("title").notNull(),
-  bodyHtml: text("body_html").notNull(),
-  status: text("status").notNull().default("draft"),
-  mergeData: jsonb("merge_data").$type<Record<string, string>>(),
-  signature: text("signature"),
-  signedAt: timestamp("signed_at"),
-  signatureIp: text("signature_ip"),
-  signatureUserAgent: text("signature_user_agent"),
-  signedPdfUrl: text("signed_pdf_url"),
-  sentAt: timestamp("sent_at"),
-  createdBy: varchar("created_by").references(() => users.id),
-  createdAt: timestamp("created_at").defaultNow().notNull(),
-  updatedAt: timestamp("updated_at").defaultNow().notNull(),
-}, (table) => ({
-  projectIdx: index("contracts_project_idx").on(table.projectId),
-  subIdx: index("contracts_sub_idx").on(table.subcontractorId),
-  statusIdx: index("contracts_status_idx").on(table.status),
-}));
-
-export const insertContractSchema = createInsertSchema(contracts).omit({
-  id: true,
-  createdAt: true,
-  updatedAt: true,
-});
-
-export type Contract = typeof contracts.$inferSelect;
-export type InsertContract = z.infer<typeof insertContractSchema>;
-
 export const entityDocuments = pgTable("entity_documents", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
   entityType: text("entity_type").notNull(), // lead | project | contract
@@ -714,16 +613,6 @@ export const insertEntityDocumentSchema = createInsertSchema(entityDocuments).om
 
 export type EntityDocument = typeof entityDocuments.$inferSelect;
 export type InsertEntityDocument = z.infer<typeof insertEntityDocumentSchema>;
-
-export const complianceReminderLog = pgTable("compliance_reminder_log", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  userId: varchar("user_id").notNull().references(() => users.id),
-  documentType: text("document_type").notNull(),
-  reminderType: text("reminder_type").notNull(), // missing | expiring_30 | expiring_14 | expiring_7 | expired
-  sentAt: timestamp("sent_at").defaultNow().notNull(),
-}, (table) => ({
-  dedupeIdx: index("compliance_reminder_log_dedupe_idx").on(table.userId, table.documentType, table.reminderType, table.sentAt),
-}));
 
 // ─── Boise Cabinet Co Platform Extensions ───────────────────────────────────
 

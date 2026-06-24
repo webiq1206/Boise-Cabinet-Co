@@ -9,10 +9,6 @@ const notificationPrefsSchema = z.object({
   notifyNewLeads: z.boolean().optional(),
   notifyPriceDrops: z.boolean().optional(),
   emailNotificationsEnabled: z.boolean().optional(),
-  complianceNotificationsEnabled: z.boolean().optional(),
-  coiReminders: z.boolean().optional(),
-  w9Reminders: z.boolean().optional(),
-  contractReminders: z.boolean().optional(),
   leadEmails: z.boolean().optional(),
 });
 
@@ -47,23 +43,12 @@ export async function POST(request: NextRequest) {
       updateData.emailNotificationsEnabled = parsed.leadEmails;
     }
 
-    if (parsed.complianceNotificationsEnabled !== undefined) {
-      updateData.complianceNotificationsEnabled = parsed.complianceNotificationsEnabled;
-    }
-
     const currentPrefs =
       (user.notificationPreferences as Record<string, boolean>) ?? {};
     const newPrefs = {
       ...currentPrefs,
       ...(parsed.notifyPriceDrops !== undefined
         ? { notifyPriceDrops: parsed.notifyPriceDrops }
-        : {}),
-      ...(parsed.coiReminders !== undefined
-        ? { coiReminders: parsed.coiReminders }
-        : {}),
-      ...(parsed.w9Reminders !== undefined ? { w9Reminders: parsed.w9Reminders } : {}),
-      ...(parsed.contractReminders !== undefined
-        ? { contractReminders: parsed.contractReminders }
         : {}),
       ...(parsed.leadEmails !== undefined ? { leadEmails: parsed.leadEmails } : {}),
     };

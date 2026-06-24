@@ -17,3 +17,4 @@
 - [Catalog parity verification](catalog-parity-verification.md) — prove 1:1 by diffing PDF vs data/catalog.json (true source) + exact golden-manifest membership; pdftotext splits "2ROT" into "2 ROT" hiding real middle-of-series SKUs.
 - [Outreach config/template module cycle](outreach-config-template-cycle.md) — config.ts and template.ts import each other; keep config DEFAULTS values as literals (not imported consts) and only call template fns at runtime to avoid TDZ on init.
 - [Outreach bulk-approve status guard](outreach-bulk-approve-guard.md) — bulk approve must gate on pre-send statuses + non-null email, never re-queue sent/unsubscribed (duplicate-cold-email risk).
+- [drizzle-kit push data-loss prompt](drizzle-push-data-loss-prompt.md) — db:push blocks on interactive arrow-key confirm for column/table drops; pipes don't work, run DROP/ALTER via executeSql + verify with information_schema (Neon DB, not checkDatabase).

@@ -17,6 +17,7 @@ import {
   buildHomeownerStoryHtml,
 } from './emailLayout';
 import { SITE_CONFIG } from '@/shared/siteConfig';
+import type { User } from '@shared/schema';
 
 function emailServiceName(slug: string): string {
   return slug.replace(/-/g, ' ').replace(/\b\w/g, (l: string) => l.toUpperCase());
@@ -1025,49 +1026,32 @@ export async function sendLeadPriceDropEmail(
   await sendEmail(contractorEmail, subject, htmlBody);
 }
 
-export async function sendContractSignedNotification(
-  adminEmails: string[],
-  data: {
-    signerName: string;
-    contractTitle: string;
-    projectId?: string | null;
-  }
+export async function sendProjectAssignedEmail(
+  user: User,
+  projectTitle: string
 ): Promise<void> {
-  const subject = `Contract signed: ${data.contractTitle}`;
-  const htmlBody = wrapEmailHtml({
-    title: "Contract Signed",
-    subtitle: data.contractTitle,
-    tagline: "Admin Notifications",
-    content: `
-      <p class="greeting">${escapeHtml(data.signerName)} just signed <strong>${escapeHtml(data.contractTitle)}</strong>.</p>
-      <div style="text-align:center; margin: 30px 0;">
-        <a href="${SITE_BASE_URL}/admin/dashboard" class="cta-button">Open Admin Dashboard →</a>
-      </div>
-      ${buildOwnerSignatureHtml("Thanks,")}
-    `,
-  });
-  for (const email of adminEmails) {
-    await sendEmail(email, subject, htmlBody);
-  }
-}
+  if (!user.email) return;
 
-export async function sendContractSignedConfirmation(
-  subcontractorEmail: string,
-  data: { contractTitle: string }
-): Promise<void> {
-  const subject = `Contract signed: ${data.contractTitle}`;
+  const contractorName =
+    [user.firstName, user.lastName].filter(Boolean).join(" ") || "Contractor";
+
   const htmlBody = wrapEmailHtml({
-    title: "Contract Signed",
-    subtitle: "Thank you for signing",
+    title: "New Project Assignment",
+    subtitle: escapeHtml(projectTitle),
     tagline: "Contractor Portal",
     content: `
-      <p class="greeting">Thanks for signing <strong>${escapeHtml(data.contractTitle)}</strong>.</p>
-      <p>I have your signature on file and will follow up if there is anything else you need.</p>
+      <p class="greeting">Hi ${escapeHtml(contractorName)},</p>
+      <p>You have been assigned to project: <strong>${escapeHtml(projectTitle)}</strong></p>
       <div style="text-align:center; margin: 30px 0;">
-        <a href="${SITE_BASE_URL}/subcontractor/contracts" class="cta-button">View Contracts →</a>
+        <a href="${SITE_BASE_URL}/subcontractor/projects" class="cta-button">View Project →</a>
       </div>
       ${buildOwnerSignatureHtml()}
     `,
   });
-  await sendEmail(subcontractorEmail, subject, htmlBody);
+
+  await sendEmail(
+    user.email,
+    `New Project Assignment: ${projectTitle}`,
+    htmlBody
+  );
 }

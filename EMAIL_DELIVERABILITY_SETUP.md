@@ -186,7 +186,6 @@ If you're starting to send emails from a new domain:
 - `server/services/emailLayout.ts` — shared layout, branding, escaping
 - `server/services/emailNotifications.ts` — lead marketplace and admin emails
 - `lib/resend.ts` — quote form emails
-- `server/services/complianceEmails.ts` — compliance, contract, and project emails
 
 ### Cron routes (set `CRON_SECRET` and schedule in production):
 - `GET|POST /api/cron/compliance-reminders` — compliance document reminders

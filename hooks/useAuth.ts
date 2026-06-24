@@ -20,8 +20,6 @@ export interface User {
   company?: string | null;
   role: string;
   profileImageUrl?: string | null;
-  agreementAccepted?: boolean | null;
-  agreementAcceptedAt?: string | Date | null;
   watchedLeads?: string[] | null;
   declinedLeads?: string[] | null;
   stripeCustomerId?: string | null;

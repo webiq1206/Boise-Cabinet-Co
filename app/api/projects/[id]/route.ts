@@ -5,7 +5,6 @@ import {
   getChangeOrdersForProject,
   getEntityDocuments,
 } from "@/server/services/projectService";
-import { getContractsForProject } from "@/server/services/contractService";
 import { db } from "@/lib/db";
 import { projectAssignments } from "@shared/schema";
 import { and, eq, sql } from "drizzle-orm";
@@ -51,17 +50,12 @@ export async function GET(
       }
     }
 
-    const [changeOrders, documents, contracts] = await Promise.all([
+    const [changeOrders, documents] = await Promise.all([
       getChangeOrdersForProject(params.id),
       getEntityDocuments("project", params.id),
-      getContractsForProject(params.id),
     ]);
 
     const visibleChangeOrders = changeOrders.filter((c) => c.status === "approved");
-    const subContracts =
-      user.role === "admin"
-        ? contracts
-        : contracts.filter((c) => c.subcontractorId === session.userId);
 
     return NextResponse.json({
       project: {
@@ -70,7 +64,6 @@ export async function GET(
       },
       changeOrders: visibleChangeOrders,
       documents,
-      contracts: subContracts,
     });
   } catch (error) {
     console.error("[project GET]", error);
