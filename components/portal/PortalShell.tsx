@@ -7,13 +7,11 @@ import { Button } from "@/components/ui/button";
 import { LogOut } from "lucide-react";
 import { AdminNav } from "./AdminNav";
 import { CustomerNav } from "./CustomerNav";
-import { PartnerNav } from "./PartnerNav";
-import { SubcontractorNav } from "./SubcontractorNav";
 import { PortalMobileNav } from "./PortalMobileNav";
 import { PORTAL_VARIANT_LABEL } from "./portalNavConfig";
 
 interface PortalShellProps {
-  variant: "admin" | "subcontractor" | "customer" | "partner";
+  variant: "admin" | "customer";
   title?: string;
   children: ReactNode;
   headerActions?: ReactNode;
@@ -30,15 +28,7 @@ export function PortalShell({
   return (
     <div className="min-h-screen bg-background flex">
       <aside className="hidden md:flex w-64 border-r bg-card flex-col shrink-0">
-        {variant === "admin" ? (
-          <AdminNav />
-        ) : variant === "customer" ? (
-          <CustomerNav />
-        ) : variant === "partner" ? (
-          <PartnerNav />
-        ) : (
-          <SubcontractorNav />
-        )}
+        {variant === "admin" ? <AdminNav /> : <CustomerNav />}
       </aside>
 
       <div className="flex-1 flex flex-col min-w-0">
@@ -59,11 +49,6 @@ export function PortalShell({
             <div className="flex items-center gap-1 sm:gap-2 shrink-0">
               {headerActions}
               <NotificationsBell />
-              {variant === "admin" && (
-                <Button variant="ghost" size="sm" asChild className="hidden sm:inline-flex">
-                  <Link href="/partner">Partner Portal</Link>
-                </Button>
-              )}
               <Button variant="ghost" size="icon" className="hidden md:inline-flex" asChild>
                 <a href="/api/logout" aria-label="Logout">
                   <LogOut className="h-4 w-4" />

@@ -31,9 +31,6 @@ export default function DealerPortalPage() {
               <Link href="/products">Browse products</Link>
             </Button>
             <Button variant="outline" asChild>
-              <Link href="/partner">Partner dashboard</Link>
-            </Button>
-            <Button variant="outline" asChild>
               <Link href="/search">Search catalog</Link>
             </Button>
           </div>

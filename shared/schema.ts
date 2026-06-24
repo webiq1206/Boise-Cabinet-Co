@@ -248,14 +248,18 @@ export const leads = pgTable("leads", {
   message: text("message"),
   notes: jsonb("notes"), // Array of {text: string, addedBy: string, addedAt: Date}[]
   
-  // Lead pricing
-  baseLeadPrice: decimal("base_lead_price", { precision: 10, scale: 2 }).notNull(),
-  currentLeadPrice: decimal("current_lead_price", { precision: 10, scale: 2 }).notNull(),
-  priceReductionRate: decimal("price_reduction_rate", { precision: 5, scale: 2 }).default("1.50"), // 1.5% daily
+  // Lead pricing (legacy marketplace fields; nullable since the subcontractor
+  // marketplace was removed and consultation-sourced leads carry no resale price).
+  baseLeadPrice: decimal("base_lead_price", { precision: 10, scale: 2 }),
+  currentLeadPrice: decimal("current_lead_price", { precision: 10, scale: 2 }),
+  priceReductionRate: decimal("price_reduction_rate", { precision: 5, scale: 2 }).default("1.50"),
   lastPriceUpdate: timestamp("last_price_update").defaultNow(),
   
-  // Lead status
-  status: text("status").notNull().default("pending_admin"), // pending_admin, available, purchased, declined_admin
+  // Where the lead originated, e.g. "consultation".
+  source: text("source").default("consultation"),
+
+  // Lead status: pending_admin, accepted, archived (converted leads carry projectId)
+  status: text("status").notNull().default("pending_admin"),
   adminReviewedBy: varchar("admin_reviewed_by").references(() => users.id),
   adminReviewedAt: timestamp("admin_reviewed_at"),
   adminDeclined: boolean("admin_declined").default(false),

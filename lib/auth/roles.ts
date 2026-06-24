@@ -43,7 +43,7 @@ export function getPortalHomePath(role: UserRole | null): string {
     case "admin":
       return "/admin/dashboard";
     case "partner":
-      return "/partner";
+      return "/portal";
     case "dealer":
       return "/dealer";
     case "installer":

@@ -17,7 +17,8 @@ export async function POST(request: Request, { params }: { params: { leadId: str
   const result = await db.select().from(leads).where(eq(leads.id, leadId));
   const lead = result[0];
   if (!lead) return NextResponse.json({ error: "Lead not found" }, { status: 404 });
-  if (lead.status !== "pending_admin") return NextResponse.json({ error: "Lead is not pending admin review" }, { status: 400 });
+  if (lead.status === "accepted") return NextResponse.json({ error: "Lead is already accepted" }, { status: 400 });
+  if (lead.projectId) return NextResponse.json({ error: "Lead is already converted to a project" }, { status: 400 });
 
   await db.update(leads).set({
     status: "accepted",

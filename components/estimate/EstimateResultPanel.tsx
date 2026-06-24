@@ -135,6 +135,8 @@ export interface EstimateResultPanelProps {
   project?: ProjectType;
   variant?: "full" | "sidebar";
   className?: string;
+  /** Suppress the panel's own CTA (e.g. when the flow's sticky bar owns it). */
+  hideCta?: boolean;
 }
 
 export function EstimateResultPanel({
@@ -145,6 +147,7 @@ export function EstimateResultPanel({
   project,
   variant = "full",
   className,
+  hideCta = false,
 }: EstimateResultPanelProps) {
   const isSidebar = variant === "sidebar";
   const isFull = variant === "full";
@@ -271,7 +274,7 @@ export function EstimateResultPanel({
         </p>
       )}
 
-      {!isSidebar && (
+      {!isSidebar && !hideCta && (
         <Button
           variant="brand"
           onClick={onBookVisit}

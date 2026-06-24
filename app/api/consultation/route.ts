@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { db } from "@/lib/db";
-import { consultationRequests } from "@/shared/schema";
+import { consultationRequests, leads } from "@/shared/schema";
 import { getUncachableResendClient } from "@/server/resend";
 import { SITE_CONFIG } from "@/shared/siteConfig";
 import {
@@ -86,15 +86,17 @@ export async function POST(request: NextRequest) {
 
     let dbSaved = false;
     if (db) {
+      const profile = data.propertyProfile as Record<string, unknown> | null | undefined;
+      const city = (profile?.city as string) || "";
+
       try {
-        const profile = data.propertyProfile as Record<string, unknown> | null | undefined;
         await db.insert(consultationRequests).values({
           name: data.name,
           phone: data.phone,
           email: data.email,
           zip,
           address: data.address || null,
-          city: (profile?.city as string) || null,
+          city: city || null,
           propertyProfile: (data.propertyProfile as PropertyProfile | null) ?? null,
           projectType: data.projectType,
           message: data.message || null,
@@ -106,6 +108,47 @@ export async function POST(request: NextRequest) {
         dbSaved = true;
       } catch (dbErr) {
         console.error("[consultation] DB insert failed:", dbErr);
+      }
+
+      // Mirror the consultation into the admin lead manager so it can be
+      // triaged, accepted, and converted to a project from one inbox.
+      try {
+        const estimateLow = data.estimate?.priceLow;
+        const estimateHigh = data.estimate?.priceHigh;
+        const finalQuote =
+          typeof estimateLow === "number" && typeof estimateHigh === "number"
+            ? Math.round((estimateLow + estimateHigh) / 2).toString()
+            : typeof estimateHigh === "number"
+              ? Math.round(estimateHigh).toString()
+              : null;
+
+        await db.insert(leads).values({
+          name: data.name,
+          email: data.email,
+          phone: data.phone,
+          address: data.address || null,
+          city: city || "Unknown",
+          propertyProfile: (data.propertyProfile as PropertyProfile | null) ?? undefined,
+          propertyType: "residential",
+          serviceType: data.projectType,
+          selectedServices: [data.projectType],
+          finalQuote,
+          serviceData: data.estimate
+            ? {
+                estimate: {
+                  project: data.estimate.project,
+                  finish: data.estimate.finish,
+                  priceLow: data.estimate.priceLow,
+                  priceHigh: data.estimate.priceHigh,
+                },
+              }
+            : null,
+          message: data.message || null,
+          status: "pending_admin",
+          source: "consultation",
+        });
+      } catch (leadErr) {
+        console.error("[consultation] Lead mirror insert failed:", leadErr);
       }
     }
 

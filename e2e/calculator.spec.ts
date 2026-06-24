@@ -37,10 +37,11 @@ test.describe("Project Estimator", () => {
     await page.getByTestId("button-construction-best").click();
     await page.getByRole("button", { name: "Continue" }).click();
     await page.getByTestId("button-door-modern-shaker").click();
-    // Finish is optional, but choosing one completes every detail for the
-    // "detailed" planning range.
+    // Finishes are optional and tucked behind a toggle; revealing and choosing
+    // one completes every detail for the "detailed" planning range.
+    await page.getByTestId("button-explore-finishes").click();
     await page.getByTestId("button-finish-category-matte").click();
-    await page.getByRole("button", { name: "Continue" }).click();
+    await page.getByRole("button", { name: "See your range" }).first().click();
     await expect(page.getByTestId("estimate-result-panel").getByText("Detailed planning range")).toBeVisible();
     await expect(page.getByTestId("estimate-result-panel")).toBeVisible();
   });

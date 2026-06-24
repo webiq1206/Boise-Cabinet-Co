@@ -20,9 +20,6 @@ test.describe("Consultation form", () => {
     await page.getByTestId("input-phone").fill("(208) 555-0101");
     await page.getByTestId("button-submit-consultation").click();
 
-    await expect(page.getByTestId("confirm-consultation")).toBeVisible();
-    await page.getByTestId("button-confirm-consultation").click();
-
     await expect(page.getByTestId("consultation-success")).toBeVisible({
       timeout: 15000,
     });

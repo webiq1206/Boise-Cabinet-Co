@@ -11,9 +11,7 @@ export default function robots(): MetadataRoute.Robots {
         disallow: [
           '/api/',
           '/admin/',
-          '/subcontractor/',
           '/portal/',
-          '/partner/',
           '/login',
           '/dealer',
           '/installer',

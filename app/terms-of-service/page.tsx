@@ -66,38 +66,37 @@ export default function TermsOfServicePage() {
               Boise Cabinet Co provides custom cabinet design, fabrication, and installation services to residential and commercial customers in the Treasure Valley area of Idaho.
             </p>
 
-            <h2>Service Estimates and Pricing</h2>
+            <h2>Estimates and Pricing</h2>
             <ul>
-              <li>All estimates are provided based on information available at the time of assessment</li>
-              <li>Final pricing may vary based on actual conditions discovered during service</li>
-              <li>Significant changes to scope will be communicated before proceeding</li>
-              <li>Prices are subject to change with advance notice</li>
+              <li>Online and in-home estimates are planning ranges based on the information available at the time, not a binding quote</li>
+              <li>Final pricing is set in a written scope and proposal before fabrication begins</li>
+              <li>Final pricing may vary based on field measurements, selected door styles, finishes, and accessories</li>
+              <li>Any significant change to the approved scope is documented in a written change order before work proceeds</li>
             </ul>
 
             <h2>Payment Terms</h2>
             <ul>
-              <li>Payment is due upon completion of services unless otherwise arranged</li>
+              <li>A deposit is typically required to confirm your order and begin fabrication</li>
+              <li>The remaining balance is due according to the milestones set out in your written proposal</li>
               <li>We accept major credit cards, checks, and electronic payments</li>
-              <li>Late payments may incur additional fees</li>
-              <li>Recurring service customers may set up automatic billing</li>
+              <li>Late payments may incur additional fees as described in your proposal</li>
             </ul>
 
-            <h2>Scheduling and Cancellation</h2>
+            <h2>Fabrication and Installation Scheduling</h2>
             <ul>
-              <li>Service schedules are weather-dependent and may be adjusted as needed</li>
-              <li>We will make reasonable efforts to notify you of schedule changes</li>
-              <li>Cancellation of scheduled services requires 24-hour advance notice</li>
-              <li>Repeated cancellations may result in service termination</li>
+              <li>Custom cabinets are built to order, so lead times are estimated and may shift based on material availability and order volume</li>
+              <li>We will make reasonable efforts to keep you informed of your fabrication and installation timeline</li>
+              <li>Installation dates are scheduled in advance; please let us know promptly if you need to reschedule</li>
             </ul>
 
             <h2>Property Access</h2>
             <p>
-              By engaging our services, you grant us permission to access your property as necessary to perform the agreed-upon work. Please ensure gates are unlocked and pets are secured on service days.
+              By engaging our services, you grant us permission to access your home as necessary to take field measurements and complete installation. Please ensure the work area is clear and accessible on scheduled measurement and installation days.
             </p>
 
-            <h2>Subcontracting</h2>
+            <h2>Installation Partners</h2>
             <p>
-              Boise Cabinet Co reserves the right to subcontract services as needed to ensure quality service delivery and timely completion of work.
+              Boise Cabinet Co may use qualified installation partners to complete certain work. We remain accountable for the quality and warranty of the cabinetry we design, build, and install.
             </p>
 
             <h2>Limitation of Liability</h2>
@@ -105,9 +104,9 @@ export default function TermsOfServicePage() {
               While we take great care in providing our services, Boise Cabinet Co's liability for any claims arising from our services is limited to the amount paid for the specific service in question. We are not liable for pre-existing conditions, normal wear, or conditions outside our control.
             </p>
 
-            <h2>Satisfaction Guarantee</h2>
+            <h2>Workmanship Guarantee</h2>
             <p>
-              We stand behind our work. If you're not satisfied with a service, please contact us within 48 hours and we will work to address your concerns.
+              We stand behind our cabinetry and installation. If you have a concern with your completed project, please contact us and we will work to address it under the terms of your written workmanship warranty.
             </p>
 
             <h2>Changes to Terms</h2>

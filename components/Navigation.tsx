@@ -39,7 +39,7 @@ export function Navigation() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [expandedMobile, setExpandedMobile] = useState<string | null>(null);
   const { openConsult } = useModals();
-  const { isAuthenticated, isCustomer, isSubcontractor, isAdmin } = useAuth();
+  const { isAuthenticated, isCustomer } = useAuth();
   // While a guided-flow wizard shows its own contextual mobile bar, the generic
   // Call / Book-consult bar steps aside so the two never stack on phones.
   const [wizardBarActive, setWizardBarActive] = useState(false);
@@ -56,9 +56,7 @@ export function Navigation() {
 
   const isPortalRoute =
     pathname?.startsWith("/admin") ||
-    pathname?.startsWith("/portal") ||
-    pathname?.startsWith("/partner") ||
-    pathname?.startsWith("/subcontractor");
+    pathname?.startsWith("/portal");
 
   const isPortalAppShell =
     pathname?.startsWith("/design-studio") ||
@@ -66,16 +64,7 @@ export function Navigation() {
     pathname?.startsWith("/admin/dashboard") ||
     pathname?.startsWith("/admin/projects") ||
     pathname?.startsWith("/admin/leads") ||
-    pathname?.startsWith("/admin/contracts") ||
-    pathname?.startsWith("/admin/contractors") ||
-    pathname?.startsWith("/subcontractor/leads") ||
-    pathname?.startsWith("/subcontractor/projects") ||
-    pathname?.startsWith("/subcontractor/compliance") ||
-    pathname?.startsWith("/subcontractor/contracts") ||
-    pathname?.startsWith("/subcontractor/purchases") ||
-    pathname?.startsWith("/subcontractor/portal") ||
-    (pathname === "/subcontractor" && isAuthenticated && isSubcontractor) ||
-    (pathname === "/partner" && isAuthenticated && (isSubcontractor || isAdmin));
+    pathname?.startsWith("/admin/outreach");
 
   useEffect(() => {
     if (mobileOpen) {

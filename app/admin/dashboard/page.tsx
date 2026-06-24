@@ -104,31 +104,28 @@ export default function AdminDashboardPage() {
       <div className="space-y-6">
         <div className="grid gap-3 sm:grid-cols-3">
           <Button variant="outline" asChild className="h-auto py-4 justify-start">
+            <Link href="/admin/leads">
+              <Users className="h-4 w-4 mr-2" />
+              Leads
+            </Link>
+          </Button>
+          <Button variant="outline" asChild className="h-auto py-4 justify-start">
             <Link href="/admin/projects">
               <FolderKanban className="h-4 w-4 mr-2" />
               Projects
             </Link>
           </Button>
           <Button variant="outline" asChild className="h-auto py-4 justify-start">
-            <Link href="/admin/leads">
-              <Users className="h-4 w-4 mr-2" />
-              Lead marketplace
-            </Link>
-          </Button>
-          <Button variant="outline" asChild className="h-auto py-4 justify-start">
-            <Link href="/admin/contractors">
-              <ShieldCheck className="h-4 w-4 mr-2" />
-              Contractors
+            <Link href="/admin/outreach">
+              <FileSignature className="h-4 w-4 mr-2" />
+              Outreach
             </Link>
           </Button>
         </div>
         <div className="flex justify-between items-center">
           <p className="text-muted-foreground">
-            Monitor contractor compliance, contracts, and project assignments.
+            Monitor leads, projects, and installation partner compliance.
           </p>
-          <Button variant="outline" size="sm" asChild>
-            <a href="/api/admin/compliance/export">Export CSV</a>
-          </Button>
         </div>
 
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -191,9 +188,6 @@ export default function AdminDashboardPage() {
             </CardHeader>
             <CardContent>
               <p className="text-2xl font-bold">{contracts?.unsigned ?? "N/A"}</p>
-              <Button size="sm" variant="link" className="px-0" asChild>
-                <Link href="/admin/contracts">Manage contracts</Link>
-              </Button>
             </CardContent>
           </Card>
           <Card>
@@ -219,9 +213,6 @@ export default function AdminDashboardPage() {
             </CardHeader>
             <CardContent>
               <p className="text-2xl font-bold">{compliance?.pendingReview ?? "N/A"}</p>
-              <Button size="sm" variant="link" className="px-0" asChild>
-                <Link href="/admin/contractors">Review documents</Link>
-              </Button>
             </CardContent>
           </Card>
         </div>

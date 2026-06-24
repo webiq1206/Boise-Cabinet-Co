@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-const PORTAL_PREFIXES = ["/portal", "/admin", "/subcontractor", "/partner"];
+const PORTAL_PREFIXES = ["/portal", "/admin"];
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -16,5 +16,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/portal/:path*", "/admin/:path*", "/subcontractor/:path*", "/partner/:path*"],
+  matcher: ["/portal/:path*", "/admin/:path*"],
 };

@@ -661,11 +661,13 @@ export const EMPTY_SELECTIONS: EstimateSelections = {
 };
 
 /**
- * When a visitor picks a project, set only the project. Size, door, finish, and
- * construction stay unselected so the estimate reflects just what they choose.
+ * When a visitor picks a project, set the project and a smart construction
+ * default ("Better", the most popular tier) so the Size step needs only a
+ * slider and a confirmable default. Size, door, and finish stay unselected so
+ * the estimate still reflects what the visitor actively chooses.
  */
 export function emptySelectionsForProject(project: ProjectType): EstimateSelections {
-  return { ...EMPTY_SELECTIONS, project };
+  return { ...EMPTY_SELECTIONS, project, construction: "better" };
 }
 
 // ── Pricing ──────────────────────────────────────────────────────────────────
@@ -900,5 +902,32 @@ export function buildStoredEstimate(
     scopeSummary: result.scopeSummary,
     sizeLabel: getSizeLabel(project, sel.size!, sel.sizeUpper),
     projectLabel: PROJECT_LABELS[project].label,
+  };
+}
+
+/** Payload shape the consultation API accepts for an attached estimate. */
+export interface ConsultationEstimatePayload {
+  project: string;
+  finish: string;
+  priceLow: number;
+  priceHigh: number;
+  roi: number;
+}
+
+/**
+ * Maps a stored estimate to the `estimate` payload `/api/consultation` expects.
+ * Returns null when there is no estimate to attach, so the unified quote flow
+ * can pass the result straight through without re-deriving field names.
+ */
+export function buildConsultationEstimatePayload(
+  estimate: StoredEstimate | null | undefined,
+): ConsultationEstimatePayload | null {
+  if (!estimate) return null;
+  return {
+    project: estimate.projectLabel,
+    finish: estimate.scopeSummary,
+    priceLow: estimate.priceLow,
+    priceHigh: estimate.priceHigh,
+    roi: estimate.roi,
   };
 }

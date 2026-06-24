@@ -27,11 +27,13 @@ import {
   Package,
   Sparkles,
   ChevronUp,
+  ArrowRight,
 } from "lucide-react";
 import Image from "next/image";
 import { LAYOUT_DIAGRAM_SVG } from "@/shared/catalog/generated/layoutDiagrams";
 import { cn } from "@/lib/utils";
 import { DisplayNum } from "@/components/marketing";
+import { Button } from "@/components/ui/button";
 import { AnimatedPrice, EstimateResultPanel } from "@/components/estimate/EstimateResultPanel";
 import {
   Drawer,
@@ -42,7 +44,7 @@ import {
 import { VisualOptionGrid } from "@/components/catalog/visual";
 import { getMostLovedFinishes } from "@/shared/catalog/finishFilters";
 import { GuidedFlowShell, type GuidedStep } from "@/components/guided-flow";
-import { useModals } from "@/components/modals/ModalProvider";
+import { ConsultationFields } from "@/components/consultation/ConsultationFields";
 import { trackEstimatorEvent } from "@/lib/design/designAnalytics";
 import { loadWizardState, saveWizardState } from "@/lib/estimate/wizardPersistence";
 import {
@@ -95,7 +97,7 @@ const OPTION_ICONS: Record<string, LucideIcon> = {
   Sparkles,
 };
 
-type WizardStepId = "project" | "size" | "layout" | "style" | "result";
+type WizardStepId = "project" | "size" | "layout" | "style" | "result" | "contact";
 
 const WIZARD_META: Record<WizardStepId, GuidedStep> = {
   project: { id: "project", label: "Your project", shortLabel: "Project" },
@@ -103,14 +105,17 @@ const WIZARD_META: Record<WizardStepId, GuidedStep> = {
   layout: { id: "layout", label: "Layout", shortLabel: "Layout" },
   style: { id: "style", label: "Door & finish", shortLabel: "Style" },
   result: { id: "result", label: "Your range", shortLabel: "Range" },
+  contact: { id: "contact", label: "Book your visit", shortLabel: "Visit" },
 };
 
 function getWizardStepIds(project: ProjectType | null): WizardStepId[] {
   const ids: WizardStepId[] = ["project", "size"];
   if (project && getStepVisibility(project).layout) ids.push("layout");
-  ids.push("style", "result");
+  ids.push("style", "result", "contact");
   return ids;
 }
+
+const CONTACT_FORM_ID = "quote-consultation-form";
 
 const DEFAULT_OPTION_VISUAL_ALT = "Cabinet project option illustration";
 
@@ -392,18 +397,23 @@ function SizeSlider({
 interface EstimateCalculatorWizardProps {
   inModal?: boolean;
   onBookVisit?: () => void;
+  /** Open directly on a specific step (e.g. "contact" for "just talk to us"). */
+  startStep?: WizardStepId;
 }
 
 export function EstimateCalculatorWizard({
   inModal = false,
   onBookVisit: onBookVisitProp,
+  startStep,
 }: EstimateCalculatorWizardProps) {
   const [selections, setSelections] = useState<EstimateSelections>(EMPTY_SELECTIONS);
   const [touched, setTouched] = useState<Set<SelectionStepKey>>(new Set());
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showAllColors, setShowAllColors] = useState(false);
+  const [showFinishes, setShowFinishes] = useState(false);
   const [summaryOpen, setSummaryOpen] = useState(false);
-  const { openConsult } = useModals();
+  const [contactPending, setContactPending] = useState(false);
+  const [contactSucceeded, setContactSucceeded] = useState(false);
 
   // Guards the persistence effect so the initial EMPTY_SELECTIONS render does
   // not clobber stored progress before the hydration effect has run.
@@ -434,6 +444,16 @@ export function EstimateCalculatorWizard({
   );
 
   const selectionSummary = buildSelectionSummary(selections);
+
+  // Priceable snapshot for the in-flow contact step (null until project + size).
+  const storedEstimate = useMemo(
+    () => buildStoredEstimate(selections, selectionsMade),
+    [selections, selectionsMade],
+  );
+
+  const handleContactPending = useCallback((pending: boolean) => {
+    setContactPending(pending);
+  }, []);
 
   // Only persist an estimate once it is priceable. A visitor who skips the
   // estimator (or hasn't picked a project + size) leaves nothing behind, so the
@@ -469,6 +489,14 @@ export function EstimateCalculatorWizard({
       const maxIndex = getWizardStepIds(stored.selections.project).length - 1;
       setCurrentIndex(Math.min(Math.max(stored.currentIndex, 0), maxIndex));
     }
+    // Deep-link (e.g. "just talk to us" opens straight on the contact step),
+    // applied after any stored progress so the visitor's selections still ride
+    // along.
+    if (startStep) {
+      const ids = getWizardStepIds(stored?.selections.project ?? null);
+      const idx = ids.indexOf(startStep);
+      if (idx >= 0) setCurrentIndex(idx);
+    }
     hydratedRef.current = true;
     // Intentionally run only once on mount.
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -502,31 +530,22 @@ export function EstimateCalculatorWizard({
     }
     setSelections(emptySelectionsForProject(type));
     setTouched(new Set());
+    setShowFinishes(false);
     setCurrentIndex(0);
     trackEstimatorEvent("estimator_step_view", { step: "project" });
   }
 
   function handleBookVisit() {
-    const stored = buildStoredEstimate(selections, selectionsMade);
-    if (stored) {
-      sessionStorage.setItem("brc_estimate", JSON.stringify(stored));
-    } else {
-      sessionStorage.removeItem("brc_estimate");
-    }
-    window.dispatchEvent(new CustomEvent("brc_estimate_updated"));
     trackEstimatorEvent("estimator_book_visit");
+    // An external override (legacy callers) can still take over; otherwise the
+    // contact step is part of this flow, so advance to it in place.
     if (onBookVisitProp) {
       onBookVisitProp();
       return;
     }
-    // Prefer an on-page consult section (homepage); otherwise open the consult
-    // modal so the CTA always works (e.g. the dedicated /estimate page).
-    const consultEl = document.getElementById("consult");
-    if (consultEl) {
-      consultEl.scrollIntoView({ behavior: "smooth" });
-    } else {
-      openConsult();
-    }
+    markWizardStepTouched("result");
+    setCurrentIndex((i) => Math.min(i + 1, stepIds.length - 1));
+    trackEstimatorEvent("estimator_step_view", { step: "contact" });
   }
 
   const layoutOptions = project ? getLayoutOptions(project) : [];
@@ -577,12 +596,21 @@ export function EstimateCalculatorWizard({
   const isFirst = currentIndex === 0;
   const isLast = currentIndex === stepIds.length - 1;
 
+  // If the visitor navigates back off the contact step after a success, clear
+  // the success flag so the submit CTA returns.
+  useEffect(() => {
+    if (currentStepId !== "contact" && contactSucceeded) {
+      setContactSucceeded(false);
+    }
+  }, [currentStepId, contactSucceeded]);
+
   const stepDescription: Record<WizardStepId, string | undefined> = {
     project: "Choose what you're planning - we'll guide you from here.",
     size: "Set your cabinet run - base and wall cabinets - then pick a construction quality.",
     layout: "Pick the shape closest to your space.",
-    style: "Choose your door style and finish. Finish style and color can refine your planning range.",
+    style: "Pick a door style. Finishes are optional - you can choose them at your visit.",
     result: undefined,
+    contact: "Tell us where to send your range and we'll schedule your free in-home visit.",
   };
 
   function isStepComplete(index: number): boolean {
@@ -602,6 +630,9 @@ export function EstimateCalculatorWizard({
         // Door style is the headline pick; finish color/style stay optional.
         return visibility.doorStyle ? !!selections.doorStyle : true;
       case "result":
+        return true;
+      case "contact":
+        // The contact form owns its own validation/submit via the sticky CTA.
         return true;
       default:
         return false;
@@ -752,6 +783,21 @@ export function EstimateCalculatorWizard({
                 />
               </div>
             )}
+
+            {/* Finishes are optional and tucked away so the step stays short and
+                the visitor can reach "See your range" without scrolling. */}
+            {!showFinishes ? (
+              <button
+                type="button"
+                onClick={() => setShowFinishes(true)}
+                className="flex w-full items-center justify-between rounded-sm border border-border px-3 py-2.5 min-h-11 text-left text-sm text-muted-foreground"
+                data-testid="button-explore-finishes"
+              >
+                <span>Explore finishes (optional)</span>
+                <Sparkles className="h-4 w-4" />
+              </button>
+            ) : (
+              <>
             {finishColorOptions.length > 0 && (
               <div>
                 <label className="brc-label mb-3 block">Finish color (optional)</label>
@@ -806,6 +852,16 @@ export function EstimateCalculatorWizard({
                 testIdPrefix="button-finish-category"
               />
             </div>
+            <button
+              type="button"
+              onClick={() => setShowFinishes(false)}
+              className="text-xs font-medium text-muted-foreground underline underline-offset-2"
+              data-testid="button-skip-finishes"
+            >
+              Skip finishes for now
+            </button>
+              </>
+            )}
           </div>
         );
       case "result":
@@ -818,6 +874,20 @@ export function EstimateCalculatorWizard({
               onBookVisit={handleBookVisit}
               project={project ?? undefined}
               variant="full"
+              hideCta
+            />
+          </div>
+        );
+      case "contact":
+        return (
+          <div className="mx-auto max-w-xl">
+            <ConsultationFields
+              estimate={storedEstimate}
+              showEstimateSummary
+              formId={CONTACT_FORM_ID}
+              hideSubmitButton
+              onPendingChange={handleContactPending}
+              onSuccess={() => setContactSucceeded(true)}
             />
           </div>
         );
@@ -827,10 +897,10 @@ export function EstimateCalculatorWizard({
   })();
 
   // Persistent live estimate: sticky right column on desktop, stacked below the
-  // step on mobile. Shown on every step except the final review (where the full
-  // result panel is already the step body, so a sidebar would duplicate it).
+  // step on mobile. Shown on the selection steps only - the result step is the
+  // full panel itself, and the contact step shows its own compact summary card.
   const estimateSidePanel =
-    currentStepId !== "result" ? (
+    currentStepId !== "result" && currentStepId !== "contact" ? (
       <EstimateResultPanel
         result={result}
         selectionSummary={selectionSummary}
@@ -846,11 +916,12 @@ export function EstimateCalculatorWizard({
     size: "Continue",
     layout: "Continue",
     style: "See your range",
-    result: "Book free visit",
+    result: "Book your free visit",
+    contact: "Send my request",
   };
 
   const mobileSummaryNode =
-    !isLast ? (
+    currentStepId !== "result" && currentStepId !== "contact" ? (
       <Drawer open={summaryOpen} onOpenChange={setSummaryOpen}>
         <DrawerTrigger asChild>
           <button
@@ -893,6 +964,20 @@ export function EstimateCalculatorWizard({
       </Drawer>
     ) : undefined;
 
+  const contactSubmitButton = (
+    <Button
+      type="submit"
+      form={CONTACT_FORM_ID}
+      variant="brand"
+      disabled={contactPending}
+      className="min-h-11 w-full"
+      data-testid="button-submit-consultation"
+    >
+      {contactPending ? "Sending…" : "Send my request"}
+      {!contactPending && <ArrowRight className="h-4 w-4" />}
+    </Button>
+  );
+
   const shell = (
     <GuidedFlowShell
       steps={wizardSteps}
@@ -900,12 +985,15 @@ export function EstimateCalculatorWizard({
       isStepComplete={isStepComplete}
       onStepClick={(index) => index <= currentIndex && setCurrentIndex(index)}
       onBack={goBack}
-      onNext={isLast ? handleBookVisit : goNext}
+      onNext={currentStepId === "result" ? handleBookVisit : goNext}
       isFirst={isFirst}
       isLast={isLast}
       canAdvance={isStepComplete(currentIndex)}
       continueLabel={stepContinueLabels[currentStepId]}
-      hidePrimaryOnLast
+      hidePrimaryOnLast={contactSucceeded}
+      lastStepAction={
+        currentStepId === "contact" && !contactSucceeded ? contactSubmitButton : undefined
+      }
       stepDescription={stepDescription[currentStepId]}
       sidePanel={estimateSidePanel}
       mobileSummary={mobileSummaryNode}

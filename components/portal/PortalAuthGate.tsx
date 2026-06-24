@@ -10,7 +10,7 @@ import { Card, CardContent } from "@/components/ui/card";
 interface PortalAuthGateProps {
   children: ReactNode;
   /** Required role; defaults to customer */
-  role?: "customer" | "admin" | "partner";
+  role?: "customer" | "admin";
   title?: string;
 }
 
@@ -19,11 +19,11 @@ export function PortalAuthGate({
   role = "customer",
   title = "Client Portal",
 }: PortalAuthGateProps) {
-  const { isLoading, isAuthenticated, isCustomer, isAdmin, isPartner } = useAuth();
+  const { isLoading, isAuthenticated, isCustomer, isAdmin } = useAuth();
 
   if (isLoading) {
     return (
-      <PortalShell variant={role === "admin" ? "admin" : role === "partner" ? "partner" : "customer"} title={title}>
+      <PortalShell variant={role === "admin" ? "admin" : "customer"} title={title}>
         <div className="max-w-5xl mx-auto space-y-4">
           <Skeleton className="h-8 w-48" />
           <Skeleton className="h-32 w-full" />
@@ -33,19 +33,14 @@ export function PortalAuthGate({
     );
   }
 
-  const allowed =
-    role === "customer"
-      ? isCustomer
-      : role === "admin"
-        ? isAdmin
-        : isPartner;
+  const allowed = role === "admin" ? isAdmin : isCustomer;
 
   if (!isAuthenticated || !allowed) {
     const returnTo = typeof window !== "undefined" ? window.location.pathname : "/portal";
     const loginHref = `/login?returnTo=${encodeURIComponent(returnTo)}`;
 
     return (
-      <PortalShell variant={role === "admin" ? "admin" : role === "partner" ? "partner" : "customer"} title={title}>
+      <PortalShell variant={role === "admin" ? "admin" : "customer"} title={title}>
         <div className="max-w-md mx-auto pt-8">
           <Card>
             <CardContent className="pt-6 text-center space-y-4">

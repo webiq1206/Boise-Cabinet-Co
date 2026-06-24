@@ -152,8 +152,10 @@ const nextConfig = {
       '/services/whole-home-remodel': '/guides/whole-home-cabinetry-guide',
       '/services/room-addition': '/guides/built-in-cabinet-guide',
       '/services/adu': '/cabinets/closet',
-      '/subcontractor': '/partner',
-      '/subcontractor/': '/partner',
+      '/subcontractor': '/',
+      '/subcontractor/': '/',
+      '/partner': '/',
+      '/partner/': '/',
     };
 
     for (const [source, destination] of Object.entries(serviceRedirects)) {

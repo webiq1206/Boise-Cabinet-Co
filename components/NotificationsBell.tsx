@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/popover";
 import { Bell, Check, ExternalLink } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useAuth } from "@/hooks/useAuth";
 
 interface Notification {
   id: string;
@@ -29,6 +30,7 @@ interface Notification {
 export function NotificationsBell() {
   const router = useRouter();
   const queryClient = useQueryClient();
+  const { isAdmin } = useAuth();
   const [open, setOpen] = useState(false);
 
   const { data: notifications = [], isLoading } = useQuery<Notification[]>({
@@ -76,54 +78,21 @@ export function NotificationsBell() {
     setOpen(false);
 
     if (notification.projectId) {
-      if (notification.type.startsWith("compliance") || notification.type === "project_assigned") {
-        router.push(
-          notification.type.includes("admin") || notification.type === "compliance_missing"
-            ? `/admin/contractors`
-            : `/subcontractor/projects/${notification.projectId}`
-        );
-      } else {
-        router.push(
-          notification.type === "contract_signed"
-            ? `/admin/projects/${notification.projectId}`
-            : `/subcontractor/projects/${notification.projectId}`
-        );
-      }
-      return;
-    }
-
-    if (notification.contractId) {
       router.push(
-        notification.type === "contract_signed"
-          ? `/admin/contracts`
-          : `/subcontractor/contracts`
-      );
-      return;
-    }
-
-    if (
-      notification.type.startsWith("compliance") ||
-      notification.complianceDocumentId
-    ) {
-      router.push(
-        notification.type === "compliance_missing" &&
-        (notification.title.includes("Compliance issue") || notification.message.includes("admin"))
-          ? `/admin/dashboard`
-          : `/subcontractor/compliance`
+        isAdmin
+          ? `/admin/projects/${notification.projectId}`
+          : `/portal/projects/${notification.projectId}`
       );
       return;
     }
 
     if (notification.leadId) {
-      if (notification.type === "admin_new_quote" || notification.type === "lead_purchased") {
-        router.push(`/admin/leads?leadId=${notification.leadId}`);
-      } else if (
-        notification.type === "new_lead" ||
-        notification.type === "lead_price_drop" ||
-        notification.type === "lead_updated"
-      ) {
-        router.push(`/subcontractor/leads?leadId=${notification.leadId}`);
-      }
+      router.push(`/admin/leads?leadId=${notification.leadId}`);
+      return;
+    }
+
+    if (isAdmin) {
+      router.push("/admin/dashboard");
     }
   };
 

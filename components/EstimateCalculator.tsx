@@ -7,11 +7,13 @@ import { ESTIMATE_VALUE_PROP } from "@/shared/estimateEngine";
 interface EstimateCalculatorProps {
   inModal?: boolean;
   onBookVisit?: () => void;
+  /** Open the flow directly on a given step (e.g. "contact"). */
+  startStep?: "project" | "size" | "layout" | "style" | "result" | "contact";
 }
 
-export function EstimateCalculator({ inModal = false, onBookVisit }: EstimateCalculatorProps = {}) {
+export function EstimateCalculator({ inModal = false, onBookVisit, startStep }: EstimateCalculatorProps = {}) {
   if (inModal) {
-    return <EstimateCalculatorWizard inModal onBookVisit={onBookVisit} />;
+    return <EstimateCalculatorWizard inModal onBookVisit={onBookVisit} startStep={startStep} />;
   }
 
   return (

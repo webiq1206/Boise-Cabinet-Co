@@ -34,7 +34,7 @@ export default function InstallerPortalPage() {
               <Link href="/products">Product codes</Link>
             </Button>
             <Button variant="outline" asChild>
-              <Link href="/partner">Partner dashboard</Link>
+              <Link href="/contact">Contact us</Link>
             </Button>
           </div>
         </div>

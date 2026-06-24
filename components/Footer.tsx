@@ -253,14 +253,6 @@ export function Footer() {
                 <SiteEmailLink className="text-sm text-inverse-muted hover:text-inverse-foreground transition-colors text-left bg-transparent border-0 p-0 cursor-pointer font-inherit" />
               </li>
             </ul>
-            <div className="mt-6 pt-6 border-t border-inverse-foreground/10">
-              <a
-                href="/partner"
-                className="text-xs text-inverse-muted hover:text-inverse-foreground transition-colors"
-              >
-                Partner Login
-              </a>
-            </div>
           </div>
         </div>
 

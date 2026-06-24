@@ -23,8 +23,6 @@ import {
   ADMIN_MOBILE_TABS,
   CUSTOMER_MOBILE_TABS,
   isNavLinkActive,
-  PARTNER_MOBILE_MORE,
-  PARTNER_MOBILE_TABS,
   type PortalNavLink,
   type PortalShellVariant,
 } from "@/components/portal/portalNavConfig";
@@ -239,28 +237,19 @@ function StandardMobileNav({
 
 export function PortalMobileNav({ variant }: { variant: PortalShellVariant }) {
   const pathname = usePathname();
-  const navVariant = variant === "partner" ? "partner" : variant;
 
   return (
     <nav
       className="md:hidden fixed bottom-0 inset-x-0 z-40 border-t bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/90 pb-[env(safe-area-inset-bottom,0px)]"
       aria-label="Portal navigation"
     >
-      {navVariant === "customer" && <CustomerMobileNav pathname={pathname} />}
-      {navVariant === "admin" && (
+      {variant === "customer" && <CustomerMobileNav pathname={pathname} />}
+      {variant === "admin" && (
         <StandardMobileNav
           pathname={pathname}
           primaryTabs={ADMIN_MOBILE_TABS}
           moreItems={ADMIN_MOBILE_MORE}
           sheetTitle="Admin menu"
-        />
-      )}
-      {(navVariant === "subcontractor" || navVariant === "partner") && (
-        <StandardMobileNav
-          pathname={pathname}
-          primaryTabs={PARTNER_MOBILE_TABS}
-          moreItems={PARTNER_MOBILE_MORE}
-          sheetTitle="Partner menu"
         />
       )}
     </nav>

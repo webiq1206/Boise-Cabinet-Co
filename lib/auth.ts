@@ -168,14 +168,9 @@ export function getDesignatedRole(
   if (email && ADMIN_EMAILS.includes(email.toLowerCase())) {
     return "admin";
   }
-  if (email && PARTNER_EMAILS.includes(email.toLowerCase())) {
-    return "partner";
-  }
-  if (existingRole === "customer") return "customer";
-  if (existingRole === "partner" || existingRole === "subcontractor") return "partner";
-  // Default new OIDC users without project link remain partners for legacy marketplace;
-  // customer role assigned via invite or project linking
-  return "subcontractor";
+  // The subcontractor/partner portal was removed. All non-admin users are
+  // homeowners (customers) using the project portal.
+  return "customer";
 }
 
 export async function upsertUserFromClaims(claims: SessionData["claims"]) {
@@ -305,15 +300,9 @@ export async function registerUser(input: {
   // Never grant admin via unverified password registration. Email ownership is
   // not proven here, so an admin-designated email must not self-promote. Admin is
   // granted only through the verified OIDC login flow or a manual DB promotion.
-  const designated = getDesignatedRole(email, null);
-  // Password self-signup defaults to customer (homeowner portal). Partner/admin
-  // emails are designated explicitly; never grant admin via unverified registration.
-  const role: AppRole =
-    designated === "admin"
-      ? "subcontractor"
-      : designated === "partner"
-        ? "partner"
-        : "customer";
+  // Password self-signup never grants admin via unverified registration; every
+  // self-registered user is a homeowner (customer).
+  const role: AppRole = "customer";
   const inserted = await db
     .insert(users)
     .values({
@@ -359,7 +348,6 @@ export function resolveLoginRedirect(
     return getPortalHomePath(role);
   }
   if (role === "admin") return safeReturnTo || "/admin/dashboard";
-  if (role === "partner") return safeReturnTo || "/partner";
   if (role === "customer") return safeReturnTo || "/portal";
-  return safeReturnTo || "/";
+  return safeReturnTo || "/portal";
 }

@@ -15,7 +15,8 @@ export type DesignAnalyticsEvent =
 export type EstimatorAnalyticsEvent =
   | "estimator_step_view"
   | "estimator_complete"
-  | "estimator_book_visit";
+  | "estimator_book_visit"
+  | "estimator_lead_submitted";
 
 function deviceClass(): string {
   if (typeof window === "undefined") return "server";

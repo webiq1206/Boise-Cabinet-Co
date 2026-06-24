@@ -17,8 +17,6 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/hooks/useAuth";
 import { AdminAnalyticsPanel } from "@/components/admin/AdminAnalyticsPanel";
-import { AdminConsultationsPanel } from "@/components/admin/AdminConsultationsPanel";
-import { AdminSubcontractorPanel } from "@/components/admin/AdminSubcontractorPanel";
 import { NotificationsBell } from "@/components/NotificationsBell";
 import { 
   AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, 
@@ -31,7 +29,6 @@ import {
   ArrowUpDown, MessageSquare, Plus, Tag, Flag, LogOut, Shield, ArrowLeftRight, Trash2,
   Pencil, Check, FolderKanban
 } from "lucide-react";
-import { Switch } from "@/components/ui/switch";
 import { useRouter, useSearchParams } from "next/navigation";
 import { cleanDisplayAddress, hasLeadingHouseNumber, HOUSE_NUMBER_ERROR_MESSAGE } from "@/shared/addressValidation";
 import { PropertyProfileEditor } from "@/components/admin/PropertyProfileEditor";
@@ -91,14 +88,13 @@ interface Lead {
   }>;
 }
 
-// Priority services data for service names
+// Cabinet project types (match the consultation form values).
 const PRIORITY_SERVICES = [
-  { slug: "kitchen-remodel", name: "Kitchen Cabinets" },
-  { slug: "bathroom-remodel", name: "Bathroom Vanities" },
-  { slug: "whole-home-remodel", name: "Whole-Home Cabinetry" },
-  { slug: "room-addition", name: "Room Addition" },
-  { slug: "basement-finish", name: "Basement Finish" },
-  { slug: "outdoor-living", name: "Outdoor Living" },
+  { slug: "kitchen", name: "Kitchen Cabinets" },
+  { slug: "bathroom", name: "Bathroom Vanities" },
+  { slug: "laundry", name: "Laundry / Mudroom" },
+  { slug: "closet", name: "Closet & Storage" },
+  { slug: "other", name: "Other / Whole-home" },
 ];
 
 function formatMeasurement(serviceId: string, data: ServiceDataEntry | undefined): string {
@@ -269,15 +265,12 @@ function AdminDashboardContent({ embedded = false }: { embedded?: boolean }) {
   const tabParam = searchParams.get("tab");
   const queryClient = useQueryClient();
   
-  const [activeTab, setActiveTab] = useState<"pending" | "accepted" | "available" | "all" | "archived" | "subcontractors" | "consultations">(() => {
+  const [activeTab, setActiveTab] = useState<"pending" | "accepted" | "converted" | "archived">(() => {
     if (
       tabParam === "pending" ||
       tabParam === "accepted" ||
-      tabParam === "available" ||
-      tabParam === "all" ||
-      tabParam === "archived" ||
-      tabParam === "subcontractors" ||
-      tabParam === "consultations"
+      tabParam === "converted" ||
+      tabParam === "archived"
     ) {
       return tabParam;
     }
@@ -302,7 +295,7 @@ function AdminDashboardContent({ embedded = false }: { embedded?: boolean }) {
   const [filterQuoteMin, setFilterQuoteMin] = useState<string>("");
   const [filterQuoteMax, setFilterQuoteMax] = useState<string>("");
   const [filterLeadAge, setFilterLeadAge] = useState<string>("all");
-  const [sortBy, setSortBy] = useState<"date" | "quote" | "leadPrice" | "age">("date");
+  const [sortBy, setSortBy] = useState<"date" | "quote" | "age">("date");
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc");
   const [showFilters, setShowFilters] = useState(false);
   const [filterPriority, setFilterPriority] = useState<string>("all");
@@ -316,33 +309,6 @@ function AdminDashboardContent({ embedded = false }: { embedded?: boolean }) {
       return res.json();
     },
     enabled: isAuthenticated && isAdmin,
-  });
-
-  const { data: siteSettings = {} } = useQuery<Record<string, string>>({
-    queryKey: ["/api/admin/settings"],
-    queryFn: async () => {
-      const res = await fetch("/api/admin/settings");
-      if (!res.ok) return {};
-      return res.json();
-    },
-    enabled: isAuthenticated && isAdmin,
-  });
-
-  const autoRelease = siteSettings.auto_release_leads === "true";
-
-  const toggleAutoReleaseMutation = useMutation({
-    mutationFn: async (enabled: boolean) => {
-      const res = await fetch("/api/admin/settings", {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ key: "auto_release_leads", value: String(enabled) }),
-      });
-      if (!res.ok) throw new Error("Failed to update setting");
-      return res.json();
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/admin/settings"] });
-    },
   });
 
   // Deep-link support
@@ -359,17 +325,15 @@ function AdminDashboardContent({ embedded = false }: { embedded?: boolean }) {
     }
 
     const desiredTab: typeof activeTab =
-      lead.status === "pending_admin"
-        ? "pending"
-        : lead.status === "accepted"
-          ? "accepted"
-          : lead.status === "available"
-            ? "available"
-            : lead.status === "purchased"
-              ? "all"
-              : lead.status === "archived"
-                ? "archived"
-                : "pending";
+      lead.projectId
+        ? "converted"
+        : lead.status === "pending_admin"
+          ? "pending"
+          : lead.status === "accepted"
+            ? "accepted"
+            : lead.status === "archived"
+              ? "archived"
+              : "pending";
 
     if (activeTab !== desiredTab) {
       setActiveTab(desiredTab);
@@ -468,11 +432,6 @@ function AdminDashboardContent({ embedded = false }: { embedded?: boolean }) {
           const pointB = b.finalQuote ? calculateQuoteRange(b.finalQuote, 0.15).point : 0;
           comparison = pointA - pointB;
           break;
-        case "leadPrice":
-          const priceA = parseFloat(a.currentLeadPrice || "0");
-          const priceB = parseFloat(b.currentLeadPrice || "0");
-          comparison = priceA - priceB;
-          break;
         case "age":
           const ageA = new Date().getTime() - new Date(a.createdAt).getTime();
           const ageB = new Date().getTime() - new Date(b.createdAt).getTime();
@@ -520,21 +479,6 @@ function AdminDashboardContent({ embedded = false }: { embedded?: boolean }) {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/leads"] });
       toast({ title: "Lead Accepted", description: "You have accepted this lead." });
-    },
-    onError: (error: Error) => {
-      toast({ title: "Error", description: error.message, variant: "destructive" });
-    },
-  });
-
-  const declineLeadMutation = useMutation({
-    mutationFn: async (leadId: string) => {
-      const res = await fetch(`/api/leads/${leadId}/decline`, { method: "POST" });
-      if (!res.ok) throw new Error("Failed to decline lead");
-      return res.json();
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/leads"] });
-      toast({ title: "Lead Declined", description: "Lead is now available for subcontractors." });
     },
     onError: (error: Error) => {
       toast({ title: "Error", description: error.message, variant: "destructive" });
@@ -645,27 +589,24 @@ function AdminDashboardContent({ embedded = false }: { embedded?: boolean }) {
     },
   });
 
-  const pendingLeads = filteredLeads.filter(l => l.status === "pending_admin");
-  const acceptedLeads = filteredLeads.filter(l => l.status === "accepted");
-  const declinedLeads = filteredLeads.filter(l => l.status === "available");
-  const allPurchasedLeads = filteredLeads.filter(l => l.status === "purchased");
-  const archivedLeads = filteredLeads.filter(l => l.status === "archived");
+  const convertedLeads = filteredLeads.filter(l => !!l.projectId);
+  const acceptedLeads = filteredLeads.filter(l => l.status === "accepted" && !l.projectId);
+  const archivedLeads = filteredLeads.filter(l => l.status === "archived" && !l.projectId);
+  // Pending is a catch-all so nothing is ever hidden, including any legacy
+  // marketplace statuses (available/purchased/declined_admin) on older records.
+  const pendingLeads = filteredLeads.filter(
+    l => !l.projectId && l.status !== "accepted" && l.status !== "archived",
+  );
 
   const tabLeads = useMemo(() => {
     switch (activeTab) {
       case "pending": return pendingLeads;
       case "accepted": return acceptedLeads;
-      case "available": return declinedLeads;
-      case "all": return allPurchasedLeads;
+      case "converted": return convertedLeads;
       case "archived": return archivedLeads;
       default: return pendingLeads;
     }
-  }, [activeTab, pendingLeads, acceptedLeads, declinedLeads, allPurchasedLeads, archivedLeads]);
-
-  const formatCurrency = (amount: string | null | undefined) => {
-    if (!amount) return "$0.00";
-    return `$${parseFloat(amount).toFixed(2)}`;
-  };
+  }, [activeTab, pendingLeads, acceptedLeads, convertedLeads, archivedLeads]);
 
   const formatDate = (date: Date | string | null) => {
     if (!date) return "N/A";
@@ -827,7 +768,6 @@ function AdminDashboardContent({ embedded = false }: { embedded?: boolean }) {
     const [expanded, setExpanded] = useState(false);
     const [editingPrice, setEditingPrice] = useState(false);
     const [priceEstimate, setPriceEstimate] = useState("");
-    const [priceLeadPrice, setPriceLeadPrice] = useState("");
     const [editingAddress, setEditingAddress] = useState(false);
     const [addressDraft, setAddressDraft] = useState("");
     const [addressErr, setAddressErr] = useState("");
@@ -856,8 +796,8 @@ function AdminDashboardContent({ embedded = false }: { embedded?: boolean }) {
                 {priority.toUpperCase()}
               </Badge>
             )}
-            <Badge variant={lead.status === "pending_admin" ? "default" : lead.status === "purchased" ? "secondary" : lead.status === "archived" ? "destructive" : "outline"} className="text-[10px] px-1.5 py-0" data-testid={`badge-status-${lead.id}`}>
-              {lead.status === "pending_admin" ? "Pending Review" : lead.status === "purchased" ? "Purchased" : lead.status === "archived" ? "Archived" : "Available"}
+            <Badge variant={lead.projectId ? "secondary" : lead.status === "pending_admin" ? "default" : lead.status === "archived" ? "destructive" : "outline"} className="text-[10px] px-1.5 py-0" data-testid={`badge-status-${lead.id}`}>
+              {lead.projectId ? "Converted" : lead.status === "pending_admin" ? "Pending Review" : lead.status === "accepted" ? "Accepted" : lead.status === "archived" ? "Archived" : lead.status}
             </Badge>
             {lead.possibleDuplicates && lead.possibleDuplicates.length > 0 && (
               <HoverCard>
@@ -905,7 +845,7 @@ function AdminDashboardContent({ embedded = false }: { embedded?: boolean }) {
                               <AlertDialogHeader>
                                 <AlertDialogTitle>Merge duplicate lead?</AlertDialogTitle>
                                 <AlertDialogDescription>
-                                  The OLDER of these two leads is always kept and the newer one is archived (regardless of which card you click from). Services and pricing from the newer lead will be combined into the older one. If a subcontractor already purchased the archived lead it will be refunded automatically. The action is recorded in the lead notes for reversibility.
+                                  The OLDER of these two leads is always kept and the newer one is archived (regardless of which card you click from). Services and details from the newer lead will be combined into the older one. The action is recorded in the lead notes for reversibility.
                                 </AlertDialogDescription>
                               </AlertDialogHeader>
                               <AlertDialogFooter>
@@ -1071,24 +1011,11 @@ function AdminDashboardContent({ embedded = false }: { embedded?: boolean }) {
                     type="number"
                     step="1"
                     min="0"
-                    placeholder="e.g. 250"
+                    placeholder="e.g. 25000"
                     value={priceEstimate}
                     onChange={(e) => setPriceEstimate(e.target.value)}
                     className="h-7 text-xs w-24"
                     data-testid={`input-price-estimate-${lead.id}`}
-                  />
-                </div>
-                <div className="flex items-center gap-1.5">
-                  <label className="text-[10px] text-muted-foreground w-16 flex-shrink-0">Lead $:</label>
-                  <Input
-                    type="number"
-                    step="1"
-                    min="0"
-                    placeholder="e.g. 25"
-                    value={priceLeadPrice}
-                    onChange={(e) => setPriceLeadPrice(e.target.value)}
-                    className="h-7 text-xs w-24"
-                    data-testid={`input-lead-price-${lead.id}`}
                   />
                 </div>
                 <div className="flex gap-1">
@@ -1100,10 +1027,6 @@ function AdminDashboardContent({ embedded = false }: { embedded?: boolean }) {
                       const updates: Partial<Lead> = {};
                       if (priceEstimate && !isNaN(parseFloat(priceEstimate))) {
                         updates.finalQuote = priceEstimate;
-                      }
-                      if (priceLeadPrice && !isNaN(parseFloat(priceLeadPrice))) {
-                        updates.currentLeadPrice = priceLeadPrice;
-                        updates.baseLeadPrice = priceLeadPrice;
                       }
                       if (Object.keys(updates).length > 0) {
                         updateLeadMutation.mutate({ leadId: lead.id, data: updates });
@@ -1131,10 +1054,7 @@ function AdminDashboardContent({ embedded = false }: { embedded?: boolean }) {
                     {lead.finalQuote ? formatQuoteRangeWholeFromValue(lead.finalQuote, 0.15) : "Pending"}
                   </p>
                   <p className="text-muted-foreground text-[11px] leading-tight">
-                    Lead: {formatCurrency(lead.currentLeadPrice)}
-                    {lead.baseLeadPrice !== lead.currentLeadPrice && (
-                      <span className="ml-1">(was {formatCurrency(lead.baseLeadPrice)})</span>
-                    )}
+                    Estimate range
                   </p>
                 </div>
                 <Button
@@ -1143,10 +1063,9 @@ function AdminDashboardContent({ embedded = false }: { embedded?: boolean }) {
                   className="h-5 w-5 flex-shrink-0"
                   onClick={() => {
                     setPriceEstimate(lead.finalQuote || "");
-                    setPriceLeadPrice(lead.currentLeadPrice || "");
                     setEditingPrice(true);
                   }}
-                  title="Override price"
+                  title="Override estimate"
                   data-testid={`button-edit-price-${lead.id}`}
                 >
                   <Pencil className="h-3 w-3" />
@@ -1178,15 +1097,15 @@ function AdminDashboardContent({ embedded = false }: { embedded?: boolean }) {
               Accept
             </Button>
             <Button
-              onClick={() => declineLeadMutation.mutate(lead.id)}
-              disabled={declineLeadMutation.isPending}
+              onClick={() => updateLeadMutation.mutate({ leadId: lead.id, data: { status: "archived" } })}
+              disabled={updateLeadMutation.isPending}
               variant="outline"
               size="sm"
               className="flex-1"
-              data-testid={`button-decline-${lead.id}`}
+              data-testid={`button-archive-${lead.id}`}
             >
               <XCircle className="mr-1.5 h-3.5 w-3.5" />
-              Send to Subs
+              Archive
             </Button>
           </div>
         )}
@@ -1468,16 +1387,6 @@ function AdminDashboardContent({ embedded = false }: { embedded?: boolean }) {
               </div>
             </div>
             <div className="flex items-center gap-1 md:gap-2 flex-shrink-0">
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => router.push("/subcontractor/leads")}
-                data-testid="button-switch-to-subcontractor"
-                title="View as Subcontractor"
-              >
-                <ArrowLeftRight className="h-4 w-4" />
-                <span className="hidden md:inline ml-2">Sub Portal</span>
-              </Button>
               <NotificationsBell />
               <Button variant="outline" size="sm" onClick={handleLogout}>
                 <LogOut className="w-4 h-4 mr-0 md:mr-2" />
@@ -1533,41 +1442,21 @@ function AdminDashboardContent({ embedded = false }: { embedded?: boolean }) {
           </Card>
           <Card>
             <CardHeader className="p-3 md:p-4 pb-1 md:pb-2">
-              <CardTitle className="text-xs md:text-sm font-medium text-muted-foreground">Available</CardTitle>
+              <CardTitle className="text-xs md:text-sm font-medium text-muted-foreground">Converted</CardTitle>
             </CardHeader>
             <CardContent className="p-3 md:p-4 pt-0">
-              <div className="brc-display-num tabular-nums text-2xl md:text-3xl font-light" data-testid="count-available">{declinedLeads.length}</div>
+              <div className="brc-display-num tabular-nums text-2xl md:text-3xl font-light" data-testid="count-converted">{convertedLeads.length}</div>
             </CardContent>
           </Card>
           <Card>
             <CardHeader className="p-3 md:p-4 pb-1 md:pb-2">
-              <CardTitle className="text-xs md:text-sm font-medium text-muted-foreground">Purchased</CardTitle>
+              <CardTitle className="text-xs md:text-sm font-medium text-muted-foreground">Archived</CardTitle>
             </CardHeader>
             <CardContent className="p-3 md:p-4 pt-0">
-              <div className="brc-display-num tabular-nums text-2xl md:text-3xl font-light" data-testid="count-purchased">{allPurchasedLeads.length}</div>
+              <div className="brc-display-num tabular-nums text-2xl md:text-3xl font-light" data-testid="count-archived">{archivedLeads.length}</div>
             </CardContent>
           </Card>
         </div>
-
-        <Card className="mb-6">
-          <CardContent className="p-3 md:p-4 flex items-center justify-between gap-4">
-            <div>
-              <p className="font-medium text-sm">Auto-Release Leads</p>
-              <p className="text-xs text-muted-foreground">
-                {autoRelease
-                  ? "New leads skip admin review and go straight to the subcontractor marketplace."
-                  : "New leads require admin review before appearing in the marketplace."}
-              </p>
-            </div>
-            <Switch
-              checked={autoRelease}
-              onCheckedChange={(checked) => toggleAutoReleaseMutation.mutate(Boolean(checked))}
-              disabled={toggleAutoReleaseMutation.isPending}
-              aria-label="Toggle auto-release leads"
-              data-testid="toggle-auto-release"
-            />
-          </CardContent>
-        </Card>
 
         <Card className="mb-6">
           <CardHeader className="p-3 md:p-4 pb-0">
@@ -1717,7 +1606,6 @@ function AdminDashboardContent({ embedded = false }: { embedded?: boolean }) {
                       <SelectContent>
                         <SelectItem value="date">Date</SelectItem>
                         <SelectItem value="quote">Quote Value</SelectItem>
-                        <SelectItem value="leadPrice">Lead Price</SelectItem>
                         <SelectItem value="age">Age</SelectItem>
                       </SelectContent>
                     </Select>
@@ -1784,21 +1672,21 @@ function AdminDashboardContent({ embedded = false }: { embedded?: boolean }) {
                   variant="outline"
                   size="sm"
                   onClick={() => {
-                    if (pendingLeads.length > 0 && confirm(`Decline ${pendingLeads.length} lead(s)?`)) {
-                      pendingLeads.forEach(lead => declineLeadMutation.mutate(lead.id));
+                    if (pendingLeads.length > 0 && confirm(`Archive ${pendingLeads.length} lead(s)?`)) {
+                      pendingLeads.forEach(lead => updateLeadMutation.mutate({ leadId: lead.id, data: { status: "archived" } }));
                     }
                   }}
-                  disabled={declineLeadMutation.isPending}
+                  disabled={updateLeadMutation.isPending}
                 >
                   <XCircle className="h-4 w-4 mr-1" />
-                  Decline All Filtered ({pendingLeads.length})
+                  Archive All Filtered ({pendingLeads.length})
                 </Button>
                 <Button
                   variant="outline"
                   size="sm"
                   onClick={() => {
                     const csv = [
-                      ["Name", "Email", "Phone", "City", "Service Type", "Quote Value", "Lead Price", "Status", "Created At"].join(","),
+                      ["Name", "Email", "Phone", "City", "Project Type", "Estimate Range", "Status", "Created At"].join(","),
                       ...pendingLeads.map(lead => [
                         lead.name,
                         lead.email,
@@ -1806,7 +1694,6 @@ function AdminDashboardContent({ embedded = false }: { embedded?: boolean }) {
                         lead.city,
                         lead.serviceType,
                         lead.finalQuote ? formatQuoteRangeWholeFromValue(lead.finalQuote, 0.15) : "Pending",
-                        lead.currentLeadPrice,
                         lead.status,
                         new Date(lead.createdAt).toISOString()
                       ].map(v => `"${v}"`).join(","))
@@ -1840,20 +1727,11 @@ function AdminDashboardContent({ embedded = false }: { embedded?: boolean }) {
               <TabsTrigger value="accepted" data-testid="tab-accepted" className="text-xs md:text-sm">
                 Accepted ({acceptedLeads.length})
               </TabsTrigger>
-              <TabsTrigger value="available" data-testid="tab-available" className="text-xs md:text-sm">
-                Available ({declinedLeads.length})
-              </TabsTrigger>
-              <TabsTrigger value="all" data-testid="tab-all" className="text-xs md:text-sm">
-                Purchased ({allPurchasedLeads.length})
+              <TabsTrigger value="converted" data-testid="tab-converted" className="text-xs md:text-sm">
+                Converted ({convertedLeads.length})
               </TabsTrigger>
               <TabsTrigger value="archived" data-testid="tab-archived" className="text-xs md:text-sm">
                 Archived ({archivedLeads.length})
-              </TabsTrigger>
-              <TabsTrigger value="subcontractors" data-testid="tab-subcontractors" className="text-xs md:text-sm">
-                Subs
-              </TabsTrigger>
-              <TabsTrigger value="consultations" data-testid="tab-consultations" className="text-xs md:text-sm">
-                Consults
               </TabsTrigger>
             </TabsList>
           </div>
@@ -1882,27 +1760,15 @@ function AdminDashboardContent({ embedded = false }: { embedded?: boolean }) {
             )}
           </TabsContent>
 
-          <TabsContent value="available" className="space-y-4">
-            {declinedLeads.length === 0 ? (
+          <TabsContent value="converted" className="space-y-4">
+            {convertedLeads.length === 0 ? (
               <Card>
                 <CardContent className="py-8 text-center text-muted-foreground">
-                  {hasActiveFilters ? "No available leads match your filters" : "No leads available for subcontractors"}
+                  {hasActiveFilters ? "No converted leads match your filters" : "No leads converted to projects yet"}
                 </CardContent>
               </Card>
             ) : (
-              declinedLeads.map(lead => <LeadCard key={lead.id} lead={lead} />)
-            )}
-          </TabsContent>
-
-          <TabsContent value="all" className="space-y-4">
-            {allPurchasedLeads.length === 0 ? (
-              <Card>
-                <CardContent className="py-8 text-center text-muted-foreground">
-                  {hasActiveFilters ? "No purchased leads match your filters" : "No purchased leads yet"}
-                </CardContent>
-              </Card>
-            ) : (
-              allPurchasedLeads.map(lead => <LeadCard key={lead.id} lead={lead} />)
+              convertedLeads.map(lead => <LeadCard key={lead.id} lead={lead} />)
             )}
           </TabsContent>
 
@@ -1910,20 +1776,12 @@ function AdminDashboardContent({ embedded = false }: { embedded?: boolean }) {
             {archivedLeads.length === 0 ? (
               <Card>
                 <CardContent className="py-8 text-center text-muted-foreground">
-                  {hasActiveFilters ? "No archived leads match your filters" : "No archived leads. Unpurchased leads older than 7 days are auto-archived."}
+                  {hasActiveFilters ? "No archived leads match your filters" : "No archived leads yet."}
                 </CardContent>
               </Card>
             ) : (
               archivedLeads.map(lead => <LeadCard key={lead.id} lead={lead} />)
             )}
-          </TabsContent>
-
-          <TabsContent value="subcontractors" className="space-y-4">
-            <AdminSubcontractorPanel />
-          </TabsContent>
-
-          <TabsContent value="consultations" className="space-y-4">
-            <AdminConsultationsPanel />
           </TabsContent>
         </Tabs>
       </div>

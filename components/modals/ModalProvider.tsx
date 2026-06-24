@@ -8,15 +8,12 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { ConsultationForm } from "@/components/ConsultationForm";
 import { EstimateCalculator } from "@/components/EstimateCalculator";
-import { CONSULT_BULLETS } from "@/shared/siteContent";
-import { Check } from "lucide-react";
-
-type ModalType = "consult" | "estimate" | null;
 
 interface ModalsContextValue {
+  /** Open the quote flow on the contact step ("just talk to us"). */
   openConsult: () => void;
+  /** Open the quote flow from the start (resuming any saved progress). */
   openEstimate: () => void;
   close: () => void;
 }
@@ -32,52 +29,37 @@ export function useModals() {
 }
 
 export function ModalProvider({ children }: { children: React.ReactNode }) {
-  const [open, setOpen] = useState<ModalType>(null);
+  const [open, setOpen] = useState(false);
+  // "contact" deep-links to the booking step; undefined resumes saved progress.
+  const [startStep, setStartStep] = useState<"contact" | undefined>(undefined);
 
-  const openConsult = useCallback(() => setOpen("consult"), []);
-  const openEstimate = useCallback(() => setOpen("estimate"), []);
-  const close = useCallback(() => setOpen(null), []);
+  const openConsult = useCallback(() => {
+    setStartStep("contact");
+    setOpen(true);
+  }, []);
+  const openEstimate = useCallback(() => {
+    setStartStep(undefined);
+    setOpen(true);
+  }, []);
+  const close = useCallback(() => setOpen(false), []);
 
   return (
     <ModalsContext.Provider value={{ openConsult, openEstimate, close }}>
       {children}
 
-      <Dialog open={open === "consult"} onOpenChange={(v) => !v && close()}>
-        <DialogContent className="max-w-lg w-[95vw] max-h-[90vh] overflow-y-auto">
-          <DialogHeader>
-            <DialogTitle className="font-sans font-light text-xl text-foreground">
-              Schedule your free in-home visit
-            </DialogTitle>
-            <DialogDescription className="text-sm text-muted-foreground">
-              No obligation, we&apos;ll walk your space and give you an honest planning range.
-            </DialogDescription>
-          </DialogHeader>
-          <ul className="space-y-2 mb-4">
-            {CONSULT_BULLETS.map((bullet) => (
-              <li key={bullet} className="flex items-start gap-2 text-sm text-muted-foreground">
-                <Check className="h-4 w-4 text-accent shrink-0 mt-0.5" />
-                {bullet}
-              </li>
-            ))}
-          </ul>
-          <p className="text-xs text-muted-foreground mb-4">
-            No spam. Response within one business day.
-          </p>
-          <ConsultationForm onRevise={() => setOpen("estimate")} />
-        </DialogContent>
-      </Dialog>
-
-      <Dialog open={open === "estimate"} onOpenChange={(v) => !v && close()}>
+      <Dialog open={open} onOpenChange={(v) => !v && close()}>
         <DialogContent className="max-w-4xl w-[100vw] sm:w-[95vw] max-h-[100dvh] sm:max-h-[90vh] h-[100dvh] sm:h-auto overflow-y-auto rounded-none sm:rounded-lg">
           <DialogHeader>
             <DialogTitle className="font-sans font-light text-xl text-foreground">
-              Get your planning range
+              Get your free quote
             </DialogTitle>
             <DialogDescription className="text-sm text-muted-foreground">
-              Select your project type, finish level, and size for an instant estimate.
+              Build your planning range in about two minutes, then book a free in-home visit.
+              No obligation, no spam.
             </DialogDescription>
           </DialogHeader>
-          <EstimateCalculator inModal onBookVisit={() => setOpen("consult")} />
+          {/* Remount per open so the deep-link step + saved progress apply cleanly. */}
+          {open && <EstimateCalculator inModal startStep={startStep} />}
         </DialogContent>
       </Dialog>
     </ModalsContext.Provider>
