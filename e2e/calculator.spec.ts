@@ -3,7 +3,9 @@ import { expect, test } from "@playwright/test";
 async function openCalculator(page: import("@playwright/test").Page) {
   await page.goto("/#calculator");
   await page.locator("#calculator").scrollIntoViewIfNeeded();
-  await expect(page.getByText(/Step 1 of/i).first()).toBeVisible();
+  // The estimator is a lazily-mounted client island; in dev the first hit also
+  // pays a route compile, so allow generous time for the first step to appear.
+  await expect(page.getByText(/Step 1 of/i).first()).toBeVisible({ timeout: 30_000 });
 }
 
 test.describe("Project Estimator", () => {
@@ -11,7 +13,11 @@ test.describe("Project Estimator", () => {
     await openCalculator(page);
     // Nothing is pre-selected: no project highlighted, no fabricated range.
     await expect(page.getByTestId("button-project-kitchen")).toHaveAttribute("aria-pressed", "false");
-    await expect(page.getByTestId("estimate-empty-message").first()).toBeVisible();
+    // The empty-state prompt lives in the desktop side panel and in the mobile
+    // sticky bar; assert the one visible at the current viewport.
+    await expect(
+      page.locator('[data-testid="estimate-empty-message"]:visible'),
+    ).toBeVisible();
   });
 
   test("updates range when project type changes", async ({ page }) => {

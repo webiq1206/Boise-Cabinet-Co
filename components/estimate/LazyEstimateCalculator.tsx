@@ -34,24 +34,41 @@ export function LazyEstimateCalculator() {
     return () => io.disconnect();
   }, [show]);
 
+  // The homepage already has a dedicated `#consult` consultation form (and many
+  // CTAs anchor to it), so "Book your visit" scrolls there - prefilled live from
+  // the estimate - rather than the estimator rendering its own contact step.
+  function handleBookVisit() {
+    const el = document.getElementById("consult");
+    if (!el) return;
+    // Scroll to the form itself (not the marketing heading) so the prefilled
+    // range card and fields are immediately in view on mobile.
+    const target = el.querySelector("form") ?? el;
+    target.scrollIntoView({ behavior: "smooth", block: "start" });
+    window.setTimeout(() => {
+      el
+        .querySelector<HTMLInputElement>('[data-testid="input-name"]')
+        ?.focus({ preventScroll: true });
+    }, 500);
+  }
+
   if (show) {
-    return <EstimateCalculator />;
+    return <EstimateCalculator onBookVisit={handleBookVisit} />;
   }
 
   return (
     <Section id="calculator" divider>
       <div ref={ref} className="container px-4 pb-8">
-        <div className="max-w-3xl mx-auto mb-10">
-          <div className="brc-label mb-3">Project Estimator</div>
-          <h2 className="font-sans font-light text-section-title md:text-section-title-lg mb-3 text-foreground">
+        <div className="max-w-3xl mx-auto mb-5 md:mb-10">
+          <div className="brc-label mb-2 md:mb-3">Project Estimator</div>
+          <h2 className="font-sans font-light text-section-title md:text-section-title-lg mb-2 md:mb-3 text-foreground">
             Plan your cabinet{" "}
             <em className="brc-accent text-accent">investment</em>
           </h2>
-          <p className="text-base max-w-2xl leading-relaxed text-muted-foreground mb-3">
+          <p className="hidden sm:block text-base max-w-2xl leading-relaxed text-muted-foreground mb-3">
             A short guided flow - pick your project, size, and style. Your planning range stays
             in view and updates at each step.
           </p>
-          <p className="text-sm max-w-2xl leading-relaxed text-foreground/80">
+          <p className="hidden sm:block text-sm max-w-2xl leading-relaxed text-foreground/80">
             {ESTIMATE_VALUE_PROP}
           </p>
         </div>

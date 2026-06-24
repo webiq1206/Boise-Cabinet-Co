@@ -8,7 +8,9 @@ async function openCalculator(page: import("@playwright/test").Page) {
 test.describe("Unified quote flow", () => {
   test("builds a range, skips finishes, and submits the contact step", async ({ page }) => {
     await openCalculator(page);
-    await expect(page.getByText(/Step 1 of/i).first()).toBeVisible();
+    // The estimator is a lazily-mounted client island; in dev the first hit also
+    // pays a route compile, so allow generous time for the first step to appear.
+    await expect(page.getByText(/Step 1 of/i).first()).toBeVisible({ timeout: 30_000 });
 
     // 1. Project
     await page.getByTestId("button-project-kitchen").click();

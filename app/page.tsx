@@ -40,19 +40,22 @@ export default function HomePage() {
       <LazyEstimateCalculator />
       <Section id="consult" divider className="pb-28 md:pb-28">
         <div className="container px-4">
-          <div className="max-w-5xl mx-auto grid md:grid-cols-5 gap-12 items-start">
+          <div className="max-w-5xl mx-auto grid md:grid-cols-5 gap-6 md:gap-12 items-start">
             <div className="md:col-span-2">
               <Reveal>
-                <div className="brc-label mb-5">Begin a conversation</div>
-                <h2 className="font-sans font-light text-[2rem] md:text-[2.75rem] lg:text-[3.25rem] leading-[1.08] tracking-tight mb-4 text-foreground">
+                <div className="brc-label mb-3 md:mb-5">Begin a conversation</div>
+                <h2 className="font-sans font-light text-[1.6rem] md:text-[2.75rem] lg:text-[3.25rem] leading-[1.1] md:leading-[1.08] tracking-tight mb-3 md:mb-4 text-foreground">
                   Tell us about your{" "}
                   <em className="brc-accent text-accent">project</em>.
                 </h2>
-                <p className="text-base leading-relaxed mb-8 text-muted-foreground">
+                <p className="text-sm md:text-base leading-relaxed mb-0 md:mb-8 text-muted-foreground">
                   We will reach out within one business day to schedule your free
                   design consultation. You will leave with planning guidance and no obligation.
                 </p>
-                <div className="space-y-3">
+                {/* Reassurance bullets are desktop-only; the form repeats the key
+                    reassurance under its submit button, so on mobile we drop them
+                    to keep the fields above the fold. */}
+                <div className="hidden md:block space-y-3 mt-8">
                   {CONSULT_BULLETS.map((item) => (
                     <div
                       key={item}

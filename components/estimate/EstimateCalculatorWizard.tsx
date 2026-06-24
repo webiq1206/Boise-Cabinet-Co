@@ -108,10 +108,18 @@ const WIZARD_META: Record<WizardStepId, GuidedStep> = {
   contact: { id: "contact", label: "Book your visit", shortLabel: "Visit" },
 };
 
-function getWizardStepIds(project: ProjectType | null): WizardStepId[] {
+function getWizardStepIds(
+  project: ProjectType | null,
+  includeContact = true,
+): WizardStepId[] {
   const ids: WizardStepId[] = ["project", "size"];
   if (project && getStepVisibility(project).layout) ids.push("layout");
-  ids.push("style", "result", "contact");
+  ids.push("style", "result");
+  // The terminal contact step is only part of the flow when the wizard owns
+  // contact capture (the modal and the standalone /estimate page). When a host
+  // page provides its own consultation form via `onBookVisit` (e.g. the
+  // homepage `#consult` section), we defer to it instead of duplicating it.
+  if (includeContact) ids.push("contact");
   return ids;
 }
 
@@ -140,14 +148,14 @@ function OptionVisual({
         role="img"
         aria-label={alt}
         style={svgStyle}
-        className="relative w-full aspect-[4/3] mb-2.5 overflow-hidden rounded-sm bg-muted [&>svg]:h-full [&>svg]:w-full [&>svg]:object-cover"
+        className="relative w-full aspect-[16/10] sm:aspect-[4/3] mb-2 overflow-hidden rounded-sm bg-muted [&>svg]:h-full [&>svg]:w-full [&>svg]:object-cover"
         dangerouslySetInnerHTML={{ __html: svg }}
       />
     );
   }
   if (image) {
     return (
-      <div className="relative w-full aspect-[4/3] mb-2.5 overflow-hidden rounded-sm bg-muted">
+      <div className="relative w-full aspect-[16/10] sm:aspect-[4/3] mb-2 overflow-hidden rounded-sm bg-muted">
         <Image
           src={image}
           alt={alt}
@@ -197,7 +205,7 @@ function SelectButton<T extends string>({
             data-testid={`${testIdPrefix}-${opt.value}`}
             aria-pressed={active}
             className={cn(
-              "relative flex flex-col items-start gap-1 p-4 min-h-[44px] rounded-md text-left transition-all border bg-card",
+              "relative flex flex-col items-start gap-1 p-3 sm:p-4 min-h-[44px] rounded-md text-left transition-all border bg-card",
               active
                 ? "border-foreground/40 border-[1.5px] bg-muted/40"
                 : "border-border hover:border-foreground/30",
@@ -420,7 +428,13 @@ export function EstimateCalculatorWizard({
   const hydratedRef = useRef(false);
 
   const { project } = selections;
-  const stepIds = useMemo(() => getWizardStepIds(project), [project]);
+  // When the host page supplies an `onBookVisit` handler it owns contact
+  // capture, so the wizard drops its own terminal contact step.
+  const includeContactStep = !onBookVisitProp;
+  const stepIds = useMemo(
+    () => getWizardStepIds(project, includeContactStep),
+    [project, includeContactStep],
+  );
   const wizardSteps = useMemo(() => stepIds.map((id) => WIZARD_META[id]), [stepIds]);
   const sizeConfig = project ? getProjectSizeConfig(project) : null;
   const visibility = project
@@ -486,14 +500,15 @@ export function EstimateCalculatorWizard({
     if (stored) {
       setSelections(stored.selections);
       setTouched(new Set(stored.touched));
-      const maxIndex = getWizardStepIds(stored.selections.project).length - 1;
+      const maxIndex =
+        getWizardStepIds(stored.selections.project, includeContactStep).length - 1;
       setCurrentIndex(Math.min(Math.max(stored.currentIndex, 0), maxIndex));
     }
     // Deep-link (e.g. "just talk to us" opens straight on the contact step),
     // applied after any stored progress so the visitor's selections still ride
     // along.
     if (startStep) {
-      const ids = getWizardStepIds(stored?.selections.project ?? null);
+      const ids = getWizardStepIds(stored?.selections.project ?? null, includeContactStep);
       const idx = ids.indexOf(startStep);
       if (idx >= 0) setCurrentIndex(idx);
     }
@@ -937,7 +952,10 @@ export function EstimateCalculatorWizard({
                   <AnimatedPrice value={result.priceHigh} />
                 </>
               ) : (
-                <span className="text-muted-foreground">
+                <span
+                  className="text-muted-foreground"
+                  data-testid="estimate-empty-message"
+                >
                   Make your selections to see your range
                 </span>
               )}

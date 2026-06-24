@@ -47,6 +47,8 @@ const bodySchema = z.object({
       priceLow: z.number(),
       priceHigh: z.number(),
       roi: z.number(),
+      sizeLabel: z.string().optional(),
+      confidenceLabel: z.string().optional(),
     })
     .optional()
     .nullable(),
@@ -140,6 +142,9 @@ export async function POST(request: NextRequest) {
                   finish: data.estimate.finish,
                   priceLow: data.estimate.priceLow,
                   priceHigh: data.estimate.priceHigh,
+                  roi: data.estimate.roi,
+                  sizeLabel: data.estimate.sizeLabel,
+                  confidenceLabel: data.estimate.confidenceLabel,
                 },
               }
             : null,
@@ -157,8 +162,31 @@ export async function POST(request: NextRequest) {
       const { client, fromEmail } = await getUncachableResendClient();
       const from = formatFromAddress(fromEmail);
 
-      const estimateBlock = data.estimate
-        ? `<p><strong>Calculator estimate:</strong> ${escapeHtml(data.estimate.project)} (${escapeHtml(data.estimate.finish)}): $${Math.round(data.estimate.priceLow / 1000)}k to $${Math.round(data.estimate.priceHigh / 1000)}k</p>`
+      const est = data.estimate;
+      const rangeLabel = est
+        ? `$${Math.round(est.priceLow / 1000)}k to $${Math.round(est.priceHigh / 1000)}k`
+        : "";
+      const estimateBlock = est
+        ? `<div class="highlight-box" style="margin-top:12px;">
+            <p><strong>Calculator estimate</strong></p>
+            <table class="info-table" style="margin-top:8px;">
+              <tr><td class="label">Project:</td><td class="value">${escapeHtml(est.project)}</td></tr>
+              ${est.sizeLabel ? `<tr><td class="label">Size:</td><td class="value">${escapeHtml(est.sizeLabel)}</td></tr>` : ""}
+              <tr><td class="label">Selections:</td><td class="value">${escapeHtml(est.finish)}</td></tr>
+              <tr><td class="label">Planning range:</td><td class="value">${escapeHtml(rangeLabel)}</td></tr>
+              ${est.roi ? `<tr><td class="label">Est. resale ROI:</td><td class="value">${Math.round(est.roi)}%</td></tr>` : ""}
+              ${est.confidenceLabel ? `<tr><td class="label">Confidence:</td><td class="value">${escapeHtml(est.confidenceLabel)}</td></tr>` : ""}
+            </table>
+          </div>`
+        : "";
+      const customerEstimateBlock = est
+        ? `<div class="highlight-box" style="margin-top:16px;">
+            <p><strong>Your planning estimate</strong></p>
+            <p style="margin-top:8px;">${escapeHtml(est.project)}${est.sizeLabel ? ` &middot; ${escapeHtml(est.sizeLabel)}` : ""}</p>
+            <p style="color:#555;">${escapeHtml(est.finish)}</p>
+            <p style="margin-top:8px;font-size:18px;"><strong>${escapeHtml(rangeLabel)}</strong></p>
+            <p style="font-size:12px;color:#888;margin-top:6px;">This is a planning range, not a final quote. We'll confirm exact pricing at your free design visit.</p>
+          </div>`
         : "";
 
       const profile = data.propertyProfile as {
@@ -223,6 +251,7 @@ export async function POST(request: NextRequest) {
         tagline: "Custom Cabinets",
         content: `
           <p class="greeting">We received your cabinet consultation request and will reach out within one business day to schedule your free design visit.</p>
+          ${customerEstimateBlock}
           <p>In the meantime, feel free to call us at <a href="${SITE_CONFIG.phoneHref}">${escapeHtml(SITE_CONFIG.phone)}</a> or reply to this email with any questions.</p>
           <p style="margin-top:24px;">The Boise Cabinet Co team</p>
         `,

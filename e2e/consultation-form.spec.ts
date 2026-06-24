@@ -6,7 +6,8 @@ test.describe("Consultation form", () => {
   }) => {
     await page.goto("/contact#consult");
 
-    await expect(page.getByTestId("input-name")).toBeVisible();
+    // First dev hit compiles the route; allow generous time for the form mount.
+    await expect(page.getByTestId("input-name")).toBeVisible({ timeout: 30_000 });
 
     await page.getByTestId("input-name").fill("Playwright Test");
     await page.getByTestId("input-phone").fill("abc");

@@ -905,13 +905,24 @@ export function buildStoredEstimate(
   };
 }
 
-/** Payload shape the consultation API accepts for an attached estimate. */
+/**
+ * Payload shape the consultation API accepts for an attached estimate. This is
+ * the single source of truth carried end-to-end: it is stored on the lead
+ * (`serviceData.estimate`), copied to the project on conversion, surfaced in the
+ * admin lead dashboard and customer portal, and rendered in both emails.
+ */
 export interface ConsultationEstimatePayload {
+  /** Human project label, e.g. "Kitchen Cabinets". */
   project: string;
+  /** Scope summary, e.g. "Modern Shaker · Matte finish ($$) · Better construction". */
   finish: string;
   priceLow: number;
   priceHigh: number;
   roi: number;
+  /** Size summary, e.g. "24 lf base · 18 lf uppers". */
+  sizeLabel?: string;
+  /** Confidence label for the range, e.g. "Detailed planning range". */
+  confidenceLabel?: string;
 }
 
 /**
@@ -929,5 +940,15 @@ export function buildConsultationEstimatePayload(
     priceLow: estimate.priceLow,
     priceHigh: estimate.priceHigh,
     roi: estimate.roi,
+    sizeLabel: estimate.sizeLabel,
+    confidenceLabel: estimate.confidenceLabel,
   };
+}
+
+/** Formats an estimate price range like "$28k to $42k" for compact display. */
+export function formatEstimateRangeShort(
+  priceLow: number,
+  priceHigh: number,
+): string {
+  return `$${Math.round(priceLow / 1000)}k to $${Math.round(priceHigh / 1000)}k`;
 }

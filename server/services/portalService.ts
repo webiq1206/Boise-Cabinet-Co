@@ -13,6 +13,13 @@ import {
   PLACEHOLDER_PROJECT_ID,
 } from "@/shared/portalPlaceholder";
 
+export interface PortalEstimate {
+  projectLabel: string;
+  sizeLabel: string;
+  scope: string;
+  rangeLabel: string;
+}
+
 export interface PortalProjectSummary {
   id: string;
   title: string;
@@ -23,6 +30,7 @@ export interface PortalProjectSummary {
   status: string;
   estimatedCompletion: string;
   projectManager: string;
+  estimate: PortalEstimate | null;
 }
 
 export interface PortalAttentionItem {
@@ -99,6 +107,35 @@ const DEMO_MESSAGES: PortalMessage[] = [
   },
 ];
 
+function mapEstimate(p: Project): PortalEstimate | null {
+  const raw = (
+    p.serviceData as
+      | {
+          estimate?: {
+            project?: string;
+            finish?: string;
+            priceLow?: number;
+            priceHigh?: number;
+            sizeLabel?: string;
+          };
+        }
+      | null
+      | undefined
+  )?.estimate;
+  if (!raw) return null;
+  const rangeLabel =
+    typeof raw.priceLow === "number" && typeof raw.priceHigh === "number"
+      ? `$${raw.priceLow.toLocaleString()} \u2013 $${raw.priceHigh.toLocaleString()}`
+      : "";
+  if (!raw.finish && !rangeLabel) return null;
+  return {
+    projectLabel: raw.project ?? "",
+    sizeLabel: raw.sizeLabel ?? "",
+    scope: raw.finish ?? "",
+    rangeLabel,
+  };
+}
+
 function mapProject(p: Project): PortalProjectSummary {
   const stage = (p.currentStage as ProjectStage) ?? "consultation";
   return {
@@ -113,6 +150,7 @@ function mapProject(p: Project): PortalProjectSummary {
       ? new Date(p.estimatedDeliveryDate).toLocaleDateString("en-US", { month: "long", year: "numeric" })
       : "TBD",
     projectManager: "Your project team",
+    estimate: mapEstimate(p),
   };
 }
 

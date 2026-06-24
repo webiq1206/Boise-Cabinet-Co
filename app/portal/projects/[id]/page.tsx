@@ -31,6 +31,12 @@ interface ProjectHubData {
     status: string;
     estimatedCompletion: string;
     projectManager: string;
+    estimate: {
+      projectLabel: string;
+      sizeLabel: string;
+      scope: string;
+      rangeLabel: string;
+    } | null;
   };
 }
 
@@ -102,6 +108,48 @@ export default function ProjectHubPage() {
                 </div>
               </CardContent>
             </Card>
+
+            {project.estimate && (
+              <Card>
+                <CardHeader className="pb-3">
+                  <CardTitle className="text-base">Your planning estimate</CardTitle>
+                  <CardDescription>
+                    From your design calculator — a planning range, not a final quote
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  <div className="flex flex-wrap items-baseline justify-between gap-2">
+                    <p className="text-2xl font-light tracking-tight">
+                      {project.estimate.rangeLabel}
+                    </p>
+                    <Badge variant="outline">Estimate</Badge>
+                  </div>
+                  <div className="grid gap-3 sm:grid-cols-2 text-sm">
+                    {project.estimate.projectLabel && (
+                      <div>
+                        <p className="text-muted-foreground">Project</p>
+                        <p className="font-medium">{project.estimate.projectLabel}</p>
+                      </div>
+                    )}
+                    {project.estimate.sizeLabel && (
+                      <div>
+                        <p className="text-muted-foreground">Size</p>
+                        <p className="font-medium">{project.estimate.sizeLabel}</p>
+                      </div>
+                    )}
+                    {project.estimate.scope && (
+                      <div className="sm:col-span-2">
+                        <p className="text-muted-foreground">Selections</p>
+                        <p className="font-medium">{project.estimate.scope}</p>
+                      </div>
+                    )}
+                  </div>
+                  <p className="text-xs text-muted-foreground">
+                    Final pricing is confirmed at your design visit and may change with scope.
+                  </p>
+                </CardContent>
+              </Card>
+            )}
 
             <Card>
               <CardHeader>

@@ -229,7 +229,7 @@ export function EstimateResultPanel({
       )}
 
       {isFull && (
-        <p className="text-xs text-inverse-muted mb-4">
+        <p className="hidden sm:block text-xs text-inverse-muted mb-4">
           Based on your inputs. Your exact investment is confirmed at your in-home visit. Typical
           lead time is {CATALOG_CONTENT.leadTime} after your selections are finalized.
         </p>
@@ -267,7 +267,7 @@ export function EstimateResultPanel({
       {/* Subtle, credible value proposition reinforced throughout the estimator. */}
       {(isFull || isSidebar) && (
         <p
-          className="text-[11px] leading-relaxed mb-4 text-inverse-foreground/85"
+          className="hidden sm:block text-[11px] leading-relaxed mb-4 text-inverse-foreground/85"
           data-testid="estimate-value-prop"
         >
           {ESTIMATE_VALUE_PROP}
@@ -287,7 +287,7 @@ export function EstimateResultPanel({
       )}
 
       {isFull && (
-        <p className="text-[11px] text-center mb-5 mt-3 text-inverse-muted">
+        <p className="hidden sm:block text-[11px] text-center mb-5 mt-3 text-inverse-muted">
           Your in-home visit includes a detailed project evaluation and personalized planning guidance.
         </p>
       )}

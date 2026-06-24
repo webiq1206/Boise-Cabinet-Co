@@ -231,7 +231,13 @@ export function GuidedFlowShell({
         </div>
 
         {sidePanel && (
-          <aside className="mt-6 lg:mt-0 lg:sticky lg:top-24" data-testid="guided-flow-side-panel">
+          // Desktop-only: on mobile/tablet the live range lives in the sticky
+          // bottom bar + drawer, so rendering the full panel inline here too
+          // would duplicate it and force needless scrolling.
+          <aside
+            className="hidden lg:block lg:sticky lg:top-24"
+            data-testid="guided-flow-side-panel"
+          >
             {sidePanel}
           </aside>
         )}

@@ -12,4 +12,10 @@ export const PLACEHOLDER_PROJECT = {
   status: "Design Review",
   estimatedCompletion: "August 2026",
   projectManager: "Sarah Mitchell",
+  estimate: {
+    projectLabel: "Kitchen Cabinets",
+    sizeLabel: "24 lf base \u00b7 18 lf uppers",
+    scope: "Modern Shaker \u00b7 Matte finish ($$) \u00b7 Better construction",
+    rangeLabel: "$28,000 \u2013 $42,000",
+  },
 };

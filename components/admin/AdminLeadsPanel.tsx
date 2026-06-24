@@ -50,6 +50,17 @@ interface ServiceDataEntry {
   [key: string]: unknown;
 }
 
+// Rich estimate attached to consultation leads via serviceData.estimate.
+interface LeadEstimate {
+  project?: string;
+  finish?: string;
+  priceLow?: number;
+  priceHigh?: number;
+  roi?: number;
+  sizeLabel?: string;
+  confidenceLabel?: string;
+}
+
 interface Lead {
   id: string;
   quoteId?: string | null;
@@ -97,6 +108,69 @@ const PRIORITY_SERVICES = [
   { slug: "other", name: "Other / Whole-home" },
 ];
 
+// Pulls the calculator estimate out of serviceData.estimate, ignoring the
+// legacy measurement entries that live under other keys.
+function getLeadEstimate(lead: Lead): LeadEstimate | null {
+  const raw = lead.serviceData?.estimate as LeadEstimate | undefined;
+  if (!raw || typeof raw !== "object") return null;
+  const hasContent =
+    !!raw.finish ||
+    !!raw.project ||
+    typeof raw.priceLow === "number" ||
+    typeof raw.priceHigh === "number";
+  return hasContent ? raw : null;
+}
+
+// serviceData minus the estimate key, for the legacy measurement renderers.
+function getMeasurementEntries(
+  serviceData: Record<string, ServiceDataEntry> | null | undefined,
+): Array<[string, ServiceDataEntry]> {
+  if (!serviceData) return [];
+  return Object.entries(serviceData).filter(([key]) => key !== "estimate");
+}
+
+function EstimateSummarySection({ lead }: { lead: Lead }) {
+  const est = getLeadEstimate(lead);
+  if (!est) return null;
+  const range =
+    typeof est.priceLow === "number" && typeof est.priceHigh === "number"
+      ? `$${est.priceLow.toLocaleString()} - $${est.priceHigh.toLocaleString()}`
+      : null;
+
+  const rows: Array<{ label: string; value: string; emphasize?: boolean }> = [];
+  if (est.project) rows.push({ label: "Project", value: est.project });
+  if (est.sizeLabel) rows.push({ label: "Size", value: est.sizeLabel });
+  if (est.finish) rows.push({ label: "Selections", value: est.finish });
+  if (range) rows.push({ label: "Planning range", value: range, emphasize: true });
+  if (typeof est.roi === "number" && est.roi > 0) {
+    rows.push({ label: "Est. resale ROI", value: `${Math.round(est.roi)}%` });
+  }
+  if (est.confidenceLabel) rows.push({ label: "Confidence", value: est.confidenceLabel });
+
+  if (rows.length === 0) return null;
+
+  return (
+    <div className="border-t pt-2" data-testid={`section-estimate-${lead.id}`}>
+      <p className="text-xs font-medium mb-1.5 text-muted-foreground flex items-center gap-1.5">
+        <DollarSign className="h-3.5 w-3.5" />
+        Customer&apos;s calculator estimate
+      </p>
+      <div className="bg-muted/50 rounded-md px-2.5 py-2 space-y-1 text-xs">
+        {rows.map((row) => (
+          <div key={row.label} className="flex justify-between gap-3">
+            <span className="text-muted-foreground flex-shrink-0">{row.label}</span>
+            <span
+              className={`text-right ${row.emphasize ? "font-semibold text-primary" : "font-medium"}`}
+            >
+              {row.value}
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function formatMeasurement(serviceId: string, data: ServiceDataEntry | undefined): string {
   if (!data) return '';
   const parts: string[] = [];
@@ -137,7 +211,7 @@ function QuoteBreakdownSection({ lead }: { lead: Lead }) {
   const [isOpen, setIsOpen] = useState(false);
   
   const lineItems = lead.lineItems || [];
-  const serviceData = lead.serviceData || {};
+  const serviceData = Object.fromEntries(getMeasurementEntries(lead.serviceData));
   const hasBreakdown = lineItems.length > 0 || Object.keys(serviceData).length > 0;
   
   if (!hasBreakdown && !lead.finalQuote) {
@@ -1164,11 +1238,13 @@ function AdminDashboardContent({ embedded = false }: { embedded?: boolean }) {
             </div>
           )}
 
-          {!!lead.serviceData && typeof lead.serviceData === "object" && Object.keys(lead.serviceData).length > 0 && (
+          <EstimateSummarySection lead={lead} />
+
+          {getMeasurementEntries(lead.serviceData).length > 0 && (
             <div className="border-t pt-2">
               <p className="text-xs font-medium mb-1 text-muted-foreground">Measurements</p>
               <div className="space-y-1">
-                {Object.entries(lead.serviceData).map(([serviceId, data]) => {
+                {getMeasurementEntries(lead.serviceData).map(([serviceId, data]) => {
                   const measurement = formatMeasurement(serviceId, data);
                   return (
                     <div key={serviceId} className="bg-muted/50 rounded-md px-2 py-1 text-xs">
