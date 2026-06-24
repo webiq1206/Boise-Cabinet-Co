@@ -3,7 +3,10 @@
 import { useMemo, useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { PortalShell } from "@/components/portal/PortalShell";
+import { PageHeader } from "@/components/portal/PageHeader";
 import { AdminAuthGate } from "@/components/admin/AdminAuthGate";
+import { ImportDialog } from "@/components/admin/outreach/ImportDialog";
+import { TemplatesEditor } from "@/components/admin/outreach/TemplatesEditor";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -11,6 +14,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   Select,
   SelectContent,
@@ -18,14 +22,23 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Skeleton } from "@/components/ui/skeleton";
-import { AdminPageIntro } from "@/components/admin/AdminPageIntro";
 import { useToast } from "@/hooks/use-toast";
-import { AlertTriangle, Check, Loader2, Mail, Reply, Search, Send, Trash2, X } from "lucide-react";
+import {
+  AlertTriangle,
+  Check,
+  Info,
+  Loader2,
+  Mail,
+  Reply,
+  Search,
+  Send,
+  ShieldCheck,
+  Trash2,
+  X,
+} from "lucide-react";
 
 interface Prospect {
   id: string;
@@ -165,24 +178,18 @@ function ProspectCard({
   onPreview: (id: string) => void;
   onTrack: (id: string, status: "replied" | "bounced") => void;
 }) {
-  const emailValue = emailEdits[p.id] ?? p.email ?? "";
-  const emailDirty = emailValue !== (p.email ?? "");
-  const noteValue = noteEdits[p.id] ?? p.personalizationNote ?? "";
-  const noteDirty = noteEdits[p.id] !== undefined && noteEdits[p.id] !== (p.personalizationNote ?? "");
-
   return (
-    <Card data-testid={`card-prospect-${p.id}`} className={selected ? "ring-1 ring-primary" : undefined}>
+    <Card data-testid={`card-prospect-${p.id}`}>
       <CardContent className="pt-5 space-y-3">
         <div className="flex flex-wrap items-start justify-between gap-2">
-          <div className="flex items-start gap-3">
+          <div className="flex items-start gap-3 min-w-0">
             <Checkbox
               checked={selected}
               onCheckedChange={() => onToggleSelect(p.id)}
-              aria-label={`Select ${p.businessName}`}
-              className="mt-0.5"
+              className="mt-1"
               data-testid={`checkbox-prospect-${p.id}`}
             />
-            <div>
+            <div className="min-w-0">
               <p className="font-medium text-sm" data-testid={`text-name-${p.id}`}>
                 {p.businessName}
               </p>
@@ -209,18 +216,19 @@ function ProspectCard({
             <Input
               className="max-w-sm"
               placeholder="No public email found"
-              value={emailValue}
+              value={emailEdits[p.id] ?? p.email ?? ""}
               onChange={(e) => setEmailEdits({ ...emailEdits, [p.id]: e.target.value })}
               data-testid={`input-email-${p.id}`}
             />
-            <Button
-              size="sm"
-              variant="outline"
-              disabled={!emailDirty}
-              onClick={() => onMutate(p.id, { action: "edit", email: emailValue })}
-            >
-              Save email
-            </Button>
+            {(emailEdits[p.id] ?? "") !== "" && emailEdits[p.id] !== p.email && (
+              <Button
+                size="sm"
+                variant="outline"
+                onClick={() => onMutate(p.id, { action: "edit", email: emailEdits[p.id] })}
+              >
+                Save email
+              </Button>
+            )}
           </div>
           {p.emailSourceUrl && (
             <p className="text-xs text-muted-foreground">Source: {p.emailSourceUrl}</p>
@@ -232,20 +240,10 @@ function ProspectCard({
           <Textarea
             rows={2}
             placeholder="e.g. I saw you do a lot of kitchen remodels around Eagle."
-            value={noteValue}
+            value={noteEdits[p.id] ?? p.personalizationNote ?? ""}
             onChange={(e) => setNoteEdits({ ...noteEdits, [p.id]: e.target.value })}
             data-testid={`input-note-${p.id}`}
           />
-          <div className="flex justify-end">
-            <Button
-              size="sm"
-              variant="outline"
-              disabled={!noteDirty}
-              onClick={() => onMutate(p.id, { action: "edit", personalizationNote: noteValue })}
-            >
-              Save note
-            </Button>
-          </div>
         </div>
 
         <div className="space-y-1">
@@ -275,9 +273,7 @@ function ProspectCard({
           </Select>
         </div>
 
-        {p.lastError && (
-          <p className="text-xs text-destructive">{p.lastError}</p>
-        )}
+        {p.lastError && <p className="text-xs text-destructive">{p.lastError}</p>}
 
         <div className="flex flex-wrap gap-2">
           <Button
@@ -289,6 +285,16 @@ function ProspectCard({
             <Mail className="h-4 w-4" /> Preview
           </Button>
 
+          {noteEdits[p.id] !== undefined && noteEdits[p.id] !== (p.personalizationNote ?? "") && (
+            <Button
+              size="sm"
+              variant="outline"
+              onClick={() => onMutate(p.id, { action: "edit", personalizationNote: noteEdits[p.id] })}
+            >
+              Save note
+            </Button>
+          )}
+
           {p.status !== "approved" && (p.email || emailEdits[p.id]) && (
             <Button
               size="sm"
@@ -298,9 +304,7 @@ function ProspectCard({
                   ...(emailEdits[p.id] && emailEdits[p.id] !== p.email
                     ? { email: emailEdits[p.id] }
                     : {}),
-                  ...(noteEdits[p.id] !== undefined
-                    ? { personalizationNote: noteEdits[p.id] }
-                    : {}),
+                  ...(noteEdits[p.id] !== undefined ? { personalizationNote: noteEdits[p.id] } : {}),
                 })
               }
               data-testid={`button-approve-${p.id}`}
@@ -310,11 +314,7 @@ function ProspectCard({
           )}
 
           {p.status === "approved" && (
-            <Button
-              size="sm"
-              variant="outline"
-              onClick={() => onMutate(p.id, { action: "reset" })}
-            >
+            <Button size="sm" variant="outline" onClick={() => onMutate(p.id, { action: "reset" })}>
               Unqueue
             </Button>
           )}
@@ -333,20 +333,12 @@ function ProspectCard({
           {(p.status === "sent" || p.status === "opened" || p.status === "replied" || p.status === "bounced") && (
             <>
               {p.status !== "replied" && (
-                <Button
-                  size="sm"
-                  variant="outline"
-                  onClick={() => onTrack(p.id, "replied")}
-                >
+                <Button size="sm" variant="outline" onClick={() => onTrack(p.id, "replied")}>
                   <Reply className="h-4 w-4" /> Replied
                 </Button>
               )}
               {p.status !== "bounced" && (
-                <Button
-                  size="sm"
-                  variant="outline"
-                  onClick={() => onTrack(p.id, "bounced")}
-                >
+                <Button size="sm" variant="outline" onClick={() => onTrack(p.id, "bounced")}>
                   <Mail className="h-4 w-4" /> Bounced
                 </Button>
               )}
@@ -370,6 +362,7 @@ function ProspectCard({
 function OutreachPanel() {
   const { toast } = useToast();
   const queryClient = useQueryClient();
+  const [view, setView] = useState("recipients");
   const [tab, setTab] = useState("ready");
   const [draftConfig, setDraftConfig] = useState<OutreachConfig | null>(null);
   const [noteEdits, setNoteEdits] = useState<Record<string, string>>({});
@@ -397,8 +390,7 @@ function OutreachPanel() {
     enabled: !!previewId,
   });
 
-  const invalidate = () =>
-    queryClient.invalidateQueries({ queryKey: ["/api/admin/outreach"] });
+  const invalidate = () => queryClient.invalidateQueries({ queryKey: ["/api/admin/outreach"] });
 
   const config = draftConfig ?? data?.config ?? null;
   const templates = data?.templates ?? [];
@@ -462,6 +454,18 @@ function OutreachPanel() {
     onSuccess: () => invalidate(),
   });
 
+  const bulkMutation = useMutation({
+    mutationFn: ({ action, ids }: { action: "approve" | "skip" | "delete"; ids: string[] }) =>
+      postJson("/api/admin/outreach/bulk", { action, ids }),
+    onSuccess: (r) => {
+      const extra = r.skippedNoEmail ? ` (${r.skippedNoEmail} skipped, no email)` : "";
+      toast({ title: "Done", description: `${r.affected} updated${extra}.` });
+      setSelected(new Set());
+      invalidate();
+    },
+    onError: (e: Error) => toast({ title: "Action failed", description: e.message, variant: "destructive" }),
+  });
+
   const trackMutation = useMutation({
     mutationFn: ({ id, status }: { id: string; status: "replied" | "bounced" }) =>
       patchJson("/api/admin/outreach/tracking", { id, status }),
@@ -488,298 +492,332 @@ function OutreachPanel() {
     return rows;
   }, [data?.prospects, activeTab, cityQuery]);
 
-  const toggleSelect = (id: string) =>
+  function toggleSelect(id: string) {
     setSelected((prev) => {
       const next = new Set(prev);
       if (next.has(id)) next.delete(id);
       else next.add(id);
       return next;
     });
+  }
+
+  const allVisibleSelected = filtered.length > 0 && filtered.every((p) => selected.has(p.id));
+  function toggleSelectAllVisible() {
+    setSelected((prev) => {
+      const next = new Set(prev);
+      if (allVisibleSelected) filtered.forEach((p) => next.delete(p.id));
+      else filtered.forEach((p) => next.add(p.id));
+      return next;
+    });
+  }
 
   if (isLoading || !data || !config) {
     return (
-      <div className="space-y-6 max-w-5xl">
-        <Skeleton className="h-40 w-full" />
-        <Skeleton className="h-24 w-full" />
-        <div className="flex gap-2">
-          {Array.from({ length: 6 }).map((_, i) => (
-            <Skeleton key={i} className="h-8 w-20" />
-          ))}
-        </div>
-        <div className="space-y-3">
-          {Array.from({ length: 3 }).map((_, i) => (
-            <Skeleton key={i} className="h-40 w-full" />
-          ))}
-        </div>
+      <div className="flex items-center gap-2 text-sm text-muted-foreground">
+        <Loader2 className="h-4 w-4 animate-spin" /> Loading outreach data...
       </div>
     );
   }
 
   const counts = data.counts;
-  const selectedInView = filtered.filter((p) => selected.has(p.id));
-  const allFilteredSelected = filtered.length > 0 && filtered.every((p) => selected.has(p.id));
-
-  const toggleSelectAll = () => {
-    setSelected((prev) => {
-      const next = new Set(prev);
-      if (allFilteredSelected) {
-        filtered.forEach((p) => next.delete(p.id));
-      } else {
-        filtered.forEach((p) => next.add(p.id));
-      }
-      return next;
-    });
-  };
-
-  const bulkApprove = () => {
-    const ids = selectedInView.filter((p) => (p.email || emailEdits[p.id]) && p.status !== "approved").map((p) => p.id);
-    if (ids.length === 0) {
-      toast({ title: "Nothing to approve", description: "Selected prospects need an email and must not already be queued." });
-      return;
-    }
-    ids.forEach((id) => prospectMutation.mutate({ id, body: { action: "approve" } }));
-    toast({ title: `Approving ${ids.length} prospect(s)` });
-    setSelected(new Set());
-  };
-
-  const bulkSkip = () => {
-    const ids = selectedInView.filter((p) => p.status !== "skipped").map((p) => p.id);
-    if (ids.length === 0) return;
-    ids.forEach((id) => prospectMutation.mutate({ id, body: { action: "skip" } }));
-    toast({ title: `Skipping ${ids.length} prospect(s)` });
-    setSelected(new Set());
-  };
+  const selectedIds = Array.from(selected);
 
   return (
     <div className="space-y-6 max-w-5xl">
-      <AdminPageIntro>
-        Discover local contractors, personalize outreach, and manage your sending queue.
-      </AdminPageIntro>
-      {!data.readiness.discoveryConfigured && (
-        <Alert>
-          <AlertTriangle className="h-4 w-4" />
-          <AlertTitle>Discovery not configured</AlertTitle>
-          <AlertDescription>
-            Add the GOOGLE_PLACES_API_KEY secret to find contractors automatically.
-          </AlertDescription>
-        </Alert>
-      )}
-      {!data.readiness.sendable && (
-        <Alert>
-          <AlertTriangle className="h-4 w-4" />
-          <AlertTitle>Real sending not fully configured</AlertTitle>
-          <AlertDescription>
-            Real sends require two things: OUTREACH_FROM_EMAIL set to a Resend-verified subdomain address,
-            and OUTREACH_MAILING_ADDRESS set to a real physical postal address (legally required in the email
-            footer). Until both are set, sends stay in preview only.
-          </AlertDescription>
-        </Alert>
-      )}
+      <PageHeader
+        title="Contractor outreach"
+        description="Find local general contractors, review them, and send a friendly introduction. This is a separate business outreach tool. Your website customer leads live under Leads and are never cold-emailed."
+      />
 
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-base">Sending controls</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-5">
-          <div className="flex flex-wrap items-center justify-between gap-3 rounded-md border p-3">
-            <div>
-              <Label className="text-sm font-medium">Automatic sending</Label>
-              <p className="text-xs text-muted-foreground">
-                When on, the system trickles approved emails out on its own, spaced over the day.
-              </p>
-            </div>
-            <Switch
-              checked={config.enabled}
-              onCheckedChange={(v) => setDraftConfig({ ...config, enabled: v })}
-              data-testid="switch-outreach-enabled"
-            />
+      <Alert>
+        <ShieldCheck className="h-4 w-4" />
+        <AlertTitle>Who gets emailed here</AlertTitle>
+        <AlertDescription>
+          Only contractors you <strong>approve</strong> are queued for automatic
+          sending. People who fill out a form on your website are warm leads and
+          show up under Leads, never here. Nothing is sent until you approve it
+          and turn sending on in Settings.
+        </AlertDescription>
+      </Alert>
+
+      <Tabs value={view} onValueChange={setView}>
+        <TabsList>
+          <TabsTrigger value="recipients" data-testid="tab-view-recipients">
+            Recipients
+          </TabsTrigger>
+          <TabsTrigger value="templates" data-testid="tab-view-templates">
+            Email templates
+          </TabsTrigger>
+          <TabsTrigger value="settings" data-testid="tab-view-settings">
+            Sending settings
+          </TabsTrigger>
+        </TabsList>
+
+        {/* RECIPIENTS */}
+        <TabsContent value="recipients" className="space-y-5 pt-4">
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-base">Build your list</CardTitle>
+            </CardHeader>
+            <CardContent className="flex flex-wrap gap-3">
+              <Button
+                variant="outline"
+                onClick={() => discoverMutation.mutate()}
+                disabled={discoverMutation.isPending || !data.readiness.discoveryConfigured}
+                data-testid="button-discover"
+              >
+                {discoverMutation.isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : <Search className="h-4 w-4" />}
+                Find contractors
+              </Button>
+              <Button
+                variant="outline"
+                onClick={() => scrapeMutation.mutate()}
+                disabled={scrapeMutation.isPending}
+                data-testid="button-scrape"
+              >
+                {scrapeMutation.isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : <Mail className="h-4 w-4" />}
+                Look up emails
+              </Button>
+              <ImportDialog onImported={invalidate} />
+              <Button onClick={() => sendMutation.mutate()} disabled={sendMutation.isPending} data-testid="button-send-next">
+                {sendMutation.isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
+                Send next now
+              </Button>
+            </CardContent>
+          </Card>
+
+          <div className="flex flex-wrap gap-2">
+            {Object.entries(counts).map(([status, n]) => (
+              <Badge key={status} variant="secondary" data-testid={`badge-count-${status}`}>
+                {STATUS_LABELS[status] ?? status}: {n}
+              </Badge>
+            ))}
           </div>
 
-          <div className="flex flex-wrap items-center justify-between gap-3 rounded-md border p-3">
-            <div>
-              <Label className="text-sm font-medium">Preview (dry run) mode</Label>
-              <p className="text-xs text-muted-foreground">
-                When on, no real email is sent. Turn off only after you have verified your sending subdomain in Resend.
-              </p>
-            </div>
-            <Switch
-              checked={config.dryRun}
-              onCheckedChange={(v) => setDraftConfig({ ...config, dryRun: v })}
-              data-testid="switch-outreach-dryrun"
-            />
-          </div>
-
-          <div className="flex flex-wrap gap-4">
-            <div className="space-y-1">
-              <Label className="text-xs" htmlFor="dailyCap">Daily cap (emails / 24h)</Label>
-              <Input id="dailyCap" type="number" className="w-32" value={config.dailyCap} min={1} max={50}
-                onChange={(e) => setDraftConfig({ ...config, dailyCap: Number(e.target.value) })}
-                data-testid="input-outreach-daily-cap" />
-            </div>
-            <div className="space-y-1">
-              <Label className="text-xs" htmlFor="minGap">Minimum gap (minutes)</Label>
-              <Input id="minGap" type="number" className="w-32" value={config.minGapMinutes} min={5} max={240}
-                onChange={(e) => setDraftConfig({ ...config, minGapMinutes: Number(e.target.value) })}
-                data-testid="input-outreach-min-gap" />
-            </div>
-            <div className="space-y-1">
-              <Label className="text-xs" htmlFor="batchSize">Batch size (per manual run)</Label>
-              <Input id="batchSize" type="number" className="w-32" value={config.batchSize} min={1} max={10}
-                onChange={(e) => setDraftConfig({ ...config, batchSize: Number(e.target.value) })}
-                data-testid="input-outreach-batch-size" />
-              <p className="text-xs text-muted-foreground">Max 10. The cap and gap still apply.</p>
-            </div>
-          </div>
-
-          <div className="space-y-1 max-w-sm">
-            <Label className="text-xs">Default template (voice for new sends)</Label>
-            <Select
-              value={config.defaultTemplate}
-              onValueChange={(v) => setDraftConfig({ ...config, defaultTemplate: v })}
-            >
-              <SelectTrigger data-testid="select-outreach-default-template">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                {templates.map((t) => (
-                  <SelectItem key={t.key} value={t.key}>
-                    {t.label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-            {templates.find((t) => t.key === config.defaultTemplate)?.description && (
-              <p className="text-xs text-muted-foreground">
-                {templates.find((t) => t.key === config.defaultTemplate)?.description}
-              </p>
-            )}
-          </div>
-
-          <Button onClick={() => configMutation.mutate(config)} disabled={configMutation.isPending} data-testid="button-save-outreach-config">
-            {configMutation.isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : "Save settings"}
-          </Button>
-        </CardContent>
-      </Card>
-
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-base">Actions</CardTitle>
-        </CardHeader>
-        <CardContent className="flex flex-wrap gap-3">
-          <Button variant="outline" onClick={() => discoverMutation.mutate()}
-            disabled={discoverMutation.isPending || !data.readiness.discoveryConfigured} data-testid="button-discover">
-            {discoverMutation.isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : <Search className="h-4 w-4" />}
-            Find contractors
-          </Button>
-          <Button variant="outline" onClick={() => scrapeMutation.mutate()}
-            disabled={scrapeMutation.isPending} data-testid="button-scrape">
-            {scrapeMutation.isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : <Mail className="h-4 w-4" />}
-            Look up emails
-          </Button>
-          <Button onClick={() => sendMutation.mutate()} disabled={sendMutation.isPending} data-testid="button-send-next">
-            {sendMutation.isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
-            Send next now
-          </Button>
-        </CardContent>
-      </Card>
-
-      <div className="flex flex-wrap gap-2">
-        {Object.entries(counts).map(([status, n]) => (
-          <Badge key={status} variant="secondary" data-testid={`badge-count-${status}`}>
-            {STATUS_LABELS[status] ?? status}: {n}
-          </Badge>
-        ))}
-      </div>
-
-      <div className="flex flex-wrap gap-3 items-center">
-        <div className="flex-1 min-w-[12rem]">
-          <Input
-            placeholder="Search by city (e.g. Eagle, Boise)"
-            value={cityQuery}
-            onChange={(e) => setCityQuery(e.target.value)}
-            data-testid="input-city-search"
-          />
-        </div>
-        <div className="flex flex-wrap gap-1">
-          {cities.map((c) => (
-            <Button
-              key={c}
-              size="sm"
-              variant={cityQuery === c ? "default" : "outline"}
-              onClick={() => setCityQuery(cityQuery === c ? "" : c)}
-              data-testid={`button-city-${c}`}
-            >
-              {c}
-            </Button>
-          ))}
-        </div>
-      </div>
-
-      <div className="sticky top-14 z-20 -mx-1 px-1 py-2 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80 space-y-2">
-        <Tabs value={tab} onValueChange={setTab}>
-          <TabsList className="flex flex-wrap h-auto">
-            {FILTER_TABS.map((t) => {
-              const n = t.statuses.reduce((s, st) => s + (counts[st] ?? 0), 0);
-              return (
-                <TabsTrigger key={t.key} value={t.key} data-testid={`tab-${t.key}`}>
-                  {t.label} ({n})
-                </TabsTrigger>
-              );
-            })}
-          </TabsList>
-        </Tabs>
-
-        {filtered.length > 0 && (
-          <div className="flex flex-wrap items-center gap-2 rounded-md border bg-card p-2">
-            <label className="flex items-center gap-2 text-sm cursor-pointer">
-              <Checkbox
-                checked={allFilteredSelected}
-                onCheckedChange={toggleSelectAll}
-                aria-label="Select all in view"
-                data-testid="checkbox-select-all"
+          <div className="flex flex-wrap gap-3 items-center">
+            <div className="flex-1 min-w-[12rem]">
+              <Input
+                placeholder="Search by city (e.g. Eagle, Boise)"
+                value={cityQuery}
+                onChange={(e) => setCityQuery(e.target.value)}
+                data-testid="input-city-search"
               />
-              {selectedInView.length > 0 ? `${selectedInView.length} selected` : "Select all"}
-            </label>
-            {selectedInView.length > 0 && (
-              <div className="flex items-center gap-2 ml-auto">
-                <Button size="sm" onClick={bulkApprove} data-testid="button-bulk-approve">
-                  <Check className="h-4 w-4" /> Approve
+            </div>
+            <div className="flex flex-wrap gap-1">
+              {cities.map((c) => (
+                <Button
+                  key={c}
+                  size="sm"
+                  variant={cityQuery === c ? "default" : "outline"}
+                  onClick={() => setCityQuery(cityQuery === c ? "" : c)}
+                  data-testid={`button-city-${c}`}
+                >
+                  {c}
                 </Button>
-                <Button size="sm" variant="outline" onClick={bulkSkip} data-testid="button-bulk-skip">
-                  <X className="h-4 w-4" /> Skip
-                </Button>
-                <Button size="sm" variant="ghost" onClick={() => setSelected(new Set())}>
-                  Clear
-                </Button>
-              </div>
-            )}
+              ))}
+            </div>
           </div>
-        )}
-      </div>
 
-      <div className="space-y-3">
-        {filtered.length === 0 && (
-          <p className="text-sm text-muted-foreground">No prospects in this view.</p>
-        )}
-        {filtered.map((p) => (
-          <ProspectCard
-            key={p.id}
-            p={p}
-            selected={selected.has(p.id)}
-            onToggleSelect={toggleSelect}
-            noteEdits={noteEdits}
-            setNoteEdits={setNoteEdits}
-            emailEdits={emailEdits}
-            setEmailEdits={setEmailEdits}
-            templates={templates}
-            defaultTemplateLabel={defaultTemplateLabel}
-            onMutate={(id, body) => prospectMutation.mutate({ id, body })}
-            onDelete={(id) => deleteMutation.mutate(id)}
-            onPreview={(id) => setPreviewId(id)}
-            onTrack={(id, status) => trackMutation.mutate({ id, status })}
-          />
-        ))}
-      </div>
+          <Tabs value={tab} onValueChange={setTab}>
+            <TabsList className="flex flex-wrap h-auto">
+              {FILTER_TABS.map((t) => {
+                const n = t.statuses.reduce((s, st) => s + (counts[st] ?? 0), 0);
+                return (
+                  <TabsTrigger key={t.key} value={t.key} data-testid={`tab-${t.key}`}>
+                    {t.label} ({n})
+                  </TabsTrigger>
+                );
+              })}
+            </TabsList>
+          </Tabs>
+
+          {filtered.length > 0 && (
+            <div className="flex flex-wrap items-center justify-between gap-2 rounded-md border bg-muted/40 p-2">
+              <div className="flex items-center gap-2">
+                <Checkbox
+                  checked={allVisibleSelected}
+                  onCheckedChange={toggleSelectAllVisible}
+                  data-testid="checkbox-select-all"
+                />
+                <span className="text-sm text-muted-foreground">
+                  {selectedIds.length > 0 ? `${selectedIds.length} selected` : "Select all in view"}
+                </span>
+              </div>
+              {selectedIds.length > 0 && (
+                <div className="flex flex-wrap gap-2">
+                  <Button
+                    size="sm"
+                    onClick={() => bulkMutation.mutate({ action: "approve", ids: selectedIds })}
+                    disabled={bulkMutation.isPending}
+                    data-testid="button-bulk-approve"
+                  >
+                    <Check className="h-4 w-4" /> Approve
+                  </Button>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={() => bulkMutation.mutate({ action: "skip", ids: selectedIds })}
+                    disabled={bulkMutation.isPending}
+                    data-testid="button-bulk-skip"
+                  >
+                    <X className="h-4 w-4" /> Skip
+                  </Button>
+                  <Button
+                    size="sm"
+                    variant="ghost"
+                    onClick={() => bulkMutation.mutate({ action: "delete", ids: selectedIds })}
+                    disabled={bulkMutation.isPending}
+                    data-testid="button-bulk-delete"
+                  >
+                    <Trash2 className="h-4 w-4" /> Delete
+                  </Button>
+                  <Button size="sm" variant="ghost" onClick={() => setSelected(new Set())}>
+                    Clear
+                  </Button>
+                </div>
+              )}
+            </div>
+          )}
+
+          <div className="space-y-3">
+            {filtered.length === 0 && (
+              <p className="text-sm text-muted-foreground">No contractors in this view.</p>
+            )}
+            {filtered.map((p) => (
+              <ProspectCard
+                key={p.id}
+                p={p}
+                selected={selected.has(p.id)}
+                onToggleSelect={toggleSelect}
+                noteEdits={noteEdits}
+                setNoteEdits={setNoteEdits}
+                emailEdits={emailEdits}
+                setEmailEdits={setEmailEdits}
+                templates={templates}
+                defaultTemplateLabel={defaultTemplateLabel}
+                onMutate={(id, body) => prospectMutation.mutate({ id, body })}
+                onDelete={(id) => deleteMutation.mutate(id)}
+                onPreview={(id) => setPreviewId(id)}
+                onTrack={(id, status) => trackMutation.mutate({ id, status })}
+              />
+            ))}
+          </div>
+        </TabsContent>
+
+        {/* TEMPLATES */}
+        <TabsContent value="templates" className="pt-4">
+          <TemplatesEditor />
+        </TabsContent>
+
+        {/* SETTINGS */}
+        <TabsContent value="settings" className="space-y-5 pt-4">
+          {!data.readiness.discoveryConfigured && (
+            <Alert>
+              <AlertTriangle className="h-4 w-4" />
+              <AlertTitle>Discovery not configured</AlertTitle>
+              <AlertDescription>
+                Add the GOOGLE_PLACES_API_KEY secret to find contractors automatically.
+              </AlertDescription>
+            </Alert>
+          )}
+          {!data.readiness.sendable && (
+            <Alert>
+              <Info className="h-4 w-4" />
+              <AlertTitle>Real sending not fully configured</AlertTitle>
+              <AlertDescription>
+                Real sends require two things: OUTREACH_FROM_EMAIL set to a Resend-verified subdomain address,
+                and OUTREACH_MAILING_ADDRESS set to a real physical postal address (legally required in the email
+                footer). Until both are set, sends stay in preview only.
+              </AlertDescription>
+            </Alert>
+          )}
+
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-base">Sending controls</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-5">
+              <div className="flex flex-wrap items-center justify-between gap-3 rounded-md border p-3">
+                <div>
+                  <Label className="text-sm font-medium">Automatic sending</Label>
+                  <p className="text-xs text-muted-foreground">
+                    When on, the system trickles approved emails out on its own, spaced over the day.
+                  </p>
+                </div>
+                <Switch
+                  checked={config.enabled}
+                  onCheckedChange={(v) => setDraftConfig({ ...config, enabled: v })}
+                  data-testid="switch-outreach-enabled"
+                />
+              </div>
+
+              <div className="flex flex-wrap items-center justify-between gap-3 rounded-md border p-3">
+                <div>
+                  <Label className="text-sm font-medium">Preview (dry run) mode</Label>
+                  <p className="text-xs text-muted-foreground">
+                    When on, no real email is sent. Turn off only after you have verified your sending subdomain in Resend.
+                  </p>
+                </div>
+                <Switch
+                  checked={config.dryRun}
+                  onCheckedChange={(v) => setDraftConfig({ ...config, dryRun: v })}
+                  data-testid="switch-outreach-dryrun"
+                />
+              </div>
+
+              <div className="flex flex-wrap gap-4">
+                <div className="space-y-1">
+                  <Label className="text-xs" htmlFor="dailyCap">Daily cap (emails / 24h)</Label>
+                  <Input id="dailyCap" type="number" className="w-32" value={config.dailyCap} min={1} max={50}
+                    onChange={(e) => setDraftConfig({ ...config, dailyCap: Number(e.target.value) })}
+                    data-testid="input-outreach-daily-cap" />
+                </div>
+                <div className="space-y-1">
+                  <Label className="text-xs" htmlFor="minGap">Minimum gap (minutes)</Label>
+                  <Input id="minGap" type="number" className="w-32" value={config.minGapMinutes} min={5} max={240}
+                    onChange={(e) => setDraftConfig({ ...config, minGapMinutes: Number(e.target.value) })}
+                    data-testid="input-outreach-min-gap" />
+                </div>
+                <div className="space-y-1">
+                  <Label className="text-xs" htmlFor="batchSize">Batch size (per manual run)</Label>
+                  <Input id="batchSize" type="number" className="w-32" value={config.batchSize} min={1} max={10}
+                    onChange={(e) => setDraftConfig({ ...config, batchSize: Number(e.target.value) })}
+                    data-testid="input-outreach-batch-size" />
+                  <p className="text-xs text-muted-foreground">Max 10. The cap and gap still apply.</p>
+                </div>
+              </div>
+
+              <div className="space-y-1 max-w-sm">
+                <Label className="text-xs">Default template (voice for new sends)</Label>
+                <Select
+                  value={config.defaultTemplate}
+                  onValueChange={(v) => setDraftConfig({ ...config, defaultTemplate: v })}
+                >
+                  <SelectTrigger data-testid="select-outreach-default-template">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {templates.map((t) => (
+                      <SelectItem key={t.key} value={t.key}>
+                        {t.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                {templates.find((t) => t.key === config.defaultTemplate)?.description && (
+                  <p className="text-xs text-muted-foreground">
+                    {templates.find((t) => t.key === config.defaultTemplate)?.description}
+                  </p>
+                )}
+              </div>
+
+              <Button onClick={() => configMutation.mutate(config)} disabled={configMutation.isPending} data-testid="button-save-outreach-config">
+                {configMutation.isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : "Save settings"}
+              </Button>
+            </CardContent>
+          </Card>
+        </TabsContent>
+      </Tabs>
 
       <Dialog open={!!previewId} onOpenChange={(open) => !open && setPreviewId(null)}>
         <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
@@ -798,14 +836,11 @@ function OutreachPanel() {
                 <p className="text-sm text-muted-foreground">{previewData.subject}</p>
               </div>
               <div className="space-y-1">
-                <p className="text-sm font-medium">Text body</p>
-                <pre className="text-xs bg-muted p-3 rounded-md whitespace-pre-wrap">{previewData.text}</pre>
-              </div>
-              <div className="space-y-1">
-                <p className="text-sm font-medium">HTML body</p>
-                <div className="text-xs bg-muted p-3 rounded-md overflow-x-auto">
-                  <code className="whitespace-pre-wrap">{previewData.html}</code>
-                </div>
+                <p className="text-sm font-medium">How it looks</p>
+                <div
+                  className="rounded-md border bg-white p-4 text-sm"
+                  dangerouslySetInnerHTML={{ __html: previewData.html }}
+                />
               </div>
               <div className="text-xs text-muted-foreground">
                 From: {previewData.from ?? "(sending address not set)"} · To:{" "}

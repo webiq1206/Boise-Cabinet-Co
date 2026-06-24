@@ -1,5 +1,11 @@
 import { SITE_CONFIG } from "@/shared/siteConfig";
 import { getOutreachPostalAddress } from "@/lib/outreach/config";
+import {
+  DEFAULT_TEMPLATE_CONTENT,
+  applyTokens,
+  type OutreachTemplateContent,
+  type TemplateTokens,
+} from "@/lib/outreach/templateContent";
 
 /**
  * Outreach email copy. Goals: sounds like a real person wrote it, warm and
@@ -7,10 +13,10 @@ import { getOutreachPostalAddress } from "@/lib/outreach/config";
  * body). The footer carries the CAN-SPAM required elements: a valid postal
  * address, a clear opt-out, and an honest description of why they received it.
  *
- * Templates are a fixed, code-defined set chosen from a menu (no arbitrary
- * admin-authored bodies). Each template still outputs subject/html/text, keeps
- * the CAN-SPAM footer + unsubscribe, supports the personalization note, embeds
- * the open-tracking pixel only on real sends, and strips em/en-dashes.
+ * The human wording (subject, opener, message, closing) is admin-editable and
+ * passed in as `content` (see lib/outreach/templateContent.ts). When omitted we
+ * fall back to the code defaults so previews and sends never break. The
+ * structure, signature, footer, and safety stripping stay code-owned.
  */
 
 export type OutreachTemplateKey = "personal" | "branded";
@@ -49,34 +55,6 @@ export function resolveTemplateKey(
   return isValidTemplateKey(key) ? key : DEFAULT_TEMPLATE_KEY;
 }
 
-const SUBJECT_VARIANTS = [
-  (name: string) => `Cabinet help for ${name}'s projects`,
-  (name: string) => `Quick note from a local cabinet shop`,
-  (_name: string) => `Cabinets for your remodels in the Treasure Valley`,
-  (_name: string) => `A local cabinet partner for your builds`,
-];
-
-const BRANDED_SUBJECT_VARIANTS = [
-  (_name: string) => `${SITE_CONFIG.name}, your local cabinet partner`,
-  (name: string) => `Custom cabinets for ${name}`,
-  (_name: string) => `A cabinet bid partner here in the Treasure Valley`,
-];
-
-const OPENERS = [
-  (name: string, city: string) =>
-    `I came across ${name} while looking at general contractors around ${city} and wanted to introduce myself.`,
-  (name: string, city: string) =>
-    `I run a small cabinet shop here in the Treasure Valley and found ${name} while looking up builders in ${city}.`,
-  (name: string, city: string) =>
-    `I noticed ${name} does general contracting in ${city}, so I figured I would reach out.`,
-];
-
-function pick<T>(arr: T[], seed: string): T {
-  let h = 0;
-  for (let i = 0; i < seed.length; i++) h = (h * 31 + seed.charCodeAt(i)) >>> 0;
-  return arr[h % arr.length];
-}
-
 /** Strip any em-dash or en-dash defensively, even from dynamic inputs. */
 function stripDashes(s: string): string {
   return s.replace(/[\u2014\u2013]/g, ",");
@@ -89,6 +67,16 @@ function esc(s: string): string {
     .replace(/>/g, "&gt;");
 }
 
+function tokensFor(businessName: string, city: string): TemplateTokens {
+  return {
+    business: businessName,
+    city,
+    owner: SITE_CONFIG.owner.name,
+    company: SITE_CONFIG.name,
+    phone: SITE_CONFIG.phone,
+  };
+}
+
 export interface OutreachCopyInput {
   businessName: string;
   city: string;
@@ -98,6 +86,8 @@ export interface OutreachCopyInput {
   // Which named template/voice to render. Falls back to the default when unset
   // or unrecognized so existing prospects never break.
   templateKey?: string | null;
+  // Admin-editable wording. Falls back to code defaults when omitted.
+  content?: OutreachTemplateContent | null;
   // When provided, a 1x1 tracking pixel pointing at this URL is embedded in the
   // HTML body so we can record opens where the recipient's mail client loads
   // remote images. Omitted for previews.
@@ -150,17 +140,19 @@ function trackingPixel(openTrackingUrl?: string | null): string {
  * as human and keeps spam signals low.
  */
 function buildPersonalCopy(input: OutreachCopyInput): OutreachCopy {
-  const { businessName, city, personalizationNote, unsubscribeUrl, seed, openTrackingUrl } = input;
+  const { businessName, city, personalizationNote, unsubscribeUrl, openTrackingUrl } = input;
   const postal = getOutreachPostalAddress();
+  const c = (input.content ?? DEFAULT_TEMPLATE_CONTENT).personal;
+  const tokens = tokensFor(businessName, city);
 
-  const subject = stripDashes(pick(SUBJECT_VARIANTS, seed)(businessName));
-  const opener = stripDashes(pick(OPENERS, seed)(businessName, city));
+  const subject = stripDashes(applyTokens(c.subject, tokens));
+  const opener = stripDashes(applyTokens(c.opener, tokens));
+  const pitch = stripDashes(applyTokens(c.pitch, tokens));
+  const closing = stripDashes(applyTokens(c.closing, tokens));
 
   const noteLine = personalizationNote?.trim()
     ? `${stripDashes(personalizationNote.trim())} `
     : "";
-
-  const pitch = `I ran a remodeling business in Colorado for several years before my family moved out to Boise, where I opened a custom cabinet shop. We build custom cabinets right here in the valley and work with contractors who would rather hand off the cabinet part of a job than manage it in house. My pricing is fair and about as competitive as you will find around here, and the work is solid, well built cabinets your clients will be happy with, so you can keep both the budget and the quality where they need to be. If it is ever helpful, I would be glad to put together a bid on your next kitchen, bath, or built in and handle the design and build so you can stay focused on the rest of the project.`;
 
   const bodyLines = [
     `Hi there,`,
@@ -169,7 +161,7 @@ function buildPersonalCopy(input: OutreachCopyInput): OutreachCopy {
     ``,
     `${noteLine}${pitch}`,
     ``,
-    `No pressure at all. If you ever have a job coming up where cabinets would be useful to price out, just reply to this email or give me a call at ${SITE_CONFIG.phone} and I will take care of it.`,
+    closing,
     ``,
     `Warmly,`,
     SITE_CONFIG.owner.name,
@@ -183,8 +175,8 @@ function buildPersonalCopy(input: OutreachCopyInput): OutreachCopy {
 
   const paragraphs = [
     esc(opener),
-    `${noteLine ? esc(noteLine) : ""}${pitch}`,
-    `No pressure at all. If you ever have a job coming up where cabinets would be useful to price out, just reply to this email or give me a call at ${esc(SITE_CONFIG.phone)} and I will take care of it.`,
+    `${noteLine ? esc(noteLine) : ""}${esc(pitch)}`,
+    esc(closing),
   ];
 
   const html = stripDashes(`<div style="font-family: Arial, Helvetica, sans-serif; font-size: 15px; line-height: 1.6; color: #222;">
@@ -206,26 +198,21 @@ function buildPersonalCopy(input: OutreachCopyInput): OutreachCopy {
  * the shop offers. Distinct voice from the plain personal note.
  */
 function buildBrandedCopy(input: OutreachCopyInput): OutreachCopy {
-  const { businessName, city, personalizationNote, unsubscribeUrl, seed, openTrackingUrl } = input;
+  const { businessName, city, personalizationNote, unsubscribeUrl, openTrackingUrl } = input;
   const postal = getOutreachPostalAddress();
+  const c = (input.content ?? DEFAULT_TEMPLATE_CONTENT).branded;
+  const tokens = tokensFor(businessName, city);
 
-  const subject = stripDashes(pick(BRANDED_SUBJECT_VARIANTS, seed)(businessName));
-  const opener = stripDashes(pick(OPENERS, seed)(businessName, city));
+  const subject = stripDashes(applyTokens(c.subject, tokens));
+  const opener = stripDashes(applyTokens(DEFAULT_TEMPLATE_CONTENT.personal.opener, tokens));
 
   const noteLine = personalizationNote?.trim()
     ? `${stripDashes(personalizationNote.trim())} `
     : "";
 
-  const intro = `${noteLine}I am ${SITE_CONFIG.owner.name} with ${SITE_CONFIG.name}. I ran a remodeling business in Colorado for several years, then my family moved out to Boise and I opened this local custom cabinet shop. I partner with general contractors who would rather hand off the cabinet portion of a remodel than manage it in house.`;
-
-  const bullets = [
-    `Custom kitchens, baths, and built ins designed and built here in the valley.`,
-    `Fair, competitive pricing that keeps your project budget on track.`,
-    `Solid, well built work your clients will be proud of.`,
-    `One point of contact for design, build, and install so you can stay focused on the rest of the job.`,
-  ];
-
-  const close = `If you have a project coming up where cabinets would be useful to price out, just reply here or call me at ${SITE_CONFIG.phone} and I will put a bid together. No pressure at all.`;
+  const intro = `${noteLine}${stripDashes(applyTokens(c.intro, tokens))}`;
+  const bullets = c.bullets.map((b) => stripDashes(applyTokens(b, tokens)));
+  const close = stripDashes(applyTokens(c.closing, tokens));
 
   const text = stripDashes(
     [

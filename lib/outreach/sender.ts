@@ -12,6 +12,10 @@ import {
   type OutreachRuntimeConfig,
 } from "@/lib/outreach/config";
 import { buildOutreachCopy } from "@/lib/outreach/template";
+import {
+  getOutreachTemplateContent,
+  type OutreachTemplateContent,
+} from "@/lib/outreach/templateContent";
 
 export function buildUnsubscribeUrl(token: string): string {
   const base = SITE_CONFIG.siteUrl.replace(/\/$/, "");
@@ -178,6 +182,7 @@ export interface SendOneResult {
 async function sendToProspect(
   prospect: OutreachProspect,
   config: OutreachRuntimeConfig,
+  content: OutreachTemplateContent,
 ): Promise<SendOneResult> {
   const base: Omit<SendOneResult, "status"> = {
     prospectId: prospect.id,
@@ -205,6 +210,7 @@ async function sendToProspect(
     personalizationNote: prospect.personalizationNote,
     unsubscribeUrl: buildUnsubscribeUrl(prospect.unsubscribeToken),
     seed: prospect.id,
+    content,
     // Effective template: per-prospect override first, else the batch default.
     templateKey: prospect.templateKey ?? config.defaultTemplate,
     // Only embed the open-tracking pixel in a real send, never in a dry run.
@@ -323,6 +329,8 @@ export async function processOutreachBatch(options: BatchOptions): Promise<Batch
   }
 
   const config = await getOutreachConfig();
+  // Editable wording, loaded once per batch and shared by every send.
+  const content = await getOutreachTemplateContent();
 
   // When the caller does not pin an explicit limit, a manual run uses the
   // admin-chosen batch size; the background runner stays at one per tick. Always
@@ -355,7 +363,7 @@ export async function processOutreachBatch(options: BatchOptions): Promise<Batch
     }
 
     result.attempted++;
-    const one = await sendToProspect(reservation.prospect, config);
+    const one = await sendToProspect(reservation.prospect, config, content);
     result.results.push(one);
 
     if (one.status === "sent") result.sent++;
