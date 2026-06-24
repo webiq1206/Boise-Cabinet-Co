@@ -18,3 +18,4 @@
 - [Outreach config/template module cycle](outreach-config-template-cycle.md) — config.ts and template.ts import each other; keep config DEFAULTS values as literals (not imported consts) and only call template fns at runtime to avoid TDZ on init.
 - [Outreach bulk-approve status guard](outreach-bulk-approve-guard.md) — bulk approve must gate on pre-send statuses + non-null email, never re-queue sent/unsubscribed (duplicate-cold-email risk).
 - [drizzle-kit push data-loss prompt](drizzle-push-data-loss-prompt.md) — db:push blocks on interactive arrow-key confirm for column/table drops; pipes don't work, run DROP/ALTER via executeSql + verify with information_schema (Neon DB, not checkDatabase).
+- [dev/prod separate databases](dev-prod-separate-databases.md) — dev & prod use independent Postgres DBs; runtime data/site_settings toggles set in dev do NOT reach prod on publish (secrets are global, DB rows are not).
