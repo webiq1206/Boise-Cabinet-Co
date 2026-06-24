@@ -3,6 +3,7 @@ import { db } from "@/lib/db";
 import { leads, quotes } from "@/shared/schema";
 import { eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
+import { recordLeadActivity, actorNameFromUser } from "@/server/services/leadActivity";
 
 export async function POST(request: Request, { params }: { params: { leadId: string } }) {
   const session = await getSession();
@@ -29,6 +30,16 @@ export async function POST(request: Request, { params }: { params: { leadId: str
 
   const updated = await db.select().from(leads).where(eq(leads.id, leadId));
 
+  const actorName = actorNameFromUser(user);
+  await recordLeadActivity({
+    leadId,
+    type: "accepted",
+    message: "Lead accepted",
+    detail: { from: lead.status, to: "accepted" },
+    actorId: user.id,
+    actorName,
+  });
+
   let customerStatus: "contact_soon" | "quote_ready" = "contact_soon";
   try {
     const body = await request.json();
@@ -49,10 +60,23 @@ export async function POST(request: Request, { params }: { params: { leadId: str
           customerStatus === "quote_ready"
             ? "Your customized quote is ready to review. Click below to view your quote status and next steps."
             : "Your quote has been reviewed and we'll be contacting you shortly to discuss the details.";
+        const emailSubject =
+          customerStatus === "quote_ready" ? "Your quote is ready" : "We received your request";
         sendCustomerStatusUpdate(quote.email, quote.id, {
           status: customerStatus,
           message,
-        }).catch(() => {});
+        })
+          .then(() => {
+            recordLeadActivity({
+              leadId,
+              type: "email_sent",
+              message: `Email sent to customer: ${emailSubject}`,
+              detail: { to: quote.email, subject: emailSubject, status: customerStatus },
+              actorId: user.id,
+              actorName,
+            });
+          })
+          .catch(() => {});
       }
     }
   } catch (e) {}

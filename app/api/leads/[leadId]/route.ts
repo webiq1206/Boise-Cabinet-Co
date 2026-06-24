@@ -5,6 +5,7 @@ import { eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { HOUSE_NUMBER_REGEX, HOUSE_NUMBER_ERROR_MESSAGE } from "@/shared/addressValidation";
+import { recordLeadActivity, actorNameFromUser } from "@/server/services/leadActivity";
 
 const patchSchema = z
   .object({
@@ -76,6 +77,49 @@ export async function PATCH(request: Request, { params }: { params: { leadId: st
 
   await db.update(leads).set(update).where(eq(leads.id, leadId));
   const updated = await db.select().from(leads).where(eq(leads.id, leadId));
+
+  // Log meaningful changes to the unified activity timeline.
+  const actorName = actorNameFromUser(user);
+  const STATUS_LABELS: Record<string, string> = {
+    pending_admin: "Pending review",
+    pending: "Pending",
+    accepted: "Accepted",
+    converted: "Converted",
+    archived: "Archived",
+    declined: "Declined",
+  };
+
+  if (parsed.status !== undefined && parsed.status !== lead.status) {
+    const fromLabel = STATUS_LABELS[lead.status] || lead.status;
+    const toLabel = STATUS_LABELS[parsed.status] || parsed.status;
+    await recordLeadActivity({
+      leadId,
+      type: "status_change",
+      message: `Status changed from ${fromLabel} to ${toLabel}`,
+      detail: { from: lead.status, to: parsed.status },
+      actorId: user.id,
+      actorName,
+    });
+  }
+
+  const priceFields: Array<{ key: "finalQuote" | "currentLeadPrice"; label: string }> = [
+    { key: "finalQuote", label: "Customer quote" },
+    { key: "currentLeadPrice", label: "Lead price" },
+  ];
+  for (const { key, label } of priceFields) {
+    if (parsed[key] === undefined) continue;
+    const before = lead[key] == null ? null : String(lead[key]);
+    const after = String(parsed[key]);
+    if (before === after) continue;
+    await recordLeadActivity({
+      leadId,
+      type: "price_change",
+      message: `${label} changed from ${before ?? "none"} to ${after}`,
+      detail: { field: key, from: before, to: after },
+      actorId: user.id,
+      actorName,
+    });
+  }
 
   return NextResponse.json(updated[0]);
 }

@@ -35,6 +35,7 @@ import {
 import { useRouter, useSearchParams } from "next/navigation";
 import { cleanDisplayAddress, hasLeadingHouseNumber, HOUSE_NUMBER_ERROR_MESSAGE } from "@/shared/addressValidation";
 import { PropertyProfileEditor } from "@/components/admin/PropertyProfileEditor";
+import { LeadTimeline } from "@/components/admin/LeadTimeline";
 import type { PropertyProfile } from "@/shared/propertyProfile";
 
 interface LineItem {
@@ -1550,6 +1551,8 @@ function AdminDashboardContent({ embedded = false }: { embedded?: boolean }) {
           <QuoteBreakdownSection lead={lead} />
 
           <NotesSection lead={lead} onAddNote={(note) => addNoteMutation.mutate({ leadId: lead.id, note })} />
+
+          <LeadTimeline leadId={lead.id} email={lead.email} phone={lead.phone} />
         </div>
 
         <Button

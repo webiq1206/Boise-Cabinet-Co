@@ -18,6 +18,7 @@ import {
   type ProjectInvoice,
   type ProjectMessage,
 } from "@shared/schema";
+import { recordLeadActivity, actorNameFromUser } from "@/server/services/leadActivity";
 import { and, desc, eq, sql } from "drizzle-orm";
 import { canBeAssignedToProject } from "@/lib/compliance/complianceStatus";
 import { getComplianceDocsForUser } from "./complianceService";
@@ -154,6 +155,16 @@ export async function convertLeadToProject(
       updatedAt: new Date(),
     })
     .where(eq(leads.id, leadId));
+
+  const [actor] = await db.select().from(users).where(eq(users.id, adminUserId)).limit(1);
+  await recordLeadActivity({
+    leadId,
+    type: "converted",
+    message: `Converted to project: ${title}`,
+    detail: { projectId: project.id, title },
+    actorId: adminUserId,
+    actorName: actorNameFromUser(actor),
+  });
 
   return project;
 }

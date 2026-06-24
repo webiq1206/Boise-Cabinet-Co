@@ -3,6 +3,7 @@ import { db } from "@/lib/db";
 import { leads } from "@/shared/schema";
 import { eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
+import { recordLeadActivity, actorNameFromUser } from "@/server/services/leadActivity";
 
 function parseNotesArray(val: unknown): Array<{ text: string; addedBy: string; addedAt: string }> {
   if (Array.isArray(val)) return val;
@@ -27,7 +28,8 @@ export async function POST(request: Request, { params }: { params: { leadId: str
 
   const { leadId } = params;
   const body = await request.json();
-  const { text } = body;
+  // Accept either { text } or { note } so the timeline and legacy notes UI agree.
+  const text = body?.text ?? body?.note;
 
   if (!text || typeof text !== "string" || text.trim().length === 0) {
     return NextResponse.json({ error: "Note text is required" }, { status: 400 });
@@ -38,7 +40,7 @@ export async function POST(request: Request, { params }: { params: { leadId: str
   if (!lead) return NextResponse.json({ error: "Lead not found" }, { status: 404 });
 
   const existingNotes = parseNotesArray(lead.notes);
-  const addedBy = `${user.firstName || ""} ${user.lastName || ""}`.trim() || user.email || user.id;
+  const addedBy = actorNameFromUser(user);
 
   existingNotes.push({
     text: text.trim(),
@@ -48,6 +50,15 @@ export async function POST(request: Request, { params }: { params: { leadId: str
 
   await db.update(leads).set({ notes: existingNotes }).where(eq(leads.id, leadId));
   const updated = await db.select().from(leads).where(eq(leads.id, leadId));
+
+  // Mirror the note into the unified activity timeline.
+  await recordLeadActivity({
+    leadId,
+    type: "note",
+    message: text.trim(),
+    actorId: user.id,
+    actorName: addedBy,
+  });
 
   return NextResponse.json(updated[0]);
 }

@@ -353,6 +353,39 @@ export const insertLeadSchema = createInsertSchema(leads).omit({
 export type Lead = typeof leads.$inferSelect;
 export type InsertLead = z.infer<typeof insertLeadSchema>;
 
+// Lead Activities Schema (unified CRM timeline)
+// One row per event on a lead: notes, contact attempts, status changes, admin
+// actions (accepted, converted), price overrides, and outbound emails. The
+// timeline is built from these rows plus a synthetic "created" event derived
+// from the lead's createdAt.
+export const leadActivities = pgTable("lead_activities", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  leadId: varchar("lead_id").notNull().references(() => leads.id),
+  // note | contact_attempt | status_change | accepted | converted |
+  // price_change | email_sent | purchased
+  type: text("type").notNull(),
+  // Human-readable summary shown in the timeline.
+  message: text("message").notNull(),
+  // Structured extras: { from, to } for status, { channel } for contact attempts,
+  // { subject, to } for emails, { from, to } for price changes.
+  detail: jsonb("detail").$type<Record<string, unknown>>(),
+  // Who performed the action. actorName is denormalized for display.
+  actorId: varchar("actor_id").references(() => users.id),
+  actorName: text("actor_name"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+}, (table) => ({
+  leadIdIdx: index("lead_activities_lead_id_idx").on(table.leadId),
+  leadCreatedIdx: index("lead_activities_lead_created_idx").on(table.leadId, table.createdAt),
+}));
+
+export const insertLeadActivitySchema = createInsertSchema(leadActivities).omit({
+  id: true,
+  createdAt: true,
+});
+
+export type LeadActivity = typeof leadActivities.$inferSelect;
+export type InsertLeadActivity = z.infer<typeof insertLeadActivitySchema>;
+
 // Lead Purchases Schema (transaction history)
 export const leadPurchases = pgTable("lead_purchases", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
