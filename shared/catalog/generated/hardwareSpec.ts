@@ -11,8 +11,7 @@ export const OSC_HARDWARE_SPEC = {
     "brand": "Salice",
     "model": "Futura Smove",
     "extension": "full-extension",
-    "softClose": true,
-    "loadRatingLbs": 100
+    "softClose": true
   },
   "legLevelers": true,
   "adjustableDrawerFronts": true,

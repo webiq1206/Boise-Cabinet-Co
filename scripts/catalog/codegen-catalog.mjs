@@ -21,6 +21,14 @@ const finishImageExists = (file) => fs.existsSync(path.join(FINISH_IMG_DIR, file
 
 const catalog = JSON.parse(fs.readFileSync(CATALOG_PATH, "utf8"));
 
+// Supplier cabinet line-drawing renderings ({ OSC_CODE: "/images/.../x.webp" }),
+// extracted from the catalog PDF. Used as the product image when available.
+const CABINET_RENDERINGS_PATH = path.join(DATA, "cabinetRenderings.json");
+const cabinetRenderings = fs.existsSync(CABINET_RENDERINGS_PATH)
+  ? JSON.parse(fs.readFileSync(CABINET_RENDERINGS_PATH, "utf8"))
+  : {};
+const renderingExists = (rel) => rel && fs.existsSync(path.join(ROOT, "public", rel.replace(/^\//, "")));
+
 const DOOR_STYLE_IDS = [
   "slab",
   "three-piece",
@@ -305,8 +313,14 @@ const cabinetProducts = catalog.cabinets.map((c) => {
     compatibleDoorStyleIds: [...DOOR_STYLE_IDS],
   };
   if (c.attrs) out.attrs = c.attrs;
-  // Generated front-elevation SVG box diagram lives under /public/generated/.
-  out.boxImage = c.boxImage ? `/generated/${c.boxImage}` : `/generated/cabinets/${slug}.svg`;
+  // Prefer the real supplier line-drawing rendering; otherwise fall back to the
+  // generated front-elevation SVG box diagram under /public/generated/.
+  const rendering = cabinetRenderings[c.code];
+  out.boxImage = renderingExists(rendering)
+    ? rendering
+    : c.boxImage
+      ? `/generated/${c.boxImage}`
+      : `/generated/cabinets/${slug}.svg`;
   return out;
 });
 

@@ -20,7 +20,7 @@ export const OSC_CONSTRUCTION = {
     {
       "id": "melamine-box",
       "label": "3/4\" Melamine Box",
-      "description": "Structural box with PUR edge banding"
+      "description": "Structural box with 1mm matching edgebanding"
     },
     {
       "id": "birch-sides",

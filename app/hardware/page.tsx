@@ -38,7 +38,7 @@ const OSC_SPEC_CARDS = [
   },
   {
     title: "Salice Futura Smove slides",
-    description: `${OSC_HARDWARE_SPEC.drawerSlide.model} ${OSC_HARDWARE_SPEC.drawerSlide.extension} slides, ${OSC_HARDWARE_SPEC.drawerSlide.loadRatingLbs} lb rated.`,
+    description: `${OSC_HARDWARE_SPEC.drawerSlide.model} ${OSC_HARDWARE_SPEC.drawerSlide.extension} soft-close drawer slides.`,
     image: "/images/catalog/hardware/slide-soft-close.webp",
     meta: `${OSC_HARDWARE_SPEC.drawerSlide.brand} · Soft-close`,
   },

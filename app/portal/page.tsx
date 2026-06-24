@@ -139,7 +139,7 @@ export default function PortalHomePage() {
             <CardHeader className="pb-3">
               <CardTitle className="text-base">Your planning estimate</CardTitle>
               <CardDescription>
-                From your design calculator — a planning range, not a final quote
+                From your design calculator - a planning range, not a final quote
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-3">
