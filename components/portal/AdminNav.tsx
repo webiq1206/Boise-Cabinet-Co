@@ -6,20 +6,22 @@ import { cn } from "@/lib/utils";
 import {
   LayoutDashboard,
   FolderKanban,
-  ShoppingBag,
+  Inbox,
   Shield,
   Send,
 } from "lucide-react";
+import { useAdminLeadCounts } from "@/hooks/useAdminLeadCounts";
 
 const primaryNav = [
   { href: "/admin/dashboard", label: "Dashboard", icon: LayoutDashboard },
-  { href: "/admin/leads", label: "Leads", icon: ShoppingBag },
+  { href: "/admin/leads", label: "Leads", icon: Inbox },
   { href: "/admin/projects", label: "Projects", icon: FolderKanban },
   { href: "/admin/outreach", label: "Outreach", icon: Send },
 ];
 
 export function AdminNav() {
   const pathname = usePathname();
+  const { pendingReview } = useAdminLeadCounts();
 
   return (
     <nav className="flex flex-col gap-1 p-4">
@@ -34,6 +36,7 @@ export function AdminNav() {
       {primaryNav.map((item) => {
         const Icon = item.icon;
         const active = pathname === item.href || pathname.startsWith(item.href + "/");
+        const badge = item.href === "/admin/leads" && pendingReview > 0 ? pendingReview : null;
         return (
           <Link
             key={item.href}
@@ -46,7 +49,20 @@ export function AdminNav() {
             )}
           >
             <Icon className="h-4 w-4" />
-            {item.label}
+            <span className="flex-1">{item.label}</span>
+            {badge !== null && (
+              <span
+                className={cn(
+                  "inline-flex h-5 min-w-[1.25rem] items-center justify-center rounded-full px-1.5 text-xs font-medium tabular-nums",
+                  active
+                    ? "bg-primary-foreground/20 text-primary-foreground"
+                    : "bg-primary/10 text-primary"
+                )}
+                aria-label={`${badge} leads pending review`}
+              >
+                {badge > 99 ? "99+" : badge}
+              </span>
+            )}
           </Link>
         );
       })}

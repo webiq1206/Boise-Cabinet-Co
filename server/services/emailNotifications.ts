@@ -59,7 +59,7 @@ function getEmailLeadDisplayTitle(leadData: {
 }
 
 function adminLeadUrl(tab: 'pending' | 'accepted' | 'available' | 'all', leadId: string): string {
-  return `${SITE_BASE_URL}/admin/dashboard?tab=${encodeURIComponent(tab)}&leadId=${encodeURIComponent(leadId)}`;
+  return `${SITE_BASE_URL}/admin/leads?tab=${encodeURIComponent(tab)}&leadId=${encodeURIComponent(leadId)}`;
 }
 
 function subcontractorLeadUrl(leadId: string): string {

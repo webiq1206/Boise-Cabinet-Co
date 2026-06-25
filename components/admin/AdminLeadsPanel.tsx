@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense, useEffect, useMemo, useState } from "react";
+import { Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -14,6 +14,9 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Skeleton } from "@/components/ui/skeleton";
+import { ToastAction } from "@/components/ui/toast";
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/hooks/useAuth";
 import { AdminAnalyticsPanel } from "@/components/admin/AdminAnalyticsPanel";
@@ -26,8 +29,8 @@ import {
 import { 
   CheckCircle2, XCircle, Clock, DollarSign, MapPin, Phone, Mail, Building, 
   ChevronDown, ChevronUp, Receipt, AlertTriangle, Server, Hash, Search, Filter, X, 
-  ArrowUpDown, MessageSquare, Plus, Tag, Flag, LogOut, Shield, ArrowLeftRight, Trash2,
-  Pencil, Check, FolderKanban
+  ArrowUpDown, MessageSquare, Plus, Tag, Flag, LogOut, ArrowLeftRight, Trash2,
+  Pencil, Check, FolderKanban, LayoutGrid, List, Undo2
 } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { cleanDisplayAddress, hasLeadingHouseNumber, HOUSE_NUMBER_ERROR_MESSAGE } from "@/shared/addressValidation";
@@ -77,16 +80,12 @@ interface Lead {
   lineItems?: LineItem[] | null;
   serviceData?: Record<string, ServiceDataEntry> | null;
   message?: string | null;
-  baseLeadPrice?: string | null;
-  currentLeadPrice?: string | null;
   status: string;
   priority?: string | null;
   tags?: string[] | null;
   notes?: Array<{text: string; addedBy: string; addedAt: string}> | null;
   createdAt: string;
   updatedAt?: string | null;
-  purchasedBy?: string | null;
-  purchasedAt?: string | null;
   addressMissingHouseNumber?: boolean | null;
   projectId?: string | null;
   convertedToProjectAt?: string | null;
@@ -362,18 +361,53 @@ function AdminDashboardContent({ embedded = false }: { embedded?: boolean }) {
     }
   }, [authLoading, isAuthenticated, isAdmin, router]);
   
-  // Search and filter state
+  // Search and filter state (initialized from the URL so views are shareable)
   const [searchQuery, setSearchQuery] = useState(() => searchParams.get("search") ?? "");
-  const [filterServiceType, setFilterServiceType] = useState<string>("all");
-  const [filterCity, setFilterCity] = useState<string>("all");
+  const [filterServiceType, setFilterServiceType] = useState<string>(() => searchParams.get("service") ?? "all");
+  const [filterCity, setFilterCity] = useState<string>(() => searchParams.get("city") ?? "all");
   const [filterQuoteMin, setFilterQuoteMin] = useState<string>("");
   const [filterQuoteMax, setFilterQuoteMax] = useState<string>("");
-  const [filterLeadAge, setFilterLeadAge] = useState<string>("all");
-  const [sortBy, setSortBy] = useState<"date" | "quote" | "age">("date");
-  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc");
+  const [filterLeadAge, setFilterLeadAge] = useState<string>(() => searchParams.get("age") ?? "all");
+  const [sortBy, setSortBy] = useState<"date" | "quote" | "age">(() => {
+    const s = searchParams.get("sort");
+    return s === "quote" || s === "age" || s === "date" ? s : "date";
+  });
+  const [sortOrder, setSortOrder] = useState<"asc" | "desc">(() =>
+    searchParams.get("order") === "asc" ? "asc" : "desc",
+  );
   const [showFilters, setShowFilters] = useState(false);
-  const [filterPriority, setFilterPriority] = useState<string>("all");
+  const [filterPriority, setFilterPriority] = useState<string>(() => searchParams.get("priority") ?? "all");
   const [filterTags, setFilterTags] = useState<string[]>([]);
+
+  // Cards vs. table view, persisted across sessions.
+  const [viewMode, setViewMode] = useState<"cards" | "table">("cards");
+  useEffect(() => {
+    const saved = typeof window !== "undefined" ? window.localStorage.getItem("admin-leads-view") : null;
+    if (saved === "cards" || saved === "table") setViewMode(saved);
+  }, []);
+  const changeViewMode = (mode: "cards" | "table") => {
+    setViewMode(mode);
+    if (typeof window !== "undefined") window.localStorage.setItem("admin-leads-view", mode);
+  };
+
+  // Table-local column sort (independent of the global sort controls).
+  const [tableSort, setTableSort] = useState<{ key: "name" | "city" | "service" | "quote" | "age" | "status"; dir: "asc" | "desc" }>({ key: "age", dir: "asc" });
+
+  const searchInputRef = useRef<HTMLInputElement>(null);
+
+  // Press "/" to focus the search field (ignored while typing in a field).
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== "/" || e.metaKey || e.ctrlKey || e.altKey) return;
+      const target = e.target as HTMLElement | null;
+      const tag = target?.tagName;
+      if (tag === "INPUT" || tag === "TEXTAREA" || target?.isContentEditable) return;
+      e.preventDefault();
+      searchInputRef.current?.focus();
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, []);
 
   const { data: leads = [], isLoading } = useQuery<Lead[]>({
     queryKey: ["/api/leads"],
@@ -419,6 +453,25 @@ function AdminDashboardContent({ embedded = false }: { embedded?: boolean }) {
       if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
     });
   }, [activeTab, leadIdParam, leads, searchQuery]);
+
+  // Keep the URL in sync with the active filters/tab so views are shareable and
+  // survive a refresh. Preserves an active leadId deep-link.
+  useEffect(() => {
+    const params = new URLSearchParams();
+    if (activeTab !== "pending") params.set("tab", activeTab);
+    if (searchQuery) params.set("search", searchQuery);
+    if (filterServiceType !== "all") params.set("service", filterServiceType);
+    if (filterCity !== "all") params.set("city", filterCity);
+    if (filterLeadAge !== "all") params.set("age", filterLeadAge);
+    if (filterPriority !== "all") params.set("priority", filterPriority);
+    if (sortBy !== "date") params.set("sort", sortBy);
+    if (sortOrder !== "desc") params.set("order", sortOrder);
+    if (leadIdParam) params.set("leadId", leadIdParam);
+    const qs = params.toString();
+    const next = qs ? `/admin/leads?${qs}` : "/admin/leads";
+    const current = `${window.location.pathname}${window.location.search}`;
+    if (next !== current) router.replace(next, { scroll: false });
+  }, [activeTab, searchQuery, filterServiceType, filterCity, filterLeadAge, filterPriority, sortBy, sortOrder, leadIdParam, router]);
   
   // Filter and search leads
   const filteredLeads = useMemo(() => {
@@ -544,21 +597,6 @@ function AdminDashboardContent({ embedded = false }: { embedded?: boolean }) {
     return Array.from(tagSet).sort();
   }, [leads]);
 
-  const acceptLeadMutation = useMutation({
-    mutationFn: async (leadId: string) => {
-      const res = await fetch(`/api/leads/${leadId}/accept`, { method: "POST" });
-      if (!res.ok) throw new Error("Failed to accept lead");
-      return res.json();
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/leads"] });
-      toast({ title: "Lead Accepted", description: "You have accepted this lead." });
-    },
-    onError: (error: Error) => {
-      toast({ title: "Error", description: error.message, variant: "destructive" });
-    },
-  });
-
   const addNoteMutation = useMutation({
     mutationFn: async ({ leadId, note }: { leadId: string; note: string }) => {
       const res = await fetch(`/api/leads/${leadId}/notes`, {
@@ -612,6 +650,119 @@ function AdminDashboardContent({ embedded = false }: { embedded?: boolean }) {
     },
   });
 
+  // Optimistic single-lead status change (accept/archive/undo). Updates the cache
+  // immediately and rolls back on error.
+  const statusMutation = useMutation({
+    mutationFn: async ({ leadId, status }: { leadId: string; status: string }) => {
+      if (status === "accepted") {
+        const res = await fetch(`/api/leads/${leadId}/accept`, { method: "POST" });
+        if (!res.ok) throw new Error("Failed to accept lead");
+        return res.json();
+      }
+      const res = await fetch(`/api/leads/${leadId}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ status }),
+      });
+      if (!res.ok) throw new Error("Failed to update lead");
+      return res.json();
+    },
+    onMutate: async ({ leadId, status }) => {
+      await queryClient.cancelQueries({ queryKey: ["/api/leads"] });
+      const previous = queryClient.getQueryData<Lead[]>(["/api/leads"]);
+      queryClient.setQueryData<Lead[]>(["/api/leads"], (old) =>
+        (old ?? []).map((l) => (l.id === leadId ? { ...l, status } : l)),
+      );
+      return { previous };
+    },
+    onError: (error: Error, _vars, ctx) => {
+      if (ctx?.previous) queryClient.setQueryData(["/api/leads"], ctx.previous);
+      toast({ title: "Error", description: error.message, variant: "destructive" });
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/leads"] });
+    },
+  });
+
+  const acceptLead = (lead: Lead) => {
+    const prevStatus = lead.status;
+    statusMutation.mutate({ leadId: lead.id, status: "accepted" });
+    toast({
+      title: "Lead accepted",
+      action: (
+        <ToastAction altText="Undo" onClick={() => statusMutation.mutate({ leadId: lead.id, status: prevStatus })}>
+          <Undo2 className="h-3.5 w-3.5 mr-1" /> Undo
+        </ToastAction>
+      ),
+    });
+  };
+
+  const archiveLead = (lead: Lead) => {
+    const prevStatus = lead.status;
+    statusMutation.mutate({ leadId: lead.id, status: "archived" });
+    toast({
+      title: "Lead archived",
+      action: (
+        <ToastAction altText="Undo" onClick={() => statusMutation.mutate({ leadId: lead.id, status: prevStatus })}>
+          <Undo2 className="h-3.5 w-3.5 mr-1" /> Undo
+        </ToastAction>
+      ),
+    });
+  };
+
+  // Batch accept/archive in a single request, with one summary toast and undo.
+  const bulkMutation = useMutation({
+    mutationFn: async ({ action, leadIds }: { action: "accept" | "archive"; leadIds: string[] }) => {
+      const res = await fetch(`/api/leads/bulk`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action, leadIds }),
+      });
+      const json = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(json?.error || "Bulk action failed");
+      return json;
+    },
+    onSuccess: (data, vars) => {
+      queryClient.invalidateQueries({ queryKey: ["/api/leads"] });
+      const verb = vars.action === "accept" ? "accepted" : "archived";
+      toast({
+        title: `${data.updated ?? vars.leadIds.length} leads ${verb}`,
+        action: (
+          <ToastAction
+            altText="Undo"
+            onClick={() => undoBulkMutation.mutate({ leadIds: vars.leadIds, action: vars.action })}
+          >
+            <Undo2 className="h-3.5 w-3.5 mr-1" /> Undo
+          </ToastAction>
+        ),
+      });
+    },
+    onError: (error: Error) => {
+      toast({ title: "Bulk action failed", description: error.message, variant: "destructive" });
+    },
+  });
+
+  // Undo a bulk action: accepted leads go back to pending review, archived leads
+  // go back to pending review (their pre-archive state in the review queue).
+  const undoBulkMutation = useMutation({
+    mutationFn: async ({ leadIds }: { leadIds: string[]; action: "accept" | "archive" }) => {
+      const res = await fetch(`/api/leads/bulk`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action: "set_status", status: "pending_admin", leadIds }),
+      });
+      if (!res.ok) throw new Error("Undo failed");
+      return res.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/leads"] });
+      toast({ title: "Reverted" });
+    },
+    onError: (error: Error) => {
+      toast({ title: "Undo failed", description: error.message, variant: "destructive" });
+    },
+  });
+
   const mergeLeadsMutation = useMutation({
     mutationFn: async ({ targetLeadId, sourceLeadId }: { targetLeadId: string; sourceLeadId: string }) => {
       const res = await fetch(`/api/admin/leads/merge`, {
@@ -625,15 +776,12 @@ function AdminDashboardContent({ embedded = false }: { embedded?: boolean }) {
     },
     onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ["/api/leads"] });
-      const refundNote = data?.refund
-        ? ` Refunded $${data.refund.amount} to the prior buyer.`
-        : "";
       const swapNote = data?.directionSwapped
         ? " (Older lead was kept; newer was archived.)"
         : "";
       toast({
         title: "Leads Merged",
-        description: `Newer lead archived and combined into the older one.${swapNote}${refundNote}`,
+        description: `Newer lead archived and combined into the older one.${swapNote}`,
       });
     },
     onError: (error: Error) => {
@@ -667,7 +815,7 @@ function AdminDashboardContent({ embedded = false }: { embedded?: boolean }) {
   const acceptedLeads = filteredLeads.filter(l => l.status === "accepted" && !l.projectId);
   const archivedLeads = filteredLeads.filter(l => l.status === "archived" && !l.projectId);
   // Pending is a catch-all so nothing is ever hidden, including any legacy
-  // marketplace statuses (available/purchased/declined_admin) on older records.
+  // statuses left on older records.
   const pendingLeads = filteredLeads.filter(
     l => !l.projectId && l.status !== "accepted" && l.status !== "archived",
   );
@@ -892,7 +1040,7 @@ function AdminDashboardContent({ embedded = false }: { embedded?: boolean }) {
                     {lead.possibleDuplicates.slice(0, 5).map((d) => (
                       <li key={d.id} className="flex items-center justify-between gap-2 flex-wrap">
                         <a
-                          href={`/admin/dashboard?leadId=${encodeURIComponent(d.id)}`}
+                          href={`/admin/leads?leadId=${encodeURIComponent(d.id)}`}
                           className="font-mono text-blue-600 dark:text-blue-400 underline"
                           data-testid={`link-duplicate-${d.id}`}
                         >
@@ -1052,7 +1200,7 @@ function AdminDashboardContent({ embedded = false }: { embedded?: boolean }) {
                 <AlertDialogHeader>
                   <AlertDialogTitle>Delete Lead</AlertDialogTitle>
                   <AlertDialogDescription>
-                    Are you sure you want to permanently delete this lead? This will remove all associated data including purchase records and notifications. This action cannot be undone.
+                    Are you sure you want to permanently delete this lead? This will remove all associated data including notifications. This action cannot be undone.
                   </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
@@ -1161,8 +1309,8 @@ function AdminDashboardContent({ embedded = false }: { embedded?: boolean }) {
         {showActions && (
           <div className="flex gap-2 pt-2 border-t">
             <Button
-              onClick={() => acceptLeadMutation.mutate(lead.id)}
-              disabled={acceptLeadMutation.isPending}
+              onClick={() => acceptLead(lead)}
+              disabled={statusMutation.isPending}
               size="sm"
               className="flex-1"
               data-testid={`button-accept-${lead.id}`}
@@ -1171,8 +1319,8 @@ function AdminDashboardContent({ embedded = false }: { embedded?: boolean }) {
               Accept
             </Button>
             <Button
-              onClick={() => updateLeadMutation.mutate({ leadId: lead.id, data: { status: "archived" } })}
-              disabled={updateLeadMutation.isPending}
+              onClick={() => archiveLead(lead)}
+              disabled={statusMutation.isPending}
               variant="outline"
               size="sm"
               className="flex-1"
@@ -1428,12 +1576,165 @@ function AdminDashboardContent({ embedded = false }: { embedded?: boolean }) {
     );
   };
 
+  const openLeadInCards = (leadId: string) => {
+    changeViewMode("cards");
+    router.push(`/admin/leads?leadId=${encodeURIComponent(leadId)}`);
+  };
+
+  const FilterChip = ({ label, onClear }: { label: string; onClear: () => void }) => (
+    <span className="inline-flex items-center gap-1 rounded-full border bg-muted/50 px-2 py-0.5 text-xs">
+      {label}
+      <button
+        type="button"
+        onClick={onClear}
+        className="rounded-full hover:bg-muted-foreground/20 p-0.5"
+        aria-label={`Remove filter ${label}`}
+      >
+        <X className="h-3 w-3" />
+      </button>
+    </span>
+  );
+
+  const statusBadge = (lead: Lead) => {
+    if (lead.projectId) return <Badge variant="secondary">Converted</Badge>;
+    switch (lead.status) {
+      case "accepted":
+        return <Badge className="bg-green-600 hover:bg-green-600 text-white">Accepted</Badge>;
+      case "archived":
+        return <Badge variant="outline">Archived</Badge>;
+      default:
+        return <Badge variant="secondary">Pending</Badge>;
+    }
+  };
+
+  const sortTableRows = (rows: Lead[]) => {
+    const dir = tableSort.dir === "asc" ? 1 : -1;
+    return [...rows].sort((a, b) => {
+      switch (tableSort.key) {
+        case "name":
+          return (a.name || "").localeCompare(b.name || "") * dir;
+        case "city":
+          return (a.city || "").localeCompare(b.city || "") * dir;
+        case "service":
+          return getServiceName(a.serviceType).localeCompare(getServiceName(b.serviceType)) * dir;
+        case "quote":
+          return ((Number(a.finalQuote) || 0) - (Number(b.finalQuote) || 0)) * dir;
+        case "status":
+          return (a.status || "").localeCompare(b.status || "") * dir;
+        case "age":
+        default:
+          return (new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()) * dir;
+      }
+    });
+  };
+
+  const toggleTableSort = (key: typeof tableSort.key) =>
+    setTableSort((prev) =>
+      prev.key === key ? { key, dir: prev.dir === "asc" ? "desc" : "asc" } : { key, dir: "asc" },
+    );
+
+  const SortHeader = ({
+    sortKey,
+    label,
+    className,
+  }: {
+    sortKey: typeof tableSort.key;
+    label: string;
+    className?: string;
+  }) => (
+    <TableHead className={className}>
+      <button
+        type="button"
+        onClick={() => toggleTableSort(sortKey)}
+        className="inline-flex items-center gap-1 hover:text-foreground"
+        aria-label={`Sort by ${label}`}
+      >
+        {label}
+        <ArrowUpDown className={`h-3 w-3 ${tableSort.key === sortKey ? "opacity-100" : "opacity-40"}`} />
+      </button>
+    </TableHead>
+  );
+
+  const LeadsTableView = ({ rows, showActions }: { rows: Lead[]; showActions?: boolean }) => {
+    const sorted = sortTableRows(rows);
+    return (
+      <div className="rounded-md border overflow-hidden">
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <SortHeader sortKey="name" label="Name" />
+              <SortHeader sortKey="city" label="City" className="hidden md:table-cell" />
+              <SortHeader sortKey="service" label="Service" className="hidden lg:table-cell" />
+              <SortHeader sortKey="quote" label="Estimate" />
+              <SortHeader sortKey="age" label="Age" className="hidden sm:table-cell" />
+              <SortHeader sortKey="status" label="Status" />
+              <TableHead className="text-right">Actions</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {sorted.map((lead) => (
+              <TableRow
+                key={lead.id}
+                className="cursor-pointer"
+                onClick={() => openLeadInCards(lead.id)}
+              >
+                <TableCell className="font-medium">
+                  <div className="truncate max-w-[180px]">{lead.name}</div>
+                  <div className="text-xs text-muted-foreground truncate max-w-[180px] md:hidden">
+                    {lead.city}
+                  </div>
+                </TableCell>
+                <TableCell className="hidden md:table-cell">{lead.city}</TableCell>
+                <TableCell className="hidden lg:table-cell">{getLeadDisplayTitle(lead)}</TableCell>
+                <TableCell className="tabular-nums whitespace-nowrap">
+                  {lead.finalQuote ? formatQuoteRangeWholeFromValue(lead.finalQuote, 0.15) : "—"}
+                </TableCell>
+                <TableCell className="hidden sm:table-cell text-muted-foreground text-xs whitespace-nowrap">
+                  {formatLeadAge(lead.createdAt)}
+                </TableCell>
+                <TableCell>{statusBadge(lead)}</TableCell>
+                <TableCell className="text-right" onClick={(e) => e.stopPropagation()}>
+                  {showActions ? (
+                    <div className="flex justify-end gap-1.5">
+                      <Button size="sm" onClick={() => acceptLead(lead)} disabled={statusMutation.isPending}>
+                        Accept
+                      </Button>
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        onClick={() => archiveLead(lead)}
+                        disabled={statusMutation.isPending}
+                      >
+                        Archive
+                      </Button>
+                    </div>
+                  ) : (
+                    <Button size="sm" variant="ghost" onClick={() => openLeadInCards(lead.id)}>
+                      Open
+                    </Button>
+                  )}
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </div>
+    );
+  };
+
   if (authLoading || isLoading) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <div className="flex flex-col items-center gap-4">
-          <Shield className="w-12 h-12 text-primary animate-pulse" />
-          <p className="text-muted-foreground">Loading dashboard...</p>
+      <div data-testid="page-admin-dashboard-loading" className={embedded ? "space-y-6" : "min-h-screen bg-background container px-3 md:px-4 py-4 md:py-8 space-y-6"}>
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-4">
+          {Array.from({ length: 3 }).map((_, i) => (
+            <Skeleton key={i} className="h-24 w-full" />
+          ))}
+        </div>
+        <Skeleton className="h-12 w-full" />
+        <div className="space-y-3">
+          {Array.from({ length: 4 }).map((_, i) => (
+            <Skeleton key={i} className="h-28 w-full" />
+          ))}
         </div>
       </div>
     );
@@ -1559,10 +1860,12 @@ function AdminDashboardContent({ embedded = false }: { embedded?: boolean }) {
             <div className="relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
               <Input
-                placeholder="Search by name, email, phone, address, or city..."
+                ref={searchInputRef}
+                placeholder="Search by name, email, phone, address, or city...  ( / )"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="pl-10"
+                aria-label="Search leads"
               />
             </div>
 
@@ -1731,32 +2034,54 @@ function AdminDashboardContent({ embedded = false }: { embedded?: boolean }) {
                 <p className="text-xs text-muted-foreground">Perform actions on all filtered leads</p>
               </div>
               <div className="flex flex-wrap items-center gap-2">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => {
-                    if (pendingLeads.length > 0 && confirm(`Accept ${pendingLeads.length} lead(s)?`)) {
-                      pendingLeads.forEach(lead => acceptLeadMutation.mutate(lead.id));
-                    }
-                  }}
-                  disabled={acceptLeadMutation.isPending}
-                >
-                  <CheckCircle2 className="h-4 w-4 mr-1" />
-                  Accept All Filtered ({pendingLeads.length})
-                </Button>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => {
-                    if (pendingLeads.length > 0 && confirm(`Archive ${pendingLeads.length} lead(s)?`)) {
-                      pendingLeads.forEach(lead => updateLeadMutation.mutate({ leadId: lead.id, data: { status: "archived" } }));
-                    }
-                  }}
-                  disabled={updateLeadMutation.isPending}
-                >
-                  <XCircle className="h-4 w-4 mr-1" />
-                  Archive All Filtered ({pendingLeads.length})
-                </Button>
+                <AlertDialog>
+                  <AlertDialogTrigger asChild>
+                    <Button variant="outline" size="sm" disabled={bulkMutation.isPending}>
+                      <CheckCircle2 className="h-4 w-4 mr-1" />
+                      Accept All Filtered ({pendingLeads.length})
+                    </Button>
+                  </AlertDialogTrigger>
+                  <AlertDialogContent>
+                    <AlertDialogHeader>
+                      <AlertDialogTitle>Accept {pendingLeads.length} lead(s)?</AlertDialogTitle>
+                      <AlertDialogDescription>
+                        This will mark all {pendingLeads.length} filtered pending leads as accepted. You can undo this right after.
+                      </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                      <AlertDialogCancel>Cancel</AlertDialogCancel>
+                      <AlertDialogAction
+                        onClick={() => bulkMutation.mutate({ action: "accept", leadIds: pendingLeads.map((l) => l.id) })}
+                      >
+                        Accept all
+                      </AlertDialogAction>
+                    </AlertDialogFooter>
+                  </AlertDialogContent>
+                </AlertDialog>
+                <AlertDialog>
+                  <AlertDialogTrigger asChild>
+                    <Button variant="outline" size="sm" disabled={bulkMutation.isPending}>
+                      <XCircle className="h-4 w-4 mr-1" />
+                      Archive All Filtered ({pendingLeads.length})
+                    </Button>
+                  </AlertDialogTrigger>
+                  <AlertDialogContent>
+                    <AlertDialogHeader>
+                      <AlertDialogTitle>Archive {pendingLeads.length} lead(s)?</AlertDialogTitle>
+                      <AlertDialogDescription>
+                        This will archive all {pendingLeads.length} filtered pending leads. You can undo this right after.
+                      </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                      <AlertDialogCancel>Cancel</AlertDialogCancel>
+                      <AlertDialogAction
+                        onClick={() => bulkMutation.mutate({ action: "archive", leadIds: pendingLeads.map((l) => l.id) })}
+                      >
+                        Archive all
+                      </AlertDialogAction>
+                    </AlertDialogFooter>
+                  </AlertDialogContent>
+                </AlertDialog>
                 <Button
                   variant="outline"
                   size="sm"
@@ -1794,22 +2119,75 @@ function AdminDashboardContent({ embedded = false }: { embedded?: boolean }) {
           </Card>
         )}
 
+        {hasActiveFilters && (
+          <div className="flex flex-wrap items-center gap-1.5">
+            {searchQuery && <FilterChip label={`Search: ${searchQuery}`} onClear={() => setSearchQuery("")} />}
+            {filterServiceType !== "all" && (
+              <FilterChip label={`Service: ${getServiceName(filterServiceType)}`} onClear={() => setFilterServiceType("all")} />
+            )}
+            {filterCity !== "all" && <FilterChip label={`City: ${filterCity}`} onClear={() => setFilterCity("all")} />}
+            {filterLeadAge !== "all" && <FilterChip label={`Age: ${filterLeadAge}`} onClear={() => setFilterLeadAge("all")} />}
+            {filterPriority !== "all" && <FilterChip label={`Priority: ${filterPriority}`} onClear={() => setFilterPriority("all")} />}
+            {(filterQuoteMin || filterQuoteMax) && (
+              <FilterChip
+                label={`Estimate: ${filterQuoteMin || "0"}–${filterQuoteMax || "∞"}`}
+                onClear={() => {
+                  setFilterQuoteMin("");
+                  setFilterQuoteMax("");
+                }}
+              />
+            )}
+            {filterTags.map((t) => (
+              <FilterChip key={t} label={`Tag: ${t}`} onClear={() => setFilterTags((prev) => prev.filter((x) => x !== t))} />
+            ))}
+            <Button variant="ghost" size="sm" onClick={clearFilters} className="h-6 px-2 text-xs">
+              Clear all
+            </Button>
+          </div>
+        )}
+
         <Tabs value={activeTab} onValueChange={(value) => setActiveTab(value as typeof activeTab)} className="space-y-4">
-          <div className="overflow-x-auto -mx-1 px-1">
-            <TabsList className="w-max md:w-full">
-              <TabsTrigger value="pending" data-testid="tab-pending" className="text-xs md:text-sm">
-                Pending ({pendingLeads.length})
-              </TabsTrigger>
-              <TabsTrigger value="accepted" data-testid="tab-accepted" className="text-xs md:text-sm">
-                Accepted ({acceptedLeads.length})
-              </TabsTrigger>
-              <TabsTrigger value="converted" data-testid="tab-converted" className="text-xs md:text-sm">
-                Converted ({convertedLeads.length})
-              </TabsTrigger>
-              <TabsTrigger value="archived" data-testid="tab-archived" className="text-xs md:text-sm">
-                Archived ({archivedLeads.length})
-              </TabsTrigger>
-            </TabsList>
+          <div className="sticky top-14 z-20 -mx-1 px-1 py-2 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80 flex items-center justify-between gap-2">
+            <div className="overflow-x-auto">
+              <TabsList className="w-max">
+                <TabsTrigger value="pending" data-testid="tab-pending" className="text-xs md:text-sm">
+                  Pending ({pendingLeads.length})
+                </TabsTrigger>
+                <TabsTrigger value="accepted" data-testid="tab-accepted" className="text-xs md:text-sm">
+                  Accepted ({acceptedLeads.length})
+                </TabsTrigger>
+                <TabsTrigger value="converted" data-testid="tab-converted" className="text-xs md:text-sm">
+                  Converted ({convertedLeads.length})
+                </TabsTrigger>
+                <TabsTrigger value="archived" data-testid="tab-archived" className="text-xs md:text-sm">
+                  Archived ({archivedLeads.length})
+                </TabsTrigger>
+              </TabsList>
+            </div>
+            <div className="flex items-center rounded-md border p-0.5 shrink-0">
+              <Button
+                type="button"
+                variant={viewMode === "cards" ? "secondary" : "ghost"}
+                size="sm"
+                className="h-7 px-2"
+                onClick={() => changeViewMode("cards")}
+                aria-label="Card view"
+                aria-pressed={viewMode === "cards"}
+              >
+                <LayoutGrid className="h-4 w-4" />
+              </Button>
+              <Button
+                type="button"
+                variant={viewMode === "table" ? "secondary" : "ghost"}
+                size="sm"
+                className="h-7 px-2"
+                onClick={() => changeViewMode("table")}
+                aria-label="Table view"
+                aria-pressed={viewMode === "table"}
+              >
+                <List className="h-4 w-4" />
+              </Button>
+            </div>
           </div>
 
           <TabsContent value="pending" className="space-y-4">
@@ -1819,6 +2197,8 @@ function AdminDashboardContent({ embedded = false }: { embedded?: boolean }) {
                   {hasActiveFilters ? "No pending leads match your filters" : "No pending leads to review"}
                 </CardContent>
               </Card>
+            ) : viewMode === "table" ? (
+              <LeadsTableView rows={pendingLeads} showActions />
             ) : (
               pendingLeads.map(lead => <LeadCard key={lead.id} lead={lead} showActions />)
             )}
@@ -1831,6 +2211,8 @@ function AdminDashboardContent({ embedded = false }: { embedded?: boolean }) {
                   {hasActiveFilters ? "No accepted leads match your filters" : "You haven't accepted any leads yet"}
                 </CardContent>
               </Card>
+            ) : viewMode === "table" ? (
+              <LeadsTableView rows={acceptedLeads} />
             ) : (
               acceptedLeads.map(lead => <LeadCard key={lead.id} lead={lead} />)
             )}
@@ -1843,6 +2225,8 @@ function AdminDashboardContent({ embedded = false }: { embedded?: boolean }) {
                   {hasActiveFilters ? "No converted leads match your filters" : "No leads converted to projects yet"}
                 </CardContent>
               </Card>
+            ) : viewMode === "table" ? (
+              <LeadsTableView rows={convertedLeads} />
             ) : (
               convertedLeads.map(lead => <LeadCard key={lead.id} lead={lead} />)
             )}
@@ -1855,6 +2239,8 @@ function AdminDashboardContent({ embedded = false }: { embedded?: boolean }) {
                   {hasActiveFilters ? "No archived leads match your filters" : "No archived leads yet."}
                 </CardContent>
               </Card>
+            ) : viewMode === "table" ? (
+              <LeadsTableView rows={archivedLeads} />
             ) : (
               archivedLeads.map(lead => <LeadCard key={lead.id} lead={lead} />)
             )}
@@ -1868,10 +2254,17 @@ function AdminDashboardContent({ embedded = false }: { embedded?: boolean }) {
 export default function AdminLeadsPanel({ embedded = false }: { embedded?: boolean }) {
   return (
     <Suspense fallback={
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <div className="flex flex-col items-center gap-4">
-          <Shield className="w-12 h-12 text-primary animate-pulse" />
-          <p className="text-muted-foreground">Loading dashboard...</p>
+      <div className={embedded ? "space-y-6" : "min-h-screen bg-background container px-3 md:px-4 py-4 md:py-8 space-y-6"}>
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-4">
+          {Array.from({ length: 3 }).map((_, i) => (
+            <Skeleton key={i} className="h-24 w-full" />
+          ))}
+        </div>
+        <Skeleton className="h-12 w-full" />
+        <div className="space-y-3">
+          {Array.from({ length: 4 }).map((_, i) => (
+            <Skeleton key={i} className="h-28 w-full" />
+          ))}
         </div>
       </div>
     }>

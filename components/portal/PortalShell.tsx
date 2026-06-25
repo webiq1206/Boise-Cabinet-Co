@@ -3,6 +3,7 @@
 import { ReactNode } from "react";
 import Link from "next/link";
 import { NotificationsBell } from "@/components/NotificationsBell";
+import { AdminCommandPalette } from "@/components/admin/AdminCommandPalette";
 import { Button } from "@/components/ui/button";
 import { LogOut } from "lucide-react";
 import { AdminNav } from "./AdminNav";
@@ -13,6 +14,7 @@ import { PORTAL_VARIANT_LABEL } from "./portalNavConfig";
 interface PortalShellProps {
   variant: "admin" | "customer";
   title?: string;
+  breadcrumb?: ReactNode;
   children: ReactNode;
   headerActions?: ReactNode;
 }
@@ -20,6 +22,7 @@ interface PortalShellProps {
 export function PortalShell({
   variant,
   title,
+  breadcrumb,
   children,
   headerActions,
 }: PortalShellProps) {
@@ -35,9 +38,13 @@ export function PortalShell({
         <header className="sticky top-0 z-40 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
           <div className="flex h-14 items-center justify-between gap-2 px-4 md:px-6">
             <div className="flex flex-col min-w-0 flex-1 md:flex-none md:max-w-none">
-              <span className="md:hidden text-[10px] font-medium uppercase tracking-wider text-muted-foreground truncate">
-                {portalLabel}
-              </span>
+              {breadcrumb ? (
+                <div className="hidden md:block">{breadcrumb}</div>
+              ) : (
+                <span className="md:hidden text-[10px] font-medium uppercase tracking-wider text-muted-foreground truncate">
+                  {portalLabel}
+                </span>
+              )}
               {title ? (
                 <h1 className="text-base md:text-lg font-semibold truncate leading-tight">{title}</h1>
               ) : (
@@ -48,6 +55,7 @@ export function PortalShell({
             </div>
             <div className="flex items-center gap-1 sm:gap-2 shrink-0">
               {headerActions}
+              {variant === "admin" && <AdminCommandPalette />}
               <NotificationsBell />
               <Button variant="ghost" size="icon" className="hidden md:inline-flex" asChild>
                 <a href="/api/logout" aria-label="Logout">

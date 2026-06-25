@@ -4,7 +4,7 @@ import {
   FolderKanban,
   User,
   LayoutDashboard,
-  ShoppingBag,
+  Inbox,
   Send,
 } from "lucide-react";
 
@@ -30,7 +30,7 @@ export const CUSTOMER_MOBILE_TABS: PortalNavLink[] = [
 export const ADMIN_MOBILE_TABS: PortalNavLink[] = [
   { href: "/admin/dashboard", label: "Home", icon: LayoutDashboard },
   { href: "/admin/projects", label: "Projects", icon: FolderKanban },
-  { href: "/admin/leads", label: "Leads", icon: ShoppingBag },
+  { href: "/admin/leads", label: "Leads", icon: Inbox },
 ];
 
 export const ADMIN_MOBILE_MORE: PortalNavLink[] = [

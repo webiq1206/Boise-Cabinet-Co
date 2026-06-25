@@ -1,111 +1,181 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
 import { PortalShell } from "@/components/portal/PortalShell";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { Skeleton } from "@/components/ui/skeleton";
 import { useAuth } from "@/hooks/useAuth";
 import { useToast } from "@/hooks/use-toast";
 import Link from "next/link";
 import { AdminAuthGate } from "@/components/admin/AdminAuthGate";
+import { AdminPageIntro } from "@/components/admin/AdminPageIntro";
 import {
-  AlertTriangle,
-  FileWarning,
-  ShieldCheck,
-  FileSignature,
   FolderKanban,
   Users,
+  Inbox,
+  Send,
+  Clock,
+  CheckCircle2,
+  ArrowRight,
+  Bell,
+  Sparkles,
 } from "lucide-react";
+
+interface DashboardLead {
+  id: string;
+  name: string;
+  city: string;
+  serviceType: string;
+  status: string;
+  projectId?: string | null;
+  createdAt: string;
+}
+
+interface DashboardProject {
+  id: string;
+  status: string;
+}
+
+interface DashboardNotification {
+  id: string;
+  title: string;
+  message: string;
+  createdAt: string;
+  read: boolean;
+  leadId?: string | null;
+  projectId?: string | null;
+}
+
+function formatLeadAge(date: string): string {
+  const diffMs = Date.now() - new Date(date).getTime();
+  const diffHours = Math.floor(diffMs / 3600000);
+  const diffDays = Math.floor(diffHours / 24);
+  if (diffHours < 1) return "Just now";
+  if (diffHours < 24) return `${diffHours}h ago`;
+  if (diffDays === 1) return "1 day ago";
+  return `${diffDays} days ago`;
+}
+
+const SERVICE_LABELS: Record<string, string> = {
+  kitchen: "Kitchen Cabinets",
+  bathroom: "Bathroom Vanities",
+  laundry: "Laundry / Mudroom",
+  closet: "Closet & Storage",
+  other: "Other / Whole-home",
+};
+
+function serviceLabel(slug: string): string {
+  return (
+    SERVICE_LABELS[slug] ??
+    slug.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())
+  );
+}
+
+function StatCard({
+  href,
+  icon: Icon,
+  label,
+  value,
+  loading,
+}: {
+  href: string;
+  icon: React.ComponentType<{ className?: string }>;
+  label: string;
+  value: number;
+  loading: boolean;
+}) {
+  return (
+    <Link href={href} className="group">
+      <Card className="transition-colors group-hover:border-primary/40 group-hover:bg-muted/30">
+        <CardHeader className="p-3 md:p-4 pb-1 md:pb-2">
+          <CardTitle className="text-sm font-medium text-muted-foreground flex items-center gap-2">
+            <Icon className="h-4 w-4" />
+            {label}
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="p-3 md:p-4 pt-0 flex items-end justify-between">
+          <div className="brc-display-num tabular-nums text-2xl md:text-3xl font-light">
+            {loading ? "-" : value}
+          </div>
+          <ArrowRight className="h-4 w-4 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100" />
+        </CardContent>
+      </Card>
+    </Link>
+  );
+}
 
 export default function AdminDashboardPage() {
   const { isAdmin, isLoading } = useAuth();
-  const router = useRouter();
   const { toast } = useToast();
   const queryClient = useQueryClient();
-  const [reminderDays, setReminderDays] = useState("30,14,7");
 
-  const { data, isLoading: loadingDashboard } = useQuery({
-    queryKey: ["/api/admin/compliance/dashboard"],
+  const { data: leads = [], isLoading: loadingLeads } = useQuery<DashboardLead[]>({
+    queryKey: ["/api/leads"],
     queryFn: async () => {
-      const res = await fetch("/api/admin/compliance/dashboard");
-      if (!res.ok) throw new Error("Failed to load dashboard");
+      const res = await fetch("/api/leads");
+      if (!res.ok) throw new Error("Failed to load leads");
       return res.json();
     },
     enabled: isAdmin,
   });
 
-  const { data: settings } = useQuery({
-    queryKey: ["/api/admin/settings"],
+  const { data: projects = [], isLoading: loadingProjects } = useQuery<DashboardProject[]>({
+    queryKey: ["/api/admin/projects"],
     queryFn: async () => {
-      const res = await fetch("/api/admin/settings");
-      if (!res.ok) return {};
+      const res = await fetch("/api/admin/projects");
+      if (!res.ok) throw new Error("Failed to load projects");
       return res.json();
     },
     enabled: isAdmin,
   });
 
-  useEffect(() => {
-    if (settings?.compliance_reminder_days) {
-      try {
-        const parsed = JSON.parse(settings.compliance_reminder_days);
-        if (Array.isArray(parsed)) setReminderDays(parsed.join(","));
-      } catch {
-        setReminderDays(settings.compliance_reminder_days);
-      }
-    }
-  }, [settings]);
+  const { data: notifications = [], isLoading: loadingNotifications } = useQuery<DashboardNotification[]>({
+    queryKey: ["/api/notifications"],
+    queryFn: async () => {
+      const res = await fetch("/api/notifications");
+      if (!res.ok) return [];
+      return res.json();
+    },
+    enabled: isAdmin,
+  });
 
-  const saveSettingsMutation = useMutation({
-    mutationFn: async () => {
-      const days = reminderDays
-        .split(",")
-        .map((d) => parseInt(d.trim(), 10))
-        .filter((d) => !isNaN(d));
-      const res = await fetch("/api/admin/settings", {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          key: "compliance_reminder_days",
-          value: JSON.stringify(days),
-        }),
-      });
-      if (!res.ok) throw new Error("Failed to save settings");
+  const acceptLeadMutation = useMutation({
+    mutationFn: async (leadId: string) => {
+      const res = await fetch(`/api/leads/${leadId}/accept`, { method: "POST" });
+      if (!res.ok) throw new Error("Failed to accept lead");
       return res.json();
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/admin/settings"] });
-      toast({ title: "Reminder settings saved" });
+      queryClient.invalidateQueries({ queryKey: ["/api/leads"] });
+      toast({ title: "Lead accepted" });
     },
     onError: (e: Error) => {
       toast({ title: "Error", description: e.message, variant: "destructive" });
     },
   });
 
-  if (!isAdmin && !isLoading) {
+  if (!isAdmin || isLoading) {
     return <AdminAuthGate title="Operations Dashboard"><span /></AdminAuthGate>;
   }
 
-  if (isLoading) {
-    return <AdminAuthGate title="Operations Dashboard"><span /></AdminAuthGate>;
-  }
-
-  const compliance = data?.compliance;
-  const contracts = data?.contracts;
-  const projects = data?.projects;
+  const pendingLeads = leads
+    .filter((l) => !l.projectId && l.status !== "accepted" && l.status !== "archived")
+    .sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
+  const oldestPending = pendingLeads.slice(0, 5);
+  const activeProjects = projects.filter((p) => p.status === "active").length;
+  const recentNotifications = notifications.slice(0, 5);
 
   return (
     <AdminAuthGate title="Operations Dashboard">
     <PortalShell variant="admin" title="Operations Dashboard">
       <div className="space-y-6">
+        <AdminPageIntro>Monitor leads and projects at a glance.</AdminPageIntro>
+
         <div className="grid gap-3 sm:grid-cols-3">
           <Button variant="outline" asChild className="h-auto py-4 justify-start">
             <Link href="/admin/leads">
-              <Users className="h-4 w-4 mr-2" />
+              <Inbox className="h-4 w-4 mr-2" />
               Leads
             </Link>
           </Button>
@@ -117,193 +187,121 @@ export default function AdminDashboardPage() {
           </Button>
           <Button variant="outline" asChild className="h-auto py-4 justify-start">
             <Link href="/admin/outreach">
-              <FileSignature className="h-4 w-4 mr-2" />
+              <Send className="h-4 w-4 mr-2" />
               Outreach
             </Link>
           </Button>
         </div>
-        <div className="flex justify-between items-center">
-          <p className="text-muted-foreground">
-            Monitor leads, projects, and installation partner compliance.
-          </p>
+
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 md:gap-4">
+          <StatCard href="/admin/leads" icon={Users} label="Total Leads" value={leads.length} loading={loadingLeads} />
+          <StatCard href="/admin/leads?tab=pending" icon={Clock} label="Pending Review" value={pendingLeads.length} loading={loadingLeads} />
+          <StatCard href="/admin/projects" icon={FolderKanban} label="Active Projects" value={activeProjects} loading={loadingProjects} />
         </div>
 
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 md:gap-4">
           <Card>
-            <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium flex items-center gap-2">
-                <FileWarning className="h-4 w-4 text-destructive" />
-                Missing COI
+            <CardHeader className="p-3 md:p-4">
+              <CardTitle className="text-base font-semibold flex items-center gap-2">
+                <Sparkles className="h-4 w-4" />
+                Needs attention
               </CardTitle>
             </CardHeader>
-            <CardContent>
-              <p className="text-3xl font-bold">{compliance?.missingCoi ?? "N/A"}</p>
+            <CardContent className="p-3 md:p-4 pt-0 space-y-2">
+              {loadingLeads ? (
+                <div className="space-y-2">
+                  <Skeleton className="h-12 w-full" />
+                  <Skeleton className="h-12 w-full" />
+                  <Skeleton className="h-12 w-full" />
+                </div>
+              ) : oldestPending.length === 0 ? (
+                <div className="flex items-center gap-2 py-4 text-sm text-muted-foreground">
+                  <CheckCircle2 className="h-4 w-4 text-green-600" />
+                  All caught up. No leads waiting for review.
+                </div>
+              ) : (
+                oldestPending.map((lead) => (
+                  <div
+                    key={lead.id}
+                    className="flex items-center justify-between gap-3 rounded-md border p-2.5"
+                  >
+                    <div className="min-w-0">
+                      <p className="font-medium text-sm truncate">{lead.name}</p>
+                      <p className="text-xs text-muted-foreground truncate">
+                        {serviceLabel(lead.serviceType)} in {lead.city} · {formatLeadAge(lead.createdAt)}
+                      </p>
+                    </div>
+                    <div className="flex items-center gap-1.5 flex-shrink-0">
+                      <Button
+                        size="sm"
+                        onClick={() => acceptLeadMutation.mutate(lead.id)}
+                        disabled={acceptLeadMutation.isPending}
+                      >
+                        <CheckCircle2 className="h-3.5 w-3.5 mr-1" />
+                        Accept
+                      </Button>
+                      <Button size="sm" variant="outline" asChild>
+                        <Link href={`/admin/leads?leadId=${encodeURIComponent(lead.id)}`}>Open</Link>
+                      </Button>
+                    </div>
+                  </div>
+                ))
+              )}
+              {pendingLeads.length > oldestPending.length && (
+                <Button variant="ghost" size="sm" asChild className="w-full justify-center">
+                  <Link href="/admin/leads?tab=pending">
+                    View all {pendingLeads.length} pending
+                    <ArrowRight className="h-3.5 w-3.5 ml-1" />
+                  </Link>
+                </Button>
+              )}
             </CardContent>
           </Card>
+
           <Card>
-            <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium flex items-center gap-2">
-                <FileWarning className="h-4 w-4 text-destructive" />
-                Missing W-9
+            <CardHeader className="p-3 md:p-4">
+              <CardTitle className="text-base font-semibold flex items-center gap-2">
+                <Bell className="h-4 w-4" />
+                Recent activity
               </CardTitle>
             </CardHeader>
-            <CardContent>
-              <p className="text-3xl font-bold">{compliance?.missingW9 ?? "N/A"}</p>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium flex items-center gap-2">
-                <AlertTriangle className="h-4 w-4 text-amber-500" />
-                Expiring COI
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-3xl font-bold">{compliance?.expiring30 ?? "N/A"}</p>
-              <p className="text-xs text-muted-foreground mt-1">
-                {compliance?.expiring7 ?? 0} within 7 days
-              </p>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium flex items-center gap-2">
-                <ShieldCheck className="h-4 w-4 text-green-600" />
-                Compliant
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-3xl font-bold">{compliance?.compliant ?? "N/A"}</p>
+            <CardContent className="p-3 md:p-4 pt-0 space-y-1">
+              {loadingNotifications ? (
+                <div className="space-y-2">
+                  <Skeleton className="h-10 w-full" />
+                  <Skeleton className="h-10 w-full" />
+                  <Skeleton className="h-10 w-full" />
+                </div>
+              ) : recentNotifications.length === 0 ? (
+                <p className="py-4 text-sm text-muted-foreground">No recent activity.</p>
+              ) : (
+                recentNotifications.map((n) => {
+                  const href = n.projectId
+                    ? `/admin/projects/${n.projectId}`
+                    : n.leadId
+                      ? `/admin/leads?leadId=${encodeURIComponent(n.leadId)}`
+                      : "/admin/dashboard";
+                  return (
+                    <Link
+                      key={n.id}
+                      href={href}
+                      className="block rounded-md p-2 -mx-1 hover:bg-muted/50 transition-colors"
+                    >
+                      <div className="flex items-center gap-2">
+                        {!n.read && <span className="h-2 w-2 rounded-full bg-primary flex-shrink-0" />}
+                        <p className="font-medium text-sm truncate">{n.title}</p>
+                        <span className="ml-auto text-xs text-muted-foreground flex-shrink-0">
+                          {formatLeadAge(n.createdAt)}
+                        </span>
+                      </div>
+                      <p className="text-xs text-muted-foreground line-clamp-1 mt-0.5">{n.message}</p>
+                    </Link>
+                  );
+                })
+              )}
             </CardContent>
           </Card>
         </div>
-
-        <div className="grid gap-4 sm:grid-cols-3">
-          <Card>
-            <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium flex items-center gap-2">
-                <FileSignature className="h-4 w-4" />
-                Unsigned Contracts
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-2xl font-bold">{contracts?.unsigned ?? "N/A"}</p>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium flex items-center gap-2">
-                <FolderKanban className="h-4 w-4" />
-                Active Projects
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-2xl font-bold">{projects?.active ?? "N/A"}</p>
-              <p className="text-xs text-muted-foreground">
-                {projects?.totalAssignments ?? 0} assignments
-              </p>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium flex items-center gap-2">
-                <Users className="h-4 w-4" />
-                Pending Review
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-2xl font-bold">{compliance?.pendingReview ?? "N/A"}</p>
-            </CardContent>
-          </Card>
-        </div>
-
-        <Card>
-          <CardHeader>
-            <CardTitle>Contractor Compliance</CardTitle>
-          </CardHeader>
-          <CardContent>
-            {loadingDashboard ? (
-              <p className="text-muted-foreground text-sm">Loading...</p>
-            ) : (
-              <div className="overflow-x-auto">
-                <table className="w-full text-sm">
-                  <thead>
-                    <tr className="border-b text-left">
-                      <th className="pb-2 pr-4">Contractor</th>
-                      <th className="pb-2 pr-4">Company</th>
-                      <th className="pb-2 pr-4">Status</th>
-                      <th className="pb-2 pr-4">Issues</th>
-                      <th className="pb-2">COI Expires</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {(compliance?.contractors ?? []).map(
-                      ({ user, summary }: { user: { id: string; firstName?: string | null; lastName?: string | null; email?: string | null; company?: string | null }; summary: { status: string; issues: string[]; coiExpiresAt?: string | null } }) => (
-                        <tr key={user.id} className="border-b last:border-0">
-                          <td className="py-2 pr-4">
-                            {[user.firstName, user.lastName].filter(Boolean).join(" ") ||
-                              user.email}
-                          </td>
-                          <td className="py-2 pr-4">{user.company ?? "N/A"}</td>
-                          <td className="py-2 pr-4">
-                            <Badge
-                              variant={
-                                summary.status === "compliant"
-                                  ? "default"
-                                  : summary.status === "expiring_soon"
-                                    ? "secondary"
-                                    : "destructive"
-                              }
-                            >
-                              {summary.status.replace("_", " ")}
-                            </Badge>
-                          </td>
-                          <td className="py-2 pr-4 text-muted-foreground">
-                            {summary.issues.length > 0
-                              ? summary.issues.join(", ")
-                              : "None"}
-                          </td>
-                          <td className="py-2">
-                            {summary.coiExpiresAt
-                              ? new Date(summary.coiExpiresAt).toLocaleDateString()
-                              : "N/A"}
-                          </td>
-                        </tr>
-                      )
-                    )}
-                  </tbody>
-                </table>
-              </div>
-            )}
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-base">Compliance Reminder Settings</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-3 max-w-md">
-            <div className="space-y-2">
-              <Label htmlFor="reminder-days">Days before COI expiry to notify (comma-separated)</Label>
-              <Input
-                id="reminder-days"
-                value={reminderDays}
-                onChange={(e) => setReminderDays(e.target.value)}
-                placeholder="30,14,7"
-              />
-              <p className="text-xs text-muted-foreground">
-                Missing, expired, and rejected documents trigger weekly reminders until resolved.
-              </p>
-            </div>
-            <Button
-              size="sm"
-              onClick={() => saveSettingsMutation.mutate()}
-              disabled={saveSettingsMutation.isPending}
-            >
-              Save Settings
-            </Button>
-          </CardContent>
-        </Card>
       </div>
     </PortalShell>
     </AdminAuthGate>

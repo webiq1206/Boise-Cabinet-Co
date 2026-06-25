@@ -153,12 +153,14 @@ export function NotificationsBell() {
             </div>
           ) : (
             notifications.slice(0, 20).map((notification) => (
-              <div
+              <button
                 key={notification.id}
-                className={`p-3 border-b last:border-b-0 cursor-pointer hover:bg-muted/50 transition-colors ${
+                type="button"
+                className={`w-full text-left p-3 border-b last:border-b-0 cursor-pointer hover:bg-muted/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-inset transition-colors ${
                   !notification.read ? "bg-primary/5" : ""
                 }`}
                 onClick={() => handleNotificationClick(notification)}
+                aria-label={`${notification.title}${notification.read ? "" : " (unread)"}`}
               >
                 <div className="flex items-start gap-2">
                   <div className="flex-1 min-w-0">
@@ -184,7 +186,7 @@ export function NotificationsBell() {
                     <ExternalLink className="h-4 w-4 text-muted-foreground flex-shrink-0" />
                   )}
                 </div>
-              </div>
+              </button>
             ))
           )}
         </div>

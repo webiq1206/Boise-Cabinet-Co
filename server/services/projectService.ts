@@ -376,6 +376,11 @@ export async function getEntityDocumentById(id: string): Promise<EntityDocument 
   return doc ?? null;
 }
 
+export async function deleteEntityDocument(id: string): Promise<void> {
+  if (!db) throw new Error("Database not available");
+  await db.delete(entityDocuments).where(eq(entityDocuments.id, id));
+}
+
 export async function getComplianceDocumentById(
   id: string
 ): Promise<import("@shared/schema").ComplianceDocument | null> {

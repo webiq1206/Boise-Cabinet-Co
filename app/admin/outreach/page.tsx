@@ -21,6 +21,9 @@ import {
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Skeleton } from "@/components/ui/skeleton";
+import { AdminPageIntro } from "@/components/admin/AdminPageIntro";
 import { useToast } from "@/hooks/use-toast";
 import { AlertTriangle, Check, Loader2, Mail, Reply, Search, Send, Trash2, X } from "lucide-react";
 
@@ -135,6 +138,8 @@ async function patchJson(url: string, body: unknown) {
 
 function ProspectCard({
   p,
+  selected,
+  onToggleSelect,
   noteEdits,
   setNoteEdits,
   emailEdits,
@@ -147,6 +152,8 @@ function ProspectCard({
   onTrack,
 }: {
   p: Prospect;
+  selected: boolean;
+  onToggleSelect: (id: string) => void;
   noteEdits: Record<string, string>;
   setNoteEdits: (v: Record<string, string>) => void;
   emailEdits: Record<string, string>;
@@ -158,26 +165,40 @@ function ProspectCard({
   onPreview: (id: string) => void;
   onTrack: (id: string, status: "replied" | "bounced") => void;
 }) {
+  const emailValue = emailEdits[p.id] ?? p.email ?? "";
+  const emailDirty = emailValue !== (p.email ?? "");
+  const noteValue = noteEdits[p.id] ?? p.personalizationNote ?? "";
+  const noteDirty = noteEdits[p.id] !== undefined && noteEdits[p.id] !== (p.personalizationNote ?? "");
+
   return (
-    <Card data-testid={`card-prospect-${p.id}`}>
+    <Card data-testid={`card-prospect-${p.id}`} className={selected ? "ring-1 ring-primary" : undefined}>
       <CardContent className="pt-5 space-y-3">
         <div className="flex flex-wrap items-start justify-between gap-2">
-          <div>
-            <p className="font-medium text-sm" data-testid={`text-name-${p.id}`}>
-              {p.businessName}
-            </p>
-            <p className="text-xs text-muted-foreground" data-testid={`text-address-${p.id}`}>
-              {p.formattedAddress ?? p.city}
-              {p.phone ? ` · ${p.phone}` : ""}
-              {p.website ? (
-                <>
-                  {" · "}
-                  <a href={p.website} target="_blank" rel="noopener noreferrer" className="underline">
-                    website
-                  </a>
-                </>
-              ) : null}
-            </p>
+          <div className="flex items-start gap-3">
+            <Checkbox
+              checked={selected}
+              onCheckedChange={() => onToggleSelect(p.id)}
+              aria-label={`Select ${p.businessName}`}
+              className="mt-0.5"
+              data-testid={`checkbox-prospect-${p.id}`}
+            />
+            <div>
+              <p className="font-medium text-sm" data-testid={`text-name-${p.id}`}>
+                {p.businessName}
+              </p>
+              <p className="text-xs text-muted-foreground" data-testid={`text-address-${p.id}`}>
+                {p.formattedAddress ?? p.city}
+                {p.phone ? ` · ${p.phone}` : ""}
+                {p.website ? (
+                  <>
+                    {" · "}
+                    <a href={p.website} target="_blank" rel="noopener noreferrer" className="underline">
+                      website
+                    </a>
+                  </>
+                ) : null}
+              </p>
+            </div>
           </div>
           <Badge variant="secondary">{STATUS_LABELS[p.status] ?? p.status}</Badge>
         </div>
@@ -188,19 +209,18 @@ function ProspectCard({
             <Input
               className="max-w-sm"
               placeholder="No public email found"
-              value={emailEdits[p.id] ?? p.email ?? ""}
+              value={emailValue}
               onChange={(e) => setEmailEdits({ ...emailEdits, [p.id]: e.target.value })}
               data-testid={`input-email-${p.id}`}
             />
-            {(emailEdits[p.id] ?? "") !== "" && emailEdits[p.id] !== p.email && (
-              <Button
-                size="sm"
-                variant="outline"
-                onClick={() => onMutate(p.id, { action: "edit", email: emailEdits[p.id] })}
-              >
-                Save email
-              </Button>
-            )}
+            <Button
+              size="sm"
+              variant="outline"
+              disabled={!emailDirty}
+              onClick={() => onMutate(p.id, { action: "edit", email: emailValue })}
+            >
+              Save email
+            </Button>
           </div>
           {p.emailSourceUrl && (
             <p className="text-xs text-muted-foreground">Source: {p.emailSourceUrl}</p>
@@ -212,10 +232,20 @@ function ProspectCard({
           <Textarea
             rows={2}
             placeholder="e.g. I saw you do a lot of kitchen remodels around Eagle."
-            value={noteEdits[p.id] ?? p.personalizationNote ?? ""}
+            value={noteValue}
             onChange={(e) => setNoteEdits({ ...noteEdits, [p.id]: e.target.value })}
             data-testid={`input-note-${p.id}`}
           />
+          <div className="flex justify-end">
+            <Button
+              size="sm"
+              variant="outline"
+              disabled={!noteDirty}
+              onClick={() => onMutate(p.id, { action: "edit", personalizationNote: noteValue })}
+            >
+              Save note
+            </Button>
+          </div>
         </div>
 
         <div className="space-y-1">
@@ -258,16 +288,6 @@ function ProspectCard({
           >
             <Mail className="h-4 w-4" /> Preview
           </Button>
-
-          {(noteEdits[p.id] !== undefined && noteEdits[p.id] !== (p.personalizationNote ?? "")) && (
-            <Button
-              size="sm"
-              variant="outline"
-              onClick={() => onMutate(p.id, { action: "edit", personalizationNote: noteEdits[p.id] })}
-            >
-              Save note
-            </Button>
-          )}
 
           {p.status !== "approved" && (p.email || emailEdits[p.id]) && (
             <Button
@@ -356,6 +376,7 @@ function OutreachPanel() {
   const [emailEdits, setEmailEdits] = useState<Record<string, string>>({});
   const [cityQuery, setCityQuery] = useState("");
   const [previewId, setPreviewId] = useState<string | null>(null);
+  const [selected, setSelected] = useState<Set<string>>(new Set());
 
   const { data, isLoading } = useQuery<OutreachData>({
     queryKey: ["/api/admin/outreach"],
@@ -467,18 +488,73 @@ function OutreachPanel() {
     return rows;
   }, [data?.prospects, activeTab, cityQuery]);
 
+  const toggleSelect = (id: string) =>
+    setSelected((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+
   if (isLoading || !data || !config) {
     return (
-      <div className="flex items-center gap-2 text-sm text-muted-foreground">
-        <Loader2 className="h-4 w-4 animate-spin" /> Loading outreach data...
+      <div className="space-y-6 max-w-5xl">
+        <Skeleton className="h-40 w-full" />
+        <Skeleton className="h-24 w-full" />
+        <div className="flex gap-2">
+          {Array.from({ length: 6 }).map((_, i) => (
+            <Skeleton key={i} className="h-8 w-20" />
+          ))}
+        </div>
+        <div className="space-y-3">
+          {Array.from({ length: 3 }).map((_, i) => (
+            <Skeleton key={i} className="h-40 w-full" />
+          ))}
+        </div>
       </div>
     );
   }
 
   const counts = data.counts;
+  const selectedInView = filtered.filter((p) => selected.has(p.id));
+  const allFilteredSelected = filtered.length > 0 && filtered.every((p) => selected.has(p.id));
+
+  const toggleSelectAll = () => {
+    setSelected((prev) => {
+      const next = new Set(prev);
+      if (allFilteredSelected) {
+        filtered.forEach((p) => next.delete(p.id));
+      } else {
+        filtered.forEach((p) => next.add(p.id));
+      }
+      return next;
+    });
+  };
+
+  const bulkApprove = () => {
+    const ids = selectedInView.filter((p) => (p.email || emailEdits[p.id]) && p.status !== "approved").map((p) => p.id);
+    if (ids.length === 0) {
+      toast({ title: "Nothing to approve", description: "Selected prospects need an email and must not already be queued." });
+      return;
+    }
+    ids.forEach((id) => prospectMutation.mutate({ id, body: { action: "approve" } }));
+    toast({ title: `Approving ${ids.length} prospect(s)` });
+    setSelected(new Set());
+  };
+
+  const bulkSkip = () => {
+    const ids = selectedInView.filter((p) => p.status !== "skipped").map((p) => p.id);
+    if (ids.length === 0) return;
+    ids.forEach((id) => prospectMutation.mutate({ id, body: { action: "skip" } }));
+    toast({ title: `Skipping ${ids.length} prospect(s)` });
+    setSelected(new Set());
+  };
 
   return (
     <div className="space-y-6 max-w-5xl">
+      <AdminPageIntro>
+        Discover local contractors, personalize outreach, and manage your sending queue.
+      </AdminPageIntro>
       {!data.readiness.discoveryConfigured && (
         <Alert>
           <AlertTriangle className="h-4 w-4" />
@@ -639,18 +715,47 @@ function OutreachPanel() {
         </div>
       </div>
 
-      <Tabs value={tab} onValueChange={setTab}>
-        <TabsList className="flex flex-wrap h-auto">
-          {FILTER_TABS.map((t) => {
-            const n = t.statuses.reduce((s, st) => s + (counts[st] ?? 0), 0);
-            return (
-              <TabsTrigger key={t.key} value={t.key} data-testid={`tab-${t.key}`}>
-                {t.label} ({n})
-              </TabsTrigger>
-            );
-          })}
-        </TabsList>
-      </Tabs>
+      <div className="sticky top-14 z-20 -mx-1 px-1 py-2 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80 space-y-2">
+        <Tabs value={tab} onValueChange={setTab}>
+          <TabsList className="flex flex-wrap h-auto">
+            {FILTER_TABS.map((t) => {
+              const n = t.statuses.reduce((s, st) => s + (counts[st] ?? 0), 0);
+              return (
+                <TabsTrigger key={t.key} value={t.key} data-testid={`tab-${t.key}`}>
+                  {t.label} ({n})
+                </TabsTrigger>
+              );
+            })}
+          </TabsList>
+        </Tabs>
+
+        {filtered.length > 0 && (
+          <div className="flex flex-wrap items-center gap-2 rounded-md border bg-card p-2">
+            <label className="flex items-center gap-2 text-sm cursor-pointer">
+              <Checkbox
+                checked={allFilteredSelected}
+                onCheckedChange={toggleSelectAll}
+                aria-label="Select all in view"
+                data-testid="checkbox-select-all"
+              />
+              {selectedInView.length > 0 ? `${selectedInView.length} selected` : "Select all"}
+            </label>
+            {selectedInView.length > 0 && (
+              <div className="flex items-center gap-2 ml-auto">
+                <Button size="sm" onClick={bulkApprove} data-testid="button-bulk-approve">
+                  <Check className="h-4 w-4" /> Approve
+                </Button>
+                <Button size="sm" variant="outline" onClick={bulkSkip} data-testid="button-bulk-skip">
+                  <X className="h-4 w-4" /> Skip
+                </Button>
+                <Button size="sm" variant="ghost" onClick={() => setSelected(new Set())}>
+                  Clear
+                </Button>
+              </div>
+            )}
+          </div>
+        )}
+      </div>
 
       <div className="space-y-3">
         {filtered.length === 0 && (
@@ -660,6 +765,8 @@ function OutreachPanel() {
           <ProspectCard
             key={p.id}
             p={p}
+            selected={selected.has(p.id)}
+            onToggleSelect={toggleSelect}
             noteEdits={noteEdits}
             setNoteEdits={setNoteEdits}
             emailEdits={emailEdits}

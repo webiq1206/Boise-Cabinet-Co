@@ -11,6 +11,7 @@ import {
   Menu,
 } from "lucide-react";
 import { usePortalNav } from "@/components/portal/PortalNavProvider";
+import { useAdminLeadCounts } from "@/hooks/useAdminLeadCounts";
 import {
   Sheet,
   SheetContent,
@@ -56,6 +57,28 @@ function NavLinkRow({
   );
 }
 
+function TabIcon({
+  Icon,
+  badge,
+}: {
+  Icon: React.ComponentType<{ className?: string }>;
+  badge?: number | null;
+}) {
+  return (
+    <span className="relative">
+      <Icon className="h-5 w-5" />
+      {badge != null && badge > 0 && (
+        <span
+          className="absolute -top-1.5 -right-2 inline-flex h-4 min-w-[1rem] items-center justify-center rounded-full bg-primary px-1 text-[9px] font-semibold text-primary-foreground tabular-nums"
+          aria-hidden="true"
+        >
+          {badge > 9 ? "9+" : badge}
+        </span>
+      )}
+    </span>
+  );
+}
+
 function BottomTab({
   href,
   label,
@@ -63,6 +86,7 @@ function BottomTab({
   active,
   disabled,
   onClick,
+  badge,
 }: {
   href?: string;
   label: string;
@@ -70,6 +94,7 @@ function BottomTab({
   active?: boolean;
   disabled?: boolean;
   onClick?: () => void;
+  badge?: number | null;
 }) {
   const className = cn(
     "flex flex-col items-center justify-center gap-0.5 min-h-[52px] py-2 text-[10px] leading-tight transition-colors touch-manipulation",
@@ -78,18 +103,20 @@ function BottomTab({
     disabled && "text-muted-foreground/40 pointer-events-none",
   );
 
+  const ariaLabel = badge && badge > 0 ? `${label}, ${badge} pending` : label;
+
   if (onClick) {
     return (
-      <button type="button" onClick={onClick} className={className} aria-label={label}>
-        <Icon className="h-5 w-5" />
+      <button type="button" onClick={onClick} className={className} aria-label={ariaLabel}>
+        <TabIcon Icon={Icon} badge={badge} />
         <span>{label}</span>
       </button>
     );
   }
 
   return (
-    <Link href={href!} className={className}>
-      <Icon className="h-5 w-5" />
+    <Link href={href!} className={className} aria-label={ariaLabel}>
+      <TabIcon Icon={Icon} badge={badge} />
       <span>{label}</span>
     </Link>
   );
@@ -203,11 +230,13 @@ function StandardMobileNav({
   primaryTabs,
   moreItems,
   sheetTitle,
+  leadsBadge,
 }: {
   pathname: string;
   primaryTabs: PortalNavLink[];
   moreItems: PortalNavLink[];
   sheetTitle: string;
+  leadsBadge?: number | null;
 }) {
   const moreActive = moreItems.some((item) => isNavLinkActive(pathname, item));
 
@@ -222,6 +251,7 @@ function StandardMobileNav({
             label={item.label}
             icon={Icon}
             active={isNavLinkActive(pathname, item)}
+            badge={item.href === "/admin/leads" ? leadsBadge : undefined}
           />
         );
       })}
@@ -244,14 +274,20 @@ export function PortalMobileNav({ variant }: { variant: PortalShellVariant }) {
       aria-label="Portal navigation"
     >
       {variant === "customer" && <CustomerMobileNav pathname={pathname} />}
-      {variant === "admin" && (
-        <StandardMobileNav
-          pathname={pathname}
-          primaryTabs={ADMIN_MOBILE_TABS}
-          moreItems={ADMIN_MOBILE_MORE}
-          sheetTitle="Admin menu"
-        />
-      )}
+      {variant === "admin" && <AdminMobileNav pathname={pathname} />}
     </nav>
+  );
+}
+
+function AdminMobileNav({ pathname }: { pathname: string }) {
+  const { pendingReview } = useAdminLeadCounts();
+  return (
+    <StandardMobileNav
+      pathname={pathname}
+      primaryTabs={ADMIN_MOBILE_TABS}
+      moreItems={ADMIN_MOBILE_MORE}
+      sheetTitle="Admin menu"
+      leadsBadge={pendingReview}
+    />
   );
 }

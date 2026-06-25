@@ -137,7 +137,7 @@ export const HARDWARE_OPTIONS: HardwareOption[] = [
     name: "Soft-Close Full-Extension Slide",
     category: "slide",
     description:
-      "Full-extension undermount slide rated to 100 lbs with soft-close on every drawer box. Standard on every drawer box.",
+      "Full-extension undermount slide with soft-close on every drawer box. Standard on every drawer box.",
     finish: "stainless",
     compatibleCollectionIds: ["custom"],
     isSoftClose: true,
