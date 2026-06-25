@@ -28,6 +28,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { useToast } from "@/hooks/use-toast";
 import {
   AlertTriangle,
+  Ban,
   Check,
   Info,
   Loader2,
@@ -359,6 +360,154 @@ function ProspectCard({
   );
 }
 
+interface Suppression {
+  email: string;
+  reason: string;
+  createdAt: string;
+}
+
+const SUPPRESSION_REASON_LABELS: Record<string, string> = {
+  unsubscribe: "Unsubscribed",
+  bounce: "Bounced",
+  complaint: "Spam complaint",
+  manual: "Added manually",
+};
+
+function SuppressionsPanel() {
+  const { toast } = useToast();
+  const queryClient = useQueryClient();
+  const [newEmail, setNewEmail] = useState("");
+
+  const { data, isLoading } = useQuery<{ suppressions: Suppression[] }>({
+    queryKey: ["/api/admin/outreach/suppressions"],
+    queryFn: async () => {
+      const res = await fetch("/api/admin/outreach/suppressions");
+      if (!res.ok) throw new Error("Failed to load do-not-email list");
+      return res.json();
+    },
+  });
+
+  const invalidate = () =>
+    queryClient.invalidateQueries({ queryKey: ["/api/admin/outreach/suppressions"] });
+
+  const addMutation = useMutation({
+    mutationFn: (email: string) => postJson("/api/admin/outreach/suppressions", { email }),
+    onSuccess: () => {
+      toast({ title: "Address added", description: "This address will not be contacted." });
+      setNewEmail("");
+      invalidate();
+    },
+    onError: (e: Error) => toast({ title: "Could not add", description: e.message, variant: "destructive" }),
+  });
+
+  const removeMutation = useMutation({
+    mutationFn: (email: string) =>
+      fetch("/api/admin/outreach/suppressions", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      }).then(async (r) => {
+        const json = await r.json().catch(() => ({}));
+        if (!r.ok) throw new Error(json.error || "Request failed");
+        return json;
+      }),
+    onSuccess: () => {
+      toast({ title: "Removed", description: "This address can be contacted again." });
+      invalidate();
+    },
+    onError: (e: Error) => toast({ title: "Could not remove", description: e.message, variant: "destructive" }),
+  });
+
+  const rows = data?.suppressions ?? [];
+
+  return (
+    <div className="space-y-5 pt-4">
+      <Alert>
+        <Ban className="h-4 w-4" />
+        <AlertTitle>The do-not-email list</AlertTitle>
+        <AlertDescription>
+          These addresses are permanently skipped on every send. They land here
+          automatically when someone unsubscribes, an email hard-bounces, or it is
+          marked as spam. Add an address by hand to block it, or remove one that was
+          suppressed by mistake so outreach can reach it again.
+        </AlertDescription>
+      </Alert>
+
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-base">Add an address</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="flex flex-wrap gap-2">
+            <Input
+              type="email"
+              className="max-w-sm"
+              placeholder="name@example.com"
+              value={newEmail}
+              onChange={(e) => setNewEmail(e.target.value)}
+              data-testid="input-suppression-email"
+            />
+            <Button
+              onClick={() => addMutation.mutate(newEmail.trim())}
+              disabled={addMutation.isPending || newEmail.trim() === ""}
+              data-testid="button-add-suppression"
+            >
+              {addMutation.isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : <Ban className="h-4 w-4" />}
+              Block this address
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+
+      {isLoading ? (
+        <div className="flex items-center gap-2 text-sm text-muted-foreground">
+          <Loader2 className="h-4 w-4 animate-spin" /> Loading do-not-email list...
+        </div>
+      ) : rows.length === 0 ? (
+        <p className="text-sm text-muted-foreground" data-testid="text-suppressions-empty">
+          No addresses are suppressed yet.
+        </p>
+      ) : (
+        <div className="space-y-3">
+          <p className="text-sm text-muted-foreground" data-testid="text-suppressions-count">
+            {rows.length} {rows.length === 1 ? "address" : "addresses"} suppressed
+          </p>
+          <div className="space-y-2">
+            {rows.map((s) => (
+              <Card key={s.email} data-testid={`card-suppression-${s.email}`}>
+                <CardContent className="flex flex-wrap items-center justify-between gap-3 py-3">
+                  <div className="min-w-0">
+                    <p className="font-medium text-sm break-all" data-testid={`text-suppression-email-${s.email}`}>
+                      {s.email}
+                    </p>
+                    <p className="text-xs text-muted-foreground">
+                      Added {new Date(s.createdAt).toLocaleDateString()}
+                    </p>
+                  </div>
+                  <div className="flex flex-wrap items-center gap-2">
+                    <Badge variant="secondary">
+                      {SUPPRESSION_REASON_LABELS[s.reason] ?? s.reason}
+                    </Badge>
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      onClick={() => removeMutation.mutate(s.email)}
+                      disabled={removeMutation.isPending}
+                      data-testid={`button-remove-suppression-${s.email}`}
+                    >
+                      <Trash2 className="h-4 w-4" /> Remove
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
 function OutreachPanel() {
   const { toast } = useToast();
   const queryClient = useQueryClient();
@@ -548,6 +697,9 @@ function OutreachPanel() {
           <TabsTrigger value="templates" data-testid="tab-view-templates">
             Email templates
           </TabsTrigger>
+          <TabsTrigger value="suppressions" data-testid="tab-view-suppressions">
+            Do-not-email
+          </TabsTrigger>
           <TabsTrigger value="settings" data-testid="tab-view-settings">
             Sending settings
           </TabsTrigger>
@@ -707,6 +859,11 @@ function OutreachPanel() {
         {/* TEMPLATES */}
         <TabsContent value="templates" className="pt-4">
           <TemplatesEditor />
+        </TabsContent>
+
+        {/* DO-NOT-EMAIL */}
+        <TabsContent value="suppressions">
+          <SuppressionsPanel />
         </TabsContent>
 
         {/* SETTINGS */}
