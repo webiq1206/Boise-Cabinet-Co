@@ -13,7 +13,6 @@
 import type { PdfBlock, PdfImageCell } from "@/lib/pdf/drawResourcePdf";
 import { SITE_CONFIG } from "@/shared/siteConfig";
 import {
-  COLLECTIONS,
   DOOR_STYLES,
   FINISHES,
   FINISHES_BY_CATEGORY,
@@ -80,15 +79,25 @@ function titleCase(value: string): string {
     .join(" ");
 }
 
-function formatDimension(d: CabinetDimension | undefined): string {
-  if (!d) return "-";
-  if (d.variable) return "Variable";
-  if (d.min != null && d.max != null) {
-    return d.min === d.max ? `${d.min}"` : `${d.min}-${d.max}"`;
+/** Combined width range across a group of configurations that share a drawing. */
+function groupWidthLabel(
+  products: { dimensions?: { width?: CabinetDimension } }[],
+): string {
+  let min = Infinity;
+  let max = -Infinity;
+  let variable = false;
+  for (const p of products) {
+    const w = p.dimensions?.width;
+    if (!w) continue;
+    if (w.variable) variable = true;
+    if (w.min != null) min = Math.min(min, w.min);
+    if (w.max != null) max = Math.max(max, w.max);
   }
-  if (d.max != null) return `${d.max}"`;
-  if (d.min != null) return `${d.min}"`;
-  return "-";
+  if (min === Infinity && max === -Infinity) return variable ? "Variable" : "-";
+  const lo = min === Infinity ? max : min;
+  const hi = max === -Infinity ? min : max;
+  const base = lo === hi ? `${lo}"` : `${lo}-${hi}"`;
+  return variable ? `${base} (variable)` : base;
 }
 
 /** First finish in a color family that has a usable swatch image. */
@@ -119,14 +128,16 @@ export async function buildCatalogPdfBlocks(
   });
 
   // ── Cover ──────────────────────────────────────────────────────────────────
+  const logoBytes = await resolveImage("/images/brc-logo.png");
   blocks.push({
     type: "cover",
-    title: `${SITE_CONFIG.name} Full Catalog`,
+    title: "Full Catalog",
     subtitle: SITE_CONFIG.tagline,
+    logo: logoBytes ?? undefined,
     metaLines: [
       `Generated ${generatedOn}`,
       `${DOOR_STYLES.length} door styles  -  ${FINISHES.length} finishes  -  ${CABINET_PRODUCTS.length} cabinet configurations`,
-      `${COLLECTIONS.length} collections  -  ${HARDWARE_OPTIONS.length} hardware options  -  ${ACCESSORY_FAMILIES.length} accessory families`,
+      `${HARDWARE_OPTIONS.length} hardware options  -  ${ACCESSORY_FAMILIES.length} accessory families`,
       `${SITE_CONFIG.phone}  -  ${SITE_CONFIG.siteUrl}`,
     ],
   });
@@ -136,7 +147,6 @@ export async function buildCatalogPdfBlocks(
   blocks.push({
     type: "bullets",
     items: [
-      `Collections (${COLLECTIONS.length})`,
       `Door styles (${DOOR_STYLES.length})`,
       `Rooms we build for (${ROOM_CATEGORIES.length})`,
       `Finishes (${FINISHES.length}) - by color family and full listing`,
@@ -150,16 +160,9 @@ export async function buildCatalogPdfBlocks(
     text: "All counts and listings are generated directly from our live product catalog, so this document stays in sync with what we currently offer.",
   });
 
-  // ── Collections ────────────────────────────────────────────────────────────
-  if (COLLECTIONS.length > 0) {
-    blocks.push({ type: "heading", text: "Collections" });
-    const cells = await Promise.all(
-      COLLECTIONS.map((c) => imageCell(c.heroImage, c.name, c.tagline)),
-    );
-    blocks.push({ type: "image-grid", columns: 3, cells });
-  }
-
   // ── Door styles ────────────────────────────────────────────────────────────
+  // Small sections (door styles, rooms, finishes-by-family) flow onto shared
+  // pages; keep-with-next still prevents orphaned headings and split cards.
   blocks.push({ type: "heading", text: "Door styles" });
   const doorCells = await Promise.all(
     DOOR_STYLES.map((d) =>
@@ -202,6 +205,7 @@ export async function buildCatalogPdfBlocks(
   blocks.push({ type: "image-grid", columns: 4, cells: familyCells });
 
   // ── Finishes: every swatch, grouped by category ─────────────────────────────
+  blocks.push({ type: "page-break" });
   blocks.push({ type: "heading", text: "All finishes" });
   for (const category of ["matte", "gloss", "woodgrain"] as FinishCategory[]) {
     const list = FINISHES_BY_CATEGORY[category] ?? [];
@@ -223,11 +227,15 @@ export async function buildCatalogPdfBlocks(
     blocks.push({ type: "image-grid", columns: 5, cells });
   }
 
-  // ── Cabinets: every configuration thumbnail, grouped by category ────────────
+  // ── Cabinets: grouped by category, deduped by shared family drawing ─────────
+  // Many configurations share one supplier "family" line drawing (the drawing
+  // itself enumerates the variants + shelf options). Showing that drawing once,
+  // large, keeps the page legible instead of repeating a tiny composite per SKU.
+  blocks.push({ type: "page-break" });
   blocks.push({ type: "heading", text: "Cabinets by category" });
   blocks.push({
     type: "paragraph",
-    text: `Every cabinet is built to order. The width range is shown beneath each configuration (${CABINET_PRODUCTS.length} total).`,
+    text: `Every cabinet is built to order (${CABINET_PRODUCTS.length} configurations). Configurations that share a family drawing are shown together; the width range and number of configurations appear beneath each drawing.`,
   });
   for (const category of CABINET_CATEGORY_ORDER) {
     const list = CABINET_PRODUCTS_BY_CATEGORY[category] ?? [];
@@ -236,19 +244,36 @@ export async function buildCatalogPdfBlocks(
       type: "subtitle",
       text: `${CABINET_CATEGORY_LABEL[category]} (${list.length})`,
     });
+    // Group by the resolved family drawing, preserving first-seen order.
+    const groupOrder: string[] = [];
+    const byThumb = new Map<string, Array<(typeof list)[number]>>();
+    for (const p of list) {
+      const thumb = getProductImages(p).thumb;
+      let members = byThumb.get(thumb);
+      if (!members) {
+        members = [];
+        byThumb.set(thumb, members);
+        groupOrder.push(thumb);
+      }
+      members.push(p);
+    }
     const cells = await Promise.all(
-      list.map((p) =>
-        imageCell(
-          getProductImages(p).thumb,
-          p.name,
-          `${formatDimension(p.dimensions?.width)} W`,
-        ),
-      ),
+      groupOrder.map((thumb) => {
+        const members = byThumb.get(thumb)!;
+        const rep = members[0];
+        const widthLabel = `${groupWidthLabel(members)} W`;
+        const sub =
+          members.length > 1
+            ? `${widthLabel} - ${members.length} configurations`
+            : widthLabel;
+        return imageCell(thumb, rep.name, sub);
+      }),
     );
-    blocks.push({ type: "image-grid", columns: 4, cells });
+    blocks.push({ type: "image-grid", columns: 2, cells });
   }
 
   // ── Hardware ────────────────────────────────────────────────────────────────
+  blocks.push({ type: "page-break" });
   blocks.push({ type: "heading", text: "Hardware" });
   const hardwareCells = await Promise.all(
     HARDWARE_OPTIONS.map((h) =>
@@ -258,6 +283,7 @@ export async function buildCatalogPdfBlocks(
   blocks.push({ type: "image-grid", columns: 4, cells: hardwareCells });
 
   // ── Accessories ─────────────────────────────────────────────────────────────
+  blocks.push({ type: "page-break" });
   blocks.push({ type: "heading", text: "Accessories" });
   const accessoryCells = await Promise.all(
     ACCESSORY_FAMILIES.map((a) =>

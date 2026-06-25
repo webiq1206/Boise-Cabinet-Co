@@ -196,6 +196,38 @@ export async function register() {
       }
     })();
 
+    // Unified CRM sending engine. Advances due sequence enrollments and active
+    // one-off runs, one send per tick. All global gating (master switch,
+    // dry-run, rolling daily cap, min gap, suppression, emailable) lives inside
+    // processSendingTick. Kept in the nodejs + production guard.
+    void (async () => {
+      try {
+        const { processSendingTick } = await import("./server/services/sendingEngine");
+        const TICK_MS = 5 * 60 * 1000; // check every 5 minutes
+        const tick = async () => {
+          try {
+            await processSendingTick();
+          } catch (e) {
+            console.error("[crm] sending tick failed:", e);
+          }
+        };
+        setInterval(() => void tick(), TICK_MS);
+      } catch (e) {
+        console.error("[crm] sending engine failed to start:", e);
+      }
+    })();
+
+    // Seed managed email templates and sequences on boot (idempotent; skips any
+    // template/sequence an operator has edited via seedManaged=false).
+    void (async () => {
+      try {
+        const { seedOutreachContent } = await import("./server/services/outreachSeed");
+        await seedOutreachContent();
+      } catch (e) {
+        console.error("[crm] outreach content seed failed:", e);
+      }
+    })();
+
     // Submit sitemap to IndexNow on production startup.
     // The key file is already live (deployed via public/), so the
     // verification should pass immediately after server boots.

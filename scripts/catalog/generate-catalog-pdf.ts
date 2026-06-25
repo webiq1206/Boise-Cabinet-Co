@@ -36,11 +36,12 @@ const resolveImage: CatalogImageResolver = (publicPath) => {
         missing += 1;
         return null;
       }
-      // density helps rasterize any SVG sources cleanly.
-      const buf = await sharp(abs, { density: 200 })
-        .resize({ width: 640, height: 640, fit: "inside", withoutEnlargement: true })
+      // density helps rasterize any SVG sources cleanly; the larger cap keeps the
+      // big cabinet family drawings (and their baked-in legends) legible.
+      const buf = await sharp(abs, { density: 300 })
+        .resize({ width: 1400, height: 1400, fit: "inside", withoutEnlargement: true })
         .flatten({ background: "#ffffff" })
-        .jpeg({ quality: 78 })
+        .jpeg({ quality: 82 })
         .toBuffer();
       resolved += 1;
       return new Uint8Array(buf);

@@ -1,9 +1,9 @@
 "use client";
 
 import { PortalShell } from "@/components/portal/PortalShell";
-import AdminLeadsPanel from "@/components/admin/AdminLeadsPanel";
 import { AdminAuthGate } from "@/components/admin/AdminAuthGate";
 import { AdminPageIntro } from "@/components/admin/AdminPageIntro";
+import { CrmDashboard } from "@/components/admin/crm/CrmDashboard";
 
 export default function AdminLeadsPage() {
   return (
@@ -11,9 +11,9 @@ export default function AdminLeadsPage() {
       <PortalShell variant="admin" title="Leads">
         <div className="space-y-4">
           <AdminPageIntro>
-            Review incoming customer leads, track quotes, and convert them into projects.
+            Capture, track, and reach every homeowner and business lead from one inbox.
           </AdminPageIntro>
-          <AdminLeadsPanel embedded />
+          <CrmDashboard />
         </div>
       </PortalShell>
     </AdminAuthGate>

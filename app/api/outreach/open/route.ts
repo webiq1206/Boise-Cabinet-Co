@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
-import { outreachProspects } from "@/shared/schema";
-import { eq } from "drizzle-orm";
+import { outreachProspects, outreachSends } from "@/shared/schema";
+import { eq, sql } from "drizzle-orm";
 
 // 1x1 fully transparent GIF served to the recipient's mail client. Loading it
 // is the open signal. We never block on the DB write affecting the response so
@@ -52,8 +52,27 @@ async function recordOpen(token: string): Promise<void> {
   }
 }
 
+// Unified open tracking keyed by the per-send tracking token (outreach_sends).
+async function recordSendOpen(sendToken: string): Promise<void> {
+  if (!db || !sendToken) return;
+  try {
+    await db
+      .update(outreachSends)
+      .set({
+        openedAt: sql`COALESCE(${outreachSends.openedAt}, NOW())`,
+        openCount: sql`${outreachSends.openCount} + 1`,
+      })
+      .where(eq(outreachSends.trackingToken, sendToken));
+  } catch {
+    // Tracking must never surface an error to the recipient's mail client.
+  }
+}
+
 export async function GET(request: NextRequest) {
+  // New unified path uses ?send=<trackingToken>; legacy prospect path uses ?token=.
+  const sendToken = request.nextUrl.searchParams.get("send") ?? "";
   const token = request.nextUrl.searchParams.get("token") ?? "";
-  await recordOpen(token);
+  if (sendToken) await recordSendOpen(sendToken);
+  if (token) await recordOpen(token);
   return pixelResponse();
 }

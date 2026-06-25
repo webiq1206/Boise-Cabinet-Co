@@ -148,7 +148,7 @@ export const HARDWARE_OPTIONS: HardwareOption[] = [
     name: "Heavy-Duty Soft-Close Slide",
     category: "slide",
     description:
-      "150 lb-rated slides for pot-and-pan drawers, appliance bases, and garage tool cabinets. Standard on designated wide drawers.",
+      "Heavy-duty soft-close slides for pot-and-pan drawers, appliance bases, and garage tool cabinets. Standard on designated wide drawers.",
     finish: "stainless",
     compatibleCollectionIds: ["custom"],
     isSoftClose: true,

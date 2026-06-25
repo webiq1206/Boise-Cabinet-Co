@@ -1,7 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { db } from "@/lib/db";
-import { consultationRequests, leads } from "@/shared/schema";
+import { consultationRequests, leads, submissions, leadQuotes } from "@/shared/schema";
+import { deriveEmailable, matchServiceArea } from "@/lib/crm/leads";
+import { notifyNewLead } from "@/server/services/leadNotifications";
 import { getUncachableResendClient } from "@/server/resend";
 import { SITE_CONFIG } from "@/shared/siteConfig";
 import {
@@ -124,34 +126,93 @@ export async function POST(request: NextRequest) {
               ? Math.round(estimateHigh).toString()
               : null;
 
-        await db.insert(leads).values({
-          name: data.name,
-          email: data.email,
-          phone: data.phone,
-          address: data.address || null,
-          city: city || "Unknown",
-          propertyProfile: (data.propertyProfile as PropertyProfile | null) ?? undefined,
-          propertyType: "residential",
-          serviceType: data.projectType,
-          selectedServices: [data.projectType],
-          finalQuote,
-          serviceData: data.estimate
-            ? {
-                estimate: {
-                  project: data.estimate.project,
-                  finish: data.estimate.finish,
-                  priceLow: data.estimate.priceLow,
-                  priceHigh: data.estimate.priceHigh,
-                  roi: data.estimate.roi,
-                  sizeLabel: data.estimate.sizeLabel,
-                  confidenceLabel: data.estimate.confidenceLabel,
-                },
-              }
-            : null,
-          message: data.message || null,
-          status: "pending_admin",
-          source: "consultation",
-        });
+        const stateFromProfile = (profile?.state as string) || null;
+        const zipFromProfile = (profile?.zip as string) || zip || null;
+        const emailable = deriveEmailable(data.email, "new");
+
+        const [insertedLead] = await db
+          .insert(leads)
+          .values({
+            leadType: "homeowner",
+            emailable,
+            name: data.name,
+            email: data.email,
+            phone: data.phone,
+            address: data.address || null,
+            city: city || "Unknown",
+            serviceArea: matchServiceArea(city),
+            state: stateFromProfile,
+            zip: zipFromProfile,
+            fullAddress: (profile?.formattedAddress as string) || data.address || null,
+            propertyProfile: (data.propertyProfile as PropertyProfile | null) ?? undefined,
+            propertyType: "residential",
+            serviceType: data.projectType,
+            selectedServices: [data.projectType],
+            finalQuote,
+            serviceData: data.estimate
+              ? {
+                  estimate: {
+                    project: data.estimate.project,
+                    finish: data.estimate.finish,
+                    priceLow: data.estimate.priceLow,
+                    priceHigh: data.estimate.priceHigh,
+                    roi: data.estimate.roi,
+                    sizeLabel: data.estimate.sizeLabel,
+                    confidenceLabel: data.estimate.confidenceLabel,
+                  },
+                }
+              : null,
+            message: data.message || null,
+            status: "pending_admin",
+            source: "consultation",
+            sourceDetail: "consultation_form",
+            emailStatus: "new",
+            pipelineStage: "new",
+          })
+          .returning({ id: leads.id });
+
+        const leadId = insertedLead?.id;
+
+        if (leadId) {
+          // Immutable raw record of exactly what was submitted.
+          await db.insert(submissions).values({
+            leadId,
+            formType: "consultation",
+            rawPayload: data as unknown as Record<string, unknown>,
+            sourcePage: "/consultation",
+          });
+
+          // Persist the estimator output as a planning range.
+          if (data.estimate) {
+            await db.insert(leadQuotes).values({
+              leadId,
+              projectType: data.estimate.project,
+              sizeOrScope: data.estimate.sizeLabel ?? null,
+              finish: data.estimate.finish,
+              planningRangeLow:
+                typeof data.estimate.priceLow === "number"
+                  ? data.estimate.priceLow.toString()
+                  : null,
+              planningRangeHigh:
+                typeof data.estimate.priceHigh === "number"
+                  ? data.estimate.priceHigh.toString()
+                  : null,
+              estimatorInputs: data.estimate as unknown as Record<string, unknown>,
+              status: "sent",
+            });
+          }
+
+          // Instant, idempotent admin alert (in-app + email, optional SMS).
+          await notifyNewLead({
+            leadId,
+            name: data.name,
+            phone: data.phone,
+            email: data.email,
+            projectType: data.projectType,
+            city: city || null,
+            message: data.message || null,
+          });
+        }
       } catch (leadErr) {
         console.error("[consultation] Lead mirror insert failed:", leadErr);
       }

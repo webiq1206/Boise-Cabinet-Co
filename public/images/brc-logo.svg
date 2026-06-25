@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1320 360" width="1320" height="360" role="img" aria-label="Boise Cabinet Co - Custom Cabinetry">
+  <rect width="1320" height="360" fill="none"/>
+  <text x="30" y="205"
+        font-family="'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif"
+        font-weight="300" font-size="150" letter-spacing="-4" fill="#2C302F">Boise Cabinet <tspan
+        font-family="'Fraunces', Georgia, 'Times New Roman', serif"
+        font-style="italic" font-weight="400" fill="#9AA098">Co</tspan></text>
+  <text x="34" y="300"
+        font-family="'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif"
+        font-weight="500" font-size="48" letter-spacing="16" fill="#5D6561">CUSTOM CABINETRY</text>
+</svg>

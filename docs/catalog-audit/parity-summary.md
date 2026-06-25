@@ -23,7 +23,10 @@ and onesourcecabinets.com exactly, while keeping Boise Cabinet Co branding (no
 
 1. **Fabricated drawer-slide load rating.** `app/hardware/page.tsx` advertised
    "100 lb rated" slides; the supplier catalog states no load rating. Removed the
-   claim and the `loadRatingLbs` field from `data/supplier-catalog/hardwareSpec.json`.
+   claim and the `loadRatingLbs` field from `data/supplier-catalog/hardwareSpec.json`,
+   and the residual "100 lb"/"150 lb" figures from the curated slide descriptions in
+   `shared/catalog/hardware.ts` (the curated decorative/handle hardware is retained as
+   Boise Cabinet Co's design-consultation offering, not a supplier SKU set).
 2. **Edge-banding spec.** Construction feature said "PUR edge banding"; the PDF
    specifies "1MM MATCHING EDGEBANDING". Corrected in
    `data/supplier-catalog/construction.json`.

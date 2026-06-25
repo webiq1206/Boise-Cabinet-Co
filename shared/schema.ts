@@ -230,16 +230,31 @@ export const leads = pgTable("leads", {
   
   // Link to original quote
   quoteId: varchar("quote_id").references(() => quotes.id),
-  
-  // Lead details (copied from quote for denormalization)
-  name: text("name").notNull(),
-  email: text("email").notNull(),
-  phone: text("phone").notNull(),
+
+  // homeowner = inbound quote/estimate leads; business = imported contractors/partners.
+  leadType: text("lead_type").notNull().default("homeowner"),
+  // Derived: true only when a valid email is present and the lead is not unsubscribed/failed.
+  emailable: boolean("emailable").notNull().default(false),
+
+  // Lead details (copied from quote for denormalization). Nullable so business
+  // leads (company only, often no email/phone/name) and no-email imports are valid.
+  name: text("name"),
+  email: text("email"),
+  phone: text("phone"),
+  companyName: text("company_name"),
+  website: text("website"),
   address: text("address"),
-  city: text("city").notNull(),
+  city: text("city"),
+  // Structured address parts (mainly from business imports)
+  street: text("street"),
+  serviceArea: text("service_area"), // one of the eight Treasure Valley cities when matched
+  state: text("state"),
+  zip: text("zip"),
+  county: text("county"),
+  fullAddress: text("full_address"),
   propertyProfile: jsonb("property_profile").$type<import("@/shared/propertyProfile").PropertyProfile>(),
-  propertyType: text("property_type").notNull(),
-  serviceType: text("service_type").notNull(),
+  propertyType: text("property_type"),
+  serviceType: text("service_type"),
   selectedServices: text("selected_services").array(),
   frequency: text("frequency"), // legacy column; remodel projects are one-time
   finalQuote: decimal("final_quote", { precision: 10, scale: 2 }),
@@ -247,6 +262,25 @@ export const leads = pgTable("leads", {
   serviceData: jsonb("service_data"),
   message: text("message"),
   notes: jsonb("notes"), // Array of {text: string, addedBy: string, addedAt: Date}[]
+
+  // Business-lead context (from imported listings)
+  businessCategory: text("business_category"),
+  leadGroup: text("lead_group"),
+  categoriesMatched: text("categories_matched"),
+  rating: decimal("rating", { precision: 3, scale: 2 }),
+  reviewCount: integer("review_count"),
+  googleMapsUrl: text("google_maps_url"),
+  latitude: decimal("latitude", { precision: 10, scale: 7 }),
+  longitude: decimal("longitude", { precision: 10, scale: 7 }),
+  distanceMi: decimal("distance_mi", { precision: 8, scale: 2 }),
+
+  // Email engagement vs sales pipeline (kept as separate concerns)
+  emailStatus: text("email_status").notNull().default("new"), // new, contacted, failed, unsubscribed
+  pipelineStage: text("pipeline_stage").notNull().default("new"), // new, consultation_booked, quoted, won, lost, on_hold
+
+  // One-click opt-out token for outreach emails
+  unsubscribeToken: varchar("unsubscribe_token").notNull().default(sql`gen_random_uuid()`),
+  lastContactedAt: timestamp("last_contacted_at"),
   
   // Lead pricing (legacy marketplace fields; nullable since the subcontractor
   // marketplace was removed and consultation-sourced leads carry no resale price).
@@ -255,8 +289,11 @@ export const leads = pgTable("leads", {
   priceReductionRate: decimal("price_reduction_rate", { precision: 5, scale: 2 }).default("1.50"),
   lastPriceUpdate: timestamp("last_price_update").defaultNow(),
   
-  // Where the lead originated, e.g. "consultation".
+  // Where the lead originated: consultation, estimate_form, contact_form,
+  // estimator, lead_magnet, meta_ad, manual, csv.
   source: text("source").default("consultation"),
+  // Campaign, page slug, or import filename (free text).
+  sourceDetail: text("source_detail"),
 
   // Lead status: pending_admin, accepted, archived (converted leads carry projectId)
   status: text("status").notNull().default("pending_admin"),
@@ -294,6 +331,12 @@ export const leads = pgTable("leads", {
   serviceTypeIdx: index("leads_service_type_idx").on(table.serviceType),
   statusCityIdx: index("leads_status_city_idx").on(table.status, table.city),
   priceIdx: index("leads_current_price_idx").on(table.currentLeadPrice),
+  leadTypeIdx: index("leads_lead_type_idx").on(table.leadType),
+  emailStatusIdx: index("leads_email_status_idx").on(table.emailStatus),
+  pipelineStageIdx: index("leads_pipeline_stage_idx").on(table.pipelineStage),
+  emailableIdx: index("leads_emailable_idx").on(table.emailable),
+  leadGroupIdx: index("leads_lead_group_idx").on(table.leadGroup),
+  unsubTokenIdx: uniqueIndex("leads_unsubscribe_token_idx").on(table.unsubscribeToken),
 }));
 
 export const insertLeadSchema = createInsertSchema(leads).omit({
@@ -875,3 +918,159 @@ export const outreachSuppressions = pgTable("outreach_suppressions", {
 });
 
 export type OutreachSuppression = typeof outreachSuppressions.$inferSelect;
+
+// --- Unified Lead CRM (submissions, quotes, templates, sequences, sending) ---
+
+// Immutable raw record of each public form submission, tied to a lead, so the
+// operator always sees exactly what was sent.
+export const submissions = pgTable("submissions", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  leadId: varchar("lead_id").references(() => leads.id),
+  formType: text("form_type").notNull(), // contact, estimate, consultation, design_pricing
+  rawPayload: jsonb("raw_payload").notNull(),
+  sourcePage: text("source_page"),
+  submittedAt: timestamp("submitted_at").defaultNow().notNull(),
+}, (table) => ({
+  leadIdx: index("submissions_lead_id_idx").on(table.leadId),
+}));
+
+export type Submission = typeof submissions.$inferSelect;
+
+// Estimator output or any planning range given to a lead. Named lead_quotes to
+// avoid colliding with the legacy `quotes` wizard table.
+export const leadQuotes = pgTable("lead_quotes", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  leadId: varchar("lead_id").notNull().references(() => leads.id),
+  projectType: text("project_type"),
+  sizeOrScope: text("size_or_scope"),
+  doorStyle: text("door_style"),
+  finish: text("finish"),
+  planningRangeLow: decimal("planning_range_low", { precision: 10, scale: 2 }),
+  planningRangeHigh: decimal("planning_range_high", { precision: 10, scale: 2 }),
+  estimatorInputs: jsonb("estimator_inputs"),
+  status: text("status").notNull().default("sent"), // draft, sent, viewed, accepted, declined
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+}, (table) => ({
+  leadIdx: index("lead_quotes_lead_id_idx").on(table.leadId),
+}));
+
+export type LeadQuote = typeof leadQuotes.$inferSelect;
+
+// Reusable email templates. Structured "personal note" fields (opening/main/
+// closing) assemble into body at send time; a plain body is also supported.
+export const emailTemplates = pgTable("email_templates", {
+  id: varchar("id").primaryKey(), // slug
+  name: text("name").notNull(),
+  audience: text("audience").notNull().default("homeowner"), // homeowner, business, any
+  subject: text("subject").notNull(),
+  openingLine: text("opening_line"),
+  mainMessage: text("main_message"),
+  closingLine: text("closing_line"),
+  body: text("body"), // assembled or plain body
+  signerName: text("signer_name"),
+  ctaLabel: text("cta_label"),
+  ctaUrl: text("cta_url"),
+  secondaryCtaLabel: text("secondary_cta_label"),
+  secondaryCtaUrl: text("secondary_cta_url"),
+  seedManaged: boolean("seed_managed").notNull().default(false),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
+export type EmailTemplate = typeof emailTemplates.$inferSelect;
+
+// A named, ordered drip sequence.
+export const sequences = pgTable("sequences", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  name: text("name").notNull(),
+  description: text("description"),
+  audience: text("audience").notNull().default("homeowner"), // homeowner, business, any
+  seedKey: text("seed_key"), // stable identifier for seeded sequences
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+export type Sequence = typeof sequences.$inferSelect;
+
+export const sequenceSteps = pgTable("sequence_steps", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  sequenceId: varchar("sequence_id").notNull().references(() => sequences.id),
+  templateId: varchar("template_id").notNull().references(() => emailTemplates.id),
+  stepOrder: integer("step_order").notNull(),
+  delayHours: integer("delay_hours").notNull().default(0),
+}, (table) => ({
+  seqIdx: index("sequence_steps_sequence_id_idx").on(table.sequenceId),
+}));
+
+export type SequenceStep = typeof sequenceSteps.$inferSelect;
+
+export const sequenceEnrollments = pgTable("sequence_enrollments", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  sequenceId: varchar("sequence_id").notNull().references(() => sequences.id),
+  leadId: varchar("lead_id").notNull().references(() => leads.id),
+  status: text("status").notNull().default("active"), // active, completed, stopped
+  currentStep: integer("current_step").notNull().default(0),
+  nextDueAt: timestamp("next_due_at"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+}, (table) => ({
+  uniqueEnrollment: uniqueIndex("sequence_enrollments_seq_lead_idx").on(table.sequenceId, table.leadId),
+  dueIdx: index("sequence_enrollments_next_due_idx").on(table.status, table.nextDueAt),
+}));
+
+export type SequenceEnrollment = typeof sequenceEnrollments.$inferSelect;
+
+// A one-off batch blast.
+export const outreachRuns = pgTable("outreach_runs", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  templateId: varchar("template_id").notNull().references(() => emailTemplates.id),
+  subjectOverride: text("subject_override"),
+  targetFilter: jsonb("target_filter"), // full audience selection snapshot
+  batchSize: integer("batch_size").notNull().default(10),
+  dailyCap: integer("daily_cap").notNull().default(50),
+  delaySeconds: integer("delay_seconds").notNull().default(60),
+  status: text("status").notNull().default("active"), // active, paused, completed
+  sentCount: integer("sent_count").notNull().default(0),
+  failedCount: integer("failed_count").notNull().default(0),
+  skippedCount: integer("skipped_count").notNull().default(0),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+export type OutreachRun = typeof outreachRuns.$inferSelect;
+
+// Per-send audit log, linked to either a run or a sequence enrollment.
+export const outreachSends = pgTable("outreach_sends", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  leadId: varchar("lead_id").notNull().references(() => leads.id),
+  runId: varchar("run_id").references(() => outreachRuns.id),
+  enrollmentId: varchar("enrollment_id").references(() => sequenceEnrollments.id),
+  stepId: varchar("step_id").references(() => sequenceSteps.id),
+  templateId: varchar("template_id").references(() => emailTemplates.id),
+  trackingToken: varchar("tracking_token").notNull().default(sql`gen_random_uuid()`),
+  sentAt: timestamp("sent_at"),
+  openedAt: timestamp("opened_at"),
+  openCount: integer("open_count").notNull().default(0),
+  firstClickedAt: timestamp("first_clicked_at"),
+  clickCount: integer("click_count").notNull().default(0),
+  status: text("status").notNull().default("sent"), // sent, failed
+  errorDetail: text("error_detail"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+}, (table) => ({
+  leadIdx: index("outreach_sends_lead_id_idx").on(table.leadId),
+  runIdx: index("outreach_sends_run_id_idx").on(table.runId),
+  tokenIdx: uniqueIndex("outreach_sends_tracking_token_idx").on(table.trackingToken),
+}));
+
+export type OutreachSend = typeof outreachSends.$inferSelect;
+
+// Follow-up reminders on a lead.
+export const tasks = pgTable("tasks", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  leadId: varchar("lead_id").notNull().references(() => leads.id),
+  title: text("title").notNull(),
+  dueAt: timestamp("due_at"),
+  completedAt: timestamp("completed_at"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+}, (table) => ({
+  leadIdx: index("tasks_lead_id_idx").on(table.leadId),
+  dueIdx: index("tasks_due_at_idx").on(table.dueAt),
+}));
+
+export type Task = typeof tasks.$inferSelect;

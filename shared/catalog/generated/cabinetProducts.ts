@@ -4329,7 +4329,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "insertReady": false,
       "pencilDrawers": 0
     },
-    "boxImage": "/images/catalog/renderings/gwdc-0s.webp"
+    "boxImage": "/images/catalog/renderings/wdcdd-0s.webp"
   },
   {
     "id": "wdc-1s",
@@ -4397,7 +4397,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "insertReady": false,
       "pencilDrawers": 0
     },
-    "boxImage": "/images/catalog/renderings/gwdc-0s.webp"
+    "boxImage": "/images/catalog/renderings/wdcdd-0s.webp"
   },
   {
     "id": "wdc-2s",
@@ -4465,7 +4465,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "insertReady": false,
       "pencilDrawers": 0
     },
-    "boxImage": "/images/catalog/renderings/gwdc-0s.webp"
+    "boxImage": "/images/catalog/renderings/wdcdd-0s.webp"
   },
   {
     "id": "wdc-3s",
@@ -4533,7 +4533,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "insertReady": false,
       "pencilDrawers": 0
     },
-    "boxImage": "/images/catalog/renderings/gwdc-0s.webp"
+    "boxImage": "/images/catalog/renderings/wdcdd-0s.webp"
   },
   {
     "id": "wdc-4s",
@@ -4601,7 +4601,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "insertReady": false,
       "pencilDrawers": 0
     },
-    "boxImage": "/images/catalog/renderings/gwdc-0s.webp"
+    "boxImage": "/images/catalog/renderings/wdcdd-0s.webp"
   },
   {
     "id": "gwdc-0s",
@@ -4667,7 +4667,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "insertReady": false,
       "pencilDrawers": 0
     },
-    "boxImage": "/images/catalog/renderings/gwdc-0s.webp"
+    "boxImage": "/images/catalog/renderings/wdcdd-0s.webp"
   },
   {
     "id": "gwdc-1s",
@@ -4735,7 +4735,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "insertReady": false,
       "pencilDrawers": 0
     },
-    "boxImage": "/images/catalog/renderings/gwdc-0s.webp"
+    "boxImage": "/images/catalog/renderings/wdcdd-0s.webp"
   },
   {
     "id": "gwdc-2s",
@@ -4803,7 +4803,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "insertReady": false,
       "pencilDrawers": 0
     },
-    "boxImage": "/images/catalog/renderings/gwdc-0s.webp"
+    "boxImage": "/images/catalog/renderings/wdcdd-0s.webp"
   },
   {
     "id": "gwdc-3s",
@@ -4871,7 +4871,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "insertReady": false,
       "pencilDrawers": 0
     },
-    "boxImage": "/images/catalog/renderings/gwdc-0s.webp"
+    "boxImage": "/images/catalog/renderings/wdcdd-0s.webp"
   },
   {
     "id": "gwdc-4s",
@@ -4939,7 +4939,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "insertReady": false,
       "pencilDrawers": 0
     },
-    "boxImage": "/images/catalog/renderings/gwdc-0s.webp"
+    "boxImage": "/images/catalog/renderings/wdcdd-0s.webp"
   },
   {
     "id": "wdcdd-0s",
@@ -5141,7 +5141,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "insertReady": false,
       "pencilDrawers": 0
     },
-    "boxImage": "/images/catalog/renderings/gwdcdd-0s.webp"
+    "boxImage": "/images/catalog/renderings/wdcdd-0s.webp"
   },
   {
     "id": "wdcdd-3s",
@@ -5209,7 +5209,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "insertReady": false,
       "pencilDrawers": 0
     },
-    "boxImage": "/images/catalog/renderings/gwdcdd-0s.webp"
+    "boxImage": "/images/catalog/renderings/wdcdd-0s.webp"
   },
   {
     "id": "wdcdd-4s",
@@ -5277,7 +5277,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "insertReady": false,
       "pencilDrawers": 0
     },
-    "boxImage": "/images/catalog/renderings/gwdcdd-0s.webp"
+    "boxImage": "/images/catalog/renderings/wdcdd-0s.webp"
   },
   {
     "id": "gwdcdd-0s",
@@ -5343,7 +5343,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "insertReady": false,
       "pencilDrawers": 0
     },
-    "boxImage": "/images/catalog/renderings/gwdcdd-0s.webp"
+    "boxImage": "/images/catalog/renderings/wdcdd-0s.webp"
   },
   {
     "id": "gwdcdd-1s",
@@ -5411,7 +5411,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "insertReady": false,
       "pencilDrawers": 0
     },
-    "boxImage": "/images/catalog/renderings/gwdcdd-0s.webp"
+    "boxImage": "/images/catalog/renderings/wdcdd-0s.webp"
   },
   {
     "id": "gwdcdd-2s",
@@ -5479,7 +5479,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "insertReady": false,
       "pencilDrawers": 0
     },
-    "boxImage": "/images/catalog/renderings/gwdcdd-0s.webp"
+    "boxImage": "/images/catalog/renderings/wdcdd-0s.webp"
   },
   {
     "id": "gwdcdd-3s",
@@ -5547,7 +5547,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "insertReady": false,
       "pencilDrawers": 0
     },
-    "boxImage": "/images/catalog/renderings/gwdcdd-0s.webp"
+    "boxImage": "/images/catalog/renderings/wdcdd-0s.webp"
   },
   {
     "id": "gwdcdd-4s",
@@ -5615,7 +5615,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "insertReady": false,
       "pencilDrawers": 0
     },
-    "boxImage": "/images/catalog/renderings/gwdcdd-0s.webp"
+    "boxImage": "/images/catalog/renderings/wdcdd-0s.webp"
   },
   {
     "id": "wbcl-0s",
@@ -7169,7 +7169,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "insertReady": false,
       "pencilDrawers": 0
     },
-    "boxImage": "/images/catalog/renderings/gwbcl-2s.webp"
+    "boxImage": "/images/catalog/renderings/gwbcl-0s.webp"
   },
   {
     "id": "gwbcl-3s",
@@ -7237,7 +7237,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "insertReady": false,
       "pencilDrawers": 0
     },
-    "boxImage": "/images/catalog/renderings/gwbcl-2s.webp"
+    "boxImage": "/images/catalog/renderings/gwbcl-0s.webp"
   },
   {
     "id": "gwbcl-4s",
@@ -7305,7 +7305,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "insertReady": false,
       "pencilDrawers": 0
     },
-    "boxImage": "/images/catalog/renderings/gwbcl-2s.webp"
+    "boxImage": "/images/catalog/renderings/gwbcl-0s.webp"
   },
   {
     "id": "gwbcr-0s",
@@ -7371,7 +7371,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "insertReady": false,
       "pencilDrawers": 0
     },
-    "boxImage": "/images/catalog/renderings/gwbcl-2s.webp"
+    "boxImage": "/images/catalog/renderings/gwbcl-0s.webp"
   },
   {
     "id": "gwbcr-1s",
@@ -7439,7 +7439,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "insertReady": false,
       "pencilDrawers": 0
     },
-    "boxImage": "/images/catalog/renderings/gwbcl-2s.webp"
+    "boxImage": "/images/catalog/renderings/gwbcl-0s.webp"
   },
   {
     "id": "gwbcr-2s",
@@ -7507,7 +7507,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "insertReady": false,
       "pencilDrawers": 0
     },
-    "boxImage": "/images/catalog/renderings/gwbcl-2s.webp"
+    "boxImage": "/images/catalog/renderings/gwbcl-0s.webp"
   },
   {
     "id": "gwbcr-3s",
@@ -7575,7 +7575,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "insertReady": false,
       "pencilDrawers": 0
     },
-    "boxImage": "/images/catalog/renderings/gwbcl-2s.webp"
+    "boxImage": "/images/catalog/renderings/gwbcl-0s.webp"
   },
   {
     "id": "gwbcr-4s",
@@ -7643,7 +7643,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "insertReady": false,
       "pencilDrawers": 0
     },
-    "boxImage": "/images/catalog/renderings/gwbcl-2s.webp"
+    "boxImage": "/images/catalog/renderings/gwbcl-0s.webp"
   },
   {
     "id": "gwbcldd-0s",
@@ -7709,7 +7709,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "insertReady": false,
       "pencilDrawers": 0
     },
-    "boxImage": "/images/catalog/renderings/gwbcl-2s.webp"
+    "boxImage": "/images/catalog/renderings/gwbcl-0s.webp"
   },
   {
     "id": "gwbcldd-1s",
@@ -7777,7 +7777,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "insertReady": false,
       "pencilDrawers": 0
     },
-    "boxImage": "/images/catalog/renderings/gwbcl-2s.webp"
+    "boxImage": "/images/catalog/renderings/gwbcl-0s.webp"
   },
   {
     "id": "gwbcldd-2s",
@@ -7845,7 +7845,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "insertReady": false,
       "pencilDrawers": 0
     },
-    "boxImage": "/images/catalog/renderings/gwbcl-2s.webp"
+    "boxImage": "/images/catalog/renderings/gwbcl-0s.webp"
   },
   {
     "id": "gwbcldd-3s",
@@ -7913,7 +7913,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "insertReady": false,
       "pencilDrawers": 0
     },
-    "boxImage": "/images/catalog/renderings/gwbcl-2s.webp"
+    "boxImage": "/images/catalog/renderings/gwbcl-0s.webp"
   },
   {
     "id": "gwbcldd-4s",
@@ -7981,7 +7981,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "insertReady": false,
       "pencilDrawers": 0
     },
-    "boxImage": "/images/catalog/renderings/gwbcl-2s.webp"
+    "boxImage": "/images/catalog/renderings/gwbcl-0s.webp"
   },
   {
     "id": "gwbcrdd-0s",
@@ -8047,7 +8047,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "insertReady": false,
       "pencilDrawers": 0
     },
-    "boxImage": "/images/catalog/renderings/gwbcl-2s.webp"
+    "boxImage": "/images/catalog/renderings/gwbcl-0s.webp"
   },
   {
     "id": "gwbcrdd-1s",
@@ -8115,7 +8115,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "insertReady": false,
       "pencilDrawers": 0
     },
-    "boxImage": "/images/catalog/renderings/gwbcl-2s.webp"
+    "boxImage": "/images/catalog/renderings/gwbcl-0s.webp"
   },
   {
     "id": "gwbcrdd-2s",
@@ -8183,7 +8183,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "insertReady": false,
       "pencilDrawers": 0
     },
-    "boxImage": "/images/catalog/renderings/gwbcl-2s.webp"
+    "boxImage": "/images/catalog/renderings/gwbcl-0s.webp"
   },
   {
     "id": "gwbcrdd-3s",
@@ -8251,7 +8251,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "insertReady": false,
       "pencilDrawers": 0
     },
-    "boxImage": "/images/catalog/renderings/gwbcl-2s.webp"
+    "boxImage": "/images/catalog/renderings/gwbcl-0s.webp"
   },
   {
     "id": "gwbcrdd-4s",
@@ -8319,7 +8319,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "insertReady": false,
       "pencilDrawers": 0
     },
-    "boxImage": "/images/catalog/renderings/gwbcl-2s.webp"
+    "boxImage": "/images/catalog/renderings/gwbcl-0s.webp"
   },
   {
     "id": "wc90l-0s",
@@ -9873,7 +9873,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "insertReady": false,
       "pencilDrawers": 0
     },
-    "boxImage": "/images/catalog/renderings/gwc90l-2s.webp"
+    "boxImage": "/images/catalog/renderings/gwc90l-0s.webp"
   },
   {
     "id": "gwc90l-3s",
@@ -9941,7 +9941,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "insertReady": false,
       "pencilDrawers": 0
     },
-    "boxImage": "/images/catalog/renderings/gwc90l-2s.webp"
+    "boxImage": "/images/catalog/renderings/gwc90l-0s.webp"
   },
   {
     "id": "gwc90l-4s",
@@ -10009,7 +10009,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "insertReady": false,
       "pencilDrawers": 0
     },
-    "boxImage": "/images/catalog/renderings/gwc90l-2s.webp"
+    "boxImage": "/images/catalog/renderings/gwc90l-0s.webp"
   },
   {
     "id": "gwc90r-0s",
@@ -10075,7 +10075,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "insertReady": false,
       "pencilDrawers": 0
     },
-    "boxImage": "/images/catalog/renderings/gwc90l-2s.webp"
+    "boxImage": "/images/catalog/renderings/gwc90l-0s.webp"
   },
   {
     "id": "gwc90r-1s",
@@ -10143,7 +10143,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "insertReady": false,
       "pencilDrawers": 0
     },
-    "boxImage": "/images/catalog/renderings/gwc90l-2s.webp"
+    "boxImage": "/images/catalog/renderings/gwc90l-0s.webp"
   },
   {
     "id": "gwc90r-2s",
@@ -10211,7 +10211,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "insertReady": false,
       "pencilDrawers": 0
     },
-    "boxImage": "/images/catalog/renderings/gwc90l-2s.webp"
+    "boxImage": "/images/catalog/renderings/gwc90l-0s.webp"
   },
   {
     "id": "gwc90r-3s",
@@ -10279,7 +10279,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "insertReady": false,
       "pencilDrawers": 0
     },
-    "boxImage": "/images/catalog/renderings/gwc90l-2s.webp"
+    "boxImage": "/images/catalog/renderings/gwc90l-0s.webp"
   },
   {
     "id": "gwc90r-4s",
@@ -10347,7 +10347,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "insertReady": false,
       "pencilDrawers": 0
     },
-    "boxImage": "/images/catalog/renderings/gwc90l-2s.webp"
+    "boxImage": "/images/catalog/renderings/gwc90l-0s.webp"
   },
   {
     "id": "gwc90ldd-0s",
@@ -10413,7 +10413,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "insertReady": false,
       "pencilDrawers": 0
     },
-    "boxImage": "/images/catalog/renderings/gwc90l-2s.webp"
+    "boxImage": "/images/catalog/renderings/gwc90l-0s.webp"
   },
   {
     "id": "gwc90ldd-1s",
@@ -10481,7 +10481,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "insertReady": false,
       "pencilDrawers": 0
     },
-    "boxImage": "/images/catalog/renderings/gwc90l-2s.webp"
+    "boxImage": "/images/catalog/renderings/gwc90l-0s.webp"
   },
   {
     "id": "gwc90ldd-2s",
@@ -10549,7 +10549,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "insertReady": false,
       "pencilDrawers": 0
     },
-    "boxImage": "/images/catalog/renderings/gwc90l-2s.webp"
+    "boxImage": "/images/catalog/renderings/gwc90l-0s.webp"
   },
   {
     "id": "gwc90ldd-3s",
@@ -10617,7 +10617,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "insertReady": false,
       "pencilDrawers": 0
     },
-    "boxImage": "/images/catalog/renderings/gwc90l-2s.webp"
+    "boxImage": "/images/catalog/renderings/gwc90l-0s.webp"
   },
   {
     "id": "gwc90ldd-4s",
@@ -10685,7 +10685,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "insertReady": false,
       "pencilDrawers": 0
     },
-    "boxImage": "/images/catalog/renderings/gwc90l-2s.webp"
+    "boxImage": "/images/catalog/renderings/gwc90l-0s.webp"
   },
   {
     "id": "gwc90rdd-0s",
@@ -10751,7 +10751,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "insertReady": false,
       "pencilDrawers": 0
     },
-    "boxImage": "/images/catalog/renderings/gwc90l-2s.webp"
+    "boxImage": "/images/catalog/renderings/gwc90l-0s.webp"
   },
   {
     "id": "gwc90rdd-1s",
@@ -10819,7 +10819,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "insertReady": false,
       "pencilDrawers": 0
     },
-    "boxImage": "/images/catalog/renderings/gwc90l-2s.webp"
+    "boxImage": "/images/catalog/renderings/gwc90l-0s.webp"
   },
   {
     "id": "gwc90rdd-2s",
@@ -10887,7 +10887,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "insertReady": false,
       "pencilDrawers": 0
     },
-    "boxImage": "/images/catalog/renderings/gwc90l-2s.webp"
+    "boxImage": "/images/catalog/renderings/gwc90l-0s.webp"
   },
   {
     "id": "gwc90rdd-3s",
@@ -10955,7 +10955,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "insertReady": false,
       "pencilDrawers": 0
     },
-    "boxImage": "/images/catalog/renderings/gwc90l-2s.webp"
+    "boxImage": "/images/catalog/renderings/gwc90l-0s.webp"
   },
   {
     "id": "gwc90rdd-4s",
@@ -11023,7 +11023,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "insertReady": false,
       "pencilDrawers": 0
     },
-    "boxImage": "/images/catalog/renderings/gwc90l-2s.webp"
+    "boxImage": "/images/catalog/renderings/gwc90l-0s.webp"
   },
   {
     "id": "fls3l",
@@ -11485,7 +11485,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "insertReady": false,
       "pencilDrawers": 0
     },
-    "boxImage": "/images/catalog/renderings/tph.webp"
+    "boxImage": "/images/catalog/renderings/aph.webp"
   },
   {
     "id": "bph",
@@ -16355,7 +16355,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "insertReady": false,
       "pencilDrawers": 0
     },
-    "boxImage": "/images/catalog/renderings/tb15-fhd.webp"
+    "boxImage": "/images/catalog/renderings/tb15-td.webp"
   },
   {
     "id": "tb18-fhd",
@@ -16421,7 +16421,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "insertReady": false,
       "pencilDrawers": 0
     },
-    "boxImage": "/images/catalog/renderings/tb15-fhd.webp"
+    "boxImage": "/images/catalog/renderings/tb15-td.webp"
   },
   {
     "id": "tb21-fhd",
@@ -16487,7 +16487,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "insertReady": false,
       "pencilDrawers": 0
     },
-    "boxImage": "/images/catalog/renderings/tb15-fhd.webp"
+    "boxImage": "/images/catalog/renderings/tb15-td.webp"
   },
   {
     "id": "bir-1d-1td",
@@ -16692,7 +16692,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "insertReady": false,
       "pencilDrawers": 0
     },
-    "boxImage": "/images/catalog/renderings/sb-1d-1ff.webp"
+    "boxImage": "/images/catalog/renderings/sb-1d-1ff-1rot.webp"
   },
   {
     "id": "sb-2d-2ff",
@@ -16760,7 +16760,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "insertReady": false,
       "pencilDrawers": 0
     },
-    "boxImage": "/images/catalog/renderings/sb-1d-1ff.webp"
+    "boxImage": "/images/catalog/renderings/sb-1d-1ff-1rot.webp"
   },
   {
     "id": "sb-2d-1ff",
@@ -16828,7 +16828,7 @@ export const CABINET_PRODUCTS: CabinetProduct[] = [
       "insertReady": false,
       "pencilDrawers": 0
     },
-    "boxImage": "/images/catalog/renderings/sb-1d-1ff.webp"
+    "boxImage": "/images/catalog/renderings/sb-1d-1ff-1rot.webp"
   },
   {
     "id": "sb-1d-1ff-1rot",
