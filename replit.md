@@ -24,6 +24,7 @@ Preferred communication style: Simple, everyday language.
 - **Lead Distribution System**: B2B lead marketplace with admin dashboard, subcontractor portal, privacy protection, automated lead pricing, legal agreement flow, and in-app notifications. Integrates with Stripe for payments and supports an account credits system.
 - **Blog System**: Infrastructure kept but no posts yet — `shared/blogContent.ts` has empty `BLOG_POSTS` array.
 - **Email**: Resend integration, `hello@boisecabinet.co` as from/reply-to address and the sole admin recipient/account for the site and all portals.
+- **Outreach deliverability webhook**: `app/api/outreach/webhook/route.ts` receives Resend events, verifies the Svix signature with the `RESEND_WEBHOOK_SECRET` secret (global; covers dev + deploy), and on `email.bounced`/`email.complained` adds the address to `outreachSuppressions` (reason `bounce`/`complaint`) and marks the matching prospect `bounced`/`unsubscribed` so it leaves the send queue. Configure a Resend webhook pointing at `/api/outreach/webhook` subscribed to those two events; the signing secret (`whsec_...`) is the `RESEND_WEBHOOK_SECRET` value.
 - **Service Areas**: Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton (Ada + Canyon County).
 - **Services**: Kitchen Remodel, Bathroom Remodel, Whole-Home Remodel, Room Addition.
 
