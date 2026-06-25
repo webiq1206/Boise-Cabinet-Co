@@ -14,9 +14,25 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  useFormField,
+} from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
-import { CheckCircle2, ArrowRight, Plus, Minus } from "lucide-react";
+import {
+  CheckCircle2,
+  ArrowRight,
+  Plus,
+  Minus,
+  AlertCircle,
+  Home,
+  ShieldCheck,
+  Clock,
+} from "lucide-react";
 import type { StoredEstimate } from "@/shared/estimateEngine";
 import {
   buildConsultationEstimatePayload,
@@ -56,27 +72,74 @@ const PROJECT_OPTIONS = [
 
 const labelClass = "text-xs tracking-wide font-medium uppercase text-muted-foreground";
 
-const REASSURANCE = "Free in-home visit. No spam. We reply within one business day.";
+const consultInputClass = "aria-invalid:border-destructive/50";
+
+const TRUST_POINTS = [
+  { icon: Home, label: "Free in-home visit" },
+  { icon: ShieldCheck, label: "No spam, ever" },
+  { icon: Clock, label: "Reply within one business day" },
+] as const;
+
+/**
+ * Softer, submit-gated field error. Reads the surrounding FormField's error via
+ * the shared form context and renders an inline icon + message instead of the
+ * default bold red block. Returns null until the field actually has an error.
+ */
+function FieldError() {
+  const { error, formMessageId } = useFormField();
+  const message = error ? String(error.message ?? "") : "";
+  if (!message) return null;
+  return (
+    <p
+      id={formMessageId}
+      className="mt-1.5 flex items-start gap-1.5 text-[13px] leading-snug text-destructive/90"
+    >
+      <AlertCircle className="mt-0.5 h-3.5 w-3.5 shrink-0" />
+      <span>{message}</span>
+    </p>
+  );
+}
+
+function TrustRow() {
+  return (
+    <ul className="flex flex-wrap items-center gap-x-4 gap-y-1.5 text-xs text-muted-foreground">
+      {TRUST_POINTS.map(({ icon: Icon, label }) => (
+        <li key={label} className="flex items-center gap-1.5">
+          <Icon className="h-3.5 w-3.5 text-accent" />
+          {label}
+        </li>
+      ))}
+    </ul>
+  );
+}
 
 function EstimateSummaryCard({ estimate }: { estimate: StoredEstimate }) {
   return (
-    <div className="rounded-sm p-4 text-sm bg-accent/5 border border-accent/20" data-testid="text-estimate-summary">
-      <p className="font-medium mb-1 text-foreground">Your planning range</p>
-      <p className="text-muted-foreground">
-        {estimate.projectLabel}
-        {estimate.sizeLabel ? ` · ${estimate.sizeLabel}` : ""}
-      </p>
-      {estimate.scopeSummary && (
-        <p className="text-xs text-muted-foreground mt-1">{estimate.scopeSummary}</p>
-      )}
-      <p className="mt-1 text-foreground" data-testid="text-estimate-range">
-        <DisplayNum className="font-medium">
-          {formatPlanningCurrency(estimate.priceLow)} to {formatPlanningCurrency(estimate.priceHigh)}
-        </DisplayNum>
-      </p>
-      {estimate.confidenceLabel && (
-        <p className="text-xs mt-1 text-muted-foreground">{estimate.confidenceLabel}</p>
-      )}
+    <div
+      className="flex gap-3 rounded-lg p-4 text-sm bg-accent/5 border border-accent/20"
+      data-testid="text-estimate-summary"
+    >
+      <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-accent/15 text-accent">
+        <CheckCircle2 className="h-4 w-4" />
+      </span>
+      <div className="min-w-0">
+        <p className="text-xs font-medium uppercase tracking-wide text-accent">Your planning range</p>
+        <p className="mt-1 text-foreground" data-testid="text-estimate-range">
+          <DisplayNum className="text-base font-medium">
+            {formatPlanningCurrency(estimate.priceLow)} to {formatPlanningCurrency(estimate.priceHigh)}
+          </DisplayNum>
+        </p>
+        <p className="mt-0.5 text-muted-foreground">
+          {estimate.projectLabel}
+          {estimate.sizeLabel ? ` · ${estimate.sizeLabel}` : ""}
+        </p>
+        {estimate.scopeSummary && (
+          <p className="text-xs text-muted-foreground mt-1">{estimate.scopeSummary}</p>
+        )}
+        {estimate.confidenceLabel && (
+          <p className="text-xs mt-1 text-muted-foreground">{estimate.confidenceLabel}</p>
+        )}
+      </div>
     </div>
   );
 }
@@ -124,6 +187,10 @@ export function ConsultationFields({
 
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
+    // Errors only surface after the visitor attempts to submit, then clear as
+    // each field becomes valid.
+    mode: "onSubmit",
+    reValidateMode: "onChange",
     defaultValues: {
       name: "",
       phone: "",
@@ -283,150 +350,160 @@ export function ConsultationFields({
           )}
         />
 
-        <div className="grid sm:grid-cols-2 gap-4">
+        <div className="space-y-5 rounded-lg border border-border bg-card p-5 shadow-sm sm:p-6">
+          <div className="grid sm:grid-cols-2 gap-4">
+            <FormField
+              control={form.control}
+              name="name"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className={labelClass}>Full name</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="Jane Smith"
+                      autoComplete="name"
+                      data-testid="input-name"
+                      className={consultInputClass}
+                      {...field}
+                    />
+                  </FormControl>
+                  <FieldError />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="phone"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className={labelClass}>Phone</FormLabel>
+                  <FormControl>
+                    <Input
+                      type="tel"
+                      placeholder="(208) 555-0000"
+                      autoComplete="tel"
+                      inputMode="tel"
+                      data-testid="input-phone"
+                      className={consultInputClass}
+                      {...field}
+                    />
+                  </FormControl>
+                  <FieldError />
+                </FormItem>
+              )}
+            />
+          </div>
+
           <FormField
             control={form.control}
-            name="name"
+            name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className={labelClass}>Full name</FormLabel>
-                <FormControl>
-                  <Input placeholder="Jane Smith" autoComplete="name" data-testid="input-name" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="phone"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className={labelClass}>Phone</FormLabel>
+                <FormLabel className={labelClass}>Email</FormLabel>
                 <FormControl>
                   <Input
-                    type="tel"
-                    placeholder="(208) 555-0000"
-                    autoComplete="tel"
-                    inputMode="tel"
-                    data-testid="input-phone"
+                    type="email"
+                    placeholder="jane@example.com"
+                    autoComplete="email"
+                    data-testid="input-email"
+                    className={consultInputClass}
                     {...field}
                   />
                 </FormControl>
-                <FormMessage />
+                <FieldError />
               </FormItem>
             )}
           />
-        </div>
 
-        <FormField
-          control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel className={labelClass}>Email</FormLabel>
-              <FormControl>
-                <Input
-                  type="email"
-                  placeholder="jane@example.com"
-                  autoComplete="email"
-                  data-testid="input-email"
-                  {...field}
+          {!projectTypeFromEstimate && (
+            <FormField
+              control={form.control}
+              name="projectType"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className={labelClass}>What cabinetry are you planning?</FormLabel>
+                  <Select onValueChange={field.onChange} value={field.value}>
+                    <FormControl>
+                      <SelectTrigger data-testid="select-project-type">
+                        <SelectValue placeholder="Select a project type" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {PROJECT_OPTIONS.map((opt) => (
+                        <SelectItem key={opt.value} value={opt.value}>
+                          {opt.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <FieldError />
+                </FormItem>
+              )}
+            />
+          )}
+
+          {/* Address + notes are off the critical path - one tap reveals them. */}
+          <div className="rounded-sm border border-border bg-background">
+            <button
+              type="button"
+              onClick={() => setDetailsOpen((o) => !o)}
+              className="flex w-full items-center justify-between gap-2 px-3 py-2.5 min-h-11 text-left text-sm text-muted-foreground transition-colors hover:text-foreground"
+              aria-expanded={detailsOpen}
+              data-testid="button-toggle-details"
+            >
+              <span>Add address &amp; notes (optional)</span>
+              {detailsOpen ? <Minus className="h-4 w-4" /> : <Plus className="h-4 w-4" />}
+            </button>
+            {detailsOpen && (
+              <div className="space-y-4 border-t border-border p-3">
+                <FormField
+                  control={form.control}
+                  name="address"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className={labelClass}>Property address</FormLabel>
+                      <FormControl>
+                        <AddressAutocomplete
+                          value={addressInput || field.value || ""}
+                          onChange={(v) => {
+                            setAddressInput(v);
+                            field.onChange(v);
+                          }}
+                          onProfileResolved={handleProfileResolved}
+                          data-testid="input-address"
+                        />
+                      </FormControl>
+                      <FieldError />
+                    </FormItem>
+                  )}
                 />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        {!projectTypeFromEstimate && (
-          <FormField
-            control={form.control}
-            name="projectType"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className={labelClass}>What cabinetry are you planning?</FormLabel>
-                <Select onValueChange={field.onChange} value={field.value}>
-                  <FormControl>
-                    <SelectTrigger data-testid="select-project-type">
-                      <SelectValue placeholder="Select a project type" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent>
-                    {PROJECT_OPTIONS.map((opt) => (
-                      <SelectItem key={opt.value} value={opt.value}>
-                        {opt.label}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                <FormMessage />
-              </FormItem>
+                <FormField
+                  control={form.control}
+                  name="message"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className={labelClass}>Anything else we should know?</FormLabel>
+                      <FormControl>
+                        <Textarea
+                          placeholder="Tell us a little about your home, your vision, or your timeline..."
+                          rows={3}
+                          data-testid="textarea-message"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FieldError />
+                    </FormItem>
+                  )}
+                />
+              </div>
             )}
-          />
-        )}
-
-        {/* Address + notes are off the critical path - one tap reveals them. */}
-        <div className="rounded-sm border border-border">
-          <button
-            type="button"
-            onClick={() => setDetailsOpen((o) => !o)}
-            className="flex w-full items-center justify-between gap-2 px-3 py-2.5 min-h-11 text-left text-sm text-muted-foreground"
-            aria-expanded={detailsOpen}
-            data-testid="button-toggle-details"
-          >
-            <span>Add address &amp; notes (optional)</span>
-            {detailsOpen ? <Minus className="h-4 w-4" /> : <Plus className="h-4 w-4" />}
-          </button>
-          {detailsOpen && (
-            <div className="space-y-4 border-t border-border p-3">
-              <FormField
-                control={form.control}
-                name="address"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className={labelClass}>Property address</FormLabel>
-                    <FormControl>
-                      <AddressAutocomplete
-                        value={addressInput || field.value || ""}
-                        onChange={(v) => {
-                          setAddressInput(v);
-                          field.onChange(v);
-                        }}
-                        onProfileResolved={handleProfileResolved}
-                        data-testid="input-address"
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="message"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className={labelClass}>Anything else we should know?</FormLabel>
-                    <FormControl>
-                      <Textarea
-                        placeholder="Tell us a little about your home, your vision, or your timeline..."
-                        rows={3}
-                        data-testid="textarea-message"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-          )}
+          </div>
         </div>
 
         {hideSubmitButton ? (
-          <p className="text-xs text-muted-foreground">{REASSURANCE}</p>
+          <TrustRow />
         ) : (
-          <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
             <Button
               type="submit"
               variant="brand"
@@ -436,7 +513,7 @@ export function ConsultationFields({
               {mutation.isPending ? "Sending…" : "Send my request"}
               {!mutation.isPending && <ArrowRight className="h-4 w-4" />}
             </Button>
-            <p className="text-xs text-muted-foreground">{REASSURANCE}</p>
+            <TrustRow />
           </div>
         )}
       </form>
