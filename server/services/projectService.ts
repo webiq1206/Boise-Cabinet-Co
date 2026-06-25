@@ -380,6 +380,15 @@ export async function getEntityDocumentById(id: string): Promise<EntityDocument 
   return doc ?? null;
 }
 
+export async function deleteEntityDocument(id: string): Promise<boolean> {
+  if (!db) throw new Error("Database not available");
+  const deleted = await db
+    .delete(entityDocuments)
+    .where(eq(entityDocuments.id, id))
+    .returning({ id: entityDocuments.id });
+  return deleted.length > 0;
+}
+
 export async function getProjectStats(): Promise<{
   active: number;
   completed: number;

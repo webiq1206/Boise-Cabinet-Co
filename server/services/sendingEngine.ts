@@ -28,6 +28,7 @@ import { buildLeadConditions, combineConditions, type LeadAudienceFilter } from 
 const SEND_LOCK_KEY = 4815162343;
 
 type Lead = typeof leads.$inferSelect;
+type OutreachSendInsert = typeof outreachSends.$inferInsert;
 
 interface SendJob {
   sendId: string;
@@ -138,7 +139,7 @@ async function reserveNext(
         continue;
       }
 
-      const reserved: Record<string, unknown> = {
+      const reserved: OutreachSendInsert = {
         leadId: lead.id,
         enrollmentId: enr.id,
         stepId: step.id,
@@ -201,7 +202,7 @@ async function reserveNext(
         continue;
       }
 
-      const reserved: Record<string, unknown> = {
+      const reserved: OutreachSendInsert = {
         leadId: chosen.id,
         runId: run.id,
         templateId: template.id,

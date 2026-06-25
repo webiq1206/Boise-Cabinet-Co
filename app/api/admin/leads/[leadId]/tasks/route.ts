@@ -4,16 +4,16 @@ import { tasks } from "@/shared/schema";
 import { desc, eq } from "drizzle-orm";
 import { requireAdmin } from "@/lib/outreach/requireAdmin";
 
-export async function GET(_request: NextRequest, { params }: { params: { id: string } }) {
+export async function GET(_request: NextRequest, { params }: { params: { leadId: string } }) {
   const auth = await requireAdmin();
   if (auth.error) return auth.error;
   if (!db) return NextResponse.json({ error: "Database not available" }, { status: 500 });
 
-  const rows = await db.select().from(tasks).where(eq(tasks.leadId, params.id)).orderBy(desc(tasks.createdAt));
+  const rows = await db.select().from(tasks).where(eq(tasks.leadId, params.leadId)).orderBy(desc(tasks.createdAt));
   return NextResponse.json(rows);
 }
 
-export async function POST(request: NextRequest, { params }: { params: { id: string } }) {
+export async function POST(request: NextRequest, { params }: { params: { leadId: string } }) {
   const auth = await requireAdmin();
   if (auth.error) return auth.error;
   if (!db) return NextResponse.json({ error: "Database not available" }, { status: 500 });
@@ -24,7 +24,7 @@ export async function POST(request: NextRequest, { params }: { params: { id: str
   const [created] = await db
     .insert(tasks)
     .values({
-      leadId: params.id,
+      leadId: params.leadId,
       title: String(body.title),
       dueAt: body.dueAt ? new Date(body.dueAt) : null,
     })
@@ -33,7 +33,7 @@ export async function POST(request: NextRequest, { params }: { params: { id: str
   return NextResponse.json(created, { status: 201 });
 }
 
-export async function PATCH(request: NextRequest, { params }: { params: { id: string } }) {
+export async function PATCH(request: NextRequest, { params }: { params: { leadId: string } }) {
   const auth = await requireAdmin();
   if (auth.error) return auth.error;
   if (!db) return NextResponse.json({ error: "Database not available" }, { status: 500 });
@@ -55,7 +55,7 @@ export async function PATCH(request: NextRequest, { params }: { params: { id: st
   return NextResponse.json(updated);
 }
 
-export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {
+export async function DELETE(request: NextRequest, { params }: { params: { leadId: string } }) {
   const auth = await requireAdmin();
   if (auth.error) return auth.error;
   if (!db) return NextResponse.json({ error: "Database not available" }, { status: 500 });
