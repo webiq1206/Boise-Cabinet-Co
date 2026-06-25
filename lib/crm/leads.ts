@@ -21,14 +21,14 @@ export function isValidEmail(email: string | null | undefined): boolean {
 }
 
 // A lead is emailable only when a valid email is present and the email status is
-// not a hard stop (unsubscribed/failed). Suppression-list checks are applied
-// separately at send time against outreach_suppressions.
+// not a hard stop (unsubscribed/failed/bounced). Suppression-list checks are
+// applied separately at send time against outreach_suppressions.
 export function deriveEmailable(
   email: string | null | undefined,
   emailStatus: string | null | undefined = "new",
 ): boolean {
   if (!isValidEmail(email)) return false;
-  if (emailStatus === "unsubscribed" || emailStatus === "failed") return false;
+  if (emailStatus === "unsubscribed" || emailStatus === "failed" || emailStatus === "bounced") return false;
   return true;
 }
 

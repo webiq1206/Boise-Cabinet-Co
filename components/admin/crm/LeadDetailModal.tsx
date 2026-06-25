@@ -54,6 +54,7 @@ const EMAIL_STATUS_OPTIONS: [string, string][] = [
   ["new", "New"],
   ["contacted", "Contacted"],
   ["failed", "Failed"],
+  ["bounced", "Bounced"],
   ["unsubscribed", "Unsubscribed"],
 ];
 

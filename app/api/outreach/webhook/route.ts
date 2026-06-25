@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Webhook } from "svix";
 import { db } from "@/lib/db";
-import { outreachProspects, outreachSuppressions } from "@/shared/schema";
-import { eq } from "drizzle-orm";
+import { leads, outreachProspects, outreachSuppressions } from "@/shared/schema";
+import { eq, sql } from "drizzle-orm";
 
 // Resend signs every webhook with Svix. The signing secret (whsec_...) is shown
 // once when the endpoint is created in the Resend dashboard and must be stored
@@ -68,6 +68,31 @@ async function retireProspects(
   }
 }
 
+// Mark any CRM lead that owns this email as undeliverable so the admin dashboard
+// reflects the hard bounce / complaint and the lead leaves the emailable pool.
+// Bounces become "bounced"; complaints are treated like an unsubscribe (an
+// explicit do-not-contact signal). Lead emails are matched case-insensitively
+// because the webhook lowercases recipients but leads store the original casing.
+async function retireLeads(
+  emails: string[],
+  kind: "bounce" | "complaint",
+): Promise<void> {
+  if (!db) return;
+  const now = new Date();
+  const updates = {
+    emailStatus: kind === "bounce" ? "bounced" : "unsubscribed",
+    emailable: false,
+    updatedAt: now,
+  };
+
+  for (const email of emails) {
+    await db
+      .update(leads)
+      .set(updates)
+      .where(sql`lower(${leads.email}) = ${email}`);
+  }
+}
+
 export async function POST(request: NextRequest) {
   const secret = getWebhookSecret();
   if (!secret) {
@@ -117,6 +142,7 @@ export async function POST(request: NextRequest) {
     await addSuppression(email, kind);
   }
   await retireProspects(emails, emailId, kind);
+  await retireLeads(emails, kind);
 
   return NextResponse.json({ ok: true, type: event.type, suppressed: emails.length });
 }

@@ -67,6 +67,7 @@ const EMAIL_STATUS_LABELS: Record<string, string> = {
   new: "New",
   contacted: "Contacted",
   failed: "Failed",
+  bounced: "Bounced",
   unsubscribed: "Unsubscribed",
 };
 
