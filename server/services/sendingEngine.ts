@@ -19,6 +19,7 @@ import {
   isOutreachSendable,
 } from "@/lib/outreach/config";
 import { renderOutreachEmail, tokensForLead } from "./outreachRender";
+import { buildOutreachAttachments } from "./outreachAttachments";
 import { buildUnsubscribeUrl, buildOpenPixelUrl, buildClickUrl } from "@/lib/crm/urls";
 import { buildLeadConditions, combineConditions, type LeadAudienceFilter } from "@/lib/crm/leadFilter";
 
@@ -256,6 +257,7 @@ async function deliver(job: SendJob, dryRun: boolean): Promise<{ ok: boolean; er
     const { client } = await getUncachableResendClient();
     const from = `${getOutreachSenderName()} <${fromEmail}>`;
     const unsubscribeUrl = buildUnsubscribeUrl(job.lead.unsubscribeToken);
+    const attachments = await buildOutreachAttachments(job.template.attachmentKey);
     await client.emails.send({
       from,
       replyTo: getOutreachReplyTo(),
@@ -267,6 +269,7 @@ async function deliver(job: SendJob, dryRun: boolean): Promise<{ ok: boolean; er
         "List-Unsubscribe": `<${unsubscribeUrl}>`,
         "List-Unsubscribe-Post": "List-Unsubscribe=One-Click",
       },
+      ...(attachments ? { attachments } : {}),
     });
 
     // Success: stamp the lead's email status / last contacted.

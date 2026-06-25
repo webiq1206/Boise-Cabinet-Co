@@ -894,6 +894,9 @@ export const emailTemplates = pgTable("email_templates", {
   ctaUrl: text("cta_url"),
   secondaryCtaLabel: text("secondary_cta_label"),
   secondaryCtaUrl: text("secondary_cta_url"),
+  // Optional named attachment to include on send (e.g. "catalog" -> the catalog
+  // PDF). Null for the vast majority of templates so most sends carry no file.
+  attachmentKey: text("attachment_key"),
   seedManaged: boolean("seed_managed").notNull().default(false),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });

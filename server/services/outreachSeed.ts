@@ -10,6 +10,12 @@ import { SITE_CONFIG } from "@/shared/siteConfig";
 
 const SITE = SITE_CONFIG.siteUrl.replace(/\/$/, "");
 const SIGNER = "The Boise Cabinet Co team";
+// Contractor outreach is personal, so it signs as Nick (the owner) rather than
+// the generic team line used for homeowner automation.
+const OWNER_SIGNER = SITE_CONFIG.owner.name;
+// The full product catalog, linked in every contractor first email and also
+// attached to it (see attachmentKey "catalog").
+const CATALOG_URL = `${SITE}/downloads/boise-cabinet-catalog.pdf`;
 
 interface SeedTemplate {
   id: string;
@@ -21,6 +27,12 @@ interface SeedTemplate {
   closingLine: string;
   ctaLabel?: string;
   ctaUrl?: string;
+  secondaryCtaLabel?: string;
+  secondaryCtaUrl?: string;
+  // Optional named attachment (e.g. "catalog"). Resolved to a file at send time.
+  attachmentKey?: string;
+  // Overrides the default signer line for this template.
+  signerName?: string;
 }
 
 const TEMPLATES: SeedTemplate[] = [
@@ -130,24 +142,29 @@ const TEMPLATES: SeedTemplate[] = [
     name: "Contractor Partnership: Intro",
     audience: "business",
     subject: "Cabinet partner for {business} in {serviceArea}",
-    openingLine: "I came across {business} while looking at builders doing quality work in {serviceArea}.",
+    openingLine: "I came across {business} while looking at builders doing quality work in {serviceArea}, and wanted to introduce myself.",
     mainMessage:
-      "We are Boise Cabinet Co, a local shop building frameless cabinetry to order for kitchens, vanities, and built-ins. We work well as the cabinet partner on remodels and new builds, with a written scope before fabrication and one accountable contact start to finish.\n\nA quick reason builders work with us on pricing: [PLACEHOLDER: contractor pricing reason].",
-    closingLine: "Open to a short call to see if we are a fit on an upcoming project?",
+      "I ran a remodeling business in Colorado for years before my family moved out to Boise, where I opened Boise Cabinet Co. We build custom cabinets to order for kitchens, vanities, and built ins, and we work well as the cabinet partner on remodels and new builds.\n\nThree things our builder partners count on: competitive pricing that keeps your bids strong, short lead times so we fit your schedule, and customer service we take real pride in. I attached our full catalog so you can see our door styles and finishes.",
+    closingLine: "If you have a project coming up, I would be glad to put together a bid. Open to a quick call?",
     ctaLabel: "See our work",
     ctaUrl: `${SITE}/collections`,
+    secondaryCtaLabel: "View our catalog",
+    secondaryCtaUrl: CATALOG_URL,
+    attachmentKey: "catalog",
+    signerName: OWNER_SIGNER,
   },
   {
     id: "contractor-partnership-2",
     name: "Contractor Partnership: Follow Up",
     audience: "business",
     subject: "Following up: cabinets for {business}",
-    openingLine: "Following up on partnering with {business} on cabinetry.",
+    openingLine: "Following up on my note about handling the cabinets for {business}.",
     mainMessage:
-      "We keep things simple for our builder partners: clear scopes, dependable communication, and cabinetry built for the Treasure Valley. Our current lead time is [PLACEHOLDER: committed lead time], so we can plan around your schedule.",
-    closingLine: "Happy to send examples relevant to your projects if useful.",
+      "Keeping it simple: we give you competitive pricing, short lead times, and a single point of contact from first sketch to final install. We build for the Treasure Valley and plan around your schedule, so the cabinet part of a job never holds you up.",
+    closingLine: "Happy to bid on your next kitchen, bath, or built in whenever the timing is right. Just reply here.",
     ctaLabel: "Start a conversation",
     ctaUrl: `${SITE}/consultation`,
+    signerName: OWNER_SIGNER,
   },
   // 6. Re-Engagement (any)
   {
@@ -182,10 +199,156 @@ const TEMPLATES: SeedTemplate[] = [
     subject: "A reliable cabinet partner for {business}",
     openingLine: "I wanted to introduce Boise Cabinet Co as a cabinet partner for {business}.",
     mainMessage:
-      "We build frameless cabinetry to order for builders and remodelers across the Treasure Valley, with clear written scopes and one accountable contact from first sketch to final install. Builders partner with us because [PLACEHOLDER: contractor pricing reason], and our current lead time is [PLACEHOLDER: committed lead time].",
+      "We build custom cabinets to order for builders and remodelers across the Treasure Valley, with clear written scopes and one accountable contact from first sketch to final install. Builders partner with us for competitive pricing, short lead times, and customer service we take real pride in.",
     closingLine: "Would a short call this week be worthwhile?",
     ctaLabel: "See examples",
     ctaUrl: `${SITE}/collections`,
+    signerName: OWNER_SIGNER,
+  },
+
+  // 7. Contractor Intro (business) - warm, personal, three follow ups.
+  {
+    id: "contractor-intro-1",
+    name: "Contractor Intro: Hello",
+    audience: "business",
+    subject: "A local cabinet shop for {business}",
+    openingLine: "I came across {business} in {serviceArea} and wanted to reach out.",
+    mainMessage:
+      "My name is Nick. I ran a remodeling business in Colorado for years, then moved my family out to Boise and opened Boise Cabinet Co. We build custom cabinets right here in the valley for contractors who would rather hand off the cabinet part of a job than manage it in house.\n\nWhat you can expect from us is competitive pricing, short lead times, and customer service we genuinely care about. I attached our full catalog so you can get a feel for our door styles and finishes.",
+    closingLine: "If a kitchen, bath, or built in comes up, I would love the chance to bid it. No pressure at all.",
+    ctaLabel: "See our cabinets",
+    ctaUrl: `${SITE}/collections`,
+    secondaryCtaLabel: "View our catalog",
+    secondaryCtaUrl: CATALOG_URL,
+    attachmentKey: "catalog",
+    signerName: OWNER_SIGNER,
+  },
+  {
+    id: "contractor-intro-2",
+    name: "Contractor Intro: Happy to bid",
+    audience: "business",
+    subject: "Happy to bid your next job, {business}",
+    openingLine: "Just following up in case a project is on your radar.",
+    mainMessage:
+      "The easiest way to see if we are a fit is to let me price something real. Send me a plan or even a rough idea and I will put together a clear, competitive bid quickly. You stay focused on the rest of the build and the cabinets are handled.",
+    closingLine: "Want me to take a look at anything you have coming up?",
+    ctaLabel: "Get a bid",
+    ctaUrl: `${SITE}/consultation`,
+    signerName: OWNER_SIGNER,
+  },
+  {
+    id: "contractor-intro-3",
+    name: "Contractor Intro: Keeping in touch",
+    audience: "business",
+    subject: "Keeping {business} in mind",
+    openingLine: "I will keep this short.",
+    mainMessage:
+      "If cabinets are not on your plate right now, no worries. When the time comes, remember we offer competitive pricing, short lead times, and a team that is easy to work with. I would be glad to be your cabinet shop.",
+    closingLine: "Reply any time and I will be ready to help.",
+    ctaLabel: "Visit our site",
+    ctaUrl: SITE,
+    signerName: OWNER_SIGNER,
+  },
+
+  // 8. Contractor Value (business) - direct and brief, value first.
+  {
+    id: "contractor-value-1",
+    name: "Contractor Value: Quick intro",
+    audience: "business",
+    subject: "Cabinets, done right, for {business}",
+    openingLine: "Quick introduction from one local business to another.",
+    mainMessage:
+      "I am Nick with Boise Cabinet Co. After years running a remodeling business in Colorado, I moved my family to Boise and opened a custom cabinet shop here. For contractors that means three things: competitive pricing, short lead times, and service that makes your life easier. Our full catalog is attached so you can see the range.",
+    closingLine: "Got a kitchen, bath, or built in coming up? I will bid it.",
+    ctaLabel: "Browse the catalog",
+    ctaUrl: `${SITE}/collections`,
+    secondaryCtaLabel: "View our catalog",
+    secondaryCtaUrl: CATALOG_URL,
+    attachmentKey: "catalog",
+    signerName: OWNER_SIGNER,
+  },
+  {
+    id: "contractor-value-2",
+    name: "Contractor Value: Three reasons",
+    audience: "business",
+    subject: "Three reasons to send {business} cabinets our way",
+    openingLine: "A quick recap of why contractors work with us.",
+    mainMessage:
+      "Competitive pricing that protects your margin. Short lead times that fit your schedule. Customer service that keeps the job moving and keeps your clients happy. That is what we do, every time.",
+    closingLine: "Send me your next set of plans and I will price it.",
+    ctaLabel: "Send us a project",
+    ctaUrl: `${SITE}/consultation`,
+    signerName: OWNER_SIGNER,
+  },
+  {
+    id: "contractor-value-3",
+    name: "Contractor Value: Last note",
+    audience: "business",
+    subject: "Last note for now, {business}",
+    openingLine: "I do not want to crowd your inbox, so this is my last note for now.",
+    mainMessage:
+      "If you ever need a reliable cabinet shop with fair pricing and quick turnaround, I am here. One email and I will get you a bid.",
+    closingLine: "Thanks for reading, and good luck with the builds.",
+    ctaLabel: "Reach out",
+    ctaUrl: `${SITE}/consultation`,
+    signerName: OWNER_SIGNER,
+  },
+
+  // 9. Contractor Story (business) - relationship led, four emails.
+  {
+    id: "contractor-story-1",
+    name: "Contractor Story: Colorado to Boise",
+    audience: "business",
+    subject: "From Colorado to Boise, and why I am writing {business}",
+    openingLine: "I wanted to introduce myself and my shop to {business}.",
+    mainMessage:
+      "I spent years running a remodeling business in Colorado. When my family moved out to Boise, I opened Boise Cabinet Co so I could focus on the part of the work I love most, building great cabinets. I know the contractor side too, which is why I try to make this easy on you: competitive pricing, short lead times, and real customer service. I attached our catalog so you can see what we build.",
+    closingLine: "If you have a project where cabinets would help, I would be glad to bid it.",
+    ctaLabel: "See our work",
+    ctaUrl: `${SITE}/collections`,
+    secondaryCtaLabel: "View our catalog",
+    secondaryCtaUrl: CATALOG_URL,
+    attachmentKey: "catalog",
+    signerName: OWNER_SIGNER,
+  },
+  {
+    id: "contractor-story-2",
+    name: "Contractor Story: Service",
+    audience: "business",
+    subject: "How we treat your clients, {business}",
+    openingLine: "One thing I care a lot about is service.",
+    mainMessage:
+      "When you hand off cabinets, you are trusting us with your client and your reputation. We take that seriously. Clear communication, on time work, and cabinets your clients will be proud of. That is the customer service side of what we do, and it is a big part of why builders stick with us.",
+    closingLine: "Happy to show you what that looks like on a real project.",
+    ctaLabel: "Start a conversation",
+    ctaUrl: `${SITE}/consultation`,
+    signerName: OWNER_SIGNER,
+  },
+  {
+    id: "contractor-story-3",
+    name: "Contractor Story: Pricing and timing",
+    audience: "business",
+    subject: "Pricing and timing for {business}",
+    openingLine: "A quick word on the two things that usually matter most.",
+    mainMessage:
+      "Pricing: ours is about as competitive as you will find in the valley, so your bids stay strong. Timing: we keep lead times short and plan around your schedule, so cabinets never become the holdup on a job.",
+    closingLine: "Send me something to price and I will show you both.",
+    ctaLabel: "Get a bid",
+    ctaUrl: `${SITE}/consultation`,
+    signerName: OWNER_SIGNER,
+  },
+  {
+    id: "contractor-story-4",
+    name: "Contractor Story: Whenever you are ready",
+    audience: "business",
+    subject: "Whenever you are ready, {business}",
+    openingLine: "I will leave the ball in your court from here.",
+    mainMessage:
+      "If you ever want a cabinet partner who offers fair pricing, quick turnaround, and service you can count on, I would love to earn your business. Just reply and I will take it from there.",
+    closingLine: "Thanks for your time, and I hope we get to work together.",
+    ctaLabel: "Visit our site",
+    ctaUrl: SITE,
+    signerName: OWNER_SIGNER,
   },
 ];
 
@@ -255,6 +418,43 @@ const SEQUENCES: SeedSequence[] = [
     audience: "any",
     steps: [{ templateId: "re-engagement-1", delayHours: 0 }],
   },
+  {
+    seedKey: "contractor-intro",
+    name: "Contractor Intro (warm)",
+    description:
+      "Personal note from Nick to local builders. First email attaches the catalog. Business only.",
+    audience: "business",
+    steps: [
+      { templateId: "contractor-intro-1", delayHours: 0 },
+      { templateId: "contractor-intro-2", delayHours: 72 },
+      { templateId: "contractor-intro-3", delayHours: 168 },
+    ],
+  },
+  {
+    seedKey: "contractor-value",
+    name: "Contractor Value (direct)",
+    description:
+      "Short, value first pitch to builders. First email attaches the catalog. Business only.",
+    audience: "business",
+    steps: [
+      { templateId: "contractor-value-1", delayHours: 0 },
+      { templateId: "contractor-value-2", delayHours: 96 },
+      { templateId: "contractor-value-3", delayHours: 192 },
+    ],
+  },
+  {
+    seedKey: "contractor-story",
+    name: "Contractor Story (relationship)",
+    description:
+      "Story led sequence about Nick's move to Boise and how he works. First email attaches the catalog. Business only.",
+    audience: "business",
+    steps: [
+      { templateId: "contractor-story-1", delayHours: 0 },
+      { templateId: "contractor-story-2", delayHours: 72 },
+      { templateId: "contractor-story-3", delayHours: 144 },
+      { templateId: "contractor-story-4", delayHours: 240 },
+    ],
+  },
 ];
 
 export async function seedOutreachContent(): Promise<void> {
@@ -272,9 +472,12 @@ export async function seedOutreachContent(): Promise<void> {
         openingLine: t.openingLine,
         mainMessage: t.mainMessage,
         closingLine: t.closingLine,
-        signerName: SIGNER,
+        signerName: t.signerName ?? SIGNER,
         ctaLabel: t.ctaLabel ?? null,
         ctaUrl: t.ctaUrl ?? null,
+        secondaryCtaLabel: t.secondaryCtaLabel ?? null,
+        secondaryCtaUrl: t.secondaryCtaUrl ?? null,
+        attachmentKey: t.attachmentKey ?? null,
         seedManaged: true,
         updatedAt: new Date(),
       });
@@ -288,9 +491,12 @@ export async function seedOutreachContent(): Promise<void> {
           openingLine: t.openingLine,
           mainMessage: t.mainMessage,
           closingLine: t.closingLine,
-          signerName: SIGNER,
+          signerName: t.signerName ?? SIGNER,
           ctaLabel: t.ctaLabel ?? null,
           ctaUrl: t.ctaUrl ?? null,
+          secondaryCtaLabel: t.secondaryCtaLabel ?? null,
+          secondaryCtaUrl: t.secondaryCtaUrl ?? null,
+          attachmentKey: t.attachmentKey ?? null,
           updatedAt: new Date(),
         })
         .where(eq(emailTemplates.id, t.id));
