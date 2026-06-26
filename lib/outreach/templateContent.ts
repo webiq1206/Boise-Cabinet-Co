@@ -40,26 +40,26 @@ export interface OutreachTemplateContent {
 
 export const DEFAULT_TEMPLATE_CONTENT: OutreachTemplateContent = {
   personal: {
-    subject: "Quick note from a local cabinet shop",
+    subject: "Taking the cabinet work off your plate in {city}",
     opener:
-      "I came across {business} while looking at general contractors around {city} and wanted to introduce myself.",
+      "I came across {business} while looking at the remodelers doing solid work around {city}, and I wanted to reach out and introduce myself.",
     pitch:
-      "I ran a remodeling business in Colorado for several years before my family moved out to Boise, where I opened a custom cabinet shop. We build custom cabinets right here in the valley and work with contractors who would rather hand off the cabinet part of a job than manage it in house. My pricing is fair and about as competitive as you will find around here, and the work is solid, well built cabinets your clients will be happy with, so you can keep both the budget and the quality where they need to be. If it is ever helpful, I would be glad to put together a bid on your next kitchen, bath, or built in and handle the design and build so you can stay focused on the rest of the project.",
+      "I spent several years running a remodeling business in Colorado before my family moved to Boise, where I opened a custom cabinet shop. These days I build custom cabinets right here in the valley for contractors who would rather hand off the cabinet portion of a job than manage it themselves. You get one person handling design, build, and install, pricing that stays competitive, and solid work your clients will be glad to show off. In practice that means one less trade to chase down and a budget that holds together.",
     closing:
-      "No pressure at all. If you ever have a job coming up where cabinets would be useful to price out, just reply to this email or give me a call at {phone} and I will take care of it.",
+      "If you have a kitchen, bath, or built in coming up, I would be glad to put a bid together so you can see the numbers, with no pressure either way. Just reply to this email or call me at {phone} and I will take it from there.",
   },
   branded: {
-    subject: "{company}, your local cabinet partner",
+    subject: "{company}: your local cabinet partner in {city}",
     intro:
-      "I am {owner} with {company}. I ran a remodeling business in Colorado for several years, then my family moved out to Boise and I opened this local custom cabinet shop. I partner with general contractors who would rather hand off the cabinet portion of a remodel than manage it in house.",
+      "I am {owner} with {company}. After several years running a remodeling business in Colorado, my family moved to Boise and I opened this custom cabinet shop. I partner with contractors who would rather hand off the cabinet portion of a remodel than juggle it in house.",
     bullets: [
-      "Custom kitchens, baths, and built ins designed and built here in the valley.",
-      "Fair, competitive pricing that keeps your project budget on track.",
-      "Solid, well built work your clients will be proud of.",
-      "One point of contact for design, build, and install so you can stay focused on the rest of the job.",
+      "Custom kitchens, baths, and built ins, designed and built right here in the valley.",
+      "Competitive pricing that keeps your project budget on track.",
+      "Solid, well built work your clients will be proud to show off.",
+      "One point of contact for design, build, and install, so you have one less trade to manage.",
     ],
     closing:
-      "If you have a project coming up where cabinets would be useful to price out, just reply here or call me at {phone} and I will put a bid together. No pressure at all.",
+      "If you have a project coming up where the cabinets need pricing, just reply here or call me at {phone} and I will put a bid together. No pressure at all.",
   },
 };
 

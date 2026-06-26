@@ -164,24 +164,21 @@ async function reserveNextProspect(config: OutreachRuntimeConfig): Promise<Reser
       return null;
     };
 
-    // Step 1 is always prioritized: send all approved first-touch emails before
-    // any follow-ups so new contractors are not starved by the follow-up queue.
+    // Gather both queues. First-touch = approved cold prospects. Follow-up (only
+    // when the sequence is enabled) = already sent/opened, never replied/bounced/
+    // unsubscribed, not yet followed up, with the configured wait elapsed since
+    // the first send. Suppression is re-checked at claim time via pickSendable.
     const firstCandidates = await tx
       .select()
       .from(outreachProspects)
       .where(and(eq(outreachProspects.status, "approved"), isNotNull(outreachProspects.email)))
       .orderBy(outreachProspects.approvedAt)
       .limit(10);
-    let chosen = await pickSendable(firstCandidates);
-    let step: SendStep = "first";
 
-    // Step 2: only when the sequence is enabled and no first-touch send is due.
-    // Eligible = already sent (or opened, never replied/bounced/unsubscribed),
-    // not yet followed up, and the configured wait has elapsed since the first
-    // send. Suppression is still re-checked at claim time via pickSendable.
-    if (!chosen && config.sequenceEnabled) {
+    let followupCandidates: OutreachProspect[] = [];
+    if (config.sequenceEnabled) {
       const cutoff = new Date(Date.now() - config.followupDelayDays * 24 * 60 * 60 * 1000);
-      const followupCandidates = await tx
+      followupCandidates = await tx
         .select()
         .from(outreachProspects)
         .where(
@@ -198,8 +195,37 @@ async function reserveNextProspect(config: OutreachRuntimeConfig): Promise<Reser
         )
         .orderBy(outreachProspects.sentAt)
         .limit(10);
+    }
+
+    // Fair interleave so a steady stream of approved first-touch prospects never
+    // starves due follow-ups (which are time-sensitive: they have already waited
+    // the full delay). Within the rolling 24h window, prefer whichever step has
+    // sent fewer so far; ties go to the follow-up. When only one queue has work,
+    // that queue runs at full throughput.
+    const first24h = capRows[0]?.first ?? 0;
+    const followup24h = capRows[0]?.followup ?? 0;
+    const preferFollowup =
+      followupCandidates.length > 0 &&
+      (firstCandidates.length === 0 || followup24h <= first24h);
+
+    let chosen: OutreachProspect | null = null;
+    let step: SendStep = "first";
+    if (preferFollowup) {
       chosen = await pickSendable(followupCandidates);
-      if (chosen) step = "followup";
+      if (chosen) {
+        step = "followup";
+      } else {
+        // All due follow-ups were suppressed/retired; fall back to first-touch.
+        chosen = await pickSendable(firstCandidates);
+        step = "first";
+      }
+    } else {
+      chosen = await pickSendable(firstCandidates);
+      step = "first";
+      if (!chosen && followupCandidates.length > 0) {
+        chosen = await pickSendable(followupCandidates);
+        if (chosen) step = "followup";
+      }
     }
 
     if (!chosen) return { prospect: null, reason: "empty" };
