@@ -146,8 +146,8 @@ export async function POST(request: Request) {
   if (rawRows.length === 0) {
     return NextResponse.json({ error: "No rows found to import." }, { status: 400 });
   }
-  if (rawRows.length > 1000) {
-    return NextResponse.json({ error: "Too many rows. Import up to 1000 at a time." }, { status: 400 });
+  if (rawRows.length > 2000) {
+    return NextResponse.json({ error: "Too many rows. Import up to 2000 at a time." }, { status: 400 });
   }
 
   let inserted = 0;
