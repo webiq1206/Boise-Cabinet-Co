@@ -274,8 +274,11 @@ export function generateArticleSchema(article: {
   imageCaption?: string;
   slug: string;
   pathPrefix?: 'blog' | 'guides';
+  canonicalUrl?: string;
 }): SchemaContext {
-  const prefix = article.pathPrefix ?? 'blog';
+  const canonicalPath = article.canonicalUrl
+    ? (article.canonicalUrl.startsWith('http') ? article.canonicalUrl : `${baseUrl}${article.canonicalUrl}`)
+    : `${baseUrl}/${article.pathPrefix ?? 'blog'}/${article.slug}`;
   const imageUrl = article.image?.startsWith('http')
     ? article.image
     : article.image
@@ -304,7 +307,7 @@ export function generateArticleSchema(article: {
     },
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id': `${baseUrl}/${prefix}/${article.slug}`,
+      '@id': canonicalPath,
     },
   };
 }

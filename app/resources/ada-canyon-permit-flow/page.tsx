@@ -36,7 +36,7 @@ export default function AdaCanyonPermitFlowPage() {
       'A step-by-step view of how cabinet and trade permits move through review and inspections in the Treasure Valley. Timelines vary by project scope.',
     publishedAt: '2025-01-01',
     slug: 'ada-canyon-permit-flow',
-    pathPrefix: 'blog',
+    canonicalUrl: '/resources/ada-canyon-permit-flow',
   });
 
   return (
