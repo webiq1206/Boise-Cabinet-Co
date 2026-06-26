@@ -30,7 +30,11 @@ export async function generateMetadata({
   const guide = getGuideBySlug(params.slug);
   if (!guide) return { title: 'Guide Not Found' };
 
-  const title = guide.seoTitle || guide.title;
+  const rawTitle = guide.seoTitle || guide.title;
+  const brandSuffix = ' | Boise Cabinet Co';
+  const title = rawTitle.endsWith(brandSuffix)
+    ? rawTitle.slice(0, -brandSuffix.length)
+    : rawTitle;
   const description =
     guide.metaDescription ||
     (guide.excerpt.length > 160 ? guide.excerpt.substring(0, 157) + '...' : guide.excerpt);
@@ -49,6 +53,8 @@ export async function generateMetadata({
       type: 'article',
       publishedTime: guide.publishedAt,
       images: [{ url: imageUrl, alt: imageAlt }],
+      siteName: 'Boise Cabinet Co',
+      locale: 'en_US',
     },
     twitter: {
       card: 'summary_large_image',

@@ -35,7 +35,11 @@ export async function generateMetadata({
     return { title: "Post Not Found" };
   }
 
-  const title = post.seoTitle || post.title;
+  const rawTitle = post.seoTitle || post.title;
+  const brandSuffix = ` | ${SITE_CONFIG.name}`;
+  const title = rawTitle.endsWith(brandSuffix)
+    ? rawTitle.slice(0, -brandSuffix.length)
+    : rawTitle;
   const description =
     post.metaDescription ||
     (post.excerpt.length > 160 ? post.excerpt.substring(0, 157) + "..." : post.excerpt);
@@ -56,6 +60,8 @@ export async function generateMetadata({
       type: "article",
       publishedTime: post.publishedAt,
       images: [{ url: imageUrl, alt: imageAlt }],
+      siteName: SITE_CONFIG.name,
+      locale: "en_US",
     },
     twitter: {
       card: "summary_large_image",

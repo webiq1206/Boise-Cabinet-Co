@@ -124,7 +124,7 @@ export const NEW_CABINET_ARTICLES: BlogPostData[] = tier1Articles.map((article) 
   buildClusterPost({
     slug: article.slug,
     title: article.title,
-    seoTitle: `${article.title} | Boise Cabinet Co`,
+    seoTitle: article.title,
     metaDescription: `${article.title} for Boise, Meridian, Eagle, and the Treasure Valley. ${article.quickAnswer.slice(0, 120)}…`,
     excerpt: article.quickAnswer,
     hubSlug: article.hubSlug,

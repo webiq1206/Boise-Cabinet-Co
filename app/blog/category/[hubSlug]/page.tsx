@@ -58,6 +58,8 @@ export async function generateMetadata({
       url: buildCanonical(categoryHubPath(params.hubSlug)),
       type: 'website',
       images: [{ url: imageUrl, alt: `${hub.title} articles` }],
+      siteName: SITE_CONFIG.name,
+      locale: 'en_US',
     },
     twitter: {
       card: 'summary_large_image',
