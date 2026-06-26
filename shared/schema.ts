@@ -807,6 +807,10 @@ export const outreachProspects = pgTable("outreach_prospects", {
   // Sending bookkeeping for throttling + auditing.
   approvedAt: timestamp("approved_at"),
   sentAt: timestamp("sent_at"),
+  // When the step-2 follow-up email was sent. Null means no follow-up yet.
+  // Kept separate from sentAt so the original first-send record is preserved
+  // and so a prospect is only ever followed up once.
+  followupSentAt: timestamp("followup_sent_at"),
   providerMessageId: text("provider_message_id"),
   openedAt: timestamp("opened_at"),
   repliedAt: timestamp("replied_at"),

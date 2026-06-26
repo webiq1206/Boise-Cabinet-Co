@@ -38,6 +38,9 @@ const patchSchema = z.object({
   minGapMinutes: z.number().int().min(5).max(240).optional(),
   batchSize: z.number().int().min(1).max(OUTREACH_MAX_BATCH_SIZE).optional(),
   defaultTemplate: z.enum(OUTREACH_TEMPLATE_KEYS as [string, ...string[]]).optional(),
+  sequenceEnabled: z.boolean().optional(),
+  followupDelayDays: z.number().int().min(1).max(30).optional(),
+  followupTemplate: z.enum(OUTREACH_TEMPLATE_KEYS as [string, ...string[]]).optional(),
 });
 
 async function setSetting(key: string, value: string, userId: string) {
@@ -78,6 +81,12 @@ export async function PATCH(request: Request) {
     await setSetting(OUTREACH_SETTING_KEYS.batchSize, String(d.batchSize), userId);
   if (d.defaultTemplate !== undefined)
     await setSetting(OUTREACH_SETTING_KEYS.defaultTemplate, d.defaultTemplate, userId);
+  if (d.sequenceEnabled !== undefined)
+    await setSetting(OUTREACH_SETTING_KEYS.sequenceEnabled, String(d.sequenceEnabled), userId);
+  if (d.followupDelayDays !== undefined)
+    await setSetting(OUTREACH_SETTING_KEYS.followupDelayDays, String(d.followupDelayDays), userId);
+  if (d.followupTemplate !== undefined)
+    await setSetting(OUTREACH_SETTING_KEYS.followupTemplate, d.followupTemplate, userId);
 
   const config = await getOutreachConfig();
   return NextResponse.json({ config });

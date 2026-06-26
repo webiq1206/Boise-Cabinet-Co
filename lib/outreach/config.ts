@@ -18,6 +18,10 @@ export const OUTREACH_SETTING_KEYS = {
   minGapMinutes: "outreach_min_gap_minutes",
   batchSize: "outreach_batch_size",
   defaultTemplate: "outreach_default_template",
+  // Two-step sequence: send one automatic follow-up to non-repliers.
+  sequenceEnabled: "outreach_sequence_enabled",
+  followupDelayDays: "outreach_followup_delay_days",
+  followupTemplate: "outreach_followup_template",
 } as const;
 
 // Hard ceiling on how many emails a single manual run may attempt. Mirrors the
@@ -31,6 +35,10 @@ export interface OutreachRuntimeConfig {
   minGapMinutes: number;
   batchSize: number;
   defaultTemplate: string;
+  // Two-step sequence settings.
+  sequenceEnabled: boolean;
+  followupDelayDays: number;
+  followupTemplate: string;
 }
 
 const DEFAULTS: OutreachRuntimeConfig = {
@@ -42,6 +50,11 @@ const DEFAULTS: OutreachRuntimeConfig = {
   // Kept as a literal (not imported) so config module init never depends on the
   // template module, which imports back from here. Validated at runtime below.
   defaultTemplate: "personal",
+  // The follow-up is OFF by default; an admin must turn it on. Default wait is
+  // 5 days and the follow-up uses the branded voice (literal to avoid a cycle).
+  sequenceEnabled: false,
+  followupDelayDays: 5,
+  followupTemplate: "branded",
 };
 
 function clampInt(value: string | undefined, fallback: number, min: number, max: number): number {
@@ -79,6 +92,18 @@ export async function getOutreachConfig(): Promise<OutreachRuntimeConfig> {
       ),
       // Unknown/legacy keys fall back to the default template so nothing breaks.
       defaultTemplate: resolveTemplateKey(map[OUTREACH_SETTING_KEYS.defaultTemplate]),
+      sequenceEnabled: map[OUTREACH_SETTING_KEYS.sequenceEnabled] === "true",
+      followupDelayDays: clampInt(
+        map[OUTREACH_SETTING_KEYS.followupDelayDays],
+        DEFAULTS.followupDelayDays,
+        1,
+        30,
+      ),
+      // When unset, use the sequence-specific default ("branded") rather than the
+      // generic template fallback; a stored value is still validated/normalized.
+      followupTemplate: map[OUTREACH_SETTING_KEYS.followupTemplate]
+        ? resolveTemplateKey(map[OUTREACH_SETTING_KEYS.followupTemplate])
+        : DEFAULTS.followupTemplate,
     };
   } catch {
     return { ...DEFAULTS };

@@ -21,6 +21,10 @@ export async function GET(request: NextRequest) {
   // default, matching exactly what a real send would build.
   const templateParam = request.nextUrl.searchParams.get("template");
 
+  // When step=followup, preview the step-2 follow-up variant (circling-back
+  // lead-in + the configured follow-up voice) instead of the first-touch email.
+  const isFollowup = request.nextUrl.searchParams.get("step") === "followup";
+
   const rows = await db
     .select()
     .from(outreachProspects)
@@ -31,7 +35,9 @@ export async function GET(request: NextRequest) {
 
   const config = await getOutreachConfig();
   const content = await getOutreachTemplateContent();
-  const templateKey = templateParam ?? prospect.templateKey ?? config.defaultTemplate;
+  const templateKey =
+    templateParam ??
+    (isFollowup ? config.followupTemplate : prospect.templateKey ?? config.defaultTemplate);
 
   const copy = buildOutreachCopy({
     businessName: prospect.businessName,
@@ -41,6 +47,7 @@ export async function GET(request: NextRequest) {
     seed: prospect.id,
     content,
     templateKey,
+    isFollowup,
   });
 
   // Show the address the email will actually be sent FROM (the configured

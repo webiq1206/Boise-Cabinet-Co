@@ -54,6 +54,7 @@ interface Prospect {
   personalizationNote: string | null;
   templateKey: string | null;
   sentAt: string | null;
+  followupSentAt: string | null;
   openedAt: string | null;
   lastError: string | null;
 }
@@ -65,6 +66,9 @@ interface OutreachConfig {
   minGapMinutes: number;
   batchSize: number;
   defaultTemplate: string;
+  sequenceEnabled: boolean;
+  followupDelayDays: number;
+  followupTemplate: string;
 }
 
 interface TemplateOption {
@@ -176,7 +180,7 @@ function ProspectCard({
   defaultTemplateLabel: string;
   onMutate: (id: string, body: unknown) => void;
   onDelete: (id: string) => void;
-  onPreview: (id: string) => void;
+  onPreview: (id: string, step?: "first" | "followup") => void;
   onTrack: (id: string, status: "replied" | "bounced") => void;
 }) {
   return (
@@ -274,6 +278,12 @@ function ProspectCard({
           </Select>
         </div>
 
+        {p.followupSentAt && (
+          <p className="text-xs text-muted-foreground" data-testid={`text-followup-sent-${p.id}`}>
+            Follow-up sent {new Date(p.followupSentAt).toLocaleDateString()}
+          </p>
+        )}
+
         {p.lastError && <p className="text-xs text-destructive">{p.lastError}</p>}
 
         <div className="flex flex-wrap gap-2">
@@ -328,6 +338,17 @@ function ProspectCard({
               data-testid={`button-skip-${p.id}`}
             >
               <X className="h-4 w-4" /> Skip
+            </Button>
+          )}
+
+          {(p.status === "sent" || p.status === "opened") && (
+            <Button
+              size="sm"
+              variant="outline"
+              onClick={() => onPreview(p.id, "followup")}
+              data-testid={`button-preview-followup-${p.id}`}
+            >
+              <Mail className="h-4 w-4" /> Preview follow-up
             </Button>
           )}
 
@@ -518,6 +539,7 @@ function OutreachPanel() {
   const [emailEdits, setEmailEdits] = useState<Record<string, string>>({});
   const [cityQuery, setCityQuery] = useState("");
   const [previewId, setPreviewId] = useState<string | null>(null);
+  const [previewStep, setPreviewStep] = useState<"first" | "followup">("first");
   const [selected, setSelected] = useState<Set<string>>(new Set());
 
   const { data, isLoading } = useQuery<OutreachData>({
@@ -530,14 +552,21 @@ function OutreachPanel() {
   });
 
   const { data: previewData } = useQuery<PreviewData>({
-    queryKey: ["/api/admin/outreach/preview", previewId],
+    queryKey: ["/api/admin/outreach/preview", previewId, previewStep],
     queryFn: async () => {
-      const res = await fetch(`/api/admin/outreach/preview?id=${encodeURIComponent(previewId!)}`);
+      const res = await fetch(
+        `/api/admin/outreach/preview?id=${encodeURIComponent(previewId!)}&step=${previewStep}`,
+      );
       if (!res.ok) throw new Error("Failed to load preview");
       return res.json();
     },
     enabled: !!previewId,
   });
+
+  const openPreview = (id: string, step: "first" | "followup" = "first") => {
+    setPreviewStep(step);
+    setPreviewId(id);
+  };
 
   const invalidate = () => queryClient.invalidateQueries({ queryKey: ["/api/admin/outreach"] });
 
@@ -545,6 +574,11 @@ function OutreachPanel() {
   const templates = data?.templates ?? [];
   const defaultTemplateLabel =
     templates.find((t) => t.key === (config?.defaultTemplate ?? ""))?.label ?? "default";
+  // Prospects that got the first email, never replied/bounced, and have not yet
+  // been followed up. (replied/bounced/unsubscribed move out of sent/opened.)
+  const awaitingFollowup = (data?.prospects ?? []).filter(
+    (p) => (p.status === "sent" || p.status === "opened") && !p.followupSentAt,
+  ).length;
 
   const discoverMutation = useMutation({
     mutationFn: () => postJson("/api/admin/outreach/discover", {}),
@@ -849,7 +883,7 @@ function OutreachPanel() {
                 defaultTemplateLabel={defaultTemplateLabel}
                 onMutate={(id, body) => prospectMutation.mutate({ id, body })}
                 onDelete={(id) => deleteMutation.mutate(id)}
-                onPreview={(id) => setPreviewId(id)}
+                onPreview={openPreview}
                 onTrack={(id, status) => trackMutation.mutate({ id, status })}
               />
             ))}
@@ -973,13 +1007,85 @@ function OutreachPanel() {
               </Button>
             </CardContent>
           </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-base">Follow-up sequence</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-5">
+              <p className="text-sm text-muted-foreground">
+                Send one friendly follow-up to contractors who never replied. It
+                only goes to people who have not answered your first email, waits
+                the number of days you set below, then sends automatically. The
+                same daily cap and minimum gap still apply.
+              </p>
+
+              {awaitingFollowup > 0 && (
+                <p className="text-sm" data-testid="text-awaiting-followup">
+                  {awaitingFollowup} contractor{awaitingFollowup === 1 ? " is" : "s are"} waiting
+                  for a follow-up.
+                </p>
+              )}
+
+              <div className="flex flex-wrap items-center justify-between gap-3 rounded-md border p-3">
+                <div>
+                  <Label className="text-sm font-medium">Send the follow-up</Label>
+                  <p className="text-xs text-muted-foreground">
+                    When on, non-repliers get one automatic second email.
+                  </p>
+                </div>
+                <Switch
+                  checked={config.sequenceEnabled}
+                  onCheckedChange={(v) => setDraftConfig({ ...config, sequenceEnabled: v })}
+                  data-testid="switch-outreach-sequence"
+                />
+              </div>
+
+              <div className="flex flex-wrap gap-4">
+                <div className="space-y-1">
+                  <Label className="text-xs" htmlFor="followupDelay">Wait before follow-up (days)</Label>
+                  <Input id="followupDelay" type="number" className="w-32" value={config.followupDelayDays} min={1} max={30}
+                    onChange={(e) => setDraftConfig({ ...config, followupDelayDays: Number(e.target.value) })}
+                    data-testid="input-outreach-followup-delay" />
+                  <p className="text-xs text-muted-foreground">Between 1 and 30 days.</p>
+                </div>
+                <div className="space-y-1 min-w-[12rem] flex-1 max-w-sm">
+                  <Label className="text-xs">Follow-up wording</Label>
+                  <Select
+                    value={config.followupTemplate}
+                    onValueChange={(v) => setDraftConfig({ ...config, followupTemplate: v })}
+                  >
+                    <SelectTrigger data-testid="select-outreach-followup-template">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {templates.map((t) => (
+                        <SelectItem key={t.key} value={t.key}>
+                          {t.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <p className="text-xs text-muted-foreground">
+                    The follow-up reuses this wording with a short "circling back" intro.
+                  </p>
+                </div>
+              </div>
+
+              <Button onClick={() => configMutation.mutate(config)} disabled={configMutation.isPending} data-testid="button-save-outreach-sequence">
+                {configMutation.isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : "Save settings"}
+              </Button>
+            </CardContent>
+          </Card>
         </TabsContent>
       </Tabs>
 
       <Dialog open={!!previewId} onOpenChange={(open) => !open && setPreviewId(null)}>
         <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle>Email preview</DialogTitle>
+            <DialogTitle>
+              Email preview{previewStep === "followup" ? " (follow-up)" : ""}
+            </DialogTitle>
           </DialogHeader>
           {previewId && !previewData && (
             <div className="flex items-center gap-2 text-sm text-muted-foreground">

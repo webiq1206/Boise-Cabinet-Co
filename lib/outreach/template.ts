@@ -77,6 +77,45 @@ function tokensFor(businessName: string, city: string): TemplateTokens {
   };
 }
 
+/** Bare display form of the website (no protocol, no trailing slash). */
+function websiteDisplay(): string {
+  return SITE_CONFIG.siteUrl.replace(/^https?:\/\//, "").replace(/\/$/, "");
+}
+
+/**
+ * Full email signature, shared by every template so the name, title, company,
+ * phone, email, and a clickable website always match. Code-owned (not editable)
+ * so contact details stay correct on every send.
+ */
+function signatureTextLines(): string[] {
+  return [
+    `Warmly,`,
+    SITE_CONFIG.owner.name,
+    `${SITE_CONFIG.owner.title}, ${SITE_CONFIG.name}`,
+    SITE_CONFIG.phone,
+    SITE_CONFIG.email,
+    websiteDisplay(),
+  ];
+}
+
+function signatureHtml(): string {
+  const site = SITE_CONFIG.siteUrl.replace(/\/$/, "");
+  return `<p>Warmly,<br>
+  ${esc(SITE_CONFIG.owner.name)}<br>
+  ${esc(SITE_CONFIG.owner.title)}, ${esc(SITE_CONFIG.name)}<br>
+  ${esc(SITE_CONFIG.phone)}<br>
+  <a href="mailto:${esc(SITE_CONFIG.email)}" style="color:#9a4a2a;">${esc(SITE_CONFIG.email)}</a><br>
+  <a href="${esc(site)}" style="color:#9a4a2a;">${esc(websiteDisplay())}</a></p>`;
+}
+
+/**
+ * Short, code-owned lead-in used only for the step-2 follow-up so it reads like
+ * a genuine "circling back" note rather than a duplicate cold email. Replaces
+ * the first-touch opener. No em-dashes (the whole body is stripped anyway).
+ */
+const FOLLOWUP_LEADIN =
+  "I know things get busy, so I wanted to gently circle back on the note I sent a few days ago in case it slipped by.";
+
 export interface OutreachCopyInput {
   businessName: string;
   city: string;
@@ -88,6 +127,9 @@ export interface OutreachCopyInput {
   templateKey?: string | null;
   // Admin-editable wording. Falls back to code defaults when omitted.
   content?: OutreachTemplateContent | null;
+  // When true, render the step-2 follow-up variant: the first-touch opener is
+  // replaced by a short "circling back" lead-in. Everything else is the same.
+  isFollowup?: boolean;
   // When provided, a 1x1 tracking pixel pointing at this URL is embedded in the
   // HTML body so we can record opens where the recipient's mail client loads
   // remote images. Omitted for previews.
@@ -146,7 +188,9 @@ function buildPersonalCopy(input: OutreachCopyInput): OutreachCopy {
   const tokens = tokensFor(businessName, city);
 
   const subject = stripDashes(applyTokens(c.subject, tokens));
-  const opener = stripDashes(applyTokens(c.opener, tokens));
+  const opener = input.isFollowup
+    ? FOLLOWUP_LEADIN
+    : stripDashes(applyTokens(c.opener, tokens));
   const pitch = stripDashes(applyTokens(c.pitch, tokens));
   const closing = stripDashes(applyTokens(c.closing, tokens));
 
@@ -163,10 +207,7 @@ function buildPersonalCopy(input: OutreachCopyInput): OutreachCopy {
     ``,
     closing,
     ``,
-    `Warmly,`,
-    SITE_CONFIG.owner.name,
-    `${SITE_CONFIG.owner.title}, ${SITE_CONFIG.name}`,
-    SITE_CONFIG.phone,
+    ...signatureTextLines(),
   ];
 
   const text = stripDashes(
@@ -182,10 +223,7 @@ function buildPersonalCopy(input: OutreachCopyInput): OutreachCopy {
   const html = stripDashes(`<div style="font-family: Arial, Helvetica, sans-serif; font-size: 15px; line-height: 1.6; color: #222;">
   <p>Hi there,</p>
   ${paragraphs.map((p) => `<p>${p}</p>`).join("\n  ")}
-  <p>Warmly,<br>
-  ${esc(SITE_CONFIG.owner.name)}<br>
-  ${esc(SITE_CONFIG.owner.title)}, ${esc(SITE_CONFIG.name)}<br>
-  ${esc(SITE_CONFIG.phone)}</p>
+  ${signatureHtml()}
   ${footerHtml({ businessName, city, postal, unsubscribeUrl })}${trackingPixel(openTrackingUrl)}
 </div>`);
 
@@ -204,7 +242,9 @@ function buildBrandedCopy(input: OutreachCopyInput): OutreachCopy {
   const tokens = tokensFor(businessName, city);
 
   const subject = stripDashes(applyTokens(c.subject, tokens));
-  const opener = stripDashes(applyTokens(DEFAULT_TEMPLATE_CONTENT.personal.opener, tokens));
+  const opener = input.isFollowup
+    ? FOLLOWUP_LEADIN
+    : stripDashes(applyTokens(DEFAULT_TEMPLATE_CONTENT.personal.opener, tokens));
 
   const noteLine = personalizationNote?.trim()
     ? `${stripDashes(personalizationNote.trim())} `
@@ -227,10 +267,7 @@ function buildBrandedCopy(input: OutreachCopyInput): OutreachCopy {
       ``,
       close,
       ``,
-      `Warmly,`,
-      SITE_CONFIG.owner.name,
-      `${SITE_CONFIG.owner.title}, ${SITE_CONFIG.name}`,
-      SITE_CONFIG.phone,
+      ...signatureTextLines(),
       ``,
       ...footerTextLines({ businessName, city, postal, unsubscribeUrl }),
     ].join("\n"),
@@ -247,10 +284,7 @@ function buildBrandedCopy(input: OutreachCopyInput): OutreachCopy {
   ${bullets.map((b) => `  <li>${esc(b)}</li>`).join("\n  ")}
   </ul>
   <p>${esc(close)}</p>
-  <p>Warmly,<br>
-  ${esc(SITE_CONFIG.owner.name)}<br>
-  ${esc(SITE_CONFIG.owner.title)}, ${esc(SITE_CONFIG.name)}<br>
-  ${esc(SITE_CONFIG.phone)}</p>
+  ${signatureHtml()}
   ${footerHtml({ businessName, city, postal, unsubscribeUrl })}${trackingPixel(openTrackingUrl)}
 </div>`);
 
