@@ -7,9 +7,34 @@ if [ -n "$DATABASE_URL" ] || [ -n "$PGDATABASE_URL" ] || [ -n "$REPLIT_DB_URL" ]
 else
   echo "No database URL configured — skipping db:push"
 fi
+# Remove any previous standalone tree so each deploy assembles a clean one. The
+# Replit workspace persists across deploys, so a stale standalone (including its
+# traced node_modules) can survive on disk and leave a missing dependency that
+# crashes the server with MODULE_NOT_FOUND at startup. (.next/cache is kept for
+# fast incremental builds; it is pruned at the end of this script.)
+rm -rf .next/standalone
 npm run build
+
+# The standalone server (server.js) chdir's to .next/standalone and serves
+# /_next/static from ./.next/static and public/ assets from ./public. `next build`
+# creates neither, so we provide both here.
+#
+# _next/static is small — copy it.
+rm -rf .next/standalone/.next/static
+mkdir -p .next/standalone/.next
 cp -r .next/static .next/standalone/.next/static
-cp -r public .next/standalone/public
+#
+# public/ is large (~290 MB) and is committed to git, so the repo's own public/
+# always ships with the deployment. Duplicating it into the standalone bundle
+# doubles that payload in the deploy image; previously every public/ asset 404'd
+# in production (while the small _next/static copy served fine) — consistent with
+# the large duplicate copy being dropped during image assembly. Symlink instead:
+# Next's startup public-folder scan (recursiveReadDir) and serveStatic (send with
+# an absolute path, no root) both follow symlinks, so this serves identically
+# without shipping a second 290 MB copy. The link is relative (../../public,
+# resolved from .next/standalone) so it stays valid wherever the deploy runs.
+rm -rf .next/standalone/public
+ln -sfn ../../public .next/standalone/public
 # Submit sitemap URLs to IndexNow for search engine indexing.
 if command -v node &>/dev/null; then
   node scripts/submit-indexnow.mjs || echo "IndexNow submission skipped (non-fatal)"
