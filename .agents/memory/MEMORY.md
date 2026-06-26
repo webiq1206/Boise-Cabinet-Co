@@ -1,4 +1,5 @@
 - [Autoscale deploy promote-step failure](deploy-promote-step-failure.md) — build+push succeed but build marked "failed" with no logs; diagnose by comparing build-log tails for the `Creating Autoscale service` marker.
+- [Standalone deploy does not serve public/](standalone-public-not-served.md) — every static public/ file 404s in prod (llms.txt, manifest, icons); serve text assets via app routes (like robots.ts/sitemap.ts), not public/.
 - [Catalog finish color data](catalog-finish-color-data.md) — finish hexColor is shared/approximate per color group; whites are warm off-white (#F2EFE9) so classify Whites by lightness not saturation; ~191/299 are woodgrain.
 - [Next dev vs build .next contention](next-build-dev-contention.md) — never run `next build` while the dev workflow is up; it corrupts `.next` (vendor-chunks MODULE_NOT_FOUND). Fix = `rm -rf .next` + restart workflow.
 - [ws/neon bundling breaks prod login](ws-standalone-bundling.md) — DB works in dev but 500s only on deployed standalone ("t.mask is not a function"); fix = serverComponentsExternalPackages for ws/@neondatabase/serverless.

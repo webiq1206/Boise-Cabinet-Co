@@ -1,4 +1,7 @@
-# Boise Cabinet Co
+// Single source of truth for /llms.txt, served via app/llms.txt/route.ts.
+// Served through an app route (not public/) because static public/ files are
+// not served by the standalone production deploy; app routes are.
+export const LLMS_TXT = `# Boise Cabinet Co
 
 > Idaho's premier custom cabinet company. We design, build, and install frameless, built-to-order kitchen cabinets, bathroom vanities, and built-in storage for Boise and the Treasure Valley.
 
@@ -71,3 +74,4 @@ Updated June 2026 for budgeting only; firm quotes require approved drawings.
 - Website: https://boisecabinet.co
 - Contact page: https://boisecabinet.co/contact
 - Address, phone, and email appear on the site footer and contact page.
+`;
