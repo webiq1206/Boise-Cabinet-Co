@@ -158,24 +158,29 @@ export default function GuidesIndexPage() {
           </h2>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {sortedHubs.map((hub) => {
+              const hasPillar = !!hub.pillarSlug;
               return (
                 <MarketingCard key={hub.hubSlug} className="p-5">
                   <h3 className="font-medium mb-1">{hub.title}</h3>
                   <p className="text-sm text-muted-foreground mb-3">{hub.description}</p>
                   <div className="flex flex-wrap gap-x-4 gap-y-1 text-sm">
-                    <Link
-                      href={guidePath(hub.pillarSlug)}
-                      className="text-accent hover:underline inline-flex items-center"
-                    >
-                      Pillar guide
-                      <ArrowRight className="ml-1 h-3 w-3" />
-                    </Link>
-                    <Link
-                      href={`/blog/category/${hub.hubSlug}`}
-                      className="text-muted-foreground hover:text-accent hover:underline"
-                    >
-                      Related articles
-                    </Link>
+                    {hasPillar && (
+                      <Link
+                        href={guidePath(hub.pillarSlug)}
+                        className="text-accent hover:underline inline-flex items-center"
+                      >
+                        Pillar guide
+                        <ArrowRight className="ml-1 h-3 w-3" />
+                      </Link>
+                    )}
+                    {hasPillar && (
+                      <Link
+                        href={`/blog/category/${hub.hubSlug}`}
+                        className="text-muted-foreground hover:text-accent hover:underline"
+                      >
+                        Related articles
+                      </Link>
+                    )}
                   </div>
                 </MarketingCard>
               );

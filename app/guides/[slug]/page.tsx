@@ -88,7 +88,7 @@ export default function GuidePage({ params }: { params: { slug: string } }) {
     { name: 'Home', url: '/' },
     { name: 'Guides', url: '/guides' },
   ];
-  if (hub) {
+  if (hub && hub.pillarSlug) {
     breadcrumbItems.push({
       name: hub.title,
       url: guidePath(hub.pillarSlug),

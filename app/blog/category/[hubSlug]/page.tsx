@@ -127,13 +127,15 @@ export default function BlogCategoryHubPage({
             {hub.title}
           </h1>
           <p className="text-lg text-muted-foreground mb-6 max-w-2xl">{hub.description}</p>
-          <Link
-            href={guidePath(hub.pillarSlug)}
-            className="inline-flex items-center text-accent hover:underline text-sm mb-10"
-          >
-            Read the complete guide
-            <ArrowRight className="ml-1 h-4 w-4" />
-          </Link>
+          {hub.pillarSlug && (
+            <Link
+              href={guidePath(hub.pillarSlug)}
+              className="inline-flex items-center text-accent hover:underline text-sm mb-10"
+            >
+              Read the complete guide
+              <ArrowRight className="ml-1 h-4 w-4" />
+            </Link>
+          )}
 
           {posts.length < CATEGORY_HUB_MIN_POSTS && (
             <p className="text-sm text-muted-foreground mb-8">
