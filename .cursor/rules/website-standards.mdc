@@ -1,0 +1,25 @@
+---
+description: Enforces all website content standards on every Cursor session and project
+alwaysApply: true
+---
+
+These standards apply on EVERY website, EVERY project, and EVERY session. No exceptions.
+
+## Required skills
+
+When creating or editing any page, route, blog post, service page, location page,
+landing page, FAQ, metadata, UI copy, toast, error message, email, doc, or any
+user-facing content:
+
+1. **seo-geo-aeo-page-standards** - follow the skill and run its pre-publish checklist before finishing.
+2. **no-em-dashes** - No webpage, post, etc should EVER contain em dashes whatsoever! Follow the skill and run its pre-publish check before finishing.
+
+## Model selection
+
+For non-trivial tasks, follow the **select-model** skill to pick the right model tier and mode.
+
+## Before finishing any content work
+
+- [ ] SEO / GEO / AEO pre-publish checklist complete
+- [ ] Em dash scan clean on all changed paths
+- [ ] No user-facing copy shipped without both checks passing

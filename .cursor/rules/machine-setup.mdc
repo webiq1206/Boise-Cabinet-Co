@@ -1,0 +1,27 @@
+---
+description: Reminds the agent to bootstrap global Cursor config on a new or unfamiliar machine
+alwaysApply: true
+---
+
+## New machine check
+
+If global Cursor standards may be missing on this computer, ensure they are installed before content work.
+
+**Quick check:** `~/.cursor/rules/website-standards.mdc` should exist.
+
+**Auto-fix (preferred):** run the bundled installer from the open project:
+
+```bash
+chmod +x .cursor/global-config/install-global.sh
+.cursor/global-config/install-global.sh
+```
+
+**Fallback:** if the project has no bundled copy:
+
+```bash
+cd ~/cursor-global-config && ./install-global.sh
+```
+
+After installing, tell the user global rules are now active on this machine and they only need to do this once per computer.
+
+If the user says they are on a new laptop or Cursor is not following website standards, run the auto-fix immediately without waiting to be asked again.
