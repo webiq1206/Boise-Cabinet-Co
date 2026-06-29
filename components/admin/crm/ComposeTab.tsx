@@ -118,7 +118,7 @@ export function ComposeTab() {
       <Card>
         <CardContent className="p-4 space-y-4">
           <ToggleGroup type="single" value={mode} onValueChange={(v) => v && setMode(v as "run" | "enroll")} className="justify-start">
-            <ToggleGroupItem value="run"><Send className="h-4 w-4 mr-1" /> One-off run</ToggleGroupItem>
+            <ToggleGroupItem value="run"><Send className="h-4 w-4 mr-1" /> Send one email</ToggleGroupItem>
             <ToggleGroupItem value="enroll"><Users className="h-4 w-4 mr-1" /> Enroll in sequence</ToggleGroupItem>
           </ToggleGroup>
 

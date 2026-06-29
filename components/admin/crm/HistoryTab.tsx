@@ -58,7 +58,7 @@ export function HistoryTab() {
         {isLoading ? (
           <div className="p-4 space-y-2">{Array.from({ length: 5 }).map((_, i) => <Skeleton key={i} className="h-10 w-full" />)}</div>
         ) : data.length === 0 ? (
-          <div className="p-10 text-center text-sm text-muted-foreground">No runs yet. Start one from the Compose tab.</div>
+          <div className="p-10 text-center text-sm text-muted-foreground">No runs yet. Start one from the Send tab.</div>
         ) : (
           <Table>
             <TableHeader>

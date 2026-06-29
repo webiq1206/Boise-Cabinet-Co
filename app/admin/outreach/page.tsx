@@ -959,7 +959,7 @@ function OutreachPanel() {
                 <div>
                   <Label className="text-sm font-medium">Automatic sending</Label>
                   <p className="text-xs text-muted-foreground">
-                    When on, the system trickles approved emails out on its own, spaced over the day.
+                    When on, the system trickles approved emails out on its own, spaced over the day, using the default first email below. Use the Send tab to run a specific email or sequence on demand.
                   </p>
                 </div>
                 <Switch
@@ -1006,7 +1006,7 @@ function OutreachPanel() {
               </div>
 
               <div className="space-y-1 max-w-sm">
-                <Label className="text-xs">Default template (voice for new sends)</Label>
+                <Label className="text-xs">Default first email for automatic sending</Label>
                 <Select
                   value={config.defaultTemplate}
                   onValueChange={(v) => setDraftConfig({ ...config, defaultTemplate: v })}
