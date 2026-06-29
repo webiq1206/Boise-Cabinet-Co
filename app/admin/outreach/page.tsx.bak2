@@ -7,8 +7,6 @@ import { PageHeader } from "@/components/portal/PageHeader";
 import { AdminAuthGate } from "@/components/admin/AdminAuthGate";
 import { ImportDialog } from "@/components/admin/outreach/ImportDialog";
 import { TemplatesEditor } from "@/components/admin/outreach/TemplatesEditor";
-import { TemplatesTab } from "@/components/admin/crm/TemplatesTab";
-import { SequencesTab } from "@/components/admin/crm/SequencesTab";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -733,12 +731,6 @@ function OutreachPanel() {
           <TabsTrigger value="templates" data-testid="tab-view-templates">
             Email templates
           </TabsTrigger>
-          <TabsTrigger value="all-templates" data-testid="tab-view-all-templates">
-            All templates
-          </TabsTrigger>
-          <TabsTrigger value="sequences" data-testid="tab-view-sequences">
-            Sequences
-          </TabsTrigger>
           <TabsTrigger value="suppressions" data-testid="tab-view-suppressions">
             Do-not-email
           </TabsTrigger>
@@ -901,16 +893,6 @@ function OutreachPanel() {
         {/* TEMPLATES */}
         <TabsContent value="templates" className="pt-4">
           <TemplatesEditor />
-        </TabsContent>
-
-        {/* ALL TEMPLATES (full editor) */}
-        <TabsContent value="all-templates" className="pt-4">
-          <TemplatesTab />
-        </TabsContent>
-
-        {/* SEQUENCES (full editor) */}
-        <TabsContent value="sequences" className="pt-4">
-          <SequencesTab />
         </TabsContent>
 
         {/* DO-NOT-EMAIL */}

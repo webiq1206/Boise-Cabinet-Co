@@ -227,7 +227,7 @@ const TEMPLATES: SeedTemplate[] = [
     id: "contractor-intro-2",
     name: "Contractor Intro: Happy to bid",
     audience: "business",
-    subject: "Following up on cabinets for {business}",
+    subject: "Want me to bid your next job?",
     openingLine: "Following up in case you've got a project on the horizon.",
     mainMessage:
       "Easiest way to see if we're a fit is to let me price something real. Send me a plan, or even a rough idea, and I'll get a clear bid back to you fast.\n\nYou focus on the rest of the build and let me handle the cabinets.",
