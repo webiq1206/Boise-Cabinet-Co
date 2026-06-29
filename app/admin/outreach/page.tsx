@@ -6,7 +6,8 @@ import { PortalShell } from "@/components/portal/PortalShell";
 import { PageHeader } from "@/components/portal/PageHeader";
 import { AdminAuthGate } from "@/components/admin/AdminAuthGate";
 import { ImportDialog } from "@/components/admin/outreach/ImportDialog";
-import { TemplatesEditor } from "@/components/admin/outreach/TemplatesEditor";
+import { ComposeTab } from "@/components/admin/crm/ComposeTab";
+import { HistoryTab } from "@/components/admin/crm/HistoryTab";
 import { TemplatesTab } from "@/components/admin/crm/TemplatesTab";
 import { SequencesTab } from "@/components/admin/crm/SequencesTab";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -730,21 +731,24 @@ function OutreachPanel() {
           <TabsTrigger value="recipients" data-testid="tab-view-recipients">
             Recipients
           </TabsTrigger>
-          <TabsTrigger value="templates" data-testid="tab-view-templates">
-            Email templates
-          </TabsTrigger>
+            <TabsTrigger value="send" data-testid="tab-view-send">
+              Send
+            </TabsTrigger>
           <TabsTrigger value="all-templates" data-testid="tab-view-all-templates">
-            All templates
-          </TabsTrigger>
+              Templates
+            </TabsTrigger>
           <TabsTrigger value="sequences" data-testid="tab-view-sequences">
             Sequences
           </TabsTrigger>
+            <TabsTrigger value="activity" data-testid="tab-view-activity">
+              Activity
+            </TabsTrigger>
           <TabsTrigger value="suppressions" data-testid="tab-view-suppressions">
             Do-not-email
           </TabsTrigger>
           <TabsTrigger value="settings" data-testid="tab-view-settings">
-            Sending settings
-          </TabsTrigger>
+              Settings
+            </TabsTrigger>
         </TabsList>
 
         {/* RECIPIENTS */}
@@ -898,9 +902,9 @@ function OutreachPanel() {
           </div>
         </TabsContent>
 
-        {/* TEMPLATES */}
-        <TabsContent value="templates" className="pt-4">
-          <TemplatesEditor />
+        {/* SEND (single email or full sequence) */}
+        <TabsContent value="send" className="pt-4">
+          <ComposeTab />
         </TabsContent>
 
         {/* ALL TEMPLATES (full editor) */}
@@ -911,6 +915,11 @@ function OutreachPanel() {
         {/* SEQUENCES (full editor) */}
         <TabsContent value="sequences" className="pt-4">
           <SequencesTab />
+        </TabsContent>
+
+        {/* ACTIVITY (history) */}
+        <TabsContent value="activity" className="pt-4">
+          <HistoryTab />
         </TabsContent>
 
         {/* DO-NOT-EMAIL */}
