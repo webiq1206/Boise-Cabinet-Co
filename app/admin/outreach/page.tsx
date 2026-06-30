@@ -709,7 +709,7 @@ function OutreachPanel() {
   const selectedIds = Array.from(selected);
 
   return (
-    <div className="space-y-6 max-w-5xl">
+    <div className="space-y-6 max-w-[1500px] mx-auto">
       <PageHeader
         title="Contractor outreach"
         description="Find local general contractors, review them, and send a friendly introduction. This is a separate business outreach tool. Your website customer leads live under Leads and are never cold-emailed."

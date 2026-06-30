@@ -21,6 +21,11 @@ interface TemplateLite {
   id: string;
   name: string;
   audience: string;
+  subject?: string | null;
+  openingLine?: string | null;
+  mainMessage?: string | null;
+  closingLine?: string | null;
+  body?: string | null;
 }
 
 interface Step {
@@ -124,7 +129,7 @@ export function SequencesTab() {
     setDraft((d) => ({ ...d, steps: d.steps.map((s, idx) => (idx === i ? { ...s, ...patch } : s)) }));
 
   return (
-    <div className="grid lg:grid-cols-[260px_1fr] gap-4">
+    <div className="grid lg:grid-cols-[320px_1fr] gap-4">
       <Card>
         <CardContent className="p-3 space-y-1">
           <Button variant="outline" size="sm" className="w-full justify-start" onClick={() => { setSelectedId(null); setDraft(EMPTY); }}>
@@ -141,8 +146,8 @@ export function SequencesTab() {
                 className={`w-full text-left rounded-md px-3 py-2 text-sm transition-colors ${selectedId === s.id ? "bg-primary text-primary-foreground" : "hover:bg-muted"}`}
               >
                 <div className="flex items-center justify-between gap-2">
-                  <span className="truncate">{s.name}</span>
-                  {s.seedKey && <Badge variant="outline" className="text-[10px]">seed</Badge>}
+                  <span className="font-medium leading-snug break-words">{s.name}</span>
+                  {s.seedKey && <Badge variant="outline" className="text-[10px] shrink-0">seed</Badge>}
                 </div>
                 <span className="text-xs opacity-70">{s.steps.length} steps · {s.audience}</span>
               </button>
@@ -199,6 +204,7 @@ export function SequencesTab() {
                   <Button size="icon" variant="ghost" className="h-8 w-8" onClick={() => moveStep(i, 1)} disabled={i === draft.steps.length - 1}><ArrowDown className="h-4 w-4" /></Button>
                   <Button size="icon" variant="ghost" className="h-8 w-8 text-destructive" onClick={() => removeStep(i)}><Trash2 className="h-4 w-4" /></Button>
                 </div>
+                  {(() => { const tpl = templates.find((t) => t.id === step.templateId); return tpl ? (<div className="w-full mt-1 rounded-md border bg-muted/40 p-2 text-xs space-y-2"><div className="font-medium text-foreground">Subject: {tpl.subject || "(no subject set)"}</div>{tpl.body ? (<div className="whitespace-pre-wrap text-muted-foreground">{tpl.body}</div>) : (<div className="space-y-1 text-muted-foreground">{tpl.openingLine ? <p>{tpl.openingLine}</p> : null}{tpl.mainMessage ? <p>{tpl.mainMessage}</p> : null}{tpl.closingLine ? <p>{tpl.closingLine}</p> : null}</div>)}</div>) : <p className="w-full mt-1 text-xs text-muted-foreground">Pick a template to preview its text here.</p>; })()}
               </div>
             ))}
             <Button size="sm" variant="outline" onClick={addStep} disabled={templates.length === 0}>

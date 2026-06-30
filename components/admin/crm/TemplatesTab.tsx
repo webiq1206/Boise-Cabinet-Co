@@ -180,7 +180,7 @@ export function TemplatesTab() {
   const update = (field: keyof Template, value: string) => setDraft((d) => ({ ...d, [field]: value }));
 
   return (
-    <div className="grid lg:grid-cols-[260px_1fr_1fr] gap-4">
+    <div className="grid lg:grid-cols-[300px_1fr_1fr] gap-4">
       {/* Template list */}
       <Card>
         <CardContent className="p-3 space-y-1">
@@ -205,7 +205,7 @@ export function TemplatesTab() {
                 className={`w-full text-left rounded-md px-3 py-2 text-sm transition-colors ${selectedId === t.id ? "bg-primary text-primary-foreground" : "hover:bg-muted"}`}
               >
                 <div className="flex items-center justify-between gap-2">
-                  <span className="truncate">{t.name}</span>
+                  <span className="font-medium leading-snug break-words">{t.name}</span>
                   {t.seedManaged && <Badge variant="outline" className="text-[10px]">seed</Badge>}
                 </div>
                 <span className="text-xs opacity-70">{t.audience}</span>

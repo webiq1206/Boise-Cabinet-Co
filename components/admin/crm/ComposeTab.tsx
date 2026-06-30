@@ -121,9 +121,10 @@ export function ComposeTab() {
             <ToggleGroupItem value="run"><Send className="h-4 w-4 mr-1" /> Send one email</ToggleGroupItem>
             <ToggleGroupItem value="enroll"><Users className="h-4 w-4 mr-1" /> Enroll in sequence</ToggleGroupItem>
           </ToggleGroup>
+          <p className="text-xs text-muted-foreground">Choose who to reach using the audience filters below. Leave them on "All" to include every contact. The panel on the right shows exactly how many people will be included. Then {mode === "enroll" ? "pick a sequence and click Enroll audience" : "pick a template and click Start run"}.</p>
 
           <div className="space-y-2">
-            <Label className="text-xs">Audience filters</Label>
+            <Label className="text-xs">Who gets included (audience filters)</Label>
             <div className="grid grid-cols-2 gap-2">
               <FilterSelect label="Type" value={filters.leadType} onChange={(v) => setFilters((f) => ({ ...f, leadType: v }))} options={[["homeowner", "Homeowner"], ["business", "Business"]]} />
               <FilterSelect label="Email status" value={filters.emailStatus} onChange={(v) => setFilters((f) => ({ ...f, emailStatus: v }))} options={[["new", "New"], ["contacted", "Contacted"]]} />
