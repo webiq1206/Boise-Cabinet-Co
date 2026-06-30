@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { PortalShell } from "@/components/portal/PortalShell";
-import { PageHeader } from "@/components/portal/PageHeader";
+
 import { AdminAuthGate } from "@/components/admin/AdminAuthGate";
 import { ImportDialog } from "@/components/admin/outreach/ImportDialog";
 import { ComposeTab } from "@/components/admin/crm/ComposeTab";
@@ -352,10 +352,9 @@ function OutreachPanel() {
 
   return (
     <div className="space-y-6 max-w-[1500px] mx-auto">
-      <PageHeader
-        title="Contractor outreach"
-        description="Find local general contractors, review them, and send a friendly introduction. This is a separate business outreach tool. Your website customer leads live under Leads and are never cold-emailed."
-      />
+      <p className="text-sm text-muted-foreground">
+        Find local general contractors, review them, and send a friendly introduction. Website leads live under Leads and are never cold-emailed.
+      </p>
 
       <Alert>
         <ShieldCheck className="h-4 w-4" />

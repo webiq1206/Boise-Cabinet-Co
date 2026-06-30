@@ -160,7 +160,7 @@ export default function AdminProjectDetailPage() {
                 </div>
                 {project.leadId && (
                   <div className="sm:col-span-2">
-                    <Link href="/admin/leads" className="text-primary underline text-sm">
+                    <Link href={`/admin/leads?leadId=${project.leadId}`} className="text-primary underline text-sm">
                       View original lead
                     </Link>
                   </div>

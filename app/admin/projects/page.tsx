@@ -5,7 +5,6 @@ import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { PortalShell } from "@/components/portal/PortalShell";
-import { PageHeader } from "@/components/portal/PageHeader";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { useAuth } from "@/hooks/useAuth";
@@ -43,18 +42,17 @@ export default function AdminProjectsPage() {
     <AdminAuthGate title="Projects">
     <PortalShell variant="admin" title="Projects">
       <div className="space-y-4">
-        <PageHeader
-          title="Projects"
-          description="Track active jobs converted from leads, their status, and assignments."
-        />
+        <p className="text-sm text-muted-foreground">
+          Track active jobs converted from leads, their status, and assignments.
+        </p>
         {loadingProjects ? (
           <Skeleton className="h-32 w-full" />
         ) : projects.length === 0 ? (
           <Card>
             <CardContent className="py-8 text-center text-muted-foreground">
-              No projects yet. Convert a lead from the{" "}
+              No projects yet. Convert a lead from{" "}
               <Link href="/admin/leads" className="underline">
-                Lead Marketplace
+                Leads
               </Link>
               .
             </CardContent>
