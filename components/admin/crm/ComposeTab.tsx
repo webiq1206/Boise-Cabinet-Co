@@ -117,10 +117,16 @@ export function ComposeTab() {
     <div className="grid lg:grid-cols-2 gap-4">
       <Card>
         <CardContent className="p-4 space-y-4">
-          <ToggleGroup type="single" value={mode} onValueChange={(v) => v && setMode(v as "run" | "enroll")} className="justify-start">
-            <ToggleGroupItem value="run"><Send className="h-4 w-4 mr-1" /> Send one email</ToggleGroupItem>
-            <ToggleGroupItem value="enroll"><Users className="h-4 w-4 mr-1" /> Enroll in sequence</ToggleGroupItem>
-          </ToggleGroup>
+          <div className="grid grid-cols-2 gap-2">
+          <button type="button" onClick={() => setMode("run")} className={`flex items-start gap-2 rounded-lg border-2 p-3 text-left transition-colors ${mode === "run" ? "border-primary bg-primary/5" : "border-muted hover:border-muted-foreground/40"}`}>
+            <Send className="h-5 w-5 mt-0.5 shrink-0" />
+            <span><span className="block text-sm font-medium">Send one email</span><span className="block text-xs text-muted-foreground">One message to everyone in your audience.</span></span>
+          </button>
+          <button type="button" onClick={() => setMode("enroll")} className={`flex items-start gap-2 rounded-lg border-2 p-3 text-left transition-colors ${mode === "enroll" ? "border-primary bg-primary/5" : "border-muted hover:border-muted-foreground/40"}`}>
+            <Users className="h-5 w-5 mt-0.5 shrink-0" />
+            <span><span className="block text-sm font-medium">Enroll in a sequence</span><span className="block text-xs text-muted-foreground">Multi-step emails sent automatically on a schedule.</span></span>
+          </button>
+        </div>
           <p className="text-xs text-muted-foreground">Choose who to reach using the audience filters below. Leave them on "All" to include every contact. The panel on the right shows exactly how many people will be included. Then {mode === "enroll" ? "pick a sequence and click Enroll audience" : "pick a template and click Start run"}.</p>
 
           <div className="space-y-2">

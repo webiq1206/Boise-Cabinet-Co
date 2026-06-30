@@ -51,6 +51,28 @@ const EMPTY: { name: string; audience: string; description: string; steps: Step[
   steps: [],
 };
 
+function StepPreview({ tpl }: { tpl: TemplateLite }) {
+  const [html, setHtml] = useState("");
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    let active = true;
+    setLoading(true);
+    setHtml("");
+    fetch("/api/admin/templates/preview", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(tpl),
+    })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d) => { if (active) { setHtml(d?.html || ""); setLoading(false); } })
+      .catch(() => { if (active) setLoading(false); });
+    return () => { active = false; };
+  }, [tpl.id]);
+  if (loading) return <div className="w-full h-20 rounded-md border bg-muted/40 flex items-center justify-center text-xs text-muted-foreground">Loading email preview...</div>;
+  if (!html) return <div className="w-full rounded-md border bg-muted/40 p-2 text-xs text-muted-foreground">Preview unavailable.</div>;
+  return <iframe title="Email preview" srcDoc={html} className="w-full h-[440px] rounded-md border bg-white" sandbox="" />;
+}
+
 export function SequencesTab() {
   const queryClient = useQueryClient();
   const { data: sequences = [], isLoading } = useQuery<Sequence[]>({
@@ -204,7 +226,7 @@ export function SequencesTab() {
                   <Button size="icon" variant="ghost" className="h-8 w-8" onClick={() => moveStep(i, 1)} disabled={i === draft.steps.length - 1}><ArrowDown className="h-4 w-4" /></Button>
                   <Button size="icon" variant="ghost" className="h-8 w-8 text-destructive" onClick={() => removeStep(i)}><Trash2 className="h-4 w-4" /></Button>
                 </div>
-                  {(() => { const tpl = templates.find((t) => t.id === step.templateId); return tpl ? (<div className="w-full mt-1 rounded-md border bg-muted/40 p-2 text-xs space-y-2"><div className="font-medium text-foreground">Subject: {tpl.subject || "(no subject set)"}</div>{tpl.body ? (<div className="whitespace-pre-wrap text-muted-foreground">{tpl.body}</div>) : (<div className="space-y-1 text-muted-foreground">{tpl.openingLine ? <p>{tpl.openingLine}</p> : null}{tpl.mainMessage ? <p>{tpl.mainMessage}</p> : null}{tpl.closingLine ? <p>{tpl.closingLine}</p> : null}</div>)}</div>) : <p className="w-full mt-1 text-xs text-muted-foreground">Pick a template to preview its text here.</p>; })()}
+                  {(() => { const tpl = templates.find((t) => t.id === step.templateId); return tpl ? (<div className="w-full mt-1"><StepPreview tpl={tpl} /></div>) : <p className="w-full mt-1 text-xs text-muted-foreground">Pick a template to preview the email here.</p>; })()}
               </div>
             ))}
             <Button size="sm" variant="outline" onClick={addStep} disabled={templates.length === 0}>
