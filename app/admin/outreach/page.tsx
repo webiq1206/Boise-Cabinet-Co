@@ -1,13 +1,12 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { PortalShell } from "@/components/portal/PortalShell";
 import { PageHeader } from "@/components/portal/PageHeader";
 import { AdminAuthGate } from "@/components/admin/AdminAuthGate";
 import { ImportDialog } from "@/components/admin/outreach/ImportDialog";
 import { ComposeTab } from "@/components/admin/crm/ComposeTab";
-import { HistoryTab } from "@/components/admin/crm/HistoryTab";
 import { TrackingTab } from "@/components/admin/crm/TrackingTab";
 import { TemplatesTab } from "@/components/admin/crm/TemplatesTab";
 import { SequencesTab } from "@/components/admin/crm/SequencesTab";
@@ -15,10 +14,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
-import { Checkbox } from "@/components/ui/checkbox";
 import {
   Select,
   SelectContent,
@@ -28,21 +25,17 @@ import {
 } from "@/components/ui/select";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
 import {
   AlertTriangle,
   Ban,
-  Check,
   Info,
   Loader2,
   Mail,
-  Reply,
   Search,
   Send,
   ShieldCheck,
   Trash2,
-  X,
 } from "lucide-react";
 
 interface Prospect {
@@ -81,26 +74,12 @@ interface TemplateOption {
   description: string;
 }
 
-// Sentinel value for "no override, follow the batch default" in the per-prospect
-// template select (Radix SelectItem cannot use an empty string value).
-const DEFAULT_TEMPLATE_SENTINEL = "__default__";
-
 interface OutreachData {
   prospects: Prospect[];
   counts: Record<string, number>;
   config: OutreachConfig;
   templates: TemplateOption[];
   readiness: { discoveryConfigured: boolean; sendable: boolean };
-}
-
-interface PreviewData {
-  subject: string;
-  text: string;
-  html: string;
-  from: string | null;
-  to: string | null;
-  businessName: string;
-  status: string;
 }
 
 const STATUS_LABELS: Record<string, string> = {
@@ -127,15 +106,6 @@ const STOP_REASONS: Record<string, string> = {
   not_configured: "sending not configured",
 };
 
-const FILTER_TABS: { key: string; label: string; statuses: string[] }[] = [
-  { key: "ready", label: "Ready", statuses: ["ready"] },
-  { key: "approved", label: "Queued", statuses: ["approved", "sending"] },
-  { key: "sent", label: "Sent", statuses: ["sent", "opened", "replied"] },
-  { key: "discovered", label: "Discovered", statuses: ["discovered"] },
-  { key: "no_email", label: "No email", statuses: ["needs_email"] },
-  { key: "other", label: "Other", statuses: ["skipped", "unsubscribed", "bounced", "error"] },
-];
-
 async function postJson(url: string, body?: unknown) {
   const res = await fetch(url, {
     method: "POST",
@@ -156,233 +126,6 @@ async function patchJson(url: string, body: unknown) {
   const json = await res.json().catch(() => ({}));
   if (!res.ok) throw new Error(json.error || "Request failed");
   return json;
-}
-
-function ProspectCard({
-  p,
-  selected,
-  onToggleSelect,
-  noteEdits,
-  setNoteEdits,
-  emailEdits,
-  setEmailEdits,
-  templates,
-  defaultTemplateLabel,
-  onMutate,
-  onDelete,
-  onPreview,
-  onTrack,
-}: {
-  p: Prospect;
-  selected: boolean;
-  onToggleSelect: (id: string) => void;
-  noteEdits: Record<string, string>;
-  setNoteEdits: (v: Record<string, string>) => void;
-  emailEdits: Record<string, string>;
-  setEmailEdits: (v: Record<string, string>) => void;
-  templates: TemplateOption[];
-  defaultTemplateLabel: string;
-  onMutate: (id: string, body: unknown) => void;
-  onDelete: (id: string) => void;
-  onPreview: (id: string, step?: "first" | "followup") => void;
-  onTrack: (id: string, status: "replied" | "bounced") => void;
-}) {
-  return (
-    <Card data-testid={`card-prospect-${p.id}`}>
-      <CardContent className="pt-5 space-y-3">
-        <div className="flex flex-wrap items-start justify-between gap-2">
-          <div className="flex items-start gap-3 min-w-0">
-            <Checkbox
-              checked={selected}
-              onCheckedChange={() => onToggleSelect(p.id)}
-              className="mt-1"
-              data-testid={`checkbox-prospect-${p.id}`}
-            />
-            <div className="min-w-0">
-              <p className="font-medium text-sm" data-testid={`text-name-${p.id}`}>
-                {p.businessName}
-              </p>
-              <p className="text-xs text-muted-foreground" data-testid={`text-address-${p.id}`}>
-                {p.formattedAddress ?? p.city}
-                {p.phone ? ` · ${p.phone}` : ""}
-                {p.website ? (
-                  <>
-                    {" · "}
-                    <a href={p.website} target="_blank" rel="noopener noreferrer" className="underline">
-                      website
-                    </a>
-                  </>
-                ) : null}
-              </p>
-            </div>
-          </div>
-          <Badge variant="secondary">{STATUS_LABELS[p.status] ?? p.status}</Badge>
-        </div>
-
-        <div className="space-y-1">
-          <Label className="text-xs">Email (publicly listed)</Label>
-          <div className="flex flex-wrap gap-2">
-            <Input
-              className="max-w-sm"
-              placeholder="No public email found"
-              value={emailEdits[p.id] ?? p.email ?? ""}
-              onChange={(e) => setEmailEdits({ ...emailEdits, [p.id]: e.target.value })}
-              data-testid={`input-email-${p.id}`}
-            />
-            {(emailEdits[p.id] ?? "") !== "" && emailEdits[p.id] !== p.email && (
-              <Button
-                size="sm"
-                variant="outline"
-                onClick={() => onMutate(p.id, { action: "edit", email: emailEdits[p.id] })}
-              >
-                Save email
-              </Button>
-            )}
-          </div>
-          {p.emailSourceUrl && (
-            <p className="text-xs text-muted-foreground">Source: {p.emailSourceUrl}</p>
-          )}
-        </div>
-
-        <div className="space-y-1">
-          <Label className="text-xs">Personalization note (optional, added to opener)</Label>
-          <Textarea
-            rows={2}
-            placeholder="e.g. I saw you do a lot of kitchen remodels around Eagle."
-            value={noteEdits[p.id] ?? p.personalizationNote ?? ""}
-            onChange={(e) => setNoteEdits({ ...noteEdits, [p.id]: e.target.value })}
-            data-testid={`input-note-${p.id}`}
-          />
-        </div>
-
-        <div className="space-y-1">
-          <Label className="text-xs">Template (overrides the default for this prospect)</Label>
-          <Select
-            value={p.templateKey ?? DEFAULT_TEMPLATE_SENTINEL}
-            onValueChange={(v) =>
-              onMutate(p.id, {
-                action: "edit",
-                templateKey: v === DEFAULT_TEMPLATE_SENTINEL ? "" : v,
-              })
-            }
-          >
-            <SelectTrigger className="max-w-sm" data-testid={`select-template-${p.id}`}>
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value={DEFAULT_TEMPLATE_SENTINEL}>
-                Use default ({defaultTemplateLabel})
-              </SelectItem>
-              {templates.map((t) => (
-                <SelectItem key={t.key} value={t.key}>
-                  {t.label}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
-
-        {p.followupSentAt && (
-          <p className="text-xs text-muted-foreground" data-testid={`text-followup-sent-${p.id}`}>
-            Follow-up sent {new Date(p.followupSentAt).toLocaleDateString()}
-          </p>
-        )}
-
-        {p.lastError && <p className="text-xs text-destructive">{p.lastError}</p>}
-
-        <div className="flex flex-wrap gap-2">
-          <Button
-            size="sm"
-            variant="outline"
-            onClick={() => onPreview(p.id)}
-            data-testid={`button-preview-${p.id}`}
-          >
-            <Mail className="h-4 w-4" /> Preview
-          </Button>
-
-          {noteEdits[p.id] !== undefined && noteEdits[p.id] !== (p.personalizationNote ?? "") && (
-            <Button
-              size="sm"
-              variant="outline"
-              onClick={() => onMutate(p.id, { action: "edit", personalizationNote: noteEdits[p.id] })}
-            >
-              Save note
-            </Button>
-          )}
-
-          {p.status !== "approved" && (p.email || emailEdits[p.id]) && (
-            <Button
-              size="sm"
-              onClick={() =>
-                onMutate(p.id, {
-                  action: "approve",
-                  ...(emailEdits[p.id] && emailEdits[p.id] !== p.email
-                    ? { email: emailEdits[p.id] }
-                    : {}),
-                  ...(noteEdits[p.id] !== undefined ? { personalizationNote: noteEdits[p.id] } : {}),
-                })
-              }
-              data-testid={`button-approve-${p.id}`}
-            >
-              <Check className="h-4 w-4" /> Approve
-            </Button>
-          )}
-
-          {p.status === "approved" && (
-            <Button size="sm" variant="outline" onClick={() => onMutate(p.id, { action: "reset" })}>
-              Unqueue
-            </Button>
-          )}
-
-          {p.status !== "skipped" && (
-            <Button
-              size="sm"
-              variant="ghost"
-              onClick={() => onMutate(p.id, { action: "skip" })}
-              data-testid={`button-skip-${p.id}`}
-            >
-              <X className="h-4 w-4" /> Skip
-            </Button>
-          )}
-
-          {(p.status === "sent" || p.status === "opened") && (
-            <Button
-              size="sm"
-              variant="outline"
-              onClick={() => onPreview(p.id, "followup")}
-              data-testid={`button-preview-followup-${p.id}`}
-            >
-              <Mail className="h-4 w-4" /> Preview follow-up
-            </Button>
-          )}
-
-          {(p.status === "sent" || p.status === "opened" || p.status === "replied" || p.status === "bounced") && (
-            <>
-              {p.status !== "replied" && (
-                <Button size="sm" variant="outline" onClick={() => onTrack(p.id, "replied")}>
-                  <Reply className="h-4 w-4" /> Replied
-                </Button>
-              )}
-              {p.status !== "bounced" && (
-                <Button size="sm" variant="outline" onClick={() => onTrack(p.id, "bounced")}>
-                  <Mail className="h-4 w-4" /> Bounced
-                </Button>
-              )}
-            </>
-          )}
-
-          <Button
-            size="icon"
-            variant="ghost"
-            onClick={() => onDelete(p.id)}
-            data-testid={`button-delete-${p.id}`}
-          >
-            <Trash2 className="h-4 w-4" />
-          </Button>
-        </div>
-      </CardContent>
-    </Card>
-  );
 }
 
 interface Suppression {
@@ -537,14 +280,7 @@ function OutreachPanel() {
   const { toast } = useToast();
   const queryClient = useQueryClient();
   const [view, setView] = useState("recipients");
-  const [tab, setTab] = useState("ready");
   const [draftConfig, setDraftConfig] = useState<OutreachConfig | null>(null);
-  const [noteEdits, setNoteEdits] = useState<Record<string, string>>({});
-  const [emailEdits, setEmailEdits] = useState<Record<string, string>>({});
-  const [cityQuery, setCityQuery] = useState("");
-  const [previewId, setPreviewId] = useState<string | null>(null);
-  const [previewStep, setPreviewStep] = useState<"first" | "followup">("first");
-  const [selected, setSelected] = useState<Set<string>>(new Set());
 
   const { data, isLoading } = useQuery<OutreachData>({
     queryKey: ["/api/admin/outreach"],
@@ -555,29 +291,10 @@ function OutreachPanel() {
     },
   });
 
-  const { data: previewData } = useQuery<PreviewData>({
-    queryKey: ["/api/admin/outreach/preview", previewId, previewStep],
-    queryFn: async () => {
-      const res = await fetch(
-        `/api/admin/outreach/preview?id=${encodeURIComponent(previewId!)}&step=${previewStep}`,
-      );
-      if (!res.ok) throw new Error("Failed to load preview");
-      return res.json();
-    },
-    enabled: !!previewId,
-  });
-
-  const openPreview = (id: string, step: "first" | "followup" = "first") => {
-    setPreviewStep(step);
-    setPreviewId(id);
-  };
-
   const invalidate = () => queryClient.invalidateQueries({ queryKey: ["/api/admin/outreach"] });
 
   const config = draftConfig ?? data?.config ?? null;
   const templates = data?.templates ?? [];
-  const defaultTemplateLabel =
-    templates.find((t) => t.key === (config?.defaultTemplate ?? ""))?.label ?? "default";
   // Prospects that got the first email, never replied/bounced, and have not yet
   // been followed up. (replied/bounced/unsubscribed move out of sent/opened.)
   const awaitingFollowup = (data?.prospects ?? []).filter(
@@ -628,76 +345,6 @@ function OutreachPanel() {
     onError: (e: Error) => toast({ title: "Save failed", description: e.message, variant: "destructive" }),
   });
 
-  const prospectMutation = useMutation({
-    mutationFn: ({ id, body }: { id: string; body: unknown }) =>
-      patchJson(`/api/admin/outreach/${id}`, body),
-    onSuccess: () => invalidate(),
-    onError: (e: Error) => toast({ title: "Update failed", description: e.message, variant: "destructive" }),
-  });
-
-  const deleteMutation = useMutation({
-    mutationFn: (id: string) =>
-      fetch(`/api/admin/outreach/${id}`, { method: "DELETE" }).then((r) => r.json()),
-    onSuccess: () => invalidate(),
-  });
-
-  const bulkMutation = useMutation({
-    mutationFn: ({ action, ids }: { action: "approve" | "skip" | "delete"; ids: string[] }) =>
-      postJson("/api/admin/outreach/bulk", { action, ids }),
-    onSuccess: (r) => {
-      const extra = r.skippedNoEmail ? ` (${r.skippedNoEmail} skipped, no email)` : "";
-      toast({ title: "Done", description: `${r.affected} updated${extra}.` });
-      setSelected(new Set());
-      invalidate();
-    },
-    onError: (e: Error) => toast({ title: "Action failed", description: e.message, variant: "destructive" }),
-  });
-
-  const trackMutation = useMutation({
-    mutationFn: ({ id, status }: { id: string; status: "replied" | "bounced" }) =>
-      patchJson("/api/admin/outreach/tracking", { id, status }),
-    onSuccess: () => {
-      toast({ title: "Status updated" });
-      invalidate();
-    },
-    onError: (e: Error) => toast({ title: "Update failed", description: e.message, variant: "destructive" }),
-  });
-
-  const cities = useMemo(() => {
-    const set = new Set<string>();
-    (data?.prospects ?? []).forEach((p) => set.add(p.city));
-    return Array.from(set).sort();
-  }, [data?.prospects]);
-
-  const activeTab = FILTER_TABS.find((t) => t.key === tab) ?? FILTER_TABS[0];
-  const filtered = useMemo(() => {
-    let rows = (data?.prospects ?? []).filter((p) => activeTab.statuses.includes(p.status));
-    if (cityQuery.trim()) {
-      const q = cityQuery.trim().toLowerCase();
-      rows = rows.filter((p) => p.city.toLowerCase().includes(q));
-    }
-    return rows;
-  }, [data?.prospects, activeTab, cityQuery]);
-
-  function toggleSelect(id: string) {
-    setSelected((prev) => {
-      const next = new Set(prev);
-      if (next.has(id)) next.delete(id);
-      else next.add(id);
-      return next;
-    });
-  }
-
-  const allVisibleSelected = filtered.length > 0 && filtered.every((p) => selected.has(p.id));
-  function toggleSelectAllVisible() {
-    setSelected((prev) => {
-      const next = new Set(prev);
-      if (allVisibleSelected) filtered.forEach((p) => next.delete(p.id));
-      else filtered.forEach((p) => next.add(p.id));
-      return next;
-    });
-  }
-
   if (isLoading || !data || !config) {
     return (
       <div className="flex items-center gap-2 text-sm text-muted-foreground">
@@ -707,7 +354,6 @@ function OutreachPanel() {
   }
 
   const counts = data.counts;
-  const selectedIds = Array.from(selected);
 
   return (
     <div className="space-y-6 max-w-[1500px] mx-auto">
@@ -790,115 +436,6 @@ function OutreachPanel() {
               <Badge key={status} variant="secondary" data-testid={`badge-count-${status}`}>
                 {STATUS_LABELS[status] ?? status}: {n}
               </Badge>
-            ))}
-          </div>
-
-          <div className="flex flex-wrap gap-3 items-center">
-            <div className="flex-1 min-w-[12rem]">
-              <Input
-                placeholder="Search by city (e.g. Eagle, Boise)"
-                value={cityQuery}
-                onChange={(e) => setCityQuery(e.target.value)}
-                data-testid="input-city-search"
-              />
-            </div>
-            <div className="flex flex-wrap gap-1">
-              {cities.map((c) => (
-                <Button
-                  key={c}
-                  size="sm"
-                  variant={cityQuery === c ? "default" : "outline"}
-                  onClick={() => setCityQuery(cityQuery === c ? "" : c)}
-                  data-testid={`button-city-${c}`}
-                >
-                  {c}
-                </Button>
-              ))}
-            </div>
-          </div>
-
-          <Tabs value={tab} onValueChange={setTab}>
-            <TabsList className="flex flex-wrap h-auto">
-              {FILTER_TABS.map((t) => {
-                const n = t.statuses.reduce((s, st) => s + (counts[st] ?? 0), 0);
-                return (
-                  <TabsTrigger key={t.key} value={t.key} data-testid={`tab-${t.key}`}>
-                    {t.label} ({n})
-                  </TabsTrigger>
-                );
-              })}
-            </TabsList>
-          </Tabs>
-
-          {filtered.length > 0 && (
-            <div className="flex flex-wrap items-center justify-between gap-2 rounded-md border bg-muted/40 p-2">
-              <div className="flex items-center gap-2">
-                <Checkbox
-                  checked={allVisibleSelected}
-                  onCheckedChange={toggleSelectAllVisible}
-                  data-testid="checkbox-select-all"
-                />
-                <span className="text-sm text-muted-foreground">
-                  {selectedIds.length > 0 ? `${selectedIds.length} selected` : "Select all in view"}
-                </span>
-              </div>
-              {selectedIds.length > 0 && (
-                <div className="flex flex-wrap gap-2">
-                  <Button
-                    size="sm"
-                    onClick={() => bulkMutation.mutate({ action: "approve", ids: selectedIds })}
-                    disabled={bulkMutation.isPending}
-                    data-testid="button-bulk-approve"
-                  >
-                    <Check className="h-4 w-4" /> Approve
-                  </Button>
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    onClick={() => bulkMutation.mutate({ action: "skip", ids: selectedIds })}
-                    disabled={bulkMutation.isPending}
-                    data-testid="button-bulk-skip"
-                  >
-                    <X className="h-4 w-4" /> Skip
-                  </Button>
-                  <Button
-                    size="sm"
-                    variant="ghost"
-                    onClick={() => bulkMutation.mutate({ action: "delete", ids: selectedIds })}
-                    disabled={bulkMutation.isPending}
-                    data-testid="button-bulk-delete"
-                  >
-                    <Trash2 className="h-4 w-4" /> Delete
-                  </Button>
-                  <Button size="sm" variant="ghost" onClick={() => setSelected(new Set())}>
-                    Clear
-                  </Button>
-                </div>
-              )}
-            </div>
-          )}
-
-          <div className="space-y-3">
-            {filtered.length === 0 && (
-              <p className="text-sm text-muted-foreground">No contractors in this view.</p>
-            )}
-            {filtered.map((p) => (
-              <ProspectCard
-                key={p.id}
-                p={p}
-                selected={selected.has(p.id)}
-                onToggleSelect={toggleSelect}
-                noteEdits={noteEdits}
-                setNoteEdits={setNoteEdits}
-                emailEdits={emailEdits}
-                setEmailEdits={setEmailEdits}
-                templates={templates}
-                defaultTemplateLabel={defaultTemplateLabel}
-                onMutate={(id, body) => prospectMutation.mutate({ id, body })}
-                onDelete={(id) => deleteMutation.mutate(id)}
-                onPreview={openPreview}
-                onTrack={(id, status) => trackMutation.mutate({ id, status })}
-              />
             ))}
           </div>
         </TabsContent>
@@ -1107,40 +644,6 @@ function OutreachPanel() {
           </Card>
         </TabsContent>
       </Tabs>
-
-      <Dialog open={!!previewId} onOpenChange={(open) => !open && setPreviewId(null)}>
-        <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
-          <DialogHeader>
-            <DialogTitle>
-              Email preview{previewStep === "followup" ? " (follow-up)" : ""}
-            </DialogTitle>
-          </DialogHeader>
-          {previewId && !previewData && (
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <Loader2 className="h-4 w-4 animate-spin" /> Loading preview...
-            </div>
-          )}
-          {previewData && (
-            <div className="space-y-4">
-              <div className="space-y-1">
-                <p className="text-sm font-medium">Subject</p>
-                <p className="text-sm text-muted-foreground">{previewData.subject}</p>
-              </div>
-              <div className="space-y-1">
-                <p className="text-sm font-medium">How it looks</p>
-                <div
-                  className="rounded-md border bg-white p-4 text-sm"
-                  dangerouslySetInnerHTML={{ __html: previewData.html }}
-                />
-              </div>
-              <div className="text-xs text-muted-foreground">
-                From: {previewData.from ?? "(sending address not set)"} · To:{" "}
-                {previewData.to ?? "(no email)"} · Status: {previewData.status}
-              </div>
-            </div>
-          )}
-        </DialogContent>
-      </Dialog>
     </div>
   );
 }
