@@ -60,7 +60,6 @@ VITE_GA_MEASUREMENT_ID = "G-1HD7RT8PKJ"
 ADMIN_EMAILS = "hello@boisecabinet.co"
 NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY = "pk_live_51LGm9XKmgtIDVx8lrH27gaoWAdwf1F0O7Gxx2RkNqICfBvPslxV7IJCdufiFDHnNxaCKgr3IcOZokNdmNaxy3z6z000ipOzjOv"
 NODE_OPTIONS = "--max-old-space-size=1536"
-CRON_SECRET = "9edef74040e69ede0fb03e302d774f607f74d3a6018e76ad"
 
 [postMerge]
 path = "scripts/post-merge.sh"
