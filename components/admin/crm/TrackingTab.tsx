@@ -17,6 +17,13 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
 import { Send, AlertTriangle, MailX, Mail, Eye, MousePointerClick, Inbox, MessageSquare } from "lucide-react";
 import { HistoryTab } from "@/components/admin/crm/HistoryTab";
@@ -47,6 +54,29 @@ interface ReplyItem {
   company: string | null;
   email: string | null;
   city: string | null;
+}
+
+interface SendDetail {
+  send: {
+    id: string;
+    status: string;
+    sentAt: string | null;
+    createdAt: string;
+    openedAt: string | null;
+    firstClickedAt: string | null;
+    openCount: number;
+    clickCount: number;
+    errorDetail: string | null;
+  };
+  recipient: { name: string | null; company: string | null; email: string | null; city: string | null } | null;
+  context: {
+    kind: "sequence" | "run" | null;
+    sequenceName: string | null;
+    stepOrder: number | null;
+    templateName: string | null;
+    subjectOverride: string | null;
+  };
+  email: { subject: string; html: string; text: string } | null;
 }
 
 interface Dashboard {
@@ -112,6 +142,8 @@ export function TrackingTab() {
   const queryClient = useQueryClient();
   const { toast } = useToast();
   const [autoSend, setAutoSend] = useState(false);
+  const [openSendId, setOpenSendId] = useState<string | null>(null);
+  const [openReply, setOpenReply] = useState<ReplyItem | null>(null);
   const autoRef = useRef(false);
   autoRef.current = autoSend;
 
@@ -324,7 +356,12 @@ export function TrackingTab() {
           ) : (
             <div className="divide-y">
               {replies.map((r) => (
-                <div key={r.id} className="p-4" data-testid={`row-reply-${r.id}`}>
+                <div
+                  key={r.id}
+                  className="cursor-pointer p-4 hover-elevate"
+                  onClick={() => setOpenReply(r)}
+                  data-testid={`row-reply-${r.id}`}
+                >
                   <div className="flex flex-wrap items-baseline justify-between gap-2">
                     <div className="font-medium">
                       {r.company || r.leadName || r.detail?.from || r.email || "Unknown"}
@@ -373,7 +410,12 @@ export function TrackingTab() {
               </TableHeader>
               <TableBody>
                 {recent.map((r) => (
-                  <TableRow key={r.id} data-testid={`row-send-${r.id}`}>
+                  <TableRow
+                    key={r.id}
+                    className="cursor-pointer"
+                    onClick={() => setOpenSendId(r.id)}
+                    data-testid={`row-send-${r.id}`}
+                  >
                     <TableCell>
                       <div className="font-medium">{recipientLabel(r)}</div>
                       <div className="text-xs text-muted-foreground">
@@ -410,6 +452,187 @@ export function TrackingTab() {
         <h3 className="text-sm font-medium text-muted-foreground">One-off blast runs</h3>
         <HistoryTab />
       </div>
+
+      <SendDetailDialog sendId={openSendId} onClose={() => setOpenSendId(null)} />
+      <ReplyDetailDialog reply={openReply} onClose={() => setOpenReply(null)} />
     </div>
+  );
+}
+
+function StatusBadge({ detail }: { detail: SendDetail }) {
+  const s = detail.send;
+  if (s.status === "failed") return <Badge variant="destructive">failed</Badge>;
+  if (s.firstClickedAt) return <Badge variant="default">clicked</Badge>;
+  if (s.openedAt) return <Badge variant="secondary">opened</Badge>;
+  if (s.errorDetail === "dry_run") return <Badge variant="outline">test (dry run)</Badge>;
+  return <Badge variant="outline">sent</Badge>;
+}
+
+function SendDetailDialog({ sendId, onClose }: { sendId: string | null; onClose: () => void }) {
+  const { data, isLoading } = useQuery<SendDetail>({
+    queryKey: ["/api/admin/outreach/sends", sendId],
+    queryFn: async () => {
+      const res = await fetch(`/api/admin/outreach/sends/${sendId}`);
+      if (!res.ok) throw new Error("Failed to load send detail");
+      return res.json();
+    },
+    enabled: !!sendId,
+  });
+
+  return (
+    <Dialog open={!!sendId} onOpenChange={(o) => !o && onClose()}>
+      <DialogContent className="max-h-[90vh] max-w-2xl overflow-y-auto">
+        <DialogHeader>
+          <DialogTitle>Email detail</DialogTitle>
+          <DialogDescription>
+            The message this contact received, rebuilt from the template and their details.
+          </DialogDescription>
+        </DialogHeader>
+
+        {isLoading || !data ? (
+          <div className="space-y-3 py-2">
+            <Skeleton className="h-5 w-1/2" />
+            <Skeleton className="h-5 w-1/3" />
+            <Skeleton className="h-64 w-full" />
+          </div>
+        ) : (
+          <div className="space-y-4">
+            {/* Recipient + status */}
+            <div className="flex flex-wrap items-start justify-between gap-2">
+              <div>
+                <div className="font-medium" data-testid="text-detail-recipient">
+                  {data.recipient?.company || data.recipient?.name || data.recipient?.email || "Unknown"}
+                </div>
+                <div className="text-xs text-muted-foreground">
+                  {data.recipient?.email || "no email"}
+                  {data.recipient?.city ? ` · ${data.recipient.city}` : ""}
+                </div>
+              </div>
+              <StatusBadge detail={data} />
+            </div>
+
+            {/* Metadata */}
+            <div className="grid grid-cols-2 gap-x-4 gap-y-2 rounded-md border p-3 text-sm">
+              <DetailRow label="Sent" value={fmtTime(data.send.sentAt)} />
+              <DetailRow
+                label="Source"
+                value={
+                  data.context.kind === "sequence"
+                    ? `${data.context.sequenceName ?? "Sequence"}${
+                        data.context.stepOrder ? ` · step ${data.context.stepOrder}` : ""
+                      }`
+                    : data.context.kind === "run"
+                    ? "One-off blast"
+                    : "—"
+                }
+              />
+              <DetailRow
+                label="Opened"
+                value={data.send.openedAt ? `${fmtTime(data.send.openedAt)} (${data.send.openCount}×)` : "Not yet"}
+              />
+              <DetailRow
+                label="Clicked"
+                value={
+                  data.send.firstClickedAt
+                    ? `${fmtTime(data.send.firstClickedAt)} (${data.send.clickCount}×)`
+                    : "Not yet"
+                }
+              />
+              <DetailRow label="Template" value={data.context.templateName ?? "—"} />
+              {data.send.errorDetail && data.send.errorDetail !== "dry_run" ? (
+                <DetailRow label="Error" value={data.send.errorDetail} />
+              ) : null}
+            </div>
+
+            {/* Email content */}
+            {data.email ? (
+              <div className="space-y-2">
+                <div>
+                  <div className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                    Subject
+                  </div>
+                  <div className="text-sm font-medium" data-testid="text-detail-subject">
+                    {data.email.subject}
+                  </div>
+                </div>
+                <div>
+                  <div className="mb-1 text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                    Message
+                  </div>
+                  <iframe
+                    title="Email preview"
+                    srcDoc={data.email.html}
+                    className="h-[420px] w-full rounded-md border bg-white"
+                    sandbox=""
+                    data-testid="iframe-detail-body"
+                  />
+                </div>
+              </div>
+            ) : (
+              <div className="rounded-md border p-4 text-sm text-muted-foreground">
+                The original template or contact is no longer available, so the exact message
+                content can&apos;t be reconstructed.
+              </div>
+            )}
+          </div>
+        )}
+      </DialogContent>
+    </Dialog>
+  );
+}
+
+function DetailRow({ label, value }: { label: string; value: string }) {
+  return (
+    <div>
+      <div className="text-xs text-muted-foreground">{label}</div>
+      <div className="font-medium">{value}</div>
+    </div>
+  );
+}
+
+function ReplyDetailDialog({ reply, onClose }: { reply: ReplyItem | null; onClose: () => void }) {
+  return (
+    <Dialog open={!!reply} onOpenChange={(o) => !o && onClose()}>
+      <DialogContent className="max-h-[90vh] max-w-2xl overflow-y-auto">
+        <DialogHeader>
+          <DialogTitle>Reply detail</DialogTitle>
+          <DialogDescription>A copy was also forwarded to your inbox.</DialogDescription>
+        </DialogHeader>
+        {reply ? (
+          <div className="space-y-4">
+            <div>
+              <div className="font-medium">
+                {reply.company || reply.leadName || reply.detail?.from || reply.email || "Unknown"}
+              </div>
+              <div className="text-xs text-muted-foreground">
+                {reply.detail?.from || reply.email || "no email"}
+                {reply.city ? ` · ${reply.city}` : ""}
+              </div>
+              <div className="mt-1 text-xs text-muted-foreground">{fmtTime(reply.createdAt)}</div>
+            </div>
+            {reply.detail?.subject ? (
+              <div>
+                <div className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                  Subject
+                </div>
+                <div className="text-sm font-medium">{reply.detail.subject}</div>
+              </div>
+            ) : null}
+            <div>
+              <div className="mb-1 text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                Message
+              </div>
+              {reply.detail?.snippet ? (
+                <p className="whitespace-pre-wrap text-sm">{reply.detail.snippet}</p>
+              ) : (
+                <p className="text-sm text-muted-foreground">
+                  No preview was captured. The full reply was forwarded to your inbox.
+                </p>
+              )}
+            </div>
+          </div>
+        ) : null}
+      </DialogContent>
+    </Dialog>
   );
 }
