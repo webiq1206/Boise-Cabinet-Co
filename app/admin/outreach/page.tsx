@@ -295,11 +295,6 @@ function OutreachPanel() {
 
   const config = draftConfig ?? data?.config ?? null;
   const templates = data?.templates ?? [];
-  // Prospects that got the first email, never replied/bounced, and have not yet
-  // been followed up. (replied/bounced/unsubscribed move out of sent/opened.)
-  const awaitingFollowup = (data?.prospects ?? []).filter(
-    (p) => (p.status === "sent" || p.status === "opened") && !p.followupSentAt,
-  ).length;
 
   const discoverMutation = useMutation({
     mutationFn: () => postJson("/api/admin/outreach/discover", {}),
@@ -497,7 +492,7 @@ function OutreachPanel() {
                 <div>
                   <Label className="text-sm font-medium">Automatic sending</Label>
                   <p className="text-xs text-muted-foreground">
-                    When on, the system trickles approved emails out on its own, spaced over the day, using the default first email below. Use the Send tab to run a specific email or sequence on demand.
+                    Master switch for all outbound email. When on, your sequences send on their own, spaced over the day by the cap and gap below. When off, nothing sends automatically. Build and choose what goes out in the Sequences and Send tabs.
                   </p>
                 </div>
                 <Switch
@@ -534,110 +529,9 @@ function OutreachPanel() {
                     onChange={(e) => setDraftConfig({ ...config, minGapMinutes: Number(e.target.value) })}
                     data-testid="input-outreach-min-gap" />
                 </div>
-                <div className="space-y-1">
-                  <Label className="text-xs" htmlFor="batchSize">Batch size (per manual run)</Label>
-                  <Input id="batchSize" type="number" className="w-32" value={config.batchSize} min={1} max={10}
-                    onChange={(e) => setDraftConfig({ ...config, batchSize: Number(e.target.value) })}
-                    data-testid="input-outreach-batch-size" />
-                  <p className="text-xs text-muted-foreground">Max 10. The cap and gap still apply.</p>
-                </div>
-              </div>
-
-              <div className="space-y-1 max-w-sm">
-                <Label className="text-xs">Default first email for automatic sending</Label>
-                <Select
-                  value={config.defaultTemplate}
-                  onValueChange={(v) => setDraftConfig({ ...config, defaultTemplate: v })}
-                >
-                  <SelectTrigger data-testid="select-outreach-default-template">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {templates.map((t) => (
-                      <SelectItem key={t.key} value={t.key}>
-                        {t.label}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                {templates.find((t) => t.key === config.defaultTemplate)?.description && (
-                  <p className="text-xs text-muted-foreground">
-                    {templates.find((t) => t.key === config.defaultTemplate)?.description}
-                  </p>
-                )}
               </div>
 
               <Button onClick={() => configMutation.mutate(config)} disabled={configMutation.isPending} data-testid="button-save-outreach-config">
-                {configMutation.isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : "Save settings"}
-              </Button>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-base">Follow-up sequence</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-5">
-              <p className="text-sm text-muted-foreground">
-                Send one friendly follow-up to contractors who never replied. It
-                only goes to people who have not answered your first email, waits
-                the number of days you set below, then sends automatically. The
-                same daily cap and minimum gap still apply.
-              </p>
-
-              {awaitingFollowup > 0 && (
-                <p className="text-sm" data-testid="text-awaiting-followup">
-                  {awaitingFollowup} contractor{awaitingFollowup === 1 ? " is" : "s are"} waiting
-                  for a follow-up.
-                </p>
-              )}
-
-              <div className="flex flex-wrap items-center justify-between gap-3 rounded-md border p-3">
-                <div>
-                  <Label className="text-sm font-medium">Send the follow-up</Label>
-                  <p className="text-xs text-muted-foreground">
-                    When on, non-repliers get one automatic second email.
-                  </p>
-                </div>
-                <Switch
-                  checked={config.sequenceEnabled}
-                  onCheckedChange={(v) => setDraftConfig({ ...config, sequenceEnabled: v })}
-                  data-testid="switch-outreach-sequence"
-                />
-              </div>
-
-              <div className="flex flex-wrap gap-4">
-                <div className="space-y-1">
-                  <Label className="text-xs" htmlFor="followupDelay">Wait before follow-up (days)</Label>
-                  <Input id="followupDelay" type="number" className="w-32" value={config.followupDelayDays} min={1} max={30}
-                    onChange={(e) => setDraftConfig({ ...config, followupDelayDays: Number(e.target.value) })}
-                    data-testid="input-outreach-followup-delay" />
-                  <p className="text-xs text-muted-foreground">Between 1 and 30 days.</p>
-                </div>
-                <div className="space-y-1 min-w-[12rem] flex-1 max-w-sm">
-                  <Label className="text-xs">Follow-up wording</Label>
-                  <Select
-                    value={config.followupTemplate}
-                    onValueChange={(v) => setDraftConfig({ ...config, followupTemplate: v })}
-                  >
-                    <SelectTrigger data-testid="select-outreach-followup-template">
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {templates.map((t) => (
-                        <SelectItem key={t.key} value={t.key}>
-                          {t.label}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                  <p className="text-xs text-muted-foreground">
-                    The follow-up reuses this wording with a short "circling back" intro.
-                  </p>
-                </div>
-              </div>
-
-              <Button onClick={() => configMutation.mutate(config)} disabled={configMutation.isPending} data-testid="button-save-outreach-sequence">
                 {configMutation.isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : "Save settings"}
               </Button>
             </CardContent>
