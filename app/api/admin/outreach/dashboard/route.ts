@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
-import { sequenceEnrollments, outreachSends, leads, sequences } from "@/shared/schema";
+import { sequenceEnrollments, outreachSends, leads, sequences, leadActivities } from "@/shared/schema";
 import { sql, eq, and, desc, isNotNull, gte } from "drizzle-orm";
 import { requireAdmin } from "@/lib/outreach/requireAdmin";
 import { getOutreachConfig, isOutreachSendable } from "@/lib/outreach/config";
@@ -26,7 +26,7 @@ export async function GET() {
     .from(sequenceEnrollments)
     .groupBy(sequenceEnrollments.status);
 
-  const queue = { active: 0, completed: 0, stopped: 0, dueNow: 0 };
+  const queue = { active: 0, completed: 0, stopped: 0, replied: 0, dueNow: 0 };
   for (const r of enrollRows) {
     if (r.status === "active") {
       queue.active = r.n;
@@ -35,6 +35,8 @@ export async function GET() {
       queue.completed = r.n;
     } else if (r.status === "stopped") {
       queue.stopped = r.n;
+    } else if (r.status === "replied") {
+      queue.replied = r.n;
     }
   }
 
@@ -92,6 +94,24 @@ export async function GET() {
     .orderBy(desc(sql`coalesce(${outreachSends.sentAt}, ${outreachSends.createdAt})`))
     .limit(50);
 
+  // Recent inbound replies, sourced from the CRM timeline rows the webhook writes.
+  const replies = await db
+    .select({
+      id: leadActivities.id,
+      createdAt: leadActivities.createdAt,
+      message: leadActivities.message,
+      detail: leadActivities.detail,
+      leadName: leads.name,
+      company: leads.companyName,
+      email: leads.email,
+      city: leads.city,
+    })
+    .from(leadActivities)
+    .leftJoin(leads, eq(leadActivities.leadId, leads.id))
+    .where(eq(leadActivities.type, "email_received"))
+    .orderBy(desc(leadActivities.createdAt))
+    .limit(25);
+
   return NextResponse.json({
     config: {
       enabled: config.enabled,
@@ -110,5 +130,6 @@ export async function GET() {
       nextEligibleAt,
     },
     recent,
+    replies,
   });
 }

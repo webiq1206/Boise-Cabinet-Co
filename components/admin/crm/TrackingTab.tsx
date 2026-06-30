@@ -18,7 +18,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { useToast } from "@/hooks/use-toast";
-import { Send, AlertTriangle, MailX, Mail, Eye, MousePointerClick, Inbox } from "lucide-react";
+import { Send, AlertTriangle, MailX, Mail, Eye, MousePointerClick, Inbox, MessageSquare } from "lucide-react";
 import { HistoryTab } from "@/components/admin/crm/HistoryTab";
 
 interface RecentSend {
@@ -38,6 +38,17 @@ interface RecentSend {
   sequenceName: string | null;
 }
 
+interface ReplyItem {
+  id: string;
+  createdAt: string;
+  message: string;
+  detail: { from?: string; subject?: string; snippet?: string } | null;
+  leadName: string | null;
+  company: string | null;
+  email: string | null;
+  city: string | null;
+}
+
 interface Dashboard {
   config: {
     enabled: boolean;
@@ -47,7 +58,7 @@ interface Dashboard {
     sequenceEnabled: boolean;
     sendable: boolean;
   };
-  queue: { active: number; completed: number; stopped: number; dueNow: number };
+  queue: { active: number; completed: number; stopped: number; replied: number; dueNow: number };
   sends: { total: number; sent: number; failed: number; opened: number; clicked: number };
   pacing: {
     sentLast24: number;
@@ -56,6 +67,7 @@ interface Dashboard {
     nextEligibleAt: string | null;
   };
   recent: RecentSend[];
+  replies: ReplyItem[];
 }
 
 function StatCard({
@@ -179,7 +191,7 @@ export function TrackingTab() {
     );
   }
 
-  const { config, queue, sends, pacing, recent } = data;
+  const { config, queue, sends, pacing, recent, replies } = data;
   const openRate = sends.sent > 0 ? Math.round((sends.opened / sends.sent) * 100) : 0;
   const clickRate = sends.sent > 0 ? Math.round((sends.clicked / sends.sent) * 100) : 0;
 
@@ -249,7 +261,7 @@ export function TrackingTab() {
       </div>
 
       {/* Stat cards */}
-      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-7">
         <StatCard
           icon={Inbox}
           label="In queue"
@@ -286,7 +298,57 @@ export function TrackingTab() {
           sub={queue.stopped ? `${queue.stopped} stopped` : undefined}
           testId="stat-completed"
         />
+        <StatCard
+          icon={MessageSquare}
+          label="Replied"
+          value={queue.replied}
+          sub="sequence auto-stopped"
+          testId="stat-replied"
+        />
       </div>
+
+      {/* Replies */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2 text-base">
+            <MessageSquare className="h-4 w-4" />
+            Replies
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="p-0">
+          {replies.length === 0 ? (
+            <div className="p-10 text-center text-sm text-muted-foreground">
+              No replies yet. When a contact emails back, they appear here, their
+              sequence stops automatically, and a copy is forwarded to your inbox.
+            </div>
+          ) : (
+            <div className="divide-y">
+              {replies.map((r) => (
+                <div key={r.id} className="p-4" data-testid={`row-reply-${r.id}`}>
+                  <div className="flex flex-wrap items-baseline justify-between gap-2">
+                    <div className="font-medium">
+                      {r.company || r.leadName || r.detail?.from || r.email || "Unknown"}
+                    </div>
+                    <div className="text-xs text-muted-foreground">{fmtTime(r.createdAt)}</div>
+                  </div>
+                  <div className="text-xs text-muted-foreground">
+                    {r.email || r.detail?.from || "no email"}
+                    {r.city ? ` · ${r.city}` : ""}
+                  </div>
+                  {r.detail?.subject ? (
+                    <div className="mt-1 text-sm font-medium">{r.detail.subject}</div>
+                  ) : null}
+                  {r.detail?.snippet ? (
+                    <p className="mt-1 line-clamp-3 text-sm text-muted-foreground">
+                      {r.detail.snippet}
+                    </p>
+                  ) : null}
+                </div>
+              ))}
+            </div>
+          )}
+        </CardContent>
+      </Card>
 
       {/* Recent activity */}
       <Card>
