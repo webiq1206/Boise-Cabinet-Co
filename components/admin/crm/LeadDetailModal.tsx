@@ -22,6 +22,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useToast } from "@/hooks/use-toast";
 import {
   Phone,
   MessageSquare,
@@ -31,6 +32,7 @@ import {
   ChevronDown,
   ChevronRight,
   Clock,
+  Loader2,
 } from "lucide-react";
 
 interface LeadDetail {
@@ -73,6 +75,7 @@ export function LeadDetailModal({
   onClose: () => void;
 }) {
   const queryClient = useQueryClient();
+  const { toast } = useToast();
 
   const { data, isLoading } = useQuery<LeadDetail>({
     queryKey: ["/api/admin/crm/leads", leadId, "detail"],
@@ -114,10 +117,14 @@ export function LeadDetailModal({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
       });
-      if (!res.ok) throw new Error("Update failed");
+      if (!res.ok) {
+        const json = await res.json().catch(() => ({}));
+        throw new Error(json.error || "Update failed");
+      }
       return res.json();
     },
     onSuccess: invalidate,
+    onError: (e: Error) => toast({ title: "Update failed", description: e.message, variant: "destructive" }),
   });
 
   const taskMutation = useMutation({
@@ -129,10 +136,14 @@ export function LeadDetailModal({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
       });
-      if (!res.ok) throw new Error("Task update failed");
+      if (!res.ok) {
+        const json = await res.json().catch(() => ({}));
+        throw new Error(json.error || "Task update failed");
+      }
       return res.json();
     },
     onSuccess: invalidate,
+    onError: (e: Error) => toast({ title: "Task error", description: e.message, variant: "destructive" }),
   });
 
   const phone = lead?.phone as string | undefined;
@@ -283,14 +294,14 @@ export function LeadDetailModal({
                 <Button
                   size="sm"
                   variant="outline"
-                  disabled={!taskTitle.trim()}
+                  disabled={!taskTitle.trim() || taskMutation.isPending}
                   onClick={() => {
                     taskMutation.mutate({ title: taskTitle, dueAt: taskDue || null });
                     setTaskTitle("");
                     setTaskDue("");
                   }}
                 >
-                  <Plus className="h-4 w-4 mr-1" /> Add
+                  {taskMutation.isPending ? <Loader2 className="h-4 w-4 animate-spin mr-1" /> : <Plus className="h-4 w-4 mr-1" />} Add
                 </Button>
               </div>
             </section>
@@ -300,7 +311,8 @@ export function LeadDetailModal({
               <h3 className="text-sm font-medium">Add note</h3>
               <Textarea rows={2} value={note} onChange={(e) => setNote(e.target.value)} placeholder="Internal note" />
               <div className="flex justify-end">
-                <Button size="sm" variant="outline" disabled={!note.trim()} onClick={() => { updateMutation.mutate({ note }); setNote(""); }}>
+                <Button size="sm" variant="outline" disabled={!note.trim() || updateMutation.isPending} onClick={() => { updateMutation.mutate({ note }); setNote(""); }}>
+                  {updateMutation.isPending ? <Loader2 className="h-4 w-4 animate-spin mr-1" /> : null}
                   Save note
                 </Button>
               </div>
