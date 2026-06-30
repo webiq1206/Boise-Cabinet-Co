@@ -8,6 +8,7 @@ import { AdminAuthGate } from "@/components/admin/AdminAuthGate";
 import { ImportDialog } from "@/components/admin/outreach/ImportDialog";
 import { ComposeTab } from "@/components/admin/crm/ComposeTab";
 import { HistoryTab } from "@/components/admin/crm/HistoryTab";
+import { TrackingTab } from "@/components/admin/crm/TrackingTab";
 import { TemplatesTab } from "@/components/admin/crm/TemplatesTab";
 import { SequencesTab } from "@/components/admin/crm/SequencesTab";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -917,9 +918,9 @@ function OutreachPanel() {
           <SequencesTab />
         </TabsContent>
 
-        {/* ACTIVITY (history) */}
+        {/* ACTIVITY (tracking dashboard) */}
         <TabsContent value="activity" className="pt-4">
-          <HistoryTab />
+          <TrackingTab />
         </TabsContent>
 
         {/* DO-NOT-EMAIL */}
