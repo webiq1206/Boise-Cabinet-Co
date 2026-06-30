@@ -9,6 +9,7 @@ import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { EMAIL_PREVIEW_SANDBOX, toEmailPreviewSrcDoc } from "@/lib/outreach/emailPreview";
 import {
   Table,
   TableBody,
@@ -561,9 +562,9 @@ function SendDetailDialog({ sendId, onClose }: { sendId: string | null; onClose:
                   </div>
                   <iframe
                     title="Email preview"
-                    srcDoc={data.email.html}
+                    srcDoc={toEmailPreviewSrcDoc(data.email.html)}
                     className="h-[420px] w-full rounded-md border bg-white"
-                    sandbox=""
+                    sandbox={EMAIL_PREVIEW_SANDBOX}
                     data-testid="iframe-detail-body"
                   />
                 </div>

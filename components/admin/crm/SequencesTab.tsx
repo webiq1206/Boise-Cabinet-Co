@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
+import { EMAIL_PREVIEW_SANDBOX, toEmailPreviewSrcDoc } from "@/lib/outreach/emailPreview";
 import {
   Select,
   SelectContent,
@@ -70,7 +71,7 @@ function StepPreview({ tpl }: { tpl: TemplateLite }) {
   }, [tpl.id]);
   if (loading) return <div className="w-full h-20 rounded-md border bg-muted/40 flex items-center justify-center text-xs text-muted-foreground">Loading email preview...</div>;
   if (!html) return <div className="w-full rounded-md border bg-muted/40 p-2 text-xs text-muted-foreground">Preview unavailable.</div>;
-  return <iframe title="Email preview" srcDoc={html} className="w-full h-[440px] rounded-md border bg-white" sandbox="" />;
+  return <iframe title="Email preview" srcDoc={toEmailPreviewSrcDoc(html)} className="w-full h-[440px] rounded-md border bg-white" sandbox={EMAIL_PREVIEW_SANDBOX} />;
 }
 
 export function SequencesTab() {

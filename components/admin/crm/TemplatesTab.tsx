@@ -11,6 +11,7 @@ import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Switch } from "@/components/ui/switch";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import { EMAIL_PREVIEW_SANDBOX, toEmailPreviewSrcDoc } from "@/lib/outreach/emailPreview";
 import {
   Select,
   SelectContent,
@@ -318,7 +319,7 @@ export function TemplatesTab() {
         )}
         <Card>
           <CardContent className="p-0">
-            <iframe title="Email preview" srcDoc={previewHtml} className="w-full h-[600px] rounded-md border-0" sandbox="" />
+            <iframe title="Email preview" srcDoc={toEmailPreviewSrcDoc(previewHtml)} className="w-full h-[600px] rounded-md border-0" sandbox={EMAIL_PREVIEW_SANDBOX} />
           </CardContent>
         </Card>
       </div>
