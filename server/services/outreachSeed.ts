@@ -6,7 +6,9 @@ import { SITE_CONFIG } from "@/shared/siteConfig";
 // Seeds managed email templates and the on-brand sequences. Idempotent:
 // templates are refreshed only while seedManaged stays true (an operator edit
 // flips it off and is never overwritten); seeded sequences are created once and
-// then left alone. No em dashes anywhere in this copy (house style).
+// thereafter only have their light metadata (name, description, audience)
+// refreshed, while their steps are always left untouched. No em dashes anywhere
+// in this copy (house style).
 
 const SITE = SITE_CONFIG.siteUrl.replace(/\/$/, "");
 const SIGNER = "The Boise Cabinet Co team";
@@ -141,10 +143,10 @@ const TEMPLATES: SeedTemplate[] = [
     id: "contractor-partnership-1",
     name: "Contractor Partnership: Intro",
     audience: "business",
-    subject: "Cabinets for your next build",
-    openingLine: "I run a custom cabinet shop here in Boise, and I'd love the chance to work with local builders like you.",
+    subject: "Cabinets for your next project",
+    openingLine: "I run a custom cabinet shop here in Boise, and I'd love the chance to work with you.",
     mainMessage:
-      "Quick background on me. I ran a remodeling company in Colorado for years before we moved the family out to Boise, where I started Boise Cabinet Co. We build custom cabinets to order, kitchens, vanities, and built-ins, and we slot in as the cabinet shop on remodels and new builds.\n\nWhat that means for you is pricing that keeps your bids competitive, lead times that fit your schedule, and someone who actually picks up the phone when you call. I attached our catalog so you can see the door styles and finishes we work with.",
+      "Quick background on me. I ran a remodeling company in Colorado for years before we moved the family out to Boise, where I started Boise Cabinet Co. We build custom cabinets to order, kitchens, vanities, and built-ins, for all kinds of projects and spaces.\n\nWhat that means for you is fair pricing, lead times that fit your schedule, and someone who actually picks up the phone when you call. I attached our catalog so you can see the door styles and finishes we work with.",
     closingLine: "If you've got something coming up, I'd be glad to put a number together. Open to a quick call?",
     ctaLabel: "See our work",
     ctaUrl: `${SITE}/collections`,
@@ -157,11 +159,11 @@ const TEMPLATES: SeedTemplate[] = [
     id: "contractor-partnership-2",
     name: "Contractor Partnership: Follow Up",
     audience: "business",
-    subject: "Any builds coming up, {business}?",
+    subject: "Any projects coming up, {business}?",
     openingLine: "Just following up on my note from last week.",
     mainMessage:
-      "Keeping it simple: you get fair pricing, short lead times, and one person to deal with from the first sketch to the final install.\n\nWe build for the Treasure Valley and work around your schedule, so the cabinets are never what holds up a job.",
-    closingLine: "Happy to bid your next kitchen, bath, or built-in whenever the timing's right. Just hit reply.",
+      "Keeping it simple: you get fair pricing, short lead times, and one person to deal with from the first sketch to the final install.\n\nWe build for the Treasure Valley and work around your schedule, so the cabinets are never what holds up a project.",
+    closingLine: "Happy to quote your next kitchen, bath, or built-in whenever the timing's right. Just hit reply.",
     ctaLabel: "Start a conversation",
     ctaUrl: `${SITE}/consultation`,
     signerName: OWNER_SIGNER,
@@ -199,7 +201,7 @@ const TEMPLATES: SeedTemplate[] = [
     subject: "A cabinet partner for {business}",
     openingLine: "Wanted to introduce my shop, Boise Cabinet Co, in case {business} ever needs a cabinet partner.",
     mainMessage:
-      "We build custom cabinets to order for builders and remodelers across the Treasure Valley. Clear written scopes, fair pricing, and one person who owns the job from the first sketch to the final install.\n\nThe builders we work with stick with us because we keep their bids competitive, hit our lead times, and treat their clients right.",
+      "We build custom cabinets to order for homes and businesses across the Treasure Valley. Clear written scopes, fair pricing, and one person who owns the project from the first sketch to the final install.\n\nThe people we work with stick with us because we keep our pricing fair, hit our lead times, and treat their space like our own.",
     closingLine: "Worth a quick call this week?",
     ctaLabel: "See examples",
     ctaUrl: `${SITE}/collections`,
@@ -214,8 +216,8 @@ const TEMPLATES: SeedTemplate[] = [
     subject: "A local cabinet shop for {business}",
     openingLine: "I wanted to reach out and say hello, and introduce my cabinet shop here in the valley.",
     mainMessage:
-      "I'm Nick. I ran a remodeling business in Colorado for years, then moved the family to Boise and opened Boise Cabinet Co. We build custom cabinets right here in the valley for contractors who'd rather hand the cabinet part of a job to a shop they trust than deal with it themselves.\n\nYou can expect fair pricing, short lead times, and a crew that actually cares how the job turns out. I attached our catalog so you can get a feel for our door styles and finishes.",
-    closingLine: "If a kitchen, bath, or built-in comes up, I'd love a shot at bidding it. No pressure either way.",
+      "I'm Nick. I ran a remodeling business in Colorado for years, then moved the family to Boise and opened Boise Cabinet Co. We build custom cabinets right here in the valley for anyone who'd rather hand the cabinet part of a project to a shop they trust than deal with it themselves.\n\nYou can expect fair pricing, short lead times, and a crew that actually cares how the work turns out. I attached our catalog so you can get a feel for our door styles and finishes.",
+    closingLine: "If a kitchen, bath, or built-in comes up, I'd love a shot at quoting it. No pressure either way.",
     ctaLabel: "See our cabinets",
     ctaUrl: `${SITE}/collections`,
     secondaryCtaLabel: "View our catalog",
@@ -230,7 +232,7 @@ const TEMPLATES: SeedTemplate[] = [
     subject: "Following up on cabinets for {business}",
     openingLine: "Following up in case you've got a project on the horizon.",
     mainMessage:
-      "Easiest way to see if we're a fit is to let me price something real. Send me a plan, or even a rough idea, and I'll get a clear bid back to you fast.\n\nYou focus on the rest of the build and let me handle the cabinets.",
+      "Easiest way to see if we're a fit is to let me price something real. Send me a plan, or even a rough idea, and I'll get a clear quote back to you fast.\n\nYou focus on the rest of the project and let me handle the cabinets.",
     closingLine: "Anything coming up you'd want me to look at?",
     ctaLabel: "Get a bid",
     ctaUrl: `${SITE}/consultation`,
@@ -258,8 +260,8 @@ const TEMPLATES: SeedTemplate[] = [
     subject: "Quick hello from a Boise cabinet shop",
     openingLine: "Quick hello from a cabinet shop here in Boise.",
     mainMessage:
-      "I'm Nick with Boise Cabinet Co. After years running a remodeling business in Colorado, I moved the family to Boise and opened a custom cabinet shop here.\n\nFor the contractors we work with, it comes down to three things: fair pricing, short lead times, and service that makes your job easier. I attached our catalog so you can see the range.",
-    closingLine: "Got a kitchen, bath, or built-in coming up? I'll bid it.",
+      "I'm Nick with Boise Cabinet Co. After years running a remodeling business in Colorado, I moved the family to Boise and opened a custom cabinet shop here.\n\nFor the people we work with, it comes down to three things: fair pricing, short lead times, and service that makes your project easier. I attached our catalog so you can see the range.",
+    closingLine: "Got a kitchen, bath, or built-in coming up? I'll quote it.",
     ctaLabel: "Browse the catalog",
     ctaUrl: `${SITE}/collections`,
     secondaryCtaLabel: "View our catalog",
@@ -271,10 +273,10 @@ const TEMPLATES: SeedTemplate[] = [
     id: "contractor-value-2",
     name: "Contractor Value: Three reasons",
     audience: "business",
-    subject: "Why builders send us their cabinets",
-    openingLine: "A quick rundown of why contractors hand us their cabinet work.",
+    subject: "Why people send us their cabinet work",
+    openingLine: "A quick rundown of why people hand us their cabinet work.",
     mainMessage:
-      "Fair pricing that protects your margin.\n\nShort lead times that fit your schedule.\n\nService that keeps the job moving and your clients happy.\n\nThat's what we do, every time.",
+      "Fair pricing that protects your budget.\n\nShort lead times that fit your schedule.\n\nService that keeps the project moving and everyone happy.\n\nThat's what we do, every time.",
     closingLine: "Send me your next set of plans and I'll price them.",
     ctaLabel: "Send us a project",
     ctaUrl: `${SITE}/consultation`,
@@ -287,8 +289,8 @@ const TEMPLATES: SeedTemplate[] = [
     subject: "Last note for now",
     openingLine: "I don't want to clutter your inbox, so this is my last note for now.",
     mainMessage:
-      "If you ever need a solid cabinet shop with fair pricing and quick turnaround, I'm here. One email and I'll get a bid back to you.",
-    closingLine: "Thanks for reading, and good luck with the builds.",
+      "If you ever need a solid cabinet shop with fair pricing and quick turnaround, I'm here. One email and I'll get a quote back to you.",
+    closingLine: "Thanks for reading, and good luck with your projects.",
     ctaLabel: "Reach out",
     ctaUrl: `${SITE}/consultation`,
     signerName: OWNER_SIGNER,
@@ -302,8 +304,8 @@ const TEMPLATES: SeedTemplate[] = [
     subject: "From Colorado to Boise",
     openingLine: "Figured I'd take a minute to introduce myself and my shop.",
     mainMessage:
-      "I spent years running a remodeling business in Colorado. When we moved the family to Boise, I opened Boise Cabinet Co so I could focus on the part I love most, building cabinets.\n\nBecause I've been on the contractor side, I try to make this easy on you: fair pricing, short lead times, and real service when you need it. I attached our catalog so you can see what we build.",
-    closingLine: "If you've got a project where cabinets would help, I'd be glad to bid it.",
+      "I spent years running a remodeling business in Colorado. When we moved the family to Boise, I opened Boise Cabinet Co so I could focus on the part I love most, building cabinets.\n\nBecause I've spent years in remodeling myself, I try to make this easy on you: fair pricing, short lead times, and real service when you need it. I attached our catalog so you can see what we build.",
+    closingLine: "If you've got a project where cabinets would help, I'd be glad to quote it.",
     ctaLabel: "See our work",
     ctaUrl: `${SITE}/collections`,
     secondaryCtaLabel: "View our catalog",
@@ -315,11 +317,11 @@ const TEMPLATES: SeedTemplate[] = [
     id: "contractor-story-2",
     name: "Contractor Story: Service",
     audience: "business",
-    subject: "How we treat your clients",
+    subject: "How we treat your project",
     openingLine: "One thing I care about more than most is service.",
     mainMessage:
-      "When you hand off the cabinets, you're trusting us with your client and your name, and we don't take that lightly.\n\nThat means clear communication, work finished on time, and cabinets your clients are proud of. It's a big part of why builders stick with us.",
-    closingLine: "Happy to show you what that looks like on a real job.",
+      "When you hand off the cabinets, you're trusting us with your project and your name, and we don't take that lightly.\n\nThat means clear communication, work finished on time, and cabinets you'll be proud of. It's a big part of why people stick with us.",
+    closingLine: "Happy to show you what that looks like on a real project.",
     ctaLabel: "Start a conversation",
     ctaUrl: `${SITE}/consultation`,
     signerName: OWNER_SIGNER,
@@ -331,7 +333,7 @@ const TEMPLATES: SeedTemplate[] = [
     subject: "Pricing and timing, the short version",
     openingLine: "A quick word on the two things that usually matter most.",
     mainMessage:
-      "Pricing: ours stays competitive, so your bids stay strong.\n\nTiming: we keep lead times short and plan around your schedule, so cabinets never turn into the holdup on a job.",
+      "Pricing: ours stays fair and competitive, so your budget stays strong.\n\nTiming: we keep lead times short and plan around your schedule, so cabinets never turn into the holdup on a project.",
     closingLine: "Send me something to price and I'll show you both.",
     ctaLabel: "Get a bid",
     ctaUrl: `${SITE}/consultation`,
@@ -449,7 +451,7 @@ const SEQUENCES: SeedSequence[] = [
   {
     seedKey: "contractor-partnership",
     name: "Contractor Partnership Outreach",
-    description: "Introduce Boise Cabinet Co to local builders. Business only.",
+    description: "Introduce Boise Cabinet Co to local businesses. Business audience.",
     audience: "business",
     steps: [
       { templateId: "contractor-partnership-1", delayHours: 0 },
@@ -467,7 +469,7 @@ const SEQUENCES: SeedSequence[] = [
     seedKey: "contractor-intro",
     name: "Contractor Intro (warm)",
     description:
-      "Personal note from Nick to local builders. First email attaches the catalog. Business only.",
+      "Personal note from Nick to local businesses. First email attaches the catalog. Business audience.",
     audience: "business",
     steps: [
       { templateId: "contractor-intro-1", delayHours: 0 },
@@ -479,7 +481,7 @@ const SEQUENCES: SeedSequence[] = [
     seedKey: "contractor-value",
     name: "Contractor Value (direct)",
     description:
-      "Short, value first pitch to builders. First email attaches the catalog. Business only.",
+      "Short, value first pitch to local businesses. First email attaches the catalog. Business audience.",
     audience: "business",
     steps: [
       { templateId: "contractor-value-1", delayHours: 0 },
@@ -560,10 +562,18 @@ export async function seedOutreachContent(): Promise<void> {
     }
   }
 
-  // Sequences: create once per seedKey, then leave alone.
+  // Sequences: create once per seedKey. On later runs, refresh only the light
+  // metadata (name, description, audience) so seeded copy fixes propagate to
+  // dev and prod, while an operator's step edits are always left untouched.
   for (const s of SEQUENCES) {
     const [existing] = await db.select().from(sequences).where(eq(sequences.seedKey, s.seedKey)).limit(1);
-    if (existing) continue;
+    if (existing) {
+      await db
+        .update(sequences)
+        .set({ name: s.name, description: s.description, audience: s.audience })
+        .where(eq(sequences.id, existing.id));
+      continue;
+    }
     const [seq] = await db
       .insert(sequences)
       .values({ name: s.name, description: s.description, audience: s.audience, seedKey: s.seedKey })
