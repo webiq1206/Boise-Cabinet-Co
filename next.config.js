@@ -88,6 +88,7 @@ const nextConfig = {
       '/our-story': '/',
       '/meet-the-team': '/',
       '/contact-us': '/contact',
+      '/consultation': '/#consult',
       '/get-in-touch': '/#consult',
       '/get-quote': '/#consult',
       '/free-quote': '/#consult',
@@ -195,6 +196,20 @@ const nextConfig = {
         ...r(`/services/room-addition/${city}`, '/guides/built-in-cabinet-guide'),
       );
       redirects.push(...r(`/services/adu/${city}`, '/cabinets/closet'));
+    }
+
+    // Email links to pages that do not currently exist (contractor lead/project
+    // portal, customer quote-status). Route them to the contact page so no email
+    // button 404s. Temporary (not permanent) so dedicated pages can be built
+    // later without a cached 308 getting in the way.
+    const missingPageEmailLinks = [
+      '/quote-status/:quoteId',
+      '/subcontractor/leads',
+      '/subcontractor/projects',
+    ];
+    for (const source of missingPageEmailLinks) {
+      redirects.push({ source, destination: '/contact', permanent: false });
+      redirects.push({ source: source + '/', destination: '/contact', permanent: false });
     }
 
     return redirects;
