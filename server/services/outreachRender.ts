@@ -64,6 +64,10 @@ const TOKEN_KEYS: (keyof RenderTokens)[] = [
  */
 export function substituteTokens(input: string, tokens: RenderTokens): string {
   let out = input;
+  // House style: no em or en dashes in any outreach copy. Convert them (and any
+  // surrounding whitespace) to a comma so even operator-typed dashes never ship;
+  // the tidy pass below cleans up any resulting doubled or dangling punctuation.
+  out = out.replace(/\s*[\u2014\u2013]\s*/g, ", ");
   for (const key of TOKEN_KEYS) {
     const value = tokens[key];
     const re = new RegExp(`\\{${key}\\}`, "g");

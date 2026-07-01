@@ -3,7 +3,7 @@ import { emailTemplates, sequences, sequenceSteps } from "@/shared/schema";
 import { eq } from "drizzle-orm";
 import { SITE_CONFIG } from "@/shared/siteConfig";
 
-// Seeds managed email templates and the six on-brand sequences. Idempotent:
+// Seeds managed email templates and the on-brand sequences. Idempotent:
 // templates are refreshed only while seedManaged stays true (an operator edit
 // flips it off and is never overwritten); seeded sequences are created once and
 // then left alone. No em dashes anywhere in this copy (house style).
@@ -350,6 +350,51 @@ const TEMPLATES: SeedTemplate[] = [
     ctaUrl: SITE,
     signerName: OWNER_SIGNER,
   },
+
+  // 10. Local Business Outreach (business) - generic, not builder specific, for
+  // companies other than contractors. Warm, low pressure, earns their business.
+  {
+    id: "business-general-1",
+    name: "Local Business Intro: Hello",
+    audience: "business",
+    subject: "Custom cabinets for {business}",
+    openingLine: "I wanted to introduce myself and my cabinet shop here in Boise.",
+    mainMessage:
+      "I'm Nick with Boise Cabinet Co. After years running a remodeling business in Colorado, my family moved to Boise and I opened a custom cabinet shop here. We build cabinets to order, kitchens, vanities, offices, built-ins, and just about any space that needs them.\n\nWhatever the project, you can expect fair pricing, short lead times, and someone who actually picks up the phone. I attached our catalog so you can get a feel for our door styles and finishes.",
+    closingLine: "If custom cabinets would ever help on a project, I'd love the opportunity to earn your business.",
+    ctaLabel: "See our work",
+    ctaUrl: `${SITE}/collections`,
+    secondaryCtaLabel: "View our catalog",
+    secondaryCtaUrl: CATALOG_URL,
+    attachmentKey: "catalog",
+    signerName: OWNER_SIGNER,
+  },
+  {
+    id: "business-general-2",
+    name: "Local Business Intro: Following up",
+    audience: "business",
+    subject: "Following up with {business}",
+    openingLine: "Just following up on my note from last week.",
+    mainMessage:
+      "No pressure at all. If you ever need custom cabinets, whether it's a remodel, a rental, an office, or any other space, I'd be glad to help.\n\nThe easiest way to see if we're a good fit is to let me price something real. Send over the details and I'll get a clear quote back to you fast.",
+    closingLine: "I'd love the chance to work with you whenever the timing is right.",
+    ctaLabel: "Start a conversation",
+    ctaUrl: `${SITE}/consultation`,
+    signerName: OWNER_SIGNER,
+  },
+  {
+    id: "business-general-3",
+    name: "Local Business Intro: Last note",
+    audience: "business",
+    subject: "Last note for now",
+    openingLine: "I'll keep this short and leave the ball in your court.",
+    mainMessage:
+      "If custom cabinets aren't on your list right now, no worries at all. When the time comes, there's a local shop here with fair pricing, quick turnaround, and service you can count on. I'd love the opportunity to earn your business and work with you.",
+    closingLine: "Reply any time and I'll be ready to help.",
+    ctaLabel: "Visit our site",
+    ctaUrl: SITE,
+    signerName: OWNER_SIGNER,
+  },
 ];
 
 interface SeedSequence {
@@ -453,6 +498,18 @@ const SEQUENCES: SeedSequence[] = [
       { templateId: "contractor-story-2", delayHours: 72 },
       { templateId: "contractor-story-3", delayHours: 144 },
       { templateId: "contractor-story-4", delayHours: 240 },
+    ],
+  },
+  {
+    seedKey: "business-general",
+    name: "Local Business Outreach",
+    description:
+      "Generic intro for any local business, not builder specific. First email attaches the catalog. Business only.",
+    audience: "business",
+    steps: [
+      { templateId: "business-general-1", delayHours: 0 },
+      { templateId: "business-general-2", delayHours: 72 },
+      { templateId: "business-general-3", delayHours: 168 },
     ],
   },
 ];
