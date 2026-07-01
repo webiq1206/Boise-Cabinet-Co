@@ -42,7 +42,7 @@ export const DEFAULT_TEMPLATE_CONTENT: OutreachTemplateContent = {
   personal: {
     subject: "Taking the cabinet work off your plate in {city}",
     opener:
-      "I came across {business} while looking at the remodelers doing solid work around {city}, and I wanted to reach out and introduce myself.",
+      "I run a custom cabinet shop here in the Treasure Valley, and I wanted to reach out and introduce myself.",
     pitch:
       "I spent several years running a remodeling business in Colorado before my family moved to Boise, where I opened a custom cabinet shop. These days I build custom cabinets right here in the valley for contractors who would rather hand off the cabinet portion of a job than manage it themselves. You get one person handling design, build, and install, pricing that stays competitive, and solid work your clients will be glad to show off. In practice that means one less trade to chase down and a budget that holds together.",
     closing:

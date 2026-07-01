@@ -82,7 +82,7 @@ export async function GET(_req: Request, { params }: { params: { id: string } })
       : template;
     email = renderOutreachEmail({
       template: effectiveTemplate,
-      tokens: tokensForLead(lead),
+      tokens: tokensForLead(lead, undefined, effectiveTemplate.audience),
       unsubscribeUrl: buildUnsubscribeUrl(lead.unsubscribeToken),
       openPixelUrl: null,
       clickTracker: (u) => u,

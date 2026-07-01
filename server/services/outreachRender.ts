@@ -202,8 +202,21 @@ export function tokensForLead(lead: {
   serviceArea?: string | null;
   serviceType?: string | null;
   phone?: string | null;
-}, extra?: { planningRange?: string | null; projectType?: string | null }): RenderTokens {
-  const firstName = lead.name ? lead.name.trim().split(/\s+/)[0] : null;
+}, extra?: { planningRange?: string | null; projectType?: string | null }, audience?: string | null): RenderTokens {
+  // A business lead's "name" is frequently just the company name (imports copy
+  // it across), which would greet them as "Hi {Company}," -- an obvious mail
+  // merge tell. Only use a personal first name for non-business audiences when
+  // the name is a real person's name (not the company); otherwise fall back to
+  // the generic "Hello," greeting.
+  const trimmedName = lead.name?.trim() ?? "";
+  const trimmedCompany = lead.companyName?.trim() ?? "";
+  const nameIsCompany =
+    trimmedName.length > 0 &&
+    trimmedCompany.length > 0 &&
+    trimmedName.toLowerCase() === trimmedCompany.toLowerCase();
+  const usePersonalName =
+    trimmedName.length > 0 && audience !== "business" && !nameIsCompany;
+  const firstName = usePersonalName ? trimmedName.split(/\s+/)[0] : null;
   return {
     firstName: firstName || null,
     business: lead.companyName || null,

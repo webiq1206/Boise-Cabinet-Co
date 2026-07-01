@@ -235,7 +235,7 @@ async function deliver(job: SendJob, dryRun: boolean): Promise<{ ok: boolean; er
   const clickTracker = (url: string) => buildClickUrl(job.trackingToken, url);
   const rendered = renderOutreachEmail({
     template: job.template,
-    tokens: tokensForLead(job.lead),
+    tokens: tokensForLead(job.lead, undefined, job.template.audience),
     unsubscribeUrl: buildUnsubscribeUrl(job.lead.unsubscribeToken),
     openPixelUrl: dryRun ? null : buildOpenPixelUrl(job.trackingToken),
     clickTracker,

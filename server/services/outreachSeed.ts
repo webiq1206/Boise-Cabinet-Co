@@ -142,7 +142,7 @@ const TEMPLATES: SeedTemplate[] = [
     name: "Contractor Partnership: Intro",
     audience: "business",
     subject: "Cabinets for your next build",
-    openingLine: "I run a cabinet shop here in Boise, and I came across {business} while looking at builders doing good work around {serviceArea}.",
+    openingLine: "I run a custom cabinet shop here in Boise, and I'd love the chance to work with local builders like you.",
     mainMessage:
       "Quick background on me. I ran a remodeling company in Colorado for years before we moved the family out to Boise, where I started Boise Cabinet Co. We build custom cabinets to order, kitchens, vanities, and built-ins, and we slot in as the cabinet shop on remodels and new builds.\n\nWhat that means for you is pricing that keeps your bids competitive, lead times that fit your schedule, and someone who actually picks up the phone when you call. I attached our catalog so you can see the door styles and finishes we work with.",
     closingLine: "If you've got something coming up, I'd be glad to put a number together. Open to a quick call?",
@@ -212,7 +212,7 @@ const TEMPLATES: SeedTemplate[] = [
     name: "Contractor Intro: Hello",
     audience: "business",
     subject: "A local cabinet shop for {business}",
-    openingLine: "I came across {business} around {serviceArea} and wanted to say hello.",
+    openingLine: "I wanted to reach out and say hello, and introduce my cabinet shop here in the valley.",
     mainMessage:
       "I'm Nick. I ran a remodeling business in Colorado for years, then moved the family to Boise and opened Boise Cabinet Co. We build custom cabinets right here in the valley for contractors who'd rather hand the cabinet part of a job to a shop they trust than deal with it themselves.\n\nYou can expect fair pricing, short lead times, and a crew that actually cares how the job turns out. I attached our catalog so you can get a feel for our door styles and finishes.",
     closingLine: "If a kitchen, bath, or built-in comes up, I'd love a shot at bidding it. No pressure either way.",
@@ -300,7 +300,7 @@ const TEMPLATES: SeedTemplate[] = [
     name: "Contractor Story: Colorado to Boise",
     audience: "business",
     subject: "From Colorado to Boise",
-    openingLine: "Figured I'd introduce myself and my shop to {business}.",
+    openingLine: "Figured I'd take a minute to introduce myself and my shop.",
     mainMessage:
       "I spent years running a remodeling business in Colorado. When we moved the family to Boise, I opened Boise Cabinet Co so I could focus on the part I love most, building cabinets.\n\nBecause I've been on the contractor side, I try to make this easy on you: fair pricing, short lead times, and real service when you need it. I attached our catalog so you can see what we build.",
     closingLine: "If you've got a project where cabinets would help, I'd be glad to bid it.",
