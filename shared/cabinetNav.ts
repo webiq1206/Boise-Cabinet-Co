@@ -17,6 +17,11 @@ const SHOP_BY_ROOM_SLUGS = [
   "entertainment",
   "built-ins",
   "pantry",
+  "closet",
+  "bedroom",
+  "garage",
+  "wet-bar",
+  "outdoor",
 ] as const;
 
 const SHOP_BY_ROOM_CHILDREN = SHOP_BY_ROOM_SLUGS.map((slug) => ROOM_BY_SLUG[slug])
