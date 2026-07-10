@@ -114,7 +114,7 @@ export function AdminProjectPortalPanel({
             <span className="text-muted-foreground">Portal email:</span>
             <span>{customerEmail}</span>
             {customerUserId ? (
-              <Badge variant="outline" className="text-green-700 border-green-200">
+              <Badge variant="outline" className="text-[hsl(136_21%_53%)] border-[hsl(136_21%_53%)]/40">
                 Linked
               </Badge>
             ) : (

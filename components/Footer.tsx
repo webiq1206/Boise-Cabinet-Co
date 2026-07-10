@@ -18,14 +18,16 @@ export function Footer() {
       <div className="container px-4 py-16 md:py-20">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-8 gap-10 mb-12 lg:gap-0 lg:divide-x lg:divide-inverse-foreground/10 [&>*]:lg:px-6 [&>*:first-child]:lg:pl-0 [&>*:last-child]:lg:pr-0">
           <div>
-            <div className="mb-6">
-              <span className="block font-sans font-light text-lg tracking-tight text-inverse-foreground">
-                Boise Cabinet <em className="brc-accent text-accent">Co</em>
-              </span>
-              <span className="block text-[9px] tracking-[0.15em] uppercase font-sans font-medium mt-0.5 text-inverse-muted">
-                Custom Cabinetry
-              </span>
-            </div>
+            <Link href="/" className="mb-6 inline-block" aria-label="Boise Cabinet Co — home">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/brand/boise-cabinet-co-logo-primary-reverse.svg"
+                alt="Boise Cabinet Co — Custom Cabinetry, Treasure Valley, Idaho"
+                width={236}
+                height={80}
+                className="h-16 w-auto"
+              />
+            </Link>
             <div className="space-y-2">
               <a
                 href={SITE_CONFIG.phoneHref}
@@ -257,7 +259,15 @@ export function Footer() {
         </div>
 
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 text-xs text-inverse-muted pt-5 border-t border-inverse-foreground/10">
-          <div className="flex flex-wrap gap-4">
+          <div className="flex flex-wrap items-center gap-4">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/brand/boise-cabinet-co-emblem-light.svg"
+              alt="Boise Cabinet Co emblem"
+              width={36}
+              height={36}
+              className="h-9 w-9 rounded-sm"
+            />
             <span>&copy; {currentYear} {SITE_CONFIG.name}. All rights reserved.</span>
             <span>
               {SITE_CONFIG.trust.licenseNumber

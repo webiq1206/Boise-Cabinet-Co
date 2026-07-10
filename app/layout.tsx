@@ -11,8 +11,11 @@ import { HOMEPAGE_DESCRIPTION, HOMEPAGE_TITLE } from '@/lib/seo'
 import './globals.css'
 
 const montserrat = Montserrat({
+  // The dark brand system caps all text at weight 400 (nothing bold), so only
+  // Light (300, headings) and Regular (400, body/labels) are loaded — dropping
+  // 500/600 cuts two font files from the critical download.
   subsets: ['latin'],
-  weight: ['300', '400', '500', '600'],
+  weight: ['300', '400'],
   variable: '--font-montserrat',
   display: 'swap',
 })
@@ -37,10 +40,13 @@ export const metadata: Metadata = {
   manifest: '/site.webmanifest',
   icons: {
     icon: [
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+      { url: '/favicon-16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/favicon-32.png', sizes: '32x32', type: 'image/png' },
       { url: '/icon-192.png', sizes: '192x192', type: 'image/png' },
       { url: '/icon-512.png', sizes: '512x512', type: 'image/png' },
     ],
-    shortcut: '/icon-192.png',
+    shortcut: '/favicon.svg',
     apple: '/apple-touch-icon.png',
   },
   ...(process.env.NEXT_PUBLIC_GSC_VERIFICATION
@@ -56,7 +62,7 @@ export const metadata: Metadata = {
     siteName: 'Boise Cabinet Co',
     title: HOMEPAGE_TITLE,
     description: HOMEPAGE_DESCRIPTION,
-    images: [{ url: '/images/marketing/og-default.webp', width: 1792, height: 1024, alt: 'Boise Cabinet Co custom kitchen cabinets' }],
+    images: [{ url: '/images/marketing/og-default.webp', width: 1200, height: 630, alt: 'Boise Cabinet Co — custom cabinetry, Treasure Valley, Idaho' }],
   },
   twitter: {
     card: 'summary_large_image',
@@ -78,7 +84,8 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  themeColor: '#3A3E3D',
+  themeColor: '#1C1F1E',
+  colorScheme: 'dark',
   width: 'device-width',
   initialScale: 1,
   viewportFit: 'cover',
@@ -90,7 +97,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={`${montserrat.variable} ${fraunces.variable}`} suppressHydrationWarning>
+    <html lang="en" className={`dark ${montserrat.variable} ${fraunces.variable}`} style={{ colorScheme: 'dark' }} suppressHydrationWarning>
       <head>
         {/*
           The hero LCP image is preloaded by next/image's `priority` prop in

@@ -22,14 +22,15 @@ import { useAuth } from "@/hooks/useAuth";
 
 function Logo() {
   return (
-    <Link href="/" className="flex flex-col leading-none">
-      <span className="font-sans text-[1.05rem] font-light tracking-tight text-foreground">
-        Boise Cabinet{" "}
-        <em className="brc-accent text-accent">Co</em>
-      </span>
-      <span className="text-[9px] tracking-[0.15em] uppercase font-sans font-medium mt-0.5 text-muted-foreground">
-        Custom Cabinetry
-      </span>
+    <Link href="/" className="flex items-center leading-none" aria-label="Boise Cabinet Co — home">
+      {/* Reverse (white) wordmark for the dark ground. eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src="/brand/boise-cabinet-co-wordmark-reverse.svg"
+        alt="Boise Cabinet Co"
+        width={190}
+        height={28}
+        className="h-[26px] w-auto md:h-7"
+      />
     </Link>
   );
 }
