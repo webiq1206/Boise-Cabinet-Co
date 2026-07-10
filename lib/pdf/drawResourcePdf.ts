@@ -5,6 +5,7 @@ import {
   type PDFPage,
   type PDFFont,
   type PDFImage,
+  type RGB,
 } from 'pdf-lib';
 
 const PAGE_WIDTH = 612;
@@ -55,18 +56,136 @@ export type PdfBlock =
       aspect?: number;
     };
 
+/** Embeddable brand font bytes (TTF/OTF). Injected by the Node build script so
+ *  this shared module stays free of `fs`. */
+export interface ResourcePdfFonts {
+  sansLight?: Uint8Array;
+  sansRegular?: Uint8Array;
+  serifItalic?: Uint8Array;
+}
+
+export interface ResourcePdfOptions {
+  /** 'light' (default) keeps the original printable look; 'dark' applies the
+   *  Boise Cabinet Co dark brand system (charcoal ground, bone + Fraunces italic). */
+  theme?: 'light' | 'dark';
+  fonts?: ResourcePdfFonts;
+}
+
+// ── Theme ───────────────────────────────────────────────────────────────────
+interface Theme {
+  dark: boolean;
+  pageBg: RGB | null;
+  title: RGB;
+  heading: RGB;
+  body: RGB;
+  subtitle: RGB;
+  meta: RGB;
+  coverSubtitle: RGB;
+  imageSub: RGB;
+  footer: RGB;
+  hairline: RGB;
+  numeral: RGB;
+  accent: RGB;
+  /** Ink for lists / checkboxes / table rows (pure black in the light theme). */
+  ink: RGB;
+  cardBg: RGB;
+  cardBorder: RGB;
+  placeholderBg: RGB;
+  tableHeaderBg: RGB;
+  tableHeaderText: RGB;
+}
+
+const hex = (h: string): RGB => {
+  const c = h.replace('#', '');
+  return rgb(
+    parseInt(c.slice(0, 2), 16) / 255,
+    parseInt(c.slice(2, 4), 16) / 255,
+    parseInt(c.slice(4, 6), 16) / 255,
+  );
+};
+
+/** Original printable palette — light output stays byte-for-byte identical. */
+const LIGHT_THEME: Theme = {
+  dark: false,
+  pageBg: null,
+  title: rgb(0.1, 0.1, 0.1),
+  heading: rgb(0.15, 0.15, 0.15),
+  body: rgb(0.15, 0.15, 0.15),
+  subtitle: rgb(0.3, 0.3, 0.3),
+  meta: rgb(0.3, 0.3, 0.3),
+  coverSubtitle: rgb(0.35, 0.35, 0.35),
+  imageSub: rgb(0.4, 0.4, 0.4),
+  footer: rgb(0.45, 0.45, 0.45),
+  hairline: rgb(0.8, 0.8, 0.78),
+  numeral: rgb(0.4, 0.4, 0.4),
+  accent: rgb(0.3, 0.3, 0.3),
+  ink: rgb(0, 0, 0),
+  cardBg: rgb(1, 1, 1),
+  cardBorder: rgb(0.82, 0.82, 0.8),
+  placeholderBg: rgb(0.96, 0.96, 0.95),
+  tableHeaderBg: rgb(0.92, 0.92, 0.9),
+  tableHeaderText: rgb(0, 0, 0),
+};
+
+/** Boise Cabinet Co dark brand system (matches the brand-system document). */
+const DARK_THEME: Theme = {
+  dark: true,
+  pageBg: hex('1C1F1E'), // charcoal page base
+  title: hex('F7F5F3'), // bone
+  heading: hex('F7F5F3'),
+  body: hex('E6E3DE'), // warm text
+  subtitle: hex('9AA098'), // mist
+  meta: hex('9AA098'),
+  coverSubtitle: hex('9AA098'),
+  imageSub: hex('9AA098'),
+  footer: hex('9AA098'),
+  hairline: hex('4A4F4C'), // subtle light hairline on charcoal
+  numeral: hex('9AA098'), // Fraunces-italic section numbers, mist
+  accent: hex('93A386'), // sage
+  ink: hex('E6E3DE'),
+  // Product line-drawings are black-on-white, so cards stay a light bone tile.
+  cardBg: hex('F5F3EF'),
+  cardBorder: hex('4A4F4C'),
+  placeholderBg: hex('2C302F'), // charcoal tile
+  tableHeaderBg: hex('2C302F'),
+  tableHeaderText: hex('F7F5F3'),
+};
+
+/** Resolved fonts by semantic role (already embedded). */
+interface RoleFonts {
+  title: PDFFont;
+  heading: PDFFont;
+  body: PDFFont;
+  label: PDFFont;
+  caption: PDFFont;
+  accent: PDFFont; // Fraunces italic (dark) / Times italic (light, unused)
+}
+
 interface PdfContext {
   doc: PDFDocument;
   page: PDFPage;
-  font: PDFFont;
-  bold: PDFFont;
+  theme: Theme;
+  f: RoleFonts;
   y: number;
+  sectionNo: number;
   /** Embedded images keyed by their source JPEG bytes (pre-embedded once). */
   imageCache: Map<Uint8Array, PDFImage>;
 }
 
+function paintBackground(ctx: PdfContext): void {
+  if (!ctx.theme.pageBg) return;
+  ctx.page.drawRectangle({
+    x: 0,
+    y: 0,
+    width: PAGE_WIDTH,
+    height: PAGE_HEIGHT,
+    color: ctx.theme.pageBg,
+  });
+}
+
 function newPage(ctx: PdfContext): void {
   ctx.page = ctx.doc.addPage([PAGE_WIDTH, PAGE_HEIGHT]);
+  paintBackground(ctx);
   ctx.y = PAGE_HEIGHT - MARGIN;
 }
 
@@ -79,6 +198,25 @@ function ensureSpace(ctx: PdfContext, needed: number): void {
   if (ctx.y - needed < BOTTOM_LIMIT) {
     newPage(ctx);
   }
+}
+
+/** Draw a string with manual letter-spacing (for wide-tracked brand labels). */
+function drawTracked(
+  ctx: PdfContext,
+  text: string,
+  x: number,
+  y: number,
+  size: number,
+  font: PDFFont,
+  color: RGB,
+  tracking: number,
+): number {
+  let cx = x;
+  for (const ch of text) {
+    ctx.page.drawText(ch, { x: cx, y, size, font, color });
+    cx += font.widthOfTextAtSize(ch, size) + tracking;
+  }
+  return cx - tracking;
 }
 
 /** Wrap text to fit within an explicit max width. */
@@ -136,7 +274,7 @@ function drawLines(
   lines: string[],
   size: number,
   font: PDFFont,
-  color = rgb(0.15, 0.15, 0.15),
+  color: RGB,
 ): void {
   for (const line of lines) {
     ensureSpace(ctx, LINE_HEIGHT);
@@ -179,17 +317,18 @@ function drawImageCard(
   imgH: number,
 ): void {
   const inset = 8;
+  const { cardBg, cardBorder, placeholderBg } = ctx.theme;
   const embedded = cell.jpeg ? ctx.imageCache.get(cell.jpeg) : undefined;
 
   if (embedded) {
-    // White card with a hairline border behind the artwork.
+    // Light card with a hairline border behind the artwork.
     ctx.page.drawRectangle({
       x,
       y: top - imgH,
       width: cellW,
       height: imgH,
-      color: rgb(1, 1, 1),
-      borderColor: rgb(0.82, 0.82, 0.8),
+      color: cardBg,
+      borderColor: cardBorder,
       borderWidth: 0.75,
     });
     const boxW = cellW - inset * 2;
@@ -205,14 +344,13 @@ function drawImageCard(
     });
   } else if (cell.fallbackHex) {
     // Flat color tile (e.g. a finish swatch) with a subtle border.
-    const c = hexToRgb(cell.fallbackHex);
     ctx.page.drawRectangle({
       x,
       y: top - imgH,
       width: cellW,
       height: imgH,
-      color: rgb(c.r, c.g, c.b),
-      borderColor: rgb(0.82, 0.82, 0.8),
+      color: hex(cell.fallbackHex.replace('#', '').length === 6 ? cell.fallbackHex : '#E6E6E4'),
+      borderColor: cardBorder,
       borderWidth: 0.75,
     });
   } else {
@@ -222,25 +360,64 @@ function drawImageCard(
       y: top - imgH,
       width: cellW,
       height: imgH,
-      color: rgb(0.96, 0.96, 0.95),
-      borderColor: rgb(0.82, 0.82, 0.8),
+      color: placeholderBg,
+      borderColor: cardBorder,
       borderWidth: 0.75,
     });
   }
 }
 
+/** Numbered section heading in the brand style: Fraunces-italic numeral + light
+ *  bone title over a hairline rule. */
+function drawBrandHeading(ctx: PdfContext, text: string): void {
+  ctx.y -= 14;
+  ensureSpace(ctx, 34);
+  const num = String(ctx.sectionNo).padStart(2, '0');
+  const numSize = 15;
+  const titleSize = HEADING_SIZE;
+  const numW = ctx.f.accent.widthOfTextAtSize(num, numSize);
+  const baseline = ctx.y;
+  ctx.page.drawText(num, {
+    x: MARGIN,
+    y: baseline,
+    size: numSize,
+    font: ctx.f.accent,
+    color: ctx.theme.numeral,
+  });
+  drawTracked(
+    ctx,
+    text,
+    MARGIN + numW + 14,
+    baseline,
+    titleSize,
+    ctx.f.heading,
+    ctx.theme.heading,
+    0.4,
+  );
+  ctx.y -= 10;
+  ctx.page.drawLine({
+    start: { x: MARGIN, y: ctx.y },
+    end: { x: PAGE_WIDTH - MARGIN, y: ctx.y },
+    thickness: 0.75,
+    color: ctx.theme.hairline,
+  });
+  ctx.y -= 14;
+  ctx.sectionNo += 1;
+}
+
 function drawBlock(ctx: PdfContext, block: PdfBlock): void {
+  const t = ctx.theme;
   switch (block.type) {
     case 'title': {
       ensureSpace(ctx, 40);
-      const lines = wrapLine(block.text, ctx.bold, TITLE_SIZE);
+      const lines = wrapLine(block.text, ctx.f.title, TITLE_SIZE);
       for (const line of lines) {
         ctx.page.drawText(line, {
           x: MARGIN,
           y: ctx.y,
           size: TITLE_SIZE,
-          font: ctx.bold,
-          color: rgb(0.1, 0.1, 0.1),
+          font: ctx.f.title,
+          color: t.title,
         });
         ctx.y -= 22;
       }
@@ -249,48 +426,55 @@ function drawBlock(ctx: PdfContext, block: PdfBlock): void {
     }
     case 'subtitle': {
       ensureSpace(ctx, 24);
-      drawLines(
-        ctx,
-        wrapLine(block.text, ctx.bold, SUBTITLE_SIZE),
-        SUBTITLE_SIZE,
-        ctx.bold,
-        rgb(0.3, 0.3, 0.3),
-      );
+      drawLines(ctx, wrapLine(block.text, ctx.f.label, SUBTITLE_SIZE), SUBTITLE_SIZE, ctx.f.label, t.subtitle);
       ctx.y -= 6;
       break;
     }
     case 'heading': {
       ensureSpace(ctx, 30);
+      if (t.dark) {
+        drawBrandHeading(ctx, block.text);
+        break;
+      }
       ctx.y -= 8;
-      drawLines(ctx, wrapLine(block.text, ctx.bold, HEADING_SIZE), HEADING_SIZE, ctx.bold);
+      drawLines(ctx, wrapLine(block.text, ctx.f.heading, HEADING_SIZE), HEADING_SIZE, ctx.f.heading, t.heading);
       // Underline rule beneath the section heading.
       ctx.y += 2;
       ctx.page.drawLine({
         start: { x: MARGIN, y: ctx.y },
         end: { x: PAGE_WIDTH - MARGIN, y: ctx.y },
         thickness: 0.75,
-        color: rgb(0.8, 0.8, 0.78),
+        color: t.hairline,
       });
       ctx.y -= 10;
       break;
     }
     case 'paragraph': {
-      drawLines(ctx, wrapLine(block.text, ctx.font, BODY_SIZE), BODY_SIZE, ctx.font);
+      drawLines(ctx, wrapLine(block.text, ctx.f.body, BODY_SIZE), BODY_SIZE, ctx.f.body, t.body);
       ctx.y -= 4;
       break;
     }
     case 'bullets': {
       for (const item of block.items) {
-        const wrapped = wrapLine(item, ctx.font, BODY_SIZE);
+        const wrapped = wrapLine(item, ctx.f.body, BODY_SIZE);
         wrapped.forEach((line, i) => {
           ensureSpace(ctx, LINE_HEIGHT);
-          const prefix = i === 0 ? '•  ' : '   ';
-          ctx.page.drawText(`${prefix}${line}`, {
-            x: MARGIN,
-            y: ctx.y,
-            size: BODY_SIZE,
-            font: ctx.font,
-          });
+          if (t.dark) {
+            // Sage em-dash marker, text in the warm ink.
+            if (i === 0) {
+              ctx.page.drawText('—', { x: MARGIN, y: ctx.y, size: BODY_SIZE, font: ctx.f.body, color: t.accent });
+            }
+            ctx.page.drawText(line, { x: MARGIN + 16, y: ctx.y, size: BODY_SIZE, font: ctx.f.body, color: t.ink });
+          } else {
+            const prefix = i === 0 ? '•  ' : '   ';
+            ctx.page.drawText(`${prefix}${line}`, {
+              x: MARGIN,
+              y: ctx.y,
+              size: BODY_SIZE,
+              font: ctx.f.body,
+              color: t.ink,
+            });
+          }
           ctx.y -= LINE_HEIGHT;
         });
       }
@@ -299,7 +483,7 @@ function drawBlock(ctx: PdfContext, block: PdfBlock): void {
     }
     case 'checkboxes': {
       for (const item of block.items) {
-        const wrapped = wrapLine(item, ctx.font, BODY_SIZE);
+        const wrapped = wrapLine(item, ctx.f.body, BODY_SIZE);
         wrapped.forEach((line, i) => {
           ensureSpace(ctx, LINE_HEIGHT + 2);
           const box = i === 0 ? '[ ] ' : '    ';
@@ -307,7 +491,8 @@ function drawBlock(ctx: PdfContext, block: PdfBlock): void {
             x: MARGIN,
             y: ctx.y,
             size: BODY_SIZE,
-            font: ctx.font,
+            font: ctx.f.body,
+            color: t.ink,
           });
           ctx.y -= LINE_HEIGHT + 2;
         });
@@ -326,13 +511,14 @@ function drawBlock(ctx: PdfContext, block: PdfBlock): void {
           y: ctx.y - rowH + 4,
           width: colWidth,
           height: rowH,
-          color: rgb(0.92, 0.92, 0.9),
+          color: t.tableHeaderBg,
         });
         ctx.page.drawText(h, {
           x: MARGIN + i * colWidth + 4,
           y: ctx.y - 10,
           size: 8,
-          font: ctx.bold,
+          font: ctx.f.label,
+          color: t.tableHeaderText,
         });
       });
       ctx.y -= rowH;
@@ -344,9 +530,18 @@ function drawBlock(ctx: PdfContext, block: PdfBlock): void {
             x: MARGIN + i * colWidth + 4,
             y: ctx.y - 10,
             size: 8,
-            font: ctx.font,
+            font: ctx.f.body,
+            color: t.ink,
           });
         });
+        if (t.dark) {
+          ctx.page.drawLine({
+            start: { x: MARGIN, y: ctx.y - rowH + 4 },
+            end: { x: PAGE_WIDTH - MARGIN, y: ctx.y - rowH + 4 },
+            thickness: 0.5,
+            color: t.hairline,
+          });
+        }
         ctx.y -= rowH;
       }
       ctx.y -= 8;
@@ -361,7 +556,11 @@ function drawBlock(ctx: PdfContext, block: PdfBlock): void {
       break;
     }
     case 'cover': {
-      // Logo + vertically centered brand cover on its own page.
+      if (t.dark) {
+        drawBrandCover(ctx, block);
+        break;
+      }
+      // Logo + vertically centered brand cover on its own page (light theme).
       let cursor = PAGE_HEIGHT * 0.7;
       if (block.logo) {
         const logo = ctx.imageCache.get(block.logo);
@@ -376,30 +575,24 @@ function drawBlock(ctx: PdfContext, block: PdfBlock): void {
       }
       ctx.y = cursor;
       const COVER_TITLE = 30;
-      const titleLines = wrapLine(block.title, ctx.bold, COVER_TITLE);
+      const titleLines = wrapLine(block.title, ctx.f.title, COVER_TITLE);
       for (const line of titleLines) {
         ctx.page.drawText(line, {
           x: MARGIN,
           y: ctx.y,
           size: COVER_TITLE,
-          font: ctx.bold,
-          color: rgb(0.1, 0.1, 0.1),
+          font: ctx.f.title,
+          color: t.title,
         });
         ctx.y -= COVER_TITLE + 6;
       }
       if (block.subtitle) {
         ctx.y -= 6;
-        drawLines(
-          ctx,
-          wrapLine(block.subtitle, ctx.font, SUBTITLE_SIZE),
-          SUBTITLE_SIZE,
-          ctx.font,
-          rgb(0.35, 0.35, 0.35),
-        );
+        drawLines(ctx, wrapLine(block.subtitle, ctx.f.body, SUBTITLE_SIZE), SUBTITLE_SIZE, ctx.f.body, t.coverSubtitle);
       }
       if (block.metaLines?.length) {
         ctx.y -= 12;
-        drawLines(ctx, block.metaLines, BODY_SIZE, ctx.font, rgb(0.3, 0.3, 0.3));
+        drawLines(ctx, block.metaLines, BODY_SIZE, ctx.f.body, t.meta);
       }
       newPage(ctx);
       break;
@@ -413,14 +606,13 @@ function drawBlock(ctx: PdfContext, block: PdfBlock): void {
 
         // Pre-wrap captions so the row height matches the tallest cell exactly.
         const wrapped = row.map((cell) => {
-          const captionLines = wrapFit(cell.caption, ctx.bold, captionSize, cellW, 2);
-          const subLines = cell.sub ? wrapFit(cell.sub, ctx.font, subSize, cellW, 1) : [];
+          const captionLines = wrapFit(cell.caption, ctx.f.caption, captionSize, cellW, 2);
+          const subLines = cell.sub ? wrapFit(cell.sub, ctx.f.body, subSize, cellW, 1) : [];
           return { cell, captionLines, subLines };
         });
         const maxCaptionLines = Math.max(1, ...wrapped.map((w) => w.captionLines.length));
         const maxSubLines = Math.max(0, ...wrapped.map((w) => w.subLines.length));
-        const captionBlockH =
-          10 + maxCaptionLines * captionLineH + maxSubLines * subLineH;
+        const captionBlockH = 10 + maxCaptionLines * captionLineH + maxSubLines * subLineH;
         const rowH = imgH + captionBlockH + gutter;
 
         ensureSpace(ctx, rowH);
@@ -432,7 +624,13 @@ function drawBlock(ctx: PdfContext, block: PdfBlock): void {
 
           let cy = rowTop - imgH - 10;
           for (const line of captionLines) {
-            ctx.page.drawText(line, { x, y: cy, size: captionSize, font: ctx.bold });
+            ctx.page.drawText(line, {
+              x,
+              y: cy,
+              size: captionSize,
+              font: ctx.f.caption,
+              color: t.dark ? t.heading : t.ink,
+            });
             cy -= captionLineH;
           }
           for (const line of subLines) {
@@ -440,8 +638,8 @@ function drawBlock(ctx: PdfContext, block: PdfBlock): void {
               x,
               y: cy,
               size: subSize,
-              font: ctx.font,
-              color: rgb(0.4, 0.4, 0.4),
+              font: ctx.f.body,
+              color: t.imageSub,
             });
             cy -= subLineH;
           }
@@ -455,33 +653,78 @@ function drawBlock(ctx: PdfContext, block: PdfBlock): void {
   }
 }
 
-function hexToRgb(hex: string): { r: number; g: number; b: number } {
-  const clean = hex.replace('#', '').trim();
-  if (clean.length !== 6) return { r: 0.9, g: 0.9, b: 0.88 };
-  return {
-    r: parseInt(clean.slice(0, 2), 16) / 255,
-    g: parseInt(clean.slice(2, 4), 16) / 255,
-    b: parseInt(clean.slice(4, 6), 16) / 255,
-  };
+/** Brand cover page: a typographic wordmark lockup + title on the charcoal ground. */
+function drawBrandCover(ctx: PdfContext, block: Extract<PdfBlock, { type: 'cover' }>): void {
+  const t = ctx.theme;
+  const left = MARGIN;
+
+  // Eyebrow.
+  drawTracked(ctx, 'BOISE CABINET CO', left, PAGE_HEIGHT * 0.78, 9, ctx.f.label, t.subtitle, 3);
+
+  // Wordmark: "BOISE CABINET " (light, tracked) + "Co." (Fraunces italic).
+  const wmY = PAGE_HEIGHT * 0.7;
+  const wmSize = 27;
+  const endX = drawTracked(ctx, 'BOISE CABINET ', left, wmY, wmSize, ctx.f.heading, t.title, 2);
+  ctx.page.drawText('Co.', {
+    x: endX + 6,
+    y: wmY,
+    size: wmSize,
+    font: ctx.f.accent,
+    color: t.title,
+  });
+  // Hairline + lockup sub-labels.
+  ctx.page.drawLine({
+    start: { x: left, y: wmY - 14 },
+    end: { x: left + 150, y: wmY - 14 },
+    thickness: 0.75,
+    color: t.hairline,
+  });
+  drawTracked(ctx, 'CUSTOM CABINETRY', left, wmY - 30, 8, ctx.f.label, t.subtitle, 2.5);
+  drawTracked(ctx, 'TREASURE VALLEY · IDAHO', left, wmY - 44, 7, ctx.f.label, t.meta, 2);
+
+  // Title.
+  ctx.y = PAGE_HEIGHT * 0.4;
+  const COVER_TITLE = 40;
+  for (const line of wrapLine(block.title, ctx.f.title, COVER_TITLE)) {
+    ctx.page.drawText(line, { x: left, y: ctx.y, size: COVER_TITLE, font: ctx.f.title, color: t.title });
+    ctx.y -= COVER_TITLE + 6;
+  }
+  if (block.subtitle) {
+    ctx.y -= 4;
+    ctx.page.drawText(block.subtitle, { x: left, y: ctx.y, size: 13, font: ctx.f.accent, color: t.subtitle });
+    ctx.y -= 22;
+  }
+  if (block.metaLines?.length) {
+    ctx.y -= 10;
+    for (const line of block.metaLines) {
+      ensureSpace(ctx, LINE_HEIGHT);
+      ctx.page.drawText(line, { x: left, y: ctx.y, size: BODY_SIZE, font: ctx.f.body, color: t.meta });
+      ctx.y -= LINE_HEIGHT;
+    }
+  }
+  newPage(ctx);
 }
 
 function drawFooter(ctx: PdfContext, footerText: string): void {
   const pages = ctx.doc.getPages();
   const size = 8;
+  const t = ctx.theme;
   pages.forEach((page, index) => {
-    page.drawText(footerText, {
-      x: MARGIN,
-      y: FOOTER_Y,
-      size,
-      font: ctx.font,
-      color: rgb(0.45, 0.45, 0.45),
-    });
+    if (t.dark) {
+      page.drawLine({
+        start: { x: MARGIN, y: FOOTER_Y + 12 },
+        end: { x: PAGE_WIDTH - MARGIN, y: FOOTER_Y + 12 },
+        thickness: 0.5,
+        color: t.hairline,
+      });
+    }
+    page.drawText(footerText, { x: MARGIN, y: FOOTER_Y, size, font: ctx.f.body, color: t.footer });
     page.drawText(`Page ${index + 1} of ${pages.length}`, {
       x: PAGE_WIDTH - MARGIN - 60,
       y: FOOTER_Y,
       size,
-      font: ctx.font,
-      color: rgb(0.45, 0.45, 0.45),
+      font: ctx.f.body,
+      color: t.footer,
     });
   });
 }
@@ -489,10 +732,52 @@ function drawFooter(ctx: PdfContext, footerText: string): void {
 export async function buildResourcePdf(
   blocks: PdfBlock[],
   footerText: string,
+  options: ResourcePdfOptions = {},
 ): Promise<Uint8Array> {
+  const wantDark = options.theme === 'dark';
   const doc = await PDFDocument.create();
-  const font = await doc.embedFont(StandardFonts.Helvetica);
-  const bold = await doc.embedFont(StandardFonts.HelveticaBold);
+
+  // Standard fonts are always available as a fallback.
+  const helv = await doc.embedFont(StandardFonts.Helvetica);
+  const helvBold = await doc.embedFont(StandardFonts.HelveticaBold);
+  const timesItalic = await doc.embedFont(StandardFonts.TimesRomanItalic);
+
+  // Embed the brand TTFs for the dark theme (falls back to standard fonts if the
+  // bytes are missing or undecodable, so a build never breaks over a font file).
+  let sansLight = helv;
+  let sansRegular = helv;
+  let serifItalic = timesItalic;
+  if (wantDark && options.fonts) {
+    try {
+      const fontkit = (await import('@pdf-lib/fontkit')).default;
+      doc.registerFontkit(fontkit);
+      const { sansLight: sl, sansRegular: sr, serifItalic: si } = options.fonts;
+      if (sl) sansLight = await doc.embedFont(sl, { subset: true });
+      if (sr) sansRegular = await doc.embedFont(sr, { subset: true });
+      if (si) serifItalic = await doc.embedFont(si, { subset: true });
+    } catch {
+      // keep standard-font fallbacks
+    }
+  }
+
+  const theme = wantDark ? DARK_THEME : LIGHT_THEME;
+  const f: RoleFonts = wantDark
+    ? {
+        title: sansLight,
+        heading: sansLight,
+        body: sansRegular,
+        label: sansRegular,
+        caption: sansRegular,
+        accent: serifItalic,
+      }
+    : {
+        title: helvBold,
+        heading: helvBold,
+        body: helv,
+        label: helvBold,
+        caption: helvBold,
+        accent: timesItalic,
+      };
 
   // Embed every image once up front so the synchronous draw pass can reuse them.
   const imageCache = new Map<Uint8Array, PDFImage>();
@@ -517,11 +802,13 @@ export async function buildResourcePdf(
   const ctx: PdfContext = {
     doc,
     page: doc.addPage([PAGE_WIDTH, PAGE_HEIGHT]),
-    font,
-    bold,
+    theme,
+    f,
     y: PAGE_HEIGHT - MARGIN,
+    sectionNo: 1,
     imageCache,
   };
+  paintBackground(ctx);
 
   // Keep section headings/subtitles with the first row of their following block.
   for (let i = 0; i < blocks.length; i += 1) {

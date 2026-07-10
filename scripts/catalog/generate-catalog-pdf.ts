@@ -7,11 +7,11 @@
  * public/downloads/boise-cabinet-catalog.pdf so the download stays in sync with
  * the catalog on every build.
  */
-import { mkdir, writeFile } from "fs/promises";
+import { mkdir, writeFile, readFile } from "fs/promises";
 import { existsSync } from "fs";
 import path from "path";
 import sharp from "sharp";
-import { buildResourcePdf } from "../../lib/pdf/drawResourcePdf";
+import { buildResourcePdf, type ResourcePdfFonts } from "../../lib/pdf/drawResourcePdf";
 import {
   buildCatalogPdfBlocks,
   CATALOG_PDF_FOOTER,
@@ -21,6 +21,22 @@ import {
 const PUBLIC_DIR = path.join(process.cwd(), "public");
 const OUT_DIR = path.join(PUBLIC_DIR, "downloads");
 const OUT_FILE = path.join(OUT_DIR, "boise-cabinet-catalog.pdf");
+const FONT_DIR = path.join(process.cwd(), "lib", "pdf", "fonts");
+
+/** Load the embedded Montserrat + Fraunces-italic brand fonts for the dark theme.
+ *  A missing file just falls back to standard fonts, so the build never breaks. */
+async function loadBrandFonts(): Promise<ResourcePdfFonts> {
+  const load = async (file: string): Promise<Uint8Array | undefined> => {
+    const abs = path.join(FONT_DIR, file);
+    if (!existsSync(abs)) return undefined;
+    return new Uint8Array(await readFile(abs));
+  };
+  return {
+    sansLight: await load("Montserrat-Light.ttf"),
+    sansRegular: await load("Montserrat-Regular.ttf"),
+    serifItalic: await load("Fraunces-LightItalic.ttf"),
+  };
+}
 
 const cache = new Map<string, Promise<Uint8Array | null>>();
 let resolved = 0;
@@ -56,7 +72,8 @@ const resolveImage: CatalogImageResolver = (publicPath) => {
 
 async function main() {
   const blocks = await buildCatalogPdfBlocks(resolveImage);
-  const bytes = await buildResourcePdf(blocks, CATALOG_PDF_FOOTER);
+  const fonts = await loadBrandFonts();
+  const bytes = await buildResourcePdf(blocks, CATALOG_PDF_FOOTER, { theme: "dark", fonts });
 
   await mkdir(OUT_DIR, { recursive: true });
   await writeFile(OUT_FILE, bytes);
