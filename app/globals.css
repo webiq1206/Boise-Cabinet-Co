@@ -50,7 +50,7 @@ html, body {
    carry the same values so there is no light flash and no unreachable state;
    the `.dark` class on <html> additionally activates Tailwind `dark:` variants.
    Palette: bg #1C1F1E · bg-2 #222624 · surface #262B29 · hairline #39403D ·
-   bone #F7F5F3 · text #E6E3DE · mist #9AA098 · faint #6E756F · sage #93A386. */
+   bone #F7F5F3 · text #E6E3DE · mist #9AA098 · faint #6E756F · sage #5D6561. */
 :root {
   --button-outline: rgba(255,255,255, .08);
   --badge-outline: rgba(255,255,255, .04);
@@ -88,11 +88,11 @@ html, body {
   --sidebar: 160 5% 12%;
   --sidebar-foreground: 37 14% 89%;
   --sidebar-border: 154 6% 24%;
-  --sidebar-primary: 93 14% 58%;
-  --sidebar-primary-foreground: 165 4% 18%;
+  --sidebar-primary: 150 4% 38%;
+  --sidebar-primary-foreground: 30 20% 96%;
   --sidebar-accent: 156 6% 16%;
   --sidebar-accent-foreground: 37 14% 89%;
-  --sidebar-ring: 93 14% 58%;
+  --sidebar-ring: 150 4% 38%;
 
   --popover: 150 6% 14%;         /* bg-2 */
   --popover-foreground: 37 14% 89%;
@@ -109,21 +109,22 @@ html, body {
   --muted: 156 6% 16%;
   --muted-foreground: 105 4% 61%;  /* mist #9AA098 */
 
-  /* Sage accent (#93A386) - links hover, focus rings, pills; sparingly */
-  --accent: 93 14% 58%;
-  --accent-foreground: 165 4% 18%;
+  /* Sage accent (brand palette #5D6561) - links hover, focus rings, pills; sparingly.
+     Bone foreground so any accent-as-background element (pills/badges) stays legible. */
+  --accent: 150 4% 38%;
+  --accent-foreground: 30 20% 96%;
 
-  --brass: 93 14% 58%;
-  --brass-foreground: 165 4% 18%;
+  --brass: 150 4% 38%;
+  --brass-foreground: 30 20% 96%;
 
   /* Danger (status only, separate from accent) - muted terracotta #C77B6B */
   --destructive: 10 45% 60%;
   --destructive-foreground: 30 20% 96%;
 
   --input: 150 6% 13%;           /* #1F2321 */
-  --ring: 93 14% 58%;            /* sage focus ring */
+  --ring: 150 4% 38%;            /* sage focus ring */
 
-  --chart-1: 93 14% 58%;    /* sage */
+  --chart-1: 150 4% 38%;    /* sage */
   --chart-2: 156 6% 16%;    /* surface */
   --chart-3: 30 20% 96%;    /* bone */
   --chart-4: 105 4% 61%;    /* mist */
@@ -195,11 +196,11 @@ html, body {
   --sidebar: 160 5% 12%;
   --sidebar-foreground: 37 14% 89%;
   --sidebar-border: 154 6% 24%;
-  --sidebar-primary: 93 14% 58%;
-  --sidebar-primary-foreground: 165 4% 18%;
+  --sidebar-primary: 150 4% 38%;
+  --sidebar-primary-foreground: 30 20% 96%;
   --sidebar-accent: 156 6% 16%;
   --sidebar-accent-foreground: 37 14% 89%;
-  --sidebar-ring: 93 14% 58%;
+  --sidebar-ring: 150 4% 38%;
 
   --popover: 150 6% 14%;
   --popover-foreground: 37 14% 89%;
@@ -214,19 +215,19 @@ html, body {
   --muted: 156 6% 16%;
   --muted-foreground: 105 4% 61%;
 
-  --accent: 93 14% 58%;
-  --accent-foreground: 165 4% 18%;
+  --accent: 150 4% 38%;
+  --accent-foreground: 30 20% 96%;
 
-  --brass: 93 14% 58%;
-  --brass-foreground: 165 4% 18%;
+  --brass: 150 4% 38%;
+  --brass-foreground: 30 20% 96%;
 
   --destructive: 10 45% 60%;
   --destructive-foreground: 30 20% 96%;
 
   --input: 150 6% 13%;
-  --ring: 93 14% 58%;
+  --ring: 150 4% 38%;
 
-  --chart-1: 93 14% 58%;
+  --chart-1: 150 4% 38%;
   --chart-2: 156 6% 16%;
   --chart-3: 30 20% 96%;
   --chart-4: 105 4% 61%;
