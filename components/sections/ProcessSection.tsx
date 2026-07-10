@@ -2,9 +2,9 @@ import Image from "next/image";
 import { Reveal } from "@/components/Reveal";
 import { DisplayNum, Section } from "@/components/marketing";
 import { HOW_WE_BUILD_STEPS } from "@/shared/siteContent";
-import { SITE_IMAGES } from "@/shared/siteImages";
+import { MARKETING_IMAGES } from "@/shared/siteImages";
 
-const GRAIN_URL = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.45'/%3E%3C/2Fsvg%3E")`;
+const GRAIN_URL = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.45'/%3E%3C/svg%3E")`;
 
 export function ProcessSection() {
   return (
@@ -12,8 +12,8 @@ export function ProcessSection() {
       <div className="grid md:grid-cols-2 overflow-hidden">
         <div className="hidden md:block relative min-h-[380px] md:min-h-[560px] overflow-hidden">
           <Image
-            src={SITE_IMAGES.processHome}
-            alt="Boise Cabinet Co designer reviewing custom kitchen cabinet layouts and finish samples with homeowners in the Treasure Valley"
+            src={MARKETING_IMAGES.designStudio}
+            alt="Custom cabinet door samples, finish swatches, and a kitchen layout rendering laid out during a Boise Cabinet Co design consultation"
             fill
             sizes="(max-width: 768px) 100vw, 50vw"
             className="object-cover img-brand-grade"

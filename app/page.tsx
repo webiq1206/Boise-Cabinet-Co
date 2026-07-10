@@ -8,7 +8,10 @@ import { RoomCategoriesGrid } from "@/components/sections/RoomCategoriesGrid";
 import { StatementBandSection } from "@/components/sections/StatementBandSection";
 import { ProcessSection } from "@/components/sections/ProcessSection";
 import { FeaturedProjectSection } from "@/components/sections/FeaturedProjectSection";
+import { CraftStatementBand } from "@/components/sections/CraftStatementBand";
 import { TestimonialsSection } from "@/components/sections/TestimonialsSection";
+import Image from "next/image";
+import { MARKETING_IMAGES } from "@/shared/siteImages";
 import { Section } from "@/components/marketing/Section";
 import { MarketingCard } from "@/components/marketing/MarketingCard";
 import { Check } from "lucide-react";
@@ -35,11 +38,22 @@ export default function HomePage() {
       <ProcessSection />
       <FeaturedProjectSection />
       <TestimonialsSection limit={3} showViewAll={true} />
+      <CraftStatementBand />
       <WhyChooseUsSection limit={5} />
       <FAQSection />
       <LazyEstimateCalculator />
-      <Section id="consult" divider className="pb-28 md:pb-28">
-        <div className="container px-4">
+      <Section id="consult" divider className="relative overflow-hidden pb-28 md:pb-28">
+        <div aria-hidden="true" className="absolute inset-0 pointer-events-none">
+          <Image
+            src={MARKETING_IMAGES.heroHome}
+            alt=""
+            fill
+            sizes="100vw"
+            className="object-cover img-brand-grade"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-background via-background/85 to-background" />
+        </div>
+        <div className="container px-4 relative z-10">
           <div className="max-w-5xl mx-auto grid md:grid-cols-5 gap-6 md:gap-12 items-start">
             <div className="md:col-span-2">
               <Reveal>
