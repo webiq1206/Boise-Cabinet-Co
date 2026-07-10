@@ -478,6 +478,13 @@ export const COMPANY_TOPIC_SECTIONS: Record<string, ContentSection[]> = {
         'Damage from water leaks, impact, modifications by others, and normal wear of finish at high-touch areas sit outside virtually every cabinet warranty. Knowing the exclusions up front is part of comparing companies honestly; ask every bidder for their written terms next to ours.',
       ],
     },
+    {
+      h2: 'What to expect in the first season, and how to file',
+      paragraphs: [
+        'New wood cabinets settle. In the first months, doors and drawer fronts can shift slightly with humidity swings and normal use, so a minor reveal adjustment is routine, not a defect. Our soft-close hinges are six-way adjustable, which lets a technician re-align a door in minutes.',
+        'Because of that settling, door warping and finish-adhesion issues carry a defined coverage window (180 days) on top of the general workmanship terms, and service requests are filed through your client portal rather than a phone-tag process. Keep your project details handy and a request takes only a few minutes to log.',
+      ],
+    },
   ],
   'kitchen-cabinet-roi-boise': [
     {

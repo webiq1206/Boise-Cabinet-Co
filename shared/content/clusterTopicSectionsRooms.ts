@@ -378,6 +378,13 @@ export const ROOM_TOPIC_SECTIONS: Record<string, ContentSection[]> = {
         'Outdoor bars read best when they echo interior finishes, the same door profile in an outdoor-rated finish ties patio and kitchen together, a detail that matters for Eagle and foothills entertaining homes.',
       ],
     },
+    {
+      h2: 'Sizing a working outdoor bar',
+      paragraphs: [
+        'For real entertaining, plan on 24 to 30 inches of serving counter per guest zone, a weather-rated undercounter refrigerator or ice bin within a step of the bartender, and at least one bank of sealed drawers for tools and linens. Bar-height counters run 42 inches; a 12 to 16 inch overhang seats stools comfortably.',
+        'Keep the bar within a short walk of the grill and the pass-through to the indoor kitchen so a host is never carrying loads across the whole patio.',
+      ],
+    },
   ],
   'premium-outdoor-cabinetry': [
     {
@@ -391,6 +398,13 @@ export const ROOM_TOPIC_SECTIONS: Record<string, ContentSection[]> = {
       paragraphs: [
         'Foothills and Eagle projects increasingly treat the patio as a second kitchen: refrigeration, ice, storage walls, and bar seating under a covered structure. These programs deserve the same layout discipline as interior kitchens, zones, clearances, and lighting planned together.',
         'Start with <a href="/cabinets/outdoor">outdoor cabinets</a> and the <a href="/blog/outdoor-kitchen-cabinets-boise">Boise outdoor kitchen article</a>.',
+      ],
+    },
+    {
+      h2: 'How Treasure Valley weather tests outdoor cabinets',
+      paragraphs: [
+        'Our climate is hard on outdoor cabinetry: 90 to 100 degree dry summers, sub-freezing winters with snow, and big day-to-night temperature swings that make materials expand and contract constantly. High-altitude UV also fades and chalks anything not rated for it.',
+        'That is why premium outdoor boxes use marine-grade polymer (HDPE) or powder-coated stainless rather than standard cabinet materials, with sealed or gasketed doors and stainless hardware. Uncovered patios need the most weatherproof spec; a covered structure dramatically extends the life of everything under it.',
       ],
     },
     {
