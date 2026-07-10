@@ -43,7 +43,14 @@ export function BlogIndexClient() {
     [sortedPosts],
   );
 
+  const PAGE_SIZE = 9;
   const [activeHub, setActiveHub] = useState<string | null>(null);
+  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
+
+  function selectHub(hub: string | null) {
+    setActiveHub(hub);
+    setVisibleCount(PAGE_SIZE);
+  }
 
   const filtered = activeHub
     ? sortedPosts.filter((p) => p.hubSlug === activeHub)
@@ -87,14 +94,14 @@ export function BlogIndexClient() {
               <>
                 {indexableHubs.length >= 2 && (
                   <div className="flex flex-wrap gap-2 justify-center mb-6">
-                    <Chip active={!activeHub} onClick={() => setActiveHub(null)}>
+                    <Chip active={!activeHub} onClick={() => selectHub(null)}>
                       All topics
                     </Chip>
                     {indexableHubs.map((hub) => (
                       <Chip
                         key={hub.hubSlug}
                         active={activeHub === hub.hubSlug}
-                        onClick={() => setActiveHub(hub.hubSlug)}
+                        onClick={() => selectHub(hub.hubSlug)}
                       >
                         {hub.title}
                       </Chip>
@@ -127,10 +134,24 @@ export function BlogIndexClient() {
                       <div role="presentation" className="border-t border-border/60 mb-10" />
                     )}
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                      {rest.map((post) => (
+                      {rest.slice(0, visibleCount).map((post) => (
                         <BlogCard key={post.slug} post={post} formatDate={formatDate} />
                       ))}
                     </div>
+                    {rest.length > visibleCount && (
+                      <div className="mt-10 flex flex-col items-center gap-3">
+                        <p className="text-sm text-muted-foreground">
+                          Showing {(featured ? 1 : 0) + Math.min(visibleCount, rest.length)} of{' '}
+                          {filtered.length} articles
+                        </p>
+                        <Button
+                          variant="brandOutline"
+                          onClick={() => setVisibleCount((c) => c + PAGE_SIZE)}
+                        >
+                          Load more articles
+                        </Button>
+                      </div>
+                    )}
                   </>
                 )}
               </>
