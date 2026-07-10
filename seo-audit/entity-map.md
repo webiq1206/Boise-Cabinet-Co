@@ -1,73 +1,39 @@
-# Entity Map - Boise Cabinet Co
+# Entity Map & Knowledge Graph - Boise Cabinet Co
 
-Goal: make the brand, services, products, and place entities unambiguous to search engines and AI systems.
+## Entities
+- **Organization** - Boise Cabinet Co (LocalBusiness on home + /about; now `@id: /#organization` / `/#localbusiness`). Strong central node; NAP in `SITE_CONFIG`. **Missing (now fixed): logo.**
+- **Service/Room entities** - 13 rooms `/cabinets/[room]` (Service schema); 1 collection (thin); 6 door styles; 299 finishes; 382 products (noindex).
+- **Location entities** - 8 cities as `/guides/[city]` + Treasure Valley master. No room x city pages. Garden City claimed in schema but no page.
+- **Team entities** - **3 members, all placeholders (name == role), 0 Person entities.** Owner "Nick" named in code, hidden from site. **Biggest knowledge-graph gap.**
+- **Project entities** - `caseStudies.ts` (slug/city/service) but **no `/projects/[slug]` route** - rendered only on homepage.
 
-## Core organization entity
-
-- Name: Boise Cabinet Co (legal: Boise Cabinet Co LLC)
-- Type: LocalBusiness + FurnitureStore (consider also HomeAndConstructionBusiness)
-- Founded: 2017
-- Place: Kuna, ID (HQ) serving the Treasure Valley
-- @id: site base URL (stable entity anchor)
-- sameAs: Facebook, Instagram (verify) + ADD Google Business Profile, Houzz, BBB, Yelp when available
-
-## Entity relationships
-
-```mermaid
-graph TD
-  Org["Boise Cabinet Co (Organization/LocalBusiness)"]
-  Place["Treasure Valley (Place)"]
-  Cities["Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, Caldwell"]
-  Products["Cabinet Products"]
-  Rooms["Room Categories (13)"]
-  Doors["Door Styles (6)"]
-  Finishes["Finishes (299)"]
-  Collection["Custom Collection"]
-  Services["Offerings: design, build, install"]
-  Org -->|areaServed| Place
-  Place --> Cities
-  Org -->|makesOffer| Services
-  Org -->|hasProduct| Products
-  Products --> Rooms
-  Products --> Doors
-  Products --> Finishes
-  Products --> Collection
-  Org -->|knowsAbout| Doors
-  Org -->|knowsAbout| Finishes
+## Relationship graph (X = exists in DATA but not rendered as a link)
+```
+                    ORGANIZATION (Boise Cabinet Co)
+                    /#organization  /#localbusiness
+             __________|________________|__________
+            |                                       |
+      TEAM (3)  X no names/Person            LOCATIONS (8 cities = /guides/[city])
+                                                     | footer (city->org only)  X city->room
+   SERVICE / ROOM ENTITIES  /cabinets/[room] (13)  <-'
+      | products Y   | guide Y(1)   X finish   X sibling   X blog-cluster   X reviews
+      v              v
+   PRODUCTS(382)   GUIDES(17) -> RelatedPostCards Y -> BLOG(56) -> category hubs
+   noindex
+   FINISHES(299)    DOOR STYLES(6)      PROJECTS / CASE STUDIES
+   X ->door         X ->finish          data only, NO PAGE (carries city+service)
+   X ->room         X ->room
+   X ->collection   X ->sibling
 ```
 
-## Entity inventory
+## Existing / missing / weak relationships
+- **Exist:** blog/guide -> related; room -> 1 pillar guide; room -> products; door -> products; city -> org (footer).
+- **Missing (data exists, not linked):** finish -> door / room / collection; door -> finish / room / sibling; room -> blog-cluster / sibling / finishes / doors / city; project -> room / city; room <-> city.
+- **Weak:** blog/FAQ -> specific room.
 
-| Entity class | Instances | Schema vehicle | Status |
-|---|---|---|---|
-| Organization/Brand | Boise Cabinet Co | Organization, LocalBusiness, WebSite | OK; add sameAs profiles |
-| Place / service area | Treasure Valley + 8 cities | LocalBusiness.areaServed (City) | OK |
-| Product (category) | base/wall/tall/vanity... (9) | CollectionPage / Product | Category schema MISSING |
-| Product (SKU) | 320 | Product | thin; noindex |
-| Door style | 6 | (none) | add knowsAbout / Product context |
-| Finish/color | 299 | (none) | add Product/color for indexable subset |
-| Collection | custom (1) | (none distinct) | add Product/ProductGroup |
-| Service/offering | design, build, install | OfferCatalog (broken URLs) | FIX URLs to /cabinets/* |
-| Author/person | none | (none) | ADD founder/team Person entities |
-| Reviews | none | Review/AggregateRating | ADD when real data |
-
-## Missing / weak entities
-
-1. Person entities (founder, designers, lead installer) - critical for E-E-A-T and author authority. Add to About + Organization `founder`/`employee` + author bylines on guides.
-2. AggregateRating/Review - no rating entity emitted. Add once real review data exists.
-3. Service offerings point to non-existent `/services/*` URLs - repoint to `/cabinets/*` and room/category entities.
-4. Product/color entities for finishes and door styles - add structured data so AI can enumerate the catalog.
-5. GBP entity link (sameAs) - the strongest local entity signal; currently absent.
-
-## Entity confusion to resolve
-
-- Legacy "remodeling" vocabulary + `SERVICES` slugs (`kitchen-remodel`, `adu`, `room-addition`) still drive schema offers. Rename to cabinet semantics; repoint URLs.
-- Finish count conflict (108 vs 299) creates a factual inconsistency AI may surface; standardize to 299.
-- `llms.txt` lists 3 door styles vs 6 in catalog - update.
-
-## Recommended entity reinforcement
-
-- Add explicit `knowsAbout` array on Organization (kitchen cabinets, bathroom vanities, frameless construction, soft-close hardware, cabinet finishes, Treasure Valley).
-- Add `areaServed` GeoShape or named cities consistently across LocalBusiness + Service schema.
-- Add `Person` schema for named team with `jobTitle`, link as `author`/`founder`.
-- Keep one canonical `@id` per entity across all pages.
+## Fixes
+1. Give case studies real routes (`/projects/[slug]`) - project -> room -> city -> finish links.
+2. Render the finish<->door<->collection<->room links (helpers already compute them).
+3. Add named team -> Person schema (E-E-A-T + graph).
+4. Register finishes/doors into the internal-link system so they earn contextual inbound links.
+5. Update the stale `SEO-AUDIT-INVENTORY.md` (documents a defunct remodeling architecture).

@@ -1,51 +1,20 @@
-# AEO (Answer Engine Optimization) Plan - Boise Cabinet Co
+# AEO Optimization Plan - Boise Cabinet Co
 
-Goal: win featured snippets, voice answers, and AI direct-answers via question-based structure, concise answers, and clean schema.
+Goal: featured snippets, voice, and direct-answer extraction. The **blog is the model template** (H1 + Quick Answer + FAQ + FAQPage + Speakable) - replicate it.
 
-## Current state
+## Fixes
+1. **[HIGH] Door-style detail** - add a 40-60 word "What is the [X] door style?" answer (H1 + answer **added**) + 3-5 FAQs with FAQPage schema.
+2. **[HIGH] Finish detail H1** - **added.**
+3. **[MED] `/about` + `/compare` FAQ + FAQPage** - both invite obvious questions ("Who is Boise Cabinet Co?", "How does BCC compare to stock cabinets?") with no answer structure.
+4. **[MED] Question-form body H2s** on catalog pages - "Where Snow White works best" -> "Where do Snow White cabinets work best?"; "Caring for X" -> "How do I care for X cabinets?" (FAQ sub-questions are already correct).
+5. **[MED] Quotable numbers** near the top of catalog detail pages (lead time, warranty, band) - self-contained sentences AI can lift.
+6. **[MED] Comparison tables** where a decision is involved (door styles; custom vs stock; frameless vs framed).
 
-- Quick Answer + Key Takeaways blocks on guides/blog with `data-speakable="summary"` (good).
-- FAQ accordions render on-page (guides, blog, home) + FAQPage schema.
-- Cost pillar uses question-form H2s.
-
-## Gaps
-
-| Gap | Detail | Action |
-|---|---|---|
-| Homepage Speakable target | Schema present, no `data-speakable` DOM element | Add visible/sr-only summary |
-| Duplicate cluster FAQs | First 6 hub FAQs reused on all clusters | Unique FAQs per cluster |
-| Generic pillar H2s | Factory pillars use template H2s | Convert to specific buyer questions |
-| Blog breadcrumb depth | No hub tier | Add Home > Blog > {Hub} > Post |
-| Missing definition blocks | Few "What is X" answers | Add definitions |
-| Unused snippet targets | `featuredSnippetTargets` field unused | Populate high-intent posts |
-| Catalog pages lack FAQ | Rooms/categories/collections have no FAQ schema | Add FAQ where valuable |
-
-## Answer patterns to implement
-
-1. Question-form H2s ("How much do custom cabinets cost in Boise?", "How long does a cabinet project take?").
-2. 40-60 word direct answer immediately under each question (snippet-sized).
-3. Step lists for processes (measure -> design -> fabricate -> install -> punch list).
-4. Definition blocks for key terms (frameless, overlay, soft-close, dovetail).
-5. Comparison tables (custom vs stock, collections, door styles, finish tiers - `/compare` already strong).
-6. Cost tables with $/linear-foot ranges.
-7. "What to expect" sections for consultation + install.
-
-## Page-level AEO additions
-
-- Homepage: speakable summary + ensure top FAQ answers are concise.
-- Room pages: add 3-5 unique FAQs each (e.g. "What cabinets work best in a Boise laundry room?") + FAQPage schema.
-- Collection page: add FAQPage schema (visible FAQ already exists).
-- Product category pages: add a short "common sizes/uses" answer block.
-- Guides/clusters: unique FAQs + populated `featuredSnippetTargets`.
-
-## Voice search
-
-- Speakable on home/guides/blog (fix homepage target).
-- Natural-language Q&A phrasing in FAQs.
-- Click-to-call + concise NAP for "call the cabinet company in Boise" intents.
-
-## Verification
-
-- FAQPage + Speakable validate in Rich Results Test.
-- No duplicate FAQ blocks across cluster URLs.
-- Each money/content page has at least one snippet-sized direct answer near the top.
+## Coverage snapshot
+| Template | Answer block | Question H2s | FAQ + schema |
+|---|:--:|:--:|:--:|
+| Blog / Guide | Y | Y | Y |
+| Room | Y (room desc) | FAQ only | Y |
+| Finish detail | Y (intro) | statement H2s | Y |
+| Door-style detail | **added** | to add | **to add** |
+| About / Compare | N | N | **to add** |

@@ -1,48 +1,20 @@
-# Page Speed & Core Web Vitals Plan - Boise Cabinet Co
+# Performance / Core Web Vitals Plan - Boise Cabinet Co
 
-Target: 95+ desktop and mobile where technically feasible, without sacrificing UX/conversions.
+**Lighthouse: Not Verified** - PSI API returned HTTP 429 (quota, no key) and CrUX field data is not yet available for the domain. Findings below are from measured curl timings + source review.
 
-## Foundations (good, keep)
+## Measured (live)
+- **TTFB excellent:** ~0.22-0.23s across home / finish / room (SSR + `x-nextjs-cache: HIT` on Google Frontend CDN).
+- **Large HTML payloads:** home 203 KB, finish detail 100 KB, **`/cabinets/kitchen` 486 KB** raw HTML - the room page SSRs a large product list (low text-to-markup). Ties to the "large lists, no pagination" UX/perf finding.
+- **33 JS/CSS refs** on the homepage.
+- **HTTP/2**, HSTS, aggressive immutable-style caching (`s-maxage=31536000`).
 
-- Static SSG + custom WebP variant loader (`lib/images/staticVariantLoader.ts`), immutable cache headers, `compress: true`, `output: 'standalone'`.
-- LQIP blur placeholders (`shared/generated/imageBlur.ts`), `next/image` with `fill` + aspect-ratio (low CLS).
-- `next/font` with `display: swap`. No third-party analytics scripts.
-- Three.js dynamically imported in Design Studio.
+## Source review (good foundations)
+- Custom `next/image` **variant loader** + pre-generated width variants + blur manifest; hero uses `priority`/`fetchPriority=high` + preload; fonts preloaded (`next/font`, weights trimmed to 300/400). Modern WebP throughout. CLS should be low (reserved image space).
 
-## Risks and fixes
+## Recommendations
+1. **[MED] Paginate/lazy-load the large lists** - `/products/[cat]` (162 items), `/cabinets/[room]`, blog index. Cuts the 486 KB room HTML, improves LCP/TBT on mobile, and is also a UX win.
+2. **[LOW] Re-run Lighthouse with an API key** (or PSI UI) for mobile + desktop to capture real LCP/CLS/TBT and confirm >=95 targets once the redesign deploy propagates.
+3. **[LOW] Verify the CDN purges on deploy** - the 1-year `s-maxage` is fine if deploys invalidate; confirm the redesign propagates (it had not at audit time).
+4. **[LOW] `www` does not resolve** - add a `www -> apex` redirect or a DNS record so typed `www` URLs don't fail.
 
-| # | Risk | Impact | Fix |
-|---|---|---|---|
-| 1 | Global client shell: Navigation + React Query + `useAuth` fetch on every page | TBT/INP sitewide | Defer auth fetch (lazy/after idle); keep Navigation light; avoid blocking auth call on public pages |
-| 2 | Homepage ships full `EstimateCalculator` wizard (~721 lines + catalog) | LCP/TBT on home | `dynamic()` import below the fold (ssr false or lazy), or load on interaction |
-| 3 | Hero LCP preload mismatch: layout preloads base `hero-home.webp` while loader serves `-1280`/`-768` variant; also duplicates `next/image priority` preload | LCP, wasted bytes | Remove manual preload and let `next/image priority` own it, OR preload the actual variant URL |
-| 4 | 7+ font weights (Montserrat 4 + Fraunces 3 + italic) | FCP/LCP | Trim to needed weights (e.g. Montserrat 400/500/600; Fraunces 400 italic) |
-| 5 | Dead deps: framer-motion, leaflet, react-icons, @next/third-parties | build bloat / accidental bundling | Remove from `package.json` (verify no imports) |
-| 6 | `CatalogBrowser`/`/search` import full catalog client-side | INP on catalog | Code-split; load catalog data lazily; server-render where possible |
-| 7 | Marketing hero variants cap at 1280px | large-desktop LCP serves original | Add 1920 variant for marketing heroes |
-| 8 | `.js` reveal system hides content until JS | minor CLS/INP | Keep noscript fallback; limit Reveal wrappers on long pages |
-
-## LCP plan (homepage)
-
-- Hero image owns LCP: single correct preload (variant-aware) + `priority`.
-- Defer estimator + non-critical sections.
-- Inline critical above-the-fold; avoid layout shift via reserved aspect ratios (already used).
-
-## INP/TBT plan
-
-- Reduce per-page client JS: defer auth, lazy estimator, code-split catalog browser/search.
-- Keep Three.js isolated to `/design-studio` (verify no leakage into shared chunks).
-
-## CLS plan
-
-- Maintain aspect-ratio wrappers; ensure fonts use `swap` (done); reserve space for dynamic sections.
-
-## Measurement
-
-- Lighthouse CI on: `/`, `/cabinets/kitchen`, `/finishes`, `/guides/boise-cabinet-cost-guide`, `/products/base`.
-- Track LCP < 2.5s, INP < 200ms, CLS < 0.1 on mobile.
-
-## Notes
-
-- `typescript.ignoreBuildErrors` and `eslint.ignoreDuringBuilds` are on (`next.config.js`) - perf/SEO regressions can ship silently; consider tightening in CI (out of scope for this pass unless requested).
-- Do not add GA4/tag managers without explicit confirmation (would add main-thread cost).
+Total page weight and request count are otherwise reasonable; the image pipeline is well-engineered. The single actionable perf item is trimming the oversized SSR lists.

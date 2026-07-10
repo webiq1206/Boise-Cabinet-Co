@@ -1,57 +1,24 @@
 # Internal Linking Plan - Boise Cabinet Co
 
-System: `scripts/internal-links/generate.ts` (+ `lib.ts`) builds `data/internal-links.json` from blog posts, guides, and catalog pages using Jaccard similarity + hub/category/tag bonuses + type quotas + a minimum-incoming-links swap pass. Audited by `scripts/internal-links/audit.ts` (prebuild). Runtime: `components/marketing/RelatedPostCards.tsx`.
+The linking system is **auto-generated** (`scripts/internal-links/*` -> `data/internal-links.json`, run in prebuild), uses **descriptive anchors** (page titles/phrases, no "click here"), and the audit reports zero orphans/weak/broken. Two caveats behind the clean bill:
 
-Current: 86 pages, 536 outbound links, avg 6.23 incoming/page. No orphans, no broken manifest links, but 38 pages below 5 incoming links.
+- **[HIGH] It governs only 92 of ~329 indexable URLs.** It ingests blog (56), guides (17), and catalog hubs/rooms/collections (19). The **299 finishes, 6 door styles, static pages** are outside the system entirely; a `minIncomingFloor=5` guarantees "no orphans" only inside that island.
+- **[HIGH] Computed catalog links are never rendered.** `RelatedPostCards` (which reads the manifest) is mounted only in blog + guide layouts. Room/collection/finish/door pages have 8 computed outbound links each, all discarded at render.
+- **[MED] The `type==="service"` audit check is dead code** (`PageType` never includes "service") - the service-equity guardrail does nothing.
 
-## Issues
+## Real orphan/weak risk (outside the manifest)
+| Group | Count | Inbound | Verdict |
+|---|--:|---|---|
+| Finish details (indexable) | 193 | browse + breadcrumb only | **near-orphan** |
+| Door styles | 6 | browse + breadcrumb only | weak |
+| Products (noindex) | 382 | room/door/browse | OK (intentional) |
+| Static (warranty/compare/finder) | ~6 | footer/nav | thin but reachable |
+| Case studies | 3 | no route | entities with no page |
 
-| Issue | Detail | Action |
-|---|---|---|
-| Cluster links use `replacesSlug` | `GuidePageLayout` L123 links `/blog/{replacesSlug ?? slug}` -> non-canonical | Use `c.slug` |
-| Broken guide hrefs | `locationGuides.ts` L54-60 plural slugs | Fix to real slugs |
-| 38 weak pages | <5 incoming (e.g. `cabinet-consultation-process` = 1) | Add manual overrides / sibling links |
-| Catalog isolation | Cabinet grids on `/cabinets/[room]` do not link to `/products/*`; finishes/products/rooms/doors weakly cross-linked | Add cross-links |
-| Local-guides breadcrumb | empty `pillarSlug` -> `/guides/` crumb | Skip hub crumb or link master guide |
-
-## Target architecture (hub-and-spoke + catalog mesh)
-
-```mermaid
-graph LR
-  Home --> Hubs
-  Home --> CabinetsHub["/cabinets"]
-  Hubs["8 Pillar Guides"] --> Clusters["56 Blog Clusters"]
-  Clusters --> Hubs
-  Hubs --> Catalog
-  CabinetsHub --> Rooms["/cabinets/[room]"]
-  Rooms --> Products["/products/[category]"]
-  Products --> Doors["/door-styles/[slug]"]
-  Products --> Finishes["/finishes/[category]"]
-  Doors --> Finishes
-  Catalog["/catalog /collections /compare /construction"] --> Rooms
-  Rooms --> Hubs
-```
-
-## Linking rules to enforce
-
-1. Every indexable page: >= 5 incoming internal links.
-2. Pillars: link down to all their clusters (using canonical `slug`) + up to `/cabinets`, `/collections`, `/compare`.
-3. Clusters: link up to their pillar + 2 catalog pages + 2 sibling clusters.
-4. Room pages: link to relevant product categories, recommended door styles, and a related guide.
-5. Door-style + finish category pages: cross-link to each other and to room pages and the design studio.
-6. Product category pages: link to parent room(s), compatible door styles/finishes, and the relevant cost cluster.
-7. Conversion anchors (`#consult`, `/estimate`, `/design-studio`) reachable within 2 clicks from every money page.
-8. Contact in primary nav (currently footer-only).
-
-## Implementation steps
-
-1. Fix `GuidePageLayout` to use `slug`.
-2. Fix/redirect broken guide hrefs in `locationGuides.ts`, `resourcePdfContent.ts`, permit page.
-3. Add cross-links in catalog templates (room->product, product->door/finish).
-4. Add manual `relatedLinks` overrides for the 38 weak pages.
-5. Re-run `npm run links:generate` then `npm run audit:links`; target 0 pages <5 incoming.
-
-## Verification
-
-- `audit:links` reports 0 orphans, 0 broken links, 0 pages <5 incoming.
-- Manual spot check: crawl depth from home to any money page <= 3.
+## Plan (descriptive anchors, no page ships orphaned)
+1. **Render `<RelatedPostCards>` on `/cabinets/[room]`, `/collections/[slug]`, `/finishes`, `/door-styles`** - unlocks already-computed equity. *Biggest lever, lowest effort.*
+2. **Render finish<->door<->collection<->room contextual links** (helpers exist): "Pairs with the [door] door style", "See [finish] in a [room]", "Part of the [collection] collection".
+3. **Register finishes + doors into `buildPages()`** (add `finish`/`door` node types) so the 193 indexable finishes earn contextual inbound links; **fix the dead `type==="service"` check.**
+4. **Make rooms true cluster hubs:** add "Guides & articles for [room]", "Finishes/Door styles for [room]", "See [room] projects", and sibling-room links.
+5. **Service x location links** - "kitchen cabinets in Meridian" from city guides -> room pages (converts schema-only geo into crawlable links).
+6. **Nav/footer:** expose all 13 rooms in nav (only 8 today); add a top-level "Guides"; add breadcrumbs to `/dealer`,`/installer`.

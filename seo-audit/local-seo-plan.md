@@ -1,53 +1,33 @@
-# Local SEO Plan - Boise Cabinet Co
+# Local SEO & Geographic Authority Plan - Boise Cabinet Co
 
-Strategy decision (locked with client): NO standalone city/location doorway pages. Local relevance is achieved by weaving genuine local signals into existing pages plus off-site GBP/citation work.
+Service-area cabinet business, Meridian/Boise ID, Treasure Valley. City coverage is delivered via `/guides/[city]` location guides (no dedicated `/locations` routes).
 
-## NAP consistency
+## Verdict
+The **city-page architecture is healthy** - 8 differentiated city guides + a Treasure Valley hub with real neighborhood specifics and clean internal linking. **Doorway risk: LOW.** The gaps are trust/data-side.
 
-| Field | Current | Action |
-|---|---|---|
-| Name | Boise Cabinet Co | OK |
-| Address | 2283 N Coopers Hawk Ave, Kuna, ID 83634 | Verify; show fully on contact + footer |
-| Phone | (208) 555-0100 | PLACEHOLDER - replace via env `NEXT_PUBLIC_PHONE`/`_TEL` |
-| Hours | Mon-Fri 7-6, Sat 8-4, Sun closed | Confirm |
+## NAP (consistent, real text)
+Name **Boise Cabinet Co**, phone **(208) 477-1169**, email **hello@boisecabinet.co**, address **Meridian, ID** (city only, no street - service-area choice). Identical across siteConfig, footer, contact, schema, llms.txt. Nothing baked into images.
 
-Footer currently omits the street address (`components/Footer.tsx`). Add full NAP to footer for sitewide consistency.
+## Priority fixes
+1. **[HIGH/DATA] Google Business Profile** - claim/verify, set `NEXT_PUBLIC_GBP_URL`, add to `sameAs` + LocalBusiness `@id`/`sameAs`. The strongest local signal, currently absent. Confirm the hardcoded FB/IG handles resolve.
+2. **[HIGH/DATA] License #** - `NEXT_PUBLIC_LICENSE_NUMBER` (Idaho RCE) -> footer + schema populate.
+3. **[HIGH/DATA] Reviews/aggregateRating** - real GBP data + on-page dated, sourced reviews; then set `NEXT_PUBLIC_REVIEW_*`.
+4. **[MEDIUM/FIXED] Geo/locality** - default to Meridian coords (was Kuna/Boise mismatch).
+5. **[MEDIUM/FIXED] Subtype** - dropped FurnitureStore.
+6. **[MEDIUM/CODE] Local proof on city pages** - render city-matched case studies + testimonials in `GuidePageLayout`; add >=1 project + review for **Kuna, Star, Caldwell, Middleton** (currently zero proof) and a project for Nampa.
+7. **[MEDIUM/CODE] Garden City** - it's in schema `areaServed`/`serviceArea` but has no page. Build one or remove from areaServed so claims match published pages.
+8. **[LOW] Differentiate the repeated cost section/FAQ** across city guides (the one templated, near-duplicated block).
 
-## On-site local signals to weave (no new pages)
-
-1. Name the 8 cities (Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, Caldwell) where contextually relevant in hubs, room pages, About, Contact.
-2. Reference Ada vs Canyon County (permits/HOA), dry high-desert climate, freeze-thaw, local housing stock (where it affects cabinet material/finish choices).
-3. Keep the two existing local guides strong: `treasure-valley-cabinet-guide` (master) + `boise-cabinet-guide` (location), cross-linked from hubs.
-4. Complete LocalBusiness schema `areaServed` for all 8 cities (already present) + correct OfferCatalog URLs.
-5. Add Contact to primary nav; ensure phone is click-to-call sitewide (present in nav/footer).
-
-## Off-site / GBP (client actions, documented here)
-
-- Claim/optimize Google Business Profile (category: Cabinet maker / Custom furniture; service area: Treasure Valley). Add to `sameAs`.
-- Build consistent citations (BBB, Houzz, Yelp, Angi, Nextdoor, local chamber). Match NAP exactly.
-- Solicit reviews -> feed real `rating`/`reviewCount` into `BUSINESS_INFO`, enabling AggregateRating + Review schema.
-- Add GBP/Houzz/BBB links to footer + `sameAs`.
-
-## Local trust / proof to add
-
-- Real project examples with city names + before/after (testimonials/gallery already city-tagged; add dates/attribution).
-- Licenses/insurance specifics (flagged placeholders now; real values before launch).
-- Map link on contact (present); optional embedded map.
-
-## Local schema checklist
-
-- LocalBusiness with full PostalAddress, geo, openingHours, areaServed (8 cities), priceRange, telephone, email, sameAs (+ GBP).
-- AggregateRating once reviews exist.
-- Service schema for design/build/install with correct `/cabinets/*` URLs and `areaServed`.
-
-## What we explicitly will NOT do
-
-- No `/cabinets-in-{city}` or `/services/{slug}/{city}` doorway pages.
-- No city-name-swapped near-duplicate templates.
-- No thin location pages without unique local proof.
-
-## Success criteria
-
-- Consistent NAP across home, contact, footer, schema, GBP.
-- Map-pack eligibility via optimized GBP + citations.
-- Local intent satisfied by genuinely local content woven into authoritative pages.
+## Geographic authority map
+| City | Page | Local FAQs | Review on-page | Project | Gap |
+|---|:--:|:--:|:--:|:--:|---|
+| Boise | Y | 8 | (agg only) | Y | reviews not on-page |
+| Meridian | Y | 6 | - | Y | reviews not on-page |
+| Eagle | Y | 6 | - | Y | reviews not on-page |
+| Nampa | Y | 6 | Y* | N | no project |
+| Kuna | Y | 6 | N | N | **no proof** |
+| Star | Y | 6 | N | N | **no proof** |
+| Caldwell | Y | 6 | N | N | **no proof** |
+| Middleton | Y | 6 | N | N | **no proof** |
+| Treasure Valley | Y (hub) | 14 | home only | home only | hub |
+| Garden City | **N** | - | - | - | **in schema, no page** |

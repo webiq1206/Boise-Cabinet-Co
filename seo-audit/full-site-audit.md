@@ -1,102 +1,100 @@
 # Full Site Audit - Boise Cabinet Co
 
-Domain: boisecabinet.co
-Stack: Next.js 14.2 App Router, React 18, TypeScript, Tailwind, shadcn/ui
-Rendering: Static (SSG) for all public pages; custom static WebP image loader
-Audit date: 2026-06-05
+**Target:** https://boisecabinet.co (production) - **Date:** 2026-07-10
+**Mode:** LOCAL - **Depth:** standard - **Source access:** yes (Next.js 14 app-router codebase)
+**Method:** full source review + live infra spot-checks (curl headers/robots/sitemap/schema on 12+ URLs) + 7 parallel specialist analyses.
 
-## 1. Business identity (single source of truth)
+> **Deploy note:** at audit time the live site was still serving the **pre-redesign build** (no `dark` class live; `s-maxage=31536000` CDN cache). The redesign is visual only - **all SEO substance (routes, metadata, schema, content, links) is identical to source**, so this audit is valid from source. Infra findings (headers, robots, sitemap, DNS) are live-current.
 
-| Field | Value | Status |
-|---|---|---|
-| Name | Boise Cabinet Co | OK |
-| Legal | Boise Cabinet Co LLC | OK |
-| Phone | (208) 555-0100 | PLACEHOLDER - replace before launch |
-| Email | hello@boisecabinet.co | OK |
-| Address | 2283 N Coopers Hawk Ave, Kuna, ID 83634 | Verify |
-| Founded | 2017 | OK |
-| Service area | Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, Caldwell | OK |
-| Rating / reviews | 0 / 0 | MISSING - no aggregateRating emitted |
-| License # | "available upon request" | PLACEHOLDER |
-| sameAs | Facebook, Instagram (guessed) | Verify; add GBP/Houzz/BBB |
+---
 
-Config lives in `shared/siteConfig.ts`, `lib/seo.ts` (`BUSINESS_INFO`, `CITY_SEO_DATA`).
+## Executive summary
 
-## 2. Stale documentation warning
+Boise Cabinet Co is a **technically strong, well-engineered site with a best-in-class chassis and an empty trust tank.** The programmatic architecture that usually sinks catalog sites (382 SKU pages, 299 finishes, city pages) is **handled correctly** - the 382 product configs and 106 duplicate finishes are `noindex,follow` + sitemap-excluded, and the 8 city guides are genuinely locally unique (not doorway). SSR ships real content in raw HTML (great for AI), `llms.txt` exists, canonicals/meta/robots/sitemap all pass, and there are no soft-404s.
 
-`SEO-AUDIT-CONTEXT.md`, `SEO-AUDIT-INVENTORY.md`, `SEO-AUDIT-SUMMARY.md`, `SEO-AUDIT-LOG.md`, and `replit.md` describe a former "Boise Remodeling Co" business with 168 city-service pages and `/services/[slug]/[city]` routes that **no longer exist**. The live site is a catalog-driven cabinet company. Those docs are superseded by this `/seo-audit/` set.
+What holds the site back is **not code quality - it is missing trust data and content depth**:
+- **No Google Business Profile link, no published license number, and zero live reviews/aggregateRating** - the three strongest local + E-E-A-T signals are all absent (env-driven slots exist but are unpopulated).
+- **The team is anonymous** (role labels, no names/photos) so the site emits **zero Person entities**; blog/guides have no named author.
+- **Imagery reads as generic/AI stock** on the highest-intent pages (real project photography is pending).
+- **56 blog posts are thin** (median 217 words) with above-the-fold self-duplication.
+- A handful of **technical gaps** (missing H1s on indexable detail pages, no `logo`/priceless-`Offer` in schema, a collection title bug) - **now fixed** (see `completed-updates.md`).
 
-## 3. Route inventory (live)
+**Competitive read:** the strongest Boise competitors (Sweetwood - 45 yrs, named team, 46+ reviews) win trust the old-fashioned way but have weaker digital experience and thinner content. If BCC populates the trust data it has already engineered slots for, it pairs incumbent-level trust with a best-in-class site and can out-rank all of them.
 
-### Indexable marketing
-- `/` (home)
-- `/about`, `/contact`, `/testimonials`, `/warranty`
-- `/cabinets` + 13 `/cabinets/[room]`
-- `/collections` + 1 `/collections/[slug]`
-- `/finishes` + 3 `/finishes/[category]` + ~299 `/finishes/[category]/[slug]`
-- `/door-styles` + 6 `/door-styles/[slug]`
-- `/products` + 9 `/products/[category]` + ~320 `/products/[category]/[slug]`
-- `/accessories`, `/hardware`, `/construction`, `/compare`, `/catalog`
-- `/guides` + 10 `/guides/[slug]`
-- `/blog` + 56 `/blog/[slug]` + indexable `/blog/category/[hubSlug]`
-- `/resources` + `/resources/ada-canyon-permit-flow`
-- `/privacy-policy`, `/terms-of-service`
+---
 
-### Should be non-indexable (tools / utilities / B2B)
-- `/design-studio`, `/estimate`, `/finder`, `/search`, `/login`, `/dealer`, `/installer`
+## Scorecard (LOCAL weight profile)
 
-### Correctly noindexed
-- `/admin/*`, `/subcontractor/*`, `/partner/*`, `/portal/*`, `/style-guide`, 404, thin blog hubs
+Scores are 0-10, as-audited. Weighted overall uses the LOCAL profile.
 
-## 4. Severity-ranked findings
+| Dimension | Weight | Score | Grade | Basis |
+|---|---:|---:|:--:|---|
+| SEO (technical, on-page, indexation, schema, internal linking) | 20 | 8.0 | B | Canonicals/meta/robots/sitemap/soft-404/noindex-handling all pass; docked for missing H1s, schema logo/offers, collection title bug (all now fixed -> ~8.7) |
+| Local SEO & geographic authority | 20 | 5.5 | D+ | City pages excellent + NAP consistent, but no GBP link, no license #, no reviews, geo/locality mismatch (fixed), thin proof on 4 cities |
+| Content quality & topical authority (incl. E-E-A-T) | 15 | 5.0 | D | Strong hub/cluster scaffolding + llms.txt; thin blog, anonymous team (0 Person entities), no reviews, stock imagery |
+| UX & conversion | 13 | 7.0 | B- | Best-in-class tools (estimator, Design Studio, finder); placeholder imagery, CTA fragmentation, fake-input steps (see UX audit) |
+| GEO (entity clarity, AI readability) | 12 | 8.0 | B | SSR raw HTML strong, llms.txt present, entity clarity high; catalog detail lacks quotable numbers |
+| AEO (answer extraction) | 8 | 6.5 | C | Blog is the model; door-style/finish/about/compare answer + FAQ gaps (door-style H1+answer now added) |
+| Performance & Core Web Vitals | 7 | 7.0 | B- | TTFB ~0.22s, strong image pipeline; large HTML payloads (485KB room page); Lighthouse Not Verified (PSI quota) |
+| UI, trust & branding | 5 | 6.0 | C | Cohesive premium dark brand; live trust signals near-empty |
 
-Scale: CRITICAL > HIGH > MEDIUM > LOW
+**Weighted overall: 6.6 / 10 -> Grade C.** No dimension is capped by a Blocker (indexation is correct; the two Criticals were schema-validity, now fixed). With the data-dependent fixes (GBP, reviews, named team, real photos, license) this profile moves to a projected **B+/A-**.
 
-| # | Sev | Area | Finding | File |
-|---|---|---|---|---|
-| 1 | CRITICAL | Programmatic | 299 finish detail pages: no prose, no JSON-LD, templated meta, all sitemapped | `app/finishes/[category]/[slug]/page.tsx` |
-| 2 | CRITICAL | Programmatic | 320 product SKU pages: 9 shared descriptions, 22 duplicate title groups (100 pages titled "Wall Cabinet"), all sitemapped | `app/products/[category]/[slug]/page.tsx`, `scripts/catalog/codegen-catalog.mjs` |
-| 3 | HIGH | Schema | `hasOfferCatalog` emits `/services/{slug}` URLs; no `/services` route (legacy redirects) | `lib/schema.ts` L75-86 |
-| 4 | HIGH | Indexation | `/products/[category]` has NO metadata export (inherits site default title/desc, no canonical) | `app/products/[category]/page.tsx` |
-| 5 | HIGH | E-E-A-T | rating 0 / reviewCount 0; no aggregateRating; Review schema generator exists but unused | `lib/seo.ts` L425-426, `lib/schema.ts` L202 |
-| 6 | HIGH | Entity | Finish count conflict: 108 (hero stat) vs 299 (FAQs/about/catalog truth) | `shared/siteContent.ts` L19 |
-| 7 | HIGH | Content | Broken guide-slug links (likely 404) | `shared/content/wave1/locationGuides.ts` L54-60 |
-| 8 | MEDIUM | Indexation | `/search`, `/design-studio` in sitemap; `/login` indexable; `/finder`,`/dealer`,`/installer` ambiguous + no canonical | `app/sitemap.ts`, `app/robots.ts` |
-| 9 | MEDIUM | Indexation | Sitemap omits `/catalog`, `/warranty`, `/estimate` | `app/sitemap.ts` |
-| 10 | MEDIUM | NAP | Placeholder phone `(208) 555-0100`; footer missing street address | `shared/siteConfig.ts`, `components/Footer.tsx` |
-| 11 | MEDIUM | AEO | Homepage emits Speakable schema with no `data-speakable` DOM target | `components/seo/HomePageSchema.tsx` |
-| 12 | MEDIUM | AEO | Cluster posts reuse first 6 hub FAQs (duplicate FAQ content) | `shared/content/contentFactory.ts` L98-101 |
-| 13 | MEDIUM | CRO | Hero CTA pushes Design Studio/collections, not consult; mismatch with nav | `components/sections/HeroSection.tsx` |
-| 14 | MEDIUM | E-E-A-T | No team/founder bios, no license/insurance/bond specifics | `app/about/page.tsx` |
-| 15 | MEDIUM | Internal links | 38 pages below 5 incoming links | `data/internal-links.json` (audit) |
-| 16 | MEDIUM | Perf | Global client shell (Navigation + React Query + useAuth fetch) every page | `app/layout.tsx`, `components/Navigation.tsx` |
-| 17 | MEDIUM | Perf | Homepage ships full EstimateCalculator wizard | `app/page.tsx` L49 |
-| 18 | MEDIUM | Perf | Hero LCP preload mismatches variant loader output | `app/layout.tsx` L77-82 |
-| 19 | LOW | GEO | `public/llms.txt` stale (3 door styles vs 6, no finish count) | `public/llms.txt` |
-| 20 | LOW | Perf | Dead deps: framer-motion, leaflet, react-icons, @next/third-parties | `package.json` |
-| 21 | LOW | Content | `GuidePageLayout` links via `replacesSlug` not `slug` | `components/marketing/GuidePageLayout.tsx` L123 |
-| 22 | LOW | Tech | Hardcoded canonicals on legal pages bypass `NEXT_PUBLIC_SITE_URL` | `app/privacy-policy/page.tsx`, `app/terms-of-service/page.tsx` |
+---
 
-## 5. Strengths to preserve
+## Findings by severity
 
-- Static SSG + custom WebP variant pipeline + immutable cache headers + LQIP blur placeholders.
-- Strong topical hub-and-spoke content system (8 hubs, 10 guides, 56 clusters) with automated internal-link graph + content QA gates.
-- Per-page schema helpers (Article, FAQ, Breadcrumb, Speakable, WebPage, Product, CollectionPage) in `lib/schema.ts`.
-- Sophisticated conversion tooling (estimator, Design Studio, modal CTAs, consult form with smart handoffs).
-- `next/font` with `display: swap`; no third-party analytics scripts (good TBT).
+### Blockers
+- None. (Indexation, canonicals, and status codes are correct on production.)
 
-## 6. Overall scores (sitewide, 0-100)
+### Critical (schema validity) - FIXED
+- **No `logo` on Organization/LocalBusiness** -> blocked logo/knowledge-panel rich results. *Fixed.*
+- **`Product` schema shipped a priceless `Offer`** on 382 products + finishes -> invalid Product rich result. *Fixed (Offer removed - custom/quote-only).*
 
-| Dimension | Score | Notes |
-|---|---|---|
-| Technical SEO | 72 | Strong SSG; schema URL + indexation defects |
-| Local SEO | 58 | NAP placeholders, no reviews, local signals thin |
-| GEO | 64 | Good entity helpers; stale llms.txt, count conflicts |
-| AEO | 66 | FAQ/Speakable present; homepage gap, duplicate FAQs |
-| E-E-A-T | 52 | No reviews, no bios, vague credentials |
-| Content quality | 70 | Deep cost pillar; thin factory clusters + programmatic pages |
-| Conversion | 71 | Great tooling; hero/funnel misalignment |
-| Performance | 68 | Good pipeline; global client shell + homepage estimator |
-| Doorway risk | HIGH | 619 templated detail pages indexed |
+### High
+- **Local trust data absent (DATA - needs you):** no `NEXT_PUBLIC_GBP_URL`, no `NEXT_PUBLIC_LICENSE_NUMBER`, no `NEXT_PUBLIC_REVIEW_*`. The strongest local + trust signals are unpopulated.
+- **E-E-A-T Expertise 2/10 (DATA - needs you):** team is 100% placeholders (name == role), so **zero Person entities**; no named author on any blog/guide.
+- **Missing H1** on indexable finish-detail and door-style-detail templates. *Fixed.*
+- **Two unlinked business entities** (Organization + LocalBusiness, no `@id`). *Fixed (stable `@id` + publisher-by-reference).*
+- **Blog thin + self-duplicating** (median 217 words; excerpt + Quick Answer repeated in an "About" section across 56 posts). *Duplication removed; depth expansion is roadmapped.*
+- **Internal-linking system governs only 92 of ~329 URLs** - finishes/doors/static pages are outside it; catalog templates never render their computed related-links. *Roadmapped.*
+- **Deliverability:** DMARC `p=none` (monitor-only) and **no SPF record** (DNS - needs you).
 
-See `implementation-roadmap.md` for sequencing and `completed-updates.md` for what was shipped.
+### Medium
+- Geo/locality mismatch (Meridian locality vs Boise/Kuna coordinates). *Fixed.*
+- `FurnitureStore` subtype contradicts "no showroom." *Fixed (HomeAndConstructionBusiness + GeneralContractor).*
+- `/construction` missing Service schema. *Fixed.*
+- Collection title double-"Cabinets" bug. *Fixed.*
+- 90 indexable woodgrain finishes share 100%-identical prose (still doorway-shaped). *Roadmapped (consolidate to gallery + ~15 with unique copy).*
+- Door-style detail / About / Compare lack FAQ + FAQPage. *Roadmapped.*
+- Catalog detail pages lack quotable numbers (lead time, warranty, price band). *Roadmapped.*
+- No `/projects/[slug]` route - case studies (the best first-hand content) only render on the homepage. *Roadmapped.*
+- Local proof missing on 4 city pages (Kuna, Star, Caldwell, Middleton). *Roadmapped.*
+- Garden City in schema `areaServed` but no page. *Roadmapped.*
+- Blog/guide titles lack a 60-char guard before the brand suffix. *Roadmapped.*
+- Large HTML payloads (485KB `/cabinets/kitchen`) tie to the "large lists, no pagination" UX finding.
+
+### Low
+- `"cabinetss"` machine-templating typo. *Fixed.* Fake `(208) 555-0000` form placeholder. *Fixed.*
+- www.boisecabinet.co does not resolve; `http->https` redirects with an explicit `:443`.
+- Dead code: `generateReviewSchema`, `lib/landing-schema.ts` (unused); dead `type==="service"` internal-link audit check.
+- Stale `SEO-AUDIT-INVENTORY.md` documents a defunct remodeling architecture.
+- Breadcrumbs missing on `/dealer`, `/installer`.
+- No `SearchAction` on WebSite (optional; `/search` is disallowed).
+
+---
+
+## Site-wide consistency report
+
+- **Titles:** unique + templated per type; one bug (collection double-"Cabinets", fixed); product-detail titles >60 chars (mitigated by noindex); no blog/guide length guard.
+- **Descriptions:** unique + benefit-led on every template. Pass.
+- **Canonicals:** self-referencing absolute on every page. Pass.
+- **H1:** was missing on finish-detail + door-style-detail (fixed); product-detail still H3 (noindex, low value). One H1 elsewhere.
+- **Indexation:** exemplary - 382 products + 106 finish dupes `noindex,follow` + sitemap-excluded; utility/B2B pages both disallowed and noindexed.
+- **Schema:** valid JSON across all templates; breadcrumbs everywhere; FAQ matches visible Q&A; fixes applied for logo/offers/@id/geo/subtype/construction.
+- **Orphans:** none inside the 92-node manifest; finishes/doors are near-orphans outside it (roadmapped).
+- **Broken links/images:** none found by the internal-link audit; no soft-404s.
+- **NAP:** identical across siteConfig, footer, contact, schema, llms.txt (real text, not images).
+- **Thin/duplicate:** blog (thin) and 90 woodgrain finishes (near-duplicate) are the two real exposures; city guides are exemplary.
+
+See the companion files for detail: `page-quality-scorecard.md`, `metadata-map.md`, `schema-map.md`, `local-seo-plan.md`, `entity-map.md`, `internal-linking-plan.md`, `topical-authority-analysis.md`, `content-gap-analysis.md`, `programmatic-seo-analysis.md`, `geo-optimization-plan.md`, `aeo-optimization-plan.md`, `trust-signal-map.md`, `competitor-gap-analysis.md`, `keyword-map.md`, `implementation-roadmap.md`, `completed-updates.md`.

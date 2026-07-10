@@ -1,101 +1,44 @@
-# Page-by-Page Audit - Boise Cabinet Co
+# Page-by-Page Audit - Boise Cabinet Co (DEPTH=standard sample)
 
-Per-template analysis: metadata, headings, content depth, intent, schema, and recommended action. Programmatic detail templates are covered in depth in `programmatic-seo-analysis.md` and `doorway-page-analysis.md`.
+Deep-audited: all top-level pages + >=3 per multi-instance template (rooms: kitchen/bathroom/laundry; finishes: matte/gloss/woodgrain samples; blog: 4; city guides: 3; products: category + detail). Metadata/canonical/H1/schema/indexability were mechanically checked on every template. Disposition per page: keep / improve / rewrite / consolidate / noindex / remove.
 
-Action key: KEEP / IMPROVE / REWRITE / MERGE / REDIRECT / REMOVE / NOINDEX
+| Page | Type | Intent | Disposition | Key notes |
+|---|---|---|---|---|
+| `/` | home | commercial | **keep/improve** | Strong; add live trust bar + real founder/reviews; shorten. |
+| `/about` | about | nav/trust | **improve** | Name the team (0 Person entities); add FAQ. |
+| `/contact` | contact | transactional | keep | Strong multi-channel; drop duplicate CTAs; show email. |
+| `/testimonials` | proof | nav | **improve** | Real photos + sourced/dated reviews + aggregateRating; give case studies routes. |
+| `/warranty` | trust | info | keep | Best trust asset; lead with a one-line promise. |
+| `/construction` | service | info | keep | Service schema added; reconcile the material-claim contradiction. |
+| `/cabinets` | hub | commercial | keep | Fix "12 vs 13" copy; 4-up grid. |
+| `/cabinets/[room]` | service | commercial | **improve** | Make it the cluster hub (blog/finishes/doors/projects/sibling/city links); paginate 485KB list. |
+| `/catalog` | hub | commercial | keep | Consistent tile treatment; real door imagery. |
+| `/collections` | index | commercial | **improve** | Single-collection hollow index; route to detail or design single-item state. |
+| `/collections/[slug]` | detail | commercial | keep | Remove empty "Other collections"; add door thumbnails. |
+| `/finishes` | index | commercial | improve | One filter system; real material swatches. |
+| `/finishes/[c]/[s]` | detail | commercial | **improve / consolidate woodgrains** | H1 added; 90 woodgrains near-duplicate -> gallery + ~15 unique; real in-room photo. |
+| `/door-styles` | index | commercial | improve | Real door photos; comparison table. |
+| `/door-styles/[slug]` | detail | commercial | **improve** | H1 + answer added; add FAQ + FAQPage. |
+| `/products` `/products/[c]` | index/category | commercial | improve | Human labels before SKU; paginate 162-item category. |
+| `/products/[c]/[s]` | detail | commercial | **keep noindex** | ~2-5% unique; correctly noindex; consolidate to configurator later. |
+| `/hardware` | catalog | commercial | keep | Best photos; add card CTAs; de-jargon. |
+| `/accessories` | catalog | commercial | keep | Strong; replace 1 placeholder tile. |
+| `/estimate` | tool | transactional | keep | Excellent; fix fake-input step title; fill empty column. |
+| `/design-studio` | tool | transactional | keep | Strongest tool; fix fake-input title + truncated steps. |
+| `/blog` | index | info | **improve** | Add filter/search/pagination; per-post images. |
+| `/blog/[slug]` | article | info | **rewrite for depth** | Great scaffold, median 217 words; dedup applied; add named author. |
+| `/guides` | index | info | keep | Fix "2 min read" vs "in-depth". |
+| `/guides/[slug]` (pillar) | guide | info | keep | Best long-form; expand-by-default sections. |
+| `/guides/[city]` | location | commercial | keep | Model local pages; add local proof (Kuna/Star/Caldwell/Middleton). |
+| `/resources` | hub | info | improve | Sparse; add resources + optional lead capture. |
+| `/resources/ada-canyon-permit-flow` | flow | info | improve | Add the referenced (missing) map; connectors/icons. |
+| `/privacy` `/terms` | legal | nav | improve | Refresh "Jan 2024" date; add TOC. |
+| `/compare` | tool | commercial | **improve** | One column = nothing to compare; reframe or add targets; add FAQ. |
+| `/finder` | tool | commercial | keep | Good; fix mobile nav overlap. |
+| `/search` | utility | nav | keep noindex | Multi-column desktop; count/sort. |
+| `/dealer` `/installer` | B2B | nav | **improve/consolidate** | noindex; near-duplicates; give a real trade action; add breadcrumbs. |
+| `/404` | system | - | keep | Helpful; fix mobile blank-button. |
+| `/login` `/admin` | auth | - | keep | Add forgot-password. |
+| `/style-guide` | internal | - | **noindex/gate** | Currently public + indexable. |
 
----
-
-## Homepage - `app/page.tsx`
-
-- Intent: navigational + commercial. H1 (single): "Idaho's premier cabinet company." Hierarchy sound.
-- Sections: Hero, Room grid, Design Studio, Photo band, Process, Featured project, Testimonials (3), Why choose us, FAQ (12), Estimator, Consult form.
-- Schema: Organization, LocalBusiness (no aggregateRating), WebSite, FAQPage, Speakable (no DOM target).
-- Gaps: hero CTA = Design Studio/collections (not consult); 108-finish stat conflicts with 299; no review proof; Speakable target missing; ships estimator JS.
-- Action: IMPROVE (hero CTA, speakable target, finish count, review proof, lazy estimator).
-
-## About - `app/about/page.tsx`
-
-- Intent: informational/trust. H1 + section H2s + 6 principle H3s. Schema: Organization, WebPage, Breadcrumb.
-- Gaps: no named team/founder, no license #/bond/carrier, no certifications with issuers, secondary CTA = collections (not estimate), `yearlyServicesCompleted: 0`.
-- Action: IMPROVE (add bios + credentials scaffold + local proof).
-
-## Contact - `app/contact/page.tsx`
-
-- Strongest NAP on site (full address, hours, maps link, LocalBusiness schema, speakable summary).
-- Gaps: no map embed, no showroom/team photo, not in primary nav.
-- Action: KEEP + minor IMPROVE (nav link, map embed optional).
-
-## Testimonials - `app/testimonials/page.tsx`
-
-- 6 gallery projects + 4 testimonials (initials only, no dates/source). ImageGallery schema only.
-- Gaps: no Review/aggregateRating schema (generator exists, unused); reads as marketing samples; metadata `kind: 'about'`.
-- Action: IMPROVE (Review schema guarded by real data, add dates/source, review-platform links).
-
-## Warranty - `app/warranty/page.tsx`
-
-- Substantive policy content; good trust value. Indexable but MISSING from sitemap.
-- Action: KEEP + add to sitemap.
-
-## Resources - `app/resources/page.tsx`
-
-- Real downloadable PDFs + visual guides; in sitemap.
-- Gaps: stale guide-slug links in PDF content; no author byline.
-- Action: KEEP + fix links.
-
----
-
-## Catalog hubs (KEEP - legitimate filter/navigation hubs)
-
-| Route | Schema | Action |
-|---|---|---|
-| `/cabinets` | WebPage + Breadcrumb | KEEP |
-| `/cabinets/[room]` (13) | WebPage + Breadcrumb | IMPROVE (link cabinet grid to product pages; weave local) |
-| `/collections` | WebPage + Breadcrumb | KEEP |
-| `/collections/[slug]` (1) | WebPage + Breadcrumb | IMPROVE (add FAQPage schema; visible FAQ exists) |
-| `/finishes` | WebPage + Breadcrumb | KEEP |
-| `/finishes/[category]` (3) | WebPage + Breadcrumb | IMPROVE (enable detail links; richer copy) |
-| `/door-styles` + `/door-styles/[slug]` (6) | WebPage + Breadcrumb | KEEP/IMPROVE |
-| `/products` | none | IMPROVE (add WebPage schema) |
-| `/products/[category]` (9) | NONE + no metadata | REWRITE (add metadata + CollectionPage schema + intro copy) |
-| `/catalog` | WebPage + Breadcrumb | KEEP + add to sitemap |
-| `/compare` | WebPage + Breadcrumb | KEEP (high-utility) |
-| `/hardware` | WebPage + Breadcrumb | KEEP |
-| `/accessories` | WebPage + Breadcrumb | KEEP |
-| `/construction` | WebPage + Breadcrumb | KEEP |
-
-## Programmatic detail pages (see doorway-page-analysis.md)
-
-| Route | Count | Action |
-|---|---|---|
-| `/finishes/[category]/[slug]` | 299 | IMPROVE indexable subset + NOINDEX low-value variants; enrich + schema; fix 6 title collisions |
-| `/products/[category]/[slug]` | 320 | NOINDEX,follow + self-canonical; remove from sitemap; enrich for users |
-
-## Content pages
-
-| Route | Schema | Action |
-|---|---|---|
-| `/guides` | WebPage + Breadcrumb | KEEP |
-| `/guides/[slug]` (10) | Article, FAQ, Breadcrumb, Speakable | IMPROVE (deepen 7 thin pillars or position as indexes; fix breadcrumb for local-guides) |
-| `/blog` | WebPage + Breadcrumb | KEEP |
-| `/blog/[slug]` (56) | Article, FAQ, Breadcrumb, Speakable | IMPROVE (hub-tier breadcrumb; unique per-cluster FAQs; deepen ~133-word factory clusters) |
-| `/blog/category/[hubSlug]` | CollectionPage + Breadcrumb | KEEP (conditional noindex when <3 posts) |
-
-## Tools / utilities / B2B (NOINDEX)
-
-| Route | Current | Action |
-|---|---|---|
-| `/design-studio` | indexable + in sitemap | NOINDEX + remove from sitemap |
-| `/estimate` | indexable, canonical, not in sitemap | NOINDEX (keep canonical) |
-| `/finder` | indexable, no canonical | NOINDEX |
-| `/search` | indexable + in sitemap | NOINDEX + remove from sitemap |
-| `/login` | indexable | NOINDEX |
-| `/dealer` | indexable, thin B2B duplicate | NOINDEX |
-| `/installer` | indexable, thin B2B duplicate | NOINDEX |
-
-## Legal
-
-| Route | Action |
-|---|---|
-| `/privacy-policy` | KEEP (replace hardcoded canonical with helper) |
-| `/terms-of-service` | KEEP (replace hardcoded canonical with helper) |
+Cross-cutting per-page themes (imagery, CTA vocabulary, empty states, mobile) are detailed in the companion UX/design audit.

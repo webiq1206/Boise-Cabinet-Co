@@ -1,72 +1,38 @@
-# Page Quality Scorecard - Boise Cabinet Co
+# Page-Quality & E-E-A-T Scorecard - Boise Cabinet Co
 
-Scores 0-100. Doorway risk: LOW / MED / HIGH. Action: KEEP / IMPROVE / REWRITE / MERGE / NOINDEX / REMOVE.
+Per-template page-quality (PQ, 0-10) and E-E-A-T (0-10) scores from the DEPTH=standard sample (>=3 per template where multiple exist). E-E-A-T is site-level for most (the Organization + team + reviews are shared), noted where a template adds/loses signal.
 
-Columns: SEO | Local | GEO | AEO | EEAT | Trust | Conv | Content | Uniq | Speed | Doorway | Action
+| Template (sample) | PQ | E-E-A-T | Notes |
+|---|---:|---:|---|
+| Home `/` | 8 | 4 | Strong entity/answer/FAQ + schema; trust widgets empty (no reviews/named founder). |
+| About `/about` | 6 | 3 | Good positioning; team anonymous -> 0 Person entities; no FAQ. |
+| Contact `/contact` | 8 | 5 | Multi-channel clarity, LocalBusiness schema, no-pressure copy. |
+| Testimonials `/testimonials` | 6 | 4 | 3 detailed case studies (strong) + 4 initials-only testimonials (weak); no aggregateRating; stock imagery. |
+| Warranty `/warranty` | 8 | 6 | Best trust asset - clear Covered/Conditions/Excluded table. |
+| Construction `/construction` | 7 | 5 | Authentic manufacturing detail; Service schema added; a material-claim contradiction to reconcile. |
+| Cabinets index `/cabinets` | 7 | 4 | Clean hub; "12 categories" vs 13 cards copy bug. |
+| Room `/cabinets/[room]` (kitchen/bath/laundry) | 7 | 4 | Answer + FAQ + Service schema + products; missing cluster/finish/door/sibling/city links; 485KB HTML. |
+| Catalog `/catalog` | 7 | 3 | Honest counts + PDF + search; placeholder door tiles. |
+| Collections index `/collections` | 4 | 3 | Single collection -> hollow index; title bug (fixed). |
+| Collection `/collections/[slug]` | 7 | 4 | Rich detail; "Other collections" empty; door tiles thumbnail-less. |
+| Finishes index `/finishes` | 6 | 3 | Legit hub; duplicate filter systems; flat swatches. |
+| Finish detail `/finishes/[c]/[s]` (matte/gloss/woodgrain) | 5 | 3 | Rich structure + FAQ; H1 added; **90 woodgrains share 100% prose** (near-duplicate); placeholder in-room; flat swatch. |
+| Door-styles index `/door-styles` | 6 | 3 | Useful personalities; CAD/placeholder thumbnails; no comparison table. |
+| Door-style detail `/door-styles/[s]` | 5 | 3 | Was 0 H1/0 FAQ (worst AEO); H1 + answer added; FAQ still to add. |
+| Products index / category | 6 | 3 | Honest counts + wizard; SKU codes exposed; 162-item category, no pagination. |
+| Product detail `/products/[c]/[s]` | 4 | 3 | Correctly `noindex`; ~2-5% unique; SKU-code hero; empty right column. |
+| Hardware `/hardware` | 7 | 4 | Best real photography; dead-end cards; trade jargon. |
+| Accessories `/accessories` | 7 | 4 | Strong photos + cross-links; one placeholder tile. |
+| Estimate `/estimate` | 8 | 4 | Excellent low-commitment wizard; fake-input step title; empty column. |
+| Design Studio `/design-studio` | 8 | 4 | Strongest tool; fake-input title; truncated stepper labels. |
+| Blog index `/blog` | 6 | 3 | Recognizable pattern; no filter/pagination; many image-less cards. |
+| Blog post `/blog/[slug]` (x4) | 5 | 3 | Great AEO scaffold, but **median 217 words**; dedup applied; no named author. |
+| Guides index `/guides` | 7 | 4 | Confident IA; "2 min read" vs "in-depth" mismatch. |
+| Guide `/guides/[slug]` (pillar) | 8 | 5 | Best long-form; tables + configurator + FAQ; collapsed-by-default. |
+| City guide `/guides/[city]` (x3) | 8 | 4 | **Model local pages** - genuinely unique; add local proof. |
+| Resources `/resources` | 5 | 3 | Sparse (4 cards); ungated downloads. |
+| Legal `/privacy` `/terms` | 7 | 5 | Scannable; "Last updated Jan 2024" stale. |
+| 404 | 8 | - | Helpful (desktop); mobile blank-button bug. |
+| Login / Admin gate | 7 | - | Clean; no forgot-password. |
 
-## Core pages
-
-| Page | SEO | Local | GEO | AEO | EEAT | Trust | Conv | Content | Uniq | Speed | Doorway | Action |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| `/` | 78 | 60 | 70 | 68 | 55 | 58 | 72 | 75 | 80 | 65 | LOW | IMPROVE |
-| `/about` | 74 | 62 | 70 | 60 | 50 | 55 | 65 | 72 | 78 | 80 | LOW | IMPROVE |
-| `/contact` | 80 | 78 | 72 | 70 | 62 | 70 | 75 | 70 | 80 | 82 | LOW | KEEP |
-| `/testimonials` | 70 | 64 | 60 | 55 | 58 | 60 | 70 | 65 | 70 | 80 | LOW | IMPROVE |
-| `/warranty` | 68 | 50 | 60 | 60 | 70 | 72 | 60 | 75 | 85 | 82 | LOW | KEEP+ |
-
-## Catalog hubs
-
-| Page | SEO | Local | GEO | AEO | EEAT | Trust | Conv | Content | Uniq | Speed | Doorway | Action |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| `/cabinets` | 80 | 55 | 72 | 55 | 55 | 58 | 68 | 70 | 80 | 78 | LOW | KEEP |
-| `/cabinets/[room]` | 74 | 58 | 70 | 50 | 52 | 55 | 66 | 72 | 78 | 78 | MED | IMPROVE |
-| `/collections` | 78 | 50 | 70 | 50 | 55 | 58 | 68 | 65 | 75 | 80 | LOW | KEEP |
-| `/collections/[slug]` | 76 | 52 | 72 | 70 | 58 | 60 | 70 | 85 | 80 | 78 | LOW | IMPROVE (FAQ schema) |
-| `/finishes` | 80 | 45 | 72 | 45 | 50 | 55 | 65 | 65 | 75 | 75 | LOW | KEEP |
-| `/finishes/[category]` | 66 | 40 | 65 | 40 | 48 | 52 | 60 | 55 | 60 | 78 | MED | IMPROVE |
-| `/door-styles` | 76 | 45 | 70 | 45 | 52 | 55 | 65 | 60 | 72 | 80 | LOW | KEEP |
-| `/door-styles/[slug]` | 70 | 42 | 68 | 45 | 52 | 55 | 64 | 65 | 70 | 78 | MED | IMPROVE |
-| `/products` | 70 | 45 | 65 | 40 | 50 | 52 | 66 | 60 | 70 | 76 | LOW | IMPROVE |
-| `/products/[category]` | 45 | 40 | 50 | 35 | 45 | 48 | 60 | 50 | 55 | 76 | MED-HIGH | REWRITE |
-| `/catalog` | 78 | 45 | 72 | 45 | 52 | 55 | 68 | 70 | 80 | 74 | LOW | KEEP (sitemap) |
-| `/compare` | 80 | 45 | 75 | 60 | 58 | 60 | 70 | 80 | 85 | 80 | LOW | KEEP |
-| `/hardware` | 74 | 42 | 68 | 45 | 52 | 55 | 64 | 65 | 75 | 80 | LOW | KEEP |
-| `/accessories` | 72 | 42 | 66 | 40 | 50 | 52 | 62 | 58 | 70 | 80 | LOW | KEEP |
-| `/construction` | 76 | 45 | 72 | 50 | 60 | 62 | 64 | 78 | 82 | 80 | LOW | KEEP |
-
-## Programmatic detail pages
-
-| Page | SEO | Local | GEO | AEO | EEAT | Trust | Conv | Content | Uniq | Speed | Doorway | Action |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| `/finishes/[category]/[slug]` (299) | 35 | 25 | 45 | 20 | 40 | 45 | 50 | 25 | 30 | 80 | HIGH | IMPROVE subset / NOINDEX rest |
-| `/products/[category]/[slug]` (320) | 30 | 25 | 42 | 20 | 40 | 48 | 55 | 25 | 25 | 78 | HIGH | NOINDEX,follow |
-
-## Content pages
-
-| Page | SEO | Local | GEO | AEO | EEAT | Trust | Conv | Content | Uniq | Speed | Doorway | Action |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| `/guides/boise-cabinet-cost-guide` | 88 | 75 | 82 | 85 | 70 | 68 | 65 | 92 | 90 | 80 | LOW | KEEP |
-| `/guides/[slug]` (7 thin pillars) | 70 | 65 | 70 | 70 | 60 | 60 | 60 | 60 | 70 | 82 | LOW | IMPROVE |
-| `/guides/treasure-valley-cabinet-guide` | 72 | 78 | 72 | 70 | 62 | 60 | 60 | 60 | 72 | 82 | LOW | IMPROVE |
-| `/blog/[slug]` (cost wave1, 6) | 80 | 70 | 75 | 78 | 65 | 62 | 60 | 82 | 82 | 82 | LOW | KEEP |
-| `/blog/[slug]` (factory clusters, ~43) | 60 | 58 | 62 | 55 | 55 | 55 | 55 | 50 | 55 | 82 | MED | IMPROVE |
-| `/blog/category/[hubSlug]` | 66 | 55 | 65 | 50 | 52 | 55 | 58 | 55 | 65 | 82 | LOW | KEEP |
-
-## Tools / B2B (recommend NOINDEX)
-
-| Page | Action |
-|---|---|
-| `/design-studio` | NOINDEX + remove from sitemap |
-| `/estimate` | NOINDEX |
-| `/finder` | NOINDEX |
-| `/search` | NOINDEX + remove from sitemap |
-| `/login` | NOINDEX |
-| `/dealer` | NOINDEX |
-| `/installer` | NOINDEX |
-
-## Summary by action
-
-- KEEP: ~12 hub/utility pages + cost pillar + wave1 cost clusters
-- IMPROVE: home, about, testimonials, 7 thin pillars, ~43 factory clusters, room pages, finish categories, finish indexable subset
-- REWRITE: `/products/[category]`
-- NOINDEX: 320 product SKUs + low-value finish variants + 7 tool/B2B pages
+**Site-level E-E-A-T:** Experience 5, **Expertise 2**, **Authoritativeness 2**, Trust 4. The ceiling on nearly every page's E-E-A-T is the shared, unpopulated trust data (reviews, named team, license, GBP) - fixing those lifts the whole column.
