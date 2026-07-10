@@ -15,7 +15,14 @@ import {
   generateBreadcrumbSchema,
   generateOrganizationSchema,
   generateWebPageSchema,
+  generateFAQSchema,
 } from '@/lib/schema';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion';
 import { HERO_STATS, PRINCIPLES, TRUST_ITEMS, TEAM } from '@/shared/siteContent';
 import { CTA_PRIMARY, CTA_SECONDARY } from '@/shared/ctaCopy';
 import { ConsultCTA } from '@/components/modals/ConsultCTA';
@@ -94,6 +101,29 @@ export default function AboutPage() {
     worksFor: { '@type': 'Organization', name: SITE_CONFIG.name },
   }));
 
+  const ABOUT_FAQS = [
+    {
+      question: `Who is ${SITE_CONFIG.name}?`,
+      answer: `${SITE_CONFIG.name} is a custom cabinet company serving Boise, Meridian, Eagle, Nampa, and the wider Treasure Valley since 2017. We design, build, and install custom kitchen, bathroom, storage, and built-in cabinetry.`,
+    },
+    {
+      question: `What areas does ${SITE_CONFIG.name} serve?`,
+      answer: `We serve the Treasure Valley: Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell, across Ada and Canyon Counties. Design consultations happen in your home by appointment.`,
+    },
+    {
+      question: `Does ${SITE_CONFIG.name} have a showroom?`,
+      answer: `We are a service-area business with no public showroom. We come to you for a free in-home design consultation, which lets us measure and plan around your actual space and lighting.`,
+    },
+    {
+      question: `Is ${SITE_CONFIG.name} licensed and insured?`,
+      answer: `Yes. We are bonded and insured for residential cabinet design and installation, and back our work with a lifetime workmanship warranty to the original homeowner.`,
+    },
+    {
+      question: `How does a cabinet project work?`,
+      answer: `Every project starts with a free design consultation, then a written scope and planning range, fabrication, and professional installation, with weekly written updates so nothing drifts.`,
+    },
+  ];
+
   const schemas = [
     generateOrganizationSchema(),
     generateWebPageSchema({
@@ -107,6 +137,7 @@ export default function AboutPage() {
       { name: 'About', url: '/about' },
     ]),
     ...personSchemas,
+    generateFAQSchema(ABOUT_FAQS),
   ];
 
   return (
@@ -303,6 +334,27 @@ export default function AboutPage() {
                 </Reveal>
               ))}
             </div>
+          </div>
+        </Section>
+
+        {/* ─── FAQ ─── */}
+        <Section divider>
+          <div className="container px-4 max-w-3xl">
+            <SectionHeader
+              eyebrow="Common questions"
+              title="About Boise Cabinet Co"
+              className="mb-8 max-w-none"
+            />
+            <Accordion type="single" collapsible className="w-full">
+              {ABOUT_FAQS.map((faq, i) => (
+                <AccordionItem key={i} value={`about-faq-${i}`}>
+                  <AccordionTrigger className="text-left">{faq.question}</AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground">
+                    {faq.answer}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
           </div>
         </Section>
 
