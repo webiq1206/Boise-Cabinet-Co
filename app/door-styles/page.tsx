@@ -3,6 +3,7 @@ import { ArrowRight } from "lucide-react";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Section } from "@/components/marketing/Section";
+import { RelatedPostCards } from "@/components/marketing/RelatedPostCards";
 import { PageHeader } from "@/components/marketing/PageHeader";
 import { SectionHeader } from "@/components/marketing/SectionHeader";
 import { CatalogClosingCTA } from "@/components/catalog/CatalogClosingCTA";
@@ -74,6 +75,11 @@ export default function DoorStylesPage() {
             <div className="max-w-5xl mx-auto">
               <DoorOptionsSelector />
             </div>
+          </div>
+        </Section>
+        <Section>
+          <div className="container px-4">
+            <RelatedPostCards path="/door-styles" title="Related cabinet guides and pages" />
           </div>
         </Section>
         <CatalogClosingCTA />

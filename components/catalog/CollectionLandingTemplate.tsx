@@ -11,6 +11,7 @@ import {
 } from "@/shared/catalog";
 import { Section } from "@/components/marketing/Section";
 import { SectionHeader } from "@/components/marketing/SectionHeader";
+import { RelatedPostCards } from "@/components/marketing/RelatedPostCards";
 import { MarketingCard } from "@/components/marketing/MarketingCard";
 import { FinishSwatchGrid } from "@/components/catalog/FinishSwatchGrid";
 import { Chip } from "@/components/marketing/Chip";
@@ -260,6 +261,15 @@ export function CollectionLandingTemplate({ collection }: CollectionLandingTempl
               </MarketingCard>
             ))}
           </div>
+        </div>
+      </Section>
+
+      <Section>
+        <div className="container px-4">
+          <RelatedPostCards
+            path={`/collections/${collection.slug}`}
+            title="Related cabinet guides and pages"
+          />
         </div>
       </Section>
 

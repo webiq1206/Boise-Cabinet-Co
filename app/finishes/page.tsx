@@ -3,6 +3,7 @@ import { ArrowRight } from "lucide-react";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Section } from "@/components/marketing/Section";
+import { RelatedPostCards } from "@/components/marketing/RelatedPostCards";
 import { PageHeader } from "@/components/marketing/PageHeader";
 import { FinishOptionsSelector } from "@/components/catalog/OptionsSelector";
 import { CatalogClosingCTA } from "@/components/catalog/CatalogClosingCTA";
@@ -113,6 +114,11 @@ export default function FinishesPage({
                 Get an estimate <ArrowRight className="h-4 w-4" />
               </Link>
             </Button>
+          </div>
+        </Section>
+        <Section>
+          <div className="container px-4">
+            <RelatedPostCards path="/finishes" title="Related cabinet guides and pages" />
           </div>
         </Section>
         <CatalogClosingCTA />

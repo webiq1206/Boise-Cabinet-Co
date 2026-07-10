@@ -7,6 +7,7 @@ import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Section } from "@/components/marketing/Section";
 import { PageHeader } from "@/components/marketing/PageHeader";
 import { SectionHeader } from "@/components/marketing/SectionHeader";
+import { RelatedPostCards } from "@/components/marketing/RelatedPostCards";
 import { Button } from "@/components/ui/button";
 import { catalogMetadata, catalogDescription } from "@/lib/catalog-metadata";
 import {
@@ -185,6 +186,15 @@ export default function RoomCabinetPage({ params }: { params: { room: string } }
                 </AccordionItem>
               ))}
             </Accordion>
+          </div>
+        </Section>
+
+        <Section>
+          <div className="container px-4">
+            <RelatedPostCards
+              path={`/cabinets/${room.slug}`}
+              title={`Guides for ${room.name.toLowerCase()} cabinets`}
+            />
           </div>
         </Section>
 
