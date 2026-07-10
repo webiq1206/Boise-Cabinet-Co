@@ -198,6 +198,14 @@ export default function AboutPage() {
 
             <div className="section-y-sm px-8 md:px-14 lg:px-16 bg-card border-l border-border">
               <Reveal>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/brand/boise-cabinet-co-emblem-light.svg"
+                  alt="Boise Cabinet Co emblem"
+                  width={64}
+                  height={64}
+                  className="mb-7 h-16 w-16 rounded-sm"
+                />
                 <SectionHeader
                   eyebrow="Our model"
                   title={

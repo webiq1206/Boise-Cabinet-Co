@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     type: "website",
     siteName: "Boise Cabinet Co",
     locale: "en_US",
-    images: [{ url: "/images/marketing/og-default.webp", width: 1792, height: 1024, alt: "Boise Cabinet Co custom cabinets" }],
+    images: [{ url: "/images/marketing/og-default.webp", width: 1200, height: 630, alt: "Boise Cabinet Co custom cabinets" }],
   },
   twitter: {
     card: "summary_large_image",

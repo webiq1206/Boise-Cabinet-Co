@@ -58,17 +58,26 @@ function confirmationPage(success: boolean): string {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#1C1F1E">
   <title>Unsubscribe | ${SITE_CONFIG.name}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,300&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
   <style>
-    body { font-family: Arial, Helvetica, sans-serif; background:#F5F3EF; color:#3A3E3D; margin:0; padding:0; }
-    .wrap { max-width: 520px; margin: 80px auto; background:#fff; border:1px solid #E0DDD8; border-radius:8px; padding:40px; text-align:center; }
-    h1 { font-size: 22px; font-weight:600; }
-    p { font-size: 15px; line-height:1.6; color:#5A5F5C; }
-    a { color:#3A3E3D; }
+    /* Boise Cabinet Co dark brand system — nothing bolder than 400. */
+    body { font-family: 'Montserrat', 'Helvetica Neue', system-ui, sans-serif; font-weight:400; background:#1C1F1E; color:#E6E3DE; margin:0; padding:24px; }
+    .wrap { max-width: 520px; margin: 80px auto; background:#262B29; border:1px solid #39403D; border-radius:8px; padding:44px; text-align:center; }
+    .brand { font-size: 15px; letter-spacing:0.14em; text-transform:uppercase; color:#F7F5F3; margin-bottom:28px; }
+    .brand em { font-family:'Fraunces', Georgia, serif; font-style:italic; text-transform:none; letter-spacing:0; color:#F7F5F3; }
+    h1 { font-size: 24px; font-weight:300; letter-spacing:-0.01em; color:#F7F5F3; margin:0 0 12px; }
+    p { font-size: 15px; line-height:1.7; color:#9AA098; margin:0 0 12px; }
+    a { color:#93A386; text-decoration:none; }
+    a:hover { text-decoration:underline; }
   </style>
 </head>
 <body>
   <div class="wrap">
+    <div class="brand">Boise Cabinet <em>Co.</em></div>
     <h1>${success ? "You are unsubscribed" : "Link not recognized"}</h1>
     <p>${
       success

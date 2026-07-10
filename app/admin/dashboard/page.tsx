@@ -378,7 +378,7 @@ function MetricCard({
           <Skeleton className="h-8 w-16" />
         ) : (
           <>
-            <p className={`text-2xl font-semibold tabular-nums ${accent === "green" && value ? "text-green-600" : ""}`}>
+            <p className={`text-2xl font-semibold tabular-nums ${accent === "green" && value ? "text-green-400" : ""}`}>
               {value ?? 0}
             </p>
             {sub && <p className="text-xs text-muted-foreground mt-0.5">{sub}</p>}

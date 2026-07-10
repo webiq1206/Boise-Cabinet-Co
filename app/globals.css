@@ -285,14 +285,20 @@ html, body {
 
   /* HARD BRAND RULE: nothing bolder than 400 anywhere. Cap the weight utilities
      and default bold elements so emphasis is carried by the sans/serif contrast,
-     the sage accent, and letter-spacing instead of weight. */
+     the sage accent, and letter-spacing instead of weight. `!important` is used
+     deliberately: Tailwind's weight utilities sit in @layer utilities (which
+     outranks @layer base), so only an important declaration makes the cap
+     authoritative at the computed level, not just visually via the 300/400-only
+     font load. */
   .font-medium,
   .font-semibold,
   .font-bold,
+  .font-extrabold,
+  .font-black,
   b,
   strong,
   th {
-    font-weight: 400;
+    font-weight: 400 !important;
   }
 
   p { @apply leading-relaxed; }
@@ -570,13 +576,18 @@ html, body {
   margin-bottom: 1.25rem;
   color: hsl(var(--foreground));
 }
-.blog-content a {
+/* Prose link styling — but NOT shadcn Button-as-link anchors (asChild renders an
+   <a> carrying the buttonVariants base class `inline-flex`). Without this guard,
+   `.blog-content a` (specificity 0,1,1) overrides the button's own
+   `text-primary-foreground`/color utility (0,1,0), which turned embedded CTAs
+   like the bone "Get an estimate" button into invisible bone-on-bone text. */
+.blog-content a:not([class*="inline-flex"]) {
   color: hsl(var(--foreground));
   text-decoration: underline;
   text-underline-offset: 2px;
   transition: color 0.15s;
 }
-.blog-content a:hover { color: hsl(var(--accent)); }
+.blog-content a:not([class*="inline-flex"]):hover { color: hsl(var(--accent)); }
 .blog-content ul, .blog-content ol {
   margin-bottom: 1.25rem;
   padding-left: 1.5rem;

@@ -37,7 +37,7 @@ export function RoomAccuracyNotice({ meta }: { meta: RoomMeta | null | undefined
       data-testid={`room-accuracy-${accuracy}`}
     >
       {isEstimate ? (
-        <AlertCircle className="h-4 w-4 text-amber-600" />
+        <AlertCircle className="h-4 w-4 text-amber-400" />
       ) : (
         <Info className="h-4 w-4 text-accent" />
       )}

@@ -44,7 +44,7 @@ export function DueTodayTasks({ onOpenLead }: { onOpenLead?: (leadId: string) =>
     <Card>
       <CardContent className="p-4 space-y-2">
         <p className="text-sm font-medium inline-flex items-center gap-2">
-          <CalendarClock className="h-4 w-4 text-amber-600" /> Due today and overdue ({data.length})
+          <CalendarClock className="h-4 w-4 text-amber-400" /> Due today and overdue ({data.length})
         </p>
         <div className="space-y-1">
           {data.map((task) => (

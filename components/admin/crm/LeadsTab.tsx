@@ -230,7 +230,7 @@ export function LeadsTab({ onSelectLead }: { onSelectLead: (leadId: string) => v
                       </TableCell>
                       <TableCell>
                         {lead.emailable ? (
-                          <span className="inline-flex items-center gap-1 text-xs text-green-600">
+                          <span className="inline-flex items-center gap-1 text-xs text-green-400">
                             <Mail className="h-3.5 w-3.5" /> {EMAIL_STATUS_LABELS[lead.emailStatus] ?? lead.emailStatus}
                           </span>
                         ) : (

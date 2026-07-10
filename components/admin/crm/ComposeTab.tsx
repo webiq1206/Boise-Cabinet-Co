@@ -199,7 +199,7 @@ export function ComposeTab() {
           {count ? (
             <div className="space-y-1 text-sm">
               <p><strong>{count.total}</strong> leads match this audience.</p>
-              <p className="text-green-600"><strong>{count.emailable}</strong> emailable will send.</p>
+              <p className="text-green-400"><strong>{count.emailable}</strong> emailable will send.</p>
               <p className="text-muted-foreground"><strong>{count.phoneOnly}</strong> phone-only / no email will be skipped.</p>
               <p className="text-xs text-muted-foreground pt-2">Suppressed and unsubscribed leads are also excluded automatically at send time.</p>
             </div>

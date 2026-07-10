@@ -679,7 +679,7 @@ export function Room2DPlanner({ className }: { className?: string }) {
                     y={y + h / 2 - 2}
                     textAnchor="middle"
                     fontSize={11}
-                    fontWeight={600}
+                    fontWeight={400}
                     fill="hsl(var(--foreground))"
                     style={{ pointerEvents: "none" }}
                   >
