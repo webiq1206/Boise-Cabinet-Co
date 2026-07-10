@@ -380,7 +380,7 @@ export function ConsultationFields({
                   <FormControl>
                     <Input
                       type="tel"
-                      placeholder="(208) 555-0000"
+                      placeholder="Your phone number"
                       autoComplete="tel"
                       inputMode="tel"
                       data-testid="input-phone"

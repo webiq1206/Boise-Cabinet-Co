@@ -112,10 +112,10 @@ export function buildClusterArticleSections(config: ClusterArticleConfig): Conte
     defaultTopicSections(config.title, config.hubSlug);
 
   return [
-    {
-      h2: `About ${config.title}`,
-      paragraphs: [config.excerpt, config.quickAnswer],
-    },
+    // The intro previously repeated `excerpt` (shown as the subtitle) and
+    // `quickAnswer` (shown in the Quick Answer box) as an "About" section - a
+    // 3x above-the-fold duplication across every post. Removed so the body opens
+    // with unique topic content. (Body depth is a separate content-expansion task.)
     ...topicSections,
     ...(config.extraSections ?? []),
     {

@@ -20,16 +20,22 @@ const baseUrl = getBaseUrl();
  */
 export function generateLocalBusinessSchema(city?: string): SchemaContext {
   const cityData = city ? CITY_SEO_DATA[city as keyof typeof CITY_SEO_DATA] : null;
-  const coordinates = cityData?.coordinates || CITY_SEO_DATA.Kuna.coordinates;
-  
+  // Default to the business's actual locality (Meridian) so geo matches addressLocality.
+  const coordinates = cityData?.coordinates || { lat: 43.6121, lng: -116.3915 };
+
   return {
     '@context': 'https://schema.org',
-    '@type': ['LocalBusiness', 'FurnitureStore', 'HomeAndConstructionBusiness'],
+    // Cabinet builder/installer, no public showroom - dropped FurnitureStore (implies retail).
+    '@type': ['LocalBusiness', 'HomeAndConstructionBusiness', 'GeneralContractor'],
     name: BUSINESS_INFO.name,
     legalName: BUSINESS_INFO.legalName,
     description: `Custom cabinet company serving ${city || 'Boise'} and the Treasure Valley, Idaho. Kitchen cabinets, bathroom vanities, closet systems, and built-in storage.`,
     image: `${baseUrl}/images/marketing/og-default.webp`,
-    '@id': baseUrl,
+    logo: {
+      '@type': 'ImageObject',
+      url: `${baseUrl}/images/brc-logo.png`,
+    },
+    '@id': `${baseUrl}/#localbusiness`,
     url: baseUrl,
     telephone: BUSINESS_INFO.phone,
     email: BUSINESS_INFO.email,
@@ -100,8 +106,7 @@ export function generateWebSiteSchema(): SchemaContext {
     description:
       'Custom cabinet company serving Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, Caldwell, and the Treasure Valley, Idaho.',
     publisher: {
-      '@type': 'Organization',
-      name: BUSINESS_INFO.name,
+      '@id': `${baseUrl}/#organization`,
     },
   };
 }
@@ -168,9 +173,14 @@ export function generateOrganizationSchema(): SchemaContext {
   return {
     '@context': 'https://schema.org',
     '@type': 'Organization',
+    '@id': `${baseUrl}/#organization`,
     name: BUSINESS_INFO.name,
     legalName: BUSINESS_INFO.legalName,
     url: baseUrl,
+    logo: {
+      '@type': 'ImageObject',
+      url: `${baseUrl}/images/brc-logo.png`,
+    },
     description: 'Custom cabinet company serving the Treasure Valley since 2017. Kitchen cabinets, bathroom vanities, closet systems, pantry storage, built-ins, and professional installation. Licensed, insured, and committed to craftsmanship.',
     foundingDate: BUSINESS_INFO.founded,
     telephone: BUSINESS_INFO.phone,
@@ -367,15 +377,8 @@ export function generateProductSchema(product: {
       name: 'Boise Cabinet Co',
     },
     ...(imageUrl ? { image: imageUrl } : {}),
-    offers: {
-      '@type': 'Offer',
-      availability: 'https://schema.org/PreOrder',
-      priceCurrency: 'USD',
-      seller: {
-        '@type': 'Organization',
-        name: BUSINESS_INFO.name,
-      },
-    },
+    // Custom, quote-only cabinets have no fixed price; an Offer without a price is
+    // invalid for Product rich results, so it is intentionally omitted.
   };
 }
 

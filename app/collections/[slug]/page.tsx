@@ -19,9 +19,13 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: { slug: string } }) {
   const collection = getCollectionBySlug(params.slug);
   if (!collection) return {};
+  // Avoid a doubled word when the collection name already ends in "Cabinets".
+  const collectionTitle = /cabinets?$/i.test(collection.name.trim())
+    ? collection.name
+    : `${collection.name} Cabinets`;
   return catalogMetadata(
     `/collections/${collection.slug}`,
-    `${collection.name} Cabinets`,
+    collectionTitle,
     catalogDescription(`${collection.tagline} ${collection.description.slice(0, 120)}…`),
   );
 }

@@ -53,7 +53,7 @@ const HUB_SNIPPETS: Record<string, string[]> = {
   ],
   'outdoor-living': [
     'Covered patios may need structural permits when tied to the home in Ada or Canyon County.',
-    'Integrate outdoor scope with indoor kitchen cabinetss when utilities are shared.',
+    'Integrate outdoor scope with indoor kitchen cabinets when utilities are shared.',
   ],
   'treasure-valley-locations': [
     'City-specific guides cover housing stock, permits, and links to local service pages.',

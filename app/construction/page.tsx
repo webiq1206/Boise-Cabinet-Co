@@ -12,7 +12,7 @@ import { CatalogClosingCTA } from "@/components/catalog/CatalogClosingCTA";
 import { ConstructionExplorer } from "@/components/catalog/ConstructionExplorer";
 import { MARKETING_IMAGES } from "@/shared/siteImages";
 import { catalogMetadata, catalogDescription } from "@/lib/catalog-metadata";
-import { generateBreadcrumbSchema, generateWebPageSchema } from "@/lib/schema";
+import { generateBreadcrumbSchema, generateWebPageSchema, generateServiceSchema } from "@/lib/schema";
 import { SITE_CONFIG } from "@/shared/siteConfig";
 
 const STANDARDS = [
@@ -61,6 +61,10 @@ export default function ConstructionPage() {
       { name: "Home", url: "/" },
       { name: "Construction", url: "/construction" },
     ]),
+    generateServiceSchema(
+      "Custom Cabinet Construction & Installation",
+      "Frameless cabinet boxes, dovetail drawers, soft-close hardware, and professional installation, built and installed by Boise Cabinet Co across the Treasure Valley, Idaho.",
+    ),
   ];
 
   return (

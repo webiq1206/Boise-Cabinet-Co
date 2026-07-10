@@ -25,7 +25,7 @@ export function FinishExplorer({ finish }: FinishExplorerProps) {
       <FinishDualPreview finish={finish} />
       <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
         <div>
-          <h2 className="text-2xl font-sans font-light tracking-tight">{finish.name}</h2>
+          <h1 className="text-2xl font-sans font-light tracking-tight">{finish.name} Cabinet Finish</h1>
           <p className="text-muted-foreground mt-1 capitalize">
             {finish.category} · {finish.sheen}
           </p>

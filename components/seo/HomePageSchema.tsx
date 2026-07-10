@@ -14,7 +14,8 @@ export function HomePageSchema() {
     <JsonLd
       data={[
         generateOrganizationSchema(),
-        generateLocalBusinessSchema('Boise'),
+        // No city arg: geo resolves to the Meridian locality so geo matches addressLocality.
+        generateLocalBusinessSchema(),
         generateWebSiteSchema(),
         generateFAQSchema(
           HOMEPAGE_FAQS.map((f) => ({ question: f.q, answer: f.a })),

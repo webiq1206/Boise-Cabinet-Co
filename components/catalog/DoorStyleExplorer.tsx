@@ -28,6 +28,10 @@ export function DoorStyleExplorer({
   return (
     <div className="space-y-8">
       <DoorStyleHero slug={style.slug} name={style.name} />
+      <div>
+        <h1 className="text-2xl font-sans font-light tracking-tight">{style.name} Door Style</h1>
+        <p className="text-muted-foreground mt-2 max-w-2xl">{style.description}</p>
+      </div>
       <CatalogAvailabilityStrip
         finishCount={getFinishesForDoorStyle(style.slug).length}
         productCount={productCount}

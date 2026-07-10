@@ -18,7 +18,7 @@ const kitchenExtra: ContentSection[] = [
   {
     h2: 'What is a typical kitchen cabinets budget in Boise?',
     paragraphs: [
-      'Most full kitchen cabinetss we plan in Ada County fall between roughly $45,000 and $120,000+, with layout changes and custom cabinetry at the upper end. Cosmetic refreshes, doors, counters, backsplash, can land lower if plumbing and gas stay put.',
+      'Most full kitchen cabinets we plan in Ada County fall between roughly $45,000 and $120,000+, with layout changes and custom cabinetry at the upper end. Cosmetic refreshes, doors, counters, backsplash, can land lower if plumbing and gas stay put.',
       'Meridian and Eagle kitchens often include larger islands, walk-in pantries, and panel-ready appliances. Kuna and Star homes may have builder-grade layouts worth reconfiguring for open concept living.',
     ],
   },
@@ -50,7 +50,7 @@ const kitchenExtra: ContentSection[] = [
   {
     h2: 'Timeline and how it affects cash flow',
     paragraphs: [
-      'kitchen cabinetss typically run 8–16 weeks after permits and materials are released. Long-lead cabinets can add 8–12 weeks to the front of the schedule, order at design lock.',
+      'kitchen cabinets typically run 8–16 weeks after permits and materials are released. Long-lead cabinets can add 8–12 weeks to the front of the schedule, order at design lock.',
     ],
     table: {
       className: 'timeline-table',
