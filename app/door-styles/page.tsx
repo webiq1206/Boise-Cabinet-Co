@@ -12,7 +12,17 @@ import { DoorOptionsSelector } from "@/components/catalog/OptionsSelector";
 import { Button } from "@/components/ui/button";
 import { catalogMetadata, catalogDescription } from "@/lib/catalog-metadata";
 import { generateBreadcrumbSchema, generateWebPageSchema } from "@/lib/schema";
+import { DOOR_STYLES } from "@/shared/catalog";
 import { SITE_CONFIG } from "@/shared/siteConfig";
+
+const DOOR_BEST_FOR: Record<string, string> = {
+  slab: "Modern, mid-century, and contemporary homes",
+  "three-piece": "Showing off woodgrain warmth and depth",
+  "modern-shaker": "The versatile all-rounder that suits most homes",
+  "thin-shaker": "Transitional homes wanting understated detail",
+  "alpha-shaker": "Clean, streamlined transitional kitchens",
+  "beta-shaker": "Traditional and craftsman-style homes",
+};
 
 export const metadata = catalogMetadata(
   "/door-styles",
@@ -77,6 +87,56 @@ export default function DoorStylesPage() {
             </div>
           </div>
         </Section>
+        <Section divider>
+          <div className="container px-4 max-w-4xl">
+            <SectionHeader
+              eyebrow="Compare"
+              title={
+                <>
+                  Door styles at a <em className="brc-accent text-accent">glance</em>
+                </>
+              }
+              align="center"
+              className="mb-8 max-w-xl mx-auto text-center [&_.brc-label]:justify-center"
+            />
+            <div className="overflow-x-auto rounded-sm border border-border">
+              <table className="w-full text-sm text-left">
+                <thead>
+                  <tr className="border-b border-border bg-surface-muted">
+                    <th className="px-4 py-3 text-foreground whitespace-nowrap">Door style</th>
+                    <th className="px-4 py-3 text-foreground">Profile and look</th>
+                    <th className="px-4 py-3 text-foreground whitespace-nowrap">Finishes</th>
+                    <th className="px-4 py-3 text-foreground">Best for</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {DOOR_STYLES.map((d) => (
+                    <tr key={d.slug} className="border-b border-border/60 last:border-0 align-top">
+                      <td className="px-4 py-3 whitespace-nowrap">
+                        <Link
+                          href={`/door-styles/${d.slug}`}
+                          className="text-foreground hover:text-accent"
+                        >
+                          {d.name}
+                        </Link>
+                      </td>
+                      <td className="px-4 py-3 text-muted-foreground">{d.description}</td>
+                      <td className="px-4 py-3 text-muted-foreground whitespace-nowrap">
+                        {d.compatibleFinishCategories
+                          .map((c) => c[0].toUpperCase() + c.slice(1))
+                          .join(", ")}
+                      </td>
+                      <td className="px-4 py-3 text-muted-foreground">
+                        {DOOR_BEST_FOR[d.slug] ?? "Most Treasure Valley homes"}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </Section>
+
         <Section>
           <div className="container px-4">
             <RelatedPostCards path="/door-styles" title="Related cabinet guides and pages" />
