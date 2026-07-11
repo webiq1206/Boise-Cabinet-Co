@@ -5,6 +5,7 @@ export { PageHeader, type PageHeaderProps } from "./PageHeader";
 export { Chip, type ChipProps } from "./Chip";
 export { MarketingCard, type MarketingCardProps } from "./MarketingCard";
 export { DisplayNum, formatStepNumber, type DisplayNumProps } from "./DisplayNum";
+export { AggregateRating, type AggregateRatingProps } from "./AggregateRating";
 export { TextLink, type TextLinkProps } from "./TextLink";
 export { BlogCard, type BlogCardProps } from "./BlogCard";
 export { BlogEndCta } from "./BlogEndCta";

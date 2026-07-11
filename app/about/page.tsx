@@ -324,7 +324,7 @@ export default function AboutPage() {
               {PRINCIPLES.map(({ title, desc }, i) => (
                 <Reveal key={title} delay={Math.min(i, 5) * 60}>
                   <div className="h-full">
-                    <DisplayNum className="text-2xl text-inverse-foreground/20 leading-none mb-4 block">
+                    <DisplayNum className="text-2xl text-accent leading-none mb-4 block">
                       {formatStepNumber(i)}
                     </DisplayNum>
                     <h3 className="font-sans font-medium text-sm mb-2 text-inverse-foreground">

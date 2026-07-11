@@ -10,6 +10,8 @@ const GA_MEASUREMENT_ID =
 
 export function GoogleAnalytics() {
   if (!GA_MEASUREMENT_ID) return null
+  // Keep dev / preview traffic out of the production GA property.
+  if (process.env.NODE_ENV !== 'production') return null
 
   return (
     <>

@@ -499,7 +499,9 @@ html, body {
   content: "";
   width: 24px;
   height: 1px;
-  background: currentColor;
+  /* Sage brand accent on every eyebrow rule (the label text stays mist for
+     legibility). This is the 'rules' role the palette reserves for sage. */
+  background: hsl(var(--accent));
   flex-shrink: 0;
 }
 /* Ensure inverse-muted wins over the default label color on dark/image bands */

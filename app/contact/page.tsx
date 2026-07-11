@@ -99,7 +99,7 @@ function ContactChannel({
   const inner = (
     <MarketingCard
       className={`h-full transition-colors ${
-        href ? 'group-hover:border-foreground/25' : ''
+        href ? 'group-hover:border-accent/60' : ''
       } ${featured ? 'md:p-10' : ''}`}
       padding={featured ? 'lg' : 'default'}
     >

@@ -253,7 +253,7 @@ export function EstimateResultPanel({
             aria-label="Details provided"
           >
             <div
-              className="h-full rounded-full transition-all duration-500 bg-inverse-foreground/50"
+              className="h-full rounded-full transition-all duration-500 bg-accent"
               style={{ width: `${result.confidencePercent}%` }}
             />
           </div>

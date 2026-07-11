@@ -36,7 +36,7 @@ export default function EstimatePage() {
             <Breadcrumbs items={[{ name: "Home", href: "/" }, { name: "Get an Estimate" }]} />
           </div>
         </Section>
-        <EstimateCalculator />
+        <EstimateCalculator headingAs="h1" />
       </div>
     </>
   );

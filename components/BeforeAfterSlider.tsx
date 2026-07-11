@@ -211,7 +211,7 @@ export function BeforeAfterSlider({
               setPos(100);
             }
           }}
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex h-11 w-11 md:h-12 md:w-12 items-center justify-center rounded-full bg-inverse-foreground text-inverse shadow-[0_2px_12px_rgba(0,0,0,0.35)] ring-1 ring-inverse/10 pointer-events-auto cursor-ew-resize transition-transform duration-200 hover:scale-105 active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex h-11 w-11 md:h-12 md:w-12 items-center justify-center rounded-full bg-inverse-foreground text-accent shadow-[0_2px_12px_rgba(0,0,0,0.35)] ring-1 ring-inverse/10 pointer-events-auto cursor-ew-resize transition-transform duration-200 hover:scale-105 active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
           data-testid="handle-before-after"
         >
           <ChevronLeft className="h-4 w-4 -mr-1" />

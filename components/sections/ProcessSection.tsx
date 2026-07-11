@@ -46,7 +46,7 @@ export function ProcessSection() {
                   key={step.number}
                   className={`flex gap-5 py-6 ${i < HOW_WE_BUILD_STEPS.length - 1 ? "border-b border-border" : ""}`}
                 >
-                  <DisplayNum className="text-2xl w-8 flex-shrink-0 leading-none mt-0.5 text-foreground/20">
+                  <DisplayNum className="text-2xl w-8 flex-shrink-0 leading-none mt-0.5 text-accent">
                     {step.number}
                   </DisplayNum>
                   <div>

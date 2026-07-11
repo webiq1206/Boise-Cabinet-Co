@@ -440,7 +440,7 @@ function BrowseTileLink({ item }: { item: BrowseItem }) {
     <Link
       href={item.href}
       data-testid={`catalog-item-${item.key}`}
-      className="group flex flex-col gap-2 rounded-md border border-border bg-card p-2 transition-colors hover:border-foreground/30"
+      className="group flex flex-col gap-2 rounded-md border border-border bg-card p-2 transition-colors hover:border-accent/60"
     >
       <div className="relative aspect-[4/3] w-full overflow-hidden rounded-sm border border-border/50 bg-muted">
         {item.finish ? (
