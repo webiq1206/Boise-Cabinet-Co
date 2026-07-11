@@ -73,7 +73,7 @@ export default function HomePage() {
                       key={item}
                       className="flex items-center gap-3 text-sm text-muted-foreground"
                     >
-                      <Check className="h-4 w-4 flex-shrink-0 text-foreground/60" />
+                      <Check className="h-4 w-4 flex-shrink-0 text-accent" />
                       {item}
                     </div>
                   ))}

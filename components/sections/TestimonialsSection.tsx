@@ -4,6 +4,7 @@ import { Reveal } from "@/components/Reveal";
 import { Section } from "@/components/marketing/Section";
 import { SectionHeader } from "@/components/marketing/SectionHeader";
 import { MarketingCard } from "@/components/marketing/MarketingCard";
+import { AggregateRating } from "@/components/marketing/AggregateRating";
 import { Button } from "@/components/ui/button";
 import { TESTIMONIALS } from "@/shared/testimonialsData";
 import { CITIES, SERVICES } from "@/shared/contentData";
@@ -48,14 +49,15 @@ export function TestimonialsSection({ limit = 4, showViewAll = true }: Testimoni
             </>
           }
           description="Clear communication, reliable timelines, and quality homeowners notice every day."
-          className="mb-10 max-w-3xl"
+          className="mb-8 max-w-3xl"
         />
+
+        {/* Aggregate rating anchor — quantified proof leads the section. Renders
+            only when real review data is configured (SITE_CONFIG.trust). */}
+        <AggregateRating className="mb-10" />
 
         {featured && (
           <Reveal className="mb-10 max-w-3xl mx-auto text-center">
-            <div className="flex justify-center">
-              <StarRow count={Number(featured.rating) || 5} />
-            </div>
             <blockquote className="font-sans font-light text-xl md:text-2xl leading-relaxed text-foreground mt-4 mb-6">
               &ldquo;{featured.testimonial}&rdquo;
             </blockquote>

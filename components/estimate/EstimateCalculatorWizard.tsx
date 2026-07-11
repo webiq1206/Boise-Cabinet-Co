@@ -288,7 +288,7 @@ function ConstructionTierSelect({
             className={cn(
               "group relative flex w-full items-center gap-4 rounded-lg border p-4 text-left transition-all",
               active
-                ? "border-foreground/40 border-[1.5px] bg-muted/40 shadow-sm"
+                ? "border-accent border-[1.5px] bg-accent/5 shadow-sm"
                 : "border-border bg-card hover:border-foreground/30 hover:bg-muted/20",
             )}
           >
@@ -296,7 +296,7 @@ function ConstructionTierSelect({
               className={cn(
                 "flex h-11 w-11 shrink-0 items-center justify-center rounded-md border transition-colors",
                 active
-                  ? "border-foreground/30 bg-background text-foreground"
+                  ? "border-accent/30 bg-background text-accent"
                   : "border-border bg-muted/40 text-foreground/70 group-hover:text-foreground",
               )}
             >
@@ -321,7 +321,7 @@ function ConstructionTierSelect({
             <span
               className={cn(
                 "flex h-5 w-5 shrink-0 items-center justify-center rounded-full border transition-all",
-                active ? "border-foreground bg-foreground text-background" : "border-border bg-transparent",
+                active ? "border-accent bg-accent text-accent-foreground" : "border-border bg-transparent",
               )}
             >
               {active && <Check className="h-3 w-3" strokeWidth={3} />}

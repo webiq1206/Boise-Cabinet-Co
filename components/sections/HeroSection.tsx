@@ -6,6 +6,7 @@ import { HERO_EYEBROW, HERO_SUBHEAD, HERO_STATS, TRUST_ITEMS } from "@/shared/si
 import { SITE_IMAGES } from "@/shared/siteImages";
 import { CTA_BROWSE_CABINETS, CTA_ESTIMATE } from "@/shared/ctaCopy";
 import { DisplayNum } from "@/components/marketing";
+import { AggregateRating } from "@/components/marketing/AggregateRating";
 
 const GRAIN_URL = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.45'/%3E%3C/svg%3E")`;
 
@@ -62,6 +63,14 @@ export function HeroSection() {
                   <Link href="/cabinets">{CTA_BROWSE_CABINETS}</Link>
                 </Button>
               </div>
+
+              {/* Social proof at the primary decision point. Renders only when
+                  real review data is configured (SITE_CONFIG.trust). */}
+              <AggregateRating
+                variant="inline"
+                align="start"
+                className="mb-8 md:mb-0 [&_.text-muted-foreground]:text-inverse-muted"
+              />
 
               <div className="grid grid-cols-3 gap-3 md:hidden">
                 {HERO_STATS.map((stat) => (
