@@ -46,10 +46,10 @@ export const BLOG_IMAGE_REGISTRY: Record<string, BlogImageEntry> = {
     source: 'city-service',
   },
   'cabinet-cost-per-linear-foot': {
-    hero: '/images/city-service/whole-home-remodel__meridian.webp',
-    alt: 'Kitchen cabinet run illustrating linear-foot planning in a Meridian home',
-    topicTags: ["cost","kitchen","meridian"],
-    source: 'city-service',
+    hero: '/images/blog/cabinet-cost-per-linear-foot.png',
+    alt: 'Tape measure, cabinet layout plans, and finish samples on a quartz counter in front of sage and greige custom cabinets during Treasure Valley kitchen planning',
+    topicTags: ["cost","kitchen","boise"],
+    source: 'blog',
   },
   'what-impacts-cabinet-costs-boise': {
     hero: '/images/blog/what-impacts-cabinet-costs-boise.png',
@@ -64,10 +64,10 @@ export const BLOG_IMAGE_REGISTRY: Record<string, BlogImageEntry> = {
     source: 'services',
   },
   'stock-vs-custom-cabinets-boise': {
-    hero: '/images/catalog/rooms/bedroom.webp',
-    alt: 'Kitchen catalog cabinetry comparing stock, value, and custom lines in Boise',
+    hero: '/images/blog/stock-vs-custom-cabinets-boise.png',
+    alt: 'Custom Treasure Valley kitchen with floor-to-ceiling sage-green and greige cabinetry fitted precisely to an angled ceiling, showing a tailored custom fit',
     topicTags: ["cost","cabinets","boise"],
-    source: 'services',
+    source: 'blog',
   },
   'kitchen-cabinet-timeline-boise': {
     hero: '/images/city-service/kitchen-remodel__meridian.webp',
@@ -256,10 +256,10 @@ export const BLOG_IMAGE_REGISTRY: Record<string, BlogImageEntry> = {
     source: 'gallery',
   },
   'cabinet-construction-quality-guide': {
-    hero: '/images/catalog/rooms/pantry.webp',
-    alt: 'Cabinet box construction and joinery quality in a pantry installation detail',
+    hero: '/images/blog/cabinet-construction-quality-guide.png',
+    alt: 'Close-up of high-quality cabinet construction: a dovetailed solid-wood drawer box on soft-close undermount glides in a sage-green custom kitchen',
     topicTags: ["cabinets","quality","guide"],
-    source: 'services',
+    source: 'blog',
   },
   'cabinet-finishes-door-styles-guide': {
     hero: '/images/blog/material-selection-guide.png',

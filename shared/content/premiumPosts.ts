@@ -496,6 +496,237 @@ const cabinetFinishesContent = `
 <p>${AUTHOR} offers hundreds of painted, stained, and specialty finishes for <a href="/cabinets/kitchen">kitchens</a>, <a href="/cabinets/bathroom">bathrooms</a>, and built-ins across Boise, Meridian, Eagle, and Nampa. Browse <a href="/finishes">finish options</a>, pair them with a <a href="/door-styles">door style</a> and <a href="/hardware">hardware</a>, then <a href="/estimate">get a planning range</a> or <a href="/contact">book a free in-home consultation</a> with real samples.</p>
 `;
 
+const stockVsCustomContent = `
+<p class="text-lg"><strong>Stock cabinets</strong> come pre-built in fixed sizes and finishes and are the fastest and cheapest option. <strong>Semi-custom</strong> cabinets start from stock sizes but allow finish, door, and modification choices. <strong>Custom cabinets</strong> are built to your exact dimensions, layout, and finish with no size limits. Stock is right for tight budgets and standard layouts; custom is right when you want a perfect fit, a specific look, or you have odd walls, tall ceilings, or a one-of-a-kind kitchen. In most Treasure Valley homes that are keeping their cabinets for 15+ years, custom or semi-custom pays off in fit, storage, and longevity.</p>
+
+<div class="summary-block">
+  <p><strong>Key takeaways:</strong> Stock = cheapest, fastest, fixed sizes. Semi-custom = a middle path with real choices. Custom = exact fit, unlimited finishes, best storage and quality. Choose based on your budget, your layout, and how long you will keep the kitchen. <a href="/estimate">Get a planning range</a> or <a href="/compare">compare our cabinets</a>.</p>
+</div>
+
+<h2 id="stock">What are stock cabinets?</h2>
+<p>Stock cabinets are mass-produced in standard sizes — typically in three-inch width increments — and sold ready to assemble or pre-assembled at home centers and online. Because they are made in volume, they are the most affordable and the quickest to get. The trade-off is flexibility: you are fitting your kitchen to the cabinets rather than the cabinets to your kitchen. Where a size does not line up, you fill the gap with filler strips, and finish and door choices are limited to what is on the shelf.</p>
+<p>Stock is a reasonable choice for a rental, a flip, a laundry room, or a simple kitchen with a standard layout and a tight budget. Just know that "cheap" often shows up later in thinner boxes, stapled drawers, and finishes that wear faster.</p>
+
+<h2 id="semi-custom">What are semi-custom cabinets?</h2>
+<p>Semi-custom cabinets begin from a catalog of standard sizes but let you choose door styles, finishes, and a menu of modifications — a cabinet made a few inches taller, a deeper drawer, added roll-outs, or a different toe-kick height. It is the popular middle ground: more personality and better fit than stock, at a lower cost and shorter lead time than full custom. For many Boise and Meridian kitchens with fairly standard footprints, semi-custom hits the sweet spot.</p>
+
+<h2 id="custom">What are custom cabinets?</h2>
+<p>Custom cabinets are designed and built specifically for your space, with no size restrictions. Want cabinets that run tight to a sloped ceiling, a bank of drawers sized to your cookware, a 46-inch-wide sink base, or a finish no one else has? That is custom. Because each piece is made to order, you also get to specify construction quality — plywood boxes, dovetailed solid-wood drawers, and premium hinges — rather than accepting whatever the line includes. This is what ${AUTHOR} builds, and it is why custom kitchens feel tailored rather than assembled.</p>
+<p>The trade-offs are cost and time: custom typically costs more than stock and takes longer to build. For a forever home, a tricky layout, or anyone who wants the storage and look exactly right, that investment is usually worth it.</p>
+
+<h2 id="comparison">Stock vs semi-custom vs custom compared</h2>
+<table>
+  <thead>
+    <tr><th>Factor</th><th>Stock</th><th>Semi-custom</th><th>Custom</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Sizes</td><td>Fixed (3" increments)</td><td>Standard + modifications</td><td>Any dimension</td></tr>
+    <tr><td>Finish / door options</td><td>Limited</td><td>Broad</td><td>Unlimited</td></tr>
+    <tr><td>Fit to your space</td><td>Fillers cover gaps</td><td>Good</td><td>Exact</td></tr>
+    <tr><td>Construction quality</td><td>Varies, often basic</td><td>Better</td><td>Best, your spec</td></tr>
+    <tr><td>Lead time</td><td>Fastest</td><td>Moderate</td><td>Longest</td></tr>
+    <tr><td>Cost</td><td>$</td><td>$$</td><td>$$$</td></tr>
+    <tr><td>Best for</td><td>Budget, rentals, standard layouts</td><td>Most kitchens</td><td>Forever homes, odd spaces, specific looks</td></tr>
+  </tbody>
+</table>
+
+<h2 id="how-to-choose">How to choose the right tier</h2>
+<p>Four questions settle it for most homeowners:</p>
+<ul>
+  <li>☐ <strong>How long will you keep this kitchen?</strong> Under 5 years leans stock/semi-custom; 10+ years leans custom.</li>
+  <li>☐ <strong>Is your layout standard or tricky?</strong> Sloped ceilings, tall walls, and unusual widths reward custom.</li>
+  <li>☐ <strong>How specific is your look?</strong> A particular color, door, or two-tone plan may only be possible in semi-custom or custom.</li>
+  <li>☐ <strong>How much does storage matter?</strong> Custom sizing squeezes the most usable space from your footprint.</li>
+</ul>
+<div class="summary-block">
+  <p><strong>Our take:</strong> For a home you will live in for years, semi-custom or custom almost always wins on daily satisfaction — the fit, the storage, and the finish quality you notice every day. Stock is best kept for secondary spaces and short-term projects.</p>
+</div>
+
+<h2 id="quality">Do not confuse tier with quality</h2>
+<p>One important nuance: "custom" is about fit and options, not automatically about quality. There are well-built semi-custom lines and poorly built custom shops. Whatever tier you choose, look past the label at the box material, drawer-box construction, and hinges — see our <a href="/blog/cabinet-construction-quality-guide">cabinet construction quality guide</a> for exactly what to inspect. The best value is a tier that fits your space with construction that lasts.</p>
+
+<h2 id="cost">What each tier costs in Boise</h2>
+<p>Pricing overlaps more than you would expect, because finish, hardware, and accessories move the number as much as the tier. As a rough guide, stock is the entry point, semi-custom sits in the middle, and custom is the premium — but a loaded semi-custom kitchen can cost more than a simple custom one. For real Treasure Valley ranges and what drives them, see the <a href="/guides/boise-cabinet-cost-guide">Boise cabinet cost guide</a> and <a href="/blog/cabinet-cost-per-linear-foot">cost per linear foot</a>.</p>
+
+<h2 id="lead-times">Lead times: what to expect</h2>
+<p>Timing often matters as much as budget, so factor it in early. Stock cabinets are the fastest because they are already made — you can sometimes take them home the same week, which is why they dominate flips and rushed rentals. Semi-custom cabinets are built to order from a catalog and typically take several weeks. Full custom cabinets take the longest because every piece is fabricated for your kitchen, and a quality shop will not rush the finish, which is where hurried work shows first. In the Treasure Valley, a realistic custom timeline runs from your design approval through fabrication to installation, and a good company builds that schedule into your plan from day one rather than surprising you later. If you are working around a move-in date, a holiday, or a new baby, tell your designer up front so the timeline is planned, not hoped for.</p>
+
+<h2 id="where-sold">Where each tier is sold</h2>
+<p>The three tiers tend to come from different places, and that shapes the experience. Stock cabinets are sold at home centers and online retailers, often as ready-to-assemble boxes you or a handyman put together. Semi-custom lines are sold through kitchen dealers and showrooms that help you configure and modify a manufacturer's catalog. Full custom comes from a dedicated cabinet shop or design-build company that measures your space, designs to it, and stands behind the installation. That last model is why custom clients get a single accountable team from first sketch to final walkthrough, instead of coordinating a box supplier, an installer, and a designer separately.</p>
+
+<h2 id="scenarios">Real-world scenarios</h2>
+<p>To make it concrete, here is how the decision usually shakes out:</p>
+<ul>
+  <li><strong>The rental refresh:</strong> a landlord updating a standard-layout kitchen on a budget is well served by stock or entry semi-custom. Durability and price matter more than a perfect custom fit.</li>
+  <li><strong>The growing family in a newer Meridian home:</strong> a mostly standard layout but a wish list for deep drawers and a pantry points to semi-custom, with a few custom touches where it counts.</li>
+  <li><strong>The forever home with character:</strong> an older Boise house with tall ceilings, out-of-square walls, and a specific vision is the classic case for full custom, where exact fit and a one-of-a-kind look justify the investment.</li>
+  <li><strong>The design-forward remodel:</strong> anyone chasing a particular two-tone palette, an integrated appliance look, or floor-to-ceiling cabinetry will find that only semi-custom or custom can deliver it.</li>
+</ul>
+<p>Most homeowners land in semi-custom or custom once they weigh how long they will keep the kitchen against how much the daily fit and storage matter.</p>
+
+<h2 id="bottom-line">The bottom line</h2>
+<p>The stock-versus-custom decision is really a decision about how well the kitchen fits your life. Stock asks you to adapt to it; custom adapts to you. Semi-custom splits the difference. If your layout is standard, your budget is tight, or the space is temporary, stock or semi-custom is a smart, honest choice. If you have an unusual space, a specific vision, or you plan to stay, custom delivers the fit, storage, and longevity that make a kitchen feel effortless for the next decade and beyond. Either way, judge the construction, not just the label.</p>
+
+<h2 id="installation">Installation is part of the decision</h2>
+<p>It is easy to focus on the boxes and forget that installation makes or breaks the result, and the three tiers usually come with very different install experiences. With stock cabinets bought off the shelf, installation is often on you to arrange, whether that means doing it yourself or hiring a separate handyman who did not design or build the kitchen. Any gaps between the fixed sizes and your real walls get bridged with filler strips, and how well those fillers are scribed and finished depends entirely on whoever swings the drill that day. Semi-custom kitchens bought through a dealer may or may not include installation, so it is worth asking. With full custom from a design-build company, the same team that measured and built your cabinets installs them, which means the person accountable for the fit is the person who created it. That single-team model is a big part of why custom kitchens look tailored: the crew scribes to your out-of-square walls, levels every run, and finishes the details because their name is on the whole job. When you weigh the tiers, weigh the install too, not just the price of the cardboard-flat box.</p>
+
+<h2 id="how-we-build">Custom cabinets, built for your Treasure Valley home</h2>
+<p>${AUTHOR} designs, builds, and installs custom and semi-custom cabinets for <a href="/cabinets/kitchen">kitchens</a>, <a href="/cabinets/bathroom">bathrooms</a>, and built-ins across Boise, Meridian, Eagle, and Nampa — made to your exact sizes with the construction and finishes you choose. <a href="/compare">Compare our cabinets</a>, browse <a href="/door-styles">door styles</a> and <a href="/finishes">finishes</a>, then <a href="/estimate">get an instant planning range</a> or <a href="/contact">book a free in-home consultation</a>.</p>
+`;
+
+const cabinetConstructionContent = `
+<p class="text-lg">A well-built cabinet comes down to four things you can inspect: a <strong>3/4-inch plywood box</strong> (not thin particleboard), <strong>solid-wood dovetailed drawer boxes</strong> on full-extension soft-close glides, <strong>six-way adjustable soft-close hinges</strong>, and <strong>sturdy joinery with a full back panel</strong>. These details — far more than the door style or finish — decide whether your cabinets still look and work great in 15 to 20 years. When you compare quotes, ask for these specs in writing; the answers separate a lasting kitchen from a bargain that ages fast.</p>
+
+<div class="summary-block">
+  <p><strong>Key takeaways:</strong> Judge cabinets by box material, drawer boxes, hinges, and joinery — not just the door. Plywood beats particleboard; dovetailed solid-wood drawers beat stapled ones; adjustable soft-close hardware is a must. Get the specs in writing. <a href="/construction">See how we build</a> or <a href="/estimate">get a planning range</a>.</p>
+</div>
+
+<h2 id="box">The cabinet box: your foundation</h2>
+<p>The box (the carcass) is the structure everything else hangs on, and it is where cost-cutting hides. The best boxes use <strong>3/4-inch furniture-grade plywood</strong>, which holds screws securely, resists moisture, and won't sag under a stone countertop or a loaded shelf. Cheaper boxes use particleboard or thin MDF, which can swell if water gets in, strip out at screw points, and bow over time. In Idaho's dry climate the difference is less about swelling and more about strength and screw-holding — a plywood box simply stays square and solid longer.</p>
+<p>Also check the <strong>back panel</strong>: a full 3/4-inch (or at least substantial) back lets installers anchor firmly into wall studs and keeps the box from racking. A flimsy stapled-on back is a red flag.</p>
+
+<h2 id="drawers">Drawer boxes: the clearest quality tell</h2>
+<p>If you only inspect one thing, open a drawer. A quality drawer box is <strong>solid wood, joined with dovetails</strong>, riding on <strong>full-extension, soft-close undermount glides</strong> rated for real weight. Dovetail joints interlock and hold up to decades of daily open-and-close; stapled or glued particleboard drawer boxes loosen, sag, and eventually fail. Full-extension glides let you reach the very back of the drawer, and soft-close means no slamming. This single feature is the most reliable predictor of how "expensive" a cabinet feels day to day.</p>
+
+<h2 id="hinges">Hinges and glides you don't see</h2>
+<p>Hardware is the mechanism of the kitchen. Look for <strong>six-way adjustable, soft-close concealed hinges</strong> from a reputable maker. Six-way adjustability means an installer can perfectly align every door — and you can nudge them back into alignment years later — in three planes. Soft-close protects the doors and your ears. Cheap fixed hinges cannot be fine-tuned, so doors drift out of alignment and there is little you can do about it. The same logic applies to drawer glides: quality, weight-rated, soft-close undermounts are worth every penny.</p>
+
+<h2 id="joinery">Joinery and assembly</h2>
+<p>How the box is held together matters. <strong>Dowel or dado joinery</strong> (where panels seat into grooves) plus glue and mechanical fasteners create a rigid, square box. Staples alone into particleboard do not. On face-frame cabinets, look for solid hardwood frames; on <a href="/blog/framed-vs-frameless-cabinets">frameless cabinets</a>, the thicker panels and precise joinery do the structural work the frame would otherwise provide. Either way, the box should feel solid and stay square when you press on a corner.</p>
+
+<h2 id="checklist">The 60-second quality inspection</h2>
+<p>Whether you are in a showroom or reviewing a sample, run this quick check:</p>
+<ul>
+  <li>☐ Knock the side panel — plywood sounds solid, particleboard sounds dull and hollow</li>
+  <li>☐ Open a drawer — solid wood? dovetails? full extension? soft close?</li>
+  <li>☐ Wiggle a door — snug hinges, no rattle; ask if they are six-way adjustable</li>
+  <li>☐ Check the back panel — substantial and screwed, not thin and stapled</li>
+  <li>☐ Look inside — clean edges, finished interior, no exposed raw particleboard</li>
+  <li>☐ Ask for the specs in writing — box material, drawer construction, hinge brand</li>
+</ul>
+
+<h2 id="comparison">Quality tiers at a glance</h2>
+<table>
+  <thead>
+    <tr><th>Component</th><th>Budget build</th><th>Quality build</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Box</td><td>Particleboard / thin MDF</td><td>3/4" plywood</td></tr>
+    <tr><td>Drawer box</td><td>Stapled particleboard</td><td>Dovetailed solid wood</td></tr>
+    <tr><td>Glides</td><td>Side-mount, partial extension</td><td>Undermount, full-extension soft-close</td></tr>
+    <tr><td>Hinges</td><td>Fixed or basic</td><td>Six-way adjustable soft-close</td></tr>
+    <tr><td>Back panel</td><td>Thin, stapled</td><td>Substantial, screwed to studs</td></tr>
+  </tbody>
+</table>
+
+<h2 id="interior">Shelves, interiors, and edges</h2>
+<p>Open a cabinet and look inside — the interior tells you how much the maker cares about the parts you do not photograph. Quality shelves are thick enough not to bow under dishes, adjustable, and supported on solid pins rather than flimsy plastic. The interior should be cleanly finished, not raw particleboard that absorbs moisture and looks unfinished. Exposed edges should be neatly banded or veneered, not chipped or rough. Adjustable shelving matters more than it sounds: as your needs change, being able to reconfigure a cabinet keeps it useful for decades. These are small details individually, but together they separate a cabinet built to last from one built to a price.</p>
+
+<h2 id="finish-quality">Finish quality and how it is applied</h2>
+<p>A finish is only as good as the prep and application beneath it. A quality painted finish is sprayed in a controlled environment over properly sanded and sealed surfaces, cured between coats, so it lays down smooth and resists chipping. A rushed, brushed-on finish over poor prep looks passable at first and then telegraphs every flaw within a year or two. You usually cannot watch the finishing happen, but you can ask how it is done and inspect a finished sample closely for a smooth, even surface with no brush marks, drips, or thin spots at the edges. On solid-wood painted doors, remember that fine seasonal movement at the joints is normal, not a defect. For more on choosing a finish, see our <a href="/blog/cabinet-finishes-colors-guide">finishes and colors guide</a>.</p>
+
+<h2 id="assembly">Assembled vs ready-to-assemble</h2>
+<p>How a cabinet arrives affects its strength. <strong>Ready-to-assemble (RTA)</strong> cabinets ship flat and are put together on site, often with cam locks and screws. Done well, RTA can be solid; done cheaply, the connections loosen over time. <strong>Pre-assembled</strong> cabinets are built and glued in a shop under controlled conditions, which generally yields a more rigid, durable box. Custom shops build and often pre-finish in-house, so the cabinet that arrives at your home is already a complete, square, tested unit. If you are comparing an RTA option to a shop-built custom cabinet, factor the assembly quality into the value, not just the sticker price.</p>
+
+<h2 id="warranty">Warranty as a quality signal</h2>
+<p>A company's warranty tells you how much it trusts its own construction. A meaningful workmanship warranty — one that covers the build, not just a token period — signals that the maker expects the cabinets to hold up. Read what is actually covered and for how long, and ask who you call if a hinge or drawer needs attention in a few years. At <a href="/warranty">${AUTHOR}</a> we back our cabinets with a written workmanship guarantee because we build them to earn it. A vague or missing warranty, by contrast, is worth asking hard questions about before you sign.</p>
+
+<h2 id="why-it-matters">Why construction beats cosmetics</h2>
+<p>It is easy to fall for a beautiful door and a trendy color, but the finish is the part you can most easily change or refresh later. The box, drawers, and hardware are not — they are the bones. A gorgeous door on a flimsy box is a kitchen that looks great in year one and feels tired by year seven. Reverse the priorities: buy the best construction you can, then choose the door and finish you love. That is how a kitchen stays satisfying for the long haul, and it is the standard we hold on every cabinet we build.</p>
+
+<div class="summary-block">
+  <p><strong>Pro tip:</strong> When two quotes are far apart in price, the gap almost always lives in construction you can't see. Ask both companies to put box material, drawer-box construction, and hinge brand in writing — then you are comparing apples to apples.</p>
+</div>
+
+<h2 id="red-flags">Construction red flags to watch for</h2>
+<p>Once you know what good looks like, the warning signs are easy to spot. A side panel that sounds dull and hollow when you knock on it usually means particleboard rather than plywood. Drawer boxes made of stapled particleboard, or drawers that only pull two-thirds of the way out, tell you the maker economized where it matters most. Doors that already sag or rattle in the showroom will only get worse, and fixed hinges that cannot be adjusted mean you will live with that misalignment. Inside, raw unfinished particleboard edges, thin shelves that already bow, and a flimsy stapled-on back panel all point to a cabinet built to a price rather than to last. Perhaps the biggest red flag is a company that cannot or will not tell you the box material, drawer construction, and hinge brand in writing. Quality makers are proud of these specs and share them readily; vague answers usually mean the details would not impress you.</p>
+<p>None of this means the cheapest option is always wrong, but it does mean you should know exactly what you are buying. A well-built cabinet costs more up front and far less over a 20-year life, because you are not repairing sagging drawers, realigning drifting doors, or replacing swollen boxes. Spending a little more on construction and a little less on trend-driven extras is almost always the better long-term value. If you remember nothing else from this guide, remember to open a drawer and knock on a side panel before you sign anything, because those two seconds reveal more about a cabinet's real quality than any brochure or showroom display ever will.</p>
+
+<h2 id="how-we-build">How Boise Cabinet Co builds cabinets to last</h2>
+<p>${AUTHOR} builds every cabinet with plywood boxes, dovetailed solid-wood drawers, full-extension soft-close glides, and six-way adjustable soft-close hinges — the details that keep <a href="/cabinets/kitchen">kitchens</a>, <a href="/cabinets/bathroom">baths</a>, and built-ins across Boise, Meridian, Eagle, and Nampa solid for decades. See our <a href="/construction">construction standards</a> and the <a href="/warranty">workmanship warranty</a> behind them, then <a href="/estimate">get a planning range</a> or <a href="/contact">book a free consultation</a>.</p>
+`;
+
+const costPerLinearFootContent = `
+<p class="text-lg">Cabinet cost per linear foot is a rough pricing shorthand: you measure the total length of cabinet runs (in feet) and multiply by a per-foot rate. In the Boise area, custom cabinets commonly land in the range of <strong>$300 to $900+ per linear foot installed</strong>, depending on construction, finish, and accessories. It is useful for a ballpark, but it can mislead, because two kitchens of the same length can cost very differently based on drawers, specialty cabinets, and finish. Treat it as a starting estimate, not a quote.</p>
+
+<div class="summary-block">
+  <p><strong>Key takeaways:</strong> Per-linear-foot is a ballpark, not a bid. Measure your runs, multiply by a rate, but know that drawers, tall/specialty cabinets, finish, and accessories swing the real number. For an accurate figure, you need a design and a written scope. <a href="/estimate">Get a planning range</a> in about a minute.</p>
+</div>
+
+<h2 id="what-it-means">What "per linear foot" actually measures</h2>
+<p>A linear foot is one foot of horizontal cabinet run measured along the wall, regardless of height. To estimate, you add up the lengths of your base cabinets (and often count wall cabinets separately or bundle them into the rate). A galley kitchen with 20 feet of cabinets at $500 per foot pencils out to roughly $10,000 for cabinetry — as a starting point. The method is popular because it is quick and lets you compare rough scope, but it flattens a lot of important detail into a single number.</p>
+
+<h2 id="why-it-varies">Why the per-foot number varies so much</h2>
+<p>The same 20 feet can cost wildly different amounts. Here is what moves it:</p>
+<ul>
+  <li><strong>Drawers vs doors:</strong> a bank of dovetailed drawers costs more than a simple door-and-shelf cabinet of the same width.</li>
+  <li><strong>Tall and specialty cabinets:</strong> pantries, appliance garages, and corner solutions cost more per foot than standard bases.</li>
+  <li><strong>Construction:</strong> plywood boxes and soft-close everything cost more than particleboard and basic hardware — see <a href="/blog/cabinet-construction-quality-guide">construction quality</a>.</li>
+  <li><strong>Finish:</strong> a painted or specialty finish typically costs more than a basic stain — see <a href="/finishes">finishes</a>.</li>
+  <li><strong>Door style and hardware:</strong> inset and intricate profiles and premium <a href="/hardware">hardware</a> add up.</li>
+  <li><strong>Install complexity:</strong> odd walls, tall ceilings, and tricky layouts take more labor.</li>
+</ul>
+
+<h2 id="ranges">Rough per-linear-foot ranges in the Treasure Valley</h2>
+<table>
+  <thead>
+    <tr><th>Tier</th><th>Rough range (installed)</th><th>What you get</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Stock / entry</td><td>$150–$300/ft</td><td>Fixed sizes, basic construction</td></tr>
+    <tr><td>Semi-custom</td><td>$300–$550/ft</td><td>More options, better build</td></tr>
+    <tr><td>Custom</td><td>$500–$900+/ft</td><td>Exact fit, premium construction and finish</td></tr>
+  </tbody>
+</table>
+<p>These are planning ranges, not quotes — your actual number depends on the mix above. Use them to sanity-check a budget, then confirm with a real design.</p>
+
+<h2 id="how-to-estimate">How to estimate your project</h2>
+<ol>
+  <li>Measure the total length of your base cabinet runs in feet.</li>
+  <li>Pick a per-foot rate for your tier from the table above.</li>
+  <li>Multiply for a rough cabinetry figure.</li>
+  <li>Add for tall/specialty cabinets, an island, and premium finish or hardware.</li>
+  <li>Remember countertops, appliances, and other trades are separate.</li>
+</ol>
+<div class="summary-block">
+  <p><strong>Faster and more accurate:</strong> our <a href="/estimate">online estimator</a> turns your room, size, and style into a planning range in about a minute — no measuring math required — and it accounts for the details a flat per-foot rate can't.</p>
+</div>
+
+<h2 id="pitfalls">Where per-foot pricing misleads</h2>
+<p>Be careful using per-linear-foot to compare two companies. One quote's "$400 per foot" might include plywood boxes, soft-close everything, and a painted finish, while another's includes particleboard and basic hardware. The rate looks similar; the cabinets are not. Always compare what is actually in the price — construction, finish, and included accessories — rather than the headline number. A slightly higher per-foot rate with better construction is usually the better long-term value.</p>
+
+<h2 id="beyond-cabinets">What the number leaves out</h2>
+<p>Per-linear-foot pricing covers the cabinetry, but a kitchen project has more: countertops, sink and faucet, backsplash, appliances, lighting, and any electrical or plumbing changes. When you set a budget, hold the cabinet number in one bucket and these related costs in another so nothing surprises you. For the full local picture, the <a href="/guides/boise-cabinet-cost-guide">Boise cabinet cost guide</a> breaks down every line.</p>
+
+<h2 id="base-vs-wall">Base cabinets, wall cabinets, and the math</h2>
+<p>One reason per-linear-foot estimates confuse people is that companies count them differently. Some quote a single rate that bundles base and wall cabinets together for a typical run. Others price base and wall cabinets separately, since a wall of both costs more per floor-foot than base cabinets alone. When you compare rates, ask exactly what the number includes: is it base only, base plus wall, and does it cover the toe-kick, fillers, and finished end panels? A rate that looks low may simply be counting less. The most honest way to compare is to have each company price the same drawn layout, so you are measuring the same thing rather than two different definitions of a foot.</p>
+
+<h2 id="islands">How islands and specialty pieces change the number</h2>
+<p>An island can quietly double the cabinetry in a kitchen while adding little wall length, so it breaks the per-linear-foot shortcut. Islands often carry drawers on one side, seating overhang and finished panels on the other, and sometimes a sink or cooktop cutout — all of which add cost that a simple wall measurement misses. The same goes for tall pantries, appliance panels that hide the dishwasher or fridge, glass-front display cabinets, and clever corner solutions. Each of these is worth the money for the function it adds, but each also nudges your true cost above a flat per-foot figure. When you sketch a budget, list these specialty pieces separately so they are not lost in the averages.</p>
+
+<h2 id="size-examples">Rough examples by kitchen size</h2>
+<p>To make the ranges tangible, here is how the math tends to look for custom cabinetry in the Treasure Valley. These are planning illustrations, not quotes:</p>
+<ul>
+  <li><strong>Small kitchen (~15 linear feet):</strong> at roughly $500–$700 per foot, cabinetry lands around $7,500–$10,500, before an island or premium finishes.</li>
+  <li><strong>Mid-size kitchen (~25 linear feet):</strong> at a similar rate, roughly $12,500–$17,500, with a modest island pushing it higher.</li>
+  <li><strong>Large kitchen (~35+ linear feet with an island):</strong> often $20,000–$30,000+ for custom cabinetry, driven by drawer banks, tall cabinets, and finish.</li>
+</ul>
+<p>Notice how quickly finish and specialty pieces move these numbers — which is exactly why a real design beats a per-foot guess. Our <a href="/estimate">estimator</a> turns your specific room and choices into a range in about a minute.</p>
+
+<h2 id="written-quote">What a real written quote includes</h2>
+<p>When you move from ballpark to a firm number, a good quote spells out far more than a rate. It should list the door style and finish, the box and drawer construction, the hinge and glide hardware, every cabinet by size and type, specialty pieces and accessories, delivery, and installation scope. That level of detail is what lets you compare two companies fairly and understand exactly what you are buying. If a quote is just a lump sum or a bare per-foot figure with no breakdown, ask for the detail — the transparency itself is a sign of how the company works. For how we structure a written scope before any fabrication begins, see <a href="/construction">how we build</a>.</p>
+
+<h2 id="bottom-line">The bottom line</h2>
+<p>Cost per linear foot is a helpful first sketch of your cabinet budget — quick, easy, and good for a gut check. But it is a starting point, not a finish line. The real number comes from your actual layout, the mix of drawers and specialty cabinets, the construction you choose, and the finish and hardware you love. When you are ready for a figure you can plan around, a short guided estimate or an in-home design visit will get you there far more accurately than any per-foot rule of thumb.</p>
+
+<h2 id="value-per-foot">Getting the most value per foot</h2>
+<p>If you want your budget to go further, the smartest move is to spend where you touch and skimp where you do not. Put your money into construction and into the cabinets you use most — the base drawers by the range, the pantry, the everyday doors — and be more economical on cabinets that see light duty or hide behind other things. A modest, timeless door style with a great box will feel more expensive over the years than a fancy profile on a flimsy box. You can also control cost by keeping the layout efficient: every extra corner, angle, and specialty cabinet adds dollars per foot, so a clean, well-planned run stretches the budget. And because finish is one of the larger swing factors, choosing a beautiful but standard finish over an exotic one frees up budget for the construction that actually determines how long the kitchen lasts.</p>
+<p>Some homeowners also phase the work: investing in quality cabinets now and adding accessories, an island upgrade, or a specialty piece later. That approach lets you buy the bones right the first time without stretching for every extra at once. Whatever path you choose, the goal is the same — a number you understand, built from your real layout and choices rather than a rule of thumb. A short conversation with a designer will turn your rough per-foot sketch into a plan you can actually budget around, and it costs you nothing to find out where your project truly lands. Even a quick online estimate will show you how your specific layout, finishes, and accessories reshape the per-foot math, which is the fastest way to trade a rough rule of thumb for a real, plannable number for your Treasure Valley kitchen.</p>
+
+<h2 id="how-we-build">Get an accurate cabinet estimate</h2>
+<p>${AUTHOR} gives Boise, Meridian, Eagle, and Nampa homeowners a real planning range and a written scope — not just a per-foot guess. Try the <a href="/estimate">online estimator</a>, read the <a href="/guides/boise-cabinet-cost-guide">cost guide</a>, or <a href="/contact">book a free in-home consultation</a> and we will measure, plan, and price your <a href="/cabinets/kitchen">kitchen</a> or <a href="/cabinets/bathroom">bath</a> accurately, with a written scope and an honest range you can actually plan around.</p>
+`;
+
 export const PREMIUM_POSTS: BlogPostData[] = [
   {
     slug: 'framed-vs-frameless-cabinets',
@@ -689,6 +920,129 @@ export const PREMIUM_POSTS: BlogPostData[] = [
     primaryKeyword: 'cabinet finishes and colors',
     secondaryKeywords: ['kitchen cabinet colors', 'painted vs stained cabinets', 'sage green cabinets', 'two tone kitchen cabinets'],
     searchIntent: 'Informational — homeowners choosing cabinet finish and color',
+    wordCountTarget: 'pillar',
+  },
+  {
+    slug: 'stock-vs-custom-cabinets-boise',
+    title: 'Stock vs Custom Cabinets: Which Is Right for You?',
+    seoTitle: 'Stock vs Custom Cabinets: Cost, Fit & How to Choose',
+    metaDescription:
+      'Stock vs semi-custom vs custom cabinets compared — cost, fit, quality, and lead time — plus how to choose for your Treasure Valley kitchen.',
+    excerpt:
+      'Stock is cheapest and fastest; custom fits your space exactly; semi-custom splits the difference. Here is how to choose, with a full comparison table and a quality warning.',
+    content: stockVsCustomContent,
+    author: AUTHOR,
+    category: 'Choosing a Cabinet Company',
+    hubSlug: 'choosing-cabinet-company',
+    tags: ['stock', 'custom', 'semi-custom', 'compare', 'boise'],
+    publishedAt: '2026-07-11',
+    faqs: [
+      { question: 'What is the difference between stock and custom cabinets?', answer: 'Stock cabinets are pre-built in fixed standard sizes and finishes; custom cabinets are built to your exact dimensions, layout, and finish with no size limits. Stock is cheapest and fastest but requires filler strips where sizes do not line up, while custom fits your space precisely and lets you specify construction quality.' },
+      { question: 'Are custom cabinets worth the extra cost?', answer: 'For a home you will keep 10 or more years, or a space with tricky walls, tall ceilings, or a specific look, custom is usually worth it for the exact fit, maximized storage, and higher construction quality. For short-term or standard-layout projects, stock or semi-custom can be the smarter value.' },
+      { question: 'What are semi-custom cabinets?', answer: 'Semi-custom cabinets start from standard catalog sizes but allow door styles, finishes, and modifications like added depth, height, or roll-outs. They are the popular middle ground — more fit and personality than stock, at a lower cost and shorter lead time than full custom.' },
+      { question: 'Do custom cabinets take longer?', answer: 'Yes. Because each piece is made to order, custom cabinets have the longest lead time, followed by semi-custom, with stock the fastest. A good cabinet company builds a realistic timeline into your project plan from the start.' },
+      { question: 'Does custom always mean higher quality?', answer: 'No. Custom is about fit and options, not automatically about quality — there are well-built semi-custom lines and poorly built custom shops. Whatever tier you choose, inspect the box material, drawer-box construction, and hinges to judge real quality.' },
+      { question: 'Which cabinet tier is best for resale?', answer: 'Well-built semi-custom or custom cabinets in a timeless door and neutral finish appeal to the widest pool of buyers. Very cheap stock cabinets can read as a downgrade to buyers, so if resale matters, prioritize fit and construction over the lowest price.' },
+    ],
+    quickAnswer:
+      'Stock cabinets are pre-built, fixed-size, and cheapest; semi-custom adds finish and modification options; custom is built to your exact dimensions with unlimited finishes and the best construction. Choose based on budget, layout, look, and how long you will keep the kitchen — custom usually wins for long-term homes and tricky spaces.',
+    keyTakeaways: [
+      'Stock = budget/standard layouts; custom = exact fit and best quality.',
+      'Semi-custom is the popular middle ground for most kitchens.',
+      'Tier is about fit and options — always judge construction separately.',
+    ],
+    relatedLinks: [
+      { url: '/guides/choose-cabinet-company-boise', anchor: 'Choosing a Cabinet Company' },
+      { url: '/compare', anchor: 'Compare our cabinets' },
+      { url: '/blog/cabinet-construction-quality-guide', anchor: 'Cabinet construction quality' },
+      { url: '/guides/boise-cabinet-cost-guide', anchor: 'Boise Cabinet Cost Guide' },
+      { url: '/cabinets' },
+    ],
+    primaryKeyword: 'stock vs custom cabinets',
+    secondaryKeywords: ['semi-custom cabinets', 'custom cabinets cost', 'are custom cabinets worth it', 'stock cabinets'],
+    searchIntent: 'Commercial / comparison — homeowners choosing a cabinet tier',
+    wordCountTarget: 'pillar',
+  },
+  {
+    slug: 'cabinet-construction-quality-guide',
+    title: 'Cabinet Construction Quality: How to Judge a Well-Built Cabinet',
+    seoTitle: 'Cabinet Construction Quality: How to Judge a Cabinet',
+    metaDescription:
+      'How to judge cabinet quality — plywood boxes, dovetailed drawers, soft-close hinges, and joinery. A hands-on inspection guide for Treasure Valley homeowners.',
+    excerpt:
+      'A well-built cabinet is about the box, drawers, hinges, and joinery — not just the door. Here is exactly what to inspect, with a 60-second quality check and a comparison table.',
+    content: cabinetConstructionContent,
+    author: AUTHOR,
+    category: 'Choosing a Cabinet Company',
+    hubSlug: 'choosing-cabinet-company',
+    tags: ['construction', 'quality', 'plywood', 'drawers', 'boise'],
+    publishedAt: '2026-07-11',
+    faqs: [
+      { question: 'What makes a cabinet high quality?', answer: 'High-quality cabinets use a 3/4-inch plywood box, solid-wood dovetailed drawer boxes on full-extension soft-close undermount glides, six-way adjustable soft-close hinges, and solid joinery with a substantial back panel. These details matter far more than the door style or finish.' },
+      { question: 'Is plywood or particleboard better for cabinets?', answer: 'Plywood is better. Three-quarter-inch furniture-grade plywood holds screws securely, resists moisture, and stays square under a stone countertop, while particleboard can swell if it gets wet, strip out at screws, and sag over time.' },
+      { question: 'How can I tell if a drawer box is good quality?', answer: 'Open the drawer: a quality box is solid wood joined with dovetails, riding on full-extension soft-close undermount glides. Stapled or glued particleboard drawer boxes loosen and sag over years, so dovetailed solid-wood drawers are the clearest sign of quality.' },
+      { question: 'What are six-way adjustable hinges?', answer: 'Six-way adjustable hinges let an installer align a door in three planes — height, depth, and side to side — so every door lines up perfectly, and you can fine-tune them years later. Cheap fixed hinges cannot be adjusted, so doors drift out of alignment.' },
+      { question: 'Why do two cabinet quotes differ so much in price?', answer: 'The gap almost always lives in construction you cannot see — box material, drawer-box construction, and hinge quality. Ask both companies to put those specs in writing so you are comparing equivalent cabinets, not just headline prices.' },
+      { question: 'Does construction matter more than the door style?', answer: 'Yes. Finishes and door styles can be refreshed later, but the box, drawers, and hardware are the bones of the cabinet and are not easily changed. Prioritize construction quality first, then choose the door and finish you love.' },
+    ],
+    quickAnswer:
+      'Judge a cabinet by its 3/4-inch plywood box, solid-wood dovetailed drawer boxes on full-extension soft-close glides, six-way adjustable soft-close hinges, and solid joinery with a full back panel. These details decide whether cabinets last 15 to 20 years — ask for them in writing when comparing quotes.',
+    keyTakeaways: [
+      'Plywood box beats particleboard; dovetailed solid-wood drawers beat stapled.',
+      'Six-way adjustable soft-close hinges and full-extension glides are must-haves.',
+      'Get box, drawer, and hinge specs in writing to compare quotes fairly.',
+    ],
+    relatedLinks: [
+      { url: '/guides/choose-cabinet-company-boise', anchor: 'Choosing a Cabinet Company' },
+      { url: '/construction', anchor: 'How we build' },
+      { url: '/blog/stock-vs-custom-cabinets-boise', anchor: 'Stock vs custom cabinets' },
+      { url: '/warranty', anchor: 'Warranty' },
+      { url: '/cabinets' },
+    ],
+    primaryKeyword: 'cabinet construction quality',
+    secondaryKeywords: ['plywood vs particleboard cabinets', 'dovetail drawer boxes', 'well built cabinets', 'how to judge cabinet quality'],
+    searchIntent: 'Informational — homeowners evaluating cabinet quality',
+    wordCountTarget: 'pillar',
+  },
+  {
+    slug: 'cabinet-cost-per-linear-foot',
+    title: 'Cabinet Cost Per Linear Foot in Boise: What It Really Means',
+    seoTitle: 'Cabinet Cost Per Linear Foot in Boise (2026 Ranges)',
+    metaDescription:
+      'What cabinet cost per linear foot means, Treasure Valley ranges by tier, why it varies, and how to estimate your kitchen accurately (not just a per-foot guess).',
+    excerpt:
+      'Cabinet cost per linear foot is a quick ballpark — roughly $300–$900+ installed for custom in Boise. Here is what it measures, why it varies, and how to estimate accurately.',
+    content: costPerLinearFootContent,
+    author: AUTHOR,
+    category: 'Boise Cabinet Costs',
+    hubSlug: 'cabinet-costs',
+    tags: ['cost', 'linear foot', 'budget', 'boise', 'kitchen'],
+    publishedAt: '2026-07-11',
+    faqs: [
+      { question: 'What does cabinet cost per linear foot mean?', answer: 'It is a pricing shorthand: you measure the total horizontal length of your cabinet runs in feet and multiply by a per-foot rate. It gives a quick ballpark for cabinetry cost but does not account for the mix of drawers, specialty cabinets, finish, and hardware that move the real price.' },
+      { question: 'How much do cabinets cost per linear foot in Boise?', answer: 'As a rough guide in the Treasure Valley, stock runs about $150–$300 per foot installed, semi-custom about $300–$550, and custom about $500–$900 or more, depending on construction, finish, and accessories. These are planning ranges, not quotes.' },
+      { question: 'Why does per-linear-foot cost vary so much?', answer: 'Two kitchens of the same length can cost very differently based on how many drawers versus doors you have, tall and specialty cabinets, box construction, finish, door style, hardware, and install complexity. That is why the same rate can hide very different cabinets.' },
+      { question: 'Is per-linear-foot a reliable way to compare quotes?', answer: 'Not by itself. One per-foot rate may include plywood boxes and soft-close everything, while another at the same rate includes particleboard and basic hardware. Always compare what is actually in the price, meaning construction, finish, and accessories, not just the headline number.' },
+      { question: 'How do I estimate my cabinet cost?', answer: 'Measure your base-cabinet runs in feet, multiply by a per-foot rate for your tier, then add for tall or specialty cabinets, an island, and premium finish or hardware. For an accurate figure, use a guided estimator or an in-home design visit that accounts for the details.' },
+      { question: 'What does per-linear-foot pricing leave out?', answer: 'It covers cabinetry only. Countertops, sink and faucet, backsplash, appliances, lighting, and any electrical or plumbing changes are separate. Budget those in their own bucket so nothing surprises you.' },
+    ],
+    quickAnswer:
+      'Cabinet cost per linear foot is a ballpark: measure the length of your cabinet runs and multiply by a rate — roughly $300 to $900+ per foot installed for custom in the Boise area. It is useful for a first estimate, but drawers, specialty cabinets, finish, and hardware swing the real number, so confirm with a design.',
+    keyTakeaways: [
+      'Per-linear-foot is a ballpark, not a quote.',
+      'Boise custom commonly runs ~$300–$900+ per foot installed.',
+      'Drawers, specialty cabinets, construction, and finish move the real price.',
+    ],
+    relatedLinks: [
+      { url: '/guides/boise-cabinet-cost-guide', anchor: 'Boise Cabinet Cost Guide' },
+      { url: '/estimate', anchor: 'Online estimator' },
+      { url: '/blog/stock-vs-custom-cabinets-boise', anchor: 'Stock vs custom cabinets' },
+      { url: '/blog/cabinet-construction-quality-guide', anchor: 'Cabinet construction quality' },
+      { url: '/cabinets' },
+    ],
+    primaryKeyword: 'cabinet cost per linear foot',
+    secondaryKeywords: ['kitchen cabinet cost per foot', 'cabinet pricing boise', 'how much do cabinets cost', 'custom cabinet cost'],
+    searchIntent: 'Commercial / cost — homeowners budgeting cabinets',
     wordCountTarget: 'pillar',
   },
 ];

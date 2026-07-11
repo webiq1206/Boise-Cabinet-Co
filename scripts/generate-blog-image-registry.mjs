@@ -51,10 +51,10 @@ const ENTRIES = {
     source: "city-service",
   },
   "cabinet-cost-per-linear-foot": {
-    hero: cs("whole-home-remodel", "meridian"),
-    alt: "Kitchen cabinet run illustrating linear-foot planning in a Meridian home",
-    topicTags: ["cost", "kitchen", "meridian"],
-    source: "city-service",
+    hero: blog("cabinet-cost-per-linear-foot"),
+    alt: "Tape measure, cabinet layout plans, and finish samples on a quartz counter in front of sage and greige custom cabinets during Treasure Valley kitchen planning",
+    topicTags: ["cost", "kitchen", "boise"],
+    source: "blog",
   },
   "what-impacts-cabinet-costs-boise": {
     hero: blog("what-impacts-cabinet-costs-boise"),
@@ -69,10 +69,10 @@ const ENTRIES = {
     source: "services",
   },
   "stock-vs-custom-cabinets-boise": {
-    hero: cat("bedroom"),
-    alt: "Kitchen catalog cabinetry comparing stock, value, and custom lines in Boise",
+    hero: blog("stock-vs-custom-cabinets-boise"),
+    alt: "Custom Treasure Valley kitchen with floor-to-ceiling sage-green and greige cabinetry fitted precisely to an angled ceiling, showing a tailored custom fit",
     topicTags: ["cost", "cabinets", "boise"],
-    source: "services",
+    source: "blog",
   },
 
   // —— Kitchen cabinets (6) ——
@@ -281,10 +281,10 @@ const ENTRIES = {
     source: "gallery",
   },
   "cabinet-construction-quality-guide": {
-    hero: cat("pantry"),
-    alt: "Cabinet box construction and joinery quality in a pantry installation detail",
+    hero: blog("cabinet-construction-quality-guide"),
+    alt: "Close-up of high-quality cabinet construction: a dovetailed solid-wood drawer box on soft-close undermount glides in a sage-green custom kitchen",
     topicTags: ["cabinets", "quality", "guide"],
-    source: "services",
+    source: "blog",
   },
 
   // —— Cabinet project process (8) ——
