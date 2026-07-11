@@ -101,19 +101,30 @@ async function renderCard(title: string, bg: string | null): Promise<Buffer> {
 }
 
 async function main() {
+  const force = process.argv.includes('--force');
   const requested = process.argv.slice(2).filter((a) => !a.startsWith('-'));
   const posts = requested.length
     ? BLOG_POSTS.filter((p) => requested.includes(p.slug))
     : BLOG_POSTS;
 
+  let made = 0;
+  let upToDate = 0;
   for (const post of posts) {
+    const out = path.join(outDir, `${post.slug}.jpg`);
+    // In the default (build) pass, only create cards that are missing so builds
+    // stay fast and committed images don't churn. Use --force (or name a slug) to
+    // regenerate, e.g. after a title change or once a post's AI photo exists.
+    if (!force && !requested.length && fs.existsSync(out)) {
+      upToDate++;
+      continue;
+    }
     const bg = await backgroundDataUri(post.slug);
     const jpg = await renderCard(post.title, bg);
-    const out = path.join(outDir, `${post.slug}.jpg`);
     fs.writeFileSync(out, jpg);
+    made++;
     console.log(`✓ og: ${post.slug} (${(jpg.length / 1024).toFixed(0)}kb)${bg ? '' : ' [charcoal fallback]'}`);
   }
-  console.log(`Done: ${posts.length} OG image(s) → public/images/og/`);
+  console.log(`OG images: ${made} generated, ${upToDate} up-to-date → public/images/og/ (${BLOG_POSTS.length} posts total)`);
 }
 
 main().catch((e) => {
