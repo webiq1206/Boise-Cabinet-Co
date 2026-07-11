@@ -33,6 +33,7 @@ const TARGETS = [
   { dir: "images/catalog/hardware", widths: [160, 320, 640] },
   { dir: "images/catalog/accessories", widths: [160, 320, 640] },
   { dir: "images/gallery", widths: [640, 1080, 1920] },
+  { dir: "images/blog", widths: [640, 1080, 1920] },
 ];
 
 const VARIANT_RE = /-\d+\.webp$/;
