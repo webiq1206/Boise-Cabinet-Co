@@ -5,7 +5,6 @@ import { Reveal } from "@/components/Reveal";
 import { HeroSection } from "@/components/sections/HeroSection";
 import { WhyChooseUsSection } from "@/components/sections/WhyChooseUsSection";
 import { RoomCategoriesGrid } from "@/components/sections/RoomCategoriesGrid";
-import { StatementBandSection } from "@/components/sections/StatementBandSection";
 import { ProcessSection } from "@/components/sections/ProcessSection";
 import { FeaturedProjectSection } from "@/components/sections/FeaturedProjectSection";
 import { CraftStatementBand } from "@/components/sections/CraftStatementBand";
@@ -34,7 +33,6 @@ export default function HomePage() {
       </h2>
       <HeroSection />
       <RoomCategoriesGrid />
-      <StatementBandSection />
       <ProcessSection />
       <FeaturedProjectSection />
       <TestimonialsSection limit={3} showViewAll={true} />
