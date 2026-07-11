@@ -304,10 +304,10 @@ export const BLOG_IMAGE_REGISTRY: Record<string, BlogImageEntry> = {
     source: 'services',
   },
   'cabinet-door-styles-guide': {
-    hero: '/images/catalog/rooms/home-office.webp',
-    alt: 'Home office built-in cabinets showcasing popular door style profiles',
+    hero: '/images/blog/cabinet-door-styles-guide.png',
+    alt: 'Treasure Valley kitchen showcasing Shaker, slab, and raised-panel cabinet door styles in sage-green and greige painted finishes',
     topicTags: ["cabinets","door-styles","guide"],
-    source: 'services',
+    source: 'blog',
   },
   'kitchen-cabinet-roi-boise': {
     hero: '/images/blog/kitchen-roi-remodeling.png',
@@ -346,16 +346,16 @@ export const BLOG_IMAGE_REGISTRY: Record<string, BlogImageEntry> = {
     source: 'city-service',
   },
   'cabinet-finishes-colors-guide': {
-    hero: '/images/catalog/rooms/wet-bar.webp',
-    alt: 'Cabinet finish and color samples for wet bar and entertainment built-ins',
+    hero: '/images/blog/cabinet-finishes-colors-guide.png',
+    alt: 'Two-tone Treasure Valley kitchen with white upper cabinets, sage-green lower cabinets, and a stained wood island showing cabinet finishes and colors',
     topicTags: ["cabinets","finishes","guide"],
-    source: 'services',
+    source: 'blog',
   },
   'cabinet-hardware-guide': {
-    hero: '/images/catalog/rooms/entertainment.webp',
-    alt: 'Cabinet hardware and pull samples on entertainment center built-ins',
+    hero: '/images/blog/cabinet-hardware-guide.png',
+    alt: 'Close-up of brushed-nickel bar pulls and knobs on sage-green and greige painted Shaker cabinets in a Treasure Valley kitchen',
     topicTags: ["cabinets","hardware","guide"],
-    source: 'services',
+    source: 'blog',
   },
   'boise-cabinet-cost-guide': {
     hero: '/images/gallery/gallery-whole-home-after.webp',

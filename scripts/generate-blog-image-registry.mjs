@@ -333,10 +333,10 @@ const ENTRIES = {
     source: "services",
   },
   "cabinet-door-styles-guide": {
-    hero: cat("home-office"),
-    alt: "Home office built-in cabinets showcasing popular door style profiles",
+    hero: blog("cabinet-door-styles-guide"),
+    alt: "Treasure Valley kitchen showcasing Shaker, slab, and raised-panel cabinet door styles in sage-green and greige painted finishes",
     topicTags: ["cabinets", "door-styles", "guide"],
-    source: "services",
+    source: "blog",
   },
 
   // —— Cabinet ROI (6) ——
@@ -382,16 +382,16 @@ const ENTRIES = {
 
   // —— Cabinet specs & finishes (4) ——
   "cabinet-finishes-colors-guide": {
-    hero: cat("wet-bar"),
-    alt: "Cabinet finish and color samples for wet bar and entertainment built-ins",
+    hero: blog("cabinet-finishes-colors-guide"),
+    alt: "Two-tone Treasure Valley kitchen with white upper cabinets, sage-green lower cabinets, and a stained wood island showing cabinet finishes and colors",
     topicTags: ["cabinets", "finishes", "guide"],
-    source: "services",
+    source: "blog",
   },
   "cabinet-hardware-guide": {
-    hero: cat("entertainment"),
-    alt: "Cabinet hardware and pull samples on entertainment center built-ins",
+    hero: blog("cabinet-hardware-guide"),
+    alt: "Close-up of brushed-nickel bar pulls and knobs on sage-green and greige painted Shaker cabinets in a Treasure Valley kitchen",
     topicTags: ["cabinets", "hardware", "guide"],
-    source: "services",
+    source: "blog",
   },
 
   // —— Guides (10) ——
