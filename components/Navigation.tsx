@@ -206,14 +206,6 @@ export function Navigation() {
               </span>
               {SITE_CONFIG.phone}
             </a>
-            <a
-              href={SITE_CONFIG.phoneSmsHref}
-              aria-label={`Text us at ${SITE_CONFIG.phone}`}
-              className="flex items-center gap-1.5 text-[13px] font-medium transition-colors whitespace-nowrap text-muted-foreground hover:text-foreground"
-            >
-              <MessageSquare className="h-4 w-4" strokeWidth={1.5} />
-              Text
-            </a>
             <Button variant="brand" size="sm" onClick={openEstimate}>
               {CTA_CONSULT_SHORT}
             </Button>

@@ -467,13 +467,14 @@ html, body {
   font-optical-sizing: auto;
 }
 
-/* Heading accent WORDS render in bone, matching the brand-system PDF (its italic
-   accent type is bone, not sage). The sage tone (--accent, #5D6561) is reserved
-   for the small accents — links, rules, pills, focus rings, icons. This unlayered
-   two-class selector (0,2,0) overrides Tailwind's layered `.text-accent` utility,
-   which would otherwise tint these words sage and drop them to ~2.77:1 on charcoal. */
+/* Heading accent WORDS render in sage (--accent, #5D6561) per client direction:
+   the decorative italic word carries the brand accent while the rest of each
+   heading stays bone. Sage sits ~2.8:1 on charcoal (below AA for body text), which
+   is acceptable here because the accent word is large display-size emphasis and
+   never the sole carrier of a heading's meaning. This unlayered two-class selector
+   (0,2,0) outranks the layered `.text-accent` utility so the tint is authoritative. */
 .brc-accent.text-accent {
-  color: hsl(var(--heading));
+  color: hsl(var(--accent));
 }
 
 /* ─── Decorative display numerals (Fraunces: stats, prices, step markers) ─── */
