@@ -56,15 +56,21 @@ export function EstimateCalculator({ inModal = false, onBookVisit, startStep, he
           </p>
         </div>
 
-        <div
-          className={
-            featured
-              ? "max-w-5xl mx-auto rounded-xl border border-accent/30 bg-card/40 shadow-xl p-4 sm:p-6 md:p-8"
-              : "max-w-5xl mx-auto"
-          }
-        >
-          <EstimateCalculatorWizard onBookVisit={onBookVisit} />
-        </div>
+        {featured ? (
+          /* Elevated module: neutral hairline border + shadow lift the tool off
+             the flat page, and a solid sage accent line across the top marks it
+             as a distinct interactive module. */
+          <div className="max-w-5xl mx-auto overflow-hidden rounded-xl border border-border bg-card/40 shadow-xl">
+            <div className="h-1 bg-accent" aria-hidden="true" />
+            <div className="p-4 sm:p-6 md:p-8">
+              <EstimateCalculatorWizard onBookVisit={onBookVisit} />
+            </div>
+          </div>
+        ) : (
+          <div className="max-w-5xl mx-auto">
+            <EstimateCalculatorWizard onBookVisit={onBookVisit} />
+          </div>
+        )}
       </div>
     </Section>
   );

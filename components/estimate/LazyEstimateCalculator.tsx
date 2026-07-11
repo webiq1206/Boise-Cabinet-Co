@@ -76,7 +76,10 @@ export function LazyEstimateCalculator() {
             {ESTIMATE_VALUE_PROP}
           </p>
         </div>
-        <div className="max-w-5xl mx-auto min-h-[420px] rounded-xl border border-accent/30 bg-card/40 shadow-xl" aria-hidden />
+        <div className="max-w-5xl mx-auto overflow-hidden rounded-xl border border-border bg-card/40 shadow-xl" aria-hidden>
+          <div className="h-1 bg-accent" />
+          <div className="min-h-[420px]" />
+        </div>
       </div>
     </Section>
   );
