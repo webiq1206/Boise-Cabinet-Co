@@ -32,6 +32,8 @@ import {
 import { getBlogPostsByHub } from '@/shared/blogContent';
 import { getResourcesForBlog } from '@/shared/guideResources';
 import { GuideResourceDownloads } from './GuideResourceDownloads';
+import { ShareBar } from '@/components/blog/ShareBar';
+import { SITE_CONFIG } from '@/shared/siteConfig';
 
 interface BlogPostLayoutProps {
   post: BlogPostData;
@@ -50,6 +52,7 @@ export function BlogPostLayout({ post, formatDate }: BlogPostLayoutProps) {
   const hubPosts = getBlogPostsByHub(post.hubSlug);
   const pillarSlug = getHubPillarSlug(post.hubSlug);
   const resources = getResourcesForBlog(post.slug);
+  const shareUrl = `${SITE_CONFIG.siteUrl}${blogPath}`;
 
   return (
     <div className="flex flex-col pb-20 md:pb-0">
@@ -90,6 +93,8 @@ export function BlogPostLayout({ post, formatDate }: BlogPostLayoutProps) {
               )}
             </div>
           </header>
+
+          <ShareBar url={shareUrl} title={post.title} className="mb-8" />
 
           <GuideJumpChips headings={tocHeadings} />
 
@@ -158,6 +163,10 @@ export function BlogPostLayout({ post, formatDate }: BlogPostLayoutProps) {
                   </Accordion>
                 </section>
               )}
+
+              <div className="mt-12 pt-8 border-t border-border">
+                <ShareBar url={shareUrl} title={post.title} withHeading />
+              </div>
 
               {post.tags && post.tags.length > 0 && (
                 <div className="mt-10 pt-8 border-t border-border lg:hidden">
