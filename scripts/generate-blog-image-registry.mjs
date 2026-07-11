@@ -18,6 +18,13 @@ const blog = (slug) => `/images/blog/${slug}.png`;
 
 /** slug -> { hero, alt, topicTags, source, copyFrom? } */
 const ENTRIES = {
+  // —— Premium long-form posts ——
+  "framed-vs-frameless-cabinets": {
+    hero: blog("framed-vs-frameless-cabinets"),
+    alt: "Modern frameless European-style kitchen cabinets in a Boise home with wide full-extension drawers and clean, seamless sightlines",
+    topicTags: ["frameless", "framed", "kitchen", "cabinets"],
+    source: "blog",
+  },
   // —— Cabinet costs (8) ——
   "kitchen-cabinet-cost-boise": {
     hero: cs("kitchen-remodel", "boise"),
@@ -511,7 +518,7 @@ const HUB_HEROES = {
 
 const GUIDE_START = "boise-cabinet-cost-guide";
 const blogSlugsFromEntries = Object.keys(ENTRIES).slice(0, Object.keys(ENTRIES).indexOf(GUIDE_START));
-const EXPECTED_BLOG = 56;
+const EXPECTED_BLOG = 57;
 const EXPECTED_GUIDES = 17;
 
 if (blogSlugsFromEntries.length !== EXPECTED_BLOG) {

@@ -15,6 +15,12 @@ export interface BlogImageEntry {
 }
 
 export const BLOG_IMAGE_REGISTRY: Record<string, BlogImageEntry> = {
+  'framed-vs-frameless-cabinets': {
+    hero: '/images/blog/framed-vs-frameless-cabinets.png',
+    alt: 'Modern frameless European-style kitchen cabinets in a Boise home with wide full-extension drawers and clean, seamless sightlines',
+    topicTags: ["frameless","framed","kitchen","cabinets"],
+    source: 'blog',
+  },
   'kitchen-cabinet-cost-boise': {
     hero: '/images/city-service/kitchen-remodel__boise.webp',
     alt: 'Custom kitchen cabinets installed in a Boise home with warm finishes and quartz counters',
