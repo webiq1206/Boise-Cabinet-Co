@@ -8,10 +8,9 @@ import { ProjectGallerySection } from '@/components/sections/ProjectGallerySecti
 import { TestimonialsSection } from '@/components/sections/TestimonialsSection';
 import { buildPageMetadata } from '@/lib/page-metadata';
 import { generateImageGallerySchema, generateLocalBusinessSchema } from '@/lib/schema';
-import { CTA_CONSULT, CTA_ESTIMATE } from '@/shared/ctaCopy';
+import { CTA_CONSULT } from '@/shared/ctaCopy';
 import { GALLERY_PROJECTS } from '@/shared/galleryData';
 import { ConsultCTA } from '@/components/modals/ConsultCTA';
-import { EstimateCTA } from '@/components/modals/EstimateCTA';
 
 export const metadata = buildPageMetadata({
   kind: 'about',
@@ -75,9 +74,6 @@ export default function TestimonialsPage() {
             <ConsultCTA variant="brand">
               {CTA_CONSULT} <ArrowRight className="h-4 w-4" />
             </ConsultCTA>
-            <EstimateCTA variant="brandOutline">
-              {CTA_ESTIMATE}
-            </EstimateCTA>
           </div>
         </div>
       </Section>

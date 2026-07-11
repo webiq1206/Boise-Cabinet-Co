@@ -61,7 +61,7 @@ export function WhyChooseUsSection({ limit }: WhyChooseUsSectionProps) {
 
         <Reveal className="mt-12 text-center">
           <Button variant="brand" asChild>
-            <a href="#consult">{CTA_CONSULT}</a>
+            <a href="#calculator">{CTA_CONSULT}</a>
           </Button>
         </Reveal>
       </div>

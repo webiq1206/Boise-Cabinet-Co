@@ -12,7 +12,6 @@ import {
   ESTIMATE_VALUE_PROP,
   formatPlanningCurrency,
 } from "@/shared/estimateEngine";
-import { CTA_PRIMARY } from "@/shared/ctaCopy";
 import { CATALOG_CONTENT } from "@/shared/catalog";
 
 const ANIM_DURATION = 320;
@@ -281,7 +280,7 @@ export function EstimateResultPanel({
           className="w-full mb-3"
           data-testid="button-book-visit"
         >
-          {CTA_PRIMARY}
+          Book your free visit
           <ArrowRight className="h-4 w-4" />
         </Button>
       )}

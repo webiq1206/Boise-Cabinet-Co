@@ -39,7 +39,7 @@ export function Navigation() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [expandedMobile, setExpandedMobile] = useState<string | null>(null);
-  const { openConsult } = useModals();
+  const { openEstimate } = useModals();
   const { isAuthenticated, isCustomer } = useAuth();
   // While a guided-flow wizard shows its own contextual mobile bar, the generic
   // Call / Book-consult bar steps aside so the two never stack on phones.
@@ -214,7 +214,7 @@ export function Navigation() {
               <MessageSquare className="h-4 w-4" strokeWidth={1.5} />
               Text
             </a>
-            <Button variant="brand" size="sm" onClick={openConsult}>
+            <Button variant="brand" size="sm" onClick={openEstimate}>
               {CTA_CONSULT_SHORT}
             </Button>
           </div>
@@ -350,7 +350,7 @@ export function Navigation() {
             className="w-full"
             onClick={() => {
               setMobileOpen(false);
-              openConsult();
+              openEstimate();
             }}
           >
             {CTA_CONSULT_SHORT}
@@ -384,7 +384,7 @@ export function Navigation() {
           </a>
           <button
             type="button"
-            onClick={openConsult}
+            onClick={openEstimate}
             aria-label={CTA_CONSULT_SHORT}
             className="flex items-center justify-center gap-2 py-4 text-sm font-medium text-foreground"
           >

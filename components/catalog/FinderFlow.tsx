@@ -360,11 +360,6 @@ export function FinderFlow() {
                   Browse these finishes
                 </Link>
               </Button>
-              <Button variant="ghost" asChild>
-                <Link href="/#consult" onClick={persist}>
-                  Book a free consultation
-                </Link>
-              </Button>
             </div>
             <p className="text-xs text-muted-foreground">
               This is a starting point, not a final selection. You can change anything

@@ -79,8 +79,8 @@ export default function WarrantyPage() {
             />
             <div className="flex flex-wrap gap-3 mt-4">
               <Button variant="brand" asChild>
-                <Link href="/#consult">
-                  Book a free consultation <ArrowRight className="h-4 w-4" />
+                <Link href="/estimate">
+                  Get an Estimate <ArrowRight className="h-4 w-4" />
                 </Link>
               </Button>
               <Button variant="brandOutline" asChild>

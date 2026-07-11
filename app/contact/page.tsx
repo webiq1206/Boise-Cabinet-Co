@@ -19,10 +19,9 @@ import { BUSINESS_INFO } from '@/lib/seo';
 import { SITE_CONFIG } from '@/shared/siteConfig';
 import { ConsultationForm } from '@/components/ConsultationForm';
 import { SiteEmailLink } from '@/components/SiteEmailLink';
-import { CTA_CONSULT, CTA_ESTIMATE } from '@/shared/ctaCopy';
+import { CTA_CONSULT } from '@/shared/ctaCopy';
 import { CONSULT_BULLETS, HERO_STATS } from '@/shared/siteContent';
 import { ConsultCTA } from '@/components/modals/ConsultCTA';
-import { EstimateCTA } from '@/components/modals/EstimateCTA';
 
 const GRAIN_URL = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.45'/%3E%3C/svg%3E")`;
 
@@ -206,12 +205,6 @@ export default function ContactPage() {
               <ConsultCTA variant="brand">
                 {CTA_CONSULT} <ArrowRight className="h-4 w-4" />
               </ConsultCTA>
-              <EstimateCTA
-                variant="outline"
-                className="bg-white/10 backdrop-blur-sm border-white/30 text-white"
-              >
-                {CTA_ESTIMATE}
-              </EstimateCTA>
             </div>
             <div className="grid grid-cols-3 gap-3 max-w-xl">
               {HERO_STATS.map((stat) => (
@@ -340,7 +333,6 @@ export default function ContactPage() {
                 </ul>
                 <div className="flex flex-col sm:flex-row flex-wrap gap-3">
                   <ConsultCTA variant="brand">{CTA_CONSULT}</ConsultCTA>
-                  <EstimateCTA variant="brandOutline">{CTA_ESTIMATE}</EstimateCTA>
                 </div>
               </Reveal>
             </div>
@@ -391,12 +383,6 @@ export default function ContactPage() {
                 </a>
                 <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-3">
                   <ConsultCTA variant="brand">{CTA_CONSULT}</ConsultCTA>
-                  <EstimateCTA
-                    variant="outline"
-                    className="bg-white/10 backdrop-blur-sm border-white/30 text-white"
-                  >
-                    {CTA_ESTIMATE}
-                  </EstimateCTA>
                 </div>
               </MarketingCard>
             </Reveal>

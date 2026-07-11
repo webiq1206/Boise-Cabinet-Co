@@ -1,10 +1,9 @@
 "use client";
 
 import { ConsultCTA } from "@/components/modals/ConsultCTA";
-import { EstimateCTA } from "@/components/modals/EstimateCTA";
 import { Section } from "@/components/marketing/Section";
 import { MarketingCard } from "@/components/marketing/MarketingCard";
-import { CTA_CONSULT, CTA_ESTIMATE } from "@/shared/ctaCopy";
+import { CTA_CONSULT } from "@/shared/ctaCopy";
 
 interface CatalogClosingCTAProps {
   title?: string;
@@ -13,7 +12,7 @@ interface CatalogClosingCTAProps {
 
 export function CatalogClosingCTA({
   title = "Ready to plan your project?",
-  description = "Use our online estimator for a rough budget range, or schedule a free design consultation with our team.",
+  description = "Use our online estimator to get a rough budget range for your project in about two minutes.",
 }: CatalogClosingCTAProps) {
   return (
     <Section divider spacing="sm">
@@ -25,12 +24,6 @@ export function CatalogClosingCTA({
           <p className="text-sm text-inverse-muted mb-6 max-w-md mx-auto">{description}</p>
           <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-3">
             <ConsultCTA variant="brand">{CTA_CONSULT}</ConsultCTA>
-            <EstimateCTA
-              variant="outline"
-              className="bg-white/10 backdrop-blur-sm border-white/30 text-white"
-            >
-              {CTA_ESTIMATE}
-            </EstimateCTA>
           </div>
         </MarketingCard>
       </div>
