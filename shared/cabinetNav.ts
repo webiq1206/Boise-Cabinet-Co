@@ -45,7 +45,6 @@ export const PRIMARY_NAV = [
     ],
   },
   { label: "Catalog", href: "/catalog" },
-  { label: "Get an Estimate", href: "/estimate" },
   {
     label: "How It Works",
     href: "/about",

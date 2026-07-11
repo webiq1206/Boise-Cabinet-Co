@@ -52,7 +52,7 @@ export function LazyEstimateCalculator() {
   }
 
   if (show) {
-    return <EstimateCalculator onBookVisit={handleBookVisit} />;
+    return <EstimateCalculator featured onBookVisit={handleBookVisit} />;
   }
 
   return (
@@ -60,6 +60,10 @@ export function LazyEstimateCalculator() {
       <div ref={ref} className="container px-4 pb-8">
         <div className="max-w-3xl mx-auto mb-5 md:mb-10">
           <div className="brc-label mb-2 md:mb-3">Project Estimator</div>
+          <span className="mb-4 inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-xs tracking-wide text-accent">
+            <span className="h-1.5 w-1.5 rounded-full bg-accent" aria-hidden="true" />
+            Free &middot; No obligation &middot; Instant range
+          </span>
           <h2 className="font-sans font-light text-section-title md:text-section-title-lg mb-2 md:mb-3 text-foreground">
             Plan your cabinet{" "}
             <em className="brc-accent text-accent">investment</em>
@@ -72,7 +76,10 @@ export function LazyEstimateCalculator() {
             {ESTIMATE_VALUE_PROP}
           </p>
         </div>
-        <div className="max-w-5xl mx-auto min-h-[420px]" aria-hidden />
+        <div className="max-w-5xl mx-auto overflow-hidden rounded-xl border border-border bg-card/40 shadow-xl" aria-hidden>
+          <div className="h-1 bg-accent" />
+          <div className="min-h-[420px]" />
+        </div>
       </div>
     </Section>
   );
