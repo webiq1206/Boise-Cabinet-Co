@@ -15,6 +15,84 @@ export interface BlogImageEntry {
 }
 
 export const BLOG_IMAGE_REGISTRY: Record<string, BlogImageEntry> = {
+  'framed-vs-frameless-cabinets': {
+    hero: '/images/blog/framed-vs-frameless-cabinets.png',
+    alt: 'Real completed modern frameless kitchen in a Treasure Valley home with warm white oak flat-panel cabinets, a crisp white perimeter, and wide full-extension drawers',
+    topicTags: ["frameless","framed","kitchen","cabinets"],
+    source: 'blog',
+  },
+  'what-are-rta-cabinets': {
+    hero: '/images/blog/what-are-rta-cabinets.png',
+    alt: 'Real completed budget-friendly Treasure Valley kitchen with warm natural white oak flat-panel cabinets, black bar pulls, and quartz counters',
+    topicTags: ["rta","kitchen","cabinets"],
+    source: 'blog',
+  },
+  'custom-kitchen-cabinet-cost': {
+    hero: '/images/blog/custom-kitchen-cabinet-cost.png',
+    alt: 'Real completed luxury custom kitchen in a Treasure Valley home with navy blue and white two-tone cabinets, brass hardware, and a marble-look quartz island',
+    topicTags: ["cost","custom","kitchen"],
+    source: 'blog',
+  },
+  'standard-kitchen-cabinet-sizes': {
+    hero: '/images/blog/standard-kitchen-cabinet-sizes.png',
+    alt: 'Real completed white Shaker kitchen in a Treasure Valley family home showing a full wall of base cabinets, upper cabinets, and a tall pantry',
+    topicTags: ["sizes","dimensions","kitchen"],
+    source: 'blog',
+  },
+  'bathroom-vanity-buying-guide': {
+    hero: '/images/blog/bathroom-vanity-buying-guide.png',
+    alt: 'Real completed Treasure Valley bathroom with a modern floating white oak double vanity, white quartz top, undermount sinks, and a large framed mirror',
+    topicTags: ["bathroom","vanity","guide"],
+    source: 'blog',
+  },
+  'cabinet-refacing-vs-refinishing-vs-replacing': {
+    hero: '/images/blog/cabinet-refacing-vs-refinishing-vs-replacing.png',
+    alt: 'Real completed Treasure Valley kitchen with warm white painted perimeter cabinets and a deep forest-green island, showing a refreshed cabinet update',
+    topicTags: ["refacing","refinishing","kitchen"],
+    source: 'blog',
+  },
+  'kitchen-cabinet-organization-ideas': {
+    hero: '/images/blog/kitchen-cabinet-organization-ideas.png',
+    alt: 'Real completed Treasure Valley kitchen with base-cabinet drawers and pull-outs open showing organized interior storage in light white oak and white cabinets',
+    topicTags: ["organization","storage","kitchen"],
+    source: 'blog',
+  },
+  'what-are-shaker-cabinets': {
+    hero: '/images/blog/what-are-shaker-cabinets.png',
+    alt: 'Real completed classic white Shaker kitchen in a Treasure Valley home with brushed-nickel hardware, subway tile, quartz counters, and a farmhouse sink',
+    topicTags: ["shaker","door styles","kitchen"],
+    source: 'blog',
+  },
+  'how-to-paint-kitchen-cabinets': {
+    hero: '/images/blog/how-to-paint-kitchen-cabinets.png',
+    alt: 'Real completed freshly painted two-tone Treasure Valley kitchen with deep navy lower cabinets and warm white uppers, matte black hardware, and a smooth painted finish',
+    topicTags: ["painting","refinishing","kitchen"],
+    source: 'blog',
+  },
+  'pantry-cabinet-ideas': {
+    hero: '/images/blog/pantry-cabinet-ideas.png',
+    alt: 'Real completed floor-to-ceiling walnut pantry cabinet in a Treasure Valley home with roll-out shelves and adjustable shelving stocked with everyday groceries',
+    topicTags: ["pantry","storage","organization"],
+    source: 'blog',
+  },
+  'how-to-make-oak-cabinets-look-modern': {
+    hero: '/images/blog/how-to-make-oak-cabinets-look-modern.png',
+    alt: 'Real completed modern Treasure Valley kitchen with light natural white oak flat-panel cabinets, long matte-black bar pulls, and a white quartz waterfall counter',
+    topicTags: ["oak","modern","kitchen"],
+    source: 'blog',
+  },
+  'best-wood-for-kitchen-cabinets': {
+    hero: '/images/blog/best-wood-for-kitchen-cabinets.png',
+    alt: 'Real completed warm traditional Treasure Valley kitchen with rich cherry and hickory stained solid-wood cabinets showing natural grain variation and oil-rubbed bronze hardware',
+    topicTags: ["wood","materials","kitchen"],
+    source: 'blog',
+  },
+  'two-tone-kitchen-cabinets': {
+    hero: '/images/blog/two-tone-kitchen-cabinets.png',
+    alt: 'Real completed two-tone Treasure Valley kitchen with creamy off-white perimeter cabinets and a warm natural stained-wood island, brushed brass hardware, and pendant lights',
+    topicTags: ["two-tone","colors","kitchen"],
+    source: 'blog',
+  },
   'kitchen-cabinet-cost-boise': {
     hero: '/images/city-service/kitchen-remodel__boise.webp',
     alt: 'Custom kitchen cabinets installed in a Boise home with warm finishes and quartz counters',
@@ -40,10 +118,10 @@ export const BLOG_IMAGE_REGISTRY: Record<string, BlogImageEntry> = {
     source: 'city-service',
   },
   'cabinet-cost-per-linear-foot': {
-    hero: '/images/city-service/whole-home-remodel__meridian.webp',
-    alt: 'Kitchen cabinet run illustrating linear-foot planning in a Meridian home',
-    topicTags: ["cost","kitchen","meridian"],
-    source: 'city-service',
+    hero: '/images/blog/cabinet-cost-per-linear-foot.png',
+    alt: 'Real completed kitchen in a standard Treasure Valley family home with warm natural white oak cabinets, a crisp white perimeter, and black bar pulls',
+    topicTags: ["cost","kitchen","boise"],
+    source: 'blog',
   },
   'what-impacts-cabinet-costs-boise': {
     hero: '/images/blog/what-impacts-cabinet-costs-boise.png',
@@ -58,10 +136,10 @@ export const BLOG_IMAGE_REGISTRY: Record<string, BlogImageEntry> = {
     source: 'services',
   },
   'stock-vs-custom-cabinets-boise': {
-    hero: '/images/catalog/rooms/bedroom.webp',
-    alt: 'Kitchen catalog cabinetry comparing stock, value, and custom lines in Boise',
+    hero: '/images/blog/stock-vs-custom-cabinets-boise.png',
+    alt: 'Real completed custom Treasure Valley kitchen with floor-to-ceiling cream and off-white cabinets fitted precisely to a tall ceiling and around a window',
     topicTags: ["cost","cabinets","boise"],
-    source: 'services',
+    source: 'blog',
   },
   'kitchen-cabinet-timeline-boise': {
     hero: '/images/city-service/kitchen-remodel__meridian.webp',
@@ -250,10 +328,10 @@ export const BLOG_IMAGE_REGISTRY: Record<string, BlogImageEntry> = {
     source: 'gallery',
   },
   'cabinet-construction-quality-guide': {
-    hero: '/images/catalog/rooms/pantry.webp',
-    alt: 'Cabinet box construction and joinery quality in a pantry installation detail',
+    hero: '/images/blog/cabinet-construction-quality-guide.png',
+    alt: 'Close-up of high-quality cabinet construction in a real completed kitchen: a natural maple dovetailed solid-wood drawer box on soft-close undermount glides',
     topicTags: ["cabinets","quality","guide"],
-    source: 'services',
+    source: 'blog',
   },
   'cabinet-finishes-door-styles-guide': {
     hero: '/images/blog/material-selection-guide.png',
@@ -298,10 +376,10 @@ export const BLOG_IMAGE_REGISTRY: Record<string, BlogImageEntry> = {
     source: 'services',
   },
   'cabinet-door-styles-guide': {
-    hero: '/images/catalog/rooms/home-office.webp',
-    alt: 'Home office built-in cabinets showcasing popular door style profiles',
+    hero: '/images/blog/cabinet-door-styles-guide.png',
+    alt: 'Real completed transitional Treasure Valley kitchen with classic Shaker cabinet doors in warm greige and cream paint and a natural stained wood island',
     topicTags: ["cabinets","door-styles","guide"],
-    source: 'services',
+    source: 'blog',
   },
   'kitchen-cabinet-roi-boise': {
     hero: '/images/blog/kitchen-roi-remodeling.png',
@@ -340,16 +418,16 @@ export const BLOG_IMAGE_REGISTRY: Record<string, BlogImageEntry> = {
     source: 'city-service',
   },
   'cabinet-finishes-colors-guide': {
-    hero: '/images/catalog/rooms/wet-bar.webp',
-    alt: 'Cabinet finish and color samples for wet bar and entertainment built-ins',
+    hero: '/images/blog/cabinet-finishes-colors-guide.png',
+    alt: 'Real completed two-tone Treasure Valley kitchen with creamy white upper cabinets and a rich stained walnut lower run and island showing cabinet finishes and colors',
     topicTags: ["cabinets","finishes","guide"],
-    source: 'services',
+    source: 'blog',
   },
   'cabinet-hardware-guide': {
-    hero: '/images/catalog/rooms/entertainment.webp',
-    alt: 'Cabinet hardware and pull samples on entertainment center built-ins',
+    hero: '/images/blog/cabinet-hardware-guide.png',
+    alt: 'Real completed luxury bathroom vanity in a Treasure Valley home with a walnut double vanity, statement matte-black and brass hardware, and a marble-look quartz top',
     topicTags: ["cabinets","hardware","guide"],
-    source: 'services',
+    source: 'blog',
   },
   'boise-cabinet-cost-guide': {
     hero: '/images/gallery/gallery-whole-home-after.webp',
