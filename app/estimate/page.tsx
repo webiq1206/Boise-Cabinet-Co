@@ -1,6 +1,5 @@
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
-import { Section } from "@/components/marketing/Section";
 import { EstimateCalculator } from "@/components/EstimateCalculator";
 import { catalogMetadata, catalogDescription } from "@/lib/catalog-metadata";
 import { generateBreadcrumbSchema, generateWebPageSchema } from "@/lib/schema";
@@ -30,13 +29,13 @@ export default function EstimatePage() {
   return (
     <>
       <JsonLd data={schemas} />
-      <div className="flex flex-col pb-20 md:pb-0">
-        <Section spacing="sm" className="pt-4 md:pt-6">
-          <div className="container px-4">
-            <Breadcrumbs items={[{ name: "Home", href: "/" }, { name: "Get an Estimate" }]} />
-          </div>
-        </Section>
-        <EstimateCalculator headingAs="h1" />
+      {/* One-screen tool: fill the viewport below the sticky site header so the
+          estimator never requires page scrolling on any device. */}
+      <div className="flex h-[calc(100dvh-var(--app-header-h,3.75rem))] flex-col overflow-hidden">
+        <div className="container shrink-0 px-4 pt-1.5">
+          <Breadcrumbs items={[{ name: "Home", href: "/" }, { name: "Get an Estimate" }]} />
+        </div>
+        <EstimateCalculator headingAs="h1" viewportFit />
       </div>
     </>
   );

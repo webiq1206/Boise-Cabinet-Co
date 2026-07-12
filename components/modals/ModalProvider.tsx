@@ -48,8 +48,10 @@ export function ModalProvider({ children }: { children: React.ReactNode }) {
       {children}
 
       <Dialog open={open} onOpenChange={(v) => !v && close()}>
-        <DialogContent className="max-w-4xl w-[100vw] sm:w-[95vw] max-h-[100dvh] sm:max-h-[90vh] h-[100dvh] sm:h-auto overflow-y-auto rounded-none sm:rounded-lg">
-          <DialogHeader>
+        {/* Bounded flex column so the estimator fills exactly the dialog and pins
+            its own CTA — the quote flow never scrolls the page or the dialog. */}
+        <DialogContent className="flex max-w-4xl w-[100vw] sm:w-[95vw] h-[100dvh] sm:h-[min(88dvh,720px)] flex-col overflow-hidden rounded-none p-4 sm:rounded-lg sm:p-6">
+          <DialogHeader className="shrink-0">
             <DialogTitle className="font-sans font-light text-xl text-foreground">
               Get your free quote
             </DialogTitle>
@@ -59,7 +61,9 @@ export function ModalProvider({ children }: { children: React.ReactNode }) {
             </DialogDescription>
           </DialogHeader>
           {/* Remount per open so the deep-link step + saved progress apply cleanly. */}
-          {open && <EstimateCalculator inModal startStep={startStep} />}
+          <div className="min-h-0 flex-1">
+            {open && <EstimateCalculator inModal startStep={startStep} />}
+          </div>
         </DialogContent>
       </Dialog>
     </ModalsContext.Provider>

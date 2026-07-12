@@ -24,6 +24,12 @@ interface StepProgressProps {
   percent?: number;
   /** On small screens, collapse the rail into a compact step menu. */
   compactMobile?: boolean;
+  /**
+   * "slim" renders a low-profile segmented bar (~20px) instead of the tall
+   * circular rail, so viewport-fit flows can keep the whole step on screen.
+   * The step title/counter is expected to live in the surrounding header.
+   */
+  variant?: "rail" | "slim";
 }
 
 export function StepProgress({
@@ -34,8 +40,44 @@ export function StepProgress({
   className,
   percent,
   compactMobile = false,
+  variant = "rail",
 }: StepProgressProps) {
   const current = steps[currentIndex];
+
+  if (variant === "slim") {
+    return (
+      <nav aria-label="Progress" className={cn("mb-3", className)}>
+        <ol className="flex items-center gap-1.5">
+          {steps.map((step, index) => {
+            const done =
+              index < currentIndex || (index === currentIndex && isStepComplete(index));
+            const active = index === currentIndex;
+            const canNavigate = index <= currentIndex && onStepClick;
+            return (
+              <li key={step.id} className="flex-1">
+                <button
+                  type="button"
+                  onClick={() => canNavigate && onStepClick?.(index)}
+                  disabled={!canNavigate}
+                  aria-current={active ? "step" : undefined}
+                  aria-label={`Step ${index + 1}: ${step.label}${done ? " (done)" : ""}`}
+                  className={cn(
+                    "block h-1.5 w-full rounded-full transition-colors",
+                    active
+                      ? "bg-accent"
+                      : done
+                        ? "bg-primary/70"
+                        : "bg-border",
+                    canNavigate ? "cursor-pointer" : "cursor-default",
+                  )}
+                />
+              </li>
+            );
+          })}
+        </ol>
+      </nav>
+    );
+  }
 
   return (
     <nav aria-label="Progress" className={cn("mb-8", className)}>

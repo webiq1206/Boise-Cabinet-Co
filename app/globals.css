@@ -52,6 +52,9 @@ html, body {
    Palette: bg #1C1F1E · bg-2 #222624 · surface #262B29 · hairline #39403D ·
    bone #F7F5F3 · text #E6E3DE · mist #9AA098 · faint #6E756F · sage #5D6561. */
 :root {
+  /* Sticky marketing header height (nav h-[60px] + 1px border). Used by
+     viewport-fit tools (e.g. the estimator) to fill exactly one screen. */
+  --app-header-h: 61px;
   --button-outline: rgba(255,255,255, .08);
   --badge-outline: rgba(255,255,255, .04);
   --opaque-button-border-intensity: 9;

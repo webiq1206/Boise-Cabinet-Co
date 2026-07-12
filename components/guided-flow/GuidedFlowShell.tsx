@@ -44,6 +44,15 @@ interface GuidedFlowShellProps {
    * directly below the step content. Other flows can omit it entirely.
    */
   sidePanel?: ReactNode;
+  /**
+   * Viewport-fit mode. The shell becomes a bounded flex column: a compact
+   * slim-progress header, a scroll-contained body, and a footer with Back +
+   * primary CTA pinned to the bottom of the card. The parent must give the
+   * shell a bounded height (e.g. `h-full` inside a `100dvh` wrapper). Keeps the
+   * step counter + primary action on screen at every step without page scroll.
+   * Opt-in: default `false` preserves the classic in-flow layout.
+   */
+  fitViewport?: boolean;
 }
 
 export function GuidedFlowShell({
@@ -70,11 +79,13 @@ export function GuidedFlowShell({
   compactMobileSteps,
   focusPrimaryToken,
   sidePanel,
+  fitViewport = false,
 }: GuidedFlowShellProps) {
   const step = steps[currentIndex];
   const rootRef = useRef<HTMLDivElement>(null);
   const topRef = useRef<HTMLDivElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
+  const bodyRef = useRef<HTMLDivElement>(null);
 
   // The sticky mobile bar should only appear while the flow is actually on
   // screen (the estimator is also embedded mid-page on the homepage), so it
@@ -93,23 +104,27 @@ export function GuidedFlowShell({
     return () => ob.disconnect();
   }, []);
 
-  // The wizard bar itself is lg:hidden, but the global nav bottom bar shows
-  // until xl. Track the lg breakpoint so we only ask the nav bar to step aside
-  // when our bar is actually rendered (otherwise 1024-1279px viewports would
-  // have no bottom bar at all).
+  // In the classic layout the wizard bar is lg:hidden, so we only ask the global
+  // nav bottom bar to step aside below lg (otherwise 1024-1279px would have no
+  // bottom bar at all). In fit mode our footer is pinned at every width, so we
+  // step the nav bar aside all the way up to xl (where it hides itself).
   const [belowLg, setBelowLg] = useState(false);
   useEffect(() => {
-    const mq = window.matchMedia("(max-width: 1023px)");
+    const query = fitViewport ? "(max-width: 1279px)" : "(max-width: 1023px)";
+    const mq = window.matchMedia(query);
     const sync = () => setBelowLg(mq.matches);
     sync();
     mq.addEventListener("change", sync);
     return () => mq.removeEventListener("change", sync);
-  }, []);
+  }, [fitViewport]);
 
   // Ref-count active wizard mobile bars on the window so the global navigation
   // bottom bar can step aside while a guided flow is on screen (no stacked bars).
+  // In fit mode the footer is always rendered while the shell is mounted, so we
+  // register on `belowLg` alone; the classic fixed bar is gated by `barVisible`.
+  const barActive = fitViewport ? belowLg : barVisible && belowLg;
   useEffect(() => {
-    if (!barVisible || !belowLg || typeof window === "undefined") return;
+    if (!barActive || typeof window === "undefined") return;
     const w = window as unknown as { __wizardMobileBars?: number };
     w.__wizardMobileBars = (w.__wizardMobileBars ?? 0) + 1;
     window.dispatchEvent(new Event("wizardmobilebar"));
@@ -117,7 +132,7 @@ export function GuidedFlowShell({
       w.__wizardMobileBars = Math.max(0, (w.__wizardMobileBars ?? 1) - 1);
       window.dispatchEvent(new Event("wizardmobilebar"));
     };
-  }, [barVisible, belowLg]);
+  }, [barActive]);
 
   // On every step change: bring the step header into view and move focus to the
   // heading. This is the core "always return me to the top and show the next
@@ -131,13 +146,20 @@ export function GuidedFlowShell({
     const prefersReduced =
       typeof window !== "undefined" &&
       window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
-    topRef.current?.scrollIntoView({
-      behavior: prefersReduced ? "auto" : "smooth",
-      block: "start",
-    });
+    if (fitViewport) {
+      // The card is height-bounded, so the page never scrolls. Reset the
+      // contained body to the top so each step starts at its heading, and move
+      // focus there without nudging the page.
+      bodyRef.current?.scrollTo({ top: 0, behavior: prefersReduced ? "auto" : "smooth" });
+    } else {
+      topRef.current?.scrollIntoView({
+        behavior: prefersReduced ? "auto" : "smooth",
+        block: "start",
+      });
+    }
     // Focus without a second scroll jump; the smooth scroll above handles it.
     headingRef.current?.focus({ preventScroll: true });
-  }, [currentIndex]);
+  }, [currentIndex, fitViewport]);
 
   // When a step's choice is made we surface the now-enabled Continue by moving
   // focus to it (predictable, replaces silent auto-advance). Only fires when the
@@ -174,6 +196,114 @@ export function GuidedFlowShell({
       </Button>
     );
   };
+
+  if (fitViewport) {
+    return (
+      <div
+        ref={rootRef}
+        className={cn("flex h-full min-h-0 flex-col", className)}
+        data-testid="guided-flow-fit"
+      >
+        {/* Compact, non-scrolling header */}
+        <div ref={topRef} className="shrink-0">
+          <div className="mb-2">
+            <p className="text-[11px] uppercase tracking-wide text-muted-foreground">
+              Step {currentIndex + 1} of {steps.length}
+              {minutesLeftLabel ? ` · ${minutesLeftLabel}` : ""}
+            </p>
+            <h2
+              ref={headingRef}
+              tabIndex={-1}
+              className="text-lg font-medium leading-tight text-foreground outline-none sm:text-xl"
+            >
+              {step.label}
+            </h2>
+            {stepDescription && (
+              <p className="mt-0.5 line-clamp-2 text-[13px] leading-snug text-muted-foreground">
+                {stepDescription}
+              </p>
+            )}
+          </div>
+          <StepProgress
+            variant="slim"
+            steps={steps}
+            currentIndex={currentIndex}
+            isStepComplete={isStepComplete}
+            onStepClick={onStepClick}
+          />
+        </div>
+
+        <p className="sr-only" aria-live="polite" role="status">
+          Step {currentIndex + 1} of {steps.length}: {step.label}
+        </p>
+
+        {headerExtra}
+
+        {/* Scroll-contained body: the page never scrolls; on rare overflow the
+            body scrolls inside the card while header + footer stay pinned. The
+            wrapper is a flex column on mobile (so the body is height-bounded and
+            scrolls internally) and a two-column grid on desktop. */}
+        <div
+          className={cn(
+            "flex min-h-0 flex-1 flex-col",
+            sidePanel
+              ? "lg:grid lg:grid-cols-[minmax(0,1fr)_320px] lg:gap-6"
+              : "",
+          )}
+        >
+          <div
+            ref={bodyRef}
+            className={cn(
+              "min-h-0 flex-1 overflow-y-auto overscroll-contain pr-0.5 lg:flex-none",
+              stepClassName,
+            )}
+          >
+            {children}
+          </div>
+          {sidePanel && (
+            <aside
+              className="hidden min-h-0 overflow-y-auto lg:block"
+              data-testid="guided-flow-side-panel"
+            >
+              {sidePanel}
+            </aside>
+          )}
+        </div>
+
+        {/* Pinned footer: Back + live-range chip (mobile) + primary CTA. */}
+        <div
+          className="shrink-0 border-t bg-background/95 px-0.5 pt-2 pb-safe"
+          data-testid="wizard-mobile-bar"
+        >
+          {mobileSummary && (
+            <div className="mb-1.5 lg:hidden" data-testid="wizard-mobile-summary">
+              {mobileSummary}
+            </div>
+          )}
+          <div className="flex items-center gap-2">
+            <Button
+              variant="outline"
+              onClick={onBack}
+              disabled={isFirst}
+              className="min-h-11 shrink-0 px-3 sm:px-4"
+              aria-label="Back"
+            >
+              <ChevronLeft className="h-4 w-4" />
+              <span className="hidden sm:inline">Back</span>
+            </Button>
+            {(() => {
+              const primary = renderPrimary(true);
+              return primary ? (
+                <div className="min-w-0 flex-1">{primary}</div>
+              ) : (
+                !isFirst && <div className="flex-1" />
+              );
+            })()}
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div ref={rootRef} className={cn("flex flex-col", className)}>

@@ -97,11 +97,12 @@ const OPTION_ICONS: Record<string, LucideIcon> = {
   Sparkles,
 };
 
-type WizardStepId = "project" | "size" | "layout" | "style" | "result" | "contact";
+type WizardStepId = "project" | "size" | "quality" | "layout" | "style" | "result" | "contact";
 
 const WIZARD_META: Record<WizardStepId, GuidedStep> = {
   project: { id: "project", label: "Your project", shortLabel: "Project" },
-  size: { id: "size", label: "Size & quality", shortLabel: "Size" },
+  size: { id: "size", label: "Project size", shortLabel: "Size" },
+  quality: { id: "quality", label: "Construction quality", shortLabel: "Quality" },
   layout: { id: "layout", label: "Layout", shortLabel: "Layout" },
   style: { id: "style", label: "Door & finish", shortLabel: "Style" },
   result: { id: "result", label: "Your range", shortLabel: "Range" },
@@ -112,7 +113,7 @@ function getWizardStepIds(
   project: ProjectType | null,
   includeContact = true,
 ): WizardStepId[] {
-  const ids: WizardStepId[] = ["project", "size"];
+  const ids: WizardStepId[] = ["project", "size", "quality"];
   if (project && getStepVisibility(project).layout) ids.push("layout");
   ids.push("style", "result");
   // The terminal contact step is only part of the flow when the wizard owns
@@ -133,12 +134,14 @@ function OptionVisual({
   icon,
   svg,
   svgStyle,
+  aspectClass = "aspect-[16/10] sm:aspect-[4/3]",
 }: {
   image?: string;
   imageAlt?: string;
   icon?: string;
   svg?: string;
   svgStyle?: React.CSSProperties;
+  aspectClass?: string;
 }) {
   const alt = imageAlt?.trim() || DEFAULT_OPTION_VISUAL_ALT;
 
@@ -148,19 +151,22 @@ function OptionVisual({
         role="img"
         aria-label={alt}
         style={svgStyle}
-        className="relative w-full aspect-[16/10] sm:aspect-[4/3] mb-2 overflow-hidden rounded-sm bg-muted [&>svg]:h-full [&>svg]:w-full [&>svg]:object-cover"
+        className={cn(
+          "relative w-full mb-2 overflow-hidden rounded-sm bg-muted [&>svg]:h-full [&>svg]:w-full [&>svg]:object-cover",
+          aspectClass,
+        )}
         dangerouslySetInnerHTML={{ __html: svg }}
       />
     );
   }
   if (image) {
     return (
-      <div className="relative w-full aspect-[16/10] sm:aspect-[4/3] mb-2 overflow-hidden rounded-sm bg-muted">
+      <div className={cn("relative w-full mb-2 overflow-hidden rounded-sm bg-muted", aspectClass)}>
         <Image
           src={image}
           alt={alt}
           fill
-          sizes="(max-width: 1024px) 50vw, 200px"
+          sizes="(max-width: 1024px) 33vw, 160px"
           className="object-cover img-brand-grade"
         />
       </div>
@@ -185,6 +191,8 @@ function SelectButton<T extends string>({
   testIdPrefix,
   svgByValue,
   svgStyle,
+  columns = 2,
+  aspectClass,
 }: {
   value: T | "";
   options: SelectOption<T>[];
@@ -192,9 +200,13 @@ function SelectButton<T extends string>({
   testIdPrefix: string;
   svgByValue?: Record<string, string>;
   svgStyle?: React.CSSProperties;
+  columns?: 2 | 3;
+  aspectClass?: string;
+  /** Overrides the default column classes (e.g. a responsive grid). */
+  gridClassName?: string;
 }) {
   return (
-    <div className="grid grid-cols-2 gap-2">
+    <div className={cn("grid gap-2", gridClassName ?? (columns === 3 ? "grid-cols-3" : "grid-cols-2"))}>
       {options.map((opt) => {
         const active = value === opt.value;
         return (
@@ -205,7 +217,7 @@ function SelectButton<T extends string>({
             data-testid={`${testIdPrefix}-${opt.value}`}
             aria-pressed={active}
             className={cn(
-              "relative flex flex-col items-start gap-1 p-3 sm:p-4 min-h-[44px] rounded-md text-left transition-all border bg-card",
+              "relative flex flex-col items-start gap-0.5 p-2 min-h-[44px] rounded-md text-left transition-all border bg-card",
               active
                 ? "border-foreground/40 border-[1.5px] bg-muted/40"
                 : "border-border hover:border-foreground/30",
@@ -222,10 +234,11 @@ function SelectButton<T extends string>({
               icon={opt.icon}
               svg={svgByValue?.[opt.value]}
               svgStyle={svgStyle}
+              aspectClass={aspectClass}
             />
-            <span className="font-medium text-xs text-foreground pr-5">{opt.label}</span>
+            <span className="font-medium text-xs text-foreground pr-5 leading-tight">{opt.label}</span>
             {opt.sub && (
-              <span className="text-[11px] leading-snug text-muted-foreground">{opt.sub}</span>
+              <span className="text-[10px] leading-snug text-muted-foreground line-clamp-1">{opt.sub}</span>
             )}
           </button>
         );
@@ -286,7 +299,7 @@ function ConstructionTierSelect({
             data-testid={`${testIdPrefix}-${opt.value}`}
             aria-pressed={active}
             className={cn(
-              "group relative flex w-full items-center gap-4 rounded-lg border p-4 text-left transition-all",
+              "group relative flex w-full items-center gap-3 rounded-lg border px-3 py-2.5 text-left transition-all",
               active
                 ? "border-accent border-[1.5px] bg-accent/5 shadow-sm"
                 : "border-border bg-card hover:border-foreground/30 hover:bg-muted/20",
@@ -294,7 +307,7 @@ function ConstructionTierSelect({
           >
             <span
               className={cn(
-                "flex h-11 w-11 shrink-0 items-center justify-center rounded-md border transition-colors",
+                "flex h-10 w-10 shrink-0 items-center justify-center rounded-md border transition-colors",
                 active
                   ? "border-accent/30 bg-background text-accent"
                   : "border-border bg-muted/40 text-foreground/70 group-hover:text-foreground",
@@ -303,17 +316,17 @@ function ConstructionTierSelect({
               {Icon ? <Icon className="h-5 w-5" /> : null}
             </span>
             <span className="min-w-0 flex-1">
-              <span className="flex flex-wrap items-center gap-x-2 gap-y-1">
+              <span className="flex flex-wrap items-center gap-x-2 gap-y-0.5">
                 <span className="font-medium text-sm text-foreground">{opt.label}</span>
                 <TierStrength rank={rank} />
                 {popular && (
-                  <span className="rounded-full bg-accent/15 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-accent">
+                  <span className="rounded-full bg-accent/15 px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wide text-accent">
                     Most popular
                   </span>
                 )}
               </span>
               {opt.sub && (
-                <span className="mt-1 block text-[12px] leading-snug text-muted-foreground">
+                <span className="mt-0.5 block text-[12px] leading-snug text-muted-foreground">
                   {opt.sub}
                 </span>
               )}
@@ -363,40 +376,42 @@ function SizeSlider({
   const pct = value != null ? Math.round(((value - min) / (max - min)) * 100) : 0;
   const background = `linear-gradient(to right, hsl(var(--accent)) 0%, hsl(var(--accent)) ${pct}%, hsl(var(--border)) ${pct}%, hsl(var(--border)) 100%)`;
   return (
-    <div>
-      <label className="brc-label mb-3 block">{label}</label>
-      <div className="space-y-4">
+    <div className="rounded-lg border border-border bg-card p-3">
+      <label className="mb-1.5 block text-[11px] font-medium uppercase leading-tight tracking-wide text-muted-foreground">
+        {label}
+      </label>
+      <div className="mb-1.5 flex items-baseline gap-1.5" data-testid={value == null ? `${testId}-unset-hint` : undefined}>
         {value != null ? (
-          <DisplayNum className="text-3xl leading-none text-foreground">
-            {value.toLocaleString()}{" "}
-            <span className="text-sm font-sans text-muted-foreground">{unitNoun}</span>
-          </DisplayNum>
+          <>
+            <DisplayNum className="text-2xl leading-none text-foreground">
+              {value.toLocaleString()}
+            </DisplayNum>
+            <span className="text-xs text-muted-foreground">{unitNoun}</span>
+          </>
         ) : (
-          <p className="text-sm text-muted-foreground" data-testid={`${testId}-unset-hint`}>
-            {hint}
-          </p>
+          <span className="text-sm text-muted-foreground">Drag to set</span>
         )}
-        <input
-          type="range"
-          className="brc-slider w-full min-h-[44px]"
-          min={min}
-          max={max}
-          step={step}
-          value={value ?? min}
-          aria-label={label}
-          aria-valuetext={value != null ? `${value} ${unitNoun}` : "Not set"}
-          onChange={(e) => onChange(Number(e.target.value))}
-          style={{ background }}
-          data-testid={testId}
-        />
-        <div className="flex justify-between text-xs text-muted-foreground">
-          <span>
-            <DisplayNum>{min.toLocaleString()}</DisplayNum> {unitShort}
-          </span>
-          <span>
-            <DisplayNum>{max.toLocaleString()}</DisplayNum> {unitShort}
-          </span>
-        </div>
+      </div>
+      <input
+        type="range"
+        className="brc-slider w-full min-h-[44px]"
+        min={min}
+        max={max}
+        step={step}
+        value={value ?? min}
+        aria-label={label}
+        aria-valuetext={value != null ? `${value} ${unitNoun}` : "Not set"}
+        onChange={(e) => onChange(Number(e.target.value))}
+        style={{ background }}
+        data-testid={testId}
+      />
+      <div className="flex justify-between text-[10px] text-muted-foreground">
+        <span>
+          <DisplayNum>{min.toLocaleString()}</DisplayNum> {unitShort}
+        </span>
+        <span>
+          <DisplayNum>{max.toLocaleString()}</DisplayNum> {unitShort}
+        </span>
       </div>
     </div>
   );
@@ -407,12 +422,19 @@ interface EstimateCalculatorWizardProps {
   onBookVisit?: () => void;
   /** Open directly on a specific step (e.g. "contact" for "just talk to us"). */
   startStep?: WizardStepId;
+  /**
+   * Viewport-fit layout: pins the step header + primary CTA so the whole step
+   * stays on screen without page scroll. Used by the standalone `/estimate`
+   * page and the modal; the in-page homepage embed leaves it off.
+   */
+  fitViewport?: boolean;
 }
 
 export function EstimateCalculatorWizard({
   inModal = false,
   onBookVisit: onBookVisitProp,
   startStep,
+  fitViewport = false,
 }: EstimateCalculatorWizardProps) {
   const [selections, setSelections] = useState<EstimateSelections>(EMPTY_SELECTIONS);
   const [touched, setTouched] = useState<Set<SelectionStepKey>>(new Set());
@@ -621,7 +643,8 @@ export function EstimateCalculatorWizard({
 
   const stepDescription: Record<WizardStepId, string | undefined> = {
     project: "Choose what you're planning - we'll guide you from here.",
-    size: "Set your cabinet run - base and wall cabinets - then pick a construction quality.",
+    size: "Drag to set your cabinet run - base and wall cabinets.",
+    quality: "Pick the box construction that fits your budget and durability.",
     layout: "Pick the shape closest to your space.",
     style: "Pick a door style. Finishes are optional - you can choose them at your visit.",
     result: undefined,
@@ -635,10 +658,13 @@ export function EstimateCalculatorWizard({
         return !!selections.project;
       case "size": {
         // Base run must be set; for projects with uppers, the wall run must be
-        // set too (it can be 0). Construction stays optional and refines.
+        // set too (it can be 0).
         const upperSet = !sizeConfig?.uppers || selections.sizeUpper != null;
         return selections.size != null && upperSet;
       }
+      case "quality":
+        // Construction refines the range but is never required to advance.
+        return true;
       case "layout":
         return !!selections.layout;
       case "style":
@@ -658,6 +684,8 @@ export function EstimateCalculatorWizard({
     switch (id) {
       case "size":
         markTouched("size");
+        break;
+      case "quality":
         // Construction is optional; only count it once intentionally chosen.
         if (selections.construction) markTouched("construction");
         break;
@@ -693,77 +721,96 @@ export function EstimateCalculatorWizard({
     switch (currentStepId) {
       case "project":
         return (
-          <div className="space-y-4">
-            <div className="grid grid-cols-2 gap-2">
-              {(Object.keys(PROJECT_LABELS) as ProjectType[]).map((type) => {
-                const info = PROJECT_LABELS[type];
-                const active = project === type;
-                return (
-                  <button
-                    key={type}
-                    type="button"
-                    onClick={() => handleSelectProject(type)}
-                    data-testid={`button-project-${type}`}
-                    aria-pressed={active}
-                    className={cn(
-                      "relative flex flex-col items-start gap-1.5 p-5 min-h-[44px] rounded-sm text-left transition-all border bg-card",
-                      active ? "border-foreground/40 border-[1.5px] bg-muted/40" : "border-border",
-                    )}
-                  >
-                    {active && (
-                      <Check className="absolute top-3 right-3 h-4 w-4 text-foreground z-10" />
-                    )}
-                    <OptionVisual image={info.image} imageAlt={`${info.label} cabinetry`} icon={info.icon} />
-                    <span className="font-medium text-sm text-foreground pr-5">{info.label}</span>
-                    <span className="text-xs text-muted-foreground">{info.sub}</span>
-                  </button>
-                );
-              })}
-            </div>
+          <div className="grid grid-cols-2 gap-2">
+            {(Object.keys(PROJECT_LABELS) as ProjectType[]).map((type) => {
+              const info = PROJECT_LABELS[type];
+              const active = project === type;
+              const Icon = OPTION_ICONS[info.icon];
+              return (
+                <button
+                  key={type}
+                  type="button"
+                  onClick={() => handleSelectProject(type)}
+                  data-testid={`button-project-${type}`}
+                  aria-pressed={active}
+                  className={cn(
+                    "relative flex items-center gap-2.5 p-2 min-h-[52px] rounded-md text-left transition-all border bg-card",
+                    active
+                      ? "border-accent border-[1.5px] bg-accent/5 shadow-sm"
+                      : "border-border hover:border-foreground/30 hover:bg-muted/20",
+                  )}
+                >
+                  <span className="relative h-10 w-10 shrink-0 overflow-hidden rounded-md bg-muted">
+                    {info.image ? (
+                      <Image
+                        src={info.image}
+                        alt={`${info.label} cabinetry`}
+                        fill
+                        sizes="40px"
+                        className="object-cover img-brand-grade"
+                      />
+                    ) : Icon ? (
+                      <span className="flex h-full w-full items-center justify-center text-foreground/70">
+                        <Icon className="h-5 w-5" />
+                      </span>
+                    ) : null}
+                  </span>
+                  <span className="min-w-0 flex-1">
+                    <span className="block font-medium text-sm leading-tight text-foreground">
+                      {info.label}
+                    </span>
+                    {/* Sub description adds height; on phones the label + image are
+                        enough, so we reveal it only where there's vertical room. */}
+                    <span className="mt-0.5 hidden text-[11px] leading-snug text-muted-foreground line-clamp-1 sm:block">
+                      {info.sub}
+                    </span>
+                  </span>
+                  {active && <Check className="h-4 w-4 shrink-0 text-accent" />}
+                </button>
+              );
+            })}
           </div>
         );
       case "size":
         if (!sizeConfig) return null;
         return (
-          <div className="space-y-8">
-            <div className="space-y-6">
+          <div className={cn("grid gap-3", sizeConfig.uppers ? "grid-cols-2" : "grid-cols-1")}>
+            <SizeSlider
+              label={sizeConfig.sizeStepLabel}
+              value={selections.size}
+              min={sizeConfig.min}
+              max={sizeConfig.max}
+              step={sizeConfig.step}
+              unitNoun={sizeConfig.unitNoun}
+              unitShort={sizeConfig.unitShort}
+              testId="slider-size"
+              hint={`Drag to set your ${sizeConfig.uppers ? "base cabinet run" : "project size"} in ${sizeConfig.unitNoun}.`}
+              onChange={(v) => updateField("size", v, "size")}
+            />
+            {sizeConfig.uppers && (
               <SizeSlider
-                label={sizeConfig.sizeStepLabel}
-                value={selections.size}
-                min={sizeConfig.min}
-                max={sizeConfig.max}
-                step={sizeConfig.step}
+                label={sizeConfig.uppers.label}
+                value={selections.sizeUpper}
+                min={0}
+                max={sizeConfig.uppers.max}
+                step={sizeConfig.uppers.step}
                 unitNoun={sizeConfig.unitNoun}
                 unitShort={sizeConfig.unitShort}
-                testId="slider-size"
-                hint={`Drag to set your ${sizeConfig.uppers ? "base cabinet run" : "project size"} in ${sizeConfig.unitNoun}.`}
-                onChange={(v) => updateField("size", v, "size")}
+                testId="slider-size-upper"
+                hint="Drag to set your wall cabinet run, or set it to 0 if there are few or none."
+                onChange={(v) => updateField("sizeUpper", v, "size")}
               />
-              {sizeConfig.uppers && (
-                <SizeSlider
-                  label={sizeConfig.uppers.label}
-                  value={selections.sizeUpper}
-                  min={0}
-                  max={sizeConfig.uppers.max}
-                  step={sizeConfig.uppers.step}
-                  unitNoun={sizeConfig.unitNoun}
-                  unitShort={sizeConfig.unitShort}
-                  testId="slider-size-upper"
-                  hint="Drag to set your wall cabinet run, or set it to 0 if there are few or none."
-                  onChange={(v) => updateField("sizeUpper", v, "size")}
-                />
-              )}
-            </div>
-            <div>
-              <label className="brc-label mb-3 block">Construction quality</label>
-              <ConstructionTierSelect
-                value={selections.construction}
-                options={CONSTRUCTION_OPTIONS}
-                onChange={(v) => updateField("construction", v as typeof selections.construction, "construction")}
-                testIdPrefix="button-construction"
-              />
-            </div>
+            )}
           </div>
+        );
+      case "quality":
+        return (
+          <ConstructionTierSelect
+            value={selections.construction}
+            options={CONSTRUCTION_OPTIONS}
+            onChange={(v) => updateField("construction", v as typeof selections.construction, "construction")}
+            testIdPrefix="button-construction"
+          />
         );
       case "layout":
         return (
@@ -783,10 +830,12 @@ export function EstimateCalculatorWizard({
           <div className="space-y-6">
             {visibility.doorStyle && (
               <div>
-                <label className="brc-label mb-3 block">Door style</label>
+                <label className="brc-label mb-2 block">Door style</label>
                 <SelectButton
                   value={selections.doorStyle}
                   options={doorOptions}
+                  gridClassName="grid-cols-3 lg:grid-cols-6"
+                  aspectClass="aspect-[4/3]"
                   onChange={(v) => {
                     setSelections((prev) =>
                       applyFinishSlug({ ...prev, doorStyle: v }, prev.finishSlug),
@@ -929,6 +978,7 @@ export function EstimateCalculatorWizard({
   const stepContinueLabels: Record<WizardStepId, string> = {
     project: "Continue",
     size: "Continue",
+    quality: "Continue",
     layout: "Continue",
     style: "See your range",
     result: "Book your free visit",
@@ -941,7 +991,7 @@ export function EstimateCalculatorWizard({
         <DrawerTrigger asChild>
           <button
             type="button"
-            className="flex w-full items-center justify-between rounded-sm border bg-background px-3 py-2 text-left min-h-11 transition-transform active:scale-[0.99]"
+            className="flex w-full items-center justify-between rounded-sm border bg-background px-3 py-1.5 text-left min-h-10 transition-transform active:scale-[0.99]"
             data-testid="button-open-estimate-sheet"
           >
             <span className="text-sm min-w-0 tabular-nums">
@@ -1015,17 +1065,16 @@ export function EstimateCalculatorWizard({
       stepDescription={stepDescription[currentStepId]}
       sidePanel={estimateSidePanel}
       mobileSummary={mobileSummaryNode}
+      fitViewport={fitViewport}
     >
       {stepBody}
     </GuidedFlowShell>
   );
 
   if (inModal) {
-    return (
-      <div className="max-h-[min(85dvh,720px)] overflow-y-auto overscroll-contain">
-        {shell}
-      </div>
-    );
+    // The dialog is height-bounded (h-[100dvh] on mobile, capped on desktop), so
+    // let the fit shell own the internal layout and pin its own CTA.
+    return <div className="flex h-full min-h-0 flex-col">{shell}</div>;
   }
 
   return shell;

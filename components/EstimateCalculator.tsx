@@ -21,14 +21,44 @@ interface EstimateCalculatorProps {
    * The standalone `/estimate` page (which IS the tool) leaves this off.
    */
   featured?: boolean;
+  /**
+   * Standalone `/estimate` treatment: the tool fills one screen below the site
+   * header with a tight heading, and the wizard runs in viewport-fit mode so the
+   * step header + primary CTA stay on screen without page scroll.
+   */
+  viewportFit?: boolean;
 }
 
-export function EstimateCalculator({ inModal = false, onBookVisit, startStep, headingAs = "h2", featured = false }: EstimateCalculatorProps = {}) {
+export function EstimateCalculator({ inModal = false, onBookVisit, startStep, headingAs = "h2", featured = false, viewportFit = false }: EstimateCalculatorProps = {}) {
   if (inModal) {
-    return <EstimateCalculatorWizard inModal onBookVisit={onBookVisit} startStep={startStep} />;
+    return <EstimateCalculatorWizard inModal fitViewport onBookVisit={onBookVisit} startStep={startStep} />;
   }
 
   const Heading = headingAs;
+
+  // Standalone `/estimate`: one-screen tool. A compact heading sits above the
+  // wizard, which fills the remaining height and pins its own CTA — no page
+  // scroll to reach any step or the primary action.
+  if (viewportFit) {
+    return (
+      <div className="container flex min-h-0 flex-1 flex-col px-4 pb-3">
+        <div className="mb-2 shrink-0">
+          <div className="flex flex-wrap items-baseline gap-x-3 gap-y-0.5">
+            <Heading className="font-sans font-light text-2xl leading-tight text-foreground">
+              Plan your cabinet <em className="brc-accent text-accent">investment</em>
+            </Heading>
+            <span className="inline-flex items-center gap-2 text-xs text-muted-foreground">
+              <span className="h-1.5 w-1.5 rounded-full bg-accent" aria-hidden="true" />
+              Free · No obligation · Instant range
+            </span>
+          </div>
+        </div>
+        <div className="min-h-0 flex-1">
+          <EstimateCalculatorWizard fitViewport onBookVisit={onBookVisit} startStep={startStep} />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <Section id="calculator" divider>
