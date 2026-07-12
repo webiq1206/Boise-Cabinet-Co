@@ -115,6 +115,24 @@ const ENTRIES = {
     topicTags: ["built-ins", "home office", "storage"],
     source: "blog",
   },
+  "laundry-room-cabinet-ideas": {
+    hero: blog("laundry-room-cabinet-ideas"),
+    alt: "Real completed Treasure Valley laundry room with deep navy-blue Shaker cabinets, a folding counter over front-load machines, open uppers, a utility sink, and a hanging rod",
+    topicTags: ["laundry", "built-ins", "storage"],
+    source: "blog",
+  },
+  "how-to-plan-a-kitchen-cabinet-project": {
+    hero: blog("how-to-plan-a-kitchen-cabinet-project"),
+    alt: "Real completed transitional Treasure Valley kitchen blending warm white oak and crisp white cabinets with a large island, showing a functional work-triangle layout",
+    topicTags: ["planning", "layout", "kitchen"],
+    source: "blog",
+  },
+  "how-deep-are-kitchen-cabinets": {
+    hero: blog("how-deep-are-kitchen-cabinets"),
+    alt: "Real completed bright Treasure Valley kitchen with soft greige Shaker cabinets showing standard-depth base and upper cabinets along a wall with white quartz counters",
+    topicTags: ["depth", "sizes", "kitchen"],
+    source: "blog",
+  },
   // —— Cabinet costs (8) ——
   "kitchen-cabinet-cost-boise": {
     hero: cs("kitchen-remodel", "boise"),
@@ -608,7 +626,7 @@ const HUB_HEROES = {
 
 const GUIDE_START = "boise-cabinet-cost-guide";
 const blogSlugsFromEntries = Object.keys(ENTRIES).slice(0, Object.keys(ENTRIES).indexOf(GUIDE_START));
-const EXPECTED_BLOG = 72;
+const EXPECTED_BLOG = 75;
 const EXPECTED_GUIDES = 17;
 
 if (blogSlugsFromEntries.length !== EXPECTED_BLOG) {

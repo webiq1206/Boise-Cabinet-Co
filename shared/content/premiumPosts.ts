@@ -1484,6 +1484,138 @@ const homeOfficeContent = `
 <p>${AUTHOR} designs and builds custom home office <a href="/cabinets/built-ins">built-ins</a> — floating desks, file and supply storage, display shelving, and designed-in cable management — matched to your home's finishes, for homes across Boise, Meridian, Eagle, and Nampa. Explore <a href="/cabinets">our cabinetry</a> and <a href="/catalog">finishes</a>, then <a href="/estimate">get a planning range</a> or <a href="/contact">book a free in-home consultation</a>. Whether it is a full office, a closet cloffice, or a nook under the stairs, we will design a workspace around exactly how you work and build it to look like a seamless, high-end part of your home.</p>
 `;
 
+const laundryRoomContent = `
+<p class="text-lg">The best laundry room cabinets do three things: <strong>hide the clutter, add a folding counter, and put storage exactly where you need it</strong> — detergent within reach of the washer, a hanging rod for air-drying, and a tall cabinet or pantry for bulk supplies and the vacuum. Whether you have a full laundry room or a closet, custom cabinetry turns a purely functional space into one that is organized, pleasant, and even beautiful. Here are the laundry room cabinet ideas that actually make laundry easier, from layout to storage to the finishes that make the room feel like part of your home.</p>
+
+<div class="summary-block">
+  <p><strong>Key takeaways:</strong> Good laundry cabinets add a folding counter, hide supplies, and include a hanging rod and tall storage. Design around your workflow — sort, wash, dry, fold, store. <a href="/cabinets/laundry">See laundry cabinetry</a> or <a href="/estimate">plan your project</a>.</p>
+</div>
+
+<h2 id="why-cabinets">Why laundry room cabinets are worth it</h2>
+<p>A laundry room without cabinetry is almost always a cluttered one — detergent bottles on top of the machines, baskets on the floor, and nowhere to fold. Custom cabinets solve all of that at once. Upper cabinets hide the visual chaos of supplies behind clean doors, a counter gives you a surface to fold and sort on, and tall or base cabinets store everything from bulk detergent to the ironing board and vacuum. Beyond function, cabinetry makes the room feel finished and intentional rather than utilitarian, which matters more than people expect for a space they use several times a week. For a relatively small investment, laundry cabinets deliver an outsized improvement in how the room looks and works every single day.</p>
+
+<h2 id="folding-counter">Add a folding counter</h2>
+<p>If you do one thing for your laundry room, add a counter. A run of countertop — most often over front-loading machines, or spanning a base-cabinet run — gives you a dedicated surface to fold clothes, sort lights and darks, and set baskets, instead of using the top of the dryer or the kitchen table. Over front-load washers and dryers, a counter also visually ties the machines into the cabinetry for a built-in, high-end look. Quartz, butcher block, and laminate all work well here depending on budget. The folding counter is the single feature that most transforms how a laundry room functions, turning laundry from a floor-and-scramble chore into an organized, stand-up task.</p>
+
+<h2 id="storage">Smart storage for supplies</h2>
+<p>Laundry rooms hold a surprising amount of stuff, and the right cabinets give each thing a home. <strong>Upper cabinets</strong> keep detergent, softener, stain removers, and cleaning supplies hidden and within reach of the machines. <strong>A tall cabinet or pantry</strong> stores bulk supplies, the vacuum, the broom, the ironing board, and other awkward items that otherwise lean in a corner. <strong>Base cabinets and drawers</strong> handle everything from dryer sheets to lint-trap odds and ends. And <strong>open or pull-out hampers</strong> built into cabinetry keep dirty laundry sorted and off the floor. The goal is to get everything off the counters and floor and behind a door, so the room reads as calm even when laundry is in progress.</p>
+
+<h2 id="hanging">A hanging rod and drying space</h2>
+<p>Air-drying is a daily need that most laundry rooms handle badly. Building in a <strong>hanging rod</strong> — a simple rod under an upper cabinet, or a dedicated pull-out valet rod — gives you a place to hang shirts straight out of the dryer to prevent wrinkles, air-dry delicates, and stage clothes on hangers. A <strong>drying rack</strong> that folds down or pulls out adds flat-drying space for sweaters and items that should not go in the dryer. These small additions cost little but eliminate the universal laundry-room habit of draping wet clothes over doors and machines. Planning even a short hanging rod into the cabinetry makes the whole laundry routine noticeably smoother.</p>
+
+<h2 id="sink">Adding a utility sink</h2>
+<p>A utility sink is one of the most useful additions to a laundry room, and cabinetry makes it look intentional. A sink gives you a place to hand-wash delicates, pre-treat stains, soak soiled items, and handle the messy household tasks — cleaning paintbrushes, filling buckets, washing up after gardening — that you would rather keep out of the kitchen. Setting the sink into a base cabinet hides the plumbing and adds storage underneath for cleaning supplies, and a counter beside it gives you room to work. If your space and budget allow, a sink meaningfully expands what the laundry room can do, turning it into a genuine utility hub rather than just a spot for the machines.</p>
+
+<h2 id="layout">Laundry room layout ideas</h2>
+<p>How you arrange the cabinetry depends on your space, but a few layouts work especially well. A <strong>single-wall layout</strong> lines the machines, counter, and cabinets along one wall — ideal for narrow rooms and closets. A <strong>galley layout</strong> puts machines and storage on facing walls for more capacity. An <strong>L-shaped layout</strong> wraps counter and cabinets around a corner, often with the sink at the turn. The organizing principle in every case is workflow: arrange things in the order you use them — a spot to sort, the washer, the dryer, a counter to fold, and storage to put things away — so laundry moves logically from dirty to done without backtracking. Designing around that sequence is what makes a laundry room feel effortless.</p>
+
+<h2 id="small">Ideas for small laundry spaces and closets</h2>
+<p>You do not need a dedicated room to benefit from laundry cabinetry. In a <strong>laundry closet</strong>, an upper cabinet or open shelf above stacked or side-by-side machines hides supplies, and a slim pull-out between or beside the machines adds surprising storage. A <strong>counter over front-load machines</strong> creates folding space even in a closet. <strong>Stacking the washer and dryer</strong> frees a full vertical column for a tall storage cabinet or hanging space. Because cabinets are made to measure, they shine in these tight footprints, using the height and awkward gaps that off-the-shelf shelving wastes. Even a compact laundry closet becomes dramatically more functional with a little well-planned cabinetry.</p>
+
+<h2 id="finishes">Finishes that make the room feel finished</h2>
+<p>Laundry rooms are increasingly designed to feel like a real part of the home rather than an afterthought, and the finishes carry that. Painted cabinetry in crisp white keeps the room bright and clean; a color like navy, sage, or greige adds personality to a space that can otherwise feel purely utilitarian; and coordinating the style with the rest of your home's cabinetry makes the laundry room feel cohesive. Durable countertops, good lighting, and quality hardware round out the upgrade. Because it is a smaller room, the laundry is a great place to have a little fun with color or a bold finish you might hesitate to use in the kitchen. See our <a href="/blog/cabinet-finishes-colors-guide">colors and finishes guide</a> and <a href="/blog/cabinet-door-styles-guide">door styles guide</a> for ideas.</p>
+
+<h2 id="mudroom">Laundry-mudroom combinations</h2>
+<p>Many Treasure Valley homes place the laundry near the garage or back entry, which makes it a natural spot to combine laundry and mudroom functions in one hardworking room. Adding a bank of lockers or cubbies with hooks, a bench, and closed cabinetry alongside the washer and dryer creates a single drop zone where the family sheds coats, shoes, backpacks, and sports gear on the way in — and does laundry in the same space. Closed cabinets keep the mudroom clutter hidden, a tall cabinet handles seasonal gear, and the folding counter does double duty. Because both functions rely on smart storage, they share the same design logic, and combining them makes excellent use of a room you have to have anyway. If your laundry sits at a busy entry, planning it as a laundry-mudroom hybrid often gets you two rooms' worth of function from one. See our <a href="/blog/home-office-built-ins">built-ins guide</a> for related ideas.</p>
+
+<h2 id="value">Do laundry cabinets add value?</h2>
+<p>A well-designed laundry room has become a genuine selling feature, and cabinetry is the biggest driver of that impression. Buyers increasingly notice and value a laundry room that is organized, functional, and attractive — with counters, storage, and a finished look — over a bare room with hookups and nothing else. Like a custom mudroom or built-in office, laundry cabinetry reads as a premium, move-in-ready feature. And the daily value is just as real: a laundry room that keeps supplies hidden, gives you space to fold, and puts everything within reach makes an unavoidable chore genuinely more pleasant. For a modest investment in a small room, laundry cabinets return a lot in both resale appeal and everyday quality of life.</p>
+
+<h2 id="bottom-line">The bottom line</h2>
+<p>Great laundry room cabinets turn a purely functional space into one that is organized, efficient, and pleasant to be in. Add a folding counter, hide your supplies in upper and tall cabinets, build in a hanging rod and ideally a utility sink, and arrange everything around the natural sort-wash-dry-fold-store workflow. Whether you have a full room or a closet, made-to-measure cabinetry uses every inch and coordinates with your home for a finished, high-end look. Laundry will never be anyone's favorite chore, but the right cabinetry makes it faster, tidier, and far less frustrating — a small investment that pays off every week. And because it is a smaller room, it is often the most affordable place to get a fully custom, built-in result, which makes the laundry an easy first project or a satisfying finishing touch to a larger whole-home cabinetry plan.</p>
+
+<h2 id="how-we-build">Design your laundry room with Boise Cabinet Co</h2>
+<p>${AUTHOR} designs and builds custom <a href="/cabinets/laundry">laundry room cabinets</a> — folding counters, hidden supply storage, hanging rods, utility-sink bases, and tall cabinets — coordinated with your home's finishes, for homes across Boise, Meridian, Eagle, and Nampa. Explore <a href="/cabinets">our cabinetry</a> and <a href="/catalog">finishes</a>, then <a href="/estimate">get a planning range</a> or <a href="/contact">book a free in-home consultation</a>. From a full laundry room to a compact closet, we will design storage around exactly how you do laundry and build it to look like a seamless, finished part of your home.</p>
+`;
+
+const kitchenPlanningContent = `
+<p class="text-lg">Planning a kitchen cabinet project comes down to a clear sequence: <strong>set your budget and priorities, nail the layout and the work triangle, choose construction quality and door style, then finishes and hardware, and finally measure precisely and order</strong>. The homeowners who love their finished kitchens are the ones who plan in that order — function before looks, quality before extras — rather than starting with a pretty color and working backward. This step-by-step guide walks you through planning a kitchen cabinet project from first idea to installation, so you make the big decisions in the right order and avoid the expensive regrets.</p>
+
+<div class="summary-block">
+  <p><strong>Key takeaways:</strong> Plan in order — budget, layout and work triangle, construction quality, door style, finishes, then precise measurements. Function and quality first, looks second. <a href="/blog/custom-kitchen-cabinet-cost">See cabinet costs</a> or <a href="/estimate">get a planning range</a>.</p>
+</div>
+
+<h2 id="budget">Step 1: Set your budget and priorities</h2>
+<p>Every good kitchen plan starts with an honest budget and a short list of priorities, because they shape every decision that follows. Decide roughly what you can spend, then rank what matters most to you — is it maximum storage, a specific look, top-tier construction, a big island, or staying under a firm number? Knowing your priorities lets you spend where it counts and economize where it does not. A common and costly mistake is falling in love with finishes and add-ons before the budget is set, then discovering the essentials no longer fit. Establish the number and the priorities first, and the rest of the plan becomes a series of clear trade-offs rather than an open-ended wish list. Our <a href="/blog/custom-kitchen-cabinet-cost">custom cabinet cost guide</a> and <a href="/blog/cabinet-cost-per-linear-foot">cost-per-linear-foot guide</a> help you set a realistic number.</p>
+
+<h2 id="layout">Step 2: Nail the layout and work triangle</h2>
+<p>Layout is the single most important decision in a kitchen, because no finish can fix a kitchen that does not function. The classic principle is the <strong>work triangle</strong> — the path between the sink, stove, and refrigerator — which should be efficient and unobstructed so cooking flows. Think about how you actually use the kitchen: where you prep, where traffic moves, where you need counter space beside the stove and sink, and how an island fits without crowding the triangle. Common layouts (galley, L-shaped, U-shaped, and island) each suit different rooms. Getting the layout right — including cabinet placement, appliance positions, and clearances — is what makes a kitchen a pleasure to cook in, so invest the most planning time here before thinking about how it looks.</p>
+
+<h2 id="storage">Step 3: Plan your storage and cabinet types</h2>
+<p>With the layout set, plan the storage in detail, because this is where a kitchen is won or lost day to day. Decide where deep drawers go (near the range for pots and pans), where you need a pantry, how to handle corners (lazy Susan or pull-out), and which specialty cabinets and inserts earn their place — a spice pull-out, a pull-out trash, roll-out trays, dividers. Think in zones — cooking, prep, cleanup, storage — and make sure each has the storage it needs where you use it. Planning storage now, rather than settling for standard boxes, is what produces a kitchen that organizes itself. See our <a href="/blog/kitchen-cabinet-organization-ideas">organization ideas</a> and <a href="/blog/standard-kitchen-cabinet-sizes">cabinet sizes guide</a> to plan this well.</p>
+
+<h2 id="construction">Step 4: Choose construction quality</h2>
+<p>Before you pick anything you can see, decide on the quality of what you cannot — the boxes, joinery, and hardware that determine how long your kitchen lasts. Plywood boxes hold up better than particleboard, dovetailed solid-wood drawers outlast stapled ones, and quality soft-close hinges and full-extension slides make the kitchen feel substantial for decades. This is the least glamorous decision and one of the most important, because construction quality is what separates a kitchen that still feels solid in twenty years from one that sags and sticks in five. Decide here how much to invest in the bones, and treat it as a priority above cosmetic extras. Our <a href="/blog/cabinet-construction-quality-guide">construction quality guide</a> covers exactly what to look for.</p>
+
+<h2 id="style">Step 5: Choose door style and finish</h2>
+<p>Now the fun part — the look. Choose a door style (Shaker is the timeless all-rounder, slab reads modern, raised-panel traditional) and then a finish and color. Because you have already handled layout, storage, and construction, you can choose the aesthetics freely, knowing the kitchen will function and last regardless of how it looks. Consider your home's style, your natural light, and how long you want the look to stay current — timeless neutrals for the main cabinets, with bolder color contained to an island if you want personality. This is where the kitchen becomes yours. See our <a href="/blog/cabinet-door-styles-guide">door styles guide</a>, <a href="/blog/best-kitchen-cabinet-colors">color guide</a>, and <a href="/blog/cabinet-hardware-guide">hardware guide</a> to make these choices.</p>
+
+<h2 id="measure">Step 6: Measure precisely</h2>
+<p>Accurate measurements are the difference between cabinets that fit perfectly and an expensive, frustrating mistake. Measure the room carefully — wall lengths, ceiling height, window and door positions, and the locations of plumbing, gas, and electrical — and account for appliances and clearances. For a custom project, your cabinet company will typically do a precise professional measure before anything is ordered, which is exactly why custom cabinets fit so well. If you are doing more of it yourself, measure twice, note every obstruction, and do not guess. Precise measurement is the unglamorous step that protects every decision you made before it, ensuring the plan you designed is the kitchen you actually get.</p>
+
+<h2 id="timeline">Step 7: Understand the timeline</h2>
+<p>Knowing the timeline up front keeps your project calm and your expectations realistic. Custom and semi-custom cabinets are built to order, so there is a lead time between ordering and delivery — often several weeks to a few months depending on the shop and the scope. Installation itself takes days, not weeks, but it should be coordinated with countertops (templated after cabinets are set), plumbing, electrical, and any other trades. Building this sequence into your plan — and ordering with enough lead time — prevents the scramble of a kitchen torn apart while you wait on cabinets. A good cabinet company will walk you through the schedule so you know what happens when. Our <a href="/guides/boise-kitchen-cabinet-guide">kitchen cabinet guide</a> covers the local process.</p>
+
+<h2 id="source">Step 8: Choose stock, semi-custom, or custom</h2>
+<p>Where your cabinets come from shapes cost, lead time, and how well they fit your plan, so it belongs in the process. <strong>Stock cabinets</strong> come in fixed sizes and finishes, are the least expensive, and ship fast, but they limit your layout to standard increments and can leave awkward filler gaps. <strong>Semi-custom cabinets</strong> offer more sizes, finishes, and modifications on a stock platform — a good middle ground for many kitchens. <strong>Custom cabinets</strong> are built to your exact dimensions, storage needs, and finishes, using every inch of an irregular space and matching precisely what you designed. Match the source to your priorities: if budget and speed lead, stock or semi-custom may fit; if maximizing space, storage, and a specific look matter most, custom delivers the plan you actually drew. Our <a href="/blog/stock-vs-custom-cabinets-boise">stock vs custom guide</a> and <a href="/blog/what-are-rta-cabinets">RTA cabinets guide</a> compare the options in detail.</p>
+
+<h2 id="designer">Working with a cabinet designer</h2>
+<p>You do not have to plan a kitchen alone, and a good cabinet designer earns their place in the process. A designer translates your budget, priorities, and how you cook into a working layout, catches the practical issues — clearances, appliance fit, traffic flow, filler and trim details — that are easy to miss, and helps you spend where it counts. They also handle the precise measuring and the cabinet specification so what gets ordered actually fits. The best time to bring in a designer is early, once you know your budget and rough priorities but before you have locked in finishes, so their guidance shapes the layout rather than just decorating a plan that is already fixed. Think of the designer as the person who keeps function, quality, and looks in the right order for you.</p>
+
+<h2 id="mistakes">Common planning mistakes to avoid</h2>
+<p>Most kitchen regrets trace back to a handful of planning errors. Starting with finishes instead of function, so the pretty kitchen does not work well. Skimping on construction quality to afford cosmetic upgrades, then paying for it in years of sticking drawers. Ignoring the work triangle and traffic flow. Under-planning storage and ending up with standard boxes that waste space. Guessing at measurements. And forgetting to plan around appliances, plumbing, and clearances. Every one of these is avoidable by planning in the right order — function and quality first, looks second, precise measurement last — which is exactly the sequence this guide lays out. Plan deliberately and you sidestep the expensive regrets that come from rushing.</p>
+
+<h2 id="bottom-line">The bottom line</h2>
+<p>A great kitchen is the product of good planning, done in the right order. Set your budget and priorities, get the layout and work triangle right, plan your storage in detail, invest in construction quality, then choose the door style and finishes you love, and finally measure with precision and order with enough lead time. Function before looks, quality before extras, measurement before ordering — follow that sequence and you end up with a kitchen that works beautifully, lasts for decades, and looks exactly the way you wanted. Rush it or reverse the order, and you inherit the regrets. Plan it well, and you get the kitchen you imagined.</p>
+
+<h2 id="how-we-build">Plan your kitchen with Boise Cabinet Co</h2>
+<p>${AUTHOR} designs custom <a href="/cabinets/kitchen">kitchen cabinets</a> and guides you through the whole plan — budget, layout, storage, construction, finishes, and a precise professional measure — for homes across Boise, Meridian, Eagle, and Nampa. Explore <a href="/catalog">our finishes and door styles</a>, then <a href="/estimate">get a planning range</a> or <a href="/contact">book a free in-home consultation</a>. We will help you make the big decisions in the right order, design the storage around how you actually cook, and build a kitchen that functions beautifully and lasts for decades.</p>
+`;
+
+const cabinetDepthContent = `
+<p class="text-lg">Standard kitchen cabinets have well-established depths: <strong>base cabinets are 24 inches deep, upper (wall) cabinets are 12 inches deep, and tall/pantry cabinets are usually 24 inches deep</strong> to match the base run. With countertops overhanging the front, finished counter depth typically comes to about 25–26 inches. Knowing these standard depths — and where they can flex — is essential for planning a kitchen that fits your appliances, your space, and how you cook. Here is a clear breakdown of every cabinet depth, why the standards exist, and when it makes sense to go deeper or shallower.</p>
+
+<div class="summary-block">
+  <p><strong>Key takeaways:</strong> Base cabinets are 24" deep, uppers 12", tall/pantry cabinets 24". Counters overhang to ~25–26" finished depth. Depths can be customized for appliances, space, or accessibility. <a href="/blog/standard-kitchen-cabinet-sizes">See all cabinet sizes</a> or <a href="/cabinets/kitchen">explore kitchen cabinets</a>.</p>
+</div>
+
+<h2 id="base">Base cabinet depth: 24 inches</h2>
+<p>Standard base cabinets — the ones that sit on the floor and carry the countertop — are <strong>24 inches deep</strong> (measured from the wall to the front of the cabinet box, not counting the door or countertop overhang). This depth is a long-established standard that balances generous work and storage space against reach: 24 inches gives you a deep, usable countertop and roomy cabinets while still letting you reach the back and the wall behind for outlets and backsplash. Nearly all standard appliances — dishwashers, ranges, and cabinet-depth refrigerators — are built to fit flush with 24-inch base cabinets, which is a major reason the standard endures. When people say a kitchen counter is "counter depth," 24-inch base cabinets are the reason.</p>
+
+<h2 id="counter">Countertop depth: ~25–26 inches</h2>
+<p>Your finished countertop is slightly deeper than the base cabinet because it overhangs the front. A standard countertop overhang is about <strong>1 to 1.5 inches</strong> past the cabinet face, which brings the total finished counter depth to roughly <strong>25 to 26 inches</strong>. That small overhang is intentional and useful: it keeps drips and crumbs from running down the cabinet doors, gives your knees a bit of clearance, and creates a clean finished edge. If you are planning around a specific counter depth — for a seating overhang on an island, for example — remember that the counter always projects past the cabinet, so factor the overhang into your measurements rather than using the cabinet depth alone.</p>
+
+<h2 id="upper">Upper (wall) cabinet depth: 12 inches</h2>
+<p>Standard upper or wall cabinets are <strong>12 inches deep</strong> — half the depth of base cabinets. The shallower depth is deliberate: it keeps upper cabinets from crowding your head and work space over the counter, lets light reach the countertop, and keeps everyday dishes and glasses within easy reach. Twelve inches comfortably holds plates, bowls, glasses, and most kitchen items while keeping the wall of cabinets from feeling oppressive. Some homeowners choose deeper 13-, 15-, or even 24-inch uppers over a refrigerator or in specific spots for extra storage, but 12 inches remains the standard for the main run because it strikes the right balance between capacity and openness.</p>
+
+<h2 id="tall">Tall and pantry cabinet depth: 24 inches</h2>
+<p>Tall cabinets — pantry cabinets and utility or oven cabinets that run from floor to near the ceiling — are typically <strong>24 inches deep</strong>, matching the base cabinets so the run stays flush and aligned. This full depth gives a pantry serious storage capacity, holding rows of food, small appliances, and bulk supplies. Some tall cabinets are made shallower (around 12 to 18 inches) when they need to fit a tighter space or sit against a wall where a full 24 inches would protrude awkwardly, but the standard is 24 inches to align with the base cabinets and maximize storage. When planning a pantry, remember that a 24-inch-deep cabinet with roll-out shelves is far more usable than deep static shelving where items hide in the back.</p>
+
+<h2 id="fridge">Cabinet-depth vs standard refrigerators</h2>
+<p>Refrigerator depth is where cabinet depth matters most to how a kitchen looks. A <strong>standard refrigerator</strong> is deeper than base cabinets and sticks out several inches past the counter. A <strong>counter-depth refrigerator</strong> is built shallower — around 24 to 25 inches of body depth — so it sits nearly flush with the surrounding cabinets and counters for a sleek, built-in look. If a seamless, aligned kitchen is important to you, plan for a counter-depth fridge and the cabinetry around it accordingly; if maximum fridge capacity matters more, a standard-depth model will project past the cabinets. Either works, but knowing the difference up front lets you plan the surrounding cabinet depths and clearances so the refrigerator fits the way you want.</p>
+
+<h2 id="customize">When to customize cabinet depth</h2>
+<p>Standard depths fit most kitchens, but custom cabinetry lets you flex them when it helps. You might choose <strong>deeper base cabinets</strong> (27–30 inches) to accommodate a specific appliance, create a deeper island, or add storage. You might choose <strong>shallower base cabinets</strong> in a tight galley or a peninsula to preserve walkway space. <strong>Deeper uppers</strong> add storage over a fridge or in a pantry wall, while <strong>shallower cabinets</strong> can turn a narrow wall or an awkward nook into usable storage. Accessibility needs may also call for adjusted depths and heights. The standards exist because they work for most people most of the time, but the ability to deviate is exactly what makes custom cabinetry fit a home and its owners so precisely.</p>
+
+<h2 id="island">Island and peninsula depth</h2>
+<p>Islands and peninsulas do not follow the single 24-inch rule, because they are freestanding and often serve more than one purpose. A basic island is built from standard 24-inch-deep base cabinets, but many islands are made <strong>deeper than 24 inches</strong> — often 27 to 42 inches or more — to add a wider work surface, incorporate a second row of cabinets accessible from the far side, or provide a seating overhang. If you want stools tucked under the island, plan for an overhang of about 12 to 15 inches of unsupported counter beyond the cabinet face so knees fit comfortably. A common island configuration puts working cabinets on the kitchen side and a counter overhang for seating on the other, which means the total island depth is the cabinet depth plus the seating overhang. Because islands are so flexible, deciding their depth is really a question of how you want to use them — extra prep space, extra storage, seating, or all three.</p>
+
+<h2 id="accessibility">Depth and accessibility</h2>
+<p>Standard depths assume a standing user with typical reach, but they can and should flex for accessibility. For a wheelchair user or anyone who works seated, some base cabinets can be built shallower or left open underneath (as at a roll-under sink or cooktop) so the person can pull close to the work surface. Upper cabinets, which are hard to reach from a seated position even at the standard 12 inches, can be mounted lower or replaced with pull-down shelving so their contents come within reach. Drawers at accessible heights beat deep low cabinets for anyone with limited mobility, since they bring the contents out rather than requiring a reach into the back. Thinking about depth and reach together — not just the standard numbers — is how custom cabinetry makes a kitchen genuinely usable for every member of a household, now and as needs change over time.</p>
+
+<h2 id="planning">Why depth matters in planning</h2>
+<p>Getting cabinet depth right early prevents a cascade of problems later. Depth determines whether your appliances fit flush, how much counter and storage space you have, how much walkway remains in a galley, and whether the refrigerator sits proud or built-in. It interacts with your layout and the work triangle, and it affects clearances you are required to maintain around appliances and walkways. Because depth is baked into the cabinet order, it is not something you can easily change after the fact — which is why it belongs in the planning stage alongside layout and sizing. Nail the depths up front and everything downstream, from appliance fit to counter overhang, falls into place. See our full <a href="/blog/standard-kitchen-cabinet-sizes">standard cabinet sizes guide</a> and <a href="/blog/kitchen-cabinet-organization-ideas">planning ideas</a>.</p>
+
+<h2 id="specialty">Depths of specialty cabinets</h2>
+<p>A few specialty cabinets deviate from the standard depths for good reasons, and knowing them helps you plan. A <strong>sink base cabinet</strong> is the standard 24 inches deep but loses usable interior room to the sink basin and plumbing, so plan its storage (a tilt-out tray or a U-shaped pull-out) around that lost space. <strong>Appliance garages</strong> — the small cabinets that hide a mixer or coffee maker on the counter — are typically shallower, around 12 to 15 inches, so they sit on the countertop without eating into work space. <strong>Refrigerator cabinets and the panels around a built-in fridge</strong> are built to the fridge's depth so everything sits flush. And <strong>wall oven and microwave cabinets</strong> are usually full 24-inch depth to house the appliance and align with the base run. These variations exist to fit specific appliances and uses, and a custom shop sizes each one precisely so the finished kitchen fits together without awkward gaps or protrusions.</p>
+
+<h2 id="bottom-line">The bottom line</h2>
+<p>Standard kitchen cabinet depths are straightforward and worth memorizing: <strong>24 inches for base cabinets, 12 inches for uppers, and 24 inches for tall and pantry cabinets</strong>, with countertops overhanging to about 25–26 inches of finished depth. These standards exist because they fit standard appliances and balance storage against reach and openness. Custom cabinetry lets you flex them for appliances, tight spaces, or accessibility, but the standards are the right starting point for most kitchens. Know your depths before you plan, account for the counter overhang and your refrigerator type, and your cabinets, appliances, and counters will all fit together exactly as they should.</p>
+
+<h2 id="how-we-build">Plan the right depths with Boise Cabinet Co</h2>
+<p>${AUTHOR} builds custom <a href="/cabinets/kitchen">kitchen cabinets</a> at standard depths — or precisely customized ones — to fit your appliances, your space, and how you cook, for homes across Boise, Meridian, Eagle, and Nampa. Explore <a href="/catalog">our cabinets and finishes</a>, then <a href="/estimate">get a planning range</a> or <a href="/contact">book a free in-home consultation</a>. We measure precisely and plan every depth around your appliances and layout, so your base cabinets, uppers, pantry, and refrigerator all fit together flush and function exactly the way you want for years to come.</p>
+`;
+
 export const PREMIUM_POSTS: BlogPostData[] = [
   {
     slug: 'framed-vs-frameless-cabinets',
@@ -2417,6 +2549,130 @@ export const PREMIUM_POSTS: BlogPostData[] = [
     primaryKeyword: 'home office built ins',
     secondaryKeywords: ['built in desk', 'home office cabinets', 'office built ins', 'custom home office'],
     searchIntent: 'Informational — homeowners planning a home office built-in',
+    wordCountTarget: 'pillar',
+  },
+  {
+    slug: 'laundry-room-cabinet-ideas',
+    title: 'Laundry Room Cabinet Ideas & Storage Solutions',
+    seoTitle: 'Laundry Room Cabinet Ideas: Storage, Counters & Layout',
+    metaDescription:
+      'Laundry room cabinet ideas that hide clutter and make laundry easier: folding counters, hidden supply storage, hanging rods, utility sinks, and smart layouts for rooms and closets.',
+    excerpt:
+      'The best laundry room cabinets add a folding counter, hide supplies, and include a hanging rod and tall storage. Here are the ideas — and layouts — that make laundry genuinely easier.',
+    content: laundryRoomContent,
+    author: AUTHOR,
+    category: 'Built-Ins',
+    hubSlug: 'built-ins',
+    tags: ['laundry', 'built-ins', 'storage', 'organization', 'cabinets'],
+    publishedAt: '2026-07-11',
+    faqs: [
+      { question: 'What cabinets are best for a laundry room?', answer: 'The most useful combination is upper cabinets to hide detergent and supplies, a base run with a folding counter over or beside the machines, a tall cabinet for bulk supplies and the vacuum or ironing board, and a hanging rod for air-drying. A utility-sink base is a valuable addition if space allows.' },
+      { question: 'How much space do you need for laundry cabinets?', answer: 'You do not need a full room — even a laundry closet benefits from an upper cabinet or shelf above the machines and a counter over front-loaders for folding. Because cabinets are made to measure, they fit tight footprints well, using the height and awkward gaps that off-the-shelf shelving wastes.' },
+      { question: 'Should I add a counter over my washer and dryer?', answer: 'Yes — a folding counter is the single most transformative laundry feature. Over front-load machines it gives you a surface to fold and sort instead of using the dryer top or kitchen table, and it visually ties the machines into the cabinetry for a built-in, high-end look.' },
+      { question: 'How deep should laundry room cabinets be?', answer: 'Base cabinets and counters are typically standard depth (around 24 inches) so a folding counter aligns with front-load machines, while upper cabinets are often 12 inches deep like kitchen uppers. Depths can be customized to fit your machines and the room, which is a benefit of custom cabinetry.' },
+      { question: 'Do laundry room cabinets add home value?', answer: 'Yes. A laundry room that is organized, functional, and attractive — with counters, storage, and a finished look — has become a genuine selling feature that buyers notice, much like a custom mudroom or built-in office. It reads as a premium, move-in-ready feature and improves daily life.' },
+      { question: 'What is the best layout for a laundry room?', answer: 'Arrange cabinetry around the workflow — a spot to sort, the washer, the dryer, a counter to fold, and storage to put things away — so laundry moves logically from dirty to done. Single-wall layouts suit narrow rooms and closets, galley layouts add capacity, and L-shaped layouts work well with a corner sink.' },
+    ],
+    quickAnswer:
+      'The best laundry room cabinets add a folding counter over or beside the machines, hide detergent and supplies in upper cabinets, include a tall cabinet for bulk supplies and the vacuum, and build in a hanging rod for air-drying — ideally with a utility sink. Arrange everything around the sort-wash-dry-fold-store workflow, and custom cabinetry will fit any space from a full room to a closet.',
+    keyTakeaways: [
+      'Add a folding counter — the single most useful laundry feature.',
+      'Hide supplies in uppers and a tall cabinet; build in a hanging rod.',
+      'Arrange around the sort-wash-dry-fold-store workflow.',
+    ],
+    relatedLinks: [
+      { url: '/cabinets/laundry', anchor: 'Laundry cabinetry' },
+      { url: '/blog/cabinet-finishes-colors-guide', anchor: 'Cabinet colors and finishes' },
+      { url: '/blog/cabinet-door-styles-guide', anchor: 'Cabinet door styles' },
+      { url: '/blog/home-office-built-ins', anchor: 'Home office built-ins' },
+      { url: '/cabinets' },
+    ],
+    primaryKeyword: 'laundry room cabinet ideas',
+    secondaryKeywords: ['laundry room cabinets', 'laundry room storage', 'laundry cabinet layout', 'laundry room folding counter'],
+    searchIntent: 'Informational — homeowners planning laundry room cabinets',
+    wordCountTarget: 'pillar',
+  },
+  {
+    slug: 'how-to-plan-a-kitchen-cabinet-project',
+    title: 'How to Plan a Kitchen Cabinet Project (Step-by-Step)',
+    seoTitle: 'How to Plan a Kitchen Cabinet Project: A Step-by-Step Guide',
+    metaDescription:
+      'How to plan a kitchen cabinet project in the right order: budget, layout and work triangle, storage, construction quality, door style and finishes, then precise measurements.',
+    excerpt:
+      'Plan a kitchen cabinet project in the right order — budget, layout, storage, construction, finishes, then measurements. Function and quality first, looks second. Here is the step-by-step.',
+    content: kitchenPlanningContent,
+    author: AUTHOR,
+    category: 'Planning',
+    hubSlug: 'kitchen-cabinets',
+    tags: ['planning', 'layout', 'design', 'work triangle', 'kitchen'],
+    publishedAt: '2026-07-11',
+    faqs: [
+      { question: 'How do I plan a kitchen cabinet project?', answer: 'Plan in order: set your budget and priorities, nail the layout and work triangle, plan your storage in detail, choose construction quality, then pick the door style and finishes, and finally measure precisely and order. Handling function and quality before looks is what produces a kitchen you love and avoids expensive regrets.' },
+      { question: 'What is the kitchen work triangle?', answer: 'The work triangle is the path between the three main work areas — sink, stove, and refrigerator. It should be efficient and unobstructed so cooking flows smoothly. Getting the triangle right is central to a functional layout, and it should be planned before an island or any finishes are chosen.' },
+      { question: 'What should I decide first when planning a kitchen?', answer: 'Start with budget and priorities, then layout. Deciding what you can spend and what matters most — storage, look, quality, an island — shapes every later choice. A common costly mistake is starting with finishes and colors before the budget and layout are settled, then finding the essentials no longer fit.' },
+      { question: 'Should I prioritize looks or construction quality?', answer: 'Construction quality first. Plywood boxes, solid-wood dovetailed drawers, and quality soft-close hardware determine how long the kitchen lasts, while finishes only affect how it looks. Skimping on the boxes to afford cosmetic upgrades leads to years of sticking drawers and sagging shelves — invest in the bones first.' },
+      { question: 'How long does a kitchen cabinet project take?', answer: 'Custom and semi-custom cabinets are built to order, so expect a lead time of several weeks to a few months between ordering and delivery, depending on the shop and scope. Installation takes days, then countertops are templated after cabinets are set. Order with enough lead time to avoid a torn-apart kitchen while you wait.' },
+      { question: 'What are common kitchen planning mistakes?', answer: 'The big ones are starting with finishes instead of function, skimping on construction quality for cosmetic upgrades, ignoring the work triangle and traffic flow, under-planning storage, guessing at measurements, and forgetting to plan around appliances, plumbing, and clearances. Planning in the right order avoids all of them.' },
+    ],
+    quickAnswer:
+      'To plan a kitchen cabinet project, work in order: set your budget and priorities, nail the layout and work triangle, plan your storage in detail, choose construction quality, then select the door style and finishes, and finally measure precisely and order with enough lead time. Function and quality before looks, measurement before ordering — that sequence produces a kitchen that works, lasts, and looks right.',
+    keyTakeaways: [
+      'Plan in order: budget, layout, storage, construction, finishes, measurements.',
+      'Function and quality first; looks second.',
+      'Measure precisely and order with enough lead time.',
+    ],
+    relatedLinks: [
+      { url: '/blog/custom-kitchen-cabinet-cost', anchor: 'Custom cabinet cost' },
+      { url: '/blog/cabinet-construction-quality-guide', anchor: 'Construction quality' },
+      { url: '/blog/standard-kitchen-cabinet-sizes', anchor: 'Standard cabinet sizes' },
+      { url: '/blog/kitchen-cabinet-organization-ideas', anchor: 'Organization ideas' },
+      { url: '/cabinets/kitchen' },
+    ],
+    primaryKeyword: 'how to plan a kitchen cabinet project',
+    secondaryKeywords: ['kitchen cabinets design', 'kitchen cabinet planning', 'kitchen layout planning', 'plan new kitchen cabinets'],
+    searchIntent: 'Informational — homeowners planning a kitchen cabinet project',
+    isPillar: true,
+    wordCountTarget: 'pillar',
+  },
+  {
+    slug: 'how-deep-are-kitchen-cabinets',
+    title: 'How Deep Are Kitchen Cabinets? (Upper, Base & Pantry Depths)',
+    seoTitle: 'How Deep Are Kitchen Cabinets? Standard Depths Explained',
+    metaDescription:
+      'How deep are kitchen cabinets? Base cabinets are 24 inches, uppers 12 inches, tall/pantry cabinets 24 inches, with counters overhanging to ~25–26 inches. Full depth breakdown and when to customize.',
+    excerpt:
+      'Base cabinets are 24 inches deep, uppers 12 inches, and pantry cabinets 24 inches, with counters overhanging to about 25–26 inches. Here is every standard cabinet depth and when to customize it.',
+    content: cabinetDepthContent,
+    author: AUTHOR,
+    category: 'Sizes & Dimensions',
+    hubSlug: 'kitchen-cabinets',
+    tags: ['depth', 'sizes', 'dimensions', 'planning', 'kitchen'],
+    publishedAt: '2026-07-11',
+    faqs: [
+      { question: 'How deep are standard kitchen cabinets?', answer: 'Standard base cabinets are 24 inches deep, upper (wall) cabinets are 12 inches deep, and tall or pantry cabinets are usually 24 inches deep to match the base run. With the countertop overhanging the front, finished counter depth typically comes to about 25 to 26 inches.' },
+      { question: 'How deep are upper kitchen cabinets?', answer: 'Standard upper or wall cabinets are 12 inches deep — half the depth of base cabinets. The shallower depth keeps them from crowding your head and work space, lets light reach the counter, and keeps dishes within reach, while still holding plates, bowls, and glasses comfortably.' },
+      { question: 'How deep are base kitchen cabinets?', answer: 'Standard base cabinets are 24 inches deep, measured from the wall to the front of the box (not counting the door or counter overhang). This depth fits standard appliances like dishwashers and ranges flush and balances generous storage against the ability to reach the back and the wall behind.' },
+      { question: 'How deep is a kitchen countertop?', answer: 'A standard countertop is about 25 to 26 inches deep — the 24-inch base cabinet plus a 1 to 1.5 inch overhang past the cabinet face. The overhang keeps drips off the doors, adds knee clearance, and creates a finished edge. Factor the overhang into measurements rather than using cabinet depth alone.' },
+      { question: 'What is a counter-depth refrigerator?', answer: 'A counter-depth refrigerator is built shallower — around 24 to 25 inches of body depth — so it sits nearly flush with surrounding cabinets and counters for a sleek, built-in look. A standard-depth fridge is deeper and projects several inches past the counter but offers more capacity.' },
+      { question: 'Can kitchen cabinet depth be customized?', answer: 'Yes. Custom cabinetry can go deeper (27 to 30 inch base cabinets for appliances, islands, or storage) or shallower (in tight galleys, peninsulas, or awkward nooks). Uppers can be deeper over a fridge or shallower on a narrow wall. Standard depths fit most kitchens, but customizing is what makes cabinets fit a space precisely.' },
+    ],
+    quickAnswer:
+      'Standard kitchen cabinets have set depths: base cabinets are 24 inches deep, upper (wall) cabinets are 12 inches deep, and tall or pantry cabinets are usually 24 inches deep to match the base run. Countertops overhang the base cabinets by 1 to 1.5 inches, bringing finished counter depth to about 25 to 26 inches. Depths can be customized for appliances, tight spaces, or accessibility.',
+    keyTakeaways: [
+      'Base cabinets 24", uppers 12", tall/pantry 24".',
+      'Counters overhang to about 25–26 inches finished depth.',
+      'Depths can be customized for appliances, space, or accessibility.',
+    ],
+    relatedLinks: [
+      { url: '/blog/standard-kitchen-cabinet-sizes', anchor: 'Standard cabinet sizes' },
+      { url: '/blog/kitchen-cabinet-organization-ideas', anchor: 'Organization ideas' },
+      { url: '/blog/how-to-plan-a-kitchen-cabinet-project', anchor: 'Plan a kitchen project' },
+      { url: '/blog/pantry-cabinet-ideas', anchor: 'Pantry cabinet ideas' },
+      { url: '/cabinets/kitchen' },
+    ],
+    primaryKeyword: 'how deep are kitchen cabinets',
+    secondaryKeywords: ['kitchen cabinet depth', 'standard cabinet depth', 'upper cabinet depth', 'base cabinet depth'],
+    searchIntent: 'Informational — homeowners researching cabinet depths',
     wordCountTarget: 'pillar',
   },
 ];

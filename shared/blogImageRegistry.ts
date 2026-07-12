@@ -111,6 +111,24 @@ export const BLOG_IMAGE_REGISTRY: Record<string, BlogImageEntry> = {
     topicTags: ["built-ins","home office","storage"],
     source: 'blog',
   },
+  'laundry-room-cabinet-ideas': {
+    hero: '/images/blog/laundry-room-cabinet-ideas.png',
+    alt: 'Real completed Treasure Valley laundry room with deep navy-blue Shaker cabinets, a folding counter over front-load machines, open uppers, a utility sink, and a hanging rod',
+    topicTags: ["laundry","built-ins","storage"],
+    source: 'blog',
+  },
+  'how-to-plan-a-kitchen-cabinet-project': {
+    hero: '/images/blog/how-to-plan-a-kitchen-cabinet-project.png',
+    alt: 'Real completed transitional Treasure Valley kitchen blending warm white oak and crisp white cabinets with a large island, showing a functional work-triangle layout',
+    topicTags: ["planning","layout","kitchen"],
+    source: 'blog',
+  },
+  'how-deep-are-kitchen-cabinets': {
+    hero: '/images/blog/how-deep-are-kitchen-cabinets.png',
+    alt: 'Real completed bright Treasure Valley kitchen with soft greige Shaker cabinets showing standard-depth base and upper cabinets along a wall with white quartz counters',
+    topicTags: ["depth","sizes","kitchen"],
+    source: 'blog',
+  },
   'kitchen-cabinet-cost-boise': {
     hero: '/images/city-service/kitchen-remodel__boise.webp',
     alt: 'Custom kitchen cabinets installed in a Boise home with warm finishes and quartz counters',
