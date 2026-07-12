@@ -1070,6 +1070,147 @@ const cabinetOrganizationContent = `
 <p>${AUTHOR} designs custom <a href="/cabinets/kitchen">kitchen cabinets</a> with the drawers, pull-outs, and interior storage planned around how you actually cook, for homes across Boise, Meridian, Eagle, and Nampa. Browse <a href="/accessories">storage accessories</a> and <a href="/cabinets">our cabinets</a>, then <a href="/estimate">get a planning range</a> or <a href="/contact">book a free in-home consultation</a>. We design the drawers, roll-outs, corner solutions, and pantry storage around your cookware and your habits, so the finished kitchen stays effortlessly organized from the very first day you move back in and for many years after.</p>
 `;
 
+const shakerCabinetsContent = `
+<p class="text-lg">Shaker cabinets are defined by a <strong>five-piece door with a simple, recessed flat center panel framed by clean square rails and stiles</strong> — no ornamentation, no raised panel, no fussy profiles. That restraint is exactly why they have stayed in style for more than two centuries: the look is clean enough to read as modern, warm enough to read as traditional, and neutral enough to work in almost any kitchen or bathroom. If you want one door style that will still look right in fifteen years, Shaker is the safest — and most versatile — choice you can make.</p>
+
+<div class="summary-block">
+  <p><strong>Key takeaways:</strong> Shaker doors are a flat recessed panel inside a square frame. They suit modern and traditional kitchens, take paint or stain beautifully, and never date. <a href="/blog/cabinet-door-styles-guide">Compare door styles</a> or <a href="/estimate">plan your project</a>.</p>
+</div>
+
+<h2 id="what-is">What exactly makes a cabinet "Shaker"?</h2>
+<p>A true Shaker door is built from five pieces: two vertical stiles, two horizontal rails, and a single flat panel that sits recessed inside the frame they create. The frame is flat too — no beading, no ogee, no decorative routing — so the whole door reads as a series of clean rectangles. That is the entire design. Its power comes from what it leaves out. Where a raised-panel door draws your eye with shadow lines and curves, a Shaker door stays quiet, letting your counters, hardware, and wall color do the talking. This simplicity is not a shortcut; done well, a Shaker door is precisely joined, with crisp inside corners and a panel that sits perfectly flush, and that precision is a big part of why a quality Shaker kitchen looks so calm and intentional.</p>
+
+<h2 id="history">Where the style comes from</h2>
+<p>The style takes its name from the Shakers, a nineteenth-century American religious community whose furniture philosophy held that beauty comes from utility and honesty rather than decoration. They built pieces to be functional, durable, and free of anything superfluous — and the result, almost by accident, was some of the most enduringly attractive furniture ever made in America. That same principle carried directly into cabinetry: a door that hides nothing, wastes nothing, and relies on proportion instead of ornament. More than 200 years later, the design still feels current, which is the ultimate proof that the Shakers were right about restraint.</p>
+
+<h2 id="why-timeless">Why Shaker cabinets never go out of style</h2>
+<p>Trends in kitchens come and go — heavy raised panels, glossy slab fronts, ornate corbels and rope moldings all had their moment and then dated. Shaker has outlasted every one of them for a simple reason: it does not commit to a single era. Paint it white with polished-nickel knobs and it looks like a crisp modern farmhouse. Stain it walnut with brass pulls and it looks warm and timeless. Pair it with matte-black hardware and it reads contemporary. Because the door itself is neutral, it adapts to whatever surrounds it, so a Shaker kitchen rarely needs to be "redone" to feel current — you can refresh the paint color, hardware, or countertops and the cabinets keep up. For a purchase you make once every twenty or thirty years, that adaptability is worth a great deal.</p>
+
+<h2 id="modern-vs-traditional">Modern or traditional? Shaker does both</h2>
+<p>One of the most useful things about Shaker cabinets is that a single door style can lean in either direction depending on how you dress it. To make Shaker read modern, choose crisp white or a deep saturated color, use slab-style drawer fronts or flat panels alongside the doors, add long linear pulls in matte black or brushed brass, and keep the counters and backsplash simple. To make the same door read traditional, choose a warm painted neutral or a natural wood stain, add classic knobs and cup pulls, and pair it with a farmhouse sink and detailed trim. This is why designers reach for Shaker so often: it is a chameleon that lets the rest of the room set the tone.</p>
+
+<h2 id="paint-stain">Paint or stain: Shaker takes both beautifully</h2>
+<p>Because the frame and panel are flat, Shaker doors are exceptionally friendly to both paint and stain. A painted Shaker door has broad, uninterrupted surfaces that spray to a smooth, factory-like finish with no crevices to trap runs — which is a large part of why painted white Shaker is the single most popular kitchen in America. Stained Shaker, meanwhile, shows off the grain of the wood across those clean flat surfaces, so a rift-cut white oak or a rich walnut looks especially handsome in this style. You are not locked into one look: the same door works whether you want the crisp graphic feel of paint or the warmth of natural wood.</p>
+
+<h2 id="colors">The best colors for Shaker cabinets</h2>
+<p>Shaker is a blank canvas, which makes color the most fun decision. Classic white and soft off-whites remain the most requested because they are bright, timeless, and easy to pair with any counter. Warm greiges and soft taupes add a little more depth while staying neutral. For homeowners who want personality, deep navy, forest green, charcoal, and — a favorite of ours — a muted sage bring richness without feeling trendy, especially on an island or lower cabinets in a two-tone layout. Natural wood tones from light white oak to deep walnut make Shaker feel organic and current. Because the door is so simple, even a bold color reads as sophisticated rather than loud, so you can be a little braver than you might with a more ornate style.</p>
+
+<h2 id="two-tone">Shaker and two-tone kitchens</h2>
+<p>Shaker is the ideal door for a two-tone kitchen — the growing trend of using one color on the perimeter and a second on the island or lowers. Its clean lines keep two colors from fighting with each other, so a white-perimeter, navy-island kitchen looks intentional and calm rather than busy. Two-tone is also a smart way to get color into a kitchen without committing every cabinet to it: a bold island grounds the room while the perimeter stays bright and neutral. If you like the idea of a little more visual interest, Shaker gives you the clean framework to pull it off.</p>
+
+<h2 id="quality">What separates a great Shaker cabinet from a cheap one</h2>
+<p>Because the design is so simple, quality shows in the details. On a well-made Shaker door, the joints between rails and stiles are tight and square, the inside corners are crisp, the panel sits evenly, and the paint or stain is applied in a smooth, durable, factory finish. On a cheap version, you will see slightly rounded or "softened" inner edges, MDF panels that telegraph seams, thin paint that chips at the corners, and doors that do not quite line up across a run. The box behind the door matters just as much — plywood construction, solid hardware, and soft-close hinges are what make a Shaker kitchen feel substantial rather than flimsy. When you are comparing quotes, look closely at the corners and the finish, because that is where the difference between a Shaker kitchen that lasts and one that looks tired in five years lives. For more on this, see our <a href="/blog/cabinet-construction-quality-guide">cabinet construction quality guide</a>.</p>
+
+<h2 id="rooms">Shaker beyond the kitchen</h2>
+<p>Shaker is not just a kitchen door — it is arguably the most versatile style for the whole home. On a <a href="/cabinets/bathroom">bathroom vanity</a> it looks clean and timeless in both powder rooms and primary baths. On built-ins — a home office, a mudroom bench, an entertainment center, or a laundry room — its simple frame keeps large runs of cabinetry from feeling heavy. Because the style is so consistent, using Shaker throughout a house creates a quiet sense of cohesion from room to room, which is exactly why so many custom projects choose it as their through-line.</p>
+
+<h2 id="cost">Do Shaker cabinets cost more?</h2>
+<p>Shaker sits comfortably in the middle of the pricing range — generally less than heavily detailed raised-panel or intricate custom doors, and comparable to or slightly above a plain slab. You are paying for clean joinery and a quality finish rather than for ornamentation, which is part of why Shaker offers such good long-term value: you get a door that looks refined without the upcharge of elaborate profiles, and it never needs replacing just because tastes changed. As with any cabinet, the bigger cost drivers are the box construction, the finish, and whether the cabinets are stock, semi-custom, or custom — not the Shaker door itself. See our <a href="/blog/custom-kitchen-cabinet-cost">custom cabinet cost guide</a> for the full picture.</p>
+
+<h2 id="right-for-you">Are Shaker cabinets right for you?</h2>
+<p>Shaker is the right choice for the vast majority of homeowners, and especially for anyone who wants a kitchen or bath that will still look good long after this year's trends fade. Choose Shaker if you value a clean, uncluttered look, if you want the freedom to change your color scheme or hardware down the road without redoing the cabinets, or if you simply do not want to gamble on a style that might date. The only homeowners who might look elsewhere are those chasing a very specific aesthetic — an ultra-minimal handleless European kitchen, for instance, might prefer a true slab, and a highly ornate traditional home might want a detailed raised panel. For everyone in between, which is most people, Shaker is hard to beat.</p>
+
+<h2 id="bottom-line">The bottom line</h2>
+<p>Shaker cabinets endure because they solve the hardest problem in kitchen design: how to choose something today that you will still love in twenty years. By stripping the door down to honest proportion and clean lines, Shaker sidesteps every trend cycle and adapts to whatever look you want around it — modern or traditional, painted or stained, bright white or deep sage. Pair a well-built Shaker door with a quality plywood box and a durable finish and you have a kitchen that feels calm, current, and timeless all at once. It is the closest thing cabinetry has to a sure bet, which is exactly why it remains the most requested door style in America.</p>
+
+<h2 id="how-we-build">Build your Shaker kitchen with Boise Cabinet Co</h2>
+<p>${AUTHOR} builds custom Shaker <a href="/cabinets/kitchen">kitchen cabinets</a> and <a href="/cabinets/bathroom">bathroom vanities</a> with precise joinery, plywood boxes, and a smooth, durable factory finish, for homes across Boise, Meridian, Eagle, and Nampa. Explore <a href="/catalog">our finishes and door styles</a>, then <a href="/estimate">get a planning range</a> or <a href="/contact">book a free in-home consultation</a>. Whether you want crisp painted white, warm stained oak, or a rich two-tone with a sage or navy island, we will build a Shaker kitchen that looks right the day it goes in and stays looking right for decades to come.</p>
+`;
+
+const paintKitchenCabinetsContent = `
+<p class="text-lg">To paint kitchen cabinets so the finish actually lasts, the work is 80% preparation: <strong>remove the doors and hardware, clean off every trace of grease, sand to give the surface tooth, prime with a bonding primer, then apply two or three thin coats of a durable cabinet-grade enamel</strong> — ideally sprayed — with full cure time between coats. Skipping the cleaning, sanding, or priming is why most DIY cabinet paint jobs peel and chip within a year. Below is the pro-level process step by step, plus an honest look at when painting is worth it and when a factory finish is the smarter call.</p>
+
+<div class="summary-block">
+  <p><strong>Key takeaways:</strong> Great cabinet paint is all in the prep — degrease, sand, prime, then thin coats of quality enamel with full cure time. A sprayed factory finish is far more durable than any brush job. <a href="/blog/cabinet-refacing-vs-refinishing-vs-replacing">Compare refinishing vs replacing</a> or <a href="/estimate">get a quote</a>.</p>
+</div>
+
+<h2 id="worth-it">Is painting your cabinets worth it?</h2>
+<p>Painting is worth it when your cabinet boxes and doors are structurally sound and your layout works, and you simply want a new color for a fraction of the cost of replacement. A good paint job can take a dated oak or honey-maple kitchen and make it feel fresh and current for a few hundred dollars in materials. It is not worth it if your boxes are failing, your doors are damaged, or your layout does not function — paint fixes the color, not the kitchen. It is also worth being honest about durability: even the best hand-painted finish will not match the toughness of a sprayed factory finish, so painting is best thought of as a cost-effective refresh rather than a permanent, forever-durable solution.</p>
+
+<h2 id="tools">What you'll need</h2>
+<p>Before you start, gather everything so you are not stopping mid-project. You will want a screwdriver or drill for the hardware, a degreasing cleaner (TSP substitute or a strong household degreaser), sanding sponges or an orbital sander with 120–220 grit, tack cloths, painter's tape and plastic sheeting, a high-quality bonding primer, a cabinet-grade enamel paint, and either a fine-finish brush and foam roller or — for the best result — a sprayer. Buy better materials than you think you need: cheap primer and cheap paint are the single most common reason a cabinet job fails, and the cost difference across a whole kitchen is small compared to the labor you are about to invest.</p>
+
+<h2 id="remove">Step 1: Remove doors, drawers, and hardware</h2>
+<p>Resist the temptation to paint cabinets in place with the doors hanging. Take every door and drawer front off, remove all the knobs, pulls, and hinges, and label each door and its location (a piece of tape with a number on the inside of the door and the same number inside the cabinet works well) so reassembly is painless. Painting flat, horizontal doors on a work surface — rather than vertical, hanging doors — is the difference between a smooth finish and one full of drips and sags. Set up a dust-free space like a garage or spare room with good ventilation and something to elevate the doors so you can paint the edges.</p>
+
+<h2 id="clean">Step 2: Degrease — the step everyone skips</h2>
+<p>Kitchen cabinets, especially around the range and above the stove, carry a film of cooking grease that is invisible but everywhere. Paint will not bond to grease — it will sit on top and peel later — so this is the step that most determines whether your finish lasts. Wipe down every surface with a degreasing cleaner, paying special attention to the area near the stove and the edges people touch, then rinse and let everything dry completely. If you do only one thing right in this whole project, make it a thorough degrease. It is unglamorous and easy to rush, and it is exactly why the pros never skip it.</p>
+
+<h2 id="sand">Step 3: Sand for tooth</h2>
+<p>Sanding is not about removing the old finish entirely — it is about scuffing the surface so primer has something to grip. Go over every door, drawer front, and box face with a medium grit (around 120–150) to knock down the sheen, then follow with a finer grit (180–220) to smooth it out. Wipe away all the dust with a tack cloth afterward, because any grit or dust left behind will show up as bumps in your finished paint. If your cabinets have a heavy grain, like oak, and you want a smooth painted look, this is also the stage to fill the grain with a grain filler and sand it flush, or accept that the grain will show through the paint.</p>
+
+<h2 id="prime">Step 4: Prime with a bonding primer</h2>
+<p>Primer is what actually glues your paint to the cabinet, and on slick or previously finished surfaces a quality bonding or shellac-based primer is essential. It seals the wood, blocks stains and tannins from bleeding through (critical on oak and knotty woods), and gives the topcoat a uniform surface to grip. Apply one or two thin coats, let each dry fully, and lightly sand between coats with a fine grit to keep everything glass-smooth. Do not shortcut the primer to save time — painting straight over old cabinets without it is the fast track to a finish that chips off in sheets the first time a fingernail catches an edge.</p>
+
+<h2 id="paint">Step 5: Apply thin coats of cabinet enamel</h2>
+<p>Use a paint made for cabinets and trim — a durable acrylic or alkyd enamel that dries hard, not a standard wall paint that stays soft and scuffs. The golden rule is thin coats, not thick ones: two or three thin coats level out beautifully and cure hard, while one thick coat sags, stays soft, and never fully hardens. If you are brushing and rolling, use a fine-finish brush for the recessed panels and a foam roller for the flat areas, working quickly to keep a wet edge. If you can rent or borrow a sprayer, do — a sprayed finish is dramatically smoother and is how factory and professional finishes get their glass-like surface. Let each coat dry fully and scuff-sand lightly between coats.</p>
+
+<h2 id="cure">Step 6: Let it cure before reassembly</h2>
+<p>There is a difference between dry and cured. Paint may feel dry to the touch in an hour, but cabinet enamel can take days to weeks to fully harden. Rushing to rehang doors and load the cabinets while the paint is still soft is how fresh jobs get dented, stuck, and marked. Give the doors as long as you reasonably can before reinstalling — at minimum follow the paint's recure guidance — and be gentle with the cabinets for the first couple of weeks, avoiding harsh cleaners and heavy contact. Patience here protects all the work you just did.</p>
+
+<h2 id="diy-vs-pro">DIY vs hiring a pro vs a factory finish</h2>
+<p>A careful DIYer can get a good result on a modest kitchen, and it is the cheapest option by far. Hiring a professional painter costs more but buys you their prep discipline, spray equipment, and a smoother finish — worth it if you lack the time, space, or patience for meticulous prep. But there is a third option people forget: a <strong>factory finish</strong>. When cabinets are refinished or refaced professionally, or built new, the doors are sprayed and often oven- or UV-cured in a controlled shop, producing a finish far more durable and uniform than anything achievable by hand in a garage. If your cabinets are worth keeping but you want a finish that truly lasts, professional refinishing or refacing may give you a better result than repainting them yourself. See our <a href="/blog/cabinet-refacing-vs-refinishing-vs-replacing">reface vs refinish vs replace guide</a>.</p>
+
+<h2 id="mistakes">Common cabinet-painting mistakes</h2>
+<p>Nearly every failed cabinet job traces back to the same short list of shortcuts: not degreasing, so the paint never bonds; not sanding, so it has no tooth to grip; skipping primer, so the topcoat peels; using wall paint instead of cabinet enamel, so it stays soft and scuffs; applying coats too thick, so they sag and never cure; and rushing reassembly before the paint hardens, so it dents and sticks. Painting in a dusty space is another silent killer — every speck shows in a glossy finish. Avoid these and you avoid 95% of the disappointment people report with painted cabinets. The work is not difficult; it is just unforgiving of skipped steps.</p>
+
+<h2 id="colors">Choosing a cabinet paint color</h2>
+<p>Since you are investing the labor, choose a color you will be happy with for years. Crisp whites and warm off-whites remain the most popular for their brightness and timelessness. Soft greiges and greens — including a muted sage — add character while staying neutral, and deep navy or charcoal make a striking island or lower-cabinet color in a two-tone layout. Whatever you choose, test it on a sample door in your actual kitchen light before committing, because cabinet color can look very different under your lighting than on a chip. For more on picking a shade, see our <a href="/blog/cabinet-finishes-colors-guide">cabinet colors and finishes guide</a>.</p>
+
+<h2 id="bottom-line">The bottom line</h2>
+<p>Painting kitchen cabinets is one of the highest-impact, lowest-cost updates you can make to a kitchen — but only if you respect the process. The color you brush on is the easy part; the degreasing, sanding, and priming underneath it are what decide whether the finish still looks good in three years or peels in three months. Do the prep properly, use quality primer and cabinet enamel in thin coats, and give it time to cure, and a painted kitchen can look genuinely transformed. And if you want a finish that rivals new cabinetry in durability, remember that a sprayed, professionally applied factory finish will always outlast a hand-painted one — sometimes making refinishing, refacing, or new cabinets the better long-term value.</p>
+
+<h2 id="how-we-build">Prefer a finish that lasts? Talk to Boise Cabinet Co</h2>
+<p>${AUTHOR} builds and finishes custom <a href="/cabinets/kitchen">kitchen cabinets</a> with sprayed, durable factory finishes that outlast any hand-painted job, and we serve homeowners across Boise, Meridian, Eagle, and Nampa. If your boxes are sound and you love your layout, ask us about professional refinishing or refacing; if it is time for new cabinets, explore <a href="/catalog">our finishes and colors</a>. <a href="/estimate">Get a planning range</a> or <a href="/contact">book a free in-home consultation</a>, and we will help you decide whether a fresh finish or new cabinetry gives you the look and durability you are after.</p>
+`;
+
+const pantryCabinetIdeasContent = `
+<p class="text-lg">The best pantry cabinet is one where <strong>nothing hides in the back</strong> — which means shallow adjustable shelves, roll-out trays, door-mounted racks, and clear zones for each category of food. Whether you have a dedicated tall pantry cabinet, a wall of built-in pantry cabinetry, or a small closet, the same principles apply: use the full height, keep everything visible and reachable, and group items so you can see at a glance what you have. Below are the pantry cabinet ideas and storage solutions that turn a cluttered catch-all into a pantry that actually works.</p>
+
+<div class="summary-block">
+  <p><strong>Key takeaways:</strong> Great pantries keep everything visible — shallow shelves, roll-outs, and door racks beat deep dark shelves. Use the full height, zone by category, and plan pull-outs into new cabinetry. <a href="/accessories">See storage accessories</a> or <a href="/estimate">plan your project</a>.</p>
+</div>
+
+<h2 id="types">Types of pantry cabinets</h2>
+<p>"Pantry" covers several very different setups, and the right ideas depend on which you have. A <strong>tall pantry cabinet</strong> is a single floor-to-ceiling cabinet, usually 84 to 96 inches tall, that packs enormous storage into a small footprint. A <strong>built-in pantry wall</strong> uses a run of tall cabinets, sometimes with a counter and uppers, to create a dedicated food-storage zone. A <strong>walk-in pantry</strong> is a small room lined with shelving or cabinetry. And a <strong>pull-out or slide-out pantry</strong> is a narrow tall cabinet that rolls fully out of a gap beside the fridge or range. Each solves the same problem — keeping food organized and reachable — but a tall cabinet and a pull-out are the two that make the most of limited kitchen space, which is why they are so popular in new cabinetry.</p>
+
+<h2 id="visibility">The golden rule: nothing in the back</h2>
+<p>The single biggest reason pantries become chaotic is depth. Deep, fixed shelves swallow everything at the back, so cans and boxes get lost, expire, and get rebought. The fix is to make sure every item is visible and reachable from the front. That means favoring shallower shelves where you can see the whole depth, using roll-out trays so the back comes to you, and adding door-mounted racks for the items that always vanish. If you are planning a new pantry cabinet, designing it around visibility from the start — with pull-outs instead of deep static shelves — is the difference between a pantry you love and one you dread opening.</p>
+
+<h2 id="rollouts">Roll-out shelves and pull-outs</h2>
+<p>Roll-out shelves are the highest-impact pantry upgrade there is. Instead of reaching into a dark cabinet and shuffling cans to find what you need, you pull the whole shelf out and see everything at once. In a tall pantry cabinet, a stack of roll-out trays turns the entire cabinet into fully accessible storage from top to bottom. A narrow <strong>pull-out pantry</strong> — a tall, skinny cabinet on heavy-duty slides — is a brilliant way to reclaim a slim gap beside the fridge or oven, storing rows of cans and bottles that glide out into view. If you are building or renovating, roll-outs are the accessory most worth the money in a pantry, because they solve the exact problem that makes pantries frustrating. See our <a href="/accessories">cabinet accessories</a> for options.</p>
+
+<h2 id="zones">Zone your pantry by category</h2>
+<p>Just like the rest of the kitchen, a pantry works best when it is organized into zones. Group like with like — baking supplies together, canned goods together, snacks together, breakfast items together, backstock in one place — and give each category a defined home. When everything has a zone, you can see at a glance what you are low on, you stop buying duplicates, and putting groceries away becomes automatic instead of a puzzle. Put the things you reach for daily at eye level and the occasional or bulk items up high or down low. A zoned pantry is easier to keep tidy precisely because every item has an obvious place to go back to.</p>
+
+<h2 id="height">Use the full height</h2>
+<p>Pantries are often tall, and the space up high and down low is where storage is won or lost. Adjustable shelving is essential: set the shelves to the actual height of your items so you are not wasting six inches of air above every row. Reserve the highest shelves for lightweight, rarely used items like seasonal bakeware or backstock, and keep a small step stool nearby. Down low, roll-out drawers or bins handle heavy items like bags of flour, cases of water, or small appliances. Using the full vertical space with adjustable shelves and a mix of roll-outs is how a modestly sized pantry cabinet ends up holding far more than you would expect.</p>
+
+<h2 id="door">Don't waste the door</h2>
+<p>The inside of a pantry door is prime real estate that most people ignore. Door-mounted racks — shallow wire or wood shelves attached to the back of the door — are perfect for the small items that always get buried: spices, oils, sauces, foil and wrap boxes, and snack packets. Because they are shallow and everything faces you, nothing hides. In a custom pantry cabinet, building slim door storage into the design adds a surprising amount of usable, fully visible space without taking up any additional footprint. It is one of the easiest ways to make a pantry hold more while staying organized.</p>
+
+<h2 id="containers">Containers, labels, and clear storage</h2>
+<p>Transferring staples like flour, sugar, pasta, rice, cereal, and snacks into clear airtight containers does two things: it keeps food fresh and pest-free, and it makes the pantry instantly readable so you can see exactly how much of everything you have. Uniform containers also stack and line up neatly, turning a jumble of half-open bags and boxes into tidy rows. Add simple labels and you never have to guess what is in a jar or dig for the pasta. You do not need to container everything — but doing it for your most-used dry goods has an outsized effect on how organized and calm the pantry feels day to day.</p>
+
+<h2 id="small">Pantry ideas for small kitchens</h2>
+<p>No room for a walk-in? Small kitchens have great pantry options. A single <strong>tall pantry cabinet</strong> delivers enormous storage in a two-foot footprint. A <strong>pull-out pantry</strong> reclaims a narrow gap beside the fridge or range that would otherwise be dead space. Even a standard cabinet can become a mini-pantry with roll-out trays and door racks added. The trick in a small kitchen is to go vertical and go visible: use the full height, choose pull-outs so nothing hides, and dedicate one well-organized cabinet to food rather than scattering it across the kitchen. A compact pantry that is well designed beats a big one that is a mess. See our related guidance on <a href="/blog/standard-kitchen-cabinet-sizes">cabinet sizes</a>.</p>
+
+<h2 id="custom">Why a custom pantry beats a retrofit</h2>
+<p>You can improve almost any pantry with add-on organizers, but a pantry designed as custom cabinetry from the start is on another level. When we build a pantry cabinet, the roll-outs, door storage, adjustable shelving, and interior dimensions are planned around what you actually store and how you cook — the depths are right, the pull-outs are heavy-duty and full-extension, and the whole thing is built to the exact height of your space so no inch is wasted. Retrofit organizers help, but they are always working around a cabinet that was not designed for them. A purpose-built pantry simply holds more, wastes less, and stays organized with less effort, which is why it is one of the most-loved parts of a custom kitchen.</p>
+
+<h2 id="materials">Materials and durability</h2>
+<p>A pantry works hard — heavy cans, frequent use, and full shelves put real stress on the cabinet. Plywood boxes and shelving hold weight better than particleboard over the years, full-extension soft-close slides make roll-outs glide smoothly under load, and quality adjustable shelf hardware keeps heavy shelves level and secure. It is worth spending on the guts of a pantry even if the finish is simple, because this is a cabinet whose interior does the real work. Well-built pantry cabinetry stays solid and smooth-running for decades, while cheap shelving sags and slides wear out under the weight of a stocked pantry. For more, see our <a href="/blog/cabinet-construction-quality-guide">construction quality guide</a>.</p>
+
+<h2 id="maintain">Keeping the pantry organized</h2>
+<p>Like any storage system, a pantry stays organized only if the system fits your habits. Once every category has a zone and the roll-outs and door racks put everything in view, maintaining it is mostly automatic — you can see what you are low on, and there is an obvious place to return each item. Do a quick seasonal edit to pull expired and forgotten items, keep backstock in a defined spot so it does not creep into the everyday shelves, and resist overfilling to the point where nothing has room. A pantry designed for visibility and zoned by category is far easier to keep tidy than a deep, dark set of shelves, which is the whole point of designing it well in the first place.</p>
+
+<h2 id="bottom-line">The bottom line</h2>
+<p>A great pantry is not about how big it is — it is about how visible and reachable everything in it is. Shallow adjustable shelves, roll-out trays, door-mounted racks, clear containers, and category zones together turn even a modest tall cabinet into a pantry that holds more than you expect and stays organized with almost no effort. The pantries people love are the ones designed around the golden rule that nothing should ever hide in the back — and that is easiest to achieve when the pull-outs and shelving are planned into custom cabinetry from the start. Get the visibility right and the pantry stops being the messiest cabinet in the kitchen and becomes one of the most satisfying.</p>
+
+<h2 id="how-we-build">Design your dream pantry with Boise Cabinet Co</h2>
+<p>${AUTHOR} designs custom pantry cabinets and full <a href="/cabinets/kitchen">kitchen cabinetry</a> with roll-outs, door storage, and adjustable shelving planned around exactly what you store, for homes across Boise, Meridian, Eagle, and Nampa. Explore <a href="/accessories">our storage accessories</a> and <a href="/cabinets">our cabinets</a>, then <a href="/estimate">get a planning range</a> or <a href="/contact">book a free in-home consultation</a>. From a single floor-to-ceiling pantry cabinet to a full built-in pantry wall, we will build storage that keeps everything visible, reachable, and effortlessly organized for years to come.</p>
+`;
+
 export const PREMIUM_POSTS: BlogPostData[] = [
   {
     slug: 'framed-vs-frameless-cabinets',
@@ -1633,6 +1774,129 @@ export const PREMIUM_POSTS: BlogPostData[] = [
     primaryKeyword: 'kitchen cabinet organization ideas',
     secondaryKeywords: ['how to organize kitchen cabinets', 'cabinet organizers', 'pull out shelves', 'kitchen storage ideas'],
     searchIntent: 'Informational — homeowners organizing kitchen cabinets',
+    wordCountTarget: 'pillar',
+  },
+  {
+    slug: 'what-are-shaker-cabinets',
+    title: "What Are Shaker Cabinets? (And Why They're Timeless)",
+    seoTitle: 'What Are Shaker Cabinets? The Timeless Door Style Explained',
+    metaDescription:
+      'Shaker cabinets are a flat recessed panel in a square frame — clean, versatile, and never dated. Learn what defines them, why they last, and how to choose colors and finishes.',
+    excerpt:
+      'Shaker cabinets are defined by a simple five-piece door with a flat recessed panel. Here is what makes them Shaker, why they never go out of style, and how to choose colors, finishes, and quality.',
+    content: shakerCabinetsContent,
+    author: AUTHOR,
+    category: 'Door Styles',
+    hubSlug: 'kitchen-cabinets',
+    tags: ['shaker', 'door styles', 'design', 'kitchen', 'cabinets'],
+    publishedAt: '2026-07-11',
+    faqs: [
+      { question: 'What makes a cabinet door "Shaker"?', answer: 'A Shaker door is built from five pieces — two stiles, two rails, and a single flat panel recessed inside the square frame they form. The frame is flat with no decorative routing, so the door reads as clean rectangles. That simplicity is the entire design and the reason it stays timeless.' },
+      { question: 'Are Shaker cabinets modern or traditional?', answer: 'Both. The Shaker door is neutral, so it leans modern with white paint or a deep color and linear matte-black pulls, and traditional with a warm stain, classic knobs, and cup pulls. The same door adapts to whatever look you build around it, which is why designers use it so often.' },
+      { question: 'Do Shaker cabinets ever go out of style?', answer: 'Shaker has stayed in style for over 200 years because it relies on proportion rather than ornament, so it does not tie itself to any single trend. You can refresh the paint color, hardware, or counters and the cabinets keep up, making Shaker the safest long-term choice.' },
+      { question: 'Should I paint or stain Shaker cabinets?', answer: 'Both work beautifully. The flat surfaces spray to a smooth painted finish with no crevices to trap runs, which is why painted white Shaker is so popular. Stained Shaker shows off wood grain across its clean surfaces, so rift-cut oak or walnut looks especially handsome in this style.' },
+      { question: 'Are Shaker cabinets more expensive?', answer: 'Shaker sits in the middle of the pricing range — generally less than heavily detailed raised-panel doors and comparable to a plain slab. You pay for clean joinery and finish rather than ornamentation, so Shaker offers strong long-term value. The bigger cost drivers are box construction and whether cabinets are stock, semi-custom, or custom.' },
+      { question: 'What colors look best on Shaker cabinets?', answer: 'Shaker is a blank canvas. Classic white and off-whites are the most requested; warm greiges add depth; and deep navy, forest green, charcoal, and muted sage bring richness without feeling trendy, especially on an island. Natural wood tones from white oak to walnut also look current and organic.' },
+    ],
+    quickAnswer:
+      'Shaker cabinets are defined by a five-piece door with a flat panel recessed inside a simple square frame, with no decorative ornamentation. They stay timeless because the neutral door adapts to any look — modern or traditional, painted or stained — and they take paint and stain equally well, making them the most versatile and enduring cabinet door style.',
+    keyTakeaways: [
+      'Shaker = a flat recessed panel inside a plain square frame.',
+      'The neutral door reads modern or traditional depending on color and hardware.',
+      'It never dates, takes paint or stain well, and offers strong long-term value.',
+    ],
+    relatedLinks: [
+      { url: '/blog/cabinet-door-styles-guide', anchor: 'Cabinet door styles' },
+      { url: '/blog/cabinet-finishes-colors-guide', anchor: 'Cabinet colors and finishes' },
+      { url: '/blog/cabinet-construction-quality-guide', anchor: 'Construction quality' },
+      { url: '/blog/custom-kitchen-cabinet-cost', anchor: 'Custom cabinet cost' },
+      { url: '/cabinets/kitchen' },
+    ],
+    primaryKeyword: 'what are shaker cabinets',
+    secondaryKeywords: ['shaker cabinets', 'shaker style cabinets', 'shaker kitchen', 'shaker cabinet doors'],
+    searchIntent: 'Informational — homeowners researching the Shaker door style',
+    wordCountTarget: 'pillar',
+  },
+  {
+    slug: 'how-to-paint-kitchen-cabinets',
+    title: 'How to Paint Kitchen Cabinets (Pro-Level Guide)',
+    seoTitle: 'How to Paint Kitchen Cabinets: Pro Steps for a Finish That Lasts',
+    metaDescription:
+      'How to paint kitchen cabinets so the finish lasts: degrease, sand, prime, and apply thin coats of cabinet enamel. The full pro-level process, plus when a factory finish is smarter.',
+    excerpt:
+      'Painting cabinets is 80% prep — degrease, sand, prime, then thin coats of cabinet enamel with full cure time. Here is the pro-level step-by-step, common mistakes, and when refinishing beats DIY.',
+    content: paintKitchenCabinetsContent,
+    author: AUTHOR,
+    category: 'Refinishing',
+    hubSlug: 'kitchen-cabinets',
+    tags: ['painting', 'refinishing', 'diy', 'finish', 'kitchen'],
+    publishedAt: '2026-07-11',
+    faqs: [
+      { question: 'What is the most important step when painting kitchen cabinets?', answer: 'Degreasing. Kitchen cabinets carry an invisible film of cooking grease, especially near the stove, and paint will not bond to grease — it sits on top and peels later. A thorough degrease before sanding and priming is the single step that most determines whether your finish lasts.' },
+      { question: 'Do I need to sand cabinets before painting?', answer: 'Yes. Sanding scuffs the slick surface so primer can grip. Use a medium grit to knock down the sheen, then a finer grit to smooth it, and wipe off all dust with a tack cloth. Skipping sanding is a top reason painted cabinets chip and peel.' },
+      { question: 'What kind of paint should I use on kitchen cabinets?', answer: 'Use a cabinet-grade or trim enamel — a durable acrylic or alkyd that dries hard — not standard wall paint, which stays soft and scuffs. Pair it with a quality bonding or shellac-based primer. Apply two or three thin coats rather than one thick coat, which sags and never fully cures.' },
+      { question: 'Is it cheaper to paint or replace kitchen cabinets?', answer: 'Painting is far cheaper than replacing when your boxes and layout are sound — a few hundred dollars in materials versus a full cabinet investment. But painting only changes the color; if your boxes are failing or the layout does not work, replacing or refacing is the better use of money.' },
+      { question: 'How long should cabinet paint cure before reassembly?', answer: 'Paint may feel dry in an hour but cabinet enamel can take days to weeks to fully harden. Give doors as long as you reasonably can before rehanging, follow the paint\\u2019s recoat and cure guidance, and be gentle with the cabinets for the first couple of weeks to avoid dents and sticking.' },
+      { question: 'Is a DIY paint job as durable as a factory finish?', answer: 'No. Even a careful hand-painted finish will not match a sprayed, professionally applied factory finish, which is often oven- or UV-cured in a controlled shop. If you want a finish that truly lasts, professional refinishing, refacing, or new cabinets give a more durable result than repainting yourself.' },
+    ],
+    quickAnswer:
+      'To paint kitchen cabinets so the finish lasts, remove the doors and hardware, degrease every surface, sand for tooth, prime with a bonding primer, then apply two or three thin coats of cabinet-grade enamel — ideally sprayed — with full cure time between coats. The prep matters far more than the paint, and a sprayed factory finish is more durable than any hand-painted job.',
+    keyTakeaways: [
+      'Cabinet painting is 80% prep: degrease, sand, prime.',
+      'Use cabinet enamel in thin coats and let it fully cure.',
+      'A sprayed factory finish outlasts any hand-painted job.',
+    ],
+    relatedLinks: [
+      { url: '/blog/cabinet-refacing-vs-refinishing-vs-replacing', anchor: 'Reface vs refinish vs replace' },
+      { url: '/blog/cabinet-finishes-colors-guide', anchor: 'Cabinet colors and finishes' },
+      { url: '/blog/cabinet-construction-quality-guide', anchor: 'Construction quality' },
+      { url: '/guides/boise-cabinet-cost-guide', anchor: 'Boise Cabinet Cost Guide' },
+      { url: '/estimate' },
+    ],
+    primaryKeyword: 'how to paint kitchen cabinets',
+    secondaryKeywords: ['painting kitchen cabinets', 'best paint for kitchen cabinets', 'diy cabinet painting', 'cabinet enamel'],
+    searchIntent: 'Informational / DIY — homeowners painting their own cabinets',
+    wordCountTarget: 'pillar',
+  },
+  {
+    slug: 'pantry-cabinet-ideas',
+    title: 'Pantry Cabinet Ideas & Storage Solutions',
+    seoTitle: 'Pantry Cabinet Ideas & Storage Solutions That Actually Work',
+    metaDescription:
+      'Pantry cabinet ideas that keep nothing hidden in the back: roll-outs, shallow adjustable shelves, door racks, and zones. Solutions for tall pantries, pull-outs, and small kitchens.',
+    excerpt:
+      'The best pantry cabinet keeps everything visible — roll-outs, shallow shelves, door racks, and category zones. Here are the pantry ideas and storage solutions that turn a cluttered catch-all into a pantry that works.',
+    content: pantryCabinetIdeasContent,
+    author: AUTHOR,
+    category: 'Storage & Organization',
+    hubSlug: 'kitchen-cabinets',
+    tags: ['pantry', 'storage', 'organization', 'roll-outs', 'kitchen'],
+    publishedAt: '2026-07-11',
+    faqs: [
+      { question: 'What is the best type of pantry cabinet?', answer: 'For most kitchens, a tall floor-to-ceiling pantry cabinet fitted with roll-out trays gives the most accessible storage in the smallest footprint. A narrow pull-out pantry is ideal for reclaiming a gap beside the fridge or range. The best pantry is whichever keeps everything visible and reachable rather than hidden in the back.' },
+      { question: 'How do I keep pantry items from getting lost in the back?', answer: 'Depth is the enemy. Favor shallower shelves where you can see the full depth, add roll-out trays so the back comes to you, and use door-mounted racks for small items. Designing a new pantry around pull-outs instead of deep static shelves solves the problem before it starts.' },
+      { question: 'Are pull-out pantry shelves worth it?', answer: 'Yes — roll-out shelves are the highest-impact pantry upgrade. Instead of reaching into a dark cabinet and shuffling cans, you pull the whole shelf out and see everything at once. In a tall pantry, a stack of roll-outs turns the entire cabinet into fully accessible storage top to bottom.' },
+      { question: 'How should I organize a pantry cabinet?', answer: 'Zone by category — baking, canned goods, snacks, breakfast, and backstock each get a defined home. Put daily items at eye level, heavy items low, and rarely used items up high. Add clear containers for staples so you can see quantities at a glance. Zoning makes the pantry stay tidy with far less effort.' },
+      { question: 'What pantry ideas work for a small kitchen?', answer: 'A single tall pantry cabinet packs huge storage into a two-foot footprint, and a pull-out pantry reclaims a narrow gap beside the fridge or range. Even a standard cabinet becomes a mini-pantry with roll-outs and door racks. In a small kitchen, go vertical and go visible — one well-organized pantry cabinet beats scattered food storage.' },
+      { question: 'Is a custom pantry better than store-bought organizers?', answer: 'A custom pantry is built with the roll-outs, door storage, and adjustable shelving planned around what you actually store, with correct depths, heavy-duty full-extension slides, and a build sized to your exact space so no inch is wasted. Retrofit organizers help but always work around a cabinet not designed for them.' },
+    ],
+    quickAnswer:
+      'The best pantry cabinet keeps nothing hidden in the back: use shallow adjustable shelves, roll-out trays, and door-mounted racks so every item is visible and reachable, and zone the pantry by category. Tall pantry cabinets and pull-out pantries make the most of limited kitchen space, and planning roll-outs into custom cabinetry gives the best result.',
+    keyTakeaways: [
+      'Keep everything visible — shallow shelves, roll-outs, and door racks beat deep shelves.',
+      'Zone by category and use the full height with adjustable shelving.',
+      'Tall and pull-out pantries maximize small kitchens; plan roll-outs into custom cabinetry.',
+    ],
+    relatedLinks: [
+      { url: '/accessories', anchor: 'Storage accessories' },
+      { url: '/blog/kitchen-cabinet-organization-ideas', anchor: 'Kitchen organization ideas' },
+      { url: '/blog/standard-kitchen-cabinet-sizes', anchor: 'Standard cabinet sizes' },
+      { url: '/blog/cabinet-construction-quality-guide', anchor: 'Construction quality' },
+      { url: '/cabinets/kitchen' },
+    ],
+    primaryKeyword: 'pantry cabinet ideas',
+    secondaryKeywords: ['kitchen pantry cabinet', 'pantry storage solutions', 'pull out pantry', 'tall pantry cabinet'],
+    searchIntent: 'Informational — homeowners planning pantry storage',
     wordCountTarget: 'pillar',
   },
 ];

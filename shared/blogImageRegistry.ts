@@ -57,6 +57,24 @@ export const BLOG_IMAGE_REGISTRY: Record<string, BlogImageEntry> = {
     topicTags: ["organization","storage","kitchen"],
     source: 'blog',
   },
+  'what-are-shaker-cabinets': {
+    hero: '/images/blog/what-are-shaker-cabinets.png',
+    alt: 'Real completed classic white Shaker kitchen in a Treasure Valley home with brushed-nickel hardware, subway tile, quartz counters, and a farmhouse sink',
+    topicTags: ["shaker","door styles","kitchen"],
+    source: 'blog',
+  },
+  'how-to-paint-kitchen-cabinets': {
+    hero: '/images/blog/how-to-paint-kitchen-cabinets.png',
+    alt: 'Real completed freshly painted two-tone Treasure Valley kitchen with deep navy lower cabinets and warm white uppers, matte black hardware, and a smooth painted finish',
+    topicTags: ["painting","refinishing","kitchen"],
+    source: 'blog',
+  },
+  'pantry-cabinet-ideas': {
+    hero: '/images/blog/pantry-cabinet-ideas.png',
+    alt: 'Real completed floor-to-ceiling walnut pantry cabinet in a Treasure Valley home with roll-out shelves and adjustable shelving stocked with everyday groceries',
+    topicTags: ["pantry","storage","organization"],
+    source: 'blog',
+  },
   'kitchen-cabinet-cost-boise': {
     hero: '/images/city-service/kitchen-remodel__boise.webp',
     alt: 'Custom kitchen cabinets installed in a Boise home with warm finishes and quartz counters',

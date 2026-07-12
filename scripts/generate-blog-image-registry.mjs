@@ -61,6 +61,24 @@ const ENTRIES = {
     topicTags: ["organization", "storage", "kitchen"],
     source: "blog",
   },
+  "what-are-shaker-cabinets": {
+    hero: blog("what-are-shaker-cabinets"),
+    alt: "Real completed classic white Shaker kitchen in a Treasure Valley home with brushed-nickel hardware, subway tile, quartz counters, and a farmhouse sink",
+    topicTags: ["shaker", "door styles", "kitchen"],
+    source: "blog",
+  },
+  "how-to-paint-kitchen-cabinets": {
+    hero: blog("how-to-paint-kitchen-cabinets"),
+    alt: "Real completed freshly painted two-tone Treasure Valley kitchen with deep navy lower cabinets and warm white uppers, matte black hardware, and a smooth painted finish",
+    topicTags: ["painting", "refinishing", "kitchen"],
+    source: "blog",
+  },
+  "pantry-cabinet-ideas": {
+    hero: blog("pantry-cabinet-ideas"),
+    alt: "Real completed floor-to-ceiling walnut pantry cabinet in a Treasure Valley home with roll-out shelves and adjustable shelving stocked with everyday groceries",
+    topicTags: ["pantry", "storage", "organization"],
+    source: "blog",
+  },
   // —— Cabinet costs (8) ——
   "kitchen-cabinet-cost-boise": {
     hero: cs("kitchen-remodel", "boise"),
@@ -554,7 +572,7 @@ const HUB_HEROES = {
 
 const GUIDE_START = "boise-cabinet-cost-guide";
 const blogSlugsFromEntries = Object.keys(ENTRIES).slice(0, Object.keys(ENTRIES).indexOf(GUIDE_START));
-const EXPECTED_BLOG = 63;
+const EXPECTED_BLOG = 66;
 const EXPECTED_GUIDES = 17;
 
 if (blogSlugsFromEntries.length !== EXPECTED_BLOG) {
