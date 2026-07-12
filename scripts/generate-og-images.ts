@@ -43,45 +43,43 @@ async function backgroundDataUri(slug: string): Promise<string | null> {
 }
 
 async function renderCard(title: string, bg: string | null): Promise<Buffer> {
-  // Scale the title down as it gets longer so long titles never overflow the
-  // safe margins or run into the bottom edge.
-  const titleSize = title.length > 84 ? 46 : title.length > 62 ? 54 : title.length > 44 ? 60 : 66;
+  // Title scales down as it gets longer. Sizing is for the narrow CENTER-safe
+  // column (~600px) so a 1:1 (square) crop never truncates the text.
+  const titleSize = title.length > 84 ? 42 : title.length > 62 ? 48 : title.length > 44 ? 54 : 60;
   const tree = h(
     'div',
     { style: { width: 1200, height: 630, display: 'flex', position: 'relative', backgroundColor: '#1C1F1E' } },
     bg ? h('img', { src: bg, width: 1200, height: 630, style: { position: 'absolute', top: 0, left: 0 } }) : null,
-    h('div', {
-      style: {
-        position: 'absolute', top: 0, left: 0, right: 0, bottom: 0,
-        background: 'linear-gradient(120deg, rgba(20,22,21,0.90) 0%, rgba(20,22,21,0.50) 55%, rgba(20,22,21,0.32) 100%)',
-      },
-    }),
-    h('div', {
-      style: {
-        position: 'absolute', left: 0, right: 0, bottom: 0, top: '30%',
-        background: 'linear-gradient(to top, rgba(20,22,21,0.94), rgba(20,22,21,0))',
-      },
-    }),
+    // Uniform dark overlay so centered white text stays legible over any photo.
+    h('div', { style: { position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(18,20,19,0.62)' } }),
     // Sage top accent line
     h('div', { style: { position: 'absolute', top: 0, left: 0, right: 0, height: 8, backgroundColor: '#5D6561' } }),
-    // Eyebrow + title, bottom-left. Generous margins (72px sides, 78px bottom
-    // ~= 6% safe zone) keep the title clear of platform crop edges.
+    // CENTERED content kept inside the middle ~600px (300px side padding). A
+    // square (1:1) crop keeps the center 630px, so nothing here is ever cut off;
+    // it also reads well at the full 1.91:1 size for Facebook / LinkedIn / X.
     h(
       'div',
-      { style: { position: 'absolute', left: 72, right: 72, bottom: 78, display: 'flex', flexDirection: 'column' } },
+      {
+        style: {
+          position: 'absolute', top: 0, left: 0, right: 0, bottom: 0,
+          display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+          padding: '48px 300px',
+        },
+      },
       h(
         'div',
-        { style: { display: 'flex', alignItems: 'center', marginBottom: 18 } },
-        h('div', { style: { width: 44, height: 2, backgroundColor: '#5D6561', marginRight: 16 } }),
+        { style: { display: 'flex', alignItems: 'center', marginBottom: 22 } },
+        h('div', { style: { width: 34, height: 2, backgroundColor: '#5D6561', marginRight: 14 } }),
         h(
           'div',
-          { style: { display: 'flex', fontFamily: 'Montserrat', fontWeight: 600, fontSize: 18, letterSpacing: 2, color: '#E6E3DE' } },
+          { style: { display: 'flex', fontFamily: 'Montserrat', fontWeight: 600, fontSize: 17, letterSpacing: 2, color: '#E6E3DE' } },
           'BOISE CABINET CO · BOISECABINET.CO',
         ),
+        h('div', { style: { width: 34, height: 2, backgroundColor: '#5D6561', marginLeft: 14 } }),
       ),
       h(
         'div',
-        { style: { display: 'flex', fontFamily: 'Montserrat', fontWeight: 300, fontSize: titleSize, lineHeight: 1.08, letterSpacing: -1, color: '#F7F5F3', maxWidth: 1044 } },
+        { style: { display: 'flex', fontFamily: 'Montserrat', fontWeight: 300, fontSize: titleSize, lineHeight: 1.14, letterSpacing: -0.5, color: '#F7F5F3', textAlign: 'center', maxWidth: 600 } },
         title,
       ),
     ),
