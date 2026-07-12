@@ -135,6 +135,9 @@ function OptionVisual({
   svg,
   svgStyle,
   aspectClass = "aspect-[16/10] sm:aspect-[4/3]",
+  /** How the image fills its box. Use "object-contain" to always show the whole
+   * image (e.g. door-style thumbnails) instead of cropping to fill. */
+  imageFit = "object-cover",
 }: {
   image?: string;
   imageAlt?: string;
@@ -142,6 +145,7 @@ function OptionVisual({
   svg?: string;
   svgStyle?: React.CSSProperties;
   aspectClass?: string;
+  imageFit?: "object-cover" | "object-contain";
 }) {
   const alt = imageAlt?.trim() || DEFAULT_OPTION_VISUAL_ALT;
 
@@ -152,7 +156,8 @@ function OptionVisual({
         aria-label={alt}
         style={svgStyle}
         className={cn(
-          "relative w-full mb-1.5 overflow-hidden rounded-sm bg-muted [&>svg]:h-full [&>svg]:w-full [&>svg]:object-cover",
+          "relative w-full mb-1.5 overflow-hidden rounded-sm bg-muted [&>svg]:h-full [&>svg]:w-full",
+          imageFit === "object-contain" ? "[&>svg]:object-contain" : "[&>svg]:object-cover",
           aspectClass,
         )}
         dangerouslySetInnerHTML={{ __html: svg }}
@@ -167,7 +172,7 @@ function OptionVisual({
           alt={alt}
           fill
           sizes="(max-width: 1024px) 33vw, 160px"
-          className="object-cover img-brand-grade"
+          className={cn(imageFit, "img-brand-grade")}
         />
       </div>
     );
@@ -194,6 +199,7 @@ function SelectButton<T extends string>({
   columns = 2,
   aspectClass,
   gridClassName,
+  imageFit,
 }: {
   value: T | "";
   options: SelectOption<T>[];
@@ -205,6 +211,7 @@ function SelectButton<T extends string>({
   aspectClass?: string;
   /** Overrides the default column classes (e.g. a responsive grid). */
   gridClassName?: string;
+  imageFit?: "object-cover" | "object-contain";
 }) {
   return (
     <div className={cn("grid gap-2", gridClassName ?? (columns === 3 ? "grid-cols-3" : "grid-cols-2"))}>
@@ -236,8 +243,9 @@ function SelectButton<T extends string>({
               svg={svgByValue?.[opt.value]}
               svgStyle={svgStyle}
               aspectClass={aspectClass}
+              imageFit={imageFit}
             />
-            <span className="font-medium text-xs text-foreground pr-5 leading-tight">{opt.label}</span>
+            <span className="w-full truncate font-medium text-xs text-foreground leading-tight">{opt.label}</span>
             {opt.sub && (
               <span className="hidden text-[10px] leading-snug text-muted-foreground line-clamp-1 sm:block">
                 {opt.sub}
@@ -842,7 +850,8 @@ export function EstimateCalculatorWizard({
                   value={selections.doorStyle}
                   options={doorOptions}
                   gridClassName="grid-cols-3 lg:grid-cols-6"
-                  aspectClass="aspect-[2/1] sm:aspect-[3/2]"
+                  aspectClass="aspect-[3/2]"
+                  imageFit="object-contain"
                   onChange={(v) => {
                     setSelections((prev) =>
                       applyFinishSlug({ ...prev, doorStyle: v }, prev.finishSlug),
