@@ -897,6 +897,179 @@ const standardCabinetSizesContent = `
 <p>${AUTHOR} designs custom <a href="/cabinets/kitchen">kitchen cabinets</a> in standard and fully custom sizes for homes across Boise, Meridian, Eagle, and Nampa — measured to your exact space, with the clearances and storage planned around how you cook. <a href="/estimate">Get a planning range</a>, browse <a href="/door-styles">door styles</a> and <a href="/finishes">finishes</a>, or <a href="/contact">book a free in-home consultation</a> and we will handle the measuring and layout for you.</p>
 `;
 
+const bathroomVanityContent = `
+<p class="text-lg">A bathroom vanity combines your sink, storage, and countertop into one piece, and choosing the right one comes down to <strong>size, configuration, style, and quality</strong>. Standard vanity heights are 32 to 36 inches, depths are 21 inches, and widths range from 24 inches for a small powder room up to 72 inches or more for a double-sink master. A custom vanity, built to your exact space and storage needs, typically runs <strong>$1,500 to $6,000+ installed</strong> depending on size, material, and finish. The best vanity fits your room precisely, gives you the storage you actually need, and matches the style of your home.</p>
+
+<div class="summary-block">
+  <p><strong>Key takeaways:</strong> Match the vanity to your space (single vs double, floating vs floor-standing), prioritize drawer storage, and choose quality construction that survives a humid bathroom. Custom vanities run about $1,500–$6,000+ installed. <a href="/cabinets/bathroom">See our bathroom vanities</a> or <a href="/estimate">get a planning range</a>.</p>
+</div>
+
+<h2 id="sizes">Bathroom vanity sizes and dimensions</h2>
+<p>Getting the size right is the foundation of a vanity that works. The <strong>standard height</strong> is 32 to 36 inches — the taller "comfort height" of 36 inches (matching kitchen counters) is increasingly popular for adults, while 32 inches can suit a kids' bath. The <strong>standard depth</strong> is 21 inches, though slim 18-inch-deep vanities are a lifesaver in tight powder rooms and narrow spaces. <strong>Width</strong> is where you have the most range: 24 to 30 inches for a small single vanity, 36 to 48 inches for a comfortable single, and 60 to 72 inches or more for a double-sink vanity. Before you fall in love with a size, measure your room carefully, including door swings, the toilet clearance beside the vanity, and where the plumbing rough-ins sit, since moving plumbing adds cost.</p>
+
+<h2 id="configurations">Vanity configurations</h2>
+<p>Beyond size, the layout of the vanity shapes how it lives. A <strong>single-sink vanity</strong> maximizes counter and storage in a modest bath, while a <strong>double-sink vanity</strong> is a morning-routine gift for couples but needs at least 60 inches of width to feel right. <strong>Floating (wall-mounted) vanities</strong> read modern, make a small bath feel larger by showing floor beneath, and simplify cleaning, though they need solid blocking in the wall and offer a bit less storage. <strong>Floor-standing vanities</strong> are the traditional choice, maximizing storage and hiding plumbing completely. Think about who uses the bathroom and how, and let that drive the configuration as much as looks.</p>
+
+<h2 id="storage">Prioritize the right storage</h2>
+<p>The most common vanity regret is not enough usable storage, and the fix is drawers. A vanity built mostly around a big open cabinet under the sink wastes space to the plumbing and forces you to stack things you cannot see. Drawers — especially <strong>U-shaped drawers that wrap around the plumbing</strong> — turn that same footprint into organized, reach-everything storage for everything from hair tools to backup toiletries. Roll-out trays, built-in outlets inside a drawer for charging, a tilt-out tray at the sink, and a dedicated hamper pull-out all make a vanity dramatically more functional. When you plan a custom vanity, we design the interior around what you actually store, which is the difference between a pretty vanity and one you love using every day.</p>
+
+<h2 id="styles">Vanity styles and finishes</h2>
+<p>Your vanity should echo the style of your home and bathroom. <strong>Shaker</strong> door fronts are the versatile default, at home in nearly any bath. <strong>Slab (flat-panel)</strong> fronts, especially in a warm wood or a bold paint, read clean and modern. <strong>Raised-panel</strong> suits a traditional space. For finish, painted vanities in white, greige, navy, and green are all popular, and natural stained wood — white oak and walnut especially — brings warmth and a spa-like feel. Because bathrooms are humid, finish quality matters even more than in a kitchen: a properly sprayed, sealed finish resists the moisture and temperature swings a bathroom throws at it. Coordinate the vanity finish with your <a href="/hardware">hardware</a>, faucet, and mirror for a pulled-together look.</p>
+
+<h2 id="tops-sinks">Countertops and sinks</h2>
+<p>The vanity top and sink complete the piece. <strong>Quartz</strong> is the most popular top for its durability and low maintenance, while <strong>natural stone</strong> like granite or marble brings unique character (marble needs a little more care in a bathroom). <strong>Undermount sinks</strong> are the clean, easy-to-wipe standard; vessel sinks make a bold statement but sit higher, which affects vanity height. Decide whether you want a single wide sink or two, and whether the faucet is deck-mounted or wall-mounted, early, because those choices affect the vanity and plumbing layout. A cohesive combination of top, sink, and faucet is what makes a vanity feel custom rather than assembled.</p>
+
+<h2 id="cost">What bathroom vanities cost</h2>
+<table>
+  <thead>
+    <tr><th>Type</th><th>Rough cost (installed)</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Stock / prefab vanity</td><td>$500–$1,500</td></tr>
+    <tr><td>Semi-custom</td><td>$1,500–$3,500</td></tr>
+    <tr><td>Custom (built to your space)</td><td>$2,500–$6,000+</td></tr>
+  </tbody>
+</table>
+<p>Cost is driven by size, material, finish, the top and sink you choose, and any plumbing changes. A double vanity naturally costs more than a single, and premium stone or specialty storage adds up. For how vanities fit a broader budget in our market, see the <a href="/guides/boise-cabinet-cost-guide">Boise cabinet cost guide</a>.</p>
+
+<h2 id="quality">Judging vanity quality</h2>
+<p>A bathroom is the most demanding environment in the house for cabinetry — humidity, temperature swings, and splashes all test the build. Look for a <strong>plywood box</strong> rather than particleboard, which can swell if water reaches it, <strong>solid-wood dovetailed drawers</strong> on soft-close glides, <strong>adjustable soft-close hinges</strong>, and a durable, well-applied finish. A moisture-resistant, quality-built vanity will still look and function beautifully years later, while a bargain particleboard unit can delaminate and sag surprisingly fast in a bathroom. The same construction standards that make a great kitchen cabinet make a great vanity — see our <a href="/blog/cabinet-construction-quality-guide">cabinet construction quality guide</a>.</p>
+
+<h2 id="accessibility">Aging-in-place and accessibility</h2>
+<p>If you are planning for the long term, a few thoughtful choices make a vanity work for every age and ability. A comfort-height counter is easier on the back, drawers are far easier to use than reaching into a low cabinet, D-shaped pulls are simple to grip, and a section of open knee space or a wall-mounted vanity can allow seated use. These universal-design touches blend seamlessly into a beautiful bathroom and are much easier to build in now than to retrofit later, which is why we raise them during design for clients thinking about staying in their home.</p>
+
+<h2 id="how-to-choose">How to choose your vanity in 5 steps</h2>
+<ol>
+  <li>Measure the space precisely, including clearances and plumbing locations.</li>
+  <li>Decide single vs double and floating vs floor-standing based on who uses it.</li>
+  <li>Prioritize drawer storage designed around what you actually keep.</li>
+  <li>Choose a style and finish that suits your home and the bathroom's humidity.</li>
+  <li>Coordinate the top, sink, faucet, and hardware, then confirm construction quality.</li>
+</ol>
+
+<h2 id="mistakes">Common bathroom vanity mistakes to avoid</h2>
+<p>A few avoidable missteps account for most vanity regrets. The biggest is choosing a size that fights the room — a vanity that blocks a door swing, crowds the toilet, or leaves no landing space beside the sink makes a bathroom feel cramped no matter how beautiful the vanity itself is. Measuring carelessly, or forgetting to account for baseboards, trim, and plumbing locations, leads to exactly that problem. The second common mistake is under-planning storage: falling for a lovely vanity with a single open cabinet under the sink and then discovering there is nowhere sensible to keep daily items. Drawers, not open shelves under a sink, are almost always the answer.</p>
+<p>People also routinely underestimate the toll a bathroom takes on cabinetry, and choose a bargain particleboard vanity that swells, delaminates, and sags within a few years in the humidity — a false economy that costs more when it has to be replaced. Finally, many homeowners select the vanity in isolation and then struggle to coordinate the top, sink, faucet, mirror, and hardware after the fact, ending up with a collection of parts rather than a cohesive piece. Choosing those elements together, with the room's real dimensions in hand, is how you sidestep every one of these pitfalls at once.</p>
+
+<h2 id="where-buy">Where bathroom vanities come from</h2>
+<p>Like kitchen cabinets, vanities come in stock, semi-custom, and custom tiers, and where you buy shapes both the fit and the experience. Stock and prefab vanities from home centers and online retailers are the fastest and cheapest, but they come in fixed sizes that rarely match your space perfectly, and their quality varies widely. Semi-custom vanities offer more sizes, finishes, and modifications through a dealer or showroom. A custom vanity, built by a local cabinet company, is made to your exact dimensions with the storage, style, and construction you choose, and it is installed by the same team that built it — which matters in a bathroom, where a precise fit against tile and plumbing is the difference between a clean, finished look and an awkward one. If your bathroom is a standard shape and your budget is tight, a stock vanity can serve you well; if the space is tricky, or you want specific storage or a look no catalog offers, custom is the path to a vanity that fits like it was made for the room, because it was.</p>
+
+<h2 id="bottom-line">The bottom line</h2>
+<p>A great bathroom vanity is equal parts fit, function, and finish. Nail the size and configuration for your space, build in the drawer storage you will actually use, choose a style and a moisture-tough finish that suit your home, and insist on quality construction that can handle a bathroom, and you will have a piece that looks beautiful and works flawlessly for decades. Whether it is a compact powder-room vanity or a spa-like double in the master, the goal is the same: a vanity that fits your space and your life exactly, which is precisely what a custom build delivers.</p>
+
+<h2 id="how-we-build">Design your vanity with Boise Cabinet Co</h2>
+<p>${AUTHOR} designs, builds, and installs custom <a href="/cabinets/bathroom">bathroom vanities</a> — single and double, floating and floor-standing — for homes across Boise, Meridian, Eagle, and Nampa, sized to your space with the storage and finishes you choose. Coordinate with your <a href="/door-styles">door style</a>, <a href="/finishes">finish</a>, and <a href="/hardware">hardware</a>, then <a href="/estimate">get a planning range</a> or <a href="/contact">book a free in-home consultation</a>.</p>
+`;
+
+const refaceRefinishReplaceContent = `
+<p class="text-lg">If your cabinet boxes are solid but the look is dated, you have three options. <strong>Refinishing</strong> repaints or re-stains your existing doors and boxes — the cheapest route, best when the layout and doors still work. <strong>Refacing</strong> keeps the boxes but installs brand-new doors, drawer fronts, and a matching veneer skin — a fresh look and new door style without a full remodel. <strong>Replacing</strong> means all-new cabinets — the right call when you want a different layout, better construction, or maximum longevity. Choose based on the condition of your boxes, whether the layout works, and how long you plan to stay.</p>
+
+<div class="summary-block">
+  <p><strong>Key takeaways:</strong> Refinish = cheapest, same doors, new color. Reface = keep boxes, new doors and skin. Replace = all-new, any layout, best quality. If your boxes are sound and the layout works, refinishing or refacing saves money; if not, replacing is worth it. <a href="/estimate">Get a planning range</a> to compare.</p>
+</div>
+
+<h2 id="refinishing">Refinishing: a fresh color, same cabinets</h2>
+<p>Refinishing is the lightest touch. Your existing doors, drawer fronts, and cabinet frames are cleaned, prepped, and either repainted or re-stained, ideally sprayed for a smooth factory-like finish. It is the least expensive option and the fastest, and it can transform a tired kitchen — dark oak to crisp white, for example — for a fraction of new cabinets. The catch is that refinishing changes only the color and sheen: the door style, layout, and any worn or damaged boxes stay exactly as they are. It shines when you like your doors and your layout and simply want a new look, and when the existing cabinets are structurally sound. If the finish is the only thing tired about your kitchen, refinishing is often the smartest money you can spend.</p>
+
+<h2 id="refacing">Refacing: new doors, existing boxes</h2>
+<p>Refacing goes a step further. The cabinet boxes stay in place, but you get all-new doors and drawer fronts in the style and finish of your choice, and the visible box surfaces are covered with a matching veneer or laminate skin so everything looks new. Because the boxes and layout remain, refacing costs less and moves faster than a full replacement, yet the result can look dramatically different — you can switch from raised-panel to Shaker, from oak to painted white, and update your hardware all at once. Refacing makes the most sense when your boxes are solid and well-built, your layout works for you, and you want a genuinely new look without the cost and disruption of tearing everything out. It does not, however, fix a bad layout or upgrade the quality of the boxes you already have.</p>
+
+<h2 id="replacing">Replacing: all-new cabinets</h2>
+<p>Replacing is the full solution. Old cabinets come out and brand-new ones go in, which means you can change the layout entirely, add an island, reconfigure for better storage, and choose exactly the construction quality and finishes you want. It is the most expensive and involved option, but it is the only one that lets you fix a layout that never worked, upgrade from particleboard boxes to plywood with dovetailed drawers, and get a kitchen engineered around how you actually live. For a forever home, a poor existing layout, or cabinets that are simply worn out, replacing delivers the best long-term result — and it is the only path to truly <a href="/blog/stock-vs-custom-cabinets-boise">custom</a> cabinetry built to your exact space.</p>
+
+<h2 id="comparison">Reface vs refinish vs replace</h2>
+<table>
+  <thead>
+    <tr><th>Factor</th><th>Refinish</th><th>Reface</th><th>Replace</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Cost</td><td>$ (lowest)</td><td>$$</td><td>$$$ (highest)</td></tr>
+    <tr><td>New door style</td><td>No</td><td>Yes</td><td>Yes</td></tr>
+    <tr><td>New layout</td><td>No</td><td>No</td><td>Yes</td></tr>
+    <tr><td>Upgrades box quality</td><td>No</td><td>No</td><td>Yes</td></tr>
+    <tr><td>Disruption / time</td><td>Least</td><td>Moderate</td><td>Most</td></tr>
+    <tr><td>Best when</td><td>Doors and layout are fine</td><td>Boxes solid, want new look</td><td>Bad layout or worn boxes</td></tr>
+  </tbody>
+</table>
+
+<h2 id="how-to-decide">How to decide</h2>
+<p>Three questions settle it. First, <strong>are your cabinet boxes sound?</strong> Knock on them, open the drawers, check for water damage or sagging — if they are solid plywood in good shape, refinishing or refacing is on the table; if they are swollen, failing particleboard, replacing is the honest answer. Second, <strong>does your layout work?</strong> If you love where everything is, you can keep the boxes; if the kitchen has always felt awkward, only replacing fixes that. Third, <strong>how long will you stay?</strong> For a short-term home or a quick refresh before selling, refinishing or refacing stretches your dollars; for a forever home, investing in new cabinets you will enjoy for decades usually wins. Answer those three and the right path is usually obvious.</p>
+<div class="summary-block">
+  <p><strong>Our honest take:</strong> Refinishing and refacing are great when the bones are good and the layout works — we will tell you when they are the smart choice. But if your boxes are failing or your layout fights you every day, refacing a bad kitchen just puts a nice face on the same frustrations. In that case, new cabinets are the better value over time.</p>
+</div>
+
+<h2 id="cost">What each option costs</h2>
+<p>Refinishing is typically the least expensive, refacing sits in the middle, and replacing is the largest investment — but the ranges overlap depending on the size of your kitchen, the materials, and the finish. A high-end refacing job with premium doors can approach the cost of modest new cabinets, so it is always worth pricing your real options side by side rather than assuming. For local ranges and what drives them, see the <a href="/guides/boise-cabinet-cost-guide">Boise cabinet cost guide</a> and <a href="/blog/custom-kitchen-cabinet-cost">custom kitchen cabinet cost</a>.</p>
+
+<h2 id="process">What each project is actually like</h2>
+<p>The three options differ not just in cost but in how disruptive they are to your daily life, which is worth weighing before you decide. <strong>Refinishing</strong> is the least invasive: doors and drawer fronts are usually removed and finished off-site or in a controlled space, the boxes are prepped and coated in place, and your kitchen is livable through much of the process, though you will be without doors for a stretch and living with finish fumes if it is done on-site. <strong>Refacing</strong> is a middle-ground project — the crew works cabinet by cabinet, removing old doors, applying the new skin, and hanging new doors and drawer fronts, typically over several days to a couple of weeks depending on the size of the kitchen, with the boxes staying put so your kitchen mostly keeps working. <strong>Replacing</strong> is the most involved: the old cabinets come out entirely, which usually means the countertops come off too, so the kitchen is genuinely out of commission for a stretch while new cabinets are installed and the counters are re-templated and set. Matching the level of disruption to what your household can tolerate is part of choosing the right option, especially if you cook a lot or have a busy family.</p>
+
+<h2 id="diy-vs-pro">DIY versus professional</h2>
+<p>All three options tempt homeowners to save with DIY, and the results vary widely. Repainting cabinets yourself is the most achievable, but a durable, smooth, factory-like finish takes serious prep, the right products, and ideally spray equipment — brush-and-roller jobs often look passable at first and then chip and show marks within a year. Refacing yourself is harder than it looks: cutting and applying veneer skins seamlessly and hanging new doors perfectly aligned on old boxes is finicky work where small errors are very visible. Replacing cabinets is a full remodel with design, demolition, and precise installation that most homeowners are wise to leave to professionals. In every case, the finish and the fit are where quality shows, and where a professional result pulls clearly ahead of a weekend project — which matters, because cabinets are front and center in your kitchen every single day.</p>
+
+<h2 id="sustainability">A note on cost, value, and waste</h2>
+<p>There is also a practical and environmental case for keeping what works. If your boxes are genuinely sound, refinishing or refacing keeps solid cabinetry out of the landfill and puts your money into the visible upgrade rather than into demolition and disposal. That said, keeping failing boxes just to avoid replacement is a false economy — you end up spending good money to dress up cabinets that will keep frustrating you. The honest calculation is whether the bones are worth preserving. When they are, refinishing or refacing is both the thriftier and the greener choice; when they are not, replacing is the investment that actually solves the problem and delivers value you feel every day for years.</p>
+
+<h2 id="bottom-line">The bottom line</h2>
+<p>Refinishing, refacing, and replacing are three different answers to three different situations. If your cabinets are solid and your layout works and you just want a new color, refinishing is the value champion. If the boxes are good but you want a whole new look, refacing delivers it without a full remodel. And if the layout is wrong, the boxes are worn, or you want the best quality and a space built around your life, replacing is worth the investment. The key is to be honest about the condition of what you have and how long you will live with it — get that right, and you will spend your money exactly where it delivers the most. And if you are genuinely torn, a quick in-home look from a professional who does all three options will usually make the choice obvious; sometimes the honest advice is to keep and refresh what you have, and sometimes it is to start fresh, but either way you will be deciding from facts rather than guessing.</p>
+
+<h2 id="how-we-build">Not sure which is right? Ask Boise Cabinet Co</h2>
+<p>${AUTHOR} helps Boise, Meridian, Eagle, and Nampa homeowners weigh refinishing, refacing, and replacing honestly — and builds beautiful new <a href="/cabinets/kitchen">kitchen</a> and <a href="/cabinets/bathroom">bath</a> cabinets when that is the right call. <a href="/estimate">Get a planning range</a> or <a href="/contact">book a free in-home consultation</a> and we will assess your cabinets and recommend the option that fits your goals and budget.</p>
+`;
+
+const cabinetOrganizationContent = `
+<p class="text-lg">The best kitchen cabinet organization starts with the right <strong>interior hardware</strong> — deep drawers instead of low doors, roll-out trays, dividers, and pull-outs — so everything has a home and nothing gets lost in the back. Group items by zone (cooking, prep, cleanup, storage), store things where you use them, and use drawer dividers and vertical dividers to keep everything visible and reachable. Whether you are working with existing cabinets or planning new ones, a few smart inserts and a zone-based system turn a frustrating kitchen into one that runs itself.</p>
+
+<div class="summary-block">
+  <p><strong>Key takeaways:</strong> Drawers beat low doors for access. Organize by zone, store items where you use them, and use dividers and pull-outs to keep everything visible. Plan storage into new cabinets from the start. <a href="/cabinets/kitchen">See our kitchen cabinets</a> or <a href="/estimate">plan your project</a>.</p>
+</div>
+
+<h2 id="zones">Organize by zone</h2>
+<p>The single most powerful organizing idea is to think in zones rather than cabinets. Group your kitchen into a <strong>cooking zone</strong> around the range (pots, pans, cooking utensils, oils, and spices), a <strong>prep zone</strong> near your main counter (knives, cutting boards, mixing bowls, measuring tools), a <strong>cleanup zone</strong> around the sink and dishwasher (dish soap, sponges, trash and recycling, everyday dishes), and a <strong>storage zone</strong> for the pantry and small appliances. Then store each item in the zone where you actually use it — pots by the stove, not across the room. This one shift eliminates most of the back-and-forth that makes a kitchen feel inefficient, and it makes every other organizing decision easier.</p>
+
+<h2 id="drawers">Drawers over low doors</h2>
+<p>If there is one upgrade that transforms cabinet organization, it is replacing low base-cabinet doors with deep drawers. Reaching into the dark back of a low cabinet on your knees is where pots, lids, and small appliances go to disappear. Deep drawers bring everything to you: a single wide drawer can hold a whole nested set of pots with their lids, and you see and reach all of it at once. New kitchens increasingly use drawer banks for the entire base run for exactly this reason. If you are keeping your cabinets, adding roll-out trays inside existing low cabinets is the next-best move, giving you much of the same reach-everything benefit.</p>
+
+<h2 id="inserts">The inserts worth buying</h2>
+<p>A handful of interior accessories do the heavy lifting of organization:</p>
+<ul>
+  <li><strong>Drawer dividers</strong> keep utensils, gadgets, and junk-drawer chaos in order and visible.</li>
+  <li><strong>Deep-drawer peg systems</strong> hold plates and bowls upright so a drawer becomes safe dish storage.</li>
+  <li><strong>Roll-out trays and pull-outs</strong> turn deep, dark cabinets into accessible shelves.</li>
+  <li><strong>Vertical dividers</strong> store baking sheets, cutting boards, and trays on edge instead of in a leaning stack.</li>
+  <li><strong>Spice pull-outs</strong> near the range keep seasonings visible and within reach while cooking.</li>
+  <li><strong>A pull-out trash and recycling</strong> unit hides bins and keeps the floor clear.</li>
+</ul>
+<p>You do not need every accessory — pick the few that solve your specific frustrations, and they pay for themselves in daily ease.</p>
+
+<h2 id="corners">Solving the corner cabinet</h2>
+<p>Corner base cabinets are notorious dead zones, but modern solutions make them genuinely useful. A <strong>lazy Susan</strong> spins your stored items out to you, while newer <strong>pull-out corner systems</strong> (sometimes called magic corners) swing the entire shelf out of the cabinet so nothing hides in the back. If you are planning new cabinets, deciding on a corner solution up front means you never lose that space to a black hole again. In existing cabinets, a retrofit lazy Susan is an inexpensive way to reclaim a corner you had written off.</p>
+
+<h2 id="pantry">Pantry and vertical storage</h2>
+<p>Pantries reward organization more than any other cabinet. Whether it is a dedicated <strong>tall pantry cabinet</strong> or a closet, the keys are shallow shelves so nothing hides behind other items, clear containers for staples, dedicated zones for categories (baking, snacks, canned goods), and door-mounted racks or pull-out shelves to use every inch. In new cabinetry, a tall pantry with roll-out shelves puts your whole food supply at eye level and within reach. Going vertical — using the full height with adjustable shelving and stackable bins — is how you fit more into the same footprint without it becoming a jumble.</p>
+
+<h2 id="small-kitchens">Ideas for small kitchens</h2>
+<p>A small kitchen makes smart organization essential rather than optional. Use the full height of the walls with cabinets that run to the ceiling, add a narrow pull-out pantry in a gap beside the fridge or range, mount hooks or rails on backsplashes and cabinet sides for utensils and mugs, and choose drawers over doors so nothing is lost in the back. A toe-kick drawer reclaims the wasted space under base cabinets for flat items like trays. In a compact kitchen, every inserted organizer earns its keep, and thoughtful cabinetry can make a small space feel surprisingly generous. See our related ideas for <a href="/blog/standard-kitchen-cabinet-sizes">planning cabinet sizes</a>.</p>
+
+<h2 id="maintain">Keeping it organized</h2>
+<p>Organization is a system, not a one-time project. The trick to keeping it is to make the right place the easy place: when items live in the zone where you use them and every category has a defined home, putting things away becomes automatic. Do a quick seasonal edit — pull anything you have not used in a year — and resist the urge to fill every new inch of space just because it exists. A kitchen designed with the right storage from the start stays organized with far less effort, which is the real payoff of planning it well.</p>
+
+<h2 id="where-start">Where to start</h2>
+<p>If your cabinets feel chaotic, resist the urge to buy a pile of organizers before you have a plan — that is how kitchens end up with drawers full of unused gadgets and half-fitting bins. Start instead by emptying and editing: pull everything out of a section, be honest about what you actually use, and donate or discard the duplicates, the broken, and the "someday" items that never get touched. Only then map your zones and decide what belongs where, based on where you use each thing rather than where it happened to land. With a clear picture of what you are keeping and where it should live, you can choose the few inserts that genuinely help, and each one will earn its place. Doing the edit first is the single biggest reason some kitchens stay organized effortlessly while others slide back into clutter within weeks — you cannot organize your way out of simply owning too much for the space.</p>
+
+<h2 id="by-cabinet">Organizing by cabinet type</h2>
+<p>Different cabinets reward different strategies. <strong>Deep base cabinets and drawers</strong> near the range are ideal for pots, pans, and lids — a deep drawer with a peg system or a pot-and-pan pull-out keeps them nested and reachable. <strong>Narrow cabinets</strong> beside the range or fridge are perfect for a slim pull-out pantry or a tray divider that stores baking sheets and cutting boards on edge. <strong>Upper cabinets</strong> work best with adjustable shelves set to your actual dish and glass heights, with everyday items low and reachable and rarely-used pieces up high. The <strong>sink base</strong>, cramped by plumbing, benefits from a U-shaped pull-out or a simple tiered tray to make the awkward space usable for cleaning supplies. And <strong>drawers</strong> everywhere improve with dividers sized to what they hold, so utensils, wraps, and gadgets each have a lane. Matching the solution to the cabinet, rather than applying one system everywhere, is how you get the most from every square inch.</p>
+
+<h2 id="org-mistakes">Common organizing mistakes</h2>
+<p>A handful of missteps undo good intentions. Over-buying organizers before editing is the most common, cluttering the very space you meant to clear. Storing items far from where you use them — glasses across the kitchen from the fridge, pots far from the stove — quietly adds friction to every task. Cramming things into deep, dark base cabinets with doors instead of using drawers or roll-outs guarantees the back becomes a lost zone. Overfilling every shelf and drawer to capacity leaves no room to put things away easily, so they end up on the counter instead. And treating organization as a one-time weekend blitz rather than a system that fits your habits means it rarely lasts. Avoiding these traps is less about discipline and more about designing storage that makes the tidy choice the effortless one.</p>
+
+<h2 id="bottom-line">The bottom line</h2>
+<p>Great kitchen organization is less about tidying and more about design. Store things where you use them, choose drawers and pull-outs that bring everything to you, add the handful of inserts that solve your specific frustrations, and use your corners and vertical space instead of surrendering them. Do that, and your kitchen stops fighting you — cooking gets faster, cleanup gets easier, and the whole room feels calmer. The most organized kitchens are the ones where storage was planned around real life from the beginning, which is exactly what thoughtful custom cabinetry makes possible. Start with an honest edit, build in the drawers and pull-outs that match how you actually cook, and give every item a home in the zone where you use it, and the payoff shows up immediately: a kitchen that feels calmer, works faster, and stays tidy with almost no effort at all.</p>
+
+<h2 id="how-we-build">Plan a kitchen that organizes itself</h2>
+<p>${AUTHOR} designs custom <a href="/cabinets/kitchen">kitchen cabinets</a> with the drawers, pull-outs, and interior storage planned around how you actually cook, for homes across Boise, Meridian, Eagle, and Nampa. Browse <a href="/accessories">storage accessories</a> and <a href="/cabinets">our cabinets</a>, then <a href="/estimate">get a planning range</a> or <a href="/contact">book a free in-home consultation</a>. We design the drawers, roll-outs, corner solutions, and pantry storage around your cookware and your habits, so the finished kitchen stays effortlessly organized from the very first day you move back in and for many years after.</p>
+`;
+
 export const PREMIUM_POSTS: BlogPostData[] = [
   {
     slug: 'framed-vs-frameless-cabinets',
@@ -1336,6 +1509,130 @@ export const PREMIUM_POSTS: BlogPostData[] = [
     primaryKeyword: 'standard kitchen cabinet sizes',
     secondaryKeywords: ['kitchen cabinet dimensions', 'base cabinet dimensions', 'wall cabinet height', 'standard cabinet sizes'],
     searchIntent: 'Informational — homeowners planning kitchen cabinet dimensions',
+    wordCountTarget: 'pillar',
+  },
+  {
+    slug: 'bathroom-vanity-buying-guide',
+    title: 'Bathroom Vanity Buying Guide: Sizes, Styles & Cost',
+    seoTitle: 'Bathroom Vanity Buying Guide: Sizes, Styles & Cost',
+    metaDescription:
+      'How to choose a bathroom vanity: standard sizes, single vs double, floating vs floor-standing, storage, styles, tops, quality, and cost for Treasure Valley homes.',
+    excerpt:
+      'The complete bathroom vanity buying guide — sizes, configurations, storage, styles, tops, quality, and cost — to help you choose the right vanity for your space.',
+    content: bathroomVanityContent,
+    author: AUTHOR,
+    category: 'Bathroom Vanities',
+    hubSlug: 'bathroom-vanities',
+    tags: ['bathroom', 'vanity', 'storage', 'cost', 'boise'],
+    publishedAt: '2026-07-11',
+    faqs: [
+      { question: 'What is the standard height of a bathroom vanity?', answer: 'Standard bathroom vanity heights range from 32 to 36 inches. The taller 36-inch "comfort height," matching kitchen counters, is increasingly popular for adults, while 32 inches can suit a kids bathroom.' },
+      { question: 'What is the standard depth and width of a vanity?', answer: 'Standard vanity depth is 21 inches, with slim 18-inch options for tight spaces. Widths range from 24 to 30 inches for a small single vanity, 36 to 48 inches for a comfortable single, and 60 to 72 inches or more for a double-sink vanity.' },
+      { question: 'How much does a bathroom vanity cost?', answer: 'A stock or prefab vanity runs about $500 to $1,500, semi-custom about $1,500 to $3,500, and a custom vanity built to your space about $2,500 to $6,000 or more installed. Size, material, finish, the top and sink, and any plumbing changes drive the price.' },
+      { question: 'Are floating vanities a good idea?', answer: 'Floating (wall-mounted) vanities look modern, make a small bathroom feel larger by showing floor beneath, and are easy to clean. They need solid blocking in the wall and offer slightly less storage than floor-standing vanities, so weigh storage needs against the look.' },
+      { question: 'How do I get more storage in a bathroom vanity?', answer: 'Prioritize drawers over a single open under-sink cabinet, especially U-shaped drawers that wrap around the plumbing. Roll-out trays, a tilt-out tray at the sink, in-drawer outlets for charging, and a hamper pull-out all add usable, organized storage.' },
+      { question: 'What makes a quality bathroom vanity?', answer: 'Because bathrooms are humid, look for a plywood box rather than particleboard, solid-wood dovetailed drawers on soft-close glides, adjustable soft-close hinges, and a durable, well-applied moisture-resistant finish. These details keep a vanity looking and working well for years.' },
+    ],
+    quickAnswer:
+      'Choose a bathroom vanity by size (heights 32–36 inches, 21-inch depth, widths from 24 inches to 72+ for a double), configuration (single or double, floating or floor-standing), storage (prioritize drawers), and quality (moisture-tough construction). Custom vanities run about $1,500 to $6,000+ installed.',
+    keyTakeaways: [
+      'Match size and configuration to your space and who uses it.',
+      'Prioritize drawer storage, including U-shaped drawers around plumbing.',
+      'Insist on moisture-tough, quality construction for a humid bathroom.',
+    ],
+    relatedLinks: [
+      { url: '/guides/boise-bathroom-vanity-guide', anchor: 'Bathroom Vanities' },
+      { url: '/cabinets/bathroom', anchor: 'Bathroom vanities' },
+      { url: '/blog/cabinet-construction-quality-guide', anchor: 'Cabinet construction quality' },
+      { url: '/finishes', anchor: 'Finishes' },
+      { url: '/cabinets' },
+    ],
+    primaryKeyword: 'bathroom vanity',
+    secondaryKeywords: ['bathroom vanity sizes', 'bathroom vanity cost', 'double vanity', 'floating vanity'],
+    searchIntent: 'Commercial / informational — homeowners buying a bathroom vanity',
+    isPillar: true,
+    wordCountTarget: 'pillar',
+  },
+  {
+    slug: 'cabinet-refacing-vs-refinishing-vs-replacing',
+    title: 'Cabinet Refacing vs Refinishing vs Replacing: Which Is Right?',
+    seoTitle: 'Refacing vs Refinishing vs Replacing Cabinets: Guide',
+    metaDescription:
+      'Cabinet refacing vs refinishing vs replacing compared — cost, what changes, and how to decide based on your boxes, layout, and timeline.',
+    excerpt:
+      'Refinish, reface, or replace? Refinishing repaints your doors, refacing adds new doors to old boxes, replacing is all-new. Here is how to decide, with a comparison table.',
+    content: refaceRefinishReplaceContent,
+    author: AUTHOR,
+    category: 'Kitchen Cabinets',
+    hubSlug: 'kitchen-cabinets',
+    tags: ['refacing', 'refinishing', 'replacing', 'remodel', 'boise'],
+    publishedAt: '2026-07-11',
+    faqs: [
+      { question: 'What is the difference between refacing and refinishing cabinets?', answer: 'Refinishing repaints or re-stains your existing doors and boxes, changing only the color and sheen. Refacing keeps the boxes but installs brand-new doors and drawer fronts plus a matching skin, so you can change the door style entirely. Refacing costs more but changes the look more dramatically.' },
+      { question: 'Is refacing cabinets worth it?', answer: 'Refacing is worth it when your cabinet boxes are solid and well-built and your layout works, but you want a new door style and finish without the cost and disruption of full replacement. It is not worth it if your boxes are failing or your layout is wrong, since refacing does not fix either.' },
+      { question: 'When should you replace cabinets instead of refacing?', answer: 'Replace cabinets when the layout does not work, the boxes are worn or made of failing particleboard, or you want to upgrade construction quality, add an island, or reconfigure storage. Replacing is the only option that lets you change the layout and the quality of the boxes.' },
+      { question: 'Which is cheapest: refinishing, refacing, or replacing?', answer: 'Refinishing is typically the least expensive, refacing sits in the middle, and replacing is the largest investment. The ranges can overlap, though, so a high-end refacing job can approach the cost of modest new cabinets. Price your real options side by side.' },
+      { question: 'How do I decide between the three options?', answer: 'Ask three questions: Are your cabinet boxes sound? Does your layout work? How long will you stay? Solid boxes and a good layout favor refinishing or refacing; a bad layout, worn boxes, or a forever home favor replacing.' },
+      { question: 'Can you reface cabinets yourself?', answer: 'DIY refacing kits exist, but achieving a seamless, factory-quality result — especially matching veneer skins and aligning new doors on old boxes — is difficult. Professional refacing or refinishing produces a more durable, better-looking result that lasts.' },
+    ],
+    quickAnswer:
+      'Refinishing repaints your existing doors and boxes (cheapest), refacing keeps the boxes but adds new doors and a matching skin (mid-cost, new look), and replacing installs all-new cabinets (most expensive, any layout and quality). Decide based on whether your boxes are sound, your layout works, and how long you will stay.',
+    keyTakeaways: [
+      'Refinish = new color, same doors; reface = new doors, old boxes; replace = all-new.',
+      'Solid boxes and a good layout favor refinishing or refacing.',
+      'A bad layout, worn boxes, or a forever home favor replacing.',
+    ],
+    relatedLinks: [
+      { url: '/guides/boise-kitchen-cabinet-guide', anchor: 'Kitchen Cabinets' },
+      { url: '/blog/stock-vs-custom-cabinets-boise', anchor: 'Stock vs custom cabinets' },
+      { url: '/blog/custom-kitchen-cabinet-cost', anchor: 'Custom kitchen cabinet cost' },
+      { url: '/guides/boise-cabinet-cost-guide', anchor: 'Boise Cabinet Cost Guide' },
+      { url: '/cabinets/kitchen' },
+    ],
+    primaryKeyword: 'cabinet refacing vs refinishing vs replacing',
+    secondaryKeywords: ['refinish kitchen cabinets', 'reface cabinets', 'replace kitchen cabinets', 'is refacing worth it'],
+    searchIntent: 'Commercial / comparison — homeowners deciding how to update cabinets',
+    wordCountTarget: 'pillar',
+  },
+  {
+    slug: 'kitchen-cabinet-organization-ideas',
+    title: 'Kitchen Cabinet Organization Ideas (Room-by-Room)',
+    seoTitle: 'Kitchen Cabinet Organization Ideas That Actually Work',
+    metaDescription:
+      'Kitchen cabinet organization ideas — zones, drawers over doors, the best pull-outs and inserts, corner solutions, and pantry tips for a kitchen that runs itself.',
+    excerpt:
+      'Organize kitchen cabinets by zone, choose drawers over low doors, and add the pull-outs and dividers that solve your real frustrations. Here are the ideas that actually work.',
+    content: cabinetOrganizationContent,
+    author: AUTHOR,
+    category: 'Kitchen Cabinets',
+    hubSlug: 'kitchen-cabinets',
+    tags: ['organization', 'storage', 'drawers', 'pantry', 'kitchen'],
+    publishedAt: '2026-07-11',
+    faqs: [
+      { question: 'How should I organize my kitchen cabinets?', answer: 'Organize by zone: a cooking zone by the range, a prep zone by the main counter, a cleanup zone by the sink, and a storage zone for the pantry. Store each item where you use it, and use drawers, pull-outs, and dividers to keep everything visible and reachable.' },
+      { question: 'Are drawers better than cabinets with doors?', answer: 'For base cabinets, deep drawers are far better than low doors because they bring everything to you instead of forcing you to reach into a dark cabinet. A single wide drawer can hold a whole set of pots with lids, all visible at once. Roll-out trays add similar access to existing low cabinets.' },
+      { question: 'What cabinet organizers are worth buying?', answer: 'The highest-impact inserts are drawer dividers, deep-drawer peg systems for dishes, roll-out trays, vertical dividers for baking sheets, a spice pull-out near the range, and a pull-out trash and recycling unit. Choose the few that solve your specific frustrations rather than buying every accessory.' },
+      { question: 'How do I organize a corner kitchen cabinet?', answer: 'Use a lazy Susan to spin items out to you, or a pull-out corner system (magic corner) that swings the shelves out of the cabinet so nothing hides in the back. Deciding on a corner solution when planning new cabinets keeps that space from becoming a dead zone.' },
+      { question: 'How do I organize a small kitchen?', answer: 'Use the full height with cabinets to the ceiling, add a narrow pull-out pantry in gaps, use drawers over doors, mount rails and hooks for utensils, and reclaim the toe-kick with a shallow drawer. In a small kitchen, every organizer earns its keep.' },
+      { question: 'How do I keep my cabinets organized long-term?', answer: 'Make the right place the easy place by storing items in the zone where you use them and giving every category a defined home. Do a quick seasonal edit of unused items and avoid overfilling. A kitchen designed with the right storage from the start stays organized with far less effort.' },
+    ],
+    quickAnswer:
+      'Organize kitchen cabinets by zone (cooking, prep, cleanup, storage), store items where you use them, and choose deep drawers and pull-outs over low doors so everything is visible and reachable. Add dividers, roll-out trays, a corner solution, and a spice pull-out to solve your specific frustrations.',
+    keyTakeaways: [
+      'Organize by zone and store items where you use them.',
+      'Deep drawers and pull-outs beat low doors for access.',
+      'Solve corners and go vertical; plan storage into new cabinets.',
+    ],
+    relatedLinks: [
+      { url: '/guides/boise-kitchen-cabinet-guide', anchor: 'Kitchen Cabinets' },
+      { url: '/accessories', anchor: 'Storage accessories' },
+      { url: '/blog/standard-kitchen-cabinet-sizes', anchor: 'Standard cabinet sizes' },
+      { url: '/cabinets/kitchen', anchor: 'Kitchen cabinets' },
+      { url: '/cabinets' },
+    ],
+    primaryKeyword: 'kitchen cabinet organization ideas',
+    secondaryKeywords: ['how to organize kitchen cabinets', 'cabinet organizers', 'pull out shelves', 'kitchen storage ideas'],
+    searchIntent: 'Informational — homeowners organizing kitchen cabinets',
     wordCountTarget: 'pillar',
   },
 ];

@@ -43,6 +43,24 @@ const ENTRIES = {
     topicTags: ["sizes", "dimensions", "kitchen"],
     source: "blog",
   },
+  "bathroom-vanity-buying-guide": {
+    hero: blog("bathroom-vanity-buying-guide"),
+    alt: "Real completed Treasure Valley bathroom with a modern floating white oak double vanity, white quartz top, undermount sinks, and a large framed mirror",
+    topicTags: ["bathroom", "vanity", "guide"],
+    source: "blog",
+  },
+  "cabinet-refacing-vs-refinishing-vs-replacing": {
+    hero: blog("cabinet-refacing-vs-refinishing-vs-replacing"),
+    alt: "Real completed Treasure Valley kitchen with warm white painted perimeter cabinets and a deep forest-green island, showing a refreshed cabinet update",
+    topicTags: ["refacing", "refinishing", "kitchen"],
+    source: "blog",
+  },
+  "kitchen-cabinet-organization-ideas": {
+    hero: blog("kitchen-cabinet-organization-ideas"),
+    alt: "Real completed Treasure Valley kitchen with base-cabinet drawers and pull-outs open showing organized interior storage in light white oak and white cabinets",
+    topicTags: ["organization", "storage", "kitchen"],
+    source: "blog",
+  },
   // —— Cabinet costs (8) ——
   "kitchen-cabinet-cost-boise": {
     hero: cs("kitchen-remodel", "boise"),
@@ -536,7 +554,7 @@ const HUB_HEROES = {
 
 const GUIDE_START = "boise-cabinet-cost-guide";
 const blogSlugsFromEntries = Object.keys(ENTRIES).slice(0, Object.keys(ENTRIES).indexOf(GUIDE_START));
-const EXPECTED_BLOG = 60;
+const EXPECTED_BLOG = 63;
 const EXPECTED_GUIDES = 17;
 
 if (blogSlugsFromEntries.length !== EXPECTED_BLOG) {

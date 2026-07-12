@@ -7,6 +7,7 @@
 export const IMAGE_VARIANTS: Record<string, number[]> = {
   "/images/blog/ada-vs-canyon-county-permit-timelines.webp": [640, 1080],
   "/images/blog/bathroom-roi-remodeling.webp": [640, 1080],
+  "/images/blog/bathroom-vanity-buying-guide.webp": [640, 1080, 1920],
   "/images/blog/best-remodeling-roi-boise.webp": [640, 1080],
   "/images/blog/boise-bench-remodeling-guide.webp": [640, 1080],
   "/images/blog/boise-kitchen-cabinet-guide.webp": [640, 1080],
@@ -18,6 +19,7 @@ export const IMAGE_VARIANTS: Record<string, number[]> = {
   "/images/blog/cabinet-door-styles-guide.webp": [640, 1080, 1920],
   "/images/blog/cabinet-finishes-colors-guide.webp": [640, 1080, 1920],
   "/images/blog/cabinet-hardware-guide.webp": [640, 1080, 1920],
+  "/images/blog/cabinet-refacing-vs-refinishing-vs-replacing.webp": [640, 1080, 1920],
   "/images/blog/choose-remodeling-contractor-boise.webp": [640, 1080],
   "/images/blog/covered-patios-boise.webp": [640, 1080],
   "/images/blog/curbless-shower-guide.webp": [640, 1080],
@@ -31,6 +33,7 @@ export const IMAGE_VARIANTS: Record<string, number[]> = {
   "/images/blog/harris-ranch-remodeling-guide.webp": [640, 1080],
   "/images/blog/hidden-springs-remodeling-guide.webp": [640, 1080],
   "/images/blog/how-to-compare-remodeling-estimates.webp": [640, 1080],
+  "/images/blog/kitchen-cabinet-organization-ideas.webp": [640, 1080, 1920],
   "/images/blog/kitchen-roi-remodeling.webp": [640, 1080],
   "/images/blog/material-selection-guide.webp": [640, 1080],
   "/images/blog/north-end-remodeling-guide.webp": [640, 1080],

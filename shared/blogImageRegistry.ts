@@ -39,6 +39,24 @@ export const BLOG_IMAGE_REGISTRY: Record<string, BlogImageEntry> = {
     topicTags: ["sizes","dimensions","kitchen"],
     source: 'blog',
   },
+  'bathroom-vanity-buying-guide': {
+    hero: '/images/blog/bathroom-vanity-buying-guide.png',
+    alt: 'Real completed Treasure Valley bathroom with a modern floating white oak double vanity, white quartz top, undermount sinks, and a large framed mirror',
+    topicTags: ["bathroom","vanity","guide"],
+    source: 'blog',
+  },
+  'cabinet-refacing-vs-refinishing-vs-replacing': {
+    hero: '/images/blog/cabinet-refacing-vs-refinishing-vs-replacing.png',
+    alt: 'Real completed Treasure Valley kitchen with warm white painted perimeter cabinets and a deep forest-green island, showing a refreshed cabinet update',
+    topicTags: ["refacing","refinishing","kitchen"],
+    source: 'blog',
+  },
+  'kitchen-cabinet-organization-ideas': {
+    hero: '/images/blog/kitchen-cabinet-organization-ideas.png',
+    alt: 'Real completed Treasure Valley kitchen with base-cabinet drawers and pull-outs open showing organized interior storage in light white oak and white cabinets',
+    topicTags: ["organization","storage","kitchen"],
+    source: 'blog',
+  },
   'kitchen-cabinet-cost-boise': {
     hero: '/images/city-service/kitchen-remodel__boise.webp',
     alt: 'Custom kitchen cabinets installed in a Boise home with warm finishes and quartz counters',
