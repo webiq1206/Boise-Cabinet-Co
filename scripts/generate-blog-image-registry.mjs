@@ -79,6 +79,24 @@ const ENTRIES = {
     topicTags: ["pantry", "storage", "organization"],
     source: "blog",
   },
+  "how-to-make-oak-cabinets-look-modern": {
+    hero: blog("how-to-make-oak-cabinets-look-modern"),
+    alt: "Real completed modern Treasure Valley kitchen with light natural white oak flat-panel cabinets, long matte-black bar pulls, and a white quartz waterfall counter",
+    topicTags: ["oak", "modern", "kitchen"],
+    source: "blog",
+  },
+  "best-wood-for-kitchen-cabinets": {
+    hero: blog("best-wood-for-kitchen-cabinets"),
+    alt: "Real completed warm traditional Treasure Valley kitchen with rich cherry and hickory stained solid-wood cabinets showing natural grain variation and oil-rubbed bronze hardware",
+    topicTags: ["wood", "materials", "kitchen"],
+    source: "blog",
+  },
+  "two-tone-kitchen-cabinets": {
+    hero: blog("two-tone-kitchen-cabinets"),
+    alt: "Real completed two-tone Treasure Valley kitchen with creamy off-white perimeter cabinets and a warm natural stained-wood island, brushed brass hardware, and pendant lights",
+    topicTags: ["two-tone", "colors", "kitchen"],
+    source: "blog",
+  },
   // —— Cabinet costs (8) ——
   "kitchen-cabinet-cost-boise": {
     hero: cs("kitchen-remodel", "boise"),
@@ -572,7 +590,7 @@ const HUB_HEROES = {
 
 const GUIDE_START = "boise-cabinet-cost-guide";
 const blogSlugsFromEntries = Object.keys(ENTRIES).slice(0, Object.keys(ENTRIES).indexOf(GUIDE_START));
-const EXPECTED_BLOG = 66;
+const EXPECTED_BLOG = 69;
 const EXPECTED_GUIDES = 17;
 
 if (blogSlugsFromEntries.length !== EXPECTED_BLOG) {

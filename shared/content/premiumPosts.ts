@@ -1211,6 +1211,150 @@ const pantryCabinetIdeasContent = `
 <p>${AUTHOR} designs custom pantry cabinets and full <a href="/cabinets/kitchen">kitchen cabinetry</a> with roll-outs, door storage, and adjustable shelving planned around exactly what you store, for homes across Boise, Meridian, Eagle, and Nampa. Explore <a href="/accessories">our storage accessories</a> and <a href="/cabinets">our cabinets</a>, then <a href="/estimate">get a planning range</a> or <a href="/contact">book a free in-home consultation</a>. From a single floor-to-ceiling pantry cabinet to a full built-in pantry wall, we will build storage that keeps everything visible, reachable, and effortlessly organized for years to come.</p>
 `;
 
+const oakModernContent = `
+<p class="text-lg">You can make oak cabinets look modern without replacing them by <strong>updating the four things that actually date them: the finish, the hardware, the surrounding surfaces, and the grain</strong>. Paint or re-stain the doors in a current color (or a clean natural tone), swap ornate knobs for long minimalist pulls, pair them with a light quartz counter and a simple backsplash, and — if you want a truly contemporary look — fill the heavy grain so the surface reads smooth. Whether your oak is honey-toned builder-grade or solid raised-panel, these moves take a kitchen from dated to designed, often for a fraction of the cost of new cabinets.</p>
+
+<div class="summary-block">
+  <p><strong>Key takeaways:</strong> Modernize oak by updating the finish, hardware, counters, and grain — not by replacing boxes. Paint or re-stain, add linear pulls, and simplify surrounding surfaces. <a href="/blog/cabinet-refacing-vs-refinishing-vs-replacing">Compare refinishing vs replacing</a> or <a href="/estimate">get a quote</a>.</p>
+</div>
+
+<h2 id="why-dated">Why oak cabinets look dated</h2>
+<p>It is worth understanding what actually reads as "old" about a typical oak kitchen, because it is rarely the oak itself. The usual culprits are the orange-honey stain that was popular for decades, the heavy open grain left unfilled so it looks busy, dated cathedral-arch raised-panel doors, and small round knobs paired with ornate trim and dark counters. Oak as a wood is beautiful and back in style — designers love white oak right now — so the goal is not to hide that it is oak, but to update the specific choices that tie it to a past era. Once you separate the wood from the dated finish and details, modernizing it becomes a straightforward series of upgrades rather than a gut renovation.</p>
+
+<h2 id="paint">Option 1: Paint the oak</h2>
+<p>Painting is the most transformative and popular way to modernize oak. A crisp white, warm off-white, soft greige, deep navy, or muted sage instantly erases the orange tone and gives you a clean, current kitchen. The one wrinkle with oak specifically is its grain: oak has deep, open pores that will telegraph through paint unless you fill them first. If you want a perfectly smooth, contemporary painted look, fill the grain with a grain filler and sand it flush before priming; if you are happy with a subtle wood texture showing through, you can skip that step for a slightly more traditional painted finish. Either way, proper prep — degrease, sand, prime with a stain-blocking primer (oak tannins bleed), then thin coats of cabinet enamel — is what makes it last. See our <a href="/blog/how-to-paint-kitchen-cabinets">cabinet painting guide</a>.</p>
+
+<h2 id="restain">Option 2: Re-stain to a modern tone</h2>
+<p>If you love the warmth of natural wood, you do not have to paint — you can re-stain oak to a current tone instead. The dated look comes from the orange-gold stains of the past, so re-staining to a lighter, cooler natural oak, a soft driftwood gray, or a rich modern brown reframes the same cabinets as something you would see in a new build today. Natural and light-stained white oak in particular is one of the most sought-after looks in modern kitchens. Re-staining requires stripping or sanding back the old finish, so it is more labor than painting, but it keeps the organic character of wood while shedding the era-specific color — the best of both worlds if you want warmth without the orange.</p>
+
+<h2 id="hardware">Option 3: Swap the hardware</h2>
+<p>Hardware is the jewelry of a kitchen, and it is astonishing how much it dates or updates a space. Small round oak-era knobs and shiny brass instantly read old; long, straight, minimalist bar pulls in matte black, brushed brass, or brushed nickel instantly read new. This is the cheapest high-impact change you can make — a set of modern pulls costs little and can be installed in an afternoon, and on its own it noticeably freshens even cabinets you are not repainting. If you are painting or re-staining anyway, new hardware is a must; if you are on a tight budget and doing nothing else, this is the single upgrade to make first.</p>
+
+<h2 id="doors">Option 4: Update or reface the doors</h2>
+<p>If your oak has heavy cathedral-arch raised panels, the door profile itself may be fighting you. Replacing just the doors and drawer fronts — refacing — lets you switch to a clean Shaker or flat-panel style on your existing boxes, which is a dramatic modernizing move short of full replacement. This is the right path when the boxes are solid but the door style is hopelessly dated, or when you want a smooth painted or slab look that the old grain and profile will not give you. Refacing costs more than paint but far less than new cabinets, and it changes the look more completely. See our <a href="/blog/cabinet-refacing-vs-refinishing-vs-replacing">reface vs refinish vs replace guide</a> to weigh it.</p>
+
+<h2 id="surroundings">Modernize what's around the cabinets</h2>
+<p>Cabinets never live in isolation, and the surfaces around them do half the work of a modern look. Dark, busy granite and small mosaic or tumbled-stone backsplashes tend to date a kitchen as much as the cabinets do. Swapping to a light quartz counter, a simple large-format or subway backsplash, an updated faucet, and modern lighting can make even unchanged cabinets look years newer. If you are modernizing on a budget and cannot do everything at once, refreshing the counter and backsplash alongside new hardware often reads as a bigger transformation than people expect — the eye takes in the whole composition, not just the cabinet doors.</p>
+
+<h2 id="grain">Dealing with oak's heavy grain</h2>
+<p>Oak's deep, open grain is its signature — and the thing that most makes an old oak kitchen look "of its time" when left orange and unfilled. You have three honest choices. Embrace it: re-stain to a modern natural tone and let the grain show as intentional texture, which is exactly the white-oak look designers love now. Minimize it: fill the grain before painting for a smooth, contemporary surface. Or cover it: reface with new smooth doors. There is no wrong answer — it depends on whether you want the finished kitchen to read warm-and-textured or clean-and-smooth. Knowing this choice exists is what keeps people from painting straight over open grain and being disappointed that it still "looks like oak."</p>
+
+<h2 id="budget">A modern oak kitchen on any budget</h2>
+<p>The beauty of these options is that they stack to fit any budget. On the smallest budget, new hardware plus a thorough clean and maybe a counter refresh already lifts the room. With a bit more, paint or re-stain the cabinets for a full color transformation. With more still, reface the doors to change the style entirely, or reface plus new counters and backsplash for a kitchen that looks brand new. Only at the top end — when the boxes are failing or the layout does not work — does full replacement make sense. For most oak kitchens, some combination of finish, hardware, and surroundings delivers a modern result for a fraction of a full remodel, which is why updating oak is one of the highest-return projects in a home.</p>
+
+<h2 id="mistakes">Common mistakes when modernizing oak</h2>
+<p>A few missteps trip people up. Painting over open grain without filling it and then being surprised the texture shows through is the most common. Keeping the old orange-toned counters and backsplash after painting the cabinets, so the room still reads dated because the surroundings did not change. Choosing a trendy color that will feel dated faster than the oak did — safe neutrals and natural tones age better. And skipping the stain-blocking primer, so oak's tannins bleed yellow-brown through fresh white paint within weeks. Avoiding these is mostly about respecting oak's specific quirks — its grain and its tannins — and updating the whole composition rather than the cabinet doors alone.</p>
+
+<h2 id="worth-it">Is it worth modernizing oak, or should you replace?</h2>
+<p>Modernizing is worth it when the boxes are solid, the layout works, and you simply do not like the dated finish and details — which describes most oak kitchens, since oak was often used precisely because it is sturdy. Replacement makes sense when the boxes are damaged or poorly built, the layout is wrong, or you want to fundamentally change the kitchen's function. If your oak cabinets are well-built solid wood, they are excellent candidates for refinishing or refacing, and you may end up with a kitchen that looks entirely modern while keeping the quality bones you already paid for. When in doubt, have the boxes assessed before deciding — good oak is worth saving.</p>
+
+<h2 id="bottom-line">The bottom line</h2>
+<p>Oak cabinets look dated because of choices made around them — an orange stain, heavy unfilled grain, ornate hardware, dark busy counters — not because oak is out of style. Update those specifics and the same cabinets can look every bit as current as a new build. Paint or re-stain to a modern tone, swap in long minimalist pulls, simplify the counter and backsplash, and decide deliberately how to handle the grain, and you get a modern kitchen without the cost or disruption of replacement. Oak is having a renaissance; with the right updates, yours can ride the trend instead of dating your kitchen.</p>
+
+<h2 id="how-we-build">Modernize your oak kitchen with Boise Cabinet Co</h2>
+<p>${AUTHOR} refinishes, refaces, and builds custom <a href="/cabinets/kitchen">kitchen cabinets</a> for homes across Boise, Meridian, Eagle, and Nampa — and we can help you decide whether to update your oak or replace it. Explore <a href="/catalog">our finishes and door styles</a>, then <a href="/estimate">get a planning range</a> or <a href="/contact">book a free in-home consultation</a>. If your oak boxes are solid, we will show you how new doors, a fresh finish, and modern hardware can transform the kitchen for far less than starting over — and if it is time for new cabinets, we will build you something that looks current and lasts for decades.</p>
+`;
+
+const bestWoodContent = `
+<p class="text-lg">The best wood for kitchen cabinets depends on the look and durability you want, but four species dominate for good reason: <strong>maple</strong> (smooth, hard, takes paint and stain beautifully), <strong>oak</strong> (strong, affordable, bold grain), <strong>cherry</strong> (rich, elegant, darkens gracefully with age), and <strong>hickory</strong> (extremely hard, dramatic grain variation). For painted cabinets, maple is usually the top choice; for a natural stained look, it comes down to the grain and tone you love. Below is how each wood compares on hardness, grain, cost, and best use, so you can match the wood to your kitchen with confidence.</p>
+
+<div class="summary-block">
+  <p><strong>Key takeaways:</strong> Maple is the go-to for painted cabinets; oak, cherry, and hickory each offer distinct grain and tone for stained looks. Match wood to your style, durability needs, and budget. <a href="/blog/cabinet-finishes-colors-guide">See finishes and colors</a> or <a href="/estimate">plan your project</a>.</p>
+</div>
+
+<h2 id="what-matters">What actually matters in a cabinet wood</h2>
+<p>Before comparing species, it helps to know what separates them. <strong>Hardness</strong> (measured on the Janka scale) affects how well a wood resists dents and daily wear. <strong>Grain</strong> — whether it is smooth and subtle or bold and open — drives the look, especially under stain, and determines whether a wood paints smoothly. <strong>Stability</strong> matters in a kitchen's humidity swings, since some woods move more than others. And <strong>cost</strong> varies widely. There is no single "best" wood; there is the best wood for the finish and style you want. A smooth painted Shaker kitchen has a different ideal wood than a rich stained traditional kitchen that shows off natural grain.</p>
+
+<h2 id="maple">Maple: the painter's favorite</h2>
+<p>Maple is one of the most popular cabinet woods, and for painted cabinets it is often the best choice outright. It is hard and durable, resisting the dents and dings of a busy kitchen, and its fine, smooth, even grain takes paint to a flawless factory finish with no open pores to telegraph through — exactly what you want for a clean white or colored Shaker kitchen. Maple also stains reasonably well in lighter and mid tones, though it can blotch with very dark stains without proper prep. If you are leaning toward painted cabinets in any color, maple is the wood most likely to give you that smooth, high-end result, which is why so many quality painted kitchens are built on it.</p>
+
+<h2 id="oak">Oak: strong, affordable, and back in style</h2>
+<p>Oak is prized for its strength, affordability, and distinctive bold grain. Red oak was the builder default for decades (and is behind many of the dated honey-toned kitchens people now modernize), but white oak has surged back into fashion for its beautiful open grain and its ability to take modern light and natural finishes. Oak's deep grain is its signature: gorgeous when stained to show it off, but it must be filled if you want a perfectly smooth painted surface. Oak is hard and durable, generally more budget-friendly than cherry or walnut, and — in its white-oak form — one of the most on-trend woods in kitchens today. See our guide on <a href="/blog/how-to-make-oak-cabinets-look-modern">making oak look modern</a>.</p>
+
+<h2 id="cherry">Cherry: rich and timeless</h2>
+<p>Cherry is a premium hardwood beloved for its smooth grain, warm reddish-brown tone, and the way it deepens and richens with age and light exposure — a cherry kitchen literally grows more beautiful over the years. It has a fine, even grain that finishes smoothly and an inherent elegance that suits traditional and transitional kitchens especially well. Cherry is softer than maple or oak, so it can dent a bit more easily, and it commands a higher price as a premium wood. But for homeowners who want a warm, luxurious, natural-wood kitchen with genuine depth and character, cherry is hard to beat, and its graceful aging is a feature rather than a flaw.</p>
+
+<h2 id="hickory">Hickory: the toughest, most dramatic</h2>
+<p>Hickory is one of the hardest domestic woods, making it exceptionally durable and a great choice for high-traffic family kitchens and rustic or lodge-style looks. Its defining trait is dramatic color and grain variation — hickory can range from near-white sapwood to deep brown heartwood within the same door, giving a kitchen enormous natural character and movement. That boldness is polarizing: people who love hickory love it for exactly that variation, while those wanting a uniform look choose something calmer. If you want a rugged, distinctive, natural kitchen that can take a beating, hickory delivers like no other wood.</p>
+
+<h2 id="others">Other woods worth knowing</h2>
+<p>Beyond the big four, a few more species come up. <strong>Walnut</strong> is a luxury choice — rich, dark chocolate tones with straight elegant grain, prized in high-end modern and contemporary kitchens, at a premium price. <strong>Birch</strong> is an affordable, fairly smooth wood that stains to mimic pricier species. <strong>Alder</strong> is a softer wood with a warm knotty character popular for rustic looks. And <strong>painted MDF</strong>, while not a solid wood, is worth mentioning for door panels: it is dimensionally stable and paints perfectly smooth, so many quality painted doors use MDF center panels with solid-wood frames. Knowing these expands your options if the main four do not fit your look or budget.</p>
+
+<h2 id="comparison">Wood comparison at a glance</h2>
+<table>
+  <thead><tr><th>Wood</th><th>Hardness</th><th>Grain</th><th>Best for</th><th>Cost</th></tr></thead>
+  <tbody>
+    <tr><td>Maple</td><td>Hard</td><td>Fine, smooth</td><td>Painted cabinets, light stains</td><td>$$</td></tr>
+    <tr><td>Oak (white)</td><td>Hard</td><td>Bold, open</td><td>Natural/modern stained looks</td><td>$$</td></tr>
+    <tr><td>Cherry</td><td>Medium</td><td>Fine, smooth</td><td>Warm traditional, ages richly</td><td>$$$</td></tr>
+    <tr><td>Hickory</td><td>Very hard</td><td>Dramatic variation</td><td>Rustic, high-traffic kitchens</td><td>$$</td></tr>
+    <tr><td>Walnut</td><td>Medium-hard</td><td>Straight, elegant</td><td>Luxury modern, dark tones</td><td>$$$$</td></tr>
+  </tbody>
+</table>
+
+<h2 id="painted-vs-stained">Choosing by finish: painted vs stained</h2>
+<p>The single biggest factor in choosing a wood is whether you want painted or stained cabinets. For <strong>painted</strong> cabinets, you want a smooth, tight-grained wood that will not telegraph through the finish — maple is the classic pick, with MDF panels common for the flat centers. Paying for a beautiful hardwood grain makes little sense under paint that hides it. For <strong>stained</strong> cabinets, the grain is the whole point, so you choose based on the look you love: oak's bold openness, cherry's warm elegance, hickory's dramatic variation, or walnut's dark luxury. Deciding painted-vs-stained first narrows the wood choice dramatically and prevents paying for grain you will cover or missing out on grain you wanted to see.</p>
+
+<h2 id="durability">Durability and family kitchens</h2>
+<p>For a busy household, hardness matters. Harder woods like maple, oak, and especially hickory resist the dents and dings that a family kitchen inflicts — dropped pans, kids, heavy daily use. Softer woods like cherry and alder are more prone to marking, though a quality finish protects them and minor patina is part of their charm. That said, construction quality and finish durability matter as much as the species itself: a well-built cabinet in a medium-hardness wood with a tough finish will outlast a poorly built one in a hard wood. Choose a hard wood if durability is your top priority, but do not overlook the box construction and finish, which do much of the real protecting. See our <a href="/blog/cabinet-construction-quality-guide">construction quality guide</a>.</p>
+
+<h2 id="cost">Cost by wood species</h2>
+<p>Wood choice affects price meaningfully. Oak, maple, birch, and hickory sit in the more affordable-to-moderate range, which is part of why they are so widely used. Cherry steps up as a premium hardwood, and walnut sits at the top as a true luxury wood. The species is only one line in the total cost, though — box construction, door style, finish, and whether the cabinets are stock, semi-custom, or custom usually move the price more than the wood alone. If budget is tight, a moderate-cost hardwood in a quality build will serve you far better than a premium species in a cheap cabinet. For the full picture, see our <a href="/blog/custom-kitchen-cabinet-cost">custom cabinet cost guide</a>.</p>
+
+<h2 id="grain-look">Matching wood grain to your style</h2>
+<p>Beyond hardness and cost, the character of the grain is what gives a stained kitchen its personality, and it is worth choosing deliberately. If you want a <strong>calm, uniform look</strong>, reach for a fine, even-grained wood like maple, cherry, or walnut, where the surface reads smooth and consistent from door to door. If you want <strong>visible texture and movement</strong>, oak's bold open grain shows off beautifully under a natural stain and is exactly why white oak dominates modern kitchens right now. And if you want <strong>maximum drama and rustic character</strong>, hickory's wide swings from pale sapwood to dark heartwood create a kitchen full of natural variation that no two doors repeat. There is no better or worse here — only whether you want your cabinets to feel serene and refined or lively and organic. Deciding that early makes the species choice almost obvious, and it pairs naturally with the door style you pick from our <a href="/blog/cabinet-door-styles-guide">door styles guide</a>.</p>
+
+<h2 id="bottom-line">The bottom line</h2>
+<p>There is no universal best wood for kitchen cabinets — there is the best wood for your look, durability needs, and budget. If you are painting, choose maple for its smooth, durable, paint-friendly surface. If you want natural wood, let the grain and tone lead: white oak for modern and open-grained, cherry for warm and timeless, hickory for rugged and dramatic, walnut for dark luxury. Match the species to your finish and style first, make sure the box construction and finish are quality, and you will have cabinets that look right and hold up for decades. The wood sets the character; the build makes it last.</p>
+
+<h2 id="how-we-build">Choose the right wood with Boise Cabinet Co</h2>
+<p>${AUTHOR} builds custom <a href="/cabinets/kitchen">kitchen cabinets</a> in maple, oak, cherry, hickory, walnut, and more, with quality plywood boxes and durable finishes, for homes across Boise, Meridian, Eagle, and Nampa. Explore <a href="/catalog">our woods, finishes, and door styles</a>, then <a href="/estimate">get a planning range</a> or <a href="/contact">book a free in-home consultation</a>. We will help you match the right wood to the look you want — painted or stained, subtle or dramatic — and build it to last, so your cabinets look beautiful the day they go in and hold up to real family life for years to come.</p>
+`;
+
+const twoToneContent = `
+<p class="text-lg">Two-tone kitchen cabinets use <strong>two different colors or finishes in one kitchen</strong> — most often one color on the perimeter and a second on the island, or upper cabinets in one tone and lowers in another. Done well, it adds depth and personality, grounds the room with a bold anchor color, and lets you use color without committing every cabinet to it. The keys to pulling it off are choosing colors that relate, deciding which surfaces get which tone, and keeping one color neutral so the combination reads intentional rather than busy. Here is how to design a two-tone kitchen that looks designed, not disjointed.</p>
+
+<div class="summary-block">
+  <p><strong>Key takeaways:</strong> Two-tone means two finishes in one kitchen — commonly a colored island against a neutral perimeter. Keep one tone neutral, choose colors that relate, and use hardware and counters to tie it together. <a href="/blog/cabinet-finishes-colors-guide">See colors and finishes</a> or <a href="/estimate">plan your project</a>.</p>
+</div>
+
+<h2 id="what-is">What "two-tone" really means</h2>
+<p>Two-tone simply means intentionally using more than one cabinet color or finish in a single kitchen. It is not random — it is a deliberate design choice that creates contrast and visual interest. The most common approach is a neutral perimeter with a contrasting island, but there are several established patterns, and understanding them helps you pick the one that suits your kitchen. The goal is always the same: use two tones to add depth and a focal point while keeping the overall look cohesive and calm. When the two colors and their placement are chosen with intention, a two-tone kitchen feels custom and layered; when they are chosen carelessly, it can feel like two half-finished kitchens fighting each other.</p>
+
+<h2 id="combinations">The most popular two-tone combinations</h2>
+<p>A few pairings have become classics because they work. <strong>Perimeter and island</strong> is the most popular: a neutral perimeter (white, off-white, greige) with a bolder island (navy, green, charcoal, or natural wood) that anchors the room. <strong>Uppers and lowers</strong> puts a lighter color up top to keep the kitchen feeling open and a darker or bolder color on the base cabinets to ground it. <strong>Cabinets and a wood accent</strong> pairs painted cabinets with a natural stained-wood island or open shelving for warmth. And a subtler version pairs two closely related neutrals — say, white uppers with greige lowers — for depth without high contrast. Any of these can look beautiful; the right one depends on how bold you want to go.</p>
+
+<h2 id="choosing-colors">Choosing colors that work together</h2>
+<p>The secret to a successful two-tone kitchen is that the two colors should relate, not clash. The easiest and most reliable formula is to pair one neutral with one accent: a white, off-white, or greige as the calm base, and a single richer color — navy, forest green, sage, charcoal, or a natural wood tone — as the accent. Keeping one color neutral gives the eye a place to rest and makes even a bold second color feel sophisticated. Avoid pairing two equally strong colors, which tends to look busy and dated quickly. When in doubt, let white or off-white do most of the work and use the second color as the confident accent — that balance almost always reads as designed. Our <a href="/blog/cabinet-finishes-colors-guide">cabinet colors and finishes guide</a> walks through how each of these tones behaves in real kitchen light.</p>
+
+<h2 id="accent-colors">The best accent colors for a two-tone island</h2>
+<p>If you have settled on a neutral perimeter and want to choose the accent, a handful of colors have proven themselves over years of kitchens. <strong>Navy blue</strong> is the runaway favorite — deep, classic, and endlessly flexible with brass, black, or nickel hardware. <strong>Forest and hunter green</strong> bring a rich, organic warmth that feels current without being trendy. <strong>Muted sage</strong> is softer and more restful, a favorite for homeowners who want color that whispers rather than shouts. <strong>Charcoal and soft black</strong> ground a bright kitchen with drama and sophistication. And a <strong>natural stained-wood island</strong> — white oak, walnut, or a warm mid-brown — adds organic texture against painted perimeter cabinets and bridges beautifully to wood floors. Any of these on an island against a white or off-white perimeter is a safe, timeless choice. Pair your pick with the right pulls from our <a href="/blog/cabinet-hardware-guide">cabinet hardware guide</a> and the look comes together fast.</p>
+
+<h2 id="which-surfaces">Deciding which cabinets get which color</h2>
+<p>Placement matters as much as the colors themselves, and a couple of principles keep it looking right. Lighter colors up high keep a kitchen feeling open and airy, so putting the darker or bolder tone on the lowers or island and the lighter tone on the uppers is a safe, flattering default. The island is the natural home for your accent color because it is a discrete piece that becomes a focal point without overwhelming the room. If you have a lot of upper cabinets, keeping them light prevents the kitchen from feeling top-heavy or closed in. Think about where you want the eye to land — usually the island — and put your boldest color there, letting the rest stay neutral and quiet.</p>
+
+<h2 id="tie-together">Tying the two tones together</h2>
+<p>The elements shared across both cabinet colors are what make a two-tone kitchen feel like one cohesive space rather than two. Using the <strong>same hardware finish</strong> on both tones is the most important unifier — consistent matte-black, brass, or nickel pulls tie the whole kitchen together. A <strong>consistent countertop</strong> (or a deliberately coordinated pair) bridges the colors, and a <strong>backsplash</strong> that relates to both keeps the palette unified. Repeating the accent color elsewhere — in bar stools, lighting, or decor — also helps the second cabinet color feel intentional. These connective details are the difference between a two-tone kitchen that looks layered and custom and one that looks like the budget ran out halfway through.</p>
+
+<h2 id="why-do-it">Why choose two-tone?</h2>
+<p>Two-tone is popular for real, practical reasons beyond looks. It <strong>adds depth and interest</strong> that a single-color kitchen can lack. It lets you <strong>use color confidently</strong> — a navy or green island brings personality without the commitment of an entire kitchen in that color, which also ages more safely. It creates a natural <strong>focal point</strong>, usually the island, that anchors the whole room. And it can visually <strong>define zones</strong> in an open kitchen, distinguishing the island or a coffee bar from the main run. For many homeowners, two-tone is the sweet spot between a safe all-white kitchen and a bold all-color one — personality with balance.</p>
+
+<h2 id="mistakes">Common two-tone mistakes to avoid</h2>
+<p>A few missteps undo an otherwise good two-tone plan. Pairing two equally bold colors with no neutral to balance them makes the kitchen feel chaotic. Choosing two trendy colors that will both date at once, rather than anchoring with a timeless neutral. Using different hardware on each color, which breaks the visual connection. Putting the dark color on the uppers in a small kitchen, which can make it feel closed in and heavy. And adding a third or fourth finish, which tips "layered" into "busy." Two-tone works best with discipline: two colors, one of them neutral, unified by consistent hardware and counters. Restraint is what makes it look expensive.</p>
+
+<h2 id="materials">Two-tone with mixed materials</h2>
+<p>Two-tone does not have to mean two paint colors — some of the most interesting kitchens pair a painted finish with a completely different material. A crisp painted perimeter with a natural wood island brings warmth and texture that two paints cannot. Painted cabinets with a stained-wood range hood or open wood shelving echo the same idea on a smaller scale. Even a subtle mix — matte painted lowers with a lightly textured or rift-cut wood upper accent — adds depth. Because the materials themselves differ, this kind of two-tone reads as layered and custom, and it is a natural fit if you love wood but do not want an entire wood kitchen. The same rules apply: keep one element neutral, and let the wood be the accent that draws the eye. If you are still weighing painted versus natural wood for the accent, our guide to the <a href="/blog/best-wood-for-kitchen-cabinets">best wood for kitchen cabinets</a> compares the tones and grains that pair best with painted perimeters.</p>
+
+<h2 id="timeless">Will two-tone look dated?</h2>
+<p>A fair concern with any design choice is longevity, and two-tone ages well when you build it on a timeless foundation. Because one color is neutral, the kitchen has a classic base that will not go out of style, and the accent color — even a bolder one — is contained to the island or lowers, so if tastes change it is a smaller area to repaint than a whole kitchen. Choosing a neutral you love and an accent that leans classic (navy, green, natural wood, and charcoal have all proven durable) rather than of-the-moment keeps a two-tone kitchen looking current for years. The two-tone approach itself is not a fad; it is a long-standing design technique, and grounding it in neutrals is what keeps it timeless.</p>
+
+<h2 id="bottom-line">The bottom line</h2>
+<p>Two-tone kitchen cabinets are one of the most effective ways to add depth, personality, and a focal point to a kitchen without the risk of committing every surface to a bold color. The formula that works almost every time is simple: pair one neutral with one accent, put the bolder tone on the island or lowers, keep the lighter tone up high and airy, and tie it all together with consistent hardware and coordinated counters. Do that with a little restraint and you get a kitchen that looks custom, layered, and intentional — the kind of thoughtful design that feels expensive and stays timeless.</p>
+
+<h2 id="how-we-build">Design your two-tone kitchen with Boise Cabinet Co</h2>
+<p>${AUTHOR} designs and builds custom two-tone <a href="/cabinets/kitchen">kitchen cabinets</a> — from a bold navy or sage island against a crisp white perimeter to a warm wood island with painted cabinetry — for homes across Boise, Meridian, Eagle, and Nampa. Explore <a href="/catalog">our colors and finishes</a>, then <a href="/estimate">get a planning range</a> or <a href="/contact">book a free in-home consultation</a>. We will help you choose colors that relate, place them where they flatter your kitchen, and tie everything together so your two-tone kitchen looks designed, cohesive, and timeless from the day it is installed.</p>
+`;
+
 export const PREMIUM_POSTS: BlogPostData[] = [
   {
     slug: 'framed-vs-frameless-cabinets',
@@ -1897,6 +2041,129 @@ export const PREMIUM_POSTS: BlogPostData[] = [
     primaryKeyword: 'pantry cabinet ideas',
     secondaryKeywords: ['kitchen pantry cabinet', 'pantry storage solutions', 'pull out pantry', 'tall pantry cabinet'],
     searchIntent: 'Informational — homeowners planning pantry storage',
+    wordCountTarget: 'pillar',
+  },
+  {
+    slug: 'how-to-make-oak-cabinets-look-modern',
+    title: 'How to Make Oak Cabinets Look Modern (Without Replacing Them)',
+    seoTitle: 'How to Make Oak Cabinets Look Modern: 6 Proven Updates',
+    metaDescription:
+      'Make oak cabinets look modern without replacing them: update the finish, hardware, counters, and grain. Paint or re-stain, add linear pulls, and simplify surroundings.',
+    excerpt:
+      'Oak cabinets look dated because of the finish, hardware, and grain — not the wood. Here is how to modernize them with paint or re-stain, new hardware, and updated surroundings, on any budget.',
+    content: oakModernContent,
+    author: AUTHOR,
+    category: 'Refinishing',
+    hubSlug: 'kitchen-cabinets',
+    tags: ['oak', 'modern', 'refinishing', 'painting', 'kitchen'],
+    publishedAt: '2026-07-11',
+    faqs: [
+      { question: 'How do you make oak cabinets look modern?', answer: 'Update the four things that date them: the finish (paint or re-stain to a current tone), the hardware (long minimalist pulls), the surrounding surfaces (light quartz counter, simple backsplash), and the grain (fill it for a smooth painted look). Together these modernize oak without replacing the boxes.' },
+      { question: 'Should I paint or re-stain oak cabinets?', answer: 'Paint if you want to erase the orange tone entirely for a clean white or colored look — but fill the grain first and use a stain-blocking primer. Re-stain if you love natural wood; a lighter, cooler modern tone or driftwood gray keeps the warmth while shedding the dated color.' },
+      { question: 'Why do oak cabinets look dated?', answer: 'Rarely the oak itself. The culprits are the orange-honey stain popular for decades, heavy unfilled grain, cathedral-arch raised-panel doors, and small round knobs with dark busy counters. White oak is very much back in style, so updating those specific choices modernizes the kitchen.' },
+      { question: 'Do I need to fill oak grain before painting?', answer: 'Only if you want a perfectly smooth, contemporary painted surface. Oak has deep open pores that telegraph through paint, so fill the grain and sand flush before priming for a smooth look. If you are happy with subtle wood texture showing through, you can skip it for a more traditional painted finish.' },
+      { question: 'Is it cheaper to modernize oak or replace the cabinets?', answer: 'Modernizing is far cheaper when the boxes are solid and the layout works — new hardware, paint or re-stain, and updated counters cost a fraction of replacement. Replace only when the boxes are failing or the layout is wrong. Well-built solid-oak boxes are excellent candidates for refinishing or refacing.' },
+      { question: 'What hardware makes oak cabinets look modern?', answer: 'Swap small round knobs and shiny brass for long, straight, minimalist bar pulls in matte black, brushed brass, or brushed nickel. It is the cheapest high-impact change you can make and freshens even cabinets you are not repainting — the single upgrade to make first on a tight budget.' },
+    ],
+    quickAnswer:
+      'Make oak cabinets look modern without replacing them by updating four things: the finish (paint or re-stain to a current tone), the hardware (long minimalist pulls), the surrounding surfaces (light quartz counter and simple backsplash), and the grain (fill it for a smooth painted look). Oak is back in style, so the goal is updating the dated choices around it, not hiding the wood.',
+    keyTakeaways: [
+      'Oak looks dated because of finish, hardware, and grain — not the wood.',
+      'Paint or re-stain, add linear pulls, and simplify counters and backsplash.',
+      'Modernizing solid oak costs far less than replacing it.',
+    ],
+    relatedLinks: [
+      { url: '/blog/how-to-paint-kitchen-cabinets', anchor: 'How to paint cabinets' },
+      { url: '/blog/cabinet-refacing-vs-refinishing-vs-replacing', anchor: 'Reface vs refinish vs replace' },
+      { url: '/blog/best-wood-for-kitchen-cabinets', anchor: 'Best wood for cabinets' },
+      { url: '/blog/cabinet-finishes-colors-guide', anchor: 'Cabinet colors and finishes' },
+      { url: '/cabinets/kitchen' },
+    ],
+    primaryKeyword: 'how to make oak cabinets look modern',
+    secondaryKeywords: ['modernize oak cabinets', 'update oak kitchen cabinets', 'oak cabinets makeover', 'painting oak cabinets'],
+    searchIntent: 'Informational / DIY — homeowners updating dated oak kitchens',
+    wordCountTarget: 'pillar',
+  },
+  {
+    slug: 'best-wood-for-kitchen-cabinets',
+    title: 'Best Wood for Kitchen Cabinets (Maple, Oak, Cherry, Hickory & More)',
+    seoTitle: 'Best Wood for Kitchen Cabinets: Compare Maple, Oak, Cherry & Hickory',
+    metaDescription:
+      'The best wood for kitchen cabinets compared: maple, oak, cherry, hickory, and walnut on hardness, grain, cost, and best use — plus how to choose for painted vs stained cabinets.',
+    excerpt:
+      'Maple, oak, cherry, hickory, or walnut? The best cabinet wood depends on your look, durability needs, and budget. Here is how each species compares on hardness, grain, and cost.',
+    content: bestWoodContent,
+    author: AUTHOR,
+    category: 'Materials',
+    hubSlug: 'kitchen-cabinets',
+    tags: ['wood', 'materials', 'maple', 'oak', 'cherry', 'hickory'],
+    publishedAt: '2026-07-11',
+    faqs: [
+      { question: 'What is the best wood for kitchen cabinets?', answer: 'It depends on your finish and style. For painted cabinets, maple is usually best — hard, durable, and smooth-grained for a flawless finish. For stained cabinets, choose by grain and tone: white oak for modern and open-grained, cherry for warm and timeless, hickory for rugged and dramatic, walnut for dark luxury.' },
+      { question: 'What is the best wood for painted cabinets?', answer: 'Maple is the classic choice because its fine, smooth, even grain takes paint to a flawless factory finish with no open pores telegraphing through. MDF is common for flat center panels since it is dimensionally stable and paints perfectly smooth. Avoid paying for a beautiful hardwood grain under paint that hides it.' },
+      { question: 'Which cabinet wood is most durable?', answer: 'Hickory is one of the hardest domestic woods, followed by maple and oak — all excellent for high-traffic family kitchens. Cherry and alder are softer and mark more easily, though a quality finish protects them. Construction quality and finish durability matter as much as the species itself.' },
+      { question: 'Is oak or maple better for cabinets?', answer: 'Maple is better for smooth painted cabinets and light stains thanks to its fine grain. Oak is better for natural stained looks that show off its bold open grain, and white oak is very on-trend. Both are hard and durable; the choice comes down to whether you want a smooth painted or grainy natural finish.' },
+      { question: 'What is the most expensive cabinet wood?', answer: 'Walnut sits at the top as a true luxury wood, prized for rich dark tones and elegant grain. Cherry is a premium hardwood a step below. Oak, maple, birch, and hickory are more affordable. The species is only one line in the total cost — construction, door style, and finish usually move the price more.' },
+      { question: 'Does cherry wood darken over time?', answer: 'Yes. Cherry deepens and richens with age and light exposure, so a cherry kitchen literally grows more beautiful over the years. This graceful aging is considered a feature of the wood rather than a flaw, and it is a big part of why cherry is loved for warm, timeless kitchens.' },
+    ],
+    quickAnswer:
+      'The best wood for kitchen cabinets depends on your finish and style. For painted cabinets, maple is the top choice for its smooth, durable, paint-friendly grain. For stained cabinets, choose by grain and tone: white oak for modern open-grained looks, cherry for warm elegance that ages richly, hickory for rugged dramatic variation, and walnut for dark luxury.',
+    keyTakeaways: [
+      'Maple is the go-to for painted cabinets.',
+      'Choose stained-cabinet wood by grain: oak, cherry, hickory, or walnut.',
+      'Match wood to finish and style first; box construction makes it last.',
+    ],
+    relatedLinks: [
+      { url: '/blog/cabinet-finishes-colors-guide', anchor: 'Cabinet colors and finishes' },
+      { url: '/blog/cabinet-construction-quality-guide', anchor: 'Construction quality' },
+      { url: '/blog/how-to-make-oak-cabinets-look-modern', anchor: 'Modernize oak cabinets' },
+      { url: '/blog/custom-kitchen-cabinet-cost', anchor: 'Custom cabinet cost' },
+      { url: '/cabinets/kitchen' },
+    ],
+    primaryKeyword: 'best wood for kitchen cabinets',
+    secondaryKeywords: ['cabinet wood types', 'maple vs oak cabinets', 'cherry cabinets', 'hickory cabinets'],
+    searchIntent: 'Informational / commercial — homeowners choosing a cabinet wood',
+    wordCountTarget: 'pillar',
+  },
+  {
+    slug: 'two-tone-kitchen-cabinets',
+    title: 'Two-Tone Kitchen Cabinets: Ideas & How to Pull It Off',
+    seoTitle: 'Two-Tone Kitchen Cabinets: Ideas, Combinations & How to Choose',
+    metaDescription:
+      'Two-tone kitchen cabinets add depth and a focal point. Here are the best color combinations, which cabinets get which tone, and how to tie it all together so it looks designed.',
+    excerpt:
+      'Two-tone kitchen cabinets use two colors in one kitchen — usually a bold island against a neutral perimeter. Here are the best combinations and the rules that make two-tone look designed, not busy.',
+    content: twoToneContent,
+    author: AUTHOR,
+    category: 'Colors & Finishes',
+    hubSlug: 'kitchen-cabinets',
+    tags: ['two-tone', 'colors', 'design', 'island', 'kitchen'],
+    publishedAt: '2026-07-11',
+    faqs: [
+      { question: 'What are two-tone kitchen cabinets?', answer: 'Two-tone means intentionally using two different cabinet colors or finishes in one kitchen — most often a neutral perimeter with a contrasting island, or lighter uppers with darker lowers. It adds depth and a focal point while letting you use color without committing every cabinet to it.' },
+      { question: 'What is the best two-tone cabinet combination?', answer: 'The most reliable formula pairs one neutral (white, off-white, or greige) with one accent (navy, forest green, sage, charcoal, or natural wood). The most popular arrangement puts the neutral on the perimeter and the bolder accent on the island, which anchors the room without overwhelming it.' },
+      { question: 'Which cabinets should be the darker color?', answer: 'Put the darker or bolder tone on the lowers or island and keep the lighter tone on the uppers. Lighter colors up high keep the kitchen feeling open and airy, while a darker island or base grounds the room. In a small kitchen especially, avoid dark uppers, which can feel closed in.' },
+      { question: 'How do you tie two-tone cabinets together?', answer: 'Use the same hardware finish on both colors — the most important unifier — plus a consistent or deliberately coordinated countertop and a backsplash that relates to both tones. Repeating the accent color in stools, lighting, or decor also makes the second cabinet color feel intentional and cohesive.' },
+      { question: 'Will two-tone cabinets look dated?', answer: 'Not if you build on a timeless foundation. Because one color is neutral, the kitchen has a classic base, and the accent is contained to the island or lowers — a smaller area to change later if tastes shift. Choosing a classic accent (navy, green, natural wood, charcoal) rather than a trend keeps it current for years.' },
+      { question: 'What two-tone mistakes should I avoid?', answer: 'Avoid pairing two equally bold colors with no neutral, using different hardware on each color, putting dark cabinets on the uppers in a small kitchen, and adding a third or fourth finish. Two-tone works best with restraint: two colors, one neutral, unified by consistent hardware and counters.' },
+    ],
+    quickAnswer:
+      'Two-tone kitchen cabinets use two colors or finishes in one kitchen, most often a neutral perimeter with a bolder island. To pull it off, pair one neutral with one accent color, put the bolder tone on the island or lowers and the lighter tone on the uppers, and tie it together with consistent hardware and coordinated counters so the result looks designed rather than busy.',
+    keyTakeaways: [
+      'Pair one neutral with one accent color — do not use two bold colors.',
+      'Put the bolder tone on the island or lowers, lighter on the uppers.',
+      'Unify with consistent hardware and coordinated counters.',
+    ],
+    relatedLinks: [
+      { url: '/blog/cabinet-finishes-colors-guide', anchor: 'Cabinet colors and finishes' },
+      { url: '/blog/what-are-shaker-cabinets', anchor: 'Shaker cabinets' },
+      { url: '/blog/cabinet-hardware-guide', anchor: 'Cabinet hardware guide' },
+      { url: '/blog/best-wood-for-kitchen-cabinets', anchor: 'Best wood for cabinets' },
+      { url: '/cabinets/kitchen' },
+    ],
+    primaryKeyword: 'two tone kitchen cabinets',
+    secondaryKeywords: ['two tone cabinets', 'two color kitchen cabinets', 'contrasting island', 'two tone kitchen ideas'],
+    searchIntent: 'Informational — homeowners planning a two-tone kitchen',
     wordCountTarget: 'pillar',
   },
 ];

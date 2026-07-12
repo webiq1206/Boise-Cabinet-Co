@@ -75,6 +75,24 @@ export const BLOG_IMAGE_REGISTRY: Record<string, BlogImageEntry> = {
     topicTags: ["pantry","storage","organization"],
     source: 'blog',
   },
+  'how-to-make-oak-cabinets-look-modern': {
+    hero: '/images/blog/how-to-make-oak-cabinets-look-modern.png',
+    alt: 'Real completed modern Treasure Valley kitchen with light natural white oak flat-panel cabinets, long matte-black bar pulls, and a white quartz waterfall counter',
+    topicTags: ["oak","modern","kitchen"],
+    source: 'blog',
+  },
+  'best-wood-for-kitchen-cabinets': {
+    hero: '/images/blog/best-wood-for-kitchen-cabinets.png',
+    alt: 'Real completed warm traditional Treasure Valley kitchen with rich cherry and hickory stained solid-wood cabinets showing natural grain variation and oil-rubbed bronze hardware',
+    topicTags: ["wood","materials","kitchen"],
+    source: 'blog',
+  },
+  'two-tone-kitchen-cabinets': {
+    hero: '/images/blog/two-tone-kitchen-cabinets.png',
+    alt: 'Real completed two-tone Treasure Valley kitchen with creamy off-white perimeter cabinets and a warm natural stained-wood island, brushed brass hardware, and pendant lights',
+    topicTags: ["two-tone","colors","kitchen"],
+    source: 'blog',
+  },
   'kitchen-cabinet-cost-boise': {
     hero: '/images/city-service/kitchen-remodel__boise.webp',
     alt: 'Custom kitchen cabinets installed in a Boise home with warm finishes and quartz counters',
