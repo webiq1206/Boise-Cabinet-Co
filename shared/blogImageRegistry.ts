@@ -129,6 +129,18 @@ export const BLOG_IMAGE_REGISTRY: Record<string, BlogImageEntry> = {
     topicTags: ["depth","sizes","kitchen"],
     source: 'blog',
   },
+  'mudroom-cabinets': {
+    hero: '/images/blog/mudroom-cabinets.png',
+    alt: 'Real completed custom mudroom built-in in a Treasure Valley home with white oak and sage-green lockers, open cubbies, coat hooks, and a bench with shoe storage',
+    topicTags: ["mudroom","built-ins","storage"],
+    source: 'blog',
+  },
+  'how-to-clean-kitchen-cabinets': {
+    hero: '/images/blog/how-to-clean-kitchen-cabinets.png',
+    alt: 'Real completed warm traditional Treasure Valley kitchen with clean, well-kept honey-stained maple raised-panel cabinets, granite counters, and a tile backsplash',
+    topicTags: ["cleaning","maintenance","kitchen"],
+    source: 'blog',
+  },
   'kitchen-cabinet-cost-boise': {
     hero: '/images/city-service/kitchen-remodel__boise.webp',
     alt: 'Custom kitchen cabinets installed in a Boise home with warm finishes and quartz counters',

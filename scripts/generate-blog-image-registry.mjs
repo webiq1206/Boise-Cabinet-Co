@@ -133,6 +133,18 @@ const ENTRIES = {
     topicTags: ["depth", "sizes", "kitchen"],
     source: "blog",
   },
+  "mudroom-cabinets": {
+    hero: blog("mudroom-cabinets"),
+    alt: "Real completed custom mudroom built-in in a Treasure Valley home with white oak and sage-green lockers, open cubbies, coat hooks, and a bench with shoe storage",
+    topicTags: ["mudroom", "built-ins", "storage"],
+    source: "blog",
+  },
+  "how-to-clean-kitchen-cabinets": {
+    hero: blog("how-to-clean-kitchen-cabinets"),
+    alt: "Real completed warm traditional Treasure Valley kitchen with clean, well-kept honey-stained maple raised-panel cabinets, granite counters, and a tile backsplash",
+    topicTags: ["cleaning", "maintenance", "kitchen"],
+    source: "blog",
+  },
   // —— Cabinet costs (8) ——
   "kitchen-cabinet-cost-boise": {
     hero: cs("kitchen-remodel", "boise"),
@@ -626,7 +638,7 @@ const HUB_HEROES = {
 
 const GUIDE_START = "boise-cabinet-cost-guide";
 const blogSlugsFromEntries = Object.keys(ENTRIES).slice(0, Object.keys(ENTRIES).indexOf(GUIDE_START));
-const EXPECTED_BLOG = 75;
+const EXPECTED_BLOG = 77;
 const EXPECTED_GUIDES = 17;
 
 if (blogSlugsFromEntries.length !== EXPECTED_BLOG) {

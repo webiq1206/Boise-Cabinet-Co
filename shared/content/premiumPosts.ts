@@ -1616,6 +1616,94 @@ const cabinetDepthContent = `
 <p>${AUTHOR} builds custom <a href="/cabinets/kitchen">kitchen cabinets</a> at standard depths — or precisely customized ones — to fit your appliances, your space, and how you cook, for homes across Boise, Meridian, Eagle, and Nampa. Explore <a href="/catalog">our cabinets and finishes</a>, then <a href="/estimate">get a planning range</a> or <a href="/contact">book a free in-home consultation</a>. We measure precisely and plan every depth around your appliances and layout, so your base cabinets, uppers, pantry, and refrigerator all fit together flush and function exactly the way you want for years to come.</p>
 `;
 
+const mudroomContent = `
+<p class="text-lg">The best mudroom cabinets create a <strong>dedicated drop zone</strong> where every family member has a place for coats, shoes, backpacks, and gear — typically a bench to sit on, hooks or lockers for hanging, cubbies or baskets for shoes, and closed cabinets to hide the rest. Whether you have a full mudroom off the garage or a small entry nook, custom built-ins turn the messiest part of the house into an organized, welcoming transition space. Here are the mudroom cabinet ideas that actually keep clutter under control, from lockers to benches to the storage details that make a mudroom work.</p>
+
+<div class="summary-block">
+  <p><strong>Key takeaways:</strong> A great mudroom has a bench, hooks or lockers, shoe storage, and closed cabinets to hide clutter — one defined spot per person. Design around your family's daily in-and-out. <a href="/cabinets/mudroom">See mudroom cabinetry</a> or <a href="/estimate">plan your project</a>.</p>
+</div>
+
+<h2 id="why">Why a mudroom needs built-ins</h2>
+<p>The mudroom is where the outside world piles up — shoes by the door, coats over chairs, backpacks on the floor, sports gear everywhere. Without dedicated storage, it becomes the household's clutter magnet no matter how tidy the rest of the house is. Built-in cabinetry solves that by giving everything a home: a hook for each coat, a cubby for each person's shoes, a bench to sit and take shoes off, and closed cabinets to hide the seasonal and occasional items. The difference is dramatic — a mudroom with the right built-ins stays organized almost automatically, because putting things away is easy and every item has an obvious place. For a room whose entire job is managing the daily in-and-out of a family, purpose-built storage is what makes it succeed.</p>
+
+<h2 id="lockers">Lockers: a spot for everyone</h2>
+<p>The heart of most mudrooms is a run of <strong>lockers</strong> — individual open or closed compartments, one per family member. Each locker typically combines a hook or two for coats and bags, a cubby or shelf up top for hats and less-used items, and a compartment or bench space below for shoes. Assigning each person their own locker is what keeps a busy family's mudroom from descending into chaos: everyone knows where their things go, and there is no arguing over whose pile is whose. Lockers can be fully open for grab-and-go ease, or fitted with doors to hide the contents for a cleaner look. For families with kids, lockers are the single most effective mudroom feature, turning the morning scramble into a quick grab from a defined spot.</p>
+
+<h2 id="bench">The bench and shoe storage</h2>
+<p>A <strong>bench</strong> is essential — a place to sit while putting on and taking off shoes, which is exactly when shoes end up abandoned on the floor. Below or beside the bench, dedicated shoe storage keeps footwear contained: open cubbies for easy access, baskets or bins for a casual look, or closed cabinets and drawers for a tidier one. A boot tray or a slatted shoe shelf handles wet and muddy footwear near the door. The combination of a bench and defined shoe storage is what stops the pile of shoes that plagues most entries — people sit, remove their shoes, and put them right into their spot, all in one motion. Sizing the shoe storage to your family's actual collection (and the seasonal boot overflow) keeps it from overflowing.</p>
+
+<h2 id="hooks">Hooks, cubbies, and everyday access</h2>
+<p>Not everything should be behind a door — the items you grab every day work best on open hooks and in cubbies. Sturdy <strong>double hooks</strong> at both adult and child height make hanging coats, bags, and backpacks effortless, which is the key to actually getting them off the floor. <strong>Cubbies and open shelves</strong> hold hats, gloves, sunglasses, and the daily grab-and-go items. Baskets within the cubbies corral small loose items like gloves and scarves by person or category. The principle is to make the everyday choice the easy choice: if hanging a backpack is as simple as dropping it on a hook by the door, it happens; if it requires opening a cabinet and finding a spot, it does not. Open, accessible storage for daily items is what keeps a mudroom functional.</p>
+
+<h2 id="closed">Closed storage to hide the mess</h2>
+<p>Balance the open storage with plenty of <strong>closed cabinets</strong>, because a mudroom also needs to hide things. Upper cabinets and tall cabinets store the seasonal overflow — winter gear in summer, beach bags in winter — plus cleaning supplies, pet gear, bulk items, and the household odds and ends that accumulate near an entry. A closed cabinet keeps all of that out of sight, so the mudroom reads as clean even though it is doing a lot of work. The best mudrooms strike a deliberate balance: open hooks and cubbies for the daily items you want reachable, and closed cabinets for everything you would rather not look at. That mix is what lets a hardworking room still feel calm and put-together.</p>
+
+<h2 id="drop-zone">Building a family drop zone</h2>
+<p>Beyond coats and shoes, the mudroom is the natural home for the family "command center" — the spot where the details of daily life land. A small counter or a section of cabinetry can hold a <strong>charging station</strong> for phones and tablets, a <strong>mail and paperwork slot</strong>, a spot for keys and sunglasses, and even a chalkboard or calendar. Drawers keep the miscellaneous entry clutter — chargers, pens, spare keys, dog leashes — organized and out of sight. Building a designated drop zone into the mudroom keeps all of that from migrating onto kitchen counters, which is where it usually ends up. For families, this command-center function is one of the most valuable things a well-designed mudroom does.</p>
+
+<h2 id="small">Ideas for small entries and nooks</h2>
+<p>You do not need a dedicated mudroom to get its benefits — even a small entry or a nook can house a compact version. A <strong>single bench with hooks above and a cubby below</strong> creates a complete drop zone in a few feet of wall. A <strong>slim cabinet beside the door</strong> hides shoes and supplies where a full locker run will not fit. Even a stretch of wall in a hallway or garage entry becomes a functional landing spot with hooks, a shelf, and a boot tray. Because built-ins are made to measure, they turn awkward small spaces into genuinely useful entry storage that off-the-shelf furniture cannot. In a small home, a compact, well-designed drop zone often does more for daily order than a large disorganized one.</p>
+
+<h2 id="finishes">Durable finishes for a hardworking room</h2>
+<p>A mudroom takes abuse — wet shoes, muddy boots, dropped bags, and constant use — so durability matters. Choose finishes and materials that stand up to moisture and wear: a wipeable, durable painted or stained finish, a hardwearing bench top, and easy-clean surfaces near the door where dirt and water land. The style should coordinate with your home while being practical: painted cabinetry in white, greige, navy, or sage looks clean and hides scuffs reasonably well, and natural wood adds warmth and hides wear. Good hooks and hardware that can take daily yanking round it out. Because it is a utility space, the mudroom rewards materials chosen for real-world durability over delicate finishes. See our <a href="/blog/cabinet-finishes-colors-guide">finishes guide</a> and <a href="/blog/cabinet-construction-quality-guide">construction quality guide</a>.</p>
+
+<h2 id="pets">Pet stations and extra functions</h2>
+<p>The mudroom is also the natural home for a few bonus functions that make daily life smoother. A <strong>pet station</strong> built into the cabinetry — a spot for leashes and harnesses on hooks, a drawer for food and treats, a pull-out bowl station, or even a built-in dog wash near the utility area — keeps pet gear contained where you come and go. Some mudrooms add a <strong>gift-wrap or hobby drawer</strong>, extra <strong>bulk-storage cabinets</strong>, or a small <strong>fridge or beverage area</strong> when the room connects to the garage. Because the mudroom is a flexible utility space that you pass through constantly, it is worth thinking about which of your household's recurring needs could live there. Building these functions into the cabinetry from the start makes them feel intentional rather than tacked on, and it takes pressure off other rooms.</p>
+
+<h2 id="value">Do mudroom built-ins add value?</h2>
+<p>A well-designed mudroom has become a sought-after feature, and custom built-ins are what make it one. Buyers see an organized, attractive mudroom with lockers, a bench, and storage as a premium, practical feature — the kind of thing that makes a home feel move-in-ready and thoughtfully designed. Like a custom laundry room or home office, mudroom built-ins read as high-end and permanent in a way freestanding furniture never does. And the daily value is real: for families especially, a mudroom that actually controls the flood of shoes, coats, and gear makes the whole house calmer and the daily routine smoother. It is one of the higher-return cabinetry projects outside the kitchen and bath, both for resale and for everyday life. See our <a href="/blog/laundry-room-cabinet-ideas">laundry room ideas</a> for a common companion project.</p>
+
+<h2 id="bottom-line">The bottom line</h2>
+<p>Great mudroom cabinets turn the messiest, highest-traffic part of a home into an organized, welcoming transition space. Give every family member a defined spot with lockers or hooks, add a bench with real shoe storage, keep daily items on open hooks and in cubbies, and hide the seasonal overflow in closed cabinets — with a drop zone for keys, mail, and charging to catch the rest. Whether it is a full room or a compact nook, made-to-measure built-ins use every inch and stand up to daily abuse. Design the mudroom around how your family actually comes and goes, and it will keep the clutter of daily life contained, making the entire home feel more organized.</p>
+
+<h2 id="how-we-build">Design your mudroom with Boise Cabinet Co</h2>
+<p>${AUTHOR} designs and builds custom <a href="/cabinets/mudroom">mudroom cabinets</a> and built-ins — lockers, benches, shoe storage, hooks, and closed cabinetry with a family drop zone — coordinated with your home's finishes, for homes across Boise, Meridian, Eagle, and Nampa. Explore <a href="/cabinets">our cabinetry</a> and <a href="/catalog">finishes</a>, then <a href="/estimate">get a planning range</a> or <a href="/contact">book a free in-home consultation</a>. From a full locker wall to a compact entry bench, we will design a mudroom around exactly how your family comes and goes and build it to keep the daily clutter under control for years.</p>
+`;
+
+const cleanCabinetsContent = `
+<p class="text-lg">To clean kitchen cabinets without ruining the finish, use the <strong>gentlest method that works: warm water with a little mild dish soap on a soft cloth, wiping with the grain and drying immediately</strong>. Skip harsh chemicals, abrasive scrubbers, and excess water, all of which damage finishes over time. For grease, a mild degreaser or a diluted vinegar solution handles most buildup; for wood, always dry promptly since standing moisture is a wood cabinet's worst enemy. Here is how to clean every type of cabinet safely, tackle grease and buildup, and keep your cabinets looking new for decades.</p>
+
+<div class="summary-block">
+  <p><strong>Key takeaways:</strong> Clean cabinets with warm water and mild dish soap on a soft cloth, wipe with the grain, and dry immediately. Avoid harsh chemicals, abrasives, and excess water. <a href="/blog/cabinet-finishes-colors-guide">See cabinet finishes</a> or <a href="/cabinets/kitchen">explore our cabinets</a>.</p>
+</div>
+
+<h2 id="golden-rule">The golden rule: gentle and dry</h2>
+<p>The single most important principle in cleaning cabinets is to use the least aggressive method that gets them clean, and to dry them right away. Cabinet finishes — whether paint, stain, or a clear topcoat — are durable but not indestructible, and the two things that wear them down fastest are harsh chemicals and standing moisture. Warm water with a small amount of mild dish soap handles the vast majority of everyday cleaning, applied with a soft cloth and followed immediately by a dry cloth. Starting gentle and escalating only when needed protects the finish, while reaching straight for strong cleaners or abrasive pads risks dulling, stripping, or scratching a finish that should last for decades. When in doubt, gentler is always safer.</p>
+
+<h2 id="everyday">Everyday cleaning routine</h2>
+<p>For regular maintenance, a simple routine keeps cabinets looking their best and prevents the buildup that requires harder cleaning later. Wipe down the surfaces you touch most — around handles, near the stove, and the fronts by the sink — regularly with a soft, damp (not wet) cloth and, if needed, a drop of mild dish soap in warm water. Wipe with the grain on wood cabinets, and follow with a dry cloth so no moisture sits on the finish or seeps into seams. A quick weekly wipe of the high-touch areas, plus prompt cleanup of splatters and spills as they happen, keeps grease and grime from accumulating in the first place. This light, consistent care is far easier on both your cabinets and you than occasional heavy scrubbing.</p>
+
+<h2 id="grease">Removing grease and buildup</h2>
+<p>Grease is the toughest everyday challenge, especially on the cabinets around and above the stove, where cooking vapor deposits a sticky film that attracts dust and grime. For light grease, warm water with mild dish soap (which is formulated to cut grease) usually does the job. For heavier buildup, a <strong>diluted vinegar solution</strong> (about equal parts warm water and white vinegar) cuts grease well on most finishes — test it in a hidden spot first, and avoid it on unsealed or delicate finishes. A dedicated <strong>mild degreaser</strong> made for kitchen surfaces is another option for stubborn spots. Whatever you use, apply it to the cloth rather than soaking the cabinet, work gently, rinse with a clean damp cloth, and dry immediately. Avoid the temptation to scrub hard or use abrasive pads, which will cut through the grease and the finish alike.</p>
+
+<h2 id="avoid">What to avoid</h2>
+<p>Knowing what not to use is as important as knowing what to use. Avoid <strong>abrasive scrubbers, steel wool, and scouring powders</strong>, which scratch and dull finishes. Avoid <strong>harsh chemicals</strong> — ammonia, bleach, strong all-purpose sprays, and anything with a strong solvent — which can strip, discolor, or cloud a cabinet finish. Avoid <strong>excess water</strong> and never let cabinets stay wet; standing moisture is the top cause of finish damage, swelling, and delamination, especially at seams and edges. And skip <strong>wax-based or silicone "polish" sprays</strong>, which can build up a hazy residue over time. Sticking to mild soap, gentle degreasers, soft cloths, and prompt drying keeps you well clear of the mistakes that prematurely age cabinets.</p>
+
+<h2 id="by-finish">Cleaning by cabinet finish</h2>
+<p>Different finishes have slightly different needs. <strong>Painted cabinets</strong> clean easily with mild soap and water but can show scuffs, so avoid abrasives and wipe gently. <strong>Stained and wood cabinets</strong> need the most care with moisture — wipe with the grain, dry immediately, and avoid soaking; an occasional appropriate wood-safe cleaner keeps them conditioned. <strong>Thermofoil and laminate</strong> are the most forgiving, cleaning up with mild soap and water, though they should not be exposed to excessive heat or harsh solvents. <strong>Glass fronts</strong> can be cleaned with a little glass cleaner sprayed on the cloth (not directly on the cabinet, where it can seep into the frame). Matching your method to the finish keeps every cabinet type looking its best without risking damage.</p>
+
+<h2 id="hardware">Cleaning hardware and glass</h2>
+<p>Hardware and glass deserve their own attention. <strong>Knobs and pulls</strong> collect oils and grime from hands, so wipe them with a soft damp cloth and mild soap; for metal finishes, avoid abrasives and harsh chemicals that can damage the coating, and dry them to prevent water spots. For heavily soiled hardware, removing it to clean separately gives the best result without getting cleaner on the cabinet. <strong>Glass cabinet fronts</strong> clean up with glass cleaner applied to the cloth rather than sprayed directly, which keeps liquid from running into the frame joints. Keeping hardware and glass clean makes the whole kitchen look cared-for, and because these are the most-touched and most-visible details, a little attention here goes a long way.</p>
+
+<h2 id="deep-clean">Periodic deep cleaning</h2>
+<p>A few times a year, a more thorough cleaning keeps cabinets in top shape. Empty and wipe out the interiors, checking for spills and crumbs, and clean the tops of upper cabinets where dust and grease settle unseen. Give the high-grease zones around the stove extra attention, and inspect for any areas where moisture may be collecting — under the sink especially, where a slow leak can quietly damage a cabinet base. This periodic reset catches problems early and prevents the gradual buildup that makes cabinets look tired. It is also the right time to touch up any minor finish nicks and to re-tighten loose hinges and handles. A couple of deep cleans a year, paired with the light everyday routine, keeps cabinets looking new far longer.</p>
+
+<h2 id="stains">Tackling specific stains and marks</h2>
+<p>Beyond general grease, a few specific marks call for a targeted but still gentle approach. <strong>Food splatters and dried spills</strong> usually lift with a damp cloth after a minute or two of softening — resist scraping, which scratches the finish. <strong>Fingerprints and smudges</strong> around handles wipe away with mild soapy water and a dry buff. <strong>Sticky residue</strong> from labels or spills responds to a little mild soap and patience rather than a solvent. <strong>Water spots and hard-water marks</strong> near the sink come off with a soft cloth and prompt drying to prevent them recurring. For stubborn spots, a paste of baking soda and water applied gently with a soft cloth is a mild abrasive that many finishes tolerate — but test it in a hidden area first and use the lightest touch, since even mild abrasion can dull some finishes. The theme throughout is patience over force: letting a gentle cleaner do the work protects the finish far better than scrubbing hard.</p>
+
+<h2 id="natural">Natural vs commercial cleaners</h2>
+<p>You do not need a cabinet full of specialty products. For most cabinets, the best cleaners are the simplest: mild dish soap and warm water for everyday cleaning, and diluted white vinegar for grease on sealed finishes. These gentle, inexpensive options handle the majority of cabinet cleaning safely. Commercial cabinet cleaners and wood-specific products can be worth it for periodic conditioning of stained wood or for a particular finish the manufacturer recommends, but many all-purpose sprays are harsher than cabinets need and can dull finishes over time. If you use a commercial product, choose one made for cabinets or fine wood, follow the directions, and still apply it to the cloth rather than the cabinet. When a simple, gentle homemade approach works — and it usually does — it is both cheaper and safer for your finish than reaching for something stronger.</p>
+
+<h2 id="protect">Protecting the finish long-term</h2>
+<p>Beyond cleaning, a few habits protect cabinets from the damage that no amount of cleaning can reverse. Manage <strong>moisture and heat</strong>: use the range hood while cooking to reduce grease vapor, wipe up spills and splatters promptly, and be mindful of steam from kettles and appliances directed at cabinet faces. Address the area <strong>under the sink</strong> — the most common spot for hidden water damage — by checking for leaks and using a liner or mat. Handle cabinets by their hardware rather than pushing on painted surfaces to reduce wear at the edges. These small protective habits, combined with gentle regular cleaning, are what let quality cabinets look beautiful for decades rather than years — the finish lasts because it is cared for, not just cleaned.</p>
+
+<h2 id="bottom-line">The bottom line</h2>
+<p>Cleaning kitchen cabinets well is mostly about restraint: use the gentlest method that works — warm water and mild dish soap on a soft cloth — wipe with the grain, and dry immediately every time. Reach for a diluted vinegar solution or a mild degreaser only for grease, and steer well clear of abrasives, harsh chemicals, and standing water, which damage finishes permanently. Match your method to your finish, keep up a light everyday routine with a couple of deep cleans a year, and protect the cabinets from moisture and heat, and they will keep looking new for decades. Good cabinets are built to last; gentle, consistent care is what lets them.</p>
+
+<h2 id="how-we-build">Quality cabinets built to last, from Boise Cabinet Co</h2>
+<p>${AUTHOR} builds custom <a href="/cabinets/kitchen">kitchen cabinets</a> with durable, easy-to-maintain finishes designed to hold up to real family life, for homes across Boise, Meridian, Eagle, and Nampa. Explore <a href="/catalog">our finishes and door styles</a>, then <a href="/estimate">get a planning range</a> or <a href="/contact">book a free in-home consultation</a>. Whether you are caring for cabinets you love or ready for new ones, we build with quality boxes and tough, wipeable finishes so your kitchen stays beautiful and easy to keep clean for many years to come. Learn more in our <a href="/blog/cabinet-construction-quality-guide">construction quality guide</a>.</p>
+`;
+
 export const PREMIUM_POSTS: BlogPostData[] = [
   {
     slug: 'framed-vs-frameless-cabinets',
@@ -2673,6 +2761,88 @@ export const PREMIUM_POSTS: BlogPostData[] = [
     primaryKeyword: 'how deep are kitchen cabinets',
     secondaryKeywords: ['kitchen cabinet depth', 'standard cabinet depth', 'upper cabinet depth', 'base cabinet depth'],
     searchIntent: 'Informational — homeowners researching cabinet depths',
+    wordCountTarget: 'pillar',
+  },
+  {
+    slug: 'mudroom-cabinets',
+    title: 'Mudroom Cabinets & Built-In Lockers: Ideas & Storage',
+    seoTitle: 'Mudroom Cabinets & Built-In Lockers: Ideas, Storage & Layout',
+    metaDescription:
+      'Mudroom cabinet ideas that control clutter: built-in lockers, a bench with shoe storage, hooks and cubbies, and closed cabinets. How to design a drop zone for your family.',
+    excerpt:
+      'The best mudroom cabinets give every family member a spot — lockers, a bench, shoe storage, hooks, and closed cabinets to hide the rest. Here are the ideas that actually control the clutter.',
+    content: mudroomContent,
+    author: AUTHOR,
+    category: 'Built-Ins',
+    hubSlug: 'built-ins',
+    tags: ['mudroom', 'built-ins', 'lockers', 'storage', 'organization'],
+    publishedAt: '2026-07-11',
+    faqs: [
+      { question: 'What should a mudroom have?', answer: 'A functional mudroom has a bench to sit on, hooks or lockers for coats and bags, dedicated shoe storage, and closed cabinets to hide seasonal and occasional items. Ideally each family member gets a defined spot (a locker or hook), plus a drop zone for keys, mail, and charging so daily clutter has a home.' },
+      { question: 'What are mudroom lockers?', answer: 'Mudroom lockers are individual open or closed compartments, one per family member, that combine hooks for coats and bags, a shelf or cubby up top, and a compartment or bench below for shoes. Assigning each person their own locker is the most effective way to keep a busy family\\u2019s entry organized.' },
+      { question: 'How deep should mudroom cabinets be?', answer: 'Bench seats are typically 16 to 18 inches deep for comfortable sitting, lockers and coat storage are often 18 to 24 inches deep to fit coats and bags on hooks, and upper cabinets can be shallower. Custom cabinetry sizes each element to your space and what you store, which is a benefit over standard furniture.' },
+      { question: 'Can you have a mudroom in a small space?', answer: 'Yes. Even a small entry or nook fits a compact drop zone — a single bench with hooks above and a cubby below creates a complete station in a few feet of wall, and a slim cabinet beside the door hides shoes and supplies. Made-to-measure built-ins turn awkward small spaces into useful entry storage.' },
+      { question: 'Should mudroom lockers have doors?', answer: 'Both work. Open lockers make grab-and-go easy and are great for kids, while lockers with doors hide the contents for a cleaner, tidier look. Many mudrooms mix the two — open hooks and cubbies for daily items, and closed cabinets for the seasonal overflow and things you would rather not see.' },
+      { question: 'Do mudroom built-ins add home value?', answer: 'Yes. Buyers see an organized, attractive mudroom with lockers, a bench, and storage as a premium, practical feature that makes a home feel move-in-ready. Like a custom laundry room or office, mudroom built-ins read as high-end and permanent, and they are one of the higher-return cabinetry projects outside the kitchen and bath.' },
+    ],
+    quickAnswer:
+      'The best mudroom cabinets create a dedicated drop zone with a bench to sit on, hooks or lockers for coats and bags (ideally one defined spot per family member), shoe storage, and closed cabinets to hide seasonal overflow. Add a command center for keys, mail, and charging, design around how your family comes and goes, and custom built-ins will fit any space from a full room to a small nook.',
+    keyTakeaways: [
+      'Give every family member a defined spot — lockers or hooks.',
+      'Combine a bench and shoe storage with closed cabinets to hide clutter.',
+      'Add a drop zone for keys, mail, and charging; fits rooms or nooks.',
+    ],
+    relatedLinks: [
+      { url: '/cabinets/mudroom', anchor: 'Mudroom cabinetry' },
+      { url: '/blog/laundry-room-cabinet-ideas', anchor: 'Laundry room ideas' },
+      { url: '/blog/cabinet-finishes-colors-guide', anchor: 'Cabinet colors and finishes' },
+      { url: '/blog/cabinet-construction-quality-guide', anchor: 'Construction quality' },
+      { url: '/cabinets' },
+    ],
+    primaryKeyword: 'mudroom cabinets',
+    secondaryKeywords: ['mudroom lockers', 'mudroom built ins', 'mudroom storage', 'built in mudroom bench'],
+    searchIntent: 'Informational — homeowners planning mudroom cabinets',
+    wordCountTarget: 'pillar',
+  },
+  {
+    slug: 'how-to-clean-kitchen-cabinets',
+    title: 'How to Clean Kitchen Cabinets (Without Ruining the Finish)',
+    seoTitle: 'How to Clean Kitchen Cabinets Without Ruining the Finish',
+    metaDescription:
+      'How to clean kitchen cabinets safely: warm water and mild dish soap on a soft cloth, wipe with the grain, dry immediately. How to remove grease and what to avoid by finish type.',
+    excerpt:
+      'Clean kitchen cabinets with the gentlest method that works — warm water and mild dish soap, wipe with the grain, dry immediately. Here is how to handle grease and every finish without damage.',
+    content: cleanCabinetsContent,
+    author: AUTHOR,
+    category: 'Maintenance',
+    hubSlug: 'kitchen-cabinets',
+    tags: ['cleaning', 'maintenance', 'care', 'grease', 'kitchen'],
+    publishedAt: '2026-07-11',
+    faqs: [
+      { question: 'What is the best way to clean kitchen cabinets?', answer: 'Use the gentlest method that works: warm water with a little mild dish soap on a soft cloth, wiping with the grain and drying immediately with a dry cloth. This handles the vast majority of everyday cleaning without risking the finish. Escalate to a mild degreaser only when needed.' },
+      { question: 'How do you remove grease from kitchen cabinets?', answer: 'For light grease, warm water with mild dish soap (which is formulated to cut grease) usually works. For heavier buildup, a diluted vinegar solution (roughly equal parts warm water and white vinegar) cuts grease on most finishes — test a hidden spot first. Apply to the cloth, not the cabinet, work gently, rinse, and dry immediately.' },
+      { question: 'What should you not use on kitchen cabinets?', answer: 'Avoid abrasive scrubbers, steel wool, and scouring powders that scratch finishes; harsh chemicals like ammonia, bleach, and strong solvents that strip or discolor; excess water and standing moisture, the top cause of finish damage; and wax or silicone polish sprays that build up a hazy residue.' },
+      { question: 'Can you use vinegar to clean wood cabinets?', answer: 'A diluted vinegar solution (about equal parts water and white vinegar) works on many sealed finishes to cut grease, but always test a hidden spot first and avoid it on unsealed or delicate finishes. Whatever you use on wood, wipe with the grain and dry immediately, since standing moisture is a wood cabinet\\u2019s worst enemy.' },
+      { question: 'How often should you clean kitchen cabinets?', answer: 'Do a light wipe of high-touch areas — around handles, near the stove, by the sink — weekly, and clean up splatters and spills promptly as they happen. A couple of times a year, do a deeper clean of interiors, cabinet tops, and high-grease zones. Consistent light care prevents the buildup that requires harsh scrubbing.' },
+      { question: 'How do you clean cabinets without damaging the finish?', answer: 'Start gentle and stay dry: mild soap and warm water on a soft cloth, wipe with the grain, and dry right away so no moisture sits on the finish or seeps into seams. Avoid abrasives, harsh chemicals, and soaking. Matching your method to the finish — painted, stained, thermofoil, or glass — keeps every cabinet safe.' },
+    ],
+    quickAnswer:
+      'To clean kitchen cabinets without ruining the finish, use warm water with a little mild dish soap on a soft cloth, wipe with the grain, and dry immediately. For grease, use a diluted vinegar solution or a mild degreaser. Avoid abrasive scrubbers, harsh chemicals, and excess water, all of which damage finishes over time. Match your method to the finish and dry promptly every time.',
+    keyTakeaways: [
+      'Use warm water and mild dish soap; wipe with the grain and dry immediately.',
+      'For grease, use diluted vinegar or a mild degreaser — applied to the cloth.',
+      'Avoid abrasives, harsh chemicals, and standing water.',
+    ],
+    relatedLinks: [
+      { url: '/blog/cabinet-finishes-colors-guide', anchor: 'Cabinet finishes' },
+      { url: '/blog/cabinet-construction-quality-guide', anchor: 'Construction quality' },
+      { url: '/blog/how-to-paint-kitchen-cabinets', anchor: 'How to paint cabinets' },
+      { url: '/blog/kitchen-cabinet-organization-ideas', anchor: 'Organization ideas' },
+      { url: '/cabinets/kitchen' },
+    ],
+    primaryKeyword: 'how to clean kitchen cabinets',
+    secondaryKeywords: ['cleaning kitchen cabinets', 'remove grease from cabinets', 'clean wood cabinets', 'best cabinet cleaner'],
+    searchIntent: 'Informational — homeowners cleaning and maintaining cabinets',
     wordCountTarget: 'pillar',
   },
 ];
