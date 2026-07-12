@@ -727,6 +727,176 @@ const costPerLinearFootContent = `
 <p>${AUTHOR} gives Boise, Meridian, Eagle, and Nampa homeowners a real planning range and a written scope — not just a per-foot guess. Try the <a href="/estimate">online estimator</a>, read the <a href="/guides/boise-cabinet-cost-guide">cost guide</a>, or <a href="/contact">book a free in-home consultation</a> and we will measure, plan, and price your <a href="/cabinets/kitchen">kitchen</a> or <a href="/cabinets/bathroom">bath</a> accurately, with a written scope and an honest range you can actually plan around.</p>
 `;
 
+const rtaCabinetsContent = `
+<p class="text-lg"><strong>RTA cabinets</strong> are "ready-to-assemble" cabinets: they ship flat in a box and you (or an installer) put them together on site with included dowels, cam locks, and screws. They are popular because flat-packing dramatically lowers shipping and storage costs, so RTA is usually cheaper than pre-assembled stock and far cheaper than custom. The trade-off is your time and skill to assemble them, fixed sizes that may not fit your space perfectly, and quality that varies widely by supplier. RTA can be a smart budget choice for a standard layout and a handy homeowner; for a precise fit, a specific look, or a forever kitchen, custom is usually the better long-term value.</p>
+
+<div class="summary-block">
+  <p><strong>Key takeaways:</strong> RTA = flat-pack cabinets you assemble yourself to save money. Best for tight budgets, standard layouts, and DIY-comfortable homeowners. Quality ranges from excellent to disappointing, so inspect the box, drawers, and hinges. For exact fit and premium construction, compare against <a href="/compare">custom cabinets</a>. <a href="/estimate">Get a planning range</a>.</p>
+</div>
+
+<h2 id="what-they-are">What does RTA mean?</h2>
+<p>RTA stands for ready-to-assemble. Instead of arriving as finished boxes, RTA cabinets come as a kit of flat panels, doors, drawer parts, and a bag of hardware, packed tightly in a carton. You assemble each cabinet before it goes on the wall, typically using pre-drilled holes and a combination of dowels, cam-lock connectors, screws, and glue. Once assembled, a good RTA cabinet looks and functions much like a pre-built one — the difference is simply where and when the assembly happens.</p>
+<p>The model exists because shipping air is expensive. A finished cabinet is mostly empty space, so it costs a lot to box, ship, and warehouse. Flattening it into a compact kit slashes those costs, and RTA suppliers pass some of that savings to you. That is the entire value proposition: you trade a few hours of assembly for a lower price.</p>
+
+<h2 id="pros">The advantages of RTA cabinets</h2>
+<p>RTA has real strengths, and for the right project they add up. The most obvious is price: because you are not paying for factory assembly or bulky shipping, RTA typically undercuts comparable pre-assembled stock cabinets. Availability is another plus — many RTA lines are in stock and ship quickly, which suits a tight timeline or a rental turnover. Flat boxes are also easier to carry through doorways and up stairs than fully built cabinets, and if you enjoy hands-on projects, assembling your own cabinets can be genuinely satisfying. For a budget-conscious kitchen with a standard layout, RTA can deliver a clean, updated look for meaningfully less money.</p>
+
+<h2 id="cons">The drawbacks to weigh</h2>
+<p>The savings come with honest trade-offs. First is your time and skill: assembling a full kitchen of cabinets is hours of careful work, and a cabinet that is assembled out of square will hang crooked and never quite look right. Second is fit — like all stock cabinets, RTA comes in fixed sizes, so gaps between the cabinets and your real walls get covered with filler strips rather than a true custom fit. Third is quality variability, which is the big one: RTA spans everything from solid plywood boxes with dovetailed drawers to flimsy particleboard held together with staples. Two RTA kitchens at similar prices can be worlds apart in how long they last. Finally, if something arrives damaged or a panel is mis-drilled, you are often the one managing the fix, without the accountability of a local company that measured, built, and installed the kitchen.</p>
+
+<h2 id="quality">How to judge RTA quality</h2>
+<p>Because RTA quality varies so much, inspecting it matters more than with almost any other cabinet. Look for a <strong>3/4-inch plywood box</strong> rather than thin particleboard, <strong>solid-wood dovetailed drawer boxes</strong> on full-extension soft-close glides, and <strong>adjustable soft-close hinges</strong>. Read reviews specifically about assembly — do the parts line up, are the pre-drilled holes accurate, is the hardware decent? A cheap RTA kit that fights you during assembly and sags within a year is not a bargain. Our full <a href="/blog/cabinet-construction-quality-guide">cabinet construction quality guide</a> walks through exactly what to check, and it applies directly to evaluating any RTA line.</p>
+
+<h2 id="comparison">RTA vs pre-assembled vs custom</h2>
+<table>
+  <thead>
+    <tr><th>Factor</th><th>RTA</th><th>Pre-assembled stock</th><th>Custom</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Price</td><td>Lowest</td><td>Low-mid</td><td>Highest</td></tr>
+    <tr><td>Assembly</td><td>You do it</td><td>Done</td><td>Done, installed by the builder</td></tr>
+    <tr><td>Fit</td><td>Fixed sizes + fillers</td><td>Fixed sizes + fillers</td><td>Exact</td></tr>
+    <tr><td>Quality</td><td>Varies widely</td><td>Varies</td><td>Best, your spec</td></tr>
+    <tr><td>Lead time</td><td>Fast</td><td>Fast</td><td>Longest</td></tr>
+    <tr><td>Best for</td><td>DIY, budget, standard layout</td><td>Budget, no assembly</td><td>Forever homes, odd spaces</td></tr>
+  </tbody>
+</table>
+
+<h2 id="who-for">Who should buy RTA?</h2>
+<p>RTA makes the most sense for a specific kind of project. If you are updating a rental, flipping a house, finishing a garage or laundry room, or working with a tight budget and a standard kitchen footprint, RTA can be a genuinely smart choice — especially if you or someone you trust is comfortable with careful assembly. It is less ideal if your walls are out of square, your ceilings are tall, you want a particular finish or two-tone look, or you simply do not want to spend a weekend building cabinets. In those cases, the money you save on RTA is often spent back in filler gaps, compromises, and the labor of assembly.</p>
+
+<h2 id="assembly">What assembling RTA actually involves</h2>
+<p>If you go the RTA route, plan for the reality of assembly. Each cabinet typically takes 20 to 45 minutes once you find a rhythm, and a full kitchen is a substantial project spread over a weekend or more. You will need basic tools, a clean flat workspace, patience, and care to keep every box perfectly square — a carpenter's square and a rubber mallet are your friends. Label parts, follow the instructions in order, and dry-fit before gluing. Rushing is where RTA kitchens go wrong: a box assembled slightly out of square throws off the doors and the whole run. Done patiently, though, quality RTA can look indistinguishable from pre-built once it is on the wall.</p>
+
+<h2 id="cost">What RTA cabinets cost</h2>
+<p>RTA is generally the least expensive way to get new cabinets, often running well below pre-assembled stock and a fraction of custom. But remember that the sticker price is only part of the story: factor in your time to assemble, any tools you need, filler strips, and installation if you are not doing that yourself. And weigh the long game — a cheaper cabinet that wears out or sags in a few years costs more than a well-built one that lasts twenty. For how RTA fits against other options in our market, see the <a href="/guides/boise-cabinet-cost-guide">Boise cabinet cost guide</a> and our comparison of <a href="/blog/stock-vs-custom-cabinets-boise">stock vs custom cabinets</a>.</p>
+
+<h2 id="bottom-line">The bottom line on RTA</h2>
+<p>RTA cabinets are a legitimate, budget-friendly option that trades your time and a perfect fit for a lower price. For a standard layout, a modest budget, and a homeowner who does not mind assembly, they can deliver a clean, updated kitchen for real savings. But RTA is not automatically a good deal — quality ranges from excellent to poor, and the cheapest kits often disappoint. If your space is tricky, your vision is specific, or you plan to stay in the home for years, the exact fit, premium construction, and single accountable team of a custom kitchen usually deliver more satisfaction and better long-term value. The right answer depends on your budget, your layout, and how much the fit and finish matter to you every day.</p>
+
+<h2 id="where-sold">Where RTA cabinets are sold</h2>
+<p>RTA cabinets come mostly from online retailers and some home centers, and the buying experience is very different from working with a local cabinet company. Online, you browse a catalog, choose door styles and sizes, and place an order that arrives on a freight truck in a stack of flat boxes. There is no one measuring your kitchen, no designer catching that a cabinet will collide with your window trim, and no installer accountable for the finished result. That do-it-yourself model is exactly why RTA is cheaper, and it works fine for a confident homeowner with a straightforward layout. But it also means the responsibility for measuring correctly, ordering the right sizes, handling any damaged or mis-drilled parts, and assembling everything square falls on you. If a piece shows up wrong, you are filing a claim and waiting on a replacement rather than calling a local team that will make it right. For some homeowners that trade-off is worth the savings; for others, the peace of mind of a single accountable company is worth paying more for. Knowing which kind of project and which kind of person you are is the key to a happy RTA experience.</p>
+
+<h2 id="finish-durability">Finishing, durability, and the long view</h2>
+<p>One detail that surprises RTA buyers is finishing. Many RTA lines arrive already finished, but the finish quality varies as much as the construction, and a thin or unevenly applied finish will show wear sooner around the sink and range where hands and moisture do their work. Before you buy, look closely at a sample or read reviews focused on how the finish holds up over a year or two of real cooking, not just how it looks on day one. Durability overall is the theme with RTA: a well-made kit with plywood boxes, dovetailed drawers, and a quality finish can serve a kitchen faithfully for many years, while a bargain kit of stapled particleboard can start sagging and chipping within a couple of seasons. The cheapest RTA is rarely the best value, because a cabinet you replace in five years costs far more than one that lasts twenty. When you compare an inexpensive RTA option against a custom quote, weigh the full lifespan, not just the opening price, and be honest about how long you intend to keep the kitchen. That single question — how long will I live with this — resolves most RTA-versus-custom decisions on its own.</p>
+
+<h2 id="how-we-build">Considering custom instead? Talk to Boise Cabinet Co</h2>
+<p>If you want the exact-fit, built-to-last alternative to RTA, ${AUTHOR} designs, builds, and installs custom cabinets for <a href="/cabinets/kitchen">kitchens</a>, <a href="/cabinets/bathroom">bathrooms</a>, and built-ins across Boise, Meridian, Eagle, and Nampa — no assembly required and no filler-gap compromises. <a href="/compare">Compare our cabinets</a>, then <a href="/estimate">get an instant planning range</a> or <a href="/contact">book a free in-home consultation</a>.</p>
+`;
+
+const customCabinetCostContent = `
+<p class="text-lg">Custom kitchen cabinets typically cost <strong>$500 to $1,200+ per linear foot installed</strong>, which puts a full custom kitchen in roughly the <strong>$15,000 to $45,000+</strong> range depending on size, materials, finish, and complexity. In the Boise and Treasure Valley market, most custom kitchens land somewhere in the middle of that spread. The biggest cost drivers are the size of the kitchen, the construction and finish you choose, and how many drawers and specialty cabinets you include — not any single line item. The most accurate way to know your number is a design and a written scope, but the ranges below will get you a confident ballpark.</p>
+
+<div class="summary-block">
+  <p><strong>Key takeaways:</strong> Custom kitchen cabinets run about $500–$1,200+ per linear foot installed, or roughly $15,000–$45,000+ for a full kitchen. Size, construction, finish, and specialty cabinets move the number most. Get a real range in about a minute with our <a href="/estimate">online estimator</a>.</p>
+</div>
+
+<h2 id="ranges">What custom kitchen cabinets cost</h2>
+<p>Because every custom kitchen is different, it helps to think in ranges rather than a single price. Per linear foot — the length of your cabinet runs — custom cabinetry commonly falls between $500 and $1,200 or more installed, with the high end reflecting premium materials, intricate door styles, specialty finishes, and loaded storage. Translated to a whole kitchen, a smaller custom kitchen might start around $15,000, a mid-size kitchen often lands in the $20,000 to $30,000 range, and a large kitchen with an island, tall cabinets, and high-end finishes can climb past $45,000. These figures are for cabinetry; countertops, appliances, and other trades are separate. The wide spread is not vague pricing — it reflects how many choices go into a custom kitchen.</p>
+
+<h2 id="drivers">What drives the cost</h2>
+<p>Understanding the drivers helps you steer the budget with intention. The single biggest factor is simply <strong>size</strong> — more linear feet of cabinets means more materials and labor. After that, <strong>construction quality</strong> matters: plywood boxes, dovetailed solid-wood drawers, and soft-close everything cost more than particleboard and basic hardware, and they are worth it for longevity. <strong>Finish</strong> is a major swing factor, with painted and specialty finishes generally costing more than a basic stain. <strong>Door style</strong> plays a role too, as inset and intricate profiles cost more than simple Shaker or slab. <strong>Storage and specialty cabinets</strong> — drawer banks, pantries, appliance panels, and clever corner solutions — each add cost for the function they deliver. Finally, <strong>layout complexity and installation</strong> — odd walls, tall ceilings, and tricky spaces — add labor. Together these explain why two kitchens of the same size can cost very differently.</p>
+
+<h2 id="tiers">Custom vs stock vs semi-custom cost</h2>
+<table>
+  <thead>
+    <tr><th>Tier</th><th>Rough per linear foot (installed)</th><th>What you get</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Stock / RTA</td><td>$150–$300</td><td>Fixed sizes, basic build, filler gaps</td></tr>
+    <tr><td>Semi-custom</td><td>$300–$550</td><td>More options and better construction</td></tr>
+    <tr><td>Custom</td><td>$500–$1,200+</td><td>Exact fit, premium construction and finish</td></tr>
+  </tbody>
+</table>
+<p>Custom costs more up front, but for a home you will keep, the exact fit, maximized storage, and construction that lasts often make it the better long-term value. For a deeper comparison, see <a href="/blog/stock-vs-custom-cabinets-boise">stock vs custom cabinets</a> and <a href="/blog/cabinet-cost-per-linear-foot">cost per linear foot</a>.</p>
+
+<h2 id="whats-included">What is (and isn't) in the cabinet price</h2>
+<p>When you compare quotes, know what the number covers. A complete custom cabinet price generally includes the cabinets themselves, the door style and finish, hardware, delivery, and professional installation. It usually does <em>not</em> include countertops, the sink and faucet, backsplash, appliances, lighting, flooring, or any electrical and plumbing changes — those are separate line items in a kitchen budget. Setting cabinets in one bucket and these related costs in another keeps your planning honest and prevents mid-project surprises. For a full local breakdown of every line, the <a href="/guides/boise-cabinet-cost-guide">Boise cabinet cost guide</a> lays it out.</p>
+
+<h2 id="worth-it">Are custom cabinets worth the cost?</h2>
+<p>Whether custom is worth it comes down to how long you will stay and how much the details matter to you. If you plan to keep the kitchen for a decade or more, the daily payoff of a perfect fit — drawers exactly where you want them, storage maximized to your footprint, a finish you love, and construction that still looks great in fifteen years — usually justifies the investment. Custom also shines when your space is tricky or your vision is specific, because it is the only option that adapts fully to you. If you are updating a rental or a short-term home, or your layout is standard and your budget is tight, stock or semi-custom may be the smarter financial call. There is no universally right answer, only the right answer for your home and timeline.</p>
+
+<h2 id="save">How to get the most for your budget</h2>
+<p>You can build a beautiful custom kitchen without buying every upgrade. The smartest approach is to invest in the bones — quality construction and the cabinets you use most — and be selective about extras. A timeless door style and a standard-but-beautiful finish cost less than exotic options and age better. Keeping the layout efficient trims cost, since every added corner and specialty cabinet adds dollars. Some homeowners also phase the work, buying quality cabinets now and adding accessories or an island upgrade later. And because finish and hardware are big swing factors, choosing wisely there frees budget for the construction that determines how long the kitchen lasts.</p>
+
+<h2 id="estimate">How to estimate your project</h2>
+<p>For a fast, credible ballpark, measure the length of your base-cabinet runs in feet and multiply by a per-foot rate for your tier, then add for an island, tall cabinets, and premium finish or hardware. Even quicker and more accurate, our <a href="/estimate">online estimator</a> turns your room, size, and style into a planning range in about a minute, accounting for the details a flat rate misses. When you are ready for a firm number, an in-home design visit produces a written scope you can budget around with confidence.</p>
+
+<h2 id="bottom-line">The bottom line</h2>
+<p>Custom kitchen cabinets are an investment — commonly $15,000 to $45,000 or more for a full Treasure Valley kitchen — but they are also one of the most-used, longest-lived parts of your home. The price reflects real choices about size, construction, finish, and storage, which means you have genuine control over where your budget goes. Spend on the bones and the cabinets you touch every day, be intentional about extras, and you will get a kitchen that fits your life perfectly and holds its beauty for decades. When you want to know your specific number, a quick estimate or a free design visit will replace guesswork with a plan.</p>
+
+<h2 id="local">Why Treasure Valley costs differ from national averages</h2>
+<p>You will find plenty of national cabinet cost figures online, but the number that matters is the one for your market and your kitchen. Local labor rates, delivery distances, the availability of specific finishes and materials, and the mix of homes a company serves all shift the real range. In the Boise area, a strong local custom shop can often deliver better value than a big-box special order, because you are working directly with the team that designs, builds, and installs your kitchen rather than paying for layers of markup and middlemen. Older Treasure Valley homes with out-of-square walls and newer builds with soaring ceilings both push toward custom, since standard sizes leave gaps and wasted space that custom fills. The upshot is simple: use national averages as a loose sanity check, but trust a real local quote for your actual budget. A company that measures your space and puts a written scope in your hands is giving you a number you can plan around, not a nationwide guess.</p>
+
+<h2 id="financing">Budgeting and phasing the investment</h2>
+<p>Because cabinets are a significant investment, it helps to think about how the spend fits your broader kitchen budget and timeline. Cabinets typically represent one of the largest single line items in a kitchen project, so decide early how much of your total you want to allocate there versus countertops, appliances, and finishes. If the ideal kitchen stretches beyond this year's budget, phasing is a legitimate strategy: buy quality cabinets built to last now, and add accessories, an island upgrade, or a specialty piece later, rather than compromising on the construction you cannot easily change. Some homeowners also explore financing to spread a remodel over time; whatever route you take, the principle holds — put your dollars into the parts that are hard to change later, and treat the easily-swapped details as things you can upgrade down the road. A good designer will help you prioritize so your money lands where it delivers the most daily value, and will be transparent about what each choice adds before you commit.</p>
+<p>It is also worth remembering what you are actually buying. Cabinets are among the most-touched, longest-lived elements in a home, used every single day for a decade or more, and a well-planned kitchen consistently ranks among the upgrades homeowners are happiest they made. Viewed over that lifespan, the difference between a bargain kitchen and a well-built custom one is often just a few dollars a day — and those dollars buy you drawers that glide, a finish that still looks fresh in year ten, storage sized to your life, and a room you genuinely enjoy being in. That is the real return on a custom kitchen, and it is why so many Treasure Valley homeowners decide the investment is worth it once they see their specific number rather than a scary national headline.</p>
+
+<h2 id="how-we-build">Get your custom cabinet cost from Boise Cabinet Co</h2>
+<p>${AUTHOR} gives Boise, Meridian, Eagle, and Nampa homeowners a real planning range and a written scope for custom <a href="/cabinets/kitchen">kitchen cabinets</a> — built to your exact space with the construction and finishes you choose. Try the <a href="/estimate">online estimator</a>, read the <a href="/guides/boise-cabinet-cost-guide">cost guide</a>, or <a href="/contact">book a free in-home consultation</a> for an accurate, no-pressure number.</p>
+`;
+
+const standardCabinetSizesContent = `
+<p class="text-lg">Standard kitchen cabinets come in predictable sizes. <strong>Base cabinets</strong> are 24 inches deep and 34.5 inches tall (36 inches with the countertop), in widths from 9 to 48 inches. <strong>Wall (upper) cabinets</strong> are 12 to 15 inches deep and 30, 36, or 42 inches tall, typically mounted 18 inches above the counter. <strong>Tall cabinets</strong> (pantries and utility) run 84 to 96 inches tall and 12 to 24 inches deep. Widths for all types come in 3-inch increments. Custom cabinets can be built to any dimension, which is how you fit odd spaces and tall ceilings that standard sizes cannot.</p>
+
+<div class="summary-block">
+  <p><strong>Key takeaways:</strong> Base = 24" deep, 34.5" tall, 9–48" wide. Wall = 12–15" deep, 30–42" tall, mounted 18" above the counter. Tall = 84–96" tall. Widths step in 3" increments. Custom builds to any size for a perfect fit. <a href="/estimate">Plan your kitchen</a> or browse <a href="/cabinets/kitchen">kitchen cabinets</a>.</p>
+</div>
+
+<h2 id="base">Base cabinet dimensions</h2>
+<p>Base cabinets sit on the floor and carry the countertop, and their dimensions are the backbone of every kitchen. The <strong>standard height is 34.5 inches</strong>, which becomes 36 inches once a typical countertop is added — the comfortable working height for most people. The <strong>standard depth is 24 inches</strong> (about 25 inches with the countertop overhang), deep enough to store most cookware and to sit under a standard countertop. <strong>Widths run from 9 to 48 inches in 3-inch increments</strong> (9, 12, 15, 18, and so on), so designers can combine cabinets to fill a run. Base cabinets come as door cabinets, drawer banks, sink bases, and specialty units like corner cabinets and cooktop bases.</p>
+<table>
+  <thead><tr><th>Base cabinet</th><th>Standard dimension</th></tr></thead>
+  <tbody>
+    <tr><td>Height (without counter)</td><td>34.5"</td></tr>
+    <tr><td>Height (with counter)</td><td>36"</td></tr>
+    <tr><td>Depth</td><td>24" (25" with overhang)</td></tr>
+    <tr><td>Widths</td><td>9"–48" in 3" increments</td></tr>
+    <tr><td>Toe kick</td><td>~4.5" tall, 3" deep</td></tr>
+  </tbody>
+</table>
+
+<h2 id="wall">Wall (upper) cabinet dimensions</h2>
+<p>Wall cabinets hang above the counter and hold everyday dishes and glassware. The <strong>standard depth is 12 inches</strong>, though 15- and even 24-inch-deep uppers appear over refrigerators and in some modern designs. <strong>Heights are typically 30, 36, or 42 inches</strong> — a 30-inch cabinet leaves a soffit or open space above, 36 inches is common, and 42-inch cabinets run nearly to an 8-foot ceiling for maximum storage and a built-in look. Wall cabinets are usually <strong>mounted 18 inches above the countertop</strong>, which balances reach with enough clearance for small appliances and backsplash. Like base cabinets, widths step in 3-inch increments.</p>
+<table>
+  <thead><tr><th>Wall cabinet</th><th>Standard dimension</th></tr></thead>
+  <tbody>
+    <tr><td>Depth</td><td>12" (15" or 24" for special uses)</td></tr>
+    <tr><td>Heights</td><td>30", 36", 42"</td></tr>
+    <tr><td>Mounting height above counter</td><td>18"</td></tr>
+    <tr><td>Widths</td><td>9"–48" in 3" increments</td></tr>
+  </tbody>
+</table>
+
+<h2 id="tall">Tall cabinet dimensions</h2>
+<p>Tall cabinets — pantries, utility, and oven cabinets — run floor to near-ceiling for maximum storage. <strong>Heights are typically 84, 90, or 96 inches</strong> to suit 8- to 9-foot ceilings, and <strong>depths are 12 or 24 inches</strong> (12-inch for shallow pantries, 24-inch to align with base cabinets and house ovens or deep pull-outs). Widths generally range from 18 to 36 inches. Tall cabinets are workhorses for storage and are one of the clearest places custom sizing pays off, since a stock 84-inch pantry can leave an awkward gap under a 9-foot ceiling that a custom cabinet fills cleanly.</p>
+
+<h2 id="drawers-clearances">Drawers, spacing, and clearances</h2>
+<p>Beyond the boxes, a few dimensions make a kitchen work. Comfortable <strong>walkways</strong> are at least 36 to 42 inches wide, and 42 to 48 inches between opposing runs or an island so drawers and appliances can open. An <strong>island</strong> needs clearance on all sides for seating and traffic. Drawer heights vary by function — shallow for utensils, deep for pots — and are a major reason to plan a drawer-heavy base run. Standard <strong>toe kicks</strong> are about 4.5 inches tall and 3 inches deep so you can stand close to the counter comfortably. Getting these clearances right is as important as the cabinet sizes themselves, because a technically correct kitchen with cramped walkways still feels wrong.</p>
+
+<h2 id="standard-vs-custom">Standard vs custom sizing</h2>
+<p>Standard sizes exist because they cover most kitchens efficiently and keep stock and semi-custom cabinets affordable. But real homes are full of exceptions — a 9-foot ceiling, an out-of-square wall, a bump-out, a window that lands at an awkward height, or a wish for a 46-inch sink base that no stock line offers. That is where custom sizing earns its keep: cabinets built to your exact dimensions eliminate filler gaps, use every inch of an unusual space, and let you size drawers and cabinets to your actual cookware and habits. If your kitchen is standard, stock sizes may serve you well; if it is not, custom turns a compromise into a perfect fit.</p>
+
+<h2 id="ada">Accessible and universal dimensions</h2>
+<p>If accessibility matters, a few adjusted dimensions make a kitchen work for every age and ability. Lowering a section of counter to about 34 inches, providing knee clearance under a sink or cooktop, using drawers instead of low doors for easy reach, and choosing D-shaped pulls all improve usability. These universal-design touches are easy to plan into a custom kitchen and are a smart investment for aging in place. Our team can incorporate them from the first design conversation so the kitchen works beautifully now and for decades.</p>
+
+<h2 id="how-to-measure">How to use these dimensions to plan</h2>
+<p>Knowing the standards lets you sketch a realistic plan. Measure your room precisely — wall lengths, ceiling height, and the location of windows, doors, and utilities — then lay in base cabinets, uppers, and tall units using the standard sizes, keeping walkways and clearances in mind. Where standard sizes leave gaps or fight your ceiling height, that is exactly where custom cabinets solve the problem. If measuring and space-planning feels daunting, a designer does it for you: we measure, plan the layout around your real space and habits, and confirm every dimension before anything is built.</p>
+
+<h2 id="bottom-line">The bottom line</h2>
+<p>Standard kitchen cabinet sizes — 24-inch-deep, 34.5-inch-tall bases; 12-inch-deep, 30-to-42-inch-tall uppers; 84-to-96-inch tall cabinets, all in 3-inch width increments — are the framework nearly every kitchen is built on. They are efficient and affordable, and for a standard room they work well. But the moment your ceilings, walls, or wish list step outside the standard grid, custom sizing is what turns "close enough" into a kitchen that fits perfectly and uses every inch. Whether you plan with standard sizes or build to custom dimensions, the goal is the same: comfortable clearances, smart storage, and a layout that feels effortless to live in.</p>
+
+<h2 id="appliances">Planning cabinet sizes around appliances</h2>
+<p>Appliances quietly dictate a lot of your cabinet dimensions, so plan them together rather than as an afterthought. A standard range or slide-in cooktop needs a 30- or 36-inch opening, and the base cabinets on either side must be sized to leave that gap exactly. Dishwashers require a 24-inch opening, usually beside the sink base, and refrigerators need both the right width and enough depth and height clearance — counter-depth models change the cabinet plan around them. Over-the-range microwaves and hoods set the height of the cabinet above the cooktop, and a wall oven needs a tall cabinet built to its specific cutout. Because appliance sizes are not always perfectly standard, a common frustration with stock cabinets is discovering that a new refrigerator or range does not quite fit the opening you have. Custom cabinets sidestep this by building the openings to your actual appliances, which is one more reason odd or high-end appliance packages tend to point toward custom. Confirm every appliance's specifications before finalizing the cabinet layout, and leave a little clearance for installation and airflow.</p>
+
+<h2 id="mistakes">Common cabinet sizing mistakes to avoid</h2>
+<p>A few sizing errors show up again and again, and all of them are avoidable with a little planning. The most common is forgetting clearances — packing in cabinets and an island until the walkways are too tight, so drawers and the dishwasher door collide with the island when open. Another is ignoring ceiling height: pairing 30-inch wall cabinets with a 9-foot ceiling leaves a large, awkward gap, when 42-inch cabinets or a stacked upper design would use the space beautifully. People also underestimate how much they will love drawers over low doors, and end up crouching to reach the back of a base cabinet that could have been a smooth-gliding drawer bank. Mismatched filler and end-panel details, cabinets that crowd a window casing, and toe kicks that are too shallow to stand comfortably at the counter all trace back to skipping careful measurement. The fix is the same in every case: measure precisely, plan around real clearances and your ceiling height, and when the standard grid fights your space, use custom sizing rather than forcing a compromise. A designer catches these issues on paper, long before anything is built, which is the cheapest possible place to fix them.</p>
+<p>One last tip: when you measure, always note the ceiling height and the exact locations of windows, doors, outlets, switches, and plumbing, not just the wall lengths. Those details determine which standard sizes actually work and where a custom cabinet is the only clean solution. A wall that is a few inches shorter than a tidy combination of standard widths, or a window sill that lands two inches into where an upper cabinet wants to go, is exactly the kind of thing that turns a paper-perfect plan into an on-site headache. Measuring thoroughly up front, or letting a designer do it for you, is what keeps your beautiful layout from meeting an ugly surprise on installation day.</p>
+
+<h2 id="how-we-build">Plan your kitchen with Boise Cabinet Co</h2>
+<p>${AUTHOR} designs custom <a href="/cabinets/kitchen">kitchen cabinets</a> in standard and fully custom sizes for homes across Boise, Meridian, Eagle, and Nampa — measured to your exact space, with the clearances and storage planned around how you cook. <a href="/estimate">Get a planning range</a>, browse <a href="/door-styles">door styles</a> and <a href="/finishes">finishes</a>, or <a href="/contact">book a free in-home consultation</a> and we will handle the measuring and layout for you.</p>
+`;
+
 export const PREMIUM_POSTS: BlogPostData[] = [
   {
     slug: 'framed-vs-frameless-cabinets',
@@ -1043,6 +1213,129 @@ export const PREMIUM_POSTS: BlogPostData[] = [
     primaryKeyword: 'cabinet cost per linear foot',
     secondaryKeywords: ['kitchen cabinet cost per foot', 'cabinet pricing boise', 'how much do cabinets cost', 'custom cabinet cost'],
     searchIntent: 'Commercial / cost — homeowners budgeting cabinets',
+    wordCountTarget: 'pillar',
+  },
+  {
+    slug: 'what-are-rta-cabinets',
+    title: 'What Are RTA Cabinets? (Pros, Cons & Alternatives)',
+    seoTitle: 'What Are RTA Cabinets? Pros, Cons & How to Choose',
+    metaDescription:
+      'RTA (ready-to-assemble) cabinets explained: what they are, the pros and cons, how to judge quality, cost, and when custom is the better choice.',
+    excerpt:
+      'RTA cabinets ship flat and you assemble them to save money. Here is how they work, their real pros and cons, how to judge quality, and when custom is worth it instead.',
+    content: rtaCabinetsContent,
+    author: AUTHOR,
+    category: 'Kitchen Cabinets',
+    hubSlug: 'kitchen-cabinets',
+    tags: ['rta', 'ready to assemble', 'budget', 'compare', 'kitchen'],
+    publishedAt: '2026-07-11',
+    faqs: [
+      { question: 'What does RTA mean for cabinets?', answer: 'RTA stands for ready-to-assemble. The cabinets ship flat in a box as a kit of panels, doors, and hardware, and you or an installer assemble each cabinet on site using included dowels, cam locks, and screws before mounting them.' },
+      { question: 'Are RTA cabinets good quality?', answer: 'It varies widely. RTA spans everything from solid plywood boxes with dovetailed drawers to flimsy particleboard held together with staples. Judge each line by its box material, drawer construction, and hinges rather than assuming RTA is either good or bad.' },
+      { question: 'Are RTA cabinets cheaper than custom?', answer: 'Yes, significantly. Because you assemble them yourself and flat-packing lowers shipping costs, RTA is usually the least expensive option and a fraction of the price of custom cabinets built to your exact space.' },
+      { question: 'How long do RTA cabinets take to assemble?', answer: 'Each cabinet typically takes 20 to 45 minutes, so a full kitchen is a weekend-or-more project. Keeping every box perfectly square is critical, since an out-of-square cabinet will hang crooked and throw off the doors.' },
+      { question: 'Who should buy RTA cabinets?', answer: 'RTA suits tight budgets, standard layouts, rentals and flips, and homeowners comfortable with careful assembly. It is less ideal for out-of-square walls, tall ceilings, specific finishes, or anyone who does not want to build cabinets themselves.' },
+      { question: 'What is the alternative to RTA cabinets?', answer: 'The main alternative is custom (or semi-custom) cabinets, which are built to your exact dimensions, come pre-assembled and professionally installed, and let you specify premium construction and finishes. Custom costs more but delivers an exact fit and longer life.' },
+    ],
+    quickAnswer:
+      'RTA (ready-to-assemble) cabinets ship flat and you assemble them yourself to save money. They suit tight budgets, standard layouts, and DIY-comfortable homeowners, but quality varies widely and sizes are fixed. For an exact fit and premium construction, custom cabinets are the better long-term value.',
+    keyTakeaways: [
+      'RTA = flat-pack cabinets you assemble to save money.',
+      'Quality ranges from excellent to poor — inspect box, drawers, hinges.',
+      'Best for budget/standard layouts; custom wins for fit and longevity.',
+    ],
+    relatedLinks: [
+      { url: '/guides/boise-kitchen-cabinet-guide', anchor: 'Kitchen Cabinets' },
+      { url: '/compare', anchor: 'Compare our cabinets' },
+      { url: '/blog/stock-vs-custom-cabinets-boise', anchor: 'Stock vs custom cabinets' },
+      { url: '/blog/cabinet-construction-quality-guide', anchor: 'Cabinet construction quality' },
+      { url: '/cabinets' },
+    ],
+    primaryKeyword: 'what are rta cabinets',
+    secondaryKeywords: ['rta cabinets', 'ready to assemble cabinets', 'rta vs custom cabinets', 'are rta cabinets good'],
+    searchIntent: 'Informational — homeowners researching RTA cabinets',
+    wordCountTarget: 'pillar',
+  },
+  {
+    slug: 'custom-kitchen-cabinet-cost',
+    title: 'How Much Do Custom Kitchen Cabinets Cost? (2026 Guide)',
+    seoTitle: 'How Much Do Custom Kitchen Cabinets Cost? (2026)',
+    metaDescription:
+      'Custom kitchen cabinets cost about $500–$1,200+ per linear foot, or $15,000–$45,000+ for a kitchen. What drives the price, tier comparison, and how to estimate.',
+    excerpt:
+      'Custom kitchen cabinets run about $15,000–$45,000+ installed. Here is what drives the cost, how tiers compare, whether custom is worth it, and how to estimate your project.',
+    content: customCabinetCostContent,
+    author: AUTHOR,
+    category: 'Boise Cabinet Costs',
+    hubSlug: 'cabinet-costs',
+    tags: ['cost', 'custom', 'budget', 'kitchen', 'boise'],
+    publishedAt: '2026-07-11',
+    faqs: [
+      { question: 'How much do custom kitchen cabinets cost?', answer: 'Custom kitchen cabinets typically cost about $500 to $1,200 or more per linear foot installed, which puts a full custom kitchen in the range of roughly $15,000 to $45,000+ depending on size, materials, finish, and complexity.' },
+      { question: 'What drives the cost of custom cabinets?', answer: 'The biggest factors are the size of the kitchen, construction quality (plywood boxes and dovetailed drawers cost more), finish (painted and specialty finishes cost more than basic stain), door style, and the number of drawers and specialty cabinets. Layout complexity and installation also add labor.' },
+      { question: 'Are custom kitchen cabinets worth the money?', answer: 'For a home you will keep 10 or more years, custom is usually worth it for the exact fit, maximized storage, finish you love, and construction that lasts. For short-term homes or standard layouts on a tight budget, stock or semi-custom can be the smarter financial choice.' },
+      { question: 'What is included in a custom cabinet price?', answer: 'A complete price generally includes the cabinets, door style and finish, hardware, delivery, and professional installation. It usually does not include countertops, sink and faucet, backsplash, appliances, lighting, or electrical and plumbing changes.' },
+      { question: 'How can I lower my custom cabinet cost?', answer: 'Invest in construction and the cabinets you use most, choose a timeless door style and a standard-but-beautiful finish over exotic options, keep the layout efficient, and consider phasing extras like accessories or an island upgrade for later.' },
+      { question: 'How do I get an accurate cabinet estimate?', answer: 'Measure your base-cabinet runs and multiply by a per-foot rate for your tier, then add for an island, tall cabinets, and premium finish or hardware. For accuracy, use a guided online estimator or an in-home design visit that produces a written scope.' },
+    ],
+    quickAnswer:
+      'Custom kitchen cabinets typically cost $500 to $1,200+ per linear foot installed, or roughly $15,000 to $45,000+ for a full kitchen, depending on size, construction, finish, and specialty cabinets. The most accurate number comes from a design and a written scope.',
+    keyTakeaways: [
+      'Custom runs ~$500–$1,200+ per linear foot, ~$15k–$45k+ per kitchen.',
+      'Size, construction, finish, and specialty cabinets drive the price.',
+      'Spend on the bones and daily-use cabinets; be selective on extras.',
+    ],
+    relatedLinks: [
+      { url: '/guides/boise-cabinet-cost-guide', anchor: 'Boise Cabinet Cost Guide' },
+      { url: '/estimate', anchor: 'Online estimator' },
+      { url: '/blog/cabinet-cost-per-linear-foot', anchor: 'Cost per linear foot' },
+      { url: '/blog/stock-vs-custom-cabinets-boise', anchor: 'Stock vs custom cabinets' },
+      { url: '/cabinets/kitchen' },
+    ],
+    primaryKeyword: 'custom kitchen cabinet cost',
+    secondaryKeywords: ['how much do custom cabinets cost', 'cost of custom kitchen cabinets', 'custom cabinet price', 'kitchen cabinet cost 2026'],
+    searchIntent: 'Commercial / cost — homeowners budgeting custom cabinets',
+    wordCountTarget: 'pillar',
+  },
+  {
+    slug: 'standard-kitchen-cabinet-sizes',
+    title: 'Standard Kitchen Cabinet Sizes and Dimensions (Charts)',
+    seoTitle: 'Standard Kitchen Cabinet Sizes & Dimensions (Charts)',
+    metaDescription:
+      'Standard kitchen cabinet sizes: base, wall, and tall cabinet dimensions, widths, mounting heights, and clearances — with charts and when to go custom.',
+    excerpt:
+      'Base cabinets are 24" deep and 34.5" tall; wall cabinets 12" deep; tall cabinets 84–96". Here are the standard kitchen cabinet dimensions with charts, plus clearances and when custom sizing wins.',
+    content: standardCabinetSizesContent,
+    author: AUTHOR,
+    category: 'Kitchen Cabinets',
+    hubSlug: 'kitchen-cabinets',
+    tags: ['sizes', 'dimensions', 'base cabinets', 'wall cabinets', 'kitchen'],
+    publishedAt: '2026-07-11',
+    faqs: [
+      { question: 'What is the standard depth of kitchen base cabinets?', answer: 'Standard base cabinets are 24 inches deep (about 25 inches with the countertop overhang) and 34.5 inches tall, which becomes 36 inches once a typical countertop is added.' },
+      { question: 'What are standard wall cabinet dimensions?', answer: 'Standard wall (upper) cabinets are 12 inches deep and come in 30, 36, or 42 inch heights, mounted about 18 inches above the countertop. Deeper 15- or 24-inch uppers are used over refrigerators and in some designs.' },
+      { question: 'How tall are kitchen cabinets?', answer: 'Base cabinets are 34.5 inches tall (36 with counter). Wall cabinets are 30 to 42 inches tall and mounted 18 inches above the counter. Tall pantry and utility cabinets run 84 to 96 inches to suit 8- to 9-foot ceilings.' },
+      { question: 'What increments do cabinet widths come in?', answer: 'Standard cabinet widths step in 3-inch increments, typically from 9 to 48 inches (9, 12, 15, 18, and so on), so designers can combine cabinets to fill a run. Custom cabinets can be built to any width.' },
+      { question: 'How much space should be between cabinets and an island?', answer: 'Allow at least 36 to 42 inches of walkway, and 42 to 48 inches between opposing cabinet runs or an island, so drawers, doors, and appliances can open comfortably and two people can pass.' },
+      { question: 'When should I use custom cabinet sizes instead of standard?', answer: 'Custom sizing is worth it when your ceilings are tall, your walls are out of square, you have a bump-out or awkward window, or you want a cabinet no stock line offers. Custom eliminates filler gaps and uses every inch of an unusual space.' },
+    ],
+    quickAnswer:
+      'Standard base cabinets are 24 inches deep and 34.5 inches tall (36 with counter); wall cabinets are 12 inches deep and 30 to 42 inches tall, mounted 18 inches above the counter; tall cabinets run 84 to 96 inches. Widths step in 3-inch increments, and custom cabinets can be any size for a perfect fit.',
+    keyTakeaways: [
+      'Base: 24" deep, 34.5" tall; Wall: 12" deep, 30–42" tall; Tall: 84–96".',
+      'Widths come in 3" increments; uppers mount 18" above the counter.',
+      'Custom sizing fits tall ceilings and odd walls that standards cannot.',
+    ],
+    relatedLinks: [
+      { url: '/guides/boise-kitchen-cabinet-guide', anchor: 'Kitchen Cabinets' },
+      { url: '/cabinets/kitchen', anchor: 'Kitchen cabinets' },
+      { url: '/blog/cabinet-door-styles-guide', anchor: 'Cabinet door styles' },
+      { url: '/estimate', anchor: 'Plan your kitchen' },
+      { url: '/cabinets' },
+    ],
+    primaryKeyword: 'standard kitchen cabinet sizes',
+    secondaryKeywords: ['kitchen cabinet dimensions', 'base cabinet dimensions', 'wall cabinet height', 'standard cabinet sizes'],
+    searchIntent: 'Informational — homeowners planning kitchen cabinet dimensions',
     wordCountTarget: 'pillar',
   },
 ];

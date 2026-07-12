@@ -25,6 +25,24 @@ const ENTRIES = {
     topicTags: ["frameless", "framed", "kitchen", "cabinets"],
     source: "blog",
   },
+  "what-are-rta-cabinets": {
+    hero: blog("what-are-rta-cabinets"),
+    alt: "Real completed budget-friendly Treasure Valley kitchen with warm natural white oak flat-panel cabinets, black bar pulls, and quartz counters",
+    topicTags: ["rta", "kitchen", "cabinets"],
+    source: "blog",
+  },
+  "custom-kitchen-cabinet-cost": {
+    hero: blog("custom-kitchen-cabinet-cost"),
+    alt: "Real completed luxury custom kitchen in a Treasure Valley home with navy blue and white two-tone cabinets, brass hardware, and a marble-look quartz island",
+    topicTags: ["cost", "custom", "kitchen"],
+    source: "blog",
+  },
+  "standard-kitchen-cabinet-sizes": {
+    hero: blog("standard-kitchen-cabinet-sizes"),
+    alt: "Real completed white Shaker kitchen in a Treasure Valley family home showing a full wall of base cabinets, upper cabinets, and a tall pantry",
+    topicTags: ["sizes", "dimensions", "kitchen"],
+    source: "blog",
+  },
   // —— Cabinet costs (8) ——
   "kitchen-cabinet-cost-boise": {
     hero: cs("kitchen-remodel", "boise"),
@@ -518,7 +536,7 @@ const HUB_HEROES = {
 
 const GUIDE_START = "boise-cabinet-cost-guide";
 const blogSlugsFromEntries = Object.keys(ENTRIES).slice(0, Object.keys(ENTRIES).indexOf(GUIDE_START));
-const EXPECTED_BLOG = 57;
+const EXPECTED_BLOG = 60;
 const EXPECTED_GUIDES = 17;
 
 if (blogSlugsFromEntries.length !== EXPECTED_BLOG) {

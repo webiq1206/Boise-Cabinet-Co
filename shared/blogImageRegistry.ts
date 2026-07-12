@@ -21,6 +21,24 @@ export const BLOG_IMAGE_REGISTRY: Record<string, BlogImageEntry> = {
     topicTags: ["frameless","framed","kitchen","cabinets"],
     source: 'blog',
   },
+  'what-are-rta-cabinets': {
+    hero: '/images/blog/what-are-rta-cabinets.png',
+    alt: 'Real completed budget-friendly Treasure Valley kitchen with warm natural white oak flat-panel cabinets, black bar pulls, and quartz counters',
+    topicTags: ["rta","kitchen","cabinets"],
+    source: 'blog',
+  },
+  'custom-kitchen-cabinet-cost': {
+    hero: '/images/blog/custom-kitchen-cabinet-cost.png',
+    alt: 'Real completed luxury custom kitchen in a Treasure Valley home with navy blue and white two-tone cabinets, brass hardware, and a marble-look quartz island',
+    topicTags: ["cost","custom","kitchen"],
+    source: 'blog',
+  },
+  'standard-kitchen-cabinet-sizes': {
+    hero: '/images/blog/standard-kitchen-cabinet-sizes.png',
+    alt: 'Real completed white Shaker kitchen in a Treasure Valley family home showing a full wall of base cabinets, upper cabinets, and a tall pantry',
+    topicTags: ["sizes","dimensions","kitchen"],
+    source: 'blog',
+  },
   'kitchen-cabinet-cost-boise': {
     hero: '/images/city-service/kitchen-remodel__boise.webp',
     alt: 'Custom kitchen cabinets installed in a Boise home with warm finishes and quartz counters',

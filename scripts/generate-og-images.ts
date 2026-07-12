@@ -22,7 +22,6 @@ fs.mkdirSync(outDir, { recursive: true });
 
 const MONT_300 = fs.readFileSync(path.join(ogAssets, 'montserrat-300.woff'));
 const MONT_600 = fs.readFileSync(path.join(ogAssets, 'montserrat-600.woff'));
-const EMBLEM = `data:image/png;base64,${fs.readFileSync(path.join(ogAssets, 'emblem.png')).toString('base64')}`;
 const DEFAULT_BG = path.join(root, 'public', 'images', 'marketing', 'hero-home.webp');
 
 // Minimal hyperscript for satori (React-element shape), dropping empty children.
@@ -44,7 +43,9 @@ async function backgroundDataUri(slug: string): Promise<string | null> {
 }
 
 async function renderCard(title: string, bg: string | null): Promise<Buffer> {
-  const titleSize = title.length > 82 ? 50 : title.length > 56 ? 58 : 68;
+  // Scale the title down as it gets longer so long titles never overflow the
+  // safe margins or run into the bottom edge.
+  const titleSize = title.length > 84 ? 46 : title.length > 62 ? 54 : title.length > 44 ? 60 : 66;
   const tree = h(
     'div',
     { style: { width: 1200, height: 630, display: 'flex', position: 'relative', backgroundColor: '#1C1F1E' } },
@@ -63,25 +64,24 @@ async function renderCard(title: string, bg: string | null): Promise<Buffer> {
     }),
     // Sage top accent line
     h('div', { style: { position: 'absolute', top: 0, left: 0, right: 0, height: 8, backgroundColor: '#5D6561' } }),
-    // Seal, top-left
-    h('img', { src: EMBLEM, width: 96, height: 96, style: { position: 'absolute', top: 54, left: 64 } }),
-    // Eyebrow + title, bottom-left
+    // Eyebrow + title, bottom-left. Generous margins (72px sides, 78px bottom
+    // ~= 6% safe zone) keep the title clear of platform crop edges.
     h(
       'div',
-      { style: { position: 'absolute', left: 64, right: 64, bottom: 60, display: 'flex', flexDirection: 'column' } },
+      { style: { position: 'absolute', left: 72, right: 72, bottom: 78, display: 'flex', flexDirection: 'column' } },
       h(
         'div',
         { style: { display: 'flex', alignItems: 'center', marginBottom: 18 } },
         h('div', { style: { width: 44, height: 2, backgroundColor: '#5D6561', marginRight: 16 } }),
         h(
           'div',
-          { style: { display: 'flex', fontFamily: 'Montserrat', fontWeight: 600, fontSize: 19, letterSpacing: 3, color: '#E6E3DE' } },
+          { style: { display: 'flex', fontFamily: 'Montserrat', fontWeight: 600, fontSize: 18, letterSpacing: 2, color: '#E6E3DE' } },
           'BOISE CABINET CO · BOISECABINET.CO',
         ),
       ),
       h(
         'div',
-        { style: { display: 'flex', fontFamily: 'Montserrat', fontWeight: 300, fontSize: titleSize, lineHeight: 1.06, letterSpacing: -1, color: '#F7F5F3', maxWidth: 1020 } },
+        { style: { display: 'flex', fontFamily: 'Montserrat', fontWeight: 300, fontSize: titleSize, lineHeight: 1.08, letterSpacing: -1, color: '#F7F5F3', maxWidth: 1044 } },
         title,
       ),
     ),
