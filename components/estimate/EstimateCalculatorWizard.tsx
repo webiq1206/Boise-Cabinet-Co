@@ -193,6 +193,7 @@ function SelectButton<T extends string>({
   svgStyle,
   columns = 2,
   aspectClass,
+  gridClassName,
 }: {
   value: T | "";
   options: SelectOption<T>[];
@@ -392,19 +393,23 @@ function SizeSlider({
           <span className="text-sm text-muted-foreground">Drag to set</span>
         )}
       </div>
-      <input
-        type="range"
-        className="brc-slider w-full min-h-[44px]"
-        min={min}
-        max={max}
-        step={step}
-        value={value ?? min}
-        aria-label={label}
-        aria-valuetext={value != null ? `${value} ${unitNoun}` : "Not set"}
-        onChange={(e) => onChange(Number(e.target.value))}
-        style={{ background }}
-        data-testid={testId}
-      />
+      {/* Generous vertical touch area around the thin visual track. */}
+      <div className="py-2">
+        <input
+          type="range"
+          className="brc-slider block w-full"
+          min={min}
+          max={max}
+          step={step}
+          value={value ?? min}
+          aria-label={label}
+          aria-valuetext={value != null ? `${value} ${unitNoun}` : "Not set"}
+          onChange={(e) => onChange(Number(e.target.value))}
+          style={{ background }}
+          data-unset={value == null ? "true" : undefined}
+          data-testid={testId}
+        />
+      </div>
       <div className="flex justify-between text-[10px] text-muted-foreground">
         <span>
           <DisplayNum>{min.toLocaleString()}</DisplayNum> {unitShort}

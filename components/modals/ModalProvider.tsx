@@ -49,8 +49,11 @@ export function ModalProvider({ children }: { children: React.ReactNode }) {
 
       <Dialog open={open} onOpenChange={(v) => !v && close()}>
         {/* Bounded flex column so the estimator fills exactly the dialog and pins
-            its own CTA — the quote flow never scrolls the page or the dialog. */}
-        <DialogContent className="flex max-w-4xl w-[100vw] sm:w-[95vw] h-[100dvh] sm:h-[min(88dvh,720px)] flex-col overflow-hidden rounded-none p-4 sm:rounded-lg sm:p-6">
+            its own CTA - the quote flow never scrolls the page or the dialog. On
+            mobile the sheet starts just below the sticky site header (so its title
+            is never clipped behind the nav) and fills the rest of the screen; on
+            desktop it is a centered, capped-height card. */}
+        <DialogContent className="flex max-w-4xl w-[100vw] sm:w-[95vw] flex-col overflow-hidden rounded-none p-4 sm:rounded-lg sm:p-6 top-[var(--app-header-h,61px)] !translate-y-0 h-[calc(100dvh-var(--app-header-h,61px))] sm:!top-1/2 sm:!-translate-y-1/2 sm:h-[min(88dvh,720px)]">
           <DialogHeader className="shrink-0">
             <DialogTitle className="font-sans font-light text-xl text-foreground">
               Get your free quote
