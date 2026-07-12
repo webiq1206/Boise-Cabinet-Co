@@ -78,44 +78,72 @@ export function AnimatedPrice({ value }: { value: number }) {
 
 const SCOPE_PREVIEW_COUNT = 5;
 
-function IncludedSection({ included, project }: { included: string[]; project?: ProjectType }) {
+function IncludedSection({
+  included,
+  project,
+  collapsible = false,
+}: {
+  included: string[];
+  project?: ProjectType;
+  /** Start collapsed behind a single toggle (keeps the result step on one screen). */
+  collapsible?: boolean;
+}) {
   const [showAll, setShowAll] = useState(false);
+  // When collapsible, nothing is shown until the visitor opens it.
+  const [open, setOpen] = useState(!collapsible);
   const hasMore = included.length > SCOPE_PREVIEW_COUNT;
   const visible = showAll ? included : included.slice(0, SCOPE_PREVIEW_COUNT);
 
   return (
-    <div className="mb-6" data-testid="typically-included-section">
-      <p className="text-[11px] font-medium mb-2 text-inverse-foreground/90">
-        What&apos;s typically included
-      </p>
-      <div className="space-y-2 mb-2">
-        {visible.map((item, i) => (
-          <div
-            key={i}
-            className="flex items-start gap-2 text-xs leading-relaxed text-inverse-muted"
-            data-testid={`included-item-${i}`}
-          >
-            <Check className="h-3.5 w-3.5 flex-shrink-0 mt-0.5 text-inverse-muted" />
-            {item}
-          </div>
-        ))}
-      </div>
-      {hasMore && (
+    <div className={collapsible ? "mb-3" : "mb-6"} data-testid="typically-included-section">
+      {collapsible ? (
         <button
           type="button"
-          onClick={() => setShowAll((prev) => !prev)}
-          className="text-[11px] text-inverse-foreground/70 underline underline-offset-2 mb-3 hover:text-inverse-foreground transition-colors"
-          data-testid="button-toggle-scope"
+          onClick={() => setOpen((o) => !o)}
+          aria-expanded={open}
+          className="flex w-full items-center justify-between gap-2 rounded-sm border border-inverse-foreground/15 bg-inverse-foreground/5 px-3 py-2 text-left text-[12px] font-medium text-inverse-foreground/90 min-h-10"
+          data-testid="button-toggle-included"
         >
-          {showAll ? "Show less" : `Show all (${included.length})`}
+          <span>What&apos;s typically included</span>
+          <span className="text-inverse-muted">{open ? "Hide" : `Show ${included.length}`}</span>
         </button>
-      )}
-      {!hasMore && <div className="mb-3" />}
-      <p className="text-[10px] leading-relaxed text-inverse-muted">{INCLUDED_SCOPE_NOTE}</p>
-      {project === "kitchen" && (
-        <p className="text-[10px] leading-relaxed text-inverse-muted mt-2" data-testid="appliance-disclaimer">
-          {APPLIANCE_DISCLAIMER}
+      ) : (
+        <p className="text-[11px] font-medium mb-2 text-inverse-foreground/90">
+          What&apos;s typically included
         </p>
+      )}
+      {open && (
+        <>
+          <div className="space-y-2 mb-2 mt-2">
+            {visible.map((item, i) => (
+              <div
+                key={i}
+                className="flex items-start gap-2 text-xs leading-relaxed text-inverse-muted"
+                data-testid={`included-item-${i}`}
+              >
+                <Check className="h-3.5 w-3.5 flex-shrink-0 mt-0.5 text-inverse-muted" />
+                {item}
+              </div>
+            ))}
+          </div>
+          {hasMore && (
+            <button
+              type="button"
+              onClick={() => setShowAll((prev) => !prev)}
+              className="text-[11px] text-inverse-foreground/70 underline underline-offset-2 mb-3 hover:text-inverse-foreground transition-colors"
+              data-testid="button-toggle-scope"
+            >
+              {showAll ? "Show less" : `Show all (${included.length})`}
+            </button>
+          )}
+          {!hasMore && <div className="mb-3" />}
+          <p className="text-[10px] leading-relaxed text-inverse-muted">{INCLUDED_SCOPE_NOTE}</p>
+          {project === "kitchen" && (
+            <p className="text-[10px] leading-relaxed text-inverse-muted mt-2" data-testid="appliance-disclaimer">
+              {APPLIANCE_DISCLAIMER}
+            </p>
+          )}
+        </>
       )}
     </div>
   );
@@ -136,6 +164,12 @@ export interface EstimateResultPanelProps {
   className?: string;
   /** Suppress the panel's own CTA (e.g. when the flow's sticky bar owns it). */
   hideCta?: boolean;
+  /**
+   * One-screen density for the wizard's result step: tighter spacing, the
+   * "what's included" list collapsed behind a toggle, marketing lines dropped,
+   * and a condensed disclaimer, so the range + key info fit without scrolling.
+   */
+  compact?: boolean;
 }
 
 export function EstimateResultPanel({
@@ -147,9 +181,11 @@ export function EstimateResultPanel({
   variant = "full",
   className,
   hideCta = false,
+  compact = false,
 }: EstimateResultPanelProps) {
   const isSidebar = variant === "sidebar";
   const isFull = variant === "full";
+  const pad = compact ? "p-5" : isSidebar ? "p-6" : "p-8";
 
   // Nothing priceable yet: show a neutral prompt instead of a fabricated range
   // so we never imply pricing the visitor didn't intentionally create.
@@ -185,21 +221,19 @@ export function EstimateResultPanel({
     <div
       className={cn(
         "rounded-sm bg-inverse text-inverse-foreground shadow-xl",
-        isSidebar ? "p-6" : "p-8",
+        pad,
         className
       )}
       data-testid={isSidebar ? "estimate-side-panel" : "estimate-result-panel"}
     >
-      <div className={cn("flex items-center justify-between", "mb-5")}>
+      <div className={cn("flex items-center justify-between", compact ? "mb-2" : "mb-5")}>
         <div className="brc-label text-inverse-muted">Planning range</div>
         <div className="text-[10px] tracking-wide uppercase px-2 py-1 rounded-sm bg-inverse-foreground/15 text-inverse-foreground/90">
           {result.confidenceLabel}
         </div>
       </div>
 
-      <p
-        className="text-inverse-muted text-xs mb-3"
-      >
+      <p className={cn("text-inverse-muted text-xs", compact ? "mb-2" : "mb-3")}>
         {selectionSummary}
       </p>
 
@@ -208,7 +242,9 @@ export function EstimateResultPanel({
           "leading-none text-inverse-foreground",
           isSidebar
             ? "text-[clamp(26px,2.4vw,34px)] mb-4"
-            : "text-[clamp(28px,3.5vw,44px)] mb-4"
+            : compact
+              ? "text-[clamp(28px,8vw,40px)] mb-3"
+              : "text-[clamp(28px,3.5vw,44px)] mb-4"
         )}
         data-testid="estimate-range"
         aria-live="polite"
@@ -220,14 +256,25 @@ export function EstimateResultPanel({
         <AnimatedPrice value={result.priceHigh} />
       </div>
 
-      {scopeSummary && (
-        <div className="mb-4 rounded-sm p-3 bg-inverse-foreground/6 border border-inverse-foreground/10" data-testid="text-scope-summary">
-          <div className="brc-label text-inverse-muted mb-1">Your selections</div>
-          <p className="text-xs leading-relaxed text-inverse-foreground/90">{scopeSummary}</p>
-        </div>
-      )}
+      {scopeSummary &&
+        (compact ? (
+          <p
+            className="mb-3 text-xs leading-relaxed text-inverse-foreground/80"
+            data-testid="text-scope-summary"
+          >
+            {scopeSummary}
+          </p>
+        ) : (
+          <div
+            className="mb-4 p-3 rounded-sm bg-inverse-foreground/6 border border-inverse-foreground/10"
+            data-testid="text-scope-summary"
+          >
+            <div className="brc-label text-inverse-muted mb-1">Your selections</div>
+            <p className="text-xs leading-relaxed text-inverse-foreground/90">{scopeSummary}</p>
+          </div>
+        ))}
 
-      {isFull && (
+      {isFull && !compact && (
         <p className="hidden sm:block text-xs text-inverse-muted mb-4">
           Based on your inputs. Your exact investment is confirmed at your in-home visit. Typical
           lead time is {CATALOG_CONTENT.leadTime} after your selections are finalized.
@@ -235,10 +282,12 @@ export function EstimateResultPanel({
       )}
 
       {isFull && (
-        <IncludedSection included={result.included} project={project} />
+        <IncludedSection included={result.included} project={project} collapsible={compact} />
       )}
 
-      {(isFull || isSidebar) && (
+      {/* Full confidence meter; in compact mode the header badge already carries
+          the confidence label, so we drop the bar to keep the step on one screen. */}
+      {(isFull || isSidebar) && !compact && (
         <div className={cn(isSidebar ? "mb-4" : "mb-6")}>
           <div className="flex justify-between text-[11px] mb-1.5 text-inverse-muted">
             <span>Details provided</span>
@@ -264,7 +313,7 @@ export function EstimateResultPanel({
       )}
 
       {/* Subtle, credible value proposition reinforced throughout the estimator. */}
-      {(isFull || isSidebar) && (
+      {(isFull || isSidebar) && !compact && (
         <p
           className="hidden sm:block text-[11px] leading-relaxed mb-4 text-inverse-foreground/85"
           data-testid="estimate-value-prop"
@@ -285,16 +334,27 @@ export function EstimateResultPanel({
         </Button>
       )}
 
-      {isFull && (
+      {isFull && !compact && (
         <p className="hidden sm:block text-[11px] text-center mb-5 mt-3 text-inverse-muted">
           Your in-home visit includes a detailed project evaluation and personalized planning guidance.
         </p>
       )}
 
       {(isFull || isSidebar) && (
-        <div className="rounded-sm p-4 flex gap-3 bg-inverse-foreground/6 border border-inverse-foreground/10">
+        <div
+          className={cn(
+            "rounded-sm flex gap-3 bg-inverse-foreground/6 border border-inverse-foreground/10",
+            compact ? "p-2.5" : "p-4",
+          )}
+        >
           <Info className="h-4 w-4 flex-shrink-0 mt-0.5 text-inverse-muted" />
-          <p className="text-[11px] leading-relaxed text-inverse-muted" data-testid="estimate-disclaimer">
+          <p
+            className={cn(
+              "leading-relaxed text-inverse-muted",
+              compact ? "text-[10px]" : "text-[11px]",
+            )}
+            data-testid="estimate-disclaimer"
+          >
             {ESTIMATE_RANGE_DISCLAIMER}
           </p>
         </div>

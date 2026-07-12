@@ -48,6 +48,7 @@ import { extractZipFromAddress } from "@/shared/propertyProfile";
 import { phoneHasEnoughDigits, PHONE_VALIDATION_MESSAGE } from "@/shared/phoneValidation";
 import { SITE_CONFIG } from "@/shared/siteConfig";
 import { useModals } from "@/components/modals/ModalProvider";
+import { cn } from "@/lib/utils";
 
 const formSchema = z.object({
   name: z.string().min(2, "Please enter your full name"),
@@ -113,7 +114,26 @@ function TrustRow() {
   );
 }
 
-function EstimateSummaryCard({ estimate }: { estimate: StoredEstimate }) {
+function EstimateSummaryCard({ estimate, compact = false }: { estimate: StoredEstimate; compact?: boolean }) {
+  if (compact) {
+    // One-line range + project so the submit step fits a single screen.
+    return (
+      <div
+        className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm bg-accent/5 border border-accent/20"
+        data-testid="text-estimate-summary"
+      >
+        <CheckCircle2 className="h-4 w-4 shrink-0 text-accent" />
+        <div className="min-w-0 flex-1">
+          <span className="font-medium text-foreground" data-testid="text-estimate-range">
+            <DisplayNum>
+              {formatPlanningCurrency(estimate.priceLow)} to {formatPlanningCurrency(estimate.priceHigh)}
+            </DisplayNum>
+          </span>
+          <span className="ml-2 text-xs text-muted-foreground">{estimate.projectLabel}</span>
+        </div>
+      </div>
+    );
+  }
   return (
     <div
       className="flex gap-3 rounded-lg p-4 text-sm bg-accent/5 border border-accent/20"
@@ -161,6 +181,8 @@ export interface ConsultationFieldsProps {
   onPendingChange?: (pending: boolean) => void;
   /** Called after a successful submission. */
   onSuccess?: () => void;
+  /** One-screen density (tighter spacing, single-line summary) for the wizard. */
+  compact?: boolean;
 }
 
 export function ConsultationFields({
@@ -172,6 +194,7 @@ export function ConsultationFields({
   hideSubmitButton = false,
   onPendingChange,
   onSuccess,
+  compact = false,
 }: ConsultationFieldsProps) {
   const { close: closeModal } = useModals();
   const [success, setSuccess] = useState(false);
@@ -328,8 +351,8 @@ export function ConsultationFields({
 
   return (
     <Form {...form}>
-      <form id={formId} onSubmit={onSubmit} className="space-y-5">
-        {showEstimateSummary && estimate && <EstimateSummaryCard estimate={estimate} />}
+      <form id={formId} onSubmit={onSubmit} className={compact ? "space-y-3" : "space-y-5"}>
+        {showEstimateSummary && estimate && <EstimateSummaryCard estimate={estimate} compact={compact} />}
 
         {mutation.isError && (
           <div className="rounded-sm p-4 text-sm bg-destructive/5 border border-destructive/20 text-destructive">
@@ -350,8 +373,13 @@ export function ConsultationFields({
           )}
         />
 
-        <div className="space-y-5 rounded-lg border border-border bg-card p-5 shadow-sm sm:p-6">
-          <div className="grid sm:grid-cols-2 gap-4">
+        <div
+          className={cn(
+            "rounded-lg border border-border bg-card shadow-sm",
+            compact ? "space-y-2.5 p-3" : "space-y-5 p-5 sm:p-6",
+          )}
+        >
+          <div className={cn("grid gap-3", compact ? "grid-cols-2" : "sm:grid-cols-2 gap-4")}>
             <FormField
               control={form.control}
               name="name"
@@ -447,7 +475,10 @@ export function ConsultationFields({
             <button
               type="button"
               onClick={() => setDetailsOpen((o) => !o)}
-              className="flex w-full items-center justify-between gap-2 px-3 py-2.5 min-h-11 text-left text-sm text-muted-foreground transition-colors hover:text-foreground"
+              className={cn(
+                "flex w-full items-center justify-between gap-2 px-3 text-left text-sm text-muted-foreground transition-colors hover:text-foreground",
+                compact ? "min-h-10 py-2" : "min-h-11 py-2.5",
+              )}
               aria-expanded={detailsOpen}
               data-testid="button-toggle-details"
             >

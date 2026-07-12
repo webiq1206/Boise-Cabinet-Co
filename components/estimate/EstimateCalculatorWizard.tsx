@@ -152,7 +152,7 @@ function OptionVisual({
         aria-label={alt}
         style={svgStyle}
         className={cn(
-          "relative w-full mb-2 overflow-hidden rounded-sm bg-muted [&>svg]:h-full [&>svg]:w-full [&>svg]:object-cover",
+          "relative w-full mb-1.5 overflow-hidden rounded-sm bg-muted [&>svg]:h-full [&>svg]:w-full [&>svg]:object-cover",
           aspectClass,
         )}
         dangerouslySetInnerHTML={{ __html: svg }}
@@ -161,7 +161,7 @@ function OptionVisual({
   }
   if (image) {
     return (
-      <div className={cn("relative w-full mb-2 overflow-hidden rounded-sm bg-muted", aspectClass)}>
+      <div className={cn("relative w-full mb-1.5 overflow-hidden rounded-sm bg-muted", aspectClass)}>
         <Image
           src={image}
           alt={alt}
@@ -218,7 +218,7 @@ function SelectButton<T extends string>({
             data-testid={`${testIdPrefix}-${opt.value}`}
             aria-pressed={active}
             className={cn(
-              "relative flex flex-col items-start gap-0.5 p-2 min-h-[44px] rounded-md text-left transition-all border bg-card",
+              "relative flex flex-col items-start gap-0.5 p-1.5 min-h-[44px] rounded-md text-left transition-all border bg-card",
               active
                 ? "border-foreground/40 border-[1.5px] bg-muted/40"
                 : "border-border hover:border-foreground/30",
@@ -239,7 +239,9 @@ function SelectButton<T extends string>({
             />
             <span className="font-medium text-xs text-foreground pr-5 leading-tight">{opt.label}</span>
             {opt.sub && (
-              <span className="text-[10px] leading-snug text-muted-foreground line-clamp-1">{opt.sub}</span>
+              <span className="hidden text-[10px] leading-snug text-muted-foreground line-clamp-1 sm:block">
+                {opt.sub}
+              </span>
             )}
           </button>
         );
@@ -832,7 +834,7 @@ export function EstimateCalculatorWizard({
         );
       case "style":
         return (
-          <div className="space-y-6">
+          <div className="space-y-4">
             {visibility.doorStyle && (
               <div>
                 <label className="brc-label mb-2 block">Door style</label>
@@ -840,7 +842,7 @@ export function EstimateCalculatorWizard({
                   value={selections.doorStyle}
                   options={doorOptions}
                   gridClassName="grid-cols-3 lg:grid-cols-6"
-                  aspectClass="aspect-[4/3]"
+                  aspectClass="aspect-[2/1] sm:aspect-[3/2]"
                   onChange={(v) => {
                     setSelections((prev) =>
                       applyFinishSlug({ ...prev, doorStyle: v }, prev.finishSlug),
@@ -859,7 +861,7 @@ export function EstimateCalculatorWizard({
               <button
                 type="button"
                 onClick={() => setShowFinishes(true)}
-                className="flex w-full items-center justify-between rounded-sm border border-border px-3 py-2.5 min-h-11 text-left text-sm text-muted-foreground"
+                className="flex w-full items-center justify-between rounded-sm border border-border px-3 py-2 min-h-10 text-left text-[13px] text-muted-foreground"
                 data-testid="button-explore-finishes"
               >
                 <span>Explore finishes (optional)</span>
@@ -943,6 +945,7 @@ export function EstimateCalculatorWizard({
               onBookVisit={handleBookVisit}
               project={project ?? undefined}
               variant="full"
+              compact={fitViewport}
               hideCta
             />
           </div>
@@ -955,6 +958,7 @@ export function EstimateCalculatorWizard({
               showEstimateSummary
               formId={CONTACT_FORM_ID}
               hideSubmitButton
+              compact={fitViewport}
               onPendingChange={handleContactPending}
               onSuccess={() => setContactSucceeded(true)}
             />
