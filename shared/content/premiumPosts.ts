@@ -1355,6 +1355,135 @@ const twoToneContent = `
 <p>${AUTHOR} designs and builds custom two-tone <a href="/cabinets/kitchen">kitchen cabinets</a> — from a bold navy or sage island against a crisp white perimeter to a warm wood island with painted cabinetry — for homes across Boise, Meridian, Eagle, and Nampa. Explore <a href="/catalog">our colors and finishes</a>, then <a href="/estimate">get a planning range</a> or <a href="/contact">book a free in-home consultation</a>. We will help you choose colors that relate, place them where they flatter your kitchen, and tie everything together so your two-tone kitchen looks designed, cohesive, and timeless from the day it is installed.</p>
 `;
 
+const bestColorsContent = `
+<p class="text-lg">The best kitchen cabinet color is the one that fits your kitchen's light, your counters and floors, and how long you want it to stay in style — but a few choices consistently win. <strong>Crisp white and warm off-white</strong> remain the most popular and timeless; <strong>greige and soft gray</strong> add warmth without risk; and <strong>deep navy, forest green, muted sage, and charcoal</strong> bring personality, especially on an island. For 2026, the clear direction is away from cold gray and stark white toward warmer whites, natural wood tones, and rich saturated accents. Below is how to choose a color you will still love in ten years, with the trends, the timeless picks, and the practical rules that make any color work.</p>
+
+<div class="summary-block">
+  <p><strong>Key takeaways:</strong> Warm whites and off-whites are the safest timeless choice; greige adds warmth; navy, green, sage, and charcoal add personality on islands. Test colors in your own light before committing. <a href="/blog/cabinet-finishes-colors-guide">See finishes and colors</a> or <a href="/cabinets/kitchen">explore kitchen cabinets</a>.</p>
+</div>
+
+<h2 id="how-to-choose">How to choose a cabinet color</h2>
+<p>Before chasing a specific color, it helps to work through a few practical questions, because the right answer depends on your particular kitchen. How much natural light does the room get — north-facing kitchens read cooler and can go warmer to compensate, while bright south-facing rooms handle cooler tones. What are your fixed elements — the floor, counters, and backsplash you are keeping — and does the cabinet color harmonize with their undertones? How long do you plan to stay, and how much risk do you want — a timeless neutral is the safe bet for resale, while a bold color is the reward of a forever home. Answering these first narrows an overwhelming field to a short list, and it keeps you from falling for a color that looks great in a showroom but fights your actual room.</p>
+
+<h2 id="white">White cabinets: the timeless default</h2>
+<p>White is the most popular kitchen cabinet color for good reason: it is bright, clean, timeless, and endlessly flexible with any counter, backsplash, or hardware. The important nuance for 2026 is warmth — the cold, bluish stark whites of the past are giving way to warmer, creamier whites that feel inviting rather than clinical. A warm white makes a kitchen feel fresh without the sterility that dated the all-white kitchens of the last decade. White is also the safest choice for resale, since it appeals to the widest range of buyers. If you want a kitchen that will never look out of place and works with everything, a warm white is nearly impossible to get wrong.</p>
+
+<h2 id="offwhite-greige">Off-white, cream, and greige</h2>
+<p>If pure white feels too stark, the family of warmer neutrals — off-white, cream, greige (gray-beige), and soft warm gray — delivers the same timeless flexibility with more depth and coziness. Greige in particular has become a go-to because it bridges warm and cool, pairing with almost any counter and floor while feeling current and calm. These colors photograph beautifully, hide everyday life a little better than stark white, and give a kitchen a soft, sophisticated backdrop. For homeowners who want "neutral but not boring," this middle band of warm neutrals is often the sweet spot, and it ages just as gracefully as white.</p>
+
+<h2 id="navy">Navy blue: the confident classic</h2>
+<p>Navy has gone from bold choice to modern classic, and it shows no sign of dating. Deep and rich, it works as a full-kitchen color in a light-filled room or — more commonly — as a striking island or lower-cabinet color against a white or off-white perimeter. Navy pairs beautifully with brass, black, and nickel hardware and with both white and warm-wood counters, which is part of why it has become the most popular accent color in two-tone kitchens. It brings depth and personality while still feeling grounded and timeless rather than trendy. If you want color but worry about longevity, navy is the lowest-risk bold choice you can make. See our <a href="/blog/two-tone-kitchen-cabinets">two-tone kitchen guide</a> for how to use it.</p>
+
+<h2 id="green">Green: the color of the moment</h2>
+<p>Green is having a major moment, and unlike some trends it is rooted in something durable — a desire for warmth, nature, and calm in the kitchen. The range is wide: deep forest and hunter greens feel rich and dramatic, while softer sages and gray-greens feel restful and organic. Green pairs wonderfully with wood tones, brass hardware, and natural stone, and it works as either a full-kitchen color or an island accent. Because green reads as a natural, earthy tone rather than a loud statement, it tends to feel timeless in a way that trendier colors do not. If you want a kitchen with personality and warmth that still feels grounded, green — especially a muted sage — is a standout choice. We cover it in depth in our <a href="/blog/sage-green-kitchen-cabinets">sage green cabinets guide</a>.</p>
+
+<h2 id="dark">Charcoal, black, and moody tones</h2>
+<p>For drama and sophistication, charcoal and soft black cabinets make a powerful statement. They ground a bright kitchen, create striking contrast against white counters and backsplashes, and feel modern and upscale. Dark cabinets work best with enough natural light to keep the room from feeling heavy, and they are often used on lowers or islands with lighter uppers to balance the weight. Matte black and deep charcoal in particular have become popular for a contemporary, high-end look. If your kitchen has good light and you want a bold, sophisticated feel, a moody dark tone delivers impact that lighter colors cannot — just balance it thoughtfully so the space stays inviting.</p>
+
+<h2 id="wood">Natural wood tones</h2>
+<p>Painted color is not the only path — natural and stained wood has surged back, especially warm, light white oak and rich walnut. Wood brings organic texture and warmth that paint cannot replicate, and it reads as both modern and timeless depending on the tone. Light natural oak feels current and Scandinavian-clean; richer stains feel warm and traditional. Wood also pairs beautifully with painted cabinets in a two-tone layout — a wood island against a painted perimeter is one of the most popular looks right now. If you love warmth and texture, or want your kitchen to feel connected to nature, a natural wood tone is a beautiful, enduring choice. See our guide to the <a href="/blog/best-wood-for-kitchen-cabinets">best wood for cabinets</a>.</p>
+
+<h2 id="trends-2026">2026 color trends</h2>
+<p>The clear direction for 2026 and beyond is warmth and nature. Cold grays and stark bluish whites are on the way out, replaced by warmer creamy whites, greige, and soft warm neutrals. Green in all its shades — from sage to forest — is the standout accent color, along with navy, which has settled in as a modern classic. Natural wood tones, especially light white oak, are everywhere. And two-tone kitchens continue to dominate, letting homeowners combine a timeless neutral with a color accent. The through-line is a move away from cold minimalism toward kitchens that feel warm, natural, and personal — a helpful compass whether you follow trends closely or just want to avoid a look that will feel dated fast.</p>
+
+<h2 id="timeless-vs-trendy">Timeless vs trendy: how to decide</h2>
+<p>Every color decision balances longevity against personality, and the smart move is to put your risk where it is cheapest to change. Cabinets are a long-term, expensive element, so anchoring them in a timeless neutral — warm white, off-white, or greige — is the safe foundation, especially if you may sell. You then add personality through the elements that are easier and cheaper to update: the island color, the hardware, the backsplash, the wall paint, and the decor. If you want bold color on the cabinets themselves, contain it to the island or lowers so the commitment is smaller and a future change is easy. This approach lets you have both — a timeless base that protects your investment and resale value, and real personality layered on top where the stakes are low.</p>
+
+<h2 id="practical-rules">Practical rules that make any color work</h2>
+<p>A few rules keep any cabinet color looking intentional. Always test large samples in your actual kitchen light at different times of day, because cabinet color shifts dramatically between showroom and home and between morning and evening. Consider the undertones of your fixed elements — counters, floors, and backsplash — and choose a cabinet color whose undertone harmonizes rather than clashes. Keep hardware and other finishes consistent so the palette feels unified. And do not over-complicate: one or two cabinet colors, chosen deliberately, almost always looks better than three. Follow these and even a bold color reads as designed rather than risky. For more on finishes, see our <a href="/blog/cabinet-finishes-colors-guide">colors and finishes guide</a>.</p>
+
+<h2 id="bottom-line">The bottom line</h2>
+<p>The best kitchen cabinet color is the one that suits your light, harmonizes with what you are keeping, and matches your appetite for personality versus longevity. Warm white and off-white remain the timeless, resale-friendly defaults; greige adds cozy warmth; and navy, green, sage, charcoal, and natural wood bring personality, especially on an island. The 2026 direction is unmistakably warmer and more natural, away from cold gray toward creamy whites, greens, and wood. Anchor your cabinets in a color you will love for years, add bold personality where it is easy to change, test everything in your own light, and you will land on a kitchen that feels both timeless and truly yours.</p>
+
+<h2 id="how-we-build">Find your color with Boise Cabinet Co</h2>
+<p>${AUTHOR} builds custom <a href="/cabinets/kitchen">kitchen cabinets</a> in every color from timeless warm white to deep navy, forest green, muted sage, and natural wood, for homes across Boise, Meridian, Eagle, and Nampa. Explore <a href="/catalog">our full range of colors and finishes</a>, then <a href="/estimate">get a planning range</a> or <a href="/contact">book a free in-home consultation</a>. We will help you test colors in your real kitchen light, harmonize them with your counters and floors, and choose a palette that looks beautiful the day it goes in and stays timeless for years to come.</p>
+`;
+
+const sageGreenContent = `
+<p class="text-lg">Sage green kitchen cabinets are one of the most enduring choices in today's kitchens because sage is a <strong>soft, muted gray-green that reads as a warm neutral rather than a bold color</strong> — calming, natural, and endlessly easy to live with. It pairs beautifully with brass, black, and nickel hardware, with white and warm-wood counters, and with both modern and traditional styles. Whether you use it on every cabinet or just the island, sage brings personality and warmth without the risk of a trendier color. Here is how to design a sage green kitchen that feels timeless, including the finishes, counters, and hardware that make it sing.</p>
+
+<div class="summary-block">
+  <p><strong>Key takeaways:</strong> Sage is a muted gray-green that behaves like a warm neutral — calm, natural, and timeless. Pair it with brass or black hardware, white or wood counters, and use it full-kitchen or on an island. <a href="/blog/best-kitchen-cabinet-colors">See all cabinet colors</a> or <a href="/cabinets/kitchen">explore kitchen cabinets</a>.</p>
+</div>
+
+<h2 id="why-sage">Why sage green works so well</h2>
+<p>Sage occupies a rare sweet spot in the color world: it has genuine personality, yet it behaves like a neutral. Because it is muted and grayed-down rather than saturated, it does not overwhelm a room or fight with other elements the way a brighter green might. It reads as calm, organic, and sophisticated — connected to nature without being loud about it. That quality is exactly why sage has staying power where trendier colors fade: it is easy to live with day after day, it flatters warm and cool palettes alike, and it never feels like it is trying too hard. For homeowners who want color but worry about tiring of it, sage is often the answer, because it delivers warmth and character while still feeling like a backdrop you can relax into.</p>
+
+<h2 id="shades">Choosing your shade of sage</h2>
+<p>Sage is a family, not a single color, and the shade you choose sets the whole mood. Lighter, grayer sages feel airy, soft, and modern, keeping a kitchen bright while adding a whisper of color. Deeper, earthier sages lean warm and cozy, giving a room more presence and a traditional or organic-modern feel. Some sages tilt more gray, others more green or even slightly gold — and the surrounding light will pull them one way or another. As with any cabinet color, the single most important step is to test large samples in your own kitchen at different times of day, because a sage that looks perfect on a chip can read too gray, too green, or too drab once it is on the cabinets in your light. Getting the exact shade right is what separates a sage kitchen that sings from one that feels muddy.</p>
+
+<h2 id="hardware">The best hardware for sage cabinets</h2>
+<p>Hardware is where a sage kitchen comes to life, and sage is generous — it pairs beautifully with several finishes. <strong>Brass and aged gold</strong> are the standout pairing, bringing warmth that makes sage feel rich and intentional, with a slightly vintage, collected elegance. <strong>Matte black</strong> gives a crisp, modern contrast that grounds the softness of the green. <strong>Brushed nickel and stainless</strong> keep things classic and understated. And <strong>oil-rubbed bronze</strong> leans into a warm, traditional look. Brass is the most popular and arguably the most flattering choice for sage, but any of these works — the key is choosing one finish and using it consistently throughout. See our <a href="/blog/cabinet-hardware-guide">cabinet hardware guide</a> for placement and selection tips.</p>
+
+<h2 id="counters">Countertops and backsplashes for sage</h2>
+<p>Sage is remarkably flexible with counters and backsplashes, which is part of its appeal. <strong>White and warm-white quartz or marble-look</strong> surfaces keep the kitchen bright and let the sage read as a soft accent — the most popular and safest pairing. <strong>Warm natural stone</strong> with beige and cream tones plays up sage's earthy, organic side. <strong>Butcher block and wood counters</strong> lean into the natural, farmhouse feeling that sage evokes so well. For the backsplash, simple white subway tile, a warm natural stone, or a soft zellige-style tile all complement sage without competing. The guiding principle is to keep the counters and backsplash relatively calm and let the cabinet color be the quiet star.</p>
+
+<h2 id="full-vs-island">Full kitchen or just the island?</h2>
+<p>You can commit to sage across the whole kitchen or use it as an accent, and both look wonderful. A <strong>full sage kitchen</strong> wraps the room in soft, calming color and makes the strongest statement — ideal if you love the color and have the light to carry it. A <strong>sage island</strong> against a white or off-white perimeter is the two-tone approach: it introduces the color as a focal point while keeping the rest of the kitchen bright and neutral, which lowers the commitment and hedges against ever tiring of it. <strong>Sage on the lowers</strong> with lighter uppers is another balanced option that keeps the room feeling open. If you are sage-curious but cautious, start with the island; if you are sure, a full sage kitchen is a beautiful, enveloping choice.</p>
+
+<h2 id="styles">Sage across styles</h2>
+<p>One of sage's quiet strengths is how well it crosses design styles. On <strong>Shaker doors</strong> it is a modern-farmhouse and transitional favorite, warm and timeless. On <strong>flat-panel or slab doors</strong> it leans organic-modern, especially with matte black hardware. In a <strong>traditional</strong> kitchen with raised-panel doors and brass, sage feels classic and English-country. And in a <strong>rustic</strong> space it plays beautifully against natural wood and stone. Because the color is muted and natural, it adapts to whatever door style and hardware you build around it — much like a neutral would — which is a big reason it works in so many different homes. Whatever your style, sage tends to make it feel a little warmer and more grounded.</p>
+
+<h2 id="timeless">Is sage a trend or timeless?</h2>
+<p>It is fair to ask whether any color will look dated in ten years, and sage has a stronger case for longevity than most. Green tones have appeared in kitchens for generations, and muted, earthy greens in particular have a long history precisely because they read as natural neutrals rather than of-the-moment statements. Sage is popular right now, but its restraint is what protects it — because it is soft and grayed rather than bold and saturated, it does not carry the "expiration date" of a trendier color. And if you ever do want a change, repainting cabinets is far cheaper than replacing them, and a sage island is an even smaller commitment. All told, sage is about as safe as a colored kitchen gets. For the broader picture, see our <a href="/blog/best-kitchen-cabinet-colors">guide to the best cabinet colors</a>.</p>
+
+<h2 id="palette">Pairing sage with the rest of the room</h2>
+<p>Sage cabinets do not live alone, and the surrounding palette determines whether they feel elevated or drab. On the walls, warm whites, soft creams, and gentle warm neutrals let sage breathe and keep the room bright; avoid cold gray-blues, which can flatten the green and make the whole kitchen feel cool. For flooring, warm wood tones — light oak through medium walnut — are sage's natural partner, reinforcing its organic, earthy character, while warm-toned tile also works well. Metals and accents can lean into the warmth with brass and natural wood, or add crisp contrast with black; either reads as intentional as long as it is consistent. Even greenery and everyday styling matter: a few plants, natural textures like linen and rattan, and warm-toned dishware amplify the calm, garden-inspired feeling that makes sage so appealing in the first place. Think of sage as the anchor of a warm, natural palette rather than a color you drop into a cool one, and the whole kitchen will feel cohesive and inviting. Beyond the kitchen, the same sage looks equally at home on a <a href="/cabinets/bathroom">bathroom vanity</a> or a mudroom built-in, so it is an easy way to carry a cohesive color through the house.</p>
+
+<h2 id="mistakes">Common mistakes with sage kitchens</h2>
+<p>A few missteps can keep a sage kitchen from reaching its potential. Choosing the shade off a tiny chip instead of testing large samples in your light is the most common, and it is how sage ends up looking too gray or muddy. Pairing sage with cool, stark-white counters and cold-toned everything, which drains its warmth — sage wants at least some warmth around it. Mixing too many hardware finishes, which muddles the calm sage is meant to create. And over-accessorizing with lots of competing color, when sage looks best with a restrained, natural palette around it. Avoid these and let sage be the quiet, warm star, and the kitchen will feel effortlessly elegant.</p>
+
+<h2 id="bottom-line">The bottom line</h2>
+<p>Sage green cabinets endure because sage is the rare color that behaves like a neutral — soft, warm, natural, and easy to live with year after year. Get the shade right by testing it in your own light, pair it with brass or matte-black hardware and a warm-white or natural-stone counter, and decide whether you want it wrapping the whole kitchen or anchoring the island. Do that and you get a kitchen with real personality and warmth that still feels timeless and calm. In a world of colors that come and go, sage has proven itself one of the most livable and lasting choices you can make.</p>
+
+<h2 id="how-we-build">Design your sage kitchen with Boise Cabinet Co</h2>
+<p>${AUTHOR} builds custom sage green <a href="/cabinets/kitchen">kitchen cabinets</a> — full-kitchen or as a two-tone island — with the brass or black hardware and warm finishes that make sage sing, for homes across Boise, Meridian, Eagle, and Nampa. Explore <a href="/catalog">our colors and finishes</a>, then <a href="/estimate">get a planning range</a> or <a href="/contact">book a free in-home consultation</a>. We will help you dial in the exact shade of sage in your real kitchen light and pair it with the counters and hardware that make it timeless, so your kitchen feels warm, natural, and elegant for many years to come.</p>
+`;
+
+const homeOfficeContent = `
+<p class="text-lg">Custom home office built-ins turn a spare room, nook, or wall into a workspace that is <strong>organized, professional, and tailored to exactly how you work</strong> — with a desk at the right height, storage that hides the clutter, and shelving that displays what you want on show. Unlike freestanding furniture, built-ins use every inch of your space, match your home's finishes, and are designed around your specific needs: file drawers, cable management, printer storage, a place for the printer, and a backdrop that looks polished on video calls. Here is how to plan home office built-ins that make working from home genuinely better, from layout to storage to the details that matter.</p>
+
+<div class="summary-block">
+  <p><strong>Key takeaways:</strong> Built-ins maximize space, match your home, and are tailored to how you work — desk height, hidden storage, display shelving, and cable management. Plan around your real workflow. <a href="/cabinets/built-ins">See built-in cabinetry</a> or <a href="/estimate">plan your project</a>.</p>
+</div>
+
+<h2 id="why-builtins">Why built-ins beat freestanding furniture</h2>
+<p>A desk and a bookshelf from a store will do the job, but custom built-ins do it far better in three ways. First, they use <strong>every inch of your space</strong> — fitting an awkward wall, a sloped ceiling, or a narrow nook that off-the-shelf furniture cannot. Second, they are <strong>tailored to how you actually work</strong>, with the exact storage, desk height, and layout you need rather than a generic configuration. Third, they <strong>match your home</strong>, built in finishes and styles that coordinate with the rest of your cabinetry for a cohesive, high-end look. The result is a workspace that feels like part of the house rather than furniture parked in a room — more functional, more polished, and a genuine asset when it comes time to sell.</p>
+
+<h2 id="planning">Start with how you work</h2>
+<p>The best home office starts not with a design but with an honest look at your daily work. Do you need a lot of writing surface, or just room for a laptop? How much do you print, scan, and file, and where should that live? Do you take frequent video calls that need a clean, professional backdrop? Do you have equipment — a second monitor, a printer, chargers, supplies — that should be within reach but out of sight? Answering these shapes every decision that follows: the desk size, the balance of drawers versus shelves, the cable and printer storage, and the layout. A home office designed around your real workflow feels effortless; one designed around a generic template constantly gets in your way.</p>
+
+<h2 id="desk">The desk: height, size, and configuration</h2>
+<p>The desk is the heart of the built-in, and getting it right matters daily. Standard desk height is around 29–30 inches, but a custom build lets you tune it to your chair and comfort, and even accommodate a sit-stand setup. Size it to your work: a generous surface for spreading out papers and dual monitors, or a compact floating desk for a laptop in a small nook. A <strong>floating desk</strong> (cantilevered, with no legs to the floor) keeps a small room feeling open and makes cleaning easy, while a <strong>desk with base cabinets</strong> adds valuable drawer storage right where you work. Many built-ins combine both — a floating span with a bank of file and supply drawers to one side — for the best of comfort and storage.</p>
+
+<h2 id="storage">Storage: hide the clutter, show the good stuff</h2>
+<p>Great office built-ins strike a balance between concealed and open storage. <strong>Closed cabinets and drawers</strong> hide the clutter that makes a workspace feel chaotic — supplies, cables, the printer, files, and equipment — behind clean doors and fronts. <strong>Open shelving</strong> displays the things you want on show: books, plants, framed photos, and a few objects that make the space feel personal and professional, especially behind you on video calls. The art is in the ratio: enough closed storage to keep the room tidy and enough open display to keep it from feeling like a wall of cabinet doors. Dedicated <strong>file drawers</strong>, a <strong>printer cabinet or pull-out</strong>, and <strong>supply drawers</strong> with dividers are the workhorses that keep everything in its place.</p>
+
+<h2 id="cables">Cable management and technology</h2>
+<p>Nothing undermines a beautiful office like a tangle of cords, so cable management should be designed in, not added later. Built-ins can include grommets and pass-throughs to route cables cleanly, a dedicated cabinet or drawer for the mess of chargers and power strips, and channels that carry wires from the desk to concealed outlets. Planning for your technology up front — where the monitor mounts, where the printer lives, how devices charge, where the modem and router hide — means the finished office looks clean and stays clean. This is exactly the kind of detail a custom built-in handles that store-bought furniture cannot, and it is a big part of why a built-in office simply works better day to day.</p>
+
+<h2 id="video-calls">Designing for video calls</h2>
+<p>For anyone who takes regular video calls, the built-in doubles as your backdrop, and a little intention here pays off professionally. Styled open shelving behind your desk — a mix of books, a plant or two, and a few tasteful objects — reads as polished and put-together on camera, far better than a blank wall or a cluttered room. Consider the lighting, too: positioning the desk so you face a window gives flattering natural light, and built-in lighting on shelves adds warmth for darker rooms or evening calls. Designing the office with your on-camera presence in mind turns a practical necessity into a subtle professional advantage, and it costs nothing extra to plan for.</p>
+
+<h2 id="small-spaces">Built-ins for small spaces and nooks</h2>
+<p>You do not need a dedicated room for a home office built-in — some of the most useful ones tuck into spaces that would otherwise go to waste. A <strong>closet converted to a "cloffice"</strong> hides a complete workspace behind doors that close at the end of the day. A <strong>nook under the stairs</strong> or in a wide hallway becomes a compact desk with shelving above. A <strong>corner of a bedroom or living room</strong> gets a floating desk and slim cabinetry that fits the footprint exactly. Because built-ins are made to measure, they shine precisely in these tight, irregular spaces where furniture cannot fit. If working from home means carving space out of an existing room, a custom built-in is the way to do it without the space feeling cramped or improvised.</p>
+
+<h2 id="style">Style and finishes</h2>
+<p>Home office built-ins should feel like a deliberate part of your home, and the finish choices set the tone. <strong>Painted cabinetry</strong> in white, greige, navy, or sage keeps the office bright and coordinated with the rest of the house. <strong>Natural wood</strong> — especially white oak or walnut — brings warmth and a rich, library-like feel. A <strong>two-tone approach</strong>, like a wood desk surface against painted cabinetry, adds depth. The door style matters too: clean Shaker or flat-panel fronts read modern and professional, while raised panels feel more traditional. Matching the finishes and style to your home's existing cabinetry — or deliberately complementing it — is what makes a built-in office feel custom and cohesive rather than tacked on. See our <a href="/blog/cabinet-door-styles-guide">door styles guide</a> and <a href="/blog/cabinet-finishes-colors-guide">finishes guide</a> for options.</p>
+
+<h2 id="lighting">Lighting and comfort</h2>
+<p>An office you spend hours in has to be comfortable, and lighting is a big part of that. Natural light is ideal, so positioning the desk near a window — facing it for flattering video-call light, or perpendicular to avoid screen glare — makes the space more pleasant to work in. Layer in task lighting where the built-in casts shadows: under-cabinet or shelf-mounted LED strips illuminate the desk surface, and a small lamp adds warmth for evening work. Built-in lighting on open shelving also makes the display look intentional and polished on camera. Pair good lighting with ergonomic basics — a desk at the right height, room for your knees under a floating span, and a supportive chair — and the office becomes somewhere you can genuinely focus for a full day rather than a spot you avoid.</p>
+
+<h2 id="value">Do home office built-ins add value?</h2>
+<p>With remote and hybrid work now permanent for many, a well-designed home office has become a genuine selling point, and custom built-ins add more lasting value than freestanding furniture ever could. They are a fixed, high-quality feature that buyers see as move-in-ready and premium, much like built-in bookcases or a custom mudroom. Beyond resale, the daily value is real: a workspace that keeps you organized, looks professional, and fits how you work makes working from home more productive and more pleasant. For a feature you use every single day and that also strengthens your home, custom office built-ins are one of the higher-return cabinetry projects outside the kitchen and bath.</p>
+
+<h2 id="bottom-line">The bottom line</h2>
+<p>Custom home office built-ins transform how it feels to work from home by giving you a workspace built around your actual needs — the right desk, storage that hides the clutter and shows off what matters, designed-in cable management, and a polished backdrop for calls — all fitted precisely to your space and matched to your home. Whether you have a whole room or just a closet or nook, built-ins use the space better than any furniture and look like a deliberate, high-end part of the house. Start by mapping how you really work, plan the storage and technology around it, choose finishes that coordinate with your home, and you will end up with an office that makes every workday easier and adds real value to your home.</p>
+
+<h2 id="how-we-build">Build your home office with Boise Cabinet Co</h2>
+<p>${AUTHOR} designs and builds custom home office <a href="/cabinets/built-ins">built-ins</a> — floating desks, file and supply storage, display shelving, and designed-in cable management — matched to your home's finishes, for homes across Boise, Meridian, Eagle, and Nampa. Explore <a href="/cabinets">our cabinetry</a> and <a href="/catalog">finishes</a>, then <a href="/estimate">get a planning range</a> or <a href="/contact">book a free in-home consultation</a>. Whether it is a full office, a closet cloffice, or a nook under the stairs, we will design a workspace around exactly how you work and build it to look like a seamless, high-end part of your home.</p>
+`;
+
 export const PREMIUM_POSTS: BlogPostData[] = [
   {
     slug: 'framed-vs-frameless-cabinets',
@@ -2164,6 +2293,130 @@ export const PREMIUM_POSTS: BlogPostData[] = [
     primaryKeyword: 'two tone kitchen cabinets',
     secondaryKeywords: ['two tone cabinets', 'two color kitchen cabinets', 'contrasting island', 'two tone kitchen ideas'],
     searchIntent: 'Informational — homeowners planning a two-tone kitchen',
+    wordCountTarget: 'pillar',
+  },
+  {
+    slug: 'best-kitchen-cabinet-colors',
+    title: 'Best Kitchen Cabinet Colors (2026 Trends + How to Choose)',
+    seoTitle: 'Best Kitchen Cabinet Colors for 2026: Trends & How to Choose',
+    metaDescription:
+      'The best kitchen cabinet colors for 2026: warm whites, greige, navy, green, sage, charcoal, and natural wood. How to choose a color you will still love in ten years.',
+    excerpt:
+      'Warm white and off-white stay timeless; navy, green, sage, and charcoal add personality. Here are the best kitchen cabinet colors, the 2026 trends, and how to choose one you will love for years.',
+    content: bestColorsContent,
+    author: AUTHOR,
+    category: 'Colors & Finishes',
+    hubSlug: 'kitchen-cabinets',
+    tags: ['colors', 'trends', 'design', 'white', 'kitchen'],
+    publishedAt: '2026-07-11',
+    faqs: [
+      { question: 'What is the most popular kitchen cabinet color?', answer: 'White remains the most popular for its bright, clean, timeless look and broad resale appeal. For 2026 the trend is toward warmer, creamier whites rather than the cold, stark whites of the past. Off-white, cream, and greige are close behind for homeowners who want a warm neutral with more depth.' },
+      { question: 'What cabinet colors are trending for 2026?', answer: 'The clear direction is warmth and nature: warm creamy whites and greige replacing cold gray, green in every shade from sage to forest as the standout accent, navy as a modern classic, and natural wood tones like light white oak. Two-tone kitchens continue to dominate, pairing a neutral with a color accent.' },
+      { question: 'What is the best cabinet color for resale?', answer: 'Warm white and off-white are the safest for resale because they appeal to the widest range of buyers and never look out of place. If you want color, contain it to the island or an easily repainted element and keep the main cabinets a timeless neutral to protect resale value.' },
+      { question: 'How do I choose a kitchen cabinet color?', answer: 'Consider your kitchen\\u2019s natural light (north-facing rooms handle warmer tones, bright rooms handle cooler ones), the undertones of the counters and floors you are keeping, and how long you plan to stay. Then test large samples in your actual kitchen light at different times of day before committing.' },
+      { question: 'Are white kitchen cabinets going out of style?', answer: 'No — white remains timeless and the most popular choice. What is changing is the shade: cold, bluish stark whites are giving way to warmer, creamier whites that feel inviting rather than clinical. A warm white is nearly impossible to get wrong and works with any counter, backsplash, or hardware.' },
+      { question: 'What color island goes with white cabinets?', answer: 'Navy, forest or sage green, charcoal, and natural wood are the most popular island colors against a white or off-white perimeter. Navy is the lowest-risk bold choice, green is the color of the moment, and a wood island adds warmth. Keep the hardware consistent across both to tie it together.' },
+    ],
+    quickAnswer:
+      'The best kitchen cabinet colors are warm white and off-white for a timeless, resale-friendly look, greige for cozy warmth, and navy, forest green, muted sage, charcoal, or natural wood for personality, especially on an island. For 2026 the trend is warmer and more natural — creamy whites, greens, and wood tones replacing cold gray. Always test colors in your own light before committing.',
+    keyTakeaways: [
+      'Warm white and off-white are the timeless, resale-safe defaults.',
+      'Navy, green, sage, charcoal, and wood add personality — best on islands.',
+      '2026 trends move warmer and more natural, away from cold gray.',
+    ],
+    relatedLinks: [
+      { url: '/blog/cabinet-finishes-colors-guide', anchor: 'Cabinet colors and finishes' },
+      { url: '/blog/sage-green-kitchen-cabinets', anchor: 'Sage green cabinets' },
+      { url: '/blog/two-tone-kitchen-cabinets', anchor: 'Two-tone kitchens' },
+      { url: '/blog/best-wood-for-kitchen-cabinets', anchor: 'Best wood for cabinets' },
+      { url: '/cabinets/kitchen' },
+    ],
+    primaryKeyword: 'best kitchen cabinet colors',
+    secondaryKeywords: ['best colors for kitchen cabinets', 'kitchen cabinet colors 2026', 'popular cabinet colors', 'kitchen cabinet color trends'],
+    searchIntent: 'Informational — homeowners choosing a cabinet color',
+    isPillar: true,
+    wordCountTarget: 'pillar',
+  },
+  {
+    slug: 'sage-green-kitchen-cabinets',
+    title: "Sage Green Kitchen Cabinets: A Designer's Guide",
+    seoTitle: 'Sage Green Kitchen Cabinets: Shades, Hardware & How to Style',
+    metaDescription:
+      'Sage green kitchen cabinets are a warm, timeless neutral. How to choose the right shade, the best hardware and counters, and whether to go full-kitchen or island only.',
+    excerpt:
+      'Sage green is a soft gray-green that behaves like a warm neutral — calm, natural, and timeless. Here is how to choose the shade, pair hardware and counters, and style a sage kitchen that lasts.',
+    content: sageGreenContent,
+    author: AUTHOR,
+    category: 'Colors & Finishes',
+    hubSlug: 'kitchen-cabinets',
+    tags: ['sage', 'green', 'colors', 'design', 'kitchen'],
+    publishedAt: '2026-07-11',
+    faqs: [
+      { question: 'Are sage green kitchen cabinets a good idea?', answer: 'Yes. Sage is a muted gray-green that behaves like a warm neutral — calming, natural, and easy to live with year after year. It has genuine personality without the risk of a trendier color, pairs with almost any hardware and counter, and works in both modern and traditional kitchens, making it one of the most livable colored-cabinet choices.' },
+      { question: 'What hardware looks best with sage green cabinets?', answer: 'Brass and aged gold are the standout pairing, adding warmth that makes sage feel rich and intentional. Matte black gives crisp modern contrast, brushed nickel keeps it classic, and oil-rubbed bronze leans traditional. Brass is the most flattering choice, but any works — the key is using one finish consistently.' },
+      { question: 'What countertops go with sage green cabinets?', answer: 'White and warm-white quartz or marble-look surfaces keep the kitchen bright and let sage read as a soft accent — the safest, most popular pairing. Warm natural stone plays up sage\\u2019s earthy side, and butcher block or wood counters lean into its natural, farmhouse feel. Keep counters calm and let the sage be the star.' },
+      { question: 'Will sage green cabinets go out of style?', answer: 'Sage has a strong case for longevity. Muted, earthy greens have appeared in kitchens for generations because they read as natural neutrals rather than of-the-moment statements. Sage\\u2019s soft, grayed quality protects it from feeling dated, and repainting or using it only on an island keeps the commitment low if tastes change.' },
+      { question: 'Should I use sage on all cabinets or just the island?', answer: 'Both work. A full sage kitchen wraps the room in soft, calming color and makes the strongest statement. A sage island against a white perimeter introduces the color as a focal point while keeping the room bright — a lower commitment and a good choice if you are sage-curious but cautious.' },
+      { question: 'What shade of sage is best for kitchen cabinets?', answer: 'It depends on the mood you want: lighter, grayer sages feel airy and modern, while deeper, earthier sages feel warm and cozy. Because sage shifts with light — reading more gray, green, or gold — the most important step is testing large samples in your own kitchen at different times of day before committing.' },
+    ],
+    quickAnswer:
+      'Sage green kitchen cabinets work because sage is a soft, muted gray-green that behaves like a warm neutral — calm, natural, and timeless. Choose the shade by testing samples in your own light, pair it with brass or matte-black hardware and a warm-white or natural-stone counter, and use it full-kitchen or on an island. Its restraint is what makes it one of the most livable, lasting colored-cabinet choices.',
+    keyTakeaways: [
+      'Sage behaves like a warm neutral — personality without the risk.',
+      'Pair with brass or matte-black hardware and warm-white or wood counters.',
+      'Test the exact shade in your own light; go full-kitchen or island only.',
+    ],
+    relatedLinks: [
+      { url: '/blog/best-kitchen-cabinet-colors', anchor: 'Best cabinet colors' },
+      { url: '/blog/cabinet-finishes-colors-guide', anchor: 'Cabinet colors and finishes' },
+      { url: '/blog/cabinet-hardware-guide', anchor: 'Cabinet hardware guide' },
+      { url: '/blog/two-tone-kitchen-cabinets', anchor: 'Two-tone kitchens' },
+      { url: '/cabinets/kitchen' },
+    ],
+    primaryKeyword: 'sage green kitchen cabinets',
+    secondaryKeywords: ['sage cabinets', 'green kitchen cabinets', 'sage green kitchen', 'muted green cabinets'],
+    searchIntent: 'Informational — homeowners considering sage green cabinets',
+    wordCountTarget: 'pillar',
+  },
+  {
+    slug: 'home-office-built-ins',
+    title: 'Home Office Built-Ins: Design, Storage & Cost',
+    seoTitle: 'Home Office Built-Ins: Design Ideas, Storage & How to Plan',
+    metaDescription:
+      'Custom home office built-ins maximize space and are tailored to how you work — desk height, hidden storage, display shelving, and cable management. How to plan yours.',
+    excerpt:
+      'Custom home office built-ins turn a room, closet, or nook into an organized, professional workspace tailored to how you work. Here is how to plan the desk, storage, cable management, and finishes.',
+    content: homeOfficeContent,
+    author: AUTHOR,
+    category: 'Built-Ins',
+    hubSlug: 'built-ins',
+    tags: ['built-ins', 'home office', 'storage', 'desk', 'organization'],
+    publishedAt: '2026-07-11',
+    faqs: [
+      { question: 'Are home office built-ins worth it?', answer: 'Yes. Built-ins use every inch of your space, are tailored to how you actually work, and match your home\\u2019s finishes for a cohesive, high-end look that freestanding furniture cannot match. With remote and hybrid work now permanent for many, a well-designed office is also a genuine selling point that adds lasting value.' },
+      { question: 'How do I plan a home office built-in?', answer: 'Start with how you work: how much desk surface, printing, and filing you need, whether you take video calls, and what equipment should be within reach but hidden. Those answers shape the desk size, the balance of drawers versus shelves, the cable and printer storage, and the layout, so the finished office fits your real workflow.' },
+      { question: 'What is the best desk height for a built-in office?', answer: 'Standard desk height is around 29 to 30 inches, but a custom built-in lets you tune it to your chair and comfort or accommodate a sit-stand setup. A floating desk keeps a small room open, while a desk with base cabinets adds drawer storage; many built-ins combine both.' },
+      { question: 'Can you put a built-in office in a small space?', answer: 'Absolutely — built-ins shine in tight, irregular spaces. A closet converts to a "cloffice" that closes at day\\u2019s end, a nook under the stairs or a wide hallway becomes a compact desk with shelving, and a corner of a bedroom fits a floating desk and slim cabinetry sized exactly to the footprint.' },
+      { question: 'How do you hide cables in a built-in desk?', answer: 'Design cable management in from the start: grommets and pass-throughs route cables cleanly, a dedicated cabinet or drawer hides chargers and power strips, and channels carry wires from the desk to concealed outlets. Planning for your technology up front keeps the finished office looking clean and staying clean.' },
+      { question: 'Do home office built-ins add value to a home?', answer: 'Yes. A custom built-in office is a fixed, high-quality feature buyers see as move-in-ready and premium, much like built-in bookcases or a custom mudroom. With hybrid work now common, a well-designed home office has become a real selling point, making built-ins one of the higher-return cabinetry projects outside the kitchen and bath.' },
+    ],
+    quickAnswer:
+      'Custom home office built-ins turn a room, closet, or nook into an organized, professional workspace tailored to how you work — with a desk at the right height, closed storage that hides clutter, open shelving for display, and designed-in cable management. They use space better than furniture, match your home, and add real value. Plan them around your actual workflow, then choose finishes that coordinate with your home.',
+    keyTakeaways: [
+      'Built-ins maximize space and are tailored to how you work.',
+      'Balance hidden storage with display shelving; design in cable management.',
+      'They fit any space — a room, closet cloffice, or nook — and add home value.',
+    ],
+    relatedLinks: [
+      { url: '/cabinets/built-ins', anchor: 'Built-in cabinetry' },
+      { url: '/blog/cabinet-door-styles-guide', anchor: 'Cabinet door styles' },
+      { url: '/blog/cabinet-finishes-colors-guide', anchor: 'Cabinet colors and finishes' },
+      { url: '/blog/kitchen-cabinet-organization-ideas', anchor: 'Organization ideas' },
+      { url: '/cabinets' },
+    ],
+    primaryKeyword: 'home office built ins',
+    secondaryKeywords: ['built in desk', 'home office cabinets', 'office built ins', 'custom home office'],
+    searchIntent: 'Informational — homeowners planning a home office built-in',
     wordCountTarget: 'pillar',
   },
 ];

@@ -97,6 +97,24 @@ const ENTRIES = {
     topicTags: ["two-tone", "colors", "kitchen"],
     source: "blog",
   },
+  "best-kitchen-cabinet-colors": {
+    hero: blog("best-kitchen-cabinet-colors"),
+    alt: "Real completed upscale Treasure Valley kitchen with deep navy-blue painted Shaker cabinets, brushed brass hardware, white marble-look quartz counters, and a large island",
+    topicTags: ["colors", "navy", "kitchen"],
+    source: "blog",
+  },
+  "sage-green-kitchen-cabinets": {
+    hero: blog("sage-green-kitchen-cabinets"),
+    alt: "Real completed Treasure Valley kitchen with soft muted sage green painted Shaker cabinets, aged brass hardware, white quartz counters, and a natural stone backsplash",
+    topicTags: ["sage", "green", "kitchen"],
+    source: "blog",
+  },
+  "home-office-built-ins": {
+    hero: blog("home-office-built-ins"),
+    alt: "Real completed custom home office built-in in a Treasure Valley home with a full wall of white oak and warm white cabinetry, a floating desk, and styled open shelving",
+    topicTags: ["built-ins", "home office", "storage"],
+    source: "blog",
+  },
   // —— Cabinet costs (8) ——
   "kitchen-cabinet-cost-boise": {
     hero: cs("kitchen-remodel", "boise"),
@@ -590,7 +608,7 @@ const HUB_HEROES = {
 
 const GUIDE_START = "boise-cabinet-cost-guide";
 const blogSlugsFromEntries = Object.keys(ENTRIES).slice(0, Object.keys(ENTRIES).indexOf(GUIDE_START));
-const EXPECTED_BLOG = 69;
+const EXPECTED_BLOG = 72;
 const EXPECTED_GUIDES = 17;
 
 if (blogSlugsFromEntries.length !== EXPECTED_BLOG) {
