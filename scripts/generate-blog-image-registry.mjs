@@ -21,7 +21,7 @@ const ENTRIES = {
   // —— Premium long-form posts ——
   "framed-vs-frameless-cabinets": {
     hero: blog("framed-vs-frameless-cabinets"),
-    alt: "Modern frameless European-style kitchen cabinets in a Boise home with wide full-extension drawers and clean, seamless sightlines",
+    alt: "Real completed modern frameless kitchen in a Treasure Valley home with warm white oak flat-panel cabinets, a crisp white perimeter, and wide full-extension drawers",
     topicTags: ["frameless", "framed", "kitchen", "cabinets"],
     source: "blog",
   },
@@ -70,7 +70,7 @@ const ENTRIES = {
   },
   "cabinet-cost-per-linear-foot": {
     hero: blog("cabinet-cost-per-linear-foot"),
-    alt: "Tape measure, cabinet layout plans, and finish samples on a quartz counter in front of sage and greige custom cabinets during Treasure Valley kitchen planning",
+    alt: "Real completed kitchen in a standard Treasure Valley family home with warm natural white oak cabinets, a crisp white perimeter, and black bar pulls",
     topicTags: ["cost", "kitchen", "boise"],
     source: "blog",
   },
@@ -88,7 +88,7 @@ const ENTRIES = {
   },
   "stock-vs-custom-cabinets-boise": {
     hero: blog("stock-vs-custom-cabinets-boise"),
-    alt: "Custom Treasure Valley kitchen with floor-to-ceiling sage-green and greige cabinetry fitted precisely to an angled ceiling, showing a tailored custom fit",
+    alt: "Real completed custom Treasure Valley kitchen with floor-to-ceiling cream and off-white cabinets fitted precisely to a tall ceiling and around a window",
     topicTags: ["cost", "cabinets", "boise"],
     source: "blog",
   },
@@ -300,7 +300,7 @@ const ENTRIES = {
   },
   "cabinet-construction-quality-guide": {
     hero: blog("cabinet-construction-quality-guide"),
-    alt: "Close-up of high-quality cabinet construction: a dovetailed solid-wood drawer box on soft-close undermount glides in a sage-green custom kitchen",
+    alt: "Close-up of high-quality cabinet construction in a real completed kitchen: a natural maple dovetailed solid-wood drawer box on soft-close undermount glides",
     topicTags: ["cabinets", "quality", "guide"],
     source: "blog",
   },
@@ -352,7 +352,7 @@ const ENTRIES = {
   },
   "cabinet-door-styles-guide": {
     hero: blog("cabinet-door-styles-guide"),
-    alt: "Treasure Valley kitchen showcasing Shaker, slab, and raised-panel cabinet door styles in sage-green and greige painted finishes",
+    alt: "Real completed transitional Treasure Valley kitchen with classic Shaker cabinet doors in warm greige and cream paint and a natural stained wood island",
     topicTags: ["cabinets", "door-styles", "guide"],
     source: "blog",
   },
@@ -401,13 +401,13 @@ const ENTRIES = {
   // —— Cabinet specs & finishes (4) ——
   "cabinet-finishes-colors-guide": {
     hero: blog("cabinet-finishes-colors-guide"),
-    alt: "Two-tone Treasure Valley kitchen with white upper cabinets, sage-green lower cabinets, and a stained wood island showing cabinet finishes and colors",
+    alt: "Real completed two-tone Treasure Valley kitchen with creamy white upper cabinets and a rich stained walnut lower run and island showing cabinet finishes and colors",
     topicTags: ["cabinets", "finishes", "guide"],
     source: "blog",
   },
   "cabinet-hardware-guide": {
     hero: blog("cabinet-hardware-guide"),
-    alt: "Close-up of brushed-nickel bar pulls and knobs on sage-green and greige painted Shaker cabinets in a Treasure Valley kitchen",
+    alt: "Real completed luxury bathroom vanity in a Treasure Valley home with a walnut double vanity, statement matte-black and brass hardware, and a marble-look quartz top",
     topicTags: ["cabinets", "hardware", "guide"],
     source: "blog",
   },
