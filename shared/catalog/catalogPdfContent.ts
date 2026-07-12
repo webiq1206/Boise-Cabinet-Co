@@ -143,16 +143,20 @@ export async function buildCatalogPdfBlocks(
   });
 
   // ── Table of contents ────────────────────────────────────────────────────
-  blocks.push({ type: "title", text: "What's inside" });
+  // Targets must match the numbered `heading` texts below exactly, so the
+  // renderer can resolve the page each section starts on.
   blocks.push({
-    type: "bullets",
-    items: [
-      `Door styles (${DOOR_STYLES.length})`,
-      `Rooms we build for (${ROOM_CATEGORIES.length})`,
-      `Finishes (${FINISHES.length}) - by color family and full listing`,
-      `Cabinets (${CABINET_PRODUCTS.length}) - by category with dimensions`,
-      `Hardware (${HARDWARE_OPTIONS.length})`,
-      `Accessories (${ACCESSORY_FAMILIES.length})`,
+    type: "toc",
+    eyebrow: "FULL CATALOG",
+    title: "Contents",
+    entries: [
+      { label: `Door styles (${DOOR_STYLES.length})`, target: "Door styles" },
+      { label: `Rooms we build for (${ROOM_CATEGORIES.length})`, target: "Rooms we build for" },
+      { label: `Finishes by color family`, target: "Finishes by color family" },
+      { label: `All finishes (${FINISHES.length})`, target: "All finishes" },
+      { label: `Cabinets by category (${CABINET_PRODUCTS.length})`, target: "Cabinets by category" },
+      { label: `Hardware (${HARDWARE_OPTIONS.length})`, target: "Hardware" },
+      { label: `Accessories (${ACCESSORY_FAMILIES.length})`, target: "Accessories" },
     ],
   });
   blocks.push({
@@ -205,7 +209,7 @@ export async function buildCatalogPdfBlocks(
   blocks.push({ type: "image-grid", columns: 4, cells: familyCells });
 
   // ── Finishes: every swatch, grouped by category ─────────────────────────────
-  blocks.push({ type: "page-break" });
+  // Every numbered section opens on a fresh page (handled by the renderer).
   blocks.push({ type: "heading", text: "All finishes" });
   for (const category of ["matte", "gloss", "woodgrain"] as FinishCategory[]) {
     const list = FINISHES_BY_CATEGORY[category] ?? [];
@@ -231,7 +235,6 @@ export async function buildCatalogPdfBlocks(
   // Many configurations share one supplier "family" line drawing (the drawing
   // itself enumerates the variants + shelf options). Showing that drawing once,
   // large, keeps the page legible instead of repeating a tiny composite per SKU.
-  blocks.push({ type: "page-break" });
   blocks.push({ type: "heading", text: "Cabinets by category" });
   blocks.push({
     type: "paragraph",
@@ -273,7 +276,6 @@ export async function buildCatalogPdfBlocks(
   }
 
   // ── Hardware ────────────────────────────────────────────────────────────────
-  blocks.push({ type: "page-break" });
   blocks.push({ type: "heading", text: "Hardware" });
   const hardwareCells = await Promise.all(
     HARDWARE_OPTIONS.map((h) =>
@@ -283,7 +285,6 @@ export async function buildCatalogPdfBlocks(
   blocks.push({ type: "image-grid", columns: 4, cells: hardwareCells });
 
   // ── Accessories ─────────────────────────────────────────────────────────────
-  blocks.push({ type: "page-break" });
   blocks.push({ type: "heading", text: "Accessories" });
   const accessoryCells = await Promise.all(
     ACCESSORY_FAMILIES.map((a) =>

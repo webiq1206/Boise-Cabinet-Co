@@ -41,6 +41,15 @@ export type PdfBlock =
   | { type: 'spacer'; lines?: number }
   | { type: 'page-break' }
   | {
+      type: 'toc';
+      title: string;
+      /** Optional eyebrow above the title (wide-tracked label). */
+      eyebrow?: string;
+      /** Each entry's `target` must match a later `heading` block's `text`, so the
+       *  renderer can resolve the page that section starts on. */
+      entries: { label: string; target: string }[];
+    }
+  | {
       type: 'cover';
       title: string;
       subtitle?: string;
@@ -139,7 +148,7 @@ const DARK_THEME: Theme = {
   coverSubtitle: hex('9AA098'),
   imageSub: hex('9AA098'),
   footer: hex('9AA098'),
-  hairline: hex('4A4F4C'), // subtle light hairline on charcoal
+  hairline: hex('5D6561'), // sage — the palette's reserved 'rules' role
   numeral: hex('9AA098'), // Fraunces-italic section numbers, mist
   accent: hex('93A386'), // sage
   ink: hex('E6E3DE'),
@@ -170,6 +179,12 @@ interface PdfContext {
   sectionNo: number;
   /** Embedded images keyed by their source JPEG bytes (pre-embedded once). */
   imageCache: Map<Uint8Array, PDFImage>;
+  /** 1-based page number each numbered section (brand heading) starts on, keyed
+   *  by heading text. Populated during the draw pass; consumed by the TOC. */
+  headingPages: Map<string, number>;
+  /** Heading→page map from a prior pass, so the TOC can print real page numbers.
+   *  Empty on the first pass (numbers are simply omitted then). */
+  pageLookup: Map<string, number>;
 }
 
 function paintBackground(ctx: PdfContext): void {
@@ -368,9 +383,12 @@ function drawImageCard(
 }
 
 /** Numbered section heading in the brand style: Fraunces-italic numeral + light
- *  bone title over a hairline rule. */
+ *  bone title over a hairline rule. Every numbered section opens a fresh page and
+ *  records its page number so the table of contents can reference it. */
 function drawBrandHeading(ctx: PdfContext, text: string): void {
-  ctx.y -= 14;
+  if (pageHasContent(ctx)) newPage(ctx);
+  ctx.headingPages.set(text, ctx.doc.getPages().length);
+  ctx.y -= 4;
   ensureSpace(ctx, 34);
   const num = String(ctx.sectionNo).padStart(2, '0');
   const numSize = 15;
@@ -403,6 +421,94 @@ function drawBrandHeading(ctx: PdfContext, text: string): void {
   });
   ctx.y -= 14;
   ctx.sectionNo += 1;
+}
+
+/** Contents page: an editorial index of the numbered sections. Each row echoes
+ *  the section's Fraunces-italic numeral, with a sage hairline leader and the
+ *  page the section starts on (resolved from the prior pass via ctx.pageLookup). */
+function drawToc(ctx: PdfContext, block: Extract<PdfBlock, { type: 'toc' }>): void {
+  const t = ctx.theme;
+  const left = MARGIN;
+  const right = PAGE_WIDTH - MARGIN;
+
+  // Top framing rule + eyebrow.
+  ctx.page.drawLine({
+    start: { x: left, y: ctx.y },
+    end: { x: right, y: ctx.y },
+    thickness: 0.75,
+    color: t.hairline,
+  });
+  ctx.y -= 22;
+  if (block.eyebrow) {
+    drawTracked(ctx, block.eyebrow, left, ctx.y, 9, ctx.f.label, t.subtitle, 3);
+    ctx.y -= 26;
+  }
+
+  // Title + rule beneath it.
+  ctx.page.drawText(block.title, {
+    x: left,
+    y: ctx.y,
+    size: TITLE_SIZE + 8,
+    font: ctx.f.title,
+    color: t.title,
+  });
+  ctx.y -= 16;
+  ctx.page.drawLine({
+    start: { x: left, y: ctx.y },
+    end: { x: right, y: ctx.y },
+    thickness: 0.75,
+    color: t.hairline,
+  });
+  ctx.y -= 30;
+
+  const numSize = 13;
+  const labelSize = 12;
+  const rowH = 30;
+  // Fixed label column so labels align regardless of each italic numeral's width.
+  const labelX = left + 46;
+  block.entries.forEach((entry, i) => {
+    ensureSpace(ctx, rowH);
+    const baseline = ctx.y;
+    const num = String(i + 1).padStart(2, '0');
+    ctx.page.drawText(num, {
+      x: left,
+      y: baseline,
+      size: numSize,
+      font: ctx.f.accent,
+      color: t.numeral,
+    });
+    ctx.page.drawText(entry.label, {
+      x: labelX,
+      y: baseline,
+      size: labelSize,
+      font: ctx.f.body,
+      color: t.heading,
+    });
+
+    const pageNo = ctx.pageLookup.get(entry.target);
+    if (pageNo != null) {
+      const pageStr = String(pageNo);
+      const pw = ctx.f.body.widthOfTextAtSize(pageStr, labelSize);
+      ctx.page.drawText(pageStr, {
+        x: right - pw,
+        y: baseline,
+        size: labelSize,
+        font: ctx.f.body,
+        color: t.subtitle,
+      });
+    }
+
+    // Sage hairline separating each entry (the reserved 'rules' role).
+    ctx.y = baseline - 12;
+    ctx.page.drawLine({
+      start: { x: left, y: ctx.y },
+      end: { x: right, y: ctx.y },
+      thickness: 0.5,
+      color: t.hairline,
+    });
+    ctx.y = baseline - rowH;
+  });
+  ctx.y -= 6;
 }
 
 function drawBlock(ctx: PdfContext, block: PdfBlock): void {
@@ -555,6 +661,10 @@ function drawBlock(ctx: PdfContext, block: PdfBlock): void {
       if (pageHasContent(ctx)) newPage(ctx);
       break;
     }
+    case 'toc': {
+      drawToc(ctx, block);
+      break;
+    }
     case 'cover': {
       if (t.dark) {
         drawBrandCover(ctx, block);
@@ -653,16 +763,25 @@ function drawBlock(ctx: PdfContext, block: PdfBlock): void {
   }
 }
 
-/** Brand cover page: a typographic wordmark lockup + title on the charcoal ground. */
+/** Brand cover page: a typographic wordmark lockup + title on the charcoal ground,
+ *  framed by sage hairlines (top letterhead rule, lockup rule, meta rule). */
 function drawBrandCover(ctx: PdfContext, block: Extract<PdfBlock, { type: 'cover' }>): void {
   const t = ctx.theme;
   const left = MARGIN;
+  const right = PAGE_WIDTH - MARGIN;
 
-  // Eyebrow.
-  drawTracked(ctx, 'BOISE CABINET CO', left, PAGE_HEIGHT * 0.78, 9, ctx.f.label, t.subtitle, 3);
+  // Top letterhead rule + eyebrow.
+  const topY = PAGE_HEIGHT - MARGIN;
+  ctx.page.drawLine({
+    start: { x: left, y: topY },
+    end: { x: right, y: topY },
+    thickness: 0.75,
+    color: t.hairline,
+  });
+  drawTracked(ctx, 'BOISE CABINET CO', left, topY - 20, 9, ctx.f.label, t.subtitle, 3);
 
   // Wordmark: "BOISE CABINET " (light, tracked) + "Co." (Fraunces italic).
-  const wmY = PAGE_HEIGHT * 0.7;
+  const wmY = PAGE_HEIGHT * 0.62;
   const wmSize = 27;
   const endX = drawTracked(ctx, 'BOISE CABINET ', left, wmY, wmSize, ctx.f.heading, t.title, 2);
   ctx.page.drawText('Co.', {
@@ -672,7 +791,7 @@ function drawBrandCover(ctx: PdfContext, block: Extract<PdfBlock, { type: 'cover
     font: ctx.f.accent,
     color: t.title,
   });
-  // Hairline + lockup sub-labels.
+  // Sage hairline + lockup sub-labels.
   ctx.page.drawLine({
     start: { x: left, y: wmY - 14 },
     end: { x: left + 150, y: wmY - 14 },
@@ -683,7 +802,7 @@ function drawBrandCover(ctx: PdfContext, block: Extract<PdfBlock, { type: 'cover
   drawTracked(ctx, 'TREASURE VALLEY · IDAHO', left, wmY - 44, 7, ctx.f.label, t.meta, 2);
 
   // Title.
-  ctx.y = PAGE_HEIGHT * 0.4;
+  ctx.y = PAGE_HEIGHT * 0.36;
   const COVER_TITLE = 40;
   for (const line of wrapLine(block.title, ctx.f.title, COVER_TITLE)) {
     ctx.page.drawText(line, { x: left, y: ctx.y, size: COVER_TITLE, font: ctx.f.title, color: t.title });
@@ -695,7 +814,15 @@ function drawBrandCover(ctx: PdfContext, block: Extract<PdfBlock, { type: 'cover
     ctx.y -= 22;
   }
   if (block.metaLines?.length) {
-    ctx.y -= 10;
+    // Sage rule framing the meta block at the foot of the cover.
+    ctx.y -= 8;
+    ctx.page.drawLine({
+      start: { x: left, y: ctx.y },
+      end: { x: right, y: ctx.y },
+      thickness: 0.75,
+      color: t.hairline,
+    });
+    ctx.y -= 18;
     for (const line of block.metaLines) {
       ensureSpace(ctx, LINE_HEIGHT);
       ctx.page.drawText(line, { x: left, y: ctx.y, size: BODY_SIZE, font: ctx.f.body, color: t.meta });
@@ -729,11 +856,19 @@ function drawFooter(ctx: PdfContext, footerText: string): void {
   });
 }
 
-export async function buildResourcePdf(
+/** One full render pass. Returns the saved bytes plus the page each numbered
+ *  section started on, so a caller can re-render with a resolved TOC.
+ *
+ *  In `measure` mode, images are not embedded and the doc is not serialized —
+ *  pagination is independent of image bytes (image-grid rows use fixed aspect
+ *  ratios and caption text), so the cheap pass still yields correct page numbers. */
+async function renderOnce(
   blocks: PdfBlock[],
   footerText: string,
-  options: ResourcePdfOptions = {},
-): Promise<Uint8Array> {
+  options: ResourcePdfOptions,
+  pageLookup: Map<string, number>,
+  measure = false,
+): Promise<{ bytes: Uint8Array; headingPages: Map<string, number> }> {
   const wantDark = options.theme === 'dark';
   const doc = await PDFDocument.create();
 
@@ -791,11 +926,13 @@ export async function buildResourcePdf(
       // Skip undecodable images; the cell falls back to a flat tile.
     }
   };
-  for (const block of blocks) {
-    if (block.type === 'cover' && block.logo) await embedOnce(block.logo);
-    if (block.type !== 'image-grid') continue;
-    for (const cell of block.cells) {
-      if (cell.jpeg) await embedOnce(cell.jpeg);
+  if (!measure) {
+    for (const block of blocks) {
+      if (block.type === 'cover' && block.logo) await embedOnce(block.logo);
+      if (block.type !== 'image-grid') continue;
+      for (const cell of block.cells) {
+        if (cell.jpeg) await embedOnce(cell.jpeg);
+      }
     }
   }
 
@@ -807,6 +944,8 @@ export async function buildResourcePdf(
     y: PAGE_HEIGHT - MARGIN,
     sectionNo: 1,
     imageCache,
+    headingPages: new Map<string, number>(),
+    pageLookup,
   };
   paintBackground(ctx);
 
@@ -821,6 +960,29 @@ export async function buildResourcePdf(
     drawBlock(ctx, block);
   }
 
+  // Measurement pass only needs the section→page map; skip footer + serialization.
+  if (measure) return { bytes: new Uint8Array(), headingPages: ctx.headingPages };
+
   drawFooter(ctx, footerText);
-  return doc.save();
+  return { bytes: await doc.save(), headingPages: ctx.headingPages };
+}
+
+export async function buildResourcePdf(
+  blocks: PdfBlock[],
+  footerText: string,
+  options: ResourcePdfOptions = {},
+): Promise<Uint8Array> {
+  // A table of contents needs each section's final page number, which isn't known
+  // until layout is complete. Render once to collect them, then re-render with the
+  // numbers resolved. Section pages are stable because every numbered section opens
+  // a fresh page and the TOC's own height doesn't change between passes.
+  const hasToc = blocks.some((b) => b.type === 'toc');
+  if (!hasToc) {
+    return (await renderOnce(blocks, footerText, options, new Map())).bytes;
+  }
+  // Pass 1 measures section pages without embedding images (keeps memory flat);
+  // pass 2 renders for real with the resolved page numbers.
+  const first = await renderOnce(blocks, footerText, options, new Map(), true);
+  const second = await renderOnce(blocks, footerText, options, first.headingPages);
+  return second.bytes;
 }
