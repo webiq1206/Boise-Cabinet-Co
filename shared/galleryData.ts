@@ -11,7 +11,7 @@ export interface GalleryProject {
 
 export const GALLERY_PROJECTS: GalleryProject[] = [
   {
-    serviceType: "kitchen-remodel",
+    serviceType: "kitchen-cabinets",
     city: "boise",
     beforeImageUrl: GALLERY_IMAGES.kitchen.before,
     afterImageUrl: GALLERY_IMAGES.kitchen.after,
@@ -20,7 +20,7 @@ export const GALLERY_PROJECTS: GalleryProject[] = [
       "Custom kitchen cabinets with shaker doors, soft-close hardware, and quartz island in Boise",
   },
   {
-    serviceType: "bathroom-remodel",
+    serviceType: "bathroom-vanities",
     city: "meridian",
     beforeImageUrl: GALLERY_IMAGES.bathroom.before,
     afterImageUrl: GALLERY_IMAGES.bathroom.after,
@@ -29,7 +29,7 @@ export const GALLERY_PROJECTS: GalleryProject[] = [
       "Double vanity with linen tower, organized drawers, and coordinated mirrors in Meridian",
   },
   {
-    serviceType: "whole-home-remodel",
+    serviceType: "whole-home-cabinets",
     city: "eagle",
     beforeImageUrl: GALLERY_IMAGES.wholeHome.before,
     afterImageUrl: GALLERY_IMAGES.wholeHome.after,
@@ -38,7 +38,7 @@ export const GALLERY_PROJECTS: GalleryProject[] = [
       "Coordinated kitchen, bath, mudroom, and office cabinetry across an Eagle home with one finish schedule",
   },
   {
-    serviceType: "room-addition",
+    serviceType: "built-in-storage",
     city: "nampa",
     beforeImageUrl: GALLERY_IMAGES.addition.before,
     afterImageUrl: GALLERY_IMAGES.addition.after,
@@ -47,7 +47,7 @@ export const GALLERY_PROJECTS: GalleryProject[] = [
       "Floor-to-ceiling pantry and mudroom locker system with bench storage in Nampa",
   },
   {
-    serviceType: "basement-finish",
+    serviceType: "bar-cabinets",
     city: "boise",
     beforeImageUrl: GALLERY_IMAGES.basement.before,
     afterImageUrl: GALLERY_IMAGES.basement.after,
@@ -56,7 +56,7 @@ export const GALLERY_PROJECTS: GalleryProject[] = [
       "Custom wet bar and storage cabinets in a Boise basement entertainment space",
   },
   {
-    serviceType: "outdoor-kitchen",
+    serviceType: "outdoor-cabinets",
     city: "meridian",
     beforeImageUrl: GALLERY_IMAGES.outdoor.before,
     afterImageUrl: GALLERY_IMAGES.outdoor.after,

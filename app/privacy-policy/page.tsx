@@ -6,7 +6,7 @@ import { buildCanonical } from "@/lib/page-metadata";
 
 export const metadata: Metadata = {
   title: { absolute: "Privacy Policy | Boise Cabinet Co" },
-  description: "Boise Cabinet Co privacy policy. How we protect your data when you request custom cabinet services in Kuna & Boise, Idaho.",
+  description: "Boise Cabinet Co privacy policy. How we protect your data when you request custom cabinet services in Meridian & Boise, Idaho.",
   alternates: {
     canonical: buildCanonical("/privacy-policy"),
   },

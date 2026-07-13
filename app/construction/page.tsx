@@ -22,7 +22,7 @@ const STANDARDS = [
   },
   {
     title: "Precision door machining",
-    body: "Doors are CNC-routed and hand-finished in our Kuna shop. Hinge boring, overlay, and reveal tolerances are verified against your approved shop drawings before assembly.",
+    body: "Doors are CNC-routed and hand-finished in our Meridian shop. Hinge boring, overlay, and reveal tolerances are verified against your approved shop drawings before assembly.",
   },
   {
     title: "Drawer boxes & slides",
@@ -85,12 +85,12 @@ export default function ConstructionPage() {
                 </>
               }
               description={catalogDescription(
-                "{company} cabinets are engineered and built in Kuna, Idaho, with materials and methods chosen for daily use in Treasure Valley homes, not showroom-only display.",
+                "{company} cabinets are engineered and built in Meridian, Idaho, with materials and methods chosen for daily use in Treasure Valley homes, not showroom-only display.",
               )}
             />
             <CatalogPageHero
               src={MARKETING_IMAGES.construction}
-              alt="CNC cabinet door machining and quality inspection at Boise Cabinet Co Kuna shop"
+              alt="CNC cabinet door machining and quality inspection at Boise Cabinet Co Meridian shop"
               title="Cabinet Construction Standards | Boise Cabinet Co"
             />
             <div className="flex flex-wrap gap-3 mt-4">

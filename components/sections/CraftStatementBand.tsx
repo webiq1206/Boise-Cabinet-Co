@@ -38,7 +38,7 @@ export function CraftStatementBand() {
               </p>
               <p className="mt-5 text-sm md:text-base leading-relaxed text-muted-foreground max-w-md">
                 Soft-close hardware, hand-checked finishes, and frameless
-                construction, built to order in our Kuna shop and installed to
+                construction, built to order in our Meridian shop and installed to
                 last.
               </p>
             </div>

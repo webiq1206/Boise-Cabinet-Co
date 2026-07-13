@@ -29,7 +29,7 @@ export const metadata = catalogMetadata(
   "/collections",
   "Cabinet Collections",
   catalogDescription(
-    "Explore our Custom Cabinets from {company}, built to your exact sizes and finishes. Built in Kuna, installed across the Treasure Valley.",
+    "Explore our Custom Cabinets from {company}, built to your exact sizes and finishes. Built in Meridian, installed across the Treasure Valley.",
   ),
 );
 

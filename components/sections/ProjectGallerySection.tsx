@@ -47,8 +47,8 @@ export function ProjectGallerySection({ limit = 6, showViewAll = true }: Project
       <div className="container px-4">
         <SectionHeader
           eyebrow="Our work"
-          title="Transformations across the Treasure Valley"
-          description="Explore recent kitchen, bathroom, whole-home, and addition projects. Drag any slider to compare before and after."
+          title="Cabinet projects across the Treasure Valley"
+          description="Recent custom cabinet work - kitchen cabinets, bathroom vanities, and built-ins. Drag any slider to see the before and after."
           className="mb-10 max-w-3xl"
         />
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">

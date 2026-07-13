@@ -158,7 +158,7 @@ export function CollectionLandingTemplate({ collection }: CollectionLandingTempl
           <SectionHeader
             eyebrow="Construction"
             title={<>How {collection.name} is built</>}
-            description={`${SITE_CONFIG.name} cabinets are engineered in our Kuna shop with plywood box construction, precision door machining, and hardware matched to your project.`}
+            description={`${SITE_CONFIG.name} cabinets are engineered in our Meridian shop with plywood box construction, precision door machining, and hardware matched to your project.`}
             align="left"
             className="mb-8"
           />

@@ -62,7 +62,7 @@ export default function DoorStylesPage() {
                 </>
               }
               description={catalogDescription(
-                "From contemporary slab to classic shaker, every profile is machined in our Kuna shop with soft-close hinge boring standard.",
+                "From contemporary slab to classic shaker, every profile is machined in our Meridian shop with soft-close hinge boring standard.",
               )}
             />
             <CatalogSearch className="mb-8" />

@@ -148,7 +148,7 @@ export default function AboutPage() {
         <section className="relative min-h-[540px] md:min-h-[78vh] flex items-end overflow-hidden bg-inverse">
           <Image
             src={SITE_IMAGES.leadership}
-            alt={`${SITE_CONFIG.name} team reviewing custom kitchen cabinet designs`}
+            alt={`Custom white shaker kitchen cabinets by ${SITE_CONFIG.name} in a Treasure Valley home`}
             fill
             className="object-cover opacity-[0.82] img-brand-grade"
             sizes="100vw"
@@ -208,7 +208,7 @@ export default function AboutPage() {
             <div className="relative min-h-[260px] md:min-h-[520px] overflow-hidden bg-inverse">
               <Image
                 src={SITE_IMAGES.processAbout}
-                alt="Boise Cabinet Co cabinetmaker assembling a frameless cabinet box in the Kuna Idaho shop"
+                alt="Boise Cabinet Co cabinetmaker assembling a frameless cabinet box in the Meridian Idaho shop"
                 fill
                 sizes="(max-width: 768px) 100vw, 50vw"
                 className="object-cover img-brand-grade"

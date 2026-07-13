@@ -6,7 +6,7 @@ import { buildCanonical } from "@/lib/page-metadata";
 
 export const metadata: Metadata = {
   title: { absolute: "Terms of Service | Boise Cabinet Co" },
-  description: "Terms of service for Boise Cabinet Co. Your rights when using our custom cabinet design, fabrication, and installation services in Kuna & Boise, Idaho.",
+  description: "Terms of service for Boise Cabinet Co. Your rights when using our custom cabinet design, fabrication, and installation services in Meridian & Boise, Idaho.",
   alternates: {
     canonical: buildCanonical("/terms-of-service"),
   },
