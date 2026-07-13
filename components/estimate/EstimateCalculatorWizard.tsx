@@ -999,7 +999,7 @@ export function EstimateCalculatorWizard({
     quality: "Continue",
     layout: "Continue",
     style: "See your range",
-    result: "Book your free visit",
+    result: "Get my exact price - book a free visit",
     contact: "Send my request",
   };
 

@@ -329,7 +329,7 @@ export function EstimateResultPanel({
           className="w-full mb-3"
           data-testid="button-book-visit"
         >
-          Book your free visit
+          Get my exact price - book a free visit
           <ArrowRight className="h-4 w-4" />
         </Button>
       )}

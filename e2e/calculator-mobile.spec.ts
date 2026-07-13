@@ -32,7 +32,7 @@ test.describe("Unified quote flow", () => {
     });
     const stored = await page.evaluate(() => sessionStorage.getItem("brc_estimate"));
     expect(stored).toBeTruthy();
-    await page.getByRole("button", { name: "Book your free visit" }).first().click();
+    await page.getByTestId("wizard-next").click();
 
     // 5. Contact capture - the project is known, so only the 3 core fields show.
     await expect(page.getByTestId("input-name")).toBeVisible();

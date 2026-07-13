@@ -82,14 +82,15 @@ const TRUST_POINTS = [
 ] as const;
 
 /**
- * Softer, submit-gated field error. Reads the surrounding FormField's error via
+ * Softer, touch-gated field error. Reads the surrounding FormField's error via
  * the shared form context and renders an inline icon + message instead of the
- * default bold red block. Returns null until the field actually has an error.
+ * default bold red block. Stays silent until the visitor has actually engaged
+ * the field, so nothing turns red before they've had a chance to type.
  */
 function FieldError() {
-  const { error, formMessageId } = useFormField();
+  const { error, isTouched, formMessageId } = useFormField();
   const message = error ? String(error.message ?? "") : "";
-  if (!message) return null;
+  if (!message || !isTouched) return null;
   return (
     <p
       id={formMessageId}
@@ -210,9 +211,11 @@ export function ConsultationFields({
 
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
-    // Errors only surface after the visitor attempts to submit, then clear as
-    // each field becomes valid.
-    mode: "onSubmit",
+    // A field is only validated once the visitor has actually engaged it (focused
+    // then left it), so nothing turns red before they've had a chance to type.
+    // Combined with the isTouched gate in FieldError, tapping the submit button on
+    // an empty form focuses the first missing field instead of flooding red errors.
+    mode: "onTouched",
     reValidateMode: "onChange",
     defaultValues: {
       name: "",
