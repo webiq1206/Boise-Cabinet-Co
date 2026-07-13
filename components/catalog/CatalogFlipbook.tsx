@@ -352,11 +352,13 @@ export function CatalogFlipbook({ pdfUrl, downloadUrl }: CatalogFlipbookProps) {
   }, [mode, numPages]);
 
   /* ---- zoom ---- */
-  const setZoomClamped = useCallback((z: number) => {
-    setZoom(Math.max(MIN_ZOOM, Math.min(MAX_ZOOM, Number(z.toFixed(2)))));
-  }, []);
-  const zoomIn = useCallback(() => setZoomClamped(zoom + 0.25), [zoom, setZoomClamped]);
-  const zoomOut = useCallback(() => setZoomClamped(zoom - 0.25), [zoom, setZoomClamped]);
+  const clampZoom = (z: number) => Math.max(MIN_ZOOM, Math.min(MAX_ZOOM, Number(z.toFixed(2))));
+  // Absolute set (used by pinch-to-zoom).
+  const setZoomClamped = useCallback((z: number) => setZoom(clampZoom(z)), []);
+  // Relative steps use a functional update so rapid successive clicks accumulate
+  // correctly even within a single React batch.
+  const zoomIn = useCallback(() => setZoom((z) => clampZoom(z + 0.25)), []);
+  const zoomOut = useCallback(() => setZoom((z) => clampZoom(z - 0.25)), []);
   const resetZoom = useCallback(() => setZoom(1), []);
 
   // Pinch-to-zoom (touch) on the stage.
