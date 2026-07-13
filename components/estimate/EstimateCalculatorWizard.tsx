@@ -661,9 +661,9 @@ export function EstimateCalculatorWizard({
     size: "Drag to set your cabinet run - base and wall cabinets.",
     quality: "Pick the box construction that fits your budget and durability.",
     layout: "Pick the shape closest to your space.",
-    style: "Pick a door style. Finishes are optional - you can choose them at your visit.",
+    style: "Pick the door style you like best.",
     result: undefined,
-    contact: "Tell us where to send your range and we'll schedule your free in-home visit.",
+    contact: "Where should we send your range?",
   };
 
   function isStepComplete(index: number): boolean {
@@ -842,10 +842,10 @@ export function EstimateCalculatorWizard({
         );
       case "style":
         return (
-          <div className="space-y-4">
+          <div className="space-y-3">
             {visibility.doorStyle && (
               <div>
-                <label className="brc-label mb-2 block">Door style</label>
+                <label className="brc-label mb-1.5 block">Door style</label>
                 <SelectButton
                   value={selections.doorStyle}
                   options={doorOptions}

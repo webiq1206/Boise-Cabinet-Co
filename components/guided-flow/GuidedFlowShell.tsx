@@ -147,10 +147,11 @@ export function GuidedFlowShell({
       typeof window !== "undefined" &&
       window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
     if (fitViewport) {
-      // The card is height-bounded, so the page never scrolls. Reset the
-      // contained body to the top so each step starts at its heading, and move
-      // focus there without nudging the page.
-      bodyRef.current?.scrollTo({ top: 0, behavior: prefersReduced ? "auto" : "smooth" });
+      // Every step must open at the very top. Reset the contained body and any
+      // page-level scroll (the standalone /estimate page can scroll to its site
+      // footer) instantly, so a new step never appears mid-scroll.
+      bodyRef.current?.scrollTo({ top: 0, behavior: "auto" });
+      if (typeof window !== "undefined") window.scrollTo({ top: 0, behavior: "auto" });
     } else {
       topRef.current?.scrollIntoView({
         behavior: prefersReduced ? "auto" : "smooth",

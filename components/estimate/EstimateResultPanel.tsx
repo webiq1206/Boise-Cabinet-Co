@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { ArrowRight, Check, Info } from "lucide-react";
+import { ArrowRight, Check, Info, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import type { EstimateResult, ProjectType } from "@/shared/estimateEngine";
@@ -340,26 +340,52 @@ export function EstimateResultPanel({
         </p>
       )}
 
-      {(isFull || isSidebar) && (
-        <div
-          className={cn(
-            "rounded-sm flex gap-3 bg-inverse-foreground/6 border border-inverse-foreground/10",
-            compact ? "p-2.5" : "p-4",
-          )}
-        >
-          <Info className="h-4 w-4 flex-shrink-0 mt-0.5 text-inverse-muted" />
-          <p
-            className={cn(
-              "leading-relaxed text-inverse-muted",
-              compact ? "text-[10px]" : "text-[11px]",
-            )}
-            data-testid="estimate-disclaimer"
-          >
-            {ESTIMATE_RANGE_DISCLAIMER}
-          </p>
-        </div>
-      )}
+      {(isFull || isSidebar) &&
+        (compact ? (
+          <CompactDisclaimer />
+        ) : (
+          <div className="rounded-sm flex gap-3 bg-inverse-foreground/6 border border-inverse-foreground/10 p-4">
+            <Info className="h-4 w-4 flex-shrink-0 mt-0.5 text-inverse-muted" />
+            <p
+              className="text-[11px] leading-relaxed text-inverse-muted"
+              data-testid="estimate-disclaimer"
+            >
+              {ESTIMATE_RANGE_DISCLAIMER}
+            </p>
+          </div>
+        ))}
 
+    </div>
+  );
+}
+
+/**
+ * The full range disclaimer is long, so on the one-screen (compact) result step
+ * it lives behind a toggle - present and one tap away, but never forcing scroll.
+ */
+function CompactDisclaimer() {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="rounded-sm bg-inverse-foreground/6 border border-inverse-foreground/10">
+      <button
+        type="button"
+        onClick={() => setOpen((o) => !o)}
+        aria-expanded={open}
+        className="flex w-full items-center gap-2 px-2.5 py-2 text-left text-[11px] text-inverse-muted min-h-9"
+        data-testid="button-toggle-disclaimer"
+      >
+        <Info className="h-3.5 w-3.5 flex-shrink-0" />
+        <span className="flex-1">How this estimate works</span>
+        <ChevronDown className={cn("h-3.5 w-3.5 transition-transform", open && "rotate-180")} />
+      </button>
+      {open && (
+        <p
+          className="px-2.5 pb-2.5 text-[10px] leading-relaxed text-inverse-muted"
+          data-testid="estimate-disclaimer"
+        >
+          {ESTIMATE_RANGE_DISCLAIMER}
+        </p>
+      )}
     </div>
   );
 }

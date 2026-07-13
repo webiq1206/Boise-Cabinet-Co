@@ -351,7 +351,7 @@ export function ConsultationFields({
 
   return (
     <Form {...form}>
-      <form id={formId} onSubmit={onSubmit} className={compact ? "space-y-3" : "space-y-5"}>
+      <form id={formId} onSubmit={onSubmit} className={compact ? "space-y-2.5" : "space-y-5"}>
         {showEstimateSummary && estimate && <EstimateSummaryCard estimate={estimate} compact={compact} />}
 
         {mutation.isError && (
@@ -376,7 +376,7 @@ export function ConsultationFields({
         <div
           className={cn(
             "rounded-lg border border-border bg-card shadow-sm",
-            compact ? "space-y-2.5 p-3" : "space-y-5 p-5 sm:p-6",
+            compact ? "space-y-2 p-3" : "space-y-5 p-5 sm:p-6",
           )}
         >
           <div className={cn("grid gap-3", compact ? "grid-cols-2" : "sm:grid-cols-2 gap-4")}>
