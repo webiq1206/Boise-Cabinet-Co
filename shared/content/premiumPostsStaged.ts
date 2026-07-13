@@ -964,6 +964,298 @@ const measureContent = `
 <p>${AUTHOR} builds custom <a href="/cabinets/kitchen">kitchen cabinets</a> and provides a precise professional measure before your cabinets are ordered, so everything fits perfectly, for homes across Boise, Meridian, Eagle, and Nampa. Explore <a href="/catalog">our cabinets and finishes</a>, then <a href="/estimate">get a planning range</a> or <a href="/contact">book a free in-home consultation</a>. We handle the exact measuring — accounting for every wall, opening, utility, and out-of-square corner — so your custom cabinets fit your real kitchen precisely and function exactly as planned for years to come.</p>
 `;
 
+/* ============================================================================
+ * 19) custom-vs-stock-vs-semi-custom-costs
+ * IMAGE PROMPT: Authentic professional real-estate photograph of a real,
+ * completed mid-range Treasure Valley Idaho kitchen that reads as good value —
+ * clean white and warm wood semi-custom-style Shaker cabinets, quartz counters,
+ * a modest island, brushed nickel hardware. Warm natural window light,
+ * true-to-life, full-frame DSLR. Not a render, not CGI, not a stock photo. No
+ * people, no text, no watermarks.
+ * ========================================================================== */
+const customStockSemiContent = `
+<p class="text-lg">Stock, semi-custom, and custom cabinets are three tiers that differ in flexibility, quality, lead time, and cost: <strong>stock is the most affordable, made in fixed sizes and finishes and available fast; semi-custom offers more sizes, finishes, and modifications on a stock platform at a moderate price; and custom is built to your exact specifications at the highest cost</strong>. Cabinets are usually priced per linear foot, and the gap between budget stock and high-end custom is wide. Here is exactly how the three tiers compare on cost and everything that drives it, so you can choose the tier that fits your kitchen and budget.</p>
+
+<div class="summary-block">
+  <p><strong>Key takeaways:</strong> Stock is cheapest (fixed sizes, fast), semi-custom is a moderate step up (more options, good balance), custom is priciest (built to your exact specs). Cabinets are priced per linear foot; the tier is the biggest cost lever after kitchen size. <a href="/blog/cabinet-cost-per-linear-foot">See cost per linear foot</a> or <a href="/estimate">get a planning range</a>.</p>
+</div>
+
+<h2 id="tiers">The three tiers explained</h2>
+<p>Understanding the tiers is the foundation of understanding the cost. <strong>Stock cabinets</strong> are mass-produced in advance in standard sizes, styles, and finishes, and sold off the shelf — the most affordable, fastest option, but limited to a fixed menu. <strong>Semi-custom cabinets</strong> start from a stock platform but offer more choices — additional sizes, more finishes and door styles, and some modifications — for a moderate step up in price, bridging the gap between stock and custom. <strong>Custom cabinets</strong> are built to order for your exact kitchen, with any dimensions, materials, features, and finishes you specify, using every inch of your space — the most flexible and highest-quality option, at the highest cost. These three tiers form a spectrum from most affordable and least flexible to most expensive and most flexible, and knowing where each sits is the key to choosing well. See our <a href="/blog/stock-vs-custom-cabinets-boise">stock vs custom guide</a>.</p>
+
+<h2 id="pricing">How cabinets are priced</h2>
+<p>Across all three tiers, cabinets are most often priced by the <strong>linear foot</strong> — the length of wall the cabinets run along — which gives a consistent way to compare. Your total reflects your kitchen's linear footage times a per-foot price for the tier and line you choose, plus specialty cabinets, accessories, and installation. This means two things drive the cost most: the <strong>size of your kitchen</strong> (its linear footage) and the <strong>tier and line</strong> you select. A small kitchen in stock cabinets is dramatically less expensive than a large kitchen in custom, and the same kitchen can vary widely depending on the tier. Understanding the per-linear-foot basis helps you compare quotes across tiers fairly and see why both kitchen size and tier choice matter so much to the final number. Our <a href="/blog/cabinet-cost-per-linear-foot">cost-per-linear-foot guide</a> explains this pricing in depth.</p>
+
+<h2 id="stock-cost">Stock cabinet costs</h2>
+<p>Stock cabinets are the most affordable tier, which is their primary appeal. Because they are mass-produced to fixed specifications and often available immediately (or as flat-packed RTA cabinets that ship cheaply), they keep costs low, making them ideal for tight budgets, rentals, flips, and standard-layout kitchens. The trade-offs that come with the low price are limited sizes (which can leave filler gaps in kitchens that do not match standard increments), a fixed menu of finishes and styles, and construction quality that varies and should be inspected. For a budget-conscious project or a kitchen whose dimensions suit standard sizes, stock delivers a functional result at the lowest cost. Just be aware that the sticker price is not the whole story — assembly (for RTA), installation, and fillers add to the total, so compare fully installed costs. See our <a href="/blog/prefab-cabinets-explained">prefab cabinets guide</a>.</p>
+
+<h2 id="semi-cost">Semi-custom cabinet costs</h2>
+<p>Semi-custom cabinets cost more than stock but less than custom, occupying the middle of the range — and for many kitchens they represent the sweet spot of value. The moderate upcharge over stock buys meaningfully more flexibility: a wider range of sizes (so fewer filler gaps), more finishes and door styles, and the ability to make some modifications, often with better construction quality than budget stock. This makes semi-custom a great choice when stock does not quite fit your space or style but full custom is more than your budget or needs require. Many kitchens that start with stock in mind end up semi-custom once the limits of fixed sizes and finishes become clear, and the step up is often worth it for the better fit and expanded options at a still-reasonable price. Semi-custom is where a lot of quality mid-range kitchens land.</p>
+
+<h2 id="custom-cost">Custom cabinet costs</h2>
+<p>Custom cabinets are the most expensive tier, reflecting that they are built to order with skilled labor, quality materials, and no economies of mass production. That premium buys a precise fit to your exact space (no filler gaps, every inch used), exactly the storage and features you want, complete freedom of materials and finishes, and typically superior construction — plywood boxes, solid-wood dovetailed drawers, quality hardware — built to last decades. For an irregular or unusually sized kitchen, a forever home, or anyone who wants the best quality and a specific look, custom's cost is justified by its value. For a standard layout on a tight budget or a short timeline, it may be more than needed. The key is weighing the premium against the value you will actually get from the precise fit, tailored storage, and lasting quality. See our <a href="/blog/are-custom-cabinets-worth-it">are custom cabinets worth it guide</a> and <a href="/blog/custom-kitchen-cabinet-cost">custom cost guide</a>.</p>
+
+<h2 id="comparison">Comparing the three tiers</h2>
+<table>
+  <thead><tr><th>Tier</th><th>Cost</th><th>Flexibility</th><th>Lead time</th><th>Best for</th></tr></thead>
+  <tbody>
+    <tr><td>Stock</td><td>Lowest</td><td>Fixed sizes/finishes</td><td>Fast</td><td>Budgets, standard layouts, rentals</td></tr>
+    <tr><td>Semi-custom</td><td>Moderate</td><td>More sizes/finishes/mods</td><td>Medium</td><td>Better fit and style, mid-range value</td></tr>
+    <tr><td>Custom</td><td>Highest</td><td>Anything you specify</td><td>Longest</td><td>Irregular spaces, forever homes, quality</td></tr>
+  </tbody>
+</table>
+
+<h2 id="other-factors">What else drives the cost</h2>
+<p>Within any tier, several factors move the number up or down. <strong>Construction quality</strong> — plywood versus particleboard boxes, dovetailed versus stapled drawers, soft-close hardware — affects both cost and longevity. <strong>Materials and finish</strong> — premium woods, painted finishes, and specialty colors add cost. <strong>Door style</strong> — intricate or inset doors cost more than plain slab. <strong>Accessories and specialty cabinets</strong> — pull-outs, organizers, and corner solutions add up. And <strong>installation and any layout changes</strong> add labor. This is why two kitchens in the same tier can differ significantly in price, and why comparing quotes requires looking at what is actually included, not just the tier name. Deciding where to invest — quality construction and the features you use daily — and where to economize is how you get the best value at any tier. See our <a href="/blog/how-to-plan-a-kitchen-cabinet-project">planning guide</a>.</p>
+
+<h2 id="lead-time">Lead time and availability</h2>
+<p>Beyond cost, the tiers differ in how quickly you can get them, which matters for your timeline. <strong>Stock cabinets</strong> are the fastest — because they are mass-produced in advance, they are often available immediately or with minimal wait, and flat-packed RTA versions can ship quickly, making stock the go-to when you need cabinets fast. <strong>Semi-custom cabinets</strong> take longer, since the added sizes, finishes, and modifications are made to your order, typically requiring a lead time of a few weeks to a couple of months. <strong>Custom cabinets</strong> have the longest lead time, as they are built entirely to order by skilled craftspeople, often several weeks to a few months depending on the shop and scope. This means your timeline is part of the tier decision: if you need a kitchen quickly, stock's fast availability is an advantage, while custom and semi-custom require planning ahead and ordering with enough lead time. Factoring availability alongside cost and flexibility ensures the tier you choose fits not just your budget and space but your schedule too. See our <a href="/blog/how-to-plan-a-kitchen-cabinet-project">planning guide</a> for scheduling.</p>
+
+<h2 id="choose">How to choose the right tier</h2>
+<p>Choosing the right tier comes down to matching it to your kitchen, budget, and priorities. Choose <strong>stock</strong> if budget is the top priority, your layout is standard, or the kitchen is for a rental or flip. Choose <strong>semi-custom</strong> if you want a better fit and more style options than stock without the full custom price — a great middle ground for many homes. Choose <strong>custom</strong> if you have an irregular space, want specific storage or a specific look, value top construction and durability, and your budget accommodates it. There is no universally right tier; the best choice is the one whose balance of cost, flexibility, and quality fits what your kitchen and life actually need. Getting a real, itemized quote for the tier you are considering — based on your kitchen's linear footage and choices — is the only way to know your true cost. See our <a href="/blog/cost-to-replace-kitchen-cabinets">cost to replace guide</a>.</p>
+
+<h2 id="bottom-line">The bottom line</h2>
+<p>Stock, semi-custom, and custom cabinets form a spectrum from most affordable and least flexible to most expensive and most flexible. Stock keeps budget kitchens affordable with fixed sizes and fast availability; semi-custom offers more sizes, finishes, and modifications at a moderate price and is often the sweet spot of value; and custom is built to your exact specifications with superior quality at the highest cost. Cabinets are priced per linear foot, so kitchen size and tier are the biggest cost drivers, with construction, materials, and installation moving the number within any tier. Match the tier to your space, budget, and priorities, get an itemized quote, and you will find the best value for your kitchen.</p>
+
+<h2 id="how-we-build">Find your best value with Boise Cabinet Co</h2>
+<p>${AUTHOR} builds custom and semi-custom <a href="/cabinets/kitchen">kitchen cabinets</a> and helps you weigh every tier honestly against your kitchen and budget, for homes across Boise, Meridian, Eagle, and Nampa. Explore <a href="/catalog">our cabinets and finishes</a>, then <a href="/estimate">get a planning range</a> or <a href="/contact">book a free in-home consultation</a>. We will give you a clear, itemized quote based on your actual kitchen and help you choose the tier — and the specific features — that deliver the best value for what you want to spend.</p>
+`;
+
+/* ============================================================================
+ * 20) paint-or-replace-cabinets
+ * IMAGE PROMPT: Authentic professional real-estate photograph of a real,
+ * completed mid-range Treasure Valley Idaho kitchen with freshly refinished
+ * cabinets that look renewed — clean painted soft greige Shaker cabinets, new
+ * hardware, quartz counters — conveying a smart update rather than a full
+ * replacement. Warm natural window light, true-to-life, full-frame DSLR. Not a
+ * render, not CGI, not a stock photo. No people, no text, no watermarks.
+ * ========================================================================== */
+const paintOrReplaceContent = `
+<p class="text-lg">Whether to paint or replace your kitchen cabinets comes down to three questions: <strong>Are the cabinet boxes structurally sound? Does your layout work? And do you only want a new look, or new function?</strong> If the boxes are solid and the layout works and you just want a fresh color, painting (or refinishing) is far cheaper and makes sense. If the boxes are failing, the layout is wrong, or you want to change storage and construction, replacing is the better investment. Here is how to decide between painting and replacing your cabinets, with the honest trade-offs of cost, durability, and result.</p>
+
+<div class="summary-block">
+  <p><strong>Key takeaways:</strong> Paint if the boxes are sound, the layout works, and you only want a new color — it is far cheaper. Replace if the boxes are failing, the layout is wrong, or you want new storage and construction. Ask: sound boxes? good layout? new look or new function? <a href="/blog/cabinet-refacing-vs-refinishing-vs-replacing">See reface vs replace</a> or <a href="/estimate">get a quote</a>.</p>
+</div>
+
+<h2 id="question">The core question</h2>
+<p>The paint-or-replace decision is really about matching the solution to the problem. Painting changes only the <strong>color and finish</strong> of your existing cabinets; it does nothing to fix the boxes, the layout, or the storage. Replacing gives you <strong>all-new cabinets</strong> — new boxes, the chance to change the layout, new construction quality, and reconfigured storage — but at a much higher cost. So the decision hinges on whether your problem is purely cosmetic (you dislike the color or dated finish, but the cabinets themselves are fine) or functional and structural (the boxes are worn, the layout does not work, you need different storage). Diagnosing which problem you actually have is the whole decision, and it prevents both overspending on replacement when paint would do and underspending on paint when the real issue is a failing, badly laid-out kitchen. Three questions get you there.</p>
+
+<h2 id="boxes">Question 1: Are the boxes sound?</h2>
+<p>The first and most important question is the structural condition of your cabinet boxes. If the boxes are <strong>solid and well-built</strong> — sturdy, square, with no water damage, swelling, or failing particleboard — they are worth keeping, and painting or refinishing them is a smart, cost-effective update. If the boxes are <strong>failing</strong> — particleboard swelling from moisture, frames loosening, shelves sagging, water damage under the sink — then painting them is money wasted on a foundation that will not last, and replacement is the better call. Painting cannot fix a structural problem; it only changes the surface. So inspect your boxes honestly (open drawers and doors, check under the sink, look for damage and solidity) before deciding, because sound boxes point toward paint and failing boxes point toward replacement. This single factor often settles the decision. See our <a href="/blog/cabinet-construction-quality-guide">construction quality guide</a>.</p>
+
+<h2 id="layout">Question 2: Does the layout work?</h2>
+<p>The second question is whether your kitchen's layout functions well. If the <strong>layout works</strong> — the work triangle is efficient, you have enough counter and storage, the flow is good — then there is no functional reason to replace, and painting to update the look makes sense. If the <strong>layout does not work</strong> — too little counter space, a poor work triangle, no island where you want one, wasted or awkward space — then painting leaves you with a fresh-looking but still-frustrating kitchen, and replacing is the only way to fix it, since paint cannot move a cabinet or change a layout. Be honest about whether your daily frustrations are about how the kitchen <em>looks</em> or how it <em>works</em>: cosmetic complaints favor paint, functional ones favor replacement. A kitchen you dislike the look of but that functions well is a great candidate for paint; one that fights you daily needs more than a new color. See our <a href="/blog/kitchen-layout-ideas">kitchen layout guide</a>.</p>
+
+<h2 id="look-function">Question 3: New look or new function?</h2>
+<p>The third question ties the first two together: do you want only a new <strong>look</strong>, or new <strong>function</strong>? If your goal is purely aesthetic — you are tired of the color, the finish is dated, you want a fresh, current look — and the boxes and layout are sound, then painting delivers exactly that transformation at a fraction of replacement cost. If your goal includes function — more or better storage, a different layout, upgraded construction, new features — then painting cannot deliver it, and replacement is required. Many kitchens that people think need replacing actually just need a cosmetic refresh, and many that people try to fix with paint really needed functional changes. Clarifying whether you are chasing a new look or new function, alongside the box and layout questions, points clearly toward paint or replacement. Get all three answers and the decision is usually obvious.</p>
+
+<h2 id="cost">The cost difference</h2>
+<p>Cost is a major factor, and the gap is large. <strong>Painting or refinishing</strong> existing cabinets is dramatically cheaper than replacing them — often a fraction of the cost — because you keep the boxes and only change the finish. <strong>Replacing</strong> means paying for all-new cabinets plus removal and installation, and usually new countertops (since old tops rarely survive removal), making it a much larger investment. This cost difference is why painting is so appealing when the cabinets are fundamentally sound: it delivers a major visual transformation for far less money. But cheaper is not always better value — painting failing boxes or a bad layout wastes money on a result that will not satisfy. The right lens is value, not just price: paint is the better value when the cabinets are sound and you want a new look, while replacement is the better value when the boxes or layout genuinely need to change. See our <a href="/blog/cost-to-replace-kitchen-cabinets">cost to replace guide</a>.</p>
+
+<h2 id="refacing">Don't forget refacing</h2>
+<p>Between painting and full replacement sits a third option worth knowing: <strong>refacing</strong>. Refacing keeps your existing cabinet boxes but installs all-new doors, drawer fronts, and a matching skin over the boxes, letting you change the door style and finish entirely without new boxes. It costs more than painting but less than replacing, and it changes the look more completely than paint (since you get new doors and can change the style, not just the color). Refacing makes sense when your boxes are sound and your layout works, but you want a bigger change than paint can deliver — a new door style, not just a new color. So the real choice is often three-way: paint or refinish for a color change on sound boxes, reface for a style change on sound boxes, or replace when the boxes or layout need to change. See our full <a href="/blog/cabinet-refacing-vs-refinishing-vs-replacing">reface vs refinish vs replace guide</a>.</p>
+
+<h2 id="timeline">Timeline and disruption</h2>
+<p>Beyond cost, painting and replacing differ greatly in how long they take and how disruptive they are — a real consideration for a kitchen you use every day. <strong>Painting or refinishing</strong> keeps your cabinets in place (or the doors off for a shorter period) and is far less disruptive: there is no demolition, no torn-apart kitchen, and no waiting on new cabinets to be built, so the kitchen stays largely usable and the project is measured in days, not weeks. <strong>Replacing</strong> is a full project: demolition removes the old cabinets, the kitchen is out of commission during installation, new cabinets have a lead time before they even arrive, and countertops are templated and fabricated after the cabinets are set, extending the timeline to weeks or more. For homeowners who cannot easily lose their kitchen for an extended period, or who want a quick refresh, painting's speed and low disruption are a significant advantage. For those undertaking a full renovation anyway, the longer disruption of replacement is part of the larger project. Weighing the timeline and disruption, alongside cost and result, rounds out the decision. See our <a href="/blog/kitchen-remodel-boise">remodel process guide</a>.</p>
+
+<h2 id="decision">Making the decision</h2>
+<p>Putting it together, the decision follows clearly from the three questions. If your <strong>boxes are sound, your layout works, and you want a new look</strong>, paint or refinish (or reface for a style change) — it is far cheaper and delivers the fresh look you want. If your <strong>boxes are failing, your layout is wrong, or you want new function</strong>, replace — it is the only option that fixes those, and the higher cost is justified by getting a kitchen that actually works. If you are in between — sound boxes but wanting a bigger change than color — refacing bridges the gap. The mistake to avoid is applying the wrong solution: painting a failing or badly laid-out kitchen wastes money, while replacing a sound kitchen you just dislike the color of overspends. Diagnose honestly with the three questions, and the right choice — paint, reface, or replace — becomes clear. See our <a href="/blog/how-to-plan-a-kitchen-cabinet-project">planning guide</a>.</p>
+
+<h2 id="bottom-line">The bottom line</h2>
+<p>Whether to paint or replace your kitchen cabinets comes down to three honest questions: Are the boxes structurally sound? Does the layout work? Do you want a new look or new function? Sound boxes, a good layout, and a desire for just a fresh color point to painting or refinishing — far cheaper and effective. Failing boxes, a bad layout, or a need for new storage and construction point to replacing — more expensive but the only real fix. And refacing bridges the middle when you want a new style on sound boxes. Match the solution to the actual problem, and you will neither overspend on replacement you did not need nor waste money painting a kitchen that needed more.</p>
+
+<h2 id="how-we-build">Decide with Boise Cabinet Co</h2>
+<p>${AUTHOR} refinishes, refaces, and builds new custom <a href="/cabinets/kitchen">kitchen cabinets</a>, and will help you decide honestly between painting and replacing, for homes across Boise, Meridian, Eagle, and Nampa. Explore <a href="/catalog">our finishes and door styles</a>, then <a href="/estimate">get a planning range</a> or <a href="/contact">book a free in-home consultation</a>. We will assess your boxes and layout, listen to whether you want a new look or new function, and recommend painting, refacing, or replacing — whichever genuinely gives you the best result for your kitchen and budget.</p>
+`;
+
+/* ============================================================================
+ * 21) garage-cabinets  (kw: garage cabinets boise)
+ * IMAGE PROMPT: Authentic professional real-estate photograph of a real,
+ * completed organized garage in a Treasure Valley Idaho home with a full wall of
+ * durable custom garage storage cabinets (charcoal-gray and white metal-look or
+ * finished wood), a workbench, overhead and base cabinets, tools neatly stored.
+ * Clean, well-lit, true-to-life, full-frame DSLR. Not a render, not CGI, not a
+ * stock photo. No people, no text, no watermarks.
+ * ========================================================================== */
+const garageCabinetsContent = `
+<p class="text-lg">The best garage cabinets turn a cluttered garage into organized, usable space by getting everything <strong>off the floor and into durable, purpose-built storage</strong> — tall cabinets for tools and equipment, base cabinets with a workbench top, overhead and wall storage for seasonal items, and finishes built to withstand a garage's heat, cold, and moisture. Whether you want a clean space to park, a functional workshop, or serious storage, custom garage cabinetry makes the garage work harder. Here are the garage cabinet and storage ideas that actually organize the space, and what to look for in cabinets built for garage conditions.</p>
+
+<div class="summary-block">
+  <p><strong>Key takeaways:</strong> Great garage cabinets get everything off the floor into durable, purpose-built storage — tall cabinets, a workbench, and overhead storage — in finishes built for garage conditions. Design around how you use the space. <a href="/cabinets/garage">See garage cabinetry</a> or <a href="/estimate">plan your project</a>.</p>
+</div>
+
+<h2 id="why">Why garage cabinets are worth it</h2>
+<p>The garage is one of the most underused and disorganized spaces in most homes — a catch-all where tools, seasonal gear, sports equipment, and household overflow pile up on the floor and shelves. Custom garage cabinets change that by giving everything a defined, off-the-floor home, which not only clears the clutter but often reclaims enough space to actually park the cars. Beyond organization, cabinetry makes the garage safer (hazardous items stored securely), more functional (a real workspace), and more pleasant to be in. A well-organized garage with quality cabinetry also adds appeal for buyers, who increasingly value garage storage. For a relatively contained investment in a large space, garage cabinets deliver an outsized improvement in how usable and organized the garage — and by extension the whole home — feels. It is one of the higher-impact storage projects outside the main living areas.</p>
+
+<h2 id="types">Types of garage cabinets and storage</h2>
+<p>Garage storage combines several elements, each serving a purpose. <strong>Tall cabinets</strong> store long tools, cleaning equipment, and bulky items, and lock away hazardous materials. <strong>Base cabinets</strong> provide drawer and shelf storage and, topped with a durable work surface, become a <strong>workbench</strong>. <strong>Wall cabinets and open shelving</strong> use vertical space for frequently accessed items. <strong>Overhead storage</strong> (ceiling-mounted racks) handles seasonal and rarely used items up high. And <strong>wall systems</strong> — slatwall or pegboard — hang tools and gear within easy reach. The best garage setups combine these: tall and base cabinets for the bulk of storage, a workbench for projects, overhead racks for seasonal overflow, and wall systems for grab-and-go tools. Mixing the right elements for how you use the garage is what turns it from a cluttered catch-all into an organized, functional space.</p>
+
+<h2 id="durability">Built for garage conditions</h2>
+<p>The single most important thing about garage cabinets is that they must be built for garage conditions, which are harsher than any room in the house. Garages experience <strong>temperature swings</strong> (hot summers, cold winters), <strong>humidity and moisture</strong>, dust, and heavy use, so cabinets need durable, moisture-resistant materials and finishes that will not warp, swell, or degrade. Options range from <strong>metal cabinets</strong> (very durable, industrial look) to <strong>quality wood or laminate cabinets</strong> built with moisture-resistant materials and tough finishes. Heavy-duty construction matters because garage cabinets store heavy tools and equipment and take rougher use than kitchen cabinets. Standard indoor cabinetry is not ideal for a garage unless it is built to handle the environment. When choosing garage cabinets, prioritize durability and moisture resistance above all, since a garage will punish anything not built for it. See our <a href="/blog/cabinet-construction-quality-guide">construction quality guide</a>.</p>
+
+<h2 id="workbench">Adding a workbench</h2>
+<p>For anyone who uses the garage for projects, a <strong>workbench</strong> integrated into the cabinetry is a game-changer. A run of sturdy base cabinets topped with a durable, hardworking surface — butcher block, laminate, or a heavy-duty top — creates a real workspace with storage right below for tools and supplies. Add drawers for hand tools, a pegboard or slatwall above for frequently used items, and good task lighting, and the garage becomes a genuine workshop. Sizing the workbench and its storage to the projects you actually do — woodworking, repairs, hobbies, gardening — makes it truly useful. The combination of a solid work surface, organized tool storage within reach, and good lighting is what separates a functional workshop from a cluttered bench piled with stuff. Building the workbench into the cabinetry keeps it stable, organized, and integrated rather than a freestanding afterthought.</p>
+
+<h2 id="planning">Planning your garage layout</h2>
+<p>A well-organized garage starts with a plan that matches storage to how you actually use the space and to the garage's fixed constraints. Begin by taking stock of what you need to store — vehicles, tools, sports gear, seasonal items, lawn and garden equipment, household overflow — and how often you access each. Then plan the layout around the garage's realities: the parking area and the clearance needed around the cars, the location of the door to the house and to the yard, windows, the water heater or furnace, and outlets. Put frequently used items in the most accessible cabinets and wall storage, seasonal and rarely used items overhead or up high, and hazardous materials in locking cabinets. Keep a clear path and adequate clearance so the cars still fit and doors open freely. Because a garage is a large space with specific constraints, a deliberate layout — rather than adding storage piecemeal — is what produces a garage that is genuinely organized and still functions for parking and access. Custom cabinetry, sized and configured to your garage and your stuff, is what makes that plan a reality. See our <a href="/blog/how-to-plan-a-kitchen-cabinet-project">planning principles</a>.</p>
+
+<h2 id="organize">Organizing by zone</h2>
+<p>Like a kitchen, a garage works best organized into zones based on how you use it. A <strong>workshop zone</strong> centers on the workbench with tools and project supplies. A <strong>sports and recreation zone</strong> stores bikes, balls, and gear together. A <strong>seasonal zone</strong> (often overhead or in tall cabinets) holds holiday decorations, camping gear, and off-season items. A <strong>lawn and garden zone</strong> keeps yard tools, fertilizers, and equipment in one place, ideally near the door to the yard. And a <strong>household overflow zone</strong> stores bulk supplies and things that do not fit inside. Grouping items by zone — and storing each where you use it — keeps the garage organized and makes everything easy to find. Planning the cabinetry around these zones, rather than just adding storage randomly, is what makes a garage genuinely organized and functional day to day.</p>
+
+<h2 id="overhead">Overhead and wall storage systems</h2>
+<p>Two of the most valuable garage storage strategies use space that cabinets alone do not: overhead and walls. <strong>Overhead storage</strong> — ceiling-mounted racks and platforms — is ideal for seasonal and rarely used items like holiday decorations, camping gear, and luggage, reclaiming the empty space above the cars that otherwise goes completely unused. Because it is up high and out of the way, overhead storage frees the floor and lower cabinets for everyday items while still holding a large volume of bulky, infrequently accessed things. <strong>Wall systems</strong> — slatwall panels, pegboard, and track systems — turn vertical wall space into flexible, reconfigurable storage for tools, bikes, ladders, hoses, and gear that hangs within easy reach. Combining overhead racks for seasonal overflow, wall systems for grab-and-go tools, and cabinets for the bulk of enclosed storage is what fully maximizes a garage, using every dimension — floor, walls, and ceiling. A garage planned to use all three stores far more, and stays far more organized, than one relying on cabinets or shelving alone. See our <a href="/blog/kitchen-cabinet-organization-ideas">organization principles</a>.</p>
+
+<h2 id="safety">Safety and security</h2>
+<p>Garages store hazardous and valuable items, so cabinetry plays a real role in safety and security. <strong>Lockable cabinets</strong> keep dangerous materials — chemicals, sharp tools, power equipment — safely away from children and pets, which is especially important in a garage full of hazards. Getting items <strong>off the floor</strong> reduces trip hazards and keeps things away from moisture and pests. <strong>Secure storage</strong> for valuable tools and equipment adds a measure of theft deterrence. And organized, enclosed storage keeps the garage cleaner and reduces the dust and clutter that make a garage feel chaotic. Designing in locking cabinets for hazardous and valuable items is a simple step that makes the garage meaningfully safer, particularly for families. Safety is an underrated benefit of quality garage cabinetry, turning a hazard-filled space into an organized, secure one.</p>
+
+<h2 id="bottom-line">The bottom line</h2>
+<p>The best garage cabinets transform a cluttered garage into an organized, functional space by getting everything off the floor into durable, purpose-built storage designed around how you use the space. Combine tall cabinets, base cabinets, a workbench, overhead storage, and wall systems; organize by zone; prioritize durability and moisture resistance for the harsh garage environment; and add locking cabinets for safety. The result is a garage that is clean enough to park in, functional enough to work in, and organized enough to actually find things — a dramatic upgrade to one of the home's most underused spaces. With cabinetry built for garage conditions and planned around your needs, the garage stops being a catch-all and starts being genuinely useful — reclaiming what is often the largest storage opportunity in the entire home.</p>
+
+<h2 id="how-we-build">Organize your garage with Boise Cabinet Co</h2>
+<p>${AUTHOR} designs and builds durable custom <a href="/cabinets/garage">garage cabinets</a> and storage systems — tall cabinets, workbenches, overhead and wall storage — built for garage conditions, for homes across Boise, Meridian, Eagle, and Nampa. Explore <a href="/cabinets">our cabinetry</a> and <a href="/catalog">finishes</a>, then <a href="/estimate">get a planning range</a> or <a href="/contact">book a free in-home consultation</a>. We will design garage storage around how you actually use the space and build it to withstand the heat, cold, and moisture a garage throws at it, so your garage stays organized and functional for years.</p>
+`;
+
+/* ============================================================================
+ * 22) entertainment-center-built-ins
+ * IMAGE PROMPT: Authentic professional real-estate photograph of a real,
+ * completed custom entertainment-center built-in in a Treasure Valley Idaho
+ * living room — a full wall of warm white oak and painted cabinetry around a
+ * mounted TV, floating shelves, closed media cabinets, integrated lighting,
+ * styled with books and decor. Warm natural light, true-to-life, full-frame
+ * DSLR. Not a render, not CGI, not a stock photo. No people, no text.
+ * ========================================================================== */
+const entertainmentContent = `
+<p class="text-lg">A custom entertainment-center built-in turns a living room wall into a <strong>polished focal point that houses your TV and media, hides the clutter of components and cables, and adds display and storage</strong> — all tailored to your space and style. Unlike freestanding media furniture, a built-in uses the full wall, integrates cleanly around a mounted TV, and coordinates with your home. Here is how to design an entertainment center built-in that looks custom and works beautifully, from layout and cable management to display, storage, and the details that make it feel like part of the house.</p>
+
+<div class="summary-block">
+  <p><strong>Key takeaways:</strong> A custom entertainment built-in houses the TV and media, hides components and cables, and adds display and storage — using the full wall and matching your home. Plan around your TV, components, and how you use the room. <a href="/cabinets/built-ins">See built-in cabinetry</a> or <a href="/estimate">plan your project</a>.</p>
+</div>
+
+<h2 id="why">Why a built-in beats freestanding furniture</h2>
+<p>A store-bought media console does the basic job, but a custom entertainment-center built-in does it far better. It <strong>uses the full wall</strong>, top to bottom and side to side, capturing storage and display space that freestanding furniture leaves empty. It <strong>integrates cleanly around a mounted TV</strong>, framing it as an intentional focal point rather than parking a screen on a stand. It <strong>hides the clutter</strong> of media components, cables, gaming gear, and media collections behind clean cabinetry. And it <strong>matches your home</strong>, built in finishes and a style that coordinate with your other cabinetry and architecture for a cohesive, high-end look. The result feels like part of the house — a custom feature that elevates the whole room — rather than a piece of furniture placed against a wall. For a living room's focal wall, that difference in polish and function is exactly what makes a built-in worth it.</p>
+
+<h2 id="tv">Designing around the TV</h2>
+<p>The TV is usually the centerpiece, so the built-in should be designed around it. Decide whether to <strong>mount the TV</strong> on the wall within the built-in (the cleanest look, with cables hidden in the wall or cabinetry) or recess it into a niche. Size the surrounding cabinetry and the opening to your TV — with room to upgrade to a larger screen later, a common regret when built-ins are sized too tightly. Consider <strong>viewing height and angle</strong> from your seating so the TV sits comfortably for watching. Some built-ins hide the TV behind doors or artwork for a cleaner look when off, while most simply integrate it openly as the focal point. Planning the built-in around the TV's size, placement, and viewing comfort — with a little room to grow — ensures the finished piece both looks right and functions well for how you actually watch. See our <a href="/blog/home-office-built-ins">home office built-ins guide</a> for related planning.</p>
+
+<h2 id="components">Housing components and hiding cables</h2>
+<p>Media components and their cables are the clutter a built-in is meant to tame, so plan for them carefully. Provide <strong>ventilated, accessible storage</strong> for the cable box, gaming consoles, sound equipment, and streaming devices — with airflow so components do not overheat, and access (open cubbies, doors with ventilation, or adjustable shelves) so you can reach and swap them. Build in <strong>cable management</strong> from the start: grommets, pass-throughs, and channels that route the tangle of cables cleanly from the TV to the components to concealed outlets, so nothing shows. Consider where the <strong>outlets and any in-wall wiring</strong> go during planning. This designed-in component storage and cable management is exactly what freestanding furniture handles poorly and a custom built-in handles beautifully, keeping the whole media setup clean, cool, and clutter-free. It is one of the biggest practical advantages of building it in.</p>
+
+<h2 id="storage-display">Balancing storage and display</h2>
+<p>A great entertainment built-in balances <strong>closed storage</strong> and <strong>open display</strong>. Closed cabinets and drawers hide the clutter — media components, gaming gear, DVDs, remotes, cables, and the miscellany that accumulates in a living room — behind clean fronts. Open shelving displays the things that make the room feel personal and finished: books, decor, framed photos, plants, and a few curated objects. The art is in the ratio: enough closed storage to keep the room tidy and enough open display to keep the built-in from feeling like a blank wall of doors. Floating shelves flanking or above the TV are a popular way to add display, while base cabinets below handle the hidden storage. Getting this balance right is what makes an entertainment built-in feel both functional and beautiful, rather than either cluttered or sterile. See our <a href="/blog/kitchen-cabinet-organization-ideas">organization ideas</a> for storage planning.</p>
+
+<h2 id="style">Style, finishes, and lighting</h2>
+<p>The built-in should feel like a deliberate, coordinated part of your home, and the style choices carry that. Match the <strong>finishes and door style</strong> to your home's other cabinetry, or complement them intentionally — painted cabinetry in white, greige, navy, or sage for a coordinated look, or natural wood like white oak or walnut for warmth. A <strong>two-tone approach</strong> (painted cabinets with wood shelving, for instance) adds depth. <strong>Integrated lighting</strong> — LED strips on shelves or in cabinets — highlights display items and adds ambiance, especially nice around a media wall. Consider a <strong>fireplace</strong> integrated below or beside the TV, a popular and cozy combination. Matching the built-in's style to your home and adding thoughtful lighting is what makes it read as custom and high-end rather than tacked on, tying the whole room together. See our <a href="/blog/cabinet-finishes-colors-guide">finishes guide</a>.</p>
+
+<h2 id="layout">Layout configurations</h2>
+<p>Entertainment built-ins come in several configurations to suit different rooms. A <strong>full-wall built-in</strong> runs floor to ceiling across the wall, maximizing storage and display and making the strongest statement. A <strong>flanking configuration</strong> puts tall cabinets or shelving on either side of the TV with a lower console beneath, framing the screen. A <strong>media wall with floating shelves</strong> keeps things lighter and more modern. An <strong>entertainment-and-fireplace combination</strong> centers the room on both. And a <strong>window-integrated design</strong> works cabinetry around windows on the media wall. The right configuration depends on your wall, your storage needs, and the look you want — a full-wall built-in for maximum impact and storage, a lighter shelving approach for a modern, airy feel. Because it is custom, the built-in is designed to fit your specific wall and how you use the room, which is what makes it work so well. See our <a href="/blog/home-office-built-ins">built-ins guide</a>.</p>
+
+<h2 id="mistakes">Common mistakes to avoid</h2>
+<p>A few missteps can undercut an otherwise great entertainment built-in, and they are worth avoiding deliberately. <strong>Sizing the TV opening too tightly</strong> is the most common regret — screens get larger over time, and a built-in sized exactly to today's TV leaves no room to upgrade, so build in some margin. <strong>Forgetting ventilation</strong> for components causes them to overheat in an enclosed cabinet, so plan airflow. <strong>Neglecting cable management</strong> from the start leaves you fishing wires through finished cabinetry later, so design it in early. <strong>Making it all closed storage</strong> creates a blank wall of doors, while <strong>all open shelving</strong> leaves nowhere to hide clutter — balance the two. <strong>Poor proportions</strong> — a TV floating in too much cabinetry, or cabinetry that overwhelms the room — throw off the look, so scale it to the wall and the screen. And <strong>ignoring your home's style</strong> produces a built-in that feels tacked on rather than integrated. Each of these is easy to avoid by planning around the TV, the components, the storage-display balance, and your home's style from the start — which is exactly the advantage of a custom built-in over freestanding furniture. See our <a href="/blog/home-office-built-ins">built-ins planning guide</a>.</p>
+
+<h2 id="value">Do entertainment built-ins add value?</h2>
+<p>A well-designed entertainment-center built-in is a genuine asset, both in daily life and for resale. It creates a <strong>polished focal point</strong> that elevates the whole living room, reads as a <strong>custom, high-end feature</strong> that buyers notice (much like built-in bookcases), and adds real <strong>storage and function</strong> to a main living space. Because it is a fixed, quality feature integrated into the home, it carries more lasting value than freestanding furniture, which leaves with the owner. And day to day, a built-in that houses your media cleanly, hides the clutter and cables, and displays what you want makes the living room feel more organized and finished. For a room the whole household uses constantly, a custom entertainment built-in is one of the more rewarding cabinetry projects outside the kitchen and bath, delivering both everyday enjoyment and lasting home value.</p>
+
+<h2 id="bottom-line">The bottom line</h2>
+<p>A custom entertainment-center built-in transforms a living room wall into a polished focal point that houses your TV and media, hides the clutter of components and cables, and balances closed storage with open display — all using the full wall and coordinated with your home. Design it around your TV's size, placement, and viewing comfort (with room to grow), plan component storage and cable management from the start, balance hidden storage with display, and choose finishes and lighting that tie it to your home. The result is a media wall that looks custom and high-end and works beautifully, elevating the whole room and adding lasting value — far beyond what any freestanding console can offer.</p>
+
+<h2 id="how-we-build">Build your media wall with Boise Cabinet Co</h2>
+<p>${AUTHOR} designs and builds custom entertainment-center <a href="/cabinets/built-ins">built-ins</a> — around your TV, with hidden component storage, cable management, display shelving, and integrated lighting — matched to your home, for homes across Boise, Meridian, Eagle, and Nampa. Explore <a href="/cabinets">our cabinetry</a> and <a href="/catalog">finishes</a>, then <a href="/estimate">get a planning range</a> or <a href="/contact">book a free in-home consultation</a>. We will design a media wall around your TV, components, and how you use the room, and build it to look like a seamless, high-end part of your home for years to come.</p>
+`;
+
+/* ============================================================================
+ * 23) kitchen-remodel-boise  (GEO PILLAR)
+ * IMAGE PROMPT: Authentic professional real-estate photograph of a real,
+ * completed beautiful kitchen remodel in a Boise / Treasure Valley Idaho home —
+ * warm white and natural wood custom cabinets, a large island, quartz counters,
+ * brass hardware, bright and inviting, clearly a finished high-quality local
+ * remodel. Warm natural window light, true-to-life, full-frame DSLR. Not a
+ * render, not CGI, not a stock photo. No people, no text, no watermarks.
+ * ========================================================================== */
+const kitchenRemodelBoiseContent = `
+<p class="text-lg">A kitchen remodel in Boise and the Treasure Valley typically follows a clear path — <strong>plan and budget, design and choose cabinets, get a precise measure, order (allowing for lead time), then demo and install cabinets, countertops, and finishes</strong> — over a span of a few weeks to a few months depending on scope. Cabinets are usually the centerpiece and a major part of the budget and timeline. Whether you are updating a kitchen in Boise, Meridian, Eagle, Nampa, or the surrounding area, here is what to expect from the cost, timeline, and process of a Treasure Valley kitchen remodel, and how to make it go smoothly.</p>
+
+<div class="summary-block">
+  <p><strong>Key takeaways:</strong> A Treasure Valley kitchen remodel runs plan → design → measure → order → install over weeks to months, with cabinets as the centerpiece. Plan the budget and priorities first, allow for cabinet lead time, and work with a local company that knows the area. <a href="/guides/boise-kitchen-cabinet-guide">See our kitchen cabinet guide</a> or <a href="/estimate">get a planning range</a>.</p>
+</div>
+
+<h2 id="planning">Start with planning and budget</h2>
+<p>Every successful kitchen remodel starts with planning and a realistic budget, because they shape every decision that follows. Decide what you want to accomplish — a full renovation, a cabinet replacement, or a refresh — and rank your priorities: storage, layout, a specific look, quality, or staying under a firm number. Set a budget that accounts for cabinets (usually the largest single element), countertops, appliances, labor, and a contingency for surprises. Knowing your priorities lets you spend where it counts and economize elsewhere. In the Treasure Valley, where homes range from modest to luxury, matching the remodel's scope and quality to your home and how long you will stay is part of good planning. Getting the budget and priorities clear up front — before falling for finishes — is what keeps a remodel on track and prevents the most common source of stress and overspending. See our <a href="/blog/how-to-plan-a-kitchen-cabinet-project">kitchen planning guide</a>.</p>
+
+<h2 id="design">Design and cabinet selection</h2>
+<p>With a budget and priorities set, the design phase brings the kitchen to life. This is where you nail the <strong>layout</strong> (the work triangle, the island, the flow), plan the <strong>storage</strong> in detail, and choose the <strong>cabinets</strong> — the tier (stock, semi-custom, or custom), the door style, the finish and color, the construction quality, and the interior organization. Because cabinets are the centerpiece of the kitchen and a major part of the budget, these choices matter most. Working with a local cabinet company at this stage helps translate your vision and priorities into a working design that fits your space and budget, and catches practical issues early. The design phase is where function and looks come together, and investing time here — getting the layout and cabinet choices right before anything is ordered — is what produces a kitchen you love. See our guides on <a href="/blog/best-kitchen-cabinet-colors">cabinet colors</a> and <a href="/blog/cabinet-door-styles-guide">door styles</a>.</p>
+
+<h2 id="measure-order">Measuring and ordering</h2>
+<p>Once the design is set, a <strong>precise professional measure</strong> of your kitchen is done before anything is ordered — accounting for exact wall lengths, ceiling height, openings, utilities, and any out-of-square corners — so the cabinets fit perfectly. Then the cabinets are <strong>ordered</strong>, and here it is important to understand <strong>lead time</strong>: custom and semi-custom cabinets are built to order, so there is typically a wait of several weeks to a few months between ordering and delivery, depending on the shop and scope. Planning for this lead time — and coordinating it with the rest of the project — prevents the frustration of a kitchen torn apart while you wait on cabinets. A good local company will give you a realistic timeline and keep the order on schedule. The measure-and-order phase is the bridge between design and construction, and getting the measurements right and the lead time planned is what keeps the installation smooth. See our <a href="/blog/how-to-measure-for-cabinets">measuring guide</a>.</p>
+
+<h2 id="installation">Demo and installation</h2>
+<p>With cabinets on the way, the hands-on work begins. <strong>Demolition</strong> removes the old cabinets, counters, and sometimes flooring, and any needed <strong>plumbing, electrical, or structural work</strong> happens while the space is open. Then the new <strong>cabinets are installed</strong> — a process of days, not weeks, when done by professionals — carefully leveled and secured. After the cabinets are set, <strong>countertops are templated and fabricated</strong> (they are measured after cabinets are installed for a precise fit, then made and installed, which adds time), followed by the <strong>backsplash, sink, appliances, hardware, and finishing touches</strong>. Coordinating these trades in the right sequence — cabinets, then counters, then backsplash and finishes — is what keeps the installation efficient. A well-managed installation, sequenced properly, turns the planned design into the finished kitchen with minimal disruption and delay.</p>
+
+<h2 id="timeline">The overall timeline</h2>
+<p>Putting it together, a Treasure Valley kitchen remodel timeline generally spans from a few weeks to a few months, driven mostly by scope and cabinet lead time. The <strong>planning and design phase</strong> takes as long as you need to get the decisions right — often several weeks. The <strong>cabinet lead time</strong> (from order to delivery) is frequently the longest single stretch, several weeks to a few months for built-to-order cabinets. The <strong>installation phase</strong> — demo, cabinets, counters (templated after cabinets), backsplash, and finishes — typically takes a few weeks, with the countertop fabrication adding a gap in the middle. Simpler projects (a refinish or a straightforward replacement) go faster; full renovations with custom cabinets and layout changes take longer. Understanding that the lead time and the sequenced installation set the pace — and planning around them — keeps expectations realistic and the project calm. A good local company walks you through the schedule so you know what happens when.</p>
+
+<h2 id="living">Living through the remodel</h2>
+<p>A kitchen remodel is disruptive by nature, and planning for the disruption makes it far more bearable. During the work — especially demolition and installation — the kitchen will be partly or fully out of commission, so it helps to <strong>set up a temporary kitchen</strong> elsewhere: a microwave, coffee maker, and a few essentials in another room, with plans for more takeout or simple meals during the busiest stretches. Expect <strong>dust and noise</strong> during demo and installation, and seal off the area if possible. Understand the <strong>sequence and the gaps</strong> — there is often a wait after cabinets are installed while countertops are templated and fabricated, during which the kitchen is usable but not finished. <strong>Communicate regularly</strong> with your cabinet company and trades so you know what is happening when and can plan around it. And build in <strong>patience for surprises</strong>, which older homes especially tend to reveal once walls and cabinets come out. Knowing what to expect — the temporary loss of the kitchen, the dust, the sequence, and the occasional surprise — turns a potentially stressful process into a manageable one, and the finished kitchen makes the temporary disruption well worth it. A good local company helps you plan for and navigate all of it.</p>
+
+<h2 id="local">Why work with a local Treasure Valley company</h2>
+<p>Working with a cabinet company that knows Boise and the Treasure Valley brings real advantages to a kitchen remodel. A local company understands the <strong>area's homes and styles</strong> — from modest to luxury, across Boise, Meridian, Eagle, Nampa, and the surrounding communities — and can guide choices that fit both your home and local tastes. Local means <strong>in-person service</strong>: a real consultation in your home, a precise on-site measure, and someone accountable and reachable through the project. It also means <strong>local knowledge</strong> of the process, the trades, and what works in the area. For a project as significant as a kitchen remodel, having a local company that shows up, measures precisely, and stands behind the work is worth a great deal compared to a distant or online-only option. It is a big part of why homeowners across the Treasure Valley choose to work with a local cabinet maker for their remodel. See our <a href="/guides/boise-kitchen-cabinet-guide">Boise kitchen cabinet guide</a>.</p>
+
+<h2 id="smooth">Making your remodel go smoothly</h2>
+<p>A few practices keep a kitchen remodel on track. <strong>Plan thoroughly</strong> and settle the big decisions — budget, layout, cabinets — before ordering, since changes mid-project cost time and money. <strong>Allow for the cabinet lead time</strong> in your schedule so you are not surprised by the wait. <strong>Coordinate the trades</strong> in the right sequence (cabinets, then counters, then finishes) with clear communication. <strong>Build in a contingency</strong> for the surprises that older homes and remodels often reveal. And <strong>work with a company you trust</strong> that communicates well and stands behind its work. Remodels are disruptive by nature, but good planning, realistic timeline expectations, and a reliable local partner make the process far smoother and the result far more satisfying. The homeowners who enjoy their remodels are the ones who planned deliberately and worked with people they trusted, which is exactly what turns a stressful-sounding project into a rewarding one.</p>
+
+<h2 id="bottom-line">The bottom line</h2>
+<p>A kitchen remodel in Boise and the Treasure Valley follows a clear path — plan and budget, design and choose cabinets, get a precise measure, order with lead time in mind, then demo and install cabinets, counters, and finishes — over a span of weeks to months depending on scope. Cabinets are the centerpiece, so getting the tier, layout, quality, and finishes right is what most determines the result. Plan your budget and priorities first, allow for the cabinet lead time, coordinate the trades in sequence, and work with a local company that knows the area and stands behind its work. Do that, and your Treasure Valley kitchen remodel will go smoothly and deliver a kitchen you love for years.</p>
+
+<h2 id="how-we-build">Remodel your kitchen with Boise Cabinet Co</h2>
+<p>${AUTHOR} designs, builds, and installs custom <a href="/cabinets/kitchen">kitchen cabinets</a> for remodels across Boise, Meridian, Eagle, Nampa, and the greater Treasure Valley — guiding you through planning, design, a precise measure, and installation from start to finish. Explore <a href="/catalog">our cabinets and finishes</a> and our <a href="/guides/boise-kitchen-cabinet-guide">local kitchen cabinet guide</a>, then <a href="/estimate">get a planning range</a> or <a href="/contact">book a free in-home consultation</a>. As a local Treasure Valley cabinet company, we handle the cabinets — the centerpiece of your remodel — with the planning, precise measuring, quality construction, and reliable service that make the whole project go smoothly.</p>
+`;
+
+/* ============================================================================
+ * 24) cabinet-installation-process  (kw: how to install kitchen cabinets)
+ * IMAGE PROMPT: Authentic professional real-estate photograph of a real,
+ * in-progress Treasure Valley Idaho kitchen cabinet installation — new white
+ * Shaker base and wall cabinets partly installed and leveled against the wall,
+ * a level and clamps visible, clean job site (no people). Natural light,
+ * true-to-life, full-frame DSLR. Not a render, not CGI, not a stock photo. No
+ * text, no watermarks.
+ * ========================================================================== */
+const installProcessContent = `
+<p class="text-lg">Kitchen cabinet installation follows a clear sequence: <strong>find the high point of the floor and mark level layout lines, install the upper cabinets first, then set and level the base cabinets, shim and secure everything to the wall studs, and finish with fillers, trim, hardware, and the countertop template</strong>. Precise leveling and secure fastening to the studs are what make cabinets look right and last. Whether you are understanding the process before a professional install or considering a careful DIY, here is how kitchen cabinets are installed step by step, and why level layout and solid fastening matter so much.</p>
+
+<div class="summary-block">
+  <p><strong>Key takeaways:</strong> Cabinet installation runs: mark level layout lines from the floor's high point, hang uppers first, set and level bases, shim and secure to studs, then fillers, trim, hardware, and counter template. Level layout and solid fastening are everything. <a href="/blog/how-to-plan-a-kitchen-cabinet-project">See kitchen planning</a> or <a href="/estimate">plan your project</a>.</p>
+</div>
+
+<h2 id="prep">Preparation and layout lines</h2>
+<p>Good installation starts before any cabinet goes up, with preparation and layout. The space is cleared and the walls checked, then the installer <strong>finds the high point of the floor</strong> along the cabinet run (floors are rarely level), because base cabinets must be set level to that high point so the whole run is even. From there, <strong>level layout lines</strong> are marked on the walls: a line for the top of the base cabinets (typically 34.5 inches, the standard base height) and a line for the bottom of the upper cabinets (usually 54 inches, giving the standard 18-inch gap above the counter). The <strong>wall studs are located and marked</strong>, since cabinets must be fastened into studs to hold securely. This layout stage is the foundation of a good installation — getting the level lines and stud locations right is what everything else builds on, and errors here show up in every cabinet. See our <a href="/blog/kitchen-cabinet-height-guide">cabinet height guide</a>.</p>
+
+<h2 id="uppers">Installing upper cabinets first</h2>
+<p>Upper cabinets are installed <strong>before</strong> the base cabinets, for a practical reason: with the bases not yet in place, the installer has room to work close to the wall and get under the uppers without reaching over base cabinets. The uppers are lifted into position along the layout line (a helper or a cabinet jack supports the weight), checked for level and plumb, and <strong>fastened into the wall studs</strong> through the cabinet's mounting rail with sturdy screws. Cabinets are joined to each other with their faces aligned and clamped, then screwed together so the run is a single, aligned unit. <strong>Shims</strong> behind the cabinets compensate for any unevenness in the wall so each cabinet sits plumb and the faces line up. Getting the uppers level, plumb, aligned, and solidly fastened to studs is what makes them safe (they hold heavy dishes) and good-looking. Installing them first is simply the efficient, professional sequence.</p>
+
+<h2 id="bases">Setting the base cabinets</h2>
+<p>With the uppers up, the <strong>base cabinets</strong> go in along their layout line, set level to the floor's high point. Each base cabinet is leveled front-to-back and side-to-side using <strong>shims</strong> underneath and behind as needed, because a level base run is essential for the countertop to sit right and for doors and drawers to work properly. The cabinets are joined to each other with aligned faces, clamped, and screwed together, and <strong>fastened to the wall studs</strong> for stability. Special attention goes to the sink base and any cabinets around appliances, ensuring proper alignment and clearances. Leveling is the critical, painstaking part — a base run that is off-level will show in the countertop and in doors that do not hang straight — so installers take the time to shim and check each cabinet. Setting the bases level and secure is the heart of a quality installation, and it is worth doing patiently.</p>
+
+<h2 id="secure">Shimming, scribing, and securing</h2>
+<p>Because walls and floors are never perfectly flat or square, <strong>shimming and scribing</strong> are what make factory-straight cabinets fit a real, imperfect kitchen. <strong>Shims</strong> — thin wedges — fill gaps behind and beneath cabinets so each sits level and plumb despite wall and floor irregularities. <strong>Scribing</strong> trims a cabinet's edge or a filler strip to match an out-of-square wall or corner, so the cabinet meets the wall cleanly with no gap. Every cabinet is <strong>securely fastened into the wall studs</strong> — never just into drywall, which cannot hold the weight — so the installation is solid and safe. This careful shimming, scribing, and fastening is where the skill of good installation shows: it is what makes the finished cabinets look precisely fitted and hang perfectly straight even on imperfect walls, and what ensures they stay solid for decades. It is also why professional installation is worth it for a quality result. See our <a href="/blog/how-to-measure-for-cabinets">measuring guide</a>.</p>
+
+<h2 id="finishing">Fillers, trim, and hardware</h2>
+<p>With the cabinets set and secured, the finishing details complete the installation. <strong>Filler strips</strong> close any small gaps between cabinets and walls or appliances, scribed to fit cleanly. <strong>Toe-kicks</strong> cover the recessed space beneath the base cabinets. <strong>Trim and molding</strong> — crown molding at the top, light rail under the uppers, and any decorative details — finish the look and hide transitions. <strong>Doors and drawers are adjusted</strong> so they align perfectly, hang straight, and close smoothly (soft-close hardware is fine-tuned). And <strong>knobs and pulls are installed</strong>, carefully positioned and consistent. These finishing touches are what take the installation from functional to polished, and getting them right — clean fillers, straight trim, perfectly aligned doors, consistent hardware — is a big part of what separates a professional-looking kitchen from an amateur one. Attention to these details is the final mark of a quality installation.</p>
+
+<h2 id="counters">Countertops come after</h2>
+<p>An important point in the sequence: <strong>countertops are templated and installed after the cabinets are set</strong>, not before. Once the base cabinets are installed and level, the countertop is <strong>templated</strong> — measured precisely to the actual installed cabinets — then fabricated (cut and finished) and installed, which adds time between cabinet installation and a finished kitchen. This is why counters come after cabinets: they must fit the real, installed cabinet run exactly, and templating the actual cabinets is what ensures a precise fit. After the counters go in, the <strong>sink, faucet, backsplash, and appliances</strong> are installed and connected. Understanding that the countertop is a separate, later step — templated after cabinets and taking time to fabricate — helps set realistic expectations for the overall timeline, since the kitchen is not finished the day the cabinets go up. This sequence, cabinets then counters then finishes, is standard for good reason. See our <a href="/blog/how-to-plan-a-kitchen-cabinet-project">planning guide</a>.</p>
+
+<h2 id="tools">Tools and what a professional brings</h2>
+<p>Cabinet installation relies on a specific set of tools and skills, which is part of why professional results are so consistent. The core tools include a reliable <strong>level</strong> (and often a laser level for long runs), a <strong>stud finder</strong>, a <strong>drill and driver</strong>, <strong>clamps</strong> for joining cabinets with aligned faces, <strong>shims</strong> for leveling, a <strong>tape measure</strong>, and a <strong>cabinet jack or helpers</strong> to support heavy uppers during mounting. Beyond tools, a professional installer brings hard-won experience: an eye for reading out-of-square walls and floors, the technique to scribe fillers and edges for a clean fit, the judgment to sequence the work efficiently, and the care to fasten securely into studs every time. They also bring accountability — they stand behind the result and fix any issues. This combination of the right tools, refined technique, and responsibility is what produces a level, solid, seamlessly aligned installation, and it is why professional installation is often worth it, especially for quality cabinets where a mistake is costly. For a DIYer, having the proper tools and taking the time to level and fasten carefully is essential to approaching that result. See our <a href="/blog/cabinet-construction-quality-guide">quality guide</a>.</p>
+
+<h2 id="diy-pro">DIY vs professional installation</h2>
+<p>Cabinet installation can be a DIY project for a skilled, patient person, but it is demanding, and professional installation is often worth it. The challenges are real: cabinets are heavy and awkward to lift and hold in place, precise leveling and shimming take skill and patience, fastening securely into studs is critical for safety, and scribing to imperfect walls requires experience. Errors show up clearly — in doors that do not align, gaps at the walls, or an un-level run that throws off the countertop. A <strong>professional installer</strong> brings the tools, experience, and helpers to do it efficiently and correctly, and takes responsibility for the result. For a careful DIYer with the right tools and time, a straightforward installation is achievable, but for most homeowners — and especially for expensive cabinets where mistakes are costly — professional installation protects the investment and ensures a level, secure, polished result. Weigh your skills, tools, and the value of the cabinets when deciding.</p>
+
+<h2 id="bottom-line">The bottom line</h2>
+<p>Kitchen cabinet installation follows a clear, logical sequence: prepare and mark level layout lines from the floor's high point, hang the upper cabinets first, set and level the base cabinets, shim and scribe everything to fit imperfect walls, fasten securely into the studs, and finish with fillers, trim, adjusted doors, and hardware — with the countertop templated and installed afterward. Precise leveling and solid fastening to studs are what make cabinets look right, hang straight, and last for decades. Whether you understand the process to oversee a professional install or to attempt a careful DIY, knowing the sequence and why level layout and secure fastening matter is the key to a quality result — and for most homeowners, professional installation is well worth it.</p>
+
+<h2 id="how-we-build">Expert installation from Boise Cabinet Co</h2>
+<p>${AUTHOR} builds and expertly installs custom <a href="/cabinets/kitchen">kitchen cabinets</a> — precisely leveled, securely fastened, and finished with clean fillers, trim, and hardware — for homes across Boise, Meridian, Eagle, and Nampa. Explore <a href="/catalog">our cabinets and finishes</a>, then <a href="/estimate">get a planning range</a> or <a href="/contact">book a free in-home consultation</a>. We handle the whole process from precise measuring to professional installation, so your cabinets are set level, solid, and polished — and function perfectly — from the day they go in and for decades after.</p>
+`;
+
 export const STAGED_POSTS: BlogPostData[] = [
   {
     slug: 'inset-vs-overlay-cabinets',
@@ -1701,6 +1993,253 @@ export const STAGED_POSTS: BlogPostData[] = [
     primaryKeyword: 'how to measure for cabinets',
     secondaryKeywords: ['how to measure kitchen for cabinets', 'measuring for kitchen cabinets', 'cabinet measuring guide', 'measure kitchen cabinets'],
     searchIntent: 'Informational / DIY — homeowners measuring for cabinets',
+    wordCountTarget: 'pillar',
+  },
+  {
+    slug: 'custom-vs-stock-vs-semi-custom-costs',
+    title: 'Custom vs Stock vs Semi-Custom Cabinet Costs',
+    seoTitle: 'Custom vs Stock vs Semi-Custom Cabinet Costs Compared',
+    metaDescription:
+      'Custom vs stock vs semi-custom cabinet costs: stock is cheapest (fixed sizes), semi-custom is a moderate step up, custom is priciest (built to spec). How the tiers compare and how to choose.',
+    excerpt:
+      'Stock is the most affordable tier, semi-custom offers more options at a moderate price, and custom is built to your exact specs at the highest cost. Here is how the three tiers compare on cost.',
+    content: customStockSemiContent,
+    author: AUTHOR,
+    category: 'Cost & Budget',
+    hubSlug: 'kitchen-cabinets',
+    tags: ['cost', 'stock', 'semi-custom', 'custom', 'budget'],
+    publishedAt: '2026-07-11',
+    faqs: [
+      { question: 'What is the difference between stock, semi-custom, and custom cabinets?', answer: 'Stock cabinets are mass-produced in fixed sizes and finishes — cheapest and fastest. Semi-custom offers more sizes, finishes, and modifications on a stock platform at a moderate price. Custom cabinets are built to your exact specifications with any dimensions and materials, at the highest cost and longest lead time.' },
+      { question: 'Are semi-custom cabinets worth the extra cost over stock?', answer: 'Often yes. The moderate upcharge over stock buys a wider range of sizes (fewer filler gaps), more finishes and door styles, some modifications, and often better construction. Semi-custom is a great choice when stock does not quite fit your space or style but full custom is more than you need — it is frequently the sweet spot of value.' },
+      { question: 'How much more do custom cabinets cost than stock?', answer: 'The gap is wide — custom is meaningfully more than semi-custom and much more than stock — because custom is built to order with skilled labor and quality materials. Cabinets are priced per linear foot, so exact costs depend on your kitchen size and choices; an itemized quote for each tier is the only way to know your true numbers.' },
+      { question: 'How are cabinet costs calculated?', answer: 'Most often by the linear foot — the length of wall the cabinets run along — times a per-foot price for the tier and line, plus specialty cabinets, accessories, and installation. This means kitchen size (linear footage) and the tier you choose are the two biggest cost drivers, with construction, materials, and door style moving the number within a tier.' },
+      { question: 'Which cabinet tier is best for a tight budget?', answer: 'Stock cabinets are best for a tight budget — they are the most affordable and available fast, ideal for standard layouts, rentals, and flips. Just compare fully installed costs including assembly (for RTA), installation, and fillers, and inspect the construction quality, which varies among budget lines.' },
+      { question: 'When is custom worth it over semi-custom?', answer: 'Custom is worth it over semi-custom when you have an irregular or unusually sized space that needs an exact fit, want specific storage or a specific look semi-custom cannot deliver, value top construction and durability for a forever home, and your budget accommodates the premium. For many standard kitchens, semi-custom delivers most of the benefit for less.' },
+    ],
+    quickAnswer:
+      'Stock, semi-custom, and custom cabinets form a cost spectrum: stock is the most affordable (fixed sizes and finishes, fast), semi-custom is a moderate step up (more sizes, finishes, and modifications — often the best value), and custom is the most expensive (built to your exact specifications, highest quality, longest lead time). Cabinets are priced per linear foot, so kitchen size and tier are the biggest cost drivers.',
+    keyTakeaways: [
+      'Stock is cheapest, semi-custom is a moderate step up, custom is priciest.',
+      'Semi-custom is often the sweet spot of value.',
+      'Priced per linear foot; size and tier drive the cost most.',
+    ],
+    relatedLinks: [
+      { url: '/blog/cabinet-cost-per-linear-foot', anchor: 'Cost per linear foot' },
+      { url: '/blog/stock-vs-custom-cabinets-boise', anchor: 'Stock vs custom' },
+      { url: '/blog/are-custom-cabinets-worth-it', anchor: 'Are custom cabinets worth it' },
+      { url: '/blog/custom-kitchen-cabinet-cost', anchor: 'Custom cabinet cost' },
+      { url: '/cabinets/kitchen' },
+    ],
+    primaryKeyword: 'custom vs stock vs semi-custom cabinet costs',
+    secondaryKeywords: ['semi-custom cabinets cost', 'stock vs custom cabinet cost', 'cabinet tiers', 'custom made kitchen cabinets'],
+    searchIntent: 'Commercial / cost — homeowners comparing cabinet tiers',
+    wordCountTarget: 'pillar',
+  },
+  {
+    slug: 'paint-or-replace-cabinets',
+    title: 'Should You Paint or Replace Your Cabinets?',
+    seoTitle: 'Paint or Replace Kitchen Cabinets? How to Decide',
+    metaDescription:
+      'Should you paint or replace kitchen cabinets? Paint if the boxes are sound, the layout works, and you want a new look. Replace if boxes are failing, the layout is wrong, or you need new function.',
+    excerpt:
+      'Paint if the boxes are sound, the layout works, and you only want a new color — it is far cheaper. Replace if the boxes are failing, the layout is wrong, or you need new function. Here is how to decide.',
+    content: paintOrReplaceContent,
+    author: AUTHOR,
+    category: 'Refinishing',
+    hubSlug: 'kitchen-cabinets',
+    tags: ['paint', 'replace', 'refinishing', 'remodel', 'kitchen'],
+    publishedAt: '2026-07-11',
+    faqs: [
+      { question: 'Should I paint or replace my kitchen cabinets?', answer: 'Ask three questions: Are the boxes structurally sound? Does the layout work? Do you want a new look or new function? Sound boxes, a good layout, and wanting just a fresh color point to painting (far cheaper). Failing boxes, a bad layout, or needing new storage and construction point to replacing.' },
+      { question: 'Is it cheaper to paint or replace cabinets?', answer: 'Painting or refinishing is dramatically cheaper than replacing — often a fraction of the cost — because you keep the boxes and only change the finish. Replacing means all-new cabinets plus removal, installation, and usually new countertops. But painting failing boxes or a bad layout wastes money, so match the solution to the problem.' },
+      { question: 'When should you replace cabinets instead of painting?', answer: 'Replace when the cabinet boxes are failing (particleboard swelling, water damage, loose frames), when the layout does not work (poor triangle, too little storage, no island), or when you want new function — different storage, upgraded construction, or a reconfigured kitchen. Paint cannot fix structural or layout problems; only replacement can.' },
+      { question: 'Can painting cabinets fix a bad layout?', answer: 'No. Painting only changes the color and finish of your existing cabinets; it cannot move a cabinet, add storage, or change the layout. If your daily frustration is about how the kitchen works rather than how it looks, painting leaves you with a fresh-looking but still-frustrating kitchen, and replacing is the only real fix.' },
+      { question: 'What is the difference between painting, refacing, and replacing?', answer: 'Painting or refinishing changes the color of your existing doors and boxes (cheapest, sound boxes). Refacing keeps the boxes but adds new doors and a skin, changing the door style (mid-cost, sound boxes). Replacing installs all-new cabinets and is the only option that changes the layout and box quality (most expensive).' },
+      { question: 'How do I know if my cabinet boxes are sound?', answer: 'Inspect them: open drawers and doors, check for solidity and square, and look under the sink and in moisture-prone areas for swelling, water damage, or loose frames. Solid, well-built boxes with no damage are worth keeping and painting or refacing; swelling particleboard or damaged frames signal it is time to replace.' },
+    ],
+    quickAnswer:
+      'Whether to paint or replace your kitchen cabinets comes down to three questions: Are the boxes structurally sound? Does the layout work? Do you want a new look or new function? Sound boxes, a good layout, and wanting just a fresh color point to painting or refinishing — far cheaper and effective. Failing boxes, a bad layout, or needing new storage and construction point to replacing. Refacing bridges the middle for a style change on sound boxes.',
+    keyTakeaways: [
+      'Paint if boxes are sound, layout works, and you want a new look.',
+      'Replace if boxes are failing, the layout is wrong, or you need new function.',
+      'Refacing bridges the middle — a new style on sound boxes.',
+    ],
+    relatedLinks: [
+      { url: '/blog/cabinet-refacing-vs-refinishing-vs-replacing', anchor: 'Reface vs refinish vs replace' },
+      { url: '/blog/how-to-paint-kitchen-cabinets', anchor: 'How to paint cabinets' },
+      { url: '/blog/cabinet-construction-quality-guide', anchor: 'Construction quality' },
+      { url: '/blog/cost-to-replace-kitchen-cabinets', anchor: 'Cost to replace cabinets' },
+      { url: '/cabinets/kitchen' },
+    ],
+    primaryKeyword: 'paint or replace cabinets',
+    secondaryKeywords: ['can you paint kitchen cabinets', 'paint vs replace cabinets', 'should i paint or replace cabinets', 'repaint or replace kitchen cabinets'],
+    searchIntent: 'Commercial / comparison — homeowners deciding paint vs replace',
+    wordCountTarget: 'pillar',
+  },
+  {
+    slug: 'garage-cabinets',
+    title: 'Garage Cabinets & Storage Systems (Ideas & Buying Guide)',
+    seoTitle: 'Garage Cabinets & Storage Systems: Ideas & Buying Guide',
+    metaDescription:
+      'Garage cabinet ideas that organize the space: tall cabinets, a workbench, overhead and wall storage, and finishes built for garage conditions. How to plan durable garage storage.',
+    excerpt:
+      'The best garage cabinets get everything off the floor into durable, purpose-built storage — tall cabinets, a workbench, and overhead storage built for garage conditions. Here are the ideas that organize the space.',
+    content: garageCabinetsContent,
+    author: AUTHOR,
+    category: 'Built-Ins',
+    hubSlug: 'built-ins',
+    tags: ['garage', 'storage', 'built-ins', 'workbench', 'organization'],
+    publishedAt: '2026-07-11',
+    faqs: [
+      { question: 'What are the best cabinets for a garage?', answer: 'The best garage cabinets are built for garage conditions — durable and moisture-resistant, whether metal or quality wood/laminate with tough finishes — and combine tall cabinets, base cabinets with a workbench, wall storage, and overhead racks. Prioritize durability and moisture resistance, since a garage’s heat, cold, and humidity punish anything not built for it.' },
+      { question: 'Are garage cabinets worth it?', answer: 'Yes. Custom garage cabinets get everything off the floor into defined storage, often reclaiming enough space to park the cars, and make the garage safer, more functional, and more pleasant. They add appeal for buyers who value garage storage, and for a contained investment in a large space they deliver an outsized improvement in how usable the garage feels.' },
+      { question: 'What should garage cabinets be made of?', answer: 'Garage cabinets must withstand temperature swings, humidity, dust, and heavy use, so choose durable, moisture-resistant materials — metal cabinets for an industrial, very durable option, or quality wood or laminate cabinets built with moisture-resistant materials and tough finishes. Standard indoor cabinetry is not ideal unless built to handle the garage environment.' },
+      { question: 'How do I organize my garage with cabinets?', answer: 'Organize by zone: a workshop zone at the workbench, a sports and recreation zone, a seasonal zone (often overhead or in tall cabinets), a lawn and garden zone near the yard door, and a household overflow zone. Group items by zone, store each where you use it, and combine tall cabinets, base cabinets, overhead racks, and wall systems.' },
+      { question: 'Should garage cabinets have locks?', answer: 'Lockable cabinets are a smart choice for garages, keeping hazardous materials — chemicals, sharp tools, power equipment — safely away from children and pets, and adding theft deterrence for valuable tools. Designing in locking cabinets for hazardous and valuable items makes the garage meaningfully safer, especially for families.' },
+      { question: 'Can I add a workbench to garage cabinets?', answer: 'Yes, and it is a great idea for anyone who uses the garage for projects. A run of sturdy base cabinets topped with a durable work surface creates a real workbench with tool storage below, and adding a pegboard or slatwall above and good task lighting turns the garage into a genuine workshop, sized to the projects you do.' },
+    ],
+    quickAnswer:
+      'The best garage cabinets get everything off the floor into durable, purpose-built storage designed for garage conditions: combine tall cabinets, base cabinets with a workbench, wall storage, and overhead racks; organize by zone; prioritize durability and moisture resistance for the harsh garage environment; and add locking cabinets for safety. The result is a garage clean enough to park in, functional enough to work in, and organized enough to find things.',
+    keyTakeaways: [
+      'Get everything off the floor into durable, purpose-built storage.',
+      'Combine tall cabinets, a workbench, and overhead storage; organize by zone.',
+      'Prioritize durability and moisture resistance; add locks for safety.',
+    ],
+    relatedLinks: [
+      { url: '/cabinets/garage', anchor: 'Garage cabinetry' },
+      { url: '/blog/mudroom-cabinets', anchor: 'Mudroom cabinets' },
+      { url: '/blog/cabinet-construction-quality-guide', anchor: 'Construction quality' },
+      { url: '/blog/home-office-built-ins', anchor: 'Home office built-ins' },
+      { url: '/cabinets' },
+    ],
+    primaryKeyword: 'garage cabinets',
+    secondaryKeywords: ['garage cabinets boise', 'garage storage systems', 'garage storage cabinets', 'garage workbench'],
+    searchIntent: 'Commercial / local — homeowners planning garage storage',
+    wordCountTarget: 'pillar',
+  },
+  {
+    slug: 'entertainment-center-built-ins',
+    title: 'Entertainment Center & Media Built-Ins: Design Guide',
+    seoTitle: 'Entertainment Center Built-Ins: Design, Storage & Ideas',
+    metaDescription:
+      'Custom entertainment-center built-ins house your TV and media, hide components and cables, and add display and storage. How to design a media wall around your TV, with layouts and finishes.',
+    excerpt:
+      'A custom entertainment built-in houses the TV and media, hides components and cables, and balances storage with display — using the full wall. Here is how to design a media wall that looks custom.',
+    content: entertainmentContent,
+    author: AUTHOR,
+    category: 'Built-Ins',
+    hubSlug: 'built-ins',
+    tags: ['entertainment center', 'built-ins', 'media', 'living room', 'storage'],
+    publishedAt: '2026-07-11',
+    faqs: [
+      { question: 'Are entertainment-center built-ins worth it?', answer: 'Yes. A custom entertainment built-in uses the full wall, integrates cleanly around a mounted TV, hides the clutter of components and cables, and matches your home for a cohesive, high-end look — far more than freestanding media furniture. It creates a polished focal point, adds real storage, and reads as a premium, lasting feature to buyers.' },
+      { question: 'How do you design an entertainment center built-in?', answer: 'Design around the TV first — size the cabinetry to your screen (with room to upgrade) and plan viewing height. Provide ventilated, accessible storage for components and build in cable management. Balance closed storage (to hide clutter) with open display (books, decor), and choose finishes and lighting that coordinate with your home.' },
+      { question: 'How do you hide cables in a built-in entertainment center?', answer: 'Plan cable management from the start: grommets, pass-throughs, and channels route cables from the TV to the components to concealed outlets, with in-wall wiring for a mounted TV. A dedicated, ventilated cabinet or cubby houses the components and their cables out of sight, keeping the whole media setup clean and clutter-free.' },
+      { question: 'Should I mount my TV in a built-in?', answer: 'Mounting the TV within the built-in gives the cleanest look, with cables hidden in the wall or cabinetry, and frames the screen as an intentional focal point. Size the surrounding cabinetry and opening to your TV with room to upgrade to a larger screen later, and set the height for comfortable viewing from your seating.' },
+      { question: 'How much storage should an entertainment built-in have?', answer: 'Balance closed storage and open display. Closed cabinets and drawers hide components, gaming gear, media, and remotes, while open shelving displays books, decor, and photos. The right ratio keeps the room tidy without the built-in feeling like a blank wall of doors — enough closed storage to hide clutter, enough display to feel personal.' },
+      { question: 'Do built-in entertainment centers add home value?', answer: 'Yes. A well-designed entertainment built-in is a fixed, custom, high-end feature that buyers notice, much like built-in bookcases, and it adds real storage and a polished focal point to a main living space. Because it is integrated into the home rather than freestanding, it carries more lasting value than furniture that leaves with the owner.' },
+    ],
+    quickAnswer:
+      'A custom entertainment-center built-in houses your TV and media, hides the clutter of components and cables, and balances closed storage with open display — using the full wall and coordinated with your home. Design it around your TV’s size, placement, and viewing comfort (with room to grow), plan ventilated component storage and cable management from the start, and choose finishes and lighting that tie it to your home for a polished, high-end media wall.',
+    keyTakeaways: [
+      'Uses the full wall and integrates cleanly around a mounted TV.',
+      'Hides components and cables; balances closed storage with open display.',
+      'Design around the TV and match finishes and lighting to your home.',
+    ],
+    relatedLinks: [
+      { url: '/cabinets/built-ins', anchor: 'Built-in cabinetry' },
+      { url: '/blog/home-office-built-ins', anchor: 'Home office built-ins' },
+      { url: '/blog/cabinet-finishes-colors-guide', anchor: 'Cabinet colors and finishes' },
+      { url: '/blog/cabinet-door-styles-guide', anchor: 'Cabinet door styles' },
+      { url: '/cabinets' },
+    ],
+    primaryKeyword: 'entertainment center built ins',
+    secondaryKeywords: ['built in entertainment center', 'media built ins', 'tv built in cabinets', 'living room built ins'],
+    searchIntent: 'Informational — homeowners planning an entertainment built-in',
+    wordCountTarget: 'pillar',
+  },
+  {
+    slug: 'kitchen-remodel-boise',
+    title: 'Kitchen Remodel in Boise: Cost, Timeline & Process',
+    seoTitle: 'Kitchen Remodel in Boise: Cost, Timeline & Process Guide',
+    metaDescription:
+      'A Treasure Valley kitchen remodel guide: the process from planning to installation, what drives cost and timeline, cabinet lead times, and why to work with a local Boise cabinet company.',
+    excerpt:
+      'A Boise kitchen remodel runs plan → design → measure → order → install over weeks to months, with cabinets as the centerpiece. Here is the cost, timeline, and process for a Treasure Valley remodel.',
+    content: kitchenRemodelBoiseContent,
+    author: AUTHOR,
+    category: 'Process, Timelines & Local',
+    hubSlug: 'kitchen-cabinets',
+    tags: ['boise', 'remodel', 'process', 'timeline', 'local'],
+    publishedAt: '2026-07-11',
+    faqs: [
+      { question: 'How long does a kitchen remodel take in Boise?', answer: 'A Treasure Valley kitchen remodel generally spans a few weeks to a few months, driven mostly by scope and cabinet lead time. Planning and design take several weeks; built-to-order cabinets have a lead time of several weeks to a few months; and installation (demo, cabinets, counters templated after cabinets, backsplash, finishes) takes a few weeks.' },
+      { question: 'What is the process for a kitchen remodel?', answer: 'The path is: plan and budget, design and choose cabinets, get a precise professional measure, order the cabinets (allowing for lead time), then demo and install the cabinets, followed by countertops (templated after cabinets), backsplash, sink, appliances, hardware, and finishes. Cabinets are the centerpiece and set much of the budget and timeline.' },
+      { question: 'What drives the cost of a kitchen remodel?', answer: 'Cabinets are usually the largest single element, along with countertops, appliances, and labor. Within cabinets, the tier (stock, semi-custom, or custom), kitchen size (priced per linear foot), construction quality, finishes, and any layout changes drive the cost. Setting a budget and priorities first, with a contingency, keeps the project on track.' },
+      { question: 'Why should I use a local Boise cabinet company?', answer: 'A local Treasure Valley company understands the area’s homes and styles, provides in-person service (a real in-home consultation, a precise on-site measure, and accountable service), and knows the local process and trades. For a project as significant as a kitchen remodel, a local company that shows up, measures precisely, and stands behind the work is worth a great deal.' },
+      { question: 'How far in advance should I order cabinets for a remodel?', answer: 'Because custom and semi-custom cabinets are built to order, plan for a lead time of several weeks to a few months between ordering and delivery. Order once the design and measurements are finalized, and coordinate the lead time with the rest of the project so the kitchen is not torn apart while you wait — a good local company gives you a realistic schedule.' },
+      { question: 'What areas does Boise Cabinet Co serve?', answer: 'Boise Cabinet Co serves Boise, Meridian, Eagle, Nampa, and the greater Treasure Valley, designing, building, and installing custom kitchen cabinets for remodels across the area, with in-home consultations, precise measuring, and local, accountable service from planning through installation.' },
+    ],
+    quickAnswer:
+      'A kitchen remodel in Boise and the Treasure Valley follows a clear path — plan and budget, design and choose cabinets, get a precise measure, order with lead time in mind, then demo and install cabinets, countertops (templated after cabinets), and finishes — over weeks to months depending on scope. Cabinets are the centerpiece and a major part of the budget and timeline, so plan them first and work with a local company that knows the area.',
+    keyTakeaways: [
+      'The path: plan → design → measure → order → install, over weeks to months.',
+      'Cabinets are the centerpiece; allow for their lead time.',
+      'Work with a local Treasure Valley company for in-person, accountable service.',
+    ],
+    relatedLinks: [
+      { url: '/guides/boise-kitchen-cabinet-guide', anchor: 'Boise kitchen cabinet guide' },
+      { url: '/blog/how-to-plan-a-kitchen-cabinet-project', anchor: 'Plan a kitchen project' },
+      { url: '/blog/custom-kitchen-cabinet-cost', anchor: 'Custom cabinet cost' },
+      { url: '/blog/cabinet-installation-process', anchor: 'Cabinet installation process' },
+      { url: '/guides/boise-cabinet-cost-guide', anchor: 'Boise Cabinet Cost Guide' },
+    ],
+    primaryKeyword: 'kitchen remodel boise',
+    secondaryKeywords: ['boise kitchen remodel', 'kitchen remodel treasure valley', 'kitchen renovation boise', 'kitchen remodel cost boise'],
+    searchIntent: 'Local / BOF — Treasure Valley homeowners planning a remodel',
+    isPillar: true,
+    wordCountTarget: 'pillar',
+  },
+  {
+    slug: 'cabinet-installation-process',
+    title: 'Kitchen Cabinet Installation Process Explained (Step-by-Step)',
+    seoTitle: 'Kitchen Cabinet Installation Process: Step-by-Step Guide',
+    metaDescription:
+      'How kitchen cabinets are installed: mark level layout lines, hang uppers first, set and level bases, shim and secure to studs, then fillers, trim, hardware, and countertop template.',
+    excerpt:
+      'Cabinet installation runs: level layout lines, uppers first, then level bases, shim and secure to studs, and finish with trim, hardware, and the counter template. Here is the step-by-step process.',
+    content: installProcessContent,
+    author: AUTHOR,
+    category: 'Process, Timelines & Local',
+    hubSlug: 'kitchen-cabinets',
+    tags: ['installation', 'process', 'diy', 'planning', 'kitchen'],
+    publishedAt: '2026-07-11',
+    faqs: [
+      { question: 'How are kitchen cabinets installed?', answer: 'The sequence is: find the floor’s high point and mark level layout lines, locate the wall studs, hang the upper cabinets first (fastened into studs), then set and level the base cabinets with shims, join and secure everything to the studs, and finish with fillers, trim, adjusted doors, and hardware. Countertops are templated and installed afterward.' },
+      { question: 'Do you install upper or lower cabinets first?', answer: 'Upper cabinets are installed first. With the base cabinets not yet in place, the installer has room to work close to the wall and get under the uppers without reaching over bases. The uppers are leveled, plumbed, aligned, and fastened into the studs, then the base cabinets go in.' },
+      { question: 'Why do cabinets need to be shimmed?', answer: 'Walls and floors are never perfectly flat or square, so shims — thin wedges — fill gaps behind and beneath cabinets to make each sit level and plumb. Along with scribing (trimming edges to match out-of-square walls), shimming is what makes factory-straight cabinets fit a real, imperfect kitchen and hang perfectly straight.' },
+      { question: 'What are cabinets fastened to?', answer: 'Cabinets must be fastened into the wall studs, never just into drywall, which cannot hold the weight. Installers locate and mark the studs during layout, then drive screws through the cabinet’s mounting rail into the studs, so the installation is solid and safe — critical since upper cabinets hold heavy dishes.' },
+      { question: 'When are countertops installed during a cabinet install?', answer: 'Countertops are templated and installed after the base cabinets are set and level, not before. The counter is measured (templated) to the actual installed cabinets, then fabricated and installed, which adds time. This is why counters come after cabinets — they must fit the real, installed cabinet run exactly.' },
+      { question: 'Can I install kitchen cabinets myself?', answer: 'A skilled, patient DIYer with the right tools can install cabinets, but it is demanding — cabinets are heavy and awkward, precise leveling and shimming take skill, and secure fastening into studs is critical. Errors show clearly in misaligned doors and un-level runs. For expensive cabinets especially, professional installation protects the investment and ensures a polished result.' },
+    ],
+    quickAnswer:
+      'Kitchen cabinet installation follows a clear sequence: prepare and mark level layout lines from the floor’s high point, locate the studs, hang the upper cabinets first, then set and level the base cabinets, shim and scribe everything to fit imperfect walls, fasten securely into the studs, and finish with fillers, trim, adjusted doors, and hardware. Countertops are templated and installed afterward. Precise leveling and solid fastening to studs are what make cabinets look right and last.',
+    keyTakeaways: [
+      'Mark level layout lines, hang uppers first, then set and level bases.',
+      'Shim and scribe to imperfect walls; fasten securely into studs.',
+      'Finish with trim and hardware; counters are templated afterward.',
+    ],
+    relatedLinks: [
+      { url: '/blog/how-to-plan-a-kitchen-cabinet-project', anchor: 'Plan a kitchen project' },
+      { url: '/blog/how-to-measure-for-cabinets', anchor: 'How to measure for cabinets' },
+      { url: '/blog/kitchen-cabinet-height-guide', anchor: 'Cabinet heights' },
+      { url: '/blog/kitchen-remodel-boise', anchor: 'Kitchen remodel in Boise' },
+      { url: '/cabinets/kitchen' },
+    ],
+    primaryKeyword: 'cabinet installation process',
+    secondaryKeywords: ['how to install kitchen cabinets', 'kitchen cabinet installation', 'installing cabinets', 'cabinet install steps'],
+    searchIntent: 'Informational — homeowners understanding cabinet installation',
     wordCountTarget: 'pillar',
   },
 ];
