@@ -2,9 +2,6 @@ import { MetadataRoute } from 'next';
 import { BLOG_POSTS } from '@/shared/blogContent';
 import { GUIDE_PAGES } from '@/shared/guideContent';
 import { ROOM_CATEGORIES } from '@/shared/catalog/roomCategories';
-import { COLLECTIONS } from '@/shared/catalog/collections';
-import { DOOR_STYLES } from '@/shared/catalog/doorStyles';
-import { CABINET_PRODUCTS } from '@/shared/catalog/cabinetProducts';
 import {
   CONTENT_HUBS,
   categoryHubPath,
@@ -12,7 +9,6 @@ import {
   isCategoryHubIndexable,
 } from '@/shared/contentHubs';
 import { getBaseUrl } from '@/lib/seo';
-import { indexableFinishes } from '@/lib/catalog/indexation';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = getBaseUrl().replace(/\/$/, '');
@@ -28,17 +24,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/guides`, changeFrequency: 'weekly', priority: 0.85 },
     { url: `${baseUrl}/resources`, changeFrequency: 'monthly', priority: 0.7 },
     { url: `${baseUrl}/cabinets`, changeFrequency: 'weekly', priority: 0.95 },
-    { url: `${baseUrl}/collections`, changeFrequency: 'weekly', priority: 0.95 },
-    { url: `${baseUrl}/finishes`, changeFrequency: 'weekly', priority: 0.9 },
-    { url: `${baseUrl}/door-styles`, changeFrequency: 'monthly', priority: 0.85 },
     { url: `${baseUrl}/accessories`, changeFrequency: 'monthly', priority: 0.8 },
-    { url: `${baseUrl}/hardware`, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${baseUrl}/construction`, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${baseUrl}/compare`, changeFrequency: 'monthly', priority: 0.75 },
-    { url: `${baseUrl}/products`, changeFrequency: 'weekly', priority: 0.9 },
-    { url: `${baseUrl}/catalog`, changeFrequency: 'weekly', priority: 0.85 },
+    // Catalog category subpages (/collections, /finishes, /door-styles, /hardware,
+    // /products, /finder) were consolidated into the single /catalog experience
+    // and now 301 there, so they are intentionally omitted from the sitemap.
+    { url: `${baseUrl}/catalog`, changeFrequency: 'weekly', priority: 0.9 },
     { url: `${baseUrl}/estimate`, changeFrequency: 'monthly', priority: 0.8 },
-    { url: `${baseUrl}/finder`, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${baseUrl}/warranty`, changeFrequency: 'yearly', priority: 0.55 },
     {
       url: `${baseUrl}/resources/ada-canyon-permit-flow`,
@@ -55,44 +48,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.9,
   }));
 
-  const collectionPages: MetadataRoute.Sitemap = COLLECTIONS.map((c) => ({
-    url: `${baseUrl}/collections/${c.slug}`,
-    changeFrequency: 'monthly' as const,
-    priority: 0.9,
-  }));
-
-  const finishCategoryPages: MetadataRoute.Sitemap = ['matte', 'gloss', 'woodgrain'].map((cat) => ({
-    url: `${baseUrl}/finishes/${cat}`,
-    changeFrequency: 'monthly' as const,
-    priority: 0.85,
-  }));
-
-  const doorStylePages: MetadataRoute.Sitemap = DOOR_STYLES.map((d) => ({
-    url: `${baseUrl}/door-styles/${d.slug}`,
-    changeFrequency: 'monthly' as const,
-    priority: 0.85,
-  }));
-
-  // Only the curated, indexable finish subset is sitemapped. Long-tail
-  // woodgrain SKUs are noindex,follow. See lib/catalog/indexation.ts.
-  const finishDetailPages: MetadataRoute.Sitemap = indexableFinishes().map((f) => ({
-    url: `${baseUrl}/finishes/${f.category}/${f.slug}`,
-    changeFrequency: 'monthly' as const,
-    priority: 0.6,
-  }));
-
-  const productCategorySlugs = Array.from(
-    new Set(CABINET_PRODUCTS.map((p) => p.category)),
-  );
-  const productCategoryPages: MetadataRoute.Sitemap = productCategorySlugs.map((category) => ({
-    url: `${baseUrl}/products/${category}`,
-    changeFrequency: 'monthly' as const,
-    priority: 0.8,
-  }));
-
-  // Individual cabinet SKU pages are intentionally excluded from the sitemap:
-  // they are noindex,follow (near-duplicate spec/configurator pages). See
-  // seo-audit/doorway-page-analysis.md and lib/catalog/indexation.ts.
+  // Catalog category subpages (collections, finishes, door styles, product
+  // categories, and their detail pages) were consolidated into /catalog and now
+  // 301 there, so they are no longer sitemapped.
 
   // Use updatedAt when available so edits are reflected; fall back to publishedAt.
   const blogPages: MetadataRoute.Sitemap = BLOG_POSTS.map((post) => ({
@@ -124,11 +82,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     ...staticPages,
     ...cabinetRoomPages,
-    ...collectionPages,
-    ...finishCategoryPages,
-    ...finishDetailPages,
-    ...doorStylePages,
-    ...productCategoryPages,
     ...guidePages,
     ...blogPages,
     ...categoryHubPages,

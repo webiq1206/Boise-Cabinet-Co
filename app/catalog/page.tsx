@@ -1,29 +1,19 @@
-import Link from "next/link";
 import { Download } from "lucide-react";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Section } from "@/components/marketing/Section";
 import { PageHeader } from "@/components/marketing/PageHeader";
-import { CatalogPageHero } from "@/components/catalog/CatalogPageHero";
-import { CatalogVisualCard } from "@/components/catalog/visual";
-import { CatalogBrowser } from "@/components/catalog/CatalogBrowser";
+import { CatalogFlipbook } from "@/components/catalog/CatalogFlipbook";
 import { CatalogClosingCTA } from "@/components/catalog/CatalogClosingCTA";
 import { Button } from "@/components/ui/button";
 import { catalogMetadata, catalogDescription } from "@/lib/catalog-metadata";
 import { generateBreadcrumbSchema, generateWebPageSchema } from "@/lib/schema";
 import {
-  COLLECTIONS,
   DOOR_STYLES,
   FINISHES,
   CABINET_PRODUCTS,
   HARDWARE_OPTIONS,
   ACCESSORY_FAMILIES,
-  ROOM_CATEGORIES,
-  getDoorStyleImages,
-  getFinishImages,
-  getHardwareImagePath,
-  getAccessoryFamilyImagePath,
-  seoAlt,
 } from "@/shared/catalog";
 import { SITE_CONFIG } from "@/shared/siteConfig";
 
@@ -31,76 +21,17 @@ export const metadata = catalogMetadata(
   "/catalog",
   "Full Cabinet Catalog",
   catalogDescription(
-    `Browse the complete {company} catalog: ${DOOR_STYLES.length} door styles, ${FINISHES.length} finishes, ${CABINET_PRODUCTS.length} cabinet configurations, hardware, and accessories. Search, filter, or download the full catalog as a PDF.`,
+    `Browse the complete {company} catalog online: ${DOOR_STYLES.length} door styles, ${FINISHES.length} finishes, ${CABINET_PRODUCTS.length} cabinet configurations, hardware, and accessories. Flip through the interactive catalog right on the page - no download required.`,
   ),
 );
 
 const CATALOG_PDF_PATH = "/downloads/boise-cabinet-catalog.pdf";
 
-function representativeFinishSwatch(): string | undefined {
-  const f = FINISHES.find((x) => x.imagePath) ?? FINISHES[0];
-  return f ? getFinishImages(f.slug, f.imagePath).swatch : undefined;
-}
-
 export default function CatalogPage() {
-  const hubCards = [
-    {
-      name: "Door Styles",
-      description: "Shaker, slab, and specialty profiles that define your cabinet look.",
-      imageSrc: getDoorStyleImages(DOOR_STYLES[0]?.slug ?? "", DOOR_STYLES[0]?.imagePath).primary,
-      count: DOOR_STYLES.length,
-      href: "/door-styles",
-    },
-    {
-      name: "Finishes",
-      description: "Matte paints, gloss lacquers, and woodgrain stains in every color family.",
-      imageSrc: representativeFinishSwatch(),
-      count: FINISHES.length,
-      href: "/finishes",
-    },
-    {
-      name: "Cabinets",
-      description: "Base, wall, tall, vanity, and specialty cabinet configurations.",
-      imageSrc: ROOM_CATEGORIES.find((r) => r.slug === "kitchen")?.heroImage,
-      count: CABINET_PRODUCTS.length,
-      href: "/products",
-    },
-    {
-      name: "Collections",
-      description: "Curated cabinet lines that bundle doors, finishes, and construction.",
-      imageSrc: COLLECTIONS[0]?.heroImage,
-      count: COLLECTIONS.length,
-      href: "/collections",
-    },
-    {
-      name: "Hardware",
-      description: "Pulls, knobs, hinges, and slides to complete every cabinet.",
-      imageSrc: HARDWARE_OPTIONS[0] ? getHardwareImagePath(HARDWARE_OPTIONS[0].slug) : undefined,
-      count: HARDWARE_OPTIONS.length,
-      href: "/hardware",
-    },
-    {
-      name: "Accessories",
-      description: "Roll-outs, lazy susans, trash pull-outs, and organization upgrades.",
-      imageSrc: ACCESSORY_FAMILIES[0]
-        ? getAccessoryFamilyImagePath(ACCESSORY_FAMILIES[0].slug)
-        : undefined,
-      count: ACCESSORY_FAMILIES.length,
-      href: "/accessories",
-    },
-    {
-      name: "Shop by Room",
-      description: "See cabinetry organized by kitchen, bath, laundry, and more.",
-      imageSrc: ROOM_CATEGORIES.find((r) => r.slug === "built-ins")?.heroImage,
-      count: ROOM_CATEGORIES.length,
-      href: "/cabinets",
-    },
-  ];
-
   const schemas = [
     generateWebPageSchema({
       title: "Full Cabinet Catalog",
-      description: `The complete product catalog from ${SITE_CONFIG.name}.`,
+      description: `The complete product catalog from ${SITE_CONFIG.name}, browsable online as an interactive digital catalog.`,
       url: "/catalog",
     }),
     generateBreadcrumbSchema([
@@ -116,11 +47,7 @@ export default function CatalogPage() {
         <Section spacing="sm" className="pt-4 md:pt-6">
           <div className="container px-4">
             <Breadcrumbs items={[{ name: "Home", href: "/" }, { name: "Catalog" }]} />
-            <CatalogPageHero
-              alt="Boise Cabinet Co full product catalog"
-              title="Full cabinet catalog"
-            />
-            <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+            <div className="mt-6 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
               <PageHeader
                 align="left"
                 eyebrow="Product catalog"
@@ -130,7 +57,7 @@ export default function CatalogPage() {
                   </>
                 }
                 description={catalogDescription(
-                  "Every door style, finish, cabinet, hardware option, and accessory we offer - always in sync with our products. Browse below or download the full catalog as a PDF.",
+                  "Every door style, finish, cabinet, hardware option, and accessory we offer - in one interactive catalog. Flip through it below like a magazine, or switch to continuous scrolling. No download needed.",
                 )}
                 meta={
                   <span>
@@ -141,10 +68,10 @@ export default function CatalogPage() {
                 }
               />
               <div className="shrink-0">
-                <Button variant="brand" size="lg" asChild>
+                <Button variant="brandOutline" size="lg" asChild>
                   <a href={CATALOG_PDF_PATH} download data-testid="download-catalog-pdf">
                     <Download className="h-4 w-4" />
-                    Download catalog (PDF)
+                    Download PDF
                   </a>
                 </Button>
               </div>
@@ -152,35 +79,14 @@ export default function CatalogPage() {
           </div>
         </Section>
 
-        {/* Hub: organized entry points */}
-        <Section variant="greige" divider>
+        {/* Interactive, embedded catalog experience */}
+        <Section spacing="sm" className="pt-0">
           <div className="container px-4">
-            <h2 className="mb-6 text-lg font-medium">Browse by category</h2>
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {hubCards.map((card) => (
-                <CatalogVisualCard
-                  key={card.name}
-                  name={card.name}
-                  description={card.description}
-                  imageSrc={card.imageSrc}
-                  imageAlt={seoAlt(card.name, "custom cabinet catalog", card.name)}
-                  aspectRatio="4/3"
-                  specs={[{ label: "Options", value: String(card.count) }]}
-                  primaryHref={card.href}
-                  primaryLabel={`Browse ${card.name}`}
-                  secondaryHref="#browse"
-                  secondaryLabel="Quick filter"
-                />
-              ))}
-            </div>
-          </div>
-        </Section>
-
-        {/* Unified, filterable browse experience */}
-        <Section id="browse">
-          <div className="container px-4">
-            <h2 className="mb-6 text-lg font-medium">Browse everything</h2>
-            <CatalogBrowser />
+            <CatalogFlipbook pdfUrl={CATALOG_PDF_PATH} downloadUrl={CATALOG_PDF_PATH} />
+            <p className="mt-3 text-center text-xs text-muted-foreground">
+              Use the toolbar to flip pages, scroll continuously, zoom, search, view thumbnails,
+              or go fullscreen. On touch devices, swipe to turn pages and pinch to zoom.
+            </p>
           </div>
         </Section>
 

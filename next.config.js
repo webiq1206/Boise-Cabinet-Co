@@ -175,6 +175,25 @@ const nextConfig = {
       redirects.push(...r(source, destination));
     }
 
+    // Catalog consolidation (2026-07): the "Finishes & Doors" menu and the
+    // standalone catalog category subpages were removed in favor of a single
+    // embedded catalog experience at /catalog. 301 the old routes (and any
+    // deeper paths) so no SEO equity is lost and no bookmark 404s.
+    const catalogConsolidation = [
+      '/finishes',
+      '/door-styles',
+      '/finder',
+      '/products',
+      '/collections',
+      '/hardware',
+    ];
+    for (const base of catalogConsolidation) {
+      redirects.push(
+        { source: base, destination: '/catalog', permanent: true },
+        { source: `${base}/:path*`, destination: '/catalog', permanent: true },
+      );
+    }
+
     const cities = [
       'boise',
       'meridian',

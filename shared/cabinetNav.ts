@@ -35,15 +35,6 @@ export const PRIMARY_NAV = [
     children: SHOP_BY_ROOM_CHILDREN,
     footerLink: { label: "Full catalog", href: "/catalog" },
   },
-  {
-    label: "Finishes & Doors",
-    href: "/finishes",
-    children: [
-      { label: "Finishes by color family", href: "/finishes" },
-      { label: "Door styles", href: "/door-styles" },
-      { label: "Not sure? Take the finder", href: "/finder" },
-    ],
-  },
   { label: "Catalog", href: "/catalog" },
   {
     label: "How It Works",
