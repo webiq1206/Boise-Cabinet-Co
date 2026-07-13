@@ -299,6 +299,10 @@ export const PROJECT_LABELS: Record<
     label: "Mudroom", sub: "Benches, lockers, cubbies", icon: "Warehouse",
     image: "/images/catalog/rooms/mudroom.webp",
   },
+  pantry: {
+    label: "Pantry", sub: "Walk-in and reach-in storage", icon: "Container",
+    image: "/images/catalog/rooms/pantry.webp",
+  },
   "home-office": {
     label: "Home Office", sub: "Desks, file drawers, shelving", icon: "LayoutDashboard",
     image: "/images/catalog/rooms/home-office.webp",
@@ -310,10 +314,6 @@ export const PROJECT_LABELS: Record<
   "built-ins": {
     label: "Built-Ins", sub: "Bookcases, benches, millwork", icon: "Boxes",
     image: "/images/catalog/rooms/built-ins.webp",
-  },
-  pantry: {
-    label: "Pantry", sub: "Walk-in and reach-in storage", icon: "Container",
-    image: "/images/catalog/rooms/pantry.webp",
   },
 };
 
