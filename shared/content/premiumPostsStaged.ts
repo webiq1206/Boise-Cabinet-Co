@@ -367,6 +367,308 @@ const heightGuideContent = `
 <p>${AUTHOR} builds custom <a href="/cabinets/kitchen">kitchen cabinets</a> at standard heights — or tuned to your ceiling, your height, and how you cook — for homes across Boise, Meridian, Eagle, and Nampa. Explore <a href="/catalog">our cabinets and finishes</a>, then <a href="/estimate">get a planning range</a> or <a href="/contact">book a free in-home consultation</a>. We measure precisely and plan every height around your appliances, your comfort, and your ceiling, so your base cabinets, uppers, and tall cabinets all work together and feel right to use for years to come.</p>
 `;
 
+/* ============================================================================
+ * 7) best-paint-for-kitchen-cabinets
+ * IMAGE PROMPT: Authentic professional real-estate photograph of a real,
+ * completed kitchen in a Treasure Valley Idaho home with freshly painted, smooth
+ * satin-finish crisp white Shaker cabinets, matte black hardware, white quartz
+ * counters, subway tile — a flawless factory-quality painted finish. Warm
+ * natural window light, true-to-life, full-frame DSLR. Not a render, not CGI,
+ * not a stock photo. No people, no text, no watermarks.
+ * ========================================================================== */
+const bestPaintContent = `
+<p class="text-lg">The best paint for kitchen cabinets is a <strong>durable, hard-drying cabinet or trim enamel — an acrylic-alkyd hybrid or a quality water-based alkyd — applied over a bonding primer</strong>, not standard wall paint. Cabinets take constant contact, cleaning, and moisture, so they need a finish that cures hard and resists chipping, and a satin or semi-gloss sheen that wipes clean. The paint you choose matters, but so does the primer under it and the prep beneath that. Here is how to choose the right cabinet paint, the best sheen, and why a professional sprayed finish still outlasts any can you buy.</p>
+
+<div class="summary-block">
+  <p><strong>Key takeaways:</strong> Use a hard-drying cabinet/trim enamel (acrylic-alkyd or water-based alkyd) over a bonding primer — never wall paint. Satin or semi-gloss wipes clean best. Prep and primer matter as much as the paint. <a href="/blog/how-to-paint-kitchen-cabinets">See how to paint cabinets</a> or <a href="/estimate">plan your project</a>.</p>
+</div>
+
+<h2 id="why-matters">Why cabinet paint is different</h2>
+<p>Kitchen cabinets endure far more than walls: constant touching, opening and closing, cleaning, grease, and moisture. Ordinary wall paint stays relatively soft and scuffs easily, so on cabinets it chips, marks, and wears quickly. Cabinet paint — a category of durable enamels made for trim, doors, and cabinetry — is formulated to dry to a hard, tough film that resists all of that daily abuse and cleans up without marring. Choosing a paint made for cabinets is the single most important paint decision, because even flawless prep cannot make wall paint durable enough for a cabinet. When you shop, look specifically for products labeled for cabinets, doors, and trim, and expect to pay more than for wall paint — the durability is worth it on a surface you touch dozens of times a day.</p>
+
+<h2 id="types">Types of cabinet paint</h2>
+<p>A few paint chemistries dominate cabinet work, each with trade-offs. <strong>Acrylic-alkyd hybrids (waterborne alkyds)</strong> are the most popular modern choice: they combine the hard, smooth, self-leveling finish of old oil-based paints with the low odor, easy cleanup, and low yellowing of water-based paints, making them ideal for cabinets. <strong>Traditional oil-based (alkyd) enamels</strong> dry to an extremely hard, smooth finish but have strong fumes, slow dry times, and a tendency to yellow over time, so they have fallen out of favor. <strong>Standard acrylic latex</strong> is easy to use but generally too soft for high-wear cabinets unless it is a specific cabinet-grade formula. For most homeowners and pros today, a quality waterborne alkyd or acrylic-alkyd cabinet enamel is the best balance of durability, appearance, and usability.</p>
+
+<h2 id="primer">Don't forget the primer</h2>
+<p>The paint gets the attention, but the primer is what makes it last. On slick, previously finished, or stain-prone cabinets, a quality <strong>bonding primer</strong> (or a shellac-based primer) is essential: it grips the surface so the topcoat adheres, seals the wood, and blocks tannins and stains from bleeding through — critical on woods like oak and on any cabinet with knots or old finishes. Skipping or shortcutting the primer is one of the top reasons painted cabinets fail, peeling or showing brown bleed-through within weeks. Match the primer to your situation: a bonding primer for slick surfaces, a stain-blocking shellac or oil primer for tannin-heavy woods. Whatever cabinet enamel you choose, budgeting for and applying the right primer underneath it is non-negotiable for a finish that holds up.</p>
+
+<h2 id="sheen">Choosing the right sheen</h2>
+<p>Sheen affects both looks and cleanability, and cabinets have a clear sweet spot. <strong>Satin</strong> is the most popular cabinet sheen: it has a soft, low-luster glow that hides minor imperfections while still wiping clean easily. <strong>Semi-gloss</strong> is more reflective and even more durable and washable, making it a great choice for high-use kitchens and for a crisper, more traditional look, though it shows surface flaws more readily. <strong>Gloss</strong> is very durable and striking but highlights every imperfection and can feel too shiny for most kitchens. <strong>Matte and flat</strong> sheens, while trendy for a modern look, are harder to clean and less forgiving of grease and fingerprints, so they are a riskier choice for hard-working cabinets. For most kitchens, satin or semi-gloss delivers the best mix of good looks and easy maintenance.</p>
+
+<h2 id="color">Color and paint quality</h2>
+<p>Once you have the right type, primer, and sheen, color is the fun part — and quality still matters within any color. Whites and off-whites are the most popular and hide brush and spray marks well; deeper colors like navy, green, and charcoal are stunning but can show application flaws more, making a smooth spray application and quality paint even more important. Whatever color you choose, buy the best cabinet enamel you can, since cheaper paints level less well and wear faster. Test your color on a sample door in your actual kitchen light before committing, because cabinet color shifts dramatically between the store and your room. For help choosing a shade, see our <a href="/blog/cabinet-finishes-colors-guide">colors and finishes guide</a> and <a href="/blog/best-kitchen-cabinet-colors">best cabinet colors guide</a>.</p>
+
+<h2 id="application">Brush, roll, or spray?</h2>
+<p>How you apply cabinet paint matters as much as which paint you use. <strong>Spraying</strong> produces the smoothest, most factory-like finish with no brush marks, which is why professionals and factories spray — it is the gold standard for a flawless cabinet finish. <strong>Brushing and rolling</strong> can produce good results with a fine-finish brush for the recessed areas and a foam roller for flats, especially with a self-leveling enamel that flows out brush marks, but it takes skill and patience to avoid texture. Whichever method, the rules are the same: thin coats, not thick; multiple coats with light sanding between; and full cure time. If you want the smoothest possible result and have access to a sprayer, spray; if brushing, choose a self-leveling paint and work carefully. Our <a href="/blog/how-to-paint-kitchen-cabinets">cabinet painting guide</a> walks through the full process.</p>
+
+<h2 id="pro-finish">Why a factory finish still wins</h2>
+<p>Even with the best paint and careful technique, a hand-applied finish in your kitchen or garage cannot fully match a professional factory finish. When cabinets are finished in a shop — sprayed in a controlled, dust-free environment and often oven- or UV-cured — the result is smoother, harder, and more durable than anything achievable by hand at home. This is why new and professionally refinished cabinets hold up so well. If your cabinets are worth keeping and you want a finish that truly lasts, professional refinishing or refacing may give you a better, longer-lasting result than repainting them yourself, and new cabinets come with a factory finish built in. Knowing this helps you weigh a DIY repaint against a professional option realistically. See our <a href="/blog/cabinet-refacing-vs-refinishing-vs-replacing">reface vs refinish vs replace guide</a>.</p>
+
+<h2 id="coats">Coats, coverage, and prep</h2>
+<p>Getting a durable result is as much about how you apply the paint as which one you buy. Plan on <strong>a bonding or stain-blocking primer plus two to three thin coats of cabinet enamel</strong> for full, even coverage and a hard-curing finish — thin coats level out and cure hard, while thick coats sag and stay soft. Lightly sanding between coats with a fine grit and wiping off the dust keeps each layer glass-smooth. Coverage-wise, cabinets have a lot of surface area once you count both sides of every door and drawer front plus the boxes, so buy enough paint and primer to finish without stopping mid-project, which can leave lap marks. And none of it matters without the prep beneath: degreasing every surface (kitchen cabinets carry an invisible film of cooking grease that paint will not bond to) and sanding for tooth are what let the primer and paint adhere. In short, the products only perform if the prep and application are right — degrease, sand, prime, then thin coats with cure time. Our <a href="/blog/how-to-paint-kitchen-cabinets">step-by-step painting guide</a> covers the full process in detail.</p>
+
+<h2 id="durability">Making a painted finish last</h2>
+<p>Whatever paint you choose, a few practices maximize its life. Give the paint full cure time before heavy use — enamels can take days to weeks to fully harden, and rushing leads to dents and sticking. Clean painted cabinets gently with mild soap and water, avoiding abrasives and harsh chemicals that dull the finish. Manage moisture and grease with a working range hood and prompt spill cleanup. And handle cabinets by their hardware rather than pushing on painted faces to reduce edge wear. A quality cabinet enamel, properly primed and cured, will hold up for years with this gentle care — the finish lasts because it is both well chosen and well maintained. See our <a href="/blog/how-to-clean-kitchen-cabinets">cabinet cleaning guide</a> for safe maintenance.</p>
+
+<h2 id="bottom-line">The bottom line</h2>
+<p>The best paint for kitchen cabinets is a durable cabinet or trim enamel — most often a waterborne alkyd or acrylic-alkyd hybrid — applied over the right bonding or stain-blocking primer, in a satin or semi-gloss sheen that wipes clean. Never use standard wall paint, which is too soft for the daily abuse cabinets take. Just as important as the paint are the primer beneath it, the prep beneath that, and the application method, with spraying giving the smoothest result. And remember that even the best DIY paint job will not match a professional factory finish, so weigh repainting against refinishing or new cabinets if ultimate durability is your goal. Choose the right products, prep properly, and your painted cabinets will look crisp and hold up for years.</p>
+
+<h2 id="how-we-build">A factory finish that lasts, from Boise Cabinet Co</h2>
+<p>${AUTHOR} builds and finishes custom <a href="/cabinets/kitchen">kitchen cabinets</a> with sprayed, durable factory finishes that outlast any hand-painted job, for homes across Boise, Meridian, Eagle, and Nampa. If your boxes are sound, ask us about professional refinishing; if it is time for new cabinets, explore <a href="/catalog">our colors and finishes</a>. <a href="/estimate">Get a planning range</a> or <a href="/contact">book a free in-home consultation</a>, and we will help you get a flawless, long-lasting finish — whether that is a professional repaint of your existing cabinets or new cabinetry with a factory finish built to last for decades.</p>
+`;
+
+/* ============================================================================
+ * 8) small-kitchen-cabinet-ideas
+ * IMAGE PROMPT: Authentic professional real-estate photograph of a real,
+ * completed SMALL kitchen in a modest Treasure Valley Idaho home, cleverly
+ * maximized: light warm-white Shaker cabinets running to the ceiling, a slim
+ * pull-out pantry, under-cabinet lighting, a compact peninsula, brushed nickel
+ * hardware, bright and airy. Warm natural window light, true-to-life, full-frame
+ * DSLR. Not a render, not CGI, not a stock photo. No people, no text.
+ * ========================================================================== */
+const smallKitchenContent = `
+<p class="text-lg">The best small kitchen cabinet ideas all do one of two things: <strong>use the full height of the room, and make every inch reachable and organized</strong>. Take cabinets to the ceiling, choose light colors and clean door styles to keep the space feeling open, add pull-outs and drawers so nothing hides in the back, and use slim and corner solutions to reclaim wasted space. A small kitchen does not have to feel cramped or short on storage — smart cabinetry can make it feel surprisingly generous. Here are the ideas that maximize storage and space in a small kitchen without making it feel tight.</p>
+
+<div class="summary-block">
+  <p><strong>Key takeaways:</strong> Maximize a small kitchen by going to the ceiling, choosing light colors and drawers over doors, and using slim pull-outs and corner solutions. Keep everything reachable and clutter-free. <a href="/blog/kitchen-cabinet-organization-ideas">See organization ideas</a> or <a href="/cabinets/kitchen">explore kitchen cabinets</a>.</p>
+</div>
+
+<h2 id="height">Use the full height</h2>
+<p>The most powerful move in a small kitchen is to build up. Taking cabinets <strong>all the way to the ceiling</strong> adds a whole tier of storage that a standard cabinet-with-a-gap layout wastes, and it draws the eye upward, which actually makes the room feel taller and larger. The highest shelves hold rarely used and seasonal items, freeing the reachable zones for everyday things. Tall pantry cabinets and full-height storage make the most of a small footprint by going vertical instead of sprawling. In a small kitchen where floor space is precious, every inch of wall height is an opportunity, and using it fully is the difference between a cramped kitchen and one with surprising capacity. Pair floor-to-ceiling cabinets with a step stool for the top shelves and you lose nothing.</p>
+
+<h2 id="light">Light colors and clean lines</h2>
+<p>Color and door style dramatically affect how large a small kitchen feels. <strong>Light colors</strong> — white, off-white, soft greige, pale sage — reflect light and recede visually, making walls feel farther away and the room more open, while dark colors can close a small space in. <strong>Clean, simple door styles</strong> like Shaker or slab keep the look uncluttered, and minimal, streamlined hardware (or even handleless doors) reduces visual busyness. Continuous, uninterrupted runs of cabinetry read as calmer and larger than a patchwork of different elements. A glossy or satin finish bounces a little more light than a flat one. None of this reduces storage, but it all makes a small kitchen feel bigger and brighter, which matters as much as capacity for how the room lives. See our <a href="/blog/best-kitchen-cabinet-colors">cabinet colors guide</a>.</p>
+
+<h2 id="drawers">Drawers over doors</h2>
+<p>In a small kitchen, deep drawers beat low doors decisively. Reaching into the dark back of a low base cabinet wastes the hardest-to-access space and hides your things; a deep drawer brings everything to you and uses the full depth of the cabinet efficiently. Converting base cabinets to drawer banks — or adding roll-out trays to existing cabinets — dramatically improves both access and usable capacity in a tight kitchen. Drawers also let you see everything at a glance, which keeps a small kitchen organized and prevents the buried clutter that makes compact spaces frustrating. If you are planning or renovating a small kitchen, prioritizing drawers and pull-outs over standard low doors is one of the highest-impact decisions for making the space work harder. See our <a href="/blog/kitchen-cabinet-organization-ideas">organization ideas</a>.</p>
+
+<h2 id="slim">Slim and hidden storage</h2>
+<p>Small kitchens are full of narrow gaps and awkward spaces that custom cabinetry can turn into storage. A <strong>slim pull-out pantry</strong> in a gap beside the fridge or range — sometimes just a few inches wide — stores cans, spices, and bottles that would otherwise have no home. A <strong>toe-kick drawer</strong> under the base cabinets reclaims the wasted space at the floor for flat items like trays and linens. <strong>Over-the-fridge and above-window cabinets</strong> use dead vertical space. Even the <strong>sides of cabinets and islands</strong> can hold hooks, rails, or shallow shelving. Because these spaces are specific to your kitchen, made-to-measure cabinetry is what unlocks them, fitting storage into every gap. In a small kitchen, these slim and hidden solutions add up to a surprising amount of capacity from space that would otherwise be lost.</p>
+
+<h2 id="corners">Smart corner solutions</h2>
+<p>Corners are wasted space in most kitchens and doubly costly in a small one, so solving them matters. A <strong>lazy Susan</strong> spins stored items out to you, making a deep corner fully usable. <strong>Pull-out corner systems</strong> (magic corners) swing the shelves out of the cabinet so nothing hides in the back. A <strong>corner drawer</strong> is another clever solution that uses the corner footprint efficiently. In a small kitchen where every cabinet counts, reclaiming the corner from a dead zone into functional storage can meaningfully increase capacity. Deciding on a corner solution when planning the kitchen ensures that awkward but valuable space works for you rather than swallowing pots into a black hole. See our related <a href="/blog/pantry-cabinet-ideas">storage ideas</a>.</p>
+
+<h2 id="multi">Multi-functional and space-saving features</h2>
+<p>Small kitchens benefit from cabinetry that does double duty. A <strong>peninsula or compact island</strong> with storage below adds counter space, seating, and cabinets in one piece where a full island will not fit. <strong>Pull-out work surfaces</strong> — a hidden cutting board or a slide-out counter extension — add prep space on demand and tuck away when not needed. <strong>Appliance garages</strong> keep the counter clear by hiding small appliances behind a door. <strong>Open shelving</strong> in place of some upper cabinets can make a small kitchen feel more open and airy, though it trades hidden storage for display. Choosing a few of these multi-functional features lets a small kitchen deliver the function of a larger one without the square footage, which is the whole goal of small-kitchen design.</p>
+
+<h2 id="lighting">Lighting and finishing touches</h2>
+<p>Good lighting makes a small kitchen feel larger and work better, and much of it ties into the cabinetry. <strong>Under-cabinet lighting</strong> brightens the countertop work zones, eliminates shadows, and visually expands the space by lighting surfaces that would otherwise fall dark — one of the highest-impact upgrades in a small kitchen. Keeping <strong>window sightlines clear</strong> and choosing cabinetry that does not crowd natural light helps too. Reflective surfaces — a glossy backsplash, a light quartz counter, glass cabinet fronts on a few uppers — bounce light around and add a sense of depth. Even hardware plays a part: streamlined pulls keep the look clean and uncluttered. These finishing touches do not add storage, but they make a small kitchen feel open, bright, and calm, which is half of what makes a compact space pleasant to live in. Combined with the storage-maximizing ideas above, thoughtful lighting and reflective finishes turn a small kitchen from cramped to genuinely inviting. See our <a href="/blog/cabinet-hardware-guide">hardware guide</a> for finishing details.</p>
+
+<h2 id="layout">Smart layouts for small kitchens</h2>
+<p>The layout itself matters as much as the cabinets in a small kitchen. A <strong>galley layout</strong> — cabinets along two parallel walls — is one of the most efficient uses of a narrow footprint, keeping everything within a step. An <strong>L-shaped layout</strong> opens the room up and works well when you can fit a small table or a compact island. A <strong>single-wall layout</strong> with a slim peninsula suits the tightest spaces. Whatever the shape, keeping the work triangle tight and the walkways clear is what makes a small kitchen function well, and choosing a layout that suits the room prevents the cramped, awkward feeling that comes from forcing in more than the space allows. Pairing the right layout with maximized cabinetry is how a small kitchen achieves both efficiency and an open feel. See our <a href="/blog/kitchen-layout-ideas">kitchen layout guide</a>.</p>
+
+<h2 id="declutter">Keep it clutter-free</h2>
+<p>In a small kitchen, organization is not optional — clutter shows immediately and makes the space feel even smaller. The cabinetry ideas above create the capacity; keeping only what you use and giving everything a defined home is what preserves the open, uncramped feeling. Interior organizers — drawer dividers, pull-outs, a spot for each category — keep the storage working, and clearing the counters of everything but the essentials keeps the limited surfaces feeling spacious. A small kitchen designed with smart storage from the start stays tidy with far less effort, because there is a place for everything. The combination of maximized cabinetry and disciplined organization is what makes a small kitchen feel calm and generous rather than tight and chaotic. See our <a href="/blog/kitchen-cabinet-organization-ideas">organization guide</a>.</p>
+
+<h2 id="bottom-line">The bottom line</h2>
+<p>A small kitchen can feel open, organized, and surprisingly spacious with the right cabinetry. Use the full height by taking cabinets to the ceiling, keep the space feeling airy with light colors and clean door styles, choose drawers and pull-outs over low doors so everything is reachable, and reclaim every gap and corner with slim and specialty storage. Add a few multi-functional features and keep the space disciplined and clutter-free, and a compact kitchen can deliver the storage and function of a much larger one. Small kitchens reward smart design more than any other, and made-to-measure cabinetry is what turns their tight footprints and awkward gaps into a kitchen that works beautifully. The payoff is real: with the right height, colors, drawers, and specialty storage, a compact kitchen stops feeling like a compromise and starts feeling like a space that was designed intentionally around how you cook.</p>
+
+<h2 id="how-we-build">Maximize your small kitchen with Boise Cabinet Co</h2>
+<p>${AUTHOR} designs custom <a href="/cabinets/kitchen">kitchen cabinets</a> that make the most of small kitchens — floor-to-ceiling storage, slim pull-outs, corner solutions, and space-saving features fitted to every inch — for homes across Boise, Meridian, Eagle, and Nampa. Explore <a href="/catalog">our cabinets and finishes</a>, then <a href="/estimate">get a planning range</a> or <a href="/contact">book a free in-home consultation</a>. We will design storage into every gap, height, and corner of your small kitchen so it feels open and organized and works far harder than its square footage suggests.</p>
+`;
+
+/* ============================================================================
+ * 9) cabinet-accessories-inserts  (kw: cabinet organizers)
+ * IMAGE PROMPT: Authentic professional real-estate photograph of a real,
+ * completed kitchen in a Treasure Valley Idaho home with several base cabinets
+ * and drawers open to reveal premium interior accessories — a pull-out trash,
+ * a spice pull-out, roll-out trays with pots, drawer dividers, a tray divider —
+ * in warm white and walnut cabinets. Warm natural light, true-to-life,
+ * full-frame DSLR. Not a render, not CGI, not a stock photo. No people, no text.
+ * ========================================================================== */
+const accessoriesContent = `
+<p class="text-lg">The cabinet accessories and inserts worth the money are the ones that solve a daily frustration: <strong>roll-out trays, deep-drawer dividers, a pull-out trash and recycling unit, a spice pull-out, and a corner solution</strong> top the list for most kitchens. These interior upgrades turn deep, dark, hard-to-reach cabinets into organized, fully accessible storage, and they make a kitchen dramatically easier to use. But not every accessory earns its price, so the key is choosing the few that fix your specific problems. Here is a guide to the cabinet organizers and inserts that are genuinely worth it — and how to decide which ones you actually need.</p>
+
+<div class="summary-block">
+  <p><strong>Key takeaways:</strong> The best-value accessories solve daily frustrations: roll-out trays, drawer dividers, a pull-out trash, a spice pull-out, and a corner solution. Choose the few that fix your specific problems rather than buying everything. <a href="/accessories">See storage accessories</a> or <a href="/blog/kitchen-cabinet-organization-ideas">organization ideas</a>.</p>
+</div>
+
+<h2 id="rollouts">Roll-out trays and pull-outs</h2>
+<p>If you buy one category of accessory, make it roll-outs. <strong>Roll-out trays</strong> installed inside base cabinets bring the contents — pots, pans, small appliances, bulk items — out to you instead of forcing you to kneel and reach into the dark back. They are the single most transformative interior upgrade because they solve the fundamental problem of deep base cabinets: that the back is nearly unusable. A stack of roll-out trays turns an entire cabinet into fully accessible storage from front to back. Whether built into new cabinets or retrofitted into existing ones, roll-outs deliver an enormous improvement in daily usability for a modest cost, which is exactly why they top nearly every list of worthwhile accessories. For most kitchens, they are the best money you can spend on interior storage.</p>
+
+<h2 id="drawer-dividers">Drawer dividers and inserts</h2>
+<p>Drawers are only as useful as their organization, and dividers are what keep them from becoming chaos. <strong>Utensil and cutlery dividers</strong> keep everyday tools sorted and visible. <strong>Deep-drawer peg systems</strong> hold plates and bowls upright, turning a deep drawer into safe, organized dish storage. <strong>Adjustable dividers</strong> let you customize a drawer to whatever it holds — spices, gadgets, wraps, or junk-drawer miscellany. These inserts are inexpensive relative to their impact, because a divided drawer stays organized effortlessly while an undivided one descends into a jumble. If you are converting to drawer-heavy base cabinets (a smart move), budgeting for dividers to match is what makes those drawers truly functional. Dividers are among the highest-value, lowest-cost accessories you can add.</p>
+
+<h2 id="trash">Pull-out trash and recycling</h2>
+<p>A <strong>pull-out trash and recycling unit</strong> is one of the most appreciated accessories in any kitchen. Hiding the bins inside a cabinet keeps them off the floor, out of sight, and away from pets, while a smooth pull-out makes them easy to access. Dual-bin versions handle trash and recycling together, and some include a spot for compost. Beyond the convenience, concealing the bins makes the whole kitchen look cleaner and more finished. This is a near-universal recommendation because almost every household deals with trash and recycling daily, and doing it from a clean pull-out rather than a freestanding can is a small upgrade that improves the kitchen every single day. It is one of the accessories most worth building in.</p>
+
+<h2 id="spice">Spice and utensil pull-outs</h2>
+<p>Keeping cooking essentials within reach of the range makes cooking smoother, and a couple of pull-outs handle it well. A <strong>spice pull-out</strong> — a narrow vertical rack that slides out beside the range — keeps seasonings visible and reachable while you cook, instead of buried in a cabinet or crowded on the counter. A <strong>tray or utensil pull-out</strong> can organize cooking tools and oils similarly. Narrow pull-outs also make brilliant use of the slim gaps beside appliances that would otherwise be filler. For anyone who cooks regularly, having spices and tools organized and within arm's reach of the stove is a genuine daily convenience, and these narrow pull-outs deliver it while reclaiming otherwise wasted space.</p>
+
+<h2 id="corner">Corner solutions</h2>
+<p>The corner cabinet is notorious dead space, and a good corner accessory reclaims it. A <strong>lazy Susan</strong> rotates stored items out to you, making a deep corner fully usable. <strong>Pull-out corner systems</strong> (often called magic corners) swing the shelves out of the cabinet entirely so nothing hides in the back — the most complete solution. A <strong>corner drawer</strong> is another option that uses the corner footprint efficiently. Because corners are large and otherwise wasted, a corner solution can meaningfully increase a kitchen's usable storage, which makes it well worth the cost. If your kitchen has a blind corner cabinet that swallows things into a black hole, this is one of the most satisfying accessories to add. See our related <a href="/blog/pantry-cabinet-ideas">storage guide</a>.</p>
+
+<h2 id="specialty">Specialty inserts worth considering</h2>
+<p>Beyond the essentials, several specialty inserts are worth it for the right kitchen. <strong>Vertical dividers</strong> store baking sheets, cutting boards, and trays on edge instead of in a leaning stack. A <strong>pull-out pantry</strong> turns a narrow gap into rows of accessible food storage. <strong>Under-sink organizers</strong> — U-shaped pull-outs and tiered trays — make the awkward, plumbing-cramped sink base usable. A <strong>mixer or appliance lift</strong> raises a heavy stand mixer up from a base cabinet. <strong>Drawer inserts for knives</strong> keep blades organized and safe. None of these is universal, but each solves a specific need beautifully. The guiding principle is the same throughout: choose the specialty inserts that address your actual frustrations, and skip the ones that solve problems you do not have.</p>
+
+<h2 id="new-vs-retrofit">Building in vs retrofitting</h2>
+<p>Accessories can be built into new cabinetry or added to existing cabinets, and each path has advantages. <strong>Building accessories into new custom cabinets</strong> gives the best result: the roll-outs, pull-outs, and dividers are sized precisely to the cabinets, mounted on heavy-duty full-extension hardware, and planned around exactly what you store, so everything fits and functions seamlessly. <strong>Retrofitting accessories into existing cabinets</strong> is a cost-effective way to dramatically improve cabinets you are keeping — many roll-out trays, drawer organizers, pull-out trash units, lazy Susans, and under-sink organizers are made to add to standard cabinets. Retrofits may not fit quite as precisely as built-in versions, since they work within cabinets not designed for them, but they deliver most of the daily benefit at a fraction of the cost of new cabinetry. If you love your kitchen's layout and boxes but struggle with access and organization, retrofitting the right accessories is one of the highest-return upgrades you can make short of new cabinets. See our <a href="/blog/cabinet-refacing-vs-refinishing-vs-replacing">reface vs refinish vs replace guide</a> if you are weighing bigger changes.</p>
+
+<h2 id="quality">Accessory quality matters</h2>
+<p>As with cabinets themselves, accessory quality varies, and it is worth choosing well because these are moving parts you use daily. The <strong>hardware behind a pull-out or roll-out</strong> — the slides and mechanisms — determines how smoothly it operates and how long it lasts under load; quality full-extension, soft-close slides glide easily even when loaded with heavy pots, while cheap ones bind and wear out. <strong>Solid construction</strong> in the trays, dividers, and racks themselves keeps them from flexing or breaking. Spending a little more on well-made accessories pays off in years of smooth, reliable operation, whereas bargain organizers can disappoint quickly and need replacing. When you choose accessories, look at the slides and the build the same way you would evaluate a cabinet's drawers — the ones that feel solid and glide smoothly are the ones that will still work well years from now. See our <a href="/blog/cabinet-construction-quality-guide">construction quality guide</a>.</p>
+
+<h2 id="choose">How to choose what's worth it</h2>
+<p>The most important accessory advice is not to buy everything. It is easy to be dazzled by a catalog of clever inserts and end up spending heavily on organizers you rarely use. Instead, start by identifying your actual daily frustrations — the cabinet you dread reaching into, the drawer that is always a mess, the corner that swallows pots, the counter cluttered with things that need a home. Then choose the specific accessories that solve those problems. This targeted approach gets you the daily benefit of a well-organized kitchen without the waste of buying inserts that sit unused. A handful of well-chosen accessories, matched to how you actually cook and store, transforms a kitchen; a cabinet full of unused gadgets just adds cost. Spend on the few that fix real problems. See our <a href="/blog/kitchen-cabinet-organization-ideas">organization ideas</a> for planning.</p>
+
+<h2 id="bottom-line">The bottom line</h2>
+<p>The cabinet accessories and inserts worth the money are the ones that solve your daily frustrations: roll-out trays for deep cabinets, dividers for drawers, a pull-out trash and recycling unit, spice and utensil pull-outs, and a corner solution lead the list for most kitchens, with specialty inserts worth it for specific needs. The key is to choose deliberately — identify the cabinets and drawers that frustrate you and target those, rather than buying every clever organizer available. A few well-chosen accessories make a kitchen dramatically easier and more pleasant to use, delivering daily value far beyond their cost. Planned into custom cabinetry from the start or retrofitted into existing cabinets, the right inserts are among the best upgrades you can make. The goal is never to fill every cabinet with gadgets, but to add the specific solutions that make your daily cooking and storage genuinely easier — and those few, chosen well, pay for themselves in convenience every single day.</p>
+
+<h2 id="how-we-build">Build in the right accessories with Boise Cabinet Co</h2>
+<p>${AUTHOR} designs custom <a href="/cabinets/kitchen">kitchen cabinets</a> with the roll-outs, dividers, pull-outs, and corner solutions planned around how you actually cook, for homes across Boise, Meridian, Eagle, and Nampa. Browse <a href="/accessories">our storage accessories</a> and <a href="/cabinets">our cabinets</a>, then <a href="/estimate">get a planning range</a> or <a href="/contact">book a free in-home consultation</a>. We will help you choose the accessories that solve your specific frustrations and build them in, so your kitchen stays organized and effortless to use from the day it is installed.</p>
+`;
+
+/* ============================================================================
+ * 10) corner-cabinet-solutions
+ * IMAGE PROMPT: Authentic professional real-estate photograph of a real,
+ * completed kitchen in a Treasure Valley Idaho home with a corner base cabinet
+ * open to reveal a modern pull-out/magic-corner or lazy-susan system fully
+ * extended with pots and pans, in sage-green and white cabinets, brass hardware.
+ * Warm natural light, true-to-life, full-frame DSLR. Not a render, not CGI, not
+ * a stock photo. No people, no text, no watermarks.
+ * ========================================================================== */
+const cornerCabinetContent = `
+<p class="text-lg">The best corner cabinet solutions all solve the same problem — the deep, dark, hard-to-reach dead space in a corner — in different ways: <strong>a lazy Susan spins contents out to you, a magic corner (pull-out) swings the shelves clear of the cabinet, a corner drawer uses the footprint efficiently, and a blind-corner pull-out reclaims a blind cabinet</strong>. The right choice depends on your cabinet type, budget, and how much you want to spend to make the corner fully usable. Here is a clear guide to every corner cabinet solution, how they compare, and how to choose the one that turns your corner from a black hole into real storage.</p>
+
+<div class="summary-block">
+  <p><strong>Key takeaways:</strong> Corner solutions include the lazy Susan, magic corner (pull-out), corner drawers, and blind-corner pull-outs — each reclaiming the dead space differently. Choose by cabinet type, budget, and how fully you want to use the corner. <a href="/accessories">See accessories</a> or <a href="/blog/kitchen-cabinet-organization-ideas">organization ideas</a>.</p>
+</div>
+
+<h2 id="problem">Why corners are a problem</h2>
+<p>Corner base cabinets are one of the biggest storage challenges in any kitchen. Where two runs of cabinetry meet at a right angle, the space behind the corner is deep and awkward, and a standard corner cabinet leaves much of it nearly unreachable — you have to get on your knees and reach into a dark void to retrieve anything stored in the back. A <strong>blind corner</strong>, where one cabinet run runs past the other and hides a large cavity behind a fixed panel, is the worst offender, swallowing pots and appliances into a genuine black hole. Because corners take up significant space, leaving them poorly used wastes a meaningful chunk of a kitchen's storage. The good news is that a range of corner solutions can reclaim that space and make it genuinely usable, and choosing one when planning the kitchen ensures the corner works for you.</p>
+
+<h2 id="lazy-susan">The lazy Susan</h2>
+<p>The <strong>lazy Susan</strong> is the classic corner solution: one or more rotating circular shelves that spin the cabinet's contents out to you so you can reach items from the front instead of digging into the back. It comes in full-round and kidney-shaped (pie-cut) versions to suit different corner cabinet types. The lazy Susan's strengths are simplicity, good capacity, and relatively low cost — it makes a deep corner usable without complex hardware. Its limitations are that the rotating shelf can leave some gaps of unused space around it, and items can occasionally fall off the back edge. Still, for a standard corner cabinet, a lazy Susan is an affordable, effective, time-tested way to turn dead corner space into accessible storage, which is why it remains so popular.</p>
+
+<h2 id="magic-corner">The magic corner (pull-out)</h2>
+<p>The <strong>magic corner</strong>, or corner pull-out system, is the premium solution. When you open the cabinet door, a mechanism swings and slides the shelves entirely out of the cabinet, bringing everything — including what was stored deep in the back — out into the open where you can reach it. This fully solves the access problem, leaving no unreachable dead space, and it is especially valuable for blind corners. The trade-offs are cost (it is the most expensive corner solution due to the sophisticated hardware) and slightly less raw capacity than a simple shelf, in exchange for far better access. For homeowners who want the corner to be completely usable with no compromises, and who are willing to invest in the hardware, the magic corner is the best-performing option available.</p>
+
+<h2 id="corner-drawer">Corner drawers</h2>
+<p><strong>Corner drawers</strong> are a clever, increasingly popular solution that fits drawers diagonally into the corner, pulling straight out from the angled corner face. Because they are drawers, they bring their full contents out to you every time, with the same reach-everything benefit that makes drawers superior elsewhere in the kitchen. They use the corner footprint efficiently and look sleek and modern. The main considerations are that corner drawers require a specific cabinet configuration (they work where the corner is accessible from a diagonal or straight face, not in a true blind corner), and they cost more than a basic lazy Susan. Where they fit, corner drawers are an elegant, highly functional way to use a corner, combining the access benefits of drawers with efficient use of the awkward corner space.</p>
+
+<h2 id="blind-pullout">Blind-corner pull-outs</h2>
+<p>For the dreaded <strong>blind corner</strong> — where the cabinet cavity extends behind an adjacent run and hides a large, inaccessible space — a dedicated <strong>blind-corner pull-out</strong> is the answer. These systems have shelves that pull out and then slide sideways, pulling the contents from the hidden back portion of the cabinet out into reach. They are specifically engineered to reclaim the otherwise nearly useless blind-corner cavity, turning one of the worst storage problems in a kitchen into genuinely accessible space. Like the magic corner, blind-corner pull-outs use sophisticated hardware and cost more than a simple shelf, but for a blind corner they are transformative — the difference between a large wasted void and a fully usable cabinet. If your kitchen has a blind corner, this is the solution designed for exactly that situation.</p>
+
+<h2 id="compare">Comparing the options</h2>
+<table>
+  <thead><tr><th>Solution</th><th>Access</th><th>Cost</th><th>Best for</th></tr></thead>
+  <tbody>
+    <tr><td>Lazy Susan</td><td>Good (rotates out)</td><td>Low</td><td>Standard corner cabinets, budgets</td></tr>
+    <tr><td>Magic corner pull-out</td><td>Excellent (swings clear)</td><td>High</td><td>Full access, blind corners</td></tr>
+    <tr><td>Corner drawer</td><td>Excellent (pulls out)</td><td>Medium-high</td><td>Accessible corner faces, modern look</td></tr>
+    <tr><td>Blind-corner pull-out</td><td>Excellent (slides out)</td><td>High</td><td>Blind corners specifically</td></tr>
+  </tbody>
+</table>
+
+<h2 id="new-vs-retrofit">New cabinets vs retrofitting a corner</h2>
+<p>Corner solutions can be planned into new cabinetry or, in many cases, added to existing cabinets. <strong>Planning a corner solution into new cabinets</strong> is ideal: the mechanism is chosen and sized for the exact cabinet, mounted on quality hardware, and integrated so it operates smoothly and uses the space fully. A magic corner, corner drawer, or blind-corner pull-out designed in from the start simply works better than one added later. <strong>Retrofitting</strong> a corner solution into an existing cabinet is often possible — a lazy Susan or a blind-corner pull-out can frequently be added to a standard corner or blind cabinet — and it is a cost-effective way to reclaim wasted corner space without replacing cabinets. The main limitation is that a retrofit has to work within the existing cabinet opening and configuration, so the fanciest pull-out systems are not always feasible in every existing corner. If you are keeping your cabinets, a retrofit lazy Susan or blind-corner pull-out is an inexpensive, high-impact upgrade; if you are building new, plan the ideal corner solution from the start. See our guide on <a href="/blog/cabinet-refacing-vs-refinishing-vs-replacing">refacing vs replacing</a>.</p>
+
+<h2 id="capacity">Balancing access and capacity</h2>
+<p>When choosing a corner solution, it helps to understand the trade-off between access and raw capacity. The simplest options, like a basic lazy Susan, offer good storage volume but leave some gaps of unreachable space around the round or pie-cut shelf. The premium pull-out systems — magic corners and blind-corner pull-outs — prioritize complete access, bringing every item into reach, but their mechanisms take up a little space, so raw capacity can be slightly lower than a shelf that fills the whole cavity. In practice, access usually matters more than maximum volume, because storage you cannot reach is not really usable — a slightly smaller amount of fully accessible storage beats a larger amount where half is lost in the back. That is exactly why the pull-out systems, despite their cost and modest capacity trade-off, are so valued: they make the corner genuinely usable rather than just technically large. Weigh how much you value effortless access against raw volume, and for most people access wins. See our <a href="/blog/kitchen-cabinet-organization-ideas">organization ideas</a>.</p>
+
+<h2 id="choose">How to choose a corner solution</h2>
+<p>The right corner solution depends on your cabinet configuration, budget, and how completely you want to use the space. If you have a <strong>standard corner cabinet</strong> and want an affordable, effective option, a lazy Susan is the time-tested choice. If you want <strong>full, no-compromise access</strong> and are willing to invest, a magic corner pull-out is the best performer. If your layout suits it and you love the drawer experience, a <strong>corner drawer</strong> is sleek and highly functional. And if you are dealing with a <strong>blind corner</strong>, a blind-corner pull-out is purpose-built for that exact problem. The most important thing is to decide on a corner solution when planning the kitchen, rather than defaulting to a basic cabinet and losing the space — because a reclaimed corner adds real, usable storage that a dead corner simply wastes. See our <a href="/blog/how-to-plan-a-kitchen-cabinet-project">kitchen planning guide</a>.</p>
+
+<h2 id="bottom-line">The bottom line</h2>
+<p>Corner cabinets do not have to be wasted space. Whether you choose a simple, affordable lazy Susan, a premium magic-corner pull-out that swings everything clear of the cabinet, a sleek corner drawer, or a blind-corner pull-out engineered for the worst corners, there is a solution that turns your corner from a dark, unreachable void into genuinely usable storage. The right one depends on your cabinet type, your budget, and how fully you want to reclaim the space — but any of them beats a standard corner cabinet that swallows your pots into a black hole. Decide on a corner solution when you plan your kitchen, and you will gain real storage from space that would otherwise be lost.</p>
+
+<h2 id="how-we-build">Solve every corner with Boise Cabinet Co</h2>
+<p>${AUTHOR} designs custom <a href="/cabinets/kitchen">kitchen cabinets</a> with the right corner solutions built in — lazy Susans, magic corners, corner drawers, and blind-corner pull-outs — so no space goes to waste, for homes across Boise, Meridian, Eagle, and Nampa. Browse <a href="/accessories">our storage accessories</a>, then <a href="/estimate">get a planning range</a> or <a href="/contact">book a free in-home consultation</a>. We will recommend the corner solution that fits your layout and budget and build it in, turning every awkward corner in your kitchen into accessible, usable storage.</p>
+`;
+
+/* ============================================================================
+ * 11) how-to-remove-grease-from-cabinets
+ * IMAGE PROMPT: Authentic professional real-estate photograph of a real,
+ * completed clean kitchen in a Treasure Valley Idaho home focused on the cabinets
+ * around and above the range — spotless warm white Shaker cabinets, stainless
+ * range hood, subway tile, clean and grease-free. Warm natural window light,
+ * true-to-life, full-frame DSLR. Not a render, not CGI, not a stock photo. No
+ * people, no text, no watermarks.
+ * ========================================================================== */
+const removeGreaseContent = `
+<p class="text-lg">To remove grease from kitchen cabinets, the reliable method is <strong>warm water with a grease-cutting dish soap, or a diluted vinegar solution, applied to a soft cloth, worked gently, then wiped clean and dried immediately</strong>. For stubborn, sticky buildup — common on the cabinets above and beside the stove — a paste of baking soda and water lifts grease without harsh chemicals. The keys are to cut the grease with a mild degreaser, avoid abrasives that scratch, and never leave the cabinets wet. Here is how to remove grease from every cabinet finish safely, tackle heavy buildup, and keep grease from coming back.</p>
+
+<div class="summary-block">
+  <p><strong>Key takeaways:</strong> Cut cabinet grease with warm water and grease-cutting dish soap or diluted vinegar on a soft cloth; use a baking-soda paste for stubborn buildup. Avoid abrasives and standing water, and dry immediately. <a href="/blog/how-to-clean-kitchen-cabinets">See the full cleaning guide</a> or <a href="/cabinets/kitchen">explore our cabinets</a>.</p>
+</div>
+
+<h2 id="why">Why cabinets get greasy</h2>
+<p>Grease on cabinets is not a sign you are a messy cook — it is unavoidable chemistry. When you cook, especially frying or sautéing, tiny droplets of oil become airborne and settle on nearby surfaces, and the cabinets around and above the stove catch the most. Over time this invisible film builds up, turns sticky, and attracts dust and grime, creating the tacky, darkened buildup that is so hard to remove once it has accumulated. The cabinets nearest the range, the range hood area, and the fronts near handles collect the most. Understanding that grease builds gradually and invisibly is useful, because it means the easiest approach is regular light cleaning to prevent buildup, rather than occasional battles with hardened layers. It also explains why the grease seems to appear "suddenly" — in reality it accumulated slowly and only became visible once the sticky film had trapped enough dust and darkened. Knowing where it concentrates (nearest the range, the hood area, and around handles) lets you focus your cleaning where it is actually needed rather than scrubbing the whole kitchen. But when buildup has happened, the right methods remove it safely without harming the finish.</p>
+
+<h2 id="dish-soap">Method 1: Warm water and dish soap</h2>
+<p>The first and gentlest method handles most grease: <strong>warm water with a few drops of a grease-cutting dish soap</strong>. Dish soap is specifically formulated to break down cooking grease (it is what you use on greasy pans), so it is ideal for cabinets too. Dampen a soft cloth with the warm soapy water, wring it out so it is not dripping, and wipe the greasy areas, working gently with the grain on wood cabinets. Rinse the cloth and wipe again with clean water to remove any soap residue, then dry immediately with a clean cloth. For everyday and light-to-moderate grease, this simple method is all you need, and because it is gentle, it is safe for regular use on virtually any cabinet finish. Start here before reaching for anything stronger.</p>
+
+<h2 id="vinegar">Method 2: Diluted vinegar</h2>
+<p>For grease that dish soap alone does not fully cut, a <strong>diluted white vinegar solution</strong> is the next step. Mix roughly equal parts warm water and white vinegar, apply it to a soft cloth (not directly to the cabinet), and wipe the greasy areas — the mild acidity in vinegar cuts through grease effectively. Always test it in a hidden spot first, and avoid using it on unsealed or delicate finishes, where the acidity could be too harsh. As with every method, work gently, follow with a clean damp cloth to remove residue, and dry immediately. Diluted vinegar is a cheap, effective, and relatively gentle degreaser that handles moderate buildup well, which is why it is a go-to for cabinet grease. Just keep it diluted and test first to protect the finish.</p>
+
+<h2 id="baking-soda">Method 3: Baking soda paste for stubborn buildup</h2>
+<p>For hardened, sticky grease that has built up over time — the tacky layer often found on cabinets above the stove — a <strong>baking soda paste</strong> is the gentle heavy-hitter. Mix baking soda with a little warm water to form a paste, apply it to the greasy area, let it sit briefly to break down the grease, and then gently rub with a soft cloth or sponge before wiping clean and drying. Baking soda is a very mild abrasive and a natural grease-cutter, so it lifts stubborn buildup that liquids alone cannot, without the harshness of chemical strippers. Because it is mildly abrasive, test it in a hidden spot, use a light touch, and avoid scrubbing hard, especially on delicate or high-gloss finishes. For the worst grease, this paste is often the most effective safe option.</p>
+
+<h2 id="avoid">What to avoid</h2>
+<p>Just as important as the right methods is avoiding the wrong ones, which can damage cabinets permanently. Skip <strong>abrasive scrubbers, steel wool, and scouring powders</strong>, which scratch and dull finishes as they cut grease. Avoid <strong>harsh chemical cleaners</strong> — strong degreasers, oven cleaners, ammonia, and bleach — which can strip, discolor, or cloud a cabinet finish; the mild methods above remove grease without that risk. Never let cabinets stay <strong>wet</strong>; standing moisture damages finishes and seeps into seams, so dry immediately after every cleaning. And do not <strong>scrub aggressively</strong> even with mild cleaners — let the degreaser do the work with gentle wiping. Sticking to mild soap, diluted vinegar, and baking-soda paste, applied gently and dried promptly, removes grease effectively while keeping your finish intact for the long run.</p>
+
+<h2 id="by-finish">Removing grease by finish type</h2>
+<p>Different finishes call for slightly different care. <strong>Painted cabinets</strong> handle mild soap and diluted vinegar well but can dull if scrubbed with abrasives, so use the baking-soda paste sparingly and gently. <strong>Stained and wood cabinets</strong> need the most caution with moisture — wipe with the grain, dry immediately, and go easy on vinegar, testing first. <strong>Thermofoil and laminate</strong> are the most durable and forgiving, cleaning up with soap and water or vinegar easily. <strong>Glass fronts</strong> take a little glass cleaner on the cloth. Whatever the finish, the sequence is the same: start with the gentlest method (soap and water), escalate only as needed (vinegar, then baking-soda paste), test in a hidden spot, and always dry. Matching the intensity to the finish keeps every cabinet type grease-free and undamaged.</p>
+
+<h2 id="hood-area">The range hood and surrounding areas</h2>
+<p>The cabinets and surfaces around the range collect the most grease, so they deserve focused attention. The <strong>cabinets directly above and beside the stove</strong> get the heaviest buildup and often need the baking-soda paste for hardened grease, applied gently and repeated if necessary rather than scrubbed hard. The <strong>range hood itself</strong> — its exterior surfaces and especially its grease filter — accumulates grease heavily; the metal filter can usually be removed and soaked in hot water with grease-cutting dish soap (or run through the dishwasher, if the manufacturer allows) to dissolve the trapped grease. Keeping the hood and filter clean not only looks better but helps the hood do its job of pulling grease out of the air, which protects the surrounding cabinets. The <strong>backsplash and wall</strong> near the range also catch grease and wipe down with the same mild methods. Because this zone is grease central, cleaning it a little more often than the rest of the kitchen keeps buildup from ever getting ahead of you, and a clean, working hood is your first line of defense against greasy cabinets in the first place.</p>
+
+<h2 id="prevent">Preventing grease buildup</h2>
+<p>The easiest grease to remove is the grease that never builds up, so prevention pays off. Use your <strong>range hood or exhaust fan</strong> every time you cook, especially when frying, to pull greasy vapor out of the air before it settles on cabinets. <strong>Wipe down the cabinets near the stove regularly</strong> — a quick weekly pass with mild soapy water — so grease never accumulates into a stubborn layer. Address <strong>splatters promptly</strong> as they happen rather than letting them harden. And keep the <strong>range hood filter clean</strong>, since a clogged filter stops capturing grease effectively. These simple habits keep cabinets from ever reaching the hardened-buildup stage, making grease removal a quick wipe rather than a battle. Consistent light prevention is far easier than periodic deep degreasing. See our full <a href="/blog/how-to-clean-kitchen-cabinets">cabinet cleaning guide</a>.</p>
+
+<h2 id="bottom-line">The bottom line</h2>
+<p>Removing grease from kitchen cabinets is straightforward with the right approach: start with warm water and grease-cutting dish soap, step up to diluted white vinegar for tougher grease, and use a baking-soda paste for hardened, sticky buildup — always applied gently to a soft cloth, wiped clean, and dried immediately. Avoid abrasives, harsh chemicals, and standing water, which damage finishes, and match the intensity to your cabinet's finish. Best of all, prevent buildup in the first place by running your range hood, wiping the cabinets near the stove regularly, and cleaning splatters promptly. With these gentle methods and habits, you can keep even the cabinets above your stove grease-free without ever risking the finish. The reassuring truth is that you almost never need harsh chemicals or hard scrubbing to beat cabinet grease — the mild, patient approach not only works but is the only approach that protects your finish for the long run, so gentleness is both the safest and the most effective strategy.</p>
+
+<h2 id="how-we-build">Cabinets built to clean easily, from Boise Cabinet Co</h2>
+<p>${AUTHOR} builds custom <a href="/cabinets/kitchen">kitchen cabinets</a> with durable, wipeable finishes that stand up to real cooking and clean up easily, for homes across Boise, Meridian, Eagle, and Nampa. Explore <a href="/catalog">our finishes and door styles</a>, then <a href="/estimate">get a planning range</a> or <a href="/contact">book a free in-home consultation</a>. Whether you are keeping grease off cabinets you love or ready for new ones, we build with tough, easy-clean finishes so your kitchen stays looking beautiful with simple, gentle care for years to come.</p>
+`;
+
+/* ============================================================================
+ * 12) kitchen-layout-ideas  (work triangle)
+ * IMAGE PROMPT: Authentic professional real-estate photograph of a real,
+ * completed well-designed kitchen in a Treasure Valley Idaho home showing an
+ * efficient layout and work triangle — sink, range, and refrigerator well
+ * placed — with a large island, warm white and walnut cabinets, brass hardware,
+ * open and functional. Warm natural window light, true-to-life, full-frame DSLR.
+ * Not a render, not CGI, not a stock photo. No people, no text, no watermarks.
+ * ========================================================================== */
+const layoutIdeasContent = `
+<p class="text-lg">The best kitchen layout is the one that makes cooking efficient and comfortable, and it starts with the <strong>work triangle — the path between the sink, range, and refrigerator</strong>. A good layout keeps that triangle tight and unobstructed, provides counter space beside the sink and stove, and matches the room's shape, whether galley, L-shaped, U-shaped, or island. Getting the layout right matters more than any finish, because no beautiful cabinet can fix a kitchen that is frustrating to work in. Here are the main kitchen layouts, how the work triangle guides them, and the ideas that make a kitchen flow.</p>
+
+<div class="summary-block">
+  <p><strong>Key takeaways:</strong> A good layout keeps the work triangle (sink-range-fridge) tight and unobstructed, with counter space by the sink and stove. Choose the layout — galley, L, U, or island — that fits your room and traffic. <a href="/blog/how-to-plan-a-kitchen-cabinet-project">See kitchen planning</a> or <a href="/cabinets/kitchen">explore kitchen cabinets</a>.</p>
+</div>
+
+<h2 id="triangle">The work triangle explained</h2>
+<p>The <strong>work triangle</strong> is the foundational principle of kitchen layout. It refers to the triangular path between the three main work areas — the sink (cleanup and prep), the range or cooktop (cooking), and the refrigerator (storage) — which you move between constantly while cooking. The idea, refined over decades, is that these three points should be close enough to move between efficiently but not so close that the areas feel cramped, with no major obstacles (like an island or heavy traffic) cutting through the path. When the triangle works, cooking flows naturally; when it is too big, too small, or obstructed, the kitchen feels awkward no matter how nice it looks. The work triangle is not a rigid rule — modern kitchens with multiple cooks and zones sometimes rethink it — but it remains the best starting point for a functional layout, and getting it right is the single most important layout decision.</p>
+
+<h2 id="galley">Galley layout</h2>
+<p>The <strong>galley kitchen</strong> places cabinets and appliances along two parallel walls with a walkway between them. It is highly efficient — everything is within a step or two, and the work triangle is naturally compact — which is why galley layouts are favored by serious cooks and work well in narrow spaces. The keys to a good galley are enough walkway width between the runs (so two people can pass and appliance doors can open) and thoughtful placement of the sink, range, and fridge along the two walls to keep the triangle efficient. The galley's main limitation is that it can feel closed off and offers little room for seating, but for pure cooking efficiency in a narrow footprint, it is one of the most functional layouts there is.</p>
+
+<h2 id="l-shaped">L-shaped layout</h2>
+<p>The <strong>L-shaped kitchen</strong> runs cabinets along two perpendicular walls that meet in a corner, forming an L. It is one of the most popular and flexible layouts, working well in small and large kitchens alike and in open-concept spaces. The L-shape creates an efficient work triangle across the two runs, leaves the rest of the room open for a table or an island, and avoids the closed-in feeling of a galley. It naturally accommodates traffic flow since there is no through-path between work zones. The main consideration is making the corner where the two runs meet usable with a good corner cabinet solution. For many homes, the L-shape is the sweet spot of efficiency, openness, and flexibility, which is why it is so widely used. See our <a href="/blog/corner-cabinet-solutions">corner cabinet solutions</a> for the corner.</p>
+
+<h2 id="u-shaped">U-shaped layout</h2>
+<p>The <strong>U-shaped kitchen</strong> wraps cabinets and appliances around three walls, forming a U. It offers the most counter space and storage of the basic layouts and creates a very efficient, enclosed work triangle with each work area on its own wall. U-shaped kitchens are excellent for cooks who want abundant counter and storage space and a well-defined cooking zone. The considerations are that a U-shape needs enough room to avoid feeling cramped (the walls should be far enough apart for comfortable movement), and it has two corners to solve. In a larger room, the open end of the U can face a dining area or the center can hold an island. For a storage- and counter-rich kitchen with a tight, efficient triangle, the U-shape is hard to beat.</p>
+
+<h2 id="island">Islands and peninsulas</h2>
+<p>An <strong>island</strong> adds a freestanding work and gathering surface in the center of the kitchen, while a <strong>peninsula</strong> is a connected extension that juts out from a run of cabinets. Both add counter space, storage, and often seating, and they can incorporate a sink or cooktop to become a fourth point that reshapes the work triangle into a more complex work zone. The key with an island is that it must not obstruct the work triangle — there should be enough clearance around it (typically at least 36 to 42 inches) for comfortable movement and for appliance and cabinet doors to open. A well-placed island enhances a kitchen's function and sociability; a poorly placed one crowds the triangle and hinders flow. A peninsula offers many of the same benefits where a full island will not fit, and is ideal for smaller kitchens and open-concept layouts.</p>
+
+<h2 id="traffic">Traffic flow and clearances</h2>
+<p>Beyond the work triangle, a good layout accounts for how people move through the kitchen. Traffic — kids, guests, other cooks, the path to the back door or dining room — should not cut through the work triangle, or cooking becomes a series of interruptions. Adequate <strong>clearances</strong> matter throughout: walkways of at least 36 inches (42 or more where two people work or pass), enough room in front of appliances for their doors and for someone to stand and use them, and space for cabinet and drawer fronts to open fully. These clearances are what keep a kitchen from feeling cramped and frustrating in daily use, and they are easy to overlook when focusing on cabinets and finishes. Planning traffic flow and clearances alongside the work triangle is what separates a layout that merely looks good from one that genuinely works. See our <a href="/blog/how-to-plan-a-kitchen-cabinet-project">planning guide</a>.</p>
+
+<h2 id="mistakes">Common layout mistakes to avoid</h2>
+<p>A handful of layout errors quietly undermine otherwise nice kitchens, and they are worth avoiding deliberately. <strong>Obstructing the work triangle</strong> — placing an island or a table where it interrupts the path between sink, range, and fridge — is the most common, turning smooth cooking into a series of detours. <strong>Too little counter space beside the sink and range</strong> leaves nowhere to prep or set down hot pans; every kitchen needs landing space next to these key spots. <strong>Inadequate clearances</strong> — walkways too narrow, appliance doors that hit cabinets or each other, no room to stand at the dishwasher while someone passes — make a kitchen frustrating in daily use. <strong>Routing traffic through the work zones</strong>, so people cut between the cook and the stove, adds constant interruption. And <strong>ignoring storage placement</strong>, so pots end up far from the stove and dishes far from the dishwasher, adds needless steps to every task. Each of these is easy to avoid by planning the layout deliberately around the work triangle, real clearances, and where you actually use things — which is exactly why layout deserves the most attention early in planning. See our <a href="/blog/how-to-plan-a-kitchen-cabinet-project">planning guide</a> for the full sequence.</p>
+
+<h2 id="zones">Modern zone-based thinking</h2>
+<p>While the work triangle remains the foundation, modern kitchens — especially larger ones and those with multiple cooks — increasingly think in terms of <strong>zones</strong> as well. Instead of a single triangle, the kitchen is organized into activity zones: a prep zone with counter space and knives near the sink, a cooking zone around the range with pots and utensils, a cleanup zone at the sink and dishwasher, a storage zone at the pantry and fridge, and sometimes a baking or beverage zone. Each zone has the tools and storage it needs where it is used. This zone-based approach complements the work triangle and is especially useful in big kitchens or households where more than one person cooks at once, where a single triangle is too simple. Thinking in zones ensures every part of the kitchen supports the activity that happens there. See our <a href="/blog/kitchen-cabinet-organization-ideas">organization guide</a>.</p>
+
+<h2 id="bottom-line">The bottom line</h2>
+<p>A great kitchen layout is built on the work triangle — a tight, unobstructed path between the sink, range, and refrigerator — and on choosing the configuration that fits your room: the efficient galley, the flexible and popular L-shape, the storage-rich U-shape, or a layout anchored by a well-placed island or peninsula. Beyond the triangle, good clearances and traffic flow that does not cut through the work zones are what make a kitchen comfortable in daily use, and modern zone-based thinking helps larger and multi-cook kitchens work even better. Get the layout right — function first, before finishes — and the kitchen will be a pleasure to cook in for decades, which is exactly why layout deserves the most attention in your planning. No amount of beautiful cabinetry or premium finishes can rescue a kitchen that fights you every time you cook, and conversely, even a modest kitchen with a well-planned layout feels effortless — which is why the layout, not the look, is where a great kitchen truly begins.</p>
+
+<h2 id="how-we-build">Design a layout that works with Boise Cabinet Co</h2>
+<p>${AUTHOR} designs custom <a href="/cabinets/kitchen">kitchen cabinets</a> around a layout that fits how you cook — an efficient work triangle, smart zones, the right island placement, and comfortable clearances — for homes across Boise, Meridian, Eagle, and Nampa. Explore <a href="/catalog">our cabinets and finishes</a>, then <a href="/estimate">get a planning range</a> or <a href="/contact">book a free in-home consultation</a>. We will plan your layout around the work triangle, your traffic flow, and how you actually use the kitchen, so the finished space is efficient, comfortable, and a genuine pleasure to cook in.</p>
+`;
+
 export const STAGED_POSTS: BlogPostData[] = [
   {
     slug: 'inset-vs-overlay-cabinets',
@@ -612,6 +914,252 @@ export const STAGED_POSTS: BlogPostData[] = [
     primaryKeyword: 'kitchen cabinet height',
     secondaryKeywords: ['how tall are kitchen cabinets', 'standard cabinet height', 'upper cabinet height', 'kitchen counter height'],
     searchIntent: 'Informational — homeowners researching cabinet heights',
+    wordCountTarget: 'pillar',
+  },
+  {
+    slug: 'best-paint-for-kitchen-cabinets',
+    title: 'Best Paint for Kitchen Cabinets (Types, Sheen & How to Choose)',
+    seoTitle: 'Best Paint for Kitchen Cabinets: Types, Sheen & How to Choose',
+    metaDescription:
+      'The best paint for kitchen cabinets is a durable cabinet or trim enamel (acrylic-alkyd or waterborne alkyd) over a bonding primer, in satin or semi-gloss. Types, sheen, and why a factory finish wins.',
+    excerpt:
+      'The best cabinet paint is a hard-drying enamel over a bonding primer — never wall paint. Here is how to choose the type, sheen, and application, and why a factory finish still outlasts DIY.',
+    content: bestPaintContent,
+    author: AUTHOR,
+    category: 'Refinishing',
+    hubSlug: 'kitchen-cabinets',
+    tags: ['paint', 'refinishing', 'finish', 'enamel', 'kitchen'],
+    publishedAt: '2026-07-11',
+    faqs: [
+      { question: 'What kind of paint is best for kitchen cabinets?', answer: 'A durable cabinet or trim enamel — most often a waterborne alkyd or acrylic-alkyd hybrid — applied over a bonding primer. These dry to a hard, smooth, washable film that resists the chips and wear cabinets take. Avoid standard wall paint, which stays too soft and scuffs quickly.' },
+      { question: 'What sheen is best for kitchen cabinets?', answer: 'Satin is the most popular cabinet sheen for its soft glow that hides minor flaws while wiping clean. Semi-gloss is even more durable and washable and gives a crisper look, though it shows imperfections more. Matte and flat are trendier but harder to clean, making them riskier for hard-working cabinets.' },
+      { question: 'Do I need primer to paint cabinets?', answer: 'Yes. A bonding or stain-blocking primer grips slick surfaces so the topcoat adheres, seals the wood, and blocks tannins from bleeding through — critical on oak and previously finished cabinets. Skipping primer is a top reason painted cabinets peel or show brown bleed-through within weeks.' },
+      { question: 'Is acrylic or oil-based paint better for cabinets?', answer: 'A modern acrylic-alkyd or waterborne alkyd hybrid is usually best: it gives the hard, smooth finish of old oil paints with the low odor, easy cleanup, and low yellowing of water-based paints. Traditional oil-based enamels dry very hard but have strong fumes, slow drying, and yellow over time.' },
+      { question: 'Should I brush, roll, or spray cabinet paint?', answer: 'Spraying gives the smoothest, most factory-like finish with no brush marks and is the gold standard. Brushing and rolling can work with a fine-finish brush, a foam roller, and a self-leveling enamel, but take skill to avoid texture. Whatever the method, use thin coats, sand lightly between, and allow full cure.' },
+      { question: 'Is store-bought paint as good as a factory finish?', answer: 'No. Even the best cabinet paint applied by hand cannot fully match a professional factory finish, which is sprayed in a controlled environment and often oven- or UV-cured for a smoother, harder, more durable result. For ultimate durability, professional refinishing or new cabinets outperform a DIY repaint.' },
+    ],
+    quickAnswer:
+      'The best paint for kitchen cabinets is a durable cabinet or trim enamel — most often a waterborne alkyd or acrylic-alkyd hybrid — applied over a bonding or stain-blocking primer, in a satin or semi-gloss sheen that wipes clean. Never use standard wall paint, which is too soft for cabinets. The primer and prep matter as much as the paint, and a sprayed professional factory finish still outlasts any hand-applied job.',
+    keyTakeaways: [
+      'Use a hard-drying cabinet/trim enamel over a bonding primer — not wall paint.',
+      'Satin or semi-gloss wipes clean best; spraying gives the smoothest finish.',
+      'A professional factory finish outlasts any DIY repaint.',
+    ],
+    relatedLinks: [
+      { url: '/blog/how-to-paint-kitchen-cabinets', anchor: 'How to paint cabinets' },
+      { url: '/blog/cabinet-finishes-colors-guide', anchor: 'Cabinet colors and finishes' },
+      { url: '/blog/best-kitchen-cabinet-colors', anchor: 'Best cabinet colors' },
+      { url: '/blog/cabinet-refacing-vs-refinishing-vs-replacing', anchor: 'Reface vs refinish vs replace' },
+      { url: '/blog/how-to-clean-kitchen-cabinets', anchor: 'Cleaning cabinets' },
+    ],
+    primaryKeyword: 'best paint for kitchen cabinets',
+    secondaryKeywords: ['cabinet paint', 'best cabinet enamel', 'kitchen cabinet paint sheen', 'cabinet primer'],
+    searchIntent: 'Informational / DIY — homeowners choosing cabinet paint',
+    wordCountTarget: 'pillar',
+  },
+  {
+    slug: 'small-kitchen-cabinet-ideas',
+    title: 'Small Kitchen Cabinet Ideas That Maximize Space',
+    seoTitle: 'Small Kitchen Cabinet Ideas That Maximize Space & Storage',
+    metaDescription:
+      'Small kitchen cabinet ideas that maximize space: go to the ceiling, use light colors, choose drawers over doors, and add slim pull-outs and corner solutions. Make a small kitchen feel generous.',
+    excerpt:
+      'Maximize a small kitchen by using the full height, choosing light colors and drawers, and reclaiming every gap and corner. Here are the cabinet ideas that make a small kitchen feel spacious.',
+    content: smallKitchenContent,
+    author: AUTHOR,
+    category: 'Layout & Planning',
+    hubSlug: 'kitchen-cabinets',
+    tags: ['small kitchen', 'storage', 'layout', 'organization', 'kitchen'],
+    publishedAt: '2026-07-11',
+    faqs: [
+      { question: 'How do you maximize cabinet space in a small kitchen?', answer: 'Use the full height by taking cabinets to the ceiling, choose drawers and pull-outs over low doors so nothing hides in the back, and reclaim every gap and corner with slim pull-outs, toe-kick drawers, and corner solutions. Light colors and clean door styles keep the space feeling open while the storage works harder.' },
+      { question: 'What color cabinets make a small kitchen look bigger?', answer: 'Light colors — white, off-white, soft greige, or pale sage — reflect light and recede visually, making a small kitchen feel more open, while dark colors can close it in. Clean door styles like Shaker or slab and minimal hardware reduce visual clutter, and continuous cabinet runs read as calmer and larger.' },
+      { question: 'Should small kitchens have drawers or doors?', answer: 'Drawers. In a small kitchen, deep drawers beat low doors decisively because they bring everything to you and use the full cabinet depth, while low doors waste the hard-to-reach back. Converting base cabinets to drawer banks or adding roll-out trays dramatically improves both access and usable capacity.' },
+      { question: 'How do you add storage to a small kitchen?', answer: 'Go vertical to the ceiling, add a slim pull-out pantry in gaps beside the fridge or range, use a toe-kick drawer under base cabinets, solve corners with a lazy Susan or pull-out, and use over-fridge and above-window space. Made-to-measure cabinetry fits storage into every gap a small kitchen has.' },
+      { question: 'Should a small kitchen have open shelving?', answer: 'It can. Open shelving in place of some upper cabinets makes a small kitchen feel more open and airy, but it trades hidden storage for display and requires keeping items tidy. A mix — some open shelving for a lighter feel and closed cabinets for hidden storage — often works best in a small space.' },
+      { question: 'Do small kitchens need special cabinet accessories?', answer: 'They benefit greatly from them. Slim pull-outs, corner solutions, toe-kick drawers, drawer dividers, and pull-out work surfaces all reclaim space and add function in a tight footprint. In a small kitchen every organizer earns its keep, so the right accessories make a compact kitchen work like a larger one.' },
+    ],
+    quickAnswer:
+      'Maximize a small kitchen by using the full height (take cabinets to the ceiling), keeping the space airy with light colors and clean door styles, choosing drawers and pull-outs over low doors so everything is reachable, and reclaiming every gap and corner with slim pull-outs, toe-kick drawers, and corner solutions. Smart, made-to-measure cabinetry can make a small kitchen feel open and store as much as a larger one.',
+    keyTakeaways: [
+      'Go to the ceiling and use light colors to feel bigger.',
+      'Choose drawers and pull-outs over low doors for access.',
+      'Reclaim every gap and corner with slim and specialty storage.',
+    ],
+    relatedLinks: [
+      { url: '/blog/kitchen-cabinet-organization-ideas', anchor: 'Organization ideas' },
+      { url: '/blog/best-kitchen-cabinet-colors', anchor: 'Best cabinet colors' },
+      { url: '/blog/pantry-cabinet-ideas', anchor: 'Pantry cabinet ideas' },
+      { url: '/blog/corner-cabinet-solutions', anchor: 'Corner cabinet solutions' },
+      { url: '/cabinets/kitchen' },
+    ],
+    primaryKeyword: 'small kitchen cabinet ideas',
+    secondaryKeywords: ['small kitchen storage', 'small kitchen cabinets', 'maximize small kitchen', 'small kitchen organization'],
+    searchIntent: 'Informational — homeowners maximizing a small kitchen',
+    wordCountTarget: 'pillar',
+  },
+  {
+    slug: 'cabinet-accessories-inserts',
+    title: 'Cabinet Accessories & Inserts Worth the Money',
+    seoTitle: 'Cabinet Accessories & Inserts Worth the Money (Buyer’s Guide)',
+    metaDescription:
+      'The cabinet accessories worth the money: roll-out trays, drawer dividers, a pull-out trash, a spice pull-out, and corner solutions. How to choose the organizers that fix your frustrations.',
+    excerpt:
+      'The best cabinet accessories solve daily frustrations — roll-outs, drawer dividers, a pull-out trash, spice pull-outs, and corner solutions. Here is which cabinet organizers are worth it and which to skip.',
+    content: accessoriesContent,
+    author: AUTHOR,
+    category: 'Storage & Organization',
+    hubSlug: 'kitchen-cabinets',
+    tags: ['accessories', 'organizers', 'inserts', 'storage', 'kitchen'],
+    publishedAt: '2026-07-11',
+    faqs: [
+      { question: 'What cabinet accessories are worth the money?', answer: 'The best-value accessories solve daily frustrations: roll-out trays for deep base cabinets, drawer dividers, a pull-out trash and recycling unit, a spice pull-out near the range, and a corner solution. These transform how a kitchen works. Choose the few that fix your specific problems rather than buying every organizer.' },
+      { question: 'Are roll-out shelves worth it?', answer: 'Yes — roll-out trays are the single most transformative interior upgrade because they solve the fundamental problem of deep base cabinets: the back is nearly unreachable. A stack of roll-outs turns an entire cabinet into fully accessible storage front to back, for a modest cost, making them the best money you can spend inside cabinets.' },
+      { question: 'What is the best cabinet organizer for drawers?', answer: 'Dividers. Utensil and cutlery dividers keep everyday tools sorted, deep-drawer peg systems hold plates and bowls upright for safe dish storage, and adjustable dividers customize a drawer to whatever it holds. Dividers are inexpensive relative to their impact, keeping drawers organized effortlessly.' },
+      { question: 'Is a pull-out trash cabinet worth it?', answer: 'Yes, it is one of the most appreciated accessories. Hiding the bins inside a cabinet keeps them off the floor, out of sight, and away from pets, while a smooth pull-out makes them easy to access. Concealing the bins also makes the whole kitchen look cleaner, and nearly every household uses trash and recycling daily.' },
+      { question: 'Which cabinet accessories should I skip?', answer: 'Skip any accessory that does not solve a problem you actually have. It is easy to overspend on clever inserts you rarely use. Identify your real daily frustrations — the cabinet you dread reaching into, the messy drawer, the dead corner — and buy only the accessories that fix those, skipping the rest.' },
+      { question: 'Can accessories be added to existing cabinets?', answer: 'Yes. Many accessories — roll-out trays, drawer dividers, pull-out trash units, lazy Susans, under-sink organizers — can be retrofitted into existing cabinets, not just built into new ones. Retrofitting is a cost-effective way to dramatically improve the function of cabinets you are keeping.' },
+    ],
+    quickAnswer:
+      'The cabinet accessories and inserts worth the money are the ones that solve daily frustrations: roll-out trays for deep cabinets, drawer dividers, a pull-out trash and recycling unit, spice and utensil pull-outs, and a corner solution top the list for most kitchens. Choose the few that fix your specific problems rather than buying every clever organizer — a handful of well-chosen accessories transforms a kitchen while unused ones just add cost.',
+    keyTakeaways: [
+      'Best value: roll-outs, drawer dividers, pull-out trash, spice pull-outs, corner solutions.',
+      'Choose accessories that fix your specific frustrations — skip the rest.',
+      'Most can be retrofitted into existing cabinets, not just new ones.',
+    ],
+    relatedLinks: [
+      { url: '/accessories', anchor: 'Storage accessories' },
+      { url: '/blog/kitchen-cabinet-organization-ideas', anchor: 'Organization ideas' },
+      { url: '/blog/corner-cabinet-solutions', anchor: 'Corner cabinet solutions' },
+      { url: '/blog/pantry-cabinet-ideas', anchor: 'Pantry cabinet ideas' },
+      { url: '/cabinets/kitchen' },
+    ],
+    primaryKeyword: 'cabinet accessories',
+    secondaryKeywords: ['cabinet organizers', 'cabinet inserts', 'kitchen cabinet accessories', 'pull out shelves'],
+    searchIntent: 'Commercial — homeowners choosing cabinet accessories',
+    wordCountTarget: 'pillar',
+  },
+  {
+    slug: 'corner-cabinet-solutions',
+    title: 'Corner Cabinet Solutions (Lazy Susan, Magic Corner & Beyond)',
+    seoTitle: 'Corner Cabinet Solutions: Lazy Susan, Magic Corner & More',
+    metaDescription:
+      'Corner cabinet solutions compared: lazy Susan, magic corner pull-out, corner drawers, and blind-corner pull-outs. How each reclaims the dead space and how to choose the right one.',
+    excerpt:
+      'Turn a dead corner into usable storage. Here are the best corner cabinet solutions — lazy Susan, magic corner, corner drawers, and blind-corner pull-outs — compared on access, cost, and fit.',
+    content: cornerCabinetContent,
+    author: AUTHOR,
+    category: 'Storage & Organization',
+    hubSlug: 'kitchen-cabinets',
+    tags: ['corner cabinet', 'lazy susan', 'storage', 'accessories', 'kitchen'],
+    publishedAt: '2026-07-11',
+    faqs: [
+      { question: 'What is the best corner cabinet solution?', answer: 'It depends on your cabinet and budget. A lazy Susan is the affordable, effective classic for standard corners; a magic-corner pull-out gives the best full access by swinging shelves clear of the cabinet; corner drawers are sleek and functional where the layout suits them; and blind-corner pull-outs are purpose-built for blind corners.' },
+      { question: 'What is a magic corner cabinet?', answer: 'A magic corner is a premium corner pull-out system: when you open the door, a mechanism swings and slides the shelves entirely out of the cabinet, bringing even items stored deep in the back out into reach. It fully solves the corner access problem with no unreachable dead space, at the highest cost of the corner options.' },
+      { question: 'How do you use a blind corner cabinet?', answer: 'A blind corner — where the cabinet cavity extends behind an adjacent run and hides a large space — is best solved with a blind-corner pull-out. Its shelves pull out and slide sideways, pulling the contents from the hidden back portion into reach, turning one of the worst storage problems in a kitchen into usable space.' },
+      { question: 'Are corner drawers a good idea?', answer: 'Yes, where the layout suits them. Corner drawers fit drawers diagonally into the corner and pull straight out, bringing their full contents to you like any drawer, and they use the footprint efficiently with a sleek modern look. They require an accessible corner face (not a true blind corner) and cost more than a basic lazy Susan.' },
+      { question: 'Is a lazy Susan worth it?', answer: 'Yes, for a standard corner cabinet on a budget. A lazy Susan spins the contents out to you so you can reach items from the front, making a deep corner usable simply and affordably. It can leave some gaps of unused space around the round shelf, but it is a time-tested, effective, low-cost solution.' },
+      { question: 'How do I make my corner cabinet more usable?', answer: 'Add a corner solution matched to your cabinet: a lazy Susan for a standard corner, a magic-corner pull-out for full access, a corner drawer where the face allows, or a blind-corner pull-out for a blind cabinet. Deciding on one when planning the kitchen turns the corner from wasted dead space into real, accessible storage.' },
+    ],
+    quickAnswer:
+      'The best corner cabinet solutions reclaim the dead corner space in different ways: a lazy Susan spins contents out to you (affordable, for standard corners), a magic-corner pull-out swings the shelves clear of the cabinet (best access, higher cost), corner drawers pull out diagonally (sleek, where the layout suits), and blind-corner pull-outs slide contents from a blind cabinet into reach. Choose by your cabinet type, budget, and how fully you want to use the corner.',
+    keyTakeaways: [
+      'Lazy Susan: affordable classic for standard corners.',
+      'Magic corner and blind-corner pull-outs give full access at higher cost.',
+      'Decide on a corner solution when planning — a dead corner wastes real storage.',
+    ],
+    relatedLinks: [
+      { url: '/accessories', anchor: 'Storage accessories' },
+      { url: '/blog/kitchen-cabinet-organization-ideas', anchor: 'Organization ideas' },
+      { url: '/blog/cabinet-accessories-inserts', anchor: 'Accessories worth the money' },
+      { url: '/blog/how-to-plan-a-kitchen-cabinet-project', anchor: 'Plan a kitchen project' },
+      { url: '/cabinets/kitchen' },
+    ],
+    primaryKeyword: 'corner cabinet solutions',
+    secondaryKeywords: ['lazy susan cabinet', 'magic corner cabinet', 'blind corner cabinet', 'corner drawer'],
+    searchIntent: 'Commercial — homeowners solving corner cabinet storage',
+    wordCountTarget: 'pillar',
+  },
+  {
+    slug: 'how-to-remove-grease-from-cabinets',
+    title: 'How to Remove Grease From Kitchen Cabinets (Safely)',
+    seoTitle: 'How to Remove Grease From Kitchen Cabinets Without Damage',
+    metaDescription:
+      'How to remove grease from kitchen cabinets: warm water and grease-cutting dish soap, diluted vinegar, or a baking-soda paste for stubborn buildup. Safe methods by finish and how to prevent it.',
+    excerpt:
+      'Remove cabinet grease with warm water and dish soap, diluted vinegar, or a baking-soda paste for stubborn buildup — gently, and dried immediately. Here are the safe methods and how to prevent grease.',
+    content: removeGreaseContent,
+    author: AUTHOR,
+    category: 'Maintenance',
+    hubSlug: 'kitchen-cabinets',
+    tags: ['grease', 'cleaning', 'maintenance', 'care', 'kitchen'],
+    publishedAt: '2026-07-11',
+    faqs: [
+      { question: 'How do you remove grease from kitchen cabinets?', answer: 'Start with warm water and a few drops of grease-cutting dish soap on a soft cloth, wiping gently and drying immediately. For tougher grease, use a diluted white vinegar solution (equal parts water and vinegar). For stubborn, hardened buildup, apply a baking-soda paste, let it sit briefly, then gently rub and wipe clean.' },
+      { question: 'What is the best homemade cabinet degreaser?', answer: 'A diluted white vinegar solution (roughly equal parts warm water and vinegar) is an effective, inexpensive degreaser for sealed finishes — test a hidden spot first. For hardened grease, a baking-soda-and-water paste is a gentle, natural option. Both cut grease without the harshness of chemical strippers.' },
+      { question: 'How do you remove sticky grease buildup from cabinets?', answer: 'For hardened, sticky grease (common above the stove), use a baking-soda paste: mix baking soda with a little water, apply it, let it sit briefly to break down the grease, then gently rub with a soft cloth and wipe clean. Baking soda is a mild abrasive and natural degreaser — test first and use a light touch.' },
+      { question: 'Can you use vinegar to remove grease from wood cabinets?', answer: 'Yes, a diluted vinegar solution cuts grease on sealed wood cabinets, but always test a hidden spot first, avoid unsealed or delicate finishes, apply it to the cloth rather than the cabinet, wipe with the grain, and dry immediately since standing moisture damages wood finishes.' },
+      { question: 'What should you not use to remove cabinet grease?', answer: 'Avoid abrasive scrubbers, steel wool, and scouring powders that scratch finishes; harsh chemicals like oven cleaner, ammonia, and bleach that strip or discolor; and standing water. Do not scrub aggressively even with mild cleaners — let the degreaser do the work and dry immediately.' },
+      { question: 'How do you keep cabinets from getting greasy?', answer: 'Use your range hood or exhaust fan every time you cook, especially when frying, wipe down the cabinets near the stove weekly before grease accumulates, clean splatters promptly, and keep the range hood filter clean. Preventing buildup makes grease removal a quick wipe rather than a battle.' },
+    ],
+    quickAnswer:
+      'To remove grease from kitchen cabinets, start with warm water and grease-cutting dish soap on a soft cloth, step up to a diluted white vinegar solution for tougher grease, and use a baking-soda paste for hardened, sticky buildup — always applied gently, wiped clean, and dried immediately. Avoid abrasives, harsh chemicals, and standing water, match the method to your finish, and prevent buildup by running the range hood and wiping regularly.',
+    keyTakeaways: [
+      'Dish soap, then diluted vinegar, then baking-soda paste for stubborn buildup.',
+      'Apply to the cloth, work gently, avoid abrasives, and dry immediately.',
+      'Prevent grease with the range hood and regular wiping.',
+    ],
+    relatedLinks: [
+      { url: '/blog/how-to-clean-kitchen-cabinets', anchor: 'How to clean cabinets' },
+      { url: '/blog/cabinet-finishes-colors-guide', anchor: 'Cabinet finishes' },
+      { url: '/blog/cabinet-construction-quality-guide', anchor: 'Construction quality' },
+      { url: '/blog/kitchen-cabinet-organization-ideas', anchor: 'Organization ideas' },
+      { url: '/cabinets/kitchen' },
+    ],
+    primaryKeyword: 'how to remove grease from cabinets',
+    secondaryKeywords: ['remove grease from kitchen cabinets', 'cabinet degreaser', 'grease on cabinets above stove', 'clean greasy cabinets'],
+    searchIntent: 'Informational — homeowners removing grease from cabinets',
+    wordCountTarget: 'pillar',
+  },
+  {
+    slug: 'kitchen-layout-ideas',
+    title: 'Kitchen Cabinet Layout Ideas & the Work Triangle',
+    seoTitle: 'Kitchen Layout Ideas & the Work Triangle: Galley, L, U & Island',
+    metaDescription:
+      'Kitchen layout ideas built on the work triangle: galley, L-shaped, U-shaped, and island layouts compared. How to plan clearances, traffic flow, and zones for a kitchen that works.',
+    excerpt:
+      'A good kitchen layout starts with the work triangle. Here are the main layouts — galley, L, U, and island — plus clearances, traffic flow, and zone-based ideas that make a kitchen flow.',
+    content: layoutIdeasContent,
+    author: AUTHOR,
+    category: 'Layout & Planning',
+    hubSlug: 'kitchen-cabinets',
+    tags: ['layout', 'work triangle', 'planning', 'design', 'kitchen'],
+    publishedAt: '2026-07-11',
+    faqs: [
+      { question: 'What is the kitchen work triangle?', answer: 'The work triangle is the triangular path between the three main work areas — the sink, the range or cooktop, and the refrigerator — that you move between constantly while cooking. A good layout keeps this triangle tight and unobstructed so cooking flows, with no island or heavy traffic cutting through the path.' },
+      { question: 'What is the best kitchen layout?', answer: 'The best layout fits your room and how you cook. Galley layouts are highly efficient in narrow spaces; L-shaped layouts are flexible and popular, open and efficient; U-shaped layouts offer the most counter and storage; and island or peninsula layouts add surface, storage, and seating. Each is built around an efficient work triangle.' },
+      { question: 'How much clearance do you need around a kitchen island?', answer: 'Allow at least 36 to 42 inches of clearance around an island for comfortable movement and for appliance and cabinet doors to open. The island must not obstruct the work triangle. Too little clearance makes the kitchen feel cramped and hinders flow, so plan island size and placement around these clearances.' },
+      { question: 'What is the difference between an island and a peninsula?', answer: 'An island is a freestanding work and gathering surface in the center of the kitchen, while a peninsula is a connected extension that juts out from a run of cabinets. Both add counter space, storage, and often seating; a peninsula offers many of the same benefits where a full island will not fit, ideal for smaller or open-concept kitchens.' },
+      { question: 'How do you plan kitchen traffic flow?', answer: 'Keep traffic — kids, guests, other cooks, the path to the back door or dining room — from cutting through the work triangle, and provide adequate clearances: walkways of at least 36 inches (42 or more where two people work), room in front of appliances, and space for doors and drawers to open fully.' },
+      { question: 'Is the work triangle still relevant?', answer: 'Yes, it remains the best starting point for a functional layout, though modern kitchens — especially large ones and those with multiple cooks — also think in zones: prep, cooking, cleanup, storage, and sometimes baking or beverage zones. The zone approach complements the work triangle where a single triangle is too simple.' },
+    ],
+    quickAnswer:
+      'A good kitchen layout is built on the work triangle — the tight, unobstructed path between the sink, range, and refrigerator — and on choosing the configuration that fits your room: the efficient galley, the flexible L-shape, the storage-rich U-shape, or a layout anchored by a well-placed island or peninsula. Beyond the triangle, good clearances and traffic flow that does not cut through the work zones are what make a kitchen comfortable to use.',
+    keyTakeaways: [
+      'Build the layout on a tight, unobstructed work triangle.',
+      'Choose galley, L, U, or island to fit your room and traffic.',
+      'Plan clearances and traffic flow; use zones for larger kitchens.',
+    ],
+    relatedLinks: [
+      { url: '/blog/how-to-plan-a-kitchen-cabinet-project', anchor: 'Plan a kitchen project' },
+      { url: '/blog/standard-kitchen-cabinet-sizes', anchor: 'Standard cabinet sizes' },
+      { url: '/blog/corner-cabinet-solutions', anchor: 'Corner cabinet solutions' },
+      { url: '/blog/kitchen-cabinet-organization-ideas', anchor: 'Organization ideas' },
+      { url: '/cabinets/kitchen' },
+    ],
+    primaryKeyword: 'kitchen layout ideas',
+    secondaryKeywords: ['kitchen work triangle', 'kitchen cabinet layout', 'galley kitchen layout', 'l shaped kitchen'],
+    searchIntent: 'Informational — homeowners planning a kitchen layout',
     wordCountTarget: 'pillar',
   },
 ];
