@@ -27,6 +27,8 @@ interface GuidedFlowShellProps {
   stepDescription?: ReactNode;
   /** One-line summary shown in the sticky mobile bar (e.g. live estimate range) */
   mobileSummary?: ReactNode;
+  /** Overrides the "Step X of Y" eyebrow (e.g. a per-room context label). */
+  metaLabel?: string;
   headerExtra?: ReactNode;
   className?: string;
   stepClassName?: string;
@@ -71,6 +73,7 @@ export function GuidedFlowShell({
   hidePrimaryOnLast,
   stepDescription,
   mobileSummary,
+  metaLabel,
   headerExtra,
   className,
   stepClassName,
@@ -209,7 +212,7 @@ export function GuidedFlowShell({
         <div ref={topRef} className="shrink-0">
           <div className="mb-2">
             <p className="text-[11px] uppercase tracking-wide text-muted-foreground">
-              Step {currentIndex + 1} of {steps.length}
+              {metaLabel ?? `Step ${currentIndex + 1} of ${steps.length}`}
               {minutesLeftLabel ? ` · ${minutesLeftLabel}` : ""}
             </p>
             <h2
@@ -311,7 +314,7 @@ export function GuidedFlowShell({
       <div ref={topRef} className="scroll-mt-4">
         <div className="mb-4">
           <p className="text-xs uppercase tracking-wide text-muted-foreground">
-            Step {currentIndex + 1} of {steps.length}
+            {metaLabel ?? `Step ${currentIndex + 1} of ${steps.length}`}
             {minutesLeftLabel ? ` · ${minutesLeftLabel}` : ""}
           </p>
           <h2

@@ -33,9 +33,10 @@ import {
   ShieldCheck,
   Clock,
 } from "lucide-react";
-import type { StoredEstimate } from "@/shared/estimateEngine";
+import type { StoredEstimate, CombinedStoredEstimate } from "@/shared/estimateEngine";
 import {
   buildConsultationEstimatePayload,
+  buildCombinedConsultationPayload,
   formatPlanningCurrency,
   mapEstimateProjectToConsultType,
 } from "@/shared/estimateEngine";
@@ -165,9 +166,80 @@ function EstimateSummaryCard({ estimate, compact = false }: { estimate: StoredEs
   );
 }
 
+function CombinedEstimateSummaryCard({
+  estimate,
+  compact = false,
+}: {
+  estimate: CombinedStoredEstimate;
+  compact?: boolean;
+}) {
+  const roomList = estimate.rooms.map((r) => r.projectLabel).join(", ");
+  if (compact) {
+    return (
+      <div
+        className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm bg-accent/5 border border-accent/20"
+        data-testid="text-estimate-summary"
+      >
+        <CheckCircle2 className="h-4 w-4 shrink-0 text-accent" />
+        <div className="min-w-0 flex-1">
+          <span className="font-medium text-foreground" data-testid="text-estimate-range">
+            <DisplayNum>
+              {formatPlanningCurrency(estimate.priceLow)} to {formatPlanningCurrency(estimate.priceHigh)}
+            </DisplayNum>
+          </span>
+          <span className="ml-2 text-xs text-muted-foreground">
+            {estimate.rooms.length} rooms · {roomList}
+          </span>
+        </div>
+      </div>
+    );
+  }
+  return (
+    <div
+      className="flex gap-3 rounded-lg p-4 text-sm bg-accent/5 border border-accent/20"
+      data-testid="text-estimate-summary"
+    >
+      <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-accent/15 text-accent">
+        <CheckCircle2 className="h-4 w-4" />
+      </span>
+      <div className="min-w-0 flex-1">
+        <p className="text-xs font-medium uppercase tracking-wide text-accent">
+          Your total planning range
+        </p>
+        <p className="mt-1 text-foreground" data-testid="text-estimate-range">
+          <DisplayNum className="text-base font-medium">
+            {formatPlanningCurrency(estimate.priceLow)} to {formatPlanningCurrency(estimate.priceHigh)}
+          </DisplayNum>
+        </p>
+        <ul className="mt-2 space-y-1 border-t border-accent/15 pt-2">
+          {estimate.rooms.map((r, i) => (
+            <li key={i} className="flex items-baseline justify-between gap-3 text-xs">
+              <span className="text-foreground">{r.projectLabel}</span>
+              <span className="tabular-nums whitespace-nowrap text-muted-foreground">
+                {formatPlanningCurrency(r.priceLow)} to {formatPlanningCurrency(r.priceHigh)}
+              </span>
+            </li>
+          ))}
+        </ul>
+        {estimate.confidenceLabel && (
+          <p className="text-xs mt-2 text-muted-foreground">{estimate.confidenceLabel}</p>
+        )}
+      </div>
+    </div>
+  );
+}
+
 export interface ConsultationFieldsProps {
   /** Estimate attached to the submission (and optionally displayed). */
   estimate?: StoredEstimate | null;
+  /** Multi-room estimate; when set it takes precedence over `estimate`. */
+  combinedEstimate?: CombinedStoredEstimate | null;
+  /**
+   * Resolved consultation project type. When set, the project select is hidden
+   * and this value is submitted (used by the multi-room wizard, which spans
+   * several project types).
+   */
+  resolvedProjectType?: string;
   /** Show the compact planning-range card above the fields. */
   showEstimateSummary?: boolean;
   /** Prefill the project select when there is no estimate to derive it from. */
@@ -188,6 +260,8 @@ export interface ConsultationFieldsProps {
 
 export function ConsultationFields({
   estimate = null,
+  combinedEstimate = null,
+  resolvedProjectType,
   showEstimateSummary = true,
   defaultProjectType = "",
   defaultMessage = "",
@@ -204,10 +278,12 @@ export function ConsultationFields({
   const [detailsOpen, setDetailsOpen] = useState(false);
 
   // When an estimate is attached we already know the project, so the select is
-  // hidden and we send the mapped consultation project type instead.
-  const projectTypeFromEstimate = estimate?.project
-    ? mapEstimateProjectToConsultType(estimate.project)
-    : "";
+  // hidden and we send the mapped consultation project type instead. A multi-room
+  // estimate spans several projects, so the wizard passes an explicit resolved
+  // type (e.g. "other" / whole-home).
+  const projectTypeFromEstimate =
+    resolvedProjectType ??
+    (estimate?.project ? mapEstimateProjectToConsultType(estimate.project) : "");
 
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
@@ -262,7 +338,9 @@ export function ConsultationFields({
       const payload = {
         ...data,
         propertyProfile,
-        estimate: buildConsultationEstimatePayload(estimate),
+        estimate: combinedEstimate
+          ? buildCombinedConsultationPayload(combinedEstimate)
+          : buildConsultationEstimatePayload(estimate),
       };
       const res = await fetch("/api/consultation", {
         method: "POST",
@@ -355,7 +433,12 @@ export function ConsultationFields({
   return (
     <Form {...form}>
       <form id={formId} onSubmit={onSubmit} className={compact ? "space-y-2.5" : "space-y-5"}>
-        {showEstimateSummary && estimate && <EstimateSummaryCard estimate={estimate} compact={compact} />}
+        {showEstimateSummary &&
+          (combinedEstimate ? (
+            <CombinedEstimateSummaryCard estimate={combinedEstimate} compact={compact} />
+          ) : (
+            estimate && <EstimateSummaryCard estimate={estimate} compact={compact} />
+          ))}
 
         {mutation.isError && (
           <div className="rounded-sm p-4 text-sm bg-destructive/5 border border-destructive/20 text-destructive">

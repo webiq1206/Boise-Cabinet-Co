@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { ArrowRight, Check, Info, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import type { EstimateResult, ProjectType } from "@/shared/estimateEngine";
+import type { EstimateResult, ProjectType, RoomEstimate } from "@/shared/estimateEngine";
 import {
   INCLUDED_SCOPE_NOTE,
   APPLIANCE_DISCLAIMER,
@@ -170,6 +170,12 @@ export interface EstimateResultPanelProps {
    * and a condensed disclaimer, so the range + key info fit without scrolling.
    */
   compact?: boolean;
+  /**
+   * Per-room breakdown when the visitor planned multiple rooms. When it has more
+   * than one room the panel labels the range "Total" and lists each room's
+   * range in place of the single scope line.
+   */
+  breakdown?: RoomEstimate[];
 }
 
 export function EstimateResultPanel({
@@ -182,10 +188,12 @@ export function EstimateResultPanel({
   className,
   hideCta = false,
   compact = false,
+  breakdown,
 }: EstimateResultPanelProps) {
   const isSidebar = variant === "sidebar";
   const isFull = variant === "full";
   const pad = compact ? "p-5" : isSidebar ? "p-6" : "p-8";
+  const multiRoom = !!breakdown && breakdown.length > 1;
 
   // Nothing priceable yet: show a neutral prompt instead of a fabricated range
   // so we never imply pricing the visitor didn't intentionally create.
@@ -226,9 +234,11 @@ export function EstimateResultPanel({
       )}
       data-testid={isSidebar ? "estimate-side-panel" : "estimate-result-panel"}
     >
-      <div className={cn("flex items-center justify-between", compact ? "mb-2" : "mb-5")}>
-        <div className="brc-label text-inverse-muted">Planning range</div>
-        <div className="text-[10px] tracking-wide uppercase px-2 py-1 rounded-sm bg-inverse-foreground/15 text-inverse-foreground/90">
+      <div className={cn("flex items-center justify-between gap-2", compact ? "mb-2" : "mb-5")}>
+        <div className="brc-label text-inverse-muted">
+          {multiRoom ? "Total planning range" : "Planning range"}
+        </div>
+        <div className="text-[10px] tracking-wide uppercase px-2 py-1 rounded-sm bg-inverse-foreground/15 text-inverse-foreground/90 shrink-0">
           {result.confidenceLabel}
         </div>
       </div>
@@ -256,7 +266,35 @@ export function EstimateResultPanel({
         <AnimatedPrice value={result.priceHigh} />
       </div>
 
-      {scopeSummary &&
+      {multiRoom ? (
+        <div className={compact ? "mb-3" : "mb-4"} data-testid="estimate-breakdown">
+          <div className="brc-label text-inverse-muted mb-2">{breakdown!.length} rooms</div>
+          <div className="flex flex-col">
+            {breakdown!.map((r, i) => (
+              <div
+                key={i}
+                className="flex items-start justify-between gap-3 py-2 border-b border-inverse-foreground/10 last:border-0"
+                data-testid={`breakdown-room-${i}`}
+              >
+                <div className="min-w-0">
+                  <div className="text-[13px] font-medium leading-tight text-inverse-foreground">
+                    {r.projectLabel}
+                  </div>
+                  <div className="text-[11px] leading-snug text-inverse-muted mt-0.5">
+                    {r.scopeSummary}
+                  </div>
+                </div>
+                <div className="text-xs tabular-nums whitespace-nowrap pt-0.5 text-inverse-foreground/85">
+                  {formatPlanningCurrency(r.priceLow)}
+                  <span className="text-inverse-muted"> to </span>
+                  {formatPlanningCurrency(r.priceHigh)}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      ) : (
+        scopeSummary &&
         (compact ? (
           <p
             className="mb-3 text-xs leading-relaxed text-inverse-foreground/80"
@@ -272,7 +310,8 @@ export function EstimateResultPanel({
             <div className="brc-label text-inverse-muted mb-1">Your selections</div>
             <p className="text-xs leading-relaxed text-inverse-foreground/90">{scopeSummary}</p>
           </div>
-        ))}
+        ))
+      )}
 
       {isFull && !compact && (
         <p className="hidden sm:block text-xs text-inverse-muted mb-4">

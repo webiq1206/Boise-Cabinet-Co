@@ -905,6 +905,152 @@ export function buildStoredEstimate(
   };
 }
 
+// ── Multi-room (per-room) estimates ────────────────────────────────────────
+// A visitor can plan several rooms in one pass (e.g. kitchen + bath + mudroom).
+// Each room is a full EstimateSelections with its own size, door, finish, and
+// construction; the combined range is the sum of every priceable room.
+
+/** Pricing-relevant selections made for one room, used for its confidence. */
+export function roomSelectionsMade(room: EstimateSelections): number {
+  if (!room.project) return 0;
+  const vis = getStepVisibility(room.project);
+  let n = 0;
+  if (room.size != null) n += 1;
+  if (vis.doorStyle && room.doorStyle) n += 1;
+  if (room.finishCategory || room.finishSlug) n += 1;
+  if (room.construction) n += 1;
+  return n;
+}
+
+export interface RoomEstimate {
+  project: ProjectType;
+  projectLabel: string;
+  sizeLabel: string;
+  scopeSummary: string;
+  priceLow: number;
+  priceHigh: number;
+}
+
+export interface CombinedEstimateResult {
+  priceLow: number;
+  priceHigh: number;
+  /** Per-room breakdown, in the order the rooms were added. */
+  rooms: RoomEstimate[];
+  included: string[];
+  confidence: ConfidenceLevel;
+  confidenceLabel: string;
+  confidencePercent: number;
+}
+
+/**
+ * Sum an array of per-room selections into one planning range. Only priceable
+ * rooms (project + size set) contribute, so the range reflects only rooms the
+ * visitor has actually specified. Returns null until at least one is priceable.
+ */
+export function calculateCombinedEstimate(
+  rooms: EstimateSelections[],
+): CombinedEstimateResult | null {
+  const roomEstimates: RoomEstimate[] = [];
+  const includedSet = new Set<string>();
+  let low = 0;
+  let high = 0;
+  let percentSum = 0;
+  for (const room of rooms) {
+    if (!isPriceable(room)) continue;
+    const res = calculateEstimate(room, roomSelectionsMade(room));
+    if (!res) continue;
+    const project = room.project as ProjectType;
+    low += res.priceLow;
+    high += res.priceHigh;
+    percentSum += res.confidencePercent;
+    res.included.forEach((i) => includedSet.add(i));
+    roomEstimates.push({
+      project,
+      projectLabel: PROJECT_LABELS[project].label,
+      sizeLabel: getSizeLabel(project, room.size as number, room.sizeUpper),
+      scopeSummary: buildScopeSummary(room),
+      priceLow: res.priceLow,
+      priceHigh: res.priceHigh,
+    });
+  }
+  if (!roomEstimates.length) return null;
+  const percent = Math.round(percentSum / roomEstimates.length);
+  const level: ConfidenceLevel =
+    percent >= 90 ? "detailed" : percent >= 65 ? "refined" : "starting";
+  return {
+    priceLow: roundPrice(low),
+    priceHigh: roundPrice(high),
+    rooms: roomEstimates,
+    included: [...includedSet],
+    confidence: level,
+    confidenceLabel: PLANNING_DETAIL_LABELS[level],
+    confidencePercent: percent,
+  };
+}
+
+export interface CombinedStoredEstimate {
+  priceLow: number;
+  priceHigh: number;
+  confidenceLabel: string;
+  rooms: Array<{
+    projectLabel: string;
+    sizeLabel: string;
+    scopeSummary: string;
+    priceLow: number;
+    priceHigh: number;
+  }>;
+}
+
+/** Priceable multi-room snapshot for the consultation form; null until priceable. */
+export function buildCombinedStoredEstimate(
+  rooms: EstimateSelections[],
+): CombinedStoredEstimate | null {
+  const combined = calculateCombinedEstimate(rooms);
+  if (!combined) return null;
+  return {
+    priceLow: combined.priceLow,
+    priceHigh: combined.priceHigh,
+    confidenceLabel: combined.confidenceLabel,
+    rooms: combined.rooms.map((r) => ({
+      projectLabel: r.projectLabel,
+      sizeLabel: r.sizeLabel,
+      scopeSummary: r.scopeSummary,
+      priceLow: r.priceLow,
+      priceHigh: r.priceHigh,
+    })),
+  };
+}
+
+/** Maps a combined multi-room estimate to the consultation `estimate` payload. */
+export function buildCombinedConsultationPayload(
+  estimate: CombinedStoredEstimate | null | undefined,
+): ConsultationEstimatePayload | null {
+  if (!estimate || !estimate.rooms.length) return null;
+  const roomList = estimate.rooms.map((r) => r.projectLabel).join(", ");
+  const finish = estimate.rooms
+    .map((r) => `${r.projectLabel}: ${r.scopeSummary}`)
+    .join(" · ");
+  const sizeLabel = estimate.rooms
+    .map((r) => `${r.projectLabel} ${r.sizeLabel}`)
+    .join(" · ");
+  return {
+    project: roomList,
+    finish,
+    priceLow: estimate.priceLow,
+    priceHigh: estimate.priceHigh,
+    roi: 0,
+    sizeLabel,
+    confidenceLabel: estimate.confidenceLabel,
+    rooms: estimate.rooms.map((r) => ({
+      project: r.projectLabel,
+      finish: r.scopeSummary,
+      sizeLabel: r.sizeLabel,
+      priceLow: r.priceLow,
+      priceHigh: r.priceHigh,
+    })),
+  };
+}
+
 /**
  * Payload shape the consultation API accepts for an attached estimate. This is
  * the single source of truth carried end-to-end: it is stored on the lead
@@ -923,6 +1069,14 @@ export interface ConsultationEstimatePayload {
   sizeLabel?: string;
   /** Confidence label for the range, e.g. "Detailed planning range". */
   confidenceLabel?: string;
+  /** Per-room breakdown when the visitor planned multiple rooms in one pass. */
+  rooms?: Array<{
+    project: string;
+    finish: string;
+    sizeLabel: string;
+    priceLow: number;
+    priceHigh: number;
+  }>;
 }
 
 /**

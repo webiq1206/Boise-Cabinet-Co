@@ -50,13 +50,11 @@ import { loadWizardState, saveWizardState } from "@/lib/estimate/wizardPersisten
 import {
   type ProjectType,
   type EstimateSelections,
-  type SelectionStepKey,
+  type EstimateResult,
   type SelectOption,
-  EMPTY_SELECTIONS,
   PROJECT_LABELS,
   getProjectSizeConfig,
   getStepVisibility,
-  getVisibleSteps,
   getLayoutOptions,
   getDoorStyleOptions,
   getFinishColorOptions,
@@ -65,11 +63,11 @@ import {
   FINISH_CATEGORY_OPTIONS,
   CONSTRUCTION_OPTIONS,
   emptySelectionsForProject,
-  isPriceable,
-  calculateEstimate,
   buildStoredEstimate,
-  buildSelectionSummary,
-  formatPlanningCurrency,
+  roomSelectionsMade,
+  calculateCombinedEstimate,
+  buildCombinedStoredEstimate,
+  mapEstimateProjectToConsultType,
 } from "@/shared/estimateEngine";
 
 const OPTION_ICONS: Record<string, LucideIcon> = {
@@ -97,31 +95,51 @@ const OPTION_ICONS: Record<string, LucideIcon> = {
   Sparkles,
 };
 
-type WizardStepId = "project" | "size" | "quality" | "layout" | "style" | "result" | "contact";
+type StepKind = "project" | "size" | "quality" | "layout" | "style" | "result" | "contact";
 
-const WIZARD_META: Record<WizardStepId, GuidedStep> = {
-  project: { id: "project", label: "Your project", shortLabel: "Project" },
-  size: { id: "size", label: "Project size", shortLabel: "Size" },
-  quality: { id: "quality", label: "Construction quality", shortLabel: "Quality" },
-  layout: { id: "layout", label: "Layout", shortLabel: "Layout" },
-  style: { id: "style", label: "Door & finish", shortLabel: "Style" },
-  result: { id: "result", label: "Your range", shortLabel: "Range" },
-  contact: { id: "contact", label: "Book your visit", shortLabel: "Visit" },
+/** A single step in the flow. Per-room steps carry the room's index. */
+interface WizardStep {
+  kind: StepKind;
+  /** Room index for the per-room steps (size/quality/layout/style). */
+  room?: number;
+}
+
+const PER_ROOM_META: Record<
+  "size" | "quality" | "layout" | "style",
+  { label: string; shortLabel: string }
+> = {
+  size: { label: "size", shortLabel: "Size" },
+  quality: { label: "construction", shortLabel: "Quality" },
+  layout: { label: "layout", shortLabel: "Layout" },
+  style: { label: "door & finish", shortLabel: "Style" },
 };
 
-function getWizardStepIds(
-  project: ProjectType | null,
-  includeContact = true,
-): WizardStepId[] {
-  const ids: WizardStepId[] = ["project", "size", "quality"];
-  if (project && getStepVisibility(project).layout) ids.push("layout");
-  ids.push("style", "result");
+/**
+ * Build the dynamic step list. The project step is first (a multi-select), then
+ * every selected room contributes its own size → quality → (layout) → style
+ * steps, then the shared combined result and contact steps. Adding or removing a
+ * project on the first step reshapes everything after it.
+ */
+function buildWizardSteps(
+  rooms: EstimateSelections[],
+  includeContact: boolean,
+): WizardStep[] {
+  const steps: WizardStep[] = [{ kind: "project" }];
+  rooms.forEach((room, i) => {
+    const project = room.project as ProjectType | null;
+    if (!project) return;
+    steps.push({ kind: "size", room: i });
+    steps.push({ kind: "quality", room: i });
+    if (getStepVisibility(project).layout) steps.push({ kind: "layout", room: i });
+    steps.push({ kind: "style", room: i });
+  });
+  steps.push({ kind: "result" });
   // The terminal contact step is only part of the flow when the wizard owns
   // contact capture (the modal and the standalone /estimate page). When a host
   // page provides its own consultation form via `onBookVisit` (e.g. the
   // homepage `#consult` section), we defer to it instead of duplicating it.
-  if (includeContact) ids.push("contact");
-  return ids;
+  if (includeContact) steps.push({ kind: "contact" });
+  return steps;
 }
 
 const CONTACT_FORM_ID = "quote-consultation-form";
@@ -436,7 +454,7 @@ interface EstimateCalculatorWizardProps {
   inModal?: boolean;
   onBookVisit?: () => void;
   /** Open directly on a specific step (e.g. "contact" for "just talk to us"). */
-  startStep?: WizardStepId;
+  startStep?: StepKind;
   /**
    * Viewport-fit layout: pins the step header + primary CTA so the whole step
    * stays on screen without page scroll. Used by the standalone `/estimate`
@@ -445,108 +463,197 @@ interface EstimateCalculatorWizardProps {
   fitViewport?: boolean;
 }
 
+const CURATED_COLOR_COUNT = 9;
+
+/** Progressive-disclosure curation of the finish palette for one room. */
+function curateColorOptions(
+  finishColorOptions: SelectOption[],
+  selectedSlug: string,
+): SelectOption[] {
+  if (finishColorOptions.length <= CURATED_COLOR_COUNT) return finishColorOptions;
+  const order = new Map(finishColorOptions.map((o, i) => [o.value, i] as const));
+  const lovedSlugs = getMostLovedFinishes(CURATED_COLOR_COUNT)
+    .map((f) => f.slug)
+    .filter((slug) => order.has(slug));
+  const picked = new Set(lovedSlugs);
+  // Keep whatever the visitor already chose visible in the curated set.
+  if (selectedSlug && order.has(selectedSlug)) picked.add(selectedSlug);
+  const curated = finishColorOptions.filter((o) => picked.has(o.value));
+  for (const o of finishColorOptions) {
+    if (curated.length >= CURATED_COLOR_COUNT) break;
+    if (!picked.has(o.value)) curated.push(o);
+  }
+  return curated.slice(0, CURATED_COLOR_COUNT);
+}
+
 export function EstimateCalculatorWizard({
   inModal = false,
   onBookVisit: onBookVisitProp,
   startStep,
   fitViewport = false,
 }: EstimateCalculatorWizardProps) {
-  const [selections, setSelections] = useState<EstimateSelections>(EMPTY_SELECTIONS);
-  const [touched, setTouched] = useState<Set<SelectionStepKey>>(new Set());
+  // One entry per project the visitor is planning; each is a full set of
+  // selections with its own size, construction, door, and finish.
+  const [rooms, setRooms] = useState<EstimateSelections[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showAllColors, setShowAllColors] = useState(false);
-  const [showFinishes, setShowFinishes] = useState(false);
+  // "Explore finishes" is opened per room so each room's style step stays short.
+  const [finishesOpen, setFinishesOpen] = useState<Record<number, boolean>>({});
   const [summaryOpen, setSummaryOpen] = useState(false);
   const [contactPending, setContactPending] = useState(false);
   const [contactSucceeded, setContactSucceeded] = useState(false);
 
-  // Guards the persistence effect so the initial EMPTY_SELECTIONS render does
-  // not clobber stored progress before the hydration effect has run.
+  // Guards the persistence effect so the initial empty render does not clobber
+  // stored progress before the hydration effect has run.
   const hydratedRef = useRef(false);
 
-  const { project } = selections;
   // When the host page supplies an `onBookVisit` handler it owns contact
   // capture, so the wizard drops its own terminal contact step.
   const includeContactStep = !onBookVisitProp;
-  const stepIds = useMemo(
-    () => getWizardStepIds(project, includeContactStep),
-    [project, includeContactStep],
-  );
-  const wizardSteps = useMemo(() => stepIds.map((id) => WIZARD_META[id]), [stepIds]);
-  const sizeConfig = project ? getProjectSizeConfig(project) : null;
-  const visibility = project
-    ? getStepVisibility(project)
-    : { layout: false, doorStyle: true };
-  const visibleSteps = useMemo(
-    () => (project ? getVisibleSteps(project) : []),
-    [project],
+
+  const wizardSteps = useMemo(
+    () => buildWizardSteps(rooms, includeContactStep),
+    [rooms, includeContactStep],
   );
 
-  const selectionsMade = useMemo(
-    () => visibleSteps.filter((s) => touched.has(s)).length,
-    [visibleSteps, touched],
+  const guidedSteps = useMemo<GuidedStep[]>(
+    () =>
+      wizardSteps.map((s) => {
+        if (s.kind === "project")
+          return { id: "project", label: "What are you planning?", shortLabel: "Projects" };
+        if (s.kind === "result")
+          return { id: "result", label: "Your range", shortLabel: "Range" };
+        if (s.kind === "contact")
+          return { id: "contact", label: "Book your visit", shortLabel: "Visit" };
+        const room = rooms[s.room!];
+        const roomLabel = room?.project
+          ? PROJECT_LABELS[room.project as ProjectType].label
+          : "Room";
+        const meta = PER_ROOM_META[s.kind as "size" | "quality" | "layout" | "style"];
+        return {
+          id: `${s.kind}-${s.room}`,
+          label: `${roomLabel} ${meta.label}`,
+          shortLabel: meta.shortLabel,
+        };
+      }),
+    [wizardSteps, rooms],
   );
 
-  // Null until the visitor has chosen a project and size; the UI then shows the
-  // "make your selections" prompt instead of a fabricated range.
-  const result = useMemo(
-    () => calculateEstimate(selections, selectionsMade),
-    [selections, selectionsMade],
-  );
+  // Keep the current index in range whenever the step list shrinks (e.g. after a
+  // room is removed on the project step).
+  useEffect(() => {
+    setCurrentIndex((i) => Math.min(Math.max(i, 0), wizardSteps.length - 1));
+  }, [wizardSteps.length]);
 
-  const selectionSummary = buildSelectionSummary(selections);
+  // Reset the "see all colors" expansion whenever the visitor moves to a new
+  // step (it belongs to a single room's finish palette).
+  useEffect(() => {
+    setShowAllColors(false);
+  }, [currentIndex]);
 
-  // Priceable snapshot for the in-flow contact step (null until project + size).
-  const storedEstimate = useMemo(
-    () => buildStoredEstimate(selections, selectionsMade),
-    [selections, selectionsMade],
-  );
+  const safeIndex = Math.min(Math.max(currentIndex, 0), wizardSteps.length - 1);
+  const currentStep = wizardSteps[safeIndex] ?? { kind: "project" as const };
+  const currentStepId = currentStep.kind;
+  const activeRoomIndex = currentStep.room ?? null;
+  const activeRoom = activeRoomIndex != null ? rooms[activeRoomIndex] ?? null : null;
+
+  const isFirst = safeIndex === 0;
+  const isLast = safeIndex === wizardSteps.length - 1;
+
+  // Live combined estimate across every priceable room.
+  const combined = useMemo(() => calculateCombinedEstimate(rooms), [rooms]);
+  const combinedStored = useMemo(() => buildCombinedStoredEstimate(rooms), [rooms]);
+
+  // Adapt the combined estimate to the EstimateResult shape the panel renders;
+  // the per-room breakdown carries the detail, so scope/roi are not needed here.
+  const combinedResult = useMemo<EstimateResult | null>(() => {
+    if (!combined) return null;
+    return {
+      priceLow: combined.priceLow,
+      priceHigh: combined.priceHigh,
+      roi: 0,
+      included: combined.included,
+      confidence: combined.confidence,
+      confidenceLabel: combined.confidenceLabel,
+      confidencePercent: combined.confidencePercent,
+      scopeSummary: "",
+      selectionsMade: combined.rooms.length,
+      totalSteps: rooms.length,
+    };
+  }, [combined, rooms.length]);
+
+  // For a single room the panel still shows the classic scope line; for several
+  // it shows the per-room breakdown instead.
+  const singleRoomResult =
+    combined && combined.rooms.length === 1 ? combined.rooms[0] : null;
+  const resultScopeSummary = singleRoomResult?.scopeSummary;
+  const resultSelectionSummary = singleRoomResult
+    ? `${singleRoomResult.projectLabel} · ${singleRoomResult.sizeLabel}`
+    : rooms
+        .map((r) => (r.project ? PROJECT_LABELS[r.project as ProjectType].label : ""))
+        .filter(Boolean)
+        .join(" · ");
+
+  // The consultation lead needs a single project type. One room maps to its own
+  // type; several rooms are recorded as a whole-home ("other") enquiry.
+  const resolvedProjectType = useMemo(() => {
+    const projects = rooms
+      .map((r) => r.project)
+      .filter((p): p is ProjectType => !!p);
+    if (projects.length === 1) return mapEstimateProjectToConsultType(projects[0]);
+    if (projects.length > 1) return "other";
+    return undefined;
+  }, [rooms]);
 
   const handleContactPending = useCallback((pending: boolean) => {
     setContactPending(pending);
   }, []);
 
-  // Only persist an estimate once it is priceable. A visitor who skips the
-  // estimator (or hasn't picked a project + size) leaves nothing behind, so the
-  // consultation form never shows pricing they didn't intentionally create.
+  // Only persist an estimate once at least one room is priceable. The in-wizard
+  // contact step reads the full combined estimate directly; this single-room
+  // snapshot keeps legacy consultation forms (e.g. the homepage `#consult`
+  // section) working, so it carries the first priceable room.
   useEffect(() => {
-    const stored = buildStoredEstimate(selections, selectionsMade);
+    let stored: ReturnType<typeof buildStoredEstimate> = null;
+    for (const room of rooms) {
+      const s = buildStoredEstimate(room, roomSelectionsMade(room));
+      if (s) {
+        stored = s;
+        break;
+      }
+    }
     if (stored) {
       sessionStorage.setItem("brc_estimate", JSON.stringify(stored));
     } else {
       sessionStorage.removeItem("brc_estimate");
     }
     window.dispatchEvent(new CustomEvent("brc_estimate_updated"));
-  }, [selections, selectionsMade]);
+  }, [rooms]);
 
-  // Persist full progress (selections, touched steps, current step) so it can
-  // be restored across navigations and return visits. Declared before the
-  // hydration effect so that on mount it runs first and the `hydratedRef`
-  // guard skips the initial EMPTY_SELECTIONS render, never clobbering stored
-  // progress before hydration has applied it.
+  // Persist full progress (rooms + current step) so it can be restored across
+  // navigations and return visits. Declared before the hydration effect so on
+  // mount it runs first and the `hydratedRef` guard skips the initial empty
+  // render, never clobbering stored progress before hydration applies it.
   useEffect(() => {
     if (!hydratedRef.current) return;
-    saveWizardState({ selections, touched: [...touched], currentIndex });
-  }, [selections, touched, currentIndex]);
+    saveWizardState({ rooms, currentIndex });
+  }, [rooms, currentIndex]);
 
   // Hydrate in-progress wizard state on mount so a visitor who started an
   // estimate anywhere (home, /estimate, the modal) sees it again here. Runs
   // after first paint to avoid an SSR hydration mismatch.
   useEffect(() => {
     const stored = loadWizardState();
-    if (stored) {
-      setSelections(stored.selections);
-      setTouched(new Set(stored.touched));
-      const maxIndex =
-        getWizardStepIds(stored.selections.project, includeContactStep).length - 1;
+    if (stored && Array.isArray(stored.rooms)) {
+      setRooms(stored.rooms);
+      const maxIndex = buildWizardSteps(stored.rooms, includeContactStep).length - 1;
       setCurrentIndex(Math.min(Math.max(stored.currentIndex, 0), maxIndex));
     }
     // Deep-link (e.g. "just talk to us" opens straight on the contact step),
-    // applied after any stored progress so the visitor's selections still ride
-    // along.
+    // applied after any stored progress so the visitor's rooms still ride along.
     if (startStep) {
-      const ids = getWizardStepIds(stored?.selections.project ?? null, includeContactStep);
-      const idx = ids.indexOf(startStep);
+      const ids = buildWizardSteps(stored?.rooms ?? [], includeContactStep);
+      const idx = ids.findIndex((s) => s.kind === startStep);
       if (idx >= 0) setCurrentIndex(idx);
     }
     hydratedRef.current = true;
@@ -554,37 +661,39 @@ export function EstimateCalculatorWizard({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const markTouched = useCallback((key: SelectionStepKey) => {
-    setTouched((prev) => (prev.has(key) ? prev : new Set(prev).add(key)));
-  }, []);
-
-  const updateField = useCallback(
-    <K extends keyof EstimateSelections>(key: K, value: EstimateSelections[K], step: SelectionStepKey) => {
-      setSelections((prev) => ({ ...prev, [key]: value }));
-      markTouched(step);
+  // Patch one room's selections, either with a shallow merge or a transform.
+  const updateRoom = useCallback(
+    (
+      index: number,
+      patch: Partial<EstimateSelections> | ((r: EstimateSelections) => EstimateSelections),
+    ) => {
+      setRooms((prev) =>
+        prev.map((r, i) =>
+          i === index ? (typeof patch === "function" ? patch(r) : { ...r, ...patch }) : r,
+        ),
+      );
     },
-    [markTouched],
+    [],
   );
 
-  function handleSelectProject(type: ProjectType) {
-    if (type === project) return;
-    // Error prevention: switching projects resets the other choices, so confirm
-    // once the visitor has actually made some.
-    const hasProgress = ["size", "layout", "doorStyle", "finish", "construction"].some(
-      (k) => touched.has(k as SelectionStepKey),
-    );
-    if (
-      hasProgress &&
-      typeof window !== "undefined" &&
-      !window.confirm("Switching projects will reset your other selections. Continue?")
-    ) {
-      return;
+  function toggleProject(type: ProjectType) {
+    const idx = rooms.findIndex((r) => r.project === type);
+    if (idx >= 0) {
+      // Error prevention: removing a room discards its selections, so confirm
+      // once the visitor has actually made some.
+      const room = rooms[idx];
+      if (
+        roomSelectionsMade(room) > 0 &&
+        typeof window !== "undefined" &&
+        !window.confirm(`Remove ${PROJECT_LABELS[type].label} and its selections?`)
+      ) {
+        return;
+      }
+      setRooms((prev) => prev.filter((r) => r.project !== type));
+    } else {
+      setRooms((prev) => [...prev, emptySelectionsForProject(type)]);
+      trackEstimatorEvent("estimator_step_view", { step: "project" });
     }
-    setSelections(emptySelectionsForProject(type));
-    setTouched(new Set());
-    setShowFinishes(false);
-    setCurrentIndex(0);
-    trackEstimatorEvent("estimator_step_view", { step: "project" });
   }
 
   function handleBookVisit() {
@@ -595,58 +704,9 @@ export function EstimateCalculatorWizard({
       onBookVisitProp();
       return;
     }
-    markWizardStepTouched("result");
-    setCurrentIndex((i) => Math.min(i + 1, stepIds.length - 1));
+    setCurrentIndex((i) => Math.min(i + 1, wizardSteps.length - 1));
     trackEstimatorEvent("estimator_step_view", { step: "contact" });
   }
-
-  const layoutOptions = project ? getLayoutOptions(project) : [];
-  const doorOptions = getDoorStyleOptions();
-  const finishColorOptions = visibility.doorStyle
-    ? getFinishColorOptions(selections.doorStyle)
-    : [];
-
-  // Progressive disclosure: lead with a small curated set of colors, not the
-  // full compatible palette (which is the whole 299-finish catalog).
-  const CURATED_COLOR_COUNT = 9;
-  const curatedColorOptions = (() => {
-    if (finishColorOptions.length <= CURATED_COLOR_COUNT) return finishColorOptions;
-    const order = new Map(finishColorOptions.map((o, i) => [o.value, i] as const));
-    const lovedSlugs = getMostLovedFinishes(CURATED_COLOR_COUNT)
-      .map((f) => f.slug)
-      .filter((slug) => order.has(slug));
-    const picked = new Set(lovedSlugs);
-    // Keep whatever the visitor already chose visible in the curated set.
-    if (selections.finishSlug && order.has(selections.finishSlug)) {
-      picked.add(selections.finishSlug);
-    }
-    const curated = finishColorOptions.filter((o) => picked.has(o.value));
-    for (const o of finishColorOptions) {
-      if (curated.length >= CURATED_COLOR_COUNT) break;
-      if (!picked.has(o.value)) curated.push(o);
-    }
-    return curated.slice(0, CURATED_COLOR_COUNT);
-  })();
-  const visibleColorOptions = showAllColors ? finishColorOptions : curatedColorOptions;
-  const hasMoreColors = finishColorOptions.length > visibleColorOptions.length;
-
-  const layoutTintStyle = touched.has("finish") && selections.finishCategory
-    ? (() => {
-        const tint = getFinishTint(
-          selections.finishCategory,
-          selections.finishTier || "standard",
-        );
-        return {
-          "--cab-fill": tint.fill,
-          "--cab-stroke": tint.stroke,
-          "--cab-island": tint.island,
-        } as React.CSSProperties;
-      })()
-    : undefined;
-
-  const currentStepId = stepIds[currentIndex] ?? "project";
-  const isFirst = currentIndex === 0;
-  const isLast = currentIndex === stepIds.length - 1;
 
   // If the visitor navigates back off the contact step after a success, clear
   // the success flag so the submit CTA returns.
@@ -656,8 +716,8 @@ export function EstimateCalculatorWizard({
     }
   }, [currentStepId, contactSucceeded]);
 
-  const stepDescription: Record<WizardStepId, string | undefined> = {
-    project: "Choose what you're planning - we'll guide you from here.",
+  const stepDescription: Record<StepKind, string | undefined> = {
+    project: "Pick everything you're planning - add as many rooms as you like.",
     size: "Drag to set your cabinet run - base and wall cabinets.",
     quality: "Pick the box construction that fits your budget and durability.",
     layout: "Pick the shape closest to your space.",
@@ -667,64 +727,47 @@ export function EstimateCalculatorWizard({
   };
 
   function isStepComplete(index: number): boolean {
-    const id = stepIds[index];
-    switch (id) {
+    const s = wizardSteps[index];
+    if (!s) return false;
+    switch (s.kind) {
       case "project":
-        return !!selections.project;
+        return rooms.length > 0;
       case "size": {
+        const room = rooms[s.room!];
+        if (!room?.project) return false;
+        const cfg = getProjectSizeConfig(room.project as ProjectType);
         // Base run must be set; for projects with uppers, the wall run must be
         // set too (it can be 0).
-        const upperSet = !sizeConfig?.uppers || selections.sizeUpper != null;
-        return selections.size != null && upperSet;
+        const upperSet = !cfg?.uppers || room.sizeUpper != null;
+        return room.size != null && upperSet;
       }
       case "quality":
         // Construction refines the range but is never required to advance.
         return true;
       case "layout":
-        return !!selections.layout;
-      case "style":
+        return !!rooms[s.room!]?.layout;
+      case "style": {
+        const room = rooms[s.room!];
+        const vis = room?.project
+          ? getStepVisibility(room.project as ProjectType)
+          : { doorStyle: true };
         // Door style is the headline pick; finish color/style stay optional.
-        return visibility.doorStyle ? !!selections.doorStyle : true;
+        return vis.doorStyle ? !!room?.doorStyle : true;
+      }
       case "result":
-        return true;
       case "contact":
-        // The contact form owns its own validation/submit via the sticky CTA.
         return true;
       default:
         return false;
     }
   }
 
-  function markWizardStepTouched(id: WizardStepId) {
-    switch (id) {
-      case "size":
-        markTouched("size");
-        break;
-      case "quality":
-        // Construction is optional; only count it once intentionally chosen.
-        if (selections.construction) markTouched("construction");
-        break;
-      case "layout":
-        markTouched("layout");
-        break;
-      case "style":
-        if (visibility.doorStyle && selections.doorStyle) markTouched("doorStyle");
-        // Finish is optional; only count it once a style/color is chosen.
-        if (selections.finishCategory || selections.finishSlug) markTouched("finish");
-        break;
-      case "result":
-        trackEstimatorEvent("estimator_complete");
-        break;
-      default:
-        break;
-    }
-  }
-
   const goNext = () => {
-    if (!isStepComplete(currentIndex) || isLast) return;
-    markWizardStepTouched(currentStepId);
-    setCurrentIndex((i) => Math.min(i + 1, stepIds.length - 1));
-    trackEstimatorEvent("estimator_step_view", { step: stepIds[currentIndex + 1] ?? "result" });
+    if (!isStepComplete(safeIndex) || isLast) return;
+    const next = wizardSteps[safeIndex + 1];
+    setCurrentIndex((i) => Math.min(i + 1, wizardSteps.length - 1));
+    if (next?.kind === "result") trackEstimatorEvent("estimator_complete");
+    trackEstimatorEvent("estimator_step_view", { step: next?.kind ?? "result" });
   };
 
   const goBack = () => {
@@ -733,19 +776,19 @@ export function EstimateCalculatorWizard({
   };
 
   const stepBody = (() => {
-    switch (currentStepId) {
+    switch (currentStep.kind) {
       case "project":
         return (
           <div className="grid grid-cols-2 gap-2">
             {(Object.keys(PROJECT_LABELS) as ProjectType[]).map((type) => {
               const info = PROJECT_LABELS[type];
-              const active = project === type;
+              const active = rooms.some((r) => r.project === type);
               const Icon = OPTION_ICONS[info.icon];
               return (
                 <button
                   key={type}
                   type="button"
-                  onClick={() => handleSelectProject(type)}
+                  onClick={() => toggleProject(type)}
                   data-testid={`button-project-${type}`}
                   aria-pressed={active}
                   className={cn(
@@ -780,84 +823,120 @@ export function EstimateCalculatorWizard({
                       {info.sub}
                     </span>
                   </span>
-                  {active && <Check className="h-4 w-4 shrink-0 text-accent" />}
+                  {active && (
+                    <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-accent text-accent-foreground">
+                      <Check className="h-3 w-3" strokeWidth={3} />
+                    </span>
+                  )}
                 </button>
               );
             })}
           </div>
         );
-      case "size":
-        if (!sizeConfig) return null;
+      case "size": {
+        if (activeRoomIndex == null || !activeRoom?.project) return null;
+        const cfg = getProjectSizeConfig(activeRoom.project as ProjectType);
+        if (!cfg) return null;
+        const ri = activeRoomIndex;
         return (
-          <div className={cn("grid gap-3", sizeConfig.uppers ? "grid-cols-2" : "grid-cols-1")}>
+          <div className={cn("grid gap-3", cfg.uppers ? "grid-cols-2" : "grid-cols-1")}>
             <SizeSlider
-              label={sizeConfig.sizeStepLabel}
-              value={selections.size}
-              min={sizeConfig.min}
-              max={sizeConfig.max}
-              step={sizeConfig.step}
-              unitNoun={sizeConfig.unitNoun}
-              unitShort={sizeConfig.unitShort}
+              label={cfg.sizeStepLabel}
+              value={activeRoom.size}
+              min={cfg.min}
+              max={cfg.max}
+              step={cfg.step}
+              unitNoun={cfg.unitNoun}
+              unitShort={cfg.unitShort}
               testId="slider-size"
-              hint={`Drag to set your ${sizeConfig.uppers ? "base cabinet run" : "project size"} in ${sizeConfig.unitNoun}.`}
-              onChange={(v) => updateField("size", v, "size")}
+              hint={`Drag to set your ${cfg.uppers ? "base cabinet run" : "project size"} in ${cfg.unitNoun}.`}
+              onChange={(v) => updateRoom(ri, { size: v })}
             />
-            {sizeConfig.uppers && (
+            {cfg.uppers && (
               <SizeSlider
-                label={sizeConfig.uppers.label}
-                value={selections.sizeUpper}
+                label={cfg.uppers.label}
+                value={activeRoom.sizeUpper}
                 min={0}
-                max={sizeConfig.uppers.max}
-                step={sizeConfig.uppers.step}
-                unitNoun={sizeConfig.unitNoun}
-                unitShort={sizeConfig.unitShort}
+                max={cfg.uppers.max}
+                step={cfg.uppers.step}
+                unitNoun={cfg.unitNoun}
+                unitShort={cfg.unitShort}
                 testId="slider-size-upper"
                 hint="Drag to set your wall cabinet run, or set it to 0 if there are few or none."
-                onChange={(v) => updateField("sizeUpper", v, "size")}
+                onChange={(v) => updateRoom(ri, { sizeUpper: v })}
               />
             )}
           </div>
         );
-      case "quality":
+      }
+      case "quality": {
+        if (activeRoomIndex == null || !activeRoom) return null;
+        const ri = activeRoomIndex;
         return (
           <ConstructionTierSelect
-            value={selections.construction}
+            value={activeRoom.construction}
             options={CONSTRUCTION_OPTIONS}
-            onChange={(v) => updateField("construction", v as typeof selections.construction, "construction")}
+            onChange={(v) =>
+              updateRoom(ri, { construction: v as EstimateSelections["construction"] })
+            }
             testIdPrefix="button-construction"
           />
         );
-      case "layout":
+      }
+      case "layout": {
+        if (activeRoomIndex == null || !activeRoom?.project) return null;
+        const ri = activeRoomIndex;
+        const layoutOptions = getLayoutOptions(activeRoom.project as ProjectType);
+        const tint = activeRoom.finishCategory
+          ? getFinishTint(activeRoom.finishCategory, activeRoom.finishTier || "standard")
+          : null;
+        const layoutTintStyle = tint
+          ? ({
+              "--cab-fill": tint.fill,
+              "--cab-stroke": tint.stroke,
+              "--cab-island": tint.island,
+            } as React.CSSProperties)
+          : undefined;
         return (
-          <div>
-            <SelectButton
-              value={selections.layout}
-              options={layoutOptions}
-              onChange={(v) => updateField("layout", v, "layout")}
-              testIdPrefix="button-layout"
-              svgByValue={LAYOUT_DIAGRAM_SVG}
-              svgStyle={layoutTintStyle}
-            />
-          </div>
+          <SelectButton
+            value={activeRoom.layout}
+            options={layoutOptions}
+            onChange={(v) => updateRoom(ri, { layout: v })}
+            testIdPrefix="button-layout"
+            svgByValue={LAYOUT_DIAGRAM_SVG}
+            svgStyle={layoutTintStyle}
+          />
         );
-      case "style":
+      }
+      case "style": {
+        if (activeRoomIndex == null || !activeRoom?.project) return null;
+        const ri = activeRoomIndex;
+        const vis = getStepVisibility(activeRoom.project as ProjectType);
+        const doorOptions = getDoorStyleOptions();
+        const finishColorOptions = vis.doorStyle
+          ? getFinishColorOptions(activeRoom.doorStyle)
+          : [];
+        const curatedColorOptions = curateColorOptions(
+          finishColorOptions,
+          activeRoom.finishSlug,
+        );
+        const visibleColorOptions = showAllColors ? finishColorOptions : curatedColorOptions;
+        const hasMoreColors = finishColorOptions.length > visibleColorOptions.length;
+        const showFinishes = !!finishesOpen[ri];
         return (
           <div className="space-y-3">
-            {visibility.doorStyle && (
+            {vis.doorStyle && (
               <div>
                 <label className="brc-label mb-1.5 block">Door style</label>
                 <SelectButton
-                  value={selections.doorStyle}
+                  value={activeRoom.doorStyle}
                   options={doorOptions}
                   gridClassName="grid-cols-3 lg:grid-cols-6"
                   aspectClass="aspect-[3/2]"
                   imageFit="object-contain"
                   onChange={(v) => {
-                    setSelections((prev) =>
-                      applyFinishSlug({ ...prev, doorStyle: v }, prev.finishSlug),
-                    );
+                    updateRoom(ri, (r) => applyFinishSlug({ ...r, doorStyle: v }, r.finishSlug));
                     setShowAllColors(false);
-                    markTouched("doorStyle");
                   }}
                   testIdPrefix="button-door"
                 />
@@ -869,7 +948,7 @@ export function EstimateCalculatorWizard({
             {!showFinishes ? (
               <button
                 type="button"
-                onClick={() => setShowFinishes(true)}
+                onClick={() => setFinishesOpen((prev) => ({ ...prev, [ri]: true }))}
                 className="flex w-full items-center justify-between rounded-sm border border-border px-3 py-2 min-h-10 text-left text-[13px] text-muted-foreground"
                 data-testid="button-explore-finishes"
               >
@@ -878,81 +957,79 @@ export function EstimateCalculatorWizard({
               </button>
             ) : (
               <>
-            {finishColorOptions.length > 0 && (
-              <div>
-                <label className="brc-label mb-3 block">Finish color (optional)</label>
-                <VisualOptionGrid
-                  className={cn("gap-3", showAllColors && "max-h-[280px] overflow-y-auto pr-1")}
-                  columns={4}
-                  variant="swatch"
-                  items={visibleColorOptions.map((opt) => ({
-                    id: opt.value,
-                    label: opt.label,
-                    meta: opt.sub,
-                    imageSrc: opt.image,
-                    imageAlt: opt.imageAlt,
-                  }))}
-                  selectedId={selections.finishSlug || undefined}
-                  onSelect={(slug) => {
-                    setSelections((prev) => applyFinishSlug(prev, slug));
-                    markTouched("finish");
-                  }}
-                  testIdPrefix="button-finish-color"
-                />
-                {hasMoreColors && !showAllColors && (
-                  <button
-                    type="button"
-                    onClick={() => setShowAllColors(true)}
-                    className="mt-3 text-xs font-medium text-accent underline underline-offset-2"
-                    data-testid="button-show-all-finish-colors"
-                  >
-                    See all {finishColorOptions.length} colors
-                  </button>
+                {finishColorOptions.length > 0 && (
+                  <div>
+                    <label className="brc-label mb-3 block">Finish color (optional)</label>
+                    <VisualOptionGrid
+                      className={cn("gap-3", showAllColors && "max-h-[280px] overflow-y-auto pr-1")}
+                      columns={4}
+                      variant="swatch"
+                      items={visibleColorOptions.map((opt) => ({
+                        id: opt.value,
+                        label: opt.label,
+                        meta: opt.sub,
+                        imageSrc: opt.image,
+                        imageAlt: opt.imageAlt,
+                      }))}
+                      selectedId={activeRoom.finishSlug || undefined}
+                      onSelect={(slug) => updateRoom(ri, (r) => applyFinishSlug(r, slug))}
+                      testIdPrefix="button-finish-color"
+                    />
+                    {hasMoreColors && !showAllColors && (
+                      <button
+                        type="button"
+                        onClick={() => setShowAllColors(true)}
+                        className="mt-3 text-xs font-medium text-accent underline underline-offset-2"
+                        data-testid="button-show-all-finish-colors"
+                      >
+                        See all {finishColorOptions.length} colors
+                      </button>
+                    )}
+                    {showAllColors && (
+                      <button
+                        type="button"
+                        onClick={() => setShowAllColors(false)}
+                        className="mt-3 text-xs font-medium text-muted-foreground underline underline-offset-2"
+                      >
+                        Show fewer
+                      </button>
+                    )}
+                    <p className="mt-2 text-[11px] text-muted-foreground">
+                      Pick a color now or explore the full palette later - finish style can refine your planning range.
+                    </p>
+                  </div>
                 )}
-                {showAllColors && (
-                  <button
-                    type="button"
-                    onClick={() => setShowAllColors(false)}
-                    className="mt-3 text-xs font-medium text-muted-foreground underline underline-offset-2"
-                  >
-                    Show fewer
-                  </button>
-                )}
-                <p className="mt-2 text-[11px] text-muted-foreground">
-                  Pick a color now or explore the full palette later - finish style can refine your planning range.
-                </p>
-              </div>
-            )}
-            <div>
-              <label className="brc-label mb-3 block">Finish style</label>
-              <SelectButton
-                value={selections.finishCategory}
-                options={FINISH_CATEGORY_OPTIONS}
-                onChange={(v) => updateField("finishCategory", v, "finish")}
-                testIdPrefix="button-finish-category"
-              />
-            </div>
-            <button
-              type="button"
-              onClick={() => setShowFinishes(false)}
-              className="text-xs font-medium text-muted-foreground underline underline-offset-2"
-              data-testid="button-skip-finishes"
-            >
-              Skip finishes for now
-            </button>
+                <div>
+                  <label className="brc-label mb-3 block">Finish style</label>
+                  <SelectButton
+                    value={activeRoom.finishCategory}
+                    options={FINISH_CATEGORY_OPTIONS}
+                    onChange={(v) => updateRoom(ri, { finishCategory: v })}
+                    testIdPrefix="button-finish-category"
+                  />
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setFinishesOpen((prev) => ({ ...prev, [ri]: false }))}
+                  className="text-xs font-medium text-muted-foreground underline underline-offset-2"
+                  data-testid="button-skip-finishes"
+                >
+                  Skip finishes for now
+                </button>
               </>
             )}
           </div>
         );
+      }
       case "result":
         return (
           <div className="mx-auto max-w-xl">
             <EstimateResultPanel
-              result={result}
-              selectionSummary={selectionSummary}
-              scopeSummary={result?.scopeSummary}
+              result={combinedResult}
+              selectionSummary={resultSelectionSummary}
+              scopeSummary={resultScopeSummary}
+              breakdown={combined?.rooms}
               onBookVisit={handleBookVisit}
-              project={project ?? undefined}
               variant="full"
               compact={fitViewport}
               hideCta
@@ -963,7 +1040,8 @@ export function EstimateCalculatorWizard({
         return (
           <div className="mx-auto max-w-xl">
             <ConsultationFields
-              estimate={storedEstimate}
+              combinedEstimate={combinedStored}
+              resolvedProjectType={resolvedProjectType}
               showEstimateSummary
               formId={CONTACT_FORM_ID}
               hideSubmitButton
@@ -982,29 +1060,37 @@ export function EstimateCalculatorWizard({
   // step on mobile. Shown on the selection steps only - the result step is the
   // full panel itself, and the contact step shows its own compact summary card.
   const estimateSidePanel =
-    currentStepId !== "result" && currentStepId !== "contact" ? (
+    currentStep.kind !== "result" && currentStep.kind !== "contact" ? (
       <EstimateResultPanel
-        result={result}
-        selectionSummary={selectionSummary}
-        scopeSummary={result?.scopeSummary}
+        result={combinedResult}
+        selectionSummary={resultSelectionSummary}
+        scopeSummary={resultScopeSummary}
+        breakdown={combined?.rooms}
         onBookVisit={handleBookVisit}
-        project={project ?? undefined}
         variant="sidebar"
       />
     ) : undefined;
 
-  const stepContinueLabels: Record<WizardStepId, string> = {
-    project: "Continue",
-    size: "Continue",
-    quality: "Continue",
-    layout: "Continue",
-    style: "See your range",
-    result: "Get my exact price - book a free visit",
-    contact: "Send my request",
-  };
+  const continueLabel = (() => {
+    if (currentStep.kind === "result") return "Get my exact price - book a free visit";
+    if (currentStep.kind === "contact") return "Send my request";
+    if (currentStep.kind === "project") return "Start estimating";
+    const next = wizardSteps[safeIndex + 1];
+    if (next?.kind === "result") return "See your range";
+    return "Continue";
+  })();
+
+  const metaLabel = (() => {
+    if (currentStep.room == null || rooms.length <= 1) return undefined;
+    const room = rooms[currentStep.room];
+    const label = room?.project
+      ? PROJECT_LABELS[room.project as ProjectType].label.toUpperCase()
+      : "ROOM";
+    return `${label} · ROOM ${currentStep.room + 1} OF ${rooms.length}`;
+  })();
 
   const mobileSummaryNode =
-    currentStepId !== "result" && currentStepId !== "contact" ? (
+    currentStep.kind !== "result" && currentStep.kind !== "contact" ? (
       <Drawer open={summaryOpen} onOpenChange={setSummaryOpen}>
         <DrawerTrigger asChild>
           <button
@@ -1013,11 +1099,11 @@ export function EstimateCalculatorWizard({
             data-testid="button-open-estimate-sheet"
           >
             <span className="text-sm min-w-0 tabular-nums">
-              {result ? (
+              {combinedResult ? (
                 <>
-                  <AnimatedPrice value={result.priceLow} />
+                  <AnimatedPrice value={combinedResult.priceLow} />
                   <span className="text-muted-foreground"> to </span>
-                  <AnimatedPrice value={result.priceHigh} />
+                  <AnimatedPrice value={combinedResult.priceHigh} />
                 </>
               ) : (
                 <span
@@ -1038,11 +1124,11 @@ export function EstimateCalculatorWizard({
           <DrawerTitle className="sr-only">Planning range summary</DrawerTitle>
           <div className="max-h-[82vh] overflow-y-auto p-4 pt-2">
             <EstimateResultPanel
-              result={result}
-              selectionSummary={selectionSummary}
-              scopeSummary={result?.scopeSummary}
+              result={combinedResult}
+              selectionSummary={resultSelectionSummary}
+              scopeSummary={resultScopeSummary}
+              breakdown={combined?.rooms}
               onBookVisit={handleBookVisit}
-              project={project ?? undefined}
               variant="sidebar"
             />
           </div>
@@ -1066,21 +1152,22 @@ export function EstimateCalculatorWizard({
 
   const shell = (
     <GuidedFlowShell
-      steps={wizardSteps}
-      currentIndex={currentIndex}
+      steps={guidedSteps}
+      currentIndex={safeIndex}
       isStepComplete={isStepComplete}
-      onStepClick={(index) => index <= currentIndex && setCurrentIndex(index)}
+      onStepClick={(index) => index <= safeIndex && setCurrentIndex(index)}
       onBack={goBack}
-      onNext={currentStepId === "result" ? handleBookVisit : goNext}
+      onNext={currentStep.kind === "result" ? handleBookVisit : goNext}
       isFirst={isFirst}
       isLast={isLast}
-      canAdvance={isStepComplete(currentIndex)}
-      continueLabel={stepContinueLabels[currentStepId]}
+      canAdvance={isStepComplete(safeIndex)}
+      continueLabel={continueLabel}
       hidePrimaryOnLast={contactSucceeded}
       lastStepAction={
-        currentStepId === "contact" && !contactSucceeded ? contactSubmitButton : undefined
+        currentStep.kind === "contact" && !contactSucceeded ? contactSubmitButton : undefined
       }
-      stepDescription={stepDescription[currentStepId]}
+      stepDescription={stepDescription[currentStep.kind]}
+      metaLabel={metaLabel}
       sidePanel={estimateSidePanel}
       mobileSummary={mobileSummaryNode}
       fitViewport={fitViewport}

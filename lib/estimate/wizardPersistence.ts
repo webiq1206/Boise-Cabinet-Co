@@ -1,15 +1,15 @@
-import type { EstimateSelections, SelectionStepKey } from "@/shared/estimateEngine";
+import type { EstimateSelections } from "@/shared/estimateEngine";
 
 // Persisted across page navigations and return visits so a visitor who starts
 // an estimate anywhere (home, /estimate, the modal) keeps their in-progress
-// selections and current step. This is intentionally separate from the
-// sessionStorage "brc_estimate" snapshot, which only holds priceable estimates
-// for the consultation-form handoff.
+// rooms and current step. This is intentionally separate from the sessionStorage
+// "brc_estimate" snapshot, which only holds priceable estimates for the
+// consultation-form handoff.
 export const WIZARD_STATE_KEY = "brc_estimate_wizard";
 
 export interface PersistedWizardState {
-  selections: EstimateSelections;
-  touched: SelectionStepKey[];
+  /** One entry per room the visitor is planning (multi-room). */
+  rooms: EstimateSelections[];
   currentIndex: number;
 }
 
@@ -17,10 +17,7 @@ function isPersistedWizardState(value: unknown): value is PersistedWizardState {
   if (typeof value !== "object" || value === null) return false;
   const candidate = value as Record<string, unknown>;
   return (
-    typeof candidate.selections === "object" &&
-    candidate.selections !== null &&
-    Array.isArray(candidate.touched) &&
-    typeof candidate.currentIndex === "number"
+    Array.isArray(candidate.rooms) && typeof candidate.currentIndex === "number"
   );
 }
 
