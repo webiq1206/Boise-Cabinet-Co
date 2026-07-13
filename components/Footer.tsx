@@ -262,11 +262,11 @@ export function Footer() {
           <div className="flex flex-wrap items-center gap-4">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/brand/boise-cabinet-co-emblem-light.svg"
-              alt="Boise Cabinet Co emblem"
+              src="/brand/boise-cabinet-co-seal-dark.svg"
+              alt="Boise Cabinet Co seal"
               width={36}
               height={36}
-              className="h-9 w-9 rounded-sm"
+              className="h-9 w-9 rounded-full"
             />
             <span>&copy; {currentYear} {SITE_CONFIG.name}. All rights reserved.</span>
             <span>
