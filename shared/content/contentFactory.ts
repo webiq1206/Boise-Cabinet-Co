@@ -47,7 +47,7 @@ function buildPillarSections(
     {
       h2: 'Explore our catalog',
       paragraphs: [
-        '<a href="/cabinets">All cabinets</a> · <a href="/collections">Collections</a> · <a href="/door-styles">Door styles</a> · <a href="/finishes">Finishes</a>.',
+        '<a href="/cabinets">All cabinets</a> · <a href="/catalog">Collections</a> · <a href="/catalog">Door styles</a> · <a href="/catalog">Finishes</a>.',
       ],
     },
     ...extra,

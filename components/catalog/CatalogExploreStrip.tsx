@@ -45,7 +45,7 @@ export function CatalogExploreStrip() {
               name={door.name}
               imageSrc={imgs.thumb640}
               imageAlt={`${door.name} door profile`}
-              primaryHref={`/door-styles/${door.slug}`}
+              primaryHref="/catalog"
             />
           );
         })}
@@ -62,16 +62,16 @@ export function CatalogExploreStrip() {
               imageAlt={`${finish.name} finish swatch`}
               fallbackColor={finish.hexColor}
               specs={[{ label: "Color", value: deriveColorFamily(finish) }]}
-              primaryHref={`/finishes/${finish.category}/${finish.slug}`}
+              primaryHref="/catalog"
             />
           );
         })}
       </div>
       <div className="flex flex-wrap gap-3 text-sm">
-        <Link href="/door-styles" className="text-accent hover:underline underline-offset-2">
+        <Link href="/catalog" className="text-accent hover:underline underline-offset-2">
           All door styles
         </Link>
-        <Link href="/finishes" className="text-accent hover:underline underline-offset-2">
+        <Link href="/catalog" className="text-accent hover:underline underline-offset-2">
           All finishes
         </Link>
         <Link href="/estimate" className="text-accent hover:underline underline-offset-2">

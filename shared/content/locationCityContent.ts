@@ -151,7 +151,7 @@ export function buildLocationGuideSections(
     {
       h2: 'Cabinet rooms and planning ranges',
       paragraphs: [
-        `<a href="/cabinets/kitchen">Kitchen cabinets</a> · <a href="/cabinets/bathroom">Bathroom vanities</a> · <a href="/cabinets/built-ins">Built-ins</a> · <a href="/collections">Collections</a> · <a href="/guides/boise-cabinet-guide">${cityName} cabinet guide</a>.`,
+        `<a href="/cabinets/kitchen">Kitchen cabinets</a> · <a href="/cabinets/bathroom">Bathroom vanities</a> · <a href="/cabinets/built-ins">Built-ins</a> · <a href="/catalog">Collections</a> · <a href="/guides/boise-cabinet-guide">${cityName} cabinet guide</a>.`,
         `Planning bands: <a href="${PILLAR_COST}">Boise Cabinet Cost Guide</a>.`,
       ],
     },

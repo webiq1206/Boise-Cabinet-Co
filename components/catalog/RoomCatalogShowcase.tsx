@@ -52,7 +52,7 @@ export function RoomCatalogShowcase({
                 imageSrc={imgs.thumb640}
                 imageAlt={`${door.name} door profile`}
                 aspectRatio="4/3"
-                primaryHref={`/door-styles/${door.slug}`}
+                primaryHref="/catalog"
                 primaryLabel="View door style"
               />
             );
@@ -75,7 +75,7 @@ export function RoomCatalogShowcase({
                 specs={[
                   { label: "Color", value: deriveColorFamily(finish) },
                 ]}
-                primaryHref={`/finishes/${finish.category}/${finish.slug}`}
+                primaryHref="/catalog"
                 primaryLabel="View finish"
                 className="[&_h3]:text-base"
               />
@@ -85,13 +85,13 @@ export function RoomCatalogShowcase({
       )}
 
       <div className="flex flex-wrap gap-4 text-sm">
-        <Link href="/door-styles" className="text-accent hover:underline underline-offset-2">
+        <Link href="/catalog" className="text-accent hover:underline underline-offset-2">
           All door styles
         </Link>
-        <Link href="/finishes" className="text-accent hover:underline underline-offset-2">
+        <Link href="/catalog" className="text-accent hover:underline underline-offset-2">
           All finishes
         </Link>
-        <Link href="/products" className="text-accent hover:underline underline-offset-2">
+        <Link href="/catalog" className="text-accent hover:underline underline-offset-2">
           Product catalog
         </Link>
         <Link href="/estimate" className="text-accent hover:underline underline-offset-2">

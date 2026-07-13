@@ -98,7 +98,7 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
         h2: 'Meridian cabinet costs and planning',
         paragraphs: [
           `Material and labor rates match the rest of the valley. Kitchen packages commonly plan from roughly $15,000 to $45,000+ depending on linear footage, door style, and accessories. Full bands live in the <a href="${PILLAR_COST}">Boise Cabinet Cost Guide</a>.`,
-          'Compare door styles and finishes in the <a href="/door-styles">door style library</a> and <a href="/finishes">finish library</a> before your consultation to speed up selections.',
+          'Compare door styles and finishes in the <a href="/catalog">catalog</a> before your consultation to speed up selections.',
         ],
       },
       NEXT_STEPS,
@@ -143,7 +143,7 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
     cityName: 'Eagle',
     citySlug: 'eagle',
     county: 'ada',
-    seoTitle: 'Eagle Custom Cabinet Guide | Luxury Kitchens & Built-Ins',
+    seoTitle: 'Eagle Custom Cabinet Guide | Kitchens & Built-Ins',
     metaDescription:
       'Custom cabinets in Eagle, Idaho: luxury kitchens, butler pantries, paneled appliances, and built-ins for BanBury, Eagle Foothills, and Two Rivers homes.',
     excerpt:
@@ -179,7 +179,7 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
           'Whole-home programs coordinating kitchen, baths, laundry, and closets, see the <a href="/guides/whole-home-cabinetry-guide">whole-home cabinetry guide</a>',
         ],
         paragraphs: [
-          'Luxury finish tiers, high-gloss and textured woodgrain, appear more often in Eagle than anywhere else we install. Browse the <a href="/finishes">finish library</a> to shortlist options.',
+          'Luxury finish tiers, high-gloss and textured woodgrain, appear more often in Eagle than anywhere else we install. Browse the <a href="/catalog">catalog</a> to shortlist options.',
         ],
       },
       {
@@ -275,7 +275,7 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
         h2: 'Nampa cabinet costs and planning',
         paragraphs: [
           `Labor and material rates match the rest of the valley; finish tier and linear footage drive your number. Planning bands live in the <a href="${PILLAR_COST}">Boise Cabinet Cost Guide</a>.`,
-          'Value-focused projects often pair a mid-tier matte finish with drawer-base upgrades where they matter most. Compare options in the <a href="/finishes">finish library</a> and <a href="/door-styles">door styles</a>.',
+          'Value-focused projects often pair a mid-tier matte finish with drawer-base upgrades where they matter most. Compare options in the <a href="/catalog">catalog</a>.',
         ],
       },
       NEXT_STEPS,
@@ -533,7 +533,7 @@ const CITY_GUIDE_SPECS: CityGuideSpec[] = [
         h2: 'Caldwell cabinet costs and planning',
         paragraphs: [
           `Caldwell pricing matches valley rates; travel inside our service area is never an upcharge. Planning bands live in the <a href="${PILLAR_COST}">Boise Cabinet Cost Guide</a>.`,
-          'Shortlist looks in the <a href="/door-styles">door style library</a> and <a href="/finishes">finish library</a> before your in-home consultation.',
+          'Shortlist looks in the <a href="/catalog">catalog</a> before your in-home consultation.',
         ],
       },
       NEXT_STEPS,

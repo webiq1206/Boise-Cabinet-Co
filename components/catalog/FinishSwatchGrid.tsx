@@ -113,7 +113,7 @@ export function FinishSwatchGrid({
               </div>
               {showCategoryLinks && (
                 <Link
-                  href={`/finishes/${finish.category}/${finish.slug}`}
+                  href="/catalog"
                   className="text-xs text-muted-foreground hover:text-foreground underline-offset-2 hover:underline"
                 >
                   View {finish.name} details

@@ -100,7 +100,7 @@ export default function ConstructionPage() {
                 </Link>
               </Button>
               <Button variant="brandOutline" asChild>
-                <Link href="/collections">View collections</Link>
+                <Link href="/catalog">View collections</Link>
               </Button>
             </div>
           </div>

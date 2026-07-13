@@ -93,7 +93,7 @@ const SLUG_SECTIONS: Record<string, ContentSection[]> = {
       h2: 'Which hardware finish should you choose?',
       paragraphs: [
         'We stock decorative hardware in matte black, brushed nickel, brushed gold, polished chrome, and stainless. Matte black and brushed gold are the two most requested finishes in newer Meridian and Eagle builds; brushed nickel remains the timeless pick that hides water spots in busy kitchens.',
-        'Coordinate hardware with the fixtures you use every day, faucet, lighting, and appliance handles, rather than trying to match the cabinet finish exactly. A slight contrast (black hardware on a light finish, or warm gold on a deep green) usually looks more intentional than a perfect match. Browse the options on our <a href="/hardware">cabinet hardware</a> page.',
+        'Coordinate hardware with the fixtures you use every day, faucet, lighting, and appliance handles, rather than trying to match the cabinet finish exactly. A slight contrast (black hardware on a light finish, or warm gold on a deep green) usually looks more intentional than a perfect match. Browse the options on our <a href="/catalog">cabinet hardware</a> page.',
       ],
     },
     {
@@ -116,7 +116,7 @@ const SLUG_SECTIONS: Record<string, ContentSection[]> = {
       h2: 'Matte, gloss, or woodgrain: what is the difference?',
       paragraphs: [
         'We offer 299 finishes across three families. Matte finishes hide fingerprints and everyday smudges, which makes them the most forgiving choice for busy family kitchens. Gloss finishes bounce light around and can make a small Boise galley feel larger and brighter, but they show prints and need more wiping. Woodgrain finishes bring warmth and texture and read well in transitional and craftsman homes.',
-        'See swatches and color families on the <a href="/finishes">finishes</a> page, then request sample doors before you sign off.',
+        'See swatches and color families on the <a href="/catalog">finishes in the catalog</a> page, then request sample doors before you sign off.',
       ],
     },
     {
@@ -145,7 +145,7 @@ const SLUG_SECTIONS: Record<string, ContentSection[]> = {
       h2: 'Which door styles do we build?',
       paragraphs: [
         'Our lineup covers a slab (flat, frameless-modern), a three-piece, and a family of Shaker profiles, Modern, Thin, Alpha, and Beta Shaker, that range from crisp and contemporary to more traditional. Slab doors suit modern and mid-century homes and newer builds; Shaker profiles are the most versatile and sit comfortably in craftsman, transitional, and farmhouse kitchens across the valley.',
-        'Compare profiles and see which finishes pair with each on the <a href="/door-styles">door styles</a> page.',
+        'Compare profiles and see which finishes pair with each on the <a href="/catalog">catalog</a> page.',
       ],
     },
     {
@@ -184,7 +184,7 @@ function defaultTopicSections(title: string, hubSlug: string): ContentSection[] 
       h2: 'Local permits and housing context',
       paragraphs: [
         'Ada and Canyon Counties use different portals. Older homes may need contingency when walls open.',
-        '<a href="/blog/ada-vs-canyon-county-permit-timelines">Compare permit timelines</a>.',
+        '<a href="/guides/cabinet-project-process-guide">See how permits fit into the project process</a>.',
       ],
     },
   ];
@@ -215,7 +215,7 @@ export function buildClusterArticleSections(config: ClusterArticleConfig): Conte
     {
       h2: 'Explore the catalog',
       paragraphs: [
-        '<a href="/cabinets">Cabinet rooms</a> · <a href="/collections">Collections</a> · <a href="/guides/treasure-valley-cabinet-guide">Treasure Valley cabinet guide</a>.',
+        '<a href="/cabinets">Cabinet rooms</a> · <a href="/catalog">Catalog</a> · <a href="/guides/treasure-valley-cabinet-guide">Treasure Valley cabinet guide</a>.',
       ],
     },
     {

@@ -34,7 +34,7 @@ export const SERVICES: ServiceData[] = [
     slug: 'whole-home-remodel',
     name: 'Whole-Home Cabinetry',
     shortDescription: 'Coordinated cabinet packages across kitchen, bath, laundry, mudroom, and built-ins.',
-    url: '/collections/custom',
+    url: '/catalog',
   },
   {
     slug: 'room-addition',

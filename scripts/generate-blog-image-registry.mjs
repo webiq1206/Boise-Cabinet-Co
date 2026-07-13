@@ -14,7 +14,7 @@ const gal = (name) => `/images/gallery/gallery-${name}.webp`;
 const area = (city) => `/images/areas/${city}.webp`;
 const svc = (name) => `/images/services/${name}.webp`;
 const cat = (room) => `/images/catalog/rooms/${room}.webp`;
-const blog = (slug) => `/images/blog/${slug}.png`;
+const blog = (slug) => `/images/blog/${slug}.webp`;
 
 /** slug -> { hero, alt, topicTags, source, copyFrom? } */
 const ENTRIES = {

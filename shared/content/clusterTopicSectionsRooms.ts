@@ -41,7 +41,7 @@ export const ROOM_TOPIC_SECTIONS: Record<string, ContentSection[]> = {
       h2: 'How to protect your schedule',
       paragraphs: [
         'Order cabinets at design lock, make finish and hardware selections early, and resolve appliance specs before drawings are approved. Panel-ready appliances especially must be confirmed before fabrication.',
-        'Browse <a href="/cabinets/kitchen">kitchen cabinets</a> and <a href="/finishes">finishes</a> ahead of your consultation so selections do not stall the calendar.',
+        'Browse <a href="/cabinets/kitchen">kitchen cabinets</a> and <a href="/catalog">finishes in the catalog</a> ahead of your consultation so selections do not stall the calendar.',
       ],
     },
     {
@@ -99,7 +99,7 @@ export const ROOM_TOPIC_SECTIONS: Record<string, ContentSection[]> = {
     {
       h2: 'Door styles: shaker evolves, slab grows',
       paragraphs: [
-        'Classic shaker still leads, but thinner rails are gaining: compare <a href="/door-styles/thin-shaker">Thin Shaker</a> and <a href="/door-styles/modern-shaker">Modern Shaker</a> profiles. Flat <a href="/door-styles/slab">slab doors</a> keep growing in newer Eagle and Star builds with contemporary architecture.',
+        'Classic shaker still leads, but thinner rails are gaining: compare <a href="/catalog">Thin Shaker</a> and <a href="/catalog">Modern Shaker</a> profiles. Flat <a href="/catalog">slab doors</a> keep growing in newer Eagle and Star builds with contemporary architecture.',
       ],
     },
     {
@@ -177,7 +177,7 @@ export const ROOM_TOPIC_SECTIONS: Record<string, ContentSection[]> = {
       h2: 'What makes a vanity read as luxury',
       paragraphs: [
         'Furniture details separate luxury vanities from builder boxes: full-height side panels, integrated lighting, floating installs with hidden cleats, and drawer interiors fitted for grooming tools with in-drawer outlets.',
-        'Finish does the visual work: high-gloss, textured woodgrain, or deep matte tones paired with stone that wraps a waterfall edge. Browse <a href="/finishes/gloss">gloss</a> and <a href="/finishes/woodgrain">woodgrain finishes</a> to see the range.',
+        'Finish does the visual work: high-gloss, textured woodgrain, or deep matte tones paired with stone that wraps a waterfall edge. Browse <a href="/catalog">gloss</a> and <a href="/catalog">woodgrain finishes</a> to see the range.',
       ],
     },
     {
@@ -554,7 +554,7 @@ export const ROOM_TOPIC_SECTIONS: Record<string, ContentSection[]> = {
     {
       h2: 'Selections without overwhelm',
       paragraphs: [
-        'Six door styles and 299 finishes sound overwhelming until they are sequenced: door profile first, finish family second, exact finish from physical samples at home third, hardware last. Use the <a href="/finder">finish finder</a> to shortlist before your appointment.',
+        'Six door styles and 299 finishes sound overwhelming until they are sequenced: door profile first, finish family second, exact finish from physical samples at home third, hardware last. Use the <a href="/catalog">catalog</a> to shortlist before your appointment.',
       ],
     },
     {

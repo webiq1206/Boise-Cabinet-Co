@@ -31,7 +31,7 @@ const framedVsFramelessContent = `
 
 <h2 id="what-are-frameless-cabinets">What are frameless (European) cabinets?</h2>
 <p>Frameless cabinets, the style <a href="/construction">we build</a> at ${AUTHOR}, omit the face frame entirely. The box is engineered from thicker panels (typically 3/4-inch), and doors mount to the sides of the box with concealed, adjustable hinges. This is why you will also hear the terms <strong>European cabinets</strong>, <strong>full-access cabinets</strong>, or <strong>frameless construction</strong>.</p>
-<p>Without a frame stealing an inch and a half on each side, the entire box opening is usable. Drawers run nearly wall-to-wall, roll-outs are wider, and there is no center stile blocking a double-door cabinet. The look is clean and contemporary, which pairs naturally with slab and <a href="/door-styles">Shaker door styles</a> and the flat, seamless runs homeowners want in a modern kitchen.</p>
+<p>Without a frame stealing an inch and a half on each side, the entire box opening is usable. Drawers run nearly wall-to-wall, roll-outs are wider, and there is no center stile blocking a double-door cabinet. The look is clean and contemporary, which pairs naturally with slab and <a href="/catalog">Shaker door styles</a> and the flat, seamless runs homeowners want in a modern kitchen.</p>
 
 <blockquote>Frameless construction typically returns 10–15% more usable cabinet space than a comparable framed layout, most noticeable in drawer banks and corner cabinets.</blockquote>
 
@@ -109,7 +109,7 @@ const framedVsFramelessContent = `
 <p>A few persistent myths steer homeowners away from frameless for the wrong reasons. Here is what is actually true:</p>
 <ul>
   <li><strong>Myth: frameless is less sturdy.</strong> Reality: frameless boxes use thicker panels and rigid joinery to replace the frame's strength, so a quality frameless cabinet is every bit as durable.</li>
-  <li><strong>Myth: frameless only works in ultra-modern kitchens.</strong> Reality: with a <a href="/door-styles">Shaker door</a> and the right finish, frameless reads transitional or even classic while still giving you full access.</li>
+  <li><strong>Myth: frameless only works in ultra-modern kitchens.</strong> Reality: with a <a href="/catalog">Shaker door</a> and the right finish, frameless reads transitional or even classic while still giving you full access.</li>
   <li><strong>Myth: frameless is always more expensive.</strong> Reality: price is driven by materials, finish, and accessories; a mid-range frameless kitchen can land near a comparable framed one.</li>
   <li><strong>Myth: frameless is hard to install in old homes.</strong> Reality: an experienced installer scribes and shims frameless cabinets cleanly, even in century-old Boise bungalows with out-of-square walls.</li>
 </ul>
@@ -129,10 +129,10 @@ const framedVsFramelessContent = `
   <li><strong>Vet construction.</strong> Compare box material, drawer boxes, and hinges across quotes, in writing.</li>
   <li><strong>Get a measured plan.</strong> A free in-home consultation turns your space and wish list into an accurate scope and planning range.</li>
 </ol>
-<p>Want a shortcut? Try our <a href="/finder">style finder</a> to narrow door styles and finishes, then send your favorites along with your <a href="/estimate">estimate request</a>.</p>
+<p>Want a shortcut? Try our <a href="/catalog">style finder</a> to narrow door styles and finishes, then send your favorites along with your <a href="/estimate">estimate request</a>.</p>
 
 <h2 id="how-we-build">How we build frameless cabinets in the Treasure Valley</h2>
-<p>${AUTHOR} designs, builds, and installs frameless custom cabinets for <a href="/cabinets/kitchen">kitchens</a>, <a href="/cabinets/bathroom">bathrooms</a>, and built-ins throughout Boise, Meridian, Eagle, and Nampa. Every project starts with a free in-home design consultation and a written scope before fabrication, so what you approve is what we build. Explore <a href="/door-styles">door styles</a>, <a href="/finishes">finishes</a>, and <a href="/hardware">hardware</a> to see how the frameless look comes together, then browse the full <a href="/cabinets">cabinet catalog</a>.</p>
+<p>${AUTHOR} designs, builds, and installs frameless custom cabinets for <a href="/cabinets/kitchen">kitchens</a>, <a href="/cabinets/bathroom">bathrooms</a>, and built-ins throughout Boise, Meridian, Eagle, and Nampa. Every project starts with a free in-home design consultation and a written scope before fabrication, so what you approve is what we build. Explore <a href="/catalog">door styles</a>, <a href="/catalog">finishes in the catalog</a>, and <a href="/catalog">hardware</a> to see how the frameless look comes together, then browse the full <a href="/cabinets">cabinet catalog</a>.</p>
 <p>Ready to price your project? <a href="/estimate">Get an instant planning range</a> or <a href="/contact">schedule your free consultation</a> and we will reach out within one business day.</p>
 `;
 
@@ -140,7 +140,7 @@ const cabinetDoorStylesContent = `
 <p class="text-lg">The most popular cabinet door styles are <strong>Shaker</strong> (a clean recessed-panel frame), <strong>slab/flat-panel</strong> (a single flat surface, very modern), and <strong>raised-panel</strong> (a traditional profile with a contoured center). Shaker is the most versatile and works in nearly every Treasure Valley home; slab reads contemporary; raised-panel suits classic and formal kitchens. Your door style sets the entire personality of the kitchen, so choose it before finishes and hardware.</p>
 
 <div class="summary-block">
-  <p><strong>Key takeaways:</strong> Shaker is the safe, timeless default. Slab is best for modern, minimalist looks. Raised-panel leans traditional. Match the profile to your home's era, then coordinate the same style across kitchen, bath, and built-ins. <a href="/door-styles">Browse our door styles</a> or <a href="/estimate">get a planning range</a>.</p>
+  <p><strong>Key takeaways:</strong> Shaker is the safe, timeless default. Slab is best for modern, minimalist looks. Raised-panel leans traditional. Match the profile to your home's era, then coordinate the same style across kitchen, bath, and built-ins. <a href="/catalog">Browse our door styles</a> or <a href="/estimate">get a planning range</a>.</p>
 </div>
 
 <h2 id="what-are-door-styles">What is a cabinet door style?</h2>
@@ -164,7 +164,7 @@ const cabinetDoorStylesContent = `
   <li>Handleless or push-to-open designs</li>
   <li>Showcasing a bold finish or wood grain</li>
 </ul>
-<p>One note: flat surfaces show fingerprints more on very dark or high-gloss finishes, so consider a matte or satin sheen. See our <a href="/finishes">finish options</a>.</p>
+<p>One note: flat surfaces show fingerprints more on very dark or high-gloss finishes, so consider a matte or satin sheen. See our <a href="/catalog">finish options</a>.</p>
 
 <h2 id="raised-panel">Raised-panel doors</h2>
 <p>A raised-panel door has a center panel that is contoured or "raised" above the frame, often with a decorative edge profile. It is the most traditional of the common styles and brings warmth and formality — think classic maple or cherry kitchens. In the right home it feels rich and established; in a minimalist space it can feel busy, so match it to your architecture.</p>
@@ -245,7 +245,7 @@ const cabinetDoorStylesContent = `
   <li><strong>Classic and rich:</strong> raised-panel cherry with a light glaze + aged-brass knobs — formal and established.</li>
   <li><strong>Minimalist contemporary:</strong> handleless slab in a matte painted color + integrated pulls, for uninterrupted lines.</li>
 </ul>
-<p>Coordinate all three elements early in design so they read as one intentional package. Explore combinations across our <a href="/door-styles">door styles</a>, <a href="/finishes">finishes</a>, and <a href="/hardware">hardware</a>.</p>
+<p>Coordinate all three elements early in design so they read as one intentional package. Explore combinations across our <a href="/catalog">door styles</a>, <a href="/catalog">finishes in the catalog</a>, and <a href="/catalog">hardware</a>.</p>
 
 <h2 id="resale">Door style and resale value</h2>
 <p>If resale is on your mind, favor the broadly loved over the highly personal. Shaker doors in a light, neutral paint appeal to the widest pool of buyers and photograph well in listings, which is why they are the safest choice for a home you may sell within a decade. Bold, era-specific profiles and dramatic colors can absolutely be the right call for your forever home — just know they narrow the audience. A middle path many homeowners take: a timeless door and finish on the perimeter, with personality expressed through an island color, hardware, and decor that a future owner can easily change.</p>
@@ -254,14 +254,14 @@ const cabinetDoorStylesContent = `
 <p>Your cabinet door style is the most visible decision in the entire kitchen, and it quietly shapes every choice that follows — the finish that looks right on it, the hardware that suits it, even the countertop that complements it. That is why we start here. If you take one thing away, let it be this: choose a profile that fits your home and your daily life, then let finish and hardware express your personality. A Shaker kitchen in Meridian and a slab kitchen in downtown Boise can both be exactly right, because each honors its home. When you are ready to see and feel the options, we bring real door samples to your kitchen so the decision is easy and confident, not guesswork from a screen.</p>
 
 <h2 id="how-we-build">Explore door styles with Boise Cabinet Co</h2>
-<p>${AUTHOR} builds custom cabinets in every major door style for <a href="/cabinets/kitchen">kitchens</a>, <a href="/cabinets/bathroom">bathrooms</a>, and built-ins across Boise, Meridian, Eagle, and Nampa. Browse <a href="/door-styles">door styles</a> and <a href="/finishes">finishes</a> side by side, then <a href="/estimate">get an instant planning range</a> or <a href="/contact">book a free design consultation</a> and we will bring samples to your home.</p>
+<p>${AUTHOR} builds custom cabinets in every major door style for <a href="/cabinets/kitchen">kitchens</a>, <a href="/cabinets/bathroom">bathrooms</a>, and built-ins across Boise, Meridian, Eagle, and Nampa. Browse <a href="/catalog">door styles</a> and <a href="/catalog">finishes in the catalog</a> side by side, then <a href="/estimate">get an instant planning range</a> or <a href="/contact">book a free design consultation</a> and we will bring samples to your home.</p>
 `;
 
 const cabinetHardwareContent = `
 <p class="text-lg">Cabinet hardware is the jewelry of a kitchen: <strong>knobs</strong> (single-point round or shaped pulls) generally go on doors, and <strong>bar or cup pulls</strong> go on drawers, though many designers now use pulls everywhere for a consistent, easy-to-grip look. Choose a finish that coordinates (not necessarily matches) your faucet and lighting, and size pulls to roughly one-third the width of the drawer front. Hardware is usually just 3–5% of a cabinet budget but defines how the kitchen feels every day.</p>
 
 <div class="summary-block">
-  <p><strong>Key takeaways:</strong> Pulls on drawers, knobs or pulls on doors. Match hardware finish across the room; coordinate (don't perfectly match) with plumbing fixtures. Soft-close is standard on quality cabinets. Buy a few extras for future repairs. <a href="/hardware">See hardware options</a> or <a href="/estimate">plan your project</a>.</p>
+  <p><strong>Key takeaways:</strong> Pulls on drawers, knobs or pulls on doors. Match hardware finish across the room; coordinate (don't perfectly match) with plumbing fixtures. Soft-close is standard on quality cabinets. Buy a few extras for future repairs. <a href="/catalog">See hardware options</a> or <a href="/estimate">plan your project</a>.</p>
 </div>
 
 <h2 id="knobs-vs-pulls">Knobs vs pulls: which goes where?</h2>
@@ -298,7 +298,7 @@ const cabinetHardwareContent = `
 <p>The big finishes and the feel they give:</p>
 <ul>
   <li><strong>Brushed/satin nickel:</strong> warm, forgiving, hides fingerprints — the safe all-rounder.</li>
-  <li><strong>Matte black:</strong> modern, high-contrast, on-trend; pops on white and <a href="/finishes">sage-green cabinets</a>.</li>
+  <li><strong>Matte black:</strong> modern, high-contrast, on-trend; pops on white and <a href="/catalog">sage-green cabinets</a>.</li>
   <li><strong>Brass/champagne bronze:</strong> warm and elevated for transitional and classic kitchens.</li>
   <li><strong>Polished chrome:</strong> crisp and traditional, but shows spots.</li>
 </ul>
@@ -330,7 +330,7 @@ const cabinetHardwareContent = `
 <h2 id="trends">Cabinet hardware trends</h2>
 <p>What is moving in Treasure Valley kitchens right now:</p>
 <ul>
-  <li><strong>Matte black</strong> remains the leading modern choice, especially on white and <a href="/finishes">sage-green cabinets</a>.</li>
+  <li><strong>Matte black</strong> remains the leading modern choice, especially on white and <a href="/catalog">sage-green cabinets</a>.</li>
   <li><strong>Warm metals</strong> — champagne bronze, aged brass, and unlacquered brass that patinas over time — are rising for transitional and classic kitchens.</li>
   <li><strong>Longer pulls</strong>, including full-height appliance and pantry pulls, for a bold, architectural line.</li>
   <li><strong>Mixed metals</strong> as a deliberate design choice rather than an accident.</li>
@@ -372,14 +372,14 @@ const cabinetHardwareContent = `
 <p>Hardware is the smallest line on your cabinet quote and one of the largest influences on how the finished kitchen feels in your hands every day. The decisions compound: the door style suggests a shape, the finish suggests a temperature, your household suggests how easy the grip needs to be, and your budget decides how far the material goes. Get those four in agreement and the hardware disappears into a kitchen that simply works — drawers that glide, doors that close with a quiet touch, and pulls that feel substantial and consistent from one end of the room to the other. Get them out of sync and even beautiful hardware feels a little off. The good news is that this is one of the most forgiving decisions to plan well and, if you ever want a refresh, one of the easiest to change. Our designers help Treasure Valley homeowners choose hardware alongside the door and finish so the whole package reads as one intentional design, then install it with the soft-close hinges and glides that make quality obvious the first time you open a drawer. In a home you will live in and love for years, that everyday feel in your hands is worth getting right the first time.</p>
 
 <h2 id="how-we-build">Hardware, planned with your cabinets</h2>
-<p>${AUTHOR} helps homeowners across Boise, Meridian, Eagle, and Nampa choose and place hardware as part of the design, not an afterthought. Browse <a href="/hardware">hardware collections</a>, coordinate with your <a href="/door-styles">door style</a> and <a href="/finishes">finish</a>, then <a href="/estimate">get a planning range</a> or <a href="/contact">book a free consultation</a>. Tip: order a few extra pieces so a future replacement is an exact match.</p>
+<p>${AUTHOR} helps homeowners across Boise, Meridian, Eagle, and Nampa choose and place hardware as part of the design, not an afterthought. Browse <a href="/catalog">hardware collections</a>, coordinate with your <a href="/catalog">door style</a> and <a href="/catalog">finish</a>, then <a href="/estimate">get a planning range</a> or <a href="/contact">book a free consultation</a>. Tip: order a few extra pieces so a future replacement is an exact match.</p>
 `;
 
 const cabinetFinishesContent = `
 <p class="text-lg">Cabinet finishes fall into three families: <strong>painted</strong> (smooth, uniform, endless colors), <strong>stained</strong> (shows the wood grain and character), and <strong>specialty</strong> finishes like thermofoil and laminate (durable, budget-friendly). For color, timeless white and warm greige lead, but sage green, deep navy, and two-tone kitchens are the strongest current trends. Always view a finish sample in your own kitchen's light before you commit — the same color reads differently under Idaho's bright, dry daylight.</p>
 
 <div class="summary-block">
-  <p><strong>Key takeaways:</strong> Painted = smooth and versatile; stained = warm and natural; specialty = durable and affordable. White and greige are safest; sage green and two-tone are the trend. Match sheen across the home and sample in real light. <a href="/finishes">Explore finishes</a> or <a href="/estimate">get a planning range</a>.</p>
+  <p><strong>Key takeaways:</strong> Painted = smooth and versatile; stained = warm and natural; specialty = durable and affordable. White and greige are safest; sage green and two-tone are the trend. Match sheen across the home and sample in real light. <a href="/catalog">Explore finishes</a> or <a href="/estimate">get a planning range</a>.</p>
 </div>
 
 <h2 id="paint-vs-stain">Painted vs stained vs specialty finishes</h2>
@@ -493,7 +493,7 @@ const cabinetFinishesContent = `
 <p>Finish is where a kitchen finally becomes yours. It is also the decision most influenced by things outside the cabinet itself — your light, your counters, your floors, and the mood you want to walk into every morning. That is why sampling in place matters so much, and why we bring finishes to your home rather than asking you to decide under showroom lighting. Choose a finish family that matches how you live, a color that flatters your room's light, and a sheen you will enjoy cleaning, and you will love the result for a decade or more. Whether you lean crisp and white, warm and sage, or rich and stained, the goal is the same: a finish that looks intentional today and still feels right long after the trends have moved on, which is exactly what a well-chosen custom finish should do.</p>
 
 <h2 id="how-we-build">Find your finish with Boise Cabinet Co</h2>
-<p>${AUTHOR} offers hundreds of painted, stained, and specialty finishes for <a href="/cabinets/kitchen">kitchens</a>, <a href="/cabinets/bathroom">bathrooms</a>, and built-ins across Boise, Meridian, Eagle, and Nampa. Browse <a href="/finishes">finish options</a>, pair them with a <a href="/door-styles">door style</a> and <a href="/hardware">hardware</a>, then <a href="/estimate">get a planning range</a> or <a href="/contact">book a free in-home consultation</a> with real samples.</p>
+<p>${AUTHOR} offers hundreds of painted, stained, and specialty finishes for <a href="/cabinets/kitchen">kitchens</a>, <a href="/cabinets/bathroom">bathrooms</a>, and built-ins across Boise, Meridian, Eagle, and Nampa. Browse <a href="/catalog">finish options</a>, pair them with a <a href="/catalog">door style</a> and <a href="/catalog">hardware</a>, then <a href="/estimate">get a planning range</a> or <a href="/contact">book a free in-home consultation</a> with real samples.</p>
 `;
 
 const stockVsCustomContent = `
@@ -571,7 +571,7 @@ const stockVsCustomContent = `
 <p>It is easy to focus on the boxes and forget that installation makes or breaks the result, and the three tiers usually come with very different install experiences. With stock cabinets bought off the shelf, installation is often on you to arrange, whether that means doing it yourself or hiring a separate handyman who did not design or build the kitchen. Any gaps between the fixed sizes and your real walls get bridged with filler strips, and how well those fillers are scribed and finished depends entirely on whoever swings the drill that day. Semi-custom kitchens bought through a dealer may or may not include installation, so it is worth asking. With full custom from a design-build company, the same team that measured and built your cabinets installs them, which means the person accountable for the fit is the person who created it. That single-team model is a big part of why custom kitchens look tailored: the crew scribes to your out-of-square walls, levels every run, and finishes the details because their name is on the whole job. When you weigh the tiers, weigh the install too, not just the price of the cardboard-flat box.</p>
 
 <h2 id="how-we-build">Custom cabinets, built for your Treasure Valley home</h2>
-<p>${AUTHOR} designs, builds, and installs custom and semi-custom cabinets for <a href="/cabinets/kitchen">kitchens</a>, <a href="/cabinets/bathroom">bathrooms</a>, and built-ins across Boise, Meridian, Eagle, and Nampa — made to your exact sizes with the construction and finishes you choose. <a href="/compare">Compare our cabinets</a>, browse <a href="/door-styles">door styles</a> and <a href="/finishes">finishes</a>, then <a href="/estimate">get an instant planning range</a> or <a href="/contact">book a free in-home consultation</a>.</p>
+<p>${AUTHOR} designs, builds, and installs custom and semi-custom cabinets for <a href="/cabinets/kitchen">kitchens</a>, <a href="/cabinets/bathroom">bathrooms</a>, and built-ins across Boise, Meridian, Eagle, and Nampa — made to your exact sizes with the construction and finishes you choose. <a href="/compare">Compare our cabinets</a>, browse <a href="/catalog">door styles</a> and <a href="/catalog">finishes in the catalog</a>, then <a href="/estimate">get an instant planning range</a> or <a href="/contact">book a free in-home consultation</a>.</p>
 `;
 
 const cabinetConstructionContent = `
@@ -662,8 +662,8 @@ const costPerLinearFootContent = `
   <li><strong>Drawers vs doors:</strong> a bank of dovetailed drawers costs more than a simple door-and-shelf cabinet of the same width.</li>
   <li><strong>Tall and specialty cabinets:</strong> pantries, appliance garages, and corner solutions cost more per foot than standard bases.</li>
   <li><strong>Construction:</strong> plywood boxes and soft-close everything cost more than particleboard and basic hardware — see <a href="/blog/cabinet-construction-quality-guide">construction quality</a>.</li>
-  <li><strong>Finish:</strong> a painted or specialty finish typically costs more than a basic stain — see <a href="/finishes">finishes</a>.</li>
-  <li><strong>Door style and hardware:</strong> inset and intricate profiles and premium <a href="/hardware">hardware</a> add up.</li>
+  <li><strong>Finish:</strong> a painted or specialty finish typically costs more than a basic stain — see <a href="/catalog">finishes in the catalog</a>.</li>
+  <li><strong>Door style and hardware:</strong> inset and intricate profiles and premium <a href="/catalog">hardware</a> add up.</li>
   <li><strong>Install complexity:</strong> odd walls, tall ceilings, and tricky layouts take more labor.</li>
 </ul>
 
@@ -894,7 +894,7 @@ const standardCabinetSizesContent = `
 <p>One last tip: when you measure, always note the ceiling height and the exact locations of windows, doors, outlets, switches, and plumbing, not just the wall lengths. Those details determine which standard sizes actually work and where a custom cabinet is the only clean solution. A wall that is a few inches shorter than a tidy combination of standard widths, or a window sill that lands two inches into where an upper cabinet wants to go, is exactly the kind of thing that turns a paper-perfect plan into an on-site headache. Measuring thoroughly up front, or letting a designer do it for you, is what keeps your beautiful layout from meeting an ugly surprise on installation day.</p>
 
 <h2 id="how-we-build">Plan your kitchen with Boise Cabinet Co</h2>
-<p>${AUTHOR} designs custom <a href="/cabinets/kitchen">kitchen cabinets</a> in standard and fully custom sizes for homes across Boise, Meridian, Eagle, and Nampa — measured to your exact space, with the clearances and storage planned around how you cook. <a href="/estimate">Get a planning range</a>, browse <a href="/door-styles">door styles</a> and <a href="/finishes">finishes</a>, or <a href="/contact">book a free in-home consultation</a> and we will handle the measuring and layout for you.</p>
+<p>${AUTHOR} designs custom <a href="/cabinets/kitchen">kitchen cabinets</a> in standard and fully custom sizes for homes across Boise, Meridian, Eagle, and Nampa — measured to your exact space, with the clearances and storage planned around how you cook. <a href="/estimate">Get a planning range</a>, browse <a href="/catalog">door styles</a> and <a href="/catalog">finishes in the catalog</a>, or <a href="/contact">book a free in-home consultation</a> and we will handle the measuring and layout for you.</p>
 `;
 
 const bathroomVanityContent = `
@@ -914,7 +914,7 @@ const bathroomVanityContent = `
 <p>The most common vanity regret is not enough usable storage, and the fix is drawers. A vanity built mostly around a big open cabinet under the sink wastes space to the plumbing and forces you to stack things you cannot see. Drawers — especially <strong>U-shaped drawers that wrap around the plumbing</strong> — turn that same footprint into organized, reach-everything storage for everything from hair tools to backup toiletries. Roll-out trays, built-in outlets inside a drawer for charging, a tilt-out tray at the sink, and a dedicated hamper pull-out all make a vanity dramatically more functional. When you plan a custom vanity, we design the interior around what you actually store, which is the difference between a pretty vanity and one you love using every day.</p>
 
 <h2 id="styles">Vanity styles and finishes</h2>
-<p>Your vanity should echo the style of your home and bathroom. <strong>Shaker</strong> door fronts are the versatile default, at home in nearly any bath. <strong>Slab (flat-panel)</strong> fronts, especially in a warm wood or a bold paint, read clean and modern. <strong>Raised-panel</strong> suits a traditional space. For finish, painted vanities in white, greige, navy, and green are all popular, and natural stained wood — white oak and walnut especially — brings warmth and a spa-like feel. Because bathrooms are humid, finish quality matters even more than in a kitchen: a properly sprayed, sealed finish resists the moisture and temperature swings a bathroom throws at it. Coordinate the vanity finish with your <a href="/hardware">hardware</a>, faucet, and mirror for a pulled-together look.</p>
+<p>Your vanity should echo the style of your home and bathroom. <strong>Shaker</strong> door fronts are the versatile default, at home in nearly any bath. <strong>Slab (flat-panel)</strong> fronts, especially in a warm wood or a bold paint, read clean and modern. <strong>Raised-panel</strong> suits a traditional space. For finish, painted vanities in white, greige, navy, and green are all popular, and natural stained wood — white oak and walnut especially — brings warmth and a spa-like feel. Because bathrooms are humid, finish quality matters even more than in a kitchen: a properly sprayed, sealed finish resists the moisture and temperature swings a bathroom throws at it. Coordinate the vanity finish with your <a href="/catalog">hardware</a>, faucet, and mirror for a pulled-together look.</p>
 
 <h2 id="tops-sinks">Countertops and sinks</h2>
 <p>The vanity top and sink complete the piece. <strong>Quartz</strong> is the most popular top for its durability and low maintenance, while <strong>natural stone</strong> like granite or marble brings unique character (marble needs a little more care in a bathroom). <strong>Undermount sinks</strong> are the clean, easy-to-wipe standard; vessel sinks make a bold statement but sit higher, which affects vanity height. Decide whether you want a single wide sink or two, and whether the faucet is deck-mounted or wall-mounted, early, because those choices affect the vanity and plumbing layout. A cohesive combination of top, sink, and faucet is what makes a vanity feel custom rather than assembled.</p>
@@ -958,7 +958,7 @@ const bathroomVanityContent = `
 <p>A great bathroom vanity is equal parts fit, function, and finish. Nail the size and configuration for your space, build in the drawer storage you will actually use, choose a style and a moisture-tough finish that suit your home, and insist on quality construction that can handle a bathroom, and you will have a piece that looks beautiful and works flawlessly for decades. Whether it is a compact powder-room vanity or a spa-like double in the master, the goal is the same: a vanity that fits your space and your life exactly, which is precisely what a custom build delivers.</p>
 
 <h2 id="how-we-build">Design your vanity with Boise Cabinet Co</h2>
-<p>${AUTHOR} designs, builds, and installs custom <a href="/cabinets/bathroom">bathroom vanities</a> — single and double, floating and floor-standing — for homes across Boise, Meridian, Eagle, and Nampa, sized to your space with the storage and finishes you choose. Coordinate with your <a href="/door-styles">door style</a>, <a href="/finishes">finish</a>, and <a href="/hardware">hardware</a>, then <a href="/estimate">get a planning range</a> or <a href="/contact">book a free in-home consultation</a>.</p>
+<p>${AUTHOR} designs, builds, and installs custom <a href="/cabinets/bathroom">bathroom vanities</a> — single and double, floating and floor-standing — for homes across Boise, Meridian, Eagle, and Nampa, sized to your space with the storage and finishes you choose. Coordinate with your <a href="/catalog">door style</a>, <a href="/catalog">finish</a>, and <a href="/catalog">hardware</a>, then <a href="/estimate">get a planning range</a> or <a href="/contact">book a free in-home consultation</a>.</p>
 `;
 
 const refaceRefinishReplaceContent = `
@@ -1761,7 +1761,7 @@ export const PREMIUM_POSTS: BlogPostData[] = [
     relatedLinks: [
       { url: '/guides/boise-kitchen-cabinet-guide', anchor: 'Kitchen Cabinets' },
       { url: '/construction', anchor: 'How we build' },
-      { url: '/door-styles', anchor: 'Door styles' },
+      { url: '/catalog', anchor: 'Door styles' },
       { url: '/guides/boise-cabinet-cost-guide', anchor: 'Boise Cabinet Cost Guide' },
       { url: '/cabinets' },
     ],
@@ -1807,9 +1807,9 @@ export const PREMIUM_POSTS: BlogPostData[] = [
     ],
     relatedLinks: [
       { url: '/guides/boise-kitchen-cabinet-guide', anchor: 'Kitchen Cabinets' },
-      { url: '/door-styles', anchor: 'Door styles' },
+      { url: '/catalog', anchor: 'Door styles' },
       { url: '/blog/cabinet-hardware-guide', anchor: 'Cabinet hardware guide' },
-      { url: '/finishes', anchor: 'Finishes' },
+      { url: '/catalog', anchor: 'Finishes' },
       { url: '/cabinets' },
     ],
     primaryKeyword: 'cabinet door styles',
@@ -1848,7 +1848,7 @@ export const PREMIUM_POSTS: BlogPostData[] = [
     ],
     relatedLinks: [
       { url: '/guides/boise-kitchen-cabinet-guide', anchor: 'Kitchen Cabinets' },
-      { url: '/hardware', anchor: 'Hardware' },
+      { url: '/catalog', anchor: 'Hardware' },
       { url: '/blog/cabinet-door-styles-guide', anchor: 'Cabinet door styles' },
       { url: '/construction', anchor: 'How we build' },
       { url: '/cabinets' },
@@ -1889,7 +1889,7 @@ export const PREMIUM_POSTS: BlogPostData[] = [
     ],
     relatedLinks: [
       { url: '/guides/boise-kitchen-cabinet-guide', anchor: 'Kitchen Cabinets' },
-      { url: '/finishes', anchor: 'Finishes' },
+      { url: '/catalog', anchor: 'Finishes' },
       { url: '/blog/cabinet-door-styles-guide', anchor: 'Cabinet door styles' },
       { url: '/blog/cabinet-hardware-guide', anchor: 'Cabinet hardware' },
       { url: '/cabinets' },
@@ -2178,7 +2178,7 @@ export const PREMIUM_POSTS: BlogPostData[] = [
       { url: '/guides/boise-bathroom-vanity-guide', anchor: 'Bathroom Vanities' },
       { url: '/cabinets/bathroom', anchor: 'Bathroom vanities' },
       { url: '/blog/cabinet-construction-quality-guide', anchor: 'Cabinet construction quality' },
-      { url: '/finishes', anchor: 'Finishes' },
+      { url: '/catalog', anchor: 'Finishes' },
       { url: '/cabinets' },
     ],
     primaryKeyword: 'bathroom vanity',

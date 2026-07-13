@@ -191,7 +191,7 @@ export default function AboutPage() {
                 variant="outline"
                 className="bg-white/10 backdrop-blur-sm border-white/30 text-white"
               >
-                <Link href="/collections">{CTA_SECONDARY}</Link>
+                <Link href="/catalog">{CTA_SECONDARY}</Link>
               </Button>
             </div>
             <div className="grid grid-cols-3 gap-3 max-w-xl">

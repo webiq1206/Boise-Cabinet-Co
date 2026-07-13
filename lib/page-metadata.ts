@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { SITE_CONFIG } from '@/shared/siteConfig';
 import {
+  clampMetaDescription,
   generateCityServiceDescription,
   generateCityServiceTitle,
   generateMetaDescription,
@@ -105,6 +106,7 @@ export function buildPageMetadata(input: PageMetaInput): Metadata {
 
   if (input.titleOverride) title = input.titleOverride;
   if (input.descriptionOverride) description = input.descriptionOverride;
+  description = clampMetaDescription(description);
 
   const resolvedTitle: Metadata['title'] =
     input.kind === 'home' ? { absolute: title } : title;

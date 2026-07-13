@@ -6,7 +6,7 @@ import { buildClusterPost } from './contentFactory';
 import type { BlogPostData } from '../blogContent';
 
 const catalogLinks =
-  'Explore <a href="/compare">our cabinets</a>, <a href="/collections">collections</a>, <a href="/door-styles">door styles</a>, <a href="/finishes">finishes</a>, <a href="/hardware">hardware</a>, and <a href="/construction">construction details</a>.';
+  'Explore <a href="/compare">our cabinets</a>, <a href="/catalog">collections</a>, <a href="/catalog">door styles</a>, <a href="/catalog">finishes in the catalog</a>, <a href="/catalog">hardware</a>, and <a href="/construction">construction details</a>.';
 
 const tier1Articles = [
   {
@@ -38,7 +38,7 @@ const tier1Articles = [
     ],
     tags: ['door styles', 'design'],
     extraParagraph:
-      'Browse <a href="/door-styles">door styles</a> and <a href="/collections">collections</a> to compare profiles side by side.',
+      'Browse <a href="/catalog">door styles</a> and <a href="/catalog">collections</a> to compare profiles side by side.',
   },
   {
     slug: 'cabinet-finishes-colors-guide',
@@ -54,7 +54,7 @@ const tier1Articles = [
     ],
     tags: ['finishes', 'color'],
     extraParagraph:
-      'See <a href="/finishes">finish options</a> and pair with <a href="/hardware">hardware</a> early in design.',
+      'See <a href="/catalog">finish options</a> and pair with <a href="/catalog">hardware</a> early in design.',
   },
   {
     slug: 'cabinet-hardware-guide',
@@ -69,7 +69,7 @@ const tier1Articles = [
       'Order extra hardware for future repairs.',
     ],
     tags: ['hardware', 'hinges'],
-    extraParagraph: 'Compare <a href="/hardware">hardware collections</a> with your door and finish samples.',
+    extraParagraph: 'Compare <a href="/catalog">hardware collections</a> with your door and finish samples.',
   },
   {
     slug: 'cabinet-construction-quality-guide',

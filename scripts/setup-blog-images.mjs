@@ -34,7 +34,7 @@ let skipped = 0;
 
 for (const [slug, sourcePath] of Object.entries(copyMap)) {
   const src = path.join(root, "public", sourcePath.replace(/^\//, ""));
-  const dest = path.join(blogDir, `${slug}.png`);
+  const dest = path.join(blogDir, `${slug}.webp`);
 
   if (!fs.existsSync(src)) {
     console.error(`Missing source: ${sourcePath} for ${slug}`);

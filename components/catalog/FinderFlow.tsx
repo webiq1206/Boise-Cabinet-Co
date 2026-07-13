@@ -199,16 +199,8 @@ export function FinderFlow() {
     setIndex((i) => Math.max(i - 1, 0));
   }
 
-  // Handoff URLs from the result.
-  const browseHref = (() => {
-    const params = new URLSearchParams();
-    if (mood?.families?.[0]) params.set("color", mood.families[0]);
-    if (mood?.tone) params.set("tone", mood.tone);
-    if (look) params.set("category", look.finishCategory);
-    if (budget?.budgetTier) params.set("price", String(budget.budgetTier));
-    const qs = params.toString();
-    return qs ? `/finishes?${qs}` : "/finishes";
-  })();
+  // Handoff URL from the result (catalog is the single browse surface now).
+  const browseHref = "/catalog";
 
   const estimateHref = "/estimate";
 
@@ -216,7 +208,7 @@ export function FinderFlow() {
     <div>
       <div className="flex justify-end mb-4">
         <Button variant="ghost" size="sm" asChild>
-          <Link href="/finishes">Skip - show me everything</Link>
+          <Link href="/catalog">Skip - show me everything</Link>
         </Button>
       </div>
 

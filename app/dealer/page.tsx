@@ -28,7 +28,7 @@ export default function DealerPortalPage() {
           />
           <div className="flex flex-wrap gap-3 mt-6">
             <Button variant="brand" asChild>
-              <Link href="/products">Browse products</Link>
+              <Link href="/catalog">Browse products</Link>
             </Button>
             <Button variant="outline" asChild>
               <Link href="/search">Search catalog</Link>
@@ -52,7 +52,7 @@ export default function DealerPortalPage() {
                   specs={[
                     { label: "Lead time", value: c.leadTime },
                   ]}
-                  primaryHref={`/collections/${c.slug}`}
+                  primaryHref="/catalog"
                   primaryLabel="View collection"
                 />
               ))}
@@ -71,9 +71,9 @@ export default function DealerPortalPage() {
                     description={d.description}
                     imageSrc={primary}
                     imageAlt={`${d.name} door profile`}
-                    primaryHref={`/door-styles#${d.slug}`}
+                    primaryHref="/catalog"
                     primaryLabel="View profile"
-                    secondaryHref="/finishes"
+                    secondaryHref="/catalog"
                     secondaryLabel="Compatible finishes"
                   />
                 );

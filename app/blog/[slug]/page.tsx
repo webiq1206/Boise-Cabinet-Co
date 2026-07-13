@@ -16,7 +16,7 @@ import {
   getBlogHeroImage,
   getBlogImageAlt,
 } from "@/shared/blogImages";
-import { getBaseUrl } from "@/lib/seo";
+import { clampMetaDescription, getBaseUrl } from "@/lib/seo";
 import { SITE_CONFIG } from "@/shared/siteConfig";
 import { CONTENT_HUBS, categoryHubPath } from "@/shared/contentHubs";
 
@@ -42,9 +42,7 @@ export async function generateMetadata({
   const title = rawTitle.endsWith(brandSuffix)
     ? rawTitle.slice(0, -brandSuffix.length)
     : rawTitle;
-  const description =
-    post.metaDescription ||
-    (post.excerpt.length > 160 ? post.excerpt.substring(0, 157) + "..." : post.excerpt);
+  const description = clampMetaDescription(post.metaDescription || post.excerpt);
   const heroPath = getBlogHeroImage(post.slug, post.heroImage);
   const imageUrl = getAbsoluteImageUrl(heroPath, getBaseUrl());
   const imageAlt = getBlogImageAlt(post.slug);

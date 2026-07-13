@@ -72,7 +72,7 @@ function ComparisonRowVisual({
     return (
       <div className="flex items-center gap-3">
         <div className="relative h-12 w-10 shrink-0 overflow-hidden rounded-sm bg-muted">
-          <Image src={primary} alt="" fill sizes="40px" className="object-cover" />
+          <Image src={primary} alt={`${label} door style`} fill sizes="40px" className="object-cover" />
         </div>
         <span className="font-medium text-foreground">{label}</span>
       </div>
@@ -85,7 +85,7 @@ function ComparisonRowVisual({
       return (
         <div className="flex items-center gap-3">
           <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-sm bg-muted">
-            <Image src={src} alt="" fill sizes="40px" className="object-cover" />
+            <Image src={src} alt={`${label} cabinet finish`} fill sizes="40px" className="object-cover" />
           </div>
           <span className="font-medium text-foreground">{label}</span>
         </div>
@@ -113,7 +113,7 @@ function ComparisonMatrixTable({
             </th>
             {COLLECTIONS.map((c) => (
               <th key={c.id} className="py-4 px-3 text-sm font-medium text-foreground min-w-[120px]">
-                <Link href={`/collections/${c.slug}`} className="hover:underline underline-offset-2">
+                <Link href="/catalog" className="hover:underline underline-offset-2">
                   {c.name}
                 </Link>
               </th>
@@ -164,7 +164,7 @@ export default function ComparePage() {
     }),
     generateBreadcrumbSchema([
       { name: "Home", url: "/" },
-      { name: "Collections", url: "/collections" },
+      { name: "Catalog", url: "/catalog" },
       { name: "Compare", url: "/compare" },
     ]),
   ];
@@ -178,7 +178,7 @@ export default function ComparePage() {
             <Breadcrumbs
               items={[
                 { name: "Home", href: "/" },
-                { name: "Collections", href: "/collections" },
+                { name: "Catalog", href: "/catalog" },
                 { name: "Compare" },
               ]}
             />
@@ -255,7 +255,7 @@ export default function ComparePage() {
               {COLLECTIONS.map((c) => (
                 <Link
                   key={c.id}
-                  href={`/collections/${c.slug}`}
+                  href="/catalog"
                   className="marketing-card p-5 hover-elevate text-center block"
                 >
                   <p className="font-sans font-light text-lg">{c.name}</p>

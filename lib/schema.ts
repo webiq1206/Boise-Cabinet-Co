@@ -135,18 +135,11 @@ export function generateServiceSchema(serviceName: string, serviceDescription: s
     areaServed: city ? {
       '@type': 'City',
       name: city,
-      addressCountry: 'US',
-      addressRegion: 'ID',
     } : BUSINESS_INFO.serviceArea.map(area => ({
       '@type': 'City',
       name: area,
     })),
     serviceType: serviceName,
-    offers: {
-      '@type': 'Offer',
-      availability: 'https://schema.org/InStock',
-      priceCurrency: 'USD',
-    },
   };
 }
 

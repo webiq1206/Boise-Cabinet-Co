@@ -206,7 +206,7 @@ function FinishCard({ finish, showLink }: { finish: Finish; showLink: boolean })
       </div>
       {showLink && (
         <Link
-          href={`/finishes/${finish.category}/${finish.slug}`}
+          href="/catalog"
           className="mt-auto text-xs text-muted-foreground hover:text-foreground underline-offset-2 hover:underline"
         >
           View {finish.name} details
@@ -320,7 +320,7 @@ export function FinishOptionsSelector({
 function DoorCard({ style }: { style: DoorStyle }) {
   return (
     <Link
-      href={`/door-styles/${style.slug}`}
+      href="/catalog"
       className="block h-full group"
       data-testid={`link-door-${style.slug}`}
     >
@@ -388,7 +388,7 @@ function CabinetCard({ product }: { product: CabinetProduct }) {
   const dims = formatCabinetDimensions(product);
   return (
     <Link
-      href={`/products/${product.category}/${product.slug}`}
+      href="/catalog"
       className="group block h-full"
     >
       <MarketingCard className="p-0 flex flex-col h-full overflow-hidden" padding="none">

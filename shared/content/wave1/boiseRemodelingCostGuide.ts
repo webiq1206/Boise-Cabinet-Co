@@ -219,7 +219,7 @@ const sections: ContentSection[] = [
     h2: 'Next steps: from planning range to written scope',
     paragraphs: [
       'Use the cost cluster articles linked from this hub for room-by-room detail. When you are ready, schedule a consultation, we will walk your space, discuss goals, and outline a realistic path from design through installation.',
-      'Explore cabinetry by room: <a href="/cabinets">cabinet catalog</a>, <a href="/collections">collections</a>, <a href="/cabinets/kitchen">kitchen</a>, <a href="/cabinets/bathroom">bathroom</a>, and <a href="/compare">compare lines</a>.',
+      'Explore cabinetry by room: <a href="/cabinets">cabinet catalog</a>, <a href="/catalog">collections</a>, <a href="/cabinets/kitchen">kitchen</a>, <a href="/cabinets/bathroom">bathroom</a>, and <a href="/compare">compare lines</a>.',
     ],
   },
 ];

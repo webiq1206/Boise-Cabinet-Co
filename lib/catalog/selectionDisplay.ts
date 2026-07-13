@@ -46,7 +46,7 @@ export function projectSelectionsToDisplayRows(
       status: "selected",
       slug: c?.slug ?? selections.collection,
       imageSrc: c?.heroImage,
-      href: c ? `/collections/${c.slug}` : undefined,
+      href: c ? "/catalog" : undefined,
     });
   } else {
     rows.push({ category: "Collection", value: "Not selected", status: "pending" });
@@ -62,7 +62,7 @@ export function projectSelectionsToDisplayRows(
       status: "selected",
       slug: d?.slug ?? resolved,
       imageSrc: imgs?.thumb640,
-      href: d ? `/door-styles/${d.slug}` : undefined,
+      href: d ? "/catalog" : undefined,
     });
   } else {
     rows.push({ category: "Door style", value: "Not selected", status: "pending" });
@@ -78,7 +78,7 @@ export function projectSelectionsToDisplayRows(
       status: "selected",
       slug: f?.slug ?? resolved,
       imageSrc: imgs?.swatch,
-      href: f ? `/finishes/${f.category}/${f.slug}` : undefined,
+      href: f ? "/catalog" : undefined,
     });
   } else {
     rows.push({ category: "Finish", value: "Not selected", status: "pending" });
@@ -101,7 +101,7 @@ export function projectSelectionsToDisplayRows(
       status: "selected",
       slug: selections.hardware,
       imageSrc: getHardwareImagePath(selections.hardware),
-      href: "/hardware",
+      href: "/catalog",
     });
   }
 
@@ -140,7 +140,7 @@ export function projectSelectionsToDisplayRows(
       status: "selected",
       slug: first?.slug,
       imageSrc: imgs?.thumb,
-      href: first ? `/products/${first.category}/${first.slug}` : "/products",
+      href: "/catalog",
     });
   }
 

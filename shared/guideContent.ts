@@ -257,7 +257,7 @@ export const GUIDE_PAGES: GuidePageData[] = [
   {
     slug: 'boise-cabinet-guide',
     title: 'Boise Custom Cabinet Guide',
-    seoTitle: 'Boise Custom Cabinet Guide | Neighborhoods & Catalog',
+    seoTitle: 'Boise Custom Cabinet Guide | Neighborhoods',
     metaDescription:
       'Custom cabinets in Boise: North End, Bench, Harris Ranch, costs, finishes, and kitchen, bath, and built-in cabinetry for Treasure Valley homes.',
     excerpt:

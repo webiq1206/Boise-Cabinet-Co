@@ -222,7 +222,7 @@ export const COMPANY_TOPIC_SECTIONS: Record<string, ContentSection[]> = {
     {
       h2: 'What a local custom shop changes',
       paragraphs: [
-        'Built-to-order sizing uses every inch, one team owns measure-build-install accountability, and finish options expand from a dozen to hundreds, compare our <a href="/finishes">299 finishes</a> and <a href="/door-styles">six door styles</a>. Warranty service comes from people who will still be in Meridian next decade.',
+        'Built-to-order sizing uses every inch, one team owns measure-build-install accountability, and finish options expand from a dozen to hundreds, compare our <a href="/catalog">299 finishes</a> and six door styles. Warranty service comes from people who will still be in Meridian next decade.',
       ],
     },
     {
@@ -270,7 +270,7 @@ export const COMPANY_TOPIC_SECTIONS: Record<string, ContentSection[]> = {
       h2: 'What built-to-order solves',
       paragraphs: [
         'Odd ceiling lines in North End bungalows, tight galley clearances, 9 and 10-foot ceilings in newer Eagle builds, and out-of-plumb walls everywhere: custom sizing addresses each without filler-strip compromises.',
-        'It also means selections are real choices, six <a href="/door-styles">door styles</a>, 299 <a href="/finishes">finishes</a>, and interior accessories configured per cabinet.',
+        'It also means selections are real choices, six <a href="/catalog">door styles</a>, 299 <a href="/catalog">finishes in the catalog</a>, and interior accessories configured per cabinet.',
       ],
     },
     {
@@ -355,19 +355,19 @@ export const COMPANY_TOPIC_SECTIONS: Record<string, ContentSection[]> = {
       h2: 'Sequence the decision',
       paragraphs: [
         'Choose in this order: door profile, finish family (matte, gloss, woodgrain), exact finish from physical samples in your home, hardware last. Sequencing prevents the showroom overwhelm of facing 299 finishes at once.',
-        'Start the shortlist online with the <a href="/finder">finish finder</a>, then confirm with samples in your actual light.',
+        'Start the shortlist online with the <a href="/catalog">catalog</a>, then confirm with samples in your actual light.',
       ],
     },
     {
       h2: 'Matching profile to home era',
       paragraphs: [
-        'Simple shaker profiles suit nearly every Treasure Valley home. <a href="/door-styles/slab">Slab doors</a> fit contemporary Eagle and Star builds; <a href="/door-styles/three-piece">3 Piece</a> and wider-rail shakers sit comfortably in transitional Meridian subdivisions. Heavily ornamented doors fight the clean-lined architecture most valley homes share.',
+        'Simple shaker profiles suit nearly every Treasure Valley home. Slab doors fit contemporary Eagle and Star builds; 3 Piece and wider-rail shakers sit comfortably in transitional Meridian subdivisions. Heavily ornamented doors fight the clean-lined architecture most valley homes share.',
       ],
     },
     {
       h2: 'Finish families in practice',
       paragraphs: [
-        'Matte hides fingerprints and suits family kitchens; gloss amplifies light in smaller or darker rooms but shows prints on dark tones; woodgrain brings warmth and pairs beautifully as an island accent against a painted perimeter. Browse all three in the <a href="/finishes">finish library</a>.',
+        'Matte hides fingerprints and suits family kitchens; gloss amplifies light in smaller or darker rooms but shows prints on dark tones; woodgrain brings warmth and pairs beautifully as an island accent against a painted perimeter. Browse all three in the <a href="/catalog">catalog</a>.',
       ],
     },
   ],

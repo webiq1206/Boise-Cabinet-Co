@@ -50,10 +50,10 @@ export function ProductConfigurationCard({
         <CatalogActionBar
           className="mt-4"
           primaryHref="/estimate"
-          productsHref={`/products/${product.category}/${product.slug}`}
+          productsHref="/catalog"
         />
         <Link
-          href={`/products/${product.category}/${product.slug}`}
+          href="/catalog"
           className="text-sm text-accent mt-2 inline-block hover:underline"
         >
           Full specifications

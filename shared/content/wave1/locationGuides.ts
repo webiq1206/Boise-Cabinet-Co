@@ -95,7 +95,7 @@ const boiseSections: ContentSection[] = [
     h2: 'North End and Hyde Park: bungalow kitchens',
     paragraphs: [
       'Craftsman bungalows and early-1900s cottages around Hyde Park have compact galley kitchens with plaster walls and original soffits. Tall pantry cabinets, pull-out bases, and custom widths recover storage stock sizing wastes.',
-      'Historic district character matters: simpler door profiles like <a href="/door-styles/thin-shaker">Thin Shaker</a> and painted matte finishes tend to suit these homes better than heavy ornamentation.',
+      'Historic district character matters: simpler door profiles like <a href="/catalog">Thin Shaker</a> and painted matte finishes tend to suit these homes better than heavy ornamentation.',
     ],
   },
   {

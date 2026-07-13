@@ -85,7 +85,7 @@ export default function AdaCanyonPermitFlowPage() {
               Download PDF reference
             </a>
             <Link
-              href="/blog/ada-vs-canyon-county-permit-timelines"
+              href="/guides/cabinet-project-process-guide"
               className="inline-flex items-center gap-2 rounded-md border border-border px-4 py-2 text-sm hover:bg-muted/50"
             >
               Read full article

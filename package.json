@@ -119,7 +119,7 @@
     "openid-client": "^6.8.1",
     "papaparse": "^5.5.4",
     "pdf-lib": "^1.17.1",
-    "pdfjs-dist": "^4.7.76",
+    "pdfjs-dist": "^4.10.38",
     "pg": "^8.21.0",
     "qrcode.react": "^4.2.0",
     "react": "^18.3.1",

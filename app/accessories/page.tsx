@@ -90,7 +90,7 @@ export default function AccessoriesPage() {
                     imageAlt={`${family.name} cabinet accessory`}
                     aspectRatio="1/1"
                     specs={[{ label: "Type", value: family.category }]}
-                    primaryHref={`/products/base?family=${family.slug}`}
+                    primaryHref="/catalog"
                     primaryLabel="See cabinets that fit"
                   />
                 </Reveal>

@@ -66,7 +66,7 @@ const kitchenExtra: ContentSection[] = [
     h2: 'Boise, Meridian, Eagle, and Nampa: local notes',
     paragraphs: [
       'Ada County cities share many permit conventions; Canyon County (Nampa, Middleton, Caldwell) uses different portals. HOA review in Eagle may add design time without changing construction unit costs dramatically.',
-      '<a href="/cabinets/kitchen">Kitchen cabinets</a> · <a href="/guides/boise-kitchen-cabinet-guide">Kitchen cabinet guide</a> · <a href="/door-styles">Door styles</a>.',
+      '<a href="/cabinets/kitchen">Kitchen cabinets</a> · <a href="/guides/boise-kitchen-cabinet-guide">Kitchen cabinet guide</a> · <a href="/catalog">Door styles</a>.',
     ],
   },
   {
@@ -117,7 +117,7 @@ const bathroomExtra: ContentSection[] = [
   {
     h2: 'City-specific service links',
     paragraphs: [
-      '<a href="/cabinets/bathroom">Bathroom vanity cabinets</a> · <a href="/guides/boise-bathroom-vanity-guide">Bathroom vanity guide</a> · <a href="/finishes">Finishes</a>.',
+      '<a href="/cabinets/bathroom">Bathroom vanity cabinets</a> · <a href="/guides/boise-bathroom-vanity-guide">Bathroom vanity guide</a> · <a href="/catalog">Finishes</a>.',
     ],
   },
   {

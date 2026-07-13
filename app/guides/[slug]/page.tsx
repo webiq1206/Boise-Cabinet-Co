@@ -16,7 +16,7 @@ import {
   getBlogHeroImage,
   getBlogImageAlt,
 } from '@/shared/blogImages';
-import { getBaseUrl } from '@/lib/seo';
+import { clampMetaDescription, getBaseUrl } from '@/lib/seo';
 
 export async function generateStaticParams() {
   return GUIDE_PAGES.map((guide) => ({ slug: guide.slug }));
@@ -35,9 +35,7 @@ export async function generateMetadata({
   const title = rawTitle.endsWith(brandSuffix)
     ? rawTitle.slice(0, -brandSuffix.length)
     : rawTitle;
-  const description =
-    guide.metaDescription ||
-    (guide.excerpt.length > 160 ? guide.excerpt.substring(0, 157) + '...' : guide.excerpt);
+  const description = clampMetaDescription(guide.metaDescription || guide.excerpt);
   const heroPath = getBlogHeroImage(guide.slug, guide.heroImage);
   const imageUrl = getAbsoluteImageUrl(heroPath, getBaseUrl());
   const imageAlt = getBlogImageAlt(guide.slug);

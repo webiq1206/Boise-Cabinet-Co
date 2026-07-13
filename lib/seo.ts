@@ -243,6 +243,31 @@ export function generateSafePageTitle(primary: string, suffix?: string): string 
 }
 
 /**
+ * Clamp a meta description into the 110-160 character sweet spot.
+ * - Longer than 160: truncate at a word boundary and add an ellipsis.
+ * - Shorter than 110: append a brand tail sentence.
+ */
+export function clampMetaDescription(text: string): string {
+  const MAX = 160;
+  const MIN = 110;
+  let desc = text.trim().replace(/\s+/g, ' ');
+
+  if (desc.length < MIN) {
+    const tail = `Custom cabinets designed, built, and installed by ${SITE_CONFIG.name} in Boise and the Treasure Valley.`;
+    const sep = /[.!?]$/.test(desc) ? ' ' : '. ';
+    desc = `${desc}${sep}${tail}`;
+  }
+
+  if (desc.length > MAX) {
+    const cut = desc.slice(0, MAX - 1);
+    const lastSpace = cut.lastIndexOf(' ');
+    desc = cut.slice(0, lastSpace > MIN ? lastSpace : MAX - 1).replace(/[\s,;:.]+$/, '') + '…';
+  }
+
+  return desc;
+}
+
+/**
  * Get base URL based on environment
  */
 export function getBaseUrl(): string {

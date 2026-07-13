@@ -31,7 +31,7 @@ export default function InstallerPortalPage() {
               <Link href="/construction">Construction standards</Link>
             </Button>
             <Button variant="outline" asChild>
-              <Link href="/products">Product codes</Link>
+              <Link href="/catalog">Product codes</Link>
             </Button>
             <Button variant="outline" asChild>
               <Link href="/contact">Contact us</Link>
@@ -56,7 +56,7 @@ export default function InstallerPortalPage() {
                     { label: "Lead time", value: c.leadTime },
                     { label: "Price tier", value: c.priceTier },
                   ]}
-                  primaryHref={`/collections/${c.slug}`}
+                  primaryHref="/catalog"
                   primaryLabel="Specifications"
                 />
               ))}
@@ -75,7 +75,7 @@ export default function InstallerPortalPage() {
                     description={d.constructionNotes}
                     imageSrc={primary}
                     imageAlt={`${d.name} door construction`}
-                    primaryHref={`/door-styles#${d.slug}`}
+                    primaryHref="/catalog"
                     primaryLabel="Profile details"
                   />
                 );

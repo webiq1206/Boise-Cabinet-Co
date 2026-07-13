@@ -29,7 +29,7 @@ export function DoorStyleExplorer({
     <div className="space-y-8">
       <DoorStyleHero slug={style.slug} name={style.name} />
       <div>
-        <h1 className="text-2xl font-sans font-light tracking-tight">{style.name} Door Style</h1>
+        <h2 className="text-2xl font-sans font-light tracking-tight">{style.name} Door Style</h2>
         <p className="text-muted-foreground mt-2 max-w-2xl">{style.description}</p>
       </div>
       <CatalogAvailabilityStrip
@@ -37,7 +37,7 @@ export function DoorStyleExplorer({
         productCount={productCount}
         collections={collections.map((c) => ({
           label: c.name,
-          href: `/collections/${c.slug}`,
+          href: "/catalog",
         }))}
         specs={[style.drawerFrontDefault === "slab" ? "Slab drawer fronts" : "Five-piece drawers"]}
       />
@@ -45,14 +45,14 @@ export function DoorStyleExplorer({
       <CatalogActionBar
         primaryHref="/estimate"
         compareHref="/compare"
-        productsHref={`/products?doorStyle=${style.slug}`}
+        productsHref="/catalog"
       />
       {showFinishes && finishes.length > 0 && (
         <div>
           <h3 className="text-lg font-medium mb-4">Available finishes</h3>
           <FinishSwatchGrid finishes={finishes} />
           <Link
-            href={`/finishes?doorStyle=${style.slug}`}
+            href="/catalog"
             className="text-sm text-accent mt-4 inline-block hover:underline"
           >
             View all compatible finishes

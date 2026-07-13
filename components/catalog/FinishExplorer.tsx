@@ -25,18 +25,18 @@ export function FinishExplorer({ finish }: FinishExplorerProps) {
       <FinishDualPreview finish={finish} />
       <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
         <div>
-          <h1 className="text-2xl font-sans font-light tracking-tight">{finish.name} Cabinet Finish</h1>
+          <h2 className="text-2xl font-sans font-light tracking-tight">{finish.name} Cabinet Finish</h2>
           <p className="text-muted-foreground mt-1 capitalize">
             {finish.category} · {finish.sheen}
           </p>
           <CatalogAvailabilityStrip
             collections={collections.map((c) => ({
               label: c.name,
-              href: `/collections/${c.slug}`,
+              href: "/catalog",
             }))}
             doorStyles={doorStyles.map((d) => ({
               label: d.name,
-              href: `/door-styles/${d.slug}`,
+              href: "/catalog",
             }))}
             specs={[
               finish.sidedness === "double" ? "Double-sided" : "Single-sided",
@@ -56,7 +56,7 @@ export function FinishExplorer({ finish }: FinishExplorerProps) {
         </div>
       )}
       <Link
-        href={`/finishes/${finish.category}`}
+        href="/catalog"
         className="text-sm text-accent hover:underline"
       >
         Browse all {finish.category} finishes

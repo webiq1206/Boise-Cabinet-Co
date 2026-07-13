@@ -125,7 +125,7 @@ export function CollectionLandingTemplate({ collection }: CollectionLandingTempl
                   <p className="text-sm text-muted-foreground flex-1 leading-relaxed line-clamp-4">
                     {style.description}
                   </p>
-                  <TextLink href={`/door-styles/${style.slug}`} className="mt-4" showArrow>
+                  <TextLink href="/catalog" className="mt-4" showArrow>
                     View {style.name}
                   </TextLink>
                 </MarketingCard>
@@ -147,7 +147,7 @@ export function CollectionLandingTemplate({ collection }: CollectionLandingTempl
           <FinishSwatchGrid finishes={finishSample} showCategoryLinks />
           <div className="text-center mt-8">
             <Button variant="brandOutline" asChild>
-              <Link href="/finishes">Browse all finishes</Link>
+              <Link href="/catalog">Browse all finishes</Link>
             </Button>
           </div>
         </div>
@@ -252,7 +252,7 @@ export function CollectionLandingTemplate({ collection }: CollectionLandingTempl
                 <h3 className="text-lg font-sans font-light mb-1">{c.name}</h3>
                 <p className="text-sm text-muted-foreground flex-1">{c.tagline}</p>
                 <TextLink
-                  href={`/collections/${c.slug}`}
+                  href="/catalog"
                   className="mt-4"
                   showArrow
                 >

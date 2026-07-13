@@ -44,7 +44,7 @@ export async function generateMetadata({ params }: { params: { room: string } })
     `/cabinets/${room.slug}`,
     `${room.name} Cabinets`,
     catalogDescription(
-      `${room.description.slice(0, 155)}… Custom ${room.name.toLowerCase()} cabinets from {company} in the Treasure Valley.`,
+      `Custom ${room.name.toLowerCase()} cabinets from {company} in the Treasure Valley. ${room.description}`,
     ),
   );
 }

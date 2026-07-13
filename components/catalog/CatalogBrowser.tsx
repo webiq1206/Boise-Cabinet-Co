@@ -97,7 +97,7 @@ const PAGE_SIZE = 24;
 function doorItem(d: (typeof DOOR_STYLES)[number]): BrowseItem {
   return {
     key: `doorStyle-${d.slug}`,
-    href: `/door-styles/${d.slug}`,
+    href: "/catalog",
     name: d.name,
     alt: doorStyleAlt(d),
     meta: "Door style",
@@ -109,7 +109,7 @@ function doorItem(d: (typeof DOOR_STYLES)[number]): BrowseItem {
 function finishItem(f: Finish): BrowseItem {
   return {
     key: `finish-${f.slug}`,
-    href: `/finishes/${f.category}/${f.slug}`,
+    href: "/catalog",
     name: f.name,
     alt: finishAlt(f),
     meta: `${f.category} · ${f.sheen}`,
@@ -121,7 +121,7 @@ function finishItem(f: Finish): BrowseItem {
 function cabinetItem(p: (typeof CABINET_PRODUCTS)[number]): BrowseItem {
   return {
     key: `cabinetProduct-${p.slug}`,
-    href: `/products/${p.category}/${p.slug}`,
+    href: "/catalog",
     name: p.name,
     alt: cabinetAlt(p),
     meta: p.category.replace(/-/g, " "),
@@ -134,7 +134,7 @@ function cabinetItem(p: (typeof CABINET_PRODUCTS)[number]): BrowseItem {
 function collectionItem(c: (typeof COLLECTIONS)[number]): BrowseItem {
   return {
     key: `collection-${c.slug}`,
-    href: `/collections/${c.slug}`,
+    href: "/catalog",
     name: c.name,
     alt: collectionAlt(c),
     meta: c.tagline,
@@ -146,7 +146,7 @@ function collectionItem(c: (typeof COLLECTIONS)[number]): BrowseItem {
 function hardwareItem(h: (typeof HARDWARE_OPTIONS)[number]): BrowseItem {
   return {
     key: `hardware-${h.slug}`,
-    href: "/hardware",
+    href: "/catalog",
     name: h.name,
     alt: hardwareAlt(h),
     meta: h.category,
@@ -158,7 +158,7 @@ function hardwareItem(h: (typeof HARDWARE_OPTIONS)[number]): BrowseItem {
 function accessoryItem(a: (typeof ACCESSORY_FAMILIES)[number]): BrowseItem {
   return {
     key: `accessory-${a.slug}`,
-    href: `/products/base?family=${a.slug}`,
+    href: "/catalog",
     name: a.name,
     alt: accessoryAlt(a),
     meta: "Accessory family",

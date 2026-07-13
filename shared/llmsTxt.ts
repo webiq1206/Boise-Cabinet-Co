@@ -44,17 +44,17 @@ Updated June 2026 for budgeting only; firm quotes require approved drawings.
 ## Catalog at a glance
 
 - 13 room categories: kitchen, bathroom, laundry, mudroom, home-office, entertainment, built-ins, pantry, closet, garage, outdoor, wet-bar, bedroom (/cabinets)
-- 1 collection: Custom, built-to-order (/collections/custom)
-- 6 door styles: Slab, 3 Piece, Modern Shaker, Thin Shaker, Alpha Shaker, Beta Shaker (/door-styles)
-- 299 cabinet finishes across matte, gloss, and woodgrain categories (/finishes)
-- 9 cabinet product categories (base, wall, tall, vanity, end-panel, filler, hood, floating-shelf, panel) with built-to-order configurations (/products)
-- Hardware options (/hardware), accessories (/accessories), construction standards (/construction), and a collection/feature comparison (/compare)
+- 1 collection: Custom, built-to-order (/catalog)
+- 6 door styles: Slab, 3 Piece, Modern Shaker, Thin Shaker, Alpha Shaker, Beta Shaker (/catalog)
+- 299 cabinet finishes across matte, gloss, and woodgrain categories (/catalog)
+- 9 cabinet product categories (base, wall, tall, vanity, end-panel, filler, hood, floating-shelf, panel) with built-to-order configurations (/catalog)
+- Hardware options and accessories (/accessories), construction standards (/construction), and a collection/feature comparison (/compare)
 - Full browsable catalog with downloadable PDF (/catalog)
 
 ## Tools
 
 - Project estimate planner: /estimate
-- Guided finish finder: /finder
+- Guided finish finder: /catalog
 
 ## Guides and content
 
