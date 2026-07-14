@@ -11,8 +11,13 @@ export const SITE = {
   name: "Boise Cabinet Co",
   domain: "boisecabinet.co",
   phone: "(208) 477-1169",
-  // TODO: confirm the exact street address + zip for citation NAP consistency.
-  address: { city: "Meridian", region: "ID", country: "US" },
+  address: {
+    street: "4031 W Wapoot St",
+    city: "Meridian",
+    region: "ID",
+    postalCode: "83646",
+    country: "US",
+  },
   serviceArea: [
     "Boise",
     "Meridian",

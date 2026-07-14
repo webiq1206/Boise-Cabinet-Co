@@ -91,6 +91,20 @@ export class AhrefsClient {
     return (data.refdomains ?? []).map(mapRefDomain);
   }
 
+  /** Every non-spam referring domain to a target (for our own gained/lost tracking). */
+  async allReferringDomains(target: string, limit = 200): Promise<string[]> {
+    const data = await this.get("/site-explorer/refdomains", {
+      target,
+      mode: "subdomains",
+      select: "domain",
+      where: JSON.stringify({ and: [{ field: "is_spam", is: ["eq", false] }] }),
+      order_by: "domain_rating:desc",
+      limit: String(limit),
+      output: "json",
+    });
+    return (data.refdomains ?? []).map((r: any) => (r.domain ?? "").toLowerCase()).filter(Boolean);
+  }
+
   /** Broken backlinks pointing at a competitor — replaceable-link opportunities. */
   async brokenBacklinks(target: string, limit = 50): Promise<CandidateMetrics[]> {
     const data = await this.get("/site-explorer/broken-backlinks", {

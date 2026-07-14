@@ -19,6 +19,7 @@
 import { AhrefsClient } from "./ahrefs";
 import { classify } from "./classify";
 import { COMPETITORS, SEED_TARGETS, SITE } from "./config";
+import { runMonitor } from "./monitor";
 import { draftOutreach } from "./outreach";
 import { scoreCandidate } from "./scoring";
 import { idFor, loadState, saveState, upsertOpportunity } from "./store";
@@ -103,6 +104,19 @@ async function runCycle(now: string): Promise<PipelineState> {
     };
     opp.outreachDraft = draftOutreach(opp);
     if (upsertOpportunity(state, opp, now) === "new") added++;
+  }
+
+  // 6. Monitoring: detect gained/lost links + authority velocity (automated).
+  try {
+    const mon = await runMonitor(client, state, now);
+    if (mon.gained.length) console.log(`  + won ${mon.gained.length}: ${mon.gained.slice(0, 8).join(", ")}`);
+    if (mon.lost.length) console.log(`  - lost ${mon.lost.length}: ${mon.lost.slice(0, 8).join(", ")}`);
+    console.log(
+      `  our authority velocity: DR ${mon.ourVelocity.drDelta >= 0 ? "+" : ""}${mon.ourVelocity.drDelta}, ` +
+        `refdomains ${mon.ourVelocity.refdomainsDelta >= 0 ? "+" : ""}${mon.ourVelocity.refdomainsDelta}`,
+    );
+  } catch (e) {
+    console.warn(`  ! monitor: ${(e as Error).message}`);
   }
 
   saveState(state, now);

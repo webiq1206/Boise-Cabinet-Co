@@ -70,6 +70,9 @@ export interface Opportunity {
   status: PipelineStatus;
   outreachDraft?: string;
   contact?: { email?: string; url?: string; form?: string };
+  /** Set once the sender/submitter has processed an approved item. */
+  dispatchedAt?: string;
+  dispatchMode?: "email" | "submission-prep";
   firstDiscovered: string; // ISO date (passed in; engine is time-pure)
   lastUpdated: string;
   history: { at: string; event: string }[];

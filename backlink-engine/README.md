@@ -42,11 +42,34 @@ npx tsx backlink-engine/cycle.ts
 # Print the current ranked pipeline without hitting the API:
 npx tsx backlink-engine/cycle.ts --report
 
+# Dispatch items a human approved in /admin/backlinks (dry-run by default):
+npx tsx backlink-engine/dispatch.ts
+
 # Seed/validate the pipeline offline from captured competitor data:
 npx tsx backlink-engine/backfill-seed.ts
 ```
 
-**Schedule on Replit:** add a Scheduled Deployment (or cron) running `npx tsx backlink-engine/cycle.ts` daily or weekly. Add `AHREFS_API_KEY` to Replit Secrets first (the in-session Ahrefs tools used to build this are not available to a deployed cron).
+**Environment variables (Replit Secrets):**
+
+| Var | Purpose |
+|---|---|
+| `AHREFS_API_KEY` | Required for live cycles + monitoring |
+| `RESEND_API_KEY` | Optional; email transport for approved outreach |
+| `BACKLINK_SEND_LIVE` | Set to `true` (with `RESEND_API_KEY`) to actually send; otherwise sender is dry-run |
+
+**Schedule on Replit:** two Scheduled Deployments — `npx tsx backlink-engine/cycle.ts` weekly (discovery + monitoring), and `npx tsx backlink-engine/dispatch.ts` daily (dispatches whatever you approved). Add `AHREFS_API_KEY` first (the in-session Ahrefs tools used to build this are not available to a deployed cron).
+
+## The full loop
+
+```
+cycle.ts (weekly)                     dashboard (/admin/backlinks)        dispatch.ts (daily)
+ discover + qualify + score  ─────▶  human reviews, one-tap approve  ──▶  send email / prep submission
+        ▲                                                                          │
+        │ monitor: gained/lost + velocity ◀────────────────────────── link goes live │
+        └──────────────────────────────────────────────────────────────────────────┘
+```
+
+Monitoring runs inside every cycle: it diffs our referring domains to auto-mark **won**/**lost**, and tracks our + competitors' DR/refdomain **velocity** from the snapshot history.
 
 ## Compliance guardrails (built in)
 
@@ -58,21 +81,27 @@ npx tsx backlink-engine/backfill-seed.ts
 
 ## Status & roadmap
 
-**Built and validated (this pass):**
+**Built and validated:**
 - Competitor discovery + authority benchmarking (live Ahrefs).
 - Qualification/scoring engine with denylists — validated on real data (17 qualified / 10 rejected).
 - Classification → category + automation + recommended play.
 - Personalized outreach drafting.
-- Persistent pipeline store + ranked reporting.
-- Seeded initial pipeline (`data/pipeline.json`).
+- Persistent pipeline store + ranked reporting + seeded pipeline.
+- **`/admin/backlinks` approval dashboard** — one-tap approve/reject, expandable drafts.
+- **Sender** (`sender.ts`) — approved outreach via Resend; dry-run unless `BACKLINK_SEND_LIVE=true`.
+- **Submitter** (`submitter.ts`) — consistent NAP submission payload + steps for directory/review items.
+- **Monitoring** (`monitor.ts`) — auto gained/lost detection + authority velocity, wired into every cycle.
+- **Dispatch** (`dispatch.ts`) — processes approved items (send / prep).
 
-**Next (needs a credential or a decision):**
-1. **`AHREFS_API_KEY` in Replit Secrets** → flip the live cron cycle on.
-2. **Approval dashboard** — a `/admin/backlinks` route to review the ranked pipeline and one-tap approve/reject drafts.
-3. **Sender** — wire approved `assisted` drafts to email send (from `SITE.outreachFromEmail`; a dedicated `outreach@` subdomain is recommended to protect primary-domain deliverability).
-4. **Auto-submitter** — structured directory/review-profile submission for `auto` items (credential-gated; respects each site's ToS, no CAPTCHA bypass).
-5. **Monitoring** — diff our referring domains each cycle to detect **gained/lost** links and competitor velocity; auto-refill the pipeline.
-6. **Enrichment** — pull each candidate's ranking keywords for sharper relevance (an extra Ahrefs call per domain).
+**Next (needs a credential or is a further enhancement):**
+1. **`AHREFS_API_KEY` in Replit Secrets** → flip the live cron on (your move).
+2. **`RESEND_API_KEY` + verified sending domain** → turn outreach send from dry-run to live.
+3. **Contact discovery** — find the right recipient email per opportunity (currently drafts have no address; an enrichment step).
+4. **Relevance enrichment** — pull each candidate's ranking keywords for sharper topical scoring.
+
+### Compliance line (unchanged and deliberate)
+
+`submitter.ts` never creates accounts, solves CAPTCHAs, or submits forms — it prepares the exact data and a human completes the listing. Editorial outreach is only sent after a human approves it in the dashboard. This is the boundary that keeps the whole system inside Google's guidelines.
 
 ## The DA 50+ reality
 
