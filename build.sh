@@ -1,12 +1,11 @@
 #!/bin/bash
 set -e
 npm install
-if [ -n "$DATABASE_URL" ] || [ -n "$PGDATABASE_URL" ] || [ -n "$REPLIT_DB_URL" ]; then
-  echo "Applying database schema..."
-  npm run db:push
-else
-  echo "No database URL configured — skipping db:push"
-fi
+# NOTE: the deploy build must never run `db:push` (or any schema mutation).
+# Replit's Publish flow diffs the dev database against production and applies
+# the schema changes itself, asking the user to confirm anything destructive.
+# A db:push here targets the production DATABASE_URL and hangs the whole
+# deploy whenever drizzle-kit raises its interactive data-loss prompt.
 # Remove any previous standalone tree so each deploy assembles a clean one. The
 # Replit workspace persists across deploys, so a stale standalone (including its
 # traced node_modules) can survive on disk and leave a missing dependency that

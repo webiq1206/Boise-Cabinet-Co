@@ -58,7 +58,7 @@ export function countH2Headings(html: string): number {
 export function countInternalLinks(html: string): number {
   return (
     html.match(
-      /href="\/(?:blog|guides|cabinets|collections|door-styles|finishes|hardware|accessories|construction|compare|design-studio|contact)[^"]*"/g,
+      /href="\/(?:blog|guides|cabinets|catalog|accessories|construction|compare|design-studio|contact)[^"]*"/g,
     ) ?? []
   ).length;
 }
