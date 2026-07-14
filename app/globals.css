@@ -115,6 +115,7 @@ html, body {
   /* Sage accent (brand palette #5D6561) - links hover, focus rings, pills; sparingly.
      Bone foreground so any accent-as-background element (pills/badges) stays legible. */
   --accent: 150 4% 38%;
+  --accent-text: 150 10% 60%;
   --accent-foreground: 30 20% 96%;
 
   --brass: 150 4% 38%;
@@ -219,6 +220,7 @@ html, body {
   --muted-foreground: 105 4% 61%;
 
   --accent: 150 4% 38%;
+  --accent-text: 150 10% 60%;
   --accent-foreground: 30 20% 96%;
 
   --brass: 150 4% 38%;
@@ -470,14 +472,16 @@ html, body {
   font-optical-sizing: auto;
 }
 
-/* Heading accent WORDS render in sage (--accent, #5D6561) per client direction:
-   the decorative italic word carries the brand accent while the rest of each
-   heading stays bone. Sage sits ~2.8:1 on charcoal (below AA for body text), which
-   is acceptable here because the accent word is large display-size emphasis and
-   never the sole carrier of a heading's meaning. This unlayered two-class selector
-   (0,2,0) outranks the layered `.text-accent` utility so the tint is authoritative. */
+/* Accent TEXT uses --accent-text, a lighter sage tuned to meet WCAG AA contrast
+   on the charcoal grounds (~5.5:1), while the deeper --accent (#5D6561) stays
+   for decorative borders/fills. Both the heading accent word and any `.text-accent`
+   text (eyebrows, chips, links) resolve to the accessible sage. These unlayered
+   rules outrank the layered Tailwind `.text-accent` utility. */
+.text-accent {
+  color: hsl(var(--accent-text));
+}
 .brc-accent.text-accent {
-  color: hsl(var(--accent));
+  color: hsl(var(--accent-text));
 }
 
 /* ─── Decorative display numerals (Fraunces: stats, prices, step markers) ─── */

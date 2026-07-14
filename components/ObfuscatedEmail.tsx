@@ -28,7 +28,7 @@ export function ObfuscatedEmail({
       type="button"
       onClick={handleClick}
       className={className}
-      aria-label="Send us an email"
+      aria-label={`${label} at ${user}@${domain}`}
     >
       {showIcon && <Mail className={iconClassName} />}
       <span>{label}</span>

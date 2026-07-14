@@ -231,6 +231,9 @@ export function Navigation() {
           mobileOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none",
         )}
         aria-hidden={!mobileOpen}
+        // When closed, `inert` removes the menu's links/buttons from the tab
+        // order and the a11y tree, fixing aria-hidden-focus without unmounting.
+        {...({ inert: mobileOpen ? undefined : "" } as Record<string, unknown>)}
       >
         <div className="flex items-center justify-between px-6 h-[60px] border-b border-border/40 shrink-0">
           <Logo />
