@@ -31,7 +31,6 @@ import {
 
 // PDF.js types are loaded dynamically (client-only), so we keep these loose.
 type PdfDoc = any;
-type PdfjsModule = typeof import("pdfjs-dist");
 
 interface CatalogFlipbookProps {
   /** Path to the catalog PDF, served from /public. */
@@ -58,7 +57,13 @@ function usePdfDocument(url: string) {
     setStatus("loading");
     (async () => {
       try {
-        const pdfjs: PdfjsModule = await import("pdfjs-dist");
+        // Use the pdf.js LEGACY build: the modern build requires very recent
+        // browser features (e.g. Promise.withResolvers, iOS/Safari 17.4+) and
+        // throws on older iPhones/Safari, leaving visitors with no catalog.
+        // The legacy build ships the needed polyfills and supports much older
+        // Safari/Chrome/Firefox. The worker in /public is the matching legacy
+        // worker (copied from pdfjs-dist/legacy/build by build.sh on deploy).
+        const pdfjs: any = await import("pdfjs-dist/legacy/build/pdf.mjs");
         pdfjs.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.mjs";
         const task = pdfjs.getDocument({ url, cMapPacked: true });
         doc = await task.promise;
@@ -204,6 +209,7 @@ export function CatalogFlipbook({ pdfUrl, downloadUrl }: CatalogFlipbookProps) {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchMsg, setSearchMsg] = useState<string | null>(null);
   const [FlipBook, setFlipBook] = useState<any>(null);
+  const [flipBookFailed, setFlipBookFailed] = useState(false);
   const [containerSize, setContainerSize] = useState({ w: 0, h: 0 });
   const [isPortrait, setIsPortrait] = useState(false);
 
@@ -213,12 +219,21 @@ export function CatalogFlipbook({ pdfUrl, downloadUrl }: CatalogFlipbookProps) {
   const pageRefs = useRef<Record<number, HTMLDivElement | null>>({});
   const pinchRef = useRef<{ startDist: number; startZoom: number } | null>(null);
 
-  // Load react-pageflip client-side only (avoids SSR "document" access).
+  // Load react-pageflip client-side only (avoids SSR "document" access). If it
+  // fails to load (old browser, network hiccup), fall back to scroll mode
+  // instead of blocking the whole viewer.
   useEffect(() => {
     let alive = true;
-    import("react-pageflip").then((m) => {
-      if (alive) setFlipBook(() => m.default);
-    });
+    import("react-pageflip")
+      .then((m) => {
+        if (alive) setFlipBook(() => m.default);
+      })
+      .catch(() => {
+        if (alive) {
+          setFlipBookFailed(true);
+          setMode("scroll");
+        }
+      });
     return () => {
       alive = false;
     };
@@ -431,30 +446,49 @@ export function CatalogFlipbook({ pdfUrl, downloadUrl }: CatalogFlipbookProps) {
   );
 
   /* ---- render states ---- */
-  if (status === "loading" || !FlipBook) {
+  // Error takes priority over loading so a failed PDF init always reaches the
+  // native fallback, even while the flip library is still (or never) loading.
+  if (status === "error" || (status === "ready" && !pdf)) {
+    // Graceful degradation: if pdf.js can't initialize in this browser, fall
+    // back to the browser's native PDF rendering in an iframe (works in all
+    // desktop browsers and shows at least the document on mobile), with the
+    // download link alongside — never a dead-end error box.
     return (
-      <div className="flex min-h-[420px] flex-col items-center justify-center gap-3 rounded-sm border border-border bg-card">
-        <Loader2 className="h-6 w-6 animate-spin text-accent" />
-        <p className="text-sm text-muted-foreground">Loading the catalog…</p>
+      <div className="overflow-hidden rounded-sm border border-border bg-card">
+        <iframe
+          src={`${pdfUrl}#view=FitH`}
+          title="Boise Cabinet Co catalog (PDF)"
+          className="block h-[70vh] min-h-[420px] w-full border-0 bg-white"
+          data-testid="catalog-pdf-fallback"
+        />
+        <div className="flex flex-col items-center gap-3 border-t border-border p-4 text-center">
+          <p className="text-sm text-muted-foreground">
+            Your browser is showing the catalog with its built-in PDF viewer. For the full
+            experience, you can also download the catalog.
+          </p>
+          {downloadUrl && (
+            <a
+              href={downloadUrl}
+              download
+              className="inline-flex items-center gap-2 rounded-sm bg-primary px-4 py-2 text-sm text-inverse-foreground"
+              data-testid="link-download-catalog-fallback"
+            >
+              <Download className="h-4 w-4" /> Download the catalog (PDF)
+            </a>
+          )}
+        </div>
       </div>
     );
   }
 
-  if (status === "error" || !pdf) {
+  // Still loading the PDF, or waiting on the flip library for flip mode. If the
+  // flip library failed, mode has been switched to "scroll" and we render the
+  // viewer without it.
+  if (status === "loading" || (mode === "flip" && !FlipBook)) {
     return (
-      <div className="flex min-h-[320px] flex-col items-center justify-center gap-4 rounded-sm border border-border bg-card p-8 text-center">
-        <p className="text-sm text-muted-foreground">
-          The interactive catalog could not be loaded in your browser.
-        </p>
-        {downloadUrl && (
-          <a
-            href={downloadUrl}
-            download
-            className="inline-flex items-center gap-2 rounded-sm bg-primary px-4 py-2 text-sm text-inverse-foreground"
-          >
-            <Download className="h-4 w-4" /> Download the catalog (PDF)
-          </a>
-        )}
+      <div className="flex min-h-[420px] flex-col items-center justify-center gap-3 rounded-sm border border-border bg-card">
+        <Loader2 className="h-6 w-6 animate-spin text-accent" />
+        <p className="text-sm text-muted-foreground">Loading the catalog…</p>
       </div>
     );
   }
@@ -467,16 +501,18 @@ export function CatalogFlipbook({ pdfUrl, downloadUrl }: CatalogFlipbookProps) {
       <div className="flex flex-wrap items-center gap-1.5 border-b border-white/10 bg-[#161a18] px-2 py-2 text-inverse-foreground sm:gap-2 sm:px-3">
         {/* View mode toggle */}
         <div className="flex overflow-hidden rounded-sm border border-white/15">
-          <button
-            type="button"
-            onClick={() => setMode("flip")}
-            aria-pressed={mode === "flip"}
-            className={`flex items-center gap-1.5 px-2.5 py-1.5 text-xs transition-colors ${
-              mode === "flip" ? "bg-accent text-white" : "text-inverse-muted hover:bg-white/5"
-            }`}
-          >
-            <BookOpen className="h-3.5 w-3.5" /> <span className="hidden sm:inline">Flip</span>
-          </button>
+          {!flipBookFailed && (
+            <button
+              type="button"
+              onClick={() => setMode("flip")}
+              aria-pressed={mode === "flip"}
+              className={`flex items-center gap-1.5 px-2.5 py-1.5 text-xs transition-colors ${
+                mode === "flip" ? "bg-accent text-white" : "text-inverse-muted hover:bg-white/5"
+              }`}
+            >
+              <BookOpen className="h-3.5 w-3.5" /> <span className="hidden sm:inline">Flip</span>
+            </button>
+          )}
           <button
             type="button"
             onClick={() => setMode("scroll")}

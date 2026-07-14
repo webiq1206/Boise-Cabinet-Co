@@ -47,7 +47,7 @@ export default function CatalogPage() {
         <Section spacing="sm" className="pt-4 md:pt-6">
           <div className="container px-4">
             <Breadcrumbs items={[{ name: "Home", href: "/" }, { name: "Catalog" }]} />
-            <div className="mt-6 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+            <div className="mt-6">
               <PageHeader
                 align="left"
                 eyebrow="Product catalog"
@@ -67,19 +67,11 @@ export default function CatalogPage() {
                   </span>
                 }
               />
-              <div className="shrink-0">
-                <Button variant="brandOutline" size="lg" asChild>
-                  <a href={CATALOG_PDF_PATH} download data-testid="download-catalog-pdf">
-                    <Download className="h-4 w-4" />
-                    Download PDF
-                  </a>
-                </Button>
-              </div>
             </div>
           </div>
         </Section>
 
-        {/* Interactive, embedded catalog experience */}
+        {/* Interactive, embedded catalog experience (above the download CTA) */}
         <Section spacing="sm" className="pt-0">
           <div className="container px-4">
             <CatalogFlipbook pdfUrl={CATALOG_PDF_PATH} downloadUrl={CATALOG_PDF_PATH} />
@@ -87,6 +79,14 @@ export default function CatalogPage() {
               Use the toolbar to flip pages, scroll continuously, zoom, search, view thumbnails,
               or go fullscreen. On touch devices, swipe to turn pages and pinch to zoom.
             </p>
+            <div className="mt-6 flex justify-center">
+              <Button variant="brandOutline" size="lg" asChild>
+                <a href={CATALOG_PDF_PATH} download data-testid="download-catalog-pdf">
+                  <Download className="h-4 w-4" />
+                  Download PDF
+                </a>
+              </Button>
+            </div>
           </div>
         </Section>
 

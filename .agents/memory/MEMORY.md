@@ -28,3 +28,4 @@
 - [Email links to non-existent pages](email-links-missing-pages.md) — several email CTAs point to pages that don't exist (contractor portal, quote-status, /consultation); fix 404s via next.config.js redirects (repairs already-sent emails too), not by editing send code/seed.
 - [Catalog consolidation link hygiene](catalog-consolidation-links.md) — 6 routes incl. /hardware 301 to /catalog; verify no internal 3XX links by sweeping RENDERED HTML, not just source grep; audit:links follows redirects so it's not proof.
 - [Deploy build must never run db:push](deploy-dbpush-hang.md) — db:push in build.sh hits drizzle's interactive data-loss prompt against PROD and hangs deploys; retire columns by dropping in dev then re-publish.
+- [pdf.js must use the legacy build](pdfjs-legacy-ios.md) — modern pdfjs-dist needs iOS 17.4+ (Promise.withResolvers); import legacy build + serve legacy worker (build.sh syncs it) or the catalog dies on iPhones.

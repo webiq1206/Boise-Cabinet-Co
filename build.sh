@@ -1,6 +1,11 @@
 #!/bin/bash
 set -e
 npm install
+# Keep the pdf.js worker served from /public in sync with the installed
+# pdfjs-dist version. IMPORTANT: this must be the LEGACY build — the modern
+# worker/library require features like Promise.withResolvers (iOS 17.4+) and
+# break the interactive catalog on older iPhones/Safari.
+cp node_modules/pdfjs-dist/legacy/build/pdf.worker.min.mjs public/pdf.worker.min.mjs
 # NOTE: the deploy build must never run `db:push` (or any schema mutation).
 # Replit's Publish flow diffs the dev database against production and applies
 # the schema changes itself, asking the user to confirm anything destructive.
