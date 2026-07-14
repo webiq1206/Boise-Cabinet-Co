@@ -38,6 +38,11 @@ export interface PageMetaInput {
   path: string;
   /** When true, emit noindex,follow for tool / utility / B2B pages. */
   noindex?: boolean;
+  /**
+   * Page-specific Open Graph image (path under /public). Use JPEG/PNG —
+   * iMessage and some crawlers do not render WebP link previews.
+   */
+  ogImage?: { url: string; width: number; height: number; alt: string };
 }
 
 export function buildCanonical(path: string): string {
@@ -111,6 +116,8 @@ export function buildPageMetadata(input: PageMetaInput): Metadata {
   const resolvedTitle: Metadata['title'] =
     input.kind === 'home' ? { absolute: title } : title;
 
+  const ogImage = input.ogImage ?? OG_DEFAULT_IMAGE;
+
   return {
     title: resolvedTitle,
     description,
@@ -125,13 +132,13 @@ export function buildPageMetadata(input: PageMetaInput): Metadata {
       type: 'website',
       siteName: SITE_CONFIG.name,
       locale: 'en_US',
-      images: [OG_DEFAULT_IMAGE],
+      images: [ogImage],
     },
     twitter: {
       card: 'summary_large_image',
       title,
       description,
-      images: [OG_DEFAULT_IMAGE.url],
+      images: [ogImage.url],
     },
   };
 }

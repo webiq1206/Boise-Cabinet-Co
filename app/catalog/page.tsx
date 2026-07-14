@@ -23,6 +23,16 @@ export const metadata = catalogMetadata(
   catalogDescription(
     `Browse the complete {company} catalog online: ${DOOR_STYLES.length} door styles, ${FINISHES.length} finishes, ${CABINET_PRODUCTS.length} cabinet configurations, hardware, and accessories. Flip through the interactive catalog right on the page - no download required.`,
   ),
+  {
+    // First page of the catalog, cropped to OG dimensions. JPEG on purpose:
+    // iMessage and some crawlers don't render WebP link previews.
+    ogImage: {
+      url: "/images/marketing/og-catalog.jpg",
+      width: 1200,
+      height: 630,
+      alt: "Boise Cabinet Co full cabinet catalog cover",
+    },
+  },
 );
 
 const CATALOG_PDF_PATH = "/downloads/boise-cabinet-catalog.pdf";

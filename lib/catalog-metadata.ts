@@ -7,7 +7,7 @@ export function catalogMetadata(
   path: string,
   title: string,
   description: string,
-  opts?: { noindex?: boolean },
+  opts?: { noindex?: boolean; ogImage?: { url: string; width: number; height: number; alt: string } },
 ): Metadata {
   return buildPageMetadata({
     kind: "about",
@@ -18,6 +18,7 @@ export function catalogMetadata(
       SITE_CONFIG.name,
     ),
     noindex: opts?.noindex,
+    ogImage: opts?.ogImage,
   });
 }
 

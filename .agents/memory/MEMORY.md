@@ -29,3 +29,4 @@
 - [Catalog consolidation link hygiene](catalog-consolidation-links.md) — 6 routes incl. /hardware 301 to /catalog; verify no internal 3XX links by sweeping RENDERED HTML, not just source grep; audit:links follows redirects so it's not proof.
 - [Deploy build must never run db:push](deploy-dbpush-hang.md) — db:push in build.sh hits drizzle's interactive data-loss prompt against PROD and hangs deploys; retire columns by dropping in dev then re-publish.
 - [pdf.js must use the legacy build](pdfjs-legacy-ios.md) — modern pdfjs-dist needs iOS 17.4+ (Promise.withResolvers); import legacy build + serve legacy worker (build.sh syncs it) or the catalog dies on iPhones.
+- [OG link-preview images must be JPEG/PNG](og-images-webp-imessage.md) — iMessage won't render WebP og:image (blank card); site default is still WebP, page-specific overrides go through the metadata builder's ogImage option.
