@@ -2609,7 +2609,7 @@ export const PREMIUM_POSTS: BlogPostData[] = [
     content: homeOfficeContent,
     author: AUTHOR,
     category: 'Built-Ins',
-    hubSlug: 'built-ins',
+    hubSlug: 'built-ins-storage',
     tags: ['built-ins', 'home office', 'storage', 'desk', 'organization'],
     publishedAt: '2026-07-11',
     faqs: [
@@ -2650,7 +2650,7 @@ export const PREMIUM_POSTS: BlogPostData[] = [
     content: laundryRoomContent,
     author: AUTHOR,
     category: 'Built-Ins',
-    hubSlug: 'built-ins',
+    hubSlug: 'built-ins-storage',
     tags: ['laundry', 'built-ins', 'storage', 'organization', 'cabinets'],
     publishedAt: '2026-07-11',
     faqs: [
@@ -2774,7 +2774,7 @@ export const PREMIUM_POSTS: BlogPostData[] = [
     content: mudroomContent,
     author: AUTHOR,
     category: 'Built-Ins',
-    hubSlug: 'built-ins',
+    hubSlug: 'built-ins-storage',
     tags: ['mudroom', 'built-ins', 'lockers', 'storage', 'organization'],
     publishedAt: '2026-07-11',
     faqs: [

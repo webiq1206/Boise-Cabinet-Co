@@ -8,7 +8,11 @@ import { MarketingCard } from '@/components/marketing/MarketingCard';
 import { getBlogThumbnail, getBlogImageAlt } from '@/shared/blogImages';
 import { CONTENT_HUBS, guidePath } from '@/shared/contentHubs';
 import { GUIDE_PAGES, type GuidePageData } from '@/shared/guideContent';
-import { generateBreadcrumbSchema, generateWebPageSchema } from '@/lib/schema';
+import {
+  generateBreadcrumbSchema,
+  generateCollectionPageSchema,
+  generateWebPageSchema,
+} from '@/lib/schema';
 import {
   countH2Headings,
   countSubstantiveWords,
@@ -60,6 +64,28 @@ export default function GuidesIndexPage() {
     { name: 'Guides', url: '/guides' },
   ]);
 
+  const pillarCollectionSchema = generateCollectionPageSchema({
+    title: 'Cabinet Design Pillar Guides',
+    description:
+      'In-depth pillar guides covering kitchen and bath cabinetry, built-ins, costs, company selection, and project planning for Treasure Valley homeowners.',
+    url: '/guides',
+    items: pillarGuides.map((g) => ({
+      name: g.title,
+      url: guidePath(g.slug),
+    })),
+  });
+
+  const locationCollectionSchema = generateCollectionPageSchema({
+    title: 'Treasure Valley City & Neighborhood Cabinet Guides',
+    description:
+      'Local cabinet design guides for Boise, Meridian, Eagle, Nampa, and communities across Ada and Canyon County.',
+    url: '/guides',
+    items: locationGuides.map((g) => ({
+      name: g.title,
+      url: guidePath(g.slug),
+    })),
+  });
+
   return (
     <>
       <script
@@ -69,6 +95,14 @@ export default function GuidesIndexPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(pillarCollectionSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(locationCollectionSchema) }}
       />
       <Section spacing="lg" className="pt-28 md:pt-32">
         <div className="container px-4 max-w-4xl mx-auto text-center mb-12">
