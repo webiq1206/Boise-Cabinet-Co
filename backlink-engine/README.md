@@ -29,6 +29,10 @@ cycle.ts (orchestrator, runs on a schedule)
   ├─ outreach.ts    per-category personalized draft (queued, never auto-sent)
   ├─ store.ts       JSON pipeline (data/pipeline.json); never re-pitch won/rejected
   └─ types.ts       shared contracts
+
+data/pipeline.json is generated runtime state and is gitignored, so the live
+pipeline survives every `git reset --hard` / republish. A fresh environment
+starts empty; run cycle.ts (or backfill-seed.ts) to populate it.
 ```
 
 **Scoring** (quality over quantity): relevance is weighted highest (0.40), then DR (0.30, log-scaled), audience traffic (0.20), link quality (0.10). Hard disqualifiers run first: Ahrefs spam flag, platform/CDN footprint, known link farm, site-wide/footer link pattern, off-topic (for categories where topical fit matters), sub-floor DR, and zombie (DR but no traffic). "Functional" categories (directories, review platforms, associations, curated lists, local news) bypass the keyword-relevance gate — a local business belongs in them regardless of the domain's own keywords.
