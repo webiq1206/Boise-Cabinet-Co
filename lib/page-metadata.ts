@@ -11,9 +11,9 @@ import {
 } from './seo';
 
 const OG_DEFAULT_IMAGE = {
-  url: '/images/marketing/og-default.webp',
-  width: 1792,
-  height: 1024,
+  url: '/images/marketing/og-default.png',
+  width: 1200,
+  height: 630,
   alt: `${SITE_CONFIG.name} custom cabinets`,
 };
 
