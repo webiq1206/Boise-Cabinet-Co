@@ -42,6 +42,9 @@ npx tsx backlink-engine/cycle.ts
 # Print the current ranked pipeline without hitting the API:
 npx tsx backlink-engine/cycle.ts --report
 
+# Find recipient emails for outreach opportunities (polite, capped):
+npx tsx backlink-engine/enrich-contacts.ts
+
 # Dispatch items a human approved in /admin/backlinks (dry-run by default):
 npx tsx backlink-engine/dispatch.ts
 
@@ -92,12 +95,12 @@ Monitoring runs inside every cycle: it diffs our referring domains to auto-mark 
 - **Submitter** (`submitter.ts`) — consistent NAP submission payload + steps for directory/review items.
 - **Monitoring** (`monitor.ts`) — auto gained/lost detection + authority velocity, wired into every cycle.
 - **Dispatch** (`dispatch.ts`) — processes approved items (send / prep).
+- **Contact discovery** (`contacts.ts` + `enrich-contacts.ts`) — scrapes target contact/about pages for the best recipient email (role-based, same-domain, placeholder-filtered), with an info@ fallback.
 
 **Next (needs a credential or is a further enhancement):**
 1. **`AHREFS_API_KEY` in Replit Secrets** → flip the live cron on (your move).
 2. **`RESEND_API_KEY` + verified sending domain** → turn outreach send from dry-run to live.
-3. **Contact discovery** — find the right recipient email per opportunity (currently drafts have no address; an enrichment step).
-4. **Relevance enrichment** — pull each candidate's ranking keywords for sharper topical scoring.
+3. **Relevance enrichment** — pull each candidate's ranking keywords for sharper topical scoring.
 
 ### Compliance line (unchanged and deliberate)
 

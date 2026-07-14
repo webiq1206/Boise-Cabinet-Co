@@ -93,6 +93,7 @@ export function PipelineBoard({ opportunities }: { opportunities: Opportunity[] 
                 <p className="text-sm text-muted-foreground mt-1">{o.recommendedPlay}</p>
                 <p className="text-[11px] text-muted-foreground/70 mt-1">
                   DR {o.metrics.domainRating} · ~{o.metrics.trafficDomain.toLocaleString()} visits/mo · from {o.sources.join(", ")}
+                  {o.contact?.email && <span className="text-accent"> · ✉ {o.contact.email}</span>}
                 </p>
 
                 {o.outreachDraft && (
