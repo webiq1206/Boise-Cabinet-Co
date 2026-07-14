@@ -13,7 +13,9 @@ import path from 'path';
 import satori from 'satori';
 import sharp from 'sharp';
 import { BLOG_POSTS } from '@/shared/blogContent';
-import { getBlogHeroImage } from '@/shared/blogImages';
+import { GUIDE_PAGES } from '@/shared/guideContent';
+import { CONTENT_HUBS } from '@/shared/contentHubs';
+import { getBlogHeroImage, getHubHeroImage } from '@/shared/blogImages';
 
 const root = process.cwd();
 const ogAssets = path.join(root, 'app', 'blog', '[slug]', '_og');
@@ -31,8 +33,8 @@ function h(type: string, props: Record<string, unknown>, ...children: unknown[])
   return { type, props: { ...props, children: c.length === 0 ? undefined : c.length === 1 ? c[0] : c } };
 }
 
-async function backgroundDataUri(slug: string): Promise<string | null> {
-  const rel = getBlogHeroImage(slug).replace(/^\//, '');
+async function backgroundDataUri(heroPath: string): Promise<string | null> {
+  const rel = heroPath.replace(/^\//, '');
   for (const file of [path.join(root, 'public', rel), DEFAULT_BG]) {
     if (fs.existsSync(file)) {
       const buf = await sharp(file).resize(1200, 630, { fit: 'cover' }).jpeg({ quality: 84 }).toBuffer();
@@ -98,17 +100,43 @@ async function renderCard(title: string, bg: string | null): Promise<Buffer> {
   return sharp(Buffer.from(svg)).jpeg({ quality: 82, mozjpeg: true }).toBuffer();
 }
 
+interface OgItem {
+  slug: string;
+  title: string;
+  heroPath: string;
+}
+
 async function main() {
   const force = process.argv.includes('--force');
   const requested = process.argv.slice(2).filter((a) => !a.startsWith('-'));
-  const posts = requested.length
-    ? BLOG_POSTS.filter((p) => requested.includes(p.slug))
-    : BLOG_POSTS;
+
+  // Collect all items: blog posts + guide pages + hub category pages
+  const allItems: OgItem[] = [
+    ...BLOG_POSTS.map((p) => ({
+      slug: p.slug,
+      title: p.title,
+      heroPath: getBlogHeroImage(p.slug, p.heroImage),
+    })),
+    ...GUIDE_PAGES.map((g) => ({
+      slug: g.slug,
+      title: g.seoTitle || g.title,
+      heroPath: getBlogHeroImage(g.slug, g.heroImage),
+    })),
+    ...CONTENT_HUBS.map((h) => ({
+      slug: h.hubSlug,
+      title: `${h.title} Articles`,
+      heroPath: getHubHeroImage(h.hubSlug),
+    })),
+  ];
+
+  const items = requested.length
+    ? allItems.filter((item) => requested.includes(item.slug))
+    : allItems;
 
   let made = 0;
   let upToDate = 0;
-  for (const post of posts) {
-    const out = path.join(outDir, `${post.slug}.jpg`);
+  for (const item of items) {
+    const out = path.join(outDir, `${item.slug}.jpg`);
     // In the default (build) pass, only create cards that are missing so builds
     // stay fast and committed images don't churn. Use --force (or name a slug) to
     // regenerate, e.g. after a title change or once a post's AI photo exists.
@@ -116,13 +144,13 @@ async function main() {
       upToDate++;
       continue;
     }
-    const bg = await backgroundDataUri(post.slug);
-    const jpg = await renderCard(post.title, bg);
+    const bg = await backgroundDataUri(item.heroPath);
+    const jpg = await renderCard(item.title, bg);
     fs.writeFileSync(out, jpg);
     made++;
-    console.log(`✓ og: ${post.slug} (${(jpg.length / 1024).toFixed(0)}kb)${bg ? '' : ' [charcoal fallback]'}`);
+    console.log(`✓ og: ${item.slug} (${(jpg.length / 1024).toFixed(0)}kb)${bg ? '' : ' [charcoal fallback]'}`);
   }
-  console.log(`OG images: ${made} generated, ${upToDate} up-to-date → public/images/og/ (${BLOG_POSTS.length} posts total)`);
+  console.log(`OG images: ${made} generated, ${upToDate} up-to-date → public/images/og/ (${allItems.length} total: ${BLOG_POSTS.length} posts + ${GUIDE_PAGES.length} guides + ${CONTENT_HUBS.length} hubs)`);
 }
 
 main().catch((e) => {
