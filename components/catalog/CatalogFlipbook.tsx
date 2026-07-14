@@ -101,44 +101,60 @@ function PdfPageCanvas({
   pdf,
   pageNumber,
   renderWidth,
-  eager = false,
+  active,
   className,
   onClick,
 }: {
   pdf: PdfDoc;
   pageNumber: number;
   renderWidth: number; // device-pixel width to rasterize at (crispness)
-  eager?: boolean;
+  /**
+   * Canvas-memory virtualization control.
+   * - boolean: parent decides when this page holds a live canvas (flip mode —
+   *   IntersectionObserver is useless there because react-pageflip stacks all
+   *   pages in the same spot). When it flips to false the canvas is freed.
+   * - undefined: visibility is tracked with an IntersectionObserver (scroll
+   *   mode / thumbnails); canvases far outside the viewport are freed too.
+   * iOS Safari has a hard total-canvas-memory budget and silently blanks
+   * canvases when it is exceeded, so far-away pages MUST release memory.
+   */
+  active?: boolean;
   className?: string;
   onClick?: () => void;
 }) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const wrapRef = useRef<HTMLDivElement | null>(null);
-  const [visible, setVisible] = useState(eager);
+  const [ioVisible, setIoVisible] = useState(false);
   const renderedWidthRef = useRef(0);
+  const shouldRender = active !== undefined ? active : ioVisible;
 
   useEffect(() => {
-    if (eager || visible) return;
+    if (active !== undefined) return; // parent-controlled; no observer needed
     const el = wrapRef.current;
     if (!el) return;
     const io = new IntersectionObserver(
       (entries) => {
-        for (const e of entries) {
-          if (e.isIntersecting) {
-            setVisible(true);
-            io.disconnect();
-            break;
-          }
-        }
+        for (const e of entries) setIoVisible(e.isIntersecting);
       },
       { rootMargin: "1200px 0px" },
     );
     io.observe(el);
     return () => io.disconnect();
-  }, [eager, visible]);
+  }, [active]);
 
   useEffect(() => {
-    if (!visible || !pdf) return;
+    if (!pdf) return;
+    if (!shouldRender) {
+      // Free the canvas memory (setting 0x0 releases the backing store) so the
+      // total stays under mobile Safari's canvas budget; re-renders on return.
+      const canvas = canvasRef.current;
+      if (canvas && (canvas.width > 0 || canvas.height > 0)) {
+        canvas.width = 0;
+        canvas.height = 0;
+      }
+      renderedWidthRef.current = 0;
+      return;
+    }
     // Skip re-render if we already rendered at an equal-or-higher resolution.
     if (renderedWidthRef.current >= renderWidth) return;
     let cancelled = false;
@@ -176,7 +192,7 @@ function PdfPageCanvas({
         }
       }
     };
-  }, [visible, pdf, pageNumber, renderWidth]);
+  }, [shouldRender, pdf, pageNumber, renderWidth]);
 
   return (
     <div
@@ -271,11 +287,16 @@ export function CatalogFlipbook({ pdfUrl, downloadUrl }: CatalogFlipbookProps) {
     return { maxWidth, maxHeight };
   }, [containerSize.h]);
 
-  // Fixed, generous device-pixel render width so pages stay crisp at any stretch
-  // size and under zoom, without re-rendering on every resize.
+  // Device-pixel render width: generous on desktop so pages stay crisp at any
+  // stretch size and under zoom, but capped on small screens — a phone page
+  // displays at <=~420 CSS px, so rasterizing at 1500+ px only burns Safari's
+  // limited canvas-memory budget without any visible gain.
   const flipRenderWidth = useMemo(() => {
-    const dpr = typeof window !== "undefined" ? Math.min(window.devicePixelRatio || 1, 2) : 1.5;
-    return Math.min(1600, Math.round(760 * dpr));
+    if (typeof window === "undefined") return 1140;
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const small = window.innerWidth < 640;
+    const cssWidth = small ? Math.min(520, window.innerWidth) : 760;
+    return Math.min(small ? 1100 : 1600, Math.round(cssWidth * dpr));
   }, []);
 
   const scrollRenderWidth = useMemo(() => {
@@ -700,7 +721,7 @@ export function CatalogFlipbook({ pdfUrl, downloadUrl }: CatalogFlipbookProps) {
                         pdf={pdf}
                         pageNumber={n}
                         renderWidth={flipRenderWidth}
-                        eager={Math.abs(n - page) <= 3}
+                        active={Math.abs(n - page) <= 4}
                       />
                     </div>
                   ))}
