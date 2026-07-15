@@ -44,8 +44,8 @@ export function ValueOverheadSection() {
               skilled craftsmen, better materials, and workmanship we stand behind.
             </p>
             <p className="text-base md:text-lg leading-relaxed text-inverse-foreground max-w-2xl mx-auto mb-10">
-              Every dollar goes into the work, not our overhead. Pricing you can plan around, and
-              cabinetry built to hold up, whether it is your home or your client&apos;s.
+              Every dollar goes into the work, not our overhead. More of your budget lands in the
+              finished space, with nothing padded in for a showroom you will never use.
             </p>
           </Reveal>
 

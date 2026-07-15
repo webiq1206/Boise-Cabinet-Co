@@ -84,7 +84,7 @@ export const DIFFERENTIATORS: Differentiator[] = [
   {
     title: "Lean overhead, so your budget goes into the build",
     contrast: "Instead of a vendor's big offices, fancy showrooms, and truck fleets getting built into the price and passed down the line,",
-    body: "you get cabinetry without the retail markup. We keep overhead lean and put the money where it shows up in the finished space: skilled craftsmen, better materials, and workmanship you can stand behind on the job. Pricing you can plan around, on every project.",
+    body: "you get cabinetry without the retail markup. We keep overhead lean and put the money where it shows up in the finished space: skilled craftsmen, better materials, and workmanship we stand behind. A price you can count on, on every project.",
   },
 ];
 
