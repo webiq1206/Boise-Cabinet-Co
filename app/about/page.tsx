@@ -269,6 +269,28 @@ export default function AboutPage() {
           </div>
         </Section>
 
+        <Section divider>
+          <div className="container px-4 max-w-3xl">
+            <SectionHeader
+              eyebrow="Where your money goes"
+              title={
+                <>
+                  Don&apos;t pay for a contractor&apos;s{' '}
+                  <em className="brc-accent text-accent">overhead</em>
+                </>
+              }
+              description="Big offices, fancy showrooms, fleets of trucks, and layers of management do not absorb themselves. They get built into your project."
+              className="mb-6"
+            />
+            <p className="text-base md:text-lg leading-relaxed text-muted-foreground">
+              We built Boise Cabinet Co differently. Instead of expensive overhead, we invest where
+              it shows up in your home: skilled craftsmen, better materials, and workmanship we stand
+              behind. Every dollar you invest should go toward your project, not our bills. That is
+              how you get more home for what you spend.
+            </p>
+          </div>
+        </Section>
+
         <WhyChooseUsSection />
 
         {/* ─── Team ─── */}

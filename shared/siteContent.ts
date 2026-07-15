@@ -33,7 +33,7 @@ export interface Differentiator {
 }
 
 /** Top differentiators for homepage; full list on About. */
-export const HOMEPAGE_DIFFERENTIATOR_INDICES = [0, 1, 2, 3, 6] as const;
+export const HOMEPAGE_DIFFERENTIATOR_INDICES = [9, 0, 1, 2, 3] as const;
 
 export const DIFFERENTIATORS: Differentiator[] = [
   {
@@ -80,6 +80,11 @@ export const DIFFERENTIATORS: Differentiator[] = [
     title: "Craftsmanship you review before we close out",
     contrast: "Rather than rushing to the next job before you have a chance to inspect the work,",
     body: "we walk every finished detail with you at a final walkthrough. Finish selections are documented in your written scope before construction so what we build matches what you approved.",
+  },
+  {
+    title: "Your budget builds your home, not our overhead",
+    contrast: "Instead of paying for big offices, fancy showrooms, truck fleets, and layers of management that get built into your quote,",
+    body: "you pay for your project. We keep overhead lean and put your money where it shows up in your home: skilled craftsmen, better materials, and workmanship we stand behind. Every dollar should go toward your cabinets, not our bills.",
   },
 ];
 

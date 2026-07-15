@@ -8,6 +8,7 @@ import { RoomCategoriesGrid } from "@/components/sections/RoomCategoriesGrid";
 import { ProcessSection } from "@/components/sections/ProcessSection";
 import { FeaturedProjectSection } from "@/components/sections/FeaturedProjectSection";
 import { CraftStatementBand } from "@/components/sections/CraftStatementBand";
+import { ValueOverheadSection } from "@/components/sections/ValueOverheadSection";
 import { TestimonialsSection } from "@/components/sections/TestimonialsSection";
 import Image from "next/image";
 import { MARKETING_IMAGES } from "@/shared/siteImages";
@@ -38,6 +39,7 @@ export default function HomePage() {
       <TestimonialsSection limit={3} showViewAll={true} />
       <CraftStatementBand />
       <WhyChooseUsSection limit={5} />
+      <ValueOverheadSection />
       <FAQSection />
       <LazyEstimateCalculator />
       <Section id="consult" divider className="relative overflow-hidden pb-28 md:pb-28">
