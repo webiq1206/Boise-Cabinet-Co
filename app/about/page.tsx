@@ -275,18 +275,19 @@ export default function AboutPage() {
               eyebrow="Where your money goes"
               title={
                 <>
-                  Don&apos;t pay for a contractor&apos;s{' '}
+                  Don&apos;t pay for a vendor&apos;s{' '}
                   <em className="brc-accent text-accent">overhead</em>
                 </>
               }
-              description="Big offices, fancy showrooms, fleets of trucks, and layers of management do not absorb themselves. They get built into your project."
+              description="Big offices, fancy showrooms, fleets of trucks, and layers of management do not absorb themselves. They get built into the price and passed down the line."
               className="mb-6"
             />
             <p className="text-base md:text-lg leading-relaxed text-muted-foreground">
-              We built Boise Cabinet Co differently. Instead of expensive overhead, we invest where
-              it shows up in your home: skilled craftsmen, better materials, and workmanship we stand
-              behind. Every dollar you invest should go toward your project, not our bills. That is
-              how you get more home for what you spend.
+              We built Boise Cabinet Co lean on purpose. Instead of expensive overhead, we invest
+              where it shows up in the finished space: skilled craftsmen, better materials, and
+              workmanship you can stand behind. For the homeowners and builders we work with, that
+              means pricing you can plan around and cabinetry built to hold up, on every project.
+              Every dollar goes into the work, not our bills.
             </p>
           </div>
         </Section>

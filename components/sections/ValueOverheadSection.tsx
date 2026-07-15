@@ -24,7 +24,7 @@ export function ValueOverheadSection() {
               <>
                 Don&apos;t pay for our overhead.
                 <br />
-                Pay for your <em className="brc-accent text-accent">home</em>.
+                Pay for the <em className="brc-accent text-accent">cabinets</em>.
               </>
             }
             className="mb-8 [&_.brc-label]:justify-center [&_.brc-label]:text-inverse-muted"
@@ -39,13 +39,13 @@ export function ValueOverheadSection() {
               ))}
             </div>
             <p className="text-base md:text-lg leading-relaxed text-inverse-foreground/85 max-w-2xl mx-auto mb-4">
-              Those costs are not absorbed. They get built into your project. So we built our
-              company differently. Instead of expensive overhead, we invest where it actually shows
-              up in your home: skilled craftsmen, better materials, and workmanship we stand behind.
+              Those costs are not absorbed. They get built into the price and passed down the line. So
+              we built our shop lean and put the money where it shows up in the finished space:
+              skilled craftsmen, better materials, and workmanship we stand behind.
             </p>
             <p className="text-base md:text-lg leading-relaxed text-inverse-foreground max-w-2xl mx-auto mb-10">
-              Every dollar you invest should go toward your project, not our bills. Get more home for
-              what you spend.
+              Every dollar goes into the work, not our overhead. Pricing you can plan around, and
+              cabinetry built to hold up, whether it is your home or your client&apos;s.
             </p>
           </Reveal>
 

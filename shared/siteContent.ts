@@ -82,9 +82,9 @@ export const DIFFERENTIATORS: Differentiator[] = [
     body: "we walk every finished detail with you at a final walkthrough. Finish selections are documented in your written scope before construction so what we build matches what you approved.",
   },
   {
-    title: "Your budget builds your home, not our overhead",
-    contrast: "Instead of paying for big offices, fancy showrooms, truck fleets, and layers of management that get built into your quote,",
-    body: "you pay for your project. We keep overhead lean and put your money where it shows up in your home: skilled craftsmen, better materials, and workmanship we stand behind. Every dollar should go toward your cabinets, not our bills.",
+    title: "Lean overhead, so your budget goes into the build",
+    contrast: "Instead of a vendor's big offices, fancy showrooms, and truck fleets getting built into the price and passed down the line,",
+    body: "you get cabinetry without the retail markup. We keep overhead lean and put the money where it shows up in the finished space: skilled craftsmen, better materials, and workmanship you can stand behind on the job. Pricing you can plan around, on every project.",
   },
 ];
 
