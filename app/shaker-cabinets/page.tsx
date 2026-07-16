@@ -173,8 +173,14 @@ export default function ShakerCabinetsPage() {
               className="mb-6"
             />
             <p className="text-base md:text-lg leading-relaxed text-muted-foreground mb-6">
-              White shaker cabinets are the timeless default, but shaker takes color beautifully.
-              Sage green and greige are the most-requested colors right now, and a two-tone kitchen
+              White shaker cabinets are the timeless default, but shaker takes color beautifully.{" "}
+              <Link href="/blog/sage-green-kitchen-cabinets" className="text-accent hover:underline">
+                Sage green
+              </Link>{" "}
+              and greige are the most-requested colors right now, and a{" "}
+              <Link href="/blog/two-tone-kitchen-cabinets" className="text-accent hover:underline">
+                two-tone kitchen
+              </Link>{" "}
               (a contrasting island or lower cabinets) is an easy way to add depth. Every profile is
               available across our 299 finishes in matte, gloss, and woodgrain.
             </p>
