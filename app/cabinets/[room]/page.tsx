@@ -37,14 +37,26 @@ export function generateStaticParams() {
   return ROOM_CATEGORIES.map((room) => ({ room: room.slug }));
 }
 
+/**
+ * SEO head-term override for the title/H1/schema where the highest-volume
+ * keyword differs from the room's display name. e.g. "laundry room cabinets"
+ * (17K/mo) vs "laundry cabinets"; "built-in cabinets" (4.5K) vs "built-ins".
+ * Nav labels and breadcrumbs keep the shorter display name.
+ */
+const SEO_NAME: Record<string, string> = {
+  laundry: "Laundry Room",
+  "built-ins": "Built-In",
+};
+const seoName = (room: { slug: string; name: string }) => SEO_NAME[room.slug] ?? room.name;
+
 export async function generateMetadata({ params }: { params: { room: string } }) {
   const room = getRoomBySlug(params.room);
   if (!room) return {};
   return catalogMetadata(
     `/cabinets/${room.slug}`,
-    `${room.name} Cabinets`,
+    `${seoName(room)} Cabinets`,
     catalogDescription(
-      `Custom ${room.name.toLowerCase()} cabinets from {company} in the Treasure Valley. ${room.description}`,
+      `Custom ${seoName(room).toLowerCase()} cabinets from {company} in the Treasure Valley. ${room.description}`,
     ),
   );
 }
@@ -70,7 +82,7 @@ export default function RoomCabinetPage({ params }: { params: { room: string } }
 
   const schemas = [
     generateWebPageSchema({
-      title: `${room.name} Cabinets`,
+      title: `${seoName(room)} Cabinets`,
       description: room.description,
       url: `/cabinets/${room.slug}`,
     }),
@@ -80,7 +92,7 @@ export default function RoomCabinetPage({ params }: { params: { room: string } }
       { name: room.name, url: `/cabinets/${room.slug}` },
     ]),
     generateServiceSchema(
-      `Custom ${room.name} Cabinets`,
+      `Custom ${seoName(room)} Cabinets`,
       `${room.description} Designed, built, and installed by ${SITE_CONFIG.name} for Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell.`,
     ),
     generateFAQSchema(faqs),
@@ -116,7 +128,7 @@ export default function RoomCabinetPage({ params }: { params: { room: string } }
               eyebrow="Room catalog"
               title={
                 <>
-                  {room.name}{" "}
+                  {seoName(room)}{" "}
                   <em className="brc-accent text-accent">cabinets</em>
                 </>
               }
