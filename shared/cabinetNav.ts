@@ -46,6 +46,7 @@ export const PRIMARY_NAV = [
       { label: "Projects & reviews", href: "/testimonials" },
     ],
   },
+  { label: "For Builders", href: "/builders" },
   { label: "Contact", href: "/contact" },
 ] as const;
 

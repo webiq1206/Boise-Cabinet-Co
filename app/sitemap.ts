@@ -32,6 +32,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // and now 301 there, so they are intentionally omitted from the sitemap.
     { url: `${baseUrl}/catalog`, changeFrequency: 'weekly', priority: 0.9 },
     { url: `${baseUrl}/estimate`, changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${baseUrl}/builders`, changeFrequency: 'monthly', priority: 0.85 },
     { url: `${baseUrl}/warranty`, changeFrequency: 'yearly', priority: 0.55 },
     {
       url: `${baseUrl}/resources/ada-canyon-permit-flow`,
