@@ -33,6 +33,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/catalog`, changeFrequency: 'weekly', priority: 0.9 },
     { url: `${baseUrl}/estimate`, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${baseUrl}/builders`, changeFrequency: 'monthly', priority: 0.85 },
+    { url: `${baseUrl}/shaker-cabinets`, changeFrequency: 'monthly', priority: 0.85 },
     { url: `${baseUrl}/warranty`, changeFrequency: 'yearly', priority: 0.55 },
     {
       url: `${baseUrl}/resources/ada-canyon-permit-flow`,

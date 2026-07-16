@@ -78,6 +78,8 @@ export function Footer() {
             <ul className="space-y-2.5">
               {[
                 { label: "Full catalog", href: "/catalog" },
+                { label: "Shaker Cabinets", href: "/shaker-cabinets" },
+                { label: "For Builders", href: "/builders" },
                 { label: "Get an Estimate", href: "/estimate" },
                 { label: "My Project", href: "/portal" },
               ].map((link) => (
