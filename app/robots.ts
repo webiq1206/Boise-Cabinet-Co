@@ -13,6 +13,8 @@ export default function robots(): MetadataRoute.Robots {
           '/admin/',
           '/portal/',
           '/design-studio',
+          '/search',
+          '/login',
         ],
       },
     ],

@@ -13,11 +13,12 @@ export const LLMS_TXT = `# Boise Cabinet Co
 
 - Company: Boise Cabinet Co (Boise Cabinet Co LLC)
 - Founded: 2017
-- Headquarters: Meridian, Idaho
+- Address: 4031 W Wapoot St, Meridian, ID 83646
 - Service area: Boise, Meridian, Eagle, Nampa, Kuna, Star, Middleton, and Caldwell (Ada and Canyon Counties, Treasure Valley)
 - Construction: frameless (European-style) cabinet boxes, soft-close hardware
 - Warranty: written workmanship guarantee
 - Free in-home design consultation
+- Also serve builders, general contractors, and multi-family developers with volume pricing
 - Phone: (208) 477-1169
 - Email: hello@boisecabinet.co
 
@@ -49,9 +50,14 @@ Planning ranges only; firm quotes require approved drawings.
 
 - [Cabinets by room](https://boisecabinet.co/cabinets): kitchen, bathroom, laundry, mudroom, home office, entertainment, built-ins, pantry, closet, garage, outdoor, wet bar, bedroom
 - [Full catalog and downloadable PDF](https://boisecabinet.co/catalog): 6 door styles, 299 finishes across matte, gloss, and woodgrain, built-to-order product categories
+- [Shaker cabinets](https://boisecabinet.co/shaker-cabinets): four shaker profiles (modern, thin, alpha, beta) across 299 finishes, including white, sage green, and two-tone
 - [Hardware and accessories](https://boisecabinet.co/accessories)
-- [Construction standards](https://boisecabinet.co/construction)
+- [Frameless cabinet construction](https://boisecabinet.co/construction)
 - [Collection and feature comparison](https://boisecabinet.co/compare)
+
+## For builders and contractors
+
+- [Builder and trade program](https://boisecabinet.co/builders): volume pricing for multi-family, apartments, and condos; lead times measured in weeks; consistent specs across units; 50% deposit and 50% after installation
 
 ## Tools
 
