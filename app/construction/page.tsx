@@ -44,7 +44,7 @@ const STANDARDS = [
 
 export const metadata = catalogMetadata(
   "/construction",
-  "Construction Standards",
+  "Frameless Cabinet Construction",
   catalogDescription(
     "How {company} builds custom cabinets, plywood boxes, dovetail drawers, soft-close hardware, and professional installation in the Treasure Valley.",
   ),
@@ -80,8 +80,8 @@ export default function ConstructionPage() {
               eyebrow="Quality"
               title={
                 <>
-                  Construction{" "}
-                  <em className="brc-accent text-accent">standards</em>
+                  Frameless cabinet{" "}
+                  <em className="brc-accent text-accent">construction</em>
                 </>
               }
               description={catalogDescription(
