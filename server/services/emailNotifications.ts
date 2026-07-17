@@ -668,9 +668,9 @@ export async function sendContractorNewLeadAvailable(
         <div class="content">
           <p class="greeting">A customer in <strong>${leadData.city}</strong> just requested service and is ready to get started.</p>
 
-          <div class="highlight-box" style="background: linear-gradient(to right, #fffbeb 0%, #fef9c3 100%); border-left-color: #f59e0b;">
-            <p style="margin: 0; font-weight: 600; color: #92400e;">This is a first-come, first-served lead.</p>
-            <p style="margin: 6px 0 0 0; color: #78350f; font-size: 14px;">The first contractor to purchase gets exclusive access to the customer's full contact info. The lead price goes up over time, so today is the best deal.</p>
+          <div class="highlight-box" style="background: #2a2517; border-left-color: #c99a3a;">
+            <p style="margin: 0; font-weight: 600; color: #ecdcae;">This is a first-come, first-served lead.</p>
+            <p style="margin: 6px 0 0 0; color: #e8d9b0; font-size: 14px;">The first contractor to purchase gets exclusive access to the customer's full contact info. The lead price goes up over time, so today is the best deal.</p>
           </div>
 
           <div class="section">
@@ -679,7 +679,7 @@ export async function sendContractorNewLeadAvailable(
               ${servicesSummary}
               <tr><td class="label">City:</td><td class="value">${leadData.city}</td></tr>
               ${leadData.propertyType ? `<tr><td class="label">Property Type:</td><td class="value">${leadData.propertyType}</td></tr>` : ""}
-              <tr><td class="label">Est. Project Value:</td><td class="value" style="font-size: 18px; font-weight: 600; color: #1e40af;">${leadValue.display}</td></tr>
+              <tr><td class="label">Est. Project Value:</td><td class="value" style="font-size: 18px; font-weight: 600; color: ${EMAIL_BRAND.bone};">${leadValue.display}</td></tr>
               <tr><td class="label">Your Cost:</td><td class="value" style="font-size: 20px; font-weight: 600; color: ${EMAIL_BRAND.charcoal};">$${formatQuoteForDisplay(leadData.currentLeadPrice, true)}</td></tr>
             </table>
           </div>

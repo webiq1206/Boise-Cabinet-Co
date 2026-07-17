@@ -110,7 +110,7 @@ function renderBlock(raw: string, tokens: RenderTokens): string {
 function renderCta(label: string | null | undefined, url: string | null | undefined, clickTracker?: (u: string) => string): string {
   if (!label || !url) return "";
   const finalUrl = clickTracker ? clickTracker(url) : url;
-  return `<a href="${finalUrl}" style="display:inline-block; background:${EMAIL_BRAND.charcoal}; color:#ffffff; padding:14px 32px; text-decoration:none; border-radius:6px; font-weight:600; margin:8px 8px 8px 0;">${escapeHtml(label)}</a>`;
+  return `<a href="${finalUrl}" style="display:inline-block; background:${EMAIL_BRAND.bone}; color:${EMAIL_BRAND.onAccent}; padding:14px 32px; text-decoration:none; border-radius:6px; font-weight:600; margin:8px 8px 8px 0;">${escapeHtml(label)}</a>`;
 }
 
 function buildSignature(signerName?: string | null): string {

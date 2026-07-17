@@ -1,15 +1,31 @@
 import { SITE_CONFIG } from "@/shared/siteConfig";
 
-/** Site brand tokens, aligned with app/globals.css */
+/**
+ * Email brand tokens, matching the site's DARK theme in app/globals.css
+ * (charcoal ground, bone ink, restrained sage accent). Key names are kept
+ * stable for the other templates that import them, but the VALUES are now the
+ * real dark palette:
+ *   charcoal      -> primary bone text (used as `color:` in ~27 places)
+ *   charcoalLight -> muted "mist" text
+ *   white         -> card/content SURFACE (used as `background:` only)
+ *   canvas        -> outer body ground (darkest)
+ *   highlightBg   -> raised surface for boxes/badges
+ *   border        -> hairline
+ *   sage          -> decorative accent (box left-borders)
+ *   accentDark    -> readable accent for links (lighter sage, WCAG-safe)
+ * plus bone/onAccent for the light CTA button.
+ */
 export const EMAIL_BRAND = {
-  charcoal: "#3A3E3D",
-  charcoalLight: "#5A5F5C",
-  sage: "#999F93",
-  canvas: "#F5F3EF",
-  white: "#ffffff",
-  border: "#E0DDD8",
-  highlightBg: "#F0EFEB",
-  accentDark: "#2D8652",
+  charcoal: "#EDEAE4", // primary text (light-on-dark)
+  charcoalLight: "#9AA098", // mist / muted text
+  sage: "#5D6561", // decorative accent (deep sage)
+  canvas: "#1C1F1E", // body ground (darkest)
+  white: "#222624", // card / content surface
+  border: "#39403D", // hairline
+  highlightBg: "#262B29", // raised surface (boxes, badges)
+  accentDark: "#8FA399", // readable accent (lighter sage) for links
+  bone: "#F7F5F3", // headings + CTA button background
+  onAccent: "#1C1F1E", // text on the bone button
 } as const;
 
 export const SITE_BASE_URL = SITE_CONFIG.siteUrl;
@@ -41,9 +57,11 @@ export function htmlToPlainText(html: string): string {
 }
 
 export function buildTextLogo(): string {
+  // Reversed (bone) wordmark for dark email backgrounds. PNG, not SVG, because
+  // Gmail and Outlook strip inline/linked SVG.
   return `
     <div style="margin-bottom: 20px;">
-      <img src="https://boisecabinet.co/images/brc-logo.png" alt="Boise Cabinet Co" width="230" style="display:block; width:230px; max-width:230px; height:auto; border:0; outline:none; text-decoration:none;" />
+      <img src="https://boisecabinet.co/images/brc-logo-reverse.png" alt="Boise Cabinet Co" width="220" style="display:block; margin:0 auto; width:220px; max-width:220px; height:auto; border:0; outline:none; text-decoration:none;" />
     </div>
   `;
 }
@@ -54,6 +72,7 @@ export const emailStyles = `
     padding: 0;
     font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
     background-color: ${EMAIL_BRAND.canvas};
+    color: ${EMAIL_BRAND.charcoal};
     line-height: 1.6;
   }
   .email-wrapper {
@@ -129,20 +148,20 @@ export const emailStyles = `
     color: ${EMAIL_BRAND.charcoal};
   }
   .warning-box {
-    background: #fffbeb;
-    border-left: 4px solid #f59e0b;
+    background: #2a2517;
+    border-left: 4px solid #c99a3a;
     padding: 20px;
     margin: 25px 0;
     border-radius: 4px;
   }
   .warning-box p {
     margin: 0;
-    color: #78350f;
+    color: #e8d9b0;
   }
   .cta-button {
     display: inline-block;
-    background: ${EMAIL_BRAND.charcoal};
-    color: #ffffff !important;
+    background: ${EMAIL_BRAND.bone};
+    color: ${EMAIL_BRAND.onAccent} !important;
     padding: 14px 32px;
     text-decoration: none;
     border-radius: 6px;
@@ -151,7 +170,7 @@ export const emailStyles = `
     text-align: center;
   }
   .footer {
-    background-color: ${EMAIL_BRAND.highlightBg};
+    background-color: ${EMAIL_BRAND.canvas};
     padding: 30px;
     text-align: center;
     border-top: 1px solid ${EMAIL_BRAND.border};
@@ -212,9 +231,14 @@ export function wrapEmailHtml(options: {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>${emailStyles}</style>
+  <meta name="color-scheme" content="dark">
+  <meta name="supported-color-schemes" content="dark">
+  <style>
+    :root { color-scheme: dark; supported-color-schemes: dark; }
+    ${emailStyles}
+  </style>
 </head>
-<body>
+<body style="background-color:${EMAIL_BRAND.canvas}; color:${EMAIL_BRAND.charcoal};">
   <div class="email-wrapper">
     <div class="header">
       ${buildTextLogo()}
