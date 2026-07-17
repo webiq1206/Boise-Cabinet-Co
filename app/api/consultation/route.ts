@@ -20,6 +20,7 @@ import type { PropertyProfile } from "@/shared/propertyProfile";
 import { extractZipFromAddress } from "@/shared/propertyProfile";
 import { rateLimit, getClientIp } from "@/lib/rateLimit";
 import { phoneHasEnoughDigits, PHONE_VALIDATION_MESSAGE } from "@/shared/phoneValidation";
+import { sendCapiLead } from "@/lib/analytics/metaCapi";
 
 const PER_IP_LIMIT = 8;
 const PER_IP_WINDOW_MS = 15 * 60 * 1000;
@@ -56,6 +57,8 @@ const bodySchema = z.object({
     })
     .optional()
     .nullable(),
+  /** Shared event id for Meta pixel + Conversions API deduplication. */
+  metaEventId: z.string().optional(),
   /** Honeypot - must be empty; bots often fill hidden fields. */
   companyWebsite: z.string().optional().default(""),
 });
@@ -345,6 +348,22 @@ export async function POST(request: NextRequest) {
         { status: 503 },
       );
     }
+
+    // Server-side Meta conversion (Conversions API). Shares metaEventId with the
+    // browser pixel Lead so Meta dedupes the pair. No-ops until
+    // META_CAPI_ACCESS_TOKEN is set; never throws.
+    await sendCapiLead({
+      eventId: data.metaEventId,
+      eventSourceUrl: request.headers.get("referer") || `${SITE_CONFIG.siteUrl}/contact`,
+      email: data.email,
+      phone: data.phone,
+      name: data.name,
+      zip,
+      clientIp: ip,
+      userAgent: request.headers.get("user-agent") || undefined,
+      fbp: request.cookies.get("_fbp")?.value,
+      fbc: request.cookies.get("_fbc")?.value,
+    });
 
     return NextResponse.json({ success: true });
   } catch (err) {

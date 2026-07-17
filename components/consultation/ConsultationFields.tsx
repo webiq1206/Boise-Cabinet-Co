@@ -334,11 +334,21 @@ export function ConsultationFields({
     }
   }
 
+  // Shared ID so the browser Lead (pixel) and the server Lead (Conversions API)
+  // deduplicate into one conversion.
+  const metaEventIdRef = useRef<string | null>(null);
+
   const mutation = useMutation({
     mutationFn: async (data: FormData) => {
+      const metaEventId =
+        typeof crypto !== "undefined" && "randomUUID" in crypto
+          ? crypto.randomUUID()
+          : `lead-${Date.now()}-${Math.random().toString(36).slice(2)}`;
+      metaEventIdRef.current = metaEventId;
       const payload = {
         ...data,
         propertyProfile,
+        metaEventId,
         estimate: combinedEstimate
           ? buildCombinedConsultationPayload(combinedEstimate)
           : buildConsultationEstimatePayload(estimate),
@@ -380,7 +390,9 @@ export function ConsultationFields({
       clearWizardState();
       trackEstimatorEvent("estimator_lead_submitted");
       // Meta conversion: the consultation request is the site's primary Lead.
-      trackMetaLead();
+      // Pass the shared event ID so this browser event dedupes with the
+      // server-side Conversions API event fired by /api/consultation.
+      trackMetaLead(metaEventIdRef.current ?? undefined);
       onSuccess?.();
       window.setTimeout(() => closeModal(), 4000);
     },
