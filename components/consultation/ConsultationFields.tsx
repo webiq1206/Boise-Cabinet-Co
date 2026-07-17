@@ -42,6 +42,7 @@ import {
 } from "@/shared/estimateEngine";
 import { clearWizardState } from "@/lib/estimate/wizardPersistence";
 import { trackEstimatorEvent } from "@/lib/design/designAnalytics";
+import { trackMetaLead } from "@/lib/analytics/metaPixel";
 import { DisplayNum } from "@/components/marketing";
 import { AddressAutocomplete } from "@/components/AddressAutocomplete";
 import type { PropertyProfile } from "@/shared/propertyProfile";
@@ -378,6 +379,8 @@ export function ConsultationFields({
       sessionStorage.removeItem("brc_estimate");
       clearWizardState();
       trackEstimatorEvent("estimator_lead_submitted");
+      // Meta conversion: the consultation request is the site's primary Lead.
+      trackMetaLead();
       onSuccess?.();
       window.setTimeout(() => closeModal(), 4000);
     },

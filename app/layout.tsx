@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next'
 import { Montserrat, Fraunces } from 'next/font/google'
 import { GoogleAnalytics } from '@/components/seo/GoogleAnalytics'
 import { MicrosoftClarity } from '@/components/seo/MicrosoftClarity'
+import { MetaPixel } from '@/components/seo/MetaPixel'
 import { Navigation } from '@/components/Navigation'
 import { ConditionalFooter } from '@/components/ConditionalFooter'
 import { Toaster } from '@/components/ui/toaster'
@@ -118,6 +119,9 @@ export default function RootLayout({
         <noscript>
           <style>{`.reveal-init{opacity:1!important;transform:none!important}`}</style>
         </noscript>
+        {/* In <body>: the pixel's <noscript> fallback img is invalid inside <head>.
+            next/script (afterInteractive) injects the tag regardless of placement. */}
+        <MetaPixel />
         <a
           href="#main-content"
           className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[200] focus:rounded-sm focus:bg-background focus:px-4 focus:py-2 focus:text-sm focus:text-foreground focus:shadow-lg"
