@@ -7,9 +7,12 @@ import { useEffect, useRef } from "react";
 /**
  * Meta (Facebook) conversion pixel.
  *
- * Set NEXT_PUBLIC_META_PIXEL_ID (Replit Secrets) to the pixel/dataset ID from
- * Events Manager. Renders nothing until that is set, so the site is safe to
- * deploy before the pixel exists.
+ * Dataset "Boise Cabinet Co" (P5 Home Co business), created in Events Manager
+ * and connected to ad account 956415147420695. Kept separate from the sister
+ * site's "Boise Remodeling Co" pixel so attribution and audiences stay clean.
+ *
+ * The ID is public (it ships in the page source), so it is defaulted here the
+ * same way the Clarity project ID is. NEXT_PUBLIC_META_PIXEL_ID overrides it.
  *
  * Two details the copy-paste Meta snippet gets wrong on a Next.js app-router
  * site, handled here:
@@ -19,7 +22,7 @@ import { useEffect, useRef } from "react";
  *
  * Standard events (e.g. Lead) are fired via lib/analytics/metaPixel.ts.
  */
-const PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID;
+const PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID ?? "899086193239991";
 
 export function MetaPixel() {
   const pathname = usePathname();
